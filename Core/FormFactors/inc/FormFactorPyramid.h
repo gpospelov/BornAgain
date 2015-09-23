@@ -55,6 +55,8 @@ protected:
 
 private:
     complex_t fullPyramidPrimitive(complex_t a, complex_t b, complex_t c, double z) const;
+    complex_t g(complex_t x, complex_t c, double z) const;  // helper function
+    complex_t h(complex_t x, double z) const;  // helper function
     double m_length;
     double m_height;
     double m_alpha;

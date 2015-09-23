@@ -30,6 +30,24 @@ FormFactorPyramid::FormFactorPyramid(
 bool FormFactorPyramid::check_initialization() const
 {
     bool result(true);
+    if(m_alpha<0.0 || m_alpha>Units::PID2) {
+        std::ostringstream ostr;
+        ostr << "FormFactorPyramid() -> Error in class initialization with parameters ";
+        ostr << " length:" << m_length;
+        ostr << " height:" << m_height;
+        ostr << " alpha:" << m_alpha << "\n\n";
+        ostr << "Check for '0 <= alpha <= pi/2' failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+    if(m_length<0.0 || m_height<0.0) {
+        std::ostringstream ostr;
+        ostr << "FormFactorPyramid() -> Error in class initialization with parameters ";
+        ostr << " length:" << m_length;
+        ostr << " height:" << m_height;
+        ostr << " alpha:" << m_alpha << "\n\n";
+        ostr << "Check for '0 <= length and 0 <= height' failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
     if(2.*m_height > m_length*std::tan(m_alpha)) {
         std::ostringstream ostr;
         ostr << "FormFactorPyramid() -> Error in class initialization with parameters ";
@@ -64,64 +82,73 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t& q) const
     double H = m_height;
     double R = m_length/2.;
     double tga = std::tan(m_alpha);
-    //TODO: check for tga==0 or tga<0 or tga->+-infinity
+    if (m_height == 0.0) return 0.0;
+    if (m_alpha == 0.0) return 0.0;
+    if (m_length == 0.0) return 0.0;
 
     complex_t qx = q.x();
     complex_t qy = q.y();
     complex_t qz = q.z();
 
-    complex_t F;
     const complex_t im(0, 1);
-    //TODO: the following checks came from the previous implementation and will only catch
-    //part of the numerical instabilities
-    if (std::norm(qx) > Numeric::double_epsilon && std::norm(qy) > Numeric::double_epsilon) {
-        complex_t full = fullPyramidPrimitive(qx/tga, qy/tga, qz, -R*tga);
-        complex_t top = fullPyramidPrimitive(qx/tga, qy/tga, qz, H-R*tga);
-        F = std::exp(im*qz*R*tga)*(full-top)/(tga*tga);
-    } else if (std::norm(qx) <= Numeric::double_epsilon
-               && std::norm(qy) <= Numeric::double_epsilon) {
-        if (std::norm(qz) <= Numeric::double_epsilon)
-            F = 4. / 3. * tga * R * R * R
-                * (1. - (1. - H / R / tga) * (1. - H / R / tga) * (1. - H / R / tga));
-        else
-            F = 4. * im * (-2. / tga / tga - 2. * im * qz * R / tga + qz * qz * R * R
-                           - std::exp(im * H * qz) * ((-1. + im + H * qz) / tga - qz * R)
-                             * ((1. + im + H * qz) / tga - qz * R)) / std::pow(qz, 3);
-    } else {
-        complex_t qxy;
-        if (std::norm(qy) <= Numeric::double_epsilon && std::norm(qx) > Numeric::double_epsilon) {
-            qxy = qx;
-        } else {
-            qxy = qy;
-        }
-        F = (4. * (qxy * tga * (-(qxy * qxy * R) + qz * tga * (complex_t(0.0, -2.0) + qz * R * tga))
-                   * std::cos(qxy * R)
-                   - std::exp(im * H * qz) * qxy
-                     * (H * std::pow(qxy, 2) - qxy * qxy * R * tga
-                        - qz * (complex_t(0.0, 2.0) + H * qz) * std::pow(tga, 2)
-                        + std::pow(qz, 2) * R * std::pow(tga, 3)) * std::cos(qxy * (R - H / tga))
-                   + tga * (std::pow(qxy, 2) * (1. - complex_t(0.0, 1.0) * qz * R * tga)
-                            + std::pow(qz, 2) * std::pow(tga, 2)
-                              * (1. + complex_t(0.0, 1.0) * qz * R * tga)) * std::sin(qxy * R)
-                   + complex_t(0.0, 1.0) * std::exp(im * H * qz) * tga
-                     * (std::pow(qz, 2) * std::pow(tga, 2)
-                        * (complex_t(0.0, 1.0) + H * qz - qz * R * tga)
-                        + std::pow(qxy, 2) * (complex_t(0.0, 1.0) - H * qz + qz * R * tga))
-                     * std::sin(qxy * (R - H / tga))))
-            / (qxy * std::pow(qxy - qz * tga, 2) * std::pow(qxy + qz * tga, 2));
-    }
-    return F;
+    complex_t full = fullPyramidPrimitive(qx/tga, qy/tga, qz, -R*tga);
+    complex_t top = fullPyramidPrimitive(qx/tga, qy/tga, qz, H-R*tga);
+    return std::exp(im*qz*R*tga) * (full-top) / (tga*tga);
 }
 
 complex_t FormFactorPyramid::fullPyramidPrimitive(complex_t a, complex_t b, complex_t c,
-                                                  double z) const
+                                                          double z) const
 {
     const complex_t im(0, 1);
-    complex_t phase = std::exp(im * c * z);
-    complex_t numerator = std::sin(a * z) * (b * (a * a - b * b + c * c) * std::cos(b * z)
-                                             + im * c * (a * a + b * b - c * c) * std::sin(b * z))
-                          + a * std::cos(a * z) * ((-a * a + b * b + c * c) * std::sin(b * z)
-                                                   + 2.0 * im * b * c * std::cos(b * z));
-    complex_t denominator = a * b * (a - b - c) * (a + b - c) * (a - b + c) * (a + b + c);
-    return -4.0 * phase * numerator / denominator;
+    if (std::norm(a*z) > Numeric::double_epsilon && std::norm(b*z) > Numeric::double_epsilon) {
+        if (std::abs((a-b)*(a-b)-c*c)*z*z > Numeric::double_epsilon &&
+            std::abs((a+b)*(a+b)-c*c)*z*z > Numeric::double_epsilon) {
+            complex_t phase = std::exp(im * c * z);
+            complex_t numerator = std::sin(a*z) * (b*(a*a - b*b + c*c)*std::cos(b*z)
+                                                   + im*c*(a*a + b*b - c*c)*std::sin(b*z))
+                              + a*std::cos(a*z) * ((-a*a + b*b + c*c)*std::sin(b*z)
+                                                   + 2.0*im*b*c*std::cos(b*z));
+            complex_t denominator = a * b * (a - b - c) * (a + b - c) * (a - b + c) * (a + b + c);
+            return -4.0 * phase * numerator / denominator;
+        } else {
+            return 2.0 * (g(a-b, c, z) - g(a+b, c, z)) / (a*b);
+        }
+    } else if (std::norm(a*z) <= Numeric::double_epsilon
+               && std::norm(b*z) <= Numeric::double_epsilon) {
+        if (std::norm(c*z) <= Numeric::double_epsilon) {
+            return -4.0*std::pow(z, 3)/3.0;
+        } else
+            return 4.0*im * (2.0 + std::exp(im*c*z)*(c*c*z*z + 2.0*im*c*z - 2.0)) / std::pow(c, 3);
+    } else {
+        complex_t abmax;
+        if (std::norm(b*z) <= Numeric::double_epsilon) {
+            abmax = a;
+        } else {
+            abmax = b;
+        }
+        return 2.0 * (h(c - abmax, z) - h(c + abmax, z)) / abmax;
+    }
+}
+
+complex_t FormFactorPyramid::g(complex_t x, complex_t c, double z) const
+{
+    const complex_t im(0, 1);
+    if (std::abs((x*x-c*c)*z*z) > Numeric::double_epsilon) {
+        return (im*c - std::exp(im*c*z)*(x*std::sin(x*z) + im*c*std::cos(x*z))) / (x*x-c*c);
+    } else {
+        if (std::norm(c*z) > Numeric::double_epsilon) {
+            return im * (std::exp(2.0*im*c*z) + 2.0*im*c*z - 1.0) / (4.0*c);
+        } else {
+            return -z;
+        }
+    }
+}
+
+complex_t FormFactorPyramid::h(complex_t x, double z) const
+{
+    const complex_t im(0, 1);
+    if (std::norm(x*z) > Numeric::double_epsilon) {
+        return (im - (im+x*z)*std::exp(im*x*z))/(x*x);
+    }
+    return -im*z*z/2.0 + z*z*z*x/3.0;
 }

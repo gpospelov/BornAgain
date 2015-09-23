@@ -113,30 +113,64 @@ complex_t FormFactorAnisoPyramid::fullAnisoPyramidPrimitive(complex_t a, complex
             std::abs((a+b)*(a+b)-c*c)*z*z > Numeric::double_epsilon) {
             complex_t phase = std::exp(im * c * z);
             complex_t numerator = std::sin(a*z) * (b*(a*a - b*b + c*c)*std::cos(b*(d-z))
-                                                   -im*c*(a*a + b*b - c*c)*std::sin(b*(d-z)))
-                              + a*std::cos(a*z)*((a*a - b*b - c*c)*std::sin(b*(d-z))
-                                                 + 2.0*im*b*c*std::cos(b*(d-z)));
+                                                   - im*c*(a*a + b*b - c*c)*std::sin(b*(d-z)))
+                              + a*std::cos(a*z) * ((a*a - b*b - c*c)*std::sin(b*(d-z))
+                                                   + 2.0*im*b*c*std::cos(b*(d-z)));
             complex_t denominator = a*b*(a - b - c)*(a + b - c)*(a - b + c)*(a + b + c);
             return -4.0 * phase * numerator / denominator;
-        } /* else {
-            return 2.0 * (g(a-b, c, z) - g(a+b, c, z)) / (a*b);
+        } else {
+            return 2.0 * (g(a-b, c, b*d, z) - g(-a-b, c, b*d, z)) / (a*b);
         }
     } else if (std::norm(a*z) <= Numeric::double_epsilon
                && std::norm(b*z) <= Numeric::double_epsilon) {
         if (std::norm(c*z) <= Numeric::double_epsilon) {
-            return -4.0*std::pow(z, 3)/3.0;
+            return 2.0*(d - 2.0*z/3.0)*z*z;
         } else
-            return 4.0*im * (2.0 + std::exp(im*c*z)*(c*c*z*z + 2.0*im*c*z - 2.0)) / std::pow(c, 3);
+            return 4.0*(2.0*im -c*d -im*std::exp(im*c*z)*(c*c*(d-z)*z + im*c*(d-2.0*z) + 2.0))
+                    / std::pow(c, 3);
     } else {
-        complex_t abmax;
-        if (std::norm(b*z) <= Numeric::double_epsilon && std::norm(a*z) > Numeric::double_epsilon) {
-            abmax = a;
+        if (std::norm(a*z) <= Numeric::double_epsilon) {
+            return 2.0 * (h(c+b, b*d, z) - h(c-b, -b*d, z)) / b;
         } else {
-            abmax = b;
+            return 2.0 * (k(c+a, d, z) - k(c-a, d, z)) / a;
         }
-        return 2.0 * (h(c - abmax, z) - h(c + abmax, z)) / abmax; */
     }
-    return 0.0;
+}
+
+complex_t FormFactorAnisoPyramid::g(complex_t x, complex_t c, complex_t bd, double z) const
+{
+    const complex_t im(0, 1);
+    if (std::abs((x*x-c*c)*z*z) > Numeric::double_epsilon) {
+        return (im*c*std::cos(bd) + x*std::sin(bd)
+                - std::exp(im*c*z)*(im*c*std::cos(bd+x*z) + x*std::sin(bd+x*z))) / (x*x-c*c);
+    } else {
+        if (std::norm(c*z) > Numeric::double_epsilon) {
+            return (im * (std::exp(2.0*im*c*z) + 2.0*im*c*z - 1.0) * std::cos(bd)
+                       - (std::exp(2.0*im*c*z) - 2.0*im*c*z - 1.0) * std::sin(bd) ) / (4.0*c);
+        } else {
+            return -z * std::cos(bd);
+        }
+    }
+}
+
+complex_t FormFactorAnisoPyramid::h(complex_t x, complex_t bd, double z) const
+{
+    const complex_t im(0, 1);
+    if (std::norm(x*z) > Numeric::double_epsilon) {
+        return std::exp(-im*bd)*(std::exp(im*x*z)*(im+x*z) - im) / (x*x);
+    } else {
+        return im*std::exp(-im*bd)*z*z/2.0;
+    }
+}
+
+complex_t FormFactorAnisoPyramid::k(complex_t x, double d, double z) const
+{
+    const complex_t im(0, 1);
+    if (std::norm(x*z) > Numeric::double_epsilon) {
+        return (x*d - im + std::exp(im*x*z)*(im + x*(z-d))) / (x*x);
+    } else {
+        return im*(d - z/2.0)*z;
+    }
 }
 
 

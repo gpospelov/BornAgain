@@ -66,7 +66,7 @@ def RunSimulation():
 #-------------------------------------------------------------
 if __name__ == '__main__':
     result = RunSimulation()
-    im = pylab.imshow(numpy.rot90(result+1, 1),
+    im = pylab.imshow(result+1,
                  norm=matplotlib.colors.LogNorm(),
                  extent=[-2.0, 2.0, 0, 4.0])
     pylab.colorbar(im)

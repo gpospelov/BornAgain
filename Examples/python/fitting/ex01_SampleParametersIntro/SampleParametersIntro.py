@@ -111,7 +111,7 @@ def draw_results(results):
     pylab.figure(1)
     for i in range(0, len(results)):
         pylab.subplot(2, 2, i+1)
-        pylab.imshow(numpy.rot90(results[i] + 1, 1),norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
+        pylab.imshow(results[i] + 1,norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
     pylab.show()
 
 

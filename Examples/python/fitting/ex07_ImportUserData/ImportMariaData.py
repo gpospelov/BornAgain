@@ -88,7 +88,7 @@ if __name__ == '__main__':
 
     # plotting intensity data object
     pylab.figure("Imported data in phi_f, alpha_f space")
-    im = pylab.imshow(numpy.rot90(intensity.getArray(), 1), norm=matplotlib.colors.LogNorm(),
+    im = pylab.imshow(intensity.getArray(), norm=matplotlib.colors.LogNorm(),
                       extent=[intensity.getAxis(0).getMin(), intensity.getAxis(0).getMax(), intensity.getAxis(1).getMin(), intensity.getAxis(1).getMax()])
     pylab.colorbar(im)
     pylab.xlabel(r'$\phi_f, rad$', fontsize=16)
@@ -97,7 +97,7 @@ if __name__ == '__main__':
     # clipping the dataset
     clip = IntensityDataFunctions.createClippedDataSet(intensity, -5.0*degree, 0.0*degree, 5.0*degree, 5.0*degree)
     pylab.figure("Clipped dataset in phi_f, alpha_f space")
-    im = pylab.imshow(numpy.rot90(clip.getArray(), 1), norm=matplotlib.colors.LogNorm(), aspect='auto',
+    im = pylab.imshow(clip.getArray(), norm=matplotlib.colors.LogNorm(), aspect='auto',
                       extent=[clip.getAxis(0).getMin(), clip.getAxis(0).getMax(), clip.getAxis(1).getMin(), clip.getAxis(1).getMax()])
     pylab.colorbar(im)
     pylab.xlabel(r'$\phi_f, rad$', fontsize=16)

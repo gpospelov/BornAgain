@@ -135,7 +135,7 @@ def plot_intensity_data(idata, fname=None):
     pylab.cla()
     pylab.clf()
 
-    pylab.imshow(np.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
+    pylab.imshow(result, norm=matplotlib.colors.LogNorm(),
                  extent=[degrees(axisphi.getMin()), degrees(axisphi.getMax()), degrees(axisalpha.getMin()),
                          degrees(axisalpha.getMax())], aspect='auto')
     pylab.xlabel(r'$\phi_f$ [$^{\circ}$]', fontsize=18)

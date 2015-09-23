@@ -70,7 +70,7 @@ def run_simulation():
     result = simulation.getIntensityData().getArray() + 1  # for log scale
 
     # showing the result
-    im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
+    im = pylab.imshow(result, norm=matplotlib.colors.LogNorm(),
                       extent=[alpha_i_min, alpha_i_max, alpha_f_min, alpha_f_max], aspect='auto')
     cb = pylab.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', fontsize=16)

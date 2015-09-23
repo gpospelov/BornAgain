@@ -150,5 +150,5 @@ complex_t FormFactorPyramid::h(complex_t x, double z) const
     if (std::norm(x*z) > Numeric::double_epsilon) {
         return (im - (im+x*z)*std::exp(im*x*z))/(x*x);
     }
-    return -im*z*z/2.0 + z*z*z*x/3.0;
+    return -im*z*z/2.0;
 }

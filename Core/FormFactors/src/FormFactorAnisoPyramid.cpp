@@ -169,7 +169,7 @@ complex_t FormFactorAnisoPyramid::k(complex_t x, double d, double z) const
     if (std::norm(x*z) > Numeric::double_epsilon) {
         return (x*d - im + std::exp(im*x*z)*(im + x*(z-d))) / (x*x);
     } else {
-        return im*(d - z/2.0)*z;
+        return im*(z/2.0 - d)*z;
     }
 }
 

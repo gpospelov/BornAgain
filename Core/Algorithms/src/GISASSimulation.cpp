@@ -100,12 +100,12 @@ int GISASSimulation::getNumberOfSimulationElements() const
         throw RuntimeErrorException("GISASSimulation::getNumberOfSimulationElements: "
                                     "detector is not two-dimensional");
     }
-    const IAxis &phi_axis = m_instrument.getDetectorAxis(0);
+    const IAxis &phi_axis = m_instrument.getDetectorAxis(BornAgain::PHI_AXIS_INDEX);
     if (phi_axis.getName()!=BornAgain::PHI_AXIS_NAME) {
         throw RuntimeErrorException("GISASSimulation::getNumberOfSimulationElements: "
                                     "phi-axis is not correct");
     }
-    const IAxis &alpha_axis = m_instrument.getDetectorAxis(1);
+    const IAxis &alpha_axis = m_instrument.getDetectorAxis(BornAgain::ALPHA_AXIS_INDEX);
     if (alpha_axis.getName()!=BornAgain::ALPHA_AXIS_NAME) {
         throw RuntimeErrorException("GISASSimulation::getNumberOfSimulationElements: "
                                     "alpha-axis is not correct");
@@ -209,6 +209,28 @@ double GISASSimulation::getWavelength() const
 {
     return m_instrument.getBeam().getWavelength();
 }
+
+void GISASSimulation::setMask(bool mask)
+{
+//    if(!m_detector_mask.hasSameShape(m_intensity_map)) {
+//        m_detector_mask.copyShapeFrom(m_intensity_map);
+//    }
+    m_detector_mask.setAllTo(mask);
+}
+
+void GISASSimulation::setRectangularMask(double xlow, double ylow, double xup, double yup, bool mask)
+{
+//    if(!m_detector_mask.hasSameShape(m_intensity_map)) {
+//        m_detector_mask.copyShapeFrom(m_intensity_map);
+//    }
+    for(size_t index=0; index<m_detector_mask.getAllocatedSize(); ++index) {
+        double x = m_detector_mask.getAxisValue(index, BornAgain::PHI_AXIS_INDEX);
+        double y = m_detector_mask.getAxisValue(index, BornAgain::PHI_AXIS_INDEX);
+    }
+
+}
+
+
 
 GISASSimulation::GISASSimulation(const GISASSimulation& other)
 : Simulation(other)

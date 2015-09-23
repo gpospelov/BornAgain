@@ -101,6 +101,9 @@ public:
     //! returns wavelength
     virtual double getWavelength() const;
 
+    void setMask(bool mask);
+    void setRectangularMask(double xlow, double ylow, double xup, double yup, bool mask = true);
+
 protected:
     GISASSimulation(const GISASSimulation& other);
 
@@ -120,6 +123,7 @@ protected:
     // extra components describing a GISAS experiment and its simulation:
     Instrument m_instrument;
     OutputData<double> m_intensity_map;
+    OutputData<bool > m_detector_mask;
 };
 
 #endif /* GISASSIMULATION_H_ */

@@ -169,6 +169,11 @@ public:
     //! @return corresponding bin center of selected axis
     double getAxisValue(size_t global_index, const std::string& axis_name) const;
 
+    //! Returns values on all defined axes for given globalbin number
+    //! @param global_index The global index of this data structure.
+    //! @return Vector of corresponding bin centers
+    std::vector<double > getAxesValues(size_t global_index) const;
+
     //! Returns bin of selected axis for given global_index.
     //! @param global_index The global index of this data structure.
     //! @param axis_name The name of selected axis.
@@ -541,6 +546,17 @@ template <class T>
 double OutputData<T>::getAxisValue(size_t global_index, const std::string& axis_name) const
 {
     return getAxisValue(global_index, getAxisSerialNumber(axis_name));
+}
+
+template <class T>
+std::vector<double> OutputData<T>::getAxesValues(size_t global_index) const
+{
+    std::vector<int> indices = getAxesBinIndices(global_index);
+    std::vector<double > result;
+    for(size_t i_axis=0; i_axis<indices.size(); ++i_axis) {
+        result.push_back((*m_value_axes[i_axis])[indices[i_axis]]);
+    }
+    return result;
 }
 
 template <class T>

@@ -193,6 +193,10 @@ TEST_F(OutputDataTest, ValueOfAxis)
     EXPECT_EQ( 2.5, data.getAxisValue(18, "axis2"));
     EXPECT_EQ( 7.5, data.getAxisValue(19, "axis2"));
 
+    std::vector<double > coordinates = data.getAxesValues(18);
+    EXPECT_EQ(9.5, coordinates[0]);
+    EXPECT_EQ(2.5, coordinates[1]);
+
     OutputData<Eigen::Matrix2d > mdata;
     mdata.addAxis("axis1", 10, 0., 10.);
     mdata.addAxis("axis2", 2, 0., 10.);

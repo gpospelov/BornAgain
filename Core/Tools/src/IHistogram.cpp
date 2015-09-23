@@ -100,6 +100,14 @@ int IHistogram::getGlobalBin(int binx, int biny) const
     return m_data.toGlobalIndex(axes_indices);
 }
 
+int IHistogram::findGlobalBin(double x, double y) const
+{
+    std::vector<double> coordinates;
+    coordinates.push_back(x);
+    if(getRank() == 2) coordinates.push_back(y);
+    return m_data.findGlobalIndex(coordinates);
+}
+
 int IHistogram::getXaxisIndex(size_t globalbin) const
 {
     return m_data.getAxisBinIndex(globalbin, 0);

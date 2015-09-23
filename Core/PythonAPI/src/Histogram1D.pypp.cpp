@@ -79,6 +79,18 @@ void register_Histogram1D_class(){
         Histogram1D_exposer.def( bp::init< int, std::vector< double > const & >(( bp::arg("nbinsx"), bp::arg("xbins") ), "Constructor for variable bin size histograms. @param nbinsx number of bins @param xbins Array of size nbins+1 containing low-edges for each bin and upper edge of last bin. \n\n:Parameters:\n  - 'nbinsx' - number of bins\n  - 'xbins' - Array of size nbins+1 containing low-edges for each\n") );
         Histogram1D_exposer.def( bp::init< IAxis const & >(( bp::arg("axis") ), "Constructor for 1D histogram with custom axis.") );
         Histogram1D_exposer.def( bp::init< OutputData< double > const & >(( bp::arg("data") ), "Constructor for 1D histograms from basic OutputData object.") );
+        { //::Histogram1D::crop
+        
+            typedef ::Histogram1D * ( ::Histogram1D::*crop_function_type)( double,double ) ;
+            
+            Histogram1D_exposer.def( 
+                "crop"
+                , crop_function_type( &::Histogram1D::crop )
+                , ( bp::arg("xmin"), bp::arg("xmax") )
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Create new histogram by applying crop on axis." );
+        
+        }
         { //::Histogram1D::fill
         
             typedef int ( ::Histogram1D::*fill_function_type)( double,double ) ;
@@ -97,7 +109,7 @@ void register_Histogram1D_class(){
             Histogram1D_exposer.def( 
                 "getBinCenters"
                 , getBinCenters_function_type( &::Histogram1D::getBinCenters )
-                , "Increment bin with abscissa x with a weight." );
+                , "returns vector of histogram bin centers." );
         
         }
         { //::Histogram1D::getBinErrors
@@ -106,7 +118,8 @@ void register_Histogram1D_class(){
             
             Histogram1D_exposer.def( 
                 "getBinErrors"
-                , getBinErrors_function_type( &::Histogram1D::getBinErrors ) );
+                , getBinErrors_function_type( &::Histogram1D::getBinErrors )
+                , "returns vector of bin errors." );
         
         }
         { //::Histogram1D::getBinValues
@@ -115,7 +128,8 @@ void register_Histogram1D_class(){
             
             Histogram1D_exposer.def( 
                 "getBinValues"
-                , getBinValues_function_type( &::Histogram1D::getBinValues ) );
+                , getBinValues_function_type( &::Histogram1D::getBinValues )
+                , "returns vector of bin content (the value accumulated by bins)." );
         
         }
         { //::Histogram1D::getRank

@@ -90,13 +90,37 @@ void register_IHistogram_class(){
                 , "Reset histogram content (axes remains)." );
         
         }
+        { //::IHistogram::createOutputData
+        
+            typedef ::OutputData< double > * ( ::IHistogram::*createOutputData_function_type)( ::IHistogram::DataType ) const;
+            
+            IHistogram_exposer.def( 
+                "createOutputData"
+                , createOutputData_function_type( &::IHistogram::createOutputData )
+                , ( bp::arg("dataType") )
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "creates new OutputData with histogram's shape and put there values corresponding to DataType." );
+        
+        }
+        { //::IHistogram::findGlobalBin
+        
+            typedef int ( ::IHistogram::*findGlobalBin_function_type)( double,double ) const;
+            
+            IHistogram_exposer.def( 
+                "findGlobalBin"
+                , findGlobalBin_function_type( &::IHistogram::findGlobalBin )
+                , ( bp::arg("x"), bp::arg("y") )
+                , "Returns closest global bin index for given axes coordinates. For 1D @param x Value on x-axis @param y Value on y-axis @return Closest global bin index \n\n:Parameters:\n  - 'x' - Value on x-axis\n  - 'y' - Value on y-axis\n" );
+        
+        }
         { //::IHistogram::getArray
         
-            typedef ::PyObject * ( ::IHistogram::*getArray_function_type)(  ) const;
+            typedef ::PyObject * ( ::IHistogram::*getArray_function_type)( ::IHistogram::DataType ) const;
             
             IHistogram_exposer.def( 
                 "getArray"
                 , getArray_function_type( &::IHistogram::getArray )
+                , ( bp::arg("dataType")=::IHistogram::INTEGRAL )
                 , "Returns numpy array with bin content (accumulated values)." );
         
         }

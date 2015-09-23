@@ -82,6 +82,12 @@ public:
     //! @return The global bin index
     int getGlobalBin(int binx, int biny = 0) const;
 
+    //! Returns closest global bin index for given axes coordinates. For 1D
+    //! @param x Value on x-axis
+    //! @param y Value on y-axis
+    //! @return Closest global bin index
+    int findGlobalBin(double x, double y) const;
+
     //! Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide
     //! with globalbin value
     int getXaxisIndex(size_t globalbin) const;

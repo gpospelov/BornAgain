@@ -95,6 +95,11 @@ TEST_F(Histogram2DTest, VariableHist)
     EXPECT_EQ(hist->getYaxisValue(10), 1.5);
     EXPECT_EQ(hist->getYaxisValue(11), 3.0);
 
+    // coordinates to global bin
+    EXPECT_EQ(hist->findGlobalBin(-0.75, 0.5), 0);
+    EXPECT_EQ(hist->findGlobalBin(0.0, 1.5), 4);
+    EXPECT_EQ(hist->findGlobalBin(1.5, 3.0), 11);
+
 }
 
 // y

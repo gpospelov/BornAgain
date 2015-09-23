@@ -118,6 +118,28 @@ TEST_F(Histogram1DTest, FixedBinFill)
 }
 
 
+//     -1.0  -0.5        0.5   1.0        2.0  X
+
+TEST_F(Histogram1DTest, crop)
+{
+    std::vector<double> xedges = boost::assign::list_of(-1.0)(-0.5)(0.5)(1.0)(2.0);
+    std::vector<double> xvalues = boost::assign::list_of(-0.75)(0.0)(0.75)(1.5);
+    Histogram1D hist(4, xedges);
+
+    for(size_t i=0; i<xvalues.size(); ++i) {
+        hist.fill(xvalues[i], i*10);
+    }
+
+    boost::scoped_ptr<Histogram1D > crop(hist.crop(-0.49, 0.99));
+
+    EXPECT_EQ(-0.5, crop->getXmin());
+    EXPECT_EQ(1.0, crop->getXmax());
+
+    EXPECT_EQ(10.0, crop->getBinContent(0));
+    EXPECT_EQ(20.0, crop->getBinContent(1));
+}
+
+
 TEST_F(Histogram1DTest, CreateHistogram)
 {
     OutputData<double> data;

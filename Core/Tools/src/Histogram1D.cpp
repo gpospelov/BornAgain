@@ -16,6 +16,7 @@
 #include "Histogram1D.h"
 #include "FixedBinAxis.h"
 #include "VariableBinAxis.h"
+#include <boost/scoped_ptr.hpp>
 
 
 Histogram1D::Histogram1D(int nbinsx, double xlow, double xup)
@@ -64,4 +65,24 @@ std::vector<double> Histogram1D::getBinValues() const
 std::vector<double> Histogram1D::getBinErrors() const
 {
     return IHistogram::getDataVector(IHistogram::ERROR);
+}
+
+Histogram1D *Histogram1D::crop(double xmin, double xmax)
+{
+    boost::scoped_ptr<IAxis > xaxis(getXaxis()->createClippedAxis(xmin, xmax));
+
+    Histogram1D *result = new Histogram1D(*xaxis);
+    OutputData<CumulativeValue>::const_iterator it_origin = m_data.begin();
+    OutputData<CumulativeValue>::iterator it_result = result->m_data.begin();
+    while (it_origin != m_data.end())
+    {
+        double x = m_data.getAxisValue(it_origin.getIndex(), 0);
+        if(result->getXaxis()->contains(x)) {
+            *it_result = *it_origin;
+            ++it_result;
+        }
+        ++it_origin;
+    }
+    return result;
+
 }

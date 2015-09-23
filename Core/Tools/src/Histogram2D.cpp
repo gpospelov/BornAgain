@@ -51,7 +51,7 @@ int Histogram2D::fill(double x, double y, double weight)
     coordinates.push_back(x);
     coordinates.push_back(y);
 
-    size_t index = m_data.findClosestIndex(coordinates);
+    size_t index = m_data.findGlobalIndex(coordinates);
     m_data[index].add(weight);
     return (int)index;
 }

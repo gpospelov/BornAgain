@@ -155,7 +155,7 @@ public:
     //! Returns global index for specified axes values
     //! @param coordinates Vector of axes coordinates for all specified axes in this dataset
     //! @return Closest global index
-    size_t findClosestIndex(const std::vector<double> &coordinates) const;
+    size_t findGlobalIndex(const std::vector<double> &coordinates) const;
 
     //! Returns the value of selected axis for given global_index.
     //! @param global_index The global index of this data structure.
@@ -514,7 +514,7 @@ size_t OutputData<T>::toGlobalIndex(const std::vector<int> &axes_indices) const
 
 
 template <class T>
-size_t OutputData<T>::findClosestIndex(const std::vector<double> &coordinates) const
+size_t OutputData<T>::findGlobalIndex(const std::vector<double> &coordinates) const
 {
     assert(mp_ll_data);
     if (coordinates.size() != mp_ll_data->getRank())

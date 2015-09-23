@@ -225,8 +225,8 @@ void TestRipple1::plot_results()
     OutputData<double>::const_iterator it = m_result->begin();
     while (it != m_result->end())
     {
-        double x = m_result->getValueOfAxis( axisPhi->getName(), it.getIndex() );
-        double y = m_result->getValueOfAxis( axisAlpha->getName(), it.getIndex() );
+        double x = m_result->getAxisValue(it.getIndex(), axisPhi->getName());
+        double y = m_result->getAxisValue(it.getIndex(),axisAlpha->getName());
         double value = *it++;
         hist->Fill(x/Units::degree, y/Units::degree, value);
     }

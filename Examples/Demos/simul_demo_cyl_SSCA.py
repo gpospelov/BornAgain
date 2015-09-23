@@ -60,8 +60,7 @@ def RunSimulation():
 #-------------------------------------------------------------
 if __name__ == '__main__':
     result = RunSimulation() + 1 # for log scale
-    im = pylab.imshow(numpy.rot90(result, 1),
-                 norm=matplotlib.colors.LogNorm(),
+    im = pylab.imshow(result, norm=matplotlib.colors.LogNorm(),
                  extent=[-4.0, 4.0, 0, 8.0])
     pylab.colorbar(im)
     pylab.xlabel(r'$\phi_f$', fontsize=20)

@@ -15,7 +15,7 @@ def plot_intensity_data(file_name):
     phi_max = rad2deg(intensity.getAxis(0).getMax())
     alpha_min = rad2deg(intensity.getAxis(1).getMin())
     alpha_max = rad2deg(intensity.getAxis(1).getMax())
-    im = pylab.imshow(numpy.rot90(data, 1), norm=matplotlib.colors.LogNorm(),
+    im = pylab.imshow(data, norm=matplotlib.colors.LogNorm(),
                       extent=[phi_min, phi_max, alpha_min, alpha_max])
     cb = pylab.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)

@@ -131,6 +131,18 @@ struct CustomBinAxis_wrapper : CustomBinAxis, bp::wrapper< CustomBinAxis > {
         return VariableBinAxis::getBinBoundaries( );
     }
 
+    virtual double getBinCenter( ::std::size_t index ) const  {
+        if( bp::override func_getBinCenter = this->get_override( "getBinCenter" ) )
+            return func_getBinCenter( index );
+        else{
+            return this->VariableBinAxis::getBinCenter( index );
+        }
+    }
+    
+    double default_getBinCenter( ::std::size_t index ) const  {
+        return VariableBinAxis::getBinCenter( index );
+    }
+
     virtual double getMax(  ) const  {
         if( bp::override func_getMax = this->get_override( "getMax" ) )
             return func_getMax(  );
@@ -270,6 +282,18 @@ void register_CustomBinAxis_class(){
                 "getBinBoundaries"
                 , getBinBoundaries_function_type(&::VariableBinAxis::getBinBoundaries)
                 , default_getBinBoundaries_function_type(&CustomBinAxis_wrapper::default_getBinBoundaries) );
+        
+        }
+        { //::VariableBinAxis::getBinCenter
+        
+            typedef double ( ::VariableBinAxis::*getBinCenter_function_type)( ::std::size_t ) const;
+            typedef double ( CustomBinAxis_wrapper::*default_getBinCenter_function_type)( ::std::size_t ) const;
+            
+            CustomBinAxis_exposer.def( 
+                "getBinCenter"
+                , getBinCenter_function_type(&::VariableBinAxis::getBinCenter)
+                , default_getBinCenter_function_type(&CustomBinAxis_wrapper::default_getBinCenter)
+                , ( bp::arg("index") ) );
         
         }
         { //::VariableBinAxis::getMax

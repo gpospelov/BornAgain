@@ -64,7 +64,7 @@ if __name__ == '__main__':
     intensity_pp, intensity_pm, intensity_mp, intensity_mm = RunSimulation()
     pylab.subplot(2, 2, 1)
     pylab.title('Intensity ++')
-    im = pylab.imshow(numpy.rot90(intensity_pp+1, 1),
+    im = pylab.imshow(intensity_pp+1,
                  norm=matplotlib.colors.LogNorm(),
                  extent=[-4.0, 4.0, 0, 8.0])
     pylab.colorbar(im)
@@ -72,7 +72,7 @@ if __name__ == '__main__':
     pylab.ylabel(r'$\alpha_f$', fontsize=20)
     pylab.subplot(2, 2, 2)
     pylab.title('Intensity +-')
-    im = pylab.imshow(numpy.rot90(intensity_pm+1, 1),
+    im = pylab.imshow(intensity_pm+1,
                  norm=matplotlib.colors.LogNorm(),
                  extent=[-4.0, 4.0, 0, 8.0])
     pylab.colorbar(im)
@@ -80,7 +80,7 @@ if __name__ == '__main__':
     pylab.ylabel(r'$\alpha_f$', fontsize=20)
     pylab.subplot(2, 2, 3)
     pylab.title('Intensity -+')
-    im = pylab.imshow(numpy.rot90(intensity_mp+1, 1),
+    im = pylab.imshow(intensity_mp+1,
                  norm=matplotlib.colors.LogNorm(),
                  extent=[-4.0, 4.0, 0, 8.0])
     pylab.colorbar(im)
@@ -88,7 +88,7 @@ if __name__ == '__main__':
     pylab.ylabel(r'$\alpha_f$', fontsize=20)
     pylab.subplot(2, 2, 4)
     pylab.title('Intensity --')
-    im = pylab.imshow(numpy.rot90(intensity_mm+1, 1),
+    im = pylab.imshow(intensity_mm+1,
                  norm=matplotlib.colors.LogNorm(),
                  extent=[-4.0, 4.0, 0, 8.0])
     pylab.colorbar(im)

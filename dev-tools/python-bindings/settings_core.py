@@ -126,6 +126,9 @@ include_classes = [
     "IFormFactorBorn",
     "IFormFactorDecorator",
     "IInterferenceFunction",
+    "IHistogram",
+    "Histogram1D",
+    "Histogram2D",
     "IMaterial",
     "IObserver",
     "IObservable",
@@ -358,6 +361,16 @@ def ManualClassTunings(mb):
     mb.namespace("BornAgain").free_function("GetPatchVersionNumber").include()
     mb.namespace("BornAgain").free_function("GetVersionNumber").include()
     mb.namespace("BornAgain").free_function("GetName").include()
+
+
+    cl = mb.class_("IHistogram")
+    cl.member_function("getArray").call_policies = call_policies.custom_call_policies("")
+
+    #
+    cl = mb.class_("Histogram2D")
+    for fun in cl.member_functions():
+        if "projection" in fun.name:
+            fun.call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
 
 
 # excluding specific member functions

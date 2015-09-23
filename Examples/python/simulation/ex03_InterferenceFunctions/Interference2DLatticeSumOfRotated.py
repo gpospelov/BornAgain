@@ -79,7 +79,7 @@ def run_simulation():
     OutputData_total.scaleAll(1.0/total_weight)
 
     result = OutputData_total.getArray() + 1  # for log scale
-    pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(), extent=[0.0, 2.0, 0, 2.0])
+    pylab.imshow(result, norm=matplotlib.colors.LogNorm(), extent=[0.0, 2.0, 0, 2.0])
     pylab.show()
 
 

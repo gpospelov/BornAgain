@@ -73,6 +73,11 @@ double FixedBinAxis::getMax() const
     return m_end;
 }
 
+double FixedBinAxis::getBinCenter(size_t index) const
+{
+    return (*this)[index];
+}
+
 
 size_t FixedBinAxis::findClosestIndex(double value) const
 {

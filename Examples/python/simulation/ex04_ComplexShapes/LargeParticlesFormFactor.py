@@ -92,7 +92,7 @@ def run_simulation():
         # plotting results
         pylab.subplot(2, 2, i_plot+1)
         pylab.subplots_adjust(wspace=0.3, hspace=0.3)
-        im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(10, conditions[i_plot]['max']),
+        im = pylab.imshow(result, norm=matplotlib.colors.LogNorm(10, conditions[i_plot]['max']),
                      extent=[phi_min, phi_max, alpha_min, alpha_max], aspect='auto')
         pylab.colorbar(im)
         pylab.xlabel(r'$\phi_f$', fontsize=16)

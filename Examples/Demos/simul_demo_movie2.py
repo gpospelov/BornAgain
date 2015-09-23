@@ -73,7 +73,7 @@ if __name__ == '__main__':
         SetParameters(i)
         result = RunSimulation() + 1 # for log scale
         ax.cla()
-        im = ax.imshow(numpy.rot90(result, 1), vmax=1e3,
+        im = ax.imshow(result, vmax=1e3,
                  norm=matplotlib.colors.LogNorm(),
                  extent=[-4.0, 4.0, 0, 8.0])
         pylab.xlabel(r'$\phi_f$', fontsize=20)

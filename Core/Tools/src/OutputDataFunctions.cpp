@@ -45,7 +45,7 @@ OutputData<double>* OutputDataFunctions::doubleBinSize(
     OutputData<double>::const_iterator it_source = source.begin();
     while (it_source != source.end()) {
         std::vector<int> source_indices =
-                source.toCoordinates(it_source.getIndex());
+                source.getAxesBinIndices(it_source.getIndex());
         std::vector<int> dest_indices;
         double boundary_factor = 1.0;
         for (size_t i=0; i<source_indices.size(); ++i) {
@@ -56,7 +56,7 @@ OutputData<double>* OutputDataFunctions::doubleBinSize(
                 boundary_factor *= 2.0;
             }
         }
-        (*p_result)[p_result->toIndex(dest_indices)] =
+        (*p_result)[p_result->toGlobalIndex(dest_indices)] =
                 boundary_factor*(*it_source++);
     }
     return p_result;
@@ -290,7 +290,7 @@ OutputData<double>* OutputDataFunctions::sliceAccrossOneAxis(
     while (it_data != data.end())
     {
         size_t current_fixed_axis_nbin =
-                data.toCoordinates(it_data.getIndex())[fixed_axis_index];
+                data.getAxesBinIndices(it_data.getIndex())[fixed_axis_index];
         if( current_fixed_axis_nbin == nbin_found ) {
             *it_sliced = *it_data;
             ++it_sliced;
@@ -327,7 +327,7 @@ OutputData<double>* OutputDataFunctions::selectRangeOnOneAxis(
                 " -> Error! Axis range xmax<xmin. ");
     }
 
-    size_t selected_axis_index = data.getAxisIndex(selected_axis_name);
+    size_t selected_axis_index = data.getAxisSerialNumber(selected_axis_name);
     size_t nbin1 = selected_axis->findClosestIndex(axis_value1);
     size_t nbin2 = selected_axis->findClosestIndex(axis_value2);
     double x1 = (*selected_axis)[nbin1];
@@ -350,7 +350,7 @@ OutputData<double>* OutputDataFunctions::selectRangeOnOneAxis(
     OutputData<double>::iterator it_new = new_data->begin();
     while (it_data != data.end())
     {
-        std::vector<int > orig_coord = data.toCoordinates(it_data.getIndex());
+        std::vector<int > orig_coord = data.getAxesBinIndices(it_data.getIndex());
         size_t xbin = orig_coord[selected_axis_index];
         if( xbin>=nbin1 && xbin <= nbin2 ) {
 //            std::vector<int > new_coord = orig_coord;

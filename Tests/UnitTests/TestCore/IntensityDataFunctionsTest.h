@@ -97,8 +97,8 @@ TEST_F(IntensityDataFunctionsTest, AddRectangularMask)
     std::vector<double> yref = boost::assign::list_of(0.0)(1.0)(2.0)(2.0)(2.0)(2.0)(2.0)(2.0)(0.0)(0.0);
     std::vector<double> vref = boost::assign::list_of(0)(1)(2)(5)(8)(11)(14)(17)(18)(21);
     for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
-        double x = data.getValueOfAxis("x", it.getIndex());
-        double y = data.getValueOfAxis("y", it.getIndex());
+        double x = data.getAxisValue(it.getIndex(), "x");
+        double y = data.getAxisValue(it.getIndex(), "y");
         EXPECT_EQ(x, xref[index]);
         EXPECT_EQ(y, yref[index]);
         EXPECT_EQ(*it, vref[index]);

@@ -1375,7 +1375,7 @@ std::string PyGenVisitor::definePlotting(const GISASSimulation *simulation) cons
     result << "def plotSimulation(simulation):\n";
     result << "" << indent() << "result = simulation.getIntensityData().getArray()"
            << "+ 1 # +1 for log scale\n";
-    result << "" << indent() << "im = pylab.imshow(numpy.rot90(result, 1), "
+    result << "" << indent() << "im = pylab.imshow(result, "
            << "norm=matplotlib.colors.LogNorm(), extent=[";
     size_t index = 0;
     size_t numberOfDetectorDimensions = simulation->getInstrument().getDetectorDimension();

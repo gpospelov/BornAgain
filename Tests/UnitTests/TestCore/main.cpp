@@ -50,6 +50,10 @@
 #include "ParticleCoreShellTest.h"
 #include "ParameterDistributionTest.h"
 #include "UtilsTest.h"
+#include "CumulativeValueTest.h"
+#include "Histogram1DTest.h"
+#include "Histogram2DTest.h"
+
 
 
 struct ErrorStreamRedirect {

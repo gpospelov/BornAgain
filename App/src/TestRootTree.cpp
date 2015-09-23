@@ -285,10 +285,8 @@ void TestRootTree::simple_write()
         OutputData<double>::const_iterator it = mp_data->begin();
         while (it != mp_data->end())
         {
-            size_t index_phi_f =
-                mp_data->getIndexOfAxis(axis0_name.c_str(), it.getIndex());
-            size_t index_alpha_f =
-                mp_data->getIndexOfAxis(axis1_name.c_str(), it.getIndex());
+            size_t index_phi_f = mp_data->getAxisBinIndex(it.getIndex(), axis0_name);
+            size_t index_alpha_f = mp_data->getAxisBinIndex(it.getIndex(), axis1_name);
             phi_f = Units::rad2deg( (*axis0)[index_phi_f]);
             alpha_f = Units::rad2deg( (*axis1)[index_alpha_f] );
             //std::cout << phi_f << " " << alpha_f << std::endl;

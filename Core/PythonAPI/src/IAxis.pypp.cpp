@@ -98,6 +98,11 @@ struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
         return IAxis::getBinBoundaries( );
     }
 
+    virtual double getBinCenter( ::std::size_t index ) const {
+        bp::override func_getBinCenter = this->get_override( "getBinCenter" );
+        return func_getBinCenter( index );
+    }
+
     virtual ::std::vector< double > getBinCenters(  ) const  {
         if( bp::override func_getBinCenters = this->get_override( "getBinCenters" ) )
             return func_getBinCenters(  );
@@ -224,6 +229,17 @@ void register_IAxis_class(){
                 "getBinBoundaries"
                 , getBinBoundaries_function_type(&::IAxis::getBinBoundaries)
                 , default_getBinBoundaries_function_type(&IAxis_wrapper::default_getBinBoundaries) );
+        
+        }
+        { //::IAxis::getBinCenter
+        
+            typedef double ( ::IAxis::*getBinCenter_function_type)( ::std::size_t ) const;
+            
+            IAxis_exposer.def( 
+                "getBinCenter"
+                , bp::pure_virtual( getBinCenter_function_type(&::IAxis::getBinCenter) )
+                , ( bp::arg("index") )
+                , "Returns value of last point of axis." );
         
         }
         { //::IAxis::getBinCenters

@@ -150,8 +150,8 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
         int i_point(0);
         for(OutputData<double>::const_iterator it = output.begin();
             it!= output.end(); ++it) {
-            size_t axis0_index = output.toCoordinate(it.getIndex(), 0);
-            size_t axis1_index = output.toCoordinate(it.getIndex(), 1);
+            size_t axis0_index = output.getAxisBinIndex(it.getIndex(), 0);
+            size_t axis1_index = output.getAxisBinIndex(it.getIndex(), 1);
             double axis0_value = (*p_axis0)[axis0_index];
             double axis1_value = (*p_axis1)[axis1_index];
             poly->SetPoint(i_point++, axis0_value, axis1_value);
@@ -216,10 +216,8 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output,
     OutputData<double>::const_iterator it = output.begin();
     while (it != output.end())
     {
-        double x = output.getValueOfAxis( haxises[0].name.c_str(),
-                it.getIndex() );
-        double y = output.getValueOfAxis( haxises[1].name.c_str(),
-                it.getIndex() );
+        double x = output.getAxisValue(it.getIndex(), haxises[0].name);
+        double y = output.getAxisValue(it.getIndex() , haxises[1].name);
         double value = *it++;
         hist2->Fill(x, y, value);
     }
@@ -326,8 +324,7 @@ TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output,
     {
         std::vector<double > xyz;
         for(size_t i_axis=0; i_axis<haxises.size(); ++i_axis) {
-            xyz.push_back(output.getValueOfAxis( haxises[i_axis].name.c_str(),
-                    it.getIndex() ) );
+            xyz.push_back(output.getAxisValue(it.getIndex(), haxises[i_axis].name) );
         }
         double value = *it++;
         if(hist1) hist1->Fill(xyz[0], value);
@@ -527,8 +524,8 @@ void IsGISAXSTools::exportOutputDataInVectors2D(
     OutputData<double>::const_iterator it = data->begin();
     while (it != data->end())
     {
-        size_t axis0_index = data->toCoordinates(it.getIndex())[0];
-        size_t axis1_index = data->toCoordinates(it.getIndex())[1];
+        size_t axis0_index = data->getAxisBinIndex(it.getIndex(), 0);
+        size_t axis1_index = data->getAxisBinIndex(it.getIndex(), 1);
         double intensity = *it++;
         v_data[axis0_index][axis1_index] = intensity;
     }
@@ -538,8 +535,8 @@ void IsGISAXSTools::exportOutputDataInVectors2D(
     it = data->begin();
     while (it != data->end())
     {
-        size_t axis0_index = data->toCoordinates(it.getIndex())[0];
-        size_t axis1_index = data->toCoordinates(it.getIndex())[1];
+        size_t axis0_index = data->getAxisBinIndex(it.getIndex(), 0);
+        size_t axis1_index = data->getAxisBinIndex(it.getIndex(), 1);
         double axis0_value = (*p_axis0)[axis0_index];
         double axis1_value = (*p_axis1)[axis1_index];
         v_axis0[axis0_index][axis1_index] = axis0_value;

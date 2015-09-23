@@ -123,12 +123,12 @@ class DrawObserver(IObserver):
         real_data = fit_suite.getFitObjects().getRealData().getArray()
         simulated_data = fit_suite.getFitObjects().getSimulationData().getArray()
         plt.subplot(2, 2, 1)
-        im = plt.imshow(numpy.rot90(real_data + 1, 1), norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
+        im = plt.imshow(real_data + 1, norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
         plt.colorbar(im)
         plt.title('\"Real\" data')
         # plotting real data
         plt.subplot(2, 2, 2)
-        im = plt.imshow(numpy.rot90(simulated_data + 1, 1), norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
+        im = plt.imshow(simulated_data + 1, norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
         plt.colorbar(im)
         plt.title('Simulated data')
         # plotting parameter space
@@ -160,7 +160,7 @@ class DrawObserver(IObserver):
         # # plotting difference map
         # diff_map = (real_data - simulated_data)/numpy.sqrt(real_data + 1)
         # pylab.subplot(2, 2, 3)
-        # im = pylab.imshow(numpy.rot90(diff_map, 1), norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0], vmin = 0.001, vmax = 1.0)
+        # im = pylab.imshow(diff_map, norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0], vmin = 0.001, vmax = 1.0)
         # pylab.colorbar(im)
         # pylab.title('Difference map')
         # # plotting parameters info

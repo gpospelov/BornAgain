@@ -91,7 +91,7 @@ def run_simulation():
         pylab.subplots_adjust(wspace=0.3, hspace=0.3)
         nplot = nplot + 1
 
-        im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
+        im = pylab.imshow(result, norm=matplotlib.colors.LogNorm(),
                  extent=[phi_min, phi_max, alpha_min, alpha_max], aspect='auto')
         pylab.tick_params(axis='both', which='major', labelsize=8)
         pylab.tick_params(axis='both', which='minor', labelsize=6)

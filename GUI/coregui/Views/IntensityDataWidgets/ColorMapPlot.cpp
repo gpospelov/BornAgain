@@ -416,7 +416,7 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
 
     OutputData<double>::const_iterator it = data->begin();
     while (it != data->end()) {
-        std::vector<int> indices = data->toCoordinates(it.getIndex());
+        std::vector<int> indices = data->getAxesBinIndices(it.getIndex());
 
         m_colorMap->data()->setCell(indices[0], indices[1], *it);
 

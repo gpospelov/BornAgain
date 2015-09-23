@@ -465,3 +465,9 @@
 
 | date                | hostname   | sysinfo       | tr | total    | MultiLayer   | CylindersInD | RotatedPyram | CoreShell    | SquareLattic | RadialParaCr | HexParaCryst | SSCA         | Mesocrystal  | PolMagCyl    |
 | 2015-07-31 14:38:50 | jcnsopc63  | linuxx8664gcc | 0  | 15.590   | 1.537        | 0.977        | 1.673        | 0.855        | 2.524        | 0.996        | 1.874        | 1.505        | 1.581        | 2.068        |
+
+# after some development, why it is slower now not clear (there was minor OutputData refactoring
+
+| date                | hostname   | sysinfo       | tr | total    | MultiLayer   | CylindersInD | RotatedPyram | CoreShell    | SquareLattic | RadialParaCr | HexParaCryst | SSCA         | Mesocrystal  | PolMagCyl    |
+| 2015-09-23 14:54:52 | jcnsopc126 | linuxx8664gcc | 0  | 17.658   | 1.692        | 1.148        | 1.602        | 0.983        | 2.793        | 1.174        | 2.163        | 1.742        | 1.868        | 2.495        |
+

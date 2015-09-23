@@ -1082,34 +1082,21 @@ They must fulfill
 \paragraph{Form factor etc}\strut\\
 Notation:
 \begin{displaymath}
-  \ell\coloneqq L/2,\quad
-  h\coloneqq H/2,\quad
-  f_\pm(z)\coloneqq \exp(\pm i z)\sinc(z).
+  a\coloneqq q_x/\tan\alpha,\quad
+  b\coloneqq q_y/\tan\alpha,\quad
+  c\coloneqq q_z.
 \end{displaymath}
 Results:
 \begin{equation*}
+  \DS F= \frac{\exp(iq_zL\tan\alpha/2)}{\tan^2\alpha} \Big\{ I_p(H-L\tan\alpha/2) - I_p(-L\tan\alpha/2) \Big\} 
+\end{equation*}
+Where $I_p(z)$ is an antiderivative for the final z--integration in the Fourier transform of the non--truncated pyramid shape function:
+\begin{equation*}
 \begin{array}{@{}l@{}l@{}}
-\DS F=
-\frac{H}{q_xq_y} \Big\{
-   &+\DS  f_+\left(\left(\frac{q_x-q_y}{\tan\alpha} +q_z\right)h\right)
-        \exp(-i(q_x-q_y)\ell)
-\\[3.6ex]
-   &\DS+ f_-\left(\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right)
-        \exp(+i(q_x-q_y)\ell)
-\\[3.6ex]
-   &\DS- f_+\left(\left(\frac{q_x+q_y}{\tan\alpha} +q_z\right)h\right)
-        \exp(-i(q_x+q_y)\ell)
-\\[3.6ex]
-   &\DS- f_-\left(\left(\frac{q_x+q_y}{\tan\alpha} -q_z\right)h\right)
-        \exp(+i(q_x+q_y)\ell)
-\Big\},
+  \DS I_p(z) = & 4\exp(icz)\Big\{ \sin(az)\big[b(a^2-b^2+c^2)\cos(bz) + ic(a^2+b^2-c^2)\sin(bz)\big] \\
+  & +a\cos(az)\big[(-a^2+b^2+c^2)\sin(bz) + 2ibc\cos(bz) \big] \Big\} \\
+  & / \Big\{ab\big[(a+b)^2-c^2\big]\big[(a-b)^2-c^2\big]\Big\}
 \end{array}
-\end{equation*}
-\begin{equation*}
-  V= H \Big[L^2 - \frac{2LH}{\tan\alpha} + \dfrac{4}{3} \dfrac{H^2}{\tan^2\alpha}\Big].
-\end{equation*}
-\begin{equation*}
-  S=L^2.
 \end{equation*}
 \begin{equation*}
   V = \dfrac{1}{6}  L^3 \tan\alpha\left[ 1

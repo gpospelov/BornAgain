@@ -69,8 +69,6 @@ PyObject *OutputData<double>::getArray() const
         }
     }
 
-
-
     return pyarray;
 }
 

@@ -36,7 +36,6 @@ class Histogram2D;
 class IHistogram
 {
 public:
-
     enum DataType {INTEGRAL, AVERAGE, ERROR, NENTRIES};
 
     IHistogram();
@@ -87,7 +86,6 @@ public:
     //! with globalbin value
     int getXaxisIndex(size_t globalbin) const;
 
-
     //! Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide
     //! with globalbin value
     int getYaxisIndex(size_t globalbin) const;
@@ -102,17 +100,17 @@ public:
     //! @return The center of axis's corresponding bin
     double getYaxisValue(size_t globalbin);
 
-
-    //! Returns content of the bin with given index. For 1D histograms bin index is related
-    //! to x-axis. For 2D histograms bin index is global bin index.
+    //! Returns content (accumulated value) of the bin with given index.
+    //! For 1D histograms bin index is related to x-axis.
+    //! For 2D histograms bin index is global bin index.
     //! @param bin Bin index
-    //! @return The content of the bin (which is normally the value accumulated by the bin)
+    //! @return The value accumulated by the bin (integral)
     double getBinContent(int bin) const;
 
-    //! Returns content of the bin of 2D histogram with given axes indices.
+    //! Returns content (accumulated value) of the bin of 2D histogram with given axes indices.
     //! @param binx X-axis bin index
     //! @param biny Y-axis bin index
-    //! @return The content of the bin (which is normally the value accumulated by the bin)
+    //! @return The value accumulated by the bin (integral)
     double getBinContent(int binx, int biny) const;
 
     //! Returns error of the bin with given index.
@@ -120,6 +118,12 @@ public:
 
     //! Returns error of the bin of 2D histogram with given axes indices.
     double getBinError(int binx, int biny) const;
+
+    //! Returns average value in the bin with given index.
+    double getBinAverage(int bin) const;
+
+    //! Returns average value in the bin of 2D histogram with given axes indices.
+    double getBinAverage(int binx, int biny) const;
 
     //! Returns number of entries in the bin with given index.
     int getBinNumberOfEntries(int bin) const;
@@ -129,24 +133,24 @@ public:
 
 
 #ifdef BORNAGAIN_PYTHON
-    PyObject *getArray() const;
+    //! Returns numpy array with bin content (accumulated values)
+    PyObject *getArray(DataType dataType = INTEGRAL) const;
 #endif
 
     //! Reset histogram content (axes remains)
     void reset();
 
-//    static Histogram1D *createHistogram1D(const OutputData<double> &source);
-//    static Histogram2D *createHistogram2D(const OutputData<double> &source);
+    static IHistogram *createHistogram(const OutputData<double> &source);
 
-    void setDataType(DataType data_type);
+    //! creates new OutputData with histogram's shape and put there values corresponding to DataType
+    OutputData<double> *createOutputData(DataType dataType) const;
 
 protected:
-    DataType m_data_type;
-
     void check_x_axis() const;
     void check_y_axis() const;
     void init_from_data(const OutputData<double> &source);
-
+    double getBinData(size_t globalbin, DataType dataType) const;
+    std::vector<double> getDataVector(DataType dataType) const;
     OutputData<CumulativeValue> m_data;
 };
 

@@ -4,6 +4,7 @@
 #include "Histogram1D.h"
 #include "Exceptions.h"
 #include <boost/assign/list_of.hpp>
+#include <boost/scoped_ptr.hpp>
 #include "gtest/gtest.h"
 
 class Histogram1DTest : public ::testing::Test
@@ -102,6 +103,7 @@ TEST_F(Histogram1DTest, FixedBinFill)
     hist.fill(xvalue, 3.0);
     EXPECT_EQ(2, hist.getBinNumberOfEntries(xbin));
     EXPECT_EQ(4.0, hist.getBinContent(xbin));
+    EXPECT_EQ(2.0, hist.getBinAverage(xbin));
     EXPECT_EQ(1.0, hist.getBinError(xbin));
 
     // another fill
@@ -111,10 +113,65 @@ TEST_F(Histogram1DTest, FixedBinFill)
     hist.fill(xvalue, 3.0);
     EXPECT_EQ(3, hist.getBinNumberOfEntries(xbin));
     EXPECT_EQ(6.0, hist.getBinContent(xbin));
+    EXPECT_EQ(2.0, hist.getBinAverage(xbin));
     EXPECT_EQ(2.0/3.0, hist.getBinError(xbin)*hist.getBinError(xbin));
 }
 
 
+TEST_F(Histogram1DTest, CreateHistogram)
+{
+    OutputData<double> data;
+    data.addAxis("x-axis", 10, 0.0, 10.0);
+    for(size_t i=0; i<data.getAllocatedSize(); ++i) {
+        data[i] = double(i);
+    }
+
+    boost::scoped_ptr<IHistogram> hist(IHistogram::createHistogram(data));
+    EXPECT_EQ(1, hist->getRank());
+    EXPECT_EQ(data.getAllocatedSize(), hist->getNbinsX());
+    EXPECT_EQ(data.getAxis(0)->getMin(), hist->getXmin());
+    EXPECT_EQ(data.getAxis(0)->getMax(), hist->getXmax());
+    for(size_t i=0; i<hist->getTotalNumberOfBins(); ++i) {
+        EXPECT_EQ(data[i], hist->getBinContent(i));
+        EXPECT_EQ(data[i], hist->getBinAverage(i));
+        EXPECT_EQ(1, hist->getBinNumberOfEntries(i));
+        EXPECT_EQ(0.0, hist->getBinError(i));
+    }
+}
+
+TEST_F(Histogram1DTest, CreateOutputData)
+{
+    Histogram1D hist(10, -5.0, 5.0);
+
+    for(size_t i=0; i<hist.getNbinsX(); ++i) {
+        hist.fill(hist.getXaxisValue(i), 1.0);
+        hist.fill(hist.getXaxisValue(i), 3.0);
+    }
+
+    boost::scoped_ptr<OutputData<double> > data(hist.createOutputData(IHistogram::INTEGRAL));
+    EXPECT_EQ(1, data->getRank());
+    EXPECT_EQ(data->getAllocatedSize(), hist.getNbinsX());
+    EXPECT_EQ(data->getAxis(0)->getMin(), hist.getXmin());
+    EXPECT_EQ(data->getAxis(0)->getMax(), hist.getXmax());
+    for(size_t i=0; i<data->getAllocatedSize(); ++i) {
+        EXPECT_EQ(4.0, (*data)[i]);
+    }
+
+    data.reset(hist.createOutputData(IHistogram::AVERAGE));
+    for(size_t i=0; i<data->getAllocatedSize(); ++i) {
+        EXPECT_EQ(2.0, (*data)[i]);
+    }
+
+    data.reset(hist.createOutputData(IHistogram::ERROR));
+    for(size_t i=0; i<data->getAllocatedSize(); ++i) {
+        EXPECT_EQ(1.0, (*data)[i]);
+    }
+
+    data.reset(hist.createOutputData(IHistogram::NENTRIES));
+    for(size_t i=0; i<data->getAllocatedSize(); ++i) {
+        EXPECT_EQ(2.0, (*data)[i]);
+    }
+}
 
 
 

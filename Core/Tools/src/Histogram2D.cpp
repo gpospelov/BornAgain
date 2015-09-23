@@ -113,31 +113,6 @@ Histogram2D *Histogram2D::crop(double xmin, double ymin, double xmax, double yma
     return result;
 }
 
-
-
-//vdouble2d_t Histogram2D::getData() const
-//{
-//    vdouble2d_t result;
-//    result.resize(getXaxis()->getSize());
-
-//    vdouble1d_t column;
-//    column.resize(getYaxis()->getSize());
-
-//    for(size_t i=0; i< result.size(); ++i) {
-//        result[i] = column;
-//    }
-
-//    size_t index = 0;
-//    for (size_t ix=0; ix<getXaxis()->getSize(); ++ix) {
-//        for(size_t iy=0; iy<getYaxis()->getSize(); ++iy) {
-//            result[ix][iy] = m_data[index].getValue();
-//            ++index;
-//        }
-//    }
-
-//    return result;
-//}
-
 Histogram1D *Histogram2D::create_projectionX(int ybinlow, int ybinup)
 {
     Histogram1D *result = new Histogram1D(*this->getXaxis());

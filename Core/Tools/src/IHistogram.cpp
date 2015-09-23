@@ -21,21 +21,19 @@
 #include "Histogram2D.h"
 #include <sstream>
 #include <boost/assign/list_of.hpp>
+#include <boost/scoped_ptr.hpp>
 
 IHistogram::IHistogram()
-    : m_data_type(INTEGRAL)
 {
 
 }
 
 IHistogram::IHistogram(const IAxis &axis_x)
-    : m_data_type(INTEGRAL)
 {
     m_data.addAxis(axis_x);
 }
 
 IHistogram::IHistogram(const IAxis &axis_x, const IAxis &axis_y)
-    : m_data_type(INTEGRAL)
 {
     m_data.addAxis(axis_x);
     m_data.addAxis(axis_y);
@@ -51,11 +49,6 @@ size_t IHistogram::getTotalNumberOfBins() const
 {
     return m_data.getAllocatedSize();
 }
-
-//double IHistogram::getBinValue(size_t binGlobalIndex) const
-//{
-//    return m_data[binGlobalIndex].getValue();
-//}
 
 const IAxis *IHistogram::getXaxis() const
 {
@@ -131,21 +124,7 @@ double IHistogram::getYaxisValue(size_t globalbin)
 
 double IHistogram::getBinContent(int bin) const
 {
-    if(m_data_type == INTEGRAL) {
-        return m_data[bin].getValue();
-    }
-    else if(m_data_type == AVERAGE) {
-        return m_data[bin].getAverage();
-    }
-    else if(m_data_type == ERROR) {
-        return m_data[bin].getRMS();
-    }
-    else if(m_data_type == NENTRIES) {
-        return m_data[bin].getNumberOfEntries();
-    }
-    else {
-        throw LogicErrorException("IHistogram::getBinContent() -> Error. Wrong data type.");
-    }
+    return m_data[bin].getContent();
 }
 
 double IHistogram::getBinContent(int binx, int biny) const
@@ -163,6 +142,16 @@ double IHistogram::getBinError(int binx, int biny) const
     return getBinError(getGlobalBin(binx, biny));
 }
 
+double IHistogram::getBinAverage(int bin) const
+{
+    return m_data[bin].getAverage();
+}
+
+double IHistogram::getBinAverage(int binx, int biny) const
+{
+    return getBinAverage(getGlobalBin(binx, biny));
+}
+
 int IHistogram::getBinNumberOfEntries(int bin) const
 {
     return m_data[bin].getNumberOfEntries();
@@ -173,14 +162,10 @@ int IHistogram::getBinNumberOfEntries(int binx, int biny) const
     return getBinNumberOfEntries(getGlobalBin(binx, biny));
 }
 
-PyObject *IHistogram::getArray() const
+PyObject *IHistogram::getArray(DataType dataType) const
 {
-    OutputData<double> array;
-    array.copyShapeFrom(m_data);
-    for(size_t i=0; i<m_data.getAllocatedSize(); ++i) {
-        array[i] = getBinContent(i);
-    }
-    return array.getArray();
+    boost::scoped_ptr<OutputData<double> > data(createOutputData(dataType));
+    return data->getArray();
 }
 
 void IHistogram::reset()
@@ -188,23 +173,20 @@ void IHistogram::reset()
     m_data.setAllTo(CumulativeValue());
 }
 
-void IHistogram::setDataType(IHistogram::DataType data_type)
+IHistogram *IHistogram::createHistogram(const OutputData<double> &source)
 {
-    m_data_type = data_type;
+    if(source.getRank() == 1) {
+        return new Histogram1D(source);
+    } else if(source.getRank() == 2) {
+        return new Histogram2D(source);
+    } else {
+        std::ostringstream message;
+        message << "IHistogram::createHistogram(const OutputData<double> &source) -> Error. ";
+        message << "The rank of source " << source.getRank() << " ";
+        message << "is not suitable for creation neither 1-dim nor 2-dim histograms.";
+        throw LogicErrorException(message.str());
+    }
 }
-
-//Histogram1D *IHistogram::createHistogram1D(const OutputData<double> &source)
-//{
-//    Histogram1D *result = new Histogram1D(source);
-//    return result;
-//}
-
-//Histogram2D *IHistogram::createHistogram2D(const OutputData<double> &source)
-//{
-//    Histogram2D *result = new Histogram2D(source);
-//    return result;
-//}
-
 
 void IHistogram::check_x_axis() const
 {
@@ -240,5 +222,45 @@ void IHistogram::init_from_data(const OutputData<double> &source)
     for(size_t i=0; i<source.getAllocatedSize(); ++i) {
         m_data[i].add(source[i]);
     }
+}
+
+//! returns data of requested type for globalbin number
+double IHistogram::getBinData(size_t globalbin, IHistogram::DataType dataType) const
+{
+    if(dataType == INTEGRAL) {
+        return getBinContent(globalbin);
+    } else if(dataType == AVERAGE) {
+        return getBinAverage(globalbin);
+    } else if(dataType == ERROR) {
+        return getBinError(globalbin);
+    } else if(dataType == NENTRIES) {
+        return getBinNumberOfEntries(globalbin);
+    } else {
+        std::ostringstream message;
+        message << "IHistogram::getBinData() -> Error. Unknown data type " << dataType << ".";
+        throw LogicErrorException(message.str());
+    }
+}
+
+//! returns vector of values of requested DataType
+std::vector<double> IHistogram::getDataVector(IHistogram::DataType dataType) const
+{
+    std::vector<double> result;
+    result.resize(getTotalNumberOfBins(), 0.0);
+    for(size_t index=0; index<getTotalNumberOfBins(); ++index) {
+        result[index] = getBinData(index, dataType);
+    }
+    return result;
+}
+
+//! creates new OutputData with histogram's shape and put there values corresponding to DataType
+OutputData<double> *IHistogram::createOutputData(IHistogram::DataType dataType) const
+{
+    OutputData<double> *result = new OutputData<double>;
+    result->copyShapeFrom(m_data);
+    for(size_t i=0; i<getTotalNumberOfBins(); ++i) {
+        (*result)[i] = getBinData(i, dataType);
+    }
+    return result;
 }
 

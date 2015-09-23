@@ -78,13 +78,48 @@ void register_IHistogram_class(){
             ;
         IHistogram_exposer.def( bp::init< IAxis const & >(( bp::arg("axis_x") )) );
         IHistogram_exposer.def( bp::init< IAxis const &, IAxis const & >(( bp::arg("axis_x"), bp::arg("axis_y") )) );
+        { //::IHistogram::createHistogram
+        
+            typedef ::IHistogram * ( *createHistogram_function_type )( ::OutputData< double > const & );
+            
+            IHistogram_exposer.def( 
+                "createHistogram"
+                , createHistogram_function_type( &::IHistogram::createHistogram )
+                , ( bp::arg("source") )
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "Reset histogram content (axes remains)." );
+        
+        }
         { //::IHistogram::getArray
         
             typedef ::PyObject * ( ::IHistogram::*getArray_function_type)(  ) const;
             
             IHistogram_exposer.def( 
                 "getArray"
-                , getArray_function_type( &::IHistogram::getArray ) );
+                , getArray_function_type( &::IHistogram::getArray )
+                , "Returns numpy array with bin content (accumulated values)." );
+        
+        }
+        { //::IHistogram::getBinAverage
+        
+            typedef double ( ::IHistogram::*getBinAverage_function_type)( int ) const;
+            
+            IHistogram_exposer.def( 
+                "getBinAverage"
+                , getBinAverage_function_type( &::IHistogram::getBinAverage )
+                , ( bp::arg("bin") )
+                , "Returns average value in the bin with given index." );
+        
+        }
+        { //::IHistogram::getBinAverage
+        
+            typedef double ( ::IHistogram::*getBinAverage_function_type)( int,int ) const;
+            
+            IHistogram_exposer.def( 
+                "getBinAverage"
+                , getBinAverage_function_type( &::IHistogram::getBinAverage )
+                , ( bp::arg("binx"), bp::arg("biny") )
+                , "Returns average value in the bin of 2D histogram with given axes indices." );
         
         }
         { //::IHistogram::getBinContent
@@ -95,7 +130,7 @@ void register_IHistogram_class(){
                 "getBinContent"
                 , getBinContent_function_type( &::IHistogram::getBinContent )
                 , ( bp::arg("bin") )
-                , "Returns content of the bin with given index. For 1D histograms bin index is related to x-axis. For 2D histograms bin index is global bin index. @param bin Bin index @return The content of the bin (which is normally the value accumulated by the bin) \n\n:Parameters:\n  - 'bin' - Bin index\n" );
+                , "Returns content (accumulated value) of the bin with given index. For 1D histograms bin index is related to x-axis. For 2D histograms bin index is global bin index. @param bin Bin index @return The value accumulated by the bin (integral) \n\n:Parameters:\n  - 'bin' - Bin index\n" );
         
         }
         { //::IHistogram::getBinContent
@@ -106,7 +141,7 @@ void register_IHistogram_class(){
                 "getBinContent"
                 , getBinContent_function_type( &::IHistogram::getBinContent )
                 , ( bp::arg("binx"), bp::arg("biny") )
-                , "Returns content of the bin of 2D histogram with given axes indices. @param binx X-axis bin index @param biny Y-axis bin index @return The content of the bin (which is normally the value accumulated by the bin) \n\n:Parameters:\n  - 'binx' - X-axis bin index\n  - 'biny' - Y-axis bin index\n" );
+                , "Returns content (accumulated value) of the bin of 2D histogram with given axes indices. @param binx X-axis bin index @param biny Y-axis bin index @return The value accumulated by the bin (integral) \n\n:Parameters:\n  - 'binx' - X-axis bin index\n  - 'biny' - Y-axis bin index\n" );
         
         }
         { //::IHistogram::getBinError
@@ -321,16 +356,7 @@ void register_IHistogram_class(){
                 , "Reset histogram content (axes remains)." );
         
         }
-        { //::IHistogram::setDataType
-        
-            typedef void ( ::IHistogram::*setDataType_function_type)( ::IHistogram::DataType ) ;
-            
-            IHistogram_exposer.def( 
-                "setDataType"
-                , setDataType_function_type( &::IHistogram::setDataType )
-                , ( bp::arg("data_type") ) );
-        
-        }
+        IHistogram_exposer.staticmethod( "createHistogram" );
     }
 
 }

@@ -16,7 +16,7 @@ TEST_F(CumulativeValueTest, InitialState)
 {
     CumulativeValue cv;
     EXPECT_EQ(0, cv.getNumberOfEntries());
-    EXPECT_EQ(0.0, cv.getValue());
+    EXPECT_EQ(0.0, cv.getContent());
     EXPECT_EQ(0.0, cv.getAverage());
     EXPECT_EQ(0.0, cv.getRMS());
 }
@@ -26,7 +26,7 @@ TEST_F(CumulativeValueTest, AddValue)
     CumulativeValue cv1;
     cv1.add(1.0);
     EXPECT_EQ(1, cv1.getNumberOfEntries());
-    EXPECT_EQ(1.0, cv1.getValue());
+    EXPECT_EQ(1.0, cv1.getContent());
     EXPECT_EQ(1.0, cv1.getAverage());
     EXPECT_EQ(0.0, cv1.getRMS());
 
@@ -34,7 +34,7 @@ TEST_F(CumulativeValueTest, AddValue)
     CumulativeValue cv2;
     cv2.add(1.0, 10.0);
     EXPECT_EQ(1, cv2.getNumberOfEntries());
-    EXPECT_EQ(1.0, cv2.getValue());
+    EXPECT_EQ(1.0, cv2.getContent());
     EXPECT_EQ(1.0, cv2.getAverage());
     EXPECT_EQ(0.0, cv2.getRMS());
 
@@ -46,13 +46,13 @@ TEST_F(CumulativeValueTest, AddValues)
     cv1.add(1.0);
     cv1.add(3.0);
     EXPECT_EQ(2, cv1.getNumberOfEntries());
-    EXPECT_DOUBLE_EQ(4.0, cv1.getValue());
+    EXPECT_DOUBLE_EQ(4.0, cv1.getContent());
     EXPECT_DOUBLE_EQ(2.0, cv1.getAverage());
     EXPECT_DOUBLE_EQ(1.0, cv1.getRMS());
 
     cv1.clear();
     EXPECT_EQ(0, cv1.getNumberOfEntries());
-    EXPECT_EQ(0.0, cv1.getValue());
+    EXPECT_EQ(0.0, cv1.getContent());
     EXPECT_EQ(0.0, cv1.getAverage());
     EXPECT_EQ(0.0, cv1.getRMS());
 }
@@ -63,14 +63,14 @@ TEST_F(CumulativeValueTest, AddValuesWithWeights)
     cv1.add(1.0, 3.0);
     cv1.add(3.0);
     EXPECT_EQ(2, cv1.getNumberOfEntries());
-    EXPECT_DOUBLE_EQ(4.0, cv1.getValue());
+    EXPECT_DOUBLE_EQ(4.0, cv1.getContent());
     EXPECT_DOUBLE_EQ(1.5, cv1.getAverage());
     EXPECT_FLOAT_EQ(0.75, cv1.getRMS()*cv1.getRMS());
 
     cv1.add(3.0);
     cv1.add(3.0);
     EXPECT_EQ(4, cv1.getNumberOfEntries());
-    EXPECT_DOUBLE_EQ(10.0, cv1.getValue());
+    EXPECT_DOUBLE_EQ(10.0, cv1.getContent());
     EXPECT_DOUBLE_EQ(2.0, cv1.getAverage());
     EXPECT_FLOAT_EQ(1.0, cv1.getRMS());
 }

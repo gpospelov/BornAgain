@@ -43,17 +43,20 @@ public:
     //! Constructor for 1D histograms from basic OutputData object
     Histogram1D(const OutputData<double> &data);
 
+    //! Returns the number of histogram dimensions
     size_t getRank() const { return 1;}
 
     //! Increment bin with abscissa x with a weight.
     int fill(double x, double weight = 1.0);
 
+    //! returns vector of histogram bin centers
     std::vector<double> getBinCenters() const;
 
+    //! returns vector of bin content (the value accumulated by bins)
     std::vector<double> getBinValues() const;
 
+    //! returns vector of bin errors
     std::vector<double> getBinErrors() const;
-
 };
 
 

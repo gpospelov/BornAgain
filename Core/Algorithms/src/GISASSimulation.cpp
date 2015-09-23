@@ -165,12 +165,6 @@ void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_f_min, doub
     updateIntensityMap();
 }
 
-void GISASSimulation::setDetectorParameters(const DetectorParameters& params)
-{
-    m_instrument.setDetectorParameters(params);
-    updateIntensityMap();
-}
-
 void GISASSimulation::setDetectorResolutionFunction(
     const IResolutionFunction2D &resolution_function)
 {

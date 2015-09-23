@@ -14,10 +14,10 @@
 // ************************************************************************** //
 
 #include "Instrument.h"
-
 #include "ConvolutionDetectorResolution.h"
-
 #include "BornAgainNamespace.h"
+#include "CustomBinAxis.h"
+#include "ConstKBinAxis.h"
 
 Instrument::Instrument()
     : IParameterized("Instrument")
@@ -54,31 +54,22 @@ void Instrument::setDetectorParameters(
     if(alpha_f_max <= alpha_f_min) {
         throw LogicErrorException("Instrument::setDetectorParameters() -> Error! alpha_f_max <= alpha_f_min");
     }
-    AxisParameters phi_params;
-    phi_params.m_name = BornAgain::PHI_AXIS_NAME;
-    phi_params.m_range = TSampledRange<double>(n_phi, phi_f_min, phi_f_max);
-    AxisParameters alpha_params;
-    alpha_params.m_name = BornAgain::ALPHA_AXIS_NAME;
-    alpha_params.m_range =
-        TSampledRange<double>(n_alpha, alpha_f_min, alpha_f_max);
-    if (isgisaxs_style) {
-        phi_params.m_sample_method = AxisParameters::E_ISGISAXS;
-        alpha_params.m_sample_method = AxisParameters::E_ISGISAXS;
+    if(n_phi == 0) {
+        throw LogicErrorException("Instrument::setDetectorParameters() -> Error! Number of n_phi bins can't be zero.");
     }
-    else {
-        phi_params.m_sample_method = AxisParameters::E_DEFAULT;
-        alpha_params.m_sample_method = AxisParameters::E_DEFAULT;
+    if(n_alpha == 0) {
+        throw LogicErrorException("Instrument::setDetectorParameters() -> Error! Number of n_alpha bins can't be zero.");
     }
-    DetectorParameters detector_params = { phi_params, alpha_params };
-    setDetectorParameters(detector_params);
-}
 
-void Instrument::setDetectorParameters(const DetectorParameters& params)
-{
     m_detector.clear();
 
-    m_detector.addAxis(params.m_phi_params);
-    m_detector.addAxis(params.m_alpha_params);
+    if(isgisaxs_style) {
+        m_detector.addAxis(CustomBinAxis(BornAgain::PHI_AXIS_NAME, n_phi, phi_f_min, phi_f_max));
+        m_detector.addAxis(CustomBinAxis(BornAgain::ALPHA_AXIS_NAME, n_alpha, alpha_f_min, alpha_f_max));
+    } else {
+        m_detector.addAxis(ConstKBinAxis(BornAgain::PHI_AXIS_NAME, n_phi, phi_f_min, phi_f_max));
+        m_detector.addAxis(ConstKBinAxis(BornAgain::ALPHA_AXIS_NAME, n_alpha, alpha_f_min, alpha_f_max));
+    }
 }
 
 void Instrument::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)

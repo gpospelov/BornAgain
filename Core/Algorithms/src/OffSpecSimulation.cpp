@@ -133,12 +133,6 @@ void OffSpecSimulation::setDetectorParameters(size_t n_phi, double phi_f_min, do
     updateIntensityMap();
 }
 
-void OffSpecSimulation::setDetectorParameters(const DetectorParameters& params)
-{
-    m_instrument.setDetectorParameters(params);
-    updateIntensityMap();
-}
-
 void OffSpecSimulation::setDetectorResolutionFunction(
         const IResolutionFunction2D &resolution_function)
 {

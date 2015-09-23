@@ -376,17 +376,6 @@ void register_GISASSimulation_class(){
                 , "Sets detector parameters using angle ranges." );
         
         }
-        { //::GISASSimulation::setDetectorParameters
-        
-            typedef void ( ::GISASSimulation::*setDetectorParameters_function_type)( ::DetectorParameters const & ) ;
-            
-            GISASSimulation_exposer.def( 
-                "setDetectorParameters"
-                , setDetectorParameters_function_type( &::GISASSimulation::setDetectorParameters )
-                , ( bp::arg("params") )
-                , "Sets detector parameters using parameter object." );
-        
-        }
         { //::GISASSimulation::setDetectorResolutionFunction
         
             typedef void ( ::GISASSimulation::*setDetectorResolutionFunction_function_type)( ::IResolutionFunction2D const & ) ;

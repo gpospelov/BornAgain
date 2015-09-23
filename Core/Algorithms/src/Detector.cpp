@@ -58,32 +58,6 @@ void Detector::swapContent(Detector &other)
     std::swap(this->m_analyzer_operator, other.m_analyzer_operator);
 }
 
-void Detector::addAxis(const AxisParameters &axis_params)
-{
-    IAxis *p_new_axis(0);
-    switch (axis_params.m_sample_method) {
-    case AxisParameters::E_DEFAULT: {
-
-        p_new_axis = new ConstKBinAxis(axis_params.m_name, axis_params.m_range.getNSamples(),
-                                       axis_params.m_range.getLowerBound(),
-                                       axis_params.m_range.getUpperBound());
-
-        break;
-    }
-    case AxisParameters::E_ISGISAXS: {
-        p_new_axis = new CustomBinAxis(axis_params.m_name, axis_params.m_range.getNSamples(),
-                                       axis_params.m_range.getLowerBound(),
-                                       axis_params.m_range.getUpperBound());
-
-        break;
-    }
-    default:
-        throw RuntimeErrorException("Invalid sample method for axis.");
-    }
-    if (p_new_axis)
-        m_axes.push_back(p_new_axis);
-}
-
 const IAxis &Detector::getAxis(size_t index) const
 {
     if (isCorrectAxisIndex(index)) {

@@ -17,7 +17,6 @@
 #define DETECTOR_H_
 
 #include "IDetectorResolution.h"
-#include "DetectorParameters.h"
 #include "SafePointerVector.h"
 #include "EigenCore.h"
 
@@ -41,8 +40,6 @@ public:
     {
         m_axes.push_back(axis.clone());
     }
-
-    void addAxis(const AxisParameters &axis_params);
 
     const IAxis &getAxis(size_t index) const;
 

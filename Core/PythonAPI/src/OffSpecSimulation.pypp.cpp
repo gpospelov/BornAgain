@@ -366,17 +366,6 @@ void register_OffSpecSimulation_class(){
                 , "Sets detector parameters using angle ranges." );
         
         }
-        { //::OffSpecSimulation::setDetectorParameters
-        
-            typedef void ( ::OffSpecSimulation::*setDetectorParameters_function_type)( ::DetectorParameters const & ) ;
-            
-            OffSpecSimulation_exposer.def( 
-                "setDetectorParameters"
-                , setDetectorParameters_function_type( &::OffSpecSimulation::setDetectorParameters )
-                , ( bp::arg("params") )
-                , "Sets detector parameters using parameter object." );
-        
-        }
         { //::OffSpecSimulation::setDetectorResolutionFunction
         
             typedef void ( ::OffSpecSimulation::*setDetectorResolutionFunction_function_type)( ::IResolutionFunction2D const & ) ;

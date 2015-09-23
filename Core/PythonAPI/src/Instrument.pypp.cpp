@@ -279,17 +279,6 @@ void register_Instrument_class(){
                 , "Sets detector parameters using angle ranges." );
         
         }
-        { //::Instrument::setDetectorParameters
-        
-            typedef void ( ::Instrument::*setDetectorParameters_function_type)( ::DetectorParameters const & ) ;
-            
-            Instrument_exposer.def( 
-                "setDetectorParameters"
-                , setDetectorParameters_function_type( &::Instrument::setDetectorParameters )
-                , ( bp::arg("params") )
-                , "Sets detector parameters using parameter object." );
-        
-        }
         { //::Instrument::setDetectorResolutionFunction
         
             typedef void ( ::Instrument::*setDetectorResolutionFunction_function_type)( ::IResolutionFunction2D const & ) ;

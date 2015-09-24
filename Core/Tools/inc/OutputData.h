@@ -233,16 +233,18 @@ public:
     // --------
 
     //! Returns true if object have same dimensions
-    bool hasSameDimensions(const OutputData<T>& right) const;
+    template <class U> bool hasSameDimensions(const OutputData<U>& right) const;
 
     //! Returns true if object have same dimensions and shape of axises
-    bool hasSameShape(const OutputData<T>& right) const;
+    template <class U> bool hasSameShape(const OutputData<U>& right) const;
 
     //! returns data as Python numpy array
 #ifdef BORNAGAIN_PYTHON
     PyObject *getArray() const;
 #endif
 
+    //! returns true if object is correctly initialized (
+    bool isInitialized() const;
 private:
     //! disabled copy constructor and assignment operators
     OutputData(const OutputData& );
@@ -642,6 +644,14 @@ const OutputData<T>& OutputData<T>::operator*=(const OutputData<T>& right)
 }
 
 template<class T>
+bool OutputData<T>::isInitialized() const
+{
+    if(!mp_ll_data) return false;
+    if(getRank() != mp_ll_data->getRank()) return false;
+    return true;
+}
+
+template<class T>
 const OutputData<T>& OutputData<T>::operator/=(const OutputData<T>& right)
 {
     assert(mp_ll_data);
@@ -685,30 +695,28 @@ inline void OutputData<T>::setRawDataArray(const T *source)
 
 //! Returns true if object have same dimensions
 template<class T>
+template<class U>
 inline bool OutputData<T>::hasSameDimensions(
-    const OutputData<T>& right) const
+    const OutputData<U>& right) const
 {
-    if(!mp_ll_data || !right.mp_ll_data ) return false;
-    return HaveSameDimensions(*mp_ll_data, *right.mp_ll_data);
+    if(!isInitialized()) return false;
+    if(!right.isInitialized()) return false;
+    if(getRank() != right.getRank()) return false;
+    for(size_t i_axis=0; i_axis<getRank(); ++i_axis) {
+        if(getAxis(i_axis)->getSize() != right.getAxis(i_axis)->getSize()) return false;
+    }
+    return true;
 }
 
 //! Returns true if object have same dimensions and shape of axis
 template<class T>
-bool OutputData<T>::hasSameShape(const OutputData<T>& right) const
+template<class U>
+bool OutputData<T>::hasSameShape(const OutputData<U>& right) const
 {
     if(!hasSameDimensions(right)) return false;
 
-    if( (mp_ll_data->getRank() != m_value_axes.size()) ||
-        (right.mp_ll_data->getRank() != right.m_value_axes.size()) ) {
-        throw LogicErrorException(
-             "OutputData<T>::hasSameShape() -> "
-             "Panic! Inconsistent dimensions in LLData and axes");
-    }
     for (size_t i=0; i<m_value_axes.size(); ++i) {
-        const IAxis *p_axis_left = m_value_axes[i];
-        const IAxis *p_axis_right = right.m_value_axes[i];
-
-        if( !HaveSameNameAndShape(*p_axis_left, *p_axis_right)) return false;
+        if( !HaveSameNameAndShape(*getAxis(i), *right.getAxis(i))) return false;
     }
     return true;
 }

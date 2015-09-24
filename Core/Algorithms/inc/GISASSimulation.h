@@ -101,7 +101,7 @@ public:
     //! returns wavelength
     virtual double getWavelength() const;
 
-    void setMask(bool mask);
+    void setMaskAll(bool mask);
     void setRectangularMask(double xlow, double ylow, double xup, double yup, bool mask = true);
 
 protected:

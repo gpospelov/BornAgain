@@ -153,6 +153,17 @@ void register_IntensityData_class(){
                 , ( bp::arg("global_index") ) );
         
         }
+        { //::OutputData< double >::getAxesValues
+        
+            typedef OutputData< double > exported_class_t;
+            typedef ::std::vector< double > ( exported_class_t::*getAxesValues_function_type)( ::std::size_t ) const;
+            
+            IntensityData_exposer.def( 
+                "getAxesValues"
+                , getAxesValues_function_type( &::OutputData< double >::getAxesValues )
+                , ( bp::arg("global_index") ) );
+        
+        }
         { //::OutputData< double >::getAxis
         
             typedef OutputData< double > exported_class_t;
@@ -264,28 +275,14 @@ void register_IntensityData_class(){
                 , getRawDataVector_function_type( &::OutputData< double >::getRawDataVector ) );
         
         }
-        { //::OutputData< double >::hasSameDimensions
+        { //::OutputData< double >::isInitialized
         
             typedef OutputData< double > exported_class_t;
-            typedef bool ( exported_class_t::*hasSameDimensions_function_type)( ::OutputData< double > const & ) const;
+            typedef bool ( exported_class_t::*isInitialized_function_type)(  ) const;
             
             IntensityData_exposer.def( 
-                "hasSameDimensions"
-                , hasSameDimensions_function_type( &::OutputData< double >::hasSameDimensions )
-                , ( bp::arg("right") )
-                , "Returns true if object have same dimensions." );
-        
-        }
-        { //::OutputData< double >::hasSameShape
-        
-            typedef OutputData< double > exported_class_t;
-            typedef bool ( exported_class_t::*hasSameShape_function_type)( ::OutputData< double > const & ) const;
-            
-            IntensityData_exposer.def( 
-                "hasSameShape"
-                , hasSameShape_function_type( &::OutputData< double >::hasSameShape )
-                , ( bp::arg("right") )
-                , "Returns true if object have same dimensions and shape of axis." );
+                "isInitialized"
+                , isInitialized_function_type( &::OutputData< double >::isInitialized ) );
         
         }
         IntensityData_exposer.def( bp::self *= bp::self );

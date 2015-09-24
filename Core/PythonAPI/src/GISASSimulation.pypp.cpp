@@ -398,6 +398,27 @@ void register_GISASSimulation_class(){
                 , "Sets the instrument containing beam and detector information." );
         
         }
+        { //::GISASSimulation::setMaskAll
+        
+            typedef void ( ::GISASSimulation::*setMaskAll_function_type)( bool ) ;
+            
+            GISASSimulation_exposer.def( 
+                "setMaskAll"
+                , setMaskAll_function_type( &::GISASSimulation::setMaskAll )
+                , ( bp::arg("mask") )
+                , "returns wavelength." );
+        
+        }
+        { //::GISASSimulation::setRectangularMask
+        
+            typedef void ( ::GISASSimulation::*setRectangularMask_function_type)( double,double,double,double,bool ) ;
+            
+            GISASSimulation_exposer.def( 
+                "setRectangularMask"
+                , setRectangularMask_function_type( &::GISASSimulation::setRectangularMask )
+                , ( bp::arg("xlow"), bp::arg("ylow"), bp::arg("xup"), bp::arg("yup"), bp::arg("mask")=(bool)(true) ) );
+        
+        }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;

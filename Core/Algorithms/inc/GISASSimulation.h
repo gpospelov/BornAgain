@@ -84,9 +84,6 @@ public:
         size_t n_alpha, double alpha_f_min, double alpha_f_max,
         bool isgisaxs_style=false);
 
-    //! Sets detector parameters using parameter object
-    void setDetectorParameters(const DetectorParameters& params);
-
     //! Define resolution function for detector
     void setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function);
 
@@ -103,6 +100,9 @@ public:
 
     //! returns wavelength
     virtual double getWavelength() const;
+
+    void setMaskAll(bool mask);
+    void setRectangularMask(double xlow, double ylow, double xup, double yup, bool mask = true);
 
 protected:
     GISASSimulation(const GISASSimulation& other);
@@ -123,6 +123,7 @@ protected:
     // extra components describing a GISAS experiment and its simulation:
     Instrument m_instrument;
     OutputData<double> m_intensity_map;
+    OutputData<bool > m_detector_mask;
 };
 
 #endif /* GISASSIMULATION_H_ */

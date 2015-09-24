@@ -100,12 +100,12 @@ int GISASSimulation::getNumberOfSimulationElements() const
         throw RuntimeErrorException("GISASSimulation::getNumberOfSimulationElements: "
                                     "detector is not two-dimensional");
     }
-    const IAxis &phi_axis = m_instrument.getDetectorAxis(0);
+    const IAxis &phi_axis = m_instrument.getDetectorAxis(BornAgain::PHI_AXIS_INDEX);
     if (phi_axis.getName()!=BornAgain::PHI_AXIS_NAME) {
         throw RuntimeErrorException("GISASSimulation::getNumberOfSimulationElements: "
                                     "phi-axis is not correct");
     }
-    const IAxis &alpha_axis = m_instrument.getDetectorAxis(1);
+    const IAxis &alpha_axis = m_instrument.getDetectorAxis(BornAgain::ALPHA_AXIS_INDEX);
     if (alpha_axis.getName()!=BornAgain::ALPHA_AXIS_NAME) {
         throw RuntimeErrorException("GISASSimulation::getNumberOfSimulationElements: "
                                     "alpha-axis is not correct");
@@ -165,12 +165,6 @@ void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_f_min, doub
     updateIntensityMap();
 }
 
-void GISASSimulation::setDetectorParameters(const DetectorParameters& params)
-{
-    m_instrument.setDetectorParameters(params);
-    updateIntensityMap();
-}
-
 void GISASSimulation::setDetectorResolutionFunction(
     const IResolutionFunction2D &resolution_function)
 {
@@ -216,6 +210,28 @@ double GISASSimulation::getWavelength() const
     return m_instrument.getBeam().getWavelength();
 }
 
+void GISASSimulation::setMaskAll(bool mask)
+{
+    if(!m_detector_mask.hasSameShape(m_intensity_map)) {
+        m_detector_mask.copyShapeFrom(m_intensity_map);
+    }
+    m_detector_mask.setAllTo(mask);
+}
+
+void GISASSimulation::setRectangularMask(double xlow, double ylow, double xup, double yup, bool mask)
+{
+    if(!m_detector_mask.hasSameShape(m_intensity_map)) {
+        m_detector_mask.copyShapeFrom(m_intensity_map);
+    }
+    for(size_t index=0; index<m_detector_mask.getAllocatedSize(); ++index) {
+        double x = m_detector_mask.getAxisValue(index, BornAgain::PHI_AXIS_INDEX);
+        double y = m_detector_mask.getAxisValue(index, BornAgain::ALPHA_AXIS_INDEX);
+        if(x>=xlow && x<=xup && y>=ylow && y <= yup) m_detector_mask[index] = mask;
+    }
+}
+
+
+
 GISASSimulation::GISASSimulation(const GISASSimulation& other)
 : Simulation(other)
 , m_instrument(other.m_instrument)
@@ -255,14 +271,28 @@ void GISASSimulation::initSimulationElementVector()
         throw RuntimeErrorException("GISASSimulation::initSimulationElementVector: "
                                     "alpha-axis is not correct");
     }
+
+    bool use_detector_mask(false);
+    if(m_detector_mask.hasSameShape(m_intensity_map)) use_detector_mask = true;
+
     for (size_t phi_index = 0; phi_index < phi_axis.getSize(); ++phi_index) {
         Bin1D phi_bin = phi_axis.getBin(phi_index);
         for (size_t alpha_index = 0; alpha_index < alpha_axis.getSize(); ++alpha_index) {
+            std::vector<int> indices;
+            indices.resize(2);
+            indices[BornAgain::PHI_AXIS_INDEX] = phi_index;
+            indices[BornAgain::ALPHA_AXIS_INDEX] = alpha_index;
+            size_t index = m_intensity_map.toGlobalIndex(indices);
+
+            if(use_detector_mask && m_detector_mask[index]) continue;
+
             Bin1D alpha_bin = alpha_axis.getBin(alpha_index);
             SimulationElement sim_element(wavelength, alpha_i, phi_i, alpha_bin.m_lower,
                                           alpha_bin.m_upper, phi_bin.m_lower, phi_bin.m_upper);
             sim_element.setPolarization(beam_polarization);
             sim_element.setAnalyzerOperator(analyzer_operator);
+            sim_element.setIndex(index);
+
             m_sim_elements.push_back(sim_element);
         }
     }
@@ -276,13 +306,14 @@ void GISASSimulation::transferResultsToIntensityMap()
                                     "detector is not two-dimensional");
     }
     updateIntensityMap();
-    if (m_intensity_map.getAllocatedSize()!=m_sim_elements.size()) {
-        throw RuntimeErrorException("GISASSimulation::transferResultsToIntensityMap: "
-                                    "intensity map has different size than number of "
-                                    "calculated intensities");
-    }
+//    if (m_intensity_map.getAllocatedSize()!=m_sim_elements.size()) {
+//        throw RuntimeErrorException("GISASSimulation::transferResultsToIntensityMap: "
+//                                    "intensity map has different size than number of "
+//                                    "calculated intensities");
+//    }
     for (size_t i=0; i<m_sim_elements.size(); ++i) {
-        m_intensity_map[i] = m_sim_elements[i].getIntensity();
+//        m_intensity_map[i] = m_sim_elements[i].getIntensity();
+        m_intensity_map[m_sim_elements[i].getIndex()] = m_sim_elements[i].getIntensity();
     }
 }
 

@@ -67,9 +67,6 @@ public:
     void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max, size_t n_alpha,
                                double alpha_f_min, double alpha_f_max, bool isgisaxs_style = false);
 
-    //! Sets detector parameters using parameter object
-    void setDetectorParameters(const DetectorParameters &params);
-
     //! Define resolution function for detector
     void setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function);
 

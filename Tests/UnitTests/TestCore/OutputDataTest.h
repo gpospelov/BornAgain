@@ -89,6 +89,15 @@ TEST_F(OutputDataTest, DataInitialization)
     EXPECT_EQ(Eigen::Matrix2d::Identity(), matrix_data_2d[matrix_data_2d.toGlobalIndex(coordinates2)]);
 }
 
+//TEST_F(OutputDataTest, isInitialized)
+//{
+//    OutputData<double> data1;
+//    EXPECT_FALSE(data1.isInitialized());
+//    data1.addAxis("axis", 10, 0.0, 10.0);
+//    EXPECT_TRUE(data1.isInitialized());
+//    data1.clear();
+//    EXPECT_FALSE(data1.isInitialized());
+//}
 
 TEST_F(OutputDataTest, DataCopying)
 {
@@ -192,6 +201,10 @@ TEST_F(OutputDataTest, ValueOfAxis)
     EXPECT_EQ( 7.5, data.getAxisValue(3, "axis2"));
     EXPECT_EQ( 2.5, data.getAxisValue(18, "axis2"));
     EXPECT_EQ( 7.5, data.getAxisValue(19, "axis2"));
+
+    std::vector<double > coordinates = data.getAxesValues(18);
+    EXPECT_EQ(9.5, coordinates[0]);
+    EXPECT_EQ(2.5, coordinates[1]);
 
     OutputData<Eigen::Matrix2d > mdata;
     mdata.addAxis("axis1", 10, 0., 10.);
@@ -420,6 +433,19 @@ TEST_F(OutputDataTest, SetCleared)
     EXPECT_EQ(10*Eigen::Matrix2d::Identity(), matrix_data_2d[0]);
 }
 
+TEST_F(OutputDataTest, MixedTypeOperations)
+{
+    OutputData<bool> data_bool;
+    data_bool.addAxis("axis1", 10, 0.0, 10.0);
+
+    OutputData<bool> data_double;
+    data_double.addAxis("axis1", 10, 0.0, 10.0);
+
+    EXPECT_TRUE(data_bool.hasSameShape(data_double));
+
+    data_double.addAxis("axis2",10, -1.0, 1.0);
+    EXPECT_FALSE(data_bool.hasSameShape(data_double));
+}
 
 // y |
 // --------------------------------------------

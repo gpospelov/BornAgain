@@ -115,6 +115,9 @@ public:
     kvector_t getMeanKF() const;
     cvector_t getMeanQ() const;
 
+    void setIndex(size_t index) { m_index = index; }
+    size_t getIndex() const { return m_index; }
+
 private:
     //! swap function
     void swapContent(SimulationElement &other);
@@ -125,6 +128,7 @@ private:
     double m_wavelength, m_alpha_i, m_phi_i;             //!< wavelength and angles of beam
     double m_alpha_min, m_alpha_max, m_phi_min, m_phi_max; //!< detector cell angles
     double m_intensity;  //!< simulated intensity for detector cell
+    size_t m_index; //!< corresponding index in OutputData
 #ifndef GCCXML_SKIP_THIS
     Eigen::Matrix2cd m_polarization;      //!< polarization density matrix
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator

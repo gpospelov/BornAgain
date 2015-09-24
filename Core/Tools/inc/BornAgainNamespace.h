@@ -22,6 +22,8 @@ namespace BornAgain
 {
     static const std::string PHI_AXIS_NAME = "phi_f";
     static const std::string ALPHA_AXIS_NAME = "alpha_f";
+    static const size_t PHI_AXIS_INDEX = 0;
+    static const size_t ALPHA_AXIS_INDEX = 1;
 
     const std::string FTDistribution2DCauchyType = "FTDistribution2DCauchy";
     const std::string FTDistribution2DGaussType = "FTDistribution2DGauss";

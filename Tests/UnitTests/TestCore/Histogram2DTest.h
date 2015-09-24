@@ -384,7 +384,6 @@ TEST_F(Histogram2DTest, CreateOutputData)
         for(size_t ny=0; ny<hist.getNbinsY(); ++ny) {
             double value(ny + nx*hist.getNbinsY());
             size_t globalbin = hist.getGlobalBin(nx, ny);
-            std::cout << value << std::endl;
             hist.fill(hist.getXaxisValue(globalbin), hist.getYaxisValue(globalbin), value);
         }
     }

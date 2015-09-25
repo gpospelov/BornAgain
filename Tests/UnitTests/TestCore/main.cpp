@@ -53,6 +53,7 @@
 #include "CumulativeValueTest.h"
 #include "Histogram1DTest.h"
 #include "Histogram2DTest.h"
+#include "PolygonTest.h"
 
 
 

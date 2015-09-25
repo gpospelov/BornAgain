@@ -235,16 +235,7 @@ void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
 
 MultiLayerDWBASimulation* MultiLayer::createDWBASimulation() const
 {
-    for (size_t i=0; i<getNumberOfLayers(); ++i) {
-        if( getLayer(i)->hasDWBASimulation() )
-            return new MultiLayerDWBASimulation(this);
-    }
-
-    for(size_t i=0; i<getNumberOfInterfaces(); ++i) {
-        if( getLayerInterface(i)->getRoughness() )
-            return new MultiLayerDWBASimulation(this);
-    }
-    return 0;
+    return new MultiLayerDWBASimulation(this);
 }
 
 int MultiLayer::getIndexOfLayer(const Layer *layer) const

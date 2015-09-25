@@ -44,6 +44,18 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     m_pyobj = 0;
     }
 
+    virtual void addParticle( ::IAbstractParticle const & particle, double abundance=1.0e+0 ) {
+        if( bp::override func_addParticle = this->get_override( "addParticle" ) )
+            func_addParticle( boost::ref(particle), abundance );
+        else{
+            this->ParticleLayout::addParticle( boost::ref(particle), abundance );
+        }
+    }
+    
+    void default_addParticle( ::IAbstractParticle const & particle, double abundance=1.0e+0 ) {
+        ParticleLayout::addParticle( boost::ref(particle), abundance );
+    }
+
     virtual void addParticle( ::IParticle const & particle, double abundance, ::kvector_t const & position ) {
         if( bp::override func_addParticle = this->get_override( "addParticle" ) )
             func_addParticle( boost::ref(particle), abundance, boost::ref(position) );
@@ -66,18 +78,6 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     
     void default_addParticle( ::IParticle const & particle, double abundance, ::kvector_t const & position, ::IRotation const & rotation ) {
         ParticleLayout::addParticle( boost::ref(particle), abundance, boost::ref(position), boost::ref(rotation) );
-    }
-
-    virtual void addParticle( ::IAbstractParticle const & particle, double abundance=1.0e+0 ) {
-        if( bp::override func_addParticle = this->get_override( "addParticle" ) )
-            func_addParticle( boost::ref(particle), abundance );
-        else{
-            this->ParticleLayout::addParticle( boost::ref(particle), abundance );
-        }
-    }
-    
-    void default_addParticle( ::IAbstractParticle const & particle, double abundance=1.0e+0 ) {
-        ParticleLayout::addParticle( boost::ref(particle), abundance );
     }
 
     virtual ::ParticleLayout * clone(  ) const  {
@@ -375,6 +375,18 @@ void register_ParticleLayout_class(){
         }
         { //::ParticleLayout::addParticle
         
+            typedef void ( ::ParticleLayout::*addParticle_function_type)( ::IAbstractParticle const &,double ) ;
+            typedef void ( ParticleLayout_wrapper::*default_addParticle_function_type)( ::IAbstractParticle const &,double ) ;
+            
+            ParticleLayout_exposer.def( 
+                "addParticle"
+                , addParticle_function_type(&::ParticleLayout::addParticle)
+                , default_addParticle_function_type(&ParticleLayout_wrapper::default_addParticle)
+                , ( bp::arg("particle"), bp::arg("abundance")=1.0e+0 ) );
+        
+        }
+        { //::ParticleLayout::addParticle
+        
             typedef void ( ::ParticleLayout::*addParticle_function_type)( ::IParticle const &,double,::kvector_t const & ) ;
             typedef void ( ParticleLayout_wrapper::*default_addParticle_function_type)( ::IParticle const &,double,::kvector_t const & ) ;
             
@@ -395,18 +407,6 @@ void register_ParticleLayout_class(){
                 , addParticle_function_type(&::ParticleLayout::addParticle)
                 , default_addParticle_function_type(&ParticleLayout_wrapper::default_addParticle)
                 , ( bp::arg("particle"), bp::arg("abundance"), bp::arg("position"), bp::arg("rotation") ) );
-        
-        }
-        { //::ParticleLayout::addParticle
-        
-            typedef void ( ::ParticleLayout::*addParticle_function_type)( ::IAbstractParticle const &,double ) ;
-            typedef void ( ParticleLayout_wrapper::*default_addParticle_function_type)( ::IAbstractParticle const &,double ) ;
-            
-            ParticleLayout_exposer.def( 
-                "addParticle"
-                , addParticle_function_type(&::ParticleLayout::addParticle)
-                , default_addParticle_function_type(&ParticleLayout_wrapper::default_addParticle)
-                , ( bp::arg("particle"), bp::arg("abundance")=1.0e+0 ) );
         
         }
         { //::ParticleLayout::clone

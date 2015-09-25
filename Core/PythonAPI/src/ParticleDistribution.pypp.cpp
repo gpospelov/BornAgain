@@ -267,7 +267,7 @@ struct ParticleDistribution_wrapper : ParticleDistribution, bp::wrapper< Particl
 void register_ParticleDistribution_class(){
 
     { //::ParticleDistribution
-        typedef bp::class_< ParticleDistribution_wrapper, bp::bases< IParticle >, std::auto_ptr< ParticleDistribution_wrapper >, boost::noncopyable > ParticleDistribution_exposer_t;
+        typedef bp::class_< ParticleDistribution_wrapper, bp::bases< IAbstractParticle >, std::auto_ptr< ParticleDistribution_wrapper >, boost::noncopyable > ParticleDistribution_exposer_t;
         ParticleDistribution_exposer_t ParticleDistribution_exposer = ParticleDistribution_exposer_t( "ParticleDistribution", "A particle with a form factor and refractive inde.", bp::init< IParticle const &, ParameterDistribution const & >(( bp::arg("prototype"), bp::arg("par_distr") )) );
         bp::scope ParticleDistribution_scope( ParticleDistribution_exposer );
         { //::ParticleDistribution::clone

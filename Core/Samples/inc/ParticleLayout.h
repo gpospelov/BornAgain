@@ -47,27 +47,22 @@ public:
         visitor->visit(this);
     }
 
-    //! Adds generic particle
-//    void addParticle(const IParticle &particle, const IRotation& rotation, double abundance = 1.0);
-
-
-//    void addParticle(const IParticle &particle, double abundance = 1.0);
-//    void addParticle(const IParticle &particle, double abundance, const IRotation& rotation);
-//    void addParticle(const IParticle &particle, double abundance, const IRotation& rotation, const kvector_t &position);
+    //! @brief Adds generic particle to the layout with only abundance defined
+    //! @param abundance Particle abundance
+    virtual void addParticle(const IAbstractParticle &particle, double abundance = 1.0);
 
     //! @brief Adds particle to the layout with abundance and position defined
     //! @param abundance Particle abundance
     //! @param position Particle position
-    virtual void addParticle(const IParticle &particle, double abundance, const kvector_t &position);
+    virtual void addParticle(const IParticle &particle, double abundance,
+                             const kvector_t &position);
 
     //! @brief Adds particle to the layout with abundance, position and the rotation defined
     //! @param abundance Particle abundance
     //! @param position Particle position
     //! @param rotation Particle rotation
-    virtual void addParticle(const IParticle &particle, double abundance, const kvector_t &position, const IRotation& rotation);
-
-    //! Adds particle without rotation
-    virtual void addParticle(const IAbstractParticle &particle, double abundance = 1.0);
+    virtual void addParticle(const IParticle &particle, double abundance,
+                             const kvector_t &position, const IRotation& rotation);
 
     //! Returns number of particles
     virtual size_t getNumberOfParticles() const

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "Polygon.h"
+#include "Bin.h"
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
 #include <boost/geometry/geometries/polygon.hpp>
@@ -22,6 +23,7 @@ using namespace boost::geometry;
 
 namespace Geometry {
 
+//! The private data for polygons to hide boost dependency from the header
 class PolygonPrivate {
 public:
     typedef model::d2::point_xy<double> point_t;
@@ -43,20 +45,10 @@ void PolygonPrivate::init_from(const std::vector<double> &x, const std::vector<d
     for(size_t i=0; i<x.size(); ++i) {
         points.push_back(point_t(x[i], y[i]));
     }
-//    // close polygon if necessary
-//    if( (x.front() != x.back()) || (y.front() != y.back()) ) {
-//        points.push_back(point_t(x.back(), y.back()));
-//    }
-
     assign_points(polygon, points);
     correct(polygon);
 }
 
-//Polygon::Polygon()
-//    : m_d(new PolygonPrivate)
-//{
-
-//}
 
 Polygon::Polygon(const std::vector<double> &x, const std::vector<double> &y)
     : m_d(new PolygonPrivate)
@@ -74,10 +66,15 @@ Polygon *Polygon::clone() const
     return new Polygon(*this);
 }
 
-bool Polygon::isInside(double x, double y) const
+bool Polygon::contains(double x, double y) const
 {
-//    return within(PolygonPrivate::point_t(x, y), m_d->polygon);
+//    return within(PolygonPrivate::point_t(x, y), m_d->polygon); // not including borders
     return covered_by(PolygonPrivate::point_t(x, y), m_d->polygon);
+}
+
+bool Polygon::contains(const Bin1D &binx, const Bin1D &biny) const
+{
+    return contains(binx.getMidPoint(), biny.getMidPoint());
 }
 
 double Polygon::getArea() const

@@ -32,12 +32,17 @@ public:
 
     Polygon(const std::vector<double > &x, const std::vector<double> &y);
 
+
     ~Polygon();
 
     Polygon *clone() const;
 
     //! Returns true if given point is inside or on border of polygon
-    bool isInside(double x, double y) const;
+    bool contains(double x, double y) const;
+
+    //! Returns true if area defined by two bins is inside or on border of polygon.
+    //! More precisely, if mid point of two bins satisfy this condition.
+    bool contains(const Bin1D &binx, const Bin1D &biny) const;
 
     double getArea() const;
 

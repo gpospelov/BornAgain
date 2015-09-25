@@ -19,6 +19,8 @@
 #include "ICloneable.h"
 #include <iostream>
 
+class Bin1D;
+
 namespace Geometry {
 
 //! @class IShape2D
@@ -28,9 +30,13 @@ namespace Geometry {
 class BA_CORE_API_ IShape2D : public ICloneable {
 public:
 
-    //! Returns true if given point is inside or on border of the shape
-    virtual bool isInside(double x, double y) const = 0;
+    virtual IShape2D *clone() const = 0;
 
+    //! Returns true if point with given coordinates is inside or on border of the shape
+    virtual bool contains(double x, double y) const = 0;
+
+    //! Returns true if area defined by two bins is inside or on border of the shape
+    virtual bool contains(const Bin1D &binx, const Bin1D &biny) const = 0;
 
     friend std::ostream &operator<<(std::ostream &ostr, const IShape2D &shape)
     {

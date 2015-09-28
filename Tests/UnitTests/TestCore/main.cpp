@@ -55,6 +55,7 @@
 #include "Histogram2DTest.h"
 #include "PolygonTest.h"
 #include "DetectorMaskTest.h"
+#include "Shape2DTest.h"
 
 
 

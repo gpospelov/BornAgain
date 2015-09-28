@@ -20,8 +20,6 @@
 
 
 // InfinitePlane, Line, VerticalLine, HorizontalLine, Ellipse, Rectangle
-//
-// Polygon stdvector<stdvector<double>> constructor
 
 DetectorMask::DetectorMask()
 {
@@ -42,7 +40,6 @@ DetectorMask &DetectorMask::operator=(const DetectorMask &other)
         tmp.swapContent(*this);
     }
     return *this;
-
 }
 
 void DetectorMask::addMask(const Geometry::IShape2D &shape, bool mask_value)

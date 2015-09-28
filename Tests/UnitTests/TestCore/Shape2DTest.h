@@ -2,6 +2,8 @@
 #define SHAPE2DTEST_H
 
 #include "Rectangle.h"
+#include "Ellipse.h"
+#include "Units.h"
 #include "gtest/gtest.h"
 #include <boost/scoped_ptr.hpp>
 #include <boost/assign/list_of.hpp>
@@ -42,6 +44,26 @@ TEST_F(Shape2DTest, Rectangle)
     EXPECT_TRUE(clone->contains(binx1, biny1));
     EXPECT_FALSE(clone->contains(binx2, biny2));
 }
+
+TEST_F(Shape2DTest, Ellipse)
+{
+    Geometry::Ellipse ellipse(10.0, 1.0, 8.0, 4.0);
+    EXPECT_TRUE(ellipse.contains(10.0, 1.0));
+    EXPECT_TRUE(ellipse.contains(18.0, 1.0));
+    EXPECT_FALSE(ellipse.contains(18.01, 1.0));
+
+    EXPECT_TRUE(ellipse.contains(10.0, -3.0));
+    EXPECT_FALSE(ellipse.contains(10.0, -3.01));
+
+    EXPECT_FALSE(ellipse.contains(4.0, -2.0));
+    EXPECT_TRUE(ellipse.contains(6.0, -2.0));
+
+    Geometry::Ellipse ellipse2(10.0, 1.0, 8.0, 4.0, 45.0*Units::degree);
+    EXPECT_TRUE(ellipse2.contains(10.0, 1.0));
+    EXPECT_FALSE(ellipse2.contains(15.0, 0.0));
+    EXPECT_TRUE(ellipse2.contains(7.0, 3.0));
+}
+
 
 
 

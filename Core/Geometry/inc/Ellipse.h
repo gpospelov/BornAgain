@@ -13,28 +13,29 @@
 //
 // ************************************************************************** //
 
-#ifndef RECTANGLE_H
-#define RECTANGLE_H
+#ifndef ELLIPSE_H
+#define ELLIPSE_H
 
 #include "IShape2D.h"
 
 namespace Geometry {
 
 
-//! @class Rectangle
+//! @class Ellipse
 //! @ingroup tools
-//! @brief The rectangle shape (non-rotated so far).
+//! @brief Ellipse shape
 
-class  Rectangle : public IShape2D {
+class  Ellipse : public IShape2D {
 public:
-    //! Rectangle constructor with lower left and upper right coordinates
-    //! @param xlow x-coordinate of lower left corner
-    //! @param ylow y-coordinate of lower left corner
-    //! @param xup x-coordinate of upper right corner
-    //! @param yup y-coordinate of upper right corner
-    Rectangle(double xlow, double ylow, double xup, double yup);
+    //! Ellipse constructor
+    //! @param xcenter x-coordinate of Ellipse's center
+    //! @param ycenter y-coordinate of Ellipse's center
+    //! @param xradius Radius along x-axis
+    //! @param yradius Radius along y-axis
+    //! @param theta Angle of Ellipse rotation in radians
+    Ellipse(double xcenter, double ycenter, double xradius, double yradius, double theta = 0.0);
 
-    Rectangle *clone() const;
+    Ellipse *clone() const;
 
     //! Returns true if given point is inside or on border of polygon
     bool contains(double x, double y) const;
@@ -43,11 +44,9 @@ public:
     //! More precisely, if mid point of two bins satisfy this condition.
     bool contains(const Bin1D &binx, const Bin1D &biny) const;
 
-    double getArea() const;
-
 private:
-    Rectangle(const Rectangle& other);
-    double m_xlow, m_ylow, m_xup, m_yup;
+    Ellipse(const Ellipse& other);
+    double m_xc, m_yc, m_xr, m_yr, m_theta;
 };
 
 } // namespace Geometry

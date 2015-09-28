@@ -89,7 +89,28 @@ TEST_F(Shape2DTest, Line)
 }
 
 
+TEST_F(Shape2DTest, VerticalLine)
+{
+    Geometry::VerticalLine line(1.0);
+    EXPECT_TRUE(line.contains(1.0, 0.0));
+    EXPECT_FALSE(line.contains(1.01, 0.0));
 
+    EXPECT_TRUE(line.contains(Bin1D(0.5, 1.5), Bin1D(0.0, 1.0)));
+    EXPECT_FALSE(line.contains(Bin1D(1.01, 2.0), Bin1D(0.0, 1.0)));
+
+}
+
+
+TEST_F(Shape2DTest, HorizontalLine)
+{
+    Geometry::HorizontalLine line(1.0);
+    EXPECT_TRUE(line.contains(0.0, 1.0));
+    EXPECT_FALSE(line.contains(0.0, 1.01));
+
+    EXPECT_TRUE(line.contains(Bin1D(0.0, 1.0), Bin1D(0.5, 1.5)));
+    EXPECT_FALSE(line.contains(Bin1D(0.0, 1.0), Bin1D(1.01, 2.0)));
+
+}
 
 
 

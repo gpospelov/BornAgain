@@ -279,6 +279,16 @@ void register_GISASSimulation_class(){
                 , default_getWavelength_function_type(&GISASSimulation_wrapper::default_getWavelength) );
         
         }
+        { //::GISASSimulation::maskAll
+        
+            typedef void ( ::GISASSimulation::*maskAll_function_type)(  ) ;
+            
+            GISASSimulation_exposer.def( 
+                "maskAll"
+                , maskAll_function_type( &::GISASSimulation::maskAll )
+                , "Put the mask for all detector channels (i.e. exclude whole detector from the analysis)." );
+        
+        }
         { //::GISASSimulation::normalize
         
             typedef void ( ::GISASSimulation::*normalize_function_type)(  ) ;
@@ -308,6 +318,16 @@ void register_GISASSimulation_class(){
                 "removeDetectorResolutionFunction"
                 , removeDetectorResolutionFunction_function_type( &::GISASSimulation::removeDetectorResolutionFunction )
                 , "Removes detector resolution function." );
+        
+        }
+        { //::GISASSimulation::removeMasks
+        
+            typedef void ( ::GISASSimulation::*removeMasks_function_type)(  ) ;
+            
+            GISASSimulation_exposer.def( 
+                "removeMasks"
+                , removeMasks_function_type( &::GISASSimulation::removeMasks )
+                , "removes all masks from the detector." );
         
         }
         { //::GISASSimulation::setAnalyzerProperties
@@ -396,27 +416,6 @@ void register_GISASSimulation_class(){
                 , setInstrument_function_type( &::GISASSimulation::setInstrument )
                 , ( bp::arg("instrument") )
                 , "Sets the instrument containing beam and detector information." );
-        
-        }
-        { //::GISASSimulation::setMaskAll
-        
-            typedef void ( ::GISASSimulation::*setMaskAll_function_type)( bool ) ;
-            
-            GISASSimulation_exposer.def( 
-                "setMaskAll"
-                , setMaskAll_function_type( &::GISASSimulation::setMaskAll )
-                , ( bp::arg("mask") )
-                , "returns wavelength." );
-        
-        }
-        { //::GISASSimulation::setRectangularMask
-        
-            typedef void ( ::GISASSimulation::*setRectangularMask_function_type)( double,double,double,double,bool ) ;
-            
-            GISASSimulation_exposer.def( 
-                "setRectangularMask"
-                , setRectangularMask_function_type( &::GISASSimulation::setRectangularMask )
-                , ( bp::arg("xlow"), bp::arg("ylow"), bp::arg("xup"), bp::arg("yup"), bp::arg("mask")=(bool)(true) ) );
         
         }
         { //::IParameterized::areParametersChanged

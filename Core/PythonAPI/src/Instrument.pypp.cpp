@@ -155,11 +155,22 @@ void register_Instrument_class(){
         }
         { //::Instrument::getDetector
         
-            typedef ::Detector ( ::Instrument::*getDetector_function_type)(  ) const;
+            typedef ::Detector const * ( ::Instrument::*getDetector_function_type)(  ) const;
             
             Instrument_exposer.def( 
                 "getDetector"
-                , getDetector_function_type( &::Instrument::getDetector ) );
+                , getDetector_function_type( &::Instrument::getDetector )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::Instrument::getDetector
+        
+            typedef ::Detector * ( ::Instrument::*getDetector_function_type)(  ) ;
+            
+            Instrument_exposer.def( 
+                "getDetector"
+                , getDetector_function_type( &::Instrument::getDetector )
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::Instrument::getDetectorAxis

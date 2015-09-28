@@ -19,6 +19,7 @@
 #include "IDetectorResolution.h"
 #include "SafePointerVector.h"
 #include "EigenCore.h"
+#include "DetectorMask.h"
 
 //! @class Detector
 //! @ingroup simulation
@@ -87,6 +88,24 @@ public:
     //! Normalize intensity data with detector cell sizes.
     void normalize(OutputData<double> *p_data, double sin_alpha_i) const;
 
+
+    //! removes all masks from the detector
+    void removeMasks();
+
+    //! Adds mask of given shape to the stack of detector masks. The mask value "true" means
+    //! that the channel will be excluded from the simulation. The mask which is added last
+    //! has priority.
+    //! @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse)
+    //! @mask_value The value of mask
+    void addMask(const Geometry::IShape2D &shape, bool mask_value = true);
+
+    //! Put the mask for all detector channels (i.e. exclude whole detector from the analysis)
+    void maskAll();
+
+    const DetectorMask *getDetectorMask() const;
+
+    bool isMasked(size_t index) const;
+
 protected:
     virtual void print(std::ostream &ostr) const;
 
@@ -127,6 +146,7 @@ private:
 #ifndef GCCXML_SKIP_THIS
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 #endif
+    DetectorMask m_detector_mask;
 };
 
 #endif /* DETECTOR_H_ */

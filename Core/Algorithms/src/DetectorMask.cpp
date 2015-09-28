@@ -76,7 +76,7 @@ void DetectorMask::initMaskData(const Detector &detector)
     }
 }
 
-bool DetectorMask::getMask(size_t index)
+bool DetectorMask::getMask(size_t index) const
 {
     if(!m_mask_data.isInitialized()) {
         throw LogicErrorException("DetectorMask::getMask() -> Error. Masks are not initialized");
@@ -89,7 +89,7 @@ const OutputData<bool> *DetectorMask::getMaskData() const
     return &m_mask_data;
 }
 
-void DetectorMask::clear()
+void DetectorMask::removeMasks()
 {
     m_shapes.clear();
     m_mask_of_shape.clear();

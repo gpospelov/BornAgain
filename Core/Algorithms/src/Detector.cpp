@@ -14,13 +14,13 @@
 // ************************************************************************** //
 
 #include "Detector.h"
-
 #include "MessageService.h"
 #include "BornAgainNamespace.h"
 #include "FixedBinAxis.h"
 #include "ConstKBinAxis.h"
 #include "CustomBinAxis.h"
 #include "Beam.h"
+#include "Rectangle.h"
 
 #include <iostream>
 #include <Eigen/LU>
@@ -56,6 +56,7 @@ void Detector::swapContent(Detector &other)
     std::swap(this->m_axes, other.m_axes);
     std::swap(this->mp_detector_resolution, other.mp_detector_resolution);
     std::swap(this->m_analyzer_operator, other.m_analyzer_operator);
+    std::swap(this->m_detector_mask, other.m_detector_mask);
 }
 
 const IAxis &Detector::getAxis(size_t index) const
@@ -101,6 +102,38 @@ bool Detector::dataShapeMatches(const OutputData<double> *p_data) const
             return false;
     }
     return true;
+}
+
+void Detector::removeMasks()
+{
+    m_detector_mask.removeMasks();
+}
+
+void Detector::addMask(const Geometry::IShape2D &shape, bool mask_value)
+{
+    m_detector_mask.addMask(shape, mask_value);
+    m_detector_mask.initMaskData(*this);
+}
+
+void Detector::maskAll()
+{
+    if(m_axes.size() != 2) return;
+
+    m_detector_mask.removeMasks();
+
+    Geometry::Rectangle rect(m_axes[0]->getMin(), m_axes[1]->getMin(), m_axes[0]->getMax(), m_axes[1]->getMax());
+    addMask(rect, true);
+}
+
+const DetectorMask *Detector::getDetectorMask() const
+{
+    return &m_detector_mask;
+}
+
+bool Detector::isMasked(size_t index) const
+{
+    if(!m_detector_mask.getMaskData()->isInitialized()) return false;
+    return m_detector_mask.getMask(index);
 }
 
 std::string Detector::addParametersToExternalPool(std::string path, ParameterPool *external_pool,

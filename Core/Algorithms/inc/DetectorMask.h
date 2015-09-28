@@ -19,11 +19,9 @@
 #include "WinDllMacros.h"
 #include "SafePointerVector.h"
 #include "OutputData.h"
+#include "IShape2D.h"
 #include <map>
 
-namespace Geometry {
-class IShape2D;
-}
 
 class Detector;
 
@@ -47,12 +45,12 @@ public:
     //! Init the map of masks for the given detector plane
     void initMaskData(const Detector &detector);
 
-    bool getMask(size_t index);
+    bool getMask(size_t index) const;
 
     const OutputData<bool>* getMaskData() const;
 
-    //! clear all masks and return object to initial state
-    void clear();
+    //! remove all masks and return object to initial state
+    void removeMasks();
 
 private:
     //! swap function

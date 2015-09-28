@@ -462,16 +462,16 @@ void TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem,
                                             const GISASSimulation &simulation)
 {
     Q_ASSERT(detectorItem);
-    Detector detector = simulation.getInstrument().getDetector();
+    const Detector *detector = simulation.getInstrument().getDetector();
 
     // Axes
-    const IAxis &phi_axis = detector.getAxis(0);
-    const IAxis &alpha_axis = detector.getAxis(1);
+    const IAxis &phi_axis = detector->getAxis(0);
+    const IAxis &alpha_axis = detector->getAxis(1);
 
     ComboProperty binning_property
         = detectorItem->getRegisteredProperty(PhiAlphaDetectorItem::P_BINNING)
               .value<ComboProperty>();
-    binning_property.setValue(TransformFromDomain::getDetectorBinning(&detector));
+    binning_property.setValue(TransformFromDomain::getDetectorBinning(detector));
     detectorItem->setRegisteredProperty(PhiAlphaDetectorItem::P_BINNING,
                                         binning_property.getVariant());
 
@@ -490,7 +490,7 @@ void TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem,
     alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
 
     // detector resolution
-    if (const IDetectorResolution *p_resfunc = detector.getDetectorResolutionFunction()) {
+    if (const IDetectorResolution *p_resfunc = detector->getDetectorResolutionFunction()) {
         if (const ConvolutionDetectorResolution *p_convfunc
             = dynamic_cast<const ConvolutionDetectorResolution *>(p_resfunc)) {
             if (const ResolutionFunction2DGaussian *resfunc

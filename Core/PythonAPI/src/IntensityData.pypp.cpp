@@ -191,6 +191,17 @@ void register_IntensityData_class(){
         { //::OutputData< double >::getAxisBin
         
             typedef OutputData< double > exported_class_t;
+            typedef ::Bin1D ( exported_class_t::*getAxisBin_function_type)( ::std::size_t,::std::size_t ) const;
+            
+            IntensityData_exposer.def( 
+                "getAxisBin"
+                , getAxisBin_function_type( &::OutputData< double >::getAxisBin )
+                , ( bp::arg("global_index"), bp::arg("i_selected_axis") ) );
+        
+        }
+        { //::OutputData< double >::getAxisBin
+        
+            typedef OutputData< double > exported_class_t;
             typedef ::Bin1D ( exported_class_t::*getAxisBin_function_type)( ::std::size_t,::std::string const & ) const;
             
             IntensityData_exposer.def( 

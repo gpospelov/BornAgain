@@ -88,7 +88,7 @@ TEST_F(DetectorMaskTest, AddMask)
     }
 
     // clearing all masks
-    detectorMask.clear();
+    detectorMask.removeMasks();
     detectorMask.initMaskData(detector);
     for(size_t index=0; index<detectorMask.getMaskData()->getAllocatedSize(); ++index) {
         EXPECT_FALSE(detectorMask.getMask(index));

@@ -30,9 +30,7 @@ public:
     Instrument();
     Instrument(const Instrument &other);
 
-    ~Instrument()
-    {
-    }
+    ~Instrument(){}
 
     //! Returns the beam data
     Beam getBeam() const;
@@ -62,7 +60,8 @@ public:
     }
 
     //! Returns the detector data
-    Detector getDetector() const;
+    const Detector *getDetector() const;
+    Detector *getDetector();
 
     //! Returns a detector axis
     const IAxis &getDetectorAxis(size_t index) const;
@@ -130,9 +129,14 @@ inline void Instrument::setBeamParameters(double wavelength, double alpha_i, dou
     m_beam.setCentralK(wavelength, alpha_i, phi_i);
 }
 
-inline Detector Instrument::getDetector() const
+inline const Detector *Instrument::getDetector() const
 {
-    return m_detector;
+    return &m_detector;
+}
+
+inline Detector *Instrument::getDetector()
+{
+    return &m_detector;
 }
 
 inline const IAxis &Instrument::getDetectorAxis(size_t index) const

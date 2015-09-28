@@ -29,6 +29,9 @@
 
 class ProgramOptions;
 class ProgressHandlerDWBA;
+namespace Geometry {
+class IShape2D;
+}
 
 //! @class Simulation
 //! @ingroup simulation
@@ -101,8 +104,18 @@ public:
     //! returns wavelength
     virtual double getWavelength() const;
 
-    void setMaskAll(bool mask);
-    void setRectangularMask(double xlow, double ylow, double xup, double yup, bool mask = true);
+    //! removes all masks from the detector
+    void removeMasks();
+
+    //! Adds mask of given shape to the stack of detector masks. The mask value "true" means
+    //! that the channel will be excluded from the simulation. The mask which is added last
+    //! has priority.
+    //! @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse)
+    //! @mask_value The value of mask
+    void addMask(const Geometry::IShape2D &shape, bool mask_value = true);
+
+    //! Put the mask for all detector channels (i.e. exclude whole detector from the analysis)
+    void maskAll();
 
 protected:
     GISASSimulation(const GISASSimulation& other);
@@ -123,7 +136,6 @@ protected:
     // extra components describing a GISAS experiment and its simulation:
     Instrument m_instrument;
     OutputData<double> m_intensity_map;
-    OutputData<bool > m_detector_mask;
 };
 
 #endif /* GISASSIMULATION_H_ */

@@ -35,6 +35,8 @@ class BA_CORE_API_ DetectorMask
 {
 public:
     DetectorMask();
+    DetectorMask(const DetectorMask &other);
+    DetectorMask &operator=(const DetectorMask &other);
 
     //! Add mask to the stack of detector masks. The value "true" means that the area will
     //! be excluded from the analysis.
@@ -49,9 +51,15 @@ public:
 
     const OutputData<bool>* getMaskData() const;
 
+    // clear all masks and return object to initial state
+    void clear();
+
 private:
+    //! swap function
+    void swapContent(DetectorMask &other);
+
     SafePointerVector<Geometry::IShape2D> m_shapes;
-    std::map<const Geometry::IShape2D *, bool> m_shape_to_mask;
+    std::vector<bool> m_mask_of_shape;
     OutputData<bool> m_mask_data;
 };
 

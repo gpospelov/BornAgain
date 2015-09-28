@@ -37,7 +37,6 @@ TEST_F(PolygonTest, SimpleRectangle)
     EXPECT_TRUE(polygon2.contains(-4.0, -2.0));
     EXPECT_FALSE(polygon2.contains(0.0, 2.01));
     EXPECT_FALSE(polygon2.contains(4.0, -2.01));
-
 }
 
 //     *******
@@ -53,7 +52,7 @@ TEST_F(PolygonTest, SandWatchShape)
     std::vector<double> x = boost::assign::list_of(2.0)(-2.0)(2.0)(-2.0)(2.0);
     std::vector<double> y = boost::assign::list_of(2.0)(2.0)(-2.0)(-2.0)(2.0);
     Geometry::Polygon polygon(x, y);
-    std::cout << polygon << std::endl;
+//    std::cout << polygon << std::endl;
 
     // for some reason area calculation doesn't work for boost's polygon of such shape
     // EXPECT_DOUBLE_EQ(8.0, polygon.getArea());
@@ -67,6 +66,23 @@ TEST_F(PolygonTest, SandWatchShape)
     EXPECT_FALSE(polygon.contains(-1.5, 0.5));
 
 }
+
+TEST_F(PolygonTest, ContainsBin)
+{
+    // simple closed rectangle
+    std::vector<double> x = boost::assign::list_of(4.0)(-4.0)(-4.0)(4.0)(4.0);
+    std::vector<double> y = boost::assign::list_of(2.0)(2.0)(-2.0)(-2.0)(2.0);
+    Geometry::Polygon polygon(x, y);
+
+    Bin1D binx1(3.5, 4.5);
+    Bin1D biny1(1.5, 2.5);
+    EXPECT_TRUE(polygon.contains(binx1, biny1));
+
+    Bin1D binx2(3.5, 4.6);
+    Bin1D biny2(1.5, 2.6);
+    EXPECT_FALSE(polygon.contains(binx2, biny2));
+}
+
 
 TEST_F(PolygonTest, Clone)
 {

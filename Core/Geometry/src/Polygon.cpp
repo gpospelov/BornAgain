@@ -69,7 +69,7 @@ Polygon *Polygon::clone() const
 bool Polygon::contains(double x, double y) const
 {
 //    return within(PolygonPrivate::point_t(x, y), m_d->polygon); // not including borders
-    return covered_by(PolygonPrivate::point_t(x, y), m_d->polygon);
+    return covered_by(PolygonPrivate::point_t(x, y), m_d->polygon); // including borders
 }
 
 bool Polygon::contains(const Bin1D &binx, const Bin1D &biny) const
@@ -86,16 +86,6 @@ void Polygon::print(std::ostream &ostr) const
 {
     ostr << wkt<PolygonPrivate::polygon_t>(m_d->polygon);
 }
-
-//double Polygon::getData() const
-//{
-//    return m_d->m_x;
-//}
-
-//void Polygon::setData(double value) const
-//{
-//    m_d->m_x = value;
-//}
 
 Polygon::Polygon(const Polygon &other)
 {

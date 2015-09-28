@@ -54,6 +54,7 @@
 #include "Histogram1DTest.h"
 #include "Histogram2DTest.h"
 #include "PolygonTest.h"
+#include "DetectorMaskTest.h"
 
 
 

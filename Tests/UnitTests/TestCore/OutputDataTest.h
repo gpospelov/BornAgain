@@ -89,15 +89,15 @@ TEST_F(OutputDataTest, DataInitialization)
     EXPECT_EQ(Eigen::Matrix2d::Identity(), matrix_data_2d[matrix_data_2d.toGlobalIndex(coordinates2)]);
 }
 
-//TEST_F(OutputDataTest, isInitialized)
-//{
-//    OutputData<double> data1;
-//    EXPECT_FALSE(data1.isInitialized());
-//    data1.addAxis("axis", 10, 0.0, 10.0);
-//    EXPECT_TRUE(data1.isInitialized());
-//    data1.clear();
-//    EXPECT_FALSE(data1.isInitialized());
-//}
+TEST_F(OutputDataTest, isInitialized)
+{
+    OutputData<double> data1;
+    EXPECT_FALSE(data1.isInitialized());
+    data1.addAxis("axis", 10, 0.0, 10.0);
+    EXPECT_TRUE(data1.isInitialized());
+    data1.clear();
+    EXPECT_FALSE(data1.isInitialized());
+}
 
 TEST_F(OutputDataTest, DataCopying)
 {
@@ -223,6 +223,29 @@ TEST_F(OutputDataTest, ValueOfAxis)
     EXPECT_EQ( 2.5, mdata.getAxisValue(18, "axis2"));
     EXPECT_EQ( 7.5, mdata.getAxisValue(19, "axis2"));
 }
+
+// y |
+// --------------------------------------------
+// 1 | 1   3   5   7   9   11  13  15  17  19 |
+// 0 | 0   2   4   6   8   10  12  14  16  18 |
+// --------------------------------------------
+//   | 0   1   2   3   4   5   6   7   8   9  | x
+TEST_F(OutputDataTest, GetAxisBin)
+{
+    OutputData<double > data;
+    data.addAxis("axis1", 10, 0., 10.);
+    data.addAxis("axis2", 2, 0., 10.);
+
+    EXPECT_EQ(0.5, data.getAxisBin(0, "axis1").getMidPoint());
+    EXPECT_EQ(0.5, data.getAxisBin(1, "axis1").getMidPoint());
+    EXPECT_EQ(9.5, data.getAxisBin(18, "axis1").getMidPoint());
+    EXPECT_EQ(9.5, data.getAxisBin(19, "axis1").getMidPoint());
+    EXPECT_EQ(2.5, data.getAxisBin(0, "axis2").getMidPoint());
+    EXPECT_EQ(7.5, data.getAxisBin(1, "axis2").getMidPoint());
+    EXPECT_EQ(2.5, data.getAxisBin(18, "axis2").getMidPoint());
+    EXPECT_EQ(7.5, data.getAxisBin(19, "axis2").getMidPoint());
+}
+
 
 
 // y |

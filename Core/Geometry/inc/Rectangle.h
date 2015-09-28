@@ -23,7 +23,7 @@ namespace Geometry {
 
 //! @class Rectangle
 //! @ingroup tools
-//! @brief The rectangle shape (non-rotated so far).
+//! @brief The rectangle shape having its axis aligned to the coordinate system (non-rotated so far).
 
 class  Rectangle : public IShape2D {
 public:
@@ -36,10 +36,10 @@ public:
 
     Rectangle *clone() const;
 
-    //! Returns true if given point is inside or on border of polygon
+    //! Returns true if given point is inside or on border of rectangle
     bool contains(double x, double y) const;
 
-    //! Returns true if area defined by two bins is inside or on border of polygon.
+    //! Returns true if area defined by two bins is inside or on border of rectangle.
     //! More precisely, if mid point of two bins satisfy this condition.
     bool contains(const Bin1D &binx, const Bin1D &biny) const;
 

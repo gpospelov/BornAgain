@@ -19,7 +19,7 @@
 #include "BornAgainNamespace.h"
 
 
-// InfinitePlane, Line, VerticalLine, HorizontalLine, Ellipse, Rectangle
+// InfinitePlane, Line, VerticalLine, HorizontalLine
 
 DetectorMask::DetectorMask()
 {
@@ -67,11 +67,9 @@ void DetectorMask::initMaskData(const Detector &detector)
         // setting mask to the data starting from last shape added
         for(size_t i_shape=m_shapes.size(); i_shape>0; --i_shape) {
             const Geometry::IShape2D *shape = m_shapes[i_shape-1];
-            //std::cout << " index:" << index << " i_shape:" << i_shape << " number of shapes:" << m_shapes.size() << std::endl;
             if(shape->contains(binx, biny)) {
                 m_mask_data[index] = m_mask_of_shape[i_shape-1];
                 // if given index is covered by the shape, stop looking further
-                //std::cout << " break! mask of shape" << m_mask_of_shape[i_shape-1] << std::endl;
                 break;
             }
         }

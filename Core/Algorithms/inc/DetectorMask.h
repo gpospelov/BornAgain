@@ -44,7 +44,7 @@ public:
     //! @param mask_value The value of mask
     void addMask(const Geometry::IShape2D &shape, bool mask_value);
 
-    //! Init the map of masks for the whole detector plane
+    //! Init the map of masks for the given detector plane
     void initMaskData(const Detector &detector);
 
     bool getMask(size_t index);

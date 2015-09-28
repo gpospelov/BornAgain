@@ -3,6 +3,7 @@
 
 #include "Rectangle.h"
 #include "Ellipse.h"
+#include "Line.h"
 #include "Units.h"
 #include "gtest/gtest.h"
 #include <boost/scoped_ptr.hpp>
@@ -62,7 +63,32 @@ TEST_F(Shape2DTest, Ellipse)
     EXPECT_TRUE(ellipse2.contains(10.0, 1.0));
     EXPECT_FALSE(ellipse2.contains(15.0, 0.0));
     EXPECT_TRUE(ellipse2.contains(7.0, 3.0));
+
+    boost::scoped_ptr<Geometry::Ellipse> clone(ellipse2.clone());
+    EXPECT_TRUE(clone->contains(10.0, 1.0));
+    EXPECT_FALSE(clone->contains(15.0, 0.0));
+    EXPECT_TRUE(clone->contains(7.0, 3.0));
+
 }
+
+TEST_F(Shape2DTest, Line)
+{
+    Geometry::Line line(0.0, 0.0, 1.0, 0.0);
+    EXPECT_TRUE(line.contains(0.0, 0.0));
+    EXPECT_TRUE(line.contains(0.5, 0.0));
+    EXPECT_TRUE(line.contains(1.0, 0.0));
+    EXPECT_FALSE(line.contains(1.01, 0.0));
+
+    Geometry::Line line2(0.0, 0.0, 1.0, 1.0);
+    EXPECT_TRUE(line2.contains(Bin1D(0.5, 1.0),Bin1D(0.0, 0.5)));
+    EXPECT_FALSE(line2.contains(Bin1D(0.51, 1.0),Bin1D(0.0, 0.49)));
+
+    boost::scoped_ptr<Geometry::Line> clone(line2.clone());
+    EXPECT_TRUE(clone->contains(Bin1D(0.5, 1.0),Bin1D(0.0, 0.5)));
+    EXPECT_FALSE(clone->contains(Bin1D(0.51, 1.0),Bin1D(0.0, 0.49)));
+}
+
+
 
 
 

@@ -100,4 +100,27 @@ TEST_F(PolygonTest, Clone)
     EXPECT_FALSE(clone->contains(4.0, -2.01));
 }
 
+TEST_F(PolygonTest, ConstructFrom2DArray)
+{
+    // simple closed rectangle
+    const size_t npoints(5);
+    double array[npoints][2] = {{4.0, 2.0}, {-4.0, 2.0}, {-4.0, -2.0}, {4.0, -2.0}, {4.0, 2.0}};
+
+    std::vector<std::vector<double > > points;
+    for(size_t i=0; i<npoints; ++i) {
+        std::vector<double> p = boost::assign::list_of(array[i][0])(array[i][1]);
+        points.push_back(p);
+    }
+
+    Geometry::Polygon polygon(points);
+    EXPECT_DOUBLE_EQ(32.0, polygon.getArea());
+    EXPECT_TRUE(polygon.contains(0.0, 0.0));
+    EXPECT_TRUE(polygon.contains(4.0, 2.0));
+    EXPECT_TRUE(polygon.contains(-4.0, -2.0));
+    EXPECT_TRUE(polygon.contains(-4.0, -2.0));
+    EXPECT_FALSE(polygon.contains(0.0, 2.01));
+    EXPECT_FALSE(polygon.contains(4.0, -2.01));
+
+}
+
 #endif

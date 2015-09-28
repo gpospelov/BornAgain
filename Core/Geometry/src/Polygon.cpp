@@ -18,6 +18,7 @@
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
 #include <boost/geometry/geometries/polygon.hpp>
+#include <iostream>
 
 using namespace boost::geometry;
 
@@ -53,6 +54,26 @@ void PolygonPrivate::init_from(const std::vector<double> &x, const std::vector<d
 Polygon::Polygon(const std::vector<double> &x, const std::vector<double> &y)
     : m_d(new PolygonPrivate)
 {
+    m_d->init_from(x, y);
+}
+
+Polygon::Polygon(const std::vector<std::vector<double> > &points)
+    : m_d(new PolygonPrivate)
+{
+    std::vector<double> x;
+    std::vector<double> y;
+    for(size_t i=0; i<points.size(); ++i) {
+        if(points[i].size() != 2) {
+            std::ostringstream message;
+            message << "Polygon(const std::vector<std::vector<double> > &points) -> Error. "
+                    << " Should be two-dimensional array with second dimension of 2 size."
+                    << std::endl;
+            throw LogicErrorException(message.str());
+        }
+        x.push_back(points[i][0]);
+        y.push_back(points[i][1]);
+    }
+
     m_d->init_from(x, y);
 }
 

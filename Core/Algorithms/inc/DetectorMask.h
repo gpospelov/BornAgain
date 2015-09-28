@@ -51,7 +51,7 @@ public:
 
     const OutputData<bool>* getMaskData() const;
 
-    // clear all masks and return object to initial state
+    //! clear all masks and return object to initial state
     void clear();
 
 private:

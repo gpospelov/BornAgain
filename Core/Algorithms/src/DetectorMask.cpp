@@ -21,8 +21,6 @@
 
 // InfinitePlane, Line, VerticalLine, HorizontalLine, Ellipse, Rectangle
 //
-// copy c-tors for the detector mask as for the detector
-//
 // Polygon stdvector<stdvector<double>> constructor
 
 DetectorMask::DetectorMask()

@@ -93,7 +93,6 @@ public:
     void visit(const FormFactorTruncatedCube *sample);
     void visit(const FormFactorTruncatedSphere *sample);
     void visit(const FormFactorTruncatedSpheroid *sample);
-    void visit(const IFormFactorBornSeparable *sample);
 
     void visit(const IFormFactorDecorator *sample);
 

@@ -343,12 +343,6 @@ void ISampleVisitor::visit(const FormFactorTruncatedSpheroid *)
         "ISampleVisitor::visit(const FormFactorTruncatedSpheroid *) -> Error. Not implemented.");
 }
 
-void ISampleVisitor::visit(const IFormFactorBornSeparable *)
-{
-    throw NotImplementedException(
-        "ISampleVisitor::visit(const IFormFactorBornSeparable *) -> Error. Not implemented.");
-}
-
 void ISampleVisitor::visit(const IFormFactorDecorator *)
 {
     throw NotImplementedException(

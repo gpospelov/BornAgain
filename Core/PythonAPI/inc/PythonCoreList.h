@@ -106,6 +106,11 @@
 #include "IHistogram.h"
 #include "Histogram1D.h"
 #include "Histogram2D.h"
+#include "IShape2D.h"
+#include "Rectangle.h"
+#include "Line.h"
+#include "Polygon.h"
+#include "Ellipse.h"
 
 //! file containig additional exposers
 #include "PythonCoreExposer.h"

@@ -76,8 +76,8 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
         return m_fit_objects[check_index(i_item)]->getRealData(); }
 
     //! Sets real data
-    void setRealData(const OutputData<double >& real_data, size_t i_item = 0) {
-        m_fit_objects[check_index(i_item)]->setRealData(real_data);}
+//    void setRealData(const OutputData<double >& real_data, size_t i_item = 0) {
+//        m_fit_objects[check_index(i_item)]->setRealData(real_data);}
 
     //! Returns simulated data
     const OutputData<double> * getSimulationData(size_t i_item = 0) const { return m_fit_objects[check_index(i_item)]->getSimulationData(); }

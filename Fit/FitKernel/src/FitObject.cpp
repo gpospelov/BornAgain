@@ -46,23 +46,23 @@ FitObject::~FitObject()
 }
 
 //! Sets real data
-void FitObject::setRealData(const OutputData<double >& real_data)
-{
-    delete m_real_data;
-    m_real_data = real_data.clone();
-    if( m_simulation) {
-        if( !m_real_data->hasSameShape(*m_simulation->getOutputData()) ) {
-            msglog(MSG::INFO) << "FitObject::setRealData() -> "
-                "Real data and the detector have different shape. "
-                "Adjusting detector...";
-        } else {
-            msglog(MSG::INFO) << "FitObject::setRealData() -> "
-                "Real data and the detector have same shape. "
-                "No need to adjust detector.";
-        }
-        m_simulation->setDetectorParameters(*m_real_data);
-    }
-}
+//void FitObject::setRealData(const OutputData<double >& real_data)
+//{
+//    delete m_real_data;
+//    m_real_data = real_data.clone();
+//    if( m_simulation) {
+//        if( !m_real_data->hasSameShape(*m_simulation->getOutputData()) ) {
+//            msglog(MSG::INFO) << "FitObject::setRealData() -> "
+//                "Real data and the detector have different shape. "
+//                "Adjusting detector...";
+//        } else {
+//            msglog(MSG::INFO) << "FitObject::setRealData() -> "
+//                "Real data and the detector have same shape. "
+//                "No need to adjust detector.";
+//        }
+//        m_simulation->setDetectorParameters(*m_real_data);
+//    }
+//}
 
 //! Updates m_chi2_module; returns chi squared value.
 
@@ -70,6 +70,9 @@ double FitObject::calculateChiSquared()
 {
     boost::scoped_ptr<OutputData<double> > P_sim_data(m_simulation->getIntensityData());
     m_chi2_module->setRealAndSimulatedData(*m_real_data, *P_sim_data.get());
+    if(m_simulation->getInstrument().getDetector()->hasMasks()) {
+        m_chi2_module->setMasks(*m_simulation->getInstrument().getDetector()->getDetectorMask()->getMaskData());
+    }
 
     return m_chi2_module->calculateChiSquared();
 }

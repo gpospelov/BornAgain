@@ -221,17 +221,6 @@ void register_FitObject_class(){
                 , "Sets chi2 module." );
         
         }
-        { //::FitObject::setRealData
-        
-            typedef void ( ::FitObject::*setRealData_function_type)( ::OutputData< double > const & ) ;
-            
-            FitObject_exposer.def( 
-                "setRealData"
-                , setRealData_function_type( &::FitObject::setRealData )
-                , ( bp::arg("real_data") )
-                , "Returns real data." );
-        
-        }
         { //::FitObject::setSimulation
         
             typedef void ( ::FitObject::*setSimulation_function_type)( ::GISASSimulation const & ) ;

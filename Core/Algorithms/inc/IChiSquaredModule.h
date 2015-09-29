@@ -54,6 +54,9 @@ public:
         const OutputData<double >& real_data,
         const OutputData<double >&simulation_data);
 
+    //! Sets detector masks
+    void setMasks(const OutputData<bool> &masks);
+
     //! Returns squared function
     const ISquaredFunction* getSquaredFunction() const {
         return mp_squared_function; }
@@ -106,6 +109,7 @@ protected:
     OutputData<double>* mp_real_data;
     OutputData<double>* mp_simulation_data;
     OutputData<double>* mp_weights;
+    OutputData<bool>* mp_masks;
     ISquaredFunction* mp_squared_function;
     IFittingDataSelector* mp_data_selector;
     IIntensityNormalizer* mp_data_normalizer;

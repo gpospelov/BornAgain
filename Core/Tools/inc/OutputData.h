@@ -176,6 +176,12 @@ public:
 
     //! Returns bin of selected axis for given global_index.
     //! @param global_index The global index of this data structure.
+    //! @param i_selected_axis Serial number of selected axis.
+    //! @return Corresponding Bin1D object
+    Bin1D getAxisBin(size_t global_index, size_t i_selected_axis) const;
+
+    //! Returns bin of selected axis for given global_index.
+    //! @param global_index The global index of this data structure.
     //! @param axis_name The name of selected axis.
     //! @return Corresponding Bin1D object
     Bin1D getAxisBin(size_t global_index, const std::string& axis_name) const;
@@ -562,17 +568,16 @@ std::vector<double> OutputData<T>::getAxesValues(size_t global_index) const
 }
 
 template <class T>
+Bin1D OutputData<T>::getAxisBin(size_t global_index, size_t i_selected_axis) const
+{
+    int axis_index = getAxisBinIndex(global_index, i_selected_axis);
+    return m_value_axes[i_selected_axis]->getBin(axis_index);
+}
+
+template <class T>
 Bin1D OutputData<T>::getAxisBin(size_t global_index, const std::string& axis_name) const
 {
-    for (size_t i=0; i<m_value_axes.size(); ++i) {
-        if (m_value_axes[i]->getName() == axis_name) {
-            int axis_index = getAxisBinIndex(global_index, i);
-            return m_value_axes[i]->getBin(axis_index);
-        }
-    }
-    throw LogicErrorException(
-                "OutputData<T>::getAxisBin() -> "
-                "Error! Axis with given name not found '" + axis_name + "'");
+    return getAxisBin(global_index, getAxisSerialNumber(axis_name));
 }
 
 template<class T>
@@ -648,6 +653,7 @@ bool OutputData<T>::isInitialized() const
 {
     if(!mp_ll_data) return false;
     if(getRank() != mp_ll_data->getRank()) return false;
+    if(!getRank()) return false;
     return true;
 }
 

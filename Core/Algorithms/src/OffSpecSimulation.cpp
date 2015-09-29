@@ -202,7 +202,7 @@ void OffSpecSimulation::initSimulationElementVector()
     double wavelength = beam.getWavelength();
     double phi_i = beam.getPhi();
     Eigen::Matrix2cd beam_polarization = beam.getPolarization();
-    Eigen::Matrix2cd analyzer_operator = m_instrument.getDetector().getAnalyzerOperator();
+    Eigen::Matrix2cd analyzer_operator = m_instrument.getDetector()->getAnalyzerOperator();
     checkInitialization();
 
     const IAxis &phi_axis = m_instrument.getDetectorAxis(0);

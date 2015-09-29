@@ -1305,9 +1305,9 @@ std::string PyGenVisitor::defineDetector(const GISASSimulation *simulation) cons
 std::string PyGenVisitor::defineDetectorResolutionFunction(const GISASSimulation *simulation) const
 {
     std::ostringstream result;
-    Detector detector = simulation->getInstrument().getDetector();
+    const Detector *detector = simulation->getInstrument().getDetector();
 
-    if (const IDetectorResolution *p_resfunc = detector.getDetectorResolutionFunction()) {
+    if (const IDetectorResolution *p_resfunc = detector->getDetectorResolutionFunction()) {
         if (const ConvolutionDetectorResolution *p_convfunc
             = dynamic_cast<const ConvolutionDetectorResolution *>(p_resfunc)) {
             if (const ResolutionFunction2DGaussian *resfunc

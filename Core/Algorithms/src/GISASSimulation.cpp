@@ -210,26 +210,20 @@ double GISASSimulation::getWavelength() const
     return m_instrument.getBeam().getWavelength();
 }
 
-void GISASSimulation::setMaskAll(bool mask)
+void GISASSimulation::removeMasks()
 {
-    if(!m_detector_mask.hasSameShape(m_intensity_map)) {
-        m_detector_mask.copyShapeFrom(m_intensity_map);
-    }
-    m_detector_mask.setAllTo(mask);
+    m_instrument.getDetector()->removeMasks();
 }
 
-void GISASSimulation::setRectangularMask(double xlow, double ylow, double xup, double yup, bool mask)
+void GISASSimulation::addMask(const Geometry::IShape2D &shape, bool mask_value)
 {
-    if(!m_detector_mask.hasSameShape(m_intensity_map)) {
-        m_detector_mask.copyShapeFrom(m_intensity_map);
-    }
-    for(size_t index=0; index<m_detector_mask.getAllocatedSize(); ++index) {
-        double x = m_detector_mask.getAxisValue(index, BornAgain::PHI_AXIS_INDEX);
-        double y = m_detector_mask.getAxisValue(index, BornAgain::ALPHA_AXIS_INDEX);
-        if(x>=xlow && x<=xup && y>=ylow && y <= yup) m_detector_mask[index] = mask;
-    }
+    m_instrument.getDetector()->addMask(shape, mask_value);
 }
 
+void GISASSimulation::maskAll()
+{
+    m_instrument.getDetector()->maskAll();
+}
 
 
 GISASSimulation::GISASSimulation(const GISASSimulation& other)
@@ -255,7 +249,7 @@ void GISASSimulation::initSimulationElementVector()
     double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
     double phi_i = beam.getPhi();
     Eigen::Matrix2cd beam_polarization = beam.getPolarization();
-    Eigen::Matrix2cd analyzer_operator = m_instrument.getDetector().getAnalyzerOperator();
+    Eigen::Matrix2cd analyzer_operator = m_instrument.getDetector()->getAnalyzerOperator();
 
     if (m_instrument.getDetectorDimension()!=2) {
         throw RuntimeErrorException("GISASSimulation::initSimulationElementVector: "
@@ -272,26 +266,26 @@ void GISASSimulation::initSimulationElementVector()
                                     "alpha-axis is not correct");
     }
 
-    bool use_detector_mask(false);
-    if(m_detector_mask.hasSameShape(m_intensity_map)) use_detector_mask = true;
-
     for (size_t phi_index = 0; phi_index < phi_axis.getSize(); ++phi_index) {
         Bin1D phi_bin = phi_axis.getBin(phi_index);
         for (size_t alpha_index = 0; alpha_index < alpha_axis.getSize(); ++alpha_index) {
-            std::vector<int> indices;
-            indices.resize(2);
-            indices[BornAgain::PHI_AXIS_INDEX] = phi_index;
-            indices[BornAgain::ALPHA_AXIS_INDEX] = alpha_index;
-            size_t index = m_intensity_map.toGlobalIndex(indices);
 
-            if(use_detector_mask && m_detector_mask[index]) continue;
+            if(m_instrument.getDetector()->hasMasks()) {
+                std::vector<int> indices;
+                indices.resize(2);
+                indices[BornAgain::PHI_AXIS_INDEX] = phi_index;
+                indices[BornAgain::ALPHA_AXIS_INDEX] = alpha_index;
+                size_t index = m_intensity_map.toGlobalIndex(indices);
+                if(m_instrument.getDetector()->isMasked(index)) {
+                    continue;
+                }
+            }
 
             Bin1D alpha_bin = alpha_axis.getBin(alpha_index);
             SimulationElement sim_element(wavelength, alpha_i, phi_i, alpha_bin.m_lower,
                                           alpha_bin.m_upper, phi_bin.m_lower, phi_bin.m_upper);
             sim_element.setPolarization(beam_polarization);
             sim_element.setAnalyzerOperator(analyzer_operator);
-            sim_element.setIndex(index);
 
             m_sim_elements.push_back(sim_element);
         }
@@ -311,9 +305,15 @@ void GISASSimulation::transferResultsToIntensityMap()
 //                                    "intensity map has different size than number of "
 //                                    "calculated intensities");
 //    }
-    for (size_t i=0; i<m_sim_elements.size(); ++i) {
-//        m_intensity_map[i] = m_sim_elements[i].getIntensity();
-        m_intensity_map[m_sim_elements[i].getIndex()] = m_sim_elements[i].getIntensity();
+//    for (size_t i=0; i<m_sim_elements.size(); ++i) {
+////        m_intensity_map[i] = m_sim_elements[i].getIntensity();
+//        m_intensity_map[m_sim_elements[i].getIndex()] = m_sim_elements[i].getIntensity();
+//    }
+
+    size_t element_index(0);
+    for(size_t index=0; index<m_intensity_map.getAllocatedSize(); ++index) {
+        if(m_instrument.getDetector()->isMasked(index)) continue;
+        m_intensity_map[index] = m_sim_elements[element_index++].getIntensity();
     }
 }
 

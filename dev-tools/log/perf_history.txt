@@ -471,3 +471,11 @@
 | date                | hostname   | sysinfo       | tr | total    | MultiLayer   | CylindersInD | RotatedPyram | CoreShell    | SquareLattic | RadialParaCr | HexParaCryst | SSCA         | Mesocrystal  | PolMagCyl    |
 | 2015-09-23 14:54:52 | jcnsopc126 | linuxx8664gcc | 0  | 17.658   | 1.692        | 1.148        | 1.602        | 0.983        | 2.793        | 1.174        | 2.163        | 1.742        | 1.868        | 2.495        |
 
+# after masking
+
+| 2015-09-28 17:19:17 | jcnsopc126 | linuxx8664gcc | 0  | 21.595   | 2.108        | 1.412        | 1.888        | 1.275        | 3.615        | 1.496        | 2.478        | 2.139        | 2.340        | 2.845
+
+# working on mask performance
+| 2015-09-29 11:41:26 | jcnsopc126 | linuxx8664gcc | 0  | 18.188   | 1.793        | 1.172        | 1.647        | 1.012        | 2.945        | 1.290        | 2.197        | 1.798        | 1.849        | 2.486 
+| 2015-09-29 11:46:58 | jcnsopc126 | linuxx8664gcc | 0  | 17.975   | 1.852        | 1.165        | 1.586        | 0.977        | 2.834        | 1.183        | 2.136        | 1.860        | 1.879        | 2.502
+

@@ -89,7 +89,7 @@ TEST_F(GISASSimulationTest, SimulationInitialStateOfClone)
     EXPECT_EQ( NULL, emptyClonedSimulation->getSample());
     EXPECT_EQ( size_t(1), emptyClonedSimulation->getOutputData()->getAllocatedSize());
     EXPECT_EQ( size_t(0), emptyClonedSimulation->getOutputData()->getRank());
-    EXPECT_TRUE(emptyClonedSimulation->getOutputData()->getRank() == emptyClonedSimulation->getInstrument().getDetector().getDimension() );
+    EXPECT_TRUE(emptyClonedSimulation->getOutputData()->getRank() == emptyClonedSimulation->getInstrument().getDetector()->getDimension() );
     EXPECT_EQ( double(1), emptyClonedSimulation->getInstrument().getIntensity());
     delete emptyClonedSimulation;
 }

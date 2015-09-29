@@ -24,7 +24,9 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "InterferenceFunctionNone.pypp.h"
 #include "FTDistribution2DGate.pypp.h"
 #include "FormFactorPrism6.pypp.h"
+#include "vdouble2d_t.pypp.h"
 #include "FormFactorTruncatedCube.pypp.h"
+#include "VerticalLine.pypp.h"
 #include "IFTDistribution2D.pypp.h"
 #include "FormFactorLorentz.pypp.h"
 #include "FixedBinAxis.pypp.h"
@@ -33,6 +35,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "LayerInterface.pypp.h"
 #include "IDetectorResolution.pypp.h"
 #include "Lattice2DIFParameters.pypp.h"
+#include "HorizontalLine.pypp.h"
 #include "IntensityData.pypp.h"
 #include "LayerRoughness.pypp.h"
 #include "vector_integer_t.pypp.h"
@@ -69,8 +72,10 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IObservable.pypp.h"
 #include "ParticleCoreShell.pypp.h"
 #include "Histogram2D.pypp.h"
+#include "IShape2D.pypp.h"
 #include "FormFactorCone.pypp.h"
 #include "vector_string_t.pypp.h"
+#include "Polygon.pypp.h"
 #include "FormFactorInfLongRipple1.pypp.h"
 #include "IDistribution1D.pypp.h"
 #include "MesoCrystal.pypp.h"
@@ -111,6 +116,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FormFactorPrism3.pypp.h"
 #include "PythonInterface_global_variables.pypp.h"
 #include "FTDistribution2DGauss.pypp.h"
+#include "Line.pypp.h"
 #include "FormFactorGauss.pypp.h"
 #include "vector_less__const_ISample_ptr___greater_.pypp.h"
 #include "FormFactorHemiEllipsoid.pypp.h"
@@ -137,6 +143,8 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "ParameterDistribution.pypp.h"
 #include "SimpleSelectionRule.pypp.h"
 #include "InterferenceFunction1DLattice.pypp.h"
+#include "Ellipse.pypp.h"
+#include "Rectangle.pypp.h"
 #include "Bin1DCVector.pypp.h"
 #include "CustomBinAxis.pypp.h"
 #include "ICloneable.pypp.h"
@@ -156,6 +164,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     boost::python::docstring_options doc_options(true, true, false);
 
     register_vector_longinteger_t_class();
+    register_vdouble2d_t_class();
     register_vector_string_t_class();
     register_vector_complex_t_class();
     register_vector_integer_t_class();
@@ -236,6 +245,13 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_GISASSimulation_class();
     register_kvector_t_class();
     register_cvector_t_class();
+    register_IShape2D_class();
+    register_Ellipse_class();
+    register_HorizontalLine_class();
+    register_Line_class();
+    register_Polygon_class();
+    register_Rectangle_class();
+    register_VerticalLine_class();
     register_IHistogram_class();
     register_Histogram1D_class();
     register_Histogram2D_class();

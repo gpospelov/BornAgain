@@ -36,8 +36,11 @@ DetectorMask::DetectorMask(const DetectorMask &other)
 DetectorMask &DetectorMask::operator=(const DetectorMask &other)
 {
     if (this != &other) {
-        DetectorMask tmp(other);
-        tmp.swapContent(*this);
+        m_shapes = other.m_shapes;
+        m_mask_of_shape = other.m_mask_of_shape;
+        m_mask_data.copyFrom(other.m_mask_data);
+//        DetectorMask tmp(other);
+//        tmp.swapContent(*this);
     }
     return *this;
 }
@@ -51,6 +54,8 @@ void DetectorMask::addMask(const Geometry::IShape2D &shape, bool mask_value)
 
 void DetectorMask::initMaskData(const Detector &detector)
 {
+    assert(m_shapes.size() == m_mask_of_shape.size());
+
     m_mask_data.clear();
 
     for (size_t dim=0; dim<detector.getDimension(); ++dim) {
@@ -59,7 +64,6 @@ void DetectorMask::initMaskData(const Detector &detector)
     m_mask_data.setAllTo(false);
 
     if(!m_shapes.size()) return;
-    assert(m_shapes.size() == m_mask_of_shape.size());
 
     for(size_t index=0; index<m_mask_data.getAllocatedSize(); ++index) {
         Bin1D binx = m_mask_data.getAxisBin(index, BornAgain::X_AXIS_INDEX);
@@ -96,9 +100,29 @@ void DetectorMask::removeMasks()
     m_mask_data.clear();
 }
 
-void DetectorMask::swapContent(DetectorMask &other)
+bool DetectorMask::hasMasks() const
 {
-    std::swap(this->m_shapes, other.m_shapes);
-    std::swap(this->m_mask_of_shape, other.m_mask_of_shape);
-    this->m_mask_data.copyFrom(other.m_mask_data);
+    return (m_shapes.size() ? true : false);
 }
+
+//void DetectorMask::print() const
+//{
+//    std::cout << "DetectorMask::print() " << m_shapes.size() << " " << m_mask_of_shape.size() << m_mask_data.getAllocatedSize() << std::endl;
+//    assert(m_shapes.size() == m_mask_of_shape.size());
+//    for(size_t i=0; i<m_shapes.size(); ++i) {
+//        std::cout << (*m_shapes[i]) << " " << m_mask_of_shape[i] << std::endl;
+//    }
+//    int nmasked(0);
+//    for(size_t i=0; i<m_mask_data.getAllocatedSize(); ++i) {
+//        if(m_mask_data[i]) nmasked++;
+//    }
+//    std::cout << " nmasked:" << nmasked << std::endl;
+
+//}
+
+//void DetectorMask::swapContent(DetectorMask &other)
+//{
+//    std::swap(this->m_shapes, other.m_shapes);
+//    std::swap(this->m_mask_of_shape, other.m_mask_of_shape);
+//    this->m_mask_data.copyFrom(other.m_mask_data);
+//}

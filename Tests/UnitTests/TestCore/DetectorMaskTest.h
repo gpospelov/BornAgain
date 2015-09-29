@@ -130,4 +130,36 @@ TEST_F(DetectorMaskTest, AssignmentOperator)
 }
 
 
+TEST_F(DetectorMaskTest, CopyConstructor)
+{
+    DetectorMask detectorMask;
+
+    std::vector<double> x = boost::assign::list_of(4.0)(-4.0)(-4.0)(4.0)(4.0);
+    std::vector<double> y = boost::assign::list_of(2.0)(2.0)(-2.0)(-2.0)(2.0);
+    Geometry::Polygon polygon(x, y);
+
+    Detector detector;
+    detector.addAxis(FixedBinAxis("x-axis", 12, -4.0, 8.0));
+    detector.addAxis(FixedBinAxis("y-axis", 6, -2.0, 4.0));
+
+    // initializing mask with detector and one shape
+    detectorMask.addMask(polygon, true);
+    detectorMask.initMaskData(detector);
+
+    DetectorMask mask(detectorMask);
+
+    EXPECT_TRUE(mask.getMaskData()->isInitialized());
+
+    for(size_t index=0; index<mask.getMaskData()->getAllocatedSize(); ++index) {
+        double x = mask.getMaskData()->getAxisValue(index, 0);
+        double y = mask.getMaskData()->getAxisValue(index, 1);
+        if( x>= -4.0 && x <=4.0 && y>=-2.0 && y<=2.0) {
+            EXPECT_TRUE(mask.getMask(index));
+        } else {
+            EXPECT_FALSE(mask.getMask(index));
+        }
+    }
+}
+
+
 #endif

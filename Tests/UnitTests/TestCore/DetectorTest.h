@@ -8,6 +8,9 @@
 #include "FixedBinAxis.h"
 #include "ConvolutionDetectorResolution.h"
 #include "ResolutionFunction2DGaussian.h"
+#include "Polygon.h"
+#include <boost/scoped_ptr.hpp>
+#include <boost/assign/list_of.hpp>
 
 #include "gtest/gtest.h"
 
@@ -85,5 +88,56 @@ TEST_F(DetectorTest, DetectorCopying)
     EXPECT_TRUE(std::string("ConvolutionDetectorResolution")
         == copyOfOriginalDetector.getDetectorResolutionFunction()->getName());
 }
+
+TEST_F(DetectorTest, MaskOfDetector)
+{
+    Detector detector;
+    detector.addAxis(FixedBinAxis("x-axis", 12, -4.0, 8.0));
+    detector.addAxis(FixedBinAxis("y-axis", 6, -2.0, 4.0));
+
+    std::vector<double> x = boost::assign::list_of(4.0)(-4.0)(-4.0)(4.0)(4.0);
+    std::vector<double> y = boost::assign::list_of(2.0)(2.0)(-2.0)(-2.0)(2.0);
+
+    detector.addMask(Geometry::Polygon(x, y), true);
+
+    const OutputData<bool> *mask = detector.getDetectorMask()->getMaskData();
+    for(size_t index=0; index<mask->getAllocatedSize(); ++index) {
+        double x = mask->getAxisValue(index, 0);
+        double y = mask->getAxisValue(index, 1);
+        if( x>= -4.0 && x <=4.0 && y>=-2.0 && y<=2.0) {
+            EXPECT_TRUE(detector.isMasked(index));
+        } else {
+            EXPECT_FALSE(detector.isMasked(index));
+        }
+    }
+
+    Detector detector2 = detector;
+    mask = detector2.getDetectorMask()->getMaskData();
+    for(size_t index=0; index<mask->getAllocatedSize(); ++index) {
+        double x = mask->getAxisValue(index, 0);
+        double y = mask->getAxisValue(index, 1);
+        if( x>= -4.0 && x <=4.0 && y>=-2.0 && y<=2.0) {
+            EXPECT_TRUE(detector2.isMasked(index));
+        } else {
+            EXPECT_FALSE(detector2.isMasked(index));
+        }
+    }
+
+    mask = detector.getDetectorMask()->getMaskData();
+    for(size_t index=0; index<mask->getAllocatedSize(); ++index) {
+        double x = mask->getAxisValue(index, 0);
+        double y = mask->getAxisValue(index, 1);
+        if( x>= -4.0 && x <=4.0 && y>=-2.0 && y<=2.0) {
+            EXPECT_TRUE(detector.isMasked(index));
+        } else {
+            EXPECT_FALSE(detector.isMasked(index));
+        }
+    }
+
+
+
+}
+
+
 
 #endif // DETECTORTEST_H

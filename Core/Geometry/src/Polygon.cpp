@@ -51,13 +51,17 @@ void PolygonPrivate::init_from(const std::vector<double> &x, const std::vector<d
 }
 
 
-Polygon::Polygon(const std::vector<double> &x, const std::vector<double> &y)
+// IMPORTANT Input parameters are not "const reference" to be able to work from python
+// (auto convertion of python list to vector<double>).
+Polygon::Polygon(std::vector<double> x, std::vector<double> y)
     : m_d(new PolygonPrivate)
 {
     m_d->init_from(x, y);
 }
 
-Polygon::Polygon(const std::vector<std::vector<double> > &points)
+// IMPORTANT Input parameter is not "const reference" to be able to work from python
+// (auto convertion of python list to vector<vector<double>>).
+Polygon::Polygon(std::vector<std::vector<double> > points)
     : m_d(new PolygonPrivate)
 {
     std::vector<double> x;

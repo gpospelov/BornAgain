@@ -34,7 +34,7 @@ Detector::Detector() : m_axes(), mp_detector_resolution(0)
 
 Detector::Detector(const Detector &other)
     : IParameterized(), m_axes(other.m_axes), mp_detector_resolution(0),
-      m_analyzer_operator(other.m_analyzer_operator)
+      m_analyzer_operator(other.m_analyzer_operator), m_detector_mask(other.m_detector_mask)
 {
     setName(other.getName());
     if (other.mp_detector_resolution)
@@ -132,8 +132,13 @@ const DetectorMask *Detector::getDetectorMask() const
 
 bool Detector::isMasked(size_t index) const
 {
-    if(!m_detector_mask.getMaskData()->isInitialized()) return false;
+//    if(!m_detector_mask.getMaskData()->isInitialized()) return false;
     return m_detector_mask.getMask(index);
+}
+
+bool Detector::hasMasks() const
+{
+    return m_detector_mask.hasMasks();
 }
 
 std::string Detector::addParametersToExternalPool(std::string path, ParameterPool *external_pool,

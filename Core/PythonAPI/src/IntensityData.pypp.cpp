@@ -67,6 +67,17 @@ void register_IntensityData_class(){
                 , ( bp::arg("name"), bp::arg("size"), bp::arg("start"), bp::arg("end") ) );
         
         }
+        { //::OutputData< double >::addMask
+        
+            typedef OutputData< double > exported_class_t;
+            typedef void ( exported_class_t::*addMask_function_type)( ::Mask const & ) ;
+            
+            IntensityData_exposer.def( 
+                "addMask"
+                , addMask_function_type( &::OutputData< double >::addMask )
+                , ( bp::arg("mask") ) );
+        
+        }
         { //::OutputData< double >::clear
         
             typedef OutputData< double > exported_class_t;
@@ -265,6 +276,18 @@ void register_IntensityData_class(){
                 , ( bp::arg("global_index"), bp::arg("axis_name") ) );
         
         }
+        { //::OutputData< double >::getMask
+        
+            typedef OutputData< double > exported_class_t;
+            typedef ::Mask * ( exported_class_t::*getMask_function_type)(  ) const;
+            
+            IntensityData_exposer.def( 
+                "getMask"
+                , getMask_function_type( &::OutputData< double >::getMask )
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns mask that will be used by iterators." );
+        
+        }
         { //::OutputData< double >::getRank
         
             typedef OutputData< double > exported_class_t;
@@ -356,6 +379,17 @@ void register_IntensityData_class(){
                 "setAllTo"
                 , setAllTo_function_type( &::OutputData< double >::setAllTo )
                 , ( bp::arg("value") ) );
+        
+        }
+        { //::OutputData< double >::setMask
+        
+            typedef OutputData< double > exported_class_t;
+            typedef void ( exported_class_t::*setMask_function_type)( ::Mask const & ) ;
+            
+            IntensityData_exposer.def( 
+                "setMask"
+                , setMask_function_type( &::OutputData< double >::setMask )
+                , ( bp::arg("mask") ) );
         
         }
         { //::OutputData< double >::setRawDataVector

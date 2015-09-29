@@ -34,13 +34,13 @@ public:
     //! doesn't repeat the first one), it will be closed automatically.
     //! @param x Vector of x-coordinates of polygon points.
     //! @param x Vector of y-coordinates of polygon points.
-    Polygon(const std::vector<double > &x, const std::vector<double> &y);
+    Polygon(std::vector<double > x, std::vector<double> y);
 
     //! Polygon defined by two  dimensional array with (x,y) coordinates of polygon points.
     //! The size of second dimension should be 2. If polygon is unclosed (the last point
     //! doesn't repeat the first one), it will be closed automatically.
     //! @param points Two dimensional vector of (x,y) coordinates of polygon points.
-    Polygon(const std::vector<std::vector<double> > &points);
+    Polygon(std::vector<std::vector<double> > points);
 
     ~Polygon();
 
@@ -60,6 +60,8 @@ protected:
 
 private:
     Polygon(const Polygon& other);
+    const Polygon& operator=(const Polygon& );
+
     PolygonPrivate *m_d;
 };
 

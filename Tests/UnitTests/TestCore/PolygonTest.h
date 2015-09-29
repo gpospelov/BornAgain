@@ -120,7 +120,6 @@ TEST_F(PolygonTest, ConstructFrom2DArray)
     EXPECT_TRUE(polygon.contains(-4.0, -2.0));
     EXPECT_FALSE(polygon.contains(0.0, 2.01));
     EXPECT_FALSE(polygon.contains(4.0, -2.01));
-
 }
 
 #endif

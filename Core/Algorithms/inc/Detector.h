@@ -92,7 +92,7 @@ public:
     //! removes all masks from the detector
     void removeMasks();
 
-    //! Adds mask of given shape to the stack of detector masks. The mask value "true" means
+    //! Adds mask of given shape to the stack of detector masks. The mask value 'true' means
     //! that the channel will be excluded from the simulation. The mask which is added last
     //! has priority.
     //! @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse)
@@ -105,6 +105,9 @@ public:
     const DetectorMask *getDetectorMask() const;
 
     bool isMasked(size_t index) const;
+
+    //! return true if has masks
+    bool hasMasks() const;
 
 protected:
     virtual void print(std::ostream &ostr) const;

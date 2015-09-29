@@ -275,7 +275,9 @@ void GISASSimulation::initSimulationElementVector()
             indices[BornAgain::ALPHA_AXIS_INDEX] = alpha_index;
             size_t index = m_intensity_map.toGlobalIndex(indices);
 
-            if(m_instrument.getDetector()->isMasked(index)) continue;
+            if(m_instrument.getDetector()->isMasked(index)) {
+                continue;
+            }
 
             Bin1D alpha_bin = alpha_axis.getBin(alpha_index);
             SimulationElement sim_element(wavelength, alpha_i, phi_i, alpha_bin.m_lower,

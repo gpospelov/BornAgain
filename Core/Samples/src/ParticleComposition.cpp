@@ -113,6 +113,8 @@ void ParticleComposition::addParticle(const IParticle &particle, kvector_t posit
     m_particles.push_back(np);
 }
 
+// Please note, that positions is not const reference here. This is intentionally to
+// python lists to std::vector
 void ParticleComposition::addParticles(const IParticle& particle,
         std::vector<kvector_t > positions)
 {

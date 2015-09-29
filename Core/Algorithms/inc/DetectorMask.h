@@ -52,9 +52,13 @@ public:
     //! remove all masks and return object to initial state
     void removeMasks();
 
+    //! returns true if has masks
+    bool hasMasks() const;
+
+//    void print() const;
 private:
     //! swap function
-    void swapContent(DetectorMask &other);
+//    void swapContent(DetectorMask &other);
 
     SafePointerVector<Geometry::IShape2D> m_shapes;
     std::vector<bool> m_mask_of_shape;

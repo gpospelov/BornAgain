@@ -222,6 +222,17 @@ void register_GISASSimulation_class(){
         typedef bp::class_< GISASSimulation_wrapper, bp::bases< Simulation >, std::auto_ptr< GISASSimulation_wrapper >, boost::noncopyable > GISASSimulation_exposer_t;
         GISASSimulation_exposer_t GISASSimulation_exposer = GISASSimulation_exposer_t( "GISASSimulation", "Main class to run the simulation.", bp::init< >() );
         bp::scope GISASSimulation_scope( GISASSimulation_exposer );
+        { //::GISASSimulation::addMask
+        
+            typedef void ( ::GISASSimulation::*addMask_function_type)( ::Geometry::IShape2D const &,bool ) ;
+            
+            GISASSimulation_exposer.def( 
+                "addMask"
+                , addMask_function_type( &::GISASSimulation::addMask )
+                , ( bp::arg("shape"), bp::arg("mask_value")=(bool)(true) )
+                , "Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority. @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse) @mask_value The value of mask \n\n:Parameters:\n  - 'shape' - The shape of mask (Rectangle, Polygon, Line, Ellipse)\n" );
+        
+        }
         { //::GISASSimulation::clone
         
             typedef ::GISASSimulation * ( ::GISASSimulation::*clone_function_type)(  ) const;

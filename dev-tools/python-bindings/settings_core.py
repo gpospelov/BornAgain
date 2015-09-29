@@ -177,6 +177,13 @@ include_classes = [
     "ThreadInfo",
     "cvector_t",
     "kvector_t",
+    "IShape2D",
+    "Line",
+    "VerticalLine",
+    "HorizontalLine",
+    "Ellipse",
+    "Rectangle",
+    "Polygon"
 ]
 
 
@@ -380,8 +387,7 @@ def ManualExcludeMemberFunctions(mb):
     to_exclude_exact=['inverse', 'transformed',
         'getNearestLatticeVectorCoordinates',
         'getNearestReciprocalLatticeVectorCoordinates', 'collectBraggAngles',
-        'getKVectorContainer', 'begin', 'end', 'getBinOfAxis', 'addMask',
-        'getMask', 'setMask',
+        'getKVectorContainer', 'begin', 'end'
     ]
     for f in mb.member_functions():
         for x in to_exclude:

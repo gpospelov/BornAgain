@@ -19,6 +19,7 @@ IChiSquaredModule::IChiSquaredModule()
     : mp_real_data(0)
     , mp_simulation_data(0)
     , mp_weights(0)
+    , mp_masks(0)
     , mp_squared_function(0)
     , mp_data_selector(0)
     , mp_data_normalizer(0)
@@ -34,6 +35,7 @@ IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule& other)
     , mp_real_data(0)
     , mp_simulation_data(0)
     , mp_weights(0)
+    , mp_masks(0)
     , mp_squared_function(0)
     , mp_data_selector(0)
     , mp_data_normalizer(0)
@@ -43,6 +45,7 @@ IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule& other)
     if(other.mp_real_data) mp_real_data = other.mp_real_data->clone();
     if(other.mp_simulation_data) mp_simulation_data = other.mp_simulation_data->clone();
     if(other.mp_weights) mp_weights = other.mp_weights->clone();
+    if(other.mp_masks) mp_masks = other.mp_masks->clone();
     if(other.mp_squared_function) mp_squared_function = other.mp_squared_function->clone();
     if(other.mp_data_selector) mp_data_selector = other.mp_data_selector->clone();
     if(other.mp_data_normalizer) mp_data_normalizer = other.mp_data_normalizer->clone();
@@ -55,6 +58,7 @@ IChiSquaredModule::~IChiSquaredModule()
     delete mp_real_data;
     delete mp_simulation_data;
     delete mp_weights;
+    delete mp_masks;
     delete mp_squared_function;
     delete mp_data_selector;
     delete mp_data_normalizer;
@@ -67,6 +71,12 @@ void IChiSquaredModule::setRealAndSimulatedData(const OutputData<double >& real_
     mp_real_data=real_data.clone();
     delete mp_simulation_data;
     mp_simulation_data = simulation_data.clone();
+}
+
+void IChiSquaredModule::setMasks(const OutputData<bool> &masks)
+{
+    delete mp_masks;
+    mp_masks = masks.clone();
 }
 
 void IChiSquaredModule::setFittingDataSelector(const IFittingDataSelector& selector)

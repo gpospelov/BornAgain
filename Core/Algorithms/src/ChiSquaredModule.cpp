@@ -44,17 +44,30 @@ double ChiSquaredModule::calculateChiSquared()
 
     initWeights();
     OutputData<double> *p_difference = createChi2DifferenceMap();
-    OutputData<double>::const_iterator it_weights = mp_weights->begin();
-    OutputData<double>::const_iterator it_diff = p_difference->begin();
 
-    double sum = 0;
-    while(it_diff != p_difference->end())
-        sum += (*it_diff++)*(*it_weights++);
-    delete p_difference;
+//    OutputData<double>::const_iterator it_weights = mp_weights->begin();
+//    OutputData<double>::const_iterator it_diff = p_difference->begin();
+//    double sum = 0;
+//    while(it_diff != p_difference->end())
+//        sum += (*it_diff++)*(*it_weights++);
+//    delete p_difference;
 
+//    double fnorm = m_ndegree_of_freedom > 0 ?
+//        m_ndegree_of_freedom :
+//        mp_real_data->getAllocatedSize();
+
+    double sum(0.0);
+    int nentries(0);
+    for(size_t index=0; index<p_difference->getAllocatedSize(); ++index) {
+        if(mp_masks && (*mp_masks)[index]) continue;
+        sum += (*p_difference)[index]*(*mp_weights)[index];
+        ++nentries;
+    }
     double fnorm = m_ndegree_of_freedom > 0 ?
-        m_ndegree_of_freedom :
-        mp_real_data->getAllocatedSize();
+           m_ndegree_of_freedom :
+           nentries;
+
+
     return sum/fnorm;
 }
 
@@ -94,27 +107,48 @@ OutputData<double>* ChiSquaredModule::createChi2DifferenceMap() const
     OutputData<double > *p_difference = mp_simulation_data->clone();
     p_difference->setAllTo(0.0);
 
-    OutputData<double>::iterator it_diff = p_difference->begin();
-    OutputData<double>::const_iterator it_sim = mp_simulation_data->begin();
-    OutputData<double>::const_iterator it_real = mp_real_data->begin();
+//    OutputData<double>::iterator it_diff = p_difference->begin();
+//    OutputData<double>::const_iterator it_sim = mp_simulation_data->begin();
+//    OutputData<double>::const_iterator it_real = mp_real_data->begin();
 
-    while (it_diff != p_difference->end()) {
-        if( (it_sim.getIndex() != it_real.getIndex()) || (it_sim.getIndex() != it_diff.getIndex()) ) {
-            throw DomainErrorException("ChiSquaredModule::calculateChiSquared() -> Iterator inconsistency");
-        }
-        double value_simu = *it_sim++;
-        double value_real = *it_real++;
+//    while (it_diff != p_difference->end()) {
+//        if( (it_sim.getIndex() != it_real.getIndex()) || (it_sim.getIndex() != it_diff.getIndex()) ) {
+//            throw DomainErrorException("ChiSquaredModule::calculateChiSquared() -> Iterator inconsistency");
+//        }
+//        double value_simu = *it_sim++;
+//        double value_real = *it_real++;
 
-        if(mp_intensity_function) {
-            value_simu = mp_intensity_function->evaluate(value_simu);
-            value_real = mp_intensity_function->evaluate(value_real);
-        }
+//        if(mp_intensity_function) {
+//            value_simu = mp_intensity_function->evaluate(value_simu);
+//            value_real = mp_intensity_function->evaluate(value_real);
+//        }
 
-        double squared_difference =
-            mp_squared_function->calculateSquaredDifference(
-                value_real, value_simu);
-        *it_diff = squared_difference;
-        ++it_diff;
+//        double squared_difference =
+//            mp_squared_function->calculateSquaredDifference(
+//                value_real, value_simu);
+//        *it_diff = squared_difference;
+//        ++it_diff;
+//    }
+
+    if(mp_masks && mp_masks->getAllocatedSize() != mp_real_data->getAllocatedSize()) {
+        throw LogicErrorException("ChiSquaredModule::createChi2DifferenceMap() -> Error. "
+                                  "Size of mask array differs from real data.");
+    }
+
+    for(size_t index=0; index<mp_real_data->getAllocatedSize(); ++index) {
+        if(mp_masks && (*mp_masks)[index]) continue;
+            double value_simu = (*mp_simulation_data)[index];
+            double value_real = (*mp_real_data)[index];
+
+            if(mp_intensity_function) {
+                value_simu = mp_intensity_function->evaluate(value_simu);
+                value_real = mp_intensity_function->evaluate(value_real);
+            }
+
+            double squared_difference =
+                mp_squared_function->calculateSquaredDifference(
+                    value_real, value_simu);
+        (*p_difference)[index] = squared_difference;
     }
 
     return p_difference;

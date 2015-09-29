@@ -286,7 +286,6 @@ void GISASSimulation::initSimulationElementVector()
                                           alpha_bin.m_upper, phi_bin.m_lower, phi_bin.m_upper);
             sim_element.setPolarization(beam_polarization);
             sim_element.setAnalyzerOperator(analyzer_operator);
-//            sim_element.setIndex(index);
 
             m_sim_elements.push_back(sim_element);
         }

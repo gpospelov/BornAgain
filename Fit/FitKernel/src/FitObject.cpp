@@ -70,6 +70,9 @@ double FitObject::calculateChiSquared()
 {
     boost::scoped_ptr<OutputData<double> > P_sim_data(m_simulation->getIntensityData());
     m_chi2_module->setRealAndSimulatedData(*m_real_data, *P_sim_data.get());
+    if(m_simulation->getInstrument().getDetector()->hasMasks()) {
+        m_chi2_module->setMasks(*m_simulation->getInstrument().getDetector()->getDetectorMask()->getMaskData());
+    }
 
     return m_chi2_module->calculateChiSquared();
 }

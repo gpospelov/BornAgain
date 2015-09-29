@@ -46,12 +46,10 @@ class BA_CORE_API_ FitObject : public IParameterized
 
     //! Returns real data
     const OutputData<double> *getRealData() const { return m_real_data; }
-    //! Sets real data
-    void setRealData(const OutputData<double >& real_data);
+//    //! Sets real data
+//    void setRealData(const OutputData<double >& real_data);
 
     //! Returns simulated data
-//    const OutputData<double> *getSimulationData() const {
-//        return m_simulation->getOutputData(); }
     const OutputData<double> *getSimulationData() const {
         return m_chi2_module->getSimulationData(); }
 

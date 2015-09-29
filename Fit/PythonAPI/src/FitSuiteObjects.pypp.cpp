@@ -280,17 +280,6 @@ void register_FitSuiteObjects_class(){
                 , ( bp::arg("nfree_parameters") ) );
         
         }
-        { //::FitSuiteObjects::setRealData
-        
-            typedef void ( ::FitSuiteObjects::*setRealData_function_type)( ::OutputData< double > const &,::std::size_t ) ;
-            
-            FitSuiteObjects_exposer.def( 
-                "setRealData"
-                , setRealData_function_type( &::FitSuiteObjects::setRealData )
-                , ( bp::arg("real_data"), bp::arg("i_item")=(::std::size_t)(0) )
-                , "Sets real data." );
-        
-        }
         { //::FitSuiteObjects::setSimulationNormalize
         
             typedef void ( ::FitSuiteObjects::*setSimulationNormalize_function_type)( bool ) ;

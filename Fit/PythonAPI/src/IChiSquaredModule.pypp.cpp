@@ -328,6 +328,17 @@ void register_IChiSquaredModule_class(){
                 , ( bp::arg("data_normalizer") ) );
         
         }
+        { //::IChiSquaredModule::setMasks
+        
+            typedef void ( ::IChiSquaredModule::*setMasks_function_type)( ::OutputData< bool > const & ) ;
+            
+            IChiSquaredModule_exposer.def( 
+                "setMasks"
+                , setMasks_function_type( &::IChiSquaredModule::setMasks )
+                , ( bp::arg("masks") )
+                , "Sets detector masks." );
+        
+        }
         { //::IChiSquaredModule::setNdegreeOfFreedom
         
             typedef void ( ::IChiSquaredModule::*setNdegreeOfFreedom_function_type)( int ) ;

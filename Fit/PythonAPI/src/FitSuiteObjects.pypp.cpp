@@ -214,30 +214,6 @@ void register_FitSuiteObjects_class(){
                 , "Returns residuals for single data element @pars global_index index accross all OutputData defined " );
         
         }
-        { //::FitSuiteObjects::getSimulation
-        
-            typedef ::GISASSimulation const * ( ::FitSuiteObjects::*getSimulation_function_type)( ::std::size_t ) const;
-            
-            FitSuiteObjects_exposer.def( 
-                "getSimulation"
-                , getSimulation_function_type( &::FitSuiteObjects::getSimulation )
-                , ( bp::arg("i_item")=(::std::size_t)(0) )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns simulation for read access." );
-        
-        }
-        { //::FitSuiteObjects::getSimulation
-        
-            typedef ::GISASSimulation * ( ::FitSuiteObjects::*getSimulation_function_type)( ::std::size_t ) ;
-            
-            FitSuiteObjects_exposer.def( 
-                "getSimulation"
-                , getSimulation_function_type( &::FitSuiteObjects::getSimulation )
-                , ( bp::arg("i_item")=(::std::size_t)(0) )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns simulation for write access." );
-        
-        }
         { //::FitSuiteObjects::getSimulationData
         
             typedef ::OutputData< double > const * ( ::FitSuiteObjects::*getSimulationData_function_type)( ::std::size_t ) const;
@@ -278,17 +254,6 @@ void register_FitSuiteObjects_class(){
                 "setNfreeParameters"
                 , setNfreeParameters_function_type( &::FitSuiteObjects::setNfreeParameters )
                 , ( bp::arg("nfree_parameters") ) );
-        
-        }
-        { //::FitSuiteObjects::setSimulationNormalize
-        
-            typedef void ( ::FitSuiteObjects::*setSimulationNormalize_function_type)( bool ) ;
-            
-            FitSuiteObjects_exposer.def( 
-                "setSimulationNormalize"
-                , setSimulationNormalize_function_type( &::FitSuiteObjects::setSimulationNormalize )
-                , ( bp::arg("simulation_normalize") )
-                , "Sets simulation normalize flag." );
         
         }
         { //::FitSuiteObjects::size

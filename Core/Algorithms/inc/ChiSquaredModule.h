@@ -42,6 +42,9 @@ public:
     //! Returns residual between data and simulation for single element.
     virtual double getResidualValue(size_t index ) const;
 
+    virtual void processFitElements(std::vector<FitElement>::iterator first,
+                                    std::vector<FitElement>::iterator last);
+
 };
 
 #endif /* CHISQUAREDMODULE_H_ */

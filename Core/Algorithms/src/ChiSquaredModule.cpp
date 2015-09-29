@@ -95,6 +95,7 @@ double ChiSquaredModule::getResidualValue(size_t index ) const
     return residual;
 }
 
+
 OutputData<double>* ChiSquaredModule::createChi2DifferenceMap() const
 {
     if( !mp_real_data )
@@ -153,3 +154,14 @@ OutputData<double>* ChiSquaredModule::createChi2DifferenceMap() const
 
     return p_difference;
 }
+
+
+void ChiSquaredModule::processFitElements(std::vector<FitElement>::iterator first,
+                                          std::vector<FitElement>::iterator last)
+{
+    for (std::vector<FitElement>::iterator it = first; it != last; ++it) {
+        std::cout << it->getRealValue() << " " << it->getSimulValue() << std::endl;
+    }
+}
+
+

@@ -20,6 +20,7 @@
 #include "GISASSimulation.h"
 #include "OutputData.h"
 #include "ChiSquaredModule.h"
+#include "FitElement.h"
 
 //! @class FitObject
 //! @ingroup fitting_internal
@@ -41,8 +42,8 @@ class BA_CORE_API_ FitObject : public IParameterized
     GISASSimulation *getSimulation() { return m_simulation; }
 
     //! Sets simulation
-    void setSimulation(const GISASSimulation& simulation) {
-        delete m_simulation; m_simulation = simulation.clone(); }
+//    void setSimulation(const GISASSimulation& simulation) {
+//        delete m_simulation; m_simulation = simulation.clone(); }
 
     //! Returns real data
     const OutputData<double> *getRealData() const { return m_real_data; }
@@ -61,8 +62,8 @@ class BA_CORE_API_ FitObject : public IParameterized
     IChiSquaredModule *getChiSquaredModule() { return m_chi2_module; }
 
     //! Sets chi2 module
-    void setChiSquaredModule(const IChiSquaredModule& chi2_module) {
-        delete m_chi2_module; m_chi2_module = chi2_module.clone(); }
+//    void setChiSquaredModule(const IChiSquaredModule& chi2_module) {
+//        delete m_chi2_module; m_chi2_module = chi2_module.clone(); }
 
     //! Returns chi squared value
     double calculateChiSquared();
@@ -77,6 +78,8 @@ class BA_CORE_API_ FitObject : public IParameterized
 
     //! Returns size of data
     size_t getSizeOfData() const { return m_real_data->getAllocatedSize(); }
+
+    std::vector<FitElement> calculateFitElements();
 
  protected:
     //! Registers some class members for later access via parameter pool

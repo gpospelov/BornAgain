@@ -99,3 +99,24 @@ std::string FitObject::addParametersToExternalPool(
 
     return new_path;
 }
+
+std::vector<FitElement> FitObject::calculateFitElements()
+{
+    std::vector<FitElement> result;
+
+    m_simulation->runSimulation();
+    boost::scoped_ptr<OutputData<double> > sim_data(m_simulation->getIntensityData());
+
+    const OutputData<bool> *masks(0);
+    if(m_simulation->getInstrument().getDetector()->hasMasks()) {
+        masks = m_simulation->getInstrument().getDetector()->getDetectorMask()->getMaskData();
+    }
+
+    for(size_t index=0; index<sim_data->getAllocatedSize(); ++index) {
+        if(masks && (*masks)[index]) continue;
+        FitElement element((*sim_data)[index], (*m_real_data)[index]);
+        result.push_back(element);
+    }
+
+    return result;
+}

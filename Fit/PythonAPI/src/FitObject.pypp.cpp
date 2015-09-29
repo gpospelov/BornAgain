@@ -210,28 +210,6 @@ void register_FitObject_class(){
                 , "Returns weight of data set in chi2 calculations." );
         
         }
-        { //::FitObject::setChiSquaredModule
-        
-            typedef void ( ::FitObject::*setChiSquaredModule_function_type)( ::IChiSquaredModule const & ) ;
-            
-            FitObject_exposer.def( 
-                "setChiSquaredModule"
-                , setChiSquaredModule_function_type( &::FitObject::setChiSquaredModule )
-                , ( bp::arg("chi2_module") )
-                , "Sets chi2 module." );
-        
-        }
-        { //::FitObject::setSimulation
-        
-            typedef void ( ::FitObject::*setSimulation_function_type)( ::GISASSimulation const & ) ;
-            
-            FitObject_exposer.def( 
-                "setSimulation"
-                , setSimulation_function_type( &::FitObject::setSimulation )
-                , ( bp::arg("simulation") )
-                , "Sets simulation." );
-        
-        }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;

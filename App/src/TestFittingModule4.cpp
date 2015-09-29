@@ -167,7 +167,7 @@ void TestFittingModule4::initializeRealData()
 
     mp_simulation->runSimulation();
     mp_simulation->normalize();
-    m_fitSuite->getFitObjects()->setSimulationNormalize(true);
+    //m_fitSuite->getFitObjects()->setSimulationNormalize(true);
     delete mp_real_data;
     mp_real_data = IsGISAXSTools::createNoisyData(*mp_simulation->getOutputData());
 }

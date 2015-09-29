@@ -21,6 +21,7 @@
 #include "OutputData.h"
 #include "FitObject.h"
 #include "SafePointerVector.h"
+#include "FitElement.h"
 
 #include <vector>
 
@@ -64,12 +65,12 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
     double getResidualValue(size_t global_index);
 
     //! Returns simulation for read access.
-    const GISASSimulation *getSimulation(size_t i_item = 0) const {
-        return m_fit_objects[check_index(i_item)]->getSimulation(); }
+//    const GISASSimulation *getSimulation(size_t i_item = 0) const {
+//        return m_fit_objects[check_index(i_item)]->getSimulation(); }
 
     //! Returns simulation for write access.
-    GISASSimulation *getSimulation(size_t i_item = 0) {
-        return m_fit_objects[check_index(i_item)]->getSimulation(); }
+//    GISASSimulation *getSimulation(size_t i_item = 0) {
+//        return m_fit_objects[check_index(i_item)]->getSimulation(); }
 
     //! Returns real data
     const OutputData<double> * getRealData(size_t i_item = 0) const {
@@ -95,8 +96,8 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
         int copy_number=-1) const;
 
     //! Sets simulation normalize flag
-    void setSimulationNormalize(bool simulation_normalize) {
-        m_simulation_normalize = simulation_normalize; }
+//    void setSimulationNormalize(bool simulation_normalize) {
+//        m_simulation_normalize = simulation_normalize; }
 
     void setNfreeParameters(int nfree_parameters ) {
         m_nfree_parameters = nfree_parameters; }
@@ -134,12 +135,14 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
     //! Sum of weights of fit sets.
     double m_total_weight;
 
-    bool m_simulation_normalize;
+//    bool m_simulation_normalize;
 
     //! number of free fit parameters for normalization
     int m_nfree_parameters;
 
     double m_chi_squared_value;
+
+    std::vector<FitElement> m_fit_elements;
 };
 
 #endif // FITSUITEKIT_H

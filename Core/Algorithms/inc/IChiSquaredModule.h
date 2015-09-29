@@ -20,6 +20,7 @@
 #include "ISquaredFunction.h"
 #include "IIntensityNormalizer.h"
 #include "IIntensityFunction.h"
+#include "FitElement.h"
 
 
 //! @class IChiSquaredModule
@@ -101,6 +102,9 @@ public:
         throw NotImplementedException(
             "IChiSquaredModule::getResidualValue() -> "
             "Error! Not implemented."); }
+
+    virtual void processFitElements(std::vector<FitElement>::iterator,
+                                    std::vector<FitElement>::iterator){}
 
 protected:
     IChiSquaredModule(const IChiSquaredModule& other);

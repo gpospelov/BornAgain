@@ -14,10 +14,13 @@
 // ************************************************************************** //
 
 #include "FitSuiteObjects.h"
+#include "FitObject.h"
 
 FitSuiteObjects::FitSuiteObjects()
-  : m_total_weight(0), m_simulation_normalize(false),
-    m_nfree_parameters(0), m_chi_squared_value(0)
+  : m_total_weight(0)
+//  , m_simulation_normalize(false),
+    ,m_nfree_parameters(0)
+  , m_chi_squared_value(0)
 {
     setName("FitSuiteObjects");
     init_parameters();
@@ -27,6 +30,7 @@ FitSuiteObjects::FitSuiteObjects()
 void FitSuiteObjects::clear()
 {
     m_fit_objects.clear();
+    m_fit_elements.clear();
 }
 
 //! Adds to kit pair of (simulation, real data) for consecutive simulation and chi2 module
@@ -42,14 +46,20 @@ void FitSuiteObjects::add(
 //! loop through all defined simulations and run them
 void FitSuiteObjects::runSimulations()
 {
+//    for(FitObjects_t::iterator it =
+//            m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
+//        (*it)->getSimulation()->runSimulation();
+////        if(m_simulation_normalize) {
+////            (*it)->getSimulation()->normalize();
+////        }
+//    }
+//    m_chi_squared_value = calculateChiSquaredValue();
+
     for(FitObjects_t::iterator it =
             m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        (*it)->getSimulation()->runSimulation();
-        if(m_simulation_normalize) {
-            (*it)->getSimulation()->normalize();
-        }
+        m_fit_elements = (*it)->calculateFitElements();
     }
-    m_chi_squared_value = calculateChiSquaredValue();
+
 }
 
 //! Returns total number of data points

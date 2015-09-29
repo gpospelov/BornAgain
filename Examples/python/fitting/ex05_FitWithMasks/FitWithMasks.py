@@ -134,8 +134,8 @@ def run_fitting():
     fit_suite = FitSuite()
 
     # masking example: two excluded rectangles on the plot
-    IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 0.1*degree, 0.1*degree, 0.2*degree)  # x1,y1,x2,y2
-    IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 1.0*degree, 0.1*degree, 1.2*degree)  # x1,y1,x2,y2
+    # IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 0.1*degree, 0.1*degree, 0.2*degree)  # x1,y1,x2,y2
+    # IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 1.0*degree, 0.1*degree, 1.2*degree)  # x1,y1,x2,y2
 
     # another mask example: one big square with two excluded areas on it
     # IntensityDataFunctions.addRectangularMask(real_data, -0.6*degree, 0.0*degree, 0.6*degree, 1.5*degree, True)
@@ -165,8 +165,6 @@ def run_fitting():
 
 
 if __name__ == '__main__':
-    exit("This example is broken in previous release (BornAgain-1.2.0). Fitting with masks is not possible. "
-         "Will be fixed in the next release (BornAgain-1.4.0) scheduled for the end of September, 2015.")
     run_fitting()
     pylab.ioff()
     pylab.show()

@@ -132,7 +132,7 @@ const DetectorMask *Detector::getDetectorMask() const
 
 bool Detector::isMasked(size_t index) const
 {
-//    if(!m_detector_mask.getMaskData()->isInitialized()) return false;
+    if(!m_detector_mask.getMaskData()->isInitialized()) return false;
     return m_detector_mask.getMask(index);
 }
 

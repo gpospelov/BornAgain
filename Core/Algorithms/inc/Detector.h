@@ -164,6 +164,7 @@ public:
     AngularPixelMap(double alpha, double phi, double dalpha, double dphi);
     virtual ~AngularPixelMap() {}
 
+    virtual AngularPixelMap* clone() const;
     virtual kvector_t getK(double x, double y, double wavelength) const;
     virtual double getIntegrationFactor(double x, double y) const;
     virtual double getSolidAngle() const {

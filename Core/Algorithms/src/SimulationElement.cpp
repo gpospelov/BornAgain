@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "SimulationElement.h"
+#include "Detector.h"
 
 #include <Bin.h>
 
@@ -21,6 +22,7 @@ SimulationElement::SimulationElement()
     : m_wavelength(0.0), m_alpha_i(0.0), m_phi_i(0.0), m_alpha_min(0.0), m_alpha_max(0.0),
       m_phi_min(0.0), m_phi_max(0.0), m_intensity(0.0)
 {
+    m_pixel_map.reset(new AngularPixelMap(0.0, 0.0, 0.0, 0.0));
     initPolarization();
 }
 
@@ -30,6 +32,8 @@ SimulationElement::SimulationElement(double wavelength, double alpha_i, double p
     : m_wavelength(wavelength), m_alpha_i(alpha_i), m_phi_i(phi_i), m_alpha_min(alpha_min),
       m_alpha_max(alpha_max), m_phi_min(phi_min), m_phi_max(phi_max), m_intensity(0.0)
 {
+    m_pixel_map.reset(new AngularPixelMap(m_alpha_min, m_phi_min, m_alpha_max-m_alpha_min,
+                                          m_phi_max-m_phi_min));
     initPolarization();
 }
 
@@ -38,6 +42,7 @@ SimulationElement::SimulationElement(const SimulationElement &other)
       m_alpha_min(other.m_alpha_min), m_alpha_max(other.m_alpha_max), m_phi_min(other.m_phi_min),
       m_phi_max(other.m_phi_max), m_intensity(other.m_intensity)
 {
+    m_pixel_map.reset(other.m_pixel_map->clone());
     m_polarization = other.m_polarization;
     m_analyzer_operator = other.m_analyzer_operator;
 }
@@ -87,6 +92,7 @@ void SimulationElement::swapContent(SimulationElement &other)
     std::swap(this->m_intensity, other.m_intensity);
     std::swap(this->m_polarization, other.m_polarization);
     std::swap(this->m_analyzer_operator, other.m_analyzer_operator);
+    boost::swap(this->m_pixel_map, other.m_pixel_map);
 }
 
 void SimulationElement::initPolarization()

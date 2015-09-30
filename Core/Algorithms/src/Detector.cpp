@@ -296,6 +296,11 @@ AngularPixelMap::AngularPixelMap(double alpha, double phi, double dalpha, double
     m_solid_angle = m_dphi*(std::sin(m_alpha+m_dalpha) - std::sin(m_alpha));
 }
 
+AngularPixelMap *AngularPixelMap::clone() const
+{
+    return new AngularPixelMap(m_alpha, m_phi, m_dalpha, m_dphi);
+}
+
 kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const
 {
     kvector_t result;

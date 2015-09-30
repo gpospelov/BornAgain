@@ -19,6 +19,9 @@
 #include "Types.h"
 #include "IParameterized.h"
 #include "EigenCore.h"
+#include "IPixelMap.h"
+
+#include <boost/scoped_ptr.hpp>
 
 //! @class SimulationElement
 //! @ingroup simulation
@@ -28,8 +31,10 @@ class BA_CORE_API_ SimulationElement
 {
 public:
     SimulationElement();
-    SimulationElement(double wavelength, double alpha_i, double phi_i, double alpha_min,
-                      double alpha_max, double phi_min, double phi_max);
+    SimulationElement(double wavelength, double alpha_i, double phi_i,
+                      double alpha_min, double alpha_max, double phi_min, double phi_max);
+//    SimulationElement(double wavelength, double alpha_i, double phi_i,
+//                      const IPixelMap* pixelmap);
     SimulationElement(const SimulationElement &other);
     SimulationElement &operator=(const SimulationElement &other);
 
@@ -129,6 +134,7 @@ private:
     Eigen::Matrix2cd m_polarization;      //!< polarization density matrix
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 #endif
+    boost::scoped_ptr<IPixelMap> m_pixel_map;
 };
 
 //! Add element vector to element vector with weight

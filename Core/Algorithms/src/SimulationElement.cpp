@@ -18,14 +18,6 @@
 
 #include <Bin.h>
 
-SimulationElement::SimulationElement()
-    : m_wavelength(0.0), m_alpha_i(0.0), m_phi_i(0.0), m_alpha_min(0.0), m_alpha_max(0.0),
-      m_phi_min(0.0), m_phi_max(0.0), m_intensity(0.0)
-{
-    m_pixel_map.reset(new AngularPixelMap(0.0, 0.0, 0.0, 0.0));
-    initPolarization();
-}
-
 SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i,
                                      double alpha_min, double alpha_max, double phi_min,
                                      double phi_max)
@@ -65,9 +57,7 @@ kvector_t SimulationElement::getKI() const
 
 kvector_t SimulationElement::getMeanKF() const
 {
-    kvector_t k_f;
-    k_f.setLambdaAlphaPhi(m_wavelength, getAlphaMean(), getPhiMean());
-    return k_f;
+    return m_pixel_map->getK(0.5, 0.5, m_wavelength);
 }
 
 cvector_t SimulationElement::getMeanQ() const

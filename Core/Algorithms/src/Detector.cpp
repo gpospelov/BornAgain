@@ -141,6 +141,45 @@ bool Detector::hasMasks() const
     return m_detector_mask.hasMasks();
 }
 
+std::vector<SimulationElement> Detector::createSimulationElements(const Beam &beam)
+{
+    std::vector<SimulationElement> result;
+    double wavelength = beam.getWavelength();
+    double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
+    double phi_i = beam.getPhi();
+    Eigen::Matrix2cd beam_polarization = beam.getPolarization();
+    Eigen::Matrix2cd analyzer_operator = getAnalyzerOperator();
+
+    if (getDimension()!=2) {
+        throw RuntimeErrorException("Detector::createSimulationElements: "
+                                    "detector is not two-dimensional");
+    }
+    const IAxis &phi_axis = getAxis(0);
+    if (phi_axis.getName()!=BornAgain::PHI_AXIS_NAME) {
+        throw RuntimeErrorException("Detector::createSimulationElements: "
+                                    "phi-axis is not correct");
+    }
+    const IAxis &alpha_axis =getAxis(1);
+    if (alpha_axis.getName()!=BornAgain::ALPHA_AXIS_NAME) {
+        throw RuntimeErrorException("Detector::createSimulationElements: "
+                                    "alpha-axis is not correct");
+    }
+
+    if (!hasMasks()) m_detector_mask.initMaskData(*this);
+    const OutputData<bool>* mask_data = m_detector_mask.getMaskData();
+    for (size_t index=0; index<mask_data->getAllocatedSize(); ++index) {
+        if ((*mask_data)[index]) continue;
+        Bin1D phi_bin = mask_data->getAxisBin(index, BornAgain::X_AXIS_INDEX);
+        Bin1D alpha_bin = mask_data->getAxisBin(index, BornAgain::Y_AXIS_INDEX);
+        SimulationElement sim_element(wavelength, alpha_i, phi_i, alpha_bin.m_lower,
+                                      alpha_bin.m_upper, phi_bin.m_lower, phi_bin.m_upper);
+        sim_element.setPolarization(beam_polarization);
+        sim_element.setAnalyzerOperator(analyzer_operator);
+        result.push_back(sim_element);
+    }
+    return result;
+}
+
 std::string Detector::addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                   int copy_number) const
 {

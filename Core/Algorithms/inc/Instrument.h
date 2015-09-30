@@ -104,6 +104,9 @@ public:
     void normalize(OutputData<double> *p_intensity) const;
 #endif
 
+    //! Create a vector of SimulationElement objects according to the beam, detector and its mask
+    std::vector<SimulationElement> createSimulationElements();
+
 protected:
     virtual void print(std::ostream &ostr) const;
 

@@ -20,6 +20,8 @@
 #include "SafePointerVector.h"
 #include "EigenCore.h"
 #include "DetectorMask.h"
+#include "SimulationElement.h"
+#include "Beam.h"
 
 //! @class Detector
 //! @ingroup simulation
@@ -108,6 +110,9 @@ public:
 
     //! return true if has masks
     bool hasMasks() const;
+
+    //! Create a vector of SimulationElement objects according to the detector and its mask
+    std::vector<SimulationElement> createSimulationElements(const Beam& beam);
 
 protected:
     virtual void print(std::ostream &ostr) const;

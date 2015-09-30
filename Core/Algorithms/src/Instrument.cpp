@@ -120,6 +120,11 @@ void Instrument::normalize(OutputData<double> *p_intensity) const
     m_detector.normalize(p_intensity, sin_alpha_i);
 }
 
+std::vector<SimulationElement> Instrument::createSimulationElements()
+{
+    return m_detector.createSimulationElements(m_beam);
+}
+
 void Instrument::setDetectorResolutionFunction(
     IResolutionFunction2D* p_resolution_function)
 {

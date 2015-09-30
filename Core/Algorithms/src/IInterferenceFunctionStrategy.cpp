@@ -137,17 +137,8 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const SimulationEleme
                                                                                  2);
     double min_array[] = {0.0, 0.0};
     double max_array[] = {1.0, 1.0};
-    double result = mc_integrator.integrate(min_array, max_array, (void *)&sim_element,
+    return mc_integrator.integrate(min_array, max_array, (void *)&sim_element,
                                             m_sim_params.m_mc_points);
-    double integration_constant;
-    Bin1D alpha_f_bin(sim_element.getAlphaMin(), sim_element.getAlphaMax());
-    if (alpha_f_bin.getBinSize() == 0.0) {
-        integration_constant = 1.0 / std::cos(alpha_f_bin.m_lower);
-    } else {
-        integration_constant = alpha_f_bin.getBinSize()
-                               / (std::sin(alpha_f_bin.m_upper) - std::sin(alpha_f_bin.m_lower));
-    }
-    return result * std::abs(integration_constant);
 }
 
 double IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
@@ -159,10 +150,8 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
             mc_integrator(p_function, this, 2);
     double min_array[] = {0.0, 0.0};
     double max_array[] = {1.0, 1.0};
-
-    double result = mc_integrator.integrate(min_array, max_array, (void *)&sim_element,
+    return mc_integrator.integrate(min_array, max_array, (void *)&sim_element,
                                             m_sim_params.m_mc_points);
-    return result;
 }
 
 double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double *fractions, size_t dim,
@@ -181,7 +170,7 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double *fraction
     sim_element.setPolarization(pars->getPolarization());
     sim_element.setAnalyzerOperator(pars->getAnalyzerOperator());
     calculateFormFactorList(sim_element);
-    return std::cos(alpha) * evaluateForList(sim_element, m_ff);
+    return pars->getIntegrationFactor(par0, par1) * evaluateForList(sim_element, m_ff);
 }
 
 double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(double *fractions, size_t dim,
@@ -202,5 +191,5 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(double *frac
     calculateFormFactorLists(sim_element);
 
     double result = evaluateForMatrixList(sim_element, m_ff_pol);
-    return std::cos(alpha) * result;
+    return pars->getIntegrationFactor(par0, par1) * result;
 }

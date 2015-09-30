@@ -313,7 +313,8 @@ kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const
 double AngularPixelMap::getIntegrationFactor(double x, double y) const
 {
     (void)y;
+    if (m_dalpha==0.0) return 1.0;
     double alpha = m_alpha + x*m_dalpha;
-    return std::cos(alpha);
+    return std::cos(alpha)*m_dalpha/(std::sin(m_alpha+m_dalpha)-std::sin(m_alpha));
 }
 

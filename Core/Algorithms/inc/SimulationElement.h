@@ -37,9 +37,7 @@ public:
     SimulationElement(const SimulationElement &other);
     SimulationElement &operator=(const SimulationElement &other);
 
-    ~SimulationElement()
-    {
-    }
+    ~SimulationElement() {}
 
 #ifndef GCCXML_SKIP_THIS
     //! Sets the polarization density matrix (in spin basis along z-axis)
@@ -118,6 +116,18 @@ public:
     kvector_t getKI() const;
     kvector_t getMeanKF() const;
     cvector_t getMeanQ() const;
+
+    kvector_t getK(double x, double y) const {
+        return m_pixel_map->getK(x, y, m_wavelength);
+    }
+
+    double getIntegrationFactor(double x, double y) const {
+        return m_pixel_map->getIntegrationFactor(x, y);
+    }
+
+    double getSolidAngle() const {
+        return m_pixel_map->getSolidAngle();
+    }
 
 private:
     //! swap function

@@ -50,7 +50,7 @@ void FitSuite::clear()
 //! Adds pair of (simulation, real data) for consecutive simulation
 void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation, const OutputData<double >& real_data, const IChiSquaredModule& chi2_module)
 {
-    m_fit_objects.add(simulation, real_data, chi2_module);
+    m_fit_objects.add(simulation, real_data);
 }
 
 //! Adds fit parameter
@@ -104,7 +104,7 @@ void FitSuite::link_fit_parameters()
 bool FitSuite::check_prerequisites() const
 {
     if( !m_minimizer ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No minimizer found.");
-    if( !m_fit_objects.size() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No simulation/data description defined");
+    if( !m_fit_objects.getNumberOfFitObjects() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No simulation/data description defined");
     if( !m_fit_parameters.size() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No fit parameters defined");
     return true;
 }

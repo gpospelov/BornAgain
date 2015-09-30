@@ -113,7 +113,7 @@ void register_FitObject_class(){
 
     { //::FitObject
         typedef bp::class_< FitObject_wrapper, bp::bases< IParameterized >, boost::noncopyable > FitObject_exposer_t;
-        FitObject_exposer_t FitObject_exposer = FitObject_exposer_t( "FitObject", "Single simulation description, real data and chi2 module (used by FitSuite.", bp::init< GISASSimulation const &, OutputData< double > const &, bp::optional< double > >(( bp::arg("simulation"), bp::arg("real_data"), bp::arg("weight")=1 )) );
+        FitObject_exposer_t FitObject_exposer = FitObject_exposer_t( "FitObject", "Holds simulation description and real data to run the fit.", bp::init< GISASSimulation const &, OutputData< double > const &, bp::optional< double > >(( bp::arg("simulation"), bp::arg("real_data"), bp::arg("weight")=1 ), "FitObject constructor @param simulaiton The simulation to eun @param real_data The real data @param weight Weight of dataset in chi2 calculations \n\n:Parameters:\n  - 'simulaiton' - The simulation to eun\n  - 'real_data' - The real data\n  - 'weight' - Weight of dataset in chi2 calculations\n") );
         bp::scope FitObject_scope( FitObject_exposer );
         { //::FitObject::getChiSquaredMap
         
@@ -155,7 +155,7 @@ void register_FitObject_class(){
             FitObject_exposer.def( 
                 "getSizeOfData"
                 , getSizeOfData_function_type( &::FitObject::getSizeOfData )
-                , "Returns size of data." );
+                , "Returns size of data. It is equal to the number of non-masked detector channels which will participate in chi2 calculations. " );
         
         }
         { //::FitObject::getWeight

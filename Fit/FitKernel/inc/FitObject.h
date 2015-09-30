@@ -17,10 +17,11 @@
 #define FITOBJECT_H
 
 #include "IParameterized.h"
-#include "GISASSimulation.h"
-#include "OutputData.h"
 #include "FitElement.h"
+#include "OutputData.h"
 #include <boost/scoped_ptr.hpp>
+
+class GISASSimulation;
 
 //! @class FitObject
 //! @ingroup fitting_internal

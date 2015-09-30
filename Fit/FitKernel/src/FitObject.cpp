@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FitObject.h"
+#include "GISASSimulation.h"
 #include "Exceptions.h"
 #include "MessageService.h"
 #include <boost/scoped_ptr.hpp>

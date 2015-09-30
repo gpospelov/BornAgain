@@ -511,7 +511,7 @@ size_t OutputData<T>::toGlobalIndex(const std::vector<int> &axes_indices) const
     int step_size = 1;
     for (size_t i=mp_ll_data->getRank(); i>0; --i)
     {
-        if(axes_indices[i-1] < 0 || axes_indices[i-1] >=m_value_axes[i-1]->getSize()) {
+        if(axes_indices[i-1] < 0 || axes_indices[i-1] >= (int)m_value_axes[i-1]->getSize()) {
             std::ostringstream message;
             message << "size_t OutputData<T>::toGlobalIndex() -> Error. Index ";
             message << axes_indices[i-1] << " is out of range. Axis ";

@@ -60,6 +60,8 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
     //! Returns sum of chi squared values for all fit objects
     double calculateChiSquaredValue();
 
+    double calculateChiSquaredValueNew();
+
     //! Returns residuals for single data element
     //! @pars global_index index accross all OutputData defined
     double getResidualValue(size_t global_index);

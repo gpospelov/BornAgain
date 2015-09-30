@@ -118,5 +118,6 @@ std::vector<FitElement> FitObject::calculateFitElements()
         result.push_back(element);
     }
 
+    m_chi2_module->processFitElements(result.begin(), result.end());
     return result;
 }

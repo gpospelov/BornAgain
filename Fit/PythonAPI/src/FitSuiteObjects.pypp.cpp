@@ -136,6 +136,16 @@ void register_FitSuiteObjects_class(){
                 , "Returns sum of chi squared values for all fit objects." );
         
         }
+        { //::FitSuiteObjects::calculateChiSquaredValueNew
+        
+            typedef double ( ::FitSuiteObjects::*calculateChiSquaredValueNew_function_type)(  ) ;
+            
+            FitSuiteObjects_exposer.def( 
+                "calculateChiSquaredValueNew"
+                , calculateChiSquaredValueNew_function_type( &::FitSuiteObjects::calculateChiSquaredValueNew )
+                , "Returns sum of chi squared values for all fit objects." );
+        
+        }
         { //::FitSuiteObjects::clear
         
             typedef void ( ::FitSuiteObjects::*clear_function_type)(  ) ;

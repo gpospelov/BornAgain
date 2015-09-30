@@ -54,6 +54,7 @@ FitElement &FitElement::operator=(const FitElement &other)
     return *this;
 }
 
+
 void FitElement::swapContent(FitElement &other)
 {
     std::swap(this->m_simul_value, other.m_simul_value);

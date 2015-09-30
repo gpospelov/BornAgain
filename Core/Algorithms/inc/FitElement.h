@@ -35,6 +35,13 @@ public:
 
     double getRealValue() const;
 
+    double getWeight() const;
+
+    double getSquaredDifference() const;
+    void setSquaredDifference(double value);
+
+    double getResidual() const;
+    void setResidual(double value);
 
 private:
     void swapContent(FitElement &other);
@@ -49,7 +56,7 @@ private:
 
 inline double FitElement::getSimulValue() const
 {
-    return m_real_value;
+    return m_simul_value;
 }
 
 inline double FitElement::getRealValue() const
@@ -57,6 +64,30 @@ inline double FitElement::getRealValue() const
     return m_real_value;
 }
 
+inline double FitElement::getWeight() const
+{
+    return m_weight;
+}
+
+inline double FitElement::getSquaredDifference() const
+{
+    return m_squared_difference;
+}
+
+inline void FitElement::setSquaredDifference(double value)
+{
+    m_squared_difference = value;
+}
+
+inline double FitElement::getResidual() const
+{
+    return m_residual;
+}
+
+inline void FitElement::setResidual(double value)
+{
+    m_residual = value;
+}
 
 #endif
 

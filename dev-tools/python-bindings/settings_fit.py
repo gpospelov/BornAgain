@@ -144,9 +144,9 @@ def ManualClassTunings(mb):
     #for fun in cl.member_functions(allow_empty=True):
       #if "addFitParameter" in fun.name:
           #fun.include()
-    cl.member_function("getMinimizer").include()
+    # cl.member_function("getMinimizer").include()
     cl.member_function( "getMinimizer" ).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
-    cl.member_function("setMinimizer").include()
+    # cl.member_function("setMinimizer").include()
     #cl.member_function("addSimulationAndRealData").include()
     #cl.member_function("runFit").include()
     #cl.member_function("printResults").include()
@@ -188,6 +188,12 @@ def ManualClassTunings(mb):
     cl.member_function("getChiSquaredMap").call_policies = \
         call_policies.return_value_policy(call_policies.manage_new_object)
 
+    cl = mb.class_("ChiSquaredModule")
+    cl.member_function("processFitElements").exclude()
+    cl = mb.class_("IChiSquaredModule")
+    cl.member_function("processFitElements").exclude()
+    cl = mb.class_("FitObject")
+    cl.member_function("calculateFitElements").exclude()
 
 
 # excluding specific member functions

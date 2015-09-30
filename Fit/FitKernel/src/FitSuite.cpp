@@ -85,6 +85,11 @@ void FitSuite::setMinimizer(IMinimizer *minimizer)
     }
 }
 
+void FitSuite::setMinimizer(std::string &minimizer, const std::string &algorithm, const std::string &options)
+{
+    setMinimizer(MinimizerFactory::createMinimizer(minimizer, algorithm, options));
+}
+
 //! link FitMultiParameters with simulation parameters
 void FitSuite::link_fit_parameters()
 {

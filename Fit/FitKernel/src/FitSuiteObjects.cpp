@@ -46,19 +46,23 @@ void FitSuiteObjects::add(
 //! loop through all defined simulations and run them
 void FitSuiteObjects::runSimulations()
 {
-//    for(FitObjects_t::iterator it =
-//            m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-//        (*it)->getSimulation()->runSimulation();
-////        if(m_simulation_normalize) {
-////            (*it)->getSimulation()->normalize();
-////        }
-//    }
-//    m_chi_squared_value = calculateChiSquaredValue();
+    for(FitObjects_t::iterator it =
+            m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
+        (*it)->getSimulation()->runSimulation();
+//        if(m_simulation_normalize) {
+//            (*it)->getSimulation()->normalize();
+//        }
+    }
+    m_chi_squared_value = calculateChiSquaredValue();
+    std::cout << "aaa " << m_chi_squared_value;
 
     for(FitObjects_t::iterator it =
             m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
         m_fit_elements = (*it)->calculateFitElements();
     }
+
+    m_chi_squared_value = calculateChiSquaredValueNew();
+    std::cout << "aaa2 " << m_chi_squared_value << std::endl;
 
 }
 
@@ -115,6 +119,21 @@ double FitSuiteObjects::calculateChiSquaredValue()
         result += chi_squared;
     }
     return result;
+}
+
+double FitSuiteObjects::calculateChiSquaredValueNew()
+{
+    double result(0);
+    for(std::vector<FitElement>::iterator it=m_fit_elements.begin(); it!=m_fit_elements.end(); ++it) {
+        result += it->getSquaredDifference();
+    }
+
+    int fnorm = m_fit_elements.size() - m_nfree_parameters;
+    if(fnorm <=0) {
+        throw LogicErrorException("FitSuiteObjects::calculateChiSquaredValueNew() -> Error. Normalization is 0");
+    }
+
+    return result/fnorm;
 }
 
 double FitSuiteObjects::getResidualValue(size_t global_index)

@@ -231,7 +231,7 @@ void register_FitSuite_class(){
                 "getMinimizer"
                 , getMinimizer_function_type( &::FitSuite::getMinimizer )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "Sets minimizer." );
+                , "Returns minimizer." );
         
         }
         { //::FitSuite::getNCalls
@@ -350,12 +350,12 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::setMinimizer
         
-            typedef void ( ::FitSuite::*setMinimizer_function_type)( ::IMinimizer * ) ;
+            typedef void ( ::FitSuite::*setMinimizer_function_type)( ::std::string &,::std::string const &,::std::string const & ) ;
             
             FitSuite_exposer.def( 
                 "setMinimizer"
                 , setMinimizer_function_type( &::FitSuite::setMinimizer )
-                , ( bp::arg("minimizer") )
+                , ( bp::arg("minimizer"), bp::arg("algorithm")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >(), bp::arg("options")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >() )
                 , "Sets minimizer." );
         
         }

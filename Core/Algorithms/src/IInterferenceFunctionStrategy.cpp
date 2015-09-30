@@ -95,8 +95,8 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
     }
 }
 
-void
-IInterferenceFunctionStrategy::calculateFormFactorLists(const SimulationElement &sim_element) const
+void IInterferenceFunctionStrategy::calculateFormFactorLists(
+        const SimulationElement &sim_element) const
 {
     clearFormFactorLists();
 

@@ -115,7 +115,7 @@ public:
     }
     kvector_t getKI() const;
     kvector_t getMeanKF() const;
-    cvector_t getMeanQ() const;
+    kvector_t getMeanQ() const;
 
     kvector_t getK(double x, double y) const {
         return m_pixel_map->getK(x, y, m_wavelength);

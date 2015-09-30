@@ -45,7 +45,7 @@ public:
 
     const IFTDistribution1D *getProbabilityDistribution() const { return mp_pdf; }
 
-    virtual double evaluate(const cvector_t& q) const;
+    virtual double evaluate(const kvector_t& q) const;
 
 protected:
 

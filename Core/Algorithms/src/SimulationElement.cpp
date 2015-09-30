@@ -60,14 +60,15 @@ kvector_t SimulationElement::getMeanKF() const
     return m_pixel_map->getK(0.5, 0.5, m_wavelength);
 }
 
-cvector_t SimulationElement::getMeanQ() const
+kvector_t SimulationElement::getMeanQ() const
 {
-    cvector_t k_i;
+    kvector_t k_i;
     k_i.setLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
     Bin1D alpha_f_bin(m_alpha_min, m_alpha_max);
     Bin1D phi_f_bin(m_phi_min, m_phi_max);
-    Bin1DCVector k_f_bin(m_wavelength, alpha_f_bin, phi_f_bin);
+    Bin1DKVector k_f_bin(m_wavelength, alpha_f_bin, phi_f_bin);
     return k_i - k_f_bin.getMidPoint();
+//    return k_i - getMeanKF();
 }
 
 void SimulationElement::swapContent(SimulationElement &other)

@@ -55,7 +55,7 @@ InterferenceFunctionRadialParaCrystal *InterferenceFunctionRadialParaCrystal::cl
 }
 
 
-double InterferenceFunctionRadialParaCrystal::evaluate(const cvector_t& q) const
+double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t& q) const
 {
     if (!mP_pdf.get()) {
         throw NullPointerException("InterferenceFunctionRadialParaCrystal::"
@@ -63,8 +63,8 @@ double InterferenceFunctionRadialParaCrystal::evaluate(const cvector_t& q) const
                 "interference funtion not properly initialized");
     }
     double result=0.0;
-    double qxr = q.x().real();
-    double qyr = q.y().real();
+    double qxr = q.x();
+    double qyr = q.y();
     double qpar = std::sqrt(qxr*qxr + qyr*qyr);
     int n = (int)std::abs(m_domain_size/m_peak_distance);
     double nd = (double)n;

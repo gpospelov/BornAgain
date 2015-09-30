@@ -69,10 +69,10 @@ void InterferenceFunction2DParaCrystal::setProbabilityDistributions(
     m_pdfs[1] = pdf_2.clone();
 }
 
-double InterferenceFunction2DParaCrystal::evaluate(const cvector_t& q) const
+double InterferenceFunction2DParaCrystal::evaluate(const kvector_t& q) const
 {
-    m_qx = q.x().real();
-    m_qy = q.y().real();
+    m_qx = q.x();
+    m_qy = q.y();
     double result;
     if (m_integrate_xi) {
         MemberFunctionIntegrator<InterferenceFunction2DParaCrystal>::

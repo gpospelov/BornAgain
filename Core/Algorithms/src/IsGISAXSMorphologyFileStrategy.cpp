@@ -60,7 +60,7 @@ void IsGISAXSMorphologyFileStrategy::initPositions()
 double IsGISAXSMorphologyFileStrategy::evaluateForList(const SimulationElement& sim_element,
                                                        const std::vector<complex_t> &ff_list) const
 {
-    cvector_t q = sim_element.getMeanQ();
+    (void)sim_element;
     complex_t mean_ff = complex_t(0., 0.);
 
     // calculate form factors

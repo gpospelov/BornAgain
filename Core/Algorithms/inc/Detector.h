@@ -112,8 +112,10 @@ public:
     //! return true if has masks
     bool hasMasks() const;
 
+#ifndef GCCXML_SKIP_THIS
     //! Create a vector of SimulationElement objects according to the detector and its mask
     std::vector<SimulationElement> createSimulationElements(const Beam& beam);
+#endif
 
 protected:
     virtual void print(std::ostream &ostr) const;

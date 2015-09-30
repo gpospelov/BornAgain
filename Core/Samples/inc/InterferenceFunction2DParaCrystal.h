@@ -63,7 +63,7 @@ public:
     void setIntegrationOverXi(bool integrate_xi)
     { m_integrate_xi = integrate_xi; }
 
-    virtual double evaluate(const cvector_t& q) const;
+    virtual double evaluate(const kvector_t& q) const;
 
     //! Adds parameters from local pool to external pool and call recursion
     //! over direct children

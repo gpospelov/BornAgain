@@ -200,10 +200,14 @@ def ManualClassTunings(mb):
     axis_operators = mb.free_operators( lambda decl: 'IAxis' in decl.decl_string )
     axis_operators.include()
 
-    mb.class_("Detector").member_functions("addAxis").exclude()
-    #
+    # shared ptrs
     shared_ptrs = mb.decls(lambda decl: decl.name.startswith('shared_ptr<' ))
     shared_ptrs.disable_warnings(messages.W1040)
+
+    # Detector
+    cl = mb.class_('Detector')
+    cl.member_functions("addAxis").exclude()
+
     # ISample
     cl = mb.class_('ISample')
     cl.member_function("accept").include()

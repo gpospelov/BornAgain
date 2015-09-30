@@ -39,6 +39,10 @@ void FitSuiteObjects::add(
     const IChiSquaredModule& chi2_module, double weight)
 {
     m_total_weight += weight;
+
+//    std::cout << (real_data.getAllocatedSize() - simulation.getInstrument().getDetector()->getDetectorMask()->getNumberOfMaskedChannels()) << std::endl;
+//    assert(0);
+
     m_fit_objects.push_back(
         new FitObject(simulation, real_data, chi2_module, weight));
 }
@@ -73,6 +77,10 @@ size_t FitSuiteObjects::getSizeOfDataSet() const
     for(FitObjects_t::const_iterator it =
             m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
         result += (*it)->getSizeOfData();
+    }
+    std::cout << "XXX " << result << std::endl;
+    if(result == 0) {
+        throw LogicErrorException("Panic, zero dataset size");
     }
     return result;
 }
@@ -138,13 +146,18 @@ double FitSuiteObjects::calculateChiSquaredValueNew()
 
 double FitSuiteObjects::getResidualValue(size_t global_index)
 {
-    size_t index(0);
-    const FitObject *fitObject =
-        getObjectForGlobalDataIndex(global_index, index);
-    double residual =
-        fitObject->getChiSquaredModule()->getResidualValue(index) *
-        (fitObject->getWeight()/m_total_weight);
-    return residual;
+    if(global_index >= getSizeOfDataSet()) {
+        throw LogicErrorException(" FitSuiteObjects::getResidualValue() -> Error. Wrong size of dataset");
+    }
+//    size_t index(0);
+//    const FitObject *fitObject =
+//        getObjectForGlobalDataIndex(global_index, index);
+//    double residual =
+//        fitObject->getChiSquaredModule()->getResidualValue(index) *
+//        (fitObject->getWeight()/m_total_weight);
+//    return residual;
+    std::cout << "residual: " << global_index << " " << m_fit_elements[global_index].getResidual() << std::endl;
+    return m_fit_elements[global_index].getResidual();
 }
 
 //! Returns maximum intensity in simulated data over all fit objects defined

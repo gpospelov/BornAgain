@@ -132,6 +132,8 @@ def run_fitting():
     real_data = create_real_data()
 
     fit_suite = FitSuite()
+    # fit_suite.setMinimizer("GSLLMA")
+    fit_suite.setMinimizer("Minuit2", "Fumili")
 
     # Here we are settings masks to the detector plane to simulate image which looks like a Pac-Man
     # from ancient arcade game

@@ -60,7 +60,7 @@ class BA_CORE_API_ FitSuite : public IObservable
     //! Sets minimizer
     void setMinimizer(IMinimizer *minimizer);
 
-    void setMinimizer(std::string& minimizer, const std::string& algorithm = std::string(), const std::string& options=std::string());
+    void setMinimizer(const std::string& minimizer, const std::string& algorithm = std::string(), const std::string& options=std::string());
 
     //! Returns minimizer
     IMinimizer *getMinimizer() { return m_minimizer; }

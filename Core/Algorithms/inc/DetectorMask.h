@@ -55,14 +55,13 @@ public:
     //! returns true if has masks
     bool hasMasks() const;
 
-//    void print() const;
-private:
-    //! swap function
-//    void swapContent(DetectorMask &other);
+    int getNumberOfMaskedChannels() const;
 
+private:
     SafePointerVector<Geometry::IShape2D> m_shapes;
     std::vector<bool> m_mask_of_shape;
     OutputData<bool> m_mask_data;
+    int m_number_of_masked_channels;
 };
 
 #endif

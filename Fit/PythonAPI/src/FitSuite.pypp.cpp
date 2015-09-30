@@ -350,7 +350,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::setMinimizer
         
-            typedef void ( ::FitSuite::*setMinimizer_function_type)( ::std::string &,::std::string const &,::std::string const & ) ;
+            typedef void ( ::FitSuite::*setMinimizer_function_type)( ::std::string const &,::std::string const &,::std::string const & ) ;
             
             FitSuite_exposer.def( 
                 "setMinimizer"

@@ -22,6 +22,7 @@
 // InfinitePlane, Line, VerticalLine, HorizontalLine
 
 DetectorMask::DetectorMask()
+    : m_number_of_masked_channels(0)
 {
 
 }
@@ -29,6 +30,7 @@ DetectorMask::DetectorMask()
 DetectorMask::DetectorMask(const DetectorMask &other)
     : m_shapes(other.m_shapes)
     , m_mask_of_shape(other.m_mask_of_shape)
+    , m_number_of_masked_channels(other.m_number_of_masked_channels)
 {
     m_mask_data.copyFrom(other.m_mask_data);
 }
@@ -39,6 +41,7 @@ DetectorMask &DetectorMask::operator=(const DetectorMask &other)
         m_shapes = other.m_shapes;
         m_mask_of_shape = other.m_mask_of_shape;
         m_mask_data.copyFrom(other.m_mask_data);
+        m_number_of_masked_channels = other.m_number_of_masked_channels;
 //        DetectorMask tmp(other);
 //        tmp.swapContent(*this);
     }
@@ -50,6 +53,7 @@ void DetectorMask::addMask(const Geometry::IShape2D &shape, bool mask_value)
     m_shapes.push_back(shape.clone());
     m_mask_of_shape.push_back(mask_value);
     m_mask_data.clear();
+    m_number_of_masked_channels = 0;
 }
 
 void DetectorMask::initMaskData(const Detector &detector)
@@ -65,18 +69,22 @@ void DetectorMask::initMaskData(const Detector &detector)
 
     if(!m_shapes.size()) return;
 
+    m_number_of_masked_channels = 0;
     for(size_t index=0; index<m_mask_data.getAllocatedSize(); ++index) {
         Bin1D binx = m_mask_data.getAxisBin(index, BornAgain::X_AXIS_INDEX);
         Bin1D biny = m_mask_data.getAxisBin(index, BornAgain::Y_AXIS_INDEX);
         // setting mask to the data starting from last shape added
+        bool is_masked(false);
         for(size_t i_shape=m_shapes.size(); i_shape>0; --i_shape) {
             const Geometry::IShape2D *shape = m_shapes[i_shape-1];
             if(shape->contains(binx, biny)) {
+                if(m_mask_of_shape[i_shape-1]) is_masked = true;
                 m_mask_data[index] = m_mask_of_shape[i_shape-1];
                 // if given index is covered by the shape, stop looking further
                 break;
             }
         }
+        if(is_masked) ++m_number_of_masked_channels;
     }
 }
 
@@ -105,24 +113,7 @@ bool DetectorMask::hasMasks() const
     return (m_shapes.size() ? true : false);
 }
 
-//void DetectorMask::print() const
-//{
-//    std::cout << "DetectorMask::print() " << m_shapes.size() << " " << m_mask_of_shape.size() << m_mask_data.getAllocatedSize() << std::endl;
-//    assert(m_shapes.size() == m_mask_of_shape.size());
-//    for(size_t i=0; i<m_shapes.size(); ++i) {
-//        std::cout << (*m_shapes[i]) << " " << m_mask_of_shape[i] << std::endl;
-//    }
-//    int nmasked(0);
-//    for(size_t i=0; i<m_mask_data.getAllocatedSize(); ++i) {
-//        if(m_mask_data[i]) nmasked++;
-//    }
-//    std::cout << " nmasked:" << nmasked << std::endl;
-
-//}
-
-//void DetectorMask::swapContent(DetectorMask &other)
-//{
-//    std::swap(this->m_shapes, other.m_shapes);
-//    std::swap(this->m_mask_of_shape, other.m_mask_of_shape);
-//    this->m_mask_data.copyFrom(other.m_mask_data);
-//}
+int DetectorMask::getNumberOfMaskedChannels() const
+{
+    return m_number_of_masked_channels;
+}

@@ -77,7 +77,7 @@ class BA_CORE_API_ FitObject : public IParameterized
     double getWeight() const { return m_weight; }
 
     //! Returns size of data
-    size_t getSizeOfData() const { return m_real_data->getAllocatedSize(); }
+    size_t getSizeOfData() const;
 
     std::vector<FitElement> calculateFitElements();
 

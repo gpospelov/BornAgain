@@ -50,8 +50,6 @@ bool Line::contains(double x, double y) const
 
     double d = distance(p, line);
 
-    std::cout << "Line: " << d << std::endl;
-
     return (d<Numeric::double_epsilon ? true : false);
 }
 

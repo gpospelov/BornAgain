@@ -100,6 +100,13 @@ std::string FitObject::addParametersToExternalPool(
     return new_path;
 }
 
+size_t FitObject::getSizeOfData() const
+{
+    size_t result = m_real_data->getAllocatedSize() - m_simulation->getInstrument().getDetector()->getDetectorMask()->getNumberOfMaskedChannels();
+    std::cout << "OOO " << result << std::endl;
+    return result;
+}
+
 std::vector<FitElement> FitObject::calculateFitElements()
 {
     std::vector<FitElement> result;

@@ -107,24 +107,33 @@ size_t FitObject::getSizeOfData() const
     return result;
 }
 
-std::vector<FitElement> FitObject::calculateFitElements()
+void FitObject::calculateFitElements(std::vector<FitElement> &fit_elements)
 {
-    std::vector<FitElement> result;
-
     m_simulation->runSimulation();
-    boost::scoped_ptr<OutputData<double> > sim_data(m_simulation->getIntensityData());
+    m_simulation_data.reset(m_simulation->getIntensityData());
 
     const OutputData<bool> *masks(0);
     if(m_simulation->getInstrument().getDetector()->hasMasks()) {
         masks = m_simulation->getInstrument().getDetector()->getDetectorMask()->getMaskData();
     }
 
-    for(size_t index=0; index<sim_data->getAllocatedSize(); ++index) {
+    for(size_t index=0; index<m_simulation_data->getAllocatedSize(); ++index) {
         if(masks && (*masks)[index]) continue;
-        FitElement element((*sim_data)[index], (*m_real_data)[index]);
-        result.push_back(element);
+        FitElement element(index, (*m_simulation_data)[index], (*m_real_data)[index]);
+        fit_elements.push_back(element);
+    }
+}
+
+OutputData<double> *FitObject::getChiSquaredMap(std::vector<FitElement>::const_iterator first,
+                                                std::vector<FitElement>::const_iterator last) const
+{
+    OutputData<double> *result = new OutputData<double>;
+    result->copyShapeFrom(*m_simulation_data);
+
+    for(std::vector<FitElement>::const_iterator it=first; it!=last; ++it) {
+        (*result)[it->getIndex()] = it->getSquaredDifference();
+
     }
 
-    m_chi2_module->processFitElements(result.begin(), result.end());
     return result;
 }

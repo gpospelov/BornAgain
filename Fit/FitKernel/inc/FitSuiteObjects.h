@@ -35,7 +35,7 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
     typedef SafePointerVector<FitObject > FitObjects_t;
 
     FitSuiteObjects();
-    virtual ~FitSuiteObjects(){}
+    virtual ~FitSuiteObjects();
 
     //! clear all data
     void clear();
@@ -105,8 +105,9 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
         m_nfree_parameters = nfree_parameters; }
 
     //! Returns chi-squared map
-    OutputData<double> * getChiSquaredMap(size_t i_item = 0);
+    const OutputData<double> * getChiSquaredMap(size_t i_item = 0) const;
 
+    void setChiSquaredModule(const IChiSquaredModule &chi2_module);
 
  protected:
     //! Registers some class members for later access via parameter pool
@@ -145,6 +146,8 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
     double m_chi_squared_value;
 
     std::vector<FitElement> m_fit_elements;
+    std::auto_ptr<IChiSquaredModule> m_chi2_module;
+
 };
 
 #endif // FITSUITEKIT_H

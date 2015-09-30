@@ -129,6 +129,7 @@ TEST_F(DetectorMaskTest, AssignmentOperator)
             EXPECT_FALSE(mask.getMask(index));
         }
     }
+    EXPECT_EQ(mask.getNumberOfMaskedChannels(), 32);
 
 }
 

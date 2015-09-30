@@ -118,6 +118,14 @@ class BA_CORE_API_ FitSuite : public IObservable
     //! Returns total wall time in seconds which was spend for run fit
     double getRunTime() const;
 
+
+    const OutputData<double> * getRealData(size_t i_item = 0) const { return m_fit_objects.getRealData(i_item); }
+
+    const OutputData<double> * getSimulationData(size_t i_item = 0) const { return m_fit_objects.getSimulationData(i_item); }
+
+    const OutputData<double> * getChiSquaredMap(size_t i_item = 0) const { return m_fit_objects.getChiSquaredMap(i_item); }
+
+
  private:
     //! disabled copy constructor and assignment operator
     FitSuite& operator=(const FitSuite& );

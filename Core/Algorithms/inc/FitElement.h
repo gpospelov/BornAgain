@@ -17,6 +17,7 @@
 #define FITELEMENT_H
 
 #include "WinDllMacros.h"
+#include <cstddef>
 
 //! @class FitElement
 //! @ingroup fitting_internal
@@ -27,9 +28,11 @@ class BA_CORE_API_ FitElement
 {
 public:
     FitElement();
-    FitElement(double simul_value, double real_value);
+    FitElement(size_t index, double simul_value, double real_value);
     FitElement(const FitElement &other);
     FitElement &operator=(const FitElement &other);
+
+    size_t getIndex() const;
 
     double getSimulValue() const;
 
@@ -45,7 +48,7 @@ public:
 
 private:
     void swapContent(FitElement &other);
-
+    size_t m_index;
     double m_simul_value;
     double m_real_value;
     double m_weight;
@@ -53,6 +56,11 @@ private:
     double m_residual;
 };
 
+
+inline size_t FitElement::getIndex() const
+{
+    return m_index;
+}
 
 inline double FitElement::getSimulValue() const
 {

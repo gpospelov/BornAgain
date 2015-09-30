@@ -101,7 +101,7 @@ class DrawObserver(IObserver):
             pylab.colorbar(im)
             pylab.title('Simulated data')
             # plotting difference map
-            #diff_map = (real_data - simulated_data)/(real_data + 1)
+            # diff_map = (real_data - simulated_data)/(real_data + 1)
             diff_map= fit_suite.getFitObjects().getChiSquaredMap().getArray()
             pylab.subplot(2, 2, 3)
             im = pylab.imshow(diff_map, norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0], vmin = 0.001, vmax = 1.0)
@@ -133,7 +133,7 @@ def run_fitting():
 
     fit_suite = FitSuite()
     # fit_suite.setMinimizer("GSLLMA")
-    fit_suite.setMinimizer("Minuit2", "Fumili")
+    # fit_suite.setMinimizer("Minuit2", "Fumili")
 
     # Here we are settings masks to the detector plane to simulate image which looks like a Pac-Man
     # from ancient arcade game

@@ -52,7 +52,7 @@ class BA_CORE_API_ FitObject : public IParameterized
 
     //! Returns simulated data
     const OutputData<double> *getSimulationData() const {
-        return m_chi2_module->getSimulationData(); }
+        return m_simulation_data.get(); }
 
 
     //! Returns chi2 module
@@ -79,7 +79,11 @@ class BA_CORE_API_ FitObject : public IParameterized
     //! Returns size of data
     size_t getSizeOfData() const;
 
-    std::vector<FitElement> calculateFitElements();
+    void calculateFitElements(std::vector<FitElement> &fit_elements);
+
+    OutputData<double> *getChiSquaredMap(std::vector<FitElement>::const_iterator first,
+                                         std::vector<FitElement>::const_iterator last) const;
+
 
  protected:
     //! Registers some class members for later access via parameter pool
@@ -92,6 +96,8 @@ class BA_CORE_API_ FitObject : public IParameterized
     GISASSimulation* m_simulation;       //!< external simulation (not owned by this)
     OutputData<double>* m_real_data;  //!< real data
     IChiSquaredModule* m_chi2_module; //!< chi2 module
+    std::auto_ptr<OutputData<double> > m_simulation_data;
+
     double m_weight;                //!< weight of data set in chi2 calculations
 };
 

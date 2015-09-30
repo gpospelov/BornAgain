@@ -142,7 +142,6 @@ void FitSuite::minimize()
     IMinimizer::function_chi2_t fun_chi2 = boost::bind(&FitSuiteChiSquaredFunction::evaluate, &m_function_chi2, _1);
     m_minimizer->setChiSquaredFunction( fun_chi2, m_fit_parameters.size());
 
-    std::cout << "m_fit_objects.getSizeOfDataSet() " << m_fit_objects.getSizeOfDataSet() << std::endl;
     IMinimizer::function_gradient_t fun_gradient = boost::bind(&FitSuiteGradientFunction::evaluate, &m_function_gradient, _1, _2, _3);
     m_minimizer->setGradientFunction( fun_gradient, m_fit_parameters.size(), m_fit_objects.getSizeOfDataSet() );
 

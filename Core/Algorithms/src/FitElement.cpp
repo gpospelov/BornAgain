@@ -17,7 +17,8 @@
 #include <algorithm>
 
 FitElement::FitElement()
-    : m_simul_value(0.0)
+    : m_index(0)
+    , m_simul_value(0.0)
     , m_real_value(0.0)
     , m_weight(1.0)
     , m_squared_difference(0.0)
@@ -25,8 +26,9 @@ FitElement::FitElement()
 {
 }
 
-FitElement::FitElement(double simul_value, double real_value)
-    : m_simul_value(simul_value)
+FitElement::FitElement(size_t index, double simul_value, double real_value)
+    : m_index(index)
+    , m_simul_value(simul_value)
     , m_real_value(real_value)
     , m_weight(1.0)
     , m_squared_difference(0.0)
@@ -36,7 +38,8 @@ FitElement::FitElement(double simul_value, double real_value)
 
 
 FitElement::FitElement(const FitElement &other)
-    : m_simul_value(other.m_simul_value)
+    : m_index(other.m_index)
+    , m_simul_value(other.m_simul_value)
     , m_real_value(other.m_real_value)
     , m_weight(other.m_weight)
     , m_squared_difference(other.m_squared_difference)
@@ -57,6 +60,7 @@ FitElement &FitElement::operator=(const FitElement &other)
 
 void FitElement::swapContent(FitElement &other)
 {
+    std::swap(this->m_index, other.m_index);
     std::swap(this->m_simul_value, other.m_simul_value);
     std::swap(this->m_real_value, other.m_real_value);
     std::swap(this->m_weight, other.m_weight);

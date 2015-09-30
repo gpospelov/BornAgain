@@ -21,9 +21,15 @@ FitSuiteObjects::FitSuiteObjects()
 //  , m_simulation_normalize(false),
     ,m_nfree_parameters(0)
   , m_chi_squared_value(0)
+  , m_chi2_module(new ChiSquaredModule())
 {
     setName("FitSuiteObjects");
     init_parameters();
+}
+
+FitSuiteObjects::~FitSuiteObjects()
+{
+
 }
 
 //! clear all data
@@ -50,19 +56,29 @@ void FitSuiteObjects::add(
 //! loop through all defined simulations and run them
 void FitSuiteObjects::runSimulations()
 {
-    for(FitObjects_t::iterator it =
-            m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        (*it)->getSimulation()->runSimulation();
-//        if(m_simulation_normalize) {
-//            (*it)->getSimulation()->normalize();
-//        }
-    }
-    m_chi_squared_value = calculateChiSquaredValue();
-    std::cout << "aaa " << m_chi_squared_value;
+//    for(FitObjects_t::iterator it =
+//            m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
+//        (*it)->getSimulation()->runSimulation();
+////        if(m_simulation_normalize) {
+////            (*it)->getSimulation()->normalize();
+////        }
+//    }
+//    m_chi_squared_value = calculateChiSquaredValue();
+
+    m_fit_elements.clear();
+    m_fit_elements.reserve(getSizeOfDataSet());
 
     for(FitObjects_t::iterator it =
             m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        m_fit_elements = (*it)->calculateFitElements();
+        (*it)->calculateFitElements(m_fit_elements);
+    }
+
+    if(m_fit_elements.size() != getSizeOfDataSet()) {
+        std::ostringstream message;
+        message << "FitSuiteObjects::runSimulations() -> Error. Dataset size mismatch. "
+                << " m_fit_elements.size():" << m_fit_elements.size()
+                << " getSizeOfDataset():" << getSizeOfDataSet() << std::endl;
+        throw LogicErrorException(message.str());
     }
 
     m_chi_squared_value = calculateChiSquaredValueNew();
@@ -78,7 +94,6 @@ size_t FitSuiteObjects::getSizeOfDataSet() const
             m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
         result += (*it)->getSizeOfData();
     }
-    std::cout << "XXX " << result << std::endl;
     if(result == 0) {
         throw LogicErrorException("Panic, zero dataset size");
     }
@@ -131,6 +146,8 @@ double FitSuiteObjects::calculateChiSquaredValue()
 
 double FitSuiteObjects::calculateChiSquaredValueNew()
 {
+    m_chi2_module->processFitElements(m_fit_elements.begin(), m_fit_elements.end());
+
     double result(0);
     for(std::vector<FitElement>::iterator it=m_fit_elements.begin(); it!=m_fit_elements.end(); ++it) {
         result += it->getSquaredDifference();
@@ -146,8 +163,8 @@ double FitSuiteObjects::calculateChiSquaredValueNew()
 
 double FitSuiteObjects::getResidualValue(size_t global_index)
 {
-    if(global_index >= getSizeOfDataSet()) {
-        throw LogicErrorException(" FitSuiteObjects::getResidualValue() -> Error. Wrong size of dataset");
+    if(global_index >= m_fit_elements.size()) {
+        throw LogicErrorException(" FitSuiteObjects::getResidualValue() -> Error. Index exceeds size of dataset.");
     }
 //    size_t index(0);
 //    const FitObject *fitObject =
@@ -195,7 +212,21 @@ std::string FitSuiteObjects::addParametersToExternalPool(
     return new_path;
 }
 
-OutputData<double> *FitSuiteObjects::getChiSquaredMap(size_t i_item)
+const OutputData<double> *FitSuiteObjects::getChiSquaredMap(size_t i_item) const
 {
-    return m_fit_objects[check_index(i_item)]->getChiSquaredModule()->createChi2DifferenceMap();
+    check_index(i_item);
+    size_t istart(0);
+    for(size_t i=0; i<i_item; ++i) {
+        std::cout << "FIXME HERE" << std::endl;
+        assert(0);
+        istart += m_fit_objects[i]->getSizeOfData();
+    }
+    std::vector<FitElement>::const_iterator start = m_fit_elements.begin() + istart;
+    std::vector<FitElement>::const_iterator end = start + m_fit_objects[i_item]->getSizeOfData();
+    return m_fit_objects[check_index(i_item)]->getChiSquaredMap(start, end);
+}
+
+void FitSuiteObjects::setChiSquaredModule(const IChiSquaredModule &chi2_module)
+{
+    m_chi2_module.reset(chi2_module.clone());
 }

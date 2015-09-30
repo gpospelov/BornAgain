@@ -113,8 +113,9 @@ void register_FitSuiteObjects_class(){
 
     { //::FitSuiteObjects
         typedef bp::class_< FitSuiteObjects_wrapper, bp::bases< IParameterized >, boost::noncopyable > FitSuiteObjects_exposer_t;
-        FitSuiteObjects_exposer_t FitSuiteObjects_exposer = FitSuiteObjects_exposer_t( "FitSuiteObjects", "class containing vector FitObject's (simulation and real data) to fi.", bp::init< >() );
+        FitSuiteObjects_exposer_t FitSuiteObjects_exposer = FitSuiteObjects_exposer_t( "FitSuiteObjects", "class containing vector FitObject's (simulation and real data) to fi.", bp::no_init );
         bp::scope FitSuiteObjects_scope( FitSuiteObjects_exposer );
+        FitSuiteObjects_exposer.def( bp::init< >() );
         { //::FitSuiteObjects::add
         
             typedef void ( ::FitSuiteObjects::*add_function_type)( ::GISASSimulation const &,::OutputData< double > const &,::IChiSquaredModule const &,double ) ;
@@ -124,16 +125,6 @@ void register_FitSuiteObjects_class(){
                 , add_function_type( &::FitSuiteObjects::add )
                 , ( bp::arg("simulation"), bp::arg("real_data"), bp::arg("chi2_module"), bp::arg("weight")=1.0e+0 )
                 , "Adds to kit pair of (simulation, real data) for consecutive simulation and chi2 module." );
-        
-        }
-        { //::FitSuiteObjects::calculateChiSquaredValue
-        
-            typedef double ( ::FitSuiteObjects::*calculateChiSquaredValue_function_type)(  ) ;
-            
-            FitSuiteObjects_exposer.def( 
-                "calculateChiSquaredValue"
-                , calculateChiSquaredValue_function_type( &::FitSuiteObjects::calculateChiSquaredValue )
-                , "Returns sum of chi squared values for all fit objects." );
         
         }
         { //::FitSuiteObjects::calculateChiSquaredValueNew
@@ -158,7 +149,7 @@ void register_FitSuiteObjects_class(){
         }
         { //::FitSuiteObjects::getChiSquaredMap
         
-            typedef ::OutputData< double > * ( ::FitSuiteObjects::*getChiSquaredMap_function_type)( ::std::size_t ) ;
+            typedef ::OutputData< double > const * ( ::FitSuiteObjects::*getChiSquaredMap_function_type)( ::std::size_t ) const;
             
             FitSuiteObjects_exposer.def( 
                 "getChiSquaredMap"
@@ -254,6 +245,17 @@ void register_FitSuiteObjects_class(){
                 "runSimulations"
                 , runSimulations_function_type( &::FitSuiteObjects::runSimulations )
                 , "loop through all defined simulations and run them." );
+        
+        }
+        { //::FitSuiteObjects::setChiSquaredModule
+        
+            typedef void ( ::FitSuiteObjects::*setChiSquaredModule_function_type)( ::IChiSquaredModule const & ) ;
+            
+            FitSuiteObjects_exposer.def( 
+                "setChiSquaredModule"
+                , setChiSquaredModule_function_type( &::FitSuiteObjects::setChiSquaredModule )
+                , ( bp::arg("chi2_module") )
+                , "Returns chi-squared map." );
         
         }
         { //::FitSuiteObjects::setNfreeParameters

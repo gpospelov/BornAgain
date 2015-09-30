@@ -28,8 +28,8 @@ namespace bp = boost::python;
 
 struct FitObject_wrapper : FitObject, bp::wrapper< FitObject > {
 
-    FitObject_wrapper(::GISASSimulation const & simulation, ::OutputData< double > const & real_data, ::IChiSquaredModule const & chi2_module=ChiSquaredModule(), double weight=1 )
-    : FitObject( boost::ref(simulation), boost::ref(real_data), boost::ref(chi2_module), weight )
+    FitObject_wrapper(::GISASSimulation const & simulation, ::OutputData< double > const & real_data, double weight=1 )
+    : FitObject( boost::ref(simulation), boost::ref(real_data), weight )
       , bp::wrapper< FitObject >(){
         // constructor
     
@@ -113,36 +113,16 @@ void register_FitObject_class(){
 
     { //::FitObject
         typedef bp::class_< FitObject_wrapper, bp::bases< IParameterized >, boost::noncopyable > FitObject_exposer_t;
-        FitObject_exposer_t FitObject_exposer = FitObject_exposer_t( "FitObject", "Single simulation description, real data and chi2 module (used by FitSuite.", bp::init< GISASSimulation const &, OutputData< double > const &, bp::optional< IChiSquaredModule const &, double > >(( bp::arg("simulation"), bp::arg("real_data"), bp::arg("chi2_module")=ChiSquaredModule(), bp::arg("weight")=1 )) );
+        FitObject_exposer_t FitObject_exposer = FitObject_exposer_t( "FitObject", "Single simulation description, real data and chi2 module (used by FitSuite.", bp::init< GISASSimulation const &, OutputData< double > const &, bp::optional< double > >(( bp::arg("simulation"), bp::arg("real_data"), bp::arg("weight")=1 )) );
         bp::scope FitObject_scope( FitObject_exposer );
-        { //::FitObject::calculateChiSquared
+        { //::FitObject::getChiSquaredMap
         
-            typedef double ( ::FitObject::*calculateChiSquared_function_type)(  ) ;
+            typedef ::OutputData< double > * ( ::FitObject::*getChiSquaredMap_function_type)( ::__gnu_cxx::__normal_iterator< const FitElement*, std::vector< FitElement > >,::__gnu_cxx::__normal_iterator< const FitElement*, std::vector< FitElement > > ) const;
             
             FitObject_exposer.def( 
-                "calculateChiSquared"
-                , calculateChiSquared_function_type( &::FitObject::calculateChiSquared )
-                , "Returns chi squared value." );
-        
-        }
-        { //::FitObject::getChiSquaredModule
-        
-            typedef ::IChiSquaredModule const * ( ::FitObject::*getChiSquaredModule_function_type)(  ) const;
-            
-            FitObject_exposer.def( 
-                "getChiSquaredModule"
-                , getChiSquaredModule_function_type( &::FitObject::getChiSquaredModule )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns chi2 module." );
-        
-        }
-        { //::FitObject::getChiSquaredModule
-        
-            typedef ::IChiSquaredModule * ( ::FitObject::*getChiSquaredModule_function_type)(  ) ;
-            
-            FitObject_exposer.def( 
-                "getChiSquaredModule"
-                , getChiSquaredModule_function_type( &::FitObject::getChiSquaredModule )
+                "getChiSquaredMap"
+                , getChiSquaredMap_function_type( &::FitObject::getChiSquaredMap )
+                , ( bp::arg("first"), bp::arg("last") )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
@@ -155,28 +135,6 @@ void register_FitObject_class(){
                 , getRealData_function_type( &::FitObject::getRealData )
                 , bp::return_value_policy< bp::reference_existing_object >()
                 , "Returns real data." );
-        
-        }
-        { //::FitObject::getSimulation
-        
-            typedef ::GISASSimulation const * ( ::FitObject::*getSimulation_function_type)(  ) const;
-            
-            FitObject_exposer.def( 
-                "getSimulation"
-                , getSimulation_function_type( &::FitObject::getSimulation )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns simulation." );
-        
-        }
-        { //::FitObject::getSimulation
-        
-            typedef ::GISASSimulation * ( ::FitObject::*getSimulation_function_type)(  ) ;
-            
-            FitObject_exposer.def( 
-                "getSimulation"
-                , getSimulation_function_type( &::FitObject::getSimulation )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns simulation." );
         
         }
         { //::FitObject::getSimulationData

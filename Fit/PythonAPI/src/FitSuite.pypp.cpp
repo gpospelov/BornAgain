@@ -178,6 +178,17 @@ void register_FitSuite_class(){
                 , "set print level." );
         
         }
+        { //::FitSuite::getChiSquaredMap
+        
+            typedef ::OutputData< double > const * ( ::FitSuite::*getChiSquaredMap_function_type)( ::std::size_t ) const;
+            
+            FitSuite_exposer.def( 
+                "getChiSquaredMap"
+                , getChiSquaredMap_function_type( &::FitSuite::getChiSquaredMap )
+                , ( bp::arg("i_item")=(::std::size_t)(0) )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::FitSuite::getFitObjects
         
             typedef ::FitSuiteObjects * ( ::FitSuite::*getFitObjects_function_type)(  ) ;
@@ -254,6 +265,17 @@ void register_FitSuite_class(){
                 , "Returns the number of current strategy." );
         
         }
+        { //::FitSuite::getRealData
+        
+            typedef ::OutputData< double > const * ( ::FitSuite::*getRealData_function_type)( ::std::size_t ) const;
+            
+            FitSuite_exposer.def( 
+                "getRealData"
+                , getRealData_function_type( &::FitSuite::getRealData )
+                , ( bp::arg("i_item")=(::std::size_t)(0) )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::FitSuite::getRunTime
         
             typedef double ( ::FitSuite::*getRunTime_function_type)(  ) const;
@@ -262,6 +284,17 @@ void register_FitSuite_class(){
                 "getRunTime"
                 , getRunTime_function_type( &::FitSuite::getRunTime )
                 , "Returns total wall time in seconds which was spend for run fit." );
+        
+        }
+        { //::FitSuite::getSimulationData
+        
+            typedef ::OutputData< double > const * ( ::FitSuite::*getSimulationData_function_type)( ::std::size_t ) const;
+            
+            FitSuite_exposer.def( 
+                "getSimulationData"
+                , getSimulationData_function_type( &::FitSuite::getSimulationData )
+                , ( bp::arg("i_item")=(::std::size_t)(0) )
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::FitSuite::initPrint

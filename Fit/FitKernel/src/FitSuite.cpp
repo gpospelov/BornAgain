@@ -19,6 +19,7 @@
 #include "MessageService.h"
 #include "FitSuitePrintObserver.h"
 #include "MinimizerFactory.h"
+#include "ChiSquaredModule.h"
 #include <boost/bind.hpp>
 
 FitSuite::FitSuite()

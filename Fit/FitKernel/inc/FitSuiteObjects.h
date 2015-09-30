@@ -25,6 +25,8 @@
 
 #include <vector>
 
+class IChiSquaredModule;
+
 //! @class FitSuiteObjects
 //! @ingroup fitting_internal
 //! @brief class containing vector FitObject's (simulation and real data) to fit
@@ -58,7 +60,7 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
     double getChiSquaredValue() const { return m_chi_squared_value; }
 
     //! Returns sum of chi squared values for all fit objects
-    double calculateChiSquaredValue();
+//    double calculateChiSquaredValue();
 
     double calculateChiSquaredValueNew();
 

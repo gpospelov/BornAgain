@@ -26,11 +26,11 @@ FitElement::FitElement()
 {
 }
 
-FitElement::FitElement(size_t index, double simul_value, double real_value)
+FitElement::FitElement(size_t index, double simul_value, double real_value, double weight)
     : m_index(index)
     , m_simul_value(simul_value)
     , m_real_value(real_value)
-    , m_weight(1.0)
+    , m_weight(weight)
     , m_squared_difference(0.0)
     , m_residual(0.0)
 {

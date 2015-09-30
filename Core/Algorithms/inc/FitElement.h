@@ -28,7 +28,7 @@ class BA_CORE_API_ FitElement
 {
 public:
     FitElement();
-    FitElement(size_t index, double simul_value, double real_value);
+    FitElement(size_t index, double simul_value, double real_value, double weight = 1.0);
     FitElement(const FitElement &other);
     FitElement &operator=(const FitElement &other);
 

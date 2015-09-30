@@ -89,8 +89,8 @@ class DrawObserver(IObserver):
         if fit_suite.getNCalls() % self.draw_every_nth == 0:
             fig.clf()
             # plotting real data
-            real_data = fit_suite.getFitObjects().getRealData().getArray()
-            simulated_data = fit_suite.getFitObjects().getSimulationData().getArray()
+            real_data = fit_suite.getRealData().getArray()
+            simulated_data = fit_suite.getSimulationData().getArray()
             pylab.subplot(2, 2, 1)
             im = pylab.imshow(real_data + 1, norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
             pylab.colorbar(im)
@@ -102,7 +102,7 @@ class DrawObserver(IObserver):
             pylab.title('Simulated data')
             # plotting difference map
             # diff_map = (real_data - simulated_data)/(real_data + 1)
-            diff_map= fit_suite.getFitObjects().getChiSquaredMap().getArray()
+            diff_map= fit_suite.getChiSquaredMap().getArray()
             pylab.subplot(2, 2, 3)
             im = pylab.imshow(diff_map, norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0], vmin = 0.001, vmax = 1.0)
             pylab.colorbar(im)
@@ -187,6 +187,9 @@ def run_fitting():
 
     # running fit
     fit_suite.runFit()
+
+    fit_suite.getFitObjects().printParameters()
+
 
     print "Fitting completed."
     fit_suite.printResults()

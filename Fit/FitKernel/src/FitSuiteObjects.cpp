@@ -15,6 +15,7 @@
 
 #include "FitSuiteObjects.h"
 #include "FitObject.h"
+#include "ChiSquaredModule.h"
 
 FitSuiteObjects::FitSuiteObjects()
   : m_total_weight(0)
@@ -50,7 +51,7 @@ void FitSuiteObjects::add(
 //    assert(0);
 
     m_fit_objects.push_back(
-        new FitObject(simulation, real_data, chi2_module, weight));
+        new FitObject(simulation, real_data, weight));
 }
 
 //! loop through all defined simulations and run them
@@ -70,7 +71,7 @@ void FitSuiteObjects::runSimulations()
 
     for(FitObjects_t::iterator it =
             m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        (*it)->calculateFitElements(m_fit_elements);
+        (*it)->prepareFitElements(m_fit_elements, (*it)->getWeight()/m_total_weight);
     }
 
     if(m_fit_elements.size() != getSizeOfDataSet()) {
@@ -120,29 +121,29 @@ const FitObject *FitSuiteObjects::getObjectForGlobalDataIndex(
 }
 
 //! Returns sum of chi squared values for all fit objects
-double FitSuiteObjects::calculateChiSquaredValue()
-{
-    double result(0);
-    double max_intensity = getSimulationMaxIntensity();
-    for(FitObjects_t::iterator it =
-            m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        IChiSquaredModule *chi = (*it)->getChiSquaredModule();
+//double FitSuiteObjects::calculateChiSquaredValue()
+//{
+//    double result(0);
+//    double max_intensity = getSimulationMaxIntensity();
+//    for(FitObjects_t::iterator it =
+//            m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
+//        IChiSquaredModule *chi = (*it)->getChiSquaredModule();
 
-        chi->setNdegreeOfFreedom(
-            (int) (m_fit_objects.size() *
-                   (*it)->getRealData()->getAllocatedSize() -
-                   m_nfree_parameters) );
-        // normalizing datasets to the maximum intensity over all fit objects defined
-        if( chi->getIntensityNormalizer() ) {
-            chi->getIntensityNormalizer()->setMaximumIntensity(max_intensity);
-        }
+//        chi->setNdegreeOfFreedom(
+//            (int) (m_fit_objects.size() *
+//                   (*it)->getRealData()->getAllocatedSize() -
+//                   m_nfree_parameters) );
+//        // normalizing datasets to the maximum intensity over all fit objects defined
+//        if( chi->getIntensityNormalizer() ) {
+//            chi->getIntensityNormalizer()->setMaximumIntensity(max_intensity);
+//        }
 
-        double weight = (*it)->getWeight()/m_total_weight;
-        double chi_squared = (weight*weight) * (*it)->calculateChiSquared();
-        result += chi_squared;
-    }
-    return result;
-}
+//        double weight = (*it)->getWeight()/m_total_weight;
+//        double chi_squared = (weight*weight) * (*it)->calculateChiSquared();
+//        result += chi_squared;
+//    }
+//    return result;
+//}
 
 double FitSuiteObjects::calculateChiSquaredValueNew()
 {
@@ -181,14 +182,14 @@ double FitSuiteObjects::getResidualValue(size_t global_index)
 double FitSuiteObjects::getSimulationMaxIntensity()
 {
     double result(0);
-    for(FitObjects_t::iterator it =
-            m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        const OutputData<double > *data =
-            (*it)->getSimulation()->getOutputData();
-        OutputData<double >::const_iterator cit =
-            std::max_element(data->begin(), data->end());
-        result = std::max(result, *cit);
-    }
+//    for(FitObjects_t::iterator it =
+//            m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
+//        const OutputData<double > *data =
+//            (*it)->getSimulation()->getOutputData();
+//        OutputData<double >::const_iterator cit =
+//            std::max_element(data->begin(), data->end());
+//        result = std::max(result, *cit);
+//    }
     return result;
 }
 
@@ -199,8 +200,8 @@ std::string FitSuiteObjects::addParametersToExternalPool(
     (void)copy_number;
     // add own parameters
     // so far it is top object in our chain, and its without parameters, lets not include its name in path
-    //std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
-    std::string new_path = path;
+    std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
+    //std::string new_path = path;
 
     int ncopy(0);
     if(m_fit_objects.size()==1) ncopy=-1; // if we have only one object, lets get rid from copy number
@@ -208,6 +209,15 @@ std::string FitSuiteObjects::addParametersToExternalPool(
             m_fit_objects.begin(); it!= m_fit_objects.end(); ++it, ++ncopy) {
         (*it)->addParametersToExternalPool(new_path, external_pool, ncopy);
     }
+
+    if(m_chi2_module.get()) {
+        const IIntensityNormalizer* data_normalizer =
+            m_chi2_module->getIntensityNormalizer();
+        if(data_normalizer)
+            data_normalizer->addParametersToExternalPool(
+                new_path, external_pool, -1);
+    }
+
 
     return new_path;
 }

@@ -21,6 +21,7 @@
 #include "FitSuiteObjects.h"
 #include "FitSuiteParameters.h"
 #include "FitSuiteStrategies.h"
+#include "ChiSquaredModule.h"
 #include "IMinimizer.h"
 #include "IObserver.h"
 #include <string>
@@ -28,6 +29,7 @@
 
 class GISASSimulation;
 class ParameterPool;
+
 
 
 //! @class FitSuite

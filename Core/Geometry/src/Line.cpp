@@ -23,12 +23,9 @@
 #include <iostream>
 
 using namespace boost::geometry;
-
-namespace {
 typedef model::d2::point_xy<double> point_t;
 typedef model::box<point_t> box_t;
 typedef model::linestring<point_t> line_t;
-}
 
 
 namespace Geometry {

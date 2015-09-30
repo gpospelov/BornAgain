@@ -289,3 +289,26 @@ void Detector::print(std::ostream &ostr) const
         ostr << "    IAxis:" << *m_axes[i] << std::endl;
     }
 }
+
+AngularPixelMap::AngularPixelMap(double alpha, double phi, double dalpha, double dphi)
+    : m_alpha(alpha), m_phi(phi), m_dalpha(dalpha), m_dphi(dphi)
+{
+    m_solid_angle = m_dphi*(std::sin(m_alpha+m_dalpha) - std::sin(m_alpha));
+}
+
+kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const
+{
+    kvector_t result;
+    double alpha = m_alpha + x*m_dalpha;
+    double phi = m_phi + y*m_dphi;
+    result.setLambdaAlphaPhi(wavelength, alpha, phi);
+    return result;
+}
+
+double AngularPixelMap::getIntegrationFactor(double x, double y) const
+{
+    (void)y;
+    double alpha = m_alpha + x*m_dalpha;
+    return std::cos(alpha);
+}
+

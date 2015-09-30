@@ -22,6 +22,7 @@
 #include "DetectorMask.h"
 #include "SimulationElement.h"
 #include "Beam.h"
+#include "IPixelMap.h"
 
 //! @class Detector
 //! @ingroup simulation
@@ -155,6 +156,23 @@ private:
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 #endif
     DetectorMask m_detector_mask;
+};
+
+class AngularPixelMap : public IPixelMap
+{
+public:
+    AngularPixelMap(double alpha, double phi, double dalpha, double dphi);
+    virtual ~AngularPixelMap() {}
+
+    virtual kvector_t getK(double x, double y, double wavelength) const;
+    virtual double getIntegrationFactor(double x, double y) const;
+    virtual double getSolidAngle() const {
+        return m_solid_angle;
+    }
+private:
+    double m_alpha, m_phi;
+    double m_dalpha, m_dphi;
+    double m_solid_angle;
 };
 
 #endif /* DETECTOR_H_ */

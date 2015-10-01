@@ -36,7 +36,7 @@ private:
     bool skipIteration();
     void checkStrategy();
 
-    FitSuite *m_fitSuite;
+    FitSuite *m_fit_suite;
     int m_print_every_nth;
     int m_previous_strategy_index;
     boost::posix_time::ptime m_start_time;

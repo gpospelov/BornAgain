@@ -16,140 +16,99 @@
 #ifndef FITSUITE_H
 #define FITSUITE_H
 
-#include "AttFitting.h"
-#include "FitSuiteFunctions.h"
-#include "FitSuiteObjects.h"
-#include "FitSuiteParameters.h"
-#include "FitSuiteStrategies.h"
-#include "ChiSquaredModule.h"
-#include "IMinimizer.h"
 #include "IObserver.h"
-#include <string>
-#include <boost/date_time/posix_time/posix_time.hpp>
-
-class GISASSimulation;
-class ParameterPool;
-
-
+#include "FitKernel.h"
 
 //! @class FitSuite
 //! @ingroup fitting
-//! @brief Main class to perform fitting
+//! @brief Main class to setup GISAS fitting in BornAgain
 
 class BA_CORE_API_ FitSuite : public IObservable
 {
- public:
+public:
     FitSuite();
-    virtual ~FitSuite();
 
-    //! clear all and prepare for the next fit
-    void clear();
+    // ------------------------------------------------------------------------
+    // Fitting setup
+    // ------------------------------------------------------------------------
 
-    //! Adds pair of (simulation, real data) for consecutive simulation
-    void addSimulationAndRealData(
-        const GISASSimulation& simulation,
-        const OutputData<double>& real_data,
-        const IChiSquaredModule& chi2_module=ChiSquaredModule());
+    //! Assigns pair of (simulation, real data) for fitting. More than one pair can be added.
+    void addSimulationAndRealData(const GISASSimulation& simulation,
+                                  const OutputData<double>& real_data);
 
     //! Adds fit parameter
-    void addFitParameter(const std::string& name, double value, double step, const AttLimits& attlim=AttLimits::limitless(), double error=0.0);
-    void addFitParameter(const std::string& name, double value, const AttLimits& attlim=AttLimits::limitless(), double error=0.0);
+    //! @param name The name of fit parameter
+    //! @param value Parameter's starting value
+    //! @param attlim Limits attribute
+    //! @param step Initial parameter's step (some minimizers don't use it)
+    void addFitParameter(const std::string& name, double value,
+                         const AttLimits& attlim=AttLimits::limitless(), double step = 0.0);
 
-    //! Adds fit strategy
-    void addFitStrategy(IFitStrategy *strategy);
-    void addFitStrategy(const IFitStrategy &strategy);
+    //! Sets minimizer with given name and algorithm type
+    //! @param minimizer The name of the minimizer
+    //! @param algorithm Optional name of the algorithm
+    //! @param options Optional string with additional minimizer settings
+    void setMinimizer(const std::string& minimizer, const std::string& algorithm = std::string(),
+                      const std::string& options=std::string());
 
     //! Sets minimizer
     void setMinimizer(IMinimizer *minimizer);
 
-    void setMinimizer(const std::string& minimizer, const std::string& algorithm = std::string(), const std::string& options=std::string());
-
     //! Returns minimizer
-    IMinimizer *getMinimizer() { return m_minimizer; }
+    IMinimizer *getMinimizer(); // FIXME Do I need this?
+
+    //! Initializes printing to standard output during the fitting.
+    //! Prints also the summary when completed.
+    //! @param print_every_nth Print every n'th iteration
+    void initPrint(int print_every_nth);
+
+    //! main method to run the fitting
+    void runFit();
+
+    // ------------------------------------------------------------------------
+    // Access to the data
+    // ------------------------------------------------------------------------
+
+    //! returns real data
+    //! @param i_item The index of fit object
+    const OutputData<double> * getRealData(size_t i_item = 0) const;
+
+    //! returns simulated data
+    //! @param i_item The index of fit object
+    const OutputData<double> * getSimulationData(size_t i_item = 0) const;
+
+    //! returns chi2 map calculated for (real, simulated) data pair
+    //! @param i_item The index of fit object
+    const OutputData<double> * getChiSquaredMap(size_t i_item = 0) const;
 
 
 
-    //! link fitting parameters to parameters defined in simulations
-    virtual void link_fit_parameters();
-
-    //! run fitting which may consist of several minimization rounds
-    virtual void runFit();
-
-    //! run single minimization round
-    virtual void minimize();
-
-    //! Returns reference to the kit with data
-    FitSuiteObjects *getFitObjects() { return& m_fit_objects; }
+    FitSuiteObjects *getFitObjects();
 
     //! Returns reference to fit parameters
-    FitSuiteParameters *getFitParameters() { return& m_fit_parameters; }
+    FitSuiteParameters *getFitParameters();
 
     //! Returns reference to fit parameters
-    FitSuiteStrategies *getFitStrategies() { return& m_fit_strategies; }
+    FitSuiteStrategies *getFitStrategies();
 
     //! if the last iteration is done (used by observers to print summary)
-    bool isLastIteration() const { return m_is_last_iteration; }
+    bool isLastIteration() const;
 
     //! Returns current number of minimization function calls
     size_t getNCalls() const;
 
     //! Returns the number of current strategy
-    size_t getNStrategy() const { return m_fit_strategies.getCurrentStrategyIndex(); }
+    size_t getNStrategy() const;
 
-    //! Prints results of the screen
     void printResults() const;
 
-    //! set print level
-    void initPrint(int print_every_nth);
-
-    AttFitting &getAttributes() { return m_fit_attributes; }
-    void setAttributes(const AttFitting &fit_attributes) { m_fit_attributes = fit_attributes; }
-
-    //! Returns fit parameter with given name
-    FitParameter *getFitParameter(const std::string &name);
-
-    //! Set all parameters to fixed
-    void fixAllParameters();
-
-    //! Set all parameters to released
-    void releaseAllParameters();
-
-    //! Set fixed flag for parameters from the list
-    void setParametersFixed(const std::vector<std::string> &pars, bool is_fixed);
-
-    //! Returns total wall time in seconds which was spend for run fit
-    double getRunTime() const;
 
 
-    const OutputData<double> * getRealData(size_t i_item = 0) const { return m_fit_objects.getRealData(i_item); }
-
-    const OutputData<double> * getSimulationData(size_t i_item = 0) const { return m_fit_objects.getSimulationData(i_item); }
-
-    const OutputData<double> * getChiSquaredMap(size_t i_item = 0) const { return m_fit_objects.getChiSquaredMap(i_item); }
-
-
- private:
-    //! disabled copy constructor and assignment operator
+private:
     FitSuite& operator=(const FitSuite& );
     FitSuite(const FitSuite& );
 
-    //! Checks if all prerequisites to run fit fit are filled
-    bool check_prerequisites() const;
-
-    AttFitting m_fit_attributes; //! general fit attributes
-    FitSuiteObjects m_fit_objects; //! kit which contains sets of <simulation,real_data,chi_module> to fit
-    FitSuiteParameters m_fit_parameters; //! collection of fit parameters
-    FitSuiteStrategies m_fit_strategies; //! collection of strategies which drives multiple minimization rounds
-    IMinimizer  *m_minimizer; //! minimization engine
-    FitSuiteChiSquaredFunction m_function_chi2;
-    FitSuiteGradientFunction m_function_gradient;
-
-    bool m_is_last_iteration; //! Sets to true after last iteration complete
-
-    boost::posix_time::ptime m_start_time;
-    boost::posix_time::ptime m_end_time;
+    boost::scoped_ptr<FitKernel> m_kernel;
 };
 
-#endif // FITSUITE_H
-
-
+#endif

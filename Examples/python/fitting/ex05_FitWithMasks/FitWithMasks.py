@@ -182,8 +182,8 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*/FormFactorCylinder/radius", 6.*nanometer, 0.01*nanometer, AttLimits.limited(4., 8.))
-    fit_suite.addFitParameter("*/FormFactorCylinder/height", 9.*nanometer, 0.01*nanometer, AttLimits.limited(8., 12.))
+    fit_suite.addFitParameter("*/FormFactorCylinder/radius", 6.*nanometer, AttLimits.limited(4., 8.), 0.01*nanometer)
+    fit_suite.addFitParameter("*/FormFactorCylinder/height", 9.*nanometer, AttLimits.limited(8., 12.), 0.01*nanometer)
 
     # running fit
     fit_suite.runFit()

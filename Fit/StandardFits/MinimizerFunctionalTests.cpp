@@ -41,9 +41,8 @@ FitSuite *GSLSimulatedAnnealingTest::createFitSuite()
     minimizer->getOptions().setValue("t_min", 1.0);
     result->setMinimizer(minimizer);
     for (size_t i = 0; i < m_parameters.size(); ++i) {
-        result->addFitParameter(m_parameters[i].m_name, m_parameters[i].m_start_value,
-                                    m_parameters[i].m_start_value / 100.,
-                                    AttLimits::limited(4.0, 6.0));
+        result->addFitParameter(m_parameters[i].m_name, m_parameters[i].m_start_value,                                    
+                                    AttLimits::limited(4.0, 6.0), m_parameters[i].m_start_value / 100.);
     }
 
     return result;
@@ -65,8 +64,7 @@ FitSuite *GeneticTest::createFitSuite()
     result->setMinimizer(minimizer);
     for (size_t i = 0; i < m_parameters.size(); ++i) {
         result->addFitParameter(m_parameters[i].m_name, m_parameters[i].m_start_value,
-                                    m_parameters[i].m_start_value / 100.,
-                                    AttLimits::limited(4.0, 6.0));
+                                    AttLimits::limited(4.0, 6.0), m_parameters[i].m_start_value / 100.);
     }
 
     return result;

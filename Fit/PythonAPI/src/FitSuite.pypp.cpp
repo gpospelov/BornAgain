@@ -35,42 +35,6 @@ struct FitSuite_wrapper : FitSuite, bp::wrapper< FitSuite > {
     
     }
 
-    virtual void link_fit_parameters(  ) {
-        if( bp::override func_link_fit_parameters = this->get_override( "link_fit_parameters" ) )
-            func_link_fit_parameters(  );
-        else{
-            this->FitSuite::link_fit_parameters(  );
-        }
-    }
-    
-    void default_link_fit_parameters(  ) {
-        FitSuite::link_fit_parameters( );
-    }
-
-    virtual void minimize(  ) {
-        if( bp::override func_minimize = this->get_override( "minimize" ) )
-            func_minimize(  );
-        else{
-            this->FitSuite::minimize(  );
-        }
-    }
-    
-    void default_minimize(  ) {
-        FitSuite::minimize( );
-    }
-
-    virtual void runFit(  ) {
-        if( bp::override func_runFit = this->get_override( "runFit" ) )
-            func_runFit(  );
-        else{
-            this->FitSuite::runFit(  );
-        }
-    }
-    
-    void default_runFit(  ) {
-        FitSuite::runFit( );
-    }
-
     virtual void attachObserver( ::boost::shared_ptr< IObserver > obj ) {
         if( bp::override func_attachObserver = this->get_override( "attachObserver" ) )
             func_attachObserver( obj );
@@ -101,20 +65,9 @@ void register_FitSuite_class(){
 
     { //::FitSuite
         typedef bp::class_< FitSuite_wrapper, bp::bases< IObservable >, boost::noncopyable > FitSuite_exposer_t;
-        FitSuite_exposer_t FitSuite_exposer = FitSuite_exposer_t( "FitSuite", "Main class to perform fittin.", bp::no_init );
+        FitSuite_exposer_t FitSuite_exposer = FitSuite_exposer_t( "FitSuite", "Main class to setup GISAS fitting in BornAgai.", bp::no_init );
         bp::scope FitSuite_scope( FitSuite_exposer );
         FitSuite_exposer.def( bp::init< >() );
-        { //::FitSuite::addFitParameter
-        
-            typedef void ( ::FitSuite::*addFitParameter_function_type)( ::std::string const &,double,double,::AttLimits const &,double ) ;
-            
-            FitSuite_exposer.def( 
-                "addFitParameter"
-                , addFitParameter_function_type( &::FitSuite::addFitParameter )
-                , ( bp::arg("name"), bp::arg("value"), bp::arg("step"), bp::arg("attlim")=AttLimits::limitless( ), bp::arg("error")=0.0 )
-                , "Adds fit parameter." );
-        
-        }
         { //::FitSuite::addFitParameter
         
             typedef void ( ::FitSuite::*addFitParameter_function_type)( ::std::string const &,double,::AttLimits const &,double ) ;
@@ -122,60 +75,19 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "addFitParameter"
                 , addFitParameter_function_type( &::FitSuite::addFitParameter )
-                , ( bp::arg("name"), bp::arg("value"), bp::arg("attlim")=AttLimits::limitless( ), bp::arg("error")=0.0 )
-                , "Adds fit parameter." );
-        
-        }
-        { //::FitSuite::addFitStrategy
-        
-            typedef void ( ::FitSuite::*addFitStrategy_function_type)( ::IFitStrategy const & ) ;
-            
-            FitSuite_exposer.def( 
-                "addFitStrategy"
-                , addFitStrategy_function_type( &::FitSuite::addFitStrategy )
-                , ( bp::arg("strategy") )
-                , "Adds fit strategy." );
+                , ( bp::arg("name"), bp::arg("value"), bp::arg("attlim")=AttLimits::limitless( ), bp::arg("step")=0.0 )
+                , "Adds fit parameter @param name The name of fit parameter @param value Parameter's starting value @param attlim Limits attribute @param step Initial parameter's step (some minimizers don't use it) \n\n:Parameters:\n  - 'name' - The name of fit parameter\n  - 'value' - Parameter's starting value\n  - 'attlim' - Limits attribute\n  - 'step' - Initial parameter's step (some minimizers don't use it)\n" );
         
         }
         { //::FitSuite::addSimulationAndRealData
         
-            typedef void ( ::FitSuite::*addSimulationAndRealData_function_type)( ::GISASSimulation const &,::OutputData< double > const &,::IChiSquaredModule const & ) ;
+            typedef void ( ::FitSuite::*addSimulationAndRealData_function_type)( ::GISASSimulation const &,::OutputData< double > const & ) ;
             
             FitSuite_exposer.def( 
                 "addSimulationAndRealData"
                 , addSimulationAndRealData_function_type( &::FitSuite::addSimulationAndRealData )
-                , ( bp::arg("simulation"), bp::arg("real_data"), bp::arg("chi2_module")=ChiSquaredModule() ) );
-        
-        }
-        { //::FitSuite::clear
-        
-            typedef void ( ::FitSuite::*clear_function_type)(  ) ;
-            
-            FitSuite_exposer.def( 
-                "clear"
-                , clear_function_type( &::FitSuite::clear )
-                , "clear all and prepare for the next fit." );
-        
-        }
-        { //::FitSuite::fixAllParameters
-        
-            typedef void ( ::FitSuite::*fixAllParameters_function_type)(  ) ;
-            
-            FitSuite_exposer.def( 
-                "fixAllParameters"
-                , fixAllParameters_function_type( &::FitSuite::fixAllParameters )
-                , "Set all parameters to fixed." );
-        
-        }
-        { //::FitSuite::getAttributes
-        
-            typedef ::AttFitting & ( ::FitSuite::*getAttributes_function_type)(  ) ;
-            
-            FitSuite_exposer.def( 
-                "getAttributes"
-                , getAttributes_function_type( &::FitSuite::getAttributes )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "set print level." );
+                , ( bp::arg("simulation"), bp::arg("real_data") )
+                , "Assigns pair of (simulation, real data) for fitting. More than one pair can be added." );
         
         }
         { //::FitSuite::getChiSquaredMap
@@ -186,7 +98,8 @@ void register_FitSuite_class(){
                 "getChiSquaredMap"
                 , getChiSquaredMap_function_type( &::FitSuite::getChiSquaredMap )
                 , ( bp::arg("i_item")=(::std::size_t)(0) )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "returns chi2 map calculated for (real, simulated) data pair @param i_item The index of fit object \n\n:Parameters:\n  - 'i_item' - The index of fit object\n" );
         
         }
         { //::FitSuite::getFitObjects
@@ -196,20 +109,7 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "getFitObjects"
                 , getFitObjects_function_type( &::FitSuite::getFitObjects )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns reference to the kit with data." );
-        
-        }
-        { //::FitSuite::getFitParameter
-        
-            typedef ::FitParameter * ( ::FitSuite::*getFitParameter_function_type)( ::std::string const & ) ;
-            
-            FitSuite_exposer.def( 
-                "getFitParameter"
-                , getFitParameter_function_type( &::FitSuite::getFitParameter )
-                , ( bp::arg("name") )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns fit parameter with given name." );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::FitSuite::getFitParameters
@@ -273,17 +173,8 @@ void register_FitSuite_class(){
                 "getRealData"
                 , getRealData_function_type( &::FitSuite::getRealData )
                 , ( bp::arg("i_item")=(::std::size_t)(0) )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::FitSuite::getRunTime
-        
-            typedef double ( ::FitSuite::*getRunTime_function_type)(  ) const;
-            
-            FitSuite_exposer.def( 
-                "getRunTime"
-                , getRunTime_function_type( &::FitSuite::getRunTime )
-                , "Returns total wall time in seconds which was spend for run fit." );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "returns real data @param i_item The index of fit object \n\n:Parameters:\n  - 'i_item' - The index of fit object\n" );
         
         }
         { //::FitSuite::getSimulationData
@@ -294,7 +185,8 @@ void register_FitSuite_class(){
                 "getSimulationData"
                 , getSimulationData_function_type( &::FitSuite::getSimulationData )
                 , ( bp::arg("i_item")=(::std::size_t)(0) )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "returns simulated data @param i_item The index of fit object \n\n:Parameters:\n  - 'i_item' - The index of fit object\n" );
         
         }
         { //::FitSuite::initPrint
@@ -305,7 +197,7 @@ void register_FitSuite_class(){
                 "initPrint"
                 , initPrint_function_type( &::FitSuite::initPrint )
                 , ( bp::arg("print_every_nth") )
-                , "set print level." );
+                , "Initializes printing to standard output during the fitting. Prints also the summary when completed. @param print_every_nth Print every n'th iteration \n\n:Parameters:\n  - 'print_every_nth' - Print every n'th iteration\n" );
         
         }
         { //::FitSuite::isLastIteration
@@ -318,28 +210,6 @@ void register_FitSuite_class(){
                 , "if the last iteration is done (used by observers to print summary)." );
         
         }
-        { //::FitSuite::link_fit_parameters
-        
-            typedef void ( ::FitSuite::*link_fit_parameters_function_type)(  ) ;
-            typedef void ( FitSuite_wrapper::*default_link_fit_parameters_function_type)(  ) ;
-            
-            FitSuite_exposer.def( 
-                "link_fit_parameters"
-                , link_fit_parameters_function_type(&::FitSuite::link_fit_parameters)
-                , default_link_fit_parameters_function_type(&FitSuite_wrapper::default_link_fit_parameters) );
-        
-        }
-        { //::FitSuite::minimize
-        
-            typedef void ( ::FitSuite::*minimize_function_type)(  ) ;
-            typedef void ( FitSuite_wrapper::*default_minimize_function_type)(  ) ;
-            
-            FitSuite_exposer.def( 
-                "minimize"
-                , minimize_function_type(&::FitSuite::minimize)
-                , default_minimize_function_type(&FitSuite_wrapper::default_minimize) );
-        
-        }
         { //::FitSuite::printResults
         
             typedef void ( ::FitSuite::*printResults_function_type)(  ) const;
@@ -347,38 +217,17 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "printResults"
                 , printResults_function_type( &::FitSuite::printResults )
-                , "Prints results of the screen." );
-        
-        }
-        { //::FitSuite::releaseAllParameters
-        
-            typedef void ( ::FitSuite::*releaseAllParameters_function_type)(  ) ;
-            
-            FitSuite_exposer.def( 
-                "releaseAllParameters"
-                , releaseAllParameters_function_type( &::FitSuite::releaseAllParameters )
-                , "Set all parameters to released." );
+                , "Returns the number of current strategy." );
         
         }
         { //::FitSuite::runFit
         
             typedef void ( ::FitSuite::*runFit_function_type)(  ) ;
-            typedef void ( FitSuite_wrapper::*default_runFit_function_type)(  ) ;
             
             FitSuite_exposer.def( 
                 "runFit"
-                , runFit_function_type(&::FitSuite::runFit)
-                , default_runFit_function_type(&FitSuite_wrapper::default_runFit) );
-        
-        }
-        { //::FitSuite::setAttributes
-        
-            typedef void ( ::FitSuite::*setAttributes_function_type)( ::AttFitting const & ) ;
-            
-            FitSuite_exposer.def( 
-                "setAttributes"
-                , setAttributes_function_type( &::FitSuite::setAttributes )
-                , ( bp::arg("fit_attributes") ) );
+                , runFit_function_type( &::FitSuite::runFit )
+                , "main method to run the fitting." );
         
         }
         { //::FitSuite::setMinimizer
@@ -389,18 +238,7 @@ void register_FitSuite_class(){
                 "setMinimizer"
                 , setMinimizer_function_type( &::FitSuite::setMinimizer )
                 , ( bp::arg("minimizer"), bp::arg("algorithm")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >(), bp::arg("options")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >() )
-                , "Sets minimizer." );
-        
-        }
-        { //::FitSuite::setParametersFixed
-        
-            typedef void ( ::FitSuite::*setParametersFixed_function_type)( ::std::vector< std::string > const &,bool ) ;
-            
-            FitSuite_exposer.def( 
-                "setParametersFixed"
-                , setParametersFixed_function_type( &::FitSuite::setParametersFixed )
-                , ( bp::arg("pars"), bp::arg("is_fixed") )
-                , "Set fixed flag for parameters from the list." );
+                , "Sets minimizer with given name and algorithm type @param minimizer The name of the minimizer @param algorithm Optional name of the algorithm @param options Optional string with additional minimizer settings \n\n:Parameters:\n  - 'minimizer' - The name of the minimizer\n  - 'algorithm' - Optional name of the algorithm\n  - 'options' - Optional string with additional minimizer settings\n" );
         
         }
         { //::IObservable::attachObserver

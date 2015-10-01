@@ -19,7 +19,7 @@
 #include "INamed.h"
 #include "Types.h"
 #include "OutputData.h"
-class FitSuite;
+class FitKernel;
 
 #include <string>
 #include <vector>
@@ -36,18 +36,18 @@ class FitSuite;
 class BA_CORE_API_ IFitStrategy : public INamed
 {
 public:
-    IFitStrategy() : m_fit_suite(0) {}
-    IFitStrategy(const std::string& name) : INamed(name), m_fit_suite(0) {}
+    IFitStrategy() : m_fit_kernel(0) {}
+    IFitStrategy(const std::string& name) : INamed(name), m_fit_kernel(0) {}
     virtual IFitStrategy *clone() const = 0;
 
     virtual ~IFitStrategy(){}
-    virtual void init(FitSuite *fit_suite) { m_fit_suite = fit_suite; }
+    virtual void init(FitKernel *fit_suite) { m_fit_kernel = fit_suite; }
     virtual void execute() = 0;
 protected:
-    FitSuite *m_fit_suite;
+    FitKernel *m_fit_kernel;
     IFitStrategy(const IFitStrategy &other) : INamed(other)
     {
-        m_fit_suite = other.m_fit_suite;
+        m_fit_kernel = other.m_fit_kernel;
     }
 
 private:

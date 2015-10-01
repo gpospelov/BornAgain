@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "FitStrategyAdjustMinimizer.h"
-#include "FitSuite.h"
+#include "FitKernel.h"
 #include "MinimizerFactory.h"
 
 
@@ -30,9 +30,9 @@ FitStrategyAdjustMinimizer *FitStrategyAdjustMinimizer::clone() const
 void FitStrategyAdjustMinimizer::execute()
 {
 
-    m_fit_suite->setMinimizer( MinimizerFactory::createMinimizer(m_minimizer) );
+    m_fit_kernel->setMinimizer( MinimizerFactory::createMinimizer(m_minimizer) );
 
-    m_fit_suite->minimize();
+    m_fit_kernel->minimize();
 
     //m_fit_suite->printResults();
 

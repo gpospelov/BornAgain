@@ -14,14 +14,14 @@
 // ************************************************************************** //
 
 #include "IFitStrategy.h"
-#include "FitSuite.h"
+#include "FitKernel.h"
 
 void FitStrategyDefault::execute()
 {
-    if( !m_fit_suite ) throw NullPointerException("FitStrategyDefault::execute() -> FitSuite doesn't exists");
+    if( !m_fit_kernel ) throw NullPointerException("FitStrategyDefault::execute() -> FitSuite doesn't exists");
 
     // calling minimization
-    m_fit_suite->minimize();
+    m_fit_kernel->minimize();
 }
 
 

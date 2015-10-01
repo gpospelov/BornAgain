@@ -76,9 +76,15 @@ public:
         (void)p_in_coeffs;
         (void)p_out_coeffs;
     }
-
-
 };
+
+class BA_CORE_API_ WavevectorInfo
+{
+public:
+    cvector_t m_ki;
+    cvector_t m_kf;
+};
+
 
 #ifndef GCCXML_SKIP_THIS
 inline Eigen::Matrix2cd IFormFactor::evaluatePol(const cvector_t& k_i,

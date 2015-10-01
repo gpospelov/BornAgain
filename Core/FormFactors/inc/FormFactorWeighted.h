@@ -41,9 +41,7 @@ public:
 
 #ifndef GCCXML_SKIP_THIS
     //! Calculates and returns a polarized form factor calculation in DWBA
-    virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin,
-            const Bin1D &phi_f_bin) const;
+    virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i, const Bin1DCVector& k_f_bin) const;
 #endif
 
     virtual int getNumberOfStochasticParameters() const;

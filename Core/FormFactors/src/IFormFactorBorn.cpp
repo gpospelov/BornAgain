@@ -24,9 +24,8 @@ complex_t IFormFactorBorn::evaluate(const cvector_t& k_i, const Bin1DCVector& k_
 }
 
 Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin, const Bin1D &phi_f_bin) const
+                                              const Bin1DCVector& k_f_bin) const
 {
-    (void)phi_f_bin;
     Eigen::Matrix2cd unit_matrix = Eigen::Matrix2cd::Identity();
     return evaluate(k_i, k_f_bin) * unit_matrix;
 }

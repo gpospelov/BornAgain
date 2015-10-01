@@ -117,7 +117,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorLists(
     SafePointerVector<FormFactorInfo>::const_iterator it = m_ff_infos.begin();
     while (it != m_ff_infos.end()) {
         (*it)->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
-        Eigen::Matrix2cd ff_mat = (*it)->mp_ff->evaluatePol(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
+        Eigen::Matrix2cd ff_mat = (*it)->mp_ff->evaluatePol(k_i, k_f_bin);
         m_ff_pol.push_back(ff_mat);
         ++it;
     }

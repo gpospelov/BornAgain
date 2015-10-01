@@ -427,7 +427,7 @@ void register_IFormFactorDecorator_class(){
                 "evaluate"
                 , bp::pure_virtual( evaluate_function_type(&::IFormFactor::evaluate) )
                 , ( bp::arg("k_i"), bp::arg("k_f_bin") )
-                , "Returns scattering amplitude for complex wavevector bin @param k_i   incoming wavevector @param k_f_bin   outgoing wavevector bin @param alpha_f outgoing angle wrt scattering surface \n\n:Parameters:\n  - 'k_i' - incoming wavevector\n  - 'k_f_bin' - outgoing wavevector bin\n  - 'alpha_f' - outgoing angle wrt scattering surface\n" );
+                , "Returns scattering amplitude for complex wavevector bin @param k_i   incoming wavevector @param k_f_bin   outgoing wavevector bin \n\n:Parameters:\n  - 'k_i' - incoming wavevector\n  - 'k_f_bin' - outgoing wavevector bin\n" );
         
         }
         { //::ISample::getCompositeSample

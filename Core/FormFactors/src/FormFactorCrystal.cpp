@@ -81,9 +81,8 @@ complex_t FormFactorCrystal::evaluate(const cvector_t &k_i, const Bin1DCVector &
     return result / volume;
 }
 
-Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-                                                const Bin1D &alpha_f_bin,
-                                                const Bin1D &phi_f_bin) const
+Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t &k_i,
+                                                const Bin1DCVector &k_f_bin) const
 {
     // construct a real reciprocal vector
     cvector_t q_bin_lower = k_i - k_f_bin.m_q_lower;
@@ -107,7 +106,7 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t &k_i, const Bin1
         Bin1DCVector min_q_i_zero_bin(-q_i, -q_i);
         Bin1DCVector q_i_min_q(q_i - q_bin.m_q_lower, q_i - q_bin.m_q_upper);
         Eigen::Matrix2cd basis_factor
-            = mp_basis_form_factor->evaluatePol(k_zero, min_q_i_zero_bin, alpha_f_bin, phi_f_bin);
+            = mp_basis_form_factor->evaluatePol(k_zero, min_q_i_zero_bin);
         complex_t meso_factor = mp_meso_form_factor->evaluate(k_zero, q_i_min_q);
         result += basis_factor * meso_factor;
     }

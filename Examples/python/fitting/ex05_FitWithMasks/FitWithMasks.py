@@ -81,7 +81,7 @@ def add_mask_to_simulation(simulation):
     Only unmasked areas will be simulated and then used during the fit.
 
     Masks can have different geometrical shapes (Rectangle, Ellipse, Line) with the mask value either
-    "True" (detector bin is excluded from the simulation) and False (will be simulated).
+    "True" (detector bin is excluded from the simulation) or False (will be simulated).
 
     Every subsequent mask override previously defined masks.
 

@@ -102,7 +102,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::getChiSquaredMap
         
-            typedef ::OutputData< double > const * ( ::FitSuite::*getChiSquaredMap_function_type)( ::std::size_t ) const;
+            typedef ::OutputData< double > * ( ::FitSuite::*getChiSquaredMap_function_type)( ::std::size_t ) const;
             
             FitSuite_exposer.def( 
                 "getChiSquaredMap"

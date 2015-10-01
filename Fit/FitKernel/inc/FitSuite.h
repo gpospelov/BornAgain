@@ -89,7 +89,7 @@ public:
 
     //! returns chi2 map calculated for (real, simulated) data pair
     //! @param i_item The index of fit object
-    const OutputData<double> * getChiSquaredMap(size_t i_item = 0) const;
+    OutputData<double> * getChiSquaredMap(size_t i_item = 0) const;
 
     //! returns FitObject (pair of simulation/real data)
     FitSuiteObjects *getFitObjects();

@@ -95,28 +95,30 @@ void TestFittingModule2::execute()
 
 void TestFittingModule2::fit_example_basics()
 {
-    initializeSimulation();
-    initializeRealData();
+    throw NotImplementedException("Code is obsolete");
 
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",
-                                5*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
-                                6*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_length",
-                                10*Units::nanometer, 2*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",
-                                6*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio",
-                                0.2, 0.1,
-                                AttLimits::fixed());
+//    initializeSimulation();
+//    initializeRealData();
 
-    m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data);
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",
+//                                5*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
+//                                6*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_length",
+//                                10*Units::nanometer, 2*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",
+//                                6*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio",
+//                                0.2, 0.1,
+//                                AttLimits::fixed());
 
-    m_fitSuite->runFit();
+//    m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data);
+
+//    m_fitSuite->runFit();
 }
 
 //! Fit example with chi2 module adjustment.
@@ -209,49 +211,51 @@ void TestFittingModule2::fit_example_strategy_data()
 //! Fix example with adjust parameters strategies
 void TestFittingModule2::fit_example_strategy_parameters()
 {
-    initializeSimulation();
-    initializeRealData();
+    throw NotImplementedException("Code is obsolete");
 
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",
-                                12*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
-                                2*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side",
-                                12*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",
-                                2*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio",
-                                0.2, 0.1,
-                                AttLimits::fixed());
+//    initializeSimulation();
+//    initializeRealData();
 
-    // Applying fit strategy
-    FitStrategyReleaseParameters strategy;
-    std::vector<std::string> pars = boost::assign::list_of("*SampleBuilder/m_cylinder_height")("*SampleBuilder/m_cylinder_radius");
-    strategy.setReleased(pars);
-    m_fitSuite->addFitStrategy(strategy);
-    pars = boost::assign::list_of("*SampleBuilder/m_prism3_half_side")("*SampleBuilder/m_prism3_height");
-    strategy.setReleased(pars);
-    m_fitSuite->addFitStrategy(strategy);
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",
+//                                12*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
+//                                2*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side",
+//                                12*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",
+//                                2*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio",
+//                                0.2, 0.1,
+//                                AttLimits::fixed());
 
-//    FitStrategyFixParameters strategy2;
-//    pars = boost::assign::list_of("*SampleBuilder/m_cylinder_ratio");
-//    strategy2.setFixed(pars);
-//    m_fitSuite->addFitStrategy(strategy2);
+//    // Applying fit strategy
+//    FitStrategyReleaseParameters strategy;
+//    std::vector<std::string> pars = boost::assign::list_of("*SampleBuilder/m_cylinder_height")("*SampleBuilder/m_cylinder_radius");
+//    strategy.setReleased(pars);
+//    m_fitSuite->addFitStrategy(strategy);
+//    pars = boost::assign::list_of("*SampleBuilder/m_prism3_half_side")("*SampleBuilder/m_prism3_height");
+//    strategy.setReleased(pars);
+//    m_fitSuite->addFitStrategy(strategy);
 
-    pars = boost::assign::list_of("*SampleBuilder/m_cylinder_height")("*SampleBuilder/m_cylinder_radius")("*SampleBuilder/m_prism3_half_side")("*SampleBuilder/m_prism3_height");
-    strategy.setReleased(pars);
-    m_fitSuite->addFitStrategy(strategy);
+////    FitStrategyFixParameters strategy2;
+////    pars = boost::assign::list_of("*SampleBuilder/m_cylinder_ratio");
+////    strategy2.setFixed(pars);
+////    m_fitSuite->addFitStrategy(strategy2);
 
-    m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data);
+//    pars = boost::assign::list_of("*SampleBuilder/m_cylinder_height")("*SampleBuilder/m_cylinder_radius")("*SampleBuilder/m_prism3_half_side")("*SampleBuilder/m_prism3_height");
+//    strategy.setReleased(pars);
+//    m_fitSuite->addFitStrategy(strategy);
 
-    m_fitSuite->setMinimizer(
-        MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+//    m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data);
 
-    m_fitSuite->runFit();
+//    m_fitSuite->setMinimizer(
+//        MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+
+//    m_fitSuite->runFit();
 }
 
 

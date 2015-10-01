@@ -139,14 +139,14 @@ void register_FitSuiteObjects_class(){
         }
         { //::FitSuiteObjects::getChiSquaredMap
         
-            typedef ::OutputData< double > const * ( ::FitSuiteObjects::*getChiSquaredMap_function_type)( ::std::size_t ) const;
+            typedef ::OutputData< double > * ( ::FitSuiteObjects::*getChiSquaredMap_function_type)( ::std::size_t ) const;
             
             FitSuiteObjects_exposer.def( 
                 "getChiSquaredMap"
                 , getChiSquaredMap_function_type( &::FitSuiteObjects::getChiSquaredMap )
                 , ( bp::arg("i_item")=(::std::size_t)(0) )
                 , bp::return_value_policy< bp::manage_new_object >()
-                , "Returns chi-squared map from corresponding FitObject @param i_item Index of FitObject \n\n:Parameters:\n  - 'i_item' - Index of FitObject\n" );
+                , "Returns new chi-squared map from corresponding FitObject @param i_item Index of FitObject \n\n:Parameters:\n  - 'i_item' - Index of FitObject\n" );
         
         }
         { //::FitSuiteObjects::getChiSquaredValue

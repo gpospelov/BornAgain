@@ -302,39 +302,41 @@ void TestIsGISAXS12::run_isgisaxs_fit()
 // run chi module test on isgisaxs data/result pair to check module numericaly
 void TestIsGISAXS12::run_test_chimodule()
 {
-    IsGISAXSData::DataSet_t isgi_scans;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans, IsGISAXSData::DATA_TO_FIT);
+    throw NotImplementedException("Code is obsolete");
 
-    IsGISAXSData::DataSet_t isgi_results;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::SIM_RESULT);
+//    IsGISAXSData::DataSet_t isgi_scans;
+//    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans, IsGISAXSData::DATA_TO_FIT);
 
-    // setting up fitSuite
-    ChiSquaredModule chiModule;
-    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
+//    IsGISAXSData::DataSet_t isgi_results;
+//    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::SIM_RESULT);
 
-    IntensityNormalizer normalizer(1.31159E+05, -8.10009E-02);
+//    // setting up fitSuite
+//    ChiSquaredModule chiModule;
+//    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
 
-    double max_intensity(0);
-    for(int i=0; i<(int)isgi_results.size(); ++i) {
-        OutputData<double>::const_iterator cit = std::max_element(isgi_results[i]->begin(), isgi_results[i]->end());
-        max_intensity = std::max(max_intensity, *cit);
-    }
-    std::cout << "XXX " << max_intensity << std::endl;
-    normalizer.setMaximumIntensity(max_intensity);
-//    chiModule.setOutputDataNormalizer( normalizer );
+//    IntensityNormalizer normalizer(1.31159E+05, -8.10009E-02);
 
-    double chi_sum(0);
-    for(int i=0; i<(int)isgi_scans.size(); ++i) {
-        chiModule.setRealAndSimulatedData(*isgi_scans[i], *isgi_results[i]);
-        std::cout << " AAA " << isgi_scans.size()*isgi_results[i]->getAllocatedSize() - 12 << std::endl;
-        chiModule.setNdegreeOfFreedom((int)(isgi_scans.size()*isgi_results[i]->getAllocatedSize()) - 12);
-        double chi = 0.5*0.5*chiModule.calculateChiSquared();
-        chi_sum += chi;
-        std::cout << "chi : " << chi << " chi_sum:" << chi_sum << std::endl;
-    }
-    std::cout << "chi_sum " << chi_sum << std::endl;
+//    double max_intensity(0);
+//    for(int i=0; i<(int)isgi_results.size(); ++i) {
+//        OutputData<double>::const_iterator cit = std::max_element(isgi_results[i]->begin(), isgi_results[i]->end());
+//        max_intensity = std::max(max_intensity, *cit);
+//    }
+//    std::cout << "XXX " << max_intensity << std::endl;
+//    normalizer.setMaximumIntensity(max_intensity);
+////    chiModule.setOutputDataNormalizer( normalizer );
 
-    return;
+//    double chi_sum(0);
+//    for(int i=0; i<(int)isgi_scans.size(); ++i) {
+//        chiModule.setRealAndSimulatedData(*isgi_scans[i], *isgi_results[i]);
+//        std::cout << " AAA " << isgi_scans.size()*isgi_results[i]->getAllocatedSize() - 12 << std::endl;
+//        chiModule.setNdegreeOfFreedom((int)(isgi_scans.size()*isgi_results[i]->getAllocatedSize()) - 12);
+//        double chi = 0.5*0.5*chiModule.calculateChiSquared();
+//        chi_sum += chi;
+//        std::cout << "chi : " << chi << " chi_sum:" << chi_sum << std::endl;
+//    }
+//    std::cout << "chi_sum " << chi_sum << std::endl;
+
+//    return;
 }
 
 

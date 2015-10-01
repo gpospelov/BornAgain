@@ -154,19 +154,21 @@ void TestFumiliLMA::execute()
 /* ************************************************************************* */
 double TestFumiliLMA::functionToMinimize(const double *pars)
 {
-    m_func->SetParameters(pars);
-    OutputData<double> simulated_data;
-    FillOutputDataFromFunction(simulated_data, m_func);
-    m_chi_module->setRealAndSimulatedData(*m_real_data, simulated_data);
-    double chi = m_chi_module->calculateChiSquared();
+    throw NotImplementedException("Code is obsolete");
+//    m_func->SetParameters(pars);
+//    OutputData<double> simulated_data;
+//    FillOutputDataFromFunction(simulated_data, m_func);
+//    m_chi_module->setRealAndSimulatedData(*m_real_data, simulated_data);
+//    double chi = m_chi_module->calculateChiSquared();
 
-    TH2D *h2_simul = IsGISAXSTools::getOutputDataTH2D(simulated_data, "simulated_data");
-    m_c1->cd(3);
-    h2_simul->DrawCopy("SURF");
-    delete h2_simul;
-    m_c1->Update();
+//    TH2D *h2_simul = IsGISAXSTools::getOutputDataTH2D(simulated_data, "simulated_data");
+//    m_c1->cd(3);
+//    h2_simul->DrawCopy("SURF");
+//    delete h2_simul;
+//    m_c1->Update();
 
-    return chi;
+//    return chi;
+    return 0.0;
 }
 
 

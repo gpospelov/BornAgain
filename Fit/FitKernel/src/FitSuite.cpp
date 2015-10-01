@@ -90,7 +90,7 @@ const OutputData<double> *FitSuite::getSimulationData(size_t i_item) const
     return m_kernel->getFitObjects()->getSimulationData(i_item);
 }
 
-const OutputData<double> *FitSuite::getChiSquaredMap(size_t i_item) const
+OutputData<double> *FitSuite::getChiSquaredMap(size_t i_item) const
 {
     return m_kernel->getFitObjects()->getChiSquaredMap(i_item);
 }

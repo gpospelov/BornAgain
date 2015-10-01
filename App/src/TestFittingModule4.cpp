@@ -132,34 +132,36 @@ void TestFittingModule4::initializeSimulation()
 /* ************************************************************************* */
 void TestFittingModule4::initializeSample()
 {
-    delete mp_sample;
+    throw NotImplementedException("Code is obsolete");
 
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    HomogeneousMaterial air_material("Air", n_air);
-    HomogeneousMaterial particle_material("Particle", n_particle);
+//    delete mp_sample;
 
-    Layer air_layer;
-    air_layer.setMaterial(air_material);
-    Particle particle(particle_material, FormFactorCylinder(
-                          5*Units::nanometer, 5*Units::nanometer) );
-    ParticleLayout particle_layout(particle);
+//    MultiLayer *p_multi_layer = new MultiLayer();
+//    complex_t n_air(1.0, 0.0);
+//    complex_t n_particle(1.0-6e-4, 2e-8);
+//    HomogeneousMaterial air_material("Air", n_air);
+//    HomogeneousMaterial particle_material("Particle", n_particle);
 
-    air_layer.addLayout(particle_layout);
+//    Layer air_layer;
+//    air_layer.setMaterial(air_material);
+//    Particle particle(particle_material, FormFactorCylinder(
+//                          5*Units::nanometer, 5*Units::nanometer) );
+//    ParticleLayout particle_layout(particle);
 
-    p_multi_layer->addLayer(air_layer);
-    mp_sample = p_multi_layer;
+//    air_layer.addLayout(particle_layout);
 
-    // defining parameters for minimization
-    if( !m_fitSuite ) {
-        throw NullPointerException("TestFittingModule::initializeSample() -> Error! No FitSuite is defined");
-    }
+//    p_multi_layer->addLayer(air_layer);
+//    mp_sample = p_multi_layer;
 
-    m_fitSuite->addFitParameter("*height", 1.*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(0.01, 30.) );
-    m_fitSuite->addFitParameter("*radius", 20.*Units::nanometer, 0.06*Units::nanometer, AttLimits::limited(0.01, 30.) );
-//    m_fitSuite->addFitParameter("*height", 6.*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(0.01, 30.) );
-//    m_fitSuite->addFitParameter("*radius", 6.*Units::nanometer, 0.06*Units::nanometer, AttLimits::limited(0.01, 30.) );
+//    // defining parameters for minimization
+//    if( !m_fitSuite ) {
+//        throw NullPointerException("TestFittingModule::initializeSample() -> Error! No FitSuite is defined");
+//    }
+
+//    m_fitSuite->addFitParameter("*height", 1.*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(0.01, 30.) );
+//    m_fitSuite->addFitParameter("*radius", 20.*Units::nanometer, 0.06*Units::nanometer, AttLimits::limited(0.01, 30.) );
+////    m_fitSuite->addFitParameter("*height", 6.*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(0.01, 30.) );
+////    m_fitSuite->addFitParameter("*radius", 6.*Units::nanometer, 0.06*Units::nanometer, AttLimits::limited(0.01, 30.) );
 }
 
 

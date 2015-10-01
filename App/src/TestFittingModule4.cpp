@@ -50,59 +50,61 @@ TestFittingModule4::~TestFittingModule4()
 
 void TestFittingModule4::execute()
 {
-    // initializing data
-    initializeSample();
-    initializeSimulation();
-    initializeRealData();
+    throw NotImplementedException("Code is obsolete");
 
-    ChiSquaredModule chiModule;
-    //chiModule.setChiSquaredFunction( SquaredFunctionSimError() );
-    chiModule.setChiSquaredFunction( new SquaredFunctionDefault() );
+//    // initializing data
+//    initializeSample();
+//    initializeSimulation();
+//    initializeRealData();
 
-    m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data, chiModule);
+//    ChiSquaredModule chiModule;
+//    //chiModule.setChiSquaredFunction( SquaredFunctionSimError() );
+//    chiModule.setChiSquaredFunction( new SquaredFunctionDefault() );
 
-    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+//    m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data, chiModule);
 
-    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
-    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Fumili") );
-    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLLMA") ); // LMA
-    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLSimAn") );
-    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Genetic") );
-    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Scan") );
+//    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
 
-
-    //m_fitSuite->getMinimizer()->getOptions().setPrintLevel(10);
-
-    // Genetic
-//    m_fitSuite->getMinimizer()->getOptions().setMaxIterations(5);
-//    m_fitSuite->getMinimizer()->getOptions().setValue("Steps",5);
-//    m_fitSuite->getMinimizer()->getOptions().setValue("PopSize",100);
-//    m_fitSuite->getMinimizer()->getOptions().setTolerance(100);
-
-    // GSLSimAn
-//    m_fitSuite->getMinimizer()->getOptions().setValue("ntries",50);
-//    m_fitSuite->getMinimizer()->getOptions().setValue("niters_fixed_t",5);
-//    m_fitSuite->getMinimizer()->getOptions().setMaxIterations(5);
-
-//    m_fitSuite->getMinimizer()->getOptions().setValue("Strategy",2);
-
-    //m_fitSuite->getMinimizer()->getOptions().print();
+//    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
+//    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Fumili") );
+//    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLLMA") ); // LMA
+//    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLSimAn") );
+//    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Genetic") );
+//    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Scan") );
 
 
-    m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver(100) );
-    m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
+//    //m_fitSuite->getMinimizer()->getOptions().setPrintLevel(10);
 
-    FitStrategyAdjustMinimizer *strategy1 = new FitStrategyAdjustMinimizer();
-    strategy1->setMinimizer(MinimizerFactory::createMinimizer("Genetic"));
-    strategy1->getMinimizer()->getOptions().setMaxIterations(5);
-    strategy1->getMinimizer()->getOptions().setValue("Steps",5);
-    m_fitSuite->addFitStrategy(strategy1);
+//    // Genetic
+////    m_fitSuite->getMinimizer()->getOptions().setMaxIterations(5);
+////    m_fitSuite->getMinimizer()->getOptions().setValue("Steps",5);
+////    m_fitSuite->getMinimizer()->getOptions().setValue("PopSize",100);
+////    m_fitSuite->getMinimizer()->getOptions().setTolerance(100);
 
-    FitStrategyAdjustMinimizer *strategy2 = new FitStrategyAdjustMinimizer();
-    strategy2->setMinimizer(MinimizerFactory::createMinimizer("Minuit2","Migrad"));
-    m_fitSuite->addFitStrategy(strategy2);
+//    // GSLSimAn
+////    m_fitSuite->getMinimizer()->getOptions().setValue("ntries",50);
+////    m_fitSuite->getMinimizer()->getOptions().setValue("niters_fixed_t",5);
+////    m_fitSuite->getMinimizer()->getOptions().setMaxIterations(5);
 
-    m_fitSuite->runFit();
+////    m_fitSuite->getMinimizer()->getOptions().setValue("Strategy",2);
+
+//    //m_fitSuite->getMinimizer()->getOptions().print();
+
+
+//    m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver(100) );
+//    m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
+
+//    FitStrategyAdjustMinimizer *strategy1 = new FitStrategyAdjustMinimizer();
+//    strategy1->setMinimizer(MinimizerFactory::createMinimizer("Genetic"));
+//    strategy1->getMinimizer()->getOptions().setMaxIterations(5);
+//    strategy1->getMinimizer()->getOptions().setValue("Steps",5);
+//    m_fitSuite->addFitStrategy(strategy1);
+
+//    FitStrategyAdjustMinimizer *strategy2 = new FitStrategyAdjustMinimizer();
+//    strategy2->setMinimizer(MinimizerFactory::createMinimizer("Minuit2","Migrad"));
+//    m_fitSuite->addFitStrategy(strategy2);
+
+//    m_fitSuite->runFit();
 }
 
 

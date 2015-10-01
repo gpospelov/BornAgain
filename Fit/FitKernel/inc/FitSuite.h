@@ -21,7 +21,7 @@
 
 //! @class FitSuite
 //! @ingroup fitting
-//! @brief Main class to setup GISAS fitting in BornAgain
+//! @brief Main class to setup and run GISAS fitting in BornAgain.
 
 class BA_CORE_API_ FitSuite : public IObservable
 {

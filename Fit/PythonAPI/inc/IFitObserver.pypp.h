@@ -15,24 +15,9 @@
 //
 // ************************************************************************** //
 
-#include "Macros.h"
-GCC_DIAG_OFF(unused-parameter)
-GCC_DIAG_OFF(missing-field-initializers)
-#include "boost/python.hpp"
-GCC_DIAG_ON(unused-parameter)
-GCC_DIAG_ON(missing-field-initializers)
-#include "PythonCoreList.h"
-#include "IObserver.pypp.h"
+#ifndef IFitObserver_hpp__pyplusplus_wrapper
+#define IFitObserver_hpp__pyplusplus_wrapper
 
-namespace bp = boost::python;
+void register_IFitObserver_class();
 
-void register_IObserver_class(){
-
-    { //::IObserver
-        typedef bp::class_< IObserver > IObserver_exposer_t;
-        IObserver_exposer_t IObserver_exposer = IObserver_exposer_t( "IObserver", "Observer interface from %Observer pattern, for 1:n object dependencies." );
-        bp::scope IObserver_scope( IObserver_exposer );
-        bp::register_ptr_to_python< boost::shared_ptr< IObserver > >();
-    }
-
-}
+#endif//IFitObserver_hpp__pyplusplus_wrapper

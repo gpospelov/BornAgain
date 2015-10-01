@@ -32,7 +32,7 @@ public:
     virtual ~IObserver() {}
 
     //! method which is used by observable subject to notify change in status
-    virtual void update (IObservable* /*subject*/) {
+    virtual void notify (IObservable* /*subject*/) {
         throw NotImplementedException("IObserver::update() -> Not implemented");
     }
 

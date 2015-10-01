@@ -134,7 +134,7 @@ void FitKernel::runFit()
 
     // calling observers to let them to get results
     m_is_last_iteration = true;
-//    notifyObservers();
+    notifyObservers();
 
     m_end_time =  boost::posix_time::microsec_clock::local_time();
 }

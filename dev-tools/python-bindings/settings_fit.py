@@ -80,6 +80,7 @@ include_classes = [
     "SquaredFunctionGaussianError",
     "SquaredFunctionSystematicError",
     "SquaredFunctionSimError",
+    "IFitObserver",
 ]
 
 
@@ -176,7 +177,9 @@ def ManualClassTunings(mb):
         if "getValue" in fun.name:
             fun.exclude()
 
-    cl = mb.class_("IObserver")
+    # cl = mb.class_("IObserver")
+    # cl.member_function("update").include()
+    cl = mb.class_("IFitObserver")
     cl.member_function("update").include()
 
     cl = mb.class_("FitSuiteParameters")

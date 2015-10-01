@@ -287,8 +287,8 @@ def ManualClassTunings(mb):
         if "generateSamples" in fun.name:
             fun.exclude()
     #
-    cl = mb.class_("IObserver")
-    cl.member_function("update").include()
+    # cl = mb.class_("IObserver")
+    # cl.member_function("update").include()
 
     #cl = mb.class_("MaterialManager")
     #cl.constructors().exclude()

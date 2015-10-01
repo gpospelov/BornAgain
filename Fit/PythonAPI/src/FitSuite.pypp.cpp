@@ -65,7 +65,7 @@ void register_FitSuite_class(){
 
     { //::FitSuite
         typedef bp::class_< FitSuite_wrapper, bp::bases< IObservable >, boost::noncopyable > FitSuite_exposer_t;
-        FitSuite_exposer_t FitSuite_exposer = FitSuite_exposer_t( "FitSuite", "Main class to setup GISAS fitting in BornAgai.", bp::no_init );
+        FitSuite_exposer_t FitSuite_exposer = FitSuite_exposer_t( "FitSuite", "Main class to setup and run GISAS fitting in BornAgain.", bp::no_init );
         bp::scope FitSuite_scope( FitSuite_exposer );
         FitSuite_exposer.def( bp::init< >() );
         { //::FitSuite::addFitParameter

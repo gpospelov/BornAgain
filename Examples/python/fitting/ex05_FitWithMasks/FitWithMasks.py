@@ -3,16 +3,14 @@ Two parameter fit of cylinders without interference.
 Real data contains rectangular mask to simulate and fit only the area inside the mask.
 """
 
-
 import numpy
+from matplotlib import pyplot as plt
 import matplotlib
-import pylab
 import math
-import ctypes
 from bornagain import *
 
-pylab.ion()
-fig = pylab.figure(1)
+plt.ion()
+fig = plt.figure(figsize=(10.24, 7.68))
 fig.canvas.draw()
 
 
@@ -77,48 +75,40 @@ def create_real_data():
     return real_data
 
 
-class DrawObserver(IObserver):
+class DrawObserver(IFitObserver):
     """
     class which draws fit progress every nth iteration.
     It has to be attached to fit_suite via AttachObserver command
     """
     def __init__(self, draw_every=10):
-        IObserver.__init__(self)
-        self.draw_every_nth = draw_every
-    def update(self, fit_suite):
-        if fit_suite.getNCalls() % self.draw_every_nth == 0:
-            fig.clf()
-            # plotting real data
-            real_data = fit_suite.getRealData().getArray()
-            simulated_data = fit_suite.getSimulationData().getArray()
-            pylab.subplot(2, 2, 1)
-            im = pylab.imshow(real_data + 1, norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
-            pylab.colorbar(im)
-            pylab.title('\"Real\" data')
-            # plotting simulation data
-            pylab.subplot(2, 2, 2)
-            im = pylab.imshow(simulated_data + 1, norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
-            pylab.colorbar(im)
-            pylab.title('Simulated data')
-            # plotting difference map
-            # diff_map = (real_data - simulated_data)/(real_data + 1)
-            diff_map= fit_suite.getChiSquaredMap().getArray()
-            pylab.subplot(2, 2, 3)
-            im = pylab.imshow(diff_map, norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0], vmin = 0.001, vmax = 1.0)
-            pylab.colorbar(im)
-            pylab.title('Difference map')
-            # plotting parameters info
-            pylab.subplot(2, 2, 4)
-            pylab.title('Parameters')
-            pylab.axis('off')
-            pylab.text(0.01, 0.85, "Iteration  " + str(fit_suite.getNCalls()))
-            pylab.text(0.01, 0.75, "Chi2       " + str(fit_suite.getFitObjects().getChiSquaredValue()))
-            fitpars = fit_suite.getFitParameters()
-            for i in range(0, fitpars.size()):
-                pylab.text(0.01, 0.55 - i*0.1, str(fitpars[i].getName()) + " " + str(fitpars[i].getValue())[0:5] )
+        IFitObserver.__init__(self, draw_every)
 
-            pylab.draw()
-            pylab.pause(0.01)
+    def plot(self, data, title, nplot, min=1, max=1e6):
+        plt.subplot(2, 2, nplot)
+        plt.subplots_adjust(wspace=0.2, hspace=0.2)
+        im = plt.imshow(data.getArray(),
+                        norm=matplotlib.colors.LogNorm(min, max),
+                        extent=[-1.0, 1.0, 0, 2.0])
+        plt.colorbar(im)
+        plt.title(title)
+
+    def update(self, fit_suite):
+        fig.clf()
+        self.plot(fit_suite.getRealData(), "\"Real\" data", 1)
+        self.plot(fit_suite.getSimulationData(), "Simulated data", 2)
+        self.plot(fit_suite.getChiSquaredMap(), "Chi2 map", 3, min=0.001, max=1.0)
+
+        plt.subplot(2, 2, 4)
+        plt.title('Parameters')
+        plt.axis('off')
+        plt.text(0.01, 0.85, "Iteration  " + str(fit_suite.getNCalls()))
+        plt.text(0.01, 0.75, "Chi2       " + str(fit_suite.getFitObjects().getChiSquaredValue()))
+        fitpars = fit_suite.getFitParameters()
+        for i in range(0, fitpars.size()):
+            plt.text(0.01, 0.55 - i*0.1, str(fitpars[i].getName()) + " " + str(fitpars[i].getValue())[0:5] )
+
+        plt.draw()
+        plt.pause(0.01)
 
 
 def run_fitting():
@@ -178,7 +168,7 @@ def run_fitting():
 
     fit_suite.initPrint(10)
 
-    draw_observer = DrawObserver()
+    draw_observer = DrawObserver(draw_every=10)
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
@@ -187,8 +177,6 @@ def run_fitting():
 
     # running fit
     fit_suite.runFit()
-
-    fit_suite.getFitObjects().printParameters()
 
 
     print "Fitting completed."
@@ -201,6 +189,7 @@ def run_fitting():
 
 if __name__ == '__main__':
     run_fitting()
-    pylab.ioff()
-    pylab.show()
+
+    plt.ioff()
+    plt.show()
 

@@ -82,11 +82,8 @@ complex_t FormFactorInfLongRipple1::evaluate_for_q(const cvector_t& q) const
         "FormFactorInfLongRipple1::evaluate_for_q(q) -> Error: not implemented exception.");
 }
 
-complex_t FormFactorInfLongRipple1::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const
+complex_t FormFactorInfLongRipple1::evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin) const
 {
-    (void)alpha_f_bin;  // to avoid unused-variable warning
-
     double qxmin = (k_i - k_f_bin.m_q_upper).x().real();
     double qxmax = (k_i - k_f_bin.m_q_lower).x().real();
 

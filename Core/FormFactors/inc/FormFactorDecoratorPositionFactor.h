@@ -36,8 +36,7 @@ public:
         visitor->visit(this);
     }
 
-    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-                               const Bin1D &alpha_f_bin) const;
+    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin) const;
 
 #ifndef GCCXML_SKIP_THIS
     virtual Eigen::Matrix2cd evaluatePol(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
@@ -69,12 +68,11 @@ inline FormFactorDecoratorPositionFactor *FormFactorDecoratorPositionFactor::clo
 }
 
 inline complex_t FormFactorDecoratorPositionFactor::evaluate(const cvector_t &k_i,
-                                                             const Bin1DCVector &k_f_bin,
-                                                             const Bin1D &alpha_f_bin) const
+                                                             const Bin1DCVector &k_f_bin) const
 {
     cvector_t q = k_i - k_f_bin.getMidPoint();
     complex_t pos_factor = getPositionFactor(q);
-    return pos_factor * mp_form_factor->evaluate(k_i, k_f_bin, alpha_f_bin);
+    return pos_factor * mp_form_factor->evaluate(k_i, k_f_bin);
 }
 
 inline Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(const cvector_t &k_i,

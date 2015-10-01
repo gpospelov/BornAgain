@@ -44,15 +44,13 @@ void FormFactorDWBA::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
     mp_out_coeffs = p_out_coeffs;
 }
 
-complex_t FormFactorDWBA::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const
+complex_t FormFactorDWBA::evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin) const
 {
-    calculateTerms(k_i, k_f_bin, alpha_f_bin);
+    calculateTerms(k_i, k_f_bin);
     return m_term_S + m_term_RS + m_term_SR + m_term_RSR;
 }
 
-void FormFactorDWBA::calculateTerms(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const
+void FormFactorDWBA::calculateTerms(const cvector_t& k_i, const Bin1DCVector& k_f_bin) const
 {
     // Retrieve the two different incoming wavevectors in the layer
     cvector_t k_i_T = k_i;
@@ -71,11 +69,11 @@ void FormFactorDWBA::calculateTerms(const cvector_t& k_i,
     // The four different scattering contributions; S stands for scattering
     // off the particle, R for reflection off the layer interface
     m_term_S = mp_in_coeffs->getScalarT()*mp_form_factor->evaluate(k_i_T,
-            k_f_T_bin, alpha_f_bin) * mp_out_coeffs->getScalarT();
+            k_f_T_bin) * mp_out_coeffs->getScalarT();
     m_term_RS = mp_in_coeffs->getScalarR()*mp_form_factor->evaluate(k_i_R,
-            k_f_T_bin, alpha_f_bin) * mp_out_coeffs->getScalarT();
+            k_f_T_bin) * mp_out_coeffs->getScalarT();
     m_term_SR = mp_in_coeffs->getScalarT()*mp_form_factor->evaluate(k_i_T,
-            k_f_R_bin, alpha_f_bin) * mp_out_coeffs->getScalarR();
+            k_f_R_bin) * mp_out_coeffs->getScalarR();
     m_term_RSR = mp_in_coeffs->getScalarR()*mp_form_factor->evaluate(k_i_R,
-            k_f_R_bin, alpha_f_bin) * mp_out_coeffs->getScalarR();
+            k_f_R_bin) * mp_out_coeffs->getScalarR();
 }

@@ -36,8 +36,7 @@ public:
     }
 
     //! Evaluate the form factor for scalar calculations
-    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-                               const Bin1D &alpha_f_bin) const;
+    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin) const;
 
     virtual int getNumberOfStochasticParameters() const;
 
@@ -60,10 +59,9 @@ inline FormFactorDecoratorFactor *FormFactorDecoratorFactor::clone() const
 }
 
 inline complex_t FormFactorDecoratorFactor::evaluate(const cvector_t &k_i,
-                                                     const Bin1DCVector &k_f_bin,
-                                                     const Bin1D &alpha_f_bin) const
+                                                     const Bin1DCVector &k_f_bin) const
 {
-    return m_factor * mp_form_factor->evaluate(k_i, k_f_bin, alpha_f_bin);
+    return m_factor * mp_form_factor->evaluate(k_i, k_f_bin);
 }
 
 inline int FormFactorDecoratorFactor::getNumberOfStochasticParameters() const

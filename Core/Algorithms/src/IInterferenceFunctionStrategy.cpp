@@ -89,7 +89,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
     SafePointerVector<FormFactorInfo>::const_iterator it = m_ff_infos.begin();
     while (it != m_ff_infos.end()) {
         (*it)->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
-        complex_t ff_mat = (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_f_bin);
+        complex_t ff_mat = (*it)->mp_ff->evaluate(k_i, k_f_bin);
         m_ff.push_back(ff_mat);
         ++it;
     }

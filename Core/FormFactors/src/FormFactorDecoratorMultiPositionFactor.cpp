@@ -28,11 +28,10 @@ FormFactorDecoratorMultiPositionFactor *FormFactorDecoratorMultiPositionFactor::
 }
 
 complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const cvector_t &k_i,
-                                                           const Bin1DCVector &k_f_bin,
-                                                           const Bin1D &alpha_f_bin) const
+                                                           const Bin1DCVector &k_f_bin) const
 {
     cvector_t q = k_i - k_f_bin.getMidPoint();
-    return getPositionsFactor(q) * mp_form_factor->evaluate(k_i, k_f_bin, alpha_f_bin);
+    return getPositionsFactor(q) * mp_form_factor->evaluate(k_i, k_f_bin);
 }
 
 Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactor::evaluatePol(const cvector_t &k_i,

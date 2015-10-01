@@ -35,8 +35,7 @@ public:
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Throws exception
-    virtual complex_t evaluate(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, const Bin1D &alpha_f) const;
+    virtual complex_t evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin) const;
 
     //! Calculates and returns a polarized form factor calculation in DWBA
     virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,

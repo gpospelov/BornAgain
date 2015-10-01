@@ -43,8 +43,7 @@ public:
         visitor->visit(this);
     }
 
-    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-                               const Bin1D &alpha_f_bin) const;
+    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin) const;
 
     virtual int getNumberOfStochasticParameters() const
     {

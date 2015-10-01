@@ -49,16 +49,16 @@ struct FormFactorInfLongRipple2_wrapper : FormFactorInfLongRipple2, bp::wrapper<
         return FormFactorInfLongRipple2::clone( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin) );
         else{
-            return this->FormFactorInfLongRipple2::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
+            return this->FormFactorInfLongRipple2::evaluate( boost::ref(k_i), boost::ref(k_f_bin) );
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
-        return FormFactorInfLongRipple2::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin ) const  {
+        return FormFactorInfLongRipple2::evaluate( boost::ref(k_i), boost::ref(k_f_bin) );
     }
 
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
@@ -356,14 +356,14 @@ void register_FormFactorInfLongRipple2_class(){
         }
         { //::FormFactorInfLongRipple2::evaluate
         
-            typedef ::complex_t ( ::FormFactorInfLongRipple2::*evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
-            typedef ::complex_t ( FormFactorInfLongRipple2_wrapper::*default_evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( ::FormFactorInfLongRipple2::*evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const & ) const;
+            typedef ::complex_t ( FormFactorInfLongRipple2_wrapper::*default_evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const & ) const;
             
             FormFactorInfLongRipple2_exposer.def( 
                 "evaluate"
                 , evaluate_function_type(&::FormFactorInfLongRipple2::evaluate)
                 , default_evaluate_function_type(&FormFactorInfLongRipple2_wrapper::default_evaluate)
-                , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f_bin") ) );
+                , ( bp::arg("k_i"), bp::arg("k_f_bin") ) );
         
         }
         { //::FormFactorInfLongRipple2::evaluate_for_q

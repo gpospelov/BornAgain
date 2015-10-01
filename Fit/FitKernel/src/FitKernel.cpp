@@ -44,73 +44,41 @@ void FitKernel::clear()
     m_fit_objects.clear();
     m_fit_parameters.clear();
     m_fit_strategies.clear();
-    delete m_minimizer;
-    m_minimizer = 0;
     m_is_last_iteration = false;
 }
 
 //! Adds pair of (simulation, real data) for consecutive simulation
-void FitKernel::addSimulationAndRealData(const GISASSimulation& simulation, const OutputData<double >& real_data, const IChiSquaredModule& chi2_module)
+void FitKernel::addSimulationAndRealData(const GISASSimulation& simulation,
+                                         const OutputData<double >& real_data)
 {
     m_fit_objects.add(simulation, real_data);
 }
 
-//! Adds fit parameter
-void FitKernel::addFitParameter(const std::string& name, double value, double step, const AttLimits& attlim, double error)
+//! Adds fit parameter, step is calculated from initial parameter value
+void FitKernel::addFitParameter(const std::string& name, double value, const AttLimits& attlim,
+                                double step, double error)
 {
     if(step <=0.0)
         step = value * getAttributes().getStepFactor();
     m_fit_parameters.addParameter(name, value, step, attlim, error);
 }
 
-//! Adds fit parameter, step is calculated from initial parameter value
-void FitKernel::addFitParameter(const std::string& name, double value, const AttLimits& attlim, double error)
-{
-    double step = value * getAttributes().getStepFactor();
-    m_fit_parameters.addParameter(name, value, step, attlim, error);
-}
-
-//! Adds fit strategy
-void FitKernel::addFitStrategy(IFitStrategy *strategy)
-{
-    m_fit_strategies.addStrategy(strategy);
-}
-
 void FitKernel::addFitStrategy(const IFitStrategy &strategy)
 {
-    addFitStrategy(strategy.clone());
+    m_fit_strategies.addStrategy(strategy.clone());
 }
 
 void FitKernel::setMinimizer(IMinimizer *minimizer)
 {
-    delete m_minimizer;
-    m_minimizer = minimizer;
-    if(!m_minimizer) {
-        msglog(MSG::WARNING) << "FitSuite::setMinimizer() -> Warning. Attempt to set NULL minimizer.";
+    if(!minimizer) {
+        msglog(MSG::ERROR) << "FitSuite::setMinimizer() -> Error. Attempt to set NULL minimizer.";
     }
+    m_minimizer.reset(minimizer);
 }
 
-void FitKernel::setMinimizer(const std::string &minimizer, const std::string &algorithm, const std::string &options)
+IMinimizer *FitKernel::getMinimizer()
 {
-    setMinimizer(MinimizerFactory::createMinimizer(minimizer, algorithm, options));
-}
-
-//! link FitMultiParameters with simulation parameters
-void FitKernel::link_fit_parameters()
-{
-    ParameterPool *pool = m_fit_objects.createParameterTree();
-    m_fit_parameters.link_to_pool(pool);
-    msglog(MSG::DEBUG2) << "FitSuite::link_fit_parameters() -> Parameter pool:";
-    msglog(MSG::DEBUG2) << *pool;
-    delete pool;
-}
-
-bool FitKernel::check_prerequisites() const
-{
-    if( !m_minimizer ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No minimizer found.");
-    if( !m_fit_objects.getNumberOfFitObjects() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No simulation/data description defined");
-    if( !m_fit_parameters.size() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No fit parameters defined");
-    return true;
+    return m_minimizer.get();
 }
 
 void FitKernel::runFit()
@@ -139,8 +107,6 @@ void FitKernel::runFit()
     m_end_time =  boost::posix_time::microsec_clock::local_time();
 }
 
-
-//! run single minimization round (called by FitSuiteStrategy)
 void FitKernel::minimize()
 {
     // initializing minimizer with fitting functions
@@ -158,9 +124,27 @@ void FitKernel::minimize()
 
     // minimizing
     m_minimizer->minimize();
-
 }
 
+FitSuiteObjects *FitKernel::getFitObjects()
+{
+    return &m_fit_objects;
+}
+
+FitSuiteParameters *FitKernel::getFitParameters()
+{
+    return &m_fit_parameters;
+}
+
+FitSuiteStrategies *FitKernel::getFitStrategies()
+{
+    return &m_fit_strategies;
+}
+
+bool FitKernel::isLastIteration() const
+{
+    return m_is_last_iteration;
+}
 
 // get current number of minimization function calls
 size_t FitKernel::getNCalls() const
@@ -168,6 +152,11 @@ size_t FitKernel::getNCalls() const
     //return m_minimizer->getNCalls();
     // I don't know which function Minimizer calls (chi2 or gradient)
     return (m_function_chi2.getNCalls() ? m_function_chi2.getNCalls() : m_function_gradient.getNCalls());
+}
+
+size_t FitKernel::getNStrategy() const
+{
+    return m_fit_strategies.getCurrentStrategyIndex();
 }
 
 
@@ -184,32 +173,9 @@ void FitKernel::printResults() const
     m_minimizer->printResults();
 }
 
-
-// set print level
-//void FitKernel::initPrint(int print_every_nth)
-//{
-//    boost::shared_ptr<FitSuitePrintObserver > observer(new FitSuitePrintObserver(print_every_nth));
-//    attachObserver(observer);
-//}
-
-//FitParameter *FitKernel::getFitParameter(const std::string &name)
-//{
-//    return getFitParameters()->getParameter(name);
-//}
-
-void FitKernel::fixAllParameters()
+AttFitting &FitKernel::getAttributes()
 {
-    getFitParameters()->fixAll();
-}
-
-void FitKernel::releaseAllParameters()
-{
-    getFitParameters()->releaseAll();
-}
-
-void FitKernel::setParametersFixed(const std::vector<std::string> &pars, bool is_fixed)
-{
-    getFitParameters()->setParametersFixed(pars, is_fixed);
+    return m_fit_attributes;
 }
 
 double FitKernel::getRunTime() const
@@ -224,3 +190,22 @@ void FitKernel::notifyObservers()
 }
 
 
+bool FitKernel::check_prerequisites() const
+{
+    if( !m_minimizer ) throw LogicErrorException(
+                "FitSuite::check_prerequisites() -> Error! No minimizer found.");
+    if( !m_fit_objects.getNumberOfFitObjects() ) throw LogicErrorException(
+                "FitSuite::check_prerequisites() -> Error! No simulation/data description defined");
+    if( !m_fit_parameters.size() ) throw LogicErrorException(
+                "FitSuite::check_prerequisites() -> Error! No fit parameters defined");
+    return true;
+}
+
+//! link FitMultiParameters with simulation parameters
+void FitKernel::link_fit_parameters()
+{
+    boost::scoped_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
+    m_fit_parameters.link_to_pool(pool.get());
+    msglog(MSG::DEBUG2) << "FitSuite::link_fit_parameters() -> Parameter pool:";
+    msglog(MSG::DEBUG2) << *pool;
+}

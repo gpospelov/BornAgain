@@ -48,8 +48,9 @@ public:
     //! @param minimizer The name of the minimizer
     //! @param algorithm Optional name of the algorithm
     //! @param options Optional string with additional minimizer settings
-    void setMinimizer(const std::string& minimizer, const std::string& algorithm = std::string(),
-                      const std::string& options=std::string());
+    void setMinimizer(const std::string& minimizer_name,
+                      const std::string& algorithm_name = std::string(),
+                      const std::string& minimizer_options=std::string());
 
     //! Sets minimizer
     void setMinimizer(IMinimizer *minimizer);
@@ -61,6 +62,15 @@ public:
     //! Prints also the summary when completed.
     //! @param print_every_nth Print every n'th iteration
     void initPrint(int print_every_nth);
+
+    //! Set all parameters to fixed
+    void fixAllParameters();
+
+    //! Set all parameters to released
+    void releaseAllParameters();
+
+    //! Set fixed flag for parameters from the list
+    void setParametersFixed(const std::vector<std::string> &pars, bool is_fixed);
 
     //! main method to run the fitting
     void runFit();
@@ -81,8 +91,7 @@ public:
     //! @param i_item The index of fit object
     const OutputData<double> * getChiSquaredMap(size_t i_item = 0) const;
 
-
-
+    //! returns FitObject (pair of simulation/real data)
     FitSuiteObjects *getFitObjects();
 
     //! Returns reference to fit parameters
@@ -101,8 +110,6 @@ public:
     size_t getNStrategy() const;
 
     void printResults() const;
-
-
 
 private:
     FitSuite& operator=(const FitSuite& );

@@ -41,10 +41,7 @@ void IFitObserver::notify(IObservable *subject)
     if( fit_suite->isLastIteration() ) needs_update = true; // last iteration
     if( fit_suite->getNCalls() % m_update_every_nth == 0 ) needs_update = true; // every n'th iteration
 
-    std::cout << "xxx " << fit_suite->getNCalls() << " fit_suite->isLastIteration():" << fit_suite->isLastIteration() << "needs:" << needs_update << std::endl;
-
     if(needs_update) update(fit_suite);
-
 }
 
 void IFitObserver::update(FitSuite *fit_suite)

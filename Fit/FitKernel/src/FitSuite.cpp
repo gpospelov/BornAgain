@@ -16,7 +16,7 @@
 #include "FitSuite.h"
 #include "FitKernel.h"
 #include "FitSuitePrintObserver.h"
-
+#include "MinimizerFactory.h"
 
 FitSuite::FitSuite()
     : m_kernel(new FitKernel(this))
@@ -33,13 +33,15 @@ void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation,
 void FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &attlim,
                                double step)
 {
-    m_kernel->addFitParameter(name, value, step, attlim);
+    m_kernel->addFitParameter(name, value, attlim, step);
 }
 
-void FitSuite::setMinimizer(const std::string &minimizer, const std::string &algorithm,
-                            const std::string &options)
+void FitSuite::setMinimizer(const std::string &minimizer_name, const std::string &algorithm_name,
+                            const std::string &minimizer_options)
 {
-    m_kernel->setMinimizer(minimizer, algorithm, options);
+    IMinimizer *minimizer = MinimizerFactory::createMinimizer(minimizer_name, algorithm_name,
+                                                              minimizer_options);
+    m_kernel->setMinimizer(minimizer);
 }
 
 void FitSuite::setMinimizer(IMinimizer *minimizer)
@@ -56,6 +58,21 @@ void FitSuite::initPrint(int print_every_nth)
 {
     boost::shared_ptr<FitSuitePrintObserver > observer(new FitSuitePrintObserver(print_every_nth));
     attachObserver(observer);
+}
+
+void FitSuite::fixAllParameters()
+{
+    getFitParameters()->fixAll();
+}
+
+void FitSuite::releaseAllParameters()
+{
+    getFitParameters()->releaseAll();
+}
+
+void FitSuite::setParametersFixed(const std::vector<std::string> &pars, bool is_fixed)
+{
+    getFitParameters()->setParametersFixed(pars, is_fixed);
 }
 
 void FitSuite::runFit()

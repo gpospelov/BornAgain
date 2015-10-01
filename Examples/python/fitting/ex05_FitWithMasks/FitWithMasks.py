@@ -10,7 +10,7 @@ import math
 from bornagain import *
 
 plt.ion()
-fig = plt.figure(figsize=(10.24, 7.68))
+fig = plt.figure(figsize=(10.25, 7.69))
 fig.canvas.draw()
 
 
@@ -75,10 +75,49 @@ def create_real_data():
     return real_data
 
 
+def add_mask_to_simulation(simulation):
+    """
+    Here we demonstrate how to add masks to the simulation.
+    Only unmasked areas will be simulated and then used during the fit.
+
+    Masks can have different geometrical shapes (Rectangle, Ellipse, Line) with the mask value either
+    "True" (detector bin is excluded from the simulation) and False (will be simulated).
+
+    Every subsequent mask override previously defined masks.
+
+    In the code below we put masks in such way that simulated image will look like
+    a Pac-Man from ancient arcade game.
+    """
+    # mask all detector (put mask=True to all detector channels)
+    simulation.maskAll()
+
+    # set mask to simulate pacman's head
+    simulation.addMask(Ellipse(0.0*deg, 1.0*deg, 0.5*deg, 0.5*deg), False)
+
+    # set mask for pacman's eye
+    simulation.addMask(Ellipse(0.11*deg, 1.25*deg, 0.05*deg, 0.05*deg), True)
+
+    # set mask for pacman's mouth
+    points = [[0.0*deg, 1.0*deg], [0.5*deg, 1.2*deg], [0.5*deg, 0.8*deg], [0.0*deg, 1.0*deg]]
+    simulation.addMask(Polygon(points), True)
+
+    # giving pacman something to eat
+    simulation.addMask(Rectangle(0.45*deg, 0.95*deg, 0.55*deg, 1.05*deg), False)
+    simulation.addMask(Rectangle(0.61*deg, 0.95*deg, 0.71*deg, 1.05*deg), False)
+    simulation.addMask(Rectangle(0.75*deg, 0.95*deg, 0.85*deg, 1.05*deg), False)
+
+    # other mask's shapes are possible too
+    # simulation.removeMasks()
+    # simulation.addMask(Ellipse(0.11*deg, 1.25*deg, 1.0*deg, 0.5*deg, 45.0*degree), True) # rotated ellipse
+    # simulation.addMask(Line(-1.0*deg, 0.0*deg, 1.0*deg, 2.0*deg), True)
+    # simulation.addMask(HorizontalLine(1.0*deg), False)
+    # simulation.addMask(VerticalLine(0.0*deg), False)
+
+
 class DrawObserver(IFitObserver):
     """
-    class which draws fit progress every nth iteration.
-    It has to be attached to fit_suite via AttachObserver command
+    Draws fit progress every nth iteration.
+    It has to be attached to fit_suite via attachObserver method
     """
     def __init__(self, draw_every=10):
         IFitObserver.__init__(self, draw_every)
@@ -119,55 +158,16 @@ def run_fitting():
     sample = get_sample()
     simulation.setSample(sample)
 
+    # the core method of this example which adds masks to the simulation
+    add_mask_to_simulation(simulation)
+
     real_data = create_real_data()
 
     fit_suite = FitSuite()
     # fit_suite.setMinimizer("GSLLMA")
     # fit_suite.setMinimizer("Minuit2", "Fumili")
-
-    # Here we are settings masks to the detector plane to simulate image which looks like a Pac-Man
-    # from ancient arcade game
-
-    # mask all detector (put mask=True to all detector channels to
-    simulation.maskAll()
-
-    # set mask to simulate pacman's head
-    simulation.addMask(Ellipse(0.0*deg, 1.0*deg, 0.5*deg, 0.5*deg), False)
-
-    # set mask for pacman's eye
-    simulation.addMask(Ellipse(0.11*deg, 1.25*deg, 0.05*deg, 0.05*deg), True)
-
-    # set mask for pacman's mouth
-    points = [[0.0*deg, 1.0*deg], [0.5*deg, 1.2*deg], [0.5*deg, 0.8*deg], [0.0*deg, 1.0*deg]]
-    simulation.addMask(Polygon(points), True)
-
-    # giving pacman something to eat
-    simulation.addMask(Rectangle(0.45*deg, 0.95*deg, 0.55*deg, 1.05*deg), False)
-    simulation.addMask(Rectangle(0.61*deg, 0.95*deg, 0.71*deg, 1.05*deg), False)
-    simulation.addMask(Rectangle(0.75*deg, 0.95*deg, 0.85*deg, 1.05*deg), False)
-
-    # other mask's shapes are possible too
-    # simulation.removeMasks()
-    # simulation.addMask(Ellipse(0.11*deg, 1.25*deg, 1.0*deg, 0.5*deg, 45.0*degree), True) # rotated ellipse
-    # simulation.addMask(Line(-1.0*deg, 0.0*deg, 1.0*deg, 2.0*deg), True)
-    # simulation.addMask(HorizontalLine(1.0*deg), False)
-    # simulation.addMask(VerticalLine(0.0*deg), False)
-
-
-
-    # masking example: two excluded rectangles on the plot
-    # IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 0.1*degree, 0.1*degree, 0.2*degree)  # x1,y1,x2,y2
-    # IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 1.0*degree, 0.1*degree, 1.2*degree)  # x1,y1,x2,y2
-
-    # another mask example: one big square with two excluded areas on it
-    # IntensityDataFunctions.addRectangularMask(real_data, -0.6*degree, 0.0*degree, 0.6*degree, 1.5*degree, True)
-    # IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 0.1*degree, 0.1*degree, 0.2*degree)
-    # IntensityDataFunctions.addEllipticMask(real_data, 0.0*degree, 1.2*degree, 0.3*degree, 0.2*degree)
-
     fit_suite.addSimulationAndRealData(simulation, real_data)
-
     fit_suite.initPrint(10)
-
     draw_observer = DrawObserver(draw_every=10)
     fit_suite.attachObserver(draw_observer)
 
@@ -177,7 +177,6 @@ def run_fitting():
 
     # running fit
     fit_suite.runFit()
-
 
     print "Fitting completed."
     fit_suite.printResults()

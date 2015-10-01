@@ -90,6 +90,16 @@ void register_FitSuite_class(){
                 , "Assigns pair of (simulation, real data) for fitting. More than one pair can be added." );
         
         }
+        { //::FitSuite::fixAllParameters
+        
+            typedef void ( ::FitSuite::*fixAllParameters_function_type)(  ) ;
+            
+            FitSuite_exposer.def( 
+                "fixAllParameters"
+                , fixAllParameters_function_type( &::FitSuite::fixAllParameters )
+                , "Set all parameters to fixed." );
+        
+        }
         { //::FitSuite::getChiSquaredMap
         
             typedef ::OutputData< double > const * ( ::FitSuite::*getChiSquaredMap_function_type)( ::std::size_t ) const;
@@ -109,7 +119,8 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "getFitObjects"
                 , getFitObjects_function_type( &::FitSuite::getFitObjects )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "returns FitObject (pair of simulation/real data)." );
         
         }
         { //::FitSuite::getFitParameters
@@ -220,6 +231,16 @@ void register_FitSuite_class(){
                 , "Returns the number of current strategy." );
         
         }
+        { //::FitSuite::releaseAllParameters
+        
+            typedef void ( ::FitSuite::*releaseAllParameters_function_type)(  ) ;
+            
+            FitSuite_exposer.def( 
+                "releaseAllParameters"
+                , releaseAllParameters_function_type( &::FitSuite::releaseAllParameters )
+                , "Set all parameters to released." );
+        
+        }
         { //::FitSuite::runFit
         
             typedef void ( ::FitSuite::*runFit_function_type)(  ) ;
@@ -237,8 +258,19 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "setMinimizer"
                 , setMinimizer_function_type( &::FitSuite::setMinimizer )
-                , ( bp::arg("minimizer"), bp::arg("algorithm")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >(), bp::arg("options")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >() )
+                , ( bp::arg("minimizer_name"), bp::arg("algorithm_name")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >(), bp::arg("minimizer_options")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >() )
                 , "Sets minimizer with given name and algorithm type @param minimizer The name of the minimizer @param algorithm Optional name of the algorithm @param options Optional string with additional minimizer settings \n\n:Parameters:\n  - 'minimizer' - The name of the minimizer\n  - 'algorithm' - Optional name of the algorithm\n  - 'options' - Optional string with additional minimizer settings\n" );
+        
+        }
+        { //::FitSuite::setParametersFixed
+        
+            typedef void ( ::FitSuite::*setParametersFixed_function_type)( ::std::vector< std::string > const &,bool ) ;
+            
+            FitSuite_exposer.def( 
+                "setParametersFixed"
+                , setParametersFixed_function_type( &::FitSuite::setParametersFixed )
+                , ( bp::arg("pars"), bp::arg("is_fixed") )
+                , "Set fixed flag for parameters from the list." );
         
         }
         { //::IObservable::attachObserver

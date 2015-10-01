@@ -78,6 +78,10 @@ public:
     }
 };
 
+//! @class WavevectorInfo
+//! @ingroup formfactors_internal
+//! @brief Holds all wavevector information relevant for calculating form factors.
+
 class BA_CORE_API_ WavevectorInfo
 {
 public:

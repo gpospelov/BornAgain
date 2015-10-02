@@ -17,6 +17,7 @@
 #include "FitKernel.h"
 #include "FitSuitePrintObserver.h"
 #include "MinimizerFactory.h"
+#include "IHistogram.h"
 
 FitSuite::FitSuite()
     : m_kernel(new FitKernel(this))
@@ -80,23 +81,21 @@ void FitSuite::runFit()
     m_kernel->runFit();
 }
 
-const OutputData<double> *FitSuite::getRealData(size_t i_item) const
+IHistogram *FitSuite::getRealData(size_t i_item) const
 {
-    return m_kernel->getFitObjects()->getRealData(i_item);
+    return IHistogram::createHistogram(*m_kernel->getFitObjects()->getRealData(i_item));
 }
 
-const OutputData<double> *FitSuite::getSimulationData(size_t i_item) const
+IHistogram *FitSuite::getSimulationData(size_t i_item) const
 {
-    return m_kernel->getFitObjects()->getSimulationData(i_item);
+    return IHistogram::createHistogram(*m_kernel->getFitObjects()->getSimulationData(i_item));
 }
 
-OutputData<double> *FitSuite::getChiSquaredMap(size_t i_item) const
+IHistogram *FitSuite::getChiSquaredMap(size_t i_item) const
 {
-    return m_kernel->getFitObjects()->getChiSquaredMap(i_item);
+    boost::scoped_ptr<OutputData<double> > data(m_kernel->getFitObjects()->getChiSquaredMap(i_item));
+    return IHistogram::createHistogram(*data);
 }
-
-
-
 
 FitSuiteObjects *FitSuite::getFitObjects()
 {
@@ -131,6 +130,11 @@ size_t FitSuite::getNStrategy() const
 void FitSuite::printResults() const
 {
     m_kernel->printResults();
+}
+
+double FitSuite::getChi2() const
+{
+    return m_kernel->getMinimizer()->getMinValue();
 }
 
 

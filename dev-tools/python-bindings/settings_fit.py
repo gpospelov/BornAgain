@@ -146,7 +146,18 @@ def ManualClassTunings(mb):
       #if "addFitParameter" in fun.name:
           #fun.include()
     # cl.member_function("getMinimizer").include()
-    cl.member_function( "getMinimizer" ).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
+
+    # cl.member_function( "getMinimizer" ).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
+    cl.member_function( "getMinimizer" ).call_policies= call_policies.return_internal_reference() # which one is correct ?
+    cl.member_function("getRealData").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
+    cl.member_function("getSimulationData").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
+    cl.member_function("getChiSquaredMap").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
+
+    cl.member_function( "getFitObjects" ).call_policies = call_policies.return_internal_reference()
+    cl.member_function( "getFitParameters" ).call_policies = call_policies.return_internal_reference()
+    cl.member_function( "getFitStrategies" ).call_policies = call_policies.return_internal_reference()
+
+
     # cl.member_function("setMinimizer").include()
     #cl.member_function("addSimulationAndRealData").include()
     #cl.member_function("runFit").include()

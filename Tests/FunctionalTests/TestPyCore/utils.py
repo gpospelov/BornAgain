@@ -50,6 +50,17 @@ def get_reference_data(filename):
     #return reference
     return IntensityDataIOFactory.readIntensityData(path+'../../ReferenceData/BornAgain/'+filename)
 
+
+def get_reference_histogram(filename):
+    """
+    read and return reference data from file
+    """
+    path = os.path.split(__file__)[0]
+    if path:
+        path += "/"
+    return IntensityDataIOFactory.readHistogram(path+'../../ReferenceData/BornAgain/'+filename)
+
+
 def get_simulation_MiniGISAS(sample = None):
     simulation = GISASSimulation()
     simulation.setDetectorParameters(25, -2.0*degree, 2.0*degree, 25, 0.0*degree, 2.0*degree)

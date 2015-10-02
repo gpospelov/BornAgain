@@ -198,6 +198,13 @@ int IHistogram::getMinimumBinIndex() const
     return std::distance(m_data.begin(), it);
 }
 
+void IHistogram::scale(double value)
+{
+    for(size_t index=0; index<getTotalNumberOfBins(); ++index) {
+        m_data[index].setContent(value*m_data[index].getContent());
+    }
+}
+
 PyObject *IHistogram::getArray(DataType dataType) const
 {
     boost::scoped_ptr<OutputData<double> > data(createOutputData(dataType));
@@ -298,5 +305,15 @@ OutputData<double> *IHistogram::createOutputData(IHistogram::DataType dataType) 
         (*result)[i] = getBinData(i, dataType);
     }
     return result;
+}
+
+bool IHistogram::hasSameShape(const IHistogram &other) const
+{
+    return m_data.hasSameShape(other.m_data);
+}
+
+bool IHistogram::hasSameDimensions(const IHistogram &other) const
+{
+    return m_data.hasSameDimensions(other.m_data);
 }
 

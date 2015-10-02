@@ -11,11 +11,11 @@ sys.path.append(os.path.abspath(
 
 from libBornAgainCore import *
 
-def get_axis(num):
+def get_axis():
     simulation = GISASSimulation()
     simulation.setDetectorParameters(10, -1.0, 1.0, 100, 0.0, 2.0)
     data = simulation.getIntensityData()
-    axis = data.getAxis(num)
+    axis = data.getXaxis()
     return axis
 
 
@@ -57,7 +57,7 @@ class IntensityDataTest(unittest.TestCase):
         simulation = GISASSimulation()
         simulation.setDetectorParameters(10, -1.0, 1.0, 100, 0.0, 2.0)
         data = simulation.getIntensityData()
-        self.assertEqual(1000, data.getAllocatedSize())
+        self.assertEqual(1000, data.getTotalNumberOfBins())
         self.assertEqual(2, data.getRank())
         self.assertEqual(0, data.totalSum())
         self.assertEqual(10, data.getAxis(0).getSize())
@@ -69,7 +69,7 @@ class IntensityDataTest(unittest.TestCase):
         #self.assertEqual(11, len(data.getAxis(0).getVector()))
 
     def test_axis_ownership(self):
-        axis0 = get_axis(0)
+        axis0 = get_axis()
         self.assertEqual(10, axis0.getSize())
 
     def test_numpy_array(self):

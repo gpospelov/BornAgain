@@ -311,7 +311,7 @@ void register_IHistogram_class(){
             IHistogram_exposer.def( 
                 "getXaxis"
                 , getXaxis_function_type( &::IHistogram::getXaxis )
-                , bp::return_value_policy< bp::reference_existing_object >()
+                , bp::return_internal_reference< >()
                 , "returns x-axis." );
         
         }
@@ -364,7 +364,7 @@ void register_IHistogram_class(){
             IHistogram_exposer.def( 
                 "getYaxis"
                 , getYaxis_function_type( &::IHistogram::getYaxis )
-                , bp::return_value_policy< bp::reference_existing_object >()
+                , bp::return_internal_reference< >()
                 , "returns y-axis for 2D histograms." );
         
         }
@@ -410,6 +410,28 @@ void register_IHistogram_class(){
                 , "Returns y-axis min (lower edge of first bin) for 2D histograms." );
         
         }
+        { //::IHistogram::hasSameDimensions
+        
+            typedef bool ( ::IHistogram::*hasSameDimensions_function_type)( ::IHistogram const & ) const;
+            
+            IHistogram_exposer.def( 
+                "hasSameDimensions"
+                , hasSameDimensions_function_type( &::IHistogram::hasSameDimensions )
+                , ( bp::arg("other") )
+                , "Returns true if object have same dimensions and shape of axises." );
+        
+        }
+        { //::IHistogram::hasSameShape
+        
+            typedef bool ( ::IHistogram::*hasSameShape_function_type)( ::IHistogram const & ) const;
+            
+            IHistogram_exposer.def( 
+                "hasSameShape"
+                , hasSameShape_function_type( &::IHistogram::hasSameShape )
+                , ( bp::arg("other") )
+                , "Returns true if object have same dimensions and shape of axises." );
+        
+        }
         { //::IHistogram::reset
         
             typedef void ( ::IHistogram::*reset_function_type)(  ) ;
@@ -418,6 +440,17 @@ void register_IHistogram_class(){
                 "reset"
                 , reset_function_type( &::IHistogram::reset )
                 , "Reset histogram content (axes remains)." );
+        
+        }
+        { //::IHistogram::scale
+        
+            typedef void ( ::IHistogram::*scale_function_type)( double ) ;
+            
+            IHistogram_exposer.def( 
+                "scale"
+                , scale_function_type( &::IHistogram::scale )
+                , ( bp::arg("value") )
+                , "Multiply this histogram by a constant." );
         
         }
         IHistogram_exposer.staticmethod( "createHistogram" );

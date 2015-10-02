@@ -409,6 +409,17 @@ void register_GISASSimulation_class(){
         }
         { //::GISASSimulation::setDetectorParameters
         
+            typedef void ( ::GISASSimulation::*setDetectorParameters_function_type)( ::IHistogram const & ) ;
+            
+            GISASSimulation_exposer.def( 
+                "setDetectorParameters"
+                , setDetectorParameters_function_type( &::GISASSimulation::setDetectorParameters )
+                , ( bp::arg("hisotgram") )
+                , "Sets detector parameters using axes of output data." );
+        
+        }
+        { //::GISASSimulation::setDetectorParameters
+        
             typedef void ( ::GISASSimulation::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double,bool ) ;
             
             GISASSimulation_exposer.def( 

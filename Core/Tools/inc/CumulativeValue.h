@@ -30,6 +30,7 @@ public:
     int getNumberOfEntries() const;
 
     double getContent() const;
+    void setContent(double value);
 
     double getAverage() const;
 
@@ -63,6 +64,11 @@ inline int CumulativeValue::getNumberOfEntries() const
 inline double CumulativeValue::getContent() const
 {
     return m_sum;
+}
+
+inline void CumulativeValue::setContent(double value)
+{
+    m_sum = value;
 }
 
 inline double CumulativeValue::getAverage() const

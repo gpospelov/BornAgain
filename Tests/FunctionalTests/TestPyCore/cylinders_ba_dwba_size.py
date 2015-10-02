@@ -2,7 +2,7 @@
 import sys
 import os
 import numpy
-from utils import get_reference_data
+from utils import get_reference_histogram
 
 sys.path.append(os.path.abspath(
                 os.path.join(os.path.split(__file__)[0],
@@ -129,9 +129,9 @@ def runTest():
     resultDWBA = RunSimulationDWBA()
     resultBA_Size = RunSimulationBA_Size()
 
-    diff = IntensityDataFunctions.getRelativeDifference(resultBA, get_reference_data("isgisaxs03_reference_BA.int.gz"))
-    diff += IntensityDataFunctions.getRelativeDifference(resultBA_Size, get_reference_data("isgisaxs03_reference_BA_size.int.gz"))
-    diff += IntensityDataFunctions.getRelativeDifference(resultDWBA, get_reference_data("isgisaxs03_reference_DWBA.int.gz"))
+    diff = IntensityDataFunctions.getRelativeDifference(resultBA, get_reference_histogram("isgisaxs03_reference_BA.int.gz"))
+    diff += IntensityDataFunctions.getRelativeDifference(resultBA_Size, get_reference_histogram("isgisaxs03_reference_BA_size.int.gz"))
+    diff += IntensityDataFunctions.getRelativeDifference(resultDWBA, get_reference_histogram("isgisaxs03_reference_DWBA.int.gz"))
     diff /= 3
 
     status = "OK"

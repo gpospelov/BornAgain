@@ -27,6 +27,11 @@ void FitSuitePrintObserver::update(FitSuite *fit_suite)
 {
     m_fit_suite = fit_suite;
 
+    if(fit_suite->getNCalls() == 0) {
+        m_start_time = boost::posix_time::second_clock::local_time();
+        m_last_call_time = boost::posix_time::second_clock::local_time();
+    }
+
     printIterationHeader();
     printWallTime();
     printParameters();
@@ -69,4 +74,5 @@ void FitSuitePrintObserver::printFitResults()
     std::cout << "Total time spend: "
               << std::fixed << std::setprecision(2)
               << diff.total_milliseconds()/1000. << " sec." <<std::endl;
+    std::cout << std::endl;
 }

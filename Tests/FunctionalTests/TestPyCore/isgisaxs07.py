@@ -3,7 +3,7 @@ import sys
 import os
 import numpy
 from utils import get_difference
-from utils import get_reference_data
+from utils import get_reference_histogram
 
 sys.path.append(os.path.abspath(
                 os.path.join(os.path.split(__file__)[0],
@@ -118,7 +118,7 @@ def RunSimulation():
 # --------------------------------------------------------------
 def runTest():
     result = RunSimulation()
-    reference = get_reference_data("isgisaxs07_reference.int.gz")
+    reference = get_reference_histogram("isgisaxs07_reference.int.gz")
 
     diff = IntensityDataFunctions.getRelativeDifference(result, reference)
 

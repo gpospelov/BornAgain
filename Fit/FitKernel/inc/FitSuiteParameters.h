@@ -17,12 +17,11 @@
 #define FITSUITEPARAMETERS_H
 
 #include "Exceptions.h"
-#include "SafePointerVector.h"
-#include "FitParameterLinked.h"
+#include "FitParameter.h"
 #include <vector>
 
 class ParameterPool;
-
+class AttLimits;
 
 //! @class FitSuiteParameters
 //! @ingroup fitting_internal
@@ -31,19 +30,19 @@ class ParameterPool;
 class BA_CORE_API_ FitSuiteParameters
 {
  public:
-    //typedef SafePointerVector<FitParameter > parameters_t;
     typedef std::vector<FitParameter * > parameters_t;
     typedef parameters_t::iterator iterator;
     typedef parameters_t::const_iterator const_iterator;
 
-    FitSuiteParameters() {}
-    virtual ~FitSuiteParameters(){clear();}
+    FitSuiteParameters();
+    virtual ~FitSuiteParameters();
 
     //! clear all defined parameters
     void clear();
 
     //! Adds fit parameter
-    void addParameter(const std::string& name, double value, double step, const AttLimits& attlim, double error=0.0);
+    void addParameter(const std::string& name, double value, double step,
+                      const AttLimits& attlim, double error=0.0);
 
     //! Returns fit parameter with given name
     const FitParameter *getParameter(const std::string& name) const;
@@ -74,11 +73,13 @@ class BA_CORE_API_ FitSuiteParameters
     iterator end() { return m_parameters.end(); }
     const_iterator end() const { return m_parameters.end(); }
 
-    //! access to parameters
-    const FitParameter *operator[](size_t index) const { return m_parameters[check_index(index)]; }
-    FitParameter *operator[](size_t index) { return m_parameters[check_index(index)]; }
-    const FitParameter *operator[](std::string name) const { return getParameter(name); }
-    FitParameter *operator[](std::string name) { return getParameter(name); }
+    //! access to parameters by index
+    const FitParameter *operator[](size_t index) const;
+    FitParameter *operator[](size_t index);
+
+    //! access to parameters by parameter name
+    const FitParameter *operator[](std::string name) const;
+    FitParameter *operator[](std::string name);
 
     //! Links fit parameters with pool parameters.
     void link_to_pool(const ParameterPool *pool);
@@ -102,7 +103,7 @@ class BA_CORE_API_ FitSuiteParameters
     void setParametersFixed(const std::vector<std::string> &pars, bool is_fixed);
 
  private:
-    inline size_t check_index(size_t index) const { return (index < m_parameters.size() ? index : throw  OutOfBoundsException("FitSuiteParameters::check_index() -> Index out of bounds") ); }
+    size_t check_index(size_t index) const;
     parameters_t m_parameters; //! collection of fit parameters
 };
 

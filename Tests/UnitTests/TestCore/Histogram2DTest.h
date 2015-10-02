@@ -429,7 +429,7 @@ TEST_F(Histogram2DTest, GetMaximumGetMinimum)
 
     EXPECT_EQ(10.0, hist.getMinimum());
     EXPECT_EQ(0, hist.getMinimumBinIndex());
-    EXPECT_EQ(50.0, hist.getMaximum());
+    EXPECT_EQ(59.0, hist.getMaximum());
     EXPECT_EQ(49, hist.getMaximumBinIndex());
 
 }

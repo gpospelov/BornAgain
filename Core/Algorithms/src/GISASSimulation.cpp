@@ -163,6 +163,12 @@ void GISASSimulation::setDetectorParameters(const OutputData<double >& output_da
     m_intensity_map.setAllTo(0.);
 }
 
+void GISASSimulation::setDetectorParameters(const IHistogram &hisotgram)
+{
+    boost::scoped_ptr<OutputData<double> > data(hisotgram.createOutputData());
+    setDetectorParameters(*data);
+}
+
 void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
                                             size_t n_alpha, double alpha_f_min, double alpha_f_max,
                                             bool isgisaxs_style)

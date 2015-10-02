@@ -18,6 +18,7 @@
 
 #include "OutputData.h"
 class IResolutionFunction2D;
+class IHistogram;
 
 //! @class IntensityDataFunctions
 //! @ingroup tools
@@ -57,6 +58,9 @@ public:
     //! sum(result[i] - reference[i])/reference[i])
     static double getRelativeDifference(const OutputData<double> &result,
                          const OutputData<double> &reference);
+
+    static double getRelativeDifference(const IHistogram &result,
+                         const IHistogram &reference);
 
     //! Returns new IntensityData objects which axes clipped to represent the specified rectangle
     static OutputData<double> *createClippedDataSet(const OutputData<double> &origin, double x1, double y1, double x2, double y2);

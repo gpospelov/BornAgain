@@ -2,7 +2,7 @@
 import sys
 import os
 import numpy
-from utils import get_reference_data
+from utils import get_reference_histogram
 
 
 sys.path.append(os.path.abspath(
@@ -57,7 +57,7 @@ def RunSimulation():
 def runTest():
     result = RunSimulation()
 
-    reference = get_reference_data("ripple2_sym_reference.int.gz")
+    reference = get_reference_histogram("ripple2_sym_reference.int.gz")
 
     diff = IntensityDataFunctions.getRelativeDifference(result, reference)
 

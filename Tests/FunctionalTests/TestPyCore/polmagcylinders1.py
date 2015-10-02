@@ -4,7 +4,7 @@ import os
 import numpy
 import gzip
 from utils import get_difference
-from utils import get_reference_data
+from utils import get_reference_histogram
 
 sys.path.append(os.path.abspath(
                 os.path.join(os.path.split(__file__)[0],
@@ -58,7 +58,7 @@ def RunSimulation():
 def run_test():
     result = RunSimulation()
 
-    reference = get_reference_data('polmagcylinders1_reference.int.gz')
+    reference = get_reference_histogram('polmagcylinders1_reference.int.gz')
 
     diff = get_difference(result.getArray(), reference.getArray())
 

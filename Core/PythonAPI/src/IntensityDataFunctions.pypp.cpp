@@ -89,6 +89,16 @@ void register_IntensityDataFunctions_class(){
                 , "Returns relative difference between two data sets sum(result[i] - reference[i])/reference[i]) " );
         
         }
+        { //::IntensityDataFunctions::getRelativeDifference
+        
+            typedef double ( *getRelativeDifference_function_type )( ::IHistogram const &,::IHistogram const & );
+            
+            IntensityDataFunctions_exposer.def( 
+                "getRelativeDifference"
+                , getRelativeDifference_function_type( &::IntensityDataFunctions::getRelativeDifference )
+                , ( bp::arg("result"), bp::arg("reference") ) );
+        
+        }
         { //::IntensityDataFunctions::setEllipticMask
         
             typedef void ( *setEllipticMask_function_type )( ::OutputData< double > &,double,double,double,double,bool );

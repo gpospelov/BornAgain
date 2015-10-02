@@ -100,16 +100,26 @@ void register_FitSuite_class(){
                 , "Set all parameters to fixed." );
         
         }
+        { //::FitSuite::getChi2
+        
+            typedef double ( ::FitSuite::*getChi2_function_type)(  ) const;
+            
+            FitSuite_exposer.def( 
+                "getChi2"
+                , getChi2_function_type( &::FitSuite::getChi2 )
+                , "Returns minimum chi squared value found." );
+        
+        }
         { //::FitSuite::getChiSquaredMap
         
-            typedef ::OutputData< double > * ( ::FitSuite::*getChiSquaredMap_function_type)( ::std::size_t ) const;
+            typedef ::IHistogram * ( ::FitSuite::*getChiSquaredMap_function_type)( ::std::size_t ) const;
             
             FitSuite_exposer.def( 
                 "getChiSquaredMap"
                 , getChiSquaredMap_function_type( &::FitSuite::getChiSquaredMap )
                 , ( bp::arg("i_item")=(::std::size_t)(0) )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "returns chi2 map calculated for (real, simulated) data pair @param i_item The index of fit object \n\n:Parameters:\n  - 'i_item' - The index of fit object\n" );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "returns chi2 histogram calculated for (real, simulated) data pair @param i_item The index of fit object \n\n:Parameters:\n  - 'i_item' - The index of fit object\n" );
         
         }
         { //::FitSuite::getFitObjects
@@ -119,7 +129,7 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "getFitObjects"
                 , getFitObjects_function_type( &::FitSuite::getFitObjects )
-                , bp::return_value_policy< bp::reference_existing_object >()
+                , bp::return_internal_reference< >()
                 , "returns FitObject (pair of simulation/real data)." );
         
         }
@@ -130,7 +140,7 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "getFitParameters"
                 , getFitParameters_function_type( &::FitSuite::getFitParameters )
-                , bp::return_value_policy< bp::reference_existing_object >()
+                , bp::return_internal_reference< >()
                 , "Returns reference to fit parameters." );
         
         }
@@ -141,7 +151,7 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "getFitStrategies"
                 , getFitStrategies_function_type( &::FitSuite::getFitStrategies )
-                , bp::return_value_policy< bp::reference_existing_object >()
+                , bp::return_internal_reference< >()
                 , "Returns reference to fit parameters." );
         
         }
@@ -152,7 +162,7 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "getMinimizer"
                 , getMinimizer_function_type( &::FitSuite::getMinimizer )
-                , bp::return_value_policy< bp::reference_existing_object >()
+                , bp::return_internal_reference< >()
                 , "Returns minimizer." );
         
         }
@@ -178,26 +188,26 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::getRealData
         
-            typedef ::OutputData< double > const * ( ::FitSuite::*getRealData_function_type)( ::std::size_t ) const;
+            typedef ::IHistogram * ( ::FitSuite::*getRealData_function_type)( ::std::size_t ) const;
             
             FitSuite_exposer.def( 
                 "getRealData"
                 , getRealData_function_type( &::FitSuite::getRealData )
                 , ( bp::arg("i_item")=(::std::size_t)(0) )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "returns real data @param i_item The index of fit object \n\n:Parameters:\n  - 'i_item' - The index of fit object\n" );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "returns real data histogram @param i_item The index of fit object \n\n:Parameters:\n  - 'i_item' - The index of fit object\n" );
         
         }
         { //::FitSuite::getSimulationData
         
-            typedef ::OutputData< double > const * ( ::FitSuite::*getSimulationData_function_type)( ::std::size_t ) const;
+            typedef ::IHistogram * ( ::FitSuite::*getSimulationData_function_type)( ::std::size_t ) const;
             
             FitSuite_exposer.def( 
                 "getSimulationData"
                 , getSimulationData_function_type( &::FitSuite::getSimulationData )
                 , ( bp::arg("i_item")=(::std::size_t)(0) )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "returns simulated data @param i_item The index of fit object \n\n:Parameters:\n  - 'i_item' - The index of fit object\n" );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "returns simulated data  histogram @param i_item The index of fit object \n\n:Parameters:\n  - 'i_item' - The index of fit object\n" );
         
         }
         { //::FitSuite::initPrint

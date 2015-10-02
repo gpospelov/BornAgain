@@ -152,7 +152,7 @@ void TestFumiliLMA::execute()
 /* ************************************************************************* */
 //
 /* ************************************************************************* */
-double TestFumiliLMA::functionToMinimize(const double *pars)
+double TestFumiliLMA::functionToMinimize(const double */*pars*/)
 {
     throw NotImplementedException("Code is obsolete");
 //    m_func->SetParameters(pars);

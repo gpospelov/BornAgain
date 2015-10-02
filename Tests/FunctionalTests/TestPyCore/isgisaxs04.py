@@ -3,7 +3,7 @@ import sys
 import os
 import numpy
 from utils import get_difference
-from utils import get_reference_data
+from utils import get_reference_histogram
 
 sys.path.append(os.path.abspath(
     os.path.join(os.path.split(__file__)[0],
@@ -93,11 +93,11 @@ def RunSimulation2():
 # --------------------------------------------------------------
 def runTest():
     result1 = RunSimulation1()
-    reference1 = get_reference_data("isgisaxs04_reference_1DDL.int.gz")
+    reference1 = get_reference_histogram("isgisaxs04_reference_1DDL.int.gz")
     diff = get_difference(result1.getArray(), reference1.getArray())
 
     result2 = RunSimulation2()
-    reference2 = get_reference_data("isgisaxs04_reference_2DDLh.int.gz")
+    reference2 = get_reference_histogram("isgisaxs04_reference_2DDLh.int.gz")
     diff += get_difference(result2.getArray(), reference2.getArray())
 
     diff /= 2.

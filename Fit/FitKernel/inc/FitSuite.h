@@ -18,6 +18,8 @@
 
 #include "IObserver.h"
 #include "FitKernel.h"
+#include "IHistogram.h"
+
 
 //! @class FitSuite
 //! @ingroup fitting
@@ -56,7 +58,7 @@ public:
     void setMinimizer(IMinimizer *minimizer);
 
     //! Returns minimizer
-    IMinimizer *getMinimizer(); // FIXME Do I need this?
+    IMinimizer *getMinimizer();
 
     //! Initializes printing to standard output during the fitting.
     //! Prints also the summary when completed.
@@ -79,17 +81,17 @@ public:
     // Access to the data
     // ------------------------------------------------------------------------
 
-    //! returns real data
+    //! returns real data histogram
     //! @param i_item The index of fit object
-    const OutputData<double> * getRealData(size_t i_item = 0) const;
+    IHistogram * getRealData(size_t i_item = 0) const;
 
-    //! returns simulated data
+    //! returns simulated data  histogram
     //! @param i_item The index of fit object
-    const OutputData<double> * getSimulationData(size_t i_item = 0) const;
+    IHistogram * getSimulationData(size_t i_item = 0) const;
 
-    //! returns chi2 map calculated for (real, simulated) data pair
+    //! returns chi2 histogram calculated for (real, simulated) data pair
     //! @param i_item The index of fit object
-    OutputData<double> * getChiSquaredMap(size_t i_item = 0) const;
+    IHistogram * getChiSquaredMap(size_t i_item = 0) const;
 
     //! returns FitObject (pair of simulation/real data)
     FitSuiteObjects *getFitObjects();
@@ -110,6 +112,9 @@ public:
     size_t getNStrategy() const;
 
     void printResults() const;
+
+    //! Returns minimum chi squared value found
+    double getChi2() const;
 
 private:
     FitSuite& operator=(const FitSuite& );

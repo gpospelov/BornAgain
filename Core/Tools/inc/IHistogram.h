@@ -155,6 +155,12 @@ public:
     //! Returns histogram minimum bin global index
     int getMinimumBinIndex() const;
 
+    //! Multiply this histogram by a constant
+    void scale(double value);
+
+//    double& operator[](size_t index);
+//    const double& operator[](size_t index) const;
+
 
 #ifdef BORNAGAIN_PYTHON
     //! Returns numpy array with bin content (accumulated values)
@@ -168,6 +174,12 @@ public:
 
     //! creates new OutputData with histogram's shape and put there values corresponding to DataType
     OutputData<double> *createOutputData(DataType dataType = INTEGRAL) const;
+
+    //! Returns true if object have same dimensions and shape of axises
+    bool hasSameShape(const IHistogram& other) const;
+
+    //! Returns true if object have same dimensions and shape of axises
+    bool hasSameDimensions(const IHistogram& other) const;
 
 protected:
     void check_x_axis() const;

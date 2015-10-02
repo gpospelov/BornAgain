@@ -29,6 +29,7 @@
 
 class ProgramOptions;
 class ProgressHandlerDWBA;
+class IHistogram;
 class Histogram2D;
 namespace Geometry {
 class IShape2D;
@@ -86,6 +87,7 @@ public:
 
     //! Sets detector parameters using axes of output data
     void setDetectorParameters(const OutputData<double> &output_data);
+    void setDetectorParameters(const IHistogram &hisotgram);
 
     //! Sets detector parameters using angle ranges
     void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,

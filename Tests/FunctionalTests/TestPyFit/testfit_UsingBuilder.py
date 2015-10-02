@@ -48,18 +48,19 @@ def runTest():
 
     # setting up fitting
     fitSuite = FitSuite()
-    fitSuite.setMinimizer( MinimizerFactory.createMinimizer("Minuit2", "Combined") )
-    fitSuite.initPrint(10);
-    fitSuite.addFitParameter("*SampleBuilder/cylinder_height",  4*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
-    fitSuite.addFitParameter("*SampleBuilder/cylinder_radius",  6*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
-    fitSuite.addFitParameter("*SampleBuilder/prism3_half_side", 4*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
-    fitSuite.addFitParameter("*SampleBuilder/prism3_height",    6*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
+    fitSuite.setMinimizer("Minuit2", "Combined")
+    fitSuite.initPrint(10)
+    fitSuite.addFitParameter("*SampleBuilder/cylinder_height",  4*nanometer,  AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter("*SampleBuilder/cylinder_radius",  6*nanometer,  AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter("*SampleBuilder/prism3_half_side", 4*nanometer,  AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter("*SampleBuilder/prism3_height",    6*nanometer,  AttLimits.lowerLimited(0.01) )
     fitSuite.addFitParameter("*SampleBuilder/cylinder_ratio", 0.2, 0.1, AttLimits.fixed());
 
-    chiModule = ChiSquaredModule()
-    chiModule.setChiSquaredFunction( SquaredFunctionMeanSquaredError() )
+    # chiModule = ChiSquaredModule()
+    # chiModule.setChiSquaredFunction( SquaredFunctionMeanSquaredError() )
 
-    fitSuite.addSimulationAndRealData(simulation, real_data, chiModule)
+    # fitSuite.addSimulationAndRealData(simulation, real_data, chiModule)
+    fitSuite.addSimulationAndRealData(simulation, real_data)
     fitSuite.runFit()
 
     # analysing fit results

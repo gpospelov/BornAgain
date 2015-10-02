@@ -170,6 +170,34 @@ int IHistogram::getBinNumberOfEntries(int binx, int biny) const
     return getBinNumberOfEntries(getGlobalBin(binx, biny));
 }
 
+double IHistogram::getMaximum() const
+{
+    OutputData<CumulativeValue>::const_iterator it =
+         std::max_element(m_data.begin(), m_data.end());
+    return it->getContent();
+}
+
+int IHistogram::getMaximumBinIndex() const
+{
+    OutputData<CumulativeValue>::const_iterator it =
+         std::max_element(m_data.begin(), m_data.end());
+    return std::distance(m_data.begin(), it);
+}
+
+double IHistogram::getMinimum() const
+{
+    OutputData<CumulativeValue>::const_iterator it =
+         std::min_element(m_data.begin(), m_data.end());
+    return it->getContent();
+}
+
+int IHistogram::getMinimumBinIndex() const
+{
+    OutputData<CumulativeValue>::const_iterator it =
+         std::min_element(m_data.begin(), m_data.end());
+    return std::distance(m_data.begin(), it);
+}
+
 PyObject *IHistogram::getArray(DataType dataType) const
 {
     boost::scoped_ptr<OutputData<double> > data(createOutputData(dataType));

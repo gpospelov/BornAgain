@@ -75,5 +75,17 @@ TEST_F(CumulativeValueTest, AddValuesWithWeights)
     EXPECT_FLOAT_EQ(1.0, cv1.getRMS());
 }
 
+TEST_F(CumulativeValueTest, Comparison)
+{
+    CumulativeValue cv1, cv2;
+    cv1.add(1.0);
+    cv2.add(2.0);
+
+    EXPECT_TRUE(cv2 > cv1);
+    EXPECT_TRUE(cv1 < cv2);
+
+}
+
+
 
 #endif

@@ -7,9 +7,8 @@ The example doesn't contain any fitting and serve as a gentle introduction
 to other fitting examples.
 """
 
-import numpy
 import matplotlib
-import pylab
+from matplotlib import pyplot as plt
 from bornagain import *
 
 
@@ -74,7 +73,7 @@ def run_simulations():
     # initial sample is used
     simulation.setSample(sample)
     simulation.runSimulation()
-    results.append(simulation.getIntensityData().getArray())
+    results.append(simulation.getIntensityData())
 
     # simulation #2
     # one sample parameter (height of the cylinder) is changed using exact parameter name
@@ -83,14 +82,14 @@ def run_simulations():
 
     simulation.setSample(sample)
     simulation.runSimulation()
-    results.append(simulation.getIntensityData().getArray())
+    results.append(simulation.getIntensityData())
 
     # simulation #3
     # all parameters matching criteria will be changed (height of the cylinder in this case)
     sample.setParameterValue("*/FormFactorCylinder/height", 100.0*nanometer)
     simulation.setSample(sample)
     simulation.runSimulation()
-    results.append(simulation.getIntensityData().getArray())
+    results.append(simulation.getIntensityData())
 
     # simulation #4
     # all parameters which are matching criteria will be changed
@@ -99,7 +98,7 @@ def run_simulations():
     sample.setParameterValue("*/FormFactorPrism3/*", 10.0*nanometer)
     simulation.setSample(sample)
     simulation.runSimulation()
-    results.append(simulation.getIntensityData().getArray())
+    results.append(simulation.getIntensityData())
 
     return results
 
@@ -108,11 +107,13 @@ def draw_results(results):
     """
     Draw results of several simulations on canvas
     """
-    pylab.figure(1)
-    for i in range(0, len(results)):
-        pylab.subplot(2, 2, i+1)
-        pylab.imshow(results[i] + 1,norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0])
-    pylab.show()
+    plt.figure(1)
+    for nplot, hist in enumerate(results):
+        plt.subplot(2, 2, nplot+1)
+        plt.imshow(hist.getArray(), norm=matplotlib.colors.LogNorm(1, hist.getMaximum()),
+                   extent=[hist.getXmin()/deg, hist.getXmax()/deg, hist.getYmin()/deg, hist.getYmax()/deg])
+
+    plt.show()
 
 
 if __name__ == '__main__':

@@ -195,6 +195,20 @@ TEST_F(Histogram1DTest, CreateOutputData)
     }
 }
 
+TEST_F(Histogram1DTest, GetMaximumGetMinimum)
+{
+    Histogram1D hist(10, -5.0, 5.0);
+    hist.fill(-4.5, 10.);
+    EXPECT_EQ(10.0, hist.getMaximum());
+    EXPECT_EQ(0, hist.getMaximumBinIndex());
+    EXPECT_EQ(0.0, hist.getMinimum());
+    EXPECT_EQ(1, hist.getMinimumBinIndex());
+
+    hist.fill(-3.5, 20.0);
+    EXPECT_EQ(20.0, hist.getMaximum());
+    EXPECT_EQ(1, hist.getMaximumBinIndex());
+}
+
 
 
 #endif

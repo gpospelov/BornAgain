@@ -39,6 +39,9 @@ public:
 
     void clear();
 
+    friend bool operator< (const CumulativeValue& lhs, const CumulativeValue& rhs);
+    friend bool operator> (const CumulativeValue& lhs, const CumulativeValue& rhs);
+
 private:
     int m_n_entries;
     double m_sum;
@@ -89,6 +92,16 @@ inline void CumulativeValue::clear()
     m_average = 0.0;
     m_rms2 = 0.0;
     m_sum_of_weights = 0.0;
+}
+
+inline bool operator<(const CumulativeValue& lhs, const CumulativeValue& rhs)
+{
+    return lhs.getContent()< rhs.getContent();
+}
+
+inline bool operator>(const CumulativeValue& lhs, const CumulativeValue& rhs)
+{
+    return rhs<lhs;
 }
 
 #endif

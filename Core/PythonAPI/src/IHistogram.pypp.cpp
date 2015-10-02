@@ -132,7 +132,7 @@ void register_IHistogram_class(){
                 "getBinAverage"
                 , getBinAverage_function_type( &::IHistogram::getBinAverage )
                 , ( bp::arg("bin") )
-                , "Returns average value in the bin with given index." );
+                , "Returns average value in the bin with given index. For 1D histograms bin index is related to x-axis. For 2D histograms bin index is global bin index. " );
         
         }
         { //::IHistogram::getBinAverage
@@ -176,7 +176,7 @@ void register_IHistogram_class(){
                 "getBinError"
                 , getBinError_function_type( &::IHistogram::getBinError )
                 , ( bp::arg("bin") )
-                , "Returns error of the bin with given index." );
+                , "Returns error of the bin with given index. For 1D histograms bin index is related to x-axis. For 2D histograms bin index is global bin index. " );
         
         }
         { //::IHistogram::getBinError
@@ -198,7 +198,7 @@ void register_IHistogram_class(){
                 "getBinNumberOfEntries"
                 , getBinNumberOfEntries_function_type( &::IHistogram::getBinNumberOfEntries )
                 , ( bp::arg("bin") )
-                , "Returns number of entries in the bin with given index." );
+                , "Returns number of entries in the bin with given index. For 1D histograms bin index is related to x-axis. For 2D histograms bin index is global bin index. " );
         
         }
         { //::IHistogram::getBinNumberOfEntries
@@ -221,6 +221,46 @@ void register_IHistogram_class(){
                 , getGlobalBin_function_type( &::IHistogram::getGlobalBin )
                 , ( bp::arg("binx"), bp::arg("biny")=(int)(0) )
                 , "Returns global bin index for given axes indices. For 1D histogram the global bin index coinside with axis index. @param binx X-axis bin index @param biny Y-axis bin index @return The global bin index \n\n:Parameters:\n  - 'binx' - X-axis bin index\n  - 'biny' - Y-axis bin index\n" );
+        
+        }
+        { //::IHistogram::getMaximum
+        
+            typedef double ( ::IHistogram::*getMaximum_function_type)(  ) const;
+            
+            IHistogram_exposer.def( 
+                "getMaximum"
+                , getMaximum_function_type( &::IHistogram::getMaximum )
+                , "Returns histogram maximum value (maximum of getBinContent() over all bins)." );
+        
+        }
+        { //::IHistogram::getMaximumBinIndex
+        
+            typedef int ( ::IHistogram::*getMaximumBinIndex_function_type)(  ) const;
+            
+            IHistogram_exposer.def( 
+                "getMaximumBinIndex"
+                , getMaximumBinIndex_function_type( &::IHistogram::getMaximumBinIndex )
+                , "Returns histogram maximum bin global index." );
+        
+        }
+        { //::IHistogram::getMinimum
+        
+            typedef double ( ::IHistogram::*getMinimum_function_type)(  ) const;
+            
+            IHistogram_exposer.def( 
+                "getMinimum"
+                , getMinimum_function_type( &::IHistogram::getMinimum )
+                , "Returns histogram minimum value (minimum of getBinContent() over all bins)." );
+        
+        }
+        { //::IHistogram::getMinimumBinIndex
+        
+            typedef int ( ::IHistogram::*getMinimumBinIndex_function_type)(  ) const;
+            
+            IHistogram_exposer.def( 
+                "getMinimumBinIndex"
+                , getMinimumBinIndex_function_type( &::IHistogram::getMinimumBinIndex )
+                , "Returns histogram minimum bin global index." );
         
         }
         { //::IHistogram::getNbinsX

@@ -120,22 +120,40 @@ public:
     double getBinContent(int binx, int biny) const;
 
     //! Returns error of the bin with given index.
+    //! For 1D histograms bin index is related to x-axis.
+    //! For 2D histograms bin index is global bin index.
     double getBinError(int bin) const;
 
     //! Returns error of the bin of 2D histogram with given axes indices.
     double getBinError(int binx, int biny) const;
 
     //! Returns average value in the bin with given index.
+    //! For 1D histograms bin index is related to x-axis.
+    //! For 2D histograms bin index is global bin index.
     double getBinAverage(int bin) const;
 
     //! Returns average value in the bin of 2D histogram with given axes indices.
     double getBinAverage(int binx, int biny) const;
 
     //! Returns number of entries in the bin with given index.
+    //! For 1D histograms bin index is related to x-axis.
+    //! For 2D histograms bin index is global bin index.
     int getBinNumberOfEntries(int bin) const;
 
     //! Returns number of entries in the bin of 2D histogram with given axes indices.
     int getBinNumberOfEntries(int binx, int biny) const;
+
+    //! Returns histogram maximum value (maximum of getBinContent() over all bins)
+    double getMaximum() const;
+
+    //! Returns histogram maximum bin global index
+    int getMaximumBinIndex() const;
+
+    //! Returns histogram minimum value (minimum of getBinContent() over all bins)
+    double getMinimum() const;
+
+    //! Returns histogram minimum bin global index
+    int getMinimumBinIndex() const;
 
 
 #ifdef BORNAGAIN_PYTHON

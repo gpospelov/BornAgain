@@ -87,7 +87,7 @@ public:
     virtual int getNumberOfSimulationElements() const=0;
 
     //! Clone simulated intensity map
-    virtual OutputData<double>* getIntensityData() const=0;
+    virtual OutputData<double>* getDetectorIntensity() const=0;
 
     //! Adds parameters from local to external pool, and call recursion over direct children
     std::string addParametersToExternalPool(

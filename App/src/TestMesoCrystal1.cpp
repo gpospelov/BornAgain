@@ -38,7 +38,7 @@ void TestMesoCrystal1::execute()
     simulation->runSimulation();
     simulation->normalize();
 
-    OutputData<double> *data = simulation->getIntensityData();
+    OutputData<double> *data = simulation->getDetectorIntensity();
 
     TCanvas *c1 = DrawHelper::createAndRegisterCanvas("sim_meso_crystal",
             "mesocrystal", 1024, 768);

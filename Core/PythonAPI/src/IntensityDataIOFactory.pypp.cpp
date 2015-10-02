@@ -53,6 +53,16 @@ void register_IntensityDataIOFactory_class(){
                 , ( bp::arg("data"), bp::arg("file_name") ) );
         
         }
+        { //::IntensityDataIOFactory::writeIntensityData
+        
+            typedef void ( *writeIntensityData_function_type )( ::IHistogram const &,::std::string const & );
+            
+            IntensityDataIOFactory_exposer.def( 
+                "writeIntensityData"
+                , writeIntensityData_function_type( &::IntensityDataIOFactory::writeIntensityData )
+                , ( bp::arg("histogram"), bp::arg("file_name") ) );
+        
+        }
         IntensityDataIOFactory_exposer.staticmethod( "readIntensityData" );
         IntensityDataIOFactory_exposer.staticmethod( "writeIntensityData" );
     }

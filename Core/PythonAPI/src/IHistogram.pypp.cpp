@@ -97,7 +97,7 @@ void register_IHistogram_class(){
             IHistogram_exposer.def( 
                 "createOutputData"
                 , createOutputData_function_type( &::IHistogram::createOutputData )
-                , ( bp::arg("dataType") )
+                , ( bp::arg("dataType")=::IHistogram::INTEGRAL )
                 , bp::return_value_policy< bp::manage_new_object >()
                 , "creates new OutputData with histogram's shape and put there values corresponding to DataType." );
         

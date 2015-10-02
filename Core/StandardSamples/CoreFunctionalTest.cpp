@@ -55,7 +55,7 @@ int CoreFunctionalTest::analyseResults()
         m_result = FAILED_NOREF;
     } else {
         try {
-            boost::scoped_ptr<OutputData<double> > result_data(m_simulation->getIntensityData());
+            boost::scoped_ptr<OutputData<double> > result_data(m_simulation->getDetectorIntensity());
             m_difference = IntensityDataFunctions::getRelativeDifference(*result_data.get(),
                                                                      *m_reference);
             m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);
@@ -109,7 +109,7 @@ std::string CoreFunctionalTest::getSimulationResultsFileNameAndPath() const
 OutputData<double> *CoreFunctionalTest::getIntensityData() const
 {
     if (m_simulation) {
-        return m_simulation->getIntensityData();
+        return m_simulation->getDetectorIntensity();
     }
     return 0;
 }

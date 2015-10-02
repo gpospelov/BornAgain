@@ -149,7 +149,7 @@ public:
     static IHistogram *createHistogram(const OutputData<double> &source);
 
     //! creates new OutputData with histogram's shape and put there values corresponding to DataType
-    OutputData<double> *createOutputData(DataType dataType) const;
+    OutputData<double> *createOutputData(DataType dataType = INTEGRAL) const;
 
 protected:
     void check_x_axis() const;

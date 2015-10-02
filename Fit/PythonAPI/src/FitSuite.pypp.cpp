@@ -259,7 +259,7 @@ void register_FitSuite_class(){
                 "setMinimizer"
                 , setMinimizer_function_type( &::FitSuite::setMinimizer )
                 , ( bp::arg("minimizer_name"), bp::arg("algorithm_name")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >(), bp::arg("minimizer_options")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >() )
-                , "Sets minimizer with given name and algorithm type @param minimizer The name of the minimizer @param algorithm Optional name of the algorithm @param options Optional string with additional minimizer settings \n\n:Parameters:\n  - 'minimizer' - The name of the minimizer\n  - 'algorithm' - Optional name of the algorithm\n  - 'options' - Optional string with additional minimizer settings\n" );
+                , "Sets minimizer with given name and algorithm type @param minimizer The name of the minimizer @param algorithm Optional name of the minimizer's algorithm @param options Optional string with additional minimizer settings \n\n:Parameters:\n  - 'minimizer' - The name of the minimizer\n  - 'algorithm' - Optional name of the minimizer's algorithm\n  - 'options' - Optional string with additional minimizer settings\n" );
         
         }
         { //::FitSuite::setParametersFixed

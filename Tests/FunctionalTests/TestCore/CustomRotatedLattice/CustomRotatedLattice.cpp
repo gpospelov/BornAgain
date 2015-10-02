@@ -27,7 +27,7 @@ int main()
     DistributionGate gate(0.0*Units::degree, 240.0*Units::degree);
     simulation->addParameterDistribution("*/xi", gate, nbins);
     simulation->runSimulation();
-    OutputData<double> *result = simulation->getIntensityData();
+    OutputData<double> *result = simulation->getDetectorIntensity();
 
     const double threshold(2e-10);
     // Calculating average relative difference.

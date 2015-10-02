@@ -57,7 +57,7 @@ void IMinimizerFunctionalTest::runTest()
     simulation->setSample(*sample.get());
     simulation->runSimulation();
 
-    boost::scoped_ptr<OutputData<double> > real_data(simulation->getIntensityData());
+    boost::scoped_ptr<OutputData<double> > real_data(simulation->getDetectorIntensity());
 
     boost::scoped_ptr<FitSuite> fitSuite(createFitSuite());
     fitSuite->addSimulationAndRealData(*simulation.get(), *real_data.get());

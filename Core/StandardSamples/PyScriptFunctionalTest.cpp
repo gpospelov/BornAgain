@@ -63,7 +63,7 @@ int PyScriptFunctionalTest::analyseResults()
     boost::scoped_ptr<OutputData<double> > P_domain_data(IntensityDataIOFactory::readIntensityData(temp_intensity_data_file_name));
 
     boost::scoped_ptr<OutputData<double> > P_reference_data(
-        m_reference_simulation->getIntensityData());
+        m_reference_simulation->getDetectorIntensity());
     m_difference = IntensityDataFunctions::getRelativeDifference(*P_domain_data, *P_reference_data);
     m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);
 

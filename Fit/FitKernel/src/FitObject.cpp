@@ -85,7 +85,7 @@ size_t FitObject::getSizeOfData() const
 void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double weight)
 {
     m_simulation->runSimulation();
-    m_simulation_data.reset(m_simulation->getIntensityData());
+    m_simulation_data.reset(m_simulation->getDetectorIntensity());
 
     const OutputData<bool> *masks(0);
     if(m_simulation->getInstrument().getDetector()->hasMasks()) {

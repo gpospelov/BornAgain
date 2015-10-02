@@ -526,6 +526,6 @@ void TestMiscellaneous::test_SampleGeometry()
     simulation.setSample(multi_layer);
     simulation.runSimulation();
 
-    IsGISAXSTools::drawLogOutputData(*simulation.getIntensityData(),
+    IsGISAXSTools::drawLogOutputData(*simulation.getDetectorIntensity(),
             "c1_geom", "Sample geometry", "CONT4 Z", "Sample geometry");
 }

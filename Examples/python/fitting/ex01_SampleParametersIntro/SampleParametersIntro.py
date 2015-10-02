@@ -29,7 +29,7 @@ def get_sample():
     prism_ff = FormFactorPrism3(5*nanometer, 5*nanometer)
     prism = Particle(m_particle, prism_ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder,0.5)
+    particle_layout.addParticle(cylinder, 0.5)
     particle_layout.addParticle(prism, 0.5)
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
@@ -49,7 +49,7 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -79,24 +79,24 @@ def run_simulations():
     # simulation #2
     # one sample parameter (height of the cylinder) is changed using exact parameter name
     sample.setParameterValue(
-        "/MultiLayer/Layer0/ParticleLayout/ParticleInfo0/Particle/FormFactorCylinder/height", 10*nanometer)
+        "/MultiLayer/Layer0/ParticleLayout/ParticleInfo0/Particle/FormFactorCylinder/height", 10.0*nanometer)
 
     simulation.setSample(sample)
     simulation.runSimulation()
     results.append(simulation.getIntensityData().getArray())
 
     # simulation #3
-    # all parameters which are matching criteria will be changed (height of the cylinder in this case)
-    sample.setParameterValue("*/FormFactorCylinder/height", 100*nanometer)
+    # all parameters matching criteria will be changed (height of the cylinder in this case)
+    sample.setParameterValue("*/FormFactorCylinder/height", 100.0*nanometer)
     simulation.setSample(sample)
     simulation.runSimulation()
     results.append(simulation.getIntensityData().getArray())
 
     # simulation #4
     # all parameters which are matching criteria will be changed
-    sample.setParameterValue("*/FormFactorCylinder/height", 10*nanometer)
+    sample.setParameterValue("*/FormFactorCylinder/height", 10.0*nanometer)
     # both FormFactorPrism3/half_side and FormFactorPrism3/height will be set to 10 nanometer
-    sample.setParameterValue("*/FormFactorPrism3/*", 10*nanometer)
+    sample.setParameterValue("*/FormFactorPrism3/*", 10.0*nanometer)
     simulation.setSample(sample)
     simulation.runSimulation()
     results.append(simulation.getIntensityData().getArray())
@@ -111,7 +111,7 @@ def draw_results(results):
     pylab.figure(1)
     for i in range(0, len(results)):
         pylab.subplot(2, 2, i+1)
-        pylab.imshow(results[i] + 1,norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
+        pylab.imshow(results[i] + 1,norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0])
     pylab.show()
 
 

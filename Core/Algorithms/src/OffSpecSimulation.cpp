@@ -16,6 +16,8 @@
 #include "OffSpecSimulation.h"
 #include "OutputDataFunctions.h"
 #include "BornAgainNamespace.h"
+#include "Histogram2D.h"
+#include <boost/scoped_ptr.hpp>
 
 OffSpecSimulation::OffSpecSimulation()
 : m_instrument()
@@ -82,10 +84,16 @@ int OffSpecSimulation::getNumberOfSimulationElements() const
     return phi_axis.getSize()*alpha_axis.getSize()*mp_alpha_i_axis->getSize();
 }
 
-OutputData<double> *OffSpecSimulation::getIntensityData() const
+OutputData<double> *OffSpecSimulation::getDetectorIntensity() const
 {
     OutputData<double> *result = m_intensity_map.clone();
     return result;
+}
+
+Histogram2D *OffSpecSimulation::getIntensityData() const
+{
+    boost::scoped_ptr<OutputData<double> > data(getDetectorIntensity());
+    return new Histogram2D(*data);
 }
 
 void OffSpecSimulation::setInstrument(const Instrument& instrument)

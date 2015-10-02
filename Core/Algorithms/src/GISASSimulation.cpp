@@ -23,6 +23,7 @@
 #include "BornAgainNamespace.h"
 #include "ProgressHandlerDWBA.h"
 #include "OMPISimulation.h"
+#include "Histogram2D.h"
 
 #include "Macros.h"
 GCC_DIAG_OFF(strict-aliasing);
@@ -113,11 +114,17 @@ int GISASSimulation::getNumberOfSimulationElements() const
     return phi_axis.getSize()*alpha_axis.getSize();
 }
 
-OutputData<double> *GISASSimulation::getIntensityData() const
+OutputData<double> *GISASSimulation::getDetectorIntensity() const
 {
     OutputData<double> *result = m_intensity_map.clone();
     m_instrument.applyDetectorResolution(result);
     return result;
+}
+
+Histogram2D *GISASSimulation::getIntensityData() const
+{
+    boost::scoped_ptr<OutputData<double> > data(getDetectorIntensity());
+    return new Histogram2D(*data);
 }
 
 void GISASSimulation::setInstrument(const Instrument& instrument)

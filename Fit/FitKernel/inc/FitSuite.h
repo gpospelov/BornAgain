@@ -46,7 +46,7 @@ public:
 
     //! Sets minimizer with given name and algorithm type
     //! @param minimizer The name of the minimizer
-    //! @param algorithm Optional name of the algorithm
+    //! @param algorithm Optional name of the minimizer's algorithm
     //! @param options Optional string with additional minimizer settings
     void setMinimizer(const std::string& minimizer_name,
                       const std::string& algorithm_name = std::string(),

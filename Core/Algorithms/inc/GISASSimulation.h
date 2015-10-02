@@ -29,6 +29,7 @@
 
 class ProgramOptions;
 class ProgressHandlerDWBA;
+class Histogram2D;
 namespace Geometry {
 class IShape2D;
 }
@@ -58,11 +59,15 @@ public:
     //! Gets the number of elements this simulation needs to calculate
     virtual int getNumberOfSimulationElements() const;
 
-    //! Returns detector intensity map for all scan parameters (no detector resolution)
+    //! Returns detector intensity map (no detector resolution)
     const OutputData<double>* getOutputData() const { return &m_intensity_map; }
 
-    //! Clone detector intensity map for all scan parameters (apply detector resolution function first)
-    OutputData<double>* getIntensityData() const;
+    //! Returns clone of the detector intensity map with detector resolution applied
+    OutputData<double>* getDetectorIntensity() const;
+
+    //! Returns clone of the detector intensity map with detector resolution applied in the form
+    //! of 2D histogram.
+    Histogram2D *getIntensityData() const;
 
     //! Sets the instrument containing beam and detector information
     void setInstrument(const Instrument& instrument);

@@ -183,7 +183,8 @@ include_classes = [
     "HorizontalLine",
     "Ellipse",
     "Rectangle",
-    "Polygon"
+    "Polygon",
+    "WavevectorInfo"
 ]
 
 

@@ -91,8 +91,8 @@ complex_t FormFactorInfLongRipple2::evaluate_for_q(const cvector_t& q) const
 
 complex_t FormFactorInfLongRipple2::evaluate(const WavevectorInfo& wavevectors) const
 {
-    double qxmin = (wavevectors.m_ki - wavevectors.m_kf_bin.m_q_upper).x().real();
-    double qxmax = (wavevectors.m_ki - wavevectors.m_kf_bin.m_q_lower).x().real();
+    double qxmin = (wavevectors.getKi() - wavevectors.getKfBin().m_q_upper).x().real();
+    double qxmax = (wavevectors.getKi() - wavevectors.getKfBin().m_q_lower).x().real();
 
     if (qxmin < 0.0 && qxmax < 0.0)
         return 0;

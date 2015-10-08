@@ -37,6 +37,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "InterferenceFunctionNone.pypp.h"
 #include "Histogram1D.pypp.h"
 #include "vector_less__const_ISample_ptr___greater_.pypp.h"
+#include "WavevectorInfo.pypp.h"
 #include "HorizontalLine.pypp.h"
 #include "FTDistribution2DGate.pypp.h"
 #include "vector_kvector_t.pypp.h"
@@ -304,6 +305,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_SimulationParameters_class();
     register_SpecularSimulation_class();
     register_ThreadInfo_class();
+    register_WavevectorInfo_class();
     register_global_variables();
     register_free_functions();
 

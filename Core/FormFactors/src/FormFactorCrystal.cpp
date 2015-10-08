@@ -50,8 +50,8 @@ complex_t FormFactorCrystal::evaluate_for_q(const cvector_t &q) const
 complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
 {
     // construct a real reciprocal vector
-    cvector_t q_bin_lower = wavevectors.m_ki - wavevectors.m_kf_bin.m_q_lower;
-    cvector_t q_bin_upper = wavevectors.m_ki - wavevectors.m_kf_bin.m_q_upper;
+    cvector_t q_bin_lower = wavevectors.getKi() - wavevectors.getKfBin().m_q_lower;
+    cvector_t q_bin_upper = wavevectors.getKi() - wavevectors.getKfBin().m_q_upper;
     Bin1DCVector q_bin = Bin1DCVector(q_bin_lower, q_bin_upper);
 
     cvector_t q = q_bin.getMidPoint();

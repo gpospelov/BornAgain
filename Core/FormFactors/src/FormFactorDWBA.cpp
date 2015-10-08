@@ -53,13 +53,13 @@ complex_t FormFactorDWBA::evaluate(const WavevectorInfo& wavevectors) const
 void FormFactorDWBA::calculateTerms(const WavevectorInfo& wavevectors) const
 {
     // Retrieve the two different incoming wavevectors in the layer
-    cvector_t k_i_T = wavevectors.m_ki;
+    cvector_t k_i_T = wavevectors.getKi();
     k_i_T.setZ(-mp_in_coeffs->getScalarKz());
     cvector_t k_i_R = k_i_T;
     k_i_R.setZ(-k_i_T.z());
 
     // Retrieve the two different outgoing wavevector bins in the layer
-    Bin1DCVector k_f_T_bin = wavevectors.m_kf_bin;
+    Bin1DCVector k_f_T_bin = wavevectors.getKfBin();
     k_f_T_bin.m_q_lower.setZ(mp_out_coeffs->getScalarKz());
     k_f_T_bin.m_q_upper.setZ(mp_out_coeffs->getScalarKz());
     Bin1DCVector k_f_R_bin = k_f_T_bin;

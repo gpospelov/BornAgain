@@ -19,10 +19,7 @@
 
 complex_t IFormFactorBorn::evaluate(const WavevectorInfo& wavevectors) const
 {
-    cvector_t kf_lower = wavevectors.m_kf_bin.m_q_lower;
-    cvector_t kf_upper = wavevectors.m_kf_bin.m_q_upper;
-    Bin1DCVector q_bin(wavevectors.m_ki - kf_lower, wavevectors.m_ki - kf_upper);
-    return evaluate_for_q(q_bin.getMidPoint());
+    return evaluate_for_q(wavevectors.getMiddleQ());
 }
 
 Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const cvector_t& k_i,

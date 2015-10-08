@@ -29,12 +29,13 @@ class BA_CORE_API_ WavevectorInfo
 public:
     WavevectorInfo() {}
     WavevectorInfo(cvector_t ki, Bin1DCVector kf_bin) : m_ki(ki), m_kf_bin(kf_bin) {}
+    cvector_t getKi() const { return m_ki; }
+    Bin1DCVector getKfBin() const { return m_kf_bin; }
     cvector_t getMiddleKf() const { return m_kf_bin.getMidPoint(); }
     cvector_t getMiddleQ() const { return m_ki - getMiddleKf(); }
+private:
     cvector_t m_ki;
     Bin1DCVector m_kf_bin;
 };
 
 #endif // WAVEVECTORINFO_H
-
-

@@ -56,7 +56,7 @@ public:
     //! Returns scattering amplitude for matrix interactions
     //! @param k_i   incoming wavevector
     //! @param k_f_bin   outgoing wavevector bin
-    virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i, const Bin1DCVector& k_f_bin) const;
+    virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif
 
     //! Returns number of variable/stochastic parameters
@@ -80,11 +80,8 @@ public:
 };
 
 #ifndef GCCXML_SKIP_THIS
-inline Eigen::Matrix2cd IFormFactor::evaluatePol(const cvector_t& k_i,
-                                                 const Bin1DCVector& k_f_bin) const
+inline Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const
 {
-    (void)k_i;
-    (void)k_f_bin;
     // Throws to prevent unanticipated behaviour
     throw NotImplementedException("IFormFactor::evaluatePol:"
             " is not implemented by default");

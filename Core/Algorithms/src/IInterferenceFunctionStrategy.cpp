@@ -109,6 +109,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorLists(
     Bin1D alpha_f_bin(sim_element.getAlphaMin(), sim_element.getAlphaMax());
     Bin1D phi_f_bin(sim_element.getPhiMin(), sim_element.getPhiMax());
     Bin1DCVector k_f_bin(wavelength, alpha_f_bin, phi_f_bin);
+    WavevectorInfo wavevectors(k_i, k_f_bin);
 
     boost::scoped_ptr<const ILayerRTCoefficients> P_in_coeffs(
         mP_specular_info->getInCoefficients(alpha_i, phi_i, wavelength));
@@ -118,7 +119,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorLists(
     SafePointerVector<FormFactorInfo>::const_iterator it = m_ff_infos.begin();
     while (it != m_ff_infos.end()) {
         (*it)->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
-        Eigen::Matrix2cd ff_mat = (*it)->mp_ff->evaluatePol(k_i, k_f_bin);
+        Eigen::Matrix2cd ff_mat = (*it)->mp_ff->evaluatePol(wavevectors);
         m_ff_pol.push_back(ff_mat);
         ++it;
     }

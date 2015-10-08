@@ -49,7 +49,7 @@ complex_t FormFactorCrystal::evaluate_for_q(const cvector_t &q) const
 
 complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
 {
-    // construct a real reciprocal vector
+    // construct reciprocal vector
     cvector_t q_bin_lower = wavevectors.getKi() - wavevectors.getKfBin().m_q_lower;
     cvector_t q_bin_upper = wavevectors.getKi() - wavevectors.getKfBin().m_q_upper;
     Bin1DCVector q_bin = Bin1DCVector(q_bin_lower, q_bin_upper);
@@ -83,12 +83,11 @@ complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
     return result / volume;
 }
 
-Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t &k_i,
-                                                const Bin1DCVector &k_f_bin) const
+Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevectors) const
 {
-    // construct a real reciprocal vector
-    cvector_t q_bin_lower = k_i - k_f_bin.m_q_lower;
-    cvector_t q_bin_upper = k_i - k_f_bin.m_q_upper;
+    // construct reciprocal vector
+    cvector_t q_bin_lower = wavevectors.getKi() - wavevectors.getKfBin().m_q_lower;
+    cvector_t q_bin_upper = wavevectors.getKi() - wavevectors.getKfBin().m_q_upper;
     Bin1DCVector q_bin = Bin1DCVector(q_bin_lower, q_bin_upper);
 
     cvector_t q = q_bin.getMidPoint();
@@ -107,8 +106,9 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t &k_i,
         cvector_t q_i((*it).x(), (*it).y(), (*it).z());
         Bin1DCVector min_q_i_zero_bin(-q_i, -q_i);
         Bin1DCVector q_i_min_q(q_i - q_bin.m_q_lower, q_i - q_bin.m_q_upper);
+        WavevectorInfo basis_wavevectors(k_zero, min_q_i_zero_bin);
         Eigen::Matrix2cd basis_factor
-            = mp_basis_form_factor->evaluatePol(k_zero, min_q_i_zero_bin);
+            = mp_basis_form_factor->evaluatePol(basis_wavevectors);
         WavevectorInfo meso_wavevectors(k_zero, q_i_min_q);
         complex_t meso_factor = mp_meso_form_factor->evaluate(meso_wavevectors);
         result += basis_factor * meso_factor;

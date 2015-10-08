@@ -38,7 +38,7 @@ public:
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
     //! Calculates and returns a polarized form factor calculation in DWBA
-    virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i, const Bin1DCVector& k_f_bin) const;
+    virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 
     //! Sets reflection/transmission info for scalar DWBA simulation
     virtual void setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
@@ -47,7 +47,7 @@ public:
     friend class TestPolarizedDWBATerms;
 
 protected:
-    void calculateTerms(const cvector_t& k_i, const Bin1DCVector& k_f_bin) const;
+    void calculateTerms(const WavevectorInfo& wavevectors) const;
 
     //! The matrix form factor for BA
     IFormFactor *mp_form_factor;

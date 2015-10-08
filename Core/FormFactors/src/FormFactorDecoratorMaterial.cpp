@@ -62,8 +62,7 @@ complex_t FormFactorDecoratorMaterial::getAmbientRefractiveIndex() const
     return 1.0;
 }
 
-Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const cvector_t &k_i,
-                                                          const Bin1DCVector &k_f_bin) const
+Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& wavevectors) const
 {
     // the conjugated linear part of time reversal operator T
     // (T=UK with K complex conjugate operator and U is linear)
@@ -75,7 +74,6 @@ Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const cvector_t &k_i,
     Eigen::Matrix2cd V_eff = m_wavevector_scattering_factor * time_reverse_conj
                              * (mP_material->getScatteringMatrix(k_mag2)
                                 - mP_ambient_material->getScatteringMatrix(k_mag2));
-    WavevectorInfo wavevectors(k_i, k_f_bin);
     return mp_form_factor->evaluate(wavevectors) * V_eff;
 }
 

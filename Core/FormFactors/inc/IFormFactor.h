@@ -23,6 +23,7 @@
 #include "EigenCore.h"
 
 class ILayerRTCoefficients;
+class WavevectorInfo;
 
 //! @class IFormFactor
 //! @ingroup formfactors_internal
@@ -49,7 +50,7 @@ public:
     //! Returns scattering amplitude for complex wavevector bin
     //! @param k_i   incoming wavevector
     //! @param k_f_bin   outgoing wavevector bin
-    virtual complex_t evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin) const=0;
+    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const=0;
 
 #ifndef GCCXML_SKIP_THIS
     //! Returns scattering amplitude for matrix interactions
@@ -85,8 +86,12 @@ public:
 class BA_CORE_API_ WavevectorInfo
 {
 public:
+    WavevectorInfo() {}
+    WavevectorInfo(cvector_t ki, Bin1DCVector kf_bin) : m_ki(ki), m_kf_bin(kf_bin) {}
+    cvector_t getMiddleKf() const { return m_kf_bin.getMidPoint(); }
+    cvector_t getMiddleQ() const { return m_ki - getMiddleKf(); }
     cvector_t m_ki;
-    cvector_t m_kf;
+    Bin1DCVector m_kf_bin;
 };
 
 
@@ -104,9 +109,8 @@ inline Eigen::Matrix2cd IFormFactor::evaluatePol(const cvector_t& k_i,
 
 inline double IFormFactor::getVolume() const
 {
-    cvector_t zero_vector;
-    Bin1DCVector zero_vector_bin(zero_vector, zero_vector);
-    return std::abs(evaluate(zero_vector, zero_vector_bin));
+    WavevectorInfo zero_wavevectors;
+    return std::abs(evaluate(zero_wavevectors));
 }
 
 inline double IFormFactor::getHeight() const

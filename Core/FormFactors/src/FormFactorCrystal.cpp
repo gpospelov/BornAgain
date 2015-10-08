@@ -47,11 +47,11 @@ complex_t FormFactorCrystal::evaluate_for_q(const cvector_t &q) const
                               " explicitly for FormFactorCrystal");
 }
 
-complex_t FormFactorCrystal::evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin) const
+complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
 {
     // construct a real reciprocal vector
-    cvector_t q_bin_lower = k_i - k_f_bin.m_q_lower;
-    cvector_t q_bin_upper = k_i - k_f_bin.m_q_upper;
+    cvector_t q_bin_lower = wavevectors.m_ki - wavevectors.m_kf_bin.m_q_lower;
+    cvector_t q_bin_upper = wavevectors.m_ki - wavevectors.m_kf_bin.m_q_upper;
     Bin1DCVector q_bin = Bin1DCVector(q_bin_lower, q_bin_upper);
 
     cvector_t q = q_bin.getMidPoint();
@@ -70,9 +70,11 @@ complex_t FormFactorCrystal::evaluate(const cvector_t &k_i, const Bin1DCVector &
         cvector_t q_i((*it).x(), (*it).y(), (*it).z());
         Bin1DCVector min_q_i_zero_bin(-q_i, -q_i);
         Bin1DCVector q_i_min_q(q_i - q_bin.m_q_lower, q_i - q_bin.m_q_upper);
+        WavevectorInfo basis_wavevectors(k_zero, min_q_i_zero_bin);
         complex_t basis_factor
-            = mp_basis_form_factor->evaluate(k_zero, min_q_i_zero_bin);
-        complex_t meso_factor = mp_meso_form_factor->evaluate(k_zero, q_i_min_q);
+            = mp_basis_form_factor->evaluate(basis_wavevectors);
+        WavevectorInfo meso_wavevectors(k_zero, q_i_min_q);
+        complex_t meso_factor = mp_meso_form_factor->evaluate(meso_wavevectors);
         result += basis_factor * meso_factor;
     }
     // the transformed delta train gets a factor of (2pi)^3/V, but the (2pi)^3
@@ -107,7 +109,8 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t &k_i,
         Bin1DCVector q_i_min_q(q_i - q_bin.m_q_lower, q_i - q_bin.m_q_upper);
         Eigen::Matrix2cd basis_factor
             = mp_basis_form_factor->evaluatePol(k_zero, min_q_i_zero_bin);
-        complex_t meso_factor = mp_meso_form_factor->evaluate(k_zero, q_i_min_q);
+        WavevectorInfo meso_wavevectors(k_zero, q_i_min_q);
+        complex_t meso_factor = mp_meso_form_factor->evaluate(meso_wavevectors);
         result += basis_factor * meso_factor;
     }
     // the transformed delta train gets a factor of (2pi)^3/V, but the (2pi)^3

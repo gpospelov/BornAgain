@@ -49,16 +49,16 @@ struct FormFactorInfLongRipple1_wrapper : FormFactorInfLongRipple1, bp::wrapper<
         return FormFactorInfLongRipple1::clone( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin ) const  {
+    virtual ::complex_t evaluate( ::WavevectorInfo const & wavevectors ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin) );
+            return func_evaluate( boost::ref(wavevectors) );
         else{
-            return this->FormFactorInfLongRipple1::evaluate( boost::ref(k_i), boost::ref(k_f_bin) );
+            return this->FormFactorInfLongRipple1::evaluate( boost::ref(wavevectors) );
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin ) const  {
-        return FormFactorInfLongRipple1::evaluate( boost::ref(k_i), boost::ref(k_f_bin) );
+    ::complex_t default_evaluate( ::WavevectorInfo const & wavevectors ) const  {
+        return FormFactorInfLongRipple1::evaluate( boost::ref(wavevectors) );
     }
 
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
@@ -344,14 +344,14 @@ void register_FormFactorInfLongRipple1_class(){
         }
         { //::FormFactorInfLongRipple1::evaluate
         
-            typedef ::complex_t ( ::FormFactorInfLongRipple1::*evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const & ) const;
-            typedef ::complex_t ( FormFactorInfLongRipple1_wrapper::*default_evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const & ) const;
+            typedef ::complex_t ( ::FormFactorInfLongRipple1::*evaluate_function_type)( ::WavevectorInfo const & ) const;
+            typedef ::complex_t ( FormFactorInfLongRipple1_wrapper::*default_evaluate_function_type)( ::WavevectorInfo const & ) const;
             
             FormFactorInfLongRipple1_exposer.def( 
                 "evaluate"
                 , evaluate_function_type(&::FormFactorInfLongRipple1::evaluate)
                 , default_evaluate_function_type(&FormFactorInfLongRipple1_wrapper::default_evaluate)
-                , ( bp::arg("k_i"), bp::arg("k_f_bin") ) );
+                , ( bp::arg("wavevectors") ) );
         
         }
         { //::FormFactorInfLongRipple1::evaluate_for_q

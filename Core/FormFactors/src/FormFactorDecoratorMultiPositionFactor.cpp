@@ -27,11 +27,10 @@ FormFactorDecoratorMultiPositionFactor *FormFactorDecoratorMultiPositionFactor::
     return new FormFactorDecoratorMultiPositionFactor(*mp_form_factor, m_positions);
 }
 
-complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const cvector_t &k_i,
-                                                           const Bin1DCVector &k_f_bin) const
+complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const WavevectorInfo& wavevectors) const
 {
-    cvector_t q = k_i - k_f_bin.getMidPoint();
-    return getPositionsFactor(q) * mp_form_factor->evaluate(k_i, k_f_bin);
+    cvector_t q = wavevectors.getMiddleQ();
+    return getPositionsFactor(q) * mp_form_factor->evaluate(wavevectors);
 }
 
 Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactor::evaluatePol(const cvector_t &k_i,

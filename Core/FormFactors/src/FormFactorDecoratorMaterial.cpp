@@ -75,7 +75,8 @@ Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const cvector_t &k_i,
     Eigen::Matrix2cd V_eff = m_wavevector_scattering_factor * time_reverse_conj
                              * (mP_material->getScatteringMatrix(k_mag2)
                                 - mP_ambient_material->getScatteringMatrix(k_mag2));
-    return mp_form_factor->evaluate(k_i, k_f_bin) * V_eff;
+    WavevectorInfo wavevectors(k_i, k_f_bin);
+    return mp_form_factor->evaluate(wavevectors) * V_eff;
 }
 
 complex_t FormFactorDecoratorMaterial::getRefractiveIndexFactor() const

@@ -51,11 +51,11 @@ void FormFactorWeighted::setAmbientMaterial(const IMaterial& material)
     }
 }
 
-complex_t FormFactorWeighted::evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin) const
+complex_t FormFactorWeighted::evaluate(const WavevectorInfo& wavevectors) const
 {
     complex_t result(0.0, 0.0);
     for (size_t index=0; index<m_form_factors.size(); ++index) {
-        complex_t ff_evaluate = m_form_factors[index]->evaluate(k_i, k_f_bin);
+        complex_t ff_evaluate = m_form_factors[index]->evaluate(wavevectors);
         result += m_weights[index]*ff_evaluate;
     }
     return result;

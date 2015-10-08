@@ -36,10 +36,8 @@ FormFactorDWBAPol* FormFactorDWBAPol::clone() const
     return p_result;
 }
 
-complex_t FormFactorDWBAPol::evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin) const
+complex_t FormFactorDWBAPol::evaluate(const WavevectorInfo&) const
 {
-    (void)k_i;
-    (void)k_f_bin;
     throw NotImplementedException("FormFactorDWBAPol::evaluate: "
             "should never be called for matrix interactions");
 }

@@ -45,7 +45,7 @@ public:
         visitor->visit(this);
     }
 
-    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin) const;
+    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
     virtual int getNumberOfStochasticParameters() const
     {
@@ -56,14 +56,14 @@ protected:
     Geometry::Transform3D m_transform;
 };
 
-inline complex_t FormFactorDecoratorRotation::evaluate(const cvector_t &k_i,
-                                                       const Bin1DCVector &k_f_bin) const
+inline complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo& wavevectors) const
 {
-    cvector_t new_ki = m_transform.transformedInverse(k_i);
-    cvector_t new_kf_lower = m_transform.transformedInverse(k_f_bin.m_q_lower);
-    cvector_t new_kf_upper = m_transform.transformedInverse(k_f_bin.m_q_upper);
+    cvector_t new_ki = m_transform.transformedInverse(wavevectors.m_ki);
+    cvector_t new_kf_lower = m_transform.transformedInverse(wavevectors.m_kf_bin.m_q_lower);
+    cvector_t new_kf_upper = m_transform.transformedInverse(wavevectors.m_kf_bin.m_q_upper);
     Bin1DCVector new_kf_bin(new_kf_lower, new_kf_upper);
-    return mp_form_factor->evaluate(new_ki, new_kf_bin);
+    WavevectorInfo rotated_wavevectors(new_ki, new_kf_bin);
+    return mp_form_factor->evaluate(rotated_wavevectors);
 }
 
 #endif // FORMFACTORDECORATORROTATION_H

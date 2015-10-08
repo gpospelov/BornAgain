@@ -12,8 +12,6 @@ import math
 from bornagain import *
 
 plt.ion()
-fig = plt.figure(figsize=(10.25, 7.69))
-fig.canvas.draw()
 
 
 def get_sample(cylinder_height=1.0*nanometer, cylinder_radius=1.0*nanometer,
@@ -73,7 +71,6 @@ def create_real_data():
     IntensityDataIOFactory.writeIntensityData(real_data, 'refdata_fitcylinderprisms.int')
 
 
-
 def get_simulation():
     """
     Create GISAXS simulation with beam and detector defined
@@ -92,6 +89,8 @@ class DrawObserver(IFitObserver):
     """
     def __init__(self, draw_every_nth=10):
         IFitObserver.__init__(self, draw_every_nth)
+        self.fig = plt.figure(figsize=(10.25, 7.69))
+        self.fig.canvas.draw()
 
     def plot(self, data, title, nplot, min=1, max=1e6):
         plt.subplot(2, 2, nplot)
@@ -103,16 +102,16 @@ class DrawObserver(IFitObserver):
         plt.title(title)
 
     def update(self, fit_suite):
-        fig.clf()
+        self.fig.clf()
         real_data = fit_suite.getRealData()
         self.plot(real_data, "\"Real\" data", nplot=1, min=1.0, max=real_data.getMaximum())
         self.plot(fit_suite.getSimulationData(), "Simulated data", nplot=2, min=1.0, max=real_data.getMaximum())
-        self.plot(fit_suite.getChiSquaredMap(), "Chi2 map", nplot=3, min=0.001, max=1.0)
+        self.plot(fit_suite.getChiSquaredMap(), "Chi2 map", nplot=3, min=0.001, max=10.0)
 
         plt.subplot(2, 2, 4)
         plt.title('Parameters')
         plt.axis('off')
-        plt.text(0.01, 0.85, "Iteration  " + str(fit_suite.getNCalls()))
+        plt.text(0.01, 0.85, "Iteration  " + str(fit_suite.getNumberOfIterations()))
         plt.text(0.01, 0.75, "Chi2       " + str(fit_suite.getChi2()))
         fitpars = fit_suite.getFitParameters()
         for i in range(0, fitpars.size()):
@@ -139,6 +138,11 @@ def run_fitting():
 
     fit_suite = FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)
+
+    # fit_suite.setMinimizer("Minuit2", "Migrad")  # Default
+    # fit_suite.setMinimizer("Minuit2", "Fumili")
+    # fit_suite.setMinimizer("GSLLMA")
+
     fit_suite.initPrint(10)
 
     draw_observer = DrawObserver(draw_every_nth=10)

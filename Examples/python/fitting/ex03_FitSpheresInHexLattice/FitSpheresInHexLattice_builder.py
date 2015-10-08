@@ -3,17 +3,9 @@ Two parameter fit of spheres in a hex lattice.
 Sample builder approach is used.
 """
 
-
-import numpy
-import matplotlib
-import pylab
 import math
 import ctypes
 from bornagain import *
-
-pylab.ion()
-fig = pylab.figure(1)
-fig.canvas.draw()
 
 
 class MySampleBuilder(ISampleBuilder):
@@ -89,58 +81,14 @@ def create_real_data():
 
     # spoiling simulated data with the noise to produce "real" data
     noise_factor = 0.1
-    for i in range(0, real_data.getAllocatedSize()):
-        amplitude = real_data[i]
+    for i in range(0, real_data.getTotalNumberOfBins()):
+        amplitude = real_data.getBinContent(i)
         sigma = noise_factor*math.sqrt(amplitude)
         noisy_amplitude = GenerateNormalRandom(amplitude, sigma)
         if noisy_amplitude < 0.0:
             noisy_amplitude = 0.0
-        real_data[i] = noisy_amplitude
+        real_data.setBinContent(i, noisy_amplitude)
     return real_data
-
-
-class DrawObserver(IObserver):
-    """
-    class which draws fit progress every nth iteration.
-    It has to be attached to fit_suite via AttachObserver command
-    """
-    def __init__(self, draw_every=10):
-        IObserver.__init__(self)
-        print "MySampleBuilder ctor"
-        self.draw_every_nth = draw_every
-    def update(self, fit_suite):
-        if fit_suite.getNCalls() % self.draw_every_nth == 0:
-            fig.clf()
-            # plotting real data
-            real_data = fit_suite.getFitObjects().getRealData().getArray()
-            simulated_data = fit_suite.getFitObjects().getSimulationData().getArray()
-            pylab.subplot(2, 2, 1)
-            im = pylab.imshow(real_data + 1, norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
-            pylab.colorbar(im)
-            pylab.title('\"Real\" data')
-            # plotting real data
-            pylab.subplot(2, 2, 2)
-            im = pylab.imshow(simulated_data + 1, norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
-            pylab.colorbar(im)
-            pylab.title('Simulated data')
-            # plotting difference map
-            diff_map = (real_data - simulated_data)/(real_data + 1)
-            pylab.subplot(2, 2, 3)
-            im = pylab.imshow(diff_map, norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0], vmin = 0.001, vmax = 1.0)
-            pylab.colorbar(im)
-            pylab.title('Difference map')
-            # plotting parameters info
-            pylab.subplot(2, 2, 4)
-            pylab.title('Parameters')
-            pylab.axis('off')
-            pylab.text(0.01, 0.85, "Iteration  " + str(fit_suite.getNCalls()))
-            pylab.text(0.01, 0.75, "Chi2       " + str(fit_suite.getFitObjects().getChiSquaredValue()))
-            fitpars = fit_suite.getFitParameters()
-            for i in range(0, fitpars.size()):
-                pylab.text(0.01, 0.55 - i*0.1, str(fitpars[i].getName()) + " " + str(fitpars[i].getValue())[0:5] )
-
-            pylab.draw()
-            pylab.pause(0.01)
 
 
 def run_fitting():
@@ -156,24 +104,20 @@ def run_fitting():
     fit_suite = FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)
     fit_suite.initPrint(10)
-    #fit_suite.setMinimizer( MinimizerFactory.createMinimizer("Minuit2", "Fumili"))
-    #fit_suite.setMinimizer( MinimizerFactory.createMinimizer("GSLLMA"))
-    #fit_suite.setMinimizer( MinimizerFactory.createMinimizer("Minuit2","Scan"))
-    #fit_suite.setMinimizer( MinimizerFactory.createMinimizer("GSLSimAn"))
 
-    draw_observer = DrawObserver()
+    draw_observer = DefaultFitObserver()
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*radius", 8.*nanometer, 0.01*nanometer, AttLimits.limited(4., 12.))
-    fit_suite.addFitParameter("*lattice_constant", 8.*nanometer, 0.01*nanometer, AttLimits.limited(4., 12.))
+    fit_suite.addFitParameter("*radius", 8.*nanometer, AttLimits.limited(4., 12.))
+    fit_suite.addFitParameter("*lattice_constant", 8.*nanometer, AttLimits.limited(4., 12.))
 
     # running fit
     fit_suite.runFit()
 
     print "Fitting completed."
     fit_suite.printResults()
-    print "chi2:", fit_suite.getMinimizer().getMinValue()
+    print "chi2:", fit_suite.getChi2()
     fitpars = fit_suite.getFitParameters()
     for i in range(0, fitpars.size()):
         print fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError()
@@ -181,6 +125,5 @@ def run_fitting():
 
 if __name__ == '__main__':
     run_fitting()
-    pylab.ioff()
-    pylab.show()
+    plt.show()
 

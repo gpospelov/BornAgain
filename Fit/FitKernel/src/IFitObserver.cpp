@@ -37,9 +37,9 @@ void IFitObserver::notify(IObservable *subject)
         m_current_strategy_index = fit_suite->getNStrategy();
     }
 
-    if( fit_suite->getNCalls() == 0 ) needs_update = true;  // first iteration
+    if( fit_suite->getNumberOfIterations() == 0 ) needs_update = true;  // first iteration
     if( fit_suite->isLastIteration() ) needs_update = true; // last iteration
-    if( fit_suite->getNCalls() % m_update_every_nth == 0 ) needs_update = true; // every n'th iteration
+    if( fit_suite->getNumberOfIterations() % m_update_every_nth == 0 ) needs_update = true; // every n'th iteration
 
     if(needs_update) update(fit_suite);
 }

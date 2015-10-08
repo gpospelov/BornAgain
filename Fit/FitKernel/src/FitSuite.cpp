@@ -124,7 +124,7 @@ bool FitSuite::isLastIteration() const
     return m_kernel->isLastIteration();
 }
 
-size_t FitSuite::getNCalls() const
+size_t FitSuite::getNumberOfIterations() const
 {
     return m_kernel->getNCalls();
 }

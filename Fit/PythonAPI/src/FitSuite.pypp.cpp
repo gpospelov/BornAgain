@@ -177,16 +177,6 @@ void register_FitSuite_class(){
                 , "Returns minimizer." );
         
         }
-        { //::FitSuite::getNCalls
-        
-            typedef ::std::size_t ( ::FitSuite::*getNCalls_function_type)(  ) const;
-            
-            FitSuite_exposer.def( 
-                "getNCalls"
-                , getNCalls_function_type( &::FitSuite::getNCalls )
-                , "Returns current number of minimization function calls." );
-        
-        }
         { //::FitSuite::getNStrategy
         
             typedef ::std::size_t ( ::FitSuite::*getNStrategy_function_type)(  ) const;
@@ -195,6 +185,16 @@ void register_FitSuite_class(){
                 "getNStrategy"
                 , getNStrategy_function_type( &::FitSuite::getNStrategy )
                 , "Returns the number of current strategy." );
+        
+        }
+        { //::FitSuite::getNumberOfIterations
+        
+            typedef ::std::size_t ( ::FitSuite::*getNumberOfIterations_function_type)(  ) const;
+            
+            FitSuite_exposer.def( 
+                "getNumberOfIterations"
+                , getNumberOfIterations_function_type( &::FitSuite::getNumberOfIterations )
+                , "Returns current number of minimization function calls." );
         
         }
         { //::FitSuite::getRealData

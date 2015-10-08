@@ -27,7 +27,7 @@ void FitSuitePrintObserver::update(FitSuite *fit_suite)
 {
     m_fit_suite = fit_suite;
 
-    if(fit_suite->getNCalls() == 0) {
+    if(fit_suite->getNumberOfIterations() == 0) {
         m_start_time = boost::posix_time::second_clock::local_time();
         m_last_call_time = boost::posix_time::second_clock::local_time();
     }
@@ -44,7 +44,7 @@ void FitSuitePrintObserver::update(FitSuite *fit_suite)
 void FitSuitePrintObserver::printIterationHeader()
 {
     std::cout << "FitPrintObserver::update() -> Info."
-              << " NCall:" << m_fit_suite->getNCalls()
+              << " NCall:" << m_fit_suite->getNumberOfIterations()
               << " NStrategy:" << m_fit_suite->getNStrategy()
               << " Chi2:" << std::scientific << std::setprecision(8)
               << m_fit_suite->getFitObjects()->getChiSquaredValue() << std::endl;

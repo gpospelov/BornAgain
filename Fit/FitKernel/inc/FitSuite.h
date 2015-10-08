@@ -110,7 +110,7 @@ public:
     bool isLastIteration() const;
 
     //! Returns current number of minimization function calls
-    size_t getNCalls() const;
+    size_t getNumberOfIterations() const;
 
     //! Returns the number of current strategy
     size_t getNStrategy() const;

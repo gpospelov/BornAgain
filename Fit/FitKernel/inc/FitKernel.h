@@ -85,7 +85,7 @@ class BA_CORE_API_ FitKernel
     size_t getNCalls() const;
 
     //! Returns the number of current strategy
-    size_t getNStrategy() const;
+    size_t getCurrentStrategyIndex() const;
 
     //! Prints results of the screen
     void printResults() const;

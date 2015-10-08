@@ -42,6 +42,13 @@ struct FitStrategyAdjustMinimizer_wrapper : FitStrategyAdjustMinimizer, bp::wrap
     m_pyobj = 0;
     }
 
+    FitStrategyAdjustMinimizer_wrapper(::std::string const & minimizer_name, ::std::string const & algorithm_name=std::basic_string<char, std::char_traits<char>, std::allocator<char> >(), ::std::string const & minimizer_options=std::basic_string<char, std::char_traits<char>, std::allocator<char> >() )
+    : FitStrategyAdjustMinimizer( minimizer_name, algorithm_name, minimizer_options )
+      , bp::wrapper< FitStrategyAdjustMinimizer >(){
+        // constructor
+    m_pyobj = 0;
+    }
+
     virtual ::FitStrategyAdjustMinimizer * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
@@ -66,6 +73,18 @@ struct FitStrategyAdjustMinimizer_wrapper : FitStrategyAdjustMinimizer, bp::wrap
         FitStrategyAdjustMinimizer::execute( );
     }
 
+    virtual ::MinimizerOptions * getMinimizerOptions(  ) {
+        if( bp::override func_getMinimizerOptions = this->get_override( "getMinimizerOptions" ) )
+            return func_getMinimizerOptions(  );
+        else{
+            return this->FitStrategyAdjustMinimizer::getMinimizerOptions(  );
+        }
+    }
+    
+    ::MinimizerOptions * default_getMinimizerOptions(  ) {
+        return FitStrategyAdjustMinimizer::getMinimizerOptions( );
+    }
+
     PyObject* m_pyobj;
 
 };
@@ -76,6 +95,7 @@ void register_FitStrategyAdjustMinimizer_class(){
         typedef bp::class_< FitStrategyAdjustMinimizer_wrapper, bp::bases< IFitStrategy >, std::auto_ptr< FitStrategyAdjustMinimizer_wrapper > > FitStrategyAdjustMinimizer_exposer_t;
         FitStrategyAdjustMinimizer_exposer_t FitStrategyAdjustMinimizer_exposer = FitStrategyAdjustMinimizer_exposer_t( "FitStrategyAdjustMinimizer", "Strategy modifies mimimizer settings before running minimization roun.", bp::init< >() );
         bp::scope FitStrategyAdjustMinimizer_scope( FitStrategyAdjustMinimizer_exposer );
+        FitStrategyAdjustMinimizer_exposer.def( bp::init< std::string const &, bp::optional< std::string const &, std::string const & > >(( bp::arg("minimizer_name"), bp::arg("algorithm_name")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >(), bp::arg("minimizer_options")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >() )) );
         { //::FitStrategyAdjustMinimizer::clone
         
             typedef ::FitStrategyAdjustMinimizer * ( ::FitStrategyAdjustMinimizer::*clone_function_type)(  ) const;
@@ -106,17 +126,29 @@ void register_FitStrategyAdjustMinimizer_class(){
             FitStrategyAdjustMinimizer_exposer.def( 
                 "getMinimizer"
                 , getMinimizer_function_type( &::FitStrategyAdjustMinimizer::getMinimizer )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_internal_reference< >() );
+        
+        }
+        { //::FitStrategyAdjustMinimizer::getMinimizerOptions
+        
+            typedef ::MinimizerOptions * ( ::FitStrategyAdjustMinimizer::*getMinimizerOptions_function_type)(  ) ;
+            typedef ::MinimizerOptions * ( FitStrategyAdjustMinimizer_wrapper::*default_getMinimizerOptions_function_type)(  ) ;
+            
+            FitStrategyAdjustMinimizer_exposer.def( 
+                "getMinimizerOptions"
+                , getMinimizerOptions_function_type(&::FitStrategyAdjustMinimizer::getMinimizerOptions)
+                , default_getMinimizerOptions_function_type(&FitStrategyAdjustMinimizer_wrapper::default_getMinimizerOptions)
+                , bp::return_internal_reference< >() );
         
         }
         { //::FitStrategyAdjustMinimizer::setMinimizer
         
-            typedef void ( ::FitStrategyAdjustMinimizer::*setMinimizer_function_type)( ::IMinimizer * ) ;
+            typedef void ( ::FitStrategyAdjustMinimizer::*setMinimizer_function_type)( ::std::string const &,::std::string const &,::std::string const & ) ;
             
             FitStrategyAdjustMinimizer_exposer.def( 
                 "setMinimizer"
                 , setMinimizer_function_type( &::FitStrategyAdjustMinimizer::setMinimizer )
-                , ( bp::arg("minimizer") ) );
+                , ( bp::arg("minimizer_name"), bp::arg("algorithm_name")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >(), bp::arg("minimizer_options")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >() ) );
         
         }
     }

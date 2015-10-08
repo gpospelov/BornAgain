@@ -79,6 +79,17 @@ void register_FitSuite_class(){
                 , "Adds fit parameter @param name The name of fit parameter @param value Parameter's starting value @param attlim Limits attribute @param step Initial parameter's step (some minimizers don't use it) \n\n:Parameters:\n  - 'name' - The name of fit parameter\n  - 'value' - Parameter's starting value\n  - 'attlim' - Limits attribute\n  - 'step' - Initial parameter's step (some minimizers don't use it)\n" );
         
         }
+        { //::FitSuite::addFitStrategy
+        
+            typedef void ( ::FitSuite::*addFitStrategy_function_type)( ::IFitStrategy const & ) ;
+            
+            FitSuite_exposer.def( 
+                "addFitStrategy"
+                , addFitStrategy_function_type( &::FitSuite::addFitStrategy )
+                , ( bp::arg("strategy") )
+                , "Adds fit strategy." );
+        
+        }
         { //::FitSuite::addSimulationAndRealData
         
             typedef void ( ::FitSuite::*addSimulationAndRealData_function_type)( ::GISASSimulation const &,::OutputData< double > const & ) ;
@@ -133,6 +144,16 @@ void register_FitSuite_class(){
                 , "returns chi2 histogram calculated for (real, simulated) data pair @param i_item The index of fit object \n\n:Parameters:\n  - 'i_item' - The index of fit object\n" );
         
         }
+        { //::FitSuite::getCurrentStrategyIndex
+        
+            typedef ::std::size_t ( ::FitSuite::*getCurrentStrategyIndex_function_type)(  ) const;
+            
+            FitSuite_exposer.def( 
+                "getCurrentStrategyIndex"
+                , getCurrentStrategyIndex_function_type( &::FitSuite::getCurrentStrategyIndex )
+                , "Returns the number of current strategy." );
+        
+        }
         { //::FitSuite::getFitObjects
         
             typedef ::FitSuiteObjects * ( ::FitSuite::*getFitObjects_function_type)(  ) ;
@@ -175,16 +196,6 @@ void register_FitSuite_class(){
                 , getMinimizer_function_type( &::FitSuite::getMinimizer )
                 , bp::return_internal_reference< >()
                 , "Returns minimizer." );
-        
-        }
-        { //::FitSuite::getNStrategy
-        
-            typedef ::std::size_t ( ::FitSuite::*getNStrategy_function_type)(  ) const;
-            
-            FitSuite_exposer.def( 
-                "getNStrategy"
-                , getNStrategy_function_type( &::FitSuite::getNStrategy )
-                , "Returns the number of current strategy." );
         
         }
         { //::FitSuite::getNumberOfIterations

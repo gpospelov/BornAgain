@@ -71,8 +71,8 @@ class BA_CORE_API_ ROOTMinimizer : public IMinimizer
     virtual size_t getNCalls() const;
 
     //! return minimizer options
-    virtual MinimizerOptions &getOptions();
-    virtual const MinimizerOptions &getOptions() const;
+    virtual MinimizerOptions *getOptions();
+    virtual const MinimizerOptions *getOptions() const;
 
     //! set minimizer options
     virtual void setOptions(const MinimizerOptions &options);

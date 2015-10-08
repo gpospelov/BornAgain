@@ -132,7 +132,7 @@ IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, cons
 IMinimizer *MinimizerFactory::createMinimizer(const IMinimizer *minimizer)
 {
     IMinimizer *result = createMinimizer(minimizer->getMinimizerName(), minimizer->getAlgorithmName());
-    result->setOptions(minimizer->getOptions());
+    result->setOptions(*minimizer->getOptions());
     return result;
 }
 

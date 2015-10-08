@@ -52,6 +52,11 @@ void FitSuite::setMinimizer(const std::string &minimizer_name, const std::string
     m_kernel->setMinimizer(minimizer);
 }
 
+void FitSuite::addFitStrategy(const IFitStrategy &strategy)
+{
+    m_kernel->addFitStrategy(strategy);
+}
+
 void FitSuite::setMinimizer(IMinimizer *minimizer)
 {
     m_kernel->setMinimizer(minimizer);
@@ -129,9 +134,9 @@ size_t FitSuite::getNumberOfIterations() const
     return m_kernel->getNCalls();
 }
 
-size_t FitSuite::getNStrategy() const
+size_t FitSuite::getCurrentStrategyIndex() const
 {
-    return m_kernel->getNStrategy();
+    return m_kernel->getCurrentStrategyIndex();
 }
 
 void FitSuite::printResults() const
@@ -141,7 +146,7 @@ void FitSuite::printResults() const
 
 double FitSuite::getChi2() const
 {
-    return m_kernel->getMinimizer()->getMinValue();
+    return m_kernel->getFitObjects()->getChiSquaredValue();
 }
 
 

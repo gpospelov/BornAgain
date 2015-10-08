@@ -36,9 +36,10 @@ public:
     //! Here Onserver will do actuall job when he thinks that it is a right moment
     virtual void update(FitSuite *fit_suite);
 
-private:
+protected:
     int m_update_every_nth;
     int m_current_strategy_index;
+    bool m_strategy_has_changed;
 };
 
 

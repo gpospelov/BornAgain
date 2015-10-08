@@ -20,6 +20,7 @@
 IFitObserver::IFitObserver(int update_every_nth)
     : m_update_every_nth(update_every_nth)
     , m_current_strategy_index(-1)
+    , m_strategy_has_changed(false)
 {
 
 }
@@ -32,9 +33,13 @@ void IFitObserver::notify(IObservable *subject)
 
     bool needs_update(false);
 
-    if(m_current_strategy_index != (int)fit_suite->getNStrategy()) {
+    if(fit_suite->getFitStrategies()->size() &&
+            m_current_strategy_index != (int)fit_suite->getCurrentStrategyIndex()) {
         needs_update = true;
-        m_current_strategy_index = fit_suite->getNStrategy();
+        m_current_strategy_index = fit_suite->getCurrentStrategyIndex();
+        m_strategy_has_changed = true;
+    } else {
+        m_strategy_has_changed = false;
     }
 
     if( fit_suite->getNumberOfIterations() == 0 ) needs_update = true;  // first iteration

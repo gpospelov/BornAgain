@@ -96,10 +96,6 @@ void FitKernel::runFit()
     // running minimization using strategies
     m_fit_strategies.minimize();
 
-    // setting found values to the parameters (FIXME move to strategies)
-    m_fit_parameters.setValues(m_minimizer->getValueOfVariablesAtMinimum());
-    m_fit_parameters.setErrors(m_minimizer->getErrorOfVariables());
-
     // calling observers to let them to get results
     m_is_last_iteration = true;
     notifyObservers();
@@ -124,6 +120,11 @@ void FitKernel::minimize()
 
     // minimizing
     m_minimizer->minimize();
+
+    // setting found values to the parameters
+    m_fit_parameters.setValues(m_minimizer->getValueOfVariablesAtMinimum());
+    m_fit_parameters.setErrors(m_minimizer->getErrorOfVariables());
+    m_fit_objects.runSimulations(); // we run simulation once again for best values found
 }
 
 FitSuiteObjects *FitKernel::getFitObjects()
@@ -154,7 +155,7 @@ size_t FitKernel::getNCalls() const
     return (m_function_chi2.getNCalls() ? m_function_chi2.getNCalls() : m_function_gradient.getNCalls());
 }
 
-size_t FitKernel::getNStrategy() const
+size_t FitKernel::getCurrentStrategyIndex() const
 {
     return m_fit_strategies.getCurrentStrategyIndex();
 }

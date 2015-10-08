@@ -45,11 +45,12 @@ class DefaultFitObserver(IFitObserver):
         plt.subplot(2, 2, 4)
         plt.title('Parameters')
         plt.axis('off')
-        plt.text(0.01, 0.85, "Iteration  " + str(fit_suite.getNumberOfIterations()))
-        plt.text(0.01, 0.75, "Chi2       " + str(fit_suite.getChi2()))
+        plt.text(0.01, 0.85, "Iteration  " + '{:d}     {:s}'.
+                 format(fit_suite.getNumberOfIterations(), fit_suite.getMinimizer().getMinimizerName()))
+        plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
         fitpars = fit_suite.getFitParameters()
         for i in range(0, fitpars.size()):
-            plt.text(0.01, 0.55 - i*0.1, str(fitpars[i].getName()) + " " + str(fitpars[i].getValue())[0:5])
+            plt.text(0.01, 0.55 - i*0.1,  '{:30.30s}: {:6.3f}'.format(fitpars[i].getName(), fitpars[i].getValue()))
 
         plt.draw()
         plt.pause(0.01)

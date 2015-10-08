@@ -89,7 +89,7 @@ void FitSuiteWriteTreeObserver::update(IObservable *subject)
         event->parfixed.push_back( (*it)->isFixed() );
     }
     event->niter = (int)fitSuite->getNumberOfIterations();
-    event->nstrategy = (int)fitSuite->getNStrategy();
+    event->nstrategy = (int)fitSuite->getCurrentStrategyIndex();
 
     // appending data to the tree
     tree->Fill();

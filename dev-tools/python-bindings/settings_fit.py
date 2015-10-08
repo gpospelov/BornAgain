@@ -180,8 +180,9 @@ def ManualClassTunings(mb):
             fun.call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
 
     cl = mb.class_("FitStrategyAdjustMinimizer")
-    cl.member_function( "getMinimizer" ).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
-    cl.member_function( "setMinimizer" ).include()
+    cl.member_function( "getMinimizer" ).call_policies =  call_policies.return_internal_reference()
+    # cl.member_function( "setMinimizer" ).include()
+    cl.member_function( "getMinimizerOptions" ).call_policies =  call_policies.return_internal_reference()
 
     cl = mb.class_("MinimizerOptions") # alternatively transformation can be used
     for fun in cl.member_functions():

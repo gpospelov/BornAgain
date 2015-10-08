@@ -11,8 +11,6 @@ from matplotlib import pyplot as plt
 import math
 from bornagain import *
 
-plt.ion()
-
 
 def get_sample(cylinder_height=1.0*nanometer, cylinder_radius=1.0*nanometer,
                prism_length=2.0*nanometer, prism_height=1.0*nanometer):
@@ -87,10 +85,13 @@ class DrawObserver(IFitObserver):
     FitSuite kernel will call DrawObserver's update() method every n'th iteration.
     It is up to the user what to do here.
     """
+
     def __init__(self, draw_every_nth=10):
         IFitObserver.__init__(self, draw_every_nth)
         self.fig = plt.figure(figsize=(10.25, 7.69))
         self.fig.canvas.draw()
+        plt.ion()
+
 
     def plot(self, data, title, nplot, min=1, max=1e6):
         plt.subplot(2, 2, nplot)
@@ -111,15 +112,18 @@ class DrawObserver(IFitObserver):
         plt.subplot(2, 2, 4)
         plt.title('Parameters')
         plt.axis('off')
-        plt.text(0.01, 0.85, "Iteration  " + str(fit_suite.getNumberOfIterations()))
-        plt.text(0.01, 0.75, "Chi2       " + str(fit_suite.getChi2()))
+        plt.text(0.01, 0.85, "Iteration  " + '{:d}     {:s}'.
+                 format(fit_suite.getNumberOfIterations(), fit_suite.getMinimizer().getMinimizerName()))
+        plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
         fitpars = fit_suite.getFitParameters()
         for i in range(0, fitpars.size()):
-            plt.text(0.01, 0.55 - i*0.1, str(fitpars[i].getName()) + " " + str(fitpars[i].getValue())[0:5])
+            plt.text(0.01, 0.55 - i*0.1,  '{:30.30s}: {:6.3f}'.format(fitpars[i].getName(), fitpars[i].getValue()))
 
         plt.draw()
         plt.pause(0.01)
 
+        if fit_suite.isLastIteration():
+            plt.ioff()
 
 
 def run_fitting():
@@ -166,5 +170,4 @@ def run_fitting():
 
 if __name__ == '__main__':
     run_fitting()
-    plt.ioff()
     plt.show()

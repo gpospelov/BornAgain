@@ -1,6 +1,6 @@
 """
 Two parameter fit of cylinders without interference.
-Real data contains  mask to simulate and fit only outside masked areas
+Various masks are added to the simulation to simulate and fit only outside masked areas.
 """
 
 from matplotlib import pyplot as plt
@@ -38,16 +38,14 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
 
 def create_real_data():
     """
-    Generating "real" data by adding noise to the simulated data. Sample parameters are set to
-    radius = 10*nanometer, lattice_constant=20*nanometer
-    This parameters we will try to find later during the fit
+    Generating "real" data by adding noise to the simulated data.
     """
     sample = get_sample(5.0*nanometer, 10.0*nanometer)
 

@@ -58,6 +58,9 @@ public:
                       const std::string& algorithm_name = std::string(),
                       const std::string& minimizer_options=std::string());
 
+    //! Adds fit strategy
+    void addFitStrategy(const IFitStrategy &strategy);
+
     //! Sets minimizer
     void setMinimizer(IMinimizer *minimizer);
 
@@ -113,7 +116,7 @@ public:
     size_t getNumberOfIterations() const;
 
     //! Returns the number of current strategy
-    size_t getNStrategy() const;
+    size_t getCurrentStrategyIndex() const;
 
     void printResults() const;
 

@@ -21,9 +21,9 @@
 #include "ISample.h"
 #include "Bin.h"
 #include "EigenCore.h"
+#include "WavevectorInfo.h"
 
 class ILayerRTCoefficients;
-class WavevectorInfo;
 
 //! @class IFormFactor
 //! @ingroup formfactors_internal
@@ -78,22 +78,6 @@ public:
         (void)p_out_coeffs;
     }
 };
-
-//! @class WavevectorInfo
-//! @ingroup formfactors_internal
-//! @brief Holds all wavevector information relevant for calculating form factors.
-
-class BA_CORE_API_ WavevectorInfo
-{
-public:
-    WavevectorInfo() {}
-    WavevectorInfo(cvector_t ki, Bin1DCVector kf_bin) : m_ki(ki), m_kf_bin(kf_bin) {}
-    cvector_t getMiddleKf() const { return m_kf_bin.getMidPoint(); }
-    cvector_t getMiddleQ() const { return m_ki - getMiddleKf(); }
-    cvector_t m_ki;
-    Bin1DCVector m_kf_bin;
-};
-
 
 #ifndef GCCXML_SKIP_THIS
 inline Eigen::Matrix2cd IFormFactor::evaluatePol(const cvector_t& k_i,

@@ -41,16 +41,8 @@ void IInterferenceFunctionStrategy::setSpecularInfo(const LayerSpecularInfo &spe
 
 double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_element) const
 {
-    double lambda = sim_element.getWavelength();
-    double alpha_i = sim_element.getAlphaI();
-    double phi_i = sim_element.getPhiI();
-    cvector_t k_i;
-    k_i.setLambdaAlphaPhi(lambda, alpha_i, phi_i);
-    Bin1D alpha_f_bin(sim_element.getAlphaMin(), sim_element.getAlphaMax());
-    Bin1D phi_f_bin(sim_element.getPhiMin(), sim_element.getPhiMax());
-    Bin1DCVector k_f_bin(lambda, alpha_f_bin, phi_f_bin);
     if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 1
-        && (alpha_f_bin.getBinSize() != 0.0 || phi_f_bin.getBinSize() != 0.0)) {
+        && (sim_element.getSolidAngle() > 0.0)) {
         return MCIntegratedEvaluate(sim_element);
     }
     calculateFormFactorList(sim_element);
@@ -62,10 +54,8 @@ double IInterferenceFunctionStrategy::evaluatePol(const SimulationElement& sim_e
     if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 0) {
         return MCIntegratedEvaluatePol(sim_element);
     }
-    double result;
     calculateFormFactorLists(sim_element);
-    result = evaluateForMatrixList(sim_element, m_ff_pol);
-    return result;
+    return evaluateForMatrixList(sim_element, m_ff_pol);
 }
 
 void IInterferenceFunctionStrategy::calculateFormFactorList(

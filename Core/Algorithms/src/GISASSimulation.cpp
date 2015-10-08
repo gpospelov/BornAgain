@@ -30,6 +30,7 @@ GCC_DIAG_OFF(strict-aliasing);
 #include <boost/thread.hpp>
 GCC_DIAG_ON(strict-aliasing);
 #include <gsl/gsl_errno.h>
+#include <boost/scoped_ptr.hpp>
 
 GISASSimulation::GISASSimulation()
 : m_instrument()

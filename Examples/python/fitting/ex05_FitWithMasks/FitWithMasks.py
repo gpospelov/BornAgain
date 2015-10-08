@@ -1,17 +1,11 @@
 """
 Two parameter fit of cylinders without interference.
-Real data contains rectangular mask to simulate and fit only the area inside the mask.
+Real data contains  mask to simulate and fit only outside masked areas
 """
 
-import numpy
 from matplotlib import pyplot as plt
-import matplotlib
 import math
 from bornagain import *
-
-plt.ion()
-fig = plt.figure(figsize=(10.25, 7.69))
-fig.canvas.draw()
 
 
 def get_sample(radius=5*nanometer, height=10*nanometer):
@@ -65,13 +59,13 @@ def create_real_data():
 
     # spoiling simulated data with the noise to produce "real" data
     noise_factor = 0.1
-    for i in range(0, real_data.getAllocatedSize()):
-        amplitude = real_data[i]
+    for i in range(0, real_data.getTotalNumberOfBins()):
+        amplitude = real_data.getBinContent(i)
         sigma = noise_factor*math.sqrt(amplitude)
         noisy_amplitude = GenerateNormalRandom(amplitude, sigma)
         if noisy_amplitude < 0.0:
             noisy_amplitude = 0.0
-        real_data[i] = noisy_amplitude
+        real_data.setBinContent(i, noisy_amplitude)
     return real_data
 
 
@@ -83,7 +77,7 @@ def add_mask_to_simulation(simulation):
     Masks can have different geometrical shapes (Rectangle, Ellipse, Line) with the mask value either
     "True" (detector bin is excluded from the simulation) or False (will be simulated).
 
-    Every subsequent mask override previously defined masks.
+    Every subsequent mask override previously defined masks in this area.
 
     In the code below we put masks in such way that simulated image will look like
     a Pac-Man from ancient arcade game.
@@ -114,42 +108,6 @@ def add_mask_to_simulation(simulation):
     # simulation.addMask(VerticalLine(0.0*deg), False)
 
 
-class DrawObserver(IFitObserver):
-    """
-    Draws fit progress every nth iteration.
-    It has to be attached to fit_suite via attachObserver method
-    """
-    def __init__(self, draw_every=10):
-        IFitObserver.__init__(self, draw_every)
-
-    def plot(self, data, title, nplot, min=1, max=1e6):
-        plt.subplot(2, 2, nplot)
-        plt.subplots_adjust(wspace=0.2, hspace=0.2)
-        im = plt.imshow(data.getArray(),
-                        norm=matplotlib.colors.LogNorm(min, max),
-                        extent=[-1.0, 1.0, 0, 2.0])
-        plt.colorbar(im)
-        plt.title(title)
-
-    def update(self, fit_suite):
-        fig.clf()
-        self.plot(fit_suite.getRealData(), "\"Real\" data", 1)
-        self.plot(fit_suite.getSimulationData(), "Simulated data", 2)
-        self.plot(fit_suite.getChiSquaredMap(), "Chi2 map", 3, min=0.001, max=1.0)
-
-        plt.subplot(2, 2, 4)
-        plt.title('Parameters')
-        plt.axis('off')
-        plt.text(0.01, 0.85, "Iteration  " + str(fit_suite.getNCalls()))
-        plt.text(0.01, 0.75, "Chi2       " + str(fit_suite.getFitObjects().getChiSquaredValue()))
-        fitpars = fit_suite.getFitParameters()
-        for i in range(0, fitpars.size()):
-            plt.text(0.01, 0.55 - i*0.1, str(fitpars[i].getName()) + " " + str(fitpars[i].getValue())[0:5] )
-
-        plt.draw()
-        plt.pause(0.01)
-
-
 def run_fitting():
     """
     main function to run fitting
@@ -164,23 +122,21 @@ def run_fitting():
     real_data = create_real_data()
 
     fit_suite = FitSuite()
-    # fit_suite.setMinimizer("GSLLMA")
-    # fit_suite.setMinimizer("Minuit2", "Fumili")
     fit_suite.addSimulationAndRealData(simulation, real_data)
     fit_suite.initPrint(10)
-    draw_observer = DrawObserver(draw_every=10)
+    draw_observer = DefaultFitObserver(draw_every_nth=10)
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*/FormFactorCylinder/radius", 6.*nanometer, AttLimits.limited(4., 8.), 0.01*nanometer)
-    fit_suite.addFitParameter("*/FormFactorCylinder/height", 9.*nanometer, AttLimits.limited(8., 12.), 0.01*nanometer)
+    fit_suite.addFitParameter("*/FormFactorCylinder/radius", 6.*nanometer, AttLimits.limited(4., 8.))
+    fit_suite.addFitParameter("*/FormFactorCylinder/height", 9.*nanometer, AttLimits.limited(8., 12.))
 
     # running fit
     fit_suite.runFit()
 
     print "Fitting completed."
     fit_suite.printResults()
-    print "chi2:", fit_suite.getMinimizer().getMinValue()
+    print "chi2:", fit_suite.getChi2()
     fitpars = fit_suite.getFitParameters()
     for i in range(0, fitpars.size()):
         print fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError()
@@ -188,7 +144,5 @@ def run_fitting():
 
 if __name__ == '__main__':
     run_fitting()
-
-    plt.ioff()
     plt.show()
 

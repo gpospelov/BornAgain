@@ -40,7 +40,7 @@ class DefaultFitObserver(IFitObserver):
         real_data = fit_suite.getRealData()
         self.plot(real_data, "\"Real\" data", nplot=1, min=1.0, max=real_data.getMaximum())
         self.plot(fit_suite.getSimulationData(), "Simulated data", nplot=2, min=1.0, max=real_data.getMaximum())
-        self.plot(fit_suite.getChiSquaredMap(), "Chi2 map", nplot=3, min=0.001, max=1.0)
+        self.plot(fit_suite.getChiSquaredMap(), "Chi2 map", nplot=3, min=0.001, max=10.0)
 
         plt.subplot(2, 2, 4)
         plt.title('Parameters')

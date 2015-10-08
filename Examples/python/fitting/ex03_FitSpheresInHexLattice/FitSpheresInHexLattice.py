@@ -2,12 +2,10 @@
 Two parameter fit of spheres in a hex lattice.
 """
 
-import matplotlib
 from matplotlib import pyplot as plt
 import math
 from bornagain import *
 
-plt.ion()
 
 def get_sample(radius=5*nanometer, lattice_constant=10*nanometer):
     """
@@ -90,10 +88,8 @@ def run_fitting():
     fit_suite.addSimulationAndRealData(simulation, real_data)
     fit_suite.initPrint(10)
 
-    draw_observer = DefaultFitObserver()
+    draw_observer = DefaultFitObserver(draw_every_nth=10)
     fit_suite.attachObserver(draw_observer)
-
-    # setting fitting parameters with starting values
 
     # this fit parameter will change both length_1 and length_2 simultaneously
     fit_suite.addFitParameter("*2DLattice/length_*", 8.*nanometer, AttLimits.limited(4., 12.))
@@ -112,6 +108,5 @@ def run_fitting():
 
 if __name__ == '__main__':
     run_fitting()
-    plt.ioff()
     plt.show()
 

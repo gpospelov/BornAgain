@@ -105,7 +105,7 @@ def run_fitting():
     fit_suite.addSimulationAndRealData(simulation, real_data)
     fit_suite.initPrint(10)
 
-    draw_observer = DefaultFitObserver()
+    draw_observer = DefaultFitObserver(draw_every_nth=10)
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values

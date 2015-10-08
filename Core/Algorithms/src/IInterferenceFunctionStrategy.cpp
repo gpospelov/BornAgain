@@ -81,7 +81,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
     Bin1D alpha_f_bin(sim_element.getAlphaMin(), sim_element.getAlphaMax());
     Bin1D phi_f_bin(sim_element.getPhiMin(), sim_element.getPhiMax());
     Bin1DCVector k_f_bin(wavelength, alpha_f_bin, phi_f_bin);
-    WavevectorInfo wavevectors(k_i, k_f_bin);
+    WavevectorInfo wavevectors(k_i, k_f_bin.getMidPoint());
 
     boost::scoped_ptr<const ILayerRTCoefficients> P_in_coeffs(
         mP_specular_info->getInCoefficients(alpha_i, 0.0, wavelength));
@@ -109,7 +109,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorLists(
     Bin1D alpha_f_bin(sim_element.getAlphaMin(), sim_element.getAlphaMax());
     Bin1D phi_f_bin(sim_element.getPhiMin(), sim_element.getPhiMax());
     Bin1DCVector k_f_bin(wavelength, alpha_f_bin, phi_f_bin);
-    WavevectorInfo wavevectors(k_i, k_f_bin);
+    WavevectorInfo wavevectors(k_i, k_f_bin.getMidPoint());
 
     boost::scoped_ptr<const ILayerRTCoefficients> P_in_coeffs(
         mP_specular_info->getInCoefficients(alpha_i, phi_i, wavelength));

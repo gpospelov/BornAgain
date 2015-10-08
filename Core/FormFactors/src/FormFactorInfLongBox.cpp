@@ -27,8 +27,8 @@ FormFactorInfLongBox *FormFactorInfLongBox::clone() const
 
 complex_t FormFactorInfLongBox::evaluate(const WavevectorInfo& wavevectors) const
 {
-    double qxmin = (wavevectors.getKi() - wavevectors.getKfBin().m_q_upper).x().real();
-    double qxmax = (wavevectors.getKi() - wavevectors.getKfBin().m_q_lower).x().real();
+    double qxmin = wavevectors.getQ().x().real();
+    double qxmax = wavevectors.getQ().x().real();
 
     if (qxmin < 0.0 && qxmax < 0.0)
         return 0;
@@ -36,7 +36,7 @@ complex_t FormFactorInfLongBox::evaluate(const WavevectorInfo& wavevectors) cons
     if (qxmin > 0.0 && qxmax > 0.0)
         return 0;
 
-    cvector_t q = wavevectors.getMiddleQ();
+    cvector_t q = wavevectors.getQ();
     complex_t qyWdiv2 = m_width*q.y()/2.0;
     complex_t qzHdiv2 = m_height*q.z()/2.0;
 

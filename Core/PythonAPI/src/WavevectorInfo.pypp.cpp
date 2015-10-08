@@ -32,14 +32,14 @@ void register_WavevectorInfo_class(){
         typedef bp::class_< WavevectorInfo > WavevectorInfo_exposer_t;
         WavevectorInfo_exposer_t WavevectorInfo_exposer = WavevectorInfo_exposer_t( "WavevectorInfo", "Holds all wavevector information relevant for calculating form factors.", bp::init< >() );
         bp::scope WavevectorInfo_scope( WavevectorInfo_exposer );
-        WavevectorInfo_exposer.def( bp::init< cvector_t, Bin1DCVector >(( bp::arg("ki"), bp::arg("kf_bin") )) );
-        { //::WavevectorInfo::getKfBin
+        WavevectorInfo_exposer.def( bp::init< cvector_t, cvector_t >(( bp::arg("ki"), bp::arg("kf") )) );
+        { //::WavevectorInfo::getKf
         
-            typedef ::Bin1DCVector ( ::WavevectorInfo::*getKfBin_function_type)(  ) const;
+            typedef ::cvector_t ( ::WavevectorInfo::*getKf_function_type)(  ) const;
             
             WavevectorInfo_exposer.def( 
-                "getKfBin"
-                , getKfBin_function_type( &::WavevectorInfo::getKfBin ) );
+                "getKf"
+                , getKf_function_type( &::WavevectorInfo::getKf ) );
         
         }
         { //::WavevectorInfo::getKi
@@ -51,22 +51,13 @@ void register_WavevectorInfo_class(){
                 , getKi_function_type( &::WavevectorInfo::getKi ) );
         
         }
-        { //::WavevectorInfo::getMiddleKf
+        { //::WavevectorInfo::getQ
         
-            typedef ::cvector_t ( ::WavevectorInfo::*getMiddleKf_function_type)(  ) const;
+            typedef ::cvector_t ( ::WavevectorInfo::*getQ_function_type)(  ) const;
             
             WavevectorInfo_exposer.def( 
-                "getMiddleKf"
-                , getMiddleKf_function_type( &::WavevectorInfo::getMiddleKf ) );
-        
-        }
-        { //::WavevectorInfo::getMiddleQ
-        
-            typedef ::cvector_t ( ::WavevectorInfo::*getMiddleQ_function_type)(  ) const;
-            
-            WavevectorInfo_exposer.def( 
-                "getMiddleQ"
-                , getMiddleQ_function_type( &::WavevectorInfo::getMiddleQ ) );
+                "getQ"
+                , getQ_function_type( &::WavevectorInfo::getQ ) );
         
         }
     }

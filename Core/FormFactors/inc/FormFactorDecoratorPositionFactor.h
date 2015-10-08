@@ -69,7 +69,7 @@ inline FormFactorDecoratorPositionFactor *FormFactorDecoratorPositionFactor::clo
 inline complex_t FormFactorDecoratorPositionFactor::evaluate(
         const WavevectorInfo& wavevectors) const
 {
-    cvector_t q = wavevectors.getMiddleQ();
+    cvector_t q = wavevectors.getQ();
     complex_t pos_factor = getPositionFactor(q);
     return pos_factor * mp_form_factor->evaluate(wavevectors);
 }
@@ -77,7 +77,7 @@ inline complex_t FormFactorDecoratorPositionFactor::evaluate(
 inline Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(
         const WavevectorInfo& wavevectors) const
 {
-    cvector_t q = wavevectors.getMiddleQ();
+    cvector_t q = wavevectors.getQ();
     complex_t pos_factor = getPositionFactor(q);
     return pos_factor * mp_form_factor->evaluatePol(wavevectors);
 }

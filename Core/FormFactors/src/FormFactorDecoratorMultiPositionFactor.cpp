@@ -29,14 +29,14 @@ FormFactorDecoratorMultiPositionFactor *FormFactorDecoratorMultiPositionFactor::
 
 complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const WavevectorInfo& wavevectors) const
 {
-    cvector_t q = wavevectors.getMiddleQ();
+    cvector_t q = wavevectors.getQ();
     return getPositionsFactor(q) * mp_form_factor->evaluate(wavevectors);
 }
 
 Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactor::evaluatePol(
         const WavevectorInfo& wavevectors) const
 {
-    cvector_t q = wavevectors.getMiddleQ();
+    cvector_t q = wavevectors.getQ();
     Eigen::Matrix2cd ff = mp_form_factor->evaluatePol(wavevectors);
     return getPositionsFactor(q) * ff;
 }

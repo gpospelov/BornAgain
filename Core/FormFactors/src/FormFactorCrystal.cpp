@@ -50,11 +50,7 @@ complex_t FormFactorCrystal::evaluate_for_q(const cvector_t &q) const
 complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
 {
     // construct reciprocal vector
-    cvector_t q_bin_lower = wavevectors.getKi() - wavevectors.getKfBin().m_q_lower;
-    cvector_t q_bin_upper = wavevectors.getKi() - wavevectors.getKfBin().m_q_upper;
-    Bin1DCVector q_bin = Bin1DCVector(q_bin_lower, q_bin_upper);
-
-    cvector_t q = q_bin.getMidPoint();
+    cvector_t q = wavevectors.getQ();
     kvector_t q_real(q.x().real(), q.y().real(), q.z().real());
     cvector_t k_zero;
     // calculate the used radius in function of the reciprocal lattice scale
@@ -68,9 +64,9 @@ complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
     complex_t result(0.0, 0.0);
     for (KVectorContainer::const_iterator it = rec_vectors.begin(); it != rec_vectors.end(); ++it) {
         cvector_t q_i((*it).x(), (*it).y(), (*it).z());
-        Bin1DCVector min_q_i_zero_bin(-q_i, -q_i);
-        Bin1DCVector q_i_min_q(q_i - q_bin.m_q_lower, q_i - q_bin.m_q_upper);
-        WavevectorInfo basis_wavevectors(k_zero, min_q_i_zero_bin);
+        cvector_t min_q_i= -q_i;
+        cvector_t q_i_min_q = q_i - q;
+        WavevectorInfo basis_wavevectors(k_zero, min_q_i);
         complex_t basis_factor
             = mp_basis_form_factor->evaluate(basis_wavevectors);
         WavevectorInfo meso_wavevectors(k_zero, q_i_min_q);
@@ -86,11 +82,7 @@ complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
 Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevectors) const
 {
     // construct reciprocal vector
-    cvector_t q_bin_lower = wavevectors.getKi() - wavevectors.getKfBin().m_q_lower;
-    cvector_t q_bin_upper = wavevectors.getKi() - wavevectors.getKfBin().m_q_upper;
-    Bin1DCVector q_bin = Bin1DCVector(q_bin_lower, q_bin_upper);
-
-    cvector_t q = q_bin.getMidPoint();
+    cvector_t q = wavevectors.getQ();
     kvector_t q_real(q.x().real(), q.y().real(), q.z().real());
     cvector_t k_zero;
     // calculate the used radius in function of the reciprocal lattice scale
@@ -104,9 +96,9 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevector
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
     for (KVectorContainer::const_iterator it = rec_vectors.begin(); it != rec_vectors.end(); ++it) {
         cvector_t q_i((*it).x(), (*it).y(), (*it).z());
-        Bin1DCVector min_q_i_zero_bin(-q_i, -q_i);
-        Bin1DCVector q_i_min_q(q_i - q_bin.m_q_lower, q_i - q_bin.m_q_upper);
-        WavevectorInfo basis_wavevectors(k_zero, min_q_i_zero_bin);
+        cvector_t min_q_i= -q_i;
+        cvector_t q_i_min_q = q_i - q;
+        WavevectorInfo basis_wavevectors(k_zero, min_q_i);
         Eigen::Matrix2cd basis_factor
             = mp_basis_form_factor->evaluatePol(basis_wavevectors);
         WavevectorInfo meso_wavevectors(k_zero, q_i_min_q);

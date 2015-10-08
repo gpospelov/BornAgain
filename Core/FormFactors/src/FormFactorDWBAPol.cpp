@@ -71,18 +71,14 @@ void FormFactorDWBAPol::calculateTerms(const WavevectorInfo& wavevectors) const
     cvector_t ki_2R(kix, kiy, mp_in_coeffs->getKz()(1));
     cvector_t ki_2T(kix, kiy, -mp_in_coeffs->getKz()(1));
 
-    Bin1DCVector kf_1R = wavevectors.getKfBin();
-    kf_1R.m_q_lower.setZ(-(complex_t)mp_out_coeffs->getKz()(0));
-    kf_1R.m_q_upper.setZ(-(complex_t)mp_out_coeffs->getKz()(0));
-    Bin1DCVector kf_1T = kf_1R;
-    kf_1T.m_q_lower.setZ((complex_t)mp_out_coeffs->getKz()(0));
-    kf_1T.m_q_upper.setZ((complex_t)mp_out_coeffs->getKz()(0));
-    Bin1DCVector kf_2R = kf_1R;
-    kf_2R.m_q_lower.setZ(-(complex_t)mp_out_coeffs->getKz()(1));
-    kf_2R.m_q_upper.setZ(-(complex_t)mp_out_coeffs->getKz()(1));
-    Bin1DCVector kf_2T = kf_1R;
-    kf_2T.m_q_lower.setZ((complex_t)mp_out_coeffs->getKz()(1));
-    kf_2T.m_q_upper.setZ((complex_t)mp_out_coeffs->getKz()(1));
+    cvector_t kf_1R = wavevectors.getKf();
+    kf_1R.setZ(-(complex_t)mp_out_coeffs->getKz()(0));
+    cvector_t kf_1T = kf_1R;
+    kf_1T.setZ((complex_t)mp_out_coeffs->getKz()(0));
+    cvector_t kf_2R = kf_1R;
+    kf_2R.setZ(-(complex_t)mp_out_coeffs->getKz()(1));
+    cvector_t kf_2T = kf_1R;
+    kf_2T.setZ((complex_t)mp_out_coeffs->getKz()(1));
     // now each of the 16 matrix terms of the polarized DWBA is calculated:
     // NOTE: when the underlying reflection/transmission coefficients are
     // scalar, the eigenmodes have identical eigenvalues and spin polarization

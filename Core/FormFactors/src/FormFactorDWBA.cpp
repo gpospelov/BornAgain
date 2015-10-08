@@ -59,18 +59,16 @@ void FormFactorDWBA::calculateTerms(const WavevectorInfo& wavevectors) const
     k_i_R.setZ(-k_i_T.z());
 
     // Retrieve the two different outgoing wavevector bins in the layer
-    Bin1DCVector k_f_T_bin = wavevectors.getKfBin();
-    k_f_T_bin.m_q_lower.setZ(mp_out_coeffs->getScalarKz());
-    k_f_T_bin.m_q_upper.setZ(mp_out_coeffs->getScalarKz());
-    Bin1DCVector k_f_R_bin = k_f_T_bin;
-    k_f_R_bin.m_q_lower.setZ(-k_f_T_bin.m_q_lower.z());
-    k_f_R_bin.m_q_upper.setZ(-k_f_T_bin.m_q_upper.z());
+    cvector_t k_f_T = wavevectors.getKf();
+    k_f_T.setZ(mp_out_coeffs->getScalarKz());
+    cvector_t k_f_R = k_f_T;
+    k_f_R.setZ(-k_f_T.z());
 
     // Construct the four different scattering contributions wavevector infos
-    WavevectorInfo k_TT(k_i_T, k_f_T_bin);
-    WavevectorInfo k_RT(k_i_R, k_f_T_bin);
-    WavevectorInfo k_TR(k_i_T, k_f_R_bin);
-    WavevectorInfo k_RR(k_i_R, k_f_R_bin);
+    WavevectorInfo k_TT(k_i_T, k_f_T);
+    WavevectorInfo k_RT(k_i_R, k_f_T);
+    WavevectorInfo k_TR(k_i_T, k_f_R);
+    WavevectorInfo k_RR(k_i_R, k_f_R);
 
     // The four different scattering contributions; S stands for scattering
     // off the particle, R for reflection off the layer interface

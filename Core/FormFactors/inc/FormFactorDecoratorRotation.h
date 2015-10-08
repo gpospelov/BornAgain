@@ -58,11 +58,9 @@ protected:
 
 inline complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo& wavevectors) const
 {
-    cvector_t new_ki = m_transform.transformedInverse(wavevectors.getKi());
-    cvector_t new_kf_lower = m_transform.transformedInverse(wavevectors.getKfBin().m_q_lower);
-    cvector_t new_kf_upper = m_transform.transformedInverse(wavevectors.getKfBin().m_q_upper);
-    Bin1DCVector new_kf_bin(new_kf_lower, new_kf_upper);
-    WavevectorInfo rotated_wavevectors(new_ki, new_kf_bin);
+    cvector_t rotated_ki = m_transform.transformedInverse(wavevectors.getKi());
+    cvector_t rotated_kf = m_transform.transformedInverse(wavevectors.getKf());
+    WavevectorInfo rotated_wavevectors(rotated_ki, rotated_kf);
     return mp_form_factor->evaluate(rotated_wavevectors);
 }
 

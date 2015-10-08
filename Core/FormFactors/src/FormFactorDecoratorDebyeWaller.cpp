@@ -44,7 +44,7 @@ FormFactorDecoratorDebyeWaller *FormFactorDecoratorDebyeWaller::clone() const
 
 complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo& wavevectors) const
 {
-    cvector_t q = wavevectors.getMiddleQ();
+    cvector_t q = wavevectors.getQ();
     double qr2 = std::norm(q.x()) + std::norm(q.y());
     double qz2 = std::norm(q.z());
     double dw = std::exp(-qz2 * m_h_dw_factor - qr2 * m_r_dw_factor);

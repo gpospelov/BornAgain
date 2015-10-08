@@ -44,7 +44,7 @@ public:
     IHistogram(const IAxis &axis_x);
     IHistogram(const IAxis &axis_x, const IAxis &axis_y);
 
-    //! Returns number of histogram dimensions (1 or 2).
+    //! Returns number of histogram dimensions.
     virtual size_t getRank() const;
 
     //! Returns total number of histogram bins. For 2D histograms the result will be the product
@@ -76,87 +76,84 @@ public:
     size_t getNbinsY() const;
 
     //! Returns global bin index for given axes indices. For 1D histogram the global bin
-    //! index coinside with axis index.
-    //! @param binx X-axis bin index
-    //! @param biny Y-axis bin index
+    //! index coinside with x-axis index.
+    //! @param binx x-axis bin index
+    //! @param biny y-axis bin index (for 2D histograms)
     //! @return The global bin index
-    int getGlobalBin(int binx, int biny = 0) const;
+    size_t getGlobalBin(size_t binx, size_t biny = 0) const;
 
     //! Returns closest global bin index for given axes coordinates. For 1D
     //! @param x Value on x-axis
-    //! @param y Value on y-axis
+    //! @param y Value on y-axis (for 2D histograms)
     //! @return Closest global bin index
-    int findGlobalBin(double x, double y) const;
+    size_t findGlobalBin(double x, double y) const;
 
     //! Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide
-    //! with globalbin value
+    //! with globalbin value.
     int getXaxisIndex(size_t globalbin) const;
 
-    //! Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide
-    //! with globalbin value
+    //! Returns y-axis bin index for given globalbin (for 2D histograms).
     int getYaxisIndex(size_t globalbin) const;
 
     //! Returns the value on x-axis corresponding to the global bin index.
-    //! @param binGlobalIndex The global bin index
-    //! @return The center of axis's corresponding bin
+    //! @param globalbin The global bin index
+    //! @return The center of corresponding bin of the axis
     double getXaxisValue(size_t globalbin);
 
     //! Returns the value on y-axis corresponding to the global bin index (for 2D histograms).
     //! @param globalbin The global bin index
-    //! @return The center of axis's corresponding bin
+    //! @return The center of corresponding bin of the axis
     double getYaxisValue(size_t globalbin);
 
     //! Returns content (accumulated value) of the bin with given index.
-    //! For 1D histograms bin index is related to x-axis.
-    //! For 2D histograms bin index is global bin index.
-    //! @param bin Bin index
+    //! @param globalbin The global bin index
     //! @return The value accumulated by the bin (integral)
-    double getBinContent(int bin) const;
+    double getBinContent(size_t globalbin) const;
 
-    //! Returns content (accumulated value) of the bin of 2D histogram with given axes indices.
-    //! @param binx X-axis bin index
-    //! @param biny Y-axis bin index
+    //! Returns content (accumulated value) of the bin with given indices (for 2D histograms).
+    //! @param binx x-axis bin index
+    //! @param biny y-axis bin index
     //! @return The value accumulated by the bin (integral)
-    double getBinContent(int binx, int biny) const;
+    double getBinContent(size_t binx, size_t biny) const;
+
+    //! Sets content of the bin corresponding to the globalbin number
+    void setBinContent(size_t globalbin, double value);
 
     //! Returns error of the bin with given index.
-    //! For 1D histograms bin index is related to x-axis.
-    //! For 2D histograms bin index is global bin index.
-    double getBinError(int bin) const;
+    double getBinError(size_t globalbin) const;
 
-    //! Returns error of the bin of 2D histogram with given axes indices.
-    double getBinError(int binx, int biny) const;
+    //! Returns error of the bin with given indices (for 2D histograms).
+    double getBinError(size_t binx, size_t biny) const;
 
     //! Returns average value in the bin with given index.
-    //! For 1D histograms bin index is related to x-axis.
-    //! For 2D histograms bin index is global bin index.
-    double getBinAverage(int bin) const;
+    double getBinAverage(size_t globalbin) const;
 
-    //! Returns average value in the bin of 2D histogram with given axes indices.
-    double getBinAverage(int binx, int biny) const;
+    //! Returns average value of the bin with given indices (for 2D histograms).
+    double getBinAverage(size_t binx, size_t biny) const;
 
     //! Returns number of entries in the bin with given index.
-    //! For 1D histograms bin index is related to x-axis.
-    //! For 2D histograms bin index is global bin index.
-    int getBinNumberOfEntries(int bin) const;
+    int getBinNumberOfEntries(size_t globalbin) const;
 
-    //! Returns number of entries in the bin of 2D histogram with given axes indices.
-    int getBinNumberOfEntries(int binx, int biny) const;
+    //! Returns number of entries in the bin with given indices (for 2D histograms).
+    int getBinNumberOfEntries(size_t binx, size_t biny) const;
 
     //! Returns histogram maximum value (maximum of getBinContent() over all bins)
     double getMaximum() const;
 
-    //! Returns histogram maximum bin global index
-    int getMaximumBinIndex() const;
+    //! Returns globalbin index with maximum content
+    size_t getMaximumBinIndex() const;
 
     //! Returns histogram minimum value (minimum of getBinContent() over all bins)
     double getMinimum() const;
 
-    //! Returns histogram minimum bin global index
-    int getMinimumBinIndex() const;
+    //! Returns globalbin index with minimum content
+    size_t getMinimumBinIndex() const;
 
-    //! Multiply this histogram by a constant
+    //! Multiply this histogram (every bin content value) by a constant
     void scale(double value);
+
+    //! Returns integral of bins content (computed as a sum of all bin content).
+    double integral() const;
 
 //    double& operator[](size_t index);
 //    const double& operator[](size_t index) const;

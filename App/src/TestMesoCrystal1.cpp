@@ -33,7 +33,7 @@ void TestMesoCrystal1::execute()
             + "mesocrystal01_reference.int.gz";
 
     OutputData<double> *reference =
-            IntensityDataIOFactory::readIntensityData(filename);
+            IntensityDataIOFactory::readOutputData(filename);
 
     simulation->runSimulation();
     simulation->normalize();
@@ -57,7 +57,7 @@ void TestMesoCrystal1::execute()
     IsGISAXSTools::drawOutputDataComparisonResults(
             *data, *reference, "found", "found params", 100, 1e6);
 
-    IntensityDataIOFactory::writeIntensityData(*data,"test_mesocrystal1.int");
+    IntensityDataIOFactory::writeOutputData(*data,"test_mesocrystal1.int");
     delete data;
 
     delete simulation;

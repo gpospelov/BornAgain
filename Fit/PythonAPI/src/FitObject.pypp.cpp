@@ -115,17 +115,6 @@ void register_FitObject_class(){
         typedef bp::class_< FitObject_wrapper, bp::bases< IParameterized >, boost::noncopyable > FitObject_exposer_t;
         FitObject_exposer_t FitObject_exposer = FitObject_exposer_t( "FitObject", "Holds simulation description and real data to run the fit.", bp::init< GISASSimulation const &, OutputData< double > const &, bp::optional< double > >(( bp::arg("simulation"), bp::arg("real_data"), bp::arg("weight")=1 ), "FitObject constructor @param simulaiton The simulation to eun @param real_data The real data @param weight Weight of dataset in chi2 calculations \n\n:Parameters:\n  - 'simulaiton' - The simulation to eun\n  - 'real_data' - The real data\n  - 'weight' - Weight of dataset in chi2 calculations\n") );
         bp::scope FitObject_scope( FitObject_exposer );
-        { //::FitObject::getChiSquaredMap
-        
-            typedef ::OutputData< double > * ( ::FitObject::*getChiSquaredMap_function_type)( ::__gnu_cxx::__normal_iterator< const FitElement*, std::vector< FitElement > >,::__gnu_cxx::__normal_iterator< const FitElement*, std::vector< FitElement > > ) const;
-            
-            FitObject_exposer.def( 
-                "getChiSquaredMap"
-                , getChiSquaredMap_function_type( &::FitObject::getChiSquaredMap )
-                , ( bp::arg("first"), bp::arg("last") )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
         { //::FitObject::getRealData
         
             typedef ::OutputData< double > const * ( ::FitObject::*getRealData_function_type)(  ) const;

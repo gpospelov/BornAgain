@@ -6,10 +6,9 @@ We show how to generate "real" data and how to draw fit progress.
 Please take a note, that performance here is determined by poor performance of matplotlib drawing routines.
 """
 
-
-import numpy
 import matplotlib
 from matplotlib import pyplot as plt
+import math
 from bornagain import *
 
 plt.ion()
@@ -63,15 +62,15 @@ def create_real_data():
     real_data = simulation.getIntensityData()
 
     # spoiling simulated data with the noise to produce "real" data
-    # noise_factor = 0.1
-    # for i in range(0, real_data.getAllocatedSize()):
-    #     amplitude = real_data[i]
-    #     sigma = noise_factor*math.sqrt(amplitude)
-    #     noisy_amplitude = GenerateNormalRandom(amplitude, sigma)
-    #     if noisy_amplitude < 0.0:
-    #         noisy_amplitude = 0.0
-    #     real_data[i] = noisy_amplitude
-    #IntensityDataIOFactory.writeIntensityData(real_data, 'refdata_fitcylinderprisms.int')
+    noise_factor = 0.1
+    for i in range(0, real_data.getTotalNumberOfBins()):
+        amplitude = real_data.getBinContent(i)
+        sigma = noise_factor*math.sqrt(amplitude)
+        noisy_amplitude = GenerateNormalRandom(amplitude, sigma)
+        if noisy_amplitude < 0.0:
+            noisy_amplitude = 0.0
+        real_data.setBinContent(i, noisy_amplitude)
+    IntensityDataIOFactory.writeIntensityData(real_data, 'refdata_fitcylinderprisms.int')
 
 
 
@@ -88,7 +87,7 @@ def get_simulation():
 class DrawObserver(IFitObserver):
     """
     Draws fit progress every nth iteration. This class  has to be attached to FitSuite via attachObserver method.
-    FitSuite kernel will call DrawObserver's update method every n'th iteration.
+    FitSuite kernel will call DrawObserver's update() method every n'th iteration.
     It is up to the user what to do here.
     """
     def __init__(self, draw_every_nth=10):
@@ -99,15 +98,16 @@ class DrawObserver(IFitObserver):
         plt.subplots_adjust(wspace=0.2, hspace=0.2)
         im = plt.imshow(data.getArray(),
                         norm=matplotlib.colors.LogNorm(min, max),
-                        extent=[-1.0, 1.0, 0, 2.0])
+                        extent=[data.getXmin()/deg, data.getXmax()/deg, data.getYmin()/deg, data.getYmax()/deg])
         plt.colorbar(im)
         plt.title(title)
 
     def update(self, fit_suite):
         fig.clf()
-        self.plot(fit_suite.getRealData(), "\"Real\" data", 1)
-        self.plot(fit_suite.getSimulationData(), "Simulated data", 2)
-        self.plot(fit_suite.getChiSquaredMap(), "Chi2 map", 3, min=0.001, max=1.0)
+        real_data = fit_suite.getRealData()
+        self.plot(real_data, "\"Real\" data", nplot=1, min=1.0, max=real_data.getMaximum())
+        self.plot(fit_suite.getSimulationData(), "Simulated data", nplot=2, min=1.0, max=real_data.getMaximum())
+        self.plot(fit_suite.getChiSquaredMap(), "Chi2 map", nplot=3, min=0.001, max=1.0)
 
         plt.subplot(2, 2, 4)
         plt.title('Parameters')
@@ -128,8 +128,8 @@ def run_fitting():
     main function to run fitting
     """
 
-    # uncomment to regenerate "real" data
-    #create_real_data()
+    # uncomment to regenerate file with "real" data
+    # create_real_data()
 
     sample = get_sample()
     simulation = get_simulation()

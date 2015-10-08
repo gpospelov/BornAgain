@@ -209,6 +209,29 @@ TEST_F(Histogram1DTest, GetMaximumGetMinimum)
     EXPECT_EQ(1, hist.getMaximumBinIndex());
 }
 
+TEST_F(Histogram1DTest, Scale)
+{
+    Histogram1D hist(10, -5.0, 5.0);
+
+    for(size_t i=0; i<hist.getTotalNumberOfBins(); ++i) {
+        hist.fill(-4.5+i, 1.0);
+    }
+    hist.scale(10.0);
+    for(size_t i=0; i<hist.getTotalNumberOfBins(); ++i) {
+        EXPECT_EQ(10.0, hist.getBinContent(i));
+    }
+
+}
+
+TEST_F(Histogram1DTest, Integral)
+{
+    Histogram1D hist(10, -5.0, 5.0);
+
+    for(size_t i=0; i<hist.getTotalNumberOfBins(); ++i) {
+        hist.fill(-4.5+i, 1.0);
+    }
+    EXPECT_EQ(10.0, hist.integral());
+}
 
 
 #endif

@@ -77,7 +77,7 @@ void TestInfLongBox::execute()
 void TestInfLongBox::save_results()
 {
     std::string filename(getOutputPath()+"test_inflongbox.ima");
-    IntensityDataIOFactory::writeIntensityData(*(mp_simulation->getDetectorIntensity()),
+    IntensityDataIOFactory::writeOutputData(*(mp_simulation->getDetectorIntensity()),
                                          filename);
 }
 

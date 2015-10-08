@@ -31,6 +31,13 @@ void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation,
     m_kernel->addSimulationAndRealData(simulation, real_data);
 }
 
+void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation,
+                                        const IHistogram &real_data)
+{
+    boost::scoped_ptr<OutputData<double> > data(real_data.createOutputData());
+    m_kernel->addSimulationAndRealData(simulation, *data);
+}
+
 void FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &attlim,
                                double step)
 {

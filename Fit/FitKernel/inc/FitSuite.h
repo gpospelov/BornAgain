@@ -38,6 +38,10 @@ public:
     void addSimulationAndRealData(const GISASSimulation& simulation,
                                   const OutputData<double>& real_data);
 
+    //! Assigns pair of (simulation, real data) for fitting. More than one pair can be added.
+    void addSimulationAndRealData(const GISASSimulation& simulation,
+                                  const IHistogram& real_data);
+
     //! Adds fit parameter
     //! @param name The name of fit parameter
     //! @param value Parameter's starting value

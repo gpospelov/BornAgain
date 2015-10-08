@@ -104,13 +104,13 @@ void register_IHistogram_class(){
         }
         { //::IHistogram::findGlobalBin
         
-            typedef int ( ::IHistogram::*findGlobalBin_function_type)( double,double ) const;
+            typedef ::std::size_t ( ::IHistogram::*findGlobalBin_function_type)( double,double ) const;
             
             IHistogram_exposer.def( 
                 "findGlobalBin"
                 , findGlobalBin_function_type( &::IHistogram::findGlobalBin )
                 , ( bp::arg("x"), bp::arg("y") )
-                , "Returns closest global bin index for given axes coordinates. For 1D @param x Value on x-axis @param y Value on y-axis @return Closest global bin index \n\n:Parameters:\n  - 'x' - Value on x-axis\n  - 'y' - Value on y-axis\n" );
+                , "Returns closest global bin index for given axes coordinates. For 1D @param x Value on x-axis @param y Value on y-axis (for 2D histograms) @return Closest global bin index \n\n:Parameters:\n  - 'x' - Value on x-axis\n  - 'y' - Value on y-axis (for 2D histograms)\n" );
         
         }
         { //::IHistogram::getArray
@@ -126,101 +126,101 @@ void register_IHistogram_class(){
         }
         { //::IHistogram::getBinAverage
         
-            typedef double ( ::IHistogram::*getBinAverage_function_type)( int ) const;
+            typedef double ( ::IHistogram::*getBinAverage_function_type)( ::std::size_t ) const;
             
             IHistogram_exposer.def( 
                 "getBinAverage"
                 , getBinAverage_function_type( &::IHistogram::getBinAverage )
-                , ( bp::arg("bin") )
-                , "Returns average value in the bin with given index. For 1D histograms bin index is related to x-axis. For 2D histograms bin index is global bin index. " );
+                , ( bp::arg("globalbin") )
+                , "Returns average value in the bin with given index." );
         
         }
         { //::IHistogram::getBinAverage
         
-            typedef double ( ::IHistogram::*getBinAverage_function_type)( int,int ) const;
+            typedef double ( ::IHistogram::*getBinAverage_function_type)( ::std::size_t,::std::size_t ) const;
             
             IHistogram_exposer.def( 
                 "getBinAverage"
                 , getBinAverage_function_type( &::IHistogram::getBinAverage )
                 , ( bp::arg("binx"), bp::arg("biny") )
-                , "Returns average value in the bin of 2D histogram with given axes indices." );
+                , "Returns average value of the bin with given indices (for 2D histograms)." );
         
         }
         { //::IHistogram::getBinContent
         
-            typedef double ( ::IHistogram::*getBinContent_function_type)( int ) const;
+            typedef double ( ::IHistogram::*getBinContent_function_type)( ::std::size_t ) const;
             
             IHistogram_exposer.def( 
                 "getBinContent"
                 , getBinContent_function_type( &::IHistogram::getBinContent )
-                , ( bp::arg("bin") )
-                , "Returns content (accumulated value) of the bin with given index. For 1D histograms bin index is related to x-axis. For 2D histograms bin index is global bin index. @param bin Bin index @return The value accumulated by the bin (integral) \n\n:Parameters:\n  - 'bin' - Bin index\n" );
+                , ( bp::arg("globalbin") )
+                , "Returns content (accumulated value) of the bin with given index. @param globalbin The global bin index @return The value accumulated by the bin (integral) \n\n:Parameters:\n  - 'globalbin' - The global bin index\n" );
         
         }
         { //::IHistogram::getBinContent
         
-            typedef double ( ::IHistogram::*getBinContent_function_type)( int,int ) const;
+            typedef double ( ::IHistogram::*getBinContent_function_type)( ::std::size_t,::std::size_t ) const;
             
             IHistogram_exposer.def( 
                 "getBinContent"
                 , getBinContent_function_type( &::IHistogram::getBinContent )
                 , ( bp::arg("binx"), bp::arg("biny") )
-                , "Returns content (accumulated value) of the bin of 2D histogram with given axes indices. @param binx X-axis bin index @param biny Y-axis bin index @return The value accumulated by the bin (integral) \n\n:Parameters:\n  - 'binx' - X-axis bin index\n  - 'biny' - Y-axis bin index\n" );
+                , "Returns content (accumulated value) of the bin with given indices (for 2D histograms). @param binx x-axis bin index @param biny y-axis bin index @return The value accumulated by the bin (integral) \n\n:Parameters:\n  - 'binx' - x-axis bin index\n  - 'biny' - y-axis bin index\n" );
         
         }
         { //::IHistogram::getBinError
         
-            typedef double ( ::IHistogram::*getBinError_function_type)( int ) const;
+            typedef double ( ::IHistogram::*getBinError_function_type)( ::std::size_t ) const;
             
             IHistogram_exposer.def( 
                 "getBinError"
                 , getBinError_function_type( &::IHistogram::getBinError )
-                , ( bp::arg("bin") )
-                , "Returns error of the bin with given index. For 1D histograms bin index is related to x-axis. For 2D histograms bin index is global bin index. " );
+                , ( bp::arg("globalbin") )
+                , "Returns error of the bin with given index." );
         
         }
         { //::IHistogram::getBinError
         
-            typedef double ( ::IHistogram::*getBinError_function_type)( int,int ) const;
+            typedef double ( ::IHistogram::*getBinError_function_type)( ::std::size_t,::std::size_t ) const;
             
             IHistogram_exposer.def( 
                 "getBinError"
                 , getBinError_function_type( &::IHistogram::getBinError )
                 , ( bp::arg("binx"), bp::arg("biny") )
-                , "Returns error of the bin of 2D histogram with given axes indices." );
+                , "Returns error of the bin with given indices (for 2D histograms)." );
         
         }
         { //::IHistogram::getBinNumberOfEntries
         
-            typedef int ( ::IHistogram::*getBinNumberOfEntries_function_type)( int ) const;
+            typedef int ( ::IHistogram::*getBinNumberOfEntries_function_type)( ::std::size_t ) const;
             
             IHistogram_exposer.def( 
                 "getBinNumberOfEntries"
                 , getBinNumberOfEntries_function_type( &::IHistogram::getBinNumberOfEntries )
-                , ( bp::arg("bin") )
-                , "Returns number of entries in the bin with given index. For 1D histograms bin index is related to x-axis. For 2D histograms bin index is global bin index. " );
+                , ( bp::arg("globalbin") )
+                , "Returns number of entries in the bin with given index." );
         
         }
         { //::IHistogram::getBinNumberOfEntries
         
-            typedef int ( ::IHistogram::*getBinNumberOfEntries_function_type)( int,int ) const;
+            typedef int ( ::IHistogram::*getBinNumberOfEntries_function_type)( ::std::size_t,::std::size_t ) const;
             
             IHistogram_exposer.def( 
                 "getBinNumberOfEntries"
                 , getBinNumberOfEntries_function_type( &::IHistogram::getBinNumberOfEntries )
                 , ( bp::arg("binx"), bp::arg("biny") )
-                , "Returns number of entries in the bin of 2D histogram with given axes indices." );
+                , "Returns number of entries in the bin with given indices (for 2D histograms)." );
         
         }
         { //::IHistogram::getGlobalBin
         
-            typedef int ( ::IHistogram::*getGlobalBin_function_type)( int,int ) const;
+            typedef ::std::size_t ( ::IHistogram::*getGlobalBin_function_type)( ::std::size_t,::std::size_t ) const;
             
             IHistogram_exposer.def( 
                 "getGlobalBin"
                 , getGlobalBin_function_type( &::IHistogram::getGlobalBin )
-                , ( bp::arg("binx"), bp::arg("biny")=(int)(0) )
-                , "Returns global bin index for given axes indices. For 1D histogram the global bin index coinside with axis index. @param binx X-axis bin index @param biny Y-axis bin index @return The global bin index \n\n:Parameters:\n  - 'binx' - X-axis bin index\n  - 'biny' - Y-axis bin index\n" );
+                , ( bp::arg("binx"), bp::arg("biny")=(::std::size_t)(0) )
+                , "Returns global bin index for given axes indices. For 1D histogram the global bin index coinside with x-axis index. @param binx x-axis bin index @param biny y-axis bin index (for 2D histograms) @return The global bin index \n\n:Parameters:\n  - 'binx' - x-axis bin index\n  - 'biny' - y-axis bin index (for 2D histograms)\n" );
         
         }
         { //::IHistogram::getMaximum
@@ -235,12 +235,12 @@ void register_IHistogram_class(){
         }
         { //::IHistogram::getMaximumBinIndex
         
-            typedef int ( ::IHistogram::*getMaximumBinIndex_function_type)(  ) const;
+            typedef ::std::size_t ( ::IHistogram::*getMaximumBinIndex_function_type)(  ) const;
             
             IHistogram_exposer.def( 
                 "getMaximumBinIndex"
                 , getMaximumBinIndex_function_type( &::IHistogram::getMaximumBinIndex )
-                , "Returns histogram maximum bin global index." );
+                , "Returns globalbin index with maximum content." );
         
         }
         { //::IHistogram::getMinimum
@@ -255,12 +255,12 @@ void register_IHistogram_class(){
         }
         { //::IHistogram::getMinimumBinIndex
         
-            typedef int ( ::IHistogram::*getMinimumBinIndex_function_type)(  ) const;
+            typedef ::std::size_t ( ::IHistogram::*getMinimumBinIndex_function_type)(  ) const;
             
             IHistogram_exposer.def( 
                 "getMinimumBinIndex"
                 , getMinimumBinIndex_function_type( &::IHistogram::getMinimumBinIndex )
-                , "Returns histogram minimum bin global index." );
+                , "Returns globalbin index with minimum content." );
         
         }
         { //::IHistogram::getNbinsX
@@ -323,7 +323,7 @@ void register_IHistogram_class(){
                 "getXaxisIndex"
                 , getXaxisIndex_function_type( &::IHistogram::getXaxisIndex )
                 , ( bp::arg("globalbin") )
-                , "Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide with globalbin value " );
+                , "Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide with globalbin value. " );
         
         }
         { //::IHistogram::getXaxisValue
@@ -334,7 +334,7 @@ void register_IHistogram_class(){
                 "getXaxisValue"
                 , getXaxisValue_function_type( &::IHistogram::getXaxisValue )
                 , ( bp::arg("globalbin") )
-                , "Returns the value on x-axis corresponding to the global bin index. @param binGlobalIndex The global bin index @return The center of axis's corresponding bin \n\n:Parameters:\n  - 'binGlobalIndex' - The global bin index\n" );
+                , "Returns the value on x-axis corresponding to the global bin index. @param globalbin The global bin index @return The center of corresponding bin of the axis \n\n:Parameters:\n  - 'globalbin' - The global bin index\n" );
         
         }
         { //::IHistogram::getXmax
@@ -376,7 +376,7 @@ void register_IHistogram_class(){
                 "getYaxisIndex"
                 , getYaxisIndex_function_type( &::IHistogram::getYaxisIndex )
                 , ( bp::arg("globalbin") )
-                , "Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide with globalbin value " );
+                , "Returns y-axis bin index for given globalbin (for 2D histograms)." );
         
         }
         { //::IHistogram::getYaxisValue
@@ -387,7 +387,7 @@ void register_IHistogram_class(){
                 "getYaxisValue"
                 , getYaxisValue_function_type( &::IHistogram::getYaxisValue )
                 , ( bp::arg("globalbin") )
-                , "Returns the value on y-axis corresponding to the global bin index (for 2D histograms). @param globalbin The global bin index @return The center of axis's corresponding bin \n\n:Parameters:\n  - 'globalbin' - The global bin index\n" );
+                , "Returns the value on y-axis corresponding to the global bin index (for 2D histograms). @param globalbin The global bin index @return The center of corresponding bin of the axis \n\n:Parameters:\n  - 'globalbin' - The global bin index\n" );
         
         }
         { //::IHistogram::getYmax
@@ -432,6 +432,16 @@ void register_IHistogram_class(){
                 , "Returns true if object have same dimensions and shape of axises." );
         
         }
+        { //::IHistogram::integral
+        
+            typedef double ( ::IHistogram::*integral_function_type)(  ) const;
+            
+            IHistogram_exposer.def( 
+                "integral"
+                , integral_function_type( &::IHistogram::integral )
+                , "Returns integral of bins content (computed as a sum of all bin content)." );
+        
+        }
         { //::IHistogram::reset
         
             typedef void ( ::IHistogram::*reset_function_type)(  ) ;
@@ -450,7 +460,18 @@ void register_IHistogram_class(){
                 "scale"
                 , scale_function_type( &::IHistogram::scale )
                 , ( bp::arg("value") )
-                , "Multiply this histogram by a constant." );
+                , "Multiply this histogram (every bin content value) by a constant." );
+        
+        }
+        { //::IHistogram::setBinContent
+        
+            typedef void ( ::IHistogram::*setBinContent_function_type)( ::std::size_t,double ) ;
+            
+            IHistogram_exposer.def( 
+                "setBinContent"
+                , setBinContent_function_type( &::IHistogram::setBinContent )
+                , ( bp::arg("globalbin"), bp::arg("value") )
+                , "Sets content of the bin corresponding to the globalbin number." );
         
         }
         IHistogram_exposer.staticmethod( "createHistogram" );

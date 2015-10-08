@@ -93,7 +93,7 @@ void CoreFunctionalTest::saveSimulationResults() const
 {
     Utils::FileSystem::CreateDirectory(directory_name_for_failed_tests);
     boost::scoped_ptr<OutputData<double> > result_data(getIntensityData());
-    IntensityDataIOFactory::writeIntensityData(*result_data.get(),
+    IntensityDataIOFactory::writeOutputData(*result_data.get(),
                                                getSimulationResultsFileNameAndPath());
 }
 

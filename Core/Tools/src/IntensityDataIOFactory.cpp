@@ -28,7 +28,7 @@
 /* ************************************************************************* */
 // reading output data
 /* ************************************************************************* */
-OutputData<double > *IntensityDataIOFactory::readIntensityData(
+OutputData<double > *IntensityDataIOFactory::readOutputData(
         const std::string& file_name)
 {
     boost::scoped_ptr<OutputDataReader> P_reader(getReader(file_name));
@@ -37,8 +37,13 @@ OutputData<double > *IntensityDataIOFactory::readIntensityData(
 
 IHistogram *IntensityDataIOFactory::readHistogram(const std::string &file_name)
 {
-    boost::scoped_ptr<OutputData<double> > data(readIntensityData(file_name));
+    boost::scoped_ptr<OutputData<double> > data(readOutputData(file_name));
     return IHistogram::createHistogram(*data);
+}
+
+IHistogram *IntensityDataIOFactory::readIntensityData(const std::string &file_name)
+{
+    return readHistogram(file_name);
 }
 
 
@@ -66,24 +71,29 @@ OutputDataReader* IntensityDataIOFactory::getReader(
 /* ************************************************************************* */
 // writing output data
 /* ************************************************************************* */
-void IntensityDataIOFactory::writeIntensityData(const OutputData<double>& data,
+void IntensityDataIOFactory::writeOutputData(const OutputData<double>& data,
         const std::string& file_name)
 {
     boost::scoped_ptr<OutputDataWriter> P_writer(getWriter(file_name));
     return P_writer->writeOutputData(data);
 }
 
-void IntensityDataIOFactory::writeIntensityData(const IHistogram &histogram,
-                                                const std::string &file_name)
-{
-    writeHistogram(histogram, file_name);
-}
+//void IntensityDataIOFactory::writeOutputData(const IHistogram &histogram,
+//                                                const std::string &file_name)
+//{
+//    writeHistogram(histogram, file_name);
+//}
 
 void IntensityDataIOFactory::writeHistogram(const IHistogram &histogram,
                                                 const std::string &file_name)
 {
     boost::scoped_ptr<OutputData<double> > data(histogram.createOutputData());
-    writeIntensityData(*data, file_name);
+    writeOutputData(*data, file_name);
+}
+
+void IntensityDataIOFactory::writeIntensityData(const IHistogram &histogram, const std::string &file_name)
+{
+    writeHistogram(histogram, file_name);
 }
 
 OutputDataWriter* IntensityDataIOFactory::getWriter(

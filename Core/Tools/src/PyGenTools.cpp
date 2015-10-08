@@ -118,7 +118,7 @@ bool PyGenTools::testPyScript(GISASSimulation *simulation)
     boost::scoped_ptr<const OutputData<double> > P_reference_data(
                 simulation->getDetectorIntensity());
     boost::scoped_ptr<const OutputData<double> > P_simulated_data(
-                IntensityDataIOFactory::readIntensityData("output.int"));
+                IntensityDataIOFactory::readOutputData("output.int"));
     if (std::remove("output.int") != 0) {
         throw RuntimeErrorException("PyGenTools::testPyScript: "
             "output.int could not be removed from filesystem");

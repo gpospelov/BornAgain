@@ -40,18 +40,29 @@ void register_IntensityDataIOFactory_class(){
                 "readHistogram"
                 , readHistogram_function_type( &::IntensityDataIOFactory::readHistogram )
                 , ( bp::arg("file_name") )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IntensityDataIOFactory::readIntensityData
         
-            typedef ::OutputData< double > * ( *readIntensityData_function_type )( ::std::string const & );
+            typedef ::IHistogram * ( *readIntensityData_function_type )( ::std::string const & );
             
             IntensityDataIOFactory_exposer.def( 
                 "readIntensityData"
                 , readIntensityData_function_type( &::IntensityDataIOFactory::readIntensityData )
                 , ( bp::arg("file_name") )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::IntensityDataIOFactory::readOutputData
+        
+            typedef ::OutputData< double > * ( *readOutputData_function_type )( ::std::string const & );
+            
+            IntensityDataIOFactory_exposer.def( 
+                "readOutputData"
+                , readOutputData_function_type( &::IntensityDataIOFactory::readOutputData )
+                , ( bp::arg("file_name") )
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IntensityDataIOFactory::writeHistogram
@@ -66,16 +77,6 @@ void register_IntensityDataIOFactory_class(){
         }
         { //::IntensityDataIOFactory::writeIntensityData
         
-            typedef void ( *writeIntensityData_function_type )( ::OutputData< double > const &,::std::string const & );
-            
-            IntensityDataIOFactory_exposer.def( 
-                "writeIntensityData"
-                , writeIntensityData_function_type( &::IntensityDataIOFactory::writeIntensityData )
-                , ( bp::arg("data"), bp::arg("file_name") ) );
-        
-        }
-        { //::IntensityDataIOFactory::writeIntensityData
-        
             typedef void ( *writeIntensityData_function_type )( ::IHistogram const &,::std::string const & );
             
             IntensityDataIOFactory_exposer.def( 
@@ -84,10 +85,22 @@ void register_IntensityDataIOFactory_class(){
                 , ( bp::arg("histogram"), bp::arg("file_name") ) );
         
         }
+        { //::IntensityDataIOFactory::writeOutputData
+        
+            typedef void ( *writeOutputData_function_type )( ::OutputData< double > const &,::std::string const & );
+            
+            IntensityDataIOFactory_exposer.def( 
+                "writeOutputData"
+                , writeOutputData_function_type( &::IntensityDataIOFactory::writeOutputData )
+                , ( bp::arg("data"), bp::arg("file_name") ) );
+        
+        }
         IntensityDataIOFactory_exposer.staticmethod( "readHistogram" );
         IntensityDataIOFactory_exposer.staticmethod( "readIntensityData" );
+        IntensityDataIOFactory_exposer.staticmethod( "readOutputData" );
         IntensityDataIOFactory_exposer.staticmethod( "writeHistogram" );
         IntensityDataIOFactory_exposer.staticmethod( "writeIntensityData" );
+        IntensityDataIOFactory_exposer.staticmethod( "writeOutputData" );
     }
 
 }

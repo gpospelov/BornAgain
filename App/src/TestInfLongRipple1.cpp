@@ -79,7 +79,7 @@ void TestInfLongRipple1::save_results()
     // run simulation for default sample parameters
     //mp_simulation->runSimulation();
     std::string filename(getOutputPath()+"test_inflongripple1.ima");
-    IntensityDataIOFactory::writeIntensityData(*(mp_simulation->getDetectorIntensity()),
+    IntensityDataIOFactory::writeOutputData(*(mp_simulation->getDetectorIntensity()),
                                          filename);
 }
 

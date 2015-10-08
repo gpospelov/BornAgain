@@ -6,13 +6,13 @@
 
 int main(int argc, char **argv)
 {
-    boost::scoped_ptr<OutputData<double> > P_reference00(IntensityDataIOFactory::readIntensityData(
+    boost::scoped_ptr<OutputData<double> > P_reference00(IntensityDataIOFactory::readOutputData(
         Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_00.int.gz"));
-    boost::scoped_ptr<OutputData<double> > P_reference01(IntensityDataIOFactory::readIntensityData(
+    boost::scoped_ptr<OutputData<double> > P_reference01(IntensityDataIOFactory::readOutputData(
         Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_01.int.gz"));
-    boost::scoped_ptr<OutputData<double> > P_reference10(IntensityDataIOFactory::readIntensityData(
+    boost::scoped_ptr<OutputData<double> > P_reference10(IntensityDataIOFactory::readOutputData(
         Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_10.int.gz"));
-    boost::scoped_ptr<OutputData<double> > P_reference11(IntensityDataIOFactory::readIntensityData(
+    boost::scoped_ptr<OutputData<double> > P_reference11(IntensityDataIOFactory::readOutputData(
         Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_11.int.gz"));
 
     SimulationRegistry sim_registry;

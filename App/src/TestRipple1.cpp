@@ -77,7 +77,7 @@ void TestRipple1::execute()
 void TestRipple1::save_results()
 {
     std::string filename(getOutputPath()+"test_ripple1.ima");
-    IntensityDataIOFactory::writeIntensityData(*(mp_simulation->getDetectorIntensity()),
+    IntensityDataIOFactory::writeOutputData(*(mp_simulation->getDetectorIntensity()),
                                          filename);
     std::cout << "Data saved to " << filename << std::endl;
 }

@@ -206,8 +206,10 @@ def ManualClassTunings(mb):
     cl.member_function("processFitElements").exclude()
     cl = mb.class_("IChiSquaredModule")
     cl.member_function("processFitElements").exclude()
+
     cl = mb.class_("FitObject")
     cl.member_function("prepareFitElements").exclude()
+    cl.member_function("getChiSquaredMap").exclude()
 
 
 # excluding specific member functions

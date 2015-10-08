@@ -80,7 +80,7 @@ void TestIsGISAXS5::run_isgisaxs_comparison()
 {
     // run simulation for default sample parameters
     mp_simulation->runSimulation();
-    IntensityDataIOFactory::writeIntensityData(*(mp_simulation->getOutputData()),
+    IntensityDataIOFactory::writeOutputData(*(mp_simulation->getOutputData()),
                                                "this_fitexample.ima");
 
     // plotting results of comparison we/isgisaxs for the sample with default parameters
@@ -90,8 +90,8 @@ void TestIsGISAXS5::run_isgisaxs_comparison()
     // -------------
     // plot results
     // -------------
-    OutputData<double> *isgi_data = IntensityDataIOFactory::readIntensityData(isgi_file);
-    OutputData<double> *our_data = IntensityDataIOFactory::readIntensityData(this_file);
+    OutputData<double> *isgi_data = IntensityDataIOFactory::readOutputData(isgi_file);
+    OutputData<double> *our_data = IntensityDataIOFactory::readOutputData(this_file);
 
     IsGISAXSTools::drawOutputDataComparisonResults(
         *our_data, *isgi_data, "TestIsGISAXS5_c1",

@@ -78,7 +78,7 @@ void TestRipple2::save_results()
     // run simulation for default sample parameters
     //mp_simulation->runSimulation();
     std::string filename(getOutputPath()+"test_ripple2_asym.ima");
-    IntensityDataIOFactory::writeIntensityData(*(mp_simulation->getDetectorIntensity()),
+    IntensityDataIOFactory::writeOutputData(*(mp_simulation->getDetectorIntensity()),
                                          filename);
 }
 

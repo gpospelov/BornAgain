@@ -60,7 +60,7 @@ void PyScriptFunctionalTest::runTest()
 
 int PyScriptFunctionalTest::analyseResults()
 {
-    boost::scoped_ptr<OutputData<double> > P_domain_data(IntensityDataIOFactory::readIntensityData(temp_intensity_data_file_name));
+    boost::scoped_ptr<OutputData<double> > P_domain_data(IntensityDataIOFactory::readOutputData(temp_intensity_data_file_name));
 
     boost::scoped_ptr<OutputData<double> > P_reference_data(
         m_reference_simulation->getDetectorIntensity());

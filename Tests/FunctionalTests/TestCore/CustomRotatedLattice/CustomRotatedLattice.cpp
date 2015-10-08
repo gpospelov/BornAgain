@@ -20,7 +20,7 @@ int main()
     std::string filename = Utils::FileSystem::GetReferenceDataDir() +
             "isgisaxs06_reference_variants.int.gz";
     OutputData<double> *reference =
-            IntensityDataIOFactory::readIntensityData(filename);
+            IntensityDataIOFactory::readOutputData(filename);
 
     // running simulation and copying data
     int nbins = 3;

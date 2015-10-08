@@ -357,7 +357,7 @@ void ProjectDocument::saveOutputData()
             QString filename = getProjectDir() + "/" + dataItem->itemName();
             const OutputData<double> *data = dataItem->getOutputData();
             if (data) {
-                IntensityDataIOFactory::writeIntensityData(*data, filename.toStdString());
+                IntensityDataIOFactory::writeOutputData(*data, filename.toStdString());
             }
         }
     }
@@ -374,7 +374,7 @@ void ProjectDocument::loadOutputData()
             QFileInfo info(filename);
             if (info.exists()) {
                 jobItem->getIntensityDataItem()->setOutputData(
-                    IntensityDataIOFactory::readIntensityData(filename.toStdString()));
+                    IntensityDataIOFactory::readOutputData(filename.toStdString()));
             } else {
                 jobItem->setStatus(Constants::STATUS_FAILED);
                 QString warning("Error while loading job from file, intensity data file '");

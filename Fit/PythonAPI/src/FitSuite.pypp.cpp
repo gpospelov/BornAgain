@@ -90,6 +90,17 @@ void register_FitSuite_class(){
                 , "Assigns pair of (simulation, real data) for fitting. More than one pair can be added." );
         
         }
+        { //::FitSuite::addSimulationAndRealData
+        
+            typedef void ( ::FitSuite::*addSimulationAndRealData_function_type)( ::GISASSimulation const &,::IHistogram const & ) ;
+            
+            FitSuite_exposer.def( 
+                "addSimulationAndRealData"
+                , addSimulationAndRealData_function_type( &::FitSuite::addSimulationAndRealData )
+                , ( bp::arg("simulation"), bp::arg("real_data") )
+                , "Assigns pair of (simulation, real data) for fitting. More than one pair can be added." );
+        
+        }
         { //::FitSuite::fixAllParameters
         
             typedef void ( ::FitSuite::*fixAllParameters_function_type)(  ) ;

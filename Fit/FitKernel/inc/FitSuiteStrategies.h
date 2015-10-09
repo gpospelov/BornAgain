@@ -27,7 +27,7 @@ class FitKernel;
 
 class BA_CORE_API_  FitSuiteStrategies
 {
- public:
+public:
     typedef SafePointerVector<IFitStrategy > strategies_t;
     typedef strategies_t::iterator iterator;
 
@@ -41,18 +41,16 @@ class BA_CORE_API_  FitSuiteStrategies
     void minimize();
 
     size_t getCurrentStrategyIndex() const { return m_current_strategy_index; }
-    std::string getCurrentStrategyName() const { return m_current_strategy_name; }
 
-    iterator begin() { return m_strategies.begin(); }
-    iterator end() { return m_strategies.end(); }
     size_t size() const { return m_strategies.size(); }
 
     void clear();
- private:
+
+    IFitStrategy *getCurrentStrategy();
+private:
     strategies_t m_strategies;
     FitKernel *m_fit_kernel;
     size_t m_current_strategy_index;
-    std::string m_current_strategy_name;
 };
 
 #endif // FITSUITESTRATEGIES_H

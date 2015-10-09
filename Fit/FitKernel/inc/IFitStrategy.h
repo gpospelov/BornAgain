@@ -17,14 +17,8 @@
 #define IFITSTRATEGY_H
 
 #include "INamed.h"
-#include "Types.h"
-#include "OutputData.h"
+#include <iostream>
 class FitKernel;
-
-#include <string>
-#include <vector>
-#include <map>
-
 
 //! @class IFitStrategy
 //! @ingroup fitting_internal
@@ -36,23 +30,29 @@ class FitKernel;
 class BA_CORE_API_ IFitStrategy : public INamed
 {
 public:
-    IFitStrategy() : m_fit_kernel(0) {}
-    IFitStrategy(const std::string& name) : INamed(name), m_fit_kernel(0) {}
+    IFitStrategy();
+    IFitStrategy(const std::string& name);
     virtual IFitStrategy *clone() const = 0;
 
-    virtual ~IFitStrategy(){}
-    virtual void init(FitKernel *fit_suite) { m_fit_kernel = fit_suite; }
+    virtual ~IFitStrategy();
+    virtual void init(FitKernel *fit_suite);
     virtual void execute() = 0;
-protected:
-    FitKernel *m_fit_kernel;
-    IFitStrategy(const IFitStrategy &other) : INamed(other)
+
+    friend std::ostream &operator<<(std::ostream &ostr, const IFitStrategy &m)
     {
-        m_fit_kernel = other.m_fit_kernel;
+        m.print(ostr);
+        return ostr;
     }
+
+
+protected:
+    virtual void print(std::ostream &ostr) const;
+
+    FitKernel *m_fit_kernel;
+    IFitStrategy(const IFitStrategy &other);
 
 private:
     IFitStrategy& operator=(const IFitStrategy& );
-
 };
 
 
@@ -63,8 +63,8 @@ private:
 class BA_CORE_API_ FitStrategyDefault : public IFitStrategy
 {
  public:
-    FitStrategyDefault() : IFitStrategy("FitStrategyDefault") { }
-    virtual IFitStrategy *clone() const { return new FitStrategyDefault(); }
+    FitStrategyDefault();
+    virtual IFitStrategy *clone() const;
     virtual void execute();
 };
 

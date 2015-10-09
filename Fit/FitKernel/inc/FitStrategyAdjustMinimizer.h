@@ -49,6 +49,9 @@ public:
 
     virtual MinimizerOptions *getMinimizerOptions();
 
+protected:
+    virtual void print(std::ostream &ostr) const;
+
 private:
     IMinimizer *m_minimizer;
 };

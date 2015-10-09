@@ -84,3 +84,14 @@ MinimizerOptions *FitStrategyAdjustMinimizer::getMinimizerOptions()
     }
 }
 
+void FitStrategyAdjustMinimizer::print(std::ostream &ostr) const
+{
+    ostr << "FitStrategy/AdjustMinimizer: ";
+    if(m_minimizer) {
+        ostr << m_minimizer->getMinimizerName();
+        if(m_minimizer->getAlgorithmName().size()) {
+            ostr << "(" << m_minimizer->getAlgorithmName() << ")";
+        }
+    }
+}
+

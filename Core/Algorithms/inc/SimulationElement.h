@@ -37,6 +37,10 @@ public:
     SimulationElement(const SimulationElement &other);
     SimulationElement &operator=(const SimulationElement &other);
 
+    //! Construct SimulationElement from other element and restrict k_f to specific value in
+    //! the original detector pixel
+    SimulationElement(const SimulationElement &other, double x, double y);
+
     ~SimulationElement() {}
 
 #ifndef GCCXML_SKIP_THIS
@@ -77,29 +81,13 @@ public:
     {
         return m_phi_i;
     }
-    double getAlphaMin() const
-    {
-        return m_alpha_min;
-    }
-    double getAlphaMax() const
-    {
-        return m_alpha_max;
-    }
     double getAlphaMean() const
     {
-        return (m_alpha_min + m_alpha_max)/2.0;
-    }
-    double getPhiMin() const
-    {
-        return m_phi_min;
-    }
-    double getPhiMax() const
-    {
-        return m_phi_max;
+        return getAlpha(0.5, 0.5);
     }
     double getPhiMean() const
     {
-        return (m_phi_min + m_phi_max)/2.0;
+        return getPhi(0.5, 0.5);
     }
     void setIntensity(double intensity)
     {
@@ -136,8 +124,13 @@ private:
     //! initialize polarization matrices
     void initPolarization();
 
+    //! get alpha for given detector pixel coordinates
+    double getAlpha(double x, double y) const;
+
+    //! get phi for given detector pixel coordinates
+    double getPhi(double x, double y) const;
+
     double m_wavelength, m_alpha_i, m_phi_i;             //!< wavelength and angles of beam
-    double m_alpha_min, m_alpha_max, m_phi_min, m_phi_max; //!< detector cell angles
     double m_intensity;  //!< simulated intensity for detector cell
 #ifndef GCCXML_SKIP_THIS
     Eigen::Matrix2cd m_polarization;      //!< polarization density matrix

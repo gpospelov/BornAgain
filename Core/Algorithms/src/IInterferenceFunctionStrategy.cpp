@@ -68,13 +68,12 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
     double phi_i = sim_element.getPhiI();
     cvector_t k_i;
     k_i.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
-    Bin1D alpha_f_bin(sim_element.getAlphaMin(), sim_element.getAlphaMax());
     WavevectorInfo wavevectors(k_i, Geometry::toComplexVector(sim_element.getMeanKF()));
 
     boost::scoped_ptr<const ILayerRTCoefficients> P_in_coeffs(
         mP_specular_info->getInCoefficients(alpha_i, 0.0, wavelength));
     boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
-        mP_specular_info->getOutCoefficients(alpha_f_bin.getMidPoint(), 0.0, wavelength));
+        mP_specular_info->getOutCoefficients(sim_element.getAlphaMean(), 0.0, wavelength));
     SafePointerVector<FormFactorInfo>::const_iterator it = m_ff_infos.begin();
     while (it != m_ff_infos.end()) {
         (*it)->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
@@ -94,14 +93,12 @@ void IInterferenceFunctionStrategy::calculateFormFactorLists(
     double phi_i = sim_element.getPhiI();
     cvector_t k_i;
     k_i.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
-    Bin1D alpha_f_bin(sim_element.getAlphaMin(), sim_element.getAlphaMax());
-    Bin1D phi_f_bin(sim_element.getPhiMin(), sim_element.getPhiMax());
     WavevectorInfo wavevectors(k_i, Geometry::toComplexVector(sim_element.getMeanKF()));
 
     boost::scoped_ptr<const ILayerRTCoefficients> P_in_coeffs(
         mP_specular_info->getInCoefficients(alpha_i, phi_i, wavelength));
     boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
-        mP_specular_info->getOutCoefficients(alpha_f_bin.getMidPoint(), phi_f_bin.getMidPoint(),
+        mP_specular_info->getOutCoefficients(sim_element.getAlphaMean(), sim_element.getPhiMean(),
                                              wavelength));
     SafePointerVector<FormFactorInfo>::const_iterator it = m_ff_infos.begin();
     while (it != m_ff_infos.end()) {
@@ -151,13 +148,8 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double *fraction
     double par1 = fractions[1];
 
     SimulationElement *pars = static_cast<SimulationElement *>(params);
-    double alpha = pars->getAlphaMin() + par0 * (pars->getAlphaMax() - pars->getAlphaMin());
-    double phi = pars->getPhiMin() + par1 * (pars->getPhiMax() - pars->getPhiMin());
 
-    SimulationElement sim_element(pars->getWavelength(), pars->getAlphaI(), pars->getPhiI(),
-                                  alpha, alpha, phi, phi);
-    sim_element.setPolarization(pars->getPolarization());
-    sim_element.setAnalyzerOperator(pars->getAnalyzerOperator());
+    SimulationElement sim_element(*pars, par0, par1);
     calculateFormFactorList(sim_element);
     return pars->getIntegrationFactor(par0, par1) * evaluateForList(sim_element, m_ff);
 }
@@ -170,15 +162,8 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(double *frac
     double par1 = fractions[1];
 
     SimulationElement *pars = static_cast<SimulationElement *>(params);
-    double alpha = pars->getAlphaMin() + par0 * (pars->getAlphaMax() - pars->getAlphaMin());
-    double phi = pars->getPhiMin() + par1 * (pars->getPhiMax() - pars->getPhiMin());
 
-    SimulationElement sim_element(pars->getWavelength(), pars->getAlphaI(), pars->getPhiI(),
-                                  alpha, alpha, phi, phi);
-    sim_element.setPolarization(pars->getPolarization());
-    sim_element.setAnalyzerOperator(pars->getAnalyzerOperator());
+    SimulationElement sim_element(*pars, par0, par1);
     calculateFormFactorLists(sim_element);
-
-    double result = evaluateForMatrixList(sim_element, m_ff_pol);
-    return pars->getIntegrationFactor(par0, par1) * result;
+    return pars->getIntegrationFactor(par0, par1) * evaluateForMatrixList(sim_element, m_ff_pol);
 }

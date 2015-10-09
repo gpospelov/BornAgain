@@ -36,7 +36,12 @@ used for fitting.
     global minimas. After it is done, the second Minuit2 minimizer will continue to find the precise location of local
     minima.
 
---- ex07_ImportUserData
+--- ex07_FitAlongSlices ---
+    FitAlongSlices.py - here we demonstrate how to fit along slices.
+    The basic idea is to mask all detector except thin lines, one vertical and one horizontal, representing slices.
+    This will make simulation and fitting to go along slices only.
+
+--- ex10_ImportUserData
     This directory contains examples for importing raw X,Y detector data into BornAgain's
     IntensityData object (phi_f, alpha_f space)
     ImportMariaData.py - in this example we load ASCII data from Maria reflectometer

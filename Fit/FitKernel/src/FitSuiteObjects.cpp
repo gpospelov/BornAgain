@@ -16,6 +16,7 @@
 #include "FitSuiteObjects.h"
 #include "FitObject.h"
 #include "ChiSquaredModule.h"
+#include <sstream>
 
 FitSuiteObjects::FitSuiteObjects()
   : m_total_weight(0)
@@ -52,9 +53,6 @@ size_t FitSuiteObjects::getSizeOfDataSet() const
             m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
         result += (*it)->getSizeOfData();
     }
-    if(result == 0) {
-        throw LogicErrorException("Panic, zero dataset size");
-    }
     return result;
 }
 
@@ -90,6 +88,12 @@ OutputData<double> *FitSuiteObjects::getChiSquaredMap(size_t i_item) const
 //! loop through all defined simulations and run them
 void FitSuiteObjects::runSimulations()
 {
+    if(getSizeOfDataSet() == 0) {
+        std::ostringstream message;
+        message << "FitSuiteObjects::runSimulations() -> Error. Zero size of dataset.";
+        throw LogicErrorException(message.str());
+    }
+
     m_fit_elements.clear();
     m_fit_elements.reserve(getSizeOfDataSet());
 

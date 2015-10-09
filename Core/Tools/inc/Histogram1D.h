@@ -58,8 +58,16 @@ public:
     //! returns vector of bin errors
     std::vector<double> getBinErrors() const;
 
+#ifdef BORNAGAIN_PYTHON
+    PyObject *getBinCentersNumpy() const;
+    PyObject *getBinValuesNumpy() const;
+    PyObject *getBinErrorsNumpy() const;
+#endif
+
+
     //! Create new histogram by applying crop on axis.
     Histogram1D *crop(double xmin, double xmax);
+
 };
 
 

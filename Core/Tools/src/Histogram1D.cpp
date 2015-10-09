@@ -16,6 +16,7 @@
 #include "Histogram1D.h"
 #include "FixedBinAxis.h"
 #include "VariableBinAxis.h"
+#include "NumpyUtils.h"
 #include <boost/scoped_ptr.hpp>
 
 
@@ -65,6 +66,21 @@ std::vector<double> Histogram1D::getBinValues() const
 std::vector<double> Histogram1D::getBinErrors() const
 {
     return IHistogram::getDataVector(IHistogram::ERROR);
+}
+
+PyObject *Histogram1D::getBinCentersNumpy() const
+{
+    return Utils::createNumpyArray(getBinCenters());
+}
+
+PyObject *Histogram1D::getBinValuesNumpy() const
+{
+    return Utils::createNumpyArray(getBinValues());
+}
+
+PyObject *Histogram1D::getBinErrorsNumpy() const
+{
+    return Utils::createNumpyArray(getBinErrors());
 }
 
 Histogram1D *Histogram1D::crop(double xmin, double xmax)

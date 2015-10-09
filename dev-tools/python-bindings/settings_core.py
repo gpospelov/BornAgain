@@ -378,6 +378,18 @@ def ManualClassTunings(mb):
     cl.member_function("getXaxis").call_policies = call_policies.return_internal_reference()
     cl.member_function("getYaxis").call_policies = call_policies.return_internal_reference()
 
+    cl = mb.class_("Histogram1D")
+    cl.member_function("getBinCenters").exclude()
+    cl.member_function("getBinValues").exclude()
+    cl.member_function("getBinErrors").exclude()
+    cl.member_function("getBinCentersNumpy").call_policies = call_policies.custom_call_policies("")
+    cl.member_function("getBinValuesNumpy").call_policies = call_policies.custom_call_policies("")
+    cl.member_function("getBinErrorsNumpy").call_policies = call_policies.custom_call_policies("")
+    cl.member_function("getBinCentersNumpy").alias = "getBinCenters"
+    cl.member_function("getBinValuesNumpy").alias = "getBinValues"
+    cl.member_function("getBinErrorsNumpy").alias = "getBinErrors"
+
+
     #
     cl = mb.class_("Histogram2D")
     for fun in cl.member_functions():

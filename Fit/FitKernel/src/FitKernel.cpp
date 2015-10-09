@@ -199,6 +199,9 @@ bool FitKernel::check_prerequisites() const
                 "FitSuite::check_prerequisites() -> Error! No simulation/data description defined");
     if( !m_fit_parameters.size() ) throw LogicErrorException(
                 "FitSuite::check_prerequisites() -> Error! No fit parameters defined");
+    if( m_fit_objects.getSizeOfDataSet() == 0) throw LogicErrorException(
+                "FitSuite::check_prerequisites() -> Error! No elements to fit. "
+                "Looks like whole detector is masked.");
     return true;
 }
 

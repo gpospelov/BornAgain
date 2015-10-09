@@ -43,8 +43,7 @@ def get_simulation():
     simulation = GISASSimulation()
     simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-
-    return simulation;
+    return simulation
 
 
 def create_real_data():
@@ -83,6 +82,7 @@ def run_fitting():
     real_data = create_real_data()
 
     fit_suite = FitSuite()
+    fit_suite.setMinimizer("GSLLMA")
     fit_suite.addSimulationAndRealData(simulation, real_data)
     fit_suite.initPrint(10)
 
@@ -97,7 +97,6 @@ def run_fitting():
     fit_suite.runFit()
 
     print "Fitting completed."
-    fit_suite.printResults()
     print "chi2:", fit_suite.getChi2()
     fitpars = fit_suite.getFitParameters()
     for i in range(0, fitpars.size()):

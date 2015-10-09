@@ -96,12 +96,13 @@ def run_fitting():
     simulation = get_simulation()
     sample_builder = MySampleBuilder()
     simulation.setSampleBuilder(sample_builder)
+    simulation.printParameters()
 
     real_data = create_real_data()
 
     fit_suite = FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)
-    fit_suite.initPrint(10)
+    fit_suite.initPrint(1)
 
     draw_observer = DefaultFitObserver(draw_every_nth=10)
     fit_suite.attachObserver(draw_observer)
@@ -114,7 +115,6 @@ def run_fitting():
     fit_suite.runFit()
 
     print "Fitting completed."
-    fit_suite.printResults()
     print "chi2:", fit_suite.getChi2()
     fitpars = fit_suite.getFitParameters()
     for i in range(0, fitpars.size()):

@@ -64,6 +64,8 @@ TEST_F(DetectorMaskTest, AddMask)
         }
     }
 
+    EXPECT_EQ(detectorMask.getNumberOfMaskedChannels(), 32);
+
     // adding second mask of same size which discard previous one
     detectorMask.addMask(polygon, false);
     detectorMask.initMaskData(detector);
@@ -71,6 +73,7 @@ TEST_F(DetectorMaskTest, AddMask)
     for(size_t index=0; index<detectorMask.getMaskData()->getAllocatedSize(); ++index) {
         EXPECT_FALSE(detectorMask.getMask(index));
     }
+    EXPECT_EQ(detectorMask.getNumberOfMaskedChannels(), 0);
 
     // adding third mask
     x = boost::assign::list_of(5.0)(5.0)(8.0)(8.0)(5.0);
@@ -126,6 +129,7 @@ TEST_F(DetectorMaskTest, AssignmentOperator)
             EXPECT_FALSE(mask.getMask(index));
         }
     }
+    EXPECT_EQ(mask.getNumberOfMaskedChannels(), 32);
 
 }
 

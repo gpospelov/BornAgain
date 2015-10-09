@@ -126,7 +126,7 @@ void register_FitSuiteParameters_class(){
                 , __getitem___function_type( &::FitSuiteParameters::operator[] )
                 , ( bp::arg("index") )
                 , bp::return_internal_reference< >()
-                , "access to parameters." );
+                , "access to parameters by index." );
         
         }
         { //::FitSuiteParameters::operator[]
@@ -138,7 +138,7 @@ void register_FitSuiteParameters_class(){
                 , __getitem___function_type( &::FitSuiteParameters::operator[] )
                 , ( bp::arg("index") )
                 , bp::return_internal_reference< >()
-                , "access to parameters." );
+                , "access to parameters by index." );
         
         }
         { //::FitSuiteParameters::operator[]
@@ -150,7 +150,7 @@ void register_FitSuiteParameters_class(){
                 , __getitem___function_type( &::FitSuiteParameters::operator[] )
                 , ( bp::arg("name") )
                 , bp::return_internal_reference< >()
-                , "access to parameters." );
+                , "access to parameters by parameter name." );
         
         }
         { //::FitSuiteParameters::operator[]
@@ -161,7 +161,8 @@ void register_FitSuiteParameters_class(){
                 "__getitem__"
                 , __getitem___function_type( &::FitSuiteParameters::operator[] )
                 , ( bp::arg("name") )
-                , bp::return_internal_reference< >() );
+                , bp::return_internal_reference< >()
+                , "access to parameters by parameter name." );
         
         }
         { //::FitSuiteParameters::printParameters

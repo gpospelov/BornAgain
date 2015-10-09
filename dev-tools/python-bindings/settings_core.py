@@ -287,8 +287,8 @@ def ManualClassTunings(mb):
         if "generateSamples" in fun.name:
             fun.exclude()
     #
-    cl = mb.class_("IObserver")
-    cl.member_function("update").include()
+    # cl = mb.class_("IObserver")
+    # cl.member_function("update").include()
 
     #cl = mb.class_("MaterialManager")
     #cl.constructors().exclude()
@@ -337,12 +337,14 @@ def ManualClassTunings(mb):
     #
     cl = mb.class_("Simulation")
     cl.member_function("setSampleBuilder").include()
-    cl.member_function("getIntensityData").call_policies = \
-        call_policies.return_value_policy(call_policies.manage_new_object)
+    # cl.member_function("getIntensityData").call_policies = \
+    #     call_policies.return_value_policy(call_policies.manage_new_object)
     #
     cl = mb.class_("GISASSimulation")
     cl.member_function("getOutputData").exclude()
     cl.member_function("getIntensityData").call_policies = \
+        call_policies.return_value_policy(call_policies.manage_new_object)
+    cl.member_function("getDetectorIntensity").call_policies = \
         call_policies.return_value_policy(call_policies.manage_new_object)
     #
     cl = mb.class_("SpecularSimulation")
@@ -353,6 +355,8 @@ def ManualClassTunings(mb):
     cl = mb.class_("OffSpecSimulation")
     cl.member_function("getOutputData").exclude()
     cl.member_function("getIntensityData").call_policies = \
+        call_policies.return_value_policy(call_policies.manage_new_object)
+    cl.member_function("getDetectorIntensity").call_policies = \
         call_policies.return_value_policy(call_policies.manage_new_object)
     #
     cl = mb.class_("ParticleCoreShell")
@@ -369,15 +373,35 @@ def ManualClassTunings(mb):
     mb.namespace("BornAgain").free_function("GetVersionNumber").include()
     mb.namespace("BornAgain").free_function("GetName").include()
 
-
     cl = mb.class_("IHistogram")
     cl.member_function("getArray").call_policies = call_policies.custom_call_policies("")
+    cl.member_function("getXaxis").call_policies = call_policies.return_internal_reference()
+    cl.member_function("getYaxis").call_policies = call_policies.return_internal_reference()
+
+    cl = mb.class_("Histogram1D")
+    cl.member_function("getBinCenters").exclude()
+    cl.member_function("getBinValues").exclude()
+    cl.member_function("getBinErrors").exclude()
+    cl.member_function("getBinCentersNumpy").call_policies = call_policies.custom_call_policies("")
+    cl.member_function("getBinValuesNumpy").call_policies = call_policies.custom_call_policies("")
+    cl.member_function("getBinErrorsNumpy").call_policies = call_policies.custom_call_policies("")
+    cl.member_function("getBinCentersNumpy").alias = "getBinCenters"
+    cl.member_function("getBinValuesNumpy").alias = "getBinValues"
+    cl.member_function("getBinErrorsNumpy").alias = "getBinErrors"
+
 
     #
     cl = mb.class_("Histogram2D")
     for fun in cl.member_functions():
         if "projection" in fun.name:
             fun.call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
+
+
+    cl = mb.class_("IntensityDataIOFactory")
+
+    cl.member_function("readOutputData").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
+    cl.member_function("readHistogram").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
+    cl.member_function("readIntensityData").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
 
 
 # excluding specific member functions

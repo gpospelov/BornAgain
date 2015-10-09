@@ -49,16 +49,16 @@ struct GISASSimulation_wrapper : GISASSimulation, bp::wrapper< GISASSimulation >
         return GISASSimulation::clone( );
     }
 
-    virtual ::OutputData< double > * getIntensityData(  ) const  {
-        if( bp::override func_getIntensityData = this->get_override( "getIntensityData" ) )
-            return func_getIntensityData(  );
+    virtual ::OutputData< double > * getDetectorIntensity(  ) const  {
+        if( bp::override func_getDetectorIntensity = this->get_override( "getDetectorIntensity" ) )
+            return func_getDetectorIntensity(  );
         else{
-            return this->GISASSimulation::getIntensityData(  );
+            return this->GISASSimulation::getDetectorIntensity(  );
         }
     }
     
-    ::OutputData< double > * default_getIntensityData(  ) const  {
-        return GISASSimulation::getIntensityData( );
+    ::OutputData< double > * default_getDetectorIntensity(  ) const  {
+        return GISASSimulation::getDetectorIntensity( );
     }
 
     virtual int getNumberOfSimulationElements(  ) const  {
@@ -245,6 +245,18 @@ void register_GISASSimulation_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::GISASSimulation::getDetectorIntensity
+        
+            typedef ::OutputData< double > * ( ::GISASSimulation::*getDetectorIntensity_function_type)(  ) const;
+            typedef ::OutputData< double > * ( GISASSimulation_wrapper::*default_getDetectorIntensity_function_type)(  ) const;
+            
+            GISASSimulation_exposer.def( 
+                "getDetectorIntensity"
+                , getDetectorIntensity_function_type(&::GISASSimulation::getDetectorIntensity)
+                , default_getDetectorIntensity_function_type(&GISASSimulation_wrapper::default_getDetectorIntensity)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::GISASSimulation::getInstrument
         
             typedef ::Instrument const & ( ::GISASSimulation::*getInstrument_function_type)(  ) const;
@@ -258,14 +270,13 @@ void register_GISASSimulation_class(){
         }
         { //::GISASSimulation::getIntensityData
         
-            typedef ::OutputData< double > * ( ::GISASSimulation::*getIntensityData_function_type)(  ) const;
-            typedef ::OutputData< double > * ( GISASSimulation_wrapper::*default_getIntensityData_function_type)(  ) const;
+            typedef ::Histogram2D * ( ::GISASSimulation::*getIntensityData_function_type)(  ) const;
             
             GISASSimulation_exposer.def( 
                 "getIntensityData"
-                , getIntensityData_function_type(&::GISASSimulation::getIntensityData)
-                , default_getIntensityData_function_type(&GISASSimulation_wrapper::default_getIntensityData)
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , getIntensityData_function_type( &::GISASSimulation::getIntensityData )
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "Returns clone of the detector intensity map with detector resolution applied in the form of 2D histogram. " );
         
         }
         { //::GISASSimulation::getNumberOfSimulationElements
@@ -393,6 +404,17 @@ void register_GISASSimulation_class(){
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::GISASSimulation::setDetectorParameters )
                 , ( bp::arg("output_data") )
+                , "Sets detector parameters using axes of output data." );
+        
+        }
+        { //::GISASSimulation::setDetectorParameters
+        
+            typedef void ( ::GISASSimulation::*setDetectorParameters_function_type)( ::IHistogram const & ) ;
+            
+            GISASSimulation_exposer.def( 
+                "setDetectorParameters"
+                , setDetectorParameters_function_type( &::GISASSimulation::setDetectorParameters )
+                , ( bp::arg("hisotgram") )
                 , "Sets detector parameters using axes of output data." );
         
         }

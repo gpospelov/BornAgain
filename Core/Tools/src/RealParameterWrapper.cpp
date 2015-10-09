@@ -14,15 +14,18 @@
 // ************************************************************************** //
 
 #include "RealParameterWrapper.h"
+#include <sstream>
 
 RealParameterWrapper::RealParameterWrapper(double *par, const AttLimits &limits)
     : m_data(par)
     , m_limits(limits)
 {
     if(par && !m_limits.isInRange(getValue())) {
-        throw OutOfBoundsException(
-            "RealParameterWrapper::RealParameterWrapper() -> Error. Initial value is out of bounds"
-                    );
+        std::ostringstream message;
+        message << "RealParameterWrapper::RealParameterWrapper() -> Error. "
+                << "Initial value " << getValue() << " is out of bounds "
+                << limits << std::endl;
+        throw OutOfBoundsException(message.str());
     }
 }
 

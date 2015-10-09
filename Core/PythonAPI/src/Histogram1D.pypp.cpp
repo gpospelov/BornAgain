@@ -102,34 +102,31 @@ void register_Histogram1D_class(){
                 , "Increment bin with abscissa x with a weight." );
         
         }
-        { //::Histogram1D::getBinCenters
+        { //::Histogram1D::getBinCentersNumpy
         
-            typedef ::std::vector< double > ( ::Histogram1D::*getBinCenters_function_type)(  ) const;
+            typedef ::PyObject * ( ::Histogram1D::*getBinCenters_function_type)(  ) const;
             
             Histogram1D_exposer.def( 
                 "getBinCenters"
-                , getBinCenters_function_type( &::Histogram1D::getBinCenters )
-                , "returns vector of histogram bin centers." );
+                , getBinCenters_function_type( &::Histogram1D::getBinCentersNumpy ) );
         
         }
-        { //::Histogram1D::getBinErrors
+        { //::Histogram1D::getBinErrorsNumpy
         
-            typedef ::std::vector< double > ( ::Histogram1D::*getBinErrors_function_type)(  ) const;
+            typedef ::PyObject * ( ::Histogram1D::*getBinErrors_function_type)(  ) const;
             
             Histogram1D_exposer.def( 
                 "getBinErrors"
-                , getBinErrors_function_type( &::Histogram1D::getBinErrors )
-                , "returns vector of bin errors." );
+                , getBinErrors_function_type( &::Histogram1D::getBinErrorsNumpy ) );
         
         }
-        { //::Histogram1D::getBinValues
+        { //::Histogram1D::getBinValuesNumpy
         
-            typedef ::std::vector< double > ( ::Histogram1D::*getBinValues_function_type)(  ) const;
+            typedef ::PyObject * ( ::Histogram1D::*getBinValues_function_type)(  ) const;
             
             Histogram1D_exposer.def( 
                 "getBinValues"
-                , getBinValues_function_type( &::Histogram1D::getBinValues )
-                , "returns vector of bin content (the value accumulated by bins)." );
+                , getBinValues_function_type( &::Histogram1D::getBinValuesNumpy ) );
         
         }
         { //::Histogram1D::getRank

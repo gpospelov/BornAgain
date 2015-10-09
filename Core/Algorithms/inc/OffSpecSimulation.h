@@ -18,6 +18,8 @@
 
 #include "Simulation.h"
 
+class Histogram2D;
+
 //! @class OffSpecSimulation
 //! @ingroup simulation
 //! @brief Main class to run an off-specular simulation.
@@ -39,11 +41,14 @@ public:
     //! Gets the number of elements this simulation needs to calculate
     virtual int getNumberOfSimulationElements() const;
 
-    //! Returns detector intensity map for all scan parameters
+    //! Returns detector intensity map
     const OutputData<double> *getOutputData() const { return &m_intensity_map; }
 
-    //! Clone detector intensity map for all scan parameters.
-    OutputData<double> *getIntensityData() const;
+    //! Returns clone of the detector intensity map
+    OutputData<double> *getDetectorIntensity() const;
+
+    //! Returns clone of the detector intensity map in the form of 2D histogram.
+    Histogram2D *getIntensityData() const;
 
     //! Sets the instrument containing beam and detector information
     void setInstrument(const Instrument &instrument);

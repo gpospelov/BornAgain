@@ -12,9 +12,9 @@ Our reference data is 2D intensity map obtained from the simulation of
 the same geometry with fixed values cylinder_height = prism3_height
  = cylinder_radius = prism3_half_side = 5nm.
  
-Then we run our minimization consequently using default
-minimization engine, with starting values cylinder_height = prism3_length = 4nm,
-cylinder_radius = prism3_half_side = 6nm as initial fit parameter values.
+Then we run our minimization using default minizer settings, with starting values of fit parameters
+cylinder_height = 4nm, cylinder_radius = 6nm
+prism3_height = 4nm, prism3_length = 12nm
 
 See example FitCylindersPrisms_detailed.py for more details & graphical output
 """
@@ -57,7 +57,7 @@ def get_simulation():
     Create GISAXS simulation with beam and detector defined
     """
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -77,17 +77,16 @@ def run_fitting():
     fit_suite.initPrint(10)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*FormFactorCylinder/height", 4.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*FormFactorCylinder/radius", 6.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*FormFactorPrism3/height", 4.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*FormFactorPrism3/length", 12.*nanometer, 0.02*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*FormFactorCylinder/height", 4.*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*FormFactorCylinder/radius", 6.*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*FormFactorPrism3/height", 4.*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*FormFactorPrism3/length", 12.*nanometer, AttLimits.lowerLimited(0.01))
 
     # running fit
     fit_suite.runFit()
 
     print "Fitting completed."
-    fit_suite.printResults()
-    print "chi2:", fit_suite.getMinimizer().getMinValue()
+    print "chi2:", fit_suite.getChi2()
     fitpars = fit_suite.getFitParameters()
     for i in range(0, fitpars.size()):
         print fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError()

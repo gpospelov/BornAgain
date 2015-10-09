@@ -417,4 +417,23 @@ TEST_F(Histogram2DTest, CreateOutputData)
 }
 
 
+TEST_F(Histogram2DTest, GetMaximumGetMinimum)
+{
+    Histogram2D hist(10, -5.0, 5.0, 5, -5.0, 0.0);
+
+    for(size_t ix=0; ix<hist.getNbinsX(); ++ix) {
+        for(size_t iy=0; iy<hist.getNbinsY(); ++iy) {
+            hist.fill(-5.0 + ix+0.5, -5.0 + iy+0.5, 10.0 + ix + hist.getNbinsX()*iy);
+        }
+    }
+
+    EXPECT_EQ(10.0, hist.getMinimum());
+    EXPECT_EQ(0, hist.getMinimumBinIndex());
+    EXPECT_EQ(59.0, hist.getMaximum());
+    EXPECT_EQ(49, hist.getMaximumBinIndex());
+
+}
+
+
+
 #endif

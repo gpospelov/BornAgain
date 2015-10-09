@@ -77,7 +77,7 @@ void TestRipple1::execute()
 void TestRipple1::save_results()
 {
     std::string filename(getOutputPath()+"test_ripple1.ima");
-    IntensityDataIOFactory::writeIntensityData(*(mp_simulation->getIntensityData()),
+    IntensityDataIOFactory::writeOutputData(*(mp_simulation->getDetectorIntensity()),
                                          filename);
     std::cout << "Data saved to " << filename << std::endl;
 }
@@ -208,7 +208,7 @@ ISample *TestRipple1::TestSampleBuilder::buildSample() const
 
 void TestRipple1::plot_results()
 {
-    OutputData<double> *m_result = mp_simulation->getIntensityData();
+    OutputData<double> *m_result = mp_simulation->getDetectorIntensity();
     const IAxis *axisPhi = m_result->getAxis(0);
     const IAxis *axisAlpha = m_result->getAxis(1);
 

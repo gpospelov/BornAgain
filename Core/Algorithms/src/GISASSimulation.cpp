@@ -23,12 +23,14 @@
 #include "BornAgainNamespace.h"
 #include "ProgressHandlerDWBA.h"
 #include "OMPISimulation.h"
+#include "Histogram2D.h"
 
 #include "Macros.h"
 GCC_DIAG_OFF(strict-aliasing);
 #include <boost/thread.hpp>
 GCC_DIAG_ON(strict-aliasing);
 #include <gsl/gsl_errno.h>
+#include <boost/scoped_ptr.hpp>
 
 GISASSimulation::GISASSimulation()
 : m_instrument()
@@ -113,11 +115,17 @@ int GISASSimulation::getNumberOfSimulationElements() const
     return phi_axis.getSize()*alpha_axis.getSize();
 }
 
-OutputData<double> *GISASSimulation::getIntensityData() const
+OutputData<double> *GISASSimulation::getDetectorIntensity() const
 {
     OutputData<double> *result = m_intensity_map.clone();
     m_instrument.applyDetectorResolution(result);
     return result;
+}
+
+Histogram2D *GISASSimulation::getIntensityData() const
+{
+    boost::scoped_ptr<OutputData<double> > data(getDetectorIntensity());
+    return new Histogram2D(*data);
 }
 
 void GISASSimulation::setInstrument(const Instrument& instrument)
@@ -154,6 +162,12 @@ void GISASSimulation::setDetectorParameters(const OutputData<double >& output_da
     m_intensity_map.clear();
     m_intensity_map.copyShapeFrom(output_data); // to copy mask too
     m_intensity_map.setAllTo(0.);
+}
+
+void GISASSimulation::setDetectorParameters(const IHistogram &hisotgram)
+{
+    boost::scoped_ptr<OutputData<double> > data(hisotgram.createOutputData());
+    setDetectorParameters(*data);
 }
 
 void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,

@@ -30,6 +30,7 @@ public:
     int getNumberOfEntries() const;
 
     double getContent() const;
+    void setContent(double value);
 
     double getAverage() const;
 
@@ -38,6 +39,9 @@ public:
     void add(double value, double weight=1.0);
 
     void clear();
+
+    friend bool operator< (const CumulativeValue& lhs, const CumulativeValue& rhs);
+    friend bool operator> (const CumulativeValue& lhs, const CumulativeValue& rhs);
 
 private:
     int m_n_entries;
@@ -60,6 +64,11 @@ inline int CumulativeValue::getNumberOfEntries() const
 inline double CumulativeValue::getContent() const
 {
     return m_sum;
+}
+
+inline void CumulativeValue::setContent(double value)
+{
+    m_sum = value;
 }
 
 inline double CumulativeValue::getAverage() const
@@ -89,6 +98,16 @@ inline void CumulativeValue::clear()
     m_average = 0.0;
     m_rms2 = 0.0;
     m_sum_of_weights = 0.0;
+}
+
+inline bool operator<(const CumulativeValue& lhs, const CumulativeValue& rhs)
+{
+    return lhs.getContent()< rhs.getContent();
+}
+
+inline bool operator>(const CumulativeValue& lhs, const CumulativeValue& rhs)
+{
+    return rhs<lhs;
 }
 
 #endif

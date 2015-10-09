@@ -3,7 +3,7 @@ import sys
 import os
 import numpy
 from utils import get_difference
-from utils import get_reference_data
+from utils import get_reference_histogram
 
 sys.path.append(os.path.abspath(
                 os.path.join(os.path.split(__file__)[0],
@@ -155,9 +155,9 @@ def run_simulation_variants():
         simulation.runSimulation()
 
         single_output = simulation.getIntensityData()
-        single_output.scaleAll(probability)
+        single_output.scale(probability)
         outputdata_total += single_output
-    outputdata_total.scaleAll(1.0/total_weight)
+    outputdata_total.scale(1.0/total_weight)
     return outputdata_total
 
 
@@ -196,19 +196,19 @@ def build_sample(xi_value):
 # --------------------------------------------------------------
 def run_test():
     result_lattice = run_simulation_lattice()
-    reference_lattice = get_reference_data("isgisaxs06_reference_lattice.int.gz")
+    reference_lattice = get_reference_histogram("isgisaxs06_reference_lattice.int.gz")
     diff = IntensityDataFunctions.getRelativeDifference(result_lattice, reference_lattice)
 
     result_centered = run_simulation_centered()
-    reference_centered = get_reference_data("isgisaxs06_reference_centered.int.gz")
+    reference_centered = get_reference_histogram("isgisaxs06_reference_centered.int.gz")
     diff += IntensityDataFunctions.getRelativeDifference(result_centered, reference_centered)
 
     result_rotated = run_simulation_rotated()
-    reference_rotated = get_reference_data("isgisaxs06_reference_rotated.int.gz")
+    reference_rotated = get_reference_histogram("isgisaxs06_reference_rotated.int.gz")
     diff += IntensityDataFunctions.getRelativeDifference(result_rotated, reference_rotated)
 
     result_variants = run_simulation_variants()
-    reference_variants = get_reference_data("isgisaxs06_reference_variants.int.gz")
+    reference_variants = get_reference_histogram("isgisaxs06_reference_variants.int.gz")
     diff += IntensityDataFunctions.getRelativeDifference(result_variants, reference_variants)
 
     diff /= 4

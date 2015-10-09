@@ -23,6 +23,7 @@
 #include <string>
 
 template <class T> class OutputData;
+class IHistogram;
 
 //! @class IntensityDataIOFactory
 //! @ingroup tools
@@ -31,9 +32,20 @@ template <class T> class OutputData;
 class BA_CORE_API_ IntensityDataIOFactory
 {
 public:
-    static OutputData<double > *readIntensityData(const std::string& file_name);
+    static OutputData<double > *readOutputData(const std::string& file_name);
 
-    static void writeIntensityData(const OutputData<double>& data,
+    static IHistogram *readHistogram(const std::string& file_name);
+
+    static IHistogram *readIntensityData(const std::string& file_name);
+
+
+    static void writeOutputData(const OutputData<double>& data,
+            const std::string& file_name);
+
+    static void writeHistogram(const IHistogram &histogram,
+            const std::string& file_name);
+
+    static void writeIntensityData(const IHistogram &histogram,
             const std::string& file_name);
 
 private:

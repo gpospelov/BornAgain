@@ -19,6 +19,7 @@
 #include "IDetectorResolution.h"
 #include "IResolutionFunction2D.h"
 #include "ConvolutionDetectorResolution.h"
+#include "IHistogram.h"
 #include <boost/scoped_ptr.hpp>
 
 void IntensityDataFunctions::setRectangularMask(OutputData<double>& data,
@@ -69,6 +70,24 @@ double IntensityDataFunctions::getRelativeDifference(
     delete c_result;
 
     return diff;
+}
+
+double IntensityDataFunctions::getRelativeDifference(const IHistogram &result, const IHistogram &reference)
+{
+    if(!result.hasSameDimensions(reference)) {
+        throw LogicErrorException("IntensityDataFunctions::getRelativeDifference() -> Error. "
+                                  "Histograms have different dimensions.");
+    }
+
+//    if(!result.hasSameShape(reference)) {
+//        throw LogicErrorException("IntensityDataFunctions::getRelativeDifference() -> Error. "
+//                                  "Histograms have different shape.");
+//    }
+    double summ(0.0);
+    for(size_t i=0; i<result.getTotalNumberOfBins(); ++i) {
+        summ += Numeric::get_relative_difference(result.getBinContent(i), reference.getBinContent(i));
+    }
+    return summ/result.getTotalNumberOfBins();
 }
 
 

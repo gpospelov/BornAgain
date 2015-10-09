@@ -135,7 +135,7 @@ void ROOTMinimizerHelper::printResults(const ROOTMinimizer *minimizer)
     std::cout << std::setw(25) << std::left << "  MinimizerAlgorithm" << ": " << minimizer->getAlgorithmName() << std::endl;
     //printOptions(minimizer->getROOTMinimizer());
     std::cout << "--- Options --------------------------------------------------------------------" << std::endl;
-    minimizer->getOptions().print();
+    minimizer->getOptions()->print();
     printStatus(minimizer->getROOTMinimizer());
     printVariables(minimizer->getROOTMinimizer());
     // own print method of the minimizer

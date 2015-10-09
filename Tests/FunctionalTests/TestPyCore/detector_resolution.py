@@ -2,7 +2,7 @@
 import sys
 import os
 import numpy
-from utils import get_reference_data
+from utils import get_reference_histogram
 
 sys.path.append(os.path.abspath(
                 os.path.join(os.path.split(__file__)[0],
@@ -55,7 +55,7 @@ def runTest():
     """
     result = RunSimulation()
 
-    diff = IntensityDataFunctions.getRelativeDifference(result, get_reference_data("resolutionfunction_reference.int.gz"))
+    diff = IntensityDataFunctions.getRelativeDifference(result, get_reference_histogram("resolutionfunction_reference.int.gz"))
 
     status = "OK"
     if(diff > 2e-10 or numpy.isnan(diff)):

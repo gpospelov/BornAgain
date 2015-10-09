@@ -238,10 +238,10 @@ public:
     // helpers
     // --------
 
-    //! Returns true if object have same dimensions
+    //! Returns true if object have same dimensions and number of axes bins
     template <class U> bool hasSameDimensions(const OutputData<U>& right) const;
 
-    //! Returns true if object have same dimensions and shape of axises
+    //! Returns true if objects a) have same dimensions b) bin boundaries of axes coincide
     template <class U> bool hasSameShape(const OutputData<U>& right) const;
 
     //! returns data as Python numpy array
@@ -249,7 +249,7 @@ public:
     PyObject *getArray() const;
 #endif
 
-    //! returns true if object is correctly initialized (
+    //! returns true if object is correctly initialized
     bool isInitialized() const;
 private:
     //! disabled copy constructor and assignment operators

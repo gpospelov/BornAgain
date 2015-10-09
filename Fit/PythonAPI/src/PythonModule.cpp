@@ -22,6 +22,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "SquaredFunctionSimError.pypp.h"
 #include "FitStrategyAdjustMinimizer.pypp.h"
 #include "FitParameter.pypp.h"
+#include "IFitObserver.pypp.h"
 #include "SquaredFunctionDefault.pypp.h"
 #include "ChiSquaredModule.pypp.h"
 #include "SquaredFunctionMeanSquaredError.pypp.h"
@@ -54,6 +55,7 @@ BOOST_PYTHON_MODULE(libBornAgainFit){
     register_FitSuite_class();
     register_FitSuiteObjects_class();
     register_FitSuiteParameters_class();
+    register_IFitObserver_class();
     register_IIntensityFunction_class();
     register_IIntensityNormalizer_class();
     register_IMinimizer_class();

@@ -77,71 +77,74 @@ void TestMiscellaneous::execute()
 /* ************************************************************************* */
 void TestMiscellaneous::test_FunctionalTestRegistry()
 {
-//    FunctionalTestRegistry tests;
-//    tests.printCatalogue();
-
-//    tests.getTest("isgisaxs01");
-//    std::cout << Utils::FileSystem::GetReferenceDataDir() << std::endl;
-
-    MultiLayer *multi_layer = new MultiLayer();
-
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
-    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
-
-    FormFactorFullSphere ff_cyl(5.0*Units::nanometer);
-    Particle particle(particle_material, ff_cyl);
-
-    ParticleLayout particle_layout;
-    particle_layout.addParticle(particle);
-
-    InterferenceFunction2DLattice *p_interference_function =
-        InterferenceFunction2DLattice::createHexagonal(10.0*Units::nanometer);
-    FTDistribution2DCauchy pdf(10.0*Units::nanometer, 10.0*Units::nanometer);
-    p_interference_function->setProbabilityDistribution(pdf);
-    particle_layout.addInterferenceFunction(p_interference_function);
+    throw NotImplementedException("Code is obsolete");
 
 
-    Layer air_layer(air_material);
-    air_layer.addLayout(particle_layout);
+////    FunctionalTestRegistry tests;
+////    tests.printCatalogue();
 
-    Layer substrate_layer(substrate_material, 0);
+////    tests.getTest("isgisaxs01");
+////    std::cout << Utils::FileSystem::GetReferenceDataDir() << std::endl;
 
-    multi_layer->addLayer(air_layer);
-    multi_layer->addLayer(substrate_layer);
+//    MultiLayer *multi_layer = new MultiLayer();
+
+//    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+//    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+//    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+
+//    FormFactorFullSphere ff_cyl(5.0*Units::nanometer);
+//    Particle particle(particle_material, ff_cyl);
+
+//    ParticleLayout particle_layout;
+//    particle_layout.addParticle(particle);
+
+//    InterferenceFunction2DLattice *p_interference_function =
+//        InterferenceFunction2DLattice::createHexagonal(10.0*Units::nanometer);
+//    FTDistribution2DCauchy pdf(10.0*Units::nanometer, 10.0*Units::nanometer);
+//    p_interference_function->setProbabilityDistribution(pdf);
+//    particle_layout.addInterferenceFunction(p_interference_function);
 
 
-    GISASSimulation *simulation = new GISASSimulation();
-    simulation->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
-                                      100, 0.0*Units::degree, 2.0*Units::degree,
-                                      true);
-    simulation->setBeamParameters(1.0*Units::angstrom,
-                                  0.2*Units::degree, 0.0*Units::degree);
+//    Layer air_layer(air_material);
+//    air_layer.addLayout(particle_layout);
 
-    simulation->setSample(*multi_layer);
+//    Layer substrate_layer(substrate_material, 0);
 
-    // ----
-    simulation->runSimulation();
-    OutputData<double> *real_data = simulation->getIntensityData();
-    double noise_factor(0.1);
-    for(size_t i=0; i<real_data->getAllocatedSize(); ++i) {
-        double amplitude = (*real_data)[i];
-        double sigma = noise_factor*std::sqrt(amplitude);
-        double noisy_amplitude = MathFunctions::GenerateNormalRandom(amplitude,
-                                                                     sigma);
-        if(noisy_amplitude < 0) noisy_amplitude = 0.0;
-        (*real_data)[i] = noisy_amplitude;
-    }
+//    multi_layer->addLayer(air_layer);
+//    multi_layer->addLayer(substrate_layer);
 
-    FitSuite *fit_suite = new FitSuite();
-    fit_suite->addSimulationAndRealData(*simulation, *real_data);
-    fit_suite->initPrint(10);
-    fit_suite->addFitParameter("*2DLattice/length_*", 8.0*Units::nanometer,
-        0.01*Units::nanometer, AttLimits::limited(4., 12.));
-    fit_suite->addFitParameter("*/FormFactorFullSphere/radius",
-        8.0*Units::nanometer, 0.01*Units::nanometer,
-        AttLimits::limited(4., 12.));
-    fit_suite->runFit();
+
+//    GISASSimulation *simulation = new GISASSimulation();
+//    simulation->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
+//                                      100, 0.0*Units::degree, 2.0*Units::degree,
+//                                      true);
+//    simulation->setBeamParameters(1.0*Units::angstrom,
+//                                  0.2*Units::degree, 0.0*Units::degree);
+
+//    simulation->setSample(*multi_layer);
+
+//    // ----
+//    simulation->runSimulation();
+//    OutputData<double> *real_data = simulation->getIntensityData();
+//    double noise_factor(0.1);
+//    for(size_t i=0; i<real_data->getAllocatedSize(); ++i) {
+//        double amplitude = (*real_data)[i];
+//        double sigma = noise_factor*std::sqrt(amplitude);
+//        double noisy_amplitude = MathFunctions::GenerateNormalRandom(amplitude,
+//                                                                     sigma);
+//        if(noisy_amplitude < 0) noisy_amplitude = 0.0;
+//        (*real_data)[i] = noisy_amplitude;
+//    }
+
+//    FitSuite *fit_suite = new FitSuite();
+//    fit_suite->addSimulationAndRealData(*simulation, *real_data);
+//    fit_suite->initPrint(10);
+//    fit_suite->addFitParameter("*2DLattice/length_*", 8.0*Units::nanometer,
+//        0.01*Units::nanometer, AttLimits::limited(4., 12.));
+//    fit_suite->addFitParameter("*/FormFactorFullSphere/radius",
+//        8.0*Units::nanometer, 0.01*Units::nanometer,
+//        AttLimits::limited(4., 12.));
+//    fit_suite->runFit();
 
 
 
@@ -523,6 +526,6 @@ void TestMiscellaneous::test_SampleGeometry()
     simulation.setSample(multi_layer);
     simulation.runSimulation();
 
-    IsGISAXSTools::drawLogOutputData(*simulation.getIntensityData(),
+    IsGISAXSTools::drawLogOutputData(*simulation.getDetectorIntensity(),
             "c1_geom", "Sample geometry", "CONT4 Z", "Sample geometry");
 }

@@ -42,13 +42,13 @@ void TestRotations::execute()
     boost::scoped_ptr<MultiLayer> box(createReferenceSample());
     simulation->setSample(*box);
     simulation->runSimulation();
-    boost::scoped_ptr<OutputData<double> > reference(simulation->getIntensityData());
+    boost::scoped_ptr<OutputData<double> > reference(simulation->getDetectorIntensity());
 
     // simulation with composition
     boost::scoped_ptr<MultiLayer> composition(createComposition());
     simulation->setSample(*composition);
     simulation->runSimulation();
-    boost::scoped_ptr<OutputData<double> > data(simulation->getIntensityData());
+    boost::scoped_ptr<OutputData<double> > data(simulation->getDetectorIntensity());
 
     double diff = IntensityDataFunctions::getRelativeDifference(*data, *reference);
     std::cout << "diff:" << diff << std::endl;

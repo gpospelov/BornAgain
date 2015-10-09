@@ -195,6 +195,61 @@ TEST_F(Histogram1DTest, CreateOutputData)
     }
 }
 
+TEST_F(Histogram1DTest, GetMaximumGetMinimum)
+{
+    Histogram1D hist(10, -5.0, 5.0);
+    hist.fill(-4.5, 10.);
+    EXPECT_EQ(10.0, hist.getMaximum());
+    EXPECT_EQ(0, hist.getMaximumBinIndex());
+    EXPECT_EQ(0.0, hist.getMinimum());
+    EXPECT_EQ(1, hist.getMinimumBinIndex());
+
+    hist.fill(-3.5, 20.0);
+    EXPECT_EQ(20.0, hist.getMaximum());
+    EXPECT_EQ(1, hist.getMaximumBinIndex());
+}
+
+TEST_F(Histogram1DTest, Scale)
+{
+    Histogram1D hist(10, -5.0, 5.0);
+
+    for(size_t i=0; i<hist.getTotalNumberOfBins(); ++i) {
+        hist.fill(-4.5+i, 1.0);
+    }
+    hist.scale(10.0);
+    for(size_t i=0; i<hist.getTotalNumberOfBins(); ++i) {
+        EXPECT_EQ(10.0, hist.getBinContent(i));
+    }
+
+}
+
+TEST_F(Histogram1DTest, Integral)
+{
+    Histogram1D hist(10, -5.0, 5.0);
+
+    for(size_t i=0; i<hist.getTotalNumberOfBins(); ++i) {
+        hist.fill(-4.5+i, 1.0);
+    }
+    EXPECT_EQ(10.0, hist.integral());
+}
+
+TEST_F(Histogram1DTest, Addition)
+{
+    Histogram1D hist1(10, -5.0, 5.0);
+    for(size_t i=0; i<hist1.getTotalNumberOfBins(); ++i) {
+        hist1.fill(-4.5+i, 1.0);
+    }
+
+    Histogram1D hist2(10, -5.0, 5.0);
+    for(size_t i=0; i<hist2.getTotalNumberOfBins(); ++i) {
+        hist2.fill(-4.5+i, 2.0);
+    }
+
+    hist1 += hist2;
+    for(size_t i=0; i<hist1.getTotalNumberOfBins(); ++i) {
+        EXPECT_EQ(3.0, hist1.getBinContent(i));
+    }
+}
 
 
 #endif

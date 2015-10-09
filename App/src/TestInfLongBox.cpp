@@ -77,7 +77,7 @@ void TestInfLongBox::execute()
 void TestInfLongBox::save_results()
 {
     std::string filename(getOutputPath()+"test_inflongbox.ima");
-    IntensityDataIOFactory::writeIntensityData(*(mp_simulation->getIntensityData()),
+    IntensityDataIOFactory::writeOutputData(*(mp_simulation->getDetectorIntensity()),
                                          filename);
 }
 
@@ -238,7 +238,7 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
 
 void TestInfLongBox::plot_results()
 {
-    OutputData<double> *m_result = mp_simulation->getIntensityData();
+    OutputData<double> *m_result = mp_simulation->getDetectorIntensity();
     const IAxis *axisPhi = m_result->getAxis(0);
     const IAxis *axisAlpha = m_result->getAxis(1);
 

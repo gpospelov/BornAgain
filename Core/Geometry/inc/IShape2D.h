@@ -19,7 +19,7 @@
 #include "ICloneable.h"
 #include <iostream>
 
-class Bin1D;
+struct Bin1D;
 
 namespace Geometry {
 

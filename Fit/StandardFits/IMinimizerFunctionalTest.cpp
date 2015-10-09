@@ -57,7 +57,7 @@ void IMinimizerFunctionalTest::runTest()
     simulation->setSample(*sample.get());
     simulation->runSimulation();
 
-    boost::scoped_ptr<OutputData<double> > real_data(simulation->getIntensityData());
+    boost::scoped_ptr<OutputData<double> > real_data(simulation->getDetectorIntensity());
 
     boost::scoped_ptr<FitSuite> fitSuite(createFitSuite());
     fitSuite->addSimulationAndRealData(*simulation.get(), *real_data.get());
@@ -97,12 +97,11 @@ FitSuite *IMinimizerFunctionalTest::createFitSuite()
     FitSuite *result = new FitSuite();
     result->initPrint(10);
     IMinimizer *minimizer = MinimizerFactory::createMinimizer(m_minimizer_name, m_minimizer_algorithm);
-    minimizer->getOptions().setMaxIterations(200);
+    minimizer->getOptions()->setMaxIterations(200);
     result->setMinimizer(minimizer);
     for (size_t i = 0; i < m_parameters.size(); ++i) {
         result->addFitParameter(m_parameters[i].m_name, m_parameters[i].m_start_value,
-                                    m_parameters[i].m_start_value / 100.,
-                                    AttLimits::lowerLimited(0.01));
+                                    AttLimits::lowerLimited(0.01), m_parameters[i].m_start_value / 100.);
     }
 
     return result;

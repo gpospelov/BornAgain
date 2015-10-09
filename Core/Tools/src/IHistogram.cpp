@@ -92,7 +92,7 @@ size_t IHistogram::getNbinsY() const
     return getYaxis()->getSize();
 }
 
-int IHistogram::getGlobalBin(int binx, int biny) const
+size_t IHistogram::getGlobalBin(size_t binx, size_t biny) const
 {
     std::vector<int > axes_indices;
     axes_indices.push_back(binx);
@@ -100,7 +100,7 @@ int IHistogram::getGlobalBin(int binx, int biny) const
     return m_data.toGlobalIndex(axes_indices);
 }
 
-int IHistogram::findGlobalBin(double x, double y) const
+size_t IHistogram::findGlobalBin(double x, double y) const
 {
     std::vector<double> coordinates;
     coordinates.push_back(x);
@@ -130,44 +130,98 @@ double IHistogram::getYaxisValue(size_t globalbin)
     return m_data.getAxisValue(globalbin, 1);
 }
 
-double IHistogram::getBinContent(int bin) const
+double IHistogram::getBinContent(size_t globalbin) const
 {
-    return m_data[bin].getContent();
+    return m_data[globalbin].getContent();
 }
 
-double IHistogram::getBinContent(int binx, int biny) const
+double IHistogram::getBinContent(size_t binx, size_t biny) const
 {
     return getBinContent(getGlobalBin(binx, biny));
 }
 
-double IHistogram::getBinError(int bin) const
+void IHistogram::setBinContent(size_t globalbin, double value)
 {
-    return m_data[bin].getRMS();
+    m_data[globalbin].setContent(value);
 }
 
-double IHistogram::getBinError(int binx, int biny) const
+void IHistogram::addBinContent(size_t globalbin, double value)
+{
+    m_data[globalbin].add(value);
+}
+
+double IHistogram::getBinError(size_t globalbin) const
+{
+    return m_data[globalbin].getRMS();
+}
+
+double IHistogram::getBinError(size_t binx, size_t biny) const
 {
     return getBinError(getGlobalBin(binx, biny));
 }
 
-double IHistogram::getBinAverage(int bin) const
+double IHistogram::getBinAverage(size_t globalbin) const
 {
-    return m_data[bin].getAverage();
+    return m_data[globalbin].getAverage();
 }
 
-double IHistogram::getBinAverage(int binx, int biny) const
+double IHistogram::getBinAverage(size_t binx, size_t biny) const
 {
     return getBinAverage(getGlobalBin(binx, biny));
 }
 
-int IHistogram::getBinNumberOfEntries(int bin) const
+int IHistogram::getBinNumberOfEntries(size_t globalbin) const
 {
-    return m_data[bin].getNumberOfEntries();
+    return m_data[globalbin].getNumberOfEntries();
 }
 
-int IHistogram::getBinNumberOfEntries(int binx, int biny) const
+int IHistogram::getBinNumberOfEntries(size_t binx, size_t biny) const
 {
     return getBinNumberOfEntries(getGlobalBin(binx, biny));
+}
+
+double IHistogram::getMaximum() const
+{
+    OutputData<CumulativeValue>::const_iterator it =
+         std::max_element(m_data.begin(), m_data.end());
+    return it->getContent();
+}
+
+size_t IHistogram::getMaximumBinIndex() const
+{
+    OutputData<CumulativeValue>::const_iterator it =
+         std::max_element(m_data.begin(), m_data.end());
+    return std::distance(m_data.begin(), it);
+}
+
+double IHistogram::getMinimum() const
+{
+    OutputData<CumulativeValue>::const_iterator it =
+         std::min_element(m_data.begin(), m_data.end());
+    return it->getContent();
+}
+
+size_t IHistogram::getMinimumBinIndex() const
+{
+    OutputData<CumulativeValue>::const_iterator it =
+         std::min_element(m_data.begin(), m_data.end());
+    return std::distance(m_data.begin(), it);
+}
+
+void IHistogram::scale(double value)
+{
+    for(size_t index=0; index<getTotalNumberOfBins(); ++index) {
+        m_data[index].setContent(value*m_data[index].getContent());
+    }
+}
+
+double IHistogram::integral() const
+{
+    double result(0.0);
+    for(size_t index=0; index<getTotalNumberOfBins(); ++index) {
+        result += m_data[index].getContent();
+    }
+    return result;
 }
 
 PyObject *IHistogram::getArray(DataType dataType) const
@@ -270,5 +324,28 @@ OutputData<double> *IHistogram::createOutputData(IHistogram::DataType dataType) 
         (*result)[i] = getBinData(i, dataType);
     }
     return result;
+}
+
+bool IHistogram::hasSameShape(const IHistogram &other) const
+{
+    return m_data.hasSameShape(other.m_data);
+}
+
+bool IHistogram::hasSameDimensions(const IHistogram &other) const
+{
+    return m_data.hasSameDimensions(other.m_data);
+}
+
+const IHistogram &IHistogram::operator+=(const IHistogram &right)
+{
+    if(!hasSameDimensions(right)) {
+        throw LogicErrorException("IHistogram::operator+=() -> Error. "
+                                  "Histograms have different dimension");
+    }
+
+    for(size_t globalbin=0; globalbin<getTotalNumberOfBins(); ++globalbin) {
+        addBinContent(globalbin, right.getBinContent(globalbin));
+    }
+    return *this;
 }
 

@@ -14,11 +14,11 @@
 // ************************************************************************** //
 
 #include "FitSuiteStrategies.h"
-#include "FitSuite.h"
+#include "FitKernel.h"
 #include "MessageService.h"
 #include <cassert>
 
-FitSuiteStrategies::FitSuiteStrategies() : m_fit_suite(0), m_current_strategy_index(0)
+FitSuiteStrategies::FitSuiteStrategies() : m_fit_kernel(0), m_current_strategy_index(0)
 {
 }
 
@@ -33,10 +33,17 @@ void FitSuiteStrategies::clear()
     m_current_strategy_index = 0;
 }
 
+IFitStrategy *FitSuiteStrategies::getCurrentStrategy()
+{
+    assert(m_current_strategy_index < m_strategies.size());
+
+    return m_strategies[m_current_strategy_index];
+}
+
 void FitSuiteStrategies::addStrategy(IFitStrategy *strategy)
 {
-    assert(m_fit_suite);
-    strategy->init(m_fit_suite);
+    assert(m_fit_kernel);
+    strategy->init(m_fit_kernel);
     m_strategies.push_back(strategy);
 }
 
@@ -44,11 +51,10 @@ void FitSuiteStrategies::minimize()
 {
     m_current_strategy_index = 0;
     if( m_strategies.empty() ) {
-         m_fit_suite->minimize();
+         m_fit_kernel->minimize();
     } else {
         for(strategies_t::iterator it=m_strategies.begin(); it!=m_strategies.end(); ++it) {
             //msglog(MSG::INFO) << "FitSuiteStrategies::minimize() -> Running strategy #" << m_current_strategy_index << " '" << (*it)->getName() << "'";
-            m_current_strategy_name = (*it)->getName();
             (*it)->execute();
             ++m_current_strategy_index;
         }

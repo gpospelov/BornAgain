@@ -97,10 +97,11 @@ def run_fitting():
     # Now we create first fig strategy which will run first minimization round using Genetic minimizer.
     # Genetic minimizer is able to explore large parameter space without being trapped by some local minima.
     strategy1 = FitStrategyAdjustMinimizer("Genetic")
-    strategy1.getMinimizerOptions().setMaxIterations(5)
+    strategy1.getMinimizerOptions().setMaxIterations(3)
     fit_suite.addFitStrategy(strategy1)
 
-    # Second fit strategy will use another algorithm. It will use best parameters found from previous minimization round.
+    # Second fit strategy will use another minimizer. It starts from best parameters found in previous minimization
+    # and then continues until fit converges.
     strategy2 = FitStrategyAdjustMinimizer("Minuit2", "Migrad")
     fit_suite.addFitStrategy(strategy2)
 

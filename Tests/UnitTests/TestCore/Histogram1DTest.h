@@ -233,6 +233,24 @@ TEST_F(Histogram1DTest, Integral)
     EXPECT_EQ(10.0, hist.integral());
 }
 
+TEST_F(Histogram1DTest, Addition)
+{
+    Histogram1D hist1(10, -5.0, 5.0);
+    for(size_t i=0; i<hist1.getTotalNumberOfBins(); ++i) {
+        hist1.fill(-4.5+i, 1.0);
+    }
+
+    Histogram1D hist2(10, -5.0, 5.0);
+    for(size_t i=0; i<hist2.getTotalNumberOfBins(); ++i) {
+        hist2.fill(-4.5+i, 2.0);
+    }
+
+    hist1 += hist2;
+    for(size_t i=0; i<hist1.getTotalNumberOfBins(); ++i) {
+        EXPECT_EQ(3.0, hist1.getBinContent(i));
+    }
+}
+
 
 #endif
 

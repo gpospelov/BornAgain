@@ -54,7 +54,7 @@ def runTest():
     fitSuite.addFitParameter("*SampleBuilder/cylinder_radius",  6*nanometer,  AttLimits.lowerLimited(0.01) )
     fitSuite.addFitParameter("*SampleBuilder/prism3_half_side", 4*nanometer,  AttLimits.lowerLimited(0.01) )
     fitSuite.addFitParameter("*SampleBuilder/prism3_height",    6*nanometer,  AttLimits.lowerLimited(0.01) )
-    fitSuite.addFitParameter("*SampleBuilder/cylinder_ratio", 0.2, 0.1, AttLimits.fixed());
+    fitSuite.addFitParameter("*SampleBuilder/cylinder_ratio", 0.2, AttLimits.fixed())
 
     # chiModule = ChiSquaredModule()
     # chiModule.setChiSquaredFunction( SquaredFunctionMeanSquaredError() )
@@ -89,12 +89,13 @@ def createRealData(simulation):
     simulation.runSimulation();
     real_data = simulation.getIntensityData()
     noise_factor = 0.1
-    for i in range(0,real_data.getAllocatedSize()):
-        amplitude = real_data[i]
+    for i in range(0, real_data.getTotalNumberOfBins()):
+        amplitude = real_data.getBinContent(i)
         sigma = noise_factor*math.sqrt(amplitude)
         noisy_amplitude = GenerateNormalRandom(amplitude, sigma)
-        if(noisy_amplitude < 0.0) : noisy_amplitude = 0.0
-        real_data[i] = noisy_amplitude
+        if noisy_amplitude < 0.0:
+            noisy_amplitude = 0.0
+        real_data.setBinContent(i, noisy_amplitude)
     return real_data
 
 

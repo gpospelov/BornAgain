@@ -119,6 +119,9 @@ public:
     //! Sets content of the bin corresponding to the globalbin number
     void setBinContent(size_t globalbin, double value);
 
+    //! Add the value to the bin
+    void addBinContent(size_t globalbin, double value);
+
     //! Returns error of the bin with given index.
     double getBinError(size_t globalbin) const;
 
@@ -172,11 +175,15 @@ public:
     //! creates new OutputData with histogram's shape and put there values corresponding to DataType
     OutputData<double> *createOutputData(DataType dataType = INTEGRAL) const;
 
-    //! Returns true if object have same dimensions and shape of axises
+    //! Returns true if objects a) have same dimensions b) bin boundaries of axes coincide
     bool hasSameShape(const IHistogram& other) const;
 
-    //! Returns true if object have same dimensions and shape of axises
+    //! Returns true if object have same dimensions and number of axes bins
     bool hasSameDimensions(const IHistogram& other) const;
+
+    //! addition-assignment operator for two histograms
+    const IHistogram& operator+=(const IHistogram& right);
+
 
 protected:
     void check_x_axis() const;

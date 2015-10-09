@@ -145,6 +145,11 @@ void IHistogram::setBinContent(size_t globalbin, double value)
     m_data[globalbin].setContent(value);
 }
 
+void IHistogram::addBinContent(size_t globalbin, double value)
+{
+    m_data[globalbin].add(value);
+}
+
 double IHistogram::getBinError(size_t globalbin) const
 {
     return m_data[globalbin].getRMS();
@@ -329,5 +334,18 @@ bool IHistogram::hasSameShape(const IHistogram &other) const
 bool IHistogram::hasSameDimensions(const IHistogram &other) const
 {
     return m_data.hasSameDimensions(other.m_data);
+}
+
+const IHistogram &IHistogram::operator+=(const IHistogram &right)
+{
+    if(!hasSameDimensions(right)) {
+        throw LogicErrorException("IHistogram::operator+=() -> Error. "
+                                  "Histograms have different dimension");
+    }
+
+    for(size_t globalbin=0; globalbin<getTotalNumberOfBins(); ++globalbin) {
+        addBinContent(globalbin, right.getBinContent(globalbin));
+    }
+    return *this;
 }
 

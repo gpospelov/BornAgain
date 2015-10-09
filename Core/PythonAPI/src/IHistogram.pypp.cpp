@@ -78,6 +78,17 @@ void register_IHistogram_class(){
             ;
         IHistogram_exposer.def( bp::init< IAxis const & >(( bp::arg("axis_x") )) );
         IHistogram_exposer.def( bp::init< IAxis const &, IAxis const & >(( bp::arg("axis_x"), bp::arg("axis_y") )) );
+        { //::IHistogram::addBinContent
+        
+            typedef void ( ::IHistogram::*addBinContent_function_type)( ::std::size_t,double ) ;
+            
+            IHistogram_exposer.def( 
+                "addBinContent"
+                , addBinContent_function_type( &::IHistogram::addBinContent )
+                , ( bp::arg("globalbin"), bp::arg("value") )
+                , "Add the value to the bin." );
+        
+        }
         { //::IHistogram::createHistogram
         
             typedef ::IHistogram * ( *createHistogram_function_type )( ::OutputData< double > const & );
@@ -418,7 +429,7 @@ void register_IHistogram_class(){
                 "hasSameDimensions"
                 , hasSameDimensions_function_type( &::IHistogram::hasSameDimensions )
                 , ( bp::arg("other") )
-                , "Returns true if object have same dimensions and shape of axises." );
+                , "Returns true if object have same dimensions and number of axes bins." );
         
         }
         { //::IHistogram::hasSameShape
@@ -429,7 +440,7 @@ void register_IHistogram_class(){
                 "hasSameShape"
                 , hasSameShape_function_type( &::IHistogram::hasSameShape )
                 , ( bp::arg("other") )
-                , "Returns true if object have same dimensions and shape of axises." );
+                , "Returns true if objects a) have same dimensions b) bin boundaries of axes coincide." );
         
         }
         { //::IHistogram::integral
@@ -442,6 +453,7 @@ void register_IHistogram_class(){
                 , "Returns integral of bins content (computed as a sum of all bin content)." );
         
         }
+        IHistogram_exposer.def( bp::self += bp::self );
         { //::IHistogram::reset
         
             typedef void ( ::IHistogram::*reset_function_type)(  ) ;

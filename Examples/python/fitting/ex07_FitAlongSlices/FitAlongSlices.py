@@ -1,9 +1,10 @@
 """
 Fitting example
-This is more detailed version of FitCylindersPrisms.py.
-We show how to generate "real" data and how to draw fit progress.
 
-Please take a note, that performance here is determined by poor performance of matplotlib drawing routines.
+Here we demonstrate how to fit along slices. The basic idea is to mask all detector except thin lines, one vertical
+and one horizontal, representing slices. This will make simulation and fitting to go along slices only.
+
+The majority of the code sits inside DrawObserver which plots fit results along whose slices.
 """
 
 import matplotlib
@@ -14,15 +15,6 @@ import numpy
 
 phi_slice_value = 0.0*deg  # position of vertical slice
 alpha_slice_value = 0.2*deg  # position of horizontal slice
-
-
-    # conditions = [
-    #     {'title': "Small cylinders, analytical calculations", 'scale': 1,   'integration': False, 'max': 1e+08},
-    #     {'title': "Small cylinders, Monte-Carlo integration", 'scale': 1,   'integration': True,  'max': 1e+08},
-    #     {'title': "Large cylinders, analytical calculations", 'scale': 100, 'integration': False, 'max': 1e+12},
-    #     {'title': "Large cylinders, Monte-Carlo integration", 'scale': 100, 'integration': True,  'max': 1e+12}
-    # ]
-
 
 
 def get_sample(radius=5*nanometer, height=10*nanometer):
@@ -86,9 +78,7 @@ def create_real_data():
 
 class DrawObserver(IFitObserver):
     """
-    Draws fit progress every nth iteration. This class  has to be attached to FitSuite via attachObserver method.
-    FitSuite kernel will call DrawObserver's update() method every n'th iteration.
-    It is up to the user what to do here.
+    Draws fit progress every nth iteration. Here we plot slices along real and simulated images to see fit progress.
     """
 
     def __init__(self, draw_every_nth=10):
@@ -97,87 +87,35 @@ class DrawObserver(IFitObserver):
         self.fig.canvas.draw()
         plt.ion()
 
-
-    def plot_colormap(self, data, title, min=1, max=1e6):
-        plt.subplot(2, 2, 1)
+    def plot_real_data(self, data, nplot):
+        plt.subplot(2, 2, nplot)
         plt.subplots_adjust(wspace=0.2, hspace=0.2)
         im = plt.imshow(data.getArray(),
-                        norm=matplotlib.colors.LogNorm(min, max),
+                        norm=matplotlib.colors.LogNorm(1.0, data.getMaximum()),
                         extent=[data.getXmin()/deg, data.getXmax()/deg, data.getYmin()/deg, data.getYmax()/deg])
         plt.colorbar(im)
-        plt.title(title)
+        plt.title("\"Real\" data")
+        plt.xlabel(r'$\phi_f$', fontsize=12)
+        plt.ylabel(r'$\alpha_f$', fontsize=12)
+        # line representing vertical slice
+        plt.plot([phi_slice_value / deg, phi_slice_value / deg], [data.getYmin() / deg, data.getYmax() / deg],
+                 color='gray', linestyle='-', linewidth=1)
+        # line representing horizontal slice
+        plt.plot([data.getXmin() / deg, data.getXmax() / deg], [alpha_slice_value / deg, alpha_slice_value / deg],
+                 color='gray', linestyle='-', linewidth=1)
 
-    def plot_horizontal_slices(self, real_data, simul_data):
-        plt.subplot(2, 2, 2)
-        plt.subplots_adjust(wspace=0.2, hspace=0.2)
-
-        real_slice = real_data.projectionX(alpha_slice_value)
-        simul_slice = simul_data.projectionX(alpha_slice_value)
-
-        plt.semilogy(real_slice.getBinCenters()/deg, real_slice.getBinValues(), label="real")
-        plt.semilogy(simul_slice.getBinCenters()/deg, simul_slice.getBinValues(), label="simul")
-        plt.ylim(1.0, real_slice.getMaximum()*10.0)
-        plt.xlim(real_slice.getXmin()/deg, real_slice.getXmax()/deg)
-        plt.legend(loc='upper right')
-        plt.title("Horizontal slice at alpha =" + '{:3.1f}'.format(alpha_slice_value/deg))
-
-    def plot_vertical_slices(self, real_data, simul_data):
-        plt.subplot(2, 2, 3)
-        plt.subplots_adjust(wspace=0.2, hspace=0.2)
-
-        real_slice = real_data.projectionY(phi_slice_value)
-        simul_slice = simul_data.projectionY(phi_slice_value)
-
-        plt.semilogy(real_slice.getBinCenters()/deg, real_slice.getBinValues(), label="real")
-        plt.semilogy(simul_slice.getBinCenters()/deg, simul_slice.getBinValues(), label="simul")
-        plt.ylim(1.0, real_slice.getMaximum()*10.0)
-        plt.xlim(real_slice.getXmin()/deg, real_slice.getXmax()/deg)
-        plt.legend(loc='upper right')
-        plt.title("Vertical slice at phi =" + '{:3.1f}'.format(phi_slice_value/deg))
-
-
-    def plot_slices(self, slices, title):
-        for slice in slices:
-            plt.semilogy(slice.getBinCenters()/deg, slice.getBinValues(), label="real")
+    def plot_slices(self, slices, title, nplot):
+        plt.subplot(2, 2, nplot)
+        plt.subplots_adjust(wspace=0.2, hspace=0.3)
+        for label, slice in slices:
+            plt.semilogy(slice.getBinCenters()/deg, slice.getBinValues(), label=label)
             plt.xlim(slice.getXmin()/deg, slice.getXmax()/deg)
             plt.ylim(1.0, slice.getMaximum()*10.0)
         plt.legend(loc='upper right')
         plt.title(title)
 
-
-    def update(self, fit_suite):
-        self.fig.clf()
-        real_data = fit_suite.getRealData()
-        simulated_data = fit_suite.getSimulationData()
-        self.plot_colormap(real_data, "\"Real\" data", min=1.0, max=real_data.getMaximum())
-
-        self.plot_horizontal_slices(real_data, simulated_data)
-        self.plot_vertical_slices(real_data, simulated_data)
-
-        # real_hslice = real_data.projectionX(alpha_slice_value)
-        # simul_hslice = simulated_data.projectionX(alpha_slice_value)
-
-        # plt.subplot(2, 2, 2)
-        # slices = []
-        # slices.append(real_data.projectionX(alpha_slice_value))
-        # slices.append(simulated_data.projectionX(alpha_slice_value))
-        # self.plot_slices(slices, "Horizontal slice at alpha =" + '{:3.1f}'.format(alpha_slice_value/deg))
-
-        # self.plot_horizontal_slices(real_data, simulated_data)
-
-        # self.plot_slice(real_hslice, nplot=2, min=1.0, max=real_hslice.getMaximum())
-        # self.plot_slice(simul_hslice, nplot=2, min=1.0, max=real_hslice.getMaximum())
-        # plt.title("Horizontal slice")
-        # plt.legend("Real", "Simulated", loc='upper right')
-
-        # real_vslice = real_data.projectionY(phi_slice_value)
-        # simul_vslice = simulated_data.projectionY(phi_slice_value)
-
-
-        # self.plot(fit_suite.getSimulationData(), "Simulated data", nplot=2, min=1.0, max=real_data.getMaximum())
-        # self.plot(fit_suite.getChiSquaredMap(), "Chi2 map", nplot=3, min=0.001, max=10.0)
-
-        plt.subplot(2, 2, 4)
+    def display_fit_parameters(self, fit_suite, nplot):
+        plt.subplot(2, 2, nplot)
         plt.title('Parameters')
         plt.axis('off')
         plt.text(0.01, 0.85, "Iteration  " + '{:d}     {:s}'.
@@ -189,6 +127,34 @@ class DrawObserver(IFitObserver):
 
         plt.draw()
         plt.pause(0.01)
+
+    def update(self, fit_suite):
+        self.fig.clf()
+
+        real_data = fit_suite.getRealData()
+        simul_data = fit_suite.getSimulationData()
+
+        # plot real data
+        self.plot_real_data(real_data, nplot=1)
+
+        # horizontal slices
+        slices =[
+            ("real", real_data.projectionX(alpha_slice_value)),
+            ("simul", simul_data.projectionX(alpha_slice_value))
+            ]
+        title = "Horizontal slice at alpha =" + '{:3.1f}'.format(alpha_slice_value/deg)
+        self.plot_slices(slices, title, nplot=2)
+
+        # vertical slices
+        slices =[
+            ("real", real_data.projectionY(phi_slice_value)),
+            ("simul", simul_data.projectionY(phi_slice_value))
+            ]
+        title = "Vertical slice at phi =" + '{:3.1f}'.format(phi_slice_value/deg)
+        self.plot_slices(slices, title, nplot=3)
+
+        # display fit parametersx
+        self.display_fit_parameters(fit_suite, nplot=4)
 
         if fit_suite.isLastIteration():
             plt.ioff()
@@ -206,15 +172,15 @@ def run_fitting():
     simulation.setSample(sample)
 
     # At this point we mask all the detector and then unmask two areas corresponding to the vertical
-    # and horizontal lines.
+    # and horizontal lines. This will make simulation/fitting to be performed along slices only.
     simulation.maskAll()
     simulation.addMask(HorizontalLine(alpha_slice_value), False)
     simulation.addMask(VerticalLine(phi_slice_value), False)
 
     fit_suite = FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)
-    fit_suite.initPrint(10)
-    draw_observer = DrawObserver(draw_every_nth=10)
+    fit_suite.initPrint(5)
+    draw_observer = DrawObserver(draw_every_nth=5)
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values

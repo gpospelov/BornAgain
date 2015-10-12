@@ -3,7 +3,7 @@ Mixture of cylinders and prisms without interference
 """
 import numpy
 import matplotlib
-import pylab
+from matplotlib import pyplot as plt
 from bornagain import *
 
 phi_min, phi_max = -1.0, 1.0
@@ -62,15 +62,15 @@ def run_simulation():
     simulation.runSimulation()
     result = simulation.getIntensityData()
 
-    # showing the result (+1 is added to all intensities for log scale)
-    data = result.getArray() + 1
-    im = pylab.imshow(data, norm=matplotlib.colors.LogNorm(),
-                      extent=[phi_min, phi_max, alpha_min, alpha_max])
-    cb = pylab.colorbar(im)
+    im = plt.imshow(result.getArray(),
+                    norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+                    extent=[result.getXmin()/deg, result.getXmax()/deg, result.getYmin()/deg, result.getYmax()/deg],
+                    aspect='auto')
+    cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)
-    pylab.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
-    pylab.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
-    pylab.show()
+    plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
+    plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
+    plt.show()
 
 
 if __name__ == '__main__':

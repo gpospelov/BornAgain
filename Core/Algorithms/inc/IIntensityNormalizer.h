@@ -35,6 +35,8 @@ public:
     virtual OutputData<double> *createNormalizedData(
             const OutputData<double>& data) const=0;
 
+    virtual void apply(OutputData<double> &data) const=0;
+
     virtual void setMaximumIntensity(double ) = 0;
 };
 
@@ -58,6 +60,8 @@ public:
     virtual IntensityNormalizer *clone() const;
 
     virtual OutputData<double> *createNormalizedData(const OutputData<double >& data) const;
+
+    virtual void apply(OutputData<double> &data) const;
 
     virtual void setMaximumIntensity(double max_intensity) {
         m_max_intensity = max_intensity; }

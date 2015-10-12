@@ -52,6 +52,11 @@ void FitSuite::setMinimizer(const std::string &minimizer_name, const std::string
     m_kernel->setMinimizer(minimizer);
 }
 
+void FitSuite::setChiSquaredModule(const IChiSquaredModule &chi2_module)
+{
+    m_kernel->getFitObjects()->setChiSquaredModule(chi2_module);
+}
+
 void FitSuite::addFitStrategy(const IFitStrategy &strategy)
 {
     m_kernel->addFitStrategy(strategy);

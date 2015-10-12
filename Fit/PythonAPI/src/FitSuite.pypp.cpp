@@ -293,6 +293,17 @@ void register_FitSuite_class(){
                 , "main method to run the fitting." );
         
         }
+        { //::FitSuite::setChiSquaredModule
+        
+            typedef void ( ::FitSuite::*setChiSquaredModule_function_type)( ::IChiSquaredModule const & ) ;
+            
+            FitSuite_exposer.def( 
+                "setChiSquaredModule"
+                , setChiSquaredModule_function_type( &::FitSuite::setChiSquaredModule )
+                , ( bp::arg("chi2_module") )
+                , "Replaces default ChiSquaredModule with new one." );
+        
+        }
         { //::FitSuite::setMinimizer
         
             typedef void ( ::FitSuite::*setMinimizer_function_type)( ::std::string const &,::std::string const &,::std::string const & ) ;

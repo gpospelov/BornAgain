@@ -35,6 +35,11 @@ struct IIntensityNormalizer_wrapper : IIntensityNormalizer, bp::wrapper< IIntens
         m_pyobj = 0;
     }
 
+    virtual void apply( ::OutputData< double > & data ) const {
+        bp::override func_apply = this->get_override( "apply" );
+        func_apply( boost::ref(data) );
+    }
+
     virtual ::IIntensityNormalizer * clone(  ) const {
         bp::override func_clone = this->get_override( "clone" );
         return func_clone(  );
@@ -132,6 +137,16 @@ void register_IIntensityNormalizer_class(){
         typedef bp::class_< IIntensityNormalizer_wrapper, bp::bases< IParameterized >, std::auto_ptr< IIntensityNormalizer_wrapper >, boost::noncopyable > IIntensityNormalizer_exposer_t;
         IIntensityNormalizer_exposer_t IIntensityNormalizer_exposer = IIntensityNormalizer_exposer_t( "IIntensityNormalizer", "Interface to OutputData normalizers." );
         bp::scope IIntensityNormalizer_scope( IIntensityNormalizer_exposer );
+        { //::IIntensityNormalizer::apply
+        
+            typedef void ( ::IIntensityNormalizer::*apply_function_type)( ::OutputData<double> & ) const;
+            
+            IIntensityNormalizer_exposer.def( 
+                "apply"
+                , bp::pure_virtual( apply_function_type(&::IIntensityNormalizer::apply) )
+                , ( bp::arg("data") ) );
+        
+        }
         { //::IIntensityNormalizer::clone
         
             typedef ::IIntensityNormalizer * ( ::IIntensityNormalizer::*clone_function_type)(  ) const;

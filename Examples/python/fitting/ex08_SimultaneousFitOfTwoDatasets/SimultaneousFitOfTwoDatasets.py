@@ -140,19 +140,17 @@ def run_fitting():
     """
     main function to run fitting
     """
-    real_data_1 = create_real_data(incident_alpha=0.1*degree)
-    real_data_2 = create_real_data(incident_alpha=0.4*degree)
 
+    incident_alpha_angles = [0.1*degree, 0.4*degree]
+    fit_suite = FitSuite()
     sample = get_sample()
 
-    simulation_1 = get_simulation(incident_alpha=0.1*degree)
-    simulation_1.setSample(sample)
-    simulation_2 = get_simulation(incident_alpha=0.4*degree)
-    simulation_2.setSample(sample)
+    for alpha in incident_alpha_angles:
+        real_data = create_real_data(incident_alpha=alpha)
+        simulation = get_simulation(incident_alpha=alpha)
+        simulation.setSample(sample)
+        fit_suite.addSimulationAndRealData(simulation, real_data)
 
-    fit_suite = FitSuite()
-    fit_suite.addSimulationAndRealData(simulation_1, real_data_1)
-    fit_suite.addSimulationAndRealData(simulation_2, real_data_2)
     fit_suite.initPrint(10)
     draw_observer = DrawObserver(draw_every_nth=10)
     fit_suite.attachObserver(draw_observer)

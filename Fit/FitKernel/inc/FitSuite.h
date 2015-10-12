@@ -58,6 +58,9 @@ public:
                       const std::string& algorithm_name = std::string(),
                       const std::string& minimizer_options=std::string());
 
+    //! Replaces default ChiSquaredModule with new one
+    void setChiSquaredModule(const IChiSquaredModule &chi2_module);
+
     //! Adds fit strategy
     void addFitStrategy(const IFitStrategy &strategy);
 

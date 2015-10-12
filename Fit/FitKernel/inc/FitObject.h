@@ -22,6 +22,7 @@
 #include <boost/scoped_ptr.hpp>
 
 class GISASSimulation;
+class IIntensityNormalizer;
 
 //! @class FitObject
 //! @ingroup fitting_internal
@@ -58,7 +59,8 @@ class BA_CORE_API_ FitObject : public IParameterized
     //! which will participate in chi2 calculations.
     size_t getSizeOfData() const;
 
-    void prepareFitElements(std::vector<FitElement> &fit_elements, double weight);
+    void prepareFitElements(std::vector<FitElement> &fit_elements, double weight,
+                            IIntensityNormalizer *normalizer=0);
 
     OutputData<double> *getChiSquaredMap(std::vector<FitElement>::const_iterator first,
                                          std::vector<FitElement>::const_iterator last) const;

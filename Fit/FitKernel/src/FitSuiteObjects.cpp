@@ -97,7 +97,8 @@ void FitSuiteObjects::runSimulations()
 
     for(FitObjects_t::iterator it =
             m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        (*it)->prepareFitElements(m_fit_elements, (*it)->getWeight()/m_total_weight);
+        (*it)->prepareFitElements(m_fit_elements, (*it)->getWeight()/m_total_weight,
+                                  m_chi2_module->getIntensityNormalizer());
     }
 
     if(m_fit_elements.size() != getSizeOfDataSet()) {

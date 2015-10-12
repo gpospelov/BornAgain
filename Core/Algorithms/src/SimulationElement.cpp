@@ -66,11 +66,7 @@ kvector_t SimulationElement::getKI() const
 
 kvector_t SimulationElement::getMeanKF() const
 {
-    kvector_t k_f_lower = m_pixel_map->getK(0.0, 0.0, m_wavelength);
-    kvector_t k_f_upper = m_pixel_map->getK(1.0, 1.0, m_wavelength);
-    Bin1DKVector k_f_bin(k_f_lower, k_f_upper);
-    return k_f_bin.getMidPoint();
-//    return m_pixel_map->getK(0.5, 0.5, m_wavelength);
+    return m_pixel_map->getK(0.5, 0.5, m_wavelength);
 }
 
 kvector_t SimulationElement::getMeanQ() const

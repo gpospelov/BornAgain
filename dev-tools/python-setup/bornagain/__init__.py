@@ -8,8 +8,11 @@ sys.path.append(os.path.abspath(
 from libBornAgainCore import *
 from libBornAgainFit import *
 
-import matplotlib
-from matplotlib import pyplot as plt
+try:
+    import matplotlib
+    from matplotlib import pyplot as plt
+except ImportError:
+    print "bornagain/__init__.py -> Error. Can't import matplotlib."
 
 
 class DefaultFitObserver(IFitObserver):

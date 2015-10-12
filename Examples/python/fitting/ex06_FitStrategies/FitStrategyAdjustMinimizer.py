@@ -2,8 +2,9 @@
 Two parameter fit of cylinders.
 In this example we are trying to find cylinder's height and radius using chain of minimizers.
 
-During the first fit round Genetic minimizer will be used. It will roughly look for possible global minimas.
-After it is done, the second Minuit2 minimizer will continue to find the precise location of local minima.
+During the first fit round Genetic minimizer will be used. It will roughly look for possible local minimas.
+After it is done, the second Minuit2 minimizer will continue to find the precise location of best minima
+found on previous step.
 """
 
 import numpy

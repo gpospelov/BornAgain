@@ -47,7 +47,7 @@ def get_sample(cylinder_height=1.0*nanometer, cylinder_radius=1.0*nanometer,
 def create_real_data():
     """
     Generating "real" data by adding noise to the simulated data.
-    This function has been used once to generate refdata_fitcylinderprisms.int
+    This function has been used once to generate refdata_fitcylinderprisms.int located in same directory
     """
     # creating sample with set of parameters we will later try to find during the fit
     sample = get_sample(5.0*nanometer, 5.0*nanometer, 5.0*nanometer, 5.0*nanometer)
@@ -66,7 +66,10 @@ def create_real_data():
         if noisy_amplitude < 0.0:
             noisy_amplitude = 0.0
         real_data.setBinContent(i, noisy_amplitude)
-    IntensityDataIOFactory.writeIntensityData(real_data, 'refdata_fitcylinderprisms.int')
+
+    # ucomment line to save generated data on disk
+    #IntensityDataIOFactory.writeIntensityData(real_data, 'refdata_fitcylinderprisms.int')
+    return real_data
 
 
 def get_simulation():
@@ -92,7 +95,6 @@ class DrawObserver(IFitObserver):
         self.fig.canvas.draw()
         plt.ion()
 
-
     def plot(self, data, title, nplot, min=1, max=1e6):
         plt.subplot(2, 2, nplot)
         plt.subplots_adjust(wspace=0.2, hspace=0.2)
@@ -112,7 +114,7 @@ class DrawObserver(IFitObserver):
         plt.subplot(2, 2, 4)
         plt.title('Parameters')
         plt.axis('off')
-        plt.text(0.01, 0.85, "Iteration  " + '{:d}     {:s}'.
+        plt.text(0.01, 0.85, "Iterations  " + '{:d}     {:s}'.
                  format(fit_suite.getNumberOfIterations(), fit_suite.getMinimizer().getMinimizerName()))
         plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
         fitpars = fit_suite.getFitParameters()
@@ -131,14 +133,11 @@ def run_fitting():
     main function to run fitting
     """
 
-    # uncomment to regenerate file with "real" data
-    # create_real_data()
-
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
 
-    real_data = IntensityDataIOFactory.readIntensityData('refdata_fitcylinderprisms.int.gz')
+    real_data = create_real_data()
 
     fit_suite = FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)

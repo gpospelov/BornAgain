@@ -1,7 +1,7 @@
 """
 Fitting example: demonstrates how to fit two datasets simultaneously.
 
-Suppose that we have same sample measured for two different incidence angles. We are going to fit both datasets
+Suppose that we have same sample measured for two different incident angles. We are going to fit both datasets
 simultaneously to find unknown sample parameters.
 
 To do this, we define one dataset ( a pair of real_data and simulation model) for the first incidence angle

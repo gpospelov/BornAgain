@@ -24,16 +24,16 @@ used for fitting.
 --- ex04_FitScaleAndShift ---
     FitScaleAndShift.py - in this example we are trying to fit the data representing cylinders without interference
     on top of substrate. Real data contains some "unknown" background and scale factors.
-    In four parameters fit we are looking for cylinder's height and radius and for background and scale factors.
+    In four parameters fit we are looking for cylinder's height, radius and for background and scale factors.
 
 --- ex05_FitWithMasks ---
     FitWithMasks.py - two parameter fit of cylinders without interference.
-    Real data contains rectangular masks to simulate and fit only the area outside the masks.
+    Real data contains various masks to simulate and fit only the area outside the masks.
 
 --- ex06_FitStrategies ---
     FitStrategyAdjustMinimizer.py - in this example we are trying to find cylinder's height and radius using chain
     of minimizers. During the first fit round Genetic minimizer will be used. It will roughly look for possible
-    global minimas. After it is done, the second Minuit2 minimizer will continue to find the precise location of local
+    minimas. After it is done, the second Minuit2 minimizer will continue to find the precise location of global
     minima.
 
 --- ex07_FitAlongSlices ---
@@ -42,7 +42,9 @@ used for fitting.
     This will make simulation and fitting to go along slices only.
 
 --- ex08_SimultaneousFitOfTwoDatasets ---
-    SimultaneousFitOfTwoDatasets.py - here we demonstrate how to fit two datasets simultaneously.
+    SimultaneousFitOfTwoDatasets.py - simultaneous fit of two datasets.
+    It can be useful when, for example, we have same sample measured for two different incident angles and we
+    want to find unknown sample parameter using all data available.
 
 --- ex10_ImportUserData
     This directory contains examples for importing raw X,Y detector data into BornAgain's

@@ -1,5 +1,5 @@
 """
-Fitting example: looking for background and scale factor.
+Fitting example: looking for background and scale factors.
 
 Real data contains some "unknown" background and scale factors.
 In the fit we are trying to find cylinder radius and height, scale and background factors.

@@ -104,15 +104,15 @@ public:
     kvector_t getMeanQ() const;
 
     kvector_t getK(double x, double y) const {
-        return m_pixel_map->getK(x, y, m_wavelength);
+        return mP_pixel_map->getK(x, y, m_wavelength);
     }
 
     double getIntegrationFactor(double x, double y) const {
-        return m_pixel_map->getIntegrationFactor(x, y);
+        return mP_pixel_map->getIntegrationFactor(x, y);
     }
 
     double getSolidAngle() const {
-        return m_pixel_map->getSolidAngle();
+        return mP_pixel_map->getSolidAngle();
     }
 
 private:
@@ -134,7 +134,7 @@ private:
     Eigen::Matrix2cd m_polarization;      //!< polarization density matrix
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 #endif
-    boost::scoped_ptr<IPixelMap> m_pixel_map;
+    boost::scoped_ptr<IPixelMap> mP_pixel_map;
 };
 
 //! Add element vector to element vector with weight

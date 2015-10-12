@@ -22,7 +22,7 @@ SimulationElement::SimulationElement(double wavelength, double alpha_i, double p
                                      const IPixelMap *pixelmap)
     : m_wavelength(wavelength), m_alpha_i(alpha_i), m_phi_i(phi_i), m_intensity(0.0)
 {
-    m_pixel_map.reset(pixelmap->clone());
+    mP_pixel_map.reset(pixelmap->clone());
     initPolarization();
 }
 
@@ -30,7 +30,7 @@ SimulationElement::SimulationElement(const SimulationElement &other)
     : m_wavelength(other.m_wavelength), m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i),
       m_intensity(other.m_intensity)
 {
-    m_pixel_map.reset(other.m_pixel_map->clone());
+    mP_pixel_map.reset(other.mP_pixel_map->clone());
     m_polarization = other.m_polarization;
     m_analyzer_operator = other.m_analyzer_operator;
 }
@@ -48,7 +48,7 @@ SimulationElement::SimulationElement(const SimulationElement &other, double x, d
     : m_wavelength(other.m_wavelength), m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i),
       m_intensity(other.m_intensity)
 {
-    m_pixel_map.reset(other.m_pixel_map->createZeroSizeMap(x, y));
+    mP_pixel_map.reset(other.mP_pixel_map->createZeroSizeMap(x, y));
     m_polarization = other.m_polarization;
     m_analyzer_operator = other.m_analyzer_operator;
 }
@@ -62,7 +62,7 @@ kvector_t SimulationElement::getKI() const
 
 kvector_t SimulationElement::getMeanKF() const
 {
-    return m_pixel_map->getK(0.5, 0.5, m_wavelength);
+    return mP_pixel_map->getK(0.5, 0.5, m_wavelength);
 }
 
 kvector_t SimulationElement::getMeanQ() const
@@ -78,7 +78,7 @@ void SimulationElement::swapContent(SimulationElement &other)
     std::swap(this->m_intensity, other.m_intensity);
     std::swap(this->m_polarization, other.m_polarization);
     std::swap(this->m_analyzer_operator, other.m_analyzer_operator);
-    boost::swap(this->m_pixel_map, other.m_pixel_map);
+    boost::swap(this->mP_pixel_map, other.mP_pixel_map);
 }
 
 void SimulationElement::initPolarization()

@@ -16,7 +16,10 @@
 #include "InterferenceFunction2DLattice.h"
 
 #include <cassert>
+#include "Macros.h"
+GCC_DIAG_OFF(unused-parameter)
 #include <boost/math/special_functions/round.hpp>
+GCC_DIAG_ON(unused-parameter)
 
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(
     double length_1, double length_2, double angle, double xi)

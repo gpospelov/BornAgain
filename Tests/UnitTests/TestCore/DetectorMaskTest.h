@@ -78,7 +78,8 @@ TEST_F(DetectorMaskTest, AddMask)
     // adding third mask
     x = boost::assign::list_of(5.0)(5.0)(8.0)(8.0)(5.0);
     y = boost::assign::list_of(2.0)(4.0)(4.0)(2.0)(2.0);
-    detectorMask.addMask(Geometry::Polygon(x, y), true);
+    Geometry::Polygon polygon2(x, y);
+    detectorMask.addMask(polygon2, true);
     detectorMask.initMaskData(detector);
     for(size_t index=0; index<detectorMask.getMaskData()->getAllocatedSize(); ++index) {
         double x = detectorMask.getMaskData()->getAxisValue(index, 0);

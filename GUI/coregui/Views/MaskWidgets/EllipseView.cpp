@@ -180,9 +180,9 @@ void EllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 void EllipseView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     if(!m_block_mode) {
-        if ((m_mode == RESIZE)) {
+        if (m_mode == RESIZE) {
             m_mode = ROTATION;
-        } else if ((m_mode == ROTATION)) {
+        } else if (m_mode == ROTATION) {
             m_mode = RESIZE;
         }
     }

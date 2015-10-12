@@ -16,11 +16,14 @@
 #include "Line.h"
 #include "Bin.h"
 #include "Numeric.h"
+#include "Macros.h"
+GCC_DIAG_OFF(unused-parameter)
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
 #include <boost/geometry/geometries/polygon.hpp>
 #include <boost/geometry/geometries/linestring.hpp>
 #include <boost/assign/list_of.hpp>
+GCC_DIAG_ON(unused-parameter)
 #include <iostream>
 
 using namespace boost::geometry;

@@ -98,7 +98,8 @@ TEST_F(DetectorTest, MaskOfDetector)
     std::vector<double> x = boost::assign::list_of(4.0)(-4.0)(-4.0)(4.0)(4.0);
     std::vector<double> y = boost::assign::list_of(2.0)(2.0)(-2.0)(-2.0)(2.0);
 
-    detector.addMask(Geometry::Polygon(x, y), true);
+    Geometry::Polygon polygon(x, y);
+    detector.addMask(polygon, true);
 
     const OutputData<bool> *mask = detector.getDetectorMask()->getMaskData();
     for(size_t index=0; index<mask->getAllocatedSize(); ++index) {

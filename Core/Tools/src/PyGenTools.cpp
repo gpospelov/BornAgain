@@ -20,7 +20,12 @@
 #include <iomanip>
 #include <cstdio>
 #include <Python.h>
+#include "Macros.h"
+GCC_DIAG_OFF(missing-field-initializers)
+GCC_DIAG_OFF(unused-parameter)
 #include <boost/python.hpp>
+GCC_DIAG_ON(unused-parameter)
+GCC_DIAG_ON(missing-field-initializers)
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "ISample.h"

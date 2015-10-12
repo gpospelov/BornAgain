@@ -171,8 +171,8 @@ std::vector<SimulationElement> Detector::createSimulationElements(const Beam &be
         if ((*mask_data)[index]) continue;
         Bin1D phi_bin = mask_data->getAxisBin(index, BornAgain::X_AXIS_INDEX);
         Bin1D alpha_bin = mask_data->getAxisBin(index, BornAgain::Y_AXIS_INDEX);
-        SimulationElement sim_element(wavelength, alpha_i, phi_i, alpha_bin.m_lower,
-                                      alpha_bin.m_upper, phi_bin.m_lower, phi_bin.m_upper);
+        AngularPixelMap pixel_map(alpha_bin, phi_bin);
+        SimulationElement sim_element(wavelength, alpha_i, phi_i, &pixel_map);
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(analyzer_operator);
         result.push_back(sim_element);
@@ -290,15 +290,27 @@ void Detector::print(std::ostream &ostr) const
     }
 }
 
-AngularPixelMap::AngularPixelMap(double alpha, double phi, double dalpha, double dphi)
-    : m_alpha(alpha), m_phi(phi), m_dalpha(dalpha), m_dphi(dphi)
+AngularPixelMap::AngularPixelMap(Bin1D alpha_bin, Bin1D phi_bin)
+    : m_alpha(alpha_bin.m_lower), m_phi(phi_bin.m_lower),
+      m_dalpha(alpha_bin.getBinSize()), m_dphi(phi_bin.getBinSize())
 {
     m_solid_angle = m_dphi*(std::sin(m_alpha+m_dalpha) - std::sin(m_alpha));
 }
 
 AngularPixelMap *AngularPixelMap::clone() const
 {
-    return new AngularPixelMap(m_alpha, m_phi, m_dalpha, m_dphi);
+    Bin1D alpha_bin(m_alpha, m_alpha+m_dalpha);
+    Bin1D phi_bin(m_phi, m_phi+m_dphi);
+    return new AngularPixelMap(alpha_bin, phi_bin);
+}
+
+AngularPixelMap *AngularPixelMap::createZeroSizeMap(double x, double y) const
+{
+    double alpha = m_alpha + x*m_dalpha;
+    double phi = m_phi + y*m_dphi;
+    Bin1D alpha_bin(alpha, alpha);
+    Bin1D phi_bin(phi, phi);
+    return new AngularPixelMap(alpha_bin, phi_bin);
 }
 
 kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const

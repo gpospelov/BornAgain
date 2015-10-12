@@ -31,9 +31,7 @@ class BA_CORE_API_ SimulationElement
 {
 public:
     SimulationElement(double wavelength, double alpha_i, double phi_i,
-                      double alpha_min, double alpha_max, double phi_min, double phi_max);
-//    SimulationElement(double wavelength, double alpha_i, double phi_i,
-//                      const IPixelMap* pixelmap);
+                      const IPixelMap* pixelmap);
     SimulationElement(const SimulationElement &other);
     SimulationElement &operator=(const SimulationElement &other);
 

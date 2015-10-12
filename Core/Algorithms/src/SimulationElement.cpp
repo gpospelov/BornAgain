@@ -19,12 +19,10 @@
 #include <Bin.h>
 
 SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i,
-                                     double alpha_min, double alpha_max, double phi_min,
-                                     double phi_max)
+                                     const IPixelMap *pixelmap)
     : m_wavelength(wavelength), m_alpha_i(alpha_i), m_phi_i(phi_i), m_intensity(0.0)
 {
-    m_pixel_map.reset(new AngularPixelMap(alpha_min, phi_min, alpha_max-alpha_min,
-                                          phi_max-phi_min));
+    m_pixel_map.reset(pixelmap->clone());
     initPolarization();
 }
 
@@ -50,9 +48,7 @@ SimulationElement::SimulationElement(const SimulationElement &other, double x, d
     : m_wavelength(other.m_wavelength), m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i),
       m_intensity(other.m_intensity)
 {
-    double alpha_f = other.getAlpha(x, y);
-    double phi_f = other.getPhi(x, y);
-    m_pixel_map.reset(new AngularPixelMap(alpha_f, phi_f, 0.0, 0.0));
+    m_pixel_map.reset(other.m_pixel_map->createZeroSizeMap(x, y));
     m_polarization = other.m_polarization;
     m_analyzer_operator = other.m_analyzer_operator;
 }

@@ -163,10 +163,11 @@ private:
 class AngularPixelMap : public IPixelMap
 {
 public:
-    AngularPixelMap(double alpha, double phi, double dalpha, double dphi);
+    AngularPixelMap(Bin1D alpha_bin, Bin1D phi_bin);
     virtual ~AngularPixelMap() {}
 
     virtual AngularPixelMap* clone() const;
+    virtual AngularPixelMap* createZeroSizeMap(double x, double y) const;
     virtual kvector_t getK(double x, double y, double wavelength) const;
     virtual double getIntegrationFactor(double x, double y) const;
     virtual double getSolidAngle() const {

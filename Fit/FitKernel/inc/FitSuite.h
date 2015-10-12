@@ -88,6 +88,9 @@ public:
     // Access to the data
     // ------------------------------------------------------------------------
 
+    //! Returns number of fit objects, where fit object stands for (real, simulated) pair.
+    int getNumberOfFitObjects() const;
+
     //! returns real data histogram
     //! @param i_item The index of fit object
     IHistogram * getRealData(size_t i_item = 0) const;

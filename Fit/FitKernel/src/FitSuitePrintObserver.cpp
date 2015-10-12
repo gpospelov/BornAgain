@@ -53,7 +53,7 @@ void FitSuitePrintObserver::printIterationHeader()
               << " NCall:" << m_fit_suite->getNumberOfIterations()
               << " NStrategy:" << m_fit_suite->getCurrentStrategyIndex()
               << " Chi2:" << std::scientific << std::setprecision(8)
-              << m_fit_suite->getFitObjects()->getChiSquaredValue() << std::endl;
+              << m_fit_suite->getChi2() << std::endl;
 }
 
 void FitSuitePrintObserver::printWallTime()

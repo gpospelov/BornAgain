@@ -93,6 +93,11 @@ void FitSuite::runFit()
     m_kernel->runFit();
 }
 
+int FitSuite::getNumberOfFitObjects() const
+{
+    return m_kernel->getFitObjects()->getNumberOfFitObjects();
+}
+
 IHistogram *FitSuite::getRealData(size_t i_item) const
 {
     return IHistogram::createHistogram(*m_kernel->getFitObjects()->getRealData(i_item));

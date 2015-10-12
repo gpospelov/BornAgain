@@ -41,6 +41,9 @@ used for fitting.
     The basic idea is to mask all detector except thin lines, one vertical and one horizontal, representing slices.
     This will make simulation and fitting to go along slices only.
 
+--- ex08_SimultaneousFitOfTwoDatasets ---
+    SimultaneousFitOfTwoDatasets.py - here we demonstrate how to fit two datasets simultaneously.
+
 --- ex10_ImportUserData
     This directory contains examples for importing raw X,Y detector data into BornAgain's
     IntensityData object (phi_f, alpha_f space)

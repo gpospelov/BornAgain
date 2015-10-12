@@ -132,6 +132,11 @@ FitSuiteObjects *FitKernel::getFitObjects()
     return &m_fit_objects;
 }
 
+const FitSuiteObjects *FitKernel::getFitObjects() const
+{
+    return &m_fit_objects;
+}
+
 FitSuiteParameters *FitKernel::getFitParameters()
 {
     return &m_fit_parameters;

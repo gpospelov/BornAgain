@@ -43,8 +43,11 @@ used for fitting.
 
 --- ex08_SimultaneousFitOfTwoDatasets ---
     SimultaneousFitOfTwoDatasets.py - simultaneous fit of two datasets.
-    It can be useful when, for example, we have same sample measured for two different incident angles and we
-    want to find unknown sample parameter using all data available.
+    Suppose that we have same sample measured for two different incident angles. We are going to fit both datasets
+    simultaneously to find unknown sample parameters.
+    To do this, we define one dataset ( a pair of real_data and simulation model) for the first incidence angle
+    and another pair of (real_data, simulation model) for the second incidence angle.
+    We add both pairs to the FitSuite and run fitting as usual.
 
 --- ex10_ImportUserData
     This directory contains examples for importing raw X,Y detector data into BornAgain's

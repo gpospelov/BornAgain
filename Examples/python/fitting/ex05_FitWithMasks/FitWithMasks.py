@@ -1,6 +1,5 @@
 """
-Two parameter fit of cylinders without interference.
-Various masks are added to the simulation to simulate and fit only outside masked areas.
+Fitting example: fit with masks
 """
 
 from matplotlib import pyplot as plt
@@ -10,7 +9,7 @@ from bornagain import *
 
 def get_sample(radius=5*nanometer, height=10*nanometer):
     """
-    Build the sample representing cylinders and pyramids on top of
+    Build the sample representing cylinders on top of
     substrate without interference.
     """
     m_air = HomogeneousMaterial("Air", 0.0, 0.0)

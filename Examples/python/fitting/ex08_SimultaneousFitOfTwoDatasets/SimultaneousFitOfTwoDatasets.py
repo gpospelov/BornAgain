@@ -1,14 +1,5 @@
 """
 Fitting example: demonstrates how to fit two datasets simultaneously.
-
-Suppose that we have same sample measured for two different incident angles. We are going to fit both datasets
-simultaneously to find unknown sample parameters.
-
-To do this, we define one dataset ( a pair of real_data and simulation model) for the first incidence angle
-and another pair of (real_data, simulation model) for the second incidence angle.
-We add both pairs to the FitSuite and run fitting as usual.
-
-The majority of the code sits inside optional DrawObserver which plots fit progress for both datasets
 """
 
 import matplotlib

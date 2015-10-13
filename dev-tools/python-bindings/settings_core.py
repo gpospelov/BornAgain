@@ -117,6 +117,7 @@ include_classes = [
     "ICloneable",
     "IClusteredParticles",
     "ICompositeSample",
+    "IDetector2D",
     "ILayout",
     "IDetectorResolution",
     "IDistribution1D",
@@ -206,7 +207,7 @@ def ManualClassTunings(mb):
     shared_ptrs.disable_warnings(messages.W1040)
 
     # Detector
-    cl = mb.class_('Detector')
+    cl = mb.class_('IDetector2D')
     cl.member_functions("addAxis").exclude()
 
     # ISample

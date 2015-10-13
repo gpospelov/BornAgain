@@ -106,6 +106,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IAbstractParticle.pypp.h"
 #include "FormFactorTruncatedCube.pypp.h"
 #include "FormFactorCuboctahedron.pypp.h"
+#include "IDetector2D.pypp.h"
 #include "cvector_t.pypp.h"
 #include "PythonInterface_free_functions.pypp.h"
 #include "FormFactorSphereLogNormalRadius.pypp.h"
@@ -187,6 +188,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_IClusteredParticles_class();
     register_Crystal_class();
     register_CustomBinAxis_class();
+    register_IDetector2D_class();
     register_Detector_class();
     register_IDistribution1D_class();
     register_DistributionCosine_class();

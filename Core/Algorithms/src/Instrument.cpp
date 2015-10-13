@@ -117,6 +117,7 @@ void Instrument::normalize(OutputData<double> *p_intensity) const
 
     // normalize by detector cell sizes
     double sin_alpha_i = std::abs(realpart.cosTheta());
+    if (sin_alpha_i==0.0) sin_alpha_i = 1.0;
     m_detector.normalize(p_intensity, sin_alpha_i);
 }
 

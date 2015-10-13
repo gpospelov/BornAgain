@@ -140,102 +140,10 @@ struct Detector_wrapper : Detector, bp::wrapper< Detector > {
 void register_Detector_class(){
 
     { //::Detector
-        typedef bp::class_< Detector_wrapper, bp::bases< IParameterized > > Detector_exposer_t;
+        typedef bp::class_< Detector_wrapper, bp::bases< IDetector2D > > Detector_exposer_t;
         Detector_exposer_t Detector_exposer = Detector_exposer_t( "Detector", "The detector with axes and resolution function.", bp::init< >() );
         bp::scope Detector_scope( Detector_exposer );
         Detector_exposer.def( bp::init< Detector const & >(( bp::arg("other") )) );
-        { //::Detector::addMask
-        
-            typedef void ( ::Detector::*addMask_function_type)( ::Geometry::IShape2D const &,bool ) ;
-            
-            Detector_exposer.def( 
-                "addMask"
-                , addMask_function_type( &::Detector::addMask )
-                , ( bp::arg("shape"), bp::arg("mask_value")=(bool)(true) )
-                , "Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority. @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse) @mask_value The value of mask \n\n:Parameters:\n  - 'shape' - The shape of mask (Rectangle, Polygon, Line, Ellipse)\n" );
-        
-        }
-        { //::Detector::clear
-        
-            typedef void ( ::Detector::*clear_function_type)(  ) ;
-            
-            Detector_exposer.def( 
-                "clear"
-                , clear_function_type( &::Detector::clear ) );
-        
-        }
-        { //::Detector::getAxis
-        
-            typedef ::IAxis const & ( ::Detector::*getAxis_function_type)( ::std::size_t ) const;
-            
-            Detector_exposer.def( 
-                "getAxis"
-                , getAxis_function_type( &::Detector::getAxis )
-                , ( bp::arg("index") )
-                , bp::return_value_policy< bp::copy_const_reference >() );
-        
-        }
-        { //::Detector::getDetectorMask
-        
-            typedef ::DetectorMask const * ( ::Detector::*getDetectorMask_function_type)(  ) const;
-            
-            Detector_exposer.def( 
-                "getDetectorMask"
-                , getDetectorMask_function_type( &::Detector::getDetectorMask )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Put the mask for all detector channels (i.e. exclude whole detector from the analysis)." );
-        
-        }
-        { //::Detector::getDetectorResolutionFunction
-        
-            typedef ::IDetectorResolution const * ( ::Detector::*getDetectorResolutionFunction_function_type)(  ) const;
-            
-            Detector_exposer.def( 
-                "getDetectorResolutionFunction"
-                , getDetectorResolutionFunction_function_type( &::Detector::getDetectorResolutionFunction )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Applies the detector resolution to the given intensity maps." );
-        
-        }
-        { //::Detector::getDimension
-        
-            typedef ::std::size_t ( ::Detector::*getDimension_function_type)(  ) const;
-            
-            Detector_exposer.def( 
-                "getDimension"
-                , getDimension_function_type( &::Detector::getDimension ) );
-        
-        }
-        { //::Detector::hasMasks
-        
-            typedef bool ( ::Detector::*hasMasks_function_type)(  ) const;
-            
-            Detector_exposer.def( 
-                "hasMasks"
-                , hasMasks_function_type( &::Detector::hasMasks )
-                , "return true if has masks." );
-        
-        }
-        { //::Detector::isMasked
-        
-            typedef bool ( ::Detector::*isMasked_function_type)( ::std::size_t ) const;
-            
-            Detector_exposer.def( 
-                "isMasked"
-                , isMasked_function_type( &::Detector::isMasked )
-                , ( bp::arg("index") ) );
-        
-        }
-        { //::Detector::maskAll
-        
-            typedef void ( ::Detector::*maskAll_function_type)(  ) ;
-            
-            Detector_exposer.def( 
-                "maskAll"
-                , maskAll_function_type( &::Detector::maskAll )
-                , "Put the mask for all detector channels (i.e. exclude whole detector from the analysis)." );
-        
-        }
         { //::Detector::operator=
         
             typedef ::Detector & ( ::Detector::*assign_function_type)( ::Detector const & ) ;
@@ -245,27 +153,6 @@ void register_Detector_class(){
                 , assign_function_type( &::Detector::operator= )
                 , ( bp::arg("other") )
                 , bp::return_self< >() );
-        
-        }
-        { //::Detector::removeMasks
-        
-            typedef void ( ::Detector::*removeMasks_function_type)(  ) ;
-            
-            Detector_exposer.def( 
-                "removeMasks"
-                , removeMasks_function_type( &::Detector::removeMasks )
-                , "removes all masks from the detector." );
-        
-        }
-        { //::Detector::setAnalyzerProperties
-        
-            typedef void ( ::Detector::*setAnalyzerProperties_function_type)( ::kvector_t const &,double,double ) ;
-            
-            Detector_exposer.def( 
-                "setAnalyzerProperties"
-                , setAnalyzerProperties_function_type( &::Detector::setAnalyzerProperties )
-                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 )
-                , "Sets the polarization analyzer characteristics of the detector." );
         
         }
         { //::IParameterized::areParametersChanged

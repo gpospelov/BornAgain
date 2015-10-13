@@ -34,14 +34,26 @@ struct Detector_wrapper : Detector, bp::wrapper< Detector > {
     : Detector( )
       , bp::wrapper< Detector >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     Detector_wrapper(::Detector const & other )
     : Detector( boost::ref(other) )
       , bp::wrapper< Detector >(){
         // copy constructor
+    m_pyobj = 0;
+    }
+
+    virtual ::Detector * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->Detector::clone(  );
+        }
+    }
     
+    ::Detector * default_clone(  ) const  {
+        return Detector::clone( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -135,15 +147,29 @@ struct Detector_wrapper : Detector, bp::wrapper< Detector > {
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_Detector_class(){
 
     { //::Detector
-        typedef bp::class_< Detector_wrapper, bp::bases< IDetector2D > > Detector_exposer_t;
+        typedef bp::class_< Detector_wrapper, bp::bases< IDetector2D >, std::auto_ptr< Detector_wrapper > > Detector_exposer_t;
         Detector_exposer_t Detector_exposer = Detector_exposer_t( "Detector", "The detector with axes and resolution function.", bp::init< >() );
         bp::scope Detector_scope( Detector_exposer );
         Detector_exposer.def( bp::init< Detector const & >(( bp::arg("other") )) );
+        { //::Detector::clone
+        
+            typedef ::Detector * ( ::Detector::*clone_function_type)(  ) const;
+            typedef ::Detector * ( Detector_wrapper::*default_clone_function_type)(  ) const;
+            
+            Detector_exposer.def( 
+                "clone"
+                , clone_function_type(&::Detector::clone)
+                , default_clone_function_type(&Detector_wrapper::default_clone)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::Detector::operator=
         
             typedef ::Detector & ( ::Detector::*assign_function_type)( ::Detector const & ) ;

@@ -209,6 +209,7 @@ def ManualClassTunings(mb):
     # Detector
     cl = mb.class_('IDetector2D')
     cl.member_functions("addAxis").exclude()
+    cl.member_functions("clone").exclude()
 
     # ISample
     cl = mb.class_('ISample')

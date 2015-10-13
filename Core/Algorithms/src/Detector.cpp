@@ -47,6 +47,11 @@ Detector &Detector::operator=(const Detector &other)
     return *this;
 }
 
+Detector *Detector::clone() const
+{
+    return new Detector(*this);
+}
+
 IPixelMap *Detector::createPixelMap(size_t index) const
 {
     const IAxis &phi_axis = getAxis(BornAgain::X_AXIS_INDEX);

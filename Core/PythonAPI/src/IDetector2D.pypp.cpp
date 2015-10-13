@@ -34,14 +34,19 @@ struct IDetector2D_wrapper : IDetector2D, bp::wrapper< IDetector2D > {
     : IDetector2D( )
       , bp::wrapper< IDetector2D >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     IDetector2D_wrapper(::IDetector2D const & other )
     : IDetector2D( boost::ref(other) )
       , bp::wrapper< IDetector2D >(){
         // copy constructor
-    
+    m_pyobj = 0;
+    }
+
+    virtual ::IDetector2D * clone(  ) const {
+        bp::override func_clone = this->get_override( "clone" );
+        return func_clone(  );
     }
 
     virtual ::IPixelMap * createPixelMap( ::std::size_t index ) const {
@@ -140,12 +145,14 @@ struct IDetector2D_wrapper : IDetector2D, bp::wrapper< IDetector2D > {
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_IDetector2D_class(){
 
     { //::IDetector2D
-        typedef bp::class_< IDetector2D_wrapper, bp::bases< IParameterized >, boost::noncopyable > IDetector2D_exposer_t;
+        typedef bp::class_< IDetector2D_wrapper, bp::bases< IParameterized >, std::auto_ptr< IDetector2D_wrapper >, boost::noncopyable > IDetector2D_exposer_t;
         IDetector2D_exposer_t IDetector2D_exposer = IDetector2D_exposer_t( "IDetector2D", "The detector interface.", bp::no_init );
         bp::scope IDetector2D_scope( IDetector2D_exposer );
         IDetector2D_exposer.def( bp::init< >() );
@@ -168,6 +175,16 @@ void register_IDetector2D_class(){
             IDetector2D_exposer.def( 
                 "clear"
                 , clear_function_type( &::IDetector2D::clear ) );
+        
+        }
+        { //::IDetector2D::clone
+        
+            typedef ::IDetector2D * ( ::IDetector2D::*clone_function_type)(  ) const;
+            
+            IDetector2D_exposer.def( 
+                "clone"
+                , bp::pure_virtual( clone_function_type(&::IDetector2D::clone) )
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IDetector2D::createPixelMap

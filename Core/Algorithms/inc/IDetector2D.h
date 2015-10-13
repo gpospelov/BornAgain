@@ -37,6 +37,8 @@ public:
     IDetector2D();
     IDetector2D(const IDetector2D& other);
 
+    virtual IDetector2D* clone() const=0;
+
     virtual ~IDetector2D() {}
 
     void addAxis(const IAxis &axis)

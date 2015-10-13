@@ -38,6 +38,8 @@ public:
     Detector(const Detector &other);
     Detector &operator=(const Detector &other);
 
+    virtual Detector* clone() const;
+
     virtual ~Detector() {}
 
     //! Adds parameters from local pool to external pool and call recursion over direct children.

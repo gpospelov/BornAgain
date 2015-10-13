@@ -23,7 +23,7 @@
 #include <map>
 
 
-class Detector;
+class IDetector2D;
 
 //! @class DetectorMask
 //! @ingroup simulation
@@ -43,7 +43,7 @@ public:
     void addMask(const Geometry::IShape2D &shape, bool mask_value);
 
     //! Init the map of masks for the given detector plane
-    void initMaskData(const Detector &detector);
+    void initMaskData(const IDetector2D &detector);
 
     bool getMask(size_t index) const;
 

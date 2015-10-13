@@ -39,8 +39,7 @@ public:
     //! Returns true if given point is inside or on border of rectangle
     bool contains(double x, double y) const;
 
-    //! Returns true if area defined by two bins is inside or on border of rectangle.
-    //! More precisely, if mid point of two bins satisfy this condition.
+    //! Returns true if mid point of two bins is inside rectangle.
     bool contains(const Bin1D &binx, const Bin1D &biny) const;
 
     double getArea() const;

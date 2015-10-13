@@ -14,8 +14,8 @@
 // ************************************************************************** //
 
 #include "DetectorMask.h"
+#include "IDetector2D.h"
 #include "IShape2D.h"
-#include "Detector.h"
 #include "BornAgainNamespace.h"
 
 
@@ -56,7 +56,7 @@ void DetectorMask::addMask(const Geometry::IShape2D &shape, bool mask_value)
     m_number_of_masked_channels = 0;
 }
 
-void DetectorMask::initMaskData(const Detector &detector)
+void DetectorMask::initMaskData(const IDetector2D &detector)
 {
     assert(m_shapes.size() == m_mask_of_shape.size());
 

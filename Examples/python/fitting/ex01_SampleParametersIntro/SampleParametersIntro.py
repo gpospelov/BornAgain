@@ -14,7 +14,7 @@ from bornagain import *
 
 def get_sample():
     """
-    Build and return the sample representing cylinders and pyramids on top of
+    Build and return the sample representing cylinders and prisms on top of
     substrate without interference. Sample is made for fixed set of parameters.
     """
     # defining materials

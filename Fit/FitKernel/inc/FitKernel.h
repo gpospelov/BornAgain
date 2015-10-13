@@ -71,6 +71,7 @@ class BA_CORE_API_ FitKernel
 
     //! Returns reference to the kit with data
     FitSuiteObjects *getFitObjects();
+    const FitSuiteObjects *getFitObjects() const;
 
     //! Returns reference to fit parameters
     FitSuiteParameters *getFitParameters();

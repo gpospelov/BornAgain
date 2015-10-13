@@ -44,6 +44,7 @@ BOOST_PYTHON_MODULE(libBornAgainFit){
     register_IChiSquaredModule_class();
     register_ChiSquaredModule_class();
     register_INamed_class();
+    register_IIntensityNormalizer_class();
     register_FitObject_class();
     register_FitParameter_class();
     register_IFitStrategy_class();
@@ -57,7 +58,6 @@ BOOST_PYTHON_MODULE(libBornAgainFit){
     register_FitSuiteParameters_class();
     register_IFitObserver_class();
     register_IIntensityFunction_class();
-    register_IIntensityNormalizer_class();
     register_IMinimizer_class();
     register_ISquaredFunction_class();
     register_IntensityFunctionLog_class();

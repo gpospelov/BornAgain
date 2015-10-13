@@ -58,6 +58,9 @@ public:
                       const std::string& algorithm_name = std::string(),
                       const std::string& minimizer_options=std::string());
 
+    //! Replaces default ChiSquaredModule with new one
+    void setChiSquaredModule(const IChiSquaredModule &chi2_module);
+
     //! Adds fit strategy
     void addFitStrategy(const IFitStrategy &strategy);
 
@@ -87,6 +90,9 @@ public:
     // ------------------------------------------------------------------------
     // Access to the data
     // ------------------------------------------------------------------------
+
+    //! Returns number of fit objects, where fit object stands for (real, simulated) pair.
+    int getNumberOfFitObjects() const;
 
     //! returns real data histogram
     //! @param i_item The index of fit object

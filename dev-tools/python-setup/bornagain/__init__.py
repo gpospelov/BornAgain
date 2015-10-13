@@ -34,7 +34,8 @@ class DefaultFitObserver(IFitObserver):
         plt.subplots_adjust(wspace=0.2, hspace=0.2)
         im = plt.imshow(data.getArray(),
                         norm=matplotlib.colors.LogNorm(min, max),
-                        extent=[data.getXmin()/deg, data.getXmax()/deg, data.getYmin()/deg, data.getYmax()/deg])
+                        extent=[data.getXmin()/deg, data.getXmax()/deg, data.getYmin()/deg, data.getYmax()/deg],
+                        aspect='auto')
         plt.colorbar(im)
         plt.title(title)
 
@@ -48,7 +49,7 @@ class DefaultFitObserver(IFitObserver):
         plt.subplot(2, 2, 4)
         plt.title('Parameters')
         plt.axis('off')
-        plt.text(0.01, 0.85, "Iteration  " + '{:d}     {:s}'.
+        plt.text(0.01, 0.85, "Iterations  " + '{:d}     {:s}'.
                  format(fit_suite.getNumberOfIterations(), fit_suite.getMinimizer().getMinimizerName()))
         plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
         fitpars = fit_suite.getFitParameters()

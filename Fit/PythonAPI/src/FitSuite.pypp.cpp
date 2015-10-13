@@ -198,6 +198,16 @@ void register_FitSuite_class(){
                 , "Returns minimizer." );
         
         }
+        { //::FitSuite::getNumberOfFitObjects
+        
+            typedef int ( ::FitSuite::*getNumberOfFitObjects_function_type)(  ) const;
+            
+            FitSuite_exposer.def( 
+                "getNumberOfFitObjects"
+                , getNumberOfFitObjects_function_type( &::FitSuite::getNumberOfFitObjects )
+                , "Returns number of fit objects, where fit object stands for (real, simulated) pair." );
+        
+        }
         { //::FitSuite::getNumberOfIterations
         
             typedef ::std::size_t ( ::FitSuite::*getNumberOfIterations_function_type)(  ) const;
@@ -281,6 +291,17 @@ void register_FitSuite_class(){
                 "runFit"
                 , runFit_function_type( &::FitSuite::runFit )
                 , "main method to run the fitting." );
+        
+        }
+        { //::FitSuite::setChiSquaredModule
+        
+            typedef void ( ::FitSuite::*setChiSquaredModule_function_type)( ::IChiSquaredModule const & ) ;
+            
+            FitSuite_exposer.def( 
+                "setChiSquaredModule"
+                , setChiSquaredModule_function_type( &::FitSuite::setChiSquaredModule )
+                , ( bp::arg("chi2_module") )
+                , "Replaces default ChiSquaredModule with new one." );
         
         }
         { //::FitSuite::setMinimizer

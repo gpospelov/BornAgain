@@ -52,6 +52,11 @@ void FitSuite::setMinimizer(const std::string &minimizer_name, const std::string
     m_kernel->setMinimizer(minimizer);
 }
 
+void FitSuite::setChiSquaredModule(const IChiSquaredModule &chi2_module)
+{
+    m_kernel->getFitObjects()->setChiSquaredModule(chi2_module);
+}
+
 void FitSuite::addFitStrategy(const IFitStrategy &strategy)
 {
     m_kernel->addFitStrategy(strategy);
@@ -91,6 +96,11 @@ void FitSuite::setParametersFixed(const std::vector<std::string> &pars, bool is_
 void FitSuite::runFit()
 {
     m_kernel->runFit();
+}
+
+int FitSuite::getNumberOfFitObjects() const
+{
+    return m_kernel->getFitObjects()->getNumberOfFitObjects();
 }
 
 IHistogram *FitSuite::getRealData(size_t i_item) const

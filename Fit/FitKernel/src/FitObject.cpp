@@ -17,6 +17,7 @@
 #include "GISASSimulation.h"
 #include "Exceptions.h"
 #include "MessageService.h"
+#include "IIntensityNormalizer.h"
 #include <boost/scoped_ptr.hpp>
 
 FitObject::FitObject(
@@ -82,10 +83,15 @@ size_t FitObject::getSizeOfData() const
 
 //! Runs simulation and put results (the real and simulated intensities) into
 //! external vector. Masked channels will be excluded from the vector.
-void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double weight)
+void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double weight,
+                                   IIntensityNormalizer *normalizer)
 {
     m_simulation->runSimulation();
     m_simulation_data.reset(m_simulation->getDetectorIntensity());
+
+    if(normalizer) {
+        normalizer->apply(*m_simulation_data.get());
+    }
 
     const OutputData<bool> *masks(0);
     if(m_simulation->getInstrument().getDetector()->hasMasks()) {

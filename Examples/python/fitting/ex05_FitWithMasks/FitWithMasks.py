@@ -1,6 +1,5 @@
 """
-Two parameter fit of cylinders without interference.
-Various masks are added to the simulation to simulate and fit only outside masked areas.
+Fitting example: fit with masks
 """
 
 from matplotlib import pyplot as plt
@@ -10,7 +9,7 @@ from bornagain import *
 
 def get_sample(radius=5*nanometer, height=10*nanometer):
     """
-    Build the sample representing cylinders and pyramids on top of
+    Build the sample representing cylinders on top of
     substrate without interference.
     """
     m_air = HomogeneousMaterial("Air", 0.0, 0.0)
@@ -83,24 +82,20 @@ def add_mask_to_simulation(simulation):
     # mask all detector (put mask=True to all detector channels)
     simulation.maskAll()
 
-    # # set mask to simulate pacman's head
-    # simulation.addMask(Ellipse(0.0*deg, 1.0*deg, 0.5*deg, 0.5*deg), False)
-    #
-    # # set mask for pacman's eye
-    # simulation.addMask(Ellipse(0.11*deg, 1.25*deg, 0.05*deg, 0.05*deg), True)
-    #
-    # # set mask for pacman's mouth
-    # points = [[0.0*deg, 1.0*deg], [0.5*deg, 1.2*deg], [0.5*deg, 0.8*deg], [0.0*deg, 1.0*deg]]
-    # simulation.addMask(Polygon(points), True)
-    #
-    # # giving pacman something to eat
-    # simulation.addMask(Rectangle(0.45*deg, 0.95*deg, 0.55*deg, 1.05*deg), False)
-    # simulation.addMask(Rectangle(0.61*deg, 0.95*deg, 0.71*deg, 1.05*deg), False)
-    # simulation.addMask(Rectangle(0.75*deg, 0.95*deg, 0.85*deg, 1.05*deg), False)
+    # set mask to simulate pacman's head
+    simulation.addMask(Ellipse(0.0*deg, 1.0*deg, 0.5*deg, 0.5*deg), False)
 
-    simulation.addMask(HorizontalLine(1.0*deg), False)
-    simulation.addMask(VerticalLine(0.0*deg), False)
+    # set mask for pacman's eye
+    simulation.addMask(Ellipse(0.11*deg, 1.25*deg, 0.05*deg, 0.05*deg), True)
 
+    # set mask for pacman's mouth
+    points = [[0.0*deg, 1.0*deg], [0.5*deg, 1.2*deg], [0.5*deg, 0.8*deg], [0.0*deg, 1.0*deg]]
+    simulation.addMask(Polygon(points), True)
+
+    # giving pacman something to eat
+    simulation.addMask(Rectangle(0.45*deg, 0.95*deg, 0.55*deg, 1.05*deg), False)
+    simulation.addMask(Rectangle(0.61*deg, 0.95*deg, 0.71*deg, 1.05*deg), False)
+    simulation.addMask(Rectangle(0.75*deg, 0.95*deg, 0.85*deg, 1.05*deg), False)
 
     # other mask's shapes are possible too
     # simulation.removeMasks()

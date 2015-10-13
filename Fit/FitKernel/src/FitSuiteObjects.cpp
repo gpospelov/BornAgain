@@ -76,8 +76,6 @@ OutputData<double> *FitSuiteObjects::getChiSquaredMap(size_t i_item) const
     check_index(i_item);
     size_t istart(0);
     for(size_t i=0; i<i_item; ++i) {
-        std::cout << "FitSuiteObjects::getChiSquaredMap() -> FIXME HERE" << std::endl;
-        assert(0);
         istart += m_fit_objects[i]->getSizeOfData();
     }
     std::vector<FitElement>::const_iterator start = m_fit_elements.begin() + istart;
@@ -99,7 +97,8 @@ void FitSuiteObjects::runSimulations()
 
     for(FitObjects_t::iterator it =
             m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        (*it)->prepareFitElements(m_fit_elements, (*it)->getWeight()/m_total_weight);
+        (*it)->prepareFitElements(m_fit_elements, (*it)->getWeight()/m_total_weight,
+                                  m_chi2_module->getIntensityNormalizer());
     }
 
     if(m_fit_elements.size() != getSizeOfDataSet()) {

@@ -33,7 +33,7 @@
 #include "ConstKBinAxis.h"
 #include "FixedBinAxis.h"
 #include "CustomBinAxis.h"
-#include "Detector.h"
+#include "SphericalDetector.h"
 #include "ParticleDistributionItem.h"
 #include "ParticleDistribution.h"
 #include "Distributions.h"

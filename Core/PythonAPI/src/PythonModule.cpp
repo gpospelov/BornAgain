@@ -148,7 +148,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FTDistribution2DVoigt.pypp.h"
 #include "FormFactorGauss.pypp.h"
 #include "InterferenceFunction2DParaCrystal.pypp.h"
-#include "Detector.pypp.h"
+#include "SphericalDetector.pypp.h"
 #include "FormFactorInfLongRipple2.pypp.h"
 #include "ICompositeSample.pypp.h"
 #include "Bin1D.pypp.h"
@@ -188,8 +188,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_IClusteredParticles_class();
     register_Crystal_class();
     register_CustomBinAxis_class();
-    register_IDetector2D_class();
-    register_Detector_class();
     register_IDistribution1D_class();
     register_DistributionCosine_class();
     register_DistributionGate_class();
@@ -262,6 +260,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_HomogeneousMaterial_class();
     register_HomogeneousMagneticMaterial_class();
     register_IAbstractParticle_class();
+    register_IDetector2D_class();
     register_IDetectorResolution_class();
     register_IInterferenceFunction_class();
     register_ILayout_class();
@@ -306,6 +305,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_SimpleSelectionRule_class();
     register_SimulationParameters_class();
     register_SpecularSimulation_class();
+    register_SphericalDetector_class();
     register_ThreadInfo_class();
     register_WavevectorInfo_class();
     register_global_variables();

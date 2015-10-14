@@ -17,7 +17,7 @@
 #define INSTRUMENT_H_
 
 #include "Beam.h"
-#include "Detector.h"
+#include "SphericalDetector.h"
 #include "IResolutionFunction2D.h"
 
 #include <boost/scoped_ptr.hpp>

@@ -15,9 +15,9 @@
 //
 // ************************************************************************** //
 
-#ifndef Detector_hpp__pyplusplus_wrapper
-#define Detector_hpp__pyplusplus_wrapper
+#ifndef SphericalDetector_hpp__pyplusplus_wrapper
+#define SphericalDetector_hpp__pyplusplus_wrapper
 
-void register_Detector_class();
+void register_SphericalDetector_class();
 
-#endif//Detector_hpp__pyplusplus_wrapper
+#endif//SphericalDetector_hpp__pyplusplus_wrapper

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/Detector.h
-//! @brief     Defines class Detector.
+//! @file      Algorithms/inc/SphericalDetector.h
+//! @brief     Defines class SphericalDetector.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DETECTOR_H_
-#define DETECTOR_H_
+#ifndef SPHERICALDETECTOR_H_
+#define SPHERICALDETECTOR_H_
 
 #include "IDetector2D.h"
 #include "IDetectorResolution.h"
@@ -27,20 +27,20 @@
 
 class AngularPixelMap;
 
-//! @class Detector
+//! @class SphericalDetector
 //! @ingroup simulation
-//! @brief The detector with axes and resolution function.
+//! @brief A spherical detector with axes and resolution function.
 
-class BA_CORE_API_ Detector : public IDetector2D
+class BA_CORE_API_ SphericalDetector : public IDetector2D
 {
 public:
-    Detector();
-    Detector(const Detector &other);
-    Detector &operator=(const Detector &other);
+    SphericalDetector();
+    SphericalDetector(const SphericalDetector &other);
+    SphericalDetector &operator=(const SphericalDetector &other);
 
-    virtual Detector* clone() const;
+    virtual SphericalDetector* clone() const;
 
-    virtual ~Detector() {}
+    virtual ~SphericalDetector() {}
 
     //! Adds parameters from local pool to external pool and call recursion over direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
@@ -73,4 +73,4 @@ private:
     double m_solid_angle;
 };
 
-#endif /* DETECTOR_H_ */
+#endif /* SPHERICALDETECTOR_H_ */

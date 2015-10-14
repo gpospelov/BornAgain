@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "SimulationElement.h"
-#include "Detector.h"
+#include "IDetector2D.h"
 
 #include <Bin.h>
 

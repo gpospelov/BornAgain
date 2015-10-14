@@ -22,7 +22,7 @@
 Instrument::Instrument()
     : IParameterized("Instrument")
 {
-    mP_detector.reset(new Detector());
+    mP_detector.reset(new SphericalDetector());
     init_parameters();
 }
 

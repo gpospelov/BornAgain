@@ -61,7 +61,6 @@ include_classes = [
     "Bin1D",
     "Bin1DCVector",
     "Crystal",
-    "Detector",
     "DistributionGate",
     "DistributionLorentz",
     "DistributionGaussian",
@@ -172,6 +171,7 @@ include_classes = [
     "RotationZ",
     "RotationEuler",
     "SpecularSimulation",
+    "SphericalDetector",
     "Simulation",
     "SimulationParameters",
     "SimpleSelectionRule",
@@ -206,7 +206,7 @@ def ManualClassTunings(mb):
     shared_ptrs = mb.decls(lambda decl: decl.name.startswith('shared_ptr<' ))
     shared_ptrs.disable_warnings(messages.W1040)
 
-    # Detector
+    # IDetector2D
     cl = mb.class_('IDetector2D')
     cl.member_functions("addAxis").exclude()
     cl.member_functions("clone").exclude()

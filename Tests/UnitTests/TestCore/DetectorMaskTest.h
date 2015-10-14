@@ -2,7 +2,7 @@
 #define DETECTORMASKTEST_H
 
 #include "DetectorMask.h"
-#include "Detector.h"
+#include "SphericalDetector.h"
 #include "gtest/gtest.h"
 #include <boost/scoped_ptr.hpp>
 #include <boost/assign/list_of.hpp>
@@ -44,7 +44,7 @@ TEST_F(DetectorMaskTest, AddMask)
     std::vector<double> y = boost::assign::list_of(2.0)(2.0)(-2.0)(-2.0)(2.0);
     Geometry::Polygon polygon(x, y);
 
-    Detector detector;
+    SphericalDetector detector;
     detector.addAxis(FixedBinAxis("x-axis", 12, -4.0, 8.0));
     detector.addAxis(FixedBinAxis("y-axis", 6, -2.0, 4.0));
 
@@ -109,7 +109,7 @@ TEST_F(DetectorMaskTest, AssignmentOperator)
     std::vector<double> y = boost::assign::list_of(2.0)(2.0)(-2.0)(-2.0)(2.0);
     Geometry::Polygon polygon(x, y);
 
-    Detector detector;
+    SphericalDetector detector;
     detector.addAxis(FixedBinAxis("x-axis", 12, -4.0, 8.0));
     detector.addAxis(FixedBinAxis("y-axis", 6, -2.0, 4.0));
 
@@ -143,7 +143,7 @@ TEST_F(DetectorMaskTest, CopyConstructor)
     std::vector<double> y = boost::assign::list_of(2.0)(2.0)(-2.0)(-2.0)(2.0);
     Geometry::Polygon polygon(x, y);
 
-    Detector detector;
+    SphericalDetector detector;
     detector.addAxis(FixedBinAxis("x-axis", 12, -4.0, 8.0));
     detector.addAxis(FixedBinAxis("y-axis", 6, -2.0, 4.0));
 

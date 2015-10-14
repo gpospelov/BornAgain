@@ -24,36 +24,36 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
-#include "Detector.pypp.h"
+#include "SphericalDetector.pypp.h"
 
 namespace bp = boost::python;
 
-struct Detector_wrapper : Detector, bp::wrapper< Detector > {
+struct SphericalDetector_wrapper : SphericalDetector, bp::wrapper< SphericalDetector > {
 
-    Detector_wrapper( )
-    : Detector( )
-      , bp::wrapper< Detector >(){
+    SphericalDetector_wrapper( )
+    : SphericalDetector( )
+      , bp::wrapper< SphericalDetector >(){
         // null constructor
     m_pyobj = 0;
     }
 
-    Detector_wrapper(::Detector const & other )
-    : Detector( boost::ref(other) )
-      , bp::wrapper< Detector >(){
+    SphericalDetector_wrapper(::SphericalDetector const & other )
+    : SphericalDetector( boost::ref(other) )
+      , bp::wrapper< SphericalDetector >(){
         // copy constructor
     m_pyobj = 0;
     }
 
-    virtual ::Detector * clone(  ) const  {
+    virtual ::SphericalDetector * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
         else{
-            return this->Detector::clone(  );
+            return this->SphericalDetector::clone(  );
         }
     }
     
-    ::Detector * default_clone(  ) const  {
-        return Detector::clone( );
+    ::SphericalDetector * default_clone(  ) const  {
+        return SphericalDetector::clone( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -115,7 +115,7 @@ struct Detector_wrapper : Detector, bp::wrapper< Detector > {
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
-        if( dynamic_cast< Detector_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< SphericalDetector_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
         else{
@@ -151,32 +151,32 @@ struct Detector_wrapper : Detector, bp::wrapper< Detector > {
 
 };
 
-void register_Detector_class(){
+void register_SphericalDetector_class(){
 
-    { //::Detector
-        typedef bp::class_< Detector_wrapper, bp::bases< IDetector2D >, std::auto_ptr< Detector_wrapper > > Detector_exposer_t;
-        Detector_exposer_t Detector_exposer = Detector_exposer_t( "Detector", "The detector with axes and resolution function.", bp::init< >() );
-        bp::scope Detector_scope( Detector_exposer );
-        Detector_exposer.def( bp::init< Detector const & >(( bp::arg("other") )) );
-        { //::Detector::clone
+    { //::SphericalDetector
+        typedef bp::class_< SphericalDetector_wrapper, bp::bases< IDetector2D >, std::auto_ptr< SphericalDetector_wrapper > > SphericalDetector_exposer_t;
+        SphericalDetector_exposer_t SphericalDetector_exposer = SphericalDetector_exposer_t( "SphericalDetector", "The detector with axes and resolution function.", bp::init< >() );
+        bp::scope SphericalDetector_scope( SphericalDetector_exposer );
+        SphericalDetector_exposer.def( bp::init< SphericalDetector const & >(( bp::arg("other") )) );
+        { //::SphericalDetector::clone
         
-            typedef ::Detector * ( ::Detector::*clone_function_type)(  ) const;
-            typedef ::Detector * ( Detector_wrapper::*default_clone_function_type)(  ) const;
+            typedef ::SphericalDetector * ( ::SphericalDetector::*clone_function_type)(  ) const;
+            typedef ::SphericalDetector * ( SphericalDetector_wrapper::*default_clone_function_type)(  ) const;
             
-            Detector_exposer.def( 
+            SphericalDetector_exposer.def( 
                 "clone"
-                , clone_function_type(&::Detector::clone)
-                , default_clone_function_type(&Detector_wrapper::default_clone)
+                , clone_function_type(&::SphericalDetector::clone)
+                , default_clone_function_type(&SphericalDetector_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::Detector::operator=
+        { //::SphericalDetector::operator=
         
-            typedef ::Detector & ( ::Detector::*assign_function_type)( ::Detector const & ) ;
+            typedef ::SphericalDetector & ( ::SphericalDetector::*assign_function_type)( ::SphericalDetector const & ) ;
             
-            Detector_exposer.def( 
+            SphericalDetector_exposer.def( 
                 "assign"
-                , assign_function_type( &::Detector::operator= )
+                , assign_function_type( &::SphericalDetector::operator= )
                 , ( bp::arg("other") )
                 , bp::return_self< >() );
         
@@ -184,55 +184,55 @@ void register_Detector_class(){
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( Detector_wrapper::*default_areParametersChanged_function_type)(  ) ;
+            typedef bool ( SphericalDetector_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
-            Detector_exposer.def( 
+            SphericalDetector_exposer.def( 
                 "areParametersChanged"
                 , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&Detector_wrapper::default_areParametersChanged) );
+                , default_areParametersChanged_function_type(&SphericalDetector_wrapper::default_areParametersChanged) );
         
         }
         { //::IParameterized::clearParameterPool
         
             typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( Detector_wrapper::*default_clearParameterPool_function_type)(  ) ;
+            typedef void ( SphericalDetector_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
-            Detector_exposer.def( 
+            SphericalDetector_exposer.def( 
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&Detector_wrapper::default_clearParameterPool) );
+                , default_clearParameterPool_function_type(&SphericalDetector_wrapper::default_clearParameterPool) );
         
         }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( Detector_wrapper::*default_createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( SphericalDetector_wrapper::*default_createParameterTree_function_type)(  ) const;
             
-            Detector_exposer.def( 
+            SphericalDetector_exposer.def( 
                 "createParameterTree"
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&Detector_wrapper::default_createParameterTree)
+                , default_createParameterTree_function_type(&SphericalDetector_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( Detector_wrapper::*default_printParameters_function_type)(  ) const;
+            typedef void ( SphericalDetector_wrapper::*default_printParameters_function_type)(  ) const;
             
-            Detector_exposer.def( 
+            SphericalDetector_exposer.def( 
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&Detector_wrapper::default_printParameters) );
+                , default_printParameters_function_type(&SphericalDetector_wrapper::default_printParameters) );
         
         }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
             
-            Detector_exposer.def( 
+            SphericalDetector_exposer.def( 
                 "registerParameter"
-                , default_registerParameter_function_type( &Detector_wrapper::default_registerParameter )
+                , default_registerParameter_function_type( &SphericalDetector_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
                 , "main method to register data address in the pool." );
         
@@ -240,24 +240,24 @@ void register_Detector_class(){
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( Detector_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( SphericalDetector_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
-            Detector_exposer.def( 
+            SphericalDetector_exposer.def( 
                 "setParameterValue"
                 , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&Detector_wrapper::default_setParameterValue)
+                , default_setParameterValue_function_type(&SphericalDetector_wrapper::default_setParameterValue)
                 , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged
         
             typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( Detector_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
+            typedef void ( SphericalDetector_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
-            Detector_exposer.def( 
+            SphericalDetector_exposer.def( 
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&Detector_wrapper::default_setParametersAreChanged) );
+                , default_setParametersAreChanged_function_type(&SphericalDetector_wrapper::default_setParametersAreChanged) );
         
         }
     }

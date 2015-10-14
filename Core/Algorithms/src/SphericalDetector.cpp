@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/src/Detector.cpp
-//! @brief     Implements class Detector.
+//! @file      Algorithms/src/SphericalDetector.cpp
+//! @brief     Implements class SphericalDetector.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "Detector.h"
+#include "SphericalDetector.h"
 #include "MessageService.h"
 #include "BornAgainNamespace.h"
 #include "FixedBinAxis.h"
@@ -26,33 +26,33 @@
 #include <Eigen/LU>
 #include <boost/scoped_ptr.hpp>
 
-Detector::Detector()
+SphericalDetector::SphericalDetector()
 {
     setName("Detector");
     init_parameters();
 }
 
-Detector::Detector(const Detector &other)
+SphericalDetector::SphericalDetector(const SphericalDetector &other)
     : IDetector2D(other)
 {
     init_parameters();
 }
 
-Detector &Detector::operator=(const Detector &other)
+SphericalDetector &SphericalDetector::operator=(const SphericalDetector &other)
 {
     if (this != &other) {
-        Detector tmp(other);
+        SphericalDetector tmp(other);
         tmp.swapContent(*this);
     }
     return *this;
 }
 
-Detector *Detector::clone() const
+SphericalDetector *SphericalDetector::clone() const
 {
-    return new Detector(*this);
+    return new SphericalDetector(*this);
 }
 
-IPixelMap *Detector::createPixelMap(size_t index) const
+IPixelMap *SphericalDetector::createPixelMap(size_t index) const
 {
     const IAxis &phi_axis = getAxis(BornAgain::X_AXIS_INDEX);
     const IAxis &alpha_axis = getAxis(BornAgain::Y_AXIS_INDEX);
@@ -64,7 +64,7 @@ IPixelMap *Detector::createPixelMap(size_t index) const
     return new AngularPixelMap(alpha_bin, phi_bin);
 }
 
-std::string Detector::addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+std::string SphericalDetector::addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                   int copy_number) const
 {
     // add own parameters
@@ -78,7 +78,7 @@ std::string Detector::addParametersToExternalPool(std::string path, ParameterPoo
     return new_path;
 }
 
-void Detector::print(std::ostream &ostr) const
+void SphericalDetector::print(std::ostream &ostr) const
 {
     ostr << "Detector: '" << getName() << "' " << m_parameters;
     for (size_t i = 0; i < m_axes.size(); ++i) {

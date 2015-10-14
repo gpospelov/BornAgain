@@ -20,6 +20,8 @@
 #include "Detector.h"
 #include "IResolutionFunction2D.h"
 
+#include <boost/scoped_ptr.hpp>
+
 //! @class Instrument
 //! @ingroup simulation_internal
 //! @brief Assembles beam, detector and their relative positions wrt the sample.
@@ -29,6 +31,7 @@ class BA_CORE_API_ Instrument : public IParameterized
 public:
     Instrument();
     Instrument(const Instrument &other);
+    Instrument& operator=(const Instrument& other);
 
     ~Instrument(){}
 
@@ -60,8 +63,8 @@ public:
     }
 
     //! Returns the detector data
-    const Detector *getDetector() const;
-    Detector *getDetector();
+    const IDetector2D *getDetector() const;
+    IDetector2D *getDetector();
 
     //! Returns a detector axis
     const IAxis &getDetectorAxis(size_t index) const;
@@ -69,7 +72,7 @@ public:
     //! Returns the detector's dimension
     size_t getDetectorDimension() const
     {
-        return m_detector.getDimension();
+        return mP_detector->getDimension();
     }
 
     //! Sets detector parameters using axes of output data
@@ -89,7 +92,7 @@ public:
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t &direction, double efficiency,
                                double total_transmission=1.0) {
-        m_detector.setAnalyzerProperties(direction, efficiency, total_transmission);
+        mP_detector->setAnalyzerProperties(direction, efficiency, total_transmission);
     }
 
     //! apply the detector resolution to the given intensity map
@@ -113,7 +116,7 @@ protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
-    Detector m_detector;
+    boost::scoped_ptr<IDetector2D> mP_detector;
     Beam m_beam;
 };
 
@@ -132,19 +135,19 @@ inline void Instrument::setBeamParameters(double wavelength, double alpha_i, dou
     m_beam.setCentralK(wavelength, alpha_i, phi_i);
 }
 
-inline const Detector *Instrument::getDetector() const
+inline const IDetector2D *Instrument::getDetector() const
 {
-    return &m_detector;
+    return mP_detector.get();
 }
 
-inline Detector *Instrument::getDetector()
+inline IDetector2D *Instrument::getDetector()
 {
-    return &m_detector;
+    return mP_detector.get();
 }
 
 inline const IAxis &Instrument::getDetectorAxis(size_t index) const
 {
-    return m_detector.getAxis(index);
+    return mP_detector->getAxis(index);
 }
 
 #endif /* INSTRUMENT_H_ */

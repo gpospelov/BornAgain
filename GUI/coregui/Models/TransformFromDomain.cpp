@@ -410,7 +410,7 @@ bool TransformFromDomain::isHexagonalLattice(double length1, double length2, dou
 }
 
 //! FIXME Remove hardcoded strings
-QString TransformFromDomain::getDetectorBinning(const Detector *detector)
+QString TransformFromDomain::getDetectorBinning(const IDetector2D *detector)
 {
     boost::scoped_ptr<IAxis> P_phi_axis(detector->getAxis(0).clone());
     boost::scoped_ptr<IAxis> P_alpha_axis(detector->getAxis(1).clone());
@@ -462,7 +462,7 @@ void TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem,
                                             const GISASSimulation &simulation)
 {
     Q_ASSERT(detectorItem);
-    const Detector *detector = simulation.getInstrument().getDetector();
+    const IDetector2D *detector = simulation.getInstrument().getDetector();
 
     // Axes
     const IAxis &phi_axis = detector->getAxis(0);

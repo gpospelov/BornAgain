@@ -141,8 +141,9 @@ void register_Instrument_class(){
 
     { //::Instrument
         typedef bp::class_< Instrument_wrapper, bp::bases< IParameterized > > Instrument_exposer_t;
-        Instrument_exposer_t Instrument_exposer = Instrument_exposer_t( "Instrument", "Assembles beam, detector and their relative positions wrt the sample.", bp::init< >() );
+        Instrument_exposer_t Instrument_exposer = Instrument_exposer_t( "Instrument", "Assembles beam, detector and their relative positions wrt the sample.", bp::no_init );
         bp::scope Instrument_scope( Instrument_exposer );
+        Instrument_exposer.def( bp::init< >() );
         Instrument_exposer.def( bp::init< Instrument const & >(( bp::arg("other") )) );
         { //::Instrument::getBeam
         
@@ -155,7 +156,7 @@ void register_Instrument_class(){
         }
         { //::Instrument::getDetector
         
-            typedef ::Detector const * ( ::Instrument::*getDetector_function_type)(  ) const;
+            typedef ::IDetector2D const * ( ::Instrument::*getDetector_function_type)(  ) const;
             
             Instrument_exposer.def( 
                 "getDetector"
@@ -165,7 +166,7 @@ void register_Instrument_class(){
         }
         { //::Instrument::getDetector
         
-            typedef ::Detector * ( ::Instrument::*getDetector_function_type)(  ) ;
+            typedef ::IDetector2D * ( ::Instrument::*getDetector_function_type)(  ) ;
             
             Instrument_exposer.def( 
                 "getDetector"
@@ -213,6 +214,17 @@ void register_Instrument_class(){
                 , matchDetectorParameters_function_type( &::Instrument::matchDetectorParameters )
                 , ( bp::arg("output_data") )
                 , "Sets detector parameters using axes of output data." );
+        
+        }
+        { //::Instrument::operator=
+        
+            typedef ::Instrument & ( ::Instrument::*assign_function_type)( ::Instrument const & ) ;
+            
+            Instrument_exposer.def( 
+                "assign"
+                , assign_function_type( &::Instrument::operator= )
+                , ( bp::arg("other") )
+                , bp::return_self< >() );
         
         }
         { //::Instrument::setAnalyzerProperties

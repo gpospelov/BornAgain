@@ -29,7 +29,7 @@
 class BA_CORE_API_ Instrument : public IParameterized
 {
 public:
-    Instrument(const IDetector2D* p_detector=0);
+    Instrument();
     Instrument(const Instrument &other);
     Instrument& operator=(const Instrument& other);
 
@@ -76,7 +76,7 @@ public:
     }
 
     //! Sets the detector type (axes can be overwritten later)
-    void setDetectorType(const IDetector2D* p_detector);
+    void setDetectorType(const IDetector2D& detector);
 
     //! Sets detector parameters using axes of output data
     void matchDetectorAxes(const OutputData<double> &output_data);

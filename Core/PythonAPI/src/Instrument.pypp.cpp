@@ -30,6 +30,13 @@ namespace bp = boost::python;
 
 struct Instrument_wrapper : Instrument, bp::wrapper< Instrument > {
 
+    Instrument_wrapper( )
+    : Instrument( )
+      , bp::wrapper< Instrument >(){
+        // null constructor
+    
+    }
+
     Instrument_wrapper(::Instrument const & other )
     : Instrument( boost::ref(other) )
       , bp::wrapper< Instrument >(){
@@ -136,6 +143,7 @@ void register_Instrument_class(){
         typedef bp::class_< Instrument_wrapper, bp::bases< IParameterized > > Instrument_exposer_t;
         Instrument_exposer_t Instrument_exposer = Instrument_exposer_t( "Instrument", "Assembles beam, detector and their relative positions wrt the sample.", bp::no_init );
         bp::scope Instrument_scope( Instrument_exposer );
+        Instrument_exposer.def( bp::init< >() );
         Instrument_exposer.def( bp::init< Instrument const & >(( bp::arg("other") )) );
         { //::Instrument::getBeam
         
@@ -303,6 +311,17 @@ void register_Instrument_class(){
                 , setDetectorResolutionFunction_function_type( &::Instrument::setDetectorResolutionFunction )
                 , ( bp::arg("p_resolution_function") )
                 , "Sets detector resolution function." );
+        
+        }
+        { //::Instrument::setDetectorType
+        
+            typedef void ( ::Instrument::*setDetectorType_function_type)( ::IDetector2D const & ) ;
+            
+            Instrument_exposer.def( 
+                "setDetectorType"
+                , setDetectorType_function_type( &::Instrument::setDetectorType )
+                , ( bp::arg("detector") )
+                , "Sets the detector type (axes can be overwritten later)." );
         
         }
         { //::IParameterized::areParametersChanged

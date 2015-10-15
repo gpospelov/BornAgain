@@ -23,18 +23,24 @@
 #include "Rectangle.h"
 
 #include <iostream>
-#include <Eigen/LU>
-#include <boost/scoped_ptr.hpp>
 
-RectangularDetector::RectangularDetector()
+RectangularDetector::RectangularDetector(kvector_t normal_to_detector, kvector_t u_direction)
+    : m_normal_to_detector(normal_to_detector)
 {
-    setName("Detector");
+    double d2 = m_normal_to_detector.dot(m_normal_to_detector);
+    m_u_unit = normalizeToUnitLength(
+        d2 * u_direction - u_direction.dot(m_normal_to_detector) * m_normal_to_detector);
+    m_v_unit = normalizeToUnitLength(m_u_unit.cross(m_normal_to_detector));
+    setName("RectangularDetector");
     init_parameters();
 }
 
 RectangularDetector::RectangularDetector(const RectangularDetector &other)
     : IDetector2D(other)
+    , m_normal_to_detector(other.m_normal_to_detector)
+    , m_u_unit(other.m_u_unit), m_v_unit(other.m_v_unit)
 {
+    setName("RectangularDetector");
     init_parameters();
 }
 
@@ -54,14 +60,18 @@ RectangularDetector *RectangularDetector::clone() const
 
 IPixelMap *RectangularDetector::createPixelMap(size_t index) const
 {
-    const IAxis &phi_axis = getAxis(BornAgain::X_AXIS_INDEX);
-    const IAxis &alpha_axis = getAxis(BornAgain::Y_AXIS_INDEX);
-    size_t phi_index = getAxisBinIndex(index, BornAgain::X_AXIS_INDEX);
-    size_t alpha_index = getAxisBinIndex(index, BornAgain::Y_AXIS_INDEX);
+    const IAxis &u_axis = getAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis &v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
+    size_t u_index = getAxisBinIndex(index, BornAgain::X_AXIS_INDEX);
+    size_t v_index = getAxisBinIndex(index, BornAgain::Y_AXIS_INDEX);
 
-    Bin1D alpha_bin = alpha_axis.getBin(alpha_index);
-    Bin1D phi_bin = phi_axis.getBin(phi_index);
-    return new RectPixelMap(alpha_bin, phi_bin);
+    Bin1D u_bin = u_axis.getBin(u_index);
+    Bin1D v_bin = v_axis.getBin(v_index);
+    kvector_t corner_position = m_normal_to_detector
+            + u_bin.m_lower*m_u_unit + v_bin.m_lower*m_v_unit;
+    kvector_t width = u_bin.getBinSize()*m_u_unit;
+    kvector_t height = v_bin.getBinSize()*m_v_unit;
+    return new RectPixelMap(corner_position, width, height);
 }
 
 std::string RectangularDetector::addParametersToExternalPool(std::string path, ParameterPool *external_pool,
@@ -80,55 +90,78 @@ std::string RectangularDetector::addParametersToExternalPool(std::string path, P
 
 void RectangularDetector::print(std::ostream &ostr) const
 {
-    ostr << "Detector: '" << getName() << "' " << m_parameters;
+    ostr << "RectangularDetector: '" << getName() << "' " << m_parameters;
     for (size_t i = 0; i < m_axes.size(); ++i) {
         ostr << "    IAxis:" << *m_axes[i] << std::endl;
     }
 }
 
-RectPixelMap::RectPixelMap(Bin1D alpha_bin, Bin1D phi_bin)
-    : m_alpha(alpha_bin.m_lower), m_phi(phi_bin.m_lower),
-      m_dalpha(alpha_bin.getBinSize()), m_dphi(phi_bin.getBinSize())
+void RectangularDetector::swapContent(RectangularDetector &other)
 {
-    m_solid_angle = std::abs(m_dphi*(std::sin(m_alpha+m_dalpha) - std::sin(m_alpha)));
+    IDetector2D::swapContent(other);
+    std::swap(this->m_normal_to_detector, other.m_normal_to_detector);
+    std::swap(this->m_u_unit, other.m_u_unit);
+    std::swap(this->m_v_unit, other.m_v_unit);
+}
+
+kvector_t RectangularDetector::normalizeToUnitLength(const kvector_t &direction) const
+{
+    double old_length = direction.mag();
+    if (old_length==0.0) return direction;
+    return direction/old_length;
+}
+
+RectPixelMap::RectPixelMap(kvector_t corner_pos, kvector_t width, kvector_t height)
+    : m_corner_pos(corner_pos), m_width(width), m_height(height)
+{
+    m_normal = m_width.cross(m_height);
+    m_solid_angle = calculateSolidAngle();
 }
 
 RectPixelMap *RectPixelMap::clone() const
 {
-    Bin1D alpha_bin(m_alpha, m_alpha+m_dalpha);
-    Bin1D phi_bin(m_phi, m_phi+m_dphi);
-    return new RectPixelMap(alpha_bin, phi_bin);
+    return new RectPixelMap(m_corner_pos, m_width, m_height);
 }
 
 RectPixelMap *RectPixelMap::createZeroSizeMap(double x, double y) const
 {
-    double alpha = m_alpha + x*m_dalpha;
-    double phi = m_phi + y*m_dphi;
-    Bin1D alpha_bin(alpha, alpha);
-    Bin1D phi_bin(phi, phi);
-    return new RectPixelMap(alpha_bin, phi_bin);
+    kvector_t position = m_corner_pos + x*m_width + y*m_height;
+    kvector_t null_vector;
+    return new RectPixelMap(position, null_vector, null_vector);
 }
 
 kvector_t RectPixelMap::getK(double x, double y, double wavelength) const
 {
-    kvector_t result;
-    double alpha = m_alpha + x*m_dalpha;
-    double phi = m_phi + y*m_dphi;
-    result.setLambdaAlphaPhi(wavelength, alpha, phi);
-    return result;
+    kvector_t direction = m_corner_pos + x*m_width + y*m_height;
+    double length = 2.0*M_PI/wavelength;
+    return normalizeLength(direction, length);
 }
 
 double RectPixelMap::getIntegrationFactor(double x, double y) const
 {
-    (void)y;
-    if (m_dalpha==0.0) return 1.0;
-    double alpha = m_alpha + x*m_dalpha;
-    return std::cos(alpha)*m_dalpha/(std::sin(m_alpha+m_dalpha)-std::sin(m_alpha));
+    if (m_solid_angle==0.0) return 1.0;
+    kvector_t position = m_corner_pos + x*m_width + y*m_height;
+    double length = position.mag();
+    return std::abs(position.dot(m_normal))/std::pow(length, 3)/m_solid_angle;
 }
 
 double RectPixelMap::getSolidAngle() const
 {
     if (m_solid_angle<=0.0) return 1.0;
     return m_solid_angle;
+}
+
+kvector_t RectPixelMap::normalizeLength(const kvector_t &direction, double length) const
+{
+    double old_length = direction.mag();
+    if (old_length==0.0) return direction;
+    return direction*length/old_length;
+}
+
+double RectPixelMap::calculateSolidAngle() const
+{
+    kvector_t position = m_corner_pos + 0.5*m_width + 0.5*m_height;
+    double length = position.mag();
+    return std::abs(position.dot(m_normal))/std::pow(length, 3);
 }
 

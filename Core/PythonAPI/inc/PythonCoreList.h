@@ -102,6 +102,7 @@
 #include "Polygon.h"
 #include "PythonOutputData.h"
 #include "Rectangle.h"
+#include "RectangularDetector.h"
 #include "RealParameterWrapper.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "Rotations.h"

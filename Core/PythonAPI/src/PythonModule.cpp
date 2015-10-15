@@ -52,6 +52,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "ParticleDistribution.pypp.h"
 #include "vector_longinteger_t.pypp.h"
 #include "ResolutionFunction2DGaussian.pypp.h"
+#include "RectangularDetector.pypp.h"
 #include "FTDistribution1DGauss.pypp.h"
 #include "FTDistribution1DGate.pypp.h"
 #include "FormFactorAnisoPyramid.pypp.h"
@@ -297,6 +298,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_ParticleDistribution_class();
     register_ParticleLayout_class();
     register_RealParameterWrapper_class();
+    register_RectangularDetector_class();
     register_ResolutionFunction2DGaussian_class();
     register_RotationEuler_class();
     register_RotationX_class();

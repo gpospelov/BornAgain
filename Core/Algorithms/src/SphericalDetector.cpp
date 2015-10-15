@@ -23,8 +23,6 @@
 #include "Rectangle.h"
 
 #include <iostream>
-#include <Eigen/LU>
-#include <boost/scoped_ptr.hpp>
 
 SphericalDetector::SphericalDetector()
 {
@@ -35,6 +33,7 @@ SphericalDetector::SphericalDetector()
 SphericalDetector::SphericalDetector(const SphericalDetector &other)
     : IDetector2D(other)
 {
+    setName("SphericalDetector");
     init_parameters();
 }
 
@@ -80,7 +79,7 @@ std::string SphericalDetector::addParametersToExternalPool(std::string path, Par
 
 void SphericalDetector::print(std::ostream &ostr) const
 {
-    ostr << "Detector: '" << getName() << "' " << m_parameters;
+    ostr << "SphericalDetector: '" << getName() << "' " << m_parameters;
     for (size_t i = 0; i < m_axes.size(); ++i) {
         ostr << "    IAxis:" << *m_axes[i] << std::endl;
     }

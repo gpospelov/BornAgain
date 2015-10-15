@@ -34,7 +34,7 @@ class RectPixelMap;
 class BA_CORE_API_ RectangularDetector : public IDetector2D
 {
 public:
-    RectangularDetector();
+    RectangularDetector(kvector_t normal_to_detector, kvector_t u_direction);
     RectangularDetector(const RectangularDetector &other);
     RectangularDetector &operator=(const RectangularDetector &other);
 
@@ -54,12 +54,20 @@ protected:
 
     //! Registers some class members for later access via parameter pool.
     virtual void init_parameters() {}
+
+    //! swap function
+    void swapContent(RectangularDetector &other);
+private:
+    kvector_t normalizeToUnitLength(const kvector_t& direction) const;
+    kvector_t m_normal_to_detector;
+    kvector_t m_u_unit;
+    kvector_t m_v_unit;
 };
 
 class RectPixelMap : public IPixelMap
 {
 public:
-    RectPixelMap(Bin1D alpha_bin, Bin1D phi_bin);
+    RectPixelMap(kvector_t corner_pos, kvector_t width, kvector_t height);
     virtual ~RectPixelMap() {}
 
     virtual RectPixelMap* clone() const;
@@ -68,9 +76,13 @@ public:
     virtual double getIntegrationFactor(double x, double y) const;
     virtual double getSolidAngle() const;
 private:
-    double m_alpha, m_phi;
-    double m_dalpha, m_dphi;
+    kvector_t normalizeLength(const kvector_t& direction, double length) const;
+    double calculateSolidAngle() const;
+    kvector_t m_corner_pos;
+    kvector_t m_width;
+    kvector_t m_height;
     double m_solid_angle;
+    kvector_t m_normal;
 };
 
 #endif /* RECTANGULARDETECTOR_H_ */

@@ -165,6 +165,7 @@ include_classes = [
     "ParticleCoreShell",
     "ParticleLayout",
     "RealParameterWrapper",
+    "RectangularDetector",
     "ResolutionFunction2DGaussian",
     "RotationX",
     "RotationY",

@@ -1,10 +1,5 @@
 """
-Fitting example
-
-Here we demonstrate how to fit along slices. The basic idea is to mask all detector except thin lines, one vertical
-and one horizontal, representing slices. This will make simulation and fitting to go along slices only.
-
-The majority of the code sits inside DrawObserver which plots fit results along whose slices.
+Fitting example: fit along slices
 """
 
 import matplotlib
@@ -19,8 +14,7 @@ alpha_slice_value = 0.2*deg  # position of horizontal slice
 
 def get_sample(radius=5*nanometer, height=10*nanometer):
     """
-    Build the sample representing cylinders and pyramids on top of
-    substrate without interference.
+    Build the sample representing cylinders on top of substrate without interference.
     """
     m_air = HomogeneousMaterial("Air", 0.0, 0.0)
     m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
@@ -153,7 +147,7 @@ class DrawObserver(IFitObserver):
         title = "Vertical slice at phi =" + '{:3.1f}'.format(phi_slice_value/deg)
         self.plot_slices(slices, title, nplot=3)
 
-        # display fit parametersx
+        # display fit parameters
         self.display_fit_parameters(fit_suite, nplot=4)
 
         if fit_suite.isLastIteration():

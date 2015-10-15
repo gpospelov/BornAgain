@@ -17,7 +17,7 @@
 #define INSTRUMENT_H_
 
 #include "Beam.h"
-#include "SphericalDetector.h"
+#include "IDetector2D.h"
 #include "IResolutionFunction2D.h"
 
 #include <boost/scoped_ptr.hpp>
@@ -74,6 +74,9 @@ public:
     {
         return mP_detector->getDimension();
     }
+
+    //! Sets the detector type (axes can be overwritten later)
+    void setDetectorType(const IDetector2D* p_detector);
 
     //! Sets detector parameters using axes of output data
     void matchDetectorAxes(const OutputData<double> &output_data);

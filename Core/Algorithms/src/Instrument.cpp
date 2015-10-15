@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "Instrument.h"
+#include "SphericalDetector.h"
 #include "ConvolutionDetectorResolution.h"
 #include "BornAgainNamespace.h"
 #include "CustomBinAxis.h"
@@ -46,6 +47,13 @@ Instrument &Instrument::operator=(const Instrument &other)
         init_parameters();
     }
     return *this;
+}
+
+void Instrument::setDetectorType(const IDetector2D *p_detector)
+{
+    if (p_detector) {
+        mP_detector.reset(p_detector->clone());
+    }
 }
 
 void Instrument::matchDetectorAxes(const OutputData<double> &output_data)

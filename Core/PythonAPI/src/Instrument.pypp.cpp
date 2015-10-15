@@ -30,13 +30,6 @@ namespace bp = boost::python;
 
 struct Instrument_wrapper : Instrument, bp::wrapper< Instrument > {
 
-    Instrument_wrapper( )
-    : Instrument( )
-      , bp::wrapper< Instrument >(){
-        // null constructor
-    
-    }
-
     Instrument_wrapper(::Instrument const & other )
     : Instrument( boost::ref(other) )
       , bp::wrapper< Instrument >(){
@@ -143,7 +136,6 @@ void register_Instrument_class(){
         typedef bp::class_< Instrument_wrapper, bp::bases< IParameterized > > Instrument_exposer_t;
         Instrument_exposer_t Instrument_exposer = Instrument_exposer_t( "Instrument", "Assembles beam, detector and their relative positions wrt the sample.", bp::no_init );
         bp::scope Instrument_scope( Instrument_exposer );
-        Instrument_exposer.def( bp::init< >() );
         Instrument_exposer.def( bp::init< Instrument const & >(( bp::arg("other") )) );
         { //::Instrument::getBeam
         
@@ -205,13 +197,13 @@ void register_Instrument_class(){
                 , "Returns the beam's intensity." );
         
         }
-        { //::Instrument::matchDetectorParameters
+        { //::Instrument::matchDetectorAxes
         
-            typedef void ( ::Instrument::*matchDetectorParameters_function_type)( ::OutputData< double > const & ) ;
+            typedef void ( ::Instrument::*matchDetectorAxes_function_type)( ::OutputData< double > const & ) ;
             
             Instrument_exposer.def( 
-                "matchDetectorParameters"
-                , matchDetectorParameters_function_type( &::Instrument::matchDetectorParameters )
+                "matchDetectorAxes"
+                , matchDetectorAxes_function_type( &::Instrument::matchDetectorAxes )
                 , ( bp::arg("output_data") )
                 , "Sets detector parameters using axes of output data." );
         

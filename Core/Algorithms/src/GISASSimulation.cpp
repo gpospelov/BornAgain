@@ -159,7 +159,7 @@ void GISASSimulation::setBeamPolarization(const kvector_t &bloch_vector)
 
 void GISASSimulation::setDetectorParameters(const OutputData<double >& output_data)
 {
-    m_instrument.matchDetectorParameters(output_data);
+    m_instrument.matchDetectorAxes(output_data);
 
     m_intensity_map.clear();
     m_intensity_map.copyShapeFrom(output_data); // to copy mask too

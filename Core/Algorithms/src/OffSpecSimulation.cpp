@@ -128,7 +128,7 @@ void OffSpecSimulation::setBeamPolarization(const kvector_t &bloch_vector)
 
 void OffSpecSimulation::setDetectorParameters(const OutputData<double>& output_data)
 {
-    m_instrument.matchDetectorParameters(output_data);
+    m_instrument.matchDetectorAxes(output_data);
     updateIntensityMap();
 }
 

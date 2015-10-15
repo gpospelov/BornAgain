@@ -19,9 +19,14 @@
 #include "CustomBinAxis.h"
 #include "ConstKBinAxis.h"
 
-Instrument::Instrument() : IParameterized("Instrument")
+Instrument::Instrument(const IDetector2D *p_detector)
+    : IParameterized("Instrument")
 {
-    mP_detector.reset(new SphericalDetector());
+    if (p_detector) {
+        mP_detector.reset(p_detector->clone());
+    } else {
+        mP_detector.reset(new SphericalDetector());
+    }
     init_parameters();
 }
 
@@ -43,7 +48,7 @@ Instrument &Instrument::operator=(const Instrument &other)
     return *this;
 }
 
-void Instrument::matchDetectorParameters(const OutputData<double> &output_data)
+void Instrument::matchDetectorAxes(const OutputData<double> &output_data)
 {
     mP_detector->clear();
     for (size_t i_axis = 0; i_axis < output_data.getRank(); ++i_axis) {

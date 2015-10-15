@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/src/SphericalDetector.cpp
-//! @brief     Implements class SphericalDetector.
+//! @file      Algorithms/src/RectangularDetector.cpp
+//! @brief     Implements class RectangularDetector.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "SphericalDetector.h"
+#include "RectangularDetector.h"
 #include "MessageService.h"
 #include "BornAgainNamespace.h"
 #include "FixedBinAxis.h"
@@ -26,33 +26,33 @@
 #include <Eigen/LU>
 #include <boost/scoped_ptr.hpp>
 
-SphericalDetector::SphericalDetector()
+RectangularDetector::RectangularDetector()
 {
-    setName("SphericalDetector");
+    setName("Detector");
     init_parameters();
 }
 
-SphericalDetector::SphericalDetector(const SphericalDetector &other)
+RectangularDetector::RectangularDetector(const RectangularDetector &other)
     : IDetector2D(other)
 {
     init_parameters();
 }
 
-SphericalDetector &SphericalDetector::operator=(const SphericalDetector &other)
+RectangularDetector &RectangularDetector::operator=(const RectangularDetector &other)
 {
     if (this != &other) {
-        SphericalDetector tmp(other);
+        RectangularDetector tmp(other);
         tmp.swapContent(*this);
     }
     return *this;
 }
 
-SphericalDetector *SphericalDetector::clone() const
+RectangularDetector *RectangularDetector::clone() const
 {
-    return new SphericalDetector(*this);
+    return new RectangularDetector(*this);
 }
 
-IPixelMap *SphericalDetector::createPixelMap(size_t index) const
+IPixelMap *RectangularDetector::createPixelMap(size_t index) const
 {
     const IAxis &phi_axis = getAxis(BornAgain::X_AXIS_INDEX);
     const IAxis &alpha_axis = getAxis(BornAgain::Y_AXIS_INDEX);
@@ -61,10 +61,10 @@ IPixelMap *SphericalDetector::createPixelMap(size_t index) const
 
     Bin1D alpha_bin = alpha_axis.getBin(alpha_index);
     Bin1D phi_bin = phi_axis.getBin(phi_index);
-    return new AngularPixelMap(alpha_bin, phi_bin);
+    return new RectPixelMap(alpha_bin, phi_bin);
 }
 
-std::string SphericalDetector::addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+std::string RectangularDetector::addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                   int copy_number) const
 {
     // add own parameters
@@ -78,7 +78,7 @@ std::string SphericalDetector::addParametersToExternalPool(std::string path, Par
     return new_path;
 }
 
-void SphericalDetector::print(std::ostream &ostr) const
+void RectangularDetector::print(std::ostream &ostr) const
 {
     ostr << "Detector: '" << getName() << "' " << m_parameters;
     for (size_t i = 0; i < m_axes.size(); ++i) {
@@ -86,30 +86,30 @@ void SphericalDetector::print(std::ostream &ostr) const
     }
 }
 
-AngularPixelMap::AngularPixelMap(Bin1D alpha_bin, Bin1D phi_bin)
+RectPixelMap::RectPixelMap(Bin1D alpha_bin, Bin1D phi_bin)
     : m_alpha(alpha_bin.m_lower), m_phi(phi_bin.m_lower),
       m_dalpha(alpha_bin.getBinSize()), m_dphi(phi_bin.getBinSize())
 {
     m_solid_angle = std::abs(m_dphi*(std::sin(m_alpha+m_dalpha) - std::sin(m_alpha)));
 }
 
-AngularPixelMap *AngularPixelMap::clone() const
+RectPixelMap *RectPixelMap::clone() const
 {
     Bin1D alpha_bin(m_alpha, m_alpha+m_dalpha);
     Bin1D phi_bin(m_phi, m_phi+m_dphi);
-    return new AngularPixelMap(alpha_bin, phi_bin);
+    return new RectPixelMap(alpha_bin, phi_bin);
 }
 
-AngularPixelMap *AngularPixelMap::createZeroSizeMap(double x, double y) const
+RectPixelMap *RectPixelMap::createZeroSizeMap(double x, double y) const
 {
     double alpha = m_alpha + x*m_dalpha;
     double phi = m_phi + y*m_dphi;
     Bin1D alpha_bin(alpha, alpha);
     Bin1D phi_bin(phi, phi);
-    return new AngularPixelMap(alpha_bin, phi_bin);
+    return new RectPixelMap(alpha_bin, phi_bin);
 }
 
-kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const
+kvector_t RectPixelMap::getK(double x, double y, double wavelength) const
 {
     kvector_t result;
     double alpha = m_alpha + x*m_dalpha;
@@ -118,7 +118,7 @@ kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const
     return result;
 }
 
-double AngularPixelMap::getIntegrationFactor(double x, double y) const
+double RectPixelMap::getIntegrationFactor(double x, double y) const
 {
     (void)y;
     if (m_dalpha==0.0) return 1.0;
@@ -126,7 +126,7 @@ double AngularPixelMap::getIntegrationFactor(double x, double y) const
     return std::cos(alpha)*m_dalpha/(std::sin(m_alpha+m_dalpha)-std::sin(m_alpha));
 }
 
-double AngularPixelMap::getSolidAngle() const
+double RectPixelMap::getSolidAngle() const
 {
     if (m_solid_angle<=0.0) return 1.0;
     return m_solid_angle;

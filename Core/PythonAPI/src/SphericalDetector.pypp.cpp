@@ -155,7 +155,7 @@ void register_SphericalDetector_class(){
 
     { //::SphericalDetector
         typedef bp::class_< SphericalDetector_wrapper, bp::bases< IDetector2D >, std::auto_ptr< SphericalDetector_wrapper > > SphericalDetector_exposer_t;
-        SphericalDetector_exposer_t SphericalDetector_exposer = SphericalDetector_exposer_t( "SphericalDetector", "The detector with axes and resolution function.", bp::init< >() );
+        SphericalDetector_exposer_t SphericalDetector_exposer = SphericalDetector_exposer_t( "SphericalDetector", "A spherical detector with axes and resolution function.", bp::init< >() );
         bp::scope SphericalDetector_scope( SphericalDetector_exposer );
         SphericalDetector_exposer.def( bp::init< SphericalDetector const & >(( bp::arg("other") )) );
         { //::SphericalDetector::clone

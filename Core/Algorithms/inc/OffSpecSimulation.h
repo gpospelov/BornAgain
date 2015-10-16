@@ -69,8 +69,8 @@ public:
     void setDetectorParameters(const OutputData<double> &output_data);
 
     //! Sets detector parameters using angle ranges
-    void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max, size_t n_alpha,
-                               double alpha_f_min, double alpha_f_max, bool isgisaxs_style = false);
+    void setDetectorParameters(size_t n_x, double x_min, double x_max,
+                               size_t n_y, double y_min, double y_max);
 
     //! Define resolution function for detector
     void setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function);

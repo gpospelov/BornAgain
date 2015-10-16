@@ -52,7 +52,7 @@ void CylindersAndPrismsExample::initSimulation()
 
     m_simulation->setDetectorParameters(
                 400,-1.0*Units::degree, 1.0*Units::degree, 400,
-                0.0*Units::degree, 2.0*Units::degree, true);
+                0.0*Units::degree, 2.0*Units::degree);
     m_simulation->setBeamParameters(
                 1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 

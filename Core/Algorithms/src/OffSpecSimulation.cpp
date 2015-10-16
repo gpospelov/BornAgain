@@ -132,12 +132,10 @@ void OffSpecSimulation::setDetectorParameters(const OutputData<double>& output_d
     updateIntensityMap();
 }
 
-void OffSpecSimulation::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
-                                              size_t n_alpha, double alpha_f_min,
-                                              double alpha_f_max, bool isgisaxs_style)
+void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x_max,
+                                              size_t n_y, double y_min, double y_max)
 {
-    m_instrument.setDetectorParameters(n_phi, phi_f_min, phi_f_max, n_alpha, alpha_f_min,
-                                       alpha_f_max, isgisaxs_style);
+    m_instrument.setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
     updateIntensityMap();
 }
 

@@ -62,8 +62,8 @@ public:
     void matchDetectorAxes(const OutputData<double> &output_data);
 
     //! Sets detector parameters using angle ranges
-    void setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y,
-                               double y_min, double y_max);
+    void setDetectorParameters(size_t n_x, double x_min, double x_max,
+                               size_t n_y, double y_min, double y_max);
 
     //! Sets detector parameters using axes
     void setDetectorAxes(const IAxis &axis0, const IAxis &axis1);

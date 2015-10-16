@@ -55,13 +55,10 @@ void Instrument::matchDetectorAxes(const OutputData<double> &output_data)
     mP_detector->matchDetectorAxes(output_data);
 }
 
-void Instrument::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
-                                       size_t n_alpha, double alpha_f_min, double alpha_f_max,
-                                       bool isgisaxs_style)
+void Instrument::setDetectorParameters(size_t n_x, double x_min, double x_max,
+                                       size_t n_y, double y_min, double y_max)
 {
-    (void)isgisaxs_style;
-    mP_detector->setDetectorParameters(n_phi, phi_f_min, phi_f_max,
-                                       n_alpha, alpha_f_min, alpha_f_max);
+    mP_detector->setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
 }
 
 void Instrument::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)

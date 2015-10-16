@@ -431,12 +431,12 @@ void register_GISASSimulation_class(){
         }
         { //::GISASSimulation::setDetectorParameters
         
-            typedef void ( ::GISASSimulation::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double,bool ) ;
+            typedef void ( ::GISASSimulation::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double ) ;
             
             GISASSimulation_exposer.def( 
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::GISASSimulation::setDetectorParameters )
-                , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) )
+                , ( bp::arg("n_x"), bp::arg("x_min"), bp::arg("x_max"), bp::arg("n_y"), bp::arg("y_min"), bp::arg("y_max") )
                 , "Sets detector parameters using angle ranges." );
         
         }

@@ -49,10 +49,10 @@ inline double get_safe_ratio(double a, double b) {
     return result;
 }
 
-//! calculates safe relative difference (a-b)/b
+//! calculates safe relative difference |(a-b)/b|
 inline double get_relative_difference(double a, double b)
 {
-    return get_safe_ratio(a-b, b);
+    return std::abs(get_safe_ratio(a-b, b));
 }
 
 } // Numeric namespace

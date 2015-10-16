@@ -59,34 +59,9 @@ void Instrument::setDetectorParameters(size_t n_phi, double phi_f_min, double ph
                                        size_t n_alpha, double alpha_f_min, double alpha_f_max,
                                        bool isgisaxs_style)
 {
-    if (phi_f_max <= phi_f_min) {
-        throw LogicErrorException(
-            "Instrument::setDetectorParameters() -> Error! phi_f_max <= phi_f_min");
-    }
-    if (alpha_f_max <= alpha_f_min) {
-        throw LogicErrorException(
-            "Instrument::setDetectorParameters() -> Error! alpha_f_max <= alpha_f_min");
-    }
-    if (n_phi == 0) {
-        throw LogicErrorException(
-            "Instrument::setDetectorParameters() -> Error! Number of n_phi bins can't be zero.");
-    }
-    if (n_alpha == 0) {
-        throw LogicErrorException(
-            "Instrument::setDetectorParameters() -> Error! Number of n_alpha bins can't be zero.");
-    }
-
-    mP_detector->clear();
-
-    if (isgisaxs_style) {
-        mP_detector->addAxis(CustomBinAxis(BornAgain::PHI_AXIS_NAME, n_phi, phi_f_min, phi_f_max));
-        mP_detector->addAxis(
-            CustomBinAxis(BornAgain::ALPHA_AXIS_NAME, n_alpha, alpha_f_min, alpha_f_max));
-    } else {
-        mP_detector->addAxis(FixedBinAxis(BornAgain::PHI_AXIS_NAME, n_phi, phi_f_min, phi_f_max));
-        mP_detector->addAxis(
-            FixedBinAxis(BornAgain::ALPHA_AXIS_NAME, n_alpha, alpha_f_min, alpha_f_max));
-    }
+    (void)isgisaxs_style;
+    mP_detector->setDetectorParameters(n_phi, phi_f_min, phi_f_max,
+                                       n_alpha, alpha_f_min, alpha_f_max);
 }
 
 void Instrument::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)

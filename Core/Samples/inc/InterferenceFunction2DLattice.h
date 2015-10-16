@@ -52,7 +52,7 @@ public:
         return mp_pdf;
     }
 
-    virtual double evaluate(const cvector_t& q) const;
+    virtual double evaluate(const kvector_t& q) const;
 
     Lattice2DIFParameters getLatticeParameters() const {
         return m_lattice_params;

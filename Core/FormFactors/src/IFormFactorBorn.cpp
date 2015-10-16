@@ -17,20 +17,15 @@
 #include "MemberFunctionIntegrator.h"
 #include "MathFunctions.h"
 
-complex_t IFormFactorBorn::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const
+complex_t IFormFactorBorn::evaluate(const WavevectorInfo& wavevectors) const
 {
-    (void)alpha_f_bin;
-    Bin1DCVector q_bin(k_i - k_f_bin.m_q_lower, k_i - k_f_bin.m_q_upper);
-    return evaluate_for_q(q_bin.getMidPoint());
+    return evaluate_for_q(wavevectors.getQ());
 }
 
-Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin, const Bin1D &phi_f_bin) const
+Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo& wavevectors) const
 {
-    (void)phi_f_bin;
     Eigen::Matrix2cd unit_matrix = Eigen::Matrix2cd::Identity();
-    return evaluate(k_i, k_f_bin, alpha_f_bin) * unit_matrix;
+    return evaluate(wavevectors) * unit_matrix;
 }
 
 double IFormFactorBorn::getVolume() const

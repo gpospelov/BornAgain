@@ -2,7 +2,7 @@
 #define DETECTORTEST_H
 
 
-#include "Detector.h"
+#include "SphericalDetector.h"
 #include "Exceptions.h"
 #include "OutputData.h"
 #include "FixedBinAxis.h"
@@ -21,15 +21,15 @@ class DetectorTest : public ::testing::Test
     DetectorTest();
     virtual ~DetectorTest();
 
-    Detector emptyDetector;
-    Detector constructedDetector;
-    Detector *originalDetector;
-    Detector copyOfOriginalDetector;
+    SphericalDetector emptyDetector;
+    SphericalDetector constructedDetector;
+    SphericalDetector *originalDetector;
+    SphericalDetector copyOfOriginalDetector;
 };
 
 DetectorTest::DetectorTest()
 {
-    originalDetector = new Detector();
+    originalDetector = new SphericalDetector();
     FixedBinAxis axis0("axis0", 10, 0.0, 10.0);
     FixedBinAxis axis1("axis1", 20, 0.0, 20.0);
     originalDetector->addAxis(axis0);
@@ -91,7 +91,7 @@ TEST_F(DetectorTest, DetectorCopying)
 
 TEST_F(DetectorTest, MaskOfDetector)
 {
-    Detector detector;
+    SphericalDetector detector;
     detector.addAxis(FixedBinAxis("x-axis", 12, -4.0, 8.0));
     detector.addAxis(FixedBinAxis("y-axis", 6, -2.0, 4.0));
 
@@ -112,7 +112,7 @@ TEST_F(DetectorTest, MaskOfDetector)
         }
     }
 
-    Detector detector2 = detector;
+    SphericalDetector detector2 = detector;
     mask = detector2.getDetectorMask()->getMaskData();
     for(size_t index=0; index<mask->getAllocatedSize(); ++index) {
         double x = mask->getAxisValue(index, 0);

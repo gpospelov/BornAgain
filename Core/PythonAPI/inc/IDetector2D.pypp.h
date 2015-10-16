@@ -15,9 +15,9 @@
 //
 // ************************************************************************** //
 
-#ifndef Detector_hpp__pyplusplus_wrapper
-#define Detector_hpp__pyplusplus_wrapper
+#ifndef IDetector2D_hpp__pyplusplus_wrapper
+#define IDetector2D_hpp__pyplusplus_wrapper
 
-void register_Detector_class();
+void register_IDetector2D_class();
 
-#endif//Detector_hpp__pyplusplus_wrapper
+#endif//IDetector2D_hpp__pyplusplus_wrapper

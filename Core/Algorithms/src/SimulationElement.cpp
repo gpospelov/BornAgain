@@ -14,30 +14,23 @@
 // ************************************************************************** //
 
 #include "SimulationElement.h"
+#include "IDetector2D.h"
 
 #include <Bin.h>
 
-SimulationElement::SimulationElement()
-    : m_wavelength(0.0), m_alpha_i(0.0), m_phi_i(0.0), m_alpha_min(0.0), m_alpha_max(0.0),
-      m_phi_min(0.0), m_phi_max(0.0), m_intensity(0.0)
-{
-    initPolarization();
-}
-
 SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i,
-                                     double alpha_min, double alpha_max, double phi_min,
-                                     double phi_max)
-    : m_wavelength(wavelength), m_alpha_i(alpha_i), m_phi_i(phi_i), m_alpha_min(alpha_min),
-      m_alpha_max(alpha_max), m_phi_min(phi_min), m_phi_max(phi_max), m_intensity(0.0)
+                                     const IPixelMap *pixelmap)
+    : m_wavelength(wavelength), m_alpha_i(alpha_i), m_phi_i(phi_i), m_intensity(0.0)
 {
+    mP_pixel_map.reset(pixelmap->clone());
     initPolarization();
 }
 
 SimulationElement::SimulationElement(const SimulationElement &other)
     : m_wavelength(other.m_wavelength), m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i),
-      m_alpha_min(other.m_alpha_min), m_alpha_max(other.m_alpha_max), m_phi_min(other.m_phi_min),
-      m_phi_max(other.m_phi_max), m_intensity(other.m_intensity)
+      m_intensity(other.m_intensity)
 {
+    mP_pixel_map.reset(other.mP_pixel_map->clone());
     m_polarization = other.m_polarization;
     m_analyzer_operator = other.m_analyzer_operator;
 }
@@ -51,6 +44,15 @@ SimulationElement &SimulationElement::operator=(const SimulationElement &other)
     return *this;
 }
 
+SimulationElement::SimulationElement(const SimulationElement &other, double x, double y)
+    : m_wavelength(other.m_wavelength), m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i),
+      m_intensity(other.m_intensity)
+{
+    mP_pixel_map.reset(other.mP_pixel_map->createZeroSizeMap(x, y));
+    m_polarization = other.m_polarization;
+    m_analyzer_operator = other.m_analyzer_operator;
+}
+
 kvector_t SimulationElement::getKI() const
 {
     kvector_t k_i;
@@ -60,19 +62,12 @@ kvector_t SimulationElement::getKI() const
 
 kvector_t SimulationElement::getMeanKF() const
 {
-    kvector_t k_f;
-    k_f.setLambdaAlphaPhi(m_wavelength, getAlphaMean(), getPhiMean());
-    return k_f;
+    return mP_pixel_map->getK(0.5, 0.5, m_wavelength);
 }
 
-cvector_t SimulationElement::getMeanQ() const
+kvector_t SimulationElement::getMeanQ() const
 {
-    cvector_t k_i;
-    k_i.setLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
-    Bin1D alpha_f_bin(m_alpha_min, m_alpha_max);
-    Bin1D phi_f_bin(m_phi_min, m_phi_max);
-    Bin1DCVector k_f_bin(m_wavelength, alpha_f_bin, phi_f_bin);
-    return k_i - k_f_bin.getMidPoint();
+    return getKI() - getMeanKF();
 }
 
 void SimulationElement::swapContent(SimulationElement &other)
@@ -80,19 +75,28 @@ void SimulationElement::swapContent(SimulationElement &other)
     std::swap(this->m_wavelength, other.m_wavelength);
     std::swap(this->m_alpha_i, other.m_alpha_i);
     std::swap(this->m_phi_i, other.m_phi_i);
-    std::swap(this->m_alpha_min, other.m_alpha_min);
-    std::swap(this->m_alpha_max, other.m_alpha_max);
-    std::swap(this->m_phi_min, other.m_phi_min);
-    std::swap(this->m_phi_max, other.m_phi_max);
     std::swap(this->m_intensity, other.m_intensity);
     std::swap(this->m_polarization, other.m_polarization);
     std::swap(this->m_analyzer_operator, other.m_analyzer_operator);
+    boost::swap(this->mP_pixel_map, other.mP_pixel_map);
 }
 
 void SimulationElement::initPolarization()
 {
     m_polarization = Eigen::Matrix2cd::Identity();
     m_analyzer_operator = Eigen::Matrix2cd::Identity();
+}
+
+double SimulationElement::getAlpha(double x, double y) const
+{
+    kvector_t kf = getK(x, y);
+    return M_PI_2 - kf.theta();
+}
+
+double SimulationElement::getPhi(double x, double y) const
+{
+    kvector_t kf = getK(x, y);
+    return kf.phi();
 }
 
 void AddElementsWithWeight(std::vector<SimulationElement>::const_iterator first,

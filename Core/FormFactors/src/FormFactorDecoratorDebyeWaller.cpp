@@ -42,15 +42,13 @@ FormFactorDecoratorDebyeWaller *FormFactorDecoratorDebyeWaller::clone() const
     return result;
 }
 
-complex_t FormFactorDecoratorDebyeWaller::evaluate(const cvector_t &k_i,
-                                                   const Bin1DCVector &k_f_bin,
-                                                   const Bin1D &alpha_f_bin) const
+complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo& wavevectors) const
 {
-    cvector_t q = k_i - k_f_bin.getMidPoint();
+    cvector_t q = wavevectors.getQ();
     double qr2 = std::norm(q.x()) + std::norm(q.y());
     double qz2 = std::norm(q.z());
     double dw = std::exp(-qz2 * m_h_dw_factor - qr2 * m_r_dw_factor);
-    return dw * mp_form_factor->evaluate(k_i, k_f_bin, alpha_f_bin);
+    return dw * mp_form_factor->evaluate(wavevectors);
 }
 
 bool FormFactorDecoratorDebyeWaller::check_initialization() const

@@ -148,7 +148,7 @@ void register_Rectangle_class(){
             Rectangle_exposer.def( 
                 "getArea"
                 , getArea_function_type( &::Geometry::Rectangle::getArea )
-                , "Returns true if area defined by two bins is inside or on border of rectangle. More precisely, if mid point of two bins satisfy this condition. " );
+                , "Returns true if mid point of two bins is inside rectangle." );
         
         }
         { //::ICloneable::transferToCPP

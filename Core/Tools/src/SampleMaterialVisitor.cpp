@@ -244,10 +244,6 @@ void SampleMaterialVisitor::visit(const FormFactorTruncatedSpheroid *)
 {
 }
 
-void SampleMaterialVisitor::visit(const IFormFactorBornSeparable *)
-{
-}
-
 void SampleMaterialVisitor::visit(const IFormFactorDecorator *)
 {
 }

@@ -62,7 +62,7 @@ public:
     //! @param kappa: size-spacing coupling parameter
     virtual double getKappa() const { return m_kappa; }
 
-    virtual double evaluate(const cvector_t& q) const;
+    virtual double evaluate(const kvector_t& q) const;
     //TODO: replace these with strategy pattern for different algorithms
     complex_t FTPDF(double qpar) const;
 

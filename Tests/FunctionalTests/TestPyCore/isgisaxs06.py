@@ -41,7 +41,9 @@ def run_simulation_lattice():
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    detector = IsGISAXSDetector()
+    detector.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     simulation.setSample(multi_layer)
@@ -84,7 +86,9 @@ def run_simulation_centered():
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    detector = IsGISAXSDetector()
+    detector.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     simulation.setSample(multi_layer)
@@ -120,7 +124,9 @@ def run_simulation_rotated():
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    detector = IsGISAXSDetector()
+    detector.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     simulation.setSample(multi_layer)
@@ -135,7 +141,9 @@ def run_simulation_variants():
 
     # building simulation
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    detector = IsGISAXSDetector()
+    detector.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     # running simulation and copying data

@@ -68,7 +68,6 @@ TEST_F(Shape2DTest, Ellipse)
     EXPECT_TRUE(clone->contains(10.0, 1.0));
     EXPECT_FALSE(clone->contains(15.0, 0.0));
     EXPECT_TRUE(clone->contains(7.0, 3.0));
-
 }
 
 TEST_F(Shape2DTest, Line)
@@ -88,7 +87,6 @@ TEST_F(Shape2DTest, Line)
     EXPECT_FALSE(clone->contains(Bin1D(0.51, 1.0),Bin1D(0.0, 0.49)));
 }
 
-
 TEST_F(Shape2DTest, VerticalLine)
 {
     Geometry::VerticalLine line(1.0);
@@ -97,9 +95,7 @@ TEST_F(Shape2DTest, VerticalLine)
 
     EXPECT_TRUE(line.contains(Bin1D(0.5, 1.5), Bin1D(0.0, 1.0)));
     EXPECT_FALSE(line.contains(Bin1D(1.01, 2.0), Bin1D(0.0, 1.0)));
-
 }
-
 
 TEST_F(Shape2DTest, HorizontalLine)
 {
@@ -109,9 +105,6 @@ TEST_F(Shape2DTest, HorizontalLine)
 
     EXPECT_TRUE(line.contains(Bin1D(0.0, 1.0), Bin1D(0.5, 1.5)));
     EXPECT_FALSE(line.contains(Bin1D(0.0, 1.0), Bin1D(1.01, 2.0)));
-
 }
-
-
 
 #endif

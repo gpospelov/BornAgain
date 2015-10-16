@@ -85,14 +85,16 @@ public:
     //! Sets the beam polarization according to the given Bloch vector
     void setBeamPolarization(const kvector_t& bloch_vector);
 
+    //! Sets the detector (axes can be overwritten later)
+    void setDetector(const IDetector2D& detector);
+
     //! Sets detector parameters using axes of output data
     void setDetectorParameters(const OutputData<double> &output_data);
     void setDetectorParameters(const IHistogram &hisotgram);
 
     //! Sets detector parameters using angle ranges
-    void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
-        size_t n_alpha, double alpha_f_min, double alpha_f_max,
-        bool isgisaxs_style=false);
+    void setDetectorParameters(size_t n_x, double x_min, double x_max,
+                               size_t n_y, double y_min, double y_max);
 
     //! Define resolution function for detector
     void setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function);

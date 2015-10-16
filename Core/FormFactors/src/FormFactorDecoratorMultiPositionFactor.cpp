@@ -27,21 +27,17 @@ FormFactorDecoratorMultiPositionFactor *FormFactorDecoratorMultiPositionFactor::
     return new FormFactorDecoratorMultiPositionFactor(*mp_form_factor, m_positions);
 }
 
-complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const cvector_t &k_i,
-                                                           const Bin1DCVector &k_f_bin,
-                                                           const Bin1D &alpha_f_bin) const
+complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const WavevectorInfo& wavevectors) const
 {
-    cvector_t q = k_i - k_f_bin.getMidPoint();
-    return getPositionsFactor(q) * mp_form_factor->evaluate(k_i, k_f_bin, alpha_f_bin);
+    cvector_t q = wavevectors.getQ();
+    return getPositionsFactor(q) * mp_form_factor->evaluate(wavevectors);
 }
 
-Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactor::evaluatePol(const cvector_t &k_i,
-                                                                     const Bin1DCVector &k_f_bin,
-                                                                     const Bin1D &alpha_f_bin,
-                                                                     const Bin1D &phi_f_bin) const
+Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactor::evaluatePol(
+        const WavevectorInfo& wavevectors) const
 {
-    cvector_t q = k_i - k_f_bin.getMidPoint();
-    Eigen::Matrix2cd ff = mp_form_factor->evaluatePol(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
+    cvector_t q = wavevectors.getQ();
+    Eigen::Matrix2cd ff = mp_form_factor->evaluatePol(wavevectors);
     return getPositionsFactor(q) * ff;
 }
 

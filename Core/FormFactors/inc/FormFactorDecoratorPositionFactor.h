@@ -36,12 +36,10 @@ public:
         visitor->visit(this);
     }
 
-    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-                               const Bin1D &alpha_f_bin) const;
+    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
 #ifndef GCCXML_SKIP_THIS
-    virtual Eigen::Matrix2cd evaluatePol(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-                                         const Bin1D &alpha_f_bin, const Bin1D &phi_f_bin) const;
+    virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif
 
     virtual int getNumberOfStochasticParameters() const
@@ -68,23 +66,20 @@ inline FormFactorDecoratorPositionFactor *FormFactorDecoratorPositionFactor::clo
     return new FormFactorDecoratorPositionFactor(*mp_form_factor, m_position);
 }
 
-inline complex_t FormFactorDecoratorPositionFactor::evaluate(const cvector_t &k_i,
-                                                             const Bin1DCVector &k_f_bin,
-                                                             const Bin1D &alpha_f_bin) const
+inline complex_t FormFactorDecoratorPositionFactor::evaluate(
+        const WavevectorInfo& wavevectors) const
 {
-    cvector_t q = k_i - k_f_bin.getMidPoint();
+    cvector_t q = wavevectors.getQ();
     complex_t pos_factor = getPositionFactor(q);
-    return pos_factor * mp_form_factor->evaluate(k_i, k_f_bin, alpha_f_bin);
+    return pos_factor * mp_form_factor->evaluate(wavevectors);
 }
 
-inline Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(const cvector_t &k_i,
-                                                                       const Bin1DCVector &k_f_bin,
-                                                                       const Bin1D &alpha_f_bin,
-                                                                       const Bin1D &phi_f_bin) const
+inline Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(
+        const WavevectorInfo& wavevectors) const
 {
-    cvector_t q = k_i - k_f_bin.getMidPoint();
+    cvector_t q = wavevectors.getQ();
     complex_t pos_factor = getPositionFactor(q);
-    return pos_factor * mp_form_factor->evaluatePol(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
+    return pos_factor * mp_form_factor->evaluatePol(wavevectors);
 }
 
 inline complex_t FormFactorDecoratorPositionFactor::getPositionFactor(const cvector_t &q) const

@@ -64,7 +64,6 @@ def get_reference_histogram(filename):
 def get_simulation_MiniGISAS(sample = None):
     simulation = GISASSimulation()
     simulation.setDetectorParameters(25, -2.0*degree, 2.0*degree, 25, 0.0*degree, 2.0*degree)
-    # simulation.setDetectorParameters(100, 0*degree, 5.0*degree, 100, 0*degree, 5*degree, True)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     if sample:
         simulation.setSample(sample)
@@ -73,7 +72,6 @@ def get_simulation_MiniGISAS(sample = None):
 def get_simulation_BasicGISAS(sample = None):
     simulation = GISASSimulation()
     simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
-    # simulation.setDetectorParameters(100, 0*degree, 5.0*degree, 100, 0*degree, 5*degree, True)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     if sample:
         simulation.setSample(sample)

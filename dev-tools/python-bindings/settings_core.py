@@ -61,7 +61,6 @@ include_classes = [
     "Bin1D",
     "Bin1DCVector",
     "Crystal",
-    "Detector",
     "DistributionGate",
     "DistributionLorentz",
     "DistributionGaussian",
@@ -117,6 +116,7 @@ include_classes = [
     "ICloneable",
     "IClusteredParticles",
     "ICompositeSample",
+    "IDetector2D",
     "ILayout",
     "IDetectorResolution",
     "IDistribution1D",
@@ -130,16 +130,17 @@ include_classes = [
     "Histogram1D",
     "Histogram2D",
     "IMaterial",
+    "IntensityDataFunctions",
     "IObserver",
     "IObservable",
     "IParameterized",
     "IParticle",
     "IResolutionFunction2D",
-    "IntensityDataFunctions",
     "IRotation",
     "ISample",
     "ISampleBuilder",
     "ISelectionRule",
+    "IsGISAXSDetector",
     "Instrument",
     "InterferenceFunction1DLattice",
     "InterferenceFunctionRadialParaCrystal",
@@ -165,12 +166,14 @@ include_classes = [
     "ParticleCoreShell",
     "ParticleLayout",
     "RealParameterWrapper",
+    "RectangularDetector",
     "ResolutionFunction2DGaussian",
     "RotationX",
     "RotationY",
     "RotationZ",
     "RotationEuler",
     "SpecularSimulation",
+    "SphericalDetector",
     "Simulation",
     "SimulationParameters",
     "SimpleSelectionRule",
@@ -183,7 +186,8 @@ include_classes = [
     "HorizontalLine",
     "Ellipse",
     "Rectangle",
-    "Polygon"
+    "Polygon",
+    "WavevectorInfo"
 ]
 
 
@@ -200,10 +204,15 @@ def ManualClassTunings(mb):
     axis_operators = mb.free_operators( lambda decl: 'IAxis' in decl.decl_string )
     axis_operators.include()
 
-    mb.class_("Detector").member_functions("addAxis").exclude()
-    #
+    # shared ptrs
     shared_ptrs = mb.decls(lambda decl: decl.name.startswith('shared_ptr<' ))
     shared_ptrs.disable_warnings(messages.W1040)
+
+    # IDetector2D
+    cl = mb.class_('IDetector2D')
+    cl.member_functions("addAxis").exclude()
+    cl.member_functions("clone").exclude()
+
     # ISample
     cl = mb.class_('ISample')
     cl.member_function("accept").include()

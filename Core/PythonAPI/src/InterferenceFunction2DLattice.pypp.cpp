@@ -49,7 +49,7 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
         return InterferenceFunction2DLattice::clone( );
     }
 
-    virtual double evaluate( ::cvector_t const & q ) const  {
+    virtual double evaluate( ::kvector_t const & q ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(q) );
         else{
@@ -57,7 +57,7 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
         }
     }
     
-    double default_evaluate( ::cvector_t const & q ) const  {
+    double default_evaluate( ::kvector_t const & q ) const  {
         return InterferenceFunction2DLattice::evaluate( boost::ref(q) );
     }
 
@@ -294,8 +294,8 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::InterferenceFunction2DLattice::evaluate
         
-            typedef double ( ::InterferenceFunction2DLattice::*evaluate_function_type)( ::cvector_t const & ) const;
-            typedef double ( InterferenceFunction2DLattice_wrapper::*default_evaluate_function_type)( ::cvector_t const & ) const;
+            typedef double ( ::InterferenceFunction2DLattice::*evaluate_function_type)( ::kvector_t const & ) const;
+            typedef double ( InterferenceFunction2DLattice_wrapper::*default_evaluate_function_type)( ::kvector_t const & ) const;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "evaluate"

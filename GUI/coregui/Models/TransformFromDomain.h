@@ -29,7 +29,7 @@ class InterferenceFunction2DLattice;
 class LayerRoughness;
 class LayerInterface;
 class Layer;
-class Detector;
+class IDetector2D;
 class ParticleDistribution;
 class Beam;
 class GISASSimulation;
@@ -66,7 +66,7 @@ BA_CORE_API_ bool isValidRoughness(const LayerRoughness *roughness);
 BA_CORE_API_ bool isSquareLattice(double length1, double length2, double angle);
 BA_CORE_API_ bool isHexagonalLattice(double length1, double length2, double angle);
 
-BA_CORE_API_ QString getDetectorBinning(const Detector *detector);
+BA_CORE_API_ QString getDetectorBinning(const IDetector2D *detector);
 
 BA_CORE_API_ void setItemFromSample(BeamItem *beamItem, const GISASSimulation &simulation);
 

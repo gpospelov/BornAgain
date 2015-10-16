@@ -22,6 +22,8 @@ namespace BornAgain
 {
     static const std::string PHI_AXIS_NAME = "phi_f";
     static const std::string ALPHA_AXIS_NAME = "alpha_f";
+    static const std::string U_AXIS_NAME = "u";
+    static const std::string V_AXIS_NAME = "v";
     static const size_t PHI_AXIS_INDEX = 0;
     static const size_t ALPHA_AXIS_INDEX = 1;
     static const size_t X_AXIS_INDEX = 0;

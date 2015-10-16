@@ -53,7 +53,7 @@ def getSimulationIntensity(rho_beam, efficiency):
     simulation.setBeamIntensity(1e7)
     simulation.runSimulation()
     simulation.normalize()
-    return simulation.getIntensityData().getArray()
+    return simulation.getIntensityData()
 
 
 # --------------------------------------------------------------
@@ -63,11 +63,15 @@ def run_test():
     zplus = kvector_t(0.0, 0.0, 1.0)
     zmin = kvector_t(0.0, 0.0, -1.0)
 
+    # IntensityDataIOFactory.writeIntensityData(getSimulationIntensity(zplus, 1.0), 'polmagcylinders2_reference_00.int')
+    # IntensityDataIOFactory.writeIntensityData(getSimulationIntensity(zplus, -1.0), 'polmagcylinders2_reference_01.int')
+    # IntensityDataIOFactory.writeIntensityData(getSimulationIntensity(zmin, 1.0), 'polmagcylinders2_reference_10.int')
+    # IntensityDataIOFactory.writeIntensityData(getSimulationIntensity(zmin, -1.0), 'polmagcylinders2_reference_11.int')
     diff = 0.0
-    diff += get_difference(getSimulationIntensity(zplus, 1.0), get_reference_histogram('polmagcylinders2_reference_00.int.gz').getArray())
-    diff += get_difference(getSimulationIntensity(zplus, -1.0), get_reference_histogram('polmagcylinders2_reference_01.int.gz').getArray())
-    diff += get_difference(getSimulationIntensity(zmin, 1.0), get_reference_histogram('polmagcylinders2_reference_10.int.gz').getArray())
-    diff += get_difference(getSimulationIntensity(zmin, -1.0), get_reference_histogram('polmagcylinders2_reference_11.int.gz').getArray())
+    diff += get_difference(getSimulationIntensity(zplus, 1.0).getArray(), get_reference_histogram('polmagcylinders2_reference_00.int.gz').getArray())
+    diff += get_difference(getSimulationIntensity(zplus, -1.0).getArray(), get_reference_histogram('polmagcylinders2_reference_01.int.gz').getArray())
+    diff += get_difference(getSimulationIntensity(zmin, 1.0).getArray(), get_reference_histogram('polmagcylinders2_reference_10.int.gz').getArray())
+    diff += get_difference(getSimulationIntensity(zmin, -1.0).getArray(), get_reference_histogram('polmagcylinders2_reference_11.int.gz').getArray())
 
     diff /= 4.0
     status = "OK"

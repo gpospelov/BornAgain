@@ -48,7 +48,7 @@ TEST_F(InstrumentTest, BeamManipulation)
     EXPECT_DOUBLE_EQ(0, m_instrument.getBeam().getCentralK().z().imag() );
 
     EXPECT_FALSE( m_instrument.getDetectorDimension()==2 );
-    m_instrument.matchDetectorParameters(m_data);
+    m_instrument.matchDetectorAxes(m_data);
     EXPECT_TRUE( m_instrument.getDetectorDimension()==2 );
     const IAxis &axis0 = m_instrument.getDetectorAxis(0);
     const IAxis &axis1 = m_instrument.getDetectorAxis(1);

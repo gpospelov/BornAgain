@@ -19,6 +19,9 @@
 #include "Types.h"
 #include "IParameterized.h"
 #include "EigenCore.h"
+#include "IPixelMap.h"
+
+#include <boost/scoped_ptr.hpp>
 
 //! @class SimulationElement
 //! @ingroup simulation
@@ -27,15 +30,16 @@
 class BA_CORE_API_ SimulationElement
 {
 public:
-    SimulationElement();
-    SimulationElement(double wavelength, double alpha_i, double phi_i, double alpha_min,
-                      double alpha_max, double phi_min, double phi_max);
+    SimulationElement(double wavelength, double alpha_i, double phi_i,
+                      const IPixelMap* pixelmap);
     SimulationElement(const SimulationElement &other);
     SimulationElement &operator=(const SimulationElement &other);
 
-    ~SimulationElement()
-    {
-    }
+    //! Construct SimulationElement from other element and restrict k_f to specific value in
+    //! the original detector pixel
+    SimulationElement(const SimulationElement &other, double x, double y);
+
+    ~SimulationElement() {}
 
 #ifndef GCCXML_SKIP_THIS
     //! Sets the polarization density matrix (in spin basis along z-axis)
@@ -75,29 +79,13 @@ public:
     {
         return m_phi_i;
     }
-    double getAlphaMin() const
-    {
-        return m_alpha_min;
-    }
-    double getAlphaMax() const
-    {
-        return m_alpha_max;
-    }
     double getAlphaMean() const
     {
-        return (m_alpha_min + m_alpha_max)/2.0;
-    }
-    double getPhiMin() const
-    {
-        return m_phi_min;
-    }
-    double getPhiMax() const
-    {
-        return m_phi_max;
+        return getAlpha(0.5, 0.5);
     }
     double getPhiMean() const
     {
-        return (m_phi_min + m_phi_max)/2.0;
+        return getPhi(0.5, 0.5);
     }
     void setIntensity(double intensity)
     {
@@ -113,7 +101,19 @@ public:
     }
     kvector_t getKI() const;
     kvector_t getMeanKF() const;
-    cvector_t getMeanQ() const;
+    kvector_t getMeanQ() const;
+
+    kvector_t getK(double x, double y) const {
+        return mP_pixel_map->getK(x, y, m_wavelength);
+    }
+
+    double getIntegrationFactor(double x, double y) const {
+        return mP_pixel_map->getIntegrationFactor(x, y);
+    }
+
+    double getSolidAngle() const {
+        return mP_pixel_map->getSolidAngle();
+    }
 
 private:
     //! swap function
@@ -122,13 +122,19 @@ private:
     //! initialize polarization matrices
     void initPolarization();
 
+    //! get alpha for given detector pixel coordinates
+    double getAlpha(double x, double y) const;
+
+    //! get phi for given detector pixel coordinates
+    double getPhi(double x, double y) const;
+
     double m_wavelength, m_alpha_i, m_phi_i;             //!< wavelength and angles of beam
-    double m_alpha_min, m_alpha_max, m_phi_min, m_phi_max; //!< detector cell angles
     double m_intensity;  //!< simulated intensity for detector cell
 #ifndef GCCXML_SKIP_THIS
     Eigen::Matrix2cd m_polarization;      //!< polarization density matrix
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 #endif
+    boost::scoped_ptr<IPixelMap> mP_pixel_map;
 };
 
 //! Add element vector to element vector with weight

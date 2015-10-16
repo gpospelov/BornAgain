@@ -80,7 +80,6 @@ class FormFactorTrivial;
 class FormFactorTruncatedCube;
 class FormFactorTruncatedSphere;
 class FormFactorTruncatedSpheroid;
-class IFormFactorBornSeparable;
 // -
 class IFormFactorDecorator;
 // -
@@ -184,7 +183,6 @@ public:
     virtual void visit(const FormFactorTruncatedCube *);
     virtual void visit(const FormFactorTruncatedSphere *);
     virtual void visit(const FormFactorTruncatedSpheroid *);
-    virtual void visit(const IFormFactorBornSeparable *);
 
     virtual void visit(const IFormFactorDecorator *);
 

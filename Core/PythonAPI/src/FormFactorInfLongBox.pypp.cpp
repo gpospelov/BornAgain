@@ -49,16 +49,16 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
         return FormFactorInfLongBox::clone( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
+    virtual ::complex_t evaluate( ::WavevectorInfo const & wavevectors ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
+            return func_evaluate( boost::ref(wavevectors) );
         else{
-            return this->FormFactorInfLongBox::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
+            return this->FormFactorInfLongBox::evaluate( boost::ref(wavevectors) );
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
-        return FormFactorInfLongBox::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
+    ::complex_t default_evaluate( ::WavevectorInfo const & wavevectors ) const  {
+        return FormFactorInfLongBox::evaluate( boost::ref(wavevectors) );
     }
 
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
@@ -332,14 +332,14 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::FormFactorInfLongBox::evaluate
         
-            typedef ::complex_t ( ::FormFactorInfLongBox::*evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
-            typedef ::complex_t ( FormFactorInfLongBox_wrapper::*default_evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( ::FormFactorInfLongBox::*evaluate_function_type)( ::WavevectorInfo const & ) const;
+            typedef ::complex_t ( FormFactorInfLongBox_wrapper::*default_evaluate_function_type)( ::WavevectorInfo const & ) const;
             
             FormFactorInfLongBox_exposer.def( 
                 "evaluate"
                 , evaluate_function_type(&::FormFactorInfLongBox::evaluate)
                 , default_evaluate_function_type(&FormFactorInfLongBox_wrapper::default_evaluate)
-                , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f_bin") ) );
+                , ( bp::arg("wavevectors") ) );
         
         }
         { //::FormFactorInfLongBox::evaluate_for_q

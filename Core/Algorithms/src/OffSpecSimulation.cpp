@@ -128,16 +128,14 @@ void OffSpecSimulation::setBeamPolarization(const kvector_t &bloch_vector)
 
 void OffSpecSimulation::setDetectorParameters(const OutputData<double>& output_data)
 {
-    m_instrument.matchDetectorParameters(output_data);
+    m_instrument.matchDetectorAxes(output_data);
     updateIntensityMap();
 }
 
-void OffSpecSimulation::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
-                                              size_t n_alpha, double alpha_f_min,
-                                              double alpha_f_max, bool isgisaxs_style)
+void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x_max,
+                                              size_t n_y, double y_min, double y_max)
 {
-    m_instrument.setDetectorParameters(n_phi, phi_f_min, phi_f_max, n_alpha, alpha_f_min,
-                                       alpha_f_max, isgisaxs_style);
+    m_instrument.setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
     updateIntensityMap();
 }
 
@@ -209,26 +207,17 @@ void OffSpecSimulation::initSimulationElementVector()
     Beam beam = m_instrument.getBeam();
     double wavelength = beam.getWavelength();
     double phi_i = beam.getPhi();
-    Eigen::Matrix2cd beam_polarization = beam.getPolarization();
-    Eigen::Matrix2cd analyzer_operator = m_instrument.getDetector()->getAnalyzerOperator();
     checkInitialization();
 
-    const IAxis &phi_axis = m_instrument.getDetectorAxis(0);
-    const IAxis &alpha_axis = m_instrument.getDetectorAxis(1);
     for (size_t alpha_i_index = 0; alpha_i_index < mp_alpha_i_axis->getSize(); ++alpha_i_index) {
         // Incoming angle by convention defined as positive:
-        double alpha_i = - mp_alpha_i_axis->getBin(alpha_i_index).getMidPoint();
-        for (size_t phi_f_index = 0; phi_f_index < phi_axis.getSize(); ++phi_f_index) {
-            Bin1D phi_bin = phi_axis.getBin(phi_f_index);
-            for (size_t alpha_f_index = 0; alpha_f_index < alpha_axis.getSize(); ++alpha_f_index) {
-                Bin1D alpha_bin = alpha_axis.getBin(alpha_f_index);
-                SimulationElement sim_element(wavelength, alpha_i, phi_i, alpha_bin.m_lower,
-                                              alpha_bin.m_upper, phi_bin.m_lower, phi_bin.m_upper);
-                sim_element.setPolarization(beam_polarization);
-                sim_element.setAnalyzerOperator(analyzer_operator);
-                m_sim_elements.push_back(sim_element);
-            }
-        }
+        double alpha_i = mp_alpha_i_axis->getBin(alpha_i_index).getMidPoint();
+        beam.setCentralK(wavelength, alpha_i, phi_i);
+        m_instrument.setBeam(beam);
+        std::vector<SimulationElement> sim_elements_alpha_i =
+                m_instrument.createSimulationElements();
+        m_sim_elements.insert(m_sim_elements.end(), sim_elements_alpha_i.begin(),
+                              sim_elements_alpha_i.end());
     }
 }
 

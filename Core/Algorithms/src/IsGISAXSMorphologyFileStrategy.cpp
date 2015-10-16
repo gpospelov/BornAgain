@@ -60,7 +60,7 @@ void IsGISAXSMorphologyFileStrategy::initPositions()
 double IsGISAXSMorphologyFileStrategy::evaluateForList(const SimulationElement& sim_element,
                                                        const std::vector<complex_t> &ff_list) const
 {
-    cvector_t q = sim_element.getMeanQ();
+    (void)sim_element;
     complex_t mean_ff = complex_t(0., 0.);
 
     // calculate form factors
@@ -97,10 +97,6 @@ double IsGISAXSMorphologyFileStrategy::evaluateForMatrixList(const SimulationEle
     double phi_i = sim_element.getPhiI();
     cvector_t k_i;
     k_i.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
-    Bin1D alpha_f_bin(sim_element.getAlphaMin(), sim_element.getAlphaMax());
-    Bin1D phi_f_bin(sim_element.getPhiMin(), sim_element.getPhiMax());
-    Bin1DCVector k_f_bin(wavelength, alpha_f_bin, phi_f_bin);
-    cvector_t q = k_i - k_f_bin.getMidPoint();
 
     // coherent part
     Eigen::Matrix2cd coherent_amplitude = Eigen::Matrix2cd::Zero();

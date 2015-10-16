@@ -17,8 +17,10 @@
 #define INSTRUMENT_H_
 
 #include "Beam.h"
-#include "Detector.h"
+#include "IDetector2D.h"
 #include "IResolutionFunction2D.h"
+
+#include <boost/scoped_ptr.hpp>
 
 //! @class Instrument
 //! @ingroup simulation_internal
@@ -29,6 +31,7 @@ class BA_CORE_API_ Instrument : public IParameterized
 public:
     Instrument();
     Instrument(const Instrument &other);
+    Instrument& operator=(const Instrument& other);
 
     ~Instrument(){}
 
@@ -60,8 +63,8 @@ public:
     }
 
     //! Returns the detector data
-    const Detector *getDetector() const;
-    Detector *getDetector();
+    const IDetector2D *getDetector() const;
+    IDetector2D *getDetector();
 
     //! Returns a detector axis
     const IAxis &getDetectorAxis(size_t index) const;
@@ -69,15 +72,18 @@ public:
     //! Returns the detector's dimension
     size_t getDetectorDimension() const
     {
-        return m_detector.getDimension();
+        return mP_detector->getDimension();
     }
 
+    //! Sets the detector (axes can be overwritten later)
+    void setDetector(const IDetector2D& detector);
+
     //! Sets detector parameters using axes of output data
-    void matchDetectorParameters(const OutputData<double> &output_data);
+    void matchDetectorAxes(const OutputData<double> &output_data);
 
     //! Sets detector parameters using angle ranges
-    void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max, size_t n_alpha,
-                               double alpha_f_min, double alpha_f_max, bool isgisaxs_style = false);
+    void setDetectorParameters(size_t n_x, double x_min, double x_max,
+                               size_t n_y, double y_min, double y_max);
 
     //! Sets detector parameters using axes
     void setDetectorAxes(const IAxis &axis0, const IAxis &axis1);
@@ -89,7 +95,7 @@ public:
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t &direction, double efficiency,
                                double total_transmission=1.0) {
-        m_detector.setAnalyzerProperties(direction, efficiency, total_transmission);
+        mP_detector->setAnalyzerProperties(direction, efficiency, total_transmission);
     }
 
     //! apply the detector resolution to the given intensity map
@@ -102,6 +108,9 @@ public:
 #ifndef GCCXML_SKIP_THIS
     //! normalize a detector image
     void normalize(OutputData<double> *p_intensity) const;
+
+    //! Create a vector of SimulationElement objects according to the beam, detector and its mask
+    std::vector<SimulationElement> createSimulationElements();
 #endif
 
 protected:
@@ -110,7 +119,7 @@ protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
-    Detector m_detector;
+    boost::scoped_ptr<IDetector2D> mP_detector;
     Beam m_beam;
 };
 
@@ -129,19 +138,19 @@ inline void Instrument::setBeamParameters(double wavelength, double alpha_i, dou
     m_beam.setCentralK(wavelength, alpha_i, phi_i);
 }
 
-inline const Detector *Instrument::getDetector() const
+inline const IDetector2D *Instrument::getDetector() const
 {
-    return &m_detector;
+    return mP_detector.get();
 }
 
-inline Detector *Instrument::getDetector()
+inline IDetector2D *Instrument::getDetector()
 {
-    return &m_detector;
+    return mP_detector.get();
 }
 
 inline const IAxis &Instrument::getDetectorAxis(size_t index) const
 {
-    return m_detector.getAxis(index);
+    return mP_detector->getAxis(index);
 }
 
 #endif /* INSTRUMENT_H_ */

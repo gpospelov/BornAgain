@@ -42,7 +42,7 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
         return func_clone(  );
     }
 
-    virtual double evaluate( ::cvector_t const & q ) const {
+    virtual double evaluate( ::kvector_t const & q ) const {
         bp::override func_evaluate = this->get_override( "evaluate" );
         return func_evaluate( boost::ref(q) );
     }
@@ -252,18 +252,18 @@ void register_IInterferenceFunction_class(){
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::IInterferenceFunction::clone) )
                 , bp::return_value_policy< bp::manage_new_object >()
-                , "Evaluates the interference function for a given wavevector transfer." );
+                , "Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) " );
         
         }
         { //::IInterferenceFunction::evaluate
         
-            typedef double ( ::IInterferenceFunction::*evaluate_function_type)( ::cvector_t const & ) const;
+            typedef double ( ::IInterferenceFunction::*evaluate_function_type)( ::kvector_t const & ) const;
             
             IInterferenceFunction_exposer.def( 
                 "evaluate"
                 , bp::pure_virtual( evaluate_function_type(&::IInterferenceFunction::evaluate) )
                 , ( bp::arg("q") )
-                , "Evaluates the interference function for a given wavevector transfer." );
+                , "Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) " );
         
         }
         { //::IInterferenceFunction::getKappa

@@ -79,13 +79,13 @@ void IDetector2D::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
 void IDetector2D::applyDetectorResolution(OutputData<double> *p_intensity_map) const
 {
     if (!p_intensity_map) {
-        throw NullPointerException("Detector::applyDetectorResolution() -> "
+        throw NullPointerException("IDetector2D::applyDetectorResolution() -> "
                                    "Error! Null pointer to intensity map");
     }
     if (mP_detector_resolution.get()) {
         mP_detector_resolution->applyDetectorResolution(p_intensity_map);
     } else {
-        msglog(MSG::WARNING) << "IDetector::applyDetectorResolution() -> "
+        msglog(MSG::WARNING) << "IDetector2D::applyDetectorResolution() -> "
                                 "No detector resolution function found";
     }
 }
@@ -95,7 +95,7 @@ void IDetector2D::setAnalyzerProperties(const kvector_t &direction, double effic
 {
     if (!checkAnalyzerProperties(direction, efficiency, total_transmission)) {
         throw Exceptions::ClassInitializationException(
-            "Detector::setAnalyzerProperties: the given properties are not physical");
+            "IDetector2D::setAnalyzerProperties: the given properties are not physical");
     }
     m_analyzer_operator = calculateAnalyzerOperator(direction, efficiency, total_transmission);
 }
@@ -181,7 +181,7 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
     Eigen::Matrix2cd analyzer_operator = getAnalyzerOperator();
 
     if (getDimension()!=2) {
-        throw RuntimeErrorException("Detector::createSimulationElements: "
+        throw RuntimeErrorException("IDetector2D::createSimulationElements: "
                                     "detector is not two-dimensional");
     }
     if (!hasMasks()) m_detector_mask.initMaskData(*this);

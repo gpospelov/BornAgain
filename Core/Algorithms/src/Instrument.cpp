@@ -83,9 +83,9 @@ void Instrument::setDetectorParameters(size_t n_phi, double phi_f_min, double ph
         mP_detector->addAxis(
             CustomBinAxis(BornAgain::ALPHA_AXIS_NAME, n_alpha, alpha_f_min, alpha_f_max));
     } else {
-        mP_detector->addAxis(ConstKBinAxis(BornAgain::PHI_AXIS_NAME, n_phi, phi_f_min, phi_f_max));
+        mP_detector->addAxis(FixedBinAxis(BornAgain::PHI_AXIS_NAME, n_phi, phi_f_min, phi_f_max));
         mP_detector->addAxis(
-            ConstKBinAxis(BornAgain::ALPHA_AXIS_NAME, n_alpha, alpha_f_min, alpha_f_max));
+            FixedBinAxis(BornAgain::ALPHA_AXIS_NAME, n_alpha, alpha_f_min, alpha_f_max));
     }
 }
 

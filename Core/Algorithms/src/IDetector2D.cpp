@@ -72,13 +72,8 @@ void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
 void IDetector2D::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
 {
     clear();
-    boost::scoped_ptr<IAxis> P_axis0(axis0.clone());
-    P_axis0->setName(getAxisName(0));
-    boost::scoped_ptr<IAxis> P_axis1(axis1.clone());
-    P_axis1->setName(getAxisName(1));
-
-    addAxis(*P_axis0);
-    addAxis(*P_axis1);
+    addAxis(axis0);
+    addAxis(axis1);
 }
 
 void IDetector2D::applyDetectorResolution(OutputData<double> *p_intensity_map) const

@@ -78,6 +78,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "Bin1DCVector.pypp.h"
 #include "FormFactorSphereGaussianRadius.pypp.h"
 #include "ParameterPool.pypp.h"
+#include "IsGISAXSDetector.pypp.h"
 #include "FormFactorPrism3.pypp.h"
 #include "IMaterial.pypp.h"
 #include "FTDistribution1DVoigt.pypp.h"
@@ -280,6 +281,8 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_InterferenceFunction2DParaCrystal_class();
     register_InterferenceFunctionNone_class();
     register_InterferenceFunctionRadialParaCrystal_class();
+    register_SphericalDetector_class();
+    register_IsGISAXSDetector_class();
     register_Lattice_class();
     register_Lattice1DIFParameters_class();
     register_Lattice2DIFParameters_class();
@@ -307,7 +310,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_SimpleSelectionRule_class();
     register_SimulationParameters_class();
     register_SpecularSimulation_class();
-    register_SphericalDetector_class();
     register_ThreadInfo_class();
     register_WavevectorInfo_class();
     register_global_variables();

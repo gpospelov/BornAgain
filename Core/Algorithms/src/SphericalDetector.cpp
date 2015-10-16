@@ -51,18 +51,6 @@ SphericalDetector *SphericalDetector::clone() const
     return new SphericalDetector(*this);
 }
 
-IPixelMap *SphericalDetector::createPixelMap(size_t index) const
-{
-    const IAxis &phi_axis = getAxis(BornAgain::X_AXIS_INDEX);
-    const IAxis &alpha_axis = getAxis(BornAgain::Y_AXIS_INDEX);
-    size_t phi_index = getAxisBinIndex(index, BornAgain::X_AXIS_INDEX);
-    size_t alpha_index = getAxisBinIndex(index, BornAgain::Y_AXIS_INDEX);
-
-    Bin1D alpha_bin = alpha_axis.getBin(alpha_index);
-    Bin1D phi_bin = phi_axis.getBin(phi_index);
-    return new AngularPixelMap(alpha_bin, phi_bin);
-}
-
 std::string SphericalDetector::addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                   int copy_number) const
 {
@@ -75,6 +63,18 @@ std::string SphericalDetector::addParametersToExternalPool(std::string path, Par
         mP_detector_resolution->addParametersToExternalPool(new_path, external_pool, -1);
     }
     return new_path;
+}
+
+IPixelMap *SphericalDetector::createPixelMap(size_t index) const
+{
+    const IAxis &phi_axis = getAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis &alpha_axis = getAxis(BornAgain::Y_AXIS_INDEX);
+    size_t phi_index = getAxisBinIndex(index, BornAgain::X_AXIS_INDEX);
+    size_t alpha_index = getAxisBinIndex(index, BornAgain::Y_AXIS_INDEX);
+
+    Bin1D alpha_bin = alpha_axis.getBin(alpha_index);
+    Bin1D phi_bin = phi_axis.getBin(phi_index);
+    return new AngularPixelMap(alpha_bin, phi_bin);
 }
 
 void SphericalDetector::print(std::ostream &ostr) const

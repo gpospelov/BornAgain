@@ -77,6 +77,7 @@
 #include "ISample.h"
 #include "ISampleBuilder.h"
 #include "ISelectionRule.h"
+#include "IsGISAXSDetector.h"
 #include "IShape2D.h"
 #include "ISingleton.h"
 #include "Lattice.h"

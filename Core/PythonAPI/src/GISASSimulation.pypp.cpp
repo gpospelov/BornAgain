@@ -396,6 +396,17 @@ void register_GISASSimulation_class(){
                 , "Sets the beam polarization according to the given Bloch vector." );
         
         }
+        { //::GISASSimulation::setDetector
+        
+            typedef void ( ::GISASSimulation::*setDetector_function_type)( ::IDetector2D const & ) ;
+            
+            GISASSimulation_exposer.def( 
+                "setDetector"
+                , setDetector_function_type( &::GISASSimulation::setDetector )
+                , ( bp::arg("detector") )
+                , "Sets the detector (axes can be overwritten later)." );
+        
+        }
         { //::GISASSimulation::setDetectorParameters
         
             typedef void ( ::GISASSimulation::*setDetectorParameters_function_type)( ::OutputData< double > const & ) ;

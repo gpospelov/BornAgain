@@ -85,6 +85,9 @@ public:
     //! Sets the beam polarization according to the given Bloch vector
     void setBeamPolarization(const kvector_t& bloch_vector);
 
+    //! Sets the detector (axes can be overwritten later)
+    void setDetector(const IDetector2D& detector);
+
     //! Sets detector parameters using axes of output data
     void setDetectorParameters(const OutputData<double> &output_data);
     void setDetectorParameters(const IHistogram &hisotgram);

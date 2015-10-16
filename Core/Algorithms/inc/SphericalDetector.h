@@ -54,6 +54,9 @@ protected:
 
     //! Registers some class members for later access via parameter pool.
     virtual void init_parameters() {}
+
+    //! Returns the name for the axis with given index
+    virtual std::string getAxisName(size_t index) const;
 };
 
 class AngularPixelMap : public IPixelMap

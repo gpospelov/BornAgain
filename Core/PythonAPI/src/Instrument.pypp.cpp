@@ -280,6 +280,17 @@ void register_Instrument_class(){
                 , "Sets the beam's polarization according to the given Bloch vector." );
         
         }
+        { //::Instrument::setDetector
+        
+            typedef void ( ::Instrument::*setDetector_function_type)( ::IDetector2D const & ) ;
+            
+            Instrument_exposer.def( 
+                "setDetector"
+                , setDetector_function_type( &::Instrument::setDetector )
+                , ( bp::arg("detector") )
+                , "Sets the detector (axes can be overwritten later)." );
+        
+        }
         { //::Instrument::setDetectorAxes
         
             typedef void ( ::Instrument::*setDetectorAxes_function_type)( ::IAxis const &,::IAxis const & ) ;
@@ -311,17 +322,6 @@ void register_Instrument_class(){
                 , setDetectorResolutionFunction_function_type( &::Instrument::setDetectorResolutionFunction )
                 , ( bp::arg("p_resolution_function") )
                 , "Sets detector resolution function." );
-        
-        }
-        { //::Instrument::setDetectorType
-        
-            typedef void ( ::Instrument::*setDetectorType_function_type)( ::IDetector2D const & ) ;
-            
-            Instrument_exposer.def( 
-                "setDetectorType"
-                , setDetectorType_function_type( &::Instrument::setDetectorType )
-                , ( bp::arg("detector") )
-                , "Sets the detector type (axes can be overwritten later)." );
         
         }
         { //::IParameterized::areParametersChanged

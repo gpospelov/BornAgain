@@ -157,6 +157,11 @@ void GISASSimulation::setBeamPolarization(const kvector_t &bloch_vector)
     m_instrument.setBeamPolarization(bloch_vector);
 }
 
+void GISASSimulation::setDetector(const IDetector2D &detector)
+{
+    m_instrument.setDetector(detector);
+}
+
 void GISASSimulation::setDetectorParameters(const OutputData<double >& output_data)
 {
     m_instrument.matchDetectorAxes(output_data);

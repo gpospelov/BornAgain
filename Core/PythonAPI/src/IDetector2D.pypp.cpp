@@ -54,6 +54,11 @@ struct IDetector2D_wrapper : IDetector2D, bp::wrapper< IDetector2D > {
         return func_createPixelMap( index );
     }
 
+    virtual ::std::string getAxisName( ::std::size_t index ) const {
+        bp::override func_getAxisName = this->get_override( "getAxisName" );
+        return func_getAxisName( index );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -210,6 +215,17 @@ void register_IDetector2D_class(){
                 , bp::return_value_policy< bp::copy_const_reference >() );
         
         }
+        { //::IDetector2D::getAxisName
+        
+            typedef ::std::string ( IDetector2D_wrapper::*getAxisName_function_type)( ::std::size_t ) const;
+            
+            IDetector2D_exposer.def( 
+                "getAxisName"
+                , getAxisName_function_type( &IDetector2D_wrapper::getAxisName )
+                , ( bp::arg("index") )
+                , "Returns the name for the axis with given index." );
+        
+        }
         { //::IDetector2D::getDetectorMask
         
             typedef ::DetectorMask const * ( ::IDetector2D::*getDetectorMask_function_type)(  ) const;
@@ -271,6 +287,17 @@ void register_IDetector2D_class(){
                 , "Put the mask for all detector channels (i.e. exclude whole detector from the analysis)." );
         
         }
+        { //::IDetector2D::matchDetectorAxes
+        
+            typedef void ( ::IDetector2D::*matchDetectorAxes_function_type)( ::OutputData< double > const & ) ;
+            
+            IDetector2D_exposer.def( 
+                "matchDetectorAxes"
+                , matchDetectorAxes_function_type( &::IDetector2D::matchDetectorAxes )
+                , ( bp::arg("output_data") )
+                , "Sets detector parameters using axes of output data." );
+        
+        }
         { //::IDetector2D::removeMasks
         
             typedef void ( ::IDetector2D::*removeMasks_function_type)(  ) ;
@@ -290,6 +317,28 @@ void register_IDetector2D_class(){
                 , setAnalyzerProperties_function_type( &::IDetector2D::setAnalyzerProperties )
                 , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 )
                 , "Sets the polarization analyzer characteristics of the detector." );
+        
+        }
+        { //::IDetector2D::setDetectorAxes
+        
+            typedef void ( ::IDetector2D::*setDetectorAxes_function_type)( ::IAxis const &,::IAxis const & ) ;
+            
+            IDetector2D_exposer.def( 
+                "setDetectorAxes"
+                , setDetectorAxes_function_type( &::IDetector2D::setDetectorAxes )
+                , ( bp::arg("axis0"), bp::arg("axis1") )
+                , "Sets detector parameters using axes." );
+        
+        }
+        { //::IDetector2D::setDetectorParameters
+        
+            typedef void ( ::IDetector2D::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double ) ;
+            
+            IDetector2D_exposer.def( 
+                "setDetectorParameters"
+                , setDetectorParameters_function_type( &::IDetector2D::setDetectorParameters )
+                , ( bp::arg("n_x"), bp::arg("x_min"), bp::arg("x_max"), bp::arg("n_y"), bp::arg("y_min"), bp::arg("y_max") )
+                , "Sets detector parameters using angle ranges." );
         
         }
         { //::IParameterized::areParametersChanged

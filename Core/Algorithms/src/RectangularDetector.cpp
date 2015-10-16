@@ -96,6 +96,21 @@ void RectangularDetector::print(std::ostream &ostr) const
     }
 }
 
+std::string RectangularDetector::getAxisName(size_t index) const
+{
+    switch (index) {
+    case 0:
+        return BornAgain::U_AXIS_NAME;
+        break;
+    case 1:
+        return BornAgain::V_AXIS_NAME;
+        break;
+    default:
+        throw LogicErrorException(
+            "SphericalDetector::getAxisName(size_t index) -> Error! index > 1");
+    }
+}
+
 void RectangularDetector::swapContent(RectangularDetector &other)
 {
     IDetector2D::swapContent(other);

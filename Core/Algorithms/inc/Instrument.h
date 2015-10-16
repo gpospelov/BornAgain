@@ -75,8 +75,8 @@ public:
         return mP_detector->getDimension();
     }
 
-    //! Sets the detector type (axes can be overwritten later)
-    void setDetectorType(const IDetector2D& detector);
+    //! Sets the detector (axes can be overwritten later)
+    void setDetector(const IDetector2D& detector);
 
     //! Sets detector parameters using axes of output data
     void matchDetectorAxes(const OutputData<double> &output_data);

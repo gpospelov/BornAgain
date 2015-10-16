@@ -58,6 +58,16 @@ public:
         m_axes.clear();
     }
 
+    //! Sets detector parameters using axes of output data
+    void matchDetectorAxes(const OutputData<double> &output_data);
+
+    //! Sets detector parameters using angle ranges
+    void setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y,
+                               double y_min, double y_max);
+
+    //! Sets detector parameters using axes
+    void setDetectorAxes(const IAxis &axis0, const IAxis &axis1);
+
     //! Sets the detector resolution
     void setDetectorResolution(IDetectorResolution *p_detector_resolution)
     {
@@ -125,6 +135,9 @@ protected:
 
     //! Registers some class members for later access via parameter pool.
     virtual void init_parameters() {}
+
+    //! Returns the name for the axis with given index
+    virtual std::string getAxisName(size_t index) const=0;
 
     bool isCorrectAxisIndex(size_t index) const
     {

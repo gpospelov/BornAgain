@@ -19,6 +19,7 @@
 #include "Rectangle.h"
 
 #include <Eigen/LU>
+#include <boost/scoped_ptr.hpp>
 
 IDetector2D::IDetector2D()
     : m_axes()
@@ -43,6 +44,55 @@ const IAxis &IDetector2D::getAxis(size_t index) const
         return *m_axes[index];
     }
     throw OutOfBoundsException("Not so many axes in this detector.");
+}
+
+void IDetector2D::matchDetectorAxes(const OutputData<double> &output_data)
+{
+    if (output_data.getRank()!=2) {
+        throw LogicErrorException(
+            "IDetector2D::matchDetectorAxes() -> Error! Data is not two dimensional");
+    }
+    clear();
+    for (size_t i_axis = 0; i_axis < output_data.getRank(); ++i_axis) {
+        const IAxis* p_axis = output_data.getAxis(i_axis)->clone();
+        addAxis(*p_axis);
+    }
+}
+
+void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
+                                        size_t n_y, double y_min, double y_max)
+{
+    if (x_max <= x_min) {
+        throw LogicErrorException(
+            "IDetector2D::setDetectorParameters() -> Error! x_max <= x_min");
+    }
+    if (y_max <= y_min) {
+        throw LogicErrorException(
+            "IDetector2D::setDetectorParameters() -> Error! y_max <= y_min");
+    }
+    if (n_x == 0) {
+        throw LogicErrorException(
+            "IDetector2D::setDetectorParameters() -> Error! Number of n_x bins can't be zero.");
+    }
+    if (n_y == 0) {
+        throw LogicErrorException(
+            "IDetector2D::setDetectorParameters() -> Error! Number of n_y bins can't be zero.");
+    }
+    clear();
+    addAxis(FixedBinAxis(getAxisName(0), n_x, x_min, x_max));
+    addAxis(FixedBinAxis(getAxisName(1), n_y, y_min, y_max));
+}
+
+void IDetector2D::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
+{
+    clear();
+    boost::scoped_ptr<IAxis> P_axis0(axis0.clone());
+    P_axis0->setName(getAxisName(0));
+    boost::scoped_ptr<IAxis> P_axis1(axis1.clone());
+    P_axis1->setName(getAxisName(1));
+
+    addAxis(*P_axis0);
+    addAxis(*P_axis1);
 }
 
 void IDetector2D::applyDetectorResolution(OutputData<double> *p_intensity_map) const

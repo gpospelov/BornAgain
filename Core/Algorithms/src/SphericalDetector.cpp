@@ -85,6 +85,21 @@ void SphericalDetector::print(std::ostream &ostr) const
     }
 }
 
+std::string SphericalDetector::getAxisName(size_t index) const
+{
+    switch (index) {
+    case 0:
+        return BornAgain::PHI_AXIS_NAME;
+        break;
+    case 1:
+        return BornAgain::ALPHA_AXIS_NAME;
+        break;
+    default:
+        throw LogicErrorException(
+            "SphericalDetector::getAxisName(size_t index) -> Error! index > 1");
+    }
+}
+
 AngularPixelMap::AngularPixelMap(Bin1D alpha_bin, Bin1D phi_bin)
     : m_alpha(alpha_bin.m_lower), m_phi(phi_bin.m_lower),
       m_dalpha(alpha_bin.getBinSize()), m_dphi(phi_bin.getBinSize())

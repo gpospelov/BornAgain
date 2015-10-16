@@ -45,18 +45,14 @@ Instrument &Instrument::operator=(const Instrument &other)
     return *this;
 }
 
-void Instrument::setDetectorType(const IDetector2D& detector)
+void Instrument::setDetector(const IDetector2D& detector)
 {
     mP_detector.reset(detector.clone());
 }
 
 void Instrument::matchDetectorAxes(const OutputData<double> &output_data)
 {
-    mP_detector->clear();
-    for (size_t i_axis = 0; i_axis < output_data.getRank(); ++i_axis) {
-        const IAxis *axis = output_data.getAxis(i_axis);
-        mP_detector->addAxis(*axis);
-    }
+    mP_detector->matchDetectorAxes(output_data);
 }
 
 void Instrument::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
@@ -95,19 +91,7 @@ void Instrument::setDetectorParameters(size_t n_phi, double phi_f_min, double ph
 
 void Instrument::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
 {
-    mP_detector->clear();
-
-    IAxis *p_axis0 = axis0.clone();
-    p_axis0->setName(BornAgain::PHI_AXIS_NAME);
-
-    IAxis *p_axis1 = axis1.clone();
-    p_axis1->setName(BornAgain::ALPHA_AXIS_NAME);
-
-    mP_detector->addAxis(*p_axis0);
-    mP_detector->addAxis(*p_axis1);
-
-    delete p_axis0;
-    delete p_axis1;
+    mP_detector->setDetectorAxes(axis0, axis1);
 }
 
 std::string Instrument::addParametersToExternalPool(std::string path, ParameterPool *external_pool,

@@ -49,6 +49,11 @@ struct IDetector2D_wrapper : IDetector2D, bp::wrapper< IDetector2D > {
         return func_clone(  );
     }
 
+    virtual ::IAxis * createAxis( ::std::size_t index, ::std::size_t n_bins, double min, double max ) const {
+        bp::override func_createAxis = this->get_override( "createAxis" );
+        return func_createAxis( index, n_bins, min, max );
+    }
+
     virtual ::IPixelMap * createPixelMap( ::std::size_t index ) const {
         bp::override func_createPixelMap = this->get_override( "createPixelMap" );
         return func_createPixelMap( index );
@@ -190,6 +195,18 @@ void register_IDetector2D_class(){
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::IDetector2D::clone) )
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::IDetector2D::createAxis
+        
+            typedef ::IAxis * ( IDetector2D_wrapper::*createAxis_function_type)( ::std::size_t,::std::size_t,double,double ) const;
+            
+            IDetector2D_exposer.def( 
+                "createAxis"
+                , createAxis_function_type( &IDetector2D_wrapper::createAxis )
+                , ( bp::arg("index"), bp::arg("n_bins"), bp::arg("min"), bp::arg("max") )
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "Generates an axis with correct name and default binning for given index." );
         
         }
         { //::IDetector2D::createPixelMap

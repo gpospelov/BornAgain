@@ -62,25 +62,11 @@ void IDetector2D::matchDetectorAxes(const OutputData<double> &output_data)
 void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
                                         size_t n_y, double y_min, double y_max)
 {
-    if (x_max <= x_min) {
-        throw LogicErrorException(
-            "IDetector2D::setDetectorParameters() -> Error! x_max <= x_min");
-    }
-    if (y_max <= y_min) {
-        throw LogicErrorException(
-            "IDetector2D::setDetectorParameters() -> Error! y_max <= y_min");
-    }
-    if (n_x == 0) {
-        throw LogicErrorException(
-            "IDetector2D::setDetectorParameters() -> Error! Number of n_x bins can't be zero.");
-    }
-    if (n_y == 0) {
-        throw LogicErrorException(
-            "IDetector2D::setDetectorParameters() -> Error! Number of n_y bins can't be zero.");
-    }
     clear();
-    addAxis(FixedBinAxis(getAxisName(0), n_x, x_min, x_max));
-    addAxis(FixedBinAxis(getAxisName(1), n_y, y_min, y_max));
+    boost::scoped_ptr<IAxis> P_axis0(createAxis(0, n_x, x_min, x_max));
+    boost::scoped_ptr<IAxis> P_axis1(createAxis(1, n_y, y_min, y_max));
+    addAxis(*P_axis0);
+    addAxis(*P_axis1);
 }
 
 void IDetector2D::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)

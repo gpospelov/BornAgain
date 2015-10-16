@@ -96,6 +96,18 @@ void RectangularDetector::print(std::ostream &ostr) const
     }
 }
 
+IAxis *RectangularDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
+{
+    if (max <= min) {
+        throw LogicErrorException(
+            "RectangularDetector::createAxis() -> Error! max <= min");
+    }
+    if (n_bins == 0) {
+        throw LogicErrorException(
+            "RectangularDetector::createAxis() -> Error! Number n_bins can't be zero.");
+    }    return new FixedBinAxis(getAxisName(index), n_bins, min, max);
+}
+
 std::string RectangularDetector::getAxisName(size_t index) const
 {
     switch (index) {
@@ -107,7 +119,7 @@ std::string RectangularDetector::getAxisName(size_t index) const
         break;
     default:
         throw LogicErrorException(
-            "SphericalDetector::getAxisName(size_t index) -> Error! index > 1");
+            "RectangularDetector::getAxisName(size_t index) -> Error! index > 1");
     }
 }
 

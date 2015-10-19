@@ -66,8 +66,6 @@ BA_CORE_API_ bool isValidRoughness(const LayerRoughness *roughness);
 BA_CORE_API_ bool isSquareLattice(double length1, double length2, double angle);
 BA_CORE_API_ bool isHexagonalLattice(double length1, double length2, double angle);
 
-BA_CORE_API_ QString getDetectorBinning(const IDetector2D *detector);
-
 BA_CORE_API_ void setItemFromSample(BeamItem *beamItem, const GISASSimulation &simulation);
 
 BA_CORE_API_ void setItemFromSample(PhiAlphaDetectorItem *detectorItem, const GISASSimulation &simulation);

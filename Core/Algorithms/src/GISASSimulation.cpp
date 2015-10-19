@@ -104,17 +104,9 @@ int GISASSimulation::getNumberOfSimulationElements() const
         throw RuntimeErrorException("GISASSimulation::getNumberOfSimulationElements: "
                                     "detector is not two-dimensional");
     }
-    const IAxis &phi_axis = m_instrument.getDetectorAxis(BornAgain::PHI_AXIS_INDEX);
-    if (phi_axis.getName()!=BornAgain::PHI_AXIS_NAME) {
-        throw RuntimeErrorException("GISASSimulation::getNumberOfSimulationElements: "
-                                    "phi-axis is not correct");
-    }
-    const IAxis &alpha_axis = m_instrument.getDetectorAxis(BornAgain::ALPHA_AXIS_INDEX);
-    if (alpha_axis.getName()!=BornAgain::ALPHA_AXIS_NAME) {
-        throw RuntimeErrorException("GISASSimulation::getNumberOfSimulationElements: "
-                                    "alpha-axis is not correct");
-    }
-    return phi_axis.getSize()*alpha_axis.getSize();
+    const IAxis &x_axis = m_instrument.getDetectorAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis &y_axis = m_instrument.getDetectorAxis(BornAgain::X_AXIS_INDEX);
+    return x_axis.getSize()*y_axis.getSize();
 }
 
 OutputData<double> *GISASSimulation::getDetectorIntensity() const

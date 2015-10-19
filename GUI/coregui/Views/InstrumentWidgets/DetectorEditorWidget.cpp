@@ -20,7 +20,7 @@
 #include <QVBoxLayout>
 
 DetectorEditorWidget::DetectorEditorWidget(QWidget *parent)
-    : QWidget(parent), m_binningEditor(0), m_phiAxisEditor(0), m_alphaAxisEditor(0),
+    : QWidget(parent), m_detectorTypeEditor(0), m_phiAxisEditor(0), m_alphaAxisEditor(0),
       m_resolutionFunctionEditor(0), m_gridLayout(0), m_detectorItem(0)
 {
     QGroupBox *groupBox = new QGroupBox("Detector Parameters");
@@ -30,8 +30,8 @@ DetectorEditorWidget::DetectorEditorWidget(QWidget *parent)
     // whole content is represented as grid layout
     m_gridLayout = new QGridLayout;
 
-    m_binningEditor = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    m_gridLayout->addWidget(m_binningEditor, 0, 0);
+    m_detectorTypeEditor = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+    m_gridLayout->addWidget(m_detectorTypeEditor, 0, 0);
     m_phiAxisEditor = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
     m_gridLayout->addWidget(m_phiAxisEditor, 1, 0);
     m_alphaAxisEditor
@@ -54,7 +54,7 @@ DetectorEditorWidget::DetectorEditorWidget(QWidget *parent)
 void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
 {
     m_detectorItem = detectorItem;
-    m_binningEditor->clearEditor();
+    m_detectorTypeEditor->clearEditor();
     m_phiAxisEditor->clearEditor();
     m_alphaAxisEditor->clearEditor();
     m_resolutionFunctionEditor->clearEditor();
@@ -65,10 +65,8 @@ void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
     PhiAlphaDetectorItem *subDetector = dynamic_cast<PhiAlphaDetectorItem *>(
         detectorItem->getSubItems()[DetectorItem::P_DETECTOR]);
 
-    m_binningEditor->addItemProperty(detectorItem, DetectorItem::P_DETECTOR, QString(),
+    m_detectorTypeEditor->addItemProperty(detectorItem, DetectorItem::P_DETECTOR, QString(),
                                      AwesomePropertyEditor::SKIP);
-
-    m_binningEditor->addItemProperty(subDetector, PhiAlphaDetectorItem::P_BINNING);
 
     ParameterizedItem *phiAxisItem = subDetector->getSubItems()[PhiAlphaDetectorItem::P_PHI_AXIS];
     m_phiAxisEditor->addItemProperties(phiAxisItem, QString("Phi axis"),

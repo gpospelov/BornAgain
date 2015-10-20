@@ -43,7 +43,7 @@ DistributionNoneItem::DistributionNoneItem(ParameterizedItem *parent)
     : DistributionItem(Constants::DistributionNoneType, parent)
 {
     setItemName(Constants::DistributionNoneType);
-    registerProperty(P_VALUE, 0.1);
+    registerProperty(P_VALUE, 0.1, PropertyAttribute(AttLimits::limitless()));
 }
 
 IDistribution1D *DistributionNoneItem::createDistribution() const
@@ -66,8 +66,8 @@ DistributionGateItem::DistributionGateItem(ParameterizedItem *parent)
     : DistributionItem(Constants::DistributionGateType, parent)
 {
     setItemName(Constants::DistributionGateType);
-    registerProperty(P_MIN, 0.0);
-    registerProperty(P_MAX, 1.0);
+    registerProperty(P_MIN, 0.0, PropertyAttribute(AttLimits::limitless()));
+    registerProperty(P_MAX, 1.0, PropertyAttribute(AttLimits::limitless()));
     register_number_of_samples();
     register_sigma_factor();
 }
@@ -98,7 +98,7 @@ DistributionLorentzItem::DistributionLorentzItem(ParameterizedItem *parent)
     : DistributionItem(Constants::DistributionLorentzType, parent)
 {
     setItemName(Constants::DistributionLorentzType);
-    registerProperty(P_MEAN, 0.0);
+    registerProperty(P_MEAN, 0.0, PropertyAttribute(AttLimits::limitless()));
     registerProperty(P_HWHM, 1.0);
     register_number_of_samples();
     register_sigma_factor();
@@ -131,7 +131,7 @@ DistributionGaussianItem::DistributionGaussianItem(ParameterizedItem *parent)
     : DistributionItem(Constants::DistributionGaussianType, parent)
 {
     setItemName(Constants::DistributionGaussianType);
-    registerProperty(P_MEAN, 0.0);
+    registerProperty(P_MEAN, 0.0, PropertyAttribute(AttLimits::limitless()));
     registerProperty(P_STD_DEV, 1.0);
     register_number_of_samples();
     register_sigma_factor();
@@ -197,7 +197,7 @@ DistributionCosineItem::DistributionCosineItem(ParameterizedItem *parent)
     : DistributionItem(Constants::DistributionCosineType, parent)
 {
     setItemName(Constants::DistributionCosineType);
-    registerProperty(P_MEAN, 0.0);
+    registerProperty(P_MEAN, 0.0, PropertyAttribute(AttLimits::limitless()));
     registerProperty(P_SIGMA, 1.0);
     register_number_of_samples();
     register_sigma_factor();

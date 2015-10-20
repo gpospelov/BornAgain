@@ -34,7 +34,7 @@ public:
     QGridLayout *getGridLayout() { return m_gridLayout;}
 
 private:
-    AwesomePropertyEditor *m_binningEditor;
+    AwesomePropertyEditor *m_detectorTypeEditor;
     AwesomePropertyEditor *m_phiAxisEditor;
     AwesomePropertyEditor *m_alphaAxisEditor;
     AwesomePropertyEditor *m_resolutionFunctionEditor;

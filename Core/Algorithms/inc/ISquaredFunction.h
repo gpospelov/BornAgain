@@ -62,9 +62,10 @@ public:
 
     virtual double calculateSquaredDifference(double real_value, double simulated_value) const
     {
-        double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
-        if (diff_squared < Numeric::double_epsilon) return 0.0;
+        double diff = std::abs(simulated_value-real_value);
         double normalization = calculateSquaredError(real_value);
+        if (diff/normalization < Numeric::double_epsilon) return 0.0;
+        double diff_squared = diff*diff;
         return diff_squared/normalization;
     }
 
@@ -94,9 +95,10 @@ public:
 
     virtual double calculateSquaredDifference(double real_value, double simulated_value) const
     {
-        double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
-        if (diff_squared < Numeric::double_epsilon) return 0.0;
+        double diff = std::abs(simulated_value-real_value);
         double normalization = calculateSquaredError(real_value, simulated_value);
+        if (diff/normalization < Numeric::double_epsilon) return 0.0;
+        double diff_squared = diff*diff;
         return diff_squared/normalization;
     }
 
@@ -124,9 +126,10 @@ public:
 
     virtual double calculateSquaredDifference(double real_value, double simulated_value) const
     {
-        double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
-        if (diff_squared < Numeric::double_epsilon) return 0.0;
+        double diff = std::abs(simulated_value-real_value);
         double normalization = calculateSquaredError(real_value, simulated_value);
+        if (diff/normalization < Numeric::double_epsilon) return 0.0;
+        double diff_squared = diff*diff;
         return diff_squared/normalization;
     }
 
@@ -192,7 +195,7 @@ public:
         double sigma_squared = m_sigma*m_sigma;
         return diff_squared/sigma_squared;
     }
-    virtual double calculateSquaredError(double /* real_value */, double /* simulated_value */) const
+    virtual double calculateSquaredError(double, double) const
     {
         return m_sigma*m_sigma;
     }

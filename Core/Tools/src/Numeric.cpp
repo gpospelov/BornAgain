@@ -27,8 +27,8 @@ bool areAlmostEqual(double a, double b, double tolerance_factor)
 //! calculates safe relative difference |(a-b)/b|
 double get_relative_difference(double a, double b)
 {
-    // return 0.0 if relative error smaller than 2 epsilon
-    if (std::abs(a-b) < double_epsilon*std::abs(b)) return 0.0;
+    // return 0.0 if relative error smaller than epsilon
+    if (std::abs(a-b) <= double_epsilon*std::abs(b)) return 0.0;
     // for small numbers, divide by epsilon (to avoid catastrophic cancellation)
     if (std::abs(b) <= double_epsilon) return std::abs((a-b)/double_epsilon);
     return std::abs((a-b)/b);

@@ -52,23 +52,13 @@ void IntensityDataFunctions::addEllipticMask(OutputData<double> &data, double xc
 double IntensityDataFunctions::getRelativeDifference(
         const OutputData<double> &result, const OutputData<double> &reference)
 {
-    OutputData<double> *c_result = result.clone();
-
-    // Calculating average relative difference.
-    *c_result -= reference;
-    *c_result /= reference;
-
-    double diff(0);
-    for(OutputData<double>::const_iterator it =
-            c_result->begin(); it!=c_result->end(); ++it) {
-        diff+= std::abs(*it);
+    double diff = 0.0;
+    for(size_t i=0; i<result.getAllocatedSize(); ++i) {
+        diff+= Numeric::get_relative_difference(result[i], reference[i]);
     }
-    diff /= c_result->getAllocatedSize();
+    diff /= result.getAllocatedSize();
 
     if (MathFunctions::isnan(diff)) throw RuntimeErrorException("diff=NaN!");
-
-    delete c_result;
-
     return diff;
 }
 

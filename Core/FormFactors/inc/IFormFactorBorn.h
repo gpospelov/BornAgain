@@ -50,21 +50,8 @@ public:
     virtual double getVolume() const;
 
 protected:
-    //! Returns radial part of scattering amplitude for large bins
-    double bigRadialPart(const Bin1DCVector& q_bin) const;
-
-    //! Returns z-part of scattering amplitude for large bins
-    complex_t bigZPart(const Bin1DCVector& q_bin) const;
-
-    //! determine if a large bin size approximation should be used
-    bool useLargeBinApproximation(const Bin1DCVector& q_bin) const;
-
     //! check if object initialization was correct
     virtual bool check_initialization() const;
-
-private:
-    //! calculates the integrated intensity along the z-direction
-    double bigZPartIntegral(double qH2) const;
 };
 
 #endif /* IFORMFACTORBORN_H_ */

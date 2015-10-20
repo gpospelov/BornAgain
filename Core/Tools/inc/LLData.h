@@ -185,8 +185,8 @@ template<class T> LLData<T>& LLData<T>::operator/=(const LLData& right)
         double ratio;
         if( std::abs(m_data_array[i]-right[i]) <= Numeric::double_epsilon*std::abs(right[i])) {
             ratio = 1.0;
-        } else if (std::abs(right[i]) <= Numeric::double_epsilon) {
-            ratio = double(m_data_array[i])/Numeric::double_epsilon;
+        } else if (std::abs(right[i]) <= Numeric::double_min) {
+            ratio = double(m_data_array[i])/Numeric::double_min;
         } else {
             ratio = double(m_data_array[i]/right[i]);
         }

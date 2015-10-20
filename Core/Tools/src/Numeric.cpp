@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/Numeric.h
-//! @brief     Defines constants and "almost equal" in namespace Numeric.
+//! @file      Tools/inc/Numeric.cpp
+//! @brief     Implements "almost equal" in namespace Numeric.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,34 +13,25 @@
 //
 // ************************************************************************** //
 
-#ifndef NUMERIC_H_
-#define NUMERIC_H_
-
-#include <limits>
-#include <cmath>
-#include <algorithm>
+#include "Numeric.h"
 
 //! Floating-point epsilon, tolerances, almost-equal.
 
 namespace Numeric {
 
-static const double required_precision = 1.e-4;
-
-static const double double_epsilon = std::numeric_limits<double>::epsilon();
-
-static const double double_min = std::numeric_limits<double>::min();
-
-//! threshold on probability value during calculation of weighted form factor
-static const double probthreshold = 0.0000000001;
-
 //! compare two doubles
-bool areAlmostEqual(double a, double b, double tolerance_factor=1.0);
+bool areAlmostEqual(double a, double b, double tolerance_factor)
+    { return get_relative_difference(a, b) < tolerance_factor*double_epsilon; }
+
 
 //! calculates safe relative difference |(a-b)/b|
-double get_relative_difference(double a, double b);
+double get_relative_difference(double a, double b)
+{
+    // return 0.0 if relative error smaller than 2 epsilon
+    if (std::abs(a-b) < double_epsilon*std::abs(b)) return 0.0;
+    // for small numbers, divide by epsilon (to avoid catastrophic cancellation)
+    if (std::abs(b) <= double_epsilon) return std::abs((a-b)/double_epsilon);
+    return std::abs((a-b)/b);
+}
 
 } // Numeric namespace
-
-#endif /* NUMERIC_H_ */
-
-

@@ -79,10 +79,6 @@ double IntensityDataFunctions::getRelativeDifference(const IHistogram &result, c
                                   "Histograms have different dimensions.");
     }
 
-//    if(!result.hasSameShape(reference)) {
-//        throw LogicErrorException("IntensityDataFunctions::getRelativeDifference() -> Error. "
-//                                  "Histograms have different shape.");
-//    }
     double summ(0.0);
     for(size_t i=0; i<result.getTotalNumberOfBins(); ++i) {
         summ += Numeric::get_relative_difference(result.getBinContent(i), reference.getBinContent(i));

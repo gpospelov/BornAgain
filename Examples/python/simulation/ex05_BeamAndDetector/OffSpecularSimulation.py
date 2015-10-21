@@ -1,5 +1,5 @@
 """
-Infinitely long boxes at 1D lattice, OffSpecular simulation
+Long boxes at 1D lattice, OffSpecular simulation
 """
 import numpy
 import matplotlib
@@ -28,11 +28,11 @@ def get_sample():
     pdf = FTDistribution1DCauchy(1e+6)
     interference.setProbabilityDistribution(pdf)
 
-    infbox_ff = FormFactorInfLongBox(20*nanometer, 10.0*nanometer)
-    infbox = Particle(m_particle, infbox_ff)
+    box_ff = FormFactorBox(1000*nanometer, 20*nanometer, 10.0*nanometer)
+    box = Particle(m_particle, box_ff)
     transform = RotationZ(90.0*degree)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(infbox, 1.0, kvector_t(0.0, 0.0, 0.0), transform)
+    particle_layout.addParticle(box, 1.0, kvector_t(0.0, 0.0, 0.0), transform)
     particle_layout.addInterferenceFunction(interference)
 
     # assembling the sample

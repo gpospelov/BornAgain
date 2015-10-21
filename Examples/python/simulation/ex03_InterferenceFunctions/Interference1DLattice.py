@@ -1,5 +1,5 @@
 """
-Infinitely long boxes on a 1D lattice
+Long boxes on a 1D lattice
 """
 import numpy
 import matplotlib
@@ -26,11 +26,11 @@ def get_sample():
     pdf = FTDistribution1DCauchy(20./2./numpy.pi*nanometer)
     interference.setProbabilityDistribution(pdf)
 
-    infbox_ff = FormFactorInfLongBox(10*nanometer, 15.0*nanometer)
-    infbox = Particle(m_particle, infbox_ff)
+    box_ff = FormFactorBox(1000*nanometer, 10*nanometer, 15.0*nanometer)
+    box = Particle(m_particle, box_ff)
     transform = RotationZ(25.0*degree)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(infbox, 1.0, kvector_t(0.0, 0.0, 0.0), transform)
+    particle_layout.addParticle(box, 1.0, kvector_t(0.0, 0.0, 0.0), transform)
     particle_layout.addInterferenceFunction(interference)
 
     # assembling the sample

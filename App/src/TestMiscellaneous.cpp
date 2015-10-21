@@ -295,123 +295,123 @@ void TestMiscellaneous::test_DrawMesocrystal()
 /* ************************************************************************* */
 void TestMiscellaneous::test_FormFactor()
 {
+    throw NotImplementedException("TestMiscellaneous::test_FormFactor()");
+//    FormFactorFullSphere ff_sphere(5.*Units::nanometer);
+//    FormFactorCylinder ff_cylinder(5.*Units::nanometer, 10.*Units::nanometer);
 
-    FormFactorFullSphere ff_sphere(5.*Units::nanometer);
-    FormFactorCylinder ff_cylinder(5.*Units::nanometer, 10.*Units::nanometer);
+////    IFormFactor& ff = ff_cylinder;
+//    IFormFactor& ff = ff_sphere;
 
-//    IFormFactor& ff = ff_cylinder;
-    IFormFactor& ff = ff_sphere;
+//    double qmin(-4.0), qmax(4.0);
+//    int nbins(51);
+//    double dq = (qmax-qmin)/(nbins-1);
 
-    double qmin(-4.0), qmax(4.0);
-    int nbins(51);
-    double dq = (qmax-qmin)/(nbins-1);
-
-    TH1D *h1[3];
-    h1[0] = new TH1D("h10","h10", nbins, qmin-dq/2., qmax+dq/2.);
-    h1[1] = new TH1D("h11","h11", nbins, qmin-dq/2., qmax+dq/2.);
-    h1[2] = new TH1D("h12","h12", nbins, qmin-dq/2., qmax+dq/2.);
-    TH2D *h2 = new TH2D("h2","h2", nbins, qmin-dq/2., qmax+dq/2.,
-            nbins, qmin-dq/2., qmax+dq/2.);
-    TH3D *h3 = new TH3D("h3","h3", nbins, qmin-dq/2., qmax+dq/2.,
-            nbins, qmin-dq/2., qmax+dq/2.,nbins, qmin-dq/2., qmax+dq/2.);
+//    TH1D *h1[3];
+//    h1[0] = new TH1D("h10","h10", nbins, qmin-dq/2., qmax+dq/2.);
+//    h1[1] = new TH1D("h11","h11", nbins, qmin-dq/2., qmax+dq/2.);
+//    h1[2] = new TH1D("h12","h12", nbins, qmin-dq/2., qmax+dq/2.);
+//    TH2D *h2 = new TH2D("h2","h2", nbins, qmin-dq/2., qmax+dq/2.,
+//            nbins, qmin-dq/2., qmax+dq/2.);
+//    TH3D *h3 = new TH3D("h3","h3", nbins, qmin-dq/2., qmax+dq/2.,
+//            nbins, qmin-dq/2., qmax+dq/2.,nbins, qmin-dq/2., qmax+dq/2.);
 
 
-    std::vector<TH2D *> vh2_xy;
-    std::vector<TH2D *> vh2_xz;
-    std::vector<TH2D *> vh2_yz;
+//    std::vector<TH2D *> vh2_xy;
+//    std::vector<TH2D *> vh2_xz;
+//    std::vector<TH2D *> vh2_yz;
 
-    vh2_xy.resize(nbins, 0);
-    vh2_xz.resize(nbins, 0);
-    vh2_yz.resize(nbins, 0);
+//    vh2_xy.resize(nbins, 0);
+//    vh2_xz.resize(nbins, 0);
+//    vh2_yz.resize(nbins, 0);
 
-    for(int i=0; i<nbins; ++i) {
-        char str[128];
-        sprintf(str, "h2_xy_z%d",i);
-        vh2_xy[i] = new TH2D(str,str,nbins, qmin-dq/2., qmax+dq/2.,
-                nbins, qmin-dq/2., qmax+dq/2.);
-        vh2_xy[i]->GetXaxis()->SetTitle("x");
-        vh2_xy[i]->GetYaxis()->SetTitle("y");
+//    for(int i=0; i<nbins; ++i) {
+//        char str[128];
+//        sprintf(str, "h2_xy_z%d",i);
+//        vh2_xy[i] = new TH2D(str,str,nbins, qmin-dq/2., qmax+dq/2.,
+//                nbins, qmin-dq/2., qmax+dq/2.);
+//        vh2_xy[i]->GetXaxis()->SetTitle("x");
+//        vh2_xy[i]->GetYaxis()->SetTitle("y");
 
-        sprintf(str, "h2_xz_y%d",i);
-        vh2_xz[i] = new TH2D(str,str,nbins, qmin-dq/2., qmax+dq/2.,
-                nbins, qmin-dq/2., qmax+dq/2.);
-        vh2_xz[i]->GetXaxis()->SetTitle("x");
-        vh2_xz[i]->GetYaxis()->SetTitle("z");
+//        sprintf(str, "h2_xz_y%d",i);
+//        vh2_xz[i] = new TH2D(str,str,nbins, qmin-dq/2., qmax+dq/2.,
+//                nbins, qmin-dq/2., qmax+dq/2.);
+//        vh2_xz[i]->GetXaxis()->SetTitle("x");
+//        vh2_xz[i]->GetYaxis()->SetTitle("z");
 
-        sprintf(str, "h2_yz_x%d",i);
-        vh2_yz[i] = new TH2D(str,str,nbins, qmin-dq/2., qmax+dq/2.,
-                nbins, qmin-dq/2., qmax+dq/2.);
-        vh2_yz[i]->GetXaxis()->SetTitle("y");
-        vh2_yz[i]->GetYaxis()->SetTitle("z");
-    }
+//        sprintf(str, "h2_yz_x%d",i);
+//        vh2_yz[i] = new TH2D(str,str,nbins, qmin-dq/2., qmax+dq/2.,
+//                nbins, qmin-dq/2., qmax+dq/2.);
+//        vh2_yz[i]->GetXaxis()->SetTitle("y");
+//        vh2_yz[i]->GetYaxis()->SetTitle("z");
+//    }
 
-    OutputData<double> *p_data = new OutputData<double>();
-    p_data->addAxis(std::string("qx"), nbins, qmin, qmax);
-    p_data->addAxis(std::string("qy"), nbins, qmin, qmax);
-    p_data->addAxis(std::string("qz"), nbins, qmin, qmax);
-    OutputData<double>::const_iterator it = p_data->begin();
-    while (it != p_data->end()) {
-        double x = p_data->getAxisValue(it.getIndex(), "qx");
-        double y = p_data->getAxisValue(it.getIndex(), "qy");
-        double z = p_data->getAxisValue(it.getIndex(), "qz");
+//    OutputData<double> *p_data = new OutputData<double>();
+//    p_data->addAxis(std::string("qx"), nbins, qmin, qmax);
+//    p_data->addAxis(std::string("qy"), nbins, qmin, qmax);
+//    p_data->addAxis(std::string("qz"), nbins, qmin, qmax);
+//    OutputData<double>::const_iterator it = p_data->begin();
+//    while (it != p_data->end()) {
+//        double x = p_data->getAxisValue(it.getIndex(), "qx");
+//        double y = p_data->getAxisValue(it.getIndex(), "qy");
+//        double z = p_data->getAxisValue(it.getIndex(), "qz");
 
-        int ix = (int)p_data->getAxisValue(it.getIndex(), "qx");
-        int iy = (int)p_data->getAxisValue(it.getIndex(), "qy");
-        int iz = (int)p_data->getAxisValue(it.getIndex(), "qz");
+//        int ix = (int)p_data->getAxisValue(it.getIndex(), "qx");
+//        int iy = (int)p_data->getAxisValue(it.getIndex(), "qy");
+//        int iz = (int)p_data->getAxisValue(it.getIndex(), "qz");
 
-        cvector_t q(x,y,z);
-        cvector_t q0(0.0,0.0,0.0);
-        Bin1DCVector q0_bin(q0, q0);
-        Bin1D zero_bin;
-        double value = std::abs(ff.evaluate(q,q0_bin, zero_bin));
-        if(iz==50) h2->Fill(x,y,std::abs(ff.evaluate(q,q0_bin, zero_bin)));
+//        cvector_t q(x,y,z);
+//        cvector_t q0(0.0,0.0,0.0);
+//        Bin1DCVector q0_bin(q0, q0);
+//        Bin1D zero_bin;
+//        double value = std::abs(ff.evaluate(q,q0_bin, zero_bin));
+//        if(iz==50) h2->Fill(x,y,std::abs(ff.evaluate(q,q0_bin, zero_bin)));
 
-        h3->Fill(x,y,z,std::abs(ff.evaluate(q,q0_bin, zero_bin)));
+//        h3->Fill(x,y,z,std::abs(ff.evaluate(q,q0_bin, zero_bin)));
 
-        if(iy==0 && iz==0) {
-            cvector_t kx(x,1.0,1.0);
-            cvector_t ky(1.0,x,1.0);
-            cvector_t kz(1.0,1.0,x);
-            h1[0]->Fill(x, std::abs(ff.evaluate(kx,q0_bin, zero_bin)));
-            h1[1]->Fill(x, std::abs(ff.evaluate(ky,q0_bin, zero_bin)));
-            h1[2]->Fill(x, std::abs(ff.evaluate(kz,q0_bin, zero_bin)));
-        }
+//        if(iy==0 && iz==0) {
+//            cvector_t kx(x,1.0,1.0);
+//            cvector_t ky(1.0,x,1.0);
+//            cvector_t kz(1.0,1.0,x);
+//            h1[0]->Fill(x, std::abs(ff.evaluate(kx,q0_bin, zero_bin)));
+//            h1[1]->Fill(x, std::abs(ff.evaluate(ky,q0_bin, zero_bin)));
+//            h1[2]->Fill(x, std::abs(ff.evaluate(kz,q0_bin, zero_bin)));
+//        }
 
-        vh2_xy[iz] ->Fill(x,y,value);
-        vh2_xz[iy] ->Fill(x,z,value);
-        vh2_yz[ix] ->Fill(y,z,value);
+//        vh2_xy[iz] ->Fill(x,y,value);
+//        vh2_xz[iy] ->Fill(x,z,value);
+//        vh2_yz[ix] ->Fill(y,z,value);
 
-        ++it;
-    }
+//        ++it;
+//    }
 
-    TCanvas *c1_xy = new TCanvas("c1_xy","c1_xy",1024,768);
-    DrawHelper::SetMagnifier(c1_xy);
-    c1_xy->Divide(3,3);
-    int ndiv=9;
-    for(int i=0; i<ndiv; i++) {
-        c1_xy->cd(i+1);
-        int indx = i*int(nbins/ndiv);
-        std::cout << indx << std::endl;
-        vh2_xy[indx]->Draw("surf");
-    }
+//    TCanvas *c1_xy = new TCanvas("c1_xy","c1_xy",1024,768);
+//    DrawHelper::SetMagnifier(c1_xy);
+//    c1_xy->Divide(3,3);
+//    int ndiv=9;
+//    for(int i=0; i<ndiv; i++) {
+//        c1_xy->cd(i+1);
+//        int indx = i*int(nbins/ndiv);
+//        std::cout << indx << std::endl;
+//        vh2_xy[indx]->Draw("surf");
+//    }
 
-    TCanvas *c1_xz = new TCanvas("c1_xz","c1_xz",1024,768);
-    DrawHelper::SetMagnifier(c1_xz);
-    c1_xz->Divide(3,3);
-    for(int i=0; i<ndiv; i++) {
-        c1_xz->cd(i+1);
-        int indx = i*int(nbins/ndiv);
-        vh2_xz[indx]->Draw("surf");
-    }
+//    TCanvas *c1_xz = new TCanvas("c1_xz","c1_xz",1024,768);
+//    DrawHelper::SetMagnifier(c1_xz);
+//    c1_xz->Divide(3,3);
+//    for(int i=0; i<ndiv; i++) {
+//        c1_xz->cd(i+1);
+//        int indx = i*int(nbins/ndiv);
+//        vh2_xz[indx]->Draw("surf");
+//    }
 
-    TCanvas *c1_yz = new TCanvas("c1_yz","c1_yz",1024,768);
-    DrawHelper::SetMagnifier(c1_yz);
-    c1_yz->Divide(3,3);
-    for(int i=0; i<ndiv; i++) {
-        c1_yz->cd(i+1);
-        int indx = i*int(nbins/ndiv);
-        vh2_yz[indx]->Draw("surf");
-    }
+//    TCanvas *c1_yz = new TCanvas("c1_yz","c1_yz",1024,768);
+//    DrawHelper::SetMagnifier(c1_yz);
+//    c1_yz->Divide(3,3);
+//    for(int i=0; i<ndiv; i++) {
+//        c1_yz->cd(i+1);
+//        int indx = i*int(nbins/ndiv);
+//        vh2_yz[indx]->Draw("surf");
+//    }
 }
 
 /* ************************************************************************* */
@@ -420,85 +420,87 @@ void TestMiscellaneous::test_FormFactor()
 /* ************************************************************************* */
 void TestMiscellaneous::test_FormFactor1()
 {
-    FormFactorFullSphere ff_fullsphere(5.*Units::nanometer);
+    throw NotImplementedException("TestMiscellaneous::test_FormFactor1()");
 
-    FormFactorCylinder ff_cylinder(5.*Units::nanometer,
-                                   10.*Units::nanometer);
-   //   IFormFactor& ff = ff_cylinder;
+//    FormFactorFullSphere ff_fullsphere(5.*Units::nanometer);
 
-    //FormFactorParallelepiped ff_para(12.*Units::nanometer,
-    //                                 7.*Units::nanometer);
-   //   IFormFactor& ff = ff_para;
+//    FormFactorCylinder ff_cylinder(5.*Units::nanometer,
+//                                   10.*Units::nanometer);
+//   //   IFormFactor& ff = ff_cylinder;
 
-    FormFactorPyramid ff_pyramid(10.*Units::nanometer, //5.*Units::nanometer,
-                                 10.*Units::nanometer,
-                                 Units::deg2rad(54.73 ));
-    IFormFactor& ff = ff_pyramid;
+//    //FormFactorParallelepiped ff_para(12.*Units::nanometer,
+//    //                                 7.*Units::nanometer);
+//   //   IFormFactor& ff = ff_para;
 
-    FormFactorPrism3 ff_prism3(10.*Units::nanometer,
-                              5.*Units::nanometer);
-   //   IFormFactor& ff = ff_prism3;
+//    FormFactorPyramid ff_pyramid(10.*Units::nanometer, //5.*Units::nanometer,
+//                                 10.*Units::nanometer,
+//                                 Units::deg2rad(54.73 ));
+//    IFormFactor& ff = ff_pyramid;
 
-    FormFactorTruncatedSphere ff_sphere(5.*Units::nanometer,
-                               5.*Units::nanometer);
-   //   IFormFactor& ff = ff_sphere;
+//    FormFactorPrism3 ff_prism3(10.*Units::nanometer,
+//                              5.*Units::nanometer);
+//   //   IFormFactor& ff = ff_prism3;
 
-    FormFactorBox ff_box(5*Units::nanometer,
-                         5*Units::nanometer,
-                         5*Units::nanometer);
-  //    IFormFactor& ff = ff_box;
+//    FormFactorTruncatedSphere ff_sphere(5.*Units::nanometer,
+//                               5.*Units::nanometer);
+//   //   IFormFactor& ff = ff_sphere;
 
-    //IFormFactor& ff = ff_fullsphere;
+//    FormFactorBox ff_box(5*Units::nanometer,
+//                         5*Units::nanometer,
+//                         5*Units::nanometer);
+//  //    IFormFactor& ff = ff_box;
 
-    double qmin(-4.0), qmax(4.0);
-    double lambda = 1.0;
-    double alpha_i = 0.2*Units::PI/180.0;
-    cvector_t k_i;
-    k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
-    int nbins(101);
-    double dq =(qmax-qmin)/(nbins-1);
+//    //IFormFactor& ff = ff_fullsphere;
 
-    TH2D *vh2_xy = new TH2D("vh2_xy","vh2_xy;q_{x};q_{y};qz",nbins, qmin-dq/2.,
-            qmax+dq/2., nbins, qmin-dq/2., qmax+dq/2.);
+//    double qmin(-4.0), qmax(4.0);
+//    double lambda = 1.0;
+//    double alpha_i = 0.2*Units::PI/180.0;
+//    cvector_t k_i;
+//    k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
+//    int nbins(101);
+//    double dq =(qmax-qmin)/(nbins-1);
 
-    OutputData<double> *p_data = new OutputData<double>();
-    p_data->addAxis(std::string("qx"), nbins, qmin, qmax);
-    p_data->addAxis(std::string("qy"), nbins, qmin, qmax);
-    p_data->addAxis(std::string("qz"), 1, qmin, qmax);
-    OutputData<double>::const_iterator it = p_data->begin();
-    double z = p_data->getAxisValue(it.getIndex(), "qz");
+//    TH2D *vh2_xy = new TH2D("vh2_xy","vh2_xy;q_{x};q_{y};qz",nbins, qmin-dq/2.,
+//            qmax+dq/2., nbins, qmin-dq/2., qmax+dq/2.);
 
-    while (it != p_data->end()) {
-        double x = p_data->getAxisValue(it.getIndex(), "qx");
-        double y = p_data->getAxisValue(it.getIndex(), "qy");
+//    OutputData<double> *p_data = new OutputData<double>();
+//    p_data->addAxis(std::string("qx"), nbins, qmin, qmax);
+//    p_data->addAxis(std::string("qy"), nbins, qmin, qmax);
+//    p_data->addAxis(std::string("qz"), 1, qmin, qmax);
+//    OutputData<double>::const_iterator it = p_data->begin();
+//    double z = p_data->getAxisValue(it.getIndex(), "qz");
 
-        cvector_t q(x,y,z);
-        cvector_t q0(0.0,0.0,0.0);
-        Bin1DCVector q0_bin(q0, q0);
-        Bin1D zero_bin;
-        double value = std::abs(ff.evaluate(q,q0_bin, zero_bin));
-        //double valuep = std::abs(ff.evaluate(q,q0_bin, zero_bin));
-        //double valuer = std::abs(ff.evaluate(q,q0_bin, zero_bin));
-        //double valuei = std::abs(ff.evaluate(q,q0_bin, zero_bin));
+//    while (it != p_data->end()) {
+//        double x = p_data->getAxisValue(it.getIndex(), "qx");
+//        double y = p_data->getAxisValue(it.getIndex(), "qy");
 
-        vh2_xy->Fill(x,y,value);
+//        cvector_t q(x,y,z);
+//        cvector_t q0(0.0,0.0,0.0);
+//        Bin1DCVector q0_bin(q0, q0);
+//        Bin1D zero_bin;
+//        double value = std::abs(ff.evaluate(q,q0_bin, zero_bin));
+//        //double valuep = std::abs(ff.evaluate(q,q0_bin, zero_bin));
+//        //double valuer = std::abs(ff.evaluate(q,q0_bin, zero_bin));
+//        //double valuei = std::abs(ff.evaluate(q,q0_bin, zero_bin));
 
-        ++it;
-    }
+//        vh2_xy->Fill(x,y,value);
 
-    TCanvas *c1_xy = new TCanvas("c1_xy","c1_xy",1024,768);
-    DrawHelper::SetMagnifier(c1_xy);
-    //c1_xy->Divide(2,2);
-        c1_xy->cd(1);
-                gPad->SetRightMargin(0.11);
-                gPad->SetLogz();
-                vh2_xy->GetXaxis()->SetNdivisions(510);
-                vh2_xy->GetYaxis()->SetNdivisions(510);
-                vh2_xy->SetContour(99);
-                gStyle->SetPalette(1);
-                gStyle->SetOptStat(0);
-                vh2_xy->Draw("cont4 z");
-                c1_xy->Print("test.eps");
+//        ++it;
+//    }
+
+//    TCanvas *c1_xy = new TCanvas("c1_xy","c1_xy",1024,768);
+//    DrawHelper::SetMagnifier(c1_xy);
+//    //c1_xy->Divide(2,2);
+//        c1_xy->cd(1);
+//                gPad->SetRightMargin(0.11);
+//                gPad->SetLogz();
+//                vh2_xy->GetXaxis()->SetNdivisions(510);
+//                vh2_xy->GetYaxis()->SetNdivisions(510);
+//                vh2_xy->SetContour(99);
+//                gStyle->SetPalette(1);
+//                gStyle->SetOptStat(0);
+//                vh2_xy->Draw("cont4 z");
+//                c1_xy->Print("test.eps");
 }
 
 void TestMiscellaneous::test_SampleGeometry()

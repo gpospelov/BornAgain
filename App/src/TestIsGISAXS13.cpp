@@ -216,7 +216,7 @@ void TestIsGISAXS13::initializeSimulation()
     mp_simulation->setSampleBuilder(mp_sample_builder);
     mp_simulation->setDetectorParameters(
             100, 0.0*Units::degree, 2.0*Units::degree,
-            100, 0.0*Units::degree, 2.0*Units::degree, true);
+            100, 0.0*Units::degree, 2.0*Units::degree);
     mp_simulation->setBeamParameters(1.0*Units::angstrom,
             0.2*Units::degree, 0.0*Units::degree);
 }

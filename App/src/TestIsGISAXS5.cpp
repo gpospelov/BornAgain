@@ -275,7 +275,7 @@ void TestIsGISAXS5::initializeSimulation()
     mp_simulation = new GISASSimulation(mp_options);
     mp_simulation->setSampleBuilder(mp_sample_builder);
     mp_simulation->setDetectorParameters(100, 0.0 * Units::degree, 2.0 * Units::degree, 100,
-                                         0.0 * Units::degree, 2.0 * Units::degree, true);
+                                         0.0 * Units::degree, 2.0 * Units::degree);
     mp_simulation->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::degree,
                                      0.0 * Units::degree);
 }

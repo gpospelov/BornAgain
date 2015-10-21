@@ -144,7 +144,7 @@ void TestRipple2::initializeSimulation()
     delete mp_simulation;
     mp_simulation = new GISASSimulation(mp_options);
     mp_simulation->setSampleBuilder(mp_sample_builder);
-    mp_simulation->setDetectorParameters(400, -1.5*Units::degree, 1.5*Units::degree, 400, 0.0*Units::degree, 2.0*Units::degree, true);
+    mp_simulation->setDetectorParameters(400, -1.5*Units::degree, 1.5*Units::degree, 400, 0.0*Units::degree, 2.0*Units::degree);
     mp_simulation->setBeamParameters(1.6*Units::angstrom, 0.3*Units::degree, 0.0*Units::degree);
 }
 

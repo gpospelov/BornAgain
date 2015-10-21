@@ -89,67 +89,69 @@ void TestInfLongRipple2::save_results()
 /* ************************************************************************* */
 void TestInfLongRipple2::drawff()
 {
-    FormFactorInfLongRipple2 *ff = new FormFactorInfLongRipple2(100.0*Units::nanometer, 50.0*Units::nanometer, 0.0);
-    size_t pfbins = 400;
-    size_t afbins = 400;
+    throw NotImplementedException(" TestInfLongRipple2::drawff() -> Not implemeted");
 
-    double afmin = -2.0;
-    double afmax = 2.0;
-    double pfmin = -2.0;
-    double pfmax = 2.0;
-    double stepaf = (afmax - afmin)/afbins;
-    double steppf = (pfmax - pfmin)/pfbins;
+//    FormFactorInfLongRipple2 *ff = new FormFactorInfLongRipple2(100.0*Units::nanometer, 50.0*Units::nanometer, 0.0);
+//    size_t pfbins = 400;
+//    size_t afbins = 400;
 
-    double lambda = 1.0;
-    double alpha_i = 0.2*Units::PI/180.0;
-    cvector_t k_i;
-    k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
+//    double afmin = -2.0;
+//    double afmax = 2.0;
+//    double pfmin = -2.0;
+//    double pfmax = 2.0;
+//    double stepaf = (afmax - afmin)/afbins;
+//    double steppf = (pfmax - pfmin)/pfbins;
 
-    TH2D *hist = new TH2D("InfLongRipple2", "InfLongRipple2",
-                          (int)pfbins, -2.0, 2.0,
-                          (int)afbins, -2.0, 2.0);
+//    double lambda = 1.0;
+//    double alpha_i = 0.2*Units::PI/180.0;
+//    cvector_t k_i;
+//    k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
 
-    hist->GetXaxis()->SetTitle( "phi_f" );
-    hist->GetYaxis()->SetTitle( "alpha_f" );
+//    TH2D *hist = new TH2D("InfLongRipple2", "InfLongRipple2",
+//                          (int)pfbins, -2.0, 2.0,
+//                          (int)afbins, -2.0, 2.0);
 
-    double af0 = afmin;
-    cvector_t k_f0;
-    k_f0.setLambdaAlphaPhi(lambda, Units::PI*afmin/180.0, Units::PI*pfmin/180.0);
+//    hist->GetXaxis()->SetTitle( "phi_f" );
+//    hist->GetYaxis()->SetTitle( "alpha_f" );
 
-    for (size_t iaf=0; iaf < afbins; iaf++) {
-        for (size_t ipf=0; ipf < pfbins; ipf++) {
-            double pf = pfmin + ipf*steppf + steppf/2.;
-            double af = afmin + iaf*stepaf + stepaf/2.;
+//    double af0 = afmin;
+//    cvector_t k_f0;
+//    k_f0.setLambdaAlphaPhi(lambda, Units::PI*afmin/180.0, Units::PI*pfmin/180.0);
 
-            cvector_t k_f;
-            k_f.setLambdaAlphaPhi(lambda, Units::PI*af/180.0, Units::PI*pf/180.0);
+//    for (size_t iaf=0; iaf < afbins; iaf++) {
+//        for (size_t ipf=0; ipf < pfbins; ipf++) {
+//            double pf = pfmin + ipf*steppf + steppf/2.;
+//            double af = afmin + iaf*stepaf + stepaf/2.;
 
-            Bin1D alpha_f_bin(Units::PI*af0/180.0, Units::PI*af/180.0);
-            Bin1DCVector k_f_bin(k_f0, k_f);
+//            cvector_t k_f;
+//            k_f.setLambdaAlphaPhi(lambda, Units::PI*af/180.0, Units::PI*pf/180.0);
 
-            af0 = af;
-            k_f0.setLambdaAlphaPhi(lambda, Units::PI*af/180.0, Units::PI*pf/180.0);
+//            Bin1D alpha_f_bin(Units::PI*af0/180.0, Units::PI*af/180.0);
+//            Bin1DCVector k_f_bin(k_f0, k_f);
 
-            double value = std::pow(std::abs(ff->evaluate(k_i, k_f_bin, alpha_f_bin)),2);
+//            af0 = af;
+//            k_f0.setLambdaAlphaPhi(lambda, Units::PI*af/180.0, Units::PI*pf/180.0);
 
-            hist->Fill(pf, af, value + 1);
-            //std::cout << "qy=" << qy << " qz=" << qz << " I=" << value*value << std::endl;
-        }
-    }
+//            double value = std::pow(std::abs(ff->evaluate(k_i, k_f_bin, alpha_f_bin)),2);
 
-    hist->SetContour(50);
-    hist->SetStats(0);
-    hist->GetYaxis()->SetTitleOffset(1.1);
+//            hist->Fill(pf, af, value + 1);
+//            //std::cout << "qy=" << qy << " qz=" << qz << " I=" << value*value << std::endl;
+//        }
+//    }
 
-    gStyle->SetPalette(1);
-    gStyle->SetOptStat(111111);
+//    hist->SetContour(50);
+//    hist->SetStats(0);
+//    hist->GetYaxis()->SetTitleOffset(1.1);
 
-    TCanvas *c1 = new TCanvas("InfLongRipple2", "InfLongRipple2", 980, 800);
-    c1->cd();
-    c1->SetLogz();
-    hist->SetMinimum(1.0);
-    hist->DrawCopy("colz");
-    c1->Update();
+//    gStyle->SetPalette(1);
+//    gStyle->SetOptStat(111111);
+
+//    TCanvas *c1 = new TCanvas("InfLongRipple2", "InfLongRipple2", 980, 800);
+//    c1->cd();
+//    c1->SetLogz();
+//    hist->SetMinimum(1.0);
+//    hist->DrawCopy("colz");
+//    c1->Update();
 }
 
 

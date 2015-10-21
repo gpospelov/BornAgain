@@ -52,7 +52,7 @@ void TestMultiLayerRoughness::execute()
         // setting simulation
         GISASSimulation simulation(mp_options);
         simulation.setSample(*sample);
-        simulation.setDetectorParameters(2, 0.0*Units::degree, 0.00001*Units::degree, npoints, 0.0*Units::degree, 2.0*Units::degree, false);
+        simulation.setDetectorParameters(2, 0.0*Units::degree, 0.00001*Units::degree, npoints, 0.0*Units::degree, 2.0*Units::degree);
         simulation.setBeamParameters(1.54*Units::angstrom, alpha_i, 0.0*Units::degree);
 
         simulation.runSimulation();

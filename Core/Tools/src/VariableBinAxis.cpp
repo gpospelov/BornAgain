@@ -163,7 +163,7 @@ bool VariableBinAxis::equals(const IAxis& other) const
     if (const VariableBinAxis *p_other_cast = dynamic_cast<const VariableBinAxis *>(&other)) {
         if (getSize() != p_other_cast->getSize()) return false;
         for(size_t i=0; i<m_bin_boundaries.size(); ++i) {
-            if( std::abs(m_bin_boundaries[i] - p_other_cast->m_bin_boundaries[i]) > Numeric::double_epsilon ) {
+            if( !Numeric::areAlmostEqual(m_bin_boundaries[i], p_other_cast->m_bin_boundaries[i])) {
                 return false;
             }
         }

@@ -80,8 +80,7 @@ void FitSuiteParameters::setValues(const double *pars_values)
             msglog(MSG::DEBUG2) << "npar:"<< i_par << std::setprecision(10)
                            << " current:" << m_parameters[i_par]->getValue()
                            << " new: " << pars_values[i_par]
-                           << " diff:" << (m_parameters[i_par]->getValue() -pars_values[i_par])/
-                              Numeric::double_epsilon;
+                           << " diff:" << m_parameters[i_par]->getValue() -pars_values[i_par];
         }
     }
 

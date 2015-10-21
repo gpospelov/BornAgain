@@ -182,11 +182,11 @@ template<class T> LLData<T>& LLData<T>::operator/=(const LLData& right)
         throw RuntimeErrorException("Operation /= on LLData requires both operands to have the same dimensions");
     }
     for (size_t i=0; i<getTotalSize(); ++i) {
-        double ratio(0);
-        if( std::abs(m_data_array[i]) <= Numeric::double_epsilon && std::abs(right[i]) <= Numeric::double_epsilon) {
-            ratio = 0.0;
-        } else if (std::abs(right[i]) <= Numeric::double_epsilon) {
-            ratio = double(m_data_array[i])/Numeric::double_epsilon;
+        double ratio;
+        if( std::abs(m_data_array[i]-right[i]) <= Numeric::double_epsilon*std::abs(right[i])) {
+            ratio = 1.0;
+        } else if (std::abs(right[i]) <= Numeric::double_min) {
+            ratio = double(m_data_array[i])/Numeric::double_min;
         } else {
             ratio = double(m_data_array[i]/right[i]);
         }

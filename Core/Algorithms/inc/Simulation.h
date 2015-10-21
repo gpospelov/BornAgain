@@ -131,11 +131,20 @@ protected:
     //! SimulationElement objects
     virtual void transferResultsToIntensityMap()=0;
 
+    //! Returns the intensity of the beam
+    virtual double getBeamIntensity() const=0;
+
     //! Update the sample by calling the sample builder, if present
     void updateSample();
 
     //! Run a single simulation with the current parameter settings
     void runSingleSimulation();
+
+#ifndef GCCXML_SKIP_THIS
+    //! Normalize the detector counts
+    void normalize(std::vector<SimulationElement>::iterator begin_it,
+                   std::vector<SimulationElement>::iterator end_it) const;
+#endif
 
     //! Verify existence of the DWBASimulation object
     void verifyDWBASimulation(DWBASimulation *dwbaSimulation);
@@ -152,7 +161,6 @@ protected:
     SimulationParameters m_sim_params;
     ThreadInfo m_thread_info;
 
-    bool m_is_normalized;
     const ProgramOptions *mp_options;
 
     DistributionHandler m_distribution_handler;

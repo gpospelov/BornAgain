@@ -63,9 +63,6 @@ TEST_F(GISASSimulationTest, SimulationConstruction)
     EXPECT_TRUE( constructedSimulation.getOutputData()->hasSameShape(test_data));
     EXPECT_EQ( double(0), constructedSimulation.getOutputData()->totalSum());
 
-    constructedSimulation.normalize();
-    EXPECT_EQ( double(0), constructedSimulation.getOutputData()->totalSum());
-
     MultiLayer ml;
     Layer layer;
     ml.addLayer(layer);
@@ -90,7 +87,7 @@ TEST_F(GISASSimulationTest, SimulationInitialStateOfClone)
     EXPECT_EQ( size_t(1), emptyClonedSimulation->getOutputData()->getAllocatedSize());
     EXPECT_EQ( size_t(0), emptyClonedSimulation->getOutputData()->getRank());
     EXPECT_TRUE(emptyClonedSimulation->getOutputData()->getRank() == emptyClonedSimulation->getInstrument().getDetector()->getDimension() );
-    EXPECT_EQ( double(1), emptyClonedSimulation->getInstrument().getIntensity());
+    EXPECT_EQ( 0.0, emptyClonedSimulation->getInstrument().getBeamIntensity());
     delete emptyClonedSimulation;
 }
 
@@ -105,7 +102,7 @@ TEST_F(GISASSimulationTest, SimulationClone)
     delete originalSimulation;
 
     EXPECT_TRUE( clonedSimulation->getOutputData()->hasSameShape(test_data));
-    EXPECT_EQ( double(10), clonedSimulation->getInstrument().getIntensity());
+    EXPECT_EQ( double(10), clonedSimulation->getInstrument().getBeamIntensity());
     EXPECT_TRUE( NULL == clonedSimulation->getSample());
     clonedSimulation->prepareSimulation();
     EXPECT_TRUE( NULL == clonedSimulation->getSample());

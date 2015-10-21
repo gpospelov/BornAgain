@@ -57,7 +57,7 @@ public:
     }
 
     //! Returns the beam's intensity
-    double getIntensity() const
+    double getBeamIntensity() const
     {
         return m_beam.getIntensity();
     }

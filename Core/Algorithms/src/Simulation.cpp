@@ -32,28 +32,26 @@ GCC_DIAG_ON(strict-aliasing);
 #include <boost/scoped_ptr.hpp>
 
 Simulation::Simulation()
-    : IParameterized("Simulation"), m_is_normalized(false), mp_options(0)
+    : IParameterized("Simulation"), mp_options(0)
 {
     init_parameters();
 }
 
 Simulation::Simulation(const ProgramOptions *p_options)
-    : IParameterized("Simulation"), m_is_normalized(false), mp_options(p_options)
+    : IParameterized("Simulation"), mp_options(p_options)
 {
     init_parameters();
 }
 
 Simulation::Simulation(const ISample &p_sample, const ProgramOptions *p_options)
-    : IParameterized("Simulation"), m_is_normalized(false),
-      mp_options(p_options)
+    : IParameterized("Simulation"), mp_options(p_options)
 {
     mP_sample.reset(p_sample.clone());
     init_parameters();
 }
 
 Simulation::Simulation(SampleBuilder_t p_sample_builder, const ProgramOptions *p_options)
-    : IParameterized("Simulation"), mp_sample_builder(p_sample_builder),
-      m_is_normalized(false), mp_options(p_options)
+    : IParameterized("Simulation"), mp_sample_builder(p_sample_builder), mp_options(p_options)
 {
     init_parameters();
 }
@@ -61,8 +59,8 @@ Simulation::Simulation(SampleBuilder_t p_sample_builder, const ProgramOptions *p
 Simulation::Simulation(const Simulation &other)
     : ICloneable(), IParameterized(other), mp_sample_builder(other.mp_sample_builder),
       m_sim_params(other.m_sim_params), m_thread_info(other.m_thread_info),
-      m_is_normalized(other.m_is_normalized), mp_options(other.mp_options),
-      m_distribution_handler(other.m_distribution_handler), m_progress(other.m_progress)
+      mp_options(other.mp_options), m_distribution_handler(other.m_distribution_handler),
+      m_progress(other.m_progress)
 {
     if (other.mP_sample.get())
         mP_sample.reset(other.mP_sample->clone());
@@ -76,16 +74,12 @@ void Simulation::init_parameters()
 void Simulation::prepareSimulation()
 {
     gsl_set_error_handler_off();
-    m_is_normalized = false;
-    //updateSample();
 }
 
 //! Run simulation with possible averaging over parameter distributions
 void Simulation::runSimulation()
 {
     prepareSimulation();
-//    if (!mp_sample)
-//        throw NullPointerException("Simulation::runSimulation() -> Error! No sample set.");
 
     size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 
@@ -299,6 +293,21 @@ void Simulation::runSingleSimulation()
                 "Simulation::runSingleSimulation() -> Simulation has terminated unexpectedly "
                 "with the following error message.\n" + failure_message);
         }
+    }
+    normalize(batch_start, batch_end);
+}
+
+void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
+                           std::vector<SimulationElement>::iterator end_it) const
+{
+    double beam_intensity = getBeamIntensity();
+    // no normalization when beam intensity is zero:
+    if (beam_intensity==0.0) return;
+    for(std::vector<SimulationElement>::iterator it=begin_it; it!=end_it; ++it) {
+        double sin_alpha_i = std::abs(std::sin(it->getAlphaI()));
+        if (sin_alpha_i==0.0) sin_alpha_i = 1.0;
+        double solid_angle = it->getSolidAngle();
+        it->setIntensity(it->getIntensity()*beam_intensity*solid_angle/sin_alpha_i);
     }
 }
 

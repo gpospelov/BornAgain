@@ -33,9 +33,9 @@ TEST_F(BeamTest, BeamInitialState)
     EXPECT_DOUBLE_EQ(0.0, emptyBeam.getCentralK()[0].imag());
     EXPECT_EQ(complex_t(0.0,0.0), emptyBeam.getCentralK()[1]);
     EXPECT_EQ(complex_t(0.0,0.0), emptyBeam.getCentralK()[2]);
-    EXPECT_EQ(double(1.0), emptyBeam.getIntensity());
+    EXPECT_EQ(double(0.0), emptyBeam.getIntensity());
     EXPECT_EQ(size_t(4), emptyBeam.getParameterPool()->size());
-    EXPECT_EQ(double(1.0), emptyBeam.getParameterPool()->getParameter("intensity").getValue() );
+    EXPECT_EQ(double(0.0), emptyBeam.getParameterPool()->getParameter("intensity").getValue() );
     EXPECT_EQ(double(1.0), emptyBeam.getParameterPool()->getParameter("wavelength").getValue() );
     EXPECT_EQ(double(0.0), emptyBeam.getParameterPool()->getParameter("alpha").getValue() );
     EXPECT_EQ(double(0.0), emptyBeam.getParameterPool()->getParameter("phi").getValue() );

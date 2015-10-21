@@ -241,7 +241,7 @@ FunctionalTestRegistry::FunctionalTestRegistry()
 
     add("MesoCrystal",
         "Cylindrical mesocrystal composed of spherical nano particles",
-        "MiniGISASForMeso",
+        "MiniGISAS",
         "MesoCrystalBuilder",
         "None",
         2e-10);

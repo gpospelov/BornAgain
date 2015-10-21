@@ -85,8 +85,8 @@ std::string Instrument::addParametersToExternalPool(std::string path, ParameterP
 void Instrument::normalize(OutputData<double> *p_intensity) const
 {
     // normalize by intensity, if strictly positive
-    if (getIntensity() > 0.0) {
-        p_intensity->scaleAll(getIntensity());
+    if (getBeamIntensity() > 0.0) {
+        p_intensity->scaleAll(getBeamIntensity());
     }
     kvector_t realpart(getBeam().getCentralK().x().real(), getBeam().getCentralK().y().real(),
                        getBeam().getCentralK().z().real());

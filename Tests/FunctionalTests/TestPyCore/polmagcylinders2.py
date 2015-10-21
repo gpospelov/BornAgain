@@ -52,7 +52,6 @@ def getSimulationIntensity(rho_beam, efficiency):
     simulation.setSample(multi_layer)
     simulation.setBeamIntensity(1e7)
     simulation.runSimulation()
-    simulation.normalize()
     return simulation.getIntensityData()
 
 

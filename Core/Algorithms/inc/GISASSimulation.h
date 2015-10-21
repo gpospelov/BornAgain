@@ -54,9 +54,6 @@ public:
     //! Put into a clean state for running a simulation
     virtual void prepareSimulation();
 
-    //! Normalize the detector counts
-    virtual void normalize();
-
     //! Gets the number of elements this simulation needs to calculate
     virtual int getNumberOfSimulationElements() const;
 
@@ -138,6 +135,9 @@ protected:
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
     virtual void transferResultsToIntensityMap();
+
+    //! Returns the intensity of the beam
+    virtual double getBeamIntensity() const;
 
     //! Default implementation only adds the detector axes
     void updateIntensityMap();

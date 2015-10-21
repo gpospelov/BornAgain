@@ -128,9 +128,6 @@ SimulationRegistry::SimulationRegistry()
     registerItem("MiniGISASDetectorResolution", StandardSimulations::MiniGISASDetectorResolution,
                  "GISAS simulation with small detector and detector resolution");
 
-    registerItem("MiniGISASForMeso", StandardSimulations::MiniGISASForMeso,
-                 "GISAS simulation for meso crystal related tests");
-
     registerItem("MaxiGISAS", StandardSimulations::MaxiGISAS,
                  "GISAS simulation with large detector to test performance");
     registerItem("MaxiGISAS00", StandardSimulations::MaxiGISAS00,

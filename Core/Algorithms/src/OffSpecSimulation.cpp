@@ -233,8 +233,13 @@ void OffSpecSimulation::transferResultsToIntensityMap()
                                     "calculated intensities");
     }
     for (size_t i=0; i<mp_alpha_i_axis->getSize(); ++i) {
-        normalizeAndTransferDetectorImage(i);
+        transferDetectorImage(i);
     }
+}
+
+double OffSpecSimulation::getBeamIntensity() const
+{
+    return m_instrument.getBeamIntensity();
 }
 
 void OffSpecSimulation::updateIntensityMap()
@@ -250,7 +255,7 @@ void OffSpecSimulation::updateIntensityMap()
     m_intensity_map.setAllTo(0.);
 }
 
-void OffSpecSimulation::normalizeAndTransferDetectorImage(int index)
+void OffSpecSimulation::transferDetectorImage(int index)
 {
     OutputData<double> detector_image;
     size_t detector_dimension = m_instrument.getDetectorDimension();
@@ -261,16 +266,10 @@ void OffSpecSimulation::normalizeAndTransferDetectorImage(int index)
     for (size_t i=0; i<detector_size; ++i) {
         detector_image[i] = m_sim_elements[index*detector_size + i].getIntensity();
     }
-    Beam beam = m_instrument.getBeam();
-    double wavelength = beam.getWavelength();
-    double phi_i = beam.getPhi();
-    double alpha_i = mp_alpha_i_axis->getBin(index).getMidPoint();
-    m_instrument.setBeamParameters(wavelength, alpha_i, phi_i);
-    m_instrument.normalize(&detector_image);
     m_instrument.applyDetectorResolution(&detector_image);
-    size_t alpha_f_size = m_instrument.getDetectorAxis(1).getSize();
+    size_t y_axis_size = m_instrument.getDetectorAxis(1).getSize();
     for (size_t i=0; i<detector_size; ++i) {
-        m_intensity_map[index*alpha_f_size + i%alpha_f_size] += detector_image[i];
+        m_intensity_map[index*y_axis_size + i%y_axis_size] += detector_image[i];
     }
 }
 

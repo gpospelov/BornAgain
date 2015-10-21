@@ -159,7 +159,6 @@ def runTest():
 
     #running simulation
     simulation.runSimulation()
-    simulation.normalize()
     result = simulation.getIntensityData()
 
     diff = IntensityDataFunctions.getRelativeDifference(result, reference)

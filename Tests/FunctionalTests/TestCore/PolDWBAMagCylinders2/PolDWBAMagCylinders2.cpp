@@ -23,25 +23,21 @@ int main(int argc, char **argv)
     simulation->setBeamPolarization(zplus);
     simulation->setAnalyzerProperties(zplus, 1.0, 0.5);
     simulation->runSimulation();
-    simulation->normalize();
     boost::scoped_ptr<OutputData<double> > P_data00(simulation->getDetectorIntensity());
 
     simulation->setBeamPolarization(zplus);
     simulation->setAnalyzerProperties(zplus, -1.0, 0.5);
     simulation->runSimulation();
-    simulation->normalize();
     boost::scoped_ptr<OutputData<double> > P_data01(simulation->getDetectorIntensity());
 
     simulation->setBeamPolarization(zmin);
     simulation->setAnalyzerProperties(zplus, 1.0, 0.5);
     simulation->runSimulation();
-    simulation->normalize();
     boost::scoped_ptr<OutputData<double> > P_data10(simulation->getDetectorIntensity());
 
     simulation->setBeamPolarization(zmin);
     simulation->setAnalyzerProperties(zplus, -1.0, 0.5);
     simulation->runSimulation();
-    simulation->normalize();
     boost::scoped_ptr<OutputData<double> > P_data11(simulation->getDetectorIntensity());
 
     const double threshold(2e-10);

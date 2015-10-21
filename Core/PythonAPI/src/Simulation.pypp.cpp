@@ -42,6 +42,11 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
         return func_clone(  );
     }
 
+    virtual double getBeamIntensity(  ) const {
+        bp::override func_getBeamIntensity = this->get_override( "getBeamIntensity" );
+        return func_getBeamIntensity(  );
+    }
+
     virtual ::OutputData< double > * getDetectorIntensity(  ) const {
         bp::override func_getDetectorIntensity = this->get_override( "getDetectorIntensity" );
         return func_getDetectorIntensity(  );
@@ -240,6 +245,16 @@ void register_Simulation_class(){
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::Simulation::clone) )
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::Simulation::getBeamIntensity
+        
+            typedef double ( Simulation_wrapper::*getBeamIntensity_function_type)(  ) const;
+            
+            Simulation_exposer.def( 
+                "getBeamIntensity"
+                , getBeamIntensity_function_type( &Simulation_wrapper::getBeamIntensity )
+                , "Returns the intensity of the beam." );
         
         }
         { //::Simulation::getDetectorIntensity

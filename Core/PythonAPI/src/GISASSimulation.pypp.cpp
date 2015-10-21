@@ -85,6 +85,18 @@ struct GISASSimulation_wrapper : GISASSimulation, bp::wrapper< GISASSimulation >
         return GISASSimulation::getWavelength( );
     }
 
+    virtual void normalize(  ) {
+        if( bp::override func_normalize = this->get_override( "normalize" ) )
+            func_normalize(  );
+        else{
+            this->GISASSimulation::normalize(  );
+        }
+    }
+    
+    void default_normalize(  ) {
+        GISASSimulation::normalize( );
+    }
+
     virtual void prepareSimulation(  ) {
         if( bp::override func_prepareSimulation = this->get_override( "prepareSimulation" ) )
             func_prepareSimulation(  );
@@ -314,11 +326,12 @@ void register_GISASSimulation_class(){
         { //::GISASSimulation::normalize
         
             typedef void ( ::GISASSimulation::*normalize_function_type)(  ) ;
+            typedef void ( GISASSimulation_wrapper::*default_normalize_function_type)(  ) ;
             
             GISASSimulation_exposer.def( 
                 "normalize"
-                , normalize_function_type( &::GISASSimulation::normalize )
-                , "Normalize the detector counts." );
+                , normalize_function_type(&::GISASSimulation::normalize)
+                , default_normalize_function_type(&GISASSimulation_wrapper::default_normalize) );
         
         }
         { //::GISASSimulation::prepareSimulation

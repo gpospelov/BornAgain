@@ -55,7 +55,7 @@ public:
     virtual void prepareSimulation();
 
     //! Normalize the detector counts
-    void normalize();
+    virtual void normalize();
 
     //! Gets the number of elements this simulation needs to calculate
     virtual int getNumberOfSimulationElements() const;

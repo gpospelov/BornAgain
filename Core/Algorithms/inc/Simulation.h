@@ -42,7 +42,7 @@ public:
     Simulation(const ISample& p_sample, const ProgramOptions *p_options=0);
     Simulation(SampleBuilder_t p_sample_builder,
                const ProgramOptions *p_options=0);
-    virtual ~Simulation() { delete mp_sample; }
+    virtual ~Simulation() { }
 
     virtual Simulation *clone() const=0;
 
@@ -59,7 +59,7 @@ public:
     void setSample(const ISample& sample);
 
     //! Returns the sample
-    ISample *getSample() const { return mp_sample; }
+    ISample *getSample() const { return mP_sample.get(); }
 
     //! Sets the sample builder
     void setSampleBuilder(SampleBuilder_t sample_builder);
@@ -147,7 +147,7 @@ protected:
     std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
 
     // components describing an experiment and its simulation:
-    ISample *mp_sample;
+    boost::scoped_ptr<ISample> mP_sample;
     SampleBuilder_t mp_sample_builder;
     SimulationParameters m_sim_params;
     ThreadInfo m_thread_info;

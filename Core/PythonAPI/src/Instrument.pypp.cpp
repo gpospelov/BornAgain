@@ -154,6 +154,16 @@ void register_Instrument_class(){
                 , getBeam_function_type( &::Instrument::getBeam ) );
         
         }
+        { //::Instrument::getBeamIntensity
+        
+            typedef double ( ::Instrument::*getBeamIntensity_function_type)(  ) const;
+            
+            Instrument_exposer.def( 
+                "getBeamIntensity"
+                , getBeamIntensity_function_type( &::Instrument::getBeamIntensity )
+                , "Returns the beam's intensity." );
+        
+        }
         { //::Instrument::getDetector
         
             typedef ::IDetector2D const * ( ::Instrument::*getDetector_function_type)(  ) const;
@@ -193,16 +203,6 @@ void register_Instrument_class(){
                 "getDetectorDimension"
                 , getDetectorDimension_function_type( &::Instrument::getDetectorDimension )
                 , "Returns the detector's dimension." );
-        
-        }
-        { //::Instrument::getIntensity
-        
-            typedef double ( ::Instrument::*getIntensity_function_type)(  ) const;
-            
-            Instrument_exposer.def( 
-                "getIntensity"
-                , getIntensity_function_type( &::Instrument::getIntensity )
-                , "Returns the beam's intensity." );
         
         }
         { //::Instrument::matchDetectorAxes

@@ -102,6 +102,9 @@ protected:
     //! SimulationElement objects
     virtual void transferResultsToIntensityMap();
 
+    //! Returns the intensity of the beam
+    virtual double getBeamIntensity() const;
+
     //! Default implementation only adds the detector axes
     void updateIntensityMap();
 
@@ -112,7 +115,7 @@ protected:
 private:
     //! Normalize, apply detector resolution and transfer detector image corresponding to
     //! alpha_i = mp_alpha_i_axis->getBin(index)
-    void normalizeAndTransferDetectorImage(int index);
+    void transferDetectorImage(int index);
 
     //! Check correct number of axes
     void checkInitialization() const;

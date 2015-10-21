@@ -18,7 +18,7 @@
 #include "Numeric.h"
 #include <Eigen/LU>
 
-Beam::Beam() : m_wavelength(1.0), m_alpha(0.0), m_phi(0.0), m_intensity(1.0)
+Beam::Beam() : m_wavelength(1.0), m_alpha(0.0), m_phi(0.0), m_intensity(0.0)
 {
     setName("Beam");
     init_parameters();

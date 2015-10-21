@@ -75,9 +75,9 @@ private:
 #endif
 
     double m_wavelength, m_alpha, m_phi; //!< wavelength and angles of beam
-    double m_intensity;     //!< beam intensity (neutrons/sec)
+    double m_intensity;                  //!< beam intensity (neutrons/sec)
 #ifndef GCCXML_SKIP_THIS
-    Eigen::Matrix2cd m_polarization; //!< polarization density matrix
+    Eigen::Matrix2cd m_polarization;     //!< polarization density matrix
 #endif
 };
 

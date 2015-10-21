@@ -57,7 +57,7 @@ public:
     }
 
     //! Returns the beam's intensity
-    double getIntensity() const
+    double getBeamIntensity() const
     {
         return m_beam.getIntensity();
     }
@@ -106,9 +106,6 @@ public:
                                                     int copy_number = -1) const;
 
 #ifndef GCCXML_SKIP_THIS
-    //! normalize a detector image
-    void normalize(OutputData<double> *p_intensity) const;
-
     //! Create a vector of SimulationElement objects according to the beam, detector and its mask
     std::vector<SimulationElement> createSimulationElements();
 #endif

@@ -100,14 +100,6 @@ GISASSimulation *StandardSimulations::MiniGISASDetectorResolution()
     return result;
 }
 
-GISASSimulation *StandardSimulations::MiniGISASForMeso()
-{
-    GISASSimulation *result = MiniGISAS();
-    result->setBeamIntensity(5.0090e+12);
-    return result;
-}
-
-
 //! GISAS simulation with large detector to test performance
 GISASSimulation *StandardSimulations::MaxiGISAS()
 {

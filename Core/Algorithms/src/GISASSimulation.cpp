@@ -90,14 +90,6 @@ void GISASSimulation::prepareSimulation()
     Simulation::prepareSimulation();
 }
 
-void GISASSimulation::normalize()
-{
-    if (!m_is_normalized) {
-        m_instrument.normalize(&m_intensity_map);
-        m_is_normalized = true;
-    }
-}
-
 int GISASSimulation::getNumberOfSimulationElements() const
 {
     if (m_instrument.getDetectorDimension()!=2) {
@@ -209,9 +201,9 @@ std::string GISASSimulation::addParametersToExternalPool(
        // add parameters of the sample builder
         mp_sample_builder->addParametersToExternalPool(
             new_path, external_pool, -1);
-    } else if (mp_sample) {
-        // add parameters of directly the sample
-        mp_sample->addParametersToExternalPool(new_path, external_pool, -1);
+    } else if (mP_sample.get()) {
+        // add parameters of the existing sample
+        mP_sample->addParametersToExternalPool(new_path, external_pool, -1);
     }
 
     return new_path;
@@ -272,6 +264,11 @@ void GISASSimulation::transferResultsToIntensityMap()
         if(m_instrument.getDetector()->isMasked(index)) continue;
         m_intensity_map[index] = m_sim_elements[element_index++].getIntensity();
     }
+}
+
+double GISASSimulation::getBeamIntensity() const
+{
+    return m_instrument.getBeamIntensity();
 }
 
 void GISASSimulation::updateIntensityMap()

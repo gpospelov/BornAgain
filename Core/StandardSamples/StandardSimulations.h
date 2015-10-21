@@ -31,7 +31,6 @@ GISASSimulation *BasicGISAS00();
 GISASSimulation *MiniGISAS();
 GISASSimulation *MiniGISASBeamDivergence();
 GISASSimulation *MiniGISASDetectorResolution();
-GISASSimulation *MiniGISASForMeso();
 GISASSimulation *MaxiGISAS();
 GISASSimulation *MaxiGISAS00();
 GISASSimulation *IsGISAXSSimulation1();

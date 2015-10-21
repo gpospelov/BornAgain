@@ -47,7 +47,6 @@ def RunSimulation():
     simulation.setBeamIntensity(1e+08)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    simulation.normalize()
     return simulation.getIntensityData()
 
 

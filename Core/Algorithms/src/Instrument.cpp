@@ -82,22 +82,6 @@ std::string Instrument::addParametersToExternalPool(std::string path, ParameterP
     return new_path;
 }
 
-void Instrument::normalize(OutputData<double> *p_intensity) const
-{
-    // normalize by intensity, if strictly positive
-    if (getIntensity() > 0.0) {
-        p_intensity->scaleAll(getIntensity());
-    }
-    kvector_t realpart(getBeam().getCentralK().x().real(), getBeam().getCentralK().y().real(),
-                       getBeam().getCentralK().z().real());
-
-    // normalize by detector cell sizes
-    double sin_alpha_i = std::abs(realpart.cosTheta());
-    if (sin_alpha_i == 0.0)
-        sin_alpha_i = 1.0;
-    mP_detector->normalize(p_intensity, sin_alpha_i);
-}
-
 std::vector<SimulationElement> Instrument::createSimulationElements()
 {
     return mP_detector->createSimulationElements(m_beam);

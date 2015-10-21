@@ -311,16 +311,6 @@ void register_GISASSimulation_class(){
                 , "Put the mask for all detector channels (i.e. exclude whole detector from the analysis)." );
         
         }
-        { //::GISASSimulation::normalize
-        
-            typedef void ( ::GISASSimulation::*normalize_function_type)(  ) ;
-            
-            GISASSimulation_exposer.def( 
-                "normalize"
-                , normalize_function_type( &::GISASSimulation::normalize )
-                , "Normalize the detector counts." );
-        
-        }
         { //::GISASSimulation::prepareSimulation
         
             typedef void ( ::GISASSimulation::*prepareSimulation_function_type)(  ) ;

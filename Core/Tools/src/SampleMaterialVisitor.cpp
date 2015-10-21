@@ -180,18 +180,6 @@ void SampleMaterialVisitor::visit(const FormFactorHemiEllipsoid *)
 {
 }
 
-void SampleMaterialVisitor::visit(const FormFactorInfLongBox *)
-{
-}
-
-void SampleMaterialVisitor::visit(const FormFactorInfLongRipple1 *)
-{
-}
-
-void SampleMaterialVisitor::visit(const FormFactorInfLongRipple2 *)
-{
-}
-
 void SampleMaterialVisitor::visit(const FormFactorLorentz *)
 {
 }

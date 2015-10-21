@@ -119,21 +119,6 @@ void PyGenVisitor::visit(const FormFactorHemiEllipsoid *sample)
     m_label->setLabel(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorInfLongBox *sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorInfLongRipple1 *sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorInfLongRipple2 *sample)
-{
-    m_label->setLabel(sample);
-}
-
 void PyGenVisitor::visit(const FormFactorLorentz *sample)
 {
     m_label->setLabel(sample);
@@ -477,25 +462,6 @@ std::string PyGenVisitor::defineFormFactors() const
                  = dynamic_cast<const FormFactorHemiEllipsoid *>(p_ff)) {
             result << " = FormFactorHemiEllipsoid(" << hemiEllipsoid->getRadiusA() << "*nanometer, "
                    << hemiEllipsoid->getRadiusB() << "*nanometer, " << hemiEllipsoid->getHeight()
-                   << "*nanometer)\n";
-        }
-
-        else if (const FormFactorInfLongBox *infLongBox
-                 = dynamic_cast<const FormFactorInfLongBox *>(p_ff)) {
-            result << " = FormFactorInfLongBox(" << infLongBox->getWidth() << "*nanometer, "
-                   << infLongBox->getHeight() << "*nanometer)\n";
-        }
-
-        else if (const FormFactorInfLongRipple1 *infLongRipple1
-                 = dynamic_cast<const FormFactorInfLongRipple1 *>(p_ff)) {
-            result << " = FormFactorInfLongRipple1(" << infLongRipple1->getWidth() << "*nanometer, "
-                   << infLongRipple1->getHeight() << "*nanometer)\n";
-        }
-
-        else if (const FormFactorInfLongRipple2 *infLongRipple2
-                 = dynamic_cast<const FormFactorInfLongRipple2 *>(p_ff)) {
-            result << " = FormFactorInfLongRipple2(" << infLongRipple2->getWidth() << "*nanometer, "
-                   << infLongRipple1->getHeight() << "*nanometer, " << infLongRipple2->getAsymetry()
                    << "*nanometer)\n";
         }
 

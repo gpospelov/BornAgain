@@ -100,10 +100,6 @@ public:
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;
 
-    //! Normalize intensity data with detector cell sizes.
-    void normalize(OutputData<double> *p_data, double sin_alpha_i) const;
-
-
     //! removes all masks from the detector
     void removeMasks();
 
@@ -149,9 +145,6 @@ protected:
 
     //! Checks if data has a compatible format with the detector.
     bool dataShapeMatches(const OutputData<double> *p_data) const;
-
-    //! Returns the solid angle for the given data element
-    double getSolidAngle(size_t index) const;
 
     //! Initialize polarization (for constructors)
     void initPolarizationOperator();

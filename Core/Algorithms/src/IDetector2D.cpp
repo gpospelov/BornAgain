@@ -115,25 +115,6 @@ std::string IDetector2D::addParametersToExternalPool(std::string path, Parameter
     return new_path;
 }
 
-void IDetector2D::normalize(OutputData<double> *p_data, double sin_alpha_i) const
-{
-    // if shapes do not match, do nothing
-    if (!dataShapeMatches(p_data))
-        return;
-
-    // if not a 2d detector, do nothing
-    if (p_data->getRank() != 2)
-        return;
-
-    // This normalization assumes that the intensity map contains
-    // total differential scattering cross sections
-    // (as opposed to the usual cross section per scattering particle)
-    for (OutputData<double>::iterator it = p_data->begin(); it != p_data->end(); ++it) {
-        double factor = getSolidAngle(it.getIndex()) / sin_alpha_i;
-        (*it) *= factor;
-    }
-}
-
 void IDetector2D::removeMasks()
 {
     m_detector_mask.removeMasks();
@@ -208,12 +189,6 @@ bool IDetector2D::dataShapeMatches(const OutputData<double> *p_data) const
             return false;
     }
     return true;
-}
-
-double IDetector2D::getSolidAngle(size_t index) const
-{
-    boost::scoped_ptr<IPixelMap> P_pixel_map(createPixelMap(index));
-    return P_pixel_map->getSolidAngle();
 }
 
 void IDetector2D::initPolarizationOperator()

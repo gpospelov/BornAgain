@@ -83,13 +83,17 @@ include_directories(
     ${Boost_INCLUDE_DIRS}
     ${FFTW_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}
+    ${TIFF_INCLUDE_DIR}
 )
 target_link_libraries(
     ${library_name}
     ${Boost_LIBRARIES}
     ${FFTW_LIBRARY}
     ${GSL_LIBRARIES}
+    ${TIFF_LIBRARIES}
 )
+
+message(INFO "XXX ${TIFF_LIBRARIES}")
 
 if(BORNAGAIN_OPENMPI)
     include_directories(${MPI_INCLUDE_PATH})

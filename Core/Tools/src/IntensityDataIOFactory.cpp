@@ -50,6 +50,8 @@ IHistogram *IntensityDataIOFactory::readIntensityData(const std::string &file_na
 OutputDataReader* IntensityDataIOFactory::getReader(
         const std::string& file_name)
 {
+    OutputDataReader *result = new OutputDataReader( file_name );
+
     IOutputDataReadStrategy *read_strategy(0);
     if( Utils::FileSystem::GetFileMainExtension(file_name) == ".int") {
         read_strategy = new OutputDataReadStreamINT();
@@ -58,14 +60,13 @@ OutputDataReader* IntensityDataIOFactory::getReader(
                 "Don't know how to read file '" + file_name+std::string("'"));
     }
 
-    OutputDataReader *reader = new OutputDataReader( file_name );
     if( Utils::FileSystem::isGZipped(file_name) ) {
-        reader->setStrategy( new OutputDataReadStreamGZip( read_strategy ) );
+        result->setStrategy( new OutputDataReadStreamGZip( read_strategy ) );
     } else {
-        reader->setStrategy( read_strategy );
+        result->setStrategy( read_strategy );
     }
 
-    return reader;
+    return result;
 }
 
 /* ************************************************************************* */

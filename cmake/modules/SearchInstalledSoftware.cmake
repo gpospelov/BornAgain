@@ -38,6 +38,7 @@ find_package(GSL REQUIRED)
 
 # --- Tiff ---
 find_package(TIFF REQUIRED)
+set(TIFF_LIBRARIES ${TIFF_LIBRARIES};/usr/lib64/libtiffxx.so)
 message(STATUS "TIFF_INCLUDE_DIR: ${TIFF_INCLUDE_DIR}")
 message(STATUS "TIFF_LIBRARIES: ${TIFF_LIBRARIES}")
 

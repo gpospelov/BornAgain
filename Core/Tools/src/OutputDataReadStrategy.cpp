@@ -33,6 +33,8 @@
 GCC_DIAG_OFF(unused-parameter);
 #include <boost/iostreams/filtering_streambuf.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
+#include <boost/iostreams/device/array.hpp>
+#include <boost/iostreams/stream.hpp>
 #include <boost/iostreams/copy.hpp>
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -54,8 +56,23 @@ OutputData<double > *OutputDataReadStreamGZip::readOutputData(std::istream &inpu
     boost::iostreams::filtering_streambuf<boost::iostreams::input> input_filtered;
     input_filtered.push(boost::iostreams::gzip_decompressor());
     input_filtered.push(input_stream);
+//    boost::iostreams::close(input_filtered);
     std::istream incoming(&input_filtered);
-    return m_read_strategy->readOutputData(incoming);
+//    boost::iostreams::flush(incoming);
+//    std::istream incoming;
+//    boost::iostreams::copy(input_filtered, incoming);
+
+    std::vector<char> buffer((
+            std::istreambuf_iterator<char>(incoming)),
+            (std::istreambuf_iterator<char>()));
+
+//    std::cout << "AAA" << buffer.size() << std::endl;
+
+    boost::iostreams::stream<boost::iostreams::array_source> array_stream(&buffer[0], buffer.size());
+
+
+//    return m_read_strategy->readOutputData(incoming);
+    return m_read_strategy->readOutputData(array_stream);
 }
 
 

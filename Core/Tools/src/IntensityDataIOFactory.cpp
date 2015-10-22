@@ -18,6 +18,7 @@
 #include "OutputDataWriteStrategy.h"
 #include "OutputDataReader.h"
 #include "OutputDataWriter.h"
+#include "TiffReadStrategy.h"
 #include "Exceptions.h"
 #include "Utils.h"
 #include "FileSystem.h"
@@ -55,6 +56,8 @@ OutputDataReader* IntensityDataIOFactory::getReader(
     IOutputDataReadStrategy *read_strategy(0);
     if( Utils::FileSystem::GetFileMainExtension(file_name) == ".int") {
         read_strategy = new OutputDataReadStreamINT();
+    } else if( Utils::FileSystem::GetFileMainExtension(file_name) == ".tif") {
+       read_strategy = new TiffReadStrategy();
     } else {
         throw LogicErrorException("IntensityDataIOFactory::getReader() -> Error. "
                 "Don't know how to read file '" + file_name+std::string("'"));
@@ -62,6 +65,7 @@ OutputDataReader* IntensityDataIOFactory::getReader(
 
     if( Utils::FileSystem::isGZipped(file_name) ) {
         result->setStrategy( new OutputDataReadStreamGZip( read_strategy ) );
+        std::cout << "XXX zipped stream" << std::endl;
     } else {
         result->setStrategy( read_strategy );
     }

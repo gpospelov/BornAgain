@@ -50,6 +50,16 @@ void TiffHandler::read(const std::string &file_name)
     close();
 }
 
+void TiffHandler::read(std::istream &input_stream)
+{
+//    close();
+    std::cout << "opening stream" << std::endl;
+    m_tiff = TIFFStreamOpen("MemTIFF", &input_stream);
+    read_header();
+    read_data();
+    close();
+}
+
 const OutputData<double> *TiffHandler::getOutputData() const
 {
     return m_data.get();
@@ -57,7 +67,7 @@ const OutputData<double> *TiffHandler::getOutputData() const
 
 void TiffHandler::open(const std::string &file_name)
 {
-    close();
+//    close();
 
     m_tiff = TIFFOpen(file_name.c_str(), "r");
     if(!m_tiff) {
@@ -103,8 +113,7 @@ void TiffHandler::read_header()
               << std::endl;
 
     if(bitPerSample!= supported_bitPerSample ||
-            samplesPerPixel != supported_samplesPerPixel
-            || photometric!=PHOTOMETRIC_MINISWHITE) {
+            samplesPerPixel != supported_samplesPerPixel) {
         std::ostringstream message;
         message << "TiffHandler::read_header() -> Error. "
                 << "Can't read tiff image with following parameters:" << std::endl
@@ -141,7 +150,7 @@ void TiffHandler::read_data()
         }
         memcpy(&line_buf[0], buf, buf_size);
         for(size_t col=0; col<line_buf.size(); ++col) {
-            std::cout << "row:" << row << " col:" << col << " " << line_buf[col] << std::endl;
+//            std::cout << "row:" << row << " col:" << col << " " << line_buf[col] << std::endl;
             axes_indices[0] = col;
             axes_indices[1] = m_height - 1 - row;
             size_t global_index = m_data->toGlobalIndex(axes_indices);
@@ -149,7 +158,6 @@ void TiffHandler::read_data()
         }
     }
     _TIFFfree(buf);
-
 }
 
 void TiffHandler::close()

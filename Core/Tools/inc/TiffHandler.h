@@ -34,6 +34,7 @@ public:
     ~TiffHandler();
 
     void read(const std::string &file_name);
+    void read(std::istream& input_stream);
 
     const OutputData<double> *getOutputData() const;
 

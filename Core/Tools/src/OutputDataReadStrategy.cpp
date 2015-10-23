@@ -56,23 +56,33 @@ OutputData<double > *OutputDataReadStreamGZip::readOutputData(std::istream &inpu
     boost::iostreams::filtering_streambuf<boost::iostreams::input> input_filtered;
     input_filtered.push(boost::iostreams::gzip_decompressor());
     input_filtered.push(input_stream);
-//    boost::iostreams::close(input_filtered);
+
+//    std::vector<char> buffer;
+//    boost::iostreams::copy(input_filtered, boost::iostreams::back_inserter(buffer)); // working
+
     std::istream incoming(&input_filtered);
-//    boost::iostreams::flush(incoming);
+
 //    std::istream incoming;
 //    boost::iostreams::copy(input_filtered, incoming);
 
-    std::vector<char> buffer((
-            std::istreambuf_iterator<char>(incoming)),
-            (std::istreambuf_iterator<char>()));
 
-//    std::cout << "AAA" << buffer.size() << std::endl;
+//    std::vector<char> buffer((
+//            std::istreambuf_iterator<char>(incoming)),
+//            (std::istreambuf_iterator<char>()));
 
-    boost::iostreams::stream<boost::iostreams::array_source> array_stream(&buffer[0], buffer.size());
+////    std::cout << "AAA" << buffer.size() << std::endl;
 
+//    boost::iostreams::stream<boost::iostreams::array_source> array_stream(&buffer[0], buffer.size());
+//    boost::iostreams::stream<boost::iostreams::array_source> array_stream(&buffer[0], buffer.size());
 
-//    return m_read_strategy->readOutputData(incoming);
-    return m_read_strategy->readOutputData(array_stream);
+//    boost::iostreams::stream<boost::iostreams::array_source> array_stream;
+//    array_stream << buffer;
+
+//    boost::iostreams::copy(buffer.begin(), buffer.end(), array_stream);
+
+        return m_read_strategy->readOutputData(incoming);
+//        return m_read_strategy->readOutputData(input_filtered);
+//    return m_read_strategy->readOutputData(array_stream);
 }
 
 

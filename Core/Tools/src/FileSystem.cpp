@@ -18,6 +18,10 @@
 #include "Exceptions.h"
 #include <boost/filesystem.hpp>
 
+namespace {
+const std::string gzip_extention = ".gz";
+const std::string bzip_extention = ".bz2";
+}
 
 std::string Utils::FileSystem::m_argv0_path = std::string();
 std::string Utils::FileSystem::m_reference_data_dir = std::string();
@@ -73,26 +77,40 @@ std::string Utils::FileSystem::GetFileExtension(const std::string& name)
     return boost::filesystem::extension(name.c_str());
 }
 
+bool Utils::FileSystem::isCompressed(const std::string& name)
+{
+    return isGZipped(name) && isBZipped(name);
+}
+
 //! Does name contain *.gz extension?
 
 bool Utils::FileSystem::isGZipped(const std::string& name)
 {
-    static const std::string gzip_extension(".gz");
-    if ( Utils::FileSystem::GetFileExtension(name) == gzip_extension)
+    if ( Utils::FileSystem::GetFileExtension(name) == gzip_extention)
         return true;
     return false;
 }
+
+bool Utils::FileSystem::isBZipped(const std::string& name)
+{
+    if ( Utils::FileSystem::GetFileExtension(name) == bzip_extention)
+        return true;
+    return false;
+}
+
 
 //! Returns file main extension (without .gz).
 
 std::string Utils::FileSystem::GetFileMainExtension(const std::string& name)
 {
-    if( !isGZipped(name) ) {
-        return Utils::FileSystem::GetFileExtension(name);
-    } else {
-        std::string stripped_name = name.substr(0, name.size()-3);
-        return Utils::FileSystem::GetFileExtension(stripped_name);
+    std::string stripped_name = name;
+    if(isGZipped(name)) {
+        stripped_name = name.substr(0, name.size()-gzip_extention.size());
     }
+    else if(isBZipped(name)) {
+        stripped_name = name.substr(0, name.size()-bzip_extention.size());
+    }
+    return Utils::FileSystem::GetFileExtension(stripped_name);
 }
 
 std::string Utils::FileSystem::StripFileNameFromGzipExtention(const std::string &name)

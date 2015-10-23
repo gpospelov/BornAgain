@@ -16,8 +16,9 @@
 #ifndef OUTPUTDATAREADER_H
 #define OUTPUTDATAREADER_H
 
-#include <string>
 #include "WinDllMacros.h"
+#include <string>
+#include <vector>
 
 template <class T> class OutputData;
 class IOutputDataReadStrategy;
@@ -30,6 +31,8 @@ class IOutputDataReadStrategy;
 class BA_CORE_API_ OutputDataReader
 {
 public:
+    enum CompressionType {UNCOMPRESSED, GZIP, BZIP2};
+
     OutputDataReader() : m_read_strategy(0) {}
     OutputDataReader(const std::string& file_name);
     OutputDataReader(IOutputDataReadStrategy *read_strategy);
@@ -40,10 +43,16 @@ public:
 
     //! Sets concrete reading strategy
     void setStrategy(IOutputDataReadStrategy *read_strategy);
+    void setCompression(CompressionType compressionType);
+    void setBinaryFlag(bool value);
 
 private:
+    std::vector<char> readBuffer(std::istream &input_stream);
+
     std::string m_file_name;
     IOutputDataReadStrategy *m_read_strategy;
+    CompressionType m_compressionType;
+    bool m_is_binary;
 };
 
 #endif // OUTPUTDATAREADER_H

@@ -15,6 +15,7 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Samples/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/StandardSamples
     ${CMAKE_CURRENT_SOURCE_DIR}/Tools/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
 )
 include_directories(${include_dirs})
 
@@ -25,6 +26,7 @@ file(GLOB core_source_files
     "Samples/src/*.cpp"
     "StandardSamples/*.cpp"
     "Tools/src/*.cpp"
+    "InputOutput/*.cpp"
 )
 
 file(GLOB core_include_files
@@ -34,6 +36,7 @@ file(GLOB core_include_files
     "Samples/inc/*.h"
     "StandardSamples/*.h"
     "Tools/inc/*.h"
+    "InputOutput/*.h"
 )
 
 set(source_files ${core_source_files})

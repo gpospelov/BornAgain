@@ -44,7 +44,13 @@ public:
     static std::string GetFileExtension(const std::string& name);
 
     //! Returns true if name contains *.gz extension
+    static bool isCompressed(const std::string& name);
+
+    //! Returns true if name contains *.gz extension
     static bool isGZipped(const std::string& name);
+
+    //! Returns true if name contains *.bz2 extension
+    static bool isBZipped(const std::string& name);
 
     //! Returns file extension after stripping '.gz' if any
     static std::string GetFileMainExtension(const std::string& name);

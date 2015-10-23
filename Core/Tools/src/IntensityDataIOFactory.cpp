@@ -23,6 +23,7 @@
 #include "Utils.h"
 #include "FileSystem.h"
 #include "IHistogram.h"
+#include "OutputDataReadFactory.h"
 
 #include <boost/scoped_ptr.hpp>
 
@@ -51,26 +52,27 @@ IHistogram *IntensityDataIOFactory::readIntensityData(const std::string &file_na
 OutputDataReader* IntensityDataIOFactory::getReader(
         const std::string& file_name)
 {
-    OutputDataReader *result = new OutputDataReader( file_name );
+//    OutputDataReader *result = new OutputDataReader( file_name );
 
-    IOutputDataReadStrategy *read_strategy(0);
-    if( Utils::FileSystem::GetFileMainExtension(file_name) == ".int") {
-        read_strategy = new OutputDataReadStreamINT();
-    } else if( Utils::FileSystem::GetFileMainExtension(file_name) == ".tif") {
-       read_strategy = new TiffReadStrategy();
-    } else {
-        throw LogicErrorException("IntensityDataIOFactory::getReader() -> Error. "
-                "Don't know how to read file '" + file_name+std::string("'"));
-    }
+//    IOutputDataReadStrategy *read_strategy(0);
+//    if( Utils::FileSystem::GetFileMainExtension(file_name) == ".int") {
+//        read_strategy = new OutputDataReadStreamINT();
+//    } else if( Utils::FileSystem::GetFileMainExtension(file_name) == ".tif") {
+//       read_strategy = new TiffReadStrategy();
+//    } else {
+//        throw LogicErrorException("IntensityDataIOFactory::getReader() -> Error. "
+//                "Don't know how to read file '" + file_name+std::string("'"));
+//    }
 
-    if( Utils::FileSystem::isGZipped(file_name) ) {
-        result->setStrategy( new OutputDataReadStreamGZip( read_strategy ) );
-        std::cout << "XXX zipped stream" << std::endl;
-    } else {
-        result->setStrategy( read_strategy );
-    }
+//    if( Utils::FileSystem::isGZipped(file_name) ) {
+//        result->setStrategy( new OutputDataReadStreamGZip( read_strategy ) );
+//        std::cout << "XXX zipped stream" << std::endl;
+//    } else {
+//        result->setStrategy( read_strategy );
+//    }
 
-    return result;
+//    return result;
+    return OutputDataReadFactory::getReader(file_name);
 }
 
 /* ************************************************************************* */

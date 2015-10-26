@@ -232,6 +232,7 @@ class BA_CORE_API_ System
 {
 public:
     static int getThreadHardwareConcurrency();
+    static std::string getCurrentDateAndTime();
 };
 
 //! enables exception throw in the case of NaN, Inf

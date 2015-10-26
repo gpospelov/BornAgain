@@ -17,28 +17,8 @@
 #include "OutputDataWriteStrategy.h"
 #include "OutputDataIOHelper.h"
 #include "OutputData.h"
+#include "boost_streams.h"
 #include <fstream>
-#include <cassert>
-
-#include "Macros.h"
-GCC_DIAG_OFF(unused-parameter)
-#include <boost/iostreams/filtering_streambuf.hpp>
-#include <boost/iostreams/filtering_stream.hpp>
-#include <boost/iostreams/device/array.hpp>
-#include <boost/iostreams/stream.hpp>
-#include <boost/iostreams/copy.hpp>
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4244)
-#endif
-#include <boost/iostreams/filter/gzip.hpp>
-#include <boost/iostreams/filter/bzip2.hpp>
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
-#include <string>
-GCC_DIAG_ON(unused-parameter)
-
 
 OutputDataWriter::OutputDataWriter(const std::string &file_name)
     : m_file_name(file_name)

@@ -30,7 +30,11 @@ IOutputDataWriteStrategy *OutputDataWriteFactory::getWriteStrategy(const std::st
 {
     IOutputDataWriteStrategy *result(0);
     if(OutputDataIOHelper::isIntFile(file_name)) {
-        result = new OutputDataWriteStreamINT();
+        result = new OutputDataWriteINTStrategy();
+    }
+
+    else if(OutputDataIOHelper::isTiffFile(file_name)) {
+        result = new OutputDataWriteTiffStrategy();
     }
 
     else {

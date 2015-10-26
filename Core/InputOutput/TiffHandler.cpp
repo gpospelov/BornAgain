@@ -14,6 +14,8 @@
 // ************************************************************************** //
 #include "TiffHandler.h"
 #include "Exceptions.h"
+#include "Utils.h"
+#include "BornAgainNamespace.h"
 #include <fstream>
 #include <cassert>
 #include <iostream>
@@ -40,20 +42,8 @@ TiffHandler::~TiffHandler()
     close();
 }
 
-void TiffHandler::read(const std::string &file_name)
-{
-    open(file_name);
-
-    read_header();
-    read_data();
-
-    close();
-}
-
 void TiffHandler::read(std::istream &input_stream)
 {
-//    close();
-    std::cout << "opening stream" << std::endl;
     m_tiff = TIFFStreamOpen("MemTIFF", &input_stream);
     read_header();
     read_data();
@@ -65,16 +55,15 @@ const OutputData<double> *TiffHandler::getOutputData() const
     return m_data.get();
 }
 
-void TiffHandler::open(const std::string &file_name)
+void TiffHandler::write(const OutputData<double> &data, std::ostream &output_stream)
 {
-//    close();
-
-    m_tiff = TIFFOpen(file_name.c_str(), "r");
-    if(!m_tiff) {
-        throw FileNotIsOpenException("TiffHandler::open() -> Error. Can't open file '"
-                                     + file_name + "' for reading.");
-    }
-
+    m_tiff = TIFFStreamOpen("MemTIFF", &output_stream);
+    m_data.reset(data.clone());
+    m_width = m_data->getAxis(BornAgain::X_AXIS_INDEX)->getSize();
+    m_height = m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getSize();
+    write_header();
+    write_data();
+    close();
 }
 
 void TiffHandler::read_header()
@@ -158,6 +147,56 @@ void TiffHandler::read_data()
         }
     }
     _TIFFfree(buf);
+}
+
+void TiffHandler::write_header()
+{
+    assert(m_tiff);
+    TIFFSetField(m_tiff, TIFFTAG_ARTIST, "BornAgain.IOFactory");
+    TIFFSetField(m_tiff, TIFFTAG_DATETIME, Utils::System::getCurrentDateAndTime().c_str());
+    TIFFSetField(m_tiff, TIFFTAG_IMAGEDESCRIPTION,
+           "Image converted from BornAgain intensity file.");
+    TIFFSetField(m_tiff, TIFFTAG_SOFTWARE, "BornAgain");
+
+    uint32 width = m_data->getAxis(BornAgain::X_AXIS_INDEX)->getSize();
+    uint32 height = m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getSize();
+    TIFFSetField(m_tiff, TIFFTAG_IMAGEWIDTH, width);
+    TIFFSetField(m_tiff, TIFFTAG_IMAGELENGTH, height);
+
+    uint16 bitPerSample(supported_bitPerSample);
+    uint16 samplesPerPixel(supported_samplesPerPixel);
+    TIFFSetField(m_tiff, TIFFTAG_BITSPERSAMPLE, bitPerSample);
+    TIFFSetField(m_tiff, TIFFTAG_SAMPLESPERPIXEL, samplesPerPixel);
+
+    TIFFSetField(m_tiff, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_MINISWHITE);
+}
+
+void TiffHandler::write_data()
+{
+    tmsize_t buf_size = size_of_int*m_width;;
+    tdata_t buf = _TIFFmalloc(buf_size);
+    if(!buf) {
+        throw FormatErrorException("TiffHandler::write_data() -> Error. Can't allocate buffer.");
+    }
+
+    std::vector<int> line_buf;
+    line_buf.resize(m_width, 0);
+    std::vector<int> axes_indices(2);
+    for (uint32 row = 0; row < (uint32) m_height; row++) {
+        for(size_t col=0; col<line_buf.size(); ++col) {
+            axes_indices[0] = col;
+            axes_indices[1] = m_height - 1 - row;
+            size_t global_index = m_data->toGlobalIndex(axes_indices);
+            line_buf[col] = (*m_data)[global_index];
+        }
+        memcpy(buf, &line_buf[0], buf_size);
+
+        if(TIFFWriteScanline(m_tiff, buf, row) < 0) {
+            throw FormatErrorException("TiffHandler::write_data() -> Error. Error in TIFFWriteScanline.");
+        }
+    }
+    _TIFFfree(buf);
+    TIFFFlush(m_tiff);
 }
 
 void TiffHandler::close()

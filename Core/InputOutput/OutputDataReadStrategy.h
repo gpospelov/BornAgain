@@ -27,54 +27,37 @@ template <class T> class OutputData;
 class BA_CORE_API_ IOutputDataReadStrategy
 {
 public:
-    IOutputDataReadStrategy(){}
     virtual ~IOutputDataReadStrategy(){}
-
     virtual OutputData<double > *readOutputData(std::istream& input_stream) = 0;
-
-    //! returns true if strategy needs binary stream
-    virtual bool isBinary() { return false; }
 private:
 };
 
 
-//! @class IOutputDataReadStrategyDecorator
-//! @ingroup tools_internal
-//! @brief Interface for decoration of read strategies (e.g. gzip compression)
-class BA_CORE_API_ IOutputDataReadStrategyDecorator : public IOutputDataReadStrategy
-{
-public:
-    IOutputDataReadStrategyDecorator(IOutputDataReadStrategy *read_strategy) : m_read_strategy(read_strategy) {}
-    virtual ~IOutputDataReadStrategyDecorator() { delete m_read_strategy; }
-protected:
-    IOutputDataReadStrategy *m_read_strategy;
-};
-
-
-//! @class OutputDataReadStreamGZip
-//! @ingroup tools_internal
-//! @brief Decorator to read outputdata from zipped files
-class BA_CORE_API_ OutputDataReadStreamGZip : public IOutputDataReadStrategyDecorator
-{
-public:
-    OutputDataReadStreamGZip(IOutputDataReadStrategy *read_strategy) : IOutputDataReadStrategyDecorator(read_strategy) { }
-    virtual ~OutputDataReadStreamGZip() { }
-
-    virtual bool isBinary() { return true; }
-
-    OutputData<double > *readOutputData(std::istream& file_stream);
-};
-
-
-//! @class OutputDataReadStreamGZip
-//! @ingroup tools_internal
+//! @class OutputDataReadINTStrategy
+//! @ingroup input_output
 //! @brief Strategy to read BornAgain native IntensityData from ASCII file
-class OutputDataReadStreamINT : public IOutputDataReadStrategy
+class OutputDataReadINTStrategy : public IOutputDataReadStrategy
 {
 public:
-    OutputData<double > *readOutputData(std::istream& file_stream);
+    OutputData<double > *readOutputData(std::istream& input_stream);
 };
 
+
+class TiffHandler;
+
+//! @class OutputDataReadTiffStrategy
+//! @ingroup input_output
+//! @brief Reads tiff files
+
+class BA_CORE_API_ OutputDataReadTiffStrategy : public IOutputDataReadStrategy
+{
+public:
+    OutputDataReadTiffStrategy();
+    ~OutputDataReadTiffStrategy();
+    OutputData<double > *readOutputData(std::istream& input_stream);
+private:
+    TiffHandler *m_d;
+};
 
 #endif // OUTPUTDATAREADSTRATEGY_H
 

@@ -33,18 +33,19 @@ public:
     TiffHandler();
     ~TiffHandler();
 
-    void read(const std::string &file_name);
     void read(std::istream& input_stream);
 
     const OutputData<double> *getOutputData() const;
 
+    void write(const OutputData<double> &data, std::ostream &output_stream);
+
 private:
-    void open(const std::string &file_name);
     void read_header();
     void read_data();
+    void write_header();
+    void write_data();
     void close();
     void create_output_data();
-    std::vector<int> get_int_vector();
 
     TIFF *m_tiff;
     size_t m_width;

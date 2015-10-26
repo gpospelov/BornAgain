@@ -19,8 +19,6 @@
 #include "OutputDataIOHelper.h"
 #include "Exceptions.h"
 #include "FileSystem.h"
-#include "TiffReadStrategy.h"
-
 
 
 OutputDataReader *OutputDataReadFactory::getReader(const std::string &file_name)
@@ -33,14 +31,13 @@ OutputDataReader *OutputDataReadFactory::getReader(const std::string &file_name)
 
 IOutputDataReadStrategy *OutputDataReadFactory::getReadStrategy(const std::string &file_name)
 {
-
     IOutputDataReadStrategy *result(0);
     if(OutputDataIOHelper::isIntFile(file_name)) {
-        result = new OutputDataReadStreamINT();
+        result = new OutputDataReadINTStrategy();
     }
 
     else if(OutputDataIOHelper::isTiffFile(file_name)) {
-       result = new TiffReadStrategy();
+       result = new OutputDataReadTiffStrategy();
     }
 
     else {

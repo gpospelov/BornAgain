@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "TestMiscellaneous.h"
-#include "TiffReadStrategy.h"
 #include <iostream>
 
 
@@ -32,7 +31,4 @@ void TestMiscellaneous::test_Tiff()
 {
     std::cout << "Hello world" << std::endl;
 
-    TiffReadStrategy reader;
-//    reader.read("im_0022928_caz.tif");
-    reader.read("galaxi_raw_data.tif");
 }

@@ -37,13 +37,28 @@ protected:
     int m_precision;
 };
 
-//! @class OutputDataWriteStreamINT
-//! @ingroup tools_internal
+//! @class OutputDataWriteINTStrategy
+//! @ingroup input_output
 //! @brief Strategy to write OutputData to special BornAgain ASCII format
-class OutputDataWriteStreamINT : public IOutputDataWriteStrategy
+class OutputDataWriteINTStrategy : public IOutputDataWriteStrategy
 {
 public:
     virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
+};
+
+class TiffHandler;
+
+//! @class OutputDataWriteTiffStrategy
+//! @ingroup input_output
+//! @brief Strategy to write OutputData to tiff files
+class OutputDataWriteTiffStrategy : public IOutputDataWriteStrategy
+{
+public:
+    OutputDataWriteTiffStrategy();
+    ~OutputDataWriteTiffStrategy();
+    virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
+private:
+    TiffHandler *m_d;
 };
 
 

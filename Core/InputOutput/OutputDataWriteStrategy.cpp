@@ -15,11 +15,12 @@
 
 #include "OutputDataWriteStrategy.h"
 #include "OutputData.h"
+#include "TiffHandler.h"
 #include <iostream>
 #include <iomanip>
 
 
-void OutputDataWriteStreamINT::writeOutputData(const OutputData<double> &data,
+void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double> &data,
                                                std::ostream &output_stream)
 {
     output_stream << "# BornAgain Intensity Data" << std::endl;
@@ -48,5 +49,28 @@ void OutputDataWriteStreamINT::writeOutputData(const OutputData<double> &data,
     output_stream << std::endl;
 
 }
+
+// ----------------------------------------------------------------------------
+
+
+
+
+OutputDataWriteTiffStrategy::OutputDataWriteTiffStrategy()
+    : m_d(new TiffHandler)
+{
+
+}
+
+OutputDataWriteTiffStrategy::~OutputDataWriteTiffStrategy()
+{
+    delete m_d;
+}
+
+void OutputDataWriteTiffStrategy::writeOutputData(const OutputData<double> &data,
+                                                  std::ostream &output_stream)
+{
+    m_d->write(data, output_stream);
+}
+
 
 

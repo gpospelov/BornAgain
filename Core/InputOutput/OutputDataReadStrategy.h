@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/OutputDataReadStrategy.h
+//! @file      InputOutput/OutputDataReadStrategy.h
 //! @brief     Defines IOutputDataReadStrategy and related classes.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -22,7 +22,7 @@ template <class T> class OutputData;
 
 
 //! @class IOutputDataReadStrategy
-//! @ingroup tools_internal
+//! @ingroup input_output
 //! @brief Interface for reading strategy of OutputData from file
 class BA_CORE_API_ IOutputDataReadStrategy
 {

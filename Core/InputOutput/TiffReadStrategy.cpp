@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/src/TiffReadStrategy.cpp
+//! @file      InputOutput/TiffReadStrategy.cpp
 //! @brief     Implements class TiffReadStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org

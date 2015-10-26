@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/OutputDataIOFactory.h
+//! @file      InputOutput/OutputDataIOFactory.h
 //! @brief     Defines class OutputDataIOFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,7 +18,7 @@
 
 
 #include "WinDllMacros.h"
-#include<string>
+#include <string>
 #include <iostream>
 
 class IAxis;
@@ -30,6 +30,34 @@ const std::string FixedBinAxisType = "FixedBinAxis";
 const std::string VariableBinAxisType = "VariableBinAxis";
 const std::string ConstKBinAxisType = "ConstKBinAxis";
 const std::string CustomBinAxisType = "CustomBinAxis";
+const std::string GzipExtention = ".gz";
+const std::string BzipExtention = ".bz2";
+const std::string IntExtention = ".int";
+const std::string TiffExtention = ".tif";
+
+//! Returns true if name contains *.gz extension
+BA_CORE_API_ bool isCompressed(const std::string& name);
+
+//! Returns true if name contains *.gz extension
+BA_CORE_API_ bool isGZipped(const std::string& name);
+
+//! Returns true if name contains *.bz2 extension
+BA_CORE_API_ bool isBZipped(const std::string& name);
+
+//! Returns file extension after stripping '.gz' if any
+BA_CORE_API_ std::string GetFileMainExtension(const std::string& name);
+
+//! Returns file name after stripping '.gz' if any
+BA_CORE_API_ std::string StripFileNameFromGzipExtention(const std::string& name);
+
+//! returns true if file name corresponds to a binary file
+BA_CORE_API_ bool isBinaryFile(const std::string &file_name);
+
+//! returns true if file name corresponds to BornAgain native format (compressed or not)
+BA_CORE_API_ bool isIntFile(const std::string &file_name);
+
+//! returns true if file name corresponds to tiff file (can be also compressed)
+BA_CORE_API_ bool isTiffFile(const std::string &file_name);
 
 BA_CORE_API_ bool isSimilarToFixedBinAxisType(const std::string &line);
 BA_CORE_API_ bool isVariableBinAxisType(const std::string &line);

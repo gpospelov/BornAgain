@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/IntensityDataIOFactory.h
+//! @file      InputOutput/IntensityDataIOFactory.h
 //! @brief     Defines class IntensityDataIOFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -26,8 +26,9 @@ template <class T> class OutputData;
 class IHistogram;
 
 //! @class IntensityDataIOFactory
-//! @ingroup tools
-//! @brief Reads OutputData from files in different format
+//! @ingroup input_output
+//! @brief Provides users with possibility to read and write IntensityData from/to files
+//! in different format.
 
 class BA_CORE_API_ IntensityDataIOFactory
 {
@@ -48,9 +49,6 @@ public:
     static void writeIntensityData(const IHistogram &histogram,
             const std::string& file_name);
 
-private:
-    static OutputDataReader* getReader(const std::string& file_name);
-    static OutputDataWriter* getWriter(const std::string& file_name);
 };
 
 #endif // OUTPUTDATAIOFACTORY_H

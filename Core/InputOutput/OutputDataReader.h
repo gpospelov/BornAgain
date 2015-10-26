@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/OutputDataReader.h
+//! @file      InputOutput/OutputDataReader.h
 //! @brief     Defines class OutputDataReader.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -17,42 +17,32 @@
 #define OUTPUTDATAREADER_H
 
 #include "WinDllMacros.h"
+#include "OutputDataReadStrategy.h"
 #include <string>
 #include <vector>
+#include <boost/scoped_ptr.hpp>
 
 template <class T> class OutputData;
-class IOutputDataReadStrategy;
-
 
 //! @class OutputDataReader
-//! @ingroup tools
+//! @ingroup input_output
 //! @brief Reads OutputData from file using different reading strategies.
 
 class BA_CORE_API_ OutputDataReader
 {
 public:
-    enum CompressionType {UNCOMPRESSED, GZIP, BZIP2};
-
-    OutputDataReader() : m_read_strategy(0) {}
     OutputDataReader(const std::string& file_name);
-    OutputDataReader(IOutputDataReadStrategy *read_strategy);
-    virtual ~OutputDataReader();
 
     //! read output data from file (file name was set already from OutputDataIOFactory)
     OutputData<double > *getOutputData();
 
     //! Sets concrete reading strategy
     void setStrategy(IOutputDataReadStrategy *read_strategy);
-    void setCompression(CompressionType compressionType);
-    void setBinaryFlag(bool value);
 
 private:
     std::vector<char> readBuffer(std::istream &input_stream);
-
     std::string m_file_name;
-    IOutputDataReadStrategy *m_read_strategy;
-    CompressionType m_compressionType;
-    bool m_is_binary;
+    boost::scoped_ptr<IOutputDataReadStrategy> m_read_strategy;
 };
 
 #endif // OUTPUTDATAREADER_H

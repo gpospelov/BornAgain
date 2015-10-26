@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/TiffHandler.h
-//! @brief     Defines class TiffHandler.
+//! @file      InputOutput/TiffReadStrategy.h
+//! @brief     Defines class TiffReadStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,45 +13,36 @@
 //
 // ************************************************************************** //
 
-#ifndef TIFFHANDLER_H
-#define TIFFHANDLER_H
+#ifndef TIFFREADSTRATEGY_H
+#define TIFFREADSTRATEGY_H
 
 #include "WinDllMacros.h"
-#include "OutputData.h"
+#include "OutputDataReadStrategy.h"
 #include <string>
-#include <tiffio.h>
-#include <tiffio.hxx>
 #include <boost/scoped_ptr.hpp>
 
-//! @class TiffHandler
-//! @ingroup tools
-//! @brief Reads/write tiff files, should be used through TiffReadStrategy
+template <class T> class OutputData;
+class TiffHandler;
 
-class BA_CORE_API_ TiffHandler
+//! @class TiffReadStrategy
+//! @ingroup input_output
+//! @brief Reads tiff files
+
+class BA_CORE_API_ TiffReadStrategy : public IOutputDataReadStrategy
 {
 public:
-    TiffHandler();
-    ~TiffHandler();
+    TiffReadStrategy();
+    ~TiffReadStrategy();
 
     void read(const std::string &file_name);
     void read(std::istream& input_stream);
 
-    const OutputData<double> *getOutputData() const;
+//    virtual bool isBinary() { return true; }
+
+    OutputData<double > *readOutputData(std::istream& input_stream);
 
 private:
-    void open(const std::string &file_name);
-    void read_header();
-    void read_data();
-    void close();
-    void create_output_data();
-    std::vector<int> get_int_vector();
-
-    TIFF *m_tiff;
-    size_t m_width;
-    size_t m_height;
-    boost::scoped_ptr<OutputData<double> > m_data;
+    TiffHandler *m_d;
 };
 
-
 #endif
-

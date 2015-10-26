@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/src/OutputDataIOHelper.cpp
+//! @file      InputOutput/OutputDataIOHelper.cpp
 //! @brief     Implements class OutputDataIOHelper.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -21,11 +21,79 @@
 #include "Exceptions.h"
 #include "Utils.h"
 #include "OutputData.h"
+#include "FileSystem.h"
 #include <iostream>
 #include <algorithm>
 #include <boost/algorithm/string.hpp>
 #include <boost/assign/list_of.hpp>
 
+
+bool OutputDataIOHelper::isCompressed(const std::string& name)
+{
+    return isGZipped(name) && isBZipped(name);
+}
+
+//! Does name contain *.gz extension?
+
+bool OutputDataIOHelper::isGZipped(const std::string& name)
+{
+    if ( Utils::FileSystem::GetFileExtension(name) == GzipExtention)
+        return true;
+    return false;
+}
+
+bool OutputDataIOHelper::isBZipped(const std::string& name)
+{
+    if ( Utils::FileSystem::GetFileExtension(name) == BzipExtention)
+        return true;
+    return false;
+}
+
+
+//! Returns file main extension (without .gz).
+
+std::string OutputDataIOHelper::GetFileMainExtension(const std::string& name)
+{
+    std::string stripped_name(name);
+    if(isGZipped(name)) {
+        stripped_name = name.substr(0, name.size()-GzipExtention.size());
+    }
+    else if(isBZipped(name)) {
+        stripped_name = name.substr(0, name.size()-BzipExtention.size());
+    }
+    return Utils::FileSystem::GetFileExtension(stripped_name);
+}
+
+std::string OutputDataIOHelper::StripFileNameFromGzipExtention(const std::string &name)
+{
+    if( !isGZipped(name) ) {
+        return name;
+    } else {
+        std::string stripped_name = name.substr(0, name.size()-GzipExtention.size());
+        return stripped_name;
+    }
+}
+
+
+bool OutputDataIOHelper::isBinaryFile(const std::string &file_name)
+{
+    // all compressed files are always binary.
+    if(isCompressed(file_name)) return true;
+    // uncompressed "int" file is ascii
+    if(GetFileMainExtension(file_name) == IntExtention) return false;
+    // the rest (e.g. tif) is also binary
+    return true;
+}
+
+bool OutputDataIOHelper::isIntFile(const std::string &file_name)
+{
+    return GetFileMainExtension(file_name) == IntExtention;
+}
+
+bool OutputDataIOHelper::isTiffFile(const std::string &file_name)
+{
+    return GetFileMainExtension(file_name) == TiffExtention;
+}
 
 //! Returns true if string representation of the axis contains one of
 //! FixedBinAxis, ConstKBinAxis or CustomBinAxis to parse it later in
@@ -164,7 +232,4 @@ void OutputDataIOHelper::fillOutputData(OutputData<double> *data, std::istream &
     if(it!= data->end())
         throw Exceptions::FormatErrorException("OutputDataIOHelper::fillOutputData() -> Error while parsing data.");
 }
-
-
-
 

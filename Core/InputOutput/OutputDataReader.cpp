@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/src/OutputDataReader.cpp
+//! @file      InputOutput/OutputDataReader.cpp
 //! @brief     Implements class OutputDataReader.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,6 +15,7 @@
 #include "OutputData.h"
 #include "OutputDataReader.h"
 #include "OutputDataReadStrategy.h"
+#include "OutputDataIOHelper.h"
 #include <fstream>
 #include <cassert>
 #include <iostream>
@@ -41,24 +42,8 @@ GCC_DIAG_ON(unused-parameter);
 
 OutputDataReader::OutputDataReader(const std::string &file_name)
     : m_file_name(file_name)
-    , m_read_strategy(0)
-    , m_compressionType(UNCOMPRESSED)
-    , m_is_binary(false)
 {
 
-}
-
-
-OutputDataReader::OutputDataReader(IOutputDataReadStrategy *read_strategy)
-    : m_read_strategy(read_strategy)
-{
-
-}
-
-
-OutputDataReader::~OutputDataReader()
-{
-    delete m_read_strategy;
 }
 
 
@@ -69,11 +54,9 @@ OutputData<double > *OutputDataReader::getOutputData()
                                    " Error! No read strategy defined");
     }
 
-    // opening file
     std::ifstream fin;
-
     std::ios_base::openmode openmode = std::ios::in;
-    if(m_is_binary) openmode = std::ios::in | std::ios_base::binary;
+    if(OutputDataIOHelper::isBinaryFile(m_file_name)) openmode = std::ios::in | std::ios_base::binary;
 
     fin.open(m_file_name.c_str(), openmode );
     if( !fin.is_open() ) {
@@ -85,6 +68,10 @@ OutputData<double > *OutputDataReader::getOutputData()
                                  "probably it is a directory.");
     }
 
+    // FIXME Here we read whole file content into the buffer and then make a stream out of it.
+    // This is not efficient, and in most cases would be better to return filtered stream instead.
+    // But such approach cause a problem in the case of gzipped tiff files. So for unification we
+    // use reading through the buffer which always works.
     std::vector<char> buffer = readBuffer(fin);
     boost::iostreams::stream<boost::iostreams::array_source> array_stream(&buffer[0], buffer.size());
 
@@ -97,42 +84,22 @@ OutputData<double > *OutputDataReader::getOutputData()
 
 void OutputDataReader::setStrategy(IOutputDataReadStrategy *read_strategy)
 {
-    delete m_read_strategy;
-    m_read_strategy = read_strategy;
+    m_read_strategy.reset(read_strategy);
 }
-
-void OutputDataReader::setCompression(OutputDataReader::CompressionType compressionType)
-{
-    m_compressionType = compressionType;
-}
-
-void OutputDataReader::setBinaryFlag(bool value)
-{
-    m_is_binary = value;
-}
-
-//std::istream &OutputDataReader::getAppropariateStream(std::istream &input_stream)
-//{
-//    boost::iostreams::filtering_streambuf<boost::iostreams::input> input_filtered;
-//    input_filtered.push(boost::iostreams::gzip_decompressor());
-//    input_filtered.push(input_stream);
-
-
-//}
 
 std::vector<char> OutputDataReader::readBuffer(std::istream &input_stream)
 {
     boost::iostreams::filtering_streambuf<boost::iostreams::input> input_filtered;
-    if(m_compressionType == GZIP) {
+    if(OutputDataIOHelper::isGZipped(m_file_name)) {
         input_filtered.push(boost::iostreams::gzip_decompressor());
     }
-    else if(m_compressionType == BZIP2) {
+    else if(OutputDataIOHelper::isBZipped(m_file_name)) {
         input_filtered.push(boost::iostreams::bzip2_decompressor());
     }
 
     input_filtered.push(input_stream);
     std::vector<char> buffer;
-    boost::iostreams::copy(input_filtered, boost::iostreams::back_inserter(buffer)); // working
+    boost::iostreams::copy(input_filtered, boost::iostreams::back_inserter(buffer));
     return buffer;
 }
 

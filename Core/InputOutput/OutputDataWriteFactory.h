@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      InputOutput/OutputDataReadFactory.h
-//! @brief     Defines class OutputDataReadFactory.
+//! @file      InputOutput/OutputDataWriteFactory.h
+//! @brief     Defines class OutputDataWriteFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,26 +13,26 @@
 //
 // ************************************************************************** //
 
-#ifndef OUTPUTDATAREADFACTORY_H
-#define OUTPUTDATAREADFACTORY_H
+#ifndef OUTPUTDATAWRITEFACTORY_H
+#define OUTPUTDATAWRITEFACTORY_H
 
 #include <string>
 #include "WinDllMacros.h"
-#include "OutputDataReader.h"
+#include "OutputDataWriter.h"
 
-class IOutputDataReadStrategy;
+class IOutputDataWriteStrategy;
 
-//! @class OutputDataReadFactory
+//! @class OutputDataWriteFactory
 //! @ingroup input_output
-//! @brief Creates reader appropariate for given type of files
+//! @brief Creates writer appropariate for given type of files
 
-class BA_CORE_API_ OutputDataReadFactory
+class BA_CORE_API_ OutputDataWriteFactory
 {
 public:
-    static OutputDataReader* getReader(const std::string& file_name);
+    static OutputDataWriter* getWriter(const std::string& file_name);
 
 private:
-    static IOutputDataReadStrategy *getReadStrategy(const std::string& file_name);
+    static IOutputDataWriteStrategy *getWriteStrategy(const std::string& file_name);
 };
 
 #endif

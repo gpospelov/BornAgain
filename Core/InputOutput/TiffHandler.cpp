@@ -93,14 +93,6 @@ void TiffHandler::read_header()
     if (!TIFFGetField(m_tiff, TIFFTAG_SAMPLESPERPIXEL, &samplesPerPixel))
         samplesPerPixel = 1;
 
-    std::cout << "width:" << m_width
-              << " m_height:" << m_height
-              << " orientationTag:" << orientationTag
-              << " m_photometric:" << photometric
-              << " bitPerSample:" << bitPerSample
-              << " samplePerPixel:" << samplesPerPixel
-              << std::endl;
-
     if(bitPerSample!= supported_bitPerSample ||
             samplesPerPixel != supported_samplesPerPixel) {
         std::ostringstream message;
@@ -158,8 +150,8 @@ void TiffHandler::write_header()
            "Image converted from BornAgain intensity file.");
     TIFFSetField(m_tiff, TIFFTAG_SOFTWARE, "BornAgain");
 
-    uint32 width = m_data->getAxis(BornAgain::X_AXIS_INDEX)->getSize();
-    uint32 height = m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getSize();
+    uint32 width = m_width;
+    uint32 height = m_height;
     TIFFSetField(m_tiff, TIFFTAG_IMAGEWIDTH, width);
     TIFFSetField(m_tiff, TIFFTAG_IMAGELENGTH, height);
 

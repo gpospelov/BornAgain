@@ -82,11 +82,11 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 # --- external dependencies ---------
 include_directories(
+    ${TIFF_INCLUDE_DIR}
     ${EIGEN3_INCLUDE_DIR}
     ${Boost_INCLUDE_DIRS}
     ${FFTW_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}
-    ${TIFF_INCLUDE_DIR}
 )
 target_link_libraries(
     ${library_name}
@@ -96,7 +96,7 @@ target_link_libraries(
     ${TIFF_LIBRARIES}
 )
 
-message(INFO "XXX ${TIFF_LIBRARIES}")
+message(INFO "XXX lib ${TIFF_LIBRARIES} include ${TIFF_INCLUDE_DIR}")
 
 if(BORNAGAIN_OPENMPI)
     include_directories(${MPI_INCLUDE_PATH})

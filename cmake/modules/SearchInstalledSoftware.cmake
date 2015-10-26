@@ -39,7 +39,7 @@ find_package(GSL REQUIRED)
 # -----------------------------------------------------------------------------
 # Tiff
 # -----------------------------------------------------------------------------
-find_package(TIFF)
+#find_package(TIFF)
 
 # check if tiff setup contains C++ version of library too
 # i.e. TIFF_LIBRARIES should be /usr/lib64/libtiff.so;/usr/lib64/libtiffxx.so
@@ -65,6 +65,8 @@ endif()
 if(TIFF_FOUND)
     message(STATUS "--> TIFF_INCLUDE_DIR: ${TIFF_INCLUDE_DIR}")
     message(STATUS "--> TIFF_LIBRARIES: ${TIFF_LIBRARIES}")
+else()
+    message(STATUS "No TIFF library found, local version will be build.")
 endif()
 
 

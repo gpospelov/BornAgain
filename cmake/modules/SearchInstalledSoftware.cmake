@@ -36,13 +36,36 @@ message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
 # --- GSL ---
 find_package(GSL REQUIRED)
 
-# --- Tiff ---
-find_package(TIFF REQUIRED)
-set(TIFF_LIBRARIES ${TIFF_LIBRARIES};/usr/lib64/libtiffxx.so)
-message(STATUS "TIFF_INCLUDE_DIR: ${TIFF_INCLUDE_DIR}")
-message(STATUS "TIFF_LIBRARIES: ${TIFF_LIBRARIES}")
+# -----------------------------------------------------------------------------
+# Tiff
+# -----------------------------------------------------------------------------
+find_package(TIFF)
 
+# check if tiff setup contains C++ version of library too
+# i.e. TIFF_LIBRARIES should be /usr/lib64/libtiff.so;/usr/lib64/libtiffxx.so
+if(TIFF_FOUND)
+    message(STATUS "Found TIFF library")
+    list(LENGTH TIFF_LIBRARIES len)
+    if(len EQUAL 1)
+        get_filename_component(tiff_library_name ${TIFF_LIBRARIES} NAME_WE )
+        get_filename_component(tiff_path ${TIFF_LIBRARIES} DIRECTORY )
+        set(cpp_tiff_library "${tiff_path}/${tiff_library_name}xx.so")
+        message(STATUS "-->  Checking TIFF_LIBRARIES:${TIFF_LIBRARIES}")
+        if(EXISTS ${cpp_tiff_library})
+            message(STATUS "-->  Adding to the path also C++ version of tiff libraries ${cpp_tiff_library}")
+            set(TIFF_LIBRARIES ${TIFF_LIBRARIES};${cpp_tiff_library})
+        else()
+            message(STATUS "-->  Seems that your TIFF library are C-only, no libtiffxx.so has been found ${TIFF_LIBRARIES}")
+            set(TIFF_FOUND FALSE)
+        endif()
+    endif()
 
+endif()
+
+if(TIFF_FOUND)
+    message(STATUS "--> TIFF_INCLUDE_DIR: ${TIFF_INCLUDE_DIR}")
+    message(STATUS "--> TIFF_LIBRARIES: ${TIFF_LIBRARIES}")
+endif()
 
 
 # --- Python ---

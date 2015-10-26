@@ -37,7 +37,7 @@ GCC_DIAG_OFF(unused-parameter)
 #pragma warning(pop)
 #endif
 #include <string>
-GCC_DIAG_ON(unused-parameter);
+GCC_DIAG_ON(unused-parameter)
 
 
 OutputDataReader::OutputDataReader(const std::string &file_name)

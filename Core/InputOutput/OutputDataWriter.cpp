@@ -20,6 +20,25 @@
 #include <fstream>
 #include <cassert>
 
+#include "Macros.h"
+GCC_DIAG_OFF(unused-parameter)
+#include <boost/iostreams/filtering_streambuf.hpp>
+#include <boost/iostreams/filtering_stream.hpp>
+#include <boost/iostreams/device/array.hpp>
+#include <boost/iostreams/stream.hpp>
+#include <boost/iostreams/copy.hpp>
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4244)
+#endif
+#include <boost/iostreams/filter/gzip.hpp>
+#include <boost/iostreams/filter/bzip2.hpp>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+#include <string>
+GCC_DIAG_ON(unused-parameter)
+
 
 OutputDataWriter::OutputDataWriter(const std::string &file_name)
     : m_file_name(file_name)
@@ -50,7 +69,20 @@ void OutputDataWriter::writeOutputData(const OutputData<double >& data)
                                  "File is not good, probably it is a directory.");
     }
 
-    m_write_strategy->writeOutputData(data, fout);
+    std::stringstream ss;
+    m_write_strategy->writeOutputData(data, ss);
+
+    boost::iostreams::filtering_streambuf<boost::iostreams::input> input_filtered;
+    if(OutputDataIOHelper::isGZipped(m_file_name)) {
+        input_filtered.push(boost::iostreams::gzip_compressor());
+    }
+    else if(OutputDataIOHelper::isBZipped(m_file_name)) {
+        input_filtered.push(boost::iostreams::bzip2_compressor());
+    }
+    input_filtered.push(ss);
+
+    boost::iostreams::copy(input_filtered, fout);
+
 
     fout.close();
 }

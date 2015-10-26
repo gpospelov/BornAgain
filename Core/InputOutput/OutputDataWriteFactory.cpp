@@ -16,7 +16,7 @@
 #include "OutputDataWriter.h"
 #include "Exceptions.h"
 #include "OutputDataWriteStrategy.h"
-#include "FileSystem.h"
+#include "OutputDataIOHelper.h"
 
 OutputDataWriter *OutputDataWriteFactory::getWriter(const std::string &file_name)
 {
@@ -29,7 +29,7 @@ OutputDataWriter *OutputDataWriteFactory::getWriter(const std::string &file_name
 IOutputDataWriteStrategy *OutputDataWriteFactory::getWriteStrategy(const std::string &file_name)
 {
     IOutputDataWriteStrategy *result(0);
-    if( Utils::FileSystem::GetFileExtension(file_name) == ".int") {
+    if(OutputDataIOHelper::isIntFile(file_name)) {
         result = new OutputDataWriteStreamINT();
     }
 

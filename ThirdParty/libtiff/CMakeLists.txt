@@ -98,6 +98,8 @@ set(${library_name}_LIBRARY_TYPE SHARED)
 set(TIFF_INCLUDE_DIR ${include_dirs} CACHE INTERNAL "")
 set(TIFF_LIBRARIES ${library_name} CACHE INTERNAL "")
 
-
+if(NOT MSVC)
 target_link_libraries(${library_name} ${M_LIBRARY})
+endif()
+
 

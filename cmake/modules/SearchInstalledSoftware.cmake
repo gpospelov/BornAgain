@@ -39,7 +39,8 @@ find_package(GSL REQUIRED)
 # -----------------------------------------------------------------------------
 # Tiff
 # -----------------------------------------------------------------------------
-#find_package(TIFF)
+if(BORNAGAIN_TIFF_SUPPORT)
+find_package(TIFF)
 
 # check if tiff setup contains C++ version of library too
 # i.e. TIFF_LIBRARIES should be /usr/lib64/libtiff.so;/usr/lib64/libtiffxx.so
@@ -68,6 +69,8 @@ if(TIFF_FOUND)
 else()
     message(STATUS "No TIFF library found, local version will be build.")
 endif()
+endif()
+
 
 
 # --- Python ---

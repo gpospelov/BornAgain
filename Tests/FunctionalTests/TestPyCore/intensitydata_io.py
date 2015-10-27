@@ -148,24 +148,5 @@ class OutputDataIOTest(unittest.TestCase):
         newdata = IntensityDataIOFactory.readOutputData("tmp.int.bz2")
         self.assertTrue(is_the_same_data(data, newdata))
 
-    def test_SaveToTiff(self):
-        data = IntensityData()
-        data.addAxis(FixedBinAxis("x", 10, 0.0, 10.0))
-        data.addAxis(FixedBinAxis("y", 5, 0.0, 5.0))
-        fill_data(data)
-
-        IntensityDataIOFactory.writeOutputData(data, "tmp.tif")
-        newdata = IntensityDataIOFactory.readOutputData("tmp.tif")
-        self.assertTrue(is_the_same_data(data, newdata))
-
-        IntensityDataIOFactory.writeOutputData(data, "tmp.tif.gz")
-        newdata = IntensityDataIOFactory.readOutputData("tmp.tif.gz")
-        self.assertTrue(is_the_same_data(data, newdata))
-
-        IntensityDataIOFactory.writeOutputData(data, "tmp.tif.bz2")
-        newdata = IntensityDataIOFactory.readOutputData("tmp.tif.bz2")
-        self.assertTrue(is_the_same_data(data, newdata))
-
-
 if __name__ == '__main__':
     unittest.main()

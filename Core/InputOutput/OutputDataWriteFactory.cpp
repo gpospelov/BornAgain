@@ -33,9 +33,11 @@ IOutputDataWriteStrategy *OutputDataWriteFactory::getWriteStrategy(const std::st
         result = new OutputDataWriteINTStrategy();
     }
 
+#ifdef BORNAGAIN_TIFF_SUPPORT
     else if(OutputDataIOHelper::isTiffFile(file_name)) {
         result = new OutputDataWriteTiffStrategy();
     }
+#endif // BORNAGAIN_TIFF_SUPPORT
 
     else {
         throw LogicErrorException("OutputDataWriteFactory::getWriter() -> Error. "

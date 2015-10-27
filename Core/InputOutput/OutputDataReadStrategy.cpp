@@ -47,6 +47,7 @@ OutputData<double > *OutputDataReadINTStrategy::readOutputData(std::istream &inp
 
 // ----------------------------------------------------------------------------
 
+#ifdef BORNAGAIN_TIFF_SUPPORT
 OutputDataReadTiffStrategy::OutputDataReadTiffStrategy()
     : m_d(new TiffHandler)
 {
@@ -63,3 +64,5 @@ OutputData<double> *OutputDataReadTiffStrategy::readOutputData(std::istream &inp
     m_d->read(input_stream);
     return m_d->getOutputData()->clone();
 }
+
+#endif // BORNAGAIN_TIFF_SUPPORT

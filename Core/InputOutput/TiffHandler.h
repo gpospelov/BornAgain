@@ -16,6 +16,8 @@
 #ifndef TIFFHANDLER_H
 #define TIFFHANDLER_H
 
+#ifdef BORNAGAIN_TIFF_SUPPORT
+
 #include "WinDllMacros.h"
 #include "OutputData.h"
 #include <string>
@@ -53,6 +55,7 @@ private:
     boost::scoped_ptr<OutputData<double> > m_data;
 };
 
+#endif // BORNAGAIN_TIFF_SUPPORT
 
 #endif
 

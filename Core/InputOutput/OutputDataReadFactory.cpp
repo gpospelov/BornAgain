@@ -36,9 +36,12 @@ IOutputDataReadStrategy *OutputDataReadFactory::getReadStrategy(const std::strin
         result = new OutputDataReadINTStrategy();
     }
 
+#ifdef BORNAGAIN_TIFF_SUPPORT
     else if(OutputDataIOHelper::isTiffFile(file_name)) {
        result = new OutputDataReadTiffStrategy();
     }
+
+#endif // BORNAGAIN_TIFF_SUPPORT
 
     else {
         throw LogicErrorException("OutputDataReadFactory::getReader() -> Error. "

@@ -53,7 +53,7 @@ void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double> &data,
 // ----------------------------------------------------------------------------
 
 
-
+#ifdef BORNAGAIN_TIFF_SUPPORT
 
 OutputDataWriteTiffStrategy::OutputDataWriteTiffStrategy()
     : m_d(new TiffHandler)
@@ -72,5 +72,6 @@ void OutputDataWriteTiffStrategy::writeOutputData(const OutputData<double> &data
     m_d->write(data, output_stream);
 }
 
+#endif
 
 

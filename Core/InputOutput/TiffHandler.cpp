@@ -12,6 +12,7 @@
 //! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
+#ifdef BORNAGAIN_TIFF_SUPPORT
 #include "TiffHandler.h"
 #include "Exceptions.h"
 #include "Utils.h"
@@ -209,5 +210,4 @@ void TiffHandler::create_output_data()
     m_data->addAxis("y", m_height, 0.0, double(m_height));
 }
 
-
-
+#endif // BORNAGAIN_TIFF_SUPPORT

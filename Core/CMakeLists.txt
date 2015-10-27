@@ -66,6 +66,9 @@ if(BORNAGAIN_OPENMPI)
     add_definitions(-DBORNAGAIN_OPENMPI)
 endif()
 
+if(BORNAGAIN_TIFF_SUPPORT)
+    add_definitions(-DBORNAGAIN_TIFF_SUPPORT)
+endif()
 
 # --- making library ---------
 add_library(
@@ -95,8 +98,6 @@ target_link_libraries(
     ${GSL_LIBRARIES}
     ${TIFF_LIBRARIES}
 )
-
-message(INFO "XXX lib ${TIFF_LIBRARIES} include ${TIFF_INCLUDE_DIR}")
 
 if(BORNAGAIN_OPENMPI)
     include_directories(${MPI_INCLUDE_PATH})

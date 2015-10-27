@@ -46,6 +46,8 @@ public:
     virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
 };
 
+#ifdef BORNAGAIN_TIFF_SUPPORT
+
 class TiffHandler;
 
 //! @class OutputDataWriteTiffStrategy
@@ -61,6 +63,7 @@ private:
     TiffHandler *m_d;
 };
 
+#endif // BORNAGAIN_TIFF_SUPPORT
 
 #endif // OUTPUTDATAWRITESTRATEGY_H
 

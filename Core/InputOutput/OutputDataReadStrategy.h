@@ -42,6 +42,7 @@ public:
     OutputData<double > *readOutputData(std::istream& input_stream);
 };
 
+#ifdef BORNAGAIN_TIFF_SUPPORT
 
 class TiffHandler;
 
@@ -58,6 +59,7 @@ public:
 private:
     TiffHandler *m_d;
 };
+#endif // BORNAGAIN_TIFF_SUPPORT
 
 #endif // OUTPUTDATAREADSTRATEGY_H
 

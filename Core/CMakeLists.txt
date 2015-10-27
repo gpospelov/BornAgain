@@ -169,6 +169,7 @@ if(WIN32)
     ${CMAKE_LIBRARY_PATH}/boost_regex${boost_suffix}
     ${CMAKE_LIBRARY_PATH}/boost_thread${boost_suffix}
     ${CMAKE_LIBRARY_PATH}/libfftw3-3.dll
+    ${CMAKE_LIBRARY_PATH}/libtiff.dll
     "C:/Anaconda/Python27.dll"
     DESTINATION ${destination_lib} COMPONENT Libraries)
 

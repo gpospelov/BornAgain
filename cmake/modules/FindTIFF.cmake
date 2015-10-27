@@ -80,7 +80,6 @@ if(TIFF_FOUND)
             endif()
         endif()
     endif()
-    message(STATUS "--> TIFF_INCLUDE_DIR: ${TIFF_INCLUDE_DIR} TIFF_LIBRARIES: ${TIFF_LIBRARIES}")
 endif()
 
 

@@ -34,8 +34,14 @@ OutputData<double > *OutputDataReader::getOutputData()
 
     std::ifstream fin;
     std::ios_base::openmode openmode = std::ios::in;
-    if(OutputDataIOHelper::isBinaryFile(m_file_name)) openmode = std::ios::in | std::ios_base::binary;
+	if (OutputDataIOHelper::isBinaryFile(m_file_name)) {
+		std::cout << "XXX is binary file" << m_file_name << std::endl;
+		openmode = std::ios::in | std::ios_base::binary;
+	}
+	else {
+		std::cout << "XXX NOT binary file " << m_file_name << std::endl;
 
+	}
     fin.open(m_file_name.c_str(), openmode );
     if(!fin.is_open()) {
         throw FileNotIsOpenException("OutputDataReader::getOutputData() -> Error. Can't open file '"
@@ -50,11 +56,21 @@ OutputData<double > *OutputDataReader::getOutputData()
     // This is not efficient, and in most cases would be better to return filtered stream instead.
     // But such approach cause a problem in the case of gzipped tiff files. So for unification we
     // use reading through the buffer which always works.
-    std::vector<char> buffer = readBuffer(fin);
-    boost::iostreams::stream<boost::iostreams::array_source> array_stream(&buffer[0], buffer.size());
+	std::cout << "XXX 1.1" << std::endl;
 
-    OutputData<double > *result = m_read_strategy->readOutputData(array_stream);
-    fin.close();
+//    std::vector<char> buffer = readBuffer(fin);
+	//	std::cout << "XXX 1.2" << std::endl;
+	//	boost::iostreams::stream<boost::iostreams::array_source> array_stream(&buffer[0], buffer.size());
+	//	std::cout << "XXX 1.3" << std::endl;
+
+	//    OutputData<double > *result = m_read_strategy->readOutputData(array_stream);
+	//	std::cout << "XXX 1.4" << std::endl;
+
+
+	OutputData<double > *result = getFromStream(fin);
+
+	fin.close();
+	std::cout << "XXX 1.5" << std::endl;
 
     return result;
 }
@@ -67,18 +83,61 @@ void OutputDataReader::setStrategy(IOutputDataReadStrategy *read_strategy)
 
 std::vector<char> OutputDataReader::readBuffer(std::istream &input_stream)
 {
-    boost::iostreams::filtering_streambuf<boost::iostreams::input> input_filtered;
+	std::cout << "XXX 2.1" << std::endl;
+	boost::iostreams::filtering_streambuf<boost::iostreams::input> input_filtered;
     if(OutputDataIOHelper::isGZipped(m_file_name)) {
-        input_filtered.push(boost::iostreams::gzip_decompressor());
-    }
+		std::cout << "XXX 2.2" << std::endl;
+		input_filtered.push(boost::iostreams::gzip_decompressor());
+		std::cout << "XXX 2.3" << std::endl;
+
+	}	
     else if(OutputDataIOHelper::isBZipped(m_file_name)) {
         input_filtered.push(boost::iostreams::bzip2_decompressor());
     }
 
-    input_filtered.push(input_stream);
-    std::vector<char> buffer;
-    boost::iostreams::copy(input_filtered, boost::iostreams::back_inserter(buffer));
-    return buffer;
+	std::cout << "XXX 2.4" << std::endl;
+	input_filtered.push(input_stream);
+	std::cout << "XXX 2.5" << std::endl;
+	std::vector<char> buffer;
+	std::cout << "XXX 2.6a" << std::endl;
+	std::istream incoming(&input_filtered);
+	boost::iostreams::copy(incoming, boost::iostreams::back_inserter(buffer));
+
+//	std::vector<char> buffer((std::istreambuf_iterator<char>(incoming)),  (std::istreambuf_iterator<char>()));
+
+//	stringstream strstream;
+	//	boost::iostreams::copy(in, strstream);
+	//	return strstream.str();
+
+
+	std::cout << "XXX 2.7" << std::endl;
+	return buffer;
 }
 
 
+OutputData<double > *OutputDataReader::getFromStream(std::istream &input_stream)
+{
+	std::cout << "XXX 2.1" << std::endl;
+	boost::iostreams::filtering_streambuf<boost::iostreams::input> input_filtered;
+	if (OutputDataIOHelper::isGZipped(m_file_name)) {
+		std::cout << "XXX 2.2" << std::endl;
+		input_filtered.push(boost::iostreams::gzip_decompressor());
+		std::cout << "XXX 2.3" << std::endl;
+
+	}
+	else if (OutputDataIOHelper::isBZipped(m_file_name)) {
+		std::cout << "XXX 2.4" << std::endl;
+		input_filtered.push(boost::iostreams::bzip2_decompressor());
+		std::cout << "XXX 2.5" << std::endl;
+	}
+	input_filtered.push(input_stream);
+	std::stringstream strstream;
+	//	std::cout << "XXX 2.6" << std::endl;
+	boost::iostreams::copy(input_filtered, strstream);
+	//	std::cout << "XXX 2.7" << std::endl;
+
+	//std::istream incoming(&input_filtered);
+	//return m_read_strategy->readOutputData(incoming);
+
+	return m_read_strategy->readOutputData(strstream);
+}

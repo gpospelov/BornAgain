@@ -30,7 +30,7 @@
 
 bool OutputDataIOHelper::isCompressed(const std::string& name)
 {
-    return isGZipped(name) && isBZipped(name);
+    return isGZipped(name) || isBZipped(name);
 }
 
 //! Does name contain *.gz extension?
@@ -77,6 +77,7 @@ std::string OutputDataIOHelper::StripFileNameFromGzipExtention(const std::string
 
 bool OutputDataIOHelper::isBinaryFile(const std::string &file_name)
 {
+	std::cout << "sss " << file_name << " " << isCompressed(file_name) << std::endl;
     // all compressed files are always binary.
     if(isCompressed(file_name)) return true;
     // uncompressed "int" file is ascii

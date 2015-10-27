@@ -25,7 +25,7 @@ namespace Geometry {
 //! @ingroup tools
 //! @brief The line segment
 
-class  Line : public IShape2D {
+class  BA_CORE_API_ Line : public IShape2D {
 public:
     //! Line segment constructor
     Line(double x1, double y1, double x2, double y2);
@@ -47,7 +47,7 @@ private:
 //! @ingroup tools
 //! @brief Vertical infinite line
 
-class  VerticalLine : public IShape2D {
+class BA_CORE_API_ VerticalLine : public IShape2D {
 public:
     //! Infinite vertical line constructor
     //! @param x The value at which it crosses x-axes
@@ -70,7 +70,7 @@ private:
 //! @ingroup tools
 //! @brief Horizontal infinite line
 
-class  HorizontalLine : public IShape2D {
+class BA_CORE_API_ HorizontalLine : public IShape2D {
 public:
     //! Infinite vertical line constructor
     //! @param y The value at which it crosses y-axes

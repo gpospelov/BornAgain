@@ -33,7 +33,7 @@ class Histogram2D;
 //! @ingroup tools
 //! @brief Base class for 1D and 2D histograms holding values of double type
 
-class IHistogram
+class BA_CORE_API_ IHistogram
 {
 public:
     enum DataType {INTEGRAL, AVERAGE, ERROR, NENTRIES};

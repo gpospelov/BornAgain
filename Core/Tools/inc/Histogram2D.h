@@ -31,7 +31,7 @@ typedef _object PyObject;
 ////! @ingroup tools
 ////! @brief Two dimensional histogram
 
-class Histogram2D : public IHistogram
+class BA_CORE_API_ Histogram2D : public IHistogram
 {
 public:
     //! Constructor for fix bin size histograms.

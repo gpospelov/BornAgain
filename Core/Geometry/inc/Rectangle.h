@@ -25,7 +25,7 @@ namespace Geometry {
 //! @ingroup tools
 //! @brief The rectangle shape having its axis aligned to the coordinate system (non-rotated so far).
 
-class  Rectangle : public IShape2D {
+class BA_CORE_API_  Rectangle : public IShape2D {
 public:
     //! Rectangle constructor with lower left and upper right coordinates
     //! @param xlow x-coordinate of lower left corner

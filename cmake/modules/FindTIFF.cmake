@@ -31,10 +31,14 @@
 # (To distribute this file outside of CMake, substitute the full
 #  License text for the above reference.)
 
-find_path(TIFF_INCLUDE_DIR tiff.h QUIET)
+if(WIN32)
+    find_path(TIFF_INCLUDE_DIR tiff.h PATHS ${CMAKE_INCLUDE_PATH}/libtiff)
+else()
+    find_path(TIFF_INCLUDE_DIR tiff.h)
+endif()
 
 set(TIFF_NAMES ${TIFF_NAMES} tiff libtiff tiff3 libtiff3)
-find_library(TIFF_LIBRARY NAMES ${TIFF_NAMES} QUIET)
+find_library(TIFF_LIBRARY NAMES ${TIFF_NAMES})
 
 if(TIFF_INCLUDE_DIR AND EXISTS "${TIFF_INCLUDE_DIR}/tiffvers.h")
     file(STRINGS "${TIFF_INCLUDE_DIR}/tiffvers.h" tiff_version_str
@@ -60,21 +64,23 @@ if(TIFF_FOUND)
     message(STATUS "Found Tiff version ${TIFF_VERSION_STRING}")
     message(STATUS "--> TIFF_INCLUDE_DIR: ${TIFF_INCLUDE_DIR} TIFF_LIBRARIES: ${TIFF_LIBRARIES}")
 
-    # looking for C++ version of library
-    list(LENGTH TIFF_LIBRARIES len)
-    if(len EQUAL 1)
-        get_filename_component(tiff_library_name ${TIFF_LIBRARIES} NAME_WE )
-        get_filename_component(tiff_path ${TIFF_LIBRARIES} DIRECTORY )
-        set(cpp_tiff_library "${tiff_path}/${tiff_library_name}xx.so")
-        if(EXISTS ${cpp_tiff_library})
-            set(TIFF_LIBRARIES ${TIFF_LIBRARIES};${cpp_tiff_library})
-            message(STATUS "--> Adding to the path also C++ version TIFF_LIBRARIES:${TIFF_LIBRARIES}")
-        else()
-            message(STATUS "--> Can't find C++ version ${cpp_tiff_library}. Will proceed as if TIFF is absent on the system.")
-            set(TIFF_FOUND FALSE)
+    if(NOT WIN32)
+        # looking for C++ version of library
+        list(LENGTH TIFF_LIBRARIES len)
+        if(len EQUAL 1)
+            get_filename_component(tiff_library_name ${TIFF_LIBRARIES} NAME_WE )
+            get_filename_component(tiff_path ${TIFF_LIBRARIES} DIRECTORY )
+            get_filename_component(tiff_ext ${TIFF_LIBRARIES} EXT )
+            set(cpp_tiff_library "${tiff_path}/${tiff_library_name}xx.${tiff_ext}")
+            if(EXISTS ${cpp_tiff_library})
+                set(TIFF_LIBRARIES ${TIFF_LIBRARIES};${cpp_tiff_library})
+                message(STATUS "--> Adding to the path also C++ version TIFF_LIBRARIES:${TIFF_LIBRARIES}")
+            else()
+                message(WARNING "--> Can't find C++ version ${cpp_tiff_library}. Compilation may fail.")
+            endif()
         endif()
     endif()
-
+    message(STATUS "--> TIFF_INCLUDE_DIR: ${TIFF_INCLUDE_DIR} TIFF_LIBRARIES: ${TIFF_LIBRARIES}")
 endif()
 
 

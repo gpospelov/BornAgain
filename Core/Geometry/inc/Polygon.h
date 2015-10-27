@@ -27,7 +27,7 @@ class PolygonPrivate;
 //! @ingroup tools
 //! @brief The polygon in 2D space
 
-class Polygon : public IShape2D {
+class BA_CORE_API_ Polygon : public IShape2D {
 public:
     //! Polygon defined by two arrays with x and y coordinates of points.
     //! Sizes of arrays should coincide.  If polygon is unclosed (the last point

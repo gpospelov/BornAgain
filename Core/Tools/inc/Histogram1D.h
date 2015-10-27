@@ -22,7 +22,7 @@
 ////! @ingroup tools
 ////! @brief One dimensional histogram
 
-class Histogram1D : public IHistogram
+class BA_CORE_API_ Histogram1D : public IHistogram
 {
 public:
     //! Constructor for fix bin size histograms.

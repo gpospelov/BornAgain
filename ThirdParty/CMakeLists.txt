@@ -2,6 +2,7 @@
 
 if(BORNAGAIN_TIFF_SUPPORT)
     if(NOT TIFF_FOUND)
+        message(INFO "aaa adding tiff")
         add_subdirectory(libtiff)
     endif()
 endif()

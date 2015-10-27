@@ -63,7 +63,6 @@ set(include_files
     tiffconf.h
 )
 
-
 if(WIN32)
     list(APPEND source_files ${libtiff_source_dir}/tif_win32.c)
 else()
@@ -71,8 +70,8 @@ else()
 endif()
 
 
-set(include_dirs ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/${libtiff_source_dir})
-#set(include_dirs ${CMAKE_CURRENT_SOURCE_DIR})
+#set(include_dirs ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/${libtiff_source_dir})
+set(include_dirs ${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${include_dirs})
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_POINTER_SIZE=${CMAKE_SIZEOF_VOID_P}")
@@ -96,8 +95,8 @@ set(${library_name}_LIBRARY_TYPE SHARED)
 # exposing paths for library users
 #set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 #set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
-set(TIFF_INCLUDE_DIR ${include_dirs} PARENT_SCOPE)
-set(TIFF_LIBRARIES ${library_name} PARENT_SCOPE)
+set(TIFF_INCLUDE_DIR ${include_dirs} CACHE INTERNAL "")
+set(TIFF_LIBRARIES ${library_name} CACHE INTERNAL "")
 
 
 target_link_libraries(${library_name} ${M_LIBRARY})

@@ -98,7 +98,9 @@
 
 /* Define to 1 if you have the `snprintf' function. */
 /* #undef HAVE_SNPRINTF */
+#ifdef _WIN32
 #define HAVE_SNPRINTF
+#endif
 
 /* Define to 1 if you have the `sqrt' function. */
 /* #undef HAVE_SQRT */

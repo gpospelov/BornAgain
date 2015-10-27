@@ -40,9 +40,9 @@ find_package(GSL REQUIRED)
 # Tiff
 # -----------------------------------------------------------------------------
 if(BORNAGAIN_TIFF_SUPPORT)
-    find_package(TIFF REQUIRED)
+    find_package(TIFF)
     if(NOT TIFF_FOUND)
-        message(STATUS "No TIFF library found, local version will be build.")
+        set(BORNAGAIN_TIFF_SUPPORT OFF)
     endif()
 endif()
 

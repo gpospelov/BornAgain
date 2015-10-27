@@ -40,8 +40,7 @@ public:
     void setStrategy(IOutputDataReadStrategy *read_strategy);
 
 private:
-    std::vector<char> readBuffer(std::istream &input_stream);
-	OutputData<double > *getFromStream(std::istream &input_stream);
+    OutputData<double > *getFromFilteredStream(std::istream &input_stream);
     std::string m_file_name;
     boost::scoped_ptr<IOutputDataReadStrategy> m_read_strategy;
 };

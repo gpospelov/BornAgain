@@ -20,7 +20,6 @@
 GCC_DIAG_OFF(unused-parameter)
 #include <boost/iostreams/filtering_streambuf.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
-#include <boost/iostreams/device/array.hpp>
 #include <boost/iostreams/stream.hpp>
 #include <boost/iostreams/copy.hpp>
 #ifdef _MSC_VER

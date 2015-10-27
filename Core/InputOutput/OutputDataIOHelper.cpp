@@ -77,11 +77,10 @@ std::string OutputDataIOHelper::StripFileNameFromGzipExtention(const std::string
 
 bool OutputDataIOHelper::isBinaryFile(const std::string &file_name)
 {
-	std::cout << "sss " << file_name << " " << isCompressed(file_name) << std::endl;
     // all compressed files are always binary.
     if(isCompressed(file_name)) return true;
     // uncompressed "int" file is ascii
-    if(GetFileMainExtension(file_name) == IntExtention) return false;
+    if(isIntFile(file_name)) return false;
     // the rest (e.g. tif) is also binary
     return true;
 }

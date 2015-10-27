@@ -65,13 +65,13 @@ if(TIFF_FOUND)
     message(STATUS "--> TIFF_INCLUDE_DIR: ${TIFF_INCLUDE_DIR} TIFF_LIBRARIES: ${TIFF_LIBRARIES}")
 
     if(NOT WIN32)
-        # looking for C++ version of library
+        # looking for C++ version of library libtiffxx.so
         list(LENGTH TIFF_LIBRARIES len)
         if(len EQUAL 1)
             get_filename_component(tiff_library_name ${TIFF_LIBRARIES} NAME_WE )
             get_filename_component(tiff_path ${TIFF_LIBRARIES} DIRECTORY )
             get_filename_component(tiff_ext ${TIFF_LIBRARIES} EXT )
-            set(cpp_tiff_library "${tiff_path}/${tiff_library_name}xx.${tiff_ext}")
+            set(cpp_tiff_library "${tiff_path}/${tiff_library_name}xx${tiff_ext}")
             if(EXISTS ${cpp_tiff_library})
                 set(TIFF_LIBRARIES ${TIFF_LIBRARIES};${cpp_tiff_library})
                 message(STATUS "--> Adding to the path also C++ version TIFF_LIBRARIES:${TIFF_LIBRARIES}")

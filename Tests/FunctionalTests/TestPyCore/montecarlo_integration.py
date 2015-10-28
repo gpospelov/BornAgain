@@ -3,7 +3,7 @@ import sys
 import os
 import numpy
 import cmath
-from utils import get_reference_histogram
+from utils import get_reference_data
 
 sys.path.append(os.path.abspath(
                 os.path.join(os.path.split(__file__)[0],
@@ -78,7 +78,7 @@ def run_test():
     """
     result = run_simulation()
     # IntensityDataIOFactory.writeIntensityData(result, 'montecarlo_integration.int')
-    reference = get_reference_histogram('montecarlo_integration.int.gz')
+    reference = get_reference_data('montecarlo_integration.int.gz')
     diff = IntensityDataFunctions.getRelativeDifference(result, reference)
     status = "OK"
     if diff > 2e-10 or numpy.isnan(diff):

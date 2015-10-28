@@ -76,7 +76,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FormFactorCone.pypp.h"
 #include "vector_string_t.pypp.h"
 #include "Polygon.pypp.h"
-#include "FormFactorInfLongRipple1.pypp.h"
 #include "RectangularDetector.pypp.h"
 #include "IDistribution1D.pypp.h"
 #include "MesoCrystal.pypp.h"
@@ -104,7 +103,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "Bin1D.pypp.h"
 #include "FormFactorRipple2.pypp.h"
 #include "InterferenceFunction2DLattice.pypp.h"
-#include "FormFactorInfLongBox.pypp.h"
 #include "ThreadInfo.pypp.h"
 #include "DistributionCosine.pypp.h"
 #include "FTDistribution1DGauss.pypp.h"
@@ -156,7 +154,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "ICompositeSample.pypp.h"
 #include "GISASSimulation.pypp.h"
 #include "SphericalDetector.pypp.h"
-#include "FormFactorInfLongRipple2.pypp.h"
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 #include "__call_policies.pypp.hpp"
@@ -226,9 +223,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorFullSpheroid_class();
     register_FormFactorGauss_class();
     register_FormFactorHemiEllipsoid_class();
-    register_FormFactorInfLongBox_class();
-    register_FormFactorInfLongRipple1_class();
-    register_FormFactorInfLongRipple2_class();
     register_FormFactorLorentz_class();
     register_FormFactorPrism3_class();
     register_FormFactorPrism6_class();

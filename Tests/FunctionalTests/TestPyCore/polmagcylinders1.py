@@ -4,7 +4,7 @@ import os
 import numpy
 import gzip
 from utils import get_difference
-from utils import get_reference_histogram
+from utils import get_reference_data
 
 sys.path.append(os.path.abspath(
                 os.path.join(os.path.split(__file__)[0],
@@ -59,7 +59,7 @@ def run_test():
     result = RunSimulation()
     # IntensityDataIOFactory.writeIntensityData(result, 'polmagcylinders1_reference.int')
 
-    reference = get_reference_histogram('polmagcylinders1_reference.int.gz')
+    reference = get_reference_data('polmagcylinders1_reference.int.gz')
 
     diff = get_difference(result.getArray(), reference.getArray())
 

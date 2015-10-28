@@ -7,7 +7,7 @@ import numpy
 import time
 import ctypes
 import math
-from utils import get_reference_histogram
+from utils import get_reference_data
 
 
 sys.path.append(os.path.abspath(
@@ -152,7 +152,7 @@ def runTest():
     simulation.setSampleBuilder( sample_builder )
 
     # loading reference data
-    reference = get_reference_histogram("mesocrystal01_reference.int.gz")
+    reference = get_reference_data("mesocrystal01_reference.int.gz")
 
     # setting detector axis as in reference data
     simulation.setDetectorParameters(reference)

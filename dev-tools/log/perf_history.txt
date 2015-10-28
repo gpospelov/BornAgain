@@ -483,3 +483,9 @@
 | date                | hostname   | sysinfo       | tr | total    | MultiLayer   | CylindersInD | RotatedPyram | CoreShell    | SquareLattic | RadialParaCr | HexParaCryst | SSCA         | Mesocrystal  | PolMagCyl    |
 | 2015-10-21 10:42:06 | jcnsopc126 | linuxx8664gcc | 0  | 19.284   | 1.781        | 1.333        | 1.785        | 1.133        | 3.145        | 1.404        | 2.156        | 1.847        | 1.884        | 2.818        |
 | 2015-10-21 10:42:30 | jcnsopc126 | linuxx8664gcc | 0  | 19.756   | 1.737        | 1.336        | 1.842        | 1.200        | 3.262        | 1.397        | 2.116        | 1.912        | 2.013        | 2.942   
+
+# PreRelease state. Seems that much worser. Simulation normalize?
+| date                | hostname   | sysinfo       | tr | total    | MultiLayer   | CylindersInD | RotatedPyram | CoreShell    | SquareLattic | RadialParaCr | HexParaCryst | SSCA         | Mesocrystal  | PolMagCyl    |
+| 2015-10-28 17:02:32 | jcnsopc126 | linuxx8664gcc | 0  | 25.911   | 2.483        | 1.694        | 2.407        | 1.504        | 4.106        | 1.733        | 2.980        | 2.403        | 2.757        | 3.843        |
+| 2015-10-28 17:04:26 | jcnsopc126 | linuxx8664gcc | 0  | 25.693   | 2.573        | 1.693        | 2.410        | 1.472        | 4.134        | 1.748        | 2.856        | 2.376        | 2.715        | 3.716   
+

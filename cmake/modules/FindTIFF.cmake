@@ -61,7 +61,7 @@ if(TIFF_FOUND)
 endif()
 
 if(TIFF_FOUND)
-    message(STATUS "Found Tiff version ${TIFF_VERSION_STRING}")
+    #message(STATUS "Found Tiff version ${TIFF_VERSION_STRING}")
     message(STATUS "--> TIFF_INCLUDE_DIR: ${TIFF_INCLUDE_DIR} TIFF_LIBRARIES: ${TIFF_LIBRARIES}")
 
     if(NOT WIN32)

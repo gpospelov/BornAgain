@@ -49,7 +49,7 @@ void TestFourier::execute()
     simulation.setBeamIntensity(8e12);
 
     simulation.runSimulation();
-    simulation.normalize();
+    //simulation.normalize();
 
     mp_intensity_output = simulation.getDetectorIntensity();
     OutputData<complex_t> fft_map;

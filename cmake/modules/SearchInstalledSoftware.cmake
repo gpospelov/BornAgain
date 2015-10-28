@@ -40,10 +40,10 @@ find_package(GSL REQUIRED)
 # Tiff
 # -----------------------------------------------------------------------------
 if(BORNAGAIN_TIFF_SUPPORT)
-    find_package(TIFF)
+    find_package(TIFF 4.0.2)
     if(NOT TIFF_FOUND)
         set(BORNAGAIN_TIFF_SUPPORT OFF)
-        message(INFO "LibTIFF was not found on the system , disabling tiff support.")
+        message(STATUS "--> LibTIFF was not found on the system , disabling tiff support.")
     endif()
 endif()
 

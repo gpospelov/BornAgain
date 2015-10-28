@@ -58,6 +58,9 @@ public:
     //! Constructor for 2D histograms from basic OutputData object
     Histogram2D(const OutputData<double> &data);
 
+    //! Returns clone of other histogram
+    Histogram2D *clone() const;
+
     //! Returns the number of histogram dimensions
     size_t getRank() const { return 2;}
 

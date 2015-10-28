@@ -39,10 +39,13 @@ public:
     enum DataType {INTEGRAL, AVERAGE, ERROR, NENTRIES};
 
     IHistogram();
+    IHistogram(const IHistogram &other);
     virtual ~IHistogram(){}
 
     IHistogram(const IAxis &axis_x);
     IHistogram(const IAxis &axis_x, const IAxis &axis_y);
+
+    virtual IHistogram *clone() const = 0;
 
     //! Returns number of histogram dimensions.
     virtual size_t getRank() const;
@@ -184,6 +187,9 @@ public:
     //! addition-assignment operator for two histograms
     const IHistogram& operator+=(const IHistogram& right);
 
+    //! returns histogram representing relative difference of two histograms.
+    static IHistogram *createRelativeDifferenceHistogram(const IHistogram &lhs,
+                                                         const IHistogram &rhs);
 
 protected:
     void check_x_axis() const;

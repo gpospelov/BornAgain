@@ -24,7 +24,7 @@ def plot_intensity_data(ref, data):
 if __name__ == '__main__':
     if len(sys.argv)!=3:
         exit("Usage: python plot_intensity_data_diff.py intensity_reference.int.gz intensity_other.int.gz")
-    print "xxx"
+
     intensity_ref = IntensityDataIOFactory.readIntensityData(sys.argv[1])
     intensity_other = IntensityDataIOFactory.readIntensityData(sys.argv[2])
     data = numpy.abs((intensity_ref.getArray() - intensity_other.getArray())/intensity_ref.getArray())

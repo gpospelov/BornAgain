@@ -387,6 +387,9 @@ def ManualClassTunings(mb):
     cl.member_function("getArray").call_policies = call_policies.custom_call_policies("")
     cl.member_function("getXaxis").call_policies = call_policies.return_internal_reference()
     cl.member_function("getYaxis").call_policies = call_policies.return_internal_reference()
+    cl.member_function("createOutputData").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
+    cl.member_function("createRelativeDifferenceHistogram").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
+
 
     cl = mb.class_("Histogram1D")
     cl.member_function("getBinCenters").exclude()

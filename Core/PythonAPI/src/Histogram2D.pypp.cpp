@@ -32,28 +32,40 @@ struct Histogram2D_wrapper : Histogram2D, bp::wrapper< Histogram2D > {
     : Histogram2D( nbinsx, xlow, xup, nbinsy, ylow, yup )
       , bp::wrapper< Histogram2D >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     Histogram2D_wrapper(int nbinsx, ::std::vector< double > const & xbins, int nbinsy, ::std::vector< double > const & ybins )
     : Histogram2D( nbinsx, boost::ref(xbins), nbinsy, boost::ref(ybins) )
       , bp::wrapper< Histogram2D >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     Histogram2D_wrapper(::IAxis const & axis_x, ::IAxis const & axis_y )
     : Histogram2D( boost::ref(axis_x), boost::ref(axis_y) )
       , bp::wrapper< Histogram2D >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     Histogram2D_wrapper(::OutputData< double > const & data )
     : Histogram2D( boost::ref(data) )
       , bp::wrapper< Histogram2D >(){
         // constructor
+    m_pyobj = 0;
+    }
+
+    virtual ::Histogram2D * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->Histogram2D::clone(  );
+        }
+    }
     
+    ::Histogram2D * default_clone(  ) const  {
+        return Histogram2D::clone( );
     }
 
     virtual ::std::size_t getRank(  ) const  {
@@ -68,17 +80,31 @@ struct Histogram2D_wrapper : Histogram2D, bp::wrapper< Histogram2D > {
         return Histogram2D::getRank( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_Histogram2D_class(){
 
     { //::Histogram2D
-        typedef bp::class_< Histogram2D_wrapper, bp::bases< IHistogram >, boost::noncopyable > Histogram2D_exposer_t;
+        typedef bp::class_< Histogram2D_wrapper, bp::bases< IHistogram >, std::auto_ptr< Histogram2D_wrapper >, boost::noncopyable > Histogram2D_exposer_t;
         Histogram2D_exposer_t Histogram2D_exposer = Histogram2D_exposer_t( "Histogram2D", bp::init< int, double, double, int, double, double >(( bp::arg("nbinsx"), bp::arg("xlow"), bp::arg("xup"), bp::arg("nbinsy"), bp::arg("ylow"), bp::arg("yup") ), "Constructor for fix bin size histograms. @param nbinsx number of bins on X-axis @param xlow low edge of the first bin of X-axis @param xup upper edge of the last bin of X-axis @param nbinsy number of bins on Y axis @param ylow low edge of the first bin of Y-axis @param yup upper edge of the last bin of Y-axis \n\n:Parameters:\n  - 'nbinsx' - number of bins on X-axis\n  - 'xlow' - low edge of the first bin of X-axis\n  - 'xup' - upper edge of the last bin of X-axis\n  - 'nbinsy' - number of bins on Y axis\n  - 'ylow' - low edge of the first bin of Y-axis\n  - 'yup' - upper edge of the last bin of Y-axis\n") );
         bp::scope Histogram2D_scope( Histogram2D_exposer );
         Histogram2D_exposer.def( bp::init< int, std::vector< double > const &, int, std::vector< double > const & >(( bp::arg("nbinsx"), bp::arg("xbins"), bp::arg("nbinsy"), bp::arg("ybins") ), "Constructor for variable bin size histograms. @param nbinsx number of bins on X-axis @param xbins Array of size nbins+1 containing low-edges for each bin and upper edge of last bin. @param nbinsy number of bins on Y-axis @param ybins Array of size nbins+1 containing low-edges for each bin and upper edge of last bin. \n\n:Parameters:\n  - 'nbinsx' - number of bins on X-axis\n  - 'xbins' - Array of size nbins+1 containing low-edges for each\n  - 'nbinsy' - number of bins on Y-axis\n  - 'ybins' - Array of size nbins+1 containing low-edges for each\n") );
         Histogram2D_exposer.def( bp::init< IAxis const &, IAxis const & >(( bp::arg("axis_x"), bp::arg("axis_y") ), "Constructor for 2D histogram with custom axes.") );
         Histogram2D_exposer.def( bp::init< OutputData< double > const & >(( bp::arg("data") ), "Constructor for 2D histograms from basic OutputData object.") );
+        { //::Histogram2D::clone
+        
+            typedef ::Histogram2D * ( ::Histogram2D::*clone_function_type)(  ) const;
+            typedef ::Histogram2D * ( Histogram2D_wrapper::*default_clone_function_type)(  ) const;
+            
+            Histogram2D_exposer.def( 
+                "clone"
+                , clone_function_type(&::Histogram2D::clone)
+                , default_clone_function_type(&Histogram2D_wrapper::default_clone)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::Histogram2D::crop
         
             typedef ::Histogram2D * ( ::Histogram2D::*crop_function_type)( double,double,double,double ) ;

@@ -33,6 +33,10 @@ IOutputDataWriteStrategy *OutputDataWriteFactory::getWriteStrategy(const std::st
         result = new OutputDataWriteINTStrategy();
     }
 
+    else if(OutputDataIOHelper::isTxtFile(file_name)) {
+        result = new OutputDataWriteNumpyTXTStrategy();
+    }
+
 #ifdef BORNAGAIN_TIFF_SUPPORT
     else if(OutputDataIOHelper::isTiffFile(file_name)) {
         result = new OutputDataWriteTiffStrategy();

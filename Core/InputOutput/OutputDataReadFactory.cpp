@@ -36,11 +36,14 @@ IOutputDataReadStrategy *OutputDataReadFactory::getReadStrategy(const std::strin
         result = new OutputDataReadINTStrategy();
     }
 
+    else if(OutputDataIOHelper::isTxtFile(file_name)) {
+        result = new OutputDataReadNumpyTXTStrategy();
+    }
+
 #ifdef BORNAGAIN_TIFF_SUPPORT
     else if(OutputDataIOHelper::isTiffFile(file_name)) {
        result = new OutputDataReadTiffStrategy();
     }
-
 #endif // BORNAGAIN_TIFF_SUPPORT
 
     else {

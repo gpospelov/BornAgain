@@ -79,8 +79,9 @@ bool OutputDataIOHelper::isBinaryFile(const std::string &file_name)
 {
     // all compressed files are always binary.
     if(isCompressed(file_name)) return true;
-    // uncompressed "int" file is ascii
+    // uncompressed "int" or "txt" files are ascii
     if(isIntFile(file_name)) return false;
+    if(isTxtFile(file_name)) return false;
     // the rest (e.g. tif) is also binary
     return true;
 }
@@ -88,6 +89,11 @@ bool OutputDataIOHelper::isBinaryFile(const std::string &file_name)
 bool OutputDataIOHelper::isIntFile(const std::string &file_name)
 {
     return GetFileMainExtension(file_name) == IntExtention;
+}
+
+bool OutputDataIOHelper::isTxtFile(const std::string &file_name)
+{
+    return GetFileMainExtension(file_name) == TxtExtention;
 }
 
 bool OutputDataIOHelper::isTiffFile(const std::string &file_name)
@@ -232,4 +238,6 @@ void OutputDataIOHelper::fillOutputData(OutputData<double> *data, std::istream &
     if(it!= data->end())
         throw Exceptions::FormatErrorException("OutputDataIOHelper::fillOutputData() -> Error while parsing data.");
 }
+
+
 

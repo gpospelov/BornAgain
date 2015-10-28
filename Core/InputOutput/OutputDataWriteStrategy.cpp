@@ -16,6 +16,7 @@
 #include "OutputDataWriteStrategy.h"
 #include "OutputData.h"
 #include "TiffHandler.h"
+#include "BornAgainNamespace.h"
 #include <iostream>
 #include <iomanip>
 
@@ -52,6 +53,39 @@ void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double> &data,
 
 // ----------------------------------------------------------------------------
 
+void OutputDataWriteNumpyTXTStrategy::writeOutputData(const OutputData<double> &data,
+                                                      std::ostream &output_stream)
+{
+    if(data.getRank() != 2) {
+        throw LogicErrorException("OutputDataWriteNumpyTXTStrategy::writeOutputData -> Error. "
+                                  "Only 2-dim arrays supported");
+    }
+
+    output_stream << "# BornAgain Intensity Data" << std::endl;
+    output_stream << "# Simple 2D array suitable for numpy, matlab etc." << std::endl;
+
+    size_t nrows = data.getAxis(BornAgain::Y_AXIS_INDEX)->getSize();
+    size_t ncols = data.getAxis(BornAgain::X_AXIS_INDEX)->getSize();
+
+    output_stream << "# [nrows=" << nrows
+                  << ", ncols=" << ncols << "]" << std::endl;
+
+    std::vector<int> axes_indices(2);
+    for(size_t row=0; row<nrows; ++row) {
+        for(size_t col=0; col<ncols; ++col) {
+            axes_indices[0] = col;
+            axes_indices[1] = nrows - 1 - row;
+            size_t global_index = data.toGlobalIndex(axes_indices);
+            output_stream << std::scientific << std::setprecision(m_precision)
+                          << data[global_index] << "    ";
+        }
+        output_stream << std::endl;
+    }
+
+}
+
+// ----------------------------------------------------------------------------
+
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
@@ -73,5 +107,6 @@ void OutputDataWriteTiffStrategy::writeOutputData(const OutputData<double> &data
 }
 
 #endif
+
 
 

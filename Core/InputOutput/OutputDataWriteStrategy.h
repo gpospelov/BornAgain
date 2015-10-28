@@ -46,6 +46,16 @@ public:
     virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
 };
 
+//! @class OutputDataWriteNumpyTXTStrategy
+//! @ingroup input_output
+//! @brief Strategy to write OutputData to simple ASCII file with the layout as in numpy.savetxt
+class OutputDataWriteNumpyTXTStrategy : public IOutputDataWriteStrategy
+{
+public:
+    virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
+};
+
+
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
 class TiffHandler;

@@ -56,7 +56,7 @@ vdouble1d_t Utils::String::parse_doubles(const std::string& str)
 //    std::copy(std::istream_iterator<double>(iss),
 //              std::istream_iterator<double>(), back_inserter(buff_1d));
     if( buff_1d.empty() ) {
-        std::cout << "OutputDataReadFileASCII::parse_doubles() -> "
+        std::cout << "Utils::String::parse_doubles -> "
             "Warning! No parsed values in 1d vector of doubles." << std::endl;
         std::cout << "Line '" << str << "'" << std::endl;
     }

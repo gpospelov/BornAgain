@@ -27,6 +27,7 @@ const QString jpg_extension = ".jpg";
 const QString pdf_extension = ".pdf";
 const QString int_extension = ".int";
 const QString tif_extension = ".tif";
+const QString txt_extension = ".txt";
 
 QVector<SavePlotAssistant::Format> initializeFormats() {
     QVector<SavePlotAssistant::Format> result;
@@ -34,6 +35,7 @@ QVector<SavePlotAssistant::Format> initializeFormats() {
     result.push_back(SavePlotAssistant::Format(jpg_extension, "*.jpg"));
     result.push_back(SavePlotAssistant::Format(pdf_extension, "*.pdf"));
     result.push_back(SavePlotAssistant::Format(int_extension, "BornAgain ASCII format (*.int)"));
+    result.push_back(SavePlotAssistant::Format(txt_extension, "Simple ASCII table (*.txt)"));
 #ifdef BORNAGAIN_TIFF_SUPPORT
     result.push_back(SavePlotAssistant::Format(tif_extension, "32-bits TIFF files (*.tif)"));
 #endif
@@ -61,9 +63,6 @@ void SavePlotAssistant::savePlot(const QString &dirname, ColorMapPlot *plot,
         getFilterString(), &selectedFilter);
 
     QString nameToSave = composeFileName(fileName, selectedFilter);
-    qDebug() << "XXX savePLot fileName:" << fileName
-             << "selectedFilter:" << selectedFilter
-             << "nameToSave" << nameToSave;
 
     if(!nameToSave.isEmpty()) {
         try {

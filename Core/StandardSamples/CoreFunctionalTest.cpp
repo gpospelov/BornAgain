@@ -101,9 +101,8 @@ void CoreFunctionalTest::saveSimulationResults() const
 //! Constructs file name to save results. Strip gzip extention if necessary.
 std::string CoreFunctionalTest::getSimulationResultsFileNameAndPath() const
 {
-    std::string result
-        = OutputDataIOHelper::StripFileNameFromGzipExtention(m_simulation_results_file_name);
-    result = Utils::FileSystem::GetJoinPath(directory_name_for_failed_tests, result);
+    std::string result = Utils::FileSystem::GetJoinPath(directory_name_for_failed_tests,
+                                            m_simulation_results_file_name);
     return result;
 }
 

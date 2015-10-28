@@ -47,6 +47,7 @@ include_dirs = [
     '../../Core/Tools/inc',
     '../../Core/PythonAPI/inc',
     '../../Core/Geometry/inc',
+    '../../Core/InputOutput',
 ]
 
 include_classes = [

@@ -64,17 +64,6 @@ std::string OutputDataIOHelper::GetFileMainExtension(const std::string& name)
     return Utils::FileSystem::GetFileExtension(stripped_name);
 }
 
-std::string OutputDataIOHelper::StripFileNameFromGzipExtention(const std::string &name)
-{
-    if( !isGZipped(name) ) {
-        return name;
-    } else {
-        std::string stripped_name = name.substr(0, name.size()-GzipExtention.size());
-        return stripped_name;
-    }
-}
-
-
 bool OutputDataIOHelper::isBinaryFile(const std::string &file_name)
 {
     // all compressed files are always binary.

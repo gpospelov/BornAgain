@@ -48,9 +48,6 @@ BA_CORE_API_ bool isBZipped(const std::string& name);
 //! Returns file extension after stripping '.gz' if any
 BA_CORE_API_ std::string GetFileMainExtension(const std::string& name);
 
-//! Returns file name after stripping '.gz' if any
-BA_CORE_API_ std::string StripFileNameFromGzipExtention(const std::string& name);
-
 //! returns true if file name corresponds to a binary file
 BA_CORE_API_ bool isBinaryFile(const std::string &file_name);
 

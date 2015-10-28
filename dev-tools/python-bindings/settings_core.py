@@ -410,7 +410,7 @@ def ManualClassTunings(mb):
     cl = mb.class_("IntensityDataIOFactory")
 
     cl.member_function("readOutputData").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
-    cl.member_function("readHistogram").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
+    # cl.member_function("readHistogram").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
     cl.member_function("readIntensityData").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
 
 

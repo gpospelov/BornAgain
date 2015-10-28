@@ -23,7 +23,7 @@
 class IOutputDataReadStrategy;
 
 //! @class OutputDataReadFactory
-//! @ingroup input_output
+//! @ingroup input_output_internal
 //! @brief Creates reader appropariate for given type of files
 
 class BA_CORE_API_ OutputDataReadFactory

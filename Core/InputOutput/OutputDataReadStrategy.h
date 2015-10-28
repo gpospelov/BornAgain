@@ -22,7 +22,7 @@ template <class T> class OutputData;
 
 
 //! @class IOutputDataReadStrategy
-//! @ingroup input_output
+//! @ingroup input_output_internal
 //! @brief Interface for reading strategy of OutputData from file
 class BA_CORE_API_ IOutputDataReadStrategy
 {
@@ -34,7 +34,7 @@ private:
 
 
 //! @class OutputDataReadINTStrategy
-//! @ingroup input_output
+//! @ingroup input_output_internal
 //! @brief Strategy to read BornAgain native IntensityData from ASCII file
 class OutputDataReadINTStrategy : public IOutputDataReadStrategy
 {
@@ -43,7 +43,7 @@ public:
 };
 
 //! @class OutputDataReadNumpyTXTStrategy
-//! @ingroup input_output
+//! @ingroup input_output_internal
 //! @brief Strategy to read OutputData from simple ASCII file with the layout as in numpy.savetxt
 class OutputDataReadNumpyTXTStrategy : public IOutputDataReadStrategy
 {
@@ -57,7 +57,7 @@ public:
 class TiffHandler;
 
 //! @class OutputDataReadTiffStrategy
-//! @ingroup input_output
+//! @ingroup input_output_internal
 //! @brief Reads tiff files
 
 class BA_CORE_API_ OutputDataReadTiffStrategy : public IOutputDataReadStrategy

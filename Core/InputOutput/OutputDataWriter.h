@@ -24,7 +24,7 @@
 template <class T> class OutputData;
 
 //! @class OutputDataWriter
-//! @ingroup input_output
+//! @ingroup input_output_internal
 //! @brief Write OutputData to file using different witing strategies
 class BA_CORE_API_ OutputDataWriter
 {

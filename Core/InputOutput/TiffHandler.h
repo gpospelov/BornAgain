@@ -26,7 +26,7 @@
 #include <boost/scoped_ptr.hpp>
 
 //! @class TiffHandler
-//! @ingroup input_output
+//! @ingroup input_output_internal
 //! @brief Reads/write tiff files, should be used through TiffReadStrategy
 
 class BA_CORE_API_ TiffHandler

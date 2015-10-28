@@ -23,7 +23,7 @@ template <class T> class OutputData;
 
 
 //! @class IOutputDataWriteStrategy
-//! @ingroup input_output
+//! @ingroup input_output_internal
 //! @brief Strategy interface to write OututData in file
 
 class BA_CORE_API_ IOutputDataWriteStrategy
@@ -38,7 +38,7 @@ protected:
 };
 
 //! @class OutputDataWriteINTStrategy
-//! @ingroup input_output
+//! @ingroup input_output_internal
 //! @brief Strategy to write OutputData to special BornAgain ASCII format
 class OutputDataWriteINTStrategy : public IOutputDataWriteStrategy
 {
@@ -47,7 +47,7 @@ public:
 };
 
 //! @class OutputDataWriteNumpyTXTStrategy
-//! @ingroup input_output
+//! @ingroup input_output_internal
 //! @brief Strategy to write OutputData to simple ASCII file with the layout as in numpy.savetxt
 class OutputDataWriteNumpyTXTStrategy : public IOutputDataWriteStrategy
 {
@@ -61,7 +61,7 @@ public:
 class TiffHandler;
 
 //! @class OutputDataWriteTiffStrategy
-//! @ingroup input_output
+//! @ingroup input_output_internal
 //! @brief Strategy to write OutputData to tiff files
 class OutputDataWriteTiffStrategy : public IOutputDataWriteStrategy
 {

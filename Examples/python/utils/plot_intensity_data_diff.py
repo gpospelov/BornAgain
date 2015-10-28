@@ -4,27 +4,27 @@
 
 import numpy
 import matplotlib
-import pylab
+from matplotlib import pyplot as plt
 from bornagain import *
 
 
 def plot_intensity_data(ref, data):
-    phi_min = rad2deg(ref.getAxis(0).getMin())
-    phi_max = rad2deg(ref.getAxis(0).getMax())
-    alpha_min = rad2deg(ref.getAxis(1).getMin())
-    alpha_max = rad2deg(ref.getAxis(1).getMax())
-    im = pylab.imshow(numpy.rot90(data, 1), norm=matplotlib.colors.LogNorm(),
-                      extent=[phi_min, phi_max, alpha_min, alpha_max])
-    cb = pylab.colorbar(im)
+    im = plt.imshow(data,
+                    norm=matplotlib.colors.LogNorm(),
+                    extent=[ref.getXmin()/deg, ref.getXmax()/deg, ref.getYmin()/deg, ref.getYmax()/deg],
+                    aspect='auto')
+
+    cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)
-    pylab.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
-    pylab.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
-    pylab.show()
+    plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
+    plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
+    plt.show()
 
 
 if __name__ == '__main__':
     if len(sys.argv)!=3:
         exit("Usage: python plot_intensity_data_diff.py intensity_reference.int.gz intensity_other.int.gz")
+    print "xxx"
     intensity_ref = IntensityDataIOFactory.readIntensityData(sys.argv[1])
     intensity_other = IntensityDataIOFactory.readIntensityData(sys.argv[2])
     data = numpy.abs((intensity_ref.getArray() - intensity_other.getArray())/intensity_ref.getArray())

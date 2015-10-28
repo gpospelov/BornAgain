@@ -23,7 +23,7 @@
 class IOutputDataWriteStrategy;
 
 //! @class OutputDataWriteFactory
-//! @ingroup input_output
+//! @ingroup input_output_internal
 //! @brief Creates writer appropariate for given type of files
 
 class BA_CORE_API_ OutputDataWriteFactory

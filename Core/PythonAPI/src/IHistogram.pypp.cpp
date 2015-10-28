@@ -32,21 +32,33 @@ struct IHistogram_wrapper : IHistogram, bp::wrapper< IHistogram > {
     : IHistogram( )
       , bp::wrapper< IHistogram >(){
         // null constructor
-    
+    m_pyobj = 0;
+    }
+
+    IHistogram_wrapper(::IHistogram const & other )
+    : IHistogram( boost::ref(other) )
+      , bp::wrapper< IHistogram >(){
+        // copy constructor
+    m_pyobj = 0;
     }
 
     IHistogram_wrapper(::IAxis const & axis_x )
     : IHistogram( boost::ref(axis_x) )
       , bp::wrapper< IHistogram >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     IHistogram_wrapper(::IAxis const & axis_x, ::IAxis const & axis_y )
     : IHistogram( boost::ref(axis_x), boost::ref(axis_y) )
       , bp::wrapper< IHistogram >(){
         // constructor
-    
+    m_pyobj = 0;
+    }
+
+    virtual ::IHistogram * clone(  ) const {
+        bp::override func_clone = this->get_override( "clone" );
+        return func_clone(  );
     }
 
     virtual ::std::size_t getRank(  ) const  {
@@ -61,12 +73,14 @@ struct IHistogram_wrapper : IHistogram, bp::wrapper< IHistogram > {
         return IHistogram::getRank( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_IHistogram_class(){
 
     { //::IHistogram
-        typedef bp::class_< IHistogram_wrapper, boost::noncopyable > IHistogram_exposer_t;
+        typedef bp::class_< IHistogram_wrapper, std::auto_ptr< IHistogram_wrapper >, boost::noncopyable > IHistogram_exposer_t;
         IHistogram_exposer_t IHistogram_exposer = IHistogram_exposer_t( "IHistogram", "Base class for 1D and 2D histograms holding values of double typ.", bp::init< >() );
         bp::scope IHistogram_scope( IHistogram_exposer );
         bp::enum_< IHistogram::DataType>("DataType")
@@ -76,6 +90,7 @@ void register_IHistogram_class(){
             .value("NENTRIES", IHistogram::NENTRIES)
             .export_values()
             ;
+        IHistogram_exposer.def( bp::init< IHistogram const & >(( bp::arg("other") )) );
         IHistogram_exposer.def( bp::init< IAxis const & >(( bp::arg("axis_x") )) );
         IHistogram_exposer.def( bp::init< IAxis const &, IAxis const & >(( bp::arg("axis_x"), bp::arg("axis_y") )) );
         { //::IHistogram::addBinContent
@@ -87,6 +102,16 @@ void register_IHistogram_class(){
                 , addBinContent_function_type( &::IHistogram::addBinContent )
                 , ( bp::arg("globalbin"), bp::arg("value") )
                 , "Add the value to the bin." );
+        
+        }
+        { //::IHistogram::clone
+        
+            typedef ::IHistogram * ( ::IHistogram::*clone_function_type)(  ) const;
+            
+            IHistogram_exposer.def( 
+                "clone"
+                , bp::pure_virtual( clone_function_type(&::IHistogram::clone) )
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IHistogram::createHistogram
@@ -111,6 +136,18 @@ void register_IHistogram_class(){
                 , ( bp::arg("dataType")=::IHistogram::INTEGRAL )
                 , bp::return_value_policy< bp::manage_new_object >()
                 , "creates new OutputData with histogram's shape and put there values corresponding to DataType." );
+        
+        }
+        { //::IHistogram::createRelativeDifferenceHistogram
+        
+            typedef ::IHistogram * ( *createRelativeDifferenceHistogram_function_type )( ::IHistogram const &,::IHistogram const & );
+            
+            IHistogram_exposer.def( 
+                "createRelativeDifferenceHistogram"
+                , createRelativeDifferenceHistogram_function_type( &::IHistogram::createRelativeDifferenceHistogram )
+                , ( bp::arg("lhs"), bp::arg("rhs") )
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "returns histogram representing relative difference of two histograms." );
         
         }
         { //::IHistogram::findGlobalBin
@@ -487,6 +524,7 @@ void register_IHistogram_class(){
         
         }
         IHistogram_exposer.staticmethod( "createHistogram" );
+        IHistogram_exposer.staticmethod( "createRelativeDifferenceHistogram" );
     }
 
 }

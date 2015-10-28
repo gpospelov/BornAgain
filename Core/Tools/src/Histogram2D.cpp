@@ -42,6 +42,11 @@ Histogram2D::Histogram2D(const OutputData<double> &data)
     init_from_data(data);
 }
 
+Histogram2D *Histogram2D::clone() const
+{
+    return new Histogram2D(*this);
+}
+
 int Histogram2D::fill(double x, double y, double weight)
 {
     if(x < getXaxis()->getMin() || x >= getXaxis()->getMax()) return -1;

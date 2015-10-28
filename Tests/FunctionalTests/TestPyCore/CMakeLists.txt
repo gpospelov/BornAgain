@@ -54,6 +54,11 @@ set(list_of_python_tests
 #    "transform_BoxComposition.py" # broken, problems with absoprtion in FormFactorTruncatedSphere
 )
 
+if(BORNAGAIN_TIFF_SUPPORT)
+    list(APPEND list_of_python_tests "intensitydata_io_tiff.py")
+endif()
+
+
 foreach(_test ${list_of_python_tests})
     add_test(${_test} ${PYTHON_EXECUTABLE} "${CMAKE_BINARY_DIR}/Tests/FunctionalTests/TestPyCore/${_test}")
 endforeach()

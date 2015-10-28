@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/src/OutputDataReader.cpp
+//! @file      InputOutput/OutputDataReader.cpp
 //! @brief     Implements class OutputDataReader.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,30 +15,15 @@
 #include "OutputData.h"
 #include "OutputDataReader.h"
 #include "OutputDataReadStrategy.h"
+#include "OutputDataIOHelper.h"
+#include "boost_streams.h"
 #include <fstream>
-#include <cassert>
-#include <iostream>
 
 OutputDataReader::OutputDataReader(const std::string &file_name)
     : m_file_name(file_name)
-    , m_read_strategy(0)
 {
 
 }
-
-
-OutputDataReader::OutputDataReader(IOutputDataReadStrategy *read_strategy)
-    : m_read_strategy(read_strategy)
-{
-
-}
-
-
-OutputDataReader::~OutputDataReader()
-{
-    delete m_read_strategy;
-}
-
 
 OutputData<double > *OutputDataReader::getOutputData()
 {
@@ -47,24 +32,24 @@ OutputData<double > *OutputDataReader::getOutputData()
                                    " Error! No read strategy defined");
     }
 
-    // opening file
     std::ifstream fin;
-
     std::ios_base::openmode openmode = std::ios::in;
-    if(m_read_strategy->isBinary()) openmode = std::ios::in | std::ios_base::binary;
+    if (OutputDataIOHelper::isBinaryFile(m_file_name))
+        openmode = std::ios::in | std::ios_base::binary;
 
     fin.open(m_file_name.c_str(), openmode );
-    if( !fin.is_open() ) {
+    if(!fin.is_open()) {
         throw FileNotIsOpenException("OutputDataReader::getOutputData() -> Error. Can't open file '"
                                      + m_file_name + "' for reading.");
     }
-    if ( !fin.good() ) {
+    if (!fin.good()) {
         throw FileIsBadException("OutputDataReader::getOutputData() -> Error! File is not good, "
                                  "probably it is a directory.");
     }
 
-    OutputData<double > *result = m_read_strategy->readOutputData(fin);
-    fin.close();
+    OutputData<double > *result = getFromFilteredStream(fin);
+
+	fin.close();
 
     return result;
 }
@@ -72,8 +57,23 @@ OutputData<double > *OutputDataReader::getOutputData()
 
 void OutputDataReader::setStrategy(IOutputDataReadStrategy *read_strategy)
 {
-    delete m_read_strategy;
-    m_read_strategy = read_strategy;
+    m_read_strategy.reset(read_strategy);
 }
 
 
+OutputData<double > *OutputDataReader::getFromFilteredStream(std::istream &input_stream)
+{
+	boost::iostreams::filtering_streambuf<boost::iostreams::input> input_filtered;
+	if (OutputDataIOHelper::isGZipped(m_file_name)) {
+		input_filtered.push(boost::iostreams::gzip_decompressor());
+	}
+
+	else if (OutputDataIOHelper::isBZipped(m_file_name)) {
+		input_filtered.push(boost::iostreams::bzip2_decompressor());
+	}
+	input_filtered.push(input_stream);
+    // we use stringstream since it provides random access which is important for tiff files
+	std::stringstream strstream;
+	boost::iostreams::copy(input_filtered, strstream);
+	return m_read_strategy->readOutputData(strstream);
+}

@@ -22,7 +22,7 @@
 ////! @ingroup tools
 ////! @brief One dimensional histogram
 
-class Histogram1D : public IHistogram
+class BA_CORE_API_ Histogram1D : public IHistogram
 {
 public:
     //! Constructor for fix bin size histograms.
@@ -42,6 +42,9 @@ public:
 
     //! Constructor for 1D histograms from basic OutputData object
     Histogram1D(const OutputData<double> &data);
+
+    //! Returns clone of other histogram
+    Histogram1D *clone() const;
 
     //! Returns the number of histogram dimensions
     size_t getRank() const { return 1;}

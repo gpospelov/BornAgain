@@ -25,7 +25,7 @@ namespace Geometry {
 //! @ingroup tools
 //! @brief Ellipse shape
 
-class  Ellipse : public IShape2D {
+class  BA_CORE_API_ Ellipse : public IShape2D {
 public:
     //! Ellipse constructor
     //! @param xcenter x-coordinate of Ellipse's center

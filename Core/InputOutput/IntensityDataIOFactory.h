@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/IntensityDataIOFactory.h
+//! @file      InputOutput/IntensityDataIOFactory.h
 //! @brief     Defines class IntensityDataIOFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -26,31 +26,44 @@ template <class T> class OutputData;
 class IHistogram;
 
 //! @class IntensityDataIOFactory
-//! @ingroup tools
-//! @brief Reads OutputData from files in different format
+//! @ingroup input_output
+//! @brief Provides users with possibility to read and write IntensityData from/to files
+//! in different format. Type of the file will be deduced from file name.
+//! *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy.
+//! *.int - BornAgain internal ASCII format.
+//! *.tif - 32-bits tiff file.
+//! If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using
+//! appropriate algorithm.
+
+/*! Usage:
+\code{.py}
+# reading from ASCII file or g-zipped ASCII file
+histogram = IntensityDataIOFactory.readIntensityData("filename.txt")
+histogram = IntensityDataIOFactory.readIntensityData("filename.txt.gz")
+
+# writing to 32-bits tiff file or b-zipped tiff file
+IntensityDataIOFactory.writeIntensityData(histogram, "filename.tif")
+IntensityDataIOFactory.writeIntensityData(histogram, "filename.tif.bz2")
+\endcode
+*/
 
 class BA_CORE_API_ IntensityDataIOFactory
 {
 public:
+    //! Reads file and returns newly created OutputData object
     static OutputData<double > *readOutputData(const std::string& file_name);
 
-    static IHistogram *readHistogram(const std::string& file_name);
-
+    //! Reads file and returns newly created Histogram object
     static IHistogram *readIntensityData(const std::string& file_name);
 
-
+    //! Writes OutputData in file
     static void writeOutputData(const OutputData<double>& data,
             const std::string& file_name);
 
-    static void writeHistogram(const IHistogram &histogram,
-            const std::string& file_name);
-
+    //! Writes histogram in file
     static void writeIntensityData(const IHistogram &histogram,
             const std::string& file_name);
 
-private:
-    static OutputDataReader* getReader(const std::string& file_name);
-    static OutputDataWriter* getWriter(const std::string& file_name);
 };
 
 #endif // OUTPUTDATAIOFACTORY_H

@@ -15,6 +15,7 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Samples/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/StandardSamples
     ${CMAKE_CURRENT_SOURCE_DIR}/Tools/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
 )
 include_directories(${include_dirs})
 
@@ -25,6 +26,7 @@ file(GLOB core_source_files
     "Samples/src/*.cpp"
     "StandardSamples/*.cpp"
     "Tools/src/*.cpp"
+    "InputOutput/*.cpp"
 )
 
 file(GLOB core_include_files
@@ -34,6 +36,7 @@ file(GLOB core_include_files
     "Samples/inc/*.h"
     "StandardSamples/*.h"
     "Tools/inc/*.h"
+    "InputOutput/*.h"
 )
 
 set(source_files ${core_source_files})
@@ -63,6 +66,9 @@ if(BORNAGAIN_OPENMPI)
     add_definitions(-DBORNAGAIN_OPENMPI)
 endif()
 
+if(BORNAGAIN_TIFF_SUPPORT)
+    add_definitions(-DBORNAGAIN_TIFF_SUPPORT)
+endif()
 
 # --- making library ---------
 add_library(
@@ -79,6 +85,7 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 # --- external dependencies ---------
 include_directories(
+    ${TIFF_INCLUDE_DIR}
     ${EIGEN3_INCLUDE_DIR}
     ${Boost_INCLUDE_DIRS}
     ${FFTW_INCLUDE_DIR}
@@ -89,6 +96,7 @@ target_link_libraries(
     ${Boost_LIBRARIES}
     ${FFTW_LIBRARY}
     ${GSL_LIBRARIES}
+    ${TIFF_LIBRARIES}
 )
 
 if(BORNAGAIN_OPENMPI)
@@ -161,6 +169,7 @@ if(WIN32)
     ${CMAKE_LIBRARY_PATH}/boost_regex${boost_suffix}
     ${CMAKE_LIBRARY_PATH}/boost_thread${boost_suffix}
     ${CMAKE_LIBRARY_PATH}/libfftw3-3.dll
+    ${CMAKE_LIBRARY_PATH}/libtiff.dll
     "C:/Anaconda/Python27.dll"
     DESTINATION ${destination_lib} COMPONENT Libraries)
 

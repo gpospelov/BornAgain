@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/OutputDataWriter.h
+//! @file      InputOutput/OutputDataWriter.h
 //! @brief     Defines class OutputDataWriter.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -17,22 +17,19 @@
 #define OUTPUTDATAWRITER_H
 
 #include "WinDllMacros.h"
+#include "OutputDataWriteStrategy.h"
 #include <string>
+#include <boost/scoped_ptr.hpp>
 
 template <class T> class OutputData;
 
-class IOutputDataWriteStrategy;
-
 //! @class OutputDataWriter
-//! @ingroup tools
+//! @ingroup input_output_internal
 //! @brief Write OutputData to file using different witing strategies
 class BA_CORE_API_ OutputDataWriter
 {
 public:
-    OutputDataWriter();
     OutputDataWriter(const std::string& file_name);
-    OutputDataWriter(IOutputDataWriteStrategy *write_strategy);
-    virtual ~OutputDataWriter();
 
     //! write output data to file
     void writeOutputData(const OutputData<double >& data);
@@ -42,7 +39,7 @@ public:
 
 private:
     std::string m_file_name;
-    IOutputDataWriteStrategy *m_write_strategy;
+    boost::scoped_ptr<IOutputDataWriteStrategy> m_write_strategy;
 };
 
 #endif // OUTPUTDATAWRITER_H

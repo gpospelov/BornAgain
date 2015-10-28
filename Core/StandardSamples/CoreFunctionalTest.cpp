@@ -18,6 +18,7 @@
 #include "IntensityDataFunctions.h"
 #include "FileSystem.h"
 #include "IntensityDataIOFactory.h"
+#include "OutputDataIOHelper.h"
 #include "Utils.h"
 #include <boost/scoped_ptr.hpp>
 
@@ -100,9 +101,8 @@ void CoreFunctionalTest::saveSimulationResults() const
 //! Constructs file name to save results. Strip gzip extention if necessary.
 std::string CoreFunctionalTest::getSimulationResultsFileNameAndPath() const
 {
-    std::string result
-        = Utils::FileSystem::StripFileNameFromGzipExtention(m_simulation_results_file_name);
-    result = Utils::FileSystem::GetJoinPath(directory_name_for_failed_tests, result);
+    std::string result = Utils::FileSystem::GetJoinPath(directory_name_for_failed_tests,
+                                            m_simulation_results_file_name);
     return result;
 }
 

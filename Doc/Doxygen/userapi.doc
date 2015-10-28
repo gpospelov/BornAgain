@@ -18,6 +18,8 @@ List of implemented interference functions
 Additional routines
 <li> \ref tools "Tools" <BR> 
 Different tools mainly to deal with intensity data
+<li> \ref input_output "Input and output" <BR> 
+Various routines to write intensity data on disk and to import user data.
 <li> \ref fitting "Fitting" <BR> 
 Fitting routines
 </ul>
@@ -32,6 +34,7 @@ Here is a list of additional classes from internal API.
 <li> \ref interference_internal "Interference functions (internal)" 
 <li> \ref algorithms_internal "Algorithms (internal)" <BR> 
 <li> \ref tools_internal "Tools (internal)" <BR> 
+<li> \ref input_output_internal "Input/output (internal)" <BR> 
 <li> \ref fitting_internal "Fitting (internal)" <BR> 
 </ul>
 

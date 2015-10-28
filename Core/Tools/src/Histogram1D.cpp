@@ -41,6 +41,11 @@ Histogram1D::Histogram1D(const OutputData<double> &data)
     init_from_data(data);
 }
 
+Histogram1D *Histogram1D::clone() const
+{
+    return new Histogram1D(*this);
+}
+
 int Histogram1D::fill(double x, double weight)
 {
     const IAxis *axis = getXaxis();

@@ -32,28 +32,40 @@ struct Histogram1D_wrapper : Histogram1D, bp::wrapper< Histogram1D > {
     : Histogram1D( nbinsx, xlow, xup )
       , bp::wrapper< Histogram1D >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     Histogram1D_wrapper(int nbinsx, ::std::vector< double > const & xbins )
     : Histogram1D( nbinsx, boost::ref(xbins) )
       , bp::wrapper< Histogram1D >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     Histogram1D_wrapper(::IAxis const & axis )
     : Histogram1D( boost::ref(axis) )
       , bp::wrapper< Histogram1D >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     Histogram1D_wrapper(::OutputData< double > const & data )
     : Histogram1D( boost::ref(data) )
       , bp::wrapper< Histogram1D >(){
         // constructor
+    m_pyobj = 0;
+    }
+
+    virtual ::Histogram1D * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->Histogram1D::clone(  );
+        }
+    }
     
+    ::Histogram1D * default_clone(  ) const  {
+        return Histogram1D::clone( );
     }
 
     virtual ::std::size_t getRank(  ) const  {
@@ -68,17 +80,31 @@ struct Histogram1D_wrapper : Histogram1D, bp::wrapper< Histogram1D > {
         return Histogram1D::getRank( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_Histogram1D_class(){
 
     { //::Histogram1D
-        typedef bp::class_< Histogram1D_wrapper, bp::bases< IHistogram >, boost::noncopyable > Histogram1D_exposer_t;
+        typedef bp::class_< Histogram1D_wrapper, bp::bases< IHistogram >, std::auto_ptr< Histogram1D_wrapper >, boost::noncopyable > Histogram1D_exposer_t;
         Histogram1D_exposer_t Histogram1D_exposer = Histogram1D_exposer_t( "Histogram1D", bp::init< int, double, double >(( bp::arg("nbinsx"), bp::arg("xlow"), bp::arg("xup") ), "Constructor for fix bin size histograms. @param nbinsx number of bins @param xlow low edge of the first bin @param xup upper edge of the last bin \n\n:Parameters:\n  - 'nbinsx' - number of bins\n  - 'xlow' - low edge of the first bin\n  - 'xup' - upper edge of the last bin\n") );
         bp::scope Histogram1D_scope( Histogram1D_exposer );
         Histogram1D_exposer.def( bp::init< int, std::vector< double > const & >(( bp::arg("nbinsx"), bp::arg("xbins") ), "Constructor for variable bin size histograms. @param nbinsx number of bins @param xbins Array of size nbins+1 containing low-edges for each bin and upper edge of last bin. \n\n:Parameters:\n  - 'nbinsx' - number of bins\n  - 'xbins' - Array of size nbins+1 containing low-edges for each\n") );
         Histogram1D_exposer.def( bp::init< IAxis const & >(( bp::arg("axis") ), "Constructor for 1D histogram with custom axis.") );
         Histogram1D_exposer.def( bp::init< OutputData< double > const & >(( bp::arg("data") ), "Constructor for 1D histograms from basic OutputData object.") );
+        { //::Histogram1D::clone
+        
+            typedef ::Histogram1D * ( ::Histogram1D::*clone_function_type)(  ) const;
+            typedef ::Histogram1D * ( Histogram1D_wrapper::*default_clone_function_type)(  ) const;
+            
+            Histogram1D_exposer.def( 
+                "clone"
+                , clone_function_type(&::Histogram1D::clone)
+                , default_clone_function_type(&Histogram1D_wrapper::default_clone)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::Histogram1D::crop
         
             typedef ::Histogram1D * ( ::Histogram1D::*crop_function_type)( double,double ) ;

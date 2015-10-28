@@ -215,7 +215,7 @@ void TestRootTree::simple_write()
     mp_simulation = new GISASSimulation(mp_options);
     mp_simulation->setDetectorParameters(
         100, 0.0*Units::degree, 2.0*Units::degree,
-        100, 0.0*Units::degree, 2.0*Units::degree, true);
+        100, 0.0*Units::degree, 2.0*Units::degree);
     mp_simulation->setBeamParameters(
         1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     mp_simulation->setSample(*mp_sample);

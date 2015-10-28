@@ -43,15 +43,6 @@ public:
     //! Returns file extension
     static std::string GetFileExtension(const std::string& name);
 
-    //! Returns true if name contains *.gz extension
-    static bool isGZipped(const std::string& name);
-
-    //! Returns file extension after stripping '.gz' if any
-    static std::string GetFileMainExtension(const std::string& name);
-
-    //! Returns file name after stripping '.gz' if any
-    static std::string StripFileNameFromGzipExtention(const std::string& name);
-
     //! returns path to executable
     static std::string GetPathToExecutable(const std::string& argv0=GetArgvPath());
 

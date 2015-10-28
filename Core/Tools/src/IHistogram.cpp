@@ -28,6 +28,11 @@ IHistogram::IHistogram()
 
 }
 
+IHistogram::IHistogram(const IHistogram &other)
+{
+    m_data.copyFrom(other.m_data);
+}
+
 IHistogram::IHistogram(const IAxis &axis_x)
 {
     m_data.addAxis(axis_x);
@@ -347,5 +352,23 @@ const IHistogram &IHistogram::operator+=(const IHistogram &right)
         addBinContent(globalbin, right.getBinContent(globalbin));
     }
     return *this;
+}
+
+IHistogram *IHistogram::createRelativeDifferenceHistogram(const IHistogram &lhs,
+                                                          const IHistogram &rhs)
+{
+    if(!rhs.hasSameDimensions(rhs)) {
+        throw LogicErrorException("IHistogram::createRelativeDifferenceHistogram() -> Error. "
+                                  "Histograms have different dimension");
+    }
+
+    IHistogram *result = rhs.clone();
+    result->reset();
+
+    for(size_t i=0; i<rhs.getTotalNumberOfBins(); ++i) {
+        double diff = Numeric::get_relative_difference(lhs.getBinContent(i), rhs.getBinContent(i));
+        result->setBinContent(i, diff);
+    }
+    return result;
 }
 

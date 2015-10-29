@@ -16,6 +16,7 @@
 #ifndef NUMERIC_H_
 #define NUMERIC_H_
 
+#include "WinDllMacros.h"
 #include <limits>
 #include <cmath>
 #include <algorithm>
@@ -34,10 +35,10 @@ static const double double_min = std::numeric_limits<double>::min();
 static const double probthreshold = 0.0000000001;
 
 //! compare two doubles
-bool areAlmostEqual(double a, double b, double tolerance_factor=1.0);
+bool BA_CORE_API_ areAlmostEqual(double a, double b, double tolerance_factor=1.0);
 
 //! calculates safe relative difference |(a-b)/b|
-double get_relative_difference(double a, double b);
+double BA_CORE_API_ get_relative_difference(double a, double b);
 
 } // Numeric namespace
 

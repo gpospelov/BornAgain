@@ -58,17 +58,6 @@ if(WIN32)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
 endif()
 
-if(BORNAGAIN_PYTHON)
-    add_definitions(-DBORNAGAIN_PYTHON)
-endif()
-
-if(BORNAGAIN_OPENMPI)
-    add_definitions(-DBORNAGAIN_OPENMPI)
-endif()
-
-if(BORNAGAIN_TIFF_SUPPORT)
-    add_definitions(-DBORNAGAIN_TIFF_SUPPORT)
-endif()
 
 # --- making library ---------
 add_library(
@@ -84,31 +73,26 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 
 # --- external dependencies ---------
-include_directories(
-    ${TIFF_INCLUDE_DIR}
-    ${EIGEN3_INCLUDE_DIR}
-    ${Boost_INCLUDE_DIRS}
-    ${FFTW_INCLUDE_DIR}
-    ${GSL_INCLUDE_DIR}
-)
-target_link_libraries(
-    ${library_name}
-    ${Boost_LIBRARIES}
-    ${FFTW_LIBRARY}
-    ${GSL_LIBRARIES}
-    ${TIFF_LIBRARIES}
-)
+if(BORNAGAIN_TIFF_SUPPORT)
+    add_definitions(-DBORNAGAIN_TIFF_SUPPORT)
+    include_directories(${TIFF_INCLUDE_DIR})
+    target_link_libraries(${library_name} ${TIFF_LIBRARIES})
+endif()
+
+include_directories(${EIGEN3_INCLUDE_DIR} ${Boost_INCLUDE_DIRS} ${FFTW_INCLUDE_DIR} ${GSL_INCLUDE_DIR})
+target_link_libraries(${library_name} ${Boost_LIBRARIES} ${FFTW_LIBRARY} ${GSL_LIBRARIES})
 
 if(BORNAGAIN_OPENMPI)
+    add_definitions(-DBORNAGAIN_OPENMPI)
     include_directories(${MPI_INCLUDE_PATH})
     target_link_libraries(${library_name} ${MPI_LIBRARIES})
 endif()
 
 if(BORNAGAIN_PYTHON)
+    add_definitions(-DBORNAGAIN_PYTHON)
     include_directories(${PYTHON_INCLUDE_DIRS} ${NUMPY_INCLUDE_DIR})
     target_link_libraries(${library_name} ${PYTHON_LIBRARIES})
 endif()
-
 
 if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
     set(link_flags "-Wl,-rpath,@loader_path/../..")

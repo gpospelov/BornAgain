@@ -170,7 +170,7 @@ void TestFittingModule4::initializeRealData()
     if( !mp_simulation ) throw NullPointerException("TestFittingModule2::initializeRealData() -> Error! No simulation of sample defined ");
 
     mp_simulation->runSimulation();
-    mp_simulation->normalize();
+    //mp_simulation->normalize();
     //m_fitSuite->getFitObjects()->setSimulationNormalize(true);
     delete mp_real_data;
     mp_real_data = IsGISAXSTools::createNoisyData(*mp_simulation->getOutputData());

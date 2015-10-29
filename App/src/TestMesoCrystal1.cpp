@@ -36,7 +36,7 @@ void TestMesoCrystal1::execute()
             IntensityDataIOFactory::readOutputData(filename);
 
     simulation->runSimulation();
-    simulation->normalize();
+    //simulation->normalize();
 
     OutputData<double> *data = simulation->getDetectorIntensity();
 

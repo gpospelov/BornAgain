@@ -1,6 +1,7 @@
 set(bundle ${CMAKE_INSTALL_PREFIX}/BornAgain.app )
 set(bornagain_libs ${CMAKE_INSTALL_PREFIX}/@destination_lib@)
 set(thirdparty_libs ${bundle}/Contents/lib/ThirdParty)
+set(cmake_prefix_path @CMAKE_PREFIX_PATH@ )
 
 set(BU_CHMOD_BUNDLE_ITEMS True)
 set(BU_COPY_FULL_FRAMEWORK_CONTENTS False)
@@ -13,27 +14,27 @@ include (@CMAKE_SOURCE_DIR@/cmake/modules/BundleUtilitiesWithRPath.cmake)
 function(gp_resolved_file_type_override resolved_file type_var)
 
     if(file MATCHES "Qt")
-        #message("resolving file as _embedded : ${file}")
+        message("XXX_Qt resolving file as _embedded : ${file}")
         set(${type_var} embedded PARENT_SCOPE)
 
     elseif(item MATCHES "PlugIns/platforms")
-        #message("XXX3  resolving file as _embedded : ${file}")
+        message("XXX_Plugins  resolving file as _embedded : ${file}")
         set(${type_var} embedded PARENT_SCOPE)
 
     elseif(file MATCHES "Python.framework")
-        #message("XXX  resolving file as system : ${file}")
+        message("XXX_Python  resolving file as system : ${file}")
         set(${type_var} system PARENT_SCOPE)
 
-    elseif(file MATCHES "/opt")
-        #message("XXX  resolving file as _embedded : ${file}")
+    elseif(file MATCHES "@CMAKE_PREFIX_PATH@")
+        message("XXX_PREFFIX  resolving file as _embedded : ${file}")
         set(${type_var} embedded PARENT_SCOPE)
 
     elseif(file MATCHES "libBornAgain")
-        #message("XXX  resolving file as _embedded : ${file}")
+        message("XXX_libBornAgain  resolving file as _embedded : ${file}")
         set(${type_var} embedded PARENT_SCOPE)
 
     else()
-        #message("XXX  resolving file as _system   : ${file}")
+        message("XXX_System  resolving file as _system   : ${file}")
         set(${type_var} system PARENT_SCOPE)
     endif()
 endfunction()

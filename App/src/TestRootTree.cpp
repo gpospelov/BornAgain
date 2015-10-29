@@ -116,7 +116,7 @@ void TestRootTree::complex_write()
         simulation.setBeamParameters(1.77*Units::angstrom, alpha_i, phi_i);
         simulation.setBeamIntensity(1e7);
         simulation.runSimulation();
-        simulation.normalize();
+        //simulation.normalize();
 
         // saving experimental parameter in event structure
         event->alpha_i = Units::rad2deg(alpha_i);

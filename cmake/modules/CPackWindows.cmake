@@ -15,14 +15,14 @@ set( CPACK_NSIS_MUI_UNIICON "${CMAKE_CURRENT_SOURCE_DIR}/GUI\\\\coregui\\\\image
 
 set (CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
   Push \\\"PATH\\\" 
-  Push \\\"A\\\" 
+  Push \\\"P\\\" 
   Push \\\"HKCU\\\" 
   Push \\\"$INSTDIR\\\\bin\\\" 
   Call EnvVarUpdate
   Pop  \\\$0
 
   Push \\\"PYTHONPATH\\\" 
-  Push \\\"A\\\" 
+  Push \\\"P\\\" 
   Push \\\"HKCU\\\" 
   Push \\\"$INSTDIR\\\\bin\\\" 
   Call EnvVarUpdate

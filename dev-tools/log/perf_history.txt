@@ -486,6 +486,13 @@
 
 # PreRelease state. Seems that much worser. Simulation normalize?
 | date                | hostname   | sysinfo       | tr | total    | MultiLayer   | CylindersInD | RotatedPyram | CoreShell    | SquareLattic | RadialParaCr | HexParaCryst | SSCA         | Mesocrystal  | PolMagCyl    |
-| 2015-10-28 17:02:32 | jcnsopc126 | linuxx8664gcc | 0  | 25.911   | 2.483        | 1.694        | 2.407        | 1.504        | 4.106        | 1.733        | 2.980        | 2.403        | 2.757        | 3.843        |
 | 2015-10-28 17:04:26 | jcnsopc126 | linuxx8664gcc | 0  | 25.693   | 2.573        | 1.693        | 2.410        | 1.472        | 4.134        | 1.748        | 2.856        | 2.376        | 2.715        | 3.716   
+
+# PreRelease. Moved checkPolarizationPresent() out of the loop.
+| date                | hostname   | sysinfo       | tr | total    | MultiLayer   | CylindersInD | RotatedPyram | CoreShell    | SquareLattic | RadialParaCr | HexParaCryst | SSCA         | Mesocrystal  | PolMagCyl    |
+| 2015-10-29 09:17:30 | jcnsopc126 | linuxx8664gcc | 0  | 20.586   | 2.386        | 1.166        | 1.773        | 0.890        | 3.449        | 1.195        | 2.570        | 1.687        | 2.452        | 3.020        |
+
+# PreRelease. If I try to backup mP_specular_info->getInCoefficients(alpha_i, 0.0, wavelength)); in InterferenceFunctionStrategy
+| 2015-10-29 09:41:25 | jcnsopc126 | linuxx8664gcc | 0  | 19.921   | 2.416        | 0.984        | 1.654        | 0.778        | 3.333        | 1.027        | 2.923        | 1.505        | 2.359        | 2.942        |
+
 

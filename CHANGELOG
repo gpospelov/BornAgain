@@ -31,7 +31,6 @@ BornAgain-1.4.0, released 2015.10.30
   * Feature #1099: Repair fitting with masks
   * Feature #1179: GUI: provide export of simulation results into text file (*.int)
   * Feature #1186: Implement tiff import/export in kernel
-  * Documentation #1131: Drupal: describe interference functions
   * Documentation #1176: Drupal: update installation instructions, tutorials for coming release 1.4
   * Documentation #1181: Drupal: provide fitting example along slices
   * Documentation #1182: Drupal: provide fitting example with simultaneous fit of two datasets

@@ -31,9 +31,6 @@ static const double double_epsilon = std::numeric_limits<double>::epsilon();
 
 static const double double_min = std::numeric_limits<double>::min();
 
-//! threshold on probability value during calculation of weighted form factor
-static const double probthreshold = 0.0000000001;
-
 //! compare two doubles
 bool BA_CORE_API_ areAlmostEqual(double a, double b, double tolerance_factor=1.0);
 

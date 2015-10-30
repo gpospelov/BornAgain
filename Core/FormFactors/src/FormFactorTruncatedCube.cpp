@@ -112,6 +112,8 @@ complex_t FormFactorTruncatedCube::ffVertex(const cvector_t& q) const
     return prefactor*ffVertexSymmetric(t, qvector[0], qvector[1], qvector[2]);
 }
 
+// Version of the vertex form factor which is symmetric in a,b,c
+// Expects the arguments (a,b,c) to be ordered by their absolute value: |a|<=|b|<=|c|
 complex_t FormFactorTruncatedCube::ffVertexSymmetric(double t, complex_t a, complex_t b,
                                                      complex_t c) const
 {
@@ -147,6 +149,8 @@ complex_t FormFactorTruncatedCube::ffVertexSymmetric(double t, complex_t a, comp
     return im*(t1+t2+t3+t4)/(a*b*c);
 }
 
+// Version of the vertex form factor that treats the case where two q components are
+// equal; they will be passed as the 'a' parameter
 complex_t FormFactorTruncatedCube::ffVertexDiagonal(double t, complex_t a, complex_t b) const
 {
     const complex_t im(0.,1.);

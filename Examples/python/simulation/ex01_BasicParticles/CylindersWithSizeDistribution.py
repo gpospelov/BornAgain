@@ -1,5 +1,5 @@
 """
-Cylinder formfactor in BA with size distribution
+Cylinders with size distribution
 """
 import numpy
 import matplotlib

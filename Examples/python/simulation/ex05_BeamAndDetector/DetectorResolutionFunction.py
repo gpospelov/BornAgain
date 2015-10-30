@@ -1,5 +1,5 @@
 """
-Cylinder form factor in DWBA with beam divergence
+Cylinder form factor in DWBA with detector resolution function applied
 """
 import numpy
 import matplotlib

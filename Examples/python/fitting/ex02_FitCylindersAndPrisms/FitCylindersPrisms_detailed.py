@@ -1,8 +1,6 @@
 """
-Fitting example
-This is more detailed version of FitCylindersPrisms.py.
-We show how to generate "real" data and how to draw fit progress.
-
+Fitting example: 4 parameters fit with simple output
+This is more detailed version of FitCylindersPrisms.py. We show how to generate "real" data and how to draw fit progress.
 Please take a note, that performance here is determined by poor performance of matplotlib drawing routines.
 """
 

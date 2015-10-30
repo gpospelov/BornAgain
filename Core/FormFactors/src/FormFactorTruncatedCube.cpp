@@ -131,10 +131,29 @@ complex_t FormFactorTruncatedCube::ffVertexSymmetric(double t, complex_t a, comp
         complex_t denominator = b*b*c*c*(b-c);
         return numerator/denominator;
     }
+    if (std::norm((a-b)*t) <= Numeric::double_epsilon) {
+        if (std::norm((b-c)*t) <= Numeric::double_epsilon) {
+            return im*(1.0 - std::exp(-im*b*t)*(1.0 + im*b*t - b*b*t*t/2.0))/std::pow(b,3);
+        } else {
+            return ffVertexDiagonal(t, a, c);
+        }
+    } else if (std::norm((b-c)*t) <= Numeric::double_epsilon) {
+        return ffVertexDiagonal(t, b, a);
+    }
     complex_t t1 = 1.0;
     complex_t t2 = -b*c*std::exp(-im*a*t)/((a-b)*(a-c));
     complex_t t3 = -a*c*std::exp(-im*b*t)/((b-a)*(b-c));
     complex_t t4 = -a*b*std::exp(-im*c*t)/((c-a)*(c-b));
     return im*(t1+t2+t3+t4)/(a*b*c);
+}
+
+complex_t FormFactorTruncatedCube::ffVertexDiagonal(double t, complex_t a, complex_t b) const
+{
+    const complex_t im(0.,1.);
+    complex_t prefactor = im/(a*a*b*std::pow(a-b, 2));
+    complex_t t1 = (a-b)*(a-b);
+    complex_t t2 = -a*a*std::exp(-im*b*t);
+    complex_t t3 = std::exp(-im*a*t)*(2.0*a*b - b*b + im*a*b*(a-b)*t);
+    return prefactor*(t1 + t2 + t3);
 }
 

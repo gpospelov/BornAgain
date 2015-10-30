@@ -50,6 +50,7 @@ protected:
 private:
     complex_t ffVertex(const cvector_t& q) const;
     complex_t ffVertexSymmetric(double t, complex_t a, complex_t b, complex_t c) const;
+    complex_t ffVertexDiagonal(double t, complex_t a, complex_t b) const;
 
     double m_length;
     double m_removed_length;

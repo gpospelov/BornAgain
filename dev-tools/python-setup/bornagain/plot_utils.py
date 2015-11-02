@@ -8,6 +8,8 @@ try:
 except ImportError:
     print "bornagain/__init__.py -> Error. Can't import matplotlib."
 
+from bornagain import deg as deg
+from bornagain import IFitObserver as IFitObserver
 
 class DefaultFitObserver(IFitObserver):
     """

@@ -165,12 +165,13 @@ from libBornAgainFit import *
     pass
 
 
-def prepare_init_module(app_dir, package_dir):
+def prepare_init_module(app_dir, bundle_dir):
     source_dir = os.path.join(app_dir, "Contents", "libexec")
     libexec_dir = os.path.join(source_dir, "BornAgain-"+BORNAGAIN_VERSION, "bornagain")    
-    destination_dir = os.path.join(package_dir, "bornagain")
-    print "--> Copying modules from '{0}' to '{1}'".format(libexec_dir, destination_dir)
-    shutil.copytree(libexec_dir, destination_dir)
+    package_dir = os.path.join(bundle_dir, "bornagain")
+    print "--> Copying modules from '{0}' to '{1}'".format(libexec_dir, package_dir)
+    shutil.copytree(libexec_dir, package_dir)
+    return package_dir
     
 
 def copy_libraries(app_dir, destination_dir):
@@ -220,10 +221,7 @@ def create_bundle(app_dir):
     
     generate_setup_py(bundle_dir)
     
-    package_dir = create_package_dir(bundle_dir)
-    
-    #generate_init_py(package_dir)
-    prepare_init_module(app_dir, package_dir)
+    package_dir = prepare_init_module(app_dir, bundle_dir)
     
     library_dir = create_library_dir(package_dir)
     copy_libraries(app_dir, library_dir)

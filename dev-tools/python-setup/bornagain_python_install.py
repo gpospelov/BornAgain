@@ -165,9 +165,16 @@ from libBornAgainFit import *
     pass
 
 
+def prepare_init_module(app_dir, destination_dir):
+    source_dir = os.path.join(app_dir, "Contents", "libexec")
+    libexec_dir = os.path.join(source_dir, "BornAgain-"+BORNAGAIN_VERSION, "bornagain")    
+    print "--> Copying modules from '{0}' to '{1}'".format(libexec_dir, destination_dir)
+    shutil.copytree(libexec_dir, destination_dir)
+    
+
 def copy_libraries(app_dir, destination_dir):
     """
-    Coopy libraries from BornAgain.app into corresponding BornAgain Python package directory
+    Copy libraries from BornAgain.app into corresponding BornAgain Python package directory
     """
     print "--> Copying libraries from '{0}'".format(app_dir)
     source_dir = os.path.join(app_dir, "Contents", "lib")
@@ -213,7 +220,9 @@ def create_bundle(app_dir):
     generate_setup_py(bundle_dir)
     
     package_dir = create_package_dir(bundle_dir)
-    generate_init_py(package_dir)
+    
+    #generate_init_py(package_dir)
+    prepare_init_module(app_dir, package_dir)
     
     library_dir = create_library_dir(package_dir)
     copy_libraries(app_dir, library_dir)

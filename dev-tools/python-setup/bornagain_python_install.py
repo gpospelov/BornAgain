@@ -165,9 +165,10 @@ from libBornAgainFit import *
     pass
 
 
-def prepare_init_module(app_dir, destination_dir):
+def prepare_init_module(app_dir, package_dir):
     source_dir = os.path.join(app_dir, "Contents", "libexec")
     libexec_dir = os.path.join(source_dir, "BornAgain-"+BORNAGAIN_VERSION, "bornagain")    
+    destination_dir = os.path.join(package_dir, "bornagain")
     print "--> Copying modules from '{0}' to '{1}'".format(libexec_dir, destination_dir)
     shutil.copytree(libexec_dir, destination_dir)
     

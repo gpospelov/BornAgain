@@ -136,10 +136,10 @@ if(UNIX)
         set(fixup_path @rpath)
 
         # handling the case when cmake prefix path contains more than one entry
-        list(LENGTH ${CMAKE_PREFIX_PATH} len)
-        list(GET ${CMAKE_PREFIX_PATH} 0 cmake_prefix_path1)
+        list(LENGTH "${CMAKE_PREFIX_PATH}" len)
+        list(GET "${CMAKE_PREFIX_PATH}" 0 cmake_prefix_path1)
         if(len EQUAL 2)
-        list(GET ${CMAKE_PREFIX_PATH} 1 cmake_prefix_path2)
+        list(GET "${CMAKE_PREFIX_PATH}" 1 cmake_prefix_path2)
         endif()
 
         configure_file(${CMAKE_SOURCE_DIR}/cmake/modules/FixAppleBundle.cmake.in ${destination_runtime_configs}/FixAppleBundle.cmake @ONLY)

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/TestView.h
-//! @brief     Defines class TestView
+//! @file      coregui/Views/MaskWidgets/MaskEditorToolPanel.cpp
+//! @brief     Implements class MaskEditorToolPanel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,17 +13,12 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTVIEW_H
-#define TESTVIEW_H
+#include "MaskEditorToolPanel.h"
 
-#include <QWidget>
-
-class TestView : public QWidget
+MaskEditorToolPanel::MaskEditorToolPanel(QWidget *parent)
+    : QWidget(parent)
 {
-    Q_OBJECT
-public:
-    TestView(QWidget *parent = 0);
+    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
+    setObjectName(QLatin1String("MaskEditorToolPanel"));
 
-};
-
-#endif
+}

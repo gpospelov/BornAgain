@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/TestView.h
-//! @brief     Defines class TestView
+//! @file      coregui/Views/MaskWidgets/MaskEditorCanvas.h
+//! @brief     Defines class MaskEditorCanvas
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,17 +13,31 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTVIEW_H
-#define TESTVIEW_H
+#ifndef MASKEDITORCANVAS_H
+#define MASKEDITORCANVAS_H
 
 #include <QWidget>
 
-class TestView : public QWidget
+class MaskGraphicsScene;
+class MaskGraphicsView;
+class MaskGraphicsProxy;
+
+//! Painting widget for MaskEditor
+
+class MaskEditorCanvas : public QWidget
 {
     Q_OBJECT
 public:
-    TestView(QWidget *parent = 0);
+    MaskEditorCanvas(QWidget *parent = 0);
 
+
+private:
+    void init_widget();
+
+    MaskGraphicsScene *m_scene;
+    MaskGraphicsView *m_view;
+    MaskGraphicsProxy *m_graphicsProxy;
 };
+
 
 #endif

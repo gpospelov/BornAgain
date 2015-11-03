@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/TestView.h
-//! @brief     Defines class TestView
+//! @file      coregui/Views/MaskWidgets/MaskEditor.h
+//! @brief     Defines class MaskEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,17 +13,28 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTVIEW_H
-#define TESTVIEW_H
+#ifndef MASKEDITOR_H
+#define MASKEDITOR_H
 
 #include <QWidget>
 
-class TestView : public QWidget
+class MaskEditorCanvas;
+class MaskEditorToolPanel;
+class QSplitter;
+
+//! Main class to draw masks on top of intensity data map
+
+class MaskEditor : public QWidget
 {
     Q_OBJECT
 public:
-    TestView(QWidget *parent = 0);
+    MaskEditor(QWidget *parent = 0);
 
+private:
+    MaskEditorCanvas *m_editorCanvas;
+    MaskEditorToolPanel *m_editorToolPanel;
+    QSplitter *m_splitter;
 };
+
 
 #endif

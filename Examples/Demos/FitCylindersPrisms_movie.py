@@ -104,15 +104,14 @@ def get_simulation():
     return simulation
 
 
-class DrawObserver(IObserver):
+class DrawObserver(IFitObserver):
     """
     class which draws fit progress every nth iteration.
     It has to be attached to fit_suite via AttachObserver command
     """
-    def __init__(self, draw_every=10):
-        IObserver.__init__(self)
+    def __init__(self, draw_every_nth=1):
+        IFitObserver.__init__(self, draw_every_nth)
         print "MySampleBuilder ctor"
-        self.draw_every_nth = draw_every
         self.cyl_points = []
         self.prism_points = []
         self.draw_codes = []
@@ -123,16 +122,16 @@ class DrawObserver(IObserver):
         real_data = fit_suite.getFitObjects().getRealData().getArray()
         simulated_data = fit_suite.getFitObjects().getSimulationData().getArray()
         plt.subplot(2, 2, 1)
-        im = plt.imshow(numpy.rot90(real_data + 1, 1), norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
+        im = plt.imshow(real_data + 1, norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
         plt.colorbar(im)
         plt.title('\"Real\" data')
         # plotting real data
         plt.subplot(2, 2, 2)
-        im = plt.imshow(numpy.rot90(simulated_data + 1, 1), norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
+        im = plt.imshow(simulated_data + 1, norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
         plt.colorbar(im)
         plt.title('Simulated data')
         # plotting parameter space
-        if fit_suite.getNCalls() == 0:
+        if fit_suite.getNumberOfIterations() == 0:
             self.draw_codes.append(Path.MOVETO)
         # elif fit_suite.getNCalls() < max_line_length:
         else:
@@ -160,7 +159,7 @@ class DrawObserver(IObserver):
         # # plotting difference map
         # diff_map = (real_data - simulated_data)/numpy.sqrt(real_data + 1)
         # pylab.subplot(2, 2, 3)
-        # im = pylab.imshow(numpy.rot90(diff_map, 1), norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0], vmin = 0.001, vmax = 1.0)
+        # im = pylab.imshow(diff_map, norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0], vmin = 0.001, vmax = 1.0)
         # pylab.colorbar(im)
         # pylab.title('Difference map')
         # # plotting parameters info
@@ -172,7 +171,7 @@ class DrawObserver(IObserver):
         # fitpars = fit_suite.getFitParameters()
         # for i in range(0, fitpars.size()):
         #     pylab.text(0.01, 0.55 - i*0.1, str(fitpars[i].getName()) + " " + str(fitpars[i].getValue())[0:5] )
-        fname = '_tmp%03d.png' % fit_suite.getNCalls()
+        fname = '_tmp%03d.png' % fit_suite.getNumberOfIterations()
         print 'Saving frame', fname
         fig.savefig(fname)
 
@@ -199,10 +198,10 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*FormFactorCylinder/height", 2.*nanometer, 0.01*nanometer, AttLimits.limited(0.01, 10.0))
-    fit_suite.addFitParameter("*FormFactorCylinder/radius", 2.*nanometer, 0.01*nanometer, AttLimits.limited(0.01, 10.0))
-    fit_suite.addFitParameter("*FormFactorPrism3/height", 2.*nanometer, 0.01*nanometer, AttLimits.limited(0.01, 10.0))
-    fit_suite.addFitParameter("*FormFactorPrism3/length", 2.*nanometer, 0.02*nanometer, AttLimits.limited(0.01, 10.0))
+    fit_suite.addFitParameter("*FormFactorCylinder/height", 2.*nanometer, AttLimits.limited(0.01, 10.0))
+    fit_suite.addFitParameter("*FormFactorCylinder/radius", 2.*nanometer, AttLimits.limited(0.01, 10.0))
+    fit_suite.addFitParameter("*FormFactorPrism3/height", 2.*nanometer, AttLimits.limited(0.01, 10.0))
+    fit_suite.addFitParameter("*FormFactorPrism3/length", 2.*nanometer, AttLimits.limited(0.01, 10.0))
 
     # # Now we create first fig strategy which will run first minimization round using Genetic minimizer.
     # # Genetic minimizer is able to explore large parameter space without being trapped by some local minima.
@@ -212,8 +211,7 @@ def run_fitting():
     # fit_suite.addFitStrategy(strategy1)
 
     # Second fit strategy will use another algorithm. It will use best parameters found from previous minimization round.
-    strategy2 = FitStrategyAdjustMinimizer()
-    strategy2.setMinimizer(MinimizerFactory.createMinimizer("Minuit2", "Migrad"))
+    strategy2 = FitStrategyAdjustMinimizer("Minuit2", "Migrad")
     fit_suite.addFitStrategy(strategy2)
 
     # running fit

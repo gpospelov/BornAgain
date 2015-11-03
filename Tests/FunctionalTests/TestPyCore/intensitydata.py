@@ -11,11 +11,11 @@ sys.path.append(os.path.abspath(
 
 from libBornAgainCore import *
 
-def get_axis(num):
+def get_axis():
     simulation = GISASSimulation()
     simulation.setDetectorParameters(10, -1.0, 1.0, 100, 0.0, 2.0)
     data = simulation.getIntensityData()
-    axis = data.getAxis(num)
+    axis = data.getXaxis()
     return axis
 
 
@@ -57,10 +57,10 @@ class IntensityDataTest(unittest.TestCase):
         simulation = GISASSimulation()
         simulation.setDetectorParameters(10, -1.0, 1.0, 100, 0.0, 2.0)
         data = simulation.getIntensityData()
-        self.assertEqual(1000, data.getAllocatedSize())
+        self.assertEqual(1000, data.getTotalNumberOfBins())
         self.assertEqual(2, data.getRank())
-        self.assertEqual(0, data.totalSum())
-        self.assertEqual(10, data.getAxis(0).getSize())
+        self.assertEqual(0, data.integral())
+        self.assertEqual(10, data.getXaxis().getSize())
         #self.assertEqual(-1.0, data.getAxis(0).getMin())
         #self.assertEqual(1.0, data.getAxis(0).getMax())
         #self.assertEqual(100, data.getAxis(1).getSize())
@@ -69,7 +69,7 @@ class IntensityDataTest(unittest.TestCase):
         #self.assertEqual(11, len(data.getAxis(0).getVector()))
 
     def test_axis_ownership(self):
-        axis0 = get_axis(0)
+        axis0 = get_axis()
         self.assertEqual(10, axis0.getSize())
 
     def test_numpy_array(self):
@@ -77,7 +77,7 @@ class IntensityDataTest(unittest.TestCase):
         data.addAxis("axis0", 10, 0.0, 10.0)
         data.addAxis("axis1", 20, 0.0, 20.0)
         data.setAllTo(1)
-        self.assertEqual( (10,20), data.getArray().shape)
+        self.assertEqual( (20,10), data.getArray().shape)
         self.assertEqual( (data.totalSum()), numpy.sum(data.getArray()) )
 
     #def test_data_axisbin(self):
@@ -87,20 +87,20 @@ class IntensityDataTest(unittest.TestCase):
     #    for i in range(0, data.getAllocatedSize()):
     #        print i, "axis0", data.getIndexOfAxis("axis0",i), data.getValueOfAxis("axis0",i), "axis1", data.getIndexOfAxis("axis1",i), data.getValueOfAxis("axis1",i)
 
-    def test_getarray_masked(self):
-        data = IntensityData()
-        data.addAxis("x", 10, 0., 9.)
-        data.addAxis("y", 5, 0., 4.)
-        for i in range(0, data.getAllocatedSize()):
-            data[i] = i
-        IntensityDataFunctions.setRectangularMask(data, 1.99, 0.99, 7.01, 3.01)
-
-        nparr = data.getArray()
-        value=0
-        for ix in range(0, 10):
-            for iy in range(0, 5):
-                self.assertEqual(value, nparr[ix][iy])
-                value = value+1
+    # def test_getarray_masked(self):
+    #     data = IntensityData()
+    #     data.addAxis("x", 10, 0., 9.)
+    #     data.addAxis("y", 5, 0., 4.)
+    #     for i in range(0, data.getAllocatedSize()):
+    #         data[i] = i
+    #     IntensityDataFunctions.setRectangularMask(data, 1.99, 0.99, 7.01, 3.01)
+    #
+    #     nparr = data.getArray()
+    #     value=0
+    #     for ix in range(0, 10):
+    #         for iy in range(0, 5):
+    #             self.assertEqual(value, nparr[iy][ix])
+    #             value = value+1
 
 
 

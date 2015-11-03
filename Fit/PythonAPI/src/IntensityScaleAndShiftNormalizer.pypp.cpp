@@ -66,6 +66,18 @@ struct IntensityScaleAndShiftNormalizer_wrapper : IntensityScaleAndShiftNormaliz
         IntensityScaleAndShiftNormalizer::setMaximumIntensity( max_intensity );
     }
 
+    virtual void apply( ::OutputData< double > & data ) const  {
+        if( bp::override func_apply = this->get_override( "apply" ) )
+            func_apply( boost::ref(data) );
+        else{
+            this->IntensityNormalizer::apply( boost::ref(data) );
+        }
+    }
+    
+    void default_apply( ::OutputData< double > & data ) const  {
+        IntensityNormalizer::apply( boost::ref(data) );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -182,6 +194,18 @@ void register_IntensityScaleAndShiftNormalizer_class(){
                 , setMaximumIntensity_function_type(&::IntensityScaleAndShiftNormalizer::setMaximumIntensity)
                 , default_setMaximumIntensity_function_type(&IntensityScaleAndShiftNormalizer_wrapper::default_setMaximumIntensity)
                 , ( bp::arg("max_intensity") ) );
+        
+        }
+        { //::IntensityNormalizer::apply
+        
+            typedef void ( ::IntensityNormalizer::*apply_function_type)( ::OutputData< double > & ) const;
+            typedef void ( IntensityScaleAndShiftNormalizer_wrapper::*default_apply_function_type)( ::OutputData< double > & ) const;
+            
+            IntensityScaleAndShiftNormalizer_exposer.def( 
+                "apply"
+                , apply_function_type(&::IntensityNormalizer::apply)
+                , default_apply_function_type(&IntensityScaleAndShiftNormalizer_wrapper::default_apply)
+                , ( bp::arg("data") ) );
         
         }
         { //::IParameterized::areParametersChanged

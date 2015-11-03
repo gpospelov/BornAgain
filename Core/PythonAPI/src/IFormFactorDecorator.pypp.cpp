@@ -155,9 +155,9 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const {
+    virtual ::complex_t evaluate( ::WavevectorInfo const & wavevectors ) const {
         bp::override func_evaluate = this->get_override( "evaluate" );
-        return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
+        return func_evaluate( boost::ref(wavevectors) );
     }
 
     virtual ::ICompositeSample * getCompositeSample(  ) {
@@ -421,13 +421,13 @@ void register_IFormFactorDecorator_class(){
         }
         { //::IFormFactor::evaluate
         
-            typedef ::complex_t ( ::IFormFactor::*evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( ::IFormFactor::*evaluate_function_type)( ::WavevectorInfo const & ) const;
             
             IFormFactorDecorator_exposer.def( 
                 "evaluate"
                 , bp::pure_virtual( evaluate_function_type(&::IFormFactor::evaluate) )
-                , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f_bin") )
-                , "Returns scattering amplitude for complex wavevector bin @param k_i   incoming wavevector @param k_f_bin   outgoing wavevector bin @param alpha_f outgoing angle wrt scattering surface \n\n:Parameters:\n  - 'k_i' - incoming wavevector\n  - 'k_f_bin' - outgoing wavevector bin\n  - 'alpha_f' - outgoing angle wrt scattering surface\n" );
+                , ( bp::arg("wavevectors") )
+                , "Returns scattering amplitude for complex wavevector bin @param k_i   incoming wavevector @param k_f_bin   outgoing wavevector bin \n\n:Parameters:\n  - 'k_i' - incoming wavevector\n  - 'k_f_bin' - outgoing wavevector bin\n" );
         
         }
         { //::ISample::getCompositeSample

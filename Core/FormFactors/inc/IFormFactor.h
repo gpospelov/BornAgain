@@ -21,6 +21,7 @@
 #include "ISample.h"
 #include "Bin.h"
 #include "EigenCore.h"
+#include "WavevectorInfo.h"
 
 class ILayerRTCoefficients;
 
@@ -49,19 +50,13 @@ public:
     //! Returns scattering amplitude for complex wavevector bin
     //! @param k_i   incoming wavevector
     //! @param k_f_bin   outgoing wavevector bin
-    //! @param alpha_f outgoing angle wrt scattering surface
-    virtual complex_t evaluate(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const=0;
+    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const=0;
 
 #ifndef GCCXML_SKIP_THIS
     //! Returns scattering amplitude for matrix interactions
     //! @param k_i   incoming wavevector
     //! @param k_f_bin   outgoing wavevector bin
-    //! @param alpha_f outgoing inclination angle wrt scattering surface
-    //! @param phi_f outgoing azimuthal angle wrt scattering surface
-    virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin,
-            const Bin1D &phi_f_bin) const;
+    virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif
 
     //! Returns number of variable/stochastic parameters
@@ -82,18 +77,11 @@ public:
         (void)p_in_coeffs;
         (void)p_out_coeffs;
     }
-
-
 };
 
 #ifndef GCCXML_SKIP_THIS
-inline Eigen::Matrix2cd IFormFactor::evaluatePol(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin, const Bin1D &phi_f_bin) const
+inline Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const
 {
-    (void)k_i;
-    (void)k_f_bin;
-    (void)alpha_f_bin;
-    (void)phi_f_bin;
     // Throws to prevent unanticipated behaviour
     throw NotImplementedException("IFormFactor::evaluatePol:"
             " is not implemented by default");
@@ -102,10 +90,8 @@ inline Eigen::Matrix2cd IFormFactor::evaluatePol(const cvector_t& k_i,
 
 inline double IFormFactor::getVolume() const
 {
-    cvector_t zero_vector;
-    Bin1DCVector zero_vector_bin(zero_vector, zero_vector);
-    Bin1D zero_bin;
-    return std::abs(evaluate(zero_vector, zero_vector_bin, zero_bin));
+    WavevectorInfo zero_wavevectors;
+    return std::abs(evaluate(zero_wavevectors));
 }
 
 inline double IFormFactor::getHeight() const

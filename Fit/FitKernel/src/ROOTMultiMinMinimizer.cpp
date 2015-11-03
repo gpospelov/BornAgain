@@ -19,7 +19,7 @@
 ROOTMultiMinMinimizer::ROOTMultiMinMinimizer(const std::string& minimizer_name, const std::string& algo_type)
     : ROOTMinimizer(minimizer_name, algo_type)
 {
-    m_gsl_minimizer = new ROOT::Math::GSLMinimizer(algo_type.c_str());
+    m_gsl_minimizer = new BA_ROOT::Math::GSLMinimizer(algo_type.c_str());
     m_root_minimizer = m_gsl_minimizer;
 }
 

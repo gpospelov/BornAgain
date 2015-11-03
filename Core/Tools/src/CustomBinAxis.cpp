@@ -23,7 +23,8 @@ CustomBinAxis::CustomBinAxis(const std::string &name, size_t nbins, double start
     , m_end(end)
 {
     if(m_start >= m_end)
-        throw Exceptions::LogicErrorException("CustomBinAxis::CustomBinAxis() -> Error. start >= end is not allowed.");
+        throw Exceptions::LogicErrorException("CustomBinAxis::CustomBinAxis() -> Error."
+                                              " start >= end is not allowed.");
 
     double start_sin = std::sin(start);
     double end_sin = std::sin(end);
@@ -40,11 +41,6 @@ CustomBinAxis::CustomBinAxis(const std::string &name, size_t nbins, double start
         bin_boundaries[i] = std::asin(start_sin -step/2. + step*i);
     }
     setBinBoundaries(bin_boundaries);
-
-//    for(size_t i=0; i<m_centers.size(); ++i) {
-//        std::cout << i << " " << Units::rad2deg(m_bin_boundaries[i]) << " " << Units::rad2deg(m_centers[i]) << Units::rad2deg(m_bin_boundaries[i+1]) << std::endl;
-//    }
-
 }
 
 
@@ -69,13 +65,16 @@ std::vector<double> CustomBinAxis::getBinCenters() const
 
 CustomBinAxis *CustomBinAxis::createClippedAxis(double /* left */, double /* right */) const
 {
-    throw Exceptions::NotImplementedException("VariableBinAxis::CustomBinAxis() -> Error. Not implemented.");
+    throw Exceptions::NotImplementedException("VariableBinAxis::CustomBinAxis() -> Error."
+                                              " Not implemented.");
 }
 
 
 void CustomBinAxis::print(std::ostream &ostr) const
 {
-    ostr << "CustomBinAxis(\"" << m_name << "\", " << getSize() << ", " << std::setprecision(std::numeric_limits<double>::digits10+2) << m_start << ", " << m_end << ")";
+    ostr << "CustomBinAxis(\"" << m_name << "\", " << getSize() << ", "
+         << std::setprecision(std::numeric_limits<double>::digits10+2)
+         << m_start << ", " << m_end << ")";
 }
 
 
@@ -84,8 +83,8 @@ bool CustomBinAxis::equals(const IAxis &other) const
     if (!IAxis::equals(other)) return false;
     if (const CustomBinAxis *otherAxis = dynamic_cast<const CustomBinAxis *>(&other)) {
         if (getSize() != otherAxis->getSize()) return false;
-        if ( std::abs(m_start - otherAxis->m_start) > Numeric::double_epsilon) return false;
-        if ( std::abs(m_end - otherAxis->m_end) > Numeric::double_epsilon) return false;
+        if ( !Numeric::areAlmostEqual(m_start, otherAxis->m_start)) return false;
+        if ( !Numeric::areAlmostEqual(m_end, otherAxis->m_end)) return false;
         return true;
     }
     return false;

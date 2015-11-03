@@ -30,7 +30,6 @@ DetectorItem::DetectorItem(ParameterizedItem *parent)
 
 // -------------------------------------------------------------------------- //
 
-const QString PhiAlphaDetectorItem::P_BINNING = "Binning";
 const QString PhiAlphaDetectorItem::P_PHI_AXIS = "Phi axis";
 const QString PhiAlphaDetectorItem::P_ALPHA_AXIS = "Alpha axis";
 const QString PhiAlphaDetectorItem::P_RESOLUTION_FUNCTION = "Type";
@@ -39,9 +38,6 @@ PhiAlphaDetectorItem::PhiAlphaDetectorItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::PhiAlphaDetectorType, parent)
 {
     setItemName(Constants::PhiAlphaDetectorType);
-    ComboProperty binning;
-    binning << Constants::AXIS_CONSTK_BINNING << Constants::AXIS_FIXED_BINNING;
-    registerProperty(P_BINNING, binning.getVariant());
 
     registerGroupProperty(P_PHI_AXIS, Constants::BasicAxisType);
     getSubItems()[P_PHI_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);

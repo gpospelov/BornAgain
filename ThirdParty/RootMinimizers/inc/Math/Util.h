@@ -25,7 +25,7 @@
 #define MATH_UNUSED(var)   (void)var
 
 
-namespace ROOT { 
+namespace BA_ROOT { 
 
    namespace Math { 
 

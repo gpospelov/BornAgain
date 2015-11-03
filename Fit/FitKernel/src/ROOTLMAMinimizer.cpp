@@ -21,7 +21,7 @@ ROOTLMAMinimizer::ROOTLMAMinimizer(const std::string& minimizer_name, const std:
   : ROOTMinimizer(minimizer_name, algo_type)
 {
 //    m_lma_minimizer = new ROOT::Patch::GSLNLSMinimizer(2);
-    m_lma_minimizer = new ROOT::Math::GSLNLSMinimizer(2);
+    m_lma_minimizer = new BA_ROOT::Math::GSLNLSMinimizer(2);
     m_root_minimizer = m_lma_minimizer;
 }
 

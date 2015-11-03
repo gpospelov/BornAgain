@@ -77,6 +77,7 @@ def run_test():
     run test and analyse test results
     """
     result = run_simulation()
+    # IntensityDataIOFactory.writeIntensityData(result, 'montecarlo_integration.int')
     reference = get_reference_data('montecarlo_integration.int.gz')
     diff = IntensityDataFunctions.getRelativeDifference(result, reference)
     status = "OK"

@@ -28,7 +28,7 @@
 #include <cassert>
 #include <memory>
 
-namespace ROOT { 
+namespace BA_ROOT { 
 
    namespace Math { 
 
@@ -149,14 +149,14 @@ GSLNLSMinimizer::GSLNLSMinimizer( int type ) :
    fEdm = -1; 
 
    // default tolerance and max iterations
-   int niter = ROOT::Math::MinimizerOptions::DefaultMaxIterations();
+   int niter = BA_ROOT::Math::MinimizerOptions::DefaultMaxIterations();
    if (niter <= 0) niter = 100; 
    SetMaxIterations(niter); 
 
-   fLSTolerance = ROOT::Math::MinimizerOptions::DefaultTolerance();
+   fLSTolerance = BA_ROOT::Math::MinimizerOptions::DefaultTolerance();
    if (fLSTolerance <=0) fLSTolerance = 0.0001; // default internal value
 
-   SetPrintLevel(ROOT::Math::MinimizerOptions::DefaultPrintLevel());
+   SetPrintLevel(BA_ROOT::Math::MinimizerOptions::DefaultPrintLevel());
 }
 
 GSLNLSMinimizer::~GSLNLSMinimizer () { 
@@ -166,7 +166,7 @@ GSLNLSMinimizer::~GSLNLSMinimizer () {
 
 
       
-void GSLNLSMinimizer::SetFunction(const ROOT::Math::IMultiGenFunction & func) { 
+void GSLNLSMinimizer::SetFunction(const BA_ROOT::Math::IMultiGenFunction & func) { 
    // set the function to minimizer 
    // need to create vector of functions to be passed to GSL multifit
    // support now only CHi2 implementation
@@ -174,7 +174,7 @@ void GSLNLSMinimizer::SetFunction(const ROOT::Math::IMultiGenFunction & func) {
    // call base class method. It will clone the function and set ndimension
    BasicMinimizer::SetFunction(func);
    //need to check if function can be used
-   const ROOT::Math::FitMethodFunction * chi2Func = dynamic_cast<const ROOT::Math::FitMethodFunction *>(ObjFunction()); 
+   const BA_ROOT::Math::FitMethodFunction * chi2Func = dynamic_cast<const BA_ROOT::Math::FitMethodFunction *>(ObjFunction()); 
    if (chi2Func == 0) { 
       if (PrintLevel() > 0) std::cout << "GSLNLSMinimizer: Invalid function set - only Chi2Func supported" << std::endl;
       return;
@@ -196,10 +196,10 @@ void GSLNLSMinimizer::SetFunction(const ROOT::Math::IMultiGenFunction & func) {
    fChi2Func = chi2Func; 
  }
 
-void GSLNLSMinimizer::SetFunction(const ROOT::Math::IMultiGradFunction & func ) { 
+void GSLNLSMinimizer::SetFunction(const BA_ROOT::Math::IMultiGradFunction & func ) { 
    // set the function to minimizer using gradient interface
    // not supported yet, implemented using the other SetFunction
-   return SetFunction(static_cast<const ROOT::Math::IMultiGenFunction &>(func) );
+   return SetFunction(static_cast<const BA_ROOT::Math::IMultiGenFunction &>(func) );
 }
 
 
@@ -271,9 +271,9 @@ bool GSLNLSMinimizer::Minimize() {
          std::cout << "----------> Iteration " << iter << " / " << MaxIterations() << " status " << gsl_strerror(status)  << std::endl; 
          const double * x = fGSLMultiFit->X();
          if (trFunc.get()) x = trFunc->Transformation(x);
-         int pr = std::cout.precision(18);
+         //int pr = std::cout.precision(18);
          std::cout << "            FVAL = " << (*fChi2Func)(x) << std::endl; 
-         std::cout.precision(pr);
+         std::cout << std::setprecision(18);
          std::cout << "            X Values : "; 
          for (unsigned int i = 0; i < NDim(); ++i) 
             std::cout << " " << VariableName(i) << " = " << X()[i]; 
@@ -350,10 +350,10 @@ bool GSLNLSMinimizer::Minimize() {
 
       if (debugLevel >=1 ) { 
          std::cout << "GSLNLSMinimizer: Minimum Found" << std::endl;  
-         int pr = std::cout.precision(18);
+         //int pr = std::cout.precision(18);
          std::cout << "FVAL         = " << MinValue() << std::endl;
          std::cout << "Edm          = " << fEdm    << std::endl;
-         std::cout.precision(pr);
+         std::cout << std::setprecision(18);
          std::cout << "NIterations  = " << iter << std::endl;
          std::cout << "NFuncCalls   = " << fChi2Func->NCalls() << std::endl;
          for (unsigned int i = 0; i < NDim(); ++i) 

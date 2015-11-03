@@ -22,8 +22,8 @@
 //! @class CustomBinAxis
 //! @ingroup tools
 //! @brief Axis with fixed bin size in sin(angle) space used for numerical
-//! comparison with IsGisaxs. The main feature of the axis that it produces
-//! zero bins size.
+//! comparison with IsGisaxs. The main feature of the axis is that it produces
+//! zero bin sizes.
 
 class BA_CORE_API_ CustomBinAxis : public VariableBinAxis
 {

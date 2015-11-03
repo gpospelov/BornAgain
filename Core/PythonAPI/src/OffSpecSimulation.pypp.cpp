@@ -49,16 +49,16 @@ struct OffSpecSimulation_wrapper : OffSpecSimulation, bp::wrapper< OffSpecSimula
         return OffSpecSimulation::clone( );
     }
 
-    virtual ::OutputData< double > * getIntensityData(  ) const  {
-        if( bp::override func_getIntensityData = this->get_override( "getIntensityData" ) )
-            return func_getIntensityData(  );
+    virtual ::OutputData< double > * getDetectorIntensity(  ) const  {
+        if( bp::override func_getDetectorIntensity = this->get_override( "getDetectorIntensity" ) )
+            return func_getDetectorIntensity(  );
         else{
-            return this->OffSpecSimulation::getIntensityData(  );
+            return this->OffSpecSimulation::getDetectorIntensity(  );
         }
     }
     
-    ::OutputData< double > * default_getIntensityData(  ) const  {
-        return OffSpecSimulation::getIntensityData( );
+    ::OutputData< double > * default_getDetectorIntensity(  ) const  {
+        return OffSpecSimulation::getDetectorIntensity( );
     }
 
     virtual int getNumberOfSimulationElements(  ) const  {
@@ -234,6 +234,18 @@ void register_OffSpecSimulation_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::OffSpecSimulation::getDetectorIntensity
+        
+            typedef ::OutputData< double > * ( ::OffSpecSimulation::*getDetectorIntensity_function_type)(  ) const;
+            typedef ::OutputData< double > * ( OffSpecSimulation_wrapper::*default_getDetectorIntensity_function_type)(  ) const;
+            
+            OffSpecSimulation_exposer.def( 
+                "getDetectorIntensity"
+                , getDetectorIntensity_function_type(&::OffSpecSimulation::getDetectorIntensity)
+                , default_getDetectorIntensity_function_type(&OffSpecSimulation_wrapper::default_getDetectorIntensity)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::OffSpecSimulation::getInstrument
         
             typedef ::Instrument const & ( ::OffSpecSimulation::*getInstrument_function_type)(  ) const;
@@ -247,14 +259,13 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::getIntensityData
         
-            typedef ::OutputData< double > * ( ::OffSpecSimulation::*getIntensityData_function_type)(  ) const;
-            typedef ::OutputData< double > * ( OffSpecSimulation_wrapper::*default_getIntensityData_function_type)(  ) const;
+            typedef ::Histogram2D * ( ::OffSpecSimulation::*getIntensityData_function_type)(  ) const;
             
             OffSpecSimulation_exposer.def( 
                 "getIntensityData"
-                , getIntensityData_function_type(&::OffSpecSimulation::getIntensityData)
-                , default_getIntensityData_function_type(&OffSpecSimulation_wrapper::default_getIntensityData)
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , getIntensityData_function_type( &::OffSpecSimulation::getIntensityData )
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "Returns clone of the detector intensity map in the form of 2D histogram." );
         
         }
         { //::OffSpecSimulation::getNumberOfSimulationElements
@@ -357,24 +368,13 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::setDetectorParameters
         
-            typedef void ( ::OffSpecSimulation::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double,bool ) ;
+            typedef void ( ::OffSpecSimulation::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double ) ;
             
             OffSpecSimulation_exposer.def( 
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::OffSpecSimulation::setDetectorParameters )
-                , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) )
+                , ( bp::arg("n_x"), bp::arg("x_min"), bp::arg("x_max"), bp::arg("n_y"), bp::arg("y_min"), bp::arg("y_max") )
                 , "Sets detector parameters using angle ranges." );
-        
-        }
-        { //::OffSpecSimulation::setDetectorParameters
-        
-            typedef void ( ::OffSpecSimulation::*setDetectorParameters_function_type)( ::DetectorParameters const & ) ;
-            
-            OffSpecSimulation_exposer.def( 
-                "setDetectorParameters"
-                , setDetectorParameters_function_type( &::OffSpecSimulation::setDetectorParameters )
-                , ( bp::arg("params") )
-                , "Sets detector parameters using parameter object." );
         
         }
         { //::OffSpecSimulation::setDetectorResolutionFunction

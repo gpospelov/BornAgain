@@ -2,7 +2,10 @@
 Simulation demo: movie of growing particles on substrate
 '''
 
-import os, sys, numpy, pylab, matplotlib
+import os, sys
+import numpy
+import matplotlib
+import math
 from bornagain import *
 
 Nframes = 50
@@ -63,19 +66,19 @@ def SetParameters(i):
 #-------------------------------------------------------------
 if __name__ == '__main__':
     files = []
-    fig = pylab.figure(figsize=(5,5))
+    fig = plt.figure(figsize=(5,5))
     ax = fig.add_subplot(111)
     for i in range(Nframes):
         SetParameters(i)
-        result = RunSimulation() + 1 # for log scale
+        result = RunSimulation() + 1  # for log scale
         ax.cla()
-        im = ax.imshow(numpy.rot90(result, 1), vmax=1e3,
+        im = ax.imshow(result, vmax=1e3,
                  norm=matplotlib.colors.LogNorm(),
                  extent=[-4.0, 4.0, 0, 8.0])
-        pylab.xlabel(r'$\phi_f$', fontsize=20)
-        pylab.ylabel(r'$\alpha_f$', fontsize=20)
+        plt.xlabel(r'$\phi_f$', fontsize=20)
+        plt.ylabel(r'$\alpha_f$', fontsize=20)
         if i==0:
-            pylab.colorbar(im)
+            plt.colorbar(im)
         fname = '_tmp%03d.png'%i
         print 'Saving frame', fname
         try:

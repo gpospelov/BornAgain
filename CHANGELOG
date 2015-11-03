@@ -1,3 +1,42 @@
+BornAgain-1.4.0, released 2015.10.30
+  > No API changes
+  > Summary:
+    1) Improved usability of IntensityData objects (slicing, histogram filling, ...)
+    2) GUI: export of simulation results into tiff or ascii file
+    3) Core: rectangular detector added (not yet in GUI)
+    4) Documentation: extra fitting examples on website
+    5) Various bugfixes
+  > Details of Sprint #29 (see http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/issues)
+  * Bug #1083: Trivial MultiLayer samples (no roughness, no particles) cause simulation crash.
+  * Bug #1130: Validate form factor of truncated sphere for absorption case
+  * Bug #1136: Numerical instability at phi_f=0 on MacOS for Pyramid based form factors
+  * Bug #1152: In Real Time Activity view, negative positions cannot be achieved
+  * Bug #1157: Qt dependency is not mentioned in INSTALL
+  * Bug #1158: many checks fail (1.3.0)
+  * Bug #1167: GUI crash when showing projection
+  * Bug #1170: GUI: InstrumentView alignment problem in detector parameters
+  * Bug #1171: GUI: make thickness disabled for air and substrate layers
+  * Bug #1173: Revise ParticleDistribution base class
+  * Bug #1174: GUI: color of layer does not change if color of material has been changed
+  * Bug #1198: GUI: fix simulation for particle distributions and negative z coordinate
+  * Bug #1212: Windows: modify installer to prepend BornAgain location to system PATH instead of appending to it
+  * Bug #1215: Repair wrong usage of double_epsilon in Core
+  * Bug #1216: GUI: normalization of intensity
+  * Bug #1223: FormFactorTruncatedCube instability under MacOS
+  * Feature #922: Add slicing to IntensityDataFunctions
+  * Feature #948: Implement new IntensityData object with improved usability
+  * Feature #1055: Implement Genetic minimizer to get rid from ROOT dependency
+  * Feature #1081: GUI: provide export of simulation results into tiff file
+  * Feature #1095: Implement rectangular (real space) detector
+  * Feature #1099: Repair fitting with masks
+  * Feature #1179: GUI: provide export of simulation results into text file (*.int)
+  * Feature #1186: Implement tiff import/export in kernel
+  * Documentation #1176: Drupal: update installation instructions, tutorials for coming release 1.4
+  * Documentation #1181: Drupal: provide fitting example along slices
+  * Documentation #1182: Drupal: provide fitting example with simultaneous fit of two datasets
+  * Refactoring #619: Masked simulation doesn't use all threads all the time
+  * Refactoring #1064: Get rid of "pylab" in Python scripts
+
 BornAgain-1.3.0, released 2015.07.30
   > API Changes:
     1) Removed 'depth' from ParticleLayout::addParticle: new interface provides for abundance, position and possible rotation

@@ -26,54 +26,12 @@ GCC_DIAG_ON(missing-field-initializers)
 
 namespace bp = boost::python;
 
-struct IObserver_wrapper : IObserver, bp::wrapper< IObserver > {
-
-    IObserver_wrapper(IObserver const & arg )
-    : IObserver( arg )
-      , bp::wrapper< IObserver >(){
-        // copy constructor
-        
-    }
-
-    IObserver_wrapper()
-    : IObserver()
-      , bp::wrapper< IObserver >(){
-        // null constructor
-        
-    }
-
-    virtual void update( ::IObservable * arg0 ) {
-        if( bp::override func_update = this->get_override( "update" ) )
-            func_update( boost::python::ptr(arg0) );
-        else{
-            this->IObserver::update( boost::python::ptr(arg0) );
-        }
-    }
-    
-    void default_update( ::IObservable * arg0 ) {
-        IObserver::update( boost::python::ptr(arg0) );
-    }
-
-};
-
 void register_IObserver_class(){
 
     { //::IObserver
-        typedef bp::class_< IObserver_wrapper > IObserver_exposer_t;
+        typedef bp::class_< IObserver > IObserver_exposer_t;
         IObserver_exposer_t IObserver_exposer = IObserver_exposer_t( "IObserver", "Observer interface from %Observer pattern, for 1:n object dependencies." );
         bp::scope IObserver_scope( IObserver_exposer );
-        { //::IObserver::update
-        
-            typedef void ( ::IObserver::*update_function_type)( ::IObservable * ) ;
-            typedef void ( IObserver_wrapper::*default_update_function_type)( ::IObservable * ) ;
-            
-            IObserver_exposer.def( 
-                "update"
-                , update_function_type(&::IObserver::update)
-                , default_update_function_type(&IObserver_wrapper::default_update)
-                , ( bp::arg("arg0") ) );
-        
-        }
         bp::register_ptr_to_python< boost::shared_ptr< IObserver > >();
     }
 

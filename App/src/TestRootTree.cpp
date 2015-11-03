@@ -116,7 +116,7 @@ void TestRootTree::complex_write()
         simulation.setBeamParameters(1.77*Units::angstrom, alpha_i, phi_i);
         simulation.setBeamIntensity(1e7);
         simulation.runSimulation();
-        simulation.normalize();
+        //simulation.normalize();
 
         // saving experimental parameter in event structure
         event->alpha_i = Units::rad2deg(alpha_i);
@@ -133,7 +133,7 @@ void TestRootTree::complex_write()
         event->malpha = Units::rad2deg(meso_alpha);
         // copying output data into event frame
         delete mp_data;
-        mp_data = simulation.getIntensityData();
+        mp_data = simulation.getDetectorIntensity();
         IsGISAXSTools::exportOutputDataInVectors2D(
             *mp_data, event->vi, event->vphi_f, event->valpha_f);
 
@@ -215,7 +215,7 @@ void TestRootTree::simple_write()
     mp_simulation = new GISASSimulation(mp_options);
     mp_simulation->setDetectorParameters(
         100, 0.0*Units::degree, 2.0*Units::degree,
-        100, 0.0*Units::degree, 2.0*Units::degree, true);
+        100, 0.0*Units::degree, 2.0*Units::degree);
     mp_simulation->setBeamParameters(
         1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     mp_simulation->setSample(*mp_sample);
@@ -266,7 +266,7 @@ void TestRootTree::simple_write()
             1.0*Units::angstrom, alpha_i*Units::degree, phi_i);
         mp_simulation->runSimulation();
 
-        mp_data = mp_simulation->getIntensityData();
+        mp_data = mp_simulation->getDetectorIntensity();
         // accessing to scattering data
         const IAxis *axis0 = mp_data->getAxis(0);
         const IAxis *axis1 = mp_data->getAxis(1);
@@ -285,10 +285,8 @@ void TestRootTree::simple_write()
         OutputData<double>::const_iterator it = mp_data->begin();
         while (it != mp_data->end())
         {
-            size_t index_phi_f =
-                mp_data->getIndexOfAxis(axis0_name.c_str(), it.getIndex());
-            size_t index_alpha_f =
-                mp_data->getIndexOfAxis(axis1_name.c_str(), it.getIndex());
+            size_t index_phi_f = mp_data->getAxisBinIndex(it.getIndex(), axis0_name);
+            size_t index_alpha_f = mp_data->getAxisBinIndex(it.getIndex(), axis1_name);
             phi_f = Units::rad2deg( (*axis0)[index_phi_f]);
             alpha_f = Units::rad2deg( (*axis1)[index_alpha_f] );
             //std::cout << phi_f << " " << alpha_f << std::endl;

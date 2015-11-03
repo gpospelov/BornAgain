@@ -54,15 +54,15 @@ void InterferenceFunction1DLattice::setProbabilityDistribution(
     m_na = (int) (std::abs(qa_max) + 0.5);
 }
 
-double InterferenceFunction1DLattice::evaluate(const cvector_t& q) const
+double InterferenceFunction1DLattice::evaluate(const kvector_t& q) const
 {
     if(!mp_pdf) {
         throw NullPointerException("InterferenceFunction1DLattice::evaluate"
                 " -> Error! No probability distribution function defined.");
     }
     double result = 0.0;
-    double qxr = q.x().real();
-    double qyr = q.y().real();
+    double qxr = q.x();
+    double qyr = q.y();
     double qx_frac;
     double xi = m_lattice_params.m_xi;
     double a = m_lattice_params.m_length;

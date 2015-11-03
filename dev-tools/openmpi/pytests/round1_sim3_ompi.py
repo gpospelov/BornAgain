@@ -210,7 +210,7 @@ def run_simulation():
         print result.getArray()
         axis_phi = result.getAxis(0)
         axis_alpha = result.getAxis(1)
-        im = pylab.imshow(numpy.rot90(result.getArray()+1, 1), norm=matplotlib.colors.LogNorm(vmin=100, vmax=1e7),
+        im = pylab.imshow(result.getArray()+1, norm=matplotlib.colors.LogNorm(vmin=100, vmax=1e7),
                  extent=[axis_phi.getMin(), axis_phi.getMax(), axis_alpha.getMin(), axis_alpha.getMax()])
         pylab.colorbar(im)
         pylab.xlabel(r'$\phi_f$', fontsize=20)

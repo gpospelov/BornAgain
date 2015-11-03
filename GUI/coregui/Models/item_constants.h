@@ -120,6 +120,11 @@ const ModelType BeamInclinationAngleType = "BeamInclinationAngle";
 const ModelType ResolutionFunctionNoneType = "ResolutionFunctionNone";
 const ModelType ResolutionFunction2DGaussianType = "ResolutionFunction2DGaussian";
 
+const ModelType RectangleType = "Rectangle";
+const ModelType EllipseType = "Ellipse";
+const ModelType PolygonType = "Polygon";
+const ModelType PointType = "Point";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
@@ -156,9 +161,6 @@ const ModelType GRADIENT_POLAR = "Polar";
 const ModelType GRADIENT_SPECTRUM = "Spectrum";
 const ModelType GRADIENT_JET = "Jet";
 const ModelType GRADIENT_HUES = "Hues";
-
-const ModelType AXIS_FIXED_BINNING = "Fixed";
-const ModelType AXIS_CONSTK_BINNING = "Const KBin";
 
 const ModelType JOB_RUN_IMMEDIATELY = "Immediately";
 const ModelType JOB_RUN_IN_BACKGROUND = "In background";

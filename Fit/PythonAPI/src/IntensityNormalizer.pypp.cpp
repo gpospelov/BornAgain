@@ -42,6 +42,18 @@ struct IntensityNormalizer_wrapper : IntensityNormalizer, bp::wrapper< Intensity
     m_pyobj = 0;
     }
 
+    virtual void apply( ::OutputData< double > & data ) const  {
+        if( bp::override func_apply = this->get_override( "apply" ) )
+            func_apply( boost::ref(data) );
+        else{
+            this->IntensityNormalizer::apply( boost::ref(data) );
+        }
+    }
+    
+    void default_apply( ::OutputData< double > & data ) const  {
+        IntensityNormalizer::apply( boost::ref(data) );
+    }
+
     virtual ::IntensityNormalizer * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
@@ -160,6 +172,18 @@ void register_IntensityNormalizer_class(){
         typedef bp::class_< IntensityNormalizer_wrapper, bp::bases< IIntensityNormalizer >, std::auto_ptr< IntensityNormalizer_wrapper > > IntensityNormalizer_exposer_t;
         IntensityNormalizer_exposer_t IntensityNormalizer_exposer = IntensityNormalizer_exposer_t( "IntensityNormalizer", "Standard OutputData normalizer, with configurable max_intensity.", bp::init< bp::optional< double, double > >(( bp::arg("scale")=1.0e+0, bp::arg("shift")=0.0 )) );
         bp::scope IntensityNormalizer_scope( IntensityNormalizer_exposer );
+        { //::IntensityNormalizer::apply
+        
+            typedef void ( ::IntensityNormalizer::*apply_function_type)( ::OutputData< double > & ) const;
+            typedef void ( IntensityNormalizer_wrapper::*default_apply_function_type)( ::OutputData< double > & ) const;
+            
+            IntensityNormalizer_exposer.def( 
+                "apply"
+                , apply_function_type(&::IntensityNormalizer::apply)
+                , default_apply_function_type(&IntensityNormalizer_wrapper::default_apply)
+                , ( bp::arg("data") ) );
+        
+        }
         { //::IntensityNormalizer::clone
         
             typedef ::IntensityNormalizer * ( ::IntensityNormalizer::*clone_function_type)(  ) const;

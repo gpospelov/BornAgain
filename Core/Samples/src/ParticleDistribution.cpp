@@ -23,10 +23,6 @@ ParticleDistribution::ParticleDistribution(const IParticle &prototype,
     : m_par_distribution(par_distr)
 {
     setName("ParticleDistribution");
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
-    checkParticleType(prototype);
     mP_particle.reset(prototype.clone());
     registerChild(mP_particle.get());
 }
@@ -42,14 +38,6 @@ ParticleDistribution *ParticleDistribution::cloneInvertB() const
 {
     throw Exceptions::NotImplementedException("ParticleDistribution::"
                                               "cloneInvertB: should never be called");
-}
-
-IFormFactor *ParticleDistribution::createTransformedFormFactor(complex_t, const IRotation *,
-                                                               kvector_t) const
-{
-    throw Exceptions::NotImplementedException(
-        "ParticleDistribution::"
-        "createTransformedFormFactor: should never be called");
 }
 
 void ParticleDistribution::generateParticleInfos(std::vector<const IParticle*> &particle_vector,
@@ -108,14 +96,5 @@ void ParticleDistribution::generateParticleInfos(std::vector<const IParticle*> &
         }
         particle_vector.push_back(p_particle_clone);
         abundance_vector.push_back(particle_abundance);
-    }
-}
-
-void ParticleDistribution::checkParticleType(const IParticle &p_particle)
-{
-    const ParticleDistribution *p_distr = dynamic_cast<const ParticleDistribution*>(&p_particle);
-    if (p_distr) {
-        throw Exceptions::ClassInitializationException("ParticleDistribution::checkParticleType: "
-                                                       "cannot add ParticleDistribution!");
     }
 }

@@ -1,5 +1,5 @@
 // @(#)root/minuit2:$Id$
-// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005  
+// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005
 
 /**********************************************************************
  *                                                                    *
@@ -10,25 +10,25 @@
 #ifndef ROOT_Minuit2_MnTiny
 #define ROOT_Minuit2_MnTiny
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 
 
 class MnTiny {
-  
+
 public:
-  
+
   MnTiny() : fOne(1.) {}
-  
+
   ~MnTiny() {}
-  
+
   double One() const;
-  
-  double operator()(double epsp1) const;
-  
+
+  double operator()(volatile double epsp1) const;
+
 private:
-  
+
   double fOne;
 };
 

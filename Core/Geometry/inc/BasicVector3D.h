@@ -204,7 +204,6 @@ public:
         }
 };
 
-
 // =========================================================================
 // Non-member functions for BasicVector3D<T>
 // =========================================================================
@@ -330,6 +329,8 @@ template<> BA_CORE_API_ double BasicVector3D<double>::phi() const;
 
 template<> BA_CORE_API_ double BasicVector3D<double>::theta() const;
 
+BA_CORE_API_ BasicVector3D<std::complex<double> > toComplexVector(
+        const BasicVector3D<double>& real_vector);
 
 }  // namespace Geometry
 

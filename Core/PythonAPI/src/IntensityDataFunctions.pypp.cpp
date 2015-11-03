@@ -32,28 +32,6 @@ void register_IntensityDataFunctions_class(){
         typedef bp::class_< IntensityDataFunctions > IntensityDataFunctions_exposer_t;
         IntensityDataFunctions_exposer_t IntensityDataFunctions_exposer = IntensityDataFunctions_exposer_t( "IntensityDataFunctions", "Class holding collection of static methods to work with intensity data." );
         bp::scope IntensityDataFunctions_scope( IntensityDataFunctions_exposer );
-        { //::IntensityDataFunctions::addEllipticMask
-        
-            typedef void ( *addEllipticMask_function_type )( ::OutputData< double > &,double,double,double,double,bool );
-            
-            IntensityDataFunctions_exposer.def( 
-                "addEllipticMask"
-                , addEllipticMask_function_type( &::IntensityDataFunctions::addEllipticMask )
-                , ( bp::arg("data"), bp::arg("xc"), bp::arg("yc"), bp::arg("rx"), bp::arg("ry"), bp::arg("invert_flag")=(bool)(false) )
-                , "Adds elliptic mask to IntensityData to exclude all points outside the mask from analysis " );
-        
-        }
-        { //::IntensityDataFunctions::addRectangularMask
-        
-            typedef void ( *addRectangularMask_function_type )( ::OutputData< double > &,double,double,double,double,bool );
-            
-            IntensityDataFunctions_exposer.def( 
-                "addRectangularMask"
-                , addRectangularMask_function_type( &::IntensityDataFunctions::addRectangularMask )
-                , ( bp::arg("data"), bp::arg("x1"), bp::arg("y1"), bp::arg("x2"), bp::arg("y2"), bp::arg("invert_flag")=(bool)(false) )
-                , "Adds rectangular mask to IntensityData to exclude all points outside the mask from analysi." );
-        
-        }
         { //::IntensityDataFunctions::applyDetectorResolution
         
             typedef ::OutputData< double > * ( *applyDetectorResolution_function_type )( ::OutputData< double > const &,::IResolutionFunction2D const & );
@@ -89,35 +67,19 @@ void register_IntensityDataFunctions_class(){
                 , "Returns relative difference between two data sets sum(result[i] - reference[i])/reference[i]) " );
         
         }
-        { //::IntensityDataFunctions::setEllipticMask
+        { //::IntensityDataFunctions::getRelativeDifference
         
-            typedef void ( *setEllipticMask_function_type )( ::OutputData< double > &,double,double,double,double,bool );
+            typedef double ( *getRelativeDifference_function_type )( ::IHistogram const &,::IHistogram const & );
             
             IntensityDataFunctions_exposer.def( 
-                "setEllipticMask"
-                , setEllipticMask_function_type( &::IntensityDataFunctions::setEllipticMask )
-                , ( bp::arg("data"), bp::arg("xc"), bp::arg("yc"), bp::arg("rx"), bp::arg("ry"), bp::arg("invert_flag")=(bool)(false) )
-                , "Sets elliptic mask to IntensityData to exclude all points outside the mask from analysis " );
+                "getRelativeDifference"
+                , getRelativeDifference_function_type( &::IntensityDataFunctions::getRelativeDifference )
+                , ( bp::arg("result"), bp::arg("reference") ) );
         
         }
-        { //::IntensityDataFunctions::setRectangularMask
-        
-            typedef void ( *setRectangularMask_function_type )( ::OutputData< double > &,double,double,double,double,bool );
-            
-            IntensityDataFunctions_exposer.def( 
-                "setRectangularMask"
-                , setRectangularMask_function_type( &::IntensityDataFunctions::setRectangularMask )
-                , ( bp::arg("data"), bp::arg("x1"), bp::arg("y1"), bp::arg("x2"), bp::arg("y2"), bp::arg("invert_flag")=(bool)(false) )
-                , "Sets rectangular mask to IntensityData to exclude all points outside the mask from analysis.\n\n:Parameters:\n  - 'data' - Intensity data object to set the mask\n  - 'x1' - x-cordinate of lower left corner of the rectangle\n  - 'y1' - y-cordinate of lower left corner of the rectangle\n  - 'x2' - x-cordinate of top right corner of the rectangle\n  - 'y2' - y-cordinate of top right corner of the rectangle\n  - 'invert_flag' - if true the area will be included in the analysis\n" );
-        
-        }
-        IntensityDataFunctions_exposer.staticmethod( "addEllipticMask" );
-        IntensityDataFunctions_exposer.staticmethod( "addRectangularMask" );
         IntensityDataFunctions_exposer.staticmethod( "applyDetectorResolution" );
         IntensityDataFunctions_exposer.staticmethod( "createClippedDataSet" );
         IntensityDataFunctions_exposer.staticmethod( "getRelativeDifference" );
-        IntensityDataFunctions_exposer.staticmethod( "setEllipticMask" );
-        IntensityDataFunctions_exposer.staticmethod( "setRectangularMask" );
     }
 
 }

@@ -17,16 +17,18 @@
 #define FITSUITEOBJECTS_H
 
 #include "IParameterized.h"
-#include "GISASSimulation.h"
 #include "OutputData.h"
 #include "FitObject.h"
-#include "SafePointerVector.h"
+#include "FitElement.h"
+#include "GISASSimulation.h"
 
 #include <vector>
 
+class IChiSquaredModule;
+
 //! @class FitSuiteObjects
 //! @ingroup fitting_internal
-//! @brief class containing vector FitObject's (simulation and real data) to fit
+//! @brief The class containing vector of FitObject (simulation and real data) to fit
 
 class BA_CORE_API_  FitSuiteObjects : public IParameterized
 {
@@ -34,114 +36,75 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
     typedef SafePointerVector<FitObject > FitObjects_t;
 
     FitSuiteObjects();
-    virtual ~FitSuiteObjects(){}
+    virtual ~FitSuiteObjects();
 
-    //! clear all data
-    void clear();
+    //! Adds to kit pair of (simulation, real data) for consecutive simulation
+    void add(const GISASSimulation& simulation, const OutputData<double>& real_data,
+             double weight = 1.0);
 
-    //! Returns number of fit items
-    size_t size() const { return m_fit_objects.size(); }
+    //! Returns number of fit objects (simulation/real data pairs)
+    size_t getNumberOfFitObjects() const;
 
-    //! Adds to kit pair of (simulation, real data) for consecutive simulation and chi2 module
-    void add(const GISASSimulation& simulation,
-             const OutputData<double>& real_data,
-             const IChiSquaredModule& chi2_module, double weight = 1.0);
-
-    //! loop through all defined simulations and run them
-    void runSimulations();
-
-    //! Returns total number of data points
+    //! Returns total number of data points (number of all non-masked channels in all fit objects)
     size_t getSizeOfDataSet() const;
 
-    //! Returns sum of chi squared values for all fit objects
-    double getChiSquaredValue() const { return m_chi_squared_value; }
+    //! Replaces default ChiSquaredModule with new one
+    void setChiSquaredModule(const IChiSquaredModule &chi2_module);
 
-    //! Returns sum of chi squared values for all fit objects
-    double calculateChiSquaredValue();
+    //! Returns real data from corresponding FitObject
+    //! @param i_item Index of FitObject
+    const OutputData<double> * getRealData(size_t i_item = 0) const;
+
+    //! Returns simulated data from corresponding FitObject
+    //! @param i_item Index of FitObject
+    const OutputData<double> * getSimulationData(size_t i_item = 0) const;
+
+    //! Returns new chi-squared map from corresponding FitObject
+    //! @param i_item Index of FitObject
+    OutputData<double> * getChiSquaredMap(size_t i_item = 0) const;
+
+    //! run all simulation defined in fit pairs
+    void runSimulations();
+
+    //! Returns chi2 calculated over whole dataset
+    double getChiSquaredValue() const;
 
     //! Returns residuals for single data element
-    //! @pars global_index index accross all OutputData defined
+    //! @pars global_index index accross all element in FitElement vector
     double getResidualValue(size_t global_index);
-
-    //! Returns simulation for read access.
-    const GISASSimulation *getSimulation(size_t i_item = 0) const {
-        return m_fit_objects[check_index(i_item)]->getSimulation(); }
-
-    //! Returns simulation for write access.
-    GISASSimulation *getSimulation(size_t i_item = 0) {
-        return m_fit_objects[check_index(i_item)]->getSimulation(); }
-
-    //! Returns real data
-    const OutputData<double> * getRealData(size_t i_item = 0) const {
-        return m_fit_objects[check_index(i_item)]->getRealData(); }
-
-    //! Sets real data
-    void setRealData(const OutputData<double >& real_data, size_t i_item = 0) {
-        m_fit_objects[check_index(i_item)]->setRealData(real_data);}
-
-    //! Returns simulated data
-    const OutputData<double> * getSimulationData(size_t i_item = 0) const { return m_fit_objects[check_index(i_item)]->getSimulationData(); }
-
-    //! Returns fit object
-    const FitObject *getObject(size_t i_item = 0) const {
-        return m_fit_objects[check_index(i_item)]; }
-
-    FitObject *getObject(size_t i_item = 0) {
-        return m_fit_objects[check_index(i_item)]; }
 
     //! Adds parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(
         std::string path, ParameterPool *external_pool,
         int copy_number=-1) const;
 
-    //! Sets simulation normalize flag
-    void setSimulationNormalize(bool simulation_normalize) {
-        m_simulation_normalize = simulation_normalize; }
+    void setNfreeParameters(int nfree_parameters );
 
-    void setNfreeParameters(int nfree_parameters ) {
-        m_nfree_parameters = nfree_parameters; }
-
-    //! Returns chi-squared map
-    OutputData<double> * getChiSquaredMap(size_t i_item = 0);
-
+    //! clear all data
+    void clear();
 
  protected:
     //! Registers some class members for later access via parameter pool
-    virtual void init_parameters() {}
+    virtual void init_parameters();
 
-    //! Returns maximum intensity in simulated data
-    double getSimulationMaxIntensity();
-
-    //! Returns object and calculate index of data element for given global data element index
-    const FitObject *getObjectForGlobalDataIndex(
-        size_t global_index, size_t& local_index);
+    double calculateChiSquaredValue();
 
  private:
     //! disabled copy constructor and assignment operator
     FitSuiteObjects& operator=(const FitSuiteObjects& );
     FitSuiteObjects(const FitSuiteObjects& );
 
-    //! Checks if index inside vector bounds
-    inline size_t check_index(size_t index) const {
-        return index < m_fit_objects.size() ?
-            index :
-            throw OutOfBoundsException("FitSuiteKit::check() -> "
-                                       "Index outside of range"); }
+    inline size_t check_index(size_t index) const;
 
-    //! Set of simulations and corresponding real data.
+
     FitObjects_t m_fit_objects;
-
-    //! Sum of weights of fit sets.
     double m_total_weight;
-
-    bool m_simulation_normalize;
-
-    //! number of free fit parameters for normalization
     int m_nfree_parameters;
-
     double m_chi_squared_value;
+    std::vector<FitElement> m_fit_elements;
+    boost::scoped_ptr<IChiSquaredModule> m_chi2_module;
 };
 
-#endif // FITSUITEKIT_H
+#endif // FITSUITEOBJECTS_H
 
 

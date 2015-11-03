@@ -35,7 +35,7 @@ public:
     }
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
-    virtual double evaluate(const cvector_t& q) const { (void)q; return 1.0; }
+    virtual double evaluate(const kvector_t& q) const { (void)q; return 1.0; }
 };
 
 #endif /* INTERFERENCEFUNCTIONNONE_H_ */

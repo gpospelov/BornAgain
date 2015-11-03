@@ -33,7 +33,7 @@
 #include "ConstKBinAxis.h"
 #include "FixedBinAxis.h"
 #include "CustomBinAxis.h"
-#include "Detector.h"
+#include "SphericalDetector.h"
 #include "ParticleDistributionItem.h"
 #include "ParticleDistribution.h"
 #include "Distributions.h"
@@ -409,24 +409,6 @@ bool TransformFromDomain::isHexagonalLattice(double length1, double length2, dou
     return false;
 }
 
-//! FIXME Remove hardcoded strings
-QString TransformFromDomain::getDetectorBinning(const Detector *detector)
-{
-    boost::scoped_ptr<IAxis> P_phi_axis(detector->getAxis(0).clone());
-    boost::scoped_ptr<IAxis> P_alpha_axis(detector->getAxis(1).clone());
-
-    if (dynamic_cast<ConstKBinAxis *>(P_phi_axis.get())
-        && dynamic_cast<ConstKBinAxis *>(P_alpha_axis.get())) {
-        return Constants::AXIS_CONSTK_BINNING;
-    } else if (dynamic_cast<FixedBinAxis *>(P_phi_axis.get())
-               && dynamic_cast<FixedBinAxis *>(P_alpha_axis.get())) {
-        return Constants::AXIS_FIXED_BINNING;
-    } else {
-        throw GUIHelpers::Error("TransformFromDomain::getDetectorBinning()"
-                                " -> Error. Can't determine detector binning");
-    }
-}
-
 void TransformFromDomain::setItemFromSample(BeamItem *beamItem, const GISASSimulation &simulation)
 {
     Q_ASSERT(beamItem);
@@ -462,18 +444,11 @@ void TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem,
                                             const GISASSimulation &simulation)
 {
     Q_ASSERT(detectorItem);
-    Detector detector = simulation.getInstrument().getDetector();
+    const IDetector2D *detector = simulation.getInstrument().getDetector();
 
     // Axes
-    const IAxis &phi_axis = detector.getAxis(0);
-    const IAxis &alpha_axis = detector.getAxis(1);
-
-    ComboProperty binning_property
-        = detectorItem->getRegisteredProperty(PhiAlphaDetectorItem::P_BINNING)
-              .value<ComboProperty>();
-    binning_property.setValue(TransformFromDomain::getDetectorBinning(&detector));
-    detectorItem->setRegisteredProperty(PhiAlphaDetectorItem::P_BINNING,
-                                        binning_property.getVariant());
+    const IAxis &phi_axis = detector->getAxis(0);
+    const IAxis &alpha_axis = detector->getAxis(1);
 
     BasicAxisItem *phiAxisItem = dynamic_cast<BasicAxisItem *>(
         detectorItem->getSubItems()[PhiAlphaDetectorItem::P_PHI_AXIS]);
@@ -490,7 +465,7 @@ void TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem,
     alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
 
     // detector resolution
-    if (const IDetectorResolution *p_resfunc = detector.getDetectorResolutionFunction()) {
+    if (const IDetectorResolution *p_resfunc = detector->getDetectorResolutionFunction()) {
         if (const ConvolutionDetectorResolution *p_convfunc
             = dynamic_cast<const ConvolutionDetectorResolution *>(p_resfunc)) {
             if (const ResolutionFunction2DGaussian *resfunc

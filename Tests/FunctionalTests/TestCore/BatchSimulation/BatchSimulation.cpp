@@ -15,7 +15,7 @@ int TestBatchSimulation()
 
     simulation->setSampleBuilder(builder);
     simulation->runSimulation();
-    boost::scoped_ptr<OutputData<double > > reference(simulation->getIntensityData());
+    boost::scoped_ptr<OutputData<double > > reference(simulation->getDetectorIntensity());
     boost::scoped_ptr<OutputData<double > > result(reference->clone());
     result->setAllTo(0.0);
 

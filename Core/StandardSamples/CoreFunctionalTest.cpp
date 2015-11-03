@@ -18,6 +18,7 @@
 #include "IntensityDataFunctions.h"
 #include "FileSystem.h"
 #include "IntensityDataIOFactory.h"
+#include "OutputDataIOHelper.h"
 #include "Utils.h"
 #include <boost/scoped_ptr.hpp>
 
@@ -55,7 +56,7 @@ int CoreFunctionalTest::analyseResults()
         m_result = FAILED_NOREF;
     } else {
         try {
-            boost::scoped_ptr<OutputData<double> > result_data(m_simulation->getIntensityData());
+            boost::scoped_ptr<OutputData<double> > result_data(m_simulation->getDetectorIntensity());
             m_difference = IntensityDataFunctions::getRelativeDifference(*result_data.get(),
                                                                      *m_reference);
             m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);
@@ -93,23 +94,22 @@ void CoreFunctionalTest::saveSimulationResults() const
 {
     Utils::FileSystem::CreateDirectory(directory_name_for_failed_tests);
     boost::scoped_ptr<OutputData<double> > result_data(getIntensityData());
-    IntensityDataIOFactory::writeIntensityData(*result_data.get(),
+    IntensityDataIOFactory::writeOutputData(*result_data.get(),
                                                getSimulationResultsFileNameAndPath());
 }
 
 //! Constructs file name to save results. Strip gzip extention if necessary.
 std::string CoreFunctionalTest::getSimulationResultsFileNameAndPath() const
 {
-    std::string result
-        = Utils::FileSystem::StripFileNameFromGzipExtention(m_simulation_results_file_name);
-    result = Utils::FileSystem::GetJoinPath(directory_name_for_failed_tests, result);
+    std::string result = Utils::FileSystem::GetJoinPath(directory_name_for_failed_tests,
+                                            m_simulation_results_file_name);
     return result;
 }
 
 OutputData<double> *CoreFunctionalTest::getIntensityData() const
 {
     if (m_simulation) {
-        return m_simulation->getIntensityData();
+        return m_simulation->getDetectorIntensity();
     }
     return 0;
 }

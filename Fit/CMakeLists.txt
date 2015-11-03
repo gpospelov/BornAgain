@@ -10,23 +10,20 @@ endif()
 # --- source and include files ------
 set(include_dirs 
     ${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/StandardFits
 )
 include_directories(${include_dirs})
 
 file(GLOB fitkernel_source_files
     "FitKernel/src/*.cpp"
     "FitKernel/src/*.cxx"
+    "StandardFits/*.cpp"
 )
 
 file(GLOB fitkernel_include_files
     "FitKernel/inc/*.h"
+    "StandardFits/*.h"
 )
-
-# genetic minimizer only available if ROOT present
-if(NOT ROOT_FOUND)
-    list(REMOVE_ITEM fitkernel_source_files "${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/src/ROOTGeneticMinimizer.cpp")
-    list(REMOVE_ITEM fitkernel_include_files "${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/inc/ROOTGeneticMinimizer.h")
-endif()
 
 set(source_files ${fitkernel_source_files})
 set(include_files ${fitkernel_include_files})
@@ -78,16 +75,6 @@ target_link_libraries(
     ${RootMinimizers_LIBRARY}
     ${GSL_LIBRARIES}
 )
-
-if(ROOT_FOUND)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DHAS_GENETIC_MINIMIZER")
-    include_directories(
-        ${ROOT_INCLUDE_DIR}
-    )
-    target_link_libraries(${library_name}
-        ${ROOT_LIBRARIES} -lTMVA
-    )
-endif()
 
 if(BORNAGAIN_PYTHON)
     include_directories(${PYTHON_INCLUDE_DIRS})

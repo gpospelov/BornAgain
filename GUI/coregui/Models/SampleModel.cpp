@@ -58,9 +58,6 @@ void SampleModel::onMaterialModelChanged(const QModelIndex &first, const QModelI
 
 void SampleModel::exploreForMaterials(const QModelIndex &parentIndex)
 {
-
-    qDebug() << "SampleModel::exploreForMaterials";
-
     if (!parentIndex.isValid()) {
         qDebug() << "Dumping model";
     }
@@ -74,8 +71,11 @@ void SampleModel::exploreForMaterials(const QModelIndex &parentIndex)
                 MaterialProperty material_property
                     = item->getRegisteredProperty(LayerItem::P_MATERIAL).value<MaterialProperty>();
                 if (material_property.getIdentifier() == m_material_identifier) {
-                    item->setRegisteredProperty(LayerItem::P_MATERIAL,
-                                                material_property.getVariant());
+//                    item->setRegisteredProperty(LayerItem::P_MATERIAL,
+//                                                material_property.getVariant());
+                    // MaterialProperty of the layer corresponds to the material which just has been changed
+                    // To trigger color change in ILayerView we have to trigger propertyChanged
+                    emit item->propertyChanged(LayerItem::P_MATERIAL);
                 }
             }
         } else {

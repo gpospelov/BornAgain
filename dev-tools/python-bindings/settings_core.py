@@ -47,6 +47,7 @@ include_dirs = [
     '../../Core/Tools/inc',
     '../../Core/PythonAPI/inc',
     '../../Core/Geometry/inc',
+    '../../Core/InputOutput',
 ]
 
 include_classes = [
@@ -61,7 +62,6 @@ include_classes = [
     "Bin1D",
     "Bin1DCVector",
     "Crystal",
-    "Detector",
     "DistributionGate",
     "DistributionLorentz",
     "DistributionGaussian",
@@ -91,9 +91,6 @@ include_classes = [
     "FormFactorFullSpheroid",
     "FormFactorGauss",
     "FormFactorHemiEllipsoid",
-    "FormFactorInfLongBox",
-    "FormFactorInfLongRipple1",
-    "FormFactorInfLongRipple2",
     "FormFactorLorentz",
     "FormFactorPrism3",
     "FormFactorPrism6",
@@ -117,6 +114,7 @@ include_classes = [
     "ICloneable",
     "IClusteredParticles",
     "ICompositeSample",
+    "IDetector2D",
     "ILayout",
     "IDetectorResolution",
     "IDistribution1D",
@@ -126,17 +124,21 @@ include_classes = [
     "IFormFactorBorn",
     "IFormFactorDecorator",
     "IInterferenceFunction",
+    "IHistogram",
+    "Histogram1D",
+    "Histogram2D",
     "IMaterial",
+    "IntensityDataFunctions",
     "IObserver",
     "IObservable",
     "IParameterized",
     "IParticle",
     "IResolutionFunction2D",
-    "IntensityDataFunctions",
     "IRotation",
     "ISample",
     "ISampleBuilder",
     "ISelectionRule",
+    "IsGISAXSDetector",
     "Instrument",
     "InterferenceFunction1DLattice",
     "InterferenceFunctionRadialParaCrystal",
@@ -162,18 +164,28 @@ include_classes = [
     "ParticleCoreShell",
     "ParticleLayout",
     "RealParameterWrapper",
+    "RectangularDetector",
     "ResolutionFunction2DGaussian",
     "RotationX",
     "RotationY",
     "RotationZ",
     "RotationEuler",
     "SpecularSimulation",
+    "SphericalDetector",
     "Simulation",
     "SimulationParameters",
     "SimpleSelectionRule",
     "ThreadInfo",
     "cvector_t",
     "kvector_t",
+    "IShape2D",
+    "Line",
+    "VerticalLine",
+    "HorizontalLine",
+    "Ellipse",
+    "Rectangle",
+    "Polygon",
+    "WavevectorInfo"
 ]
 
 
@@ -190,10 +202,15 @@ def ManualClassTunings(mb):
     axis_operators = mb.free_operators( lambda decl: 'IAxis' in decl.decl_string )
     axis_operators.include()
 
-    mb.class_("Detector").member_functions("addAxis").exclude()
-    #
+    # shared ptrs
     shared_ptrs = mb.decls(lambda decl: decl.name.startswith('shared_ptr<' ))
     shared_ptrs.disable_warnings(messages.W1040)
+
+    # IDetector2D
+    cl = mb.class_('IDetector2D')
+    cl.member_functions("addAxis").exclude()
+    cl.member_functions("clone").exclude()
+
     # ISample
     cl = mb.class_('ISample')
     cl.member_function("accept").include()
@@ -277,8 +294,8 @@ def ManualClassTunings(mb):
         if "generateSamples" in fun.name:
             fun.exclude()
     #
-    cl = mb.class_("IObserver")
-    cl.member_function("update").include()
+    # cl = mb.class_("IObserver")
+    # cl.member_function("update").include()
 
     #cl = mb.class_("MaterialManager")
     #cl.constructors().exclude()
@@ -327,12 +344,14 @@ def ManualClassTunings(mb):
     #
     cl = mb.class_("Simulation")
     cl.member_function("setSampleBuilder").include()
-    cl.member_function("getIntensityData").call_policies = \
-        call_policies.return_value_policy(call_policies.manage_new_object)
+    # cl.member_function("getIntensityData").call_policies = \
+    #     call_policies.return_value_policy(call_policies.manage_new_object)
     #
     cl = mb.class_("GISASSimulation")
     cl.member_function("getOutputData").exclude()
     cl.member_function("getIntensityData").call_policies = \
+        call_policies.return_value_policy(call_policies.manage_new_object)
+    cl.member_function("getDetectorIntensity").call_policies = \
         call_policies.return_value_policy(call_policies.manage_new_object)
     #
     cl = mb.class_("SpecularSimulation")
@@ -343,6 +362,8 @@ def ManualClassTunings(mb):
     cl = mb.class_("OffSpecSimulation")
     cl.member_function("getOutputData").exclude()
     cl.member_function("getIntensityData").call_policies = \
+        call_policies.return_value_policy(call_policies.manage_new_object)
+    cl.member_function("getDetectorIntensity").call_policies = \
         call_policies.return_value_policy(call_policies.manage_new_object)
     #
     cl = mb.class_("ParticleCoreShell")
@@ -359,6 +380,39 @@ def ManualClassTunings(mb):
     mb.namespace("BornAgain").free_function("GetVersionNumber").include()
     mb.namespace("BornAgain").free_function("GetName").include()
 
+    cl = mb.class_("IHistogram")
+    cl.member_function("getArray").call_policies = call_policies.custom_call_policies("")
+    cl.member_function("getXaxis").call_policies = call_policies.return_internal_reference()
+    cl.member_function("getYaxis").call_policies = call_policies.return_internal_reference()
+    cl.member_function("createOutputData").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
+    cl.member_function("createRelativeDifferenceHistogram").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
+
+
+    cl = mb.class_("Histogram1D")
+    cl.member_function("getBinCenters").exclude()
+    cl.member_function("getBinValues").exclude()
+    cl.member_function("getBinErrors").exclude()
+    cl.member_function("getBinCentersNumpy").call_policies = call_policies.custom_call_policies("")
+    cl.member_function("getBinValuesNumpy").call_policies = call_policies.custom_call_policies("")
+    cl.member_function("getBinErrorsNumpy").call_policies = call_policies.custom_call_policies("")
+    cl.member_function("getBinCentersNumpy").alias = "getBinCenters"
+    cl.member_function("getBinValuesNumpy").alias = "getBinValues"
+    cl.member_function("getBinErrorsNumpy").alias = "getBinErrors"
+
+
+    #
+    cl = mb.class_("Histogram2D")
+    for fun in cl.member_functions():
+        if "projection" in fun.name:
+            fun.call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
+
+
+    cl = mb.class_("IntensityDataIOFactory")
+
+    cl.member_function("readOutputData").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
+    # cl.member_function("readHistogram").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
+    cl.member_function("readIntensityData").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
+
 
 # excluding specific member functions
 def ManualExcludeMemberFunctions(mb):
@@ -367,8 +421,7 @@ def ManualExcludeMemberFunctions(mb):
     to_exclude_exact=['inverse', 'transformed',
         'getNearestLatticeVectorCoordinates',
         'getNearestReciprocalLatticeVectorCoordinates', 'collectBraggAngles',
-        'getKVectorContainer', 'begin', 'end', 'getBinOfAxis', 'addMask',
-        'getMask', 'setMask',
+        'getKVectorContainer', 'begin', 'end'
     ]
     for f in mb.member_functions():
         for x in to_exclude:

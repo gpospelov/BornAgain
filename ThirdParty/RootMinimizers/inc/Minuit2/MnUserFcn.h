@@ -1,5 +1,5 @@
 // @(#)root/minuit2:$Id$
-// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005  
+// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005
 
 /**********************************************************************
  *                                                                    *
@@ -12,7 +12,7 @@
 
 #include "Minuit2/MnFcn.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 
@@ -20,7 +20,7 @@ namespace ROOT {
 class MnUserTransformation;
 
  /**
-    Wrapper used by Minuit of FCN interface 
+    Wrapper used by Minuit of FCN interface
     containing a reference to the transformation object
   */
 class MnUserFcn : public MnFcn {

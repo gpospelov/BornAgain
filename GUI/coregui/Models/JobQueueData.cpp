@@ -90,7 +90,7 @@ void JobQueueData::setResults(JobItem *jobItem, const GISASSimulation *simulatio
     }
 
     intensityItem->setNameFromProposed(jobItem->itemName());
-    intensityItem->setOutputData(simulation->getIntensityData());
+    intensityItem->setOutputData(simulation->getDetectorIntensity());
 }
 
 

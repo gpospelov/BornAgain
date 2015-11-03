@@ -32,7 +32,7 @@ public:
     void addWidgetsFromGridLayout(QGridLayout*, int column);
     void addWidgetsFromFormLayout(QFormLayout*, QFormLayout::ItemRole role);
 
-private Q_SLOTS:
+private slots:
     void updateWidth();
 
 protected:

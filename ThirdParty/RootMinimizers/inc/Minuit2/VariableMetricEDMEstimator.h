@@ -1,5 +1,5 @@
 // @(#)root/minuit2:$Id$
-// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005  
+// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005
 
 /**********************************************************************
  *                                                                    *
@@ -10,7 +10,7 @@
 #ifndef ROOT_Minuit2_VariableMetricEDMEstimator
 #define ROOT_Minuit2_VariableMetricEDMEstimator
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 
@@ -23,7 +23,7 @@ class VariableMetricEDMEstimator {
 public:
 
   VariableMetricEDMEstimator() {}
-  
+
   ~VariableMetricEDMEstimator() {}
 
   double Estimate(const FunctionGradient&, const MinimumError&) const;

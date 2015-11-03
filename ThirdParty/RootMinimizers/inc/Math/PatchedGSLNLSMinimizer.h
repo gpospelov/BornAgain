@@ -55,7 +55,7 @@
 #include <map>
 #include <string>
 
-namespace ROOT { 
+namespace BA_ROOT { 
 
    namespace Math { 
 
@@ -82,7 +82,7 @@ public:
    {}
 
 
-   LSResidualFunc(const ROOT::Math::FitMethodFunction & func, unsigned int i) : 
+   LSResidualFunc(const BA_ROOT::Math::FitMethodFunction & func, unsigned int i) : 
       fIndex(i), 
       fChi2(&func), 
       fX2(std::vector<double>(func.NDim() ) )
@@ -148,7 +148,7 @@ private:
    }
 
    unsigned int fIndex; 
-   const ROOT::Math::FitMethodFunction * fChi2; 
+   const BA_ROOT::Math::FitMethodFunction * fChi2; 
    mutable std::vector<double> fX2;  // cached vector
 };
 
@@ -162,7 +162,7 @@ private:
 
    @ingroup MultiMin
 */ 
-class GSLNLSMinimizer : public  ROOT::Math::BasicMinimizer {
+class GSLNLSMinimizer : public  BA_ROOT::Math::BasicMinimizer {
 
 public: 
 
@@ -182,7 +182,7 @@ private:
    /** 
       Copy constructor
    */ 
-   GSLNLSMinimizer(const GSLNLSMinimizer &) : ROOT::Math::BasicMinimizer() {} 
+   GSLNLSMinimizer(const GSLNLSMinimizer &) : BA_ROOT::Math::BasicMinimizer() {} 
 
    /** 
       Assignment operator
@@ -195,10 +195,10 @@ private:
 public: 
 
    /// set the function to minimize
-   virtual void SetFunction(const ROOT::Math::IMultiGenFunction & func); 
+   virtual void SetFunction(const BA_ROOT::Math::IMultiGenFunction & func); 
 
    /// set gradient the function to minimize
-   virtual void SetFunction(const ROOT::Math::IMultiGradFunction & func); 
+   virtual void SetFunction(const BA_ROOT::Math::IMultiGradFunction & func); 
 
  
    /// method to perform the minimization
@@ -249,8 +249,8 @@ private:
    unsigned int fSize;        // number of fit points (residuals)
  
 
-   ROOT::Math::GSLMultiFit * fGSLMultiFit;        // pointer to GSL multi fit solver 
-   const ROOT::Math::FitMethodFunction * fChi2Func;      // pointer to Least square function
+   BA_ROOT::Math::GSLMultiFit * fGSLMultiFit;        // pointer to GSL multi fit solver 
+   const BA_ROOT::Math::FitMethodFunction * fChi2Func;      // pointer to Least square function
    
    double fEdm;                                   // edm value
    double fLSTolerance;                           // Line Search Tolerance

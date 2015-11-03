@@ -1,7 +1,5 @@
 # Search for installed software required by BornAgain
 
-
-
 if(BORNAGAIN_OPENMPI)
     message(STATUS "Configuring with OpenMPI support")
     find_package(MPI REQUIRED)
@@ -38,28 +36,17 @@ message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
 # --- GSL ---
 find_package(GSL REQUIRED)
 
-#if(NOT BUILTIN_GSL)
-#    find_package(GSL REQUIRED)
-#    if(GSL_FOUND)
-#        include_directories(${GSL_INCLUDE_DIR})
-#    else()
-#        message(STATUS "No GSL has been found. Install it, or run cmake -DBUILTIN_GSL=ON to use build in GSL installation.")
-#    endif()
-#endif()
+# -----------------------------------------------------------------------------
+# Tiff
+# -----------------------------------------------------------------------------
+if(BORNAGAIN_TIFF_SUPPORT)
+    find_package(TIFF 4.0.2)
+    if(NOT TIFF_FOUND)
+        set(BORNAGAIN_TIFF_SUPPORT OFF)
+        message(STATUS "--> LibTIFF was not found on the system , disabling tiff support.")
+    endif()
+endif()
 
-#if(BUILTIN_GSL)
-#    set(gsl_version 1.9)
-#    include(ExternalProject)
-#    message(STATUS "Downloading and building GSL version ${gsl_version}")
-#    ExternalProject_Add(
-#      GSL
-#      URL http://mirror.switch.ch/ftp/mirror/gnu/gsl/gsl-${gsl_version}.tar.gz
-#      INSTALL_DIR ${CMAKE_BINARY_DIR}
-#      CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix <INSTALL_DIR> --disable-shared
-#    )
-#    set(GSL_INCLUDE_DIRS ${CMAKE_BINARY_DIR}/include)
-#    set(GSL_LIBRARIES -L${CMAKE_BINARY_DIR}/lib -lgsl -lgslcblas -lm)
-#endif()
 
 
 # --- Python ---
@@ -85,6 +72,6 @@ endif()
 
 
 # --- ROOT ---
-if(ROOT_SUPPORT OR BORNAGAIN_APP)
+if(BORNAGAIN_APP)
     find_package(ROOT)
 endif()

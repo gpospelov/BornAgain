@@ -141,8 +141,9 @@ void register_Instrument_class(){
 
     { //::Instrument
         typedef bp::class_< Instrument_wrapper, bp::bases< IParameterized > > Instrument_exposer_t;
-        Instrument_exposer_t Instrument_exposer = Instrument_exposer_t( "Instrument", "Assembles beam, detector and their relative positions wrt the sample.", bp::init< >() );
+        Instrument_exposer_t Instrument_exposer = Instrument_exposer_t( "Instrument", "Assembles beam, detector and their relative positions wrt the sample.", bp::no_init );
         bp::scope Instrument_scope( Instrument_exposer );
+        Instrument_exposer.def( bp::init< >() );
         Instrument_exposer.def( bp::init< Instrument const & >(( bp::arg("other") )) );
         { //::Instrument::getBeam
         
@@ -153,13 +154,34 @@ void register_Instrument_class(){
                 , getBeam_function_type( &::Instrument::getBeam ) );
         
         }
+        { //::Instrument::getBeamIntensity
+        
+            typedef double ( ::Instrument::*getBeamIntensity_function_type)(  ) const;
+            
+            Instrument_exposer.def( 
+                "getBeamIntensity"
+                , getBeamIntensity_function_type( &::Instrument::getBeamIntensity )
+                , "Returns the beam's intensity." );
+        
+        }
         { //::Instrument::getDetector
         
-            typedef ::Detector ( ::Instrument::*getDetector_function_type)(  ) const;
+            typedef ::IDetector2D const * ( ::Instrument::*getDetector_function_type)(  ) const;
             
             Instrument_exposer.def( 
                 "getDetector"
-                , getDetector_function_type( &::Instrument::getDetector ) );
+                , getDetector_function_type( &::Instrument::getDetector )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::Instrument::getDetector
+        
+            typedef ::IDetector2D * ( ::Instrument::*getDetector_function_type)(  ) ;
+            
+            Instrument_exposer.def( 
+                "getDetector"
+                , getDetector_function_type( &::Instrument::getDetector )
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::Instrument::getDetectorAxis
@@ -183,25 +205,26 @@ void register_Instrument_class(){
                 , "Returns the detector's dimension." );
         
         }
-        { //::Instrument::getIntensity
+        { //::Instrument::matchDetectorAxes
         
-            typedef double ( ::Instrument::*getIntensity_function_type)(  ) const;
+            typedef void ( ::Instrument::*matchDetectorAxes_function_type)( ::OutputData< double > const & ) ;
             
             Instrument_exposer.def( 
-                "getIntensity"
-                , getIntensity_function_type( &::Instrument::getIntensity )
-                , "Returns the beam's intensity." );
-        
-        }
-        { //::Instrument::matchDetectorParameters
-        
-            typedef void ( ::Instrument::*matchDetectorParameters_function_type)( ::OutputData< double > const & ) ;
-            
-            Instrument_exposer.def( 
-                "matchDetectorParameters"
-                , matchDetectorParameters_function_type( &::Instrument::matchDetectorParameters )
+                "matchDetectorAxes"
+                , matchDetectorAxes_function_type( &::Instrument::matchDetectorAxes )
                 , ( bp::arg("output_data") )
                 , "Sets detector parameters using axes of output data." );
+        
+        }
+        { //::Instrument::operator=
+        
+            typedef ::Instrument & ( ::Instrument::*assign_function_type)( ::Instrument const & ) ;
+            
+            Instrument_exposer.def( 
+                "assign"
+                , assign_function_type( &::Instrument::operator= )
+                , ( bp::arg("other") )
+                , bp::return_self< >() );
         
         }
         { //::Instrument::setAnalyzerProperties
@@ -257,6 +280,17 @@ void register_Instrument_class(){
                 , "Sets the beam's polarization according to the given Bloch vector." );
         
         }
+        { //::Instrument::setDetector
+        
+            typedef void ( ::Instrument::*setDetector_function_type)( ::IDetector2D const & ) ;
+            
+            Instrument_exposer.def( 
+                "setDetector"
+                , setDetector_function_type( &::Instrument::setDetector )
+                , ( bp::arg("detector") )
+                , "Sets the detector (axes can be overwritten later)." );
+        
+        }
         { //::Instrument::setDetectorAxes
         
             typedef void ( ::Instrument::*setDetectorAxes_function_type)( ::IAxis const &,::IAxis const & ) ;
@@ -270,24 +304,13 @@ void register_Instrument_class(){
         }
         { //::Instrument::setDetectorParameters
         
-            typedef void ( ::Instrument::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double,bool ) ;
+            typedef void ( ::Instrument::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double ) ;
             
             Instrument_exposer.def( 
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::Instrument::setDetectorParameters )
-                , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) )
+                , ( bp::arg("n_x"), bp::arg("x_min"), bp::arg("x_max"), bp::arg("n_y"), bp::arg("y_min"), bp::arg("y_max") )
                 , "Sets detector parameters using angle ranges." );
-        
-        }
-        { //::Instrument::setDetectorParameters
-        
-            typedef void ( ::Instrument::*setDetectorParameters_function_type)( ::DetectorParameters const & ) ;
-            
-            Instrument_exposer.def( 
-                "setDetectorParameters"
-                , setDetectorParameters_function_type( &::Instrument::setDetectorParameters )
-                , ( bp::arg("params") )
-                , "Sets detector parameters using parameter object." );
         
         }
         { //::Instrument::setDetectorResolutionFunction

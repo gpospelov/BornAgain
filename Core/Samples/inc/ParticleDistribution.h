@@ -27,7 +27,7 @@ class ParticleInfo;
 //! @ingroup samples
 //! @brief A particle with a form factor and refractive index
 
-class BA_CORE_API_ ParticleDistribution : public IParticle
+class BA_CORE_API_ ParticleDistribution : public IAbstractParticle
 {
 public:
     ParticleDistribution(const IParticle &prototype, const ParameterDistribution &par_distr);
@@ -59,14 +59,6 @@ public:
         return mP_particle->getAmbientMaterial();
     }
 
-    //! Should not be called for objects of this class:
-    //! The object should spawn particles that will create the
-    //! required form factors
-    virtual IFormFactor *createTransformedFormFactor(complex_t wavevector_scattering_factor,
-                                                     const IRotation* p_rotation,
-                                                     kvector_t translation) const;
-
-
     //! Initializes list of new particles generated according to a distribution
     virtual void generateParticleInfos(std::vector<const IParticle*>& particle_vector,
                                   std::vector<double>& abundance_vector,
@@ -90,9 +82,6 @@ public:
     }
 
 private:
-    //! Checks if particle's type is suitable for adding
-    void checkParticleType(const IParticle& p_particle);
-
     boost::scoped_ptr<IParticle> mP_particle;
     ParameterDistribution m_par_distribution;
 };

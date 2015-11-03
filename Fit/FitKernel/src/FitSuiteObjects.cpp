@@ -14,42 +14,35 @@
 // ************************************************************************** //
 
 #include "FitSuiteObjects.h"
+#include "FitObject.h"
+#include "ChiSquaredModule.h"
+#include <sstream>
 
 FitSuiteObjects::FitSuiteObjects()
-  : m_total_weight(0), m_simulation_normalize(false),
-    m_nfree_parameters(0), m_chi_squared_value(0)
+  : m_total_weight(0)
+   ,m_nfree_parameters(0)
+  , m_chi_squared_value(0)
+  , m_chi2_module(new ChiSquaredModule())
 {
     setName("FitSuiteObjects");
     init_parameters();
 }
 
-//! clear all data
-void FitSuiteObjects::clear()
+FitSuiteObjects::~FitSuiteObjects()
 {
-    m_fit_objects.clear();
+
 }
 
-//! Adds to kit pair of (simulation, real data) for consecutive simulation and chi2 module
-void FitSuiteObjects::add(
-    const GISASSimulation& simulation, const OutputData<double >& real_data,
-    const IChiSquaredModule& chi2_module, double weight)
+void FitSuiteObjects::add(const GISASSimulation& simulation, const OutputData<double >& real_data,
+                          double weight)
 {
     m_total_weight += weight;
-    m_fit_objects.push_back(
-        new FitObject(simulation, real_data, chi2_module, weight));
+    m_fit_objects.push_back(new FitObject(simulation, real_data, weight));
 }
 
-//! loop through all defined simulations and run them
-void FitSuiteObjects::runSimulations()
+size_t FitSuiteObjects::getNumberOfFitObjects() const
 {
-    for(FitObjects_t::iterator it =
-            m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        (*it)->getSimulation()->runSimulation();
-        if(m_simulation_normalize) {
-            (*it)->getSimulation()->normalize();
-        }
-    }
-    m_chi_squared_value = calculateChiSquaredValue();
+    return m_fit_objects.size();
 }
 
 //! Returns total number of data points
@@ -63,74 +56,74 @@ size_t FitSuiteObjects::getSizeOfDataSet() const
     return result;
 }
 
-const FitObject *FitSuiteObjects::getObjectForGlobalDataIndex(
-    size_t global_index, size_t& local_index)
+void FitSuiteObjects::setChiSquaredModule(const IChiSquaredModule &chi2_module)
 {
-    local_index = global_index;
-    for(FitObjects_t::const_iterator it =
-            m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        if(local_index < (*it)->getSizeOfData() ) {
-            return (*it);
-        } else if(local_index >= (*it)->getSizeOfData() ) {
-            local_index -= (*it)->getSizeOfData();
-        }
-    }
-    std::ostringstream ostr;
-    ostr << "FitSuiteObjects::getObjectForGlobalDataIndex() -> "
-        "Error! Can't find fit object for given global data index " <<
-        global_index;
-    throw LogicErrorException(ostr.str());
+    m_chi2_module.reset(chi2_module.clone());
 }
 
-//! Returns sum of chi squared values for all fit objects
-double FitSuiteObjects::calculateChiSquaredValue()
+const OutputData<double> *FitSuiteObjects::getRealData(size_t i_item) const
 {
-    double result(0);
-    double max_intensity = getSimulationMaxIntensity();
+    return m_fit_objects[check_index(i_item)]->getRealData();
+}
+
+const OutputData<double> *FitSuiteObjects::getSimulationData(size_t i_item) const
+{
+    return m_fit_objects[check_index(i_item)]->getSimulationData();
+}
+
+OutputData<double> *FitSuiteObjects::getChiSquaredMap(size_t i_item) const
+{
+    check_index(i_item);
+    size_t istart(0);
+    for(size_t i=0; i<i_item; ++i) {
+        istart += m_fit_objects[i]->getSizeOfData();
+    }
+    std::vector<FitElement>::const_iterator start = m_fit_elements.begin() + istart;
+    std::vector<FitElement>::const_iterator end = start + m_fit_objects[i_item]->getSizeOfData();
+    return m_fit_objects[check_index(i_item)]->getChiSquaredMap(start, end);
+}
+
+//! loop through all defined simulations and run them
+void FitSuiteObjects::runSimulations()
+{
+    if(getSizeOfDataSet() == 0) {
+        std::ostringstream message;
+        message << "FitSuiteObjects::runSimulations() -> Error. Zero size of dataset.";
+        throw LogicErrorException(message.str());
+    }
+
+    m_fit_elements.clear();
+    m_fit_elements.reserve(getSizeOfDataSet());
+
     for(FitObjects_t::iterator it =
             m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        IChiSquaredModule *chi = (*it)->getChiSquaredModule();
-
-        chi->setNdegreeOfFreedom(
-            (int) (m_fit_objects.size() *
-                   (*it)->getRealData()->getAllocatedSize() -
-                   m_nfree_parameters) );
-        // normalizing datasets to the maximum intensity over all fit objects defined
-        if( chi->getIntensityNormalizer() ) {
-            chi->getIntensityNormalizer()->setMaximumIntensity(max_intensity);
-        }
-
-        double weight = (*it)->getWeight()/m_total_weight;
-        double chi_squared = (weight*weight) * (*it)->calculateChiSquared();
-        result += chi_squared;
+        (*it)->prepareFitElements(m_fit_elements, (*it)->getWeight()/m_total_weight,
+                                  m_chi2_module->getIntensityNormalizer());
     }
-    return result;
+
+    if(m_fit_elements.size() != getSizeOfDataSet()) {
+        std::ostringstream message;
+        message << "FitSuiteObjects::runSimulations() -> Error. Dataset size mismatch. "
+                << " m_fit_elements.size():" << m_fit_elements.size()
+                << " getSizeOfDataset():" << getSizeOfDataSet() << std::endl;
+        throw LogicErrorException(message.str());
+    }
+
+    m_chi_squared_value = calculateChiSquaredValue();
+}
+
+double FitSuiteObjects::getChiSquaredValue() const
+{
+    return m_chi_squared_value;
 }
 
 double FitSuiteObjects::getResidualValue(size_t global_index)
 {
-    size_t index(0);
-    const FitObject *fitObject =
-        getObjectForGlobalDataIndex(global_index, index);
-    double residual =
-        fitObject->getChiSquaredModule()->getResidualValue(index) *
-        (fitObject->getWeight()/m_total_weight);
-    return residual;
-}
-
-//! Returns maximum intensity in simulated data over all fit objects defined
-double FitSuiteObjects::getSimulationMaxIntensity()
-{
-    double result(0);
-    for(FitObjects_t::iterator it =
-            m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        const OutputData<double > *data =
-            (*it)->getSimulation()->getOutputData();
-        OutputData<double >::const_iterator cit =
-            std::max_element(data->begin(), data->end());
-        result = std::max(result, *cit);
+    if(global_index >= m_fit_elements.size()) {
+        throw LogicErrorException("FitSuiteObjects::getResidualValue() -> Error. "
+                                  "Index exceeds size of dataset.");
     }
-    return result;
+    return m_fit_elements[global_index].getResidual();
 }
 
 //! Adds parameters from local pool to external pool
@@ -139,21 +132,70 @@ std::string FitSuiteObjects::addParametersToExternalPool(
 {
     (void)copy_number;
     // add own parameters
-    // so far it is top object in our chain, and its without parameters, lets not include its name in path
-    //std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
-    std::string new_path = path;
+    // top object in our chain, and its without parameters, lets not include its name in path
+    std::string new_path
+        = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
+    //std::string new_path = path;
 
     int ncopy(0);
-    if(m_fit_objects.size()==1) ncopy=-1; // if we have only one object, lets get rid from copy number
+    // if we have only one object, lets get rid from copy number
+    if(m_fit_objects.size()==1) ncopy=-1;
     for(FitObjects_t::const_iterator it =
             m_fit_objects.begin(); it!= m_fit_objects.end(); ++it, ++ncopy) {
         (*it)->addParametersToExternalPool(new_path, external_pool, ncopy);
     }
 
+    if(m_chi2_module) {
+        const IIntensityNormalizer* data_normalizer =
+            m_chi2_module->getIntensityNormalizer();
+        if(data_normalizer)
+            data_normalizer->addParametersToExternalPool(
+                new_path, external_pool, -1);
+    }
+
     return new_path;
 }
 
-OutputData<double> *FitSuiteObjects::getChiSquaredMap(size_t i_item)
+void FitSuiteObjects::setNfreeParameters(int nfree_parameters)
 {
-    return m_fit_objects[check_index(i_item)]->getChiSquaredModule()->createChi2DifferenceMap();
+    m_nfree_parameters = nfree_parameters;
 }
+
+void FitSuiteObjects::clear()
+{
+    m_fit_objects.clear();
+    m_fit_elements.clear();
+}
+
+void FitSuiteObjects::init_parameters()
+{
+
+}
+
+double FitSuiteObjects::calculateChiSquaredValue()
+{
+    m_chi2_module->processFitElements(m_fit_elements.begin(), m_fit_elements.end());
+
+    double result(0);
+    for (std::vector<FitElement>::iterator it = m_fit_elements.begin(); it != m_fit_elements.end();
+         ++it) {
+        result += it->getSquaredDifference();
+    }
+
+    int fnorm = m_fit_elements.size() - m_nfree_parameters;
+    if (fnorm <= 0) {
+        throw LogicErrorException("FitSuiteObjects::calculateChiSquaredValue() -> Error. "
+                                  "Normalization is 0");
+    }
+
+    return result / fnorm;
+}
+
+size_t FitSuiteObjects::check_index(size_t index) const
+{
+    return index < m_fit_objects.size() ? index :
+                throw OutOfBoundsException("FitSuiteKit::check() -> Index outside of range");
+}
+
+
+

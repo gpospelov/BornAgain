@@ -40,6 +40,35 @@ struct BA_CORE_API_ Bin1D
 };
 
 
+//! @class Bin1DKVector
+//! @ingroup tools_internal
+//! @brief An one-dimensional range of kvector_t's
+
+struct BA_CORE_API_ Bin1DKVector
+{
+    Bin1DKVector() : m_q_lower(), m_q_upper() {}
+    Bin1DKVector(const kvector_t& lower, const kvector_t& upper)
+        : m_q_lower(lower), m_q_upper(upper) {}
+    Bin1DKVector(double wavelength, const Bin1D& alpha_bin,
+                 const Bin1D& phi_bin);
+    kvector_t getMidPoint() const { return (m_q_lower + m_q_upper)/2.0; }
+    kvector_t getDelta() const
+    {
+        return m_q_upper - m_q_lower;
+    }
+    kvector_t m_q_lower;  //!< lower bound of the bin
+    kvector_t m_q_upper;  //!< upper bound of the bin
+};
+
+//! creation on Bin1DKVector from alpha and phi bins
+inline Bin1DKVector::Bin1DKVector(double wavelength, const Bin1D &alpha_bin,
+                                  const Bin1D &phi_bin)
+    : m_q_lower(), m_q_upper()
+{
+    m_q_lower.setLambdaAlphaPhi(wavelength, alpha_bin.m_lower, phi_bin.m_lower);
+    m_q_upper.setLambdaAlphaPhi(wavelength, alpha_bin.m_upper, phi_bin.m_upper);
+}
+
 //! @class Bin1DCVector
 //! @ingroup tools_internal
 //! @brief An one-dimensional range of cvector_t's
@@ -60,29 +89,13 @@ struct BA_CORE_API_ Bin1DCVector
     cvector_t m_q_upper;  //!< upper bound of the bin
 };
 
-//inline bool operator==(const Bin1D& left, const Bin1D& right)
-//{
-//    if (std::abs(left.m_lower - right.m_lower) > Numeric::double_epsilon) {
-//        return false;
-//    }
-//    if (std::abs(left.m_upper - right.m_upper) > Numeric::double_epsilon) {
-//        return false;
-//    }
-//    return true;
-//}
-
-//inline bool operator!=(const Bin1D& left, const Bin1D& right) {
-//    return !(left==right);
-//}
-
 //! creation on Bin1DCVector from alpha and phi bins
 inline Bin1DCVector::Bin1DCVector(double wavelength, const Bin1D& alpha_bin,
-           const Bin1D& phi_bin) : m_q_lower(), m_q_upper()
+                                  const Bin1D& phi_bin)
+    : m_q_lower(), m_q_upper()
 {
     m_q_lower.setLambdaAlphaPhi(wavelength, alpha_bin.m_lower, phi_bin.m_lower);
     m_q_upper.setLambdaAlphaPhi(wavelength, alpha_bin.m_upper, phi_bin.m_upper);
 }
 
 #endif /* BIN_H_ */
-
-

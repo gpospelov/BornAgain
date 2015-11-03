@@ -1,7 +1,7 @@
 Brief Installation instruction for BornAgain framework
 
 Detailed installation instructions can be found at
-http://www.bornagainproject.org
+http://www.bornagainproject.org/documentation/installation
 
 
 -------------------------------------------------------------------------------
@@ -13,12 +13,8 @@ Required:
 * boost library >=1.48
 * GNU scientific library >= 1.15
 * fftw3 library >=3.3
-* python >=2.7, python-devel, python-numpy-devel
-
-Optional:
-* python-matplotlib (allows to run usage examples with graphics)
-* ROOT framework (adds bunch of additional fitting algorithms to BornAgain)
-
+* python >=2.7, python-devel, python-numpy-devel, python-matplotlib
+* Qt5
 
 -------------------------------------------------------------------------------
 2) Getting the source
@@ -40,5 +36,6 @@ make install
 -------------------------------------------------------------------------------
 4) Running first simulation
 -------------------------------------------------------------------------------
+source <install_dir>/bin/thisbornagain.sh
 cd <install_dir>/share/BornAgain-1.0/Examples/python/simulation/ex01_BasicParticles
 python CylindersAndPrisms.py

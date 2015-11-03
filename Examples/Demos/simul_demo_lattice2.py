@@ -2,9 +2,10 @@
 Simulation demo: Cylinder form factor without interference
 '''
 
-import numpy, pylab, matplotlib
-
-from libBornAgainCore import *
+import numpy
+import matplotlib
+import math
+from bornagain import *
 
 M_PI = numpy.pi
 
@@ -52,7 +53,7 @@ def RunSimulation():
 
     # build and run experiment
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100, -2.0*degree, 2.0*degree, 100, 0.0*degree, 4.0*degree, True)
+    simulation.setDetectorParameters(100, -2.0*degree, 2.0*degree, 100, 0.0*degree, 4.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     # run simulation
@@ -66,13 +67,13 @@ def RunSimulation():
 #-------------------------------------------------------------
 if __name__ == '__main__':
     result = RunSimulation()
-    im = pylab.imshow(numpy.rot90(result+1, 1),
+    im = plt.imshow(result+1,
                  norm=matplotlib.colors.LogNorm(),
                  extent=[-2.0, 2.0, 0, 4.0])
-    pylab.colorbar(im)
-    pylab.xlabel(r'$\phi_f$', fontsize=20)
-    pylab.ylabel(r'$\alpha_f$', fontsize=20)
-    pylab.show()
+    plt.colorbar(im)
+    plt.xlabel(r'$\phi_f$', fontsize=20)
+    plt.ylabel(r'$\alpha_f$', fontsize=20)
+    plt.show()
 
 
  

@@ -1,5 +1,5 @@
 // @(#)root/minuit2:$Id$
-// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005  
+// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005
 
 /**********************************************************************
  *                                                                    *
@@ -10,7 +10,7 @@
 #ifndef ROOT_Minuit2_MinimumSeedGenerator
 #define ROOT_Minuit2_MinimumSeedGenerator
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 
@@ -22,7 +22,7 @@ class MnUserParameterState;
 class MnStrategy;
 class AnalyticalGradientCalculator;
 
-/** base class for seed generators (starting values); the seed generator 
+/** base class for seed generators (starting values); the seed generator
     prepares initial starting values from the input (MnUserParameterState)
     for the minimization;
  */

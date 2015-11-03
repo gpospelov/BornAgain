@@ -20,12 +20,17 @@
 #include <boost/regex.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/date_time/local_time_adjustor.hpp>
+#include <boost/date_time/c_local_time_adjustor.hpp>
 #include <string>
 
 #include "Macros.h"
-GCC_DIAG_OFF(strict-aliasing);
+GCC_DIAG_OFF(unused-parameter)
+GCC_DIAG_OFF(strict-aliasing)
 #include <boost/thread.hpp>
-GCC_DIAG_ON(strict-aliasing);
+GCC_DIAG_ON(strict-aliasing)
+GCC_DIAG_ON(unused-parameter)
 
 
 #ifdef DEBUG_FPE
@@ -51,7 +56,7 @@ vdouble1d_t Utils::String::parse_doubles(const std::string& str)
 //    std::copy(std::istream_iterator<double>(iss),
 //              std::istream_iterator<double>(), back_inserter(buff_1d));
     if( buff_1d.empty() ) {
-        std::cout << "OutputDataReadFileASCII::parse_doubles() -> "
+        std::cout << "Utils::String::parse_doubles -> "
             "Warning! No parsed values in 1d vector of doubles." << std::endl;
         std::cout << "Line '" << str << "'" << std::endl;
     }
@@ -140,6 +145,17 @@ std::string Utils::String::getScientificDoubleString(double value, size_t precis
 int Utils::System::getThreadHardwareConcurrency()
 {
     return (int)boost::thread::hardware_concurrency();
+}
+
+std::string Utils::System::getCurrentDateAndTime()
+{
+    using boost::posix_time::ptime;
+    using boost::posix_time::second_clock;
+    using boost::posix_time::to_simple_string;
+    using boost::gregorian::day_clock;
+
+    ptime todayUtc(day_clock::universal_day(), second_clock::universal_time().time_of_day());
+    return to_simple_string(todayUtc);
 }
 
 

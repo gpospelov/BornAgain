@@ -97,7 +97,7 @@ bool SizeSpacingCorrelationApproximationStrategy::checkVectorSizes() const
 }
 
 complex_t SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicFF(
-    const cvector_t &q, const std::vector<complex_t> &ff_list) const
+    const kvector_t &q, const std::vector<complex_t> &ff_list) const
 {
     double qp = getqp(q);
     complex_t result(0.0, 0.0);
@@ -113,7 +113,7 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicFF(
 }
 
 Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicMatrixFF(
-    const cvector_t &q, const MatrixFFVector &ff_list) const
+    const kvector_t &q, const MatrixFFVector &ff_list) const
 {
     double qp = getqp(q);
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
@@ -129,7 +129,7 @@ Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanCharacteris
 }
 
 complex_t SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristicFF(
-    const cvector_t &q, const std::vector<complex_t> &ff_list) const
+    const kvector_t &q, const std::vector<complex_t> &ff_list) const
 {
     double qp = getqp(q);
     complex_t result(0.0, 0.0);
@@ -145,7 +145,7 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristic
 }
 
 Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristicMatrixFF(
-    const cvector_t &q, const MatrixFFVector &ff_list) const
+    const kvector_t &q, const MatrixFFVector &ff_list) const
 {
     double qp = getqp(q);
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
@@ -195,10 +195,10 @@ SizeSpacingCorrelationApproximationStrategy::calculatePositionOffsetPhase(double
                     * (m_ff_infos[index]->mp_ff->getRadius() - m_mean_radius));
 }
 
-double SizeSpacingCorrelationApproximationStrategy::getqp(const cvector_t &q) const
+double SizeSpacingCorrelationApproximationStrategy::getqp(const kvector_t &q) const
 {
-    double qxr = q.x().real();
-    double qyr = q.y().real();
+    double qxr = q.x();
+    double qyr = q.y();
     return std::sqrt(qxr * qxr + qyr * qyr);
 }
 

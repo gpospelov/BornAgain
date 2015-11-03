@@ -49,7 +49,7 @@ struct InterferenceFunctionRadialParaCrystal_wrapper : InterferenceFunctionRadia
         return InterferenceFunctionRadialParaCrystal::clone( );
     }
 
-    virtual double evaluate( ::cvector_t const & q ) const  {
+    virtual double evaluate( ::kvector_t const & q ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(q) );
         else{
@@ -57,7 +57,7 @@ struct InterferenceFunctionRadialParaCrystal_wrapper : InterferenceFunctionRadia
         }
     }
     
-    double default_evaluate( ::cvector_t const & q ) const  {
+    double default_evaluate( ::kvector_t const & q ) const  {
         return InterferenceFunctionRadialParaCrystal::evaluate( boost::ref(q) );
     }
 
@@ -282,8 +282,8 @@ void register_InterferenceFunctionRadialParaCrystal_class(){
         }
         { //::InterferenceFunctionRadialParaCrystal::evaluate
         
-            typedef double ( ::InterferenceFunctionRadialParaCrystal::*evaluate_function_type)( ::cvector_t const & ) const;
-            typedef double ( InterferenceFunctionRadialParaCrystal_wrapper::*default_evaluate_function_type)( ::cvector_t const & ) const;
+            typedef double ( ::InterferenceFunctionRadialParaCrystal::*evaluate_function_type)( ::kvector_t const & ) const;
+            typedef double ( InterferenceFunctionRadialParaCrystal_wrapper::*default_evaluate_function_type)( ::kvector_t const & ) const;
             
             InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "evaluate"

@@ -1,5 +1,5 @@
 // @(#)root/minuit2:$Id$
-// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005  
+// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005
 
 /**********************************************************************
  *                                                                    *
@@ -17,7 +17,7 @@
 
 #include <vector>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 
@@ -31,7 +31,7 @@ class SimplexMinimizer : public ModularFunctionMinimizer {
 
 public:
 
-   SimplexMinimizer() : fSeedGenerator(SimplexSeedGenerator()), 
+   SimplexMinimizer() : fSeedGenerator(SimplexSeedGenerator()),
                         fBuilder(SimplexBuilder()) {}
 
    ~SimplexMinimizer() {}

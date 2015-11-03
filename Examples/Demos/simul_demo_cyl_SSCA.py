@@ -2,9 +2,10 @@
 Simulation demo: Size Space Coupling Approximation
 '''
 
-import numpy, pylab, matplotlib
-
-from libBornAgainCore import *
+import numpy
+import matplotlib
+import math
+from bornagain import *
 
 # ----------------------------------
 # describe sample and run simulation
@@ -60,10 +61,9 @@ def RunSimulation():
 #-------------------------------------------------------------
 if __name__ == '__main__':
     result = RunSimulation() + 1 # for log scale
-    im = pylab.imshow(numpy.rot90(result, 1),
-                 norm=matplotlib.colors.LogNorm(),
+    im = plt.imshow(result, norm=matplotlib.colors.LogNorm(),
                  extent=[-4.0, 4.0, 0, 8.0])
-    pylab.colorbar(im)
-    pylab.xlabel(r'$\phi_f$', fontsize=20)
-    pylab.ylabel(r'$\alpha_f$', fontsize=20)
-    pylab.show()
+    plt.colorbar(im)
+    plt.xlabel(r'$\phi_f$', fontsize=20)
+    plt.ylabel(r'$\alpha_f$', fontsize=20)
+    plt.show()

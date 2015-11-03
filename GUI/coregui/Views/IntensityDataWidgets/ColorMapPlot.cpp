@@ -95,7 +95,7 @@ void ColorMapPlot::drawLinesOverTheMap()
 
     double fraction = (keyRange.upper - keyRange.lower) / keySize;
 
-    QVector<double> x1(keySize + 1), y1(valueSize + 1);
+    QVector<double> x1(keySize + 1), y1(keySize + 1);
     for (int i = 0; i < x1.size(); i++) {
         x1[i] = keyRange.lower + (i * fraction);
         y1[i] = m_posData.m_yPos;
@@ -105,7 +105,7 @@ void ColorMapPlot::drawLinesOverTheMap()
     // draw vertical line
     fraction = (valueRange.upper - valueRange.lower) / valueSize;
 
-    QVector<double> x2(valueSize + 1), y2(keySize + 1);
+    QVector<double> x2(valueSize + 1), y2(valueSize + 1);
     for (int i = 0; i < x2.size(); i++) {
         x2[i] = m_posData.m_xPos;
         y2[i] = valueRange.lower + (i * fraction);
@@ -416,7 +416,7 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
 
     OutputData<double>::const_iterator it = data->begin();
     while (it != data->end()) {
-        std::vector<int> indices = data->toCoordinates(it.getIndex());
+        std::vector<int> indices = data->getAxesBinIndices(it.getIndex());
 
         m_colorMap->data()->setCell(indices[0], indices[1], *it);
 

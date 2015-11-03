@@ -33,7 +33,7 @@ public:
 protected:
    virtual void propagateOptions();
 
-    ROOT::Math::GSLSimAnMinimizer *m_siman_minimizer;
+    BA_ROOT::Math::GSLSimAnMinimizer *m_siman_minimizer;
 };
 
 

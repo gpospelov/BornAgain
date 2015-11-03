@@ -161,19 +161,16 @@ inline double MathFunctions::GenerateUniformRandom()
 inline double MathFunctions::Bessel_J0(double value)
 {
     return gsl_sf_bessel_J0(value);
-//    return std::real(MathFunctions::Bessel_J0(complex_t(value,0.0)));
 }
 
 inline double MathFunctions::Bessel_J1(double value)
 {
     return gsl_sf_bessel_J1(value);
-//    return std::real(MathFunctions::Bessel_J1(complex_t(value,0.0)));
 }
 
 inline double MathFunctions::Bessel_C1(double value)
 {
     return ( value > Numeric::double_epsilon ? gsl_sf_bessel_J1(value)/value : 0.5);
-//    return ( value > Numeric::double_epsilon ? std::real(MathFunctions::Bessel_J1(complex_t(value,0.0)))/value : 0.5);
 }
 
 inline complex_t MathFunctions::Bessel_J0(const complex_t &value)
@@ -203,7 +200,6 @@ inline complex_t MathFunctions::Bessel_C1(const complex_t &value)
         return (std::abs(value) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(value)/value : 0.5);
     }
 }
-
 
 inline double MathFunctions::Si(double value)  // int_0^x du Sin(u)/u
 {
@@ -262,15 +258,11 @@ inline double MathFunctions::FastCos(const double& x) {
 
 //! fast complex sine calculation
 inline complex_t MathFunctions::FastSin(const complex_t &x) {
-    // sin(a+bi) = sin(a)cosh(b) + i*cos(a)*sinh(b);
-    //return complex_t( FastSin(x.real())*std::cosh(x.imag()), FastCos(x.real())*std::sinh(x.imag()));
     return complex_t( std::sin(x.real())*std::cosh(x.imag()), std::cos(x.real())*std::sinh(x.imag()));
 }
 
 //! fast complex cosine calculation
 inline complex_t MathFunctions::FastCos(const complex_t &x) {
-    // cos(a+bi) = cos(a)cosh(b) - i*sin(a)*sinh(b);
-    //return complex_t( FastCos(x.real())*std::cosh(x.imag()), -1*FastSin(x.real())*std::sinh(x.imag()));
     return complex_t( std::cos(x.real())*std::cosh(x.imag()), -1*std::sin(x.real())*std::sinh(x.imag()));
 }
 

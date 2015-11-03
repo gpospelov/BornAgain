@@ -20,14 +20,14 @@ int main()
     std::string filename = Utils::FileSystem::GetReferenceDataDir() +
             "isgisaxs06_reference_variants.int.gz";
     OutputData<double> *reference =
-            IntensityDataIOFactory::readIntensityData(filename);
+            IntensityDataIOFactory::readOutputData(filename);
 
     // running simulation and copying data
     int nbins = 3;
     DistributionGate gate(0.0*Units::degree, 240.0*Units::degree);
     simulation->addParameterDistribution("*/xi", gate, nbins);
     simulation->runSimulation();
-    OutputData<double> *result = simulation->getIntensityData();
+    OutputData<double> *result = simulation->getDetectorIntensity();
 
     const double threshold(2e-10);
     // Calculating average relative difference.

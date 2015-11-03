@@ -119,21 +119,6 @@ void PyGenVisitor::visit(const FormFactorHemiEllipsoid *sample)
     m_label->setLabel(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorInfLongBox *sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorInfLongRipple1 *sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorInfLongRipple2 *sample)
-{
-    m_label->setLabel(sample);
-}
-
 void PyGenVisitor::visit(const FormFactorLorentz *sample)
 {
     m_label->setLabel(sample);
@@ -283,8 +268,8 @@ std::string PyGenVisitor::definePreamble() const
     std::ostringstream result;
     result << "import numpy\n";
     result << "#NOTE: Uncomment the next import statements for plotting\n";
-    result << "#import pylab\n";
     result << "#import matplotlib\n";
+    result << "#from matplotlib import pyplot as plt\n";
     result << "from bornagain import *\n\n\n";
     //    result << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
     //    result << "#NOTE: Running this Script by default will write output data"
@@ -477,25 +462,6 @@ std::string PyGenVisitor::defineFormFactors() const
                  = dynamic_cast<const FormFactorHemiEllipsoid *>(p_ff)) {
             result << " = FormFactorHemiEllipsoid(" << hemiEllipsoid->getRadiusA() << "*nanometer, "
                    << hemiEllipsoid->getRadiusB() << "*nanometer, " << hemiEllipsoid->getHeight()
-                   << "*nanometer)\n";
-        }
-
-        else if (const FormFactorInfLongBox *infLongBox
-                 = dynamic_cast<const FormFactorInfLongBox *>(p_ff)) {
-            result << " = FormFactorInfLongBox(" << infLongBox->getWidth() << "*nanometer, "
-                   << infLongBox->getHeight() << "*nanometer)\n";
-        }
-
-        else if (const FormFactorInfLongRipple1 *infLongRipple1
-                 = dynamic_cast<const FormFactorInfLongRipple1 *>(p_ff)) {
-            result << " = FormFactorInfLongRipple1(" << infLongRipple1->getWidth() << "*nanometer, "
-                   << infLongRipple1->getHeight() << "*nanometer)\n";
-        }
-
-        else if (const FormFactorInfLongRipple2 *infLongRipple2
-                 = dynamic_cast<const FormFactorInfLongRipple2 *>(p_ff)) {
-            result << " = FormFactorInfLongRipple2(" << infLongRipple2->getWidth() << "*nanometer, "
-                   << infLongRipple1->getHeight() << "*nanometer, " << infLongRipple2->getAsymetry()
                    << "*nanometer)\n";
         }
 
@@ -1305,9 +1271,9 @@ std::string PyGenVisitor::defineDetector(const GISASSimulation *simulation) cons
 std::string PyGenVisitor::defineDetectorResolutionFunction(const GISASSimulation *simulation) const
 {
     std::ostringstream result;
-    Detector detector = simulation->getInstrument().getDetector();
+    const IDetector2D *detector = simulation->getInstrument().getDetector();
 
-    if (const IDetectorResolution *p_resfunc = detector.getDetectorResolutionFunction()) {
+    if (const IDetectorResolution *p_resfunc = detector->getDetectorResolutionFunction()) {
         if (const ConvolutionDetectorResolution *p_convfunc
             = dynamic_cast<const ConvolutionDetectorResolution *>(p_resfunc)) {
             if (const ResolutionFunction2DGaussian *resfunc
@@ -1373,10 +1339,9 @@ std::string PyGenVisitor::definePlotting(const GISASSimulation *simulation) cons
     //    result << "#NOTE: Uncomment the next function for plotting\n";
     //    result << "#NOTE: This requires the presence of matplotlib library\n";
     result << "def plotSimulation(simulation):\n";
-    result << "" << indent() << "result = simulation.getIntensityData().getArray()"
-           << "+ 1 # +1 for log scale\n";
-    result << "" << indent() << "im = pylab.imshow(numpy.rot90(result, 1), "
-           << "norm=matplotlib.colors.LogNorm(), extent=[";
+    result << "" << indent() << "result = simulation.getIntensityData()\n";
+    result << "" << indent() << "im = plt.imshow(result.getArray(), "
+           << "norm=matplotlib.colors.LogNorm(1, result.getMaximum()), extent=[";
     size_t index = 0;
     size_t numberOfDetectorDimensions = simulation->getInstrument().getDetectorDimension();
     while (index < numberOfDetectorDimensions) {
@@ -1390,8 +1355,8 @@ std::string PyGenVisitor::definePlotting(const GISASSimulation *simulation) cons
         index++;
     }
     result << "]) \n";
-    result << indent() << "pylab.colorbar(im)\n";
-    result << indent() << "pylab.show()\n\n\n";
+    result << indent() << "plt.colorbar(im)\n";
+    result << indent() << "plt.show()\n\n\n";
     return result.str();
 }
 

@@ -18,6 +18,8 @@
 
 #include "Simulation.h"
 
+class Histogram2D;
+
 //! @class OffSpecSimulation
 //! @ingroup simulation
 //! @brief Main class to run an off-specular simulation.
@@ -39,11 +41,14 @@ public:
     //! Gets the number of elements this simulation needs to calculate
     virtual int getNumberOfSimulationElements() const;
 
-    //! Returns detector intensity map for all scan parameters
+    //! Returns detector intensity map
     const OutputData<double> *getOutputData() const { return &m_intensity_map; }
 
-    //! Clone detector intensity map for all scan parameters.
-    OutputData<double> *getIntensityData() const;
+    //! Returns clone of the detector intensity map
+    OutputData<double> *getDetectorIntensity() const;
+
+    //! Returns clone of the detector intensity map in the form of 2D histogram.
+    Histogram2D *getIntensityData() const;
 
     //! Sets the instrument containing beam and detector information
     void setInstrument(const Instrument &instrument);
@@ -64,11 +69,8 @@ public:
     void setDetectorParameters(const OutputData<double> &output_data);
 
     //! Sets detector parameters using angle ranges
-    void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max, size_t n_alpha,
-                               double alpha_f_min, double alpha_f_max, bool isgisaxs_style = false);
-
-    //! Sets detector parameters using parameter object
-    void setDetectorParameters(const DetectorParameters &params);
+    void setDetectorParameters(size_t n_x, double x_min, double x_max,
+                               size_t n_y, double y_min, double y_max);
 
     //! Define resolution function for detector
     void setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function);
@@ -100,6 +102,9 @@ protected:
     //! SimulationElement objects
     virtual void transferResultsToIntensityMap();
 
+    //! Returns the intensity of the beam
+    virtual double getBeamIntensity() const;
+
     //! Default implementation only adds the detector axes
     void updateIntensityMap();
 
@@ -110,7 +115,7 @@ protected:
 private:
     //! Normalize, apply detector resolution and transfer detector image corresponding to
     //! alpha_i = mp_alpha_i_axis->getBin(index)
-    void normalizeAndTransferDetectorImage(int index);
+    void transferDetectorImage(int index);
 
     //! Check correct number of axes
     void checkInitialization() const;

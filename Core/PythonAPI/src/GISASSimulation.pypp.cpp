@@ -49,16 +49,16 @@ struct GISASSimulation_wrapper : GISASSimulation, bp::wrapper< GISASSimulation >
         return GISASSimulation::clone( );
     }
 
-    virtual ::OutputData< double > * getIntensityData(  ) const  {
-        if( bp::override func_getIntensityData = this->get_override( "getIntensityData" ) )
-            return func_getIntensityData(  );
+    virtual ::OutputData< double > * getDetectorIntensity(  ) const  {
+        if( bp::override func_getDetectorIntensity = this->get_override( "getDetectorIntensity" ) )
+            return func_getDetectorIntensity(  );
         else{
-            return this->GISASSimulation::getIntensityData(  );
+            return this->GISASSimulation::getDetectorIntensity(  );
         }
     }
     
-    ::OutputData< double > * default_getIntensityData(  ) const  {
-        return GISASSimulation::getIntensityData( );
+    ::OutputData< double > * default_getDetectorIntensity(  ) const  {
+        return GISASSimulation::getDetectorIntensity( );
     }
 
     virtual int getNumberOfSimulationElements(  ) const  {
@@ -222,6 +222,17 @@ void register_GISASSimulation_class(){
         typedef bp::class_< GISASSimulation_wrapper, bp::bases< Simulation >, std::auto_ptr< GISASSimulation_wrapper >, boost::noncopyable > GISASSimulation_exposer_t;
         GISASSimulation_exposer_t GISASSimulation_exposer = GISASSimulation_exposer_t( "GISASSimulation", "Main class to run the simulation.", bp::init< >() );
         bp::scope GISASSimulation_scope( GISASSimulation_exposer );
+        { //::GISASSimulation::addMask
+        
+            typedef void ( ::GISASSimulation::*addMask_function_type)( ::Geometry::IShape2D const &,bool ) ;
+            
+            GISASSimulation_exposer.def( 
+                "addMask"
+                , addMask_function_type( &::GISASSimulation::addMask )
+                , ( bp::arg("shape"), bp::arg("mask_value")=(bool)(true) )
+                , "Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority. @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse) @mask_value The value of mask \n\n:Parameters:\n  - 'shape' - The shape of mask (Rectangle, Polygon, Line, Ellipse)\n" );
+        
+        }
         { //::GISASSimulation::clone
         
             typedef ::GISASSimulation * ( ::GISASSimulation::*clone_function_type)(  ) const;
@@ -231,6 +242,18 @@ void register_GISASSimulation_class(){
                 "clone"
                 , clone_function_type(&::GISASSimulation::clone)
                 , default_clone_function_type(&GISASSimulation_wrapper::default_clone)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::GISASSimulation::getDetectorIntensity
+        
+            typedef ::OutputData< double > * ( ::GISASSimulation::*getDetectorIntensity_function_type)(  ) const;
+            typedef ::OutputData< double > * ( GISASSimulation_wrapper::*default_getDetectorIntensity_function_type)(  ) const;
+            
+            GISASSimulation_exposer.def( 
+                "getDetectorIntensity"
+                , getDetectorIntensity_function_type(&::GISASSimulation::getDetectorIntensity)
+                , default_getDetectorIntensity_function_type(&GISASSimulation_wrapper::default_getDetectorIntensity)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
@@ -247,14 +270,13 @@ void register_GISASSimulation_class(){
         }
         { //::GISASSimulation::getIntensityData
         
-            typedef ::OutputData< double > * ( ::GISASSimulation::*getIntensityData_function_type)(  ) const;
-            typedef ::OutputData< double > * ( GISASSimulation_wrapper::*default_getIntensityData_function_type)(  ) const;
+            typedef ::Histogram2D * ( ::GISASSimulation::*getIntensityData_function_type)(  ) const;
             
             GISASSimulation_exposer.def( 
                 "getIntensityData"
-                , getIntensityData_function_type(&::GISASSimulation::getIntensityData)
-                , default_getIntensityData_function_type(&GISASSimulation_wrapper::default_getIntensityData)
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , getIntensityData_function_type( &::GISASSimulation::getIntensityData )
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "Returns clone of the detector intensity map with detector resolution applied in the form of 2D histogram. " );
         
         }
         { //::GISASSimulation::getNumberOfSimulationElements
@@ -279,14 +301,14 @@ void register_GISASSimulation_class(){
                 , default_getWavelength_function_type(&GISASSimulation_wrapper::default_getWavelength) );
         
         }
-        { //::GISASSimulation::normalize
+        { //::GISASSimulation::maskAll
         
-            typedef void ( ::GISASSimulation::*normalize_function_type)(  ) ;
+            typedef void ( ::GISASSimulation::*maskAll_function_type)(  ) ;
             
             GISASSimulation_exposer.def( 
-                "normalize"
-                , normalize_function_type( &::GISASSimulation::normalize )
-                , "Normalize the detector counts." );
+                "maskAll"
+                , maskAll_function_type( &::GISASSimulation::maskAll )
+                , "Put the mask for all detector channels (i.e. exclude whole detector from the analysis)." );
         
         }
         { //::GISASSimulation::prepareSimulation
@@ -308,6 +330,16 @@ void register_GISASSimulation_class(){
                 "removeDetectorResolutionFunction"
                 , removeDetectorResolutionFunction_function_type( &::GISASSimulation::removeDetectorResolutionFunction )
                 , "Removes detector resolution function." );
+        
+        }
+        { //::GISASSimulation::removeMasks
+        
+            typedef void ( ::GISASSimulation::*removeMasks_function_type)(  ) ;
+            
+            GISASSimulation_exposer.def( 
+                "removeMasks"
+                , removeMasks_function_type( &::GISASSimulation::removeMasks )
+                , "removes all masks from the detector." );
         
         }
         { //::GISASSimulation::setAnalyzerProperties
@@ -354,6 +386,17 @@ void register_GISASSimulation_class(){
                 , "Sets the beam polarization according to the given Bloch vector." );
         
         }
+        { //::GISASSimulation::setDetector
+        
+            typedef void ( ::GISASSimulation::*setDetector_function_type)( ::IDetector2D const & ) ;
+            
+            GISASSimulation_exposer.def( 
+                "setDetector"
+                , setDetector_function_type( &::GISASSimulation::setDetector )
+                , ( bp::arg("detector") )
+                , "Sets the detector (axes can be overwritten later)." );
+        
+        }
         { //::GISASSimulation::setDetectorParameters
         
             typedef void ( ::GISASSimulation::*setDetectorParameters_function_type)( ::OutputData< double > const & ) ;
@@ -367,24 +410,24 @@ void register_GISASSimulation_class(){
         }
         { //::GISASSimulation::setDetectorParameters
         
-            typedef void ( ::GISASSimulation::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double,bool ) ;
+            typedef void ( ::GISASSimulation::*setDetectorParameters_function_type)( ::IHistogram const & ) ;
             
             GISASSimulation_exposer.def( 
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::GISASSimulation::setDetectorParameters )
-                , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) )
-                , "Sets detector parameters using angle ranges." );
+                , ( bp::arg("hisotgram") )
+                , "Sets detector parameters using axes of output data." );
         
         }
         { //::GISASSimulation::setDetectorParameters
         
-            typedef void ( ::GISASSimulation::*setDetectorParameters_function_type)( ::DetectorParameters const & ) ;
+            typedef void ( ::GISASSimulation::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double ) ;
             
             GISASSimulation_exposer.def( 
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::GISASSimulation::setDetectorParameters )
-                , ( bp::arg("params") )
-                , "Sets detector parameters using parameter object." );
+                , ( bp::arg("n_x"), bp::arg("x_min"), bp::arg("x_max"), bp::arg("n_y"), bp::arg("y_min"), bp::arg("y_max") )
+                , "Sets detector parameters using angle ranges." );
         
         }
         { //::GISASSimulation::setDetectorResolutionFunction

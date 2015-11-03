@@ -19,7 +19,7 @@
 #include "SafePointerVector.h"
 #include "IFitStrategy.h"
 
-class FitSuite;
+class FitKernel;
 
 //! @class FitSuiteStrategies
 //! @ingroup fitting_internal
@@ -27,32 +27,30 @@ class FitSuite;
 
 class BA_CORE_API_  FitSuiteStrategies
 {
- public:
+public:
     typedef SafePointerVector<IFitStrategy > strategies_t;
     typedef strategies_t::iterator iterator;
 
     FitSuiteStrategies();
     virtual ~FitSuiteStrategies();
 
-    void init(FitSuite *fit_suite) { m_fit_suite = fit_suite; }
+    void init(FitKernel *fit_suite) { m_fit_kernel = fit_suite; }
 
     void addStrategy(IFitStrategy *strategy);
 
     void minimize();
 
     size_t getCurrentStrategyIndex() const { return m_current_strategy_index; }
-    std::string getCurrentStrategyName() const { return m_current_strategy_name; }
 
-    iterator begin() { return m_strategies.begin(); }
-    iterator end() { return m_strategies.end(); }
     size_t size() const { return m_strategies.size(); }
 
     void clear();
- private:
+
+    IFitStrategy *getCurrentStrategy();
+private:
     strategies_t m_strategies;
-    FitSuite *m_fit_suite;
+    FitKernel *m_fit_kernel;
     size_t m_current_strategy_index;
-    std::string m_current_strategy_name;
 };
 
 #endif // FITSUITESTRATEGIES_H

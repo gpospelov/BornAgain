@@ -23,6 +23,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FormFactorCone6.pypp.h"
 #include "FormFactorTetrahedron.pypp.h"
 #include "FTDistribution1DCosine.pypp.h"
+#include "VerticalLine.pypp.h"
 #include "FTDistribution1DTriangle.pypp.h"
 #include "FormFactorWeighted.pypp.h"
 #include "InterferenceFunctionRadialParaCrystal.pypp.h"
@@ -34,10 +35,14 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IFormFactorBorn.pypp.h"
 #include "FormFactorEllipsoidalCylinder.pypp.h"
 #include "InterferenceFunctionNone.pypp.h"
+#include "Histogram1D.pypp.h"
 #include "vector_less__const_ISample_ptr___greater_.pypp.h"
+#include "WavevectorInfo.pypp.h"
+#include "HorizontalLine.pypp.h"
 #include "FTDistribution2DGate.pypp.h"
 #include "vector_kvector_t.pypp.h"
 #include "FormFactorTruncatedSpheroid.pypp.h"
+#include "IShape2D.pypp.h"
 #include "Particle.pypp.h"
 #include "vector_string_t.pypp.h"
 #include "FormFactorTrivial.pypp.h"
@@ -47,6 +52,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "ParticleDistribution.pypp.h"
 #include "vector_longinteger_t.pypp.h"
 #include "ResolutionFunction2DGaussian.pypp.h"
+#include "RectangularDetector.pypp.h"
 #include "FTDistribution1DGauss.pypp.h"
 #include "FTDistribution1DGate.pypp.h"
 #include "FormFactorAnisoPyramid.pypp.h"
@@ -54,7 +60,10 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "MultiLayer.pypp.h"
 #include "IFormFactor.pypp.h"
 #include "kvector_t.pypp.h"
+#include "Ellipse.pypp.h"
 #include "FormFactorSphereUniformRadius.pypp.h"
+#include "IHistogram.pypp.h"
+#include "Polygon.pypp.h"
 #include "OffSpecSimulation.pypp.h"
 #include "FormFactorRipple1.pypp.h"
 #include "Simulation.pypp.h"
@@ -69,6 +78,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "Bin1DCVector.pypp.h"
 #include "FormFactorSphereGaussianRadius.pypp.h"
 #include "ParameterPool.pypp.h"
+#include "IsGISAXSDetector.pypp.h"
 #include "FormFactorPrism3.pypp.h"
 #include "IMaterial.pypp.h"
 #include "FTDistribution1DVoigt.pypp.h"
@@ -91,15 +101,17 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IFTDistribution1D.pypp.h"
 #include "DistributionLorentz.pypp.h"
 #include "IDistribution1D.pypp.h"
+#include "vdouble2d_t.pypp.h"
+#include "Line.pypp.h"
 #include "HomogeneousMagneticMaterial.pypp.h"
 #include "vector_realparameter_t.pypp.h"
 #include "IAbstractParticle.pypp.h"
 #include "FormFactorTruncatedCube.pypp.h"
 #include "FormFactorCuboctahedron.pypp.h"
+#include "IDetector2D.pypp.h"
 #include "cvector_t.pypp.h"
 #include "PythonInterface_free_functions.pypp.h"
 #include "FormFactorSphereLogNormalRadius.pypp.h"
-#include "FormFactorInfLongRipple1.pypp.h"
 #include "IResolutionFunction2D.pypp.h"
 #include "FormFactorFullSphere.pypp.h"
 #include "ParticleLayout.pypp.h"
@@ -115,7 +127,9 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "PythonInterface_global_variables.pypp.h"
 #include "Beam.pypp.h"
 #include "HomogeneousMaterial.pypp.h"
+#include "Rectangle.pypp.h"
 #include "ICloneable.pypp.h"
+#include "Histogram2D.pypp.h"
 #include "ParticleCoreShell.pypp.h"
 #include "FormFactorDecoratorDebyeWaller.pypp.h"
 #include "MesoCrystal.pypp.h"
@@ -126,7 +140,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "AttLimits.pypp.h"
 #include "IInterferenceFunction.pypp.h"
 #include "Instrument.pypp.h"
-#include "FormFactorInfLongBox.pypp.h"
 #include "FormFactorCone.pypp.h"
 #include "ParticleComposition.pypp.h"
 #include "RotationX.pypp.h"
@@ -135,8 +148,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FTDistribution2DVoigt.pypp.h"
 #include "FormFactorGauss.pypp.h"
 #include "InterferenceFunction2DParaCrystal.pypp.h"
-#include "Detector.pypp.h"
-#include "FormFactorInfLongRipple2.pypp.h"
+#include "SphericalDetector.pypp.h"
 #include "ICompositeSample.pypp.h"
 #include "Bin1D.pypp.h"
 #include "vector_complex_t.pypp.h"
@@ -153,6 +165,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     boost::python::docstring_options doc_options(true, true, false);
 
     register_vector_longinteger_t_class();
+    register_vdouble2d_t_class();
     register_vector_string_t_class();
     register_vector_complex_t_class();
     register_vector_integer_t_class();
@@ -174,7 +187,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_IClusteredParticles_class();
     register_Crystal_class();
     register_CustomBinAxis_class();
-    register_Detector_class();
     register_IDistribution1D_class();
     register_DistributionCosine_class();
     register_DistributionGate_class();
@@ -211,9 +223,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorFullSpheroid_class();
     register_FormFactorGauss_class();
     register_FormFactorHemiEllipsoid_class();
-    register_FormFactorInfLongBox_class();
-    register_FormFactorInfLongRipple1_class();
-    register_FormFactorInfLongRipple2_class();
     register_FormFactorLorentz_class();
     register_FormFactorPrism3_class();
     register_FormFactorPrism6_class();
@@ -233,10 +242,21 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_GISASSimulation_class();
     register_kvector_t_class();
     register_cvector_t_class();
+    register_IShape2D_class();
+    register_Ellipse_class();
+    register_HorizontalLine_class();
+    register_Line_class();
+    register_Polygon_class();
+    register_Rectangle_class();
+    register_VerticalLine_class();
+    register_IHistogram_class();
+    register_Histogram1D_class();
+    register_Histogram2D_class();
     register_IMaterial_class();
     register_HomogeneousMaterial_class();
     register_HomogeneousMagneticMaterial_class();
     register_IAbstractParticle_class();
+    register_IDetector2D_class();
     register_IDetectorResolution_class();
     register_IInterferenceFunction_class();
     register_ILayout_class();
@@ -255,6 +275,8 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_InterferenceFunction2DParaCrystal_class();
     register_InterferenceFunctionNone_class();
     register_InterferenceFunctionRadialParaCrystal_class();
+    register_SphericalDetector_class();
+    register_IsGISAXSDetector_class();
     register_Lattice_class();
     register_Lattice1DIFParameters_class();
     register_Lattice2DIFParameters_class();
@@ -273,6 +295,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_ParticleDistribution_class();
     register_ParticleLayout_class();
     register_RealParameterWrapper_class();
+    register_RectangularDetector_class();
     register_ResolutionFunction2DGaussian_class();
     register_RotationEuler_class();
     register_RotationX_class();
@@ -282,6 +305,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_SimulationParameters_class();
     register_SpecularSimulation_class();
     register_ThreadInfo_class();
+    register_WavevectorInfo_class();
     register_global_variables();
     register_free_functions();
 

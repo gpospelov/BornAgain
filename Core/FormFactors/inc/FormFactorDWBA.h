@@ -37,14 +37,12 @@ public:
     virtual void setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
                          const ILayerRTCoefficients *p_out_coeffs);
 
-    virtual complex_t evaluate(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const;
+    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
     friend class TestPolarizedDWBATerms;
 
 protected:
-    void calculateTerms(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-            const Bin1D &alpha_f_bin) const;
+    void calculateTerms(const WavevectorInfo& wavevectors) const;
 
     mutable complex_t m_term_S, m_term_RS, m_term_SR, m_term_RSR;
     const ILayerRTCoefficients *mp_in_coeffs;

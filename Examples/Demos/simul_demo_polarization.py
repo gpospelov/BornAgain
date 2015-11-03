@@ -2,9 +2,10 @@
 Simulation demo: Cylinder and/or sphere on substrate
 '''
 
-import numpy, pylab, matplotlib
-
-from libBornAgainCore import *
+import numpy
+import matplotlib
+import math
+from bornagain import *
 
 # ----------------------------------
 # describe sample and run simulation
@@ -62,36 +63,36 @@ def RunSimulation():
 #-------------------------------------------------------------
 if __name__ == '__main__':
     intensity_pp, intensity_pm, intensity_mp, intensity_mm = RunSimulation()
-    pylab.subplot(2, 2, 1)
-    pylab.title('Intensity ++')
-    im = pylab.imshow(numpy.rot90(intensity_pp+1, 1),
+    plt.subplot(2, 2, 1)
+    plt.title('Intensity ++')
+    im = plt.imshow(intensity_pp+1,
                  norm=matplotlib.colors.LogNorm(),
                  extent=[-4.0, 4.0, 0, 8.0])
-    pylab.colorbar(im)
-    pylab.xlabel(r'$\phi_f$', fontsize=20)
-    pylab.ylabel(r'$\alpha_f$', fontsize=20)
-    pylab.subplot(2, 2, 2)
-    pylab.title('Intensity +-')
-    im = pylab.imshow(numpy.rot90(intensity_pm+1, 1),
+    plt.colorbar(im)
+    plt.xlabel(r'$\phi_f$', fontsize=20)
+    plt.ylabel(r'$\alpha_f$', fontsize=20)
+    plt.subplot(2, 2, 2)
+    plt.title('Intensity +-')
+    im = plt.imshow(intensity_pm+1,
                  norm=matplotlib.colors.LogNorm(),
                  extent=[-4.0, 4.0, 0, 8.0])
-    pylab.colorbar(im)
-    pylab.xlabel(r'$\phi_f$', fontsize=20)
-    pylab.ylabel(r'$\alpha_f$', fontsize=20)
-    pylab.subplot(2, 2, 3)
-    pylab.title('Intensity -+')
-    im = pylab.imshow(numpy.rot90(intensity_mp+1, 1),
+    plt.colorbar(im)
+    plt.xlabel(r'$\phi_f$', fontsize=20)
+    plt.ylabel(r'$\alpha_f$', fontsize=20)
+    plt.subplot(2, 2, 3)
+    plt.title('Intensity -+')
+    im = plt.imshow(intensity_mp+1,
                  norm=matplotlib.colors.LogNorm(),
                  extent=[-4.0, 4.0, 0, 8.0])
-    pylab.colorbar(im)
-    pylab.xlabel(r'$\phi_f$', fontsize=20)
-    pylab.ylabel(r'$\alpha_f$', fontsize=20)
-    pylab.subplot(2, 2, 4)
-    pylab.title('Intensity --')
-    im = pylab.imshow(numpy.rot90(intensity_mm+1, 1),
+    plt.colorbar(im)
+    plt.xlabel(r'$\phi_f$', fontsize=20)
+    plt.ylabel(r'$\alpha_f$', fontsize=20)
+    plt.subplot(2, 2, 4)
+    plt.title('Intensity --')
+    im = plt.imshow(intensity_mm+1,
                  norm=matplotlib.colors.LogNorm(),
                  extent=[-4.0, 4.0, 0, 8.0])
-    pylab.colorbar(im)
-    pylab.xlabel(r'$\phi_f$', fontsize=20)
-    pylab.ylabel(r'$\alpha_f$', fontsize=20)
-    pylab.show()
+    plt.colorbar(im)
+    plt.xlabel(r'$\phi_f$', fontsize=20)
+    plt.ylabel(r'$\alpha_f$', fontsize=20)
+    plt.show()

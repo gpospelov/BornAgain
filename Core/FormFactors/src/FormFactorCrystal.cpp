@@ -47,15 +47,10 @@ complex_t FormFactorCrystal::evaluate_for_q(const cvector_t &q) const
                               " explicitly for FormFactorCrystal");
 }
 
-complex_t FormFactorCrystal::evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-                                      const Bin1D &alpha_f_bin) const
+complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
 {
-    // construct a real reciprocal vector
-    cvector_t q_bin_lower = k_i - k_f_bin.m_q_lower;
-    cvector_t q_bin_upper = k_i - k_f_bin.m_q_upper;
-    Bin1DCVector q_bin = Bin1DCVector(q_bin_lower, q_bin_upper);
-
-    cvector_t q = q_bin.getMidPoint();
+    // construct reciprocal vector
+    cvector_t q = wavevectors.getQ();
     kvector_t q_real(q.x().real(), q.y().real(), q.z().real());
     cvector_t k_zero;
     // calculate the used radius in function of the reciprocal lattice scale
@@ -69,11 +64,13 @@ complex_t FormFactorCrystal::evaluate(const cvector_t &k_i, const Bin1DCVector &
     complex_t result(0.0, 0.0);
     for (KVectorContainer::const_iterator it = rec_vectors.begin(); it != rec_vectors.end(); ++it) {
         cvector_t q_i((*it).x(), (*it).y(), (*it).z());
-        Bin1DCVector min_q_i_zero_bin(-q_i, -q_i);
-        Bin1DCVector q_i_min_q(q_i - q_bin.m_q_lower, q_i - q_bin.m_q_upper);
+        cvector_t min_q_i= -q_i;
+        cvector_t q_i_min_q = q_i - q;
+        WavevectorInfo basis_wavevectors(k_zero, min_q_i);
         complex_t basis_factor
-            = mp_basis_form_factor->evaluate(k_zero, min_q_i_zero_bin, alpha_f_bin);
-        complex_t meso_factor = mp_meso_form_factor->evaluate(k_zero, q_i_min_q, alpha_f_bin);
+            = mp_basis_form_factor->evaluate(basis_wavevectors);
+        WavevectorInfo meso_wavevectors(k_zero, q_i_min_q);
+        complex_t meso_factor = mp_meso_form_factor->evaluate(meso_wavevectors);
         result += basis_factor * meso_factor;
     }
     // the transformed delta train gets a factor of (2pi)^3/V, but the (2pi)^3
@@ -82,16 +79,10 @@ complex_t FormFactorCrystal::evaluate(const cvector_t &k_i, const Bin1DCVector &
     return result / volume;
 }
 
-Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-                                                const Bin1D &alpha_f_bin,
-                                                const Bin1D &phi_f_bin) const
+Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevectors) const
 {
-    // construct a real reciprocal vector
-    cvector_t q_bin_lower = k_i - k_f_bin.m_q_lower;
-    cvector_t q_bin_upper = k_i - k_f_bin.m_q_upper;
-    Bin1DCVector q_bin = Bin1DCVector(q_bin_lower, q_bin_upper);
-
-    cvector_t q = q_bin.getMidPoint();
+    // construct reciprocal vector
+    cvector_t q = wavevectors.getQ();
     kvector_t q_real(q.x().real(), q.y().real(), q.z().real());
     cvector_t k_zero;
     // calculate the used radius in function of the reciprocal lattice scale
@@ -105,11 +96,13 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t &k_i, const Bin1
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
     for (KVectorContainer::const_iterator it = rec_vectors.begin(); it != rec_vectors.end(); ++it) {
         cvector_t q_i((*it).x(), (*it).y(), (*it).z());
-        Bin1DCVector min_q_i_zero_bin(-q_i, -q_i);
-        Bin1DCVector q_i_min_q(q_i - q_bin.m_q_lower, q_i - q_bin.m_q_upper);
+        cvector_t min_q_i= -q_i;
+        cvector_t q_i_min_q = q_i - q;
+        WavevectorInfo basis_wavevectors(k_zero, min_q_i);
         Eigen::Matrix2cd basis_factor
-            = mp_basis_form_factor->evaluatePol(k_zero, min_q_i_zero_bin, alpha_f_bin, phi_f_bin);
-        complex_t meso_factor = mp_meso_form_factor->evaluate(k_zero, q_i_min_q, alpha_f_bin);
+            = mp_basis_form_factor->evaluatePol(basis_wavevectors);
+        WavevectorInfo meso_wavevectors(k_zero, q_i_min_q);
+        complex_t meso_factor = mp_meso_form_factor->evaluate(meso_wavevectors);
         result += basis_factor * meso_factor;
     }
     // the transformed delta train gets a factor of (2pi)^3/V, but the (2pi)^3

@@ -16,7 +16,10 @@
 #include "InterferenceFunction2DLattice.h"
 
 #include <cassert>
+#include "Macros.h"
+GCC_DIAG_OFF(unused-parameter)
 #include <boost/math/special_functions/round.hpp>
+GCC_DIAG_ON(unused-parameter)
 
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(
     double length_1, double length_2, double angle, double xi)
@@ -79,15 +82,15 @@ void InterferenceFunction2DLattice::setProbabilityDistribution(
     initialize_calc_factors(coherence_length_x, coherence_length_y);
 }
 
-double InterferenceFunction2DLattice::evaluate(const cvector_t& q) const
+double InterferenceFunction2DLattice::evaluate(const kvector_t& q) const
 {
     if(!mp_pdf) {
         throw NullPointerException("InterferenceFunction2DLattice::evaluate"
                 " -> Error! No probability distribution function defined.");
     }
     double result = 0.0;
-    double qxr = q.x().real();
-    double qyr = q.y().real();
+    double qxr = q.x();
+    double qyr = q.y();
     double qx_frac, qy_frac;
     calculateReciprocalVectorFraction(qxr, qyr, qx_frac, qy_frac);
 

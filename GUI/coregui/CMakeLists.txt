@@ -33,6 +33,7 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/SimulationWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/FitWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/PropertyEditor
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/MaskWidgets
 )
 include_directories(${include_dirs})
 
@@ -50,6 +51,7 @@ file(GLOB source_files
     "Views/SimulationWidgets/*.cpp"
     "Views/FitWidgets/*.cpp"
     "Views/PropertyEditor/*.cpp"
+    "Views/MaskWidgets/*.cpp"
 )
 
 set(source_widgetbox
@@ -74,6 +76,7 @@ file(GLOB include_files
     "Views/SimulationWidgets/*.h"
     "Views/FitWidgets/*.h"
     "Views/PropertyEditor/*.h"
+    "Views/MaskWidgets/*.h"
 )
 
 set(include_widgetbox
@@ -101,6 +104,10 @@ qt5_add_resources(RC_SRCS ${resource_files})
 # --- definitions ------
 if(BORNAGAIN_CRASHHADLER)
     add_definitions(-DBORNAGAIN_CRASHHANDLER)
+endif()
+
+if(BORNAGAIN_TIFF_SUPPORT)
+    add_definitions(-DBORNAGAIN_TIFF_SUPPORT)
 endif()
 
 if(WIN32)

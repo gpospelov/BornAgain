@@ -309,9 +309,6 @@ Beam *TransformToDomain::createBeam(const ParameterizedItem &item)
     double azimuthal_angle = Units::deg2rad(beamItem->getAzimuthalAngle());
     result->setCentralK( lambda, inclination_angle, azimuthal_angle);
 
-//    AngleProperty inclination_angle = item.getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).value<AngleProperty>();
-//    AngleProperty azimuthal_angle = item.getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).value<AngleProperty>();
-//    result->setCentralK( lambda, inclination_angle.getValueInRadians(), azimuthal_angle.getValueInRadians());
     return result;
 }
 
@@ -322,27 +319,19 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
 
     if (subDetector->modelType() == Constants::PhiAlphaDetectorType) {
 
-        BasicAxisItem *phiAxis = dynamic_cast<BasicAxisItem *>(subDetector->getSubItems()[PhiAlphaDetectorItem::P_PHI_AXIS]);
-        Q_ASSERT(phiAxis);
-        int nphi = phiAxis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
-        double phi_min = Units::deg2rad(phiAxis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble());
-        double phi_max = Units::deg2rad(phiAxis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
+        BasicAxisItem *x_axis = dynamic_cast<BasicAxisItem *>(subDetector->getSubItems()[PhiAlphaDetectorItem::P_PHI_AXIS]);
+        Q_ASSERT(x_axis);
+        int n_x = x_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
+        double x_min = Units::deg2rad(x_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble());
+        double x_max = Units::deg2rad(x_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
 
-        BasicAxisItem *alphaAxis = dynamic_cast<BasicAxisItem *>(subDetector->getSubItems()[PhiAlphaDetectorItem::P_ALPHA_AXIS]);
-        Q_ASSERT(alphaAxis);
-        int nalpha = alphaAxis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
-        double alpha_min = Units::deg2rad(alphaAxis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble());
-        double alpha_max = Units::deg2rad(alphaAxis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
+        BasicAxisItem *y_axis = dynamic_cast<BasicAxisItem *>(subDetector->getSubItems()[PhiAlphaDetectorItem::P_ALPHA_AXIS]);
+        Q_ASSERT(y_axis);
+        int n_y = y_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
+        double y_min = Units::deg2rad(y_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble());
+        double y_max = Units::deg2rad(y_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
 
-        ComboProperty binning = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_BINNING).value<ComboProperty>();
-
-        if(binning.getValue() == Constants::AXIS_CONSTK_BINNING) {
-            instrument->setDetectorAxes(ConstKBinAxis("phi_x",nphi, phi_min, phi_max), ConstKBinAxis("alpha_x", nalpha, alpha_min, alpha_max));
-        }else if(binning.getValue() == Constants::AXIS_FIXED_BINNING) {
-            instrument->setDetectorAxes(FixedBinAxis("phi_x",nphi, phi_min, phi_max), FixedBinAxis("alpha_x", nalpha, alpha_min, alpha_max));
-        } else {
-            throw GUIHelpers::Error("TransformToDomain::initInstrumentFromDetectorItem() -> Unknown axes");
-        }
+        instrument->setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
 
         // setting up resolution function
         ResolutionFunctionItem *resfuncItem = dynamic_cast<ResolutionFunctionItem *>

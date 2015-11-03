@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "LayerView.h"
+#include "LayerItem.h"
 #include "ParticleLayoutView.h"
 #include "ParameterizedItem.h"
 #include "MaterialProperty.h"
@@ -70,4 +71,3 @@ void LayerView::addView(IView *childView, int /* row */)
 //{
 //    return QGraphicsItem::itemChange(change, value);
 //}
-

@@ -80,7 +80,7 @@ OutputData<double> *FunctionalTestComponentService::getReferenceData() const
     std::string filename = Utils::FileSystem::GetReferenceDataDir() + getReferenceFileName();
 
     try {
-        result = IntensityDataIOFactory::readIntensityData(filename);
+        result = IntensityDataIOFactory::readOutputData(filename);
     } catch(const std::exception &ex) {
         std::cout << "FunctionalTestComponentService::getReferenceData() -> Exception caught."
                   << ex.what() << std::endl;

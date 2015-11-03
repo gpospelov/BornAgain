@@ -29,6 +29,11 @@
 
 class ProgramOptions;
 class ProgressHandlerDWBA;
+class IHistogram;
+class Histogram2D;
+namespace Geometry {
+class IShape2D;
+}
 
 //! @class Simulation
 //! @ingroup simulation
@@ -49,17 +54,18 @@ public:
     //! Put into a clean state for running a simulation
     virtual void prepareSimulation();
 
-    //! Normalize the detector counts
-    void normalize();
-
     //! Gets the number of elements this simulation needs to calculate
     virtual int getNumberOfSimulationElements() const;
 
-    //! Returns detector intensity map for all scan parameters (no detector resolution)
+    //! Returns detector intensity map (no detector resolution)
     const OutputData<double>* getOutputData() const { return &m_intensity_map; }
 
-    //! Clone detector intensity map for all scan parameters (apply detector resolution function first)
-    OutputData<double>* getIntensityData() const;
+    //! Returns clone of the detector intensity map with detector resolution applied
+    OutputData<double>* getDetectorIntensity() const;
+
+    //! Returns clone of the detector intensity map with detector resolution applied in the form
+    //! of 2D histogram.
+    Histogram2D *getIntensityData() const;
 
     //! Sets the instrument containing beam and detector information
     void setInstrument(const Instrument& instrument);
@@ -76,16 +82,16 @@ public:
     //! Sets the beam polarization according to the given Bloch vector
     void setBeamPolarization(const kvector_t& bloch_vector);
 
+    //! Sets the detector (axes can be overwritten later)
+    void setDetector(const IDetector2D& detector);
+
     //! Sets detector parameters using axes of output data
     void setDetectorParameters(const OutputData<double> &output_data);
+    void setDetectorParameters(const IHistogram &hisotgram);
 
     //! Sets detector parameters using angle ranges
-    void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
-        size_t n_alpha, double alpha_f_min, double alpha_f_max,
-        bool isgisaxs_style=false);
-
-    //! Sets detector parameters using parameter object
-    void setDetectorParameters(const DetectorParameters& params);
+    void setDetectorParameters(size_t n_x, double x_min, double x_max,
+                               size_t n_y, double y_min, double y_max);
 
     //! Define resolution function for detector
     void setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function);
@@ -104,6 +110,19 @@ public:
     //! returns wavelength
     virtual double getWavelength() const;
 
+    //! removes all masks from the detector
+    void removeMasks();
+
+    //! Adds mask of given shape to the stack of detector masks. The mask value 'true' means
+    //! that the channel will be excluded from the simulation. The mask which is added last
+    //! has priority.
+    //! @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse)
+    //! @mask_value The value of mask
+    void addMask(const Geometry::IShape2D &shape, bool mask_value = true);
+
+    //! Put the mask for all detector channels (i.e. exclude whole detector from the analysis)
+    void maskAll();
+
 protected:
     GISASSimulation(const GISASSimulation& other);
 
@@ -116,6 +135,9 @@ protected:
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
     virtual void transferResultsToIntensityMap();
+
+    //! Returns the intensity of the beam
+    virtual double getBeamIntensity() const;
 
     //! Default implementation only adds the detector axes
     void updateIntensityMap();

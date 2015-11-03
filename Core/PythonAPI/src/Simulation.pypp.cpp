@@ -42,9 +42,14 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
         return func_clone(  );
     }
 
-    virtual ::OutputData< double > * getIntensityData(  ) const {
-        bp::override func_getIntensityData = this->get_override( "getIntensityData" );
-        return func_getIntensityData(  );
+    virtual double getBeamIntensity(  ) const {
+        bp::override func_getBeamIntensity = this->get_override( "getBeamIntensity" );
+        return func_getBeamIntensity(  );
+    }
+
+    virtual ::OutputData< double > * getDetectorIntensity(  ) const {
+        bp::override func_getDetectorIntensity = this->get_override( "getDetectorIntensity" );
+        return func_getDetectorIntensity(  );
     }
 
     virtual int getNumberOfSimulationElements(  ) const {
@@ -242,6 +247,27 @@ void register_Simulation_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::Simulation::getBeamIntensity
+        
+            typedef double ( Simulation_wrapper::*getBeamIntensity_function_type)(  ) const;
+            
+            Simulation_exposer.def( 
+                "getBeamIntensity"
+                , getBeamIntensity_function_type( &Simulation_wrapper::getBeamIntensity )
+                , "Returns the intensity of the beam." );
+        
+        }
+        { //::Simulation::getDetectorIntensity
+        
+            typedef ::OutputData<double> * ( ::Simulation::*getDetectorIntensity_function_type)(  ) const;
+            
+            Simulation_exposer.def( 
+                "getDetectorIntensity"
+                , bp::pure_virtual( getDetectorIntensity_function_type(&::Simulation::getDetectorIntensity) )
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Clone simulated intensity map." );
+        
+        }
         { //::Simulation::getDistributionHandler
         
             typedef ::DistributionHandler const & ( ::Simulation::*getDistributionHandler_function_type)(  ) const;
@@ -251,17 +277,6 @@ void register_Simulation_class(){
                 , getDistributionHandler_function_type( &::Simulation::getDistributionHandler )
                 , bp::return_value_policy< bp::copy_const_reference >()
                 , "add a sampled parameter distribution." );
-        
-        }
-        { //::Simulation::getIntensityData
-        
-            typedef ::OutputData<double> * ( ::Simulation::*getIntensityData_function_type)(  ) const;
-            
-            Simulation_exposer.def( 
-                "getIntensityData"
-                , bp::pure_virtual( getIntensityData_function_type(&::Simulation::getIntensityData) )
-                , bp::return_value_policy< bp::manage_new_object >()
-                , "Clone simulated intensity map." );
         
         }
         { //::Simulation::getNumberOfSimulationElements

@@ -45,14 +45,14 @@ void TestMultiLayerRoughness::execute()
     p_data_alpha_i->addAxis(std::string("alpha_i"), npoints, 0.0*Units::degree, 2.0*Units::degree);
     OutputData<double>::const_iterator it_alpha_i = p_data_alpha_i->begin();
     while (it_alpha_i != p_data_alpha_i->end()) {
-        double alpha_i = p_data_alpha_i->getValueOfAxis("alpha_i", it_alpha_i.getIndex());
-        size_t index_alpha_i = p_data_alpha_i->getIndexOfAxis("alpha_i", it_alpha_i.getIndex());
+        double alpha_i = p_data_alpha_i->getAxisValue(it_alpha_i.getIndex(), "alpha_i");
+        size_t index_alpha_i = p_data_alpha_i->getAxisValue(it_alpha_i.getIndex(), "alpha_i");
         if(index_alpha_i%10 == 0) std::cout << index_alpha_i << " of " << npoints << std::endl;
 
         // setting simulation
         GISASSimulation simulation(mp_options);
         simulation.setSample(*sample);
-        simulation.setDetectorParameters(2, 0.0*Units::degree, 0.00001*Units::degree, npoints, 0.0*Units::degree, 2.0*Units::degree, false);
+        simulation.setDetectorParameters(2, 0.0*Units::degree, 0.00001*Units::degree, npoints, 0.0*Units::degree, 2.0*Units::degree);
         simulation.setBeamParameters(1.54*Units::angstrom, alpha_i, 0.0*Units::degree);
 
         simulation.runSimulation();
@@ -60,8 +60,8 @@ void TestMultiLayerRoughness::execute()
         const OutputData<double> *output = simulation.getOutputData();
         OutputData<double>::const_iterator it_output = output->begin();
         while (it_output != output->end()) {
-            double phi_f = output->getValueOfAxis(BornAgain::PHI_AXIS_NAME, it_output.getIndex());
-            double alpha_f = output->getValueOfAxis(BornAgain::ALPHA_AXIS_NAME, it_output.getIndex());
+            double phi_f = output->getAxisValue(it_output.getIndex(), BornAgain::PHI_AXIS_NAME);
+            double alpha_f = output->getAxisValue(it_output.getIndex(), BornAgain::ALPHA_AXIS_NAME);
             double intensity = *it_output++;
             if(phi_f == 0) {
                 h2->Fill(Units::rad2deg(alpha_i), Units::rad2deg(alpha_f), intensity);

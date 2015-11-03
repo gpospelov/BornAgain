@@ -22,7 +22,7 @@
 #include <cstddef>
 using std::size_t;
 
-class FitSuite;
+class FitKernel;
 
 
 //! @class IFitSuiteFunction
@@ -32,12 +32,12 @@ class FitSuite;
 class BA_CORE_API_ IFitSuiteFunction
 {
  public:
-    IFitSuiteFunction() : m_fit_suite(0), m_ncall(0) {}
+    IFitSuiteFunction() : m_fit_kernel(0), m_ncall(0) {}
     virtual ~IFitSuiteFunction() {}
-    virtual void init(FitSuite *fit_suite) { m_fit_suite = fit_suite; }
+    virtual void init(FitKernel *fit_suite) { m_fit_kernel = fit_suite; }
     virtual size_t getNCalls() const { return m_ncall; }
  protected:
-    FitSuite *m_fit_suite;
+    FitKernel *m_fit_kernel;
     size_t m_ncall;
 };
 

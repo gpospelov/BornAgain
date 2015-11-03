@@ -1,5 +1,5 @@
 // @(#)root/minuit2:$Id$
-// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005  
+// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005
 
 /**********************************************************************
  *                                                                    *
@@ -15,16 +15,16 @@
 #include "Minuit2/MnSeedGenerator.h"
 #include "Minuit2/VariableMetricBuilder.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 
 //______________________________________________________________________________
-/** 
+/**
     Instantiates the SeedGenerator and MinimumBuilder for
     Variable Metric Minimization method.
     API is provided in the upper ROOT::Minuit2::ModularFunctionMinimizer class
- 
+
  */
 
 class VariableMetricMinimizer : public ModularFunctionMinimizer {
@@ -33,7 +33,7 @@ public:
 
    VariableMetricMinimizer() : fMinSeedGen(MnSeedGenerator()),
                                fMinBuilder(VariableMetricBuilder()) {}
-  
+
    ~VariableMetricMinimizer() {}
 
    const MinimumSeedGenerator& SeedGenerator() const {return fMinSeedGen;}

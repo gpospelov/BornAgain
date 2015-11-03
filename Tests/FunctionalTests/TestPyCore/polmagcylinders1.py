@@ -57,6 +57,7 @@ def RunSimulation():
 # --------------------------------------------------------------
 def run_test():
     result = RunSimulation()
+    # IntensityDataIOFactory.writeIntensityData(result, 'polmagcylinders1_reference.int')
 
     reference = get_reference_data('polmagcylinders1_reference.int.gz')
 

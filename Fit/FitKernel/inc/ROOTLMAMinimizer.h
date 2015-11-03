@@ -34,7 +34,7 @@ public:
 protected:
    virtual void propagateOptions();
 
-    ROOT::Math::GSLNLSMinimizer *m_lma_minimizer;
+    BA_ROOT::Math::GSLNLSMinimizer *m_lma_minimizer;
 
 };
 

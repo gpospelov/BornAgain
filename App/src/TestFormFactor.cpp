@@ -43,31 +43,30 @@ TestFormFactor::~TestFormFactor()
 
 void TestFormFactor::execute()
 {
-    OutputData<double>::iterator it = mp_intensity_output->begin();
-    const IAxis *p_y_axis = mp_intensity_output->getAxis("detector y-axis");
-    const IAxis *p_z_axis = mp_intensity_output->getAxis("detector z-axis");
-    double lambda = 1.0;
-    double alpha_i = 0.2*Units::PI/180.0;
-    cvector_t k_i;
-    k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
-    while (it != mp_intensity_output->end())
-    {
-        size_t index_y = mp_intensity_output->getIndexOfAxis("detector y-axis",
-                it.getIndex());
-        size_t index_z = mp_intensity_output->getIndexOfAxis("detector z-axis",
-                it.getIndex());
-        double phi_f = Units::PI*(*p_y_axis)[index_y]/180.0;
-        Bin1D alpha_f_bin_degrees = p_z_axis->getBin(index_z);
-        Bin1D alpha_f_bin(Units::PI*alpha_f_bin_degrees.m_lower/180.0,
-                              Units::PI*alpha_f_bin_degrees.m_upper/180.0);
-        double alpha_f = alpha_f_bin.getMidPoint();
-        cvector_t k_f;
-        k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-        Bin1DCVector k_f_zero_bin(k_f, k_f);
-        *it = std::pow(std::abs(m_ff.evaluate(k_i, k_f_zero_bin, alpha_f_bin)),2);
-        ++it;
-    }
-    draw4();
+    throw NotImplementedException("TestFormFactor::execute() -> Not implemeted");
+//    OutputData<double>::iterator it = mp_intensity_output->begin();
+//    const IAxis *p_y_axis = mp_intensity_output->getAxis("detector y-axis");
+//    const IAxis *p_z_axis = mp_intensity_output->getAxis("detector z-axis");
+//    double lambda = 1.0;
+//    double alpha_i = 0.2*Units::PI/180.0;
+//    cvector_t k_i;
+//    k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
+//    while (it != mp_intensity_output->end())
+//    {
+//        size_t index_y = mp_intensity_output->getAxisBinIndex(it.getIndex(), "detector y-axis");
+//        size_t index_z = mp_intensity_output->getAxisBinIndex(it.getIndex(), "detector z-axis");
+//        double phi_f = Units::PI*(*p_y_axis)[index_y]/180.0;
+//        Bin1D alpha_f_bin_degrees = p_z_axis->getBin(index_z);
+//        Bin1D alpha_f_bin(Units::PI*alpha_f_bin_degrees.m_lower/180.0,
+//                              Units::PI*alpha_f_bin_degrees.m_upper/180.0);
+//        double alpha_f = alpha_f_bin.getMidPoint();
+//        cvector_t k_f;
+//        k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
+//        Bin1DCVector k_f_zero_bin(k_f, k_f);
+//        *it = std::pow(std::abs(m_ff.evaluate(k_i, k_f_zero_bin, alpha_f_bin)),2);
+//        ++it;
+//    }
+//    draw4();
 }
 
 
@@ -117,10 +116,8 @@ void TestFormFactor::draw4()
     //OutputData<double>::const_iterator it = mp_intensity_output->begin();
     while (it != mp_intensity_output->end())
     {
-        size_t index_y = mp_intensity_output->getIndexOfAxis("detector y-axis",
-                it.getIndex());
-        size_t index_z = mp_intensity_output->getIndexOfAxis("detector z-axis",
-                it.getIndex());
+        size_t index_y = mp_intensity_output->getAxisBinIndex(it.getIndex(), "detector y-axis");
+        size_t index_z = mp_intensity_output->getAxisBinIndex(it.getIndex(), "detector z-axis");
         double x_value = (*p_y_axis)[index_y];
         double y_value = (*p_z_axis)[index_z];
         double z_value = std::log(*it + 1.0);
@@ -168,10 +165,8 @@ void TestFormFactor::draw()
     OutputData<double>::const_iterator it = mp_intensity_output->begin();
     while (it != mp_intensity_output->end())
     {
-        size_t index_y = mp_intensity_output->getIndexOfAxis("detector y-axis",
-                it.getIndex());
-        size_t index_z = mp_intensity_output->getIndexOfAxis("detector z-axis",
-                it.getIndex());
+        size_t index_y = mp_intensity_output->getAxisBinIndex(it.getIndex(), "detector y-axis");
+        size_t index_z = mp_intensity_output->getAxisBinIndex(it.getIndex(), "detector z-axis");
         double x_value = (*p_y_axis)[index_y];
         double y_value = (*p_z_axis)[index_z];
         double z_value = std::log(*it);

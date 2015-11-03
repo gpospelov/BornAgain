@@ -18,6 +18,7 @@
 
 #include <QWidget>
 #include "WarningSignWidget.h"
+#include "qcustomplot.h"
 
 class ParameterizedItem;
 class AwesomePropertyEditor;
@@ -34,7 +35,9 @@ class DistributionWidget : public QWidget
 
 public:
     DistributionWidget(QWidget *parent = 0);
-    virtual ~DistributionWidget() {}
+    virtual ~DistributionWidget()
+    {
+    }
     void setItem(DistributionItem *item);
     void plotItem();
     double getWidthOfBars(double min, double max, int samples);
@@ -42,7 +45,6 @@ public:
     int getMaxYPosition(int y);
     void setXAxisName(QString xAxisName);
     QPoint getPositionForWarningSign();
-    QString generateCodeSnippet();
 
 public slots:
     void onMouseMove(QMouseEvent *event);
@@ -51,7 +53,7 @@ public slots:
 protected:
     void resizeEvent(QResizeEvent *event);
 private slots:
-    void onPropertyChanged();   
+    void onPropertyChanged();
     void resetView();
 
 private:

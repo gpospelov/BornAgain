@@ -134,6 +134,18 @@ if(UNIX)
         install(DIRECTORY "$ENV{QTDIR}/plugins/platforms" DESTINATION ${plugin_dest_dir} COMPONENT Runtime)
 
         set(fixup_path @rpath)
+
+        # FIXME handling the case when cmake prefix path contains more than one entry FIXME
+        # the problem here is FixAppleBundle is working in install phase and doesn't see some cmake variables
+        set(cmake_prefix_path_to_parse ${CMAKE_PREFIX_PATH})
+        list(LENGTH cmake_prefix_path_to_parse len)
+        list(GET cmake_prefix_path_to_parse 0 cmake_prefix_path1)
+        set(cmake_prefix_path2 "undefined_cmake_prefix_path2")
+        if(len EQUAL 2)
+        list(GET cmake_prefix_path_to_parse 1 cmake_prefix_path2)
+        endif()
+message(INFO "XXX ${cmake_prefix_path1} ${cmake_prefix_path2}")
+
         configure_file(${CMAKE_SOURCE_DIR}/cmake/modules/FixAppleBundle.cmake.in ${destination_runtime_configs}/FixAppleBundle.cmake @ONLY)
         install(SCRIPT ${destination_runtime_configs}/FixAppleBundle.cmake COMPONENT Runtime)
     elseif(NOT BUILD_DEBIAN)

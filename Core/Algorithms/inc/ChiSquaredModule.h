@@ -33,15 +33,8 @@ public:
     virtual ChiSquaredModule *clone() const
     { return new ChiSquaredModule(*this); }
 
-    //! Returns chi squared volume over experimental and simulated data.
-    virtual double calculateChiSquared();
-
-    //! Returns output data which contains chi^2 values.
-    virtual OutputData<double> *createChi2DifferenceMap() const;
-
-    //! Returns residual between data and simulation for single element.
-    virtual double getResidualValue(size_t index ) const;
-
+    virtual void processFitElements(std::vector<FitElement>::iterator first,
+                                    std::vector<FitElement>::iterator last);
 };
 
 #endif /* CHISQUAREDMODULE_H_ */

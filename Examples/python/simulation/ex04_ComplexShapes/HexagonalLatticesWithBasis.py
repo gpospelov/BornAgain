@@ -62,7 +62,7 @@ def run_simulation():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    result = simulation.getIntensityData().getArray()
+    result = simulation.getIntensityData()
 
     # showing the result
     im = plt.imshow(result.getArray(),

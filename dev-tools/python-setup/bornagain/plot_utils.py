@@ -1,12 +1,6 @@
-import sys
-import os
-
-sys.path.append(os.path.abspath(
-                os.path.join(os.path.split(__file__)[0],
-                '..')))
-
-from libBornAgainCore import *
-from libBornAgainFit import *
+'''
+BornAgain plot utils
+'''
 
 try:
     import matplotlib
@@ -14,6 +8,8 @@ try:
 except ImportError:
     print "bornagain/__init__.py -> Error. Can't import matplotlib."
 
+from bornagain import deg as deg
+from bornagain import IFitObserver as IFitObserver
 
 class DefaultFitObserver(IFitObserver):
     """

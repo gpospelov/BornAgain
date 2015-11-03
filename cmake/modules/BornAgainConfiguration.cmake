@@ -104,6 +104,14 @@ set(this_libdir $BORNAGAINSYS/lib/${destination_suffix})
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.sh.in" "${destination_runtime_configs}/frombin_setup_paths.sh" @ONLY)
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.csh.in" "${destination_runtime_configs}/frombin_setup_paths.csh" @ONLY)
 
+# -- configure BornAgain init module ---
+set(BA_MODULES_IMPORT_PATH "..")
+if(BORNAGAIN_APPLE_BUNDLE)
+    set(BA_MODULES_IMPORT_PATH lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR})
+endif()
+configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/__init__.py.in" "${destination_runtime_configs}/__init__.py" @ONLY)
+execute_process(COMMAND ${CMAKE_COMMAND} -E copy "${destination_runtime_configs}/__init__.py" ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/bornagain)
+
 
 # --- configure C++ source code ---------
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAConfigure.h.in" "${destination_runtime_configs}/BAConfigure.h" @ONLY)

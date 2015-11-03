@@ -268,8 +268,8 @@ std::string PyGenVisitor::definePreamble() const
     std::ostringstream result;
     result << "import numpy\n";
     result << "#NOTE: Uncomment the next import statements for plotting\n";
-    result << "#import pylab\n";
     result << "#import matplotlib\n";
+    result << "#from matplotlib import pyplot as plt\n";
     result << "from bornagain import *\n\n\n";
     //    result << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
     //    result << "#NOTE: Running this Script by default will write output data"
@@ -1339,10 +1339,9 @@ std::string PyGenVisitor::definePlotting(const GISASSimulation *simulation) cons
     //    result << "#NOTE: Uncomment the next function for plotting\n";
     //    result << "#NOTE: This requires the presence of matplotlib library\n";
     result << "def plotSimulation(simulation):\n";
-    result << "" << indent() << "result = simulation.getIntensityData().getArray()"
-           << "+ 1 # +1 for log scale\n";
-    result << "" << indent() << "im = pylab.imshow(result, "
-           << "norm=matplotlib.colors.LogNorm(), extent=[";
+    result << "" << indent() << "result = simulation.getIntensityData()\n";
+    result << "" << indent() << "im = plt.imshow(result.getArray(), "
+           << "norm=matplotlib.colors.LogNorm(1, result.getMaximum()), extent=[";
     size_t index = 0;
     size_t numberOfDetectorDimensions = simulation->getInstrument().getDetectorDimension();
     while (index < numberOfDetectorDimensions) {
@@ -1356,8 +1355,8 @@ std::string PyGenVisitor::definePlotting(const GISASSimulation *simulation) cons
         index++;
     }
     result << "]) \n";
-    result << indent() << "pylab.colorbar(im)\n";
-    result << indent() << "pylab.show()\n\n\n";
+    result << indent() << "plt.colorbar(im)\n";
+    result << indent() << "plt.show()\n\n\n";
     return result.str();
 }
 

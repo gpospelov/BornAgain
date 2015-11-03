@@ -1,22 +1,5 @@
 """
-Fitting example
-In this example we use a simple geometry: cylinders and prisms in
-air layer, deposited on a substrate layer, with no interference. 
-There are 4 fitting parameters:
-1) radius of cylinders
-2) height of cylinders
-3) side length of prisms
-4) height of prisms
-
-Our reference data is 2D intensity map obtained from the simulation of
-the same geometry with fixed values cylinder_height = prism3_height
- = cylinder_radius = prism3_half_side = 5nm.
- 
-Then we run our minimization using default minizer settings, with starting values of fit parameters
-cylinder_height = 4nm, cylinder_radius = 6nm
-prism3_height = 4nm, prism3_length = 12nm
-
-See example FitCylindersPrisms_detailed.py for more details & graphical output
+Fitting example: 4 parameters fit with simple output
 """
 from bornagain import *
 

@@ -25,12 +25,16 @@ else()
     else()
         set (NUMPY_FOUND TRUE)
         set (NUMPY_INCLUDE_DIR ${NUMPY_INCLUDE_DIR} CACHE STRING "Numpy include path")
+        EXEC_PROGRAM ("${PYTHON_EXECUTABLE}"
+        ARGS "-c \"import numpy; print numpy.__version__\""
+        OUTPUT_VARIABLE numpy_version_number
+        RETURN_VALUE numpy_return_value)
     endif()
 endif()
 
 if (NUMPY_FOUND)
     if (NOT Numpy_FIND_QUIETLY)
-        message (STATUS "Numpy headers found at ${NUMPY_INCLUDE_DIR}")
+        message (STATUS "Numpy headers found at ${NUMPY_INCLUDE_DIR}, version ${numpy_version_number}.")
     endif()
 else()
     if (Numpy_FIND_REQUIRED)

@@ -25,9 +25,9 @@
 #include "ParticleDistributionView.h"
 #include "InterferenceFunctionViews.h"
 #include "GUIHelpers.h"
-#include "RectangleView.h"
-#include "EllipseView.h"
-#include "PolygonView.h"
+#include "ObsoleteRectangleView.h"
+#include "ObsoleteEllipseView.h"
+#include "ObsoletePolygonView.h"
 #include <QDebug>
 
 
@@ -92,13 +92,13 @@ IView *SampleViewFactory::createSampleView(const QString &name)
         return new InterferenceFunction2DLatticeView();
     }
     else if(name==Constants::RectangleType) {
-        return new RectangleView();
+        return new ObsoleteRectangleView();
     }
     else if(name==Constants::EllipseType) {
-        return new EllipseView();
+        return new ObsoleteEllipseView();
     }
     else if(name==Constants::PolygonType) {
-        return new PolygonView();
+        return new ObsoletePolygonView();
     }
     else {
         //qDebug() << "SampleViewFactory::createSampleView() -> Error! Can't create a view for" << name;

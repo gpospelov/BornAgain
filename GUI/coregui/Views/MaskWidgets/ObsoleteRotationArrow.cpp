@@ -1,19 +1,19 @@
-#include "RotationArrow.h"
+#include "ObsoleteRotationArrow.h"
 #include <QPainter>
 
 
-RotationArrow::RotationArrow(QGraphicsItem *parent)
+ObsoleteRotationArrow::ObsoleteRotationArrow(QGraphicsItem *parent)
 {
     this->setParentItem(parent);
 }
 
-QRectF RotationArrow::boundingRect() const
+QRectF ObsoleteRotationArrow::boundingRect() const
 {
     return QRect(-25,-25,15,15);
 }
 
 
-void RotationArrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void ObsoleteRotationArrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setRenderHints(QPainter::Antialiasing);
     prepareGeometryChange();

@@ -1,17 +1,17 @@
 #include <QDebug>
 #include <ColorMapPlot.h>
 #include <QPointF>
-#include "GraphicsProxyWidget.h"
+#include "ObsoleteGraphicsProxyWidget.h"
 #include "ColorMapPlot.h"
 #include "IntensityDataItem.h"
 #include "SimulationRegistry.h"
-#include "MaskGraphicsScene.h"
-#include "MaskGraphicsView.h"
-#include "MaskEditor.h"
+#include "ObsoleteMaskGraphicsScene.h"
+#include "ObsoleteMaskGraphicsView.h"
+#include "ObsoleteMaskEditor.h"
 #include "MaskToolBar.h"
-#include "RectangleView.h"
-#include "EllipseView.h"
-#include "PolygonView.h"
+#include "ObsoleteRectangleView.h"
+#include "ObsoleteEllipseView.h"
+#include "ObsoletePolygonView.h"
 #include "MaskModel.h"
 #include "SampleBuilderFactory.h"
 
@@ -20,11 +20,11 @@ const qreal widthOfScene = 2000;
 const qreal heightOfScene = 2000;
 
 
-MaskEditor::MaskEditor(QWidget *parent)
+ObsoleteMaskEditor::ObsoleteMaskEditor(QWidget *parent)
     : QWidget(parent)
-    , m_scene(new MaskGraphicsScene(this))
-    , m_view(new MaskGraphicsView(m_scene, this))
-    , m_proxyWidget(new GraphicsProxyWidget)
+    , m_scene(new ObsoleteMaskGraphicsScene(this))
+    , m_view(new ObsoleteMaskGraphicsView(m_scene, this))
+    , m_proxyWidget(new ObsoleteGraphicsProxyWidget)
     , m_listView(new QListView(this))
     , m_toolBar(new MaskToolBar)
     , m_deleteAction(new QAction("Delete", this))
@@ -52,7 +52,7 @@ MaskEditor::MaskEditor(QWidget *parent)
 
 }
 
-void MaskEditor::init_connections()
+void ObsoleteMaskEditor::init_connections()
 {
     connect(m_toolBar, SIGNAL(changeToSelectionMode()), this, SLOT(changeToSelectionMode()));
     connect(m_scene, SIGNAL(itemIsDrawn()), this, SLOT(changeToSelectionMode()));
@@ -70,7 +70,7 @@ void MaskEditor::init_connections()
     connect(m_view, SIGNAL(deleteSelectedItems()), m_scene, SLOT(deleteSelectedItems()));
 }
 
-void MaskEditor::keyPressEvent(QKeyEvent *event)
+void ObsoleteMaskEditor::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {
     case Qt::Key_Delete:
@@ -82,22 +82,22 @@ void MaskEditor::keyPressEvent(QKeyEvent *event)
     };
 }
 
-void MaskEditor::rectangleButtonPressed()
+void ObsoleteMaskEditor::rectangleButtonPressed()
 {
-    m_scene->setDrawing(MaskGraphicsScene::RECTANGLE);
+    m_scene->setDrawing(ObsoleteMaskGraphicsScene::RECTANGLE);
 }
 
-void MaskEditor::ellipseButtonPressed()
+void ObsoleteMaskEditor::ellipseButtonPressed()
 {
-    m_scene->setDrawing(MaskGraphicsScene::ELLIPSE);
+    m_scene->setDrawing(ObsoleteMaskGraphicsScene::ELLIPSE);
 }
 
-void MaskEditor::polygonButtonPressed()
+void ObsoleteMaskEditor::polygonButtonPressed()
 {
-    m_scene->setDrawing(MaskGraphicsScene::POLYGON);
+    m_scene->setDrawing(ObsoleteMaskGraphicsScene::POLYGON);
 }
 
-void MaskEditor::panMode(bool active)
+void ObsoleteMaskEditor::panMode(bool active)
 {
     if(active) {
         m_view->setDragMode(QGraphicsView::ScrollHandDrag);
@@ -109,7 +109,7 @@ void MaskEditor::panMode(bool active)
     }
 }
 
-void MaskEditor::deleteSelectedItem()
+void ObsoleteMaskEditor::deleteSelectedItem()
 {
     QList<QGraphicsItem*> selectedItems = m_view->scene()->selectedItems();
     for(int i = 0; i < selectedItems.length(); ++i) {
@@ -118,61 +118,61 @@ void MaskEditor::deleteSelectedItem()
 
 }
 
-void MaskEditor::bringToFrontClicked()
+void ObsoleteMaskEditor::bringToFrontClicked()
 {
     m_scene->onBringToFront();
 
 }
 
-void MaskEditor::sendToBackClicked()
+void ObsoleteMaskEditor::sendToBackClicked()
 {
     m_scene->onSendToBack();
 }
 
-void MaskEditor::includeClicked()
+void ObsoleteMaskEditor::includeClicked()
 {
     QList<QGraphicsItem*> selectedItems = m_view->scene()->selectedItems();
     for(int i = 0; i < selectedItems.length(); ++i) {
-        if(RectangleView::Type == selectedItems[i]->type()) {
-            qgraphicsitem_cast<RectangleView* >(selectedItems[i])->setInclude();
+        if(ObsoleteRectangleView::Type == selectedItems[i]->type()) {
+            qgraphicsitem_cast<ObsoleteRectangleView* >(selectedItems[i])->setInclude();
         }
-        else if(EllipseView::Type == selectedItems[i]->type()) {
-            qgraphicsitem_cast<EllipseView* >(selectedItems[i])->setInclude();
+        else if(ObsoleteEllipseView::Type == selectedItems[i]->type()) {
+            qgraphicsitem_cast<ObsoleteEllipseView* >(selectedItems[i])->setInclude();
         }
-        else if(PolygonView::Type == selectedItems[i]->type()) {
-            qgraphicsitem_cast<PolygonView* >(selectedItems[i])->setInclude();
+        else if(ObsoletePolygonView::Type == selectedItems[i]->type()) {
+            qgraphicsitem_cast<ObsoletePolygonView* >(selectedItems[i])->setInclude();
         }
     }
 }
 
-void MaskEditor::excludeClicked()
+void ObsoleteMaskEditor::excludeClicked()
 {
     QList<QGraphicsItem*> selectedItems = m_view->scene()->selectedItems();
     for(int i = 0; i < selectedItems.length(); ++i) {
-        if(RectangleView::Type == selectedItems[i]->type()) {
-            qgraphicsitem_cast<RectangleView * >(selectedItems[i])->setExclude();
+        if(ObsoleteRectangleView::Type == selectedItems[i]->type()) {
+            qgraphicsitem_cast<ObsoleteRectangleView * >(selectedItems[i])->setExclude();
         }
-        else if(EllipseView::Type == selectedItems[i]->type()) {
-            qgraphicsitem_cast<EllipseView* >(selectedItems[i])->setExclude();
+        else if(ObsoleteEllipseView::Type == selectedItems[i]->type()) {
+            qgraphicsitem_cast<ObsoleteEllipseView* >(selectedItems[i])->setExclude();
         }
-        else if(PolygonView::Type == selectedItems[i]->type()) {
-            qgraphicsitem_cast<PolygonView* >(selectedItems[i])->setExclude();
+        else if(ObsoletePolygonView::Type == selectedItems[i]->type()) {
+            qgraphicsitem_cast<ObsoletePolygonView* >(selectedItems[i])->setExclude();
         }
     }
 }
 
-void MaskEditor::changeToSelectionMode()
+void ObsoleteMaskEditor::changeToSelectionMode()
 {
-    m_scene->setDrawing(MaskGraphicsScene::NONE);
+    m_scene->setDrawing(ObsoleteMaskGraphicsScene::NONE);
 }
 
-void MaskEditor::changeToDrawingMode()
+void ObsoleteMaskEditor::changeToDrawingMode()
 {
     m_view->setDragMode(QGraphicsView::NoDrag);
     m_view->setInteractive(true);
 }
 
-void MaskEditor::setModel(MaskModel *maskModel)
+void ObsoleteMaskEditor::setModel(MaskModel *maskModel)
 {
     m_listView->setModel(maskModel);
     m_scene->setModel(maskModel);
@@ -200,7 +200,7 @@ void MaskEditor::setModel(MaskModel *maskModel)
     m_scene->addItem(m_proxyWidget);
 }
 
-void MaskEditor::onItemIsDrawn()
+void ObsoleteMaskEditor::onItemIsDrawn()
 {
     emit itemIsDrawn();
 }

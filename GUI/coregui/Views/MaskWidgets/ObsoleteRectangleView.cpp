@@ -1,9 +1,9 @@
-#include "RectangleView.h"
+#include "ObsoleteRectangleView.h"
 #include "RectangleItem.h"
 #include "ParameterizedItem.h"
 #include "DesignerHelper.h"
-#include "RotationArrow.h"
-#include "ResizeArrow.h"
+#include "ObsoleteRotationArrow.h"
+#include "ObsoleteResizeArrow.h"
 #include <QPainterPath>
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
@@ -15,7 +15,7 @@ static const qreal widthAndHeight = 5;
 static const qreal OffsetPosition = 2.5;
 
 
-RectangleView::RectangleView() :
+ObsoleteRectangleView::ObsoleteRectangleView() :
     m_diagonalOpposedPoint(new QPointF)
 {
     setFlag(QGraphicsItem::ItemIsSelectable);
@@ -25,7 +25,7 @@ RectangleView::RectangleView() :
     connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
 }
 
-void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void ObsoleteRectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     // paint rectangle
     painter->setRenderHints(QPainter::Antialiasing);
@@ -64,7 +64,7 @@ void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, Q
         updateArrows();
 }
 
-QRectF RectangleView::boundingRect() const
+QRectF ObsoleteRectangleView::boundingRect() const
 {
         return QRectF(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal() -5,
                       m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal() -5,
@@ -72,7 +72,7 @@ QRectF RectangleView::boundingRect() const
                       m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal() + 10);
 }
 
-void RectangleView::setDiagonalOpposedPoint()
+void ObsoleteRectangleView::setDiagonalOpposedPoint()
 {
     if (m_corner == TOPLEFT) {
         m_diagonalOpposedPoint->setX(getBottomRightCorner().x());
@@ -89,7 +89,7 @@ void RectangleView::setDiagonalOpposedPoint()
     }
 }
 
-void RectangleView::calculateResize(QGraphicsSceneMouseEvent *event)
+void ObsoleteRectangleView::calculateResize(QGraphicsSceneMouseEvent *event)
 {
         qreal xmin = std::min(event->pos().x(),m_diagonalOpposedPoint->x());
         qreal xmax = std::max(event->pos().x(),m_diagonalOpposedPoint->x());
@@ -103,7 +103,7 @@ void RectangleView::calculateResize(QGraphicsSceneMouseEvent *event)
         m_item->setRegisteredProperty(RectangleItem::P_POSY, ymin);
 }
 
-qreal RectangleView::getRotationAngle(QGraphicsSceneMouseEvent *event)
+qreal ObsoleteRectangleView::getRotationAngle(QGraphicsSceneMouseEvent *event)
 {
     QPointF middlePoint
         = mapToScene(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal()
@@ -137,7 +137,7 @@ qreal RectangleView::getRotationAngle(QGraphicsSceneMouseEvent *event)
     return 0.0;
 }
 
-void RectangleView::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void ObsoleteRectangleView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     this->setFlag(QGraphicsItem::ItemIsMovable, false);
 
@@ -156,7 +156,7 @@ void RectangleView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 }
 
-void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+void ObsoleteRectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     // check which mode is active and process with the active mode
     if (m_mode == RESIZE && m_corner != NONE) {
@@ -184,7 +184,7 @@ void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-void RectangleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void ObsoleteRectangleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     if(!m_block_mode && m_corner == NONE) {
         if ((m_mode == RESIZE)) {
@@ -199,31 +199,31 @@ void RectangleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
-void RectangleView::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+void ObsoleteRectangleView::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
 {
     setSelectedCorner(event->pos());
     m_corner = NONE;
 }
 
-void RectangleView::setInclude()
+void ObsoleteRectangleView::setInclude()
 {
     m_item->setRegisteredProperty(RectangleItem::P_COLOR, 0);
 }
 
-void RectangleView::setExclude()
+void ObsoleteRectangleView::setExclude()
 {
     m_item->setRegisteredProperty(RectangleItem::P_COLOR, 1);
 }
 
 
-QRectF RectangleView::getTopLeftCorner()
+QRectF ObsoleteRectangleView::getTopLeftCorner()
 {
     return QRectF(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal() - OffsetPosition,
                   m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal() - OffsetPosition,
                   widthAndHeight, widthAndHeight);
 }
 
-QRectF RectangleView::getTopRightCorner()
+QRectF ObsoleteRectangleView::getTopRightCorner()
 {
     return QRectF(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal()
                   + m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal() - OffsetPosition,
@@ -231,7 +231,7 @@ QRectF RectangleView::getTopRightCorner()
                   widthAndHeight, widthAndHeight);
 }
 
-QRectF RectangleView::getBottomLeftCorner()
+QRectF ObsoleteRectangleView::getBottomLeftCorner()
 {
     return QRectF(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal() - OffsetPosition,
                   m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal()
@@ -239,7 +239,7 @@ QRectF RectangleView::getBottomLeftCorner()
                   widthAndHeight, widthAndHeight);
 }
 
-QRectF RectangleView::getBottomRightCorner()
+QRectF ObsoleteRectangleView::getBottomRightCorner()
 {
     return QRectF(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal()
                   + m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal() - OffsetPosition,
@@ -248,7 +248,7 @@ QRectF RectangleView::getBottomRightCorner()
                   widthAndHeight, widthAndHeight);
 }
 
-void RectangleView::setParameterizedItem(ParameterizedItem *item)
+void ObsoleteRectangleView::setParameterizedItem(ParameterizedItem *item)
 {
     m_item = item;
     setRotation(m_item->getRegisteredProperty(RectangleItem::P_ANGLE).toReal());
@@ -257,17 +257,17 @@ void RectangleView::setParameterizedItem(ParameterizedItem *item)
     initializeArrows();
 }
 
-void RectangleView::onChangedX()
+void ObsoleteRectangleView::onChangedX()
 {
     m_block_mode = true;
 }
 
-void RectangleView::onChangedY()
+void ObsoleteRectangleView::onChangedY()
 {
     m_block_mode = true;
 }
 
-void RectangleView::onPropertyChange(const QString &propertyName)
+void ObsoleteRectangleView::onPropertyChange(const QString &propertyName)
 {
     if(propertyName == RectangleItem::P_POSX) {
          m_block_mode = true;
@@ -290,12 +290,12 @@ void RectangleView::onPropertyChange(const QString &propertyName)
     }
 }
 
-ParameterizedItem *RectangleView::getParameterizedItem()
+ParameterizedItem *ObsoleteRectangleView::getParameterizedItem()
 {
     return m_item;
 }
 
-void RectangleView::setSelectedCorner(QPointF currentMousePosition)
+void ObsoleteRectangleView::setSelectedCorner(QPointF currentMousePosition)
 {
     if (getTopLeftCorner().contains(currentMousePosition)) {
         qDebug() << "TOPLEFT";
@@ -327,7 +327,7 @@ void RectangleView::setSelectedCorner(QPointF currentMousePosition)
     }
 }
 
-void RectangleView::updateArrows()
+void ObsoleteRectangleView::updateArrows()
 {
     // 0 - 3 are rotation arrows
     childItems()[0]->setPos(getTopLeftCorner().x(), getTopLeftCorner().y());
@@ -369,17 +369,17 @@ void RectangleView::updateArrows()
     }
 }
 
-void RectangleView::initializeArrows()
+void ObsoleteRectangleView::initializeArrows()
 {
-    RotationArrow *topLeftRotationArrow = new RotationArrow(this);
-    RotationArrow *topRightRotationArrow = new RotationArrow(this);
-    RotationArrow *bottomLeftRotationArrow = new RotationArrow(this);
-    RotationArrow *bottomRightRotationArrow = new RotationArrow(this);
+    ObsoleteRotationArrow *topLeftRotationArrow = new ObsoleteRotationArrow(this);
+    ObsoleteRotationArrow *topRightRotationArrow = new ObsoleteRotationArrow(this);
+    ObsoleteRotationArrow *bottomLeftRotationArrow = new ObsoleteRotationArrow(this);
+    ObsoleteRotationArrow *bottomRightRotationArrow = new ObsoleteRotationArrow(this);
 
-    ResizeArrow *topLeftResizeArrow = new ResizeArrow(this);
-    ResizeArrow *topRightResizeArrow = new ResizeArrow(this);
-    ResizeArrow *bottomLeftResizeArrow = new ResizeArrow(this);
-    ResizeArrow *bottomRightResizeArrow = new ResizeArrow(this);
+    ObsoleteResizeArrow *topLeftResizeArrow = new ObsoleteResizeArrow(this);
+    ObsoleteResizeArrow *topRightResizeArrow = new ObsoleteResizeArrow(this);
+    ObsoleteResizeArrow *bottomLeftResizeArrow = new ObsoleteResizeArrow(this);
+    ObsoleteResizeArrow *bottomRightResizeArrow = new ObsoleteResizeArrow(this);
 
 
     topRightRotationArrow->setRotation(90);

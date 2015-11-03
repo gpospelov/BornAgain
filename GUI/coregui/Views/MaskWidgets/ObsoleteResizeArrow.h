@@ -1,12 +1,12 @@
-#ifndef RESIZEARROW_H
-#define RESIZEARROW_H
+#ifndef OBSOLETERESIZEARROW_H
+#define OBSOLETERESIZEARROW_H
 
 #include <QGraphicsItem>
 
-class ResizeArrow : public QGraphicsItem
+class ObsoleteResizeArrow : public QGraphicsItem
 {
 public:
-    ResizeArrow(QGraphicsItem *parent = 0);
+    ObsoleteResizeArrow(QGraphicsItem *parent = 0);
 
     //! bounding box of rectangle
     QRectF boundingRect() const;

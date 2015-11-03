@@ -25,7 +25,7 @@
 #include <QDebug>
 #include "DistributionEditor.h"
 #include "qgroupbox.h"
-#include "MaskEditor.h"
+#include "ObsoleteMaskEditor.h"
 #include "MaskModel.h"
 #include "RectangleItem.h"
 #include "Rectangle.h"
@@ -101,7 +101,7 @@ TestView::TestView(QWidget *parent)
 
 //    Q_ASSERT(0);
 
-    MaskEditor *maskEditor = new MaskEditor;
+    ObsoleteMaskEditor *maskEditor = new ObsoleteMaskEditor;
     maskEditor->setModel(maskModel);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;

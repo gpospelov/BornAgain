@@ -1,15 +1,15 @@
-#include "MaskGraphicsView.h"
-#include "GraphicsProxyWidget.h"
-#include "MaskGraphicsScene.h"
+#include "ObsoleteMaskGraphicsView.h"
+#include "ObsoleteGraphicsProxyWidget.h"
+#include "ObsoleteMaskGraphicsScene.h"
 
 
-MaskGraphicsView::MaskGraphicsView(QGraphicsScene *scene, QWidget *parent)
+ObsoleteMaskGraphicsView::ObsoleteMaskGraphicsView(QGraphicsScene *scene, QWidget *parent)
     : QGraphicsView(scene, parent)
 {
 }
 
 
-void MaskGraphicsView::wheelEvent(QWheelEvent *event)
+void ObsoleteMaskGraphicsView::wheelEvent(QWheelEvent *event)
 {
     // hold control button
     if(controlButtonIsPressed(event)) {
@@ -37,7 +37,7 @@ void MaskGraphicsView::wheelEvent(QWheelEvent *event)
         QGraphicsView::wheelEvent(event);
     }
 }
-void MaskGraphicsView::keyPressEvent(QKeyEvent *event)
+void ObsoleteMaskGraphicsView::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {
     case Qt::Key_Delete:
@@ -52,7 +52,7 @@ void MaskGraphicsView::keyPressEvent(QKeyEvent *event)
         break;
     }
 }
-void MaskGraphicsView::keyReleaseEvent(QKeyEvent *event)
+void ObsoleteMaskGraphicsView::keyReleaseEvent(QKeyEvent *event)
 {
     switch (event->key()) {
     case Qt::Key_Space:
@@ -66,7 +66,7 @@ void MaskGraphicsView::keyReleaseEvent(QKeyEvent *event)
 }
 
 
-bool MaskGraphicsView::controlButtonIsPressed(QWheelEvent *event)
+bool ObsoleteMaskGraphicsView::controlButtonIsPressed(QWheelEvent *event)
 {
     if(event->modifiers().testFlag(Qt::ControlModifier)){
         return true;
@@ -74,7 +74,7 @@ bool MaskGraphicsView::controlButtonIsPressed(QWheelEvent *event)
     return false;
 }
 
-bool MaskGraphicsView::eventPosIsOnColorMap(QWheelEvent *event)
+bool ObsoleteMaskGraphicsView::eventPosIsOnColorMap(QWheelEvent *event)
 {
     if(this->scene()->items()[0]->boundingRect().contains(event->pos())) {
         return true;

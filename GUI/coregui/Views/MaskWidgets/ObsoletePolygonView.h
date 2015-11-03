@@ -1,5 +1,5 @@
-#ifndef POLYGONVIEW_H
-#define POLYGONVIEW_H
+#ifndef OBSOLETEPOLYGONVIEW_H
+#define OBSOLETEPOLYGONVIEW_H
 
 #include "IView.h"
 
@@ -7,12 +7,12 @@ class PolygonItem;
 class QPainter;
 class QGraphicsSceneMouseEvent;
 
-class PolygonView : public IView
+class ObsoletePolygonView : public IView
 {
     Q_OBJECT
 
 public:
-    PolygonView();
+    ObsoletePolygonView();
 
     //! Type of this item
     enum { Type = UserType + 3 };

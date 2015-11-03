@@ -1,9 +1,9 @@
 #include "DistributionEditor.h"
 
-#ifndef GRAPHICSITEM_H
-#define GRAPHICSITEM_H
+#ifndef OBSOLETEGRAPHICSPROXYWIDGET_H
+#define OBSOLETEGRAPHICSPROXYWIDGET_H
 
-class GraphicsProxyWidget : public QGraphicsProxyWidget
+class ObsoleteGraphicsProxyWidget : public QGraphicsProxyWidget
 {
 public:
     //! Type of this item

@@ -1,5 +1,5 @@
-#ifndef MASKGRAPHICSSCENE_H
-#define MASKGRAPHICSSCENE_H
+#ifndef OBSOLETEMASKGRAPHICSSCENE_H
+#define OBSOLETEMASKGRAPHICSSCENE_H
 
 #include <QGraphicsScene>
 #include <QItemSelection>
@@ -16,12 +16,12 @@ class QSelectionModel;
 class QGraphicsItem;
 class QGraphicsSceneMouseEvent;
 
-class MaskGraphicsScene : public QGraphicsScene
+class ObsoleteMaskGraphicsScene : public QGraphicsScene
 {
     Q_OBJECT
 
 public:
-    MaskGraphicsScene(QObject *parent = 0);
+    ObsoleteMaskGraphicsScene(QObject *parent = 0);
 
     //! describes items that are currently being drawn
     enum DrawingMode { NONE, RECTANGLE, ELLIPSE, POLYGON };

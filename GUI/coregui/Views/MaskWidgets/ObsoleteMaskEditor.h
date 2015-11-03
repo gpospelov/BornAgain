@@ -1,22 +1,22 @@
-#ifndef MASKEDITOR_H
-#define MASKEDITOR_H
+#ifndef OBSOLETEMASKEDITOR_H
+#define OBSOLETEMASKEDITOR_H
 
-class MaskGraphicsView;
-class MaskGraphicsScene;
-class GraphicsProxyWidget;
+class ObsoleteMaskGraphicsView;
+class ObsoleteMaskGraphicsScene;
+class ObsoleteGraphicsProxyWidget;
 class MaskModel;
 class MaskToolBar;
 class QListView;
 class QVBoxLayout;
 class QAction;
 
-class MaskEditor : public QWidget
+class ObsoleteMaskEditor : public QWidget
 {
     Q_OBJECT
 public:
-    MaskEditor(QWidget *parent = 0);
+    ObsoleteMaskEditor(QWidget *parent = 0);
 
-    virtual ~MaskEditor()
+    virtual ~ObsoleteMaskEditor()
     {
     }
 
@@ -63,9 +63,9 @@ private slots:
     void onItemIsDrawn();
 
 private:
-    MaskGraphicsScene *m_scene; //!< scene contains all items
-    MaskGraphicsView *m_view; //!< view renders all items and show them item in the scene on display
-    GraphicsProxyWidget *m_proxyWidget; //!< color map (detector)
+    ObsoleteMaskGraphicsScene *m_scene; //!< scene contains all items
+    ObsoleteMaskGraphicsView *m_view; //!< view renders all items and show them item in the scene on display
+    ObsoleteGraphicsProxyWidget *m_proxyWidget; //!< color map (detector)
     QListView *m_listView;              //!< list wiht currently created items as a list
     MaskToolBar *m_toolBar;             //!< tool bar
     QAction *m_deleteAction;            //!< delete action for the list view

@@ -1,13 +1,13 @@
-#ifndef MASKGRAPHICSVIEW_H
-#define MASKGRAPHICSVIEW_H
+#ifndef OBSOLETEMASKGRAPHICSVIEW_H
+#define OBSOLETEMASKGRAPHICSVIEW_H
 
 #include <QGraphicsView>
 
-class MaskGraphicsView : public QGraphicsView
+class ObsoleteMaskGraphicsView : public QGraphicsView
 {
 Q_OBJECT
 public:
-    MaskGraphicsView(QGraphicsScene *scene, QWidget *parent = 0);
+    ObsoleteMaskGraphicsView(QGraphicsScene *scene, QWidget *parent = 0);
 
 protected:
     //! manages mouse wheel events

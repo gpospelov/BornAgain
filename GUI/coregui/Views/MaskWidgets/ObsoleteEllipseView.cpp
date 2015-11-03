@@ -1,8 +1,8 @@
-#include "EllipseView.h"
+#include "ObsoleteEllipseView.h"
 #include "EllipseItem.h"
 #include "ParameterizedItem.h"
-#include "RotationArrow.h"
-#include "ResizeArrow.h"
+#include "ObsoleteRotationArrow.h"
+#include "ObsoleteResizeArrow.h"
 #include <cmath>
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
@@ -12,7 +12,7 @@
 static const qreal widthAndHeight = 5;
 static const qreal OffsetPosition = 2.5;
 
-EllipseView::EllipseView() : m_diagonalOpposedPoint(new QPointF)
+ObsoleteEllipseView::ObsoleteEllipseView() : m_diagonalOpposedPoint(new QPointF)
 {
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable);
@@ -21,7 +21,7 @@ EllipseView::EllipseView() : m_diagonalOpposedPoint(new QPointF)
     connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
 }
 
-void EllipseView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void ObsoleteEllipseView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
 
     // paint ellipse
@@ -59,7 +59,7 @@ void EllipseView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
     updateArrows();
 }
 
-QRectF EllipseView::boundingRect() const
+QRectF ObsoleteEllipseView::boundingRect() const
 {
     return QRectF(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal() - 5,
                   m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal() - 5,
@@ -67,7 +67,7 @@ QRectF EllipseView::boundingRect() const
                   m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() + 10);
 }
 
-void EllipseView::setDiagonalOpposedPoint()
+void ObsoleteEllipseView::setDiagonalOpposedPoint()
 {
     if (m_corner == TOPLEFT) {
         m_diagonalOpposedPoint->setX(getBottomRightCorner().x());
@@ -84,7 +84,7 @@ void EllipseView::setDiagonalOpposedPoint()
     }
 }
 
-void EllipseView::calculateResize(QGraphicsSceneMouseEvent *event)
+void ObsoleteEllipseView::calculateResize(QGraphicsSceneMouseEvent *event)
 {
         qreal xmin = std::min(event->pos().x(),m_diagonalOpposedPoint->x());
         qreal xmax = std::max(event->pos().x(),m_diagonalOpposedPoint->x());
@@ -98,7 +98,7 @@ void EllipseView::calculateResize(QGraphicsSceneMouseEvent *event)
         m_item->setRegisteredProperty(EllipseItem::P_POSY, ymin);
 }
 
-qreal EllipseView::getRotationAngle(QGraphicsSceneMouseEvent *event)
+qreal ObsoleteEllipseView::getRotationAngle(QGraphicsSceneMouseEvent *event)
 {
     QPointF middlePoint
         = mapToScene(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
@@ -132,7 +132,7 @@ qreal EllipseView::getRotationAngle(QGraphicsSceneMouseEvent *event)
     return 0.0;
 }
 
-void EllipseView::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void ObsoleteEllipseView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     this->setFlag(QGraphicsItem::ItemIsMovable, false);
 
@@ -149,7 +149,7 @@ void EllipseView::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-void EllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+void ObsoleteEllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     if(m_corner == NONE) {
         m_block_mode = true;
@@ -177,7 +177,7 @@ void EllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-void EllipseView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void ObsoleteEllipseView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     if(!m_block_mode) {
         if (m_mode == RESIZE) {
@@ -192,30 +192,30 @@ void EllipseView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
-void EllipseView::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+void ObsoleteEllipseView::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
 {
     setSelectedCorner(event->pos());
     m_corner = NONE;
 }
 
-void EllipseView::setInclude()
+void ObsoleteEllipseView::setInclude()
 {
     m_item->setRegisteredProperty(EllipseItem::P_COLOR, 0);
 }
 
-void EllipseView::setExclude()
+void ObsoleteEllipseView::setExclude()
 {
     m_item->setRegisteredProperty(EllipseItem::P_COLOR, 1);
 }
 
-QRectF EllipseView::getTopLeftCorner()
+QRectF ObsoleteEllipseView::getTopLeftCorner()
 {
     return QRectF(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal() - OffsetPosition,
                   m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal() - OffsetPosition,
                   widthAndHeight, widthAndHeight);
 }
 
-QRectF EllipseView::getTopRightCorner()
+QRectF ObsoleteEllipseView::getTopRightCorner()
 {
     return QRectF(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
                   + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() - OffsetPosition,
@@ -223,7 +223,7 @@ QRectF EllipseView::getTopRightCorner()
                   widthAndHeight, widthAndHeight);
 }
 
-QRectF EllipseView::getBottomLeftCorner()
+QRectF ObsoleteEllipseView::getBottomLeftCorner()
 {
     return QRectF(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal() - OffsetPosition,
                   m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal()
@@ -231,7 +231,7 @@ QRectF EllipseView::getBottomLeftCorner()
                   widthAndHeight, widthAndHeight);
 }
 
-QRectF EllipseView::getBottomRightCorner()
+QRectF ObsoleteEllipseView::getBottomRightCorner()
 {
     return QRectF(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
                   + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() - OffsetPosition,
@@ -240,7 +240,7 @@ QRectF EllipseView::getBottomRightCorner()
                   widthAndHeight, widthAndHeight);
 }
 
-void EllipseView::setParameterizedItem(ParameterizedItem *item)
+void ObsoleteEllipseView::setParameterizedItem(ParameterizedItem *item)
 {
     m_item = item;
     setRotation(m_item->getRegisteredProperty(EllipseItem::P_ANGLE).toReal());
@@ -249,17 +249,17 @@ void EllipseView::setParameterizedItem(ParameterizedItem *item)
     initializeArrows();
 }
 
-void EllipseView::onChangedX()
+void ObsoleteEllipseView::onChangedX()
 {
     m_block_mode = true;
 }
 
-void EllipseView::onChangedY()
+void ObsoleteEllipseView::onChangedY()
 {
     m_block_mode = true;
 }
 
-void EllipseView::onPropertyChange(const QString &propertyName)
+void ObsoleteEllipseView::onPropertyChange(const QString &propertyName)
 {
     if(propertyName == EllipseItem::P_POSX) {
          m_block_mode = true;
@@ -283,12 +283,12 @@ void EllipseView::onPropertyChange(const QString &propertyName)
 
 }
 
-ParameterizedItem *EllipseView::getParameterizedItem()
+ParameterizedItem *ObsoleteEllipseView::getParameterizedItem()
 {
     return m_item;
 }
 
-void EllipseView::setSelectedCorner(QPointF currentMousePosition)
+void ObsoleteEllipseView::setSelectedCorner(QPointF currentMousePosition)
 {
     if (getTopLeftCorner().contains(currentMousePosition)) {
         qDebug() << "TOPLEFT";
@@ -320,7 +320,7 @@ void EllipseView::setSelectedCorner(QPointF currentMousePosition)
     }
 }
 
-void EllipseView::updateArrows()
+void ObsoleteEllipseView::updateArrows()
 {
     // 0 - 3 are rotation arrows
     childItems()[0]->setPos(getTopLeftCorner().x(), getTopLeftCorner().y());
@@ -362,17 +362,17 @@ void EllipseView::updateArrows()
     }
 }
 
-void EllipseView::initializeArrows()
+void ObsoleteEllipseView::initializeArrows()
 {
-    RotationArrow *topLeftRotationArrow = new RotationArrow(this);
-    RotationArrow *topRightRotationArrow = new RotationArrow(this);
-    RotationArrow *bottomLeftRotationArrow = new RotationArrow(this);
-    RotationArrow *bottomRightRotationArrow = new RotationArrow(this);
+    ObsoleteRotationArrow *topLeftRotationArrow = new ObsoleteRotationArrow(this);
+    ObsoleteRotationArrow *topRightRotationArrow = new ObsoleteRotationArrow(this);
+    ObsoleteRotationArrow *bottomLeftRotationArrow = new ObsoleteRotationArrow(this);
+    ObsoleteRotationArrow *bottomRightRotationArrow = new ObsoleteRotationArrow(this);
 
-    ResizeArrow *topLeftResizeArrow = new ResizeArrow(this);
-    ResizeArrow *topRightResizeArrow = new ResizeArrow(this);
-    ResizeArrow *bottomLeftResizeArrow = new ResizeArrow(this);
-    ResizeArrow *bottomRightResizeArrow = new ResizeArrow(this);
+    ObsoleteResizeArrow *topLeftResizeArrow = new ObsoleteResizeArrow(this);
+    ObsoleteResizeArrow *topRightResizeArrow = new ObsoleteResizeArrow(this);
+    ObsoleteResizeArrow *bottomLeftResizeArrow = new ObsoleteResizeArrow(this);
+    ObsoleteResizeArrow *bottomRightResizeArrow = new ObsoleteResizeArrow(this);
 
     topRightRotationArrow->setRotation(90);
     bottomLeftRotationArrow->setRotation(270);

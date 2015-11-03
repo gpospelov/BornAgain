@@ -1,4 +1,4 @@
-#include "PolygonView.h"
+#include "ObsoletePolygonView.h"
 #include "ParameterizedItem.h"
 #include "PolygonItem.h"
 #include "PointItem.h"
@@ -8,7 +8,7 @@
 #include <QCursor>
 #include <QGraphicsSceneMouseEvent>
 
-PolygonView::PolygonView()
+ObsoletePolygonView::ObsoletePolygonView()
     : m_changeCornerMode(false), m_indexOfCurrentSelectedPoint(0), m_mouseIsOverFirstPoint(false)
 
 {
@@ -17,7 +17,7 @@ PolygonView::PolygonView()
     this->setAcceptHoverEvents(true);
 }
 
-void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void ObsoletePolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     QPen pen;
     prepareGeometryChange();
@@ -73,7 +73,7 @@ void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
     }
 }
 
-QRectF PolygonView::boundingRect() const
+QRectF ObsoletePolygonView::boundingRect() const
 {
     if (m_item->childItems().length() >= 1) {
         return calculateBoundingRectangle();
@@ -82,7 +82,7 @@ QRectF PolygonView::boundingRect() const
     }
 }
 
-bool PolygonView::isCornerClicked(QGraphicsSceneMouseEvent *event)
+bool ObsoletePolygonView::isCornerClicked(QGraphicsSceneMouseEvent *event)
 {
     QList<ParameterizedItem *> points = m_item->childItems();
     for (int i = 0; i < points.length() - 1; ++i) {
@@ -103,7 +103,7 @@ bool PolygonView::isCornerClicked(QGraphicsSceneMouseEvent *event)
     return false;
 }
 
-QRectF PolygonView::calculateBoundingRectangle() const
+QRectF ObsoletePolygonView::calculateBoundingRectangle() const
 {
     QList<ParameterizedItem *> points = m_item->childItems();
     qreal smallestXValue = points[0]->getRegisteredProperty(PointItem::P_POSX).toReal();
@@ -122,7 +122,7 @@ QRectF PolygonView::calculateBoundingRectangle() const
                   QPointF(biggestXValue + 20, biggestYValue + 20));
 }
 
-void PolygonView::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void ObsoletePolygonView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if (isCornerClicked(event)) {
         m_changeCornerMode = true;
@@ -134,7 +134,7 @@ void PolygonView::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-void PolygonView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+void ObsoletePolygonView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     if (m_changeCornerMode) {
         QList<ParameterizedItem *> points = m_item->childItems();
@@ -154,7 +154,7 @@ void PolygonView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-void PolygonView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void ObsoletePolygonView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     this->setFlag(QGraphicsItem::ItemIsMovable, true);
     m_changeCornerMode = false;
@@ -162,7 +162,7 @@ void PolygonView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
-void PolygonView::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+void ObsoletePolygonView::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
 {
     if(getFirstPoint().contains(event->pos())) {
         m_mouseIsOverFirstPoint =  true;
@@ -173,19 +173,19 @@ void PolygonView::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
     QGraphicsItem::hoverMoveEvent(event);
 }
 
-void PolygonView::setInclude()
+void ObsoletePolygonView::setInclude()
 {
     m_item->setRegisteredProperty(PolygonItem::P_COLOR, 0);
 }
 
-QRectF PolygonView::getFirstPoint() const
+QRectF ObsoletePolygonView::getFirstPoint() const
 {
     QList<ParameterizedItem *> points = m_item->childItems();
     return QRectF(points[0]->getRegisteredProperty(PointItem::P_POSX).toReal() - 2.5,
                   points[0]->getRegisteredProperty(PointItem::P_POSY).toReal() - 2.5, 5, 5);
 }
 
-QPointF PolygonView::getLastPoint() const
+QPointF ObsoletePolygonView::getLastPoint() const
 {
     QList<ParameterizedItem *> points = m_item->childItems();
     int indexOfLastPoint = points.length() - 1;
@@ -193,12 +193,12 @@ QPointF PolygonView::getLastPoint() const
                    points[indexOfLastPoint]->getRegisteredProperty(PointItem::P_POSY).toReal());
 }
 
-ParameterizedItem *PolygonView::getParameterizedItem()
+ParameterizedItem *ObsoletePolygonView::getParameterizedItem()
 {
     return m_item;
 }
 
-void PolygonView::setParameterizedItem(ParameterizedItem *item)
+void ObsoletePolygonView::setParameterizedItem(ParameterizedItem *item)
 {
     m_item = item;
     disconnect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
@@ -206,7 +206,7 @@ void PolygonView::setParameterizedItem(ParameterizedItem *item)
     connect(m_item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChange(QString)));
 }
 
-void PolygonView::setExclude()
+void ObsoletePolygonView::setExclude()
 {
     m_item->setRegisteredProperty(PolygonItem::P_COLOR, 1);
 }

@@ -1,12 +1,12 @@
-#ifndef ROTATIONARROW_H
-#define ROTATIONARROW_H
+#ifndef OBSOLETEROTATIONARROW_H
+#define OBSOLETEROTATIONARROW_H
 
 #include <QGraphicsItem>
 
-class RotationArrow : public QGraphicsItem
+class ObsoleteRotationArrow : public QGraphicsItem
 {
 public:
-    RotationArrow(QGraphicsItem *parent = 0);
+    ObsoleteRotationArrow(QGraphicsItem *parent = 0);
 
     //! bounding box of rectangle
     QRectF boundingRect() const;

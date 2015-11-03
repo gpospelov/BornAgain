@@ -1,6 +1,6 @@
-#include "MaskGraphicsScene.h"
+#include "ObsoleteMaskGraphicsScene.h"
 #include "RectangleItem.h"
-#include "RectangleView.h"
+#include "ObsoleteRectangleView.h"
 #include "EllipseItem.h"
 #include "PolygonItem.h"
 #include "PointItem.h"
@@ -15,7 +15,7 @@
 #include <QPainter>
 #include <QGraphicsProxyWidget>
 
-MaskGraphicsScene::MaskGraphicsScene(QObject *parent)
+ObsoleteMaskGraphicsScene::ObsoleteMaskGraphicsScene(QObject *parent)
     : QGraphicsScene(parent)
     , m_maskModel(0)
     , m_currentItem(0)
@@ -30,12 +30,12 @@ MaskGraphicsScene::MaskGraphicsScene(QObject *parent)
     m_drawingMode = NONE;
 }
 
-void MaskGraphicsScene::setDrawing(DrawingMode drawingMode)
+void ObsoleteMaskGraphicsScene::setDrawing(DrawingMode drawingMode)
 {
     m_drawingMode = drawingMode;
 }
 
-void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void ObsoleteMaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton) {
         if (m_drawingMode == RECTANGLE) {
@@ -72,7 +72,7 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     m_currentPoint = event->buttonDownScenePos(Qt::LeftButton);
 }
 
-void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+void ObsoleteMaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     if (m_drawingMode == RECTANGLE && m_currentItem) {
         drawingDirection(event);
@@ -85,7 +85,7 @@ void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     m_currentMousePosition = event->scenePos();
 }
 
-void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void ObsoleteMaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     bool drawingToSmall = false;
     if (m_drawingMode == RECTANGLE && m_currentItem) {
@@ -117,7 +117,7 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsScene::mouseReleaseEvent(event);
 }
 
-void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF & /* rect */)
+void ObsoleteMaskGraphicsScene::drawForeground(QPainter *painter, const QRectF & /* rect */)
 {
     if (m_drawingMode == POLYGON && m_currentItem) {
         if(numberOfPoints() == 0) {
@@ -133,7 +133,7 @@ void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF & /* rect
 
 }
 
-void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex)
+void ObsoleteMaskGraphicsScene::updateViews(const QModelIndex &parentIndex)
 {
     Q_ASSERT(m_maskModel);
 
@@ -146,7 +146,7 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex)
     }
 }
 
-IView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
+IView *ObsoleteMaskGraphicsScene::addViewForItem(ParameterizedItem *item)
 {
     qDebug() << "GraphicsScene::addViewForItem() ->" << item->modelType() << item;
     Q_ASSERT(item);
@@ -169,7 +169,7 @@ IView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
     return view;
 }
 
-void MaskGraphicsScene::updateScene()
+void ObsoleteMaskGraphicsScene::updateScene()
 {
     if(this->items().size() > 0) {
         m_colorMap = this->items().at(0);
@@ -183,14 +183,14 @@ void MaskGraphicsScene::updateScene()
     }
 }
 
-void MaskGraphicsScene::resetScene()
+void ObsoleteMaskGraphicsScene::resetScene()
 {
     qDebug() << "GraphicsScene::resetScene()";
     clear();
     m_ItemToView.clear();
 }
 
-void MaskGraphicsScene::setSelectionModel(QItemSelectionModel *selectionModel)
+void ObsoleteMaskGraphicsScene::setSelectionModel(QItemSelectionModel *selectionModel)
 {
     m_selectionModel = selectionModel;
 
@@ -198,7 +198,7 @@ void MaskGraphicsScene::setSelectionModel(QItemSelectionModel *selectionModel)
             SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
 }
 
-void MaskGraphicsScene::setModel(MaskModel *maskModel)
+void ObsoleteMaskGraphicsScene::setModel(MaskModel *maskModel)
 {
     if(m_maskModel) {
         disconnect(this, SIGNAL(selectionChanged()), this, SLOT(onSceneSelectionChanged()));
@@ -228,7 +228,7 @@ void MaskGraphicsScene::setModel(MaskModel *maskModel)
     updateScene();
 }
 
-void MaskGraphicsScene::onSessionSelectionChanged(const QItemSelection &, const QItemSelection &)
+void ObsoleteMaskGraphicsScene::onSessionSelectionChanged(const QItemSelection &, const QItemSelection &)
 {
     if (m_block_selection)
         return;
@@ -251,7 +251,7 @@ void MaskGraphicsScene::onSessionSelectionChanged(const QItemSelection &, const 
     m_block_selection = false;
 }
 
-void MaskGraphicsScene::onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last)
+void ObsoleteMaskGraphicsScene::onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last)
 {
     m_block_selection = true;
     qDebug() << "GraphicsScene::onRowsAboutToBeRemoved()" << parent << first << last;
@@ -262,7 +262,7 @@ void MaskGraphicsScene::onRowsAboutToBeRemoved(const QModelIndex &parent, int fi
     m_block_selection = false;
 }
 
-void MaskGraphicsScene::deleteViews(const QModelIndex &parentIndex)
+void ObsoleteMaskGraphicsScene::deleteViews(const QModelIndex &parentIndex)
 {
     qDebug() << "GraphicsScene::deleteViews()" << parentIndex;
 
@@ -282,7 +282,7 @@ void MaskGraphicsScene::deleteViews(const QModelIndex &parentIndex)
 }
 
 //! removes view from scene corresponding to given item
-void MaskGraphicsScene::removeItemViewFromScene(ParameterizedItem *item)
+void ObsoleteMaskGraphicsScene::removeItemViewFromScene(ParameterizedItem *item)
 {
     qDebug() << "GraphicsScene::removeItemFromScene()" << item->modelType();
     for (QMap<ParameterizedItem *, IView *>::iterator it = m_ItemToView.begin();
@@ -299,12 +299,12 @@ void MaskGraphicsScene::removeItemViewFromScene(ParameterizedItem *item)
     }
 }
 
-void MaskGraphicsScene::onRowsRemoved(const QModelIndex &/* parent */, int /* first */, int /* last */)
+void ObsoleteMaskGraphicsScene::onRowsRemoved(const QModelIndex &/* parent */, int /* first */, int /* last */)
 {
     updateScene();
 }
 
-void MaskGraphicsScene::deleteSelectedItems()
+void ObsoleteMaskGraphicsScene::deleteSelectedItems()
 {
     qDebug() << "GraphicsScene::deleteSelectedItems() 1.1" << selectedItems().size();
 
@@ -320,7 +320,7 @@ void MaskGraphicsScene::deleteSelectedItems()
 }
 
 //! propagate selection from scene to model
-void MaskGraphicsScene::onSceneSelectionChanged()
+void ObsoleteMaskGraphicsScene::onSceneSelectionChanged()
 {
     qDebug() << "GraphicsScene::onSceneSelectionChanged() 1.1";
     if (m_block_selection)
@@ -345,12 +345,12 @@ void MaskGraphicsScene::onSceneSelectionChanged()
     m_block_selection = false;
 }
 
-void MaskGraphicsScene::onRowsInserted(const QModelIndex & /* parent */, int /* first */, int /* last */)
+void ObsoleteMaskGraphicsScene::onRowsInserted(const QModelIndex & /* parent */, int /* first */, int /* last */)
 {
     updateScene();
 }
 
-void MaskGraphicsScene::setItemName(ParameterizedItem *item)
+void ObsoleteMaskGraphicsScene::setItemName(ParameterizedItem *item)
 {
     int numberOfItems(0);
     QString name;
@@ -390,7 +390,7 @@ void MaskGraphicsScene::setItemName(ParameterizedItem *item)
     item->setItemName(name);
 }
 
-int MaskGraphicsScene::numberOfPoints()
+int ObsoleteMaskGraphicsScene::numberOfPoints()
 {
     if(m_drawingMode == POLYGON) {
         int items = m_currentItem->childItems().length();
@@ -399,7 +399,7 @@ int MaskGraphicsScene::numberOfPoints()
     return 0;
 }
 
-bool MaskGraphicsScene::firstPointContainsMouseClick(QGraphicsSceneMouseEvent *event)
+bool ObsoleteMaskGraphicsScene::firstPointContainsMouseClick(QGraphicsSceneMouseEvent *event)
 {
     QRectF firstPoint(
         m_currentItem->childItems()[0]->getRegisteredProperty(PointItem::P_POSX).toReal() - 2.5,
@@ -419,7 +419,7 @@ bool MaskGraphicsScene::firstPointContainsMouseClick(QGraphicsSceneMouseEvent *e
     }
 }
 
-void MaskGraphicsScene::onBringToFront()
+void ObsoleteMaskGraphicsScene::onBringToFront()
 {
     QModelIndexList indexes = m_selectionModel->selectedIndexes();
 
@@ -442,7 +442,7 @@ void MaskGraphicsScene::onBringToFront()
     }
 }
 
-void MaskGraphicsScene::onSendToBack()
+void ObsoleteMaskGraphicsScene::onSendToBack()
 {
     QModelIndexList indexes = m_selectionModel->selectedIndexes();
     qDebug() << "MaskGraphicsScene::onSendToBack()" << indexes.size();
@@ -466,7 +466,7 @@ void MaskGraphicsScene::onSendToBack()
     }
 }
 
-void MaskGraphicsScene::setZValues()
+void ObsoleteMaskGraphicsScene::setZValues()
 {
     for(int i = 0; i < m_maskModel->rowCount(QModelIndex()); i++) {
         QModelIndex indexes = m_maskModel->index(i, 0, QModelIndex());
@@ -475,7 +475,7 @@ void MaskGraphicsScene::setZValues()
     }
 }
 
-void MaskGraphicsScene::drawingDirection(QGraphicsSceneMouseEvent *event)
+void ObsoleteMaskGraphicsScene::drawingDirection(QGraphicsSceneMouseEvent *event)
 {
    qreal xmin = std::min(event->scenePos().x(),m_currentPoint.x());
    qreal xmax = std::max(event->scenePos().x(),m_currentPoint.x());

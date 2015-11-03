@@ -1,19 +1,19 @@
-#include "ResizeArrow.h"
+#include "ObsoleteResizeArrow.h"
 #include <QPainter>
 
 
-ResizeArrow::ResizeArrow(QGraphicsItem *parent)
+ObsoleteResizeArrow::ObsoleteResizeArrow(QGraphicsItem *parent)
 {
     this->setParentItem(parent);
 }
 
-QRectF ResizeArrow::boundingRect() const
+QRectF ObsoleteResizeArrow::boundingRect() const
 {
     return QRect(-25,-25,20,20);
 }
 
 
-void ResizeArrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void ObsoleteResizeArrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setRenderHints(QPainter::Antialiasing);
     prepareGeometryChange();

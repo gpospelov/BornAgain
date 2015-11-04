@@ -1149,10 +1149,6 @@ std::string PyGenVisitor::defineParticleLayouts() const
                 result << indent() << it->second << ".setApproximation(ILayout.";
                 result << "SSCA)\n";
                 break;
-            case ILayout::ISGISAXSMOR:
-                result << indent() << it->second << ".setApproximation(ILayout.";
-                result << "ISGISAXSMOR)\n";
-                break;
             }
             result << indent() << it->second << ".setTotalParticleSurfaceDensity("
                    << it->first->getTotalParticleSurfaceDensity() << ")\n";

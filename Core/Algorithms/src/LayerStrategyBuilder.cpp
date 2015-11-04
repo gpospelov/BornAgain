@@ -79,9 +79,6 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
             m_sim_params, kappa);
         break;
     }
-    case ILayout::ISGISAXSMOR:
-        p_result = new IsGISAXSMorphologyFileStrategy(m_sim_params);
-        break;
     default:
         throw Exceptions::ClassInitializationException(
                 "Unknown interference function approximation");

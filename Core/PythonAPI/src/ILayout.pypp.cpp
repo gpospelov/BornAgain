@@ -277,7 +277,6 @@ void register_ILayout_class(){
         bp::enum_< ILayout::EInterferenceApproximation>("EInterferenceApproximation")
             .value("DA", ILayout::DA)
             .value("SSCA", ILayout::SSCA)
-            .value("ISGISAXSMOR", ILayout::ISGISAXSMOR)
             .export_values()
             ;
         { //::ILayout::accept

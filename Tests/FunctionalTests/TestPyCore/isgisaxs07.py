@@ -93,8 +93,6 @@ def RunSimulation():
     particle10.setPosition(pos10)
     particle_layout.addParticle(particle10, 0.5)
 
-    particle_layout.setApproximation(ILayout.ISGISAXSMOR)
-
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAmbience)
     air_layer.addLayout(particle_layout)

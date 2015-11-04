@@ -30,6 +30,8 @@ class MaskEditorCanvas : public QWidget
 public:
     MaskEditorCanvas(QWidget *parent = 0);
 
+protected:
+    void resizeEvent(QResizeEvent *event);
 
 private:
     void init_widget();

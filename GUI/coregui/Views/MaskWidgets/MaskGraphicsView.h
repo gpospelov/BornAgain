@@ -18,6 +18,9 @@
 
 #include <QGraphicsView>
 
+class QWheelEvent;
+class MaskGraphicsProxy;
+
 //! Graphics view for MaskEditorCanvas
 
 class MaskGraphicsView : public QGraphicsView
@@ -28,6 +31,17 @@ public:
     QSize sizeHint() const { return QSize(512, 512); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
 
+    void setColorMapProxy(MaskGraphicsProxy *colorMapProxy);
+
+protected:
+    void wheelEvent(QWheelEvent* event);
+    void resizeEvent(QResizeEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+
+private:
+    bool controlButtonIsPressed(QWheelEvent *event);
+
+    MaskGraphicsProxy *m_colorMapProxy;
 };
 
 

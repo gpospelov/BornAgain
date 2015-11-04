@@ -1,4 +1,4 @@
-# Functional test: IsGISAXS07 example: Mixture of different particles defined in morphology file
+# Functional test: IsGISAXS07 example: Mixture of different particles
 import sys
 import os
 import numpy
@@ -125,7 +125,7 @@ def runTest():
     status = "OK"
     if(diff > 2e-10 or numpy.isnan(diff)):
         status = "FAILED"
-    return "IsGISAXS07", "Mixture of different particles defined in morphology file", diff, status
+    return "IsGISAXS07", "Mixture of different particles", diff, status
 
 
 if __name__ == '__main__':

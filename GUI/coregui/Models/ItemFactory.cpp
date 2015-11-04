@@ -45,10 +45,10 @@
 #include "BeamDistributionItem.h"
 #include "BeamWavelengthItem.h"
 #include "BeamAngleItems.h"
-#include "RectangleItem.h"
-#include "EllipseItem.h"
-#include "PolygonItem.h"
-#include "PointItem.h"
+#include "ObsoleteRectangleItem.h"
+#include "ObsoleteEllipseItem.h"
+#include "ObsoletePolygonItem.h"
+#include "ObsoletePointItem.h"
 #include <QDebug>
 
 namespace {
@@ -151,10 +151,10 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::ResolutionFunctionNoneType] = &createInstance<ResolutionFunctionNoneItem>;
     result[Constants::ResolutionFunction2DGaussianType] = &createInstance<ResolutionFunction2DGaussianItem>;
 
-    result[Constants::RectangleType] = &createInstance<RectangleItem>;
-    result[Constants::EllipseType] = &createInstance<EllipseItem>;
-    result[Constants::PolygonType] = &createInstance<PolygonItem>;
-    result[Constants::PointType] = &createInstance<PointItem>;
+    result[Constants::RectangleType] = &createInstance<ObsoleteRectangleItem>;
+    result[Constants::EllipseType] = &createInstance<ObsoleteEllipseItem>;
+    result[Constants::PolygonType] = &createInstance<ObsoletePolygonItem>;
+    result[Constants::PointType] = &createInstance<ObsoletePointItem>;
 
     return result;
 }

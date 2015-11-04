@@ -97,6 +97,7 @@ void MaskGraphicsView::resizeEvent(QResizeEvent *event)
     //    m_colorMapProxy->widget()->resize(event->size());
     m_colorMapProxy->setPos(newRect.x(), newRect.y());
     m_colorMapProxy->resize(newRect.width(), newRect.height());
+    m_colorMapProxy->widget()->resize(newRect.width(), newRect.height());
 
 }
 

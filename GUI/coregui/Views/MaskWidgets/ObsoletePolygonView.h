@@ -3,7 +3,7 @@
 
 #include "IView.h"
 
-class PolygonItem;
+class ObsoletePolygonItem;
 class QPainter;
 class QGraphicsSceneMouseEvent;
 

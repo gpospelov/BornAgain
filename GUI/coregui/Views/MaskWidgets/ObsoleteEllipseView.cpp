@@ -1,5 +1,5 @@
 #include "ObsoleteEllipseView.h"
-#include "EllipseItem.h"
+#include "ObsoleteEllipseItem.h"
 #include "ParameterizedItem.h"
 #include "ObsoleteRotationArrow.h"
 #include "ObsoleteResizeArrow.h"
@@ -30,22 +30,22 @@ void ObsoleteEllipseView::paint(QPainter *painter, const QStyleOptionGraphicsIte
 
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
-    if (m_item->getRegisteredProperty(EllipseItem::P_COLOR).toBool() == 0) {
+    if (m_item->getRegisteredProperty(ObsoleteEllipseItem::P_COLOR).toBool() == 0) {
         brush.setColor(DesignerHelper::getDefaultColor("Transparant red"));
         painter->setPen(brush.color().darker());
         painter->setBrush(brush);
-        painter->drawEllipse(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal(),
-                             m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal(),
-                             m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal(),
-                             m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal());
+        painter->drawEllipse(m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSX).toReal(),
+                             m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSY).toReal(),
+                             m_item->getRegisteredProperty(ObsoleteEllipseItem::P_WIDTH).toReal(),
+                             m_item->getRegisteredProperty(ObsoleteEllipseItem::P_HEIGHT).toReal());
     } else {
         brush.setColor(DesignerHelper::getDefaultColor("Transparant blue"));
         painter->setPen(brush.color().darker());
         painter->setBrush(brush);
-        painter->drawEllipse(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal(),
-                             m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal(),
-                             m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal(),
-                             m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal());
+        painter->drawEllipse(m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSX).toReal(),
+                             m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSY).toReal(),
+                             m_item->getRegisteredProperty(ObsoleteEllipseItem::P_WIDTH).toReal(),
+                             m_item->getRegisteredProperty(ObsoleteEllipseItem::P_HEIGHT).toReal());
     }
 
     // paint rectangles on corners if this item is selected
@@ -61,10 +61,10 @@ void ObsoleteEllipseView::paint(QPainter *painter, const QStyleOptionGraphicsIte
 
 QRectF ObsoleteEllipseView::boundingRect() const
 {
-    return QRectF(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal() - 5,
-                  m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal() - 5,
-                  m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() + 10,
-                  m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() + 10);
+    return QRectF(m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSX).toReal() - 5,
+                  m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSY).toReal() - 5,
+                  m_item->getRegisteredProperty(ObsoleteEllipseItem::P_WIDTH).toReal() + 10,
+                  m_item->getRegisteredProperty(ObsoleteEllipseItem::P_HEIGHT).toReal() + 10);
 }
 
 void ObsoleteEllipseView::setDiagonalOpposedPoint()
@@ -91,42 +91,42 @@ void ObsoleteEllipseView::calculateResize(QGraphicsSceneMouseEvent *event)
         qreal ymin = std::min(event->pos().y(),m_diagonalOpposedPoint->y());
         qreal ymax = std::max(event->pos().y(),m_diagonalOpposedPoint->y());
 
-        m_item->setRegisteredProperty(EllipseItem::P_WIDTH, xmax - xmin);
-        m_item->setRegisteredProperty(EllipseItem::P_HEIGHT, ymax - ymin);
+        m_item->setRegisteredProperty(ObsoleteEllipseItem::P_WIDTH, xmax - xmin);
+        m_item->setRegisteredProperty(ObsoleteEllipseItem::P_HEIGHT, ymax - ymin);
 
-        m_item->setRegisteredProperty(EllipseItem::P_POSX, xmin);
-        m_item->setRegisteredProperty(EllipseItem::P_POSY, ymin);
+        m_item->setRegisteredProperty(ObsoleteEllipseItem::P_POSX, xmin);
+        m_item->setRegisteredProperty(ObsoleteEllipseItem::P_POSY, ymin);
 }
 
 qreal ObsoleteEllipseView::getRotationAngle(QGraphicsSceneMouseEvent *event)
 {
     QPointF middlePoint
-        = mapToScene(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
-                     + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() / 2,
-                     m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal()
-                     + m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() / 2);
+        = mapToScene(m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSX).toReal()
+                     + m_item->getRegisteredProperty(ObsoleteEllipseItem::P_WIDTH).toReal() / 2,
+                     m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSY).toReal()
+                     + m_item->getRegisteredProperty(ObsoleteEllipseItem::P_HEIGHT).toReal() / 2);
     qreal lengthOfHypotenuse
-        = sqrt(pow(m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() / 2, 2)
-               + pow(m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() / 2, 2));
-    qreal offsetAngle = acos((m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() / 2)
+        = sqrt(pow(m_item->getRegisteredProperty(ObsoleteEllipseItem::P_WIDTH).toReal() / 2, 2)
+               + pow(m_item->getRegisteredProperty(ObsoleteEllipseItem::P_HEIGHT).toReal() / 2, 2));
+    qreal offsetAngle = acos((m_item->getRegisteredProperty(ObsoleteEllipseItem::P_WIDTH).toReal() / 2)
                              / lengthOfHypotenuse) * 180 / M_PI;
     qreal radians = atan((event->scenePos().y() - middlePoint.y())
                          / (event->scenePos().x() - middlePoint.x()));
 
     if (m_corner == TOPLEFT) {
-        m_item->setRegisteredProperty(EllipseItem::P_ANGLE, radians * 180 / M_PI - offsetAngle);
+        m_item->setRegisteredProperty(ObsoleteEllipseItem::P_ANGLE, radians * 180 / M_PI - offsetAngle);
         return radians * 180 / M_PI - offsetAngle;
 
     } else if (m_corner == TOPRIGHT) {
-        m_item->setRegisteredProperty(EllipseItem::P_ANGLE, radians * 180 / M_PI + offsetAngle - 180);
+        m_item->setRegisteredProperty(ObsoleteEllipseItem::P_ANGLE, radians * 180 / M_PI + offsetAngle - 180);
         return radians * 180 / M_PI + offsetAngle - 180;
 
     } else if (m_corner == BOTTOMLEFT) {
-        m_item->setRegisteredProperty(EllipseItem::P_ANGLE, radians * 180 / M_PI + offsetAngle - 180);
+        m_item->setRegisteredProperty(ObsoleteEllipseItem::P_ANGLE, radians * 180 / M_PI + offsetAngle - 180);
         return  radians * 180 / M_PI + offsetAngle - 180;
 
     } else if (m_corner == BOTTOMRIGHT) {
-        m_item->setRegisteredProperty(EllipseItem::P_ANGLE, radians * 180 / M_PI - offsetAngle);
+        m_item->setRegisteredProperty(ObsoleteEllipseItem::P_ANGLE, radians * 180 / M_PI - offsetAngle);
         return radians * 180 / M_PI - offsetAngle;
     }
     return 0.0;
@@ -160,15 +160,15 @@ void ObsoleteEllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         calculateResize(event);
     } else if (m_corner != NONE && m_mode == ROTATION) {
         QTransform transform;
-        transform.translate(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
-                            + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() * 0.5,
-                            m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal()
-                            + m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() * 0.5);
+        transform.translate(m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSX).toReal()
+                            + m_item->getRegisteredProperty(ObsoleteEllipseItem::P_WIDTH).toReal() * 0.5,
+                            m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSY).toReal()
+                            + m_item->getRegisteredProperty(ObsoleteEllipseItem::P_HEIGHT).toReal() * 0.5);
         transform.rotate(getRotationAngle(event));
-        transform.translate(-(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
-                              + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() * 0.5),
-                            -(m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal()
-                              + m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() * 0.5));
+        transform.translate(-(m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSX).toReal()
+                              + m_item->getRegisteredProperty(ObsoleteEllipseItem::P_WIDTH).toReal() * 0.5),
+                            -(m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSY).toReal()
+                              + m_item->getRegisteredProperty(ObsoleteEllipseItem::P_HEIGHT).toReal() * 0.5));
         setTransform(transform);
 //         process as usual
     } else {
@@ -200,50 +200,50 @@ void ObsoleteEllipseView::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
 
 void ObsoleteEllipseView::setInclude()
 {
-    m_item->setRegisteredProperty(EllipseItem::P_COLOR, 0);
+    m_item->setRegisteredProperty(ObsoleteEllipseItem::P_COLOR, 0);
 }
 
 void ObsoleteEllipseView::setExclude()
 {
-    m_item->setRegisteredProperty(EllipseItem::P_COLOR, 1);
+    m_item->setRegisteredProperty(ObsoleteEllipseItem::P_COLOR, 1);
 }
 
 QRectF ObsoleteEllipseView::getTopLeftCorner()
 {
-    return QRectF(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal() - OffsetPosition,
-                  m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal() - OffsetPosition,
+    return QRectF(m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSX).toReal() - OffsetPosition,
+                  m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSY).toReal() - OffsetPosition,
                   widthAndHeight, widthAndHeight);
 }
 
 QRectF ObsoleteEllipseView::getTopRightCorner()
 {
-    return QRectF(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
-                  + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() - OffsetPosition,
-                  m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal() - OffsetPosition,
+    return QRectF(m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSX).toReal()
+                  + m_item->getRegisteredProperty(ObsoleteEllipseItem::P_WIDTH).toReal() - OffsetPosition,
+                  m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSY).toReal() - OffsetPosition,
                   widthAndHeight, widthAndHeight);
 }
 
 QRectF ObsoleteEllipseView::getBottomLeftCorner()
 {
-    return QRectF(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal() - OffsetPosition,
-                  m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal()
-                  + m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() - OffsetPosition,
+    return QRectF(m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSX).toReal() - OffsetPosition,
+                  m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSY).toReal()
+                  + m_item->getRegisteredProperty(ObsoleteEllipseItem::P_HEIGHT).toReal() - OffsetPosition,
                   widthAndHeight, widthAndHeight);
 }
 
 QRectF ObsoleteEllipseView::getBottomRightCorner()
 {
-    return QRectF(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
-                  + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() - OffsetPosition,
-                  m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal()
-                  + m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() - OffsetPosition,
+    return QRectF(m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSX).toReal()
+                  + m_item->getRegisteredProperty(ObsoleteEllipseItem::P_WIDTH).toReal() - OffsetPosition,
+                  m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSY).toReal()
+                  + m_item->getRegisteredProperty(ObsoleteEllipseItem::P_HEIGHT).toReal() - OffsetPosition,
                   widthAndHeight, widthAndHeight);
 }
 
 void ObsoleteEllipseView::setParameterizedItem(ParameterizedItem *item)
 {
     m_item = item;
-    setRotation(m_item->getRegisteredProperty(EllipseItem::P_ANGLE).toReal());
+    setRotation(m_item->getRegisteredProperty(ObsoleteEllipseItem::P_ANGLE).toReal());
     connect(m_item, SIGNAL(propertyChanged(const QString &)), this,
             SLOT(onPropertyChange(const QString &)));
     initializeArrows();
@@ -261,23 +261,23 @@ void ObsoleteEllipseView::onChangedY()
 
 void ObsoleteEllipseView::onPropertyChange(const QString &propertyName)
 {
-    if(propertyName == EllipseItem::P_POSX) {
+    if(propertyName == ObsoleteEllipseItem::P_POSX) {
          m_block_mode = true;
     }
-    else if(propertyName == EllipseItem::P_POSY) {
+    else if(propertyName == ObsoleteEllipseItem::P_POSY) {
          m_block_mode = true;
     }
-    else if(propertyName == EllipseItem::P_ANGLE) {
+    else if(propertyName == ObsoleteEllipseItem::P_ANGLE) {
     QTransform transform;
-    transform.translate(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
-                        + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() * 0.5,
-                        m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal()
-                        + m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() * 0.5);
-    transform.rotate(m_item->getRegisteredProperty(EllipseItem::P_ANGLE).toReal());
-    transform.translate(-(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
-                          + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() * 0.5),
-                        -(m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal()
-                          + m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() * 0.5));
+    transform.translate(m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSX).toReal()
+                        + m_item->getRegisteredProperty(ObsoleteEllipseItem::P_WIDTH).toReal() * 0.5,
+                        m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSY).toReal()
+                        + m_item->getRegisteredProperty(ObsoleteEllipseItem::P_HEIGHT).toReal() * 0.5);
+    transform.rotate(m_item->getRegisteredProperty(ObsoleteEllipseItem::P_ANGLE).toReal());
+    transform.translate(-(m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSX).toReal()
+                          + m_item->getRegisteredProperty(ObsoleteEllipseItem::P_WIDTH).toReal() * 0.5),
+                        -(m_item->getRegisteredProperty(ObsoleteEllipseItem::P_POSY).toReal()
+                          + m_item->getRegisteredProperty(ObsoleteEllipseItem::P_HEIGHT).toReal() * 0.5));
     setTransform(transform);
     }
 

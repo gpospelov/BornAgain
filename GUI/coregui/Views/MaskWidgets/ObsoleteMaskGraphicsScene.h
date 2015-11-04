@@ -5,7 +5,7 @@
 #include <QItemSelection>
 #include <QModelIndex>
 
-class RectangleItem;
+class ObsoleteRectangleItem;
 class MaskModel;
 class ParameterizedItem;
 class QListView;

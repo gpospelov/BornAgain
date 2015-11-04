@@ -19,6 +19,12 @@
 #include <QBoxLayout>
 #include <QSplitter>
 
+#include "SimulationRegistry.h"
+#include <boost/scoped_ptr.hpp>
+#include "SampleBuilderFactory.h"
+#include "IntensityDataItem.h"
+
+
 MaskEditor::MaskEditor(QWidget *parent)
     : QWidget(parent)
     , m_editorCanvas(new MaskEditorCanvas(this))
@@ -36,4 +42,21 @@ MaskEditor::MaskEditor(QWidget *parent)
     mainLayout->setSpacing(0);
     mainLayout->addWidget(m_splitter);
     setLayout(mainLayout);
+}
+
+IntensityDataItem *MaskEditor::create_test_item() const
+{
+    SimulationRegistry simRegistry;
+    boost::scoped_ptr<GISASSimulation> simulation(simRegistry.createSimulation("BasicGISAS"));
+
+    SampleBuilderFactory sampleFactory;
+    boost::scoped_ptr<ISample> sample(sampleFactory.createSample("CylindersAndPrismsBuilder"));
+
+    simulation->setSample(*sample.get());
+    simulation->runSimulation();
+
+    IntensityDataItem *result = new IntensityDataItem;
+    result->setOutputData(simulation->getOutputData()->clone());
+
+    return result;
 }

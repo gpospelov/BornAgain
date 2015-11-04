@@ -1,9 +1,9 @@
-#include "PointItem.h"
+#include "ObsoletePointItem.h"
 
-const QString PointItem::P_POSX = "X position";
-const QString PointItem::P_POSY = "Y positon";
+const QString ObsoletePointItem::P_POSX = "X position";
+const QString ObsoletePointItem::P_POSY = "Y positon";
 
-PointItem::PointItem(ParameterizedItem *parent)
+ObsoletePointItem::ObsoletePointItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::PointType, parent)
 {
     setItemName(Constants::PointType);
@@ -11,22 +11,22 @@ PointItem::PointItem(ParameterizedItem *parent)
     registerProperty(P_POSY, 0.0);
 }
 
-qreal PointItem::getXPos()
+qreal ObsoletePointItem::getXPos()
 {
     return getRegisteredProperty(P_POSX).toReal();
 }
 
-qreal PointItem::getYPos()
+qreal ObsoletePointItem::getYPos()
 {
     return getRegisteredProperty(P_POSY).toReal();
 }
 
-void PointItem::setXPos(qreal xPos)
+void ObsoletePointItem::setXPos(qreal xPos)
 {
     setRegisteredProperty(P_POSX, xPos);
 }
 
-void PointItem::setYPos(qreal yPos)
+void ObsoletePointItem::setYPos(qreal yPos)
 {
     setRegisteredProperty(P_POSY, yPos);
 }

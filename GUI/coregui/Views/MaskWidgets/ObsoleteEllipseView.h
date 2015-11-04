@@ -3,7 +3,7 @@
 
 #include "IView.h"
 
-class EllipseItem;
+class ObsoleteEllipseItem;
 class QGraphicsSceneMouseEvent;
 class QPainter;
 class QPointF;

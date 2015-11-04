@@ -1,9 +1,9 @@
-#ifndef ELLIPSEITEM_H
-#define ELLIPSEITEM_H
+#ifndef OBSOLETERECTANGLEITEM_H
+#define OBSOLETERECTANGLEITEM_H
 
 #include "ParameterizedItem.h"
 
-class EllipseItem : public ParameterizedItem
+class ObsoleteRectangleItem : public ParameterizedItem
 {
         Q_OBJECT
 
@@ -15,8 +15,8 @@ public:
     static const QString P_COLOR;
     static const QString P_ANGLE;
 
-    explicit EllipseItem(ParameterizedItem *parent=0);
-    ~EllipseItem(){}
+    explicit ObsoleteRectangleItem(ParameterizedItem *parent=0);
+    ~ObsoleteRectangleItem(){}
 };
 
 #endif

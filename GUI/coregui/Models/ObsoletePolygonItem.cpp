@@ -1,9 +1,9 @@
-#include "PolygonItem.h"
+#include "ObsoletePolygonItem.h"
 
-const QString PolygonItem::P_COLOR = "Color";
-const QString PolygonItem::P_DRAWINGMODE = "Drawing Mode";
+const QString ObsoletePolygonItem::P_COLOR = "Color";
+const QString ObsoletePolygonItem::P_DRAWINGMODE = "Drawing Mode";
 
-PolygonItem::PolygonItem(ParameterizedItem *parent)
+ObsoletePolygonItem::ObsoletePolygonItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::PolygonType, parent)
 {
     setItemName(Constants::PolygonType);

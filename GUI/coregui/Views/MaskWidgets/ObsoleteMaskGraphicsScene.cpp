@@ -1,9 +1,9 @@
 #include "ObsoleteMaskGraphicsScene.h"
-#include "RectangleItem.h"
+#include "ObsoleteRectangleItem.h"
 #include "ObsoleteRectangleView.h"
-#include "EllipseItem.h"
-#include "PolygonItem.h"
-#include "PointItem.h"
+#include "ObsoleteEllipseItem.h"
+#include "ObsoletePolygonItem.h"
+#include "ObsoletePointItem.h"
 #include "MaskModel.h"
 #include "SampleViewFactory.h"
 #include <QItemSelection>
@@ -47,11 +47,11 @@ void ObsoleteMaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         } else if (m_drawingMode == POLYGON) {
             if (!m_currentItem) {
                 m_currentItem = m_maskModel->insertNewItem(Constants::PolygonType);
-                m_currentItem->setRegisteredProperty(PolygonItem::P_DRAWINGMODE, true);
+                m_currentItem->setRegisteredProperty(ObsoletePolygonItem::P_DRAWINGMODE, true);
                 setItemName(m_currentItem);
             }
             if (numberOfPoints() > 2 && firstPointContainsMouseClick(event)) {
-                m_currentItem->setRegisteredProperty(PolygonItem::P_DRAWINGMODE, false);
+                m_currentItem->setRegisteredProperty(ObsoletePolygonItem::P_DRAWINGMODE, false);
                 m_maskModel->moveParameterizedItem(m_currentItem, 0, 0);
                 m_currentItem = 0;
                 m_drawingMode = NONE;
@@ -60,8 +60,8 @@ void ObsoleteMaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             else if(m_currentItem) {
                 ParameterizedItem *pointItem = m_maskModel->insertNewItem(Constants::PointType,
                                                          m_maskModel->indexOfItem(m_currentItem));
-                pointItem->setRegisteredProperty(PointItem::P_POSX, event->scenePos().x());
-                pointItem->setRegisteredProperty(PointItem::P_POSY, event->scenePos().y());
+                pointItem->setRegisteredProperty(ObsoletePointItem::P_POSX, event->scenePos().x());
+                pointItem->setRegisteredProperty(ObsoletePointItem::P_POSY, event->scenePos().y());
             }
         }
         else {
@@ -89,16 +89,16 @@ void ObsoleteMaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *even
 {
     bool drawingToSmall = false;
     if (m_drawingMode == RECTANGLE && m_currentItem) {
-        if (std::abs(m_currentItem->getRegisteredProperty(RectangleItem::P_WIDTH).toReal()) <= 10 &&
-            std::abs(m_currentItem->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal()) <= 10){
+        if (std::abs(m_currentItem->getRegisteredProperty(ObsoleteRectangleItem::P_WIDTH).toReal()) <= 10 &&
+            std::abs(m_currentItem->getRegisteredProperty(ObsoleteRectangleItem::P_HEIGHT).toReal()) <= 10){
             QModelIndex index = m_maskModel->indexOfItem(m_currentItem);
             m_maskModel->removeRows(index.row(), 1, index.parent());
             m_numberOfRectangles--;
             drawingToSmall = true;
         }
     } else if (m_drawingMode == ELLIPSE && m_currentItem) {
-        if (std::abs(m_currentItem->getRegisteredProperty(EllipseItem::P_WIDTH).toReal()) <= 10 &&
-                std::abs(m_currentItem->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal()) <= 10) {
+        if (std::abs(m_currentItem->getRegisteredProperty(ObsoleteEllipseItem::P_WIDTH).toReal()) <= 10 &&
+                std::abs(m_currentItem->getRegisteredProperty(ObsoleteEllipseItem::P_HEIGHT).toReal()) <= 10) {
             QModelIndex index = m_maskModel->indexOfItem(m_currentItem);
             m_maskModel->removeRows(index.row(), 1, index.parent());
             m_numberOfEllipses--;
@@ -402,15 +402,15 @@ int ObsoleteMaskGraphicsScene::numberOfPoints()
 bool ObsoleteMaskGraphicsScene::firstPointContainsMouseClick(QGraphicsSceneMouseEvent *event)
 {
     QRectF firstPoint(
-        m_currentItem->childItems()[0]->getRegisteredProperty(PointItem::P_POSX).toReal() - 2.5,
-        m_currentItem->childItems()[0]->getRegisteredProperty(PointItem::P_POSY).toReal() - 2.5,
+        m_currentItem->childItems()[0]->getRegisteredProperty(ObsoletePointItem::P_POSX).toReal() - 2.5,
+        m_currentItem->childItems()[0]->getRegisteredProperty(ObsoletePointItem::P_POSY).toReal() - 2.5,
         5, 5);
 
     if(firstPoint.contains(event->scenePos())) {
         ParameterizedItem *pointItem = m_maskModel->insertNewItem(Constants::PointType,
                                                  m_maskModel->indexOfItem(m_currentItem));
-        pointItem->setRegisteredProperty(PointItem::P_POSX, firstPoint.center().x());
-        pointItem->setRegisteredProperty(PointItem::P_POSY, firstPoint.center().y());
+        pointItem->setRegisteredProperty(ObsoletePointItem::P_POSX, firstPoint.center().x());
+        pointItem->setRegisteredProperty(ObsoletePointItem::P_POSY, firstPoint.center().y());
         return true;
     }
 

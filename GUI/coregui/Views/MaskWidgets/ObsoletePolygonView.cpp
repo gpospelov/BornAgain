@@ -1,7 +1,7 @@
 #include "ObsoletePolygonView.h"
 #include "ParameterizedItem.h"
-#include "PolygonItem.h"
-#include "PointItem.h"
+#include "ObsoletePolygonItem.h"
+#include "ObsoletePointItem.h"
 #include <cmath>
 #include <QDebug>
 #include <QPainter>
@@ -27,8 +27,8 @@ void ObsoletePolygonView::paint(QPainter *painter, const QStyleOptionGraphicsIte
 
     // draws polygon
     for (int i = 0; i < points.length(); ++i) {
-        polygon << QPoint(points[i]->getRegisteredProperty(PointItem::P_POSX).toReal(),
-                          points[i]->getRegisteredProperty(PointItem::P_POSY).toReal());
+        polygon << QPoint(points[i]->getRegisteredProperty(ObsoletePointItem::P_POSX).toReal(),
+                          points[i]->getRegisteredProperty(ObsoletePointItem::P_POSY).toReal());
     }
     painter->drawPolyline(polygon);
 
@@ -45,7 +45,7 @@ void ObsoletePolygonView::paint(QPainter *painter, const QStyleOptionGraphicsIte
             path.lineTo(polygon[i].x(), polygon[i].y());
         }
         painter->setPen(Qt::NoPen);
-        if (m_item->getRegisteredProperty(PolygonItem::P_COLOR).toInt() == 0) {
+        if (m_item->getRegisteredProperty(ObsoletePolygonItem::P_COLOR).toInt() == 0) {
             painter->fillPath(path, transRed);
         } else {
             painter->fillPath(path, transBlue);
@@ -53,7 +53,7 @@ void ObsoletePolygonView::paint(QPainter *painter, const QStyleOptionGraphicsIte
     }
 
     if (points.length() >= 1
-        && m_item->getRegisteredProperty(PolygonItem::P_DRAWINGMODE).toBool()) {
+        && m_item->getRegisteredProperty(ObsoletePolygonItem::P_DRAWINGMODE).toBool()) {
         pen.setWidth(1);
         if (m_mouseIsOverFirstPoint) {
             painter->fillRect(getFirstPoint(), Qt::red);
@@ -62,7 +62,7 @@ void ObsoletePolygonView::paint(QPainter *painter, const QStyleOptionGraphicsIte
         }
     }
     // draw all points if item is finised with drawing and is selected
-    if (!m_item->getRegisteredProperty(PolygonItem::P_DRAWINGMODE).toBool() && isSelected()) {
+    if (!m_item->getRegisteredProperty(ObsoletePolygonItem::P_DRAWINGMODE).toBool() && isSelected()) {
         pen.setWidth(5);
         painter->setPen(pen);
         for (int i = 0; i < points.length() - 1; ++i) {
@@ -87,8 +87,8 @@ bool ObsoletePolygonView::isCornerClicked(QGraphicsSceneMouseEvent *event)
     QList<ParameterizedItem *> points = m_item->childItems();
     for (int i = 0; i < points.length() - 1; ++i) {
         QRectF rectangle(
-            points[i]->getRegisteredProperty(PointItem::P_POSX).toReal() - 2.5,
-            points[i]->getRegisteredProperty(PointItem::P_POSY).toReal() - 2.5, 5, 5);
+            points[i]->getRegisteredProperty(ObsoletePointItem::P_POSX).toReal() - 2.5,
+            points[i]->getRegisteredProperty(ObsoletePointItem::P_POSY).toReal() - 2.5, 5, 5);
         if (rectangle.contains(event->pos())) {
             if (i != points.length() - 1 && i != 0) {
                 m_indexOfCurrentSelectedPoint = i;
@@ -106,17 +106,17 @@ bool ObsoletePolygonView::isCornerClicked(QGraphicsSceneMouseEvent *event)
 QRectF ObsoletePolygonView::calculateBoundingRectangle() const
 {
     QList<ParameterizedItem *> points = m_item->childItems();
-    qreal smallestXValue = points[0]->getRegisteredProperty(PointItem::P_POSX).toReal();
-    qreal biggestXValue = points[0]->getRegisteredProperty(PointItem::P_POSX).toReal();
-    qreal smallestYValue = points[0]->getRegisteredProperty(PointItem::P_POSY).toReal();
-    qreal biggestYValue = points[0]->getRegisteredProperty(PointItem::P_POSY).toReal();
+    qreal smallestXValue = points[0]->getRegisteredProperty(ObsoletePointItem::P_POSX).toReal();
+    qreal biggestXValue = points[0]->getRegisteredProperty(ObsoletePointItem::P_POSX).toReal();
+    qreal smallestYValue = points[0]->getRegisteredProperty(ObsoletePointItem::P_POSY).toReal();
+    qreal biggestYValue = points[0]->getRegisteredProperty(ObsoletePointItem::P_POSY).toReal();
 
 
     for (int i = 1; i < points.length(); ++i) {
-        smallestXValue = std::min(smallestXValue, points[i]->getRegisteredProperty(PointItem::P_POSX).toReal());
-        biggestXValue = std::max(biggestXValue, points[i]->getRegisteredProperty(PointItem::P_POSX).toReal());
-        smallestYValue = std::min(smallestYValue, points[i]->getRegisteredProperty(PointItem::P_POSY).toReal());
-        biggestYValue = std::max(biggestYValue, points[i]->getRegisteredProperty(PointItem::P_POSY).toReal());
+        smallestXValue = std::min(smallestXValue, points[i]->getRegisteredProperty(ObsoletePointItem::P_POSX).toReal());
+        biggestXValue = std::max(biggestXValue, points[i]->getRegisteredProperty(ObsoletePointItem::P_POSX).toReal());
+        smallestYValue = std::min(smallestYValue, points[i]->getRegisteredProperty(ObsoletePointItem::P_POSY).toReal());
+        biggestYValue = std::max(biggestYValue, points[i]->getRegisteredProperty(ObsoletePointItem::P_POSY).toReal());
     }
     return QRectF(QPointF(smallestXValue - 20, smallestYValue - 20),
                   QPointF(biggestXValue + 20, biggestYValue + 20));
@@ -127,7 +127,7 @@ void ObsoletePolygonView::mousePressEvent(QGraphicsSceneMouseEvent *event)
     if (isCornerClicked(event)) {
         m_changeCornerMode = true;
     } else if (event->button() == Qt::RightButton) {
-        m_item->setRegisteredProperty(PolygonItem::P_DRAWINGMODE, false);
+        m_item->setRegisteredProperty(ObsoletePolygonItem::P_DRAWINGMODE, false);
     } else {
         this->setFlag(QGraphicsItem::ItemIsMovable, true);
         QGraphicsItem::mousePressEvent(event);
@@ -140,15 +140,15 @@ void ObsoletePolygonView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         QList<ParameterizedItem *> points = m_item->childItems();
         setCursor(Qt::CrossCursor);
         if (m_indexOfCurrentSelectedPoint == 0) {
-            points[m_indexOfCurrentSelectedPoint]->setRegisteredProperty(PointItem::P_POSX, event->pos().x());
-            points[m_indexOfCurrentSelectedPoint]->setRegisteredProperty(PointItem::P_POSY, event->pos().y());
-            points[points.length() - 1]->setRegisteredProperty(PointItem::P_POSX, event->pos().x());
-            points[points.length() - 1]->setRegisteredProperty(PointItem::P_POSY, event->pos().y());
+            points[m_indexOfCurrentSelectedPoint]->setRegisteredProperty(ObsoletePointItem::P_POSX, event->pos().x());
+            points[m_indexOfCurrentSelectedPoint]->setRegisteredProperty(ObsoletePointItem::P_POSY, event->pos().y());
+            points[points.length() - 1]->setRegisteredProperty(ObsoletePointItem::P_POSX, event->pos().x());
+            points[points.length() - 1]->setRegisteredProperty(ObsoletePointItem::P_POSY, event->pos().y());
         } else {
-            points[m_indexOfCurrentSelectedPoint]->setRegisteredProperty(PointItem::P_POSX, event->pos().x());
-            points[m_indexOfCurrentSelectedPoint]->setRegisteredProperty(PointItem::P_POSY, event->pos().y());
+            points[m_indexOfCurrentSelectedPoint]->setRegisteredProperty(ObsoletePointItem::P_POSX, event->pos().x());
+            points[m_indexOfCurrentSelectedPoint]->setRegisteredProperty(ObsoletePointItem::P_POSY, event->pos().y());
         }
-    } else if (!m_item->getRegisteredProperty(PolygonItem::P_DRAWINGMODE).toBool()) {
+    } else if (!m_item->getRegisteredProperty(ObsoletePolygonItem::P_DRAWINGMODE).toBool()) {
         this->setFlag(QGraphicsItem::ItemIsMovable, true);
         QGraphicsItem::mouseMoveEvent(event);
     }
@@ -175,22 +175,22 @@ void ObsoletePolygonView::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
 
 void ObsoletePolygonView::setInclude()
 {
-    m_item->setRegisteredProperty(PolygonItem::P_COLOR, 0);
+    m_item->setRegisteredProperty(ObsoletePolygonItem::P_COLOR, 0);
 }
 
 QRectF ObsoletePolygonView::getFirstPoint() const
 {
     QList<ParameterizedItem *> points = m_item->childItems();
-    return QRectF(points[0]->getRegisteredProperty(PointItem::P_POSX).toReal() - 2.5,
-                  points[0]->getRegisteredProperty(PointItem::P_POSY).toReal() - 2.5, 5, 5);
+    return QRectF(points[0]->getRegisteredProperty(ObsoletePointItem::P_POSX).toReal() - 2.5,
+                  points[0]->getRegisteredProperty(ObsoletePointItem::P_POSY).toReal() - 2.5, 5, 5);
 }
 
 QPointF ObsoletePolygonView::getLastPoint() const
 {
     QList<ParameterizedItem *> points = m_item->childItems();
     int indexOfLastPoint = points.length() - 1;
-    return QPointF(points[indexOfLastPoint]->getRegisteredProperty(PointItem::P_POSX).toReal(),
-                   points[indexOfLastPoint]->getRegisteredProperty(PointItem::P_POSY).toReal());
+    return QPointF(points[indexOfLastPoint]->getRegisteredProperty(ObsoletePointItem::P_POSX).toReal(),
+                   points[indexOfLastPoint]->getRegisteredProperty(ObsoletePointItem::P_POSY).toReal());
 }
 
 ParameterizedItem *ObsoletePolygonView::getParameterizedItem()
@@ -208,5 +208,5 @@ void ObsoletePolygonView::setParameterizedItem(ParameterizedItem *item)
 
 void ObsoletePolygonView::setExclude()
 {
-    m_item->setRegisteredProperty(PolygonItem::P_COLOR, 1);
+    m_item->setRegisteredProperty(ObsoletePolygonItem::P_COLOR, 1);
 }

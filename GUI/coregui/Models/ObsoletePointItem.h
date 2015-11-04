@@ -1,9 +1,9 @@
-#ifndef POINTITEM_H
-#define POINTITEM_H
+#ifndef OBSOLETEPOINTITEM_H
+#define OBSOLETEPOINTITEM_H
 
 #include "ParameterizedItem.h"
 
-class PointItem : public ParameterizedItem
+class ObsoletePointItem : public ParameterizedItem
 {
     Q_OBJECT
 
@@ -11,8 +11,8 @@ public:
     static const QString P_POSX;
     static const QString P_POSY;
 
-    explicit PointItem(ParameterizedItem *parent = 0);
-    ~PointItem()
+    explicit ObsoletePointItem(ParameterizedItem *parent = 0);
+    ~ObsoletePointItem()
     {
     }
 

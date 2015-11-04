@@ -20,7 +20,6 @@
 #include "Histogram1D.h"
 #include "Histogram2D.h"
 #include <sstream>
-#include <boost/assign/list_of.hpp>
 #include <boost/scoped_ptr.hpp>
 
 IHistogram::IHistogram()

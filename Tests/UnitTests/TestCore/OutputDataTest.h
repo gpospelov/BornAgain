@@ -8,7 +8,6 @@
 #include "VariableBinAxis.h"
 #include "FixedBinAxis.h"
 #include "ThreadInfo.h"
-#include <boost/assign/list_of.hpp>
 
 
 #include "gtest/gtest.h"
@@ -273,9 +272,9 @@ TEST_F(OutputDataTest, GetAxisBin)
 
 //    int index(0);
 
-//    std::vector<double> xref = boost::assign::list_of(1.5)(1.5)(2.5)(2.5)(3.5)(3.5)(4.5)(4.5);
-//    std::vector<double> yref = boost::assign::list_of(1.5)(2.5)(1.5)(2.5)(1.5)(2.5)(1.5)(2.5);
-//    std::vector<double> vref = boost::assign::list_of(7)(8)(13)(14)(19)(20)(25)(26);
+//    std::vector<double> xref = {1.5, 1.5, 2.5, 2.5, 3.5, 3.5, 4.5, 4.5);
+//    std::vector<double> yref = {1.5, 2.5, 1.5, 2.5, 1.5, 2.5, 1.5, 2.5);
+//    std::vector<double> vref = {7, 8, 13, 14, 19, 20, 25, 26);
 //    for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
 //        double x = data.getAxisValue(it.getIndex(), "x");
 //        double y = data.getAxisValue(it.getIndex(), "y");
@@ -316,9 +315,9 @@ TEST_F(OutputDataTest, GetAxisBin)
 
 //    int index(0);
 
-//    std::vector<double> xref = boost::assign::list_of(-4.0)(-4.0)(-4.0)(-3.0)(-2.0)(-1.0)(0.0)(1.0)(2.0)(2.0)(2.0)(3.0)(3.0)(3.0);
-//    std::vector<double> yref = boost::assign::list_of(0.0)(1.0)(2.0)(2.0)(2.0)(2.0)(2.0)(2.0)(0.0)(1.0)(2.0)(0.0)(1.0)(2.0);
-//    std::vector<double> vref = boost::assign::list_of(0)(1)(2)(5)(8)(11)(14)(17)(18)(19)(20)(21)(22)(23);
+//    std::vector<double> xref = {-4.0, -4.0, -4.0, -3.0, -2.0, -1.0, 0.0, 1.0, 2.0, 2.0, 2.0, 3.0, 3.0, 3.0);
+//    std::vector<double> yref = {0.0, 1.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 0.0, 1.0, 2.0, 0.0, 1.0, 2.0);
+//    std::vector<double> vref = {0, 1, 2, 5, 8, 11, 14, 17, 18, 19, 20, 21, 22, 23);
 //    for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
 //        double x = data.getAxisValue(it.getIndex(), "x");
 //        double y = data.getAxisValue(it.getIndex(), "y");
@@ -359,7 +358,7 @@ TEST_F(OutputDataTest, GetAxisBin)
 
 //    int index(0);
 
-//    std::vector<double> vref = boost::assign::list_of(0)(1)(2)(3)(4)(5)(6)(8)(9)(11)(15)(17)(18)(20)(21)(22)(23);
+//    std::vector<double> vref = {0, 1, 2, 3, 4, 5, 6, 8, 9, 11, 15, 17, 18, 20, 21, 22, 23);
 //    for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
 //        EXPECT_EQ(*it, vref[index]);
 //        ++index;
@@ -392,9 +391,9 @@ TEST_F(OutputDataTest, GetAxisBin)
 //    IntensityDataFunctions::setRectangularMask(data, -2.5, 1.5, 0.99, 4.99, true);
 //    int index(0);
 
-//    std::vector<double> xref = boost::assign::list_of(-2.5)(-2.5)(-1.0)(-1.0)(0.25)(0.25)(0.75)(0.75);
-//    std::vector<double> yref = boost::assign::list_of(2.0)(4.0)(2.0)(4.0)(2.0)(4.0)(2.0)(4.0);
-//    std::vector<double> vref = boost::assign::list_of(5)(6)(9)(10)(13)(14)(17)(18);
+//    std::vector<double> xref = {-2.5, -2.5, -1.0, -1.0, 0.25, 0.25, 0.75, 0.75);
+//    std::vector<double> yref = {2.0, 4.0, 2.0, 4.0, 2.0, 4.0, 2.0, 4.0);
+//    std::vector<double> vref = {5, 6, 9, 10, 13, 14, 17, 18);
 //    for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
 //        double x = data.getAxisValue(it.getIndex(), "x");
 //        double y = data.getAxisValue(it.getIndex(), "y");
@@ -428,9 +427,9 @@ TEST_F(OutputDataTest, GetAxisBin)
 //    IntensityDataHelper::setEllipticMask(data, 1.0, 1.0, 0.49, 0.49);
 //    int index(0);
 
-////    std::vector<double> xref = boost::assign::list_of(-2.5)(-2.5)(-1.0)(-1.0)(0.25)(0.25)(0.75)(0.75);
-////    std::vector<double> yref = boost::assign::list_of(2.0)(4.0)(2.0)(4.0)(2.0)(4.0)(2.0)(4.0);
-//    std::vector<double> vref = boost::assign::list_of(8)(9)(12)(13);
+////    std::vector<double> xref = {-2.5, -2.5, -1.0, -1.0, 0.25, 0.25, 0.75, 0.75};
+////    std::vector<double> yref = {2.0, 4.0, 2.0, 4.0, 2.0, 4.0, 2.0, 4.0};
+//    std::vector<double> vref = {8, 9, 12, 13);
 //    for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
 //        double x = data.getValueOfAxis("x", it.getIndex());
 //        double y = data.getValueOfAxis("y", it.getIndex());

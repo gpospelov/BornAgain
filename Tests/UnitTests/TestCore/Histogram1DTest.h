@@ -3,7 +3,6 @@
 
 #include "Histogram1D.h"
 #include "Exceptions.h"
-#include <boost/assign/list_of.hpp>
 #include <boost/scoped_ptr.hpp>
 #include "gtest/gtest.h"
 
@@ -35,7 +34,7 @@ TEST_F(Histogram1DTest, FixedBinDefaultContent)
     Histogram1D hist(5, 0.0, 5.0);
 
     // bin centers
-    std::vector<double> bin_centers = boost::assign::list_of(0.5)(1.5)(2.5)(3.5)(4.5);
+    std::vector<double> bin_centers = {0.5, 1.5, 2.5, 3.5, 4.5};
     std::vector<double> centers = hist.getBinCenters();
     for(size_t index=0; index < bin_centers.size(); ++index) {
         EXPECT_EQ(centers[index], bin_centers[index]);
@@ -80,7 +79,7 @@ TEST_F(Histogram1DTest, FixedBinFill)
     EXPECT_EQ(hist.getBinNumberOfEntries(4), 1);
     EXPECT_EQ(hist.getBinError(4), 0.0);
 
-    std::vector<double> values = boost::assign::list_of(88.0)(0.0)(0.0)(0.0)(99.0);
+    std::vector<double> values = {88.0, 0.0, 0.0, 0.0, 99.0};
     for(size_t index=0; index<hist.getTotalNumberOfBins(); ++index) {
         EXPECT_EQ(hist.getBinValues()[index], values[index]);
         EXPECT_EQ(hist.getBinErrors()[index], 0.0);
@@ -122,8 +121,8 @@ TEST_F(Histogram1DTest, FixedBinFill)
 
 TEST_F(Histogram1DTest, crop)
 {
-    std::vector<double> xedges = boost::assign::list_of(-1.0)(-0.5)(0.5)(1.0)(2.0);
-    std::vector<double> xvalues = boost::assign::list_of(-0.75)(0.0)(0.75)(1.5);
+    std::vector<double> xedges = {-1.0, -0.5, 0.5, 1.0, 2.0};
+    std::vector<double> xvalues = {-0.75, 0.0, 0.75, 1.5};
     Histogram1D hist(4, xedges);
 
     for(size_t i=0; i<xvalues.size(); ++i) {

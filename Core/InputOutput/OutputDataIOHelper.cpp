@@ -25,7 +25,6 @@
 #include <iostream>
 #include <algorithm>
 #include <boost/algorithm/string.hpp>
-#include <boost/assign/list_of.hpp>
 
 
 bool OutputDataIOHelper::isCompressed(const std::string& name)
@@ -142,7 +141,7 @@ IAxis *OutputDataIOHelper::createAxis(std::istream &input_stream)
 //! CustomBinAxis("axis0", 10, -1, 1)
 IAxis *OutputDataIOHelper::createFixedBinAxis(std::string line)
 {
-    std::vector<std::string> to_replace = boost::assign::list_of(",")("\"")("(")(")");
+    std::vector<std::string> to_replace = {",", "\"", "(", ")"};
     Utils::String::replaceItemsFromString(line, to_replace, " ");
 
     std::string type, name;
@@ -180,7 +179,7 @@ IAxis *OutputDataIOHelper::createFixedBinAxis(std::string line)
 //! VariableBinAxis("axis0", 4, [-1, -0.5, 0.5, 1, 2])
 IAxis *OutputDataIOHelper::createVariableBinAxis(std::string line)
 {
-    std::vector<std::string> to_replace = boost::assign::list_of(",")("\"")("(")(")")("[")("]");
+    std::vector<std::string> to_replace = {",", "\"", "(", ")", "[", "]"};
     Utils::String::replaceItemsFromString(line, to_replace, " ");
 
     std::string type, name;

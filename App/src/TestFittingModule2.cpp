@@ -43,7 +43,6 @@
 #include "TPaveText.h"
 #include "TH2D.h"
 
-#include <boost/assign/list_of.hpp>
 
 
 TestFittingModule2::TestFittingModule2()

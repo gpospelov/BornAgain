@@ -35,7 +35,7 @@
 //#include "MsgLogger.h"
 
 #if __cplusplus > 199711L
-std::atomic<TMVA::Types*> TMVA::Types::fgTypesPtr{0};
+std::atomic<BA_TMVA::Types*> BA_TMVA::Types::fgTypesPtr{0};
 static std::mutex gTypesMutex;
 #else
 BA_TMVA::Types* BA_TMVA::Types::fgTypesPtr = 0;

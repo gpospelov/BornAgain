@@ -20,8 +20,6 @@
 #include "ROOTMinimizerFunction.h"
 #include <iomanip>
 #include <sstream>
-#include <boost/assign/list_of.hpp>
-#include <boost/assign/list_of.hpp>
 #include "ROOTMinimizerHelper.h"
 #include "MinimizerOptions.h"
 #include "Math/Minimizer.h"

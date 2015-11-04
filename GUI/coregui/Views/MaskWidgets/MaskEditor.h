@@ -21,7 +21,7 @@
 class MaskEditorCanvas;
 class MaskEditorToolPanel;
 class QSplitter;
-class IntensityDataItem;
+class MaskModel;
 
 //! Main class to draw masks on top of intensity data map
 
@@ -32,11 +32,12 @@ public:
     MaskEditor(QWidget *parent = 0);
 
 private:
-    IntensityDataItem *create_test_item() const;
+    void init_test_model();
 
     MaskEditorCanvas *m_editorCanvas;
     MaskEditorToolPanel *m_editorToolPanel;
     QSplitter *m_splitter;
+    MaskModel *m_maskModel;
 };
 
 

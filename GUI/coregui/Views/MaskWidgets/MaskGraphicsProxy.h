@@ -16,13 +16,18 @@
 #ifndef MASKGRAPHICSPROXY_H
 #define MASKGRAPHICSPROXY_H
 
+#include "ColorMapPlot.h"
 #include <QGraphicsProxyWidget>
+
+class IntensityDataItem;
 
 //! Graphics proxy to place QWidget inside QGraphicsScene, used by MaskEditorCanvas.
 
 class MaskGraphicsProxy : public QGraphicsProxyWidget
 {
 public:
+    MaskGraphicsProxy();
+
     enum { Type = UserType + 4 };
 
     int type() const
@@ -30,10 +35,15 @@ public:
         return Type;
     }
 
+    void setItem(IntensityDataItem *intensityDataItem);
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+
+private:
+    ColorMapPlot *m_colorMap;
 };
 
 #endif

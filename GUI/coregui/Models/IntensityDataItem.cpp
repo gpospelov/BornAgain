@@ -61,6 +61,8 @@ IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
 
     registerGroupProperty(P_ZAXIS, Constants::AmplitudeAxisType);
     getSubItems()[P_ZAXIS]->setPropertyAppearance(BasicAxisItem::P_NBINS, PropertyAttribute::HIDDEN);
+
+    addToValidChildren(Constants::RectangleMaskType);
 }
 
 IntensityDataItem::~IntensityDataItem()

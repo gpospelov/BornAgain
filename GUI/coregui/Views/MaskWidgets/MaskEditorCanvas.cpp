@@ -36,7 +36,6 @@ MaskEditorCanvas::MaskEditorCanvas(QWidget *parent)
     setObjectName(QStringLiteral("MaskEditorCanvas"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    m_view->setRenderHints(QPainter::HighQualityAntialiasing|QPainter::TextAntialiasing);
     m_view->setColorMapProxy(m_graphicsProxy);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -45,7 +44,12 @@ MaskEditorCanvas::MaskEditorCanvas(QWidget *parent)
     mainLayout->setSpacing(0);
     setLayout(mainLayout);
 
-    init_widget();
+//    init_widget();
+}
+
+void MaskEditorCanvas::setModel(SessionModel *model)
+{
+    m_scene->setModel(model);
 }
 
 void MaskEditorCanvas::resizeEvent(QResizeEvent *event)

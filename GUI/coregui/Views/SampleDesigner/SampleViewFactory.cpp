@@ -43,7 +43,7 @@ QStringList SampleViewFactory::m_valid_item_names  = QStringList()
         << Constants::InterferenceFunctionRadialParaCrystalType
         << Constants::InterferenceFunction2DParaCrystalType
         << Constants::InterferenceFunction2DLatticeType
-        << Constants::RectangleType;
+        << Constants::ObsoleteRectangleType;
 
 
 bool SampleViewFactory::isValidItemName(const QString &name)
@@ -91,13 +91,13 @@ IView *SampleViewFactory::createSampleView(const QString &name)
     else if (name==Constants::InterferenceFunction2DLatticeType) {
         return new InterferenceFunction2DLatticeView();
     }
-    else if(name==Constants::RectangleType) {
+    else if(name==Constants::ObsoleteRectangleType) {
         return new ObsoleteRectangleView();
     }
-    else if(name==Constants::EllipseType) {
+    else if(name==Constants::ObsoleteEllipseType) {
         return new ObsoleteEllipseView();
     }
-    else if(name==Constants::PolygonType) {
+    else if(name==Constants::ObsoletePolygonType) {
         return new ObsoletePolygonView();
     }
     else {

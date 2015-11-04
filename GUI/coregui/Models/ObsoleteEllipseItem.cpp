@@ -8,9 +8,9 @@ const QString ObsoleteEllipseItem::P_COLOR = "Color";
 const QString ObsoleteEllipseItem::P_ANGLE = "Angle";
 
 ObsoleteEllipseItem::ObsoleteEllipseItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::EllipseType, parent)
+    : ParameterizedItem(Constants::ObsoleteEllipseType, parent)
 {
-    setItemName(Constants::EllipseType);
+    setItemName(Constants::ObsoleteEllipseType);
     registerProperty(P_POSX, 0.0);
     registerProperty(P_POSY, 0.0);
     registerProperty(P_WIDTH, 0.0);

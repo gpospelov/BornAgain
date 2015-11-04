@@ -8,9 +8,9 @@ const QString ObsoleteRectangleItem::P_COLOR = "Color";
 const QString ObsoleteRectangleItem::P_ANGLE = "Angle";
 
 ObsoleteRectangleItem::ObsoleteRectangleItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::RectangleType, parent)
+    : ParameterizedItem(Constants::ObsoleteRectangleType, parent)
 {
-    setItemName(Constants::RectangleType);
+    setItemName(Constants::ObsoleteRectangleType);
     registerProperty(P_POSX, 0.0);
     registerProperty(P_POSY, 0.0);
     registerProperty(P_WIDTH, 0.0);

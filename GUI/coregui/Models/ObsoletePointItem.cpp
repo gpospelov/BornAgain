@@ -4,9 +4,9 @@ const QString ObsoletePointItem::P_POSX = "X position";
 const QString ObsoletePointItem::P_POSY = "Y positon";
 
 ObsoletePointItem::ObsoletePointItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::PointType, parent)
+    : ParameterizedItem(Constants::ObsoletePointType, parent)
 {
-    setItemName(Constants::PointType);
+    setItemName(Constants::ObsoletePointType);
     registerProperty(P_POSX, 0.0);
     registerProperty(P_POSY, 0.0);
 }

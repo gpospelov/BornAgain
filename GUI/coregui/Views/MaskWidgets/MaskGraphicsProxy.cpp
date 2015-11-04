@@ -15,6 +15,20 @@
 
 #include "MaskGraphicsProxy.h"
 #include <QGraphicsSceneMouseEvent>
+#include "ColorMapPlot.h"
+#include "IntensityDataItem.h"
+
+MaskGraphicsProxy::MaskGraphicsProxy()
+    : m_colorMap(new ColorMapPlot)
+{
+
+}
+
+void MaskGraphicsProxy::setItem(IntensityDataItem *intensityDataItem)
+{
+    m_colorMap->setItem(intensityDataItem);
+    if(widget() != m_colorMap) setWidget(m_colorMap);
+}
 
 void MaskGraphicsProxy::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
@@ -31,4 +45,5 @@ void MaskGraphicsProxy::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void MaskGraphicsProxy::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsProxyWidget::mouseMoveEvent(event);
+    qDebug() << "MaskGraphicsProxy::mouseMoveEvent()" << event->pos();
 }

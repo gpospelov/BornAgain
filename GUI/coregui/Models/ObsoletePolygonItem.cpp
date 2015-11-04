@@ -4,11 +4,11 @@ const QString ObsoletePolygonItem::P_COLOR = "Color";
 const QString ObsoletePolygonItem::P_DRAWINGMODE = "Drawing Mode";
 
 ObsoletePolygonItem::ObsoletePolygonItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::PolygonType, parent)
+    : ParameterizedItem(Constants::ObsoletePolygonType, parent)
 {
-    setItemName(Constants::PolygonType);
+    setItemName(Constants::ObsoletePolygonType);
     registerProperty(P_COLOR, 0);
     registerProperty(P_DRAWINGMODE, false);
 
-    addToValidChildren(Constants::PointType);
+    addToValidChildren(Constants::ObsoletePointType);
 }

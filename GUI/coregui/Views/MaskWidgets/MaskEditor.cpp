@@ -18,11 +18,14 @@
 #include "MaskEditorToolPanel.h"
 #include <QBoxLayout>
 #include <QSplitter>
+#include <QDebug>
 
 #include "SimulationRegistry.h"
 #include <boost/scoped_ptr.hpp>
 #include "SampleBuilderFactory.h"
 #include "IntensityDataItem.h"
+#include "MaskModel.h"
+#include "MaskItems.h"
 
 
 MaskEditor::MaskEditor(QWidget *parent)
@@ -30,6 +33,7 @@ MaskEditor::MaskEditor(QWidget *parent)
     , m_editorCanvas(new MaskEditorCanvas(this))
     , m_editorToolPanel(new MaskEditorToolPanel(this))
     , m_splitter(new QSplitter(this))
+    , m_maskModel(0)
 {
     setObjectName(QStringLiteral("IntensityDataPlotWidget"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -42,10 +46,14 @@ MaskEditor::MaskEditor(QWidget *parent)
     mainLayout->setSpacing(0);
     mainLayout->addWidget(m_splitter);
     setLayout(mainLayout);
+
+    init_test_model();
 }
 
-IntensityDataItem *MaskEditor::create_test_item() const
+void MaskEditor::init_test_model()
 {
+    m_maskModel = new MaskModel();
+
     SimulationRegistry simRegistry;
     boost::scoped_ptr<GISASSimulation> simulation(simRegistry.createSimulation("BasicGISAS"));
 
@@ -55,8 +63,17 @@ IntensityDataItem *MaskEditor::create_test_item() const
     simulation->setSample(*sample.get());
     simulation->runSimulation();
 
-    IntensityDataItem *result = new IntensityDataItem;
-    result->setOutputData(simulation->getOutputData()->clone());
+    IntensityDataItem *item = dynamic_cast<IntensityDataItem *>(m_maskModel->insertNewItem(Constants::IntensityDataType));
+    Q_ASSERT(item);
+    item->setOutputData(simulation->getOutputData()->clone());
+    qDebug() << item->getXmin() << item->getXmax() << item->getYmin() << item->getYmax();
 
-    return result;
+    RectangleItem *rect = dynamic_cast<RectangleItem *>(m_maskModel->insertNewItem(Constants::RectangleMaskType, m_maskModel->indexOfItem(item)));
+    Q_ASSERT(rect);
+    rect->setRegisteredProperty(RectangleItem::P_POSX, 0.5);
+    rect->setRegisteredProperty(RectangleItem::P_POSY, 0.5);
+    rect->setRegisteredProperty(RectangleItem::P_WIDTH, 1.0);
+    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 1.0);
+
+    m_editorCanvas->setModel(m_maskModel);
 }

@@ -17,6 +17,9 @@
 #define MASKGRAPHICSSCENE_H
 
 #include <QGraphicsScene>
+#include <QModelIndex>
+
+class SessionModel;
 
 //! Graphics scene for MaskEditorCanvas
 
@@ -26,6 +29,14 @@ class MaskGraphicsScene : public QGraphicsScene
 public:
     MaskGraphicsScene(QObject *parent = 0);
 
+    void setModel(SessionModel *model);
+
+private:
+    void resetScene();
+    void updateScene();
+    void updateViews(const QModelIndex &parentIndex = QModelIndex());
+
+    SessionModel *m_model;
 };
 
 

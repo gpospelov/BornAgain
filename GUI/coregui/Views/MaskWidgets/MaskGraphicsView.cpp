@@ -27,8 +27,8 @@ MaskGraphicsView::MaskGraphicsView(QGraphicsScene *scene, QWidget *parent)
 {
     setObjectName(QStringLiteral("MaskGraphicsView"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setRenderHints(QPainter::HighQualityAntialiasing|QPainter::TextAntialiasing);
     setMouseTracking(true);
-
 }
 
 void MaskGraphicsView::setColorMapProxy(MaskGraphicsProxy *colorMapProxy)
@@ -74,30 +74,30 @@ void MaskGraphicsView::resizeEvent(QResizeEvent *event)
     qDebug() << "       transform" << transform();
     QWidget::resizeEvent(event);
 
-    QTransform trans = transform();
+//    QTransform trans = transform();
     fitInView(QRectF(0, 0, 800, 600), Qt::KeepAspectRatio);
 
 
-//    QGraphicsRectItem *b_rec = dynamic_cast<QGraphicsRectItem *>(scene()->items().back());
-//    Q_ASSERT(b_rec);
-    QRectF oldRect = QRectF(0,0,800, 600);
-    QPoint p = mapFromScene(800, 600);
-//    QRectF newRect = QRectF(0,0,p.x(), p.y());
-    QRectF newRect = trans.mapRect(oldRect);
-//    b_rec->setRect(newRect);
-//    b_rec->update(newRect);
-////    b_rec->setRect(QRectF(oldRect.x(), oldRect.y(), oldRect.width()*trans.m11(), oldRect.height()*trans.m22() ));
-    qDebug() << "p:" << p << "       oldRect:" << oldRect << "  newRect:" << newRect;
-//    qDebug() << "trans.m11()" << oldRect.width()*trans.m11() << oldRect.height()*trans.m22();
+////    QGraphicsRectItem *b_rec = dynamic_cast<QGraphicsRectItem *>(scene()->items().back());
+////    Q_ASSERT(b_rec);
+//    QRectF oldRect = QRectF(0,0,800, 600);
+//    QPoint p = mapFromScene(800, 600);
+////    QRectF newRect = QRectF(0,0,p.x(), p.y());
+//    QRectF newRect = trans.mapRect(oldRect);
+////    b_rec->setRect(newRect);
+////    b_rec->update(newRect);
+//////    b_rec->setRect(QRectF(oldRect.x(), oldRect.y(), oldRect.width()*trans.m11(), oldRect.height()*trans.m22() ));
+//    qDebug() << "p:" << p << "       oldRect:" << oldRect << "  newRect:" << newRect;
+////    qDebug() << "trans.m11()" << oldRect.width()*trans.m11() << oldRect.height()*trans.m22();
 
-//    qDebug() << "   mapFromScene:" << p << " toScene:" << mapToScene(p);
+////    qDebug() << "   mapFromScene:" << p << " toScene:" << mapToScene(p);
 
 
-    //    m_colorMapProxy->resize(event->size());
-    //    m_colorMapProxy->widget()->resize(event->size());
-    m_colorMapProxy->setPos(newRect.x(), newRect.y());
-    m_colorMapProxy->resize(newRect.width(), newRect.height());
-    m_colorMapProxy->widget()->resize(newRect.width(), newRect.height());
+//    //    m_colorMapProxy->resize(event->size());
+//    //    m_colorMapProxy->widget()->resize(event->size());
+//    m_colorMapProxy->setPos(newRect.x(), newRect.y());
+//    m_colorMapProxy->resize(newRect.width(), newRect.height());
+//    m_colorMapProxy->widget()->resize(newRect.width(), newRect.height());
 
 }
 
@@ -105,8 +105,9 @@ void MaskGraphicsView::mouseMoveEvent(QMouseEvent *event)
 {
     qDebug() << "MaskGraphicsView::mouseMoveEvent ->"
              << event->pos() << "scene_coord:" << mapToScene(event->pos());
-    QPoint p = mapFromScene(800, 600);
-    qDebug() << "   mapFromScene(800, 600):" << p << " mapToScene(p)" << mapToScene(p);
+    qDebug() << "  transform():" <<transform();
+//    QPoint p = mapFromScene(800, 600);
+//    qDebug() << "   mapFromScene(800, 600):" << p << " mapToScene(p)" << mapToScene(p);
 
     QGraphicsView::mouseMoveEvent(event);
 }

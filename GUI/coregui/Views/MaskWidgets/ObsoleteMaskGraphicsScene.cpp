@@ -39,14 +39,14 @@ void ObsoleteMaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton) {
         if (m_drawingMode == RECTANGLE) {
-            m_currentItem = m_maskModel->insertNewItem(Constants::RectangleType);
+            m_currentItem = m_maskModel->insertNewItem(Constants::ObsoleteRectangleType);
             setItemName(m_currentItem);
         } else if (m_drawingMode == ELLIPSE) {
-            m_currentItem = m_maskModel->insertNewItem(Constants::EllipseType);
+            m_currentItem = m_maskModel->insertNewItem(Constants::ObsoleteEllipseType);
             setItemName(m_currentItem);
         } else if (m_drawingMode == POLYGON) {
             if (!m_currentItem) {
-                m_currentItem = m_maskModel->insertNewItem(Constants::PolygonType);
+                m_currentItem = m_maskModel->insertNewItem(Constants::ObsoletePolygonType);
                 m_currentItem->setRegisteredProperty(ObsoletePolygonItem::P_DRAWINGMODE, true);
                 setItemName(m_currentItem);
             }
@@ -58,7 +58,7 @@ void ObsoleteMaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 emit itemIsDrawn();
             }
             else if(m_currentItem) {
-                ParameterizedItem *pointItem = m_maskModel->insertNewItem(Constants::PointType,
+                ParameterizedItem *pointItem = m_maskModel->insertNewItem(Constants::ObsoletePointType,
                                                          m_maskModel->indexOfItem(m_currentItem));
                 pointItem->setRegisteredProperty(ObsoletePointItem::P_POSX, event->scenePos().x());
                 pointItem->setRegisteredProperty(ObsoletePointItem::P_POSY, event->scenePos().y());
@@ -407,7 +407,7 @@ bool ObsoleteMaskGraphicsScene::firstPointContainsMouseClick(QGraphicsSceneMouse
         5, 5);
 
     if(firstPoint.contains(event->scenePos())) {
-        ParameterizedItem *pointItem = m_maskModel->insertNewItem(Constants::PointType,
+        ParameterizedItem *pointItem = m_maskModel->insertNewItem(Constants::ObsoletePointType,
                                                  m_maskModel->indexOfItem(m_currentItem));
         pointItem->setRegisteredProperty(ObsoletePointItem::P_POSX, firstPoint.center().x());
         pointItem->setRegisteredProperty(ObsoletePointItem::P_POSY, firstPoint.center().y());

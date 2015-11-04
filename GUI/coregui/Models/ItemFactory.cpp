@@ -49,6 +49,7 @@
 #include "ObsoleteEllipseItem.h"
 #include "ObsoletePolygonItem.h"
 #include "ObsoletePointItem.h"
+#include "MaskItems.h"
 #include <QDebug>
 
 namespace {
@@ -151,10 +152,12 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::ResolutionFunctionNoneType] = &createInstance<ResolutionFunctionNoneItem>;
     result[Constants::ResolutionFunction2DGaussianType] = &createInstance<ResolutionFunction2DGaussianItem>;
 
-    result[Constants::RectangleType] = &createInstance<ObsoleteRectangleItem>;
-    result[Constants::EllipseType] = &createInstance<ObsoleteEllipseItem>;
-    result[Constants::PolygonType] = &createInstance<ObsoletePolygonItem>;
-    result[Constants::PointType] = &createInstance<ObsoletePointItem>;
+    result[Constants::ObsoleteRectangleType] = &createInstance<ObsoleteRectangleItem>;
+    result[Constants::ObsoleteEllipseType] = &createInstance<ObsoleteEllipseItem>;
+    result[Constants::ObsoletePolygonType] = &createInstance<ObsoletePolygonItem>;
+    result[Constants::ObsoletePointType] = &createInstance<ObsoletePointItem>;
+
+    result[Constants::RectangleMaskType] = &createInstance<RectangleItem>;
 
     return result;
 }

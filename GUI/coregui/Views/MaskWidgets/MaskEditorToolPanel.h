@@ -18,6 +18,12 @@
 
 #include <QWidget>
 
+class QListView;
+class SessionModel;
+class QModelIndex;
+class AwesomePropertyEditor;
+class QItemSelection;
+
 //! Tool widget for MaskEditor
 
 class MaskEditorToolPanel : public QWidget
@@ -29,7 +35,15 @@ public:
     QSize sizeHint() const { return QSize(128, 128); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
 
+    void setModel(SessionModel *model, const QModelIndex &root_index);
 
+public slots:
+    void onSelectionChanged(const QItemSelection &selected, const QItemSelection &);
+
+private:
+    QListView *m_listView;
+    AwesomePropertyEditor *m_propertyEditor;
+    SessionModel *m_model;
 };
 
 

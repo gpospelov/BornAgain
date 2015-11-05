@@ -80,4 +80,5 @@ void MaskEditor::init_test_model()
 //    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 200.0);
 
     m_editorCanvas->setModel(m_maskModel);
+    m_editorToolPanel->setModel(m_maskModel, m_maskModel->indexOfItem(item));
 }

@@ -18,8 +18,11 @@
 
 #include <QGraphicsScene>
 #include <QModelIndex>
+#include <QMap>
 
 class SessionModel;
+class ParameterizedItem;
+class IMaskView;
 
 //! Graphics scene for MaskEditorCanvas
 
@@ -35,8 +38,10 @@ private:
     void resetScene();
     void updateScene();
     void updateViews(const QModelIndex &parentIndex = QModelIndex());
+    IMaskView* addViewForItem(ParameterizedItem *item);
 
     SessionModel *m_model;
+    QMap<ParameterizedItem *, IMaskView *> m_ItemToView;
 };
 
 

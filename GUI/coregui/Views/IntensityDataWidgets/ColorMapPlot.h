@@ -47,12 +47,13 @@ public:
 
     QCustomPlot *getCustomPlot() { return m_customPlot; }
 
-
     //! transform axes coordinates to CustomPlot widget coordinates
-    QPointF axesToPixel(const QPointF &axes_coordinates) const;
+    double xAxisCoordToPixel(double axis_coordinate) const;
+    double yAxisCoordToPixel(double axis_coordinate) const;
 
     //! transform widget coordinates to axes coordinates
-    QPointF pixelToAxes(const QPointF &widget_coordinates) const;
+    double pixelToXaxisCoord(double pixel) const;
+    double pixelToYaxisCoord(double pixel) const;
 
 signals:
     void validMousMove();

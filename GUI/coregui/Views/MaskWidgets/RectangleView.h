@@ -26,6 +26,7 @@ public:
     RectangleView();
 
     QRectF boundingRect() const;
+    void setParameterizedItem(ParameterizedItem *item);
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);

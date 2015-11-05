@@ -19,6 +19,7 @@
 #include "MaskGraphicsProxy.h"
 #include "ParameterizedItem.h"
 #include "IMaskView.h"
+#include "ISceneAdaptor.h"
 #include "MaskViewFactory.h"
 #include <QDebug>
 
@@ -31,24 +32,7 @@ MaskGraphicsScene::MaskGraphicsScene(QObject *parent)
     : QGraphicsScene(parent)
     , m_model(0)
 {
-    setSceneRect(default_scene_rect);
-
-//    QGraphicsRectItem *b_rect = new QGraphicsRectItem(0, 0, default_scene_rect.width(), default_scene_rect.height());
-//    b_rect->setPos(0, 0);
-//    b_rect->setFlag(QGraphicsItem::ItemIgnoresTransformations, true);
-//    addItem(b_rect);
-
-//    qreal width = default_scene_rect.width()*0.99;
-//    qreal height = default_scene_rect.height()*0.99;
-////    QGraphicsRectItem *b_rect2 = new QGraphicsRectItem(0, 0, 796, 596);
-//    QGraphicsRectItem *b_rect2 = new QGraphicsRectItem(0, 0,width, height);
-//    qreal xpos = (default_scene_rect.width() - width)/2.;
-//    qreal ypos = (default_scene_rect.height() - height)/2.;
-////    b_rect2->setPos(2, 2);
-//    b_rect2->setPos(xpos, ypos);
-//    b_rect2->setPen(QPen(Qt::red));
-//    addItem(b_rect2);
-
+//    init_scene();
 }
 
 void MaskGraphicsScene::setModel(SessionModel *model)
@@ -85,9 +69,33 @@ void MaskGraphicsScene::setModel(SessionModel *model)
 
 }
 
+void MaskGraphicsScene::init_scene()
+{
+    setSceneRect(default_scene_rect);
+
+    QGraphicsRectItem *b_rect = new QGraphicsRectItem(0, 0, default_scene_rect.width(), default_scene_rect.height());
+    b_rect->setPos(0, 0);
+    b_rect->setFlag(QGraphicsItem::ItemIgnoresTransformations, true);
+    addItem(b_rect);
+
+    qreal offset = 8;
+    qreal width = default_scene_rect.width()-offset;
+    qreal height = default_scene_rect.height()-offset;
+    QGraphicsRectItem *b_rect2 = new QGraphicsRectItem(0, 0,width, height);
+    qreal xpos = (default_scene_rect.width() - width)/2.;
+    qreal ypos = (default_scene_rect.height() - height)/2.;
+    b_rect2->setPos(xpos, ypos);
+    b_rect2->setPen(QPen(Qt::red));
+    addItem(b_rect2);
+
+}
+
 void MaskGraphicsScene::resetScene()
 {
-
+    clear();
+    m_ItemToView.clear();
+    init_scene();
+    m_adaptor.reset(new DefaultSceneAdaptor);
 }
 
 void MaskGraphicsScene::updateScene()
@@ -111,23 +119,6 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex)
 //    addItem(proxy);
 
 
-//    QGraphicsRectItem *b_rect = new QGraphicsRectItem(0, 0, default_scene_rect.width(), default_scene_rect.height());
-//    b_rect->setPos(0, 0);
-//    b_rect->setFlag(QGraphicsItem::ItemIgnoresTransformations, true);
-//    addItem(b_rect);
-
-//    qreal width = default_scene_rect.width()*0.99;
-//    qreal height = default_scene_rect.height()*0.99;
-////    QGraphicsRectItem *b_rect2 = new QGraphicsRectItem(0, 0, 796, 596);
-//    QGraphicsRectItem *b_rect2 = new QGraphicsRectItem(0, 0,width, height);
-//    qreal xpos = (default_scene_rect.width() - width)/2.;
-//    qreal ypos = (default_scene_rect.height() - height)/2.;
-////    b_rect2->setPos(2, 2);
-//    b_rect2->setPos(xpos, ypos);
-//    b_rect2->setPen(QPen(Qt::red));
-//    addItem(b_rect2);
-
-
 
     QModelIndex intensityDataIndex = m_model->indexOfItem(item);
 
@@ -137,7 +128,6 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex)
         if (ParameterizedItem *item = m_model->itemForIndex(itemIndex)) {
             qDebug() << "aaa:" << item->modelType();
             addViewForItem(item);
-
         }
     }
 
@@ -152,7 +142,7 @@ IMaskView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
     if (!view) {
         qDebug() << "       DesignerScene::addViewForItem() -> Creating view for item"
                  << item->modelType();
-        view = MaskViewFactory::createMaskView(item);
+        view = MaskViewFactory::createMaskView(item, m_adaptor.data());
         if (view) {
             m_ItemToView[item] = view;
             addItem(view);

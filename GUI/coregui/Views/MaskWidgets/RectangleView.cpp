@@ -28,8 +28,15 @@ RectangleView::RectangleView()
 
 QRectF RectangleView::boundingRect() const
 {
-    return QRectF(toSceneX(RectangleItem::P_POSX), toSceneY(RectangleItem::P_POSY),
+    return QRectF(0.0, 0.0,
                   toSceneX(RectangleItem::P_WIDTH), toSceneY(RectangleItem::P_HEIGHT));
+}
+
+void RectangleView::setParameterizedItem(ParameterizedItem *item)
+{
+    IMaskView::setParameterizedItem(item);
+    setX(toSceneX(RectangleItem::P_POSX));
+    setY(toSceneY(RectangleItem::P_POSY));
 }
 
 void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)

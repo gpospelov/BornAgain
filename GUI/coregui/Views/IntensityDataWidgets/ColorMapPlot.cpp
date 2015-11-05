@@ -125,18 +125,24 @@ void ColorMapPlot::showLinesOverTheMap(bool isVisible)
     }
 }
 
-QPointF ColorMapPlot::axesToPixel(const QPointF &axes_coordinates) const
+double ColorMapPlot::xAxisCoordToPixel(double axis_coordinate) const
 {
-    double xPos = m_customPlot->xAxis->coordToPixel(axes_coordinates.x());
-    double yPos = m_customPlot->yAxis->coordToPixel(axes_coordinates.y());
-    return QPointF(xPos, yPos);
+    return m_customPlot->xAxis->coordToPixel(axis_coordinate);
 }
 
-QPointF ColorMapPlot::pixelToAxes(const QPointF &widget_coordinates) const
+double ColorMapPlot::yAxisCoordToPixel(double axis_coordinate) const
 {
-    double xPos = m_customPlot->xAxis->pixelToCoord(widget_coordinates.x());
-    double yPos = m_customPlot->yAxis->pixelToCoord(widget_coordinates.y());
-    return QPointF(xPos, yPos);
+    return m_customPlot->yAxis->coordToPixel(axis_coordinate);
+}
+
+double ColorMapPlot::pixelToXaxisCoord(double pixel) const
+{
+    return m_customPlot->xAxis->pixelToCoord(pixel);
+}
+
+double ColorMapPlot::pixelToYaxisCoord(double pixel) const
+{
+    return m_customPlot->yAxis->pixelToCoord(pixel);
 }
 
 //! sets logarithmic scale

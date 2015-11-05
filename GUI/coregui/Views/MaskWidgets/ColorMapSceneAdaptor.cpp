@@ -27,7 +27,7 @@ qreal ColorMapSceneAdaptor::toSceneX(qreal mask_x) const
 {
     qreal result = mask_x;
     if(m_plot) result = m_plot->xAxisCoordToPixel(mask_x);
-    qDebug() << "ColorMapSceneAdaptor::toSceneX()  mask_x" << mask_x << "scene_x"<< result;
+    //qDebug() << "ColorMapSceneAdaptor::toSceneX()  mask_x" << mask_x << "scene_x"<< result;
     return result;
 }
 
@@ -64,13 +64,14 @@ void ColorMapSceneAdaptor::setColorMapPlot(ColorMapPlot *plot)
 bool ColorMapSceneAdaptor::eventFilter(QObject *object, QEvent *event)
 {
     Q_UNUSED(object);
-//    qDebug() << "ColorMapSceneAdaptor::eventFilter(QObject *, QEvent *)";
-    if (event->type() == QEvent::Resize) {
+    qDebug() << "ColorMapSceneAdaptor::eventFilter(QObject *, QEvent *)" << event->type();
+    if (event->type() == QEvent::Resize || event->type() == QEvent::UpdateRequest) {
         qDebug() << ">>>";
         qDebug() << ">>>";
         qDebug() << ">>>";
         qDebug() << ">>>";
         qDebug() << "ColorMapSceneAdaptor::eventFilter(QObject *, QEvent *)";
+        emit update_request();
     }
     return QObject::eventFilter(object, event);
 }

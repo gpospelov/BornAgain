@@ -27,11 +27,19 @@ public:
 
 //    void setParameterizedItem(ParameterizedItem *item);
 
+public slots:
+    virtual void onChangedX();
+    virtual void onChangedY();
+    virtual void onPropertyChange(const QString &propertyName);
+
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
 
 private:
-    void calculate_bounding_rect();
+    void update_view();
+    void update_bounding_rect();
+    void update_position();
+    bool m_block_on_property_change;
 };
 
 

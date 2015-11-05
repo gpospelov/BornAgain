@@ -24,6 +24,8 @@ class ColorMapPlot;
 
 class ColorMapSceneAdaptor : public ISceneAdaptor
 {
+    Q_OBJECT
+
 public:
     ColorMapSceneAdaptor();
 

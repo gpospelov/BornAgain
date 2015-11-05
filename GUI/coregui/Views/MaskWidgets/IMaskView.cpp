@@ -22,7 +22,8 @@ IMaskView::IMaskView()
     : m_item(0)
     , m_adaptor(0)
 {
-
+    connect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
+    connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
 }
 
 QRectF IMaskView::boundingRect() const
@@ -64,6 +65,7 @@ void IMaskView::setSceneAdaptor(ISceneAdaptor *adaptor)
     qDebug() << "BBB";
     qDebug() << "IMaskView::setSceneAdaptor()-> setting adapter";
     m_adaptor = adaptor;
+    connect(m_adaptor, SIGNAL(update_request()), this, SLOT(update_view()));
     update_view();
 }
 
@@ -101,16 +103,40 @@ qreal IMaskView::toSceneY(qreal value) const
     return result;
 }
 
+qreal IMaskView::fromSceneX(qreal value) const
+{
+    qreal result = value;
+    if(m_adaptor) result = m_adaptor->fromSceneX(value);
+    return result;
+}
+
+qreal IMaskView::fromSceneY(qreal value) const
+{
+    qreal result = value;
+    if(m_adaptor) result = m_adaptor->fromSceneY(value);
+    return result;
+}
+
+void IMaskView::onChangedX()
+{
+
+}
+
+void IMaskView::onChangedY()
+{
+
+}
+
 void IMaskView::onPropertyChange(const QString &propertyName)
 {
     Q_UNUSED(propertyName);
 }
 
-void IMaskView::update_view()
-{
-    qDebug() << ">>>> IMaskView::update_view() -> ";
-    calculate_bounding_rect();
-    update();
-}
+//void IMaskView::update_view()
+//{
+//    qDebug() << ">>>> IMaskView::update_view() -> ";
+//    update_bounding_rect();
+//    update();
+//}
 
 

@@ -43,15 +43,21 @@ public:
     qreal toSceneY(const QString &property_name) const;
     qreal toSceneY(qreal value) const;
 
+    //! convert scene coordinates to ColorMap plot coordinates
+    qreal fromSceneX(qreal value) const;
+    qreal fromSceneY(qreal value) const;
+
 signals:
     void aboutToBeDeleted();
 
 public slots:
+    virtual void update_view() = 0;
+    virtual void onChangedX();
+    virtual void onChangedY();
     virtual void onPropertyChange(const QString &propertyName);
 
 protected:
-    virtual void update_view(); //! update visual appearance triggered by adapter
-    virtual void calculate_bounding_rect() = 0;
+    //! update visual appearance triggered by adapter
     ParameterizedItem *m_item;
     ISceneAdaptor *m_adaptor;
     QRectF m_bounding_rect;

@@ -36,6 +36,10 @@ public:
     virtual qreal fromSceneX(qreal) const = 0;
     //! convert scene y-coordinate to native mask coordinate
     virtual qreal fromSceneY(qreal) const = 0;
+
+signals:
+    void update_request();
+
 };
 
 class BA_CORE_API_ DefaultSceneAdaptor : public ISceneAdaptor

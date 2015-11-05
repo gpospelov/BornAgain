@@ -16,12 +16,18 @@
 #include "IMaskView.h"
 #include "ParameterizedItem.h"
 #include "ISceneAdaptor.h"
+#include <QDebug>
 
 IMaskView::IMaskView()
     : m_item(0)
     , m_adaptor(0)
 {
 
+}
+
+QRectF IMaskView::boundingRect() const
+{
+    return m_bounding_rect;
 }
 
 void IMaskView::setParameterizedItem(ParameterizedItem *item)
@@ -44,7 +50,7 @@ void IMaskView::setParameterizedItem(ParameterizedItem *item)
                     SLOT(onPropertyChange(const QString &)));
         }
     }
-
+    update_view();
 }
 
 ParameterizedItem *IMaskView::getParameterizedItem()
@@ -54,13 +60,26 @@ ParameterizedItem *IMaskView::getParameterizedItem()
 
 void IMaskView::setSceneAdaptor(ISceneAdaptor *adaptor)
 {
+    qDebug() << "BBB";
+    qDebug() << "BBB";
+    qDebug() << "IMaskView::setSceneAdaptor()-> setting adapter";
     m_adaptor = adaptor;
+    update_view();
 }
 
 qreal IMaskView::toSceneX(const QString &property_name) const
 {
     Q_ASSERT(m_item);
-    qreal result = m_item->getRegisteredProperty(property_name).toReal();
+    qreal result = toSceneX(m_item->getRegisteredProperty(property_name).toReal());
+    qDebug() << "IMaskView::toSceneX:" << property_name
+             << "propertyValue" << m_item->getRegisteredProperty(property_name).toReal()
+             << " toSceneX:" << result;
+    return result;
+}
+
+qreal IMaskView::toSceneX(qreal value) const
+{
+    qreal result = value;
     if(m_adaptor) result = m_adaptor->toSceneX(result);
     return result;
 }
@@ -68,7 +87,16 @@ qreal IMaskView::toSceneX(const QString &property_name) const
 qreal IMaskView::toSceneY(const QString &property_name) const
 {
     Q_ASSERT(m_item);
-    qreal result = m_item->getRegisteredProperty(property_name).toReal();
+    qreal result = toSceneY(m_item->getRegisteredProperty(property_name).toReal());
+    qDebug() << "IMaskView::toSceneY:" << property_name
+             << "propertyValue" << m_item->getRegisteredProperty(property_name).toReal()
+             << " toSceneY:" << result;
+    return result;
+}
+
+qreal IMaskView::toSceneY(qreal value) const
+{
+    qreal result = value;
     if(m_adaptor) result = m_adaptor->toSceneY(result);
     return result;
 }
@@ -76,6 +104,13 @@ qreal IMaskView::toSceneY(const QString &property_name) const
 void IMaskView::onPropertyChange(const QString &propertyName)
 {
     Q_UNUSED(propertyName);
+}
+
+void IMaskView::update_view()
+{
+    qDebug() << ">>>> IMaskView::update_view() -> ";
+    calculate_bounding_rect();
+    update();
 }
 
 

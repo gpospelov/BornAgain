@@ -127,7 +127,9 @@ void ColorMapPlot::showLinesOverTheMap(bool isVisible)
 
 double ColorMapPlot::xAxisCoordToPixel(double axis_coordinate) const
 {
-    return m_customPlot->xAxis->coordToPixel(axis_coordinate);
+    double result = m_customPlot->xAxis->coordToPixel(axis_coordinate);
+//    qDebug() << "ColorMapPlot::xAxisCoordToPixel axis_coordinate:" << axis_coordinate << "result:" << result;
+    return result;
 }
 
 double ColorMapPlot::yAxisCoordToPixel(double axis_coordinate) const
@@ -181,7 +183,7 @@ void ColorMapPlot::onMouseMove(QMouseEvent *event)
     double xPos = m_customPlot->xAxis->pixelToCoord(point.x());
     double yPos = m_customPlot->yAxis->pixelToCoord(point.y());
 
-    qDebug() << "AAA ColorMapPlot::onMouseMove() " << point << "xpos:" << xPos << "yPos:" << yPos;
+//    qDebug() << "AAA ColorMapPlot::onMouseMove() " << point << "xpos:" << xPos << "yPos:" << yPos;
 
     if (m_customPlot->xAxis->range().contains(xPos)
         && m_customPlot->yAxis->range().contains(yPos)) {

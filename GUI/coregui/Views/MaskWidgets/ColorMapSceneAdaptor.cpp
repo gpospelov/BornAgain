@@ -25,39 +25,51 @@ ColorMapSceneAdaptor::ColorMapSceneAdaptor()
 
 qreal ColorMapSceneAdaptor::toSceneX(qreal mask_x) const
 {
-    Q_ASSERT(m_plot);
-    return m_plot->xAxisCoordToPixel(mask_x);
+    qreal result = mask_x;
+    if(m_plot) result = m_plot->xAxisCoordToPixel(mask_x);
+    qDebug() << "ColorMapSceneAdaptor::toSceneX()  mask_x" << mask_x << "scene_x"<< result;
+    return result;
 }
 
 qreal ColorMapSceneAdaptor::toSceneY(qreal mask_y) const
 {
-    Q_ASSERT(m_plot);
-    return m_plot->yAxisCoordToPixel(mask_y);
+    qreal result = mask_y;
+    if(m_plot) result = m_plot->yAxisCoordToPixel(mask_y);
+    return result;
 }
 
 qreal ColorMapSceneAdaptor::fromSceneX(qreal scene_x) const
 {
-    Q_ASSERT(m_plot);
-    return m_plot->pixelToXaxisCoord(scene_x);
+    qreal result = scene_x;
+    if(m_plot) result = m_plot->pixelToXaxisCoord(scene_x);
+    return result;
 }
 
 qreal ColorMapSceneAdaptor::fromSceneY(qreal scene_y) const
 {
-    Q_ASSERT(m_plot);
-    return m_plot->pixelToYaxisCoord(scene_y);
+    qreal result = scene_y;
+    if(m_plot) result = m_plot->pixelToYaxisCoord(scene_y);
+    return result;
 }
 
 void ColorMapSceneAdaptor::setColorMapPlot(ColorMapPlot *plot)
 {
+    qDebug() << "ColorMapSceneAdaptor::setColorMapPlot() -> installing filter";
     m_plot = plot;
-    m_plot->installEventFilter(this);
+    if(m_plot) {
+        m_plot->installEventFilter(this);
+    }
 }
 
 bool ColorMapSceneAdaptor::eventFilter(QObject *object, QEvent *event)
 {
     Q_UNUSED(object);
-    qDebug() << "ColorMapSceneAdaptor::eventFilter(QObject *, QEvent *)";
+//    qDebug() << "ColorMapSceneAdaptor::eventFilter(QObject *, QEvent *)";
     if (event->type() == QEvent::Resize) {
+        qDebug() << ">>>";
+        qDebug() << ">>>";
+        qDebug() << ">>>";
+        qDebug() << ">>>";
         qDebug() << "ColorMapSceneAdaptor::eventFilter(QObject *, QEvent *)";
     }
     return QObject::eventFilter(object, event);

@@ -31,13 +31,17 @@ public:
     IMaskView();
     virtual ~IMaskView(){}
 
+    QRectF boundingRect() const;
+
     virtual void setParameterizedItem(ParameterizedItem *item);
     virtual ParameterizedItem *getParameterizedItem();
 
     virtual void setSceneAdaptor(ISceneAdaptor *adaptor);
 
     qreal toSceneX(const QString &property_name) const;
+    qreal toSceneX(qreal value) const;
     qreal toSceneY(const QString &property_name) const;
+    qreal toSceneY(qreal value) const;
 
 signals:
     void aboutToBeDeleted();
@@ -46,8 +50,11 @@ public slots:
     virtual void onPropertyChange(const QString &propertyName);
 
 protected:
+    virtual void update_view(); //! update visual appearance triggered by adapter
+    virtual void calculate_bounding_rect() = 0;
     ParameterizedItem *m_item;
     ISceneAdaptor *m_adaptor;
+    QRectF m_bounding_rect;
 };
 
 

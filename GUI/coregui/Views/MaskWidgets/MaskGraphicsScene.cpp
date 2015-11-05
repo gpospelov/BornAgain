@@ -20,6 +20,7 @@
 #include "ParameterizedItem.h"
 #include "IMaskView.h"
 #include "ISceneAdaptor.h"
+#include "ColorMapSceneAdaptor.h"
 #include "MaskViewFactory.h"
 #include <QDebug>
 
@@ -95,7 +96,7 @@ void MaskGraphicsScene::resetScene()
     clear();
     m_ItemToView.clear();
     init_scene();
-    m_adaptor.reset(new DefaultSceneAdaptor);
+    m_adaptor.reset(new ColorMapSceneAdaptor);
 }
 
 void MaskGraphicsScene::updateScene()
@@ -112,12 +113,12 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex)
     IntensityDataItem *item = dynamic_cast<IntensityDataItem *>(m_model->getTopItem());
     Q_ASSERT(item);
 
-//    MaskGraphicsProxy *proxy = new MaskGraphicsProxy;
-//    proxy->setItem(item);
-//    proxy->setPos(0,0);
-//    proxy->resize(800, 600);
-//    addItem(proxy);
-
+    MaskGraphicsProxy *proxy = new MaskGraphicsProxy;
+    proxy->setItem(item);
+    proxy->setSceneAdaptor(m_adaptor.data());
+    proxy->setPos(0,0);
+    proxy->resize(800, 600);
+    addItem(proxy);
 
 
     QModelIndex intensityDataIndex = m_model->indexOfItem(item);
@@ -136,6 +137,10 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex)
 IMaskView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
 {
     Q_ASSERT(item);
+    qDebug() << "AAA";
+    qDebug() << "AAA";
+    qDebug() << "AAA";
+    qDebug() << "AAA";
     qDebug() << "MaskGraphicsScene::addViewForItem() ->" << item->modelType();
 
     IMaskView *view = m_ItemToView[item];
@@ -145,7 +150,9 @@ IMaskView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
         view = MaskViewFactory::createMaskView(item, m_adaptor.data());
         if (view) {
             m_ItemToView[item] = view;
+            qDebug() << "       ---> adding to scene";
             addItem(view);
+            qDebug() << "       <--- added to scene";
             return view;
         }
     } else {

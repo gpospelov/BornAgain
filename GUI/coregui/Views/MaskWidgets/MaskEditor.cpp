@@ -70,14 +70,14 @@ void MaskEditor::init_test_model()
 
     RectangleItem *rect = dynamic_cast<RectangleItem *>(m_maskModel->insertNewItem(Constants::RectangleMaskType, m_maskModel->indexOfItem(item)));
     Q_ASSERT(rect);
-//    rect->setRegisteredProperty(RectangleItem::P_POSX, 0.5);
-//    rect->setRegisteredProperty(RectangleItem::P_POSY, 0.5);
-//    rect->setRegisteredProperty(RectangleItem::P_WIDTH, 1.0);
-//    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 1.0);
-    rect->setRegisteredProperty(RectangleItem::P_POSX, 100.0);
-    rect->setRegisteredProperty(RectangleItem::P_POSY, 100.0);
-    rect->setRegisteredProperty(RectangleItem::P_WIDTH, 300.0);
-    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 200.0);
+    rect->setRegisteredProperty(RectangleItem::P_POSX, 0.5);
+    rect->setRegisteredProperty(RectangleItem::P_POSY, 1.5);
+    rect->setRegisteredProperty(RectangleItem::P_WIDTH, 1.0);
+    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 1.0);
+//    rect->setRegisteredProperty(RectangleItem::P_POSX, 100.0);
+//    rect->setRegisteredProperty(RectangleItem::P_POSY, 100.0);
+//    rect->setRegisteredProperty(RectangleItem::P_WIDTH, 300.0);
+//    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 200.0);
 
     m_editorCanvas->setModel(m_maskModel);
 }

@@ -25,12 +25,13 @@ class RectangleView : public IMaskView
 public:
     RectangleView();
 
-    QRectF boundingRect() const;
-    void setParameterizedItem(ParameterizedItem *item);
+//    void setParameterizedItem(ParameterizedItem *item);
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
 
+private:
+    void calculate_bounding_rect();
 };
 
 

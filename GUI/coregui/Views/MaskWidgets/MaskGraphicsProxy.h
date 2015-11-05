@@ -20,6 +20,8 @@
 #include <QGraphicsProxyWidget>
 
 class IntensityDataItem;
+class ISceneAdaptor;
+class ColorMapSceneAdaptor;
 
 //! Graphics proxy to place QWidget inside QGraphicsScene, used by MaskEditorCanvas.
 
@@ -27,6 +29,7 @@ class MaskGraphicsProxy : public QGraphicsProxyWidget
 {
 public:
     MaskGraphicsProxy();
+    ~MaskGraphicsProxy();
 
     enum { Type = UserType + 4 };
 
@@ -36,6 +39,8 @@ public:
     }
 
     void setItem(IntensityDataItem *intensityDataItem);
+    void setSceneAdaptor(ISceneAdaptor *sceneAdaptor);
+
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -44,6 +49,7 @@ protected:
 
 private:
     ColorMapPlot *m_colorMap;
+    ColorMapSceneAdaptor *m_sceneAdaptor;
 };
 
 #endif

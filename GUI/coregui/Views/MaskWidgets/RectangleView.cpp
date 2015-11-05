@@ -17,6 +17,7 @@
 #include "MaskItems.h"
 #include "DesignerHelper.h"
 #include <QPainter>
+#include <QDebug>
 
 RectangleView::RectangleView()
 {
@@ -26,18 +27,13 @@ RectangleView::RectangleView()
 
 }
 
-QRectF RectangleView::boundingRect() const
-{
-    return QRectF(0.0, 0.0,
-                  toSceneX(RectangleItem::P_WIDTH), toSceneY(RectangleItem::P_HEIGHT));
-}
-
-void RectangleView::setParameterizedItem(ParameterizedItem *item)
-{
-    IMaskView::setParameterizedItem(item);
-    setX(toSceneX(RectangleItem::P_POSX));
-    setY(toSceneY(RectangleItem::P_POSY));
-}
+//void RectangleView::setParameterizedItem(ParameterizedItem *item)
+//{
+//    IMaskView::setParameterizedItem(item);
+//    setX(toSceneX(RectangleItem::P_POSX));
+//    setY(toSceneY(RectangleItem::P_POSY));
+//    update_view();
+//}
 
 void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
@@ -51,4 +47,17 @@ void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, Q
     painter->setPen(brush.color().darker());
     painter->setBrush(brush);
     painter->drawRect(boundingRect());
+}
+
+void RectangleView::calculate_bounding_rect()
+{
+    if(m_item) {
+//        m_bounding_rect = QRectF(toSceneX(0.0), toSceneY(0.0),toSceneX(RectangleItem::P_WIDTH),
+//                             toSceneY(RectangleItem::P_HEIGHT));
+        m_bounding_rect = QRectF(toSceneX(RectangleItem::P_POSX), toSceneY(RectangleItem::P_POSY),toSceneX(RectangleItem::P_WIDTH),
+                             toSceneY(RectangleItem::P_HEIGHT));
+//        setX(toSceneX(RectangleItem::P_POSX));
+//        setY(toSceneY(RectangleItem::P_POSY));
+    }
+    qDebug() << "RectangleView::calculate_bounding_rect()" << m_bounding_rect << "pos:" << pos();
 }

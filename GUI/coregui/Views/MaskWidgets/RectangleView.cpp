@@ -16,6 +16,7 @@
 #include "RectangleView.h"
 #include "MaskItems.h"
 #include "MaskEditorHelper.h"
+#include "PointElement.h"
 #include <QPainter>
 #include <QMarginsF>
 #include <QDebug>
@@ -27,10 +28,9 @@ const double bbox_margins = 5; // additional margins around rectangle to form bo
 RectangleView::RectangleView()
     : m_block_on_property_change(false)
 {
-    setFlag(QGraphicsItem::ItemIsSelectable);
-    setFlag(QGraphicsItem::ItemIsMovable);
+    setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptHoverEvents(true);
-
+    create_points();
 }
 
 void RectangleView::onChangedX()
@@ -75,7 +75,7 @@ void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, Q
     painter->drawRect(QRectF(0.0, 0.0, width(), height()));
 
     if (this->isSelected()) {
-        paint_rectangle_marker(painter, QPointF(0,0));
+//        paint_rectangle_marker(painter, QPointF(0,0));
 //        QVector<QPointF> corners;
 //        corners.push_back(m_mask_rect.topLeft(), m_mask_rect.topRight(), m_mask_rect.bottomRight(), m_mask_rect.bottomLeft());
     }
@@ -102,8 +102,9 @@ void RectangleView::update_bounding_rect()
 {
     if(m_item) {
         m_mask_rect = QRectF(0.0, 0.0, width(), height());
-        m_bounding_rect = m_mask_rect.marginsAdded(QMarginsF(bbox_margins, bbox_margins,
-                                                      bbox_margins, bbox_margins));
+//        m_bounding_rect = m_mask_rect.marginsAdded(QMarginsF(bbox_margins, bbox_margins,
+//                                                      bbox_margins, bbox_margins));
+        m_bounding_rect = m_mask_rect;
     }
     qDebug() << "RectangleView::calculate_bounding_rect()" << m_bounding_rect
              << "orig_width:" << par(RectangleItem::P_WIDTH)
@@ -153,5 +154,18 @@ qreal RectangleView::bottom() const
 qreal RectangleView::height() const
 {
     return bottom() - top();
+}
+
+void RectangleView::create_points()
+{
+    QList<PointElement::EPointType> points;
+    points << PointElement::TOPLEFT << PointElement::TOPMIDDLE << PointElement::TOPRIGHT
+           << PointElement::MIDDLERIGHT << PointElement::BOTTOMRIGHT
+           << PointElement::BOTTOMMIDLE << PointElement::BOTTOMLEFT << PointElement::MIDDLELEFT;
+
+    foreach(PointElement::EPointType point_type, points) {
+        PointElement *el = new PointElement(point_type, this);
+        Q_UNUSED(el);
+    }
 }
 

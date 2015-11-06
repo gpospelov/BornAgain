@@ -21,7 +21,7 @@
 //! This is a View of rectangular mask ( represented by RectangleItem) on GraphicsScene.
 //! Given view follows standard QGraphicsScene notations: (x,y) is top left corner.
 
-class RectangleView : public IMaskView
+class BA_CORE_API_ RectangleView : public IMaskView
 {
     Q_OBJECT
 
@@ -42,13 +42,14 @@ private:
     void paint_rectangle_marker(QPainter *painter, const QPointF &pos);
     void update_view();
     void update_bounding_rect();
-    void update_position();
+    void update_position();    
     qreal left() const;
     qreal right() const;
     qreal width() const;
     qreal top() const;
     qreal bottom() const;
     qreal height() const;
+    void create_points();
     bool m_block_on_property_change;
     QRectF m_mask_rect; // mask rectangle in scene coordinates
 };

@@ -41,7 +41,6 @@ public:
     void setItem(IntensityDataItem *intensityDataItem);
     void setSceneAdaptor(ISceneAdaptor *sceneAdaptor);
 
-
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);

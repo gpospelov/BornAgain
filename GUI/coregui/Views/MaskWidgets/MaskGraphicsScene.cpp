@@ -34,6 +34,7 @@ MaskGraphicsScene::MaskGraphicsScene(QObject *parent)
     , m_model(0)
 {
 //    init_scene();
+    setSceneRect(default_scene_rect);
 }
 
 void MaskGraphicsScene::setModel(SessionModel *model)
@@ -72,8 +73,6 @@ void MaskGraphicsScene::setModel(SessionModel *model)
 
 void MaskGraphicsScene::init_scene()
 {
-    setSceneRect(default_scene_rect);
-
     QGraphicsRectItem *b_rect = new QGraphicsRectItem(0, 0, default_scene_rect.width(), default_scene_rect.height());
     b_rect->setPos(0, 0);
     b_rect->setFlag(QGraphicsItem::ItemIgnoresTransformations, true);
@@ -117,7 +116,7 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex)
     proxy->setItem(item);
     proxy->setSceneAdaptor(m_adaptor.data());
     proxy->setPos(0,0);
-    proxy->resize(800, 600);
+    proxy->resize(1200, 1000);
     addItem(proxy);
 
 

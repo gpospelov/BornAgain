@@ -74,6 +74,18 @@ void MaskGraphicsView::resizeEvent(QResizeEvent *event)
     qDebug() << "       transform" << transform();
     QWidget::resizeEvent(event);
 
+    foreach (QGraphicsItem *graphicsItem, scene()->items()) {
+        if(MaskGraphicsProxy *proxy = dynamic_cast<MaskGraphicsProxy *>(graphicsItem)) {
+            proxy->resize(event->size());
+            scene()->setSceneRect(0,0,event->size().width(),event->size().height());
+            proxy->setPos(0,0);
+            qDebug() << "!!! Resizing" << this->size() << event->size();
+        }
+    }
+
+
+
+
 //    QTransform trans = transform();
 //    fitInView(QRectF(0, 0, 800, 600), Qt::KeepAspectRatio);
 
@@ -104,7 +116,9 @@ void MaskGraphicsView::resizeEvent(QResizeEvent *event)
 void MaskGraphicsView::mouseMoveEvent(QMouseEvent *event)
 {
     qDebug() << "MaskGraphicsView::mouseMoveEvent ->"
-             << event->pos() << "scene_coord:" << mapToScene(event->pos());
+             << event->pos() << "scene_coord:" << mapToScene(event->pos())
+             << " view_size:" << size() << " viewport:" << viewport()->size();
+
 //    qDebug() << "  transform():" <<transform();
 
     QGraphicsView::mouseMoveEvent(event);

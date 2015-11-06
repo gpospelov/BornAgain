@@ -81,4 +81,5 @@ void MaskEditor::init_test_model()
 
     m_editorCanvas->setModel(m_maskModel);
     m_editorToolPanel->setModel(m_maskModel, m_maskModel->indexOfItem(item));
+    m_editorCanvas->setSelectionModel(m_editorToolPanel->selectionModel());
 }

@@ -52,12 +52,17 @@ void MaskEditorCanvas::setModel(SessionModel *model)
     m_scene->setModel(model);
 }
 
-void MaskEditorCanvas::resizeEvent(QResizeEvent *event)
+void MaskEditorCanvas::setSelectionModel(QItemSelectionModel *model)
 {
-    qDebug() << "MaskEditorCanvas::resizeEvent()" << event->size();
-    QWidget::resizeEvent(event);
-
+    m_scene->setSelectionModel(model);
 }
+
+//void MaskEditorCanvas::resizeEvent(QResizeEvent *event)
+//{
+//    qDebug() << "MaskEditorCanvas::resizeEvent()" << event->size();
+//    QWidget::resizeEvent(event);
+
+//}
 
 void MaskEditorCanvas::init_widget()
 {

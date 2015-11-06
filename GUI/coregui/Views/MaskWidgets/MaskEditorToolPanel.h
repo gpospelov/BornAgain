@@ -23,6 +23,7 @@ class SessionModel;
 class QModelIndex;
 class AwesomePropertyEditor;
 class QItemSelection;
+class QItemSelectionModel;
 
 //! Tool widget for MaskEditor
 
@@ -36,6 +37,7 @@ public:
     QSize minimumSizeHint() const { return QSize(128, 128); }
 
     void setModel(SessionModel *model, const QModelIndex &root_index);
+    QItemSelectionModel* selectionModel();
 
 public slots:
     void onSelectionChanged(const QItemSelection &selected, const QItemSelection &);

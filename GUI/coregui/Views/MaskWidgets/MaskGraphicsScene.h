@@ -25,6 +25,8 @@ class SessionModel;
 class ParameterizedItem;
 class IMaskView;
 class ISceneAdaptor;
+class QItemSelectionModel;
+class QItemSelection;
 
 //! Graphics scene for MaskEditorCanvas
 
@@ -35,6 +37,12 @@ public:
     MaskGraphicsScene(QObject *parent = 0);
 
     void setModel(SessionModel *model);
+    void setSelectionModel(QItemSelectionModel *model);
+
+private slots:
+    void onSessionSelectionChanged(const QItemSelection & /* selected */,
+                                   const QItemSelection & /* deselected */);
+    void onSceneSelectionChanged();
 
 private:
     void init_scene();
@@ -44,8 +52,10 @@ private:
     IMaskView* addViewForItem(ParameterizedItem *item);
 
     SessionModel *m_model;
+    QItemSelectionModel *m_selectionModel;
     QSharedPointer<ISceneAdaptor> m_adaptor;
     QMap<ParameterizedItem *, IMaskView *> m_ItemToView;
+    bool m_block_selection;
 };
 
 

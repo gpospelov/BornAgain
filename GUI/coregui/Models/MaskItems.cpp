@@ -15,6 +15,15 @@
 
 #include "MaskItems.h"
 
+const QString MaskItem::P_MASK_VALUE = "Mask value";
+
+MaskItem::MaskItem(const QString &name, ParameterizedItem *parent)
+    : ParameterizedItem(name, parent)
+{
+    registerProperty(P_MASK_VALUE, true);
+}
+
+
 /* ------------------------------------------------ */
 const QString RectangleItem::P_POSX = "X position";
 const QString RectangleItem::P_POSY = "Y position";

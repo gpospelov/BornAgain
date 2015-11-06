@@ -22,8 +22,8 @@ class BA_CORE_API_ MaskItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    explicit MaskItem(const QString &name, ParameterizedItem *parent)
-        : ParameterizedItem(name, parent) {}
+    static const QString P_MASK_VALUE;
+    explicit MaskItem(const QString &name, ParameterizedItem *parent);
     virtual ~MaskItem(){}
 };
 

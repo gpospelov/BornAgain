@@ -115,9 +115,9 @@ void MaskGraphicsView::resizeEvent(QResizeEvent *event)
 
 void MaskGraphicsView::mouseMoveEvent(QMouseEvent *event)
 {
-    qDebug() << "MaskGraphicsView::mouseMoveEvent ->"
-             << event->pos() << "scene_coord:" << mapToScene(event->pos())
-             << " view_size:" << size() << " viewport:" << viewport()->size();
+//    qDebug() << "MaskGraphicsView::mouseMoveEvent ->"
+//             << event->pos() << "scene_coord:" << mapToScene(event->pos())
+//             << " view_size:" << size() << " viewport:" << viewport()->size();
 
 //    qDebug() << "  transform():" <<transform();
 

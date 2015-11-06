@@ -22,6 +22,7 @@ class MaskGraphicsScene;
 class MaskGraphicsView;
 class MaskGraphicsProxy;
 class SessionModel;
+class QItemSelectionModel;
 
 //! Painting widget for MaskEditor
 
@@ -32,9 +33,11 @@ public:
     MaskEditorCanvas(QWidget *parent = 0);
 
     void setModel(SessionModel *model);
+    void setSelectionModel(QItemSelectionModel *model);
+
 
 protected:
-    void resizeEvent(QResizeEvent *event);
+//    void resizeEvent(QResizeEvent *event);
 
 private:
     void init_widget();

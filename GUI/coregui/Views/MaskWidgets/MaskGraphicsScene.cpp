@@ -22,6 +22,7 @@
 #include "ISceneAdaptor.h"
 #include "ColorMapSceneAdaptor.h"
 #include "MaskViewFactory.h"
+#include <QItemSelection>
 #include <QDebug>
 
 namespace {
@@ -32,9 +33,11 @@ const QRectF default_scene_rect(0, 0, 800, 600);
 MaskGraphicsScene::MaskGraphicsScene(QObject *parent)
     : QGraphicsScene(parent)
     , m_model(0)
+    , m_selectionModel(0)
+    , m_block_selection(false)
 {
-//    init_scene();
     setSceneRect(default_scene_rect);
+    connect(this, SIGNAL(selectionChanged()), this, SLOT(onSceneSelectionChanged()));
 }
 
 void MaskGraphicsScene::setModel(SessionModel *model)
@@ -70,6 +73,77 @@ void MaskGraphicsScene::setModel(SessionModel *model)
     }
 
 }
+
+void MaskGraphicsScene::setSelectionModel(QItemSelectionModel *model)
+{
+    Q_ASSERT(model);
+
+    if (model != m_selectionModel) {
+
+        if (m_selectionModel) {
+            disconnect(m_selectionModel, SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
+                       this, SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
+        }
+
+        m_selectionModel = model;
+
+        if (m_selectionModel) {
+            connect(m_selectionModel, SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this,
+                SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
+        }
+    }
+
+}
+
+//! propagate selection from model to scene
+void MaskGraphicsScene::onSessionSelectionChanged(const QItemSelection & /* selected */,
+                                              const QItemSelection & /* deselected */)
+{
+    if (m_block_selection) return;
+
+    qDebug() << "MaskGraphicsScene::onSessionSelectionChanged()";
+    m_block_selection = true;
+
+    for (QMap<ParameterizedItem *, IMaskView *>::iterator it = m_ItemToView.begin();
+         it != m_ItemToView.end(); ++it) {
+        QModelIndex index = m_model->indexOfItem(it.key());
+        if (index.isValid()) {
+            if (m_selectionModel->isSelected(index)) {
+                it.value()->setSelected(true);
+            } else {
+                it.value()->setSelected(false);
+            }
+        }
+    }
+
+    m_block_selection = false;
+}
+
+//! propagate selection from scene to model
+void MaskGraphicsScene::onSceneSelectionChanged()
+{
+    qDebug() << "MaskGraphicsScene::onSceneSelectionChanged() 1.1";
+    if (m_block_selection)
+        return;
+
+    m_block_selection = true;
+
+    m_selectionModel->clearSelection();
+    QList<QGraphicsItem *> selected = selectedItems();
+    for (int i = 0; i < selected.size(); ++i) {
+        IMaskView *view = dynamic_cast<IMaskView *>(selected[i]);
+        if (view) {
+            ParameterizedItem *maskItem = view->getParameterizedItem();
+            QModelIndex itemIndex = m_model->indexOfItem(maskItem);
+            Q_ASSERT(itemIndex.isValid());
+            if (!m_selectionModel->isSelected(itemIndex))
+                m_selectionModel->select(itemIndex, QItemSelectionModel::Select);
+        }
+    }
+
+    m_block_selection = false;
+}
+
 
 void MaskGraphicsScene::init_scene()
 {

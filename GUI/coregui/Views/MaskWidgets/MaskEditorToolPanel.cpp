@@ -42,10 +42,17 @@ void MaskEditorToolPanel::setModel(SessionModel *model, const QModelIndex &root_
     m_model = model;
     m_listView->setModel(model);
     m_listView->setRootIndex(root_index);
+    m_listView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     connect(m_listView->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this,
             SLOT(onSelectionChanged(QItemSelection, QItemSelection)));
 
+}
+
+QItemSelectionModel *MaskEditorToolPanel::selectionModel()
+{
+    Q_ASSERT(m_listView);
+    return m_listView->selectionModel();
 }
 
 void MaskEditorToolPanel::onSelectionChanged(const QItemSelection &selected, const QItemSelection &)

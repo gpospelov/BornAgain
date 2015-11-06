@@ -38,7 +38,7 @@ void RectangleView::onChangedX()
 void RectangleView::onChangedY()
 {
     m_block_on_property_change = true;
-    m_item->setRegisteredProperty(RectangleItem::P_POSY, fromSceneX(this->y()));
+    m_item->setRegisteredProperty(RectangleItem::P_POSY, fromSceneY(this->y()));
     m_block_on_property_change = false;
 }
 
@@ -91,19 +91,29 @@ void RectangleView::update_view()
 void RectangleView::update_bounding_rect()
 {
     if(m_item) {
-        qreal item_ytop = m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal();
-        qreal item_ywidth = m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal();
+        qreal item_ytop = par(RectangleItem::P_POSY);
+        qreal item_yheight = par(RectangleItem::P_HEIGHT);
         qreal scene_ytop = toSceneY(item_ytop);
-        qreal scene_ybot = toSceneY(item_ytop-item_ywidth);
-        m_bounding_rect = QRectF(0.0, 0.0,toSceneX(RectangleItem::P_WIDTH),
+        qreal scene_ybot = toSceneY(item_ytop-item_yheight);
+
+        qreal item_xleft = par(RectangleItem::P_POSX);
+        qreal item_xwidth = par(RectangleItem::P_WIDTH);
+        qreal scene_xleft = toSceneX(item_xleft);
+        qreal scene_xright = toSceneX(item_xleft+item_xwidth);
+
+        m_bounding_rect = QRectF(0.0, 0.0, scene_xright - scene_xleft,
                               scene_ybot-scene_ytop);
     }
-    qDebug() << "RectangleView::calculate_bounding_rect()" << m_bounding_rect << "pos:" << pos();
+    qDebug() << "RectangleView::calculate_bounding_rect()" << m_bounding_rect
+             << "orig_width:" << par(RectangleItem::P_WIDTH)
+             << "toSceneX(RectangleItem::P_WIDTH):" << toSceneX(RectangleItem::P_WIDTH)
+             << "toSceneY(RectangleItem::P_HEIGHT):" << toSceneY(RectangleItem::P_HEIGHT);
 }
 
 void RectangleView::update_position()
 {
     setX(toSceneX(RectangleItem::P_POSX));
     setY(toSceneY(RectangleItem::P_POSY));
+    qDebug() << "RectangleView::update_position()" << pos();
 }
 

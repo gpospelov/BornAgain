@@ -38,6 +38,8 @@ public:
 
     virtual void setSceneAdaptor(ISceneAdaptor *adaptor);
 
+    double par(const QString &property_name) const;
+
     qreal toSceneX(const QString &property_name) const;
     qreal toSceneX(qreal value) const;
     qreal toSceneY(const QString &property_name) const;

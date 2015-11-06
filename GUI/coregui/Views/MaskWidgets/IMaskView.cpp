@@ -69,6 +69,11 @@ void IMaskView::setSceneAdaptor(ISceneAdaptor *adaptor)
     update_view();
 }
 
+double IMaskView::par(const QString &property_name) const
+{
+    return m_item->getRegisteredProperty(property_name).toReal();
+}
+
 qreal IMaskView::toSceneX(const QString &property_name) const
 {
     Q_ASSERT(m_item);

@@ -1,7 +1,6 @@
 ############################################################################
 # CMakeLists.txt file for building libManhattanStyle
 ############################################################################
-cmake_minimum_required(VERSION 2.8.11)
 if(POLICY CMP0020)
     cmake_policy(SET CMP0020 NEW)
 endif()

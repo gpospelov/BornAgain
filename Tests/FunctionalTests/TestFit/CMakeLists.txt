@@ -2,8 +2,6 @@
 # CMakeLists.txt file for building TestFit functional tests
 ############################################################################
 
-set(CMAKE_CXX_FLAGS "-DSTANDALONE")
-
 set(list_of_tests
     "FitSuite/Minuit2_Migrad"
     "FitSuite/Minuit2_Fumili"

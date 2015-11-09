@@ -1,14 +1,13 @@
 ############################################################################
 # CMakeLists.txt file for building BornAgain/GUI libraries and executable
 ############################################################################
-cmake_minimum_required(VERSION 2.8.11 FATAL_ERROR)
 if(POLICY CMP0020)
     cmake_policy(SET CMP0020 NEW)
 endif()
 if(POLICY CMP0043)
     cmake_policy(SET CMP0043 NEW)
 endif()
- 
+
 message(STATUS "Configuring BornAgain GUI")
 
 find_package(Qt5Widgets REQUIRED)

@@ -1,7 +1,6 @@
 ############################################################################
 # CMakeLists.txt file for building BornAgain/GUI executable
 ############################################################################
-cmake_minimum_required(VERSION 2.8.11 FATAL_ERROR)
 if(POLICY CMP0020)
 cmake_policy(SET CMP0020 NEW)
 endif()
@@ -42,7 +41,7 @@ if(WIN32)
 elseif(APPLE AND BORNAGAIN_APPLE_BUNDLE)
     set(executable_options MACOSX_BUNDLE)
 endif()
- 
+
 
 # --- system dependent files ---------
 if(WIN32)

@@ -2,8 +2,6 @@
 # CMakeLists.txt file for building TestCore functional tests
 ############################################################################
 
-set(CMAKE_CXX_FLAGS "-DSTANDALONE")
-
 include_directories(
     ${Boost_INCLUDE_DIRS}
     ${BornAgainCore_INCLUDE_DIRS}
@@ -11,7 +9,7 @@ include_directories(
     ${GSL_INCLUDE_DIR}
 )
 
-# for some reason these flags doesn't propagated here by SetUpWindows.cmake
+# for some reason these flags aren't propagated here by SetUpWindows.cmake
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc ")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHsc ")

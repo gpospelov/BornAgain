@@ -18,7 +18,7 @@
 #include "Simulation.h"
 #include "MultiLayer.h"
 #include "LayerInterface.h"
-#include <boost/thread.hpp>
+#include <mutex>
 
 
 ProgressHandler::ProgressHandler()
@@ -44,8 +44,8 @@ void ProgressHandler::reset()
 //! them to stop calculations.
 bool ProgressHandler::update(int n)
 {
-    static boost::mutex single_mutex;
-    boost::unique_lock<boost::mutex> single_lock( single_mutex );
+    static std::mutex single_mutex;
+    std::unique_lock<std::mutex> single_lock( single_mutex );
 
     // this flag is to inform Simulation that GUI wants it to be terminated
     bool continue_calculations(true);

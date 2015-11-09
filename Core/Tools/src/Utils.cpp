@@ -24,13 +24,9 @@
 #include <boost/date_time/local_time_adjustor.hpp>
 #include <boost/date_time/c_local_time_adjustor.hpp>
 #include <string>
+#include <thread>
 
 #include "Macros.h"
-GCC_DIAG_OFF(unused-parameter)
-GCC_DIAG_OFF(strict-aliasing)
-#include <boost/thread.hpp>
-GCC_DIAG_ON(strict-aliasing)
-GCC_DIAG_ON(unused-parameter)
 
 
 #ifdef DEBUG_FPE
@@ -144,7 +140,7 @@ std::string Utils::String::getScientificDoubleString(double value, size_t precis
 
 int Utils::System::getThreadHardwareConcurrency()
 {
-    return (int)boost::thread::hardware_concurrency();
+    return std::thread::hardware_concurrency();
 }
 
 std::string Utils::System::getCurrentDateAndTime()

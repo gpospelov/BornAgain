@@ -23,11 +23,9 @@
 #include "BornAgainNamespace.h"
 #include "ProgressHandlerDWBA.h"
 #include "OMPISimulation.h"
+#include <thread>
 
 #include "Macros.h"
-GCC_DIAG_OFF(strict-aliasing);
-#include <boost/thread.hpp>
-GCC_DIAG_ON(strict-aliasing);
 #include <gsl/gsl_errno.h>
 #include <boost/scoped_ptr.hpp>
 
@@ -231,7 +229,7 @@ void Simulation::runSingleSimulation()
         // Multithreading.
         if (m_thread_info.n_threads == 0) {
             // Take optimal number of threads from the hardware.
-            m_thread_info.n_threads = (int)boost::thread::hardware_concurrency();
+            m_thread_info.n_threads = (int)std::thread::hardware_concurrency();
             msglog(MSG::DEBUG) << "Simulation::runSimulation() -> Info. Number of threads "
                                << m_thread_info.n_threads << " (taken from hardware concurrency)"
                                << ", n_batches = " << m_thread_info.n_batches
@@ -242,7 +240,7 @@ void Simulation::runSingleSimulation()
                                << ", n_batches = " << m_thread_info.n_batches
                                << ", current_batch = " << m_thread_info.current_batch;
         }
-        std::vector<boost::thread *> threads;
+        std::vector<std::thread *> threads;
         std::vector<DWBASimulation *> simulations;
 
         // Initialize n simulations.
@@ -269,7 +267,7 @@ void Simulation::runSingleSimulation()
         // Run simulations in n threads.
         for (std::vector<DWBASimulation *>::iterator it = simulations.begin();
              it != simulations.end(); ++it) {
-            threads.push_back(new boost::thread(boost::bind(&DWBASimulation::run, *it)));
+            threads.push_back(new std::thread(boost::bind(&DWBASimulation::run, *it)));
         }
 
         // Wait for threads to complete.

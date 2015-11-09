@@ -101,7 +101,7 @@ set(CMAKE_AUTOMOC ON)
 qt5_add_resources(RC_SRCS ${resource_files})
 
 # --- definitions ------
-if(BORNAGAIN_CRASHHADLER)
+if(BORNAGAIN_CRASHHANDLER)
     add_definitions(-DBORNAGAIN_CRASHHANDLER)
 endif()
 

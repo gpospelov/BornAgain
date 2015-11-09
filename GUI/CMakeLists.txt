@@ -33,7 +33,7 @@ add_subdirectory(externals/qcustomplot)
 add_subdirectory(externals/qtpropertybrowser)
 add_subdirectory(coregui)
 
-if(BORNAGAIN_CRASHHADLER)
+if(BORNAGAIN_CRASHHANDLER)
     add_definitions(-DBORNAGAIN_CRASHHANDLER)
     add_subdirectory(crashhandler)
 endif()

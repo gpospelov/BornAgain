@@ -19,7 +19,7 @@ option(BUILD_DEBIAN "Build a debian package" OFF)
 option(BORNAGAIN_APPLE_BUNDLE "Create a Mac OS X bundle" OFF)
 option(BORNAGAIN_OPENMPI "Build with OpenMPI support" OFF)
 option(BORNAGAIN_RELEASE "Special option for making release" OFF)
-option(BORNAGAIN_CRASHHADLER "Additional machinery to send crash reports" OFF)
+option(BORNAGAIN_CRASHHANDLER "Additional machinery to send crash reports" OFF)
 option(BORNAGAIN_TIFF_SUPPORT "Tiff files read/write support" ON)
 
 #--- Including macros ---

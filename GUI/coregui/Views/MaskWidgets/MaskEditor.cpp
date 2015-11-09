@@ -48,6 +48,8 @@ MaskEditor::MaskEditor(QWidget *parent)
     setLayout(mainLayout);
 
     init_test_model();
+
+    connect(m_editorToolPanel, SIGNAL(activityModeChanged(int)), m_editorCanvas, SLOT(onActivityModeChanged(int)));
 }
 
 void MaskEditor::init_test_model()

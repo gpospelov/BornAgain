@@ -22,6 +22,7 @@
 #include "ISceneAdaptor.h"
 #include "ColorMapSceneAdaptor.h"
 #include "MaskViewFactory.h"
+#include "MaskEditorToolPanel.h"
 #include <QItemSelection>
 #include <QDebug>
 
@@ -34,6 +35,7 @@ MaskGraphicsScene::MaskGraphicsScene(QObject *parent)
     : QGraphicsScene(parent)
     , m_model(0)
     , m_selectionModel(0)
+    , m_proxy(0)
     , m_block_selection(false)
 {
     setSceneRect(default_scene_rect);
@@ -91,6 +93,17 @@ void MaskGraphicsScene::setSelectionModel(QItemSelectionModel *model)
             connect(m_selectionModel, SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this,
                 SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
         }
+    }
+
+}
+
+void MaskGraphicsScene::onActivityModeChanged(int mode)
+{
+    qDebug() << "MaskGraphicsScene::onActivityModeChanged(int mode) ->" << mode;
+    if(mode == MaskEditorToolPanel::PAN_ZOOM_MODE) {
+        m_proxy->setSendSignalsToColormap(true);
+    } else {
+        m_proxy->setSendSignalsToColormap(false);
     }
 
 }
@@ -186,12 +199,12 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex)
     IntensityDataItem *item = dynamic_cast<IntensityDataItem *>(m_model->getTopItem());
     Q_ASSERT(item);
 
-    MaskGraphicsProxy *proxy = new MaskGraphicsProxy;
-    proxy->setItem(item);
-    proxy->setSceneAdaptor(m_adaptor.data());
-    proxy->setPos(0,0);
-    proxy->resize(1200, 1000);
-    addItem(proxy);
+    m_proxy = new MaskGraphicsProxy;
+    m_proxy->setItem(item);
+    m_proxy->setSceneAdaptor(m_adaptor.data());
+    m_proxy->setPos(0,0);
+    m_proxy->resize(1200, 1000);
+    addItem(m_proxy);
 
 
     QModelIndex intensityDataIndex = m_model->indexOfItem(item);

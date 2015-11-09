@@ -17,6 +17,8 @@
 #define RECTANGLEVIEW_H
 
 #include "IMaskView.h"
+#include "PointElement.h"
+#include <QMap>
 
 //! This is a View of rectangular mask ( represented by RectangleItem) on GraphicsScene.
 //! Given view follows standard QGraphicsScene notations: (x,y) is top left corner.
@@ -39,7 +41,7 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
 
 private:
-    void paint_rectangle_marker(QPainter *painter, const QPointF &pos);
+//    void paint_rectangle_marker(QPainter *painter, const QPointF &pos);
     void update_view();
     void update_bounding_rect();
     void update_position();    
@@ -52,6 +54,8 @@ private:
     void create_points();
     bool m_block_on_property_change;
     QRectF m_mask_rect; // mask rectangle in scene coordinates
+    QMap<PointElement::EPointType, PointElement *> m_point_elements;
+
 };
 
 

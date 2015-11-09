@@ -36,7 +36,7 @@ MaskEditorCanvas::MaskEditorCanvas(QWidget *parent)
     setObjectName(QStringLiteral("MaskEditorCanvas"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    m_view->setColorMapProxy(m_graphicsProxy);
+//    m_view->setColorMapProxy(m_graphicsProxy);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_view);
@@ -55,6 +55,12 @@ void MaskEditorCanvas::setModel(SessionModel *model)
 void MaskEditorCanvas::setSelectionModel(QItemSelectionModel *model)
 {
     m_scene->setSelectionModel(model);
+}
+
+void MaskEditorCanvas::onActivityModeChanged(int mode)
+{
+    qDebug() << "MaskEditorCanvas::onActivityModeChanged(int)" << mode;
+    m_scene->onActivityModeChanged(mode);
 }
 
 //void MaskEditorCanvas::resizeEvent(QResizeEvent *event)

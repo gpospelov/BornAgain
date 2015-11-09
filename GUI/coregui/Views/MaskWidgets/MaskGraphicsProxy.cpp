@@ -23,6 +23,7 @@
 MaskGraphicsProxy::MaskGraphicsProxy()
     : m_colorMap(new ColorMapPlot)
     , m_sceneAdaptor(0)
+    , m_send_signals_to_colormap(true)
 {
 
 }
@@ -50,21 +51,36 @@ void MaskGraphicsProxy::setSceneAdaptor(ISceneAdaptor *sceneAdaptor)
     m_sceneAdaptor->setColorMapPlot(m_colorMap);
 }
 
+void MaskGraphicsProxy::setSendSignalsToColormap(bool value)
+{
+    m_send_signals_to_colormap = value;
+}
+
 void MaskGraphicsProxy::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+    if(!m_send_signals_to_colormap) return;
     QGraphicsProxyWidget::mousePressEvent(event);
     event->accept();
 }
 
 void MaskGraphicsProxy::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
+    if(!m_send_signals_to_colormap) return;
     QGraphicsProxyWidget::mouseReleaseEvent(event);
+}
+
+void MaskGraphicsProxy::wheelEvent(QGraphicsSceneWheelEvent *event)
+{
+    if(!m_send_signals_to_colormap) return;
+    qDebug() << "MaskGraphicsProxy::wheelEvent()" << event->pos();
+    QGraphicsProxyWidget::wheelEvent(event);
 }
 
 
 
 void MaskGraphicsProxy::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    QGraphicsProxyWidget::mouseMoveEvent(event);
+    if(!m_send_signals_to_colormap) return;
     qDebug() << "MaskGraphicsProxy::mouseMoveEvent()" << event->pos();
+    QGraphicsProxyWidget::mouseMoveEvent(event);
 }

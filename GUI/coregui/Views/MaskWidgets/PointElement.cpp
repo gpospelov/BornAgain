@@ -44,8 +44,7 @@ PointElement::PointElement(EPointType pointType, QGraphicsItem *parent)
 {
     setAcceptHoverEvents(true);
     setCursor(m_cursors[m_pointType]);
-    connect(this, SIGNAL(parentChanged()), this, SLOT(onParentChanged()));
-    set_position();
+//    connect(this, SIGNAL(parentChanged()), this, SLOT(onParentChanged()));
 }
 
 QRectF PointElement::boundingRect() const
@@ -56,7 +55,7 @@ QRectF PointElement::boundingRect() const
 void PointElement::onParentChanged()
 {
     Q_ASSERT(0);
-    set_position();
+    set_position(parentItem()->boundingRect());
 }
 
 void PointElement::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -71,10 +70,8 @@ void PointElement::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QW
 }
 
 //! set position from point type
-void PointElement::set_position()
+void PointElement::set_position(const QRectF &rect)
 {
-    QRectF rect = parentItem()->boundingRect();
-
     if(m_pointType == TOPLEFT) {
         setPos(rect.topLeft());
     }

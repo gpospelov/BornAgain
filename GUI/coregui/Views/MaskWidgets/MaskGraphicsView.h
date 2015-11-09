@@ -31,7 +31,7 @@ public:
     QSize sizeHint() const { return QSize(512, 512); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
 
-    void setColorMapProxy(MaskGraphicsProxy *colorMapProxy);
+//    void setColorMapProxy(MaskGraphicsProxy *colorMapProxy);
 
 protected:
     void wheelEvent(QWheelEvent* event);
@@ -41,7 +41,7 @@ protected:
 private:
     bool controlButtonIsPressed(QWheelEvent *event);
 
-    MaskGraphicsProxy *m_colorMapProxy;
+//    MaskGraphicsProxy *m_colorMapProxy;
 };
 
 

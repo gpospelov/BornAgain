@@ -23,7 +23,7 @@
 
 MaskGraphicsView::MaskGraphicsView(QGraphicsScene *scene, QWidget *parent)
     : QGraphicsView(scene, parent)
-    , m_colorMapProxy(0)
+//    , m_colorMapProxy(0)
 {
     setObjectName(QStringLiteral("MaskGraphicsView"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -31,10 +31,10 @@ MaskGraphicsView::MaskGraphicsView(QGraphicsScene *scene, QWidget *parent)
     setMouseTracking(true);
 }
 
-void MaskGraphicsView::setColorMapProxy(MaskGraphicsProxy *colorMapProxy)
-{
-    m_colorMapProxy = colorMapProxy;
-}
+//void MaskGraphicsView::setColorMapProxy(MaskGraphicsProxy *colorMapProxy)
+//{
+//    m_colorMapProxy = colorMapProxy;
+//}
 
 void MaskGraphicsView::wheelEvent(QWheelEvent *event)
 {

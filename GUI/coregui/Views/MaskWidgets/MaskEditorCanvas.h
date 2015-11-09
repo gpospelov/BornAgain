@@ -35,6 +35,8 @@ public:
     void setModel(SessionModel *model);
     void setSelectionModel(QItemSelectionModel *model);
 
+public slots:
+    void onActivityModeChanged(int mode);
 
 protected:
 //    void resizeEvent(QResizeEvent *event);

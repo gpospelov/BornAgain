@@ -40,15 +40,18 @@ public:
 
     void setItem(IntensityDataItem *intensityDataItem);
     void setSceneAdaptor(ISceneAdaptor *sceneAdaptor);
+    void setSendSignalsToColormap(bool value);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void wheelEvent(QGraphicsSceneWheelEvent *event);
 
 private:
     ColorMapPlot *m_colorMap;
     ColorMapSceneAdaptor *m_sceneAdaptor;
+    bool m_send_signals_to_colormap;
 };
 
 #endif

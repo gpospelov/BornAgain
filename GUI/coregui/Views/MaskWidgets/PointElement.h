@@ -24,7 +24,7 @@
 //! Point on MaskGraphicsScene represented as small circle or small rectangle.
 //! Used by RectangleView to denote corners
 
-class PointElement : public QGraphicsObject
+class BA_CORE_API_ PointElement : public QGraphicsObject
 {
     Q_OBJECT
 
@@ -41,6 +41,8 @@ public:
 
     QRectF boundingRect() const;
 
+    void set_position(const QRectF &rect);
+
 protected slots:
     void onParentChanged();
 
@@ -48,7 +50,6 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
 
 private:
-    void set_position();
     static QMap<EPointType, Qt::CursorShape> m_cursors;
     EPointType m_pointType;
 };

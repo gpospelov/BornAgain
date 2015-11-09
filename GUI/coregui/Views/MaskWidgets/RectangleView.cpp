@@ -28,7 +28,9 @@ const double bbox_margins = 5; // additional margins around rectangle to form bo
 RectangleView::RectangleView()
     : m_block_on_property_change(false)
 {
-    setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemSendsGeometryChanges);
+    setFlag(QGraphicsItem::ItemIsSelectable);
+    setFlag(QGraphicsItem::ItemIsMovable );
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptHoverEvents(true);
     create_points();
 }
@@ -82,12 +84,12 @@ void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, Q
 
 }
 
-void RectangleView::paint_rectangle_marker(QPainter *painter, const QPointF &pos)
-{
-    painter->setBrush(MaskEditorHelper::getSelectionMarkerBrush());
-    painter->setPen(MaskEditorHelper::getSelectionMarkerPen());
-    painter->drawRect(MaskEditorHelper::getMarkerRectangle(pos));
-}
+//void RectangleView::paint_rectangle_marker(QPainter *painter, const QPointF &pos)
+//{
+//    painter->setBrush(MaskEditorHelper::getSelectionMarkerBrush());
+//    painter->setPen(MaskEditorHelper::getSelectionMarkerPen());
+//    painter->drawRect(MaskEditorHelper::getMarkerRectangle(pos));
+//}
 
 void RectangleView::update_view()
 {
@@ -110,6 +112,12 @@ void RectangleView::update_bounding_rect()
              << "orig_width:" << par(RectangleItem::P_WIDTH)
              << "toSceneX(RectangleItem::P_WIDTH):" << toSceneX(RectangleItem::P_WIDTH)
              << "toSceneY(RectangleItem::P_HEIGHT):" << toSceneY(RectangleItem::P_HEIGHT);
+
+    for(QMap<PointElement::EPointType, PointElement *>::iterator it = m_point_elements.begin(); it!= m_point_elements.end(); ++it) {
+        it.value()->set_position(m_mask_rect);
+    }
+
+
 }
 
 //! updates position of view using item properties
@@ -164,8 +172,9 @@ void RectangleView::create_points()
            << PointElement::BOTTOMMIDLE << PointElement::BOTTOMLEFT << PointElement::MIDDLELEFT;
 
     foreach(PointElement::EPointType point_type, points) {
-        PointElement *el = new PointElement(point_type, this);
-        Q_UNUSED(el);
+        m_point_elements[point_type] = new PointElement(point_type, this);
+
+//        Q_UNUSED(el);
     }
 }
 

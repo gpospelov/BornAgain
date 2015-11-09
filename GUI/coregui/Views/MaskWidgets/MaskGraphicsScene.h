@@ -25,6 +25,7 @@ class SessionModel;
 class ParameterizedItem;
 class IMaskView;
 class ISceneAdaptor;
+class MaskGraphicsProxy;
 class QItemSelectionModel;
 class QItemSelection;
 
@@ -38,6 +39,9 @@ public:
 
     void setModel(SessionModel *model);
     void setSelectionModel(QItemSelectionModel *model);
+
+public slots:
+    void onActivityModeChanged(int mode);
 
 private slots:
     void onSessionSelectionChanged(const QItemSelection & /* selected */,
@@ -55,6 +59,7 @@ private:
     QItemSelectionModel *m_selectionModel;
     QSharedPointer<ISceneAdaptor> m_adaptor;
     QMap<ParameterizedItem *, IMaskView *> m_ItemToView;
+    MaskGraphicsProxy *m_proxy;
     bool m_block_selection;
 };
 

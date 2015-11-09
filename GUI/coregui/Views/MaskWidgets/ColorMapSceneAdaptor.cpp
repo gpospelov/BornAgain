@@ -64,13 +64,13 @@ void ColorMapSceneAdaptor::setColorMapPlot(ColorMapPlot *plot)
 bool ColorMapSceneAdaptor::eventFilter(QObject *object, QEvent *event)
 {
     Q_UNUSED(object);
-    qDebug() << "ColorMapSceneAdaptor::eventFilter(QObject *, QEvent *)" << event->type();
+//    qDebug() << "ColorMapSceneAdaptor::eventFilter(QObject *, QEvent *)" << event->type();
     if (event->type() == QEvent::Resize || event->type() == QEvent::UpdateRequest) {
-        qDebug() << ">>>";
-        qDebug() << ">>>";
-        qDebug() << ">>>";
-        qDebug() << ">>>";
-        qDebug() << "ColorMapSceneAdaptor::eventFilter(QObject *, QEvent *)";
+//        qDebug() << ">>>";
+//        qDebug() << ">>>";
+//        qDebug() << ">>>";
+//        qDebug() << ">>>";
+//        qDebug() << "ColorMapSceneAdaptor::eventFilter(QObject *, QEvent *)";
         emit update_request();
     }
     return QObject::eventFilter(object, event);

@@ -124,6 +124,46 @@ void MaskGraphicsView::mouseMoveEvent(QMouseEvent *event)
     QGraphicsView::mouseMoveEvent(event);
 }
 
+void MaskGraphicsView::keyPressEvent(QKeyEvent *event)
+{
+    qDebug() << "MaskGraphicsView::keyPressEvent";
+    switch (event->key()) {
+    case Qt::Key_Left:
+        break;
+//    case Qt::Key_Space:
+//        if (getSelectionMode() != HAND_DRAG && !event->isAutoRepeat()) {
+//            onSelectionMode(HAND_DRAG);
+//            qDebug() << "  space pressed" << event->isAutoRepeat();
+//        }
+//        break;
+//    case Qt::Key_Delete:
+//        deleteSelectedItems();
+//        break;
+//    case Qt::Key_Backspace:
+//        deleteSelectedItems();
+//        break;
+    default:
+        QWidget::keyPressEvent(event);
+    }
+
+}
+
+void MaskGraphicsView::keyReleaseEvent(QKeyEvent *event)
+{
+    switch (event->key()) {
+//    case Qt::Key_Space:
+
+//        if (getSelectionMode() != RUBBER_SELECTION && !event->isAutoRepeat()) {
+//            onSelectionMode(RUBBER_SELECTION);
+//            qDebug() << "  space released" << event->isAutoRepeat();
+//        }
+//        break;
+    default:
+        QWidget::keyPressEvent(event);
+    }
+
+}
+
 bool MaskGraphicsView::controlButtonIsPressed(QWheelEvent *event)
 {
     if(event->modifiers().testFlag(Qt::ControlModifier)){
@@ -131,4 +171,7 @@ bool MaskGraphicsView::controlButtonIsPressed(QWheelEvent *event)
     }
     return false;
 }
+
+
+
 

@@ -29,6 +29,8 @@ class BA_CORE_API_ RectangleView : public IMaskView
 
 public:
     RectangleView();
+    enum EViewState { NONE, RESIZE, RESIZE_WIDTH, RESIZE_HEIGHT };
+
 
 //    void setParameterizedItem(ParameterizedItem *item);
 
@@ -37,8 +39,17 @@ public slots:
     virtual void onChangedY();
     virtual void onPropertyChange(const QString &propertyName);
 
+private slots:
+    void onGripResizeRequest();
+
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
+
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
 
 private:
 //    void paint_rectangle_marker(QPainter *painter, const QPointF &pos);
@@ -55,7 +66,10 @@ private:
     bool m_block_on_property_change;
     QRectF m_mask_rect; // mask rectangle in scene coordinates
     QMap<PointElement::EPointType, PointElement *> m_point_elements;
-
+    static QMap<PointElement::EPointType, PointElement::EPointType> m_opposite_corners;
+     //!< coordinates of corner opposite to the grip corner at the moment it first clicked
+    QPointF m_resize_opposite_origin;
+    EViewState m_view_state;
 };
 
 

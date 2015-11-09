@@ -48,6 +48,9 @@ private slots:
                                    const QItemSelection & /* deselected */);
     void onSceneSelectionChanged();
 
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+
 private:
     void init_scene();
     void resetScene();

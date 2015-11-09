@@ -43,11 +43,18 @@ public:
 
     void set_position(const QRectF &rect);
 
-protected slots:
-    void onParentChanged();
+    EPointType getPointType() const { return m_pointType; }
+
+signals:
+    void resize_request();
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
 private:
     static QMap<EPointType, Qt::CursorShape> m_cursors;

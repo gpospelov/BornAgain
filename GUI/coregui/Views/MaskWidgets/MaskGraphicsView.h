@@ -37,6 +37,9 @@ protected:
     void wheelEvent(QWheelEvent* event);
     void resizeEvent(QResizeEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
+
 
 private:
     bool controlButtonIsPressed(QWheelEvent *event);

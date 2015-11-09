@@ -23,7 +23,7 @@
 MaskGraphicsProxy::MaskGraphicsProxy()
     : m_colorMap(new ColorMapPlot)
     , m_sceneAdaptor(0)
-    , m_send_signals_to_colormap(true)
+    , m_send_signals_to_colormap(false)
 {
 
 }

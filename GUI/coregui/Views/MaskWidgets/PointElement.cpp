@@ -43,19 +43,14 @@ PointElement::PointElement(EPointType pointType, QGraphicsItem *parent)
     , m_pointType(pointType)
 {
     setAcceptHoverEvents(true);
+//    setFlag(QGraphicsItem::ItemIsMovable );
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     setCursor(m_cursors[m_pointType]);
-//    connect(this, SIGNAL(parentChanged()), this, SLOT(onParentChanged()));
 }
 
 QRectF PointElement::boundingRect() const
 {
     return QRectF(-4, -4, 8, 8);
-}
-
-void PointElement::onParentChanged()
-{
-    Q_ASSERT(0);
-    set_position(parentItem()->boundingRect());
 }
 
 void PointElement::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -68,6 +63,39 @@ void PointElement::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QW
     painter->drawRect(boundingRect());
 
 }
+
+void PointElement::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    qDebug() << "PointElement::mousePressEvent";
+    emit resize_request();
+    QGraphicsObject::mousePressEvent(event);
+}
+
+void PointElement::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    qDebug() << "PointElement::mouseMoveEvent";
+    QGraphicsObject::mouseMoveEvent(event);
+}
+
+void PointElement::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    qDebug() << "PointElement::mouseReleaseEvent";
+    parentItem()->setFlag(QGraphicsItem::ItemIsMovable, true);
+    QGraphicsObject::mouseReleaseEvent(event);
+}
+
+void PointElement::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+{
+    qDebug() << "PointElement::hoverMoveEvent";
+    QGraphicsObject::hoverMoveEvent(event);
+}
+
+QVariant PointElement::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
+{
+    qDebug() << "PointElement::itemChange()" << change;
+    return QGraphicsObject::itemChange(change, value);
+}
+
 
 //! set position from point type
 void PointElement::set_position(const QRectF &rect)

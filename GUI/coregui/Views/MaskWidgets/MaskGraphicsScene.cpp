@@ -157,6 +157,12 @@ void MaskGraphicsScene::onSceneSelectionChanged()
     m_block_selection = false;
 }
 
+void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    qDebug() << "MaskGraphicsScene::mousePressEvent()";
+    QGraphicsScene::mousePressEvent(event);
+}
+
 
 void MaskGraphicsScene::init_scene()
 {

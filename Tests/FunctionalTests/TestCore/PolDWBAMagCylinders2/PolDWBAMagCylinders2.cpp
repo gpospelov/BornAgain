@@ -4,7 +4,7 @@
 #include "SimulationRegistry.h"
 #include <boost/scoped_ptr.hpp>
 
-int main(int argc, char **argv)
+int main(int, char **)
 {
     boost::scoped_ptr<OutputData<double> > P_reference00(IntensityDataIOFactory::readOutputData(
         Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_00.int.gz"));

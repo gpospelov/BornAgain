@@ -16,7 +16,7 @@
 #include "RectangleView.h"
 #include "MaskItems.h"
 #include "MaskEditorHelper.h"
-#include "PointElement.h"
+#include "SizeHandleElement.h"
 #include <QPainter>
 #include <QMarginsF>
 #include <QGraphicsSceneMouseEvent>
@@ -24,35 +24,18 @@
 
 namespace {
 const double bbox_margins = 5; // additional margins around rectangle to form bounding box
-
-QMap<PointElement::EPointType, PointElement::EPointType> getMapOfOppositeCorners()
-{
-    QMap<PointElement::EPointType, PointElement::EPointType> result;
-    result[PointElement::TOPLEFT] = PointElement::BOTTOMRIGHT;
-    result[PointElement::TOPMIDDLE] = PointElement::BOTTOMMIDLE;
-    result[PointElement::TOPRIGHT] = PointElement::BOTTOMLEFT;
-    result[PointElement::MIDDLERIGHT] = PointElement::MIDDLELEFT;
-    result[PointElement::BOTTOMRIGHT] = PointElement::TOPLEFT;
-    result[PointElement::BOTTOMMIDLE] = PointElement::TOPMIDDLE;
-    result[PointElement::BOTTOMLEFT] = PointElement::TOPRIGHT;
-    result[PointElement::MIDDLELEFT] = PointElement::MIDDLERIGHT;
-    return result;
 }
 
-
-}
-
-QMap<PointElement::EPointType, PointElement::EPointType> RectangleView::m_opposite_corners = getMapOfOppositeCorners();
 
 RectangleView::RectangleView()
     : m_block_on_property_change(false)
-    , m_view_state(NONE)
+    , m_activeHandleElement(0)
 {
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable );
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptHoverEvents(true);
-    create_points();
+    create_size_handle_elements();
 }
 
 void RectangleView::onChangedX()
@@ -82,49 +65,42 @@ void RectangleView::onPropertyChange(const QString &propertyName)
     else if(propertyName == RectangleItem::P_POSY) {
         setY(toSceneY(RectangleItem::P_POSY));
     }
-
 }
 
-void RectangleView::onGripResizeRequest()
+void RectangleView::onSizeHandleElementRequest(bool going_to_resize)
 {
-    m_view_state = RESIZE;
-    setFlag(QGraphicsItem::ItemIsMovable, false);
-    PointElement *element = qobject_cast<PointElement *>(sender());
-    Q_ASSERT(element);
+    if(going_to_resize) {
+        setFlag(QGraphicsItem::ItemIsMovable, false);
+        m_activeHandleElement = qobject_cast<SizeHandleElement *>(sender());
+        Q_ASSERT(m_activeHandleElement);
 
-    PointElement::EPointType oposite_corner = m_opposite_corners[element->getPointType()];
-    m_resize_opposite_origin = m_point_elements[oposite_corner]->scenePos();
-    qDebug() << "RectangleView::onGripResizeRequest()"
-             << "element->getPointType()" << element->getPointType()
-             << "oposite_corner" << oposite_corner
-             << "m_resize_opposite_origin:" << m_resize_opposite_origin;
-
-
+        SizeHandleElement::EHandleLocation oposite_corner = m_activeHandleElement->getOppositeHandleLocation();
+        m_resize_opposite_origin = m_resize_handles[oposite_corner]->scenePos();
+        qDebug() << "RectangleView::onGripResizeRequest()"
+                 << "element->getPointType()" << m_activeHandleElement->getHandleLocation()
+                 << "oposite_corner" << oposite_corner
+                << "m_resize_opposite_origin:" << m_resize_opposite_origin;
+    } else {
+        setFlag(QGraphicsItem::ItemIsMovable, true);
+        m_activeHandleElement = 0;
+    }
 }
 
 void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-
     painter->setRenderHints(QPainter::Antialiasing);
     prepareGeometryChange();
-
     bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
     painter->drawRect(QRectF(0.0, 0.0, width(), height()));
-
-    if (this->isSelected()) {
-//        paint_rectangle_marker(painter, QPointF(0,0));
-//        QVector<QPointF> corners;
-//        corners.push_back(m_mask_rect.topLeft(), m_mask_rect.topRight(), m_mask_rect.bottomRight(), m_mask_rect.bottomLeft());
-    }
-
 }
 
 QVariant RectangleView::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
 {
     if(change == QGraphicsItem::ItemSelectedChange) {
-        for(QMap<PointElement::EPointType, PointElement *>::iterator it = m_point_elements.begin(); it!= m_point_elements.end(); ++it) {
+        for(QMap<SizeHandleElement::EHandleLocation, SizeHandleElement *>::iterator it = m_resize_handles.begin();
+            it!= m_resize_handles.end(); ++it) {
             it.value()->setVisible(!this->isSelected());
         }
     }
@@ -141,7 +117,7 @@ void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "RectangleView::mouseMoveEvent" << event->scenePos();
 
-    if(m_view_state == RESIZE) {
+    if(m_activeHandleElement) {
         qDebug() << "   opposite_origin:" << m_resize_opposite_origin;
         qreal xmin = std::min(event->scenePos().x(),m_resize_opposite_origin.x());
         qreal xmax = std::max(event->scenePos().x(),m_resize_opposite_origin.x());
@@ -156,10 +132,18 @@ void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
                  << "width:" << (fromSceneX(xmax) - fromSceneX(xmin)) << "height:" << (fromSceneY(ymin) - fromSceneY(ymax));
 
 
-        m_item->setRegisteredProperty(RectangleItem::P_POSX, fromSceneX(xmin));
-        m_item->setRegisteredProperty(RectangleItem::P_POSY, fromSceneY(ymin));
-        m_item->setRegisteredProperty(RectangleItem::P_WIDTH, fromSceneX(xmax) - fromSceneX(xmin));
-        m_item->setRegisteredProperty(RectangleItem::P_HEIGHT, fromSceneY(ymin) - fromSceneY(ymax));
+        if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE) {
+            m_item->setRegisteredProperty(RectangleItem::P_POSX, fromSceneX(xmin));
+            m_item->setRegisteredProperty(RectangleItem::P_POSY, fromSceneY(ymin));
+            m_item->setRegisteredProperty(RectangleItem::P_WIDTH, fromSceneX(xmax) - fromSceneX(xmin));
+            m_item->setRegisteredProperty(RectangleItem::P_HEIGHT, fromSceneY(ymin) - fromSceneY(ymax));
+        } else if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_HEIGHT) {
+            m_item->setRegisteredProperty(RectangleItem::P_POSY, fromSceneY(ymin));
+            m_item->setRegisteredProperty(RectangleItem::P_HEIGHT, fromSceneY(ymin) - fromSceneY(ymax));
+        } else if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_WIDTH) {
+            m_item->setRegisteredProperty(RectangleItem::P_POSX, fromSceneX(xmin));
+            m_item->setRegisteredProperty(RectangleItem::P_WIDTH, fromSceneX(xmax) - fromSceneX(xmin));
+        }
     } else {
         IMaskView::mouseMoveEvent(event);
     }
@@ -168,8 +152,7 @@ void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 void RectangleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "RectangleView::mouseReleaseEvent";
-    setFlag(QGraphicsItem::ItemIsMovable, true);
-    m_view_state = NONE;
+    onSizeHandleElementRequest(false);
     IMaskView::mouseReleaseEvent(event);
 }
 
@@ -208,8 +191,9 @@ void RectangleView::update_bounding_rect()
              << "toSceneX(RectangleItem::P_WIDTH):" << toSceneX(RectangleItem::P_WIDTH)
              << "toSceneY(RectangleItem::P_HEIGHT):" << toSceneY(RectangleItem::P_HEIGHT);
 
-    for(QMap<PointElement::EPointType, PointElement *>::iterator it = m_point_elements.begin(); it!= m_point_elements.end(); ++it) {
-        it.value()->set_position(m_mask_rect);
+    for(QMap<SizeHandleElement::EHandleLocation, SizeHandleElement *>::iterator
+            it = m_resize_handles.begin(); it!= m_resize_handles.end(); ++it) {
+        it.value()->updateHandleElementPosition(m_mask_rect);
     }
 
 
@@ -259,20 +243,18 @@ qreal RectangleView::height() const
     return bottom() - top();
 }
 
-void RectangleView::create_points()
+void RectangleView::create_size_handle_elements()
 {
-    QList<PointElement::EPointType> points;
-    points << PointElement::TOPLEFT << PointElement::TOPMIDDLE << PointElement::TOPRIGHT
-           << PointElement::MIDDLERIGHT << PointElement::BOTTOMRIGHT
-           << PointElement::BOTTOMMIDLE << PointElement::BOTTOMLEFT << PointElement::MIDDLELEFT;
+    QList<SizeHandleElement::EHandleLocation> points;
+    points << SizeHandleElement::TOPLEFT << SizeHandleElement::TOPMIDDLE << SizeHandleElement::TOPRIGHT
+           << SizeHandleElement::MIDDLERIGHT << SizeHandleElement::BOTTOMRIGHT
+           << SizeHandleElement::BOTTOMMIDLE << SizeHandleElement::BOTTOMLEFT << SizeHandleElement::MIDDLELEFT;
 
-    foreach(PointElement::EPointType point_type, points) {
-        PointElement *el = new PointElement(point_type, this);
-        connect(el, SIGNAL(resize_request()), this, SLOT(onGripResizeRequest()));
+    foreach(SizeHandleElement::EHandleLocation point_type, points) {
+        SizeHandleElement *el = new SizeHandleElement(point_type, this);
+        connect(el, SIGNAL(resize_request(bool)), this, SLOT(onSizeHandleElementRequest(bool)));
         el->setVisible(false);
-        m_point_elements[point_type] = el;
-
-//        Q_UNUSED(el);
+        m_resize_handles[point_type] = el;
     }
 }
 

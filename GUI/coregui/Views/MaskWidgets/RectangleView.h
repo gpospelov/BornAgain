@@ -17,7 +17,7 @@
 #define RECTANGLEVIEW_H
 
 #include "IMaskView.h"
-#include "PointElement.h"
+#include "SizeHandleElement.h"
 #include <QMap>
 
 //! This is a View of rectangular mask ( represented by RectangleItem) on GraphicsScene.
@@ -29,10 +29,6 @@ class BA_CORE_API_ RectangleView : public IMaskView
 
 public:
     RectangleView();
-    enum EViewState { NONE, RESIZE, RESIZE_WIDTH, RESIZE_HEIGHT };
-
-
-//    void setParameterizedItem(ParameterizedItem *item);
 
 public slots:
     virtual void onChangedX();
@@ -40,7 +36,7 @@ public slots:
     virtual void onPropertyChange(const QString &propertyName);
 
 private slots:
-    void onGripResizeRequest();
+    void onSizeHandleElementRequest(bool going_to_resize);
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
@@ -52,7 +48,6 @@ protected:
     void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
 
 private:
-//    void paint_rectangle_marker(QPainter *painter, const QPointF &pos);
     void update_view();
     void update_bounding_rect();
     void update_position();    
@@ -62,14 +57,14 @@ private:
     qreal top() const;
     qreal bottom() const;
     qreal height() const;
-    void create_points();
+    void create_size_handle_elements();
     bool m_block_on_property_change;
     QRectF m_mask_rect; // mask rectangle in scene coordinates
-    QMap<PointElement::EPointType, PointElement *> m_point_elements;
-    static QMap<PointElement::EPointType, PointElement::EPointType> m_opposite_corners;
+
+    QMap<SizeHandleElement::EHandleLocation, SizeHandleElement *> m_resize_handles;
      //!< coordinates of corner opposite to the grip corner at the moment it first clicked
     QPointF m_resize_opposite_origin;
-    EViewState m_view_state;
+    SizeHandleElement *m_activeHandleElement;
 };
 
 

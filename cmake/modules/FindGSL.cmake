@@ -156,12 +156,12 @@ ELSE(WIN32)
             SET(GSL_VERSION_MINOR ${CMAKE_MATCH_1})
 
             # define BORNAGAIN_GSL_BIGGEROREQUAL_2 when gsl version >= 2.0
-            IF (NOT $(GSL_FULL_VERSION) VERSION_LESS 2.0)
+            IF (NOT ${GSL_FULL_VERSION} VERSION_LESS 2.0)
                 add_definitions(-DBORNAGAIN_GSL_BIGGEROREQUAL_2)
                 message( STATUS "GSL version >= 2.0")
-            ELSE (NOT $(GSL_FULL_VERSION) VERSION_LESS 2.0)
+            ELSE (NOT ${GSL_FULL_VERSION} VERSION_LESS 2.0)
                 message( STATUS "GSL version < 2.0")
-            ENDIF (NOT $(GSL_FULL_VERSION) VERSION_LESS 2.0)
+            ENDIF (NOT ${GSL_FULL_VERSION} VERSION_LESS 2.0)
 
             # split off the link dirs (for rpath)
             # use regular expression to match wildcard equivalent "-L*<endchar>"

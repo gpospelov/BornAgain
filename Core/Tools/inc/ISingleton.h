@@ -19,8 +19,12 @@
 #include <stdexcept>
 #include <iostream>
 #include <typeinfo>
-#include <mutex>
 #include "Macros.h"
+GCC_DIAG_OFF(unused-parameter)
+GCC_DIAG_OFF(strict-aliasing)
+#include <boost/thread.hpp>
+GCC_DIAG_ON(strict-aliasing)
+GCC_DIAG_ON(unused-parameter)
 
 //! @class ISingleton
 //! @ingroup tools_internal
@@ -32,8 +36,8 @@ class ISingleton
 public:
     static T& instance()
     {
-        static std::mutex single_mutex;
-        std::unique_lock<std::mutex> single_lock( single_mutex );
+        static boost::mutex single_mutex;
+        boost::unique_lock<boost::mutex> single_lock( single_mutex );
         if( !m_instance) {
             if( m_destroyed ) {
                 onDeadReference();

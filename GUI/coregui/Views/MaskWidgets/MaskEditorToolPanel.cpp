@@ -16,6 +16,7 @@
 #include "MaskEditorToolPanel.h"
 #include "SessionModel.h"
 #include "AwesomePropertyEditor.h"
+#include "MaskEditorActivity.h"
 #include <QVBoxLayout>
 #include <QListView>
 #include <QItemSelection>
@@ -94,8 +95,8 @@ QWidget *MaskEditorToolPanel::create_selection_group()
 //    panButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_hand.png"));
     panButton->setToolTip("Pan mode (space).");
 
-    m_activityButtonGroup->addButton(selectionButton, SELECTION_MODE);
-    m_activityButtonGroup->addButton(panButton, PAN_ZOOM_MODE);
+    m_activityButtonGroup->addButton(selectionButton, MaskEditorActivity::SELECTION_MODE);
+    m_activityButtonGroup->addButton(panButton, MaskEditorActivity::PAN_ZOOM_MODE);
 
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(selectionButton);
@@ -111,11 +112,11 @@ QWidget *MaskEditorToolPanel::create_drawing_group()
 
     QPushButton *rectButton = new QPushButton("Rectangle");
     rectButton->setCheckable(true);
-    m_activityButtonGroup->addButton(rectButton, RECTANGLE_MODE);
+    m_activityButtonGroup->addButton(rectButton, MaskEditorActivity::RECTANGLE_MODE);
 
     QPushButton *polyButton = new QPushButton("Poly");
     polyButton->setCheckable(true);
-    m_activityButtonGroup->addButton(polyButton, POLYGON_MODE);
+    m_activityButtonGroup->addButton(polyButton, MaskEditorActivity::POLYGON_MODE);
 
 
 //    layout->setContentsMargins(0, 0, 0, 0);

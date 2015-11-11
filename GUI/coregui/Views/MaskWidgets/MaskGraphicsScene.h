@@ -16,6 +16,7 @@
 #ifndef MASKGRAPHICSSCENE_H
 #define MASKGRAPHICSSCENE_H
 
+#include "MaskEditorActivity.h"
 #include <QGraphicsScene>
 #include <QModelIndex>
 #include <QMap>
@@ -37,11 +38,14 @@ class MaskGraphicsScene : public QGraphicsScene
 public:
     MaskGraphicsScene(QObject *parent = 0);
 
-    void setModel(SessionModel *model);
+    void setModel(SessionModel *model, const QModelIndex &rootIndex);
     void setSelectionModel(QItemSelectionModel *model);
 
 public slots:
     void onActivityModeChanged(int mode);
+    void onRowsInserted(const QModelIndex &parent, int first, int last);
+    void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
+    void onRowsRemoved(const QModelIndex &, int, int);
 
 private slots:
     void onSessionSelectionChanged(const QItemSelection & /* selected */,
@@ -50,13 +54,23 @@ private slots:
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 private:
     void init_scene();
     void resetScene();
     void updateScene();
     void updateViews(const QModelIndex &parentIndex = QModelIndex());
+    void updateProxyWidget(const QModelIndex &parentIndex);
+//    void makeSelected(const QModelIndex &parent, int first, int last);
+
+    bool isDrawingInProgress() const;
+    void setDrawingInProgress(bool value);
+
     IMaskView* addViewForItem(ParameterizedItem *item);
+
+    void processRectangleItem(QGraphicsSceneMouseEvent *event);
 
     SessionModel *m_model;
     QItemSelectionModel *m_selectionModel;
@@ -64,6 +78,9 @@ private:
     QMap<ParameterizedItem *, IMaskView *> m_ItemToView;
     MaskGraphicsProxy *m_proxy;
     bool m_block_selection;
+    MaskEditorActivity::Flags m_activityType;
+    QModelIndex m_rootIndex; //! Index in the model corresponding to IntensityDataItem
+    ParameterizedItem *m_currentItem;
 };
 
 

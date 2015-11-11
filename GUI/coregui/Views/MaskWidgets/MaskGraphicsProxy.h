@@ -19,7 +19,7 @@
 #include "ColorMapPlot.h"
 #include <QGraphicsProxyWidget>
 
-class IntensityDataItem;
+class ParameterizedItem;
 class ISceneAdaptor;
 class ColorMapSceneAdaptor;
 
@@ -38,7 +38,7 @@ public:
         return Type;
     }
 
-    void setItem(IntensityDataItem *intensityDataItem);
+    void setItem(ParameterizedItem *item);
     void setSceneAdaptor(ISceneAdaptor *sceneAdaptor);
     void setSendSignalsToColormap(bool value);
 

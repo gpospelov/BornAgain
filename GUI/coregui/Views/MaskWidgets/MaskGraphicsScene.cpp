@@ -22,8 +22,11 @@
 #include "ISceneAdaptor.h"
 #include "ColorMapSceneAdaptor.h"
 #include "MaskViewFactory.h"
-#include "MaskEditorToolPanel.h"
+#include "MaskEditorActivity.h"
+#include "MaskItems.h"
+#include "item_constants.h"
 #include <QItemSelection>
+#include <QLineF>
 #include <QDebug>
 
 namespace {
@@ -37,14 +40,18 @@ MaskGraphicsScene::MaskGraphicsScene(QObject *parent)
     , m_selectionModel(0)
     , m_proxy(0)
     , m_block_selection(false)
+    , m_activityType(MaskEditorActivity::SELECTION_MODE)
+    , m_currentItem(0)
 {
     setSceneRect(default_scene_rect);
     connect(this, SIGNAL(selectionChanged()), this, SLOT(onSceneSelectionChanged()));
 }
 
-void MaskGraphicsScene::setModel(SessionModel *model)
+//! Sets the model containing IntensityDataItem and uderlying masks.
+//!
+void MaskGraphicsScene::setModel(SessionModel *model, const QModelIndex &rootIndex)
 {
-    if (model != m_model) {
+    if (model != m_model || m_rootIndex != rootIndex) {
 
         if (m_model) {
             disconnect(m_model, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
@@ -58,6 +65,7 @@ void MaskGraphicsScene::setModel(SessionModel *model)
         }
 
         m_model = model;
+        m_rootIndex = rootIndex;
 
         if(m_model) {
             connect(m_model, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
@@ -100,12 +108,40 @@ void MaskGraphicsScene::setSelectionModel(QItemSelectionModel *model)
 void MaskGraphicsScene::onActivityModeChanged(int mode)
 {
     qDebug() << "MaskGraphicsScene::onActivityModeChanged(int mode) ->" << mode;
-    if(mode == MaskEditorToolPanel::PAN_ZOOM_MODE) {
+    m_activityType = (MaskEditorActivity::EActivityType)mode;
+    if(mode == MaskEditorActivity::PAN_ZOOM_MODE) {
         m_proxy->setSendSignalsToColormap(true);
     } else {
         m_proxy->setSendSignalsToColormap(false);
     }
 
+}
+
+void MaskGraphicsScene::onRowsInserted(const QModelIndex &parent, int first, int last)
+{
+    Q_UNUSED(parent);
+    Q_UNUSED(first);
+    Q_UNUSED(last);
+    qDebug() << "ZZZ";
+    qDebug() << "ZZZ";
+    qDebug() << "ZZZ";
+    qDebug() << "MaskGraphicsScene::onRowsInserted()";
+    updateScene();
+//    makeSelected(parent, first, last);
+
+}
+
+void MaskGraphicsScene::onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last)
+{
+    Q_UNUSED(parent);
+    Q_UNUSED(first);
+    Q_UNUSED(last);
+    Q_ASSERT(0);
+}
+
+void MaskGraphicsScene::onRowsRemoved(const QModelIndex &, int, int)
+{
+    updateScene();
 }
 
 //! propagate selection from model to scene
@@ -160,7 +196,46 @@ void MaskGraphicsScene::onSceneSelectionChanged()
 void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "MaskGraphicsScene::mousePressEvent()";
+    if(m_activityType.testFlag(MaskEditorActivity::RECTANGLE_MODE)) {
+        setDrawingInProgress(true);
+    }
     QGraphicsScene::mousePressEvent(event);
+}
+
+void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    qDebug() << "MaskGraphicsScene::mouseMoveEvent()" << m_activityType;
+    if(isDrawingInProgress()) {
+        qDebug() << "   DRAWING_IN_PROGESS";
+        if(m_activityType.testFlag(MaskEditorActivity::RECTANGLE_MODE)) {
+            processRectangleItem(event);
+        }
+    }
+
+
+    QGraphicsScene::mouseMoveEvent(event);
+//    QPointF buttonDownScenePos = event->buttonDownScenePos(Qt::LeftButton);
+//    qDebug() << "   XXX" << event->scenePos() << buttonDownScenePos;
+//    if(event->buttons() & Qt::LeftButton) {
+//        qDebug() << "   XXX still pressed";
+//    }
+
+}
+
+void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    qDebug() << "MaskGraphicsScene::mouseReleaseEvent() -> before" << m_activityType;
+    if(isDrawingInProgress()) {
+        Q_ASSERT(m_currentItem);
+        clearSelection();
+        if(IMaskView *view = m_ItemToView[m_currentItem]) {
+            view->setSelected(true);
+        }
+        setDrawingInProgress(false);
+        m_currentItem = 0;
+        qDebug() << "       after" << m_activityType;
+    }
+    QGraphicsScene::mouseReleaseEvent(event);
 }
 
 
@@ -187,6 +262,7 @@ void MaskGraphicsScene::resetScene()
 {
     clear();
     m_ItemToView.clear();
+    m_proxy = 0;
     init_scene();
     m_adaptor.reset(new ColorMapSceneAdaptor);
 }
@@ -194,7 +270,7 @@ void MaskGraphicsScene::resetScene()
 void MaskGraphicsScene::updateScene()
 {
     if(!m_model) return;
-    updateViews();
+    updateViews(m_rootIndex);
 }
 
 void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex)
@@ -202,21 +278,10 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex)
     Q_ASSERT(m_model);
     qDebug() << "MaskGraphicsScene::updateViews()";
 
-    IntensityDataItem *item = dynamic_cast<IntensityDataItem *>(m_model->getTopItem());
-    Q_ASSERT(item);
+    updateProxyWidget(parentIndex);
 
-    m_proxy = new MaskGraphicsProxy;
-    m_proxy->setItem(item);
-    m_proxy->setSceneAdaptor(m_adaptor.data());
-    m_proxy->setPos(0,0);
-    m_proxy->resize(1200, 1000);
-    addItem(m_proxy);
-
-
-    QModelIndex intensityDataIndex = m_model->indexOfItem(item);
-
-    for (int i_row = 0; i_row < m_model->rowCount(intensityDataIndex); ++i_row) {
-        QModelIndex itemIndex = m_model->index(i_row, 0, intensityDataIndex);
+    for (int i_row = 0; i_row < m_model->rowCount(parentIndex); ++i_row) {
+        QModelIndex itemIndex = m_model->index(i_row, 0, parentIndex);
 
         if (ParameterizedItem *item = m_model->itemForIndex(itemIndex)) {
             qDebug() << "aaa:" << item->modelType();
@@ -224,6 +289,43 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex)
         }
     }
 
+}
+
+//! updates proxy widget for intensity data item
+void MaskGraphicsScene::updateProxyWidget(const QModelIndex &parentIndex)
+{
+    if(!m_proxy) {
+        m_proxy = new MaskGraphicsProxy;
+        m_proxy->setItem(m_model->itemForIndex(parentIndex));
+        m_proxy->setSceneAdaptor(m_adaptor.data());
+        addItem(m_proxy);
+    }
+}
+
+//void MaskGraphicsScene::makeSelected(const QModelIndex &parent, int first, int last)
+//{
+//    for (int i_row = first; i_row < last; ++i_row) {
+//        QModelIndex itemIndex = m_model->index(i_row, 0, parent);
+//        IMaskView *view = m_ItemToView[m_model->itemForIndex(itemIndex)];
+//        if(view)
+//            view->setSelected(true);
+//    }
+
+//}
+
+bool MaskGraphicsScene::isDrawingInProgress() const
+{
+    return m_activityType.testFlag(MaskEditorActivity::DRAWING_IN_PROGRESS);
+}
+
+
+void MaskGraphicsScene::setDrawingInProgress(bool value)
+{
+    if(value) {
+        m_activityType |= MaskEditorActivity::DRAWING_IN_PROGRESS;
+    } else {
+        m_activityType &= ~MaskEditorActivity::DRAWING_IN_PROGRESS;
+    }
 }
 
 IMaskView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
@@ -252,5 +354,52 @@ IMaskView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
                  << item->modelType();
     }
     return view;
+
+}
+
+void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
+{
+    //    QPointF buttonDownScenePos = event->buttonDownScenePos(Qt::LeftButton);
+    //    qDebug() << "   XXX" << event->scenePos() << buttonDownScenePos;
+    //    if(event->buttons() & Qt::LeftButton) {
+    //        qDebug() << "   XXX still pressed";
+    //    }
+
+    QPointF click_pos = event->buttonDownScenePos(Qt::LeftButton);
+    QPointF mouse_pos = event->scenePos();
+    QLineF line(mouse_pos, click_pos);
+
+    if(line.length() > 50) {
+        qreal xmin = std::min(click_pos.x(), mouse_pos.x());
+        qreal xmax = std::max(click_pos.x(), mouse_pos.x());
+        qreal ymin = std::min(click_pos.y(), mouse_pos.y());
+        qreal ymax = std::max(click_pos.y(), mouse_pos.y());
+
+        if(!m_currentItem) {
+            m_currentItem = m_model->insertNewItem(Constants::RectangleMaskType, m_rootIndex);
+        }
+
+        m_currentItem->setRegisteredProperty(RectangleItem::P_POSX, m_adaptor->fromSceneX(xmin));
+        m_currentItem->setRegisteredProperty(RectangleItem::P_POSY, m_adaptor->fromSceneY(ymin));
+        m_currentItem->setRegisteredProperty(RectangleItem::P_WIDTH,
+                                          m_adaptor->fromSceneX(xmax) - m_adaptor->fromSceneX(xmin));
+        m_currentItem->setRegisteredProperty(RectangleItem::P_HEIGHT,
+                                          m_adaptor->fromSceneY(ymin) - m_adaptor->fromSceneY(ymax));
+
+
+//        item->setRegisteredProperty(RectangleItem::P_POSX, 0.6);
+//        item->setRegisteredProperty(RectangleItem::P_POSY, 1.5);
+//        item->setRegisteredProperty(RectangleItem::P_WIDTH, 0.3);
+//        item->setRegisteredProperty(RectangleItem::P_HEIGHT, 0.2);
+
+
+//        RectangleItem *rect = dynamic_cast<RectangleItem *>(m_model->insertNewItem(Constants::RectangleMaskType, m_rootIndex));
+//        Q_ASSERT(rect);
+//        rect->setRegisteredProperty(RectangleItem::P_POSX, 0.6);
+//        rect->setRegisteredProperty(RectangleItem::P_POSY, 1.5);
+//        rect->setRegisteredProperty(RectangleItem::P_WIDTH, 0.3);
+//        rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 0.2);
+//        setDrawingInProgress(false);
+    }
 
 }

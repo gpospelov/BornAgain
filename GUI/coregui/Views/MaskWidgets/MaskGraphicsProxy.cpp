@@ -25,7 +25,7 @@ MaskGraphicsProxy::MaskGraphicsProxy()
     , m_sceneAdaptor(0)
     , m_send_signals_to_colormap(false)
 {
-
+    resize(1200, 1000);
 }
 
 MaskGraphicsProxy::~MaskGraphicsProxy()
@@ -38,8 +38,10 @@ MaskGraphicsProxy::~MaskGraphicsProxy()
     }
 }
 
-void MaskGraphicsProxy::setItem(IntensityDataItem *intensityDataItem)
+void MaskGraphicsProxy::setItem(ParameterizedItem *item)
 {
+    IntensityDataItem *intensityDataItem = dynamic_cast<IntensityDataItem *>(item);
+    Q_ASSERT(intensityDataItem);
     m_colorMap->setItem(intensityDataItem);
     if(widget() != m_colorMap) setWidget(m_colorMap);
 }

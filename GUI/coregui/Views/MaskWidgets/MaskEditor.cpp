@@ -70,18 +70,41 @@ void MaskEditor::init_test_model()
     item->setOutputData(simulation->getOutputData()->clone());
     qDebug() << item->getXmin() << item->getXmax() << item->getYmin() << item->getYmax();
 
-    RectangleItem *rect = dynamic_cast<RectangleItem *>(m_maskModel->insertNewItem(Constants::RectangleMaskType, m_maskModel->indexOfItem(item)));
-    Q_ASSERT(rect);
-    rect->setRegisteredProperty(RectangleItem::P_POSX, 0.6);
-    rect->setRegisteredProperty(RectangleItem::P_POSY, 1.5);
-    rect->setRegisteredProperty(RectangleItem::P_WIDTH, 0.3);
-    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 0.2);
-//    rect->setRegisteredProperty(RectangleItem::P_POSX, 100.0);
-//    rect->setRegisteredProperty(RectangleItem::P_POSY, 100.0);
-//    rect->setRegisteredProperty(RectangleItem::P_WIDTH, 300.0);
-//    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 200.0);
+//    RectangleItem *rect = dynamic_cast<RectangleItem *>(m_maskModel->insertNewItem(Constants::RectangleMaskType, m_maskModel->indexOfItem(item)));
+//    Q_ASSERT(rect);
+//    rect->setRegisteredProperty(RectangleItem::P_POSX, 0.6);
+//    rect->setRegisteredProperty(RectangleItem::P_POSY, 1.5);
+//    rect->setRegisteredProperty(RectangleItem::P_WIDTH, 0.3);
+//    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 0.2);
 
-    m_editorCanvas->setModel(m_maskModel);
+    m_editorCanvas->setModel(m_maskModel, m_maskModel->indexOfItem(item));
     m_editorToolPanel->setModel(m_maskModel, m_maskModel->indexOfItem(item));
     m_editorCanvas->setSelectionModel(m_editorToolPanel->selectionModel());
+
+
+
+//    Test::MyFlags f;
+//       qDebug() << "XXX1" << f;
+
+//       f |= Test::D;
+//       qDebug() << "XXX2" << f;
+
+//       f = Test::A | Test::B;
+//       qDebug() << "XXX3" << f;
+//       qDebug() << "XXX4" << f.testFlag(Test::B) << f.testFlag(Test::C);
+
+//       f = Test::AB;
+//       qDebug() << "XXX5" << f;
+//       qDebug() << "XXX6" << f.testFlag(Test::B) << f.testFlag(Test::C);
+
+//       f &= ~Test::B;  // turn off B
+//       qDebug() << "XXX7" << f;
+
+//       f = Test::B;
+//       Test::MyFlags g(Test::A | Test::C);
+//       f |= g;
+//       qDebug() << "XXX8" << f;
+
+//       Q_ASSERT(0);
+
 }

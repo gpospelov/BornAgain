@@ -32,8 +32,6 @@ class MaskEditorToolPanel : public QWidget
 {
     Q_OBJECT
 public:
-    enum EActivityMode {SELECTION_MODE, PAN_ZOOM_MODE, RECTANGLE_MODE, POLYGON_MODE};
-
     MaskEditorToolPanel(QWidget *parent = 0);
 
     QSize sizeHint() const { return QSize(128, 128); }

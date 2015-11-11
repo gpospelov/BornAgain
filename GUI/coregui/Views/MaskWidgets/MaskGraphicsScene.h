@@ -65,6 +65,7 @@ private:
     void updateProxyWidget(const QModelIndex &parentIndex);
 //    void makeSelected(const QModelIndex &parent, int first, int last);
 
+    bool isAllowedToStartDrawing(QGraphicsSceneMouseEvent *event);
     bool isDrawingInProgress() const;
     void setDrawingInProgress(bool value);
 

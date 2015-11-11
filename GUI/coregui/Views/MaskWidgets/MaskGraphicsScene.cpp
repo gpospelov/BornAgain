@@ -31,6 +31,7 @@
 
 namespace {
 const QRectF default_scene_rect(0, 0, 800, 600);
+const qreal min_distance_to_create_rect = 10;
 //const QRectF default_scene_rect(0, 0, 2.0, 2.0);
 }
 
@@ -196,10 +197,13 @@ void MaskGraphicsScene::onSceneSelectionChanged()
 void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "MaskGraphicsScene::mousePressEvent()";
-    if(m_activityType.testFlag(MaskEditorActivity::RECTANGLE_MODE)) {
+    Q_ASSERT(isDrawingInProgress() == false);
+
+    if(isAllowedToStartDrawing(event)) {
         setDrawingInProgress(true);
+    } else {
+        QGraphicsScene::mousePressEvent(event);
     }
-    QGraphicsScene::mousePressEvent(event);
 }
 
 void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
@@ -210,10 +214,9 @@ void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         if(m_activityType.testFlag(MaskEditorActivity::RECTANGLE_MODE)) {
             processRectangleItem(event);
         }
+    } else {
+        QGraphicsScene::mouseMoveEvent(event);
     }
-
-
-    QGraphicsScene::mouseMoveEvent(event);
 //    QPointF buttonDownScenePos = event->buttonDownScenePos(Qt::LeftButton);
 //    qDebug() << "   XXX" << event->scenePos() << buttonDownScenePos;
 //    if(event->buttons() & Qt::LeftButton) {
@@ -226,16 +229,19 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "MaskGraphicsScene::mouseReleaseEvent() -> before" << m_activityType;
     if(isDrawingInProgress()) {
-        Q_ASSERT(m_currentItem);
-        clearSelection();
-        if(IMaskView *view = m_ItemToView[m_currentItem]) {
-            view->setSelected(true);
+        if(m_currentItem) {
+            clearSelection();
+            if(IMaskView *view = m_ItemToView[m_currentItem]) {
+                view->setSelected(true);
+            }
+            m_currentItem = 0;
         }
+
         setDrawingInProgress(false);
-        m_currentItem = 0;
         qDebug() << "       after" << m_activityType;
+    } else {
+        QGraphicsScene::mouseReleaseEvent(event);
     }
-    QGraphicsScene::mouseReleaseEvent(event);
 }
 
 
@@ -302,6 +308,20 @@ void MaskGraphicsScene::updateProxyWidget(const QModelIndex &parentIndex)
     }
 }
 
+//! Returns true if it is allowed to start drawing: scene's activity is not one of
+//! (SELECTION_MODE, PAN_ZOOM_MODE) and mouse cursor is not on top of SizeHandleElement
+bool MaskGraphicsScene::isAllowedToStartDrawing(QGraphicsSceneMouseEvent *event)
+{
+    bool result(true);
+    if(m_activityType.testFlag(MaskEditorActivity::SELECTION_MODE) ||
+       m_activityType.testFlag(MaskEditorActivity::PAN_ZOOM_MODE)) result = false;
+    QList<QGraphicsItem *> items_beneath = this->items(event->scenePos());
+    foreach(QGraphicsItem *graphicsItem, items_beneath) {
+        if(graphicsItem->parentItem()) result = false;
+    }
+    return result;
+}
+
 //void MaskGraphicsScene::makeSelected(const QModelIndex &parent, int first, int last)
 //{
 //    for (int i_row = first; i_row < last; ++i_row) {
@@ -357,6 +377,11 @@ IMaskView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
 
 }
 
+//! This function is called from mouse move event, when both DRAWING_IN_PROGRESS and
+//! RECTANGLE_MODE flags are active.
+//! If the mouse move distance with left button down is larger than certain threshold,
+//! new RectangleItem will be created. Further, this function will update size and position
+//! of this item if mouse keep moving.
 void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
 {
     //    QPointF buttonDownScenePos = event->buttonDownScenePos(Qt::LeftButton);
@@ -369,37 +394,21 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
     QPointF mouse_pos = event->scenePos();
     QLineF line(mouse_pos, click_pos);
 
-    if(line.length() > 50) {
+    if(!m_currentItem && line.length() > min_distance_to_create_rect) {
+        m_currentItem = m_model->insertNewItem(Constants::RectangleMaskType, m_rootIndex);
+    }
+
+    if(m_currentItem) {
         qreal xmin = std::min(click_pos.x(), mouse_pos.x());
         qreal xmax = std::max(click_pos.x(), mouse_pos.x());
         qreal ymin = std::min(click_pos.y(), mouse_pos.y());
         qreal ymax = std::max(click_pos.y(), mouse_pos.y());
 
-        if(!m_currentItem) {
-            m_currentItem = m_model->insertNewItem(Constants::RectangleMaskType, m_rootIndex);
-        }
-
         m_currentItem->setRegisteredProperty(RectangleItem::P_POSX, m_adaptor->fromSceneX(xmin));
         m_currentItem->setRegisteredProperty(RectangleItem::P_POSY, m_adaptor->fromSceneY(ymin));
-        m_currentItem->setRegisteredProperty(RectangleItem::P_WIDTH,
-                                          m_adaptor->fromSceneX(xmax) - m_adaptor->fromSceneX(xmin));
-        m_currentItem->setRegisteredProperty(RectangleItem::P_HEIGHT,
-                                          m_adaptor->fromSceneY(ymin) - m_adaptor->fromSceneY(ymax));
-
-
-//        item->setRegisteredProperty(RectangleItem::P_POSX, 0.6);
-//        item->setRegisteredProperty(RectangleItem::P_POSY, 1.5);
-//        item->setRegisteredProperty(RectangleItem::P_WIDTH, 0.3);
-//        item->setRegisteredProperty(RectangleItem::P_HEIGHT, 0.2);
-
-
-//        RectangleItem *rect = dynamic_cast<RectangleItem *>(m_model->insertNewItem(Constants::RectangleMaskType, m_rootIndex));
-//        Q_ASSERT(rect);
-//        rect->setRegisteredProperty(RectangleItem::P_POSX, 0.6);
-//        rect->setRegisteredProperty(RectangleItem::P_POSY, 1.5);
-//        rect->setRegisteredProperty(RectangleItem::P_WIDTH, 0.3);
-//        rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 0.2);
-//        setDrawingInProgress(false);
+        m_currentItem->setRegisteredProperty(
+            RectangleItem::P_WIDTH, m_adaptor->fromSceneX(xmax) - m_adaptor->fromSceneX(xmin));
+        m_currentItem->setRegisteredProperty(
+            RectangleItem::P_HEIGHT, m_adaptor->fromSceneY(ymin) - m_adaptor->fromSceneY(ymax));
     }
-
 }

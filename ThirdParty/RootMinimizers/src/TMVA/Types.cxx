@@ -76,11 +76,11 @@ BA_TMVA::Types& BA_TMVA::Types::Instance()
 void   BA_TMVA::Types::DestroyInstance()
 {
    // "destructor" of the single instance
-//#if __cplusplus > 199711L
-//   if (fgTypesPtr != 0) { delete fgTypesPtr.load(); fgTypesPtr = 0; }
-//#else
+#if __cplusplus > 199711L
+   if (fgTypesPtr != 0) { delete fgTypesPtr.load(); fgTypesPtr = 0; }
+#else
    if (fgTypesPtr != 0) { delete fgTypesPtr; fgTypesPtr = 0; }
-//#endif
+#endif
 }
 
 

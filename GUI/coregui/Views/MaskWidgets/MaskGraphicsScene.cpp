@@ -134,15 +134,29 @@ void MaskGraphicsScene::onRowsInserted(const QModelIndex &parent, int first, int
 
 void MaskGraphicsScene::onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last)
 {
-    Q_UNUSED(parent);
-    Q_UNUSED(first);
-    Q_UNUSED(last);
-    Q_ASSERT(0);
+    m_block_selection = true;
+    qDebug() << "MaskGraphicsScene::onRowsAboutToBeRemoved()" << parent << first << last;
+    for (int irow = first; irow <= last; ++irow) {
+        QModelIndex itemIndex = m_model->index(irow, 0, parent);
+        deleteView(itemIndex); // deleting all child items
+    }
+    m_block_selection = false;
 }
 
 void MaskGraphicsScene::onRowsRemoved(const QModelIndex &, int, int)
 {
     updateScene();
+}
+
+void MaskGraphicsScene::deleteSelectedItems()
+{
+    QModelIndexList indexes = m_selectionModel->selectedIndexes();
+    // deleting selected items on model side, corresponding views will be deleted automatically
+    // Since we don't know the order of items and their parent/child relationhips, we need this
+    while (indexes.size()) {
+        m_model->removeRows(indexes.back().row(), 1, indexes.back().parent());
+        indexes = m_selectionModel->selectedIndexes();
+    }
 }
 
 //! propagate selection from model to scene
@@ -225,16 +239,22 @@ void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 }
 
+//! Finalizes item drawing or pass events to other items
 void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "MaskGraphicsScene::mouseReleaseEvent() -> before" << m_activityType;
     if(isDrawingInProgress()) {
+        clearSelection();
         if(m_currentItem) {
-            clearSelection();
+            // drawing ended up with item drawn, let's make it selected
             if(IMaskView *view = m_ItemToView[m_currentItem]) {
                 view->setSelected(true);
             }
             m_currentItem = 0;
+        } else {
+            // drawing ended without item to be draw (too short mouse move)
+            // making item beneath of mouse release position to be selected
+            makeTopViewSelected(event);
         }
 
         setDrawingInProgress(false);
@@ -308,11 +328,29 @@ void MaskGraphicsScene::updateProxyWidget(const QModelIndex &parentIndex)
     }
 }
 
-//! Returns true if it is allowed to start drawing: scene's activity is not one of
-//! (SELECTION_MODE, PAN_ZOOM_MODE) and mouse cursor is not on top of SizeHandleElement
+void MaskGraphicsScene::deleteView(const QModelIndex &itemIndex)
+{
+    qDebug() << "MaskGraphicsScene::deleteView";
+    QMap<ParameterizedItem *, IMaskView *>::iterator it =
+            m_ItemToView.find(m_model->itemForIndex(itemIndex));
+    if(it!=m_ItemToView.end()) {
+        IMaskView *view = it.value();
+        view->setSelected(false);
+        m_ItemToView.erase(it);
+        emit view->aboutToBeDeleted();
+        view->deleteLater();
+        update();
+    }
+}
+
+//! Returns true if it is allowed to start drawing: all conditions below are fulfilled
+//! 1) It was left mouse button click
+//! 2) scene's activity is not one of (SELECTION_MODE, PAN_ZOOM_MODE)
+//! 3) mouse cursor is not on top of SizeHandleElement
 bool MaskGraphicsScene::isAllowedToStartDrawing(QGraphicsSceneMouseEvent *event)
 {
     bool result(true);
+    if( !(event->buttons() & Qt::LeftButton)) result = false;
     if(m_activityType.testFlag(MaskEditorActivity::SELECTION_MODE) ||
        m_activityType.testFlag(MaskEditorActivity::PAN_ZOOM_MODE)) result = false;
     QList<QGraphicsItem *> items_beneath = this->items(event->scenePos());
@@ -346,6 +384,19 @@ void MaskGraphicsScene::setDrawingInProgress(bool value)
     } else {
         m_activityType &= ~MaskEditorActivity::DRAWING_IN_PROGRESS;
     }
+}
+
+//! Makes top graphics item under mouse point selected.
+void MaskGraphicsScene::makeTopViewSelected(QGraphicsSceneMouseEvent *event)
+{
+    QList<QGraphicsItem *> items_beneath = this->items(event->scenePos());
+    foreach(QGraphicsItem *graphicsItem, items_beneath) {
+        if(graphicsItem->parentItem() == 0) {
+            graphicsItem->setSelected(true);
+            break;
+        }
+    }
+
 }
 
 IMaskView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)

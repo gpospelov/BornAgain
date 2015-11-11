@@ -316,7 +316,7 @@ void DesignerScene::deleteSelectedItems()
     }
 
     // deleting selected items on model side, corresponding views will be deleted automatically
-    // Since we don't know the order of items, we need this
+    // Since we don't know the order of items and their parent/child relationship, we need this
     while (indexes.size()) {
         m_sampleModel->removeRows(indexes.back().row(), 1, indexes.back().parent());
         indexes = m_selectionModel->selectedIndexes();

@@ -46,6 +46,7 @@ public slots:
     void onRowsInserted(const QModelIndex &parent, int first, int last);
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
     void onRowsRemoved(const QModelIndex &, int, int);
+    void deleteSelectedItems();
 
 private slots:
     void onSessionSelectionChanged(const QItemSelection & /* selected */,
@@ -63,11 +64,14 @@ private:
     void updateScene();
     void updateViews(const QModelIndex &parentIndex = QModelIndex());
     void updateProxyWidget(const QModelIndex &parentIndex);
+    void deleteView(const QModelIndex & itemIndex);
+
 //    void makeSelected(const QModelIndex &parent, int first, int last);
 
     bool isAllowedToStartDrawing(QGraphicsSceneMouseEvent *event);
     bool isDrawingInProgress() const;
     void setDrawingInProgress(bool value);
+    void makeTopViewSelected(QGraphicsSceneMouseEvent *event);
 
     IMaskView* addViewForItem(ParameterizedItem *item);
 

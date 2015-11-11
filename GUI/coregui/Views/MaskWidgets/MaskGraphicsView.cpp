@@ -15,6 +15,7 @@
 
 #include "MaskGraphicsView.h"
 #include "MaskGraphicsProxy.h"
+#include "MaskGraphicsScene.h"
 #include <QWheelEvent>
 #include <QGraphicsScene>
 #include <QScrollBar>
@@ -136,12 +137,12 @@ void MaskGraphicsView::keyPressEvent(QKeyEvent *event)
 //            qDebug() << "  space pressed" << event->isAutoRepeat();
 //        }
 //        break;
-//    case Qt::Key_Delete:
-//        deleteSelectedItems();
-//        break;
-//    case Qt::Key_Backspace:
-//        deleteSelectedItems();
-//        break;
+    case Qt::Key_Delete:
+        deleteSelectedItems();
+        break;
+    case Qt::Key_Backspace:
+        deleteSelectedItems();
+        break;
     default:
         QWidget::keyPressEvent(event);
     }
@@ -170,6 +171,13 @@ bool MaskGraphicsView::controlButtonIsPressed(QWheelEvent *event)
         return true;
     }
     return false;
+}
+
+void MaskGraphicsView::deleteSelectedItems()
+{
+    MaskGraphicsScene *maskScene = dynamic_cast<MaskGraphicsScene *>(scene());
+    Q_ASSERT(maskScene);
+    maskScene->deleteSelectedItems();
 }
 
 

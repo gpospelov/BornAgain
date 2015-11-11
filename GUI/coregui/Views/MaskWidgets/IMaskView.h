@@ -49,8 +49,8 @@ public:
     qreal fromSceneX(qreal value) const;
     qreal fromSceneY(qreal value) const;
 
-signals:
-    void aboutToBeDeleted();
+//signals:
+//    void aboutToBeDeleted();
 
 public slots:
     virtual void update_view() = 0;

@@ -353,7 +353,7 @@ void MaskGraphicsScene::deleteView(const QModelIndex &itemIndex)
         view->setSelected(false);
         m_ItemToView.erase(it);
         qDebug() << "   view deleted";
-        emit view->aboutToBeDeleted();
+//        emit view->aboutToBeDeleted();
 //        view->deleteLater();
 //        update();
         delete view;

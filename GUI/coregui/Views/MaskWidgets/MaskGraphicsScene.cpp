@@ -135,22 +135,28 @@ void MaskGraphicsScene::onRowsInserted(const QModelIndex &parent, int first, int
 void MaskGraphicsScene::onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last)
 {
     m_block_selection = true;
-    qDebug() << "MaskGraphicsScene::onRowsAboutToBeRemoved()" << parent << first << last;
+    qDebug() << "MaskGraphicsScene::onRowsAboutToBeRemoved(), blocking parent:" << parent << "first:" << first << "last:" << last;
     for (int irow = first; irow <= last; ++irow) {
         QModelIndex itemIndex = m_model->index(irow, 0, parent);
         deleteView(itemIndex); // deleting all child items
     }
+    qDebug() << "MaskGraphicsScene::onRowsAboutToBeRemoved(), unblocking";
     m_block_selection = false;
 }
 
-void MaskGraphicsScene::onRowsRemoved(const QModelIndex &, int, int)
+void MaskGraphicsScene::onRowsRemoved(const QModelIndex &parent, int first, int last)
 {
+    qDebug() << "MaskGraphicsScene::onRowsRemoved() ->" << parent << first << last;
     updateScene();
 }
 
 void MaskGraphicsScene::deleteSelectedItems()
 {
+    qDebug() << "XXX";
+    qDebug() << "XXX";
+    qDebug() << "XXX";
     QModelIndexList indexes = m_selectionModel->selectedIndexes();
+    qDebug() << "MaskGraphicsScene::deleteSelectedItems()" << indexes;
     // deleting selected items on model side, corresponding views will be deleted automatically
     // Since we don't know the order of items and their parent/child relationhips, we need this
     while (indexes.size()) {
@@ -186,9 +192,10 @@ void MaskGraphicsScene::onSessionSelectionChanged(const QItemSelection & /* sele
 //! propagate selection from scene to model
 void MaskGraphicsScene::onSceneSelectionChanged()
 {
-    qDebug() << "MaskGraphicsScene::onSceneSelectionChanged() 1.1";
     if (m_block_selection)
         return;
+
+    qDebug() << "MaskGraphicsScene::onSceneSelectionChanged() 1.1 blocking";
 
     m_block_selection = true;
 
@@ -196,6 +203,7 @@ void MaskGraphicsScene::onSceneSelectionChanged()
     QList<QGraphicsItem *> selected = selectedItems();
     for (int i = 0; i < selected.size(); ++i) {
         IMaskView *view = dynamic_cast<IMaskView *>(selected[i]);
+        qDebug() << "AAAA " << i << view;
         if (view) {
             ParameterizedItem *maskItem = view->getParameterizedItem();
             QModelIndex itemIndex = m_model->indexOfItem(maskItem);
@@ -205,6 +213,7 @@ void MaskGraphicsScene::onSceneSelectionChanged()
         }
     }
 
+    qDebug() << "MaskGraphicsScene::onSceneSelectionChanged() 1.2 un-blocking";
     m_block_selection = false;
 }
 
@@ -254,7 +263,10 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         } else {
             // drawing ended without item to be draw (too short mouse move)
             // making item beneath of mouse release position to be selected
-            makeTopViewSelected(event);
+//            makeTopViewSelected(event);
+            if(QGraphicsItem *graphicsItem = itemAt(event->scenePos(), QTransform())) {
+                graphicsItem->setSelected(true);
+            }
         }
 
         setDrawingInProgress(false);
@@ -305,8 +317,10 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex)
     qDebug() << "MaskGraphicsScene::updateViews()";
 
     updateProxyWidget(parentIndex);
+    qDebug() << "       XXX after proxy updated";
 
     for (int i_row = 0; i_row < m_model->rowCount(parentIndex); ++i_row) {
+        qDebug() << "       i_row" << i_row;
         QModelIndex itemIndex = m_model->index(i_row, 0, parentIndex);
 
         if (ParameterizedItem *item = m_model->itemForIndex(itemIndex)) {
@@ -330,16 +344,19 @@ void MaskGraphicsScene::updateProxyWidget(const QModelIndex &parentIndex)
 
 void MaskGraphicsScene::deleteView(const QModelIndex &itemIndex)
 {
-    qDebug() << "MaskGraphicsScene::deleteView";
+    qDebug() << "MaskGraphicsScene::deleteView" << itemIndex << m_model->itemForIndex(itemIndex);
     QMap<ParameterizedItem *, IMaskView *>::iterator it =
             m_ItemToView.find(m_model->itemForIndex(itemIndex));
     if(it!=m_ItemToView.end()) {
         IMaskView *view = it.value();
+        qDebug() << "   about to delete view ";
         view->setSelected(false);
         m_ItemToView.erase(it);
+        qDebug() << "   view deleted";
         emit view->aboutToBeDeleted();
-        view->deleteLater();
-        update();
+//        view->deleteLater();
+//        update();
+        delete view;
     }
 }
 

@@ -67,14 +67,14 @@ QItemSelectionModel *MaskEditorToolPanel::selectionModel()
 
 void MaskEditorToolPanel::onSelectionChanged(const QItemSelection &selected, const QItemSelection &)
 {
-    qDebug() << "MaskEditorToolPanel::onSessionSelectionChanged:";
-    if(!m_model) return;
+//    qDebug() << "MaskEditorToolPanel::onSessionSelectionChanged:";
+//    if(!m_model) return;
 
-    QModelIndexList indices = selected.indexes();
-    if(indices.size()) {
-        ParameterizedItem *item = m_model->itemForIndex(indices.front());
-        m_propertyEditor->setItem(item);
-    }
+//    QModelIndexList indices = selected.indexes();
+//    if(indices.size()) {
+//        ParameterizedItem *item = m_model->itemForIndex(indices.front());
+//        m_propertyEditor->setItem(item);
+//    }
 
 
 }

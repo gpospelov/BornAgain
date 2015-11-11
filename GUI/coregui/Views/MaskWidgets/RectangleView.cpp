@@ -85,6 +85,7 @@ void RectangleView::onSizeHandleElementRequest(bool going_to_resize)
 
 void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
+    qDebug() << "RectangleView::paint" << getParameterizedItem();
     painter->setRenderHints(QPainter::Antialiasing);
     prepareGeometryChange();
     bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();

@@ -344,7 +344,9 @@ QStringList ParameterizedItem::getParameterTreeList() const
 
 void ParameterizedItem::onChildPropertyChange()
 {
-    qDebug() << "ParameterizedItem::onChildPropertyChange()";
+    qDebug() << "ParameterizedItem::onChildPropertyChange()" << this << modelType();
+    if(mp_parent)
+        qDebug() << "   " << mp_parent->modelType();
     if (mp_parent)
         mp_parent->onChildPropertyChange();
 }

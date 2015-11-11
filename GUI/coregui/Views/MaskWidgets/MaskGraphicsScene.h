@@ -45,7 +45,7 @@ public slots:
     void onActivityModeChanged(int mode);
     void onRowsInserted(const QModelIndex &parent, int first, int last);
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
-    void onRowsRemoved(const QModelIndex &, int, int);
+    void onRowsRemoved(const QModelIndex &parent, int first, int last);
     void deleteSelectedItems();
 
 private slots:

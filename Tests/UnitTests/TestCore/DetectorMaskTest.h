@@ -5,7 +5,6 @@
 #include "SphericalDetector.h"
 #include "gtest/gtest.h"
 #include <boost/scoped_ptr.hpp>
-#include <boost/assign/list_of.hpp>
 
 class DetectorMaskTest : public ::testing::Test
 {
@@ -40,8 +39,8 @@ TEST_F(DetectorMaskTest, AddMask)
 {
     DetectorMask detectorMask;
 
-    std::vector<double> x = boost::assign::list_of(4.0)(-4.0)(-4.0)(4.0)(4.0);
-    std::vector<double> y = boost::assign::list_of(2.0)(2.0)(-2.0)(-2.0)(2.0);
+    std::vector<double> x = {4.0, -4.0, -4.0, 4.0, 4.0};
+    std::vector<double> y = {2.0, 2.0, -2.0, -2.0, 2.0};
     Geometry::Polygon polygon(x, y);
 
     SphericalDetector detector;
@@ -76,8 +75,8 @@ TEST_F(DetectorMaskTest, AddMask)
     EXPECT_EQ(detectorMask.getNumberOfMaskedChannels(), 0);
 
     // adding third mask
-    x = boost::assign::list_of(5.0)(5.0)(8.0)(8.0)(5.0);
-    y = boost::assign::list_of(2.0)(4.0)(4.0)(2.0)(2.0);
+    x = {5.0, 5.0, 8.0, 8.0, 5.0};
+    y = {2.0, 4.0, 4.0, 2.0, 2.0};
     Geometry::Polygon polygon2(x, y);
     detectorMask.addMask(polygon2, true);
     detectorMask.initMaskData(detector);
@@ -105,8 +104,8 @@ TEST_F(DetectorMaskTest, AssignmentOperator)
 {
     DetectorMask detectorMask;
 
-    std::vector<double> x = boost::assign::list_of(4.0)(-4.0)(-4.0)(4.0)(4.0);
-    std::vector<double> y = boost::assign::list_of(2.0)(2.0)(-2.0)(-2.0)(2.0);
+    std::vector<double> x = {4.0, -4.0, -4.0, 4.0, 4.0};
+    std::vector<double> y = {2.0, 2.0, -2.0, -2.0, 2.0};
     Geometry::Polygon polygon(x, y);
 
     SphericalDetector detector;
@@ -139,8 +138,8 @@ TEST_F(DetectorMaskTest, CopyConstructor)
 {
     DetectorMask detectorMask;
 
-    std::vector<double> x = boost::assign::list_of(4.0)(-4.0)(-4.0)(4.0)(4.0);
-    std::vector<double> y = boost::assign::list_of(2.0)(2.0)(-2.0)(-2.0)(2.0);
+    std::vector<double> x = {4.0, -4.0, -4.0, 4.0, 4.0};
+    std::vector<double> y = {2.0, 2.0, -2.0, -2.0, 2.0};
     Geometry::Polygon polygon(x, y);
 
     SphericalDetector detector;

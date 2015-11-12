@@ -6,7 +6,6 @@
 #include "gtest/gtest.h"
 #include <map>
 #include <iostream>
-#include <boost/assign/list_of.hpp>
 #include <boost/scoped_ptr.hpp>
 
 using namespace Utils;
@@ -24,8 +23,8 @@ TEST_F(UtilsTest, OrderedMapInsert)
     OrderedMap<int, std::string> omap;
     EXPECT_EQ( size_t(0), omap.size());
 
-    std::vector<int> keys = boost::assign::list_of(3)(2)(1);
-    std::vector<std::string> values = boost::assign::list_of("aaa")("bbb")("ccc");
+    std::vector<int> keys = {3, 2, 1};
+    std::vector<std::string> values = {"aaa", "bbb", "ccc"};
 
     omap.insert(keys[0], values[0]);
     omap.insert(keys[1], values[1]);
@@ -49,8 +48,8 @@ TEST_F(UtilsTest, OrderedMapErase)
 {
     OrderedMap<std::string, double> omap;
 
-    std::vector<std::string> keys = boost::assign::list_of("ccc")("bbb")("aaa");
-    std::vector<double> values = boost::assign::list_of(2.0)(1.0)(3.0);
+    std::vector<std::string> keys = {"ccc", "bbb", "aaa"};
+    std::vector<double> values = {2.0, 1.0, 3.0};
 
     omap.insert(keys[0], values[0]);
     omap.insert(keys[1], values[1]);
@@ -71,8 +70,8 @@ TEST_F(UtilsTest, OrderedMapErase)
     EXPECT_EQ(omap.erase("bbb"), size_t(1));
     EXPECT_EQ(size_t(2), omap.size());
 
-    keys = boost::assign::list_of("ccc")("aaa");
-    values = boost::assign::list_of(2.0)(3.0);
+    keys = {"ccc", "aaa"};
+    values = {2.0, 3.0};
     npos = 0;
     for(OrderedMap<std::string, double>::const_iterator it = omap.begin(); it!= omap.end(); ++it) {
         EXPECT_EQ(keys[npos], it->first);

@@ -10,7 +10,6 @@
 #include "ResolutionFunction2DGaussian.h"
 #include "Polygon.h"
 #include <boost/scoped_ptr.hpp>
-#include <boost/assign/list_of.hpp>
 
 #include "gtest/gtest.h"
 
@@ -95,8 +94,8 @@ TEST_F(DetectorTest, MaskOfDetector)
     detector.addAxis(FixedBinAxis("x-axis", 12, -4.0, 8.0));
     detector.addAxis(FixedBinAxis("y-axis", 6, -2.0, 4.0));
 
-    std::vector<double> x = boost::assign::list_of(4.0)(-4.0)(-4.0)(4.0)(4.0);
-    std::vector<double> y = boost::assign::list_of(2.0)(2.0)(-2.0)(-2.0)(2.0);
+    std::vector<double> x = {4.0, -4.0, -4.0, 4.0, 4.0};
+    std::vector<double> y = {2.0, 2.0, -2.0, -2.0, 2.0};
 
     Geometry::Polygon polygon(x, y);
     detector.addMask(polygon, true);

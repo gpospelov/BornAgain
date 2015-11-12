@@ -2,8 +2,6 @@
 # CMakeLists.txt file for running TestPyCore functional tests
 ############################################################################
 
-set(CMAKE_CXX_FLAGS "-DSTANDALONE")
-
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc ")

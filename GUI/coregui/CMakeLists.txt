@@ -1,7 +1,6 @@
 ############################################################################
 # CMakeLists.txt file for building libBornAgainGUI library
 ############################################################################
-cmake_minimum_required(VERSION 2.8.11 FATAL_ERROR)
 if(POLICY CMP0020)
     cmake_policy(SET CMP0020 NEW)
 endif()
@@ -100,9 +99,9 @@ set(resource_files
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 qt5_add_resources(RC_SRCS ${resource_files})
- 
+
 # --- definitions ------
-if(BORNAGAIN_CRASHHADLER)
+if(BORNAGAIN_CRASHHANDLER)
     add_definitions(-DBORNAGAIN_CRASHHANDLER)
 endif()
 
@@ -176,7 +175,7 @@ if(WIN32)
     ${QTDIR}/bin/Qt5Designer.dll
     ${QTDIR}/bin/Qt5Xml.dll
     #${QTDIR}/bin/libGLESv2.dll
-    #${QTDIR}/bin/libEGL.dll    
+    #${QTDIR}/bin/libEGL.dll
     ${QTDIR}/bin/icuin54.dll
     ${QTDIR}/bin/icuuc54.dll
     ${QTDIR}/bin/icudt54.dll
@@ -190,7 +189,7 @@ if(WIN32)
     ${QTDIR}/bin/Qt5Sensors.dll
     ${QTDIR}/bin/Qt5Sql.dll
     #${QTDIR}/bin/Qt5V8.dll
-    ${QTDIR}/bin/Qt5WebKit.dll    
+    ${QTDIR}/bin/Qt5WebKit.dll
     DESTINATION ${destination_lib} COMPONENT Libraries)
 
     install(FILES

@@ -111,9 +111,9 @@ void MaskGraphicsScene::onActivityModeChanged(MaskEditorActivity::Flags value)
     qDebug() << "MaskGraphicsScene::onActivityModeChanged(int mode) ->" << value;
     m_activityType = value;
     if(m_activityType.testFlag(MaskEditorActivity::PAN_ZOOM_MODE)) {
-        m_proxy->setSendSignalsToColormap(true);
+        m_proxy->setInZoomMode(true);
     } else {
-        m_proxy->setSendSignalsToColormap(false);
+        m_proxy->setInZoomMode(false);
     }
 
 }

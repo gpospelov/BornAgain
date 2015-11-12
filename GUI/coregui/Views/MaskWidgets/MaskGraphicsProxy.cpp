@@ -54,9 +54,16 @@ void MaskGraphicsProxy::setSceneAdaptor(ISceneAdaptor *sceneAdaptor)
     m_sceneAdaptor->setColorMapPlot(m_colorMap);
 }
 
-void MaskGraphicsProxy::setSendSignalsToColormap(bool value)
+//! Sets widget to zoom mode, when signals (zoom wheel, mouse clicks) are send down to
+//! ColorMap plot. In non-zoom mode, widget doesn't react on clicks.
+void MaskGraphicsProxy::setInZoomMode(bool value)
 {
     m_send_signals_to_colormap = value;
+    if(value) {
+        setAcceptedMouseButtons(Qt::LeftButton);
+    } else {
+        setAcceptedMouseButtons(Qt::NoButton);
+    }
 }
 
 void MaskGraphicsProxy::mousePressEvent(QGraphicsSceneMouseEvent *event)

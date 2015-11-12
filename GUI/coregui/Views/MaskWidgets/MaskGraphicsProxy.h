@@ -40,7 +40,7 @@ public:
 
     void setItem(ParameterizedItem *item);
     void setSceneAdaptor(ISceneAdaptor *sceneAdaptor);
-    void setSendSignalsToColormap(bool value);
+    void setInZoomMode(bool value);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

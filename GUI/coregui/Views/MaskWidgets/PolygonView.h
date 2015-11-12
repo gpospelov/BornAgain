@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaskWidgets/MaskEditor.h
-//! @brief     Defines class MaskEditor
+//! @file      coregui/Views/MaskWidgets/PolygonView.h
+//! @brief     Defines PolygonView class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,33 +13,30 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKEDITOR_H
-#define MASKEDITOR_H
+#ifndef POLYGONVIEW_H
+#define POLYGONVIEW_H
 
-#include "WinDllMacros.h"
-#include <QWidget>
+#include "IMaskView.h"
+#include <QPolygonF>
 
-class MaskEditorCanvas;
-class MaskEditorToolPanel;
-class QSplitter;
-class MaskModel;
+//! This is a View of polygon mask (represented by PolygonItem) on GraphicsScene.
 
-//! Main class to draw masks on top of intensity data map
-
-class BA_CORE_API_ MaskEditor : public QWidget
+class BA_CORE_API_ PolygonView : public IMaskView
 {
     Q_OBJECT
-public:
-    MaskEditor(QWidget *parent = 0);
 
+public:
+    PolygonView();
+
+protected:
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
 
 private:
-    void init_test_model();
+    void update_view();
+    void update_polygon();
+//    void update_bounding_rect();
 
-    MaskEditorCanvas *m_editorCanvas;
-    MaskEditorToolPanel *m_editorToolPanel;
-    QSplitter *m_splitter;
-    MaskModel *m_maskModel;
+    QPolygonF m_polygon;
 };
 
 

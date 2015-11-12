@@ -79,34 +79,23 @@ void MaskEditor::init_test_model()
 //    rect->setRegisteredProperty(RectangleItem::P_WIDTH, 0.3);
 //    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 0.2);
 
+    ParameterizedItem *poly = m_maskModel->insertNewItem(Constants::PolygonMaskType, m_maskModel->indexOfItem(item));
+
+    ParameterizedItem *p1 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
+    p1->setRegisteredProperty(PolygonPointItem::P_POSX, 0.6);
+    p1->setRegisteredProperty(PolygonPointItem::P_POSY, 1.5);
+    ParameterizedItem *p2 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
+    p2->setRegisteredProperty(PolygonPointItem::P_POSX, 1.0);
+    p2->setRegisteredProperty(PolygonPointItem::P_POSY, 1.5);
+    ParameterizedItem *p3 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
+    p3->setRegisteredProperty(PolygonPointItem::P_POSX, 1.0);
+    p3->setRegisteredProperty(PolygonPointItem::P_POSY, 0.6);
+
+
+
     m_editorCanvas->setModel(m_maskModel, m_maskModel->indexOfItem(item));
     m_editorToolPanel->setModel(m_maskModel, m_maskModel->indexOfItem(item));
     m_editorCanvas->setSelectionModel(m_editorToolPanel->selectionModel());
 
-
-
-//    Test::MyFlags f;
-//       qDebug() << "XXX1" << f;
-
-//       f |= Test::D;
-//       qDebug() << "XXX2" << f;
-
-//       f = Test::A | Test::B;
-//       qDebug() << "XXX3" << f;
-//       qDebug() << "XXX4" << f.testFlag(Test::B) << f.testFlag(Test::C);
-
-//       f = Test::AB;
-//       qDebug() << "XXX5" << f;
-//       qDebug() << "XXX6" << f.testFlag(Test::B) << f.testFlag(Test::C);
-
-//       f &= ~Test::B;  // turn off B
-//       qDebug() << "XXX7" << f;
-
-//       f = Test::B;
-//       Test::MyFlags g(Test::A | Test::C);
-//       f |= g;
-//       qDebug() << "XXX8" << f;
-
-//       Q_ASSERT(0);
 
 }

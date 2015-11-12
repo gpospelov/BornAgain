@@ -18,6 +18,7 @@
 #include "IMaskView.h"
 #include "GUIHelpers.h"
 #include "RectangleView.h"
+#include "PolygonView.h"
 #include "ParameterizedItem.h"
 
 IMaskView *MaskViewFactory::createMaskView(ParameterizedItem *item,
@@ -28,6 +29,11 @@ IMaskView *MaskViewFactory::createMaskView(ParameterizedItem *item,
     if(model_type == Constants::RectangleMaskType) {
         result = new RectangleView();
     }
+
+    else if(model_type == Constants::PolygonMaskType) {
+        result = new PolygonView();
+    }
+
     else {
         throw GUIHelpers::Error("MaskViewFactory::createSampleView() -> Error! "
                                 "Can't create a view for " + model_type);

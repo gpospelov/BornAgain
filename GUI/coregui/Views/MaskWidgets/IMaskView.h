@@ -54,6 +54,7 @@ public:
 //    void aboutToBeDeleted();
 
 public slots:
+    //! update visual appearance of view (triggered by ISceneAdaptor)
     virtual void update_view() = 0;
     virtual void onChangedX();
     virtual void onChangedY();

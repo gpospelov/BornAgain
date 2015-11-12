@@ -24,7 +24,7 @@ MaskItem::MaskItem(const QString &name, ParameterizedItem *parent)
 }
 
 
-/* ------------------------------------------------ */
+/* ------------------------------------------------------------------------- */
 const QString RectangleItem::P_POSX = "X position";
 const QString RectangleItem::P_POSY = "Y position";
 const QString RectangleItem::P_WIDTH = "Width";
@@ -39,3 +39,26 @@ RectangleItem::RectangleItem(ParameterizedItem *parent)
     registerProperty(P_WIDTH, 0.0);
     registerProperty(P_HEIGHT, 0.0);
 }
+
+/* ------------------------------------------------------------------------- */
+const QString PolygonPointItem::P_POSX = "X position";
+const QString PolygonPointItem::P_POSY = "Y position";
+
+PolygonPointItem::PolygonPointItem(ParameterizedItem *parent)
+    : ParameterizedItem(Constants::PolygonPointType, parent)
+{
+    setItemName("Point");
+    registerProperty(P_POSX, 0.0);
+    registerProperty(P_POSY, 0.0);
+}
+
+
+/* ------------------------------------------------------------------------- */
+
+PolygonItem::PolygonItem(ParameterizedItem *parent)
+    : MaskItem(Constants::PolygonMaskType, parent)
+{
+    setItemName(Constants::PolygonMaskType);
+    addToValidChildren(Constants::PolygonPointType);
+}
+

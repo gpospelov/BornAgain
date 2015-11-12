@@ -158,6 +158,8 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::ObsoletePointType] = &createInstance<ObsoletePointItem>;
 
     result[Constants::RectangleMaskType] = &createInstance<RectangleItem>;
+    result[Constants::PolygonPointType] = &createInstance<PolygonPointItem>;
+    result[Constants::PolygonMaskType] = &createInstance<PolygonItem>;
 
     return result;
 }

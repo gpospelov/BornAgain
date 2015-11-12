@@ -126,6 +126,11 @@ const ModelType ObsoletePolygonType = "Polygon";
 const ModelType ObsoletePointType = "Point";
 
 const ModelType RectangleMaskType = "RectangleMask";
+const ModelType PolygonMaskType = "PolygonMask";
+const ModelType PolygonPointType = "PolygonPoint";
+const ModelType EllipseMaskType = "EllipseMask";
+const ModelType VerticalLineMaskType = "VerticalLineMask";
+const ModelType HorizontalLineMaskType = "HorizontalLineMask";
 
 // --- Groups ------------------------------------------------------------------
 

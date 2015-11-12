@@ -16,6 +16,10 @@
 #include "IMaskView.h"
 #include "ParameterizedItem.h"
 #include "ISceneAdaptor.h"
+#include "MaskItems.h"
+#include <QMenu>
+#include <QAction>
+#include <QGraphicsSceneContextMenuEvent>
 #include <QDebug>
 
 IMaskView::IMaskView()
@@ -135,6 +139,17 @@ void IMaskView::onChangedY()
 void IMaskView::onPropertyChange(const QString &propertyName)
 {
     Q_UNUSED(propertyName);
+}
+
+void IMaskView::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+{
+    QMenu menu;
+    QAction *removeAction = menu.addAction("Toggle mask value");
+    QAction *selectedAction = menu.exec(event->screenPos());
+    if(selectedAction == removeAction) {
+        bool old_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
+        m_item->setRegisteredProperty(MaskItem::P_MASK_VALUE, !old_value);
+    }
 }
 
 //void IMaskView::update_view()

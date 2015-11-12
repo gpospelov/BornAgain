@@ -76,6 +76,7 @@ private:
     IMaskView* addViewForItem(ParameterizedItem *item);
 
     void processRectangleItem(QGraphicsSceneMouseEvent *event);
+    void setZValues();
 
     SessionModel *m_model;
     QItemSelectionModel *m_selectionModel;

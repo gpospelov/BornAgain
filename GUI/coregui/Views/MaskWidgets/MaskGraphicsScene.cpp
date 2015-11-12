@@ -329,6 +329,7 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex)
         }
     }
 
+    setZValues();
 }
 
 //! updates proxy widget for intensity data item
@@ -463,7 +464,12 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
     QLineF line(mouse_pos, click_pos);
 
     if(!m_currentItem && line.length() > min_distance_to_create_rect) {
-        m_currentItem = m_model->insertNewItem(Constants::RectangleMaskType, m_rootIndex);
+        m_currentItem = m_model->insertNewItem(Constants::RectangleMaskType, m_rootIndex, 0);
+        if(m_activityType.testFlag(MaskEditorActivity::MASK_GREEN_ID)) {
+            m_currentItem->setRegisteredProperty(RectangleItem::P_MASK_VALUE, false);
+        } else {
+            m_currentItem->setRegisteredProperty(RectangleItem::P_MASK_VALUE, true);
+        }
     }
 
     if(m_currentItem) {
@@ -478,5 +484,21 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
             RectangleItem::P_WIDTH, m_adaptor->fromSceneX(xmax) - m_adaptor->fromSceneX(xmin));
         m_currentItem->setRegisteredProperty(
             RectangleItem::P_HEIGHT, m_adaptor->fromSceneY(ymin) - m_adaptor->fromSceneY(ymax));
+    }
+}
+
+
+//! Update Z-values of all IMaskView to reflect stacking order in SessionModel.
+//! Item with irow=0 is the top most on graphics scene.
+void MaskGraphicsScene::setZValues()
+{
+    Q_ASSERT(m_rootIndex.isValid());
+    for(int i = 0; i < m_model->rowCount(m_rootIndex); i++) {
+        QModelIndex itemIndex = m_model->index(i, 0, m_rootIndex);
+        ParameterizedItem *item =  m_model->itemForIndex(itemIndex);
+        Q_ASSERT(item);
+        if(IMaskView *view = m_ItemToView[item]) {
+            view->setZValue(m_model->rowCount(m_rootIndex) -  itemIndex.row() + 1);
+        }
     }
 }

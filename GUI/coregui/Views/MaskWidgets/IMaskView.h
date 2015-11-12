@@ -49,6 +49,7 @@ public:
     qreal fromSceneX(qreal value) const;
     qreal fromSceneY(qreal value) const;
 
+
 //signals:
 //    void aboutToBeDeleted();
 
@@ -59,7 +60,8 @@ public slots:
     virtual void onPropertyChange(const QString &propertyName);
 
 protected:
-    //! update visual appearance triggered by adapter
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+
     ParameterizedItem *m_item;
     ISceneAdaptor *m_adaptor;
     QRectF m_bounding_rect;

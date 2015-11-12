@@ -17,6 +17,7 @@
 #define MASKGRAPHICSVIEW_H
 
 #include <QGraphicsView>
+#include "MaskEditorActivity.h"
 
 class QWheelEvent;
 class MaskGraphicsProxy;
@@ -32,6 +33,9 @@ public:
     QSize minimumSizeHint() const { return QSize(128, 128); }
 
 //    void setColorMapProxy(MaskGraphicsProxy *colorMapProxy);
+
+signals:
+    void changeActivityRequest(MaskEditorActivity::Flags);
 
 protected:
     void wheelEvent(QWheelEvent* event);

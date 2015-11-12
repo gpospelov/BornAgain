@@ -41,6 +41,8 @@ MaskEditorCanvas::MaskEditorCanvas(QWidget *parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
     setLayout(mainLayout);
+
+    connect(m_view, SIGNAL(changeActivityRequest(MaskEditorActivity::Flags)), this, SIGNAL(changeActivityRequest(MaskEditorActivity::Flags)));
 }
 
 void MaskEditorCanvas::setModel(SessionModel *model, const QModelIndex &rootIndex)
@@ -53,9 +55,9 @@ void MaskEditorCanvas::setSelectionModel(QItemSelectionModel *model)
     m_scene->setSelectionModel(model);
 }
 
-void MaskEditorCanvas::onActivityModeChanged(int mode)
+void MaskEditorCanvas::onActivityModeChanged(MaskEditorActivity::Flags value)
 {
-    qDebug() << "MaskEditorCanvas::onActivityModeChanged(int)" << mode;
-    m_scene->onActivityModeChanged(mode);
+    qDebug() << "MaskEditorCanvas::onActivityModeChanged(int)" << value;
+    m_scene->onActivityModeChanged(value);
 }
 

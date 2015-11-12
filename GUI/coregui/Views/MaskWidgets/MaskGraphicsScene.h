@@ -42,7 +42,7 @@ public:
     void setSelectionModel(QItemSelectionModel *model);
 
 public slots:
-    void onActivityModeChanged(int mode);
+    void onActivityModeChanged(MaskEditorActivity::Flags value);
     void onRowsInserted(const QModelIndex &parent, int first, int last);
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
     void onRowsRemoved(const QModelIndex &parent, int first, int last);

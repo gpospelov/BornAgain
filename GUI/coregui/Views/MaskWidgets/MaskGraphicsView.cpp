@@ -131,12 +131,11 @@ void MaskGraphicsView::keyPressEvent(QKeyEvent *event)
     switch (event->key()) {
     case Qt::Key_Left:
         break;
-//    case Qt::Key_Space:
-//        if (getSelectionMode() != HAND_DRAG && !event->isAutoRepeat()) {
-//            onSelectionMode(HAND_DRAG);
-//            qDebug() << "  space pressed" << event->isAutoRepeat();
-//        }
-//        break;
+    case Qt::Key_Space:
+        if(!event->isAutoRepeat()) {
+            emit changeActivityRequest(MaskEditorActivity::PAN_ZOOM_MODE);
+        }
+        break;
     case Qt::Key_Delete:
         deleteSelectedItems();
         break;
@@ -152,18 +151,17 @@ void MaskGraphicsView::keyPressEvent(QKeyEvent *event)
 void MaskGraphicsView::keyReleaseEvent(QKeyEvent *event)
 {
     switch (event->key()) {
-//    case Qt::Key_Space:
-
-//        if (getSelectionMode() != RUBBER_SELECTION && !event->isAutoRepeat()) {
-//            onSelectionMode(RUBBER_SELECTION);
-//            qDebug() << "  space released" << event->isAutoRepeat();
-//        }
-//        break;
+    case Qt::Key_Space:
+        if(!event->isAutoRepeat()) {
+            emit changeActivityRequest(MaskEditorActivity::SELECTION_MODE);
+        }
+        break;
     default:
         QWidget::keyPressEvent(event);
     }
 
 }
+
 
 bool MaskGraphicsView::controlButtonIsPressed(QWheelEvent *event)
 {

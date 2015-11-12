@@ -106,11 +106,11 @@ void MaskGraphicsScene::setSelectionModel(QItemSelectionModel *model)
 
 }
 
-void MaskGraphicsScene::onActivityModeChanged(int mode)
+void MaskGraphicsScene::onActivityModeChanged(MaskEditorActivity::Flags value)
 {
-    qDebug() << "MaskGraphicsScene::onActivityModeChanged(int mode) ->" << mode;
-    m_activityType = (MaskEditorActivity::EActivityType)mode;
-    if(mode == MaskEditorActivity::PAN_ZOOM_MODE) {
+    qDebug() << "MaskGraphicsScene::onActivityModeChanged(int mode) ->" << value;
+    m_activityType = value;
+    if(m_activityType.testFlag(MaskEditorActivity::PAN_ZOOM_MODE)) {
         m_proxy->setSendSignalsToColormap(true);
     } else {
         m_proxy->setSendSignalsToColormap(false);

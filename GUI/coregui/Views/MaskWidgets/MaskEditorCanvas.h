@@ -16,6 +16,7 @@
 #ifndef MASKEDITORCANVAS_H
 #define MASKEDITORCANVAS_H
 
+#include "MaskEditorActivity.h"
 #include <QWidget>
 
 class MaskGraphicsScene;
@@ -36,8 +37,11 @@ public:
     void setModel(SessionModel *model, const QModelIndex &rootIndex);
     void setSelectionModel(QItemSelectionModel *model);
 
+signals:
+    void changeActivityRequest(MaskEditorActivity::Flags);
+
 public slots:
-    void onActivityModeChanged(int mode);
+    void onActivityModeChanged(MaskEditorActivity::Flags value);
 
 private:
     MaskGraphicsScene *m_scene;

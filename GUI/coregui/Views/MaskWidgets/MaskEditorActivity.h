@@ -30,6 +30,8 @@ public:
         RECTANGLE_MODE      = 0x004,
         POLYGON_MODE        = 0x008,
         DRAWING_IN_PROGRESS = 0x010,
+        MASK_GREEN_ID    = 0x020,
+        MASK_RED_ID      = 0x040,
     };
 Q_DECLARE_FLAGS(Flags, EActivityType)
 };

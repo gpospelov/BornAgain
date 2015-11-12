@@ -16,6 +16,7 @@
 #ifndef MASKEDITORTOOLPANEL_H
 #define MASKEDITORTOOLPANEL_H
 
+#include "MaskEditorActivity.h"
 #include <QWidget>
 
 class QListView;
@@ -41,19 +42,29 @@ public:
     QItemSelectionModel* selectionModel();
 
 signals:
-    void activityModeChanged(int);
+    void activityModeChanged(MaskEditorActivity::Flags);
 
 public slots:
+    void onChangeActivityRequest(MaskEditorActivity::Flags value);
     void onSelectionChanged(const QItemSelection &selected, const QItemSelection &);
+
+private slots:
+    void onActivityButtonGroupChanged(int value);
 
 private:
     QWidget *create_selection_group();
     QWidget *create_drawing_group();
+    QWidget *create_mask_value_group();
+
+    MaskEditorActivity::Flags getCurrentActivity() const;
+    void setCurrentActivity(MaskEditorActivity::Flags value);
 
     QListView *m_listView;
     AwesomePropertyEditor *m_propertyEditor;
     SessionModel *m_model;
     QButtonGroup *m_activityButtonGroup;
+    QButtonGroup *m_maskValueGroup;
+    MaskEditorActivity::Flags m_previousActivity;
 };
 
 

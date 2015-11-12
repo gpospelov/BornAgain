@@ -65,14 +65,14 @@ TEST_F(CumulativeValueTest, AddValuesWithWeights)
     EXPECT_EQ(2, cv1.getNumberOfEntries());
     EXPECT_DOUBLE_EQ(4.0, cv1.getContent());
     EXPECT_DOUBLE_EQ(1.5, cv1.getAverage());
-    EXPECT_FLOAT_EQ(0.75, (float)cv1.getRMS()*cv1.getRMS());
+    EXPECT_DOUBLE_EQ(0.75, cv1.getRMS()*cv1.getRMS());
 
     cv1.add(3.0);
     cv1.add(3.0);
     EXPECT_EQ(4, cv1.getNumberOfEntries());
     EXPECT_DOUBLE_EQ(10.0, cv1.getContent());
     EXPECT_DOUBLE_EQ(2.0, cv1.getAverage());
-	EXPECT_FLOAT_EQ(1.0, (float)cv1.getRMS());
+	EXPECT_DOUBLE_EQ(1.0, cv1.getRMS());
 }
 
 TEST_F(CumulativeValueTest, Comparison)

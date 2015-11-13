@@ -47,6 +47,8 @@ public slots:
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
     void onRowsRemoved(const QModelIndex &parent, int first, int last);
     void deleteSelectedItems();
+    void resetScene();
+    void updateScene();
 
 private slots:
     void onSessionSelectionChanged(const QItemSelection & /* selected */,
@@ -60,9 +62,7 @@ protected:
 
 private:
     void init_scene();
-    void resetScene();
-    void updateScene();
-    void updateViews(const QModelIndex &parentIndex = QModelIndex());
+    void updateViews(const QModelIndex &parentIndex = QModelIndex(), IMaskView *parentView = 0);
     void updateProxyWidget(const QModelIndex &parentIndex);
     void deleteView(const QModelIndex & itemIndex);
 

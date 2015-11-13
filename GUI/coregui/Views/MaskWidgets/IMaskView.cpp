@@ -126,14 +126,18 @@ qreal IMaskView::fromSceneY(qreal value) const
     return result;
 }
 
+void IMaskView::addView(IMaskView *childView, int row)
+{
+    Q_UNUSED(childView);
+    Q_UNUSED(row);
+}
+
 void IMaskView::onChangedX()
 {
-
 }
 
 void IMaskView::onChangedY()
 {
-
 }
 
 void IMaskView::onPropertyChange(const QString &propertyName)

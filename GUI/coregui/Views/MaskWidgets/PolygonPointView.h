@@ -17,11 +17,10 @@
 #define POLYGONPOINTVIEW_H
 
 #include "IMaskView.h"
-#include <QGraphicsObject>
 
 //! This is a View of polygon point for PolygonMaskItem
 
-class BA_CORE_API_ PolygonPointView : public QGraphicsObject
+class BA_CORE_API_ PolygonPointView : public IMaskView
 {
     Q_OBJECT
 
@@ -30,8 +29,19 @@ public:
 
     QRectF boundingRect() const;
 
+public slots:
+    virtual void onChangedX();
+    virtual void onChangedY();
+    virtual void onPropertyChange(const QString &propertyName);
+    virtual void update_view();
+
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
+
+private:
+    void update_position();
+
+    bool m_block_on_property_change;
 };
 
 

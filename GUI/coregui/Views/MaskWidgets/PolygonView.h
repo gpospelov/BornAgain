@@ -28,8 +28,18 @@ class BA_CORE_API_ PolygonView : public IMaskView
 public:
     PolygonView();
 
+    void addView(IMaskView *childView, int row);
+
+public slots:
+    virtual void onPropertyChange(const QString &propertyName);
+
+
+protected slots:
+    void onChilderChanged();
+
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
 private:
     void update_view();

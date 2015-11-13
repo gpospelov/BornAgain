@@ -50,6 +50,8 @@ public:
     qreal fromSceneY(qreal value) const;
 
 
+    virtual void addView(IMaskView *childView, int row = 0);
+
 //signals:
 //    void aboutToBeDeleted();
 

@@ -305,32 +305,79 @@ void MaskGraphicsScene::resetScene()
     m_adaptor.reset(new ColorMapSceneAdaptor);
 }
 
+//void MaskGraphicsScene::updateScene()
+//{
+//    if(!m_model) return;
+//    updateViews(m_rootIndex);
+//}
+
+
 void MaskGraphicsScene::updateScene()
 {
     if(!m_model) return;
+    updateProxyWidget(m_rootIndex);
     updateViews(m_rootIndex);
+    setZValues();
 }
 
-void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex)
+
+//void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex)
+//{
+//    Q_ASSERT(m_model);
+//    qDebug() << "MaskGraphicsScene::updateViews()";
+
+//    updateProxyWidget(parentIndex);
+//    qDebug() << "       XXX after proxy updated";
+
+//    for (int i_row = 0; i_row < m_model->rowCount(parentIndex); ++i_row) {
+//        qDebug() << "       i_row" << i_row;
+//        QModelIndex itemIndex = m_model->index(i_row, 0, parentIndex);
+
+//        if (ParameterizedItem *item = m_model->itemForIndex(itemIndex)) {
+//            qDebug() << "aaa:" << item->modelType();
+//            addViewForItem(item);
+//        }
+//    }
+
+//    setZValues();
+//}
+
+
+void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex, IMaskView *parentView)
 {
     Q_ASSERT(m_model);
-    qDebug() << "MaskGraphicsScene::updateViews()";
 
-    updateProxyWidget(parentIndex);
-    qDebug() << "       XXX after proxy updated";
+    qDebug() << "DesignerScene::updateVIews()";
 
+    if (!parentIndex.isValid()) {
+        qDebug() << "Dumping model";
+    }
+
+    IMaskView *childView(0);
     for (int i_row = 0; i_row < m_model->rowCount(parentIndex); ++i_row) {
-        qDebug() << "       i_row" << i_row;
         QModelIndex itemIndex = m_model->index(i_row, 0, parentIndex);
 
         if (ParameterizedItem *item = m_model->itemForIndex(itemIndex)) {
-            qDebug() << "aaa:" << item->modelType();
-            addViewForItem(item);
-        }
-    }
 
-    setZValues();
+            childView = addViewForItem(item);
+            if (childView) {
+                if (parentView) {
+                    qDebug() << "       DesignerScene::updateViews() -> adding child "
+                             << item->modelType() << " to parent"
+                             << parentView->getParameterizedItem()->modelType();
+                    parentView->addView(childView, i_row);
+                }
+            }
+
+        } else {
+            qDebug() << "not a parameterized graphics item";
+        }
+
+        updateViews(itemIndex, childView);
+    }
 }
+
+
 
 //! updates proxy widget for intensity data item
 void MaskGraphicsScene::updateProxyWidget(const QModelIndex &parentIndex)
@@ -417,25 +464,51 @@ void MaskGraphicsScene::makeTopViewSelected(QGraphicsSceneMouseEvent *event)
 
 }
 
+//IMaskView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
+//{
+//    Q_ASSERT(item);
+//    qDebug() << "AAA";
+//    qDebug() << "AAA";
+//    qDebug() << "AAA";
+//    qDebug() << "AAA";
+//    qDebug() << "MaskGraphicsScene::addViewForItem() ->" << item->modelType();
+
+//    IMaskView *view = m_ItemToView[item];
+//    if (!view) {
+//        qDebug() << "       DesignerScene::addViewForItem() -> Creating view for item"
+//                 << item->modelType();
+//        view = MaskViewFactory::createMaskView(item, m_adaptor.data());
+//        if (view) {
+//            m_ItemToView[item] = view;
+//            qDebug() << "       ---> adding to scene";
+//            addItem(view);
+//            qDebug() << "       <--- added to scene";
+//            return view;
+//        }
+//    } else {
+//        qDebug() << "       DesignerScene::addViewForItem() -> View for item exists."
+//                 << item->modelType();
+//    }
+//    return view;
+
+//}
+
+
+
 IMaskView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
 {
-    Q_ASSERT(item);
-    qDebug() << "AAA";
-    qDebug() << "AAA";
-    qDebug() << "AAA";
-    qDebug() << "AAA";
     qDebug() << "MaskGraphicsScene::addViewForItem() ->" << item->modelType();
+    Q_ASSERT(item);
 
     IMaskView *view = m_ItemToView[item];
     if (!view) {
-        qDebug() << "       DesignerScene::addViewForItem() -> Creating view for item"
+        qDebug() << "       MaskGraphicsScene::addViewForItem() -> Creating view for item"
                  << item->modelType();
         view = MaskViewFactory::createMaskView(item, m_adaptor.data());
         if (view) {
             m_ItemToView[item] = view;
-            qDebug() << "       ---> adding to scene";
+            view->setParameterizedItem(item);
             addItem(view);
-            qDebug() << "       <--- added to scene";
             return view;
         }
     } else {
@@ -443,8 +516,9 @@ IMaskView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
                  << item->modelType();
     }
     return view;
-
 }
+
+
 
 //! This function is called from mouse move event, when both DRAWING_IN_PROGRESS and
 //! RECTANGLE_MODE flags are active.

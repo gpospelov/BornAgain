@@ -34,16 +34,18 @@ public slots:
     virtual void onPropertyChange(const QString &propertyName);
 
 
-protected slots:
-    void onChilderChanged();
+//protected slots:
+//    void onChilderChanged();
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
 private:
     void update_view();
     void update_polygon();
+    void setChildrenVisible(bool value);
 //    void update_bounding_rect();
 
     QPolygonF m_polygon;

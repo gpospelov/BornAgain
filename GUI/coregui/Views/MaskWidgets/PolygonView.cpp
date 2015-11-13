@@ -16,8 +16,11 @@
 #include "PolygonView.h"
 #include "MaskEditorHelper.h"
 #include "MaskItems.h"
+#include "PolygonPointView.h"
 #include <QPainter>
 #include <QRectF>
+#include <QGraphicsPolygonItem>
+#include <QGraphicsSceneMouseEvent>
 #include <QDebug>
 
 namespace {
@@ -39,8 +42,7 @@ void PolygonView::addView(IMaskView *childView, int row)
     childView->setParentItem(this);
     connect(childView, SIGNAL(xChanged()), this, SLOT(update_view()));
     connect(childView, SIGNAL(yChanged()), this, SLOT(update_view()));
-
-    //    childView->setVisible(false);
+    childView->setVisible(false);
 }
 
 void PolygonView::onPropertyChange(const QString &propertyName)
@@ -49,12 +51,12 @@ void PolygonView::onPropertyChange(const QString &propertyName)
 
 }
 
-void PolygonView::onChilderChanged()
-{
-    qDebug() << "PolygonView::onChilderChanged()";
-//    update_polygon();
+//void PolygonView::onChilderChanged()
+//{
+//    qDebug() << "PolygonView::onChilderChanged()";
+////    update_polygon();
 
-}
+//}
 
 void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
@@ -87,14 +89,44 @@ QVariant PolygonView::itemChange(QGraphicsItem::GraphicsItemChange change, const
 //            qDebug() << "AAAAA";
 //            childItem->setVisible(this->isSelected());
 //        }
+        if(this->isSelected()) {
+            setChildrenVisible(this->isSelected());
+        } else {
+            setChildrenVisible(false);
+//        foreach(QGraphicsItem *childItem, childItems()) {
+//                        qDebug() << "AAAAA";
+//                        childItem->setVisible(this->isSelected());
+//                    }
+
+        }
     }
     return QGraphicsItem::itemChange(change, value);
+
+}
+
+void PolygonView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    qDebug() << "PolygonView::mouseMoveEvent" << event->scenePos();
+
+    IMaskView::mouseMoveEvent(event);
+
+//    foreach(QGraphicsItem *childItem, childItems()) {
+//        qDebug() << "updating";
+//        QPointF pos = childItem->scenePos();
+//        PolygonPointView *view = qgraphicsitem_cast<PolygonPointView *>(childItem);
+//        Q_ASSERT(view);
+//        view->updateParameterizedItem(pos);
+
+//    }
+//    setPos(0,0);
+//    update_view();
 
 }
 
 void PolygonView::update_view()
 {
     update_polygon();
+//    update();
 }
 
 void PolygonView::update_polygon()
@@ -103,21 +135,29 @@ void PolygonView::update_polygon()
 
     m_polygon.clear();
 
-    foreach(QGraphicsItem *childItem, childItems()) {
-        m_polygon << QPointF(childItem->x(), childItem->y());
+//    foreach(QGraphicsItem *childItem, childItems()) {
+//        m_polygon << QPointF(childItem->x(), childItem->y());
 
-    }
-
-
-//    foreach(ParameterizedItem *item, m_item->childItems()) {
-//        qreal px = toSceneX(item->getRegisteredProperty(PolygonPointItem::P_POSX).toReal());
-//        qreal py = toSceneY(item->getRegisteredProperty(PolygonPointItem::P_POSY).toReal());
-//        m_polygon << QPointF(px, py);
 //    }
+
+
+    foreach(ParameterizedItem *item, m_item->childItems()) {
+        qreal px = toSceneX(item->getRegisteredProperty(PolygonPointItem::P_POSX).toReal());
+        qreal py = toSceneY(item->getRegisteredProperty(PolygonPointItem::P_POSY).toReal());
+        m_polygon << QPointF(px, py);
+    }
 
     m_bounding_rect = m_polygon.boundingRect().marginsAdded(QMarginsF(bbox_margins, bbox_margins,
                                                   bbox_margins, bbox_margins));
 
+    qDebug() << "PolygonView::update_polygon()" << m_bounding_rect;
+}
+
+void PolygonView::setChildrenVisible(bool value)
+{
+    foreach(QGraphicsItem *childItem, childItems()) {
+        childItem->setVisible(value);
+    }
 }
 
 //void PolygonView::update_bounding_rect()

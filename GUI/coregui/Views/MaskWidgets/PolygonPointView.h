@@ -29,6 +29,8 @@ public:
 
     QRectF boundingRect() const;
 
+    void updateParameterizedItem(const QPointF &pos);
+
 public slots:
     virtual void onChangedX();
     virtual void onChangedY();
@@ -37,6 +39,8 @@ public slots:
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    QVariant itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value);
 
 private:
     void update_position();

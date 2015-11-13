@@ -452,17 +452,17 @@ void MaskGraphicsScene::setDrawingInProgress(bool value)
 }
 
 //! Makes top graphics item under mouse point selected.
-void MaskGraphicsScene::makeTopViewSelected(QGraphicsSceneMouseEvent *event)
-{
-    QList<QGraphicsItem *> items_beneath = this->items(event->scenePos());
-    foreach(QGraphicsItem *graphicsItem, items_beneath) {
-        if(graphicsItem->parentItem() == 0) {
-            graphicsItem->setSelected(true);
-            break;
-        }
-    }
+//void MaskGraphicsScene::makeTopViewSelected(QGraphicsSceneMouseEvent *event)
+//{
+//    QList<QGraphicsItem *> items_beneath = this->items(event->scenePos());
+//    foreach(QGraphicsItem *graphicsItem, items_beneath) {
+//        if(graphicsItem->parentItem() == 0) {
+//            graphicsItem->setSelected(true);
+//            break;
+//        }
+//    }
 
-}
+//}
 
 //IMaskView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
 //{

@@ -26,7 +26,7 @@ MaskGraphicsProxy::MaskGraphicsProxy()
     , m_send_signals_to_colormap(false)
 {
     resize(1200, 1000);
-//    setAcceptedMouseButtons(Qt::NoButton);
+    setAcceptedMouseButtons(Qt::NoButton);
 }
 
 MaskGraphicsProxy::~MaskGraphicsProxy()

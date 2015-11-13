@@ -71,7 +71,7 @@ private:
     bool isAllowedToStartDrawing(QGraphicsSceneMouseEvent *event);
     bool isDrawingInProgress() const;
     void setDrawingInProgress(bool value);
-    void makeTopViewSelected(QGraphicsSceneMouseEvent *event);
+//    void makeTopViewSelected(QGraphicsSceneMouseEvent *event);
 
     IMaskView* addViewForItem(ParameterizedItem *item);
 

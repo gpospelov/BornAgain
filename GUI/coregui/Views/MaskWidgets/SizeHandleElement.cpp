@@ -16,7 +16,7 @@
 #include "SizeHandleElement.h"
 #include "MaskEditorHelper.h"
 #include <QPainter>
-#include<QGraphicsSceneHoverEvent>
+#include <QGraphicsSceneHoverEvent>
 #include <QDebug>
 
 namespace {

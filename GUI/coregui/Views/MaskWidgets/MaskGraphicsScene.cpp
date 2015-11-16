@@ -24,6 +24,7 @@
 #include "MaskViewFactory.h"
 #include "MaskEditorActivity.h"
 #include "MaskItems.h"
+#include "PolygonView.h"
 #include "item_constants.h"
 #include <QItemSelection>
 #include <QLineF>
@@ -220,7 +221,7 @@ void MaskGraphicsScene::onSceneSelectionChanged()
 void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "MaskGraphicsScene::mousePressEvent()";
-    Q_ASSERT(isDrawingInProgress() == false);
+//    Q_ASSERT(isDrawingInProgress() == false);
 
     if(isAllowedToStartDrawing(event)) {
         setDrawingInProgress(true);
@@ -233,19 +234,19 @@ void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "MaskGraphicsScene::mouseMoveEvent()" << m_activityType;
     if(isDrawingInProgress()) {
-        qDebug() << "   DRAWING_IN_PROGESS";
         if(m_activityType.testFlag(MaskEditorActivity::RECTANGLE_MODE)) {
+            qDebug() << "   DRAWING_IN_PROGESS POLYGON";
             processRectangleItem(event);
         }
+        else if(m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE)) {
+            qDebug() << "   DRAWING_IN_PROGESS POLYGON";
+            QGraphicsScene::mouseMoveEvent(event);
+        }
+
     } else {
         QGraphicsScene::mouseMoveEvent(event);
     }
-//    QPointF buttonDownScenePos = event->buttonDownScenePos(Qt::LeftButton);
-//    qDebug() << "   XXX" << event->scenePos() << buttonDownScenePos;
-//    if(event->buttons() & Qt::LeftButton) {
-//        qDebug() << "   XXX still pressed";
-//    }
-
+    m_currentMousePosition = event->scenePos();
 }
 
 //! Finalizes item drawing or pass events to other items
@@ -253,26 +254,45 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "MaskGraphicsScene::mouseReleaseEvent() -> before" << m_activityType;
     if(isDrawingInProgress()) {
-        clearSelection();
-        if(m_currentItem) {
-            // drawing ended up with item drawn, let's make it selected
-            if(IMaskView *view = m_ItemToView[m_currentItem]) {
-                view->setSelected(true);
+
+        if (m_activityType.testFlag(MaskEditorActivity::RECTANGLE_MODE)) {
+            clearSelection();
+            if (m_currentItem) {
+                // drawing ended up with item drawn, let's make it selected
+                if (IMaskView *view = m_ItemToView[m_currentItem]) {
+                    view->setSelected(true);
+                }
+                m_currentItem = 0;
+            } else {
+                // drawing ended without item to be draw (too short mouse move)
+                // making item beneath of mouse release position to be selected
+                //            makeTopViewSelected(event);
+                if (QGraphicsItem *graphicsItem = itemAt(event->scenePos(), QTransform())) {
+                    graphicsItem->setSelected(true);
+                }
             }
-            m_currentItem = 0;
-        } else {
-            // drawing ended without item to be draw (too short mouse move)
-            // making item beneath of mouse release position to be selected
-//            makeTopViewSelected(event);
-            if(QGraphicsItem *graphicsItem = itemAt(event->scenePos(), QTransform())) {
-                graphicsItem->setSelected(true);
-            }
+
+            setDrawingInProgress(false);
         }
 
-        setDrawingInProgress(false);
+        if (m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE)) {
+            processPolygonItem(event);
+        }
+
+
+
         qDebug() << "       after" << m_activityType;
     } else {
         QGraphicsScene::mouseReleaseEvent(event);
+    }
+}
+
+void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF &)
+{
+    if(isDrawingInProgress() && m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE)) {
+        painter->setPen(QPen(Qt::black, 1, Qt::DashLine));
+        painter->drawLine(QLineF(m_lastAddedPoint, m_currentMousePosition));
+        invalidate();
     }
 }
 
@@ -415,6 +435,7 @@ void MaskGraphicsScene::deleteView(const QModelIndex &itemIndex)
 bool MaskGraphicsScene::isAllowedToStartDrawing(QGraphicsSceneMouseEvent *event)
 {
     bool result(true);
+    if(m_activityType.testFlag(MaskEditorActivity::DRAWING_IN_PROGRESS)) result = false;
     if( !(event->buttons() & Qt::LeftButton)) result = false;
     if(m_activityType.testFlag(MaskEditorActivity::SELECTION_MODE) ||
        m_activityType.testFlag(MaskEditorActivity::PAN_ZOOM_MODE)) result = false;
@@ -507,8 +528,9 @@ IMaskView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
         view = MaskViewFactory::createMaskView(item, m_adaptor.data());
         if (view) {
             m_ItemToView[item] = view;
-            view->setParameterizedItem(item);
+            //view->setParameterizedItem(item);
             addItem(view);
+//            if(item->modelType() == Constants::PolygonMaskType) view->setSelected(true);
             return view;
         }
     } else {
@@ -561,11 +583,72 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
     }
 }
 
+void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
+{
+    qDebug() << "MaskGraphicsScene::processPolygonItem";
+    Q_ASSERT(m_activityType.testFlag(MaskEditorActivity::DRAWING_IN_PROGRESS));
+    Q_ASSERT(m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE));
+
+    if(!m_currentItem) {
+        m_currentItem = m_model->insertNewItem(Constants::PolygonMaskType, m_rootIndex, 0);
+    }
+
+    Q_ASSERT(m_currentItem->modelType() == Constants::PolygonMaskType);
+
+    if(IMaskView *view = m_ItemToView[m_currentItem]) {
+        if(PolygonView *polygonView = qgraphicsitem_cast<PolygonView *>(view)) {
+            if(polygonView->isClosedPolygon()) {
+                m_currentItem = 0;
+                setDrawingInProgress(false);
+                return;
+            }
+        }
+    }
+
+
+    ParameterizedItem *point = m_model->insertNewItem(Constants::PolygonPointType, m_model->indexOfItem(m_currentItem));
+    QPointF click_pos = event->buttonDownScenePos(Qt::LeftButton);
+
+    point->setRegisteredProperty(PolygonPointItem::P_POSX, m_adaptor->fromSceneX(click_pos.x()));
+    point->setRegisteredProperty(PolygonPointItem::P_POSY, m_adaptor->fromSceneY(click_pos.y()));
+    m_lastAddedPoint = click_pos;
+
+//    if(m_currentItem->childItemCount() > 1) {
+//        ParameterizedItem *firstPointItem = m_currentItem->childItems()[0];
+//        if(IMaskView *firstPointView = m_ItemToView[firstPointItem]) {
+//            QRectF bb = firstPointView->mapRectToScene(firstPointView->boundingRect());
+//            if(bb.contains(click_pos)) {
+//                qreal x = firstPointItem->getRegisteredProperty(PolygonPointItem::P_POSX).toReal();
+//                qreal y = firstPointItem->getRegisteredProperty(PolygonPointItem::P_POSY).toReal();
+//                point->setRegisteredProperty(PolygonPointItem::P_POSX, x);
+//                point->setRegisteredProperty(PolygonPointItem::P_POSY, y);
+//                setDrawingInProgress(false);
+//                m_currentItem = 0;
+//            }
+//        }
+
+//    }
+
+//    m_currentItem->print();
+//    if(IMaskView *view = m_ItemToView[m_currentItem]) {
+//        foreach(QGraphicsItem *childItem, view->childItems()) {
+//            qDebug() << "    XXX points" << childItem->x() << childItem->y();
+//        }
+//    }
+
+//    qDebug() << "OOOOO";
+//    foreach(ParameterizedItem *item, m_currentItem->childItems()) {
+//        item->print();
+//    }
+
+}
+
 
 //! Update Z-values of all IMaskView to reflect stacking order in SessionModel.
 //! Item with irow=0 is the top most on graphics scene.
 void MaskGraphicsScene::setZValues()
 {
+    return;
     Q_ASSERT(m_rootIndex.isValid());
     for(int i = 0; i < m_model->rowCount(m_rootIndex); i++) {
         QModelIndex itemIndex = m_model->index(i, 0, m_rootIndex);

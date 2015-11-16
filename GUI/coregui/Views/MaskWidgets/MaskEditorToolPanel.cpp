@@ -196,6 +196,8 @@ void MaskEditorToolPanel::setCurrentActivity(MaskEditorActivity::Flags value)
         m_activityButtonGroup->button(MaskEditorActivity::PAN_ZOOM_MODE)->setChecked(true);
     if(value.testFlag(MaskEditorActivity::RECTANGLE_MODE))
         m_activityButtonGroup->button(MaskEditorActivity::RECTANGLE_MODE)->setChecked(true);
+    if(value.testFlag(MaskEditorActivity::POLYGON_MODE))
+        m_activityButtonGroup->button(MaskEditorActivity::POLYGON_MODE)->setChecked(true);
 
     if(value.testFlag(MaskEditorActivity::MASK_GREEN_ID))
         m_maskValueGroup->button(MaskEditorActivity::MASK_GREEN_ID)->setChecked(true);

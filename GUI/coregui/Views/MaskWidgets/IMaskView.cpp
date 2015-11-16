@@ -37,6 +37,7 @@ QRectF IMaskView::boundingRect() const
 
 void IMaskView::setParameterizedItem(ParameterizedItem *item)
 {
+    qDebug() << "IMaskView::setParameterizedItem(ParameterizedItem *item)" << item->modelType();
     if(m_item != item) {
         if(m_item) {
             disconnect(m_item, SIGNAL(propertyChanged(const QString &)), this,
@@ -55,7 +56,7 @@ void IMaskView::setParameterizedItem(ParameterizedItem *item)
                     SLOT(onPropertyChange(const QString &)));
         }
     }
-    update_view();
+//    update_view();
 }
 
 ParameterizedItem *IMaskView::getParameterizedItem()

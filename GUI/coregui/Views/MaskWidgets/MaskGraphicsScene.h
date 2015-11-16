@@ -59,6 +59,8 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void drawForeground(QPainter *painter, const QRectF &);
+
 
 private:
     void init_scene();
@@ -76,6 +78,7 @@ private:
     IMaskView* addViewForItem(ParameterizedItem *item);
 
     void processRectangleItem(QGraphicsSceneMouseEvent *event);
+    void processPolygonItem(QGraphicsSceneMouseEvent *event);
     void setZValues();
 
     SessionModel *m_model;
@@ -87,6 +90,9 @@ private:
     MaskEditorActivity::Flags m_activityType;
     QModelIndex m_rootIndex; //! Index in the model corresponding to IntensityDataItem
     ParameterizedItem *m_currentItem;
+    QPointF m_currentMousePosition;   //!< current mouse position
+    QPointF m_lastAddedPoint;         //!< last added point to a polygon
+
 };
 
 

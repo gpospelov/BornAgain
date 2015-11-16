@@ -30,10 +30,13 @@ public:
 
     void addView(IMaskView *childView, int row);
 
+    bool isClosedPolygon() const { return m_closed_polygon; }
+
 public slots:
-    virtual void onPropertyChange(const QString &propertyName);
+//    virtual void onPropertyChange(const QString &propertyName);
     virtual void onChangedX();
     virtual void onChangedY();
+    void onClosePolygonRequest();
 
 
 //protected slots:
@@ -43,6 +46,8 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+//    void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
+//    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
 
 private:
     void update_view();
@@ -53,6 +58,7 @@ private:
 
     QPolygonF m_polygon;
     bool m_block_on_point_update;
+    bool m_closed_polygon;
 };
 
 

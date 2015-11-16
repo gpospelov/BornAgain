@@ -22,12 +22,15 @@
 #include <QDebug>
 
 PolygonPointView::PolygonPointView()
-    : m_block_on_property_change(false)
+    : m_on_hover(false)
+//    , m_first_polygon_point(false)
+//    : m_block_on_property_change(false)
 {
 //    setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable );
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-    setCursor(Qt::SizeAllCursor);
+    setAcceptHoverEvents(false);
+    //setCursor(Qt::SizeAllCursor);
 }
 
 QRectF PolygonPointView::boundingRect() const
@@ -42,8 +45,20 @@ void PolygonPointView::updateParameterizedItem(const QPointF &pos)
 //    m_block_on_property_change = true;
     m_item->setRegisteredProperty(PolygonPointItem::P_POSX, fromSceneX(pos.x()));
     m_item->setRegisteredProperty(PolygonPointItem::P_POSY, fromSceneY(pos.y()));
-//    m_block_on_property_change = false;
+    //    m_block_on_property_change = false;
 }
+
+//void PolygonPointView::setFirstPolygonPointFlag(bool value)
+//{
+//    m_first_polygon_point = value;
+//    setAcceptHoverEvents(m_first_polygon_point);
+//}
+
+//void PolygonPointView::setIsFirstPolygonPoint(bool value)
+//{
+//    m_first_polygon_point = value;
+
+//}
 
 
 void PolygonPointView::onChangedX()
@@ -84,7 +99,7 @@ void PolygonPointView::onChangedY()
 
 void PolygonPointView::update_view()
 {
-    update_position();
+//    update_position();
     update();
 }
 
@@ -93,7 +108,11 @@ void PolygonPointView::paint(QPainter *painter, const QStyleOptionGraphicsItem *
 {
     painter->setRenderHints(QPainter::Antialiasing);
     prepareGeometryChange();
-    painter->setBrush(MaskEditorHelper::getSelectionMarkerBrush());
+    QBrush brush = MaskEditorHelper::getSelectionMarkerBrush();
+    if(m_on_hover) {
+        brush.setColor(Qt::red);
+    }
+    painter->setBrush(brush);
     painter->setPen(MaskEditorHelper::getSelectionMarkerPen());
     painter->drawEllipse(boundingRect());
 }
@@ -117,9 +136,33 @@ QVariant PolygonPointView::itemChange(QGraphicsItem::GraphicsItemChange change, 
     return QGraphicsItem::itemChange(change, value);
 }
 
+void PolygonPointView::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    qDebug() << "PolygonPointView::mousePressEvent";
+    IMaskView::mousePressEvent(event);
+    if(acceptHoverEvents()) emit closePolygonRequest();
+}
+
+void PolygonPointView::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+{
+    qDebug() << "PolygonPointView::hoverEnterEvent(QGraphicsSceneHoverEvent *event)";
+    Q_UNUSED(event);
+    m_on_hover = true;
+    IMaskView::hoverEnterEvent(event);
+}
+
+void PolygonPointView::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+{
+    qDebug() << "PolygonPointView::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)";
+    Q_UNUSED(event);
+    m_on_hover = false;
+    IMaskView::hoverLeaveEvent(event);
+}
+
+
 void PolygonPointView::update_position()
 {
-    qDebug() << "PolygonPointView::update_position()";
+//    qDebug() << "PolygonPointView::update_position()";
 //    setX(toSceneX(PolygonPointItem::P_POSX));
 //    setY(toSceneY(PolygonPointItem::P_POSY));
 

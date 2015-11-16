@@ -18,6 +18,7 @@
 #include "MaskItems.h"
 #include "PolygonPointView.h"
 #include <QPainter>
+#include <QCursor>
 #include <QRectF>
 #include <QGraphicsPolygonItem>
 #include <QGraphicsSceneMouseEvent>
@@ -29,42 +30,65 @@ const double bbox_margins = 5; // additional margins around points to form bound
 
 PolygonView::PolygonView()
     : m_block_on_point_update(false)
+    , m_closed_polygon(false)
 {
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable );
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-
-//    connect(this, SIGNAL(childrenChanged()), this, SLOT(update_view()));
-//    connect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
-//    connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
+//    setAcceptHoverEvents(true);
 }
 
 void PolygonView::addView(IMaskView *childView, int row)
 {
+    qDebug() << "PolygonView::addView, calling update_polygon" << m_block_on_point_update;
     Q_UNUSED(row);
-    childView->setParentItem(this);
+
+    PolygonPointView *pointView = qgraphicsitem_cast<PolygonPointView *>(childView);
+    Q_ASSERT(pointView);
+
+    // first polygon point will change it's color when mouse is on hover
+    if(childItems().isEmpty()) pointView->setAcceptHoverEvents(true);
+    pointView->setParentItem(this);
+
+
 //    connect(childView, SIGNAL(xChanged()), this, SLOT(update_view()));
 //    connect(childView, SIGNAL(yChanged()), this, SLOT(update_view()));
-    connect(childView, SIGNAL(propertyChanged()), this, SLOT(update_view()));
-    childView->setVisible(false);
-}
+//    childView->setVisible(false);
+    pointView->setVisible(true);
 
-void PolygonView::onPropertyChange(const QString &propertyName)
-{
     update_polygon();
 
+    connect(pointView, SIGNAL(propertyChanged()), this, SLOT(update_view()));
+    connect(pointView, SIGNAL(closePolygonRequest()), this, SLOT(onClosePolygonRequest()));
+
 }
+
+//void PolygonView::onPropertyChange(const QString &propertyName)
+//{
+////    qDebug() <<
+//    update_polygon();
+//}
 
 void PolygonView::onChangedX()
 {
-    qDebug() << "PolygonView::onChangedX()";
-    update_points();
+//    qDebug() << "PolygonView::onChangedX()";
+//    update_points();
 }
 
 void PolygonView::onChangedY()
 {
-    qDebug() << "PolygonView::onChangedY()";
-    update_points();
+//    qDebug() << "PolygonView::onChangedY()";
+    //    update_points();
+}
+
+void PolygonView::onClosePolygonRequest()
+{
+    qDebug() << "PolygonView::onClosePolygonRequest()";
+    foreach(QGraphicsItem *childItem, childItems()) {
+        childItem->setAcceptHoverEvents(false);
+        childItem->setCursor(Qt::SizeAllCursor);
+    }
+    m_closed_polygon = true;
 }
 
 //void PolygonView::onChilderChanged()
@@ -82,32 +106,24 @@ void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
     bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
-//    painter->drawRect(QRectF(0.0, 0.0, width(), height()));
-//    painter->drawRect(m_bounding_rect);
-//    QPolygon polygon;
 
-    painter->drawPolygon(m_polygon.toPolygon());
+    painter->drawPolyline(m_polygon.toPolygon());
+
+    if(m_closed_polygon) {
+        painter->drawPolygon(m_polygon.toPolygon());
+    }
+
 }
 
 QVariant PolygonView::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
 {
     qDebug() << "PolygonView::itemChange" << change;
     if(change == QGraphicsItem::ItemSelectedHasChanged) {
-//        qDebug() << "PolygonView::itemChange -> selectedChange";
-//        foreach(QGraphicsItem *childItem, childItems()) {
-//            qDebug() << "AAAAA";
-//            childItem->setVisible(this->isSelected());
+//        if(this->isSelected()) {
+//            setChildrenVisible(this->isSelected());
+//        } else {
+//            setChildrenVisible(false);
 //        }
-        if(this->isSelected()) {
-            setChildrenVisible(this->isSelected());
-        } else {
-            setChildrenVisible(false);
-//        foreach(QGraphicsItem *childItem, childItems()) {
-//                        qDebug() << "AAAAA";
-//                        childItem->setVisible(this->isSelected());
-//                    }
-
-        }
     }
     return QGraphicsItem::itemChange(change, value);
 
@@ -118,6 +134,7 @@ void PolygonView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     qDebug() << "PolygonView::mouseMoveEvent" << event->scenePos();
 
     IMaskView::mouseMoveEvent(event);
+    update_points();
 
 //    foreach(QGraphicsItem *childItem, childItems()) {
 //        qDebug() << "updating";
@@ -132,74 +149,73 @@ void PolygonView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 }
 
+//void PolygonView::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+//{
+//    qDebug() << "PolygonView::hoverEnterEvent(QGraphicsSceneHoverEvent *event)";
+//}
+
+//void PolygonView::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+//{
+//    qDebug() << "PolygonView::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)";
+//}
+
+
 void PolygonView::update_view()
 {
+    qDebug() << "PolygonView::update_view()";
     update_polygon();
 //    update();
 }
 
 void PolygonView::update_polygon()
 {
+    qDebug() << "PolygonView::update_polygon() 1.1" << m_block_on_point_update;
     if(m_block_on_point_update) return;
+
+    qDebug() << "PolygonView::update_polygon() 1.2";
 
     m_block_on_point_update = true;
 
-    if(!m_item->childItemCount()) return;
+    if (m_item->childItemCount()) {
 
-    m_polygon.clear();
+        m_polygon.clear();
 
-//    foreach(QGraphicsItem *childItem, childItems()) {
-//        m_polygon << QPointF(childItem->x(), childItem->y());
+        foreach (ParameterizedItem *item, m_item->childItems()) {
+            qreal px = toSceneX(item->getRegisteredProperty(PolygonPointItem::P_POSX).toReal());
+            qreal py = toSceneY(item->getRegisteredProperty(PolygonPointItem::P_POSY).toReal());
+            m_polygon << QPointF(px, py);
+        }
 
-//    }
+        QRectF scene_rect = m_polygon.boundingRect().marginsAdded(
+            QMarginsF(bbox_margins, bbox_margins, bbox_margins, bbox_margins));
 
+        m_bounding_rect = QRectF(0.0, 0.0, scene_rect.width(), scene_rect.height());
 
-    foreach(ParameterizedItem *item, m_item->childItems()) {
-        qreal px = toSceneX(item->getRegisteredProperty(PolygonPointItem::P_POSX).toReal());
-        qreal py = toSceneY(item->getRegisteredProperty(PolygonPointItem::P_POSY).toReal());
-        m_polygon << QPointF(px, py);
+        m_polygon = mapFromScene(m_polygon);
+
+        for (int i = 0; i < childItems().size(); ++i) {
+            qDebug() << "!!!" << i;
+            QGraphicsItem *childView = childItems()[i];
+//            disconnect(childView->toGraphicsObject(), SIGNAL(xChanged()), this,
+//                       SLOT(update_view()));
+//            disconnect(childView->toGraphicsObject(), SIGNAL(yChanged()), this,
+//                       SLOT(update_view()));
+
+            childView->setPos(m_polygon[i]);
+//            connect(childView->toGraphicsObject(), SIGNAL(xChanged()), this, SLOT(update_view()));
+//            connect(childView->toGraphicsObject(), SIGNAL(yChanged()), this, SLOT(update_view()));
+        }
+
+        setPos(scene_rect.x(), scene_rect.y());
     }
-
-    QRectF scene_rect = m_polygon.boundingRect().marginsAdded(QMarginsF(bbox_margins, bbox_margins,
-                                                  bbox_margins, bbox_margins));
-
-    m_bounding_rect = QRectF(0.0, 0.0, scene_rect.width(), scene_rect.height());
-
-    m_polygon = mapFromScene(m_polygon);
-
-    for(int i=0; i<childItems().size(); ++i) {
-        qDebug() << "!!!" << i;
-        QGraphicsItem *childView = childItems()[i];
-        disconnect(childView->toGraphicsObject(), SIGNAL(xChanged()), this, SLOT(update_view()));
-        disconnect(childView->toGraphicsObject(), SIGNAL(yChanged()), this, SLOT(update_view()));
-
-        childView->setPos(m_polygon[i]);
-        connect(childView->toGraphicsObject(), SIGNAL(xChanged()), this, SLOT(update_view()));
-        connect(childView->toGraphicsObject(), SIGNAL(yChanged()), this, SLOT(update_view()));
-    }
-
-    setPos(scene_rect.x(), scene_rect.y());
-
-//    foreach(QGraphicsItem *childItem, childItems()) {
-//        PolygonPointView *view = qgraphicsitem_cast<PolygonPointView *>(childItem);
-//        ParameterizedItem *item = view->getParameterizedItem();
-//        QPointF pscene(toSceneX(item->getRegisteredProperty(PolygonPointItem::P_POSX).toReal()),
-//                       toSceneY(item->getRegisteredProperty(PolygonPointItem::P_POSY).toReal()));
-////        view->setPos(mapFromScene(pscene));
-
-//    }
-
-
-//   foreach(QGraphicsItem *childItem, childItems()) {
-
-//   }
-
-
-    qDebug() << "PolygonView::update_polygon()" << m_bounding_rect;
-
 
     m_block_on_point_update = false;
 
+    qDebug() << "!!!!!";
+    qDebug() << "!!!!!";
+    qDebug() << "!!!!!";
+    qDebug() << "!!!!!";
+    qDebug() << "PolygonView::update_polygon() 1.3 !!!!!";
 
 }
 

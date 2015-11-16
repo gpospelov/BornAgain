@@ -31,6 +31,11 @@ public:
 
     void updateParameterizedItem(const QPointF &pos);
 
+//    void setFirstPolygonPointFlag(bool value);
+
+signals:
+    void closePolygonRequest();
+
 public slots:
     virtual void onChangedX();
     virtual void onChangedY();
@@ -41,11 +46,18 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     QVariant itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+
+    void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
+
 
 private:
     void update_position();
 
-    bool m_block_on_property_change;
+//    bool m_block_on_property_change;
+    bool m_on_hover;
+//    bool m_first_polygon_point;
 };
 
 

@@ -32,6 +32,8 @@ public:
 
 public slots:
     virtual void onPropertyChange(const QString &propertyName);
+    virtual void onChangedX();
+    virtual void onChangedY();
 
 
 //protected slots:
@@ -45,10 +47,12 @@ protected:
 private:
     void update_view();
     void update_polygon();
+    void update_points();
     void setChildrenVisible(bool value);
 //    void update_bounding_rect();
 
     QPolygonF m_polygon;
+    bool m_block_on_point_update;
 };
 
 

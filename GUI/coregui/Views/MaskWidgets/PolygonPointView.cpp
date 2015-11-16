@@ -37,29 +37,31 @@ QRectF PolygonPointView::boundingRect() const
 
 void PolygonPointView::updateParameterizedItem(const QPointF &pos)
 {
-    m_block_on_property_change = true;
+//    if(m_block_on_property_change) return;
+
+//    m_block_on_property_change = true;
     m_item->setRegisteredProperty(PolygonPointItem::P_POSX, fromSceneX(pos.x()));
     m_item->setRegisteredProperty(PolygonPointItem::P_POSY, fromSceneY(pos.y()));
-    m_block_on_property_change = false;
+//    m_block_on_property_change = false;
 }
 
 
 void PolygonPointView::onChangedX()
 {
     qDebug() << "PolygonPointView::onChangedX()" << m_item->modelType() << x();
-    m_block_on_property_change = true;
-//    m_item->setRegisteredProperty(PolygonPointItem::P_POSX, fromSceneX(this->scenePos().x()));
-    m_item->setRegisteredProperty(PolygonPointItem::P_POSX, fromSceneX(this->x()));
-    m_block_on_property_change = false;
+//    m_block_on_property_change = true;
+////    m_item->setRegisteredProperty(PolygonPointItem::P_POSX, fromSceneX(this->scenePos().x()));
+//    m_item->setRegisteredProperty(PolygonPointItem::P_POSX, fromSceneX(this->x()));
+//    m_block_on_property_change = false;
 }
 
 void PolygonPointView::onChangedY()
 {
     qDebug() << "PolygonPointView::onChangedY()" << m_item->modelType() << x();
-    m_block_on_property_change = true;
-//    m_item->setRegisteredProperty(PolygonPointItem::P_POSY, fromSceneY(this->scenePos().y()));
-    m_item->setRegisteredProperty(PolygonPointItem::P_POSY, fromSceneY(this->y()));
-    m_block_on_property_change = false;
+//    m_block_on_property_change = true;
+////    m_item->setRegisteredProperty(PolygonPointItem::P_POSY, fromSceneY(this->scenePos().y()));
+//    m_item->setRegisteredProperty(PolygonPointItem::P_POSY, fromSceneY(this->y()));
+//    m_block_on_property_change = false;
 }
 
 void PolygonPointView::onPropertyChange(const QString &propertyName)
@@ -99,11 +101,12 @@ void PolygonPointView::paint(QPainter *painter, const QStyleOptionGraphicsItem *
 void PolygonPointView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "PolygonPointView::mouseMoveEvent()";
-    setX(event->scenePos().x());
-    setY(event->scenePos().y());
+//    setX(event->scenePos().x());
+//    setY(event->scenePos().y());
 //    setPos(mapFromScene(event->scenePos()));
 
-//    updateParameterizedItem(event->scenePos());
+    updateParameterizedItem(event->scenePos());
+//    update_view();
 //    IMaskView::mouseMoveEvent(event);
 
 }
@@ -116,7 +119,14 @@ QVariant PolygonPointView::itemChange(QGraphicsItem::GraphicsItemChange change, 
 
 void PolygonPointView::update_position()
 {
-    setX(toSceneX(PolygonPointItem::P_POSX));
-    setY(toSceneY(PolygonPointItem::P_POSY));
+    qDebug() << "PolygonPointView::update_position()";
+//    setX(toSceneX(PolygonPointItem::P_POSX));
+//    setY(toSceneY(PolygonPointItem::P_POSY));
+
+//    QPointF pos(toSceneX(PolygonPointItem::P_POSX), toSceneY(PolygonPointItem::P_POSY));
+//    if(parentItem()) {
+//        setPos(parentItem()->mapFromScene(pos));
+//    }
+
 }
 

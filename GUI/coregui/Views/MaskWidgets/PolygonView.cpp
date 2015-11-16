@@ -46,9 +46,13 @@ void PolygonView::addView(IMaskView *childView, int row)
     PolygonPointView *pointView = qgraphicsitem_cast<PolygonPointView *>(childView);
     Q_ASSERT(pointView);
 
-    // first polygon point will change it's color when mouse is on hover
-    if(childItems().isEmpty()) pointView->setAcceptHoverEvents(true);
+//    pointView->setAcceptHoverEvents(true);
     pointView->setParentItem(this);
+
+    // polygon consisting from more than 2 points can be closed via hover event
+    if(childItems().size() > 2) {
+        childItems()[0]->setAcceptHoverEvents(true);
+    }
 
 
 //    connect(childView, SIGNAL(xChanged()), this, SLOT(update_view()));
@@ -85,6 +89,8 @@ void PolygonView::onClosePolygonRequest()
 {
     qDebug() << "PolygonView::onClosePolygonRequest()";
     foreach(QGraphicsItem *childItem, childItems()) {
+        childItem->setFlag(QGraphicsItem::ItemIsMovable );
+        childItem->setFlag(QGraphicsItem::ItemSendsGeometryChanges);
         childItem->setAcceptHoverEvents(false);
         childItem->setCursor(Qt::SizeAllCursor);
     }
@@ -106,6 +112,8 @@ void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
     bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
+
+    painter->drawRect(m_bounding_rect);
 
     painter->drawPolyline(m_polygon.toPolygon());
 
@@ -185,17 +193,27 @@ void PolygonView::update_polygon()
             qreal py = toSceneY(item->getRegisteredProperty(PolygonPointItem::P_POSY).toReal());
             m_polygon << QPointF(px, py);
         }
+        qDebug() << "xxx 1.1 m_polygon" << m_polygon;
 
         QRectF scene_rect = m_polygon.boundingRect().marginsAdded(
             QMarginsF(bbox_margins, bbox_margins, bbox_margins, bbox_margins));
+        qDebug() << "xxx 1.2 scene_rect" << scene_rect;
 
         m_bounding_rect = QRectF(0.0, 0.0, scene_rect.width(), scene_rect.height());
+        qDebug() << "xxx 1.2 m_bounding_rect" << m_bounding_rect;
 
-        m_polygon = mapFromScene(m_polygon);
+        if(m_polygon.size() == 1) {
+           m_polygon.clear();
+           m_polygon << m_bounding_rect.center();
+        } else {
+            m_polygon = mapFromScene(m_polygon);
+        }
+
+        qDebug() << "xxx 1.2 m_polygon" << m_polygon;
 
         for (int i = 0; i < childItems().size(); ++i) {
-            qDebug() << "!!!" << i;
             QGraphicsItem *childView = childItems()[i];
+            qDebug() << "!!!" << i << childView->isVisible();
 //            disconnect(childView->toGraphicsObject(), SIGNAL(xChanged()), this,
 //                       SLOT(update_view()));
 //            disconnect(childView->toGraphicsObject(), SIGNAL(yChanged()), this,
@@ -215,7 +233,7 @@ void PolygonView::update_polygon()
     qDebug() << "!!!!!";
     qDebug() << "!!!!!";
     qDebug() << "!!!!!";
-    qDebug() << "PolygonView::update_polygon() 1.3 !!!!!";
+    qDebug() << "PolygonView::update_polygon() 1.3 !!!!!" << m_polygon << m_polygon.size();
 
 }
 

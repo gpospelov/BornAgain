@@ -29,7 +29,7 @@ PolygonPointView::PolygonPointView()
 //    setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable );
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-    setAcceptHoverEvents(false);
+//    setAcceptHoverEvents(false);
     //setCursor(Qt::SizeAllCursor);
 }
 
@@ -140,7 +140,10 @@ void PolygonPointView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "PolygonPointView::mousePressEvent";
     IMaskView::mousePressEvent(event);
-    if(acceptHoverEvents()) emit closePolygonRequest();
+    if(acceptHoverEvents()) {
+        m_on_hover = false;
+        emit closePolygonRequest();
+    }
 }
 
 void PolygonPointView::hoverEnterEvent(QGraphicsSceneHoverEvent *event)

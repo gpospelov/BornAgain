@@ -106,21 +106,7 @@ QStringList ParticleDistributionItem::getChildParameterNames() const
         result << NO_SELECTION;
         return result;
     }
-    double abundance(0.0);
-    DomainObjectBuilder builder;
-    boost::scoped_ptr<ParticleDistribution> P_part_distr;
-    try {
-        P_part_distr.reset(builder.buildParticleDistribution(*this, abundance, true));
-    } catch(const std::exception &ex) {
-        qDebug() << "ParticleDistributionItem::getChildParameterNames(): "
-                 << "domain particle could not be build: "
-                 << QString::fromStdString(ex.what());
-    }
-    if (P_part_distr.get()) {
-        boost::scoped_ptr<ParameterPool> P_pool(P_part_distr->createDistributedParameterPool());
-        result << extractFromParameterPool(P_pool.get());
-    }
-
+    result = children.front()->getParameterTreeList();
     result.prepend(NO_SELECTION);
     return result;
 }

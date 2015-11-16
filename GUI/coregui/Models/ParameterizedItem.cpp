@@ -327,7 +327,13 @@ QStringList ParameterizedItem::getParameterTreeList() const
     if (m_sub_items.size() > 0) {
         for (QMap<QString, ParameterizedItem *>::const_iterator it = m_sub_items.begin();
              it != m_sub_items.end(); ++it) {
-            QString subitem_name = it.key();
+            FancyGroupProperty_t fgp = getRegisteredProperty(it.key()).value<FancyGroupProperty_t>();
+            QString subitem_name;
+            if (fgp->type()==FancyGroupProperty::SELECTABLE) {
+                subitem_name = it.value()->modelType();
+            } else {
+                subitem_name = it.key();
+            }
             ParameterizedItem *subitem = it.value();
             QStringList subitem_list = subitem->getParameterTreeList();
             for (QStringList::const_iterator par_it = subitem_list.begin();

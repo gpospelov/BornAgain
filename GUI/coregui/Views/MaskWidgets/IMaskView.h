@@ -52,8 +52,9 @@ public:
 
     virtual void addView(IMaskView *childView, int row = 0);
 
-//signals:
+signals:
 //    void aboutToBeDeleted();
+    void propertyChanged();
 
 public slots:
     //! update visual appearance of view (triggered by ISceneAdaptor)

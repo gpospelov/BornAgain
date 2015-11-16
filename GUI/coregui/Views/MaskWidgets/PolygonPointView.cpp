@@ -64,23 +64,23 @@ void PolygonPointView::onChangedY()
 //    m_block_on_property_change = false;
 }
 
-void PolygonPointView::onPropertyChange(const QString &propertyName)
-{
-    if(m_block_on_property_change) return;
+//void PolygonPointView::onPropertyChange(const QString &propertyName)
+//{
+//    if(m_block_on_property_change) return;
 
-//    if(propertyName == PolygonPointItem::P_POSX || propertyName == PolygonPointItem::P_POSY) {
-//        QPointF scenePos(toSceneX(PolygonPointItem::P_POSX), toSceneY(PolygonPointItem::P_POSY));
-//        QPointF itemPos = mapFromScene(scenePos);
-//        setPos(itemPos);
+////    if(propertyName == PolygonPointItem::P_POSX || propertyName == PolygonPointItem::P_POSY) {
+////        QPointF scenePos(toSceneX(PolygonPointItem::P_POSX), toSceneY(PolygonPointItem::P_POSY));
+////        QPointF itemPos = mapFromScene(scenePos);
+////        setPos(itemPos);
+////    }
+
+//    if(propertyName == PolygonPointItem::P_POSX) {
+//        setX(toSceneX(PolygonPointItem::P_POSX));
 //    }
-
-    if(propertyName == PolygonPointItem::P_POSX) {
-        setX(toSceneX(PolygonPointItem::P_POSX));
-    }
-    else if(propertyName == PolygonPointItem::P_POSY) {
-        setY(toSceneY(PolygonPointItem::P_POSY));
-    }
-}
+//    else if(propertyName == PolygonPointItem::P_POSY) {
+//        setY(toSceneY(PolygonPointItem::P_POSY));
+//    }
+//}
 
 void PolygonPointView::update_view()
 {

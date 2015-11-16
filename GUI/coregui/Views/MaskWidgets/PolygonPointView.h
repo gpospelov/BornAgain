@@ -34,7 +34,7 @@ public:
 public slots:
     virtual void onChangedX();
     virtual void onChangedY();
-    virtual void onPropertyChange(const QString &propertyName);
+//    virtual void onPropertyChange(const QString &propertyName);
     virtual void update_view();
 
 protected:

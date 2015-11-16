@@ -143,6 +143,7 @@ void IMaskView::onChangedY()
 void IMaskView::onPropertyChange(const QString &propertyName)
 {
     Q_UNUSED(propertyName);
+    emit propertyChanged();
 }
 
 void IMaskView::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)

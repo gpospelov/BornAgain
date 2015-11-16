@@ -35,16 +35,17 @@ PolygonView::PolygonView()
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
 
 //    connect(this, SIGNAL(childrenChanged()), this, SLOT(update_view()));
-    connect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
-    connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
+//    connect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
+//    connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
 }
 
 void PolygonView::addView(IMaskView *childView, int row)
 {
     Q_UNUSED(row);
     childView->setParentItem(this);
-    connect(childView, SIGNAL(xChanged()), this, SLOT(update_view()));
-    connect(childView, SIGNAL(yChanged()), this, SLOT(update_view()));
+//    connect(childView, SIGNAL(xChanged()), this, SLOT(update_view()));
+//    connect(childView, SIGNAL(yChanged()), this, SLOT(update_view()));
+    connect(childView, SIGNAL(propertyChanged()), this, SLOT(update_view()));
     childView->setVisible(false);
 }
 
@@ -205,7 +206,7 @@ void PolygonView::update_polygon()
 void PolygonView::update_points()
 {
     qDebug() << "PolygonView::update_points()";
-    return;
+//    return;
 
     if(m_block_on_point_update) return;
 
@@ -216,11 +217,14 @@ void PolygonView::update_points()
         QPointF pos = view->scenePos();
         qDebug() << "    AAA" << pos;
 
-        disconnect(view, SIGNAL(xChanged()), this, SLOT(update_view()));
-        disconnect(view, SIGNAL(yChanged()), this, SLOT(update_view()));
+//        disconnect(view, SIGNAL(xChanged()), this, SLOT(update_view()));
+//        disconnect(view, SIGNAL(yChanged()), this, SLOT(update_view()));
+        disconnect(view, SIGNAL(propertyChanged()), this, SLOT(update_view()));
+
         view->updateParameterizedItem(pos);
-        connect(view, SIGNAL(xChanged()), this, SLOT(update_view()));
-        connect(view, SIGNAL(yChanged()), this, SLOT(update_view()));
+        connect(view, SIGNAL(propertyChanged()), this, SLOT(update_view()));
+//        connect(view, SIGNAL(xChanged()), this, SLOT(update_view()));
+//        connect(view, SIGNAL(yChanged()), this, SLOT(update_view()));
 
 //        QPointF pscene(toSceneX(item->getRegisteredProperty(PolygonPointItem::P_POSX).toReal()),
 //                       toSceneY(item->getRegisteredProperty(PolygonPointItem::P_POSY).toReal()));

@@ -79,17 +79,17 @@ void MaskEditor::init_test_model()
 //    rect->setRegisteredProperty(RectangleItem::P_WIDTH, 0.3);
 //    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 0.2);
 
-    ParameterizedItem *poly = m_maskModel->insertNewItem(Constants::PolygonMaskType, m_maskModel->indexOfItem(item));
+//    ParameterizedItem *poly = m_maskModel->insertNewItem(Constants::PolygonMaskType, m_maskModel->indexOfItem(item));
 
-    ParameterizedItem *p1 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
-    p1->setRegisteredProperty(PolygonPointItem::P_POSX, 0.6);
-    p1->setRegisteredProperty(PolygonPointItem::P_POSY, 1.5);
-    ParameterizedItem *p2 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
-    p2->setRegisteredProperty(PolygonPointItem::P_POSX, 1.0);
-    p2->setRegisteredProperty(PolygonPointItem::P_POSY, 1.5);
-    ParameterizedItem *p3 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
-    p3->setRegisteredProperty(PolygonPointItem::P_POSX, 1.0);
-    p3->setRegisteredProperty(PolygonPointItem::P_POSY, 0.6);
+//    ParameterizedItem *p1 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
+//    p1->setRegisteredProperty(PolygonPointItem::P_POSX, 0.6);
+//    p1->setRegisteredProperty(PolygonPointItem::P_POSY, 1.5);
+//    ParameterizedItem *p2 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
+//    p2->setRegisteredProperty(PolygonPointItem::P_POSX, 1.0);
+//    p2->setRegisteredProperty(PolygonPointItem::P_POSY, 1.5);
+//    ParameterizedItem *p3 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
+//    p3->setRegisteredProperty(PolygonPointItem::P_POSX, 1.0);
+//    p3->setRegisteredProperty(PolygonPointItem::P_POSY, 0.6);
 
 
 

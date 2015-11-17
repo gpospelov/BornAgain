@@ -225,12 +225,11 @@ void PolygonView::update_polygon()
         m_bounding_rect = QRectF(0.0, 0.0, scene_rect.width(), scene_rect.height());
         qDebug() << "xxx 1.2 m_bounding_rect" << m_bounding_rect;
 
-        if(m_polygon.size() == 1) {
-           m_polygon.clear();
-           m_polygon << m_bounding_rect.center();
-        } else {
-            m_polygon = mapFromScene(m_polygon);
-        }
+        setPos(scene_rect.x(), scene_rect.y());
+        update();
+
+        m_polygon = mapFromScene(m_polygon);
+
 
         qDebug() << "xxx 1.2 m_polygon" << m_polygon;
 
@@ -243,6 +242,7 @@ void PolygonView::update_polygon()
 //                       SLOT(update_view()));
 
             childView->setPos(m_polygon[i]);
+//            childView->update();
 //            connect(childView->toGraphicsObject(), SIGNAL(xChanged()), this, SLOT(update_view()));
 //            connect(childView->toGraphicsObject(), SIGNAL(yChanged()), this, SLOT(update_view()));
         }

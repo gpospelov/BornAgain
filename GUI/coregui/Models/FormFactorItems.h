@@ -17,6 +17,9 @@
 #define FORMFACTORITEMS_H
 
 #include "ParameterizedItem.h"
+
+#include <memory>
+
 class IFormFactor;
 
 class BA_CORE_API_ FormFactorItem : public ParameterizedItem
@@ -25,8 +28,7 @@ class BA_CORE_API_ FormFactorItem : public ParameterizedItem
 public:
     explicit FormFactorItem(const QString &model_type, ParameterizedItem *parent)
         : ParameterizedItem(model_type, parent) {}
-    virtual IFormFactor *createFormFactor() const{ return 0;}
-    virtual ~FormFactorItem(){}
+    virtual std::unique_ptr<IFormFactor> createFormFactor() const=0;
 };
 
 
@@ -39,7 +41,7 @@ public:
     static const QString P_HEIGHT;
     static const QString P_ALPHA;
     explicit AnisoPyramidItem(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 
@@ -51,7 +53,7 @@ public:
     static const QString P_WIDTH;
     static const QString P_HEIGHT;
     explicit BoxItem(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 
@@ -63,7 +65,7 @@ public:
     static const QString P_HEIGHT;
     static const QString P_ALPHA;
     explicit ConeItem(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 
@@ -75,7 +77,7 @@ public:
     static const QString P_HEIGHT;
     static const QString P_ALPHA;
     explicit Cone6Item(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 
@@ -88,7 +90,7 @@ public:
     static const QString P_HEIGHT_RATIO;
     static const QString P_ALPHA;
     explicit CuboctahedronItem(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 
@@ -99,7 +101,7 @@ public:
     static const QString P_RADIUS;
     static const QString P_HEIGHT;
     explicit CylinderItem(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 
@@ -111,7 +113,7 @@ public:
     static const QString P_RADIUS_B;
     static const QString P_HEIGHT;
     explicit EllipsoidalCylinderItem(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 
@@ -121,7 +123,7 @@ class BA_CORE_API_ FullSphereItem : public FormFactorItem
 public:
     static const QString P_RADIUS;
     explicit FullSphereItem(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 
@@ -132,7 +134,7 @@ public:
     static const QString P_RADIUS;
     static const QString P_HEIGHT;
     explicit FullSpheroidItem(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 
@@ -144,7 +146,7 @@ public:
     static const QString P_RADIUS_B;
     static const QString P_HEIGHT;
     explicit HemiEllipsoidItem(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 
@@ -155,7 +157,7 @@ public:
     static const QString P_LENGTH;
     static const QString P_HEIGHT;
     explicit Prism3Item(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 
@@ -166,7 +168,7 @@ public:
     static const QString P_RADIUS;
     static const QString P_HEIGHT;
     explicit Prism6Item(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 
@@ -178,7 +180,7 @@ public:
     static const QString P_HEIGHT;
     static const QString P_ALPHA;
     explicit PyramidItem(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 
@@ -190,7 +192,7 @@ public:
     static const QString P_WIDTH;
     static const QString P_HEIGHT;
     explicit Ripple1Item(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 
@@ -203,7 +205,7 @@ public:
     static const QString P_HEIGHT;
     static const QString P_ASYMMETRY;
     explicit Ripple2Item(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 
@@ -215,7 +217,7 @@ public:
     static const QString P_HEIGHT;
     static const QString P_ALPHA;
     explicit TetrahedronItem(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 
@@ -226,7 +228,7 @@ public:
     static const QString P_LENGTH;
     static const QString P_REMOVED_LENGTH;
     explicit TruncatedCubeItem(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 
@@ -237,7 +239,7 @@ public:
     static const QString P_RADIUS;
     static const QString P_HEIGHT;
     explicit TruncatedSphereItem(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 
@@ -249,7 +251,7 @@ public:
     static const QString P_HEIGHT;
     static const QString P_HFC;
     explicit TruncatedSpheroidItem(ParameterizedItem *parent=0);
-    IFormFactor *createFormFactor() const;
+    std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
 

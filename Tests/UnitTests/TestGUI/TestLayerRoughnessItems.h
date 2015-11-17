@@ -22,14 +22,13 @@ inline void TestLayerRoughnessItems::test_LayerRoughnessToDomain()
     roughnessItem.setRegisteredProperty(LayerBasicRoughnessItem::P_HURST, 20.0);
     roughnessItem.setRegisteredProperty(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH, 30.0);
 
-    LayerRoughness *roughness = TransformToDomain::createLayerRoughness(roughnessItem);
-    QCOMPARE(roughness->getSigma(), roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_SIGMA).toDouble());
-    QCOMPARE(roughness->getHurstParameter(), roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_HURST).toDouble());
-    QCOMPARE(roughness->getLatteralCorrLength(), roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH).toDouble());
-    delete roughness;
+    auto P_roughness = TransformToDomain::createLayerRoughness(roughnessItem);
+    QCOMPARE(P_roughness->getSigma(), roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_SIGMA).toDouble());
+    QCOMPARE(P_roughness->getHurstParameter(), roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_HURST).toDouble());
+    QCOMPARE(P_roughness->getLatteralCorrLength(), roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH).toDouble());
 
     LayerZeroRoughnessItem zeroRoughnessItem;
-    QVERIFY(TransformToDomain::createLayerRoughness(zeroRoughnessItem) == 0);
+    QVERIFY(TransformToDomain::createLayerRoughness(zeroRoughnessItem) == nullptr);
 }
 
 inline void TestLayerRoughnessItems::test_LayerRoughnessFromDomain()

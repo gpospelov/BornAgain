@@ -20,6 +20,7 @@
 #include <QWidget>
 #include <QString>
 #include <exception>
+#include <memory>
 
 class QVariant;
 
@@ -55,6 +56,11 @@ BA_CORE_API_ int getVariantType(const QVariant &variant);
 BA_CORE_API_ QString getBornAgainVersionString();
 
 BA_CORE_API_ QString getValidFileName(const QString &proposed_name);
+
+template<class T, class... Ts> std::unique_ptr<T> make_unique(Ts&&... params)
+{
+    return std::unique_ptr<T>(new T(std::forward<Ts>(params)...));
+}
 
 }
 

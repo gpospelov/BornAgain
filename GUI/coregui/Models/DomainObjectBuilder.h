@@ -17,6 +17,9 @@
 #define DOMAINOBJECTBUILDER_H
 
 #include "WinDllMacros.h"
+
+#include <memory>
+
 class ISample;
 class Instrument;
 class MultiLayer;
@@ -35,28 +38,22 @@ class LayerRoughness;
 class BA_CORE_API_ DomainObjectBuilder
 {
 public:
-    explicit DomainObjectBuilder()
-    {
-    }
-    ~DomainObjectBuilder()
-    {
-    }
+    explicit DomainObjectBuilder() = default;
 
     MultiLayer *buildMultiLayer(const ParameterizedItem &multilayer_item) const;
-    Instrument *buildInstrument(const ParameterizedItem &instrument_item) const;
+    std::unique_ptr<Instrument> buildInstrument(const ParameterizedItem &instrument_item) const;
 
-    Layer *buildLayer(const ParameterizedItem &item) const;
-    ParticleLayout *buildParticleLayout(const ParameterizedItem &item) const;
-    Particle *buildParticle(const ParameterizedItem &item, double &abundance) const;
-    ParticleCoreShell *buildParticleCoreShell(const ParameterizedItem &item,
-                                              double &abundance) const;
-    ParticleComposition *buildParticleComposition(const ParameterizedItem &item,
-                                                  double &abundance) const;
+    std::unique_ptr<Layer> buildLayer(const ParameterizedItem &item) const;
+    std::unique_ptr<ParticleLayout> buildParticleLayout(const ParameterizedItem &item) const;
+    std::unique_ptr<Particle> buildParticle(const ParameterizedItem &item, double &abundance) const;
+    std::unique_ptr<ParticleCoreShell> buildParticleCoreShell(const ParameterizedItem &item,
+                                                              double &abundance) const;
+    std::unique_ptr<ParticleComposition> buildParticleComposition(const ParameterizedItem &item,
+                                                                  double &abundance) const;
     ParticleDistribution *buildParticleDistribution(const ParameterizedItem &item,
-                                                    double &abundance,
-                                                    bool catch_errors=false) const;
+                                                    double &abundance) const;
     IInterferenceFunction *buildInterferenceFunction(const ParameterizedItem &item) const;
-    Beam *buildBeam(const ParameterizedItem &item) const;
+    std::unique_ptr<Beam> buildBeam(const ParameterizedItem &item) const;
 
 private:
     void setTransformationInfo(IParticle *result, const ParameterizedItem &item) const;

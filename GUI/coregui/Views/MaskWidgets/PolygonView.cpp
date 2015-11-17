@@ -44,6 +44,8 @@ void PolygonView::addView(IMaskView *childView, int row)
     qDebug() << "PolygonView::addView, calling update_polygon" << m_block_on_point_update;
     Q_UNUSED(row);
 
+    if(childItems().contains(childView)) return;
+
     PolygonPointView *pointView = qobject_cast<PolygonPointView *>(childView);
     Q_ASSERT(pointView);
 
@@ -135,15 +137,16 @@ void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
 
 QVariant PolygonView::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
 {
-    qDebug() << "PolygonView::itemChange" << change;
+    qDebug() << "PolygonView::itemChange" << change << value << this->isSelected();
     if(change == QGraphicsItem::ItemSelectedHasChanged) {
-//        if(this->isSelected()) {
-//            setChildrenVisible(this->isSelected());
-//        } else {
-//            setChildrenVisible(false);
-//        }
+        if(this->isSelected()) {
+            setChildrenVisible(true);
+        } else {
+            setChildrenVisible(false);
+        }
     }
-    return QGraphicsItem::itemChange(change, value);
+    return value;
+//    return QGraphicsItem::itemChange(change, value);
 
 }
 

@@ -104,7 +104,8 @@ QVariant RectangleView::itemChange(QGraphicsItem::GraphicsItemChange change, con
             it.value()->setVisible(!this->isSelected());
         }
     }
-    return QGraphicsItem::itemChange(change, value);
+//    return QGraphicsItem::itemChange(change, value);
+    return value;
 }
 
 void RectangleView::mousePressEvent(QGraphicsSceneMouseEvent *event)

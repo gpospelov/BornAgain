@@ -290,14 +290,7 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF &)
 {
-//    if(isDrawingInProgress() && m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE)) {
-//        painter->setPen(QPen(Qt::black, 1, Qt::DashLine));
-////        painter->drawLine(QLineF(m_lastAddedPoint, m_currentMousePosition));
-//        painter->drawLine(m_helperLine);
-//        invalidate();
-//    }
     if(PolygonView *polygon = getCurrentPolygon()) {
-        qDebug() << "!!!! we have a polygon";
         painter->setPen(QPen(Qt::black, 1, Qt::DashLine));
         painter->drawLine(QLineF(polygon->getLastAddedPoint(), m_currentMousePosition));
         invalidate();

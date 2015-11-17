@@ -36,20 +36,18 @@
 #include <QDebug>
 #include <memory>
 
-MultiLayer *DomainObjectBuilder::buildMultiLayer(const ParameterizedItem &multilayer_item) const
+std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(const ParameterizedItem &multilayer_item) const
 {
     auto P_multilayer = TransformToDomain::createMultiLayer(multilayer_item);
     QList<ParameterizedItem *> children = multilayer_item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::LayerType) {
-            std::unique_ptr<Layer> P_layer { buildLayer(*children[i]) };
-
-            ParameterizedItem *roughnessItem = children[i]->getSubItems()[LayerItem::P_ROUGHNESS];
+            auto P_layer = buildLayer(*children[i]);
+            auto roughnessItem = children[i]->getSubItems()[LayerItem::P_ROUGHNESS];
             Q_ASSERT(roughnessItem);
             auto P_roughness = TransformToDomain::createLayerRoughness(*roughnessItem);
-
-            if (P_layer.get()) {
-                if (P_roughness.get()) {
+            if (P_layer) {
+                if (P_roughness) {
                     P_multilayer->addLayerWithTopRoughness(*P_layer, *P_roughness);
                 } else {
                     P_multilayer->addLayer(*P_layer);
@@ -57,7 +55,7 @@ MultiLayer *DomainObjectBuilder::buildMultiLayer(const ParameterizedItem &multil
             }
         }
     }
-    return P_multilayer.release();
+    return P_multilayer;
 }
 
 std::unique_ptr<Layer> DomainObjectBuilder::buildLayer(const ParameterizedItem &item) const
@@ -66,8 +64,8 @@ std::unique_ptr<Layer> DomainObjectBuilder::buildLayer(const ParameterizedItem &
     QList<ParameterizedItem *> children = item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::ParticleLayoutType) {
-            std::unique_ptr<ParticleLayout> P_layout { buildParticleLayout(*children[i]) };
-            if (P_layout.get()) {
+            auto P_layout = buildParticleLayout(*children[i]);
+            if (P_layout) {
                 P_layer->addLayout(*P_layout);
             }
         }
@@ -82,25 +80,25 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(const P
     for (int i = 0; i < children.size(); ++i) {
         double abundance(0.0);
         if (children[i]->modelType() == Constants::ParticleType) {
-            ParameterizedItem *particle_item = children[i];
-            std::unique_ptr<Particle> P_particle { buildParticle(*particle_item, abundance) };
-            if (P_particle.get()) {
+            auto particle_item = children[i];
+            auto P_particle = buildParticle(*particle_item, abundance);
+            if (P_particle) {
                 P_layout->addParticle(*P_particle, abundance);
             }
         } else if (children[i]->modelType() == Constants::ParticleCoreShellType) {
-            ParameterizedItem *coreshell_item = children[i];
-            std::unique_ptr<ParticleCoreShell> P_coreshell {
-                buildParticleCoreShell(*coreshell_item, abundance) };
-            if (P_coreshell.get()) {
+            auto coreshell_item = children[i];
+            auto P_coreshell = buildParticleCoreShell(*coreshell_item, abundance);
+            if (P_coreshell) {
                 P_layout->addParticle(*P_coreshell, abundance);
             }
         } else if (children[i]->modelType() == Constants::ParticleDistributionType) {
-            QVariant par_name_var = children[i]->getRegisteredProperty(
-                        ParticleDistributionItem::P_DISTRIBUTED_PARAMETER);
-            ComboProperty prop = par_name_var.value<ComboProperty>();
+            auto prop
+                = children[i]
+                      ->getRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+                      .value<ComboProperty>();
             QString par_name = prop.getValue();
             if (par_name == ParticleDistributionItem::NO_SELECTION) {
-                QList<ParameterizedItem *> grandchildren = children[i]->childItems();
+                auto grandchildren = children[i]->childItems();
                 if (grandchildren.size() == 0) {
                     continue;
                 }
@@ -110,38 +108,33 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(const P
                                             " in ParticleDistribution");
                 }
                 if (grandchildren[0]->modelType() == Constants::ParticleType) {
-                    ParameterizedItem *particle_item = grandchildren[0];
+                    auto particle_item = grandchildren[0];
                     particle_item->print();
-                    std::unique_ptr<Particle> P_particle {
-                        buildParticle(*particle_item, abundance) };
-                    if (P_particle.get()) {
+                    auto P_particle = buildParticle(*particle_item, abundance);
+                    if (P_particle) {
                         P_layout->addParticle(*P_particle, abundance);
                     }
                 } else if (grandchildren[0]->modelType() == Constants::ParticleCoreShellType) {
-                    ParameterizedItem *coreshell_item = grandchildren[0];
-                    std::unique_ptr<ParticleCoreShell> P_coreshell {
-                        buildParticleCoreShell(*coreshell_item, abundance) };
-                    if (P_coreshell.get()) {
+                    auto coreshell_item = grandchildren[0];
+                    auto P_coreshell = buildParticleCoreShell(*coreshell_item, abundance);
+                    if (P_coreshell) {
                         P_layout->addParticle(*P_coreshell, abundance);
                     }
                 }
             } else {
-                std::unique_ptr<ParticleDistribution> P_part_distr(
-                            buildParticleDistribution(*children[i], abundance));
-                if (P_part_distr.get()) {
+                auto P_part_distr = buildParticleDistribution(*children[i], abundance);
+                if (P_part_distr) {
                     P_layout->addParticle(*P_part_distr, abundance);
                 }
             }
         } else if (children[i]->modelType() == Constants::ParticleCompositionType) {
-            std::unique_ptr<ParticleComposition> P_part_coll {
-                buildParticleComposition(*children[i], abundance) };
-            if (P_part_coll.get()) {
+            auto P_part_coll = buildParticleComposition(*children[i], abundance);
+            if (P_part_coll) {
                 P_layout->addParticle(*P_part_coll, abundance);
             }
         } else if (children[i]->modelType().startsWith("InterferenceFunction")) {
-            std::unique_ptr<IInterferenceFunction> P_interference(
-                buildInterferenceFunction(*children[i]));
-            if (P_interference.get()) {
+            auto P_interference = buildInterferenceFunction(*children[i]);
+            if (P_interference) {
                 P_layout->addInterferenceFunction(*P_interference);
             }
         } else {
@@ -163,7 +156,7 @@ std::unique_ptr<Particle> DomainObjectBuilder::buildParticle(const Parameterized
 std::unique_ptr<ParticleCoreShell> DomainObjectBuilder::buildParticleCoreShell(const ParameterizedItem &item,
                                                                double &abundance) const
 {
-    QList<ParameterizedItem *> children = item.childItems();
+    auto children = item.childItems();
     std::unique_ptr<Particle> P_core {};
     std::unique_ptr<Particle> P_shell {};
     for (int i = 0; i < children.size(); ++i) {
@@ -230,18 +223,15 @@ std::unique_ptr<ParticleComposition> DomainObjectBuilder::buildParticleCompositi
 
 //! Creates ParticleDistribution from parameterized item. If catch_errors=true, then
 //! possible misconfiguration of Distribution1D will be caught, fake distribution will be used
-ParticleDistribution *DomainObjectBuilder::buildParticleDistribution(const ParameterizedItem &item,
+std::unique_ptr<ParticleDistribution> DomainObjectBuilder::buildParticleDistribution(const ParameterizedItem &item,
                                                                      double &abundance) const
 {
-    ParticleDistribution *p_result = 0;
-    QList<ParameterizedItem *> children = item.childItems();
+    auto children = item.childItems();
     if (children.size() == 0) {
-        return p_result;
+        return nullptr;
     }
     std::unique_ptr<IParticle> P_particle;
-
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
-
     double disabled_abundance(0);
     for(int i=0; i<children.size(); ++i) {
         ParameterizedItem *p_child = children[i];
@@ -256,12 +246,11 @@ ParticleDistribution *DomainObjectBuilder::buildParticleDistribution(const Param
             break;
         }
     }
-
     if (!P_particle) {
         throw GUIHelpers::Error("DomainObjectBuilder::buildParticleDistribution()"
                                 " -> Error! No correct particle defined");
     }
-    ParameterizedItem *distr_item = item.getSubItems()[ParticleDistributionItem::P_DISTRIBUTION];
+    auto distr_item = item.getSubItems()[ParticleDistributionItem::P_DISTRIBUTION];
     Q_ASSERT(distr_item);
 
     auto P_distribution = TransformToDomain::createDistribution(*distr_item);
@@ -275,16 +264,15 @@ ParticleDistribution *DomainObjectBuilder::buildParticleDistribution(const Param
     double sigma_factor
         = distr_item->getRegisteredProperty(DistributionItem::P_SIGMA_FACTOR).toDouble();
     ParameterDistribution par_distr(par_name.toStdString(), *P_distribution, nbr_samples, sigma_factor);
-    p_result = new ParticleDistribution(*P_particle, par_distr);
-    return p_result;
+    return GUIHelpers::make_unique<ParticleDistribution>(*P_particle, par_distr);
 }
 
-IInterferenceFunction *
+std::unique_ptr<IInterferenceFunction>
 DomainObjectBuilder::buildInterferenceFunction(const ParameterizedItem &item) const
 {
-    auto result = TransformToDomain::createInterferenceFunction(item);
-    Q_ASSERT(result);
-    return result.release();
+    auto P_iff = TransformToDomain::createInterferenceFunction(item);
+    Q_ASSERT(P_iff);
+    return P_iff;
 }
 
 std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(const ParameterizedItem &instrument_item) const

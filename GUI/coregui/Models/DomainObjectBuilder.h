@@ -38,8 +38,6 @@ class LayerRoughness;
 class BA_CORE_API_ DomainObjectBuilder
 {
 public:
-    explicit DomainObjectBuilder() = default;
-
     std::unique_ptr<MultiLayer> buildMultiLayer(const ParameterizedItem &multilayer_item) const;
     std::unique_ptr<Layer> buildLayer(const ParameterizedItem &item) const;
     std::unique_ptr<ParticleLayout> buildParticleLayout(const ParameterizedItem &item) const;

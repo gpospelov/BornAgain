@@ -48,6 +48,7 @@ protected:
 private:
     bool controlButtonIsPressed(QWheelEvent *event);
     void deleteSelectedItems();
+    void cancelCurrentDrawing();
 
 //    MaskGraphicsProxy *m_colorMapProxy;
 };

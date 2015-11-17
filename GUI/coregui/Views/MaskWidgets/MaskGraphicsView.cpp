@@ -136,6 +136,9 @@ void MaskGraphicsView::keyPressEvent(QKeyEvent *event)
             emit changeActivityRequest(MaskEditorActivity::PAN_ZOOM_MODE);
         }
         break;
+    case Qt::Key_Escape:
+        cancelCurrentDrawing();
+        break;
     case Qt::Key_Delete:
         deleteSelectedItems();
         break;
@@ -176,6 +179,13 @@ void MaskGraphicsView::deleteSelectedItems()
     MaskGraphicsScene *maskScene = dynamic_cast<MaskGraphicsScene *>(scene());
     Q_ASSERT(maskScene);
     maskScene->deleteSelectedItems();
+}
+
+void MaskGraphicsView::cancelCurrentDrawing()
+{
+    MaskGraphicsScene *maskScene = dynamic_cast<MaskGraphicsScene *>(scene());
+    Q_ASSERT(maskScene);
+    maskScene->cancelCurrentDrawing();
 }
 
 

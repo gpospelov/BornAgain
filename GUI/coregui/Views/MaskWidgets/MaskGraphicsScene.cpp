@@ -167,6 +167,17 @@ void MaskGraphicsScene::deleteSelectedItems()
     }
 }
 
+void MaskGraphicsScene::cancelCurrentDrawing()
+{
+    qDebug() << "MaskGraphicsScene::cancelCurrentDrawing()";
+    if(isDrawingInProgress()) {
+        Q_ASSERT(m_currentItem);
+        QModelIndex index = m_model->indexOfItem(m_currentItem);
+        m_model->removeRows(index.row(), 1, index.parent());
+        setDrawingInProgress(false);
+    }
+}
+
 //! propagate selection from model to scene
 void MaskGraphicsScene::onSessionSelectionChanged(const QItemSelection & /* selected */,
                                               const QItemSelection & /* deselected */)

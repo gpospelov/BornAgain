@@ -48,6 +48,7 @@ public slots:
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
     void onRowsRemoved(const QModelIndex &parent, int first, int last);
     void deleteSelectedItems();
+    void cancelCurrentDrawing();
     void resetScene();
     void updateScene();
 

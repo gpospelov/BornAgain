@@ -29,6 +29,7 @@ class ISceneAdaptor;
 class MaskGraphicsProxy;
 class QItemSelectionModel;
 class QItemSelection;
+class PolygonView;
 
 //! Graphics scene for MaskEditorCanvas
 
@@ -80,6 +81,7 @@ private:
     void processRectangleItem(QGraphicsSceneMouseEvent *event);
     void processPolygonItem(QGraphicsSceneMouseEvent *event);
     void setZValues();
+    PolygonView *getCurrentPolygon() const;
 
     SessionModel *m_model;
     QItemSelectionModel *m_selectionModel;
@@ -90,9 +92,7 @@ private:
     MaskEditorActivity::Flags m_activityType;
     QModelIndex m_rootIndex; //! Index in the model corresponding to IntensityDataItem
     ParameterizedItem *m_currentItem;
-    QPointF m_currentMousePosition;   //!< current mouse position
-    QPointF m_lastAddedPoint;         //!< last added point to a polygon
-
+    QPointF m_currentMousePosition;
 };
 
 

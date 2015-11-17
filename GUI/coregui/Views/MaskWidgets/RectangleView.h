@@ -28,6 +28,8 @@ class BA_CORE_API_ RectangleView : public IMaskView
     Q_OBJECT
 
 public:
+    int type() const { return DesignerHelper::RECTANGLE; }
+
     RectangleView();
 
 public slots:

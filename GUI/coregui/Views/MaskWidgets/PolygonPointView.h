@@ -25,6 +25,9 @@ class BA_CORE_API_ PolygonPointView : public IMaskView
     Q_OBJECT
 
 public:
+    enum { TYPE = DesignerHelper::POLYGONPOINT };
+    int type() const { return TYPE; }
+
     PolygonPointView();
 
     QRectF boundingRect() const;

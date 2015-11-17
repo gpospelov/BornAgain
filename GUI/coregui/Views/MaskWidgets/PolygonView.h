@@ -26,11 +26,16 @@ class BA_CORE_API_ PolygonView : public IMaskView
     Q_OBJECT
 
 public:
+    int type() const { return DesignerHelper::POLYGON; }
+
     PolygonView();
 
     void addView(IMaskView *childView, int row);
 
     bool isClosedPolygon() const { return m_closed_polygon; }
+
+    //! returns last added poligon point in scene coordinates
+    QPointF getLastAddedPoint() const;
 
 public slots:
 //    virtual void onPropertyChange(const QString &propertyName);

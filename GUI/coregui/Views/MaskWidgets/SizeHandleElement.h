@@ -17,6 +17,7 @@
 #define SIZEHANDLEELEMENT_H
 
 #include "WinDllMacros.h"
+#include "DesignerHelper.h"
 #include <QCursor>
 #include <QGraphicsObject>
 #include <QMap>
@@ -29,6 +30,9 @@ class BA_CORE_API_ SizeHandleElement : public QGraphicsObject
     Q_OBJECT
 
 public:
+    enum { TYPE = DesignerHelper::SIZEHANDLE };
+    int type() const { return TYPE; }
+
     enum EHandleLocation
     {
         NONE,

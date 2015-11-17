@@ -20,6 +20,7 @@
 #include <QPainter>
 #include <QCursor>
 #include <QRectF>
+#include <QGraphicsItem>
 #include <QGraphicsPolygonItem>
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
@@ -43,7 +44,7 @@ void PolygonView::addView(IMaskView *childView, int row)
     qDebug() << "PolygonView::addView, calling update_polygon" << m_block_on_point_update;
     Q_UNUSED(row);
 
-    PolygonPointView *pointView = qgraphicsitem_cast<PolygonPointView *>(childView);
+    PolygonPointView *pointView = qobject_cast<PolygonPointView *>(childView);
     Q_ASSERT(pointView);
 
 //    pointView->setAcceptHoverEvents(true);
@@ -65,6 +66,15 @@ void PolygonView::addView(IMaskView *childView, int row)
     connect(pointView, SIGNAL(propertyChanged()), this, SLOT(update_view()));
     connect(pointView, SIGNAL(closePolygonRequest()), this, SLOT(onClosePolygonRequest()));
 
+}
+
+QPointF PolygonView::getLastAddedPoint() const
+{
+    QPointF result;
+    if(childItems().size()) {
+        result = childItems().back()->scenePos();
+    }
+    return result;
 }
 
 //void PolygonView::onPropertyChange(const QString &propertyName)
@@ -172,7 +182,7 @@ void PolygonView::update_view()
 {
     qDebug() << "PolygonView::update_view()";
     update_polygon();
-//    update();
+    update();
 }
 
 void PolygonView::update_polygon()
@@ -244,10 +254,11 @@ void PolygonView::update_points()
 
     if(m_block_on_point_update) return;
 
+
 //    m_block_on_point_update = true;
     foreach(QGraphicsItem *childItem, childItems()) {
-        PolygonPointView *view = qgraphicsitem_cast<PolygonPointView *>(childItem);
-        ParameterizedItem *item = view->getParameterizedItem();
+        PolygonPointView *view = dynamic_cast<PolygonPointView *>(childItem);
+//        ParameterizedItem *item = view->getParameterizedItem();
         QPointF pos = view->scenePos();
         qDebug() << "    AAA" << pos;
 

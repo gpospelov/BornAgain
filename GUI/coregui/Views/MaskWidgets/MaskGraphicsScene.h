@@ -67,7 +67,9 @@ private:
     void init_scene();
     void updateViews(const QModelIndex &parentIndex = QModelIndex(), IMaskView *parentView = 0);
     void updateProxyWidget(const QModelIndex &parentIndex);
-    void deleteView(const QModelIndex & itemIndex);
+    void deleteViews(const QModelIndex & itemIndex);
+    void removeItemViewFromScene(ParameterizedItem *item);
+
 
 //    void makeSelected(const QModelIndex &parent, int first, int last);
 

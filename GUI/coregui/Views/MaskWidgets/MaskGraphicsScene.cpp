@@ -140,7 +140,7 @@ void MaskGraphicsScene::onRowsAboutToBeRemoved(const QModelIndex &parent, int fi
     qDebug() << "MaskGraphicsScene::onRowsAboutToBeRemoved(), blocking parent:" << parent << "first:" << first << "last:" << last;
     for (int irow = first; irow <= last; ++irow) {
         QModelIndex itemIndex = m_model->index(irow, 0, parent);
-        deleteView(itemIndex); // deleting all child items
+        deleteViews(itemIndex); // deleting all child items
     }
     qDebug() << "MaskGraphicsScene::onRowsAboutToBeRemoved(), unblocking";
     m_block_selection = false;
@@ -491,23 +491,69 @@ void MaskGraphicsScene::updateProxyWidget(const QModelIndex &parentIndex)
     }
 }
 
-void MaskGraphicsScene::deleteView(const QModelIndex &itemIndex)
+//void MaskGraphicsScene::deleteViews(const QModelIndex &itemIndex)
+//{
+//    qDebug() << "MaskGraphicsScene::deleteView" << itemIndex << m_model->itemForIndex(itemIndex);
+//    QMap<ParameterizedItem *, IMaskView *>::iterator it =
+//            m_ItemToView.find(m_model->itemForIndex(itemIndex));
+//    if(it!=m_ItemToView.end()) {
+//        IMaskView *view = it.value();
+//        qDebug() << "   about to delete view ";
+//        view->setSelected(false);
+//        m_ItemToView.erase(it);
+//        qDebug() << "   view deleted";
+////        emit view->aboutToBeDeleted();
+////        view->deleteLater();
+////        update();
+//        delete view;
+//    }
+//}
+
+
+void MaskGraphicsScene::deleteViews(const QModelIndex &parentIndex)
 {
-    qDebug() << "MaskGraphicsScene::deleteView" << itemIndex << m_model->itemForIndex(itemIndex);
-    QMap<ParameterizedItem *, IMaskView *>::iterator it =
-            m_ItemToView.find(m_model->itemForIndex(itemIndex));
-    if(it!=m_ItemToView.end()) {
-        IMaskView *view = it.value();
-        qDebug() << "   about to delete view ";
-        view->setSelected(false);
-        m_ItemToView.erase(it);
-        qDebug() << "   view deleted";
-//        emit view->aboutToBeDeleted();
-//        view->deleteLater();
-//        update();
-        delete view;
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << "DesignerScene::deleteViews()" << parentIndex << m_model->itemForIndex(parentIndex)->modelType();
+
+    for (int i_row = 0; i_row < m_model->rowCount(parentIndex); ++i_row) {
+        QModelIndex itemIndex = m_model->index(i_row, 0, parentIndex);
+
+        if (ParameterizedItem *item = m_model->itemForIndex(itemIndex)) {
+            qDebug() << "       DesignerScene::deleteViews()" << itemIndex << item->modelType();
+
+            removeItemViewFromScene(item);
+
+        } else {
+            qDebug() << "not a parameterized graphics item";
+        }
+        deleteViews(itemIndex);
+    }
+    removeItemViewFromScene(m_model->itemForIndex(parentIndex)); // deleting parent item
+}
+
+void MaskGraphicsScene::removeItemViewFromScene(ParameterizedItem *item)
+{
+    qDebug() << "MaskGraphicsScene::removeItemViewFromScene" << item->modelType();
+    for (QMap<ParameterizedItem *, IMaskView *>::iterator it = m_ItemToView.begin();
+         it != m_ItemToView.end(); ++it) {
+        if (it.key() == item) {
+            IMaskView *view = it.value();
+            view->setSelected(false);
+            m_ItemToView.erase(it);
+            //emit view->aboutToBeDeleted();
+            //view->deleteLater();
+            //update();
+            delete view;
+            break;
+        }
     }
 }
+
+
+
 
 //! Returns true if it is allowed to start drawing: all conditions below are fulfilled
 //! 1) It is not already in drawing mode

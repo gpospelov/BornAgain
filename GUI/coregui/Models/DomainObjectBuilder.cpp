@@ -34,7 +34,7 @@
 #include "DistributionItem.h"
 #include "ParticleItem.h"
 #include <QDebug>
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 MultiLayer *DomainObjectBuilder::buildMultiLayer(const ParameterizedItem &multilayer_item) const
 {
@@ -42,11 +42,11 @@ MultiLayer *DomainObjectBuilder::buildMultiLayer(const ParameterizedItem &multil
     QList<ParameterizedItem *> children = multilayer_item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::LayerType) {
-            boost::scoped_ptr<Layer> P_layer(buildLayer(*children[i]));
+            std::unique_ptr<Layer> P_layer(buildLayer(*children[i]));
 
             ParameterizedItem *roughnessItem = children[i]->getSubItems()[LayerItem::P_ROUGHNESS];
             Q_ASSERT(roughnessItem);
-            boost::scoped_ptr<LayerRoughness> P_roughness(
+            std::unique_ptr<LayerRoughness> P_roughness(
                 TransformToDomain::createLayerRoughness(*roughnessItem));
 
             if (P_layer.get()) {
@@ -67,7 +67,7 @@ Layer *DomainObjectBuilder::buildLayer(const ParameterizedItem &item) const
     QList<ParameterizedItem *> children = item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::ParticleLayoutType) {
-            boost::scoped_ptr<ParticleLayout> P_layout(buildParticleLayout(*children[i]));
+            std::unique_ptr<ParticleLayout> P_layout(buildParticleLayout(*children[i]));
             if (P_layout.get()) {
                 result->addLayout(*P_layout);
             }
@@ -84,13 +84,13 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(const ParameterizedItem
         double abundance(0.0);
         if (children[i]->modelType() == Constants::ParticleType) {
             ParameterizedItem *particle_item = children[i];
-            boost::scoped_ptr<Particle> P_particle(buildParticle(*particle_item, abundance));
+            std::unique_ptr<Particle> P_particle(buildParticle(*particle_item, abundance));
             if (P_particle.get()) {
                 result->addParticle(*P_particle, abundance);
             }
         } else if (children[i]->modelType() == Constants::ParticleCoreShellType) {
             ParameterizedItem *coreshell_item = children[i];
-            boost::scoped_ptr<ParticleCoreShell> P_coreshell(
+            std::unique_ptr<ParticleCoreShell> P_coreshell(
                 buildParticleCoreShell(*coreshell_item, abundance));
             if (P_coreshell.get()) {
                 result->addParticle(*P_coreshell, abundance);
@@ -113,34 +113,34 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(const ParameterizedItem
                 if (grandchildren[0]->modelType() == Constants::ParticleType) {
                     ParameterizedItem *particle_item = grandchildren[0];
                     particle_item->print();
-                    boost::scoped_ptr<Particle> P_particle(
+                    std::unique_ptr<Particle> P_particle(
                         buildParticle(*particle_item, abundance));
                     if (P_particle.get()) {
                         result->addParticle(*P_particle, abundance);
                     }
                 } else if (grandchildren[0]->modelType() == Constants::ParticleCoreShellType) {
                     ParameterizedItem *coreshell_item = grandchildren[0];
-                    boost::scoped_ptr<ParticleCoreShell> P_coreshell(
+                    std::unique_ptr<ParticleCoreShell> P_coreshell(
                         buildParticleCoreShell(*coreshell_item, abundance));
                     if (P_coreshell.get()) {
                         result->addParticle(*P_coreshell, abundance);
                     }
                 }
             } else {
-                boost::scoped_ptr<ParticleDistribution> P_part_distr(
+                std::unique_ptr<ParticleDistribution> P_part_distr(
                             buildParticleDistribution(*children[i], abundance));
                 if (P_part_distr.get()) {
                     result->addParticle(*P_part_distr, abundance);
                 }
             }
         } else if (children[i]->modelType() == Constants::ParticleCompositionType) {
-            boost::scoped_ptr<ParticleComposition> P_part_coll(
+            std::unique_ptr<ParticleComposition> P_part_coll(
                 buildParticleComposition(*children[i], abundance));
             if (P_part_coll.get()) {
                 result->addParticle(*P_part_coll, abundance);
             }
         } else if (children[i]->modelType().startsWith("InterferenceFunction")) {
-            boost::scoped_ptr<IInterferenceFunction> P_interference(
+            std::unique_ptr<IInterferenceFunction> P_interference(
                 buildInterferenceFunction(*children[i]));
             if (P_interference.get()) {
                 result->addInterferenceFunction(*P_interference);
@@ -202,21 +202,21 @@ ParticleComposition *DomainObjectBuilder::buildParticleComposition(const Paramet
         double tmp_abundance(0.0);
         if (children[i]->modelType() == Constants::ParticleType) {
             ParameterizedItem *particle_item = children[i];
-            boost::scoped_ptr<Particle> P_particle(
+            std::unique_ptr<Particle> P_particle(
                 buildParticle(*particle_item, tmp_abundance));
             if (P_particle.get()) {
                 p_result->addParticle(*P_particle);
             }
         } else if (children[i]->modelType() == Constants::ParticleCoreShellType) {
             ParameterizedItem *particle_item = children[i];
-            boost::scoped_ptr<ParticleCoreShell> P_coreshell(
+            std::unique_ptr<ParticleCoreShell> P_coreshell(
                 buildParticleCoreShell(*particle_item, tmp_abundance));
             if (P_coreshell.get()) {
                 p_result->addParticle(*P_coreshell);
             }
         } else if (children[i]->modelType() == Constants::ParticleCompositionType) {
             ParameterizedItem *particle_item = children[i];
-            boost::scoped_ptr<ParticleComposition> P_composition(
+            std::unique_ptr<ParticleComposition> P_composition(
                 buildParticleComposition(*particle_item, tmp_abundance));
             if (P_composition.get()) {
                 p_result->addParticle(*P_composition);
@@ -243,7 +243,7 @@ ParticleDistribution *DomainObjectBuilder::buildParticleDistribution(const Param
     if (children.size() == 0) {
         return p_result;
     }
-    boost::scoped_ptr<IParticle> P_particle;
+    std::unique_ptr<IParticle> P_particle;
 
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
 
@@ -310,7 +310,7 @@ Instrument *DomainObjectBuilder::buildInstrument(const ParameterizedItem &instru
     QList<ParameterizedItem *> children = instrument_item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::BeamType) {
-            boost::scoped_ptr<Beam> P_beam(buildBeam(*children[i]));
+            std::unique_ptr<Beam> P_beam(buildBeam(*children[i]));
             if (P_beam.get()) {
                 result->setBeam(*P_beam);
             }
@@ -358,7 +358,7 @@ void DomainObjectBuilder::setRotationInfo(IParticle *result, const Parameterized
                                         "-> Error! ParticleItem's child is"
                                         " not a rotation.");
             }
-            boost::scoped_ptr<IRotation> P_rotation(rot_item->createRotation());
+            std::unique_ptr<IRotation> P_rotation(rot_item->createRotation());
             if (P_rotation.get()) {
                 result->setRotation(*P_rotation);
             }

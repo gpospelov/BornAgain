@@ -37,7 +37,7 @@ public:
 //    void setFirstPolygonPointFlag(bool value);
 
 signals:
-    void closePolygonRequest();
+    void closePolygonRequest(bool);
 
 public slots:
     virtual void onChangedX();

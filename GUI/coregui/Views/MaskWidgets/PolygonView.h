@@ -32,7 +32,7 @@ public:
 
     void addView(IMaskView *childView, int row);
 
-    bool isClosedPolygon() const { return m_closed_polygon; }
+    bool isClosedPolygon();
 
     //! returns last added poligon point in scene coordinates
     QPointF getLastAddedPoint() const;
@@ -41,7 +41,7 @@ public slots:
 //    virtual void onPropertyChange(const QString &propertyName);
     virtual void onChangedX();
     virtual void onChangedY();
-    void onClosePolygonRequest();
+    void onClosePolygonRequest(bool value);
 
 
 //protected slots:
@@ -59,11 +59,15 @@ private:
     void update_polygon();
     void update_points();
     void setChildrenVisible(bool value);
+
+    bool makePolygonClosed();
+
 //    void update_bounding_rect();
 
     QPolygonF m_polygon;
     bool m_block_on_point_update;
     bool m_closed_polygon;
+    bool m_close_polygon_request;
 };
 
 

@@ -219,17 +219,97 @@ void MaskGraphicsScene::onSceneSelectionChanged()
     m_block_selection = false;
 }
 
+//void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
+//{
+//    qDebug() << "MaskGraphicsScene::mousePressEvent()";
+//    if(isAllowedToStartDrawing(event)) {
+//        setDrawingInProgress(true);
+//    } else {
+//        QGraphicsScene::mousePressEvent(event);
+//    }
+//}
+
+//void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+//{
+//    qDebug() << "MaskGraphicsScene::mouseMoveEvent()" << m_activityType;
+//    if(isDrawingInProgress()) {
+//        if(m_activityType.testFlag(MaskEditorActivity::RECTANGLE_MODE)) {
+//            qDebug() << "   DRAWING_IN_PROGESS POLYGON";
+//            processRectangleItem(event);
+//        }
+//        else if(m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE)) {
+//            qDebug() << "   DRAWING_IN_PROGESS POLYGON";
+//            QGraphicsScene::mouseMoveEvent(event);
+//        }
+
+//    } else {
+//        QGraphicsScene::mouseMoveEvent(event);
+//    }
+//    m_currentMousePosition = event->scenePos();
+//}
+
+//! Finalizes item drawing or pass events to other items
+//void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+//{
+//    qDebug() << "MaskGraphicsScene::mouseReleaseEvent() -> before" << m_activityType;
+//    if(isDrawingInProgress()) {
+
+//        if (m_activityType.testFlag(MaskEditorActivity::RECTANGLE_MODE)) {
+//            Q_ASSERT(0);
+//            clearSelection();
+//            if (m_currentItem) {
+//                // drawing ended up with item drawn, let's make it selected
+//                if (IMaskView *view = m_ItemToView[m_currentItem]) {
+//                    view->setSelected(true);
+//                }
+////                m_currentItem = 0;
+//            } else {
+//                // drawing ended without item to be draw (too short mouse move)
+//                // making item beneath of mouse release position to be selected
+//                //            makeTopViewSelected(event);
+//                if (QGraphicsItem *graphicsItem = itemAt(event->scenePos(), QTransform())) {
+//                    graphicsItem->setSelected(true);
+//                }
+//            }
+
+//            setDrawingInProgress(false);
+//        }
+
+//        if (m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE)) {
+//            processPolygonItem(event);
+//        }
+
+
+
+//        qDebug() << "       after" << m_activityType;
+//    } else {
+//        QGraphicsScene::mouseReleaseEvent(event);
+//    }
+//}
+
+
 void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "MaskGraphicsScene::mousePressEvent()";
-//    Q_ASSERT(isDrawingInProgress() == false);
 
-    if(isAllowedToStartDrawing(event)) {
+    if(isDrawingInProgress() == false && isAllowedToStartDrawing(event)) {
         setDrawingInProgress(true);
+    }
+
+    if(isDrawingInProgress()) {
+        if(isValidForPolygonDrawing(event)) {
+           processPolygonItem(event);
+        } else {
+            QGraphicsScene::mousePressEvent(event);
+        }
+
     } else {
         QGraphicsScene::mousePressEvent(event);
     }
+
 }
+
+
 
 void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
@@ -276,9 +356,9 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             setDrawingInProgress(false);
         }
 
-        if (m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE)) {
-            processPolygonItem(event);
-        }
+//        if (m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE)) {
+//            processPolygonItem(event);
+//        }
 
 
 
@@ -448,6 +528,15 @@ bool MaskGraphicsScene::isAllowedToStartDrawing(QGraphicsSceneMouseEvent *event)
     return result;
 }
 
+//! Returns true if the area is valid for drawing. Called from mousePressEvent during
+//! polygon drawing process. Handles click on last point of polygon
+bool MaskGraphicsScene::isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event)
+{
+    if( !(event->buttons() & Qt::LeftButton) ) return false;
+    if(!m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE)) return false;
+    return true;
+}
+
 //void MaskGraphicsScene::makeSelected(const QModelIndex &parent, int first, int last)
 //{
 //    for (int i_row = first; i_row < last; ++i_row) {
@@ -566,13 +655,14 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
 
     if(!m_currentItem) {
         m_currentItem = m_model->insertNewItem(Constants::PolygonMaskType, m_rootIndex, 0);
+        m_selectionModel->clearSelection();
+        m_selectionModel->select(m_model->indexOfItem(m_currentItem), QItemSelectionModel::Select);
     }
 
     Q_ASSERT(m_currentItem->modelType() == Constants::PolygonMaskType);
 
     if(PolygonView *currentPolygon = getCurrentPolygon()) {
         if(currentPolygon->isClosedPolygon()) {
-//            m_currentItem = 0;
             setDrawingInProgress(false);
             return;
         }

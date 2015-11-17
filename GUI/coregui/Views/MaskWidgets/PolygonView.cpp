@@ -32,6 +32,7 @@ const double bbox_margins = 5; // additional margins around points to form bound
 PolygonView::PolygonView()
     : m_block_on_point_update(false)
     , m_closed_polygon(false)
+    , m_close_polygon_request(false)
 {
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable );
@@ -46,13 +47,14 @@ void PolygonView::addView(IMaskView *childView, int row)
 
     if(childItems().contains(childView)) return;
 
-    PolygonPointView *pointView = qobject_cast<PolygonPointView *>(childView);
+    PolygonPointView *pointView = dynamic_cast<PolygonPointView *>(childView);
     Q_ASSERT(pointView);
 
 //    pointView->setAcceptHoverEvents(true);
     pointView->setParentItem(this);
 
-    // polygon consisting from more than 2 points can be closed via hover event
+    // polygon consisting from more than 2 points can be closed via hover event by clicking
+    // on first polygon point
     if(childItems().size() > 2) {
         childItems()[0]->setAcceptHoverEvents(true);
     }
@@ -66,7 +68,7 @@ void PolygonView::addView(IMaskView *childView, int row)
     update_polygon();
 
     connect(pointView, SIGNAL(propertyChanged()), this, SLOT(update_view()));
-    connect(pointView, SIGNAL(closePolygonRequest()), this, SLOT(onClosePolygonRequest()));
+    connect(pointView, SIGNAL(closePolygonRequest(bool)), this, SLOT(onClosePolygonRequest(bool)));
 
 }
 
@@ -97,16 +99,24 @@ void PolygonView::onChangedY()
     //    update_points();
 }
 
-void PolygonView::onClosePolygonRequest()
+void PolygonView::onClosePolygonRequest(bool value)
+{
+    m_close_polygon_request = value;
+}
+
+bool PolygonView::isClosedPolygon()
 {
     qDebug() << "PolygonView::onClosePolygonRequest()";
-    foreach(QGraphicsItem *childItem, childItems()) {
-        childItem->setFlag(QGraphicsItem::ItemIsMovable );
-        childItem->setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-        childItem->setAcceptHoverEvents(false);
-        childItem->setCursor(Qt::SizeAllCursor);
+    if(m_close_polygon_request) {
+        foreach(QGraphicsItem *childItem, childItems()) {
+            childItem->setFlag(QGraphicsItem::ItemIsMovable );
+            childItem->setFlag(QGraphicsItem::ItemSendsGeometryChanges);
+            childItem->setAcceptHoverEvents(false);
+            childItem->setCursor(Qt::SizeAllCursor);
+        }
+        m_closed_polygon = true;
     }
-    m_closed_polygon = true;
+    return m_closed_polygon;
 }
 
 //void PolygonView::onChilderChanged()

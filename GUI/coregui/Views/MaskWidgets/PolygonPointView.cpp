@@ -109,7 +109,7 @@ void PolygonPointView::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     painter->setRenderHints(QPainter::Antialiasing);
     prepareGeometryChange();
     QBrush brush = MaskEditorHelper::getSelectionMarkerBrush();
-    if(m_on_hover) {
+    if(acceptHoverEvents() && m_on_hover) {
         brush.setColor(Qt::red);
     }
     painter->setBrush(brush);
@@ -140,10 +140,10 @@ void PolygonPointView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "PolygonPointView::mousePressEvent";
     IMaskView::mousePressEvent(event);
-    if(acceptHoverEvents()) {
-        m_on_hover = false;
-        emit closePolygonRequest();
-    }
+//    if(acceptHoverEvents()) {
+//        m_on_hover = false;
+//        emit closePolygonRequest();
+//    }
 }
 
 void PolygonPointView::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
@@ -151,6 +151,7 @@ void PolygonPointView::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
     qDebug() << "PolygonPointView::hoverEnterEvent(QGraphicsSceneHoverEvent *event)";
     Q_UNUSED(event);
     m_on_hover = true;
+    emit closePolygonRequest(m_on_hover);
     IMaskView::hoverEnterEvent(event);
 }
 
@@ -159,6 +160,7 @@ void PolygonPointView::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
     qDebug() << "PolygonPointView::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)";
     Q_UNUSED(event);
     m_on_hover = false;
+    emit closePolygonRequest(m_on_hover);
     IMaskView::hoverLeaveEvent(event);
 }
 

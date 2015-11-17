@@ -72,6 +72,9 @@ private:
 //    void makeSelected(const QModelIndex &parent, int first, int last);
 
     bool isAllowedToStartDrawing(QGraphicsSceneMouseEvent *event);
+    bool isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event);
+
+
     bool isDrawingInProgress() const;
     void setDrawingInProgress(bool value);
 //    void makeTopViewSelected(QGraphicsSceneMouseEvent *event);

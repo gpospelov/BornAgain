@@ -18,6 +18,7 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <QMainWindow>
 
 class MaskEditorCanvas;
 class MaskEditorToolPanel;
@@ -26,7 +27,7 @@ class MaskModel;
 
 //! Main class to draw masks on top of intensity data map
 
-class BA_CORE_API_ MaskEditor : public QWidget
+class BA_CORE_API_ MaskEditor : public QMainWindow
 {
     Q_OBJECT
 public:

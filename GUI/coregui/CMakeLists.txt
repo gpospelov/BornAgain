@@ -92,6 +92,7 @@ set(resource_files
     "coregui.qrc"
 #    "qttools/qtpropertybrowser/qtpropertybrowser.qrc"
     "Views/SampleDesigner/SampleDesigner.qrc"
+    "Views/MaskWidgets/MaskWidgets.qrc"
     "Views/widgetbox/widgetbox.qrc"
 )
 

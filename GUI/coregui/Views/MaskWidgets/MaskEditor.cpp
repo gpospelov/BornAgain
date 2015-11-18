@@ -16,6 +16,7 @@
 #include "MaskEditor.h"
 #include "MaskEditorCanvas.h"
 #include "MaskEditorToolPanel.h"
+#include "MaskEditorToolBar.h"
 #include <QBoxLayout>
 #include <QSplitter>
 #include <QDebug>
@@ -29,7 +30,7 @@
 
 
 MaskEditor::MaskEditor(QWidget *parent)
-    : QWidget(parent)
+    : QMainWindow(parent)
     , m_editorCanvas(new MaskEditorCanvas(this))
     , m_editorToolPanel(new MaskEditorToolPanel(this))
     , m_splitter(new QSplitter(this))
@@ -41,11 +42,18 @@ MaskEditor::MaskEditor(QWidget *parent)
     m_splitter->addWidget(m_editorCanvas);
     m_splitter->addWidget(m_editorToolPanel);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    mainLayout->setMargin(0);
-    mainLayout->setSpacing(0);
-    mainLayout->addWidget(m_splitter);
-    setLayout(mainLayout);
+//    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+//    mainLayout->setMargin(0);
+//    mainLayout->setSpacing(0);
+//    mainLayout->addWidget(m_splitter);
+//    setLayout(mainLayout);
+
+//    QWidget *widget = new QWidget;
+//    widget->setLayout(mainLayout);
+
+    addToolBar(new MaskEditorToolBar);
+
+    setCentralWidget(m_splitter);
 
     init_test_model();
 

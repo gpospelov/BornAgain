@@ -737,7 +737,6 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
 //! Item with irow=0 is the top most on graphics scene.
 void MaskGraphicsScene::setZValues()
 {
-    return;
     Q_ASSERT(m_rootIndex.isValid());
     for(int i = 0; i < m_model->rowCount(m_rootIndex); i++) {
         QModelIndex itemIndex = m_model->index(i, 0, m_rootIndex);

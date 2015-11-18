@@ -32,6 +32,7 @@ public:
 
 signals:
     void activityModeChanged(MaskEditorActivity::Flags);
+    void toolPanelRequest();
 
 public slots:
     void onChangeActivityRequest(MaskEditorActivity::Flags value);

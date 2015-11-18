@@ -61,8 +61,16 @@ MaskEditor::MaskEditor(QWidget *parent)
     connect(m_toolBar, SIGNAL(activityModeChanged(MaskEditorActivity::Flags)),
             m_editorCanvas, SLOT(onActivityModeChanged(MaskEditorActivity::Flags)));
 
+    connect(m_toolBar, SIGNAL(toolPanelRequest()), this, SLOT(onToolPanelRequest()));
+
     connect(m_editorCanvas, SIGNAL(changeActivityRequest(MaskEditorActivity::Flags)),
             m_toolBar, SLOT(onChangeActivityRequest(MaskEditorActivity::Flags)));
+}
+
+void MaskEditor::onToolPanelRequest()
+{
+    qDebug() << "MaskEditor::onToolPanelRequest()";
+    m_editorToolPanel->setHidden(!m_editorToolPanel->isHidden());
 }
 
 void MaskEditor::init_test_model()

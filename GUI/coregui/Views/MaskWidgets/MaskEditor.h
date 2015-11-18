@@ -34,6 +34,8 @@ class BA_CORE_API_ MaskEditor : public QMainWindow
 public:
     MaskEditor(QWidget *parent = 0);
 
+public slots:
+    void onToolPanelRequest();
 
 private:
     void init_test_model();

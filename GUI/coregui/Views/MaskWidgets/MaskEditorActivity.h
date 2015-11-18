@@ -25,13 +25,17 @@ class BA_CORE_API_ MaskEditorActivity
 {
 public:
     enum EActivityType {
-        SELECTION_MODE      = 0x001,
-        PAN_ZOOM_MODE       = 0x002,
-        RECTANGLE_MODE      = 0x004,
-        POLYGON_MODE        = 0x008,
-        DRAWING_IN_PROGRESS = 0x010,
-        MASK_GREEN_ID    = 0x020,
-        MASK_RED_ID      = 0x040,
+        SELECTION_MODE       = 0x0001,
+        PAN_ZOOM_MODE        = 0x0002,
+        RECTANGLE_MODE       = 0x0004,
+        POLYGON_MODE         = 0x0010,
+        VERTICAL_LINE_MODE   = 0x0020,
+        HORIZONTAL_LINE_MODE = 0x0040,
+        ELLIPSE_MODE         = 0x0080,
+        MASKALL_MODE         = 0x0100,
+        DRAWING_IN_PROGRESS  = 0x0200,
+        MASK_GREEN_ID        = 0x0400,
+        MASK_RED_ID          = 0x0800
     };
 Q_DECLARE_FLAGS(Flags, EActivityType)
 };

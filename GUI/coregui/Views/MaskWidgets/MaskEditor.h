@@ -24,6 +24,7 @@ class MaskEditorCanvas;
 class MaskEditorToolPanel;
 class QSplitter;
 class MaskModel;
+class MaskEditorToolBar;
 
 //! Main class to draw masks on top of intensity data map
 
@@ -37,6 +38,7 @@ public:
 private:
     void init_test_model();
 
+    MaskEditorToolBar *m_toolBar;
     MaskEditorCanvas *m_editorCanvas;
     MaskEditorToolPanel *m_editorToolPanel;
     QSplitter *m_splitter;

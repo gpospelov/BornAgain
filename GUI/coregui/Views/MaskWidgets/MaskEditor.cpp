@@ -31,6 +31,7 @@
 
 MaskEditor::MaskEditor(QWidget *parent)
     : QMainWindow(parent)
+    , m_toolBar(new MaskEditorToolBar)
     , m_editorCanvas(new MaskEditorCanvas(this))
     , m_editorToolPanel(new MaskEditorToolPanel(this))
     , m_splitter(new QSplitter(this))
@@ -51,15 +52,17 @@ MaskEditor::MaskEditor(QWidget *parent)
 //    QWidget *widget = new QWidget;
 //    widget->setLayout(mainLayout);
 
-    addToolBar(new MaskEditorToolBar);
+    addToolBar(m_toolBar);
 
     setCentralWidget(m_splitter);
 
     init_test_model();
 
-    connect(m_editorToolPanel, SIGNAL(activityModeChanged(MaskEditorActivity::Flags)), m_editorCanvas, SLOT(onActivityModeChanged(MaskEditorActivity::Flags)));
+    connect(m_toolBar, SIGNAL(activityModeChanged(MaskEditorActivity::Flags)),
+            m_editorCanvas, SLOT(onActivityModeChanged(MaskEditorActivity::Flags)));
 
-    connect(m_editorCanvas, SIGNAL(changeActivityRequest(MaskEditorActivity::Flags)), m_editorToolPanel, SLOT(onChangeActivityRequest(MaskEditorActivity::Flags)));
+    connect(m_editorCanvas, SIGNAL(changeActivityRequest(MaskEditorActivity::Flags)),
+            m_toolBar, SLOT(onChangeActivityRequest(MaskEditorActivity::Flags)));
 }
 
 void MaskEditor::init_test_model()

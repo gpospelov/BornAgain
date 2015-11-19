@@ -22,7 +22,7 @@
 #include "ISceneAdaptor.h"
 #include "ColorMapSceneAdaptor.h"
 #include "MaskViewFactory.h"
-#include "MaskEditorActivity.h"
+#include "MaskEditorFlags.h"
 #include "MaskItems.h"
 #include "PolygonView.h"
 #include "item_constants.h"
@@ -43,7 +43,7 @@ MaskGraphicsScene::MaskGraphicsScene(QObject *parent)
     , m_selectionModel(0)
     , m_proxy(0)
     , m_block_selection(false)
-    , m_activityType(MaskEditorActivity::SELECTION_MODE)
+//    , m_activityType(MaskEditorActivity::SELECTION_MODE)
     , m_currentItem(0)
 {
     setSceneRect(default_scene_rect);
@@ -108,11 +108,11 @@ void MaskGraphicsScene::setSelectionModel(QItemSelectionModel *model)
 
 }
 
-void MaskGraphicsScene::onActivityModeChanged(MaskEditorActivity::Flags value)
+void MaskGraphicsScene::onActivityModeChanged(MaskEditorFlags::Activity value)
 {
     qDebug() << "MaskGraphicsScene::onActivityModeChanged(int mode) ->" << value;
-    m_activityType = value;
-    if(m_activityType.testFlag(MaskEditorActivity::PAN_ZOOM_MODE)) {
+    m_context.setActivityType(value);
+    if(m_context.isInZoomMode()) {
         m_proxy->setInZoomMode(true);
     } else {
         m_proxy->setInZoomMode(false);
@@ -179,11 +179,11 @@ void MaskGraphicsScene::cancelCurrentDrawing()
 }
 
 //! every selected mask will be moved according to EMoveType request.
-void MaskGraphicsScene::onMaskStackingOrderRequest(MaskEditorActivity::EMoveType value)
+void MaskGraphicsScene::onMaskStackingOrderRequest(MaskEditorFlags::EMoveType value)
 {
     int change_in_row(0);
-    if(value == MaskEditorActivity::BRING_TO_FRONT) change_in_row = -1;
-    if(value == MaskEditorActivity::SEND_TO_BACK) change_in_row = 2;
+    if(value == MaskEditorFlags::BRING_TO_FRONT) change_in_row = -1;
+    if(value == MaskEditorFlags::SEND_TO_BACK) change_in_row = 2;
 
     QModelIndexList indexes = m_selectionModel->selectedIndexes();
 
@@ -391,13 +391,13 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << "MaskGraphicsScene::mouseMoveEvent()" << m_activityType;
+    qDebug() << "MaskGraphicsScene::mouseMoveEvent()";
     if(isDrawingInProgress()) {
-        if(m_activityType.testFlag(MaskEditorActivity::RECTANGLE_MODE)) {
+        if(m_context.isRectangleMode()) {
             qDebug() << "   DRAWING_IN_PROGESS POLYGON";
             processRectangleItem(event);
         }
-        else if(m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE)) {
+        else if(m_context.isPolygonMode()) {
             qDebug() << "   DRAWING_IN_PROGESS POLYGON";
             QGraphicsScene::mouseMoveEvent(event);
         }
@@ -411,10 +411,10 @@ void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 //! Finalizes item drawing or pass events to other items
 void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << "MaskGraphicsScene::mouseReleaseEvent() -> before" << m_activityType;
+    qDebug() << "MaskGraphicsScene::mouseReleaseEvent() -> before";
     if(isDrawingInProgress()) {
 
-        if (m_activityType.testFlag(MaskEditorActivity::RECTANGLE_MODE)) {
+        if (m_context.isRectangleMode()) {
             clearSelection();
             if (m_currentItem) {
                 // drawing ended up with item drawn, let's make it selected
@@ -440,7 +440,6 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 
 
-        qDebug() << "       after" << m_activityType;
     } else {
         QGraphicsScene::mouseReleaseEvent(event);
     }
@@ -641,10 +640,12 @@ void MaskGraphicsScene::removeItemViewFromScene(ParameterizedItem *item)
 bool MaskGraphicsScene::isAllowedToStartDrawing(QGraphicsSceneMouseEvent *event)
 {
     bool result(true);
-    if(m_activityType.testFlag(MaskEditorActivity::DRAWING_IN_PROGRESS)) result = false;
+//    if(m_activityType.testFlag(MaskEditorActivity::DRAWING_IN_PROGRESS)) result = false;
+    if(m_context.isDrawingInProgress()) result = false;
     if( !(event->buttons() & Qt::LeftButton)) result = false;
-    if(m_activityType.testFlag(MaskEditorActivity::SELECTION_MODE) ||
-       m_activityType.testFlag(MaskEditorActivity::PAN_ZOOM_MODE)) result = false;
+//    if(m_activityType.testFlag(MaskEditorActivity::SELECTION_MODE) ||
+//       m_activityType.testFlag(MaskEditorActivity::PAN_ZOOM_MODE)) result = false;
+    if(m_context.isSelectionMode() || m_context.isInZoomMode()) result = false;
     QList<QGraphicsItem *> items_beneath = this->items(event->scenePos());
     foreach(QGraphicsItem *graphicsItem, items_beneath) {
         if(graphicsItem->parentItem()) result = false;
@@ -657,7 +658,8 @@ bool MaskGraphicsScene::isAllowedToStartDrawing(QGraphicsSceneMouseEvent *event)
 bool MaskGraphicsScene::isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event)
 {
     if( !(event->buttons() & Qt::LeftButton) ) return false;
-    if(!m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE)) return false;
+//    if(!m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE)) return false;
+    if(!m_context.isPolygonMode()) return false;
     return true;
 }
 
@@ -674,17 +676,15 @@ bool MaskGraphicsScene::isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event
 
 bool MaskGraphicsScene::isDrawingInProgress() const
 {
-    return m_activityType.testFlag(MaskEditorActivity::DRAWING_IN_PROGRESS);
+    return m_context.isDrawingInProgress();
 }
 
 
 void MaskGraphicsScene::setDrawingInProgress(bool value)
 {
-    if(value) {
-        m_activityType |= MaskEditorActivity::DRAWING_IN_PROGRESS;
-    } else {
+    m_context.setDrawingInProgress(value);
+    if(value == false) {
         m_currentItem = 0;
-        m_activityType &= ~MaskEditorActivity::DRAWING_IN_PROGRESS;
     }
 }
 
@@ -749,11 +749,7 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
 
     if(!m_currentItem && line.length() > min_distance_to_create_rect) {
         m_currentItem = m_model->insertNewItem(Constants::RectangleMaskType, m_rootIndex, 0);
-        if(m_activityType.testFlag(MaskEditorActivity::MASK_GREEN_ID)) {
-            m_currentItem->setRegisteredProperty(RectangleItem::P_MASK_VALUE, false);
-        } else {
-            m_currentItem->setRegisteredProperty(RectangleItem::P_MASK_VALUE, true);
-        }
+        m_currentItem->setRegisteredProperty(RectangleItem::P_MASK_VALUE, m_context.getMaskValue());
     }
 
     if(m_currentItem) {
@@ -774,8 +770,10 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
 void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "MaskGraphicsScene::processPolygonItem";
-    Q_ASSERT(m_activityType.testFlag(MaskEditorActivity::DRAWING_IN_PROGRESS));
-    Q_ASSERT(m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE));
+//    Q_ASSERT(m_activityType.testFlag(MaskEditorActivity::DRAWING_IN_PROGRESS));
+//    Q_ASSERT(m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE));
+    Q_ASSERT(m_context.isDrawingInProgress());
+    Q_ASSERT(m_context.isPolygonMode());
 
     if(!m_currentItem) {
         m_currentItem = m_model->insertNewItem(Constants::PolygonMaskType, m_rootIndex, 0);

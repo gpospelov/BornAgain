@@ -16,7 +16,7 @@
 #ifndef MASKGRAPHICSSCENE_H
 #define MASKGRAPHICSSCENE_H
 
-#include "MaskEditorActivity.h"
+#include "MaskDrawingContext.h"
 #include <QGraphicsScene>
 #include <QModelIndex>
 #include <QMap>
@@ -31,9 +31,9 @@ class QItemSelectionModel;
 class QItemSelection;
 class PolygonView;
 
-//! Graphics scene for MaskEditorCanvas
+//! Graphics scene for MaskEditorCanvas to draw masks on top of intensity data widgets.
 
-class MaskGraphicsScene : public QGraphicsScene
+class BA_CORE_API_ MaskGraphicsScene : public QGraphicsScene
 {
     Q_OBJECT
 public:
@@ -43,14 +43,14 @@ public:
     void setSelectionModel(QItemSelectionModel *model);
 
 public slots:
-    void onActivityModeChanged(MaskEditorActivity::Flags value);
+    void onActivityModeChanged(MaskEditorFlags::Activity value);
     void onRowsInserted(const QModelIndex &parent, int first, int last);
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
     void onRowsRemoved(const QModelIndex &parent, int first, int last);
     void deleteSelectedItems();
     void cancelCurrentDrawing();
 
-    void onMaskStackingOrderRequest(MaskEditorActivity::EMoveType value);
+    void onMaskStackingOrderRequest(MaskEditorFlags::EMoveType value);
 //    void onBringToFront();
 //    void onSendToBack();
 
@@ -100,10 +100,10 @@ private:
     QMap<ParameterizedItem *, IMaskView *> m_ItemToView;
     MaskGraphicsProxy *m_proxy;
     bool m_block_selection;
-    MaskEditorActivity::Flags m_activityType;
     QModelIndex m_rootIndex; //! Index in the model corresponding to IntensityDataItem
     ParameterizedItem *m_currentItem;
     QPointF m_currentMousePosition;
+    MaskDrawingContext m_context;
 };
 
 

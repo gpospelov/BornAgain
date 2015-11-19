@@ -16,7 +16,7 @@
 #include "MaskEditorToolPanel.h"
 #include "SessionModel.h"
 #include "AwesomePropertyEditor.h"
-#include "MaskEditorActivity.h"
+#include "MaskEditorFlags.h"
 #include <QVBoxLayout>
 #include <QListView>
 #include <QItemSelection>

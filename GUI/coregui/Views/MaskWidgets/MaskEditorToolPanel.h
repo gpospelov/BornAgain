@@ -16,7 +16,7 @@
 #ifndef MASKEDITORTOOLPANEL_H
 #define MASKEDITORTOOLPANEL_H
 
-#include "MaskEditorActivity.h"
+#include "MaskEditorFlags.h"
 #include <QWidget>
 
 class QListView;

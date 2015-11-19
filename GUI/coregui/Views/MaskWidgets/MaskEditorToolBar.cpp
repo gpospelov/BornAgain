@@ -60,11 +60,11 @@ MaskEditorToolBar::MaskEditorToolBar(QWidget *parent)
 
 //! Handles ZOOM requests from MaskGraphicsView while user press and holds
 //! space bar. As soon as space bar is released, activity is returned to previous state.
-void MaskEditorToolBar::onChangeActivityRequest(MaskEditorActivity::Flags value)
+void MaskEditorToolBar::onChangeActivityRequest(MaskEditorFlags::Activity value)
 {
-    if(value.testFlag(MaskEditorActivity::PAN_ZOOM_MODE)) {
+    if(value.testFlag(MaskEditorFlags::PAN_ZOOM_MODE)) {
         m_previousActivity = getCurrentActivity();
-        m_activityButtonGroup->button(MaskEditorActivity::PAN_ZOOM_MODE)->setChecked(true);
+        m_activityButtonGroup->button(MaskEditorFlags::PAN_ZOOM_MODE)->setChecked(true);
     } else {
         setCurrentActivity(m_previousActivity);
     }
@@ -77,9 +77,14 @@ void MaskEditorToolBar::onActivityGroupChange(int value)
     emit activityModeChanged(getCurrentActivity());
 }
 
+void MaskEditorToolBar::onMaskValueGroupChange(int value)
+{
+
+}
+
 void MaskEditorToolBar::onStackingOrderGroupChange(int value)
 {
-    emit changeStackingOrderRequest(MaskEditorActivity::EMoveType(value));
+    emit changeStackingOrderRequest(MaskEditorFlags::EMoveType(value));
 }
 
 
@@ -103,8 +108,8 @@ void MaskEditorToolBar::setup_selection_group()
     refreshButton->setToolTip("Reset pan/zoom to initial state");
     addWidget(refreshButton);
 
-    m_activityButtonGroup->addButton(selectionButton, MaskEditorActivity::SELECTION_MODE);
-    m_activityButtonGroup->addButton(panButton, MaskEditorActivity::PAN_ZOOM_MODE);
+    m_activityButtonGroup->addButton(selectionButton, MaskEditorFlags::SELECTION_MODE);
+    m_activityButtonGroup->addButton(panButton, MaskEditorFlags::PAN_ZOOM_MODE);
 }
 
 void MaskEditorToolBar::setup_masktype_group()
@@ -122,8 +127,8 @@ void MaskEditorToolBar::setup_masktype_group()
     maskFalseButton->setCheckable(true);
     addWidget(maskFalseButton);
 
-    m_maskValueGroup->addButton(maskTrueButton, MaskEditorActivity::MASK_GREEN_ID);
-    m_maskValueGroup->addButton(maskFalseButton, MaskEditorActivity::MASK_RED_ID);
+    m_maskValueGroup->addButton(maskTrueButton, MaskEditorFlags::MASK_GREEN_ID);
+    m_maskValueGroup->addButton(maskFalseButton, MaskEditorFlags::MASK_RED_ID);
 }
 
 void MaskEditorToolBar::setup_shapes_group()
@@ -164,12 +169,12 @@ void MaskEditorToolBar::setup_shapes_group()
     maskAllButton->setCheckable(true);
     addWidget(maskAllButton);
 
-    m_activityButtonGroup->addButton(rectangleButton, MaskEditorActivity::RECTANGLE_MODE);
-    m_activityButtonGroup->addButton(polygonButton, MaskEditorActivity::POLYGON_MODE);
-    m_activityButtonGroup->addButton(verticalLineButton, MaskEditorActivity::VERTICAL_LINE_MODE);
-    m_activityButtonGroup->addButton(horizontalLineButton, MaskEditorActivity::HORIZONTAL_LINE_MODE);
-    m_activityButtonGroup->addButton(ellipseButton, MaskEditorActivity::ELLIPSE_MODE);
-    m_activityButtonGroup->addButton(maskAllButton, MaskEditorActivity::MASKALL_MODE);
+    m_activityButtonGroup->addButton(rectangleButton, MaskEditorFlags::RECTANGLE_MODE);
+    m_activityButtonGroup->addButton(polygonButton, MaskEditorFlags::POLYGON_MODE);
+    m_activityButtonGroup->addButton(verticalLineButton, MaskEditorFlags::VERTICAL_LINE_MODE);
+    m_activityButtonGroup->addButton(horizontalLineButton, MaskEditorFlags::HORIZONTAL_LINE_MODE);
+    m_activityButtonGroup->addButton(ellipseButton, MaskEditorFlags::ELLIPSE_MODE);
+    m_activityButtonGroup->addButton(maskAllButton, MaskEditorFlags::MASKALL_MODE);
 }
 
 void MaskEditorToolBar::setup_maskmodify_group()
@@ -184,8 +189,8 @@ void MaskEditorToolBar::setup_maskmodify_group()
     sendToBackButton->setToolTip("Lower selected mask one level down (PageDown)");
     addWidget(sendToBackButton);
 
-    m_maskStackingOrderGroup->addButton(bringToFrontButton, MaskEditorActivity::BRING_TO_FRONT);
-    m_maskStackingOrderGroup->addButton(sendToBackButton, MaskEditorActivity::SEND_TO_BACK);
+    m_maskStackingOrderGroup->addButton(bringToFrontButton, MaskEditorFlags::BRING_TO_FRONT);
+    m_maskStackingOrderGroup->addButton(sendToBackButton, MaskEditorFlags::SEND_TO_BACK);
 }
 
 void MaskEditorToolBar::setup_extratools_group()
@@ -207,37 +212,37 @@ void MaskEditorToolBar::add_separator()
     addWidget(new QLabel(" "));
 }
 
-MaskEditorActivity::Flags MaskEditorToolBar::getCurrentActivity() const
+MaskEditorFlags::Activity MaskEditorToolBar::getCurrentActivity() const
 {
-    MaskEditorActivity::Flags result;
-    result |= MaskEditorActivity::EActivityType(m_activityButtonGroup->checkedId());
-    result |= MaskEditorActivity::EActivityType(m_maskValueGroup->checkedId());
+    MaskEditorFlags::Activity result;
+    result |= MaskEditorFlags::EActivityType(m_activityButtonGroup->checkedId());
+    result |= MaskEditorFlags::EActivityType(m_maskValueGroup->checkedId());
     qDebug() << "MaskEditorToolBar::getCurrentActivity():" << result;
     return result;
 }
 
-void MaskEditorToolBar::setCurrentActivity(MaskEditorActivity::Flags value)
+void MaskEditorToolBar::setCurrentActivity(MaskEditorFlags::Activity value)
 {
-    if(value.testFlag(MaskEditorActivity::SELECTION_MODE))
-        m_activityButtonGroup->button(MaskEditorActivity::SELECTION_MODE)->setChecked(true);
-    if(value.testFlag(MaskEditorActivity::PAN_ZOOM_MODE))
-        m_activityButtonGroup->button(MaskEditorActivity::PAN_ZOOM_MODE)->setChecked(true);
-    if(value.testFlag(MaskEditorActivity::RECTANGLE_MODE))
-        m_activityButtonGroup->button(MaskEditorActivity::RECTANGLE_MODE)->setChecked(true);
-    if(value.testFlag(MaskEditorActivity::POLYGON_MODE))
-        m_activityButtonGroup->button(MaskEditorActivity::POLYGON_MODE)->setChecked(true);
-    if(value.testFlag(MaskEditorActivity::VERTICAL_LINE_MODE))
-        m_activityButtonGroup->button(MaskEditorActivity::VERTICAL_LINE_MODE)->setChecked(true);
-    if(value.testFlag(MaskEditorActivity::HORIZONTAL_LINE_MODE))
-        m_activityButtonGroup->button(MaskEditorActivity::HORIZONTAL_LINE_MODE)->setChecked(true);
-    if(value.testFlag(MaskEditorActivity::ELLIPSE_MODE))
-        m_activityButtonGroup->button(MaskEditorActivity::ELLIPSE_MODE)->setChecked(true);
-    if(value.testFlag(MaskEditorActivity::MASKALL_MODE))
-        m_activityButtonGroup->button(MaskEditorActivity::MASKALL_MODE)->setChecked(true);
+    if(value.testFlag(MaskEditorFlags::SELECTION_MODE))
+        m_activityButtonGroup->button(MaskEditorFlags::SELECTION_MODE)->setChecked(true);
+    if(value.testFlag(MaskEditorFlags::PAN_ZOOM_MODE))
+        m_activityButtonGroup->button(MaskEditorFlags::PAN_ZOOM_MODE)->setChecked(true);
+    if(value.testFlag(MaskEditorFlags::RECTANGLE_MODE))
+        m_activityButtonGroup->button(MaskEditorFlags::RECTANGLE_MODE)->setChecked(true);
+    if(value.testFlag(MaskEditorFlags::POLYGON_MODE))
+        m_activityButtonGroup->button(MaskEditorFlags::POLYGON_MODE)->setChecked(true);
+    if(value.testFlag(MaskEditorFlags::VERTICAL_LINE_MODE))
+        m_activityButtonGroup->button(MaskEditorFlags::VERTICAL_LINE_MODE)->setChecked(true);
+    if(value.testFlag(MaskEditorFlags::HORIZONTAL_LINE_MODE))
+        m_activityButtonGroup->button(MaskEditorFlags::HORIZONTAL_LINE_MODE)->setChecked(true);
+    if(value.testFlag(MaskEditorFlags::ELLIPSE_MODE))
+        m_activityButtonGroup->button(MaskEditorFlags::ELLIPSE_MODE)->setChecked(true);
+    if(value.testFlag(MaskEditorFlags::MASKALL_MODE))
+        m_activityButtonGroup->button(MaskEditorFlags::MASKALL_MODE)->setChecked(true);
 
-    if(value.testFlag(MaskEditorActivity::MASK_GREEN_ID))
-        m_maskValueGroup->button(MaskEditorActivity::MASK_GREEN_ID)->setChecked(true);
-    if(value.testFlag(MaskEditorActivity::MASK_RED_ID))
-        m_maskValueGroup->button(MaskEditorActivity::MASK_RED_ID)->setChecked(true);
+    if(value.testFlag(MaskEditorFlags::MASK_GREEN_ID))
+        m_maskValueGroup->button(MaskEditorFlags::MASK_GREEN_ID)->setChecked(true);
+    if(value.testFlag(MaskEditorFlags::MASK_RED_ID))
+        m_maskValueGroup->button(MaskEditorFlags::MASK_RED_ID)->setChecked(true);
 }
 

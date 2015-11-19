@@ -133,7 +133,7 @@ void MaskGraphicsView::keyPressEvent(QKeyEvent *event)
         break;
     case Qt::Key_Space:
         if(!event->isAutoRepeat()) {
-            emit changeActivityRequest(MaskEditorActivity::PAN_ZOOM_MODE);
+            emit changeActivityRequest(MaskEditorFlags::PAN_ZOOM_MODE);
         }
         break;
     case Qt::Key_Escape:
@@ -162,7 +162,7 @@ void MaskGraphicsView::keyReleaseEvent(QKeyEvent *event)
     switch (event->key()) {
     case Qt::Key_Space:
         if(!event->isAutoRepeat()) {
-            emit changeActivityRequest(MaskEditorActivity::SELECTION_MODE);
+            emit changeActivityRequest(MaskEditorFlags::SELECTION_MODE);
         }
         break;
     default:
@@ -197,12 +197,12 @@ void MaskGraphicsView::cancelCurrentDrawing()
 void MaskGraphicsView::bringToFront()
 {
     MaskGraphicsScene *maskScene = dynamic_cast<MaskGraphicsScene *>(scene());
-    maskScene->onMaskStackingOrderRequest(MaskEditorActivity::BRING_TO_FRONT);
+    maskScene->onMaskStackingOrderRequest(MaskEditorFlags::BRING_TO_FRONT);
 }
 
 void MaskGraphicsView::sendToBack()
 {
     MaskGraphicsScene *maskScene = dynamic_cast<MaskGraphicsScene *>(scene());
-    maskScene->onMaskStackingOrderRequest(MaskEditorActivity::SEND_TO_BACK);
+    maskScene->onMaskStackingOrderRequest(MaskEditorFlags::SEND_TO_BACK);
 }
 

@@ -1,0 +1,49 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/MaskWidgets/MaskDrawingContext.h
+//! @brief     Defines class MaskDrawingContext
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
+#ifndef MASKDRAWINGCONTEXT_H
+#define MASKDRAWINGCONTEXT_H
+
+#include "WinDllMacros.h"
+#include "MaskEditorFlags.h"
+
+//! Helper class for MaskGraphicsScene to hold drawing conditions
+
+class BA_CORE_API_ MaskDrawingContext
+{
+public:
+    MaskDrawingContext();
+
+    void setActivityType(MaskEditorFlags::Activity value);
+
+    bool isSelectionMode() const;
+    //! returns true if current activity is pan/zoom
+    bool isInZoomMode() const;
+
+    bool isRectangleMode() const;
+    bool isPolygonMode() const;
+    bool isDrawingInProgress() const;
+    void setDrawingInProgress(bool value);
+
+    bool getMaskValue() const;
+
+private:
+
+    MaskEditorFlags::Activity m_current_activity;
+
+};
+
+
+#endif

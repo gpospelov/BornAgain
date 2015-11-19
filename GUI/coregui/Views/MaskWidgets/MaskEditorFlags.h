@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaskWidgets/MaskEditorActivity.h
-//! @brief     Defines class MaskEditorActivity
+//! @file      coregui/Views/MaskWidgets/MaskEditorFlags.h
+//! @brief     Defines class MaskEditorFlags
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,15 +13,15 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKEDITORACTIVITY_H
-#define MASKEDITORACTIVITY_H
+#ifndef MASKEDITORFLAGS_H
+#define MASKEDITORFLAGS_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
 
-//! Help class to define activities
+//! Help class to define various flags for MaskEditor operation
 
-class BA_CORE_API_ MaskEditorActivity
+class BA_CORE_API_ MaskEditorFlags
 {
 public:
     enum EActivityType {
@@ -38,14 +38,15 @@ public:
         MASK_RED_ID          = 0x0800
     };
 
+    Q_DECLARE_FLAGS(Activity, EActivityType)
+
     enum EMoveType {
         BRING_TO_FRONT,
         SEND_TO_BACK
     };
 
-Q_DECLARE_FLAGS(Flags, EActivityType)
 };
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(MaskEditorActivity::Flags)
+Q_DECLARE_OPERATORS_FOR_FLAGS(MaskEditorFlags::Activity)
 
 #endif

@@ -17,7 +17,7 @@
 #define MASKEDITORTOOLBAR_H
 
 #include "WinDllMacros.h"
-#include "MaskEditorActivity.h"
+#include "MaskEditorFlags.h"
 #include <QToolBar>
 
 class QButtonGroup;
@@ -31,15 +31,16 @@ public:
     MaskEditorToolBar(QWidget *parent = 0);
 
 signals:
-    void activityModeChanged(MaskEditorActivity::Flags);
+    void activityModeChanged(MaskEditorFlags::Activity);
     void toolPanelRequest();
-    void changeStackingOrderRequest(MaskEditorActivity::EMoveType);
+    void changeStackingOrderRequest(MaskEditorFlags::EMoveType);
 
 public slots:
-    void onChangeActivityRequest(MaskEditorActivity::Flags value);
+    void onChangeActivityRequest(MaskEditorFlags::Activity value);
 
 private slots:
     void onActivityGroupChange(int value);
+    void onMaskValueGroupChange(int value);
     void onStackingOrderGroupChange(int value);
 
 private:
@@ -50,13 +51,13 @@ private:
     void setup_extratools_group();
     void add_separator();
 
-    MaskEditorActivity::Flags getCurrentActivity() const;
-    void setCurrentActivity(MaskEditorActivity::Flags value);
+    MaskEditorFlags::Activity getCurrentActivity() const;
+    void setCurrentActivity(MaskEditorFlags::Activity value);
 
     QButtonGroup *m_activityButtonGroup;
     QButtonGroup *m_maskValueGroup;
     QButtonGroup *m_maskStackingOrderGroup;
-    MaskEditorActivity::Flags m_previousActivity;
+    MaskEditorFlags::Activity m_previousActivity;
 };
 
 

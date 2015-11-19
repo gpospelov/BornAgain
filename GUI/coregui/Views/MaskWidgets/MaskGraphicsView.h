@@ -17,7 +17,7 @@
 #define MASKGRAPHICSVIEW_H
 
 #include <QGraphicsView>
-#include "MaskEditorActivity.h"
+#include "MaskEditorFlags.h"
 
 class QWheelEvent;
 class MaskGraphicsProxy;
@@ -35,7 +35,7 @@ public:
 //    void setColorMapProxy(MaskGraphicsProxy *colorMapProxy);
 
 signals:
-    void changeActivityRequest(MaskEditorActivity::Flags);
+    void changeActivityRequest(MaskEditorFlags::Activity);
 
 protected:
     void wheelEvent(QWheelEvent* event);

@@ -16,7 +16,7 @@
 #ifndef MASKEDITORCANVAS_H
 #define MASKEDITORCANVAS_H
 
-#include "MaskEditorActivity.h"
+#include "MaskEditorFlags.h"
 #include <QWidget>
 
 class MaskGraphicsScene;

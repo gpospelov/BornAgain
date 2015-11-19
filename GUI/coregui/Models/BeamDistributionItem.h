@@ -18,6 +18,9 @@
 
 #include "ParameterizedItem.h"
 #include "DistributionItem.h"
+
+#include <memory>
+
 class ParameterDistribution;
 class IDistribution1D;
 
@@ -33,14 +36,15 @@ public:
     ~BeamDistributionItem(){}
     void onPropertyChange(const QString &name);
 
-    ParameterDistribution *getParameterDistributionForName(const QString &parameter_name);
+    std::unique_ptr<ParameterDistribution> getParameterDistributionForName(
+            const QString &parameter_name);
 
 protected slots:
     void onSubItemChanged(const QString &propertyName);
     void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
 
 protected:
-    virtual IDistribution1D *createDistribution1D();
+    virtual std::unique_ptr<IDistribution1D> createDistribution1D();
 };
 
 #endif

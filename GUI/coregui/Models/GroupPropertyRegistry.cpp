@@ -21,8 +21,8 @@
 #include "item_constants.h"
 #include <QDebug>
 
-
-namespace {
+namespace
+{
 
 // Correspondance of ParameterizedItem's types to their labels
 GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
@@ -114,28 +114,29 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
 
     return result;
 }
-
 }
 
+GroupPropertyRegistry::SelectableGroupMap_t GroupPropertyRegistry::m_selectable_group_map
+    = initializeSelectableGroupMap();
 
-GroupPropertyRegistry::SelectableGroupMap_t GroupPropertyRegistry::m_selectable_group_map = initializeSelectableGroupMap();
-
-
-FancyGroupProperty_t GroupPropertyRegistry::createGroupProperty(const QString &group_name, const Constants::ModelType &group_model)
+FancyGroupProperty_t
+GroupPropertyRegistry::createGroupProperty(const QString &group_name,
+                                           const Constants::ModelType &group_model)
 {
     Constants::ModelType groupModelType = group_model;
-    if(groupModelType.isEmpty()) groupModelType = group_name;
+    if (groupModelType.isEmpty())
+        groupModelType = group_name;
 
     FancyGroupProperty_t result(new FancyGroupProperty(group_name));
 
-    if(m_selectable_group_map.contains(groupModelType)) {
-        qDebug() << "GroupPropertyRegistry::createGroupProperty() -> creating selectable group of groupModelType" << groupModelType;
+    if (m_selectable_group_map.contains(groupModelType)) {
+        qDebug() << "GroupPropertyRegistry::createGroupProperty() -> creating selectable group of "
+                    "groupModelType" << groupModelType;
         result->setGroupType(FancyGroupProperty::SELECTABLE);
         result->setGroupMap(m_selectable_group_map[groupModelType]);
-    }
-    else {
+    } else {
         result->setGroupType(FancyGroupProperty::FIXED);
-        //result->setValue(group_n);
+        // result->setValue(group_n);
         QMap<QString, QString> group_map;
         group_map[groupModelType] = "No label";
         result->setGroupMap(group_map);
@@ -143,26 +144,3 @@ FancyGroupProperty_t GroupPropertyRegistry::createGroupProperty(const QString &g
 
     return result;
 }
-
-
-//SelectableGroupProperty *GroupPropertyRegistry::createSelectableGroupProperty(const QString &group_name)
-//{
-//    if( !m_selectable_group_map.contains(group_name) )
-//        return 0;
-
-//    SelectableGroupProperty *result = new SelectableGroupProperty(group_name);
-//    result->setGroupMap(m_selectable_group_map[group_name]);
-//    return result;
-//}
-
-//FixedGroupProperty *GroupPropertyRegistry::createFixedGroupProperty(const QString &group_name)
-//{
-//    FixedGroupProperty *result = new FixedGroupProperty(group_name);
-//    QMap<QString, QString> group_map;
-//    group_map[group_name] = "No label";
-//    result->setGroupMap(group_map[group_name]);
-//    return result;
-//}
-
-
-

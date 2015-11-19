@@ -108,19 +108,20 @@ QStringList ParticleDistributionItem::getChildParameterNames() const
     }
     double abundance(0.0);
     DomainObjectBuilder builder;
-    boost::scoped_ptr<ParticleDistribution> P_part_distr;
+    std::unique_ptr<ParticleDistribution> P_part_distr;
     try {
-        P_part_distr.reset(builder.buildParticleDistribution(*this, abundance, true));
+        P_part_distr = builder.buildParticleDistribution(*this, abundance, true);
     } catch(const std::exception &ex) {
         qDebug() << "ParticleDistributionItem::getChildParameterNames(): "
                  << "domain particle could not be build: "
                  << QString::fromStdString(ex.what());
     }
-    if (P_part_distr.get()) {
+    if (P_part_distr) {
         boost::scoped_ptr<ParameterPool> P_pool(P_part_distr->createDistributedParameterPool());
         result << extractFromParameterPool(P_pool.get());
     }
-
+    // uncomment the following line to generate GUI model names in the list:
+//    result = children.front()->getParameterTreeList();
     result.prepend(NO_SELECTION);
     return result;
 }

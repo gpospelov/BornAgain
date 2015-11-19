@@ -2,6 +2,11 @@
 # BornAgain project configuration
 ############################################################################
 
+# --- suppress qDebug() output for release build ---------
+if(CMAKE_BUILD_TYPE STREQUAL Release)
+  add_definitions(-DQT_NO_DEBUG_OUTPUT)
+endif()
+
 # --- cmake runtime output configuration ---------
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)

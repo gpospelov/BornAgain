@@ -14,7 +14,10 @@
 // ************************************************************************** //
 
 #include "DistributionItem.h"
+#include "Distributions.h"
 #include "ComboProperty.h"
+#include "GUIHelpers.h"
+
 #include <QDebug>
 
 const QString DistributionItem::P_NUMBER_OF_SAMPLES = "Number of samples";
@@ -46,9 +49,9 @@ DistributionNoneItem::DistributionNoneItem(ParameterizedItem *parent)
     registerProperty(P_VALUE, 0.1, PropertyAttribute(AttLimits::limitless()));
 }
 
-IDistribution1D *DistributionNoneItem::createDistribution() const
+std::unique_ptr<IDistribution1D> DistributionNoneItem::createDistribution() const
 {
-    return 0;
+    return nullptr;
 }
 
 void DistributionNoneItem::init_parameters(double value, PropertyAttribute attribute)
@@ -72,11 +75,11 @@ DistributionGateItem::DistributionGateItem(ParameterizedItem *parent)
     register_sigma_factor();
 }
 
-IDistribution1D *DistributionGateItem::createDistribution() const
+std::unique_ptr<IDistribution1D> DistributionGateItem::createDistribution() const
 {
     double min = getRegisteredProperty(P_MIN).toDouble();
     double max = getRegisteredProperty(P_MAX).toDouble();
-    return new DistributionGate(min, max);
+    return GUIHelpers::make_unique<DistributionGate>(min, max);
 }
 
 void DistributionGateItem::init_parameters(double value, PropertyAttribute attribute)
@@ -104,11 +107,11 @@ DistributionLorentzItem::DistributionLorentzItem(ParameterizedItem *parent)
     register_sigma_factor();
 }
 
-IDistribution1D *DistributionLorentzItem::createDistribution() const
+std::unique_ptr<IDistribution1D> DistributionLorentzItem::createDistribution() const
 {
     double mean = getRegisteredProperty(P_MEAN).toDouble();
     double hwhm = getRegisteredProperty(P_HWHM).toDouble();
-    return new DistributionLorentz(mean, hwhm);
+    return GUIHelpers::make_unique<DistributionLorentz>(mean, hwhm);
 }
 
 void DistributionLorentzItem::init_parameters(double value, PropertyAttribute attribute)
@@ -137,11 +140,11 @@ DistributionGaussianItem::DistributionGaussianItem(ParameterizedItem *parent)
     register_sigma_factor();
 }
 
-IDistribution1D *DistributionGaussianItem::createDistribution() const
+std::unique_ptr<IDistribution1D> DistributionGaussianItem::createDistribution() const
 {
     double mean = getRegisteredProperty(P_MEAN).toDouble();
     double std_dev = getRegisteredProperty(P_STD_DEV).toDouble();
-    return new DistributionGaussian(mean, std_dev);
+    return GUIHelpers::make_unique<DistributionGaussian>(mean, std_dev);
 }
 
 void DistributionGaussianItem::init_parameters(double value, PropertyAttribute attribute)
@@ -170,11 +173,11 @@ DistributionLogNormalItem::DistributionLogNormalItem(ParameterizedItem *parent)
     register_sigma_factor();
 }
 
-IDistribution1D *DistributionLogNormalItem::createDistribution() const
+std::unique_ptr<IDistribution1D> DistributionLogNormalItem::createDistribution() const
 {
     double median = getRegisteredProperty(P_MEDIAN).toDouble();
     double scale_par = getRegisteredProperty(P_SCALE_PAR).toDouble();
-    return new DistributionLogNormal(median, scale_par);
+    return GUIHelpers::make_unique<DistributionLogNormal>(median, scale_par);
 }
 
 void DistributionLogNormalItem::init_parameters(double value, PropertyAttribute attribute)
@@ -203,11 +206,11 @@ DistributionCosineItem::DistributionCosineItem(ParameterizedItem *parent)
     register_sigma_factor();
 }
 
-IDistribution1D *DistributionCosineItem::createDistribution() const
+std::unique_ptr<IDistribution1D> DistributionCosineItem::createDistribution() const
 {
     double mean = getRegisteredProperty(P_MEAN).toDouble();
     double sigma = getRegisteredProperty(P_SIGMA).toDouble();
-    return new DistributionCosine(mean, sigma);
+    return GUIHelpers::make_unique<DistributionCosine>(mean, sigma);
 }
 
 void DistributionCosineItem::init_parameters(double value, PropertyAttribute attribute)

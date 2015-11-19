@@ -16,6 +16,7 @@
 #include "FormFactorItems.h"
 #include "FormFactors.h"
 #include "Units.h"
+#include "GUIHelpers.h"
 
 /* ------------------------------------------------ */
 
@@ -34,9 +35,9 @@ AnisoPyramidItem::AnisoPyramidItem(ParameterizedItem *parent)
     registerProperty(P_ALPHA, 60.0);
 }
 
-IFormFactor *AnisoPyramidItem::createFormFactor() const
+std::unique_ptr<IFormFactor> AnisoPyramidItem::createFormFactor() const
 {
-    return new FormFactorAnisoPyramid(
+    return GUIHelpers::make_unique<FormFactorAnisoPyramid>(
                 getRegisteredProperty(P_LENGTH).toDouble(),
                 getRegisteredProperty(P_WIDTH).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble(),
@@ -59,9 +60,9 @@ BoxItem::BoxItem(ParameterizedItem *parent)
     registerProperty(P_HEIGHT, 13.0);
 }
 
-IFormFactor *BoxItem::createFormFactor() const
+std::unique_ptr<IFormFactor> BoxItem::createFormFactor() const
 {
-    return new FormFactorBox(
+    return GUIHelpers::make_unique<FormFactorBox>(
                 getRegisteredProperty(P_LENGTH).toDouble(),
                 getRegisteredProperty(P_WIDTH).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble()
@@ -83,9 +84,9 @@ ConeItem::ConeItem(ParameterizedItem *parent)
     registerProperty(P_ALPHA, 60.0);
 }
 
-IFormFactor *ConeItem::createFormFactor() const
+std::unique_ptr<IFormFactor> ConeItem::createFormFactor() const
 {
-    return new FormFactorCone(
+    return GUIHelpers::make_unique<FormFactorCone>(
                 getRegisteredProperty(P_RADIUS).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble(),
                 getRegisteredProperty(P_ALPHA).toDouble()*Units::degree
@@ -107,9 +108,9 @@ Cone6Item::Cone6Item(ParameterizedItem *parent)
     registerProperty(P_ALPHA, 60.0);
 }
 
-IFormFactor *Cone6Item::createFormFactor() const
+std::unique_ptr<IFormFactor> Cone6Item::createFormFactor() const
 {
-    return new FormFactorCone6(
+    return GUIHelpers::make_unique<FormFactorCone6>(
                 getRegisteredProperty(P_RADIUS).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble(),
                 getRegisteredProperty(P_ALPHA).toDouble()*Units::degree
@@ -133,9 +134,9 @@ CuboctahedronItem::CuboctahedronItem(ParameterizedItem *parent)
     registerProperty(P_ALPHA, 60.0);
 }
 
-IFormFactor *CuboctahedronItem::createFormFactor() const
+std::unique_ptr<IFormFactor> CuboctahedronItem::createFormFactor() const
 {
-    return new FormFactorCuboctahedron(
+    return GUIHelpers::make_unique<FormFactorCuboctahedron>(
                 getRegisteredProperty(P_LENGTH).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble(),
                 getRegisteredProperty(P_HEIGHT_RATIO).toDouble(),
@@ -156,9 +157,9 @@ CylinderItem::CylinderItem(ParameterizedItem *parent)
     registerProperty(P_HEIGHT, 16.0);
 }
 
-IFormFactor *CylinderItem::createFormFactor() const
+std::unique_ptr<IFormFactor> CylinderItem::createFormFactor() const
 {
-    return new FormFactorCylinder(
+    return GUIHelpers::make_unique<FormFactorCylinder>(
                 getRegisteredProperty(P_RADIUS).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble()
                 );
@@ -179,9 +180,9 @@ EllipsoidalCylinderItem::EllipsoidalCylinderItem(ParameterizedItem *parent)
     registerProperty(P_HEIGHT, 16.0);
 }
 
-IFormFactor *EllipsoidalCylinderItem::createFormFactor() const
+std::unique_ptr<IFormFactor> EllipsoidalCylinderItem::createFormFactor() const
 {
-    return new FormFactorEllipsoidalCylinder(
+    return GUIHelpers::make_unique<FormFactorEllipsoidalCylinder>(
                 getRegisteredProperty(P_RADIUS_A).toDouble(),
                 getRegisteredProperty(P_RADIUS_B).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble()
@@ -199,9 +200,9 @@ FullSphereItem::FullSphereItem(ParameterizedItem *parent)
     registerProperty(P_RADIUS, 8.0);
 }
 
-IFormFactor *FullSphereItem::createFormFactor() const
+std::unique_ptr<IFormFactor> FullSphereItem::createFormFactor() const
 {
-    return new FormFactorFullSphere(
+    return GUIHelpers::make_unique<FormFactorFullSphere>(
                 getRegisteredProperty(P_RADIUS).toDouble()
                 );
 }
@@ -219,9 +220,9 @@ FullSpheroidItem::FullSpheroidItem(ParameterizedItem *parent)
     registerProperty(P_HEIGHT, 13.0);
 }
 
-IFormFactor *FullSpheroidItem::createFormFactor() const
+std::unique_ptr<IFormFactor> FullSpheroidItem::createFormFactor() const
 {
-    return new FormFactorFullSpheroid(
+    return GUIHelpers::make_unique<FormFactorFullSpheroid>(
                 getRegisteredProperty(P_RADIUS).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble()
                 );
@@ -242,9 +243,9 @@ HemiEllipsoidItem::HemiEllipsoidItem(ParameterizedItem *parent)
     registerProperty(P_HEIGHT, 8.0);
 }
 
-IFormFactor *HemiEllipsoidItem::createFormFactor() const
+std::unique_ptr<IFormFactor> HemiEllipsoidItem::createFormFactor() const
 {
-    return new FormFactorHemiEllipsoid(
+    return GUIHelpers::make_unique<FormFactorHemiEllipsoid>(
                 getRegisteredProperty(P_RADIUS_A).toDouble(),
                 getRegisteredProperty(P_RADIUS_B).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble()
@@ -264,9 +265,9 @@ Prism3Item::Prism3Item(ParameterizedItem *parent)
     registerProperty(P_HEIGHT, 13.0);
 }
 
-IFormFactor *Prism3Item::createFormFactor() const
+std::unique_ptr<IFormFactor> Prism3Item::createFormFactor() const
 {
-    return new FormFactorPrism3(
+    return GUIHelpers::make_unique<FormFactorPrism3>(
                 getRegisteredProperty(P_LENGTH).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble()
                 );
@@ -285,9 +286,9 @@ Prism6Item::Prism6Item(ParameterizedItem *parent)
     registerProperty(P_HEIGHT, 11.0);
 }
 
-IFormFactor *Prism6Item::createFormFactor() const
+std::unique_ptr<IFormFactor> Prism6Item::createFormFactor() const
 {
-    return new FormFactorPrism6(
+    return GUIHelpers::make_unique<FormFactorPrism6>(
                 getRegisteredProperty(P_RADIUS).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble()
                 );
@@ -308,9 +309,9 @@ PyramidItem::PyramidItem(ParameterizedItem *parent)
     registerProperty(P_ALPHA, 60.0);
 }
 
-IFormFactor *PyramidItem::createFormFactor() const
+std::unique_ptr<IFormFactor> PyramidItem::createFormFactor() const
 {
-    return new FormFactorPyramid(
+    return GUIHelpers::make_unique<FormFactorPyramid>(
                 getRegisteredProperty(P_LENGTH).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble(),
                 getRegisteredProperty(P_ALPHA).toDouble()*Units::degree
@@ -332,9 +333,9 @@ Ripple1Item::Ripple1Item(ParameterizedItem *parent)
     registerProperty(P_HEIGHT, 14.0);
 }
 
-IFormFactor *Ripple1Item::createFormFactor() const
+std::unique_ptr<IFormFactor> Ripple1Item::createFormFactor() const
 {
-    return new FormFactorRipple1(
+    return GUIHelpers::make_unique<FormFactorRipple1>(
                 getRegisteredProperty(P_LENGTH).toDouble(),
                 getRegisteredProperty(P_WIDTH).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble()
@@ -358,9 +359,9 @@ Ripple2Item::Ripple2Item(ParameterizedItem *parent)
     registerProperty(P_ASYMMETRY, 3.0);
 }
 
-IFormFactor *Ripple2Item::createFormFactor() const
+std::unique_ptr<IFormFactor> Ripple2Item::createFormFactor() const
 {
-    return new FormFactorRipple2(
+    return GUIHelpers::make_unique<FormFactorRipple2>(
                 getRegisteredProperty(P_LENGTH).toDouble(),
                 getRegisteredProperty(P_WIDTH).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble(),
@@ -383,9 +384,9 @@ TetrahedronItem::TetrahedronItem(ParameterizedItem *parent)
     registerProperty(P_ALPHA, 60.0);
 }
 
-IFormFactor *TetrahedronItem::createFormFactor() const
+std::unique_ptr<IFormFactor> TetrahedronItem::createFormFactor() const
 {
-    return new FormFactorTetrahedron(
+    return GUIHelpers::make_unique<FormFactorTetrahedron>(
                 getRegisteredProperty(P_LENGTH).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble(),
                 getRegisteredProperty(P_ALPHA).toDouble()*Units::degree
@@ -406,9 +407,9 @@ TruncatedCubeItem::TruncatedCubeItem(ParameterizedItem *parent)
     registerProperty(P_REMOVED_LENGTH, 6.0);
 }
 
-IFormFactor *TruncatedCubeItem::createFormFactor() const
+std::unique_ptr<IFormFactor> TruncatedCubeItem::createFormFactor() const
 {
-    return new FormFactorTruncatedCube(
+    return GUIHelpers::make_unique<FormFactorTruncatedCube>(
                 getRegisteredProperty(P_LENGTH).toDouble(),
                 getRegisteredProperty(P_REMOVED_LENGTH).toDouble()
                 );
@@ -427,9 +428,9 @@ TruncatedSphereItem::TruncatedSphereItem(ParameterizedItem *parent)
     registerProperty(P_HEIGHT, 7.0);
 }
 
-IFormFactor *TruncatedSphereItem::createFormFactor() const
+std::unique_ptr<IFormFactor> TruncatedSphereItem::createFormFactor() const
 {
-    return new FormFactorTruncatedSphere(
+    return GUIHelpers::make_unique<FormFactorTruncatedSphere>(
                 getRegisteredProperty(P_RADIUS).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble()
                 );
@@ -450,9 +451,9 @@ TruncatedSpheroidItem::TruncatedSpheroidItem(ParameterizedItem *parent)
     registerProperty(P_HFC, 1.2);
 }
 
-IFormFactor *TruncatedSpheroidItem::createFormFactor() const
+std::unique_ptr<IFormFactor> TruncatedSpheroidItem::createFormFactor() const
 {
-    return new FormFactorTruncatedSpheroid(
+    return GUIHelpers::make_unique<FormFactorTruncatedSpheroid>(
                 getRegisteredProperty(P_RADIUS).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble(),
                 getRegisteredProperty(P_HFC).toDouble()

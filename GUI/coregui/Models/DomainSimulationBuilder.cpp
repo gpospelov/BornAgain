@@ -59,13 +59,11 @@ GISASSimulation *DomainSimulationBuilder::getSimulation(MultiLayerItem *sampleIt
                         " or InstrumentItem is not defined.");
         throw GUIHelpers::Error(message);
     }
-
     DomainObjectBuilder builder;
 
     GISASSimulation *result = new GISASSimulation;
-    boost::scoped_ptr<MultiLayer> P_multilayer(builder.buildMultiLayer(*sampleItem));
-    boost::scoped_ptr<Instrument> P_instrument(builder.buildInstrument(*instrumentItem));
-
+    auto P_multilayer = builder.buildMultiLayer(*sampleItem);
+    auto P_instrument = builder.buildInstrument(*instrumentItem);
     result->setSample(*P_multilayer);
     result->setInstrument(*P_instrument);
 

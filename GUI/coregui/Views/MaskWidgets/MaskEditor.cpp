@@ -144,6 +144,4 @@ void MaskEditor::setup_connections()
             m_toolBar,
             SLOT(onChangeActivityRequest(MaskEditorActivity::Flags))
             );
-
-
 }

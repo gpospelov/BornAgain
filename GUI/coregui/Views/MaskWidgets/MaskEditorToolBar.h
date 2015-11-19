@@ -33,10 +33,7 @@ public:
 signals:
     void activityModeChanged(MaskEditorActivity::Flags);
     void toolPanelRequest();
-//    void bringToFront();
-//    void sendToBack();
     void changeStackingOrderRequest(MaskEditorActivity::EMoveType);
-
 
 public slots:
     void onChangeActivityRequest(MaskEditorActivity::Flags value);

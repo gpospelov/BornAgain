@@ -94,7 +94,7 @@ void MaskEditorToolBar::setup_selection_group()
 
     QToolButton *panButton = new QToolButton(this);
     panButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_hand.svg"));
-    panButton->setToolTip("Pan/zoom mode");
+    panButton->setToolTip("Pan/zoom mode (space)");
     panButton->setCheckable(true);
     addWidget(panButton);
 
@@ -160,7 +160,7 @@ void MaskEditorToolBar::setup_shapes_group()
 
     QToolButton *maskAllButton = new QToolButton(this);
     maskAllButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_maskall.svg"));
-    maskAllButton->setToolTip("Create masked area covering whole detector plane.\nWill be placed beneath all masks.");
+    maskAllButton->setToolTip("Create masked area covering whole detector plane\nWill be placed beneath all masks");
     maskAllButton->setCheckable(true);
     addWidget(maskAllButton);
 
@@ -176,12 +176,12 @@ void MaskEditorToolBar::setup_maskmodify_group()
 {
     QToolButton *bringToFrontButton = new QToolButton(this);
     bringToFrontButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_bringtofront.svg"));
-    bringToFrontButton->setToolTip("Rise selected mask one level up.");
+    bringToFrontButton->setToolTip("Rise selected mask one level up (PageUp)");
     addWidget(bringToFrontButton);
 
     QToolButton *sendToBackButton = new QToolButton(this);
     sendToBackButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_sendtoback.svg"));
-    sendToBackButton->setToolTip("Lower selected mask one level down.");
+    sendToBackButton->setToolTip("Lower selected mask one level down (PageDown)");
     addWidget(sendToBackButton);
 
     m_maskStackingOrderGroup->addButton(bringToFrontButton, MaskEditorActivity::BRING_TO_FRONT);
@@ -192,7 +192,7 @@ void MaskEditorToolBar::setup_extratools_group()
 {
     QToolButton *propertyPanelButton = new QToolButton(this);
     propertyPanelButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_toolpanel.svg"));
-    propertyPanelButton->setToolTip("Open panel with additional settings.");
+    propertyPanelButton->setToolTip("Open panel with additional settings");
     propertyPanelButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     addWidget(propertyPanelButton);
 

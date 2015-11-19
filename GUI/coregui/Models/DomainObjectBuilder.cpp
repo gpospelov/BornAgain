@@ -221,10 +221,11 @@ std::unique_ptr<ParticleComposition> DomainObjectBuilder::buildParticleCompositi
     return P_composition;
 }
 
-//! Creates ParticleDistribution from parameterized item. If catch_errors=true, then
-//! possible misconfiguration of Distribution1D will be caught, fake distribution will be used
-std::unique_ptr<ParticleDistribution> DomainObjectBuilder::buildParticleDistribution(const ParameterizedItem &item,
-                                                                     double &abundance) const
+//! Creates ParticleDistribution from parameterized item.
+std::unique_ptr<ParticleDistribution>
+DomainObjectBuilder::buildParticleDistribution(const ParameterizedItem &item,
+                                               double &abundance,
+                                               bool catch_errors) const
 {
     auto children = item.childItems();
     if (children.size() == 0) {
@@ -253,17 +254,28 @@ std::unique_ptr<ParticleDistribution> DomainObjectBuilder::buildParticleDistribu
     auto distr_item = item.getSubItems()[ParticleDistributionItem::P_DISTRIBUTION];
     Q_ASSERT(distr_item);
 
-    auto P_distribution = TransformToDomain::createDistribution(*distr_item);
+    std::unique_ptr<IDistribution1D> P_distribution {};
+    if(catch_errors) {
+        try {
+            P_distribution = TransformToDomain::createDistribution(*distr_item);
+        } catch(const std::exception &ex) {
+            qDebug() << "DomainObjectBuilder::buildParticleDistribution() -> Error."
+                     << QString::fromStdString(ex.what());
+            P_distribution = GUIHelpers::make_unique<DistributionGate>(1.0, 2.0);
+        }
+    } else {
+        P_distribution = TransformToDomain::createDistribution(*distr_item);
+    }
 
-    QVariant par_name_var
-        = item.getRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER);
-    ComboProperty prop = par_name_var.value<ComboProperty>();
+    auto prop = item.getRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+                    .value<ComboProperty>();
     QString par_name = prop.getValue();
+    std::string domain_par = getDomainParameterName(par_name, *children[0], P_particle.get());
     int nbr_samples
         = distr_item->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
     double sigma_factor
         = distr_item->getRegisteredProperty(DistributionItem::P_SIGMA_FACTOR).toDouble();
-    ParameterDistribution par_distr(par_name.toStdString(), *P_distribution, nbr_samples, sigma_factor);
+    ParameterDistribution par_distr(domain_par, *P_distribution, nbr_samples, sigma_factor);
     return GUIHelpers::make_unique<ParticleDistribution>(*P_particle, par_distr);
 }
 
@@ -295,6 +307,15 @@ std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(const Parameter
 std::unique_ptr<Beam> DomainObjectBuilder::buildBeam(const ParameterizedItem &item) const
 {
     return TransformToDomain::createBeam(item);
+}
+
+std::string DomainObjectBuilder::getDomainParameterName(QString GUI_name,
+                                                        const ParameterizedItem &item,
+                                                        const IParticle *particle) const
+{
+    Q_UNUSED(item);
+    Q_UNUSED(particle);
+    return GUI_name.toStdString();
 }
 
 void DomainObjectBuilder::setTransformationInfo(IParticle *result,

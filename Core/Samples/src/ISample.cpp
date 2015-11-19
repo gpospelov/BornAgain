@@ -37,21 +37,21 @@ std::string ISample::addParametersToExternalPool(
     if( p_sample ) {
         // Here we need some default mechanism to handle cases with
         // many children with same name.
-        // Lets run through all direct children and save their names
+        // Run through all direct children and save their names
         Utils::StringUsageMap strUsageMap;
         for(size_t i=0; i<p_sample->size(); ++i) {
-            strUsageMap.add( new_path + (*p_sample)[i]->getName() ); // saving children name
+            strUsageMap.add( new_path + (*p_sample)[i]->getName() ); // saving child names
         }
-        // Now we run through direct children again,
-        // and assign copy number for all children with same name
+        // Now run through direct children again,
+        // and assign a copy number for all children with the same name
         Utils::StringUsageMap strUsageMap2;
         for(size_t i=0; i<p_sample->size(); ++i) {
-            std::string children_name = new_path + (*p_sample)[i]->getName();
-            strUsageMap2.add(children_name);
-            int ncopy = strUsageMap2[children_name]-1; // starting from 0
+            std::string child_name = new_path + (*p_sample)[i]->getName();
+            strUsageMap2.add(child_name);
+            int ncopy = strUsageMap2[child_name]-1; // starting from 0
 
             // if object is in single exemplar, we do not want any copy number
-            if(strUsageMap[children_name] == 1) ncopy = -1;
+            if(strUsageMap[child_name] == 1) ncopy = -1;
 
             (*p_sample)[i]->addParametersToExternalPool(new_path, external_pool, ncopy);
         }

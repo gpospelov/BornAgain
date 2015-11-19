@@ -18,6 +18,7 @@
 
 #include "WinDllMacros.h"
 
+#include <QString>
 #include <memory>
 
 class ISample;
@@ -47,7 +48,8 @@ public:
     std::unique_ptr<ParticleComposition> buildParticleComposition(const ParameterizedItem &item,
                                                                   double &abundance) const;
     std::unique_ptr<ParticleDistribution> buildParticleDistribution(const ParameterizedItem &item,
-                                                                    double &abundance) const;
+                                                                    double &abundance,
+                                                                    bool catch_errors=false) const;
     std::unique_ptr<IInterferenceFunction> buildInterferenceFunction(
             const ParameterizedItem &item) const;
 
@@ -55,6 +57,8 @@ public:
     std::unique_ptr<Beam> buildBeam(const ParameterizedItem &item) const;
 
 private:
+    std::string getDomainParameterName(QString GUI_name, const ParameterizedItem &item,
+                                       const IParticle *particle) const;
     void setTransformationInfo(IParticle *result, const ParameterizedItem &item) const;
     void setPositionInfo(IParticle *result, const ParameterizedItem &item) const;
     void setRotationInfo(IParticle *result, const ParameterizedItem &item) const;

@@ -131,7 +131,7 @@ public:
     void readFrom(QXmlStreamReader *reader);
     void writeTo(QXmlStreamWriter *writer, ParameterizedItem *parent = 0);
 
-    void moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent = 0,
+    ParameterizedItem *moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent = 0,
                                int row = -1);
 
     ParameterizedItem *copyParameterizedItem(const ParameterizedItem *item_to_copy,

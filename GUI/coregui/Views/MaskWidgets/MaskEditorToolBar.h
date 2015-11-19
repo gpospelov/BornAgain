@@ -33,12 +33,17 @@ public:
 signals:
     void activityModeChanged(MaskEditorActivity::Flags);
     void toolPanelRequest();
+//    void bringToFront();
+//    void sendToBack();
+    void changeStackingOrderRequest(MaskEditorActivity::EMoveType);
+
 
 public slots:
     void onChangeActivityRequest(MaskEditorActivity::Flags value);
 
 private slots:
-    void onButtonGroupChange(int value);
+    void onActivityGroupChange(int value);
+    void onStackingOrderGroupChange(int value);
 
 private:
     void setup_selection_group();
@@ -53,6 +58,7 @@ private:
 
     QButtonGroup *m_activityButtonGroup;
     QButtonGroup *m_maskValueGroup;
+    QButtonGroup *m_maskStackingOrderGroup;
     MaskEditorActivity::Flags m_previousActivity;
 };
 

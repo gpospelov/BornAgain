@@ -29,6 +29,7 @@ MaskEditorToolBar::MaskEditorToolBar(QWidget *parent)
     : QToolBar(parent)
     , m_activityButtonGroup(new QButtonGroup(this))
     , m_maskValueGroup(new QButtonGroup(this))
+    , m_maskStackingOrderGroup(new QButtonGroup(this))
 {
     // const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
     // setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
@@ -47,9 +48,11 @@ MaskEditorToolBar::MaskEditorToolBar(QWidget *parent)
     setup_extratools_group();
 
     connect(m_activityButtonGroup, SIGNAL(buttonClicked(int)),
-            this, SLOT(onButtonGroupChange(int)));
+            this, SLOT(onActivityGroupChange(int)));
     connect(m_maskValueGroup, SIGNAL(buttonClicked(int)),
-            this, SLOT(onButtonGroupChange(int)));
+            this, SLOT(onActivityGroupChange(int)));
+    connect(m_maskStackingOrderGroup, SIGNAL(buttonClicked(int)),
+            this, SLOT(onStackingOrderGroupChange(int)));
 
     m_previousActivity = getCurrentActivity();
 
@@ -68,10 +71,15 @@ void MaskEditorToolBar::onChangeActivityRequest(MaskEditorActivity::Flags value)
     emit activityModeChanged(getCurrentActivity());
 }
 
-void MaskEditorToolBar::onButtonGroupChange(int value)
+void MaskEditorToolBar::onActivityGroupChange(int value)
 {
     Q_UNUSED(value);
     emit activityModeChanged(getCurrentActivity());
+}
+
+void MaskEditorToolBar::onStackingOrderGroupChange(int value)
+{
+    emit changeStackingOrderRequest(MaskEditorActivity::EMoveType(value));
 }
 
 
@@ -175,6 +183,9 @@ void MaskEditorToolBar::setup_maskmodify_group()
     sendToBackButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_sendtoback.svg"));
     sendToBackButton->setToolTip("Lower selected mask one level down.");
     addWidget(sendToBackButton);
+
+    m_maskStackingOrderGroup->addButton(bringToFrontButton, MaskEditorActivity::BRING_TO_FRONT);
+    m_maskStackingOrderGroup->addButton(sendToBackButton, MaskEditorActivity::SEND_TO_BACK);
 }
 
 void MaskEditorToolBar::setup_extratools_group()

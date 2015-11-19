@@ -26,7 +26,7 @@ class SessionModel;
 class QItemSelectionModel;
 class QModelIndex;
 
-//! Painting widget for MaskEditor
+//! Painting widget for MaskEditor, contains graphics scene and graphics view
 
 class MaskEditorCanvas : public QWidget
 {
@@ -37,11 +37,8 @@ public:
     void setModel(SessionModel *model, const QModelIndex &rootIndex);
     void setSelectionModel(QItemSelectionModel *model);
 
-signals:
-    void changeActivityRequest(MaskEditorActivity::Flags);
-
-public slots:
-    void onActivityModeChanged(MaskEditorActivity::Flags value);
+    MaskGraphicsScene *getScene();
+    MaskGraphicsView *getView();
 
 private:
     MaskGraphicsScene *m_scene;

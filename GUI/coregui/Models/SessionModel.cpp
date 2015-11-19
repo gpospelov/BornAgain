@@ -366,7 +366,7 @@ void SessionModel::writeTo(QXmlStreamWriter *writer, ParameterizedItem *parent)
 
 //! Move given parameterized item to the new_parent at given row. If new_parent is not defined,
 //! use root_item as a new parent.
-void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent,
+ParameterizedItem *SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent,
                                          int row)
 {
     qDebug() << "";
@@ -375,7 +375,7 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
 
     if (new_parent) {
         if (!new_parent->acceptsAsChild(item->modelType()))
-            return;
+            return 0;
     } else {
         new_parent = m_root_item;
     }
@@ -383,7 +383,7 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
     if (item->parent() == new_parent && indexOfItem(item).row() == row) {
         qDebug()
             << "SessionModel::moveParameterizedItem() -> no need to move, same parent, same row. ";
-        return;
+        return item;
     }
 
     QByteArray xml_data;
@@ -400,6 +400,8 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
     readItems(&reader, new_parent, row);
     endInsertRows();
 
+    ParameterizedItem *newItem = new_parent->childAt(row);
+
     qDebug() << " ";
     qDebug() << "    SessionModel::moveParameterizedItem() >>> Now deleting indexOfItem(item).row()"
              << indexOfItem(item).row();
@@ -407,6 +409,8 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
     removeRows(indexOfItem(item).row(), 1, indexOfItem(item->parent()));
 
     cleanItem(indexOfItem(new_parent), row, row);
+
+    return newItem;
 }
 
 //! Copy given item to the new_parent at given raw. Item indended for copying can belong to

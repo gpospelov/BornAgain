@@ -178,6 +178,73 @@ void MaskGraphicsScene::cancelCurrentDrawing()
     }
 }
 
+//! every selected mask will be moved according to EMoveType request.
+void MaskGraphicsScene::onMaskStackingOrderRequest(MaskEditorActivity::EMoveType value)
+{
+    int change_in_row(0);
+    if(value == MaskEditorActivity::BRING_TO_FRONT) change_in_row = -1;
+    if(value == MaskEditorActivity::SEND_TO_BACK) change_in_row = 2;
+
+    QModelIndexList indexes = m_selectionModel->selectedIndexes();
+
+    foreach(QModelIndex itemIndex, indexes) {
+        if(ParameterizedItem *item =  m_model->itemForIndex(itemIndex)) {
+            int new_row = itemIndex.row() + change_in_row;
+            if(new_row >= 0 && new_row <= m_model->rowCount(m_rootIndex)) {
+                ParameterizedItem *newItem =
+                        m_model->moveParameterizedItem(item,
+                                                       m_model->itemForIndex(m_rootIndex), new_row);
+                m_selectionModel->select(m_model->indexOfItem(newItem),
+                                         QItemSelectionModel::Select);
+            }
+        }
+    }
+
+}
+
+//! Moves all selected items one level up
+//void MaskGraphicsScene::onBringToFront()
+//{
+//    Q_ASSERT(m_rootIndex.isValid());
+//    qDebug() << "MaskGraphicsScene::onBringToFront()";
+
+//    QModelIndexList indexes = m_selectionModel->selectedIndexes();
+
+//    foreach(QModelIndex itemIndex, indexes) {
+//        if(ParameterizedItem *item =  m_model->itemForIndex(itemIndex)) {
+//            qDebug() << "   XXX" << itemIndex << item->modelType();
+//            int new_row = itemIndex.row() - 1;
+//            if(new_row >= 0) {
+//                ParameterizedItem *newItem = m_model->moveParameterizedItem(item, m_model->itemForIndex(m_rootIndex), new_row);
+////                QModelIndex movedItemIndex = m_model->index(new_row, 0, m_rootIndex);
+//                m_selectionModel->select(m_model->indexOfItem(newItem), QItemSelectionModel::Select);
+//            }
+//        }
+//    }
+//}
+
+////! Moves all selected items one level down
+//void MaskGraphicsScene::onSendToBack()
+//{
+//    Q_ASSERT(m_rootIndex.isValid());
+//    qDebug() << "MaskGraphicsScene::onSendToBack()";
+
+//    QModelIndexList indexes = m_selectionModel->selectedIndexes();
+
+//    foreach(QModelIndex itemIndex, indexes) {
+//        if(ParameterizedItem *item =  m_model->itemForIndex(itemIndex)) {
+//            qDebug() << "   XXX" << itemIndex << item->modelType();
+//            int new_row = itemIndex.row() +2;
+//            if(new_row >= 0 && new_row <= m_model->rowCount(m_rootIndex)) {
+//                ParameterizedItem *newItem = m_model->moveParameterizedItem(item, m_model->itemForIndex(m_rootIndex), new_row);
+////                QModelIndex movedItemIndex = m_model->index(new_row, 0, m_rootIndex);
+//                m_selectionModel->select(m_model->indexOfItem(newItem), QItemSelectionModel::Select);
+//            }
+//        }
+//    }
+
+//}
+
 //! propagate selection from model to scene
 void MaskGraphicsScene::onSessionSelectionChanged(const QItemSelection & /* selected */,
                                               const QItemSelection & /* deselected */)
@@ -586,7 +653,7 @@ bool MaskGraphicsScene::isAllowedToStartDrawing(QGraphicsSceneMouseEvent *event)
 }
 
 //! Returns true if the area is valid for drawing. Called from mousePressEvent during
-//! polygon drawing process. Handles click on last point of polygon
+//! polygon drawing process.
 bool MaskGraphicsScene::isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event)
 {
     if( !(event->buttons() & Qt::LeftButton) ) return false;

@@ -37,6 +37,12 @@ public:
         MASK_GREEN_ID        = 0x0400,
         MASK_RED_ID          = 0x0800
     };
+
+    enum EMoveType {
+        BRING_TO_FRONT,
+        SEND_TO_BACK
+    };
+
 Q_DECLARE_FLAGS(Flags, EActivityType)
 };
 

@@ -17,6 +17,8 @@
 #include "MaskEditorCanvas.h"
 #include "MaskEditorToolPanel.h"
 #include "MaskEditorToolBar.h"
+#include "MaskGraphicsScene.h"
+#include "MaskGraphicsView.h"
 #include <QBoxLayout>
 #include <QSplitter>
 #include <QDebug>
@@ -58,13 +60,7 @@ MaskEditor::MaskEditor(QWidget *parent)
 
     init_test_model();
 
-    connect(m_toolBar, SIGNAL(activityModeChanged(MaskEditorActivity::Flags)),
-            m_editorCanvas, SLOT(onActivityModeChanged(MaskEditorActivity::Flags)));
-
-    connect(m_toolBar, SIGNAL(toolPanelRequest()), this, SLOT(onToolPanelRequest()));
-
-    connect(m_editorCanvas, SIGNAL(changeActivityRequest(MaskEditorActivity::Flags)),
-            m_toolBar, SLOT(onChangeActivityRequest(MaskEditorActivity::Flags)));
+    setup_connections();
 }
 
 void MaskEditor::onToolPanelRequest()
@@ -115,6 +111,39 @@ void MaskEditor::init_test_model()
     m_editorCanvas->setModel(m_maskModel, m_maskModel->indexOfItem(item));
     m_editorToolPanel->setModel(m_maskModel, m_maskModel->indexOfItem(item));
     m_editorCanvas->setSelectionModel(m_editorToolPanel->selectionModel());
+
+
+}
+
+void MaskEditor::setup_connections()
+{
+    // selection/drawing activity is propagated from tool bar to graphics scene
+    connect(m_toolBar,
+            SIGNAL(activityModeChanged(MaskEditorActivity::Flags)),
+            m_editorCanvas->getScene(),
+            SLOT(onActivityModeChanged(MaskEditorActivity::Flags))
+            );
+
+    // tool panel request is propagated from tool bar to this MaskEditor
+    connect(m_toolBar,
+            SIGNAL(toolPanelRequest()),
+            this,
+            SLOT(onToolPanelRequest())
+            );
+
+    // mask stacking order change request is propagated from tool bar to graphics scene
+    connect(m_toolBar,
+            SIGNAL(changeStackingOrderRequest(MaskEditorActivity::EMoveType)),
+            m_editorCanvas->getScene(),
+            SLOT(onMaskStackingOrderRequest(MaskEditorActivity::EMoveType))
+            );
+
+    // space bar push (request for zoom mode) is propagated from graphics view to tool bar
+    connect(m_editorCanvas->getView(),
+            SIGNAL(changeActivityRequest(MaskEditorActivity::Flags)),
+            m_toolBar,
+            SLOT(onChangeActivityRequest(MaskEditorActivity::Flags))
+            );
 
 
 }

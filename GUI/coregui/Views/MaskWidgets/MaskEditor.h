@@ -39,6 +39,7 @@ public slots:
 
 private:
     void init_test_model();
+    void setup_connections();
 
     MaskEditorToolBar *m_toolBar;
     MaskEditorCanvas *m_editorCanvas;

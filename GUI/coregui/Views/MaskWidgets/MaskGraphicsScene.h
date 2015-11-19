@@ -49,6 +49,11 @@ public slots:
     void onRowsRemoved(const QModelIndex &parent, int first, int last);
     void deleteSelectedItems();
     void cancelCurrentDrawing();
+
+    void onMaskStackingOrderRequest(MaskEditorActivity::EMoveType value);
+//    void onBringToFront();
+//    void onSendToBack();
+
     void resetScene();
     void updateScene();
 

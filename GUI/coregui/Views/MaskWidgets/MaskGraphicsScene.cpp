@@ -126,6 +126,12 @@ void MaskGraphicsScene::onMaskValueChanged(MaskEditorFlags::MaskValue value)
     m_context.setMaskValue(value);
 }
 
+//! returns ColorMap view to original state (axes, zoom)
+void MaskGraphicsScene::onResetViewRequest()
+{
+    m_proxy->resetView();
+}
+
 void MaskGraphicsScene::onRowsInserted(const QModelIndex &parent, int first, int last)
 {
     Q_UNUSED(parent);

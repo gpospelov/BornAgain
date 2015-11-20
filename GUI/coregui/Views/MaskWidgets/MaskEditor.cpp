@@ -138,6 +138,13 @@ void MaskEditor::setup_connections()
             SLOT(onToolPanelRequest())
             );
 
+    // reset view request is propagated from tool bar to graphics view
+    connect(m_toolBar,
+            SIGNAL(resetViewRequest()),
+            m_editorCanvas->getView(),
+            SLOT(onResetViewRequest())
+            );
+
     // mask stacking order change request is propagated from tool bar to graphics scene
     connect(m_toolBar,
             SIGNAL(changeStackingOrderRequest(MaskEditorFlags::Stacking)),

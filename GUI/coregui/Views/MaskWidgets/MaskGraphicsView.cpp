@@ -22,9 +22,16 @@
 #include <QTransform>
 #include <QDebug>
 
+namespace {
+const double min_zoom_value = 1.0;
+const double max_zoom_value = 5.0;
+const double zoom_step = 0.05;
+}
+
 MaskGraphicsView::MaskGraphicsView(QGraphicsScene *scene, QWidget *parent)
     : QGraphicsView(scene, parent)
 //    , m_colorMapProxy(0)
+    , m_current_zoom_value(1.0)
 {
     setObjectName(QStringLiteral("MaskGraphicsView"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -32,28 +39,66 @@ MaskGraphicsView::MaskGraphicsView(QGraphicsScene *scene, QWidget *parent)
     setMouseTracking(true);
 }
 
+//! Reset given view to original zoom state. Also assks graphics scene to do the same with color map.
+void MaskGraphicsView::onResetViewRequest()
+{
+    qDebug() << "MaskGraphicsView::onResetViewRequest()";
+    setZoomValue(1.0);
+    MaskGraphicsScene *maskScene = dynamic_cast<MaskGraphicsScene *>(scene());
+    maskScene->onResetViewRequest();
+}
+
 //void MaskGraphicsView::setColorMapProxy(MaskGraphicsProxy *colorMapProxy)
 //{
 //    m_colorMapProxy = colorMapProxy;
 //}
 
+//void MaskGraphicsView::wheelEvent(QWheelEvent *event)
+//{
+//    // hold control button
+//    if(isControlButtonIsPressed(event)) {
+//        centerOn(mapToScene(event->pos()));
+
+//        // Scale the view / do the zoom
+//        const double scaleFactor = 1.15;
+
+//        if(event->delta() > 0) {
+//            // Zoom in
+//            this->scale(scaleFactor, scaleFactor);
+
+//        } else {
+//            // Zooming out
+//            if(horizontalScrollBar()->isVisible() || verticalScrollBar()->isVisible())
+//                this->scale(1.0 / scaleFactor, 1.0 / scaleFactor);
+//        }
+//    }
+////    else if(eventPosIsOnColorMap(event)) {
+////        this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+////        this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+////        QGraphicsView::wheelEvent(event);
+////    }
+//    else {
+//        QGraphicsView::wheelEvent(event);
+//    }
+
+
+//}
+
+
 void MaskGraphicsView::wheelEvent(QWheelEvent *event)
 {
     // hold control button
-    if(controlButtonIsPressed(event)) {
+    if(isControlButtonIsPressed(event)) {
         centerOn(mapToScene(event->pos()));
-
-        // Scale the view / do the zoom
-        const double scaleFactor = 1.15;
 
         if(event->delta() > 0) {
             // Zoom in
-            this->scale(scaleFactor, scaleFactor);
+            increazeZoomValue();
 
         } else {
             // Zooming out
             if(horizontalScrollBar()->isVisible() || verticalScrollBar()->isVisible())
-                this->scale(1.0 / scaleFactor, 1.0 / scaleFactor);
+                decreazeZoomValue();
         }
     }
 //    else if(eventPosIsOnColorMap(event)) {
@@ -67,6 +112,8 @@ void MaskGraphicsView::wheelEvent(QWheelEvent *event)
 
 
 }
+
+
 
 void MaskGraphicsView::resizeEvent(QResizeEvent *event)
 {
@@ -172,7 +219,7 @@ void MaskGraphicsView::keyReleaseEvent(QKeyEvent *event)
 }
 
 
-bool MaskGraphicsView::controlButtonIsPressed(QWheelEvent *event)
+bool MaskGraphicsView::isControlButtonIsPressed(QWheelEvent *event)
 {
     if(event->modifiers().testFlag(Qt::ControlModifier)){
         return true;
@@ -205,4 +252,30 @@ void MaskGraphicsView::sendToBack()
     MaskGraphicsScene *maskScene = dynamic_cast<MaskGraphicsScene *>(scene());
     maskScene->onMaskStackingOrderRequest(MaskEditorFlags::SEND_TO_BACK);
 }
+
+void MaskGraphicsView::setZoomValue(double zoom_value)
+{
+    if(zoom_value == m_current_zoom_value) return;
+
+    QMatrix oldMatrix = matrix();
+    resetMatrix();
+    translate(oldMatrix.dx(), oldMatrix.dy());
+    scale(zoom_value, zoom_value);
+    m_current_zoom_value = zoom_value;
+}
+
+void MaskGraphicsView::decreazeZoomValue()
+{
+    double zoom_value = m_current_zoom_value - zoom_step;
+    if(zoom_value < min_zoom_value) zoom_value = min_zoom_value;
+    setZoomValue(zoom_value);
+}
+
+void MaskGraphicsView::increazeZoomValue()
+{
+    double zoom_value = m_current_zoom_value + zoom_step;
+    if(zoom_value > max_zoom_value) zoom_value = max_zoom_value;
+    setZoomValue(zoom_value);
+}
+
 

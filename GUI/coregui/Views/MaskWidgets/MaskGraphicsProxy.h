@@ -42,6 +42,8 @@ public:
     void setSceneAdaptor(ISceneAdaptor *sceneAdaptor);
     void setInZoomMode(bool value);
 
+    void resetView();
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);

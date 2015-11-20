@@ -66,6 +66,12 @@ void MaskGraphicsProxy::setInZoomMode(bool value)
     }
 }
 
+void MaskGraphicsProxy::resetView()
+{
+    Q_ASSERT(m_colorMap);
+    m_colorMap->resetView();
+}
+
 void MaskGraphicsProxy::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if(!m_send_signals_to_colormap) return;

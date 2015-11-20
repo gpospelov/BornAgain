@@ -85,7 +85,7 @@ void MaskEditorToolBar::onMaskValueGroupChange(int value)
 
 void MaskEditorToolBar::onStackingOrderGroupChange(int value)
 {
-    emit changeStackingOrderRequest(MaskEditorFlags::Stacking(value));
+    emit stackingOrderChanged(MaskEditorFlags::Stacking(value));
 }
 
 
@@ -104,13 +104,15 @@ void MaskEditorToolBar::setup_selection_group()
     panButton->setCheckable(true);
     addWidget(panButton);
 
-    QToolButton *refreshButton = new QToolButton(this);
-    refreshButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_refresh.svg"));
-    refreshButton->setToolTip("Reset pan/zoom to initial state");
-    addWidget(refreshButton);
+    QToolButton *resetViewButton = new QToolButton(this);
+    resetViewButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_refresh.svg"));
+    resetViewButton->setToolTip("Reset pan/zoom to initial state");
+    addWidget(resetViewButton);
 
     m_activityButtonGroup->addButton(selectionButton, MaskEditorFlags::SELECTION_MODE);
     m_activityButtonGroup->addButton(panButton, MaskEditorFlags::PAN_ZOOM_MODE);
+
+    connect(resetViewButton, SIGNAL(clicked()), this, SIGNAL(resetViewRequest()));
 }
 
 void MaskEditorToolBar::setup_maskvalue_group()

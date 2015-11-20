@@ -45,6 +45,7 @@ public:
 public slots:
     void onActivityModeChanged(MaskEditorFlags::Activity value);
     void onMaskValueChanged(MaskEditorFlags::MaskValue value);
+    void onResetViewRequest();
 
     void onRowsInserted(const QModelIndex &parent, int first, int last);
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);

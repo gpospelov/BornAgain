@@ -34,6 +34,9 @@ public:
 
 //    void setColorMapProxy(MaskGraphicsProxy *colorMapProxy);
 
+public slots:
+    void onResetViewRequest();
+
 signals:
     void changeActivityRequest(MaskEditorFlags::Activity);
 
@@ -46,12 +49,18 @@ protected:
 
 
 private:
-    bool controlButtonIsPressed(QWheelEvent *event);
+    bool isControlButtonIsPressed(QWheelEvent *event);
     void deleteSelectedItems();
     void cancelCurrentDrawing();
     void bringToFront();
     void sendToBack();
 
+    void setZoomValue(double zoom_value);
+    void decreazeZoomValue();
+    void increazeZoomValue();
+
+
+    double m_current_zoom_value;
 //    MaskGraphicsProxy *m_colorMapProxy;
 };
 

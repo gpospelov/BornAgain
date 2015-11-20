@@ -466,6 +466,43 @@ void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF &)
     }
 }
 
+void MaskGraphicsScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+{
+        QMenu menu;
+        QAction *toggleMaskValueAction = menu.addAction("Toggle mask value");
+        QAction *bringToFrontAction = menu.addAction("Rise mask up");
+        QAction *sendToBackAction = menu.addAction("Lower mask down");
+        menu.addSeparator();
+        QAction *removeAction = menu.addAction("Remove mask");
+
+        IMaskView *view = dynamic_cast<IMaskView *>(itemAt(event->scenePos(), QTransform()));
+        if(!view) {
+            toggleMaskValueAction->setDisabled(true);
+            bringToFrontAction->setDisabled(true);
+            sendToBackAction->setDisabled(true);
+            removeAction->setDisabled(true);
+        } else {
+            if(isTopMostMask(view)) bringToFrontAction->setDisabled(true);
+            if(isBottomMostMask(view)) sendToBackAction->setDisabled(true);
+
+        }
+
+        QAction *selectedAction = menu.exec(event->screenPos());
+        if(selectedAction == toggleMaskValueAction) {
+            bool old_value = view->getParameterizedItem()->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
+            view->getParameterizedItem()->setRegisteredProperty(MaskItem::P_MASK_VALUE, !old_value);
+        }
+        else if(selectedAction == removeAction) {
+            deleteSelectedItems();
+        }
+        else if(selectedAction == bringToFrontAction) {
+            onMaskStackingOrderRequest(MaskEditorFlags::BRING_TO_FRONT);
+        }
+        else if(selectedAction == sendToBackAction) {
+            onMaskStackingOrderRequest(MaskEditorFlags::SEND_TO_BACK);
+        }
+}
+
 
 void MaskGraphicsScene::init_scene()
 {
@@ -841,3 +878,22 @@ PolygonView *MaskGraphicsScene::getCurrentPolygon() const
     }
     return result;
 }
+
+//! returns true if current mask is top most in the stask
+bool MaskGraphicsScene::isTopMostMask(IMaskView *view)
+{
+    ParameterizedItem *item = view->getParameterizedItem();
+    QModelIndex index = m_model->indexOfItem(item);
+    if(index.row() == 0) return true;
+    return false;
+}
+
+bool MaskGraphicsScene::isBottomMostMask(IMaskView *view)
+{
+    ParameterizedItem *item = view->getParameterizedItem();
+    QModelIndex index = m_model->indexOfItem(item);
+    if(index.row() == item->parent()->childItemCount() -1) return true;
+    return false;
+}
+
+

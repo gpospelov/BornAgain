@@ -147,16 +147,16 @@ void IMaskView::onPropertyChange(const QString &propertyName)
     emit propertyChanged();
 }
 
-void IMaskView::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
-{
-    QMenu menu;
-    QAction *removeAction = menu.addAction("Toggle mask value");
-    QAction *selectedAction = menu.exec(event->screenPos());
-    if(selectedAction == removeAction) {
-        bool old_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
-        m_item->setRegisteredProperty(MaskItem::P_MASK_VALUE, !old_value);
-    }
-}
+//void IMaskView::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+//{
+//    QMenu menu;
+//    QAction *removeAction = menu.addAction("Toggle mask value");
+//    QAction *selectedAction = menu.exec(event->screenPos());
+//    if(selectedAction == removeAction) {
+//        bool old_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
+//        m_item->setRegisteredProperty(MaskItem::P_MASK_VALUE, !old_value);
+//    }
+//}
 
 //void IMaskView::update_view()
 //{

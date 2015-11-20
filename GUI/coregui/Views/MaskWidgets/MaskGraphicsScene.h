@@ -70,6 +70,7 @@ protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void drawForeground(QPainter *painter, const QRectF &);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
 
 private:
@@ -96,6 +97,8 @@ private:
     void processPolygonItem(QGraphicsSceneMouseEvent *event);
     void setZValues();
     PolygonView *getCurrentPolygon() const;
+    bool isTopMostMask(IMaskView *view);
+    bool isBottomMostMask(IMaskView *view);
 
     SessionModel *m_model;
     QItemSelectionModel *m_selectionModel;

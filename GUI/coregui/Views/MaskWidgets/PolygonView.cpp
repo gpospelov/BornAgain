@@ -121,7 +121,7 @@ void PolygonView::onClosePolygonRequest(bool value)
 
 bool PolygonView::isClosedPolygon()
 {
-    qDebug() << "PolygonView::onClosePolygonRequest()";
+//    qDebug() << "PolygonView::isClosedPolygon()";
 //    if(m_close_polygon_request) {
 //        foreach(QGraphicsItem *childItem, childItems()) {
 //            childItem->setFlag(QGraphicsItem::ItemIsMovable );

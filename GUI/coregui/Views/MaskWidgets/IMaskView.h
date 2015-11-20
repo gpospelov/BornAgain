@@ -68,7 +68,7 @@ public slots:
     virtual void onPropertyChange(const QString &propertyName);
 
 protected:
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+//    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
     ParameterizedItem *m_item;
     ISceneAdaptor *m_adaptor;

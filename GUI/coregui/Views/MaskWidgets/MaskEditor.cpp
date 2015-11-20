@@ -107,8 +107,11 @@ void MaskEditor::init_test_model()
 //    p3->setRegisteredProperty(PolygonPointItem::P_POSY, 0.6);
 
 
-   ParameterizedItem *line = m_maskModel->insertNewItem(Constants::VerticalLineMaskType, m_maskModel->indexOfItem(item));
-   line->setRegisteredProperty(VerticalLineItem::P_POSX, 0.6);
+//   ParameterizedItem *line = m_maskModel->insertNewItem(Constants::VerticalLineMaskType, m_maskModel->indexOfItem(item));
+//   line->setRegisteredProperty(VerticalLineItem::P_POSX, 0.6);
+
+   ParameterizedItem *line = m_maskModel->insertNewItem(Constants::HorizontalLineMaskType, m_maskModel->indexOfItem(item));
+   line->setRegisteredProperty(HorizontalLineItem::P_POSY, 1.0);
 
     m_editorCanvas->setModel(m_maskModel, m_maskModel->indexOfItem(item));
     m_editorToolPanel->setModel(m_maskModel, m_maskModel->indexOfItem(item));

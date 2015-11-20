@@ -54,10 +54,14 @@ public:
 
 public slots:
     virtual void update_view();
+    virtual void onChangedY();
+    virtual void onPropertyChange(const QString &propertyName);
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
-
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
+private:
+    bool m_block_on_property_change;
 };
 
 

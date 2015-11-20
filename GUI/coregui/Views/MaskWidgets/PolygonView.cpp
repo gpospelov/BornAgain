@@ -17,6 +17,8 @@
 #include "MaskEditorHelper.h"
 #include "MaskItems.h"
 #include "PolygonPointView.h"
+#include "ISceneAdaptor.h"
+
 #include <QPainter>
 #include <QCursor>
 #include <QRectF>
@@ -146,6 +148,10 @@ void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
     Q_ASSERT(m_item);
     painter->setRenderHints(QPainter::Antialiasing);
     prepareGeometryChange();
+
+    QPolygonF clip_polygon = mapFromScene(m_adaptor->getViewportRectangle());
+    painter->setClipRegion(QRegion(clip_polygon.toPolygon()));
+
     bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));

@@ -53,7 +53,7 @@ public slots:
     void deleteSelectedItems();
     void cancelCurrentDrawing();
 
-    void onMaskStackingOrderRequest(MaskEditorFlags::Stacking value);
+    void onMaskStackingOrderChanged(MaskEditorFlags::Stacking value);
 //    void onBringToFront();
 //    void onSendToBack();
 

@@ -16,6 +16,7 @@
 #include "PolygonPointView.h"
 #include "MaskEditorHelper.h"
 #include "MaskItems.h"
+#include "ISceneAdaptor.h"
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
 #include <QCursor>
@@ -108,6 +109,10 @@ void PolygonPointView::paint(QPainter *painter, const QStyleOptionGraphicsItem *
 {
     painter->setRenderHints(QPainter::Antialiasing);
     prepareGeometryChange();
+
+    QPolygonF clip_polygon = mapFromScene(m_adaptor->getViewportRectangle());
+    painter->setClipRegion(QRegion(clip_polygon.toPolygon()));
+
     QBrush brush = MaskEditorHelper::getSelectionMarkerBrush();
     if(acceptHoverEvents() && m_on_hover) {
         brush.setColor(Qt::red);

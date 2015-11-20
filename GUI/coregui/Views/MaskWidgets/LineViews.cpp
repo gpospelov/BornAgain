@@ -33,7 +33,7 @@ VerticalLineView::VerticalLineView()
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-    setCursor(Qt::SizeAllCursor);
+    setCursor(Qt::SizeHorCursor);
 }
 
 void VerticalLineView::onChangedX()
@@ -97,13 +97,13 @@ QVariant VerticalLineView::itemChange(QGraphicsItem::GraphicsItemChange change, 
           qDebug() << "     " << newPos;
           return newPos;
       }
-    else if(change == QGraphicsItem::ItemSelectedHasChanged) {
-        if(this->isSelected()) {
-            setCursor(Qt::SizeHorCursor);
-        } else {
-            setCursor(Qt::SizeAllCursor);
-        }
-    }
+//    else if(change == QGraphicsItem::ItemSelectedHasChanged) {
+//        if(this->isSelected()) {
+//            setCursor(Qt::SizeHorCursor);
+//        } else {
+//            setCursor(Qt::SizeAllCursor);
+//        }
+//    }
 
     return QGraphicsItem::itemChange(change, value);
 }
@@ -116,7 +116,7 @@ HorizontalLineView::HorizontalLineView()
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-    setCursor(Qt::SizeAllCursor);
+    setCursor(Qt::SizeVerCursor);
 }
 
 void HorizontalLineView::onChangedY()
@@ -183,13 +183,13 @@ QVariant HorizontalLineView::itemChange(QGraphicsItem::GraphicsItemChange change
           qDebug() << "     " << newPos;
           return newPos;
       }
-    else if(change == QGraphicsItem::ItemSelectedHasChanged) {
-        if(this->isSelected()) {
-            setCursor(Qt::SizeVerCursor);
-        } else {
-            setCursor(Qt::SizeAllCursor);
-        }
-    }
+//    else if(change == QGraphicsItem::ItemSelectedHasChanged) {
+//        if(this->isSelected()) {
+//            setCursor(Qt::SizeVerCursor);
+//        } else {
+//            setCursor(Qt::SizeAllCursor);
+//        }
+//    }
 
     return QGraphicsItem::itemChange(change, value);
 }

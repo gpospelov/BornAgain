@@ -244,13 +244,13 @@ void MaskGraphicsView::cancelCurrentDrawing()
 void MaskGraphicsView::bringToFront()
 {
     MaskGraphicsScene *maskScene = dynamic_cast<MaskGraphicsScene *>(scene());
-    maskScene->onMaskStackingOrderRequest(MaskEditorFlags::BRING_TO_FRONT);
+    maskScene->onMaskStackingOrderChanged(MaskEditorFlags::BRING_TO_FRONT);
 }
 
 void MaskGraphicsView::sendToBack()
 {
     MaskGraphicsScene *maskScene = dynamic_cast<MaskGraphicsScene *>(scene());
-    maskScene->onMaskStackingOrderRequest(MaskEditorFlags::SEND_TO_BACK);
+    maskScene->onMaskStackingOrderChanged(MaskEditorFlags::SEND_TO_BACK);
 }
 
 void MaskGraphicsView::setZoomValue(double zoom_value)

@@ -110,8 +110,8 @@ void MaskEditor::init_test_model()
 //   ParameterizedItem *line = m_maskModel->insertNewItem(Constants::VerticalLineMaskType, m_maskModel->indexOfItem(item));
 //   line->setRegisteredProperty(VerticalLineItem::P_POSX, 0.6);
 
-   ParameterizedItem *line = m_maskModel->insertNewItem(Constants::HorizontalLineMaskType, m_maskModel->indexOfItem(item));
-   line->setRegisteredProperty(HorizontalLineItem::P_POSY, 1.0);
+//   ParameterizedItem *line = m_maskModel->insertNewItem(Constants::HorizontalLineMaskType, m_maskModel->indexOfItem(item));
+//   line->setRegisteredProperty(HorizontalLineItem::P_POSY, 1.0);
 
     m_editorCanvas->setModel(m_maskModel, m_maskModel->indexOfItem(item));
     m_editorToolPanel->setModel(m_maskModel, m_maskModel->indexOfItem(item));
@@ -152,9 +152,9 @@ void MaskEditor::setup_connections()
 
     // mask stacking order change request is propagated from tool bar to graphics scene
     connect(m_toolBar,
-            SIGNAL(changeStackingOrderRequest(MaskEditorFlags::Stacking)),
+            SIGNAL(stackingOrderChanged(MaskEditorFlags::Stacking)),
             m_editorCanvas->getScene(),
-            SLOT(onMaskStackingOrderRequest(MaskEditorFlags::Stacking))
+            SLOT(onMaskStackingOrderChanged(MaskEditorFlags::Stacking))
             );
 
     // space bar push (request for zoom mode) is propagated from graphics view to tool bar

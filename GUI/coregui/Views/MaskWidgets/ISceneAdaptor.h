@@ -41,6 +41,8 @@ public:
     //! returns viewport rectangle in scene coordinates
     virtual QRectF getViewportRectangle() const { return QRectF(); }
 
+
+
 signals:
     void update_request();
 

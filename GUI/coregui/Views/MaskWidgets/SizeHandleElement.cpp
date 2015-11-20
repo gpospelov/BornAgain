@@ -97,6 +97,7 @@ void SizeHandleElement::paint(QPainter *painter, const QStyleOptionGraphicsItem 
 {
     painter->setRenderHints(QPainter::Antialiasing);
     prepareGeometryChange();
+
     painter->setBrush(MaskEditorHelper::getSelectionMarkerBrush());
     painter->setPen(MaskEditorHelper::getSelectionMarkerPen());
     if(getHandleType() == RESIZE) {

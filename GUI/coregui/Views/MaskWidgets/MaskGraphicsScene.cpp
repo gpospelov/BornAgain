@@ -191,7 +191,7 @@ void MaskGraphicsScene::cancelCurrentDrawing()
 }
 
 //! every selected mask will be moved according to MaskEditorFlags::Stacking request.
-void MaskGraphicsScene::onMaskStackingOrderRequest(MaskEditorFlags::Stacking value)
+void MaskGraphicsScene::onMaskStackingOrderChanged(MaskEditorFlags::Stacking value)
 {
     int change_in_row(0);
     if(value == MaskEditorFlags::BRING_TO_FRONT) change_in_row = -1;
@@ -409,10 +409,10 @@ void MaskGraphicsScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
             deleteSelectedItems();
         }
         else if(selectedAction == bringToFrontAction) {
-            onMaskStackingOrderRequest(MaskEditorFlags::BRING_TO_FRONT);
+            onMaskStackingOrderChanged(MaskEditorFlags::BRING_TO_FRONT);
         }
         else if(selectedAction == sendToBackAction) {
-            onMaskStackingOrderRequest(MaskEditorFlags::SEND_TO_BACK);
+            onMaskStackingOrderChanged(MaskEditorFlags::SEND_TO_BACK);
         }
 }
 
@@ -722,7 +722,7 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
 
 void MaskGraphicsScene::processLineItem(QGraphicsSceneMouseEvent *event)
 {
-    m_context.setDrawingInProgress(true);
+    setDrawingInProgress(true);
     QPointF click_pos = event->buttonDownScenePos(Qt::LeftButton);
 
     if(m_context.isVerticalLineMode())
@@ -730,7 +730,10 @@ void MaskGraphicsScene::processLineItem(QGraphicsSceneMouseEvent *event)
     if(m_context.isHorizontalLineMode())
         processHorizontalLineItem(click_pos);
 
-    m_context.setDrawingInProgress(false);
+    m_selectionModel->clearSelection();
+    m_selectionModel->select(m_model->indexOfItem(m_currentItem), QItemSelectionModel::Select);
+
+    setDrawingInProgress(false);
 }
 
 void MaskGraphicsScene::processVerticalLineItem(const QPointF &pos)

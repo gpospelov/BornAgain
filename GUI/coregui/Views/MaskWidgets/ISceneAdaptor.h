@@ -18,6 +18,7 @@
 
 #include "WinDllMacros.h"
 #include <QObject>
+#include <QRectF>
 
 //! Interface to adapt MaskItems coordinates (expressed in units of IntensityDataItem)
 //! to/from scene coordinates.
@@ -36,6 +37,9 @@ public:
     virtual qreal fromSceneX(qreal) const = 0;
     //! convert scene y-coordinate to native mask coordinate
     virtual qreal fromSceneY(qreal) const = 0;
+
+    //! returns viewport rectangle in scene coordinates
+    virtual QRectF getViewportRectangle() const { return QRectF(); }
 
 signals:
     void update_request();

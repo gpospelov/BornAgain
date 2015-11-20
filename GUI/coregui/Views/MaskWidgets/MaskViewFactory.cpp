@@ -20,6 +20,7 @@
 #include "RectangleView.h"
 #include "PolygonView.h"
 #include "PolygonPointView.h"
+#include "LineViews.h"
 #include "ParameterizedItem.h"
 
 IMaskView *MaskViewFactory::createMaskView(ParameterizedItem *item,
@@ -37,6 +38,14 @@ IMaskView *MaskViewFactory::createMaskView(ParameterizedItem *item,
 
     else if(model_type == Constants::PolygonPointType) {
         result = new PolygonPointView();
+    }
+
+    else if(model_type == Constants::VerticalLineMaskType) {
+        result = new VerticalLineView();
+    }
+
+    else if(model_type == Constants::HorizontalLineMaskType) {
+        result = new HorizontalLineView();
     }
 
     else {

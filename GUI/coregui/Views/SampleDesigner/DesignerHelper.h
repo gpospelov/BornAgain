@@ -46,7 +46,9 @@ public:
         RECTANGLE,
         SIZEHANDLE,
         POLYGON,
-        POLYGONPOINT
+        POLYGONPOINT,
+        VERTICALLINE,
+        HORIZONTALLINE
     };
 
     static int getDefaultLayerWidth() { return m_default_layer_width; }

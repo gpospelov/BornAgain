@@ -55,6 +55,9 @@ public:
     double pixelToXaxisCoord(double pixel) const;
     double pixelToYaxisCoord(double pixel) const;
 
+    //! returns rectangle representing current axes zoom state in widget coordinates
+    QRectF getViewportRectangleInWidgetCoordinates();
+
 signals:
     void validMousMove();
 

@@ -131,6 +131,7 @@ const ModelType PolygonPointType = "PolygonPoint";
 const ModelType EllipseMaskType = "EllipseMask";
 const ModelType VerticalLineMaskType = "VerticalLineMask";
 const ModelType HorizontalLineMaskType = "HorizontalLineMask";
+const ModelType MaskAllType = "MaskAllMask";
 
 // --- Groups ------------------------------------------------------------------
 

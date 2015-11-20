@@ -147,6 +147,21 @@ double ColorMapPlot::pixelToYaxisCoord(double pixel) const
     return m_customPlot->yAxis->pixelToCoord(pixel);
 }
 
+QRectF ColorMapPlot::getViewportRectangleInWidgetCoordinates()
+{
+    QCPRange xrange = m_customPlot->xAxis->range();
+    QCPRange yrange = m_customPlot->yAxis->range();
+    double left = xrange.lower;
+    double right = xrange.upper;
+    double top = yrange.upper;
+    double bottom = yrange.lower;
+
+    return QRectF(xAxisCoordToPixel(left),
+                  yAxisCoordToPixel(top),
+                  xAxisCoordToPixel(right) - xAxisCoordToPixel(left),
+                  yAxisCoordToPixel(bottom) - yAxisCoordToPixel(top));
+}
+
 //! sets logarithmic scale
 void ColorMapPlot::setLogz(bool logz, bool isReplot)
 {

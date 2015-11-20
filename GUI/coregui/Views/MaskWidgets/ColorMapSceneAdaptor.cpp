@@ -76,4 +76,9 @@ bool ColorMapSceneAdaptor::eventFilter(QObject *object, QEvent *event)
     return QObject::eventFilter(object, event);
 }
 
+QRectF ColorMapSceneAdaptor::getViewportRectangle() const
+{
+    return m_plot->getViewportRectangleInWidgetCoordinates();
+}
+
 

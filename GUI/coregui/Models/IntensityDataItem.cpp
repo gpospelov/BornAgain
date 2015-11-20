@@ -67,6 +67,7 @@ IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
     addToValidChildren(Constants::EllipseMaskType);
     addToValidChildren(Constants::VerticalLineMaskType);
     addToValidChildren(Constants::HorizontalLineMaskType);
+    addToValidChildren(Constants::MaskAllType);
 }
 
 IntensityDataItem::~IntensityDataItem()

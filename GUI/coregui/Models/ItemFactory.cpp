@@ -161,6 +161,9 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::PolygonPointType] = &createInstance<PolygonPointItem>;
     result[Constants::PolygonMaskType] = &createInstance<PolygonItem>;
 
+    result[Constants::VerticalLineMaskType] = &createInstance<VerticalLineItem>;
+    result[Constants::HorizontalLineMaskType] = &createInstance<HorizontalLineItem>;
+
     return result;
 }
 }

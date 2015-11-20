@@ -65,3 +65,23 @@ PolygonItem::PolygonItem(ParameterizedItem *parent)
     registerProperty(P_ISCLOSED, false);
 }
 
+
+/* ------------------------------------------------------------------------- */
+const QString VerticalLineItem::P_POSX = "X position";
+
+VerticalLineItem::VerticalLineItem(ParameterizedItem *parent)
+    : MaskItem(Constants::VerticalLineMaskType, parent)
+{
+    setItemName(QStringLiteral("VerticalLine"));
+    registerProperty(P_POSX, 0.0);
+}
+
+/* ------------------------------------------------------------------------- */
+const QString HorizontalLineItem::P_POSY = "Y position";
+
+HorizontalLineItem::HorizontalLineItem(ParameterizedItem *parent)
+    : MaskItem(Constants::HorizontalLineMaskType, parent)
+{
+    setItemName(QStringLiteral("HorizontalLine"));
+    registerProperty(P_POSY, 0.0);
+}

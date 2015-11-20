@@ -57,6 +57,21 @@ public:
     explicit PolygonItem(ParameterizedItem *parent=0);
 };
 
+class BA_CORE_API_ VerticalLineItem : public MaskItem
+{
+    Q_OBJECT
+public:
+    static const QString P_POSX;
+    explicit VerticalLineItem(ParameterizedItem *parent=0);
+};
+
+class BA_CORE_API_ HorizontalLineItem : public MaskItem
+{
+    Q_OBJECT
+public:
+    static const QString P_POSY;
+    explicit HorizontalLineItem(ParameterizedItem *parent=0);
+};
 
 
 #endif

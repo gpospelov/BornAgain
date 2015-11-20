@@ -39,7 +39,7 @@ MaskEditorToolBar::MaskEditorToolBar(QWidget *parent)
 
     setup_selection_group();
     add_separator();
-    setup_masktype_group();
+    setup_maskvalue_group();
     add_separator();
     setup_shapes_group();
     add_separator();
@@ -50,7 +50,7 @@ MaskEditorToolBar::MaskEditorToolBar(QWidget *parent)
     connect(m_activityButtonGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(onActivityGroupChange(int)));
     connect(m_maskValueGroup, SIGNAL(buttonClicked(int)),
-            this, SLOT(onActivityGroupChange(int)));
+            this, SLOT(onMaskValueGroupChange(int)));
     connect(m_maskStackingOrderGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(onStackingOrderGroupChange(int)));
 
@@ -79,12 +79,13 @@ void MaskEditorToolBar::onActivityGroupChange(int value)
 
 void MaskEditorToolBar::onMaskValueGroupChange(int value)
 {
-
+    Q_UNUSED(value);
+    emit maskValueChanged(MaskEditorFlags::MaskValue(value));
 }
 
 void MaskEditorToolBar::onStackingOrderGroupChange(int value)
 {
-    emit changeStackingOrderRequest(MaskEditorFlags::EMoveType(value));
+    emit changeStackingOrderRequest(MaskEditorFlags::Stacking(value));
 }
 
 
@@ -112,7 +113,7 @@ void MaskEditorToolBar::setup_selection_group()
     m_activityButtonGroup->addButton(panButton, MaskEditorFlags::PAN_ZOOM_MODE);
 }
 
-void MaskEditorToolBar::setup_masktype_group()
+void MaskEditorToolBar::setup_maskvalue_group()
 {
     QToolButton *maskTrueButton = new QToolButton(this);
     maskTrueButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_masktrue.svg"));
@@ -127,8 +128,8 @@ void MaskEditorToolBar::setup_masktype_group()
     maskFalseButton->setCheckable(true);
     addWidget(maskFalseButton);
 
-    m_maskValueGroup->addButton(maskTrueButton, MaskEditorFlags::MASK_GREEN_ID);
-    m_maskValueGroup->addButton(maskFalseButton, MaskEditorFlags::MASK_RED_ID);
+    m_maskValueGroup->addButton(maskTrueButton, MaskEditorFlags::MASK_ON);
+    m_maskValueGroup->addButton(maskFalseButton, MaskEditorFlags::MASK_OFF);
 }
 
 void MaskEditorToolBar::setup_shapes_group()
@@ -216,7 +217,6 @@ MaskEditorFlags::Activity MaskEditorToolBar::getCurrentActivity() const
 {
     MaskEditorFlags::Activity result;
     result |= MaskEditorFlags::EActivityType(m_activityButtonGroup->checkedId());
-    result |= MaskEditorFlags::EActivityType(m_maskValueGroup->checkedId());
     qDebug() << "MaskEditorToolBar::getCurrentActivity():" << result;
     return result;
 }
@@ -239,10 +239,5 @@ void MaskEditorToolBar::setCurrentActivity(MaskEditorFlags::Activity value)
         m_activityButtonGroup->button(MaskEditorFlags::ELLIPSE_MODE)->setChecked(true);
     if(value.testFlag(MaskEditorFlags::MASKALL_MODE))
         m_activityButtonGroup->button(MaskEditorFlags::MASKALL_MODE)->setChecked(true);
-
-    if(value.testFlag(MaskEditorFlags::MASK_GREEN_ID))
-        m_maskValueGroup->button(MaskEditorFlags::MASK_GREEN_ID)->setChecked(true);
-    if(value.testFlag(MaskEditorFlags::MASK_RED_ID))
-        m_maskValueGroup->button(MaskEditorFlags::MASK_RED_ID)->setChecked(true);
 }
 

@@ -44,13 +44,15 @@ public:
 
 public slots:
     void onActivityModeChanged(MaskEditorFlags::Activity value);
+    void onMaskValueChanged(MaskEditorFlags::MaskValue value);
+
     void onRowsInserted(const QModelIndex &parent, int first, int last);
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
     void onRowsRemoved(const QModelIndex &parent, int first, int last);
     void deleteSelectedItems();
     void cancelCurrentDrawing();
 
-    void onMaskStackingOrderRequest(MaskEditorFlags::EMoveType value);
+    void onMaskStackingOrderRequest(MaskEditorFlags::Stacking value);
 //    void onBringToFront();
 //    void onSendToBack();
 

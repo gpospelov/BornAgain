@@ -27,6 +27,7 @@ public:
     MaskDrawingContext();
 
     void setActivityType(MaskEditorFlags::Activity value);
+    void setMaskValue(MaskEditorFlags::MaskValue value);
 
     bool isSelectionMode() const;
     //! returns true if current activity is pan/zoom
@@ -42,7 +43,7 @@ public:
 private:
 
     MaskEditorFlags::Activity m_current_activity;
-
+    MaskEditorFlags::MaskValue m_mask_value;
 };
 
 

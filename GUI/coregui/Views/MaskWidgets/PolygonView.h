@@ -41,6 +41,7 @@ public slots:
 //    virtual void onPropertyChange(const QString &propertyName);
     virtual void onChangedX();
     virtual void onChangedY();
+    bool closePolygonIfNecessary();
     void onClosePolygonRequest(bool value);
 
 
@@ -66,7 +67,6 @@ private:
 
     QPolygonF m_polygon;
     bool m_block_on_point_update;
-    bool m_closed_polygon;
     bool m_close_polygon_request;
 };
 

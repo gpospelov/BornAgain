@@ -120,6 +120,12 @@ void MaskGraphicsScene::onActivityModeChanged(MaskEditorFlags::Activity value)
 
 }
 
+void MaskGraphicsScene::onMaskValueChanged(MaskEditorFlags::MaskValue value)
+{
+    qDebug() << "MaskGraphicsScene::onMaskValueChanged" << value;
+    m_context.setMaskValue(value);
+}
+
 void MaskGraphicsScene::onRowsInserted(const QModelIndex &parent, int first, int last)
 {
     Q_UNUSED(parent);
@@ -178,8 +184,8 @@ void MaskGraphicsScene::cancelCurrentDrawing()
     }
 }
 
-//! every selected mask will be moved according to EMoveType request.
-void MaskGraphicsScene::onMaskStackingOrderRequest(MaskEditorFlags::EMoveType value)
+//! every selected mask will be moved according to MaskEditorFlags::Stacking request.
+void MaskGraphicsScene::onMaskStackingOrderRequest(MaskEditorFlags::Stacking value)
 {
     int change_in_row(0);
     if(value == MaskEditorFlags::BRING_TO_FRONT) change_in_row = -1;
@@ -749,6 +755,10 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
 
     if(!m_currentItem && line.length() > min_distance_to_create_rect) {
         m_currentItem = m_model->insertNewItem(Constants::RectangleMaskType, m_rootIndex, 0);
+        qDebug() << " ";
+        qDebug() << " ";
+        qDebug() << " ";
+        qDebug() << " " << m_context.getMaskValue();
         m_currentItem->setRegisteredProperty(RectangleItem::P_MASK_VALUE, m_context.getMaskValue());
     }
 
@@ -777,6 +787,7 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
 
     if(!m_currentItem) {
         m_currentItem = m_model->insertNewItem(Constants::PolygonMaskType, m_rootIndex, 0);
+        m_currentItem->setRegisteredProperty(RectangleItem::P_MASK_VALUE, m_context.getMaskValue());
         m_selectionModel->clearSelection();
         m_selectionModel->select(m_model->indexOfItem(m_currentItem), QItemSelectionModel::Select);
     }
@@ -784,7 +795,7 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
     Q_ASSERT(m_currentItem->modelType() == Constants::PolygonMaskType);
 
     if(PolygonView *currentPolygon = getCurrentPolygon()) {
-        if(currentPolygon->isClosedPolygon()) {
+        if(currentPolygon->closePolygonIfNecessary()) {
             setDrawingInProgress(false);
             return;
         }

@@ -34,19 +34,25 @@ public:
         ELLIPSE_MODE         = 0x0080,
         MASKALL_MODE         = 0x0100,
         DRAWING_IN_PROGRESS  = 0x0200,
-        MASK_GREEN_ID        = 0x0400,
-        MASK_RED_ID          = 0x0800
     };
-
     Q_DECLARE_FLAGS(Activity, EActivityType)
 
     enum EMoveType {
         BRING_TO_FRONT,
         SEND_TO_BACK
     };
+    Q_DECLARE_FLAGS(Stacking, EMoveType)
+
+    enum EMaskValue {
+        MASK_OFF,
+        MASK_ON
+    };
+    Q_DECLARE_FLAGS(MaskValue, EMaskValue)
 
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(MaskEditorFlags::Activity)
+Q_DECLARE_OPERATORS_FOR_FLAGS(MaskEditorFlags::Stacking)
+Q_DECLARE_OPERATORS_FOR_FLAGS(MaskEditorFlags::MaskValue)
 
 #endif

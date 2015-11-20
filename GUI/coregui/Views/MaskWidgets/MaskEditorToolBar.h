@@ -33,7 +33,8 @@ public:
 signals:
     void activityModeChanged(MaskEditorFlags::Activity);
     void toolPanelRequest();
-    void changeStackingOrderRequest(MaskEditorFlags::EMoveType);
+    void changeStackingOrderRequest(MaskEditorFlags::Stacking);
+    void maskValueChanged(MaskEditorFlags::MaskValue);
 
 public slots:
     void onChangeActivityRequest(MaskEditorFlags::Activity value);
@@ -45,7 +46,7 @@ private slots:
 
 private:
     void setup_selection_group();
-    void setup_masktype_group();
+    void setup_maskvalue_group();
     void setup_shapes_group();
     void setup_maskmodify_group();
     void setup_extratools_group();

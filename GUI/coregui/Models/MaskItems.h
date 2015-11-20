@@ -53,6 +53,7 @@ class BA_CORE_API_ PolygonItem : public MaskItem
 {
     Q_OBJECT
 public:
+    static const QString P_ISCLOSED;
     explicit PolygonItem(ParameterizedItem *parent=0);
 };
 

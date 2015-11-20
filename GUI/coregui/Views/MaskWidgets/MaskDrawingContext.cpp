@@ -14,11 +14,12 @@
 // ************************************************************************** //
 
 #include "MaskDrawingContext.h"
-
+#include <QDebug>
 
 
 MaskDrawingContext::MaskDrawingContext()
     : m_current_activity(MaskEditorFlags::SELECTION_MODE)
+    , m_mask_value(MaskEditorFlags::MASK_ON)
 {
 
 }
@@ -26,6 +27,12 @@ MaskDrawingContext::MaskDrawingContext()
 void MaskDrawingContext::setActivityType(MaskEditorFlags::Activity value)
 {
     m_current_activity = value;
+}
+
+void MaskDrawingContext::setMaskValue(MaskEditorFlags::MaskValue value)
+{
+    qDebug() << "MaskDrawingContext::setMaskValue" << value;
+    m_mask_value = value;
 }
 
 bool MaskDrawingContext::isSelectionMode() const
@@ -64,9 +71,5 @@ void MaskDrawingContext::setDrawingInProgress(bool value)
 
 bool MaskDrawingContext::getMaskValue() const
 {
-    if(m_current_activity.testFlag(MaskEditorFlags::MASK_GREEN_ID)) {
-        return false;
-    } else {
-        return true;
-    }
+    return bool(m_mask_value);
 }

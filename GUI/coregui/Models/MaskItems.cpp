@@ -55,10 +55,13 @@ PolygonPointItem::PolygonPointItem(ParameterizedItem *parent)
 
 /* ------------------------------------------------------------------------- */
 
+const QString PolygonItem::P_ISCLOSED = "Is closed";
+
 PolygonItem::PolygonItem(ParameterizedItem *parent)
     : MaskItem(Constants::PolygonMaskType, parent)
 {
     setItemName(Constants::PolygonMaskType);
     addToValidChildren(Constants::PolygonPointType);
+    registerProperty(P_ISCLOSED, false);
 }
 

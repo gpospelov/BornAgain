@@ -124,6 +124,13 @@ void MaskEditor::setup_connections()
             SLOT(onActivityModeChanged(MaskEditorFlags::Activity))
             );
 
+    // mask value is propagated from tool bar to graphics scene
+    connect(m_toolBar,
+            SIGNAL(maskValueChanged(MaskEditorFlags::MaskValue)),
+            m_editorCanvas->getScene(),
+            SLOT(onMaskValueChanged(MaskEditorFlags::MaskValue))
+            );
+
     // tool panel request is propagated from tool bar to this MaskEditor
     connect(m_toolBar,
             SIGNAL(toolPanelRequest()),
@@ -133,9 +140,9 @@ void MaskEditor::setup_connections()
 
     // mask stacking order change request is propagated from tool bar to graphics scene
     connect(m_toolBar,
-            SIGNAL(changeStackingOrderRequest(MaskEditorFlags::EMoveType)),
+            SIGNAL(changeStackingOrderRequest(MaskEditorFlags::Stacking)),
             m_editorCanvas->getScene(),
-            SLOT(onMaskStackingOrderRequest(MaskEditorFlags::EMoveType))
+            SLOT(onMaskStackingOrderRequest(MaskEditorFlags::Stacking))
             );
 
     // space bar push (request for zoom mode) is propagated from graphics view to tool bar

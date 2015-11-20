@@ -28,12 +28,29 @@ const double mask_visible_width = 3.0;
 }
 
 VerticalLineView::VerticalLineView()
+    : m_block_on_property_change(false)
 {
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     setCursor(Qt::SizeAllCursor);
 }
+
+void VerticalLineView::onChangedX()
+{
+    m_block_on_property_change = true;
+    m_item->setRegisteredProperty(RectangleItem::P_POSX, fromSceneX(this->x()));
+    m_block_on_property_change = false;
+}
+
+void VerticalLineView::onPropertyChange(const QString &propertyName)
+{
+    if(m_block_on_property_change) return;
+    if(propertyName == RectangleItem::P_POSX) {
+        setX(toSceneX(RectangleItem::P_POSX));
+    }
+}
+
 
 void VerticalLineView::update_view()
 {
@@ -84,7 +101,7 @@ QVariant VerticalLineView::itemChange(QGraphicsItem::GraphicsItemChange change, 
         if(this->isSelected()) {
             setCursor(Qt::SizeHorCursor);
         } else {
-            setCursor(Qt::ArrowCursor);
+            setCursor(Qt::SizeAllCursor);
         }
     }
 

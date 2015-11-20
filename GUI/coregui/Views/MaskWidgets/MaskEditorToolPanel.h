@@ -41,6 +41,9 @@ public:
     void setModel(SessionModel *model, const QModelIndex &root_index);
     QItemSelectionModel* selectionModel();
 
+private slots:
+    void onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
+
 private:
     QListView *m_listView;
     AwesomePropertyEditor *m_propertyEditor;

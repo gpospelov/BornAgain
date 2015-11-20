@@ -35,6 +35,10 @@ public:
 
     bool isRectangleMode() const;
     bool isPolygonMode() const;
+    bool isLineMode() const;
+    bool isVerticalLineMode() const;
+    bool isHorizontalLineMode() const;
+
     bool isDrawingInProgress() const;
     void setDrawingInProgress(bool value);
 

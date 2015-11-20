@@ -55,6 +55,21 @@ bool MaskDrawingContext::isPolygonMode() const
     return m_current_activity.testFlag(MaskEditorFlags::POLYGON_MODE);
 }
 
+bool MaskDrawingContext::isLineMode() const
+{
+    return isVerticalLineMode() || isHorizontalLineMode();
+}
+
+bool MaskDrawingContext::isVerticalLineMode() const
+{
+    return m_current_activity.testFlag(MaskEditorFlags::VERTICAL_LINE_MODE);
+}
+
+bool MaskDrawingContext::isHorizontalLineMode() const
+{
+    return m_current_activity.testFlag(MaskEditorFlags::HORIZONTAL_LINE_MODE);
+}
+
 bool MaskDrawingContext::isDrawingInProgress() const
 {
     return m_current_activity.testFlag(MaskEditorFlags::DRAWING_IN_PROGRESS);

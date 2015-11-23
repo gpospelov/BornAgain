@@ -64,7 +64,7 @@ private:
 
     QMap<SizeHandleElement::EHandleLocation, SizeHandleElement *> m_resize_handles;
      //!< coordinates of corner opposite to the grip corner at the moment it first clicked
-//    QPointF m_resize_opposite_origin;
+    QPointF m_resize_opposite_origin;
     SizeHandleElement *m_activeHandleElement;
 };
 

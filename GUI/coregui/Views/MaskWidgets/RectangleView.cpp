@@ -94,9 +94,9 @@ void RectangleView::onSizeHandleElementRequest(bool going_to_resize)
         setFlag(QGraphicsItem::ItemIsMovable, false);
         m_activeHandleElement = qobject_cast<SizeHandleElement *>(sender());
         Q_ASSERT(m_activeHandleElement);
-//        SizeHandleElement::EHandleLocation oposite_corner
-//                = m_activeHandleElement->getOppositeHandleLocation();
-//        m_resize_opposite_origin = m_resize_handles[oposite_corner]->scenePos();
+        SizeHandleElement::EHandleLocation oposite_corner
+                = m_activeHandleElement->getOppositeHandleLocation();
+        m_resize_opposite_origin = m_resize_handles[oposite_corner]->scenePos();
         //qDebug() << "       m_resize_opposite_origin:" << m_resize_opposite_origin;
     } else {
         setFlag(QGraphicsItem::ItemIsMovable, true);
@@ -149,13 +149,13 @@ void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
     if(m_activeHandleElement) {
 
-        QPointF opposite = m_resize_handles[m_activeHandleElement->getOppositeHandleLocation()]->scenePos();
-        qDebug() << "   opposite_origin:" << opposite;
+//        QPointF opposite = m_resize_handles[m_activeHandleElement->getOppositeHandleLocation()]->scenePos();
+        qDebug() << "   opposite_origin:" << m_resize_opposite_origin;
 
-        qreal xmin = std::min(event->scenePos().x(),opposite.x());
-        qreal xmax = std::max(event->scenePos().x(),opposite.x());
-        qreal ymin = std::min(event->scenePos().y(),opposite.y());
-        qreal ymax = std::max(event->scenePos().y(),opposite.y());
+        qreal xmin = std::min(event->scenePos().x(),m_resize_opposite_origin.x());
+        qreal xmax = std::max(event->scenePos().x(),m_resize_opposite_origin.x());
+        qreal ymin = std::min(event->scenePos().y(),m_resize_opposite_origin.y());
+        qreal ymax = std::max(event->scenePos().y(),m_resize_opposite_origin.y());
 
         if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE) {
             m_item->setRegisteredProperty(RectangleItem::P_POSX, fromSceneX(xmin));

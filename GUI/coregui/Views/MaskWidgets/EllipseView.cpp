@@ -43,6 +43,8 @@ EllipseView::EllipseView()
 void EllipseView::onChangedX()
 {
     qDebug() << "EllipseView::onChangedX()";
+//    if(m_block_on_property_change) return;
+
     m_block_on_property_change = true;
     m_item->setRegisteredProperty(EllipseItem::P_POSX, fromSceneX(this->x()));
     m_block_on_property_change = false;
@@ -51,6 +53,8 @@ void EllipseView::onChangedX()
 void EllipseView::onChangedY()
 {
     qDebug() << "EllipseView::onChangedY()";
+//    if(m_block_on_property_change) return;
+
     m_block_on_property_change = true;
     m_item->setRegisteredProperty(EllipseItem::P_POSY, fromSceneY(this->y()));
     m_block_on_property_change = false;
@@ -68,9 +72,11 @@ void EllipseView::onPropertyChange(const QString &propertyName)
     }
     else if(propertyName == EllipseItem::P_POSX) {
         setX(toSceneX(EllipseItem::P_POSX));
+//        setX(left());
     }
     else if(propertyName == EllipseItem::P_POSY) {
         setY(toSceneY(EllipseItem::P_POSY));
+//        setY(top());
     }
     else if(propertyName == EllipseItem::P_ANGLE) {
         qDebug() << "   ";
@@ -100,8 +106,8 @@ void EllipseView::onSizeHandleElementRequest(bool going_to_resize)
         Q_ASSERT(m_activeHandleElement);
         SizeHandleElement::EHandleLocation oposite_corner
                 = m_activeHandleElement->getOppositeHandleLocation();
-//        m_resize_opposite_origin = m_resize_handles[oposite_corner]->scenePos();
-        m_resize_opposite_origin = m_resize_handles[oposite_corner]->pos();
+        m_resize_opposite_origin = m_resize_handles[oposite_corner]->scenePos();
+//        m_resize_opposite_origin = m_resize_handles[oposite_corner]->pos();
         qDebug() << "       m_resize_opposite_origin:" << m_resize_opposite_origin;
     } else {
         setFlag(QGraphicsItem::ItemIsMovable, true);
@@ -156,9 +162,11 @@ void EllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         qDebug() << "   opposite_origin:" << m_resize_opposite_origin << event->pos();
 //        m_block_on_property_change = true;
 
-        SizeHandleElement::EHandleLocation oposite_corner
-                = m_activeHandleElement->getOppositeHandleLocation();
-        QPointF opposPos = m_resize_handles[oposite_corner]->pos();
+//        SizeHandleElement::EHandleLocation oposite_corner
+//                = m_activeHandleElement->getOppositeHandleLocation();
+//        QPointF opposPos = m_resize_handles[oposite_corner]->pos();
+
+        QPointF opposPos = mapFromScene(m_resize_opposite_origin);
 
         qreal xmin = std::min(event->pos().x(),opposPos.x());
         qreal xmax = std::max(event->pos().x(),opposPos.x());
@@ -191,6 +199,15 @@ void EllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 //                                          fromSceneY(ymin) - fromSceneY(ymax));
 
 
+//            m_item->setRegisteredProperty(EllipseItem::P_POSX, fromSceneX(centerInScene.x()));
+//            m_item->setRegisteredProperty(EllipseItem::P_POSY, fromSceneY(centerInScene.y()));
+
+//            m_item->setRegisteredProperty(EllipseItem::P_WIDTH,
+//                                          fromSceneX(centerInScene.x()+width/2.) - fromSceneX(centerInScene.x()-width/2.));
+//            m_item->setRegisteredProperty(EllipseItem::P_HEIGHT,
+//                                          fromSceneY(centerInScene.y()-height/2.) - fromSceneY(centerInScene.y()+height/2.));
+
+
             m_item->setRegisteredProperty(EllipseItem::P_POSX, fromSceneX(centerInScene.x()));
             m_item->setRegisteredProperty(EllipseItem::P_POSY, fromSceneY(centerInScene.y()));
 
@@ -199,15 +216,21 @@ void EllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
             m_item->setRegisteredProperty(EllipseItem::P_HEIGHT,
                                           fromSceneY(centerInScene.y()-height/2.) - fromSceneY(centerInScene.y()+height/2.));
 
+
+
         } else if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_HEIGHT) {
-            m_item->setRegisteredProperty(EllipseItem::P_POSY, fromSceneY(ycenter));
+            m_item->setRegisteredProperty(EllipseItem::P_POSY, fromSceneY(centerInScene.y()));
             m_item->setRegisteredProperty(EllipseItem::P_HEIGHT,
-                                          fromSceneY(ymin) - fromSceneY(ymax));
+                                          fromSceneY(centerInScene.y()-height/2.) - fromSceneY(centerInScene.y()+height/2.));
+//            m_item->setRegisteredProperty(EllipseItem::P_HEIGHT,
+//                                          fromSceneY(ymin) - fromSceneY(ymax));
 
         } else if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_WIDTH) {
-            m_item->setRegisteredProperty(EllipseItem::P_POSX, fromSceneX(xcenter));
+            m_item->setRegisteredProperty(EllipseItem::P_POSX, fromSceneX(centerInScene.x()));
             m_item->setRegisteredProperty(EllipseItem::P_WIDTH,
-                                          fromSceneX(xmax) - fromSceneX(xmin));
+                                          fromSceneX(centerInScene.x()+width/2.) - fromSceneX(centerInScene.x()-width/2.));
+//            m_item->setRegisteredProperty(EllipseItem::P_WIDTH,
+//                                          fromSceneX(xmax) - fromSceneX(xmin));
         }
 
 //        m_resize_opposite_origin =opposPos;
@@ -242,6 +265,7 @@ void EllipseView::update_bounding_rect()
     qDebug() << ">>>> EllipseView::update_bounding_rect() -> ";
     if(m_item) {
         m_mask_rect = QRectF(-width()/2., -height()/2., width(), height());
+//        m_mask_rect = QRectF(0.0, 0.0, width(), height());
         qDebug() << ">>>> EllipseView::update_bounding_rect() -> " << m_mask_rect;
         m_bounding_rect = m_mask_rect.marginsAdded(QMarginsF(bbox_margins, bbox_margins,
                                                       bbox_margins, bbox_margins));
@@ -257,6 +281,10 @@ void EllipseView::update_position()
 {
     setX(toSceneX(EllipseItem::P_POSX));
     setY(toSceneY(EllipseItem::P_POSY));
+//    m_block_on_property_change = true;
+//    setX(left());
+//    setY(top());
+//    m_block_on_property_change = false;
     qDebug() << "EllipseView::update_position()" << pos();
 }
 
@@ -299,6 +327,9 @@ qreal EllipseView::height() const
 {
     return bottom() - top();
 }
+
+
+
 
 void EllipseView::create_size_handle_elements()
 {

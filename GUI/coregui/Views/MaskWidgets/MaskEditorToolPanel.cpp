@@ -62,11 +62,11 @@ QItemSelectionModel *MaskEditorToolPanel::selectionModel()
 
 void MaskEditorToolPanel::onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
-//    Q_UNUSED(deselected);
-//    if(selected.size()) {
-//        m_propertyEditor->setItem(m_model->itemForIndex(selected.indexes().front()));
-//    } else {
-//        m_propertyEditor->setItem(0);
-//    }
+    Q_UNUSED(deselected);
+    if(selected.size()) {
+        m_propertyEditor->setItem(m_model->itemForIndex(selected.indexes().front()));
+    } else {
+        m_propertyEditor->setItem(0);
+    }
 }
 

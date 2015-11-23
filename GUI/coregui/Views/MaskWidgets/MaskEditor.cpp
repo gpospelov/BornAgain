@@ -124,7 +124,7 @@ void MaskEditor::init_test_model()
 //    rect->setRegisteredProperty(EllipseItem::P_WIDTH, 0.3);
 //    rect->setRegisteredProperty(EllipseItem::P_HEIGHT, 0.2);
 
-    MaskAllItem *rect = dynamic_cast<MaskAllItem *>(m_maskModel->insertNewItem(Constants::MaskAllType, m_maskModel->indexOfItem(item)));
+//    MaskAllItem *rect = dynamic_cast<MaskAllItem *>(m_maskModel->insertNewItem(Constants::MaskAllType, m_maskModel->indexOfItem(item)));
 
 
     m_editorCanvas->setModel(m_maskModel, m_maskModel->indexOfItem(item));

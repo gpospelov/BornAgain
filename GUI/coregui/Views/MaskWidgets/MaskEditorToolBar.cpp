@@ -18,6 +18,7 @@
 #include <QVariant>
 #include <QToolButton>
 #include <QLabel>
+#include <QRadioButton>
 #include <QButtonGroup>
 #include <QDebug>
 
@@ -117,17 +118,21 @@ void MaskEditorToolBar::setup_selection_group()
 
 void MaskEditorToolBar::setup_maskvalue_group()
 {
-    QToolButton *maskTrueButton = new QToolButton(this);
-    maskTrueButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_masktrue.svg"));
+    addWidget(new QLabel(" "));
+
+    QRadioButton *maskTrueButton = new QRadioButton(this);
+    maskTrueButton->setText("masked");
     maskTrueButton->setToolTip("Set mask to True (area is excluded from the simulation)");
     maskTrueButton->setCheckable(true);
     maskTrueButton->setChecked(true);
     addWidget(maskTrueButton);
 
-    QToolButton *maskFalseButton = new QToolButton(this);
-    maskFalseButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_maskfalse.svg"));
+    addWidget(new QLabel(" "));
+
+    QRadioButton *maskFalseButton = new QRadioButton(this);
     maskFalseButton->setToolTip("Set mask to False (area stays in the simulation)");
     maskFalseButton->setCheckable(true);
+    maskFalseButton->setText("active");
     addWidget(maskFalseButton);
 
     m_maskValueGroup->addButton(maskTrueButton, MaskEditorFlags::MASK_ON);

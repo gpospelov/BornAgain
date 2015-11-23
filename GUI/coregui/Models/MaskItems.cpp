@@ -99,7 +99,7 @@ const QString EllipseItem::P_ANGLE = "Angle";
 EllipseItem::EllipseItem(ParameterizedItem *parent)
     : MaskItem(Constants::EllipseMaskType, parent)
 {
-    setItemName(QStringLiteral("Rectangle"));
+    setItemName(QStringLiteral("Ellipse"));
     registerProperty(P_POSX, 0.0);
     registerProperty(P_POSY, 0.0);
     registerProperty(P_WIDTH, 0.0);

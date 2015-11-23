@@ -34,6 +34,7 @@ public:
     bool isInZoomMode() const;
 
     bool isRectangleMode() const;
+    bool isEllipseMode() const;
     bool isPolygonMode() const;
     bool isLineMode() const;
     bool isVerticalLineMode() const;

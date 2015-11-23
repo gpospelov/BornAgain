@@ -95,6 +95,7 @@ private:
     IMaskView* addViewForItem(ParameterizedItem *item);
 
     void processRectangleItem(QGraphicsSceneMouseEvent *event);
+    void processEllipseItem(QGraphicsSceneMouseEvent *event);
     void processPolygonItem(QGraphicsSceneMouseEvent *event);
     void processLineItem(QGraphicsSceneMouseEvent *event);
     void processVerticalLineItem(const QPointF &pos);

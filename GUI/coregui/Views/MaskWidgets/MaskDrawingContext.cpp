@@ -50,6 +50,11 @@ bool MaskDrawingContext::isRectangleMode() const
     return m_current_activity.testFlag(MaskEditorFlags::RECTANGLE_MODE);
 }
 
+bool MaskDrawingContext::isEllipseMode() const
+{
+    return m_current_activity.testFlag(MaskEditorFlags::ELLIPSE_MODE);
+}
+
 bool MaskDrawingContext::isPolygonMode() const
 {
     return m_current_activity.testFlag(MaskEditorFlags::POLYGON_MODE);

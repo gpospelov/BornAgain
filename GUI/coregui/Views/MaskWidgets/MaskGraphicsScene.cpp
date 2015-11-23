@@ -300,9 +300,15 @@ void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     qDebug() << "MaskGraphicsScene::mouseMoveEvent()";
     if(isDrawingInProgress()) {
         if(m_context.isRectangleMode()) {
-            qDebug() << "   DRAWING_IN_PROGESS POLYGON";
+            qDebug() << "   DRAWING_IN_PROGESS RECTANGLE";
             processRectangleItem(event);
         }
+
+        else if(m_context.isEllipseMode()) {
+            qDebug() << "   DRAWING_IN_PROGESS ELLIPSE";
+            processEllipseItem(event);
+        }
+
         else if(m_context.isPolygonMode()) {
             qDebug() << "   DRAWING_IN_PROGESS POLYGON";
             QGraphicsScene::mouseMoveEvent(event);
@@ -320,7 +326,7 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     qDebug() << "MaskGraphicsScene::mouseReleaseEvent() -> before";
     if(isDrawingInProgress()) {
 
-        if (m_context.isRectangleMode()) {
+        if (m_context.isRectangleMode() || m_context.isEllipseMode()) {
             clearSelection();
             if (m_currentItem) {
                 // drawing ended up with item drawn, let's make it selected
@@ -687,6 +693,37 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
         m_currentItem->setRegisteredProperty(
             RectangleItem::P_HEIGHT, m_adaptor->fromSceneY(ymin) - m_adaptor->fromSceneY(ymax));
     }
+}
+
+void MaskGraphicsScene::processEllipseItem(QGraphicsSceneMouseEvent *event)
+{
+    QPointF click_pos = event->buttonDownScenePos(Qt::LeftButton);
+    QPointF mouse_pos = event->scenePos();
+    QLineF line(mouse_pos, click_pos);
+
+    if(!m_currentItem && line.length() > min_distance_to_create_rect) {
+        m_currentItem = m_model->insertNewItem(Constants::EllipseMaskType, m_rootIndex, 0);
+        qDebug() << " ";
+        qDebug() << " ";
+        qDebug() << " ";
+        qDebug() << " " << m_context.getMaskValue();
+        m_currentItem->setRegisteredProperty(EllipseItem::P_MASK_VALUE, m_context.getMaskValue());
+    }
+
+    if(m_currentItem) {
+        qreal xmin = std::min(click_pos.x(), mouse_pos.x());
+        qreal xmax = std::max(click_pos.x(), mouse_pos.x());
+        qreal ymin = std::min(click_pos.y(), mouse_pos.y());
+        qreal ymax = std::max(click_pos.y(), mouse_pos.y());
+
+        m_currentItem->setRegisteredProperty(EllipseItem::P_POSX, m_adaptor->fromSceneX(xmin + (xmax-xmin)/2.));
+        m_currentItem->setRegisteredProperty(EllipseItem::P_POSY, m_adaptor->fromSceneY(ymin + (ymax-ymin)/2.));
+        m_currentItem->setRegisteredProperty(
+            EllipseItem::P_WIDTH, m_adaptor->fromSceneX(xmax) - m_adaptor->fromSceneX(xmin));
+        m_currentItem->setRegisteredProperty(
+            EllipseItem::P_HEIGHT, m_adaptor->fromSceneY(ymin) - m_adaptor->fromSceneY(ymax));
+    }
+
 }
 
 void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)

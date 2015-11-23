@@ -106,3 +106,11 @@ EllipseItem::EllipseItem(ParameterizedItem *parent)
     registerProperty(P_HEIGHT, 0.0);
     registerProperty(P_ANGLE, 0.0);
 }
+
+/* ------------------------------------------------------------------------- */
+
+MaskAllItem::MaskAllItem(ParameterizedItem *parent)
+    : MaskItem(Constants::MaskAllType, parent)
+{
+    setItemName(QStringLiteral("MaskAllPlane"));
+}

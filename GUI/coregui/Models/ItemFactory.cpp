@@ -163,6 +163,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::VerticalLineMaskType] = &createInstance<VerticalLineItem>;
     result[Constants::HorizontalLineMaskType] = &createInstance<HorizontalLineItem>;
     result[Constants::EllipseMaskType] = &createInstance<EllipseItem>;
+    result[Constants::MaskAllType] = &createInstance<MaskAllItem>;
 
     return result;
 }

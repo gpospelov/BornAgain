@@ -49,7 +49,8 @@ public:
         POLYGONPOINT,
         VERTICALLINE,
         HORIZONTALLINE,
-        ELLIPSE
+        ELLIPSE,
+        MASKALL
     };
 
     static int getDefaultLayerWidth() { return m_default_layer_width; }

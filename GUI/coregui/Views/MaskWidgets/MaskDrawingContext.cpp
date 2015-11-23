@@ -75,6 +75,11 @@ bool MaskDrawingContext::isHorizontalLineMode() const
     return m_current_activity.testFlag(MaskEditorFlags::HORIZONTAL_LINE_MODE);
 }
 
+bool MaskDrawingContext::isMaskAllMode() const
+{
+    return m_current_activity.testFlag(MaskEditorFlags::MASKALL_MODE);
+}
+
 bool MaskDrawingContext::isDrawingInProgress() const
 {
     return m_current_activity.testFlag(MaskEditorFlags::DRAWING_IN_PROGRESS);

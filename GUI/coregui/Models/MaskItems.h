@@ -86,6 +86,12 @@ public:
     explicit EllipseItem(ParameterizedItem *parent=0);
 };
 
+class BA_CORE_API_ MaskAllItem : public MaskItem
+{
+    Q_OBJECT
+public:
+    explicit MaskAllItem(ParameterizedItem *parent=0);
+};
 
 
 #endif

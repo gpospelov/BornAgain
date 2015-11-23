@@ -280,6 +280,11 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         return;
     }
 
+    if(isValidForMaskAllDrawing(event)) {
+        processMaskAllItem(event);
+        return;
+    }
+
     if(isDrawingInProgress()) {
         if(isValidForPolygonDrawing(event)) {
            processPolygonItem(event);
@@ -575,15 +580,21 @@ bool MaskGraphicsScene::isAllowedToStartDrawing(QGraphicsSceneMouseEvent *event)
 bool MaskGraphicsScene::isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event)
 {
     if( !(event->buttons() & Qt::LeftButton) ) return false;
-//    if(!m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE)) return false;
     if(!m_context.isPolygonMode()) return false;
     return true;
 }
 
 bool MaskGraphicsScene::isValidForLineDrawing(QGraphicsSceneMouseEvent *event)
 {
-    if( !(event->buttons() & Qt::LeftButton) ) return false;
+    if(!(event->buttons() & Qt::LeftButton)) return false;
     if(!m_context.isLineMode()) return false;
+    return true;
+}
+
+bool MaskGraphicsScene::isValidForMaskAllDrawing(QGraphicsSceneMouseEvent *event)
+{
+    if(!(event->buttons() & Qt::LeftButton)) return false;
+    if(!m_context.isMaskAllMode()) return false;
     return true;
 }
 
@@ -783,6 +794,15 @@ void MaskGraphicsScene::processHorizontalLineItem(const QPointF &pos)
 {
     m_currentItem = m_model->insertNewItem(Constants::HorizontalLineMaskType, m_rootIndex, 0);
     m_currentItem->setRegisteredProperty(HorizontalLineItem::P_POSY, m_adaptor->fromSceneY(pos.y()));
+}
+
+void MaskGraphicsScene::processMaskAllItem(QGraphicsSceneMouseEvent *event)
+{
+    Q_UNUSED(event);
+    setDrawingInProgress(true);
+    m_currentItem = m_model->insertNewItem(Constants::MaskAllType, m_rootIndex);
+    m_selectionModel->clearSelection();
+    setDrawingInProgress(false);
 }
 
 

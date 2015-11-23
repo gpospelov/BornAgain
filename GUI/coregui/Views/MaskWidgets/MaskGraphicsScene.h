@@ -86,6 +86,7 @@ private:
     bool isAllowedToStartDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForLineDrawing(QGraphicsSceneMouseEvent *event);
+    bool isValidForMaskAllDrawing(QGraphicsSceneMouseEvent *event);
 
 
     bool isDrawingInProgress() const;
@@ -100,6 +101,7 @@ private:
     void processLineItem(QGraphicsSceneMouseEvent *event);
     void processVerticalLineItem(const QPointF &pos);
     void processHorizontalLineItem(const QPointF &pos);
+    void processMaskAllItem(QGraphicsSceneMouseEvent *event);
 
     void setZValues();
     PolygonView *getCurrentPolygon() const;

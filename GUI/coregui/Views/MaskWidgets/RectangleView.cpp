@@ -42,6 +42,7 @@ RectangleView::RectangleView()
 
 void RectangleView::onChangedX()
 {
+    qDebug() << "RectangleView::onChangedX()";
     m_block_on_property_change = true;
     m_item->setRegisteredProperty(RectangleItem::P_POSX, fromSceneX(this->x()));
     m_block_on_property_change = false;
@@ -49,6 +50,7 @@ void RectangleView::onChangedX()
 
 void RectangleView::onChangedY()
 {
+    qDebug() << "RectangleView::onChangedY()";
     m_block_on_property_change = true;
     m_item->setRegisteredProperty(RectangleItem::P_POSY, fromSceneY(this->y()));
     m_block_on_property_change = false;
@@ -56,6 +58,7 @@ void RectangleView::onChangedY()
 
 void RectangleView::onPropertyChange(const QString &propertyName)
 {
+    qDebug() << "RectangleView::onPropertyChange()";
     if(m_block_on_property_change) return;
 
     if(propertyName == RectangleItem::P_WIDTH || propertyName == RectangleItem::P_HEIGHT) {
@@ -67,18 +70,34 @@ void RectangleView::onPropertyChange(const QString &propertyName)
     else if(propertyName == RectangleItem::P_POSY) {
         setY(toSceneY(RectangleItem::P_POSY));
     }
+    else if(propertyName == RectangleItem::P_ANGLE) {
+        qDebug() << "   ";
+        qDebug() << "   ";
+
+        QTransform transform;
+        QPointF center = m_bounding_rect.center();
+        qDebug() << "translating" << center << par(RectangleItem::P_ANGLE);
+        transform.translate(center.x(), center.y());
+        transform.rotate(par(RectangleItem::P_ANGLE));
+        transform.translate(-center.x(), -center.y());
+        setTransform(transform);
+        update();
+    }
+
 }
 
 //! triggered by SizeHandleElement
 void RectangleView::onSizeHandleElementRequest(bool going_to_resize)
 {
+    qDebug() << "RectangleView::onSizeHandleElementRequest()";
     if(going_to_resize) {
         setFlag(QGraphicsItem::ItemIsMovable, false);
         m_activeHandleElement = qobject_cast<SizeHandleElement *>(sender());
         Q_ASSERT(m_activeHandleElement);
-        SizeHandleElement::EHandleLocation oposite_corner
-                = m_activeHandleElement->getOppositeHandleLocation();
-        m_resize_opposite_origin = m_resize_handles[oposite_corner]->scenePos();
+//        SizeHandleElement::EHandleLocation oposite_corner
+//                = m_activeHandleElement->getOppositeHandleLocation();
+//        m_resize_opposite_origin = m_resize_handles[oposite_corner]->scenePos();
+        //qDebug() << "       m_resize_opposite_origin:" << m_resize_opposite_origin;
     } else {
         setFlag(QGraphicsItem::ItemIsMovable, true);
         m_activeHandleElement = 0;
@@ -89,8 +108,8 @@ void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, Q
 {
 //    qDebug() << "RectangleView::paint" << getParameterizedItem() << m_adaptor->getViewportRectangle();
 
-    QPolygonF clip_polygon = mapFromScene(m_adaptor->getViewportRectangle());
-    painter->setClipRegion(QRegion(clip_polygon.toPolygon()));
+//    QPolygonF clip_polygon = mapFromScene(m_adaptor->getViewportRectangle());
+//    painter->setClipRegion(QRegion(clip_polygon.toPolygon()));
 
     painter->setRenderHints(QPainter::Antialiasing);
 
@@ -107,6 +126,7 @@ void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, Q
 //! Track if item selected/deselected and show/hide size handles
 QVariant RectangleView::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
 {
+    qDebug() << "RectangleView::itemChange" << change << value;
     if(change == QGraphicsItem::ItemSelectedChange) {
         for(QMap<SizeHandleElement::EHandleLocation, SizeHandleElement *>::iterator
             it = m_resize_handles.begin(); it!= m_resize_handles.end(); ++it) {
@@ -128,12 +148,16 @@ void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     qDebug() << "RectangleView::mouseMoveEvent" << event->scenePos();
 
     if(m_activeHandleElement) {
-        qDebug() << "   opposite_origin:" << m_resize_opposite_origin;
-        qreal xmin = std::min(event->scenePos().x(),m_resize_opposite_origin.x());
-        qreal xmax = std::max(event->scenePos().x(),m_resize_opposite_origin.x());
-        qreal ymin = std::min(event->scenePos().y(),m_resize_opposite_origin.y());
-        qreal ymax = std::max(event->scenePos().y(),m_resize_opposite_origin.y());
-       if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE) {
+
+        QPointF opposite = m_resize_handles[m_activeHandleElement->getOppositeHandleLocation()]->scenePos();
+        qDebug() << "   opposite_origin:" << opposite;
+
+        qreal xmin = std::min(event->scenePos().x(),opposite.x());
+        qreal xmax = std::max(event->scenePos().x(),opposite.x());
+        qreal ymin = std::min(event->scenePos().y(),opposite.y());
+        qreal ymax = std::max(event->scenePos().y(),opposite.y());
+
+        if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE) {
             m_item->setRegisteredProperty(RectangleItem::P_POSX, fromSceneX(xmin));
             m_item->setRegisteredProperty(RectangleItem::P_POSY, fromSceneY(ymin));
             m_item->setRegisteredProperty(RectangleItem::P_WIDTH,
@@ -151,6 +175,8 @@ void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
             m_item->setRegisteredProperty(RectangleItem::P_WIDTH,
                                           fromSceneX(xmax) - fromSceneX(xmin));
         }
+
+        update_bounding_rect();
     } else {
         IMaskView::mouseMoveEvent(event);
     }
@@ -174,6 +200,7 @@ void RectangleView::update_view()
 //! updates view's bounding rectangle using item properties
 void RectangleView::update_bounding_rect()
 {
+    qDebug() << ">>>> IMaskView::update_bounding_rect() -> ";
     if(m_item) {
         m_mask_rect = QRectF(0.0, 0.0, width(), height());
         m_bounding_rect = m_mask_rect.marginsAdded(QMarginsF(bbox_margins, bbox_margins,
@@ -196,12 +223,14 @@ void RectangleView::update_position()
 //! returns the x-coordinate of the rectangle's left edge
 qreal RectangleView::left() const
 {
+    qDebug() << "RectangleView::left()";
     return toSceneX(par(RectangleItem::P_POSX));
 }
 
 //! returns the x-coordinate of the rectangle's right edge
 qreal RectangleView::right() const
 {
+    qDebug() << "RectangleView::right()";
     return toSceneX(par(RectangleItem::P_POSX)+par(RectangleItem::P_WIDTH));
 }
 
@@ -215,12 +244,14 @@ qreal RectangleView::width() const
 //! Returns the y-coordinate of the rectangle's top edge.
 qreal RectangleView::top() const
 {
+    qDebug() << "RectangleView::top()";
     return toSceneY(par(RectangleItem::P_POSY));
 }
 
 //! Returns the y-coordinate of the rectangle's bottom edge.
 qreal RectangleView::bottom() const
 {
+    qDebug() << "RectangleView::bottom()";
     return toSceneY(par(RectangleItem::P_POSY)-par(RectangleItem::P_HEIGHT));
 }
 
@@ -231,6 +262,7 @@ qreal RectangleView::height() const
 
 void RectangleView::create_size_handle_elements()
 {
+    qDebug() << "RectangleView::create_size_handle_elements()";
     QList<SizeHandleElement::EHandleLocation> points;
     points << SizeHandleElement::TOPLEFT << SizeHandleElement::TOPMIDDLE << SizeHandleElement::TOPRIGHT
            << SizeHandleElement::MIDDLERIGHT << SizeHandleElement::BOTTOMRIGHT

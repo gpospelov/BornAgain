@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaskWidgets/RectangleView.h
-//! @brief     Defines RectangleView class
+//! @file      coregui/Views/MaskWidgets/EllipseView.h
+//! @brief     Defines EllipseView class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,24 +13,24 @@
 //
 // ************************************************************************** //
 
-#ifndef RECTANGLEVIEW_H
-#define RECTANGLEVIEW_H
+#ifndef ELLIPSEVIEW_H
+#define ELLIPSEVIEW_H
 
 #include "IMaskView.h"
 #include "SizeHandleElement.h"
 #include <QMap>
 
-//! This is a View of rectangular mask ( represented by RectangleItem) on GraphicsScene.
+//! This is a View of ellipse mask (represented by EllipseItem) on GraphicsScene.
 //! Given view follows standard QGraphicsScene notations: (x,y) is top left corner.
 
-class BA_CORE_API_ RectangleView : public IMaskView
+class BA_CORE_API_ EllipseView : public IMaskView
 {
     Q_OBJECT
 
 public:
-    int type() const { return DesignerHelper::RECTANGLE; }
+    int type() const { return DesignerHelper::ELLIPSE; }
 
-    RectangleView();
+    EllipseView();
 
 public slots:
     virtual void onChangedX();
@@ -51,7 +51,7 @@ protected:
 private:
     void update_view();
     void update_bounding_rect();
-    void update_position();    
+    void update_position();
     qreal left() const;
     qreal right() const;
     qreal width() const;
@@ -64,7 +64,7 @@ private:
 
     QMap<SizeHandleElement::EHandleLocation, SizeHandleElement *> m_resize_handles;
      //!< coordinates of corner opposite to the grip corner at the moment it first clicked
-//    QPointF m_resize_opposite_origin;
+    QPointF m_resize_opposite_origin;
     SizeHandleElement *m_activeHandleElement;
 };
 

@@ -21,6 +21,7 @@
 #include "PolygonView.h"
 #include "PolygonPointView.h"
 #include "LineViews.h"
+#include "EllipseView.h"
 #include "ParameterizedItem.h"
 
 IMaskView *MaskViewFactory::createMaskView(ParameterizedItem *item,
@@ -46,6 +47,10 @@ IMaskView *MaskViewFactory::createMaskView(ParameterizedItem *item,
 
     else if(model_type == Constants::HorizontalLineMaskType) {
         result = new HorizontalLineView();
+    }
+
+    else if(model_type == Constants::EllipseMaskType) {
+        result = new EllipseView();
     }
 
     else {

@@ -87,6 +87,8 @@ void MaskEditor::init_test_model()
     item->setOutputData(simulation->getOutputData()->clone());
     qDebug() << item->getXmin() << item->getXmax() << item->getYmin() << item->getYmax();
 
+    // Rectangle
+
 //    RectangleItem *rect = dynamic_cast<RectangleItem *>(m_maskModel->insertNewItem(Constants::RectangleMaskType, m_maskModel->indexOfItem(item)));
 //    Q_ASSERT(rect);
 //    rect->setRegisteredProperty(RectangleItem::P_POSX, 0.6);
@@ -94,6 +96,7 @@ void MaskEditor::init_test_model()
 //    rect->setRegisteredProperty(RectangleItem::P_WIDTH, 0.3);
 //    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 0.2);
 
+    // Polygon
 //    ParameterizedItem *poly = m_maskModel->insertNewItem(Constants::PolygonMaskType, m_maskModel->indexOfItem(item));
 
 //    ParameterizedItem *p1 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
@@ -106,12 +109,22 @@ void MaskEditor::init_test_model()
 //    p3->setRegisteredProperty(PolygonPointItem::P_POSX, 1.0);
 //    p3->setRegisteredProperty(PolygonPointItem::P_POSY, 0.6);
 
-
+    // Lines
 //   ParameterizedItem *line = m_maskModel->insertNewItem(Constants::VerticalLineMaskType, m_maskModel->indexOfItem(item));
 //   line->setRegisteredProperty(VerticalLineItem::P_POSX, 0.6);
 
 //   ParameterizedItem *line = m_maskModel->insertNewItem(Constants::HorizontalLineMaskType, m_maskModel->indexOfItem(item));
 //   line->setRegisteredProperty(HorizontalLineItem::P_POSY, 1.0);
+
+    // Ellipse
+    EllipseItem *rect = dynamic_cast<EllipseItem *>(m_maskModel->insertNewItem(Constants::EllipseMaskType, m_maskModel->indexOfItem(item)));
+    Q_ASSERT(rect);
+    rect->setRegisteredProperty(EllipseItem::P_POSX, 1.0);
+    rect->setRegisteredProperty(EllipseItem::P_POSY, 1.0);
+    rect->setRegisteredProperty(EllipseItem::P_WIDTH, 0.3);
+    rect->setRegisteredProperty(EllipseItem::P_HEIGHT, 0.2);
+
+
 
     m_editorCanvas->setModel(m_maskModel, m_maskModel->indexOfItem(item));
     m_editorToolPanel->setModel(m_maskModel, m_maskModel->indexOfItem(item));

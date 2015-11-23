@@ -29,15 +29,17 @@ const QString RectangleItem::P_POSX = "X position";
 const QString RectangleItem::P_POSY = "Y position";
 const QString RectangleItem::P_WIDTH = "Width";
 const QString RectangleItem::P_HEIGHT = "Height";
+const QString RectangleItem::P_ANGLE = "Angle";
 
 RectangleItem::RectangleItem(ParameterizedItem *parent)
     : MaskItem(Constants::RectangleMaskType, parent)
 {
-    setItemName(Constants::RectangleMaskType);
+    setItemName(QStringLiteral("Rectangle"));
     registerProperty(P_POSX, 0.0);
     registerProperty(P_POSY, 0.0);
     registerProperty(P_WIDTH, 0.0);
     registerProperty(P_HEIGHT, 0.0);
+    registerProperty(P_ANGLE, 0.0);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -47,7 +49,7 @@ const QString PolygonPointItem::P_POSY = "Y position";
 PolygonPointItem::PolygonPointItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::PolygonPointType, parent)
 {
-    setItemName("Point");
+    setItemName(QStringLiteral("Point"));
     registerProperty(P_POSX, 0.0);
     registerProperty(P_POSY, 0.0);
 }
@@ -60,7 +62,7 @@ const QString PolygonItem::P_ISCLOSED = "Is closed";
 PolygonItem::PolygonItem(ParameterizedItem *parent)
     : MaskItem(Constants::PolygonMaskType, parent)
 {
-    setItemName(Constants::PolygonMaskType);
+    setItemName(QStringLiteral("Polygon"));
     addToValidChildren(Constants::PolygonPointType);
     registerProperty(P_ISCLOSED, false);
 }
@@ -84,4 +86,23 @@ HorizontalLineItem::HorizontalLineItem(ParameterizedItem *parent)
 {
     setItemName(QStringLiteral("HorizontalLine"));
     registerProperty(P_POSY, 0.0);
+}
+
+/* ------------------------------------------------------------------------- */
+
+const QString EllipseItem::P_POSX = "X position";
+const QString EllipseItem::P_POSY = "Y position";
+const QString EllipseItem::P_WIDTH = "Width";
+const QString EllipseItem::P_HEIGHT = "Height";
+const QString EllipseItem::P_ANGLE = "Angle";
+
+EllipseItem::EllipseItem(ParameterizedItem *parent)
+    : MaskItem(Constants::EllipseMaskType, parent)
+{
+    setItemName(QStringLiteral("Rectangle"));
+    registerProperty(P_POSX, 0.0);
+    registerProperty(P_POSY, 0.0);
+    registerProperty(P_WIDTH, 0.0);
+    registerProperty(P_HEIGHT, 0.0);
+    registerProperty(P_ANGLE, 0.0);
 }

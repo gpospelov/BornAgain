@@ -162,7 +162,8 @@ void MaskEditorToolBar::setup_shapes_group()
 
     QToolButton *maskAllButton = new QToolButton(this);
     maskAllButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_maskall.svg"));
-    maskAllButton->setToolTip("Create masked area covering whole detector plane\nWill be placed beneath all masks");
+    maskAllButton->setToolTip("Create masked area covering whole detector plane\n"
+                              "Will be placed beneath all masks. Only one instance is allowed.");
     maskAllButton->setCheckable(true);
     addWidget(maskAllButton);
 

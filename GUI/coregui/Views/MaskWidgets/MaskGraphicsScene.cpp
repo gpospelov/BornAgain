@@ -531,19 +531,27 @@ bool MaskGraphicsScene::isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event
     return true;
 }
 
+//! Returns true if line can be drawn. Lines can't be drawn one close to another
 bool MaskGraphicsScene::isValidForLineDrawing(QGraphicsSceneMouseEvent *event)
 {
     if(isDrawingInProgress()) return false;
     if(!(event->buttons() & Qt::LeftButton)) return false;
     if(!m_context.isLineMode()) return false;
+    if(QGraphicsItem *graphicsItem = itemAt(event->scenePos(), QTransform())) {
+        if(graphicsItem->type() == DesignerHelper::VERTICALLINE || graphicsItem->type() == DesignerHelper::HORIZONTALLINE) return false;
+    }
     return true;
 }
 
+//! Returns true if MaskAllItem can be drawn. Only one item of such type is allowed.
 bool MaskGraphicsScene::isValidForMaskAllDrawing(QGraphicsSceneMouseEvent *event)
 {
     if(isDrawingInProgress()) return false;
     if(!(event->buttons() & Qt::LeftButton)) return false;
     if(!m_context.isMaskAllMode()) return false;
+    foreach(ParameterizedItem *item, m_ItemToView.keys()) {
+        if(item->modelType() == Constants::MaskAllType) return false;
+    }
     return true;
 }
 
@@ -557,22 +565,10 @@ bool MaskGraphicsScene::isAreaContainsSizeHandles(QGraphicsSceneMouseEvent *even
     return false;
 }
 
-//void MaskGraphicsScene::makeSelected(const QModelIndex &parent, int first, int last)
-//{
-//    for (int i_row = first; i_row < last; ++i_row) {
-//        QModelIndex itemIndex = m_model->index(i_row, 0, parent);
-//        IMaskView *view = m_ItemToView[m_model->itemForIndex(itemIndex)];
-//        if(view)
-//            view->setSelected(true);
-//    }
-
-//}
-
 bool MaskGraphicsScene::isDrawingInProgress() const
 {
     return m_context.isDrawingInProgress();
 }
-
 
 void MaskGraphicsScene::setDrawingInProgress(bool value)
 {
@@ -591,27 +587,10 @@ void MaskGraphicsScene::makeViewAtMousePosSelected(QGraphicsSceneMouseEvent *eve
 
 }
 
-//! Makes top graphics item under mouse point selected.
-//void MaskGraphicsScene::makeTopViewSelected(QGraphicsSceneMouseEvent *event)
-//{
-//    QList<QGraphicsItem *> items_beneath = this->items(event->scenePos());
-//    foreach(QGraphicsItem *graphicsItem, items_beneath) {
-//        if(graphicsItem->parentItem() == 0) {
-//            graphicsItem->setSelected(true);
-//            break;
-//        }
-//    }
-
-//}
-
-
-
-
 IMaskView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
 {
     qDebug() << "MaskGraphicsScene::addViewForItem() ->" << item->modelType();
     Q_ASSERT(item);
-
     IMaskView *view = m_ItemToView[item];
     if (!view) {
         qDebug() << "       MaskGraphicsScene::addViewForItem() -> Creating view for item"
@@ -619,22 +598,16 @@ IMaskView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
         view = MaskViewFactory::createMaskView(item, m_adaptor.data());
         if (view) {
             m_ItemToView[item] = view;
-            //view->setParameterizedItem(item);
             addItem(view);
-//            if(item->modelType() == Constants::PolygonMaskType) view->setSelected(true);
             return view;
         }
-    } else {
-        qDebug() << "       DesignerScene::addViewForItem() -> View for item exists."
-                 << item->modelType();
     }
     return view;
 }
 
 
 
-//! This function is called from mouse move event, when both DRAWING_IN_PROGRESS and
-//! RECTANGLE_MODE flags are active.
+//! Processes RectangleItem drawing
 //! If the mouse move distance with left button down is larger than certain threshold,
 //! new RectangleItem will be created. Further, this function will update size and position
 //! of current rectangle if mouse keep moving.
@@ -676,6 +649,7 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
     }
 }
 
+//! Processes EllipseItem drawing
 void MaskGraphicsScene::processEllipseItem(QGraphicsSceneMouseEvent *event)
 {
     if(!isDrawingInProgress()) setDrawingInProgress(true);

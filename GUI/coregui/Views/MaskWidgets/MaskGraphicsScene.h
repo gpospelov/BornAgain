@@ -30,6 +30,7 @@ class MaskGraphicsProxy;
 class QItemSelectionModel;
 class QItemSelection;
 class PolygonView;
+class MaskEditorAction;
 
 //! Graphics scene for MaskEditorCanvas to draw masks on top of intensity data widgets.
 
@@ -42,6 +43,9 @@ public:
     void setModel(SessionModel *model, const QModelIndex &rootIndex);
     void setSelectionModel(QItemSelectionModel *model);
 
+signals:
+    void itemContextMenuRequest(const QPoint &point);
+
 public slots:
     void onActivityModeChanged(MaskEditorFlags::Activity value);
     void onMaskValueChanged(MaskEditorFlags::MaskValue value);
@@ -53,7 +57,7 @@ public slots:
     void deleteSelectedItems();
     void cancelCurrentDrawing();
 
-    void onMaskStackingOrderChanged(MaskEditorFlags::Stacking value);
+//    void onMaskStackingOrderChanged(MaskEditorFlags::Stacking value);
 //    void onBringToFront();
 //    void onSendToBack();
 

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "MaskEditor.h"
+#include "MaskEditorActions.h"
 #include "MaskEditorCanvas.h"
 #include "MaskEditorToolPanel.h"
 #include "MaskEditorToolBar.h"
@@ -21,6 +22,8 @@
 #include "MaskGraphicsView.h"
 #include <QBoxLayout>
 #include <QSplitter>
+#include <QContextMenuEvent>
+#include <QMenu>
 #include <QDebug>
 
 #include "SimulationRegistry.h"
@@ -33,9 +36,10 @@
 
 MaskEditor::MaskEditor(QWidget *parent)
     : QMainWindow(parent)
-    , m_toolBar(new MaskEditorToolBar)
-    , m_editorCanvas(new MaskEditorCanvas(this))
+    , m_itemActions(new MaskEditorActions(this))
+    , m_toolBar(new MaskEditorToolBar(m_itemActions, this))
     , m_editorToolPanel(new MaskEditorToolPanel(this))
+    , m_editorCanvas(new MaskEditorCanvas(this))
     , m_splitter(new QSplitter(this))
     , m_maskModel(0)
 {
@@ -67,6 +71,14 @@ void MaskEditor::onToolPanelRequest()
 {
     qDebug() << "MaskEditor::onToolPanelRequest()";
     m_editorToolPanel->setHidden(!m_editorToolPanel->isHidden());
+}
+
+void MaskEditor::contextMenuEvent(QContextMenuEvent *event)
+{
+    Q_UNUSED(event);
+//    QMenu menu;
+//    m_itemActions->initContextMenu(menu);
+//    menu.exec(event->globalPos());
 }
 
 void MaskEditor::init_test_model()
@@ -126,11 +138,13 @@ void MaskEditor::init_test_model()
 
 //    MaskAllItem *rect = dynamic_cast<MaskAllItem *>(m_maskModel->insertNewItem(Constants::MaskAllType, m_maskModel->indexOfItem(item)));
 
+    m_editorToolPanel->setModel(m_maskModel, m_maskModel->indexOfItem(item));
 
     m_editorCanvas->setModel(m_maskModel, m_maskModel->indexOfItem(item));
-    m_editorToolPanel->setModel(m_maskModel, m_maskModel->indexOfItem(item));
     m_editorCanvas->setSelectionModel(m_editorToolPanel->selectionModel());
 
+    m_itemActions->setModel(m_maskModel, m_maskModel->indexOfItem(item));
+    m_itemActions->setSelectionModel(m_editorToolPanel->selectionModel());
 
 }
 
@@ -164,17 +178,18 @@ void MaskEditor::setup_connections()
             SLOT(onResetViewRequest())
             );
 
-    // mask stacking order change request is propagated from tool bar to graphics scene
-    connect(m_toolBar,
-            SIGNAL(stackingOrderChanged(MaskEditorFlags::Stacking)),
-            m_editorCanvas->getScene(),
-            SLOT(onMaskStackingOrderChanged(MaskEditorFlags::Stacking))
-            );
-
     // space bar push (request for zoom mode) is propagated from graphics view to tool bar
     connect(m_editorCanvas->getView(),
             SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)),
             m_toolBar,
             SLOT(onChangeActivityRequest(MaskEditorFlags::Activity))
             );
+
+    // item context menu request is propagated from graphics scene to MaskEditorActions
+    connect(m_editorCanvas->getScene(),
+            SIGNAL(itemContextMenuRequest(QPoint)),
+            m_itemActions,
+            SLOT(onItemContextMenuRequest(QPoint))
+            );
+
 }

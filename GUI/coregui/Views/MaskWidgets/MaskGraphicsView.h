@@ -52,8 +52,6 @@ private:
     bool isControlButtonIsPressed(QWheelEvent *event);
     void deleteSelectedItems();
     void cancelCurrentDrawing();
-    void bringToFront();
-    void sendToBack();
 
     void setZoomValue(double zoom_value);
     void decreazeZoomValue();

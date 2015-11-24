@@ -186,12 +186,6 @@ void MaskGraphicsView::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Escape:
         cancelCurrentDrawing();
         break;
-    case Qt::Key_PageUp:
-        bringToFront();
-        break;
-    case Qt::Key_PageDown:
-        sendToBack();
-        break;
     case Qt::Key_Delete:
         deleteSelectedItems();
         break;
@@ -239,18 +233,6 @@ void MaskGraphicsView::cancelCurrentDrawing()
     MaskGraphicsScene *maskScene = dynamic_cast<MaskGraphicsScene *>(scene());
     Q_ASSERT(maskScene);
     maskScene->cancelCurrentDrawing();
-}
-
-void MaskGraphicsView::bringToFront()
-{
-    MaskGraphicsScene *maskScene = dynamic_cast<MaskGraphicsScene *>(scene());
-    maskScene->onMaskStackingOrderChanged(MaskEditorFlags::BRING_TO_FRONT);
-}
-
-void MaskGraphicsView::sendToBack()
-{
-    MaskGraphicsScene *maskScene = dynamic_cast<MaskGraphicsScene *>(scene());
-    maskScene->onMaskStackingOrderChanged(MaskEditorFlags::SEND_TO_BACK);
 }
 
 void MaskGraphicsView::setZoomValue(double zoom_value)

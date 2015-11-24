@@ -20,6 +20,7 @@
 #include "MaskEditorFlags.h"
 #include <QToolBar>
 
+class MaskEditorActions;
 class QButtonGroup;
 
 //! Main class to draw masks on top of intensity data map
@@ -28,12 +29,11 @@ class BA_CORE_API_ MaskEditorToolBar : public QToolBar
 {
     Q_OBJECT
 public:
-    MaskEditorToolBar(QWidget *parent = 0);
+    MaskEditorToolBar(MaskEditorActions *editorActions, QWidget *parent = 0);
 
 signals:
     void activityModeChanged(MaskEditorFlags::Activity);
     void toolPanelRequest();
-    void stackingOrderChanged(MaskEditorFlags::Stacking);
     void maskValueChanged(MaskEditorFlags::MaskValue);
     void resetViewRequest();
 
@@ -43,7 +43,6 @@ public slots:
 private slots:
     void onActivityGroupChange(int value);
     void onMaskValueGroupChange(int value);
-    void onStackingOrderGroupChange(int value);
 
 private:
     void setup_selection_group();
@@ -56,9 +55,9 @@ private:
     MaskEditorFlags::Activity getCurrentActivity() const;
     void setCurrentActivity(MaskEditorFlags::Activity value);
 
+    MaskEditorActions *m_editorActions;
     QButtonGroup *m_activityButtonGroup;
     QButtonGroup *m_maskValueGroup;
-    QButtonGroup *m_maskStackingOrderGroup;
     MaskEditorFlags::Activity m_previousActivity;
 };
 

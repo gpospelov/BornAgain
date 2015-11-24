@@ -20,11 +20,12 @@
 #include <QWidget>
 #include <QMainWindow>
 
-class MaskEditorCanvas;
 class MaskEditorToolPanel;
+class MaskEditorActions;
+class MaskEditorToolBar;
+class MaskEditorCanvas;
 class QSplitter;
 class MaskModel;
-class MaskEditorToolBar;
 
 //! Main class to draw masks on top of intensity data map
 
@@ -37,13 +38,17 @@ public:
 public slots:
     void onToolPanelRequest();
 
+protected:
+    void contextMenuEvent(QContextMenuEvent *event);
+
 private:
     void init_test_model();
     void setup_connections();
 
+    MaskEditorActions *m_itemActions;
     MaskEditorToolBar *m_toolBar;
-    MaskEditorCanvas *m_editorCanvas;
     MaskEditorToolPanel *m_editorToolPanel;
+    MaskEditorCanvas *m_editorCanvas;
     QSplitter *m_splitter;
     MaskModel *m_maskModel;
 };

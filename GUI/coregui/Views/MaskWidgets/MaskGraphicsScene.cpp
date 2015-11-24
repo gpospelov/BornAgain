@@ -191,28 +191,28 @@ void MaskGraphicsScene::cancelCurrentDrawing()
 }
 
 //! every selected mask will be moved according to MaskEditorFlags::Stacking request.
-void MaskGraphicsScene::onMaskStackingOrderChanged(MaskEditorFlags::Stacking value)
-{
-    int change_in_row(0);
-    if(value == MaskEditorFlags::BRING_TO_FRONT) change_in_row = -1;
-    if(value == MaskEditorFlags::SEND_TO_BACK) change_in_row = 2;
+//void MaskGraphicsScene::onMaskStackingOrderChanged(MaskEditorFlags::Stacking value)
+//{
+//    int change_in_row(0);
+//    if(value == MaskEditorFlags::BRING_TO_FRONT) change_in_row = -1;
+//    if(value == MaskEditorFlags::SEND_TO_BACK) change_in_row = 2;
 
-    QModelIndexList indexes = m_selectionModel->selectedIndexes();
+//    QModelIndexList indexes = m_selectionModel->selectedIndexes();
 
-    foreach(QModelIndex itemIndex, indexes) {
-        if(ParameterizedItem *item =  m_model->itemForIndex(itemIndex)) {
-            int new_row = itemIndex.row() + change_in_row;
-            if(new_row >= 0 && new_row <= m_model->rowCount(m_rootIndex)) {
-                ParameterizedItem *newItem =
-                        m_model->moveParameterizedItem(item,
-                                                       m_model->itemForIndex(m_rootIndex), new_row);
-                m_selectionModel->select(m_model->indexOfItem(newItem),
-                                         QItemSelectionModel::Select);
-            }
-        }
-    }
+//    foreach(QModelIndex itemIndex, indexes) {
+//        if(ParameterizedItem *item =  m_model->itemForIndex(itemIndex)) {
+//            int new_row = itemIndex.row() + change_in_row;
+//            if(new_row >= 0 && new_row <= m_model->rowCount(m_rootIndex)) {
+//                ParameterizedItem *newItem =
+//                        m_model->moveParameterizedItem(item,
+//                                                       m_model->itemForIndex(m_rootIndex), new_row);
+//                m_selectionModel->select(m_model->indexOfItem(newItem),
+//                                         QItemSelectionModel::Select);
+//            }
+//        }
+//    }
 
-}
+//}
 
 //! propagate selection from model to scene
 void MaskGraphicsScene::onSessionSelectionChanged(const QItemSelection & /* selected */,
@@ -392,40 +392,49 @@ void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF &)
 
 void MaskGraphicsScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
-        QMenu menu;
-        QAction *toggleMaskValueAction = menu.addAction("Toggle mask value");
-        QAction *bringToFrontAction = menu.addAction("Rise mask up");
-        QAction *sendToBackAction = menu.addAction("Lower mask down");
-        menu.addSeparator();
-        QAction *removeAction = menu.addAction("Remove mask");
-
-        IMaskView *view = dynamic_cast<IMaskView *>(itemAt(event->scenePos(), QTransform()));
-        if(!view) {
-            toggleMaskValueAction->setDisabled(true);
-            bringToFrontAction->setDisabled(true);
-            sendToBackAction->setDisabled(true);
-            removeAction->setDisabled(true);
-        } else {
-            if(isTopMostMask(view)) bringToFrontAction->setDisabled(true);
-            if(isBottomMostMask(view)) sendToBackAction->setDisabled(true);
-
-        }
-
-        QAction *selectedAction = menu.exec(event->screenPos());
-        if(selectedAction == toggleMaskValueAction) {
-            bool old_value = view->getParameterizedItem()->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
-            view->getParameterizedItem()->setRegisteredProperty(MaskItem::P_MASK_VALUE, !old_value);
-        }
-        else if(selectedAction == removeAction) {
-            deleteSelectedItems();
-        }
-        else if(selectedAction == bringToFrontAction) {
-            onMaskStackingOrderChanged(MaskEditorFlags::BRING_TO_FRONT);
-        }
-        else if(selectedAction == sendToBackAction) {
-            onMaskStackingOrderChanged(MaskEditorFlags::SEND_TO_BACK);
-        }
+    IMaskView *view = dynamic_cast<IMaskView *>(itemAt(event->scenePos(), QTransform()));
+    if(view) {
+        emit itemContextMenuRequest(event->screenPos());
+    }
 }
+
+
+//void MaskGraphicsScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+//{
+//        QMenu menu;
+//        QAction *toggleMaskValueAction = menu.addAction("Toggle mask value");
+//        QAction *bringToFrontAction = menu.addAction("Rise mask up");
+//        QAction *sendToBackAction = menu.addAction("Lower mask down");
+//        menu.addSeparator();
+//        QAction *removeAction = menu.addAction("Remove mask");
+
+//        IMaskView *view = dynamic_cast<IMaskView *>(itemAt(event->scenePos(), QTransform()));
+//        if(!view) {
+//            toggleMaskValueAction->setDisabled(true);
+//            bringToFrontAction->setDisabled(true);
+//            sendToBackAction->setDisabled(true);
+//            removeAction->setDisabled(true);
+//        } else {
+//            if(isTopMostMask(view)) bringToFrontAction->setDisabled(true);
+//            if(isBottomMostMask(view)) sendToBackAction->setDisabled(true);
+
+//        }
+
+//        QAction *selectedAction = menu.exec(event->screenPos());
+//        if(selectedAction == toggleMaskValueAction) {
+//            bool old_value = view->getParameterizedItem()->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
+//            view->getParameterizedItem()->setRegisteredProperty(MaskItem::P_MASK_VALUE, !old_value);
+//        }
+//        else if(selectedAction == removeAction) {
+//            deleteSelectedItems();
+//        }
+//        else if(selectedAction == bringToFrontAction) {
+//            onMaskStackingOrderChanged(MaskEditorFlags::BRING_TO_FRONT);
+//        }
+//        else if(selectedAction == sendToBackAction) {
+//            onMaskStackingOrderChanged(MaskEditorFlags::SEND_TO_BACK);
+//        }
+//}
 
 
 void MaskGraphicsScene::init_scene()

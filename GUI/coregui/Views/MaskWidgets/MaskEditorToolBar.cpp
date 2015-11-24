@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "MaskEditorToolBar.h"
+#include "MaskEditorActions.h"
 #include <QStyle>
 #include <QVariant>
 #include <QToolButton>
@@ -26,16 +27,13 @@ namespace {
 const int toolbar_icon_size = 32;
 }
 
-MaskEditorToolBar::MaskEditorToolBar(QWidget *parent)
+MaskEditorToolBar::MaskEditorToolBar(MaskEditorActions *editorActions, QWidget *parent)
     : QToolBar(parent)
+    , m_editorActions(editorActions)
     , m_activityButtonGroup(new QButtonGroup(this))
     , m_maskValueGroup(new QButtonGroup(this))
-    , m_maskStackingOrderGroup(new QButtonGroup(this))
 {
-    // const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
-    // setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
     setIconSize(QSize(toolbar_icon_size, toolbar_icon_size));
-
     setProperty("_q_custom_style_disabled", QVariant(true));
 
     setup_selection_group();
@@ -52,11 +50,8 @@ MaskEditorToolBar::MaskEditorToolBar(QWidget *parent)
             this, SLOT(onActivityGroupChange(int)));
     connect(m_maskValueGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(onMaskValueGroupChange(int)));
-    connect(m_maskStackingOrderGroup, SIGNAL(buttonClicked(int)),
-            this, SLOT(onStackingOrderGroupChange(int)));
 
     m_previousActivity = getCurrentActivity();
-
 }
 
 //! Handles ZOOM requests from MaskGraphicsView while user press and holds
@@ -83,12 +78,6 @@ void MaskEditorToolBar::onMaskValueGroupChange(int value)
     Q_UNUSED(value);
     emit maskValueChanged(MaskEditorFlags::MaskValue(value));
 }
-
-void MaskEditorToolBar::onStackingOrderGroupChange(int value)
-{
-    emit stackingOrderChanged(MaskEditorFlags::Stacking(value));
-}
-
 
 void MaskEditorToolBar::setup_selection_group()
 {
@@ -187,18 +176,9 @@ void MaskEditorToolBar::setup_shapes_group()
 
 void MaskEditorToolBar::setup_maskmodify_group()
 {
-    QToolButton *bringToFrontButton = new QToolButton(this);
-    bringToFrontButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_bringtofront.svg"));
-    bringToFrontButton->setToolTip("Rise selected mask one level up (PageUp)");
-    addWidget(bringToFrontButton);
-
-    QToolButton *sendToBackButton = new QToolButton(this);
-    sendToBackButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_sendtoback.svg"));
-    sendToBackButton->setToolTip("Lower selected mask one level down (PageDown)");
-    addWidget(sendToBackButton);
-
-    m_maskStackingOrderGroup->addButton(bringToFrontButton, MaskEditorFlags::BRING_TO_FRONT);
-    m_maskStackingOrderGroup->addButton(sendToBackButton, MaskEditorFlags::SEND_TO_BACK);
+    Q_ASSERT(m_editorActions);
+    addAction(m_editorActions->getBringToFrontAction());
+    addAction(m_editorActions->getSendToBackAction());
 }
 
 void MaskEditorToolBar::setup_extratools_group()

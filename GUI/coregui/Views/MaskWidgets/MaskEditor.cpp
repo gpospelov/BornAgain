@@ -192,4 +192,11 @@ void MaskEditor::setup_connections()
             SLOT(onItemContextMenuRequest(QPoint))
             );
 
+    // item context menu request is propagated from InfoPanel to MaskEditorActions
+    connect(m_editorToolPanel,
+            SIGNAL(itemContextMenuRequest(QPoint)),
+            m_itemActions,
+            SLOT(onItemContextMenuRequest(QPoint))
+            );
+
 }

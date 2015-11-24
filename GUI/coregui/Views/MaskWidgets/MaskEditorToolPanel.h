@@ -41,8 +41,12 @@ public:
     void setModel(SessionModel *model, const QModelIndex &root_index);
     QItemSelectionModel* selectionModel();
 
+signals:
+    void itemContextMenuRequest(const QPoint &point);
+
 private slots:
     void onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
+    void onCustomContextMenuRequested(const QPoint &point);
 
 private:
     QListView *m_listView;

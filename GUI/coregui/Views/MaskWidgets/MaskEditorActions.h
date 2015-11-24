@@ -57,6 +57,7 @@ private:
     void changeMaskStackingOrder(MaskEditorFlags::Stacking value);
     bool isBringToFrontPossible() const;
     bool isSendToBackPossible() const;
+    void setAllActionsEnabled(bool value);
 
     QAction *m_toggleMaskValueAction;
     QAction *m_bringToFrontAction;

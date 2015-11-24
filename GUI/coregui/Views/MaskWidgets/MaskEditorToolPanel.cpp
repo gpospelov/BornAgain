@@ -35,6 +35,10 @@ MaskEditorToolPanel::MaskEditorToolPanel(QWidget *parent)
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
     setObjectName(QLatin1String("MaskEditorToolPanel"));
 
+    m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(m_listView, SIGNAL(customContextMenuRequested(const QPoint &)),
+            this, SLOT(onCustomContextMenuRequested(const QPoint &)));
+
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_propertyEditor);
     mainLayout->addWidget(m_listView);
@@ -68,5 +72,10 @@ void MaskEditorToolPanel::onSelectionChanged(const QItemSelection &selected, con
     } else {
         m_propertyEditor->setItem(0);
     }
+}
+
+void MaskEditorToolPanel::onCustomContextMenuRequested(const QPoint &point)
+{
+    emit itemContextMenuRequest(m_listView->mapToGlobal(point));
 }
 

@@ -77,8 +77,7 @@ void MaskEditorActions::onItemContextMenuRequest(const QPoint &point)
     QMenu menu;
     initItemContextMenu(menu);
     menu.exec(point);
-    m_sendToBackAction->setEnabled(true);
-    m_bringToFrontAction->setEnabled(true);
+    setAllActionsEnabled(true);
 }
 
 //! Performs switch of mask value for all selected items (true -> false, false -> true)
@@ -169,6 +168,14 @@ bool MaskEditorActions::isSendToBackPossible() const
     return result;
 }
 
+void MaskEditorActions::setAllActionsEnabled(bool value)
+{
+    m_sendToBackAction->setEnabled(value);
+    m_bringToFrontAction->setEnabled(value);
+    m_toggleMaskValueAction->setEnabled(value);
+    m_deleteMaskAction->setEnabled(value);
+}
+
 //! Init external context menu with currently defined actions.
 //! Triggered from MaskGraphicsScene of MaskEditorInfoPanel (QListView)
 void MaskEditorActions::initItemContextMenu(QMenu &menu)
@@ -176,6 +183,9 @@ void MaskEditorActions::initItemContextMenu(QMenu &menu)
     Q_ASSERT(m_maskModel);
     Q_ASSERT(m_selectionModel);
 
+    if(m_selectionModel->selectedIndexes().isEmpty()) {
+        setAllActionsEnabled(false);
+    }
     m_sendToBackAction->setEnabled(isSendToBackPossible());
     m_bringToFrontAction->setEnabled(isBringToFrontPossible());
 

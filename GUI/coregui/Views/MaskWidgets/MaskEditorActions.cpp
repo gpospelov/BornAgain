@@ -26,7 +26,6 @@ MaskEditorActions::MaskEditorActions(QWidget *parent)
     , m_maskModel(0)
     , m_selectionModel(0)
 {
-
     m_toggleMaskValueAction = new QAction(QStringLiteral("Toggle mask value"), parent);
     connect(m_toggleMaskValueAction, SIGNAL(triggered()), this, SLOT(onToggleMaskValueAction()));
 
@@ -71,14 +70,18 @@ QAction *MaskEditorActions::getBringToFrontAction()
     return m_bringToFrontAction;
 }
 
+//! Constructs MaskItem context menu following the request from MaskGraphicsScene
+//! or MaskEditorInfoPanel
 void MaskEditorActions::onItemContextMenuRequest(const QPoint &point)
 {
     QMenu menu;
     initItemContextMenu(menu);
     menu.exec(point);
+    m_sendToBackAction->setEnabled(true);
+    m_bringToFrontAction->setEnabled(true);
 }
 
-//! Performs switch of mask value for all selected items
+//! Performs switch of mask value for all selected items (true -> false, false -> true)
 void MaskEditorActions::onToggleMaskValueAction()
 {
     qDebug() << "MaskEditorActions::onToggleMaskValueAction()";
@@ -142,12 +145,39 @@ void MaskEditorActions::changeMaskStackingOrder(MaskEditorFlags::Stacking value)
     }
 }
 
+//! Returns true if at least one of MaskItems in the selection can be moved one level up
+//! (Naturally, it is always true, if selection contains more than one item. If selection contains
+//! only one item, the result will depend on position of item on the stack.
+//! Top item can't be moved up. Used to disable corresponding context menu line.)
+bool MaskEditorActions::isBringToFrontPossible() const
+{
+    bool result(false);
+    QModelIndexList indexes = m_selectionModel->selectedIndexes();
+    if(indexes.size() == 1 && indexes.front().row() != 0) result=true;
+    return result;
+}
+
+//! Returns true if at least one of MaskItems in the selection can be moved one level down.
+bool MaskEditorActions::isSendToBackPossible() const
+{
+    bool result(false);
+    QModelIndexList indexes = m_selectionModel->selectedIndexes();
+    if(indexes.size() == 1) {
+        ParameterizedItem *item = m_maskModel->itemForIndex(indexes.front());
+        if(indexes.front().row() != item->parent()->childItemCount() -1) result = true;
+    }
+    return result;
+}
+
 //! Init external context menu with currently defined actions.
 //! Triggered from MaskGraphicsScene of MaskEditorInfoPanel (QListView)
 void MaskEditorActions::initItemContextMenu(QMenu &menu)
 {
     Q_ASSERT(m_maskModel);
     Q_ASSERT(m_selectionModel);
+
+    m_sendToBackAction->setEnabled(isSendToBackPossible());
+    m_bringToFrontAction->setEnabled(isBringToFrontPossible());
 
     menu.addAction(m_toggleMaskValueAction);
     menu.addAction(m_bringToFrontAction);

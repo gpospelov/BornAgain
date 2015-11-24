@@ -55,6 +55,8 @@ private slots:
 private:
     void initItemContextMenu(QMenu &menu);
     void changeMaskStackingOrder(MaskEditorFlags::Stacking value);
+    bool isBringToFrontPossible() const;
+    bool isSendToBackPossible() const;
 
     QAction *m_toggleMaskValueAction;
     QAction *m_bringToFrontAction;

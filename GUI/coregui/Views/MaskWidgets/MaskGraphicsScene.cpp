@@ -233,6 +233,15 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "MaskGraphicsScene::mousePressEvent()";
 
+    if(!isDrawingInProgress() && (event->buttons() & Qt::RightButton) ) {
+        if(QGraphicsItem *graphicsItem = itemAt(event->scenePos(), QTransform())) {
+            clearSelection();
+            graphicsItem->setSelected(true);
+        }
+        return;
+    }
+
+
     if(isDrawingInProgress() == false && isAllowedToStartDrawing(event)) {
         setDrawingInProgress(true);
     }
@@ -355,6 +364,7 @@ void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF &)
 //! creates item context menu if there is IMaskView beneath the mouse right click
 void MaskGraphicsScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
+    if(isDrawingInProgress()) return;
     IMaskView *view = dynamic_cast<IMaskView *>(itemAt(event->scenePos(), QTransform()));
     if(view) {
         emit itemContextMenuRequest(event->screenPos());
@@ -766,22 +776,4 @@ PolygonView *MaskGraphicsScene::getCurrentPolygon() const
     }
     return result;
 }
-
-//! returns true if current mask is top most in the stask
-bool MaskGraphicsScene::isTopMostMask(IMaskView *view)
-{
-    ParameterizedItem *item = view->getParameterizedItem();
-    QModelIndex index = m_model->indexOfItem(item);
-    if(index.row() == 0) return true;
-    return false;
-}
-
-bool MaskGraphicsScene::isBottomMostMask(IMaskView *view)
-{
-    ParameterizedItem *item = view->getParameterizedItem();
-    QModelIndex index = m_model->indexOfItem(item);
-    if(index.row() == item->parent()->childItemCount() -1) return true;
-    return false;
-}
-
 

@@ -104,8 +104,6 @@ private:
 
     void setZValues();
     PolygonView *getCurrentPolygon() const;
-    bool isTopMostMask(IMaskView *view);
-    bool isBottomMostMask(IMaskView *view);
 
     SessionModel *m_model;
     QItemSelectionModel *m_selectionModel;

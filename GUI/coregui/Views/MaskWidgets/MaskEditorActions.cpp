@@ -21,7 +21,7 @@
 #include <QMenu>
 #include <QDebug>
 
-MaskEditorActions::MaskEditorActions(QObject *parent)
+MaskEditorActions::MaskEditorActions(QWidget *parent)
     : QObject(parent)
     , m_maskModel(0)
     , m_selectionModel(0)
@@ -43,6 +43,9 @@ MaskEditorActions::MaskEditorActions(QObject *parent)
     connect(m_sendToBackAction, SIGNAL(triggered()), this, SLOT(onSendToBackAction()));
 
     m_deleteMaskAction = new QAction(QStringLiteral("Remove mask"), parent);
+    m_deleteMaskAction->setToolTip("Remove selected mask (Del)");
+    m_deleteMaskAction->setShortcuts(QKeySequence::Delete);
+    parent->addAction(m_deleteMaskAction);
     connect(m_deleteMaskAction, SIGNAL(triggered()), this, SLOT(onDeleteMaskAction()));
 
 }
@@ -91,21 +94,30 @@ void MaskEditorActions::onToggleMaskValueAction()
 
 void MaskEditorActions::onBringToFrontAction()
 {
+    qDebug() << "MaskEditorActions::onBringToFrontAction()";
     changeMaskStackingOrder(MaskEditorFlags::BRING_TO_FRONT);
 }
 
 void MaskEditorActions::onSendToBackAction()
 {
+    qDebug() << "MaskEditorActions::onSendToBackAction()";
     changeMaskStackingOrder(MaskEditorFlags::SEND_TO_BACK);
 }
 
 void MaskEditorActions::onDeleteMaskAction()
 {
+    qDebug() << "MaskEditorActions::onDeleteMaskAction()";
     Q_ASSERT(m_maskModel);
     Q_ASSERT(m_selectionModel);
 
+    QModelIndexList indexes = m_selectionModel->selectedIndexes();
+    while (indexes.size()) {
+        m_maskModel->removeRows(indexes.back().row(), 1, indexes.back().parent());
+        indexes = m_selectionModel->selectedIndexes();
+    }
 }
 
+//! Lower mask one level down or rise one level up in the masks stack
 void MaskEditorActions::changeMaskStackingOrder(MaskEditorFlags::Stacking value)
 {
     Q_ASSERT(m_maskModel);
@@ -121,9 +133,8 @@ void MaskEditorActions::changeMaskStackingOrder(MaskEditorFlags::Stacking value)
         if(ParameterizedItem *item =  m_maskModel->itemForIndex(itemIndex)) {
             int new_row = itemIndex.row() + change_in_row;
             if(new_row >= 0 && new_row <= m_maskModel->rowCount(m_rootIndex)) {
-                ParameterizedItem *newItem =
-                        m_maskModel->moveParameterizedItem(item,
-                                                       m_maskModel->itemForIndex(m_rootIndex), new_row);
+                ParameterizedItem *newItem = m_maskModel->moveParameterizedItem(
+                            item,m_maskModel->itemForIndex(m_rootIndex), new_row);
                 m_selectionModel->select(m_maskModel->indexOfItem(newItem),
                                          QItemSelectionModel::Select);
             }
@@ -131,9 +142,8 @@ void MaskEditorActions::changeMaskStackingOrder(MaskEditorFlags::Stacking value)
     }
 }
 
-
 //! Init external context menu with currently defined actions.
-//! Can be called from MaskGraphicsScene of MaskEditorInfoPanel (QListView)
+//! Triggered from MaskGraphicsScene of MaskEditorInfoPanel (QListView)
 void MaskEditorActions::initItemContextMenu(QMenu &menu)
 {
     Q_ASSERT(m_maskModel);

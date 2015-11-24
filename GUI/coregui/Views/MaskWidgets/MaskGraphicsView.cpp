@@ -39,7 +39,7 @@ MaskGraphicsView::MaskGraphicsView(QGraphicsScene *scene, QWidget *parent)
     setMouseTracking(true);
 }
 
-//! Reset given view to original zoom state. Also assks graphics scene to do the same with color map.
+//! Reset given view to original zoom state. Also asks graphics scene to do the same with color map.
 void MaskGraphicsView::onResetViewRequest()
 {
     qDebug() << "MaskGraphicsView::onResetViewRequest()";
@@ -186,12 +186,6 @@ void MaskGraphicsView::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Escape:
         cancelCurrentDrawing();
         break;
-    case Qt::Key_Delete:
-        deleteSelectedItems();
-        break;
-    case Qt::Key_Backspace:
-        deleteSelectedItems();
-        break;
     default:
         QWidget::keyPressEvent(event);
     }
@@ -219,13 +213,6 @@ bool MaskGraphicsView::isControlButtonIsPressed(QWheelEvent *event)
         return true;
     }
     return false;
-}
-
-void MaskGraphicsView::deleteSelectedItems()
-{
-    MaskGraphicsScene *maskScene = dynamic_cast<MaskGraphicsScene *>(scene());
-    Q_ASSERT(maskScene);
-    maskScene->deleteSelectedItems();
 }
 
 void MaskGraphicsView::cancelCurrentDrawing()

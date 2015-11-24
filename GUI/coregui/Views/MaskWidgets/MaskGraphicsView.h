@@ -32,8 +32,6 @@ public:
     QSize sizeHint() const { return QSize(512, 512); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
 
-//    void setColorMapProxy(MaskGraphicsProxy *colorMapProxy);
-
 public slots:
     void onResetViewRequest();
 
@@ -50,7 +48,6 @@ protected:
 
 private:
     bool isControlButtonIsPressed(QWheelEvent *event);
-    void deleteSelectedItems();
     void cancelCurrentDrawing();
 
     void setZoomValue(double zoom_value);

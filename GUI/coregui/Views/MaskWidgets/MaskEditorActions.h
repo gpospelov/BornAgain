@@ -35,7 +35,7 @@ class BA_CORE_API_ MaskEditorActions : public QObject
 {
     Q_OBJECT
 public:
-    MaskEditorActions(QObject *parent);
+    MaskEditorActions(QWidget *parent);
 
     void setModel(SessionModel *maskModel, const QModelIndex &rootIndex);
     void setSelectionModel(QItemSelectionModel *selectionModel);

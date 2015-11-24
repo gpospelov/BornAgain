@@ -20,6 +20,7 @@
 #include "PropertyVariantManager.h"
 #include "GroupPropertyRegistry.h"
 #include "FancyGroupProperty.h"
+
 #include <QEvent>
 #include <QDynamicPropertyChangeEvent>
 #include <QDebug>
@@ -100,9 +101,6 @@ bool ParameterizedItem::event(QEvent *e)
         Q_ASSERT(e);
         QByteArray byte_array = propertyEvent->propertyName();
         QString name(byte_array.constData());
-        //        if (m_sub_items.contains(name)) {
-        //            updatePropertyItem(name);
-        //        }
         onPropertyChange(name);
     }
     return QObject::event(e);

@@ -34,18 +34,9 @@ BeamItem::BeamItem(ParameterizedItem *parent)
 {
     ScientificDoubleProperty intensity(1e+08);
     registerProperty(P_INTENSITY, intensity.getVariant(), PropertyAttribute(AttLimits::limited(0.0, 1e+32)));
-
     registerGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
-//    BeamDistributionItem *distributionItem = dynamic_cast<BeamDistributionItem *>(item);
-//    distributionItem->setInitialValue(0.1, PropertyAttribute(PropertyAttribute::HIDDEN, AttLimits::lowerLimited(1e-4), 4));
-
     registerGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
-//    BeamDistributionItem *distributionItem = dynamic_cast<BeamDistributionItem *>(item);
-//    distributionItem->setInitialValue(0.2, PropertyAttribute(PropertyAttribute::HIDDEN, AttLimits::limited(0.0, 90.0), 2));
-
     registerGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);
-//    distributionItem = dynamic_cast<BeamDistributionItem *>(item);
-//    distributionItem->setInitialValue(0.0, PropertyAttribute(PropertyAttribute::HIDDEN, AttLimits::limited(-90.0, 90.0), 2));
 }
 
 double BeamItem::getIntensity() const

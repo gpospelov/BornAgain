@@ -83,14 +83,16 @@ private:
 //    void makeSelected(const QModelIndex &parent, int first, int last);
 
     bool isAllowedToStartDrawing(QGraphicsSceneMouseEvent *event);
+    bool isValidForRectangleDrawing(QGraphicsSceneMouseEvent *event);
+    bool isValidForEllipseDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForLineDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForMaskAllDrawing(QGraphicsSceneMouseEvent *event);
-
+    bool isAreaContainsSizeHandles(QGraphicsSceneMouseEvent *event);
 
     bool isDrawingInProgress() const;
     void setDrawingInProgress(bool value);
-//    void makeTopViewSelected(QGraphicsSceneMouseEvent *event);
+    void makeViewAtMousePosSelected(QGraphicsSceneMouseEvent *event);
 
     IMaskView* addViewForItem(ParameterizedItem *item);
 

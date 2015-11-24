@@ -233,17 +233,13 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "MaskGraphicsScene::mousePressEvent()";
 
-    if(!isDrawingInProgress() && (event->buttons() & Qt::RightButton) ) {
-        if(QGraphicsItem *graphicsItem = itemAt(event->scenePos(), QTransform())) {
-            clearSelection();
-            graphicsItem->setSelected(true);
+    if(event->buttons() & Qt::RightButton) {
+        if(isDrawingInProgress()) {
+            cancelCurrentDrawing();
+        } else {
+            makeViewAtMousePosSelected(event);
         }
         return;
-    }
-
-
-    if(isDrawingInProgress() == false && isAllowedToStartDrawing(event)) {
-        setDrawingInProgress(true);
     }
 
     if(isValidForLineDrawing(event)) {
@@ -256,43 +252,39 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         return;
     }
 
-    if(isDrawingInProgress()) {
-        if(isValidForPolygonDrawing(event)) {
-           processPolygonItem(event);
-        } else {
-            QGraphicsScene::mousePressEvent(event);
-        }
-
-    } else {
-        QGraphicsScene::mousePressEvent(event);
+    if(isValidForPolygonDrawing(event)) {
+        processPolygonItem(event);
+        return;
     }
 
+    if(isValidForRectangleDrawing(event)) {
+        processRectangleItem(event);
+        return;
+    }
+
+    if(isValidForEllipseDrawing(event)) {
+        processEllipseItem(event);
+        return;
+    }
+
+    QGraphicsScene::mousePressEvent(event);
 }
-
-
 
 void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "MaskGraphicsScene::mouseMoveEvent()";
-    if(isDrawingInProgress()) {
-        if(m_context.isRectangleMode()) {
-            qDebug() << "   DRAWING_IN_PROGESS RECTANGLE";
-            processRectangleItem(event);
-        }
-
-        else if(m_context.isEllipseMode()) {
-            qDebug() << "   DRAWING_IN_PROGESS ELLIPSE";
-            processEllipseItem(event);
-        }
-
-        else if(m_context.isPolygonMode()) {
-            qDebug() << "   DRAWING_IN_PROGESS POLYGON";
-            QGraphicsScene::mouseMoveEvent(event);
-        }
-
-    } else {
-        QGraphicsScene::mouseMoveEvent(event);
+    if(isDrawingInProgress() && m_context.isRectangleMode()) {
+        processRectangleItem(event);
+        return;
     }
+
+    if(isDrawingInProgress() && m_context.isEllipseMode()) {
+        processEllipseItem(event);
+        return;
+    }
+
+    QGraphicsScene::mouseMoveEvent(event);
+
     m_currentMousePosition = event->scenePos();
 }
 
@@ -309,24 +301,14 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
                 if (IMaskView *view = m_ItemToView[m_currentItem]) {
                     view->setSelected(true);
                 }
-//                m_currentItem = 0;
             } else {
                 // drawing ended without item to be draw (too short mouse move)
                 // making item beneath of mouse release position to be selected
-                //            makeTopViewSelected(event);
-                if (QGraphicsItem *graphicsItem = itemAt(event->scenePos(), QTransform())) {
-                    graphicsItem->setSelected(true);
-                }
+                makeViewAtMousePosSelected(event);
             }
 
             setDrawingInProgress(false);
         }
-
-//        if (m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE)) {
-//            processPolygonItem(event);
-//        }
-
-
 
     } else {
         QGraphicsScene::mouseReleaseEvent(event);
@@ -519,17 +501,39 @@ bool MaskGraphicsScene::isAllowedToStartDrawing(QGraphicsSceneMouseEvent *event)
     return result;
 }
 
+bool MaskGraphicsScene::isValidForRectangleDrawing(QGraphicsSceneMouseEvent *event)
+{
+    if(isDrawingInProgress()) return false;
+    if(!(event->buttons() & Qt::LeftButton)) return false;
+    if(!m_context.isRectangleMode()) return false;
+    if(isAreaContainsSizeHandles(event)) return false;
+    return true;
+}
+
+bool MaskGraphicsScene::isValidForEllipseDrawing(QGraphicsSceneMouseEvent *event)
+{
+    if(isDrawingInProgress()) return false;
+    if(!(event->buttons() & Qt::LeftButton)) return false;
+    if(!m_context.isEllipseMode()) return false;
+    if(isAreaContainsSizeHandles(event)) return false;
+    return true;
+}
+
 //! Returns true if the area is valid for drawing. Called from mousePressEvent during
 //! polygon drawing process.
 bool MaskGraphicsScene::isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event)
 {
     if( !(event->buttons() & Qt::LeftButton) ) return false;
     if(!m_context.isPolygonMode()) return false;
+    if(!isDrawingInProgress()) {
+        if(isAreaContainsSizeHandles(event)) return false;
+    }
     return true;
 }
 
 bool MaskGraphicsScene::isValidForLineDrawing(QGraphicsSceneMouseEvent *event)
 {
+    if(isDrawingInProgress()) return false;
     if(!(event->buttons() & Qt::LeftButton)) return false;
     if(!m_context.isLineMode()) return false;
     return true;
@@ -537,9 +541,20 @@ bool MaskGraphicsScene::isValidForLineDrawing(QGraphicsSceneMouseEvent *event)
 
 bool MaskGraphicsScene::isValidForMaskAllDrawing(QGraphicsSceneMouseEvent *event)
 {
+    if(isDrawingInProgress()) return false;
     if(!(event->buttons() & Qt::LeftButton)) return false;
     if(!m_context.isMaskAllMode()) return false;
     return true;
+}
+
+//! return true if area beneath the mouse contains size handles
+bool MaskGraphicsScene::isAreaContainsSizeHandles(QGraphicsSceneMouseEvent *event)
+{
+    QList<QGraphicsItem *> items_beneath = this->items(event->scenePos());
+    foreach(QGraphicsItem *graphicsItem, items_beneath) {
+        if(graphicsItem->parentItem()) return true;
+    }
+    return false;
 }
 
 //void MaskGraphicsScene::makeSelected(const QModelIndex &parent, int first, int last)
@@ -565,6 +580,15 @@ void MaskGraphicsScene::setDrawingInProgress(bool value)
     if(value == false) {
         m_currentItem = 0;
     }
+}
+
+void MaskGraphicsScene::makeViewAtMousePosSelected(QGraphicsSceneMouseEvent *event)
+{
+    if(QGraphicsItem *graphicsItem = itemAt(event->scenePos(), QTransform())) {
+        clearSelection();
+        graphicsItem->setSelected(true);
+    }
+
 }
 
 //! Makes top graphics item under mouse point selected.
@@ -622,6 +646,8 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
     //        qDebug() << "   XXX still pressed";
     //    }
 
+    if(!isDrawingInProgress()) setDrawingInProgress(true);
+
     QPointF click_pos = event->buttonDownScenePos(Qt::LeftButton);
     QPointF mouse_pos = event->scenePos();
     QLineF line(mouse_pos, click_pos);
@@ -652,6 +678,8 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
 
 void MaskGraphicsScene::processEllipseItem(QGraphicsSceneMouseEvent *event)
 {
+    if(!isDrawingInProgress()) setDrawingInProgress(true);
+
     QPointF click_pos = event->buttonDownScenePos(Qt::LeftButton);
     QPointF mouse_pos = event->scenePos();
     QLineF line(mouse_pos, click_pos);
@@ -686,10 +714,11 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
     qDebug() << "MaskGraphicsScene::processPolygonItem";
 //    Q_ASSERT(m_activityType.testFlag(MaskEditorActivity::DRAWING_IN_PROGRESS));
 //    Q_ASSERT(m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE));
-    Q_ASSERT(m_context.isDrawingInProgress());
+//    Q_ASSERT(m_context.isDrawingInProgress());
     Q_ASSERT(m_context.isPolygonMode());
 
     if(!m_currentItem) {
+        setDrawingInProgress(true);
         m_currentItem = m_model->insertNewItem(Constants::PolygonMaskType, m_rootIndex, 0);
         m_currentItem->setRegisteredProperty(RectangleItem::P_MASK_VALUE, m_context.getMaskValue());
         m_selectionModel->clearSelection();

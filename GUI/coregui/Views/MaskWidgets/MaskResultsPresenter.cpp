@@ -75,15 +75,11 @@ OutputData<double> *MaskResultsPresenter::createMaskPresentation()
     result->setAllTo(0.0);
 
 
-    qDebug() << "BBB 1.1";
-    for (int i_row = 0; i_row < m_maskModel->rowCount(m_rootIndex); ++i_row) {
-        qDebug() << "BBB 1.2";
-        QModelIndex itemIndex = m_maskModel->index(i_row, 0, m_rootIndex);
+    for (int i_row = m_maskModel->rowCount(m_rootIndex); i_row >0; --i_row) {
+        QModelIndex itemIndex = m_maskModel->index(i_row-1, 0, m_rootIndex);
         if (MaskItem *item = dynamic_cast<MaskItem *>(m_maskModel->itemForIndex(itemIndex))) {
-            qDebug() << "BBB 1.3";
             Geometry::IShape2D *shape = item->createShape();
             if(shape) {
-                qDebug() << "BBB 1.3.1" <<item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
                 m_detectorMask.addMask(*shape, item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool());
             }
             delete shape;

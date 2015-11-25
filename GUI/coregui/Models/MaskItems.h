@@ -61,6 +61,7 @@ class BA_CORE_API_ PolygonItem : public MaskItem
 public:
     static const QString P_ISCLOSED;
     explicit PolygonItem(ParameterizedItem *parent=0);
+    virtual Geometry::IShape2D *createShape() const;
 };
 
 class BA_CORE_API_ VerticalLineItem : public MaskItem
@@ -69,6 +70,7 @@ class BA_CORE_API_ VerticalLineItem : public MaskItem
 public:
     static const QString P_POSX;
     explicit VerticalLineItem(ParameterizedItem *parent=0);
+    virtual Geometry::IShape2D *createShape() const;
 };
 
 class BA_CORE_API_ HorizontalLineItem : public MaskItem
@@ -77,6 +79,7 @@ class BA_CORE_API_ HorizontalLineItem : public MaskItem
 public:
     static const QString P_POSY;
     explicit HorizontalLineItem(ParameterizedItem *parent=0);
+    virtual Geometry::IShape2D *createShape() const;
 };
 
 class BA_CORE_API_ EllipseItem : public MaskItem
@@ -89,6 +92,7 @@ public:
     static const QString P_HEIGHT;
     static const QString P_ANGLE;
     explicit EllipseItem(ParameterizedItem *parent=0);
+    virtual Geometry::IShape2D *createShape() const;
 };
 
 class BA_CORE_API_ MaskAllItem : public MaskItem

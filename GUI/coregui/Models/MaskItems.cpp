@@ -15,6 +15,9 @@
 
 #include "MaskItems.h"
 #include "Rectangle.h"
+#include "Polygon.h"
+#include "Line.h"
+#include "Ellipse.h"
 #include "Units.h"
 
 const QString MaskItem::P_MASK_VALUE = "Mask value";
@@ -76,6 +79,16 @@ PolygonItem::PolygonItem(ParameterizedItem *parent)
     registerProperty(P_ISCLOSED, false);
 }
 
+Geometry::IShape2D *PolygonItem::createShape() const
+{
+    std::vector<double> x,y;
+    foreach(ParameterizedItem *item, this->childItems()) {
+        x.push_back(Units::deg2rad(item->getRegisteredProperty(PolygonPointItem::P_POSX).toDouble()));
+        y.push_back(Units::deg2rad(item->getRegisteredProperty(PolygonPointItem::P_POSY).toDouble()));
+    }
+    return new Geometry::Polygon(x, y);
+}
+
 
 /* ------------------------------------------------------------------------- */
 const QString VerticalLineItem::P_POSX = "X position";
@@ -87,6 +100,12 @@ VerticalLineItem::VerticalLineItem(ParameterizedItem *parent)
     registerProperty(P_POSX, 0.0);
 }
 
+Geometry::IShape2D *VerticalLineItem::createShape() const
+{
+    return new Geometry::VerticalLine(
+                Units::deg2rad(getRegisteredProperty(VerticalLineItem::P_POSX).toDouble()));
+}
+
 /* ------------------------------------------------------------------------- */
 const QString HorizontalLineItem::P_POSY = "Y position";
 
@@ -95,6 +114,12 @@ HorizontalLineItem::HorizontalLineItem(ParameterizedItem *parent)
 {
     setItemName(QStringLiteral("HorizontalLine"));
     registerProperty(P_POSY, 0.0);
+}
+
+Geometry::IShape2D *HorizontalLineItem::createShape() const
+{
+    return new Geometry::HorizontalLine(
+                Units::deg2rad(getRegisteredProperty(HorizontalLineItem::P_POSY).toDouble()));
 }
 
 /* ------------------------------------------------------------------------- */
@@ -114,6 +139,17 @@ EllipseItem::EllipseItem(ParameterizedItem *parent)
     registerProperty(P_WIDTH, 0.0);
     registerProperty(P_HEIGHT, 0.0);
     registerProperty(P_ANGLE, 0.0);
+}
+
+Geometry::IShape2D *EllipseItem::createShape() const
+{
+    double xcenter = Units::deg2rad(getRegisteredProperty(EllipseItem::P_POSX).toDouble());
+    double ycenter = Units::deg2rad(getRegisteredProperty(EllipseItem::P_POSY).toDouble());
+    double xradius = Units::deg2rad(getRegisteredProperty(EllipseItem::P_WIDTH).toDouble()/2.);
+    double yradius = Units::deg2rad(getRegisteredProperty(EllipseItem::P_HEIGHT).toDouble()/2.);
+    double angle = Units::deg2rad(getRegisteredProperty(EllipseItem::P_ANGLE).toDouble());
+
+    return new Geometry::Ellipse(xcenter, ycenter, xradius, yradius, angle);
 }
 
 /* ------------------------------------------------------------------------- */

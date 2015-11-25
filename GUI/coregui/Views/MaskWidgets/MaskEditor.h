@@ -20,7 +20,7 @@
 #include <QWidget>
 #include <QMainWindow>
 
-class MaskEditorToolPanel;
+class MaskEditorPropertyPanel;
 class MaskEditorActions;
 class MaskEditorToolBar;
 class MaskEditorCanvas;
@@ -36,7 +36,7 @@ public:
     MaskEditor(QWidget *parent = 0);
 
 public slots:
-    void onToolPanelRequest();
+    void onPropertyPanelRequest();
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event);
@@ -47,7 +47,7 @@ private:
 
     MaskEditorActions *m_itemActions;
     MaskEditorToolBar *m_toolBar;
-    MaskEditorToolPanel *m_editorToolPanel;
+    MaskEditorPropertyPanel *m_editorPropertyPanel;
     MaskEditorCanvas *m_editorCanvas;
     QSplitter *m_splitter;
     MaskModel *m_maskModel;

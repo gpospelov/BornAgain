@@ -105,7 +105,7 @@ private:
     PolygonView *getCurrentPolygon() const;
     void setItemName(ParameterizedItem *itemToChange);
 
-    SessionModel *m_model;
+    SessionModel *m_maskModel;
     QItemSelectionModel *m_selectionModel;
     QSharedPointer<ISceneAdaptor> m_adaptor;
     QMap<ParameterizedItem *, IMaskView *> m_ItemToView;

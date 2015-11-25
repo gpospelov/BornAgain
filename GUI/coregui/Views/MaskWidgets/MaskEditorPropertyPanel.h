@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaskWidgets/MaskEditorToolPanel.h
-//! @brief     Defines class MaskEditor
+//! @file      coregui/Views/MaskWidgets/MaskEditorPropertyPanel.h
+//! @brief     Defines class MaskEditorPropertyPanel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,11 +13,12 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKEDITORTOOLPANEL_H
-#define MASKEDITORTOOLPANEL_H
+#ifndef MASKEDITORPROPERTYPANEL_H
+#define MASKEDITORPROPERTYPANEL_H
 
 #include "MaskEditorFlags.h"
 #include <QWidget>
+#include <QModelIndex>
 
 class QListView;
 class SessionModel;
@@ -29,17 +30,19 @@ class QButtonGroup;
 
 //! Tool widget for MaskEditor
 
-class MaskEditorToolPanel : public QWidget
+class MaskEditorPropertyPanel : public QWidget
 {
     Q_OBJECT
 public:
-    MaskEditorToolPanel(QWidget *parent = 0);
+    MaskEditorPropertyPanel(QWidget *parent = 0);
 
     QSize sizeHint() const { return QSize(128, 128); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
 
     void setModel(SessionModel *model, const QModelIndex &root_index);
     QItemSelectionModel* selectionModel();
+
+    void setPanelHidden(bool value);
 
 signals:
     void itemContextMenuRequest(const QPoint &point);
@@ -50,8 +53,10 @@ private slots:
 
 private:
     QListView *m_listView;
-    AwesomePropertyEditor *m_propertyEditor;
-    SessionModel *m_model;
+    AwesomePropertyEditor *m_maskPropertyEditor;
+    AwesomePropertyEditor *m_plotPropertyEditor;
+    SessionModel *m_maskModel;
+    QModelIndex m_rootIndex;
 };
 
 

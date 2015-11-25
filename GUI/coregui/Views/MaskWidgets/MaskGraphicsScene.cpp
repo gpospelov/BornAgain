@@ -39,7 +39,7 @@ const qreal min_distance_to_create_rect = 10;
 
 MaskGraphicsScene::MaskGraphicsScene(QObject *parent)
     : QGraphicsScene(parent)
-    , m_model(0)
+    , m_maskModel(0)
     , m_selectionModel(0)
     , m_proxy(0)
     , m_block_selection(false)
@@ -54,31 +54,31 @@ MaskGraphicsScene::MaskGraphicsScene(QObject *parent)
 //!
 void MaskGraphicsScene::setModel(SessionModel *model, const QModelIndex &rootIndex)
 {
-    if (model != m_model || m_rootIndex != rootIndex) {
+    if (model != m_maskModel || m_rootIndex != rootIndex) {
 
-        if (m_model) {
-            disconnect(m_model, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
-            disconnect(m_model, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
+        if (m_maskModel) {
+            disconnect(m_maskModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
+            disconnect(m_maskModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
                        SLOT(onRowsInserted(QModelIndex, int, int)));
-            disconnect(m_model, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)), this,
+            disconnect(m_maskModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)), this,
                        SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)));
-            disconnect(m_model, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+            disconnect(m_maskModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
                        SLOT(onRowsRemoved(QModelIndex, int, int)));
-            disconnect(m_model, SIGNAL(modelReset()), this, SLOT(updateScene()));
+            disconnect(m_maskModel, SIGNAL(modelReset()), this, SLOT(updateScene()));
         }
 
-        m_model = model;
+        m_maskModel = model;
         m_rootIndex = rootIndex;
 
-        if(m_model) {
-            connect(m_model, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
-            connect(m_model, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
+        if(m_maskModel) {
+            connect(m_maskModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
+            connect(m_maskModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
                 SLOT(onRowsInserted(QModelIndex, int, int)));
-            connect(m_model, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)), this,
+            connect(m_maskModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)), this,
                 SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)));
-            connect(m_model, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+            connect(m_maskModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
                 SLOT(onRowsRemoved(QModelIndex, int, int)));
-            connect(m_model, SIGNAL(modelReset()), this, SLOT(updateScene()));
+            connect(m_maskModel, SIGNAL(modelReset()), this, SLOT(updateScene()));
         }
 
         resetScene();
@@ -151,7 +151,7 @@ void MaskGraphicsScene::onRowsAboutToBeRemoved(const QModelIndex &parent, int fi
     m_block_selection = true;
     qDebug() << "MaskGraphicsScene::onRowsAboutToBeRemoved(), blocking parent:" << parent << "first:" << first << "last:" << last;
     for (int irow = first; irow <= last; ++irow) {
-        QModelIndex itemIndex = m_model->index(irow, 0, parent);
+        QModelIndex itemIndex = m_maskModel->index(irow, 0, parent);
         deleteViews(itemIndex); // deleting all child items
     }
     qDebug() << "MaskGraphicsScene::onRowsAboutToBeRemoved(), unblocking";
@@ -170,8 +170,8 @@ void MaskGraphicsScene::cancelCurrentDrawing()
     qDebug() << "MaskGraphicsScene::cancelCurrentDrawing()";
     if(isDrawingInProgress()) {
         Q_ASSERT(m_currentItem);
-        QModelIndex index = m_model->indexOfItem(m_currentItem);
-        m_model->removeRows(index.row(), 1, index.parent());
+        QModelIndex index = m_maskModel->indexOfItem(m_currentItem);
+        m_maskModel->removeRows(index.row(), 1, index.parent());
         setDrawingInProgress(false);
     }
 }
@@ -187,7 +187,7 @@ void MaskGraphicsScene::onSessionSelectionChanged(const QItemSelection & /* sele
 
     for (QMap<ParameterizedItem *, IMaskView *>::iterator it = m_ItemToView.begin();
          it != m_ItemToView.end(); ++it) {
-        QModelIndex index = m_model->indexOfItem(it.key());
+        QModelIndex index = m_maskModel->indexOfItem(it.key());
         if (index.isValid()) {
             if (m_selectionModel->isSelected(index)) {
                 it.value()->setSelected(true);
@@ -217,7 +217,7 @@ void MaskGraphicsScene::onSceneSelectionChanged()
         qDebug() << "AAAA " << i << view;
         if (view) {
             ParameterizedItem *maskItem = view->getParameterizedItem();
-            QModelIndex itemIndex = m_model->indexOfItem(maskItem);
+            QModelIndex itemIndex = m_maskModel->indexOfItem(maskItem);
             Q_ASSERT(itemIndex.isValid());
             if (!m_selectionModel->isSelected(itemIndex))
                 m_selectionModel->select(itemIndex, QItemSelectionModel::Select);
@@ -384,7 +384,7 @@ void MaskGraphicsScene::resetScene()
 
 void MaskGraphicsScene::updateScene()
 {
-    if(!m_model) return;
+    if(!m_maskModel) return;
     updateProxyWidget(m_rootIndex);
     updateViews(m_rootIndex);
     setZValues();
@@ -392,7 +392,7 @@ void MaskGraphicsScene::updateScene()
 
 void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex, IMaskView *parentView)
 {
-    Q_ASSERT(m_model);
+    Q_ASSERT(m_maskModel);
 
     qDebug() << "DesignerScene::updateVIews()";
 
@@ -401,10 +401,10 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex, IMaskView *p
     }
 
     IMaskView *childView(0);
-    for (int i_row = 0; i_row < m_model->rowCount(parentIndex); ++i_row) {
-        QModelIndex itemIndex = m_model->index(i_row, 0, parentIndex);
+    for (int i_row = 0; i_row < m_maskModel->rowCount(parentIndex); ++i_row) {
+        QModelIndex itemIndex = m_maskModel->index(i_row, 0, parentIndex);
 
-        if (ParameterizedItem *item = m_model->itemForIndex(itemIndex)) {
+        if (ParameterizedItem *item = m_maskModel->itemForIndex(itemIndex)) {
 
             childView = addViewForItem(item);
             if (childView) {
@@ -431,7 +431,7 @@ void MaskGraphicsScene::updateProxyWidget(const QModelIndex &parentIndex)
 {
     if(!m_proxy) {
         m_proxy = new MaskGraphicsProxy;
-        m_proxy->setItem(m_model->itemForIndex(parentIndex));
+        m_proxy->setItem(m_maskModel->itemForIndex(parentIndex));
         m_proxy->setSceneAdaptor(m_adaptor.data());
         addItem(m_proxy);
     }
@@ -444,12 +444,12 @@ void MaskGraphicsScene::deleteViews(const QModelIndex &parentIndex)
     qDebug() << " ";
     qDebug() << " ";
     qDebug() << " ";
-    qDebug() << "DesignerScene::deleteViews()" << parentIndex << m_model->itemForIndex(parentIndex)->modelType();
+    qDebug() << "DesignerScene::deleteViews()" << parentIndex << m_maskModel->itemForIndex(parentIndex)->modelType();
 
-    for (int i_row = 0; i_row < m_model->rowCount(parentIndex); ++i_row) {
-        QModelIndex itemIndex = m_model->index(i_row, 0, parentIndex);
+    for (int i_row = 0; i_row < m_maskModel->rowCount(parentIndex); ++i_row) {
+        QModelIndex itemIndex = m_maskModel->index(i_row, 0, parentIndex);
 
-        if (ParameterizedItem *item = m_model->itemForIndex(itemIndex)) {
+        if (ParameterizedItem *item = m_maskModel->itemForIndex(itemIndex)) {
             qDebug() << "       DesignerScene::deleteViews()" << itemIndex << item->modelType();
 
             removeItemViewFromScene(item);
@@ -459,7 +459,7 @@ void MaskGraphicsScene::deleteViews(const QModelIndex &parentIndex)
         }
         deleteViews(itemIndex);
     }
-    removeItemViewFromScene(m_model->itemForIndex(parentIndex)); // deleting parent item
+    removeItemViewFromScene(m_maskModel->itemForIndex(parentIndex)); // deleting parent item
 }
 
 void MaskGraphicsScene::removeItemViewFromScene(ParameterizedItem *item)
@@ -613,7 +613,7 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
     QLineF line(mouse_pos, click_pos);
 
     if(!m_currentItem && line.length() > min_distance_to_create_rect) {
-        m_currentItem = m_model->insertNewItem(Constants::RectangleMaskType, m_rootIndex, 0);
+        m_currentItem = m_maskModel->insertNewItem(Constants::RectangleMaskType, m_rootIndex, 0);
         qDebug() << " ";
         qDebug() << " ";
         qDebug() << " ";
@@ -647,7 +647,7 @@ void MaskGraphicsScene::processEllipseItem(QGraphicsSceneMouseEvent *event)
     QLineF line(mouse_pos, click_pos);
 
     if(!m_currentItem && line.length() > min_distance_to_create_rect) {
-        m_currentItem = m_model->insertNewItem(Constants::EllipseMaskType, m_rootIndex, 0);
+        m_currentItem = m_maskModel->insertNewItem(Constants::EllipseMaskType, m_rootIndex, 0);
         qDebug() << " ";
         qDebug() << " ";
         qDebug() << " ";
@@ -682,10 +682,10 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
 
     if(!m_currentItem) {
         setDrawingInProgress(true);
-        m_currentItem = m_model->insertNewItem(Constants::PolygonMaskType, m_rootIndex, 0);
+        m_currentItem = m_maskModel->insertNewItem(Constants::PolygonMaskType, m_rootIndex, 0);
         m_currentItem->setRegisteredProperty(RectangleItem::P_MASK_VALUE, m_context.getMaskValue());
         m_selectionModel->clearSelection();
-        m_selectionModel->select(m_model->indexOfItem(m_currentItem), QItemSelectionModel::Select);
+        m_selectionModel->select(m_maskModel->indexOfItem(m_currentItem), QItemSelectionModel::Select);
         setItemName(m_currentItem);
     }
 
@@ -698,7 +698,7 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
         }
     }
 
-    ParameterizedItem *point = m_model->insertNewItem(Constants::PolygonPointType, m_model->indexOfItem(m_currentItem));
+    ParameterizedItem *point = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(m_currentItem));
     QPointF click_pos = event->buttonDownScenePos(Qt::LeftButton);
 
     point->setRegisteredProperty(PolygonPointItem::P_POSX, m_adaptor->fromSceneX(click_pos.x()));
@@ -716,7 +716,7 @@ void MaskGraphicsScene::processLineItem(QGraphicsSceneMouseEvent *event)
         processHorizontalLineItem(click_pos);
 
     m_selectionModel->clearSelection();
-    m_selectionModel->select(m_model->indexOfItem(m_currentItem), QItemSelectionModel::Select);
+    m_selectionModel->select(m_maskModel->indexOfItem(m_currentItem), QItemSelectionModel::Select);
     setItemName(m_currentItem);
 
     setDrawingInProgress(false);
@@ -724,13 +724,13 @@ void MaskGraphicsScene::processLineItem(QGraphicsSceneMouseEvent *event)
 
 void MaskGraphicsScene::processVerticalLineItem(const QPointF &pos)
 {
-    m_currentItem = m_model->insertNewItem(Constants::VerticalLineMaskType, m_rootIndex, 0);
+    m_currentItem = m_maskModel->insertNewItem(Constants::VerticalLineMaskType, m_rootIndex, 0);
     m_currentItem->setRegisteredProperty(VerticalLineItem::P_POSX, m_adaptor->fromSceneX(pos.x()));
 }
 
 void MaskGraphicsScene::processHorizontalLineItem(const QPointF &pos)
 {
-    m_currentItem = m_model->insertNewItem(Constants::HorizontalLineMaskType, m_rootIndex, 0);
+    m_currentItem = m_maskModel->insertNewItem(Constants::HorizontalLineMaskType, m_rootIndex, 0);
     m_currentItem->setRegisteredProperty(HorizontalLineItem::P_POSY, m_adaptor->fromSceneY(pos.y()));
 }
 
@@ -738,7 +738,7 @@ void MaskGraphicsScene::processMaskAllItem(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event);
     setDrawingInProgress(true);
-    m_currentItem = m_model->insertNewItem(Constants::MaskAllType, m_rootIndex);
+    m_currentItem = m_maskModel->insertNewItem(Constants::MaskAllType, m_rootIndex);
     m_selectionModel->clearSelection();
     setDrawingInProgress(false);
 }
@@ -749,12 +749,12 @@ void MaskGraphicsScene::processMaskAllItem(QGraphicsSceneMouseEvent *event)
 void MaskGraphicsScene::setZValues()
 {
     Q_ASSERT(m_rootIndex.isValid());
-    for(int i = 0; i < m_model->rowCount(m_rootIndex); i++) {
-        QModelIndex itemIndex = m_model->index(i, 0, m_rootIndex);
-        ParameterizedItem *item =  m_model->itemForIndex(itemIndex);
+    for(int i = 0; i < m_maskModel->rowCount(m_rootIndex); i++) {
+        QModelIndex itemIndex = m_maskModel->index(i, 0, m_rootIndex);
+        ParameterizedItem *item =  m_maskModel->itemForIndex(itemIndex);
         Q_ASSERT(item);
         if(IMaskView *view = m_ItemToView[item]) {
-            view->setZValue(m_model->rowCount(m_rootIndex) -  itemIndex.row() + 1);
+            view->setZValue(m_maskModel->rowCount(m_rootIndex) -  itemIndex.row() + 1);
         }
     }
 }
@@ -776,10 +776,10 @@ PolygonView *MaskGraphicsScene::getCurrentPolygon() const
 void MaskGraphicsScene::setItemName(ParameterizedItem *itemToChange)
 {
     int glob_index(0);
-    for(int i_row = 0; i_row < m_model->rowCount(m_rootIndex); ++i_row) {
-         QModelIndex itemIndex = m_model->index( i_row, 0, m_rootIndex );
+    for(int i_row = 0; i_row < m_maskModel->rowCount(m_rootIndex); ++i_row) {
+         QModelIndex itemIndex = m_maskModel->index( i_row, 0, m_rootIndex );
 
-         if (ParameterizedItem *currentItem = m_model->itemForIndex(itemIndex)){
+         if (ParameterizedItem *currentItem = m_maskModel->itemForIndex(itemIndex)){
              if(currentItem->modelType() == itemToChange->modelType()) {
                  QString itemName = currentItem->itemName();
                  if(itemName.startsWith(itemToChange->itemName())) {

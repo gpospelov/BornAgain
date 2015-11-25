@@ -16,7 +16,7 @@
 #include "MaskEditor.h"
 #include "MaskEditorActions.h"
 #include "MaskEditorCanvas.h"
-#include "MaskEditorToolPanel.h"
+#include "MaskEditorPropertyPanel.h"
 #include "MaskEditorToolBar.h"
 #include "MaskGraphicsScene.h"
 #include "MaskGraphicsView.h"
@@ -38,7 +38,7 @@ MaskEditor::MaskEditor(QWidget *parent)
     : QMainWindow(parent)
     , m_itemActions(new MaskEditorActions(this))
     , m_toolBar(new MaskEditorToolBar(m_itemActions, this))
-    , m_editorToolPanel(new MaskEditorToolPanel(this))
+    , m_editorPropertyPanel(new MaskEditorPropertyPanel(this))
     , m_editorCanvas(new MaskEditorCanvas(this))
     , m_splitter(new QSplitter(this))
     , m_maskModel(0)
@@ -47,7 +47,7 @@ MaskEditor::MaskEditor(QWidget *parent)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     m_splitter->addWidget(m_editorCanvas);
-    m_splitter->addWidget(m_editorToolPanel);
+    m_splitter->addWidget(m_editorPropertyPanel);
 
 //    QVBoxLayout *mainLayout = new QVBoxLayout(this);
 //    mainLayout->setMargin(0);
@@ -67,10 +67,10 @@ MaskEditor::MaskEditor(QWidget *parent)
     setup_connections();
 }
 
-void MaskEditor::onToolPanelRequest()
+void MaskEditor::onPropertyPanelRequest()
 {
     qDebug() << "MaskEditor::onToolPanelRequest()";
-    m_editorToolPanel->setHidden(!m_editorToolPanel->isHidden());
+    m_editorPropertyPanel->setPanelHidden(!m_editorPropertyPanel->isHidden());
 }
 
 void MaskEditor::contextMenuEvent(QContextMenuEvent *event)
@@ -138,13 +138,13 @@ void MaskEditor::init_test_model()
 
 //    MaskAllItem *rect = dynamic_cast<MaskAllItem *>(m_maskModel->insertNewItem(Constants::MaskAllType, m_maskModel->indexOfItem(item)));
 
-    m_editorToolPanel->setModel(m_maskModel, m_maskModel->indexOfItem(item));
+    m_editorPropertyPanel->setModel(m_maskModel, m_maskModel->indexOfItem(item));
 
     m_editorCanvas->setModel(m_maskModel, m_maskModel->indexOfItem(item));
-    m_editorCanvas->setSelectionModel(m_editorToolPanel->selectionModel());
+    m_editorCanvas->setSelectionModel(m_editorPropertyPanel->selectionModel());
 
     m_itemActions->setModel(m_maskModel, m_maskModel->indexOfItem(item));
-    m_itemActions->setSelectionModel(m_editorToolPanel->selectionModel());
+    m_itemActions->setSelectionModel(m_editorPropertyPanel->selectionModel());
 
 }
 
@@ -166,9 +166,9 @@ void MaskEditor::setup_connections()
 
     // tool panel request is propagated from tool bar to this MaskEditor
     connect(m_toolBar,
-            SIGNAL(toolPanelRequest()),
+            SIGNAL(propertyPanelRequest()),
             this,
-            SLOT(onToolPanelRequest())
+            SLOT(onPropertyPanelRequest())
             );
 
     // reset view request is propagated from tool bar to graphics view
@@ -185,15 +185,15 @@ void MaskEditor::setup_connections()
             SLOT(onChangeActivityRequest(MaskEditorFlags::Activity))
             );
 
-    // item context menu request is propagated from graphics scene to MaskEditorActions
+    // context menu request is propagated from graphics scene to MaskEditorActions
     connect(m_editorCanvas->getScene(),
             SIGNAL(itemContextMenuRequest(QPoint)),
             m_itemActions,
             SLOT(onItemContextMenuRequest(QPoint))
             );
 
-    // item context menu request is propagated from InfoPanel to MaskEditorActions
-    connect(m_editorToolPanel,
+    // context menu request is propagated from PropertyPanel (i.e. its ListView) to MaskEditorActions
+    connect(m_editorPropertyPanel,
             SIGNAL(itemContextMenuRequest(QPoint)),
             m_itemActions,
             SLOT(onItemContextMenuRequest(QPoint))

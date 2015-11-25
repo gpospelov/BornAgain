@@ -29,7 +29,6 @@ const QString RectangleItem::P_POSX = "X position";
 const QString RectangleItem::P_POSY = "Y position";
 const QString RectangleItem::P_WIDTH = "Width";
 const QString RectangleItem::P_HEIGHT = "Height";
-const QString RectangleItem::P_ANGLE = "Angle";
 
 RectangleItem::RectangleItem(ParameterizedItem *parent)
     : MaskItem(Constants::RectangleMaskType, parent)
@@ -39,7 +38,6 @@ RectangleItem::RectangleItem(ParameterizedItem *parent)
     registerProperty(P_POSY, 0.0);
     registerProperty(P_WIDTH, 0.0);
     registerProperty(P_HEIGHT, 0.0);
-    registerProperty(P_ANGLE, 0.0);
 }
 
 /* ------------------------------------------------------------------------- */

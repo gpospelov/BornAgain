@@ -186,12 +186,12 @@ void MaskEditorToolBar::setup_extratools_group()
 {
     QToolButton *propertyPanelButton = new QToolButton(this);
     propertyPanelButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_toolpanel.svg"));
-    propertyPanelButton->setToolTip("Open panel with additional settings");
+    propertyPanelButton->setToolTip("Open panel with additional properties");
     propertyPanelButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     addWidget(propertyPanelButton);
 
     connect(propertyPanelButton, SIGNAL(clicked()),
-            this, SIGNAL(toolPanelRequest()));
+            this, SIGNAL(propertyPanelRequest()));
 }
 
 void MaskEditorToolBar::add_separator()

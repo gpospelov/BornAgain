@@ -33,7 +33,7 @@ public:
 
 signals:
     void activityModeChanged(MaskEditorFlags::Activity);
-    void toolPanelRequest();
+    void propertyPanelRequest();
     void maskValueChanged(MaskEditorFlags::MaskValue);
     void resetViewRequest();
 

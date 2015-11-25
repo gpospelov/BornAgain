@@ -80,19 +80,19 @@ void RectangleView::onPropertyChange(const QString &propertyName)
     else if(propertyName == RectangleItem::P_POSY) {
         setY(toSceneY(RectangleItem::P_POSY));
     }
-    else if(propertyName == RectangleItem::P_ANGLE) {
-        qDebug() << "   ";
-        qDebug() << "   ";
+//    else if(propertyName == RectangleItem::P_ANGLE) {
+//        qDebug() << "   ";
+//        qDebug() << "   ";
 
-        QTransform transform;
-        QPointF center = m_bounding_rect.center();
-        qDebug() << "translating" << center << par(RectangleItem::P_ANGLE);
-        transform.translate(center.x(), center.y());
-        transform.rotate(par(RectangleItem::P_ANGLE));
-        transform.translate(-center.x(), -center.y());
-        setTransform(transform);
-        update();
-    }
+//        QTransform transform;
+//        QPointF center = m_bounding_rect.center();
+//        qDebug() << "translating" << center << par(RectangleItem::P_ANGLE);
+//        transform.translate(center.x(), center.y());
+//        transform.rotate(par(RectangleItem::P_ANGLE));
+//        transform.translate(-center.x(), -center.y());
+//        setTransform(transform);
+//        update();
+//    }
 
 }
 

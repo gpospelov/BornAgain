@@ -78,3 +78,10 @@ kvector_t IParticle::getComposedTranslation(const IRotation *p_rotation, kvector
         return translation + m_position;
     }
 }
+
+void IParticle::registerPosition()
+{
+    registerParameter("position_x", &m_position[0]);
+    registerParameter("position_y", &m_position[1]);
+    registerParameter("position_z", &m_position[2]);
+}

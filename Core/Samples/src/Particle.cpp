@@ -132,9 +132,3 @@ void Particle::setFormFactor(const IFormFactor &form_factor)
     }
 }
 
-void Particle::registerPosition()
-{
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
-}

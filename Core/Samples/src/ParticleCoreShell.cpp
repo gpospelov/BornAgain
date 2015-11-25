@@ -25,9 +25,7 @@ ParticleCoreShell::ParticleCoreShell(const Particle& shell,
     , mp_core(0)
 {
     setName("ParticleCoreShell");
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
+    registerPosition();
     addAndRegisterCore(core, relative_core_position);
     addAndRegisterShell(shell);
 }

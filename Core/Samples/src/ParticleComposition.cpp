@@ -22,26 +22,20 @@
 ParticleComposition::ParticleComposition()
 {
     setName("ParticleComposition");
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
+    registerPosition();
 }
 
 ParticleComposition::ParticleComposition(const IParticle& particle)
 {
     setName("ParticleComposition");
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
+    registerPosition();
     addParticle( particle, kvector_t(0.0, 0.0, 0.0) );
 }
 
 ParticleComposition::ParticleComposition(const IParticle &particle, kvector_t position)
 {
     setName("ParticleComposition");
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
+    registerPosition();
     addParticle(particle, position);
 }
 
@@ -49,9 +43,7 @@ ParticleComposition::ParticleComposition(const IParticle& particle,
         std::vector<kvector_t> positions)
 {
     setName("ParticleComposition");
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
+    registerPosition();
     addParticles(particle, positions);
 }
 

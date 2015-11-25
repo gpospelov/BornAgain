@@ -22,11 +22,9 @@
 #include <QMap>
 #include <QString>
 
-//class FancyGroupProperty_t;
-class SelectableGroupProperty;
 class ParameterizedItem;
 
-//! The GroupPropertyRegistry constructs FancyGroupProperty or SelectableGroupProperty
+//! The GroupPropertyRegistry constructs FancyGroupProperty
 //! according to the given name of the group.
 class BA_CORE_API_ GroupPropertyRegistry
 {

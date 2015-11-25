@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "GroupPropertyRegistry.h"
-#include "SelectableGroupProperty.h"
 #include "FancyGroupProperty.h"
 #include "GUIHelpers.h"
 #include "item_constants.h"

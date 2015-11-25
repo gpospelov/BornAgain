@@ -34,6 +34,7 @@ public:
 signals:
     void activityModeChanged(MaskEditorFlags::Activity);
     void propertyPanelRequest();
+    void showResultsRequest();
     void maskValueChanged(MaskEditorFlags::MaskValue);
     void resetViewRequest();
 

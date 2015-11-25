@@ -49,10 +49,16 @@ public:
     };
     Q_DECLARE_FLAGS(MaskValue, EMaskValue)
 
+    enum EPresentationType {
+        MASK_EDITOR,
+        MASK_PRESENTER
+    };
+    Q_DECLARE_FLAGS(PresentationType, EPresentationType)
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(MaskEditorFlags::Activity)
 Q_DECLARE_OPERATORS_FOR_FLAGS(MaskEditorFlags::Stacking)
 Q_DECLARE_OPERATORS_FOR_FLAGS(MaskEditorFlags::MaskValue)
+Q_DECLARE_OPERATORS_FOR_FLAGS(MaskEditorFlags::PresentationType)
 
 #endif

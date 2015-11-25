@@ -18,12 +18,17 @@
 
 #include "ParameterizedItem.h"
 
+namespace Geometry {
+class IShape2D;
+}
+
 class BA_CORE_API_ MaskItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
     static const QString P_MASK_VALUE;
     explicit MaskItem(const QString &name, ParameterizedItem *parent);
+    virtual Geometry::IShape2D *createShape() const { return 0;}
     virtual ~MaskItem(){}
 };
 
@@ -36,6 +41,7 @@ public:
     static const QString P_WIDTH;
     static const QString P_HEIGHT;
     explicit RectangleItem(ParameterizedItem *parent=0);
+    virtual Geometry::IShape2D *createShape() const;
 };
 
 class BA_CORE_API_ PolygonPointItem : public ParameterizedItem

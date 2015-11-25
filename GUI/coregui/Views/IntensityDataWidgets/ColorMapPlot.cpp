@@ -36,7 +36,7 @@ ColorMapPlot::ColorMapPlot(QWidget *parent)
 //! initializes everything with new IntensityDataItem or plot it, if it was already the case
 void ColorMapPlot::setItem(IntensityDataItem *item)
 {
-    if (m_item == item) {
+    if (item && (m_item == item)) {
         // qDebug() << "ColorMapPlot::setItem(NIntensityDataItem *item) item==m_item";
         plotItem(m_item);
         return;

@@ -24,6 +24,8 @@
 
 
 class IDetector2D;
+template <class T> class OutputData;
+
 
 //! @class DetectorMask
 //! @ingroup simulation
@@ -45,6 +47,9 @@ public:
     //! Init the map of masks for the given detector plane
     void initMaskData(const IDetector2D &detector);
 
+    void initMaskData(const OutputData<double > &data);
+
+
     bool getMask(size_t index) const;
 
     const OutputData<bool>* getMaskData() const;
@@ -58,6 +63,8 @@ public:
     int getNumberOfMaskedChannels() const;
 
 private:
+    void process_masks();
+
     SafePointerVector<Geometry::IShape2D> m_shapes;
     std::vector<bool> m_mask_of_shape;
     OutputData<bool> m_mask_data;

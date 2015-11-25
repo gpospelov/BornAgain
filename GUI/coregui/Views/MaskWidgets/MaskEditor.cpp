@@ -150,35 +150,42 @@ void MaskEditor::init_test_model()
 
 void MaskEditor::setup_connections()
 {
-    // selection/drawing activity is propagated from tool bar to graphics scene
+    // selection/drawing activity is propagated from ToolBar to graphics scene
     connect(m_toolBar,
             SIGNAL(activityModeChanged(MaskEditorFlags::Activity)),
             m_editorCanvas->getScene(),
             SLOT(onActivityModeChanged(MaskEditorFlags::Activity))
             );
 
-    // mask value is propagated from tool bar to graphics scene
+    // mask value is propagated from ToolBar to graphics scene
     connect(m_toolBar,
             SIGNAL(maskValueChanged(MaskEditorFlags::MaskValue)),
             m_editorCanvas->getScene(),
             SLOT(onMaskValueChanged(MaskEditorFlags::MaskValue))
             );
 
-    // tool panel request is propagated from tool bar to this MaskEditor
+    // tool panel request is propagated from ToolBar to this MaskEditor
     connect(m_toolBar,
             SIGNAL(propertyPanelRequest()),
             this,
             SLOT(onPropertyPanelRequest())
             );
 
-    // reset view request is propagated from tool bar to graphics view
+    // show results request is propagated from ToolBar to Canvas
+    connect(m_toolBar,
+            SIGNAL(showResultsRequest()),
+            m_editorCanvas,
+            SLOT(onShowResultsRequest())
+            );
+
+    // reset view request is propagated from ToolBar to graphics view
     connect(m_toolBar,
             SIGNAL(resetViewRequest()),
             m_editorCanvas->getView(),
             SLOT(onResetViewRequest())
             );
 
-    // space bar push (request for zoom mode) is propagated from graphics view to tool bar
+    // space bar push (request for zoom mode) is propagated from graphics view to ToolBar
     connect(m_editorCanvas->getView(),
             SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)),
             m_toolBar,
@@ -192,7 +199,7 @@ void MaskEditor::setup_connections()
             SLOT(onItemContextMenuRequest(QPoint))
             );
 
-    // context menu request is propagated from PropertyPanel (i.e. its ListView) to MaskEditorActions
+    // context menu request is propagated from PropertyPanel to MaskEditorActions
     connect(m_editorPropertyPanel,
             SIGNAL(itemContextMenuRequest(QPoint)),
             m_itemActions,

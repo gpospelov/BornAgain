@@ -184,10 +184,18 @@ void MaskEditorToolBar::setup_maskmodify_group()
 
 void MaskEditorToolBar::setup_extratools_group()
 {
+    QToolButton *showResultButton = new QToolButton(this);
+    showResultButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_lightbulb.svg"));
+    showResultButton->setToolTip("Shows mask results. The view will be switched to two\n"
+                                 "color plot representing masked/unmasked areas.");
+    addWidget(showResultButton);
+
+    connect(showResultButton, SIGNAL(clicked()),
+            this, SIGNAL(showResultsRequest()));
+
     QToolButton *propertyPanelButton = new QToolButton(this);
     propertyPanelButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_toolpanel.svg"));
     propertyPanelButton->setToolTip("Open panel with additional properties");
-    propertyPanelButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     addWidget(propertyPanelButton);
 
     connect(propertyPanelButton, SIGNAL(clicked()),

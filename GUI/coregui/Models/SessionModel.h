@@ -150,11 +150,12 @@ public:
 
     void setMessageService(WarningMessageService *messageService);
 
+    virtual void initFrom(SessionModel *model, ParameterizedItem *parent);
+
 public slots:
     void onItemPropertyChange(const QString &property_name, const QString &name = QString());
 
 protected:
-    virtual void initFrom(SessionModel *model, ParameterizedItem *parent);
 
 private:
     ParameterizedItem *insertNewItem(QString model_type, ParameterizedItem *parent, int row = -1,

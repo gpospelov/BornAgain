@@ -14,6 +14,8 @@
 // ************************************************************************** //
 
 #include "MaskItems.h"
+#include "Rectangle.h"
+#include "Units.h"
 
 const QString MaskItem::P_MASK_VALUE = "Mask value";
 
@@ -38,6 +40,15 @@ RectangleItem::RectangleItem(ParameterizedItem *parent)
     registerProperty(P_POSY, 0.0);
     registerProperty(P_WIDTH, 0.0);
     registerProperty(P_HEIGHT, 0.0);
+}
+
+Geometry::IShape2D *RectangleItem::createShape() const
+{
+    double xlow = getRegisteredProperty(P_POSX).toDouble();
+    double ylow = getRegisteredProperty(P_POSY).toDouble() - getRegisteredProperty(P_HEIGHT).toDouble();
+    double xup = getRegisteredProperty(P_POSX).toDouble() + getRegisteredProperty(P_WIDTH).toDouble();
+    double yup = getRegisteredProperty(P_POSY).toDouble();
+    return new Geometry::Rectangle(Units::deg2rad(xlow), Units::deg2rad(ylow), Units::deg2rad(xup), Units::deg2rad(yup));
 }
 
 /* ------------------------------------------------------------------------- */

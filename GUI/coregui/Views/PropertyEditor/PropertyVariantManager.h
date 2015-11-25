@@ -21,7 +21,7 @@
 #include <QtVariantPropertyManager>
 #include "ColorProperty.h"
 #include "ScientificDoubleProperty.h"
-#include "FancyGroupProperty.h"
+#include "GroupProperty.h"
 #include "MaterialProperty.h"
 #include "ComboProperty.h"
 
@@ -57,7 +57,7 @@ private:
     QMap<const QtProperty *, MaterialProperty> m_theMaterialValues;
     QMap<const QtProperty *, ColorProperty> m_theColorValues;
     QMap<const QtProperty *, ScientificDoubleProperty> m_theScientificDoubleValues;
-    QMap<const QtProperty *, FancyGroupProperty_t> m_theFancyGroupValues;
+    QMap<const QtProperty *, GroupProperty_t> m_theFancyGroupValues;
     QMap<const QtProperty *, ComboProperty> m_theComboValues;
 };
 

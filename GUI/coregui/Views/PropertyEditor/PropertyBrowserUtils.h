@@ -20,7 +20,7 @@
 #include "MaterialProperty.h"
 #include "ColorProperty.h"
 #include "ScientificDoubleProperty.h"
-#include "FancyGroupProperty.h"
+#include "GroupProperty.h"
 #include "ComboProperty.h"
 
 class QLabel;
@@ -50,15 +50,15 @@ private:
 };
 
 
-class BA_CORE_API_ FancyGroupPropertyEdit : public QWidget
+class BA_CORE_API_ GroupPropertyEdit : public QWidget
 {
     Q_OBJECT
 public:
-    FancyGroupPropertyEdit(QWidget *parent = 0);
-    ~FancyGroupPropertyEdit();
+    GroupPropertyEdit(QWidget *parent = 0);
+    ~GroupPropertyEdit();
 
-    void setFancyGroupProperty(FancyGroupProperty_t groupProperty);
-    FancyGroupProperty_t getFancyGroupProperty() const {
+    void setGroupProperty(GroupProperty_t groupProperty);
+    GroupProperty_t getGroupProperty() const {
         return m_groupProperty;
     }
 
@@ -66,7 +66,7 @@ public:
     QSize minimumSizeHint() const;
 
 signals:
-    void fancyGroupPropertyChanged(const FancyGroupProperty_t &group_property);
+    void groupPropertyChanged(const GroupProperty_t &group_property);
 private slots:
     void indexChanged(int index);
 private:
@@ -74,7 +74,7 @@ private:
     void processSelectableGroup();
     QComboBox *m_box;
     QLabel *m_label;
-    FancyGroupProperty_t m_groupProperty;
+    GroupProperty_t m_groupProperty;
 };
 
 

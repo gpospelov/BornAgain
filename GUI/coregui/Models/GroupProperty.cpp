@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/FancyGroupProperty.cpp
-//! @brief     Implements class FancyGroupProperty
+//! @file      coregui/Models/GroupProperty.cpp
+//! @brief     Implements class GroupProperty
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,31 +13,31 @@
 //
 // ************************************************************************** //
 
-#include "FancyGroupProperty.h"
+#include "GroupProperty.h"
 #include "GUIHelpers.h"
 #include "ItemFactory.h"
 
 
-FancyGroupProperty::FancyGroupProperty(const QString &group_name)
+GroupProperty::GroupProperty(const QString &group_name)
     : m_group_name(group_name)
     , m_group_type(UNDEFINED)
     , m_parent(0)
 {
 }
 
-FancyGroupProperty::EGroupType FancyGroupProperty::type() const
+GroupProperty::EGroupType GroupProperty::type() const
 {
     return m_group_type;
 }
 
-void FancyGroupProperty::setParent(ParameterizedItem *parent)
+void GroupProperty::setParent(ParameterizedItem *parent)
 {
     Q_ASSERT(parent);
     m_parent = parent;
     m_parent->addPropertyItem(getGroupName(), createCorrespondingItem());
 }
 
-ParameterizedItem *FancyGroupProperty::createCorrespondingItem()
+ParameterizedItem *GroupProperty::createCorrespondingItem()
 {
     ParameterizedItem *result = ItemFactory::createItem(getCurrentType());
     if(type() == FIXED)
@@ -45,17 +45,17 @@ ParameterizedItem *FancyGroupProperty::createCorrespondingItem()
     return result;
 }
 
-QString FancyGroupProperty::getGroupName() const
+QString GroupProperty::getGroupName() const
 {
     return m_group_name;
 }
 
-QString FancyGroupProperty::getCurrentType() const
+QString GroupProperty::getCurrentType() const
 {
     return m_current_type;
 }
 
-void FancyGroupProperty::setCurrentType(const QString &type)
+void GroupProperty::setCurrentType(const QString &type)
 {
     if(type == getCurrentType()) return;
 
@@ -67,12 +67,12 @@ void FancyGroupProperty::setCurrentType(const QString &type)
     }
 }
 
-QString FancyGroupProperty::getCurrentLabel() const
+QString GroupProperty::getCurrentLabel() const
 {
     return m_type_label_map.at(m_current_type);
 }
 
-void FancyGroupProperty::setCurrentLabel(const QString &label)
+void GroupProperty::setCurrentLabel(const QString &label)
 {
     if(type() == FIXED) {
         m_type_label_map[m_current_type] = label;
@@ -80,7 +80,7 @@ void FancyGroupProperty::setCurrentLabel(const QString &label)
     }
 }
 
-QStringList FancyGroupProperty::getTypes() const
+QStringList GroupProperty::getTypes() const
 {
     QStringList result;
     for (const auto& key_value_pair : m_type_label_map) {
@@ -89,7 +89,7 @@ QStringList FancyGroupProperty::getTypes() const
     return result;
 }
 
-QStringList FancyGroupProperty::getLabels() const
+QStringList GroupProperty::getLabels() const
 {
     QStringList result;
     for (const auto& key_value_pair : m_type_label_map) {
@@ -98,12 +98,12 @@ QStringList FancyGroupProperty::getLabels() const
     return result;
 }
 
-int FancyGroupProperty::index() const
+int GroupProperty::index() const
 {
     return toIndex(m_current_type);
 }
 
-int FancyGroupProperty::toIndex(const QString &type) const
+int GroupProperty::toIndex(const QString &type) const
 {
     QStringList name_list = getTypes();
     for (int i = 0; i < name_list.size(); ++i) {
@@ -114,7 +114,7 @@ int FancyGroupProperty::toIndex(const QString &type) const
     return -1;
 }
 
-QString FancyGroupProperty::toString(int index) const
+QString GroupProperty::toString(int index) const
 {
     QStringList name_list = getTypes();
     if (index<0 || index>=name_list.size()) {
@@ -123,13 +123,13 @@ QString FancyGroupProperty::toString(int index) const
     return name_list[index];
 }
 
-void FancyGroupProperty::setGroupMap(std::map<QString, QString> group_map)
+void GroupProperty::setGroupMap(std::map<QString, QString> group_map)
 {
     m_type_label_map = std::move(group_map);
     setCurrentType(m_type_label_map.begin()->first);
 }
 
-void FancyGroupProperty::setGroupType(FancyGroupProperty::EGroupType group_type)
+void GroupProperty::setGroupType(GroupProperty::EGroupType group_type)
 {
     m_group_type = group_type;
 }

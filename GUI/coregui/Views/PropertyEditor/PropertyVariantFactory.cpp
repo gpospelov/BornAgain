@@ -40,9 +40,9 @@ PropertyVariantFactory::~PropertyVariantFactory()
     while (scdouble_it.hasNext())
         delete scdouble_it.next();
 
-    QList<FancyGroupPropertyEdit *> fancy_editors =
+    QList<GroupPropertyEdit *> fancy_editors =
             m_fancygroup_editor_to_property.keys();
-    QListIterator<FancyGroupPropertyEdit *> fancy_it(fancy_editors);
+    QListIterator<GroupPropertyEdit *> fancy_it(fancy_editors);
     while (fancy_it.hasNext())
         delete fancy_it.next();
 
@@ -125,17 +125,17 @@ QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
 
     if (manager->propertyType(property) ==
             PropertyVariantManager::fancyGroupTypeId()) {
-        FancyGroupPropertyEdit *editor = new FancyGroupPropertyEdit(parent);
+        GroupPropertyEdit *editor = new GroupPropertyEdit(parent);
         QVariant var = manager->value(property);
-        FancyGroupProperty_t ff = var.value<FancyGroupProperty_t>();
-        editor->setFancyGroupProperty(ff);
+        GroupProperty_t ff = var.value<GroupProperty_t>();
+        editor->setGroupProperty(ff);
 
         m_property_to_fancygroup_editors[property].append(editor);
         m_fancygroup_editor_to_property[editor] = property;
 
         connect(editor,
-                SIGNAL(fancyGroupPropertyChanged(FancyGroupProperty_t)),
-                this, SLOT(slotSetValue(FancyGroupProperty_t)));
+                SIGNAL(groupPropertyChanged(GroupProperty_t)),
+                this, SLOT(slotSetValue(GroupProperty_t)));
 
         connect(editor, SIGNAL(destroyed(QObject *)),
                 this, SLOT(slotEditorDestroyed(QObject *)));
@@ -210,13 +210,13 @@ void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
         }
     }
     else if (m_property_to_fancygroup_editors.contains(property)) {
-        QList<FancyGroupPropertyEdit *> editors =
+        QList<GroupPropertyEdit *> editors =
                 m_property_to_fancygroup_editors[property];
-        QListIterator<FancyGroupPropertyEdit *> itEditor(editors);
+        QListIterator<GroupPropertyEdit *> itEditor(editors);
         while (itEditor.hasNext()) {
-            FancyGroupProperty_t mat = value.value<FancyGroupProperty_t>();
+            GroupProperty_t mat = value.value<GroupProperty_t>();
             qDebug() << "       PropertyVariantFactory::slotPropertyChanged() -> Setting editor";
-            itEditor.next()->setFancyGroupProperty(mat);
+            itEditor.next()->setGroupProperty(mat);
         }
     }
     else if (m_property_to_combo_editors.contains(property)) {
@@ -294,11 +294,11 @@ void PropertyVariantFactory::slotSetValue(const ScientificDoubleProperty &value)
     }
 }
 
-void PropertyVariantFactory::slotSetValue(const FancyGroupProperty_t &value)
+void PropertyVariantFactory::slotSetValue(const GroupProperty_t &value)
 {
-    qDebug() << "PropertyVariantFactory::slotSetValue(const FancyGroupProperty_t &value)";
+    qDebug() << "PropertyVariantFactory::slotSetValue(const GroupProperty_t &value)";
     QObject *object = sender();
-    QMap<FancyGroupPropertyEdit *, QtProperty *>::ConstIterator itEditor =
+    QMap<GroupPropertyEdit *, QtProperty *>::ConstIterator itEditor =
                 m_fancygroup_editor_to_property.constBegin();
     while (itEditor != m_fancygroup_editor_to_property.constEnd()) {
         if (itEditor.key() == object) {
@@ -384,13 +384,13 @@ void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
         scdouble_it_editor++;
     }
 
-    QMap<FancyGroupPropertyEdit *, QtProperty *>::ConstIterator fancygroup_editor_it =
+    QMap<GroupPropertyEdit *, QtProperty *>::ConstIterator fancygroup_editor_it =
                 m_fancygroup_editor_to_property.constBegin();
     while (fancygroup_editor_it != m_fancygroup_editor_to_property.constEnd()) {
         if (fancygroup_editor_it.key() == object) {
             qDebug() << "PropertyVariantFactory::slotEditorDestroyed(QObject *object) -> fancy group editor";
 
-            FancyGroupPropertyEdit *editor = fancygroup_editor_it.key();
+            GroupPropertyEdit *editor = fancygroup_editor_it.key();
             QtProperty *property = fancygroup_editor_it.value();
             m_fancygroup_editor_to_property.remove(editor);
             m_property_to_fancygroup_editors[property].removeAll(editor);

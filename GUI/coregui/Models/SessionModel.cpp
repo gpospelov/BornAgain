@@ -20,7 +20,7 @@
 #include "ComboProperty.h"
 #include "ScientificDoubleProperty.h"
 #include "IconProvider.h"
-#include "FancyGroupProperty.h"
+#include "GroupProperty.h"
 #include "MaterialUtils.h"
 #include "MaterialProperty.h"
 #include "AngleProperty.h"
@@ -642,12 +642,12 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
         QVariant v;
         v.setValue(scdouble_property);
         item->setRegisteredProperty(parameter_name, v);
-    } else if (parameter_type == "FancyGroupProperty_t") {
+    } else if (parameter_type == "GroupProperty_t") {
         QString parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
 
-        FancyGroupProperty_t group_property
-            = item->getRegisteredProperty(parameter_name).value<FancyGroupProperty_t>();
+        GroupProperty_t group_property
+            = item->getRegisteredProperty(parameter_name).value<GroupProperty_t>();
         group_property->setCurrentType(parameter_value);
     } else if (parameter_type == "ColorProperty") {
         int r = reader->attributes().value(SessionXML::ColorRedAttribute).toInt();
@@ -731,8 +731,8 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer, const ParameterizedIt
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    variant.value<ScientificDoubleProperty>().getText());
 
-        } else if (type_name == QString("FancyGroupProperty_t")) {
-            QString ff_name = variant.value<FancyGroupProperty_t>()->getCurrentType();
+        } else if (type_name == QString("GroupProperty_t")) {
+            QString ff_name = variant.value<GroupProperty_t>()->getCurrentType();
             writer->writeAttribute(SessionXML::ParameterValueAttribute, ff_name);
         } else if (type_name == QString("ColorProperty")) {
             int r, g, b, a;

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/FancyGroupProperty.h
-//! @brief     Defines class FancyGroupProperty
+//! @file      coregui/Models/GroupProperty.h
+//! @brief     Defines class GroupProperty
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FANCYGROUPPROPERTY_H
-#define FANCYGROUPPROPERTY_H
+#ifndef GROUPPROPERTY_H
+#define GROUPPROPERTY_H
 
 #include "WinDllMacros.h"
 #include "item_constants.h"
@@ -27,12 +27,12 @@
 
 class ParameterizedItem;
 
-class BA_CORE_API_ FancyGroupProperty
+class BA_CORE_API_ GroupProperty
 {
 public:
     enum EGroupType { UNDEFINED, FIXED, SELECTABLE };
 
-    FancyGroupProperty(const QString &group_name);
+    GroupProperty(const QString &group_name);
 
     EGroupType type() const;
 
@@ -69,9 +69,9 @@ private:
     std::map<QString, QString > m_type_label_map;
 };
 
-typedef QSharedPointer<FancyGroupProperty> FancyGroupProperty_t;
+typedef QSharedPointer<GroupProperty> GroupProperty_t;
 
-Q_DECLARE_METATYPE(FancyGroupProperty_t)
+Q_DECLARE_METATYPE(GroupProperty_t)
 
 
 #endif

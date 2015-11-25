@@ -19,7 +19,7 @@
 #include "GUIHelpers.h"
 #include "PropertyVariantManager.h"
 #include "GroupPropertyRegistry.h"
-#include "FancyGroupProperty.h"
+#include "GroupProperty.h"
 
 #include <QEvent>
 #include <QDynamicPropertyChangeEvent>
@@ -192,7 +192,7 @@ ParameterizedItem *ParameterizedItem::registerGroupProperty(const QString &group
              << "this->modelType" << modelType() << "group_name" << group_name << " group_model"
              << group_model;
 
-    FancyGroupProperty_t group_property
+    GroupProperty_t group_property
         = GroupPropertyRegistry::createGroupProperty(group_name, group_model);
     QVariant variant;
     variant.setValue(group_property);
@@ -203,8 +203,8 @@ ParameterizedItem *ParameterizedItem::registerGroupProperty(const QString &group
 
 ParameterizedItem *ParameterizedItem::setGroupProperty(const QString &name, const QString &value)
 {
-    qDebug() << "ParameterizedItem::setFancyGroupProperty()" << name << value;
-    FancyGroupProperty_t group_property = getRegisteredProperty(name).value<FancyGroupProperty_t>();
+    qDebug() << "ParameterizedItem::setGroupProperty()" << name << value;
+    GroupProperty_t group_property = getRegisteredProperty(name).value<GroupProperty_t>();
     group_property->setCurrentType(value);
     return m_sub_items[name];
 }
@@ -422,9 +422,9 @@ QStringList ParameterizedItem::getParameterTreeList() const
     if (m_sub_items.size() > 0) {
         for (QMap<QString, ParameterizedItem *>::const_iterator it = m_sub_items.begin();
              it != m_sub_items.end(); ++it) {
-            FancyGroupProperty_t fgp = getRegisteredProperty(it.key()).value<FancyGroupProperty_t>();
+            GroupProperty_t fgp = getRegisteredProperty(it.key()).value<GroupProperty_t>();
             QString subitem_name;
-            if (fgp->type()==FancyGroupProperty::SELECTABLE) {
+            if (fgp->type()==GroupProperty::SELECTABLE) {
                 subitem_name = it.value()->modelType();
             } else {
                 subitem_name = it.key();
@@ -467,8 +467,8 @@ void ParameterizedItem::processSubItemPropertyChanged(const QString &propertyNam
     for (QMap<QString, ParameterizedItem *>::iterator it = m_sub_items.begin();
          it != m_sub_items.end(); ++it) {
         if (it.value() == propertyItem) {
-            FancyGroupProperty_t group_property
-                = getRegisteredProperty(it.key()).value<FancyGroupProperty_t>();
+            GroupProperty_t group_property
+                = getRegisteredProperty(it.key()).value<GroupProperty_t>();
             group_property->setCurrentLabel(propertyItem->getItemLabel());
             onSubItemPropertyChanged(it.key(), propertyName);
             return;

@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "GroupPropertyRegistry.h"
-#include "FancyGroupProperty.h"
+#include "GroupProperty.h"
 #include "GUIHelpers.h"
 #include "item_constants.h"
 #include <QDebug>
@@ -117,7 +117,7 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
 GroupPropertyRegistry::SelectableGroupMap_t GroupPropertyRegistry::m_selectable_group_map
     = initializeSelectableGroupMap();
 
-FancyGroupProperty_t
+GroupProperty_t
 GroupPropertyRegistry::createGroupProperty(const QString &group_name,
                                            const Constants::ModelType &group_model)
 {
@@ -125,15 +125,15 @@ GroupPropertyRegistry::createGroupProperty(const QString &group_name,
     if (groupModelType.isEmpty())
         groupModelType = group_name;
 
-    FancyGroupProperty_t result(new FancyGroupProperty(group_name));
+    GroupProperty_t result(new GroupProperty(group_name));
 
     if (m_selectable_group_map.find(groupModelType) != m_selectable_group_map.end()) {
         qDebug() << "GroupPropertyRegistry::createGroupProperty() -> creating selectable group of "
                     "groupModelType" << groupModelType;
-        result->setGroupType(FancyGroupProperty::SELECTABLE);
+        result->setGroupType(GroupProperty::SELECTABLE);
         result->setGroupMap(m_selectable_group_map[groupModelType]);
     } else {
-        result->setGroupType(FancyGroupProperty::FIXED);
+        result->setGroupType(GroupProperty::FIXED);
         // result->setValue(group_n);
         std::map<QString, QString> group_map;
         group_map[groupModelType] = "No label";

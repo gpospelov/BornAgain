@@ -51,7 +51,7 @@
 #include "tooltipdatabase.h"
 #include "mainwindow_constants.h"
 #include "ParticleCoreShellItem.h"
-#include "FancyGroupProperty.h"
+#include "GroupProperty.h"
 #include "ScientificDoubleProperty.h"
 #include "SampleModel.h"
 #include "JobView.h"

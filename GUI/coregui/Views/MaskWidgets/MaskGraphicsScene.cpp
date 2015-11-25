@@ -386,7 +386,8 @@ void MaskGraphicsScene::updateScene()
 {
     if(!m_maskModel) return;
     updateProxyWidget(m_rootIndex);
-    updateViews(m_rootIndex);
+//    updateViews(m_rootIndex);
+    updateViews();
     setZValues();
 }
 

@@ -143,8 +143,10 @@ qreal IMaskView::fromSceneY(qreal value) const
 
 void IMaskView::addView(IMaskView *childView, int row)
 {
-    Q_UNUSED(childView);
+//    Q_UNUSED(childView);
     Q_UNUSED(row);
+    if(childItems().contains(childView)) return;
+    childView->setParentItem(this);
 }
 
 void IMaskView::onChangedX()

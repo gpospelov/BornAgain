@@ -19,7 +19,8 @@
 #include "WinDllMacros.h"
 #include "item_constants.h"
 #include "FancyGroupProperty.h"
-#include <QMap>
+
+#include <map>
 #include <QString>
 
 class ParameterizedItem;
@@ -30,7 +31,7 @@ class BA_CORE_API_ GroupPropertyRegistry
 {
 public:
     //! correspondance of group name to ParameterizedItem's types to labels
-    typedef QMap<QString, QMap<QString, QString> > SelectableGroupMap_t;
+    using SelectableGroupMap_t = std::map<QString, std::map<QString, QString>>;
 
     static FancyGroupProperty_t createGroupProperty(const QString &group_name, const Constants::ModelType &group_model = Constants::ModelType());
 

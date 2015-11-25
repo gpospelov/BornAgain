@@ -23,7 +23,6 @@ FancyGroupProperty::FancyGroupProperty(const QString &group_name)
     , m_group_type(UNDEFINED)
     , m_parent(0)
 {
-
 }
 
 FancyGroupProperty::EGroupType FancyGroupProperty::type() const
@@ -56,11 +55,11 @@ QString FancyGroupProperty::getCurrentType() const
     return m_current_type;
 }
 
-void FancyGroupProperty::setCurrentType(const QString &value)
+void FancyGroupProperty::setCurrentType(const QString &type)
 {
-    if(value == getCurrentType()) return;
+    if(type == getCurrentType()) return;
 
-    m_current_type = value;
+    m_current_type = type;
 
     if(m_parent) {
         m_parent->addPropertyItem(getGroupName(), createCorrespondingItem());
@@ -73,10 +72,10 @@ QString FancyGroupProperty::getCurrentLabel() const
     return m_type_label_map.at(m_current_type);
 }
 
-void FancyGroupProperty::setCurrentLabel(const QString &value_label)
+void FancyGroupProperty::setCurrentLabel(const QString &label)
 {
     if(type() == FIXED) {
-        m_type_label_map[m_current_type] = value_label;
+        m_type_label_map[m_current_type] = label;
         if(m_parent) emit m_parent->propertyChanged(getGroupName());
     }
 }
@@ -104,11 +103,11 @@ int FancyGroupProperty::index() const
     return toIndex(m_current_type);
 }
 
-int FancyGroupProperty::toIndex(const QString &value) const
+int FancyGroupProperty::toIndex(const QString &type) const
 {
     QStringList name_list = getTypes();
     for (int i = 0; i < name_list.size(); ++i) {
-        if (value == name_list[i]) {
+        if (type == name_list[i]) {
             return i;
         }
     }
@@ -124,14 +123,9 @@ QString FancyGroupProperty::toString(int index) const
     return name_list[index];
 }
 
-
-void FancyGroupProperty::setGroupMap(const QMap<Constants::ModelType, QString> &group_map)
+void FancyGroupProperty::setGroupMap(std::map<QString, QString> group_map)
 {
-    m_type_label_map.clear();
-    for (QMap<Constants::ModelType, QString>::ConstIterator it = group_map.begin();
-         it != group_map.end(); ++it) {
-        m_type_label_map[it.key()] = it.value();
-    }
+    m_type_label_map = std::move(group_map);
     setCurrentType(m_type_label_map.begin()->first);
 }
 

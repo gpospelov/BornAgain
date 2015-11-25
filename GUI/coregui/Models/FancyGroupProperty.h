@@ -43,22 +43,22 @@ public:
     QString getGroupName() const;
 
     QString getCurrentType() const;
-    void setCurrentType(const QString &value);
+    void setCurrentType(const QString &type);
 
     QString getCurrentLabel() const;
-    void setCurrentLabel(const QString &value_label);
+    void setCurrentLabel(const QString &label);
 
     QStringList getTypes() const;
     QStringList getLabels() const;
 
     int index() const;
-    int toIndex(const QString &value) const;
+    int toIndex(const QString &type) const;
     QString toString(int index) const;
 
     friend class GroupPropertyRegistry;
 
 private:
-    void setGroupMap(const QMap<Constants::ModelType, QString> &group_map);
+    void setGroupMap(std::map<QString, QString> group_map);
     void setGroupType(EGroupType group_type);
 
     QString m_group_name;

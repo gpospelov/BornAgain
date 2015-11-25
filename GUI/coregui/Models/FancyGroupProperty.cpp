@@ -81,7 +81,6 @@ void FancyGroupProperty::setValueLabel(const QString &value_label)
     }
 }
 
-
 QStringList FancyGroupProperty::getValues() const
 {
     return m_group_map.keys();
@@ -118,7 +117,7 @@ QString FancyGroupProperty::toString(int index) const
 }
 
 
-void FancyGroupProperty::setGroupMap(const QMap<QString, QString> &group_map)
+void FancyGroupProperty::setGroupMap(const QMap<Constants::ModelType, QString> &group_map)
 {
     m_group_map = group_map;
     setValue(m_group_map.begin().key());

@@ -17,6 +17,8 @@
 #define FANCYGROUPPROPERTY_H
 
 #include "WinDllMacros.h"
+#include "item_constants.h"
+
 #include <QString>
 #include <QMap>
 #include <QMetaType>
@@ -57,7 +59,7 @@ public:
     friend class GroupPropertyRegistry;
 
 protected:
-    void setGroupMap(const QMap<QString, QString> &group_map);
+    void setGroupMap(const QMap<Constants::ModelType, QString> &group_map);
     void setGroupType(EGroupType group_type);
 
     QString m_group_name;

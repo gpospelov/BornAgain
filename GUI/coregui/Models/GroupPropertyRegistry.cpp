@@ -16,7 +16,6 @@
 #include "GroupPropertyRegistry.h"
 #include "SelectableGroupProperty.h"
 #include "FancyGroupProperty.h"
-#include "FixedGroupProperty.h"
 #include "GUIHelpers.h"
 #include "item_constants.h"
 #include <QDebug>
@@ -137,7 +136,7 @@ GroupPropertyRegistry::createGroupProperty(const QString &group_name,
     } else {
         result->setGroupType(FancyGroupProperty::FIXED);
         // result->setValue(group_n);
-        QMap<QString, QString> group_map;
+        QMap<Constants::ModelType, QString> group_map;
         group_map[groupModelType] = "No label";
         result->setGroupMap(group_map);
     }

@@ -24,7 +24,6 @@
 
 //class FancyGroupProperty_t;
 class SelectableGroupProperty;
-class FixedGroupProperty;
 class ParameterizedItem;
 
 //! The GroupPropertyRegistry constructs FancyGroupProperty or SelectableGroupProperty
@@ -38,9 +37,6 @@ public:
     static FancyGroupProperty_t createGroupProperty(const QString &group_name, const Constants::ModelType &group_model = Constants::ModelType());
 
 private:
-//    static SelectableGroupProperty *createSelectableGroupProperty(const QString &group_name, ParameterizedItem *parent = 0);
-//    static FixedGroupProperty *createFixedGroupProperty(const QString &group_name, ParameterizedItem *parent = 0);
-
     static SelectableGroupMap_t m_selectable_group_map;
     //!< Contains correspondance of selectable group names to they content,
     //!< namely item type and item label

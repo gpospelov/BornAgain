@@ -91,14 +91,15 @@ void EllipseView::onPropertyChange(const QString &propertyName)
         qDebug() << "   ";
         qDebug() << "   ";
 
-        QTransform transform;
-        QPointF center = m_bounding_rect.center();
-        qDebug() << "translating" << center << par(EllipseItem::P_ANGLE);
-//        transform.translate(center.x(), center.y());
-        transform.rotate(par(EllipseItem::P_ANGLE));
-//        transform.translate(-center.x(), -center.y());
-        setTransform(transform);
-        update();
+//        QTransform transform;
+//        QPointF center = m_bounding_rect.center();
+//        qDebug() << "translating" << center << par(EllipseItem::P_ANGLE);
+////        transform.translate(center.x(), center.y());
+//        transform.rotate(par(EllipseItem::P_ANGLE));
+////        transform.translate(-center.x(), -center.y());
+//        setTransform(transform);
+//        update();
+        setTransform(QTransform().rotate(par(EllipseItem::P_ANGLE)));
     }
 
     m_block_on_property_change = false;

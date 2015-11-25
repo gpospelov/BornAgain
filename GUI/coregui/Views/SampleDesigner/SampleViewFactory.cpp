@@ -25,9 +25,6 @@
 #include "ParticleDistributionView.h"
 #include "InterferenceFunctionViews.h"
 #include "GUIHelpers.h"
-#include "ObsoleteRectangleView.h"
-#include "ObsoleteEllipseView.h"
-#include "ObsoletePolygonView.h"
 #include <QDebug>
 
 
@@ -42,8 +39,7 @@ QStringList SampleViewFactory::m_valid_item_names  = QStringList()
         << Constants::ParticleDistributionType
         << Constants::InterferenceFunctionRadialParaCrystalType
         << Constants::InterferenceFunction2DParaCrystalType
-        << Constants::InterferenceFunction2DLatticeType
-        << Constants::ObsoleteRectangleType;
+        << Constants::InterferenceFunction2DLatticeType;
 
 
 bool SampleViewFactory::isValidItemName(const QString &name)
@@ -90,15 +86,6 @@ IView *SampleViewFactory::createSampleView(const QString &name)
     }
     else if (name==Constants::InterferenceFunction2DLatticeType) {
         return new InterferenceFunction2DLatticeView();
-    }
-    else if(name==Constants::ObsoleteRectangleType) {
-        return new ObsoleteRectangleView();
-    }
-    else if(name==Constants::ObsoleteEllipseType) {
-        return new ObsoleteEllipseView();
-    }
-    else if(name==Constants::ObsoletePolygonType) {
-        return new ObsoletePolygonView();
     }
     else {
         //qDebug() << "SampleViewFactory::createSampleView() -> Error! Can't create a view for" << name;

@@ -27,9 +27,11 @@ class ColorMapSceneAdaptor;
 
 class MaskGraphicsProxy : public QGraphicsProxyWidget
 {
+    Q_OBJECT
+
 public:
     MaskGraphicsProxy();
-    ~MaskGraphicsProxy();
+    virtual ~MaskGraphicsProxy();
 
     enum { Type = UserType + 4 };
 

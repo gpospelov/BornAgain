@@ -78,7 +78,8 @@ void ParticleView::onPropertyChange(const QString &propertyName)
     if(propertyName == ParticleItem::P_FORM_FACTOR) {
         FancyGroupProperty_t group_property = getParameterizedItem()->getRegisteredProperty(ParticleItem::P_FORM_FACTOR).value<FancyGroupProperty_t>();
 
-        QString filename = QString(":/SampleDesigner/images/ff_%1_32.png").arg(group_property->getValue());
+        QString current_ff_type = group_property->getCurrentType();
+        QString filename = QString(":/SampleDesigner/images/ff_%1_32.png").arg(current_ff_type);
         m_pixmap = QPixmap(filename);
         update();
     } else {

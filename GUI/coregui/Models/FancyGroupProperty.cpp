@@ -40,9 +40,9 @@ void FancyGroupProperty::setParent(ParameterizedItem *parent)
 
 ParameterizedItem *FancyGroupProperty::createCorrespondingItem()
 {
-    ParameterizedItem *result = ItemFactory::createItem(getValue());
+    ParameterizedItem *result = ItemFactory::createItem(getCurrentType());
     if(type() == FIXED)
-        setValueLabel(result->getItemLabel());
+        setCurrentLabel(result->getItemLabel());
     return result;
 }
 
@@ -51,16 +51,16 @@ QString FancyGroupProperty::getGroupName() const
     return m_group_name;
 }
 
-QString FancyGroupProperty::getValue() const
+QString FancyGroupProperty::getCurrentType() const
 {
-    return m_value;
+    return m_current_type;
 }
 
-void FancyGroupProperty::setValue(const QString &value)
+void FancyGroupProperty::setCurrentType(const QString &value)
 {
-    if(value == getValue()) return;
+    if(value == getCurrentType()) return;
 
-    m_value = value;
+    m_current_type = value;
 
     if(m_parent) {
         m_parent->addPropertyItem(getGroupName(), createCorrespondingItem());
@@ -68,37 +68,45 @@ void FancyGroupProperty::setValue(const QString &value)
     }
 }
 
-QString FancyGroupProperty::getValueLabel() const
+QString FancyGroupProperty::getCurrentLabel() const
 {
-    return m_group_map[m_value];
+    return m_type_label_map.at(m_current_type);
 }
 
-void FancyGroupProperty::setValueLabel(const QString &value_label)
+void FancyGroupProperty::setCurrentLabel(const QString &value_label)
 {
     if(type() == FIXED) {
-        m_group_map[m_value] = value_label;
+        m_type_label_map[m_current_type] = value_label;
         if(m_parent) emit m_parent->propertyChanged(getGroupName());
     }
 }
 
-QStringList FancyGroupProperty::getValues() const
+QStringList FancyGroupProperty::getTypes() const
 {
-    return m_group_map.keys();
+    QStringList result;
+    for (const auto& key_value_pair : m_type_label_map) {
+        result << key_value_pair.first;
+    }
+    return result;
 }
 
-QStringList FancyGroupProperty::getValueLabels() const
+QStringList FancyGroupProperty::getLabels() const
 {
-    return m_group_map.values();
+    QStringList result;
+    for (const auto& key_value_pair : m_type_label_map) {
+        result << key_value_pair.second;
+    }
+    return result;
 }
 
 int FancyGroupProperty::index() const
 {
-    return toIndex(m_value);
+    return toIndex(m_current_type);
 }
 
 int FancyGroupProperty::toIndex(const QString &value) const
 {
-    QStringList name_list = getValues();
+    QStringList name_list = getTypes();
     for (int i = 0; i < name_list.size(); ++i) {
         if (value == name_list[i]) {
             return i;
@@ -109,7 +117,7 @@ int FancyGroupProperty::toIndex(const QString &value) const
 
 QString FancyGroupProperty::toString(int index) const
 {
-    QStringList name_list = getValues();
+    QStringList name_list = getTypes();
     if (index<0 || index>=name_list.size()) {
         return QString();
     }
@@ -119,8 +127,12 @@ QString FancyGroupProperty::toString(int index) const
 
 void FancyGroupProperty::setGroupMap(const QMap<Constants::ModelType, QString> &group_map)
 {
-    m_group_map = group_map;
-    setValue(m_group_map.begin().key());
+    m_type_label_map.clear();
+    for (QMap<Constants::ModelType, QString>::ConstIterator it = group_map.begin();
+         it != group_map.end(); ++it) {
+        m_type_label_map[it.key()] = it.value();
+    }
+    setCurrentType(m_type_label_map.begin()->first);
 }
 
 void FancyGroupProperty::setGroupType(FancyGroupProperty::EGroupType group_type)

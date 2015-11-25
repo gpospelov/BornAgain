@@ -648,7 +648,7 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
 
         FancyGroupProperty_t group_property
             = item->getRegisteredProperty(parameter_name).value<FancyGroupProperty_t>();
-        group_property->setValue(parameter_value);
+        group_property->setCurrentType(parameter_value);
     } else if (parameter_type == "ColorProperty") {
         int r = reader->attributes().value(SessionXML::ColorRedAttribute).toInt();
         int g = reader->attributes().value(SessionXML::ColorGreenAttribute).toInt();
@@ -732,7 +732,7 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer, const ParameterizedIt
                                    variant.value<ScientificDoubleProperty>().getText());
 
         } else if (type_name == QString("FancyGroupProperty_t")) {
-            QString ff_name = variant.value<FancyGroupProperty_t>()->getValue();
+            QString ff_name = variant.value<FancyGroupProperty_t>()->getCurrentType();
             writer->writeAttribute(SessionXML::ParameterValueAttribute, ff_name);
         } else if (type_name == QString("ColorProperty")) {
             int r, g, b, a;

@@ -137,11 +137,11 @@ void FancyGroupPropertyEdit::setFancyGroupProperty(
 
 void FancyGroupPropertyEdit::processFixedGroup()
 {
-    qDebug() << "FancyGroupPropertyEdit::processFixedGroup()" << m_groupProperty->getValueLabel();
+    qDebug() << "FancyGroupPropertyEdit::processFixedGroup()" << m_groupProperty->getCurrentLabel();
 //    if(!m_label) m_label = new QLabel(this);
     m_box->hide();
     m_label->show();
-    m_label->setText(m_groupProperty->getValueLabel());
+    m_label->setText(m_groupProperty->getCurrentLabel());
 }
 
 
@@ -155,10 +155,10 @@ void FancyGroupPropertyEdit::processSelectableGroup()
     disconnect(m_box, SIGNAL(currentIndexChanged(int)),
             this, SLOT(indexChanged(int)));
 
-    if(m_box->count() != m_groupProperty->getValueLabels().size()) {
+    if(m_box->count() != m_groupProperty->getLabels().size()) {
         m_box->clear();
-        qDebug() << "XXX inserting_items" << m_groupProperty->getValueLabels();
-        m_box->insertItems(0, m_groupProperty->getValueLabels());
+        qDebug() << "XXX inserting_items" << m_groupProperty->getLabels();
+        m_box->insertItems(0, m_groupProperty->getLabels());
     }
     m_box->setCurrentIndex(m_groupProperty->index());
 
@@ -171,7 +171,7 @@ void FancyGroupPropertyEdit::processSelectableGroup()
 void FancyGroupPropertyEdit::indexChanged(int index)
 {
     qDebug() << "FancyGroupPropertyEdit::textChanged() -> " << index;
-    m_groupProperty->setValue(m_groupProperty->toString(index));
+    m_groupProperty->setCurrentType(m_groupProperty->toString(index));
 //    emit fancyGroupPropertyChanged(m_groupProperty);
 //    update();
 }

@@ -205,7 +205,7 @@ ParameterizedItem *ParameterizedItem::setGroupProperty(const QString &name, cons
 {
     qDebug() << "ParameterizedItem::setFancyGroupProperty()" << name << value;
     FancyGroupProperty_t group_property = getRegisteredProperty(name).value<FancyGroupProperty_t>();
-    group_property->setValue(value);
+    group_property->setCurrentType(value);
     return m_sub_items[name];
 }
 
@@ -469,7 +469,7 @@ void ParameterizedItem::processSubItemPropertyChanged(const QString &propertyNam
         if (it.value() == propertyItem) {
             FancyGroupProperty_t group_property
                 = getRegisteredProperty(it.key()).value<FancyGroupProperty_t>();
-            group_property->setValueLabel(propertyItem->getItemLabel());
+            group_property->setCurrentLabel(propertyItem->getItemLabel());
             onSubItemPropertyChanged(it.key(), propertyName);
             return;
         }

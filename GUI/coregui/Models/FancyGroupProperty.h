@@ -19,8 +19,8 @@
 #include "WinDllMacros.h"
 #include "item_constants.h"
 
+#include <map>
 #include <QString>
-#include <QMap>
 #include <QMetaType>
 #include <QSharedPointer>
 #include <QVariant>
@@ -33,41 +33,40 @@ public:
     enum EGroupType { UNDEFINED, FIXED, SELECTABLE };
 
     FancyGroupProperty(const QString &group_name);
-    virtual ~FancyGroupProperty(){}
 
-    virtual EGroupType type() const;
+    EGroupType type() const;
 
-    virtual void setParent(ParameterizedItem *parent);
+    void setParent(ParameterizedItem *parent);
 
-    virtual ParameterizedItem *createCorrespondingItem();
+    ParameterizedItem *createCorrespondingItem();
 
-    virtual QString getGroupName() const;
+    QString getGroupName() const;
 
-    virtual QString getValue() const;
-    virtual void setValue(const QString &value);
+    QString getCurrentType() const;
+    void setCurrentType(const QString &value);
 
-    virtual QString getValueLabel() const;
-    virtual void setValueLabel(const QString &value_label);
+    QString getCurrentLabel() const;
+    void setCurrentLabel(const QString &value_label);
 
-    virtual QStringList getValues() const;
-    virtual QStringList getValueLabels() const;
+    QStringList getTypes() const;
+    QStringList getLabels() const;
 
-    virtual int index() const;
-    virtual int toIndex(const QString &value) const;
-    virtual QString toString(int index) const;
+    int index() const;
+    int toIndex(const QString &value) const;
+    QString toString(int index) const;
 
     friend class GroupPropertyRegistry;
 
-protected:
+private:
     void setGroupMap(const QMap<Constants::ModelType, QString> &group_map);
     void setGroupType(EGroupType group_type);
 
     QString m_group_name;
     EGroupType m_group_type;
     ParameterizedItem *m_parent;
-    QString m_value;
+    QString m_current_type;
 
-    QMap<QString, QString > m_group_map;
+    std::map<QString, QString > m_type_label_map;
 };
 
 typedef QSharedPointer<FancyGroupProperty> FancyGroupProperty_t;

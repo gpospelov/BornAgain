@@ -22,18 +22,14 @@
 Particle::Particle()
 {
     setName("Particle");
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
+    registerPosition();
 }
 
 Particle::Particle(const IMaterial &p_material)
     : mP_material(p_material.clone())
 {
     setName("Particle");
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
+    registerPosition();
 }
 
 Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor)
@@ -41,9 +37,7 @@ Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor)
     , mP_form_factor(form_factor.clone())
 {
     setName("Particle");
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
+    registerPosition();
     registerChild(mP_form_factor.get());
 }
 
@@ -53,15 +47,9 @@ Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor,
     , mP_form_factor(form_factor.clone())
 {
     setName("Particle");
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
+    registerPosition();
     setRotation(rotation);
     registerChild(mP_form_factor.get());
-}
-
-Particle::~Particle()
-{
 }
 
 Particle *Particle::clone() const
@@ -142,4 +130,11 @@ void Particle::setFormFactor(const IFormFactor &form_factor)
         mP_form_factor.reset(form_factor.clone());
         registerChild(mP_form_factor.get());
     }
+}
+
+void Particle::registerPosition()
+{
+    registerParameter("position_x", &m_position[0]);
+    registerParameter("position_y", &m_position[1]);
+    registerParameter("position_z", &m_position[2]);
 }

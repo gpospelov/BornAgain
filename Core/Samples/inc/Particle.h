@@ -36,7 +36,6 @@ public:
     Particle(const IMaterial &p_material, const IFormFactor &form_factor,
             const IRotation &rotation);
 
-    virtual ~Particle();
     virtual Particle *clone() const;
 
     //! Returns a clone with inverted magnetic fields
@@ -91,6 +90,8 @@ protected:
     boost::scoped_ptr<IMaterial> mP_material;
     boost::scoped_ptr<IMaterial> mP_ambient_material;
     boost::scoped_ptr<IFormFactor> mP_form_factor;
+private:
+    void registerPosition();
 };
 
 #endif // PARTICLE_H

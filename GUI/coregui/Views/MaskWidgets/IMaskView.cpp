@@ -75,9 +75,17 @@ void IMaskView::setSceneAdaptor(const ISceneAdaptor *adaptor)
     qDebug() << "BBB";
     qDebug() << "BBB";
     qDebug() << "IMaskView::setSceneAdaptor()-> setting adapter";
-    m_adaptor = adaptor;
-    connect(m_adaptor, SIGNAL(update_request()), this, SLOT(update_view()));
-    update_view();
+    Q_ASSERT(adaptor);
+
+    if(m_adaptor != adaptor) {
+        if(m_adaptor) {
+            disconnect(m_adaptor, SIGNAL(update_request()), this, SLOT(update_view()));
+        }
+
+        m_adaptor = adaptor;
+        connect(m_adaptor, SIGNAL(update_request()), this, SLOT(update_view()), Qt::UniqueConnection);
+        update_view();
+    }
 }
 
 double IMaskView::par(const QString &property_name) const

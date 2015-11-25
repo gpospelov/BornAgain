@@ -87,7 +87,7 @@ SizeHandleElement::SizeHandleElement(EHandleLocation pointType, IMaskView *paren
 {
     setCursor(m_cursors[m_handleLocation]);
     setParentItem(parent);
-    setSceneAdaptor(parent->getAdaptor());
+//    setSceneAdaptor(parent->getAdaptor());
 }
 
 QRectF SizeHandleElement::boundingRect() const
@@ -102,7 +102,7 @@ void SizeHandleElement::paint(QPainter *painter, const QStyleOptionGraphicsItem 
     painter->setRenderHints(QPainter::Antialiasing);
     prepareGeometryChange();
 
-    clipPainter(painter);
+//    clipPainter(painter);
 
     painter->setBrush(MaskEditorHelper::getSelectionMarkerBrush());
     painter->setPen(MaskEditorHelper::getSelectionMarkerPen());

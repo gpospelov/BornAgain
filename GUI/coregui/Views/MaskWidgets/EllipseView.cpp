@@ -71,7 +71,7 @@ void EllipseView::onChangedY()
 
 void EllipseView::onPropertyChange(const QString &propertyName)
 {
-    qDebug() << "EllipseView::onPropertyChange()";
+    qDebug() << "EllipseView::onPropertyChange()" << propertyName;
     if(m_block_on_property_change) return;
 
     m_block_on_property_change = true;
@@ -313,7 +313,7 @@ void EllipseView::create_size_handle_elements()
 
     foreach(SizeHandleElement::EHandleLocation point_type, points) {
         SizeHandleElement *el = new SizeHandleElement(point_type, this);
-        connect(el, SIGNAL(resize_request(bool)), this, SLOT(onSizeHandleElementRequest(bool)));
+        connect(el, SIGNAL(resize_request(bool)), this, SLOT(onSizeHandleElementRequest(bool)), Qt::UniqueConnection);
         el->setVisible(false);
         m_resize_handles[point_type] = el;
     }

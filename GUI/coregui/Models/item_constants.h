@@ -22,7 +22,7 @@ namespace Constants {
 
 // --- Items -------------------------------------------------------------------
 
-typedef QString ModelType;
+using ModelType = QString;
 
 const ModelType LayerType = "Layer";
 const ModelType MultiLayerType = "MultiLayer";

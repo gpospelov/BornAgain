@@ -75,13 +75,12 @@ TEST_F(ParticleTest, Constructors)
     delete p2;
 
     FormFactorFullSphere sphere3(1.0);
-    sphere3.setName("sphere3");
     Particle *p3 = new Particle(mat, sphere3);
     EXPECT_EQ(sphere3.getName(), p3->getFormFactor()->getName());
     EXPECT_EQ(sphere3.getRadius(), p3->getFormFactor()->getRadius());
 
     Particle *p4 = p3->clone();
-    EXPECT_EQ("sphere3", p4->getFormFactor()->getName());
+    EXPECT_EQ("FormFactorFullSphere", p4->getFormFactor()->getName());
 
     delete p3;
     delete p4;

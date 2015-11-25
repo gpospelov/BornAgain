@@ -62,8 +62,7 @@ TEST_F(LayerTest, LayerGetAndSet)
     EXPECT_EQ(20, layer.getThickness());
     layer.setMaterial(something);
     EXPECT_EQ(something.getName(), layer.getMaterial()->getName());
-    layer.setName("NONAME");
-    EXPECT_EQ("NONAME", layer.getName());
+    EXPECT_EQ("Layer", layer.getName());
     EXPECT_EQ(complex_t(1,0.5), layer.getRefractiveIndex());
 
     Layer *new_layer = layer.clone();
@@ -73,7 +72,7 @@ TEST_F(LayerTest, LayerGetAndSet)
     EXPECT_FALSE(new_layer->hasDWBASimulation());
     EXPECT_EQ(complex_t(1,0.5), new_layer->getRefractiveIndex());
     EXPECT_EQ(0.0, new_layer->getTotalParticleSurfaceDensity(0));
-    EXPECT_EQ("NONAME", new_layer->getName());
+    EXPECT_EQ("Layer", new_layer->getName());
     EXPECT_EQ(NULL, new_layer->createDWBASimulation());
     delete new_layer;
 }
@@ -82,21 +81,16 @@ TEST_F(LayerTest, LayerGetAndSet)
 TEST_F(LayerTest, LayerAndDecoration)
 {
     HomogeneousMaterial air("air",0,0);
-    ParticleLayout *decoration1 = new ParticleLayout();
+    ParticleLayout *p_layout1 = new ParticleLayout();
 
     Layer layer(air, 10*Units::nanometer);
-    layer.addLayout(*decoration1);
+    layer.addLayout(*p_layout1);
     //EXPECT_EQ(decoration1, layer.getLayout());
     EXPECT_TRUE(layer.hasDWBASimulation());
 
-//    ParticleLayout decoration2;
-//    layer.setDecoration(decoration2);
-//    EXPECT_EQ(decoration2, layer.getDecoration());
-
-    ParticleLayout decoration3;
-    decoration3.setName("NONAME");
-    layer.addLayout(decoration3);
-    EXPECT_EQ("NONAME", layer.getLayout(1)->getName());
+    ParticleLayout layout2;
+    layer.addLayout(layout2);
+    EXPECT_EQ("ParticleLayout", layer.getLayout(1)->getName());
 }
 
 

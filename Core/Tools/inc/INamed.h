@@ -35,11 +35,12 @@ public:
     //! Destructor.
     virtual ~INamed();
 
-    //! Sets the _name_.
-    void setName(std::string name);
-
     //! Returns the name.
     std::string getName() const;
+
+protected:
+    //! Sets the _name_.
+    void setName(std::string name);
 
 private:
     //! The name of this object.

@@ -25,20 +25,18 @@
 
 class ParameterizedItem;
 
-//! The GroupPropertyRegistry constructs a GroupProperty
+//! The GroupPropertyRegistry is responsible for constructing GroupProperty objects
 //! according to the given name of the group.
 class BA_CORE_API_ GroupPropertyRegistry
 {
 public:
-    //! correspondance of group name to ParameterizedItem's types to labels
     using SelectableGroupMap_t = std::map<QString, std::map<QString, QString>>;
 
     static GroupProperty_t createGroupProperty(const QString &group_name, const Constants::ModelType &group_model = Constants::ModelType());
-
 private:
     static SelectableGroupMap_t m_selectable_group_map;
-    //!< Contains correspondance of selectable group names to they content,
-    //!< namely item type and item label
+    //!< Contains correspondance of selectable group names to their content,
+    //!< which is a map between item types and item labels
 };
 
 

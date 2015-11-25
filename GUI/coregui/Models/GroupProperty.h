@@ -23,16 +23,16 @@
 #include <QString>
 #include <QMetaType>
 #include <QSharedPointer>
-#include <QVariant>
 
 class ParameterizedItem;
 
+//! The GroupProperty class represents a composition of the basic properties
+//! corresponding to a ParameterizedItem object.
+//! Its construction is handled by a GroupPropertyRegistry object.
 class BA_CORE_API_ GroupProperty
 {
 public:
     enum EGroupType { UNDEFINED, FIXED, SELECTABLE };
-
-    GroupProperty(const QString &group_name);
 
     EGroupType type() const;
 
@@ -56,8 +56,9 @@ public:
     QString toString(int index) const;
 
     friend class GroupPropertyRegistry;
-
 private:
+    GroupProperty(QString group_name);
+
     void setGroupMap(std::map<QString, QString> group_map);
     void setGroupType(EGroupType group_type);
 

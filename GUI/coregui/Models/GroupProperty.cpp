@@ -18,8 +18,8 @@
 #include "ItemFactory.h"
 
 
-GroupProperty::GroupProperty(const QString &group_name)
-    : m_group_name(group_name)
+GroupProperty::GroupProperty(QString group_name)
+    : m_group_name(std::move(group_name))
     , m_group_type(UNDEFINED)
     , m_parent(0)
 {

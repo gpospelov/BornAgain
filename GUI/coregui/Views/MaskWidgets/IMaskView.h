@@ -22,6 +22,7 @@
 
 class ParameterizedItem;
 class ISceneAdaptor;
+class QPainter;
 
 //! Main interface class for views representing MaskItems on graphics scene
 
@@ -40,6 +41,7 @@ public:
     virtual void setParameterizedItem(ParameterizedItem *item);
     virtual ParameterizedItem *getParameterizedItem();
 
+    ISceneAdaptor *getAdaptor();
     virtual void setSceneAdaptor(ISceneAdaptor *adaptor);
 
     double par(const QString &property_name) const;
@@ -53,11 +55,9 @@ public:
     qreal fromSceneX(qreal value) const;
     qreal fromSceneY(qreal value) const;
 
-
     virtual void addView(IMaskView *childView, int row = 0);
 
 signals:
-//    void aboutToBeDeleted();
     void propertyChanged();
 
 public slots:
@@ -68,7 +68,7 @@ public slots:
     virtual void onPropertyChange(const QString &propertyName);
 
 protected:
-//    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+    void clipPainter(QPainter *painter);
 
     ParameterizedItem *m_item;
     ISceneAdaptor *m_adaptor;

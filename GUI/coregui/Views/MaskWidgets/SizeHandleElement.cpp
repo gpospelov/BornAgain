@@ -15,6 +15,7 @@
 
 #include "SizeHandleElement.h"
 #include "MaskEditorHelper.h"
+#include "ISceneAdaptor.h"
 #include <QPainter>
 #include <QGraphicsSceneHoverEvent>
 #include <QDebug>
@@ -80,12 +81,13 @@ SizeHandleElement::m_opposite_handle_location = getMapOfOppositeCorners();
 
 // ----------------------------------------------------------------------------
 
-SizeHandleElement::SizeHandleElement(EHandleLocation pointType, QGraphicsItem *parent)
-    : QGraphicsObject(parent)
-    , m_handleLocation(pointType)
+SizeHandleElement::SizeHandleElement(EHandleLocation pointType, IMaskView *parent)
+    : m_handleLocation(pointType)
     , m_handleType(m_location_to_type[pointType])
 {
     setCursor(m_cursors[m_handleLocation]);
+    setParentItem(parent);
+    setSceneAdaptor(parent->getAdaptor());
 }
 
 QRectF SizeHandleElement::boundingRect() const
@@ -95,8 +97,12 @@ QRectF SizeHandleElement::boundingRect() const
 
 void SizeHandleElement::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
+    Q_ASSERT(m_adaptor);
+
     painter->setRenderHints(QPainter::Antialiasing);
     prepareGeometryChange();
+
+    clipPainter(painter);
 
     painter->setBrush(MaskEditorHelper::getSelectionMarkerBrush());
     painter->setPen(MaskEditorHelper::getSelectionMarkerPen());
@@ -177,4 +183,9 @@ SizeHandleElement::EHandleLocation SizeHandleElement::getOppositeHandleLocation(
 SizeHandleElement::EHandleType SizeHandleElement::getHandleType() const
 {
     return m_handleType;
+}
+
+void SizeHandleElement::update_view()
+{
+    update();
 }

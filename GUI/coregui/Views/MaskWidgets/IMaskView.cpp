@@ -19,6 +19,7 @@
 #include "MaskItems.h"
 #include <QMenu>
 #include <QAction>
+#include <QPainter>
 #include <QGraphicsSceneContextMenuEvent>
 #include <QDebug>
 
@@ -62,6 +63,11 @@ void IMaskView::setParameterizedItem(ParameterizedItem *item)
 ParameterizedItem *IMaskView::getParameterizedItem()
 {
     return m_item;
+}
+
+ISceneAdaptor *IMaskView::getAdaptor()
+{
+    return m_adaptor;
 }
 
 void IMaskView::setSceneAdaptor(ISceneAdaptor *adaptor)
@@ -147,22 +153,13 @@ void IMaskView::onPropertyChange(const QString &propertyName)
     emit propertyChanged();
 }
 
-//void IMaskView::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
-//{
-//    QMenu menu;
-//    QAction *removeAction = menu.addAction("Toggle mask value");
-//    QAction *selectedAction = menu.exec(event->screenPos());
-//    if(selectedAction == removeAction) {
-//        bool old_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
-//        m_item->setRegisteredProperty(MaskItem::P_MASK_VALUE, !old_value);
-//    }
-//}
+//! sets clip region to painter to prevent drawing outside of ColorMap viewport
+void IMaskView::clipPainter(QPainter *painter)
+{
+    Q_ASSERT(m_adaptor);
+    QPolygonF clip_polygon = mapFromScene(m_adaptor->getViewportRectangle());
+    painter->setClipRegion(QRegion(clip_polygon.toPolygon()));
+}
 
-//void IMaskView::update_view()
-//{
-//    qDebug() << ">>>> IMaskView::update_view() -> ";
-//    update_bounding_rect();
-//    update();
-//}
 
 

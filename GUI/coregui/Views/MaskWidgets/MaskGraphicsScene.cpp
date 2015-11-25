@@ -531,7 +531,8 @@ bool MaskGraphicsScene::isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event
     return true;
 }
 
-//! Returns true if line can be drawn. Lines can't be drawn one close to another
+//! Returns true if line can be drawn. Lines can't be drawn one close to another. This is done
+//! to facilitate the move of just drawn line without switch to selection mode.
 bool MaskGraphicsScene::isValidForLineDrawing(QGraphicsSceneMouseEvent *event)
 {
     if(isDrawingInProgress()) return false;
@@ -581,10 +582,8 @@ void MaskGraphicsScene::setDrawingInProgress(bool value)
 void MaskGraphicsScene::makeViewAtMousePosSelected(QGraphicsSceneMouseEvent *event)
 {
     if(QGraphicsItem *graphicsItem = itemAt(event->scenePos(), QTransform())) {
-        clearSelection();
         graphicsItem->setSelected(true);
     }
-
 }
 
 IMaskView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)

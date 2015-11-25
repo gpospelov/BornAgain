@@ -16,7 +16,7 @@
 #ifndef SIZEHANDLEELEMENT_H
 #define SIZEHANDLEELEMENT_H
 
-#include "WinDllMacros.h"
+#include "IMaskView.h"
 #include "DesignerHelper.h"
 #include <QCursor>
 #include <QGraphicsObject>
@@ -25,7 +25,7 @@
 //! Size handle on top of RectangleView represented as small circle or small rectangle.
 //! Placed either in corners on in the middle of the edge.
 
-class BA_CORE_API_ SizeHandleElement : public QGraphicsObject
+class BA_CORE_API_ SizeHandleElement : public IMaskView
 {
     Q_OBJECT
 
@@ -46,7 +46,7 @@ public:
         RESIZE, RESIZE_WIDTH, RESIZE_HEIGHT
     };
 
-    SizeHandleElement(EHandleLocation pointType, QGraphicsItem *parent = 0);
+    SizeHandleElement(EHandleLocation pointType, IMaskView *parent);
 
     QRectF boundingRect() const;
 
@@ -55,6 +55,9 @@ public:
     EHandleLocation getHandleLocation() const;
     EHandleLocation getOppositeHandleLocation() const;
     EHandleType getHandleType() const;
+
+public slots:
+    virtual void update_view();
 
 signals:
     void resize_request(bool going_to_resize);

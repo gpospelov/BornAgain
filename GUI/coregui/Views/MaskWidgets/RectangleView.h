@@ -32,6 +32,9 @@ public:
 
     RectangleView();
 
+    void setSceneAdaptor(ISceneAdaptor *adaptor);
+
+
 public slots:
     virtual void onChangedX();
     virtual void onChangedY();

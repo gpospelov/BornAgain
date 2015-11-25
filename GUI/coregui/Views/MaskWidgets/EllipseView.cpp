@@ -40,6 +40,15 @@ EllipseView::EllipseView()
     create_size_handle_elements();
 }
 
+void EllipseView::setSceneAdaptor(ISceneAdaptor *adaptor)
+{
+    IMaskView::setSceneAdaptor(adaptor);
+    for(QMap<SizeHandleElement::EHandleLocation, SizeHandleElement *>::iterator
+        it = m_resize_handles.begin(); it!= m_resize_handles.end(); ++it) {
+        it.value()->setSceneAdaptor(m_adaptor);
+    }
+}
+
 void EllipseView::onChangedX()
 {
     qDebug() << "EllipseView::onChangedX()";

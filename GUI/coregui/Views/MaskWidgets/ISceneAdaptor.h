@@ -39,13 +39,13 @@ public:
     virtual qreal fromSceneY(qreal) const = 0;
 
     //! returns viewport rectangle in scene coordinates
-    virtual QRectF getViewportRectangle() const { return QRectF(); }
-
-
+    virtual const QRectF& getViewportRectangle() const { return m_viewport_rectangle; }
 
 signals:
     void update_request();
 
+protected:
+    QRectF m_viewport_rectangle;
 };
 
 class BA_CORE_API_ DefaultSceneAdaptor : public ISceneAdaptor

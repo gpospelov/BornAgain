@@ -39,7 +39,8 @@ public:
     bool eventFilter(QObject *object, QEvent *event);
 
     //! returns ColorMapPlot axes rectangle (at current zoom level) in scene coordinates
-    QRectF getViewportRectangle() const;
+//    QRectF getViewportRectangle() const;
+    const QRectF& getViewportRectangle() const;
 private:
     ColorMapPlot *m_plot;
 };

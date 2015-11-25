@@ -79,10 +79,7 @@ private:
     void deleteViews(const QModelIndex & itemIndex);
     void removeItemViewFromScene(ParameterizedItem *item);
 
-
-//    void makeSelected(const QModelIndex &parent, int first, int last);
-
-    bool isAllowedToStartDrawing(QGraphicsSceneMouseEvent *event);
+    bool isValidMouseClick(QGraphicsSceneMouseEvent *event);
     bool isValidForRectangleDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForEllipseDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event);

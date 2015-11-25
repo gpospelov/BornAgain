@@ -70,6 +70,8 @@ void VerticalLineView::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     painter->setRenderHints(QPainter::Antialiasing);
     prepareGeometryChange();
 
+    clipPainter(painter);
+
     bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
@@ -154,6 +156,8 @@ void HorizontalLineView::paint(QPainter *painter, const QStyleOptionGraphicsItem
 {
     painter->setRenderHints(QPainter::Antialiasing);
     prepareGeometryChange();
+
+    clipPainter(painter);
 
     bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));

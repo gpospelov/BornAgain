@@ -66,19 +66,25 @@ bool ColorMapSceneAdaptor::eventFilter(QObject *object, QEvent *event)
     Q_UNUSED(object);
 //    qDebug() << "ColorMapSceneAdaptor::eventFilter(QObject *, QEvent *)" << event->type();
     if (event->type() == QEvent::Resize || event->type() == QEvent::UpdateRequest) {
-//        qDebug() << ">>>";
-//        qDebug() << ">>>";
-//        qDebug() << ">>>";
-//        qDebug() << ">>>";
-//        qDebug() << "ColorMapSceneAdaptor::eventFilter(QObject *, QEvent *)";
+        qDebug() << ">>>";
+        qDebug() << ">>>";
+        qDebug() << ">>>";
+        qDebug() << ">>>";
+        qDebug() << "ColorMapSceneAdaptor::eventFilter(QObject *, QEvent *)";
+        m_viewport_rectangle = m_plot->getViewportRectangleInWidgetCoordinates();
         emit update_request();
     }
     return QObject::eventFilter(object, event);
 }
 
-QRectF ColorMapSceneAdaptor::getViewportRectangle() const
+const QRectF &ColorMapSceneAdaptor::getViewportRectangle() const
 {
-    return m_plot->getViewportRectangleInWidgetCoordinates();
+    return m_viewport_rectangle;
 }
+
+//QRectF ColorMapSceneAdaptor::getViewportRectangle() const
+//{
+//    return m_plot->getViewportRectangleInWidgetCoordinates();
+//}
 
 

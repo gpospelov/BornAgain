@@ -480,31 +480,19 @@ void MaskGraphicsScene::removeItemViewFromScene(ParameterizedItem *item)
     }
 }
 
-
-
-
-//! Returns true if it is allowed to start drawing: all conditions below are fulfilled
-//! 1) It is not already in drawing mode
-//! 2) It was left mouse button click
-//! 3) scene's activity is not one of (SELECTION_MODE, PAN_ZOOM_MODE)
-//! 4) mouse cursor is not on top of SizeHandleElement
-bool MaskGraphicsScene::isAllowedToStartDrawing(QGraphicsSceneMouseEvent *event)
+//! returns true if left mouse bottom click was inside ColorMap viewport rectangle
+bool MaskGraphicsScene::isValidMouseClick(QGraphicsSceneMouseEvent *event)
 {
-    bool result(true);
-    if(m_context.isDrawingInProgress()) result = false;
-    if( !(event->buttons() & Qt::LeftButton)) result = false;
-    if(m_context.isSelectionMode() || m_context.isInZoomMode()) result = false;
-    QList<QGraphicsItem *> items_beneath = this->items(event->scenePos());
-    foreach(QGraphicsItem *graphicsItem, items_beneath) {
-        if(graphicsItem->parentItem()) result = false;
-    }
-    return result;
+    if(!(event->buttons() & Qt::LeftButton)) return false;
+    if(!m_adaptor->getViewportRectangle().contains(event->scenePos())) return false;
+    return true;
 }
 
 bool MaskGraphicsScene::isValidForRectangleDrawing(QGraphicsSceneMouseEvent *event)
 {
     if(isDrawingInProgress()) return false;
-    if(!(event->buttons() & Qt::LeftButton)) return false;
+    if(!isValidMouseClick(event)) return false;
+//    if(!(event->buttons() & Qt::LeftButton)) return false;
     if(!m_context.isRectangleMode()) return false;
     if(isAreaContainsSizeHandles(event)) return false;
     return true;
@@ -513,7 +501,7 @@ bool MaskGraphicsScene::isValidForRectangleDrawing(QGraphicsSceneMouseEvent *eve
 bool MaskGraphicsScene::isValidForEllipseDrawing(QGraphicsSceneMouseEvent *event)
 {
     if(isDrawingInProgress()) return false;
-    if(!(event->buttons() & Qt::LeftButton)) return false;
+    if(!isValidMouseClick(event)) return false;
     if(!m_context.isEllipseMode()) return false;
     if(isAreaContainsSizeHandles(event)) return false;
     return true;
@@ -523,7 +511,7 @@ bool MaskGraphicsScene::isValidForEllipseDrawing(QGraphicsSceneMouseEvent *event
 //! polygon drawing process.
 bool MaskGraphicsScene::isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event)
 {
-    if( !(event->buttons() & Qt::LeftButton) ) return false;
+    if(!isValidMouseClick(event)) return false;
     if(!m_context.isPolygonMode()) return false;
     if(!isDrawingInProgress()) {
         if(isAreaContainsSizeHandles(event)) return false;
@@ -535,8 +523,8 @@ bool MaskGraphicsScene::isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event
 //! to facilitate the move of just drawn line without switch to selection mode.
 bool MaskGraphicsScene::isValidForLineDrawing(QGraphicsSceneMouseEvent *event)
 {
+    if(!isValidMouseClick(event)) return false;
     if(isDrawingInProgress()) return false;
-    if(!(event->buttons() & Qt::LeftButton)) return false;
     if(!m_context.isLineMode()) return false;
     if(QGraphicsItem *graphicsItem = itemAt(event->scenePos(), QTransform())) {
         if(graphicsItem->type() == DesignerHelper::VERTICALLINE || graphicsItem->type() == DesignerHelper::HORIZONTALLINE) return false;
@@ -547,8 +535,8 @@ bool MaskGraphicsScene::isValidForLineDrawing(QGraphicsSceneMouseEvent *event)
 //! Returns true if MaskAllItem can be drawn. Only one item of such type is allowed.
 bool MaskGraphicsScene::isValidForMaskAllDrawing(QGraphicsSceneMouseEvent *event)
 {
+    if(!isValidMouseClick(event)) return false;
     if(isDrawingInProgress()) return false;
-    if(!(event->buttons() & Qt::LeftButton)) return false;
     if(!m_context.isMaskAllMode()) return false;
     foreach(ParameterizedItem *item, m_ItemToView.keys()) {
         if(item->modelType() == Constants::MaskAllType) return false;

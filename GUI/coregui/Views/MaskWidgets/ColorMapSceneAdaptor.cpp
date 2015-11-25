@@ -82,9 +82,4 @@ const QRectF &ColorMapSceneAdaptor::getViewportRectangle() const
     return m_viewport_rectangle;
 }
 
-//QRectF ColorMapSceneAdaptor::getViewportRectangle() const
-//{
-//    return m_plot->getViewportRectangleInWidgetCoordinates();
-//}
-
 

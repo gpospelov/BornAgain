@@ -32,7 +32,7 @@ public:
 
     RectangleView();
 
-    void setSceneAdaptor(ISceneAdaptor *adaptor);
+    void setSceneAdaptor(const ISceneAdaptor *adaptor);
 
 
 public slots:

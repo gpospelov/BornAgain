@@ -40,7 +40,7 @@ RectangleView::RectangleView()
     create_size_handle_elements();
 }
 
-void RectangleView::setSceneAdaptor(ISceneAdaptor *adaptor)
+void RectangleView::setSceneAdaptor(const ISceneAdaptor *adaptor)
 {
     IMaskView::setSceneAdaptor(adaptor);
     for(QMap<SizeHandleElement::EHandleLocation, SizeHandleElement *>::iterator

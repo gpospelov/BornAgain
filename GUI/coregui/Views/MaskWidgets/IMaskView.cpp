@@ -65,12 +65,12 @@ ParameterizedItem *IMaskView::getParameterizedItem()
     return m_item;
 }
 
-ISceneAdaptor *IMaskView::getAdaptor()
+const ISceneAdaptor *IMaskView::getAdaptor()
 {
     return m_adaptor;
 }
 
-void IMaskView::setSceneAdaptor(ISceneAdaptor *adaptor)
+void IMaskView::setSceneAdaptor(const ISceneAdaptor *adaptor)
 {
     qDebug() << "BBB";
     qDebug() << "BBB";

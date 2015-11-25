@@ -41,8 +41,8 @@ public:
     virtual void setParameterizedItem(ParameterizedItem *item);
     virtual ParameterizedItem *getParameterizedItem();
 
-    ISceneAdaptor *getAdaptor();
-    virtual void setSceneAdaptor(ISceneAdaptor *adaptor);
+    const ISceneAdaptor *getAdaptor();
+    virtual void setSceneAdaptor(const ISceneAdaptor *adaptor);
 
     double par(const QString &property_name) const;
 
@@ -71,7 +71,7 @@ protected:
     void clipPainter(QPainter *painter);
 
     ParameterizedItem *m_item;
-    ISceneAdaptor *m_adaptor;
+    const ISceneAdaptor *m_adaptor;
     QRectF m_bounding_rect;
 };
 

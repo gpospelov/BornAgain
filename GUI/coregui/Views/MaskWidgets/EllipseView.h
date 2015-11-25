@@ -32,7 +32,7 @@ public:
 
     EllipseView();
 
-    void setSceneAdaptor(ISceneAdaptor *adaptor);
+    void setSceneAdaptor(const ISceneAdaptor *adaptor);
 
 public slots:
     virtual void onChangedX();

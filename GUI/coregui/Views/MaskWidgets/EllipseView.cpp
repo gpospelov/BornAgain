@@ -40,7 +40,7 @@ EllipseView::EllipseView()
     create_size_handle_elements();
 }
 
-void EllipseView::setSceneAdaptor(ISceneAdaptor *adaptor)
+void EllipseView::setSceneAdaptor(const ISceneAdaptor *adaptor)
 {
     IMaskView::setSceneAdaptor(adaptor);
     for(QMap<SizeHandleElement::EHandleLocation, SizeHandleElement *>::iterator

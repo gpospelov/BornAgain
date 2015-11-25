@@ -113,4 +113,5 @@ MaskAllItem::MaskAllItem(ParameterizedItem *parent)
     : MaskItem(Constants::MaskAllType, parent)
 {
     setItemName(QStringLiteral("MaskAllPlane"));
+    setPropertyAppearance(MaskItem::P_MASK_VALUE, PropertyAttribute::DISABLED);
 }

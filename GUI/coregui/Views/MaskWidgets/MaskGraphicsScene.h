@@ -103,6 +103,7 @@ private:
 
     void setZValues();
     PolygonView *getCurrentPolygon() const;
+    void setItemName(ParameterizedItem *itemToChange);
 
     SessionModel *m_model;
     QItemSelectionModel *m_selectionModel;

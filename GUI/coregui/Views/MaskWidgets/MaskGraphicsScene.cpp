@@ -619,6 +619,7 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
         qDebug() << " ";
         qDebug() << " " << m_context.getMaskValue();
         m_currentItem->setRegisteredProperty(RectangleItem::P_MASK_VALUE, m_context.getMaskValue());
+        setItemName(m_currentItem);
     }
 
     if(m_currentItem) {
@@ -652,6 +653,7 @@ void MaskGraphicsScene::processEllipseItem(QGraphicsSceneMouseEvent *event)
         qDebug() << " ";
         qDebug() << " " << m_context.getMaskValue();
         m_currentItem->setRegisteredProperty(EllipseItem::P_MASK_VALUE, m_context.getMaskValue());
+        setItemName(m_currentItem);
     }
 
     if(m_currentItem) {
@@ -684,6 +686,7 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
         m_currentItem->setRegisteredProperty(RectangleItem::P_MASK_VALUE, m_context.getMaskValue());
         m_selectionModel->clearSelection();
         m_selectionModel->select(m_model->indexOfItem(m_currentItem), QItemSelectionModel::Select);
+        setItemName(m_currentItem);
     }
 
     Q_ASSERT(m_currentItem->modelType() == Constants::PolygonMaskType);
@@ -714,6 +717,7 @@ void MaskGraphicsScene::processLineItem(QGraphicsSceneMouseEvent *event)
 
     m_selectionModel->clearSelection();
     m_selectionModel->select(m_model->indexOfItem(m_currentItem), QItemSelectionModel::Select);
+    setItemName(m_currentItem);
 
     setDrawingInProgress(false);
 }
@@ -767,3 +771,23 @@ PolygonView *MaskGraphicsScene::getCurrentPolygon() const
     return result;
 }
 
+//! Sets item name depending on alreay existent items.
+//! If there is already "Rectangle1", the new name will be "Rectangle2"
+void MaskGraphicsScene::setItemName(ParameterizedItem *itemToChange)
+{
+    int glob_index(0);
+    for(int i_row = 0; i_row < m_model->rowCount(m_rootIndex); ++i_row) {
+         QModelIndex itemIndex = m_model->index( i_row, 0, m_rootIndex );
+
+         if (ParameterizedItem *currentItem = m_model->itemForIndex(itemIndex)){
+             if(currentItem->modelType() == itemToChange->modelType()) {
+                 QString itemName = currentItem->itemName();
+                 if(itemName.startsWith(itemToChange->itemName())) {
+                     int item_index = itemName.remove(0, itemToChange->itemName().size()).toInt();
+                     if(item_index > glob_index) glob_index = item_index;
+                 }
+             }
+         }
+    }
+    itemToChange->setItemName(itemToChange->itemName()+QString::number(++glob_index));
+}

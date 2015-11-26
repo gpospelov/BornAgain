@@ -27,21 +27,22 @@ class BA_CORE_API_ INamed
 {
 public:
     //! Default constructor, setting name="".
-    INamed() : m_name() {}
+    INamed();
 
     //! Constructor that sets the _name_.
-    INamed(const std::string& name) : m_name(name) {}
+    INamed(std::string name);
 
     //! Destructor.
-    virtual ~INamed() {}
-
-    //! Sets the _name_.
-    void setName(std::string name) { m_name = name; }
+    virtual ~INamed();
 
     //! Returns the name.
-    std::string getName() const { return m_name; }
+    std::string getName() const;
 
 protected:
+    //! Sets the _name_.
+    void setName(std::string name);
+
+private:
     //! The name of this object.
     std::string m_name;
 };

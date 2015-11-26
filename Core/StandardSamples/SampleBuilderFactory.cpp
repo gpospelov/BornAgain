@@ -109,8 +109,6 @@ SampleBuilderFactory::SampleBuilderFactory()
         IFactoryCreateFunction<RotatedPyramidsBuilder, ISampleBuilder>,
         "Rotated pyramids on top of substrate");
 
-    // --- CoreShell ---
-
     registerItem(
         "CoreShellParticleBuilder",
         IFactoryCreateFunction<CoreShellParticleBuilder, ISampleBuilder>,
@@ -120,8 +118,6 @@ SampleBuilderFactory::SampleBuilderFactory()
         "CoreShellBoxRotateZandYBuilder",
         IFactoryCreateFunction<CoreShellBoxRotateZandYBuilder, ISampleBuilder>,
         "Rotation and translation of core shell box particle in 3 layers system.");
-
-    // ---
 
     registerItem(
         "SizeDistributionDAModelBuilder",
@@ -178,8 +174,6 @@ SampleBuilderFactory::SampleBuilderFactory()
         IFactoryCreateFunction<CosineRippleBuilder, ISampleBuilder>,
         "cosine ripple within the 1D-paracrystal model");
 
-    // --- compositions ---
-
     registerItem(
         "ParticleCompositionBuilder",
         IFactoryCreateFunction<ParticleCompositionBuilder, ISampleBuilder>,
@@ -210,8 +204,6 @@ SampleBuilderFactory::SampleBuilderFactory()
         IFactoryCreateFunction<BoxStackCompositionBuilder, ISampleBuilder>,
         "Two different boxes are first rotated and then composed, composition is then rotated.");
 
-    // ---
-
     registerItem(
         "ParticleInTheAirBuilder",
         IFactoryCreateFunction<ParticleInTheAirBuilder, ISampleBuilder>,
@@ -221,22 +213,19 @@ SampleBuilderFactory::SampleBuilderFactory()
         "TransformBoxBuilder",
         IFactoryCreateFunction<TransformBoxBuilder, ISampleBuilder>,
         "Rotated and translated box in 3 layer system");
-
 }
-
 
 ISample *SampleBuilderFactory::createSample(const std::string& name)
 {
     SampleBuilder_t builder(createItem(name));
     ISample *result = builder->buildSample();
-    result->setName(name);
+//    result->setName(name);
     return result;
 }
-
 
 SampleBuilder_t SampleBuilderFactory::createBuilder(const std::string& name)
 {
     SampleBuilder_t result(createItem(name));
-    result->setName(name);
+//    result->setName(name);
     return result;
 }

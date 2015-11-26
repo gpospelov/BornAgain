@@ -73,18 +73,6 @@ struct FormFactorSphereUniformRadius_wrapper : FormFactorSphereUniformRadius, bp
         return FormFactorSphereUniformRadius::getHeight( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorSphereUniformRadius::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorSphereUniformRadius::getNumberOfStochasticParameters( );
-    }
-
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -351,17 +339,6 @@ void register_FormFactorSphereUniformRadius_class(){
                 "getHeight"
                 , getHeight_function_type(&::FormFactorSphereUniformRadius::getHeight)
                 , default_getHeight_function_type(&FormFactorSphereUniformRadius_wrapper::default_getHeight) );
-        
-        }
-        { //::FormFactorSphereUniformRadius::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorSphereUniformRadius::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorSphereUniformRadius_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorSphereUniformRadius_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorSphereUniformRadius::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorSphereUniformRadius_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::IParameterized::areParametersChanged

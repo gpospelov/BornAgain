@@ -28,12 +28,10 @@ public:
     //! @param radius of hexagonal base (different from R in IsGisaxs)
     //! @param height of Prism6
     FormFactorPrism6(double radius, double height);
-    ~FormFactorPrism6() {}
+
     virtual FormFactorPrism6 *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
-
-    virtual int getNumberOfStochasticParameters() const { return 2; }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     virtual double getHeight() const { return m_height; }
     virtual void setHeight(double height) { m_height = height; }

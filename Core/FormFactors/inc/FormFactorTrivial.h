@@ -29,12 +29,10 @@ public:
     //! @param radius of Cylinder's base
     //! @param height of Cylinder
     FormFactorTrivial();
-    ~FormFactorTrivial() {}
+
     virtual FormFactorTrivial *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
-
-    virtual int getNumberOfStochasticParameters() const { return 0; }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 

@@ -29,21 +29,11 @@ public:
     //! @param length of Box's base
     //! @param width of Box's base
     //! @param height of Box
-    FormFactorBox( double length, double width, double height)
-        : m_length(length), m_width(width), m_height(height) {
-
-            setName("FormFactorBox");
-            check_initialization();
-            init_parameters();
-        }
-
-    virtual ~FormFactorBox() {}
+    FormFactorBox( double length, double width, double height);
 
     FormFactorBox *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
-
-    int getNumberOfStochasticParameters() const { return 3; }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     //! Returns length of Box
     double getLength() const { return m_length; }

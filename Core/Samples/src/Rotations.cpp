@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "Rotations.h"
+#include "BornAgainNamespace.h"
 
 
 IRotation *IRotation::createRotation(const Geometry::Transform3D &transform)
@@ -35,6 +36,16 @@ IRotation *IRotation::createRotation(const Geometry::Transform3D &transform)
     }
 }
 
+void IRotation::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+bool IRotation::isIdentity() const
+{
+    return getTransform3D().isIdentity();
+}
+
 IRotation *CreateProduct(const IRotation &left, const IRotation &right)
 {
     Geometry::Transform3D tr_left = left.getTransform3D();
@@ -48,7 +59,7 @@ IRotation *CreateProduct(const IRotation &left, const IRotation &right)
 RotationX::RotationX(double angle)
     : m_angle(angle)
 {
-    setName("RotationX");
+    setName(BornAgain::XRotationType);
     init_parameters();
 }
 
@@ -67,6 +78,16 @@ RotationX *RotationX::createInverse() const
     return new RotationX(-m_angle);
 }
 
+double RotationX::getAngle() const
+{
+    return m_angle;
+}
+
+void RotationX::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
 Geometry::Transform3D RotationX::getTransform3D() const
 {
     return Geometry::Transform3D::createRotateX(m_angle);
@@ -83,7 +104,7 @@ void RotationX::init_parameters()
 RotationY::RotationY(double angle)
     : m_angle(angle)
 {
-    setName("RotationY");
+    setName(BornAgain::YRotationType);
     init_parameters();
 }
 
@@ -102,6 +123,16 @@ RotationY *RotationY::createInverse() const
     return new RotationY(-m_angle);
 }
 
+double RotationY::getAngle() const
+{
+    return m_angle;
+}
+
+void RotationY::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
 Geometry::Transform3D RotationY::getTransform3D() const
 {
     return Geometry::Transform3D::createRotateY(m_angle);
@@ -118,7 +149,7 @@ void RotationY::init_parameters()
 RotationZ::RotationZ(double angle)
     : m_angle(angle)
 {
-    setName("RotationZ");
+    setName(BornAgain::ZRotationType);
     init_parameters();
 }
 
@@ -135,6 +166,16 @@ RotationZ *RotationZ::cloneInvertB() const
 RotationZ *RotationZ::createInverse() const
 {
     return new RotationZ(-m_angle);
+}
+
+double RotationZ::getAngle() const
+{
+    return m_angle;
+}
+
+void RotationZ::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 Geometry::Transform3D RotationZ::getTransform3D() const
@@ -155,7 +196,7 @@ RotationEuler::RotationEuler(double alpha, double beta, double gamma)
     , m_beta(beta)
     , m_gamma(gamma)
 {
-    setName("RotationEuler");
+    setName(BornAgain::EulerRotationType);
     init_parameters();
 }
 
@@ -173,6 +214,26 @@ IRotation *RotationEuler::createInverse() const
 {
     Geometry::Transform3D inverse_transform(getTransform3D().getInverse());
     return createRotation(inverse_transform);
+}
+
+double RotationEuler::getAlpha() const
+{
+    return m_alpha;
+}
+
+double RotationEuler::getBeta() const
+{
+    return m_beta;
+}
+
+double RotationEuler::getGamma() const
+{
+    return m_gamma;
+}
+
+void RotationEuler::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 Geometry::Transform3D RotationEuler::getTransform3D() const

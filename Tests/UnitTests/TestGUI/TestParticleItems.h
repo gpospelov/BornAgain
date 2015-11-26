@@ -12,7 +12,7 @@
 #include "TransformToDomain.h"
 #include "MaterialEditor.h"
 #include "MaterialModel.h"
-#include "FancyGroupProperty.h"
+#include "GroupProperty.h"
 #include "FormFactorItems.h"
 
 

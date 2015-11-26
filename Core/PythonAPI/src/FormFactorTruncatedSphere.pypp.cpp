@@ -61,18 +61,6 @@ struct FormFactorTruncatedSphere_wrapper : FormFactorTruncatedSphere, bp::wrappe
         return FormFactorTruncatedSphere::getHeight( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorTruncatedSphere::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorTruncatedSphere::getNumberOfStochasticParameters( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -327,17 +315,6 @@ void register_FormFactorTruncatedSphere_class(){
                 "getHeight"
                 , getHeight_function_type(&::FormFactorTruncatedSphere::getHeight)
                 , default_getHeight_function_type(&FormFactorTruncatedSphere_wrapper::default_getHeight) );
-        
-        }
-        { //::FormFactorTruncatedSphere::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorTruncatedSphere::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorTruncatedSphere_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorTruncatedSphere_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorTruncatedSphere::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorTruncatedSphere_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::FormFactorTruncatedSphere::getRadius

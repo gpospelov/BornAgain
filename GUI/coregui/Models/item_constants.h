@@ -22,7 +22,7 @@ namespace Constants {
 
 // --- Items -------------------------------------------------------------------
 
-typedef QString ModelType;
+using ModelType = QString;
 
 const ModelType LayerType = "Layer";
 const ModelType MultiLayerType = "MultiLayer";
@@ -70,7 +70,7 @@ const ModelType VectorType = "Vector";
 const ModelType LayerBasicRoughnessType = "LayerBasicRoughness";
 const ModelType LayerZeroRoughnessType = "LayerZeroRoughness";
 
-const ModelType PhiAlphaDetectorType = "PhiAlphaDetector";
+const ModelType SphericalDetectorType = "SphericalDetector";
 
 const ModelType DistributionNoneType = "DistributionNone";
 const ModelType DistributionGateType = "DistributionGate";

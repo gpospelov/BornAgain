@@ -498,7 +498,8 @@ void register_Layer_class(){
             Layer_exposer.def( 
                 "getTotalParticleSurfaceDensity"
                 , getTotalParticleSurfaceDensity_function_type( &::Layer::getTotalParticleSurfaceDensity )
-                , ( bp::arg("layout_index") ) );
+                , ( bp::arg("layout_index") )
+                , "creates and returns a LayerDWBASimulation for the given layout." );
         
         }
         { //::Layer::setMaterial

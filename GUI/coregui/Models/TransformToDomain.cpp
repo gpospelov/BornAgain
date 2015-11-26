@@ -69,7 +69,6 @@ std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const Parameteri
         = item.getRegisteredProperty(MultiLayerItem::P_CROSS_CORR_LENGTH).toDouble();
     if (cross_corr_length > 0)
         P_multilayer->setCrossCorrLength(cross_corr_length);
-    P_multilayer->setName(item.itemName().toUtf8().constData());
     return P_multilayer;
 }
 
@@ -80,7 +79,6 @@ std::unique_ptr<Layer> TransformToDomain::createLayer(const ParameterizedItem &i
     P_layer->setThickness(thickness);
     auto P_material = createDomainMaterial(item);
     P_layer->setMaterial(*P_material);
-    P_layer->setName(item.itemName().toUtf8().constData());
     return P_layer;
 }
 
@@ -124,7 +122,6 @@ std::unique_ptr<Particle> TransformToDomain::createParticle(const ParameterizedI
     auto P_particle = GUIHelpers::make_unique<Particle>(*P_material);
 
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
-    P_particle->setName(item.itemName().toStdString());
 
     auto ffItem = item.getSubItems()[ParticleItem::P_FORM_FACTOR];
     Q_ASSERT(ffItem);
@@ -140,7 +137,6 @@ TransformToDomain::createParticleCoreShell(const ParameterizedItem &item, const 
 {
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
     auto P_coreshell = GUIHelpers::make_unique<ParticleCoreShell>(shell, core);
-    P_coreshell->setName(item.itemName().toStdString());
     return P_coreshell;
 }
 
@@ -295,15 +291,13 @@ TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
 
 std::unique_ptr<Instrument> TransformToDomain::createInstrument(const ParameterizedItem &item)
 {
-    auto P_instrument = GUIHelpers::make_unique<Instrument>();
-    P_instrument->setName(item.itemName().toUtf8().constData());
-    return P_instrument;
+    Q_UNUSED(item);
+    return GUIHelpers::make_unique<Instrument>();
 }
 
 std::unique_ptr<Beam> TransformToDomain::createBeam(const ParameterizedItem &item)
 {
     auto P_beam = GUIHelpers::make_unique<Beam>();
-    P_beam->setName(item.itemName().toUtf8().constData());
 
     auto beamItem = dynamic_cast<const BeamItem *>(&item);
     P_beam->setIntensity(beamItem->getIntensity());
@@ -321,7 +315,7 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
     auto subDetector = item.getSubItems()[DetectorItem::P_DETECTOR];
     Q_ASSERT(subDetector);
 
-    if (subDetector->modelType() == Constants::PhiAlphaDetectorType) {
+    if (subDetector->modelType() == Constants::SphericalDetectorType) {
         auto x_axis = dynamic_cast<BasicAxisItem *>(
             subDetector->getSubItems()[PhiAlphaDetectorItem::P_PHI_AXIS]);
         Q_ASSERT(x_axis);

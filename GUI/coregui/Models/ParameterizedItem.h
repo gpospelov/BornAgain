@@ -33,16 +33,13 @@ class BA_CORE_API_ ParameterizedItem : public QObject
 public:
     static const QString P_NAME;
     static const QString P_PORT;
-    explicit ParameterizedItem(const QString &model_type = QString(),
+    explicit ParameterizedItem(QString model_type = QString(),
                                ParameterizedItem *parent = 0);
 
     virtual ~ParameterizedItem();
 
     //! retrieves the model type
-    QString modelType() const
-    {
-        return m_model_type;
-    }
+    QString modelType() const;
 
     //! retrieves the item's name
     QString itemName() const;
@@ -50,41 +47,32 @@ public:
     //! sets the item's name
     void setItemName(const QString &item_name);
 
+    //! retrieves the name used for displaying (possibly including an index
+    //! to distinguish it from siblings)
+    QString displayName() const;
+
+    //! sets the display name
+    void setDisplayName(QString display_name);
+
+    virtual QString getItemLabel() const;
+
     //! retrieve parent item
-    ParameterizedItem *parent() const
-    {
-        return mp_parent;
-    }
+    ParameterizedItem *parent() const;
 
     //! retrieve child item in given row
-    ParameterizedItem *childAt(int row) const
-    {
-        return m_children.value(row);
-    }
+    ParameterizedItem *childAt(int row) const;
 
     //! get row number of child
-    int rowOfChild(ParameterizedItem *child) const
-    {
-        return m_children.indexOf(child);
-    }
+    int rowOfChild(ParameterizedItem *child) const;
 
     //! get number of child items
-    int childItemCount() const
-    {
-        return m_children.count();
-    }
+    int childItemCount() const;
 
     //! indicates if item has child items
-    bool hasChildItems() const
-    {
-        return !m_children.isEmpty();
-    }
+    bool hasChildItems() const;
 
     //! returns the a list of child items
-    QList<ParameterizedItem *> childItems() const
-    {
-        return m_children;
-    }
+    QList<ParameterizedItem *> childItems() const;
 
     //! inserts a child item at specified row
     virtual void insertChildItem(int row, ParameterizedItem *item);
@@ -95,22 +83,15 @@ public:
     //! Returns a pointer to the first child of the given type
     ParameterizedItem *getChildOfType(QString type) const;
 
-    //! indicates if the passed item can be set as
-    //! a child item
+    //! indicates if the passed item can be set as a child item
     bool acceptsAsChild(const QString &child_name) const;
 
     //! get list of acceptable child object names
-    QList<QString> acceptableChildItems() const
-    {
-        return m_valid_children;
-    }
+    QList<QString> acceptableChildItems() const;
 
     bool event(QEvent *e);
 
-    QMap<QString, ParameterizedItem *> getSubItems() const
-    {
-        return m_sub_items;
-    }
+    QMap<QString, ParameterizedItem *> getSubItems() const;
 
     void addPropertyItem(QString name, ParameterizedItem *item);
 
@@ -128,9 +109,16 @@ public:
 
     PropertyAttribute getPropertyAttribute(const QString &name) const;
 
-    void print() const;
+    void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
+
+    void setPropertyAppearance(const QString &name,
+                               const PropertyAttribute::EAppearance &appearance);
 
     virtual void onPropertyChange(const QString &name);
+
+    virtual void onChildPropertyChange();
+
+    void print() const;
 
     virtual ParameterizedItem *getCandidateForRemoval(ParameterizedItem *new_comer);
 
@@ -148,18 +136,7 @@ public:
 
     void setItemPort(PortInfo::EPorts nport);
 
-    virtual QString getItemLabel() const
-    {
-        return QString("");
-    }
-
-    void setPropertyAppearance(const QString &name,
-                               const PropertyAttribute::EAppearance &appearance);
-
     QStringList getParameterTreeList() const;
-
-    virtual void onChildPropertyChange();
-    void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
 
 signals:
     void propertyChanged(const QString &propertyName);
@@ -188,6 +165,7 @@ private:
     QMap<int, PortInfo> m_port_info;
 
     QString m_model_type;
+    QString m_display_name;
     ParameterizedItem *mp_parent;
     QList<ParameterizedItem *> m_children;
     QMap<QString, ParameterizedItem *> m_sub_items;

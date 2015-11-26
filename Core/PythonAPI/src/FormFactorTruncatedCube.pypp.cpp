@@ -61,18 +61,6 @@ struct FormFactorTruncatedCube_wrapper : FormFactorTruncatedCube, bp::wrapper< F
         return FormFactorTruncatedCube::getLength( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorTruncatedCube::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorTruncatedCube::getNumberOfStochasticParameters( );
-    }
-
     virtual double getRemovedLength(  ) const  {
         if( bp::override func_getRemovedLength = this->get_override( "getRemovedLength" ) )
             return func_getRemovedLength(  );
@@ -375,17 +363,6 @@ void register_FormFactorTruncatedCube_class(){
                 "getLength"
                 , getLength_function_type(&::FormFactorTruncatedCube::getLength)
                 , default_getLength_function_type(&FormFactorTruncatedCube_wrapper::default_getLength) );
-        
-        }
-        { //::FormFactorTruncatedCube::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorTruncatedCube::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorTruncatedCube_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorTruncatedCube_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorTruncatedCube::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorTruncatedCube_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::FormFactorTruncatedCube::getRemovedLength

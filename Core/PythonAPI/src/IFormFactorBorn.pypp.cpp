@@ -167,18 +167,6 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
         return IFormFactor::getHeight( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->IFormFactor::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return IFormFactor::getNumberOfStochasticParameters( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -438,17 +426,6 @@ void register_IFormFactorBorn_class(){
                 "getHeight"
                 , getHeight_function_type(&::IFormFactor::getHeight)
                 , default_getHeight_function_type(&IFormFactorBorn_wrapper::default_getHeight) );
-        
-        }
-        { //::IFormFactor::getNumberOfStochasticParameters
-        
-            typedef int ( ::IFormFactor::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( IFormFactorBorn_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            IFormFactorBorn_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::IFormFactor::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&IFormFactorBorn_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::IFormFactor::getRadius

@@ -73,18 +73,6 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
         return FormFactorCylinder::getHeight( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorCylinder::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorCylinder::getNumberOfStochasticParameters( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -375,17 +363,6 @@ void register_FormFactorCylinder_class(){
                 "getHeight"
                 , getHeight_function_type(&::FormFactorCylinder::getHeight)
                 , default_getHeight_function_type(&FormFactorCylinder_wrapper::default_getHeight) );
-        
-        }
-        { //::FormFactorCylinder::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorCylinder::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorCylinder_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorCylinder_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorCylinder::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorCylinder_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::FormFactorCylinder::getRadius

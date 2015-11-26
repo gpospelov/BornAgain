@@ -40,22 +40,21 @@ public:
 
     virtual InterferenceFunction2DParaCrystal *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    static InterferenceFunction2DParaCrystal *createSquare(
-            double peak_distance, double damping_length=0.0,
-            double domain_size_1=0.0, double domain_size_2=0.0);
-    static InterferenceFunction2DParaCrystal *createHexagonal(
-            double peak_distance, double damping_length=0.0,
-            double domain_size_1=0.0, double domain_size_2=0.0);
+    static InterferenceFunction2DParaCrystal *createSquare(double peak_distance,
+                                                           double damping_length = 0.0,
+                                                           double domain_size_1 = 0.0,
+                                                           double domain_size_2 = 0.0);
+    static InterferenceFunction2DParaCrystal *createHexagonal(double peak_distance,
+                                                              double damping_length = 0.0,
+                                                              double domain_size_1 = 0.0,
+                                                              double domain_size_2 = 0.0);
 
     //! @brief Sets sizes of coherence domain
     //! @param size_1: size in first lattice direction
     //! @param size_2: size in second lattice direction
-    void setDomainSizes(double size_1, double size_2) {
-        m_domain_sizes[0] = size_1;
-        m_domain_sizes[1] = size_2;
-    }
+    void setDomainSizes(double size_1, double size_2);
 
     void setProbabilityDistributions(const IFTDistribution2D& pdf_1,
             const IFTDistribution2D& pdf_2);

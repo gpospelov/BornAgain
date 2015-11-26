@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/SelectableGroupProperty.cpp
-//! @brief     Implements class SelectableGroupProperty
+//! @file      Tools/inc/INamed.cpp
+//! @brief     Implements INamed interface.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,30 @@
 //
 // ************************************************************************** //
 
-#include "SelectableGroupProperty.h"
-#include "GUIHelpers.h"
-#include "ItemFactory.h"
-#include <QDebug>
+#include "INamed.h"
+
+#include <utility>
+
+INamed::INamed()
+    : m_name {}
+{
+}
+
+INamed::INamed(std::string name)
+    : m_name { std::move(name) }
+{
+}
+
+INamed::~INamed()
+{
+}
+
+void INamed::setName(std::string name)
+{
+    m_name = std::move(name);
+}
+
+std::string INamed::getName() const
+{
+    return m_name;
+}

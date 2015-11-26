@@ -34,9 +34,7 @@ public:
     ~FormFactorPyramid() {}
     virtual FormFactorPyramid *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
-
-    virtual int getNumberOfStochasticParameters() const { return 3; }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     virtual double getHeight() const { return m_height; }
     virtual void setHeight(double height) { m_height = height; }

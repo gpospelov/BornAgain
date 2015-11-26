@@ -42,10 +42,7 @@ public:
     virtual ParticleLayout *cloneInvertB() const;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const
-    {
-        visitor->visit(this);
-    }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     //! @brief Adds generic particle to the layout with only abundance defined
     //! @param abundance Particle abundance
@@ -65,10 +62,7 @@ public:
                              const kvector_t &position, const IRotation& rotation);
 
     //! Returns number of particles
-    virtual size_t getNumberOfParticles() const
-    {
-        return m_particles.size();
-    }
+    virtual size_t getNumberOfParticles() const;
 
     //! get information about particle with index
     virtual const IAbstractParticle *getParticle(size_t index) const;
@@ -82,16 +76,10 @@ public:
     double getAbundanceOfParticle(size_t index) const;
 
     //! Returns number of interference functions
-    virtual size_t getNumberOfInterferenceFunctions() const
-    {
-        return m_interference_functions.size();
-    }
+    virtual size_t getNumberOfInterferenceFunctions() const;
 
     //! Returns interference functions
-    virtual SafePointerVector<IInterferenceFunction> getInterferenceFunctions() const
-    {
-        return m_interference_functions;
-    }
+    virtual SafePointerVector<IInterferenceFunction> getInterferenceFunctions() const;
 
     //! Adds interference function
     void addInterferenceFunction(IInterferenceFunction *p_interference_function);

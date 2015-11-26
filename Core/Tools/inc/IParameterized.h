@@ -24,7 +24,7 @@ class AttLimits;
 
 //! @class IParameterized
 //! @ingroup tools_internal
-//! @brief Manage a local parameter pool, and a tree of children's pools.
+//! @brief Manage a local parameter pool, and a tree of child pools.
 
 class BA_CORE_API_ IParameterized : public INamed
 {
@@ -79,6 +79,24 @@ protected:
     ParameterPool m_parameters; //!< parameter pool
     IChangeable m_status;
 };
+
+//! @class ParameterPattern
+//! @ingroup tools_internal
+//! @brief Helper class for constructing parameter patterns.
+
+class BA_CORE_API_ ParameterPattern
+{
+public:
+    ParameterPattern();
+    ParameterPattern(std::string root_object);
+
+    ParameterPattern& add(std::string object_type);
+
+    std::string toStdString() const;
+private:
+    std::string m_pattern;
+};
+
 
 #endif /* IPARAMETERIZED_H_ */
 

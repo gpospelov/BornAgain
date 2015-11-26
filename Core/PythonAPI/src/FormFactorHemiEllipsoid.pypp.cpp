@@ -73,18 +73,6 @@ struct FormFactorHemiEllipsoid_wrapper : FormFactorHemiEllipsoid, bp::wrapper< F
         return FormFactorHemiEllipsoid::getHeight( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorHemiEllipsoid::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorHemiEllipsoid::getNumberOfStochasticParameters( );
-    }
-
     virtual double getRadiusA(  ) const  {
         if( bp::override func_getRadiusA = this->get_override( "getRadiusA" ) )
             return func_getRadiusA(  );
@@ -375,17 +363,6 @@ void register_FormFactorHemiEllipsoid_class(){
                 "getHeight"
                 , getHeight_function_type(&::FormFactorHemiEllipsoid::getHeight)
                 , default_getHeight_function_type(&FormFactorHemiEllipsoid_wrapper::default_getHeight) );
-        
-        }
-        { //::FormFactorHemiEllipsoid::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorHemiEllipsoid::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorHemiEllipsoid_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorHemiEllipsoid_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorHemiEllipsoid::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorHemiEllipsoid_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::FormFactorHemiEllipsoid::getRadiusA

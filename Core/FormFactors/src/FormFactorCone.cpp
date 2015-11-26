@@ -14,15 +14,17 @@
 // ************************************************************************** //
 
 #include "FormFactorCone.h"
+#include "BornAgainNamespace.h"
 #include "Numeric.h"
 #include "MathFunctions.h"
-#include <cmath>
 #include "MemberFunctionIntegrator.h"
 #include "MemberComplexFunctionIntegrator.h"
 
+#include <cmath>
+
 FormFactorCone::FormFactorCone(double radius, double height, double alpha)
 {
-    setName("FormFactorCone");
+    setName(BornAgain::FFConeType);
     m_radius = radius;
     m_height = height;
     m_alpha = alpha;
@@ -60,9 +62,7 @@ void FormFactorCone::init_parameters()
 
 FormFactorCone* FormFactorCone::clone() const
 {
-   FormFactorCone* result = new FormFactorCone(m_radius, m_height, m_alpha);
-   result->setName(getName());
-   return result;
+   return new FormFactorCone(m_radius, m_height, m_alpha);
 }
 
 

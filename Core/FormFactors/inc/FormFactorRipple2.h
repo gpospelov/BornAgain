@@ -37,9 +37,7 @@ public:
 
     virtual FormFactorRipple2 *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
-
-    virtual int getNumberOfStochasticParameters() const { return 4; }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     virtual double getHeight() const { return m_height; }
     virtual double getWidth() const { return m_width; }

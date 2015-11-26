@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorFullSpheroid.h"
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "MemberFunctionIntegrator.h"
@@ -21,7 +22,7 @@
 
 FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height )
 {
-    setName("FormFactorFullSpheroid");
+    setName(BornAgain::FFFullSpheroidType);
     m_radius = radius;
     m_height = height;
     check_initialization();
@@ -47,10 +48,7 @@ void FormFactorFullSpheroid::init_parameters()
 
 FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const
 {
-   FormFactorFullSpheroid* result =
-       new FormFactorFullSpheroid(m_radius, m_height);
-   result->setName(getName());
-   return result;
+   return new FormFactorFullSpheroid(m_radius, m_height);
 }
 
 //! Integrand for complex formfactor.

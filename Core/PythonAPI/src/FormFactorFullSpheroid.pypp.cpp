@@ -73,18 +73,6 @@ struct FormFactorFullSpheroid_wrapper : FormFactorFullSpheroid, bp::wrapper< For
         return FormFactorFullSpheroid::getHeight( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorFullSpheroid::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorFullSpheroid::getNumberOfStochasticParameters( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -351,17 +339,6 @@ void register_FormFactorFullSpheroid_class(){
                 "getHeight"
                 , getHeight_function_type(&::FormFactorFullSpheroid::getHeight)
                 , default_getHeight_function_type(&FormFactorFullSpheroid_wrapper::default_getHeight) );
-        
-        }
-        { //::FormFactorFullSpheroid::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorFullSpheroid::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorFullSpheroid_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorFullSpheroid_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorFullSpheroid::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorFullSpheroid_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::FormFactorFullSpheroid::getRadius

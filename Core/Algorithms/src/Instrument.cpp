@@ -39,7 +39,6 @@ Instrument &Instrument::operator=(const Instrument &other)
     if (this != &other) {
         m_beam = other.m_beam;
         mP_detector.reset(other.mP_detector->clone());
-        setName(other.getName());
         init_parameters();
     }
     return *this;

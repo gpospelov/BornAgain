@@ -14,17 +14,19 @@
 // ************************************************************************** //
 
 #include "FormFactorTruncatedSphere.h"
+#include "BornAgainNamespace.h"
 #include "Numeric.h"
 #include "MathFunctions.h"
-#include <cmath>
 #include "MemberFunctionIntegrator.h"
 #include "MemberComplexFunctionIntegrator.h"
+
+#include <cmath>
 
 FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height)
     : m_radius(radius)
     , m_height(height)
 {
-    setName("FormFactorTruncatedSphere");
+    setName(BornAgain::FFTruncatedSphereType);
     check_initialization();
     init_parameters();
 
@@ -56,13 +58,15 @@ void FormFactorTruncatedSphere::init_parameters()
 
 FormFactorTruncatedSphere *FormFactorTruncatedSphere::clone() const
 {
-    FormFactorTruncatedSphere *result = new FormFactorTruncatedSphere(m_radius, m_height);
-    result->setName(getName());
-    return result;
+    return new FormFactorTruncatedSphere(m_radius, m_height);
+}
+
+void FormFactorTruncatedSphere::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 //! Integrand for complex formfactor.
-
 complex_t FormFactorTruncatedSphere::Integrand(double Z, void* params) const
 {
     (void)params;  // to avoid unused-variable warning
@@ -90,5 +94,3 @@ complex_t FormFactorTruncatedSphere::evaluate_for_q(const cvector_t& q) const
         return Units::PI2*integral*std::exp(iqzR);
     }
 }
-
-

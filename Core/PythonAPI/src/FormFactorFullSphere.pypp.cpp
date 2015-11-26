@@ -73,18 +73,6 @@ struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFac
         return FormFactorFullSphere::getHeight( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorFullSphere::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorFullSphere::getNumberOfStochasticParameters( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -328,7 +316,7 @@ void register_FormFactorFullSphere_class(){
 
     { //::FormFactorFullSphere
         typedef bp::class_< FormFactorFullSphere_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorFullSphere_wrapper >, boost::noncopyable > FormFactorFullSphere_exposer_t;
-        FormFactorFullSphere_exposer_t FormFactorFullSphere_exposer = FormFactorFullSphere_exposer_t( "FormFactorFullSphere", bp::init< double >(( bp::arg("radius") ), "Full Sphere constructor.\n\n:Parameters:\n  - 'radius' - of Sphere\n") );
+        FormFactorFullSphere_exposer_t FormFactorFullSphere_exposer = FormFactorFullSphere_exposer_t( "FormFactorFullSphere", "The formfactor of a sphere.", bp::init< double >(( bp::arg("radius") ), "Full Sphere constructor.\n\n:Parameters:\n  - 'radius' - of Sphere\n") );
         bp::scope FormFactorFullSphere_scope( FormFactorFullSphere_exposer );
         { //::FormFactorFullSphere::clone
         
@@ -363,17 +351,6 @@ void register_FormFactorFullSphere_class(){
                 "getHeight"
                 , getHeight_function_type(&::FormFactorFullSphere::getHeight)
                 , default_getHeight_function_type(&FormFactorFullSphere_wrapper::default_getHeight) );
-        
-        }
-        { //::FormFactorFullSphere::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorFullSphere::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorFullSphere_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorFullSphere_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorFullSphere::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorFullSphere_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::FormFactorFullSphere::getRadius

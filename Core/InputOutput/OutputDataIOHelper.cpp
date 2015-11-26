@@ -154,7 +154,7 @@ IAxis *OutputDataIOHelper::createFixedBinAxis(std::string line)
     std::vector<double> boundaries;
     std::string value;
     while( iss >> value) {
-        boundaries.push_back(std::strtod(value.c_str(), NULL));
+        boundaries.push_back(std::strtod(value.c_str(), nullptr));
     }
 
     if(boundaries.size() != 2)
@@ -192,7 +192,7 @@ IAxis *OutputDataIOHelper::createVariableBinAxis(std::string line)
     std::vector<double> boundaries;
     std::string value;
     while( iss >> value) {
-        boundaries.push_back(std::strtod(value.c_str(), NULL));
+        boundaries.push_back(std::strtod(value.c_str(), nullptr));
     }
 
     if(boundaries.size() != nbins+1)
@@ -218,7 +218,7 @@ void OutputDataIOHelper::fillOutputData(OutputData<double> *data, std::istream &
         std::istringstream iss(line);
         std::string svalue;
         while(iss >> svalue) {
-            *it = std::strtod(svalue.c_str(), NULL);
+            *it = std::strtod(svalue.c_str(), nullptr);
             ++it;
         }
     }

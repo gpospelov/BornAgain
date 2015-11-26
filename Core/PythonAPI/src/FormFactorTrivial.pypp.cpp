@@ -61,18 +61,6 @@ struct FormFactorTrivial_wrapper : FormFactorTrivial, bp::wrapper< FormFactorTri
         return FormFactorTrivial::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorTrivial::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorTrivial::getNumberOfStochasticParameters( );
-    }
-
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -340,17 +328,6 @@ void register_FormFactorTrivial_class(){
                 , evaluate_for_q_function_type(&::FormFactorTrivial::evaluate_for_q)
                 , default_evaluate_for_q_function_type(&FormFactorTrivial_wrapper::default_evaluate_for_q)
                 , ( bp::arg("q") ) );
-        
-        }
-        { //::FormFactorTrivial::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorTrivial::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorTrivial_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorTrivial_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorTrivial::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorTrivial_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::IParameterized::areParametersChanged

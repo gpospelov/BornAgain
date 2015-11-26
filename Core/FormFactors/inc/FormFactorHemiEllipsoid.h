@@ -30,7 +30,6 @@ public:
     //! @param radius_a half length of one horizontal main axes
     //! @param radius_b half length of the other horizontal main axes
     //! @param height of Hemi Ellipsoid
-
     FormFactorHemiEllipsoid(double radius_a, double radius_b, double height);
 
     ~FormFactorHemiEllipsoid() {delete m_integrator;}
@@ -38,8 +37,6 @@ public:
     virtual FormFactorHemiEllipsoid* clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
-
-    virtual int getNumberOfStochasticParameters() const { return 3; }
 
     virtual double getHeight() const { return m_height; }
 
@@ -54,7 +51,6 @@ protected:
     virtual void init_parameters();
 
 private:
-
     complex_t Integrand(double Z, void* params) const;
 
     double m_radius_a;
@@ -63,9 +59,6 @@ private:
     mutable cvector_t m_q;
 
     MemberComplexFunctionIntegrator<FormFactorHemiEllipsoid> *m_integrator;
-
 };
 
 #endif // FORMFACTORHEMIELLIPSOID_H
-
-

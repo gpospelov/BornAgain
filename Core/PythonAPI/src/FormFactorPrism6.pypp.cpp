@@ -73,18 +73,6 @@ struct FormFactorPrism6_wrapper : FormFactorPrism6, bp::wrapper< FormFactorPrism
         return FormFactorPrism6::getHeight( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorPrism6::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorPrism6::getNumberOfStochasticParameters( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -375,17 +363,6 @@ void register_FormFactorPrism6_class(){
                 "getHeight"
                 , getHeight_function_type(&::FormFactorPrism6::getHeight)
                 , default_getHeight_function_type(&FormFactorPrism6_wrapper::default_getHeight) );
-        
-        }
-        { //::FormFactorPrism6::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorPrism6::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorPrism6_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorPrism6_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorPrism6::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorPrism6_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::FormFactorPrism6::getRadius

@@ -31,13 +31,11 @@ public:
     //! @param height of Tetrahedron
     //! @param angle in radians between base and facet
     FormFactorTetrahedron(double length, double height, double alpha);
-    ~FormFactorTetrahedron() {delete m_integrator;}
+    ~FormFactorTetrahedron();
 
     virtual FormFactorTetrahedron *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
-
-    virtual int getNumberOfStochasticParameters() const { return 3; }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     virtual double getHeight() const { return m_height; }
     virtual void setHeight(double height) { m_height = height; }
@@ -55,7 +53,6 @@ protected:
     virtual void init_parameters();
 
 private:
-
     double m_height;
     double m_length;
     double m_alpha;

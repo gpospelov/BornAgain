@@ -14,14 +14,26 @@
 // ************************************************************************** //
 
 #include "FormFactorBox.h"
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
 
+FormFactorBox::FormFactorBox(double length, double width, double height)
+    : m_length(length), m_width(width), m_height(height) {
+
+    setName(BornAgain::FFBoxType);
+    check_initialization();
+    init_parameters();
+}
+
 FormFactorBox *FormFactorBox::clone() const
 {
-    FormFactorBox *result = new FormFactorBox(m_length, m_width, m_height);
-    result->setName(getName());
-    return result;
+    return new FormFactorBox(m_length, m_width, m_height);
+}
+
+void FormFactorBox::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 

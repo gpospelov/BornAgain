@@ -123,6 +123,9 @@ protected:
     //! Gets a composed translation vector
     kvector_t getComposedTranslation(const IRotation *p_rotation, kvector_t translation) const;
 
+    //! Registers the three components of its position
+    void registerPosition();
+
     kvector_t m_position;
     boost::scoped_ptr<IRotation> mP_rotation;
 };

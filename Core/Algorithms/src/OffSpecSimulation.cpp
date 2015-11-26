@@ -24,8 +24,7 @@ OffSpecSimulation::OffSpecSimulation()
 , mp_alpha_i_axis(0)
 , m_intensity_map()
 {
-    setName("OffSpecSimulation");
-    init_parameters();
+    initialize();
 }
 
 OffSpecSimulation::OffSpecSimulation(const ProgramOptions* p_options)
@@ -34,8 +33,7 @@ OffSpecSimulation::OffSpecSimulation(const ProgramOptions* p_options)
 , mp_alpha_i_axis(0)
 , m_intensity_map()
 {
-    setName("OffSpecSimulation");
-    init_parameters();
+    initialize();
 }
 
 OffSpecSimulation::OffSpecSimulation(const ISample& p_sample,
@@ -45,8 +43,7 @@ OffSpecSimulation::OffSpecSimulation(const ISample& p_sample,
 , mp_alpha_i_axis(0)
 , m_intensity_map()
 {
-    setName("OffSpecSimulation");
-    init_parameters();
+    initialize();
 }
 
 OffSpecSimulation::OffSpecSimulation(SampleBuilder_t p_sample_builder,
@@ -56,8 +53,7 @@ OffSpecSimulation::OffSpecSimulation(SampleBuilder_t p_sample_builder,
 , mp_alpha_i_axis(0)
 , m_intensity_map()
 {
-    setName("OffSpecSimulation");
-    init_parameters();
+    initialize();
 }
 
 OffSpecSimulation* OffSpecSimulation::clone() const
@@ -193,8 +189,7 @@ OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
     if(other.mp_alpha_i_axis) mp_alpha_i_axis = other.mp_alpha_i_axis->clone();
     m_intensity_map.copyFrom(other.m_intensity_map);
 
-    setName("OffSpecSimulation");
-    init_parameters();
+    initialize();
 }
 
 void OffSpecSimulation::init_parameters()
@@ -294,4 +289,10 @@ void OffSpecSimulation::checkInitialization() const
         throw RuntimeErrorException("OffSpecSimulation::checkInitialization: "
                                     "alpha-axis is not correct");
     }
+}
+
+void OffSpecSimulation::initialize()
+{
+    setName(BornAgain::OffSpecSimulationType);
+    init_parameters();
 }

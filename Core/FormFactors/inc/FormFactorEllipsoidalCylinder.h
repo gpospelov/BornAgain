@@ -31,12 +31,10 @@ public:
     //! @param height of Ellipsoidal Cylinder
     FormFactorEllipsoidalCylinder(double radius_a, double radius_b,
                         double height);
-    ~FormFactorEllipsoidalCylinder() {}
+
     virtual FormFactorEllipsoidalCylinder *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
-
-    virtual int getNumberOfStochasticParameters() const { return 3; }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     double getRadiusA() const { return m_radius_a; }
     virtual void setRadiusA(double radius_a) { m_radius_a = radius_a; }

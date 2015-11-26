@@ -14,6 +14,8 @@
 // ************************************************************************** //
 
 #include "FormFactorSphereUniformRadius.h"
+#include "BornAgainNamespace.h"
+
 
 FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
         double full_width)
@@ -25,26 +27,23 @@ FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
                 "FormFactorSphereUniformRadius::FormFactorSphereUniformRadius:"
                 " mean radius must be bigger than the half width");
     }
-    setName("FormFactorSphereUniformRadius");
+    setName(BornAgain::FormFactorSphereUniformRadiusType);
     check_initialization();
     init_parameters();
 }
 
 FormFactorSphereUniformRadius* FormFactorSphereUniformRadius::clone() const
 {
-    FormFactorSphereUniformRadius *p_result = new FormFactorSphereUniformRadius(
-            m_mean, m_full_width);
-    p_result->setName(getName());
-    return p_result;
+    return new FormFactorSphereUniformRadius(m_mean, m_full_width);
 }
 
 FormFactorSphereUniformRadius::~FormFactorSphereUniformRadius()
 {
 }
 
-int FormFactorSphereUniformRadius::getNumberOfStochasticParameters() const
+void FormFactorSphereUniformRadius::accept(ISampleVisitor *visitor) const
 {
-    return 2;
+    visitor->visit(this);
 }
 
 complex_t FormFactorSphereUniformRadius::evaluate_for_q(

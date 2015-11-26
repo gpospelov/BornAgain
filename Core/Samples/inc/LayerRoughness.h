@@ -36,7 +36,10 @@ public:
     LayerRoughness *clone() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const
+    {
+        visitor->visit(this);
+    }
 
     //! Returns power spectral density of the surface roughness
     double getSpectralFun(const kvector_t& kvec) const;
@@ -44,23 +47,22 @@ public:
     double getCorrFun(const kvector_t& k) const;
 
     //! Sets rms of roughness
-    inline void   setSigma(double sigma) { m_sigma = sigma; }
+    void setSigma(double sigma);
     //! Returns rms of roughness
-    inline double getSigma() const { return m_sigma; }
+    double getSigma() const;
 
     //! Sets hurst parameter. It describes how jagged the surface is.
-    inline void   setHurstParameter(double hurstParameter) { m_hurstParameter = hurstParameter; }
+    void setHurstParameter(double hurstParameter);
     //! Returns hurst parameter
-    inline double getHurstParameter() const { return m_hurstParameter; }
+    double getHurstParameter() const;
 
     //! Sets lateral correlation length
-    inline void   setLatteralCorrLength(double latteralCorrLength) { m_latteralCorrLength = latteralCorrLength; }
+    void setLatteralCorrLength(double latteralCorrLength);
     //! Returns latteral correlation length
-    inline double getLatteralCorrLength() const { return m_latteralCorrLength; }
+    double getLatteralCorrLength() const;
 
     //! Prints class
-    friend std::ostream& operator<<(std::ostream& ostr, /*const*/ LayerRoughness& m)
-    { m.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, /*const*/ LayerRoughness& m);
 
 protected:
     //! Registers some class members for later access via parameter pool
@@ -72,8 +74,8 @@ protected:
     double m_sigma;                //!< rms of roughness
     double m_hurstParameter;       //!< Hurst parameter which describes how jagged the interface, 0<H<=1
     double m_latteralCorrLength;   //!< latteral correlation length of the roughness
+private:
+    void initialize();
 };
 
 #endif // LAYERROUGHNESS_H
-
-

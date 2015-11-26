@@ -73,18 +73,6 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
         return FormFactorSphereLogNormalRadius::getHeight( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorSphereLogNormalRadius::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorSphereLogNormalRadius::getNumberOfStochasticParameters( );
-    }
-
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -351,17 +339,6 @@ void register_FormFactorSphereLogNormalRadius_class(){
                 "getHeight"
                 , getHeight_function_type(&::FormFactorSphereLogNormalRadius::getHeight)
                 , default_getHeight_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_getHeight) );
-        
-        }
-        { //::FormFactorSphereLogNormalRadius::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorSphereLogNormalRadius::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorSphereLogNormalRadius_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorSphereLogNormalRadius_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorSphereLogNormalRadius::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::IParameterized::areParametersChanged

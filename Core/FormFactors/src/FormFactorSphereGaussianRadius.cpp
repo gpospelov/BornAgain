@@ -14,6 +14,8 @@
 // ************************************************************************** //
 
 #include "FormFactorSphereGaussianRadius.h"
+#include "BornAgainNamespace.h"
+
 
 FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean,
                                                                double sigma)
@@ -22,7 +24,7 @@ FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean,
 , m_mean_r3(0.0)
 , p_ff_sphere(0)
 {
-    setName("FormFactorSphereGaussianRadius");
+    setName(BornAgain::FormFactorSphereGaussianRadiusType);
     m_mean_r3 = calculateMeanR3();
     p_ff_sphere = new FormFactorFullSphere(m_mean_r3);
     check_initialization();
@@ -31,10 +33,7 @@ FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean,
 
 FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const
 {
-    FormFactorSphereGaussianRadius *result =
-        new FormFactorSphereGaussianRadius(m_mean, m_sigma);
-    result->setName(getName());
-    return result;
+    return new FormFactorSphereGaussianRadius(m_mean, m_sigma);
 }
 
 FormFactorSphereGaussianRadius::~FormFactorSphereGaussianRadius()
@@ -42,9 +41,9 @@ FormFactorSphereGaussianRadius::~FormFactorSphereGaussianRadius()
     delete p_ff_sphere;
 }
 
-int FormFactorSphereGaussianRadius::getNumberOfStochasticParameters() const
+void FormFactorSphereGaussianRadius::accept(ISampleVisitor *visitor) const
 {
-    return 2;
+    visitor->visit(this);
 }
 
 complex_t FormFactorSphereGaussianRadius::evaluate_for_q(

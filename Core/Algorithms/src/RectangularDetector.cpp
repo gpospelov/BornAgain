@@ -31,7 +31,7 @@ RectangularDetector::RectangularDetector(kvector_t normal_to_detector, kvector_t
     m_u_unit = normalizeToUnitLength(
         d2 * u_direction - u_direction.dot(m_normal_to_detector) * m_normal_to_detector);
     m_v_unit = normalizeToUnitLength(m_u_unit.cross(m_normal_to_detector));
-    setName("RectangularDetector");
+    setName(BornAgain::RectangularDetectorType);
     init_parameters();
 }
 
@@ -40,7 +40,7 @@ RectangularDetector::RectangularDetector(const RectangularDetector &other)
     , m_normal_to_detector(other.m_normal_to_detector)
     , m_u_unit(other.m_u_unit), m_v_unit(other.m_v_unit)
 {
-    setName("RectangularDetector");
+    setName(BornAgain::RectangularDetectorType);
     init_parameters();
 }
 

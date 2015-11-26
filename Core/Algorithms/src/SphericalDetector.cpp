@@ -26,14 +26,14 @@
 
 SphericalDetector::SphericalDetector()
 {
-    setName("SphericalDetector");
+    setName(BornAgain::SphericalDetectorType);
     init_parameters();
 }
 
 SphericalDetector::SphericalDetector(const SphericalDetector &other)
     : IDetector2D(other)
 {
-    setName("SphericalDetector");
+    setName(BornAgain::SphericalDetectorType);
     init_parameters();
 }
 

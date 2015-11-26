@@ -119,6 +119,8 @@ private:
 
     //! Check correct number of axes
     void checkInitialization() const;
+
+    void initialize();
 };
 
 #endif /* OFFSPECSIMULATION_H_ */

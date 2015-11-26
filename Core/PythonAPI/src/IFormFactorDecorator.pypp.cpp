@@ -184,18 +184,6 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
         return ISample::getCompositeSample( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->IFormFactor::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return IFormFactor::getNumberOfStochasticParameters( );
-    }
-
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -452,17 +440,6 @@ void register_IFormFactorDecorator_class(){
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
                 , default_getCompositeSample_function_type(&IFormFactorDecorator_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IFormFactor::getNumberOfStochasticParameters
-        
-            typedef int ( ::IFormFactor::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( IFormFactorDecorator_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            IFormFactorDecorator_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::IFormFactor::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&IFormFactorDecorator_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::IParameterized::printParameters

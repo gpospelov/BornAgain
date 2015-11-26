@@ -80,18 +80,6 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
         return FormFactorGauss::getHeight( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorGauss::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorGauss::getNumberOfStochasticParameters( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -359,17 +347,6 @@ void register_FormFactorGauss_class(){
                 "getHeight"
                 , getHeight_function_type(&::FormFactorGauss::getHeight)
                 , default_getHeight_function_type(&FormFactorGauss_wrapper::default_getHeight) );
-        
-        }
-        { //::FormFactorGauss::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorGauss::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorGauss_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorGauss_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorGauss::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorGauss_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::FormFactorGauss::getRadius

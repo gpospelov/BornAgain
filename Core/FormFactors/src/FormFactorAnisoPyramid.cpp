@@ -14,12 +14,13 @@
 // ************************************************************************** //
 
 #include "FormFactorAnisoPyramid.h"
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
 FormFactorAnisoPyramid::FormFactorAnisoPyramid(
     double length, double width, double height, double alpha)
 {
-    setName("FormFactorAnisoPyramid");
+    setName(BornAgain::FFAnisoPyramidType);
     m_length = length;
     m_width = width;
     m_height = height;
@@ -75,10 +76,7 @@ void FormFactorAnisoPyramid::init_parameters()
 
 FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const
 {
-    FormFactorAnisoPyramid *result =
-        new FormFactorAnisoPyramid(m_length, m_width, m_height, m_alpha);
-    result->setName(getName());
-    return result;
+    return new FormFactorAnisoPyramid(m_length, m_width, m_height, m_alpha);
 }
 
 complex_t FormFactorAnisoPyramid::evaluate_for_q(const cvector_t& q) const

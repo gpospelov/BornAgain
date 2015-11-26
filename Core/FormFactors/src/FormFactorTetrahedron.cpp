@@ -15,15 +15,14 @@
 
 #include "FormFactorTetrahedron.h"
 #include "MathFunctions.h"
-
-// Integration
+#include "BornAgainNamespace.h"
 #include "MemberFunctionIntegrator.h"
 #include "MemberComplexFunctionIntegrator.h"
 
 FormFactorTetrahedron::FormFactorTetrahedron(
    double length, double height, double alpha)
 {
-    setName("FormFactorTetrahedron");
+    setName(BornAgain::FFTetrahedronType);
     m_height = height;
     m_length = length;
     m_alpha = alpha;
@@ -31,13 +30,15 @@ FormFactorTetrahedron::FormFactorTetrahedron(
     check_initialization();
     init_parameters();
 
-    // addition integration
-
     MemberComplexFunctionIntegrator<FormFactorTetrahedron>::mem_function p_mf =
        & FormFactorTetrahedron::Integrand;
     m_integrator =
         new MemberComplexFunctionIntegrator<FormFactorTetrahedron>(p_mf, this);
+}
 
+FormFactorTetrahedron::~FormFactorTetrahedron()
+{
+    delete m_integrator;
 }
 
 bool FormFactorTetrahedron::check_initialization() const
@@ -65,13 +66,14 @@ void FormFactorTetrahedron::init_parameters()
 
 FormFactorTetrahedron* FormFactorTetrahedron::clone() const
 {
-    FormFactorTetrahedron *result =
-        new FormFactorTetrahedron(m_length, m_height, m_alpha);
-    result->setName(getName());
-    return result;
+    return new FormFactorTetrahedron(m_length, m_height, m_alpha);
 }
 
-// addition integration
+void FormFactorTetrahedron::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
 complex_t FormFactorTetrahedron::Integrand(double Z, void* params) const
 {
     (void)params;

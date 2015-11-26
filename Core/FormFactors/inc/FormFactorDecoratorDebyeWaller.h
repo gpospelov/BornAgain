@@ -45,11 +45,6 @@ public:
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
-    virtual int getNumberOfStochasticParameters() const
-    {
-        return mp_form_factor->getNumberOfStochasticParameters();
-    }
-
 protected:
     virtual bool check_initialization() const;
     virtual void init_parameters();
@@ -57,6 +52,7 @@ protected:
 private:
     double m_h_dw_factor; //!< the Debye-Waller factor in the z-direction
     double m_r_dw_factor; //!< the Debye-Waller factor in the radial direction
+    void initialize();
 };
 
 #endif /* FORMFACTORDECORATORDEBYEWALLER_H_ */

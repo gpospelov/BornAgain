@@ -29,12 +29,10 @@ public:
     //! @param length of a side of Prism3's base
     //! @param height of Prism3
     FormFactorPrism3(double length, double height);
-    ~FormFactorPrism3() {}
+
     virtual FormFactorPrism3 *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
-
-    virtual int getNumberOfStochasticParameters() const { return 2; }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     virtual double getHeight() const { return m_height; }
     virtual void setHeight(double height) { m_height = height; }
@@ -55,5 +53,3 @@ private:
 };
 
 #endif /* FORMFACTORPRISM3_H_ */
-
-

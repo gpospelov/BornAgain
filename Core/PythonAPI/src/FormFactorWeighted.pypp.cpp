@@ -61,18 +61,6 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
         return FormFactorWeighted::evaluate( boost::ref(wavevectors) );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorWeighted::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorWeighted::getNumberOfStochasticParameters( );
-    }
-
     virtual void setAmbientMaterial( ::IMaterial const & material ) {
         if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
             func_setAmbientMaterial( boost::ref(material) );
@@ -313,8 +301,7 @@ void register_FormFactorWeighted_class(){
             FormFactorWeighted_exposer.def( 
                 "addFormFactor"
                 , addFormFactor_function_type( &::FormFactorWeighted::addFormFactor )
-                , ( bp::arg("form_factor"), bp::arg("weight")=1.0e+0 )
-                , "calls the ISampleVisitor's visit method." );
+                , ( bp::arg("form_factor"), bp::arg("weight")=1.0e+0 ) );
         
         }
         { //::FormFactorWeighted::clone
@@ -339,17 +326,6 @@ void register_FormFactorWeighted_class(){
                 , evaluate_function_type(&::FormFactorWeighted::evaluate)
                 , default_evaluate_function_type(&FormFactorWeighted_wrapper::default_evaluate)
                 , ( bp::arg("wavevectors") ) );
-        
-        }
-        { //::FormFactorWeighted::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorWeighted::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorWeighted_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorWeighted_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorWeighted::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorWeighted_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::FormFactorWeighted::setAmbientMaterial

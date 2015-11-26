@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorSphereLogNormalRadius.h"
-
+#include "BornAgainNamespace.h"
 #include "Distributions.h"
 
 FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
@@ -24,7 +24,7 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
 , m_n_samples(n_samples)
 , mp_distribution(0)
 {
-    setName("FormFactorSphereLogNormalRadius");
+    setName(BornAgain::FormFactorSphereLogNormalRadiusType);
     mp_distribution = new DistributionLogNormal(mean, scale_param);
     check_initialization();
     init_parameters();
@@ -33,10 +33,7 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
 
 FormFactorSphereLogNormalRadius* FormFactorSphereLogNormalRadius::clone() const
 {
-    FormFactorSphereLogNormalRadius *result =
-        new FormFactorSphereLogNormalRadius(m_mean, m_scale_param, m_n_samples);
-    result->setName(getName());
-    return result;
+    return new FormFactorSphereLogNormalRadius(m_mean, m_scale_param, m_n_samples);
 }
 
 FormFactorSphereLogNormalRadius::~FormFactorSphereLogNormalRadius()
@@ -44,9 +41,9 @@ FormFactorSphereLogNormalRadius::~FormFactorSphereLogNormalRadius()
     delete mp_distribution;
 }
 
-int FormFactorSphereLogNormalRadius::getNumberOfStochasticParameters() const
+void FormFactorSphereLogNormalRadius::accept(ISampleVisitor *visitor) const
 {
-    return 2;
+    visitor->visit(this);
 }
 
 complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(

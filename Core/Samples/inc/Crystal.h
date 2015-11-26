@@ -37,8 +37,7 @@ public:
     //! Returns a clone with inverted magnetic fields
     Crystal *cloneInvertB() const;
 
-    //! Calls the ISampleVisitor's visit method
-    void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor *visitor) const;
 
     void setAmbientMaterial(const IMaterial& material) {
         mp_lattice_basis->setAmbientMaterial(material);

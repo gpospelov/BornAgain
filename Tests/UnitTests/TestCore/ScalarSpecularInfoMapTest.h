@@ -41,7 +41,7 @@ TEST_F(ScalarSpecularInfoMapTest, getCoefficients)
                 map.getOutCoefficients(1.0, 1.0, 2.0*Units::PI));
     complex_t R0 = complex_t(0.1750375, -0.0222467);
     complex_t lambda0 = complex_t(0.841471, 0.0);
-    EXPECT_TRUE(NULL != P_rt_coeffs.get());
+    EXPECT_TRUE(nullptr != P_rt_coeffs.get());
 
     EXPECT_EQ(0.0, P_rt_coeffs->T1plus()(0));
     EXPECT_EQ(0.0, P_rt_coeffs->T1plus()(1));

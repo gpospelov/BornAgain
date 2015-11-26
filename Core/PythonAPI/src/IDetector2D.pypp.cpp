@@ -261,8 +261,7 @@ void register_IDetector2D_class(){
             IDetector2D_exposer.def( 
                 "getDetectorResolutionFunction"
                 , getDetectorResolutionFunction_function_type( &::IDetector2D::getDetectorResolutionFunction )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Applies the detector resolution to the given intensity maps." );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IDetector2D::getDimension

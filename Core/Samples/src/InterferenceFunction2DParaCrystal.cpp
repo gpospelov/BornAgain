@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "InterferenceFunction2DParaCrystal.h"
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "MemberFunctionIntegrator.h"
 #include "Exceptions.h"
@@ -35,7 +36,7 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
     m_pdfs[1] = 0;
     m_domain_sizes[0] = 0.0;
     m_domain_sizes[1] = 0.0;
-    setName("InterferenceFunction2DParaCrystal");
+    setName(BornAgain::InterferenceFunction2DParaCrystalType);
     if (m_damping_length==0.0) {
         m_use_damping_length = false;
     }
@@ -56,10 +57,13 @@ InterferenceFunction2DParaCrystal
     if(m_pdfs[0] && m_pdfs[1])
         result->setProbabilityDistributions(*m_pdfs[0], *m_pdfs[1]);
     result->setIntegrationOverXi(m_integrate_xi);
-    result->setName(getName());
     return result;
 }
 
+void InterferenceFunction2DParaCrystal::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
 
 void InterferenceFunction2DParaCrystal::setProbabilityDistributions(
         const IFTDistribution2D& pdf_1, const IFTDistribution2D& pdf_2)
@@ -130,9 +134,15 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::
     return p_new;
 }
 
+void InterferenceFunction2DParaCrystal::setDomainSizes(double size_1, double size_2)
+{
+    m_domain_sizes[0] = size_1;
+    m_domain_sizes[1] = size_2;
+}
+
 void InterferenceFunction2DParaCrystal::transformToPrincipalAxes(double qx,
-        double qy, double gamma, double delta, double& q_pa_1,
-        double& q_pa_2) const
+                                                                 double qy, double gamma, double delta, double& q_pa_1,
+                                                                 double& q_pa_2) const
 {
     q_pa_1 = qx*std::cos(gamma) + qy*std::sin(gamma);
     q_pa_2 = qx*std::cos(gamma+delta) + qy*std::sin(gamma+delta);

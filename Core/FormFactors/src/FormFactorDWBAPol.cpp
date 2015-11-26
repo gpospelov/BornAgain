@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorDWBAPol.h"
+#include "BornAgainNamespace.h"
 #include "Exceptions.h"
 
 FormFactorDWBAPol::FormFactorDWBAPol(const IFormFactor &form_factor)
@@ -21,7 +22,7 @@ FormFactorDWBAPol::FormFactorDWBAPol(const IFormFactor &form_factor)
 , mp_in_coeffs(0)
 , mp_out_coeffs(0)
 {
-    setName("FormFactorDWBAPol");
+    setName(BornAgain::FormFactorPolarizedDWBAType);
 }
 
 FormFactorDWBAPol::~FormFactorDWBAPol()
@@ -32,7 +33,6 @@ FormFactorDWBAPol* FormFactorDWBAPol::clone() const
 {
     FormFactorDWBAPol *p_result = new FormFactorDWBAPol(*mp_form_factor);
     p_result->setSpecularInfo(mp_in_coeffs, mp_out_coeffs);
-    p_result->setName(getName());
     return p_result;
 }
 

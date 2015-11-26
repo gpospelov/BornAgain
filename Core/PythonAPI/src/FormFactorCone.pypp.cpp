@@ -85,18 +85,6 @@ struct FormFactorCone_wrapper : FormFactorCone, bp::wrapper< FormFactorCone > {
         return FormFactorCone::getHeight( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorCone::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorCone::getNumberOfStochasticParameters( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -410,17 +398,6 @@ void register_FormFactorCone_class(){
                 "getHeight"
                 , getHeight_function_type(&::FormFactorCone::getHeight)
                 , default_getHeight_function_type(&FormFactorCone_wrapper::default_getHeight) );
-        
-        }
-        { //::FormFactorCone::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorCone::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorCone_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorCone_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorCone::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorCone_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::FormFactorCone::getRadius

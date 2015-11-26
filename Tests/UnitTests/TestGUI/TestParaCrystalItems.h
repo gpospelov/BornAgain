@@ -3,7 +3,7 @@
 
 #include <QtTest>
 #include "InterferenceFunctionItems.h"
-#include "FancyGroupProperty.h"
+#include "GroupProperty.h"
 
 class TestParaCrystalItems : public QObject {
     Q_OBJECT
@@ -28,8 +28,8 @@ inline void TestParaCrystalItems::test_Para1D_InitialState()
 
     QCOMPARE(item.getSubItems()[InterferenceFunctionRadialParaCrystalItem::P_PDF]->modelType(), Constants::FTDistribution1DCauchyType);
 
-    FancyGroupProperty_t group_property = item.getRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_PDF).value<FancyGroupProperty_t>();
-    QCOMPARE(group_property->type(), FancyGroupProperty::SELECTABLE);
+    GroupProperty_t group_property = item.getRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_PDF).value<GroupProperty_t>();
+    QCOMPARE(group_property->type(), GroupProperty::SELECTABLE);
 
 }
 

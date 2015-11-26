@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FTDistributions.h"
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "MemberFunctionIntegrator.h"
 
@@ -30,7 +31,7 @@ void IFTDistribution1D::init_parameters()
 FTDistribution1DCauchy::FTDistribution1DCauchy(double omega)
 : IFTDistribution1D(omega)
 {
-    setName("1DDistributionCauchy");
+    setName(BornAgain::FTDistribution1DCauchyType);
     init_parameters();
 }
 
@@ -49,7 +50,7 @@ double FTDistribution1DCauchy::evaluate(double q) const
 FTDistribution1DGauss::FTDistribution1DGauss(double omega)
 : IFTDistribution1D(omega)
 {
-    setName("1DDistributionGauss");
+    setName(BornAgain::FTDistribution1DGaussType);
     init_parameters();
 }
 
@@ -68,7 +69,7 @@ double FTDistribution1DGauss::evaluate(double q) const
 FTDistribution1DGate::FTDistribution1DGate(double omega)
     : IFTDistribution1D(omega)
 {
-    setName("1DDistributionGate");
+    setName(BornAgain::FTDistribution1DGateType);
     init_parameters();
 }
 
@@ -86,7 +87,7 @@ double FTDistribution1DGate::evaluate(double q) const
 FTDistribution1DTriangle::FTDistribution1DTriangle(double omega)
     : IFTDistribution1D(omega)
 {
-    setName("1DDistributionTriangle");
+    setName(BornAgain::FTDistribution1DTriangleType);
     init_parameters();
 }
 
@@ -105,7 +106,7 @@ double FTDistribution1DTriangle::evaluate(double q) const
 FTDistribution1DCosine::FTDistribution1DCosine(double omega)
     : IFTDistribution1D(omega)
 {
-    setName("1DDistributionCosine");
+    setName(BornAgain::FTDistribution1DCosineType);
     init_parameters();
 }
 
@@ -130,7 +131,7 @@ FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
 : IFTDistribution1D(omega)
 , m_eta(eta)
 {
-    setName("1DDistributionVoigt");
+    setName(BornAgain::FTDistribution1DVoigtType);
     init_parameters();
 }
 
@@ -161,10 +162,8 @@ void IFTDistribution1D::print(std::ostream& ostr) const
 
 //==============2D====================
 
-double IFTDistribution2D::evaluateLattice(double qx, double qy) const
+double IFTDistribution2D::evaluateLattice(double, double) const
 {
-    (void)qx;
-    (void)qy;
     throw NotImplementedException("IFTDistribution2D::evaluateLattice: This "
          "distribution can not be used for the reciprocal lattice approach");
 }
@@ -195,7 +194,7 @@ FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x,
         double coherence_length_y)
 : IFTDistribution2D(coherence_length_x, coherence_length_y)
 {
-    setName("2DDistributionCauchy");
+    setName(BornAgain::FTDistribution2DCauchyType);
     init_parameters();
 }
 
@@ -223,7 +222,7 @@ FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x,
         double coherence_length_y)
 : IFTDistribution2D(coherence_length_x, coherence_length_y)
 {
-    setName("2DDistributionGauss");
+    setName(BornAgain::FTDistribution2DGaussType);
     init_parameters();
 }
 
@@ -253,7 +252,7 @@ FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x,
         double coherence_length_y)
 : IFTDistribution2D(coherence_length_x, coherence_length_y)
 {
-    setName("2DDistributionGate");
+    setName(BornAgain::FTDistribution2DGateType);
     init_parameters();
 }
 
@@ -276,7 +275,7 @@ FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x,
         double coherence_length_y)
 : IFTDistribution2D(coherence_length_x, coherence_length_y)
 {
-    setName("2DDistributionCone");
+    setName(BornAgain::FTDistribution2DConeType);
     init_parameters();
 }
 
@@ -315,7 +314,7 @@ FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x,
 : IFTDistribution2D(coherence_length_x, coherence_length_y)
 , m_eta(eta)
 {
-    setName("2DDistributionVoigt");
+    setName(BornAgain::FTDistribution2DVoigtType);
     init_parameters();
 }
 

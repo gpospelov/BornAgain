@@ -19,7 +19,8 @@
 #include "GUIHelpers.h"
 #include "PropertyVariantManager.h"
 #include "GroupPropertyRegistry.h"
-#include "FancyGroupProperty.h"
+#include "GroupProperty.h"
+
 #include <QEvent>
 #include <QDynamicPropertyChangeEvent>
 #include <QDebug>
@@ -28,8 +29,8 @@
 const QString ParameterizedItem::P_NAME = "Name";
 const QString ParameterizedItem::P_PORT = "Port";
 
-ParameterizedItem::ParameterizedItem(const QString &model_type, ParameterizedItem *parent)
-    : m_model_type(model_type), mp_parent(parent)
+ParameterizedItem::ParameterizedItem(QString model_type, ParameterizedItem *parent)
+    : m_model_type(std::move(model_type)), mp_parent(parent)
 {
     if (mp_parent) {
         mp_parent->insertChildItem(-1, this);
@@ -40,15 +41,15 @@ ParameterizedItem::ParameterizedItem(const QString &model_type, ParameterizedIte
     setItemName(m_model_type);
 }
 
-bool ParameterizedItem::isRegisteredProperty(const QString &name)
-{
-    return m_registered_properties.contains(name);
-}
-
 ParameterizedItem::~ParameterizedItem()
 {
     qDeleteAll(m_children);
     qDeleteAll(m_sub_items);
+}
+
+QString ParameterizedItem::modelType() const
+{
+    return m_model_type;
 }
 
 QString ParameterizedItem::itemName() const
@@ -59,6 +60,51 @@ QString ParameterizedItem::itemName() const
 void ParameterizedItem::setItemName(const QString &item_name)
 {
     setRegisteredProperty(P_NAME, item_name);
+}
+
+QString ParameterizedItem::displayName() const
+{
+    return m_display_name;
+}
+
+void ParameterizedItem::setDisplayName(QString display_name)
+{
+    m_display_name = std::move(display_name);
+}
+
+QString ParameterizedItem::getItemLabel() const
+{
+    return QString("");
+}
+
+ParameterizedItem *ParameterizedItem::parent() const
+{
+    return mp_parent;
+}
+
+ParameterizedItem *ParameterizedItem::childAt(int row) const
+{
+    return m_children.value(row);
+}
+
+int ParameterizedItem::rowOfChild(ParameterizedItem *child) const
+{
+    return m_children.indexOf(child);
+}
+
+int ParameterizedItem::childItemCount() const
+{
+    return m_children.count();
+}
+
+bool ParameterizedItem::hasChildItems() const
+{
+    return !m_children.isEmpty();
+}
+
+QList<ParameterizedItem *> ParameterizedItem::childItems() const
+{
+    return m_children;
 }
 
 void ParameterizedItem::insertChildItem(int row, ParameterizedItem *item)
@@ -92,6 +138,11 @@ bool ParameterizedItem::acceptsAsChild(const QString &child_name) const
     return m_valid_children.contains(child_name);
 }
 
+QList<QString> ParameterizedItem::acceptableChildItems() const
+{
+    return m_valid_children;
+}
+
 // emits signal on property change
 bool ParameterizedItem::event(QEvent *e)
 {
@@ -100,70 +151,14 @@ bool ParameterizedItem::event(QEvent *e)
         Q_ASSERT(e);
         QByteArray byte_array = propertyEvent->propertyName();
         QString name(byte_array.constData());
-        //        if (m_sub_items.contains(name)) {
-        //            updatePropertyItem(name);
-        //        }
         onPropertyChange(name);
     }
     return QObject::event(e);
 }
 
-void ParameterizedItem::onPropertyChange(const QString &name)
+QMap<QString, ParameterizedItem *> ParameterizedItem::getSubItems() const
 {
-    //    qDebug() << "ParameterizedItem::onPropertyChange()" << modelType() << name;
-    if (mp_parent)
-        mp_parent->onChildPropertyChange();
-    emit propertyChanged(name);
-}
-
-// returns child which should be removed by the model due to over population of children of given
-// type
-ParameterizedItem *ParameterizedItem::getCandidateForRemoval(ParameterizedItem *new_comer)
-{
-    if (!new_comer)
-        return 0;
-
-    QMap<int, QVector<ParameterizedItem *> > nport_to_nitems;
-    foreach (ParameterizedItem *child, m_children) {
-        int nport = child->getRegisteredProperty(P_PORT).toInt();
-        nport_to_nitems[nport].push_back(child);
-    }
-
-    QMap<int, QVector<ParameterizedItem *> >::iterator it = nport_to_nitems.begin();
-    while (it != nport_to_nitems.end()) {
-        int nport = it.key();
-        if (m_port_info.contains(nport)) {
-            if (m_port_info[nport].m_item_max_number != 0
-                && it.value().size() > m_port_info[nport].m_item_max_number) {
-                foreach (ParameterizedItem *item, it.value()) {
-                    if (item != new_comer)
-                        return item;
-                }
-            }
-        }
-
-        ++it;
-    }
-
-    return 0;
-}
-
-void ParameterizedItem::setItemPort(ParameterizedItem::PortInfo::EPorts nport)
-{
-    setRegisteredProperty(P_PORT, nport);
-}
-
-void ParameterizedItem::addToValidChildren(const QString &name, PortInfo::EPorts nport,
-                                           int nmax_items)
-{
-    m_valid_children.append(name);
-
-    if (m_port_info.contains(nport)) {
-        m_port_info[nport].m_item_names << name;
-        m_port_info[nport].m_item_max_number = nmax_items;
-    } else {
-        m_port_info[nport] = PortInfo(name, nmax_items);
-    }
+    return m_sub_items;
 }
 
 void ParameterizedItem::addPropertyItem(QString name, ParameterizedItem *item)
@@ -180,11 +175,14 @@ void ParameterizedItem::addPropertyItem(QString name, ParameterizedItem *item)
     }
     m_sub_items[name] = item;
     item->mp_parent = this;
-    // connect(item, SIGNAL(propertyChanged(QString)), this,
-    // SLOT(onSubItemPropertyChanged(QString)), Qt::UniqueConnection);
     onSubItemChanged(name);
     onChildPropertyChange();
     qDebug() << "ParameterizedItem::addPropertyItem() -> about to leave" << name;
+}
+
+bool ParameterizedItem::isRegisteredProperty(const QString &name)
+{
+    return m_registered_properties.contains(name);
 }
 
 ParameterizedItem *ParameterizedItem::registerGroupProperty(const QString &group_name,
@@ -194,7 +192,7 @@ ParameterizedItem *ParameterizedItem::registerGroupProperty(const QString &group
              << "this->modelType" << modelType() << "group_name" << group_name << " group_model"
              << group_model;
 
-    FancyGroupProperty_t group_property
+    GroupProperty_t group_property
         = GroupPropertyRegistry::createGroupProperty(group_name, group_model);
     QVariant variant;
     variant.setValue(group_property);
@@ -205,9 +203,9 @@ ParameterizedItem *ParameterizedItem::registerGroupProperty(const QString &group
 
 ParameterizedItem *ParameterizedItem::setGroupProperty(const QString &name, const QString &value)
 {
-    qDebug() << "ParameterizedItem::setFancyGroupProperty()" << name << value;
-    FancyGroupProperty_t group_property = getRegisteredProperty(name).value<FancyGroupProperty_t>();
-    group_property->setValue(value);
+    qDebug() << "ParameterizedItem::setGroupProperty()" << name << value;
+    GroupProperty_t group_property = getRegisteredProperty(name).value<GroupProperty_t>();
+    group_property->setCurrentType(value);
     return m_sub_items[name];
 }
 
@@ -277,6 +275,21 @@ void ParameterizedItem::removeRegisteredProperty(const QString &name)
     }
 }
 
+PropertyAttribute ParameterizedItem::getPropertyAttribute(const QString &name) const
+{
+    if (!m_registered_properties.contains(name))
+        throw GUIHelpers::Error(
+            "ParameterizedItem::getPropertyAttribute() -> Error. Unknown property " + name + " "
+            + modelType());
+
+    if (!m_property_attribute.contains(name))
+        throw GUIHelpers::Error(
+            "ParameterizedItem::getPropertyAttribute() -> Error. Unknown property attribute "
+            + name);
+
+    return m_property_attribute[name];
+}
+
 void ParameterizedItem::setPropertyAttribute(const QString &name,
                                              const PropertyAttribute &attribute)
 {
@@ -307,6 +320,88 @@ void ParameterizedItem::setPropertyAppearance(const QString &name,
     m_property_attribute[name].setAppearance(appearance);
 }
 
+void ParameterizedItem::onPropertyChange(const QString &name)
+{
+    //    qDebug() << "ParameterizedItem::onPropertyChange()" << modelType() << name;
+    if (mp_parent)
+        mp_parent->onChildPropertyChange();
+    emit propertyChanged(name);
+}
+
+void ParameterizedItem::onChildPropertyChange()
+{
+    qDebug() << "ParameterizedItem::onChildPropertyChange()";
+    if (mp_parent)
+        mp_parent->onChildPropertyChange();
+}
+
+void ParameterizedItem::print() const
+{
+    qDebug() << "--- ParameterizedItem::print() ------------------------------------";
+    qDebug() << modelType() << itemName();
+    qDebug() << "--- SubItems ---";
+    for (QMap<QString, ParameterizedItem *>::const_iterator it = m_sub_items.begin();
+         it != m_sub_items.end(); ++it) {
+        qDebug() << "   key:" << it.key() << " value->modelType:" << it.value()->modelType();
+    }
+    qDebug() << "--- Properties ---";
+    QList<QByteArray> property_names = dynamicPropertyNames();
+    for (int i = 0; i < property_names.length(); ++i) {
+        QString name(property_names[i]);
+        qDebug() << name << property(name.toUtf8().constData());
+    }
+    qDebug() << " ";
+}
+
+// returns child which should be removed by the model due to over population of children of given
+// type
+ParameterizedItem *ParameterizedItem::getCandidateForRemoval(ParameterizedItem *new_comer)
+{
+    if (!new_comer)
+        return 0;
+
+    QMap<int, QVector<ParameterizedItem *> > nport_to_nitems;
+    foreach (ParameterizedItem *child, m_children) {
+        int nport = child->getRegisteredProperty(P_PORT).toInt();
+        nport_to_nitems[nport].push_back(child);
+    }
+
+    QMap<int, QVector<ParameterizedItem *> >::iterator it = nport_to_nitems.begin();
+    while (it != nport_to_nitems.end()) {
+        int nport = it.key();
+        if (m_port_info.contains(nport)) {
+            if (m_port_info[nport].m_item_max_number != 0
+                && it.value().size() > m_port_info[nport].m_item_max_number) {
+                foreach (ParameterizedItem *item, it.value()) {
+                    if (item != new_comer)
+                        return item;
+                }
+            }
+        }
+        ++it;
+    }
+
+    return 0;
+}
+
+void ParameterizedItem::setItemPort(ParameterizedItem::PortInfo::EPorts nport)
+{
+    setRegisteredProperty(P_PORT, nport);
+}
+
+void ParameterizedItem::addToValidChildren(const QString &name, PortInfo::EPorts nport,
+                                           int nmax_items)
+{
+    m_valid_children.append(name);
+
+    if (m_port_info.contains(nport)) {
+        m_port_info[nport].m_item_names << name;
+        m_port_info[nport].m_item_max_number = nmax_items;
+    } else {
+        m_port_info[nport] = PortInfo(name, nmax_items);
+    }
+}
+
 QStringList ParameterizedItem::getParameterTreeList() const
 {
     QStringList result;
@@ -327,9 +422,9 @@ QStringList ParameterizedItem::getParameterTreeList() const
     if (m_sub_items.size() > 0) {
         for (QMap<QString, ParameterizedItem *>::const_iterator it = m_sub_items.begin();
              it != m_sub_items.end(); ++it) {
-            FancyGroupProperty_t fgp = getRegisteredProperty(it.key()).value<FancyGroupProperty_t>();
+            GroupProperty_t fgp = getRegisteredProperty(it.key()).value<GroupProperty_t>();
             QString subitem_name;
-            if (fgp->type()==FancyGroupProperty::SELECTABLE) {
+            if (fgp->type()==GroupProperty::SELECTABLE) {
                 subitem_name = it.value()->modelType();
             } else {
                 subitem_name = it.key();
@@ -348,42 +443,12 @@ QStringList ParameterizedItem::getParameterTreeList() const
     return result;
 }
 
-void ParameterizedItem::onChildPropertyChange()
-{
-    qDebug() << "ParameterizedItem::onChildPropertyChange()" << this << modelType();
-    if(mp_parent)
-        qDebug() << "   " << mp_parent->modelType();
-    if (mp_parent)
-        mp_parent->onChildPropertyChange();
-}
-
 //! called when new SubItem appeared
 void ParameterizedItem::onSubItemChanged(const QString &propertyName)
 {
     connect(m_sub_items[propertyName], SIGNAL(propertyChanged(QString)), this,
             SLOT(processSubItemPropertyChanged(QString)), Qt::UniqueConnection);
     emit subItemChanged(propertyName);
-}
-
-//! called when SubItem change one of its properties
-void ParameterizedItem::processSubItemPropertyChanged(const QString &propertyName)
-{
-    Q_UNUSED(propertyName);
-    ParameterizedItem *propertyItem = qobject_cast<ParameterizedItem *>(sender());
-    for (QMap<QString, ParameterizedItem *>::iterator it = m_sub_items.begin();
-         it != m_sub_items.end(); ++it) {
-        if (it.value() == propertyItem) {
-            FancyGroupProperty_t group_property
-                = getRegisteredProperty(it.key()).value<FancyGroupProperty_t>();
-            group_property->setValueLabel(propertyItem->getItemLabel());
-            //            emit subItemPropertyChanged(it.key(), propertyName);
-            //            if (m_parent) m_parent->onChildPropertyChange();
-            onSubItemPropertyChanged(it.key(), propertyName);
-            return;
-        }
-    }
-    throw GUIHelpers::Error("ParameterizedItem::onSubItemPropertyChanged() ->"
-                            " Error. No such propertyItem found");
 }
 
 void ParameterizedItem::onSubItemPropertyChanged(const QString &property_group,
@@ -394,37 +459,23 @@ void ParameterizedItem::onSubItemPropertyChanged(const QString &property_group,
         mp_parent->onChildPropertyChange();
 }
 
-PropertyAttribute ParameterizedItem::getPropertyAttribute(const QString &name) const
+//! called when SubItem change one of its properties
+void ParameterizedItem::processSubItemPropertyChanged(const QString &propertyName)
 {
-    if (!m_registered_properties.contains(name))
-        throw GUIHelpers::Error(
-            "ParameterizedItem::getPropertyAttribute() -> Error. Unknown property " + name + " "
-            + modelType());
-
-    if (!m_property_attribute.contains(name))
-        throw GUIHelpers::Error(
-            "ParameterizedItem::getPropertyAttribute() -> Error. Unknown property attribute "
-            + name);
-
-    return m_property_attribute[name];
-}
-
-void ParameterizedItem::print() const
-{
-    qDebug() << "--- ParameterizedItem::print() ------------------------------------";
-    qDebug() << modelType() << itemName();
-    qDebug() << "--- SubItems ---";
-    for (QMap<QString, ParameterizedItem *>::const_iterator it = m_sub_items.begin();
+    Q_UNUSED(propertyName);
+    ParameterizedItem *propertyItem = qobject_cast<ParameterizedItem *>(sender());
+    for (QMap<QString, ParameterizedItem *>::iterator it = m_sub_items.begin();
          it != m_sub_items.end(); ++it) {
-        qDebug() << "   key:" << it.key() << " value->modelType:" << it.value()->modelType();
+        if (it.value() == propertyItem) {
+            GroupProperty_t group_property
+                = getRegisteredProperty(it.key()).value<GroupProperty_t>();
+            group_property->setCurrentLabel(propertyItem->getItemLabel());
+            onSubItemPropertyChanged(it.key(), propertyName);
+            return;
+        }
     }
-    qDebug() << "--- Properties ---";
-    QList<QByteArray> property_names = dynamicPropertyNames();
-    for (int i = 0; i < property_names.length(); ++i) {
-        QString name(property_names[i]);
-        qDebug() << name << property(name.toUtf8().constData());
-    }
-    qDebug() << " ";
+    throw GUIHelpers::Error("ParameterizedItem::onSubItemPropertyChanged() ->"
+                            " Error. No such propertyItem found");
 }
 
 QStringList ParameterizedItem::getParameterList() const

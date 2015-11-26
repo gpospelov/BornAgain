@@ -99,7 +99,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::LayerZeroRoughnessType] = &createInstance<LayerZeroRoughnessItem>;
 
     result[Constants::DetectorType] = &createInstance<DetectorItem>;
-    result[Constants::PhiAlphaDetectorType] = &createInstance<PhiAlphaDetectorItem>;
+    result[Constants::SphericalDetectorType] = &createInstance<PhiAlphaDetectorItem>;
 
     result[Constants::DistributionNoneType] = &createInstance<DistributionNoneItem>;
     result[Constants::DistributionGateType] = &createInstance<DistributionGateItem>;

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "Particle.h"
+#include "BornAgainNamespace.h"
 #include "Materials.h"
 #include "FormFactorDecoratorPositionFactor.h"
 
@@ -21,29 +22,20 @@
 
 Particle::Particle()
 {
-    setName("Particle");
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
+    initialize();
 }
 
 Particle::Particle(const IMaterial &p_material)
     : mP_material(p_material.clone())
 {
-    setName("Particle");
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
+    initialize();
 }
 
 Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor)
     : mP_material(p_material.clone())
     , mP_form_factor(form_factor.clone())
 {
-    setName("Particle");
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
+    initialize();
     registerChild(mP_form_factor.get());
 }
 
@@ -52,16 +44,9 @@ Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor,
     : mP_material(p_material.clone())
     , mP_form_factor(form_factor.clone())
 {
-    setName("Particle");
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
+    initialize();
     setRotation(rotation);
     registerChild(mP_form_factor.get());
-}
-
-Particle::~Particle()
-{
 }
 
 Particle *Particle::clone() const
@@ -77,7 +62,6 @@ Particle *Particle::clone() const
     if (mP_rotation.get())
         p_result->setRotation(*mP_rotation);
     p_result->setPosition(m_position);
-    p_result->setName(getName());
 
     return p_result;
 }
@@ -98,12 +82,28 @@ Particle *Particle::cloneInvertB() const
         p_result->setRotation(*mP_rotation);
     p_result->setPosition(m_position);
 
-    p_result->setName(getName() + "_inv");
     return p_result;
 }
 
+void Particle::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+void Particle::setAmbientMaterial(const IMaterial &material)
+{
+    if(mP_ambient_material.get() != &material) {
+        mP_ambient_material.reset(material.clone());
+    }
+}
+
+const IMaterial *Particle::getAmbientMaterial() const
+{
+    return mP_ambient_material.get();
+}
+
 IFormFactor *Particle::createTransformedFormFactor(complex_t wavevector_scattering_factor,
-    const IRotation *p_rotation, kvector_t translation) const
+                                                   const IRotation *p_rotation, kvector_t translation) const
 {
     if (!mP_form_factor.get()) return 0;
     boost::scoped_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
@@ -135,6 +135,24 @@ IFormFactor *Particle::createTransformedFormFactor(complex_t wavevector_scatteri
     return p_ff;
 }
 
+void Particle::setMaterial(const IMaterial &material)
+{
+    if(mP_material.get() != &material) {
+        mP_material.reset(material.clone());
+    }
+}
+
+const IMaterial *Particle::getMaterial() const
+{
+    return mP_material.get();
+}
+
+complex_t Particle::getRefractiveIndex() const
+{
+    return (mP_material.get() ? mP_material->getRefractiveIndex()
+                              : complex_t(0,0));
+}
+
 void Particle::setFormFactor(const IFormFactor &form_factor)
 {
     if (&form_factor != mP_form_factor.get()) {
@@ -142,4 +160,15 @@ void Particle::setFormFactor(const IFormFactor &form_factor)
         mP_form_factor.reset(form_factor.clone());
         registerChild(mP_form_factor.get());
     }
+}
+
+const IFormFactor *Particle::getFormFactor() const
+{
+    return mP_form_factor.get();
+}
+
+void Particle::initialize()
+{
+    setName(BornAgain::ParticleType);
+    registerPosition();
 }

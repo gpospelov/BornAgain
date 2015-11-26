@@ -30,7 +30,6 @@ class BA_CORE_API_ FormFactorDecoratorMaterial : public FormFactorDecoratorFacto
 public:
     FormFactorDecoratorMaterial(const IFormFactor &form_factor,
                                 complex_t wavevector_scattering_factor = 1.0);
-    virtual ~FormFactorDecoratorMaterial();
 
     virtual FormFactorDecoratorMaterial *clone() const;
 

@@ -32,8 +32,6 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
-    virtual int getNumberOfStochasticParameters() const { return 2; }
-
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
     //! Returns volume
@@ -55,6 +53,7 @@ private:
     double m_width;
     double m_height;
     double m_max_ql;
+    void initialize();
 };
 
 #endif /* FORMFACTORGAUSS_H_ */

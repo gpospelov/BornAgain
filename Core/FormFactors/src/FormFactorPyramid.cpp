@@ -14,12 +14,13 @@
 // ************************************************************************** //
 
 #include "FormFactorPyramid.h"
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
 FormFactorPyramid::FormFactorPyramid(
     double length, double height, double alpha)
 {
-    setName("FormFactorPyramid");
+    setName(BornAgain::FFPyramidType);
     m_length = length;
     m_height = height;
     m_alpha = alpha;
@@ -70,10 +71,12 @@ void FormFactorPyramid::init_parameters()
 
 FormFactorPyramid* FormFactorPyramid::clone() const
 {
-    FormFactorPyramid *result =
-        new FormFactorPyramid(m_length, m_height, m_alpha);
-    result->setName(getName());
-    return result;
+    return new FormFactorPyramid(m_length, m_height, m_alpha);
+}
+
+void FormFactorPyramid::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 complex_t FormFactorPyramid::evaluate_for_q(const cvector_t& q) const

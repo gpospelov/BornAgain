@@ -68,18 +68,6 @@ struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLor
         return FormFactorLorentz::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorLorentz::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorLorentz::getNumberOfStochasticParameters( );
-    }
-
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -348,17 +336,6 @@ void register_FormFactorLorentz_class(){
                 , evaluate_for_q_function_type(&::FormFactorLorentz::evaluate_for_q)
                 , default_evaluate_for_q_function_type(&FormFactorLorentz_wrapper::default_evaluate_for_q)
                 , ( bp::arg("q") ) );
-        
-        }
-        { //::FormFactorLorentz::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorLorentz::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorLorentz_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorLorentz_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorLorentz::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorLorentz_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::IParameterized::areParametersChanged

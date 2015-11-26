@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "Crystal.h"
+#include "BornAgainNamespace.h"
 #include "FormFactors.h"
 #include "Units.h"
 #include "MathFunctions.h"
@@ -21,7 +22,7 @@
 Crystal::Crystal(const ParticleComposition &lattice_basis, const Lattice &lattice)
     : m_lattice(lattice), m_dw_factor(0.0)
 {
-    setName("Crystal");
+    setName(BornAgain::CrystalType);
     mp_lattice_basis = lattice_basis.clone();
     registerChild(mp_lattice_basis);
 }
@@ -42,8 +43,12 @@ Crystal *Crystal::cloneInvertB() const
 {
     Crystal *p_new = new Crystal(mp_lattice_basis->cloneInvertB(), m_lattice);
     p_new->setDWFactor(m_dw_factor);
-    p_new->setName(getName() + "_inv");
     return p_new;
+}
+
+void Crystal::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 IFormFactor *Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
@@ -74,7 +79,7 @@ Lattice Crystal::getTransformedLattice(const IRotation *p_rotation) const
 Crystal::Crystal(ParticleComposition *p_lattice_basis, const Lattice &lattice)
     : m_lattice(lattice), m_dw_factor(0.0)
 {
-    setName("Crystal");
+    setName(BornAgain::CrystalType);
     mp_lattice_basis = p_lattice_basis;
     registerChild(mp_lattice_basis);
 }

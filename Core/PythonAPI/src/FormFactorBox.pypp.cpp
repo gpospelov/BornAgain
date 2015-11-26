@@ -73,18 +73,6 @@ struct FormFactorBox_wrapper : FormFactorBox, bp::wrapper< FormFactorBox > {
         return FormFactorBox::getHeight( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorBox::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorBox::getNumberOfStochasticParameters( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -361,17 +349,6 @@ void register_FormFactorBox_class(){
                 "getLength"
                 , getLength_function_type( &::FormFactorBox::getLength )
                 , "Returns length of Box." );
-        
-        }
-        { //::FormFactorBox::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorBox::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorBox_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorBox_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorBox::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorBox_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::FormFactorBox::getRadius

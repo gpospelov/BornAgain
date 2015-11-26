@@ -16,8 +16,9 @@
 #ifndef FORMFACTORDECORATORPOSITIONFACTOR_H_
 #define FORMFACTORDECORATORPOSITIONFACTOR_H_
 
-#include "Types.h"
 #include "IFormFactorDecorator.h"
+#include "BornAgainNamespace.h"
+#include "Types.h"
 
 //! @class FormFactorDecoratorPositionFactor
 //! @ingroup formfactors_internal
@@ -42,11 +43,6 @@ public:
     virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif
 
-    virtual int getNumberOfStochasticParameters() const
-    {
-        return mp_form_factor->getNumberOfStochasticParameters();
-    }
-
 protected:
     kvector_t m_position;
 
@@ -58,7 +54,7 @@ inline FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
     const IFormFactor &form_factor, kvector_t position)
     : IFormFactorDecorator(form_factor), m_position(position)
 {
-    setName("FormFactorDecoratorPositionFactor");
+    setName(BornAgain::FormFactorDecoratorPositionFactor);
 }
 
 inline FormFactorDecoratorPositionFactor *FormFactorDecoratorPositionFactor::clone() const

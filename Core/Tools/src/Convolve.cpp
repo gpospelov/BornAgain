@@ -36,7 +36,7 @@ MathFunctions::Convolve::Workspace::Workspace() :
     w_fftw(0), h_fftw(0), in_src(0), out_src(0), in_kernel(0), out_kernel(0), dst_fft(0), h_dst(0), w_dst(0),
     //dst(0),
     h_offset(0), w_offset(0),
-    p_forw_src(NULL), p_forw_kernel(NULL), p_back(NULL)
+    p_forw_src(nullptr), p_forw_kernel(nullptr), p_back(nullptr)
 {
 
 }
@@ -73,9 +73,9 @@ void MathFunctions::Convolve::Workspace::clear()
     h_offset = 0;
     w_offset = 0;
 
-    if(p_forw_src != NULL) fftw_destroy_plan(p_forw_src);
-    if(p_forw_kernel != NULL) fftw_destroy_plan(p_forw_kernel);
-    if(p_back != NULL)  fftw_destroy_plan(p_back);
+    if(p_forw_src != nullptr) fftw_destroy_plan(p_forw_src);
+    if(p_forw_kernel != nullptr) fftw_destroy_plan(p_forw_kernel);
+    if(p_back != nullptr)  fftw_destroy_plan(p_back);
 
     // this returns fftw3 into completely initial state but is dramatically slow
     //fftw_cleanup();
@@ -249,14 +249,14 @@ void MathFunctions::Convolve::init(int h_src, int w_src, int h_kernel, int w_ker
 
     // Initialization of the plans
     ws.p_forw_src = fftw_plan_dft_r2c_2d(ws.h_fftw, ws.w_fftw, ws.in_src, (fftw_complex*)ws.out_src, FFTW_ESTIMATE);
-    if( ws.p_forw_src == NULL ) throw RuntimeErrorException("MathFunctions::Convolve::init() -> Error! Can't initialise p_forw_src plan.");
+    if( ws.p_forw_src == nullptr ) throw RuntimeErrorException("MathFunctions::Convolve::init() -> Error! Can't initialise p_forw_src plan.");
 
     ws.p_forw_kernel = fftw_plan_dft_r2c_2d(ws.h_fftw, ws.w_fftw, ws.in_kernel, (fftw_complex*)ws.out_kernel, FFTW_ESTIMATE);
-    if( ws.p_forw_kernel == NULL ) throw RuntimeErrorException("MathFunctions::Convolve::init() -> Error! Can't initialise p_forw_kernel plan.");
+    if( ws.p_forw_kernel == nullptr ) throw RuntimeErrorException("MathFunctions::Convolve::init() -> Error! Can't initialise p_forw_kernel plan.");
 
     // The backward FFT takes ws.out_kernel as input
     ws.p_back = fftw_plan_dft_c2r_2d(ws.h_fftw, ws.w_fftw, (fftw_complex*)ws.out_kernel, ws.dst_fft, FFTW_ESTIMATE);
-    if( ws.p_back == NULL ) throw RuntimeErrorException("MathFunctions::Convolve::init() -> Error! Can't initialise p_back plan.");
+    if( ws.p_back == nullptr ) throw RuntimeErrorException("MathFunctions::Convolve::init() -> Error! Can't initialise p_back plan.");
 
 
 }

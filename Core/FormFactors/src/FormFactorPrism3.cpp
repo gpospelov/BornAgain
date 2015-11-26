@@ -14,12 +14,12 @@
 // ************************************************************************** //
 
 #include "FormFactorPrism3.h"
-
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
 FormFactorPrism3::FormFactorPrism3(double length, double height)
 {
-    setName("FormFactorPrism3");
+    setName(BornAgain::FFPrism3Type);
     m_length = length;
     m_height = height;
     m_root3 = std::sqrt(3.0);
@@ -41,9 +41,12 @@ void FormFactorPrism3::init_parameters()
 
 FormFactorPrism3* FormFactorPrism3::clone() const
 {
-    FormFactorPrism3 *result = new FormFactorPrism3(m_length, m_height);
-    result->setName(getName());
-    return result;
+    return new FormFactorPrism3(m_length, m_height);
+}
+
+void FormFactorPrism3::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 complex_t FormFactorPrism3::evaluate_for_q(const cvector_t& q) const

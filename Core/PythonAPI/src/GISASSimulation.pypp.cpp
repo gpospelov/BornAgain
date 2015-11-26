@@ -230,7 +230,7 @@ void register_GISASSimulation_class(){
                 "addMask"
                 , addMask_function_type( &::GISASSimulation::addMask )
                 , ( bp::arg("shape"), bp::arg("mask_value")=(bool)(true) )
-                , "Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority. @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse) @mask_value The value of mask \n\n:Parameters:\n  - 'shape' - The shape of mask (Rectangle, Polygon, Line, Ellipse)\n" );
+                , "Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority. @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse) @param mask_value The value of mask \n\n:Parameters:\n  - 'shape' - The shape of mask (Rectangle, Polygon, Line, Ellipse)\n  - 'mask_value' - The value of mask\n" );
         
         }
         { //::GISASSimulation::clone

@@ -38,8 +38,6 @@ public:
     //! Evaluate the form factor for scalar calculations
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
-    virtual int getNumberOfStochasticParameters() const;
-
 protected:
     complex_t m_factor;
 };
@@ -61,11 +59,6 @@ inline FormFactorDecoratorFactor *FormFactorDecoratorFactor::clone() const
 inline complex_t FormFactorDecoratorFactor::evaluate(const WavevectorInfo& wavevectors) const
 {
     return m_factor * mp_form_factor->evaluate(wavevectors);
-}
-
-inline int FormFactorDecoratorFactor::getNumberOfStochasticParameters() const
-{
-    return mp_form_factor->getNumberOfStochasticParameters();
 }
 
 #endif /* FORMFACTORDECORATORFACTOR_H_ */

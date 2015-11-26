@@ -36,8 +36,6 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
-    virtual int getNumberOfStochasticParameters() const { return 3; }
-
     double getRadiusA() const { return m_radius_a; }
     virtual void setRadiusA(double radius_a) { m_radius_a = radius_a; }
 

@@ -47,11 +47,6 @@ public:
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
-    virtual int getNumberOfStochasticParameters() const
-    {
-        return mp_form_factor->getNumberOfStochasticParameters();
-    }
-
 protected:
     Geometry::Transform3D m_transform;
 };

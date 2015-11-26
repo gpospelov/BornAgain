@@ -97,18 +97,6 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
         return FormFactorPyramid::getLength( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorPyramid::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorPyramid::getNumberOfStochasticParameters( );
-    }
-
     virtual void setAlpha( double alpha ) {
         if( bp::override func_setAlpha = this->get_override( "setAlpha" ) )
             func_setAlpha( alpha );
@@ -433,17 +421,6 @@ void register_FormFactorPyramid_class(){
                 "getLength"
                 , getLength_function_type(&::FormFactorPyramid::getLength)
                 , default_getLength_function_type(&FormFactorPyramid_wrapper::default_getLength) );
-        
-        }
-        { //::FormFactorPyramid::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorPyramid::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorPyramid_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorPyramid_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorPyramid::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorPyramid_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::FormFactorPyramid::setAlpha

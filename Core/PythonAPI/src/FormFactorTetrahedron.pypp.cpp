@@ -97,18 +97,6 @@ struct FormFactorTetrahedron_wrapper : FormFactorTetrahedron, bp::wrapper< FormF
         return FormFactorTetrahedron::getLength( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorTetrahedron::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorTetrahedron::getNumberOfStochasticParameters( );
-    }
-
     virtual void setAlpha( double alpha ) {
         if( bp::override func_setAlpha = this->get_override( "setAlpha" ) )
             func_setAlpha( alpha );
@@ -433,17 +421,6 @@ void register_FormFactorTetrahedron_class(){
                 "getLength"
                 , getLength_function_type(&::FormFactorTetrahedron::getLength)
                 , default_getLength_function_type(&FormFactorTetrahedron_wrapper::default_getLength) );
-        
-        }
-        { //::FormFactorTetrahedron::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorTetrahedron::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorTetrahedron_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorTetrahedron_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorTetrahedron::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorTetrahedron_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::FormFactorTetrahedron::setAlpha

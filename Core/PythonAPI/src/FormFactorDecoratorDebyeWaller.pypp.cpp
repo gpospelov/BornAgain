@@ -68,18 +68,6 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
         return FormFactorDecoratorDebyeWaller::evaluate( boost::ref(wavevectors) );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters( );
-    }
-
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -336,17 +324,6 @@ void register_FormFactorDecoratorDebyeWaller_class(){
                 , evaluate_function_type(&::FormFactorDecoratorDebyeWaller::evaluate)
                 , default_evaluate_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_evaluate)
                 , ( bp::arg("wavevectors") ) );
-        
-        }
-        { //::FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorDecoratorDebyeWaller::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorDecoratorDebyeWaller_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorDecoratorDebyeWaller_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::IParameterized::areParametersChanged

@@ -48,7 +48,6 @@ TEST_F(FormFactorTest, AnisoPyramid)
     EXPECT_EQ(14., anisopyramid.getWidth());
     EXPECT_EQ(5., anisopyramid.getHeight());
     EXPECT_EQ(0.8, anisopyramid.getAlpha());
-    EXPECT_EQ((int)4, anisopyramid.getNumberOfStochasticParameters());
 
     FormFactorAnisoPyramid *anisopyramidclone = anisopyramid.clone();
     EXPECT_EQ("FormFactorAnisoPyramid",anisopyramidclone->getName());
@@ -57,7 +56,6 @@ TEST_F(FormFactorTest, AnisoPyramid)
     EXPECT_EQ(14., anisopyramidclone->getWidth());
     EXPECT_EQ(5., anisopyramidclone->getHeight());
     EXPECT_EQ(0.8, anisopyramidclone->getAlpha());
-    EXPECT_EQ((int)4, anisopyramidclone->getNumberOfStochasticParameters());
 }
 
 //Test form factor of an hemiellipsoid
@@ -76,7 +74,6 @@ TEST_F(FormFactorTest, HemiEllipsoid)
     EXPECT_EQ(7., hemiellipsoid.getRadiusB());
     EXPECT_EQ(5., hemiellipsoid.getHeight());
     EXPECT_DOUBLE_EQ(volume, hemiellipsoid.getVolume());
-    EXPECT_EQ((int)3, hemiellipsoid.getNumberOfStochasticParameters());
 
     FormFactorHemiEllipsoid *hemiellipsoidclone = hemiellipsoid.clone();
     EXPECT_EQ("FormFactorHemiEllipsoid",hemiellipsoidclone->getName());
@@ -84,7 +81,6 @@ TEST_F(FormFactorTest, HemiEllipsoid)
     EXPECT_EQ(7., hemiellipsoidclone->getRadiusB());
     EXPECT_EQ(5., hemiellipsoidclone->getHeight());
     EXPECT_DOUBLE_EQ(volume, hemiellipsoidclone->getVolume());
-    EXPECT_EQ((int)3, hemiellipsoidclone->getNumberOfStochasticParameters());
 }
 
 // Test form factor of a box
@@ -102,7 +98,6 @@ TEST_F(FormFactorTest, Box)
     EXPECT_EQ(5., box.getHeight());
     EXPECT_EQ(3., box.getRadius());
     EXPECT_DOUBLE_EQ(volume, box.getVolume());
-    EXPECT_EQ(3, box.getNumberOfStochasticParameters());
 
     FormFactorBox *boxclone = box.clone();
     EXPECT_EQ("FormFactorBox",boxclone->getName());
@@ -110,7 +105,6 @@ TEST_F(FormFactorTest, Box)
     EXPECT_EQ(5., boxclone->getHeight());
     EXPECT_EQ(3., boxclone->getRadius());
     EXPECT_DOUBLE_EQ(volume, boxclone->getVolume());
-    EXPECT_EQ(3, boxclone->getNumberOfStochasticParameters());
 }
 
 // Test form factor of a cone
@@ -131,7 +125,6 @@ TEST_F(FormFactorTest, Cone)
     EXPECT_EQ(5., cone.getHeight());
     EXPECT_EQ(0.8, cone.getAlpha());
     EXPECT_DOUBLE_EQ(volume, cone.getVolume());
-    EXPECT_EQ((int)3, cone.getNumberOfStochasticParameters());
 
     FormFactorCone *coneclone = cone.clone();
     EXPECT_EQ("FormFactorCone",coneclone->getName());
@@ -139,7 +132,6 @@ TEST_F(FormFactorTest, Cone)
     EXPECT_EQ(5., coneclone->getHeight());
     EXPECT_EQ(0.8, coneclone->getAlpha());
     EXPECT_DOUBLE_EQ(volume, coneclone->getVolume());
-    EXPECT_EQ((int)3, coneclone->getNumberOfStochasticParameters());
 }
 
 // Test form factor of a cone6
@@ -160,7 +152,6 @@ TEST_F(FormFactorTest, Cone6)
     EXPECT_EQ(5., cone6.getHeight());
     EXPECT_EQ(0.8, cone6.getAlpha());
     EXPECT_DOUBLE_EQ(volume, cone6.getVolume());
-    EXPECT_EQ((int)3, cone6.getNumberOfStochasticParameters());
 
     FormFactorCone6 *cone6clone = cone6.clone();
     EXPECT_EQ("FormFactorCone6",cone6clone->getName());
@@ -168,7 +159,6 @@ TEST_F(FormFactorTest, Cone6)
     EXPECT_EQ(5., cone6clone->getHeight());
     EXPECT_EQ(0.8, cone6clone->getAlpha());
     EXPECT_DOUBLE_EQ(volume, cone6clone->getVolume());
-    EXPECT_EQ((int)3, cone6clone->getNumberOfStochasticParameters());
 }
 
 // Test form factor of a cuboctahedron
@@ -195,7 +185,6 @@ TEST_F(FormFactorTest, Cuboctahedron)
     EXPECT_EQ(1., cuboctahedron.getHeightRatio());
     EXPECT_EQ(0.8, cuboctahedron.getAlpha());
     EXPECT_DOUBLE_EQ(volume, cuboctahedron.getVolume());
-    EXPECT_EQ((int)4, cuboctahedron.getNumberOfStochasticParameters());
 
     FormFactorCuboctahedron *cuboctahedronclone = cuboctahedron.clone();
     EXPECT_EQ("FormFactorCuboctahedron",cuboctahedronclone->getName());
@@ -204,8 +193,6 @@ TEST_F(FormFactorTest, Cuboctahedron)
     EXPECT_EQ(1., cuboctahedronclone->getHeightRatio());
     EXPECT_EQ(0.8, cuboctahedronclone->getAlpha());
     EXPECT_DOUBLE_EQ(volume, cuboctahedron.getVolume());
-    EXPECT_EQ((int)4, cuboctahedronclone->getNumberOfStochasticParameters());
-
 }
 
 // Test form factor of a cylinder
@@ -220,14 +207,12 @@ TEST_F(FormFactorTest, Cylinder)
     EXPECT_EQ(5., cylinder.getHeight());
     EXPECT_EQ(3., cylinder.getRadius());
     EXPECT_DOUBLE_EQ(volume, cylinder.getVolume());
-    EXPECT_EQ((int)2, cylinder.getNumberOfStochasticParameters());
 
     FormFactorCylinder *cylinderclone = cylinder.clone();
     EXPECT_EQ("FormFactorCylinder",cylinderclone->getName());
     EXPECT_EQ(5., cylinderclone->getHeight());
     EXPECT_EQ(3., cylinderclone-> getRadius());
     EXPECT_DOUBLE_EQ(volume, cylinderclone-> getVolume());
-    EXPECT_EQ((int)2, cylinderclone-> getNumberOfStochasticParameters());
 }
 
 // Test form factor of an ellipsoidal cylinder
@@ -245,7 +230,6 @@ TEST_F(FormFactorTest, EllipsoidalCylinder)
     EXPECT_EQ(3., ellipscyl.getRadiusA());
     EXPECT_EQ(5., ellipscyl.getRadiusB());
     EXPECT_DOUBLE_EQ(volume, ellipscyl.getVolume());
-    EXPECT_EQ((int)3, ellipscyl.getNumberOfStochasticParameters());
 
     FormFactorEllipsoidalCylinder *ellipscylclone = ellipscyl.clone();
     EXPECT_EQ("FormFactorEllipsoidalCylinder",ellipscylclone->getName());
@@ -253,7 +237,6 @@ TEST_F(FormFactorTest, EllipsoidalCylinder)
     EXPECT_EQ(3., ellipscylclone->getRadiusA());
     EXPECT_EQ(5., ellipscylclone->getRadiusB());
     EXPECT_DOUBLE_EQ(volume, ellipscylclone->getVolume());
-    EXPECT_EQ((int)3, ellipscylclone->getNumberOfStochasticParameters());
 
 }
 
@@ -269,14 +252,12 @@ TEST_F(FormFactorTest, FullSphere)
     EXPECT_EQ(5., fullsphere.getRadius());
     EXPECT_EQ(2.*5., fullsphere.getHeight());
     EXPECT_DOUBLE_EQ(volume, fullsphere.getVolume());
-    EXPECT_EQ((int)1, fullsphere.getNumberOfStochasticParameters());
 
     FormFactorFullSphere *fullsphereclone = fullsphere.clone();
     EXPECT_EQ("FormFactorFullSphere",fullsphereclone->getName());
     EXPECT_EQ(5., fullsphereclone->getRadius());
     EXPECT_EQ(2.*5., fullsphereclone->getHeight());
     EXPECT_DOUBLE_EQ(volume, fullsphereclone->getVolume());
-    EXPECT_EQ((int)1, fullsphereclone->getNumberOfStochasticParameters());
 }
 
 // Test form factor of a full spheroid
@@ -292,14 +273,12 @@ TEST_F(FormFactorTest, FullSpheroid)
     EXPECT_EQ(3., fullspheroid.getRadius());
     EXPECT_EQ(5., fullspheroid.getHeight());
     EXPECT_DOUBLE_EQ(volume, fullspheroid.getVolume());
-    EXPECT_EQ((int)2, fullspheroid.getNumberOfStochasticParameters());
 
     FormFactorFullSpheroid *fullspheroidclone = fullspheroid.clone();
     EXPECT_EQ("FormFactorFullSpheroid",fullspheroidclone->getName());
     EXPECT_EQ(3., fullspheroidclone->getRadius());
     EXPECT_EQ(5, fullspheroidclone->getHeight());
     EXPECT_DOUBLE_EQ(volume, fullspheroidclone->getVolume());
-    EXPECT_EQ((int)2, fullspheroidclone->getNumberOfStochasticParameters());
 }
 
 // Test form factor of a prism3
@@ -315,7 +294,6 @@ TEST_F(FormFactorTest, Prism3)
     EXPECT_EQ(4., prism3.getHeight());
     EXPECT_EQ(6., prism3.getLength());
     EXPECT_DOUBLE_EQ(volume, prism3.getVolume());
-    EXPECT_EQ((int)2, prism3.getNumberOfStochasticParameters());
 
     FormFactorPrism3 *prism3clone = prism3.clone();
 
@@ -323,7 +301,6 @@ TEST_F(FormFactorTest, Prism3)
     EXPECT_EQ(4., prism3clone->getHeight());
     EXPECT_EQ(6., prism3clone->getLength());
     EXPECT_DOUBLE_EQ(volume, prism3clone->getVolume());
-    EXPECT_EQ((int)2, prism3clone->getNumberOfStochasticParameters());
 }
 
 // Test form factor of a prism6
@@ -339,7 +316,6 @@ TEST_F(FormFactorTest, Prism6)
     EXPECT_EQ(4., prism6.getHeight());
     EXPECT_EQ(3., prism6.getRadius());
     EXPECT_DOUBLE_EQ(volume, prism6.getVolume());
-    EXPECT_EQ((int)2, prism6.getNumberOfStochasticParameters());
 
     FormFactorPrism6 *prism6clone = prism6.clone();
 
@@ -347,7 +323,6 @@ TEST_F(FormFactorTest, Prism6)
     EXPECT_EQ(4., prism6clone->getHeight());
     EXPECT_EQ(3., prism6clone->getRadius());
     EXPECT_DOUBLE_EQ(volume, prism6clone->getVolume());
-    EXPECT_EQ((int)2, prism6clone->getNumberOfStochasticParameters());
 }
 
 // Test form factor of a pyramid
@@ -368,7 +343,6 @@ TEST_F(FormFactorTest, Pyramid)
     EXPECT_EQ(10., pyramid.getLength());
     EXPECT_EQ(0.8, pyramid.getAlpha());
     EXPECT_DOUBLE_EQ(volume, pyramid.getVolume());
-    EXPECT_EQ((int)3, pyramid.getNumberOfStochasticParameters());
 
     FormFactorPyramid *pyramidclone = pyramid.clone();
     EXPECT_EQ("FormFactorPyramid", pyramidclone->getName());
@@ -376,7 +350,6 @@ TEST_F(FormFactorTest, Pyramid)
     EXPECT_EQ(10., pyramidclone->getLength());
     EXPECT_EQ(0.8, pyramidclone->getAlpha());
     EXPECT_DOUBLE_EQ(volume, pyramidclone->getVolume());
-    EXPECT_EQ((int)3, pyramidclone->getNumberOfStochasticParameters());
 }
 
 // Test form factor of a truncated sphere
@@ -393,12 +366,10 @@ TEST_F(FormFactorTest, TruncatedSphere)
     EXPECT_EQ("FormFactorTruncatedSphere", trsphere.getName());
     EXPECT_EQ(3., trsphere.getHeight());
     EXPECT_DOUBLE_EQ(volume, trsphere.getVolume());
-    EXPECT_EQ((int)2, trsphere.getNumberOfStochasticParameters());
 
     FormFactorTruncatedSphere *trsphereclone = trsphere.clone();
     EXPECT_EQ("FormFactorTruncatedSphere", trsphereclone->getName());
     EXPECT_DOUBLE_EQ(3., trsphereclone->getHeight());
-    EXPECT_EQ((int)2, trsphereclone->getNumberOfStochasticParameters());
 }
 
 // Test form factor of a truncated spheroid
@@ -418,7 +389,6 @@ TEST_F(FormFactorTest, TruncatedSpheroid)
     EXPECT_EQ(3., trspheroid.getRadius());
     EXPECT_DOUBLE_EQ(total_height, trspheroid.getHeightFullSpheroid());
     EXPECT_DOUBLE_EQ(volume, trspheroid.getVolume());
-    EXPECT_EQ((int)3, trspheroid.getNumberOfStochasticParameters());
 
     FormFactorTruncatedSpheroid *trspheroidclone = trspheroid.clone();
     EXPECT_EQ("FormFactorTruncatedSpheroid", trspheroidclone->getName());
@@ -426,7 +396,6 @@ TEST_F(FormFactorTest, TruncatedSpheroid)
     EXPECT_EQ(3., trspheroidclone->getRadius());
     EXPECT_DOUBLE_EQ(total_height, trspheroidclone->getHeightFullSpheroid());
     EXPECT_DOUBLE_EQ(volume, trspheroidclone->getVolume());
-    EXPECT_EQ((int)3, trspheroidclone->getNumberOfStochasticParameters());
 }
 
 // Test form factor of a tetrahedron
@@ -447,7 +416,6 @@ TEST_F(FormFactorTest, Tetrahedron)
     EXPECT_EQ(16., tetrahedron.getLength());
     EXPECT_EQ(0.8, tetrahedron.getAlpha());
     EXPECT_DOUBLE_EQ(volume, tetrahedron.getVolume());
-    EXPECT_EQ((int)3, tetrahedron.getNumberOfStochasticParameters());
 
     FormFactorTetrahedron *tetrahedronclone = tetrahedron.clone();
     EXPECT_EQ("FormFactorTetrahedron", tetrahedronclone->getName());
@@ -455,7 +423,6 @@ TEST_F(FormFactorTest, Tetrahedron)
     EXPECT_EQ(16., tetrahedronclone->getLength());
     EXPECT_EQ(0.8, tetrahedronclone->getAlpha());
     EXPECT_DOUBLE_EQ(volume, tetrahedronclone->getVolume());
-    EXPECT_EQ((int)3, tetrahedronclone->getNumberOfStochasticParameters());
 }
 
 // Test form factor of a ripple2 (triangular)
@@ -472,12 +439,10 @@ TEST_F(FormFactorTest, Ripple2)
     EXPECT_EQ("FormFactorRipple2", ripple2.getName());
     EXPECT_EQ(4., ripple2.getHeight());
     EXPECT_DOUBLE_EQ(volume, ripple2.getVolume());
-    EXPECT_EQ((int)4, ripple2.getNumberOfStochasticParameters());
 
     FormFactorRipple2 *ripple2clone = ripple2.clone();
     EXPECT_EQ("FormFactorRipple2", ripple2clone->getName());
     EXPECT_DOUBLE_EQ(4., ripple2clone->getHeight());
-    EXPECT_EQ((int)4, ripple2clone->getNumberOfStochasticParameters());
 }
 
 // Test form factor of a ripple1 (cosine)
@@ -495,12 +460,10 @@ TEST_F(FormFactorTest, Ripple1)
     EXPECT_EQ(20., ripple1.getWidth());
     EXPECT_EQ(100., ripple1.getLength());
     EXPECT_DOUBLE_EQ(volume, ripple1.getVolume());
-    EXPECT_EQ((int)3, ripple1.getNumberOfStochasticParameters());
 
     FormFactorRipple1 *ripple1clone = ripple1.clone();
     EXPECT_EQ("FormFactorRipple1", ripple1clone->getName());
     EXPECT_DOUBLE_EQ(4., ripple1clone->getHeight());
-    EXPECT_EQ((int)3, ripple1clone->getNumberOfStochasticParameters());
     EXPECT_EQ(20., ripple1clone->getWidth());
     EXPECT_EQ(100., ripple1clone->getLength());
     EXPECT_DOUBLE_EQ(volume, ripple1clone->getVolume());
@@ -520,14 +483,12 @@ TEST_F(FormFactorTest, TruncatedCube)
     EXPECT_DOUBLE_EQ(t, trcube.getRemovedLength());
     // length or length -2t
     EXPECT_DOUBLE_EQ(trcube.getVolume(), volume);
-    EXPECT_EQ(2, trcube.getNumberOfStochasticParameters());
 
     FormFactorTruncatedCube *trcubeclone = trcube.clone();
     EXPECT_EQ("FormFactorTruncatedCube", trcubeclone->getName());
     EXPECT_EQ(length, trcubeclone->getLength());
     EXPECT_EQ(t, trcubeclone->getRemovedLength());
     EXPECT_EQ(trcubeclone->getVolume(), volume);
-    EXPECT_EQ(2, trcubeclone->getNumberOfStochasticParameters());
 }
 
 

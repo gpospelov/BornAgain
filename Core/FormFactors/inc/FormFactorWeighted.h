@@ -44,8 +44,6 @@ public:
     virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif
 
-    virtual int getNumberOfStochasticParameters() const;
-
 protected:
     std::vector<IFormFactor *> m_form_factors;
     std::vector<double> m_weights;

@@ -109,18 +109,6 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
         return FormFactorCuboctahedron::getLength( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorCuboctahedron::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorCuboctahedron::getNumberOfStochasticParameters( );
-    }
-
     virtual void setAlpha( double alpha ) {
         if( bp::override func_setAlpha = this->get_override( "setAlpha" ) )
             func_setAlpha( alpha );
@@ -468,17 +456,6 @@ void register_FormFactorCuboctahedron_class(){
                 "getLength"
                 , getLength_function_type(&::FormFactorCuboctahedron::getLength)
                 , default_getLength_function_type(&FormFactorCuboctahedron_wrapper::default_getLength) );
-        
-        }
-        { //::FormFactorCuboctahedron::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorCuboctahedron::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorCuboctahedron_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorCuboctahedron_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorCuboctahedron::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorCuboctahedron_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::FormFactorCuboctahedron::setAlpha

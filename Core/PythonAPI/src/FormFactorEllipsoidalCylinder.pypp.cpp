@@ -73,18 +73,6 @@ struct FormFactorEllipsoidalCylinder_wrapper : FormFactorEllipsoidalCylinder, bp
         return FormFactorEllipsoidalCylinder::getHeight( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorEllipsoidalCylinder::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorEllipsoidalCylinder::getNumberOfStochasticParameters( );
-    }
-
     virtual double getRadiusB(  ) const  {
         if( bp::override func_getRadiusB = this->get_override( "getRadiusB" ) )
             return func_getRadiusB(  );
@@ -399,17 +387,6 @@ void register_FormFactorEllipsoidalCylinder_class(){
                 "getHeight"
                 , getHeight_function_type(&::FormFactorEllipsoidalCylinder::getHeight)
                 , default_getHeight_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_getHeight) );
-        
-        }
-        { //::FormFactorEllipsoidalCylinder::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorEllipsoidalCylinder::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorEllipsoidalCylinder_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorEllipsoidalCylinder_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorEllipsoidalCylinder::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::FormFactorEllipsoidalCylinder::getRadiusA

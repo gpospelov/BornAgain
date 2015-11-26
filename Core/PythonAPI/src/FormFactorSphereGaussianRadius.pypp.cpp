@@ -73,18 +73,6 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
         return FormFactorSphereGaussianRadius::getHeight( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorSphereGaussianRadius::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorSphereGaussianRadius::getNumberOfStochasticParameters( );
-    }
-
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -351,17 +339,6 @@ void register_FormFactorSphereGaussianRadius_class(){
                 "getHeight"
                 , getHeight_function_type(&::FormFactorSphereGaussianRadius::getHeight)
                 , default_getHeight_function_type(&FormFactorSphereGaussianRadius_wrapper::default_getHeight) );
-        
-        }
-        { //::FormFactorSphereGaussianRadius::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorSphereGaussianRadius::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorSphereGaussianRadius_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorSphereGaussianRadius_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorSphereGaussianRadius::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorSphereGaussianRadius_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::IParameterized::areParametersChanged

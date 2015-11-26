@@ -71,12 +71,3 @@ Eigen::Matrix2cd FormFactorWeighted::evaluatePol(const WavevectorInfo& wavevecto
     return result;
 }
 
-int FormFactorWeighted::getNumberOfStochasticParameters() const
-{
-    int result=0;
-    for (size_t index=0; index<m_form_factors.size(); ++index) {
-        result += m_form_factors[index]->getNumberOfStochasticParameters();
-    }
-    return result;
-}
-

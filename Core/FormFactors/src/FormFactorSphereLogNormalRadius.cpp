@@ -44,11 +44,6 @@ FormFactorSphereLogNormalRadius::~FormFactorSphereLogNormalRadius()
     delete mp_distribution;
 }
 
-int FormFactorSphereLogNormalRadius::getNumberOfStochasticParameters() const
-{
-    return 2;
-}
-
 complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(
         const cvector_t& q) const
 {

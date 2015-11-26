@@ -97,18 +97,6 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
         return FormFactorTruncatedSpheroid::getHeightFullSpheroid( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorTruncatedSpheroid::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorTruncatedSpheroid::getNumberOfStochasticParameters( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -397,17 +385,6 @@ void register_FormFactorTruncatedSpheroid_class(){
                 "getHeightFullSpheroid"
                 , getHeightFullSpheroid_function_type(&::FormFactorTruncatedSpheroid::getHeightFullSpheroid)
                 , default_getHeightFullSpheroid_function_type(&FormFactorTruncatedSpheroid_wrapper::default_getHeightFullSpheroid) );
-        
-        }
-        { //::FormFactorTruncatedSpheroid::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorTruncatedSpheroid::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorTruncatedSpheroid_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorTruncatedSpheroid_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorTruncatedSpheroid::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorTruncatedSpheroid_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::FormFactorTruncatedSpheroid::getRadius

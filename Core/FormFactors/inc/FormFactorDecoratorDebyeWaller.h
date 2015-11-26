@@ -45,11 +45,6 @@ public:
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
-    virtual int getNumberOfStochasticParameters() const
-    {
-        return mp_form_factor->getNumberOfStochasticParameters();
-    }
-
 protected:
     virtual bool check_initialization() const;
     virtual void init_parameters();

@@ -60,8 +60,6 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
-    virtual int getNumberOfStochasticParameters() const { return 1; }
-
     //! Returns radius of sphere
     virtual double getRadius() const { return m_radius; }
     virtual void setRadius(double radius) {m_radius = radius; }

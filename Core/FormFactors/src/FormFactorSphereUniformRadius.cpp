@@ -42,11 +42,6 @@ FormFactorSphereUniformRadius::~FormFactorSphereUniformRadius()
 {
 }
 
-int FormFactorSphereUniformRadius::getNumberOfStochasticParameters() const
-{
-    return 2;
-}
-
 complex_t FormFactorSphereUniformRadius::evaluate_for_q(
         const cvector_t& q) const
 {

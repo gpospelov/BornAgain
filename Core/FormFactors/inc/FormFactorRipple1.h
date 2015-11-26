@@ -38,8 +38,6 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
-    virtual int getNumberOfStochasticParameters() const { return 3; }
-
     virtual double getHeight() const { return m_height; }
     virtual double getWidth() const { return m_width; }
     virtual double getLength() const { return m_length; }

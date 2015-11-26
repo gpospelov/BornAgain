@@ -59,9 +59,6 @@ public:
     virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif
 
-    //! Returns number of variable/stochastic parameters
-    virtual int getNumberOfStochasticParameters() const { return 0; }
-
     //! Returns the total volume of the particle of this form factor's shape
     virtual double getVolume() const;
 

@@ -97,18 +97,6 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
         return FormFactorAnisoPyramid::getLength( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorAnisoPyramid::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorAnisoPyramid::getNumberOfStochasticParameters( );
-    }
-
     virtual double getWidth(  ) const  {
         if( bp::override func_getWidth = this->get_override( "getWidth" ) )
             return func_getWidth(  );
@@ -457,17 +445,6 @@ void register_FormFactorAnisoPyramid_class(){
                 "getLength"
                 , getLength_function_type(&::FormFactorAnisoPyramid::getLength)
                 , default_getLength_function_type(&FormFactorAnisoPyramid_wrapper::default_getLength) );
-        
-        }
-        { //::FormFactorAnisoPyramid::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorAnisoPyramid::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorAnisoPyramid_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorAnisoPyramid_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorAnisoPyramid::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorAnisoPyramid_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::FormFactorAnisoPyramid::getWidth

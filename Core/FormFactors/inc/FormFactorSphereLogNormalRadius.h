@@ -38,8 +38,6 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
-    virtual int getNumberOfStochasticParameters() const;
-
     virtual double getHeight() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;

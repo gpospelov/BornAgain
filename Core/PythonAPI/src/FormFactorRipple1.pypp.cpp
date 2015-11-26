@@ -85,18 +85,6 @@ struct FormFactorRipple1_wrapper : FormFactorRipple1, bp::wrapper< FormFactorRip
         return FormFactorRipple1::getLength( );
     }
 
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorRipple1::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorRipple1::getNumberOfStochasticParameters( );
-    }
-
     virtual double getWidth(  ) const  {
         if( bp::override func_getWidth = this->get_override( "getWidth" ) )
             return func_getWidth(  );
@@ -386,17 +374,6 @@ void register_FormFactorRipple1_class(){
                 "getLength"
                 , getLength_function_type(&::FormFactorRipple1::getLength)
                 , default_getLength_function_type(&FormFactorRipple1_wrapper::default_getLength) );
-        
-        }
-        { //::FormFactorRipple1::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorRipple1::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorRipple1_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorRipple1_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorRipple1::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorRipple1_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::FormFactorRipple1::getWidth

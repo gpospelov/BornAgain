@@ -42,11 +42,6 @@ FormFactorSphereGaussianRadius::~FormFactorSphereGaussianRadius()
     delete p_ff_sphere;
 }
 
-int FormFactorSphereGaussianRadius::getNumberOfStochasticParameters() const
-{
-    return 2;
-}
-
 complex_t FormFactorSphereGaussianRadius::evaluate_for_q(
         const cvector_t& q) const
 {

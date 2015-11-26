@@ -21,8 +21,8 @@
 #include <QObject>
 #include <QModelIndex>
 #include <boost/scoped_ptr.hpp>
+#include "OutputData.h"
 
-template <class T> class OutputData;
 
 class SessionModel;
 class ColorMapPlot;

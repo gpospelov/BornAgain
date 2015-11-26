@@ -1,85 +1,59 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/MaskWidgets/PolygonView.h
+//! @brief     Defines PolygonView class
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef POLYGONVIEW_H
 #define POLYGONVIEW_H
 
-#include "IView.h"
+#include "IMaskView.h"
+#include <QPolygonF>
 
-class PolygonItem;
-class QPainter;
-class QGraphicsSceneMouseEvent;
+//! This is a View of polygon mask (represented by PolygonItem) on GraphicsScene.
 
-class PolygonView : public IView
+class BA_CORE_API_ PolygonView : public IMaskView
 {
     Q_OBJECT
 
 public:
+    int type() const { return MaskEditorHelper::POLYGON; }
+
     PolygonView();
 
-    //! Type of this item
-    enum { Type = UserType + 3 };
+    void addView(IMaskView *childView, int row);
+    bool isClosedPolygon();
+    QPointF getLastAddedPoint() const;
 
-    //! boundingbox of this item
-    QRectF boundingRect() const;
-
-    //! returns the type of this item
-    //! @return number of type
-    int type() const
-    {
-        return Type;
-    }
-
-    //! polygon including an area and it's color is changing to red
-    void setExclude();
-
-    //! polygon is excluding an area and it's color is changing to  blue
-    void setInclude();
-
-    //! get current polygon item
-    //! @return polygon item as parameterized item
-    ParameterizedItem *getParameterizedItem();
-
-    //! get current polygon item
-    //! @return polygon item as parameterized item
-    void setParameterizedItem(ParameterizedItem *item);
+public slots:
+    bool closePolygonIfNecessary();
+    void onClosePolygonRequest(bool value);
 
 protected:
-    //! manages mouse press events
-    //! @param event from scene
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-
-    //! manages mouse move events
-    //! @param event from scene
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
-    //! manages hover events
-    //! @param event from scene
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-
-    //! manages hover events
-    //! @param event from scene
-    void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
-
 private:
-    bool m_changeCornerMode; //!< shows if someone is going to change the points from polygon
-    int m_indexOfCurrentSelectedPoint; //!< index from current current selected point
-    bool m_mouseIsOverFirstPoint;      //!<  shows if mouse is over the first point
-    ParameterizedItem *m_item;         //!< polygon item
+    void update_view();
+    void update_polygon();
+    void update_points();
+    void setChildrenVisible(bool value);
+    bool makePolygonClosed();
 
-    //! first point as rectangle
-    //! @return first point
-    QRectF getFirstPoint() const;
-
-    //! last point from polygon
-    //! @return last added point
-    QPointF getLastPoint() const;
-
-    //! verifies if any of the points from polygon is clicked
-    //! @return true if a point is selected else false
-    bool isCornerClicked(QGraphicsSceneMouseEvent *event);
-
-    //! calculates the bounding box of the polygon by looking for the smallest and biggest values.
-    QRectF calculateBoundingRectangle() const;
-
-    //! paints polygon
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
+    QPolygonF m_polygon;
+    bool m_block_on_point_update;
+    bool m_close_polygon_request;
 };
+
+
 #endif

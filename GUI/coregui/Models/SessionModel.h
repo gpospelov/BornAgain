@@ -131,7 +131,7 @@ public:
     void readFrom(QXmlStreamReader *reader);
     void writeTo(QXmlStreamWriter *writer, ParameterizedItem *parent = 0);
 
-    void moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent = 0,
+    ParameterizedItem *moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent = 0,
                                int row = -1);
 
     ParameterizedItem *copyParameterizedItem(const ParameterizedItem *item_to_copy,
@@ -150,11 +150,12 @@ public:
 
     void setMessageService(WarningMessageService *messageService);
 
+    virtual void initFrom(SessionModel *model, ParameterizedItem *parent);
+
 public slots:
     void onItemPropertyChange(const QString &property_name, const QString &name = QString());
 
 protected:
-    virtual void initFrom(SessionModel *model, ParameterizedItem *parent);
 
 private:
     ParameterizedItem *insertNewItem(QString model_type, ParameterizedItem *parent, int row = -1,

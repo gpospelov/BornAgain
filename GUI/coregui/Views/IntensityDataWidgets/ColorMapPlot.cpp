@@ -36,13 +36,15 @@ ColorMapPlot::ColorMapPlot(QWidget *parent)
 //! initializes everything with new IntensityDataItem or plot it, if it was already the case
 void ColorMapPlot::setItem(IntensityDataItem *item)
 {
-    if (m_item == item) {
+    if (item && (m_item == item)) {
         // qDebug() << "ColorMapPlot::setItem(NIntensityDataItem *item) item==m_item";
         plotItem(m_item);
         return;
     }
 
     if (m_item) {
+        disconnect(m_item, SIGNAL(intensityModified()), this,
+                   SLOT(onIntensityModified()));
         disconnect(m_item, SIGNAL(propertyChanged(QString)), this,
                    SLOT(onPropertyChanged(QString)));
         disconnect(m_item, SIGNAL(subItemPropertyChanged(QString, QString)), this,
@@ -56,6 +58,8 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
 
     plotItem(m_item);
 
+    connect(m_item, SIGNAL(intensityModified()), this,
+               SLOT(onIntensityModified()));
     connect(m_item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChanged(QString)));
 
     connect(m_item, SIGNAL(subItemPropertyChanged(QString, QString)), this,
@@ -125,6 +129,43 @@ void ColorMapPlot::showLinesOverTheMap(bool isVisible)
     }
 }
 
+double ColorMapPlot::xAxisCoordToPixel(double axis_coordinate) const
+{
+    double result = m_customPlot->xAxis->coordToPixel(axis_coordinate);
+//    qDebug() << "ColorMapPlot::xAxisCoordToPixel axis_coordinate:" << axis_coordinate << "result:" << result;
+    return result;
+}
+
+double ColorMapPlot::yAxisCoordToPixel(double axis_coordinate) const
+{
+    return m_customPlot->yAxis->coordToPixel(axis_coordinate);
+}
+
+double ColorMapPlot::pixelToXaxisCoord(double pixel) const
+{
+    return m_customPlot->xAxis->pixelToCoord(pixel);
+}
+
+double ColorMapPlot::pixelToYaxisCoord(double pixel) const
+{
+    return m_customPlot->yAxis->pixelToCoord(pixel);
+}
+
+QRectF ColorMapPlot::getViewportRectangleInWidgetCoordinates()
+{
+    QCPRange xrange = m_customPlot->xAxis->range();
+    QCPRange yrange = m_customPlot->yAxis->range();
+    double left = xrange.lower;
+    double right = xrange.upper;
+    double top = yrange.upper;
+    double bottom = yrange.lower;
+
+    return QRectF(xAxisCoordToPixel(left),
+                  yAxisCoordToPixel(top),
+                  xAxisCoordToPixel(right) - xAxisCoordToPixel(left),
+                  yAxisCoordToPixel(bottom) - yAxisCoordToPixel(top));
+}
+
 //! sets logarithmic scale
 void ColorMapPlot::setLogz(bool logz, bool isReplot)
 {
@@ -160,6 +201,8 @@ void ColorMapPlot::onMouseMove(QMouseEvent *event)
     QPoint point = event->pos();
     double xPos = m_customPlot->xAxis->pixelToCoord(point.x());
     double yPos = m_customPlot->yAxis->pixelToCoord(point.y());
+
+//    qDebug() << "AAA ColorMapPlot::onMouseMove() " << point << "xpos:" << xPos << "yPos:" << yPos;
 
     if (m_customPlot->xAxis->range().contains(xPos)
         && m_customPlot->yAxis->range().contains(yPos)) {
@@ -225,6 +268,12 @@ void ColorMapPlot::getVerticalSlice(QVector<double> &x, QVector<double> &y)
             y[i] = 0;
         }
     }
+}
+
+void ColorMapPlot::onIntensityModified()
+{
+    qDebug() << "ColorMapPlot::onIntensityModified()";
+    plotItem(m_item);
 }
 
 //! updates color map depending on  IntensityDataItem properties

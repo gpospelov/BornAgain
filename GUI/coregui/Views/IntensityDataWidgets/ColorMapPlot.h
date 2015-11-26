@@ -47,6 +47,17 @@ public:
 
     QCustomPlot *getCustomPlot() { return m_customPlot; }
 
+    //! transform axes coordinates to CustomPlot widget coordinates
+    double xAxisCoordToPixel(double axis_coordinate) const;
+    double yAxisCoordToPixel(double axis_coordinate) const;
+
+    //! transform widget coordinates to axes coordinates
+    double pixelToXaxisCoord(double pixel) const;
+    double pixelToYaxisCoord(double pixel) const;
+
+    //! returns rectangle representing current axes zoom state in widget coordinates
+    QRectF getViewportRectangleInWidgetCoordinates();
+
 signals:
     void validMousMove();
 
@@ -59,6 +70,7 @@ public slots:
     void getVerticalSlice(QVector<double> &x, QVector<double> &y);
 
 private slots:
+    void onIntensityModified();
     void onPropertyChanged(const QString &property_name);
     void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
     void onDataRangeChanged(QCPRange newRange);

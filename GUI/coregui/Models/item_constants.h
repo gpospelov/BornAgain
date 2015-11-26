@@ -120,10 +120,13 @@ const ModelType BeamInclinationAngleType = "BeamInclinationAngle";
 const ModelType ResolutionFunctionNoneType = "ResolutionFunctionNone";
 const ModelType ResolutionFunction2DGaussianType = "ResolutionFunction2DGaussian";
 
-const ModelType RectangleType = "Rectangle";
-const ModelType EllipseType = "Ellipse";
-const ModelType PolygonType = "Polygon";
-const ModelType PointType = "Point";
+const ModelType RectangleMaskType = "RectangleMask";
+const ModelType PolygonMaskType = "PolygonMask";
+const ModelType PolygonPointType = "PolygonPoint";
+const ModelType EllipseMaskType = "EllipseMask";
+const ModelType VerticalLineMaskType = "VerticalLineMask";
+const ModelType HorizontalLineMaskType = "HorizontalLineMask";
+const ModelType MaskAllType = "MaskAllMask";
 
 // --- Groups ------------------------------------------------------------------
 

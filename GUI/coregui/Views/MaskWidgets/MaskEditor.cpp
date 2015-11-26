@@ -1,209 +1,197 @@
-#include <QDebug>
-#include <ColorMapPlot.h>
-#include <QPointF>
-#include "GraphicsProxyWidget.h"
-#include "ColorMapPlot.h"
-#include "IntensityDataItem.h"
-#include "SimulationRegistry.h"
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/MaskWidgets/MaskEditor.cpp
+//! @brief     Implements class MaskEditor
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
+#include "MaskEditor.h"
+#include "MaskEditorActions.h"
+#include "MaskEditorCanvas.h"
+#include "MaskEditorPropertyPanel.h"
+#include "MaskEditorToolBar.h"
 #include "MaskGraphicsScene.h"
 #include "MaskGraphicsView.h"
-#include "MaskEditor.h"
-#include "MaskToolBar.h"
-#include "RectangleView.h"
-#include "EllipseView.h"
-#include "PolygonView.h"
-#include "MaskModel.h"
+#include <QBoxLayout>
+#include <QSplitter>
+#include <QContextMenuEvent>
+#include <QMenu>
+#include <QDebug>
+
+#include "SimulationRegistry.h"
+#include <boost/scoped_ptr.hpp>
 #include "SampleBuilderFactory.h"
-
-
-const qreal widthOfScene = 2000;
-const qreal heightOfScene = 2000;
+#include "IntensityDataItem.h"
+#include "MaskModel.h"
+#include "MaskItems.h"
 
 
 MaskEditor::MaskEditor(QWidget *parent)
-    : QWidget(parent)
-    , m_scene(new MaskGraphicsScene(this))
-    , m_view(new MaskGraphicsView(m_scene, this))
-    , m_proxyWidget(new GraphicsProxyWidget)
-    , m_listView(new QListView(this))
-    , m_toolBar(new MaskToolBar)
-    , m_deleteAction(new QAction("Delete", this))
+    : QMainWindow(parent)
+    , m_itemActions(new MaskEditorActions(this))
+    , m_toolBar(new MaskEditorToolBar(m_itemActions, this))
+    , m_editorPropertyPanel(new MaskEditorPropertyPanel(this))
+    , m_editorCanvas(new MaskEditorCanvas(this))
+    , m_splitter(new QSplitter(this))
+    , m_maskModel(0)
 {
-    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    setMouseTracking(true);
-    m_view->setMouseTracking(true);
-    m_view->setRenderHint(QPainter::HighQualityAntialiasing);
-    m_view->setRenderHint(QPainter::TextAntialiasing);
-    m_scene->sceneRect().setWidth(widthOfScene);
-    m_scene->setSceneRect(0,0,widthOfScene, heightOfScene);
-    m_listView->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
-    m_listView->setContextMenuPolicy(Qt::ActionsContextMenu);
-    m_listView->addAction(m_deleteAction);
-    m_listView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    setObjectName(QStringLiteral("IntensityDataPlotWidget"));
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    init_connections();
+    m_splitter->addWidget(m_editorCanvas);
+    m_splitter->addWidget(m_editorPropertyPanel);
 
-    QGridLayout *mainLayout = new QGridLayout;
-    mainLayout->addWidget(m_toolBar,0,0,1,0);
-    mainLayout->setSpacing(0);
-    mainLayout->addWidget(m_view, 1,0);
-    mainLayout->addWidget(m_listView, 1,1);
-    setLayout(mainLayout);
+    addToolBar(m_toolBar);
+
+    setCentralWidget(m_splitter);
+
+    init_test_model();
+
+    setup_connections();
+}
+
+void MaskEditor::onPropertyPanelRequest()
+{
+    m_editorPropertyPanel->setPanelHidden(!m_editorPropertyPanel->isHidden());
+}
+
+//! Context menu reimplemented to supress default menu
+void MaskEditor::contextMenuEvent(QContextMenuEvent *event)
+{
+    Q_UNUSED(event);
+}
+
+void MaskEditor::init_test_model()
+{
+    m_maskModel = new MaskModel();
+
+    SimulationRegistry simRegistry;
+    boost::scoped_ptr<GISASSimulation> simulation(simRegistry.createSimulation("BasicGISAS"));
+
+    SampleBuilderFactory sampleFactory;
+    boost::scoped_ptr<ISample> sample(sampleFactory.createSample("CylindersAndPrismsBuilder"));
+
+    simulation->setSample(*sample.get());
+    simulation->runSimulation();
+
+    IntensityDataItem *item = dynamic_cast<IntensityDataItem *>(m_maskModel->insertNewItem(Constants::IntensityDataType));
+    Q_ASSERT(item);
+    item->setOutputData(simulation->getOutputData()->clone());
+    qDebug() << item->getXmin() << item->getXmax() << item->getYmin() << item->getYmax();
+
+    // Rectangle
+
+//    RectangleItem *rect = dynamic_cast<RectangleItem *>(m_maskModel->insertNewItem(Constants::RectangleMaskType, m_maskModel->indexOfItem(item)));
+//    Q_ASSERT(rect);
+//    rect->setRegisteredProperty(RectangleItem::P_POSX, 0.6);
+//    rect->setRegisteredProperty(RectangleItem::P_POSY, 1.5);
+//    rect->setRegisteredProperty(RectangleItem::P_WIDTH, 0.3);
+//    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 0.2);
+
+    // Polygon
+//    ParameterizedItem *poly = m_maskModel->insertNewItem(Constants::PolygonMaskType, m_maskModel->indexOfItem(item));
+
+//    ParameterizedItem *p1 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
+//    p1->setRegisteredProperty(PolygonPointItem::P_POSX, 0.6);
+//    p1->setRegisteredProperty(PolygonPointItem::P_POSY, 1.5);
+//    ParameterizedItem *p2 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
+//    p2->setRegisteredProperty(PolygonPointItem::P_POSX, 1.0);
+//    p2->setRegisteredProperty(PolygonPointItem::P_POSY, 1.5);
+//    ParameterizedItem *p3 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
+//    p3->setRegisteredProperty(PolygonPointItem::P_POSX, 1.0);
+//    p3->setRegisteredProperty(PolygonPointItem::P_POSY, 0.6);
+
+    // Lines
+//   ParameterizedItem *line = m_maskModel->insertNewItem(Constants::VerticalLineMaskType, m_maskModel->indexOfItem(item));
+//   line->setRegisteredProperty(VerticalLineItem::P_POSX, 0.6);
+
+//   ParameterizedItem *line = m_maskModel->insertNewItem(Constants::HorizontalLineMaskType, m_maskModel->indexOfItem(item));
+//   line->setRegisteredProperty(HorizontalLineItem::P_POSY, 1.0);
+
+    // Ellipse
+//    EllipseItem *rect = dynamic_cast<EllipseItem *>(m_maskModel->insertNewItem(Constants::EllipseMaskType, m_maskModel->indexOfItem(item)));
+//    Q_ASSERT(rect);
+//    rect->setRegisteredProperty(EllipseItem::P_POSX, 1.0);
+//    rect->setRegisteredProperty(EllipseItem::P_POSY, 1.0);
+//    rect->setRegisteredProperty(EllipseItem::P_WIDTH, 0.3);
+//    rect->setRegisteredProperty(EllipseItem::P_HEIGHT, 0.2);
+
+//    MaskAllItem *rect = dynamic_cast<MaskAllItem *>(m_maskModel->insertNewItem(Constants::MaskAllType, m_maskModel->indexOfItem(item)));
+
+    m_editorPropertyPanel->setModel(m_maskModel, m_maskModel->indexOfItem(item));
+
+    m_editorCanvas->setModel(m_maskModel, m_maskModel->indexOfItem(item));
+    m_editorCanvas->setSelectionModel(m_editorPropertyPanel->selectionModel());
+
+    m_itemActions->setModel(m_maskModel, m_maskModel->indexOfItem(item));
+    m_itemActions->setSelectionModel(m_editorPropertyPanel->selectionModel());
 
 }
 
-void MaskEditor::init_connections()
+void MaskEditor::setup_connections()
 {
-    connect(m_toolBar, SIGNAL(changeToSelectionMode()), this, SLOT(changeToSelectionMode()));
-    connect(m_scene, SIGNAL(itemIsDrawn()), this, SLOT(changeToSelectionMode()));
-    connect(m_scene, SIGNAL(itemIsDrawn()), m_toolBar, SLOT(selectSelectionMode()));
-    connect(m_toolBar, SIGNAL(panMode(bool)), this, SLOT(panMode(bool)));
-    connect(m_toolBar, SIGNAL(rectangleButtonPressed()), this, SLOT(rectangleButtonPressed()));
-    connect(m_toolBar, SIGNAL(ellipseButtonPressed()), SLOT(ellipseButtonPressed()));
-    connect(m_toolBar, SIGNAL(polygonButtonPressed()), this, SLOT(polygonButtonPressed()));
-    connect(m_toolBar, SIGNAL(bringToFrontClicked()), this, SLOT(bringToFrontClicked()));
-    connect(m_toolBar, SIGNAL(sendToBackClicked()), this, SLOT(sendToBackClicked()));
-    connect(m_toolBar, SIGNAL(includeClicked()), this, SLOT(includeClicked()));
-    connect(m_toolBar, SIGNAL(excludeClicked()), this , SLOT(excludeClicked()));
-    connect(this, SIGNAL(deleteSelectedItems()), m_scene, SLOT(deleteSelectedItems()));
-    connect(m_deleteAction, SIGNAL(triggered(bool)), m_scene, SLOT(deleteSelectedItems()));
-    connect(m_view, SIGNAL(deleteSelectedItems()), m_scene, SLOT(deleteSelectedItems()));
-}
+    // selection/drawing activity is propagated from ToolBar to graphics scene
+    connect(m_toolBar,
+            SIGNAL(activityModeChanged(MaskEditorFlags::Activity)),
+            m_editorCanvas->getScene(),
+            SLOT(onActivityModeChanged(MaskEditorFlags::Activity))
+            );
 
-void MaskEditor::keyPressEvent(QKeyEvent *event)
-{
-    switch (event->key()) {
-    case Qt::Key_Delete:
-        emit deleteSelectedItems();
-        break;
-    default:
-        QWidget::keyPressEvent(event);
-        break;
-    };
-}
+    // mask value is propagated from ToolBar to graphics scene
+    connect(m_toolBar,
+            SIGNAL(maskValueChanged(MaskEditorFlags::MaskValue)),
+            m_editorCanvas->getScene(),
+            SLOT(onMaskValueChanged(MaskEditorFlags::MaskValue))
+            );
 
-void MaskEditor::rectangleButtonPressed()
-{
-    m_scene->setDrawing(MaskGraphicsScene::RECTANGLE);
-}
+    // tool panel request is propagated from ToolBar to this MaskEditor
+    connect(m_toolBar,
+            SIGNAL(propertyPanelRequest()),
+            this,
+            SLOT(onPropertyPanelRequest())
+            );
 
-void MaskEditor::ellipseButtonPressed()
-{
-    m_scene->setDrawing(MaskGraphicsScene::ELLIPSE);
-}
+    // show results request is propagated from ToolBar to Canvas
+    connect(m_toolBar,
+            SIGNAL(presentationTypeRequest(MaskEditorFlags::PresentationType)),
+            m_editorCanvas,
+            SLOT(onPresentationTypeRequest(MaskEditorFlags::PresentationType))
+            );
 
-void MaskEditor::polygonButtonPressed()
-{
-    m_scene->setDrawing(MaskGraphicsScene::POLYGON);
-}
+    // reset view request is propagated from ToolBar to graphics view
+    connect(m_toolBar,
+            SIGNAL(resetViewRequest()),
+            m_editorCanvas->getView(),
+            SLOT(onResetViewRequest())
+            );
 
-void MaskEditor::panMode(bool active)
-{
-    if(active) {
-        m_view->setDragMode(QGraphicsView::ScrollHandDrag);
-        m_view->setInteractive(false);
-    }
-    else {
-        m_view->setDragMode(QGraphicsView::NoDrag);
-        m_view->setInteractive(true);
-    }
-}
+    // space bar push (request for zoom mode) is propagated from graphics view to ToolBar
+    connect(m_editorCanvas->getView(),
+            SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)),
+            m_toolBar,
+            SLOT(onChangeActivityRequest(MaskEditorFlags::Activity))
+            );
 
-void MaskEditor::deleteSelectedItem()
-{
-    QList<QGraphicsItem*> selectedItems = m_view->scene()->selectedItems();
-    for(int i = 0; i < selectedItems.length(); ++i) {
-        m_scene->removeItem(selectedItems[i]);
-    }
+    // context menu request is propagated from graphics scene to MaskEditorActions
+    connect(m_editorCanvas->getScene(),
+            SIGNAL(itemContextMenuRequest(QPoint)),
+            m_itemActions,
+            SLOT(onItemContextMenuRequest(QPoint))
+            );
+
+    // context menu request is propagated from PropertyPanel to MaskEditorActions
+    connect(m_editorPropertyPanel,
+            SIGNAL(itemContextMenuRequest(QPoint)),
+            m_itemActions,
+            SLOT(onItemContextMenuRequest(QPoint))
+            );
 
 }
-
-void MaskEditor::bringToFrontClicked()
-{
-    m_scene->onBringToFront();
-
-}
-
-void MaskEditor::sendToBackClicked()
-{
-    m_scene->onSendToBack();
-}
-
-void MaskEditor::includeClicked()
-{
-    QList<QGraphicsItem*> selectedItems = m_view->scene()->selectedItems();
-    for(int i = 0; i < selectedItems.length(); ++i) {
-        if(RectangleView::Type == selectedItems[i]->type()) {
-            qgraphicsitem_cast<RectangleView* >(selectedItems[i])->setInclude();
-        }
-        else if(EllipseView::Type == selectedItems[i]->type()) {
-            qgraphicsitem_cast<EllipseView* >(selectedItems[i])->setInclude();
-        }
-        else if(PolygonView::Type == selectedItems[i]->type()) {
-            qgraphicsitem_cast<PolygonView* >(selectedItems[i])->setInclude();
-        }
-    }
-}
-
-void MaskEditor::excludeClicked()
-{
-    QList<QGraphicsItem*> selectedItems = m_view->scene()->selectedItems();
-    for(int i = 0; i < selectedItems.length(); ++i) {
-        if(RectangleView::Type == selectedItems[i]->type()) {
-            qgraphicsitem_cast<RectangleView * >(selectedItems[i])->setExclude();
-        }
-        else if(EllipseView::Type == selectedItems[i]->type()) {
-            qgraphicsitem_cast<EllipseView* >(selectedItems[i])->setExclude();
-        }
-        else if(PolygonView::Type == selectedItems[i]->type()) {
-            qgraphicsitem_cast<PolygonView* >(selectedItems[i])->setExclude();
-        }
-    }
-}
-
-void MaskEditor::changeToSelectionMode()
-{
-    m_scene->setDrawing(MaskGraphicsScene::NONE);
-}
-
-void MaskEditor::changeToDrawingMode()
-{
-    m_view->setDragMode(QGraphicsView::NoDrag);
-    m_view->setInteractive(true);
-}
-
-void MaskEditor::setModel(MaskModel *maskModel)
-{
-    m_listView->setModel(maskModel);
-    m_scene->setModel(maskModel);
-    m_scene->setSelectionModel(m_listView->selectionModel());
-
-//    SimulationRegistry sim_registry;
-//    Simulation *sim = sim_registry.createSimulation("BasicGISAS");
-//    SampleBuilderFactory sampleFactory;
-//    SampleBuilder_t builder = sampleFactory.createBuilder("CylindersAndPrismsBuilder");
-//    sim->setSampleBuilder(builder);
-
-//    sim->runSimulation();
-//    qDebug() << sim->getIntensityData() << sim->getIntensityData()->totalSum();
-
-//    IntensityDataItem *dataItem = new IntensityDataItem;
-//    dataItem->setOutputData(sim->getIntensityData());
-
-//    ColorMapPlot *colorMapPlot = new ColorMapPlot;
-//    colorMapPlot->setItem(dataItem);
-
-//    m_proxyWidget->setWidget(colorMapPlot);
-
-    m_proxyWidget->setPos(m_scene->sceneRect().topLeft());
-    m_proxyWidget->resize(m_scene->width(), m_scene->height());
-    m_scene->addItem(m_proxyWidget);
-}
-
-void MaskEditor::onItemIsDrawn()
-{
-    emit itemIsDrawn();
-}
-
-
-

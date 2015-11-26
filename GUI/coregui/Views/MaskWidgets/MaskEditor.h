@@ -1,86 +1,57 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/MaskWidgets/MaskEditor.h
+//! @brief     Defines class MaskEditor
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef MASKEDITOR_H
 #define MASKEDITOR_H
 
-class MaskGraphicsView;
-class MaskGraphicsScene;
-class GraphicsProxyWidget;
-class MaskModel;
-class MaskToolBar;
-class QListView;
-class QVBoxLayout;
-class QAction;
+#include "WinDllMacros.h"
+#include <QWidget>
+#include <QMainWindow>
 
-class MaskEditor : public QWidget
+class MaskEditorPropertyPanel;
+class MaskEditorActions;
+class MaskEditorToolBar;
+class MaskEditorCanvas;
+class QSplitter;
+class MaskModel;
+
+//! Main class to draw masks on top of intensity data map
+
+class BA_CORE_API_ MaskEditor : public QMainWindow
 {
     Q_OBJECT
 public:
     MaskEditor(QWidget *parent = 0);
 
-    virtual ~MaskEditor()
-    {
-    }
-
-    //! set Model
-    //! param mask model that caries model for masking
-    void setModel(MaskModel *maskModel);
-
-private slots:
-
-    //! creates a rectangle on button press event
-    void rectangleButtonPressed();
-
-    //! creates a ellipse on button press event
-    void ellipseButtonPressed();
-
-    //! creates a polygon on button press event
-    void polygonButtonPressed();
-
-    //! switch on pan mode
-    void panMode(bool active);
-
-    //! delete selected item
-    void deleteSelectedItem();
-
-    //! bring current selected item to the top
-    void bringToFrontClicked();
-
-    //! send current selected item to the bottom
-    void sendToBackClicked();
-
-    //! create include item
-    void includeClicked();
-
-    //! create exclude item
-    void excludeClicked();
-
-    //! change from drawing mode to selection mode
-    void changeToSelectionMode();
-
-    //!change from selection mode to drawing mode
-    void changeToDrawingMode();
-
-    //!change back to selecton mode if item is drawn
-    void onItemIsDrawn();
-
-private:
-    MaskGraphicsScene *m_scene; //!< scene contains all items
-    MaskGraphicsView *m_view; //!< view renders all items and show them item in the scene on display
-    GraphicsProxyWidget *m_proxyWidget; //!< color map (detector)
-    QListView *m_listView;              //!< list wiht currently created items as a list
-    MaskToolBar *m_toolBar;             //!< tool bar
-    QAction *m_deleteAction;            //!< delete action for the list view
-    void init_connections(); //!< initialie all connections between scene, view and toolbar
-
-signals:
-    //! emittes this signal to toolbar if item is drawn
-    void itemIsDrawn();
-
-    //! signal is emitted when someone want to delete item
-    void deleteSelectedItems();
+public slots:
+    void onPropertyPanelRequest();
 
 protected:
-    //! event that manages key press events
-    void keyPressEvent(QKeyEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event);
+
+private:
+    void init_test_model();
+    void setup_connections();
+
+    MaskEditorActions *m_itemActions;
+    MaskEditorToolBar *m_toolBar;
+    MaskEditorPropertyPanel *m_editorPropertyPanel;
+    MaskEditorCanvas *m_editorCanvas;
+    QSplitter *m_splitter;
+    MaskModel *m_maskModel;
 };
+
 
 #endif

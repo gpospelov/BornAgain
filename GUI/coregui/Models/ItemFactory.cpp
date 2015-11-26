@@ -45,10 +45,7 @@
 #include "BeamDistributionItem.h"
 #include "BeamWavelengthItem.h"
 #include "BeamAngleItems.h"
-#include "RectangleItem.h"
-#include "EllipseItem.h"
-#include "PolygonItem.h"
-#include "PointItem.h"
+#include "MaskItems.h"
 #include <QDebug>
 
 namespace {
@@ -151,10 +148,13 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::ResolutionFunctionNoneType] = &createInstance<ResolutionFunctionNoneItem>;
     result[Constants::ResolutionFunction2DGaussianType] = &createInstance<ResolutionFunction2DGaussianItem>;
 
-    result[Constants::RectangleType] = &createInstance<RectangleItem>;
-    result[Constants::EllipseType] = &createInstance<EllipseItem>;
-    result[Constants::PolygonType] = &createInstance<PolygonItem>;
-    result[Constants::PointType] = &createInstance<PointItem>;
+    result[Constants::RectangleMaskType] = &createInstance<RectangleItem>;
+    result[Constants::PolygonPointType] = &createInstance<PolygonPointItem>;
+    result[Constants::PolygonMaskType] = &createInstance<PolygonItem>;
+    result[Constants::VerticalLineMaskType] = &createInstance<VerticalLineItem>;
+    result[Constants::HorizontalLineMaskType] = &createInstance<HorizontalLineItem>;
+    result[Constants::EllipseMaskType] = &createInstance<EllipseItem>;
+    result[Constants::MaskAllType] = &createInstance<MaskAllItem>;
 
     return result;
 }

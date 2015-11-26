@@ -61,6 +61,13 @@ IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
 
     registerGroupProperty(P_ZAXIS, Constants::AmplitudeAxisType);
     getSubItems()[P_ZAXIS]->setPropertyAppearance(BasicAxisItem::P_NBINS, PropertyAttribute::HIDDEN);
+
+    addToValidChildren(Constants::RectangleMaskType);
+    addToValidChildren(Constants::PolygonMaskType);
+    addToValidChildren(Constants::EllipseMaskType);
+    addToValidChildren(Constants::VerticalLineMaskType);
+    addToValidChildren(Constants::HorizontalLineMaskType);
+    addToValidChildren(Constants::MaskAllType);
 }
 
 IntensityDataItem::~IntensityDataItem()
@@ -100,6 +107,7 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
     }
 
     blockSignals(false);
+    qDebug() << "Emmitting intensityModified();";
     emit intensityModified();
 }
 

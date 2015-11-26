@@ -41,7 +41,7 @@ public:
         INTERFERENCE_FUNCTION_2D_PARA,
         INTERFERENCE_FUNCTION_2D_LATTICE,
         PARTICLE,
-        TRANSFORMATION
+        TRANSFORMATION,
     };
 
     static int getDefaultLayerWidth() { return m_default_layer_width; }

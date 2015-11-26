@@ -26,6 +26,7 @@ class BA_CORE_API_ MaskDrawingContext
 public:
     MaskDrawingContext();
 
+    MaskEditorFlags::Activity getActivityType() const;
     void setActivityType(MaskEditorFlags::Activity value);
     void setMaskValue(MaskEditorFlags::MaskValue value);
 
@@ -50,6 +51,7 @@ private:
 
     MaskEditorFlags::Activity m_current_activity;
     MaskEditorFlags::MaskValue m_mask_value;
+    bool m_drawing_in_progress;
 };
 
 

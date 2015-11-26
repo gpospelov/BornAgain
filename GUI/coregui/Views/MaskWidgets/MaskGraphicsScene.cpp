@@ -272,7 +272,7 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << "MaskGraphicsScene::mouseMoveEvent()";
+    qDebug() << "MaskGraphicsScene::mouseMoveEvent()" << m_context.getActivityType();
     if(isDrawingInProgress() && m_context.isRectangleMode()) {
         processRectangleItem(event);
         return;
@@ -686,9 +686,6 @@ void MaskGraphicsScene::processEllipseItem(QGraphicsSceneMouseEvent *event)
 void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "MaskGraphicsScene::processPolygonItem";
-//    Q_ASSERT(m_activityType.testFlag(MaskEditorActivity::DRAWING_IN_PROGRESS));
-//    Q_ASSERT(m_activityType.testFlag(MaskEditorActivity::POLYGON_MODE));
-//    Q_ASSERT(m_context.isDrawingInProgress());
     Q_ASSERT(m_context.isPolygonMode());
 
     if(!m_currentItem) {
@@ -723,6 +720,7 @@ void MaskGraphicsScene::processLineItem(QGraphicsSceneMouseEvent *event)
 
     if(m_context.isVerticalLineMode())
         processVerticalLineItem(click_pos);
+
     if(m_context.isHorizontalLineMode())
         processHorizontalLineItem(click_pos);
 

@@ -20,8 +20,14 @@
 MaskDrawingContext::MaskDrawingContext()
     : m_current_activity(MaskEditorFlags::SELECTION_MODE)
     , m_mask_value(MaskEditorFlags::MASK_ON)
+    , m_drawing_in_progress(false)
 {
 
+}
+
+MaskEditorFlags::Activity MaskDrawingContext::getActivityType() const
+{
+    return m_current_activity;
 }
 
 void MaskDrawingContext::setActivityType(MaskEditorFlags::Activity value)
@@ -37,27 +43,27 @@ void MaskDrawingContext::setMaskValue(MaskEditorFlags::MaskValue value)
 
 bool MaskDrawingContext::isSelectionMode() const
 {
-    return m_current_activity.testFlag(MaskEditorFlags::SELECTION_MODE);
+    return m_current_activity == MaskEditorFlags::SELECTION_MODE;
 }
 
 bool MaskDrawingContext::isInZoomMode() const
 {
-    return m_current_activity.testFlag(MaskEditorFlags::PAN_ZOOM_MODE);
+    return m_current_activity == MaskEditorFlags::PAN_ZOOM_MODE;
 }
 
 bool MaskDrawingContext::isRectangleMode() const
 {
-    return m_current_activity.testFlag(MaskEditorFlags::RECTANGLE_MODE);
+    return m_current_activity == MaskEditorFlags::RECTANGLE_MODE;
 }
 
 bool MaskDrawingContext::isEllipseMode() const
 {
-    return m_current_activity.testFlag(MaskEditorFlags::ELLIPSE_MODE);
+    return m_current_activity == MaskEditorFlags::ELLIPSE_MODE;
 }
 
 bool MaskDrawingContext::isPolygonMode() const
 {
-    return m_current_activity.testFlag(MaskEditorFlags::POLYGON_MODE);
+    return m_current_activity == MaskEditorFlags::POLYGON_MODE;
 }
 
 bool MaskDrawingContext::isLineMode() const
@@ -67,31 +73,27 @@ bool MaskDrawingContext::isLineMode() const
 
 bool MaskDrawingContext::isVerticalLineMode() const
 {
-    return m_current_activity.testFlag(MaskEditorFlags::VERTICAL_LINE_MODE);
+    return m_current_activity == MaskEditorFlags::VERTICAL_LINE_MODE;
 }
 
 bool MaskDrawingContext::isHorizontalLineMode() const
 {
-    return m_current_activity.testFlag(MaskEditorFlags::HORIZONTAL_LINE_MODE);
+    return m_current_activity == MaskEditorFlags::HORIZONTAL_LINE_MODE;
 }
 
 bool MaskDrawingContext::isMaskAllMode() const
 {
-    return m_current_activity.testFlag(MaskEditorFlags::MASKALL_MODE);
+    return m_current_activity == MaskEditorFlags::MASKALL_MODE;
 }
 
 bool MaskDrawingContext::isDrawingInProgress() const
 {
-    return m_current_activity.testFlag(MaskEditorFlags::DRAWING_IN_PROGRESS);
+    return m_drawing_in_progress;
 }
 
 void MaskDrawingContext::setDrawingInProgress(bool value)
 {
-    if(value) {
-        m_current_activity |= MaskEditorFlags::DRAWING_IN_PROGRESS;
-    } else {
-        m_current_activity &= ~MaskEditorFlags::DRAWING_IN_PROGRESS;
-    }
+    m_drawing_in_progress = value;
 }
 
 bool MaskDrawingContext::getMaskValue() const

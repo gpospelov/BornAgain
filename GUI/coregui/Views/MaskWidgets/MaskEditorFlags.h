@@ -25,15 +25,14 @@ class BA_CORE_API_ MaskEditorFlags
 {
 public:
     enum EActivityType {
-        SELECTION_MODE       = 0x0001,
-        PAN_ZOOM_MODE        = 0x0002,
-        RECTANGLE_MODE       = 0x0004,
-        POLYGON_MODE         = 0x0010,
-        VERTICAL_LINE_MODE   = 0x0020,
-        HORIZONTAL_LINE_MODE = 0x0040,
-        ELLIPSE_MODE         = 0x0080,
-        MASKALL_MODE         = 0x0100,
-        DRAWING_IN_PROGRESS  = 0x0200,
+        SELECTION_MODE,
+        PAN_ZOOM_MODE,
+        RECTANGLE_MODE,
+        POLYGON_MODE,
+        VERTICAL_LINE_MODE,
+        HORIZONTAL_LINE_MODE,
+        ELLIPSE_MODE,
+        MASKALL_MODE
     };
     Q_DECLARE_FLAGS(Activity, EActivityType)
 

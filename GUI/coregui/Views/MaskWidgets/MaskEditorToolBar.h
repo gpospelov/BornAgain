@@ -47,7 +47,6 @@ private slots:
     void onPresentationTypePressed();
     void onPresentationTypeReleased();
 
-
 private:
     void setup_selection_group();
     void setup_maskvalue_group();

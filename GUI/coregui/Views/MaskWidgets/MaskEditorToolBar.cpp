@@ -223,29 +223,11 @@ void MaskEditorToolBar::add_separator()
 
 MaskEditorFlags::Activity MaskEditorToolBar::getCurrentActivity() const
 {
-    MaskEditorFlags::Activity result;
-    result |= MaskEditorFlags::EActivityType(m_activityButtonGroup->checkedId());
-    qDebug() << "MaskEditorToolBar::getCurrentActivity():" << result;
-    return result;
+    return MaskEditorFlags::EActivityType(m_activityButtonGroup->checkedId());
 }
 
 void MaskEditorToolBar::setCurrentActivity(MaskEditorFlags::Activity value)
 {
-    if(value.testFlag(MaskEditorFlags::SELECTION_MODE))
-        m_activityButtonGroup->button(MaskEditorFlags::SELECTION_MODE)->setChecked(true);
-    if(value.testFlag(MaskEditorFlags::PAN_ZOOM_MODE))
-        m_activityButtonGroup->button(MaskEditorFlags::PAN_ZOOM_MODE)->setChecked(true);
-    if(value.testFlag(MaskEditorFlags::RECTANGLE_MODE))
-        m_activityButtonGroup->button(MaskEditorFlags::RECTANGLE_MODE)->setChecked(true);
-    if(value.testFlag(MaskEditorFlags::POLYGON_MODE))
-        m_activityButtonGroup->button(MaskEditorFlags::POLYGON_MODE)->setChecked(true);
-    if(value.testFlag(MaskEditorFlags::VERTICAL_LINE_MODE))
-        m_activityButtonGroup->button(MaskEditorFlags::VERTICAL_LINE_MODE)->setChecked(true);
-    if(value.testFlag(MaskEditorFlags::HORIZONTAL_LINE_MODE))
-        m_activityButtonGroup->button(MaskEditorFlags::HORIZONTAL_LINE_MODE)->setChecked(true);
-    if(value.testFlag(MaskEditorFlags::ELLIPSE_MODE))
-        m_activityButtonGroup->button(MaskEditorFlags::ELLIPSE_MODE)->setChecked(true);
-    if(value.testFlag(MaskEditorFlags::MASKALL_MODE))
-        m_activityButtonGroup->button(MaskEditorFlags::MASKALL_MODE)->setChecked(true);
+    m_activityButtonGroup->button(value)->setChecked(true);
 }
 

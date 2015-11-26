@@ -57,11 +57,7 @@ void FormFactorCuboctahedron::init_parameters()
 
 FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const
 {
-    FormFactorCuboctahedron *result =
-        new FormFactorCuboctahedron(m_length, m_height,
-                                    m_height_ratio, m_alpha);
-    result->setName(getName());
-    return result;
+    return new FormFactorCuboctahedron(m_length, m_height, m_height_ratio, m_alpha);
 }
 
 complex_t FormFactorCuboctahedron::evaluate_for_q(const cvector_t& q) const

@@ -47,9 +47,7 @@ void FormFactorLorentz::init_parameters()
 
 FormFactorLorentz* FormFactorLorentz::clone() const
 {
-    FormFactorLorentz *result = new FormFactorLorentz(m_width, m_height);
-    result->setName(getName());
-    return result;
+    return new FormFactorLorentz(m_width, m_height);
 }
 
 void FormFactorLorentz::accept(ISampleVisitor *visitor) const

@@ -33,10 +33,7 @@ FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor
 
 FormFactorDecoratorDebyeWaller *FormFactorDecoratorDebyeWaller::clone() const
 {
-    FormFactorDecoratorDebyeWaller *result
-        = new FormFactorDecoratorDebyeWaller(*mp_form_factor, m_h_dw_factor, m_r_dw_factor);
-    result->setName(getName());
-    return result;
+    return new FormFactorDecoratorDebyeWaller(*mp_form_factor, m_h_dw_factor, m_r_dw_factor);
 }
 
 complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo& wavevectors) const

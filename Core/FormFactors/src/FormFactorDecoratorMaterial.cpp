@@ -31,7 +31,6 @@ FormFactorDecoratorMaterial *FormFactorDecoratorMaterial::clone() const
         = new FormFactorDecoratorMaterial(*mp_form_factor, m_wavevector_scattering_factor);
     result->setMaterial(*mP_material);
     result->setAmbientMaterial(*mP_ambient_material);
-    result->setName(getName());
     return result;
 }
 

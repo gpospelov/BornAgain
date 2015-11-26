@@ -73,9 +73,9 @@
 
 //double ChiSquaredModule::getResidualValue(size_t index ) const
 //{
-//    assert(mp_real_data != NULL );
-//    assert(mp_simulation_data != NULL);
-//    assert(mp_weights != NULL);
+//    assert(mp_real_data != nullptr );
+//    assert(mp_simulation_data != nullptr);
+//    assert(mp_weights != nullptr);
 //    assert(index < mp_real_data->getAllocatedSize() );
 //    double value_real = (*mp_real_data)[index];
 //    double value_simu  = (*mp_simulation_data)[index];
@@ -184,5 +184,3 @@ void ChiSquaredModule::processFitElements(std::vector<FitElement>::iterator firs
 
     }
 }
-
-

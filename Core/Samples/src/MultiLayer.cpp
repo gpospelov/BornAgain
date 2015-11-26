@@ -54,7 +54,6 @@ void MultiLayer::clear()
 MultiLayer *MultiLayer::clone() const
 {
     MultiLayer *newMultiLayer = new MultiLayer();
-    newMultiLayer->setName(getName());
 
     newMultiLayer->m_layers_z = m_layers_z;
 
@@ -90,7 +89,6 @@ MultiLayer *MultiLayer::clone() const
 MultiLayer* MultiLayer::cloneInvertB() const
 {
     MultiLayer *newMultiLayer = new MultiLayer();
-    newMultiLayer->setName(getName());
 
     newMultiLayer->m_layers_z = m_layers_z;
 

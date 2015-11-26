@@ -35,7 +35,6 @@ InterferenceFunction1DLattice *InterferenceFunction1DLattice::clone() const
     InterferenceFunction1DLattice *result = new InterferenceFunction1DLattice(m_lattice_params);
     if (mp_pdf)
         result->setProbabilityDistribution(*mp_pdf);
-    result->setName(getName());
     return result;
 }
 

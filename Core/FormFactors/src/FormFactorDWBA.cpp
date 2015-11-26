@@ -34,7 +34,6 @@ FormFactorDWBA* FormFactorDWBA::clone() const
 {
     FormFactorDWBA *result = new FormFactorDWBA(*mp_form_factor);
     result->setSpecularInfo(mp_in_coeffs, mp_out_coeffs);
-    result->setName(getName());
     return result;
 }
 

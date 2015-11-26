@@ -28,10 +28,7 @@ FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor &form
 FormFactorDecoratorRotation *FormFactorDecoratorRotation::clone() const
 {
     std::unique_ptr<IRotation> P_rotation(IRotation::createRotation(m_transform));
-    FormFactorDecoratorRotation *result
-            = new FormFactorDecoratorRotation(*mp_form_factor, *P_rotation);
-    result->setName(getName());
-    return result;
+    return new FormFactorDecoratorRotation(*mp_form_factor, *P_rotation);
 }
 
 void FormFactorDecoratorRotation::accept(ISampleVisitor *visitor) const

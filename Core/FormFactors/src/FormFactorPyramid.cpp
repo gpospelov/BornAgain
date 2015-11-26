@@ -71,10 +71,7 @@ void FormFactorPyramid::init_parameters()
 
 FormFactorPyramid* FormFactorPyramid::clone() const
 {
-    FormFactorPyramid *result =
-        new FormFactorPyramid(m_length, m_height, m_alpha);
-    result->setName(getName());
-    return result;
+    return new FormFactorPyramid(m_length, m_height, m_alpha);
 }
 
 void FormFactorPyramid::accept(ISampleVisitor *visitor) const

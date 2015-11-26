@@ -52,9 +52,7 @@ inline FormFactorDecoratorFactor::FormFactorDecoratorFactor(const IFormFactor &f
 
 inline FormFactorDecoratorFactor *FormFactorDecoratorFactor::clone() const
 {
-    FormFactorDecoratorFactor *result = new FormFactorDecoratorFactor(*mp_form_factor, m_factor);
-    result->setName(getName());
-    return result;
+    return new FormFactorDecoratorFactor(*mp_form_factor, m_factor);
 }
 
 inline complex_t FormFactorDecoratorFactor::evaluate(const WavevectorInfo& wavevectors) const

@@ -41,9 +41,7 @@ void FormFactorPrism6::init_parameters()
 
 FormFactorPrism6* FormFactorPrism6::clone() const
 {
-      FormFactorPrism6 *result = new FormFactorPrism6(m_radius, m_height);
-      result->setName(getName());
-      return result;
+    return new FormFactorPrism6(m_radius, m_height);
 }
 
 void FormFactorPrism6::accept(ISampleVisitor *visitor) const

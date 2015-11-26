@@ -33,10 +33,7 @@ FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean,
 
 FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const
 {
-    FormFactorSphereGaussianRadius *result =
-        new FormFactorSphereGaussianRadius(m_mean, m_sigma);
-    result->setName(getName());
-    return result;
+    return new FormFactorSphereGaussianRadius(m_mean, m_sigma);
 }
 
 FormFactorSphereGaussianRadius::~FormFactorSphereGaussianRadius()

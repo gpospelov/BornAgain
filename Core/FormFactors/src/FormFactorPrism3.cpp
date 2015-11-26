@@ -41,9 +41,7 @@ void FormFactorPrism3::init_parameters()
 
 FormFactorPrism3* FormFactorPrism3::clone() const
 {
-    FormFactorPrism3 *result = new FormFactorPrism3(m_length, m_height);
-    result->setName(getName());
-    return result;
+    return new FormFactorPrism3(m_length, m_height);
 }
 
 void FormFactorPrism3::accept(ISampleVisitor *visitor) const

@@ -54,10 +54,7 @@ void FormFactorHemiEllipsoid::init_parameters()
 
 FormFactorHemiEllipsoid* FormFactorHemiEllipsoid::clone() const
 {
-   FormFactorHemiEllipsoid* result =
-       new FormFactorHemiEllipsoid(m_radius_a,  m_radius_b, m_height);
-   result->setName(getName());
-   return result;
+   return new FormFactorHemiEllipsoid(m_radius_a,  m_radius_b, m_height);
 }
 
 //! Integrand for complex formfactor.

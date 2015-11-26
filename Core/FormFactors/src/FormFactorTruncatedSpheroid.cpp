@@ -65,10 +65,7 @@ void FormFactorTruncatedSpheroid::init_parameters()
 
 FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const
 {
-   FormFactorTruncatedSpheroid* result =
-       new FormFactorTruncatedSpheroid(m_radius, m_height, m_height_flattening);
-   result->setName(getName());
-   return result;
+   return new FormFactorTruncatedSpheroid(m_radius, m_height, m_height_flattening);
 }
 
 void FormFactorTruncatedSpheroid::accept(ISampleVisitor *visitor) const

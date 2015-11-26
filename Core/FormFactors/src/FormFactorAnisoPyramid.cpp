@@ -76,10 +76,7 @@ void FormFactorAnisoPyramid::init_parameters()
 
 FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const
 {
-    FormFactorAnisoPyramid *result =
-        new FormFactorAnisoPyramid(m_length, m_width, m_height, m_alpha);
-    result->setName(getName());
-    return result;
+    return new FormFactorAnisoPyramid(m_length, m_width, m_height, m_alpha);
 }
 
 complex_t FormFactorAnisoPyramid::evaluate_for_q(const cvector_t& q) const

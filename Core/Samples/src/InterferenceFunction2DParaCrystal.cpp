@@ -57,7 +57,6 @@ InterferenceFunction2DParaCrystal
     if(m_pdfs[0] && m_pdfs[1])
         result->setProbabilityDistributions(*m_pdfs[0], *m_pdfs[1]);
     result->setIntegrationOverXi(m_integrate_xi);
-    result->setName(getName());
     return result;
 }
 

@@ -46,7 +46,6 @@ InterferenceFunctionRadialParaCrystal *InterferenceFunctionRadialParaCrystal::cl
     InterferenceFunctionRadialParaCrystal *result =
         new InterferenceFunctionRadialParaCrystal(
             m_peak_distance, m_damping_length);
-    result->setName(getName());
     result->setDomainSize(getDomainSize());
     result->setKappa(m_kappa);
     if (mP_pdf.get()) {

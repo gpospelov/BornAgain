@@ -66,10 +66,7 @@ void FormFactorTetrahedron::init_parameters()
 
 FormFactorTetrahedron* FormFactorTetrahedron::clone() const
 {
-    FormFactorTetrahedron *result =
-        new FormFactorTetrahedron(m_length, m_height, m_alpha);
-    result->setName(getName());
-    return result;
+    return new FormFactorTetrahedron(m_length, m_height, m_alpha);
 }
 
 void FormFactorTetrahedron::accept(ISampleVisitor *visitor) const

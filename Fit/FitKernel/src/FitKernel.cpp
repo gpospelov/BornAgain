@@ -71,7 +71,7 @@ void FitKernel::addFitStrategy(const IFitStrategy &strategy)
 void FitKernel::setMinimizer(IMinimizer *minimizer)
 {
     if(!minimizer) {
-        msglog(MSG::ERROR) << "FitSuite::setMinimizer() -> Error. Attempt to set NULL minimizer.";
+        msglog(MSG::ERROR) << "FitSuite::setMinimizer() -> Error. Attempt to set nullptr minimizer.";
     }
     m_minimizer.reset(minimizer);
 }

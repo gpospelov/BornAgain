@@ -33,10 +33,7 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
 
 FormFactorSphereLogNormalRadius* FormFactorSphereLogNormalRadius::clone() const
 {
-    FormFactorSphereLogNormalRadius *result =
-        new FormFactorSphereLogNormalRadius(m_mean, m_scale_param, m_n_samples);
-    result->setName(getName());
-    return result;
+    return new FormFactorSphereLogNormalRadius(m_mean, m_scale_param, m_n_samples);
 }
 
 FormFactorSphereLogNormalRadius::~FormFactorSphereLogNormalRadius()

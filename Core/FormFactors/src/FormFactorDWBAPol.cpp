@@ -33,7 +33,6 @@ FormFactorDWBAPol* FormFactorDWBAPol::clone() const
 {
     FormFactorDWBAPol *p_result = new FormFactorDWBAPol(*mp_form_factor);
     p_result->setSpecularInfo(mp_in_coeffs, mp_out_coeffs);
-    p_result->setName(getName());
     return p_result;
 }
 

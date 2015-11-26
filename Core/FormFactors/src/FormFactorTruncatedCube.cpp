@@ -37,10 +37,7 @@ void FormFactorTruncatedCube::init_parameters()
 
 FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const
 {
-    FormFactorTruncatedCube *result =
-        new FormFactorTruncatedCube(m_length, m_removed_length);
-    result->setName(getName());
-    return result;
+    return new FormFactorTruncatedCube(m_length, m_removed_length);
 }
 
 void FormFactorTruncatedCube::accept(ISampleVisitor *visitor) const

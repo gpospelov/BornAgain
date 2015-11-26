@@ -48,10 +48,7 @@ void FormFactorFullSpheroid::init_parameters()
 
 FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const
 {
-   FormFactorFullSpheroid* result =
-       new FormFactorFullSpheroid(m_radius, m_height);
-   result->setName(getName());
-   return result;
+   return new FormFactorFullSpheroid(m_radius, m_height);
 }
 
 //! Integrand for complex formfactor.

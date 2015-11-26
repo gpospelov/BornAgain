@@ -26,9 +26,7 @@ FormFactorTrivial::FormFactorTrivial()
 
 FormFactorTrivial* FormFactorTrivial::clone() const
 {
-    FormFactorTrivial *result = new FormFactorTrivial();
-    result->setName(getName());
-    return result;
+    return new FormFactorTrivial();
 }
 
 void FormFactorTrivial::accept(ISampleVisitor *visitor) const

@@ -35,10 +35,7 @@ FormFactorCrystal::~FormFactorCrystal()
 
 FormFactorCrystal *FormFactorCrystal::clone() const
 {
-    FormFactorCrystal *result = new FormFactorCrystal(m_lattice, *mp_basis_form_factor,
-                                                      *mp_meso_form_factor);
-    result->setName(getName());
-    return result;
+    return new FormFactorCrystal(m_lattice, *mp_basis_form_factor, *mp_meso_form_factor);
 }
 
 complex_t FormFactorCrystal::evaluate_for_q(const cvector_t &q) const

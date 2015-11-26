@@ -100,7 +100,7 @@ PyObject *ExportOutputData(const OutputData<double >& output_data)
     PyObject *pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy,
             NPY_DOUBLE);
     delete [] ndimsizes_numpy;
-    if(pyarray == NULL ) {
+    if(pyarray == nullptr ) {
         throw RuntimeErrorException(
                 "ExportOutputData() -> Panic in PyArray_SimpleNew");
     }
@@ -147,7 +147,7 @@ PyObject *ExportOutputDataAxis(const OutputData<double >& output_data,
     // creating standalone numpy array
     PyObject *pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy,
             NPY_DOUBLE);
-    if(pyarray == NULL ) {
+    if(pyarray == nullptr ) {
         throw RuntimeErrorException(
                 "ExportOutputDataAxis() -> Panic in in PyArray_SimpleNew");
     }

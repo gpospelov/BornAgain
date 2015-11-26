@@ -64,9 +64,7 @@ void FormFactorCone6::init_parameters()
 
 FormFactorCone6* FormFactorCone6::clone() const
 {
-   FormFactorCone6* result = new FormFactorCone6(m_radius, m_height, m_alpha);
-   result->setName(getName());
-   return result;
+   return new FormFactorCone6(m_radius, m_height, m_alpha);
 }
 
 

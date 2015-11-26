@@ -20,24 +20,24 @@ class LayerTest : public ::testing::Test
 TEST_F(LayerTest, LayerInitialState)
 {
     Layer layer;
-    EXPECT_EQ(NULL, layer.getMaterial());
-    EXPECT_EQ(NULL, layer.getLayout(0));
+    EXPECT_EQ(nullptr, layer.getMaterial());
+    EXPECT_EQ(nullptr, layer.getLayout(0));
     EXPECT_EQ(0, layer.getThickness());
     EXPECT_FALSE(layer.hasDWBASimulation());
     EXPECT_EQ(complex_t(1.0, 0.0), layer.getRefractiveIndex());
     EXPECT_EQ(0.0, layer.getTotalParticleSurfaceDensity(0));
     EXPECT_EQ("Layer", layer.getName());
-    EXPECT_EQ(NULL, layer.createDWBASimulation());
+    EXPECT_EQ(nullptr, layer.createDWBASimulation());
 
     Layer *new_layer = layer.clone();
-    EXPECT_EQ(NULL, new_layer->getMaterial());
-    EXPECT_EQ(NULL, new_layer->getLayout(0));
+    EXPECT_EQ(nullptr, new_layer->getMaterial());
+    EXPECT_EQ(nullptr, new_layer->getLayout(0));
     EXPECT_EQ(0, new_layer->getThickness());
     EXPECT_FALSE(new_layer->hasDWBASimulation());
     EXPECT_EQ(complex_t(1.0, 0.0), new_layer->getRefractiveIndex());
     EXPECT_EQ(0.0, new_layer->getTotalParticleSurfaceDensity(0));
     EXPECT_EQ("Layer", new_layer->getName());
-    EXPECT_EQ(NULL, new_layer->createDWBASimulation());
+    EXPECT_EQ(nullptr, new_layer->createDWBASimulation());
 
     delete new_layer;
 }
@@ -50,13 +50,13 @@ TEST_F(LayerTest, LayerGetAndSet)
 
     Layer layer(air, 10*Units::nanometer);
     EXPECT_EQ(air.getName(), layer.getMaterial()->getName());
-    EXPECT_EQ(NULL, layer.getLayout(0));
+    EXPECT_EQ(nullptr, layer.getLayout(0));
     EXPECT_EQ(10, layer.getThickness());
     EXPECT_FALSE(layer.hasDWBASimulation());
     EXPECT_EQ(complex_t(1,0), layer.getRefractiveIndex());
     EXPECT_EQ(0.0, layer.getTotalParticleSurfaceDensity(0));
     EXPECT_EQ("Layer", layer.getName());
-    EXPECT_EQ(NULL, layer.createDWBASimulation());
+    EXPECT_EQ(nullptr, layer.createDWBASimulation());
 
     layer.setThickness(20.0);
     EXPECT_EQ(20, layer.getThickness());
@@ -67,13 +67,13 @@ TEST_F(LayerTest, LayerGetAndSet)
 
     Layer *new_layer = layer.clone();
     EXPECT_EQ(something.getName(), new_layer->getMaterial()->getName());
-    EXPECT_EQ(NULL, new_layer->getLayout(0));
+    EXPECT_EQ(nullptr, new_layer->getLayout(0));
     EXPECT_EQ(20, new_layer->getThickness());
     EXPECT_FALSE(new_layer->hasDWBASimulation());
     EXPECT_EQ(complex_t(1,0.5), new_layer->getRefractiveIndex());
     EXPECT_EQ(0.0, new_layer->getTotalParticleSurfaceDensity(0));
     EXPECT_EQ("Layer", new_layer->getName());
-    EXPECT_EQ(NULL, new_layer->createDWBASimulation());
+    EXPECT_EQ(nullptr, new_layer->createDWBASimulation());
     delete new_layer;
 }
 

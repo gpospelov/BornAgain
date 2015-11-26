@@ -56,7 +56,6 @@ ParticleComposition* ParticleComposition::clone() const
     for (size_t index=0; index<m_particles.size(); ++index) {
         p_new->addParticle(*m_particles[index]);
     }
-    p_new->setName(getName());
     p_new->setAmbientMaterial(*getAmbientMaterial());
     if (mP_rotation.get()) {
         p_new->setRotation(*mP_rotation);

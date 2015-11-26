@@ -28,9 +28,7 @@ FormFactorBox::FormFactorBox(double length, double width, double height)
 
 FormFactorBox *FormFactorBox::clone() const
 {
-    FormFactorBox *result = new FormFactorBox(m_length, m_width, m_height);
-    result->setName(getName());
-    return result;
+    return new FormFactorBox(m_length, m_width, m_height);
 }
 
 void FormFactorBox::accept(ISampleVisitor *visitor) const

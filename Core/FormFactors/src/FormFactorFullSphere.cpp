@@ -39,9 +39,7 @@ void FormFactorFullSphere::init_parameters()
 
 FormFactorFullSphere* FormFactorFullSphere::clone() const
 {
-    FormFactorFullSphere *result = new FormFactorFullSphere(m_radius);
-    result->setName(getName());
-    return result;
+    return new FormFactorFullSphere(m_radius);
 }
 
 void FormFactorFullSphere::accept(ISampleVisitor *visitor) const

@@ -125,7 +125,7 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
                                            const QModelIndex &index) const
 {
     if (index.column() == m_valueColumn) {
-        if(index.parent().isValid() == false) return NULL;
+        if(index.parent().isValid() == false) return nullptr;
 
         double value = index.model()->data(index, Qt::EditRole).toDouble();
 
@@ -238,7 +238,7 @@ void ModelTuningDelegate::setModelData(QWidget *editor,
         model->setData(index, m_valueBox->value());
         ItemLink link = model->data(index, Qt::UserRole).value<ItemLink>();
 
-        if(link.getItem() != NULL)
+        if(link.getItem() != nullptr)
         {
             qDebug() << "SampleTuningDelegate::setModelData() -> setting property " << link.getPropertyName();
             //link.getItem()->setRegisteredProperty(link.getPropertyName(), m_valueBox->value());

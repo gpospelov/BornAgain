@@ -74,9 +74,7 @@ void FormFactorRipple2::init_parameters()
 
 FormFactorRipple2 *FormFactorRipple2::clone() const
 {
-    FormFactorRipple2 *result = new FormFactorRipple2(m_length, m_width, m_height, m_d);
-    result->setName(getName());
-    return result;
+    return new FormFactorRipple2(m_length, m_width, m_height, m_d);
 }
 
 void FormFactorRipple2::accept(ISampleVisitor *visitor) const

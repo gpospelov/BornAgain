@@ -58,9 +58,7 @@ void FormFactorTruncatedSphere::init_parameters()
 
 FormFactorTruncatedSphere *FormFactorTruncatedSphere::clone() const
 {
-    FormFactorTruncatedSphere *result = new FormFactorTruncatedSphere(m_radius, m_height);
-    result->setName(getName());
-    return result;
+    return new FormFactorTruncatedSphere(m_radius, m_height);
 }
 
 void FormFactorTruncatedSphere::accept(ISampleVisitor *visitor) const

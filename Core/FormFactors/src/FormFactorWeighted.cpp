@@ -35,7 +35,6 @@ FormFactorWeighted* FormFactorWeighted::clone() const
     for (size_t index=0; index<m_form_factors.size(); ++index) {
         result->addFormFactor(*m_form_factors[index], m_weights[index]);
     }
-    result->setName(getName());
     return result;
 }
 

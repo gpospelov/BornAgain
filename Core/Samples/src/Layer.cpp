@@ -62,8 +62,6 @@ Layer* Layer::cloneInvertB() const
         p_clone->addLayoutPtr(getLayout(i)->cloneInvertB());
     }
     p_clone->m_thickness = this->m_thickness;
-    std::string clone_name = this->getName() + "_inv";
-    p_clone->setName(clone_name);
     p_clone->setNumberOfLayers(getNumberOfLayers());
     p_clone->init_parameters();
     return p_clone;

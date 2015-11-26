@@ -133,7 +133,7 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SessionModel *sampleMo
                 }
             }
 
-            if (parentItem == NULL) {
+            if (parentItem == nullptr) {
                 parentItem = standardItem;
             } else {
                 InsertRowIntoItem(parentItem, standardItem);
@@ -217,7 +217,7 @@ void ParameterModelBuilder::InsertRowIntoItem(QStandardItem *parentItem,
                                               QStandardItem *childTitleItem,
                                               QStandardItem *childValueItem)
 {
-    if (childValueItem == NULL) {
+    if (childValueItem == nullptr) {
         childValueItem = new QStandardItem();
         childValueItem->setEditable(false);
         childTitleItem->setEditable(false);

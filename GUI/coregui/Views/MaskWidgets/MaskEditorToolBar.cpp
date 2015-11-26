@@ -79,6 +79,16 @@ void MaskEditorToolBar::onMaskValueGroupChange(int value)
     emit maskValueChanged(MaskEditorFlags::MaskValue(value));
 }
 
+void MaskEditorToolBar::onPresentationTypePressed()
+{
+    emit presentationTypeRequest(MaskEditorFlags::MASK_PRESENTER);
+}
+
+void MaskEditorToolBar::onPresentationTypeReleased()
+{
+    emit presentationTypeRequest(MaskEditorFlags::MASK_EDITOR);
+}
+
 void MaskEditorToolBar::setup_selection_group()
 {
     QToolButton *selectionButton = new QToolButton(this);
@@ -184,14 +194,16 @@ void MaskEditorToolBar::setup_maskmodify_group()
 
 void MaskEditorToolBar::setup_extratools_group()
 {
-    QToolButton *showResultButton = new QToolButton(this);
-    showResultButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_lightbulb.svg"));
-    showResultButton->setToolTip("Shows mask results. The view will be switched to two\n"
+    QToolButton *presentationButton = new QToolButton(this);
+    presentationButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_lightbulb.svg"));
+    presentationButton->setToolTip("Shows mask results. The view will be switched to two\n"
                                  "color plot representing masked/unmasked areas.");
-    addWidget(showResultButton);
+    addWidget(presentationButton);
 
-    connect(showResultButton, SIGNAL(clicked()),
-            this, SIGNAL(showResultsRequest()));
+    connect(presentationButton, SIGNAL(pressed()),
+            this, SLOT(onPresentationTypePressed()));
+    connect(presentationButton, SIGNAL(released()),
+            this, SLOT(onPresentationTypeReleased()));
 
     QToolButton *propertyPanelButton = new QToolButton(this);
     propertyPanelButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_toolpanel.svg"));

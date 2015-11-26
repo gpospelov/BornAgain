@@ -30,17 +30,12 @@ MaskEditorCanvas::MaskEditorCanvas(QWidget *parent)
     , m_scene(new MaskGraphicsScene(this))
     , m_view(new MaskGraphicsView(m_scene, this))
     , m_resultsPresenter(new MaskResultsPresenter(this))
-    , m_stack(new QStackedWidget(this))
 {
     setObjectName(QStringLiteral("MaskEditorCanvas"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    m_stack->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    m_stack->addWidget(m_view);
-    m_stack->addWidget(m_resultsPresenter);
-
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(m_stack);
+    mainLayout->addWidget(m_view);
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
     setLayout(mainLayout);
@@ -68,11 +63,8 @@ MaskGraphicsView *MaskEditorCanvas::getView()
     return m_view;
 }
 
-void MaskEditorCanvas::onShowResultsRequest()
+void MaskEditorCanvas::onPresentationTypeRequest(MaskEditorFlags::PresentationType presentationType)
 {
-    qDebug() << "MaskEditorCanvas::onShowResultsRequest()";
-    m_stack->setCurrentIndex(!m_stack->currentIndex());
-    if(m_stack->currentIndex() == MaskEditorFlags::MASK_PRESENTER) {
-        m_resultsPresenter->updatePresenter();
-    }
+    m_resultsPresenter->updatePresenter(presentationType);
+    m_scene->onPresentationTypeRequest(presentationType);
 }

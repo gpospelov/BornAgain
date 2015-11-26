@@ -107,6 +107,7 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
     }
 
     blockSignals(false);
+    qDebug() << "Emmitting intensityModified();";
     emit intensityModified();
 }
 

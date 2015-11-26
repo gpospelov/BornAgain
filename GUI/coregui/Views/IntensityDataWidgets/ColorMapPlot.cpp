@@ -43,6 +43,8 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
     }
 
     if (m_item) {
+        disconnect(m_item, SIGNAL(intensityModified()), this,
+                   SLOT(onIntensityModified()));
         disconnect(m_item, SIGNAL(propertyChanged(QString)), this,
                    SLOT(onPropertyChanged(QString)));
         disconnect(m_item, SIGNAL(subItemPropertyChanged(QString, QString)), this,
@@ -56,6 +58,8 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
 
     plotItem(m_item);
 
+    connect(m_item, SIGNAL(intensityModified()), this,
+               SLOT(onIntensityModified()));
     connect(m_item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChanged(QString)));
 
     connect(m_item, SIGNAL(subItemPropertyChanged(QString, QString)), this,
@@ -264,6 +268,12 @@ void ColorMapPlot::getVerticalSlice(QVector<double> &x, QVector<double> &y)
             y[i] = 0;
         }
     }
+}
+
+void ColorMapPlot::onIntensityModified()
+{
+    qDebug() << "ColorMapPlot::onIntensityModified()";
+    plotItem(m_item);
 }
 
 //! updates color map depending on  IntensityDataItem properties

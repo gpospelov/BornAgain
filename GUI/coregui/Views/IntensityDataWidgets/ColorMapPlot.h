@@ -70,6 +70,7 @@ public slots:
     void getVerticalSlice(QVector<double> &x, QVector<double> &y);
 
 private slots:
+    void onIntensityModified();
     void onPropertyChanged(const QString &property_name);
     void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
     void onDataRangeChanged(QCPRange newRange);

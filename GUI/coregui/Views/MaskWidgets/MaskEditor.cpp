@@ -173,9 +173,9 @@ void MaskEditor::setup_connections()
 
     // show results request is propagated from ToolBar to Canvas
     connect(m_toolBar,
-            SIGNAL(showResultsRequest()),
+            SIGNAL(presentationTypeRequest(MaskEditorFlags::PresentationType)),
             m_editorCanvas,
-            SLOT(onShowResultsRequest())
+            SLOT(onPresentationTypeRequest(MaskEditorFlags::PresentationType))
             );
 
     // reset view request is propagated from ToolBar to graphics view

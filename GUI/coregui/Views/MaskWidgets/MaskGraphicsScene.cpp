@@ -391,6 +391,16 @@ void MaskGraphicsScene::updateScene()
     setZValues();
 }
 
+void MaskGraphicsScene::onPresentationTypeRequest(MaskEditorFlags::PresentationType presentationType)
+{
+    bool visibility_flag(true);
+    if(presentationType == MaskEditorFlags::MASK_PRESENTER) visibility_flag = false;
+    foreach(IMaskView *view, m_ItemToView.values()) {
+        Q_ASSERT(view);
+        view->setVisible(visibility_flag);
+    }
+}
+
 void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex, IMaskView *parentView)
 {
     Q_ASSERT(m_maskModel);

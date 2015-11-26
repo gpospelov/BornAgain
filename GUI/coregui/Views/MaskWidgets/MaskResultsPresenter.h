@@ -17,9 +17,10 @@
 #define MASKRESULTSPRESENTER_H
 
 #include "WinDllMacros.h"
-#include "DetectorMask.h"
-#include <QWidget>
+#include "MaskEditorFlags.h"
+#include <QObject>
 #include <QModelIndex>
+#include <boost/scoped_ptr.hpp>
 
 template <class T> class OutputData;
 
@@ -27,26 +28,28 @@ class SessionModel;
 class ColorMapPlot;
 class IntensityDataItem;
 
-//! Shows resulting masked area of IntensityDataItem in two-color ColorMapPlot
+//! Updates bin values inside IntensityData to display current mask state. Returns IntensityData
+//! to original state when requested.
 
-class BA_CORE_API_ MaskResultsPresenter : public QWidget
+class BA_CORE_API_ MaskResultsPresenter : public QObject
 {
 public:
     MaskResultsPresenter(QWidget *parent = 0);
+
     void setModel(SessionModel *maskModel, const QModelIndex &rootIndex);
 
-    void updatePresenter();
+    void updatePresenter(MaskEditorFlags::PresentationType mode);
 
 private:
-    OutputData<double > *createMaskPresentation();
+    void setShowMaskMode();
+    void setOriginalMode();
+    void backup_data();
+    OutputData<double> *createMaskPresentation() const;
 
     SessionModel *m_maskModel;
     QModelIndex m_rootIndex;
-    ColorMapPlot *m_colorMapPlot;
-
-    SessionModel *m_resultModel;
-    DetectorMask m_detectorMask;
-
+    boost::scoped_ptr<OutputData<double> > m_dataBackup;
+    bool m_interpolation_flag_backup;
 };
 
 

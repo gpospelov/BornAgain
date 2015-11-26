@@ -34,7 +34,7 @@ public:
 signals:
     void activityModeChanged(MaskEditorFlags::Activity);
     void propertyPanelRequest();
-    void showResultsRequest();
+    void presentationTypeRequest(MaskEditorFlags::PresentationType);
     void maskValueChanged(MaskEditorFlags::MaskValue);
     void resetViewRequest();
 
@@ -44,6 +44,9 @@ public slots:
 private slots:
     void onActivityGroupChange(int value);
     void onMaskValueGroupChange(int value);
+    void onPresentationTypePressed();
+    void onPresentationTypeReleased();
+
 
 private:
     void setup_selection_group();

@@ -21,12 +21,10 @@
 
 class MaskGraphicsScene;
 class MaskGraphicsView;
-class MaskGraphicsProxy;
 class SessionModel;
 class QItemSelectionModel;
 class QModelIndex;
 class MaskResultsPresenter;
-class QStackedWidget;
 
 //! Painting widget for MaskEditor, contains graphics scene and graphics view
 
@@ -43,13 +41,12 @@ public:
     MaskGraphicsView *getView();
 
 public slots:
-    void onShowResultsRequest();
+    void onPresentationTypeRequest(MaskEditorFlags::PresentationType presentationType);
 
 private:
     MaskGraphicsScene *m_scene;
     MaskGraphicsView *m_view;
     MaskResultsPresenter *m_resultsPresenter;
-    QStackedWidget *m_stack;
 };
 
 

@@ -100,6 +100,7 @@ class BA_CORE_API_ MaskAllItem : public MaskItem
     Q_OBJECT
 public:
     explicit MaskAllItem(ParameterizedItem *parent=0);
+    virtual Geometry::IShape2D *createShape() const;
 };
 
 

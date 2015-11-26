@@ -18,6 +18,7 @@
 #include "Polygon.h"
 #include "Line.h"
 #include "Ellipse.h"
+#include "InfinitePlane.h"
 #include "Units.h"
 
 const QString MaskItem::P_MASK_VALUE = "Mask value";
@@ -159,4 +160,9 @@ MaskAllItem::MaskAllItem(ParameterizedItem *parent)
 {
     setItemName(QStringLiteral("MaskAllPlane"));
     setPropertyAppearance(MaskItem::P_MASK_VALUE, PropertyAttribute::DISABLED);
+}
+
+Geometry::IShape2D *MaskAllItem::createShape() const
+{
+    return new Geometry::InfinitePlane();
 }

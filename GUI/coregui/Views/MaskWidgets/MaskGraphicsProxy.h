@@ -17,6 +17,7 @@
 #define MASKGRAPHICSPROXY_H
 
 #include "ColorMapPlot.h"
+#include "MaskEditorHelper.h"
 #include <QGraphicsProxyWidget>
 
 class ParameterizedItem;
@@ -33,12 +34,7 @@ public:
     MaskGraphicsProxy();
     virtual ~MaskGraphicsProxy();
 
-    enum { Type = UserType + 4 };
-
-    int type() const
-    {
-        return Type;
-    }
+    int type() const { return MaskEditorHelper::MASKGRAPHICSPROXY; }
 
     void setItem(ParameterizedItem *item);
     void setSceneAdaptor(ISceneAdaptor *sceneAdaptor);

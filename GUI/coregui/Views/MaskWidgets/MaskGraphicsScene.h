@@ -17,7 +17,7 @@
 #define MASKGRAPHICSSCENE_H
 
 #include "MaskDrawingContext.h"
-#include "DesignerHelper.h"
+#include "MaskEditorHelper.h"
 #include <QGraphicsScene>
 #include <QModelIndex>
 #include <QMap>
@@ -51,16 +51,13 @@ public slots:
     void onActivityModeChanged(MaskEditorFlags::Activity value);
     void onMaskValueChanged(MaskEditorFlags::MaskValue value);
     void onResetViewRequest();
-
     void onRowsInserted(const QModelIndex &parent, int first, int last);
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
-    void onRowsRemoved(const QModelIndex &parent, int first, int last);
+    void onRowsRemoved(const QModelIndex &, int, int);
     void cancelCurrentDrawing();
-
     void resetScene();
     void updateScene();
     void onPresentationTypeRequest(MaskEditorFlags::PresentationType presentationType);
-
 
 private slots:
     void onSessionSelectionChanged(const QItemSelection & /* selected */,
@@ -74,11 +71,10 @@ protected:
     void drawForeground(QPainter *painter, const QRectF &);
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
-
 private:
-    void init_scene();
-    void updateViews(const QModelIndex &parentIndex = QModelIndex(), IMaskView *parentView = 0);
     void updateProxyWidget(const QModelIndex &parentIndex);
+    void updateViews(const QModelIndex &parentIndex = QModelIndex(), IMaskView *parentView = 0);
+    IMaskView* addViewForItem(ParameterizedItem *item);
     void deleteViews(const QModelIndex & itemIndex);
     void removeItemViewFromScene(ParameterizedItem *item);
 
@@ -88,13 +84,11 @@ private:
     bool isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForLineDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForMaskAllDrawing(QGraphicsSceneMouseEvent *event);
-    bool isAreaContains(QGraphicsSceneMouseEvent *event, DesignerHelper::EWidgetTypes widgetType);
-
+    bool isAreaContains(QGraphicsSceneMouseEvent *event, MaskEditorHelper::EViewTypes viewType);
     bool isDrawingInProgress() const;
     void setDrawingInProgress(bool value);
-    void makeViewAtMousePosSelected(QGraphicsSceneMouseEvent *event);
 
-    IMaskView* addViewForItem(ParameterizedItem *item);
+    void makeViewAtMousePosSelected(QGraphicsSceneMouseEvent *event);
 
     void processRectangleItem(QGraphicsSceneMouseEvent *event);
     void processEllipseItem(QGraphicsSceneMouseEvent *event);

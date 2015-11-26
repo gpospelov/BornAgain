@@ -25,7 +25,7 @@ class BA_CORE_API_ MaskAllView : public IMaskView
     Q_OBJECT
 
 public:
-    int type() const { return DesignerHelper::MASKALL; }
+    int type() const { return MaskEditorHelper::MASKALL; }
 
     MaskAllView();
 

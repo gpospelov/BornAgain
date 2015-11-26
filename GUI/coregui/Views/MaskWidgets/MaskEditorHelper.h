@@ -17,6 +17,7 @@
 #define MASKEDITORHELPER_H
 
 #include "WinDllMacros.h"
+#include <QGraphicsItem>
 
 class QBrush;
 class QPen;
@@ -28,11 +29,23 @@ class QPointF;
 class BA_CORE_API_ MaskEditorHelper
 {
 public:
+    enum EViewTypes {
+        IMASKVIEW = QGraphicsItem::UserType+1, // = 65537
+        RECTANGLE,
+        SIZEHANDLE,
+        POLYGON,
+        POLYGONPOINT,
+        VERTICALLINE,
+        HORIZONTALLINE,
+        ELLIPSE,
+        MASKALL,
+        MASKGRAPHICSPROXY
+    };
+
     static QBrush getSelectionMarkerBrush();
     static QPen getSelectionMarkerPen();
     static QBrush getMaskBrush(bool mask_value);
     static QPen getMaskPen(bool mask_value);
-
     static QRectF getMarkerRectangle(const QPointF &pos);
 };
 

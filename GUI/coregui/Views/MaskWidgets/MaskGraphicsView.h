@@ -41,10 +41,8 @@ signals:
 protected:
     void wheelEvent(QWheelEvent* event);
     void resizeEvent(QResizeEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
-
 
 private:
     bool isControlButtonIsPressed(QWheelEvent *event);
@@ -54,9 +52,7 @@ private:
     void decreazeZoomValue();
     void increazeZoomValue();
 
-
     double m_current_zoom_value;
-//    MaskGraphicsProxy *m_colorMapProxy;
 };
 
 

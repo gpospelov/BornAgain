@@ -31,9 +31,7 @@ public:
     void setMaskValue(MaskEditorFlags::MaskValue value);
 
     bool isSelectionMode() const;
-    //! returns true if current activity is pan/zoom
     bool isInZoomMode() const;
-
     bool isRectangleMode() const;
     bool isEllipseMode() const;
     bool isPolygonMode() const;

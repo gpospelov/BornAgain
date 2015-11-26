@@ -32,8 +32,6 @@ MaskGraphicsProxy::MaskGraphicsProxy()
 MaskGraphicsProxy::~MaskGraphicsProxy()
 {
     // no need to delete m_colorMap, base QGraphicsProxyWidget will take care about it
-
-    qDebug() << "MaskGraphicsProxy::~MaskGraphicsProxy()";
     if(m_sceneAdaptor) {
         m_sceneAdaptor->setColorMapPlot(0);
     }
@@ -88,15 +86,11 @@ void MaskGraphicsProxy::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void MaskGraphicsProxy::wheelEvent(QGraphicsSceneWheelEvent *event)
 {
     if(!m_send_signals_to_colormap) return;
-    qDebug() << "MaskGraphicsProxy::wheelEvent()" << event->pos();
     QGraphicsProxyWidget::wheelEvent(event);
 }
-
-
 
 void MaskGraphicsProxy::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     if(!m_send_signals_to_colormap) return;
-    qDebug() << "MaskGraphicsProxy::mouseMoveEvent()" << event->pos();
     QGraphicsProxyWidget::mouseMoveEvent(event);
 }

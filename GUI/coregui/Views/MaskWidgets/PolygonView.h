@@ -26,44 +26,29 @@ class BA_CORE_API_ PolygonView : public IMaskView
     Q_OBJECT
 
 public:
-    int type() const { return DesignerHelper::POLYGON; }
+    int type() const { return MaskEditorHelper::POLYGON; }
 
     PolygonView();
 
     void addView(IMaskView *childView, int row);
-
     bool isClosedPolygon();
-
-    //! returns last added poligon point in scene coordinates
     QPointF getLastAddedPoint() const;
 
 public slots:
-//    virtual void onPropertyChange(const QString &propertyName);
-    virtual void onChangedX();
-    virtual void onChangedY();
     bool closePolygonIfNecessary();
     void onClosePolygonRequest(bool value);
-
-
-//protected slots:
-//    void onChilderChanged();
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-//    void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
-//    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
 
 private:
     void update_view();
     void update_polygon();
     void update_points();
     void setChildrenVisible(bool value);
-
     bool makePolygonClosed();
-
-//    void update_bounding_rect();
 
     QPolygonF m_polygon;
     bool m_block_on_point_update;

@@ -16,7 +16,7 @@
 #ifndef SIZEHANDLEELEMENT_H
 #define SIZEHANDLEELEMENT_H
 
-#include "DesignerHelper.h"
+#include "MaskEditorHelper.h"
 #include <QCursor>
 #include <QGraphicsObject>
 #include <QMap>
@@ -29,8 +29,7 @@ class BA_CORE_API_ SizeHandleElement : public QGraphicsObject
     Q_OBJECT
 
 public:
-    enum { TYPE = DesignerHelper::SIZEHANDLE };
-    int type() const { return TYPE; }
+    int type() const { return MaskEditorHelper::SIZEHANDLE; }
 
     enum EHandleLocation
     {
@@ -64,7 +63,6 @@ signals:
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 private:

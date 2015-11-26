@@ -28,7 +28,7 @@ class BA_CORE_API_ EllipseView : public IMaskView
     Q_OBJECT
 
 public:
-    int type() const { return DesignerHelper::ELLIPSE; }
+    int type() const { return MaskEditorHelper::ELLIPSE; }
 
     EllipseView();
 
@@ -43,8 +43,6 @@ private slots:
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
-
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 

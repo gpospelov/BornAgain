@@ -49,15 +49,6 @@ MaskEditor::MaskEditor(QWidget *parent)
     m_splitter->addWidget(m_editorCanvas);
     m_splitter->addWidget(m_editorPropertyPanel);
 
-//    QVBoxLayout *mainLayout = new QVBoxLayout(this);
-//    mainLayout->setMargin(0);
-//    mainLayout->setSpacing(0);
-//    mainLayout->addWidget(m_splitter);
-//    setLayout(mainLayout);
-
-//    QWidget *widget = new QWidget;
-//    widget->setLayout(mainLayout);
-
     addToolBar(m_toolBar);
 
     setCentralWidget(m_splitter);
@@ -69,16 +60,13 @@ MaskEditor::MaskEditor(QWidget *parent)
 
 void MaskEditor::onPropertyPanelRequest()
 {
-    qDebug() << "MaskEditor::onToolPanelRequest()";
     m_editorPropertyPanel->setPanelHidden(!m_editorPropertyPanel->isHidden());
 }
 
+//! Context menu reimplemented to supress default menu
 void MaskEditor::contextMenuEvent(QContextMenuEvent *event)
 {
     Q_UNUSED(event);
-//    QMenu menu;
-//    m_itemActions->initContextMenu(menu);
-//    menu.exec(event->globalPos());
 }
 
 void MaskEditor::init_test_model()

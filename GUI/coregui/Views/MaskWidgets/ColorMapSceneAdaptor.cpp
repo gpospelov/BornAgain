@@ -27,7 +27,6 @@ qreal ColorMapSceneAdaptor::toSceneX(qreal mask_x) const
 {
     qreal result = mask_x;
     if(m_plot) result = m_plot->xAxisCoordToPixel(mask_x);
-    //qDebug() << "ColorMapSceneAdaptor::toSceneX()  mask_x" << mask_x << "scene_x"<< result;
     return result;
 }
 
@@ -54,7 +53,6 @@ qreal ColorMapSceneAdaptor::fromSceneY(qreal scene_y) const
 
 void ColorMapSceneAdaptor::setColorMapPlot(ColorMapPlot *plot)
 {
-    qDebug() << "ColorMapSceneAdaptor::setColorMapPlot() -> installing filter";
     m_plot = plot;
     if(m_plot) {
         m_plot->installEventFilter(this);
@@ -64,13 +62,7 @@ void ColorMapSceneAdaptor::setColorMapPlot(ColorMapPlot *plot)
 bool ColorMapSceneAdaptor::eventFilter(QObject *object, QEvent *event)
 {
     Q_UNUSED(object);
-//    qDebug() << "ColorMapSceneAdaptor::eventFilter(QObject *, QEvent *)" << event->type();
     if (event->type() == QEvent::Resize || event->type() == QEvent::UpdateRequest) {
-        qDebug() << ">>>";
-        qDebug() << ">>>";
-        qDebug() << ">>>";
-        qDebug() << ">>>";
-        qDebug() << "ColorMapSceneAdaptor::eventFilter(QObject *, QEvent *)";
         m_viewport_rectangle = m_plot->getViewportRectangleInWidgetCoordinates();
         emit update_request();
     }

@@ -36,7 +36,6 @@ QMap<SizeHandleElement::EHandleLocation, Qt::CursorShape> create_cursors_map()
     return result;
 }
 
-
 QMap<SizeHandleElement::EHandleLocation, SizeHandleElement::EHandleType>
 create_location_to_type_map()
 {
@@ -111,20 +110,12 @@ void SizeHandleElement::paint(QPainter *painter, const QStyleOptionGraphicsItem 
 
 void SizeHandleElement::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << "PointElement::mousePressEvent";
     emit resize_request(true);
     QGraphicsObject::mousePressEvent(event);
 }
 
-void SizeHandleElement::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
-{
-    qDebug() << "PointElement::mouseMoveEvent";
-    QGraphicsObject::mouseMoveEvent(event);
-}
-
 void SizeHandleElement::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << "PointElement::mouseReleaseEvent";
     emit resize_request(false);
     QGraphicsObject::mouseReleaseEvent(event);
 }

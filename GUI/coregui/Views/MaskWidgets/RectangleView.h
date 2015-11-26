@@ -22,13 +22,15 @@
 
 //! This is a View of rectangular mask ( represented by RectangleItem) on GraphicsScene.
 //! Given view follows standard QGraphicsScene notations: (x,y) is top left corner.
+//!
+//! FIXME Refactor RectangleView and EllipseView to rely on common base class
 
 class BA_CORE_API_ RectangleView : public IMaskView
 {
     Q_OBJECT
 
 public:
-    int type() const { return DesignerHelper::RECTANGLE; }
+    int type() const { return MaskEditorHelper::RECTANGLE; }
 
     RectangleView();
 
@@ -44,7 +46,6 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 

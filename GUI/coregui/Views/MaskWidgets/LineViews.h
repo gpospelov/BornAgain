@@ -25,7 +25,7 @@ class BA_CORE_API_ VerticalLineView : public IMaskView
     Q_OBJECT
 
 public:
-    int type() const { return DesignerHelper::VERTICALLINE; }
+    int type() const { return MaskEditorHelper::VERTICALLINE; }
 
     VerticalLineView();
 
@@ -48,7 +48,7 @@ class BA_CORE_API_ HorizontalLineView : public IMaskView
     Q_OBJECT
 
 public:
-    int type() const { return DesignerHelper::HORIZONTALLINE; }
+    int type() const { return MaskEditorHelper::HORIZONTALLINE; }
 
     HorizontalLineView();
 

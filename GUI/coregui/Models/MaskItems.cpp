@@ -40,8 +40,8 @@ RectangleItem::RectangleItem(ParameterizedItem *parent)
     : MaskItem(Constants::RectangleMaskType, parent)
 {
     setItemName(QStringLiteral("Rectangle"));
-    registerProperty(P_POSX, 0.0);
-    registerProperty(P_POSY, 0.0);
+    registerProperty(P_POSX, 0.0, PropertyAttribute(AttLimits::limitless()));
+    registerProperty(P_POSY, 0.0, PropertyAttribute(AttLimits::limitless()));
     registerProperty(P_WIDTH, 0.0);
     registerProperty(P_HEIGHT, 0.0);
 }
@@ -63,8 +63,8 @@ PolygonPointItem::PolygonPointItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::PolygonPointType, parent)
 {
     setItemName(QStringLiteral("Point"));
-    registerProperty(P_POSX, 0.0);
-    registerProperty(P_POSY, 0.0);
+    registerProperty(P_POSX, 0.0, PropertyAttribute(AttLimits::limitless()));
+    registerProperty(P_POSY, 0.0, PropertyAttribute(AttLimits::limitless()));
 }
 
 
@@ -98,7 +98,7 @@ VerticalLineItem::VerticalLineItem(ParameterizedItem *parent)
     : MaskItem(Constants::VerticalLineMaskType, parent)
 {
     setItemName(QStringLiteral("VerticalLine"));
-    registerProperty(P_POSX, 0.0);
+    registerProperty(P_POSX, 0.0, PropertyAttribute(AttLimits::limitless()));
 }
 
 Geometry::IShape2D *VerticalLineItem::createShape() const
@@ -114,7 +114,7 @@ HorizontalLineItem::HorizontalLineItem(ParameterizedItem *parent)
     : MaskItem(Constants::HorizontalLineMaskType, parent)
 {
     setItemName(QStringLiteral("HorizontalLine"));
-    registerProperty(P_POSY, 0.0);
+    registerProperty(P_POSY, 0.0, PropertyAttribute(AttLimits::limitless()));
 }
 
 Geometry::IShape2D *HorizontalLineItem::createShape() const
@@ -135,11 +135,11 @@ EllipseItem::EllipseItem(ParameterizedItem *parent)
     : MaskItem(Constants::EllipseMaskType, parent)
 {
     setItemName(QStringLiteral("Ellipse"));
-    registerProperty(P_POSX, 0.0);
-    registerProperty(P_POSY, 0.0);
+    registerProperty(P_POSX, 0.0, PropertyAttribute(AttLimits::limitless()));
+    registerProperty(P_POSY, 0.0, PropertyAttribute(AttLimits::limitless()));
     registerProperty(P_WIDTH, 0.0);
     registerProperty(P_HEIGHT, 0.0);
-    registerProperty(P_ANGLE, 0.0);
+    registerProperty(P_ANGLE, 0.0, PropertyAttribute(AttLimits::limitless()));
 }
 
 Geometry::IShape2D *EllipseItem::createShape() const

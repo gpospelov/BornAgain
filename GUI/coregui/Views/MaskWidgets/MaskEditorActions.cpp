@@ -83,7 +83,6 @@ void MaskEditorActions::onItemContextMenuRequest(const QPoint &point)
 //! Performs switch of mask value for all selected items (true -> false, false -> true)
 void MaskEditorActions::onToggleMaskValueAction()
 {
-    qDebug() << "MaskEditorActions::onToggleMaskValueAction()";
     Q_ASSERT(m_maskModel);
     Q_ASSERT(m_selectionModel);
     foreach(QModelIndex itemIndex, m_selectionModel->selectedIndexes()) {
@@ -96,19 +95,16 @@ void MaskEditorActions::onToggleMaskValueAction()
 
 void MaskEditorActions::onBringToFrontAction()
 {
-    qDebug() << "MaskEditorActions::onBringToFrontAction()";
     changeMaskStackingOrder(MaskEditorFlags::BRING_TO_FRONT);
 }
 
 void MaskEditorActions::onSendToBackAction()
 {
-    qDebug() << "MaskEditorActions::onSendToBackAction()";
     changeMaskStackingOrder(MaskEditorFlags::SEND_TO_BACK);
 }
 
 void MaskEditorActions::onDeleteMaskAction()
 {
-    qDebug() << "MaskEditorActions::onDeleteMaskAction()";
     Q_ASSERT(m_maskModel);
     Q_ASSERT(m_selectionModel);
 

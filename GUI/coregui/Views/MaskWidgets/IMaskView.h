@@ -17,7 +17,7 @@
 #define IMASKVIEW_H
 
 #include "WinDllMacros.h"
-#include "DesignerHelper.h"
+#include "MaskEditorHelper.h"
 #include <QGraphicsObject>
 
 class ParameterizedItem;
@@ -30,8 +30,7 @@ class BA_CORE_API_ IMaskView : public QGraphicsObject
 {
     Q_OBJECT
 public:
-    enum { TYPE = DesignerHelper::IMASKVIEW };
-    virtual int type() const { return TYPE; }
+    virtual int type() const { return MaskEditorHelper::IMASKVIEW; }
 
     IMaskView();
     virtual ~IMaskView(){}

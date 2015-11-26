@@ -42,15 +42,6 @@ public:
         INTERFERENCE_FUNCTION_2D_LATTICE,
         PARTICLE,
         TRANSFORMATION,
-        IMASKVIEW,
-        RECTANGLE,
-        SIZEHANDLE,
-        POLYGON,
-        POLYGONPOINT,
-        VERTICALLINE,
-        HORIZONTALLINE,
-        ELLIPSE,
-        MASKALL
     };
 
     static int getDefaultLayerWidth() { return m_default_layer_width; }

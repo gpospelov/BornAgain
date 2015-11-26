@@ -74,11 +74,12 @@ void MaskEditorPropertyPanel::setModel(SessionModel *model, const QModelIndex &r
     m_listView->setRootIndex(root_index);
     m_listView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
-    connect(m_listView->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this,
+    connect(m_listView->selectionModel(),
+            SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
+            this,
             SLOT(onSelectionChanged(QItemSelection, QItemSelection)));
 
     m_plotPropertyEditor->setItem(m_maskModel->itemForIndex(m_rootIndex));
-
 }
 
 QItemSelectionModel *MaskEditorPropertyPanel::selectionModel()

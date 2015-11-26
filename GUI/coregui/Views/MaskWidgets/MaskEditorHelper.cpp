@@ -37,7 +37,6 @@ QBrush MaskEditorHelper::getMaskBrush(bool mask_value)
     QBrush result;
     result.setStyle(Qt::SolidPattern);
     if(mask_value) {
-//        result.setColor(QColor(224, 224, 224));
         result.setColor(QColor(209, 109, 97)); // deep red
     } else {
         result.setColor(QColor(0, 213, 106)); // deep green

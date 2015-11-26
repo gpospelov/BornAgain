@@ -32,5 +32,4 @@ public:
                                      ISceneAdaptor *adaptor = 0);
 };
 
-
 #endif

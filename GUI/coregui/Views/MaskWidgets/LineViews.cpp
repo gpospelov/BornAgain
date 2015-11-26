@@ -51,15 +51,12 @@ void VerticalLineView::onPropertyChange(const QString &propertyName)
     }
 }
 
-
 void VerticalLineView::update_view()
 {
     QRectF plot_scene_rectangle = m_adaptor->getViewportRectangle();
 
     setX(toSceneX(VerticalLineItem::P_POSX));
     setY(plot_scene_rectangle.top());
-
-    qDebug() << "VerticalLineView::update_view()" << plot_scene_rectangle;
 
     m_bounding_rect = QRectF(-mask_width/2., 0.0, mask_width, plot_scene_rectangle.height());
     update();
@@ -73,19 +70,17 @@ void VerticalLineView::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
-    painter->drawRect(QRectF(-mask_visible_width/2., 0.0, mask_visible_width, m_bounding_rect.height()));
+    painter->drawRect(QRectF(-mask_visible_width/2., 0.0, mask_visible_width,
+                             m_bounding_rect.height()));
 
     if(isSelected()) {
         QPen pen;
-//        pen.setColor(Qt::darkGray);
         pen.setStyle(Qt::DashLine);
         painter->setPen(pen);
         painter->setBrush(Qt::NoBrush);
-        painter->drawRect(QRectF(-mask_visible_width/2., 0.0, mask_visible_width, m_bounding_rect.height()));
+        painter->drawRect(QRectF(-mask_visible_width/2., 0.0, mask_visible_width,
+                                 m_bounding_rect.height()));
     }
-
-    //painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
-
 }
 
 //! Allows item movement along x, prevent movement along y
@@ -93,19 +88,9 @@ QVariant VerticalLineView::itemChange(QGraphicsItem::GraphicsItemChange change, 
 {
     if (change == ItemPositionChange && scene()) {
           QPointF newPos = value.toPointF();
-          qDebug() << "VerticalLineView::itemChange" << newPos;
           newPos.setY(y());
-          qDebug() << "     " << newPos;
           return newPos;
       }
-//    else if(change == QGraphicsItem::ItemSelectedHasChanged) {
-//        if(this->isSelected()) {
-//            setCursor(Qt::SizeHorCursor);
-//        } else {
-//            setCursor(Qt::SizeAllCursor);
-//        }
-//    }
-
     return QGraphicsItem::itemChange(change, value);
 }
 
@@ -135,17 +120,12 @@ void HorizontalLineView::onPropertyChange(const QString &propertyName)
     }
 }
 
-
 void HorizontalLineView::update_view()
 {
     QRectF plot_scene_rectangle = m_adaptor->getViewportRectangle();
 
-//    setX(toSceneX(VerticalLineItem::P_POSX));
-//    setY(plot_scene_rectangle.top());
     setX(plot_scene_rectangle.left());
     setY(toSceneY(HorizontalLineItem::P_POSY));
-
-    qDebug() << "HorizontalLineView::update_view()" << plot_scene_rectangle;
 
     m_bounding_rect = QRectF(0.0, -mask_width/2., plot_scene_rectangle.width(), mask_width);
     update();
@@ -159,20 +139,17 @@ void HorizontalLineView::paint(QPainter *painter, const QStyleOptionGraphicsItem
     bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
-//    painter->drawRect(QRectF(-mask_visible_width/2., 0.0, mask_visible_width, m_bounding_rect.height()));
-    painter->drawRect(QRectF( 0.0, -mask_visible_width/2., m_bounding_rect.width(), mask_visible_width));
+    painter->drawRect(QRectF( 0.0, -mask_visible_width/2., m_bounding_rect.width(),
+                              mask_visible_width));
 
     if(isSelected()) {
         QPen pen;
-//        pen.setColor(Qt::darkGray);
         pen.setStyle(Qt::DashLine);
         painter->setPen(pen);
         painter->setBrush(Qt::NoBrush);
-        painter->drawRect(QRectF(0.0, -mask_visible_width/2., m_bounding_rect.width(), mask_visible_width));
+        painter->drawRect(QRectF(0.0, -mask_visible_width/2., m_bounding_rect.width(),
+                                 mask_visible_width));
     }
-
-    //painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
-
 }
 
 //! Allows item movement along y, prevent movement along x
@@ -180,18 +157,8 @@ QVariant HorizontalLineView::itemChange(QGraphicsItem::GraphicsItemChange change
 {
     if (change == ItemPositionChange && scene()) {
           QPointF newPos = value.toPointF();
-          qDebug() << "HorizontalLineView::itemChange" << newPos;
           newPos.setX(x());
-          qDebug() << "     " << newPos;
           return newPos;
       }
-//    else if(change == QGraphicsItem::ItemSelectedHasChanged) {
-//        if(this->isSelected()) {
-//            setCursor(Qt::SizeVerCursor);
-//        } else {
-//            setCursor(Qt::SizeAllCursor);
-//        }
-//    }
-
     return QGraphicsItem::itemChange(change, value);
 }

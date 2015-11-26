@@ -162,14 +162,3 @@ void IMaskView::onPropertyChange(const QString &propertyName)
     Q_UNUSED(propertyName);
     emit propertyChanged();
 }
-
-//! sets clip region to painter to prevent drawing outside of ColorMap viewport
-void IMaskView::clipPainter(QPainter *painter)
-{
-    Q_ASSERT(m_adaptor);
-    QPolygonF clip_polygon = mapFromScene(m_adaptor->getViewportRectangle());
-    painter->setClipRegion(QRegion(clip_polygon.toPolygon()));
-}
-
-
-

@@ -40,15 +40,6 @@ EllipseView::EllipseView()
     create_size_handle_elements();
 }
 
-void EllipseView::setSceneAdaptor(const ISceneAdaptor *adaptor)
-{
-    IMaskView::setSceneAdaptor(adaptor);
-    for(QMap<SizeHandleElement::EHandleLocation, SizeHandleElement *>::iterator
-        it = m_resize_handles.begin(); it!= m_resize_handles.end(); ++it) {
-        it.value()->setSceneAdaptor(m_adaptor);
-    }
-}
-
 void EllipseView::onChangedX()
 {
     qDebug() << "EllipseView::onChangedX()";
@@ -134,8 +125,6 @@ void EllipseView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
 
     painter->setRenderHints(QPainter::Antialiasing);
     prepareGeometryChange();
-
-//    clipPainter(painter);
 
     bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));

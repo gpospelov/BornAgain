@@ -17,6 +17,7 @@
 #define MASKGRAPHICSSCENE_H
 
 #include "MaskDrawingContext.h"
+#include "DesignerHelper.h"
 #include <QGraphicsScene>
 #include <QModelIndex>
 #include <QMap>
@@ -85,7 +86,7 @@ private:
     bool isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForLineDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForMaskAllDrawing(QGraphicsSceneMouseEvent *event);
-    bool isAreaContainsSizeHandles(QGraphicsSceneMouseEvent *event);
+    bool isAreaContains(QGraphicsSceneMouseEvent *event, DesignerHelper::EWidgetTypes widgetType);
 
     bool isDrawingInProgress() const;
     void setDrawingInProgress(bool value);

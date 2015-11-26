@@ -40,16 +40,6 @@ RectangleView::RectangleView()
     create_size_handle_elements();
 }
 
-void RectangleView::setSceneAdaptor(const ISceneAdaptor *adaptor)
-{
-    IMaskView::setSceneAdaptor(adaptor);
-    for(QMap<SizeHandleElement::EHandleLocation, SizeHandleElement *>::iterator
-        it = m_resize_handles.begin(); it!= m_resize_handles.end(); ++it) {
-        it.value()->setSceneAdaptor(m_adaptor);
-    }
-
-}
-
 void RectangleView::onChangedX()
 {
     qDebug() << "RectangleView::onChangedX()";
@@ -80,20 +70,6 @@ void RectangleView::onPropertyChange(const QString &propertyName)
     else if(propertyName == RectangleItem::P_POSY) {
         setY(toSceneY(RectangleItem::P_POSY));
     }
-//    else if(propertyName == RectangleItem::P_ANGLE) {
-//        qDebug() << "   ";
-//        qDebug() << "   ";
-
-//        QTransform transform;
-//        QPointF center = m_bounding_rect.center();
-//        qDebug() << "translating" << center << par(RectangleItem::P_ANGLE);
-//        transform.translate(center.x(), center.y());
-//        transform.rotate(par(RectangleItem::P_ANGLE));
-//        transform.translate(-center.x(), -center.y());
-//        setTransform(transform);
-//        update();
-//    }
-
 }
 
 //! triggered by SizeHandleElement
@@ -116,23 +92,13 @@ void RectangleView::onSizeHandleElementRequest(bool going_to_resize)
 
 void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-//    qDebug() << "RectangleView::paint" << getParameterizedItem() << m_adaptor->getViewportRectangle();
-
-//    QPolygonF clip_polygon = mapFromScene(m_adaptor->getViewportRectangle());
-//    painter->setClipRegion(QRegion(clip_polygon.toPolygon()));
-
     painter->setRenderHints(QPainter::Antialiasing);
     prepareGeometryChange();
-
-//    clipPainter(painter);
 
     bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
-//    painter->drawRect(QRectF(0.0, 0.0, width(), height()));
     painter->drawRect(m_mask_rect);
-
-
 }
 
 //! Track if item selected/deselected and show/hide size handles

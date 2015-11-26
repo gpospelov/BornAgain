@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "ClipView.h"
+#include "IntensityDataView.h"
 #include "ISceneAdaptor.h"
 #include <QPainter>
 #include <QBrush>
@@ -21,38 +21,40 @@
 #include <QDebug>
 
 
-ClipView::ClipView()
+IntensityDataView::IntensityDataView()
 {
+    // the key flag to not to draw children going outside ot given shape
     setFlag(QGraphicsItem::ItemClipsChildrenToShape, true);
 }
 
-void ClipView::update_view()
+void IntensityDataView::update_view()
 {
     m_bounding_rect = m_adaptor->getViewportRectangle();
     update();
     qDebug() << "AAA" << childItems();
 }
 
-void ClipView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void IntensityDataView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setRenderHints(QPainter::Antialiasing);
     prepareGeometryChange();
 
-//    clipPainter(painter);
+//    QPolygonF clip_polygon = mapFromScene(m_adaptor->getViewportRectangle());
+//    painter->setClipRegion(QRegion(clip_polygon.toPolygon()));
 
 
-    QColor color(250, 250, 240, 150);
-    painter->setBrush(color);
-//    painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
-    painter->drawRect(m_bounding_rect);
+//    QColor color(250, 250, 240, 150);
+//    painter->setBrush(color);
+////    painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
+//    painter->drawRect(m_bounding_rect);
 
-    if(isSelected()) {
-        QPen pen;
-        pen.setStyle(Qt::DashLine);
-        painter->setPen(pen);
-        painter->setBrush(Qt::NoBrush);
-        painter->drawRect(m_bounding_rect);
-    }
+//    if(isSelected()) {
+//        QPen pen;
+//        pen.setStyle(Qt::DashLine);
+//        painter->setPen(pen);
+//        painter->setBrush(Qt::NoBrush);
+//        painter->drawRect(m_bounding_rect);
+//    }
 
 
 }

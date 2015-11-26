@@ -41,7 +41,6 @@ void MaskAllView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
 
     QColor color(250, 250, 240, 150);
     painter->setBrush(color);
-//    painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
     painter->drawRect(m_bounding_rect);
 
     if(isSelected()) {
@@ -51,6 +50,4 @@ void MaskAllView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
         painter->setBrush(Qt::NoBrush);
         painter->drawRect(m_bounding_rect);
     }
-
-
 }

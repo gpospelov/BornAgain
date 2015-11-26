@@ -493,9 +493,8 @@ bool MaskGraphicsScene::isValidForRectangleDrawing(QGraphicsSceneMouseEvent *eve
 {
     if(isDrawingInProgress()) return false;
     if(!isValidMouseClick(event)) return false;
-//    if(!(event->buttons() & Qt::LeftButton)) return false;
     if(!m_context.isRectangleMode()) return false;
-    if(isAreaContainsSizeHandles(event)) return false;
+    if(isAreaContains(event, DesignerHelper::SIZEHANDLE)) return false;
     return true;
 }
 
@@ -504,7 +503,7 @@ bool MaskGraphicsScene::isValidForEllipseDrawing(QGraphicsSceneMouseEvent *event
     if(isDrawingInProgress()) return false;
     if(!isValidMouseClick(event)) return false;
     if(!m_context.isEllipseMode()) return false;
-    if(isAreaContainsSizeHandles(event)) return false;
+    if(isAreaContains(event, DesignerHelper::SIZEHANDLE)) return false;
     return true;
 }
 
@@ -515,7 +514,7 @@ bool MaskGraphicsScene::isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event
     if(!isValidMouseClick(event)) return false;
     if(!m_context.isPolygonMode()) return false;
     if(!isDrawingInProgress()) {
-        if(isAreaContainsSizeHandles(event)) return false;
+        if(isAreaContains(event, DesignerHelper::POLYGONPOINT)) return false;
     }
     return true;
 }
@@ -546,11 +545,12 @@ bool MaskGraphicsScene::isValidForMaskAllDrawing(QGraphicsSceneMouseEvent *event
 }
 
 //! return true if area beneath the mouse contains size handles
-bool MaskGraphicsScene::isAreaContainsSizeHandles(QGraphicsSceneMouseEvent *event)
+bool MaskGraphicsScene::isAreaContains(QGraphicsSceneMouseEvent *event,
+                                       DesignerHelper::EWidgetTypes widgetType)
 {
     QList<QGraphicsItem *> items_beneath = this->items(event->scenePos());
     foreach(QGraphicsItem *graphicsItem, items_beneath) {
-        if(graphicsItem->parentItem()) return true;
+        if(graphicsItem->type() == widgetType) return true;
     }
     return false;
 }

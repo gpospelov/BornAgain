@@ -23,7 +23,7 @@
 #include "LineViews.h"
 #include "EllipseView.h"
 #include "MaskAllView.h"
-#include "ClipView.h"
+#include "IntensityDataView.h"
 #include "ParameterizedItem.h"
 
 IMaskView *MaskViewFactory::createMaskView(ParameterizedItem *item,
@@ -60,7 +60,7 @@ IMaskView *MaskViewFactory::createMaskView(ParameterizedItem *item,
     }
 
     else if(model_type == Constants::IntensityDataType) {
-        result = new ClipView();
+        result = new IntensityDataView();
     }
 
     else {

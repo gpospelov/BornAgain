@@ -68,8 +68,6 @@ public slots:
     virtual void onPropertyChange(const QString &propertyName);
 
 protected:
-    void clipPainter(QPainter *painter);
-
     ParameterizedItem *m_item;
     const ISceneAdaptor *m_adaptor;
     QRectF m_bounding_rect;

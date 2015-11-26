@@ -24,8 +24,6 @@ namespace BornAgain
     extern const char* ALPHA_AXIS_NAME;
     extern const char* U_AXIS_NAME;
     extern const char* V_AXIS_NAME;
-    extern const size_t PHI_AXIS_INDEX;
-    extern const size_t ALPHA_AXIS_INDEX;
     extern const size_t X_AXIS_INDEX;
     extern const size_t Y_AXIS_INDEX;
 

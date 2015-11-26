@@ -41,22 +41,13 @@ public:
 
     virtual ~IDetector2D() {}
 
-    void addAxis(const IAxis &axis)
-    {
-        m_axes.push_back(axis.clone());
-    }
+    void addAxis(const IAxis &axis);
 
     const IAxis &getAxis(size_t index) const;
 
-    size_t getDimension() const
-    {
-        return m_axes.size();
-    }
+    size_t getDimension() const;
 
-    void clear()
-    {
-        m_axes.clear();
-    }
+    void clear();
 
     //! Sets detector parameters using axes of output data
     void matchDetectorAxes(const OutputData<double> &output_data);
@@ -69,20 +60,12 @@ public:
     void setDetectorAxes(const IAxis &axis0, const IAxis &axis1);
 
     //! Sets the detector resolution
-    void setDetectorResolution(IDetectorResolution *p_detector_resolution)
-    {
-        if (mP_detector_resolution.get()!=p_detector_resolution) {
-            mP_detector_resolution.reset(p_detector_resolution);
-        }
-    }
+    void setDetectorResolution(IDetectorResolution *p_detector_resolution);
 
     //! Applies the detector resolution to the given intensity maps
     void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
 
-    const IDetectorResolution *getDetectorResolutionFunction() const
-    {
-        return mP_detector_resolution.get();
-    }
+    const IDetectorResolution *getDetectorResolutionFunction() const;
 
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t &direction, double efficiency,
@@ -90,10 +73,7 @@ public:
 
 #ifndef GCCXML_SKIP_THIS
     //! Gets the polarization density matrix (in spin basis along z-axis)
-    Eigen::Matrix2cd getAnalyzerOperator() const
-    {
-        return m_analyzer_operator;
-    }
+    Eigen::Matrix2cd getAnalyzerOperator() const;
 #endif
 
     //! Adds parameters from local pool to external pool and call recursion over direct children.
@@ -172,5 +152,39 @@ private:
                                                double total_transmission = 1.0) const;
 #endif
 };
+
+inline void IDetector2D::addAxis(const IAxis &axis)
+{
+    m_axes.push_back(axis.clone());
+}
+
+inline size_t IDetector2D::getDimension() const
+{
+    return m_axes.size();
+}
+
+inline void IDetector2D::clear()
+{
+    m_axes.clear();
+}
+
+inline void IDetector2D::setDetectorResolution(IDetectorResolution *p_detector_resolution)
+{
+    if (mP_detector_resolution.get()!=p_detector_resolution) {
+        mP_detector_resolution.reset(p_detector_resolution);
+    }
+}
+
+inline const IDetectorResolution *IDetector2D::getDetectorResolutionFunction() const
+{
+    return mP_detector_resolution.get();
+}
+
+#ifndef GCCXML_SKIP_THIS
+inline Eigen::Matrix2cd IDetector2D::getAnalyzerOperator() const
+{
+    return m_analyzer_operator;
+}
+#endif
 
 #endif /* IDETECTOR2D_H_ */

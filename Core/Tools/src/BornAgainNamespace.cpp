@@ -19,8 +19,6 @@ const char *BornAgain::PHI_AXIS_NAME = "phi_f";
 const char *BornAgain::ALPHA_AXIS_NAME = "alpha_f";
 const char *BornAgain::U_AXIS_NAME = "u";
 const char *BornAgain::V_AXIS_NAME = "v";
-const size_t BornAgain::PHI_AXIS_INDEX = 0;
-const size_t BornAgain::ALPHA_AXIS_INDEX = 1;
 const size_t BornAgain::X_AXIS_INDEX = 0;
 const size_t BornAgain::Y_AXIS_INDEX = 1;
 

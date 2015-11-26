@@ -28,10 +28,10 @@ class BA_CORE_API_ FormFactorWeighted : public IFormFactor
 public:
     FormFactorWeighted();
     virtual ~FormFactorWeighted();
+
     virtual FormFactorWeighted *clone() const;
 
-    //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     void addFormFactor(const IFormFactor& form_factor, double weight=1.0);
 

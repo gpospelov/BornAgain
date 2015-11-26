@@ -37,7 +37,7 @@ public:
 
     virtual InterferenceFunction1DLattice *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     void setProbabilityDistribution(const IFTDistribution1D& pdf);
 

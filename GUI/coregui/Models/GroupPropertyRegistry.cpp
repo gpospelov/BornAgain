@@ -62,7 +62,7 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     result[Constants::LayerRoughnessGroup] = roughnesses;
 
     std::map<QString, QString> detectors;
-    detectors[Constants::PhiAlphaDetectorType] = "[Phi, Alpha] plane";
+    detectors[Constants::SphericalDetectorType] = "[Phi, Alpha] plane";
     result[Constants::DetectorGroup] = detectors;
 
     std::map<QString, QString> distributions;

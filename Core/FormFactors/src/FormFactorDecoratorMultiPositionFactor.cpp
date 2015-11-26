@@ -14,17 +14,23 @@
 // ************************************************************************** //
 
 #include "FormFactorDecoratorMultiPositionFactor.h"
+#include "BornAgainNamespace.h"
 
 FormFactorDecoratorMultiPositionFactor::FormFactorDecoratorMultiPositionFactor(
     const IFormFactor &form_factor, std::vector<kvector_t> positions)
     : IFormFactorDecorator(form_factor), m_positions(positions)
 {
-    setName("FormFactorDecoratorMultiPositionFactor");
+    setName(BornAgain::FormFactorDecoratorMultiPositionFactor);
 }
 
 FormFactorDecoratorMultiPositionFactor *FormFactorDecoratorMultiPositionFactor::clone() const
 {
     return new FormFactorDecoratorMultiPositionFactor(*mp_form_factor, m_positions);
+}
+
+void FormFactorDecoratorMultiPositionFactor::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const WavevectorInfo& wavevectors) const

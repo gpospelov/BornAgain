@@ -14,16 +14,18 @@
 // ************************************************************************** //
 
 #include "FormFactorHemiEllipsoid.h"
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
-#include <cmath>
 #include "MemberFunctionIntegrator.h"
 #include "MemberComplexFunctionIntegrator.h"
+
+#include <cmath>
 
 FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(
     double radius_a, double radius_b, double height)
 {
-    setName("FormFactorHemiEllipsoid");
+    setName(BornAgain::FFHemiEllipsoidType);
     m_radius_a = radius_a;
     m_radius_b  = radius_b;
     m_height = height;

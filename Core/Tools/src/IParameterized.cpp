@@ -84,3 +84,24 @@ void IParameterized::print(std::ostream& ostr) const
 {
     ostr << "IParameterized:" << getName() << " " << m_parameters;
 }
+
+ParameterPattern::ParameterPattern()
+    : m_pattern { }
+{
+}
+
+ParameterPattern::ParameterPattern(std::string root_object)
+    : m_pattern { "/" + root_object }
+{
+}
+
+ParameterPattern &ParameterPattern::add(std::string object_type)
+{
+    m_pattern = m_pattern + "/" + object_type;
+    return *this;
+}
+
+std::string ParameterPattern::toStdString() const
+{
+    return m_pattern;
+}

@@ -14,36 +14,32 @@
 // ************************************************************************** //
 
 #include "ParticleComposition.h"
+#include "BornAgainNamespace.h"
 #include "FormFactors.h"
 #include "Materials.h"
 #include "ParticleDistribution.h"
-#include <boost/scoped_ptr.hpp>
 
 ParticleComposition::ParticleComposition()
 {
-    setName("ParticleComposition");
-    registerPosition();
+    initialize();
 }
 
 ParticleComposition::ParticleComposition(const IParticle& particle)
 {
-    setName("ParticleComposition");
-    registerPosition();
+    initialize();
     addParticle( particle, kvector_t(0.0, 0.0, 0.0) );
 }
 
 ParticleComposition::ParticleComposition(const IParticle &particle, kvector_t position)
 {
-    setName("ParticleComposition");
-    registerPosition();
+    initialize();
     addParticle(particle, position);
 }
 
 ParticleComposition::ParticleComposition(const IParticle& particle,
         std::vector<kvector_t> positions)
 {
-    setName("ParticleComposition");
-    registerPosition();
+    initialize();
     addParticles(particle, positions);
 }
 
@@ -75,7 +71,6 @@ ParticleComposition* ParticleComposition::cloneInvertB() const
     for (size_t index=0; index<m_particles.size(); ++index) {
         p_new->addParticlePointer(m_particles[index]->cloneInvertB());
     }
-    p_new->setName(getName() + "_inv");
 
     if(getAmbientMaterial()) {
         p_new->setAmbientMaterial(*Materials::createInvertedMaterial(getAmbientMaterial()));
@@ -86,6 +81,11 @@ ParticleComposition* ParticleComposition::cloneInvertB() const
     p_new->setPosition(m_position);
 
     return p_new;
+}
+
+void ParticleComposition::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 void ParticleComposition::addParticle(const IParticle &particle)
@@ -147,6 +147,28 @@ ParticleComposition::createTransformedFormFactor(complex_t wavevector_scattering
     return p_result;
 }
 
+size_t ParticleComposition::getNbrParticles() const
+{
+    return m_particles.size();
+}
+
+const IParticle *ParticleComposition::getParticle(size_t index) const
+{
+    return m_particles[check_index(index)];
+}
+
+kvector_t ParticleComposition::getParticlePosition(size_t index) const
+{
+    return m_particles[check_index(index)]->getPosition();
+}
+
+size_t ParticleComposition::check_index(size_t index) const
+{
+    return index < m_particles.size() ? index : throw OutOfBoundsException(
+                                            "ParticleComposition::check_index()"
+                                                    "-> Index is out of bounds");
+}
+
 void ParticleComposition::checkParticleType(const IParticle &p_particle)
 {
     const ParticleDistribution *p_distr = dynamic_cast<const ParticleDistribution*>(&p_particle);
@@ -160,4 +182,10 @@ void ParticleComposition::addParticlePointer(IParticle* p_particle)
 {
     registerChild(p_particle);
     m_particles.push_back(p_particle);
+}
+
+void ParticleComposition::initialize()
+{
+    setName(BornAgain::ParticleCompositionType);
+    registerPosition();
 }

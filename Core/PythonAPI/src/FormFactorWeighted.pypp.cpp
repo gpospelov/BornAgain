@@ -301,8 +301,7 @@ void register_FormFactorWeighted_class(){
             FormFactorWeighted_exposer.def( 
                 "addFormFactor"
                 , addFormFactor_function_type( &::FormFactorWeighted::addFormFactor )
-                , ( bp::arg("form_factor"), bp::arg("weight")=1.0e+0 )
-                , "calls the ISampleVisitor's visit method." );
+                , ( bp::arg("form_factor"), bp::arg("weight")=1.0e+0 ) );
         
         }
         { //::FormFactorWeighted::clone

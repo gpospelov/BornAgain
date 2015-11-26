@@ -33,11 +33,11 @@ public:
 
     FormFactorTruncatedSpheroid(double radius, double height, double height_flattening);
 
-    ~FormFactorTruncatedSpheroid() {delete m_integrator;}
+    ~FormFactorTruncatedSpheroid();
 
     virtual FormFactorTruncatedSpheroid *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     virtual double getHeight() const { return m_height; }
 

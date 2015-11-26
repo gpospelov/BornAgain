@@ -14,27 +14,23 @@
 // ************************************************************************** //
 
 #include "FormFactorLorentz.h"
-
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
 
 FormFactorLorentz::FormFactorLorentz(double volume)
 {
-    setName("FormFactorLorentz");
     double R = std::pow(volume, 1.0/3.0);
     m_height = R;
     m_width = R;
-    check_initialization();
-    init_parameters();
+    initialize();
 }
 
 FormFactorLorentz::FormFactorLorentz(double width, double height)
 {
-    setName("FormFactorLorentz");
     m_width = width;
     m_height = height;
-    check_initialization();
-    init_parameters();
+    initialize();
 }
 
 bool FormFactorLorentz::check_initialization() const
@@ -56,6 +52,11 @@ FormFactorLorentz* FormFactorLorentz::clone() const
     return result;
 }
 
+void FormFactorLorentz::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
 complex_t FormFactorLorentz::evaluate_for_q(const cvector_t& q) const
 {
     static const double sigma2 = 4.0*std::pow(Units::PI, 2.0/3.0);
@@ -71,4 +72,9 @@ complex_t FormFactorLorentz::evaluate_for_q(const cvector_t& q) const
     return result;
 }
 
-
+void FormFactorLorentz::initialize()
+{
+    setName(BornAgain::FFLorentzType);
+    check_initialization();
+    init_parameters();
+}

@@ -27,15 +27,10 @@ class BA_CORE_API_ FormFactorDecoratorMultiPositionFactor : public IFormFactorDe
 public:
     FormFactorDecoratorMultiPositionFactor(const IFormFactor &form_factor,
                                            std::vector<kvector_t> positions);
-    virtual ~FormFactorDecoratorMultiPositionFactor()
-    {
-    }
+
     virtual FormFactorDecoratorMultiPositionFactor *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const
-    {
-        visitor->visit(this);
-    }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 

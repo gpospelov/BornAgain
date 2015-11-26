@@ -14,14 +14,13 @@
 // ************************************************************************** //
 
 #include "FormFactorDecoratorDebyeWaller.h"
+#include "BornAgainNamespace.h"
 
 FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor,
                                                                double dw_factor)
     : IFormFactorDecorator(form_factor), m_h_dw_factor(dw_factor), m_r_dw_factor(dw_factor)
 {
-    setName("FormFactorDecoratorDebyeWaller");
-    check_initialization();
-    init_parameters();
+    initialize();
 }
 
 FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor,
@@ -29,9 +28,7 @@ FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor
                                                                double dw_r_factor)
     : IFormFactorDecorator(form_factor), m_h_dw_factor(dw_h_factor), m_r_dw_factor(dw_r_factor)
 {
-    setName("FormFactorDecoratorDebyeWaller");
-    check_initialization();
-    init_parameters();
+    initialize();
 }
 
 FormFactorDecoratorDebyeWaller *FormFactorDecoratorDebyeWaller::clone() const
@@ -61,4 +58,11 @@ void FormFactorDecoratorDebyeWaller::init_parameters()
     clearParameterPool();
     registerParameter("hfactor", &m_h_dw_factor, AttLimits::n_positive());
     registerParameter("rfactor", &m_r_dw_factor, AttLimits::n_positive());
+}
+
+void FormFactorDecoratorDebyeWaller::initialize()
+{
+    setName(BornAgain::FormFactorDecoratorDebyeWaller);
+    check_initialization();
+    init_parameters();
 }

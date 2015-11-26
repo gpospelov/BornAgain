@@ -14,12 +14,12 @@
 // ************************************************************************** //
 
 #include "FormFactorPrism6.h"
-
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
 FormFactorPrism6::FormFactorPrism6(double radius, double height)
 {
-    setName("FormFactorPrism6");
+    setName(BornAgain::FFPrism6Type);
     m_height = height;
     m_radius = radius;
     m_root3 = std::sqrt(3.0);
@@ -44,6 +44,11 @@ FormFactorPrism6* FormFactorPrism6::clone() const
       FormFactorPrism6 *result = new FormFactorPrism6(m_radius, m_height);
       result->setName(getName());
       return result;
+}
+
+void FormFactorPrism6::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 complex_t FormFactorPrism6::evaluate_for_q(const cvector_t& q) const

@@ -14,19 +14,20 @@
 // ************************************************************************** //
 
 #include "IsGISAXSDetector.h"
+#include "BornAgainNamespace.h"
 #include "CustomBinAxis.h"
 
 
 IsGISAXSDetector::IsGISAXSDetector()
 {
-    setName("IsGISAXSDetector");
+    setName(BornAgain::IsGISAXSDetectorType);
     init_parameters();
 }
 
 IsGISAXSDetector::IsGISAXSDetector(const IsGISAXSDetector &other)
     : SphericalDetector(other)
 {
-    setName("IsGISAXSDetector");
+    setName(BornAgain::IsGISAXSDetectorType);
     init_parameters();
 }
 

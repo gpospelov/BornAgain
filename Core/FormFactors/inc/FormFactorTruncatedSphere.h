@@ -35,7 +35,7 @@ public:
 
     virtual FormFactorTruncatedSphere *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     virtual double getRadius() const { return m_radius; }
     virtual double getHeight() const { return m_height; }

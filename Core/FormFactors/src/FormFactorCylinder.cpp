@@ -14,13 +14,13 @@
 // ************************************************************************** //
 
 #include "FormFactorCylinder.h"
-
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
 
 FormFactorCylinder::FormFactorCylinder(double radius, double height)
 {
-    setName("FormFactorCylinder");
+    setName(BornAgain::FFCylinderType);
     m_radius = radius;
     m_height = height;
     check_initialization();

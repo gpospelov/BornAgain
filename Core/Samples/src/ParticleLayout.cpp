@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleLayout.h"
+#include "BornAgainNamespace.h"
 #include "InterferenceFunctionNone.h"
 #include "DecouplingApproximationStrategy.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
@@ -26,12 +27,12 @@
 
 ParticleLayout::ParticleLayout()
 {
-    setName("ParticleLayout");
+    setName(BornAgain::ParticleLayoutType);
 }
 
 ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundance)
 {
-    setName("ParticleLayout");
+    setName(BornAgain::ParticleLayoutType);
     addParticle(particle, abundance);
 }
 
@@ -75,6 +76,11 @@ ParticleLayout* ParticleLayout::cloneInvertB() const
     return p_new;
 }
 
+void ParticleLayout::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
 void ParticleLayout::addParticle(const IAbstractParticle& particle, double abundance)
 {
     addAndRegisterParticleInfo(new ParticleInfo(particle, abundance));
@@ -101,6 +107,11 @@ void ParticleLayout::addParticle(const IParticle &particle, double abundance,
         P_particle_clone->applyTranslation(position);
     }
     addAndRegisterParticleInfo(new ParticleInfo(*P_particle_clone, abundance));
+}
+
+size_t ParticleLayout::getNumberOfParticles() const
+{
+    return m_particles.size();
 }
 
 //! Returns particle info
@@ -145,9 +156,19 @@ double ParticleLayout::getAbundanceOfParticle(size_t index) const
     return m_particles[index]->getAbundance();
 }
 
+size_t ParticleLayout::getNumberOfInterferenceFunctions() const
+{
+    return m_interference_functions.size();
+}
+
+SafePointerVector<IInterferenceFunction> ParticleLayout::getInterferenceFunctions() const
+{
+    return m_interference_functions;
+}
+
 //! Adds interference functions
 void ParticleLayout::addInterferenceFunction(
-    IInterferenceFunction* p_interference_function)
+        IInterferenceFunction* p_interference_function)
 {
     addAndRegisterInterferenceFunction(p_interference_function);
 }

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorTruncatedCube.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorBox.h"
 #include "MathFunctions.h"
 
@@ -22,7 +23,7 @@ FormFactorTruncatedCube::FormFactorTruncatedCube(
     : m_length(length)
     , m_removed_length(removed_length)
 {
-    setName("FormFactorTruncatedCube");
+    setName(BornAgain::FFTruncatedCubeType);
     check_initialization();
     init_parameters();
 }
@@ -40,6 +41,11 @@ FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const
         new FormFactorTruncatedCube(m_length, m_removed_length);
     result->setName(getName());
     return result;
+}
+
+void FormFactorTruncatedCube::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 bool FormFactorTruncatedCube::check_initialization() const

@@ -33,8 +33,7 @@ GISASSimulation::GISASSimulation()
 : m_instrument()
 , m_intensity_map()
 {
-    setName("GISASSimulation");
-    init_parameters();
+    initialize();
 }
 
 GISASSimulation::GISASSimulation(const ProgramOptions *p_options)
@@ -42,8 +41,7 @@ GISASSimulation::GISASSimulation(const ProgramOptions *p_options)
 , m_instrument()
 , m_intensity_map()
 {
-    setName("GISASSimulation");
-    init_parameters();
+    initialize();
 }
 
 GISASSimulation::GISASSimulation(
@@ -52,8 +50,7 @@ GISASSimulation::GISASSimulation(
 , m_instrument()
 , m_intensity_map()
 {
-    setName("GISASSimulation");
-    init_parameters();
+    initialize();
 }
 
 GISASSimulation::GISASSimulation(
@@ -62,8 +59,7 @@ GISASSimulation::GISASSimulation(
 , m_instrument()
 , m_intensity_map()
 {
-    setName("GISASSimulation");
-    init_parameters();
+    initialize();
 }
 
 GISASSimulation *GISASSimulation::clone() const
@@ -232,8 +228,7 @@ GISASSimulation::GISASSimulation(const GISASSimulation& other)
 {
     m_intensity_map.copyFrom(other.m_intensity_map);
 
-    setName("GISASSimulation");
-    init_parameters();
+    initialize();
 }
 
 void GISASSimulation::init_parameters()
@@ -274,4 +269,10 @@ void GISASSimulation::updateIntensityMap()
         m_intensity_map.addAxis(m_instrument.getDetectorAxis(dim));
     }
     m_intensity_map.setAllTo(0.);
+}
+
+void GISASSimulation::initialize()
+{
+    setName(BornAgain::GISASSimulationType);
+    init_parameters();
 }

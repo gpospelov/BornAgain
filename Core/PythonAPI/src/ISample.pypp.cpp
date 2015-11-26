@@ -30,11 +30,11 @@ namespace bp = boost::python;
 
 struct ISample_wrapper : ISample, bp::wrapper< ISample > {
 
-    ISample_wrapper( )
-    : ISample( )
+    ISample_wrapper()
+    : ISample()
       , bp::wrapper< ISample >(){
         // null constructor
-    m_pyobj = 0;
+        m_pyobj = 0;
     }
 
     virtual void accept( ::ISampleVisitor * p_visitor ) const {
@@ -230,7 +230,7 @@ void register_ISample_class(){
 
     { //::ISample
         typedef bp::class_< ISample_wrapper, bp::bases< ICloneable, IParameterized >, std::auto_ptr< ISample_wrapper >, boost::noncopyable > ISample_exposer_t;
-        ISample_exposer_t ISample_exposer = ISample_exposer_t( "ISample", "Interface for objects related to scattering.", bp::init< >() );
+        ISample_exposer_t ISample_exposer = ISample_exposer_t( "ISample", "Interface for objects related to scattering." );
         bp::scope ISample_scope( ISample_exposer );
         { //::ISample::accept
         
@@ -250,7 +250,8 @@ void register_ISample_class(){
             ISample_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::ISample::clone) )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "Returns a clone of this ISample object." );
         
         }
         { //::ISample::cloneInvertB

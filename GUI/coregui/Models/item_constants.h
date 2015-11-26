@@ -70,7 +70,7 @@ const ModelType VectorType = "Vector";
 const ModelType LayerBasicRoughnessType = "LayerBasicRoughness";
 const ModelType LayerZeroRoughnessType = "LayerZeroRoughness";
 
-const ModelType PhiAlphaDetectorType = "PhiAlphaDetector";
+const ModelType SphericalDetectorType = "SphericalDetector";
 
 const ModelType DistributionNoneType = "DistributionNone";
 const ModelType DistributionGateType = "DistributionGate";

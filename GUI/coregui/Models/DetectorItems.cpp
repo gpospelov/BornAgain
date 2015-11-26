@@ -35,9 +35,9 @@ const QString PhiAlphaDetectorItem::P_ALPHA_AXIS = "Alpha axis";
 const QString PhiAlphaDetectorItem::P_RESOLUTION_FUNCTION = "Type";
 
 PhiAlphaDetectorItem::PhiAlphaDetectorItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::PhiAlphaDetectorType, parent)
+    : ParameterizedItem(Constants::SphericalDetectorType, parent)
 {
-    setItemName(Constants::PhiAlphaDetectorType);
+    setItemName(Constants::SphericalDetectorType);
 
     registerGroupProperty(P_PHI_AXIS, Constants::BasicAxisType);
     getSubItems()[P_PHI_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);

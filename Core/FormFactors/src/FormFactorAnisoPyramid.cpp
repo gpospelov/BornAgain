@@ -14,12 +14,13 @@
 // ************************************************************************** //
 
 #include "FormFactorAnisoPyramid.h"
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
 FormFactorAnisoPyramid::FormFactorAnisoPyramid(
     double length, double width, double height, double alpha)
 {
-    setName("FormFactorAnisoPyramid");
+    setName(BornAgain::FFAnisoPyramidType);
     m_length = length;
     m_width = width;
     m_height = height;

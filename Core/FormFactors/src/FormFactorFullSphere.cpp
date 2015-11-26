@@ -14,12 +14,13 @@
 // ************************************************************************** //
 
 #include "FormFactorFullSphere.h"
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
 FormFactorFullSphere::FormFactorFullSphere(double radius)
 : m_radius(radius)
 {
-    setName("FormFactorFullSphere");
+    setName(BornAgain::FFFullSphereType);
     check_initialization();
     init_parameters();
 }
@@ -41,6 +42,11 @@ FormFactorFullSphere* FormFactorFullSphere::clone() const
     FormFactorFullSphere *result = new FormFactorFullSphere(m_radius);
     result->setName(getName());
     return result;
+}
+
+void FormFactorFullSphere::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t& q) const

@@ -14,18 +14,20 @@
 // ************************************************************************** //
 
 #include "FormFactorRipple1.h"
+#include "BornAgainNamespace.h"
 #include "Numeric.h"
 #include "MathFunctions.h"
-#include <cmath>
 #include "MemberFunctionIntegrator.h"
 #include "MemberComplexFunctionIntegrator.h"
+
+#include <cmath>
 
 FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
     : m_width(width)
     , m_height(height)
     , m_length(length)
 {
-    setName("FormFactorRipple1");
+    setName(BornAgain::FFRipple1Type);
     check_initialization();
     init_parameters();
 
@@ -65,9 +67,12 @@ FormFactorRipple1 *FormFactorRipple1::clone() const
     return result;
 }
 
+void FormFactorRipple1::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
 
 //! Integrand for complex formfactor.
-
 complex_t FormFactorRipple1::Integrand(double Z, void* params) const
 {
     (void)params;  // to avoid unused-variable warning
@@ -77,7 +82,6 @@ complex_t FormFactorRipple1::Integrand(double Z, void* params) const
 }
 
 //! Complex formfactor.
-
 complex_t FormFactorRipple1::evaluate_for_q(const cvector_t& q) const
 {
     m_q = q;

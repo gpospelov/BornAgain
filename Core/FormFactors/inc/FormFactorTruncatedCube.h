@@ -29,10 +29,10 @@ public:
     //! @param side length of the full cube
     //! @param side length of the trirectangular tetrahedron removed from each vertex of the cube
     FormFactorTruncatedCube(double length, double removed_length);
-    ~FormFactorTruncatedCube() {}
+
     virtual FormFactorTruncatedCube *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     virtual double getLength() const { return m_length; }
     virtual void setLength(double length) { m_length = length; }

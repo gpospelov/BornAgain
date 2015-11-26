@@ -14,30 +14,23 @@
 // ************************************************************************** //
 
 #include "FormFactorGauss.h"
-
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
 
 FormFactorGauss::FormFactorGauss(double volume)
 {
-    setName("FormFactorGauss");
     m_height = std::pow(volume, 1.0/3.0);
     m_width = m_height;
-    check_initialization();
-    init_parameters();
-    m_max_ql = std::sqrt(-4.0*Units::PI*std::log(Numeric::double_epsilon)
-               / 3.0);
+    initialize();
+
 }
 
 FormFactorGauss::FormFactorGauss(double width, double height)
 {
-    setName("FormFactorGauss");
     m_width = width;
     m_height = height;
-    check_initialization();
-    init_parameters();
-    m_max_ql = std::sqrt(-4.0*Units::PI*std::log(Numeric::double_epsilon)
-               / 3.0);
+    initialize();
 }
 
 bool FormFactorGauss::check_initialization() const
@@ -76,5 +69,13 @@ complex_t FormFactorGauss::evaluate_for_q(const cvector_t& q) const
             * std::exp(-(qxr*qxr+qyr*qyr)/4.0/Units::PI);
     complex_t result = radial_part * z_part;
     return result;
+}
+
+void FormFactorGauss::initialize()
+{
+    setName(BornAgain::FFGaussType);
+    check_initialization();
+    init_parameters();
+    m_max_ql = std::sqrt(-4.0 * Units::PI * std::log(Numeric::double_epsilon) / 3.0);
 }
 

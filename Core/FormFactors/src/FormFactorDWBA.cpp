@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorDWBA.h"
+#include "BornAgainNamespace.h"
 
 #include <cmath>
 
@@ -22,7 +23,7 @@ FormFactorDWBA::FormFactorDWBA(const IFormFactor& form_factor)
     , mp_in_coeffs(0)
     , mp_out_coeffs(0)
 {
-    setName("FormFactorDWBA");
+    setName(BornAgain::FormFactorDWBAType);
 }
 
 FormFactorDWBA::~FormFactorDWBA()

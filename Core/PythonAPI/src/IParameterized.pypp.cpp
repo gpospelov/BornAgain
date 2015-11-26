@@ -148,7 +148,7 @@ void register_IParameterized_class(){
 
     { //::IParameterized
         typedef bp::class_< IParameterized_wrapper > IParameterized_exposer_t;
-        IParameterized_exposer_t IParameterized_exposer = IParameterized_exposer_t( "IParameterized", "Manage a local parameter pool, and a tree of children's pools.", bp::init< >() );
+        IParameterized_exposer_t IParameterized_exposer = IParameterized_exposer_t( "IParameterized", "Manage a local parameter pool, and a tree of child pools.", bp::init< >() );
         bp::scope IParameterized_scope( IParameterized_exposer );
         IParameterized_exposer.def( bp::init< std::string const & >(( bp::arg("name") )) );
         IParameterized_exposer.def( bp::init< IParameterized const & >(( bp::arg("other") )) );

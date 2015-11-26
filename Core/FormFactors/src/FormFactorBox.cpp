@@ -14,13 +14,14 @@
 // ************************************************************************** //
 
 #include "FormFactorBox.h"
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
 
 FormFactorBox::FormFactorBox(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height) {
 
-    setName("FormFactorBox");
+    setName(BornAgain::FFBoxType);
     check_initialization();
     init_parameters();
 }

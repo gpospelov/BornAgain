@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorCrystal.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorDecoratorPositionFactor.h"
 
 FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor,
@@ -22,7 +23,7 @@ FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &
       mp_basis_form_factor(basis_form_factor.clone()),
       mp_meso_form_factor(meso_form_factor.clone())
 {
-    setName("FormFactorCrystal");
+    setName(BornAgain::FormFactorCrystalType);
     calculateLargestReciprocalDistance();
 }
 

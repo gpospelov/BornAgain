@@ -14,13 +14,14 @@
 // ************************************************************************** //
 
 #include "ParticleInfo.h"
+#include "BornAgainNamespace.h"
 
 
 ParticleInfo::ParticleInfo(const IAbstractParticle& p_particle, double abundance)
     : mP_particle(p_particle.clone())
     , m_abundance(abundance)
 {
-    setName("ParticleInfo");
+    setName(BornAgain::ParticleInfoType);
     registerChild(mP_particle.get());
     init_parameters();
 }
@@ -35,6 +36,31 @@ ParticleInfo *ParticleInfo::cloneInvertB() const
     boost::scoped_ptr<IAbstractParticle> P_inverted_particle(
                 mP_particle->cloneInvertB());
     return new ParticleInfo(*P_inverted_particle, m_abundance);
+}
+
+void ParticleInfo::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+const IAbstractParticle *ParticleInfo::getParticle() const
+{
+    return mP_particle.get();
+}
+
+double ParticleInfo::getAbundance() const
+{
+    return m_abundance;
+}
+
+void ParticleInfo::setAbundance(double abundance)
+{
+    m_abundance = abundance;
+}
+
+void ParticleInfo::setAmbientMaterial(const IMaterial &material)
+{
+    mP_particle->setAmbientMaterial(material);
 }
 
 void ParticleInfo::init_parameters()

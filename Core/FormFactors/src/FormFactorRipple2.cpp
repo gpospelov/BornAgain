@@ -14,11 +14,13 @@
 // ************************************************************************** //
 
 #include "FormFactorRipple2.h"
+#include "BornAgainNamespace.h"
 #include "Numeric.h"
 #include "MathFunctions.h"
-#include <cmath>
 #include "MemberFunctionIntegrator.h"
 #include "MemberComplexFunctionIntegrator.h"
+
+#include <cmath>
 
 FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymetry)
     : m_width(width)
@@ -26,7 +28,7 @@ FormFactorRipple2::FormFactorRipple2(double length, double width, double height,
     , m_length(length)
     , m_d(asymetry)
 {
-    setName("FormFactorRipple2");
+    setName(BornAgain::FFRipple2Type);
     check_initialization();
     init_parameters();
 }
@@ -77,9 +79,12 @@ FormFactorRipple2 *FormFactorRipple2::clone() const
     return result;
 }
 
+void FormFactorRipple2::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
 
 //! Complex formfactor.
-
 complex_t FormFactorRipple2::evaluate_for_q(const cvector_t& q) const
 {
     m_q = q;

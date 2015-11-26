@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "SizeDistributionModelsBuilder.h"
+#include "BornAgainNamespace.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Materials.h"
@@ -23,6 +24,7 @@
 #include "Distributions.h"
 #include "ParticleDistribution.h"
 
+using namespace BornAgain;
 
 ISample *SizeDistributionDAModelBuilder::buildSample() const
 {
@@ -183,8 +185,12 @@ ISample *CylindersInSSCABuilder::buildSample() const
     Particle particle_prototype(particle_material, ff_cylinder);
 
     DistributionGaussian gauss(5.0*Units::nanometer, 1.25*Units::nanometer);
-    ParameterDistribution par_distr("/Particle/FormFactorCylinder/radius", gauss, 30, 3.0);
-    par_distr.linkParameter("/Particle/FormFactorCylinder/height");
+    ParameterPattern pattern_radius;
+    pattern_radius.add(ParticleType).add(FFCylinderType).add("radius");
+    ParameterDistribution par_distr(pattern_radius.toStdString(), gauss, 30, 3.0);
+    ParameterPattern pattern_height;
+    pattern_height.add(ParticleType).add(FFCylinderType).add("height");
+    par_distr.linkParameter(pattern_height.toStdString());
     ParticleDistribution particle_collection(particle_prototype, par_distr);
     particle_layout.addParticle(particle_collection);
 

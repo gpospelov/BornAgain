@@ -316,7 +316,7 @@ void register_FormFactorFullSphere_class(){
 
     { //::FormFactorFullSphere
         typedef bp::class_< FormFactorFullSphere_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorFullSphere_wrapper >, boost::noncopyable > FormFactorFullSphere_exposer_t;
-        FormFactorFullSphere_exposer_t FormFactorFullSphere_exposer = FormFactorFullSphere_exposer_t( "FormFactorFullSphere", bp::init< double >(( bp::arg("radius") ), "Full Sphere constructor.\n\n:Parameters:\n  - 'radius' - of Sphere\n") );
+        FormFactorFullSphere_exposer_t FormFactorFullSphere_exposer = FormFactorFullSphere_exposer_t( "FormFactorFullSphere", "The formfactor of a sphere.", bp::init< double >(( bp::arg("radius") ), "Full Sphere constructor.\n\n:Parameters:\n  - 'radius' - of Sphere\n") );
         bp::scope FormFactorFullSphere_scope( FormFactorFullSphere_exposer );
         { //::FormFactorFullSphere::clone
         

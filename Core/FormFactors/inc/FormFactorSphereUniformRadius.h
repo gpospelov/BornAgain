@@ -33,7 +33,7 @@ public:
     virtual FormFactorSphereUniformRadius *clone() const;
     virtual ~FormFactorSphereUniformRadius();
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     virtual double getHeight() const { return 2.0*m_mean; }
 

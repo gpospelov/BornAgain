@@ -14,16 +14,16 @@
 // ************************************************************************** //
 
 #include "FormFactorEllipsoidalCylinder.h"
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
-FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(double radius_a,
-                                                             double radius_b,
+FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(double radius_a, double radius_b,
                                                              double height)
 {
-    setName("FormFactorEllipsoidalCylinder");
+    setName(BornAgain::FFEllipsoidalCylinderType);
     m_height = height;
     m_radius_a = radius_a;
-    m_radius_b  = radius_b;
+    m_radius_b = radius_b;
     check_initialization();
     init_parameters();
 }
@@ -31,6 +31,11 @@ FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(double radius_a,
 FormFactorEllipsoidalCylinder* FormFactorEllipsoidalCylinder::clone() const
 {
     return new FormFactorEllipsoidalCylinder(m_radius_a, m_radius_b, m_height);
+}
+
+void FormFactorEllipsoidalCylinder::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t& q) const

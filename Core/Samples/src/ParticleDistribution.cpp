@@ -14,15 +14,15 @@
 // ************************************************************************** //
 
 #include "ParticleDistribution.h"
+#include "BornAgainNamespace.h"
 #include "ParticleInfo.h"
 
-#include <boost/scoped_ptr.hpp>
 
 ParticleDistribution::ParticleDistribution(const IParticle &prototype,
                                            const ParameterDistribution &par_distr)
     : m_par_distribution(par_distr)
 {
-    setName("ParticleDistribution");
+    setName(BornAgain::ParticleDistributionType);
     mP_particle.reset(prototype.clone());
     registerChild(mP_particle.get());
 }
@@ -40,10 +40,25 @@ ParticleDistribution *ParticleDistribution::cloneInvertB() const
                                               "cloneInvertB: should never be called");
 }
 
-void ParticleDistribution::generateParticleInfos(std::vector<const IParticle*> &particle_vector,
-                                            std::vector<double> &abundance_vector, double abundance) const
+void ParticleDistribution::accept(ISampleVisitor *visitor) const
 {
-    boost::scoped_ptr<ParameterPool> P_pool(createDistributedParameterPool());
+    visitor->visit(this);
+}
+
+void ParticleDistribution::setAmbientMaterial(const IMaterial &material)
+{
+    mP_particle->setAmbientMaterial(material);
+}
+
+const IMaterial *ParticleDistribution::getAmbientMaterial() const
+{
+    return mP_particle->getAmbientMaterial();
+}
+
+void ParticleDistribution::generateParticleInfos(std::vector<const IParticle*> &particle_vector,
+                                                 std::vector<double> &abundance_vector, double abundance) const
+{
+    std::unique_ptr<ParameterPool> P_pool(createDistributedParameterPool());
     std::string main_par_name = m_par_distribution.getMainParameterName();
     std::vector<ParameterPool::parameter_t> main_par_matches
         = P_pool->getMatchedParameters(main_par_name);
@@ -75,7 +90,7 @@ void ParticleDistribution::generateParticleInfos(std::vector<const IParticle*> &
         ParameterSample main_sample = main_par_samples[i];
         double particle_abundance = abundance * main_sample.weight;
         IParticle *p_particle_clone = mP_particle->clone();
-        boost::scoped_ptr<ParameterPool> P_new_pool(p_particle_clone->createParameterTree());
+        std::unique_ptr<ParameterPool> P_new_pool(p_particle_clone->createParameterTree());
         int changed = P_new_pool->setMatchedParametersValue(main_par_name, main_sample.value);
         if (changed != 1) {
             throw Exceptions::RuntimeErrorException(
@@ -97,4 +112,19 @@ void ParticleDistribution::generateParticleInfos(std::vector<const IParticle*> &
         particle_vector.push_back(p_particle_clone);
         abundance_vector.push_back(particle_abundance);
     }
+}
+
+ParameterDistribution ParticleDistribution::getParameterDistribution() const
+{
+    return m_par_distribution;
+}
+
+ParameterPool *ParticleDistribution::createDistributedParameterPool() const
+{
+    return mP_particle->createParameterTree();
+}
+
+const IParticle *ParticleDistribution::getParticle() const
+{
+    return mP_particle.get();
 }

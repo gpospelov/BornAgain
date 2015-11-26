@@ -2,33 +2,29 @@
 #define PARTICLEINFOTEST_H
 
 #include "ParticleInfo.h"
+#include "BornAgainNamespace.h"
 
 class ParticleInfoTest : public ::testing::Test
 {
- protected:
+protected:
     ParticleInfoTest(){}
-    virtual ~ParticleInfoTest(){}
 };
-
 
 TEST_F(ParticleInfoTest , ParticleInfoInitialState)
 {
-
     //test with default parameter
     Particle particle;
 
     ParticleInfo particleInfo(particle);
 
     EXPECT_EQ(1.0, particleInfo.getAbundance());
-    EXPECT_EQ("ParticleInfo", particleInfo.getName());
+    EXPECT_EQ(BornAgain::ParticleInfoType, particleInfo.getName());
 
     //set new parameter
     particleInfo.setAbundance(2.0);
     EXPECT_EQ(2.0, particleInfo.getAbundance());
 }
 
-
-//test parameter pool
 TEST_F(ParticleInfoTest , ParticleInfoTestPool)
 {
     Particle particle;
@@ -38,9 +34,8 @@ TEST_F(ParticleInfoTest , ParticleInfoTestPool)
     particleInfo.setParameterValue("/ParticleInfo/abundance",4.2);
 
     EXPECT_EQ(4.2, particleInfo.getAbundance());
-    EXPECT_EQ("ParticleInfo", particleInfo.getName());
+    EXPECT_EQ(BornAgain::ParticleInfoType, particleInfo.getName());
 }
-
 
 TEST_F(ParticleInfoTest , ParticleInfoInitialStateClonedParticle)
 {
@@ -53,9 +48,8 @@ TEST_F(ParticleInfoTest , ParticleInfoInitialStateClonedParticle)
     delete pClone;
 
     EXPECT_EQ(3.0, particleInfo.getAbundance());
-    EXPECT_EQ("ParticleInfo", particleInfo.getName());
+    EXPECT_EQ(BornAgain::ParticleInfoType, particleInfo.getName());
 }
-
 
 TEST_F(ParticleInfoTest , ParticleInfoClone)
 {
@@ -72,7 +66,6 @@ TEST_F(ParticleInfoTest , ParticleInfoClone)
     delete clone;
 }
 
-
 TEST_F(ParticleInfoTest , ParticleInfoCloneInvertB)
 {
     HomogeneousMaterial mat("Air",0,0);
@@ -81,10 +74,9 @@ TEST_F(ParticleInfoTest , ParticleInfoCloneInvertB)
     ParticleInfo *clone = particle_info2.cloneInvertB();
     EXPECT_EQ(clone->getAbundance(), particle_info2.getAbundance());
     EXPECT_EQ(clone->getName(), particle_info2.getName());
-    EXPECT_EQ(clone->getParticle()->getName(), particle2.getName()+"_inv");
+    EXPECT_EQ(clone->getParticle()->getName(), particle2.getName());
 
     delete clone;
 }
-
 
 #endif // PARTICLEINFOTEST_H

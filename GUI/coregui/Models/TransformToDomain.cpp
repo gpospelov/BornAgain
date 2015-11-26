@@ -315,7 +315,7 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
     auto subDetector = item.getSubItems()[DetectorItem::P_DETECTOR];
     Q_ASSERT(subDetector);
 
-    if (subDetector->modelType() == Constants::PhiAlphaDetectorType) {
+    if (subDetector->modelType() == Constants::SphericalDetectorType) {
         auto x_axis = dynamic_cast<BasicAxisItem *>(
             subDetector->getSubItems()[PhiAlphaDetectorItem::P_PHI_AXIS]);
         Q_ASSERT(x_axis);

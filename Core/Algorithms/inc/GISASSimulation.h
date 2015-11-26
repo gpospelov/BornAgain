@@ -117,7 +117,7 @@ public:
     //! that the channel will be excluded from the simulation. The mask which is added last
     //! has priority.
     //! @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse)
-    //! @mask_value The value of mask
+    //! @param mask_value The value of mask
     void addMask(const Geometry::IShape2D &shape, bool mask_value = true);
 
     //! Put the mask for all detector channels (i.e. exclude whole detector from the analysis)
@@ -145,6 +145,8 @@ protected:
     // extra components describing a GISAS experiment and its simulation:
     Instrument m_instrument;
     OutputData<double> m_intensity_map;
+private:
+    void initialize();
 };
 
 #endif /* GISASSIMULATION_H_ */

@@ -17,6 +17,7 @@
 #define FORMFACTORDECORATORFACTOR_H_
 
 #include "IFormFactorDecorator.h"
+#include "BornAgainNamespace.h"
 
 //! @class FormFactorDecoratorFactor
 //! @ingroup formfactors_internal
@@ -46,7 +47,7 @@ inline FormFactorDecoratorFactor::FormFactorDecoratorFactor(const IFormFactor &f
                                                             const complex_t &factor)
     : IFormFactorDecorator(form_factor), m_factor(factor)
 {
-    setName("FormFactorDecoratorFactor");
+    setName(BornAgain::FormFactorDecoratorFactor);
 }
 
 inline FormFactorDecoratorFactor *FormFactorDecoratorFactor::clone() const

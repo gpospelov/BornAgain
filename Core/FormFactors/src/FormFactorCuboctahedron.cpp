@@ -14,13 +14,14 @@
 // ************************************************************************** //
 
 #include "FormFactorCuboctahedron.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorPyramid.h"
 #include "MathFunctions.h"
 
 FormFactorCuboctahedron::FormFactorCuboctahedron(
     double length, double height, double height_ratio, double alpha)
 {
-    setName("FormFactorCuboctahedron");
+    setName(BornAgain::FFCuboctahedronType);
     m_height = height;
     m_length = length;
     m_height_ratio = height_ratio;

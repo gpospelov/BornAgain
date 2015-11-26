@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorDecoratorMaterial.h"
+#include "BornAgainNamespace.h"
 
 FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor &form_factor,
                                                          complex_t wavevector_scattering_factor)
@@ -21,11 +22,7 @@ FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor &form
       m_wavevector_scattering_factor(wavevector_scattering_factor), mP_material(0),
       mP_ambient_material(0)
 {
-    setName("FormFactorDecoratorMaterial");
-}
-
-FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial()
-{
+    setName(BornAgain::FormFactorDecoratorMaterial);
 }
 
 FormFactorDecoratorMaterial *FormFactorDecoratorMaterial::clone() const

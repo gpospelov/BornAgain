@@ -94,8 +94,7 @@ std::vector<ParameterPool::parameter_t> ParameterPool::getMatchedParameters(
     // loop over all parameters in the pool
     for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) {
         // (*it).first - parameter key, (*it).second - parameter itself
-        // parameters whose key match pattern is added to the FitMultiParameter
-        // container
+        // parameters whose key match pattern are added to selected_parameters
         if( Utils::String::MatchPattern( (*it).first, wildcards ) ) {
             selected_parameters.push_back((*it).second);
         }

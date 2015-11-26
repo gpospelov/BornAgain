@@ -14,10 +14,12 @@
 // ************************************************************************** //
 
 #include "FormFactorWeighted.h"
+#include "BornAgainNamespace.h"
+
 
 FormFactorWeighted::FormFactorWeighted()
 {
-    setName("FormFactorWeighted");
+    setName(BornAgain::FormFactorWeighted);
 }
 
 FormFactorWeighted::~FormFactorWeighted()
@@ -37,8 +39,13 @@ FormFactorWeighted* FormFactorWeighted::clone() const
     return result;
 }
 
+void FormFactorWeighted::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
 void FormFactorWeighted::addFormFactor(const IFormFactor& form_factor,
-        double weight)
+                                       double weight)
 {
     m_form_factors.push_back(form_factor.clone());
     m_weights.push_back(weight);

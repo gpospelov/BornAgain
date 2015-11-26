@@ -32,44 +32,25 @@ class BA_CORE_API_ ParticleInfo : public ICompositeSample
 public:
     ParticleInfo(const IAbstractParticle &p_particle, double abundance = 1.0);
 
-    virtual ~ParticleInfo()
-    {
-    }
-
     virtual ParticleInfo *clone() const;
 
     //! Returns a clone with inverted magnetic fields
     virtual ParticleInfo *cloneInvertB() const;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const
-    {
-        visitor->visit(this);
-    }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     //! Returns particle.
-    const IAbstractParticle *getParticle() const
-    {
-        return mP_particle.get();
-    }
+    const IAbstractParticle *getParticle() const;
 
     //! Returns abundance.
-    double getAbundance() const
-    {
-        return m_abundance;
-    }
+    double getAbundance() const;
 
     //! Sets abundance.
-    void setAbundance(double abundance)
-    {
-        m_abundance = abundance;
-    }
+    void setAbundance(double abundance);
 
     //! Sets the ambient material
-    void setAmbientMaterial(const IMaterial &material)
-    {
-        mP_particle->setAmbientMaterial(material);
-    }
+    void setAmbientMaterial(const IMaterial &material);
 
 protected:
     virtual void init_parameters();

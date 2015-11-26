@@ -53,6 +53,7 @@ private:
     double m_width;
     double m_height;
     double m_max_ql;
+    void initialize();
 };
 
 #endif /* FORMFACTORGAUSS_H_ */

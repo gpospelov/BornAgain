@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorTruncatedSpheroid.h"
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "MemberFunctionIntegrator.h"
@@ -21,7 +22,7 @@
 
 FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening)
 {
-    setName("FormFactorTruncatedSpheroid");
+    setName(BornAgain::FFTruncatedSpheroidType);
     m_radius = radius;
     m_height = height;
     m_height_flattening = height_flattening;
@@ -32,7 +33,12 @@ FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double h
        & FormFactorTruncatedSpheroid::Integrand;
     m_integrator =
         new MemberComplexFunctionIntegrator<FormFactorTruncatedSpheroid>(p_mf, this);
- }
+}
+
+FormFactorTruncatedSpheroid::~FormFactorTruncatedSpheroid()
+{
+    delete m_integrator;
+}
 
 bool FormFactorTruncatedSpheroid::check_initialization() const
 {
@@ -63,6 +69,11 @@ FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const
        new FormFactorTruncatedSpheroid(m_radius, m_height, m_height_flattening);
    result->setName(getName());
    return result;
+}
+
+void FormFactorTruncatedSpheroid::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 //! Integrand for complex formfactor.

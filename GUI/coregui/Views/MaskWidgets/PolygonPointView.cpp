@@ -48,6 +48,7 @@ void PolygonPointView::update_view()
 
 void PolygonPointView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
+    painter->setRenderHints(QPainter::Antialiasing);
     QBrush brush = MaskEditorHelper::getSelectionMarkerBrush();
     if(acceptHoverEvents() && m_on_hover) {
         brush.setColor(Qt::red);

@@ -101,7 +101,7 @@ bool PolygonView::isClosedPolygon()
 void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     Q_ASSERT(m_item);
-//    painter->setRenderHints(QPainter::Antialiasing);
+    painter->setRenderHints(QPainter::Antialiasing);
 
     bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));

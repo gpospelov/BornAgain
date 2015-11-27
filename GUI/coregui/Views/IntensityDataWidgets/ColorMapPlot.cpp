@@ -171,6 +171,13 @@ QRectF ColorMapPlot::getViewportRectangleInWidgetCoordinates()
                   yAxisCoordToPixel(bottom) - yAxisCoordToPixel(top));
 }
 
+//! to track move events (used when showing profile histograms and printing status string)
+void ColorMapPlot::setTrackMoveEventsFlag(bool flag)
+{
+    setMouseTracking(flag);
+    m_customPlot->setMouseTracking(flag);
+}
+
 //! sets logarithmic scale
 void ColorMapPlot::setLogz(bool logz, bool isReplot)
 {
@@ -201,9 +208,7 @@ void ColorMapPlot::resetView()
 //! saves information about mouse position and intensity data underneath
 void ColorMapPlot::onMouseMove(QMouseEvent *event)
 {
-    qDebug() << "ColorMapPlot::onMouseMove";
     m_posData.reset();
-
     QPoint point = event->pos();
     double xPos = m_customPlot->xAxis->pixelToCoord(point.x());
     double yPos = m_customPlot->yAxis->pixelToCoord(point.y());

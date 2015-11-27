@@ -46,6 +46,8 @@ IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
     setObjectName(QStringLiteral("IntensityDataPlotWidget"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
+    m_centralPlot->setTrackMoveEventsFlag(true);
+
     m_splitterTop->addWidget(m_verticalPlot);
     m_splitterTop->addWidget(m_centralPlot);
     m_splitterTop->setStyleSheet("background-color:white;");

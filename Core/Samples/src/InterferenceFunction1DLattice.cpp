@@ -16,12 +16,14 @@
 #include "InterferenceFunction1DLattice.h"
 #include "BornAgainNamespace.h"
 
+using namespace BornAgain;
+
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
     : mp_pdf(0), m_prefactor(1.0), m_na(0)
 {
     m_lattice_params.m_length = length;
     m_lattice_params.m_xi = xi;
-    setName(BornAgain::InterferenceFunction1DLatticeType);
+    setName(InterferenceFunction1DLatticeType);
     init_parameters();
 }
 
@@ -88,13 +90,13 @@ InterferenceFunction1DLattice::InterferenceFunction1DLattice(
     const Lattice1DIFParameters &lattice_params)
     : m_lattice_params(lattice_params), mp_pdf(0), m_prefactor(1.0), m_na(0)
 {
-    setName(BornAgain::InterferenceFunction1DLatticeType);
+    setName(InterferenceFunction1DLatticeType);
     init_parameters();
 }
 
 void InterferenceFunction1DLattice::init_parameters()
 {
     clearParameterPool();
-    registerParameter("length", &m_lattice_params.m_length);
-    registerParameter("xi", &m_lattice_params.m_xi);
+    registerParameter(Length, &m_lattice_params.m_length);
+    registerParameter(Xi, &m_lattice_params.m_xi);
 }

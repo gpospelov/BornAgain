@@ -16,12 +16,13 @@
 #include "ParticleInfo.h"
 #include "BornAgainNamespace.h"
 
+using namespace BornAgain;
 
 ParticleInfo::ParticleInfo(const IAbstractParticle& p_particle, double abundance)
     : mP_particle(p_particle.clone())
     , m_abundance(abundance)
 {
-    setName(BornAgain::ParticleInfoType);
+    setName(ParticleInfoType);
     registerChild(mP_particle.get());
     init_parameters();
 }
@@ -66,7 +67,7 @@ void ParticleInfo::setAmbientMaterial(const IMaterial &material)
 void ParticleInfo::init_parameters()
 {
     clearParameterPool();
-    registerParameter("abundance", &m_abundance);
+    registerParameter(Abundance, &m_abundance);
 }
 
 void ParticleInfo::print(std::ostream& ostr) const

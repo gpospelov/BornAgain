@@ -16,6 +16,7 @@
 #include "Rotations.h"
 #include "BornAgainNamespace.h"
 
+using namespace BornAgain;
 
 IRotation *IRotation::createRotation(const Geometry::Transform3D &transform)
 {
@@ -59,7 +60,7 @@ IRotation *CreateProduct(const IRotation &left, const IRotation &right)
 RotationX::RotationX(double angle)
     : m_angle(angle)
 {
-    setName(BornAgain::XRotationType);
+    setName(XRotationType);
     init_parameters();
 }
 
@@ -96,7 +97,7 @@ Geometry::Transform3D RotationX::getTransform3D() const
 void RotationX::init_parameters()
 {
     clearParameterPool();
-    registerParameter("angle", &m_angle);
+    registerParameter(Angle, &m_angle);
 }
 
 // --- RotationY --------------------------------------------------------------
@@ -104,7 +105,7 @@ void RotationX::init_parameters()
 RotationY::RotationY(double angle)
     : m_angle(angle)
 {
-    setName(BornAgain::YRotationType);
+    setName(YRotationType);
     init_parameters();
 }
 
@@ -141,7 +142,7 @@ Geometry::Transform3D RotationY::getTransform3D() const
 void RotationY::init_parameters()
 {
     clearParameterPool();
-    registerParameter("angle", &m_angle);
+    registerParameter(Angle, &m_angle);
 }
 
 // --- RotationZ --------------------------------------------------------------
@@ -149,7 +150,7 @@ void RotationY::init_parameters()
 RotationZ::RotationZ(double angle)
     : m_angle(angle)
 {
-    setName(BornAgain::ZRotationType);
+    setName(ZRotationType);
     init_parameters();
 }
 
@@ -186,7 +187,7 @@ Geometry::Transform3D RotationZ::getTransform3D() const
 void RotationZ::init_parameters()
 {
     clearParameterPool();
-    registerParameter("angle", &m_angle);
+    registerParameter(Angle, &m_angle);
 }
 
 // --- RotationEuler ----------------------------------------------------------
@@ -196,7 +197,7 @@ RotationEuler::RotationEuler(double alpha, double beta, double gamma)
     , m_beta(beta)
     , m_gamma(gamma)
 {
-    setName(BornAgain::EulerRotationType);
+    setName(EulerRotationType);
     init_parameters();
 }
 
@@ -244,7 +245,7 @@ Geometry::Transform3D RotationEuler::getTransform3D() const
 void RotationEuler::init_parameters()
 {
     clearParameterPool();
-    registerParameter("alpha", &m_alpha);
-    registerParameter("beta", &m_beta);
-    registerParameter("gamma", &m_gamma);
+    registerParameter(Alpha, &m_alpha);
+    registerParameter(Beta, &m_beta);
+    registerParameter(Gamma, &m_gamma);
 }

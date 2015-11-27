@@ -18,15 +18,15 @@ protected:
 
 TEST_F(MultiLayerTest, BasicProperty)
 {
-    MultiLayer mLayer;
+    MultiLayer multi_layer;
     //check default properties
-    EXPECT_EQ(BornAgain::MultiLayerType, mLayer.getName());
-    EXPECT_EQ(0.0, mLayer.getCrossCorrLength());
-    EXPECT_EQ(size_t(0), mLayer.getNumberOfLayers());
-    EXPECT_EQ(size_t(0), mLayer.getNumberOfInterfaces());
+    EXPECT_EQ(BornAgain::MultiLayerType, multi_layer.getName());
+    EXPECT_EQ(0.0, multi_layer.getCrossCorrLength());
+    EXPECT_EQ(size_t(0), multi_layer.getNumberOfLayers());
+    EXPECT_EQ(size_t(0), multi_layer.getNumberOfInterfaces());
     //set parameter
-    mLayer.setParameterValue("crossCorrLength", -2.54);
-    EXPECT_EQ(-2.54,mLayer.getCrossCorrLength());
+    multi_layer.setParameterValue(BornAgain::CrossCorrelationLength, -2.54);
+    EXPECT_EQ(-2.54,multi_layer.getCrossCorrLength());
 
     // adding layers
     HomogeneousMaterial air ("air",0,1.0);
@@ -37,15 +37,15 @@ TEST_F(MultiLayerTest, BasicProperty)
     Layer ironLayer(iron, 20*Units::nanometer);
     Layer chromiumLayer(chromium, 40*Units::nanometer);
     Layer stoneLayer(stone, 0*Units::nanometer);
-    mLayer.addLayer(airLayer);
-    EXPECT_EQ(size_t(1), mLayer.getNumberOfLayers());
-    EXPECT_EQ(size_t(0), mLayer.getNumberOfInterfaces());
+    multi_layer.addLayer(airLayer);
+    EXPECT_EQ(size_t(1), multi_layer.getNumberOfLayers());
+    EXPECT_EQ(size_t(0), multi_layer.getNumberOfInterfaces());
 
-    mLayer.addLayer(ironLayer);
-    mLayer.addLayer(chromiumLayer);
-    mLayer.addLayer(stoneLayer);
-    EXPECT_EQ(size_t(4), mLayer.getNumberOfLayers());
-    EXPECT_EQ(size_t(3), mLayer.getNumberOfInterfaces());
+    multi_layer.addLayer(ironLayer);
+    multi_layer.addLayer(chromiumLayer);
+    multi_layer.addLayer(stoneLayer);
+    EXPECT_EQ(size_t(4), multi_layer.getNumberOfLayers());
+    EXPECT_EQ(size_t(3), multi_layer.getNumberOfInterfaces());
 }
 
 TEST_F(MultiLayerTest, LayerThicknesses)

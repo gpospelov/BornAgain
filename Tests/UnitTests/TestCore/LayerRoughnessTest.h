@@ -59,9 +59,9 @@ TEST_F(LayerRoughnessTest , LayerRoughnessPool)
     EXPECT_EQ(0.0, roughnessPool.getLatteralCorrLength());
 
     ParameterPattern pattern_sigma, pattern_hurst, pattern_corrlength;
-    pattern_sigma.add(BornAgain::LayerBasicRoughnessType).add("sigma");
-    pattern_hurst.add(BornAgain::LayerBasicRoughnessType).add("hurst");
-    pattern_corrlength.add(BornAgain::LayerBasicRoughnessType).add("corrlength");
+    pattern_sigma.add(BornAgain::LayerBasicRoughnessType).add(BornAgain::Sigma);
+    pattern_hurst.add(BornAgain::LayerBasicRoughnessType).add(BornAgain::Hurst);
+    pattern_corrlength.add(BornAgain::LayerBasicRoughnessType).add(BornAgain::CorrelationLength);
     roughnessPool.setParameterValue(pattern_sigma.toStdString(), 4.1);
     roughnessPool.setParameterValue(pattern_hurst.toStdString(), 4.2);
     roughnessPool.setParameterValue(pattern_corrlength.toStdString(), 4.3);

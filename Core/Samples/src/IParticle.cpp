@@ -18,6 +18,8 @@
 #include "FormFactorDecoratorRotation.h"
 #include "FormFactorDecoratorPositionFactor.h"
 
+using namespace BornAgain;
+
 IFormFactor *IParticle::createFormFactor(complex_t wavevector_scattering_factor) const
 {
     return createTransformedFormFactor(wavevector_scattering_factor, 0, kvector_t());
@@ -81,7 +83,7 @@ kvector_t IParticle::getComposedTranslation(const IRotation *p_rotation, kvector
 
 void IParticle::registerPosition()
 {
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
+    registerParameter(PositionX, &m_position[0]);
+    registerParameter(PositionY, &m_position[1]);
+    registerParameter(PositionZ, &m_position[2]);
 }

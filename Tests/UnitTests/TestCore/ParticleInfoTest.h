@@ -31,7 +31,9 @@ TEST_F(ParticleInfoTest , ParticleInfoTestPool)
 
     ParticleInfo particleInfo(particle);
 
-    particleInfo.setParameterValue("/ParticleInfo/abundance",4.2);
+    ParameterPattern pattern;
+    pattern.add(BornAgain::ParticleInfoType).add(BornAgain::Abundance);
+    particleInfo.setParameterValue(pattern.toStdString(), 4.2);
 
     EXPECT_EQ(4.2, particleInfo.getAbundance());
     EXPECT_EQ(BornAgain::ParticleInfoType, particleInfo.getName());
@@ -39,7 +41,6 @@ TEST_F(ParticleInfoTest , ParticleInfoTestPool)
 
 TEST_F(ParticleInfoTest , ParticleInfoInitialStateClonedParticle)
 {
-
     //test with default parameter
     Particle particle;
     Particle *pClone = particle.clone();

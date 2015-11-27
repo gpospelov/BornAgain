@@ -147,6 +147,7 @@ const std::string HeightRatio = "HeightRatio";
 const std::string HeightFlattening = "HeightFlattening";
 const std::string Intensity = "Intensity";
 const std::string Wavelength = "Wavelength";
+const std::string Angle = "Angle";
 const std::string Alpha = "Alpha";
 const std::string Beta = "Beta";
 const std::string Gamma = "Gamma";

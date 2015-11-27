@@ -27,7 +27,6 @@ protected:
     FormFactorTest(){}
 };
 
-
 //Test form factor of an anisotropic pyramid
 TEST_F(FormFactorTest, AnisoPyramid)
 {

@@ -31,6 +31,9 @@ ColorMapPlot::ColorMapPlot(QWidget *parent)
     vlayout->setSpacing(0);
     vlayout->addWidget(m_customPlot);
     setLayout(vlayout);
+    setMouseTracking(false);
+    m_customPlot->setMouseTracking(false);
+
 }
 
 //! initializes everything with new IntensityDataItem or plot it, if it was already the case
@@ -122,6 +125,8 @@ void ColorMapPlot::drawLinesOverTheMap()
 //! switches visibility of two crossed lines
 void ColorMapPlot::showLinesOverTheMap(bool isVisible)
 {
+    m_customPlot->setMouseTracking(isVisible);
+
     if (m_customPlot->graph(0) && m_customPlot->graph(1)) {
         m_customPlot->graph(0)->setVisible(isVisible);
         m_customPlot->graph(1)->setVisible(isVisible);
@@ -196,6 +201,7 @@ void ColorMapPlot::resetView()
 //! saves information about mouse position and intensity data underneath
 void ColorMapPlot::onMouseMove(QMouseEvent *event)
 {
+    qDebug() << "ColorMapPlot::onMouseMove";
     m_posData.reset();
 
     QPoint point = event->pos();

@@ -27,6 +27,8 @@ MaskGraphicsProxy::MaskGraphicsProxy()
 {
     resize(1200, 1000);
     setAcceptedMouseButtons(Qt::NoButton);
+    m_colorMap->setMouseTracking(false);
+
 }
 
 MaskGraphicsProxy::~MaskGraphicsProxy()
@@ -58,8 +60,10 @@ void MaskGraphicsProxy::setInZoomMode(bool value)
 {
     m_send_signals_to_colormap = value;
     if(value) {
+        m_colorMap->setMouseTracking(true);
         setAcceptedMouseButtons(Qt::LeftButton);
     } else {
+        m_colorMap->setMouseTracking(false);
         setAcceptedMouseButtons(Qt::NoButton);
     }
 }
@@ -91,6 +95,9 @@ void MaskGraphicsProxy::wheelEvent(QGraphicsSceneWheelEvent *event)
 
 void MaskGraphicsProxy::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
+    event->accept();
+    qDebug() << "MaskGraphicsProxy::mouseMoveEvent(QGraphicsSceneMouseEvent *event)";
     if(!m_send_signals_to_colormap) return;
+        qDebug() << "aaa";
     QGraphicsProxyWidget::mouseMoveEvent(event);
 }

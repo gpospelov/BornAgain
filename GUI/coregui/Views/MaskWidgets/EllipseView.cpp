@@ -97,9 +97,6 @@ void EllipseView::onSizeHandleElementRequest(bool going_to_resize)
 
 void EllipseView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    painter->setRenderHints(QPainter::Antialiasing);
-    prepareGeometryChange();
-
     bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
@@ -174,6 +171,7 @@ void EllipseView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void EllipseView::update_view()
 {
+    prepareGeometryChange();
     update_bounding_rect();
     update_position();
     update();

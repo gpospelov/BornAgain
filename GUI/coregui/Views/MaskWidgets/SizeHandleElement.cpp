@@ -96,9 +96,6 @@ QRectF SizeHandleElement::boundingRect() const
 
 void SizeHandleElement::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    painter->setRenderHints(QPainter::Antialiasing);
-    prepareGeometryChange();
-
     painter->setBrush(MaskEditorHelper::getSelectionMarkerBrush());
     painter->setPen(MaskEditorHelper::getSelectionMarkerPen());
     if(getHandleType() == RESIZE) {

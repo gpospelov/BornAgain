@@ -102,7 +102,6 @@ void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
 {
     Q_ASSERT(m_item);
     painter->setRenderHints(QPainter::Antialiasing);
-    prepareGeometryChange();
 
     bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
@@ -139,6 +138,7 @@ void PolygonView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void PolygonView::update_view()
 {
+    prepareGeometryChange();
     update_polygon();
     update();
 }

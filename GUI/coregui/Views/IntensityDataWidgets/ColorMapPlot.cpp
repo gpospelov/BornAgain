@@ -31,6 +31,9 @@ ColorMapPlot::ColorMapPlot(QWidget *parent)
     vlayout->setSpacing(0);
     vlayout->addWidget(m_customPlot);
     setLayout(vlayout);
+    setMouseTracking(false);
+    m_customPlot->setMouseTracking(false);
+
 }
 
 //! initializes everything with new IntensityDataItem or plot it, if it was already the case
@@ -122,6 +125,8 @@ void ColorMapPlot::drawLinesOverTheMap()
 //! switches visibility of two crossed lines
 void ColorMapPlot::showLinesOverTheMap(bool isVisible)
 {
+    m_customPlot->setMouseTracking(isVisible);
+
     if (m_customPlot->graph(0) && m_customPlot->graph(1)) {
         m_customPlot->graph(0)->setVisible(isVisible);
         m_customPlot->graph(1)->setVisible(isVisible);
@@ -166,6 +171,13 @@ QRectF ColorMapPlot::getViewportRectangleInWidgetCoordinates()
                   yAxisCoordToPixel(bottom) - yAxisCoordToPixel(top));
 }
 
+//! to track move events (used when showing profile histograms and printing status string)
+void ColorMapPlot::setTrackMoveEventsFlag(bool flag)
+{
+    setMouseTracking(flag);
+    m_customPlot->setMouseTracking(flag);
+}
+
 //! sets logarithmic scale
 void ColorMapPlot::setLogz(bool logz, bool isReplot)
 {
@@ -197,7 +209,6 @@ void ColorMapPlot::resetView()
 void ColorMapPlot::onMouseMove(QMouseEvent *event)
 {
     m_posData.reset();
-
     QPoint point = event->pos();
     double xPos = m_customPlot->xAxis->pixelToCoord(point.x());
     double yPos = m_customPlot->yAxis->pixelToCoord(point.y());

@@ -58,6 +58,8 @@ public:
     //! returns rectangle representing current axes zoom state in widget coordinates
     QRectF getViewportRectangleInWidgetCoordinates();
 
+    void setTrackMoveEventsFlag(bool flag);
+
 signals:
     void validMousMove();
 

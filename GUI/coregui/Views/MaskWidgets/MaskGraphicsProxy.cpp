@@ -91,6 +91,8 @@ void MaskGraphicsProxy::wheelEvent(QGraphicsSceneWheelEvent *event)
 
 void MaskGraphicsProxy::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
+    qDebug() << "MaskGraphicsProxy::mouseMoveEvent(QGraphicsSceneMouseEvent *event)";
     if(!m_send_signals_to_colormap) return;
+        qDebug() << "aaa";
     QGraphicsProxyWidget::mouseMoveEvent(event);
 }

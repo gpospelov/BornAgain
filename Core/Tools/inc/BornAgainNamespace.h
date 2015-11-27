@@ -16,112 +16,112 @@
 #ifndef BORNAGAINNAMESPACE_H
 #define BORNAGAINNAMESPACE_H
 
-#include <cstddef>
+#include <string>
 
 namespace BornAgain
 {
-    extern const char* PHI_AXIS_NAME;
-    extern const char* ALPHA_AXIS_NAME;
-    extern const char* U_AXIS_NAME;
-    extern const char* V_AXIS_NAME;
-    extern const size_t X_AXIS_INDEX;
-    extern const size_t Y_AXIS_INDEX;
+const std::string PHI_AXIS_NAME = "phi_f";
+const std::string ALPHA_AXIS_NAME = "alpha_f";
+const std::string U_AXIS_NAME = "u";
+const std::string V_AXIS_NAME = "v";
+const size_t X_AXIS_INDEX = 0;
+const size_t Y_AXIS_INDEX = 1;
 
-    extern const char *GISASSimulationType;
-    extern const char* OffSpecSimulationType;
+const std::string GISASSimulationType = "GISASSimulation";
+const std::string OffSpecSimulationType = "OffSpecSimulation";
 
-    extern const char* InstrumentType;
-    extern const char* DetectorType;
-    extern const char* SphericalDetectorType;
-    extern const char* RectangularDetectorType;
-    extern const char* IsGISAXSDetectorType;
-    extern const char* BeamType;
+const std::string InstrumentType = "Instrument";
+const std::string DetectorType = "Detector";
+const std::string SphericalDetectorType = "SphericalDetector";
+const std::string RectangularDetectorType = "RectangularDetector";
+const std::string IsGISAXSDetectorType = "IsGISAXSDetector";
+const std::string BeamType = "Beam";
 
-    extern const char* MultiLayerType;
-    extern const char* LayerType;
-    extern const char* LayerInterfaceType;
-    extern const char* ParticleLayoutType;
-    extern const char* ParticleType;
-    extern const char* ParticleInfoType;
-    extern const char* ParticleCoreShellType;
-    extern const char* ParticleDistributionType;
-    extern const char* ParticleCompositionType;
-    extern const char* TransformationType;
+const std::string MultiLayerType = "MultiLayer";
+const std::string LayerType = "Layer";
+const std::string LayerInterfaceType = "LayerInterface";
+const std::string ParticleLayoutType = "ParticleLayout";
+const std::string ParticleType = "Particle";
+const std::string ParticleInfoType = "ParticleInfo";
+const std::string ParticleCoreShellType = "ParticleCoreShell";
+const std::string ParticleDistributionType = "ParticleDistribution";
+const std::string ParticleCompositionType = "ParticleComposition";
+const std::string TransformationType = "Rotation";
 
-    extern const char* LayerBasicRoughnessType;
-    extern const char* LayerZeroRoughnessType;
+const std::string LayerBasicRoughnessType = "LayerBasicRoughness";
+const std::string LayerZeroRoughnessType = "LayerZeroRoughness";
 
-    extern const char* InterferenceFunctionNoneType;
-    extern const char* InterferenceFunction1DLatticeType;
-    extern const char* InterferenceFunctionRadialParaCrystalType;
-    extern const char* InterferenceFunction2DParaCrystalType;
-    extern const char* InterferenceFunction2DLatticeType;
+const std::string InterferenceFunctionNoneType = "InterferenceFunctionNone";
+const std::string InterferenceFunction1DLatticeType = "InterferenceFunction1DLattice";
+const std::string InterferenceFunctionRadialParaCrystalType = "InterferenceFunctionRadialParaCrystal";
+const std::string InterferenceFunction2DParaCrystalType = "InterferenceFunction2DParaCrystal";
+const std::string InterferenceFunction2DLatticeType = "InterferenceFunction2DLattice";
 
-    extern const char* CrystalType;
-    extern const char* MesoCrystalType;
+const std::string CrystalType = "Crystal";
+const std::string MesoCrystalType = "MesoCrystal";
 
-    extern const char* FFAnisoPyramidType;
-    extern const char* FFBoxType;
-    extern const char* FFConeType;
-    extern const char* FFCone6Type;
-    extern const char* FFCuboctahedronType;
-    extern const char* FFCylinderType;
-    extern const char* FFEllipsoidalCylinderType;
-    extern const char* FFFullSphereType;
-    extern const char* FFFullSpheroidType;
-    extern const char* FFGaussType;
-    extern const char* FFHemiEllipsoidType;
-    extern const char* FFLorentzType;
-    extern const char* FFPrism3Type;
-    extern const char* FFPrism6Type;
-    extern const char* FFPyramidType;
-    extern const char* FFRipple1Type;
-    extern const char* FFRipple2Type;
-    extern const char* FFTetrahedronType;
-    extern const char* FFTruncatedCubeType;
-    extern const char* FFTruncatedSphereType;
-    extern const char* FFTruncatedSpheroidType;
+const std::string FFAnisoPyramidType = "AnisoPyramid";
+const std::string FFBoxType = "Box";
+const std::string FFConeType = "Cone";
+const std::string FFCone6Type = "Cone6";
+const std::string FFCuboctahedronType = "Cuboctahedron";
+const std::string FFCylinderType = "Cylinder";
+const std::string FFEllipsoidalCylinderType = "EllipsoidalCylinder";
+const std::string FFFullSphereType = "FullSphere";
+const std::string FFFullSpheroidType = "FullSpheroid";
+const std::string FFGaussType = "FormFactorGauss";
+const std::string FFHemiEllipsoidType = "HemiEllipsoid";
+const std::string FFLorentzType = "FormFactorLorentz";
+const std::string FFPrism3Type = "Prism3";
+const std::string FFPrism6Type = "Prism6";
+const std::string FFPyramidType = "Pyramid";
+const std::string FFRipple1Type = "Ripple1";
+const std::string FFRipple2Type = "Ripple2";
+const std::string FFTetrahedronType = "Tetrahedron";
+const std::string FFTruncatedCubeType = "TruncatedCube";
+const std::string FFTruncatedSphereType = "TruncatedSphere";
+const std::string FFTruncatedSpheroidType = "TruncatedSpheroid";
 
-    extern const char* FormFactorCrystalType;
-    extern const char* FormFactorSphereGaussianRadiusType;
-    extern const char* FormFactorSphereLogNormalRadiusType;
-    extern const char* FormFactorSphereUniformRadiusType;
-    extern const char* FormFactorTrivialType;
-    extern const char* FormFactorDWBAType;
-    extern const char* FormFactorPolarizedDWBAType;
+const std::string FormFactorCrystalType = "FormFactorCrystal";
+const std::string FormFactorSphereGaussianRadiusType = "FormFactorSphereGaussianRadius";
+const std::string FormFactorSphereLogNormalRadiusType = "FormFactorSphereLogNormalRadius";
+const std::string FormFactorSphereUniformRadiusType = "FormFactorSphereUniformRadius";
+const std::string FormFactorTrivialType = "FormFactorTrivial";
+const std::string FormFactorDWBAType = "FormFactorDWBA";
+const std::string FormFactorPolarizedDWBAType = "FormFactorDWBAPol";
 
-    extern const char* FormFactorDecoratorFactor;
-    extern const char* FormFactorDecoratorPositionFactor;
-    extern const char* FormFactorDecoratorMultiPositionFactor;
-    extern const char* FormFactorDecoratorRotation;
-    extern const char* FormFactorDecoratorDebyeWaller;
-    extern const char* FormFactorDecoratorMaterial;
-    extern const char* FormFactorWeighted;
+const std::string FormFactorDecoratorFactor = "FormFactorDecoratorFactor";
+const std::string FormFactorDecoratorPositionFactor = "FormFactorDecoratorPositionFactor";
+const std::string FormFactorDecoratorMultiPositionFactor = "FormFactorDecoratorMultiPositionFactor";
+const std::string FormFactorDecoratorRotation = "FormFactorDecoratorRotation";
+const std::string FormFactorDecoratorDebyeWaller = "FormFactorDecoratorDebyeWaller";
+const std::string FormFactorDecoratorMaterial = "FormFactorDecoratorMaterial";
+const std::string FormFactorWeighted = "FormFactorWeighted";
 
-    extern const char* XRotationType;
-    extern const char* YRotationType;
-    extern const char* ZRotationType;
-    extern const char* EulerRotationType;
+const std::string XRotationType = "XRotation";
+const std::string YRotationType = "YRotation";
+const std::string ZRotationType = "ZRotation";
+const std::string EulerRotationType = "EulerRotation";
 
-    extern const char* DistributionNoneType;
-    extern const char* DistributionGateType;
-    extern const char* DistributionLorentzType;
-    extern const char* DistributionGaussianType;
-    extern const char* DistributionLogNormalType;
-    extern const char* DistributionCosineType;
+const std::string DistributionNoneType = "DistributionNone";
+const std::string DistributionGateType = "DistributionGate";
+const std::string DistributionLorentzType = "DistributionLorentz";
+const std::string DistributionGaussianType = "DistributionGaussian";
+const std::string DistributionLogNormalType = "DistributionLogNormal";
+const std::string DistributionCosineType = "DistributionCosine";
 
-    extern const char* FTDistribution1DCauchyType;
-    extern const char* FTDistribution1DGaussType;
-    extern const char* FTDistribution1DGateType;
-    extern const char* FTDistribution1DTriangleType;
-    extern const char* FTDistribution1DCosineType;
-    extern const char* FTDistribution1DVoigtType;
+const std::string FTDistribution1DCauchyType = "FTDistribution1DCauchy";
+const std::string FTDistribution1DGaussType = "FTDistribution1DGauss";
+const std::string FTDistribution1DGateType = "FTDistribution1DGate";
+const std::string FTDistribution1DTriangleType = "FTDistribution1DTriangle";
+const std::string FTDistribution1DCosineType = "FTDistribution1DCosine";
+const std::string FTDistribution1DVoigtType = "FTDistribution1DVoigt";
 
-    extern const char* FTDistribution2DCauchyType;
-    extern const char* FTDistribution2DGaussType;
-    extern const char* FTDistribution2DGateType;
-    extern const char* FTDistribution2DConeType;
-    extern const char* FTDistribution2DVoigtType;
+const std::string FTDistribution2DCauchyType = "FTDistribution2DCauchy";
+const std::string FTDistribution2DGaussType = "FTDistribution2DGauss";
+const std::string FTDistribution2DGateType = "FTDistribution2DGate";
+const std::string FTDistribution2DConeType = "FTDistribution2DCone";
+const std::string FTDistribution2DVoigtType = "FTDistribution2DVoigt";
 }
 
 #endif // BORNAGAINNAMESPACE_H

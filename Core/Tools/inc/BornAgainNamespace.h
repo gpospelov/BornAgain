@@ -34,6 +34,7 @@ const std::string OffSpecSimulationType = "OffSpecSimulation";
 
 // Instrument related constants
 const std::string InstrumentType = "Instrument";
+const std::string ResolutionFunction2D = "ResolutionFunction2D";
 const std::string DetectorType = "Detector";
 const std::string SphericalDetectorType = "SphericalDetector";
 const std::string RectangularDetectorType = "RectangularDetector";

@@ -19,7 +19,7 @@
 
 FormFactorWeighted::FormFactorWeighted()
 {
-    setName(BornAgain::FormFactorWeighted);
+    setName(BornAgain::FormFactorWeightedType);
 }
 
 FormFactorWeighted::~FormFactorWeighted()

@@ -17,10 +17,12 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
+using namespace  BornAgain;
+
 FormFactorPyramid::FormFactorPyramid(
     double length, double height, double alpha)
 {
-    setName(BornAgain::FFPyramidType);
+    setName(FFPyramidType);
     m_length = length;
     m_height = height;
     m_alpha = alpha;
@@ -64,9 +66,9 @@ bool FormFactorPyramid::check_initialization() const
 void FormFactorPyramid::init_parameters()
 {
     clearParameterPool();
-    registerParameter("length", &m_length, AttLimits::n_positive());
-    registerParameter("height", &m_height, AttLimits::n_positive());
-    registerParameter("alpha", &m_alpha, AttLimits::n_positive());
+    registerParameter(Length, &m_length, AttLimits::n_positive());
+    registerParameter(Height, &m_height, AttLimits::n_positive());
+    registerParameter(Alpha, &m_alpha, AttLimits::n_positive());
 }
 
 FormFactorPyramid* FormFactorPyramid::clone() const
@@ -100,31 +102,34 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t& q) const
 }
 
 complex_t FormFactorPyramid::fullPyramidPrimitive(complex_t a, complex_t b, complex_t c,
-                                                          double z) const
+                                                  double z) const
 {
     const complex_t im(0, 1);
-    if (std::norm(a*z) > Numeric::double_epsilon && std::norm(b*z) > Numeric::double_epsilon) {
-        if (std::abs((a-b)*(a-b)-c*c)*z*z > Numeric::double_epsilon &&
-            std::abs((a+b)*(a+b)-c*c)*z*z > Numeric::double_epsilon) {
+    if (std::norm(a * z) > Numeric::double_epsilon && std::norm(b * z) > Numeric::double_epsilon) {
+        if (std::abs((a - b) * (a - b) - c * c) * z * z > Numeric::double_epsilon
+            && std::abs((a + b) * (a + b) - c * c) * z * z > Numeric::double_epsilon) {
             complex_t phase = std::exp(im * c * z);
-            complex_t numerator = std::sin(a*z) * (b*(a*a - b*b + c*c)*std::cos(b*z)
-                                                   + im*c*(a*a + b*b - c*c)*std::sin(b*z))
-                              + a*std::cos(a*z) * ((-a*a + b*b + c*c)*std::sin(b*z)
-                                                   + 2.0*im*b*c*std::cos(b*z));
+            complex_t numerator
+                = std::sin(a * z) * (b * (a * a - b * b + c * c) * std::cos(b * z)
+                                     + im * c * (a * a + b * b - c * c) * std::sin(b * z))
+                  + a * std::cos(a * z) * ((-a * a + b * b + c * c) * std::sin(b * z)
+                                           + 2.0 * im * b * c * std::cos(b * z));
             complex_t denominator = a * b * (a - b - c) * (a + b - c) * (a - b + c) * (a + b + c);
             return -4.0 * phase * numerator / denominator;
         } else {
-            return 2.0 * (g(a-b, c, z) - g(a+b, c, z)) / (a*b);
+            return 2.0 * (g(a - b, c, z) - g(a + b, c, z)) / (a * b);
         }
-    } else if (std::norm(a*z) <= Numeric::double_epsilon
-               && std::norm(b*z) <= Numeric::double_epsilon) {
-        if (std::norm(c*z) <= Numeric::double_epsilon) {
-            return -4.0*std::pow(z, 3)/3.0;
+    } else if (std::norm(a * z) <= Numeric::double_epsilon
+               && std::norm(b * z) <= Numeric::double_epsilon) {
+        if (std::norm(c * z) <= Numeric::double_epsilon) {
+            return -4.0 * std::pow(z, 3) / 3.0;
         } else
-            return 4.0*im * (2.0 + std::exp(im*c*z)*(c*c*z*z + 2.0*im*c*z - 2.0)) / std::pow(c, 3);
+            return 4.0 * im
+                   * (2.0 + std::exp(im * c * z) * (c * c * z * z + 2.0 * im * c * z - 2.0))
+                   / std::pow(c, 3);
     } else {
         complex_t abmax;
-        if (std::norm(b*z) <= Numeric::double_epsilon) {
+        if (std::norm(b * z) <= Numeric::double_epsilon) {
             abmax = a;
         } else {
             abmax = b;

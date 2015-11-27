@@ -17,11 +17,12 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
+using namespace  BornAgain;
 
 FormFactorBox::FormFactorBox(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height) {
 
-    setName(BornAgain::FFBoxType);
+    setName(FFBoxType);
     check_initialization();
     init_parameters();
 }
@@ -35,7 +36,6 @@ void FormFactorBox::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
 }
-
 
 complex_t FormFactorBox::evaluate_for_q(const cvector_t& q) const
 {
@@ -58,9 +58,7 @@ bool FormFactorBox::check_initialization() const
 void FormFactorBox::init_parameters()
 {
     clearParameterPool();
-    registerParameter("length", &m_length, AttLimits::n_positive());
-    registerParameter("width", &m_width, AttLimits::n_positive());
-    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter(Length, &m_length, AttLimits::n_positive());
+    registerParameter(Width, &m_width, AttLimits::n_positive());
+    registerParameter(Height, &m_height, AttLimits::n_positive());
 }
-
-

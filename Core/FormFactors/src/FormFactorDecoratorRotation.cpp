@@ -21,7 +21,7 @@
 FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor &form_factor, const IRotation &transform)
     : IFormFactorDecorator(form_factor)
 {
-    setName(BornAgain::FormFactorDecoratorRotation);
+    setName(BornAgain::FormFactorDecoratorRotationType);
     m_transform = transform.getTransform3D();
 }
 

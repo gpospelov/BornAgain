@@ -54,7 +54,7 @@ inline FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
     const IFormFactor &form_factor, kvector_t position)
     : IFormFactorDecorator(form_factor), m_position(position)
 {
-    setName(BornAgain::FormFactorDecoratorPositionFactor);
+    setName(BornAgain::FormFactorDecoratorPositionFactorType);
 }
 
 inline FormFactorDecoratorPositionFactor *FormFactorDecoratorPositionFactor::clone() const

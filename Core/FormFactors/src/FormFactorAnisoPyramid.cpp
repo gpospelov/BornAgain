@@ -17,10 +17,12 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
+using namespace  BornAgain;
+
 FormFactorAnisoPyramid::FormFactorAnisoPyramid(
     double length, double width, double height, double alpha)
 {
-    setName(BornAgain::FFAnisoPyramidType);
+    setName(FFAnisoPyramidType);
     m_length = length;
     m_width = width;
     m_height = height;
@@ -68,10 +70,10 @@ bool FormFactorAnisoPyramid::check_initialization() const
 void FormFactorAnisoPyramid::init_parameters()
 {
     clearParameterPool();
-    registerParameter("length", &m_length, AttLimits::n_positive());
-    registerParameter("width", &m_width, AttLimits::n_positive());
-    registerParameter("height", &m_height, AttLimits::n_positive());
-    registerParameter("alpha", &m_alpha, AttLimits::n_positive());
+    registerParameter(Length, &m_length, AttLimits::n_positive());
+    registerParameter(Width, &m_width, AttLimits::n_positive());
+    registerParameter(Height, &m_height, AttLimits::n_positive());
+    registerParameter(Alpha, &m_alpha, AttLimits::n_positive());
 }
 
 FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const
@@ -170,6 +172,3 @@ complex_t FormFactorAnisoPyramid::k(complex_t x, double d, double z) const
         return im*(z/2.0 - d)*z;
     }
 }
-
-
-

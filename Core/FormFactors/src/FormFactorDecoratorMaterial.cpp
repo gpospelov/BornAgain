@@ -22,7 +22,7 @@ FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor &form
       m_wavevector_scattering_factor(wavevector_scattering_factor), mP_material(0),
       mP_ambient_material(0)
 {
-    setName(BornAgain::FormFactorDecoratorMaterial);
+    setName(BornAgain::FormFactorDecoratorMaterialType);
 }
 
 FormFactorDecoratorMaterial *FormFactorDecoratorMaterial::clone() const

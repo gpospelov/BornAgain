@@ -384,9 +384,9 @@ void GUIObjectBuilder::visit(const FormFactorEllipsoidalCylinder *sample)
     ParameterizedItem *ffItem = particleItem->setGroupProperty(
        ParticleItem::P_FORM_FACTOR, Constants::EllipsoidalCylinderType);
     ffItem->setRegisteredProperty(EllipsoidalCylinderItem::P_RADIUS_A,
-                                  sample->getRadiusA());
+                                  sample->getRadiusX());
     ffItem->setRegisteredProperty(EllipsoidalCylinderItem::P_RADIUS_B,
-                                  sample->getRadiusB());
+                                  sample->getRadiusY());
     ffItem->setRegisteredProperty(EllipsoidalCylinderItem::P_HEIGHT,
                                   sample->getHeight());
     m_levelToParentItem[getLevel()] = particleItem;
@@ -420,9 +420,9 @@ void GUIObjectBuilder::visit(const FormFactorHemiEllipsoid *sample)
     ParameterizedItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::HemiEllipsoidType);
     ffItem->setRegisteredProperty(HemiEllipsoidItem::P_RADIUS_A,
-                                  sample->getRadiusA());
+                                  sample->getRadiusX());
     ffItem->setRegisteredProperty(HemiEllipsoidItem::P_RADIUS_B,
-                                  sample->getRadiusB());
+                                  sample->getRadiusY());
     ffItem->setRegisteredProperty(HemiEllipsoidItem::P_HEIGHT,
                                   sample->getHeight());
     m_levelToParentItem[getLevel()] = particleItem;

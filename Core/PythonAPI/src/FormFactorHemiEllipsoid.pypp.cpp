@@ -30,8 +30,8 @@ namespace bp = boost::python;
 
 struct FormFactorHemiEllipsoid_wrapper : FormFactorHemiEllipsoid, bp::wrapper< FormFactorHemiEllipsoid > {
 
-    FormFactorHemiEllipsoid_wrapper(double radius_a, double radius_b, double height )
-    : FormFactorHemiEllipsoid( radius_a, radius_b, height )
+    FormFactorHemiEllipsoid_wrapper(double radius_x, double radius_y, double height )
+    : FormFactorHemiEllipsoid( radius_x, radius_y, height )
       , bp::wrapper< FormFactorHemiEllipsoid >(){
         // constructor
     m_pyobj = 0;
@@ -73,28 +73,28 @@ struct FormFactorHemiEllipsoid_wrapper : FormFactorHemiEllipsoid, bp::wrapper< F
         return FormFactorHemiEllipsoid::getHeight( );
     }
 
-    virtual double getRadiusA(  ) const  {
-        if( bp::override func_getRadiusA = this->get_override( "getRadiusA" ) )
-            return func_getRadiusA(  );
+    virtual double getRadiusX(  ) const  {
+        if( bp::override func_getRadiusX = this->get_override( "getRadiusX" ) )
+            return func_getRadiusX(  );
         else{
-            return this->FormFactorHemiEllipsoid::getRadiusA(  );
+            return this->FormFactorHemiEllipsoid::getRadiusX(  );
         }
     }
     
-    double default_getRadiusA(  ) const  {
-        return FormFactorHemiEllipsoid::getRadiusA( );
+    double default_getRadiusX(  ) const  {
+        return FormFactorHemiEllipsoid::getRadiusX( );
     }
 
-    virtual double getRadiusB(  ) const  {
-        if( bp::override func_getRadiusB = this->get_override( "getRadiusB" ) )
-            return func_getRadiusB(  );
+    virtual double getRadiusY(  ) const  {
+        if( bp::override func_getRadiusY = this->get_override( "getRadiusY" ) )
+            return func_getRadiusY(  );
         else{
-            return this->FormFactorHemiEllipsoid::getRadiusB(  );
+            return this->FormFactorHemiEllipsoid::getRadiusY(  );
         }
     }
     
-    double default_getRadiusB(  ) const  {
-        return FormFactorHemiEllipsoid::getRadiusB( );
+    double default_getRadiusY(  ) const  {
+        return FormFactorHemiEllipsoid::getRadiusY( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -328,7 +328,7 @@ void register_FormFactorHemiEllipsoid_class(){
 
     { //::FormFactorHemiEllipsoid
         typedef bp::class_< FormFactorHemiEllipsoid_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorHemiEllipsoid_wrapper >, boost::noncopyable > FormFactorHemiEllipsoid_exposer_t;
-        FormFactorHemiEllipsoid_exposer_t FormFactorHemiEllipsoid_exposer = FormFactorHemiEllipsoid_exposer_t( "FormFactorHemiEllipsoid", "The formfactor of an hemi ellipsoid.", bp::init< double, double, double >(( bp::arg("radius_a"), bp::arg("radius_b"), bp::arg("height") ), "Hemi Ellipsoid constructor.\n\n:Parameters:\n  - 'radius_a' - half length of one horizontal main axes\n  - 'radius_b' - half length of the other horizontal main axes\n  - 'height' - of Hemi Ellipsoid\n") );
+        FormFactorHemiEllipsoid_exposer_t FormFactorHemiEllipsoid_exposer = FormFactorHemiEllipsoid_exposer_t( "FormFactorHemiEllipsoid", "The formfactor of an hemi ellipsoid.", bp::init< double, double, double >(( bp::arg("radius_x"), bp::arg("radius_y"), bp::arg("height") ), "Hemi Ellipsoid constructor.\n\n:Parameters:\n  - 'radius_x' - half length of one horizontal main axes\n  - 'radius_y' - half length of the other horizontal main axes\n  - 'height' - of Hemi Ellipsoid\n") );
         bp::scope FormFactorHemiEllipsoid_scope( FormFactorHemiEllipsoid_exposer );
         { //::FormFactorHemiEllipsoid::clone
         
@@ -365,26 +365,26 @@ void register_FormFactorHemiEllipsoid_class(){
                 , default_getHeight_function_type(&FormFactorHemiEllipsoid_wrapper::default_getHeight) );
         
         }
-        { //::FormFactorHemiEllipsoid::getRadiusA
+        { //::FormFactorHemiEllipsoid::getRadiusX
         
-            typedef double ( ::FormFactorHemiEllipsoid::*getRadiusA_function_type)(  ) const;
-            typedef double ( FormFactorHemiEllipsoid_wrapper::*default_getRadiusA_function_type)(  ) const;
+            typedef double ( ::FormFactorHemiEllipsoid::*getRadiusX_function_type)(  ) const;
+            typedef double ( FormFactorHemiEllipsoid_wrapper::*default_getRadiusX_function_type)(  ) const;
             
             FormFactorHemiEllipsoid_exposer.def( 
-                "getRadiusA"
-                , getRadiusA_function_type(&::FormFactorHemiEllipsoid::getRadiusA)
-                , default_getRadiusA_function_type(&FormFactorHemiEllipsoid_wrapper::default_getRadiusA) );
+                "getRadiusX"
+                , getRadiusX_function_type(&::FormFactorHemiEllipsoid::getRadiusX)
+                , default_getRadiusX_function_type(&FormFactorHemiEllipsoid_wrapper::default_getRadiusX) );
         
         }
-        { //::FormFactorHemiEllipsoid::getRadiusB
+        { //::FormFactorHemiEllipsoid::getRadiusY
         
-            typedef double ( ::FormFactorHemiEllipsoid::*getRadiusB_function_type)(  ) const;
-            typedef double ( FormFactorHemiEllipsoid_wrapper::*default_getRadiusB_function_type)(  ) const;
+            typedef double ( ::FormFactorHemiEllipsoid::*getRadiusY_function_type)(  ) const;
+            typedef double ( FormFactorHemiEllipsoid_wrapper::*default_getRadiusY_function_type)(  ) const;
             
             FormFactorHemiEllipsoid_exposer.def( 
-                "getRadiusB"
-                , getRadiusB_function_type(&::FormFactorHemiEllipsoid::getRadiusB)
-                , default_getRadiusB_function_type(&FormFactorHemiEllipsoid_wrapper::default_getRadiusB) );
+                "getRadiusY"
+                , getRadiusY_function_type(&::FormFactorHemiEllipsoid::getRadiusY)
+                , default_getRadiusY_function_type(&FormFactorHemiEllipsoid_wrapper::default_getRadiusY) );
         
         }
         { //::IParameterized::areParametersChanged

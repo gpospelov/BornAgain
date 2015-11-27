@@ -95,13 +95,13 @@ const std::string FormFactorTrivialType = "FormFactorTrivial";
 const std::string FormFactorDWBAType = "FormFactorDWBA";
 const std::string FormFactorPolarizedDWBAType = "FormFactorDWBAPol";
 
-const std::string FormFactorDecoratorFactor = "FormFactorDecoratorFactor";
-const std::string FormFactorDecoratorPositionFactor = "FormFactorDecoratorPositionFactor";
-const std::string FormFactorDecoratorMultiPositionFactor = "FormFactorDecoratorMultiPositionFactor";
-const std::string FormFactorDecoratorRotation = "FormFactorDecoratorRotation";
-const std::string FormFactorDecoratorDebyeWaller = "FormFactorDecoratorDebyeWaller";
-const std::string FormFactorDecoratorMaterial = "FormFactorDecoratorMaterial";
-const std::string FormFactorWeighted = "FormFactorWeighted";
+const std::string FormFactorDecoratorFactorType = "FormFactorDecoratorFactor";
+const std::string FormFactorDecoratorPositionFactorType = "FormFactorDecoratorPositionFactor";
+const std::string FormFactorDecoratorMultiPositionFactorType = "FormFactorDecoratorMultiPositionFactor";
+const std::string FormFactorDecoratorRotationType = "FormFactorDecoratorRotation";
+const std::string FormFactorDecoratorDebyeWallerType = "FormFactorDecoratorDebyeWaller";
+const std::string FormFactorDecoratorMaterialType = "FormFactorDecoratorMaterial";
+const std::string FormFactorWeightedType = "FormFactorWeighted";
 
 const std::string XRotationType = "XRotation";
 const std::string YRotationType = "YRotation";

@@ -22,9 +22,11 @@
 
 #include <cmath>
 
+using namespace  BornAgain;
+
 FormFactorCone::FormFactorCone(double radius, double height, double alpha)
 {
-    setName(BornAgain::FFConeType);
+    setName(FFConeType);
     m_radius = radius;
     m_height = height;
     m_alpha = alpha;
@@ -55,16 +57,15 @@ bool FormFactorCone::check_initialization() const
 void FormFactorCone::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius, AttLimits::n_positive());
-    registerParameter("height", &m_height, AttLimits::n_positive());
-    registerParameter("alpha", & m_alpha, AttLimits::n_positive());
+    registerParameter(Radius, &m_radius, AttLimits::n_positive());
+    registerParameter(Height, &m_height, AttLimits::n_positive());
+    registerParameter(Alpha, & m_alpha, AttLimits::n_positive());
 }
 
 FormFactorCone* FormFactorCone::clone() const
 {
    return new FormFactorCone(m_radius, m_height, m_alpha);
 }
-
 
 //! Integrand for complex formfactor.
 complex_t FormFactorCone::Integrand(double Z, void* params) const
@@ -77,13 +78,10 @@ complex_t FormFactorCone::Integrand(double Z, void* params) const
             std::exp(complex_t(0.0, 1.0)*m_q.z()*Z);
 }
 
-//! Complex formfactor.
-
 complex_t FormFactorCone::evaluate_for_q(const cvector_t& q) const
 {   m_q = q;
 
   if ( std::abs(m_q.mag()) < Numeric::double_epsilon) {
-
         double R = m_radius;
         double H = m_height;
         double tga = std::tan(m_alpha);
@@ -91,9 +89,7 @@ complex_t FormFactorCone::evaluate_for_q(const cvector_t& q) const
 
         return  Units::PI/3.0*tga*R*R*R*
                 (1.0 - (1.0 - HdivRtga)*(1.0 - HdivRtga)*(1.0 - HdivRtga));
-
     } else {
-
         complex_t integral = m_integrator->integrate(0., m_height);
 
         return Units::PI2*integral;

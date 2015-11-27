@@ -20,7 +20,7 @@ FormFactorDecoratorMultiPositionFactor::FormFactorDecoratorMultiPositionFactor(
     const IFormFactor &form_factor, std::vector<kvector_t> positions)
     : IFormFactorDecorator(form_factor), m_positions(positions)
 {
-    setName(BornAgain::FormFactorDecoratorMultiPositionFactor);
+    setName(BornAgain::FormFactorDecoratorMultiPositionFactorType);
 }
 
 FormFactorDecoratorMultiPositionFactor *FormFactorDecoratorMultiPositionFactor::clone() const

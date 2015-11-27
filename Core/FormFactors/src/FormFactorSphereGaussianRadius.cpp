@@ -16,6 +16,7 @@
 #include "FormFactorSphereGaussianRadius.h"
 #include "BornAgainNamespace.h"
 
+using namespace  BornAgain;
 
 FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean,
                                                                double sigma)
@@ -24,7 +25,7 @@ FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean,
 , m_mean_r3(0.0)
 , p_ff_sphere(0)
 {
-    setName(BornAgain::FormFactorSphereGaussianRadiusType);
+    setName(FormFactorSphereGaussianRadiusType);
     m_mean_r3 = calculateMeanR3();
     p_ff_sphere = new FormFactorFullSphere(m_mean_r3);
     check_initialization();
@@ -67,6 +68,6 @@ bool FormFactorSphereGaussianRadius::check_initialization() const
 void FormFactorSphereGaussianRadius::init_parameters()
 {
     clearParameterPool();
-    registerParameter("mean_radius", &m_mean, AttLimits::n_positive());
-    registerParameter("sigma_radius", &m_sigma, AttLimits::n_positive());
+    registerParameter(MeanRadius, &m_mean, AttLimits::n_positive());
+    registerParameter(SigmaRadius, &m_sigma, AttLimits::n_positive());
 }

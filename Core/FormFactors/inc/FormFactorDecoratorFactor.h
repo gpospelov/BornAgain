@@ -47,7 +47,7 @@ inline FormFactorDecoratorFactor::FormFactorDecoratorFactor(const IFormFactor &f
                                                             const complex_t &factor)
     : IFormFactorDecorator(form_factor), m_factor(factor)
 {
-    setName(BornAgain::FormFactorDecoratorFactor);
+    setName(BornAgain::FormFactorDecoratorFactorType);
 }
 
 inline FormFactorDecoratorFactor *FormFactorDecoratorFactor::clone() const

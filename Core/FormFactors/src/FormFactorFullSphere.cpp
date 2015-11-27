@@ -17,10 +17,12 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
+using namespace  BornAgain;
+
 FormFactorFullSphere::FormFactorFullSphere(double radius)
 : m_radius(radius)
 {
-    setName(BornAgain::FFFullSphereType);
+    setName(FFFullSphereType);
     check_initialization();
     init_parameters();
 }
@@ -33,7 +35,7 @@ bool FormFactorFullSphere::check_initialization() const
 void FormFactorFullSphere::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius, AttLimits::n_positive());
+    registerParameter(Radius, &m_radius, AttLimits::n_positive());
 }
 
 
@@ -62,16 +64,7 @@ complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t& q) const
         radial = volume;
     }
     else {
-        // way1 (standard)
-        //radial = 3*volume*(std::sin(qR) - qR*std::cos(qR))/(qR*qR*qR);
-
-        // way2 (fast)
         radial = 3*volume*(MathFunctions::FastSin(qR) - qR*MathFunctions::FastCos(qR))/(qR*qR*qR);
-
-        // way3 (experimental)
-        // complex_t xsin, xcos;
-        // MathFunctions::FastSinCos(qR, xsin, xcos);
-        // radial = 3*volume*(xsin - qR*xcos)/(qR*qR*qR);
     }
 
     return radial*z_part;

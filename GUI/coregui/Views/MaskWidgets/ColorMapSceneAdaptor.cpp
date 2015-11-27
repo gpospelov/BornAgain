@@ -65,8 +65,11 @@ bool ColorMapSceneAdaptor::eventFilter(QObject *object, QEvent *event)
     if (event->type() == QEvent::Resize || event->type() == QEvent::UpdateRequest) {
         m_viewport_rectangle = m_plot->getViewportRectangleInWidgetCoordinates();
         emit update_request();
+        qDebug() << "ColorMapSceneAdaptor::eventFilter" << event->type();
+        return false;
     }
-    return QObject::eventFilter(object, event);
+//    return QObject::eventFilter(object, event);
+    return true;
 }
 
 const QRectF &ColorMapSceneAdaptor::getViewportRectangle() const

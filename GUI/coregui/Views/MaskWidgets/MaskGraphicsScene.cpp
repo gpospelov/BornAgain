@@ -353,7 +353,7 @@ void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF &)
         invalidate();
     } else {
         if(m_context.isLineMode()) {
-            QRectF plot_scene_rectangle = m_adaptor->getViewportRectangle();
+            const QRectF &plot_scene_rectangle = m_adaptor->getViewportRectangle();
             if(!plot_scene_rectangle.contains(m_currentMousePosition)) return;
 
             painter->setPen(QPen(Qt::black, 1, Qt::DashLine));
@@ -710,9 +710,12 @@ void MaskGraphicsScene::setZValues()
 PolygonView *MaskGraphicsScene::getCurrentPolygon() const
 {
     PolygonView *result(0);
-    if(m_currentItem && m_currentItem->modelType() == Constants::PolygonMaskType) {
-        if(IMaskView *view = m_ItemToView[m_currentItem]) {
-            result = qobject_cast<PolygonView *>(view);
+    if(isDrawingInProgress() && m_context.isPolygonMode()) {
+        if(m_currentItem) {
+            if(IMaskView *view = m_ItemToView[m_currentItem]) {
+                if(view->type() == MaskEditorHelper::POLYGON)
+                    result = dynamic_cast<PolygonView *>(view);
+            }
         }
     }
     return result;

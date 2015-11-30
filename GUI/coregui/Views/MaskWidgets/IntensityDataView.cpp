@@ -29,12 +29,12 @@ IntensityDataView::IntensityDataView()
 
 void IntensityDataView::update_view()
 {
+    prepareGeometryChange();
     m_bounding_rect = m_adaptor->getViewportRectangle();
     update();
 }
 
 void IntensityDataView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    painter->setRenderHints(QPainter::Antialiasing);
-    prepareGeometryChange();
+    Q_UNUSED(painter);
 }

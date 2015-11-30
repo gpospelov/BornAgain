@@ -62,7 +62,8 @@ void EllipseView::onPropertyChange(const QString &propertyName)
     m_block_on_property_change = true;
 
     if(propertyName == EllipseItem::P_WIDTH || propertyName == EllipseItem::P_HEIGHT) {
-        update_bounding_rect();
+        //update_bounding_rect();
+        update_view();
     }
     else if(propertyName == EllipseItem::P_POSX) {
         setX(toSceneX(EllipseItem::P_POSX));
@@ -72,6 +73,9 @@ void EllipseView::onPropertyChange(const QString &propertyName)
     }
     else if(propertyName == EllipseItem::P_ANGLE) {
         setTransform(QTransform().rotate(-1.0*par(EllipseItem::P_ANGLE)));
+    }
+    else if(propertyName == MaskItem::P_MASK_VALUE) {
+        update();
     }
 
     m_block_on_property_change = false;

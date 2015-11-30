@@ -59,13 +59,17 @@ void RectangleView::onPropertyChange(const QString &propertyName)
     if(m_block_on_property_change) return;
 
     if(propertyName == RectangleItem::P_WIDTH || propertyName == RectangleItem::P_HEIGHT) {
-        update_bounding_rect();
+//        update_bounding_rect();
+        update_view();
     }
     else if(propertyName == RectangleItem::P_POSX) {
         setX(toSceneX(RectangleItem::P_POSX));
     }
     else if(propertyName == RectangleItem::P_POSY) {
         setY(toSceneY(RectangleItem::P_POSY));
+    }
+    else if(propertyName == MaskItem::P_MASK_VALUE) {
+        update();
     }
 }
 
@@ -134,6 +138,7 @@ void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
             m_item->setRegisteredProperty(RectangleItem::P_WIDTH,
                                           fromSceneX(xmax) - fromSceneX(xmin));
         }
+        update_view();
     } else {
         IMaskView::mouseMoveEvent(event);
     }

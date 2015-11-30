@@ -30,15 +30,14 @@ MaskAllView::MaskAllView()
 
 void MaskAllView::update_view()
 {
+    prepareGeometryChange();
     m_bounding_rect = m_adaptor->getViewportRectangle();
     update();
 }
 
 void MaskAllView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    painter->setRenderHints(QPainter::Antialiasing);
-    prepareGeometryChange();
-
+//    painter->setRenderHints(QPainter::Antialiasing);
     QColor color(250, 250, 240, 150);
     painter->setBrush(color);
     painter->drawRect(m_bounding_rect);

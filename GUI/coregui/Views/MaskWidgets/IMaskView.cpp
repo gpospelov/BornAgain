@@ -144,6 +144,9 @@ void IMaskView::onChangedY()
 
 void IMaskView::onPropertyChange(const QString &propertyName)
 {
-    Q_UNUSED(propertyName);
+    if(propertyName == MaskItem::P_MASK_VALUE) {
+        update();
+    }
+
     emit propertyChanged();
 }

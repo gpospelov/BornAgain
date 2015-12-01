@@ -1,17 +1,18 @@
-############################################################################
 # CMakeLists.txt file for building BornAgain/GUI executable
-############################################################################
+
 if(POLICY CMP0020)
-cmake_policy(SET CMP0020 NEW)
+    cmake_policy(SET CMP0020 NEW)
 endif()
+
 if(POLICY CMP0043)
     cmake_policy(SET CMP0043 NEW)
 endif()
+
 if(POLICY CMP0028)
     cmake_policy(SET CMP0028 NEW)
 endif()
-set(executable_name BornAgain)
 
+set(executable_name BornAgain)
 
 # --- source files ---------
 include_directories(
@@ -20,9 +21,7 @@ include_directories(
     ${GSL_INCLUDE_DIR}
 )
 
-set(source_files
-    main.cpp appoptions.cpp
-)
+set(source_files main.cpp appoptions.cpp)
 
 set(include_files appoptions.h)
 
@@ -30,49 +29,21 @@ set(include_files appoptions.h)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
-
 # --- system dependent exe options ---------
 if(WIN32)
-    #set(win32_console 1)
+    set(system_addons bornagain.rc)
     if(NOT win32_console)
         set(executable_options WIN32)
     endif()
-
 elseif(APPLE AND BORNAGAIN_APPLE_BUNDLE)
     set(executable_options MACOSX_BUNDLE)
 endif()
 
-
-# --- system dependent files ---------
-if(WIN32)
-    set(system_addons bornagain.rc)
-endif()
-
-
 # --- executable ---------
 add_executable(${executable_name} ${executable_options} ${source_files} ${include_files} ${system_addons})
 
-
 # --- dependencies ---------
-target_link_libraries(${executable_name}
-#    ${ManhattanStyle_LIBRARY}
-#    ${qcustomplot_LIBRARY}
-#    ${qtpropertybrowser_LIBRARY}
-#    ${PYTHON_LIBRARIES}
-#    ${Boost_LIBRARIES}
-#    ${BornAgainCore_LIBRARY}
-#    ${BornAgainFit_LIBRARY}
-    ${BornAgainGUI_LIBRARY}
-)
-
-#target_link_libraries(${executable_name}
-#    Qt5::Widgets
-#    Qt5::Core
-#    Qt5::Gui
-##     Qt5::Script
-#    Qt5::Designer
-#    Qt5::PrintSupport
-#)
+target_link_libraries(${executable_name} ${BornAgainGUI_LIBRARY})
 
 
 # --- extra target properties ---------
@@ -112,15 +83,6 @@ install (TARGETS ${executable_name} ${executable_destination} COMPONENT Applicat
 set(image_files ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.ico ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.icns ${CMAKE_SOURCE_DIR}/GUI/coregui/images/BornAgain_48x48.png  ${CMAKE_SOURCE_DIR}/GUI/coregui/images/BornAgain_64x64.png)
 install (FILES ${image_files} DESTINATION ${destination_images} COMPONENT Applications)
 
-#if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
-#    install (TARGETS ${executable_name} BUNDLE DESTINATION . COMPONENT Applications)
-#else()
-#    install (TARGETS ${executable_name} DESTINATION ${destination_gui} COMPONENT Applications)
-#endif()
-
-
-
-
 
 # --- system dependent installation ---------
 if(UNIX)
@@ -131,6 +93,14 @@ if(UNIX)
 
         set(plugin_dest_dir ${destination_bundle}/Contents/PlugIns)
         install(DIRECTORY "$ENV{QTDIR}/plugins/platforms" DESTINATION ${plugin_dest_dir} COMPONENT Runtime)
+
+        set(qtlibs ${destination_bundle}/Contents/Frameworks)
+        install(FILES "$ENV{QTDIR}/lib/QtCore.framework/Versions/5/QtCore" DESTINATION ${qtlibs}/QtCore.framework/Versions/5/ COMPONENT Runtime)
+        install(FILES "$ENV{QTDIR}/lib/QtDesigner.framework/Versions/5/QtDesigner" DESTINATION ${qtlibs}/QtDesigner.framework/Versions/5/ COMPONENT Runtime)
+        install(FILES "$ENV{QTDIR}/lib/QtGui.framework/Versions/5/QtGui" DESTINATION ${qtlibs}/QtGui.framework/Versions/5/ COMPONENT Runtime)
+        install(FILES "$ENV{QTDIR}/lib/QtPrintSupport.framework/Versions/5/QtPrintSupport" DESTINATION ${qtlibs}/QtPrintSupport.framework/Versions/5/ COMPONENT Runtime)
+        install(FILES "$ENV{QTDIR}/lib/QtWidgets.framework/Versions/5/QtWidgets" DESTINATION ${qtlibs}/QtWidgets.framework/Versions/5/ COMPONENT Runtime)
+        install(FILES "$ENV{QTDIR}/lib/QtXml.framework/Versions/5/QtXml" DESTINATION ${qtlibs}/QtXml.framework/Versions/5/ COMPONENT Runtime)
 
         set(fixup_path @rpath)
 
@@ -143,7 +113,6 @@ if(UNIX)
         if(len EQUAL 2)
         list(GET cmake_prefix_path_to_parse 1 cmake_prefix_path2)
         endif()
-message(INFO "XXX ${cmake_prefix_path1} ${cmake_prefix_path2}")
 
         configure_file(${CMAKE_SOURCE_DIR}/cmake/modules/FixAppleBundle.cmake.in ${destination_runtime_configs}/FixAppleBundle.cmake @ONLY)
         install(SCRIPT ${destination_runtime_configs}/FixAppleBundle.cmake COMPONENT Runtime)

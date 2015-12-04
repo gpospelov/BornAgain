@@ -2,9 +2,9 @@
 # CMakeLists.txt file for building libBornAgainCore library
 ############################################################################
 set(library_name BornAgainCore)
-if(POLICY CMP0042)
-    cmake_policy(SET CMP0042 NEW)
-endif()
+#if(POLICY CMP0042)
+#    cmake_policy(SET CMP0042 NEW)
+#endif()
 
 
 # --- source and include files ---------
@@ -95,7 +95,7 @@ if(BORNAGAIN_PYTHON)
 endif()
 
 if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
-    set(link_flags "-Wl,-rpath,@loader_path/../..")
+    set(link_flags "-Wl,-rpath,@loader_path/../../Frameworks")
     set_target_properties(${library_name}
         PROPERTIES
         LINK_FLAGS ${link_flags}

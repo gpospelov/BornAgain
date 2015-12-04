@@ -1,150 +1,176 @@
+###############################################################################
+# Runs Python script to fix dependencies in Apple bundle
+###############################################################################
+
 set(bundle ${CMAKE_INSTALL_PREFIX}/BornAgain.app )
-set(bornagain_libs ${CMAKE_INSTALL_PREFIX}/@destination_lib@)
-set(thirdparty_libs ${bundle}/Contents/lib/ThirdParty)
+set(fix_bundle_command "@PYTHON_EXECUTABLE@ @CMAKE_SOURCE_DIR@/cmake/scripts/fix_apple_bundle.py ${bundle}")
 
-set(BU_CHMOD_BUNDLE_ITEMS True)
-set(BU_COPY_FULL_FRAMEWORK_CONTENTS False)
-include (@CMAKE_SOURCE_DIR@/cmake/modules/BundleUtilitiesWithRPath.cmake)
+message(INFO "IIIII ${fix_bundle_command}")
+#execute_process(COMMAND @PYTHON_EXECUTABLE@ ${CMAKE_SOURCE_DIR}/cmake/scripts/ ${bundle})
 
-
-####################################################
-# gp_resolved_file_type_override
-####################################################
-function(gp_resolved_file_type_override resolved_file type_var)
-
-    if(file MATCHES "Qt")
-        message("XXX_Qt resolving file as _embedded : ${file}")
-        set(${type_var} embedded PARENT_SCOPE)
-
-    elseif(item MATCHES "PlugIns/platforms")
-        message("XXX_Plugins  resolving file as _embedded : ${file}")
-        set(${type_var} embedded PARENT_SCOPE)
-
-    elseif(file MATCHES "Python.framework")
-        message("XXX_Python  resolving file as system : ${file}")
-        set(${type_var} system PARENT_SCOPE)
-
-    elseif(file MATCHES "@cmake_prefix_path1@")
-        message("XXX_PREFFIX  resolving file as _embedded : ${file}")
-        set(${type_var} embedded PARENT_SCOPE)
-
-    elseif(file MATCHES "@cmake_prefix_path2@")
-        message("XXX_PREFFIX  resolving file as _embedded : ${file}")
-        set(${type_var} embedded PARENT_SCOPE)
-
-    elseif(file MATCHES "libBornAgain")
-        message("XXX_libBornAgain  resolving file as _embedded : ${file}")
-        set(${type_var} embedded PARENT_SCOPE)
-
-    else()
-        message("XXX_System  resolving file as _system   : ${file}")
-        set(${type_var} system PARENT_SCOPE)
-    endif()
-endfunction()
+execute_process(COMMAND @PYTHON_EXECUTABLE@ @CMAKE_SOURCE_DIR@/cmake/scripts/fix_apple_bundle.py ${bundle})
 
 
-####################################################
-# gp_item_default_embedded_path_override item default_embedded_path_var
-####################################################
-function(gp_item_default_embedded_path_override item default_embedded_path_var)
+#set(bornagain_libs ${CMAKE_INSTALL_PREFIX}/@destination_lib@)
+#set(thirdparty_libs ${bundle}/Contents/lib/ThirdParty)
 
-    # By default, embed items as set by gp_item_default_embedded_path:
-    set(path "${${default_embedded_path_var}}")
-
-    if(item MATCHES "[^/]+\\.framework/")
-        set(path "@fixup_path@/Frameworks")
-
-    elseif(item MATCHES "PlugIns/platforms")
-        set(path "@fixup_path@/PlugIns/platforms")
-
-    elseif(item MATCHES "libBornAgain")
-        set(path "@fixup_path@/lib/BornAgain-@BornAgain_VERSION_MAJOR@.@BornAgain_VERSION_MINOR@")
-
-    elseif(item MATCHES "\\.(dylib|so)$")
-        set(path "@fixup_path@/lib/ThirdParty")
-
-    endif()
-
-  set(${default_embedded_path_var} "${path}" PARENT_SCOPE)
-endfunction(gp_item_default_embedded_path_override)
+#set(BU_CHMOD_BUNDLE_ITEMS True)
+#set(BU_COPY_FULL_FRAMEWORK_CONTENTS False)
+#include (@CMAKE_SOURCE_DIR@/cmake/modules/BundleUtilitiesWithRPath.cmake)
 
 
-####################################################
-# Functions to change the dependency references
-####################################################
-function( change_bundle_id new_id sharedlib )
-  execute_process(COMMAND install_name_tool -id ${new_id} ${sharedlib})
-endfunction()
+#####################################################
+## gp_resolved_file_type_override
+#####################################################
+#function(gp_resolved_file_type_override resolved_file type_var)
 
-function( change_bundle_dep old_dep new_dep sharedlib )
-  execute_process(COMMAND install_name_tool -change ${old_dep} ${new_dep} ${sharedlib})
-endfunction()
+#    if(file MATCHES "Qt")
+#        message("XXX_Qt resolving file as _embedded : ${file}")
+#        set(${type_var} embedded PARENT_SCOPE)
 
+#    elseif(item MATCHES "PlugIns/platforms")
+#        message("XXX_Plugins  resolving file as _embedded : ${file}")
+#        set(${type_var} embedded PARENT_SCOPE)
 
-####################################################
-# Function to tweak Python dependencies
-####################################################
-function(fix_python_framework items_to_fix)
-    message(STATUS "Tweaking Python library dependencies")
-    foreach(item ${items_to_fix})
-        message(STATUS "   -> fixing item ${item}")
-        get_prerequisites(${item} prereqs 0 0 "" "")
-        foreach(pr ${prereqs})
-            if(pr MATCHES "Python.framework")
-#            change_bundle_dep( ${pr} "@rpath/lib/ThirdParty/libpython2.7.dylib" ${item})
-            change_bundle_dep( ${pr} "@rpath/libpython2.7.dylib" ${item})
-            endif()
-        endforeach()
-    endforeach()
-endfunction()
+#    elseif(file MATCHES "Python.framework")
+#        message("XXX_Python  resolving file as system : ${file}")
+#        set(${type_var} system PARENT_SCOPE)
 
+#    elseif(file MATCHES "@cmake_prefix_path1@")
+#        message("XXX_PREFFIX  resolving file as _embedded : ${file}")
+#        set(${type_var} embedded PARENT_SCOPE)
 
-# --- installing Qt plugins
-file(GLOB_RECURSE QTPLUGINS
-      "${bundle}/Contents/PlugIns/*@CMAKE_SHARED_LIBRARY_SUFFIX@")
+#    elseif(file MATCHES "@cmake_prefix_path2@")
+#        message("XXX_PREFFIX  resolving file as _embedded : ${file}")
+#        set(${type_var} embedded PARENT_SCOPE)
 
-  set(qtconf_text "
-[Paths]
-Plugins = PlugIns
-  ")
+#    elseif(file MATCHES "libBornAgain")
+#        message("XXX_libBornAgain  resolving file as _embedded : ${file}")
+#        set(${type_var} embedded PARENT_SCOPE)
 
-file(WRITE "${bundle}/Contents/Resources/qt.conf" "${qtconf_text}")
+#    else()
+#        message("XXX_System  resolving file as _system   : ${file}")
+#        set(${type_var} system PARENT_SCOPE)
+#    endif()
+#endfunction()
 
 
-set(dirs
-    "@CMAKE_BINARY_DIR@/lib"
-    "$ENV{QTDIR}"
-    "$ENV{QTDIR}/plugins"
- )
+#####################################################
+## gp_item_default_embedded_path_override item default_embedded_path_var
+#####################################################
+#function(gp_item_default_embedded_path_override item default_embedded_path_var)
 
-set(other_libs ${QTPLUGINS})
+#    # By default, embed items as set by gp_item_default_embedded_path:
+#    set(path "${${default_embedded_path_var}}")
 
-fixup_bundle ( "${bundle}" "${other_libs}" "${dirs}" ) # This will fix up the dependencies for the hard dependencies: MantidKernel etc
+#    if(item MATCHES "[^/]+\\.framework/")
+#        set(path "@fixup_path@/Frameworks")
+
+#    elseif(item MATCHES "PlugIns/platforms")
+#        set(path "@fixup_path@/PlugIns/platforms")
+
+#    elseif(item MATCHES "libBornAgain")
+#        set(path "@fixup_path@/lib/BornAgain-@BornAgain_VERSION_MAJOR@.@BornAgain_VERSION_MINOR@")
+
+#    elseif(item MATCHES "\\.(dylib|so)$")
+#        set(path "@fixup_path@/lib/ThirdParty")
+
+#    endif()
+
+#  set(${default_embedded_path_var} "${path}" PARENT_SCOPE)
+#endfunction(gp_item_default_embedded_path_override)
 
 
-# --- fixing dependencies from Python libraries ---------
-set(items_to_fix "${bundle}/Contents/MacOS/BornAgain")
-file (GLOB items ${bornagain_libs}/*.so)
-list(APPEND items_to_fix ${items})
-file (GLOB items ${thirdparty_libs}/*.dylib)
-list(APPEND items_to_fix ${items})
+#####################################################
+## Functions to change the dependency references
+#####################################################
+#function( change_bundle_id new_id sharedlib )
+#  execute_process(COMMAND install_name_tool -id ${new_id} ${sharedlib})
+#endfunction()
 
-fix_python_framework("${items_to_fix}")
-
-
-# --- copying python library ------
-FILE(MAKE_DIRECTORY "${bundle}/Contents/lib/LibPython")
-execute_process(COMMAND ${CMAKE_COMMAND} -E copy "@PYTHON_LIBRARIES@" "${bundle}/Contents/lib/LibPython/libpython2.7.dylib")
+#function( change_bundle_dep old_dep new_dep sharedlib )
+#  execute_process(COMMAND install_name_tool -change ${old_dep} ${new_dep} ${sharedlib})
+#endfunction()
 
 
-# --- fixing bin directory with thisbornagain.sh links ---------
-FILE(MAKE_DIRECTORY "${CMAKE_INSTALL_PREFIX}/@destination_bin@")
+#####################################################
+## Function to tweak Python dependencies
+#####################################################
+#function(fix_python_framework items_to_fix)
+#    message(STATUS "Tweaking Python library dependencies")
+#    foreach(item ${items_to_fix})
+#        message(STATUS "   -> fixing item ${item}")
+#        get_prerequisites(${item} prereqs 0 0 "" "")
+#        foreach(pr ${prereqs})
+#            if(pr MATCHES "Python.framework")
+##            change_bundle_dep( ${pr} "@rpath/lib/ThirdParty/libpython2.7.dylib" ${item})
+#            change_bundle_dep( ${pr} "@rpath/libpython2.7.dylib" ${item})
+#            endif()
+#        endforeach()
+#    endforeach()
+#endfunction()
 
-execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
-"../libexec/@destination_suffix@/frombin_setup_paths.sh" "thisbornagain.sh"
-WORKING_DIRECTORY "${CMAKE_INSTALL_PREFIX}/@destination_bin@")
 
-execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
-"../libexec/@destination_suffix@/frombin_setup_paths.csh" "thisbornagain.csh"
-WORKING_DIRECTORY "${CMAKE_INSTALL_PREFIX}/@destination_bin@")
+## --- installing Qt plugins
+#file(GLOB_RECURSE QTPLUGINS
+#      "${bundle}/Contents/PlugIns/*@CMAKE_SHARED_LIBRARY_SUFFIX@")
+
+#  set(qtconf_text "
+#[Paths]
+#Plugins = PlugIns
+#  ")
+
+#file(WRITE "${bundle}/Contents/Resources/qt.conf" "${qtconf_text}")
+
+
+#set(dirs
+#    "@CMAKE_BINARY_DIR@/lib"
+#    "$ENV{QTDIR}/plugins"
+#    "$ENV{QTDIR}/lib/QtCore.framework/Versions/Current"
+#    "$ENV{QTDIR}/lib/QtDesigner.framework/Versions/Current"
+#    "$ENV{QTDIR}/lib/QtGui.framework/Versions/Current"
+#    "$ENV{QTDIR}/lib/QtPrintSupport.framework/Versions/Current"
+#    "$ENV{QTDIR}/lib/QtWidgets.framework/Versions/Current"
+#    "$ENV{QTDIR}/lib/QtXml.framework/Versions/Current"
+#    "$ENV{QTDIR}/lib/QtDBus.framework/Versions/Current"
+# )
+
+#set(other_libs ${QTPLUGINS}
+#    "$ENV{QTDIR}/lib/QtCore.framework/Versions/Curent/QtCore"
+#    "$ENV{QTDIR}/lib/QtDesigner.framework/Versions/Curent/QtDesigner"
+#    "$ENV{QTDIR}/lib/QtGui.framework/Versions/Curent/QtGui"
+#    "$ENV{QTDIR}/lib/QtPrintSupport.framework/Versions/Curent/QtPrintSupport"
+#    "$ENV{QTDIR}/lib/QtWidgets.framework/Versions/Curent/QtWidgets"
+#    "$ENV{QTDIR}/lib/QtXml.framework/Versions/Curent/QtXml"
+#    "$ENV{QTDIR}/lib/QtDBus.framework/Versions/Curent/QtDBus"
+#)
+
+#fixup_bundle ( "${bundle}" "${other_libs}" "${dirs}" ) # This will fix up the dependencies for the hard dependencies: MantidKernel etc
+
+
+## --- fixing dependencies from Python libraries ---------
+#set(items_to_fix "${bundle}/Contents/MacOS/BornAgain")
+#file (GLOB items ${bornagain_libs}/*.so)
+#list(APPEND items_to_fix ${items})
+#file (GLOB items ${thirdparty_libs}/*.dylib)
+#list(APPEND items_to_fix ${items})
+
+#fix_python_framework("${items_to_fix}")
+
+
+## --- copying python library ------
+#FILE(MAKE_DIRECTORY "${bundle}/Contents/lib/LibPython")
+#execute_process(COMMAND ${CMAKE_COMMAND} -E copy "@PYTHON_LIBRARIES@" "${bundle}/Contents/lib/LibPython/libpython2.7.dylib")
+
+
+## --- fixing bin directory with thisbornagain.sh links ---------
+#FILE(MAKE_DIRECTORY "${CMAKE_INSTALL_PREFIX}/@destination_bin@")
+
+#execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+#"../libexec/@destination_suffix@/frombin_setup_paths.sh" "thisbornagain.sh"
+#WORKING_DIRECTORY "${CMAKE_INSTALL_PREFIX}/@destination_bin@")
+
+#execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+#"../libexec/@destination_suffix@/frombin_setup_paths.csh" "thisbornagain.csh"
+#WORKING_DIRECTORY "${CMAKE_INSTALL_PREFIX}/@destination_bin@")
 

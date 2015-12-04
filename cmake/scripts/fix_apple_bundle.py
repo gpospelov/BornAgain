@@ -1,4 +1,5 @@
 import os
+import sys
 import platform
 import shutil
 import subprocess
@@ -119,7 +120,6 @@ def copy_qt_plugins():
     for name in plugins:
         srcfile = os.path.join(qtplugins_path(), name)
         dstdir = os.path.join(bundle_plugins_path(), os.path.dirname(name))
-        print srcfile, dstdir
         copy_file(srcfile, dstdir)
 
 
@@ -154,22 +154,25 @@ def get_file_dependencies(file_name, dependency_list = None):
             # get_file_dependencies(dependency, dependency_list)
 
 
-def collect_dependencies():
-    print "collecting dependencies"
+def copy_dependencies():
+    print "--> collecting dependencies"
     for bin in iter(bornagain_binaries()):
         get_file_dependencies(bin)
 
 
 def fix_apple_bundle():
-    # copy_qt_libraries()
+    copy_qt_libraries()
     copy_qt_plugins()
-    # collect_dependencies()
+    copy_dependencies()
 
 
 if __name__ == '__main__':
     if not platform.system() == 'Darwin':
         exit("This script is intended for MacOs systems. Exiting...")
 
-    set_bundle_dir("/Users/pospelov/development/BornAgain/installed/BornAgain.app")
+    if len(sys.argv) != 2:
+        exit("Please specify bundle location")
+
+    set_bundle_dir(sys.argv[1])
 
     fix_apple_bundle()

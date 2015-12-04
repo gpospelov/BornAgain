@@ -4,6 +4,7 @@ import platform
 import shutil
 import subprocess
 import glob
+from distutils import sysconfig
 
 BUNDLE_DIR = ""
 
@@ -36,6 +37,10 @@ def bundle_main_executable():
     return os.path.join(bundle_dir(), "Contents", "MacOS", "BornAgain")
 
 
+def bundle_python_library():
+    return os.path.join("Python.framework", "Versions", "2.7", "Python")
+
+
 def qtlibs_path():
     return os.path.join(os.environ['QTDIR'], "lib")
 
@@ -60,7 +65,7 @@ def make_dir(dirname):
         os.makedirs(dirname)
 
 
-def copy_file(file_name, dest_dir):
+def copy_file_to_dir(file_name, dest_dir):
     """
     Copies file to the destination directory. If destination doesn't exists, it will be created.
     """
@@ -100,9 +105,37 @@ def analyse_dependency(dependency_string):
     return file_name
 
 
+def get_python_library_location():
+    """
+    Returns location of Python library. The library is deduced from interpreter itself
+    """
+    for line in otool(sys.executable):
+        dependency = line.strip().split()[0]
+        if os.path.exists(dependency) and "Python.framework" in dependency:
+            return dependency
+    return None
+
+
 # -----------------------------------------------------------------------------
 # Actions
 # -----------------------------------------------------------------------------
+
+
+def copy_python_framework():
+    """
+    Copies Python library to the bundle. The name of the library will be deduced from the interpreter itself.
+    """
+    print "--> Copying Python framework"
+    python_lib = get_python_library_location()
+    destfile = os.path.join(bundle_frameworks_path(), bundle_python_library())
+    make_dir(os.path.dirname(destfile))
+    print "    From '{0}'\n    To '{1}'".format(python_lib, destfile)
+    if not os.path.exists(destfile):
+        shutil.copyfile(python_lib, destfile)
+        libId = "@rpath/" + bundle_python_library()
+        setId(destfile, libId)
+
+
 
 def copy_qt_libraries():
     print "--> Copying Qt libraries"
@@ -111,7 +144,7 @@ def copy_qt_libraries():
         libpath = os.path.join(libname+".framework", "Versions", "5")
         srcfile = os.path.join(qtlibs_path(), libpath, libname)
         dstdir = os.path.join(bundle_frameworks_path(), libpath)
-        copy_file(srcfile, dstdir)
+        copy_file_to_dir(srcfile, dstdir)
 
 
 def copy_qt_plugins():
@@ -120,7 +153,7 @@ def copy_qt_plugins():
     for name in plugins:
         srcfile = os.path.join(qtplugins_path(), name)
         dstdir = os.path.join(bundle_plugins_path(), os.path.dirname(name))
-        copy_file(srcfile, dstdir)
+        copy_file_to_dir(srcfile, dstdir)
 
 
 def process_dependency(dependency):
@@ -135,19 +168,19 @@ def process_dependency(dependency):
         print "skipping dependency", dependency
         return libId, None
     print "copying dependency", dependency
-    copy_file(dependency, bundle_frameworks_path())
+    copy_file_to_dir(dependency, bundle_frameworks_path())
     setId(new_location, libId)
     return libId, new_location
 
 
-def get_file_dependencies(file_name, dependency_list = None):
+def walk_through_dependencies(file_name):
     for line in otool(file_name):
         dependency = analyse_dependency(line)
         if dependency:
             libId, new_location = process_dependency(dependency)
             setDependency(file_name, dependency, libId)
             if new_location:
-                get_file_dependencies(new_location)
+                walk_through_dependencies(new_location)
 
             # print "         dependency:", file_name, dependency, os.path.basename(dependency)
             # dependency_list.append(dependency)
@@ -156,14 +189,15 @@ def get_file_dependencies(file_name, dependency_list = None):
 
 def copy_dependencies():
     print "--> collecting dependencies"
-    for bin in iter(bornagain_binaries()):
-        get_file_dependencies(bin)
+    for binfile in iter(bornagain_binaries()):
+        walk_through_dependencies(binfile)
 
 
 def fix_apple_bundle():
-    copy_qt_libraries()
-    copy_qt_plugins()
-    copy_dependencies()
+    copy_python_framework()
+    # copy_qt_libraries()
+    # copy_qt_plugins()
+    # copy_dependencies()
 
 
 if __name__ == '__main__':

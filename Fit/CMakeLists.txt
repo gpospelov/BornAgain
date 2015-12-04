@@ -104,7 +104,8 @@ endif()
 
 
 if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
-    set(link_flags "-Wl,-rpath,@loader_path/../..")
+#    set(link_flags "-Wl,-rpath,@loader_path/../..")
+    set(link_flags "-Wl,-rpath,@loader_path/../../Frameworks")
     set_target_properties(${library_name}
         PROPERTIES
         LINK_FLAGS ${link_flags}

@@ -6,7 +6,7 @@ rm -r -f /Users/vagrant/build; mkdir -p /Users/vagrant/build; cd /Users/vagrant/
 git clone git://apps.jcns.fz-juelich.de/BornAgain.git
 mkdir BornAgain-build
 cd BornAgain-build
-cmake -DBORNAGAIN_APPLE_BUNDLE=ON ../BornAgain
+cmake -DPYTHON_LIBRARY=/Users/scg/anaconda/lib/libpython2.7.dylib -DPYTHON_EXECUTABLE=/Users/scg/anaconda/bin/python2.7 -DBORNAGAIN_APPLE_BUNDLE=ON -DCMAKE_PREFIX_PATH=/usr/local ../BornAgain
 make -j4
-cpack
+cpack -V
 cp *.dmg /vagrant/.

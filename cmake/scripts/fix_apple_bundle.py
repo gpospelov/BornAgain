@@ -51,7 +51,7 @@ def qtplugins_path():
 
 
 def bornagain_binaries():
-    result = glob.glob(os.path.join(bundle_dir(), "Contents","lib","BornAgain-*","*"))
+    result = glob.glob(os.path.join(bundle_dir(), "Contents", "lib", "BornAgain-*", "*"))
     result.append(bundle_main_executable())
     return result
 

@@ -55,7 +55,7 @@ void BeamDistributionItem::onPropertyChange(const QString &name)
 
 //! returns parameter distribution to add into the Simulation
 std::unique_ptr<ParameterDistribution>
-BeamDistributionItem::getParameterDistributionForName(const QString &parameter_name)
+BeamDistributionItem::getParameterDistributionForName(const std::string &parameter_name)
 {
     std::unique_ptr<ParameterDistribution> P_par_distr{};
     if (auto distributionItem
@@ -83,7 +83,7 @@ BeamDistributionItem::getParameterDistributionForName(const QString &parameter_n
                     limits.setUpperLimit(Units::deg2rad(orig.getUpperLimit()));
             }
             P_par_distr = GUIHelpers::make_unique<ParameterDistribution>(
-                parameter_name.toStdString(), *P_distribution, nbr_samples, sigma_factor, limits);
+                parameter_name, *P_distribution, nbr_samples, sigma_factor, limits);
         }
     }
     return P_par_distr;

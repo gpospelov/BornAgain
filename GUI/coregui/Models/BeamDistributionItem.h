@@ -37,7 +37,7 @@ public:
     void onPropertyChange(const QString &name);
 
     std::unique_ptr<ParameterDistribution> getParameterDistributionForName(
-            const QString &parameter_name);
+            const std::string &parameter_name);
 
 protected slots:
     void onSubItemChanged(const QString &propertyName);

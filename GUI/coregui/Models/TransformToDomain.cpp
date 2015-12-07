@@ -42,8 +42,11 @@
 #include "BeamWavelengthItem.h"
 #include "BeamAngleItems.h"
 #include "ResolutionFunctionItems.h"
+#include "BornAgainNamespace.h"
 
 #include <QDebug>
+
+using namespace BornAgain;
 
 std::unique_ptr<IMaterial> TransformToDomain::createDomainMaterial(const ParameterizedItem &item)
 {
@@ -354,22 +357,31 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
 void TransformToDomain::addDistributionParametersToSimulation(const ParameterizedItem &beam_item,
                                                               GISASSimulation *simulation)
 {
+    ParameterPattern pattern_wavelength;
+    pattern_wavelength.beginsWith("*").add(BeamType).add(Wavelength);
+    ParameterPattern pattern_alpha;
+    pattern_alpha.beginsWith("*").add(BeamType).add(Alpha);
+    ParameterPattern pattern_phi;
+    pattern_phi.beginsWith("*").add(BeamType).add(Phi);
     if (beam_item.modelType() == Constants::BeamType) {
         if (auto beamWavelength
             = dynamic_cast<BeamWavelengthItem *>(beam_item.getSubItems()[BeamItem::P_WAVELENGTH])) {
-            auto P_par_distr = beamWavelength->getParameterDistributionForName("*/Beam/wavelength");
+            auto P_par_distr = beamWavelength->getParameterDistributionForName(
+                        pattern_wavelength.toStdString());
             if (P_par_distr)
                 simulation->addParameterDistribution(*P_par_distr);
         }
         if (auto inclinationAngle = dynamic_cast<BeamInclinationAngleItem *>(
                 beam_item.getSubItems()[BeamItem::P_INCLINATION_ANGLE])) {
-            auto P_par_distr = inclinationAngle->getParameterDistributionForName("*/Beam/alpha");
+            auto P_par_distr = inclinationAngle->getParameterDistributionForName(
+                        pattern_alpha.toStdString());
             if (P_par_distr)
                 simulation->addParameterDistribution(*P_par_distr);
         }
         if (auto azimuthalAngle = dynamic_cast<BeamAzimuthalAngleItem *>(
                 beam_item.getSubItems()[BeamItem::P_AZIMUTHAL_ANGLE])) {
-            auto P_par_distr = azimuthalAngle->getParameterDistributionForName("*/Beam/phi");
+            auto P_par_distr = azimuthalAngle->getParameterDistributionForName(
+                        pattern_phi.toStdString());
             if (P_par_distr)
                 simulation->addParameterDistribution(*P_par_distr);
         }

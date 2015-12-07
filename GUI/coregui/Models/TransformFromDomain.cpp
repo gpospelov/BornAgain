@@ -49,10 +49,13 @@
 #include "ResolutionFunction2DGaussian.h"
 #include "ResolutionFunctionItems.h"
 #include "ConvolutionDetectorResolution.h"
+#include "BornAgainNamespace.h"
+
 #include <QString>
 #include <QDebug>
 #include <vector>
-#include <boost/scoped_ptr.hpp>
+
+using namespace BornAgain;
 
 void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
                                             const InterferenceFunctionRadialParaCrystal *sample)
@@ -423,16 +426,22 @@ void TransformFromDomain::setItemFromSample(BeamItem *beamItem, const GISASSimul
     const DistributionHandler::Distributions_t distributions
         = simulation.getDistributionHandler().getDistributions();
     for (size_t i = 0; i < distributions.size(); ++i) {
-        QString mainParameterName = QString::fromStdString(distributions[i].getMainParameterName());
-        if (mainParameterName == QStringLiteral("*/Beam/wavelength")) {
+        ParameterPattern pattern_wavelength;
+        pattern_wavelength.beginsWith("*").add(BeamType).add(Wavelength);
+        ParameterPattern pattern_alpha;
+        pattern_alpha.beginsWith("*").add(BeamType).add(Alpha);
+        ParameterPattern pattern_phi;
+        pattern_phi.beginsWith("*").add(BeamType).add(Phi);
+        std::string mainParameterName = distributions[i].getMainParameterName();
+        if (mainParameterName == pattern_wavelength.toStdString()) {
             BeamDistributionItem *beamWavelength = dynamic_cast<BeamDistributionItem *>(
                 beamItem->getSubItems()[BeamItem::P_WAVELENGTH]);
             setItemFromSample(beamWavelength, distributions[i]);
-        } else if (mainParameterName == QStringLiteral("*/Beam/alpha")) {
+        } else if (mainParameterName == pattern_alpha.toStdString()) {
             BeamDistributionItem *inclinationAngle = dynamic_cast<BeamDistributionItem *>(
                 beamItem->getSubItems()[BeamItem::P_INCLINATION_ANGLE]);
             setItemFromSample(inclinationAngle, distributions[i]);
-        } else if (mainParameterName == QStringLiteral("*/Beam/phi")) {
+        } else if (mainParameterName == pattern_phi.toStdString()) {
             BeamDistributionItem *azimuthalAngle = dynamic_cast<BeamDistributionItem *>(
                 beamItem->getSubItems()[BeamItem::P_AZIMUTHAL_ANGLE]);
             setItemFromSample(azimuthalAngle, distributions[i]);

@@ -22,6 +22,7 @@
 #include "InterferenceFunctionNone.h"
 #include "Distributions.h"
 #include "ParticleDistribution.h"
+#include "BornAgainNamespace.h"
 
 
 // -----------------------------------------------------------------------------
@@ -38,8 +39,8 @@ CylindersInDWBABuilder::CylindersInDWBABuilder()
 void CylindersInDWBABuilder::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius);
-    registerParameter("height", &m_height);
+    registerParameter(BornAgain::Radius, &m_radius);
+    registerParameter(BornAgain::Height, &m_height);
 }
 
 
@@ -83,8 +84,8 @@ CylindersInBABuilder::CylindersInBABuilder()
 void CylindersInBABuilder::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius);
-    registerParameter("height", &m_height);
+    registerParameter(BornAgain::Radius, &m_radius);
+    registerParameter(BornAgain::Height, &m_height);
 }
 
 

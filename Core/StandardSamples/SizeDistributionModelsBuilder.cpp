@@ -186,10 +186,10 @@ ISample *CylindersInSSCABuilder::buildSample() const
 
     DistributionGaussian gauss(5.0*Units::nanometer, 1.25*Units::nanometer);
     ParameterPattern pattern_radius;
-    pattern_radius.add(ParticleType).add(FFCylinderType).add("radius");
+    pattern_radius.add(ParticleType).add(FFCylinderType).add(Radius);
     ParameterDistribution par_distr(pattern_radius.toStdString(), gauss, 30, 3.0);
     ParameterPattern pattern_height;
-    pattern_height.add(ParticleType).add(FFCylinderType).add("height");
+    pattern_height.add(ParticleType).add(FFCylinderType).add(Height);
     par_distr.linkParameter(pattern_height.toStdString());
     ParticleDistribution particle_collection(particle_prototype, par_distr);
     particle_layout.addParticle(particle_collection);

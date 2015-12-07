@@ -37,9 +37,9 @@ IMinimizerFunctionalTest::IMinimizerFunctionalTest(const std::string &minimizer_
     , m_parameter_tolerance(0.01)
 {
     m_parameters.push_back(
-        TestParameter("*height", 5.0 * Units::nanometer, 4.5 * Units::nanometer));
+        TestParameter("*Height", 5.0 * Units::nanometer, 4.5 * Units::nanometer));
     m_parameters.push_back(
-        TestParameter("*radius", 5.0 * Units::nanometer, 5.5 * Units::nanometer));
+        TestParameter("*Radius", 5.0 * Units::nanometer, 5.5 * Units::nanometer));
 }
 
 

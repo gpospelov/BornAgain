@@ -90,8 +90,8 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # this fit parameter will change both length_1 and length_2 simultaneously
-    fit_suite.addFitParameter("*2DLattice/length_*", 8.*nanometer, AttLimits.limited(4., 12.))
-    fit_suite.addFitParameter("*/FormFactorFullSphere/radius", 8.*nanometer, AttLimits.limited(4., 12.))
+    fit_suite.addFitParameter("*2DLattice/LatticeLength*", 8.*nanometer, AttLimits.limited(4., 12.))
+    fit_suite.addFitParameter("*/FullSphere/Radius", 8.*nanometer, AttLimits.limited(4., 12.))
 
     # running fit
     fit_suite.runFit()

@@ -28,9 +28,9 @@ def RunSimulation():
     particle_prototype = Particle(mParticle, cylinder_ff)
     radius_distr = DistributionGaussian(5.0*nanometer, 1.25*nanometer)
 
-    par_distr = ParameterDistribution("*/radius", radius_distr, 30, 3.0)
+    par_distr = ParameterDistribution("*/Radius", radius_distr, 30, 3.0)
     # link height linearly with distribution of radius:
-    par_distr.linkParameter("*/height")
+    par_distr.linkParameter("*/Height")
     part_coll = ParticleDistribution(particle_prototype, par_distr)
     particle_layout.addParticle(part_coll)
 

@@ -90,6 +90,7 @@ public:
     ParameterPattern();
     ParameterPattern(std::string root_object);
 
+    ParameterPattern& beginsWith(std::string start_type);
     ParameterPattern& add(std::string object_type);
 
     std::string toStdString() const;

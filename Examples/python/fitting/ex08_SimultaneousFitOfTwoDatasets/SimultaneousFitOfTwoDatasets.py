@@ -147,9 +147,9 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*/FormFactorHemiEllipsoid/radius_a", 4.*nanometer, AttLimits.limited(2., 10.))
-    fit_suite.addFitParameter("*/FormFactorHemiEllipsoid/radius_b", 6.*nanometer, AttLimits.fixed())
-    fit_suite.addFitParameter("*/FormFactorHemiEllipsoid/height", 4.*nanometer, AttLimits.limited(2., 10.))
+    fit_suite.addFitParameter("*/HemiEllipsoid/RadiusX", 4.*nanometer, AttLimits.limited(2., 10.))
+    fit_suite.addFitParameter("*/HemiEllipsoid/RadiusY", 6.*nanometer, AttLimits.fixed())
+    fit_suite.addFitParameter("*/HemiEllipsoid/Height", 4.*nanometer, AttLimits.limited(2., 10.))
 
     # running fit
     fit_suite.runFit()

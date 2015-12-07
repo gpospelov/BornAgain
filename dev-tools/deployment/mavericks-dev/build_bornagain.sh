@@ -8,4 +8,5 @@ mkdir BornAgain-build
 cd BornAgain-build
 cmake -DBORNAGAIN_APPLE_BUNDLE=ON ../BornAgain
 make -j4
+cpack
 cp *.dmg /vagrant/.

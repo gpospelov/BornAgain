@@ -33,6 +33,7 @@ MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget *parent)
     , m_listView(new QListView)
     , m_maskPropertyEditor(new AwesomePropertyEditor)
     , m_plotPropertyEditor(new AwesomePropertyEditor)
+    , m_maskModel(0)
 {
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
     setObjectName(QLatin1String("MaskEditorToolPanel"));

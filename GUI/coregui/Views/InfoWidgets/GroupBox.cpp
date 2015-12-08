@@ -33,7 +33,10 @@ namespace
     int offset_of_icon_position = 24;
 }
 
-GroupBox::GroupBox( QWidget *parent ): QGroupBox( parent )
+GroupBox::GroupBox( QWidget *parent )
+    : QGroupBox( parent )
+    , m_xImage(0)
+    , m_yImage(0)
 {
     setMouseTracking(true);
 }

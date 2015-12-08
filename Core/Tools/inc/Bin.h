@@ -28,7 +28,7 @@
 
 struct BA_CORE_API_ Bin1D
 {
-    Bin1D() {}
+    Bin1D() : m_lower(0), m_upper(0) {}
     Bin1D(double lower, double upper) : m_lower(lower), m_upper(upper) {}
     double m_lower;  //!< lower bound of the bin
     double m_upper;  //!< upper bound of the bin

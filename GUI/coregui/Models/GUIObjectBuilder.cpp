@@ -694,6 +694,4 @@ MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
         throw GUIHelpers::Error("GUIObjectBuilder::createMaterialFromDomain()"
                                 " -> Not implemented.");
     }
-
-    return MaterialProperty();
 }

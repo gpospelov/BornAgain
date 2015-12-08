@@ -27,6 +27,7 @@
 
 MaskResultsPresenter::MaskResultsPresenter(QWidget *parent)
     : QObject(parent)
+    , m_interpolation_flag_backup(false)
 {
 
 }

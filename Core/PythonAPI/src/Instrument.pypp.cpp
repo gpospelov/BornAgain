@@ -49,8 +49,7 @@ void register_Instrument_class(){
             
             Instrument_exposer.def( 
                 "getBeamIntensity"
-                , getBeamIntensity_function_type( &::Instrument::getBeamIntensity )
-                , "Returns the beam's intensity." );
+                , getBeamIntensity_function_type( &::Instrument::getBeamIntensity ) );
         
         }
         { //::Instrument::getDetector
@@ -90,8 +89,7 @@ void register_Instrument_class(){
             
             Instrument_exposer.def( 
                 "getDetectorDimension"
-                , getDetectorDimension_function_type( &::Instrument::getDetectorDimension )
-                , "Returns the detector's dimension." );
+                , getDetectorDimension_function_type( &::Instrument::getDetectorDimension ) );
         
         }
         { //::Instrument::matchDetectorAxes
@@ -123,8 +121,7 @@ void register_Instrument_class(){
             Instrument_exposer.def( 
                 "setAnalyzerProperties"
                 , setAnalyzerProperties_function_type( &::Instrument::setAnalyzerProperties )
-                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 )
-                , "Sets the polarization analyzer characteristics of the detector." );
+                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 ) );
         
         }
         { //::Instrument::setBeam
@@ -144,8 +141,7 @@ void register_Instrument_class(){
             Instrument_exposer.def( 
                 "setBeamIntensity"
                 , setBeamIntensity_function_type( &::Instrument::setBeamIntensity )
-                , ( bp::arg("intensity") )
-                , "Sets the beam's intensity." );
+                , ( bp::arg("intensity") ) );
         
         }
         { //::Instrument::setBeamParameters
@@ -165,8 +161,7 @@ void register_Instrument_class(){
             Instrument_exposer.def( 
                 "setBeamPolarization"
                 , setBeamPolarization_function_type( &::Instrument::setBeamPolarization )
-                , ( bp::arg("bloch_vector") )
-                , "Sets the beam's polarization according to the given Bloch vector." );
+                , ( bp::arg("bloch_vector") ) );
         
         }
         { //::Instrument::setDetector

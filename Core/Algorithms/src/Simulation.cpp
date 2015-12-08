@@ -23,11 +23,11 @@
 #include "BornAgainNamespace.h"
 #include "ProgressHandlerDWBA.h"
 #include "OMPISimulation.h"
-#include <thread>
-
 #include "Macros.h"
+
+#include <memory>
+#include <thread>
 #include <gsl/gsl_errno.h>
-#include <boost/scoped_ptr.hpp>
 
 Simulation::Simulation()
     : IParameterized("Simulation"), mp_options(0)
@@ -85,7 +85,7 @@ void Simulation::runSimulation()
 
     // no averaging needed:
     if (param_combinations == 1) {
-        boost::scoped_ptr<ParameterPool> P_param_pool(createParameterTree());
+        std::unique_ptr<ParameterPool> P_param_pool(createParameterTree());
         m_distribution_handler.setParameterValues(P_param_pool.get(), 0);
         runSingleSimulation();
         transferResultsToIntensityMap();
@@ -95,7 +95,7 @@ void Simulation::runSimulation()
     // average over parameter distributions:
     initSimulationElementVector();
     std::vector<SimulationElement> total_intensity = m_sim_elements;
-    boost::scoped_ptr<ParameterPool> P_param_pool(createParameterTree());
+    std::unique_ptr<ParameterPool> P_param_pool(createParameterTree());
     for (size_t index = 0; index < param_combinations; ++index) {
         double weight = m_distribution_handler.setParameterValues(P_param_pool.get(), index);
         runSingleSimulation();
@@ -215,7 +215,7 @@ void Simulation::runSingleSimulation()
         m_thread_info.n_threads = 1;
     if (m_thread_info.n_threads == 1) {
         // Single thread.
-        boost::scoped_ptr<DWBASimulation> P_dwba_simulation(mP_sample->createDWBASimulation());
+        std::unique_ptr<DWBASimulation> P_dwba_simulation(mP_sample->createDWBASimulation());
         verifyDWBASimulation(P_dwba_simulation.get());
         P_dwba_simulation->init(*this, batch_start, batch_end);
         P_dwba_simulation->run(); // the work is done here

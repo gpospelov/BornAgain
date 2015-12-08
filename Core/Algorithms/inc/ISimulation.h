@@ -25,28 +25,61 @@
 class BA_CORE_API_  ISimulation : public ICloneable
 {
 public:
-    ISimulation() : m_status(IDLE) {}
     enum ESimulationStatus { IDLE, RUNNING, COMPLETED, FAILED };
 
+    ISimulation() : m_status(IDLE) {}
+
     virtual ~ISimulation() {}
-    ISimulation *clone() const
-    {
-        throw NotImplementedException("ISimulation::clone() -> "
-                                      "Error: not implemented exception.");
-    }
-    virtual void run() {}
 
-    bool isCompleted() const { return m_status == COMPLETED;}
+    ISimulation *clone() const;
 
-    std::string getRunMessage() const { return m_run_message; }
+    virtual void run();
+
+    bool isCompleted() const;
+
+    std::string getRunMessage() const;
 
 protected:
-    virtual void runProtected() {}
-    void setStatus(ESimulationStatus status) { m_status = status; }
-    void setRunMessage(const std::string &message) { m_run_message = message; }
+    virtual void runProtected();
+    void setStatus(ESimulationStatus status);
+    void setRunMessage(const std::string &message);
 
     ESimulationStatus m_status;
     std::string m_run_message;
 };
+
+inline ISimulation *ISimulation::clone() const
+{
+    throw NotImplementedException("ISimulation::clone() -> "
+                                  "Error: not implemented exception.");
+}
+
+inline void ISimulation::run()
+{
+}
+
+inline bool ISimulation::isCompleted() const
+{
+    return m_status == COMPLETED;
+}
+
+inline std::string ISimulation::getRunMessage() const
+{
+    return m_run_message;
+}
+
+inline void ISimulation::runProtected()
+{
+}
+
+inline void ISimulation::setStatus(ISimulation::ESimulationStatus status)
+{
+    m_status = status;
+}
+
+inline void ISimulation::setRunMessage(const std::string &message)
+{
+    m_run_message = message;
+}
 
 #endif // ISIMULATION_H

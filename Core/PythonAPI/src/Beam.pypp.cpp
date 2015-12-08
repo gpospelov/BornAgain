@@ -58,8 +58,7 @@ void register_Beam_class(){
             
             Beam_exposer.def( 
                 "getIntensity"
-                , getIntensity_function_type( &::Beam::getIntensity )
-                , "Gets the beam intensity in neutrons/sec." );
+                , getIntensity_function_type( &::Beam::getIntensity ) );
         
         }
         { //::Beam::getPhi
@@ -109,8 +108,7 @@ void register_Beam_class(){
             Beam_exposer.def( 
                 "setIntensity"
                 , setIntensity_function_type( &::Beam::setIntensity )
-                , ( bp::arg("intensity") )
-                , "Sets the beam intensity in neutrons/sec." );
+                , ( bp::arg("intensity") ) );
         
         }
         { //::Beam::setPolarization

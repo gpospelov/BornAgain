@@ -27,14 +27,12 @@ class BA_CORE_API_ FormFactorDecoratorFactor : public IFormFactorDecorator
 {
 public:
     FormFactorDecoratorFactor(const IFormFactor &form_factor, const complex_t &factor);
-    virtual ~FormFactorDecoratorFactor()
-    {
-    }
+
+    virtual ~FormFactorDecoratorFactor() {}
+
     virtual FormFactorDecoratorFactor *clone() const;
-    virtual void accept(ISampleVisitor *visitor) const
-    {
-        visitor->visit(this);
-    }
+
+    virtual void accept(ISampleVisitor *visitor) const;
 
     //! Evaluate the form factor for scalar calculations
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
@@ -53,6 +51,11 @@ inline FormFactorDecoratorFactor::FormFactorDecoratorFactor(const IFormFactor &f
 inline FormFactorDecoratorFactor *FormFactorDecoratorFactor::clone() const
 {
     return new FormFactorDecoratorFactor(*mp_form_factor, m_factor);
+}
+
+inline void FormFactorDecoratorFactor::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 inline complex_t FormFactorDecoratorFactor::evaluate(const WavevectorInfo& wavevectors) const

@@ -31,27 +31,25 @@ class IIntensityNormalizer;
 class BA_CORE_API_ FitObject : public IParameterized
 {
 public:
-
     //! FitObject constructor
     //! @param simulaiton The simulation to eun
     //! @param real_data The real data
     //! @param weight Weight of dataset in chi2 calculations
-    FitObject(const GISASSimulation& simulation,
-              const OutputData<double >& real_data,
+    FitObject(const GISASSimulation &simulation, const OutputData<double> &real_data,
               double weight = 1);
 
     ~FitObject();
 
-    //! Returns real data
+    //! Returns real (experimental) data.
     const OutputData<double> *getRealData() const;
 
-    //! Returns simulated data
+    //! Returns simulated data.
     const OutputData<double> *getSimulationData() const;
 
-    //! Returns weight of data set in chi2 calculations
+    //! Returns weight of data set in chi2 calculations.
     double getWeight() const;
 
-    //! Returns size of data. It is equal to the number of non-masked detector channels
+    //! Returns the size of the data. It is equal to the number of non-masked detector channels
     //! which will participate in chi2 calculations.
     size_t getSizeOfData() const;
 

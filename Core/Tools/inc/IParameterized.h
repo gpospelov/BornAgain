@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/inc/IParameterized.h
-//! @brief     Defines standard mix-in class IParameterized.
+//! @brief     Defines class IParameterized.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,6 @@
 #define IPARAMETERIZED_H_
 
 #include "INamed.h"
-#include "IChangeable.h"
 #include "ParameterPool.h"
 
 class AttLimits;

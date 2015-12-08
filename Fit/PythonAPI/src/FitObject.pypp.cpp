@@ -40,7 +40,7 @@ void register_FitObject_class(){
                 "getRealData"
                 , getRealData_function_type( &::FitObject::getRealData )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns real data." );
+                , "Returns real (experimental) data." );
         
         }
         { //::FitObject::getSimulationData
@@ -61,7 +61,7 @@ void register_FitObject_class(){
             FitObject_exposer.def( 
                 "getSizeOfData"
                 , getSizeOfData_function_type( &::FitObject::getSizeOfData )
-                , "Returns size of data. It is equal to the number of non-masked detector channels which will participate in chi2 calculations. " );
+                , "Returns the size of the data. It is equal to the number of non-masked detector channels which will participate in chi2 calculations. " );
         
         }
         { //::FitObject::getWeight

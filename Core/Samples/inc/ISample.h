@@ -31,25 +31,23 @@ class BA_CORE_API_ ISample : public ICloneable, public IParameterized
 {
 public:
     //! Returns pointer to "this", if it is a composite sample.
-    virtual ICompositeSample *getCompositeSample() { return 0; }
-    virtual const ICompositeSample *getCompositeSample() const { return 0; }
+    //! Default implementation returns nullptr.
+    virtual ICompositeSample *getCompositeSample();
+    virtual const ICompositeSample *getCompositeSample() const;
 
-    //! Returns a clone of this ISample object
-    virtual ISample *clone() const =0;
+    //! Returns a clone of this ISample object.
+    virtual ISample *clone() const=0;
 
-    //! Returns a clone with inverted magnetic fields
+    //! Returns a clone with inverted magnetic fields.
     virtual ISample *cloneInvertB() const;
 
-    //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) const = 0;
+    //! Calls the ISampleVisitor's visit method.
+    virtual void accept(ISampleVisitor *p_visitor) const=0;
 
     //! Returns an ISimulation if DWBA is required.
-    virtual DWBASimulation *createDWBASimulation() const { return 0; }
+    virtual DWBASimulation *createDWBASimulation() const;
 
     virtual void printSampleTree();
-
-    friend std::ostream& operator<<(std::ostream& ostr, const ISample& m)
-    { m.print(ostr); return ostr; }
 
     virtual bool containsMagneticMaterial() const;
 

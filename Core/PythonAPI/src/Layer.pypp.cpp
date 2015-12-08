@@ -353,8 +353,7 @@ void register_Layer_class(){
             
             Layer_exposer.def( 
                 "getNumberOfLayouts"
-                , getNumberOfLayouts_function_type( &::Layer::getNumberOfLayouts )
-                , "gets number of layouts present." );
+                , getNumberOfLayouts_function_type( &::Layer::getNumberOfLayouts ) );
         
         }
         { //::Layer::getRefractiveIndex

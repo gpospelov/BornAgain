@@ -19,38 +19,53 @@
 #include "Utils.h"
 #include "SamplePrintVisitor.h"
 
+ICompositeSample *ISample::getCompositeSample()
+{
+    return nullptr;
+}
+
+const ICompositeSample *ISample::getCompositeSample() const
+{
+    return nullptr;
+}
+
 ISample* ISample::cloneInvertB() const
 {
     throw NotImplementedException(
         "ISample::cloneInvertB() -> Error! Method is not implemented");
 }
 
-std::string ISample::addParametersToExternalPool(
-    std::string path, ParameterPool *external_pool, int copy_number) const
+DWBASimulation *ISample::createDWBASimulation() const
 {
-    std::string new_path =
-        IParameterized::addParametersToExternalPool(
-            path, external_pool, copy_number);
-    // go through direct children of given sample and
-    // copy their parameters recursively
+    return nullptr;
+}
+
+std::string ISample::addParametersToExternalPool(
+        std::string path, ParameterPool *external_pool, int copy_number) const
+{
+    std::string new_path
+        = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
+
+    // go through direct children of this sample and copy their parameters recursively
     const ICompositeSample *p_sample = getCompositeSample();
     if( p_sample ) {
-        // Here we need some default mechanism to handle cases with
-        // many children with same name.
-        // Run through all direct children and save their names
+        // Here we need some default mechanism to handle cases with multiple children with
+        // the same name.
+        // First run through all direct children and save their names
         Utils::StringUsageMap strUsageMap;
         for(size_t i=0; i<p_sample->size(); ++i) {
             strUsageMap.add( new_path + (*p_sample)[i]->getName() ); // saving child names
         }
-        // Now run through direct children again,
-        // and assign a copy number for all children with the same name
+        // Now run through the direct children again and assign a copy number for
+        // all children with the same name
         Utils::StringUsageMap strUsageMap2;
         for(size_t i=0; i<p_sample->size(); ++i) {
             std::string child_name = new_path + (*p_sample)[i]->getName();
             strUsageMap2.add(child_name);
-            int ncopy = strUsageMap2[child_name]-1; // starting from 0
+            // Copy number starts from 0:
+            int ncopy = strUsageMap2[child_name]-1;
 
-            // if object is in single exemplar, we do not want any copy number
+            // If the child is the only one with that name, we do not want any copy number:
             if(strUsageMap[child_name] == 1) ncopy = -1;
 
             (*p_sample)[i]->addParametersToExternalPool(new_path, external_pool, ncopy);
@@ -72,14 +87,3 @@ bool ISample::containsMagneticMaterial() const
     return material_vis.containsMagneticMaterial();
 
 }
-
-//void ISample::print(std::ostream& ostr) const
-//{
-//    ostr << "ISample:" << getName() << "<" << this << ">{ " <<
-//        "params={ " << m_parameters << " }";
-//    ostr << " }";
-//}
-
-
-
-

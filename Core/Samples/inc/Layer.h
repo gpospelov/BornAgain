@@ -33,12 +33,11 @@ public:
     Layer();
 
     //! Constructs layer made of _material_ with _thickness_ in nanometers and decoration
-//    Layer(const IMaterial* material, double thickness=0, ILayout *decoration=0);
     Layer(const IMaterial &material, double thickness = 0);
 
     virtual ~Layer();
 
-    virtual Layer *clone() const { return new Layer(*this); }
+    virtual Layer *clone() const;
 
     //! Returns a clone with inverted magnetic fields
     virtual Layer *cloneInvertB() const;
@@ -71,9 +70,7 @@ public:
     virtual void addLayout(const ILayout& decoration);
 
     //! gets number of layouts present
-    size_t getNumberOfLayouts() const {
-        return m_layouts.size();
-    }
+    size_t getNumberOfLayouts() const;
 
     //! returns particle decoration
     virtual const ILayout* getLayout(size_t i) const;
@@ -109,5 +106,9 @@ protected:
 private:
     void initialize();
 };
+
+inline size_t Layer::getNumberOfLayouts() const {
+    return m_layouts.size();
+}
 
 #endif // LAYER_H

@@ -51,6 +51,11 @@ Layer::~Layer()
     delete mp_material;
 }
 
+Layer *Layer::clone() const
+{
+    return new Layer(*this);
+}
+
 Layer* Layer::cloneInvertB() const
 {
     Layer *p_clone = new Layer();

@@ -42,8 +42,8 @@ void FitSuiteParameters::clear()
 void FitSuiteParameters::addParameter(const std::string& name, double value, double step,
                                       const AttLimits& attlim, double error)
 {
-    for(parameters_t::const_iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {
-        if( (*it)->getName() == name )
+    for(auto par : m_parameters) {
+        if( par->getName() == name )
             throw LogicErrorException("FitSuiteParameters:addtFitParameter() -> Error. "
                                       "Existing parameter '"+name+"'");
     }

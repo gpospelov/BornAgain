@@ -30,7 +30,7 @@
 #include <boost/scoped_ptr.hpp>
 #include "SampleBuilderFactory.h"
 #include "IntensityDataItem.h"
-#include "MaskModel.h"
+#include "SessionModel.h"
 #include "MaskItems.h"
 
 
@@ -41,7 +41,6 @@ MaskEditor::MaskEditor(QWidget *parent)
     , m_editorPropertyPanel(new MaskEditorPropertyPanel(this))
     , m_editorCanvas(new MaskEditorCanvas(this))
     , m_splitter(new QSplitter(this))
-    , m_maskModel(0)
 {
     setObjectName(QStringLiteral("IntensityDataPlotWidget"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -53,7 +52,7 @@ MaskEditor::MaskEditor(QWidget *parent)
 
     setCentralWidget(m_splitter);
 
-    init_test_model();
+//    init_test_model();
 
     setup_connections();
 }
@@ -61,6 +60,17 @@ MaskEditor::MaskEditor(QWidget *parent)
 void MaskEditor::onPropertyPanelRequest()
 {
     m_editorPropertyPanel->setPanelHidden(!m_editorPropertyPanel->isHidden());
+}
+
+void MaskEditor::setModel(SessionModel *model, const QModelIndex &rootIndex)
+{
+    m_editorPropertyPanel->setModel(model, rootIndex);
+
+    m_editorCanvas->setModel(model, rootIndex);
+    m_editorCanvas->setSelectionModel(m_editorPropertyPanel->selectionModel());
+
+    m_itemActions->setModel(model, rootIndex);
+    m_itemActions->setSelectionModel(m_editorPropertyPanel->selectionModel());
 }
 
 //! Context menu reimplemented to supress default menu
@@ -71,7 +81,7 @@ void MaskEditor::contextMenuEvent(QContextMenuEvent *event)
 
 void MaskEditor::init_test_model()
 {
-    m_maskModel = new MaskModel();
+    SessionModel *maskModel = new SessionModel(SessionXML::MaskModelTag, this);
 
     SimulationRegistry simRegistry;
     boost::scoped_ptr<GISASSimulation> simulation(simRegistry.createSimulation("BasicGISAS"));
@@ -82,7 +92,7 @@ void MaskEditor::init_test_model()
     simulation->setSample(*sample.get());
     simulation->runSimulation();
 
-    IntensityDataItem *item = dynamic_cast<IntensityDataItem *>(m_maskModel->insertNewItem(Constants::IntensityDataType));
+    IntensityDataItem *item = dynamic_cast<IntensityDataItem *>(maskModel->insertNewItem(Constants::IntensityDataType));
     Q_ASSERT(item);
     item->setOutputData(simulation->getOutputData()->clone());
     qDebug() << item->getXmin() << item->getXmax() << item->getYmin() << item->getYmax();
@@ -126,14 +136,7 @@ void MaskEditor::init_test_model()
 
 //    MaskAllItem *rect = dynamic_cast<MaskAllItem *>(m_maskModel->insertNewItem(Constants::MaskAllType, m_maskModel->indexOfItem(item)));
 
-    m_editorPropertyPanel->setModel(m_maskModel, m_maskModel->indexOfItem(item));
-
-    m_editorCanvas->setModel(m_maskModel, m_maskModel->indexOfItem(item));
-    m_editorCanvas->setSelectionModel(m_editorPropertyPanel->selectionModel());
-
-    m_itemActions->setModel(m_maskModel, m_maskModel->indexOfItem(item));
-    m_itemActions->setSelectionModel(m_editorPropertyPanel->selectionModel());
-
+    setModel(maskModel, maskModel->indexOfItem(item));
 }
 
 void MaskEditor::setup_connections()

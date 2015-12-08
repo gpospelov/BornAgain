@@ -25,4 +25,6 @@ TestView::TestView(QWidget *parent)
     layout->setSpacing(0);
     layout->addWidget(maskEditor);
     setLayout(layout);
+
+    maskEditor->init_test_model();
 }

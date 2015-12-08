@@ -93,6 +93,9 @@ QItemSelectionModel *MaskEditorPropertyPanel::selectionModel()
 void MaskEditorPropertyPanel::setPanelHidden(bool value)
 {
     this->setHidden(value);
+
+    if(!m_rootIndex.isValid()) return;
+
     if(value) {
         m_maskPropertyEditor->setItem(0);
         m_plotPropertyEditor->setItem(0);

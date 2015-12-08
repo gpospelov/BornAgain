@@ -138,6 +138,8 @@ void MaskGraphicsScene::setSelectionModel(QItemSelectionModel *model)
 
 void MaskGraphicsScene::onActivityModeChanged(MaskEditorFlags::Activity value)
 {
+    if(!m_proxy) return;
+
     m_context.setActivityType(value);
     if(m_context.isInZoomMode()) {
         m_proxy->setInZoomMode(true);
@@ -154,6 +156,7 @@ void MaskGraphicsScene::onMaskValueChanged(MaskEditorFlags::MaskValue value)
 //! returns ColorMap view to original state (axes, zoom)
 void MaskGraphicsScene::onResetViewRequest()
 {
+    if(!m_proxy) return;
     m_proxy->resetView();
 }
 
@@ -465,6 +468,8 @@ void MaskGraphicsScene::removeItemViewFromScene(ParameterizedItem *item)
 //! returns true if left mouse bottom click was inside ColorMap viewport rectangle
 bool MaskGraphicsScene::isValidMouseClick(QGraphicsSceneMouseEvent *event)
 {
+    if(!m_adaptor) return false;
+
     if(!(event->buttons() & Qt::LeftButton)) return false;
     if(!m_adaptor->getViewportRectangle().contains(event->scenePos())) return false;
     return true;

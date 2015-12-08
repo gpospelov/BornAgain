@@ -40,8 +40,7 @@ void MaskResultsPresenter::setModel(SessionModel *maskModel, const QModelIndex &
 
 void MaskResultsPresenter::updatePresenter(MaskEditorFlags::PresentationType presentationType)
 {
-    Q_ASSERT(m_maskModel);
-    Q_ASSERT(m_rootIndex.isValid());
+    if(!m_rootIndex.isValid()) return;
 
     if(presentationType == MaskEditorFlags::MASK_PRESENTER) {
         setShowMaskMode();

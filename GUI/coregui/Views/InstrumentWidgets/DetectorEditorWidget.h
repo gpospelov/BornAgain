@@ -19,6 +19,7 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
+class GroupBox;
 class DetectorItem;
 class AwesomePropertyEditor;
 class QGridLayout;
@@ -33,7 +34,11 @@ public:
 
     QGridLayout *getGridLayout() { return m_gridLayout;}
 
+private slots:
+    void onExtendedEditorRequest();
+
 private:
+    GroupBox *m_groupBox;
     AwesomePropertyEditor *m_detectorTypeEditor;
     AwesomePropertyEditor *m_phiAxisEditor;
     AwesomePropertyEditor *m_alphaAxisEditor;

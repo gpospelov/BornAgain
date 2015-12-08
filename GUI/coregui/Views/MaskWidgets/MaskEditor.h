@@ -25,7 +25,7 @@ class MaskEditorActions;
 class MaskEditorToolBar;
 class MaskEditorCanvas;
 class QSplitter;
-class MaskModel;
+class SessionModel;
 
 //! Main class to draw masks on top of intensity data map
 
@@ -37,12 +37,13 @@ public:
 
 public slots:
     void onPropertyPanelRequest();
+    void setModel(SessionModel *model, const QModelIndex &rootIndex);
+    void init_test_model();
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event);
 
 private:
-    void init_test_model();
     void setup_connections();
 
     MaskEditorActions *m_itemActions;
@@ -50,7 +51,6 @@ private:
     MaskEditorPropertyPanel *m_editorPropertyPanel;
     MaskEditorCanvas *m_editorCanvas;
     QSplitter *m_splitter;
-    MaskModel *m_maskModel;
 };
 
 

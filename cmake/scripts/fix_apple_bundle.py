@@ -144,8 +144,16 @@ def get_python_library_location():
     Returns location of Python library. The library is deduced from interpreter itself
     """
     for dependency in otool(sys.executable):
+        print dependency
         if os.path.exists(dependency) and "Python.framework" in dependency:
             return dependency
+
+    prefix = sys.prefix
+    suffix = sysconfig.get_config_var('LDVERSION') or sysconfig.get_config_var('VERSION')
+    result = sys.prefix+"/lib/libpython"+suffix+".dylib"
+    if os.path.exists(result):
+        return result
+
     return None
 
 
@@ -178,8 +186,9 @@ def copy_qt_libraries():
         print libname,
         libpath = os.path.join(libname+".framework", "Versions", "5")
         srcfile = os.path.join(qtlibs_path(), libpath, libname)
-        dstdir = os.path.join(bundle_frameworks_path(), libpath)
-        copy_file_to_dir(srcfile, dstdir)
+        if os.path.exists(srcfile):
+            dstdir = os.path.join(bundle_frameworks_path(), libpath)
+            copy_file_to_dir(srcfile, dstdir)
     print
 
 

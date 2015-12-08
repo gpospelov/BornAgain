@@ -51,7 +51,7 @@ def qtplugins_path():
 
 
 def bornagain_binaries():
-    result = glob.glob(os.path.join(bundle_dir(), "Contents","lib","BornAgain-*","*"))
+    result = glob.glob(os.path.join(bundle_dir(), "Contents", "lib", "BornAgain-*", "*"))
     result.append(bundle_main_executable())
     return result
 
@@ -105,7 +105,7 @@ def fixDependency(filename, old, new):
 
 def is_python_framework_dependency(dependency):
     """
-    Returns True if this dependecy is python library
+    Returns True if this dependency is python library
     """
     if not "boost" in dependency.lower():
         if "python" in dependency.lower():
@@ -113,9 +113,19 @@ def is_python_framework_dependency(dependency):
     return False
 
 
+def is_qt_framework_dependency(dependency):
+    """
+    Returns True if this dependency is Qt related
+    """
+    if "Qt" in dependency:
+        return True
+    return False
+
+
 def is_to_bundle_dependency(dependency):
     """
-    Returns True if this dependency should be moved to the bundle
+    Returns True if this dependency should be moved to the bundle.
+    Qt libraries and Python framework are special case and will be treated separately.
     """
     if not os.path.exists(dependency):
         return False
@@ -127,6 +137,9 @@ def is_to_bundle_dependency(dependency):
     if is_python_framework_dependency(dependency):
         return False
 
+    if is_qt_framework_dependency(dependency):
+        return False
+
     return True
 
 
@@ -136,6 +149,10 @@ def get_special_dependency_id(dependency):
     """
     if is_python_framework_dependency(dependency):
         return "@rpath/" + bundle_python_library()
+
+    if is_qt_framework_dependency(dependency) and not "@rpath" in dependency:
+        libname = os.path.basename(dependency)
+        return "@rpath/" + libname +".framework/Versions/5/"+libname
     return None
 
 
@@ -144,8 +161,19 @@ def get_python_library_location():
     Returns location of Python library. The library is deduced from interpreter itself
     """
     for dependency in otool(sys.executable):
+        print dependency
         if os.path.exists(dependency) and "Python.framework" in dependency:
             return dependency
+
+    # At this point it looks that interpreter depends from libPython via @loader_path
+    # Let's try to find library directly
+
+    prefix = sys.prefix
+    suffix = sysconfig.get_config_var('LDVERSION') or sysconfig.get_config_var('VERSION')
+    result = sys.prefix+"/lib/libpython"+suffix+".dylib"
+    if os.path.exists(result):
+        return result
+
     return None
 
 
@@ -178,8 +206,9 @@ def copy_qt_libraries():
         print libname,
         libpath = os.path.join(libname+".framework", "Versions", "5")
         srcfile = os.path.join(qtlibs_path(), libpath, libname)
-        dstdir = os.path.join(bundle_frameworks_path(), libpath)
-        copy_file_to_dir(srcfile, dstdir)
+        if os.path.exists(srcfile):
+            dstdir = os.path.join(bundle_frameworks_path(), libpath)
+            copy_file_to_dir(srcfile, dstdir)
     print
 
 

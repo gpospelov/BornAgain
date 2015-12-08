@@ -19,13 +19,13 @@ Vagrant.configure(2) do |config|
     #   vb.gui = true
 
     # Use VBoxManage to customize the VM. For example to change memory:
-    vb.customize ["modifyvm", :id, "--memory", "4096"]
+    vb.customize ["modifyvm", :id, "--memory", "8192"]
     vb.customize ["modifyvm", :id, "--cpuidset", "1","000206a7","02100800","1fbae3bf","bfebfbff"]
     # use ICH9 for the chipset
     vb.customize ["modifyvm", :id, "--chipset", "piix3"]
     vb.cpus = 4
   end
 
-  config.vm.provision :shell, path: "build_bornagain.sh"
+  config.vm.provision :shell, path: "build_bornagain.sh", privileged: false
 
 end

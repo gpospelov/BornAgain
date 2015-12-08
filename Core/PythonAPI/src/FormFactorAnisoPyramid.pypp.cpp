@@ -21,8 +21,6 @@ GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
-#include "__call_policies.pypp.hpp"
-#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "FormFactorAnisoPyramid.pypp.h"
 
@@ -157,30 +155,6 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
         FormFactorAnisoPyramid::setWidth( width );
     }
 
-    virtual bool areParametersChanged(  ) {
-        if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
-            return func_areParametersChanged(  );
-        else{
-            return this->IParameterized::areParametersChanged(  );
-        }
-    }
-    
-    bool default_areParametersChanged(  ) {
-        return IParameterized::areParametersChanged( );
-    }
-
-    virtual void clearParameterPool(  ) {
-        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
-            func_clearParameterPool(  );
-        else{
-            this->IParameterized::clearParameterPool(  );
-        }
-    }
-    
-    void default_clearParameterPool(  ) {
-        IParameterized::clearParameterPool( );
-    }
-
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -203,18 +177,6 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
-    }
-
-    virtual ::ParameterPool * createParameterTree(  ) const  {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
-        else{
-            return this->IParameterized::createParameterTree(  );
-        }
-    }
-    
-    ::ParameterPool * default_createParameterTree(  ) const  {
-        return IParameterized::createParameterTree( );
     }
 
     virtual ::complex_t evaluate( ::WavevectorInfo const & wavevectors ) const  {
@@ -277,18 +239,6 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
         return IFormFactorBorn::getVolume( );
     }
 
-    virtual void printParameters(  ) const  {
-        if( bp::override func_printParameters = this->get_override( "printParameters" ) )
-            func_printParameters(  );
-        else{
-            this->IParameterized::printParameters(  );
-        }
-    }
-    
-    void default_printParameters(  ) const  {
-        IParameterized::printParameters( );
-    }
-
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
@@ -301,25 +251,6 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
         ISample::printSampleTree( );
     }
 
-    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
-        namespace bpl = boost::python;
-        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
-        }
-        else{
-            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
-        }
-    }
-    
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
-        if( dynamic_cast< FormFactorAnisoPyramid_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-        else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-    }
-
     virtual void setAmbientMaterial( ::IMaterial const & material ) {
         if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
             func_setAmbientMaterial( boost::ref(material) );
@@ -330,30 +261,6 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     
     void default_setAmbientMaterial( ::IMaterial const & material ) {
         IFormFactor::setAmbientMaterial( boost::ref(material) );
-    }
-
-    virtual bool setParameterValue( ::std::string const & name, double value ) {
-        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
-            return func_setParameterValue( name, value );
-        else{
-            return this->IParameterized::setParameterValue( name, value );
-        }
-    }
-    
-    bool default_setParameterValue( ::std::string const & name, double value ) {
-        return IParameterized::setParameterValue( name, value );
-    }
-
-    virtual void setParametersAreChanged(  ) {
-        if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
-            func_setParametersAreChanged(  );
-        else{
-            this->IParameterized::setParametersAreChanged(  );
-        }
-    }
-    
-    void default_setParametersAreChanged(  ) {
-        IParameterized::setParametersAreChanged( );
     }
 
     virtual void transferToCPP(  ) {
@@ -506,28 +413,6 @@ void register_FormFactorAnisoPyramid_class(){
                 , ( bp::arg("width") ) );
         
         }
-        { //::IParameterized::areParametersChanged
-        
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( FormFactorAnisoPyramid_wrapper::*default_areParametersChanged_function_type)(  ) ;
-            
-            FormFactorAnisoPyramid_exposer.def( 
-                "areParametersChanged"
-                , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&FormFactorAnisoPyramid_wrapper::default_areParametersChanged) );
-        
-        }
-        { //::IParameterized::clearParameterPool
-        
-            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( FormFactorAnisoPyramid_wrapper::*default_clearParameterPool_function_type)(  ) ;
-            
-            FormFactorAnisoPyramid_exposer.def( 
-                "clearParameterPool"
-                , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&FormFactorAnisoPyramid_wrapper::default_clearParameterPool) );
-        
-        }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;
@@ -549,18 +434,6 @@ void register_FormFactorAnisoPyramid_class(){
                 "containsMagneticMaterial"
                 , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
                 , default_containsMagneticMaterial_function_type(&FormFactorAnisoPyramid_wrapper::default_containsMagneticMaterial) );
-        
-        }
-        { //::IParameterized::createParameterTree
-        
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( FormFactorAnisoPyramid_wrapper::*default_createParameterTree_function_type)(  ) const;
-            
-            FormFactorAnisoPyramid_exposer.def( 
-                "createParameterTree"
-                , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&FormFactorAnisoPyramid_wrapper::default_createParameterTree)
-                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IFormFactorBorn::evaluate
@@ -621,17 +494,6 @@ void register_FormFactorAnisoPyramid_class(){
                 , default_getVolume_function_type(&FormFactorAnisoPyramid_wrapper::default_getVolume) );
         
         }
-        { //::IParameterized::printParameters
-        
-            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( FormFactorAnisoPyramid_wrapper::*default_printParameters_function_type)(  ) const;
-            
-            FormFactorAnisoPyramid_exposer.def( 
-                "printParameters"
-                , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&FormFactorAnisoPyramid_wrapper::default_printParameters) );
-        
-        }
         { //::ISample::printSampleTree
         
             typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
@@ -641,17 +503,6 @@ void register_FormFactorAnisoPyramid_class(){
                 "printSampleTree"
                 , printSampleTree_function_type(&::ISample::printSampleTree)
                 , default_printSampleTree_function_type(&FormFactorAnisoPyramid_wrapper::default_printSampleTree) );
-        
-        }
-        { //::IParameterized::registerParameter
-        
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
-            
-            FormFactorAnisoPyramid_exposer.def( 
-                "registerParameter"
-                , default_registerParameter_function_type( &FormFactorAnisoPyramid_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactor::setAmbientMaterial
@@ -664,29 +515,6 @@ void register_FormFactorAnisoPyramid_class(){
                 , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
                 , default_setAmbientMaterial_function_type(&FormFactorAnisoPyramid_wrapper::default_setAmbientMaterial)
                 , ( bp::arg("material") ) );
-        
-        }
-        { //::IParameterized::setParameterValue
-        
-            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( FormFactorAnisoPyramid_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
-            
-            FormFactorAnisoPyramid_exposer.def( 
-                "setParameterValue"
-                , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&FormFactorAnisoPyramid_wrapper::default_setParameterValue)
-                , ( bp::arg("name"), bp::arg("value") ) );
-        
-        }
-        { //::IParameterized::setParametersAreChanged
-        
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( FormFactorAnisoPyramid_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
-            
-            FormFactorAnisoPyramid_exposer.def( 
-                "setParametersAreChanged"
-                , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&FormFactorAnisoPyramid_wrapper::default_setParametersAreChanged) );
         
         }
         { //::ICloneable::transferToCPP

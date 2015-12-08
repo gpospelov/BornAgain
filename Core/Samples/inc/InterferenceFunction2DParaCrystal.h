@@ -64,11 +64,6 @@ public:
 
     virtual double evaluate(const kvector_t& q) const;
 
-    //! Adds parameters from local pool to external pool and call recursion
-    //! over direct children
-    virtual std::string addParametersToExternalPool(std::string path,
-            ParameterPool *external_pool, int copy_number=-1) const;
-
     std::vector<double> getLatticeLengths() const;
     double getAlphaLattice() const { return m_alpha_lattice; }
     double getLatticeOrientation() const { return m_xi; }
@@ -76,6 +71,10 @@ public:
     std::vector<const IFTDistribution2D *> getProbabilityDistributions() const;
     bool getIntegrationOverXi() const { return m_integrate_xi; }
     double getDampingLength() const { return m_damping_length;}
+
+    //! Adds parameters from local pool to external pool and recursively calls its direct children.
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                                    int copy_number = -1) const;
 
 protected:
     //! Registers some class members for later access via parameter pool

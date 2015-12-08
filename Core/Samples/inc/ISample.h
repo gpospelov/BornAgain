@@ -46,16 +46,16 @@ public:
     //! Returns an ISimulation if DWBA is required.
     virtual DWBASimulation *createDWBASimulation() const { return 0; }
 
-    //! Adds params from local to external pool, recurses over direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
-                                                    int copy_number = -1) const;
-
     virtual void printSampleTree();
 
     friend std::ostream& operator<<(std::ostream& ostr, const ISample& m)
     { m.print(ostr); return ostr; }
 
     virtual bool containsMagneticMaterial() const;
+
+    //! Adds parameters from local pool to external pool and recursively calls its direct children.
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                                    int copy_number = -1) const;
 };
 
 #endif // ISAMPLE_H

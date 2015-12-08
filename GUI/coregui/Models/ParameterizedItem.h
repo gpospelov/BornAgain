@@ -51,9 +51,6 @@ public:
     //! to distinguish it from siblings)
     QString displayName() const;
 
-    //! sets the display name
-    void setDisplayName(QString display_name);
-
     virtual QString getItemLabel() const;
 
     //! retrieve parent item
@@ -152,6 +149,9 @@ private slots:
     virtual void processSubItemPropertyChanged(const QString &propertyName);
 
 protected:
+    //! sets the display name
+    void setDisplayName(QString display_name);
+
     void addToValidChildren(const QString &name, PortInfo::EPorts nport = PortInfo::PORT_0,
                             int nmax_children = 0);
 

@@ -155,9 +155,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "DistributionLogNormal.pypp.h"
 #include "IFTDistribution2D.pypp.h"
 #include "__call_policies.pypp.hpp"
-#include "__convenience.pypp.hpp"
 #include "__call_policies.pypp.hpp"
-#include "__convenience.pypp.hpp"
 
 #include "PythonListConverter.h"
 

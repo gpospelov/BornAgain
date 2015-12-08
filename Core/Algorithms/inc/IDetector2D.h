@@ -76,10 +76,6 @@ public:
     Eigen::Matrix2cd getAnalyzerOperator() const;
 #endif
 
-    //! Adds parameters from local pool to external pool and call recursion over direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
-                                                    int copy_number = -1) const;
-
     //! removes all masks from the detector
     void removeMasks();
 
@@ -104,6 +100,10 @@ public:
     //! Create a vector of SimulationElement objects according to the detector and its mask
     std::vector<SimulationElement> createSimulationElements(const Beam& beam);
 #endif
+
+    //! Adds parameters from local pool to external pool and recursively calls its direct children.
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                                    int copy_number = -1) const;
 
 protected:
     //! Create an IPixelMap for the given OutputData object and index

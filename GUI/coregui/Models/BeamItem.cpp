@@ -22,18 +22,20 @@
 #include "BeamDistributionItem.h"
 #include "Units.h"
 #include "BeamDistributionItem.h"
+#include "BornAgainNamespace.h"
+
 #include <QDebug>
 
-const QString BeamItem::P_INTENSITY = "Intensity [1/s]";
-const QString BeamItem::P_WAVELENGTH = "Wavelength";
+const QString BeamItem::P_INTENSITY = QString::fromStdString(BornAgain::Intensity);
+const QString BeamItem::P_WAVELENGTH = QString::fromStdString(BornAgain::Wavelength);
 const QString BeamItem::P_INCLINATION_ANGLE = "Inclination Angle";
 const QString BeamItem::P_AZIMUTHAL_ANGLE = "Azimuthal Angle";
 
-BeamItem::BeamItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::BeamType, parent)
+BeamItem::BeamItem(ParameterizedItem *parent) : ParameterizedItem(Constants::BeamType, parent)
 {
     ScientificDoubleProperty intensity(1e+08);
-    registerProperty(P_INTENSITY, intensity.getVariant(), PropertyAttribute(AttLimits::limited(0.0, 1e+32)));
+    registerProperty(P_INTENSITY, intensity.getVariant(),
+                     PropertyAttribute(AttLimits::limited(0.0, 1e+32)));
     registerGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
     registerGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
     registerGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);
@@ -41,13 +43,15 @@ BeamItem::BeamItem(ParameterizedItem *parent)
 
 double BeamItem::getIntensity() const
 {
-    ScientificDoubleProperty intensity = getRegisteredProperty(P_INTENSITY).value<ScientificDoubleProperty>();
+    ScientificDoubleProperty intensity
+        = getRegisteredProperty(P_INTENSITY).value<ScientificDoubleProperty>();
     return intensity.getValue();
 }
 
 void BeamItem::setIntensity(double value)
 {
-    ScientificDoubleProperty intensity = getRegisteredProperty(P_INTENSITY).value<ScientificDoubleProperty>();
+    ScientificDoubleProperty intensity
+        = getRegisteredProperty(P_INTENSITY).value<ScientificDoubleProperty>();
     intensity.setValue(value);
     setRegisteredProperty(P_INTENSITY, intensity.getVariant());
 }
@@ -64,7 +68,8 @@ void BeamItem::setWavelength(double value, const QString &distribution_name)
     Q_UNUSED(distribution_name);
     ParameterizedItem *beamWavelength = getSubItems()[P_WAVELENGTH];
     Q_ASSERT(beamWavelength);
-    ParameterizedItem *distributionItem = beamWavelength->setGroupProperty(BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
+    ParameterizedItem *distributionItem = beamWavelength->setGroupProperty(
+        BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
     Q_ASSERT(distributionItem);
     distributionItem->setRegisteredProperty(DistributionNoneItem::P_VALUE, value);
 }
@@ -81,7 +86,8 @@ void BeamItem::setInclinationAngle(double value, const QString &distribution_nam
     Q_UNUSED(distribution_name);
     ParameterizedItem *angleItem = getSubItems()[P_INCLINATION_ANGLE];
     Q_ASSERT(angleItem);
-    ParameterizedItem *distributionItem = angleItem->setGroupProperty(BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
+    ParameterizedItem *distributionItem = angleItem->setGroupProperty(
+        BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
     Q_ASSERT(distributionItem);
     distributionItem->setRegisteredProperty(DistributionNoneItem::P_VALUE, value);
 }
@@ -98,8 +104,8 @@ void BeamItem::setAzimuthalAngle(double value, const QString &distribution_name)
     Q_UNUSED(distribution_name);
     ParameterizedItem *angleItem = getSubItems()[P_AZIMUTHAL_ANGLE];
     Q_ASSERT(angleItem);
-    ParameterizedItem *distributionItem = angleItem->setGroupProperty(BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
+    ParameterizedItem *distributionItem = angleItem->setGroupProperty(
+        BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
     Q_ASSERT(distributionItem);
     distributionItem->setRegisteredProperty(DistributionNoneItem::P_VALUE, value);
 }
-

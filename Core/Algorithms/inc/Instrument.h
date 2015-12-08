@@ -101,14 +101,14 @@ public:
     //! apply the detector resolution to the given intensity map
     void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
 
-    //! Adds parameters from local pool to external pool and call recursion over direct children
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
-                                                    int copy_number = -1) const;
-
 #ifndef GCCXML_SKIP_THIS
     //! Create a vector of SimulationElement objects according to the beam, detector and its mask
     std::vector<SimulationElement> createSimulationElements();
 #endif
+
+    //! Adds parameters from local pool to external pool and recursively calls its direct children.
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                                    int copy_number = -1) const;
 
 protected:
     virtual void print(std::ostream &ostr) const;

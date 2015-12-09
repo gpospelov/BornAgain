@@ -323,7 +323,6 @@ void ParameterizedItem::setPropertyAppearance(const QString &name,
 
 void ParameterizedItem::onPropertyChange(const QString &name)
 {
-    //    qDebug() << "ParameterizedItem::onPropertyChange()" << modelType() << name;
     if (mp_parent)
         mp_parent->onChildPropertyChange();
     emit propertyChanged(name);

@@ -17,13 +17,14 @@
 #include "FormFactors.h"
 #include "Units.h"
 #include "GUIHelpers.h"
+#include "BornAgainNamespace.h"
 
 /* ------------------------------------------------ */
 
-const QString AnisoPyramidItem::P_LENGTH = "Length";
-const QString AnisoPyramidItem::P_WIDTH = "Width";
-const QString AnisoPyramidItem::P_HEIGHT = "Height";
-const QString AnisoPyramidItem::P_ALPHA = "Alpha";
+const QString AnisoPyramidItem::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString AnisoPyramidItem::P_WIDTH = QString::fromStdString(BornAgain::Width);
+const QString AnisoPyramidItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
+const QString AnisoPyramidItem::P_ALPHA = QString::fromStdString(BornAgain::Alpha);
 
 AnisoPyramidItem::AnisoPyramidItem(ParameterizedItem *parent)
     : FormFactorItem(Constants::AnisoPyramidType, parent)
@@ -47,9 +48,9 @@ std::unique_ptr<IFormFactor> AnisoPyramidItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString BoxItem::P_LENGTH = "Length";
-const QString BoxItem::P_WIDTH = "Width";
-const QString BoxItem::P_HEIGHT = "Height";
+const QString BoxItem::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString BoxItem::P_WIDTH = QString::fromStdString(BornAgain::Width);
+const QString BoxItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 
 BoxItem::BoxItem(ParameterizedItem *parent)
     : FormFactorItem(Constants::BoxType, parent)
@@ -71,9 +72,9 @@ std::unique_ptr<IFormFactor> BoxItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString ConeItem::P_RADIUS = "Radius";
-const QString ConeItem::P_HEIGHT = "Height";
-const QString ConeItem::P_ALPHA = "Alpha";
+const QString ConeItem::P_RADIUS = QString::fromStdString(BornAgain::Radius);
+const QString ConeItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
+const QString ConeItem::P_ALPHA = QString::fromStdString(BornAgain::Alpha);
 
 ConeItem::ConeItem(ParameterizedItem *parent)
     : FormFactorItem(Constants::ConeType, parent)
@@ -95,9 +96,9 @@ std::unique_ptr<IFormFactor> ConeItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString Cone6Item::P_RADIUS = "Radius";
-const QString Cone6Item::P_HEIGHT = "Height";
-const QString Cone6Item::P_ALPHA = "Alpha";
+const QString Cone6Item::P_RADIUS = QString::fromStdString(BornAgain::Radius);
+const QString Cone6Item::P_HEIGHT = QString::fromStdString(BornAgain::Height);
+const QString Cone6Item::P_ALPHA = QString::fromStdString(BornAgain::Alpha);
 
 Cone6Item::Cone6Item(ParameterizedItem *parent)
     : FormFactorItem(Constants::Cone6Type, parent)
@@ -119,10 +120,10 @@ std::unique_ptr<IFormFactor> Cone6Item::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString CuboctahedronItem::P_LENGTH = "Length";
-const QString CuboctahedronItem::P_HEIGHT = "Height";
-const QString CuboctahedronItem::P_HEIGHT_RATIO = "HeightRatio";
-const QString CuboctahedronItem::P_ALPHA = "Alpha";
+const QString CuboctahedronItem::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString CuboctahedronItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
+const QString CuboctahedronItem::P_HEIGHT_RATIO = QString::fromStdString(BornAgain::HeightRatio);
+const QString CuboctahedronItem::P_ALPHA = QString::fromStdString(BornAgain::Alpha);
 
 CuboctahedronItem::CuboctahedronItem(ParameterizedItem *parent)
     : FormFactorItem(Constants::CuboctahedronType, parent)
@@ -146,8 +147,8 @@ std::unique_ptr<IFormFactor> CuboctahedronItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString CylinderItem::P_RADIUS = "Radius";
-const QString CylinderItem::P_HEIGHT = "Height";
+const QString CylinderItem::P_RADIUS = QString::fromStdString(BornAgain::Radius);
+const QString CylinderItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 
 CylinderItem::CylinderItem(ParameterizedItem *parent)
     : FormFactorItem(Constants::CylinderType, parent)
@@ -167,31 +168,31 @@ std::unique_ptr<IFormFactor> CylinderItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString EllipsoidalCylinderItem::P_RADIUS_A = "Radius_a";
-const QString EllipsoidalCylinderItem::P_RADIUS_B = "Radius_b";
-const QString EllipsoidalCylinderItem::P_HEIGHT = "Height";
+const QString EllipsoidalCylinderItem::P_RADIUS_X = QString::fromStdString(BornAgain::RadiusX);
+const QString EllipsoidalCylinderItem::P_RADIUS_Y = QString::fromStdString(BornAgain::RadiusY);
+const QString EllipsoidalCylinderItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 
 EllipsoidalCylinderItem::EllipsoidalCylinderItem(ParameterizedItem *parent)
     : FormFactorItem(Constants::EllipsoidalCylinderType, parent)
 {
     setItemName(Constants::EllipsoidalCylinderType);
-    registerProperty(P_RADIUS_A, 8.0);
-    registerProperty(P_RADIUS_B, 13.0);
+    registerProperty(P_RADIUS_X, 8.0);
+    registerProperty(P_RADIUS_Y, 13.0);
     registerProperty(P_HEIGHT, 16.0);
 }
 
 std::unique_ptr<IFormFactor> EllipsoidalCylinderItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorEllipsoidalCylinder>(
-                getRegisteredProperty(P_RADIUS_A).toDouble(),
-                getRegisteredProperty(P_RADIUS_B).toDouble(),
+                getRegisteredProperty(P_RADIUS_X).toDouble(),
+                getRegisteredProperty(P_RADIUS_Y).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble()
                 );
 }
 
 /* ------------------------------------------------ */
 
-const QString FullSphereItem::P_RADIUS = "Radius";
+const QString FullSphereItem::P_RADIUS = QString::fromStdString(BornAgain::Radius);
 
 FullSphereItem::FullSphereItem(ParameterizedItem *parent)
     : FormFactorItem(Constants::FullSphereType, parent)
@@ -209,8 +210,8 @@ std::unique_ptr<IFormFactor> FullSphereItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString FullSpheroidItem::P_RADIUS = "Radius";
-const QString FullSpheroidItem::P_HEIGHT = "Height";
+const QString FullSpheroidItem::P_RADIUS = QString::fromStdString(BornAgain::Radius);
+const QString FullSpheroidItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 
 FullSpheroidItem::FullSpheroidItem(ParameterizedItem *parent)
     : FormFactorItem(Constants::FullSpheroidType, parent)
@@ -230,32 +231,32 @@ std::unique_ptr<IFormFactor> FullSpheroidItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString HemiEllipsoidItem::P_RADIUS_A = "Radius_a";
-const QString HemiEllipsoidItem::P_RADIUS_B = "Radius_b";
-const QString HemiEllipsoidItem::P_HEIGHT = "Height";
+const QString HemiEllipsoidItem::P_RADIUS_X = QString::fromStdString(BornAgain::RadiusX);
+const QString HemiEllipsoidItem::P_RADIUS_Y = QString::fromStdString(BornAgain::RadiusY);
+const QString HemiEllipsoidItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 
 HemiEllipsoidItem::HemiEllipsoidItem(ParameterizedItem *parent)
     : FormFactorItem(Constants::HemiEllipsoidType, parent)
 {
     setItemName(Constants::HemiEllipsoidType);
-    registerProperty(P_RADIUS_A, 10.0);
-    registerProperty(P_RADIUS_B, 6.0);
+    registerProperty(P_RADIUS_X, 10.0);
+    registerProperty(P_RADIUS_Y, 6.0);
     registerProperty(P_HEIGHT, 8.0);
 }
 
 std::unique_ptr<IFormFactor> HemiEllipsoidItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorHemiEllipsoid>(
-                getRegisteredProperty(P_RADIUS_A).toDouble(),
-                getRegisteredProperty(P_RADIUS_B).toDouble(),
+                getRegisteredProperty(P_RADIUS_X).toDouble(),
+                getRegisteredProperty(P_RADIUS_Y).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble()
                 );
 }
 
 /* ------------------------------------------------ */
 
-const QString Prism3Item::P_LENGTH = "Length";
-const QString Prism3Item::P_HEIGHT = "Height";
+const QString Prism3Item::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString Prism3Item::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 
 Prism3Item::Prism3Item(ParameterizedItem *parent)
     : FormFactorItem(Constants::Prism3Type, parent)
@@ -275,8 +276,8 @@ std::unique_ptr<IFormFactor> Prism3Item::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString Prism6Item::P_RADIUS = "Radius";
-const QString Prism6Item::P_HEIGHT = "Height";
+const QString Prism6Item::P_RADIUS = QString::fromStdString(BornAgain::Radius);
+const QString Prism6Item::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 
 Prism6Item::Prism6Item(ParameterizedItem *parent)
     : FormFactorItem(Constants::Prism6Type, parent)
@@ -296,9 +297,9 @@ std::unique_ptr<IFormFactor> Prism6Item::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString PyramidItem::P_LENGTH = "Length";
-const QString PyramidItem::P_HEIGHT = "Height";
-const QString PyramidItem::P_ALPHA = "Alpha";
+const QString PyramidItem::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString PyramidItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
+const QString PyramidItem::P_ALPHA = QString::fromStdString(BornAgain::Alpha);
 
 PyramidItem::PyramidItem(ParameterizedItem *parent)
     : FormFactorItem(Constants::PyramidType, parent)
@@ -320,9 +321,9 @@ std::unique_ptr<IFormFactor> PyramidItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString Ripple1Item::P_LENGTH = "Length";
-const QString Ripple1Item::P_WIDTH = "Width";
-const QString Ripple1Item::P_HEIGHT = "Height";
+const QString Ripple1Item::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString Ripple1Item::P_WIDTH = QString::fromStdString(BornAgain::Width);
+const QString Ripple1Item::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 
 Ripple1Item::Ripple1Item(ParameterizedItem *parent)
     : FormFactorItem(Constants::Ripple1Type, parent)
@@ -344,10 +345,10 @@ std::unique_ptr<IFormFactor> Ripple1Item::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString Ripple2Item::P_LENGTH = "Length";
-const QString Ripple2Item::P_WIDTH = "Width";
-const QString Ripple2Item::P_HEIGHT = "Height";
-const QString Ripple2Item::P_ASYMMETRY = "Asymmetry";
+const QString Ripple2Item::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString Ripple2Item::P_WIDTH = QString::fromStdString(BornAgain::Width);
+const QString Ripple2Item::P_HEIGHT = QString::fromStdString(BornAgain::Height);
+const QString Ripple2Item::P_ASYMMETRY = QString::fromStdString(BornAgain::AsymmetryLength);
 
 Ripple2Item::Ripple2Item(ParameterizedItem *parent)
     : FormFactorItem(Constants::Ripple2Type, parent)
@@ -371,9 +372,9 @@ std::unique_ptr<IFormFactor> Ripple2Item::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString TetrahedronItem::P_LENGTH = "Length";
-const QString TetrahedronItem::P_HEIGHT = "Height";
-const QString TetrahedronItem::P_ALPHA = "Alpha";
+const QString TetrahedronItem::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString TetrahedronItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
+const QString TetrahedronItem::P_ALPHA = QString::fromStdString(BornAgain::Alpha);
 
 TetrahedronItem::TetrahedronItem(ParameterizedItem *parent)
     : FormFactorItem(Constants::TetrahedronType, parent)
@@ -396,8 +397,8 @@ std::unique_ptr<IFormFactor> TetrahedronItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString TruncatedCubeItem::P_LENGTH = "Length";
-const QString TruncatedCubeItem::P_REMOVED_LENGTH = "Removed length";
+const QString TruncatedCubeItem::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString TruncatedCubeItem::P_REMOVED_LENGTH = QString::fromStdString(BornAgain::RemovedLength);
 
 TruncatedCubeItem::TruncatedCubeItem(ParameterizedItem *parent)
     : FormFactorItem(Constants::TruncatedCubeType, parent)
@@ -417,8 +418,8 @@ std::unique_ptr<IFormFactor> TruncatedCubeItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString TruncatedSphereItem::P_RADIUS = "Radius";
-const QString TruncatedSphereItem::P_HEIGHT = "Height";
+const QString TruncatedSphereItem::P_RADIUS = QString::fromStdString(BornAgain::Radius);
+const QString TruncatedSphereItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 
 TruncatedSphereItem::TruncatedSphereItem(ParameterizedItem *parent)
     : FormFactorItem(Constants::TruncatedSphereType, parent)
@@ -438,9 +439,9 @@ std::unique_ptr<IFormFactor> TruncatedSphereItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString TruncatedSpheroidItem::P_RADIUS = "Radius";
-const QString TruncatedSpheroidItem::P_HEIGHT = "Height";
-const QString TruncatedSpheroidItem::P_HFC = "Hfc";
+const QString TruncatedSpheroidItem::P_RADIUS = QString::fromStdString(BornAgain::Radius);
+const QString TruncatedSpheroidItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
+const QString TruncatedSpheroidItem::P_HFC = QString::fromStdString(BornAgain::HeightFlattening);
 
 TruncatedSpheroidItem::TruncatedSpheroidItem(ParameterizedItem *parent)
     : FormFactorItem(Constants::TruncatedSpheroidType, parent)

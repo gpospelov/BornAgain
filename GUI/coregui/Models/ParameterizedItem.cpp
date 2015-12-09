@@ -32,6 +32,7 @@ const QString ParameterizedItem::P_PORT = "Port";
 ParameterizedItem::ParameterizedItem(QString model_type, ParameterizedItem *parent)
     : m_model_type(std::move(model_type)), mp_parent(parent)
 {
+    setDisplayName(m_model_type);
     if (mp_parent) {
         mp_parent->insertChildItem(-1, this);
     }
@@ -180,7 +181,7 @@ void ParameterizedItem::addPropertyItem(QString name, ParameterizedItem *item)
     qDebug() << "ParameterizedItem::addPropertyItem() -> about to leave" << name;
 }
 
-bool ParameterizedItem::isRegisteredProperty(const QString &name)
+bool ParameterizedItem::isRegisteredProperty(const QString &name) const
 {
     return m_registered_properties.contains(name);
 }

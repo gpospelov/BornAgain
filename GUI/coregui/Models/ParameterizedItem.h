@@ -92,7 +92,7 @@ public:
 
     void addPropertyItem(QString name, ParameterizedItem *item);
 
-    bool isRegisteredProperty(const QString &name);
+    bool isRegisteredProperty(const QString &name) const;
 
     ParameterizedItem *registerGroupProperty(const QString &group_name,
                                              const Constants::ModelType &group_model);

@@ -111,7 +111,17 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     mainLayout->addWidget(instrumentGroup);
     setLayout(mainLayout);
 
-    connect(m_nameLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onChangedEditor(const QString &)));
+    connect(m_nameLineEdit,
+            SIGNAL(textChanged(const QString &)),
+            this,
+            SLOT(onChangedEditor(const QString &))
+            );
+
+    connect(m_instrumentComponents,
+            SIGNAL(extendedDetectorEditorRequest(DetectorItem *)),
+            this,
+            SIGNAL(extendedDetectorEditorRequest(DetectorItem *))
+            );
 }
 
 void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
@@ -120,14 +130,30 @@ void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
 
     if(instrument != m_currentItem) {
         if(m_currentItem) {
-            disconnect(m_currentItem, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChanged(QString)));
-            disconnect(m_currentItem, SIGNAL(subItemChanged(QString)), this, SLOT(onPropertyChanged(QString)));
+            disconnect(m_currentItem,
+                       SIGNAL(propertyChanged(QString)),
+                       this,
+                       SLOT(onPropertyChanged(QString))
+                       );
+            disconnect(m_currentItem,
+                       SIGNAL(subItemChanged(QString)),
+                       this,
+                       SLOT(onPropertyChanged(QString))
+                       );
         }
 
         m_currentItem = instrument;
 
-        connect(m_currentItem, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChanged(QString)));
-        connect(m_currentItem, SIGNAL(subItemChanged(QString)), this, SLOT(onPropertyChanged(QString)));
+        connect(m_currentItem,
+                   SIGNAL(propertyChanged(QString)),
+                   this,
+                   SLOT(onPropertyChanged(QString))
+                   );
+        connect(m_currentItem,
+                   SIGNAL(subItemChanged(QString)),
+                   this,
+                   SLOT(onPropertyChanged(QString))
+                   );
 
         updateWidgets();
     }

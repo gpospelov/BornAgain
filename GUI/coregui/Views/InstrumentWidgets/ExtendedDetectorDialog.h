@@ -19,6 +19,8 @@
 #include <QDialog>
 
 class MaskEditor;
+class SetModel;
+class SessionModel;
 
 //! The dialog which shows an editor to change parameters of DistributionItem
 class ExtendedDetectorDialog : public QDialog
@@ -29,11 +31,10 @@ public:
     ExtendedDetectorDialog(QWidget *parent = 0);
     virtual ~ExtendedDetectorDialog(){}
 
-//    void setItem(ParameterizedItem *item);
-//    void setNameOfEditor(const QString &name);
+public slots:
+    void setModel(SessionModel *model, const QModelIndex &rootIndex);
 
 private:
-//    ExtendedDetectorDialog *m_editor;
     MaskEditor *m_maskEditor;
 };
 

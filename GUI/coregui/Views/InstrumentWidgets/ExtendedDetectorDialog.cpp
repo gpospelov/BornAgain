@@ -15,6 +15,7 @@
 
 #include "ExtendedDetectorDialog.h"
 #include "MaskEditor.h"
+#include "SessionModel.h"
 #include <QPushButton>
 #include <QVBoxLayout>
 
@@ -47,4 +48,9 @@ ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget *parent)
 
     m_maskEditor->init_test_model();
 
+}
+
+void ExtendedDetectorDialog::setModel(SessionModel *model, const QModelIndex &rootIndex)
+{
+    m_maskEditor->setModel(model, rootIndex);
 }

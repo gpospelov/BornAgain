@@ -36,8 +36,8 @@ public:
     MaskEditor(QWidget *parent = 0);
 
 public slots:
-    void onPropertyPanelRequest();
     void setModel(SessionModel *model, const QModelIndex &rootIndex);
+    void onPropertyPanelRequest();
     void init_test_model();
 
 protected:

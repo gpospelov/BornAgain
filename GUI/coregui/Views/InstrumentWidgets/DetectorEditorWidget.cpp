@@ -35,7 +35,7 @@ DetectorEditorWidget::DetectorEditorWidget(QWidget *parent)
     QVBoxLayout *groupLayout = new QVBoxLayout;
     m_groupBox->setButtonToolTip("Gives access to the detector mask editor");
     m_groupBox->setLayout(groupLayout);
-    connect(m_groupBox, SIGNAL(clicked()), this, SLOT(onExtendedEditorRequest()));
+    connect(m_groupBox, SIGNAL(clicked()), this, SLOT(onGroupBoxExtendedButton()));
 
     // whole content is represented as grid layout
     m_gridLayout = new QGridLayout;
@@ -92,11 +92,8 @@ void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
                 AwesomePropertyEditor::INSERT_AFTER);
 }
 
-void DetectorEditorWidget::onExtendedEditorRequest()
+void DetectorEditorWidget::onGroupBoxExtendedButton()
 {
-    ExtendedDetectorDialog *dialog = new ExtendedDetectorDialog(this);
-//    dialog->setItem(item);
-//    dialog->setNameOfEditor(name);
-    dialog->show();
-
+    emit extendedDetectorEditorRequest(m_detectorItem);
 }
+

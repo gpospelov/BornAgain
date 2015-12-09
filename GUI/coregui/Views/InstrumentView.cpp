@@ -18,6 +18,8 @@
 #include "InstrumentSelectorWidget.h"
 #include "InstrumentEditorWidget.h"
 #include "InstrumentItem.h"
+#include "ExtendedDetectorDialog.h"
+#include "DetectorItems.h"
 #include "styledbar.h"
 #include "minisplitter.h"
 #include <QBoxLayout>
@@ -56,16 +58,8 @@ InstrumentView::InstrumentView(InstrumentModel *model, QWidget *parent)
     mainLayout->addLayout(horizontalLayout);
     setLayout(mainLayout);
 
-    connect(m_instrumentSelector,
-        SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&) ),
-        this,
-        SLOT( onSelectionChanged(const QItemSelection&, const QItemSelection&) )
-        );
-
-    connect(m_instrumentModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetView()));
-    connect(m_instrumentModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int,int)), this, SLOT(onRowsAboutToBeRemoved(QModelIndex,int,int)));
-
-    createActions();
+    setupConnections();
+    setupActions();
 
     if(m_instrumentModel->rowCount(QModelIndex()) == 0)
         onAddInstrument();
@@ -111,6 +105,12 @@ void InstrumentView::onSelectionChanged(const QItemSelection &selected, const QI
 
     if( !widget) {
         widget = new InstrumentEditorWidget();
+        connect(widget,
+                SIGNAL(extendedDetectorEditorRequest(DetectorItem *)),
+                this,
+                SLOT(onExtendedDetectorEditorRequest(DetectorItem *))
+                );
+
         widget->setInstrumentItem(instrument);
         m_stackWidget->addWidget(widget);
         m_instrumentToEditor[instrument] = widget;
@@ -166,8 +166,35 @@ void InstrumentView::onRowsAboutToBeRemoved(QModelIndex parent, int first, int /
     delete widget;
 }
 
+void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem *)
+{
+    ExtendedDetectorDialog *dialog = new ExtendedDetectorDialog(this);
+    dialog->show();
+}
 
-void InstrumentView::createActions()
+void InstrumentView::setupConnections()
+{
+    connect(m_instrumentSelector,
+        SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&) ),
+        this,
+        SLOT( onSelectionChanged(const QItemSelection&, const QItemSelection&) )
+        );
+
+    connect(m_instrumentModel,
+            SIGNAL(modelAboutToBeReset()),
+            this,
+            SLOT(resetView())
+            );
+
+    connect(m_instrumentModel,
+            SIGNAL(rowsAboutToBeRemoved(QModelIndex, int,int)),
+            this,
+            SLOT(onRowsAboutToBeRemoved(QModelIndex,int,int))
+            );
+}
+
+
+void InstrumentView::setupActions()
 {
     m_addInstrumentButton = new QToolButton;
     m_addInstrumentButton->setText("Add instrument");
@@ -193,10 +220,13 @@ void InstrumentView::createActions()
     m_toolBar->addSeparator();
     m_toolBar->addWidget(new QLabel(" "));
 
-    m_addInstrumentAction = new QAction(QIcon(":/images/toolbar_newitem_dark.png"), tr("Add new instrument"), this);
+    m_addInstrumentAction
+        = new QAction(QIcon(":/images/toolbar_newitem_dark.png"), tr("Add new instrument"), this);
     connect(m_addInstrumentAction, SIGNAL(triggered()), this, SLOT(onAddInstrument()));
 
-    m_removeInstrumentAction = new QAction(QIcon(":/SampleDesigner/images/toolbar_recycle_dark.png"), tr("Remove currently selected instrument"), this);
+    m_removeInstrumentAction
+        = new QAction(QIcon(":/SampleDesigner/images/toolbar_recycle_dark.png"),
+                      tr("Remove currently selected instrument"), this);
     connect(m_removeInstrumentAction, SIGNAL(triggered()), this, SLOT(onRemoveInstrument()));
 
     Q_ASSERT(m_instrumentSelector->getListView());

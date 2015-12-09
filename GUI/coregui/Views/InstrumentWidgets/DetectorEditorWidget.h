@@ -34,8 +34,11 @@ public:
 
     QGridLayout *getGridLayout() { return m_gridLayout;}
 
+signals:
+    void extendedDetectorEditorRequest(DetectorItem *);
+
 private slots:
-    void onExtendedEditorRequest();
+    void onGroupBoxExtendedButton();
 
 private:
     GroupBox *m_groupBox;

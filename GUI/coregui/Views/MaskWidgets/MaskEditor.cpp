@@ -52,14 +52,7 @@ MaskEditor::MaskEditor(QWidget *parent)
 
     setCentralWidget(m_splitter);
 
-//    init_test_model();
-
     setup_connections();
-}
-
-void MaskEditor::onPropertyPanelRequest()
-{
-    m_editorPropertyPanel->setPanelHidden(!m_editorPropertyPanel->isHidden());
 }
 
 void MaskEditor::setModel(SessionModel *model, const QModelIndex &rootIndex)
@@ -71,6 +64,12 @@ void MaskEditor::setModel(SessionModel *model, const QModelIndex &rootIndex)
 
     m_itemActions->setModel(model, rootIndex);
     m_itemActions->setSelectionModel(m_editorPropertyPanel->selectionModel());
+}
+
+//! shows/hides right panel with properties
+void MaskEditor::onPropertyPanelRequest()
+{
+    m_editorPropertyPanel->setPanelHidden(!m_editorPropertyPanel->isHidden());
 }
 
 //! Context menu reimplemented to supress default menu

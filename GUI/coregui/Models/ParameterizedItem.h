@@ -123,10 +123,10 @@ public:
     {
     public:
         enum EPorts { DEFAULT = -1, PORT_0 = 0, PORT_1 = 1, PORT_2 = 2 };
+
         PortInfo(const QString &name = QString(), int nmax_items = 0)
-            : m_item_names(name), m_item_max_number(nmax_items)
-        {
-        }
+            : m_item_names(name), m_item_max_number(nmax_items) {}
+
         QStringList m_item_names;
         int m_item_max_number;
     };

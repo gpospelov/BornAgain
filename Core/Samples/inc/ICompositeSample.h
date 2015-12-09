@@ -56,6 +56,10 @@ public:
     //! Returns number of children.
     virtual size_t size() const { return m_samples.size(); }
 
+    //! Adds parameters from local pool to external pool and recursively calls its direct children.
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                                    int copy_number = -1) const;
+
 private:
     //! Check child index
     bool childIndexInRange(size_t index) const;

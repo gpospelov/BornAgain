@@ -50,10 +50,6 @@ public:
     virtual void printSampleTree();
 
     virtual bool containsMagneticMaterial() const;
-
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
-                                                    int copy_number = -1) const;
 };
 
 #endif // ISAMPLE_H

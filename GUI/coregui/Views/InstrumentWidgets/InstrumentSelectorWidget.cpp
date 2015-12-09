@@ -71,9 +71,9 @@ void InstrumentSelectorWidget::setInstrumentModel(InstrumentModel *model)
             m_listView->setModel(model);
 
             connect(m_listView->selectionModel(),
-                    SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&) ),
+                    SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&)),
                     this,
-                    SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&) ),
+                    SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&)),
                     Qt::UniqueConnection
             );
         }

@@ -26,6 +26,13 @@ DetectorItem::DetectorItem(ParameterizedItem *parent)
 {
     setItemName(Constants::DetectorType);
     registerGroupProperty(P_DETECTOR, Constants::DetectorGroup);
+
+    addToValidChildren(Constants::RectangleMaskType);
+    addToValidChildren(Constants::PolygonMaskType);
+    addToValidChildren(Constants::EllipseMaskType);
+    addToValidChildren(Constants::VerticalLineMaskType);
+    addToValidChildren(Constants::HorizontalLineMaskType);
+    addToValidChildren(Constants::MaskAllType);
 }
 
 // -------------------------------------------------------------------------- //

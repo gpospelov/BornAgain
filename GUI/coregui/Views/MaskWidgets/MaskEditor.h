@@ -19,6 +19,7 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 #include <QMainWindow>
+#include <QModelIndex>
 
 class MaskEditorPropertyPanel;
 class MaskEditorActions;
@@ -36,7 +37,7 @@ public:
     MaskEditor(QWidget *parent = 0);
 
 public slots:
-    void setModel(SessionModel *model, const QModelIndex &rootIndex);
+    void setModel(SessionModel *model, const QModelIndex &rootIndex = QModelIndex());
     void onPropertyPanelRequest();
     void init_test_model();
 

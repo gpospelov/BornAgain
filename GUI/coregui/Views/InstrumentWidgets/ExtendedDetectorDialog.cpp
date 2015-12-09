@@ -15,13 +15,16 @@
 
 #include "ExtendedDetectorDialog.h"
 #include "MaskEditor.h"
-#include "SessionModel.h"
+#include "MaskModel.h"
+#include "DetectorMaskDelegate.h"
 #include <QPushButton>
+#include <QModelIndex>
 #include <QVBoxLayout>
 
 ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget *parent)
     : QDialog(parent)
     , m_maskEditor(new MaskEditor)
+    , m_detectorMaskDelegate(new DetectorMaskDelegate(this))
 {
     setMinimumSize(256, 256);
     resize(800, 600);
@@ -46,11 +49,12 @@ ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget *parent)
     layout->setContentsMargins(0, 0, 0, 0);
     setLayout(layout);
 
-    m_maskEditor->init_test_model();
+//    m_maskEditor->init_test_model();
 
 }
 
-void ExtendedDetectorDialog::setModel(SessionModel *model, const QModelIndex &rootIndex)
+void ExtendedDetectorDialog::setDetectorItem(DetectorItem *detectorItem)
 {
-    m_maskEditor->setModel(model, rootIndex);
+    m_detectorMaskDelegate->setDetectorItem(detectorItem);
+    m_maskEditor->setModel(m_detectorMaskDelegate->getMaskModel());
 }

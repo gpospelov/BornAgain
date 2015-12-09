@@ -57,12 +57,20 @@ MaskEditor::MaskEditor(QWidget *parent)
 
 void MaskEditor::setModel(SessionModel *model, const QModelIndex &rootIndex)
 {
-    m_editorPropertyPanel->setModel(model, rootIndex);
+    QModelIndex intensityItemIndex = rootIndex;
+    if(!intensityItemIndex.isValid()) {
+        if(ParameterizedItem *intensityItem = model->getTopItem(Constants::IntensityDataType)) {
+            intensityItemIndex = model->indexOfItem(intensityItem);
+        }
+    }
+    Q_ASSERT(intensityItemIndex.isValid());
 
-    m_editorCanvas->setModel(model, rootIndex);
+    m_editorPropertyPanel->setModel(model, intensityItemIndex);
+
+    m_editorCanvas->setModel(model, intensityItemIndex);
     m_editorCanvas->setSelectionModel(m_editorPropertyPanel->selectionModel());
 
-    m_itemActions->setModel(model, rootIndex);
+    m_itemActions->setModel(model, intensityItemIndex);
     m_itemActions->setSelectionModel(m_editorPropertyPanel->selectionModel());
 }
 
@@ -135,7 +143,8 @@ void MaskEditor::init_test_model()
 
 //    MaskAllItem *rect = dynamic_cast<MaskAllItem *>(m_maskModel->insertNewItem(Constants::MaskAllType, m_maskModel->indexOfItem(item)));
 
-    setModel(maskModel, maskModel->indexOfItem(item));
+//    setModel(maskModel, maskModel->indexOfItem(item));
+    setModel(maskModel);
 }
 
 void MaskEditor::setup_connections()

@@ -52,7 +52,7 @@ public slots:
     void onAddInstrument();
     void onRemoveInstrument();
     void onRowsAboutToBeRemoved(QModelIndex,int,int);
-    void onExtendedDetectorEditorRequest(DetectorItem *);
+    void onExtendedDetectorEditorRequest(DetectorItem *detectorItem);
 
 private:
     void setupConnections();

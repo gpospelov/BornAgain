@@ -166,9 +166,10 @@ void InstrumentView::onRowsAboutToBeRemoved(QModelIndex parent, int first, int /
     delete widget;
 }
 
-void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem *)
+void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem *detectorItem)
 {
     ExtendedDetectorDialog *dialog = new ExtendedDetectorDialog(this);
+    dialog->setDetectorItem(detectorItem);
     dialog->show();
 }
 

@@ -116,6 +116,7 @@ OutputData<double> *MaskResultsPresenter::createMaskPresentation() const
     IntensityDataItem *origItem
         = dynamic_cast<IntensityDataItem *>(m_maskModel->itemForIndex(m_rootIndex));
     Q_ASSERT(origItem);
+    Q_ASSERT(origItem->getOutputData());
 
     OutputData<double> *result = origItem->getOutputData()->clone();
 

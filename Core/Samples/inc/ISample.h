@@ -30,11 +30,6 @@ class DWBASimulation;
 class BA_CORE_API_ ISample : public ICloneable, public IParameterized
 {
 public:
-    //! Returns pointer to "this", if it is a composite sample.
-    //! Default implementation returns nullptr.
-    virtual ICompositeSample *getCompositeSample();
-    virtual const ICompositeSample *getCompositeSample() const;
-
     //! Returns a clone of this ISample object.
     virtual ISample *clone() const=0;
 
@@ -47,10 +42,25 @@ public:
     //! Returns an ISimulation if DWBA is required.
     virtual DWBASimulation *createDWBASimulation() const;
 
+    //! Outputs the tree of parameters generated from this ISample object and its descendants.
     virtual void printSampleTree();
 
+    //! Indicates if this ISample object contains a material with magnetic properties.
     virtual bool containsMagneticMaterial() const;
+
+    //! Returns a vector of children (const).
+    //! Default implementation returns empty vector.
+    virtual std::vector<const ISample*> getChildren() const;
+
+    //! Returns number of children.
+    //! Default implementation returns zero.
+    virtual size_t size() const;
 };
+
+inline size_t ISample::size() const
+{
+    return 0;
+}
 
 #endif // ISAMPLE_H
 

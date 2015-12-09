@@ -83,28 +83,16 @@ struct InterferenceFunction1DLattice_wrapper : InterferenceFunction1DLattice, bp
         return ISample::containsMagneticMaterial( );
     }
 
-    virtual ::ICompositeSample * getCompositeSample(  ) {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
+    virtual ::std::vector< const ISample* > getChildren(  ) const  {
+        if( bp::override func_getChildren = this->get_override( "getChildren" ) )
+            return func_getChildren(  );
         else{
-            return this->ISample::getCompositeSample(  );
+            return this->ISample::getChildren(  );
         }
     }
     
-    ::ICompositeSample * default_getCompositeSample(  ) {
-        return ISample::getCompositeSample( );
-    }
-
-    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ISample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample const * default_getCompositeSample(  ) const  {
-        return ISample::getCompositeSample( );
+    ::std::vector< const ISample* > default_getChildren(  ) const  {
+        return ISample::getChildren( );
     }
 
     virtual double getKappa(  ) const  {
@@ -129,6 +117,18 @@ struct InterferenceFunction1DLattice_wrapper : InterferenceFunction1DLattice, bp
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
+    }
+
+    virtual ::std::size_t size(  ) const  {
+        if( bp::override func_size = this->get_override( "size" ) )
+            return func_size(  );
+        else{
+            return this->ISample::size(  );
+        }
+    }
+    
+    ::std::size_t default_size(  ) const  {
+        return ISample::size( );
     }
 
     virtual void transferToCPP(  ) {
@@ -241,28 +241,15 @@ void register_InterferenceFunction1DLattice_class(){
                 , default_containsMagneticMaterial_function_type(&InterferenceFunction1DLattice_wrapper::default_containsMagneticMaterial) );
         
         }
-        { //::ISample::getCompositeSample
+        { //::ISample::getChildren
         
-            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type)(  ) ;
-            typedef ::ICompositeSample * ( InterferenceFunction1DLattice_wrapper::*default_getCompositeSample_function_type)(  ) ;
+            typedef ::std::vector< const ISample* > ( ::ISample::*getChildren_function_type)(  ) const;
+            typedef ::std::vector< const ISample* > ( InterferenceFunction1DLattice_wrapper::*default_getChildren_function_type)(  ) const;
             
             InterferenceFunction1DLattice_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&InterferenceFunction1DLattice_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ISample::getCompositeSample
-        
-            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type)(  ) const;
-            typedef ::ICompositeSample const * ( InterferenceFunction1DLattice_wrapper::*default_getCompositeSample_function_type)(  ) const;
-            
-            InterferenceFunction1DLattice_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&InterferenceFunction1DLattice_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                "getChildren"
+                , getChildren_function_type(&::ISample::getChildren)
+                , default_getChildren_function_type(&InterferenceFunction1DLattice_wrapper::default_getChildren) );
         
         }
         { //::IInterferenceFunction::getKappa
@@ -285,6 +272,17 @@ void register_InterferenceFunction1DLattice_class(){
                 "printSampleTree"
                 , printSampleTree_function_type(&::ISample::printSampleTree)
                 , default_printSampleTree_function_type(&InterferenceFunction1DLattice_wrapper::default_printSampleTree) );
+        
+        }
+        { //::ISample::size
+        
+            typedef ::std::size_t ( ::ISample::*size_function_type)(  ) const;
+            typedef ::std::size_t ( InterferenceFunction1DLattice_wrapper::*default_size_function_type)(  ) const;
+            
+            InterferenceFunction1DLattice_exposer.def( 
+                "size"
+                , size_function_type(&::ISample::size)
+                , default_size_function_type(&InterferenceFunction1DLattice_wrapper::default_size) );
         
         }
         { //::ICloneable::transferToCPP

@@ -167,28 +167,16 @@ struct FormFactorCone_wrapper : FormFactorCone, bp::wrapper< FormFactorCone > {
         return IFormFactorBorn::evaluate( boost::ref(wavevectors) );
     }
 
-    virtual ::ICompositeSample * getCompositeSample(  ) {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
+    virtual ::std::vector< const ISample* > getChildren(  ) const  {
+        if( bp::override func_getChildren = this->get_override( "getChildren" ) )
+            return func_getChildren(  );
         else{
-            return this->ISample::getCompositeSample(  );
+            return this->ISample::getChildren(  );
         }
     }
     
-    ::ICompositeSample * default_getCompositeSample(  ) {
-        return ISample::getCompositeSample( );
-    }
-
-    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ISample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample const * default_getCompositeSample(  ) const  {
-        return ISample::getCompositeSample( );
+    ::std::vector< const ISample* > default_getChildren(  ) const  {
+        return ISample::getChildren( );
     }
 
     virtual double getVolume(  ) const  {
@@ -225,6 +213,18 @@ struct FormFactorCone_wrapper : FormFactorCone, bp::wrapper< FormFactorCone > {
     
     void default_setAmbientMaterial( ::IMaterial const & material ) {
         IFormFactor::setAmbientMaterial( boost::ref(material) );
+    }
+
+    virtual ::std::size_t size(  ) const  {
+        if( bp::override func_size = this->get_override( "size" ) )
+            return func_size(  );
+        else{
+            return this->ISample::size(  );
+        }
+    }
+    
+    ::std::size_t default_size(  ) const  {
+        return ISample::size( );
     }
 
     virtual void transferToCPP(  ) {
@@ -389,28 +389,15 @@ void register_FormFactorCone_class(){
                 , ( bp::arg("wavevectors") ) );
         
         }
-        { //::ISample::getCompositeSample
+        { //::ISample::getChildren
         
-            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type)(  ) ;
-            typedef ::ICompositeSample * ( FormFactorCone_wrapper::*default_getCompositeSample_function_type)(  ) ;
+            typedef ::std::vector< const ISample* > ( ::ISample::*getChildren_function_type)(  ) const;
+            typedef ::std::vector< const ISample* > ( FormFactorCone_wrapper::*default_getChildren_function_type)(  ) const;
             
             FormFactorCone_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorCone_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ISample::getCompositeSample
-        
-            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type)(  ) const;
-            typedef ::ICompositeSample const * ( FormFactorCone_wrapper::*default_getCompositeSample_function_type)(  ) const;
-            
-            FormFactorCone_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorCone_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                "getChildren"
+                , getChildren_function_type(&::ISample::getChildren)
+                , default_getChildren_function_type(&FormFactorCone_wrapper::default_getChildren) );
         
         }
         { //::IFormFactorBorn::getVolume
@@ -445,6 +432,17 @@ void register_FormFactorCone_class(){
                 , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
                 , default_setAmbientMaterial_function_type(&FormFactorCone_wrapper::default_setAmbientMaterial)
                 , ( bp::arg("material") ) );
+        
+        }
+        { //::ISample::size
+        
+            typedef ::std::size_t ( ::ISample::*size_function_type)(  ) const;
+            typedef ::std::size_t ( FormFactorCone_wrapper::*default_size_function_type)(  ) const;
+            
+            FormFactorCone_exposer.def( 
+                "size"
+                , size_function_type(&::ISample::size)
+                , default_size_function_type(&FormFactorCone_wrapper::default_size) );
         
         }
         { //::ICloneable::transferToCPP

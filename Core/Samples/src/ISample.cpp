@@ -18,16 +18,6 @@
 #include "ICompositeSample.h"
 #include "SamplePrintVisitor.h"
 
-ICompositeSample *ISample::getCompositeSample()
-{
-    return nullptr;
-}
-
-const ICompositeSample *ISample::getCompositeSample() const
-{
-    return nullptr;
-}
-
 ISample* ISample::cloneInvertB() const
 {
     throw NotImplementedException(
@@ -50,5 +40,9 @@ bool ISample::containsMagneticMaterial() const
     SampleMaterialVisitor material_vis;
     VisitSampleTreePreorder(*this, material_vis);
     return material_vis.containsMagneticMaterial();
+}
 
+std::vector<const ISample *> ISample::getChildren() const
+{
+    return std::vector<const ISample*>{};
 }

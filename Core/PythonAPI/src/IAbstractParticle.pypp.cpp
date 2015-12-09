@@ -74,28 +74,16 @@ struct IAbstractParticle_wrapper : IAbstractParticle, bp::wrapper< IAbstractPart
         return ISample::containsMagneticMaterial( );
     }
 
-    virtual ::ICompositeSample * getCompositeSample(  ) {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
+    virtual ::std::vector< const ISample* > getChildren(  ) const  {
+        if( bp::override func_getChildren = this->get_override( "getChildren" ) )
+            return func_getChildren(  );
         else{
-            return this->ICompositeSample::getCompositeSample(  );
+            return this->ICompositeSample::getChildren(  );
         }
     }
     
-    ::ICompositeSample * default_getCompositeSample(  ) {
-        return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ICompositeSample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample const * default_getCompositeSample(  ) const  {
-        return ICompositeSample::getCompositeSample( );
+    ::std::vector< const ISample* > default_getChildren(  ) const  {
+        return ICompositeSample::getChildren( );
     }
 
     virtual void printSampleTree(  ) {
@@ -211,28 +199,15 @@ void register_IAbstractParticle_class(){
                 , default_containsMagneticMaterial_function_type(&IAbstractParticle_wrapper::default_containsMagneticMaterial) );
         
         }
-        { //::ICompositeSample::getCompositeSample
+        { //::ICompositeSample::getChildren
         
-            typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) ;
-            typedef ::ICompositeSample * ( IAbstractParticle_wrapper::*default_getCompositeSample_function_type)(  ) ;
+            typedef ::std::vector< const ISample* > ( ::ICompositeSample::*getChildren_function_type)(  ) const;
+            typedef ::std::vector< const ISample* > ( IAbstractParticle_wrapper::*default_getChildren_function_type)(  ) const;
             
             IAbstractParticle_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&IAbstractParticle_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ICompositeSample::getCompositeSample
-        
-            typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) const;
-            typedef ::ICompositeSample const * ( IAbstractParticle_wrapper::*default_getCompositeSample_function_type)(  ) const;
-            
-            IAbstractParticle_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&IAbstractParticle_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                "getChildren"
+                , getChildren_function_type(&::ICompositeSample::getChildren)
+                , default_getChildren_function_type(&IAbstractParticle_wrapper::default_getChildren) );
         
         }
         { //::ISample::printSampleTree

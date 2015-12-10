@@ -106,11 +106,10 @@ QStringList ParticleDistributionItem::getChildParameterNames() const
         result << NO_SELECTION;
         return result;
     }
-    double abundance(0.0);
     DomainObjectBuilder builder;
     std::unique_ptr<ParticleDistribution> P_part_distr;
     try {
-        P_part_distr = builder.buildParticleDistribution(*this, abundance, true);
+        P_part_distr = builder.buildParticleDistribution(*this, true);
     } catch(const std::exception &ex) {
         qDebug() << "ParticleDistributionItem::getChildParameterNames(): "
                  << "domain particle could not be build: "

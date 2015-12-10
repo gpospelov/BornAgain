@@ -30,13 +30,11 @@ BA_CORE_API_ std::unique_ptr<MultiLayer> createMultiLayer(const ParameterizedIte
 BA_CORE_API_ std::unique_ptr<Layer> createLayer(const ParameterizedItem &item);
 BA_CORE_API_ std::unique_ptr<LayerRoughness> createLayerRoughness(const ParameterizedItem &item);
 BA_CORE_API_ std::unique_ptr<ParticleLayout> createParticleLayout(const ParameterizedItem &item);
-BA_CORE_API_ std::unique_ptr<Particle> createParticle(const ParameterizedItem &item,
-                                                      double &abundance);
+BA_CORE_API_ std::unique_ptr<Particle> createParticle(const ParameterizedItem &item);
 BA_CORE_API_ std::unique_ptr<ParticleCoreShell> createParticleCoreShell(
-        const ParameterizedItem &item, const Particle &core, const Particle &shell,
-        double &abundance);
+        const ParameterizedItem &item, const Particle &core, const Particle &shell);
 BA_CORE_API_ std::unique_ptr<ParticleComposition> createParticleComposition(
-        const ParameterizedItem &item, double &abundance);
+        const ParameterizedItem &item);
 BA_CORE_API_ std::unique_ptr<IFormFactor> createFormFactor(const ParameterizedItem &item);
 BA_CORE_API_ std::unique_ptr<IDistribution1D> createDistribution(const ParameterizedItem &item);
 BA_CORE_API_ std::unique_ptr<IInterferenceFunction> createInterferenceFunction(

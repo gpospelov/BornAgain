@@ -42,13 +42,11 @@ public:
     std::unique_ptr<MultiLayer> buildMultiLayer(const ParameterizedItem &multilayer_item) const;
     std::unique_ptr<Layer> buildLayer(const ParameterizedItem &item) const;
     std::unique_ptr<ParticleLayout> buildParticleLayout(const ParameterizedItem &item) const;
-    std::unique_ptr<Particle> buildParticle(const ParameterizedItem &item, double &abundance) const;
-    std::unique_ptr<ParticleCoreShell> buildParticleCoreShell(const ParameterizedItem &item,
-                                                              double &abundance) const;
-    std::unique_ptr<ParticleComposition> buildParticleComposition(const ParameterizedItem &item,
-                                                                  double &abundance) const;
+    std::unique_ptr<Particle> buildParticle(const ParameterizedItem &item) const;
+    std::unique_ptr<ParticleCoreShell> buildParticleCoreShell(const ParameterizedItem &item) const;
+    std::unique_ptr<ParticleComposition> buildParticleComposition(
+            const ParameterizedItem &item) const;
     std::unique_ptr<ParticleDistribution> buildParticleDistribution(const ParameterizedItem &item,
-                                                                    double &abundance,
                                                                     bool catch_errors=false) const;
     std::unique_ptr<IInterferenceFunction> buildInterferenceFunction(
             const ParameterizedItem &item) const;

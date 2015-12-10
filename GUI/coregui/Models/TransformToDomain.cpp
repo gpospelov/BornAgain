@@ -118,13 +118,13 @@ TransformToDomain::createParticleLayout(const ParameterizedItem &item)
     return P_layout;
 }
 
-std::unique_ptr<Particle> TransformToDomain::createParticle(const ParameterizedItem &item,
-                                                            double &abundance)
+std::unique_ptr<Particle> TransformToDomain::createParticle(const ParameterizedItem &item)
 {
     auto P_material = createDomainMaterial(item);
     auto P_particle = GUIHelpers::make_unique<Particle>(*P_material);
 
-    abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+    double abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+    P_particle->setAbundance(abundance);
 
     auto ffItem = item.getSubItems()[ParticleItem::P_FORM_FACTOR];
     Q_ASSERT(ffItem);
@@ -136,18 +136,20 @@ std::unique_ptr<Particle> TransformToDomain::createParticle(const ParameterizedI
 
 std::unique_ptr<ParticleCoreShell>
 TransformToDomain::createParticleCoreShell(const ParameterizedItem &item, const Particle &core,
-                                           const Particle &shell, double &abundance)
+                                           const Particle &shell)
 {
-    abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+    double abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
     auto P_coreshell = GUIHelpers::make_unique<ParticleCoreShell>(shell, core);
+    P_coreshell->setAbundance(abundance);
     return P_coreshell;
 }
 
 std::unique_ptr<ParticleComposition>
-TransformToDomain::createParticleComposition(const ParameterizedItem &item, double &abundance)
+TransformToDomain::createParticleComposition(const ParameterizedItem &item)
 {
-    abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+    double abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
     auto P_composition = GUIHelpers::make_unique<ParticleComposition>();
+    P_composition->setAbundance(abundance);
     return P_composition;
 }
 

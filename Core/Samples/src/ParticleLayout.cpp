@@ -30,6 +30,12 @@ ParticleLayout::ParticleLayout()
     setName(BornAgain::ParticleLayoutType);
 }
 
+ParticleLayout::ParticleLayout(const IAbstractParticle &particle)
+{
+    setName(BornAgain::ParticleLayoutType);
+    addParticle(particle);
+}
+
 ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundance)
 {
     setName(BornAgain::ParticleLayoutType);
@@ -75,6 +81,11 @@ ParticleLayout *ParticleLayout::cloneInvertB() const
 void ParticleLayout::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
+}
+
+void ParticleLayout::addParticle(const IAbstractParticle &particle)
+{
+    addAndRegisterAbstractParticle(particle.clone());
 }
 
 void ParticleLayout::addParticle(const IAbstractParticle& particle, double abundance)

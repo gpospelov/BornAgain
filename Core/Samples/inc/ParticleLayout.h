@@ -31,7 +31,8 @@ class BA_CORE_API_ ParticleLayout : public ILayout
 {
 public:
     ParticleLayout();
-    ParticleLayout(const IAbstractParticle &particle, double abundance = 1.);
+    ParticleLayout(const IAbstractParticle &particle);
+    ParticleLayout(const IAbstractParticle &particle, double abundance);
 
     virtual ~ParticleLayout();
 
@@ -43,9 +44,12 @@ public:
     //! calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const;
 
+    //! @brief Adds generic particle to the layout
+    virtual void addParticle(const IAbstractParticle &particle);
+
     //! @brief Adds generic particle to the layout with only abundance defined
     //! @param abundance Particle abundance
-    virtual void addParticle(const IAbstractParticle &particle, double abundance = 1.0);
+    virtual void addParticle(const IAbstractParticle &particle, double abundance);
 
     //! @brief Adds particle to the layout with abundance and position defined
     //! @param abundance Particle abundance

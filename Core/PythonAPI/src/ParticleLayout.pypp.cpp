@@ -35,14 +35,33 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     m_pyobj = 0;
     }
 
-    ParticleLayout_wrapper(::IAbstractParticle const & particle, double abundance=1.0e+0 )
+    ParticleLayout_wrapper(::IAbstractParticle const & particle )
+    : ParticleLayout( boost::ref(particle) )
+      , bp::wrapper< ParticleLayout >(){
+        // constructor
+    m_pyobj = 0;
+    }
+
+    ParticleLayout_wrapper(::IAbstractParticle const & particle, double abundance )
     : ParticleLayout( boost::ref(particle), abundance )
       , bp::wrapper< ParticleLayout >(){
         // constructor
     m_pyobj = 0;
     }
 
-    virtual void addParticle( ::IAbstractParticle const & particle, double abundance=1.0e+0 ) {
+    virtual void addParticle( ::IAbstractParticle const & particle ) {
+        if( bp::override func_addParticle = this->get_override( "addParticle" ) )
+            func_addParticle( boost::ref(particle) );
+        else{
+            this->ParticleLayout::addParticle( boost::ref(particle) );
+        }
+    }
+    
+    void default_addParticle( ::IAbstractParticle const & particle ) {
+        ParticleLayout::addParticle( boost::ref(particle) );
+    }
+
+    virtual void addParticle( ::IAbstractParticle const & particle, double abundance ) {
         if( bp::override func_addParticle = this->get_override( "addParticle" ) )
             func_addParticle( boost::ref(particle), abundance );
         else{
@@ -50,7 +69,7 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         }
     }
     
-    void default_addParticle( ::IAbstractParticle const & particle, double abundance=1.0e+0 ) {
+    void default_addParticle( ::IAbstractParticle const & particle, double abundance ) {
         ParticleLayout::addParticle( boost::ref(particle), abundance );
     }
 
@@ -256,7 +275,8 @@ void register_ParticleLayout_class(){
         typedef bp::class_< ParticleLayout_wrapper, bp::bases< ILayout >, std::auto_ptr< ParticleLayout_wrapper >, boost::noncopyable > ParticleLayout_exposer_t;
         ParticleLayout_exposer_t ParticleLayout_exposer = ParticleLayout_exposer_t( "ParticleLayout", "Decorator class that adds particles to ISample object.", bp::init< >() );
         bp::scope ParticleLayout_scope( ParticleLayout_exposer );
-        ParticleLayout_exposer.def( bp::init< IAbstractParticle const &, bp::optional< double > >(( bp::arg("particle"), bp::arg("abundance")=1.0e+0 )) );
+        ParticleLayout_exposer.def( bp::init< IAbstractParticle const & >(( bp::arg("particle") )) );
+        ParticleLayout_exposer.def( bp::init< IAbstractParticle const &, double >(( bp::arg("particle"), bp::arg("abundance") )) );
         { //::ParticleLayout::addInterferenceFunction
         
             typedef void ( ::ParticleLayout::*addInterferenceFunction_function_type)( ::IInterferenceFunction const & ) ;
@@ -270,6 +290,18 @@ void register_ParticleLayout_class(){
         }
         { //::ParticleLayout::addParticle
         
+            typedef void ( ::ParticleLayout::*addParticle_function_type)( ::IAbstractParticle const & ) ;
+            typedef void ( ParticleLayout_wrapper::*default_addParticle_function_type)( ::IAbstractParticle const & ) ;
+            
+            ParticleLayout_exposer.def( 
+                "addParticle"
+                , addParticle_function_type(&::ParticleLayout::addParticle)
+                , default_addParticle_function_type(&ParticleLayout_wrapper::default_addParticle)
+                , ( bp::arg("particle") ) );
+        
+        }
+        { //::ParticleLayout::addParticle
+        
             typedef void ( ::ParticleLayout::*addParticle_function_type)( ::IAbstractParticle const &,double ) ;
             typedef void ( ParticleLayout_wrapper::*default_addParticle_function_type)( ::IAbstractParticle const &,double ) ;
             
@@ -277,7 +309,7 @@ void register_ParticleLayout_class(){
                 "addParticle"
                 , addParticle_function_type(&::ParticleLayout::addParticle)
                 , default_addParticle_function_type(&ParticleLayout_wrapper::default_addParticle)
-                , ( bp::arg("particle"), bp::arg("abundance")=1.0e+0 ) );
+                , ( bp::arg("particle"), bp::arg("abundance") ) );
         
         }
         { //::ParticleLayout::addParticle

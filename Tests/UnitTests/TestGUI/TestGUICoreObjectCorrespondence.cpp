@@ -1,7 +1,9 @@
 #include "TestGUICoreObjectCorrespondence.h"
 #include "GUICoreObjectCorrespondence.h"
 #include "FormFactors.h"
+#include "InterferenceFunctions.h"
 #include "FormFactorItems.h"
+#include "InterferenceFunctionItems.h"
 #include "Units.h"
 
 
@@ -137,3 +139,24 @@ void TestGUICoreObjectCorrespondence::test_TruncatedSpheroid()
     FormFactorTruncatedSpheroid core_truncspheroid(1.0, 1.5, 1.5);
     GUICoreObjectCorrespondence(gui_truncspheroid, core_truncspheroid);
 }
+
+void TestGUICoreObjectCorrespondence::test_RadialParacrystal()
+{
+    InterferenceFunctionRadialParaCrystalItem gui_radialparacrystal;
+    InterferenceFunctionRadialParaCrystal core_radialparacrystal(10.0, 1e-6);
+    GUICoreObjectCorrespondence(gui_radialparacrystal, core_radialparacrystal);
+}
+
+//void TestGUICoreObjectCorrespondence::test_2DParacrystal()
+//{
+//    InterferenceFunction2DParaCrystalItem gui_2d_paracrystal;
+//    InterferenceFunction2DParaCrystal core_2d_paracrystal(10.0, 10.0, 90.0*Units::degree);
+//    GUICoreObjectCorrespondence(gui_2d_paracrystal, core_2d_paracrystal);
+//}
+
+//void TestGUICoreObjectCorrespondence::test_2DLattice()
+//{
+//    InterferenceFunction2DLatticeItem gui_2d_lattice;
+//    InterferenceFunction2DLattice core_2d_lattice(10.0, 10.0, 90.0*Units::degree);
+//    GUICoreObjectCorrespondence(gui_2d_lattice, core_2d_lattice);
+//}

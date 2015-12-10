@@ -15,28 +15,30 @@
 
 #include "InterferenceFunctionItems.h"
 #include "Units.h"
+#include "BornAgainNamespace.h"
+
 #include <QDebug>
 
 const QString InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE =
-        "Peak_distance";
+        QString::fromStdString(BornAgain::PeakDistance);
 const QString InterferenceFunctionRadialParaCrystalItem::P_DAMPING_LENGTH =
-        "Damping_length";
+        QString::fromStdString(BornAgain::DampingLength);
 const QString InterferenceFunctionRadialParaCrystalItem::P_DOMAIN_SIZE =
-        "Domain_size";
+        QString::fromStdString(BornAgain::DomainSize);
 const QString InterferenceFunctionRadialParaCrystalItem::P_KAPPA =
-        "Size_space_coupling";
+        QString::fromStdString(BornAgain::SizeSpaceCoupling);
 const QString InterferenceFunctionRadialParaCrystalItem::P_PDF = "PDF";
 
 const QString InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE =
         "Lattice_type";
 const QString InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE =
-        "Rotation_angle";
+        QString::fromStdString(BornAgain::Xi);
 const QString InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH =
-        "Damping_length";
+        QString::fromStdString(BornAgain::DampingLength);
 const QString InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE1 =
-        "Domain_size_1";
+        QString::fromStdString(BornAgain::DomainSize1);
 const QString InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE2 =
-        "Domain_size_2";
+        QString::fromStdString(BornAgain::DomainSize2);
 const QString InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION =
         "Integration_over_xi";
 const QString InterferenceFunction2DParaCrystalItem::P_PDF1 = "PDF #1";
@@ -45,7 +47,7 @@ const QString InterferenceFunction2DParaCrystalItem::P_PDF2 = "PDF #2";
 const QString InterferenceFunction2DLatticeItem::P_LATTICE_TYPE =
         "Lattice_type";
 const QString InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE =
-        "Rotation_angle";
+        QString::fromStdString(BornAgain::Xi);
 const QString InterferenceFunction2DLatticeItem::P_PDF = "PDF";
 
 InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystalItem(

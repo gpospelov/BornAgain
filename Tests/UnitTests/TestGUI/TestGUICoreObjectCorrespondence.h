@@ -7,6 +7,7 @@ class TestGUICoreObjectCorrespondence : public QObject {
     Q_OBJECT
 
 private slots:
+    // Form factors:
     void test_AnisoPyramid();
     void test_Box();
     void test_Cone();
@@ -26,6 +27,12 @@ private slots:
     void test_TruncatedCube();
     void test_TruncatedSphere();
     void test_TruncatedSpheroid();
+
+    // Interference functions:
+    void test_RadialParacrystal();
+    // uncomment the next tests when the lattice parameters are in better correspondence:
+//    void test_2DParacrystal();
+//    void test_2DLattice();
 };
 
 #endif // TESTGUICOREOBJECTCORRESPONDENCE_H

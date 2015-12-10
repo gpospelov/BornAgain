@@ -109,6 +109,7 @@ OutputData<double> *DetectorMaskDelegate::createOutputData(DetectorItem *detecto
     result->addAxis("x", n_x, x_min, x_max);
     result->addAxis("y", n_y, y_min, y_max);
 
+    result->setAllTo(1.0);
 
     return result;
 

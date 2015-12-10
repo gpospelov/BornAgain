@@ -42,6 +42,7 @@
 #include "BeamWavelengthItem.h"
 #include "BeamAngleItems.h"
 #include "ResolutionFunctionItems.h"
+#include "MaskItems.h"
 
 #include <QDebug>
 
@@ -374,4 +375,21 @@ void TransformToDomain::addDistributionParametersToSimulation(const Parameterize
                 simulation->addParameterDistribution(*P_par_distr);
         }
     }
+}
+
+
+void TransformToDomain::addMasksToSimulation(const ParameterizedItem &detector_item,
+                                             GISASSimulation *simulation)
+{
+    Q_ASSERT(detector_item.modelType() == Constants::DetectorType);
+
+//    if(const DetectorItem *detectorItem = dynamic_cast<const DetectorItem *>(&detector_item)) {
+//        if(auto maskContainerItem = detectorItem->getMaskContainerItem()) {
+//            foreach(auto child, maskContainerItem->childItems()) {
+
+
+//            }
+//        }
+//    }
+
 }

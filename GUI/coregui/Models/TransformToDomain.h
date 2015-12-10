@@ -47,6 +47,8 @@ BA_CORE_API_ void initInstrumentFromDetectorItem(const ParameterizedItem &item,
                                                  Instrument *instrument);
 BA_CORE_API_ void addDistributionParametersToSimulation(const ParameterizedItem &beam_item,
                                                         GISASSimulation *simulation);
+BA_CORE_API_ void addMasksToSimulation(const ParameterizedItem &detector_item,
+                                                        GISASSimulation *simulation);
 }
 
 #endif // TRANSFORMTODOMAIN_H

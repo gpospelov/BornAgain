@@ -383,13 +383,33 @@ void TransformToDomain::addMasksToSimulation(const ParameterizedItem &detector_i
 {
     Q_ASSERT(detector_item.modelType() == Constants::DetectorType);
 
-//    if(const DetectorItem *detectorItem = dynamic_cast<const DetectorItem *>(&detector_item)) {
-//        if(auto maskContainerItem = detectorItem->getMaskContainerItem()) {
-//            foreach(auto child, maskContainerItem->childItems()) {
+    if(auto detectorItem = dynamic_cast<const DetectorItem *>(&detector_item)) {
+        if(auto maskContainerItem = detectorItem->getMaskContainerItem()) {
+            for(int i_row = maskContainerItem->childItems().size(); i_row>0; --i_row) {
+                if(auto maskItem = dynamic_cast<MaskItem *>(maskContainerItem->childItems().at(i_row-1))) {
+                    std::unique_ptr<Geometry::IShape2D > shape(maskItem->createShape());
+                    bool mask_value = maskItem->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
+                    simulation->addMask(*shape, mask_value);
+                }
+            }
 
-
-//            }
-//        }
-//    }
+        }
+    }
 
 }
+
+
+//for (int i_row = m_maskModel->rowCount(m_maskContainerIndex); i_row > 0; --i_row) {
+//    QModelIndex itemIndex = m_maskModel->index(i_row - 1, 0, m_maskContainerIndex);
+//    if (MaskItem *item = dynamic_cast<MaskItem *>(m_maskModel->itemForIndex(itemIndex))) {
+//        Geometry::IShape2D *shape = item->createShape();
+//        if (shape) {
+//            detectorMask.addMask(*shape,
+//                                 item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool());
+//        }
+//        delete shape;
+//    }
+//}
+
+
+

@@ -28,7 +28,7 @@ public:
     explicit DetectorItem(ParameterizedItem *parent=0);
     ~DetectorItem(){}
 
-    MaskContainerItem *getMaskContainerItem();
+    MaskContainerItem *getMaskContainerItem() const;
 };
 
 class PhiAlphaDetectorItem : public ParameterizedItem

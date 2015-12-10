@@ -151,7 +151,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_projectManager->createNewProject();
 
-    //testGUIObjectBuilder();
+    testGUIObjectBuilder();
 }
 
 MainWindow::~MainWindow()
@@ -317,7 +317,7 @@ void MainWindow::resetModels()
 void MainWindow::testGUIObjectBuilder()
 {
     SampleBuilderFactory factory;
-    boost::scoped_ptr<ISample> P_sample(factory.createSample("isgisaxs01"));
+    boost::scoped_ptr<ISample> P_sample(factory.createSample("CylindersAndPrismsBuilder"));
 
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(m_sampleModel, *P_sample);

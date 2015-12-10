@@ -31,7 +31,7 @@ DetectorItem::DetectorItem(ParameterizedItem *parent)
     addToValidChildren(Constants::MaskContainerType);
 }
 
-MaskContainerItem *DetectorItem::getMaskContainerItem()
+MaskContainerItem *DetectorItem::getMaskContainerItem() const
 {
     foreach(ParameterizedItem *item, childItems()) {
         if(MaskContainerItem *container = dynamic_cast<MaskContainerItem *>(item)) {

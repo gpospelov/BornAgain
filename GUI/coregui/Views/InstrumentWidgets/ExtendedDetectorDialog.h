@@ -34,7 +34,7 @@ public:
     virtual ~ExtendedDetectorDialog(){}
 
 public slots:
-    void setDetectorItem(DetectorItem *detectorItem, InstrumentModel *instrumentModel);
+    void setDetectorContext(InstrumentModel *instrumentModel, DetectorItem *detectorItem);
 
 private:
     MaskEditor *m_maskEditor;

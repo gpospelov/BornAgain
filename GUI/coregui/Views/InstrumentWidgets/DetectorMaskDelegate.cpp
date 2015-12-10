@@ -20,45 +20,61 @@
 #include "IntensityDataItem.h"
 #include "OutputData.h"
 #include "AxesItems.h"
+#include "MaskEditor.h"
+#include "MaskItems.h"
 #include <QDebug>
 
 DetectorMaskDelegate::DetectorMaskDelegate(QObject *parent)
     : QObject(parent)
-    , m_maskModel(0)
-    , m_detectorItem(0)
     , m_instrumentModel(0)
+    , m_detectorItem(0)
+    , m_intensityItem(0)
 {
 
 }
 
-void DetectorMaskDelegate::setDetectorItem(DetectorItem *detectorItem,
-                                           InstrumentModel *instrumentModel)
+void DetectorMaskDelegate::setDetectorContext(InstrumentModel *instrumentModel,
+                                              DetectorItem *detectorItem)
 {
-    m_detectorItem = detectorItem;
     m_instrumentModel = instrumentModel;
-    init_mask_model();
+    m_detectorItem = detectorItem;
+    createIntensityDataItem();
+    createMaskContainer();
 }
 
-
-MaskModel *DetectorMaskDelegate::getMaskModel()
+void DetectorMaskDelegate::initMaskEditor(MaskEditor *maskEditor)
 {
-    return m_maskModel;
+    Q_ASSERT(m_instrumentModel);
+    Q_ASSERT(m_detectorItem);
+    Q_ASSERT(m_intensityItem);
+    Q_ASSERT(m_detectorItem->getMaskContainerItem());
+    maskEditor->setMaskContext(
+        m_instrumentModel,
+        m_instrumentModel->indexOfItem(m_detectorItem->getMaskContainerItem()),
+        m_intensityItem);
+
 }
 
 
-void DetectorMaskDelegate::init_mask_model()
+//! Creates IntensityDataItem from DetectorItem for later usage in MaskEditor
+void DetectorMaskDelegate::createIntensityDataItem()
 {
-    delete m_maskModel;
-    m_maskModel = new MaskModel(this);
-
-    IntensityDataItem *intensityItem = dynamic_cast<IntensityDataItem *>(
-        m_maskModel->insertNewItem(Constants::IntensityDataType));
-    Q_ASSERT(intensityItem);
-
-    intensityItem->setOutputData(createOutputData(m_detectorItem));
-
+    delete m_intensityItem;
+    m_intensityItem = new IntensityDataItem();
+    m_intensityItem->setOutputData(createOutputData(m_detectorItem));
 }
 
+//! Creates MaskContainer in DetectorItem
+void DetectorMaskDelegate::createMaskContainer()
+{
+    Q_ASSERT(m_detectorItem);
+    if(!m_detectorItem->getMaskContainerItem()) {
+        m_instrumentModel->insertNewItem(Constants::MaskContainerType,
+                                         m_instrumentModel->indexOfItem(m_detectorItem));
+    }
+}
+
+//! Creates OutputData from DetectorItem's axes for later initialization of IntensityDataItem
 OutputData<double> *DetectorMaskDelegate::createOutputData(DetectorItem *detectorItem)
 {
     Q_ASSERT(detectorItem);

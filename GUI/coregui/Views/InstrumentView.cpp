@@ -169,7 +169,7 @@ void InstrumentView::onRowsAboutToBeRemoved(QModelIndex parent, int first, int /
 void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem *detectorItem)
 {
     ExtendedDetectorDialog *dialog = new ExtendedDetectorDialog(this);
-    dialog->setDetectorItem(detectorItem, m_instrumentModel);
+    dialog->setDetectorContext(m_instrumentModel, detectorItem);
     dialog->show();
 }
 

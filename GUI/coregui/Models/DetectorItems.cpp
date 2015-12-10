@@ -16,6 +16,7 @@
 #include "DetectorItems.h"
 #include "ComboProperty.h"
 #include "AngleProperty.h"
+#include "MaskItems.h"
 #include "AxesItems.h"
 #include <QDebug>
 
@@ -27,12 +28,17 @@ DetectorItem::DetectorItem(ParameterizedItem *parent)
     setItemName(Constants::DetectorType);
     registerGroupProperty(P_DETECTOR, Constants::DetectorGroup);
 
-    addToValidChildren(Constants::RectangleMaskType);
-    addToValidChildren(Constants::PolygonMaskType);
-    addToValidChildren(Constants::EllipseMaskType);
-    addToValidChildren(Constants::VerticalLineMaskType);
-    addToValidChildren(Constants::HorizontalLineMaskType);
-    addToValidChildren(Constants::MaskAllType);
+    addToValidChildren(Constants::MaskContainerType);
+}
+
+MaskContainerItem *DetectorItem::getMaskContainerItem()
+{
+    foreach(ParameterizedItem *item, childItems()) {
+        if(MaskContainerItem *container = dynamic_cast<MaskContainerItem *>(item)) {
+            return container;
+        }
+    }
+    return 0;
 }
 
 // -------------------------------------------------------------------------- //

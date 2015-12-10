@@ -21,6 +21,20 @@
 #include "InfinitePlane.h"
 #include "Units.h"
 
+
+MaskContainerItem::MaskContainerItem(ParameterizedItem *parent)
+    : ParameterizedItem(Constants::MaskContainerType, parent)
+{
+    addToValidChildren(Constants::RectangleMaskType);
+    addToValidChildren(Constants::PolygonMaskType);
+    addToValidChildren(Constants::EllipseMaskType);
+    addToValidChildren(Constants::VerticalLineMaskType);
+    addToValidChildren(Constants::HorizontalLineMaskType);
+    addToValidChildren(Constants::MaskAllType);
+}
+
+/* ------------------------------------------------------------------------- */
+
 const QString MaskItem::P_MASK_VALUE = "Mask value";
 
 MaskItem::MaskItem(const QString &name, ParameterizedItem *parent)
@@ -166,3 +180,4 @@ Geometry::IShape2D *MaskAllItem::createShape() const
 {
     return new Geometry::InfinitePlane();
 }
+

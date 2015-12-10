@@ -24,6 +24,8 @@ template <class T> class OutputData;
 
 class MaskModel;
 class DetectorItem;
+class InstrumentModel;
+class IntensityDataItem;
 
 //! The DetectorMaskDelegate class provides syncronization between DetectorItem (defined
 //! in InstrumentModel) and temporary IntensityDataItem (defined in temporary SessionModel).
@@ -35,18 +37,20 @@ class BA_CORE_API_ DetectorMaskDelegate : public QObject
 public:
     DetectorMaskDelegate(QObject *parent);
 
-    void setDetectorItem(DetectorItem *detectorItem);
+    void setDetectorItem(DetectorItem *detectorItem, InstrumentModel *instrumentModel);
 
     MaskModel *getMaskModel();
 
 private:
     void init_mask_model();
     OutputData<double> *createOutputData(DetectorItem *detectorItem);
+    void copyMasksFromDetector();
 
     MaskModel *m_maskModel;
-    QModelIndex m_intensityItemIndex;
+    IntensityDataItem *m_intensityItem;
 
     DetectorItem *m_detectorItem;
+    InstrumentModel *m_instrumentModel;
 };
 
 

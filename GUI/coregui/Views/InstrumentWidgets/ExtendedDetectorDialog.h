@@ -21,6 +21,7 @@
 class MaskEditor;
 class DetectorItem;
 class DetectorMaskDelegate;
+class InstrumentModel;
 
 //! The dialog which shows a MaskEditor
 
@@ -33,7 +34,7 @@ public:
     virtual ~ExtendedDetectorDialog(){}
 
 public slots:
-    void setDetectorItem(DetectorItem *detectorItem);
+    void setDetectorItem(DetectorItem *detectorItem, InstrumentModel *instrumentModel);
 
 private:
     MaskEditor *m_maskEditor;

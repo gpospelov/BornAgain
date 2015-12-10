@@ -32,15 +32,20 @@ MaskResultsPresenter::MaskResultsPresenter(QWidget *parent)
 
 }
 
-void MaskResultsPresenter::setModel(SessionModel *maskModel, const QModelIndex &rootIndex)
+void MaskResultsPresenter::setMaskContext(SessionModel *maskModel,
+                                          const QModelIndex &maskContainerIndex,
+                                          IntensityDataItem *intensityItem)
 {
     m_maskModel = maskModel;
-    m_rootIndex = rootIndex;
+    m_maskContainerIndex = maskContainerIndex;
+    m_intensityDataItem = intensityItem;
+
 }
+
 
 void MaskResultsPresenter::updatePresenter(MaskEditorFlags::PresentationType presentationType)
 {
-    if(!m_rootIndex.isValid()) return;
+    if(!m_maskContainerIndex.isValid()) return;
 
     if(presentationType == MaskEditorFlags::MASK_PRESENTER) {
         setShowMaskMode();
@@ -57,11 +62,9 @@ void MaskResultsPresenter::setShowMaskMode()
 
     if (OutputData<double> *maskedData = createMaskPresentation()) {
         backup_data();
-        IntensityDataItem *origItem
-            = dynamic_cast<IntensityDataItem *>(m_maskModel->itemForIndex(m_rootIndex));
-        origItem->setOutputData(maskedData);
+        m_intensityDataItem->setOutputData(maskedData);
         qDebug() << m_dataBackup->totalSum() << maskedData->totalSum();
-        origItem->setRegisteredProperty(IntensityDataItem::P_IS_INTERPOLATED, false);
+        m_intensityDataItem->setRegisteredProperty(IntensityDataItem::P_IS_INTERPOLATED, false);
     } else {
         m_dataBackup.reset();
     }
@@ -71,22 +74,17 @@ void MaskResultsPresenter::setShowMaskMode()
 void MaskResultsPresenter::setOriginalMode()
 {
     if (m_dataBackup) {
-        IntensityDataItem *origItem
-            = dynamic_cast<IntensityDataItem *>(m_maskModel->itemForIndex(m_rootIndex));
-        origItem->setOutputData(m_dataBackup->clone());
-        origItem->setRegisteredProperty(IntensityDataItem::P_IS_INTERPOLATED,
+        m_intensityDataItem->setOutputData(m_dataBackup->clone());
+        m_intensityDataItem->setRegisteredProperty(IntensityDataItem::P_IS_INTERPOLATED,
                                         m_interpolation_flag_backup);
     }
 }
 
 void MaskResultsPresenter::backup_data()
 {
-    IntensityDataItem *origItem
-        = dynamic_cast<IntensityDataItem *>(m_maskModel->itemForIndex(m_rootIndex));
-    Q_ASSERT(origItem);
     m_interpolation_flag_backup
-        = origItem->getRegisteredProperty(IntensityDataItem::P_IS_INTERPOLATED).toBool();
-    m_dataBackup.reset(origItem->getOutputData()->clone());
+        = m_intensityDataItem->getRegisteredProperty(IntensityDataItem::P_IS_INTERPOLATED).toBool();
+    m_dataBackup.reset(m_intensityDataItem->getOutputData()->clone());
 }
 
 //! Constructs OutputData which contains original intensity data except masked areas,
@@ -97,8 +95,8 @@ OutputData<double> *MaskResultsPresenter::createMaskPresentation() const
 
     // Requesting mask information
     DetectorMask detectorMask;
-    for (int i_row = m_maskModel->rowCount(m_rootIndex); i_row > 0; --i_row) {
-        QModelIndex itemIndex = m_maskModel->index(i_row - 1, 0, m_rootIndex);
+    for (int i_row = m_maskModel->rowCount(m_maskContainerIndex); i_row > 0; --i_row) {
+        QModelIndex itemIndex = m_maskModel->index(i_row - 1, 0, m_maskContainerIndex);
         if (MaskItem *item = dynamic_cast<MaskItem *>(m_maskModel->itemForIndex(itemIndex))) {
             Geometry::IShape2D *shape = item->createShape();
             if (shape) {
@@ -113,16 +111,12 @@ OutputData<double> *MaskResultsPresenter::createMaskPresentation() const
         return 0;
 
     // modifying IntensityData
-    IntensityDataItem *origItem
-        = dynamic_cast<IntensityDataItem *>(m_maskModel->itemForIndex(m_rootIndex));
-    Q_ASSERT(origItem);
-    Q_ASSERT(origItem->getOutputData());
+    Q_ASSERT(m_intensityDataItem->getOutputData());
 
-    OutputData<double> *result = origItem->getOutputData()->clone();
+    OutputData<double> *result = m_intensityDataItem->getOutputData()->clone();
 
     detectorMask.initMaskData(*result);
 
-    qDebug() << "BBB 1.4" << detectorMask.getNumberOfMaskedChannels();
     for (size_t i = 0; i < detectorMask.getMaskData()->getAllocatedSize(); ++i) {
         bool mask_value = (*detectorMask.getMaskData())[i];
         if (mask_value == true)

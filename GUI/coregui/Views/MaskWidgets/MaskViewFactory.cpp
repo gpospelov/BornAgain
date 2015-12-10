@@ -23,6 +23,7 @@
 #include "LineViews.h"
 #include "EllipseView.h"
 #include "MaskAllView.h"
+#include "MaskContainerView.h"
 #include "IntensityDataView.h"
 #include "ParameterizedItem.h"
 
@@ -31,7 +32,12 @@ IMaskView *MaskViewFactory::createMaskView(ParameterizedItem *item,
 {
     IMaskView *result(0);
     QString model_type = item->modelType();
-    if(model_type == Constants::RectangleMaskType) {
+
+    if(model_type == Constants::MaskContainerType) {
+        result = new MaskContainerView();
+    }
+
+    else if(model_type == Constants::RectangleMaskType) {
         result = new RectangleView();
     }
 
@@ -59,9 +65,9 @@ IMaskView *MaskViewFactory::createMaskView(ParameterizedItem *item,
         result = new MaskAllView();
     }
 
-    else if(model_type == Constants::IntensityDataType) {
-        result = new IntensityDataView();
-    }
+//    else if(model_type == Constants::IntensityDataType) {
+//        result = new IntensityDataView();
+//    }
 
     else {
         throw GUIHelpers::Error("MaskViewFactory::createSampleView() -> Error! "
@@ -70,5 +76,6 @@ IMaskView *MaskViewFactory::createMaskView(ParameterizedItem *item,
 
     result->setParameterizedItem(item);
     result->setSceneAdaptor(adaptor);
+
     return result;
 }

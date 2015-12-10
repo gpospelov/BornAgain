@@ -26,13 +26,16 @@ DetectorMaskDelegate::DetectorMaskDelegate(QObject *parent)
     : QObject(parent)
     , m_maskModel(0)
     , m_detectorItem(0)
+    , m_instrumentModel(0)
 {
 
 }
 
-void DetectorMaskDelegate::setDetectorItem(DetectorItem *detectorItem)
+void DetectorMaskDelegate::setDetectorItem(DetectorItem *detectorItem,
+                                           InstrumentModel *instrumentModel)
 {
     m_detectorItem = detectorItem;
+    m_instrumentModel = instrumentModel;
     init_mask_model();
 }
 
@@ -53,10 +56,12 @@ void DetectorMaskDelegate::init_mask_model()
     Q_ASSERT(intensityItem);
 
     intensityItem->setOutputData(createOutputData(m_detectorItem));
+
 }
 
 OutputData<double> *DetectorMaskDelegate::createOutputData(DetectorItem *detectorItem)
 {
+    Q_ASSERT(detectorItem);
     OutputData<double> *result = new OutputData<double>;
 
 
@@ -90,5 +95,16 @@ OutputData<double> *DetectorMaskDelegate::createOutputData(DetectorItem *detecto
 
 
     return result;
+
+}
+
+//! Copies masks from the detector to IntensityData objects
+void DetectorMaskDelegate::copyMasksFromDetector()
+{
+//    Q_ASSERT(m_detectorItem);
+//    auto subDetector = m_detectorItem->getSubItems()[DetectorItem::P_DETECTOR];
+//    Q_ASSERT(subDetector);
+
+//    foreach(ParameterizedItem *item, )
 
 }

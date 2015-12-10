@@ -25,6 +25,7 @@ class SessionModel;
 class QItemSelectionModel;
 class QModelIndex;
 class MaskResultsPresenter;
+class IntensityDataItem;
 
 //! Painting widget for MaskEditor, contains graphics scene and graphics view
 
@@ -34,7 +35,7 @@ class MaskEditorCanvas : public QWidget
 public:
     MaskEditorCanvas(QWidget *parent = 0);
 
-    void setModel(SessionModel *model, const QModelIndex &rootIndex);
+    void setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex, IntensityDataItem *intensityItem);
     void setSelectionModel(QItemSelectionModel *model);
 
     MaskGraphicsScene *getScene();

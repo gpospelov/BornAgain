@@ -32,6 +32,7 @@
 #include "IntensityDataItem.h"
 #include "SessionModel.h"
 #include "MaskItems.h"
+#include "GUIHelpers.h"
 
 
 MaskEditor::MaskEditor(QWidget *parent)
@@ -55,22 +56,44 @@ MaskEditor::MaskEditor(QWidget *parent)
     setup_connections();
 }
 
-void MaskEditor::setModel(SessionModel *model, const QModelIndex &rootIndex)
+//void MaskEditor::setModel(SessionModel *model, const QModelIndex &rootIndex)
+//{
+//    QModelIndex intensityItemIndex = rootIndex;
+//    if(!intensityItemIndex.isValid()) {
+//        if(ParameterizedItem *intensityItem = model->getTopItem(Constants::IntensityDataType)) {
+//            intensityItemIndex = model->indexOfItem(intensityItem);
+//        }
+//    }
+//    Q_ASSERT(intensityItemIndex.isValid());
+
+//    QModelIndex maskContainerIndex = model->index(0,0, intensityItemIndex);
+//    if (!maskContainerIndex.isValid()
+//        || model->itemForIndex(maskContainerIndex)->modelType() != Constants::MaskContainerType) {
+//        throw GUIHelpers::Error("MaskEditor::setModel() -> Error! Not a mask container");
+//    }
+
+//    m_editorPropertyPanel->setModel(model, intensityItemIndex);
+
+//    m_editorCanvas->setModel(model, intensityItemIndex);
+//    m_editorCanvas->setSelectionModel(m_editorPropertyPanel->selectionModel());
+
+//    m_itemActions->setModel(model, maskContainerIndex);
+//    m_itemActions->setSelectionModel(m_editorPropertyPanel->selectionModel());
+//}
+
+void MaskEditor::setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
+                                IntensityDataItem *intensityItem)
 {
-    QModelIndex intensityItemIndex = rootIndex;
-    if(!intensityItemIndex.isValid()) {
-        if(ParameterizedItem *intensityItem = model->getTopItem(Constants::IntensityDataType)) {
-            intensityItemIndex = model->indexOfItem(intensityItem);
-        }
-    }
-    Q_ASSERT(intensityItemIndex.isValid());
+    m_editorPropertyPanel->setMaskContext(model, maskContainerIndex, intensityItem);
 
-    m_editorPropertyPanel->setModel(model, intensityItemIndex);
+    Q_ASSERT(intensityItem);
+    Q_ASSERT(maskContainerIndex.isValid());
+    Q_ASSERT(model->itemForIndex(maskContainerIndex)->modelType() == Constants::MaskContainerType);
 
-    m_editorCanvas->setModel(model, intensityItemIndex);
+    m_editorCanvas->setMaskContext(model, maskContainerIndex, intensityItem);
     m_editorCanvas->setSelectionModel(m_editorPropertyPanel->selectionModel());
 
-    m_itemActions->setModel(model, intensityItemIndex);
+    m_itemActions->setModel(model, maskContainerIndex);
     m_itemActions->setSelectionModel(m_editorPropertyPanel->selectionModel());
 }
 
@@ -99,12 +122,24 @@ void MaskEditor::init_test_model()
     simulation->setSample(*sample.get());
     simulation->runSimulation();
 
-    IntensityDataItem *item = dynamic_cast<IntensityDataItem *>(maskModel->insertNewItem(Constants::IntensityDataType));
-    Q_ASSERT(item);
-    item->setOutputData(simulation->getOutputData()->clone());
-    qDebug() << item->getXmin() << item->getXmax() << item->getYmin() << item->getYmax();
+    IntensityDataItem *intensityItem = dynamic_cast<IntensityDataItem *>(maskModel->insertNewItem(Constants::IntensityDataType));
+    Q_ASSERT(intensityItem);
+    intensityItem->setOutputData(simulation->getOutputData()->clone());
 
     // Rectangle
+
+    ParameterizedItem *container = maskModel->insertNewItem(Constants::MaskContainerType, maskModel->indexOfItem(intensityItem));
+    Q_ASSERT(container);
+
+    RectangleItem *rect = new RectangleItem();
+    rect->setRegisteredProperty(RectangleItem::P_POSX, 0.6);
+    rect->setRegisteredProperty(RectangleItem::P_POSY, 1.5);
+    rect->setRegisteredProperty(RectangleItem::P_WIDTH, 0.3);
+    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 0.2);
+
+    container->insertChildItem(-1, rect);
+
+
 
 //    RectangleItem *rect = dynamic_cast<RectangleItem *>(m_maskModel->insertNewItem(Constants::RectangleMaskType, m_maskModel->indexOfItem(item)));
 //    Q_ASSERT(rect);
@@ -144,7 +179,7 @@ void MaskEditor::init_test_model()
 //    MaskAllItem *rect = dynamic_cast<MaskAllItem *>(m_maskModel->insertNewItem(Constants::MaskAllType, m_maskModel->indexOfItem(item)));
 
 //    setModel(maskModel, maskModel->indexOfItem(item));
-    setModel(maskModel);
+    setMaskContext(maskModel, maskModel->indexOfItem(container), intensityItem);
 }
 
 void MaskEditor::setup_connections()

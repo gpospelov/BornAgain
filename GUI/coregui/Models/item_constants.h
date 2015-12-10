@@ -120,6 +120,7 @@ const ModelType BeamInclinationAngleType = "BeamInclinationAngle";
 const ModelType ResolutionFunctionNoneType = "ResolutionFunctionNone";
 const ModelType ResolutionFunction2DGaussianType = "ResolutionFunction2DGaussian";
 
+const ModelType MaskContainerType = "MaskContainer";
 const ModelType RectangleMaskType = "RectangleMask";
 const ModelType PolygonMaskType = "PolygonMask";
 const ModelType PolygonPointType = "PolygonPoint";

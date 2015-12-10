@@ -32,6 +32,7 @@ class QItemSelectionModel;
 class QItemSelection;
 class PolygonView;
 class MaskEditorAction;
+class IntensityDataItem;
 
 //! Graphics scene for MaskEditorCanvas to draw masks on top of intensity data widgets.
 
@@ -41,7 +42,9 @@ class BA_CORE_API_ MaskGraphicsScene : public QGraphicsScene
 public:
     MaskGraphicsScene(QObject *parent = 0);
 
-    void setModel(SessionModel *model, const QModelIndex &rootIndex);
+    void setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
+                        IntensityDataItem *intensityItem);
+
     void setSelectionModel(QItemSelectionModel *model);
 
 signals:
@@ -72,7 +75,7 @@ protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
 private:
-    void updateProxyWidget(const QModelIndex &parentIndex);
+    void updateProxyWidget();
     void updateViews(const QModelIndex &parentIndex = QModelIndex(), IMaskView *parentView = 0);
     IMaskView* addViewForItem(ParameterizedItem *item);
     void deleteViews(const QModelIndex & itemIndex);
@@ -108,7 +111,8 @@ private:
     QMap<ParameterizedItem *, IMaskView *> m_ItemToView;
     MaskGraphicsProxy *m_proxy;
     bool m_block_selection;
-    QModelIndex m_rootIndex; //! Index in the model corresponding to IntensityDataItem
+    QModelIndex m_maskContainerIndex;
+    IntensityDataItem *m_intensityItem;
     ParameterizedItem *m_currentItem;
     QPointF m_currentMousePosition;
     MaskDrawingContext m_context;

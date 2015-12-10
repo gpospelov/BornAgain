@@ -37,10 +37,8 @@ MaskGraphicsProxy::~MaskGraphicsProxy()
     }
 }
 
-void MaskGraphicsProxy::setItem(ParameterizedItem *item)
+void MaskGraphicsProxy::setIntensityItem(IntensityDataItem *intensityDataItem)
 {
-    IntensityDataItem *intensityDataItem = dynamic_cast<IntensityDataItem *>(item);
-    Q_ASSERT(intensityDataItem);
     m_colorMap->setItem(intensityDataItem);
     if(widget() != m_colorMap) setWidget(m_colorMap);
 }

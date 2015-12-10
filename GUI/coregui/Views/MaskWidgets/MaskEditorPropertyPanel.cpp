@@ -17,6 +17,7 @@
 #include "SessionModel.h"
 #include "AwesomePropertyEditor.h"
 #include "MaskEditorFlags.h"
+#include "IntensityDataItem.h"
 #include <QVBoxLayout>
 #include <QListView>
 #include <QItemSelection>
@@ -34,6 +35,7 @@ MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget *parent)
     , m_maskPropertyEditor(new AwesomePropertyEditor)
     , m_plotPropertyEditor(new AwesomePropertyEditor)
     , m_maskModel(0)
+    , m_intensityDataItem(0)
 {
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
     setObjectName(QLatin1String("MaskEditorToolPanel"));
@@ -67,12 +69,16 @@ MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget *parent)
 
 }
 
-void MaskEditorPropertyPanel::setModel(SessionModel *model, const QModelIndex &root_index)
+
+void MaskEditorPropertyPanel::setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
+                    IntensityDataItem *intensityItem)
 {
     m_maskModel = model;
-    m_rootIndex = root_index;
-    m_listView->setModel(model);
-    m_listView->setRootIndex(root_index);
+    m_rootIndex = maskContainerIndex;
+    m_intensityDataItem = intensityItem;
+
+    m_listView->setModel(m_maskModel);
+    m_listView->setRootIndex(m_rootIndex);
     m_listView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     connect(m_listView->selectionModel(),
@@ -80,7 +86,7 @@ void MaskEditorPropertyPanel::setModel(SessionModel *model, const QModelIndex &r
             this,
             SLOT(onSelectionChanged(QItemSelection, QItemSelection)));
 
-    m_plotPropertyEditor->setItem(m_maskModel->itemForIndex(m_rootIndex));
+    m_plotPropertyEditor->setItem(m_intensityDataItem);
 }
 
 QItemSelectionModel *MaskEditorPropertyPanel::selectionModel()
@@ -104,7 +110,7 @@ void MaskEditorPropertyPanel::setPanelHidden(bool value)
         if(indexes.size()) {
             m_maskPropertyEditor->setItem(m_maskModel->itemForIndex(indexes.front()));
         }
-        m_plotPropertyEditor->setItem(m_maskModel->itemForIndex(m_rootIndex));
+        m_plotPropertyEditor->setItem(m_intensityDataItem);
     }
 }
 

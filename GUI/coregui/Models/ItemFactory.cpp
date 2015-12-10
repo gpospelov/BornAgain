@@ -148,6 +148,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::ResolutionFunctionNoneType] = &createInstance<ResolutionFunctionNoneItem>;
     result[Constants::ResolutionFunction2DGaussianType] = &createInstance<ResolutionFunction2DGaussianItem>;
 
+    result[Constants::MaskContainerType] = &createInstance<MaskContainerItem>;
     result[Constants::RectangleMaskType] = &createInstance<RectangleItem>;
     result[Constants::PolygonPointType] = &createInstance<PolygonPointItem>;
     result[Constants::PolygonMaskType] = &createInstance<PolygonItem>;

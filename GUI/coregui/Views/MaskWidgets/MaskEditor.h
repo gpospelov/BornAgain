@@ -27,6 +27,7 @@ class MaskEditorToolBar;
 class MaskEditorCanvas;
 class QSplitter;
 class SessionModel;
+class IntensityDataItem;
 
 //! Main class to draw masks on top of intensity data map
 
@@ -37,7 +38,13 @@ public:
     MaskEditor(QWidget *parent = 0);
 
 public slots:
-    void setModel(SessionModel *model, const QModelIndex &rootIndex = QModelIndex());
+    //! Main method to setup context for mask editing
+    //! @par model The model which will hold all masks
+    //! @par maskContainerIndex Index of top level MaskContainerItem in the model to hold masks
+    //! @par intensityItem IntensityDataItem which will be used as background for Mask drawing
+    void setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
+                        IntensityDataItem *intensityItem);
+
     void onPropertyPanelRequest();
     void init_test_model();
 

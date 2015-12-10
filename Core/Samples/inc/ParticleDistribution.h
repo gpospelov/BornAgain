@@ -17,11 +17,8 @@
 #define PARTICLEDISTRIBUTION_H
 
 #include "IParticle.h"
-#include "ParticleInfo.h"
 #include "ParameterDistribution.h"
 #include "SafePointerVector.h"
-
-class ParticleInfo;
 
 //! @class ParticleDistribution
 //! @ingroup samples
@@ -48,9 +45,7 @@ public:
     virtual const IMaterial *getAmbientMaterial() const;
 
     //! Initializes list of new particles generated according to a distribution
-    virtual void generateParticleInfos(std::vector<const IParticle *> &particle_vector,
-                                       std::vector<double> &abundance_vector,
-                                       double abundance) const;
+    virtual void generateParticles(std::vector<const IParticle *> &particle_vector) const;
 
     //! Returns the distributed parameter data
     ParameterDistribution getParameterDistribution() const;

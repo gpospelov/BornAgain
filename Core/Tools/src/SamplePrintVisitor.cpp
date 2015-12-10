@@ -22,7 +22,6 @@
 #include "ParticleDistribution.h"
 #include "ParticleCoreShell.h"
 #include "InterferenceFunctions.h"
-#include "ParticleInfo.h"
 #include "LayerInterface.h"
 #include <iostream>
 #include "MesoCrystal.h"
@@ -106,11 +105,6 @@ void SamplePrintVisitor::visit(const MesoCrystal *sample)
 }
 
 void SamplePrintVisitor::visit(const ParticleCoreShell *sample)
-{
-    print_default(sample);
-}
-
-void SamplePrintVisitor::visit(const ParticleInfo *sample)
 {
     print_default(sample);
 }

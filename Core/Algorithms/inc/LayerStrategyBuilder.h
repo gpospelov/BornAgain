@@ -27,7 +27,6 @@ class IInterferenceFunction;
 class IInterferenceFunctionStrategy;
 class Layer;
 class Simulation;
-class ParticleInfo;
 class IFormFactor;
 class LayerSpecularInfo;
 

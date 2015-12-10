@@ -18,7 +18,6 @@
 
 #include "ILayout.h"
 #include "Particle.h"
-#include "ParticleInfo.h"
 #include "IInterferenceFunction.h"
 #include "Rotations.h"
 
@@ -69,8 +68,7 @@ public:
 
     //! Returns information on all particles (type and abundance)
     //! and generates new particles if an IAbstractParticle denotes a collection
-    virtual void getParticleInfos(SafePointerVector<const IParticle>& particle_vector,
-                                  std::vector<double>& abundance_vector) const;
+    virtual SafePointerVector<const IParticle> getParticles() const;
 
     //! Get abundance fraction of particle with index
     double getAbundanceOfParticle(size_t index) const;
@@ -91,7 +89,7 @@ public:
 
 private:
     //! Adds particle information with simultaneous registration in parent class.
-    void addAndRegisterParticleInfo(ParticleInfo *child);
+    void addAndRegisterAbstractParticle(IAbstractParticle *child);
 
     //! Adds interference function with simultaneous registration in parent class
     void addAndRegisterInterferenceFunction(IInterferenceFunction *child);
@@ -99,7 +97,7 @@ private:
     void print(std::ostream &ostr) const;
 
     //! Vector of the types of particles
-    SafePointerVector<ParticleInfo> m_particles;
+    SafePointerVector<IAbstractParticle> m_particles;
 
     //! Vector of interference functions
     SafePointerVector<IInterferenceFunction> m_interference_functions;

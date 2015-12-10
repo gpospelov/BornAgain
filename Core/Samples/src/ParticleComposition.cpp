@@ -52,34 +52,36 @@ ParticleComposition::~ParticleComposition()
 
 ParticleComposition* ParticleComposition::clone() const
 {
-    ParticleComposition *p_new = new ParticleComposition();
+    ParticleComposition *p_result = new ParticleComposition();
+    p_result->setAbundance(m_abundance);
     for (size_t index=0; index<m_particles.size(); ++index) {
-        p_new->addParticle(*m_particles[index]);
+        p_result->addParticle(*m_particles[index]);
     }
-    p_new->setAmbientMaterial(*getAmbientMaterial());
+    p_result->setAmbientMaterial(*getAmbientMaterial());
     if (mP_rotation.get()) {
-        p_new->setRotation(*mP_rotation);
+        p_result->setRotation(*mP_rotation);
     }
-    p_new->setPosition(m_position);
-    return p_new;
+    p_result->setPosition(m_position);
+    return p_result;
 }
 
 ParticleComposition* ParticleComposition::cloneInvertB() const
 {
-    ParticleComposition *p_new = new ParticleComposition();
+    ParticleComposition *p_result = new ParticleComposition();
+    p_result->setAbundance(m_abundance);
     for (size_t index=0; index<m_particles.size(); ++index) {
-        p_new->addParticlePointer(m_particles[index]->cloneInvertB());
+        p_result->addParticlePointer(m_particles[index]->cloneInvertB());
     }
 
     if(getAmbientMaterial()) {
-        p_new->setAmbientMaterial(*Materials::createInvertedMaterial(getAmbientMaterial()));
+        p_result->setAmbientMaterial(*Materials::createInvertedMaterial(getAmbientMaterial()));
     }
     if (mP_rotation.get()) {
-        p_new->setRotation(*mP_rotation);
+        p_result->setRotation(*mP_rotation);
     }
-    p_new->setPosition(m_position);
+    p_result->setPosition(m_position);
 
-    return p_new;
+    return p_result;
 }
 
 void ParticleComposition::accept(ISampleVisitor *visitor) const

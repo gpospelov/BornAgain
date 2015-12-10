@@ -215,8 +215,7 @@ void register_IParticle_class(){
             
             IParticle_exposer.def( 
                 "getPosition"
-                , getPosition_function_type( &::IParticle::getPosition )
-                , "Returns particle position." );
+                , getPosition_function_type( &::IParticle::getPosition ) );
         
         }
         { //::IParticle::getRotation
@@ -226,8 +225,7 @@ void register_IParticle_class(){
             IParticle_exposer.def( 
                 "getRotation"
                 , getRotation_function_type( &::IParticle::getRotation )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns rotation object." );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IParticle::setPosition
@@ -237,8 +235,7 @@ void register_IParticle_class(){
             IParticle_exposer.def( 
                 "setPosition"
                 , setPosition_function_type( &::IParticle::setPosition )
-                , ( bp::arg("position") )
-                , "Sets particle position." );
+                , ( bp::arg("position") ) );
         
         }
         { //::IParticle::setPosition
@@ -248,8 +245,7 @@ void register_IParticle_class(){
             IParticle_exposer.def( 
                 "setPosition"
                 , setPosition_function_type( &::IParticle::setPosition )
-                , ( bp::arg("x"), bp::arg("y"), bp::arg("z") )
-                , "Sets particle position." );
+                , ( bp::arg("x"), bp::arg("y"), bp::arg("z") ) );
         
         }
         { //::IParticle::setRotation

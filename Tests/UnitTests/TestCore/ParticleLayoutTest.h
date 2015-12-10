@@ -53,29 +53,6 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInitByRef)
     EXPECT_EQ(-2.0, particleDecoration.getAbundanceOfParticle(size_t(0)));
 }
 
-TEST_F(ParticleLayoutTest, ParticleLayoutAddParticleInfo)
-{
-    ParticleLayout particleDecoration;
-
-    Particle particle;
-    particleDecoration.addParticle(particle, -2.0);
-
-    EXPECT_EQ(size_t(1), particleDecoration.getNumberOfParticles());
-
-    Particle particle2;
-    particleDecoration.addParticle(particle2, 0.1);
-
-    EXPECT_EQ(size_t(2), particleDecoration.getNumberOfParticles());
-
-    const IAbstractParticle * p_particle = particleDecoration.getParticle(size_t(0));
-    EXPECT_TRUE(nullptr!=p_particle);
-    EXPECT_EQ(-2.0, particleDecoration.getAbundanceOfParticle(size_t(0)));
-
-    const IAbstractParticle * p_particle2 = particleDecoration.getParticle(size_t(1));
-    EXPECT_TRUE(nullptr!=p_particle2);
-    EXPECT_EQ(0.1, particleDecoration.getAbundanceOfParticle(size_t(1)));
-}
-
 TEST_F(ParticleLayoutTest, ParticleLayoutAddParticle)
 {
     ParticleLayout particleDecoration;

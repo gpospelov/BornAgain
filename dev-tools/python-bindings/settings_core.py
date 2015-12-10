@@ -316,7 +316,7 @@ def ManualClassTunings(mb):
 
     #
     cl = mb.class_("ParticleDistribution")
-    cl.member_function("generateParticleInfos").exclude()
+    cl.member_function("generateParticles").exclude()
     #
     cl = mb.class_("ParticleLayout")
     #cl.constructors(lambda decl: bool(decl.arguments)).exclude()  # exclude non-default constructors

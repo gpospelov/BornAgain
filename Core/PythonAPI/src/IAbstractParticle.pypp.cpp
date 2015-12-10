@@ -28,11 +28,11 @@ namespace bp = boost::python;
 
 struct IAbstractParticle_wrapper : IAbstractParticle, bp::wrapper< IAbstractParticle > {
 
-    IAbstractParticle_wrapper()
-    : IAbstractParticle()
+    IAbstractParticle_wrapper( )
+    : IAbstractParticle( )
       , bp::wrapper< IAbstractParticle >(){
         // null constructor
-        m_pyobj = 0;
+    m_pyobj = 0;
     }
 
     virtual ::IAbstractParticle * clone(  ) const {
@@ -142,7 +142,7 @@ void register_IAbstractParticle_class(){
 
     { //::IAbstractParticle
         typedef bp::class_< IAbstractParticle_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< IAbstractParticle_wrapper >, boost::noncopyable > IAbstractParticle_exposer_t;
-        IAbstractParticle_exposer_t IAbstractParticle_exposer = IAbstractParticle_exposer_t( "IAbstractParticle", "Interface for a generic particl." );
+        IAbstractParticle_exposer_t IAbstractParticle_exposer = IAbstractParticle_exposer_t( "IAbstractParticle", "Interface for a generic particl.", bp::init< >() );
         bp::scope IAbstractParticle_scope( IAbstractParticle_exposer );
         { //::IAbstractParticle::clone
         
@@ -165,6 +165,15 @@ void register_IAbstractParticle_class(){
                 , "Returns a clone with inverted magnetic fields." );
         
         }
+        { //::IAbstractParticle::getAbundance
+        
+            typedef double ( ::IAbstractParticle::*getAbundance_function_type)(  ) const;
+            
+            IAbstractParticle_exposer.def( 
+                "getAbundance"
+                , getAbundance_function_type( &::IAbstractParticle::getAbundance ) );
+        
+        }
         { //::IAbstractParticle::getAmbientMaterial
         
             typedef ::IMaterial const * ( ::IAbstractParticle::*getAmbientMaterial_function_type)(  ) const;
@@ -174,6 +183,16 @@ void register_IAbstractParticle_class(){
                 , bp::pure_virtual( getAmbientMaterial_function_type(&::IAbstractParticle::getAmbientMaterial) )
                 , bp::return_value_policy< bp::reference_existing_object >()
                 , "Returns particle's material." );
+        
+        }
+        { //::IAbstractParticle::setAbundance
+        
+            typedef void ( ::IAbstractParticle::*setAbundance_function_type)( double ) ;
+            
+            IAbstractParticle_exposer.def( 
+                "setAbundance"
+                , setAbundance_function_type( &::IAbstractParticle::setAbundance )
+                , ( bp::arg("abundance") ) );
         
         }
         { //::IAbstractParticle::setAmbientMaterial

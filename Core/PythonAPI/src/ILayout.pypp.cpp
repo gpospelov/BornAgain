@@ -82,9 +82,9 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
         return func_getParticle( index );
     }
 
-    virtual void getParticleInfos( ::SafePointerVector< const IParticle > & particle_vector, ::std::vector< double > & abundance_vector ) const {
-        bp::override func_getParticleInfos = this->get_override( "getParticleInfos" );
-        func_getParticleInfos( boost::ref(particle_vector), boost::ref(abundance_vector) );
+    virtual ::SafePointerVector< const IParticle > getParticles(  ) const {
+        bp::override func_getParticles = this->get_override( "getParticles" );
+        return func_getParticles(  );
     }
 
     virtual bool containsMagneticMaterial(  ) const  {
@@ -222,8 +222,7 @@ void register_ILayout_class(){
             
             ILayout_exposer.def( 
                 "getApproximation"
-                , getApproximation_function_type( &::ILayout::getApproximation )
-                , "Gets the used approximation for particles and interference functions." );
+                , getApproximation_function_type( &::ILayout::getApproximation ) );
         
         }
         { //::ILayout::getInterferenceFunctions
@@ -269,14 +268,13 @@ void register_ILayout_class(){
                 , "Returns information about particle with index." );
         
         }
-        { //::ILayout::getParticleInfos
+        { //::ILayout::getParticles
         
-            typedef void ( ::ILayout::*getParticleInfos_function_type)( ::SafePointerVector<const IParticle> &,::std::vector<double, std::allocator<double> > & ) const;
+            typedef ::SafePointerVector<const IParticle> ( ::ILayout::*getParticles_function_type)(  ) const;
             
             ILayout_exposer.def( 
-                "getParticleInfos"
-                , bp::pure_virtual( getParticleInfos_function_type(&::ILayout::getParticleInfos) )
-                , ( bp::arg("particle_vector"), bp::arg("abundance_vector") )
+                "getParticles"
+                , bp::pure_virtual( getParticles_function_type(&::ILayout::getParticles) )
                 , "Returns information on all particles (type and abundance) and generates new particles if an IAbstractParticle denotes a collection " );
         
         }
@@ -295,8 +293,7 @@ void register_ILayout_class(){
             
             ILayout_exposer.def( 
                 "getTotalParticleSurfaceDensity"
-                , getTotalParticleSurfaceDensity_function_type( &::ILayout::getTotalParticleSurfaceDensity )
-                , "Returns surface density of all particles." );
+                , getTotalParticleSurfaceDensity_function_type( &::ILayout::getTotalParticleSurfaceDensity ) );
         
         }
         { //::ILayout::setApproximation
@@ -306,8 +303,7 @@ void register_ILayout_class(){
             ILayout_exposer.def( 
                 "setApproximation"
                 , setApproximation_function_type( &::ILayout::setApproximation )
-                , ( bp::arg("approximation") )
-                , "Sets the used approximation for particles and interference functions." );
+                , ( bp::arg("approximation") ) );
         
         }
         { //::ILayout::setTotalParticleSurfaceDensity
@@ -317,8 +313,7 @@ void register_ILayout_class(){
             ILayout_exposer.def( 
                 "setTotalParticleSurfaceDensity"
                 , setTotalParticleSurfaceDensity_function_type( &::ILayout::setTotalParticleSurfaceDensity )
-                , ( bp::arg("surface_density") )
-                , "Sets surface density of all particles." );
+                , ( bp::arg("surface_density") ) );
         
         }
         { //::ISample::containsMagneticMaterial

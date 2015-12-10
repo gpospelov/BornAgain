@@ -47,7 +47,6 @@ const std::string LayerType = "Layer";
 const std::string LayerInterfaceType = "LayerInterface";
 const std::string ParticleLayoutType = "ParticleLayout";
 const std::string ParticleType = "Particle";
-const std::string ParticleInfoType = "ParticleInfo";
 const std::string ParticleCoreShellType = "ParticleCoreShell";
 const std::string ParticleDistributionType = "ParticleDistribution";
 const std::string ParticleCompositionType = "ParticleComposition";

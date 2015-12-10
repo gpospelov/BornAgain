@@ -31,7 +31,6 @@
 #include "Particle.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
-#include "ParticleInfo.h"
 #include "ParticleLayout.h"
 #include "PyGenVisitor.h"
 #include "PyGenTools.h"

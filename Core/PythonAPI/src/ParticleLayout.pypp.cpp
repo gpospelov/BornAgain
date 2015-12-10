@@ -162,16 +162,16 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         return ParticleLayout::getParticle( index );
     }
 
-    virtual void getParticleInfos( ::SafePointerVector< const IParticle > & particle_vector, ::std::vector< double > & abundance_vector ) const  {
-        if( bp::override func_getParticleInfos = this->get_override( "getParticleInfos" ) )
-            func_getParticleInfos( boost::ref(particle_vector), boost::ref(abundance_vector) );
+    virtual ::SafePointerVector< const IParticle > getParticles(  ) const  {
+        if( bp::override func_getParticles = this->get_override( "getParticles" ) )
+            return func_getParticles(  );
         else{
-            this->ParticleLayout::getParticleInfos( boost::ref(particle_vector), boost::ref(abundance_vector) );
+            return this->ParticleLayout::getParticles(  );
         }
     }
     
-    void default_getParticleInfos( ::SafePointerVector< const IParticle > & particle_vector, ::std::vector< double > & abundance_vector ) const  {
-        ParticleLayout::getParticleInfos( boost::ref(particle_vector), boost::ref(abundance_vector) );
+    ::SafePointerVector< const IParticle > default_getParticles(  ) const  {
+        return ParticleLayout::getParticles( );
     }
 
     virtual bool containsMagneticMaterial(  ) const  {
@@ -398,16 +398,15 @@ void register_ParticleLayout_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::ParticleLayout::getParticleInfos
+        { //::ParticleLayout::getParticles
         
-            typedef void ( ::ParticleLayout::*getParticleInfos_function_type)( ::SafePointerVector< const IParticle > &,::std::vector< double > & ) const;
-            typedef void ( ParticleLayout_wrapper::*default_getParticleInfos_function_type)( ::SafePointerVector< const IParticle > &,::std::vector< double > & ) const;
+            typedef ::SafePointerVector< const IParticle > ( ::ParticleLayout::*getParticles_function_type)(  ) const;
+            typedef ::SafePointerVector< const IParticle > ( ParticleLayout_wrapper::*default_getParticles_function_type)(  ) const;
             
             ParticleLayout_exposer.def( 
-                "getParticleInfos"
-                , getParticleInfos_function_type(&::ParticleLayout::getParticleInfos)
-                , default_getParticleInfos_function_type(&ParticleLayout_wrapper::default_getParticleInfos)
-                , ( bp::arg("particle_vector"), bp::arg("abundance_vector") ) );
+                "getParticles"
+                , getParticles_function_type(&::ParticleLayout::getParticles)
+                , default_getParticles_function_type(&ParticleLayout_wrapper::default_getParticles) );
         
         }
         { //::ISample::containsMagneticMaterial

@@ -52,8 +52,6 @@ public:
     void visit(const MesoCrystal *sample);
     void visit(const ParticleCoreShell *sample);
 
-    void visit(const ParticleInfo *sample);
-
     void visit(const IFormFactor *sample);
 
     void visit(const FormFactorDWBAPol *sample);

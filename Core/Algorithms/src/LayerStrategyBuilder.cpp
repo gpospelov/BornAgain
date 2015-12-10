@@ -107,15 +107,12 @@ void LayerStrategyBuilder::collectFormFactorInfos()
     double total_abundance = mp_layer->getTotalAbundance();
     if (total_abundance<=0.0) total_abundance = 1.0;
     complex_t wavevector_scattering_factor = Units::PI/wavelength/wavelength;
-    SafePointerVector<const IParticle> iparticles;
-    std::vector<double> abundances;
-    p_layout->getParticleInfos(iparticles, abundances);
-    assert(iparticles.size()==abundances.size());
+    SafePointerVector<const IParticle> iparticles = p_layout->getParticles();
     size_t number_of_particles = iparticles.size();
     for (size_t i = 0; i<number_of_particles; ++i) {
         FormFactorInfo *p_ff_info;
-        p_ff_info = createFormFactorInfo(iparticles[i], abundances[i], p_layer_material,
-                wavevector_scattering_factor);
+        p_ff_info = createFormFactorInfo(iparticles[i], iparticles[i]->getAbundance(),
+                                         p_layer_material, wavevector_scattering_factor);
         p_ff_info->m_abundance /= total_abundance;
         m_ff_infos.push_back(p_ff_info);
     }

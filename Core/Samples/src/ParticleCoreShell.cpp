@@ -37,26 +37,29 @@ ParticleCoreShell::~ParticleCoreShell()
 
 ParticleCoreShell *ParticleCoreShell::clone() const
 {
-    ParticleCoreShell *p_new = new ParticleCoreShell(*mp_shell, *mp_core, kvector_t(0.0, 0.0, 0.0));
-    p_new->setAmbientMaterial(*getAmbientMaterial());
+    ParticleCoreShell *p_result =
+            new ParticleCoreShell(*mp_shell, *mp_core, kvector_t(0.0, 0.0, 0.0));
+    p_result->setAbundance(m_abundance);
+    p_result->setAmbientMaterial(*getAmbientMaterial());
     if (mP_rotation.get()) {
-        p_new->setRotation(*mP_rotation);
+        p_result->setRotation(*mP_rotation);
     }
-    p_new->setPosition(m_position);
-    return p_new;
+    p_result->setPosition(m_position);
+    return p_result;
 }
 
 ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
 {
-    ParticleCoreShell *p_new = new ParticleCoreShell();
-    p_new->mp_shell = this->mp_shell->cloneInvertB();
-    p_new->mp_core = this->mp_core->cloneInvertB();
-    p_new->setAmbientMaterial( *Materials::createInvertedMaterial(getAmbientMaterial()) );
+    ParticleCoreShell *p_result = new ParticleCoreShell();
+    p_result->setAbundance(m_abundance);
+    p_result->mp_shell = this->mp_shell->cloneInvertB();
+    p_result->mp_core = this->mp_core->cloneInvertB();
+    p_result->setAmbientMaterial( *Materials::createInvertedMaterial(getAmbientMaterial()) );
     if (mP_rotation.get()) {
-        p_new->setRotation(*mP_rotation);
+        p_result->setRotation(*mP_rotation);
     }
-    p_new->setPosition(m_position);
-    return p_new;
+    p_result->setPosition(m_position);
+    return p_result;
 }
 
 void ParticleCoreShell::accept(ISampleVisitor *visitor) const

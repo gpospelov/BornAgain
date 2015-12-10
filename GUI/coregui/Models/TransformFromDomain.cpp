@@ -34,6 +34,7 @@
 #include "FixedBinAxis.h"
 #include "CustomBinAxis.h"
 #include "SphericalDetector.h"
+#include "ParticleItem.h"
 #include "ParticleDistributionItem.h"
 #include "ParticleDistribution.h"
 #include "Distributions.h"
@@ -338,6 +339,8 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item, const Layer
 void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
                                             const ParticleDistribution *sample)
 {
+    item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, sample->getAbundance());
+
     ParameterDistribution par_distr = sample->getParameterDistribution();
     QString main_distr_par_name = QString::fromStdString(par_distr.getMainParameterName());
     ComboProperty combo_property

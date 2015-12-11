@@ -19,13 +19,15 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 #include <QMainWindow>
+#include <QModelIndex>
 
 class MaskEditorPropertyPanel;
 class MaskEditorActions;
 class MaskEditorToolBar;
 class MaskEditorCanvas;
 class QSplitter;
-class MaskModel;
+class SessionModel;
+class IntensityDataItem;
 
 //! Main class to draw masks on top of intensity data map
 
@@ -36,13 +38,20 @@ public:
     MaskEditor(QWidget *parent = 0);
 
 public slots:
+    //! Main method to setup context for mask editing
+    //! @par model The model which will hold all masks
+    //! @par maskContainerIndex Index of top level MaskContainerItem in the model to hold masks
+    //! @par intensityItem IntensityDataItem which will be used as background for Mask drawing
+    void setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
+                        IntensityDataItem *intensityItem);
+
     void onPropertyPanelRequest();
+    void init_test_model();
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event);
 
 private:
-    void init_test_model();
     void setup_connections();
 
     MaskEditorActions *m_itemActions;
@@ -50,7 +59,6 @@ private:
     MaskEditorPropertyPanel *m_editorPropertyPanel;
     MaskEditorCanvas *m_editorCanvas;
     QSplitter *m_splitter;
-    MaskModel *m_maskModel;
 };
 
 

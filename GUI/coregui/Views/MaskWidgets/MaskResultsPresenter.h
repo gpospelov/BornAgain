@@ -36,7 +36,8 @@ class BA_CORE_API_ MaskResultsPresenter : public QObject
 public:
     MaskResultsPresenter(QWidget *parent = 0);
 
-    void setModel(SessionModel *maskModel, const QModelIndex &rootIndex);
+    void setMaskContext(SessionModel *maskModel, const QModelIndex &maskContainerIndex,
+                        IntensityDataItem *intensityItem);
 
     void updatePresenter(MaskEditorFlags::PresentationType mode);
 
@@ -47,7 +48,8 @@ private:
     OutputData<double> *createMaskPresentation() const;
 
     SessionModel *m_maskModel;
-    QModelIndex m_rootIndex;
+    QModelIndex m_maskContainerIndex;
+    IntensityDataItem *m_intensityDataItem;
     boost::scoped_ptr<OutputData<double> > m_dataBackup;
     bool m_interpolation_flag_backup;
 };

@@ -22,8 +22,10 @@
 #include <QGraphicsSceneMouseEvent>
 
 
-NodeEditor::NodeEditor(QObject *parent) :
-    QObject(parent)
+NodeEditor::NodeEditor(QObject *parent)
+    : QObject(parent)
+    , scene(0)
+    , conn(0)
 {
 	conn = 0;
 }
@@ -74,6 +76,7 @@ bool NodeEditor::eventFilter(QObject *o, QEvent *e)
             }
             break;
         }
+            break;
         }
     }
     case QEvent::GraphicsSceneMouseMove:

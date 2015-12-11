@@ -103,6 +103,7 @@ private:
     void initColorMap();
     void plotItem(IntensityDataItem *intensityItem);
     QCPRange calculateDataRange(IntensityDataItem *intensityItem);
+    void setColorScaleVisible(bool visibility_flag);
 
     QCustomPlot *m_customPlot;
     QCPColorMap *m_colorMap;

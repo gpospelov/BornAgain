@@ -134,7 +134,7 @@ MainWindow::MainWindow(QWidget *parent)
     //m_tabWidget->insertTab(FitViewTab, m_fitView, QIcon(":/images/main_simulation.png"), "Fit");
     //m_tabWidget->insertTab(FIT_VIEW, new TestView(this), QIcon(":/images/main_simulation.png"), "Test");
 
-//    m_tabWidget->setCurrentIndex(TEST_VIEW);
+    m_tabWidget->setCurrentIndex(WELCOME);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
@@ -151,7 +151,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_projectManager->createNewProject();
 
-    //testGUIObjectBuilder();
+//    testGUIObjectBuilder();
 }
 
 MainWindow::~MainWindow()
@@ -317,7 +317,7 @@ void MainWindow::resetModels()
 void MainWindow::testGUIObjectBuilder()
 {
     SampleBuilderFactory factory;
-    boost::scoped_ptr<ISample> P_sample(factory.createSample("isgisaxs01"));
+    boost::scoped_ptr<ISample> P_sample(factory.createSample("CylindersAndPrismsBuilder"));
 
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(m_sampleModel, *P_sample);

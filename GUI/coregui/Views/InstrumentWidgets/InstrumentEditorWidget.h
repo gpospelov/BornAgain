@@ -28,6 +28,7 @@ class BeamEditorWidget;
 class QLineEdit;
 class QComboBox;
 class InstrumentComponentsWidget;
+class DetectorItem;
 
 class BA_CORE_API_ InstrumentEditorWidget : public QWidget
 {
@@ -38,6 +39,9 @@ public:
     QSize sizeHint() const { return QSize(600, 600); }
 
     void setInstrumentItem(ParameterizedItem *instrument);
+
+signals:
+    void extendedDetectorEditorRequest(DetectorItem *);
 
 public slots:
     void onChangedEditor(const QString &);

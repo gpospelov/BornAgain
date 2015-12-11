@@ -32,6 +32,7 @@ class QItemSelection;
 class ParameterizedItem;
 class QToolBar;
 class QToolButton;
+class DetectorItem;
 
 namespace Manhattan{
     class StyledBar;
@@ -51,9 +52,11 @@ public slots:
     void onAddInstrument();
     void onRemoveInstrument();
     void onRowsAboutToBeRemoved(QModelIndex,int,int);
+    void onExtendedDetectorEditorRequest(DetectorItem *detectorItem);
 
 private:
-    void createActions();
+    void setupConnections();
+    void setupActions();
     QString getNewInstrumentName(const QString &name);
     void updateMapOfNames();
 

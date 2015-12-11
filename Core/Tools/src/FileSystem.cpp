@@ -44,7 +44,6 @@ std::string Utils::FileSystem::GetWorkingPath()
 std::string Utils::FileSystem::GetHomePath()
 {
     throw NotImplementedException("Utils::FileSystem::GetHomePath()-> Not implemented anymore...");
-    return std::string();
 }
 
 std::string Utils::FileSystem::GetPathToExecutable(const std::string& argv0)

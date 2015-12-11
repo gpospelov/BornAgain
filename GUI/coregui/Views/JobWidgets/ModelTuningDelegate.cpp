@@ -88,6 +88,10 @@ double ModelTuningDelegate::SliderData::slider_to_value(int slider)
 ModelTuningDelegate::ModelTuningDelegate(QObject *parent)
     : QItemDelegate(parent)
     , m_valueColumn(1)
+    , m_slider(0)
+    , m_valueBox(0)
+    , m_contentWidget(0)
+    , m_contentLayout(0)
 {
 
 }

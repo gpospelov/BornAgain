@@ -30,8 +30,9 @@
 #include <boost/scoped_ptr.hpp>
 #include "SampleBuilderFactory.h"
 #include "IntensityDataItem.h"
-#include "MaskModel.h"
+#include "SessionModel.h"
 #include "MaskItems.h"
+#include "GUIHelpers.h"
 
 
 MaskEditor::MaskEditor(QWidget *parent)
@@ -41,7 +42,6 @@ MaskEditor::MaskEditor(QWidget *parent)
     , m_editorPropertyPanel(new MaskEditorPropertyPanel(this))
     , m_editorCanvas(new MaskEditorCanvas(this))
     , m_splitter(new QSplitter(this))
-    , m_maskModel(0)
 {
     setObjectName(QStringLiteral("IntensityDataPlotWidget"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -53,11 +53,28 @@ MaskEditor::MaskEditor(QWidget *parent)
 
     setCentralWidget(m_splitter);
 
-    init_test_model();
-
     setup_connections();
+
+    m_editorPropertyPanel->setPanelHidden(true);
 }
 
+void MaskEditor::setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
+                                IntensityDataItem *intensityItem)
+{
+    m_editorPropertyPanel->setMaskContext(model, maskContainerIndex, intensityItem);
+
+    Q_ASSERT(intensityItem);
+    Q_ASSERT(maskContainerIndex.isValid());
+    Q_ASSERT(model->itemForIndex(maskContainerIndex)->modelType() == Constants::MaskContainerType);
+
+    m_editorCanvas->setMaskContext(model, maskContainerIndex, intensityItem);
+    m_editorCanvas->setSelectionModel(m_editorPropertyPanel->selectionModel());
+
+    m_itemActions->setModel(model, maskContainerIndex);
+    m_itemActions->setSelectionModel(m_editorPropertyPanel->selectionModel());
+}
+
+//! shows/hides right panel with properties
 void MaskEditor::onPropertyPanelRequest()
 {
     m_editorPropertyPanel->setPanelHidden(!m_editorPropertyPanel->isHidden());
@@ -71,7 +88,7 @@ void MaskEditor::contextMenuEvent(QContextMenuEvent *event)
 
 void MaskEditor::init_test_model()
 {
-    m_maskModel = new MaskModel();
+    SessionModel *maskModel = new SessionModel(SessionXML::MaskModelTag, this);
 
     SimulationRegistry simRegistry;
     boost::scoped_ptr<GISASSimulation> simulation(simRegistry.createSimulation("BasicGISAS"));
@@ -82,12 +99,24 @@ void MaskEditor::init_test_model()
     simulation->setSample(*sample.get());
     simulation->runSimulation();
 
-    IntensityDataItem *item = dynamic_cast<IntensityDataItem *>(m_maskModel->insertNewItem(Constants::IntensityDataType));
-    Q_ASSERT(item);
-    item->setOutputData(simulation->getOutputData()->clone());
-    qDebug() << item->getXmin() << item->getXmax() << item->getYmin() << item->getYmax();
+    IntensityDataItem *intensityItem = dynamic_cast<IntensityDataItem *>(maskModel->insertNewItem(Constants::IntensityDataType));
+    Q_ASSERT(intensityItem);
+    intensityItem->setOutputData(simulation->getOutputData()->clone());
 
     // Rectangle
+
+    ParameterizedItem *container = maskModel->insertNewItem(Constants::MaskContainerType, maskModel->indexOfItem(intensityItem));
+    Q_ASSERT(container);
+
+    RectangleItem *rect = new RectangleItem();
+    rect->setRegisteredProperty(RectangleItem::P_POSX, 0.6);
+    rect->setRegisteredProperty(RectangleItem::P_POSY, 1.5);
+    rect->setRegisteredProperty(RectangleItem::P_WIDTH, 0.3);
+    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 0.2);
+
+    container->insertChildItem(-1, rect);
+
+
 
 //    RectangleItem *rect = dynamic_cast<RectangleItem *>(m_maskModel->insertNewItem(Constants::RectangleMaskType, m_maskModel->indexOfItem(item)));
 //    Q_ASSERT(rect);
@@ -126,14 +155,7 @@ void MaskEditor::init_test_model()
 
 //    MaskAllItem *rect = dynamic_cast<MaskAllItem *>(m_maskModel->insertNewItem(Constants::MaskAllType, m_maskModel->indexOfItem(item)));
 
-    m_editorPropertyPanel->setModel(m_maskModel, m_maskModel->indexOfItem(item));
-
-    m_editorCanvas->setModel(m_maskModel, m_maskModel->indexOfItem(item));
-    m_editorCanvas->setSelectionModel(m_editorPropertyPanel->selectionModel());
-
-    m_itemActions->setModel(m_maskModel, m_maskModel->indexOfItem(item));
-    m_itemActions->setSelectionModel(m_editorPropertyPanel->selectionModel());
-
+    setMaskContext(maskModel, maskModel->indexOfItem(container), intensityItem);
 }
 
 void MaskEditor::setup_connections()

@@ -18,6 +18,7 @@
 #include "MaskGraphicsView.h"
 #include "MaskGraphicsProxy.h"
 #include "MaskResultsPresenter.h"
+#include "SessionModel.h"
 #include <QVBoxLayout>
 #include <QDebug>
 #include <QGraphicsRectItem>
@@ -42,10 +43,11 @@ MaskEditorCanvas::MaskEditorCanvas(QWidget *parent)
 
 }
 
-void MaskEditorCanvas::setModel(SessionModel *model, const QModelIndex &rootIndex)
+void MaskEditorCanvas::setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
+                                      IntensityDataItem *intensityItem)
 {
-    m_scene->setModel(model, rootIndex);
-    m_resultsPresenter->setModel(model, rootIndex);
+    m_scene->setMaskContext(model, maskContainerIndex, intensityItem);
+    m_resultsPresenter->setMaskContext(model, maskContainerIndex, intensityItem);
 }
 
 void MaskEditorCanvas::setSelectionModel(QItemSelectionModel *model)

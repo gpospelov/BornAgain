@@ -36,7 +36,7 @@ public:
 
     int type() const { return MaskEditorHelper::MASKGRAPHICSPROXY; }
 
-    void setItem(ParameterizedItem *item);
+    void setIntensityItem(IntensityDataItem *item);
     void setSceneAdaptor(ISceneAdaptor *sceneAdaptor);
     void setInZoomMode(bool value);
 

@@ -27,6 +27,7 @@ class AwesomePropertyEditor;
 class QItemSelection;
 class QItemSelectionModel;
 class QButtonGroup;
+class IntensityDataItem;
 
 //! Tool widget for MaskEditor
 
@@ -39,7 +40,9 @@ public:
     QSize sizeHint() const { return QSize(128, 128); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
 
-    void setModel(SessionModel *model, const QModelIndex &root_index);
+    void setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
+                        IntensityDataItem *intensityItem);
+
     QItemSelectionModel* selectionModel();
 
     void setPanelHidden(bool value);
@@ -57,6 +60,7 @@ private:
     AwesomePropertyEditor *m_plotPropertyEditor;
     SessionModel *m_maskModel;
     QModelIndex m_rootIndex;
+    IntensityDataItem *m_intensityDataItem;
 };
 
 

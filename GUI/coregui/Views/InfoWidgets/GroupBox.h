@@ -27,13 +27,18 @@ public:
         GroupBox( QWidget *parent = 0 );
         GroupBox( const QString &title, QWidget *parent = 0 );
 
+        void setButtonToolTip(const QString &text);
+
 protected:
         void mousePressEvent( QMouseEvent *e );
         void paintEvent( QPaintEvent * );
         void mouseMoveEvent(QMouseEvent *event);
 
 private:
+        void init_box();
+
         QString m_title;
+        QString m_toolTipText;
         int m_xImage;
         int m_yImage;
 };

@@ -39,6 +39,13 @@ InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget *parent)
     m_columnResizer->addWidgetsFromGridLayout(m_detectorEditor->getGridLayout(), 0);
     m_columnResizer->addWidgetsFromGridLayout(m_detectorEditor->getGridLayout(), 1);
     m_columnResizer->addWidgetsFromGridLayout(m_detectorEditor->getGridLayout(), 2);
+
+    connect(m_detectorEditor,
+            SIGNAL(extendedDetectorEditorRequest(DetectorItem *)),
+            this,
+            SIGNAL(extendedDetectorEditorRequest(DetectorItem *))
+            );
+
 }
 
 void InstrumentComponentsWidget::setBeamItem(BeamItem *beamItem)

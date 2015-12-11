@@ -24,6 +24,7 @@
 #include <QPixmap>
 #include <QApplication>
 #include <QToolTip>
+#include <QDebug>
 
 namespace
 {
@@ -33,15 +34,23 @@ namespace
     int offset_of_icon_position = 24;
 }
 
-GroupBox::GroupBox( QWidget *parent ): QGroupBox( parent )
+GroupBox::GroupBox( QWidget *parent )
+    : QGroupBox( parent )
+    , m_xImage(0)
+    , m_yImage(0)
 {
-    setMouseTracking(true);
+    init_box();
 }
 
 GroupBox::GroupBox( const QString &title, QWidget *parent )
     : QGroupBox( title, parent ), m_title(title)
 {
-    setMouseTracking(true);
+    init_box();
+}
+
+void GroupBox::setButtonToolTip(const QString &text)
+{
+    m_toolTipText = text;
 }
 
 void GroupBox::mousePressEvent( QMouseEvent *e )
@@ -64,8 +73,14 @@ void GroupBox::mouseMoveEvent(QMouseEvent *event)
     if (buttonArea.contains(event->pos())) {
         QToolTip::showText(
             this->mapToGlobal(QPoint(m_xImage + offset_of_tooltip_position, m_yImage)),
-            "Gives access to the extended distribution viewer.");
+            m_toolTipText);
     }
+}
+
+void GroupBox::init_box()
+{
+    setMouseTracking(true);
+    m_toolTipText = QStringLiteral("Gives access to the extended distribution viewer.");
 }
 
 void GroupBox::paintEvent(QPaintEvent *)

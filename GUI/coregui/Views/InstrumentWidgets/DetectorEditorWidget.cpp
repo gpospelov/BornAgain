@@ -16,16 +16,26 @@
 #include "DetectorEditorWidget.h"
 #include "AwesomePropertyEditor.h"
 #include "DetectorItems.h"
+#include "GroupBox.h"
+#include "ExtendedDetectorDialog.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
 
 DetectorEditorWidget::DetectorEditorWidget(QWidget *parent)
-    : QWidget(parent), m_detectorTypeEditor(0), m_phiAxisEditor(0), m_alphaAxisEditor(0),
-      m_resolutionFunctionEditor(0), m_gridLayout(0), m_detectorItem(0)
+    : QWidget(parent)
+    , m_groupBox(new GroupBox("Detector Parameters"))
+    , m_detectorTypeEditor(0)
+    , m_phiAxisEditor(0)
+    , m_alphaAxisEditor(0)
+    , m_resolutionFunctionEditor(0)
+    , m_gridLayout(0)
+    , m_detectorItem(0)
 {
-    QGroupBox *groupBox = new QGroupBox("Detector Parameters");
+//    QGroupBox *groupBox = new QGroupBox("Detector Parameters");
     QVBoxLayout *groupLayout = new QVBoxLayout;
-    groupBox->setLayout(groupLayout);
+    m_groupBox->setButtonToolTip("Gives access to the detector mask editor");
+    m_groupBox->setLayout(groupLayout);
+    connect(m_groupBox, SIGNAL(clicked()), this, SLOT(onGroupBoxExtendedButton()));
 
     // whole content is represented as grid layout
     m_gridLayout = new QGridLayout;
@@ -46,7 +56,7 @@ DetectorEditorWidget::DetectorEditorWidget(QWidget *parent)
 
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(groupBox);
+    mainLayout->addWidget(m_groupBox);
     mainLayout->addStretch();
     setLayout(mainLayout);
 }
@@ -79,5 +89,11 @@ void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
 
     m_resolutionFunctionEditor->addItemProperty(
         subDetector, PhiAlphaDetectorItem::P_RESOLUTION_FUNCTION, "Resolution function",
-        AwesomePropertyEditor::INSERT_AFTER);
+                AwesomePropertyEditor::INSERT_AFTER);
 }
+
+void DetectorEditorWidget::onGroupBoxExtendedButton()
+{
+    emit extendedDetectorEditorRequest(m_detectorItem);
+}
+

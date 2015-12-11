@@ -34,6 +34,9 @@ public:
     void setBeamItem(BeamItem *beamItem);
     void setDetectorItem(DetectorItem *detectorItem);
 
+signals:
+    void extendedDetectorEditorRequest(DetectorItem *);
+
 private:
     BeamEditorWidget *m_beamEditor;
     DetectorEditorWidget *m_detectorEditor;

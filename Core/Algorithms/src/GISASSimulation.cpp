@@ -89,7 +89,8 @@ int GISASSimulation::getNumberOfSimulationElements() const
     }
     const IAxis &x_axis = m_instrument.getDetectorAxis(BornAgain::X_AXIS_INDEX);
     const IAxis &y_axis = m_instrument.getDetectorAxis(BornAgain::X_AXIS_INDEX);
-    return x_axis.getSize()*y_axis.getSize();
+    int nmasked = getInstrument().getDetector()->getNumberOfMaskedChannels();
+    return x_axis.getSize()*y_axis.getSize() - nmasked;
 }
 
 OutputData<double> *GISASSimulation::getDetectorIntensity() const

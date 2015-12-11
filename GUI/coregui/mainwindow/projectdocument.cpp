@@ -373,8 +373,11 @@ void ProjectDocument::loadOutputData()
             QString filename = getProjectDir() + "/" + dataItem->itemName();
             QFileInfo info(filename);
             if (info.exists()) {
-                jobItem->getIntensityDataItem()->setOutputData(
-                    IntensityDataIOFactory::readOutputData(filename.toStdString()));
+                IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();
+                if(intensityItem) {
+                    intensityItem->setOutputData(
+                        IntensityDataIOFactory::readOutputData(filename.toStdString()));
+                }
             } else {
                 jobItem->setStatus(Constants::STATUS_FAILED);
                 QString warning("Error while loading job from file, intensity data file '");

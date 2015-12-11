@@ -22,6 +22,18 @@ namespace Geometry {
 class IShape2D;
 }
 
+//! Container holding various masks as children
+
+class BA_CORE_API_ MaskContainerItem : public ParameterizedItem
+{
+    Q_OBJECT
+public:
+    explicit MaskContainerItem(ParameterizedItem *parent = 0);
+};
+
+
+//! A base class for all mask items
+//!
 class BA_CORE_API_ MaskItem : public ParameterizedItem
 {
     Q_OBJECT
@@ -29,7 +41,6 @@ public:
     static const QString P_MASK_VALUE;
     explicit MaskItem(const QString &name, ParameterizedItem *parent);
     virtual Geometry::IShape2D *createShape() const { return 0;}
-    virtual ~MaskItem(){}
 };
 
 class BA_CORE_API_ RectangleItem : public MaskItem

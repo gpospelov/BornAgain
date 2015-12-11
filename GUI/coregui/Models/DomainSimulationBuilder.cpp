@@ -21,6 +21,7 @@
 #include "MultiLayer.h"
 #include "MultiLayerItem.h"
 #include "BeamItem.h"
+#include "DetectorItems.h"
 #include "DomainObjectBuilder.h"
 #include "TransformToDomain.h"
 #include "GUIHelpers.h"
@@ -69,5 +70,8 @@ GISASSimulation *DomainSimulationBuilder::getSimulation(MultiLayerItem *sampleIt
 
     TransformToDomain::addDistributionParametersToSimulation(*instrumentItem->getBeamItem(),
                                                              result);
+
+    TransformToDomain::addMasksToSimulation(*instrumentItem->getDetectorItem(),
+                                            result);
     return result;
 }

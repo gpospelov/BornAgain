@@ -118,8 +118,7 @@ void MaskEditorActions::onDeleteMaskAction()
 //! Lower mask one level down or rise one level up in the masks stack
 void MaskEditorActions::changeMaskStackingOrder(MaskEditorFlags::Stacking value)
 {
-    Q_ASSERT(m_maskModel);
-    Q_ASSERT(m_selectionModel);
+    if(!m_maskModel || !m_selectionModel) return;
 
     int change_in_row(0);
     if(value == MaskEditorFlags::BRING_TO_FRONT) change_in_row = -1;
@@ -176,6 +175,8 @@ void MaskEditorActions::setAllActionsEnabled(bool value)
 //! Triggered from MaskGraphicsScene of MaskEditorInfoPanel (QListView)
 void MaskEditorActions::initItemContextMenu(QMenu &menu)
 {
+    if(!m_rootIndex.isValid()) return;
+
     Q_ASSERT(m_maskModel);
     Q_ASSERT(m_selectionModel);
 

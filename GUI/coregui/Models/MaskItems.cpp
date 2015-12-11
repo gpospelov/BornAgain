@@ -91,7 +91,7 @@ PolygonItem::PolygonItem(ParameterizedItem *parent)
 {
     setItemName(QStringLiteral("Polygon"));
     addToValidChildren(Constants::PolygonPointType);
-    registerProperty(P_ISCLOSED, false);
+    registerProperty(P_ISCLOSED, false, PropertyAttribute::hiddenProperty());
 }
 
 Geometry::IShape2D *PolygonItem::createShape() const

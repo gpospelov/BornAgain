@@ -178,7 +178,6 @@ void MaskEditor::init_test_model()
 
 //    MaskAllItem *rect = dynamic_cast<MaskAllItem *>(m_maskModel->insertNewItem(Constants::MaskAllType, m_maskModel->indexOfItem(item)));
 
-//    setModel(maskModel, maskModel->indexOfItem(item));
     setMaskContext(maskModel, maskModel->indexOfItem(container), intensityItem);
 }
 

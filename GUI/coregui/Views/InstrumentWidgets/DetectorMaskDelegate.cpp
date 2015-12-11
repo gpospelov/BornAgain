@@ -56,11 +56,25 @@ void DetectorMaskDelegate::initMaskEditor(MaskEditor *maskEditor)
 }
 
 
-//! Creates IntensityDataItem from DetectorItem for later usage in MaskEditor
+//! Creates IntensityDataItem from DetectorItem for later usage in MaskEditor.
+//! As amplitude, value 1.0 is set for each bin.
+//! The object additionally tuned to appear nicely on ColorMap plot.
 void DetectorMaskDelegate::createIntensityDataItem()
 {
     delete m_intensityItem;
     m_intensityItem = new IntensityDataItem();
+    m_intensityItem->setPropertyAppearance(IntensityDataItem::P_PROJECTIONS_FLAG,
+                                           PropertyAttribute::DISABLED);
+
+    AmplitudeAxisItem *zAxisItem = dynamic_cast<AmplitudeAxisItem *>(
+        m_intensityItem->getSubItems()[IntensityDataItem::P_ZAXIS]);
+
+    zAxisItem->setRegisteredProperty(BasicAxisItem::P_IS_VISIBLE, false);
+    zAxisItem->setRegisteredProperty(BasicAxisItem::P_MIN, 0.0);
+    zAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, 2.0);
+    zAxisItem->setRegisteredProperty(AmplitudeAxisItem::P_IS_LOGSCALE, false);
+    zAxisItem->setRegisteredProperty(AmplitudeAxisItem::P_LOCK_MIN_MAX, true);
+
     m_intensityItem->setOutputData(createOutputData(m_detectorItem));
 }
 

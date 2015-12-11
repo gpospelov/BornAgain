@@ -63,13 +63,6 @@ IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
     getSubItems()[P_ZAXIS]->setPropertyAppearance(BasicAxisItem::P_NBINS, PropertyAttribute::HIDDEN);
 
     addToValidChildren(Constants::MaskContainerType);
-
-//    addToValidChildren(Constants::RectangleMaskType);
-//    addToValidChildren(Constants::PolygonMaskType);
-//    addToValidChildren(Constants::EllipseMaskType);
-//    addToValidChildren(Constants::VerticalLineMaskType);
-//    addToValidChildren(Constants::HorizontalLineMaskType);
-//    addToValidChildren(Constants::MaskAllType);
 }
 
 IntensityDataItem::~IntensityDataItem()

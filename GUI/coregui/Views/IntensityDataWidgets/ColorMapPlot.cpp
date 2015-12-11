@@ -359,6 +359,10 @@ void ColorMapPlot::onSubItemPropertyChanged(const QString &property_group,
             }
         } else if (property_name == AmplitudeAxisItem::P_IS_LOGSCALE) {
             setLogz(m_item->isLogz());
+
+        } else if (property_name == BasicAxisItem::P_IS_VISIBLE) {
+            setColorScaleVisible(m_item->getSubItems()[IntensityDataItem::P_ZAXIS]
+                ->getRegisteredProperty(BasicAxisItem::P_IS_VISIBLE).toBool());
         }
         m_customPlot->replot();
     }
@@ -483,6 +487,8 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
         ++it;
     }
 
+    setColorScaleVisible(intensityItem->getSubItems()[IntensityDataItem::P_ZAXIS]
+        ->getRegisteredProperty(BasicAxisItem::P_IS_VISIBLE).toBool());
 
     m_colorMap->setGradient(m_gradient_map[intensityItem->getGradient()]);
 
@@ -532,4 +538,17 @@ QCPRange ColorMapPlot::calculateDataRange(IntensityDataItem *intensityItem)
         max = max * 1.1;
     }
     return QCPRange(min, max);
+}
+
+void ColorMapPlot::setColorScaleVisible(bool visibility_flag)
+{
+    m_colorScale->setVisible(visibility_flag);
+    if(visibility_flag) {
+        m_customPlot->plotLayout()->addElement(
+            0, 1, m_colorScale); // add it to the right of the main axis rect
+    } else {
+        m_customPlot->plotLayout()->take(m_colorScale);
+        m_customPlot->plotLayout()->simplify();
+
+    }
 }

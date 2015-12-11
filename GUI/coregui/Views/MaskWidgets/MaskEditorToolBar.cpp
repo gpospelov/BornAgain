@@ -196,8 +196,7 @@ void MaskEditorToolBar::setup_extratools_group()
 {
     QToolButton *presentationButton = new QToolButton(this);
     presentationButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_lightbulb.svg"));
-    presentationButton->setToolTip("Shows mask results. The view will be switched to two\n"
-                                 "color plot representing masked/unmasked areas.");
+    presentationButton->setToolTip("Press and hold to see mask results.");
     addWidget(presentationButton);
 
     connect(presentationButton, SIGNAL(pressed()),

@@ -199,8 +199,10 @@ void ColorMapPlot::resetView()
 {
     m_block_update = true;
     m_colorMap->rescaleAxes();
-    QCPRange newDataRange = calculateDataRange(m_item);
-    m_colorMap->setDataRange(newDataRange);
+    if(!m_item->isZAxisLocked()) {
+        QCPRange newDataRange = calculateDataRange(m_item);
+        m_colorMap->setDataRange(newDataRange);
+    }
     m_customPlot->replot();
     m_block_update = false;
 }

@@ -58,31 +58,6 @@ MaskEditor::MaskEditor(QWidget *parent)
     m_editorPropertyPanel->setPanelHidden(true);
 }
 
-//void MaskEditor::setModel(SessionModel *model, const QModelIndex &rootIndex)
-//{
-//    QModelIndex intensityItemIndex = rootIndex;
-//    if(!intensityItemIndex.isValid()) {
-//        if(ParameterizedItem *intensityItem = model->getTopItem(Constants::IntensityDataType)) {
-//            intensityItemIndex = model->indexOfItem(intensityItem);
-//        }
-//    }
-//    Q_ASSERT(intensityItemIndex.isValid());
-
-//    QModelIndex maskContainerIndex = model->index(0,0, intensityItemIndex);
-//    if (!maskContainerIndex.isValid()
-//        || model->itemForIndex(maskContainerIndex)->modelType() != Constants::MaskContainerType) {
-//        throw GUIHelpers::Error("MaskEditor::setModel() -> Error! Not a mask container");
-//    }
-
-//    m_editorPropertyPanel->setModel(model, intensityItemIndex);
-
-//    m_editorCanvas->setModel(model, intensityItemIndex);
-//    m_editorCanvas->setSelectionModel(m_editorPropertyPanel->selectionModel());
-
-//    m_itemActions->setModel(model, maskContainerIndex);
-//    m_itemActions->setSelectionModel(m_editorPropertyPanel->selectionModel());
-//}
-
 void MaskEditor::setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
                                 IntensityDataItem *intensityItem)
 {

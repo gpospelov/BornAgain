@@ -54,6 +54,8 @@ MaskEditor::MaskEditor(QWidget *parent)
     setCentralWidget(m_splitter);
 
     setup_connections();
+
+    m_editorPropertyPanel->setPanelHidden(true);
 }
 
 //void MaskEditor::setModel(SessionModel *model, const QModelIndex &rootIndex)

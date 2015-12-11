@@ -17,9 +17,12 @@
 #include "MaskEditor.h"
 #include "MaskModel.h"
 #include "DetectorMaskDelegate.h"
+#include "CustomEventFilters.h"
 #include <QPushButton>
 #include <QModelIndex>
 #include <QVBoxLayout>
+#include <QKeyEvent>
+#include <QDebug>
 
 ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget *parent)
     : QDialog(parent)
@@ -27,7 +30,7 @@ ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget *parent)
     , m_detectorMaskDelegate(new DetectorMaskDelegate(this))
 {
     setMinimumSize(256, 256);
-    resize(800, 600);
+    resize(750, 650);
     setWindowTitle("Mask Editor");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setAttribute(Qt::WA_DeleteOnClose, true);
@@ -35,7 +38,6 @@ ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget *parent)
 
     QVBoxLayout *layout = new QVBoxLayout;
     QPushButton *button = new QPushButton("Close", this);
-    button->setAutoDefault(false);
     connect(button, SIGNAL(clicked()), this, SLOT(close()));
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;
@@ -49,7 +51,14 @@ ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget *parent)
     layout->setContentsMargins(0, 0, 0, 0);
     setLayout(layout);
 
-//    m_maskEditor->init_test_model();
+    // hadling keyboar focus policies
+    button->setDefault(false);
+    button->setAutoDefault(false);
+    setFocusProxy(m_maskEditor);
+
+    SpaceKeyEater *filter = new SpaceKeyEater(this);
+    installEventFilter(filter);
+    button->installEventFilter(filter);
 
 }
 

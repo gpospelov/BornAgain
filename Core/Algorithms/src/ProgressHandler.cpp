@@ -16,6 +16,8 @@
 #include "ProgressHandler.h"
 #include "Exceptions.h"
 #include "Simulation.h"
+#include "Instrument.h"
+#include "IDetector2D.h"
 #include "MultiLayer.h"
 #include "LayerInterface.h"
 #include <mutex>
@@ -86,5 +88,4 @@ void ProgressHandler::init(Simulation *simulation, int param_combinations)
 
     // Simplified estimation of total number of items in DWBA simulation
     m_nitems_max = roughness_factor*param_combinations*simulation->getNumberOfSimulationElements();
-
 }

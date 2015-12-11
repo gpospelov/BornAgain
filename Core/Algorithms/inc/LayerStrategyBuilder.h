@@ -71,7 +71,7 @@ private:
     //! retrieve wavelength from simulation
     double getWavelength();
     //! Creates formfactor info for single particle
-    FormFactorInfo *createFormFactorInfo(const IParticle *particle, double abundance,
+    FormFactorInfo *createFormFactorInfo(const IParticle *particle,
                                          const IMaterial *p_ambient_material,
                                          complex_t factor) const;
 

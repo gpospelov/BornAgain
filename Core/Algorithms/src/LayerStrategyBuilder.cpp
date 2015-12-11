@@ -111,8 +111,8 @@ void LayerStrategyBuilder::collectFormFactorInfos()
     size_t number_of_particles = iparticles.size();
     for (size_t i = 0; i<number_of_particles; ++i) {
         FormFactorInfo *p_ff_info;
-        p_ff_info = createFormFactorInfo(iparticles[i], iparticles[i]->getAbundance(),
-                                         p_layer_material, wavevector_scattering_factor);
+        p_ff_info = createFormFactorInfo(iparticles[i], p_layer_material,
+                                         wavevector_scattering_factor);
         p_ff_info->m_abundance /= total_abundance;
         m_ff_infos.push_back(p_ff_info);
     }
@@ -135,8 +135,7 @@ double LayerStrategyBuilder::getWavelength()
 }
 
 FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
-        const IParticle *particle, double abundance,
-        const IMaterial *p_ambient_material, complex_t factor) const
+        const IParticle *particle, const IMaterial *p_ambient_material, complex_t factor) const
 {
     FormFactorInfo *p_result = new FormFactorInfo;
     boost::scoped_ptr<IParticle> P_particle_clone(particle->clone());
@@ -161,7 +160,7 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
     kvector_t position = P_particle_clone->getPosition();
     p_result->m_pos_x = position.x();
     p_result->m_pos_y = position.y();
-    p_result->m_abundance = abundance;
+    p_result->m_abundance = particle->getAbundance();
     return p_result;
 }
 

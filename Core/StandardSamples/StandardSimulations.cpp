@@ -105,8 +105,14 @@ GISASSimulation *StandardSimulations::MiniGISASWithMasks()
             0.0*Units::degree);
     result->setBeamIntensity(1e-06);
 //    result->maskAll();
-    result->addMask(Geometry::Ellipse(0.0*Units::deg, 1.0*Units::deg,
-                                      0.5*Units::deg, 0.5*Units::deg), true);
+//    result->addMask(Geometry::Ellipse(0.0*Units::deg, 1.0*Units::deg,
+//                                      0.5*Units::deg, 0.5*Units::deg), true);
+
+    std::vector<double> x = {Units::deg2rad(0.5), Units::deg2rad(-0.5), Units::deg2rad(0.5), Units::deg2rad(-0.5), Units::deg2rad(0.5)};
+    std::vector<double> y = {Units::deg2rad(1.8), Units::deg2rad(1.8), Units::deg2rad(0.1), Units::deg2rad(0.1), Units::deg2rad(1.8)};
+    result->addMask(Geometry::Polygon(x, y), true);
+
+
 
     return result;
 }

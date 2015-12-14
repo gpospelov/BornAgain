@@ -121,4 +121,21 @@ TEST_F(PolygonTest, ConstructFrom2DArray)
     EXPECT_FALSE(polygon.contains(4.0, -2.01));
 }
 
+//TEST_F(PolygonTest, GetPoints)
+//{
+//    std::vector<double> xpos;
+//    std::vector<double> ypos;
+
+//    std::vector<double> x = {4.0, -4.0, -4.0, 4.0, 4.0};
+//    std::vector<double> y = {2.0, 2.0, -2.0, -2.0, 2.0};
+//    Geometry::Polygon polygon(x, y);
+
+//    polygon.getPoints(xpos, ypos);
+//    for(size_t i=0; i<xpos.size(); ++i) {
+//        std::cout << xpos[i] << " " << ypos[i] << std::endl;
+//    }
+
+//}
+
+
 #endif

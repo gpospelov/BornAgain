@@ -519,9 +519,41 @@ void TransformFromDomain::setDetectorMasks(DetectorItem *detectorItem, const GIS
                 ellipseItem->setRegisteredProperty(EllipseItem::P_WIDTH, Units::rad2deg(ellipse->getRadiusX()));
                 ellipseItem->setRegisteredProperty(EllipseItem::P_HEIGHT, Units::rad2deg(ellipse->getRadiusY()));
                 ellipseItem->setRegisteredProperty(EllipseItem::P_ANGLE, Units::rad2deg(ellipse->getTheta()));
+                ellipseItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
                 containerItem->insertChildItem(0, ellipseItem);
 
             }
+
+            else if(const Geometry::Rectangle *rectangle = dynamic_cast<const Geometry::Rectangle *>(shape)) {
+                RectangleItem *rectangleItem = new RectangleItem();
+                rectangleItem->setRegisteredProperty(RectangleItem::P_XLOW, Units::rad2deg(rectangle->getXlow()));
+                rectangleItem->setRegisteredProperty(RectangleItem::P_YLOW, Units::rad2deg(rectangle->getYlow()));
+                rectangleItem->setRegisteredProperty(RectangleItem::P_XUP, Units::rad2deg(rectangle->getXup()));
+                rectangleItem->setRegisteredProperty(RectangleItem::P_YUP, Units::rad2deg(rectangle->getYup()));
+                rectangleItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
+                containerItem->insertChildItem(0, rectangleItem);
+
+            }
+
+            else if(const Geometry::Polygon *polygon = dynamic_cast<const Geometry::Polygon *>(shape)) {
+                PolygonItem *polygonItem = new PolygonItem();
+                std::vector<double> xpos, ypos;
+                polygon->getPoints(xpos, ypos);
+                for(size_t i_point=0; i_point<xpos.size(); ++i_point) {
+                    PolygonPointItem *pointItem = new PolygonPointItem();
+                    pointItem->setRegisteredProperty(PolygonPointItem::P_POSX, Units::rad2deg(xpos[i_point]));
+                    pointItem->setRegisteredProperty(PolygonPointItem::P_POSY, Units::rad2deg(ypos[i_point]));
+                    polygonItem->insertChildItem(-1, pointItem);
+                }
+
+                polygonItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
+                polygonItem->setRegisteredProperty(PolygonItem::P_ISCLOSED, true);
+
+                containerItem->insertChildItem(0, polygonItem);
+
+            }
+
+
             else {
                 throw GUIHelpers::Error("TransformFromDomain::setDetectorMasks() -> Error. "
                                         "Unknown shape");

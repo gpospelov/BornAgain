@@ -44,6 +44,11 @@ public:
 
     double getArea() const;
 
+    double getXlow() const;
+    double getYlow() const;
+    double getXup() const;
+    double getYup() const;
+
 private:
     Rectangle(const Rectangle& other);
     double m_xlow, m_ylow, m_xup, m_yup;

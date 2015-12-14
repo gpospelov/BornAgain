@@ -109,25 +109,12 @@ void MaskEditor::init_test_model()
     Q_ASSERT(container);
 
     RectangleItem *rect = new RectangleItem();
-//    rect->setRegisteredProperty(RectangleItem::P_POSX, 0.6);
-//    rect->setRegisteredProperty(RectangleItem::P_POSY, 1.5);
-//    rect->setRegisteredProperty(RectangleItem::P_WIDTH, 0.3);
-//    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 0.2);
     rect->setRegisteredProperty(RectangleItem::P_XLOW, 0.6);
     rect->setRegisteredProperty(RectangleItem::P_YLOW, 1.3);
     rect->setRegisteredProperty(RectangleItem::P_XUP, 0.9);
     rect->setRegisteredProperty(RectangleItem::P_YUP, 1.5);
-
     container->insertChildItem(-1, rect);
 
-
-
-//    RectangleItem *rect = dynamic_cast<RectangleItem *>(m_maskModel->insertNewItem(Constants::RectangleMaskType, m_maskModel->indexOfItem(item)));
-//    Q_ASSERT(rect);
-//    rect->setRegisteredProperty(RectangleItem::P_POSX, 0.6);
-//    rect->setRegisteredProperty(RectangleItem::P_POSY, 1.5);
-//    rect->setRegisteredProperty(RectangleItem::P_WIDTH, 0.3);
-//    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 0.2);
 
     // Polygon
 //    ParameterizedItem *poly = m_maskModel->insertNewItem(Constants::PolygonMaskType, m_maskModel->indexOfItem(item));

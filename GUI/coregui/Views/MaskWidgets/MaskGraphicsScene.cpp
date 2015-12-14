@@ -588,12 +588,17 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
         qreal ymin = std::min(click_pos.y(), mouse_pos.y());
         qreal ymax = std::max(click_pos.y(), mouse_pos.y());
 
-        m_currentItem->setRegisteredProperty(RectangleItem::P_POSX, m_adaptor->fromSceneX(xmin));
-        m_currentItem->setRegisteredProperty(RectangleItem::P_POSY, m_adaptor->fromSceneY(ymin));
-        m_currentItem->setRegisteredProperty(
-            RectangleItem::P_WIDTH, m_adaptor->fromSceneX(xmax) - m_adaptor->fromSceneX(xmin));
-        m_currentItem->setRegisteredProperty(
-            RectangleItem::P_HEIGHT, m_adaptor->fromSceneY(ymin) - m_adaptor->fromSceneY(ymax));
+//        m_currentItem->setRegisteredProperty(RectangleItem::P_POSX, m_adaptor->fromSceneX(xmin));
+//        m_currentItem->setRegisteredProperty(RectangleItem::P_POSY, m_adaptor->fromSceneY(ymin));
+//        m_currentItem->setRegisteredProperty(
+//            RectangleItem::P_WIDTH, m_adaptor->fromSceneX(xmax) - m_adaptor->fromSceneX(xmin));
+//        m_currentItem->setRegisteredProperty(
+//            RectangleItem::P_HEIGHT, m_adaptor->fromSceneY(ymin) - m_adaptor->fromSceneY(ymax));
+
+        m_currentItem->setRegisteredProperty(RectangleItem::P_XLOW, m_adaptor->fromSceneX(xmin));
+        m_currentItem->setRegisteredProperty(RectangleItem::P_YLOW, m_adaptor->fromSceneY(ymax));
+        m_currentItem->setRegisteredProperty(RectangleItem::P_XUP, m_adaptor->fromSceneX(xmax));
+        m_currentItem->setRegisteredProperty(RectangleItem::P_YUP, m_adaptor->fromSceneY(ymin));
     }
 }
 

@@ -45,27 +45,27 @@ MaskItem::MaskItem(const QString &name, ParameterizedItem *parent)
 
 
 /* ------------------------------------------------------------------------- */
-const QString RectangleItem::P_POSX = "X position";
-const QString RectangleItem::P_POSY = "Y position";
-const QString RectangleItem::P_WIDTH = "Width";
-const QString RectangleItem::P_HEIGHT = "Height";
+const QString RectangleItem::P_XLOW = "xlow";
+const QString RectangleItem::P_YLOW = "ylow";
+const QString RectangleItem::P_XUP = "xup";
+const QString RectangleItem::P_YUP = "yup";
 
 RectangleItem::RectangleItem(ParameterizedItem *parent)
     : MaskItem(Constants::RectangleMaskType, parent)
 {
     setItemName(QStringLiteral("Rectangle"));
-    registerProperty(P_POSX, 0.0, PropertyAttribute(AttLimits::limitless()));
-    registerProperty(P_POSY, 0.0, PropertyAttribute(AttLimits::limitless()));
-    registerProperty(P_WIDTH, 0.0);
-    registerProperty(P_HEIGHT, 0.0);
+    registerProperty(P_XLOW, 0.0, PropertyAttribute(AttLimits::limitless()));
+    registerProperty(P_YLOW, 0.0, PropertyAttribute(AttLimits::limitless()));
+    registerProperty(P_XUP, 0.0, PropertyAttribute(AttLimits::limitless()));
+    registerProperty(P_YUP, 0.0, PropertyAttribute(AttLimits::limitless()));
 }
 
 Geometry::IShape2D *RectangleItem::createShape() const
 {
-    double xlow = getRegisteredProperty(P_POSX).toDouble();
-    double ylow = getRegisteredProperty(P_POSY).toDouble() - getRegisteredProperty(P_HEIGHT).toDouble();
-    double xup = getRegisteredProperty(P_POSX).toDouble() + getRegisteredProperty(P_WIDTH).toDouble();
-    double yup = getRegisteredProperty(P_POSY).toDouble();
+    double xlow = getRegisteredProperty(P_XLOW).toDouble();
+    double ylow = getRegisteredProperty(P_YLOW).toDouble();
+    double xup = getRegisteredProperty(P_XUP).toDouble();
+    double yup = getRegisteredProperty(P_YUP).toDouble();
     return new Geometry::Rectangle(Units::deg2rad(xlow), Units::deg2rad(ylow), Units::deg2rad(xup), Units::deg2rad(yup));
 }
 

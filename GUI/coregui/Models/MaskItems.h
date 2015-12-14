@@ -47,10 +47,10 @@ class BA_CORE_API_ RectangleItem : public MaskItem
 {
     Q_OBJECT
 public:
-    static const QString P_POSX;
-    static const QString P_POSY;
-    static const QString P_WIDTH;
-    static const QString P_HEIGHT;
+    static const QString P_XLOW;
+    static const QString P_YLOW;
+    static const QString P_XUP;
+    static const QString P_YUP;
     explicit RectangleItem(ParameterizedItem *parent=0);
     virtual Geometry::IShape2D *createShape() const;
 };

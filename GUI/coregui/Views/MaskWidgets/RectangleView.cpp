@@ -43,14 +43,18 @@ RectangleView::RectangleView()
 void RectangleView::onChangedX()
 {
     m_block_on_property_change = true;
-    m_item->setRegisteredProperty(RectangleItem::P_POSX, fromSceneX(this->x()));
+//    m_item->setRegisteredProperty(RectangleItem::P_POSX, fromSceneX(this->x()));
+    m_item->setRegisteredProperty(RectangleItem::P_XLOW, fromSceneX(this->x()));
+    m_item->setRegisteredProperty(RectangleItem::P_XUP, fromSceneX(this->x() + m_mask_rect.width()));
     m_block_on_property_change = false;
 }
 
 void RectangleView::onChangedY()
 {
     m_block_on_property_change = true;
-    m_item->setRegisteredProperty(RectangleItem::P_POSY, fromSceneY(this->y()));
+//    m_item->setRegisteredProperty(RectangleItem::P_POSY, fromSceneY(this->y()));
+    m_item->setRegisteredProperty(RectangleItem::P_YLOW, fromSceneY(this->y() + m_mask_rect.height()));
+    m_item->setRegisteredProperty(RectangleItem::P_YUP, fromSceneY(this->y()));
     m_block_on_property_change = false;
 }
 
@@ -58,18 +62,24 @@ void RectangleView::onPropertyChange(const QString &propertyName)
 {
     if(m_block_on_property_change) return;
 
-    if(propertyName == RectangleItem::P_WIDTH || propertyName == RectangleItem::P_HEIGHT) {
-//        update_bounding_rect();
-        update_view();
-    }
-    else if(propertyName == RectangleItem::P_POSX) {
-        setX(toSceneX(RectangleItem::P_POSX));
-    }
-    else if(propertyName == RectangleItem::P_POSY) {
-        setY(toSceneY(RectangleItem::P_POSY));
-    }
-    else if(propertyName == MaskItem::P_MASK_VALUE) {
+//    if(propertyName == RectangleItem::P_WIDTH || propertyName == RectangleItem::P_HEIGHT) {
+////        update_bounding_rect();
+//        update_view();
+//    }
+//    else if(propertyName == RectangleItem::P_POSX) {
+//        setX(toSceneX(RectangleItem::P_POSX));
+//    }
+//    else if(propertyName == RectangleItem::P_POSY) {
+//        setY(toSceneY(RectangleItem::P_POSY));
+//    }
+//    else if(propertyName == MaskItem::P_MASK_VALUE) {
+//        update();
+//    }
+
+    if(propertyName == MaskItem::P_MASK_VALUE) {
         update();
+    } else {
+        update_view();
     }
 }
 
@@ -115,30 +125,47 @@ void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     if(m_activeHandleElement) {
 
+//        m_block_on_property_change = true;
+
         qreal xmin = std::min(event->scenePos().x(),m_resize_opposite_origin.x());
         qreal xmax = std::max(event->scenePos().x(),m_resize_opposite_origin.x());
         qreal ymin = std::min(event->scenePos().y(),m_resize_opposite_origin.y());
         qreal ymax = std::max(event->scenePos().y(),m_resize_opposite_origin.y());
 
         if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE) {
-            m_item->setRegisteredProperty(RectangleItem::P_POSX, fromSceneX(xmin));
-            m_item->setRegisteredProperty(RectangleItem::P_POSY, fromSceneY(ymin));
-            m_item->setRegisteredProperty(RectangleItem::P_WIDTH,
-                                          fromSceneX(xmax) - fromSceneX(xmin));
-            m_item->setRegisteredProperty(RectangleItem::P_HEIGHT,
-                                          fromSceneY(ymin) - fromSceneY(ymax));
+//            m_item->setRegisteredProperty(RectangleItem::P_POSX, fromSceneX(xmin));
+//            m_item->setRegisteredProperty(RectangleItem::P_POSY, fromSceneY(ymin));
+//            m_item->setRegisteredProperty(RectangleItem::P_WIDTH,
+//                                          fromSceneX(xmax) - fromSceneX(xmin));
+//            m_item->setRegisteredProperty(RectangleItem::P_HEIGHT,
+//                                          fromSceneY(ymin) - fromSceneY(ymax));
+            m_item->setRegisteredProperty(RectangleItem::P_XLOW, fromSceneX(xmin));
+            m_item->setRegisteredProperty(RectangleItem::P_YLOW, fromSceneY(ymax));
+            m_item->setRegisteredProperty(RectangleItem::P_XUP, fromSceneX(xmax));
+            m_item->setRegisteredProperty(RectangleItem::P_YUP, fromSceneY(ymin));
+
+
 
         } else if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_HEIGHT) {
-            m_item->setRegisteredProperty(RectangleItem::P_POSY, fromSceneY(ymin));
-            m_item->setRegisteredProperty(RectangleItem::P_HEIGHT,
-                                          fromSceneY(ymin) - fromSceneY(ymax));
+//            m_item->setRegisteredProperty(RectangleItem::P_POSY, fromSceneY(ymin));
+//            m_item->setRegisteredProperty(RectangleItem::P_HEIGHT,
+//                                          fromSceneY(ymin) - fromSceneY(ymax));
+
+            m_item->setRegisteredProperty(RectangleItem::P_YLOW, fromSceneY(ymax));
+            m_item->setRegisteredProperty(RectangleItem::P_YUP, fromSceneY(ymin));
+
 
         } else if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_WIDTH) {
-            m_item->setRegisteredProperty(RectangleItem::P_POSX, fromSceneX(xmin));
-            m_item->setRegisteredProperty(RectangleItem::P_WIDTH,
-                                          fromSceneX(xmax) - fromSceneX(xmin));
+//            m_item->setRegisteredProperty(RectangleItem::P_POSX, fromSceneX(xmin));
+//            m_item->setRegisteredProperty(RectangleItem::P_WIDTH,
+//                                          fromSceneX(xmax) - fromSceneX(xmin));
+
+            m_item->setRegisteredProperty(RectangleItem::P_XLOW, fromSceneX(xmin));
+            m_item->setRegisteredProperty(RectangleItem::P_XUP, fromSceneX(xmax));
+
         }
         update_view();
+//        m_block_on_property_change = false;
     } else {
         IMaskView::mouseMoveEvent(event);
     }
@@ -174,20 +201,25 @@ void RectangleView::update_bounding_rect()
 //! updates position of view using item properties
 void RectangleView::update_position()
 {
-    setX(toSceneX(RectangleItem::P_POSX));
-    setY(toSceneY(RectangleItem::P_POSY));
+//    setX(toSceneX(RectangleItem::P_POSX));
+//    setY(toSceneY(RectangleItem::P_POSY));
+    setX(toSceneX(RectangleItem::P_XLOW));
+    setY(toSceneY(RectangleItem::P_YUP));
+
 }
 
 //! returns the x-coordinate of the rectangle's left edge
 qreal RectangleView::left() const
 {
-    return toSceneX(par(RectangleItem::P_POSX));
+//    return toSceneX(par(RectangleItem::P_POSX));
+    return toSceneX(par(RectangleItem::P_XLOW));
 }
 
 //! returns the x-coordinate of the rectangle's right edge
 qreal RectangleView::right() const
 {
-    return toSceneX(par(RectangleItem::P_POSX)+par(RectangleItem::P_WIDTH));
+//    return toSceneX(par(RectangleItem::P_POSX)+par(RectangleItem::P_WIDTH));
+    return toSceneX(par(RectangleItem::P_XUP));
 }
 
 //! returns width of the rectangle
@@ -199,13 +231,15 @@ qreal RectangleView::width() const
 //! Returns the y-coordinate of the rectangle's top edge.
 qreal RectangleView::top() const
 {
-    return toSceneY(par(RectangleItem::P_POSY));
+//    return toSceneY(par(RectangleItem::P_POSY));
+    return toSceneY(par(RectangleItem::P_YUP));
 }
 
 //! Returns the y-coordinate of the rectangle's bottom edge.
 qreal RectangleView::bottom() const
 {
-    return toSceneY(par(RectangleItem::P_POSY)-par(RectangleItem::P_HEIGHT));
+//    return toSceneY(par(RectangleItem::P_POSY)-par(RectangleItem::P_HEIGHT));
+    return toSceneY(par(RectangleItem::P_YLOW));
 }
 
 qreal RectangleView::height() const

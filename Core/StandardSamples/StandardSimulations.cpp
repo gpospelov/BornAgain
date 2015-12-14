@@ -22,6 +22,10 @@
 #include "IntensityDataIOFactory.h"
 #include "Distributions.h"
 #include "IsGISAXSDetector.h"
+#include "Rectangle.h"
+#include "Ellipse.h"
+#include "Polygon.h"
+#include "Line.h"
 
 GISASSimulation *StandardSimulations::PolarizedDWBAMagCylinders2()
 {
@@ -92,6 +96,22 @@ GISASSimulation *StandardSimulations::MiniGISASBeamDivergence()
     return result;
 }
 
+GISASSimulation *StandardSimulations::MiniGISASWithMasks()
+{
+    GISASSimulation *result = new GISASSimulation();
+    result->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
+                                     100, 0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
+    result->setBeamIntensity(1e-06);
+//    result->maskAll();
+    result->addMask(Geometry::Ellipse(0.0*Units::deg, 1.0*Units::deg,
+                                      0.5*Units::deg, 0.5*Units::deg), true);
+
+    return result;
+}
+
+
 GISASSimulation *StandardSimulations::MiniGISASDetectorResolution()
 {
     GISASSimulation *result = MiniGISAS();
@@ -148,3 +168,4 @@ GISASSimulation *StandardSimulations::IsGISAXSSimulation2()
                 0.0*Units::degree);
     return result;
 }
+

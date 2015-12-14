@@ -49,6 +49,12 @@
 #include "ResolutionFunction2DGaussian.h"
 #include "ResolutionFunctionItems.h"
 #include "ConvolutionDetectorResolution.h"
+#include "DetectorMask.h"
+#include "Rectangle.h"
+#include "Ellipse.h"
+#include "Polygon.h"
+#include "Line.h"
+#include "MaskItems.h"
 #include <QString>
 #include <QDebug>
 #include <vector>
@@ -492,6 +498,41 @@ void TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem,
         }
     }
 }
+
+
+void TransformFromDomain::setDetectorMasks(DetectorItem *detectorItem, const GISASSimulation &simulation)
+{
+    Q_ASSERT(detectorItem);
+
+    const IDetector2D *detector = simulation.getInstrument().getDetector();
+    const DetectorMask *detectorMask = detector->getDetectorMask();
+    if(detectorMask && detectorMask->getNumberOfMasks()) {
+        MaskContainerItem *containerItem = new MaskContainerItem();
+        detectorItem->insertChildItem(-1, containerItem);
+        for(size_t i_mask=0; i_mask<detectorMask->getNumberOfMasks(); ++i_mask) {
+            bool mask_value(false);
+            const Geometry::IShape2D *shape = detectorMask->getMaskShape(i_mask, mask_value);
+            if(const Geometry::Ellipse *ellipse = dynamic_cast<const Geometry::Ellipse *>(shape)) {
+                EllipseItem *ellipseItem = new EllipseItem();
+                ellipseItem->setRegisteredProperty(EllipseItem::P_POSX, Units::rad2deg(ellipse->getCenterX()));
+                ellipseItem->setRegisteredProperty(EllipseItem::P_POSY, Units::rad2deg(ellipse->getCenterY()));
+                ellipseItem->setRegisteredProperty(EllipseItem::P_WIDTH, Units::rad2deg(ellipse->getRadiusX()));
+                ellipseItem->setRegisteredProperty(EllipseItem::P_HEIGHT, Units::rad2deg(ellipse->getRadiusY()));
+                ellipseItem->setRegisteredProperty(EllipseItem::P_ANGLE, Units::rad2deg(ellipse->getTheta()));
+                containerItem->insertChildItem(0, ellipseItem);
+
+            }
+            else {
+                throw GUIHelpers::Error("TransformFromDomain::setDetectorMasks() -> Error. "
+                                        "Unknown shape");
+            }
+
+        }
+    }
+
+
+}
+
 
 void TransformFromDomain::setItemFromSample(BeamDistributionItem *beamDistributionItem,
                                             const ParameterDistribution &parameterDistribution)

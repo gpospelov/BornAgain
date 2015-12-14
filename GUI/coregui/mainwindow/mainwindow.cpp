@@ -95,6 +95,8 @@ MainWindow::MainWindow(QWidget *parent)
 //    QCoreApplication::setOrganizationName(QLatin1String(Constants::APPLICATION_NAME));
 
     createModels();
+    testGUIObjectBuilder();
+
 
     if (!Utils::HostOsInfo::isMacHost())
         QApplication::setWindowIcon(QIcon(":/images/BornAgain.ico"));
@@ -152,6 +154,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_projectManager->createNewProject();
 
 //    testGUIObjectBuilder();
+
 }
 
 MainWindow::~MainWindow()
@@ -308,10 +311,10 @@ void MainWindow::resetModels()
     m_jobModel->clear();
 
     m_instrumentModel->clear();
-    ParameterizedItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
-    instrument->setItemName("Default GISAS");
-    m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
-    m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
+//    ParameterizedItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
+//    instrument->setItemName("Default GISAS");
+//    m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
+//    m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
 }
 
 void MainWindow::testGUIObjectBuilder()
@@ -321,6 +324,10 @@ void MainWindow::testGUIObjectBuilder()
 
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(m_sampleModel, *P_sample);
+
+    SimulationRegistry simRegistry;
+    boost::scoped_ptr<GISASSimulation> simulation(simRegistry.createSimulation("MiniGISASWithMasks"));
+    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
 }
 
 void MainWindow::onAboutApplication()

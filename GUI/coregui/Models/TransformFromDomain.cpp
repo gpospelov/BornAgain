@@ -54,6 +54,7 @@
 #include "Ellipse.h"
 #include "Polygon.h"
 #include "Line.h"
+#include "InfinitePlane.h"
 #include "MaskItems.h"
 #include <QString>
 #include <QDebug>
@@ -551,6 +552,28 @@ void TransformFromDomain::setDetectorMasks(DetectorItem *detectorItem, const GIS
 
                 containerItem->insertChildItem(0, polygonItem);
 
+            }
+
+            else if(const Geometry::VerticalLine *vline = dynamic_cast<const Geometry::VerticalLine *>(shape)) {
+                VerticalLineItem *lineItem = new VerticalLineItem();
+                lineItem->setRegisteredProperty(VerticalLineItem::P_POSX, Units::rad2deg(vline->getXpos()));
+                lineItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
+                containerItem->insertChildItem(0, lineItem);
+            }
+
+            else if(const Geometry::HorizontalLine *hline = dynamic_cast<const Geometry::HorizontalLine *>(shape)) {
+                HorizontalLineItem *lineItem = new HorizontalLineItem();
+                lineItem->setRegisteredProperty(HorizontalLineItem::P_POSY, Units::rad2deg(hline->getYpos()));
+                lineItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
+                containerItem->insertChildItem(0, lineItem);
+            }
+
+
+            else if(const Geometry::InfinitePlane *plane = dynamic_cast<const Geometry::InfinitePlane *>(shape)) {
+                Q_UNUSED(plane);
+                MaskAllItem *planeItem = new MaskAllItem();
+                planeItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
+                containerItem->insertChildItem(-1, planeItem);
             }
 
 

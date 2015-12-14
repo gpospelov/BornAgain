@@ -24,7 +24,7 @@
 MaskContainerView::MaskContainerView()
 {
     // the key flag to not to draw children going outside ot given shape
-    setFlag(QGraphicsItem::ItemClipsChildrenToShape, true);
+//    setFlag(QGraphicsItem::ItemClipsChildrenToShape, true);
 }
 
 void MaskContainerView::update_view()

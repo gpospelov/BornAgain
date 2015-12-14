@@ -17,6 +17,7 @@
 #include "MessageService.h"
 #include "BornAgainNamespace.h"
 #include "Rectangle.h"
+#include "InfinitePlane.h"
 
 #include <Eigen/LU>
 #include <boost/scoped_ptr.hpp>
@@ -132,8 +133,8 @@ void IDetector2D::maskAll()
 
     m_detector_mask.removeMasks();
 
-    Geometry::Rectangle rect(m_axes[0]->getMin(), m_axes[1]->getMin(), m_axes[0]->getMax(), m_axes[1]->getMax());
-    addMask(rect, true);
+//    Geometry::Rectangle rect(m_axes[0]->getMin(), m_axes[1]->getMin(), m_axes[0]->getMax(), m_axes[1]->getMax());
+    addMask(Geometry::InfinitePlane(), true);
 }
 
 const DetectorMask *IDetector2D::getDetectorMask() const

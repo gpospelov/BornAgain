@@ -130,8 +130,14 @@ void MaskEditor::init_test_model()
 //    p3->setRegisteredProperty(PolygonPointItem::P_POSY, 0.6);
 
     // Lines
-//   ParameterizedItem *line = m_maskModel->insertNewItem(Constants::VerticalLineMaskType, m_maskModel->indexOfItem(item));
-//   line->setRegisteredProperty(VerticalLineItem::P_POSX, 0.6);
+   VerticalLineItem *line = new VerticalLineItem();
+   line->setRegisteredProperty(VerticalLineItem::P_POSX, 0.6);
+   container->insertChildItem(-1, line);
+
+   HorizontalLineItem *hline = new HorizontalLineItem();
+   hline->setRegisteredProperty(HorizontalLineItem::P_POSY, 0.5);
+   container->insertChildItem(-1, hline);
+
 
 //   ParameterizedItem *line = m_maskModel->insertNewItem(Constants::HorizontalLineMaskType, m_maskModel->indexOfItem(item));
 //   line->setRegisteredProperty(HorizontalLineItem::P_POSY, 1.0);

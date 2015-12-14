@@ -66,12 +66,12 @@ double Rectangle::getXlow() const
 
 double Rectangle::getYlow() const
 {
-    return m_xup;
+    return m_ylow;
 }
 
 double Rectangle::getXup() const
 {
-    return m_ylow;
+    return m_xup;
 }
 
 double Rectangle::getYup() const

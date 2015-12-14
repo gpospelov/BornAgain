@@ -54,6 +54,7 @@ void VerticalLineView::onPropertyChange(const QString &propertyName)
 void VerticalLineView::update_view()
 {
     QRectF plot_scene_rectangle = m_adaptor->getViewportRectangle();
+    qDebug() << "AAAAA" << plot_scene_rectangle;
 
     setX(toSceneX(VerticalLineItem::P_POSX));
     setY(plot_scene_rectangle.top());

@@ -26,6 +26,7 @@
 #include "Ellipse.h"
 #include "Polygon.h"
 #include "Line.h"
+#include "InfinitePlane.h"
 
 GISASSimulation *StandardSimulations::PolarizedDWBAMagCylinders2()
 {
@@ -108,10 +109,13 @@ GISASSimulation *StandardSimulations::MiniGISASWithMasks()
 //    result->addMask(Geometry::Ellipse(0.0*Units::deg, 1.0*Units::deg,
 //                                      0.5*Units::deg, 0.5*Units::deg), true);
 
-    std::vector<double> x = {Units::deg2rad(0.5), Units::deg2rad(-0.5), Units::deg2rad(0.5), Units::deg2rad(-0.5), Units::deg2rad(0.5)};
-    std::vector<double> y = {Units::deg2rad(1.8), Units::deg2rad(1.8), Units::deg2rad(0.1), Units::deg2rad(0.1), Units::deg2rad(1.8)};
-    result->addMask(Geometry::Polygon(x, y), true);
+//    std::vector<double> x = {Units::deg2rad(0.5), Units::deg2rad(-0.5), Units::deg2rad(0.5), Units::deg2rad(-0.5), Units::deg2rad(0.5)};
+//    std::vector<double> y = {Units::deg2rad(1.8), Units::deg2rad(1.8), Units::deg2rad(0.1), Units::deg2rad(0.1), Units::deg2rad(1.8)};
+//    result->addMask(Geometry::Polygon(x, y), true);
 
+    result->addMask(Geometry::InfinitePlane(), true);
+    result->addMask(Geometry::Rectangle(Units::deg2rad(0.0), Units::deg2rad(0.0), Units::deg2rad(1.0), Units::deg2rad(0.5)), false);
+    result->addMask(Geometry::VerticalLine(Units::deg2rad(-0.25)), false);
 
 
     return result;

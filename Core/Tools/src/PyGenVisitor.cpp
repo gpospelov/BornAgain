@@ -1307,6 +1307,11 @@ std::string PyGenVisitor::defineBeam(const GISASSimulation *simulation) const
     result << simulation->getInstrument().getBeam().getWavelength() << "*nanometer, "
            << PyGenTools::printDegrees(simulation->getInstrument().getBeam().getAlpha()) << ", "
            << PyGenTools::printDegrees(simulation->getInstrument().getBeam().getPhi()) << ")\n";
+    double beam_intensity = simulation->getInstrument().getBeamIntensity();
+    if(beam_intensity > 0.0) {
+        result << indent() << "simulation.setBeamIntensity("
+               << PyGenTools::printScientificDouble(beam_intensity) << ")\n";
+    }
     return result.str();
 }
 

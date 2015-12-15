@@ -23,7 +23,7 @@ set (CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
 
   Push \\\"PYTHONPATH\\\" 
   Push \\\"P\\\" 
-  Push \\\"HKCU\\\" 
+  Push \\\"HKLM\\\" 
   Push \\\"$INSTDIR\\\\bin\\\" 
   Call EnvVarUpdate
   Pop  \\\$0
@@ -41,7 +41,7 @@ set (CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
 
   Push \\\"PYTHONPATH\\\"
   Push \\\"R\\\"
-  Push \\\"HKCU\\\"
+  Push \\\"HKLM\\\"
   Push \\\"$INSTDIR\\\\bin\\\"
   Call un.EnvVarUpdate
   Pop  \\\$0

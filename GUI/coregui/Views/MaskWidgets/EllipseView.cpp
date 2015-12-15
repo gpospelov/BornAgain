@@ -201,6 +201,9 @@ void EllipseView::update_position()
 {
     setX(toSceneX(EllipseItem::P_XCENTER));
     setY(toSceneY(EllipseItem::P_YCENTER));
+    if(par(EllipseItem::P_ANGLE) != 0.0)
+        setTransform(QTransform().rotate(-1.0*par(EllipseItem::P_ANGLE)));
+
 }
 
 //! returns the x-coordinate of the rectangle's left edge

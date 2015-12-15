@@ -175,6 +175,7 @@ if(WIN32)
     ${QTDIR}/bin/Qt5WebKitWidgets.dll
     ${QTDIR}/bin/Qt5Designer.dll
     ${QTDIR}/bin/Qt5Xml.dll
+    ${QTDIR}/bin/Qt5Svg.dll
     #${QTDIR}/bin/libGLESv2.dll
     #${QTDIR}/bin/libEGL.dll
     ${QTDIR}/bin/icuin54.dll
@@ -196,6 +197,10 @@ if(WIN32)
     install(FILES
     ${QTDIR}/plugins/platforms/qwindows.dll
     DESTINATION bin/platforms COMPONENT Libraries)
+
+    install(FILES
+    ${QTDIR}/plugins/iconengines/qsvgicon.dll
+    DESTINATION bin/iconengines COMPONENT Libraries)
 
 endif()
 

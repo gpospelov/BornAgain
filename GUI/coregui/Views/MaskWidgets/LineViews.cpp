@@ -83,7 +83,7 @@ void VerticalLineView::paint(QPainter *painter, const QStyleOptionGraphicsItem *
 //! Allows item movement along x, prevent movement along y
 QVariant VerticalLineView::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
 {
-    if (change == ItemPositionChange && scene()) {
+    if (isSelected() && change == ItemPositionChange && scene()) {
           QPointF newPos = value.toPointF();
           newPos.setY(y());
           return newPos;
@@ -149,7 +149,7 @@ void HorizontalLineView::paint(QPainter *painter, const QStyleOptionGraphicsItem
 //! Allows item movement along y, prevent movement along x
 QVariant HorizontalLineView::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
 {
-    if (change == ItemPositionChange && scene()) {
+    if (isSelected() && change == ItemPositionChange && scene()) {
           QPointF newPos = value.toPointF();
           newPos.setX(x());
           return newPos;

@@ -55,6 +55,8 @@ public:
 
     double getArea() const;
 
+    void getPoints(std::vector<double> &xpos, std::vector<double> &ypos) const;
+
 protected:
     virtual void print(std::ostream &ostr) const;
 

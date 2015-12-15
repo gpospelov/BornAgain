@@ -49,6 +49,13 @@
 #include "ResolutionFunction2DGaussian.h"
 #include "ResolutionFunctionItems.h"
 #include "ConvolutionDetectorResolution.h"
+#include "DetectorMask.h"
+#include "Rectangle.h"
+#include "Ellipse.h"
+#include "Polygon.h"
+#include "Line.h"
+#include "InfinitePlane.h"
+#include "MaskItems.h"
 #include <QString>
 #include <QDebug>
 #include <vector>
@@ -492,6 +499,95 @@ void TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem,
         }
     }
 }
+
+
+void TransformFromDomain::setDetectorMasks(DetectorItem *detectorItem, const GISASSimulation &simulation)
+{
+    Q_ASSERT(detectorItem);
+
+    const IDetector2D *detector = simulation.getInstrument().getDetector();
+    const DetectorMask *detectorMask = detector->getDetectorMask();
+    if(detectorMask && detectorMask->getNumberOfMasks()) {
+        MaskContainerItem *containerItem = new MaskContainerItem();
+        detectorItem->insertChildItem(-1, containerItem);
+        for(size_t i_mask=0; i_mask<detectorMask->getNumberOfMasks(); ++i_mask) {
+            bool mask_value(false);
+            const Geometry::IShape2D *shape = detectorMask->getMaskShape(i_mask, mask_value);
+            if(const Geometry::Ellipse *ellipse = dynamic_cast<const Geometry::Ellipse *>(shape)) {
+                EllipseItem *ellipseItem = new EllipseItem();
+                ellipseItem->setRegisteredProperty(EllipseItem::P_XCENTER, Units::rad2deg(ellipse->getCenterX()));
+                ellipseItem->setRegisteredProperty(EllipseItem::P_YCENTER, Units::rad2deg(ellipse->getCenterY()));
+                ellipseItem->setRegisteredProperty(EllipseItem::P_XRADIUS, Units::rad2deg(ellipse->getRadiusX()));
+                ellipseItem->setRegisteredProperty(EllipseItem::P_YRADIUS, Units::rad2deg(ellipse->getRadiusY()));
+                ellipseItem->setRegisteredProperty(EllipseItem::P_ANGLE, Units::rad2deg(ellipse->getTheta()));
+                ellipseItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
+                containerItem->insertChildItem(0, ellipseItem);
+
+            }
+
+            else if(const Geometry::Rectangle *rectangle = dynamic_cast<const Geometry::Rectangle *>(shape)) {
+                RectangleItem *rectangleItem = new RectangleItem();
+                rectangleItem->setRegisteredProperty(RectangleItem::P_XLOW, Units::rad2deg(rectangle->getXlow()));
+                rectangleItem->setRegisteredProperty(RectangleItem::P_YLOW, Units::rad2deg(rectangle->getYlow()));
+                rectangleItem->setRegisteredProperty(RectangleItem::P_XUP, Units::rad2deg(rectangle->getXup()));
+                rectangleItem->setRegisteredProperty(RectangleItem::P_YUP, Units::rad2deg(rectangle->getYup()));
+                rectangleItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
+                containerItem->insertChildItem(0, rectangleItem);
+
+            }
+
+            else if(const Geometry::Polygon *polygon = dynamic_cast<const Geometry::Polygon *>(shape)) {
+                PolygonItem *polygonItem = new PolygonItem();
+                std::vector<double> xpos, ypos;
+                polygon->getPoints(xpos, ypos);
+                for(size_t i_point=0; i_point<xpos.size(); ++i_point) {
+                    PolygonPointItem *pointItem = new PolygonPointItem();
+                    pointItem->setRegisteredProperty(PolygonPointItem::P_POSX, Units::rad2deg(xpos[i_point]));
+                    pointItem->setRegisteredProperty(PolygonPointItem::P_POSY, Units::rad2deg(ypos[i_point]));
+                    polygonItem->insertChildItem(-1, pointItem);
+                }
+
+                polygonItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
+                polygonItem->setRegisteredProperty(PolygonItem::P_ISCLOSED, true);
+
+                containerItem->insertChildItem(0, polygonItem);
+
+            }
+
+            else if(const Geometry::VerticalLine *vline = dynamic_cast<const Geometry::VerticalLine *>(shape)) {
+                VerticalLineItem *lineItem = new VerticalLineItem();
+                lineItem->setRegisteredProperty(VerticalLineItem::P_POSX, Units::rad2deg(vline->getXpos()));
+                lineItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
+                containerItem->insertChildItem(0, lineItem);
+            }
+
+            else if(const Geometry::HorizontalLine *hline = dynamic_cast<const Geometry::HorizontalLine *>(shape)) {
+                HorizontalLineItem *lineItem = new HorizontalLineItem();
+                lineItem->setRegisteredProperty(HorizontalLineItem::P_POSY, Units::rad2deg(hline->getYpos()));
+                lineItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
+                containerItem->insertChildItem(0, lineItem);
+            }
+
+
+            else if(const Geometry::InfinitePlane *plane = dynamic_cast<const Geometry::InfinitePlane *>(shape)) {
+                Q_UNUSED(plane);
+                MaskAllItem *planeItem = new MaskAllItem();
+                planeItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
+                containerItem->insertChildItem(-1, planeItem);
+            }
+
+
+            else {
+                throw GUIHelpers::Error("TransformFromDomain::setDetectorMasks() -> Error. "
+                                        "Unknown shape");
+            }
+
+        }
+    }
+
+
+}
+
 
 void TransformFromDomain::setItemFromSample(BeamDistributionItem *beamDistributionItem,
                                             const ParameterDistribution &parameterDistribution)

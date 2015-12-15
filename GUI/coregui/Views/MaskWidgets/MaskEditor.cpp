@@ -108,22 +108,13 @@ void MaskEditor::init_test_model()
     ParameterizedItem *container = maskModel->insertNewItem(Constants::MaskContainerType, maskModel->indexOfItem(intensityItem));
     Q_ASSERT(container);
 
-    RectangleItem *rect = new RectangleItem();
-    rect->setRegisteredProperty(RectangleItem::P_POSX, 0.6);
-    rect->setRegisteredProperty(RectangleItem::P_POSY, 1.5);
-    rect->setRegisteredProperty(RectangleItem::P_WIDTH, 0.3);
-    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 0.2);
+//    RectangleItem *rect = new RectangleItem();
+//    rect->setRegisteredProperty(RectangleItem::P_XLOW, 0.6);
+//    rect->setRegisteredProperty(RectangleItem::P_YLOW, 1.3);
+//    rect->setRegisteredProperty(RectangleItem::P_XUP, 0.9);
+//    rect->setRegisteredProperty(RectangleItem::P_YUP, 1.5);
+//    container->insertChildItem(-1, rect);
 
-    container->insertChildItem(-1, rect);
-
-
-
-//    RectangleItem *rect = dynamic_cast<RectangleItem *>(m_maskModel->insertNewItem(Constants::RectangleMaskType, m_maskModel->indexOfItem(item)));
-//    Q_ASSERT(rect);
-//    rect->setRegisteredProperty(RectangleItem::P_POSX, 0.6);
-//    rect->setRegisteredProperty(RectangleItem::P_POSY, 1.5);
-//    rect->setRegisteredProperty(RectangleItem::P_WIDTH, 0.3);
-//    rect->setRegisteredProperty(RectangleItem::P_HEIGHT, 0.2);
 
     // Polygon
 //    ParameterizedItem *poly = m_maskModel->insertNewItem(Constants::PolygonMaskType, m_maskModel->indexOfItem(item));
@@ -139,19 +130,27 @@ void MaskEditor::init_test_model()
 //    p3->setRegisteredProperty(PolygonPointItem::P_POSY, 0.6);
 
     // Lines
-//   ParameterizedItem *line = m_maskModel->insertNewItem(Constants::VerticalLineMaskType, m_maskModel->indexOfItem(item));
+//   VerticalLineItem *line = new VerticalLineItem();
 //   line->setRegisteredProperty(VerticalLineItem::P_POSX, 0.6);
+//   container->insertChildItem(-1, line);
+
+//   HorizontalLineItem *hline = new HorizontalLineItem();
+//   hline->setRegisteredProperty(HorizontalLineItem::P_POSY, 0.5);
+//   container->insertChildItem(-1, hline);
+
 
 //   ParameterizedItem *line = m_maskModel->insertNewItem(Constants::HorizontalLineMaskType, m_maskModel->indexOfItem(item));
 //   line->setRegisteredProperty(HorizontalLineItem::P_POSY, 1.0);
 
     // Ellipse
-//    EllipseItem *rect = dynamic_cast<EllipseItem *>(m_maskModel->insertNewItem(Constants::EllipseMaskType, m_maskModel->indexOfItem(item)));
-//    Q_ASSERT(rect);
-//    rect->setRegisteredProperty(EllipseItem::P_POSX, 1.0);
-//    rect->setRegisteredProperty(EllipseItem::P_POSY, 1.0);
-//    rect->setRegisteredProperty(EllipseItem::P_WIDTH, 0.3);
-//    rect->setRegisteredProperty(EllipseItem::P_HEIGHT, 0.2);
+    EllipseItem *ellipse = new EllipseItem;
+    ellipse->setRegisteredProperty(EllipseItem::P_XCENTER, 1.0);
+    ellipse->setRegisteredProperty(EllipseItem::P_YCENTER, 1.0);
+    ellipse->setRegisteredProperty(EllipseItem::P_XRADIUS, 0.15);
+    ellipse->setRegisteredProperty(EllipseItem::P_YRADIUS, 0.1);
+    ellipse->setRegisteredProperty(EllipseItem::P_ANGLE, 45.);
+    container->insertChildItem(-1, ellipse);
+
 
 //    MaskAllItem *rect = dynamic_cast<MaskAllItem *>(m_maskModel->insertNewItem(Constants::MaskAllType, m_maskModel->indexOfItem(item)));
 

@@ -54,6 +54,7 @@ set(list_of_tests
     "GUISuite/BoxCompositionRotateZ"
     "GUISuite/BoxCompositionRotateZandY"
     "GUISuite/BoxStackComposition"
+    "GUISuite/SimulationWithMasks"
 )
 
 # Adding executables.

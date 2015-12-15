@@ -62,6 +62,10 @@ public:
 
     int getNumberOfMaskedChannels() const;
 
+    size_t getNumberOfMasks() const;
+
+    const Geometry::IShape2D *getMaskShape(size_t mask_index, bool &mask_value) const;
+
 private:
     void process_masks();
 

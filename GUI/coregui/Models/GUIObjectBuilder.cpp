@@ -106,9 +106,13 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *in
     TransformFromDomain::setItemFromSample(beamItem, simulation);
 
     // detector
-    ParameterizedItem *detectorItem = instrumentModel->insertNewItem(
-        Constants::DetectorType, instrumentModel->indexOfItem(instrumentItem));
+    DetectorItem *detectorItem = dynamic_cast<DetectorItem *>(instrumentModel->insertNewItem(
+        Constants::DetectorType, instrumentModel->indexOfItem(instrumentItem)));
 
+    // detector masks
+    TransformFromDomain::setDetectorMasks(detectorItem, simulation);
+
+    // sub-detector
     PhiAlphaDetectorItem *detectorSubItem =
             dynamic_cast<PhiAlphaDetectorItem *>(detectorItem->getSubItems()[DetectorItem::P_DETECTOR]);
 

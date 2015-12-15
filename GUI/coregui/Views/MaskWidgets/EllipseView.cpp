@@ -43,14 +43,14 @@ EllipseView::EllipseView()
 void EllipseView::onChangedX()
 {
     m_block_on_property_change = true;
-    m_item->setRegisteredProperty(EllipseItem::P_POSX, fromSceneX(this->x()));
+    m_item->setRegisteredProperty(EllipseItem::P_XCENTER, fromSceneX(this->x()));
     m_block_on_property_change = false;
 }
 
 void EllipseView::onChangedY()
 {
     m_block_on_property_change = true;
-    m_item->setRegisteredProperty(EllipseItem::P_POSY, fromSceneY(this->y()));
+    m_item->setRegisteredProperty(EllipseItem::P_YCENTER, fromSceneY(this->y()));
     m_block_on_property_change = false;
 }
 
@@ -61,15 +61,15 @@ void EllipseView::onPropertyChange(const QString &propertyName)
 
     m_block_on_property_change = true;
 
-    if(propertyName == EllipseItem::P_WIDTH || propertyName == EllipseItem::P_HEIGHT) {
+    if(propertyName == EllipseItem::P_XRADIUS || propertyName == EllipseItem::P_YRADIUS) {
         //update_bounding_rect();
         update_view();
     }
-    else if(propertyName == EllipseItem::P_POSX) {
-        setX(toSceneX(EllipseItem::P_POSX));
+    else if(propertyName == EllipseItem::P_XCENTER) {
+        setX(toSceneX(EllipseItem::P_XCENTER));
     }
-    else if(propertyName == EllipseItem::P_POSY) {
-        setY(toSceneY(EllipseItem::P_POSY));
+    else if(propertyName == EllipseItem::P_YCENTER) {
+        setY(toSceneY(EllipseItem::P_YCENTER));
     }
     else if(propertyName == EllipseItem::P_ANGLE) {
         setTransform(QTransform().rotate(-1.0*par(EllipseItem::P_ANGLE)));
@@ -138,29 +138,29 @@ void EllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         QPointF centerInScene = mapToScene(center);
 
         if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE) {
-            m_item->setRegisteredProperty(EllipseItem::P_POSX, fromSceneX(centerInScene.x()));
-            m_item->setRegisteredProperty(EllipseItem::P_POSY, fromSceneY(centerInScene.y()));
+            m_item->setRegisteredProperty(EllipseItem::P_XCENTER, fromSceneX(centerInScene.x()));
+            m_item->setRegisteredProperty(EllipseItem::P_YCENTER, fromSceneY(centerInScene.y()));
 
-            m_item->setRegisteredProperty(EllipseItem::P_WIDTH,
-                                          fromSceneX(centerInScene.x()+width/2.) -
-                                          fromSceneX(centerInScene.x()-width/2.));
-            m_item->setRegisteredProperty(EllipseItem::P_HEIGHT,
-                                          fromSceneY(centerInScene.y()-height/2.) -
-                                          fromSceneY(centerInScene.y()+height/2.));
+            m_item->setRegisteredProperty(EllipseItem::P_XRADIUS,
+                                          (fromSceneX(centerInScene.x()+width/2.) -
+                                          fromSceneX(centerInScene.x()-width/2.))/2.);
+            m_item->setRegisteredProperty(EllipseItem::P_YRADIUS,
+                                          (fromSceneY(centerInScene.y()-height/2.) -
+                                          fromSceneY(centerInScene.y()+height/2.))/2.);
 
 
 
         } else if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_HEIGHT) {
-            m_item->setRegisteredProperty(EllipseItem::P_POSY, fromSceneY(centerInScene.y()));
-            m_item->setRegisteredProperty(EllipseItem::P_HEIGHT,
-                                          fromSceneY(centerInScene.y()-height/2.) -
-                                          fromSceneY(centerInScene.y()+height/2.));
+            m_item->setRegisteredProperty(EllipseItem::P_YCENTER, fromSceneY(centerInScene.y()));
+            m_item->setRegisteredProperty(EllipseItem::P_YRADIUS,
+                                          (fromSceneY(centerInScene.y()-height/2.) -
+                                          fromSceneY(centerInScene.y()+height/2.))/2.);
 
         } else if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_WIDTH) {
-            m_item->setRegisteredProperty(EllipseItem::P_POSX, fromSceneX(centerInScene.x()));
-            m_item->setRegisteredProperty(EllipseItem::P_WIDTH,
-                                          fromSceneX(centerInScene.x()+width/2.) -
-                                          fromSceneX(centerInScene.x()-width/2.));
+            m_item->setRegisteredProperty(EllipseItem::P_XCENTER, fromSceneX(centerInScene.x()));
+            m_item->setRegisteredProperty(EllipseItem::P_XRADIUS,
+                                          (fromSceneX(centerInScene.x()+width/2.) -
+                                          fromSceneX(centerInScene.x()-width/2.))/2.);
         }
 
     } else {
@@ -199,20 +199,23 @@ void EllipseView::update_bounding_rect()
 //! updates position of view using item properties
 void EllipseView::update_position()
 {
-    setX(toSceneX(EllipseItem::P_POSX));
-    setY(toSceneY(EllipseItem::P_POSY));
+    setX(toSceneX(EllipseItem::P_XCENTER));
+    setY(toSceneY(EllipseItem::P_YCENTER));
+    if(par(EllipseItem::P_ANGLE) != 0.0)
+        setTransform(QTransform().rotate(-1.0*par(EllipseItem::P_ANGLE)));
+
 }
 
 //! returns the x-coordinate of the rectangle's left edge
 qreal EllipseView::left() const
 {
-    return toSceneX(par(EllipseItem::P_POSX) - par(EllipseItem::P_WIDTH)/2.);
+    return toSceneX(par(EllipseItem::P_XCENTER) - par(EllipseItem::P_XRADIUS));
 }
 
 //! returns the x-coordinate of the rectangle's right edge
 qreal EllipseView::right() const
 {
-    return toSceneX(par(EllipseItem::P_POSX)+par(EllipseItem::P_WIDTH)/2.);
+    return toSceneX(par(EllipseItem::P_XCENTER)+par(EllipseItem::P_XRADIUS));
 }
 
 //! returns width of the rectangle
@@ -225,13 +228,13 @@ qreal EllipseView::width() const
 //! Returns the y-coordinate of the rectangle's top edge.
 qreal EllipseView::top() const
 {
-    return toSceneY(par(EllipseItem::P_POSY)+par(EllipseItem::P_HEIGHT)/2.);
+    return toSceneY(par(EllipseItem::P_YCENTER)+par(EllipseItem::P_YRADIUS));
 }
 
 //! Returns the y-coordinate of the rectangle's bottom edge.
 qreal EllipseView::bottom() const
 {
-    return toSceneY(par(EllipseItem::P_POSY)-par(EllipseItem::P_HEIGHT)/2.);
+    return toSceneY(par(EllipseItem::P_YCENTER)-par(EllipseItem::P_YRADIUS));
 }
 
 qreal EllipseView::height() const

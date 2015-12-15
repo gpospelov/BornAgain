@@ -110,6 +110,20 @@ int DetectorMask::getNumberOfMaskedChannels() const
     return m_number_of_masked_channels;
 }
 
+size_t DetectorMask::getNumberOfMasks() const
+{
+    return m_shapes.size();
+}
+
+const Geometry::IShape2D *DetectorMask::getMaskShape(size_t mask_index, bool &mask_value) const
+{
+    if(mask_index < getNumberOfMasks()) {
+        mask_value = m_mask_of_shape[mask_index];
+        return m_shapes[mask_index];
+    }
+    return 0;
+}
+
 void DetectorMask::process_masks()
 {
     m_mask_data.setAllTo(false);

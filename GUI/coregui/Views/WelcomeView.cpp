@@ -52,29 +52,35 @@ WelcomeView::WelcomeView(MainWindow *parent)
     const int buttonHeight = 45;
     const int buttonWidth = 140;
 
+//    QColor background_color(Constants::BUTTON_COLOR);
+//    QColor text_color(Constants::BUTTON_TEXT_COLOR);
+//    QString ssheet = QString("QPushButton {background-color: %1; color: %2}").
+//            arg(background_color.name(), text_color.name());
+//    QPalette button_palette = m_newProjectButton->palette();
+//        button_palette.setColor(QPalette::Button, QColor(Constants::BUTTON_COLOR));
+//        button_palette.setColor(QPalette::ButtonText, QColor(Constants::BUTTON_TEXT_COLOR));
+//        m_newProjectButton->setPalette(button_palette);
+
     m_newProjectButton = new QPushButton(tr("New Project"));
     m_newProjectButton->setMinimumWidth(buttonWidth);
     m_newProjectButton->setMinimumHeight(buttonHeight);
     m_newProjectButton->setFont(buttonFont);
-//    QPalette button_palette = m_newProjectButton->palette();
-//    button_palette.setColor(QPalette::Button, QColor(Constants::BUTTON_COLOR));
-//    button_palette.setColor(QPalette::ButtonText, QColor(Constants::BUTTON_TEXT_COLOR));
-//    m_newProjectButton->setPalette(button_palette);
     m_newProjectButton->setToolTip("Create new project");
+//    m_newProjectButton->setStyleSheet(ssheet);
 
     m_openProjectButton = new QPushButton(tr("Open Project"));
     m_openProjectButton->setMinimumWidth(buttonWidth);
     m_openProjectButton->setMinimumHeight(buttonHeight);
     m_openProjectButton->setFont(buttonFont);
-//    m_openProjectButton->setPalette(button_palette);
     m_openProjectButton->setToolTip("Open existing project");
+//    m_openProjectButton->setStyleSheet(ssheet);
 
     m_newUsertButton = new QPushButton(tr("New to BornAgain?"));
     m_newUsertButton->setMinimumWidth(buttonWidth);
     m_newUsertButton->setMinimumHeight(buttonHeight);
     m_newUsertButton->setFont(buttonFont);
-//    m_newUsertButton->setPalette(button_palette);
     m_newUsertButton->setToolTip("Open BornAgain web site");
+//    m_newUsertButton->setStyleSheet(ssheet);
 
     QVBoxLayout *buttonLayout = new QVBoxLayout;
 

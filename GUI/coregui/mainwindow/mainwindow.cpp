@@ -136,7 +136,7 @@ MainWindow::MainWindow(QWidget *parent)
     //m_tabWidget->insertTab(FitViewTab, m_fitView, QIcon(":/images/main_simulation.png"), "Fit");
     //m_tabWidget->insertTab(FIT_VIEW, new TestView(this), QIcon(":/images/main_simulation.png"), "Test");
 
-    m_tabWidget->setCurrentIndex(INSTRUMENT);
+    m_tabWidget->setCurrentIndex(WELCOME);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
@@ -311,10 +311,10 @@ void MainWindow::resetModels()
     m_jobModel->clear();
 
     m_instrumentModel->clear();
-//    ParameterizedItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
-//    instrument->setItemName("Default GISAS");
-//    m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
-//    m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
+    ParameterizedItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
+    instrument->setItemName("Default GISAS");
+    m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
+    m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
 }
 
 void MainWindow::testGUIObjectBuilder()
@@ -325,9 +325,9 @@ void MainWindow::testGUIObjectBuilder()
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(m_sampleModel, *P_sample);
 
-    SimulationRegistry simRegistry;
-    boost::scoped_ptr<GISASSimulation> simulation(simRegistry.createSimulation("GISASWithMasks"));
-    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
+//    SimulationRegistry simRegistry;
+//    boost::scoped_ptr<GISASSimulation> simulation(simRegistry.createSimulation("GISASWithMasks"));
+//    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
 }
 
 void MainWindow::onAboutApplication()

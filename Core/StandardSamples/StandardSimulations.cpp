@@ -112,19 +112,19 @@ GISASSimulation *StandardSimulations::GISASWithMasks()
     result->addMask(Geometry::Ellipse(0.0*deg, 1.0*deg, 0.5*deg, 0.5*deg), false);
     result->addMask(Geometry::Ellipse(0.11*deg, 1.25*deg, 0.05*deg, 0.05*deg), true);
 
-//    std::vector<std::vector<double> >  points = {
-//        {0.0*deg, 1.0*deg}, {0.5*deg, 1.2*deg}, {0.5*deg, 0.8*deg}, {0.0*deg, 1.0*deg}
-//    };
-//    result->addMask(Geometry::Polygon(points), true);
+    std::vector<std::vector<double> >  points = {
+        {0.0*deg, 1.0*deg}, {0.5*deg, 1.2*deg}, {0.5*deg, 0.8*deg}, {0.0*deg, 1.0*deg}
+    };
+    result->addMask(Geometry::Polygon(points), true);
 
-//    result->addMask(Geometry::Rectangle(0.45*deg, 0.95*deg, 0.55*deg, 1.05*deg), false);
-//    result->addMask(Geometry::Rectangle(0.61*deg, 0.95*deg, 0.71*deg, 1.05*deg), false);
-//    result->addMask(Geometry::Rectangle(0.75*deg, 0.95*deg, 0.85*deg, 1.05*deg), false);
+    result->addMask(Geometry::Rectangle(0.45*deg, 0.95*deg, 0.55*deg, 1.05*deg), false);
+    result->addMask(Geometry::Rectangle(0.61*deg, 0.95*deg, 0.71*deg, 1.05*deg), false);
+    result->addMask(Geometry::Rectangle(0.75*deg, 0.95*deg, 0.85*deg, 1.05*deg), false);
 
-//    // more masks
-//    result->addMask(Geometry::Ellipse(-0.5*deg, 1.5*deg, 0.3*deg, 0.1*deg, 45.*deg), false);
-//    result->addMask(Geometry::VerticalLine(-0.6*deg), true);
-//    result->addMask(Geometry::HorizontalLine(0.3*deg), false);
+    // more masks
+    result->addMask(Geometry::Ellipse(-0.5*deg, 1.5*deg, 0.3*deg, 0.1*deg, 45.*deg), false);
+    result->addMask(Geometry::VerticalLine(-0.6*deg), true);
+    result->addMask(Geometry::HorizontalLine(0.3*deg), false);
 
 
     return result;

@@ -50,6 +50,7 @@ set(list_of_tests
     "CoreSuite/BoxCompositionRotateZ"
     "CoreSuite/BoxCompositionRotateZandY"
     "CoreSuite/BoxStackComposition"
+    "CoreSuite/SimulationWithMasks"
     "BatchSimulation"
     "PolDWBAMagCylinders2"
     "CustomRotatedLattice"

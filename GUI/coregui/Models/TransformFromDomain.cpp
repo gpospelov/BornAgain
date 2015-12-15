@@ -515,10 +515,10 @@ void TransformFromDomain::setDetectorMasks(DetectorItem *detectorItem, const GIS
             const Geometry::IShape2D *shape = detectorMask->getMaskShape(i_mask, mask_value);
             if(const Geometry::Ellipse *ellipse = dynamic_cast<const Geometry::Ellipse *>(shape)) {
                 EllipseItem *ellipseItem = new EllipseItem();
-                ellipseItem->setRegisteredProperty(EllipseItem::P_POSX, Units::rad2deg(ellipse->getCenterX()));
-                ellipseItem->setRegisteredProperty(EllipseItem::P_POSY, Units::rad2deg(ellipse->getCenterY()));
-                ellipseItem->setRegisteredProperty(EllipseItem::P_WIDTH, Units::rad2deg(ellipse->getRadiusX()));
-                ellipseItem->setRegisteredProperty(EllipseItem::P_HEIGHT, Units::rad2deg(ellipse->getRadiusY()));
+                ellipseItem->setRegisteredProperty(EllipseItem::P_XCENTER, Units::rad2deg(ellipse->getCenterX()));
+                ellipseItem->setRegisteredProperty(EllipseItem::P_YCENTER, Units::rad2deg(ellipse->getCenterY()));
+                ellipseItem->setRegisteredProperty(EllipseItem::P_XRADIUS, Units::rad2deg(ellipse->getRadiusX()));
+                ellipseItem->setRegisteredProperty(EllipseItem::P_YRADIUS, Units::rad2deg(ellipse->getRadiusY()));
                 ellipseItem->setRegisteredProperty(EllipseItem::P_ANGLE, Units::rad2deg(ellipse->getTheta()));
                 ellipseItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
                 containerItem->insertChildItem(0, ellipseItem);

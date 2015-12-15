@@ -625,14 +625,14 @@ void MaskGraphicsScene::processEllipseItem(QGraphicsSceneMouseEvent *event)
         qreal ymin = std::min(click_pos.y(), mouse_pos.y());
         qreal ymax = std::max(click_pos.y(), mouse_pos.y());
 
-        m_currentItem->setRegisteredProperty(EllipseItem::P_POSX,
+        m_currentItem->setRegisteredProperty(EllipseItem::P_XCENTER,
                                              m_adaptor->fromSceneX(xmin + (xmax-xmin)/2.));
-        m_currentItem->setRegisteredProperty(EllipseItem::P_POSY,
+        m_currentItem->setRegisteredProperty(EllipseItem::P_YCENTER,
                                              m_adaptor->fromSceneY(ymin + (ymax-ymin)/2.));
         m_currentItem->setRegisteredProperty(
-            EllipseItem::P_WIDTH, m_adaptor->fromSceneX(xmax) - m_adaptor->fromSceneX(xmin));
+            EllipseItem::P_XRADIUS, (m_adaptor->fromSceneX(xmax) - m_adaptor->fromSceneX(xmin))/2.);
         m_currentItem->setRegisteredProperty(
-            EllipseItem::P_HEIGHT, m_adaptor->fromSceneY(ymin) - m_adaptor->fromSceneY(ymax));
+            EllipseItem::P_YRADIUS, (m_adaptor->fromSceneY(ymin) - m_adaptor->fromSceneY(ymax))/2.);
     }
 
 }

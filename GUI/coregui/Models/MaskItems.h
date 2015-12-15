@@ -97,10 +97,10 @@ class BA_CORE_API_ EllipseItem : public MaskItem
 {
     Q_OBJECT
 public:
-    static const QString P_POSX;
-    static const QString P_POSY;
-    static const QString P_WIDTH;
-    static const QString P_HEIGHT;
+    static const QString P_XCENTER;
+    static const QString P_YCENTER;
+    static const QString P_XRADIUS;
+    static const QString P_YRADIUS;
     static const QString P_ANGLE;
     explicit EllipseItem(ParameterizedItem *parent=0);
     virtual Geometry::IShape2D *createShape() const;

@@ -37,6 +37,7 @@
 #include "PyGenTools.h"
 #include "ParameterDistribution.h"
 #include "Rotations.h"
+#include "DetectorMask.h"
 #include "ConvolutionDetectorResolution.h"
 #include "ResolutionFunction2DGaussian.h"
 
@@ -312,6 +313,7 @@ std::string PyGenVisitor::defineGetSimulation(const GISASSimulation *simulation)
     result << defineDetectorResolutionFunction(simulation);
     result << defineBeam(simulation);
     result << defineParameterDistributions(simulation);
+    result << defineMasks(simulation);
     result << indent() << "return simulation\n\n\n";
     return result.str();
 }
@@ -1325,6 +1327,27 @@ std::string PyGenVisitor::defineParameterDistributions(const GISASSimulation *si
                << "distribution_" << i+1 << ", " << nbr_samples << ", "
                << PyGenTools::printDouble(sigma_factor) << ")\n";
     }
+    return result.str();
+}
+
+std::string PyGenVisitor::defineMasks(const GISASSimulation *simulation) const
+{
+    std::ostringstream result;
+    result << std::setprecision(12);
+
+    const IDetector2D *detector = simulation->getInstrument().getDetector();
+    const DetectorMask *detectorMask = detector->getDetectorMask();
+    if(detectorMask && detectorMask->getNumberOfMasks()) {
+        result << "\n";
+        for(size_t i_mask=0; i_mask<detectorMask->getNumberOfMasks(); ++i_mask) {
+            bool mask_value(false);
+//            result << indent() << "simulation.addMask(";
+            const Geometry::IShape2D *shape = detectorMask->getMaskShape(i_mask, mask_value);
+//            result << indent() << PyGenTools::getRepresentation(shape);
+            result << PyGenTools::getRepresentation(indent(), shape, mask_value);
+        }
+    }
+
     return result.str();
 }
 

@@ -33,6 +33,11 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "PyGenTools.h"
 #include "GISASSimulation.h"
 #include "Distributions.h"
+#include "Rectangle.h"
+#include "Ellipse.h"
+#include "Line.h"
+#include "Polygon.h"
+#include "InfinitePlane.h"
 #include "BAPython.h"
 
 std::string PyGenTools::genPyScript(GISASSimulation *simulation)
@@ -50,6 +55,17 @@ std::string PyGenTools::genPyScript(GISASSimulation *simulation)
     std::ostringstream result;
     result << visitor.writePyScript(simulation);
     return result.str();
+}
+
+std::string PyGenTools::printBool(double value)
+{
+    std::ostringstream inter;
+    if(value) {
+        inter << "true";
+    } else {
+        inter << "false";
+    }
+    return inter.str();
 }
 
 std::string PyGenTools::printDouble(double input)
@@ -175,5 +191,67 @@ std::string PyGenTools::getRepresentation(const IDistribution1D *distribution)
             "-> Error. Unknown distribution type");
      }
      return result.str();
+}
+
+
+
+std::string PyGenTools::getRepresentation(const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value)
+{     std::ostringstream result;
+      result << std::setprecision(12);
+
+    if(const Geometry::Ellipse *shape = dynamic_cast<const Geometry::Ellipse *>(ishape)) {
+        result << indent << "simulation.addMask(";
+        result << "Ellipse("
+               << PyGenTools::printDegrees(shape->getCenterX()) << ", "
+               << PyGenTools::printDegrees(shape->getCenterY()) << ", "
+               << PyGenTools::printDegrees(shape->getRadiusX()) << ", "
+               << PyGenTools::printDegrees(shape->getRadiusY());
+        if(shape->getTheta() != 0.0) result << ", " << PyGenTools::printDegrees(shape->getTheta());
+        result << "), " << PyGenTools::printBool(mask_value) << ")\n";
+    }
+
+    else if(const Geometry::Rectangle *shape = dynamic_cast<const Geometry::Rectangle *>(ishape)) {
+        result << indent << "simulation.addMask(";
+        result << "Rectangle("
+               << PyGenTools::printDegrees(shape->getXlow()) << ", "
+               << PyGenTools::printDegrees(shape->getYlow()) << ", "
+               << PyGenTools::printDegrees(shape->getXup()) << ", "
+               << PyGenTools::printDegrees(shape->getYup()) << "), "
+               << PyGenTools::printBool(mask_value) << ")\n";
+    }
+
+    else if(const Geometry::Polygon *shape = dynamic_cast<const Geometry::Polygon *>(ishape)) {
+        std::vector<double> xpos, ypos;
+        shape->getPoints(xpos, ypos);
+        result << indent << "points = [";
+        for(size_t i=0; i<xpos.size(); ++i) {
+            result << "[" << PyGenTools::printDegrees(xpos[i]) << ", " << PyGenTools::printDegrees(ypos[i]) << "]";
+            if(i!= xpos.size()-1) result << ", ";
+        }
+        result << "]\n";
+
+        result << indent << "simulation.addMask(";
+        result << "Polygon(points), " << PyGenTools::printBool(mask_value) << ")\n";
+    }
+
+    else if(const Geometry::VerticalLine *shape = dynamic_cast<const Geometry::VerticalLine *>(ishape)) {
+        result << indent << "simulation.addMask(";
+        result << "VerticalLine("
+               << PyGenTools::printDegrees(shape->getXpos()) << "), "
+               << PyGenTools::printBool(mask_value) << ")\n";
+    }
+
+    else if(const Geometry::HorizontalLine *shape = dynamic_cast<const Geometry::HorizontalLine *>(ishape)) {
+        result << indent << "simulation.addMask(";
+        result << "HorizontalLine("
+               << PyGenTools::printDegrees(shape->getYpos()) << "), "
+               << PyGenTools::printBool(mask_value) << ")\n";
+    }
+
+    else if(const Geometry::InfinitePlane *shape = dynamic_cast<const Geometry::InfinitePlane *>(ishape)) {
+        (void)shape;
+        result << indent << "simulation.maskAll()\n";
+    }
+    return result.str();
 }
 

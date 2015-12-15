@@ -134,9 +134,9 @@ void MaskEditor::init_test_model()
    line->setRegisteredProperty(VerticalLineItem::P_POSX, 0.6);
    container->insertChildItem(-1, line);
 
-   HorizontalLineItem *hline = new HorizontalLineItem();
-   hline->setRegisteredProperty(HorizontalLineItem::P_POSY, 0.5);
-   container->insertChildItem(-1, hline);
+//   HorizontalLineItem *hline = new HorizontalLineItem();
+//   hline->setRegisteredProperty(HorizontalLineItem::P_POSY, 0.5);
+//   container->insertChildItem(-1, hline);
 
 
 //   ParameterizedItem *line = m_maskModel->insertNewItem(Constants::HorizontalLineMaskType, m_maskModel->indexOfItem(item));

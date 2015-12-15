@@ -61,9 +61,9 @@ std::string PyGenTools::printBool(double value)
 {
     std::ostringstream inter;
     if(value) {
-        inter << "true";
+        inter << "True";
     } else {
-        inter << "false";
+        inter << "False";
     }
     return inter.str();
 }

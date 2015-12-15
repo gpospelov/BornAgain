@@ -267,6 +267,14 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         1e-10);
 
+    add("SimulationWithMasks",
+        "Various masks are added to the simulation",
+        "GISASWithMasks",
+        "CylindersAndPrismsBuilder",
+        "None",
+        1e-10);
+
+
 }
 
 void FunctionalTestRegistry::add(const std::string &test_name,

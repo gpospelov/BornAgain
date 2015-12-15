@@ -35,7 +35,7 @@ SimulationRegistry::SimulationRegistry()
                  "GISAS simulation with small detector and detector resolution");
 
 
-    registerItem("MiniGISASWithMasks", StandardSimulations::MiniGISASWithMasks,
+    registerItem("GISASWithMasks", StandardSimulations::GISASWithMasks,
                  "GISAS simulation with small detector and various masks");
 
     registerItem("MaxiGISAS", StandardSimulations::MaxiGISAS,

@@ -1341,11 +1341,10 @@ std::string PyGenVisitor::defineMasks(const GISASSimulation *simulation) const
         result << "\n";
         for(size_t i_mask=0; i_mask<detectorMask->getNumberOfMasks(); ++i_mask) {
             bool mask_value(false);
-//            result << indent() << "simulation.addMask(";
             const Geometry::IShape2D *shape = detectorMask->getMaskShape(i_mask, mask_value);
-//            result << indent() << PyGenTools::getRepresentation(shape);
             result << PyGenTools::getRepresentation(indent(), shape, mask_value);
         }
+        result << "\n";
     }
 
     return result.str();

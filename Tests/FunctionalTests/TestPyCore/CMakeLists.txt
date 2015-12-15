@@ -97,6 +97,7 @@ set(list_of_tests
     "PySuite/BoxCompositionRotateZ"
     "PySuite/BoxCompositionRotateZandY"
     "PySuite/BoxStackComposition"
+    "PySuite/SimulationWithMasks"
 )
 
 # Adding executables.

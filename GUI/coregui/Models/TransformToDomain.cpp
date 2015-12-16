@@ -120,18 +120,8 @@ TransformToDomain::createParticleLayout(const ParameterizedItem &item)
 
 std::unique_ptr<Particle> TransformToDomain::createParticle(const ParameterizedItem &item)
 {
-    auto P_material = createDomainMaterial(item);
-    auto P_particle = GUIHelpers::make_unique<Particle>(*P_material);
-
-    double abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
-    P_particle->setAbundance(abundance);
-
-    auto ffItem = item.getSubItems()[ParticleItem::P_FORM_FACTOR];
-    Q_ASSERT(ffItem);
-    auto P_ff = createFormFactor(*ffItem);
-    P_particle->setFormFactor(*P_ff);
-
-    return P_particle;
+    const ParticleItem& particle_item = static_cast<const ParticleItem&>(item);
+    return particle_item.createParticle();
 }
 
 std::unique_ptr<ParticleCoreShell>

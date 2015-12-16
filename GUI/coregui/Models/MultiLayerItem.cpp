@@ -26,7 +26,6 @@ MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
     registerProperty(P_CROSS_CORR_LENGTH, 0.0);
 
     addToValidChildren(Constants::LayerType);
-    //addToValidChildren(Constants::MultiLayerType);
 
     setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VISIBLE);
 

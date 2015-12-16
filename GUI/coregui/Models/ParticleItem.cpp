@@ -17,6 +17,8 @@
 #include "FormFactorItems.h"
 #include "MaterialUtils.h"
 #include "VectorItem.h"
+#include "TransformToDomain.h"
+#include "GUIHelpers.h"
 
 #include <QDebug>
 
@@ -73,4 +75,20 @@ void ParticleItem::onPropertyChange(const QString &name)
             }
         }
     }
+}
+
+std::unique_ptr<Particle> ParticleItem::createParticle() const
+{
+    auto P_material = TransformToDomain::createDomainMaterial(*this);
+    auto P_particle = GUIHelpers::make_unique<Particle>(*P_material);
+
+    double abundance = getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+    P_particle->setAbundance(abundance);
+
+    auto ffItem = getSubItems()[ParticleItem::P_FORM_FACTOR];
+    Q_ASSERT(ffItem);
+    auto P_ff = TransformToDomain::createFormFactor(*ffItem);
+    P_particle->setFormFactor(*P_ff);
+
+    return P_particle;
 }

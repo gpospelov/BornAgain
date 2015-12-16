@@ -30,7 +30,9 @@
 #include "ParticleCoreShellItem.h"
 #include "ParticleCoreShell.h"
 #include "LayerRoughnessItems.h"
+#include "TransformationItem.h"
 #include "VectorItem.h"
+#include "RotationItems.h"
 #include "MaterialUtils.h"
 #include "MaterialProperty.h"
 #include "AngleProperty.h"
@@ -116,31 +118,6 @@ TransformToDomain::createParticleLayout(const ParameterizedItem &item)
         = item.getRegisteredProperty(ParticleLayoutItem::P_TOTAL_DENSITY).value<double>();
     P_layout->setTotalParticleSurfaceDensity(total_density);
     return P_layout;
-}
-
-std::unique_ptr<Particle> TransformToDomain::createParticle(const ParameterizedItem &item)
-{
-    const ParticleItem& particle_item = static_cast<const ParticleItem&>(item);
-    return particle_item.createParticle();
-}
-
-std::unique_ptr<ParticleCoreShell>
-TransformToDomain::createParticleCoreShell(const ParameterizedItem &item, const Particle &core,
-                                           const Particle &shell)
-{
-    double abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
-    auto P_coreshell = GUIHelpers::make_unique<ParticleCoreShell>(shell, core);
-    P_coreshell->setAbundance(abundance);
-    return P_coreshell;
-}
-
-std::unique_ptr<ParticleComposition>
-TransformToDomain::createParticleComposition(const ParameterizedItem &item)
-{
-    double abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
-    auto P_composition = GUIHelpers::make_unique<ParticleComposition>();
-    P_composition->setAbundance(abundance);
-    return P_composition;
 }
 
 std::unique_ptr<IFormFactor> TransformToDomain::createFormFactor(const ParameterizedItem &item)
@@ -376,6 +353,42 @@ void TransformToDomain::addDistributionParametersToSimulation(const Parameterize
                         pattern_phi.toStdString());
             if (P_par_distr)
                 simulation->addParameterDistribution(*P_par_distr);
+        }
+    }
+}
+
+void TransformToDomain::setTransformationInfo(IParticle *result, const ParameterizedItem &item)
+{
+    setPositionInfo(result, item);
+    setRotationInfo(result, item);
+}
+
+void TransformToDomain::setPositionInfo(IParticle *result, const ParameterizedItem &item)
+{
+    ParameterizedItem *pos_item = item.getSubItems()[ParticleItem::P_POSITION];
+    double pos_x = pos_item->getRegisteredProperty(VectorItem::P_X).toDouble();
+    double pos_y = pos_item->getRegisteredProperty(VectorItem::P_Y).toDouble();
+    double pos_z = pos_item->getRegisteredProperty(VectorItem::P_Z).toDouble();
+    result->setPosition(pos_x, pos_y, pos_z);
+}
+
+void TransformToDomain::setRotationInfo(IParticle *result, const ParameterizedItem &item)
+{
+    QList<ParameterizedItem *> children = item.childItems();
+    for (int i = 0; i < children.size(); ++i) {
+        if (children[i]->modelType() == Constants::TransformationType) {
+            RotationItem *rot_item = dynamic_cast<RotationItem *>(
+                children[i]->getSubItems()[TransformationItem::P_ROT]);
+            if (!rot_item) {
+                throw GUIHelpers::Error("DomainObjectBuilder::setRotationInfo() "
+                                        "-> Error! ParticleItem's child is"
+                                        " not a rotation.");
+            }
+            std::unique_ptr<IRotation> P_rotation(rot_item->createRotation());
+            if (P_rotation.get()) {
+                result->setRotation(*P_rotation);
+            }
+            break;
         }
     }
 }

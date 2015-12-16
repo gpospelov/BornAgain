@@ -16,6 +16,7 @@
 #include "ParticleCoreShellItem.h"
 #include "ParticleItem.h"
 #include "VectorItem.h"
+#include "TransformToDomain.h"
 #include "GUIHelpers.h"
 #include <QDebug>
 
@@ -56,6 +57,36 @@ void ParticleCoreShellItem::onPropertyChange(const QString &name)
             setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
         }
     }
+}
+
+std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShell() const
+{
+    double abundance = getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+    auto children = childItems();
+    std::unique_ptr<Particle> P_core {};
+    std::unique_ptr<Particle> P_shell {};
+    for (int i = 0; i < children.size(); ++i) {
+        int port = children[i]->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+        if (port == ParameterizedItem::PortInfo::PORT_0) {
+            auto core_item = static_cast<ParticleItem*>(children[i]);
+            P_core = core_item->createParticle();
+        } else if (port == ParameterizedItem::PortInfo::PORT_1) {
+            auto shell_item = static_cast<ParticleItem*>(children[i]);
+            P_shell = shell_item->createParticle();
+        } else if (port == ParameterizedItem::PortInfo::PORT_2) {
+            continue;
+        } else {
+            throw GUIHelpers::Error(
+                "ParticleCoreShellItem::createParticleCoreShell -> Error. Logic error.");
+        }
+    }
+    if (!P_core || !P_shell)
+        throw GUIHelpers::Error("ParticleCoreShellItem::createParticleCoreShell -> Error. Either "
+                                "core or shell particle is undefined.");
+    auto P_coreshell = GUIHelpers::make_unique<ParticleCoreShell>(*P_shell, *P_core);
+    P_coreshell->setAbundance(abundance);
+    TransformToDomain::setTransformationInfo(P_coreshell.get(), *this);
+    return P_coreshell;
 }
 
 ParameterizedItem::PortInfo::EPorts ParticleCoreShellItem::getFirstAvailableParticlePort() const

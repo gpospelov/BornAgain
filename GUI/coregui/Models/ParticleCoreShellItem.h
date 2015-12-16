@@ -16,8 +16,11 @@
 #ifndef PARTICLECORESHELLITEM_H
 #define PARTICLECORESHELLITEM_H
 
+#include "ParticleCoreShell.h"
 #include "ParameterizedGraphicsItem.h"
+
 #include <QVector>
+#include <memory>
 
 class BA_CORE_API_ ParticleCoreShellItem : public ParameterizedGraphicsItem
 {
@@ -28,6 +31,7 @@ public:
     ~ParticleCoreShellItem(){}
     void insertChildItem(int row, ParameterizedItem *item);
     virtual void onPropertyChange(const QString &name);
+    std::unique_ptr<ParticleCoreShell> createParticleCoreShell() const;
 private:
     PortInfo::EPorts getFirstAvailableParticlePort() const;
 };

@@ -57,9 +57,6 @@ public:
 private:
     std::string getDomainParameterName(QString GUI_name, const ParameterizedItem &item,
                                        const IParticle *particle) const;
-    void setTransformationInfo(IParticle *result, const ParameterizedItem &item) const;
-    void setPositionInfo(IParticle *result, const ParameterizedItem &item) const;
-    void setRotationInfo(IParticle *result, const ParameterizedItem &item) const;
 };
 
 #endif // DOMAINOBJECTBUILDER_H

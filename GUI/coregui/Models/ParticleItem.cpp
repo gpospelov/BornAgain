@@ -90,5 +90,7 @@ std::unique_ptr<Particle> ParticleItem::createParticle() const
     auto P_ff = TransformToDomain::createFormFactor(*ffItem);
     P_particle->setFormFactor(*P_ff);
 
+    TransformToDomain::setTransformationInfo(P_particle.get(), *this);
+
     return P_particle;
 }

@@ -33,6 +33,7 @@
 #include "MultiLayerItem.h"
 #include "DistributionItem.h"
 #include "ParticleItem.h"
+#include "ParticleCompositionItem.h"
 
 #include <QDebug>
 #include <memory>
@@ -153,73 +154,24 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
 
 std::unique_ptr<Particle> DomainObjectBuilder::buildParticle(const ParameterizedItem &item) const
 {
-    auto P_result = TransformToDomain::createParticle(item);
-    setTransformationInfo(P_result.get(), item);
+    auto& particle_item = static_cast<const ParticleItem&>(item);
+    auto P_result = particle_item.createParticle();
     return P_result;
 }
 
 std::unique_ptr<ParticleCoreShell> DomainObjectBuilder::buildParticleCoreShell(
         const ParameterizedItem &item) const
 {
-    auto children = item.childItems();
-    std::unique_ptr<Particle> P_core {};
-    std::unique_ptr<Particle> P_shell {};
-    for (int i = 0; i < children.size(); ++i) {
-        int port = children[i]->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
-        if (port == ParameterizedItem::PortInfo::PORT_0) {
-            P_core = buildParticle(*children[i]);
-        } else if (port == ParameterizedItem::PortInfo::PORT_1) {
-            P_shell = buildParticle(*children[i]);
-        } else if (port == ParameterizedItem::PortInfo::PORT_2) {
-            continue;
-        } else {
-            throw GUIHelpers::Error(
-                "DomainObjectBuilder::buildParticleCoreShell() -> Error. Logic error.");
-        }
-    }
-    if (!P_core || !P_shell)
-        throw GUIHelpers::Error("DomainObjectBuilder::buildParticleCoreShell() -> Error. Either "
-                                "core or shell particle is undefined.");
-
-    auto P_coreshell = TransformToDomain::createParticleCoreShell(item, *P_core, *P_shell);
-    setTransformationInfo(P_coreshell.get(), item);
+    auto& particle_coreshell_item = static_cast<const ParticleCoreShellItem&>(item);
+    auto P_coreshell = particle_coreshell_item.createParticleCoreShell();
     return P_coreshell;
 }
 
 std::unique_ptr<ParticleComposition> DomainObjectBuilder::buildParticleComposition(
         const ParameterizedItem &item) const
 {
-    auto P_composition = TransformToDomain::createParticleComposition(item);
-    QList<ParameterizedItem *> children = item.childItems();
-    for (int i = 0; i < children.size(); ++i) {
-        if (children[i]->modelType() == Constants::ParticleType) {
-            ParameterizedItem *particle_item = children[i];
-            std::unique_ptr<Particle> P_particle { buildParticle(*particle_item) };
-            if (P_particle) {
-                P_composition->addParticle(*P_particle);
-            }
-        } else if (children[i]->modelType() == Constants::ParticleCoreShellType) {
-            ParameterizedItem *particle_item = children[i];
-            std::unique_ptr<ParticleCoreShell> P_coreshell {
-                buildParticleCoreShell(*particle_item) };
-            if (P_coreshell) {
-                P_composition->addParticle(*P_coreshell);
-            }
-        } else if (children[i]->modelType() == Constants::ParticleCompositionType) {
-            ParameterizedItem *particle_item = children[i];
-            std::unique_ptr<ParticleComposition> P_composition {
-                buildParticleComposition(*particle_item) };
-            if (P_composition) {
-                P_composition->addParticle(*P_composition);
-            }
-        } else if (children[i]->modelType() == Constants::TransformationType) {
-            continue;
-        } else {
-            throw GUIHelpers::Error("DomainObjectBuilder::buildParticleComposition()"
-                                    " -> Error! Not implemented");
-        }
-    }
-    setTransformationInfo(P_composition.get(), item);
+    auto& particle_composition_item = static_cast<const ParticleCompositionItem&>(item);
+    auto P_composition = particle_composition_item.createParticleComposition();
     return P_composition;
 }
 
@@ -319,42 +271,3 @@ std::string DomainObjectBuilder::getDomainParameterName(QString GUI_name,
     Q_UNUSED(particle);
     return GUI_name.toStdString();
 }
-
-void DomainObjectBuilder::setTransformationInfo(IParticle *result,
-                                                const ParameterizedItem &item) const
-{
-    setPositionInfo(result, item);
-    setRotationInfo(result, item);
-}
-
-void DomainObjectBuilder::setPositionInfo(IParticle *result,
-                                          const ParameterizedItem &item) const
-{
-    ParameterizedItem *pos_item = item.getSubItems()[ParticleItem::P_POSITION];
-    double pos_x = pos_item->getRegisteredProperty(VectorItem::P_X).toDouble();
-    double pos_y = pos_item->getRegisteredProperty(VectorItem::P_Y).toDouble();
-    double pos_z = pos_item->getRegisteredProperty(VectorItem::P_Z).toDouble();
-    result->setPosition(pos_x, pos_y, pos_z);
-}
-
-void DomainObjectBuilder::setRotationInfo(IParticle *result, const ParameterizedItem &item) const
-{
-    QList<ParameterizedItem *> children = item.childItems();
-    for (int i = 0; i < children.size(); ++i) {
-        if (children[i]->modelType() == Constants::TransformationType) {
-            RotationItem *rot_item = dynamic_cast<RotationItem *>(
-                children[i]->getSubItems()[TransformationItem::P_ROT]);
-            if (!rot_item) {
-                throw GUIHelpers::Error("DomainObjectBuilder::setRotationInfo() "
-                                        "-> Error! ParticleItem's child is"
-                                        " not a rotation.");
-            }
-            std::unique_ptr<IRotation> P_rotation(rot_item->createRotation());
-            if (P_rotation.get()) {
-                result->setRotation(*P_rotation);
-            }
-            break;
-        }
-    }
-}
-

@@ -120,13 +120,6 @@ TransformToDomain::createParticleLayout(const ParameterizedItem &item)
     return P_layout;
 }
 
-std::unique_ptr<IFormFactor> TransformToDomain::createFormFactor(const ParameterizedItem &item)
-{
-    auto ffItem = dynamic_cast<const FormFactorItem *>(&item);
-    Q_ASSERT(ffItem);
-    return ffItem->createFormFactor();
-}
-
 std::unique_ptr<IDistribution1D>
 TransformToDomain::createDistribution(const ParameterizedItem &item)
 {

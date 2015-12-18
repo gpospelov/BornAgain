@@ -100,3 +100,12 @@ bool MaskDrawingContext::getMaskValue() const
 {
     return bool(m_mask_value);
 }
+
+//! return true, if proposed activity requires the cancel of drawing
+//! i.e. there is an ungoing polygon drawing, but user wants to start other drawing
+bool MaskDrawingContext::isActivityRequiresDrawingCancel(MaskEditorFlags::Activity proposed_new_activity)
+{
+    if(isDrawingInProgress() && isPolygonMode()
+            && proposed_new_activity > MaskEditorFlags::PAN_ZOOM_MODE) return true;
+    return false;
+}

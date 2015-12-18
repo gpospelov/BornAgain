@@ -45,6 +45,8 @@ public:
 
     bool getMaskValue() const;
 
+    bool isActivityRequiresDrawingCancel(MaskEditorFlags::Activity proposed_new_activity);
+
 private:
 
     MaskEditorFlags::Activity m_current_activity;

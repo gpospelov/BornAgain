@@ -141,6 +141,11 @@ void MaskGraphicsScene::onActivityModeChanged(MaskEditorFlags::Activity value)
 {
     if(!m_proxy) return;
 
+    qDebug() << "XXX MaskGraphicsScene::onActivityModeChanged";
+    if(m_context.isActivityRequiresDrawingCancel(value)) {
+        cancelCurrentDrawing();
+    }
+
     m_context.setActivityType(value);
     if(m_context.isInZoomMode()) {
         m_proxy->setInZoomMode(true);

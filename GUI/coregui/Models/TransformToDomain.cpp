@@ -99,7 +99,7 @@ TransformToDomain::createLayerRoughness(const ParameterizedItem &roughnessItem)
             roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH)
                 .toDouble());
     } else {
-        throw GUIHelpers::Error("TransformToDomain::createLayerROughness() -> Error.");
+        throw GUIHelpers::Error("TransformToDomain::createLayerRoughness() -> Error.");
     }
 }
 

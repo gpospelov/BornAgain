@@ -141,6 +141,11 @@ void MaskGraphicsScene::onActivityModeChanged(MaskEditorFlags::Activity value)
 {
     if(!m_proxy) return;
 
+    qDebug() << "XXX MaskGraphicsScene::onActivityModeChanged";
+    if(m_context.isActivityRequiresDrawingCancel(value)) {
+        cancelCurrentDrawing();
+    }
+
     m_context.setActivityType(value);
     if(m_context.isInZoomMode()) {
         m_proxy->setInZoomMode(true);
@@ -406,7 +411,6 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex, IMaskView *p
     for (int i_row = 0; i_row < m_maskModel->rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = m_maskModel->index(i_row, 0, parentIndex);
         if (ParameterizedItem *item = m_maskModel->itemForIndex(itemIndex)) {
-            qDebug() << "XXX 1.2" << item->modelType();
             childView = addViewForItem(item);
             if (childView) {
                 if (parentView) {
@@ -423,12 +427,9 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex, IMaskView *p
 
 IMaskView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
 {
-    qDebug() << "MaskGraphicsScene::addViewForItem() ->" << item->modelType();
     Q_ASSERT(item);
     IMaskView *view = m_ItemToView[item];
     if (!view) {
-        qDebug() << "       MaskGraphicsScene::addViewForItem() -> Creating view for item"
-                 << item->modelType();
         view = MaskViewFactory::createMaskView(item, m_adaptor.data());
         if (view) {
             m_ItemToView[item] = view;
@@ -455,7 +456,6 @@ void MaskGraphicsScene::deleteViews(const QModelIndex &parentIndex)
 //! removes single view from scene
 void MaskGraphicsScene::removeItemViewFromScene(ParameterizedItem *item)
 {
-    qDebug() << "MaskGraphicsScene::removeItemViewFromScene" << item->modelType();
     for (QMap<ParameterizedItem *, IMaskView *>::iterator it = m_ItemToView.begin();
          it != m_ItemToView.end(); ++it) {
         if (it.key() == item) {
@@ -577,7 +577,7 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
     if(!m_currentItem && line.length() > min_distance_to_create_rect) {
         m_currentItem = m_maskModel->insertNewItem(Constants::RectangleMaskType,
                                                    m_maskContainerIndex, 0);
-        m_currentItem->setRegisteredProperty(RectangleItem::P_MASK_VALUE,
+        m_currentItem->setRegisteredProperty(MaskItem::P_MASK_VALUE,
                                              m_context.getMaskValue());
         setItemName(m_currentItem);
     }
@@ -614,7 +614,7 @@ void MaskGraphicsScene::processEllipseItem(QGraphicsSceneMouseEvent *event)
     if(!m_currentItem && line.length() > min_distance_to_create_rect) {
         m_currentItem = m_maskModel->insertNewItem(Constants::EllipseMaskType,
                                                    m_maskContainerIndex, 0);
-        m_currentItem->setRegisteredProperty(EllipseItem::P_MASK_VALUE,
+        m_currentItem->setRegisteredProperty(MaskItem::P_MASK_VALUE,
                                              m_context.getMaskValue());
         setItemName(m_currentItem);
     }
@@ -645,7 +645,7 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
         setDrawingInProgress(true);
         m_currentItem = m_maskModel->insertNewItem(Constants::PolygonMaskType,
                                                    m_maskContainerIndex, 0);
-        m_currentItem->setRegisteredProperty(RectangleItem::P_MASK_VALUE, m_context.getMaskValue());
+        m_currentItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, m_context.getMaskValue());
         m_selectionModel->clearSelection();
         m_selectionModel->select(m_maskModel->indexOfItem(m_currentItem), QItemSelectionModel::Select);
         setItemName(m_currentItem);
@@ -682,6 +682,8 @@ void MaskGraphicsScene::processLineItem(QGraphicsSceneMouseEvent *event)
     m_selectionModel->clearSelection();
     m_selectionModel->select(m_maskModel->indexOfItem(m_currentItem), QItemSelectionModel::Select);
     setItemName(m_currentItem);
+    m_currentItem->setRegisteredProperty(MaskItem::P_MASK_VALUE,
+                                         m_context.getMaskValue());
 
     setDrawingInProgress(false);
 }

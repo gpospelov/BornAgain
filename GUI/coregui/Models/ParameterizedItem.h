@@ -166,8 +166,8 @@ protected:
     QMap<QString, PropertyAttribute> m_property_attribute;
 
 private:
-    QStringList getParameterList() const;
-    int getCopyNumberOfChild(const QString &display_name) const;
+    QStringList getParameterList(QString prefix = "") const;
+    int getCopyNumberOfChild(const ParameterizedItem *p_item) const;
     QList<QString> m_valid_children;
     QMap<int, PortInfo> m_port_info;
 

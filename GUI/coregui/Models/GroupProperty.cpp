@@ -40,8 +40,9 @@ void GroupProperty::setParent(ParameterizedItem *parent)
 ParameterizedItem *GroupProperty::createCorrespondingItem()
 {
     ParameterizedItem *result = ItemFactory::createItem(getCurrentType());
-    if(type() == FIXED)
+    if(type() == FIXED) {
         setCurrentLabel(result->getItemLabel());
+    }
     return result;
 }
 

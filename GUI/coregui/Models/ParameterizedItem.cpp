@@ -402,7 +402,7 @@ void ParameterizedItem::addToValidChildren(const QString &name, PortInfo::EPorts
     }
 }
 
-QStringList ParameterizedItem::getParameterTreeList() const
+QStringList ParameterizedItem::getParameterTreeList(QString prefix) const
 {
     QStringList result;
     // add child parameters:
@@ -413,7 +413,7 @@ QStringList ParameterizedItem::getParameterTreeList() const
             QStringList child_list = (*it)->getParameterTreeList();
             for (QStringList::const_iterator par_it = child_list.begin();
                  par_it != child_list.end(); ++par_it) {
-                QString new_par_name = child_name + QString("/") + *par_it;
+                QString new_par_name = prefix + child_name + QString("/") + *par_it;
                 result << new_par_name;
             }
         }
@@ -433,13 +433,22 @@ QStringList ParameterizedItem::getParameterTreeList() const
             QStringList subitem_list = subitem->getParameterTreeList();
             for (QStringList::const_iterator par_it = subitem_list.begin();
                  par_it != subitem_list.end(); ++par_it) {
-                QString new_par_name = subitem_name + QString("/") + *par_it;
+                QString new_par_name = prefix + subitem_name + QString("/") + *par_it;
                 result << new_par_name;
             }
         }
     }
     // add own parameters:
-    result << getParameterList();
+    QStringList own_par_names = getParameterList();
+    for (auto par_name : own_par_names) {
+        result << prefix + par_name;
+    }
+    return result;
+}
+
+std::string ParameterizedItem::translateParameterName(const QString &par_name) const
+{
+    std::string result;
     return result;
 }
 
@@ -478,6 +487,21 @@ void ParameterizedItem::processSubItemPropertyChanged(const QString &propertyNam
                             " Error. No such propertyItem found");
 }
 
+QString ParameterizedItem::getFirstField(const QString &par_name) const
+{
+    QStringList par_list = par_name.split("/");
+    if (par_list.size()==0) return QString();
+    return par_list.front();
+}
+
+QString ParameterizedItem::stripFirstField(const QString &par_name) const
+{
+    QStringList par_list = par_name.split("/");
+    if (par_list.size()<2) return QString();
+    par_list.removeFirst();
+    return par_list.join("/");
+}
+
 QStringList ParameterizedItem::getParameterList() const
 {
     QStringList result;
@@ -494,5 +518,11 @@ QStringList ParameterizedItem::getParameterList() const
             result << prop_name;
         }
     }
+    return result;
+}
+
+int ParameterizedItem::getCopyNumberOfChild(const QString &display_name) const
+{
+    int result = -1;
     return result;
 }

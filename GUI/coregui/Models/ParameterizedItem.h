@@ -133,7 +133,9 @@ public:
 
     void setItemPort(PortInfo::EPorts nport);
 
-    QStringList getParameterTreeList() const;
+    QStringList getParameterTreeList(QString prefix = "") const;
+
+    virtual std::string translateParameterName(const QString &par_name) const;
 
 signals:
     void propertyChanged(const QString &propertyName);
@@ -155,12 +157,17 @@ protected:
     void addToValidChildren(const QString &name, PortInfo::EPorts nport = PortInfo::PORT_0,
                             int nmax_children = 0);
 
+    QString getFirstField(const QString &par_name) const;
+
+    QString stripFirstField(const QString &par_name) const;
+
     QStringList m_registered_properties;
 
     QMap<QString, PropertyAttribute> m_property_attribute;
 
 private:
     QStringList getParameterList() const;
+    int getCopyNumberOfChild(const QString &display_name) const;
     QList<QString> m_valid_children;
     QMap<int, PortInfo> m_port_info;
 

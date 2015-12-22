@@ -75,11 +75,6 @@ QString ParameterizedItem::displayName() const
     return m_display_name;
 }
 
-void ParameterizedItem::setDisplayName(QString display_name)
-{
-    m_display_name = std::move(display_name);
-}
-
 QString ParameterizedItem::getItemLabel() const
 {
     return QString("");
@@ -400,24 +395,6 @@ void ParameterizedItem::setItemPort(ParameterizedItem::PortInfo::EPorts nport)
     setRegisteredProperty(P_PORT, nport);
 }
 
-void ParameterizedItem::addToValidChildren(const QString &name, PortInfo::EPorts nport,
-                                           int nmax_items)
-{
-    m_valid_children.append(name);
-
-    if (m_port_info.contains(nport)) {
-        m_port_info[nport].m_item_names << name;
-        m_port_info[nport].m_item_max_number = nmax_items;
-    } else {
-        m_port_info[nport] = PortInfo(name, nmax_items);
-    }
-}
-
-void ParameterizedItem::swapChildren(int first, int second)
-{
-    m_children.swap(first, second);
-}
-
 QStringList ParameterizedItem::getParameterTreeList(QString prefix) const
 {
     QStringList result;
@@ -452,12 +429,18 @@ QStringList ParameterizedItem::getParameterTreeList(QString prefix) const
 std::string ParameterizedItem::translateParameterName(const QString &par_name) const
 {
     std::ostringstream result;
-    auto first_field = getFirstField(par_name);
+    auto list = splitParameterName(par_name);
+    if (list.isEmpty()) {
+        return std::string();
+    }
+    auto first_field = list[0];
     result << "/" << translateSingleName(first_field);
-    auto remainder = stripFirstField(par_name);
-    if (remainder != "") {
+    if (list.size() > 1) {
+        auto remainder = list[1];
         auto p_child = getChildByDisplayName(first_field);
-        result << p_child->translateParameterName(remainder);
+        if (p_child) {
+            result << p_child->translateParameterName(remainder);
+        }
     }
     return result.str();
 }
@@ -495,6 +478,40 @@ void ParameterizedItem::processSubItemPropertyChanged(const QString &propertyNam
     }
     throw GUIHelpers::Error("ParameterizedItem::onSubItemPropertyChanged() ->"
                             " Error. No such propertyItem found");
+}
+
+void ParameterizedItem::setDisplayName(QString display_name)
+{
+    m_display_name = std::move(display_name);
+}
+
+void ParameterizedItem::addToValidChildren(const QString &name, PortInfo::EPorts nport,
+                                           int nmax_items)
+{
+    m_valid_children.append(name);
+
+    if (m_port_info.contains(nport)) {
+        m_port_info[nport].m_item_names << name;
+        m_port_info[nport].m_item_max_number = nmax_items;
+    } else {
+        m_port_info[nport] = PortInfo(name, nmax_items);
+    }
+}
+
+void ParameterizedItem::swapChildren(int first, int second)
+{
+    m_children.swap(first, second);
+}
+
+QStringList ParameterizedItem::splitParameterName(const QString &par_name) const
+{
+    QStringList result;
+    result << getFirstField(par_name);
+    QString remainder = stripFirstField(par_name);
+    if (!remainder.isEmpty()) {
+        result << remainder;
+    }
+    return result;
 }
 
 QString ParameterizedItem::getFirstField(const QString &par_name) const

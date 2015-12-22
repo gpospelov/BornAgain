@@ -139,7 +139,7 @@ public:
 
     //! translates the given parameter name to a domain parameter name
     //! name should start with a child/subitem name or be a direct parameter name
-    virtual std::string translateParameterName(const QString &par_name) const;
+    std::string translateParameterName(const QString &par_name) const;
 
 signals:
     void propertyChanged(const QString &propertyName);
@@ -164,6 +164,8 @@ protected:
     //! swap two children in member list
     //! use this to enforce a specific order when this matters
     void swapChildren(int first, int second);
+
+    virtual QStringList splitParameterName(const QString& par_name) const;
 
     QString getFirstField(const QString &par_name) const;
 

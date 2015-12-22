@@ -21,6 +21,7 @@
 #include "GroupPropertyRegistry.h"
 #include "GroupProperty.h"
 
+#include <sstream>
 #include <QEvent>
 #include <QDynamicPropertyChangeEvent>
 #include <QDebug>
@@ -422,11 +423,10 @@ QStringList ParameterizedItem::getParameterTreeList(QString prefix) const
     QStringList result;
     // add child parameters:
     if (hasChildItems()) {
-        for (QList<ParameterizedItem *>::const_iterator it = m_children.begin();
-             it != m_children.end(); ++it) {
-            QString child_name = (*it)->displayName();
+        for (auto p_child : m_children) {
+            QString child_name = p_child->displayName();
             QString child_prefix = prefix + child_name + QString("/");
-            result << (*it)->getParameterTreeList(child_prefix);
+            result << p_child->getParameterTreeList(child_prefix);
         }
     }
     // add subitem parameters:
@@ -438,10 +438,10 @@ QStringList ParameterizedItem::getParameterTreeList(QString prefix) const
                                                   PropertyAttribute::DISABLED) ) {
                 continue;
             }
-            ParameterizedItem *subitem = it.value();
-            QString subitem_name = subitem->displayName();
+            ParameterizedItem *p_subitem = it.value();
+            QString subitem_name = p_subitem->displayName();
             QString subitem_prefix = prefix + subitem_name + QString("/");
-            result << subitem->getParameterTreeList(subitem_prefix);
+            result << p_subitem->getParameterTreeList(subitem_prefix);
         }
     }
     // add own parameters:
@@ -451,8 +451,15 @@ QStringList ParameterizedItem::getParameterTreeList(QString prefix) const
 
 std::string ParameterizedItem::translateParameterName(const QString &par_name) const
 {
-    std::string result;
-    return result;
+    std::ostringstream result;
+    auto first_field = getFirstField(par_name);
+    result << "/" << translateSingleName(first_field);
+    auto remainder = stripFirstField(par_name);
+    if (remainder != "") {
+        auto p_child = getChildByDisplayName(first_field);
+        result << p_child->translateParameterName(remainder);
+    }
+    return result.str();
 }
 
 //! called when new SubItem appeared
@@ -503,6 +510,37 @@ QString ParameterizedItem::stripFirstField(const QString &par_name) const
     if (par_list.size()<2) return QString();
     par_list.removeFirst();
     return par_list.join("/");
+}
+
+std::string ParameterizedItem::translateSingleName(const QString &name) const
+{
+    return name.toStdString();
+}
+
+ParameterizedItem *ParameterizedItem::getChildByDisplayName(const QString &name) const
+{
+    // look through child items:
+    if (hasChildItems()) {
+        for (auto p_child : m_children) {
+            QString child_name = p_child->displayName();
+            if (child_name == name) {
+                return p_child;
+            }
+        }
+    }
+    // look through subitems:
+    if (m_sub_items.size() > 0) {
+        for (QMap<QString, ParameterizedItem *>::const_iterator it = m_sub_items.begin();
+             it != m_sub_items.end(); ++it) {
+            ParameterizedItem *p_subitem = it.value();
+            QString subitem_name = p_subitem->displayName();
+            if (subitem_name == name) {
+                return p_subitem;
+            }
+        }
+    }
+    // nothing found...
+    return nullptr;
 }
 
 QStringList ParameterizedItem::getParameterList(QString prefix) const

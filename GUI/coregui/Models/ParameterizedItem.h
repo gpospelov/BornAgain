@@ -169,6 +169,10 @@ protected:
 
     QString stripFirstField(const QString &par_name) const;
 
+    virtual std::string translateSingleName(const QString &name) const;
+
+    ParameterizedItem* getChildByDisplayName(const QString &name) const;
+
     QStringList m_registered_properties;
 
     QMap<QString, PropertyAttribute> m_property_attribute;

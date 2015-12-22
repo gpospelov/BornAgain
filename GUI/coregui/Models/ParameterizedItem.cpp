@@ -348,7 +348,7 @@ void ParameterizedItem::onChildPropertyChange()
 void ParameterizedItem::print() const
 {
     qDebug() << "--- ParameterizedItem::print() ------------------------------------";
-    qDebug() << modelType() << itemName();
+    qDebug() << modelType() << displayName();
     qDebug() << "--- SubItems ---";
     for (QMap<QString, ParameterizedItem *>::const_iterator it = m_sub_items.begin();
          it != m_sub_items.end(); ++it) {

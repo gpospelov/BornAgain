@@ -71,6 +71,12 @@ void ParticleDistributionItem::onChildPropertyChange()
     ParameterizedItem::onChildPropertyChange();
 }
 
+std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const
+{
+//    auto P_part_distr = GUIHelpers::make_unique<ParticleDistribution>();
+    return nullptr;
+}
+
 void ParticleDistributionItem::updateParameterList()
 {
     if (!isRegisteredProperty(P_DISTRIBUTED_PARAMETER))

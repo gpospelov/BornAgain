@@ -89,15 +89,31 @@ std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShel
     return P_coreshell;
 }
 
+void ParticleCoreShellItem::notifyChildParticlePortChanged()
+{
+    QList<ParameterizedItem *> children = childItems();
+    int core_index = -1;
+    int shell_index = -1;
+    for (int i=0; i<children.size(); ++i) {
+        if (children[i]->modelType() == Constants::ParticleType) {
+            PortInfo::EPorts port = (PortInfo::EPorts)children[i]
+                                        ->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+            if (port == PortInfo::PORT_0) core_index = i;
+            if (port == PortInfo::PORT_1) shell_index = i;
+        }
+    }
+    if (shell_index >= 0 && core_index > shell_index) {
+        swapChildren(core_index, shell_index);
+    }
+}
+
 ParameterizedItem::PortInfo::EPorts ParticleCoreShellItem::getFirstAvailableParticlePort() const
 {
     // Also when no ports are available, return the first port (core particle will then be replaced)
     PortInfo::EPorts result = PortInfo::PORT_0;
     QList<PortInfo::EPorts> used_particle_ports;
     QList<ParameterizedItem *> children = childItems();
-    for (QList<ParameterizedItem *>::const_iterator it = children.begin(); it != children.end();
-         ++it) {
-        ParameterizedItem *item = *it;
+    for (auto item : children) {
         if (item->modelType() == Constants::ParticleType) {
             PortInfo::EPorts port
                 = (PortInfo::EPorts)item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();

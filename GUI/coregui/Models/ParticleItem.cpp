@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleItem.h"
+#include "ParticleCoreShellItem.h"
 #include "FormFactorItems.h"
 #include "MaterialUtils.h"
 #include "VectorItem.h"
@@ -65,13 +66,16 @@ void ParticleItem::onPropertyChange(const QString &name)
             setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
             setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
             int port = getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
-            if (parent()->modelType() == Constants::ParticleCoreShellType
-                && port == PortInfo::PORT_1) {
-                ParameterizedItem *p_position_item = getSubItems()[ParticleItem::P_POSITION];
-                p_position_item->setRegisteredProperty(VectorItem::P_X, 0.0);
-                p_position_item->setRegisteredProperty(VectorItem::P_Y, 0.0);
-                p_position_item->setRegisteredProperty(VectorItem::P_Z, 0.0);
-                setPropertyAppearance(ParticleItem::P_POSITION, PropertyAttribute::DISABLED);
+            if (parent()->modelType() == Constants::ParticleCoreShellType) {
+                auto p_coreshell = static_cast<ParticleCoreShellItem*>(parent());
+                p_coreshell->notifyChildParticlePortChanged();
+                if (port == PortInfo::PORT_1) {
+                    ParameterizedItem *p_position_item = getSubItems()[ParticleItem::P_POSITION];
+                    p_position_item->setRegisteredProperty(VectorItem::P_X, 0.0);
+                    p_position_item->setRegisteredProperty(VectorItem::P_Y, 0.0);
+                    p_position_item->setRegisteredProperty(VectorItem::P_Z, 0.0);
+                    setPropertyAppearance(ParticleItem::P_POSITION, PropertyAttribute::DISABLED);
+                }
             }
         }
     }

@@ -133,8 +133,12 @@ public:
 
     void setItemPort(PortInfo::EPorts nport);
 
+    //! retrieves a list of all parameter names in the ParameterizedItem tree starting
+    //! with this node and prefixes them
     QStringList getParameterTreeList(QString prefix = "") const;
 
+    //! translates the given parameter name to a domain parameter name
+    //! name should start with a child/subitem name or be a direct parameter name
     virtual std::string translateParameterName(const QString &par_name) const;
 
 signals:
@@ -156,6 +160,10 @@ protected:
 
     void addToValidChildren(const QString &name, PortInfo::EPorts nport = PortInfo::PORT_0,
                             int nmax_children = 0);
+
+    //! swap two children in member list
+    //! use this to enforce a specific order when this matters
+    void swapChildren(int first, int second);
 
     QString getFirstField(const QString &par_name) const;
 

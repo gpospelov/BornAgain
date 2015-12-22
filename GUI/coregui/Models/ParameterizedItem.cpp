@@ -412,6 +412,11 @@ void ParameterizedItem::addToValidChildren(const QString &name, PortInfo::EPorts
     }
 }
 
+void ParameterizedItem::swapChildren(int first, int second)
+{
+    m_children.swap(first, second);
+}
+
 QStringList ParameterizedItem::getParameterTreeList(QString prefix) const
 {
     QStringList result;

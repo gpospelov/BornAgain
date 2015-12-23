@@ -39,6 +39,8 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     registerProperty(P_ABUNDANCE, 1.0,
                      PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
     registerGroupProperty(P_POSITION, Constants::VectorType);
+    PositionTranslator position_translator;
+    addParameterTranslator(position_translator);
 
     addToValidChildren(Constants::TransformationType, PortInfo::PORT_0, 1);
     setPropertyAppearance(ParameterizedItem::P_NAME,

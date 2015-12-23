@@ -20,6 +20,9 @@
 #include "item_constants.h"
 #include "PropertyAttribute.h"
 #include "MaterialProperty.h"
+#include "ParameterTranslators.h"
+
+#include <memory>
 #include <QStandardItem>
 #include <QStringList>
 #include <QList>
@@ -165,13 +168,15 @@ protected:
     //! use this to enforce a specific order when this matters
     void swapChildren(int first, int second);
 
-    virtual QStringList splitParameterName(const QString& par_name) const;
+    QStringList splitParameterName(const QString& par_name) const;
 
     QString getFirstField(const QString &par_name) const;
 
     QString stripFirstField(const QString &par_name) const;
 
     virtual std::string translateSingleName(const QString &name) const;
+
+    void addParameterTranslator(const IParameterTranslator &translator);
 
     ParameterizedItem* getChildByDisplayName(const QString &name) const;
 
@@ -190,6 +195,7 @@ private:
     ParameterizedItem *mp_parent;
     QList<ParameterizedItem *> m_children;
     QMap<QString, ParameterizedItem *> m_sub_items;
+    std::vector<std::unique_ptr<IParameterTranslator>> m_special_translators;
 };
 
 #endif /* PARAMETERIZEDITEM_H_ */

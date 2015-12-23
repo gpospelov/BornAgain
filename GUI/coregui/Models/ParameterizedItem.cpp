@@ -506,6 +506,12 @@ void ParameterizedItem::swapChildren(int first, int second)
 QStringList ParameterizedItem::splitParameterName(const QString &par_name) const
 {
     QStringList result;
+    for (auto& translator : m_special_translators) {
+        result = translator->split(par_name);
+        if (result.size() > 0) {
+            return result;
+        }
+    }
     result << getFirstField(par_name);
     QString remainder = stripFirstField(par_name);
     if (!remainder.isEmpty()) {
@@ -531,7 +537,18 @@ QString ParameterizedItem::stripFirstField(const QString &par_name) const
 
 std::string ParameterizedItem::translateSingleName(const QString &name) const
 {
+    for (auto& translator : m_special_translators) {
+        auto result = translator->translate(name);
+        if (!result.empty()) {
+            return result;
+        }
+    }
     return name.toStdString();
+}
+
+void ParameterizedItem::addParameterTranslator(const IParameterTranslator &translator)
+{
+    m_special_translators.emplace_back(translator.clone());
 }
 
 ParameterizedItem *ParameterizedItem::getChildByDisplayName(const QString &name) const

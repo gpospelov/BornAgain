@@ -40,17 +40,16 @@ class IDistribution1D;
 
 namespace TransformFromDomain
 {
-BA_CORE_API_ void setItemFromSample(ParameterizedItem *item,
-                       const FormFactorAnisoPyramid *sample);
+BA_CORE_API_ void setItemFromSample(ParameterizedItem *item, const FormFactorAnisoPyramid *sample);
 
 BA_CORE_API_ void setItemFromSample(ParameterizedItem *item,
-                       const InterferenceFunctionRadialParaCrystal *sample);
+                                    const InterferenceFunctionRadialParaCrystal *sample);
 
 BA_CORE_API_ void setItemFromSample(ParameterizedItem *item,
-                       const InterferenceFunction2DParaCrystal *sample);
+                                    const InterferenceFunction2DParaCrystal *sample);
 
 BA_CORE_API_ void setItemFromSample(ParameterizedItem *item,
-                       const InterferenceFunction2DLattice *sample);
+                                    const InterferenceFunction2DLattice *sample);
 
 BA_CORE_API_ void setItemFromSample(ParameterizedItem *layerItem,
                                     const Layer *layer,
@@ -68,10 +67,13 @@ BA_CORE_API_ bool isHexagonalLattice(double length1, double length2, double angl
 
 BA_CORE_API_ void setItemFromSample(BeamItem *beamItem, const GISASSimulation &simulation);
 
-BA_CORE_API_ void setItemFromSample(PhiAlphaDetectorItem *detectorItem, const GISASSimulation &simulation);
+BA_CORE_API_ void setItemFromSample(PhiAlphaDetectorItem *detectorItem,
+                                    const GISASSimulation &simulation);
 
-BA_CORE_API_ void setItemFromSample(BeamDistributionItem *beamDistributionItem, const ParameterDistribution &parameterDistribution);
+BA_CORE_API_ void setItemFromSample(BeamDistributionItem *beamDistributionItem,
+                                    const ParameterDistribution &parameterDistribution);
 
+BA_CORE_API_ QString translateParameterNameToGUI(ParameterizedItem *item, const QString &par_name);
 }
 
 #endif

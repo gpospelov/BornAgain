@@ -347,6 +347,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         = item->getRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
               .value<ComboProperty>();
     combo_property.setCachedValue(main_distr_par_name);
+    combo_property.setCacheContainsGUIFlag(false);
     item->setRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER,
                                 combo_property.getVariant());
 
@@ -580,4 +581,17 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem *beamDistributi
             sigma_factor = 2.0;
         distributionItem->setRegisteredProperty(DistributionItem::P_SIGMA_FACTOR, sigma_factor);
     }
+}
+
+QString TransformFromDomain::translateParameterNameToGUI(ParameterizedItem *item,
+                                                         const QString &par_name)
+{
+    auto gui_par_list = item->getParameterTreeList();
+    for (auto gui_par_name : gui_par_list) {
+        auto domain_par_name = QString::fromStdString(item->translateParameterName(gui_par_name));
+        if (domain_par_name == par_name) {
+            return gui_par_name;
+        }
+    }
+    return QString();
 }

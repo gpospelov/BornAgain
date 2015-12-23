@@ -20,6 +20,7 @@
 #include "ParticleCoreShell.h"
 #include "DomainObjectBuilder.h"
 #include "TransformToDomain.h"
+#include "TransformFromDomain.h"
 #include "DistributionItem.h"
 #include "Distributions.h"
 #include "ComboProperty.h"
@@ -111,13 +112,22 @@ void ParticleDistributionItem::updateParameterList()
     if (!isRegisteredProperty(P_DISTRIBUTED_PARAMETER))
         return;
     QVariant par_prop = getRegisteredProperty(P_DISTRIBUTED_PARAMETER);
-    QString selected_par = par_prop.value<ComboProperty>().getValue();
-    QString cached_par = par_prop.value<ComboProperty>().getCachedValue();
-    ComboProperty updated_prop;
+    auto combo_prop = par_prop.value<ComboProperty>();
+    QString cached_par = combo_prop.getCachedValue();
+    if (!combo_prop.cacheContainsGUIValue()) {
+        auto gui_name = TransformFromDomain::translateParameterNameToGUI(this, cached_par);
+        if (!gui_name.isEmpty()) {
+            cached_par = gui_name;
+            combo_prop.setCachedValue(cached_par);
+            combo_prop.setCacheContainsGUIFlag();
+        }
+    }
+    QString selected_par = combo_prop.getValue();
     QStringList par_names = getChildParameterNames();
     par_names.removeAll(ParticleItem::P_ABUNDANCE);
-    updated_prop = ComboProperty(par_names);
+    auto updated_prop = ComboProperty(par_names);
     updated_prop.setCachedValue(cached_par);
+    updated_prop.setCacheContainsGUIFlag(combo_prop.cacheContainsGUIValue());
     if (updated_prop.getValues().contains(cached_par) ) {
         updated_prop.setValue(cached_par);
     } else if (updated_prop.getValues().contains(selected_par)) {

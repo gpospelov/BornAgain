@@ -28,6 +28,8 @@ ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
                      PropertyAttribute(AttLimits::limited(0.0, 1.0), 3));
     registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
+    PositionTranslator position_translator;
+    addParameterTranslator(position_translator);
 
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_0, 1); // Core particle
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_1, 1); // Shell particle

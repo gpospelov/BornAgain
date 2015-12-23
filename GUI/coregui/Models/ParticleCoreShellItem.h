@@ -34,6 +34,7 @@ public:
     std::unique_ptr<ParticleCoreShell> createParticleCoreShell() const;
 
     void notifyChildParticlePortChanged();
+
 private:
     PortInfo::EPorts getFirstAvailableParticlePort() const;
 };

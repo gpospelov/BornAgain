@@ -29,6 +29,7 @@
 #include "FTDistributionItems.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleCoreShell.h"
+#include "ParticleCompositionItem.h"
 #include "LayerRoughnessItems.h"
 #include "TransformationItem.h"
 #include "VectorItem.h"
@@ -45,6 +46,7 @@
 #include "BeamAngleItems.h"
 #include "ResolutionFunctionItems.h"
 #include "BornAgainNamespace.h"
+#include "ParticleDistributionItem.h"
 
 #include <QDebug>
 
@@ -118,6 +120,30 @@ TransformToDomain::createParticleLayout(const ParameterizedItem &item)
         = item.getRegisteredProperty(ParticleLayoutItem::P_TOTAL_DENSITY).value<double>();
     P_layout->setTotalParticleSurfaceDensity(total_density);
     return P_layout;
+}
+
+std::unique_ptr<IParticle> TransformToDomain::createIParticle(const ParameterizedItem &item)
+{
+    std::unique_ptr<IParticle> P_particle;
+    if (item.modelType() == Constants::ParticleType) {
+        auto& particle_item = static_cast<const ParticleItem&>(item);
+        P_particle = particle_item.createParticle();
+    } else if (item.modelType() == Constants::ParticleCoreShellType) {
+        auto& particle_coreshell_item = static_cast<const ParticleCoreShellItem&>(item);
+        P_particle = particle_coreshell_item.createParticleCoreShell();
+    } else if (item.modelType() == Constants::ParticleCompositionType) {
+        auto& particle_composition_item = static_cast<const ParticleCompositionItem&>(item);
+        P_particle = particle_composition_item.createParticleComposition();
+    }
+    return P_particle;
+}
+
+std::unique_ptr<ParticleDistribution> TransformToDomain::createParticleDistribution(
+        const ParameterizedItem &item)
+{
+    auto& particle_distribution = static_cast<const ParticleDistributionItem&>(item);
+    auto P_part_distr = particle_distribution.createParticleDistribution();
+    return P_part_distr;
 }
 
 std::unique_ptr<IDistribution1D>
@@ -385,3 +411,4 @@ void TransformToDomain::setRotationInfo(IParticle *result, const ParameterizedIt
         }
     }
 }
+

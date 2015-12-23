@@ -42,7 +42,7 @@ public:
 
     virtual ~RectangularDetector() {}
 
-    //! Adds parameters from local pool to external pool and call recursion over direct children.
+    //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;
 

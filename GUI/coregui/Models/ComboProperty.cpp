@@ -19,10 +19,9 @@
 ComboProperty::ComboProperty(const QStringList &values, const QString &current_value)
     : m_values(values)
     , m_current_value(current_value)
+    , m_cache_contains_GUI_value(true)
 {
-
 }
-
 
 void ComboProperty::setValue(const QString &name)
 {
@@ -59,4 +58,3 @@ void ComboProperty::setCachedValue(const QString &name)
 {
     m_cached_value = name;
 }
-

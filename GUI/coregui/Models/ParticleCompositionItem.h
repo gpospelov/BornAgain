@@ -16,9 +16,11 @@
 #ifndef PARTICLECOMPOSITIONITEM_H
 #define PARTICLECOMPOSITIONITEM_H
 
+#include "ParticleComposition.h"
 #include "ParameterizedGraphicsItem.h"
 
 #include <QStringList>
+#include <memory>
 
 class BA_CORE_API_ ParticleCompositionItem : public ParameterizedGraphicsItem
 {
@@ -28,6 +30,7 @@ public:
     ~ParticleCompositionItem() {}
     void insertChildItem(int row, ParameterizedItem *item);
     virtual void onPropertyChange(const QString &name);
+    std::unique_ptr<ParticleComposition> createParticleComposition() const;
 };
 
 #endif // PARTICLECOMPOSITIONITEM_H

@@ -21,9 +21,11 @@
 #include <stdexcept>
 #include <iomanip>
 
+using namespace BornAgain;
+
 MultiLayer::MultiLayer() : m_crossCorrLength(0)
 {
-    setName(BornAgain::MultiLayerType);
+    setName(MultiLayerType);
     init_parameters();
 }
 
@@ -35,7 +37,7 @@ MultiLayer::~MultiLayer()
 void MultiLayer::init_parameters()
 {
     clearParameterPool();
-    registerParameter("crossCorrLength", &m_crossCorrLength);
+    registerParameter(CrossCorrelationLength, &m_crossCorrLength);
 }
 
 void MultiLayer::clear()

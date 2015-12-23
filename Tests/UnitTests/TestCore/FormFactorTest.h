@@ -27,7 +27,6 @@ protected:
     FormFactorTest(){}
 };
 
-
 //Test form factor of an anisotropic pyramid
 TEST_F(FormFactorTest, AnisoPyramid)
 {
@@ -70,15 +69,15 @@ TEST_F(FormFactorTest, HemiEllipsoid)
     FormFactorHemiEllipsoid hemiellipsoid(radius_a, radius_b, height);
 
     EXPECT_EQ(BornAgain::FFHemiEllipsoidType, hemiellipsoid.getName());
-    EXPECT_EQ(6., hemiellipsoid.getRadiusA());
-    EXPECT_EQ(7., hemiellipsoid.getRadiusB());
+    EXPECT_EQ(6., hemiellipsoid.getRadiusX());
+    EXPECT_EQ(7., hemiellipsoid.getRadiusY());
     EXPECT_EQ(5., hemiellipsoid.getHeight());
     EXPECT_DOUBLE_EQ(volume, hemiellipsoid.getVolume());
 
     FormFactorHemiEllipsoid *hemiellipsoidclone = hemiellipsoid.clone();
     EXPECT_EQ(BornAgain::FFHemiEllipsoidType, hemiellipsoidclone->getName());
-    EXPECT_EQ(6., hemiellipsoidclone->getRadiusA());
-    EXPECT_EQ(7., hemiellipsoidclone->getRadiusB());
+    EXPECT_EQ(6., hemiellipsoidclone->getRadiusX());
+    EXPECT_EQ(7., hemiellipsoidclone->getRadiusY());
     EXPECT_EQ(5., hemiellipsoidclone->getHeight());
     EXPECT_DOUBLE_EQ(volume, hemiellipsoidclone->getVolume());
 }
@@ -227,15 +226,15 @@ TEST_F(FormFactorTest, EllipsoidalCylinder)
 
     EXPECT_EQ(BornAgain::FFEllipsoidalCylinderType, ellipscyl.getName());
     EXPECT_EQ(4., ellipscyl.getHeight());
-    EXPECT_EQ(3., ellipscyl.getRadiusA());
-    EXPECT_EQ(5., ellipscyl.getRadiusB());
+    EXPECT_EQ(3., ellipscyl.getRadiusX());
+    EXPECT_EQ(5., ellipscyl.getRadiusY());
     EXPECT_DOUBLE_EQ(volume, ellipscyl.getVolume());
 
     FormFactorEllipsoidalCylinder *ellipscylclone = ellipscyl.clone();
     EXPECT_EQ(BornAgain::FFEllipsoidalCylinderType, ellipscylclone->getName());
     EXPECT_EQ(4., ellipscylclone->getHeight());
-    EXPECT_EQ(3., ellipscylclone->getRadiusA());
-    EXPECT_EQ(5., ellipscylclone->getRadiusB());
+    EXPECT_EQ(3., ellipscylclone->getRadiusX());
+    EXPECT_EQ(5., ellipscylclone->getRadiusY());
     EXPECT_DOUBLE_EQ(volume, ellipscylclone->getVolume());
 
 }

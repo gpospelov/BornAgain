@@ -20,6 +20,9 @@
 #include "item_constants.h"
 #include "PropertyAttribute.h"
 #include "MaterialProperty.h"
+#include "ParameterTranslators.h"
+
+#include <memory>
 #include <QStandardItem>
 #include <QStringList>
 #include <QList>
@@ -50,9 +53,6 @@ public:
     //! retrieves the name used for displaying (possibly including an index
     //! to distinguish it from siblings)
     QString displayName() const;
-
-    //! sets the display name
-    void setDisplayName(QString display_name);
 
     virtual QString getItemLabel() const;
 
@@ -95,7 +95,7 @@ public:
 
     void addPropertyItem(QString name, ParameterizedItem *item);
 
-    bool isRegisteredProperty(const QString &name);
+    bool isRegisteredProperty(const QString &name) const;
 
     ParameterizedItem *registerGroupProperty(const QString &group_name,
                                              const Constants::ModelType &group_model);
@@ -126,17 +126,23 @@ public:
     {
     public:
         enum EPorts { DEFAULT = -1, PORT_0 = 0, PORT_1 = 1, PORT_2 = 2 };
+
         PortInfo(const QString &name = QString(), int nmax_items = 0)
-            : m_item_names(name), m_item_max_number(nmax_items)
-        {
-        }
+            : m_item_names(name), m_item_max_number(nmax_items) {}
+
         QStringList m_item_names;
         int m_item_max_number;
     };
 
     void setItemPort(PortInfo::EPorts nport);
 
-    QStringList getParameterTreeList() const;
+    //! retrieves a list of all parameter names in the ParameterizedItem tree starting
+    //! with this node and prefixes them
+    QStringList getParameterTreeList(QString prefix = "") const;
+
+    //! translates the given parameter name to a domain parameter name
+    //! name should start with a child/subitem name or be a direct parameter name
+    std::string translateParameterName(const QString &par_name) const;
 
 signals:
     void propertyChanged(const QString &propertyName);
@@ -152,15 +158,35 @@ private slots:
     virtual void processSubItemPropertyChanged(const QString &propertyName);
 
 protected:
+    //! sets the display name
+    void setDisplayName(QString display_name);
+
     void addToValidChildren(const QString &name, PortInfo::EPorts nport = PortInfo::PORT_0,
                             int nmax_children = 0);
+
+    //! swap two children in member list
+    //! use this to enforce a specific order when this matters
+    void swapChildren(int first, int second);
+
+    QStringList splitParameterName(const QString& par_name) const;
+
+    QString getFirstField(const QString &par_name) const;
+
+    QString stripFirstField(const QString &par_name) const;
+
+    virtual std::string translateSingleName(const QString &name) const;
+
+    void addParameterTranslator(const IParameterTranslator &translator);
+
+    ParameterizedItem* getChildByDisplayName(const QString &name) const;
 
     QStringList m_registered_properties;
 
     QMap<QString, PropertyAttribute> m_property_attribute;
 
 private:
-    QStringList getParameterList() const;
+    QStringList getParameterList(QString prefix = "") const;
+    int getCopyNumberOfChild(const ParameterizedItem *p_item) const;
     QList<QString> m_valid_children;
     QMap<int, PortInfo> m_port_info;
 
@@ -169,6 +195,7 @@ private:
     ParameterizedItem *mp_parent;
     QList<ParameterizedItem *> m_children;
     QMap<QString, ParameterizedItem *> m_sub_items;
+    std::vector<std::unique_ptr<IParameterTranslator>> m_special_translators;
 };
 
 #endif /* PARAMETERIZEDITEM_H_ */

@@ -29,8 +29,11 @@
 #include "FTDistributionItems.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleCoreShell.h"
+#include "ParticleCompositionItem.h"
 #include "LayerRoughnessItems.h"
+#include "TransformationItem.h"
 #include "VectorItem.h"
+#include "RotationItems.h"
 #include "MaterialUtils.h"
 #include "MaterialProperty.h"
 #include "AngleProperty.h"
@@ -43,8 +46,13 @@
 #include "BeamAngleItems.h"
 #include "ResolutionFunctionItems.h"
 #include "MaskItems.h"
+#include "BornAgainNamespace.h"
+#include "ParticleDistributionItem.h"
+
 
 #include <QDebug>
+
+using namespace BornAgain;
 
 std::unique_ptr<IMaterial> TransformToDomain::createDomainMaterial(const ParameterizedItem &item)
 {
@@ -95,7 +103,7 @@ TransformToDomain::createLayerRoughness(const ParameterizedItem &roughnessItem)
             roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH)
                 .toDouble());
     } else {
-        throw GUIHelpers::Error("TransformToDomain::createLayerROughness() -> Error.");
+        throw GUIHelpers::Error("TransformToDomain::createLayerRoughness() -> Error.");
     }
 }
 
@@ -116,44 +124,28 @@ TransformToDomain::createParticleLayout(const ParameterizedItem &item)
     return P_layout;
 }
 
-std::unique_ptr<Particle> TransformToDomain::createParticle(const ParameterizedItem &item,
-                                                            double &abundance)
+std::unique_ptr<IParticle> TransformToDomain::createIParticle(const ParameterizedItem &item)
 {
-    auto P_material = createDomainMaterial(item);
-    auto P_particle = GUIHelpers::make_unique<Particle>(*P_material);
-
-    abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
-
-    auto ffItem = item.getSubItems()[ParticleItem::P_FORM_FACTOR];
-    Q_ASSERT(ffItem);
-    auto P_ff = createFormFactor(*ffItem);
-    P_particle->setFormFactor(*P_ff);
-
+    std::unique_ptr<IParticle> P_particle;
+    if (item.modelType() == Constants::ParticleType) {
+        auto& particle_item = static_cast<const ParticleItem&>(item);
+        P_particle = particle_item.createParticle();
+    } else if (item.modelType() == Constants::ParticleCoreShellType) {
+        auto& particle_coreshell_item = static_cast<const ParticleCoreShellItem&>(item);
+        P_particle = particle_coreshell_item.createParticleCoreShell();
+    } else if (item.modelType() == Constants::ParticleCompositionType) {
+        auto& particle_composition_item = static_cast<const ParticleCompositionItem&>(item);
+        P_particle = particle_composition_item.createParticleComposition();
+    }
     return P_particle;
 }
 
-std::unique_ptr<ParticleCoreShell>
-TransformToDomain::createParticleCoreShell(const ParameterizedItem &item, const Particle &core,
-                                           const Particle &shell, double &abundance)
+std::unique_ptr<ParticleDistribution> TransformToDomain::createParticleDistribution(
+        const ParameterizedItem &item)
 {
-    abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
-    auto P_coreshell = GUIHelpers::make_unique<ParticleCoreShell>(shell, core);
-    return P_coreshell;
-}
-
-std::unique_ptr<ParticleComposition>
-TransformToDomain::createParticleComposition(const ParameterizedItem &item, double &abundance)
-{
-    abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
-    auto P_composition = GUIHelpers::make_unique<ParticleComposition>();
-    return P_composition;
-}
-
-std::unique_ptr<IFormFactor> TransformToDomain::createFormFactor(const ParameterizedItem &item)
-{
-    auto ffItem = dynamic_cast<const FormFactorItem *>(&item);
-    Q_ASSERT(ffItem);
-    return ffItem->createFormFactor();
+    auto& particle_distribution = static_cast<const ParticleDistributionItem&>(item);
+    auto P_part_distr = particle_distribution.createParticleDistribution();
+    return P_part_distr;
 }
 
 std::unique_ptr<IDistribution1D>
@@ -355,28 +347,36 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
 void TransformToDomain::addDistributionParametersToSimulation(const ParameterizedItem &beam_item,
                                                               GISASSimulation *simulation)
 {
+    ParameterPattern pattern_wavelength;
+    pattern_wavelength.beginsWith("*").add(BeamType).add(Wavelength);
+    ParameterPattern pattern_alpha;
+    pattern_alpha.beginsWith("*").add(BeamType).add(Alpha);
+    ParameterPattern pattern_phi;
+    pattern_phi.beginsWith("*").add(BeamType).add(Phi);
     if (beam_item.modelType() == Constants::BeamType) {
         if (auto beamWavelength
             = dynamic_cast<BeamWavelengthItem *>(beam_item.getSubItems()[BeamItem::P_WAVELENGTH])) {
-            auto P_par_distr = beamWavelength->getParameterDistributionForName("*/Beam/wavelength");
+            auto P_par_distr = beamWavelength->getParameterDistributionForName(
+                        pattern_wavelength.toStdString());
             if (P_par_distr)
                 simulation->addParameterDistribution(*P_par_distr);
         }
         if (auto inclinationAngle = dynamic_cast<BeamInclinationAngleItem *>(
                 beam_item.getSubItems()[BeamItem::P_INCLINATION_ANGLE])) {
-            auto P_par_distr = inclinationAngle->getParameterDistributionForName("*/Beam/alpha");
+            auto P_par_distr = inclinationAngle->getParameterDistributionForName(
+                        pattern_alpha.toStdString());
             if (P_par_distr)
                 simulation->addParameterDistribution(*P_par_distr);
         }
         if (auto azimuthalAngle = dynamic_cast<BeamAzimuthalAngleItem *>(
                 beam_item.getSubItems()[BeamItem::P_AZIMUTHAL_ANGLE])) {
-            auto P_par_distr = azimuthalAngle->getParameterDistributionForName("*/Beam/phi");
+            auto P_par_distr = azimuthalAngle->getParameterDistributionForName(
+                        pattern_phi.toStdString());
             if (P_par_distr)
                 simulation->addParameterDistribution(*P_par_distr);
         }
     }
 }
-
 
 void TransformToDomain::addMasksToSimulation(const ParameterizedItem &detector_item,
                                              GISASSimulation *simulation)
@@ -412,4 +412,39 @@ void TransformToDomain::addMasksToSimulation(const ParameterizedItem &detector_i
 //}
 
 
+void TransformToDomain::setTransformationInfo(IParticle *result, const ParameterizedItem &item)
+{
+    setPositionInfo(result, item);
+    setRotationInfo(result, item);
+}
+
+void TransformToDomain::setPositionInfo(IParticle *result, const ParameterizedItem &item)
+{
+    ParameterizedItem *pos_item = item.getSubItems()[ParticleItem::P_POSITION];
+    double pos_x = pos_item->getRegisteredProperty(VectorItem::P_X).toDouble();
+    double pos_y = pos_item->getRegisteredProperty(VectorItem::P_Y).toDouble();
+    double pos_z = pos_item->getRegisteredProperty(VectorItem::P_Z).toDouble();
+    result->setPosition(pos_x, pos_y, pos_z);
+}
+
+void TransformToDomain::setRotationInfo(IParticle *result, const ParameterizedItem &item)
+{
+    QList<ParameterizedItem *> children = item.childItems();
+    for (int i = 0; i < children.size(); ++i) {
+        if (children[i]->modelType() == Constants::TransformationType) {
+            RotationItem *rot_item = dynamic_cast<RotationItem *>(
+                children[i]->getSubItems()[TransformationItem::P_ROT]);
+            if (!rot_item) {
+                throw GUIHelpers::Error("DomainObjectBuilder::setRotationInfo() "
+                                        "-> Error! ParticleItem's child is"
+                                        " not a rotation.");
+            }
+            std::unique_ptr<IRotation> P_rotation(rot_item->createRotation());
+            if (P_rotation.get()) {
+                result->setRotation(*P_rotation);
+            }
+            break;
+        }
+    }
+}
 

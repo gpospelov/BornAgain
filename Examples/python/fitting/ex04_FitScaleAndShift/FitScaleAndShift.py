@@ -102,8 +102,8 @@ def run_fitting():
     fit_suite.getFitObjects().printParameters()  # prints all defined parameters for sample and simulation
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*/FormFactorCylinder/radius", 6.*nanometer, AttLimits.limited(4., 8.))
-    fit_suite.addFitParameter("*/FormFactorCylinder/height", 9.*nanometer, AttLimits.limited(8., 12.))
+    fit_suite.addFitParameter("*/Cylinder/Radius", 6.*nanometer, AttLimits.limited(4., 8.))
+    fit_suite.addFitParameter("*/Cylinder/Height", 9.*nanometer, AttLimits.limited(8., 12.))
     fit_suite.addFitParameter("*/Normalizer/scale", 1.5, AttLimits.limited(1.0, 3.0))
     fit_suite.addFitParameter("*/Normalizer/shift", 50., AttLimits.limited(1, 500.))
 

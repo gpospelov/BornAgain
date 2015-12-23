@@ -55,8 +55,7 @@ public:
 
     //! Returns information on all particles (type and abundance)
     //! and generates new particles if an IAbstractParticle denotes a collection
-    virtual void getParticleInfos(SafePointerVector<const IParticle>& particle_vector,
-                                  std::vector<double>& abundance_vector) const=0;
+    virtual SafePointerVector<const IParticle> getParticles() const=0;
 
     /// Get abundance fraction of particle with index
     virtual double getAbundanceOfParticle(size_t index) const=0;
@@ -65,29 +64,22 @@ public:
     double getTotalAbundance() const;
 
     //! Returns number of interference functions
-    virtual size_t getNumberOfInterferenceFunctions() const { return 0; }
+    virtual size_t getNumberOfInterferenceFunctions() const;
 
     //! Returns interference functions
-    virtual SafePointerVector<IInterferenceFunction>
-        getInterferenceFunctions() const=0;
+    virtual SafePointerVector<IInterferenceFunction> getInterferenceFunctions() const=0;
 
     //! Returns surface density of all particles
-    double getTotalParticleSurfaceDensity() const
-    { return m_total_particle_surface_density; }
+    double getTotalParticleSurfaceDensity() const;
 
     //! Sets surface density of all particles
-    void setTotalParticleSurfaceDensity(double surface_density)
-    { m_total_particle_surface_density = surface_density; }
+    void setTotalParticleSurfaceDensity(double surface_density);
 
     //! Gets the used approximation for particles and interference functions
-    EInterferenceApproximation getApproximation() const {
-        return me_approx;
-    }
+    EInterferenceApproximation getApproximation() const;
 
     //! Sets the used approximation for particles and interference functions
-    void setApproximation(EInterferenceApproximation approximation) {
-        me_approx = approximation;
-    }
+    void setApproximation(EInterferenceApproximation approximation);
 
 private:
     ///< To guarantee that fractions sum up to 1
@@ -104,6 +96,31 @@ inline double ILayout::getTotalAbundance() const
         total_abundance += getAbundanceOfParticle(i);
     }
     return total_abundance;
+}
+
+inline size_t ILayout::getNumberOfInterferenceFunctions() const
+{
+    return 0;
+}
+
+inline double ILayout::getTotalParticleSurfaceDensity() const
+{
+    return m_total_particle_surface_density;
+}
+
+inline void ILayout::setTotalParticleSurfaceDensity(double surface_density)
+{
+    m_total_particle_surface_density = surface_density;
+}
+
+inline ILayout::EInterferenceApproximation ILayout::getApproximation() const
+{
+    return me_approx;
+}
+
+inline void ILayout::setApproximation(ILayout::EInterferenceApproximation approximation)
+{
+    me_approx = approximation;
 }
 
 #endif /* ILAYOUT_H_ */

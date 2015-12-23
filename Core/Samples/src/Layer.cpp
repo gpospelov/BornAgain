@@ -21,17 +21,14 @@
 
 #include <iomanip>
 
+using namespace BornAgain;
 
-Layer::Layer()
-    : m_thickness(0)
-    , mp_material(0)
+Layer::Layer() : m_thickness(0), mp_material(0)
 {
     initialize();
 }
 
-Layer::Layer(const IMaterial &material, double thickness)
-    : m_thickness(thickness)
-    , mp_material(0)
+Layer::Layer(const IMaterial &material, double thickness) : m_thickness(thickness), mp_material(0)
 {
     setMaterial(material);
     initialize();
@@ -52,6 +49,11 @@ Layer::Layer(const Layer& other) : ICompositeSample()
 Layer::~Layer()
 {
     delete mp_material;
+}
+
+Layer *Layer::clone() const
+{
+    return new Layer(*this);
 }
 
 Layer* Layer::cloneInvertB() const
@@ -170,7 +172,7 @@ size_t Layer::getNumberOfLayers() const
 void Layer::init_parameters()
 {
     clearParameterPool();
-    registerParameter("thickness", &m_thickness);
+    registerParameter(Thickness, &m_thickness);
 }
 
 //! Prints description.
@@ -190,6 +192,6 @@ void Layer::addLayoutPtr(ILayout *layout)
 
 void Layer::initialize()
 {
-    setName(BornAgain::LayerType);
+    setName(LayerType);
     init_parameters();
 }

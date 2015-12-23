@@ -30,32 +30,26 @@ class IIntensityNormalizer;
 
 class BA_CORE_API_ FitObject : public IParameterized
 {
- public:
-
+public:
     //! FitObject constructor
     //! @param simulaiton The simulation to eun
     //! @param real_data The real data
     //! @param weight Weight of dataset in chi2 calculations
-    FitObject(const GISASSimulation& simulation,
-              const OutputData<double >& real_data,
+    FitObject(const GISASSimulation &simulation, const OutputData<double> &real_data,
               double weight = 1);
 
     ~FitObject();
 
-    //! Returns real data
+    //! Returns real (experimental) data.
     const OutputData<double> *getRealData() const;
 
-    //! Returns simulated data
+    //! Returns simulated data.
     const OutputData<double> *getSimulationData() const;
 
-    //! Adds parameters from local pool to external pool and call recursion over direct children
-    std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
-                                            int copy_number = -1) const;
-
-    //! Returns weight of data set in chi2 calculations
+    //! Returns weight of data set in chi2 calculations.
     double getWeight() const;
 
-    //! Returns size of data. It is equal to the number of non-masked detector channels
+    //! Returns the size of the data. It is equal to the number of non-masked detector channels
     //! which will participate in chi2 calculations.
     size_t getSizeOfData() const;
 
@@ -65,11 +59,15 @@ class BA_CORE_API_ FitObject : public IParameterized
     OutputData<double> *getChiSquaredMap(std::vector<FitElement>::const_iterator first,
                                          std::vector<FitElement>::const_iterator last) const;
 
- protected:
+    //! Adds parameters from local pool to external pool and recursively calls its direct children.
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                                    int copy_number = -1) const;
+
+protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters() {}
 
- private:
+private:
     FitObject(const FitObject& );
     FitObject& operator=(const FitObject& );
 

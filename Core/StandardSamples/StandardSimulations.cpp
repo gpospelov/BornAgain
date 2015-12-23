@@ -27,6 +27,9 @@
 #include "Polygon.h"
 #include "Line.h"
 #include "InfinitePlane.h"
+#include "BornAgainNamespace.h"
+
+using namespace BornAgain;
 
 GISASSimulation *StandardSimulations::PolarizedDWBAMagCylinders2()
 {
@@ -87,12 +90,17 @@ GISASSimulation *StandardSimulations::MiniGISASBeamDivergence()
 
     DistributionLogNormal wavelength_distr(1.0*Units::angstrom, 0.1);
     DistributionGaussian alpha_distr(0.2*Units::degree, 0.1*Units::degree);
-    //DistributionGaussian phi_distr(0.0*Units::degree, 0.1*Units::degree);
     DistributionGate phi_distr(-0.1*Units::degree, 0.1*Units::degree);
 
-    result->addParameterDistribution("*/Beam/wavelength", wavelength_distr, 5);
-    result->addParameterDistribution("*/Beam/alpha", alpha_distr, 4);
-    result->addParameterDistribution("*/Beam/phi", phi_distr, 3);
+    ParameterPattern pattern1;
+    pattern1.beginsWith("*").add(BeamType).add(Wavelength);
+    result->addParameterDistribution(pattern1.toStdString(), wavelength_distr, 5);
+    ParameterPattern pattern2;
+    pattern2.beginsWith("*").add(BeamType).add(Alpha);
+    result->addParameterDistribution(pattern2.toStdString(), alpha_distr, 4);
+    ParameterPattern pattern3;
+    pattern3.beginsWith("*").add(BeamType).add(Phi);
+    result->addParameterDistribution(pattern3.toStdString(), phi_distr, 3);
 
     return result;
 }

@@ -16,6 +16,7 @@
 #include "FormFactorSphereUniformRadius.h"
 #include "BornAgainNamespace.h"
 
+using namespace  BornAgain;
 
 FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
         double full_width)
@@ -27,7 +28,7 @@ FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
                 "FormFactorSphereUniformRadius::FormFactorSphereUniformRadius:"
                 " mean radius must be bigger than the half width");
     }
-    setName(BornAgain::FormFactorSphereUniformRadiusType);
+    setName(FormFactorSphereUniformRadiusType);
     check_initialization();
     init_parameters();
 }
@@ -72,8 +73,8 @@ bool FormFactorSphereUniformRadius::check_initialization() const
 void FormFactorSphereUniformRadius::init_parameters()
 {
     clearParameterPool();
-    registerParameter("mean_radius", &m_mean, AttLimits::n_positive());
-    registerParameter("width_radius", &m_full_width, AttLimits::n_positive());
+    registerParameter(MeanRadius, &m_mean, AttLimits::n_positive());
+    registerParameter(FullWidth, &m_full_width, AttLimits::n_positive());
 }
 
 bool FormFactorSphereUniformRadius::checkParameters() const

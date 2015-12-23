@@ -17,6 +17,8 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
+using namespace BornAgain;
+
 InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
         double peak_distance, double damping_length)
     : m_peak_distance(peak_distance)
@@ -25,7 +27,7 @@ InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
     , m_kappa(0.0)
     , m_domain_size(0.0)
 {
-    setName(BornAgain::InterferenceFunctionRadialParaCrystalType);
+    setName(InterferenceFunctionRadialParaCrystalType);
     if (m_damping_length==0.0) {
         m_use_damping_length = false;
     }
@@ -35,12 +37,11 @@ InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
 void InterferenceFunctionRadialParaCrystal::init_parameters()
 {
     clearParameterPool();
-    registerParameter("peak_distance", &m_peak_distance);
-    registerParameter("damping_length", &m_damping_length);
-    registerParameter("size_spacing_coupling", &m_kappa);
-    registerParameter("domain_size", &m_domain_size);
+    registerParameter(PeakDistance, &m_peak_distance);
+    registerParameter(DampingLength, &m_damping_length);
+    registerParameter(SizeSpaceCoupling, &m_kappa);
+    registerParameter(DomainSize, &m_domain_size);
 }
-
 
 InterferenceFunctionRadialParaCrystal *InterferenceFunctionRadialParaCrystal::clone() const {
     InterferenceFunctionRadialParaCrystal *result =
@@ -78,7 +79,6 @@ double InterferenceFunctionRadialParaCrystal::getKappa() const
 {
     return m_kappa;
 }
-
 
 double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t& q) const
 {
@@ -155,5 +155,3 @@ double InterferenceFunctionRadialParaCrystal::getDampingLength() const
 {
     return m_damping_length;
 }
-
-

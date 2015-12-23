@@ -68,7 +68,6 @@ public:
     void visit(const Particle *sample);
     void visit(const ParticleDistribution *sample);
     void visit(const ParticleCoreShell *sample);
-    void visit(const ParticleInfo *sample){ (void)sample; }
     void visit(const ParticleLayout *sample);
 
     void visit(const RotationX *sample);

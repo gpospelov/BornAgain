@@ -21,6 +21,8 @@ GCC_DIAG_OFF(unused-parameter)
 #include <boost/math/special_functions/round.hpp>
 GCC_DIAG_ON(unused-parameter)
 
+using namespace BornAgain;
+
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2,
                                                              double angle, double xi)
     : mp_pdf(0), m_prefactor(1.0), m_na(0), m_nb(0)
@@ -29,7 +31,7 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, do
     m_lattice_params.m_length_2 = length_2;
     m_lattice_params.m_angle = angle;
     m_lattice_params.m_xi = xi;
-    setName(BornAgain::InterferenceFunction2DLatticeType);
+    setName(InterferenceFunction2DLatticeType);
     init_parameters();
     initialize_rec_vectors();
 }
@@ -156,7 +158,7 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(
     const Lattice2DIFParameters &lattice_params)
     : m_lattice_params(lattice_params), mp_pdf(0), m_prefactor(1.0), m_na(0), m_nb(0)
 {
-    setName(BornAgain::InterferenceFunction2DLatticeType);
+    setName(InterferenceFunction2DLatticeType);
     init_parameters();
     initialize_rec_vectors();
 }
@@ -164,10 +166,10 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(
 void InterferenceFunction2DLattice::init_parameters()
 {
     clearParameterPool();
-    registerParameter("length_1", &m_lattice_params.m_length_1);
-    registerParameter("length_2", &m_lattice_params.m_length_2);
-    registerParameter("angle", &m_lattice_params.m_angle);
-    registerParameter("xi", &m_lattice_params.m_xi);
+    registerParameter(LatticeLength1, &m_lattice_params.m_length_1);
+    registerParameter(LatticeLength2, &m_lattice_params.m_length_2);
+    registerParameter(Alpha, &m_lattice_params.m_angle);
+    registerParameter(Xi, &m_lattice_params.m_xi);
 }
 
 void InterferenceFunction2DLattice::initialize_rec_vectors()

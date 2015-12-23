@@ -22,11 +22,13 @@
 
 #include <cmath>
 
+using namespace  BornAgain;
+
 FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height)
     : m_radius(radius)
     , m_height(height)
 {
-    setName(BornAgain::FFTruncatedSphereType);
+    setName(FFTruncatedSphereType);
     check_initialization();
     init_parameters();
 
@@ -52,8 +54,8 @@ bool FormFactorTruncatedSphere::check_initialization() const
 void FormFactorTruncatedSphere::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius, AttLimits::n_positive());
-    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter(Radius, &m_radius, AttLimits::n_positive());
+    registerParameter(Height, &m_height, AttLimits::n_positive());
 }
 
 FormFactorTruncatedSphere *FormFactorTruncatedSphere::clone() const

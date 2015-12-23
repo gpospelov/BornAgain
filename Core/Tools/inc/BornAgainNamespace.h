@@ -20,6 +20,7 @@
 
 namespace BornAgain
 {
+// Axis constants
 const std::string PHI_AXIS_NAME = "phi_f";
 const std::string ALPHA_AXIS_NAME = "alpha_f";
 const std::string U_AXIS_NAME = "u";
@@ -27,22 +28,25 @@ const std::string V_AXIS_NAME = "v";
 const size_t X_AXIS_INDEX = 0;
 const size_t Y_AXIS_INDEX = 1;
 
+// Simulation types
 const std::string GISASSimulationType = "GISASSimulation";
 const std::string OffSpecSimulationType = "OffSpecSimulation";
 
+// Instrument related constants
 const std::string InstrumentType = "Instrument";
+const std::string ResolutionFunction2D = "ResolutionFunction2D";
 const std::string DetectorType = "Detector";
 const std::string SphericalDetectorType = "SphericalDetector";
 const std::string RectangularDetectorType = "RectangularDetector";
 const std::string IsGISAXSDetectorType = "IsGISAXSDetector";
 const std::string BeamType = "Beam";
 
+// ISample object types
 const std::string MultiLayerType = "MultiLayer";
 const std::string LayerType = "Layer";
 const std::string LayerInterfaceType = "LayerInterface";
 const std::string ParticleLayoutType = "ParticleLayout";
 const std::string ParticleType = "Particle";
-const std::string ParticleInfoType = "ParticleInfo";
 const std::string ParticleCoreShellType = "ParticleCoreShell";
 const std::string ParticleDistributionType = "ParticleDistribution";
 const std::string ParticleCompositionType = "ParticleComposition";
@@ -90,13 +94,13 @@ const std::string FormFactorTrivialType = "FormFactorTrivial";
 const std::string FormFactorDWBAType = "FormFactorDWBA";
 const std::string FormFactorPolarizedDWBAType = "FormFactorDWBAPol";
 
-const std::string FormFactorDecoratorFactor = "FormFactorDecoratorFactor";
-const std::string FormFactorDecoratorPositionFactor = "FormFactorDecoratorPositionFactor";
-const std::string FormFactorDecoratorMultiPositionFactor = "FormFactorDecoratorMultiPositionFactor";
-const std::string FormFactorDecoratorRotation = "FormFactorDecoratorRotation";
-const std::string FormFactorDecoratorDebyeWaller = "FormFactorDecoratorDebyeWaller";
-const std::string FormFactorDecoratorMaterial = "FormFactorDecoratorMaterial";
-const std::string FormFactorWeighted = "FormFactorWeighted";
+const std::string FormFactorDecoratorFactorType = "FormFactorDecoratorFactor";
+const std::string FormFactorDecoratorPositionFactorType = "FormFactorDecoratorPositionFactor";
+const std::string FormFactorDecoratorMultiPositionFactorType = "FormFactorDecoratorMultiPositionFactor";
+const std::string FormFactorDecoratorRotationType = "FormFactorDecoratorRotation";
+const std::string FormFactorDecoratorDebyeWallerType = "FormFactorDecoratorDebyeWaller";
+const std::string FormFactorDecoratorMaterialType = "FormFactorDecoratorMaterial";
+const std::string FormFactorWeightedType = "FormFactorWeighted";
 
 const std::string XRotationType = "XRotation";
 const std::string YRotationType = "YRotation";
@@ -122,6 +126,61 @@ const std::string FTDistribution2DGaussType = "FTDistribution2DGauss";
 const std::string FTDistribution2DGateType = "FTDistribution2DGate";
 const std::string FTDistribution2DConeType = "FTDistribution2DCone";
 const std::string FTDistribution2DVoigtType = "FTDistribution2DVoigt";
+
+// Parameter names (dimensions, angles, ...)
+const std::string Abundance = "Abundance";
+const std::string PositionX = "PositionX";
+const std::string PositionY = "PositionY";
+const std::string PositionZ = "PositionZ";
+const std::string Radius = "Radius";
+const std::string RadiusX = "RadiusX";
+const std::string RadiusY = "RadiusY";
+const std::string MeanRadius = "MeanRadius";
+const std::string SigmaRadius = "SigmaRadius";
+const std::string FullWidth = "FullWidth";
+const std::string Length = "Length";
+const std::string RemovedLength = "RemovedLength";
+const std::string Width = "Width";
+const std::string Height = "Height";
+const std::string HeightRatio = "HeightRatio";
+const std::string HeightFlattening = "HeightFlattening";
+const std::string Intensity = "Intensity";
+const std::string Wavelength = "Wavelength";
+const std::string Angle = "Angle";
+const std::string Alpha = "Alpha";
+const std::string Beta = "Beta";
+const std::string Gamma = "Gamma";
+const std::string Phi = "Phi";
+const std::string Xi = "Xi";
+const std::string Minimum = "Min";
+const std::string Maximum = "Max";
+const std::string Mean = "Mean";
+const std::string StdDeviation = "StdDev";
+const std::string HWHM = "HWHM";
+const std::string Median = "Median";
+const std::string ScaleParameter = "ScaleParameter";
+const std::string Sigma = "Sigma";
+const std::string Eta = "Eta";
+const std::string Omega = "Omega";
+const std::string CoherenceLengthX = "CoherenceLengthX";
+const std::string CoherenceLengthY = "CoherenceLengthY";
+const std::string SigmaX = "SigmaX";
+const std::string SigmaY = "SigmaY";
+const std::string HeightDWFactor = "HeightDWFactor";
+const std::string RadiusDWFactor = "RadiusDWFactor";
+const std::string AsymmetryLength = "AsymmetryLength";
+const std::string LatticeLength1 = "LatticeLength1";
+const std::string LatticeLength2 = "LatticeLength2";
+const std::string DampingLength = "DampingLength";
+const std::string DomainSize = "DomainSize";
+const std::string DomainSize1 = "DomainSize1";
+const std::string DomainSize2 = "DomainSize2";
+const std::string PeakDistance = "PeakDistance";
+const std::string SizeSpaceCoupling = "SizeSpaceCoupling";
+const std::string Thickness = "Thickness";
+const std::string Hurst = "Hurst";
+const std::string CorrelationLength = "CorrelationLength";
+const std::string CrossCorrelationLength = "CrossCorrelationLength";
 }
 
 #endif // BORNAGAINNAMESPACE_H

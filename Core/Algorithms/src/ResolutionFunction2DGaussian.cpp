@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ResolutionFunction2DGaussian.h"
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
 ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(double sigma_x,
@@ -21,12 +22,8 @@ ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(double sigma_x,
 : m_sigma_x(sigma_x)
 , m_sigma_y(sigma_y)
 {
-    setName("ResolutionFunction2D");
+    setName(BornAgain::ResolutionFunction2D);
     init_parameters();
-}
-
-ResolutionFunction2DGaussian::~ResolutionFunction2DGaussian()
-{
 }
 
 ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(const ResolutionFunction2DGaussian& other) : IResolutionFunction2D(other)
@@ -50,6 +47,6 @@ double ResolutionFunction2DGaussian::evaluateCDF(double x, double y) const
 void ResolutionFunction2DGaussian::init_parameters()
 {
     clearParameterPool();
-    registerParameter("sigma_x", &m_sigma_x);
-    registerParameter("sigma_y", &m_sigma_y);
+    registerParameter(BornAgain::SigmaX, &m_sigma_x);
+    registerParameter(BornAgain::SigmaY, &m_sigma_y);
 }

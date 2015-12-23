@@ -22,12 +22,14 @@
 
 #include <cmath>
 
+using namespace  BornAgain;
+
 FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
     : m_width(width)
     , m_height(height)
     , m_length(length)
 {
-    setName(BornAgain::FFRipple1Type);
+    setName(FFRipple1Type);
     check_initialization();
     init_parameters();
 
@@ -55,9 +57,9 @@ bool FormFactorRipple1::check_initialization() const
 void FormFactorRipple1::init_parameters()
 {
     clearParameterPool();
-    registerParameter("width", &m_width, AttLimits::n_positive());
-    registerParameter("height", &m_height, AttLimits::n_positive());
-    registerParameter("length", &m_length, AttLimits::n_positive());
+    registerParameter(Width, &m_width, AttLimits::n_positive());
+    registerParameter(Height, &m_height, AttLimits::n_positive());
+    registerParameter(Length, &m_length, AttLimits::n_positive());
 }
 
 FormFactorRipple1 *FormFactorRipple1::clone() const
@@ -99,5 +101,3 @@ complex_t FormFactorRipple1::evaluate_for_q(const cvector_t& q) const
     complex_t integral = m_integrator->integrate(0, m_height);
     return factor*integral;
 }
-
-

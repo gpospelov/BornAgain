@@ -21,8 +21,6 @@ GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
-#include "__call_policies.pypp.hpp"
-#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "MesoCrystal.pypp.h"
 
@@ -37,30 +35,6 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
     m_pyobj = 0;
     }
 
-    virtual bool areParametersChanged(  ) {
-        if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
-            return func_areParametersChanged(  );
-        else{
-            return this->IParameterized::areParametersChanged(  );
-        }
-    }
-    
-    bool default_areParametersChanged(  ) {
-        return IParameterized::areParametersChanged( );
-    }
-
-    virtual void clearParameterPool(  ) {
-        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
-            func_clearParameterPool(  );
-        else{
-            this->IParameterized::clearParameterPool(  );
-        }
-    }
-    
-    void default_clearParameterPool(  ) {
-        IParameterized::clearParameterPool( );
-    }
-
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
@@ -73,52 +47,16 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
         return ISample::containsMagneticMaterial( );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) const  {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
+    virtual ::std::vector< const ISample* > getChildren(  ) const  {
+        if( bp::override func_getChildren = this->get_override( "getChildren" ) )
+            return func_getChildren(  );
         else{
-            return this->IParameterized::createParameterTree(  );
+            return this->ICompositeSample::getChildren(  );
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) const  {
-        return IParameterized::createParameterTree( );
-    }
-
-    virtual ::ICompositeSample * getCompositeSample(  ) {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ICompositeSample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample * default_getCompositeSample(  ) {
-        return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ICompositeSample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample const * default_getCompositeSample(  ) const  {
-        return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual void printParameters(  ) const  {
-        if( bp::override func_printParameters = this->get_override( "printParameters" ) )
-            func_printParameters(  );
-        else{
-            this->IParameterized::printParameters(  );
-        }
-    }
-    
-    void default_printParameters(  ) const  {
-        IParameterized::printParameters( );
+    ::std::vector< const ISample* > default_getChildren(  ) const  {
+        return ICompositeSample::getChildren( );
     }
 
     virtual void printSampleTree(  ) {
@@ -131,49 +69,6 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
-    }
-
-    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
-        namespace bpl = boost::python;
-        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
-        }
-        else{
-            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
-        }
-    }
-    
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
-        if( dynamic_cast< MesoCrystal_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-        else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-    }
-
-    virtual bool setParameterValue( ::std::string const & name, double value ) {
-        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
-            return func_setParameterValue( name, value );
-        else{
-            return this->IParameterized::setParameterValue( name, value );
-        }
-    }
-    
-    bool default_setParameterValue( ::std::string const & name, double value ) {
-        return IParameterized::setParameterValue( name, value );
-    }
-
-    virtual void setParametersAreChanged(  ) {
-        if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
-            func_setParametersAreChanged(  );
-        else{
-            this->IParameterized::setParametersAreChanged(  );
-        }
-    }
-    
-    void default_setParametersAreChanged(  ) {
-        IParameterized::setParametersAreChanged( );
     }
 
     virtual ::std::size_t size(  ) const  {
@@ -222,28 +117,6 @@ void register_MesoCrystal_class(){
         typedef bp::class_< MesoCrystal_wrapper, bp::bases< IParticle >, std::auto_ptr< MesoCrystal_wrapper >, boost::noncopyable > MesoCrystal_exposer_t;
         MesoCrystal_exposer_t MesoCrystal_exposer = MesoCrystal_exposer_t( "MesoCrystal", "A particle with an internal structure of smaller particle.", bp::init< IClusteredParticles const &, IFormFactor & >(( bp::arg("particle_structure"), bp::arg("form_factor") )) );
         bp::scope MesoCrystal_scope( MesoCrystal_exposer );
-        { //::IParameterized::areParametersChanged
-        
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( MesoCrystal_wrapper::*default_areParametersChanged_function_type)(  ) ;
-            
-            MesoCrystal_exposer.def( 
-                "areParametersChanged"
-                , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&MesoCrystal_wrapper::default_areParametersChanged) );
-        
-        }
-        { //::IParameterized::clearParameterPool
-        
-            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( MesoCrystal_wrapper::*default_clearParameterPool_function_type)(  ) ;
-            
-            MesoCrystal_exposer.def( 
-                "clearParameterPool"
-                , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&MesoCrystal_wrapper::default_clearParameterPool) );
-        
-        }
         { //::ISample::containsMagneticMaterial
         
             typedef bool ( ::ISample::*containsMagneticMaterial_function_type)(  ) const;
@@ -255,51 +128,15 @@ void register_MesoCrystal_class(){
                 , default_containsMagneticMaterial_function_type(&MesoCrystal_wrapper::default_containsMagneticMaterial) );
         
         }
-        { //::IParameterized::createParameterTree
+        { //::ICompositeSample::getChildren
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( MesoCrystal_wrapper::*default_createParameterTree_function_type)(  ) const;
+            typedef ::std::vector< const ISample* > ( ::ICompositeSample::*getChildren_function_type)(  ) const;
+            typedef ::std::vector< const ISample* > ( MesoCrystal_wrapper::*default_getChildren_function_type)(  ) const;
             
             MesoCrystal_exposer.def( 
-                "createParameterTree"
-                , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&MesoCrystal_wrapper::default_createParameterTree)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::ICompositeSample::getCompositeSample
-        
-            typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) ;
-            typedef ::ICompositeSample * ( MesoCrystal_wrapper::*default_getCompositeSample_function_type)(  ) ;
-            
-            MesoCrystal_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&MesoCrystal_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ICompositeSample::getCompositeSample
-        
-            typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) const;
-            typedef ::ICompositeSample const * ( MesoCrystal_wrapper::*default_getCompositeSample_function_type)(  ) const;
-            
-            MesoCrystal_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&MesoCrystal_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IParameterized::printParameters
-        
-            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( MesoCrystal_wrapper::*default_printParameters_function_type)(  ) const;
-            
-            MesoCrystal_exposer.def( 
-                "printParameters"
-                , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&MesoCrystal_wrapper::default_printParameters) );
+                "getChildren"
+                , getChildren_function_type(&::ICompositeSample::getChildren)
+                , default_getChildren_function_type(&MesoCrystal_wrapper::default_getChildren) );
         
         }
         { //::ISample::printSampleTree
@@ -311,40 +148,6 @@ void register_MesoCrystal_class(){
                 "printSampleTree"
                 , printSampleTree_function_type(&::ISample::printSampleTree)
                 , default_printSampleTree_function_type(&MesoCrystal_wrapper::default_printSampleTree) );
-        
-        }
-        { //::IParameterized::registerParameter
-        
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
-            
-            MesoCrystal_exposer.def( 
-                "registerParameter"
-                , default_registerParameter_function_type( &MesoCrystal_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "main method to register data address in the pool." );
-        
-        }
-        { //::IParameterized::setParameterValue
-        
-            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( MesoCrystal_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
-            
-            MesoCrystal_exposer.def( 
-                "setParameterValue"
-                , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&MesoCrystal_wrapper::default_setParameterValue)
-                , ( bp::arg("name"), bp::arg("value") ) );
-        
-        }
-        { //::IParameterized::setParametersAreChanged
-        
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( MesoCrystal_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
-            
-            MesoCrystal_exposer.def( 
-                "setParametersAreChanged"
-                , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&MesoCrystal_wrapper::default_setParametersAreChanged) );
         
         }
         { //::ICompositeSample::size

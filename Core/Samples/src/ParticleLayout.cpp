@@ -30,6 +30,12 @@ ParticleLayout::ParticleLayout()
     setName(BornAgain::ParticleLayoutType);
 }
 
+ParticleLayout::ParticleLayout(const IAbstractParticle &particle)
+{
+    setName(BornAgain::ParticleLayoutType);
+    addParticle(particle);
+}
+
 ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundance)
 {
     setName(BornAgain::ParticleLayoutType);
@@ -45,7 +51,7 @@ ParticleLayout *ParticleLayout::clone() const
     ParticleLayout *p_new = new ParticleLayout();
 
     for (size_t i = 0; i < m_particles.size(); ++i)
-        p_new->addAndRegisterParticleInfo(m_particles[i]->clone());
+        p_new->addAndRegisterAbstractParticle(m_particles[i]->clone());
 
     for (size_t i = 0; i < m_interference_functions.size(); ++i)
         p_new->addAndRegisterInterferenceFunction(m_interference_functions[i]->clone());
@@ -61,7 +67,7 @@ ParticleLayout *ParticleLayout::cloneInvertB() const
     ParticleLayout *p_new = new ParticleLayout();
 
     for (size_t i = 0; i < m_particles.size(); ++i)
-        p_new->addAndRegisterParticleInfo(m_particles[i]->cloneInvertB());
+        p_new->addAndRegisterAbstractParticle(m_particles[i]->cloneInvertB());
 
     for (size_t i = 0; i < m_interference_functions.size(); ++i)
         p_new->addAndRegisterInterferenceFunction(m_interference_functions[i]->clone());
@@ -77,32 +83,41 @@ void ParticleLayout::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
+void ParticleLayout::addParticle(const IAbstractParticle &particle)
+{
+    addAndRegisterAbstractParticle(particle.clone());
+}
+
 void ParticleLayout::addParticle(const IAbstractParticle& particle, double abundance)
 {
-    addAndRegisterParticleInfo(new ParticleInfo(particle, abundance));
+    std::unique_ptr<IAbstractParticle> P_particle_clone { particle.clone() };
+    P_particle_clone->setAbundance(abundance);
+    addAndRegisterAbstractParticle(P_particle_clone.release());
 }
 
 void ParticleLayout::addParticle(const IParticle &particle, double abundance,
                                  const kvector_t &position)
 {
-    boost::scoped_ptr<IParticle> P_particle_clone(particle.clone());
+    std::unique_ptr<IParticle> P_particle_clone { particle.clone() };
+    P_particle_clone->setAbundance(abundance);
     if(position != kvector_t(0,0,0)) {
         P_particle_clone->applyTranslation(position);
     }
-    addAndRegisterParticleInfo(new ParticleInfo(*P_particle_clone, abundance));
+    addAndRegisterAbstractParticle(P_particle_clone.release());
 }
 
 void ParticleLayout::addParticle(const IParticle &particle, double abundance,
                                  const kvector_t &position, const IRotation& rotation)
 {
-    boost::scoped_ptr<IParticle> P_particle_clone(particle.clone());
+    std::unique_ptr<IParticle> P_particle_clone { particle.clone() };
+    P_particle_clone->setAbundance(abundance);
     if(!rotation.isIdentity()) {
         P_particle_clone->applyRotation(rotation);
     }
     if(position != kvector_t(0,0,0)) {
         P_particle_clone->applyTranslation(position);
     }
-    addAndRegisterParticleInfo(new ParticleInfo(*P_particle_clone, abundance));
+    addAndRegisterAbstractParticle(P_particle_clone.release());
 }
 
 size_t ParticleLayout::getNumberOfParticles() const
@@ -113,39 +128,31 @@ size_t ParticleLayout::getNumberOfParticles() const
 //! Returns particle info
 const IAbstractParticle* ParticleLayout::getParticle(size_t index) const
 {
-    if (index<m_particles.size())
-        return m_particles[index]->getParticle();
+    if (index<m_particles.size()) return m_particles[index];
     throw OutOfBoundsException(
         "ParticleLayout::getParticle() -> "
         "Error! Not so many particles in this decoration.");
 }
-
-void ParticleLayout::getParticleInfos(SafePointerVector<const IParticle> &particle_vector,
-                                      std::vector<double> &abundance_vector) const
+SafePointerVector<const IParticle> ParticleLayout::getParticles() const
 {
-    particle_vector.clear();
-    abundance_vector.clear();
-    for (SafePointerVector<ParticleInfo>::const_iterator it = m_particles.begin();
+    SafePointerVector<const IParticle> particle_vector;
+    for (SafePointerVector<IAbstractParticle>::const_iterator it = m_particles.begin();
          it != m_particles.end(); ++it) {
-        const ParticleInfo *p_info = (*it);
+        const IAbstractParticle *p_particle = (*it);
         const ParticleDistribution *p_part_distr
-            = dynamic_cast<const ParticleDistribution *>(p_info->getParticle());
-        const IParticle *p_iparticle = dynamic_cast<const IParticle *>(p_info->getParticle());
+                = dynamic_cast<const ParticleDistribution *>(p_particle);
+        const IParticle *p_iparticle = dynamic_cast<const IParticle *>(p_particle);
         if (p_part_distr) {
             std::vector<const IParticle *> generated_particles;
-            std::vector<double> abundances;
-            p_part_distr->generateParticleInfos(generated_particles, abundances,
-                                                p_info->getAbundance());
+            p_part_distr->generateParticles(generated_particles);
             for (size_t i = 0; i < generated_particles.size(); ++i) {
                 particle_vector.push_back(generated_particles[i]);
-                abundance_vector.push_back(abundances[i]);
             }
         } else if (p_iparticle) {
             particle_vector.push_back(p_iparticle->clone());
-            abundance_vector.push_back(p_info->getAbundance());
         }
     }
-    return;
+    return particle_vector;
 }
 
 double ParticleLayout::getAbundanceOfParticle(size_t index) const
@@ -185,8 +192,7 @@ const IInterferenceFunction *ParticleLayout::getInterferenceFunction(size_t inde
 }
 
 //! Adds particle information with simultaneous registration in parent class.
-void ParticleLayout::addAndRegisterParticleInfo(
-    ParticleInfo *child)
+void ParticleLayout::addAndRegisterAbstractParticle(IAbstractParticle *child)
 {
     m_particles.push_back(child);
     registerChild(child);

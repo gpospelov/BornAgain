@@ -37,8 +37,8 @@ CylindersWithSizeDistributionBuilder::CylindersWithSizeDistributionBuilder()
 void CylindersWithSizeDistributionBuilder::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius);
-    registerParameter("height", &m_height);
+    registerParameter(BornAgain::Radius, &m_radius);
+    registerParameter(BornAgain::Height, &m_height);
 }
 
 
@@ -62,7 +62,7 @@ ISample *CylindersWithSizeDistributionBuilder::buildSample() const
     double n_sigma = 2.0*2.0*std::sqrt(2.0*std::log(2.0));
     DistributionGaussian gauss(m_radius, sigma);
     ParameterPattern pattern;
-    pattern.add(ParticleType).add(FFCylinderType).add("radius");
+    pattern.add(ParticleType).add(FFCylinderType).add(Radius);
     ParameterDistribution par_distr(pattern.toStdString(), gauss, n_samples, n_sigma);
     ParticleDistribution particle_collection(nano_particle, par_distr);
     particle_layout.addParticle(particle_collection);
@@ -132,12 +132,12 @@ ISample *TwoTypesCylindersDistributionBuilder::buildSample() const
 
     // building distribution of nano particles
     ParameterPattern pattern1;
-    pattern1.add(ParticleType).add(FFCylinderType).add("radius");
+    pattern1.add(ParticleType).add(FFCylinderType).add(Radius);
     ParameterDistribution par_distr1(pattern1.toStdString(), gauss1, nbins, n_sigma);
     ParticleDistribution particle_collection1(cylinder1, par_distr1);
     particle_layout.addParticle(particle_collection1, 0.95);
     ParameterPattern pattern2;
-    pattern2.add(ParticleType).add(FFCylinderType).add("radius");
+    pattern2.add(ParticleType).add(FFCylinderType).add(Radius);
     ParameterDistribution par_distr2(pattern2.toStdString(), gauss2, nbins, n_sigma);
     ParticleDistribution particle_collection2(cylinder2, par_distr2);
     particle_layout.addParticle(particle_collection2, 0.05);

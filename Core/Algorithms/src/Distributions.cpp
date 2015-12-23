@@ -18,6 +18,8 @@
 #include "MathFunctions.h"
 #include "Exceptions.h"
 
+using namespace BornAgain;
+
 std::vector<ParameterSample> IDistribution1D::generateSamples(size_t nbr_samples,
         double sigma_factor, const AttLimits &limits) const {
     if (nbr_samples == 0) {
@@ -103,14 +105,14 @@ std::vector<double> IDistribution1D::generateValues(size_t nbr_samples,
 
 DistributionGate::DistributionGate() : m_min(0.0), m_max(1.0)
 {
-    setName(BornAgain::DistributionGateType);
+    setName(DistributionGateType);
     checkInitialization();
     init_parameters();
 }
 
 DistributionGate::DistributionGate(double min, double max) : m_min(min), m_max(max)
 {
-    setName(BornAgain::DistributionGateType);
+    setName(DistributionGateType);
     checkInitialization();
     init_parameters();
 }
@@ -133,34 +135,30 @@ std::vector<double> DistributionGate::generateValueList(size_t nbr_samples,
 void DistributionGate::init_parameters()
 {
     clearParameterPool();
-    registerParameter("min", &m_min);
-    registerParameter("max", &m_max);
+    registerParameter(Minimum, &m_min);
+    registerParameter(Maximum, &m_max);
 }
 
 bool DistributionGate::checkInitialization() const
 {
     bool result = true;
     if (m_max < m_min) result = false;
-    if (!result) SignalBadInitialization(BornAgain::DistributionGateType);
+    if (!result) SignalBadInitialization(DistributionGateType);
     return result;
 }
 
 // ---------------------------------------------------------------------------------------------- //
 
-DistributionLorentz::DistributionLorentz()
-    : m_mean(0.0)
-    , m_hwhm(1.0)
-    {
-        setName(BornAgain::DistributionLorentzType);
-        checkInitialization();
-        init_parameters();
-    }
-
-DistributionLorentz::DistributionLorentz(double mean, double hwhm)
-    : m_mean(mean)
-    , m_hwhm(hwhm)
+DistributionLorentz::DistributionLorentz() : m_mean(0.0), m_hwhm(1.0)
 {
-    setName(BornAgain::DistributionLorentzType);
+    setName(DistributionLorentzType);
+    checkInitialization();
+    init_parameters();
+}
+
+DistributionLorentz::DistributionLorentz(double mean, double hwhm) : m_mean(mean), m_hwhm(hwhm)
+{
+    setName(DistributionLorentzType);
     checkInitialization();
     init_parameters();
 }
@@ -184,15 +182,15 @@ std::vector<double> DistributionLorentz::generateValueList(size_t nbr_samples,
 void DistributionLorentz::init_parameters()
 {
     clearParameterPool();
-    registerParameter("mean", &m_mean);
-    registerParameter("hwhm", &m_hwhm);
+    registerParameter(Mean, &m_mean);
+    registerParameter(HWHM, &m_hwhm);
 }
 
 bool DistributionLorentz::checkInitialization() const
 {
     bool result = true;
     if (m_hwhm < 0.0) result = false;
-    if (!result) SignalBadInitialization(BornAgain::DistributionLorentzType);
+    if (!result) SignalBadInitialization(DistributionLorentzType);
     return result;
 }
 
@@ -202,7 +200,7 @@ DistributionGaussian::DistributionGaussian()
     : m_mean(0.0)
     , m_std_dev(1.0)
 {
-    setName(BornAgain::DistributionGaussianType);
+    setName(DistributionGaussianType);
     checkInitialization();
     init_parameters();
 }
@@ -211,7 +209,7 @@ DistributionGaussian::DistributionGaussian(double mean, double std_dev)
     : m_mean(mean)
     , m_std_dev(std_dev)
 {
-    setName(BornAgain::DistributionGaussianType);
+    setName(DistributionGaussianType);
     checkInitialization();
     init_parameters();
 }
@@ -237,15 +235,15 @@ std::vector<double> DistributionGaussian::generateValueList(size_t nbr_samples,
 void DistributionGaussian::init_parameters()
 {
     clearParameterPool();
-    registerParameter("mean", &m_mean);
-    registerParameter("std_dev", &m_std_dev);
+    registerParameter(Mean, &m_mean);
+    registerParameter(StdDeviation, &m_std_dev);
 }
 
 bool DistributionGaussian::checkInitialization() const
 {
     bool result = true;
     if (m_std_dev < 0.0) result = false;
-    if (!result) SignalBadInitialization(BornAgain::DistributionGaussianType);
+    if (!result) SignalBadInitialization(DistributionGaussianType);
     return result;
 }
 
@@ -255,7 +253,7 @@ DistributionLogNormal::DistributionLogNormal(double scale_param)
     : m_median(1.0)
     , m_scale_param(scale_param)
 {
-    setName(BornAgain::DistributionLogNormalType);
+    setName(DistributionLogNormalType);
     checkInitialization();
     init_parameters();
 }
@@ -264,7 +262,7 @@ DistributionLogNormal::DistributionLogNormal(double median, double scale_param)
     : m_median(median)
     , m_scale_param(scale_param)
 {
-    setName(BornAgain::DistributionLogNormalType);
+    setName(DistributionLogNormalType);
     checkInitialization();
     init_parameters();
 }
@@ -301,8 +299,8 @@ std::vector<double> DistributionLogNormal::generateValueList(size_t nbr_samples,
 void DistributionLogNormal::init_parameters()
 {
     clearParameterPool();
-    registerParameter("median", &m_median);
-    registerParameter("scale_parameter", &m_scale_param);
+    registerParameter(Median, &m_median);
+    registerParameter(ScaleParameter, &m_scale_param);
 }
 
 bool DistributionLogNormal::checkInitialization() const
@@ -310,7 +308,7 @@ bool DistributionLogNormal::checkInitialization() const
     bool result = true;
     if (m_scale_param < 0.0) result = false;
     if (m_median <= 0.0) result = false;
-    if (!result) SignalBadInitialization(BornAgain::DistributionLogNormalType);
+    if (!result) SignalBadInitialization(DistributionLogNormalType);
     return result;
 }
 
@@ -320,7 +318,7 @@ DistributionCosine::DistributionCosine()
     : m_mean(0.0)
     , m_sigma(1.0)
 {
-    setName(BornAgain::DistributionCosineType);
+    setName(DistributionCosineType);
     checkInitialization();
     init_parameters();
 }
@@ -329,7 +327,7 @@ DistributionCosine::DistributionCosine(double mean, double sigma)
     : m_mean(mean)
     , m_sigma(sigma)
 {
-    setName(BornAgain::DistributionCosineType);
+    setName(DistributionCosineType);
     checkInitialization();
     init_parameters();
 }
@@ -354,14 +352,14 @@ std::vector<double> DistributionCosine::generateValueList(size_t nbr_samples,
 void DistributionCosine::init_parameters()
 {
     clearParameterPool();
-    registerParameter("mean", &m_mean);
-    registerParameter("sigma", &m_sigma);
+    registerParameter(Mean, &m_mean);
+    registerParameter(Sigma, &m_sigma);
 }
 
 bool DistributionCosine::checkInitialization() const
 {
     bool result = true;
     if (m_sigma < 0.0) result = false;
-    if (!result) SignalBadInitialization(BornAgain::DistributionCosineType);
+    if (!result) SignalBadInitialization(DistributionCosineType);
     return result;
 }

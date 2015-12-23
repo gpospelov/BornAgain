@@ -95,6 +95,12 @@ ParameterPattern::ParameterPattern(std::string root_object)
 {
 }
 
+ParameterPattern &ParameterPattern::beginsWith(std::string start_type)
+{
+    m_pattern = start_type;
+    return *this;
+}
+
 ParameterPattern &ParameterPattern::add(std::string object_type)
 {
     m_pattern = m_pattern + "/" + object_type;

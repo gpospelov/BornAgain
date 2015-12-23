@@ -21,8 +21,6 @@ GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
-#include "__call_policies.pypp.hpp"
-#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "FormFactorPrism6.pypp.h"
 
@@ -109,30 +107,6 @@ struct FormFactorPrism6_wrapper : FormFactorPrism6, bp::wrapper< FormFactorPrism
         FormFactorPrism6::setRadius( radius );
     }
 
-    virtual bool areParametersChanged(  ) {
-        if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
-            return func_areParametersChanged(  );
-        else{
-            return this->IParameterized::areParametersChanged(  );
-        }
-    }
-    
-    bool default_areParametersChanged(  ) {
-        return IParameterized::areParametersChanged( );
-    }
-
-    virtual void clearParameterPool(  ) {
-        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
-            func_clearParameterPool(  );
-        else{
-            this->IParameterized::clearParameterPool(  );
-        }
-    }
-    
-    void default_clearParameterPool(  ) {
-        IParameterized::clearParameterPool( );
-    }
-
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -157,18 +131,6 @@ struct FormFactorPrism6_wrapper : FormFactorPrism6, bp::wrapper< FormFactorPrism
         return ISample::containsMagneticMaterial( );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) const  {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
-        else{
-            return this->IParameterized::createParameterTree(  );
-        }
-    }
-    
-    ::ParameterPool * default_createParameterTree(  ) const  {
-        return IParameterized::createParameterTree( );
-    }
-
     virtual ::complex_t evaluate( ::WavevectorInfo const & wavevectors ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(wavevectors) );
@@ -181,28 +143,16 @@ struct FormFactorPrism6_wrapper : FormFactorPrism6, bp::wrapper< FormFactorPrism
         return IFormFactorBorn::evaluate( boost::ref(wavevectors) );
     }
 
-    virtual ::ICompositeSample * getCompositeSample(  ) {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
+    virtual ::std::vector< const ISample* > getChildren(  ) const  {
+        if( bp::override func_getChildren = this->get_override( "getChildren" ) )
+            return func_getChildren(  );
         else{
-            return this->ISample::getCompositeSample(  );
+            return this->ISample::getChildren(  );
         }
     }
     
-    ::ICompositeSample * default_getCompositeSample(  ) {
-        return ISample::getCompositeSample( );
-    }
-
-    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ISample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample const * default_getCompositeSample(  ) const  {
-        return ISample::getCompositeSample( );
+    ::std::vector< const ISample* > default_getChildren(  ) const  {
+        return ISample::getChildren( );
     }
 
     virtual double getVolume(  ) const  {
@@ -217,18 +167,6 @@ struct FormFactorPrism6_wrapper : FormFactorPrism6, bp::wrapper< FormFactorPrism
         return IFormFactorBorn::getVolume( );
     }
 
-    virtual void printParameters(  ) const  {
-        if( bp::override func_printParameters = this->get_override( "printParameters" ) )
-            func_printParameters(  );
-        else{
-            this->IParameterized::printParameters(  );
-        }
-    }
-    
-    void default_printParameters(  ) const  {
-        IParameterized::printParameters( );
-    }
-
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
@@ -239,25 +177,6 @@ struct FormFactorPrism6_wrapper : FormFactorPrism6, bp::wrapper< FormFactorPrism
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
-    }
-
-    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
-        namespace bpl = boost::python;
-        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
-        }
-        else{
-            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
-        }
-    }
-    
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
-        if( dynamic_cast< FormFactorPrism6_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-        else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
     }
 
     virtual void setAmbientMaterial( ::IMaterial const & material ) {
@@ -272,28 +191,16 @@ struct FormFactorPrism6_wrapper : FormFactorPrism6, bp::wrapper< FormFactorPrism
         IFormFactor::setAmbientMaterial( boost::ref(material) );
     }
 
-    virtual bool setParameterValue( ::std::string const & name, double value ) {
-        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
-            return func_setParameterValue( name, value );
+    virtual ::std::size_t size(  ) const  {
+        if( bp::override func_size = this->get_override( "size" ) )
+            return func_size(  );
         else{
-            return this->IParameterized::setParameterValue( name, value );
+            return this->ISample::size(  );
         }
     }
     
-    bool default_setParameterValue( ::std::string const & name, double value ) {
-        return IParameterized::setParameterValue( name, value );
-    }
-
-    virtual void setParametersAreChanged(  ) {
-        if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
-            func_setParametersAreChanged(  );
-        else{
-            this->IParameterized::setParametersAreChanged(  );
-        }
-    }
-    
-    void default_setParametersAreChanged(  ) {
-        IParameterized::setParametersAreChanged( );
+    ::std::size_t default_size(  ) const  {
+        return ISample::size( );
     }
 
     virtual void transferToCPP(  ) {
@@ -400,28 +307,6 @@ void register_FormFactorPrism6_class(){
                 , ( bp::arg("radius") ) );
         
         }
-        { //::IParameterized::areParametersChanged
-        
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( FormFactorPrism6_wrapper::*default_areParametersChanged_function_type)(  ) ;
-            
-            FormFactorPrism6_exposer.def( 
-                "areParametersChanged"
-                , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&FormFactorPrism6_wrapper::default_areParametersChanged) );
-        
-        }
-        { //::IParameterized::clearParameterPool
-        
-            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( FormFactorPrism6_wrapper::*default_clearParameterPool_function_type)(  ) ;
-            
-            FormFactorPrism6_exposer.def( 
-                "clearParameterPool"
-                , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&FormFactorPrism6_wrapper::default_clearParameterPool) );
-        
-        }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;
@@ -445,18 +330,6 @@ void register_FormFactorPrism6_class(){
                 , default_containsMagneticMaterial_function_type(&FormFactorPrism6_wrapper::default_containsMagneticMaterial) );
         
         }
-        { //::IParameterized::createParameterTree
-        
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( FormFactorPrism6_wrapper::*default_createParameterTree_function_type)(  ) const;
-            
-            FormFactorPrism6_exposer.def( 
-                "createParameterTree"
-                , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&FormFactorPrism6_wrapper::default_createParameterTree)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
         { //::IFormFactorBorn::evaluate
         
             typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type)( ::WavevectorInfo const & ) const;
@@ -469,28 +342,15 @@ void register_FormFactorPrism6_class(){
                 , ( bp::arg("wavevectors") ) );
         
         }
-        { //::ISample::getCompositeSample
+        { //::ISample::getChildren
         
-            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type)(  ) ;
-            typedef ::ICompositeSample * ( FormFactorPrism6_wrapper::*default_getCompositeSample_function_type)(  ) ;
+            typedef ::std::vector< const ISample* > ( ::ISample::*getChildren_function_type)(  ) const;
+            typedef ::std::vector< const ISample* > ( FormFactorPrism6_wrapper::*default_getChildren_function_type)(  ) const;
             
             FormFactorPrism6_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorPrism6_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ISample::getCompositeSample
-        
-            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type)(  ) const;
-            typedef ::ICompositeSample const * ( FormFactorPrism6_wrapper::*default_getCompositeSample_function_type)(  ) const;
-            
-            FormFactorPrism6_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorPrism6_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                "getChildren"
+                , getChildren_function_type(&::ISample::getChildren)
+                , default_getChildren_function_type(&FormFactorPrism6_wrapper::default_getChildren) );
         
         }
         { //::IFormFactorBorn::getVolume
@@ -504,17 +364,6 @@ void register_FormFactorPrism6_class(){
                 , default_getVolume_function_type(&FormFactorPrism6_wrapper::default_getVolume) );
         
         }
-        { //::IParameterized::printParameters
-        
-            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( FormFactorPrism6_wrapper::*default_printParameters_function_type)(  ) const;
-            
-            FormFactorPrism6_exposer.def( 
-                "printParameters"
-                , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&FormFactorPrism6_wrapper::default_printParameters) );
-        
-        }
         { //::ISample::printSampleTree
         
             typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
@@ -524,17 +373,6 @@ void register_FormFactorPrism6_class(){
                 "printSampleTree"
                 , printSampleTree_function_type(&::ISample::printSampleTree)
                 , default_printSampleTree_function_type(&FormFactorPrism6_wrapper::default_printSampleTree) );
-        
-        }
-        { //::IParameterized::registerParameter
-        
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
-            
-            FormFactorPrism6_exposer.def( 
-                "registerParameter"
-                , default_registerParameter_function_type( &FormFactorPrism6_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactor::setAmbientMaterial
@@ -549,27 +387,15 @@ void register_FormFactorPrism6_class(){
                 , ( bp::arg("material") ) );
         
         }
-        { //::IParameterized::setParameterValue
+        { //::ISample::size
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( FormFactorPrism6_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef ::std::size_t ( ::ISample::*size_function_type)(  ) const;
+            typedef ::std::size_t ( FormFactorPrism6_wrapper::*default_size_function_type)(  ) const;
             
             FormFactorPrism6_exposer.def( 
-                "setParameterValue"
-                , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&FormFactorPrism6_wrapper::default_setParameterValue)
-                , ( bp::arg("name"), bp::arg("value") ) );
-        
-        }
-        { //::IParameterized::setParametersAreChanged
-        
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( FormFactorPrism6_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
-            
-            FormFactorPrism6_exposer.def( 
-                "setParametersAreChanged"
-                , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&FormFactorPrism6_wrapper::default_setParametersAreChanged) );
+                "size"
+                , size_function_type(&::ISample::size)
+                , default_size_function_type(&FormFactorPrism6_wrapper::default_size) );
         
         }
         { //::ICloneable::transferToCPP

@@ -34,6 +34,7 @@
 #include "FixedBinAxis.h"
 #include "CustomBinAxis.h"
 #include "SphericalDetector.h"
+#include "ParticleItem.h"
 #include "ParticleDistributionItem.h"
 #include "ParticleDistribution.h"
 #include "Distributions.h"
@@ -56,10 +57,13 @@
 #include "Line.h"
 #include "InfinitePlane.h"
 #include "MaskItems.h"
+#include "BornAgainNamespace.h"
+
 #include <QString>
 #include <QDebug>
 #include <vector>
-#include <boost/scoped_ptr.hpp>
+
+using namespace BornAgain;
 
 void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
                                             const InterferenceFunctionRadialParaCrystal *sample)
@@ -342,12 +346,15 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item, const Layer
 void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
                                             const ParticleDistribution *sample)
 {
+    item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, sample->getAbundance());
+
     ParameterDistribution par_distr = sample->getParameterDistribution();
     QString main_distr_par_name = QString::fromStdString(par_distr.getMainParameterName());
     ComboProperty combo_property
         = item->getRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
               .value<ComboProperty>();
     combo_property.setCachedValue(main_distr_par_name);
+    combo_property.setCacheContainsGUIFlag(false);
     item->setRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER,
                                 combo_property.getVariant());
 
@@ -430,16 +437,22 @@ void TransformFromDomain::setItemFromSample(BeamItem *beamItem, const GISASSimul
     const DistributionHandler::Distributions_t distributions
         = simulation.getDistributionHandler().getDistributions();
     for (size_t i = 0; i < distributions.size(); ++i) {
-        QString mainParameterName = QString::fromStdString(distributions[i].getMainParameterName());
-        if (mainParameterName == QStringLiteral("*/Beam/wavelength")) {
+        ParameterPattern pattern_wavelength;
+        pattern_wavelength.beginsWith("*").add(BeamType).add(Wavelength);
+        ParameterPattern pattern_alpha;
+        pattern_alpha.beginsWith("*").add(BeamType).add(Alpha);
+        ParameterPattern pattern_phi;
+        pattern_phi.beginsWith("*").add(BeamType).add(Phi);
+        std::string mainParameterName = distributions[i].getMainParameterName();
+        if (mainParameterName == pattern_wavelength.toStdString()) {
             BeamDistributionItem *beamWavelength = dynamic_cast<BeamDistributionItem *>(
                 beamItem->getSubItems()[BeamItem::P_WAVELENGTH]);
             setItemFromSample(beamWavelength, distributions[i]);
-        } else if (mainParameterName == QStringLiteral("*/Beam/alpha")) {
+        } else if (mainParameterName == pattern_alpha.toStdString()) {
             BeamDistributionItem *inclinationAngle = dynamic_cast<BeamDistributionItem *>(
                 beamItem->getSubItems()[BeamItem::P_INCLINATION_ANGLE]);
             setItemFromSample(inclinationAngle, distributions[i]);
-        } else if (mainParameterName == QStringLiteral("*/Beam/phi")) {
+        } else if (mainParameterName == pattern_phi.toStdString()) {
             BeamDistributionItem *azimuthalAngle = dynamic_cast<BeamDistributionItem *>(
                 beamItem->getSubItems()[BeamItem::P_AZIMUTHAL_ANGLE]);
             setItemFromSample(azimuthalAngle, distributions[i]);
@@ -664,4 +677,17 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem *beamDistributi
             sigma_factor = 2.0;
         distributionItem->setRegisteredProperty(DistributionItem::P_SIGMA_FACTOR, sigma_factor);
     }
+}
+
+QString TransformFromDomain::translateParameterNameToGUI(ParameterizedItem *item,
+                                                         const QString &par_name)
+{
+    auto gui_par_list = item->getParameterTreeList();
+    for (auto gui_par_name : gui_par_list) {
+        auto domain_par_name = QString::fromStdString(item->translateParameterName(gui_par_name));
+        if (domain_par_name == par_name) {
+            return gui_par_name;
+        }
+    }
+    return QString();
 }

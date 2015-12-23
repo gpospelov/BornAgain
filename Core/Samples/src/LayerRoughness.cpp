@@ -20,6 +20,8 @@
 #include <iostream>
 #include <iomanip>
 
+using namespace BornAgain;
+
 LayerRoughness::LayerRoughness()
 : m_sigma(0)
 , m_hurstParameter(0)
@@ -44,9 +46,9 @@ LayerRoughness *LayerRoughness::clone() const
 void LayerRoughness::init_parameters()
 {
     clearParameterPool();
-    registerParameter("sigma", &m_sigma);
-    registerParameter("hurst", &m_hurstParameter);
-    registerParameter("corrlength", &m_latteralCorrLength);
+    registerParameter(Sigma, &m_sigma);
+    registerParameter(Hurst, &m_hurstParameter);
+    registerParameter(CorrelationLength, &m_latteralCorrLength);
 }
 
 
@@ -120,6 +122,6 @@ void LayerRoughness::print(std::ostream& ostr) const
 
 void LayerRoughness::initialize()
 {
-    setName(BornAgain::LayerBasicRoughnessType);
+    setName(LayerBasicRoughnessType);
     init_parameters();
 }

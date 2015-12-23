@@ -27,7 +27,6 @@
 #include "ThreadInfoTest.h"
 #include "ParticleCompositionTest.h"
 #include "LayerRoughnessTest.h"
-#include "ParticleInfoTest.h"
 #include "LLDataTest.h"
 #include "TRangeTest.h"
 #include "FTDistributionsTest.h"

@@ -30,14 +30,9 @@ BA_CORE_API_ std::unique_ptr<MultiLayer> createMultiLayer(const ParameterizedIte
 BA_CORE_API_ std::unique_ptr<Layer> createLayer(const ParameterizedItem &item);
 BA_CORE_API_ std::unique_ptr<LayerRoughness> createLayerRoughness(const ParameterizedItem &item);
 BA_CORE_API_ std::unique_ptr<ParticleLayout> createParticleLayout(const ParameterizedItem &item);
-BA_CORE_API_ std::unique_ptr<Particle> createParticle(const ParameterizedItem &item,
-                                                      double &abundance);
-BA_CORE_API_ std::unique_ptr<ParticleCoreShell> createParticleCoreShell(
-        const ParameterizedItem &item, const Particle &core, const Particle &shell,
-        double &abundance);
-BA_CORE_API_ std::unique_ptr<ParticleComposition> createParticleComposition(
-        const ParameterizedItem &item, double &abundance);
-BA_CORE_API_ std::unique_ptr<IFormFactor> createFormFactor(const ParameterizedItem &item);
+BA_CORE_API_ std::unique_ptr<IParticle> createIParticle(const ParameterizedItem &item);
+BA_CORE_API_ std::unique_ptr<ParticleDistribution> createParticleDistribution(
+        const ParameterizedItem &item);
 BA_CORE_API_ std::unique_ptr<IDistribution1D> createDistribution(const ParameterizedItem &item);
 BA_CORE_API_ std::unique_ptr<IInterferenceFunction> createInterferenceFunction(
         const ParameterizedItem &item);
@@ -49,6 +44,9 @@ BA_CORE_API_ void addDistributionParametersToSimulation(const ParameterizedItem 
                                                         GISASSimulation *simulation);
 BA_CORE_API_ void addMasksToSimulation(const ParameterizedItem &detector_item,
                                                         GISASSimulation *simulation);
+BA_CORE_API_ void setTransformationInfo(IParticle *result, const ParameterizedItem &item);
+BA_CORE_API_ void setPositionInfo(IParticle *result, const ParameterizedItem &item);
+BA_CORE_API_ void setRotationInfo(IParticle *result, const ParameterizedItem &item);
 }
 
 #endif // TRANSFORMTODOMAIN_H

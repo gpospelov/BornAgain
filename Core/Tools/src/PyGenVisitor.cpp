@@ -31,7 +31,6 @@
 #include "Particle.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
-#include "ParticleInfo.h"
 #include "ParticleLayout.h"
 #include "PyGenVisitor.h"
 #include "PyGenTools.h"
@@ -435,8 +434,8 @@ std::string PyGenVisitor::defineFormFactors() const
 
         else if (const FormFactorEllipsoidalCylinder *ellipsoidalCylinder
                  = dynamic_cast<const FormFactorEllipsoidalCylinder *>(p_ff)) {
-            result << " = FormFactorEllipsoidalCylinder(" << ellipsoidalCylinder->getRadiusA()
-                   << "*nanometer, " << ellipsoidalCylinder->getRadiusB() << "*nanometer, "
+            result << " = FormFactorEllipsoidalCylinder(" << ellipsoidalCylinder->getRadiusX()
+                   << "*nanometer, " << ellipsoidalCylinder->getRadiusY() << "*nanometer, "
                    << ellipsoidalCylinder->getHeight() << "*nanometer)\n";
         }
 
@@ -462,8 +461,8 @@ std::string PyGenVisitor::defineFormFactors() const
 
         else if (const FormFactorHemiEllipsoid *hemiEllipsoid
                  = dynamic_cast<const FormFactorHemiEllipsoid *>(p_ff)) {
-            result << " = FormFactorHemiEllipsoid(" << hemiEllipsoid->getRadiusA() << "*nanometer, "
-                   << hemiEllipsoid->getRadiusB() << "*nanometer, " << hemiEllipsoid->getHeight()
+            result << " = FormFactorHemiEllipsoid(" << hemiEllipsoid->getRadiusX() << "*nanometer, "
+                   << hemiEllipsoid->getRadiusY() << "*nanometer, " << hemiEllipsoid->getHeight()
                    << "*nanometer)\n";
         }
 

@@ -76,6 +76,40 @@ NodeEditorPort *ConnectableView::addPort(const QString &name,
     return port;
 }
 
+
+
+void ConnectableView::setLabel(const QString &name)
+{
+    m_label = name;
+    setPortCoordinates();
+}
+
+void ConnectableView::connectInputPort(ConnectableView *other, int port_number)
+{
+    Q_ASSERT(other);
+
+    if (port_number >= m_input_ports.size())
+        throw GUIHelpers::Error("ConnectableView::connectInputPort() -> Wrong input port number");
+
+    if (other->getOutputPorts().size() != 1)
+        throw GUIHelpers::Error("ConnectableView::connectInputPort() -> Wrong output port number");
+
+    NodeEditorPort *input = m_input_ports.at(port_number);
+    NodeEditorPort *output = other->getOutputPorts().at(0);
+
+    if (!input->isConnected(output)) {
+        NodeEditorConnection *conn = new NodeEditorConnection(0, scene());
+        conn->setPort2(input);
+        conn->setPort1(output);
+        conn->updatePath();
+    }
+}
+
+int ConnectableView::getInputPortIndex(NodeEditorPort *port)
+{
+    return m_input_ports.indexOf(port);
+}
+
 // calculation of y-pos for ports
 void ConnectableView::setPortCoordinates()
 {
@@ -116,12 +150,6 @@ void ConnectableView::setPortCoordinates()
     }
 }
 
-void ConnectableView::setLabel(const QString &name)
-{
-    m_label = name;
-    setPortCoordinates();
-}
-
 int ConnectableView::getNumberOfPorts()
 {
     return m_input_ports.size() + m_output_ports.size();
@@ -135,30 +163,4 @@ int ConnectableView::getNumberOfOutputPorts()
 int ConnectableView::getNumberOfInputPorts()
 {
     return m_input_ports.size();
-}
-
-void ConnectableView::connectInputPort(ConnectableView *other, int port_number)
-{
-    Q_ASSERT(other);
-
-    if (port_number >= m_input_ports.size())
-        throw GUIHelpers::Error("ConnectableView::connectInputPort() -> Wrong input port number");
-
-    if (other->getOutputPorts().size() != 1)
-        throw GUIHelpers::Error("ConnectableView::connectInputPort() -> Wrong output port number");
-
-    NodeEditorPort *input = m_input_ports.at(port_number);
-    NodeEditorPort *output = other->getOutputPorts().at(0);
-
-    if (!input->isConnected(output)) {
-        NodeEditorConnection *conn = new NodeEditorConnection(0, scene());
-        conn->setPort2(input);
-        conn->setPort1(output);
-        conn->updatePath();
-    }
-}
-
-int ConnectableView::getInputPortIndex(NodeEditorPort *port)
-{
-    return m_input_ports.indexOf(port);
 }

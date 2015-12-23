@@ -52,7 +52,7 @@ Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor,
 Particle *Particle::clone() const
 {
     Particle *p_result = new Particle();
-
+    p_result->setAbundance(m_abundance);
     if (mP_form_factor.get())
         p_result->setFormFactor(*mP_form_factor);
     if (mP_material.get())
@@ -69,15 +69,14 @@ Particle *Particle::clone() const
 Particle *Particle::cloneInvertB() const
 {
     Particle *p_result = new Particle();
+    p_result->setAbundance(m_abundance);
     if (mP_form_factor.get())
         p_result->setFormFactor(*mP_form_factor);
-
     if (mP_material.get())
         p_result->mP_material.reset(Materials::createInvertedMaterial(mP_material.get()));
     if (mP_ambient_material.get())
         p_result->mP_ambient_material.reset(
             Materials::createInvertedMaterial(mP_ambient_material.get()));
-
     if (mP_rotation.get())
         p_result->setRotation(*mP_rotation);
     p_result->setPosition(m_position);

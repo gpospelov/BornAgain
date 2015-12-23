@@ -76,10 +76,6 @@ public:
     Eigen::Matrix2cd getAnalyzerOperator() const;
 #endif
 
-    //! Adds parameters from local pool to external pool and call recursion over direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
-                                                    int copy_number = -1) const;
-
     //! removes all masks from the detector
     void removeMasks();
 
@@ -108,6 +104,10 @@ public:
     std::vector<SimulationElement> createSimulationElements(const Beam& beam);
 #endif
 
+    //! Adds parameters from local pool to external pool and recursively calls its direct children.
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                                    int copy_number = -1) const;
+
 protected:
     //! Create an IPixelMap for the given OutputData object and index
     virtual IPixelMap* createPixelMap(size_t index) const=0;
@@ -121,10 +121,7 @@ protected:
     //! Returns the name for the axis with given index
     virtual std::string getAxisName(size_t index) const=0;
 
-    bool isCorrectAxisIndex(size_t index) const
-    {
-        return index < getDimension();
-    }
+    bool isCorrectAxisIndex(size_t index) const;
 
     //! Checks if data has a compatible format with the detector.
     bool dataShapeMatches(const OutputData<double> *p_data) const;
@@ -189,5 +186,10 @@ inline Eigen::Matrix2cd IDetector2D::getAnalyzerOperator() const
     return m_analyzer_operator;
 }
 #endif
+
+inline bool IDetector2D::isCorrectAxisIndex(size_t index) const
+{
+    return index < getDimension();
+}
 
 #endif /* IDETECTOR2D_H_ */

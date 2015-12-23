@@ -30,26 +30,27 @@ class BA_CORE_API_ ConvolutionDetectorResolution : public IDetectorResolution
 {
 public:
     typedef double (*cumulative_DF_1d)(double);
-    //! Constructor taking a 1 dimensional resolution function as argument
+
+    //! Constructor taking a 1 dimensional resolution function as argument.
     ConvolutionDetectorResolution(cumulative_DF_1d res_function_1d);
-    //! Constructor taking a 2 dimensional resolution function as argument
+
+    //! Constructor taking a 2 dimensional resolution function as argument.
     ConvolutionDetectorResolution(IResolutionFunction2D *p_res_function_2d);
     ConvolutionDetectorResolution(const IResolutionFunction2D &p_res_function_2d);
+
     virtual ~ConvolutionDetectorResolution();
 
     //! Convolve given intensities with the encapsulated resolution.
-    virtual void applyDetectorResolution(
-        OutputData<double> *p_intensity_map) const;
+    virtual void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
 
-    //! Adds parameters from local pool to external pool and call recursion over direct children
-    virtual std::string addParametersToExternalPool(
-        std::string path, ParameterPool *external_pool,
-        int copy_number=-1) const;
+    //! Adds parameters from local pool to external pool and recursively call children.
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                                    int copy_number = -1) const;
 
     //! clone object
     virtual ConvolutionDetectorResolution *clone() const;
 
-    const IResolutionFunction2D *getResolutionFunction2D() const { return mp_res_function_2d; }
+    const IResolutionFunction2D *getResolutionFunction2D() const;
 
 protected:
     ConvolutionDetectorResolution(const ConvolutionDetectorResolution& other);
@@ -66,5 +67,10 @@ private:
     cumulative_DF_1d m_res_function_1d;
     IResolutionFunction2D *mp_res_function_2d;
 };
+
+inline const IResolutionFunction2D *ConvolutionDetectorResolution::getResolutionFunction2D() const
+{
+    return mp_res_function_2d;
+}
 
 #endif /* CONVOLUTIONDETECTORRESOLUTION_H_ */

@@ -46,9 +46,9 @@ def get_simulation():
     wavelength_distr = DistributionLogNormal(1.0*angstrom, 0.1)
     alpha_distr = DistributionGaussian(0.2*degree, 0.1*degree)
     phi_distr = DistributionGaussian(0.0*degree, 0.1*degree)
-    simulation.addParameterDistribution("*/Beam/wavelength", wavelength_distr, 5)
-    simulation.addParameterDistribution("*/Beam/alpha", alpha_distr, 5)
-    simulation.addParameterDistribution("*/Beam/phi", phi_distr, 5)
+    simulation.addParameterDistribution("*/Beam/Wavelength", wavelength_distr, 5)
+    simulation.addParameterDistribution("*/Beam/Alpha", alpha_distr, 5)
+    simulation.addParameterDistribution("*/Beam/Phi", phi_distr, 5)
     return simulation
 
 

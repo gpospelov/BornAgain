@@ -18,9 +18,11 @@
 #include "MathFunctions.h"
 #include "Numeric.h"
 
+using namespace  BornAgain;
+
 FormFactorCylinder::FormFactorCylinder(double radius, double height)
 {
-    setName(BornAgain::FFCylinderType);
+    setName(FFCylinderType);
     m_radius = radius;
     m_height = height;
     check_initialization();
@@ -35,8 +37,8 @@ bool FormFactorCylinder::check_initialization() const
 void FormFactorCylinder::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius, AttLimits::n_positive());
-    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter(Radius, &m_radius, AttLimits::n_positive());
+    registerParameter(Height, &m_height, AttLimits::n_positive());
 }
 
 FormFactorCylinder* FormFactorCylinder::clone() const
@@ -44,26 +46,19 @@ FormFactorCylinder* FormFactorCylinder::clone() const
     return new FormFactorCylinder(m_radius, m_height);
 }
 
-complex_t FormFactorCylinder::evaluate_for_q(const cvector_t& q) const
+complex_t FormFactorCylinder::evaluate_for_q(const cvector_t &q) const
 {
     double R = m_radius;
     double H = m_height;
 
-    complex_t qzH_half = q.z()*H/2.0;
-    complex_t z_part = H*MathFunctions::Sinc(qzH_half) *
-        std::exp(complex_t(0.0, 1.0)*qzH_half);
-
-    complex_t qxy = std::sqrt(q.x()*q.x()+q.y()*q.y());
-    complex_t qrR = qxy*R;
-    complex_t J1_qrR_div_qrR = std::abs(qrR) > Numeric::double_epsilon ?
-        MathFunctions::Bessel_C1(qrR) :
-        0.5;
-    complex_t radial_part = Units::PI2*R*R*J1_qrR_div_qrR;
-
-    complex_t result = radial_part*z_part;
+    complex_t qzH_half = q.z() * H / 2.0;
+    complex_t z_part = H * MathFunctions::Sinc(qzH_half) * std::exp(complex_t(0.0, 1.0) * qzH_half);
+    complex_t qxy = std::sqrt(q.x() * q.x() + q.y() * q.y());
+    complex_t qrR = qxy * R;
+    complex_t J1_qrR_div_qrR
+        = std::abs(qrR) > Numeric::double_epsilon ? MathFunctions::Bessel_C1(qrR) : 0.5;
+    complex_t radial_part = Units::PI2 * R * R * J1_qrR_div_qrR;
+    complex_t result = radial_part * z_part;
 
     return result;
 }
-
-
-

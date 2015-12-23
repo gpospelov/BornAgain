@@ -21,6 +21,8 @@
 
 #include <functional>
 
+using namespace BornAgain;
+
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
         double length_1, double length_2, double alpha_lattice, double xi,
         double damping_length)
@@ -36,7 +38,7 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
     m_pdfs[1] = 0;
     m_domain_sizes[0] = 0.0;
     m_domain_sizes[1] = 0.0;
-    setName(BornAgain::InterferenceFunction2DParaCrystalType);
+    setName(InterferenceFunction2DParaCrystalType);
     if (m_damping_length==0.0) {
         m_use_damping_length = false;
     }
@@ -84,10 +86,10 @@ double InterferenceFunction2DParaCrystal::evaluate(const kvector_t& q) const
                     &InterferenceFunction2DParaCrystal::interferenceForXi;
         MemberFunctionIntegrator<InterferenceFunction2DParaCrystal>
             integrator(p_member_function, this);
-        result = integrator.integrate(0.0, Units::PI, (void*)0)/Units::PI;
+        result = integrator.integrate(0.0, Units::PI, nullptr)/Units::PI;
    }
     else {
-        result = interferenceForXi(m_xi, (void*)0);
+        result = interferenceForXi(m_xi, nullptr);
     }
     return result;
 }
@@ -151,19 +153,17 @@ void InterferenceFunction2DParaCrystal::transformToPrincipalAxes(double qx,
 void InterferenceFunction2DParaCrystal::init_parameters()
 {
     clearParameterPool();
-    registerParameter("lattice_length_1", &m_lattice_lengths[0]);
-    registerParameter("lattice_length_2", &m_lattice_lengths[1]);
-    registerParameter("lattice_angle", &m_alpha_lattice);
-    registerParameter("lattice_orientation", &m_xi);
-    registerParameter("damping_length", &m_damping_length);
-    registerParameter("domain_size_1", &m_domain_sizes[0]);
-    registerParameter("domain_size_2", &m_domain_sizes[1]);
+    registerParameter(LatticeLength1, &m_lattice_lengths[0]);
+    registerParameter(LatticeLength2, &m_lattice_lengths[1]);
+    registerParameter(Alpha, &m_alpha_lattice);
+    registerParameter(Xi, &m_xi);
+    registerParameter(DampingLength, &m_damping_length);
+    registerParameter(DomainSize1, &m_domain_sizes[0]);
+    registerParameter(DomainSize2, &m_domain_sizes[1]);
 }
 
-double InterferenceFunction2DParaCrystal::interferenceForXi(double xi,
-        void *params) const
+double InterferenceFunction2DParaCrystal::interferenceForXi(double xi, void *) const
 {
-    (void)params;
     double result = interference1D(m_qx, m_qy, xi, 0)*interference1D(m_qx, m_qy,
             xi + m_alpha_lattice, 1);
     return result;
@@ -231,7 +231,6 @@ complex_t InterferenceFunction2DParaCrystal::FTPDF(double qx, double qy,
     return result;
 }
 
-
 std::vector<double> InterferenceFunction2DParaCrystal::getLatticeLengths() const
 {
     std::vector<double> result;
@@ -258,5 +257,3 @@ std::vector<const IFTDistribution2D *> InterferenceFunction2DParaCrystal::getPro
     result[1] = m_pdfs[1];
     return result;
 }
-
-

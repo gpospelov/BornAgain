@@ -18,12 +18,14 @@
 #include "FormFactorBox.h"
 #include "MathFunctions.h"
 
+using namespace  BornAgain;
+
 FormFactorTruncatedCube::FormFactorTruncatedCube(
    double length, double removed_length)
     : m_length(length)
     , m_removed_length(removed_length)
 {
-    setName(BornAgain::FFTruncatedCubeType);
+    setName(FFTruncatedCubeType);
     check_initialization();
     init_parameters();
 }
@@ -31,8 +33,8 @@ FormFactorTruncatedCube::FormFactorTruncatedCube(
 void FormFactorTruncatedCube::init_parameters()
 {
     clearParameterPool();
-    registerParameter("length", &m_length);
-    registerParameter("removed_length", &m_removed_length);
+    registerParameter(Length, &m_length);
+    registerParameter(RemovedLength, &m_removed_length);
 }
 
 FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const

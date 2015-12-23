@@ -14,9 +14,12 @@
 // ************************************************************************** //
 
 #include "ParticleItem.h"
+#include "ParticleCoreShellItem.h"
 #include "FormFactorItems.h"
 #include "MaterialUtils.h"
 #include "VectorItem.h"
+#include "TransformToDomain.h"
+#include "GUIHelpers.h"
 
 #include <QDebug>
 
@@ -36,10 +39,14 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     registerProperty(P_ABUNDANCE, 1.0,
                      PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
     registerGroupProperty(P_POSITION, Constants::VectorType);
+    PositionTranslator position_translator;
+    addParameterTranslator(position_translator);
 
     addToValidChildren(Constants::TransformationType, PortInfo::PORT_0, 1);
-    setPropertyAppearance(ParameterizedItem::P_NAME,
-                          PropertyAttribute::VISIBLE);
+    RotationTranslator rotation_translator;
+    addParameterTranslator(rotation_translator);
+
+    setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VISIBLE);
 }
 
 void ParticleItem::insertChildItem(int row, ParameterizedItem *item)
@@ -63,14 +70,35 @@ void ParticleItem::onPropertyChange(const QString &name)
             setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
             setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
             int port = getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
-            if (parent()->modelType() == Constants::ParticleCoreShellType
-                && port == PortInfo::PORT_1) {
-                ParameterizedItem *p_position_item = getSubItems()[ParticleItem::P_POSITION];
-                p_position_item->setRegisteredProperty(VectorItem::P_X, 0.0);
-                p_position_item->setRegisteredProperty(VectorItem::P_Y, 0.0);
-                p_position_item->setRegisteredProperty(VectorItem::P_Z, 0.0);
-                setPropertyAppearance(ParticleItem::P_POSITION, PropertyAttribute::DISABLED);
+            if (parent()->modelType() == Constants::ParticleCoreShellType) {
+                auto p_coreshell = static_cast<ParticleCoreShellItem*>(parent());
+                p_coreshell->notifyChildParticlePortChanged();
+                if (port == PortInfo::PORT_1) {
+                    ParameterizedItem *p_position_item = getSubItems()[ParticleItem::P_POSITION];
+                    p_position_item->setRegisteredProperty(VectorItem::P_X, 0.0);
+                    p_position_item->setRegisteredProperty(VectorItem::P_Y, 0.0);
+                    p_position_item->setRegisteredProperty(VectorItem::P_Z, 0.0);
+                    setPropertyAppearance(ParticleItem::P_POSITION, PropertyAttribute::DISABLED);
+                }
             }
         }
     }
+}
+
+std::unique_ptr<Particle> ParticleItem::createParticle() const
+{
+    auto P_material = TransformToDomain::createDomainMaterial(*this);
+    auto P_particle = GUIHelpers::make_unique<Particle>(*P_material);
+
+    double abundance = getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+    P_particle->setAbundance(abundance);
+
+    auto ffItem = static_cast<FormFactorItem*>(getSubItems()[ParticleItem::P_FORM_FACTOR]);
+    Q_ASSERT(ffItem);
+    auto P_ff = ffItem->createFormFactor();
+    P_particle->setFormFactor(*P_ff);
+
+    TransformToDomain::setTransformationInfo(P_particle.get(), *this);
+
+    return P_particle;
 }

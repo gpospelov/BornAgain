@@ -18,6 +18,8 @@
 #include "MathFunctions.h"
 #include "Numeric.h"
 
+using namespace  BornAgain;
+
 FormFactorLorentz::FormFactorLorentz(double volume)
 {
     double R = std::pow(volume, 1.0/3.0);
@@ -41,8 +43,8 @@ bool FormFactorLorentz::check_initialization() const
 void FormFactorLorentz::init_parameters()
 {
     clearParameterPool();
-    registerParameter("width", &m_width, AttLimits::n_positive());
-    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter(Width, &m_width, AttLimits::n_positive());
+    registerParameter(Height, &m_height, AttLimits::n_positive());
 }
 
 FormFactorLorentz* FormFactorLorentz::clone() const
@@ -72,7 +74,7 @@ complex_t FormFactorLorentz::evaluate_for_q(const cvector_t& q) const
 
 void FormFactorLorentz::initialize()
 {
-    setName(BornAgain::FFLorentzType);
+    setName(FFLorentzType);
     check_initialization();
     init_parameters();
 }

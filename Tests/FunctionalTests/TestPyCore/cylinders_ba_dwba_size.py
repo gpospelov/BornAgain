@@ -104,7 +104,7 @@ def RunSimulationBA_Size():
     n_sigma = 4.0*numpy.sqrt(2.0*numpy.log(2.0))
     gauss = DistributionGaussian(radius, sigma)
 
-    par_distr = ParameterDistribution("*/radius", gauss, nbins, n_sigma)
+    par_distr = ParameterDistribution("*/Radius", gauss, nbins, n_sigma)
     part_coll = ParticleDistribution(nano_particle, par_distr)
     particle_layout.addParticle(part_coll)
 

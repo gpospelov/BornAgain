@@ -31,6 +31,7 @@ class ProgramOptions;
 class ProgressHandlerDWBA;
 class IHistogram;
 class Histogram2D;
+
 namespace Geometry {
 class IShape2D;
 }
@@ -47,6 +48,7 @@ public:
     GISASSimulation(const ISample& p_sample, const ProgramOptions *p_options=0);
     GISASSimulation(SampleBuilder_t p_sample_builder,
                const ProgramOptions *p_options=0);
+
     ~GISASSimulation() {}
 
     GISASSimulation *clone() const;
@@ -58,7 +60,7 @@ public:
     virtual int getNumberOfSimulationElements() const;
 
     //! Returns detector intensity map (no detector resolution)
-    const OutputData<double>* getOutputData() const { return &m_intensity_map; }
+    const OutputData<double>* getOutputData() const;
 
     //! Returns clone of the detector intensity map with detector resolution applied
     OutputData<double>* getDetectorIntensity() const;
@@ -71,7 +73,7 @@ public:
     void setInstrument(const Instrument& instrument);
 
     //! Returns the instrument containing beam and detector information
-    const Instrument& getInstrument() const { return m_instrument; }
+    const Instrument& getInstrument() const;
 
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);
@@ -103,10 +105,6 @@ public:
     void setAnalyzerProperties(const kvector_t &direction, double efficiency,
                                double total_transmission=1.0);
 
-    //! Adds parameters from local to external pool, and call recursion over direct children
-    std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
-                                            int copy_number=-1) const;
-
     //! returns wavelength
     virtual double getWavelength() const;
 
@@ -122,6 +120,10 @@ public:
 
     //! Put the mask for all detector channels (i.e. exclude whole detector from the analysis)
     void maskAll();
+
+    //! Adds parameters from local pool to external pool and recursively calls its direct children.
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                                    int copy_number = -1) const;
 
 protected:
     GISASSimulation(const GISASSimulation& other);
@@ -148,5 +150,15 @@ protected:
 private:
     void initialize();
 };
+
+inline const OutputData<double> *GISASSimulation::getOutputData() const
+{
+    return &m_intensity_map;
+}
+
+inline const Instrument &GISASSimulation::getInstrument() const
+{
+    return m_instrument;
+}
 
 #endif /* GISASSIMULATION_H_ */

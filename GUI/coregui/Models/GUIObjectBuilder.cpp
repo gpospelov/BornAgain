@@ -236,9 +236,9 @@ void GUIObjectBuilder::visit(const Particle *sample)
                                 "(const Particle *sample) -> Logic error.");
     }
 
-    buildAbundanceInfo(particleItem);
     buildPositionInfo(particleItem, sample);
 
+    particleItem->setRegisteredProperty(ParticleItem::P_ABUNDANCE, sample->getAbundance());
     particleItem->setItemName(sample->getName().c_str());
     particleItem->setRegisteredProperty(ParticleItem::P_MATERIAL,
         createMaterialFromDomain(sample->getMaterial()).getVariant());
@@ -256,7 +256,6 @@ void GUIObjectBuilder::visit(const ParticleDistribution *sample)
     Q_ASSERT(particle_distribution_item);
 
     TransformFromDomain::setItemFromSample(particle_distribution_item, sample);
-    buildAbundanceInfo(particle_distribution_item);
 
     m_levelToParentItem[getLevel()] = particle_distribution_item;
     m_itemToSample[particle_distribution_item] = sample;
@@ -271,10 +270,10 @@ void GUIObjectBuilder::visit(const ParticleCoreShell *sample)
 
     ParameterizedItem *coreshellItem = m_sampleModel->insertNewItem(
         Constants::ParticleCoreShellType, m_sampleModel->indexOfItem(parent));
-    buildAbundanceInfo(coreshellItem);
-    buildPositionInfo(coreshellItem, sample);
-
+    coreshellItem->setRegisteredProperty(ParticleItem::P_ABUNDANCE, sample->getAbundance());
     coreshellItem->setItemName(sample->getName().c_str());
+
+    buildPositionInfo(coreshellItem, sample);
 
     m_levelToParentItem[getLevel()] = coreshellItem;
     m_itemToSample[coreshellItem] = sample;
@@ -288,21 +287,14 @@ void GUIObjectBuilder::visit(const ParticleComposition *sample)
     Q_ASSERT(parent);
     ParameterizedItem *particle_composition_item = m_sampleModel->insertNewItem(
         Constants::ParticleCompositionType, m_sampleModel->indexOfItem(parent));
-    buildAbundanceInfo(particle_composition_item);
+    particle_composition_item->setItemName(sample->getName().c_str());
+    particle_composition_item->setRegisteredProperty(ParticleItem::P_ABUNDANCE,
+                                                     sample->getAbundance());
+
     buildPositionInfo(particle_composition_item, sample);
 
-    particle_composition_item->setItemName(sample->getName().c_str());
     m_levelToParentItem[getLevel()] = particle_composition_item;
     m_itemToSample[particle_composition_item] = sample;
-}
-
-void GUIObjectBuilder::visit(const ParticleInfo *sample)
-{
-    qDebug() << "GUIObjectBuilder::visit(const ParticleInfo *)" << getLevel();
-    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
-    Q_ASSERT(parent);
-    m_propertyToValue[ParticleItem::P_ABUNDANCE] = sample->getAbundance();
-    m_levelToParentItem[getLevel()] = parent;
 }
 
 void GUIObjectBuilder::visit(const FormFactorAnisoPyramid *sample)
@@ -387,10 +379,10 @@ void GUIObjectBuilder::visit(const FormFactorEllipsoidalCylinder *sample)
     ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
     ParameterizedItem *ffItem = particleItem->setGroupProperty(
        ParticleItem::P_FORM_FACTOR, Constants::EllipsoidalCylinderType);
-    ffItem->setRegisteredProperty(EllipsoidalCylinderItem::P_RADIUS_A,
-                                  sample->getRadiusA());
-    ffItem->setRegisteredProperty(EllipsoidalCylinderItem::P_RADIUS_B,
-                                  sample->getRadiusB());
+    ffItem->setRegisteredProperty(EllipsoidalCylinderItem::P_RADIUS_X,
+                                  sample->getRadiusX());
+    ffItem->setRegisteredProperty(EllipsoidalCylinderItem::P_RADIUS_Y,
+                                  sample->getRadiusY());
     ffItem->setRegisteredProperty(EllipsoidalCylinderItem::P_HEIGHT,
                                   sample->getHeight());
     m_levelToParentItem[getLevel()] = particleItem;
@@ -423,10 +415,10 @@ void GUIObjectBuilder::visit(const FormFactorHemiEllipsoid *sample)
     ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
     ParameterizedItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::HemiEllipsoidType);
-    ffItem->setRegisteredProperty(HemiEllipsoidItem::P_RADIUS_A,
-                                  sample->getRadiusA());
-    ffItem->setRegisteredProperty(HemiEllipsoidItem::P_RADIUS_B,
-                                  sample->getRadiusB());
+    ffItem->setRegisteredProperty(HemiEllipsoidItem::P_RADIUS_X,
+                                  sample->getRadiusX());
+    ffItem->setRegisteredProperty(HemiEllipsoidItem::P_RADIUS_Y,
+                                  sample->getRadiusY());
     ffItem->setRegisteredProperty(HemiEllipsoidItem::P_HEIGHT,
                                   sample->getHeight());
     m_levelToParentItem[getLevel()] = particleItem;
@@ -652,20 +644,6 @@ void GUIObjectBuilder::visit(const RotationEuler *sample)
     p_rotationItem->setRegisteredProperty(EulerRotationItem::P_GAMMA,
                                           Units::rad2deg(sample->getGamma()) );
     m_levelToParentItem[getLevel()] = transformation_item;
-}
-
-void GUIObjectBuilder::buildAbundanceInfo(ParameterizedItem *particleItem)
-{
-    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
-    Q_ASSERT(parent);
-    if(parent->modelType() == Constants::ParticleLayoutType) {
-        if(!m_propertyToValue.contains(ParticleItem::P_ABUNDANCE))
-            throw GUIHelpers::Error("GUIObjectBuilder::buildTransformationInfo: "
-              "Error. No abundance property and parent is Layout");
-
-        particleItem->setRegisteredProperty(ParticleItem::P_ABUNDANCE,
-            m_propertyToValue[ParticleItem::P_ABUNDANCE]);
-    }
 }
 
 void GUIObjectBuilder::buildPositionInfo(ParameterizedItem *particleItem, const IParticle *sample)

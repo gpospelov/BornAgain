@@ -109,8 +109,8 @@ class BA_CORE_API_ EllipsoidalCylinderItem : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_RADIUS_A;
-    static const QString P_RADIUS_B;
+    static const QString P_RADIUS_X;
+    static const QString P_RADIUS_Y;
     static const QString P_HEIGHT;
     explicit EllipsoidalCylinderItem(ParameterizedItem *parent=0);
     std::unique_ptr<IFormFactor> createFormFactor() const;
@@ -142,8 +142,8 @@ class BA_CORE_API_ HemiEllipsoidItem : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_RADIUS_A;
-    static const QString P_RADIUS_B;
+    static const QString P_RADIUS_X;
+    static const QString P_RADIUS_Y;
     static const QString P_HEIGHT;
     explicit HemiEllipsoidItem(ParameterizedItem *parent=0);
     std::unique_ptr<IFormFactor> createFormFactor() const;

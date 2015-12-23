@@ -6,7 +6,7 @@
 
 class IParameterizedTest : public ::testing::Test
 {
- protected:
+protected:
     IParameterizedTest() {}
     virtual ~IParameterizedTest(){}
 
@@ -32,13 +32,9 @@ class IParameterizedTest : public ::testing::Test
 
 TEST_F(IParameterizedTest, InitialState)
 {
-    EXPECT_FALSE( m_initial_object.areParametersChanged() );
-    m_initial_object.setParametersAreChanged();
-    EXPECT_TRUE( m_initial_object.areParametersChanged() ); // after this call object has to change state
-    EXPECT_FALSE( m_initial_object.areParametersChanged() );
     EXPECT_EQ( size_t(0), m_initial_object.getParameterPool()->size() );
     IParameterized obj2(m_initial_object);
-    EXPECT_FALSE( obj2.areParametersChanged() );
+    EXPECT_EQ( size_t(0), obj2.getParameterPool()->size() );
 }
 
 

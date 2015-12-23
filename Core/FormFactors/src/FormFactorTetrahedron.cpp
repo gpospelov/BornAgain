@@ -19,10 +19,12 @@
 #include "MemberFunctionIntegrator.h"
 #include "MemberComplexFunctionIntegrator.h"
 
+using namespace  BornAgain;
+
 FormFactorTetrahedron::FormFactorTetrahedron(
    double length, double height, double alpha)
 {
-    setName(BornAgain::FFTetrahedronType);
+    setName(FFTetrahedronType);
     m_height = height;
     m_length = length;
     m_alpha = alpha;
@@ -59,9 +61,9 @@ bool FormFactorTetrahedron::check_initialization() const
 void FormFactorTetrahedron::init_parameters()
 {
     clearParameterPool();
-    registerParameter("height", &m_height, AttLimits::n_positive());
-    registerParameter("length", &m_length, AttLimits::n_positive());
-    registerParameter("alpha", &m_alpha, AttLimits::n_positive());
+    registerParameter(Height, &m_height, AttLimits::n_positive());
+    registerParameter(Length, &m_length, AttLimits::n_positive());
+    registerParameter(Alpha, &m_alpha, AttLimits::n_positive());
 }
 
 FormFactorTetrahedron* FormFactorTetrahedron::clone() const

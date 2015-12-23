@@ -159,6 +159,16 @@ void register_Polygon_class(){
                 , "Returns true if area defined by two bins is inside or on border of polygon. More precisely, if mid point of two bins satisfy this condition. " );
         
         }
+        { //::Geometry::Polygon::getPoints
+        
+            typedef void ( ::Geometry::Polygon::*getPoints_function_type)( ::std::vector< double > &,::std::vector< double > & ) const;
+            
+            Polygon_exposer.def( 
+                "getPoints"
+                , getPoints_function_type( &::Geometry::Polygon::getPoints )
+                , ( bp::arg("xpos"), bp::arg("ypos") ) );
+        
+        }
         { //::ICloneable::transferToCPP
         
             typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;

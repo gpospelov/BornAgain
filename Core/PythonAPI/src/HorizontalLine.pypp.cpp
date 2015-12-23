@@ -141,6 +141,16 @@ void register_HorizontalLine_class(){
                 , ( bp::arg("binx"), bp::arg("biny") ) );
         
         }
+        { //::Geometry::HorizontalLine::getYpos
+        
+            typedef double ( ::Geometry::HorizontalLine::*getYpos_function_type)(  ) const;
+            
+            HorizontalLine_exposer.def( 
+                "getYpos"
+                , getYpos_function_type( &::Geometry::HorizontalLine::getYpos )
+                , "Returns true if the line crosses the area defined by two given bins." );
+        
+        }
         { //::ICloneable::transferToCPP
         
             typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;

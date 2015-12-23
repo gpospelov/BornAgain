@@ -141,6 +141,16 @@ void register_VerticalLine_class(){
                 , ( bp::arg("binx"), bp::arg("biny") ) );
         
         }
+        { //::Geometry::VerticalLine::getXpos
+        
+            typedef double ( ::Geometry::VerticalLine::*getXpos_function_type)(  ) const;
+            
+            VerticalLine_exposer.def( 
+                "getXpos"
+                , getXpos_function_type( &::Geometry::VerticalLine::getXpos )
+                , "Returns true if the line crosses the area defined by two given bins." );
+        
+        }
         { //::ICloneable::transferToCPP
         
             typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;

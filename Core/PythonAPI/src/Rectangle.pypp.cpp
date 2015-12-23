@@ -151,6 +151,42 @@ void register_Rectangle_class(){
                 , "Returns true if mid point of two bins is inside rectangle." );
         
         }
+        { //::Geometry::Rectangle::getXlow
+        
+            typedef double ( ::Geometry::Rectangle::*getXlow_function_type)(  ) const;
+            
+            Rectangle_exposer.def( 
+                "getXlow"
+                , getXlow_function_type( &::Geometry::Rectangle::getXlow ) );
+        
+        }
+        { //::Geometry::Rectangle::getXup
+        
+            typedef double ( ::Geometry::Rectangle::*getXup_function_type)(  ) const;
+            
+            Rectangle_exposer.def( 
+                "getXup"
+                , getXup_function_type( &::Geometry::Rectangle::getXup ) );
+        
+        }
+        { //::Geometry::Rectangle::getYlow
+        
+            typedef double ( ::Geometry::Rectangle::*getYlow_function_type)(  ) const;
+            
+            Rectangle_exposer.def( 
+                "getYlow"
+                , getYlow_function_type( &::Geometry::Rectangle::getYlow ) );
+        
+        }
+        { //::Geometry::Rectangle::getYup
+        
+            typedef double ( ::Geometry::Rectangle::*getYup_function_type)(  ) const;
+            
+            Rectangle_exposer.def( 
+                "getYup"
+                , getYup_function_type( &::Geometry::Rectangle::getYup ) );
+        
+        }
         { //::ICloneable::transferToCPP
         
             typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;

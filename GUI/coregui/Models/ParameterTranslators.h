@@ -39,5 +39,16 @@ public:
     virtual std::string translate(const QString &name) const;
 };
 
+class RotationTranslator : public IParameterTranslator {
+public:
+    RotationTranslator();
+    virtual ~RotationTranslator() {}
+
+    virtual RotationTranslator *clone() const;
+
+    virtual QStringList split(const QString &par_name) const;
+    virtual std::string translate(const QString &name) const;
+};
+
 #endif // PARAMETERTRANSLATORS_H
 

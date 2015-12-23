@@ -34,6 +34,8 @@ ParticleCompositionItem::ParticleCompositionItem(ParameterizedItem *parent)
     addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0);
     addToValidChildren(Constants::ParticleCompositionType, PortInfo::PORT_0);
     addToValidChildren(Constants::TransformationType, PortInfo::PORT_1, 1);
+    RotationTranslator rotation_translator;
+    addParameterTranslator(rotation_translator);
 }
 
 void ParticleCompositionItem::insertChildItem(int row, ParameterizedItem *item)

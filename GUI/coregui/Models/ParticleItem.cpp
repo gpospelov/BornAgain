@@ -43,8 +43,10 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     addParameterTranslator(position_translator);
 
     addToValidChildren(Constants::TransformationType, PortInfo::PORT_0, 1);
-    setPropertyAppearance(ParameterizedItem::P_NAME,
-                          PropertyAttribute::VISIBLE);
+    RotationTranslator rotation_translator;
+    addParameterTranslator(rotation_translator);
+
+    setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VISIBLE);
 }
 
 void ParticleItem::insertChildItem(int row, ParameterizedItem *item)

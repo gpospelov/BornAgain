@@ -204,7 +204,7 @@ void ContentPane::initAnimations()
                 QEasingCurve(QEasingCurve::Type::Linear));
 }
 
-void ContentPane::headerClicked(ATTR_UNUSED QPoint pos) {
+void ContentPane::headerClicked() {
     emit this->clicked();
 }
 

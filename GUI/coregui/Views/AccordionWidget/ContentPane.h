@@ -263,7 +263,7 @@ public slots:
      * the ContentPane. If it is already inactive and you call this slot without
      * checking the state it will be opened).
      */
-    void headerClicked(QPoint pos);
+    void headerClicked();
 
 private:
     // yeah we are friends. this is important to keep openContentPane and

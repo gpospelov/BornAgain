@@ -78,6 +78,9 @@ void GISASSimulation::prepareSimulation()
                 "GISASSimulation::prepareSimulation() "
                 "-> Error. Incoming wavelength <= 0.");
     }
+
+    getInstrument().getDetector()->init(this);
+
     Simulation::prepareSimulation();
 }
 

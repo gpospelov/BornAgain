@@ -34,6 +34,17 @@ class RectPixelMap;
 class BA_CORE_API_ RectangularDetector : public IDetector2D
 {
 public:
+
+    enum EDetectorArrangement {
+        GENERIC,
+        PERPENDICULAR_TO_SAMPLE,
+        PERPENDICULAR_TO_DIRECT_BEAM,
+        PERPENDICULAR_TO_REFLECTED_BEAM
+    }
+
+    //! Rectangular detector constructor
+    RectangularDetector(int nxbins, double width, int nybins, double height);
+
     RectangularDetector(kvector_t normal_to_detector, kvector_t u_direction);
     RectangularDetector(const RectangularDetector &other);
     RectangularDetector &operator=(const RectangularDetector &other);
@@ -41,6 +52,18 @@ public:
     virtual RectangularDetector* clone() const;
 
     virtual ~RectangularDetector() {}
+
+    void init(const GISASSimulation *simulation);
+
+    void setPosition(const kvector_t &normal_to_detector, double u0, double v0,
+                     const kvector_t &direction = kvector_t(0.0, -1.0, 0.0));
+
+    void setPerpendicularToSample(double distance, double u0, double v0);
+
+    void setPerpendicularToDirectBeam(double distance, double u0, double v0);
+    void setPerpendicularToReflectedBeam(double distance, double u0, double v0);
+    void setDirectBeamPosition(double xpos, double ypos);
+
 
     //! Adds parameters from local pool to external pool and call recursion over direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
@@ -64,8 +87,14 @@ protected:
     //! swap function
     void swapContent(RectangularDetector &other);
 private:
+    void setDistanceAndOffset(double distance, double u0, double v0) const;
     kvector_t normalizeToUnitLength(const kvector_t& direction) const;
     kvector_t m_normal_to_detector;
+    double m_u0;
+    double m_v0;
+    kvector_t m_direction;
+    double m_distance;
+    EDetectorArrangement m_detector_arrangement;
     kvector_t m_u_unit;
     kvector_t m_v_unit;
 };

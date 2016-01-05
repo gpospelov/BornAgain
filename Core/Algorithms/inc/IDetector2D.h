@@ -27,6 +27,8 @@
 
 #include <boost/scoped_ptr.hpp>
 
+class GISASSimulation;
+
 //! @class IDetector
 //! @ingroup simulation
 //! @brief The detector interface.
@@ -40,6 +42,9 @@ public:
     virtual IDetector2D* clone() const=0;
 
     virtual ~IDetector2D() {}
+
+    //! Inits detector using simulation settings (e.g. beam position) if necessary
+    virtual void init(const GISASSimulation *simulation);
 
     void addAxis(const IAxis &axis);
 

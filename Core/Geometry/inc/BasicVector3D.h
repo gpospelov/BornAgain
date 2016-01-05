@@ -154,6 +154,9 @@ public:
     //! Returns cross product of vectors.
     BasicVector3D<T> cross(const BasicVector3D<T>& v ) const;
 
+    //! Returns normalized vector
+    BasicVector3D<T> normalize() const;
+
     //! Returns square of transverse component with respect to given axis.
     double perp2(const BasicVector3D<T>& v) const;
 

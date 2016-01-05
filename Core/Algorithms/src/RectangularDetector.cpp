@@ -21,11 +21,26 @@
 #include "CustomBinAxis.h"
 #include "Beam.h"
 #include "Rectangle.h"
+#include "GISASSimulation.h"
+#include "Instrument.h"
+#include "Beam.h"
 
 #include <iostream>
 
+RectangularDetector::RectangularDetector(int nxbins, double width, int nybins, double height)
+    : m_u0(0)
+    , m_v0(0)
+    , m_distance(0.0)
+    , m_detector_arrangement(GENERIC)
+{
+    setDetectorParameters(nxbins, 0.0, width, nybins, 0.0, height);
+    setName(BornAgain::RectangularDetectorType);
+    init_parameters();
+}
+
 RectangularDetector::RectangularDetector(kvector_t normal_to_detector, kvector_t u_direction)
     : m_normal_to_detector(normal_to_detector)
+    , m_detector_arrangement(GENERIC)
 {
     double d2 = m_normal_to_detector.dot(m_normal_to_detector);
     m_u_unit = normalizeToUnitLength(
@@ -39,6 +54,7 @@ RectangularDetector::RectangularDetector(const RectangularDetector &other)
     : IDetector2D(other)
     , m_normal_to_detector(other.m_normal_to_detector)
     , m_u_unit(other.m_u_unit), m_v_unit(other.m_v_unit)
+    , m_detector_arrangement(other.m_detector_arrangement)
 {
     setName(BornAgain::RectangularDetectorType);
     init_parameters();
@@ -58,6 +74,74 @@ RectangularDetector *RectangularDetector::clone() const
     return new RectangularDetector(*this);
 }
 
+void RectangularDetector::init(const GISASSimulation *simulation)
+{
+    if (m_detector_arrangement == GENERIC) {
+
+
+    }
+
+    else if(m_detector_arrangement == PERPENDICULAR_TO_SAMPLE) {
+        m_normal_to_detector = kvector_t(m_distance, 0.0, 0.0);
+
+    }
+
+    else if(m_detector_arrangement == PERPENDICULAR_TO_DIRECT_BEAM) {
+        double alpha_i = simulation->getInstrument().getBeam().getAlpha();
+//        m_normal_to_detector = kvector_t(m_distance*std::cos(alpha_i), 0.0, -1.0*distance*std::sin(alpha_i));
+        m_normal_to_detector = m_distance*simulation->getInstrument().getBeam().getCentralK().normalize();
+
+    }
+
+    else if(m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM) {
+        double alpha_i = simulation->getInstrument().getBeam().getAlpha();
+        m_normal_to_detector = m_distance*simulation->getInstrument().getBeam().getCentralK().normalize();
+        m_normal_to_detector.setZ(-m_normal_to_detector.z());
+    }
+
+    else {
+        throw LogicErrorException("RectangularDetector::init() -> Unknown detector arrangement");
+    }
+
+    double d2 = m_normal_to_detector.dot(m_normal_to_detector);
+    m_u_unit = normalizeToUnitLength(
+        d2 * m_direction - u_direction.dot(m_normal_to_detector) * m_normal_to_detector);
+    m_v_unit = normalizeToUnitLength(m_u_unit.cross(m_normal_to_detector));
+
+}
+
+void RectangularDetector::setPosition(const kvector_t &normal_to_detector, double u0, double v0, const kvector_t &direction)
+{
+    m_detector_arrangement = GENERIC;
+    m_normal_to_detector = normal_to_detector;
+    m_u0 = u0;
+    m_v0 = v0;
+    m_direction = direction;
+}
+
+void RectangularDetector::setPerpendicularToSample(double distance, double u0, double v0)
+{
+    m_detector_arrangement = PERPENDICULAR_TO_SAMPLE;
+    setDistanceAndOffset(distance, u0, v0);
+}
+
+void RectangularDetector::setPerpendicularToDirectBeam(double distance, double u0, double v0)
+{
+    m_detector_arrangement = PERPENDICULAR_TO_DIRECT_BEAM;
+    setDistanceAndOffset(distance, u0, v0);
+}
+
+void RectangularDetector::setPerpendicularToReflectedBeam(double distance, double u0, double v0)
+{
+    m_detector_arrangement = PERPENDICULAR_TO_REFLECTED_BEAM;
+    setDistanceAndOffset(distance, u0, v0);
+}
+
+void RectangularDetector::setDirectBeamPosition(double xpos, double ypos)
+{
+
+}
+
 IPixelMap *RectangularDetector::createPixelMap(size_t index) const
 {
     const IAxis &u_axis = getAxis(BornAgain::X_AXIS_INDEX);
@@ -68,7 +152,7 @@ IPixelMap *RectangularDetector::createPixelMap(size_t index) const
     Bin1D u_bin = u_axis.getBin(u_index);
     Bin1D v_bin = v_axis.getBin(v_index);
     kvector_t corner_position = m_normal_to_detector
-            + u_bin.m_lower*m_u_unit + v_bin.m_lower*m_v_unit;
+            + (u_bin.m_lower - m_u0)*m_u_unit + (v_bin.m_lower - m_v0)*m_v_unit;
     kvector_t width = u_bin.getBinSize()*m_u_unit;
     kvector_t height = v_bin.getBinSize()*m_v_unit;
     return new RectPixelMap(corner_position, width, height);
@@ -129,6 +213,19 @@ void RectangularDetector::swapContent(RectangularDetector &other)
     std::swap(this->m_normal_to_detector, other.m_normal_to_detector);
     std::swap(this->m_u_unit, other.m_u_unit);
     std::swap(this->m_v_unit, other.m_v_unit);
+}
+
+void RectangularDetector::setDistanceAndOffset(double distance, double u0, double v0) const
+{
+    if(distance <= 0.0) {
+        std::ostringstream message;
+        message << "RectangularDetector::setPerpendicularToSample() -> Error. "
+                << "Distance to sample can't be negative or zero";
+        throw Exceptions::LogicErrorException(message.str());
+    }
+    m_distance = distance;
+    m_u0 = u0;
+    m_v0 = v0;
 }
 
 kvector_t RectangularDetector::normalizeToUnitLength(const kvector_t &direction) const

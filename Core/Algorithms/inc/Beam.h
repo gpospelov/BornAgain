@@ -34,7 +34,7 @@ public:
     virtual ~Beam() {}
 
     //! Get the value of the wavevector
-    cvector_t getCentralK() const;
+    kvector_t getCentralK() const;
 
     //! Sets the value of the incoming wavevector in terms of wavelength
     //! and incoming angles

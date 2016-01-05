@@ -28,6 +28,7 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QDebug>
+#include <AccordionWidget.h>
 
 MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget *parent)
     : QWidget(parent)
@@ -45,8 +46,41 @@ MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget *parent)
             this, SLOT(onCustomContextMenuRequested(const QPoint &)));
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->setContentsMargins(0,0,0,0);
 
-    // stack of masks
+    AccordionWidget *accordion = new AccordionWidget();
+    mainLayout->addWidget(accordion);
+    mainLayout->setSpacing(0);
+
+    {
+        ContentPane *cp = accordion->getContentPane(accordion->addContentPane("Mask stack"));
+        cp->setMaximumHeight(400);
+        cp->headerClicked();
+        cp->setHeaderTooltip("List of created masks representing mask stacking order.");
+        QFrame *contentFrame = cp->getContentFrame();
+        contentFrame->setLayout(new QVBoxLayout());
+        contentFrame->layout()->addWidget(m_listView);
+    }
+
+    {
+        ContentPane *cp = accordion->getContentPane(accordion->addContentPane("Mask properties"));
+        cp->setMaximumHeight(300);
+        cp->setHeaderTooltip("Property editor for currently selected mask.");
+        QFrame *contentFrame = cp->getContentFrame();
+        contentFrame->setLayout(new QVBoxLayout());
+        contentFrame->layout()->addWidget(m_maskPropertyEditor);
+    }
+
+    {
+        ContentPane *cp = accordion->getContentPane(accordion->addContentPane("Plot properties"));
+        cp->setMaximumHeight(400);
+        cp->setHeaderTooltip("Plot properties editor");
+        QFrame *contentFrame = cp->getContentFrame();
+        contentFrame->setLayout(new QVBoxLayout());
+        contentFrame->layout()->addWidget(m_plotPropertyEditor);
+    }
+
+   /* // stack of masks
     QLabel *stackLabel = new QLabel("Mask stack");
     stackLabel->setToolTip("List of created masks representing mask stacking order.");
     mainLayout->addWidget(stackLabel);
@@ -64,7 +98,8 @@ MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget *parent)
     QLabel *plotPropertyLabel = new QLabel("Plot properties");
     plotPropertyLabel->setToolTip("Plot properties editor");
     mainLayout->addWidget(plotPropertyLabel);
-    mainLayout->addWidget(m_plotPropertyEditor, 3);
+    mainLayout->addWidget(m_plotPropertyEditor, 3);*/
+
     setLayout(mainLayout);
 
 }

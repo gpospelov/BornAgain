@@ -33,6 +33,7 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/FitWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/PropertyEditor
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/MaskWidgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/AccordionWidget
 )
 include_directories(${include_dirs})
 
@@ -51,6 +52,7 @@ file(GLOB source_files
     "Views/FitWidgets/*.cpp"
     "Views/PropertyEditor/*.cpp"
     "Views/MaskWidgets/*.cpp"
+    "Views/AccordionWidget/*.cpp"
 )
 
 set(source_widgetbox
@@ -76,6 +78,7 @@ file(GLOB include_files
     "Views/FitWidgets/*.h"
     "Views/PropertyEditor/*.h"
     "Views/MaskWidgets/*.h"
+    "Views/AccordionWidget/*.h"
 )
 
 set(include_widgetbox
@@ -89,10 +92,10 @@ list(APPEND include_files ${include_widgetbox})
 
 set(resource_files
     "coregui.qrc"
-#    "qttools/qtpropertybrowser/qtpropertybrowser.qrc"
     "Views/SampleDesigner/SampleDesigner.qrc"
     "Views/MaskWidgets/MaskWidgets.qrc"
     "Views/widgetbox/widgetbox.qrc"
+    "Views/AccordionWidget/accordionwidgeticons.qrc"
 )
 
 

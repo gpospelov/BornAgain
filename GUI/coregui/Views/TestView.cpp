@@ -15,16 +15,91 @@
 #include "TestView.h"
 #include "MaskEditor.h"
 #include <QVBoxLayout>
+#include <AccordionWidget.h>
+#include <QLineEdit>
+#include <QCheckBox>
 
 TestView::TestView(QWidget *parent)
     : QWidget(parent)
 {
-    MaskEditor *maskEditor = new MaskEditor();
+//    MaskEditor *maskEditor = new MaskEditor();
+//    QVBoxLayout *layout = new QVBoxLayout;
+//    layout->setMargin(0);
+//    layout->setSpacing(0);
+//    layout->addWidget(maskEditor);
+//    setLayout(layout);
+
+//    maskEditor->init_test_model();
+
+    AccordionWidget *myAccordion = new AccordionWidget();
+    myAccordion->setMultiActive(true);
+    // add the Accordion to your layout
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(0);
-    layout->setSpacing(0);
-    layout->addWidget(maskEditor);
+    layout->addWidget(myAccordion);
     setLayout(layout);
 
-    maskEditor->init_test_model();
+    // add a content pane with a header
+    int firstPaneIndex = myAccordion->addContentPane("My first content pane");
+    // make sure our content pane was added
+    if (firstPaneIndex != -1) {
+        // get a QFrame* from the Content Pane. This is where we place our content
+        QFrame *contentFrame = myAccordion->getContentPane(firstPaneIndex)->getContentFrame();
+        // give the QFrame a QLayout
+        contentFrame->setLayout(new QVBoxLayout());
+        // add a simpel QLabel to the frame
+        contentFrame->layout()->addWidget(new QLabel("Hello Cute World!!!"));
+    }
+
+    // add a content pane with a header
+    int secondPaneIndex = myAccordion->addContentPane("Basic settings");
+    // make sure our content pane was added
+    if (secondPaneIndex != -1) {
+        // get a QFrame* from the Content Pane. This is where we place our content
+        QFrame *contentFrame = myAccordion->getContentPane(secondPaneIndex)->getContentFrame();
+        // give the QFrame a QLayout
+        contentFrame->setLayout(new QVBoxLayout());
+        // add a simpel QLabel to the frame
+        QLineEdit *led = new QLineEdit();
+        QLineEdit *led2 = new QLineEdit();
+        contentFrame->layout()->addWidget(new QLabel("Name:"));
+        contentFrame->layout()->addWidget(led);
+        contentFrame->layout()->addWidget(new QLabel("Living place:"));
+        contentFrame->layout()->addWidget(led2);
+    }
+
+    // add a content pane with a header
+    int third = myAccordion->addContentPane("Advanced");
+    // make sure our content pane was added
+    if (third != -1) {
+        // get a QFrame* from the Content Pane. This is where we place our content
+        myAccordion->getContentPane(third)->setMaximumHeight(500);
+        QFrame *contentFrame = myAccordion->getContentPane(third)->getContentFrame();
+        contentFrame->setMaximumHeight(500);
+        // give the QFrame a QLayout
+        contentFrame->setLayout(new QVBoxLayout());
+        // add a simpel QLabel to the frame
+        QCheckBox *cb = new QCheckBox();
+        cb->setText("Option 1");
+        QCheckBox *cb2 = new QCheckBox();
+        cb2->setText("Option 2");
+        QCheckBox *cb3 = new QCheckBox();
+        cb3->setText("Option 3");
+        QCheckBox *cb4 = new QCheckBox();
+        cb4->setText("Option 4");
+        QCheckBox *cb5 = new QCheckBox();
+        cb5->setText("Option 5");
+        QCheckBox *cb6 = new QCheckBox();
+        cb6->setText("Option 6");
+        QCheckBox *cb7 = new QCheckBox();
+        cb7->setText("Option 7");
+        contentFrame->layout()->addWidget(cb);
+        contentFrame->layout()->addWidget(cb2);
+        contentFrame->layout()->addWidget(cb3);
+        contentFrame->layout()->addWidget(cb4);
+        contentFrame->layout()->addWidget(cb5);
+        contentFrame->layout()->addWidget(cb6);
+        contentFrame->layout()->addWidget(cb7);
+
+    }
+
 }

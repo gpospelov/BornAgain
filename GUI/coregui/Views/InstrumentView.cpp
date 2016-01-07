@@ -151,7 +151,8 @@ void InstrumentView::onRowsAboutToBeRemoved(QModelIndex parent, int first, int /
     ParameterizedItem *item = m_instrumentModel->itemForIndex(m_instrumentModel->index(first,0, parent));
     Q_ASSERT(item);
     InstrumentEditorWidget *widget = m_instrumentToEditor[item];
-    Q_ASSERT(widget);
+
+    if(!widget) return;
 
     QMap<ParameterizedItem *, InstrumentEditorWidget *>::iterator it = m_instrumentToEditor.begin();
     while(it!=m_instrumentToEditor.end()) {

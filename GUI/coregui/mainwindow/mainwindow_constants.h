@@ -31,6 +31,7 @@ const char ICON_SAVEFILE[]         = ":/core/images/filesave.png";
 const char S_PROJECTMANAGER[]      = "ProjectManager";
 const char S_MAINWINDOW[]          = "MainWindow";
 const char S_MASKEDITOR[]          = "MaskEditor";
+const char S_UPDATES[]             = "Updates";
 
 // Settings keys
 const char S_DEFAULTPROJECTPATH[]  = "DefaultProjectPath";
@@ -38,6 +39,7 @@ const char S_RECENTPROJECTS[]      = "RecentProjects";
 const char S_WINDOWSIZE[]          = "size";
 const char S_WINDOWPOSITION[]      = "pos";
 const char S_SPLITTERSIZE[]        = "SplitterSize";
+const char S_CHECKFORUPDATES[]     = "CheckForUpdates";
 
 const int MAX_RECENT_PROJECTS = 10;
 

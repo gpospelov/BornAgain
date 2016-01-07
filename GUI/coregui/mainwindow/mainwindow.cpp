@@ -171,6 +171,18 @@ void MainWindow::readSettings()
         move(settings.value(Constants::S_WINDOWPOSITION, QPoint(200, 200)).toPoint());
         settings.endGroup();
     }
+    if (!settings.childGroups().contains(Constants::S_UPDATES)) {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Check for Updates");
+        msgBox.setText("Do you want to allow BornAgain to search for updates automatically?\n"
+                       "This setting can be changes later.");
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::Yes);
+        int ret = msgBox.exec();
+        settings.beginGroup(Constants::S_UPDATES);
+        settings.setValue(Constants::S_CHECKFORUPDATES, ret == QMessageBox::Yes);
+        settings.endGroup();
+    }
     assert(m_projectManager);
     m_projectManager->readSettings();
 }

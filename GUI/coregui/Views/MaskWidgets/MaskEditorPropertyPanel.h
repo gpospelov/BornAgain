@@ -28,6 +28,7 @@ class QItemSelection;
 class QItemSelectionModel;
 class QButtonGroup;
 class IntensityDataItem;
+class AccordionWidget;
 
 //! Tool widget for MaskEditor
 
@@ -55,6 +56,10 @@ private slots:
     void onCustomContextMenuRequested(const QPoint &point);
 
 private:
+    void setup_MaskStack(AccordionWidget *accordion);
+    void setup_MaskProperties(AccordionWidget *accordion);
+    void setup_PlotProperties(AccordionWidget *accordion);
+
     QListView *m_listView;
     AwesomePropertyEditor *m_maskPropertyEditor;
     AwesomePropertyEditor *m_plotPropertyEditor;

@@ -18,6 +18,9 @@
 #include "AwesomePropertyEditor.h"
 #include "MaskEditorFlags.h"
 #include "IntensityDataItem.h"
+#include "AccordionWidget.h"
+#include "ContentPane.h"
+
 #include <QVBoxLayout>
 #include <QListView>
 #include <QItemSelection>
@@ -28,7 +31,6 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QDebug>
-#include <AccordionWidget.h>
 
 MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget *parent)
     : QWidget(parent)
@@ -52,56 +54,11 @@ MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget *parent)
     mainLayout->addWidget(accordion);
     mainLayout->setSpacing(0);
 
-    {
-        ContentPane *cp = accordion->getContentPane(accordion->addContentPane("Mask stack"));
-        cp->setMaximumHeight(400);
-        cp->headerClicked();
-        cp->setHeaderTooltip("List of created masks representing mask stacking order.");
-        QFrame *contentFrame = cp->getContentFrame();
-        contentFrame->setLayout(new QVBoxLayout());
-        contentFrame->layout()->addWidget(m_listView);
-    }
-
-    {
-        ContentPane *cp = accordion->getContentPane(accordion->addContentPane("Mask properties"));
-        cp->setMaximumHeight(300);
-        cp->setHeaderTooltip("Property editor for currently selected mask.");
-        QFrame *contentFrame = cp->getContentFrame();
-        contentFrame->setLayout(new QVBoxLayout());
-        contentFrame->layout()->addWidget(m_maskPropertyEditor);
-    }
-
-    {
-        ContentPane *cp = accordion->getContentPane(accordion->addContentPane("Plot properties"));
-        cp->setMaximumHeight(400);
-        cp->setHeaderTooltip("Plot properties editor");
-        QFrame *contentFrame = cp->getContentFrame();
-        contentFrame->setLayout(new QVBoxLayout());
-        contentFrame->layout()->addWidget(m_plotPropertyEditor);
-    }
-
-   /* // stack of masks
-    QLabel *stackLabel = new QLabel("Mask stack");
-    stackLabel->setToolTip("List of created masks representing mask stacking order.");
-    mainLayout->addWidget(stackLabel);
-    mainLayout->addWidget(m_listView, 3);
-    mainLayout->addSpacing(5);
-
-    // mask properties
-    QLabel *maskPropertyLabel = new QLabel("Mask properties");
-    maskPropertyLabel->setToolTip("Property editor for currently selected mask.");
-    mainLayout->addWidget(maskPropertyLabel);
-    mainLayout->addWidget(m_maskPropertyEditor, 1);
-    mainLayout->addSpacing(5);
-
-    // plot properties
-    QLabel *plotPropertyLabel = new QLabel("Plot properties");
-    plotPropertyLabel->setToolTip("Plot properties editor");
-    mainLayout->addWidget(plotPropertyLabel);
-    mainLayout->addWidget(m_plotPropertyEditor, 3);*/
+    setup_MaskStack(accordion);
+    setup_MaskProperties(accordion);
+    setup_PlotProperties(accordion);
 
     setLayout(mainLayout);
-
 }
 
 
@@ -162,5 +119,48 @@ void MaskEditorPropertyPanel::onSelectionChanged(const QItemSelection &selected,
 void MaskEditorPropertyPanel::onCustomContextMenuRequested(const QPoint &point)
 {
     emit itemContextMenuRequest(m_listView->mapToGlobal(point));
+}
+
+void MaskEditorPropertyPanel::setup_MaskStack(AccordionWidget *accordion)
+{
+    ContentPane *cp = accordion->getContentPane(accordion->addContentPane("Mask stack"));
+    cp->setMaximumHeight(400);
+    cp->headerClicked();
+    cp->setHeaderTooltip("List of created masks representing mask stacking order.");
+    cp->setContainerFrameStyle(QFrame::Plain);
+    QFrame *contentFrame = cp->getContentFrame();
+
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->addWidget(m_listView);
+    contentFrame->setLayout(layout);
+}
+
+void MaskEditorPropertyPanel::setup_MaskProperties(AccordionWidget *accordion)
+{
+    ContentPane *cp = accordion->getContentPane(accordion->addContentPane("Mask properties"));
+    cp->setMaximumHeight(300);
+    cp->setHeaderTooltip("Property editor for currently selected mask.");
+    cp->setContainerFrameStyle(QFrame::Plain);
+    QFrame *contentFrame = cp->getContentFrame();
+
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->addWidget(m_maskPropertyEditor);
+    contentFrame->setLayout(layout);
+}
+
+void MaskEditorPropertyPanel::setup_PlotProperties(AccordionWidget *accordion)
+{
+    ContentPane *cp = accordion->getContentPane(accordion->addContentPane("Plot properties"));
+    cp->setMaximumHeight(400);
+    cp->setHeaderTooltip("Plot properties editor");
+    cp->setContainerFrameStyle(QFrame::Plain);
+    QFrame *contentFrame = cp->getContentFrame();
+
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->addWidget(m_plotPropertyEditor);
+    contentFrame->setLayout(layout);
 }
 

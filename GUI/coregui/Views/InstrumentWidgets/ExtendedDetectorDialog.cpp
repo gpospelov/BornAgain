@@ -23,6 +23,7 @@
 #include <QVBoxLayout>
 #include <QKeyEvent>
 #include <QDebug>
+#include <QSettings>
 
 ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget *parent)
     : QDialog(parent)
@@ -30,7 +31,17 @@ ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget *parent)
     , m_detectorMaskDelegate(new DetectorMaskDelegate(this))
 {
     setMinimumSize(256, 256);
-    resize(750, 650);
+
+    QSettings settings;
+    if (settings.childGroups().contains("MaskEditor")) {
+        settings.beginGroup("MaskEditor");
+        resize(settings.value("size", QSize(750, 650)).toSize());
+        move(settings.value("pos", QPoint(200,200)).toPoint());
+    }
+    else {
+        resize(750, 650);
+    }
+
     setWindowTitle("Mask Editor");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setAttribute(Qt::WA_DeleteOnClose, true);
@@ -67,4 +78,14 @@ void ExtendedDetectorDialog::setDetectorContext(InstrumentModel *instrumentModel
 {
     m_detectorMaskDelegate->setDetectorContext(instrumentModel, detectorItem);
     m_detectorMaskDelegate->initMaskEditor(m_maskEditor);
+}
+
+void ExtendedDetectorDialog::reject()
+{
+    QSettings settings;
+    settings.beginGroup("MaskEditor");
+    settings.setValue("size", this->size());
+    settings.setValue("pos", this->pos());
+    settings.endGroup();
+    QDialog::reject();
 }

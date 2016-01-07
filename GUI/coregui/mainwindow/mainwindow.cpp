@@ -90,9 +90,9 @@ MainWindow::MainWindow(QWidget *parent)
     , m_toolTipDataBase(new ToolTipDataBase(this))
     , m_fitProxyModel(0)
 {
-//    QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
-//    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
-//    QCoreApplication::setOrganizationName(QLatin1String(Constants::APPLICATION_NAME));
+    QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
+    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
+    QCoreApplication::setOrganizationName(QLatin1String(Constants::APPLICATION_NAME));
 
     createModels();
     testGUIObjectBuilder();

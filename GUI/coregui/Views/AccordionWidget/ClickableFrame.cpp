@@ -15,10 +15,13 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ClickableFrame.h"
+#include <QDebug>
+#include <QStyleOption>
 
 ClickableFrame::ClickableFrame(QString header, QWidget *parent,
                                Qt::WindowFlags f)
-    : header(header), QFrame(parent, f)
+    : QFrame(parent, f)
+    , header(header)
 {
     this->setAttribute(Qt::WA_Hover, true);
     this->clickable = true;
@@ -26,7 +29,7 @@ ClickableFrame::ClickableFrame(QString header, QWidget *parent,
     QColor background = this->palette().color(QPalette::ColorRole::Background);
     QColor lighter = background.lighter(110);
     this->normalStylesheet = "";
-    this->hoverStylesheet = "background-color: " + lighter.name() + ";";
+    this->hoverStylesheet = "QFrame {background-color: " + lighter.name() + ";}";
     this->initFrame();
 }
 

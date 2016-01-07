@@ -57,6 +57,7 @@ MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget *parent)
     setup_MaskStack(accordion);
     setup_MaskProperties(accordion);
     setup_PlotProperties(accordion);
+//    mainLayout->addWidget(m_plotPropertyEditor);
 
     setLayout(mainLayout);
 }
@@ -139,7 +140,7 @@ void MaskEditorPropertyPanel::setup_MaskStack(AccordionWidget *accordion)
 void MaskEditorPropertyPanel::setup_MaskProperties(AccordionWidget *accordion)
 {
     ContentPane *cp = accordion->getContentPane(accordion->addContentPane("Mask properties"));
-    cp->setMaximumHeight(300);
+    cp->setMaximumHeight(400);
     cp->setHeaderTooltip("Property editor for currently selected mask.");
     cp->setContainerFrameStyle(QFrame::Plain);
     QFrame *contentFrame = cp->getContentFrame();
@@ -158,8 +159,11 @@ void MaskEditorPropertyPanel::setup_PlotProperties(AccordionWidget *accordion)
     cp->setContainerFrameStyle(QFrame::Plain);
     QFrame *contentFrame = cp->getContentFrame();
 
+    //contentFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setContentsMargins(0, 0, 0, 0);
+    m_plotPropertyEditor->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     layout->addWidget(m_plotPropertyEditor);
     contentFrame->setLayout(layout);
 }

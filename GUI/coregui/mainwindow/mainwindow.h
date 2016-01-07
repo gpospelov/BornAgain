@@ -63,7 +63,6 @@ public:
     SampleModel *getSampleModel() { return m_sampleModel; }
     JobModel *getJobModel() { return m_jobModel; }
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
-    QSettings *getSettings() const { return m_settings; }
     ActionManager *getActionManager() { return m_actionManager; }
     ProjectManager *getProjectManager() { return m_projectManager; }
 
@@ -94,7 +93,6 @@ private:
 
     ActionManager *m_actionManager; //!< responsible for menus and actions
     ProjectManager *m_projectManager; //!< handles activity related to opening/saving projects
-    QSettings *m_settings; //!< application wide settings
 
     JobModel *m_jobModel;  //!< model for all jobs
     SampleModel *m_sampleModel; //!< model for all samples

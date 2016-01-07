@@ -60,6 +60,7 @@
 #include "FitProxyModel.h"
 #include "FitView.h"
 #include "TestView.h"
+#include "GUIHelpers.h"
 #include <boost/scoped_ptr.hpp>
 
 #include <QApplication>
@@ -81,7 +82,6 @@ MainWindow::MainWindow(QWidget *parent)
     , m_progressBar(0)
     , m_actionManager(0)
     , m_projectManager(0)
-    , m_settings(new QSettings(Constants::APPLICATION_NAME, Constants::APPLICATION_NAME, this))
     , m_jobModel(0)
     , m_sampleModel(0)
     , m_instrumentModel(0)
@@ -91,7 +91,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_fitProxyModel(0)
 {
     QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
-    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
+    QCoreApplication::setApplicationVersion(GUIHelpers::getBornAgainVersionString());
     QCoreApplication::setOrganizationName(QLatin1String(Constants::APPLICATION_NAME));
 
     createModels();
@@ -164,26 +164,28 @@ MainWindow::~MainWindow()
 
 void MainWindow::readSettings()
 {
-    if(m_settings->childGroups().contains("MainWindow")) {
-        m_settings->beginGroup("MainWindow");
-        resize(m_settings->value("size", QSize(400, 400)).toSize());
-        move(m_settings->value("pos", QPoint(200, 200)).toPoint());
-        m_settings->endGroup();
+    QSettings settings;
+    if(settings.childGroups().contains(Constants::S_MAINWINDOW)) {
+        settings.beginGroup(Constants::S_MAINWINDOW);
+        resize(settings.value(Constants::S_WINDOWSIZE, QSize(400, 400)).toSize());
+        move(settings.value(Constants::S_WINDOWPOSITION, QPoint(200, 200)).toPoint());
+        settings.endGroup();
     }
     assert(m_projectManager);
-    m_projectManager->readSettings(m_settings);
+    m_projectManager->readSettings();
 }
 
 void MainWindow::writeSettings()
 {
-    m_settings->beginGroup("MainWindow");
-    m_settings->setValue("size", size());
-    m_settings->setValue("pos", pos());
-    m_settings->endGroup();
+    QSettings settings;
+    settings.beginGroup(Constants::S_MAINWINDOW);
+    settings.setValue(Constants::S_WINDOWSIZE, size());
+    settings.setValue(Constants::S_WINDOWPOSITION, pos());
+    settings.endGroup();
 
-    m_projectManager->writeSettings(m_settings);
+    m_projectManager->writeSettings();
 
-    m_settings->sync();
+    settings.sync();
 }
 
 void MainWindow::onRunSimulationShortcut()

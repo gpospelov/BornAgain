@@ -42,6 +42,8 @@ private:
 private:
     MaskEditor *m_maskEditor;
     DetectorMaskDelegate *m_detectorMaskDelegate;
+    void readSettings();
+    void writeSettings();
 };
 
 #endif

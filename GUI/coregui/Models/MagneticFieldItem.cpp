@@ -28,7 +28,7 @@ MagneticFieldItem::MagneticFieldItem(ParameterizedItem *parent)
     registerProperty(P_BZ, 0.0);
 }
 
-QString MagneticFieldItem::getItemLabel() const
+QString MagneticFieldItem::itemLabel() const
 {
     return QString("(%1, %2, %3)").arg(getRegisteredProperty(P_BX).toDouble())
                                   .arg(getRegisteredProperty(P_BY).toDouble())

@@ -77,7 +77,7 @@ QVariant SessionModel::data(const QModelIndex &index, int role) const
         if (role == Qt::DisplayRole || role == Qt::EditRole) {
             switch (index.column()) {
             case ITEM_NAME:
-                return item->itemName();
+                return item->displayName();
             case MODEL_TYPE:
                 return item->modelType();
             default:

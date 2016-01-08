@@ -75,7 +75,7 @@ QString ParameterizedItem::displayName() const
     return m_display_name;
 }
 
-QString ParameterizedItem::getItemLabel() const
+QString ParameterizedItem::itemLabel() const
 {
     return QString("");
 }
@@ -471,7 +471,7 @@ void ParameterizedItem::processSubItemPropertyChanged(const QString &propertyNam
         if (it.value() == propertyItem) {
             GroupProperty_t group_property
                 = getRegisteredProperty(it.key()).value<GroupProperty_t>();
-            group_property->setCurrentLabel(propertyItem->getItemLabel());
+            group_property->setCurrentLabel(propertyItem->itemLabel());
             onSubItemPropertyChanged(it.key(), propertyName);
             return;
         }

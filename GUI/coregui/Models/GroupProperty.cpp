@@ -41,7 +41,7 @@ ParameterizedItem *GroupProperty::createCorrespondingItem()
 {
     ParameterizedItem *result = ItemFactory::createItem(getCurrentType());
     if(type() == FIXED) {
-        setCurrentLabel(result->getItemLabel());
+        setCurrentLabel(result->itemLabel());
     }
     return result;
 }

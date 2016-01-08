@@ -54,7 +54,7 @@ public:
     //! to distinguish it from siblings)
     QString displayName() const;
 
-    virtual QString getItemLabel() const;
+    virtual QString itemLabel() const;
 
     //! retrieve parent item
     ParameterizedItem *parent() const;

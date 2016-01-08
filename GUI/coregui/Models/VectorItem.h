@@ -28,7 +28,7 @@ public:
     static const QString P_Z;
     explicit VectorItem(ParameterizedItem *parent=0);
     ~VectorItem(){}
-    QString getItemLabel() const;
+    QString itemLabel() const;
 };
 
 #endif

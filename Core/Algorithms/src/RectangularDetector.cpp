@@ -28,9 +28,12 @@
 #include <iostream>
 
 RectangularDetector::RectangularDetector(int nxbins, double width, int nybins, double height)
-    : m_u0(0)
-    , m_v0(0)
+    : m_u0(0.0)
+    , m_v0(0.0)
+    , m_direction(kvector_t(0.0, -1.0, 0.0))
     , m_distance(0.0)
+    , m_dbeam_u0(0.0)
+    , m_dbeam_v0(0.0)
     , m_detector_arrangement(GENERIC)
 {
     setDetectorParameters(nxbins, 0.0, width, nybins, 0.0, height);
@@ -40,12 +43,14 @@ RectangularDetector::RectangularDetector(int nxbins, double width, int nybins, d
 
 RectangularDetector::RectangularDetector(kvector_t normal_to_detector, kvector_t u_direction)
     : m_normal_to_detector(normal_to_detector)
+    , m_u0(0.0)
+    , m_v0(0.0)
+    , m_direction(u_direction)
+    , m_distance(0.0)
+    , m_dbeam_u0(0.0)
+    , m_dbeam_v0(0.0)
     , m_detector_arrangement(GENERIC)
 {
-    double d2 = m_normal_to_detector.dot(m_normal_to_detector);
-    m_u_unit = normalizeToUnitLength(
-        d2 * u_direction - u_direction.dot(m_normal_to_detector) * m_normal_to_detector);
-    m_v_unit = normalizeToUnitLength(m_u_unit.cross(m_normal_to_detector));
     setName(BornAgain::RectangularDetectorType);
     init_parameters();
 }
@@ -53,8 +58,14 @@ RectangularDetector::RectangularDetector(kvector_t normal_to_detector, kvector_t
 RectangularDetector::RectangularDetector(const RectangularDetector &other)
     : IDetector2D(other)
     , m_normal_to_detector(other.m_normal_to_detector)
-    , m_u_unit(other.m_u_unit), m_v_unit(other.m_v_unit)
+    , m_u0(other.m_u0)
+    , m_v0(other.m_v0)
+    , m_direction(other.m_direction)
+    , m_distance(other.m_distance)
+    , m_dbeam_u0(other.m_dbeam_u0)
+    , m_dbeam_v0(other.m_dbeam_v0)
     , m_detector_arrangement(other.m_detector_arrangement)
+    , m_u_unit(other.m_u_unit), m_v_unit(other.m_v_unit)
 {
     setName(BornAgain::RectangularDetectorType);
     init_parameters();
@@ -87,17 +98,21 @@ void RectangularDetector::init(const GISASSimulation *simulation)
     }
 
     else if(m_detector_arrangement == PERPENDICULAR_TO_DIRECT_BEAM) {
-        double alpha_i = simulation->getInstrument().getBeam().getAlpha();
-//        m_normal_to_detector = kvector_t(m_distance*std::cos(alpha_i), 0.0, -1.0*distance*std::sin(alpha_i));
         m_normal_to_detector = m_distance*simulation->getInstrument().getBeam().getCentralK().normalize();
 
     }
 
     else if(m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM) {
-        double alpha_i = simulation->getInstrument().getBeam().getAlpha();
         m_normal_to_detector = m_distance*simulation->getInstrument().getBeam().getCentralK().normalize();
         m_normal_to_detector.setZ(-m_normal_to_detector.z());
     }
+
+    else if(m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
+        m_normal_to_detector = m_distance*simulation->getInstrument().getBeam().getCentralK().normalize();
+        m_normal_to_detector.setZ(-m_normal_to_detector.z());
+
+    }
+
 
     else {
         throw LogicErrorException("RectangularDetector::init() -> Unknown detector arrangement");
@@ -105,7 +120,7 @@ void RectangularDetector::init(const GISASSimulation *simulation)
 
     double d2 = m_normal_to_detector.dot(m_normal_to_detector);
     m_u_unit = normalizeToUnitLength(
-        d2 * m_direction - u_direction.dot(m_normal_to_detector) * m_normal_to_detector);
+        d2 * m_direction - m_direction.dot(m_normal_to_detector) * m_normal_to_detector);
     m_v_unit = normalizeToUnitLength(m_u_unit.cross(m_normal_to_detector));
 
 }
@@ -137,9 +152,11 @@ void RectangularDetector::setPerpendicularToReflectedBeam(double distance, doubl
     setDistanceAndOffset(distance, u0, v0);
 }
 
-void RectangularDetector::setDirectBeamPosition(double xpos, double ypos)
+void RectangularDetector::setDirectBeamPosition(double u0, double v0)
 {
-
+    m_detector_arrangement = PERPENDICULAR_TO_REFLECTED_BEAM_DPOS;
+    m_dbeam_u0 = u0;
+    m_dbeam_v0 = v0;
 }
 
 IPixelMap *RectangularDetector::createPixelMap(size_t index) const
@@ -153,6 +170,8 @@ IPixelMap *RectangularDetector::createPixelMap(size_t index) const
     Bin1D v_bin = v_axis.getBin(v_index);
     kvector_t corner_position = m_normal_to_detector
             + (u_bin.m_lower - m_u0)*m_u_unit + (v_bin.m_lower - m_v0)*m_v_unit;
+//    kvector_t corner_position = m_normal_to_detector
+//            + (u_bin.m_lower + m_u0)*m_u_unit + (v_bin.m_lower + m_v0)*m_v_unit;
     kvector_t width = u_bin.getBinSize()*m_u_unit;
     kvector_t height = v_bin.getBinSize()*m_v_unit;
     return new RectPixelMap(corner_position, width, height);
@@ -170,6 +189,58 @@ std::string RectangularDetector::addParametersToExternalPool(std::string path, P
         mP_detector_resolution->addParametersToExternalPool(new_path, external_pool, -1);
     }
     return new_path;
+}
+
+double RectangularDetector::getWidth() const
+{
+    const IAxis &axis = getAxis(BornAgain::X_AXIS_INDEX);
+    return axis.getMax() - axis.getMin();
+}
+
+double RectangularDetector::getHeight() const
+{
+    const IAxis &axis = getAxis(BornAgain::Y_AXIS_INDEX);
+    return axis.getMax() - axis.getMin();
+}
+
+size_t RectangularDetector::getNbinsX() const
+{
+    return getAxis(BornAgain::X_AXIS_INDEX).getSize();
+}
+
+size_t RectangularDetector::getNbinsY() const
+{
+    return getAxis(BornAgain::Y_AXIS_INDEX).getSize();
+}
+
+kvector_t RectangularDetector::getNormalVector() const
+{
+    return m_normal_to_detector;
+}
+
+double RectangularDetector::getU0() const
+{
+    return m_u0;
+}
+
+double RectangularDetector::getV0() const
+{
+    return m_v0;
+}
+
+kvector_t RectangularDetector::getDirectionVector() const
+{
+    return m_direction;
+}
+
+double RectangularDetector::getDistance() const
+{
+    return m_distance;
+}
+
+RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const
+{
+    return m_detector_arrangement;
 }
 
 void RectangularDetector::print(std::ostream &ostr) const
@@ -215,7 +286,7 @@ void RectangularDetector::swapContent(RectangularDetector &other)
     std::swap(this->m_v_unit, other.m_v_unit);
 }
 
-void RectangularDetector::setDistanceAndOffset(double distance, double u0, double v0) const
+void RectangularDetector::setDistanceAndOffset(double distance, double u0, double v0)
 {
     if(distance <= 0.0) {
         std::ostringstream message;

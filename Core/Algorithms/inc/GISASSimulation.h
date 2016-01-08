@@ -72,6 +72,7 @@ public:
 
     //! Returns the instrument containing beam and detector information
     const Instrument& getInstrument() const { return m_instrument; }
+    Instrument& getInstrument() { return m_instrument; }
 
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);

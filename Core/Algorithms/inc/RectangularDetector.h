@@ -39,8 +39,9 @@ public:
         GENERIC,
         PERPENDICULAR_TO_SAMPLE,
         PERPENDICULAR_TO_DIRECT_BEAM,
-        PERPENDICULAR_TO_REFLECTED_BEAM
-    }
+        PERPENDICULAR_TO_REFLECTED_BEAM,
+        PERPENDICULAR_TO_REFLECTED_BEAM_DPOS
+    };
 
     //! Rectangular detector constructor
     RectangularDetector(int nxbins, double width, int nybins, double height);
@@ -62,12 +63,23 @@ public:
 
     void setPerpendicularToDirectBeam(double distance, double u0, double v0);
     void setPerpendicularToReflectedBeam(double distance, double u0, double v0);
-    void setDirectBeamPosition(double xpos, double ypos);
+    void setDirectBeamPosition(double u0, double v0);
 
 
     //! Adds parameters from local pool to external pool and call recursion over direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;
+
+    double getWidth() const;
+    double getHeight() const;
+    size_t getNbinsX() const;
+    size_t getNbinsY() const;
+    kvector_t getNormalVector() const;
+    double getU0() const;
+    double getV0() const;
+    kvector_t getDirectionVector() const;
+    double getDistance() const;
+    EDetectorArrangement getDetectorArrangment() const;
 
 protected:
     //! Create an IPixelMap for the given OutputData object and index
@@ -87,13 +99,14 @@ protected:
     //! swap function
     void swapContent(RectangularDetector &other);
 private:
-    void setDistanceAndOffset(double distance, double u0, double v0) const;
+    void setDistanceAndOffset(double distance, double u0, double v0);
     kvector_t normalizeToUnitLength(const kvector_t& direction) const;
+
     kvector_t m_normal_to_detector;
-    double m_u0;
-    double m_v0;
-    kvector_t m_direction;
-    double m_distance;
+    double m_u0, m_v0; //!< position of normal vector hitting point in detector coordinates
+    kvector_t m_direction; //!< direction vector of detector coordinate system
+    double m_distance; //!< distance from sample origin to the detector plane
+    double m_dbeam_u0, m_dbeam_v0; //!< position of direct beam in detector coordinates
     EDetectorArrangement m_detector_arrangement;
     kvector_t m_u_unit;
     kvector_t m_v_unit;

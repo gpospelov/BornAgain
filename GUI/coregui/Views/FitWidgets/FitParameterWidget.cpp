@@ -179,7 +179,7 @@ void FitParameterWidget::insertRowIntoItem(QStandardItemModel *parentItem, QStri
 
 void FitParameterWidget::initFitModel()
 {
-    m_fitModel = new FitModel;
+    m_fitModel = new FitModel(2);
 
 //    ParameterizedItem *item1 = m_fitModel->insertNewItem(Constants::FitParameterType);
 //    item1->setItemName("Par1");

@@ -16,41 +16,64 @@
 #ifndef FITVIEW_H
 #define FITVIEW_H
 
-#include "FitProxyModel.h"
-#include "WinDllMacros.h"
-#include <QWidget>
+#include "FitModel.h"
+#include "GUIHelpers.h"
 
+#include <QTreeView>
+#include <QHBoxLayout>
 
-class MainWindow;
-class QTabWidget;
-class RealDataWidget;
-class FitParameterWidget;
-class RunFitWidget;
-class FitToolBar;
+#include <QDebug>
+#include <iostream>
 
-class BA_CORE_API_ FitView : public QWidget
+class QModelIndex;
+class SampleModel;
+class SessionModel;
+class InstrumentModel;
+class JobModel;
+class JobItem;
+class InstrumentItem;
+class ParameterizedItem;
+
+class FitView : public QWidget
 {
     Q_OBJECT
 
 public:
-    enum ETabViewId { REAL_DATA, FIT_PARAMETER, RUN_FIT};
-    FitView(FitProxyModel *fitProxyModel, MainWindow *mainWindow);
-
+    FitView(SampleModel* sModel, InstrumentModel* iModel, QWidget *parent = 0);
 
 public slots:
-    void onChangeTabWidget(int index);
+    void sampleSelectionChanged(const QItemSelection &newSelection,
+                                    const QItemSelection &oldSelection);
+    void fitParameterSelectionChanged(const QItemSelection &newSelection,
+                                          const QItemSelection &oldSelection);
 
 private:
+    SampleModel* m_sampleModel;
+    InstrumentModel* m_instrumentModel;
 
-    QTabWidget *m_tabWidget;
-    RealDataWidget *m_realDataWidget;
-    FitParameterWidget *m_fitParameterWidget;
-    RunFitWidget *m_runFitWidget;
-    FitToolBar *m_toolBar;
+    FitModel *m_fitParameterModel, *m_sampleParameterModel;
 
-    FitProxyModel *m_fitProxyModel;
+    QTreeView *sampleTreeView;
+    QTreeView *instrumentTreeView;
 
+    QTreeView *fitTreeView;
+
+    QItemSelectionModel *sampleSelectionModel;
+    QItemSelectionModel *FitParameterSelectionModel;
+
+    QHBoxLayout* wholeWindow;
+
+    ParameterizedItem *extractSampleModel(const QModelIndex &parentIndex = QModelIndex(),
+                                          ParameterizedItem *parentItem = 0);
+
+    ParameterizedItem *extractInstrumentModel();
+    ParameterizedItem *iterateInstrumentItem(InstrumentItem *instrument);
+
+    // TODO consider implementing as wrapper to ParametrizedItem interface
+    // probably a good idea since the data structure can change....
+    void insertRowIntoItem(ParameterizedItem *parentItem, ParameterizedItem *childItem);
+    void addPropertyToItem(ParameterizedItem *parentItem, const QString &name,
+                           const QString &property_name, QVariant &value);
 };
 
-
-#endif // SIMULATIONVIEW_H
+#endif // FITVIEW_H

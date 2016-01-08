@@ -839,3 +839,7 @@ void SessionModel::report_error(const QString &error_type, const QString &messag
         throw GUIHelpers::Error(error_type + QString(" ") + message);
     }
 }
+
+ParameterizedItem* SessionModel::rootItem() const{
+    return m_root_item;
+}

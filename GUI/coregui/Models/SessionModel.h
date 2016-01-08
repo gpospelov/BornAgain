@@ -84,7 +84,7 @@ public:
                          const QModelIndex &parent) const;
     virtual bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column,
                       const QModelIndex &parent);
-    // End overriden methods from QAbstractItemModel
+    // End overridden methods from QAbstractItemModel
 
     QModelIndex indexOfItem(ParameterizedItem *item) const;
     ParameterizedItem *insertNewItem(QString model_type, const QModelIndex &parent = QModelIndex(),
@@ -104,6 +104,7 @@ public:
     // Sets mimedata pointer of item being dragged
     void setDraggedItemType(const QString &type);
 
+    // Returns root item if index is not valid
     ParameterizedItem *itemForIndex(const QModelIndex &index) const;
 
     void readFrom(QXmlStreamReader *reader);
@@ -131,6 +132,10 @@ public slots:
     void onItemPropertyChange(const QString &property_name, const QString &name = QString());
 
 protected:
+    ParameterizedItem* rootItem() const;
+
+    //moved from private to protected because FitModel need to override the mimeData function
+    void writeItemAndChildItems(QXmlStreamWriter *writer, const ParameterizedItem *item) const;
 
 private:
     ParameterizedItem *insertNewItem(QString model_type, ParameterizedItem *parent, int row = -1,
@@ -138,7 +143,7 @@ private:
                                      = ParameterizedItem::PortInfo::DEFAULT);
     void readItems(QXmlStreamReader *reader, ParameterizedItem *item, int row = -1);
     QString readProperty(QXmlStreamReader *reader, ParameterizedItem *item);
-    void writeItemAndChildItems(QXmlStreamWriter *writer, const ParameterizedItem *item) const;
+
     void writeProperty(QXmlStreamWriter *writer, const ParameterizedItem *item,
                        const char *property_name) const;
     void writePropertyItem(QXmlStreamWriter *writer, ParameterizedItem *item) const;

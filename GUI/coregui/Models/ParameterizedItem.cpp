@@ -37,7 +37,12 @@ ParameterizedItem::ParameterizedItem(QString model_type, ParameterizedItem *pare
     if (mp_parent) {
         mp_parent->insertChildItem(-1, this);
     }
+
     registerProperty(P_PORT, -1).setHidden();
+
+    registerProperty(P_PORT, -1, PropertyAttribute(PropertyAttribute::HIDDEN));
+    setItemName(m_model_type);
+
 }
 
 ParameterizedItem::~ParameterizedItem()

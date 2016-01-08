@@ -36,6 +36,7 @@ class BA_CORE_API_ ParameterizedItem : public QObject
 public:
     static const QString P_NAME;
     static const QString P_PORT;
+    static const QString P_ID;
     explicit ParameterizedItem(QString model_type = QString(),
                                ParameterizedItem *parent = 0);
 

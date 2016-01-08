@@ -48,7 +48,6 @@ class FitView;
 class JobModel;
 class UpdateNotifier;
 
-
 class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
 {
     Q_OBJECT

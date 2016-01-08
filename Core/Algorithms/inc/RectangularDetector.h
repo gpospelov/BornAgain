@@ -62,7 +62,7 @@ public:
     void setPerpendicularToSample(double distance, double u0, double v0);
 
     void setPerpendicularToDirectBeam(double distance, double u0, double v0);
-    void setPerpendicularToReflectedBeam(double distance, double u0, double v0);
+    void setPerpendicularToReflectedBeam(double distance, double u0 = 0.0, double v0 = 0.0);
     void setDirectBeamPosition(double u0, double v0);
 
 
@@ -79,6 +79,8 @@ public:
     double getV0() const;
     kvector_t getDirectionVector() const;
     double getDistance() const;
+    double getDirectBeamU0() const;
+    double getDirectBeamV0() const;
     EDetectorArrangement getDetectorArrangment() const;
 
 protected:
@@ -101,6 +103,8 @@ protected:
 private:
     void setDistanceAndOffset(double distance, double u0, double v0);
     kvector_t normalizeToUnitLength(const kvector_t& direction) const;
+    void initNormalVector(const kvector_t &central_k);
+    void initUandV(double alpha_i);
 
     kvector_t m_normal_to_detector;
     double m_u0, m_v0; //!< position of normal vector hitting point in detector coordinates

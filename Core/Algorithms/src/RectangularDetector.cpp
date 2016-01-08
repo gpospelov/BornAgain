@@ -87,42 +87,10 @@ RectangularDetector *RectangularDetector::clone() const
 
 void RectangularDetector::init(const GISASSimulation *simulation)
 {
-    if (m_detector_arrangement == GENERIC) {
-
-
-    }
-
-    else if(m_detector_arrangement == PERPENDICULAR_TO_SAMPLE) {
-        m_normal_to_detector = kvector_t(m_distance, 0.0, 0.0);
-
-    }
-
-    else if(m_detector_arrangement == PERPENDICULAR_TO_DIRECT_BEAM) {
-        m_normal_to_detector = m_distance*simulation->getInstrument().getBeam().getCentralK().normalize();
-
-    }
-
-    else if(m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM) {
-        m_normal_to_detector = m_distance*simulation->getInstrument().getBeam().getCentralK().normalize();
-        m_normal_to_detector.setZ(-m_normal_to_detector.z());
-    }
-
-    else if(m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
-        m_normal_to_detector = m_distance*simulation->getInstrument().getBeam().getCentralK().normalize();
-        m_normal_to_detector.setZ(-m_normal_to_detector.z());
-
-    }
-
-
-    else {
-        throw LogicErrorException("RectangularDetector::init() -> Unknown detector arrangement");
-    }
-
-    double d2 = m_normal_to_detector.dot(m_normal_to_detector);
-    m_u_unit = normalizeToUnitLength(
-        d2 * m_direction - m_direction.dot(m_normal_to_detector) * m_normal_to_detector);
-    m_v_unit = normalizeToUnitLength(m_u_unit.cross(m_normal_to_detector));
-
+    double alpha_i = simulation->getInstrument().getBeam().getAlpha();
+    kvector_t central_k = simulation->getInstrument().getBeam().getCentralK();
+    initNormalVector(central_k);
+    initUandV(alpha_i);
 }
 
 void RectangularDetector::setPosition(const kvector_t &normal_to_detector, double u0, double v0, const kvector_t &direction)
@@ -238,6 +206,16 @@ double RectangularDetector::getDistance() const
     return m_distance;
 }
 
+double RectangularDetector::getDirectBeamU0() const
+{
+    return m_dbeam_u0;
+}
+
+double RectangularDetector::getDirectBeamV0() const
+{
+    return m_dbeam_v0;
+}
+
 RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const
 {
     return m_detector_arrangement;
@@ -304,6 +282,57 @@ kvector_t RectangularDetector::normalizeToUnitLength(const kvector_t &direction)
     double old_length = direction.mag();
     if (old_length==0.0) return direction;
     return direction/old_length;
+}
+
+void RectangularDetector::initNormalVector(const kvector_t &central_k)
+{
+    kvector_t central_k_unit = central_k.normalize();
+
+    if (m_detector_arrangement == GENERIC) {
+        // do nothing
+    }
+
+    else if(m_detector_arrangement == PERPENDICULAR_TO_SAMPLE) {
+        m_normal_to_detector = kvector_t(m_distance, 0.0, 0.0);
+    }
+
+    else if(m_detector_arrangement == PERPENDICULAR_TO_DIRECT_BEAM) {
+        m_normal_to_detector = m_distance*central_k_unit;
+    }
+
+    else if(m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM) {
+        m_normal_to_detector = m_distance*central_k_unit;
+        m_normal_to_detector.setZ(-m_normal_to_detector.z());
+    }
+
+    else if(m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
+        m_normal_to_detector = m_distance*central_k_unit;
+        m_normal_to_detector.setZ(-m_normal_to_detector.z());
+
+    }
+
+    else {
+        throw LogicErrorException("RectangularDetector::init() -> Unknown detector arrangement");
+    }
+
+}
+
+void RectangularDetector::initUandV(double alpha_i)
+{
+    double d2 = m_normal_to_detector.dot(m_normal_to_detector);
+    m_u_unit = normalizeToUnitLength(
+        d2 * m_direction - m_direction.dot(m_normal_to_detector) * m_normal_to_detector);
+    m_v_unit = normalizeToUnitLength(m_u_unit.cross(m_normal_to_detector));
+
+    if(m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
+        kvector_t z(0.0, 0.0, 1.0);
+        kvector_t normal_unit = m_normal_to_detector.normalize();
+        kvector_t zp = z - z.dot(normal_unit)*normal_unit;
+        double uz = zp.dot(m_u_unit)/zp.mag();
+        double vz = zp.dot(m_v_unit)/zp.mag();
+        m_u0 = m_dbeam_u0 + m_distance*std::tan(2*alpha_i)*uz;
+        m_v0 = m_dbeam_v0 + m_distance*std::tan(2*alpha_i)*vz;
+    }
 }
 
 RectPixelMap::RectPixelMap(kvector_t corner_pos, kvector_t width, kvector_t height)

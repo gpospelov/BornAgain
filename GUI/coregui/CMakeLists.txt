@@ -161,6 +161,7 @@ target_link_libraries(${library_name}
 #     Qt5::Script
     Qt5::Designer
     Qt5::PrintSupport
+    Qt5::Network
 )
 
 

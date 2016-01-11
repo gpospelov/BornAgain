@@ -69,6 +69,7 @@
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <QDebug>
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
@@ -89,6 +90,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_materialEditor(0)
     , m_toolTipDataBase(new ToolTipDataBase(this))
     , m_fitProxyModel(0)
+    , m_updateNotifier(new UpdateNotifier(this))
 {
     QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
     QCoreApplication::setApplicationVersion(GUIHelpers::getBornAgainVersionString());
@@ -150,6 +152,7 @@ MainWindow::MainWindow(QWidget *parent)
     // signals/slots
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onChangeTabWidget(int)));
     connect(m_jobView, SIGNAL(focusRequest(int)), this, SLOT(onFocusRequest(int)));
+    connect(m_updateNotifier, SIGNAL(onUpdateNotification(QString)), m_welcomeView, SLOT(setNotificationText(QString)));
 
     m_projectManager->createNewProject();
 
@@ -169,18 +172,6 @@ void MainWindow::readSettings()
         settings.beginGroup(Constants::S_MAINWINDOW);
         resize(settings.value(Constants::S_WINDOWSIZE, QSize(400, 400)).toSize());
         move(settings.value(Constants::S_WINDOWPOSITION, QPoint(200, 200)).toPoint());
-        settings.endGroup();
-    }
-    if (!settings.childGroups().contains(Constants::S_UPDATES)) {
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("Check for Updates");
-        msgBox.setText("Do you want to allow BornAgain to search for updates automatically?\n"
-                       "This setting can be changes later.");
-        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        msgBox.setDefaultButton(QMessageBox::Yes);
-        int ret = msgBox.exec();
-        settings.beginGroup(Constants::S_UPDATES);
-        settings.setValue(Constants::S_CHECKFORUPDATES, ret == QMessageBox::Yes);
         settings.endGroup();
     }
     assert(m_projectManager);
@@ -348,5 +339,12 @@ void MainWindow::onAboutApplication()
 {
     AboutApplicationDialog dialog(this);
     dialog.exec();
+}
+
+void MainWindow::showEvent(QShowEvent *event)
+{
+    QWidget::showEvent( event );
+    // Show message box after main window appears
+    QTimer::singleShot(100,m_updateNotifier,SLOT(askForUpdates()));
 }
 

@@ -19,6 +19,8 @@
 #include <QMainWindow>
 #include "WinDllMacros.h"
 #include "fancymainwindow.h"
+#include "updateNotifier.h"
+#include <QtNetwork>
 
 namespace Manhattan {
     class FancyTabWidget;
@@ -65,6 +67,7 @@ public:
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
     ActionManager *getActionManager() { return m_actionManager; }
     ProjectManager *getProjectManager() { return m_projectManager; }
+    UpdateNotifier *getUpdateNotifier() { return m_updateNotifier; }
 
 public slots:
     void onChangeTabWidget(int index);
@@ -101,6 +104,7 @@ private:
     MaterialEditor *m_materialEditor;
     ToolTipDataBase *m_toolTipDataBase;
     FitProxyModel *m_fitProxyModel;
+    UpdateNotifier *m_updateNotifier;
 
     void createModels();
     void createMaterialModel();
@@ -110,6 +114,7 @@ private:
     void createFitModel();
 
     void testGUIObjectBuilder();
+    void showEvent(QShowEvent *event);
 };
 
 #endif // MAINWINDOW_H

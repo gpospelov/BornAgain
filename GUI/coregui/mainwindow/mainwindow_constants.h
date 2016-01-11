@@ -41,6 +41,10 @@ const char S_WINDOWPOSITION[]      = "pos";
 const char S_SPLITTERSIZE[]        = "SplitterSize";
 const char S_CHECKFORUPDATES[]     = "CheckForUpdates";
 
+// Updates
+const char S_VERSION_URL[]         = "http://apps.jcns.fz-juelich.de/src/BornAgain/CHANGELOG";
+const char S_DOWNLOAD_LINK[]       = "http://www.bornagainproject.org/download";
+
 const int MAX_RECENT_PROJECTS = 10;
 
 const char MIME_JOBQUEUE[] = "application/org.bornagainproject.jobqueue";

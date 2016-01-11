@@ -170,15 +170,12 @@ void ActionManager::aboutToShowSettings()
 {
     m_settingsMenu->clear();
     QSettings settings;
-    if (settings.childGroups().contains(Constants::S_UPDATES)) {
-        settings.beginGroup(Constants::S_UPDATES);
-        QAction *action = m_settingsMenu->addAction(tr("Check for Updates"));
-        action->setCheckable(true);
-        action->setChecked(settings.value(Constants::S_CHECKFORUPDATES, false).toBool());
-        connect(action, SIGNAL(toggled(bool)), this, SLOT(toggleCheckForUpdates(bool)));
-        settings.endGroup();
-    }
-
+    settings.beginGroup(Constants::S_UPDATES);
+    QAction *action = m_settingsMenu->addAction(tr("Check for Updates"));
+    action->setCheckable(true);
+    action->setChecked(settings.value(Constants::S_CHECKFORUPDATES, false).toBool());
+    connect(action, SIGNAL(toggled(bool)), this, SLOT(toggleCheckForUpdates(bool)));
+    settings.endGroup();
 }
 
 void ActionManager::toggleCheckForUpdates(bool status)
@@ -187,6 +184,7 @@ void ActionManager::toggleCheckForUpdates(bool status)
     settings.beginGroup(Constants::S_UPDATES);
     settings.setValue(Constants::S_CHECKFORUPDATES, status);
     settings.endGroup();
+    m_mainWindow->getUpdateNotifier()->checkForUpdates();
 }
 
 

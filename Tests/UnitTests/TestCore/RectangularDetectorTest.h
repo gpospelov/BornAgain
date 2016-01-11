@@ -77,7 +77,7 @@ TEST_F(RectangularDetectorTest, PerpToSample)
     RectangularDetector det(nbinsx, width, nbinsy, height);
 
     // detector perpendicular to sample
-    det.setPerpendicularToSample(distance, u0, v0);
+    det.setPerpendicularToSampleX(distance, u0, v0);
     EXPECT_EQ(distance, det.getDistance());
     EXPECT_EQ(u0, det.getU0());
     EXPECT_EQ(v0, det.getV0());

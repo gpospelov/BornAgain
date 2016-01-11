@@ -44,6 +44,10 @@ public:
     };
 
     //! Rectangular detector constructor
+    //! @param nxbins Number of bins (pixels) in x-direction
+    //! @param width Width of the detector in mm along x-direction
+    //! @param nybins Number of bins (pixels) in y-direction
+    //! @param height Height of the detector in mm along y-direction
     RectangularDetector(int nxbins, double width, int nybins, double height);
 
     RectangularDetector(kvector_t normal_to_detector, kvector_t u_direction);
@@ -59,7 +63,7 @@ public:
     void setPosition(const kvector_t &normal_to_detector, double u0, double v0,
                      const kvector_t &direction = kvector_t(0.0, -1.0, 0.0));
 
-    void setPerpendicularToSample(double distance, double u0, double v0);
+    void setPerpendicularToSampleX(double distance, double u0, double v0);
 
     void setPerpendicularToDirectBeam(double distance, double u0, double v0);
     void setPerpendicularToReflectedBeam(double distance, double u0 = 0.0, double v0 = 0.0);

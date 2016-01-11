@@ -273,6 +273,15 @@ void register_IDetector2D_class(){
                 , getDimension_function_type( &::IDetector2D::getDimension ) );
         
         }
+        { //::IDetector2D::getNumberOfMaskedChannels
+        
+            typedef int ( ::IDetector2D::*getNumberOfMaskedChannels_function_type)(  ) const;
+            
+            IDetector2D_exposer.def( 
+                "getNumberOfMaskedChannels"
+                , getNumberOfMaskedChannels_function_type( &::IDetector2D::getNumberOfMaskedChannels ) );
+        
+        }
         { //::IDetector2D::hasMasks
         
             typedef bool ( ::IDetector2D::*hasMasks_function_type)(  ) const;

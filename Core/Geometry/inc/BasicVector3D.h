@@ -327,6 +327,7 @@ template<> BA_CORE_API_ double BasicVector3D<double>::dot(
 template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::cross(
         const BasicVector3D<double>& v) const;
 
+template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::normalize() const;
 
 template<> BA_CORE_API_ double BasicVector3D<double>::phi() const;
 

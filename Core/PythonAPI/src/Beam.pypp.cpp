@@ -155,7 +155,7 @@ void register_Beam_class(){
         }
         { //::Beam::getCentralK
         
-            typedef ::cvector_t ( ::Beam::*getCentralK_function_type)(  ) const;
+            typedef ::kvector_t ( ::Beam::*getCentralK_function_type)(  ) const;
             
             Beam_exposer.def( 
                 "getCentralK"

@@ -226,7 +226,7 @@ def ManualClassTunings(mb):
     methods_to_exclude=[
         "phi", "theta", "cosTheta", "sin2Theta", "getPhi", "getTheta", "setPhi", "setTheta", "setR",
         "setMag", "perp", "perp2", "setPerp", "angle", "unit", "orthogonal", "rotated", "rotatedX",
-        "rotatedY", "rotatedZ", "cross", "dot"
+        "rotatedY", "rotatedZ", "cross", "dot", "normalize"
     ]
     classes_to_exclude = ["BasicVector3D<std::complex<double> >", "BasicVector3D<double>", "BasicVector3D<int>"]
     utils_build.ExcludeMemberFunctionsForClasses(mb, methods_to_exclude, classes_to_exclude)

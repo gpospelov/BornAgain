@@ -102,7 +102,7 @@ void RectangularDetector::setPosition(const kvector_t &normal_to_detector, doubl
     m_direction = direction;
 }
 
-void RectangularDetector::setPerpendicularToSample(double distance, double u0, double v0)
+void RectangularDetector::setPerpendicularToSampleX(double distance, double u0, double v0)
 {
     m_detector_arrangement = PERPENDICULAR_TO_SAMPLE;
     setDistanceAndOffset(distance, u0, v0);

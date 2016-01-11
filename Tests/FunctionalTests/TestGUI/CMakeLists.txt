@@ -61,7 +61,7 @@ set(list_of_tests
 get_list_of_executables_from_list_of_tests("${list_of_tests}" ${list_of_executables})
 foreach(test_exe_name ${list_of_executables})
    BORNAGAIN_EXECUTABLE(${test_exe_name} LOCATIONS ${test_exe_name} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY} ${BornAgainGUI_LIBRARY})
-   qt5_use_modules(${test_exe_name} Widgets Core Gui Script Designer PrintSupport)
+   qt5_use_modules(${test_exe_name} Widgets Core Gui Designer PrintSupport Network)
 endforeach()
 
 # Adding tests

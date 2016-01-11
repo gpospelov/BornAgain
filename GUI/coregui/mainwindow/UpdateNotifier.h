@@ -16,22 +16,26 @@
 #ifndef UPDATENOTIFIER_H
 #define UPDATENOTIFIER_H
 
-#include <QtNetwork>
-#include "mainwindow_constants.h"
-#include <GUIHelpers.h>
-#include <QMessageBox>
+#include <QObject>
+#include "WinDllMacros.h"
 
-class UpdateNotifier : public QObject
+class QNetworkAccessManager;
+class QNetworkReply;
+
+class BA_CORE_API_ UpdateNotifier : public QObject
 {
     Q_OBJECT
 public:
     UpdateNotifier(QObject *parent = 0);
     void checkForUpdates();
+
 public slots:
     void replyFinished(QNetworkReply *reply);
     void askForUpdates();
+
 signals:
-    void onUpdateNotification(QString text);
+    void onUpdateNotification(const QString &text);
+
 private:
     QNetworkAccessManager *m_networkAccessManager;
 };

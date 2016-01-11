@@ -300,7 +300,7 @@ void WelcomeView::clearLayout(QLayout* layout, bool deleteWidgets)
     }
 }
 
-void WelcomeView::setNotificationText(QString const& text)
+void WelcomeView::setNotificationText(const QString &text)
 {
     m_updateNotification->setText(text);
 }

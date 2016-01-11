@@ -13,13 +13,21 @@
 //
 // ************************************************************************** //
 
-#include "updateNotifier.h"
+#include "UpdateNotifier.h"
+#include "mainwindow_constants.h"
+#include <QtNetwork>
+#include <GUIHelpers.h>
+#include <QMessageBox>
+
 
 UpdateNotifier::UpdateNotifier(QObject *parent)
     : QObject(parent)
     , m_networkAccessManager(new QNetworkAccessManager(parent))
 {
-    connect(m_networkAccessManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
+    connect(m_networkAccessManager,
+            SIGNAL(finished(QNetworkReply*)),
+            this,
+            SLOT(replyFinished(QNetworkReply*)));
 }
 
 void UpdateNotifier::checkForUpdates()
@@ -54,7 +62,7 @@ void UpdateNotifier::replyFinished(QNetworkReply *reply)
 
             int compareResult = versionString.compare(myVersion);
             if (compareResult > 0) {
-                QString message("New version available: <a href=\"");
+                QString message("New version is available: <a href=\"");
                 message.append(Constants::S_DOWNLOAD_LINK);
                 message.append("\">");
                 message.append(replyString);

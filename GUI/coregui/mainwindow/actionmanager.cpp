@@ -19,6 +19,7 @@
 #include "mainwindow_constants.h"
 #include "projectmanager.h"
 #include "stringutils.h"
+#include "UpdateNotifier.h"
 #include <QMenuBar>
 #include <QShortcut>
 #include <QSettings>

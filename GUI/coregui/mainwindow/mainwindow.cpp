@@ -61,6 +61,8 @@
 #include "FitView.h"
 #include "TestView.h"
 #include "GUIHelpers.h"
+#include "UpdateNotifier.h"
+
 #include <boost/scoped_ptr.hpp>
 
 #include <QApplication>
@@ -152,7 +154,8 @@ MainWindow::MainWindow(QWidget *parent)
     // signals/slots
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onChangeTabWidget(int)));
     connect(m_jobView, SIGNAL(focusRequest(int)), this, SLOT(onFocusRequest(int)));
-    connect(m_updateNotifier, SIGNAL(onUpdateNotification(QString)), m_welcomeView, SLOT(setNotificationText(QString)));
+    connect(m_updateNotifier, SIGNAL(onUpdateNotification(const QString &)),
+            m_welcomeView, SLOT(setNotificationText(const QString &)));
 
     m_projectManager->createNewProject();
 

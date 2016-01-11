@@ -16,11 +16,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
 #include "WinDllMacros.h"
 #include "fancymainwindow.h"
-#include "updateNotifier.h"
-#include <QtNetwork>
+#include <QMainWindow>
 
 namespace Manhattan {
     class FancyTabWidget;
@@ -48,6 +46,7 @@ class SampleModel;
 class FitProxyModel;
 class FitView;
 class JobModel;
+class UpdateNotifier;
 
 
 class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow

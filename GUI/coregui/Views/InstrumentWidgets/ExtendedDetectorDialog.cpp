@@ -18,11 +18,13 @@
 #include "MaskModel.h"
 #include "DetectorMaskDelegate.h"
 #include "CustomEventFilters.h"
+#include "mainwindow_constants.h"
 #include <QPushButton>
 #include <QModelIndex>
 #include <QVBoxLayout>
 #include <QKeyEvent>
 #include <QDebug>
+#include <QSettings>
 
 ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget *parent)
     : QDialog(parent)
@@ -30,7 +32,9 @@ ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget *parent)
     , m_detectorMaskDelegate(new DetectorMaskDelegate(this))
 {
     setMinimumSize(256, 256);
-    resize(750, 650);
+
+    readSettings();
+
     setWindowTitle("Mask Editor");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setAttribute(Qt::WA_DeleteOnClose, true);
@@ -67,4 +71,32 @@ void ExtendedDetectorDialog::setDetectorContext(InstrumentModel *instrumentModel
 {
     m_detectorMaskDelegate->setDetectorContext(instrumentModel, detectorItem);
     m_detectorMaskDelegate->initMaskEditor(m_maskEditor);
+}
+
+void ExtendedDetectorDialog::reject()
+{
+    writeSettings();
+    QDialog::reject();
+}
+
+void ExtendedDetectorDialog::readSettings()
+{
+    QSettings settings;
+    if (settings.childGroups().contains(Constants::S_MASKEDITOR)) {
+        settings.beginGroup(Constants::S_MASKEDITOR);
+        resize(settings.value(Constants::S_WINDOWSIZE, QSize(750, 650)).toSize());
+        move(settings.value(Constants::S_WINDOWPOSITION, QPoint(200,200)).toPoint());
+    }
+    else {
+        resize(750, 650);
+    }
+}
+
+void ExtendedDetectorDialog::writeSettings()
+{
+    QSettings settings;
+    settings.beginGroup(Constants::S_MASKEDITOR);
+    settings.setValue(Constants::S_WINDOWSIZE, this->size());
+    settings.setValue(Constants::S_WINDOWPOSITION, this->pos());
+    settings.endGroup();
 }

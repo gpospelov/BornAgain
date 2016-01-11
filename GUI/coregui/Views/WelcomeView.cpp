@@ -117,6 +117,14 @@ WelcomeView::WelcomeView(MainWindow *parent)
     projectLayout->addSpacing(15);
     projectLayout->addLayout(m_recentProjectLayout);
 
+    // update notification label
+    m_updateNotification = new QLabel(this);
+    m_updateNotification->setText("");
+    m_updateNotification->setContentsMargins(40, 10, 0, 0);
+    m_updateNotification->setOpenExternalLinks(true);
+    m_updateNotification->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    m_updateNotification->setTextFormat(Qt::RichText);
+
     // assembling all together
     QFrame* line = new QFrame();
     line->setFrameShape(QFrame::VLine);
@@ -136,6 +144,7 @@ WelcomeView::WelcomeView(MainWindow *parent)
     QVBoxLayout *containerLayout = new QVBoxLayout;
     containerLayout->setMargin(0);
     containerLayout->addWidget(itemContainerWidget);
+    containerLayout->addWidget(m_updateNotification);
     containerLayout->addStretch(1);
 
     QWidget *containerWidget = new QWidget;
@@ -289,4 +298,9 @@ void WelcomeView::clearLayout(QLayout* layout, bool deleteWidgets)
             delete item;
         }
     }
+}
+
+void WelcomeView::setNotificationText(const QString &text)
+{
+    m_updateNotification->setText(text);
 }

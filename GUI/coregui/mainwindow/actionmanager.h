@@ -37,6 +37,8 @@ public:
 
 public slots:
     void aboutToShowRecentProjects();
+    void aboutToShowSettings();
+    void toggleCheckForUpdates(bool status);
 
 private:
     MainWindow *m_mainWindow;
@@ -51,6 +53,7 @@ private:
 
     QMenuBar *m_menuBar;
     QMenu *m_fileMenu;
+    QMenu *m_settingsMenu;
     QMenu *m_recentProjectsMenu;
     QMenu *m_helpMenu;
 

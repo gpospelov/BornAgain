@@ -37,8 +37,8 @@ public:
     void createNewProject();
     bool closeCurrentProject();
 
-    void readSettings(QSettings *settings);
-    void writeSettings(QSettings *settings);
+    void readSettings();
+    void writeSettings();
 
     QStringList getRecentProjects();
 

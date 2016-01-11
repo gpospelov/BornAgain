@@ -222,24 +222,26 @@ void ProjectManager::addToRecentProjects()
 }
 
 //! read settings of ProjectManager from global settings
-void ProjectManager::readSettings(QSettings *settings)
+void ProjectManager::readSettings()
 {
+    QSettings settings;
     m_defaultWorkingDirectory = QDir::homePath();
-    if(settings->childGroups().contains(Constants::S_PROJECTMANAGER)) {
-        settings->beginGroup(Constants::S_PROJECTMANAGER);
-        m_defaultWorkingDirectory = settings->value("DefaultProjectPath").toString();
-        m_recentProjects = settings->value("RecentProjects").toStringList();
-        settings->endGroup();
+    if(settings.childGroups().contains(Constants::S_PROJECTMANAGER)) {
+        settings.beginGroup(Constants::S_PROJECTMANAGER);
+        m_defaultWorkingDirectory = settings.value(Constants::S_DEFAULTPROJECTPATH).toString();
+        m_recentProjects = settings.value(Constants::S_RECENTPROJECTS).toStringList();
+        settings.endGroup();
     }
 }
 
 //! saves settings of ProjectManager in global settings
-void ProjectManager::writeSettings(QSettings *settings)
+void ProjectManager::writeSettings()
 {
-    settings->beginGroup(Constants::S_PROJECTMANAGER);
-    settings->setValue("DefaultProjectPath", m_defaultWorkingDirectory);
-    settings->setValue("RecentProjects", m_recentProjects);
-    settings->endGroup();
+    QSettings settings;
+    settings.beginGroup(Constants::S_PROJECTMANAGER);
+    settings.setValue(Constants::S_DEFAULTPROJECTPATH, m_defaultWorkingDirectory);
+    settings.setValue(Constants::S_RECENTPROJECTS, m_recentProjects);
+    settings.endGroup();
 }
 
 //! returns list of recent projects, validates if projects still exists on disk

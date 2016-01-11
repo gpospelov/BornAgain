@@ -37,8 +37,13 @@ public slots:
     void setDetectorContext(InstrumentModel *instrumentModel, DetectorItem *detectorItem);
 
 private:
+    void reject();
+
+private:
     MaskEditor *m_maskEditor;
     DetectorMaskDelegate *m_detectorMaskDelegate;
+    void readSettings();
+    void writeSettings();
 };
 
 #endif

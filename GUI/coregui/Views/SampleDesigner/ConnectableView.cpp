@@ -174,10 +174,15 @@ int ConnectableView::getNumberOfInputPorts()
 QString ConnectableView::hyphenate(const QString &name) const
 {
     QRegExp capital_letter("[A-Z]");
+    QRegExp number("[0-9]");
     int next_capital = capital_letter.indexIn(name, 1);
+    int next_number = number.indexIn(name, 1);
     if (next_capital > 0 && next_capital < name.size() - 2) {
-        QString result = name.left(next_capital) + QString("\n")
-                + name.right(name.size()-next_capital);
+        int first_split_index = (next_number > 0 && next_number < next_capital)
+                ? next_number
+                : next_capital;
+        QString result = name.left(first_split_index) + QString("\n")
+                + name.right(name.size()-first_split_index);
         return result;
     }
     return name;

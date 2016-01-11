@@ -14,6 +14,7 @@
 // ************************************************************************** //
 #include "TestView.h"
 #include "MaskEditor.h"
+#include "RunFitWidget.h"
 #include <QVBoxLayout>
 #include <AccordionWidget.h>
 #include <QLineEdit>
@@ -22,15 +23,26 @@
 TestView::TestView(QWidget *parent)
     : QWidget(parent)
 {
-//    MaskEditor *maskEditor = new MaskEditor();
-//    QVBoxLayout *layout = new QVBoxLayout;
-//    layout->setMargin(0);
-//    layout->setSpacing(0);
-//    layout->addWidget(maskEditor);
-//    setLayout(layout);
+//    test_MaskEditor();
+//    test_AccordionWidget();
+    test_RunFitWidget();
 
-//    maskEditor->init_test_model();
+}
 
+void TestView::test_MaskEditor()
+{
+    MaskEditor *maskEditor = new MaskEditor();
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    layout->addWidget(maskEditor);
+    setLayout(layout);
+
+    maskEditor->init_test_model();
+}
+
+void TestView::test_AccordionWidget()
+{
     AccordionWidget *myAccordion = new AccordionWidget();
     myAccordion->setMultiActive(true);
     // add the Accordion to your layout
@@ -101,5 +113,17 @@ TestView::TestView(QWidget *parent)
         contentFrame->layout()->addWidget(cb7);
 
     }
+}
+
+void TestView::test_RunFitWidget()
+{
+    RunFitWidget *maskEditor = new RunFitWidget();
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    layout->addWidget(maskEditor);
+    setLayout(layout);
 
 }
+
+

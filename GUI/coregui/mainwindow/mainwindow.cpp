@@ -140,7 +140,8 @@ MainWindow::MainWindow(QWidget *parent)
     //m_tabWidget->insertTab(FitViewTab, m_fitView, QIcon(":/images/main_simulation.png"), "Fit");
     //m_tabWidget->insertTab(FIT_VIEW, new TestView(this), QIcon(":/images/main_simulation.png"), "Test");
 
-    m_tabWidget->setCurrentIndex(WELCOME);
+
+    m_tabWidget->setCurrentIndex(TEST_VIEW);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
@@ -158,9 +159,6 @@ MainWindow::MainWindow(QWidget *parent)
             m_welcomeView, SLOT(setNotificationText(const QString &)));
 
     m_projectManager->createNewProject();
-
-//    testGUIObjectBuilder();
-
 }
 
 MainWindow::~MainWindow()

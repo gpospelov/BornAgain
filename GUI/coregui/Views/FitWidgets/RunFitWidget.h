@@ -16,15 +16,22 @@
 #ifndef RUNFITWIDGET_H
 #define RUNFITWIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 
 
 class BA_CORE_API_ RunFitWidget : public QWidget
 {
     Q_OBJECT
-
 public:
     RunFitWidget(QWidget *parent = 0);
+
+private slots:
+    void onRunFit();
+
+private:
+    void run_test_fit();
+    void run_test_fit_long();
 };
 
 #endif

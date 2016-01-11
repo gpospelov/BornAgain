@@ -24,6 +24,10 @@ class TestView : public QWidget
 public:
     TestView(QWidget *parent = 0);
 
+private:
+    void test_MaskEditor();
+    void test_AccordionWidget();
+    void test_RunFitWidget();
 };
 
 #endif

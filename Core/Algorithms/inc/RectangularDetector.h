@@ -50,7 +50,6 @@ public:
     //! @param height Height of the detector in mm along y-direction
     RectangularDetector(int nxbins, double width, int nybins, double height);
 
-    RectangularDetector(kvector_t normal_to_detector, kvector_t u_direction);
     RectangularDetector(const RectangularDetector &other);
     RectangularDetector &operator=(const RectangularDetector &other);
 

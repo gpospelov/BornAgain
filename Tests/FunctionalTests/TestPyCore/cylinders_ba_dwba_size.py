@@ -37,8 +37,7 @@ def RunSimulationDWBA():
     
     # build and run experiment
     simulation = GISASSimulation()
-    detector = IsGISAXSDetector()
-    detector.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    detector = IsGISAXSDetector(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
@@ -73,8 +72,7 @@ def RunSimulationBA():
     
     # build and run experiment
     simulation = GISASSimulation()
-    detector = IsGISAXSDetector()
-    detector.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    detector = IsGISAXSDetector(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
@@ -118,8 +116,7 @@ def RunSimulationBA_Size():
 
     # build and run experiment  
     simulation = GISASSimulation()
-    detector = IsGISAXSDetector()
-    detector.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    detector = IsGISAXSDetector(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)

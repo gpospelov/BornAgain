@@ -37,6 +37,13 @@ struct SphericalDetector_wrapper : SphericalDetector, bp::wrapper< SphericalDete
     m_pyobj = 0;
     }
 
+    SphericalDetector_wrapper(::std::size_t n_phi, double phi_min, double phi_max, ::std::size_t n_alpha, double alpha_min, double alpha_max )
+    : SphericalDetector( n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max )
+      , bp::wrapper< SphericalDetector >(){
+        // constructor
+    m_pyobj = 0;
+    }
+
     SphericalDetector_wrapper(::SphericalDetector const & other )
     : SphericalDetector( boost::ref(other) )
       , bp::wrapper< SphericalDetector >(){
@@ -157,6 +164,7 @@ void register_SphericalDetector_class(){
         typedef bp::class_< SphericalDetector_wrapper, bp::bases< IDetector2D >, std::auto_ptr< SphericalDetector_wrapper > > SphericalDetector_exposer_t;
         SphericalDetector_exposer_t SphericalDetector_exposer = SphericalDetector_exposer_t( "SphericalDetector", "A spherical detector with axes and resolution function.", bp::init< >() );
         bp::scope SphericalDetector_scope( SphericalDetector_exposer );
+        SphericalDetector_exposer.def( bp::init< std::size_t, double, double, std::size_t, double, double >(( bp::arg("n_phi"), bp::arg("phi_min"), bp::arg("phi_max"), bp::arg("n_alpha"), bp::arg("alpha_min"), bp::arg("alpha_max") ), "Spherical detector constructor using angle ranges @param n_phi number of phi-axis bins @param phi_min low edge of first phi-bin @param phi_max upper edge of last phi-bin @param n_alpha number of alpha-axis bins @param alpha_min low edge of first alpha-bin @param alpha_max upper edge of last alpha-bin \n\n:Parameters:\n  - 'n_phi' - number of phi-axis bins\n  - 'phi_min' - low edge of first phi-bin\n  - 'phi_max' - upper edge of last phi-bin\n  - 'n_alpha' - number of alpha-axis bins\n  - 'alpha_min' - low edge of first alpha-bin\n  - 'alpha_max' - upper edge of last alpha-bin\n") );
         SphericalDetector_exposer.def( bp::init< SphericalDetector const & >(( bp::arg("other") )) );
         { //::SphericalDetector::clone
         

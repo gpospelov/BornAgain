@@ -41,20 +41,6 @@ RectangularDetector::RectangularDetector(int nxbins, double width, int nybins, d
     init_parameters();
 }
 
-RectangularDetector::RectangularDetector(kvector_t normal_to_detector, kvector_t u_direction)
-    : m_normal_to_detector(normal_to_detector)
-    , m_u0(0.0)
-    , m_v0(0.0)
-    , m_direction(u_direction)
-    , m_distance(0.0)
-    , m_dbeam_u0(0.0)
-    , m_dbeam_v0(0.0)
-    , m_detector_arrangement(GENERIC)
-{
-    setName(BornAgain::RectangularDetectorType);
-    init_parameters();
-}
-
 RectangularDetector::RectangularDetector(const RectangularDetector &other)
     : IDetector2D(other)
     , m_normal_to_detector(other.m_normal_to_detector)
@@ -65,7 +51,8 @@ RectangularDetector::RectangularDetector(const RectangularDetector &other)
     , m_dbeam_u0(other.m_dbeam_u0)
     , m_dbeam_v0(other.m_dbeam_v0)
     , m_detector_arrangement(other.m_detector_arrangement)
-    , m_u_unit(other.m_u_unit), m_v_unit(other.m_v_unit)
+    , m_u_unit(other.m_u_unit)
+    , m_v_unit(other.m_v_unit)
 {
     setName(BornAgain::RectangularDetectorType);
     init_parameters();
@@ -93,7 +80,8 @@ void RectangularDetector::init(const GISASSimulation *simulation)
     initUandV(alpha_i);
 }
 
-void RectangularDetector::setPosition(const kvector_t &normal_to_detector, double u0, double v0, const kvector_t &direction)
+void RectangularDetector::setPosition(const kvector_t &normal_to_detector,
+                                      double u0, double v0, const kvector_t &direction)
 {
     m_detector_arrangement = GENERIC;
     m_normal_to_detector = normal_to_detector;
@@ -138,15 +126,14 @@ IPixelMap *RectangularDetector::createPixelMap(size_t index) const
     Bin1D v_bin = v_axis.getBin(v_index);
     kvector_t corner_position = m_normal_to_detector
             + (u_bin.m_lower - m_u0)*m_u_unit + (v_bin.m_lower - m_v0)*m_v_unit;
-//    kvector_t corner_position = m_normal_to_detector
-//            + (u_bin.m_lower + m_u0)*m_u_unit + (v_bin.m_lower + m_v0)*m_v_unit;
     kvector_t width = u_bin.getBinSize()*m_u_unit;
     kvector_t height = v_bin.getBinSize()*m_v_unit;
     return new RectPixelMap(corner_position, width, height);
 }
 
-std::string RectangularDetector::addParametersToExternalPool(std::string path, ParameterPool *external_pool,
-                                                  int copy_number) const
+std::string RectangularDetector::addParametersToExternalPool(std::string path,
+                                                             ParameterPool *external_pool,
+                                                             int copy_number) const
 {
     // add own parameters
     std::string new_path

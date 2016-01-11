@@ -387,7 +387,6 @@ def ManualClassTunings(mb):
     cl.member_function("createOutputData").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
     cl.member_function("createRelativeDifferenceHistogram").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
 
-
     cl = mb.class_("Histogram1D")
     cl.member_function("getBinCenters").exclude()
     cl.member_function("getBinValues").exclude()
@@ -398,7 +397,6 @@ def ManualClassTunings(mb):
     cl.member_function("getBinCentersNumpy").alias = "getBinCenters"
     cl.member_function("getBinValuesNumpy").alias = "getBinValues"
     cl.member_function("getBinErrorsNumpy").alias = "getBinErrors"
-
 
     #
     cl = mb.class_("Histogram2D")
@@ -412,6 +410,9 @@ def ManualClassTunings(mb):
     cl.member_function("readOutputData").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
     # cl.member_function("readHistogram").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
     cl.member_function("readIntensityData").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
+
+    cl = mb.class_("IDetector2D")
+    cl.member_function("setDetectorParameters").exclude()
 
 
 # excluding specific member functions

@@ -355,17 +355,6 @@ void register_IDetector2D_class(){
                 , "Sets detector parameters using axes." );
         
         }
-        { //::IDetector2D::setDetectorParameters
-        
-            typedef void ( ::IDetector2D::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double ) ;
-            
-            IDetector2D_exposer.def( 
-                "setDetectorParameters"
-                , setDetectorParameters_function_type( &::IDetector2D::setDetectorParameters )
-                , ( bp::arg("n_x"), bp::arg("x_min"), bp::arg("x_max"), bp::arg("n_y"), bp::arg("y_min"), bp::arg("y_max") )
-                , "Sets detector parameters using angle ranges." );
-        
-        }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;

@@ -37,13 +37,6 @@ struct RectangularDetector_wrapper : RectangularDetector, bp::wrapper< Rectangul
     m_pyobj = 0;
     }
 
-    RectangularDetector_wrapper(::kvector_t normal_to_detector, ::kvector_t u_direction )
-    : RectangularDetector( normal_to_detector, u_direction )
-      , bp::wrapper< RectangularDetector >(){
-        // constructor
-    m_pyobj = 0;
-    }
-
     RectangularDetector_wrapper(::RectangularDetector const & other )
     : RectangularDetector( boost::ref(other) )
       , bp::wrapper< RectangularDetector >(){
@@ -172,8 +165,7 @@ void register_RectangularDetector_class(){
             .value("PERPENDICULAR_TO_REFLECTED_BEAM_DPOS", RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM_DPOS)
             .export_values()
             ;
-        RectangularDetector_exposer.def( bp::init< kvector_t, kvector_t >(( bp::arg("normal_to_detector"), bp::arg("u_direction") ), "Rectangular detector constructor @param nxbins Number of bins (pixels) in x-direction @param width Width of the detector in mm along x-direction @param nybins Number of bins (pixels) in y-direction @param height Height of the detector in mm along y-direction \n\n:Parameters:\n  - 'nxbins' - Number of bins (pixels) in x-direction\n  - 'width' - Width of the detector in mm along x-direction\n  - 'nybins' - Number of bins (pixels) in y-direction\n  - 'height' - Height of the detector in mm along y-direction\n") );
-        RectangularDetector_exposer.def( bp::init< RectangularDetector const & >(( bp::arg("other") )) );
+        RectangularDetector_exposer.def( bp::init< RectangularDetector const & >(( bp::arg("other") ), "Rectangular detector constructor @param nxbins Number of bins (pixels) in x-direction @param width Width of the detector in mm along x-direction @param nybins Number of bins (pixels) in y-direction @param height Height of the detector in mm along y-direction \n\n:Parameters:\n  - 'nxbins' - Number of bins (pixels) in x-direction\n  - 'width' - Width of the detector in mm along x-direction\n  - 'nybins' - Number of bins (pixels) in y-direction\n  - 'height' - Height of the detector in mm along y-direction\n") );
         { //::RectangularDetector::clone
         
             typedef ::RectangularDetector * ( ::RectangularDetector::*clone_function_type)(  ) const;

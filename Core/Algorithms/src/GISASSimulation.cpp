@@ -157,10 +157,10 @@ void GISASSimulation::setDetectorParameters(const IHistogram &hisotgram)
     setDetectorParameters(*data);
 }
 
-void GISASSimulation::setDetectorParameters(size_t n_x, double x_min, double x_max,
-                                            size_t n_y, double y_min, double y_max)
+void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
+                                            size_t n_alpha, double alpha_min, double alpha_max)
 {
-    m_instrument.setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
+    m_instrument.setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
     updateIntensityMap();
 }
 

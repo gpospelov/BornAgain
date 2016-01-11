@@ -18,7 +18,7 @@
 #include "NodeEditorPort.h"
 #include "NodeEditorConnection.h"
 #include "GUIHelpers.h"
-
+#include "ParameterizedItem.h"
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QObject>
@@ -31,6 +31,14 @@ ConnectableView::ConnectableView(QGraphicsItem *parent, QRect rect)
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
+}
+
+void ConnectableView::setParameterizedItem(ParameterizedItem *item)
+{
+    IView::setParameterizedItem(item);
+    if (m_item) {
+        setLabel( hyphenate(m_item->itemName()) );
+    }
 }
 
 void ConnectableView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
@@ -75,8 +83,6 @@ NodeEditorPort *ConnectableView::addPort(const QString &name,
     setPortCoordinates();
     return port;
 }
-
-
 
 void ConnectableView::setLabel(const QString &name)
 {
@@ -163,4 +169,16 @@ int ConnectableView::getNumberOfOutputPorts()
 int ConnectableView::getNumberOfInputPorts()
 {
     return m_input_ports.size();
+}
+
+QString ConnectableView::hyphenate(const QString &name) const
+{
+    QRegExp capital_letter("[A-Z]");
+    int next_capital = capital_letter.indexIn(name, 1);
+    if (next_capital > 0 && next_capital < name.size() - 2) {
+        QString result = name.left(next_capital) + QString("\n")
+                + name.right(name.size()-next_capital);
+        return result;
+    }
+    return name;
 }

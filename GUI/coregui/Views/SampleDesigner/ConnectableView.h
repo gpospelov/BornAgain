@@ -33,6 +33,8 @@ public:
     ConnectableView(QGraphicsItem *parent = 0, QRect rect = QRect(0,0,50,50) );
     virtual ~ConnectableView(){}
     int type() const { return TYPE; }
+    virtual void setParameterizedItem(ParameterizedItem *item);
+
     virtual QRectF boundingRect() const { return getRectangle(); }
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
@@ -72,6 +74,9 @@ protected:
     QString m_label;
     QList<NodeEditorPort *> m_input_ports;
     QList<NodeEditorPort *> m_output_ports;
+
+private:
+    QString hyphenate(const QString& name) const;
 };
 
 

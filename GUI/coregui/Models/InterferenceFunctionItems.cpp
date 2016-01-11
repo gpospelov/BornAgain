@@ -55,7 +55,6 @@ InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystal
     : ParameterizedGraphicsItem(Constants::InterferenceFunctionRadialParaCrystalType,
                                 parent)
 {
-    setItemName(Constants::InterferenceFunctionRadialParaCrystalType);
     registerProperty(P_PEAK_DISTANCE, 20.0*Units::nanometer);
     registerProperty(P_DAMPING_LENGTH, 1000.0*Units::micrometer);
     registerProperty(P_DOMAIN_SIZE, 20.0*Units::micrometer);
@@ -63,15 +62,12 @@ InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystal
     registerGroupProperty(P_PDF, Constants::FTDistribution1DGroup);
 }
 
-
 InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
         ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::InterferenceFunction2DParaCrystalType,
                                 parent)
 {
-    setItemName(Constants::InterferenceFunction2DParaCrystalType);
     registerGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup);
-
     registerProperty(P_DAMPING_LENGTH, 0.0);
     registerProperty(P_DOMAIN_SIZE1, 20.0*Units::micrometer);
     registerProperty(P_DOMAIN_SIZE2, 20.0*Units::micrometer);
@@ -95,15 +91,12 @@ void InterferenceFunction2DParaCrystalItem::onPropertyChange(const QString &name
 
 }
 
-
 InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem(
         ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::InterferenceFunction2DLatticeType,
                                 parent)
 {
-    setItemName(Constants::InterferenceFunction2DLatticeType);
     registerGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup);
-
     registerProperty(P_ROTATION_ANGLE, 0.0);
     registerGroupProperty(P_PDF, Constants::FTDistribution2DGroup);
 }

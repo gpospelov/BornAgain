@@ -18,7 +18,6 @@
 BeamWavelengthItem::BeamWavelengthItem(ParameterizedItem *parent)
     : BeamDistributionItem(Constants::BeamWavelengthType, parent)
 {
-    setItemName(Constants::BeamWavelengthType);
     setPropertyAttribute(BeamDistributionItem::P_CACHED_VALUE, PropertyAttribute(PropertyAttribute::HIDDEN, AttLimits::lowerLimited(1e-4), 4));
     setRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE, 0.1);
 }

@@ -59,7 +59,7 @@ const QString JobItem::P_RUN_POLICY = "Run Policy";
 JobItem::JobItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::JobItemType, parent)
 {
-    setItemName(Constants::JobItemType);
+    registerProperty(P_NAME, Constants::JobItemType);
     registerProperty(P_IDENTIFIER, QString(), PropertyAttribute(PropertyAttribute::HIDDEN));
     registerProperty(P_SAMPLE_NAME, QString(), PropertyAttribute(PropertyAttribute::READONLY));
     registerProperty(P_INSTRUMENT_NAME, QString(), PropertyAttribute(PropertyAttribute::READONLY));
@@ -83,8 +83,6 @@ JobItem::JobItem(ParameterizedItem *parent)
     registerProperty(P_RUN_POLICY, policy.getVariant(), PropertyAttribute(PropertyAttribute::HIDDEN));
 
     addToValidChildren(Constants::IntensityDataType);
-
-    setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VISIBLE);
 
     addToValidChildren(Constants::MultiLayerType);
     addToValidChildren(Constants::InstrumentType);

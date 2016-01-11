@@ -23,7 +23,6 @@
 BeamInclinationAngleItem::BeamInclinationAngleItem(ParameterizedItem *parent)
     : BeamDistributionItem(Constants::BeamInclinationAngleType, parent)
 {
-    setItemName(Constants::BeamInclinationAngleType);
     setPropertyAttribute(BeamDistributionItem::P_CACHED_VALUE, PropertyAttribute(PropertyAttribute::HIDDEN, AttLimits::limited(0.0, 90.0), 3));
     setRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE, 0.2);
 
@@ -46,7 +45,6 @@ std::unique_ptr<IDistribution1D> BeamInclinationAngleItem::createDistribution1D(
 BeamAzimuthalAngleItem::BeamAzimuthalAngleItem(ParameterizedItem *parent)
     : BeamDistributionItem(Constants::BeamAzimuthalAngleType, parent)
 {
-    setItemName(Constants::BeamAzimuthalAngleType);
     setRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE, 0.0);
     setPropertyAttribute(BeamDistributionItem::P_CACHED_VALUE, PropertyAttribute(PropertyAttribute::HIDDEN, AttLimits::limited(-90.0, 90.0), 3));
     ParameterizedItem *distribution = dynamic_cast<DistributionNoneItem *>(getSubItems()[P_DISTRIBUTION]);

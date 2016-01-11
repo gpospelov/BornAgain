@@ -37,10 +37,7 @@ ParameterizedItem::ParameterizedItem(QString model_type, ParameterizedItem *pare
     if (mp_parent) {
         mp_parent->insertChildItem(-1, this);
     }
-
-    registerProperty(P_NAME, QString(), PropertyAttribute(PropertyAttribute::HIDDEN));
     registerProperty(P_PORT, -1, PropertyAttribute(PropertyAttribute::HIDDEN));
-    setItemName(m_model_type);
 }
 
 ParameterizedItem::~ParameterizedItem()
@@ -56,12 +53,17 @@ QString ParameterizedItem::modelType() const
 
 QString ParameterizedItem::itemName() const
 {
-    return getRegisteredProperty(P_NAME).toString();
+    if (isRegisteredProperty(P_NAME)) {
+        return getRegisteredProperty(P_NAME).toString();
+    }
+    return displayName();
 }
 
 void ParameterizedItem::setItemName(const QString &item_name)
 {
-    setRegisteredProperty(P_NAME, item_name);
+    if (isRegisteredProperty(P_NAME)) {
+        setRegisteredProperty(P_NAME, item_name);
+    }
 }
 
 QString ParameterizedItem::displayName() const

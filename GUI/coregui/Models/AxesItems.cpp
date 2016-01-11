@@ -24,7 +24,6 @@ const QString BasicAxisItem::P_TITLE = "title";
 BasicAxisItem::BasicAxisItem(const QString &type, ParameterizedItem *parent)
     : ParameterizedItem(type, parent)
 {
-    setItemName(type);
     register_basic_properties();
 }
 

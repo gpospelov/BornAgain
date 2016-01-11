@@ -67,7 +67,9 @@ ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleMode
     return populateSampleModel(sampleModel, *P_sample, sampleName);
 }
 
-ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel, const ISample &sample, const QString &sampleName)
+ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel,
+                                                         const ISample &sample,
+                                                         const QString &sampleName)
 {
     Q_ASSERT(sampleModel);
 
@@ -86,7 +88,8 @@ ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleMode
 }
 
 ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *instrumentModel,
-                                           const GISASSimulation &simulation, const QString &instrumentName)
+                                                             const GISASSimulation &simulation,
+                                                             const QString &instrumentName)
 {
     Q_ASSERT(instrumentModel);
     ParameterizedItem *instrumentItem =
@@ -133,7 +136,6 @@ void GUIObjectBuilder::visit(const ParticleLayout *sample)
     } else {
         item = m_sampleModel->insertNewItem(Constants::ParticleLayoutType);
     }
-    item->setItemName(sample->getName().c_str());
 
     ComboProperty approx_prop;
     approx_prop << "Decoupling Approximation"
@@ -239,7 +241,6 @@ void GUIObjectBuilder::visit(const Particle *sample)
     buildPositionInfo(particleItem, sample);
 
     particleItem->setRegisteredProperty(ParticleItem::P_ABUNDANCE, sample->getAbundance());
-    particleItem->setItemName(sample->getName().c_str());
     particleItem->setRegisteredProperty(ParticleItem::P_MATERIAL,
         createMaterialFromDomain(sample->getMaterial()).getVariant());
     m_levelToParentItem[getLevel()] = particleItem;
@@ -271,7 +272,6 @@ void GUIObjectBuilder::visit(const ParticleCoreShell *sample)
     ParameterizedItem *coreshellItem = m_sampleModel->insertNewItem(
         Constants::ParticleCoreShellType, m_sampleModel->indexOfItem(parent));
     coreshellItem->setRegisteredProperty(ParticleItem::P_ABUNDANCE, sample->getAbundance());
-    coreshellItem->setItemName(sample->getName().c_str());
 
     buildPositionInfo(coreshellItem, sample);
 
@@ -287,7 +287,6 @@ void GUIObjectBuilder::visit(const ParticleComposition *sample)
     Q_ASSERT(parent);
     ParameterizedItem *particle_composition_item = m_sampleModel->insertNewItem(
         Constants::ParticleCompositionType, m_sampleModel->indexOfItem(parent));
-    particle_composition_item->setItemName(sample->getName().c_str());
     particle_composition_item->setRegisteredProperty(ParticleItem::P_ABUNDANCE,
                                                      sample->getAbundance());
 

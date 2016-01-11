@@ -25,9 +25,7 @@ const QString DetectorItem::P_DETECTOR = "Detector";
 DetectorItem::DetectorItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::DetectorType, parent)
 {
-    setItemName(Constants::DetectorType);
     registerGroupProperty(P_DETECTOR, Constants::DetectorGroup);
-
     addToValidChildren(Constants::MaskContainerType);
 }
 
@@ -50,8 +48,6 @@ const QString PhiAlphaDetectorItem::P_RESOLUTION_FUNCTION = "Type";
 PhiAlphaDetectorItem::PhiAlphaDetectorItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::SphericalDetectorType, parent)
 {
-    setItemName(Constants::SphericalDetectorType);
-
     registerGroupProperty(P_PHI_AXIS, Constants::BasicAxisType);
     getSubItems()[P_PHI_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
     getSubItems()[P_PHI_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, -1.0);

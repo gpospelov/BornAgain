@@ -50,8 +50,9 @@ public:
     //! sets the item's name
     void setItemName(const QString &item_name);
 
-    //! retrieves the name used for displaying (possibly including an index
-    //! to distinguish it from siblings)
+    //! retrieves a unique name based on the type and an index (if needed to distinguish siblings)
+    //! This name is primarely used for generating long parameter names (ParticleDistributionItem
+    //! and fitting).
     QString displayName() const;
 
     virtual QString itemLabel() const;

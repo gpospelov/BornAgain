@@ -22,7 +22,6 @@ const QString MagneticFieldItem::P_BZ = "Bz";
 MagneticFieldItem::MagneticFieldItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::MagneticFieldType, parent)
 {
-    setItemName(Constants::MagneticFieldType);
     registerProperty(P_BX, 0.0);
     registerProperty(P_BY, 0.0);
     registerProperty(P_BZ, 0.0);
@@ -34,6 +33,3 @@ QString MagneticFieldItem::itemLabel() const
                                   .arg(getRegisteredProperty(P_BY).toDouble())
                                   .arg(getRegisteredProperty(P_BZ).toDouble());
 }
-
-
-

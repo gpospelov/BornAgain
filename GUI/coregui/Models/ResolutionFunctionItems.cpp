@@ -21,7 +21,6 @@
 ResolutionFunctionItem::ResolutionFunctionItem(const QString name, ParameterizedItem *parent)
     : ParameterizedItem(name, parent)
 {
-
 }
 
 /* ------------------------------------------------ */
@@ -29,7 +28,6 @@ ResolutionFunctionItem::ResolutionFunctionItem(const QString name, Parameterized
 ResolutionFunctionNoneItem::ResolutionFunctionNoneItem(ParameterizedItem *parent)
     : ResolutionFunctionItem(Constants::ResolutionFunctionNoneType, parent)
 {
-    setItemName(Constants::ResolutionFunctionNoneType);
 }
 
 IResolutionFunction2D *ResolutionFunctionNoneItem::createResolutionFunction() const
@@ -45,7 +43,6 @@ const QString ResolutionFunction2DGaussianItem::P_SIGMA_Y = "Sigma alpha";
 ResolutionFunction2DGaussianItem::ResolutionFunction2DGaussianItem(ParameterizedItem *parent)
     : ResolutionFunctionItem(Constants::ResolutionFunction2DGaussianType, parent)
 {
-    setItemName(Constants::ResolutionFunction2DGaussianType);
     registerProperty(P_SIGMA_X, 0.02, PropertyAttribute(AttLimits::lowerLimited(0.0), 3));
     registerProperty(P_SIGMA_Y, 0.02, PropertyAttribute(AttLimits::lowerLimited(0.0), 3));
 }

@@ -35,8 +35,6 @@ const QString ParticleDistributionItem::NO_SELECTION = "None";
 ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleDistributionType, parent)
 {
-    setItemName(Constants::ParticleDistributionType);
-
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
                      PropertyAttribute(AttLimits::limited(0.0, 1.0), 3));
 

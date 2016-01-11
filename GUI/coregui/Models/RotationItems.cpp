@@ -24,7 +24,6 @@ const QString XRotationItem::P_ANGLE = "Angle";
 XRotationItem::XRotationItem(ParameterizedItem *parent)
     : RotationItem(Constants::XRotationType, parent)
 {
-    setItemName(Constants::XRotationType);
     registerProperty(P_ANGLE, 0.0);
 }
 
@@ -41,7 +40,6 @@ const QString YRotationItem::P_ANGLE = "Angle";
 YRotationItem::YRotationItem(ParameterizedItem *parent)
     : RotationItem(Constants::YRotationType, parent)
 {
-    setItemName(Constants::YRotationType);
     registerProperty(P_ANGLE, 0.0);
 }
 
@@ -58,7 +56,6 @@ const QString ZRotationItem::P_ANGLE = "Angle";
 ZRotationItem::ZRotationItem(ParameterizedItem *parent)
     : RotationItem(Constants::ZRotationType, parent)
 {
-    setItemName(Constants::ZRotationType);
     registerProperty(P_ANGLE, 0.0);
 }
 
@@ -77,7 +74,6 @@ const QString EulerRotationItem::P_GAMMA = "Gamma";
 EulerRotationItem::EulerRotationItem(ParameterizedItem *parent)
     : RotationItem(Constants::EulerRotationType, parent)
 {
-    setItemName(Constants::EulerRotationType);
     registerProperty(P_ALPHA, 0.0);
     registerProperty(P_BETA, 0.0);
     registerProperty(P_GAMMA, 0.0);
@@ -90,6 +86,3 @@ IRotation *EulerRotationItem::createRotation() const
     double gamma = Units::deg2rad(getRegisteredProperty(P_GAMMA).toDouble() );
     return new RotationEuler(alpha, beta, gamma);
 }
-
-/* ------------------------------------------------ */
-

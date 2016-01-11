@@ -25,7 +25,6 @@ ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)
     : ConnectableView(parent)
 {
     setName(Constants::ParticleLayoutType);
-    setLabel("Particle \nlayout");
     setColor(QColor(135, 206, 50));
     setRectangle( DesignerHelper::getDefaultBoundingRect(Constants::ParticleLayoutType));
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::PARTICLE_LAYOUT);

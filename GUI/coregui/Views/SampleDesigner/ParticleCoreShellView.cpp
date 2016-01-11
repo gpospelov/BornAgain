@@ -22,7 +22,6 @@ ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem *parent)
     : ConnectableView(parent)
 {
     setName(Constants::ParticleCoreShellType);
-    setLabel("Core shell\nparticle");
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleCoreShellType));
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR);

@@ -27,7 +27,6 @@ ParticleView::ParticleView(QGraphicsItem *parent)
     : ConnectableView(parent)
 {
     setName(Constants::ParticleType);
-    setLabel(Constants::ParticleType);
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleType));
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR);

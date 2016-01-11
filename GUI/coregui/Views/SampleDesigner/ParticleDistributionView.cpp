@@ -22,7 +22,6 @@ ParticleDistributionView::ParticleDistributionView(QGraphicsItem *parent)
     : ConnectableView(parent)
 {
     setName(Constants::ParticleDistributionType);
-    setLabel("Distributed\nparticle");
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleDistributionType));
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR);

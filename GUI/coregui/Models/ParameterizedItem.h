@@ -44,7 +44,7 @@ public:
     //! retrieves the model type
     QString modelType() const;
 
-    //! retrieves the item's name
+    //! returns a user definable name, if present, or returns displayName() otherwise
     QString itemName() const;
 
     //! sets the item's name
@@ -55,6 +55,7 @@ public:
     //! and fitting).
     QString displayName() const;
 
+    //! returns a nice string representation of the data contained in this item
     virtual QString itemLabel() const;
 
     //! retrieve parent item

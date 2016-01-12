@@ -37,7 +37,7 @@ public:
                                    ProxyInstrumentModel,
                                    testModel };
 
-    //FIXME_YL: why is 'columns' parameter needed?
+    //'columns' parameter needed is needed because the left and right side have different num of cols
     explicit FitModel(int columns, AcceptableFitModelNames modelName = testModel, QObject *parent = 0);
     ~FitModel() {}
 

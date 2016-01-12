@@ -38,6 +38,7 @@ void ConnectableView::setParameterizedItem(ParameterizedItem *item)
     IView::setParameterizedItem(item);
     if (m_item) {
         setLabel( hyphenate(m_item->itemName()) );
+        connect(m_item, SIGNAL(siblingsChanged()), this, SLOT(onSiblingsChanged()));
     }
 }
 
@@ -114,6 +115,13 @@ void ConnectableView::connectInputPort(ConnectableView *other, int port_number)
 int ConnectableView::getInputPortIndex(NodeEditorPort *port)
 {
     return m_input_ports.indexOf(port);
+}
+
+void ConnectableView::onSiblingsChanged()
+{
+    if (m_item) {
+        setLabel( hyphenate(m_item->itemName()) );
+    }
 }
 
 // calculation of y-pos for ports

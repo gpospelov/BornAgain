@@ -28,6 +28,7 @@ class NodeEditorPort;
 //! view of ISample's with rectangular shape and node functionality
 class BA_CORE_API_ ConnectableView : public IView
 {
+    Q_OBJECT
 public:
     enum { TYPE = DesignerHelper::ISAMPLE_RECT };
     ConnectableView(QGraphicsItem *parent = 0, QRect rect = QRect(0,0,50,50) );
@@ -56,9 +57,10 @@ public:
 
     int getInputPortIndex(NodeEditorPort *port);
 
-public slots:
     virtual void setName(const QString &name) { m_name = name; }
     virtual void setColor(const QColor &color) { m_color = color; }
+public slots:
+    virtual void onSiblingsChanged();
 
 protected:
     virtual void setPortCoordinates();

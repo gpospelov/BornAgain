@@ -118,6 +118,7 @@ void ParameterizedItem::insertChildItem(int row, ParameterizedItem *item)
         row = m_children.size();
     item->mp_parent = this;
     m_children.insert(row, item);
+    notifySiblings();
     onChildPropertyChange();
 }
 
@@ -125,15 +126,15 @@ ParameterizedItem *ParameterizedItem::takeChildItem(int row)
 {
     ParameterizedItem *item = m_children.takeAt(row);
     item->mp_parent = 0;
+    notifySiblings();
     onChildPropertyChange();
     return item;
 }
 
 ParameterizedItem *ParameterizedItem::getChildOfType(QString type) const
 {
-    for (QList<ParameterizedItem *>::const_iterator it = m_children.begin();
-         it != m_children.end(); ++it) {
-        if ((*it)->modelType() == type) return *it;
+    for (auto child : m_children) {
+        if (child->modelType() == type) return child;
     }
     return 0;
 }
@@ -361,7 +362,7 @@ void ParameterizedItem::print() const
     qDebug() << " ";
 }
 
-// returns child which should be removed by the model due to over population of children of given
+// returns child which should be removed by the model due to overpopulation of children of given
 // type
 ParameterizedItem *ParameterizedItem::getCandidateForRemoval(ParameterizedItem *new_comer)
 {
@@ -461,6 +462,11 @@ void ParameterizedItem::onSubItemPropertyChanged(const QString &property_group,
     emit subItemPropertyChanged(property_group, property_name);
     if (mp_parent)
         mp_parent->onChildPropertyChange();
+}
+
+void ParameterizedItem::onSiblingsChanged()
+{
+    emit siblingsChanged();
 }
 
 //! called when SubItem change one of its properties
@@ -577,6 +583,13 @@ ParameterizedItem *ParameterizedItem::getChildByDisplayName(const QString &name)
     }
     // nothing found...
     return nullptr;
+}
+
+void ParameterizedItem::notifySiblings()
+{
+    for (auto child : m_children) {
+        child->onSiblingsChanged();
+    }
 }
 
 QStringList ParameterizedItem::getParameterList(QString prefix) const

@@ -149,11 +149,13 @@ signals:
     void propertyChanged(const QString &propertyName);
     void subItemChanged(const QString &propertyName);
     void subItemPropertyChanged(const QString &property_group, const QString &property_name);
+    void siblingsChanged();
 
 protected slots:
     virtual void onSubItemChanged(const QString &propertyName);
     virtual void onSubItemPropertyChanged(const QString &property_group,
                                           const QString &property_name);
+    virtual void onSiblingsChanged();
 
 private slots:
     virtual void processSubItemPropertyChanged(const QString &propertyName);
@@ -184,6 +186,8 @@ protected:
     QStringList m_registered_properties;
 
     QMap<QString, PropertyAttribute> m_property_attribute;
+
+    void notifySiblings();
 
 private:
     QStringList getParameterList(QString prefix = "") const;

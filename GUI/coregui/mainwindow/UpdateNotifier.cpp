@@ -15,19 +15,15 @@
 
 #include "UpdateNotifier.h"
 #include "mainwindow_constants.h"
+#include "GUIHelpers.h"
 #include <QtNetwork>
-#include <GUIHelpers.h>
 #include <QMessageBox>
 
-
 UpdateNotifier::UpdateNotifier(QObject *parent)
-    : QObject(parent)
-    , m_networkAccessManager(new QNetworkAccessManager(parent))
+    : QObject(parent), m_networkAccessManager(new QNetworkAccessManager(parent))
 {
-    connect(m_networkAccessManager,
-            SIGNAL(finished(QNetworkReply*)),
-            this,
-            SLOT(replyFinished(QNetworkReply*)));
+    connect(m_networkAccessManager, SIGNAL(finished(QNetworkReply *)), this,
+            SLOT(replyFinished(QNetworkReply *)));
 }
 
 void UpdateNotifier::checkForUpdates()
@@ -37,8 +33,7 @@ void UpdateNotifier::checkForUpdates()
         settings.beginGroup(Constants::S_UPDATES);
         if (settings.value(Constants::S_CHECKFORUPDATES).toBool()) {
             m_networkAccessManager->get(QNetworkRequest(QUrl(Constants::S_VERSION_URL)));
-        }
-        else
+        } else
             emit onUpdateNotification(QString(""));
     }
 }
@@ -46,11 +41,9 @@ void UpdateNotifier::checkForUpdates()
 void UpdateNotifier::replyFinished(QNetworkReply *reply)
 {
     QString replyString;
-    if(reply->error() == QNetworkReply::NoError)
-    {
-        if (reply->isReadable())
-        {
-            //Reading the first line of ChangeLog
+    if (reply->error() == QNetworkReply::NoError) {
+        if (reply->isReadable()) {
+            // Reading the first line of ChangeLog
             replyString = QString::fromUtf8(reply->readLine().data());
             int versionIndex = replyString.indexOf("-") + 1;
             int versionIndexEnd = replyString.indexOf(",", versionIndex);
@@ -58,7 +51,7 @@ void UpdateNotifier::replyFinished(QNetworkReply *reply)
             QString myVersion = GUIHelpers::getBornAgainVersionString();
 
             // Testwise degrade version
-            //QString myVersion = QString("1.3.0");
+            // QString myVersion = QString("1.3.0");
 
             int compareResult = versionString.compare(myVersion);
             if (compareResult > 0) {

@@ -16,8 +16,8 @@
 #ifndef UPDATENOTIFIER_H
 #define UPDATENOTIFIER_H
 
-#include <QObject>
 #include "WinDllMacros.h"
+#include <QObject>
 
 class QNetworkAccessManager;
 class QNetworkReply;

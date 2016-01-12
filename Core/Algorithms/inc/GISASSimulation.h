@@ -73,8 +73,8 @@ public:
     void setInstrument(const Instrument& instrument);
 
     //! Returns the instrument containing beam and detector information
-    const Instrument& getInstrument() const { return m_instrument; }
-    Instrument& getInstrument() { return m_instrument; }
+    const Instrument& getInstrument() const;
+    Instrument& getInstrument();
 
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);
@@ -163,9 +163,8 @@ inline const OutputData<double> *GISASSimulation::getOutputData() const
     return &m_intensity_map;
 }
 
-inline const Instrument &GISASSimulation::getInstrument() const
-{
-    return m_instrument;
-}
+inline const Instrument &GISASSimulation::getInstrument() const { return m_instrument; }
+
+inline Instrument &GISASSimulation::getInstrument() { return m_instrument; }
 
 #endif /* GISASSIMULATION_H_ */

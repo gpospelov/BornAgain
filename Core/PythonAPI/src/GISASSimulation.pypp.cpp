@@ -181,8 +181,7 @@ void register_GISASSimulation_class(){
             GISASSimulation_exposer.def( 
                 "getInstrument"
                 , getInstrument_function_type( &::GISASSimulation::getInstrument )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns the instrument containing beam and detector information." );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::GISASSimulation::getIntensityData

@@ -34,7 +34,22 @@ class RectPixelMap;
 class BA_CORE_API_ RectangularDetector : public IDetector2D
 {
 public:
-    RectangularDetector(kvector_t normal_to_detector, kvector_t u_direction);
+
+    enum EDetectorArrangement {
+        GENERIC,
+        PERPENDICULAR_TO_SAMPLE,
+        PERPENDICULAR_TO_DIRECT_BEAM,
+        PERPENDICULAR_TO_REFLECTED_BEAM,
+        PERPENDICULAR_TO_REFLECTED_BEAM_DPOS
+    };
+
+    //! Rectangular detector constructor
+    //! @param nxbins Number of bins (pixels) in x-direction
+    //! @param width Width of the detector in mm along x-direction
+    //! @param nybins Number of bins (pixels) in y-direction
+    //! @param height Height of the detector in mm along y-direction
+    RectangularDetector(int nxbins, double width, int nybins, double height);
+
     RectangularDetector(const RectangularDetector &other);
     RectangularDetector &operator=(const RectangularDetector &other);
 
@@ -42,9 +57,33 @@ public:
 
     virtual ~RectangularDetector() {}
 
+    void init(const GISASSimulation *simulation);
+
+    void setPosition(const kvector_t &normal_to_detector, double u0, double v0,
+                     const kvector_t &direction = kvector_t(0.0, -1.0, 0.0));
+
+    void setPerpendicularToSampleX(double distance, double u0, double v0);
+
+    void setPerpendicularToDirectBeam(double distance, double u0, double v0);
+    void setPerpendicularToReflectedBeam(double distance, double u0 = 0.0, double v0 = 0.0);
+    void setDirectBeamPosition(double u0, double v0);
+
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;
+
+    double getWidth() const;
+    double getHeight() const;
+    size_t getNbinsX() const;
+    size_t getNbinsY() const;
+    kvector_t getNormalVector() const;
+    double getU0() const;
+    double getV0() const;
+    kvector_t getDirectionVector() const;
+    double getDistance() const;
+    double getDirectBeamU0() const;
+    double getDirectBeamV0() const;
+    EDetectorArrangement getDetectorArrangment() const;
 
 protected:
     //! Create an IPixelMap for the given OutputData object and index
@@ -64,8 +103,17 @@ protected:
     //! swap function
     void swapContent(RectangularDetector &other);
 private:
+    void setDistanceAndOffset(double distance, double u0, double v0);
     kvector_t normalizeToUnitLength(const kvector_t& direction) const;
+    void initNormalVector(const kvector_t &central_k);
+    void initUandV(double alpha_i);
+
     kvector_t m_normal_to_detector;
+    double m_u0, m_v0; //!< position of normal vector hitting point in detector coordinates
+    kvector_t m_direction; //!< direction vector of detector coordinate system
+    double m_distance; //!< distance from sample origin to the detector plane
+    double m_dbeam_u0, m_dbeam_v0; //!< position of direct beam in detector coordinates
+    EDetectorArrangement m_detector_arrangement;
     kvector_t m_u_unit;
     kvector_t m_v_unit;
 };

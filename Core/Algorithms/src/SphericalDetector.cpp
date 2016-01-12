@@ -30,6 +30,14 @@ SphericalDetector::SphericalDetector()
     init_parameters();
 }
 
+SphericalDetector::SphericalDetector(size_t n_phi, double phi_min, double phi_max, size_t n_alpha,
+                                     double alpha_min, double alpha_max)
+{
+    setName(BornAgain::SphericalDetectorType);
+    init_parameters();
+    setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
+}
+
 SphericalDetector::SphericalDetector(const SphericalDetector &other)
     : IDetector2D(other)
 {

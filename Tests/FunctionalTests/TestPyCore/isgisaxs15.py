@@ -44,8 +44,7 @@ def RunSimulation():
 
     # build and run experiment
     simulation = GISASSimulation()
-    detector = IsGISAXSDetector()
-    detector.setDetectorParameters(150, 0.05*degree, 1.5*degree, 150, 0.05*degree, 1.5*degree)
+    detector = IsGISAXSDetector(150, 0.05*degree, 1.5*degree, 150, 0.05*degree, 1.5*degree)
     simulation.setDetector(detector)
     simulation.setBeamParameters(1.0 * angstrom, 0.2 * degree, 0.0 * degree)
 

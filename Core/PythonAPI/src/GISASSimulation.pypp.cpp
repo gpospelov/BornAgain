@@ -174,6 +174,17 @@ void register_GISASSimulation_class(){
                 , bp::return_value_policy< bp::copy_const_reference >() );
         
         }
+        { //::GISASSimulation::getInstrument
+        
+            typedef ::Instrument & ( ::GISASSimulation::*getInstrument_function_type)(  ) ;
+            
+            GISASSimulation_exposer.def( 
+                "getInstrument"
+                , getInstrument_function_type( &::GISASSimulation::getInstrument )
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns the instrument containing beam and detector information." );
+        
+        }
         { //::GISASSimulation::getIntensityData
         
             typedef ::Histogram2D * ( ::GISASSimulation::*getIntensityData_function_type)(  ) const;
@@ -332,8 +343,8 @@ void register_GISASSimulation_class(){
             GISASSimulation_exposer.def( 
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::GISASSimulation::setDetectorParameters )
-                , ( bp::arg("n_x"), bp::arg("x_min"), bp::arg("x_max"), bp::arg("n_y"), bp::arg("y_min"), bp::arg("y_max") )
-                , "Sets detector parameters using angle ranges." );
+                , ( bp::arg("n_phi"), bp::arg("phi_min"), bp::arg("phi_max"), bp::arg("n_alpha"), bp::arg("alpha_min"), bp::arg("alpha_max") )
+                , "Sets spherical detector parameters using angle ranges @param n_phi number of phi-axis bins @param phi_min low edge of first phi-bin @param phi_max upper edge of last phi-bin @param n_alpha number of alpha-axis bins @param alpha_min low edge of first alpha-bin @param alpha_max upper edge of last alpha-bin \n\n:Parameters:\n  - 'n_phi' - number of phi-axis bins\n  - 'phi_min' - low edge of first phi-bin\n  - 'phi_max' - upper edge of last phi-bin\n  - 'n_alpha' - number of alpha-axis bins\n  - 'alpha_min' - low edge of first alpha-bin\n  - 'alpha_max' - upper edge of last alpha-bin\n" );
         
         }
         { //::GISASSimulation::setDetectorResolutionFunction

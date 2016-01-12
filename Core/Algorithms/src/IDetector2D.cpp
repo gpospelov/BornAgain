@@ -39,6 +39,11 @@ IDetector2D::IDetector2D(const IDetector2D &other)
     init_parameters();
 }
 
+void IDetector2D::init(const GISASSimulation *simulation)
+{
+    (void)simulation;
+}
+
 const IAxis &IDetector2D::getAxis(size_t index) const
 {
     if (isCorrectAxisIndex(index)) {

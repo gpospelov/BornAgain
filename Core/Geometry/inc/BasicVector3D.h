@@ -154,6 +154,9 @@ public:
     //! Returns cross product of vectors.
     BasicVector3D<T> cross(const BasicVector3D<T>& v ) const;
 
+    //! Returns normalized vector
+    BasicVector3D<T> normalize() const;
+
     //! Returns square of transverse component with respect to given axis.
     double perp2(const BasicVector3D<T>& v) const;
 
@@ -324,6 +327,7 @@ template<> BA_CORE_API_ double BasicVector3D<double>::dot(
 template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::cross(
         const BasicVector3D<double>& v) const;
 
+template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::normalize() const;
 
 template<> BA_CORE_API_ double BasicVector3D<double>::phi() const;
 

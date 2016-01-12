@@ -142,6 +142,18 @@ BasicVector3D<double> BasicVector3D<double>::cross(
                                  x()*v.y()-v.x()*y());
 }
 
+
+//! Returns normalized vector
+template<>
+BasicVector3D<double> BasicVector3D<double>::normalize() const
+{
+    if(mag()) {
+        return BasicVector3D<double>(x()/mag(), y()/mag(), z()/mag());
+    } else {
+        return BasicVector3D<double>();
+    }
+}
+
 //! Returns square of transverse component with respect to given axis.
 template<>
 double BasicVector3D<double>::perp2(const BasicVector3D<double>& v) const

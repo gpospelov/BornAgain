@@ -73,7 +73,8 @@ public:
     void setInstrument(const Instrument& instrument);
 
     //! Returns the instrument containing beam and detector information
-    const Instrument& getInstrument() const;
+    const Instrument& getInstrument() const { return m_instrument; }
+    Instrument& getInstrument() { return m_instrument; }
 
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);
@@ -91,9 +92,15 @@ public:
     void setDetectorParameters(const OutputData<double> &output_data);
     void setDetectorParameters(const IHistogram &hisotgram);
 
-    //! Sets detector parameters using angle ranges
-    void setDetectorParameters(size_t n_x, double x_min, double x_max,
-                               size_t n_y, double y_min, double y_max);
+    //! Sets spherical detector parameters using angle ranges
+    //! @param n_phi number of phi-axis bins
+    //! @param phi_min low edge of first phi-bin
+    //! @param phi_max upper edge of last phi-bin
+    //! @param n_alpha number of alpha-axis bins
+    //! @param alpha_min low edge of first alpha-bin
+    //! @param alpha_max upper edge of last alpha-bin
+    void setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
+                               size_t n_alpha, double alpha_min, double alpha_max);
 
     //! Define resolution function for detector
     void setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function);

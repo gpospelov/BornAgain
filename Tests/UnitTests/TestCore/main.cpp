@@ -55,6 +55,7 @@
 #include "PolygonTest.h"
 #include "DetectorMaskTest.h"
 #include "Shape2DTest.h"
+#include "RectangularDetectorTest.h"
 
 
 

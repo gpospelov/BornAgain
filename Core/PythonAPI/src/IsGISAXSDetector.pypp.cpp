@@ -35,6 +35,13 @@ struct IsGISAXSDetector_wrapper : IsGISAXSDetector, bp::wrapper< IsGISAXSDetecto
     m_pyobj = 0;
     }
 
+    IsGISAXSDetector_wrapper(::std::size_t n_phi, double phi_min, double phi_max, ::std::size_t n_alpha, double alpha_min, double alpha_max )
+    : IsGISAXSDetector( n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max )
+      , bp::wrapper< IsGISAXSDetector >(){
+        // constructor
+    m_pyobj = 0;
+    }
+
     IsGISAXSDetector_wrapper(::IsGISAXSDetector const & other )
     : IsGISAXSDetector( boost::ref(other) )
       , bp::wrapper< IsGISAXSDetector >(){
@@ -64,6 +71,7 @@ void register_IsGISAXSDetector_class(){
         typedef bp::class_< IsGISAXSDetector_wrapper, bp::bases< SphericalDetector >, std::auto_ptr< IsGISAXSDetector_wrapper > > IsGISAXSDetector_exposer_t;
         IsGISAXSDetector_exposer_t IsGISAXSDetector_exposer = IsGISAXSDetector_exposer_t( "IsGISAXSDetector", "A spherical detector used for validation with IsGISAXS results.", bp::init< >() );
         bp::scope IsGISAXSDetector_scope( IsGISAXSDetector_exposer );
+        IsGISAXSDetector_exposer.def( bp::init< std::size_t, double, double, std::size_t, double, double >(( bp::arg("n_phi"), bp::arg("phi_min"), bp::arg("phi_max"), bp::arg("n_alpha"), bp::arg("alpha_min"), bp::arg("alpha_max") )) );
         IsGISAXSDetector_exposer.def( bp::init< IsGISAXSDetector const & >(( bp::arg("other") )) );
         { //::IsGISAXSDetector::clone
         

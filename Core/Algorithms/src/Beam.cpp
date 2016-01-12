@@ -45,9 +45,9 @@ Beam &Beam::operator=(const Beam &other)
     return *this;
 }
 
-cvector_t Beam::getCentralK() const
+kvector_t Beam::getCentralK() const
 {
-    cvector_t k;
+    kvector_t k;
     k.setLambdaAlphaPhi(m_wavelength, -1.0 * m_alpha, m_phi);
     return k;
 }

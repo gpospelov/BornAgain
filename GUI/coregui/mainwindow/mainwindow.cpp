@@ -124,7 +124,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_sampleView = new SampleView(m_sampleModel, m_instrumentModel);
     m_simulationView = new SimulationView(this);
 
-    TestView *testView = new TestView(this);
+//    TestView *testView = new TestView(this);
     //m_fitView = new FitView(m_fitProxyModel, this);
 
     m_jobView = new JobView(m_jobModel, m_projectManager);
@@ -136,7 +136,7 @@ MainWindow::MainWindow(QWidget *parent)
     //m_tabWidget->insertTab(3, m_scriptView, QIcon(":/images/mode_script.png"), "Python scripts");
     m_tabWidget->insertTab(SIMULATION, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
     m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
-    m_tabWidget->insertTab(TEST_VIEW, testView, QIcon(":/images/main_simulation.png"), "Test");
+//    m_tabWidget->insertTab(TEST_VIEW, testView, QIcon(":/images/main_simulation.png"), "Test");
     //m_tabWidget->insertTab(FitViewTab, m_fitView, QIcon(":/images/main_simulation.png"), "Fit");
     //m_tabWidget->insertTab(FIT_VIEW, new TestView(this), QIcon(":/images/main_simulation.png"), "Test");
 

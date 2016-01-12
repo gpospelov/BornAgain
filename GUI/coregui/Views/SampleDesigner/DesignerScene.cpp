@@ -235,7 +235,7 @@ void DesignerScene::updateViews(const QModelIndex &parentIndex, IView *parentVie
     }
 }
 
-//! adds view for item, if it dosn't exists
+//! adds view for item, if it doesn't exists
 IView *DesignerScene::addViewForItem(ParameterizedItem *item)
 {
     qDebug() << "DesignerScene::addViewForItem() ->" << item->modelType();
@@ -401,11 +401,11 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
         // * remove method MultiLayerView::itemChange
 
         if(isAcceptedByMultiLayer(mimeData, event)) {
-            // certain views can be droped on MultiLayer and so will be processed there
+            // certain views can be dropped on MultiLayer and so will be processed there
             QGraphicsScene::dropEvent(event);
 
         } else {
-            // other views can be droped on canvas anywhere
+            // other views can be dropped on canvas anywhere
             qDebug() << "DesignerScene::dropEvent() -> about to drop";
             if (SampleViewFactory::isValidItemName(mimeData->getClassName())) {
 

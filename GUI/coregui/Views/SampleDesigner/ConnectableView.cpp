@@ -121,6 +121,7 @@ void ConnectableView::onSiblingsChanged()
 {
     if (m_item) {
         setLabel( hyphenate(m_item->itemName()) );
+        update();
     }
 }
 

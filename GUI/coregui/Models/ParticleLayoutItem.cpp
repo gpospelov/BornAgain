@@ -24,8 +24,6 @@ const QString ParticleLayoutItem::P_TOTAL_DENSITY = "Total particle density";
 ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleLayoutType, parent)
 {
-    setItemName(Constants::ParticleLayoutType);
-
     ComboProperty approx;
     approx << "Decoupling Approximation" << "Size Space Coupling Approximation";
     registerProperty(P_APPROX, approx.getVariant());

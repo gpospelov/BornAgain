@@ -45,7 +45,6 @@ const QString DistributionNoneItem::P_VALUE = "Value";
 DistributionNoneItem::DistributionNoneItem(ParameterizedItem *parent)
     : DistributionItem(Constants::DistributionNoneType, parent)
 {
-    setItemName(Constants::DistributionNoneType);
     registerProperty(P_VALUE, 0.1, PropertyAttribute(AttLimits::limitless()));
 }
 
@@ -68,7 +67,6 @@ const QString DistributionGateItem::P_MAX = "Maximum";
 DistributionGateItem::DistributionGateItem(ParameterizedItem *parent)
     : DistributionItem(Constants::DistributionGateType, parent)
 {
-    setItemName(Constants::DistributionGateType);
     registerProperty(P_MIN, 0.0, PropertyAttribute(AttLimits::limitless()));
     registerProperty(P_MAX, 1.0, PropertyAttribute(AttLimits::limitless()));
     register_number_of_samples();
@@ -100,7 +98,6 @@ const QString DistributionLorentzItem::P_HWHM = "HWHM";
 DistributionLorentzItem::DistributionLorentzItem(ParameterizedItem *parent)
     : DistributionItem(Constants::DistributionLorentzType, parent)
 {
-    setItemName(Constants::DistributionLorentzType);
     registerProperty(P_MEAN, 0.0, PropertyAttribute(AttLimits::limitless()));
     registerProperty(P_HWHM, 1.0);
     register_number_of_samples();
@@ -133,7 +130,6 @@ const QString DistributionGaussianItem::P_STD_DEV = "Standard deviation";
 DistributionGaussianItem::DistributionGaussianItem(ParameterizedItem *parent)
     : DistributionItem(Constants::DistributionGaussianType, parent)
 {
-    setItemName(Constants::DistributionGaussianType);
     registerProperty(P_MEAN, 0.0, PropertyAttribute(AttLimits::limitless()));
     registerProperty(P_STD_DEV, 1.0);
     register_number_of_samples();
@@ -166,7 +162,6 @@ const QString DistributionLogNormalItem::P_SCALE_PAR = "Scale parameter";
 DistributionLogNormalItem::DistributionLogNormalItem(ParameterizedItem *parent)
     : DistributionItem(Constants::DistributionLogNormalType, parent)
 {
-    setItemName(Constants::DistributionLogNormalType);
     registerProperty(P_MEDIAN, 1.0);
     registerProperty(P_SCALE_PAR, 1.0);
     register_number_of_samples();
@@ -199,7 +194,6 @@ const QString DistributionCosineItem::P_SIGMA = "Sigma";
 DistributionCosineItem::DistributionCosineItem(ParameterizedItem *parent)
     : DistributionItem(Constants::DistributionCosineType, parent)
 {
-    setItemName(Constants::DistributionCosineType);
     registerProperty(P_MEAN, 0.0, PropertyAttribute(AttLimits::limitless()));
     registerProperty(P_SIGMA, 1.0);
     register_number_of_samples();

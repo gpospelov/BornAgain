@@ -44,17 +44,19 @@ public:
     //! retrieves the model type
     QString modelType() const;
 
-    //! retrieves the item's name
+    //! returns a user definable name, if present, or returns displayName() otherwise
     QString itemName() const;
 
     //! sets the item's name
     void setItemName(const QString &item_name);
 
-    //! retrieves the name used for displaying (possibly including an index
-    //! to distinguish it from siblings)
+    //! retrieves a unique name based on the type and an index (if needed to distinguish siblings)
+    //! This name is primarely used for generating long parameter names (ParticleDistributionItem
+    //! and fitting).
     QString displayName() const;
 
-    virtual QString getItemLabel() const;
+    //! returns a nice string representation of the data contained in this item
+    virtual QString itemLabel() const;
 
     //! retrieve parent item
     ParameterizedItem *parent() const;
@@ -148,11 +150,13 @@ signals:
     void propertyChanged(const QString &propertyName);
     void subItemChanged(const QString &propertyName);
     void subItemPropertyChanged(const QString &property_group, const QString &property_name);
+    void siblingsChanged();
 
 protected slots:
     virtual void onSubItemChanged(const QString &propertyName);
     virtual void onSubItemPropertyChanged(const QString &property_group,
                                           const QString &property_name);
+    virtual void onSiblingsChanged();
 
 private slots:
     virtual void processSubItemPropertyChanged(const QString &propertyName);
@@ -183,6 +187,8 @@ protected:
     QStringList m_registered_properties;
 
     QMap<QString, PropertyAttribute> m_property_attribute;
+
+    void notifySiblings();
 
 private:
     QStringList getParameterList(QString prefix = "") const;

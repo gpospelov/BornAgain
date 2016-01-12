@@ -18,7 +18,7 @@
 #include "NodeEditorPort.h"
 #include "NodeEditorConnection.h"
 #include "GUIHelpers.h"
-
+#include "ParameterizedItem.h"
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QObject>
@@ -31,6 +31,15 @@ ConnectableView::ConnectableView(QGraphicsItem *parent, QRect rect)
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
+}
+
+void ConnectableView::setParameterizedItem(ParameterizedItem *item)
+{
+    IView::setParameterizedItem(item);
+    if (m_item) {
+        setLabel( hyphenate(m_item->itemName()) );
+        connect(m_item, SIGNAL(siblingsChanged()), this, SLOT(onSiblingsChanged()));
+    }
 }
 
 void ConnectableView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
@@ -76,8 +85,6 @@ NodeEditorPort *ConnectableView::addPort(const QString &name,
     return port;
 }
 
-
-
 void ConnectableView::setLabel(const QString &name)
 {
     m_label = name;
@@ -108,6 +115,13 @@ void ConnectableView::connectInputPort(ConnectableView *other, int port_number)
 int ConnectableView::getInputPortIndex(NodeEditorPort *port)
 {
     return m_input_ports.indexOf(port);
+}
+
+void ConnectableView::onSiblingsChanged()
+{
+    if (m_item) {
+        setLabel( hyphenate(m_item->itemName()) );
+    }
 }
 
 // calculation of y-pos for ports
@@ -163,4 +177,21 @@ int ConnectableView::getNumberOfOutputPorts()
 int ConnectableView::getNumberOfInputPorts()
 {
     return m_input_ports.size();
+}
+
+QString ConnectableView::hyphenate(const QString &name) const
+{
+    QRegExp capital_letter("[A-Z]");
+    QRegExp number("[0-9]");
+    int next_capital = capital_letter.indexIn(name, 1);
+    int next_number = number.indexIn(name, 1);
+    if (next_capital > 0 && next_capital < name.size() - 2) {
+        int first_split_index = (next_number > 0 && next_number < next_capital)
+                ? next_number
+                : next_capital;
+        QString result = name.left(first_split_index) + QString("\n")
+                + name.right(name.size()-first_split_index);
+        return result;
+    }
+    return name;
 }

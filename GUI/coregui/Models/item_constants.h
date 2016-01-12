@@ -32,9 +32,9 @@ const ModelType ParticleCoreShellType = "ParticleCoreShell";
 const ModelType ParticleDistributionType = "ParticleDistribution";
 const ModelType ParticleCompositionType = "ParticleComposition";
 const ModelType TransformationType = "Rotation";
-const ModelType InterferenceFunctionRadialParaCrystalType = "InterferenceFunctionRadialParaCrystal";
-const ModelType InterferenceFunction2DParaCrystalType = "InterferenceFunction2DParaCrystal";
-const ModelType InterferenceFunction2DLatticeType = "InterferenceFunction2DLattice";
+const ModelType InterferenceFunctionRadialParaCrystalType = "InterferenceRadialParaCrystal";
+const ModelType InterferenceFunction2DParaCrystalType = "Interference2DParaCrystal";
+const ModelType InterferenceFunction2DLatticeType = "Interference2DLattice";
 const ModelType InstrumentType = "Instrument";
 const ModelType DetectorType = "Detector";
 const ModelType BeamType = "Beam";
@@ -170,8 +170,6 @@ const ModelType JOB_RUN_IMMEDIATELY = "Immediately";
 const ModelType JOB_RUN_IN_BACKGROUND = "In background";
 const ModelType JOB_RUN_SUBMIT_ONLY = "Submit only";
 const ModelType JOB_BACKUP = "_backup";
-
 }
-
 
 #endif

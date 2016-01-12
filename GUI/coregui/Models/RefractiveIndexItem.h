@@ -27,7 +27,7 @@ public:
     static const QString P_BETA;
     explicit RefractiveIndexItem(ParameterizedItem *parent=0);
     ~RefractiveIndexItem(){}
-    QString getItemLabel() const;
+    QString itemLabel() const;
 
     double getDelta() const;
     void setDelta(double delta);

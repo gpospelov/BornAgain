@@ -22,7 +22,6 @@ InterferenceFunctionRadialParaCrystalView::InterferenceFunctionRadialParaCrystal
     : ConnectableView(parent)
 {
     setName(Constants::InterferenceFunctionRadialParaCrystalType);
-    setLabel("Interference \nRadial paracrystal");
     setColor(QColor(255, 236, 139));
     setRectangle( DesignerHelper::getDefaultBoundingRect(getName()) );
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::INTERFERENCE);
@@ -34,7 +33,6 @@ InterferenceFunction2DParaCrystalView::InterferenceFunction2DParaCrystalView(QGr
     : ConnectableView(parent)
 {
     setName(Constants::InterferenceFunction2DParaCrystalType);
-    setLabel("Interference \n2D paracrystal");
     setColor(QColor(255, 236, 139));
     setRectangle( DesignerHelper::getDefaultBoundingRect(getName()) );
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::INTERFERENCE);
@@ -46,7 +44,6 @@ InterferenceFunction2DLatticeView::InterferenceFunction2DLatticeView(QGraphicsIt
     : ConnectableView(parent)
 {
     setName(Constants::InterferenceFunction2DLatticeType);
-    setLabel("Interference \n2D lattice");
     setColor(QColor(255, 236, 139));
     setRectangle( DesignerHelper::getDefaultBoundingRect(getName()) );
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::INTERFERENCE);

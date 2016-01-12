@@ -24,7 +24,5 @@ const QString TransformationItem::P_ROT = "Rotation type";
 TransformationItem::TransformationItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::TransformationType, parent)
 {
-    setItemName(Constants::TransformationType);
-
     registerGroupProperty(P_ROT, Constants::RotationGroup );
 }

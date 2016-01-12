@@ -112,7 +112,7 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
                     P_layout->addParticle(*P_part_distr);
                 }
             }
-        } else if (children[i]->modelType().startsWith("InterferenceFunction")) {
+        } else if (children[i]->modelType().startsWith("Interference")) {
             auto P_interference = buildInterferenceFunction(*children[i]);
             if (P_interference) {
                 P_layout->addInterferenceFunction(*P_interference);

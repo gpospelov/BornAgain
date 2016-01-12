@@ -320,7 +320,6 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
 void TransformFromDomain::setItemFromSample(ParameterizedItem *layerItem, const Layer *layer,
                                             const LayerInterface *top_interface)
 {
-    layerItem->setItemName(layer->getName().c_str());
     layerItem->setRegisteredProperty(LayerItem::P_THICKNESS, layer->getThickness());
     layerItem->setGroupProperty(LayerItem::P_ROUGHNESS, Constants::LayerZeroRoughnessType);
 

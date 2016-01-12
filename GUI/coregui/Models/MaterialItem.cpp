@@ -34,8 +34,7 @@ const QString MaterialItem::P_IDENTIFIER = "Identifier";
 MaterialItem::MaterialItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::MaterialType, parent)
 {
-    setItemName(Constants::MaterialType);
-    setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VISIBLE);
+    registerProperty(P_NAME, Constants::MaterialType);
 
     ComboProperty types;
     types << Constants::HomogeneousMaterialType << Constants::HomogeneousMagneticMaterialType;
@@ -47,7 +46,6 @@ MaterialItem::MaterialItem(ParameterizedItem *parent)
     registerGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
 
     registerProperty(P_IDENTIFIER, QUuid::createUuid().toString(), PropertyAttribute(PropertyAttribute::HIDDEN));
-
 }
 
 void MaterialItem::setMaterialType(int index)

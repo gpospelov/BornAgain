@@ -56,7 +56,7 @@ Qt::ItemFlags SessionModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags result_flags = QAbstractItemModel::flags(index);
     if (index.isValid()) {
-        result_flags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable
+        result_flags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled // | Qt::ItemIsEditable
                         | Qt::ItemIsDragEnabled;
         QList<QString> acceptable_child_items = getAcceptableChildItems(index);
         if (acceptable_child_items.contains(m_dragged_item_type)) {
@@ -415,7 +415,8 @@ ParameterizedItem *SessionModel::moveParameterizedItem(ParameterizedItem *item, 
 
 //! Copy given item to the new_parent at given raw. Item indended for copying can belong to
 //! another model and it will remains intact. Returns pointer to the new child.
-ParameterizedItem *SessionModel::copyParameterizedItem(const ParameterizedItem *item_to_copy, ParameterizedItem *new_parent, int row)
+ParameterizedItem *SessionModel::copyParameterizedItem(const ParameterizedItem *item_to_copy,
+                                                       ParameterizedItem *new_parent, int row)
 {
     if (new_parent) {
         if (!new_parent->acceptsAsChild(item_to_copy->modelType()))

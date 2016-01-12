@@ -31,8 +31,6 @@ const QString ParticleItem::P_POSITION = "Position Offset";
 ParticleItem::ParticleItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleType, parent)
 {
-    setItemName(Constants::ParticleType);
-
     registerGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
     registerProperty(P_MATERIAL,
                      MaterialUtils::getDefaultMaterialProperty().getVariant());
@@ -45,8 +43,6 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     addToValidChildren(Constants::TransformationType, PortInfo::PORT_0, 1);
     RotationTranslator rotation_translator;
     addParameterTranslator(rotation_translator);
-
-    setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VISIBLE);
 }
 
 void ParticleItem::insertChildItem(int row, ParameterizedItem *item)

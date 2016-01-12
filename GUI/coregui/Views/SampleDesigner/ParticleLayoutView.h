@@ -20,9 +20,6 @@
 
 class BA_CORE_API_ ParticleLayoutView : public ConnectableView
 {
-    Q_OBJECT
-    Q_PROPERTY(QString name READ getName WRITE setName )
-
 public:
     enum { TYPE = DesignerHelper::PARTICLE_LAYOUT };
 
@@ -33,6 +30,4 @@ public:
     void addView(IView *childView, int row = 0); // to add Particle
 };
 
-
 #endif // PARTICLELAYOUTVIEW_H
-

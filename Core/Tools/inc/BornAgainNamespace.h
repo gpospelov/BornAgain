@@ -57,9 +57,9 @@ const std::string LayerZeroRoughnessType = "LayerZeroRoughness";
 
 const std::string InterferenceFunctionNoneType = "InterferenceFunctionNone";
 const std::string InterferenceFunction1DLatticeType = "InterferenceFunction1DLattice";
-const std::string InterferenceFunctionRadialParaCrystalType = "InterferenceFunctionRadialParaCrystal";
-const std::string InterferenceFunction2DParaCrystalType = "InterferenceFunction2DParaCrystal";
-const std::string InterferenceFunction2DLatticeType = "InterferenceFunction2DLattice";
+const std::string InterferenceFunctionRadialParaCrystalType = "InterferenceRadialParaCrystal";
+const std::string InterferenceFunction2DParaCrystalType = "Interference2DParaCrystal";
+const std::string InterferenceFunction2DLatticeType = "Interference2DLattice";
 
 const std::string CrystalType = "Crystal";
 const std::string MesoCrystalType = "MesoCrystal";

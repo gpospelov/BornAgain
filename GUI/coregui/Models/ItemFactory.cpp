@@ -174,9 +174,7 @@ QStringList ItemFactory::m_valid_top_item_names = QStringList()
         << Constants::InterferenceFunction2DParaCrystalType
         << Constants::InterferenceFunction2DLatticeType;
 
-
 ItemFactory::ItemMap_t ItemFactory::m_item_map = initializeItemMap();
-
 
 ParameterizedItem *ItemFactory::createItem(const QString &model_name,
                                            ParameterizedItem *parent)
@@ -194,14 +192,11 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
     return result;
 }
 
-
 ParameterizedItem *ItemFactory::createEmptyItem()
 {
     return new ParameterizedItem();
 }
 
-
 QList<QString> ItemFactory::getValidTopItemNames() {
     return m_valid_top_item_names;
 }
-

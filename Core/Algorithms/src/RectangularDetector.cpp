@@ -264,16 +264,9 @@ void RectangularDetector::setDistanceAndOffset(double distance, double u0, doubl
     m_v0 = v0;
 }
 
-kvector_t RectangularDetector::normalizeToUnitLength(const kvector_t &direction) const
-{
-    double old_length = direction.mag();
-    if (old_length==0.0) return direction;
-    return direction/old_length;
-}
-
 void RectangularDetector::initNormalVector(const kvector_t &central_k)
 {
-    kvector_t central_k_unit = central_k.normalize();
+    kvector_t central_k_unit = central_k.unit();
 
     if (m_detector_arrangement == GENERIC) {
         // do nothing
@@ -307,13 +300,14 @@ void RectangularDetector::initNormalVector(const kvector_t &central_k)
 void RectangularDetector::initUandV(double alpha_i)
 {
     double d2 = m_normal_to_detector.dot(m_normal_to_detector);
-    m_u_unit = normalizeToUnitLength(
-        d2 * m_direction - m_direction.dot(m_normal_to_detector) * m_normal_to_detector);
-    m_v_unit = normalizeToUnitLength(m_u_unit.cross(m_normal_to_detector));
+    kvector_t u_direction =
+            d2 * m_direction - m_direction.dot(m_normal_to_detector) * m_normal_to_detector;
+    m_u_unit = u_direction.unit();
+    m_v_unit = m_u_unit.cross(m_normal_to_detector).unit();
 
     if(m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
         kvector_t z(0.0, 0.0, 1.0);
-        kvector_t normal_unit = m_normal_to_detector.normalize();
+        kvector_t normal_unit = m_normal_to_detector.unit();
         kvector_t zp = z - z.dot(normal_unit)*normal_unit;
         double uz = zp.dot(m_u_unit)/zp.mag();
         double vz = zp.dot(m_v_unit)/zp.mag();
@@ -364,9 +358,7 @@ double RectPixelMap::getSolidAngle() const
 
 kvector_t RectPixelMap::normalizeLength(const kvector_t &direction, double length) const
 {
-    double old_length = direction.mag();
-    if (old_length==0.0) return direction;
-    return direction*length/old_length;
+    return direction.unit()*length;
 }
 
 double RectPixelMap::calculateSolidAngle() const

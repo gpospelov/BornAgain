@@ -104,7 +104,6 @@ protected:
     void swapContent(RectangularDetector &other);
 private:
     void setDistanceAndOffset(double distance, double u0, double v0);
-    kvector_t normalizeToUnitLength(const kvector_t& direction) const;
     void initNormalVector(const kvector_t &central_k);
     void initUandV(double alpha_i);
 

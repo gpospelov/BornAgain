@@ -45,7 +45,7 @@ TEST_F(BeamTest, BeamAssignment)
 
     Beam beam_copy = *P_beam;
     EXPECT_NEAR(1.83423, beam_copy.getCentralK()[0], 0.00001);
-    EXPECT_NEAR(2.85664, beam_copy.getCentralK()[1], 0.00001);
+    EXPECT_NEAR(-2.85664, beam_copy.getCentralK()[1], 0.00001);
     EXPECT_NEAR(-5.28712, beam_copy.getCentralK()[2], 0.00001);
     EXPECT_EQ(double(2.0), beam_copy.getIntensity());
     EXPECT_EQ(size_t(4), beam_copy.getParameterPool()->size());

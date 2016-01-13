@@ -59,8 +59,7 @@ void register_ParameterDistribution_class(){
             
             ParameterDistribution_exposer.def( 
                 "getMainParameterName"
-                , getMainParameterName_function_type( &::ParameterDistribution::getMainParameterName )
-                , "get the main parameter's name." );
+                , getMainParameterName_function_type( &::ParameterDistribution::getMainParameterName ) );
         
         }
         { //::ParameterDistribution::getMaxValue
@@ -87,8 +86,7 @@ void register_ParameterDistribution_class(){
             
             ParameterDistribution_exposer.def( 
                 "getNbrSamples"
-                , getNbrSamples_function_type( &::ParameterDistribution::getNbrSamples )
-                , "get number of samples for this distribution." );
+                , getNbrSamples_function_type( &::ParameterDistribution::getNbrSamples ) );
         
         }
         { //::ParameterDistribution::getSigmaFactor
@@ -97,8 +95,7 @@ void register_ParameterDistribution_class(){
             
             ParameterDistribution_exposer.def( 
                 "getSigmaFactor"
-                , getSigmaFactor_function_type( &::ParameterDistribution::getSigmaFactor )
-                , "get the sigma factor." );
+                , getSigmaFactor_function_type( &::ParameterDistribution::getSigmaFactor ) );
         
         }
         { //::ParameterDistribution::linkParameter

@@ -67,10 +67,6 @@ public:
     void computeReciprocalLatticeVectorsWithinRadius(
             const kvector_t& input_vector, double radius) const;
 
-
-    //! Returns a list of rotation angles within a specified range that hit a maximal set of small Bragg peaks
-    std::vector<double> collectBraggAngles(size_t size, double max_radius, const TRange<double>& phi_range, const TRange<double>& z_range) const;
-
     //! Sets a selection rule for the reciprocal vectors
     void setSelectionRule(const ISelectionRule& p_selection_rule) {
         delete mp_selection_rule;

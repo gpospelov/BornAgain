@@ -421,7 +421,7 @@ def ManualExcludeMemberFunctions(mb):
     to_exclude=['Iterator', 'iterator', 'DWBASimulation']
     to_exclude_exact=['inverse', 'transformed',
         'getNearestLatticeVectorCoordinates',
-        'getNearestReciprocalLatticeVectorCoordinates', 'collectBraggAngles',
+        'getNearestReciprocalLatticeVectorCoordinates',
         'getKVectorContainer', 'begin', 'end'
     ]
     for f in mb.member_functions():

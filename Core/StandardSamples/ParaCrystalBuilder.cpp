@@ -108,7 +108,9 @@ ISample *Basic2DParaCrystalBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
 
     InterferenceFunction2DParaCrystal *p_interference_function =
-            new InterferenceFunction2DParaCrystal(10.0*Units::nanometer, 20.0*Units::nanometer, 30.0*Units::degree, 45.0*Units::degree, 1000.0*Units::nanometer);
+            new InterferenceFunction2DParaCrystal(10.0*Units::nanometer, 20.0*Units::nanometer,
+                                                  30.0*Units::degree, 45.0*Units::degree,
+                                                  1000.0*Units::nanometer);
 
     p_interference_function->setDomainSizes(20.0*Units::micrometer,
             40.0*Units::micrometer);

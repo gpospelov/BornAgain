@@ -67,7 +67,7 @@ def run_simulation_centered():
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
     position1 = kvector_t(0.0, 0.0, 0.0)
-    position2 = kvector_t(5.0*nanometer, 5.0*nanometer, 0.0)
+    position2 = kvector_t(5.0*nanometer, -5.0*nanometer, 0.0)
     basis = ParticleComposition()
     basis.addParticles(cylinder, [position1, position2])
 

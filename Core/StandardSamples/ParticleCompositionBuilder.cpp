@@ -54,7 +54,8 @@ ISample *ParticleCompositionBuilder::buildSample() const
     basis.addParticles(sphere, positions);
     particle_layout.addParticle(basis);
 
-    InterferenceFunction2DLattice *interference = InterferenceFunction2DLattice::createHexagonal(radius*2.0);
+    InterferenceFunction2DLattice *interference =
+            InterferenceFunction2DLattice::createHexagonal(radius*2.0);
     FTDistribution2DCauchy pdf(10*Units::nanometer, 10*Units::nanometer);
     interference->setProbabilityDistribution(pdf);
 

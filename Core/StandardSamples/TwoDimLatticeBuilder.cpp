@@ -89,7 +89,7 @@ ISample *CenteredSquareLatticeBuilder::buildSample() const
     Particle cylinder(particle_material, ff_cyl);
     std::vector<kvector_t > positions;
     kvector_t position_1(0.0, 0.0, 0.0);
-    kvector_t position_2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
+    kvector_t position_2(5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
     positions.push_back(position_1);
     positions.push_back(position_2);
     ParticleComposition basis;

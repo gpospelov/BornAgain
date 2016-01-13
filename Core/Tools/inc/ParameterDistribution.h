@@ -20,7 +20,7 @@
 #include "IParameterized.h"
 #include "AttLimits.h"
 
-#include <memory>
+#include <boost/scoped_ptr.hpp>
 #include <string>
 #include <vector>
 
@@ -83,7 +83,7 @@ protected:
     void init_parameters();
 private:
     std::string m_name;
-    std::auto_ptr<IDistribution1D> mP_distribution;
+    boost::scoped_ptr<IDistribution1D> mP_distribution;
     size_t m_nbr_samples;
     double m_sigma_factor;
     std::vector<std::string> m_linked_par_names;

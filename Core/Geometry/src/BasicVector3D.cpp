@@ -90,7 +90,7 @@ complex_t BasicVector3D<complex_t>::magxy() const
 template<>
 double BasicVector3D<double>::phi() const
 {
-    return x() == 0.0 && y() == 0.0 ? 0.0 : std::atan2(y(),x());
+    return x() == 0.0 && y() == 0.0 ? 0.0 : std::atan2(-y(),x());
 }
 
 //! Returns polar angle.
@@ -140,18 +140,6 @@ BasicVector3D<double> BasicVector3D<double>::cross(
     return BasicVector3D<double>(y()*v.z()-v.y()*z(),
                                  z()*v.x()-v.z()*x(),
                                  x()*v.y()-v.x()*y());
-}
-
-
-//! Returns normalized vector
-template<>
-BasicVector3D<double> BasicVector3D<double>::normalize() const
-{
-    if(mag()) {
-        return BasicVector3D<double>(x()/mag(), y()/mag(), z()/mag());
-    } else {
-        return BasicVector3D<double>();
-    }
 }
 
 //! Returns square of transverse component with respect to given axis.

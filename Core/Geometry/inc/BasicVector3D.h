@@ -186,7 +186,7 @@ public:
 
     //! Returns unit vector in direction of this (or null vector).
     inline BasicVector3D<T> unit() const {
-        double len = std::abs(mag());
+        double len = mag();
         return (len > 0.0) ?
             BasicVector3D<T>(x()/len, y()/len, z()/len) :
             BasicVector3D<T>();
@@ -202,7 +202,7 @@ public:
         {
             T k = Units::PI2/_lambda;
             v_[0] = k*std::cos(_alpha) * std::cos(_phi);
-            v_[1] = k*std::cos(_alpha) * std::sin(_phi);
+            v_[1] = -k*std::cos(_alpha) * std::sin(_phi);
             v_[2] = k*std::sin(_alpha);
         }
 };
@@ -326,8 +326,6 @@ template<> BA_CORE_API_ double BasicVector3D<double>::dot(
 
 template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::cross(
         const BasicVector3D<double>& v) const;
-
-template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::normalize() const;
 
 template<> BA_CORE_API_ double BasicVector3D<double>::phi() const;
 

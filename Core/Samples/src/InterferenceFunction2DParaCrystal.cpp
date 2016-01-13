@@ -86,7 +86,7 @@ double InterferenceFunction2DParaCrystal::evaluate(const kvector_t& q) const
                     &InterferenceFunction2DParaCrystal::interferenceForXi;
         MemberFunctionIntegrator<InterferenceFunction2DParaCrystal>
             integrator(p_member_function, this);
-        result = integrator.integrate(0.0, Units::PI, nullptr)/Units::PI;
+        result = integrator.integrate(0.0, Units::PI2, nullptr)/Units::PI2;
    }
     else {
         result = interferenceForXi(m_xi, nullptr);

@@ -55,10 +55,12 @@ public:
     };
 
     AwesomePropertyEditorPrivate(QWidget *parent, AwesomePropertyEditor::EBrowserType browser_type);
+    ~AwesomePropertyEditorPrivate() { delete m_propertyFactory; }
     QtAbstractPropertyBrowser *m_browser;
     QtVariantPropertyManager  *m_manager;
     QtVariantPropertyManager  *m_read_only_manager;
     AwesomePropertyEditor::EBrowserType m_browser_type;
+    PropertyVariantFactory *m_propertyFactory;
     QMap<QtProperty *, ItemPropertyPair> m_qtproperty_to_itempropertypair;
     QMap<ParameterizedItem *, QMap<QString, QtVariantProperty *> > m_item_to_property_to_qtvariant;
     QMap<QString, QtVariantProperty *> m_groupname_to_qtvariant;
@@ -72,6 +74,7 @@ AwesomePropertyEditorPrivate::AwesomePropertyEditorPrivate(QWidget *parent, Awes
     , m_manager(0)
     , m_read_only_manager(0)
     , m_browser_type(browser_type)
+    , m_propertyFactory(new PropertyVariantFactory())
 {
     if(m_browser_type == AwesomePropertyEditor::BROWSER_TREE_TYPE) {
         QtTreePropertyBrowser *browser = new QtTreePropertyBrowser(parent);
@@ -91,8 +94,8 @@ AwesomePropertyEditorPrivate::AwesomePropertyEditorPrivate(QWidget *parent, Awes
     m_read_only_manager = new PropertyVariantManager(parent);
 
     m_manager = new PropertyVariantManager(parent);
-    QtVariantEditorFactory *factory = new PropertyVariantFactory();
-    m_browser->setFactoryForManager(m_manager, factory);
+//    QtVariantEditorFactory *factory = new PropertyVariantFactory();
+    m_browser->setFactoryForManager(m_manager, m_propertyFactory);
 
 }
 

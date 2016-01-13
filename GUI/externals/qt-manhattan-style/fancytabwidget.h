@@ -52,7 +52,7 @@ class QTMANHATTANSTYLESHARED_EXPORT FancyTab : public QObject
 
     Q_PROPERTY(float fader READ fader WRITE setFader)
 public:
-    FancyTab(QWidget *tabbar) : enabled(false), tabbar(tabbar), m_fader(0) {
+    FancyTab(QWidget *tabbar) : QObject(tabbar), enabled(false), tabbar(tabbar), m_fader(0) {
         animator.setPropertyName("fader");
         animator.setTargetObject(this);
     }

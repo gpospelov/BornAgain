@@ -60,8 +60,7 @@ void IDetector2D::matchDetectorAxes(const OutputData<double> &output_data)
     }
     clear();
     for (size_t i_axis = 0; i_axis < output_data.getRank(); ++i_axis) {
-        const IAxis* p_axis = output_data.getAxis(i_axis)->clone();
-        addAxis(*p_axis);
+        addAxis(*output_data.getAxis(i_axis));
     }
 }
 

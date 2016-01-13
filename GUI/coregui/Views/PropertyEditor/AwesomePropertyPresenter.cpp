@@ -23,7 +23,7 @@ AwesomePropertyPresenter::AwesomePropertyPresenter(const QString &title, QWidget
     : QWidget(parent)
     , m_groupBox(new GroupBox(title))
     , m_editor(new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE))
-    , m_item(new ParameterizedItem)
+    , m_item(0)
     , m_title(title)
 {
 
@@ -55,5 +55,4 @@ void AwesomePropertyPresenter::clearEditor()
 void AwesomePropertyPresenter::dialogRequest()
 {
     emit onDialogRequest(m_item, m_title);
-
 }

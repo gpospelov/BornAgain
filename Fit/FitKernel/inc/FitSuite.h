@@ -135,6 +135,9 @@ public:
     //! Sets general setting of fit kernel
     void setOptions(const FitOptions &fit_options);
 
+    void interruptFitting();
+
+
 private:
     FitSuite& operator=(const FitSuite& );
     FitSuite(const FitSuite& );

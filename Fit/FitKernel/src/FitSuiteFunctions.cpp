@@ -23,6 +23,9 @@ double FitSuiteChiSquaredFunction::evaluate(const double *pars)
 {
     assert(m_fit_kernel != nullptr);
 
+    if (m_fit_kernel->isInterrupted())
+        throw 0;
+
     m_fit_kernel->getFitParameters()->setValues(pars);
     m_fit_kernel->getFitObjects()->runSimulations();
     double chi_squared = m_fit_kernel->getFitObjects()->getChiSquaredValue();

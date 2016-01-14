@@ -39,6 +39,7 @@ QStringList SampleViewFactory::m_valid_item_names  = QStringList()
         << Constants::ParticleDistributionType
         << Constants::InterferenceFunctionRadialParaCrystalType
         << Constants::InterferenceFunction2DParaCrystalType
+        << Constants::InterferenceFunction1DLatticeType
         << Constants::InterferenceFunction2DLatticeType;
 
 
@@ -83,6 +84,9 @@ IView *SampleViewFactory::createSampleView(const QString &name)
     }
     else if (name==Constants::InterferenceFunction2DParaCrystalType) {
         return new InterferenceFunction2DParaCrystalView();
+    }
+    else if (name==Constants::InterferenceFunction1DLatticeType) {
+        return new InterferenceFunction1DLatticeView();
     }
     else if (name==Constants::InterferenceFunction2DLatticeType) {
         return new InterferenceFunction2DLatticeView();

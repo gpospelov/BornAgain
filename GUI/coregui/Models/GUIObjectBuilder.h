@@ -83,6 +83,7 @@ public:
 
     void visit(const InterferenceFunctionRadialParaCrystal *);
     void visit(const InterferenceFunction2DParaCrystal *);
+    void visit(const InterferenceFunction1DLattice *);
     void visit(const InterferenceFunction2DLattice *);
     void visit(const InterferenceFunctionNone *);
 

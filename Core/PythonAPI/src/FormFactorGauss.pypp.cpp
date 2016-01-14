@@ -90,18 +90,6 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
         return FormFactorGauss::getRadius( );
     }
 
-    virtual double getVolume(  ) const  {
-        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
-            return func_getVolume(  );
-        else{
-            return this->FormFactorGauss::getVolume(  );
-        }
-    }
-    
-    double default_getVolume(  ) const  {
-        return FormFactorGauss::getVolume( );
-    }
-
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -148,6 +136,18 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
     
     ::std::vector< const ISample* > default_getChildren(  ) const  {
         return ISample::getChildren( );
+    }
+
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
+        else{
+            return this->IFormFactor::getVolume(  );
+        }
+    }
+    
+    double default_getVolume(  ) const  {
+        return IFormFactor::getVolume( );
     }
 
     virtual void printSampleTree(  ) {
@@ -267,17 +267,6 @@ void register_FormFactorGauss_class(){
                 , default_getRadius_function_type(&FormFactorGauss_wrapper::default_getRadius) );
         
         }
-        { //::FormFactorGauss::getVolume
-        
-            typedef double ( ::FormFactorGauss::*getVolume_function_type)(  ) const;
-            typedef double ( FormFactorGauss_wrapper::*default_getVolume_function_type)(  ) const;
-            
-            FormFactorGauss_exposer.def( 
-                "getVolume"
-                , getVolume_function_type(&::FormFactorGauss::getVolume)
-                , default_getVolume_function_type(&FormFactorGauss_wrapper::default_getVolume) );
-        
-        }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;
@@ -322,6 +311,17 @@ void register_FormFactorGauss_class(){
                 "getChildren"
                 , getChildren_function_type(&::ISample::getChildren)
                 , default_getChildren_function_type(&FormFactorGauss_wrapper::default_getChildren) );
+        
+        }
+        { //::IFormFactor::getVolume
+        
+            typedef double ( ::IFormFactor::*getVolume_function_type)(  ) const;
+            typedef double ( FormFactorGauss_wrapper::*default_getVolume_function_type)(  ) const;
+            
+            FormFactorGauss_exposer.def( 
+                "getVolume"
+                , getVolume_function_type(&::IFormFactor::getVolume)
+                , default_getVolume_function_type(&FormFactorGauss_wrapper::default_getVolume) );
         
         }
         { //::ISample::printSampleTree

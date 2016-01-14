@@ -34,11 +34,6 @@ public:
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
-    //! Returns volume
-    virtual double getVolume() const {
-        return m_width*m_width*m_height;
-    }
-
     //! Returns height
     double getHeight() const { return m_height; }
 

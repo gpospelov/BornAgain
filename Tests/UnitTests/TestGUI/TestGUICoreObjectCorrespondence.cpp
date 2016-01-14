@@ -147,6 +147,13 @@ void TestGUICoreObjectCorrespondence::test_RadialParacrystal()
     GUICoreObjectCorrespondence(gui_radialparacrystal, core_radialparacrystal);
 }
 
+void TestGUICoreObjectCorrespondence::test_1DLattice()
+{
+    InterferenceFunction1DLatticeItem gui_1d_lattice;
+    InterferenceFunction1DLattice core_1d_lattice(20.0, 0.0);
+    GUICoreObjectCorrespondence(gui_1d_lattice, core_1d_lattice);
+}
+
 //void TestGUICoreObjectCorrespondence::test_2DParacrystal()
 //{
 //    InterferenceFunction2DParaCrystalItem gui_2d_paracrystal;

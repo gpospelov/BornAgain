@@ -17,6 +17,7 @@
 #include "CylindersAndPrismsBuilder.h"
 #include "CylindersBuilder.h"
 #include "ParaCrystalBuilder.h"
+#include "LatticeBuilder.h"
 #include "TwoDimLatticeBuilder.h"
 #include "CustomMorphologyBuilder.h"
 #include "RotatedPyramidsBuilder.h"
@@ -73,6 +74,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "HexParaCrystalBuilder",
         IFactoryCreateFunction<HexParaCrystalBuilder, ISampleBuilder>,
         "Interference function of 2D hexagonal paracrystal");
+
+    registerItem(
+        "Lattice1DBuilder",
+        IFactoryCreateFunction<Lattice1DBuilder, ISampleBuilder>,
+        "Interference function of 1D lattice");
 
     registerItem(
         "RectParaCrystalBuilder",

@@ -327,7 +327,7 @@ void SamplePrintVisitor::visit(const InterferenceFunction1DLattice *sample)
 void SamplePrintVisitor::visit(const InterferenceFunctionRadialParaCrystal *sample)
 {
     print_default(sample);
-    const IFTDistribution1D *pdf = sample->getPropabilityDistribution();
+    const IFTDistribution1D *pdf = sample->getProbabilityDistribution();
     std::cout << get_indent() << ".... pdf: " << (*pdf) << std::endl;
 }
 

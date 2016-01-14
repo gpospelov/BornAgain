@@ -22,20 +22,20 @@ GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
 #include "PythonCoreList.h"
-#include "Lattice2DIFParameters.pypp.h"
+#include "Lattice2DParameters.pypp.h"
 
 namespace bp = boost::python;
 
-void register_Lattice2DIFParameters_class(){
+void register_Lattice2DParameters_class(){
 
-    { //::Lattice2DIFParameters
-        typedef bp::class_< Lattice2DIFParameters > Lattice2DIFParameters_exposer_t;
-        Lattice2DIFParameters_exposer_t Lattice2DIFParameters_exposer = Lattice2DIFParameters_exposer_t( "Lattice2DIFParameters", "Additional parameters for 2D lattic.", bp::init< >() );
-        bp::scope Lattice2DIFParameters_scope( Lattice2DIFParameters_exposer );
-        Lattice2DIFParameters_exposer.def_readwrite( "m_angle", &Lattice2DIFParameters::m_angle );
-        Lattice2DIFParameters_exposer.def_readwrite( "m_length_1", &Lattice2DIFParameters::m_length_1 );
-        Lattice2DIFParameters_exposer.def_readwrite( "m_length_2", &Lattice2DIFParameters::m_length_2 );
-        Lattice2DIFParameters_exposer.def_readwrite( "m_xi", &Lattice2DIFParameters::m_xi );
+    { //::Lattice2DParameters
+        typedef bp::class_< Lattice2DParameters > Lattice2DParameters_exposer_t;
+        Lattice2DParameters_exposer_t Lattice2DParameters_exposer = Lattice2DParameters_exposer_t( "Lattice2DParameters", "Additional parameters for 2D lattic.", bp::init< >() );
+        bp::scope Lattice2DParameters_scope( Lattice2DParameters_exposer );
+        Lattice2DParameters_exposer.def_readwrite( "m_angle", &Lattice2DParameters::m_angle );
+        Lattice2DParameters_exposer.def_readwrite( "m_length_1", &Lattice2DParameters::m_length_1 );
+        Lattice2DParameters_exposer.def_readwrite( "m_length_2", &Lattice2DParameters::m_length_2 );
+        Lattice2DParameters_exposer.def_readwrite( "m_xi", &Lattice2DParameters::m_xi );
     }
 
 }

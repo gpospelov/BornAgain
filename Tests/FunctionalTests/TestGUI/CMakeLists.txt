@@ -28,6 +28,7 @@ set(list_of_tests
     "GUISuite/RadialParaCrystal"
     "GUISuite/Basic2DParaCrystal"
     "GUISuite/HexParaCrystal"
+    "GUISuite/Lattice1D"
     "GUISuite/RectParaCrystal"
     "GUISuite/CoreShellParticle"
     "GUISuite/CoreShellBoxRotateZandY"

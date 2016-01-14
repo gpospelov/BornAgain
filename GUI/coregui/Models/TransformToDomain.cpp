@@ -185,7 +185,7 @@ TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
         P_result = std::move(P_iff);
     } else if (item.modelType() == Constants::InterferenceFunction2DParaCrystalType) {
         auto latticeItem
-                = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE];
+                = item.getSubItems()[InterferenceFunction2DLatticeItem::P_LATTICE_TYPE];
         Q_ASSERT(latticeItem);
         double length_1 {0.0}, length_2 {0.0}, alpha_lattice {0.0};
         if (latticeItem->modelType() == Constants::BasicLatticeType) {
@@ -239,6 +239,20 @@ TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
         Q_ASSERT(P_pdf2.get());
 
         P_iff->setProbabilityDistributions(*P_pdf1, *P_pdf2);
+        P_result = std::move(P_iff);
+    } else if (item.modelType() == Constants::InterferenceFunction1DLatticeType) {
+        double length =
+                item.getRegisteredProperty(InterferenceFunction1DLatticeItem::P_LENGTH).toDouble();
+        double angle = Units::deg2rad(
+                item.getRegisteredProperty(InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE)
+                       .toDouble());
+        auto P_iff = GUIHelpers::make_unique<InterferenceFunction1DLattice>(length, angle);
+        auto pdfItem = item.getSubItems()[InterferenceFunction1DLatticeItem::P_PDF];
+        Q_ASSERT(pdfItem);
+        std::unique_ptr<IFTDistribution1D> P_pdf(
+            dynamic_cast<FTDistribution1DItem *>(pdfItem)->createFTDistribution());
+        Q_ASSERT(P_pdf);
+        P_iff->setProbabilityDistribution(*P_pdf);
         P_result = std::move(P_iff);
     } else if (item.modelType() == Constants::InterferenceFunction2DLatticeType) {
         auto latticeItem = item.getSubItems()[InterferenceFunction2DLatticeItem::P_LATTICE_TYPE];

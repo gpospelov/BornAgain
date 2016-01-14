@@ -15,6 +15,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "SimpleSelectionRule.pypp.h"
 #include "RealParameterWrapper.pypp.h"
 #include "vdouble1d_t.pypp.h"
+#include "Lattice1DParameters.pypp.h"
 #include "SimulationParameters.pypp.h"
 #include "ThreadInfo.pypp.h"
 #include "InterferenceFunction2DLattice.pypp.h"
@@ -101,6 +102,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IFTDistribution1D.pypp.h"
 #include "DistributionLorentz.pypp.h"
 #include "IDistribution1D.pypp.h"
+#include "Lattice2DParameters.pypp.h"
 #include "vdouble2d_t.pypp.h"
 #include "Line.pypp.h"
 #include "HomogeneousMagneticMaterial.pypp.h"
@@ -117,7 +119,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "ParticleLayout.pypp.h"
 #include "FormFactorBox.pypp.h"
 #include "IParameterized.pypp.h"
-#include "Lattice2DIFParameters.pypp.h"
 #include "IFormFactorDecorator.pypp.h"
 #include "InterferenceFunction1DLattice.pypp.h"
 #include "RotationEuler.pypp.h"
@@ -133,7 +134,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "ParticleCoreShell.pypp.h"
 #include "FormFactorDecoratorDebyeWaller.pypp.h"
 #include "MesoCrystal.pypp.h"
-#include "Lattice1DIFParameters.pypp.h"
 #include "IObserver.pypp.h"
 #include "IntensityData.pypp.h"
 #include "Lattice.pypp.h"
@@ -276,8 +276,8 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_SphericalDetector_class();
     register_IsGISAXSDetector_class();
     register_Lattice_class();
-    register_Lattice1DIFParameters_class();
-    register_Lattice2DIFParameters_class();
+    register_Lattice1DParameters_class();
+    register_Lattice2DParameters_class();
     register_Layer_class();
     register_LayerInterface_class();
     register_LayerRoughness_class();

@@ -41,7 +41,7 @@ user_api = [
     "Lattice.getBasisVectorB",
     "Lattice.getBasisVectorC",
     "Lattice.setSelectionRule",
-    "Lattice2DIFParameters",
+    "Lattice2DParameters",
     "ParticleComposition",
     "ParticleComposition.addParticle",
     "ParticleComposition.addParticles",

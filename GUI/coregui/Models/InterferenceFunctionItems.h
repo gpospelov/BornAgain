@@ -37,7 +37,6 @@ class BA_CORE_API_ InterferenceFunction2DParaCrystalItem : public ParameterizedG
 {
     Q_OBJECT
 public:
-    static const QString P_LATTICE_TYPE;
     static const QString P_ROTATION_ANGLE;
     static const QString P_DAMPING_LENGTH;
     static const QString P_DOMAIN_SIZE1;
@@ -48,6 +47,18 @@ public:
     explicit InterferenceFunction2DParaCrystalItem(ParameterizedItem *parent=0);
     ~InterferenceFunction2DParaCrystalItem(){}
     void onPropertyChange(const QString &name);
+};
+
+
+class BA_CORE_API_ InterferenceFunction1DLatticeItem : public ParameterizedGraphicsItem
+{
+    Q_OBJECT
+public:
+    static const QString P_LENGTH;
+    static const QString P_ROTATION_ANGLE;
+    static const QString P_PDF;
+    explicit InterferenceFunction1DLatticeItem(ParameterizedItem *parent=0);
+    ~InterferenceFunction1DLatticeItem(){}
 };
 
 

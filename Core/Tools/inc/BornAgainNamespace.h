@@ -55,10 +55,10 @@ const std::string TransformationType = "Rotation";
 const std::string LayerBasicRoughnessType = "LayerBasicRoughness";
 const std::string LayerZeroRoughnessType = "LayerZeroRoughness";
 
-const std::string InterferenceFunctionNoneType = "InterferenceFunctionNone";
-const std::string InterferenceFunction1DLatticeType = "InterferenceFunction1DLattice";
+const std::string InterferenceFunctionNoneType = "InterferenceNone";
 const std::string InterferenceFunctionRadialParaCrystalType = "InterferenceRadialParaCrystal";
 const std::string InterferenceFunction2DParaCrystalType = "Interference2DParaCrystal";
+const std::string InterferenceFunction1DLatticeType = "Interference1DLattice";
 const std::string InterferenceFunction2DLatticeType = "Interference2DLattice";
 
 const std::string CrystalType = "Crystal";

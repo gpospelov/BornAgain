@@ -213,7 +213,7 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::InterferenceFunction2DLattice::getLatticeParameters
         
-            typedef ::Lattice2DIFParameters ( ::InterferenceFunction2DLattice::*getLatticeParameters_function_type)(  ) const;
+            typedef ::Lattice2DParameters ( ::InterferenceFunction2DLattice::*getLatticeParameters_function_type)(  ) const;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "getLatticeParameters"

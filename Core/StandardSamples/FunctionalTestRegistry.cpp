@@ -56,6 +56,13 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         2e-10);
 
+    add("Lattice1D",
+        "Interference function of 21D lattice",
+        "MiniGISAS",
+        "Lattice1DBuilder",
+        "None",
+        2e-10);
+
     add("RectParaCrystal",
         "Interference function of 2D rectanguler paracrystal",
         "MiniGISAS",

@@ -35,6 +35,7 @@ ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     addToValidChildren(Constants::ParticleDistributionType, PortInfo::PORT_0);
     addToValidChildren(Constants::InterferenceFunctionRadialParaCrystalType, PortInfo::PORT_1, 1);
     addToValidChildren(Constants::InterferenceFunction2DParaCrystalType, PortInfo::PORT_1, 1);
+    addToValidChildren(Constants::InterferenceFunction1DLatticeType, PortInfo::PORT_1, 1);
     addToValidChildren(Constants::InterferenceFunction2DLatticeType, PortInfo::PORT_1, 1);
 }
 
@@ -55,6 +56,7 @@ void ParticleLayoutItem::insertChildItem(int row, ParameterizedItem *item)
         }
     } else if (item->modelType() == Constants::InterferenceFunctionRadialParaCrystalType
                || item->modelType() == Constants::InterferenceFunction2DParaCrystalType
+               || item->modelType() == Constants::InterferenceFunction1DLatticeType
                || item->modelType() == Constants::InterferenceFunction2DLatticeType) {
         int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
         if (port == PortInfo::DEFAULT) {

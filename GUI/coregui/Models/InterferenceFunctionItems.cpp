@@ -29,8 +29,6 @@ const QString InterferenceFunctionRadialParaCrystalItem::P_KAPPA =
         QString::fromStdString(BornAgain::SizeSpaceCoupling);
 const QString InterferenceFunctionRadialParaCrystalItem::P_PDF = "PDF";
 
-const QString InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE =
-        "Lattice_type";
 const QString InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE =
         QString::fromStdString(BornAgain::Xi);
 const QString InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH =
@@ -39,21 +37,25 @@ const QString InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE1 =
         QString::fromStdString(BornAgain::DomainSize1);
 const QString InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE2 =
         QString::fromStdString(BornAgain::DomainSize2);
-const QString InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION =
-        "Integration_over_xi";
+const QString InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION = "Integration_over_xi";
 const QString InterferenceFunction2DParaCrystalItem::P_PDF1 = "PDF #1";
 const QString InterferenceFunction2DParaCrystalItem::P_PDF2 = "PDF #2";
 
-const QString InterferenceFunction2DLatticeItem::P_LATTICE_TYPE =
-        "Lattice_type";
+const QString InterferenceFunction2DLatticeItem::P_LATTICE_TYPE = "Lattice_type";
 const QString InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE =
         QString::fromStdString(BornAgain::Xi);
 const QString InterferenceFunction2DLatticeItem::P_PDF = "PDF";
 
+const QString InterferenceFunction1DLatticeItem::P_LENGTH =
+        QString::fromStdString(BornAgain::Length);
+const QString InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE =
+        QString::fromStdString(BornAgain::Xi);
+const QString InterferenceFunction1DLatticeItem::P_PDF = "PDF";
+
+
 InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystalItem(
         ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(Constants::InterferenceFunctionRadialParaCrystalType,
-                                parent)
+    : ParameterizedGraphicsItem(Constants::InterferenceFunctionRadialParaCrystalType, parent)
 {
     registerProperty(P_PEAK_DISTANCE, 20.0*Units::nanometer);
     registerProperty(P_DAMPING_LENGTH, 1000.0*Units::micrometer);
@@ -64,10 +66,10 @@ InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystal
 
 InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
         ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(Constants::InterferenceFunction2DParaCrystalType,
-                                parent)
+    : ParameterizedGraphicsItem(Constants::InterferenceFunction2DParaCrystalType, parent)
 {
-    registerGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup);
+    registerGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
+                          Constants::LatticeGroup);
     registerProperty(P_DAMPING_LENGTH, 0.0);
     registerProperty(P_DOMAIN_SIZE1, 20.0*Units::micrometer);
     registerProperty(P_DOMAIN_SIZE2, 20.0*Units::micrometer);
@@ -88,13 +90,19 @@ void InterferenceFunction2DParaCrystalItem::onPropertyChange(const QString &name
         ParameterizedItem::onPropertyChange(P_ROTATION_ANGLE);
     }
     ParameterizedItem::onPropertyChange(name);
+}
 
+InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem(ParameterizedItem *parent)
+    : ParameterizedGraphicsItem(Constants::InterferenceFunction1DLatticeType, parent)
+{
+    registerProperty(P_LENGTH, 20.0*Units::nanometer);
+    registerProperty(P_ROTATION_ANGLE, 0.0);
+    registerGroupProperty(P_PDF, Constants::FTDistribution1DGroup);
 }
 
 InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem(
         ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(Constants::InterferenceFunction2DLatticeType,
-                                parent)
+    : ParameterizedGraphicsItem(Constants::InterferenceFunction2DLatticeType, parent)
 {
     registerGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup);
     registerProperty(P_ROTATION_ANGLE, 0.0);

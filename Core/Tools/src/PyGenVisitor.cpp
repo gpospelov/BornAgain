@@ -680,21 +680,10 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
 
         else if (const InterferenceFunction1DLattice *oneDLattice
                  = dynamic_cast<const InterferenceFunction1DLattice *>(interference)) {
-            const Lattice1DIFParameters latticeParameters = oneDLattice->getLatticeParameters();
-            result << indent() << it->second << "_latticeParameters = Lattice1DIFParameters()\n";
-            if (latticeParameters.m_length != 0) {
-                result << indent() << it->second
-                       << "_latticeParameters.m_length = " << latticeParameters.m_length
-                       << "*nanometer\n";
-            }
-
-            if (latticeParameters.m_xi != 0) {
-                result << indent() << it->second << "_latticeParameters.m_xi = "
-                       << PyGenTools::printDegrees(latticeParameters.m_xi) << "\n";
-            }
-
-            result << indent() << it->second << " = InterferenceFunction1DLattice(" << it->second
-                   << "_latticeParameters)\n";
+            const Lattice1DParameters latticeParameters = oneDLattice->getLatticeParameters();
+            result << indent() << it->second << " = InterferenceFunction1DLattice("
+                   << latticeParameters.m_length << "*nanometer, "
+                   << PyGenTools::printDegrees(latticeParameters.m_xi) << ")\n";
 
             const IFTDistribution1D *pdf = oneDLattice->getProbabilityDistribution();
 
@@ -764,7 +753,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                        << PyGenTools::printDouble(oneDParaCrystal->getDomainSize()) << ")\n";
             }
 
-            const IFTDistribution1D *pdf = oneDParaCrystal->getPropabilityDistribution();
+            const IFTDistribution1D *pdf = oneDParaCrystal->getProbabilityDistribution();
 
             if (const FTDistribution1DVoigt *fTD1DVoigt
                 = dynamic_cast<const FTDistribution1DVoigt *>(pdf)) {
@@ -818,7 +807,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
 
         else if (const InterferenceFunction2DLattice *twoDLattice
                  = dynamic_cast<const InterferenceFunction2DLattice *>(interference)) {
-            const Lattice2DIFParameters latticeParameters = twoDLattice->getLatticeParameters();
+            const Lattice2DParameters latticeParameters = twoDLattice->getLatticeParameters();
             result << indent() << it->second << " = InterferenceFunction2DLattice("
                    << latticeParameters.m_length_1 << "*nanometer, " << latticeParameters.m_length_2
                    << "*nanometer, " << PyGenTools::printDegrees(latticeParameters.m_angle) << ", "
@@ -912,32 +901,32 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
         else if (const InterferenceFunction2DParaCrystal *twoDParaCrystal
                  = dynamic_cast<const InterferenceFunction2DParaCrystal *>(interference)) {
             std::vector<double> domainSize = twoDParaCrystal->getDomainSizes();
-            if (PyGenTools::isSquare(twoDParaCrystal->getLatticeLengths()[0],
-                                     twoDParaCrystal->getLatticeLengths()[1],
-                                     twoDParaCrystal->getAlphaLattice())) {
+            if (PyGenTools::isSquare(twoDParaCrystal->getLatticeParameters().m_length_1,
+                                     twoDParaCrystal->getLatticeParameters().m_length_2,
+                                     twoDParaCrystal->getLatticeParameters().m_angle)) {
                 result << indent() << it->second
                        << " = InterferenceFunction2DParaCrystal.createSquare("
-                       << twoDParaCrystal->getLatticeLengths()[0] << "*nanometer, "
+                       << twoDParaCrystal->getLatticeParameters().m_length_1 << "*nanometer, "
                        << twoDParaCrystal->getDampingLength() << "*nanometer, " << domainSize[0]
                        << "*nanometer, " << domainSize[1] << "*nanometer)\n";
             }
 
-            else if (PyGenTools::isHexagonal(twoDParaCrystal->getLatticeLengths()[0],
-                                             twoDParaCrystal->getLatticeLengths()[1],
-                                             twoDParaCrystal->getAlphaLattice())) {
+            else if (PyGenTools::isHexagonal(twoDParaCrystal->getLatticeParameters().m_length_1,
+                                             twoDParaCrystal->getLatticeParameters().m_length_2,
+                                             twoDParaCrystal->getLatticeParameters().m_angle)) {
                 result << indent() << it->second
                        << " = InterferenceFunction2DParaCrystal.createHexagonal("
-                       << twoDParaCrystal->getLatticeLengths()[0] << "*nanometer, "
+                       << twoDParaCrystal->getLatticeParameters().m_length_1 << "*nanometer, "
                        << twoDParaCrystal->getDampingLength() << "*nanometer, " << domainSize[0]
                        << "*nanometer, " << domainSize[1] << "*nanometer)\n";
             }
 
             else {
                 result << indent() << it->second << " = InterferenceFunction2DParaCrystal("
-                       << twoDParaCrystal->getLatticeLengths()[0] << "*nanometer, "
-                       << twoDParaCrystal->getLatticeLengths()[1] << "*nanometer, "
-                       << PyGenTools::printDegrees(twoDParaCrystal->getAlphaLattice()) << ", "
-                       << PyGenTools::printDegrees(twoDParaCrystal->getLatticeOrientation()) << ", "
+                       << twoDParaCrystal->getLatticeParameters().m_length_1 << "*nanometer, "
+                       << twoDParaCrystal->getLatticeParameters().m_length_2 << "*nanometer, "
+                       << PyGenTools::printDegrees(twoDParaCrystal->getLatticeParameters().m_angle) << ", "
+                       << PyGenTools::printDegrees(twoDParaCrystal->getLatticeParameters().m_xi) << ", "
                        << twoDParaCrystal->getDampingLength() << "*nanometer)\n";
 
                 if (domainSize[0] != 0 || domainSize[1] != 0) {

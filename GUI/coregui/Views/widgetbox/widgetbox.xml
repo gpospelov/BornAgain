@@ -51,6 +51,14 @@
             </widget>
         </categoryentry>
 
+        <categoryentry  name="1D lattice" icon="images/Lattice2D.png">
+            <widget class="Interference1DLattice">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
         <categoryentry  name="2D lattice" icon="images/Lattice2D.png">
             <widget class="Interference2DLattice">
                 <property name="objectName">

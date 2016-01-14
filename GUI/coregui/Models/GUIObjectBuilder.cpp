@@ -553,6 +553,17 @@ void GUIObjectBuilder::visit(const InterferenceFunction2DParaCrystal *sample)
     m_levelToParentItem[getLevel()] = item;
 }
 
+void GUIObjectBuilder::visit(const InterferenceFunction1DLattice *sample)
+{
+    ParameterizedItem *parent = m_levelToParentItem[getLevel() - 1];
+    Q_ASSERT(parent);
+    ParameterizedItem *item = m_sampleModel->insertNewItem(
+        Constants::InterferenceFunction1DLatticeType, m_sampleModel->indexOfItem(parent));
+    Q_ASSERT(item);
+    TransformFromDomain::setItemFromSample(item, sample);
+    m_levelToParentItem[getLevel()] = item;
+}
+
 void GUIObjectBuilder::visit(const InterferenceFunction2DLattice *sample)
 {
     ParameterizedItem *parent = m_levelToParentItem[getLevel() - 1];

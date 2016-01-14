@@ -30,6 +30,7 @@ private slots:
 
     // Interference functions:
     void test_RadialParacrystal();
+    void test_1DLattice();
     // uncomment the next tests when the lattice parameters are in better correspondence:
 //    void test_2DParacrystal();
 //    void test_2DLattice();

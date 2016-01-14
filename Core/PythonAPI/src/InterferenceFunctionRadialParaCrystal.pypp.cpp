@@ -239,13 +239,13 @@ void register_InterferenceFunctionRadialParaCrystal_class(){
                 , "Gets the Fourier transformed probability distribution of the nearest particle " );
         
         }
-        { //::InterferenceFunctionRadialParaCrystal::getPropabilityDistribution
+        { //::InterferenceFunctionRadialParaCrystal::getProbabilityDistribution
         
-            typedef ::IFTDistribution1D const * ( ::InterferenceFunctionRadialParaCrystal::*getPropabilityDistribution_function_type)(  ) const;
+            typedef ::IFTDistribution1D const * ( ::InterferenceFunctionRadialParaCrystal::*getProbabilityDistribution_function_type)(  ) const;
             
             InterferenceFunctionRadialParaCrystal_exposer.def( 
-                "getPropabilityDistribution"
-                , getPropabilityDistribution_function_type( &::InterferenceFunctionRadialParaCrystal::getPropabilityDistribution )
+                "getProbabilityDistribution"
+                , getProbabilityDistribution_function_type( &::InterferenceFunctionRadialParaCrystal::getProbabilityDistribution )
                 , bp::return_value_policy< bp::reference_existing_object >()
                 , "Gets the Fourier transformed probability distribution of the nearest particle " );
         

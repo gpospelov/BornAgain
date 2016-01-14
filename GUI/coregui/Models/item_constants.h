@@ -34,6 +34,7 @@ const ModelType ParticleCompositionType = "ParticleComposition";
 const ModelType TransformationType = "Rotation";
 const ModelType InterferenceFunctionRadialParaCrystalType = "InterferenceRadialParaCrystal";
 const ModelType InterferenceFunction2DParaCrystalType = "Interference2DParaCrystal";
+const ModelType InterferenceFunction1DLatticeType = "Interference1DLattice";
 const ModelType InterferenceFunction2DLatticeType = "Interference2DLattice";
 const ModelType InstrumentType = "Instrument";
 const ModelType DetectorType = "Detector";

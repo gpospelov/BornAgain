@@ -124,7 +124,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     item->setRegisteredProperty(InterferenceFunction1DLatticeItem::P_LENGTH,
                                 lattice_params.m_length);
     item->setRegisteredProperty(InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE,
-                                lattice_params.m_xi);
+                                Units::rad2deg(lattice_params.m_xi));
 
     const IFTDistribution1D *pdf = sample->getProbabilityDistribution();
     QString group_name = InterferenceFunction1DLatticeItem::P_PDF;

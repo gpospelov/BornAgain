@@ -243,9 +243,9 @@ TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
     } else if (item.modelType() == Constants::InterferenceFunction1DLatticeType) {
         double length =
                 item.getRegisteredProperty(InterferenceFunction1DLatticeItem::P_LENGTH).toDouble();
-        double angle =
+        double angle = Units::deg2rad(
                 item.getRegisteredProperty(InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE)
-                       .toDouble();
+                       .toDouble());
         auto P_iff = GUIHelpers::make_unique<InterferenceFunction1DLattice>(length, angle);
         auto pdfItem = item.getSubItems()[InterferenceFunction1DLatticeItem::P_PDF];
         Q_ASSERT(pdfItem);

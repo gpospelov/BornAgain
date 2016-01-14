@@ -141,7 +141,7 @@ void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(
 }
 
 const IFTDistribution1D
-    *InterferenceFunctionRadialParaCrystal::getPropabilityDistribution() const
+    *InterferenceFunctionRadialParaCrystal::getProbabilityDistribution() const
 {
     return mP_pdf.get();
 }

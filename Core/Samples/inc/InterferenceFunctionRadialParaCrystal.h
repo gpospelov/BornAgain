@@ -68,7 +68,7 @@ public:
 
     //! Gets the Fourier transformed probability distribution of the
     //! nearest particle
-    const IFTDistribution1D *getPropabilityDistribution() const;
+    const IFTDistribution1D *getProbabilityDistribution() const;
 
     double getPeakDistance() const;
 

@@ -764,7 +764,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                        << PyGenTools::printDouble(oneDParaCrystal->getDomainSize()) << ")\n";
             }
 
-            const IFTDistribution1D *pdf = oneDParaCrystal->getPropabilityDistribution();
+            const IFTDistribution1D *pdf = oneDParaCrystal->getProbabilityDistribution();
 
             if (const FTDistribution1DVoigt *fTD1DVoigt
                 = dynamic_cast<const FTDistribution1DVoigt *>(pdf)) {

@@ -69,6 +69,8 @@ void SetPDF1D(ParameterizedItem *item, const IFTDistribution1D *pdf, QString gro
 void setPDF2D(ParameterizedItem *item, const IFTDistribution2D *pdf, QString group_name);
 void set2DLatticeParameters(ParameterizedItem *item, Lattice2DParameters lattice_params,
                             ParameterizedItem *lattice_item);
+void setDistribution(ParameterizedItem *item, ParameterDistribution par_distr,
+                     QString group_name, double factor = 1.0);
 
 void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
                                             const InterferenceFunctionRadialParaCrystal *sample)
@@ -82,7 +84,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     item->setRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_KAPPA,
                                 sample->getKappa());
 
-    const IFTDistribution1D *ipdf = sample->getPropabilityDistribution();
+    const IFTDistribution1D *ipdf = sample->getProbabilityDistribution();
     QString group_name = InterferenceFunctionRadialParaCrystalItem::P_PDF;
     qDebug() << "    group_name" << group_name;
     SetPDF1D(item, ipdf, group_name);
@@ -117,7 +119,17 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
 void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
                                             const InterferenceFunction1DLattice *sample)
 {
+    Lattice1DParameters lattice_params = sample->getLatticeParameters();
 
+    item->setRegisteredProperty(InterferenceFunction1DLatticeItem::P_LENGTH,
+                                lattice_params.m_length);
+    item->setRegisteredProperty(InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE,
+                                lattice_params.m_xi);
+
+    const IFTDistribution1D *pdf = sample->getProbabilityDistribution();
+    QString group_name = InterferenceFunction1DLatticeItem::P_PDF;
+    qDebug() << "    group_name" << group_name;
+    SetPDF1D(item, pdf, group_name);
 }
 
 void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
@@ -173,42 +185,8 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     item->setRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER,
                                 combo_property.getVariant());
 
-    const IDistribution1D *p_distribution = par_distr.getDistribution();
-
     QString group_name = ParticleDistributionItem::P_DISTRIBUTION;
-    ParameterizedItem *pdfItem = 0;
-    if (const DistributionGate *distr = dynamic_cast<const DistributionGate *>(p_distribution)) {
-        pdfItem = item->setGroupProperty(group_name, Constants::DistributionGateType);
-        pdfItem->setRegisteredProperty(DistributionGateItem::P_MIN, distr->getMin());
-        pdfItem->setRegisteredProperty(DistributionGateItem::P_MAX, distr->getMax());
-    } else if (const DistributionLorentz *distr
-               = dynamic_cast<const DistributionLorentz *>(p_distribution)) {
-        pdfItem = item->setGroupProperty(group_name, Constants::DistributionLorentzType);
-        pdfItem->setRegisteredProperty(DistributionLorentzItem::P_MEAN, distr->getMean());
-        pdfItem->setRegisteredProperty(DistributionLorentzItem::P_HWHM, distr->getHWHM());
-    } else if (const DistributionGaussian *distr
-               = dynamic_cast<const DistributionGaussian *>(p_distribution)) {
-        pdfItem = item->setGroupProperty(group_name, Constants::DistributionGaussianType);
-        pdfItem->setRegisteredProperty(DistributionGaussianItem::P_MEAN, distr->getMean());
-        pdfItem->setRegisteredProperty(DistributionGaussianItem::P_STD_DEV, distr->getStdDev());
-    } else if (const DistributionLogNormal *distr
-               = dynamic_cast<const DistributionLogNormal *>(p_distribution)) {
-        pdfItem = item->setGroupProperty(group_name, Constants::DistributionLogNormalType);
-        pdfItem->setRegisteredProperty(DistributionLogNormalItem::P_MEDIAN, distr->getMedian());
-        pdfItem->setRegisteredProperty(DistributionLogNormalItem::P_SCALE_PAR,
-                                       distr->getScalePar());
-    } else if (const DistributionCosine *distr
-               = dynamic_cast<const DistributionCosine *>(p_distribution)) {
-        pdfItem = item->setGroupProperty(group_name, Constants::DistributionCosineType);
-        pdfItem->setRegisteredProperty(DistributionCosineItem::P_MEAN, distr->getMean());
-        pdfItem->setRegisteredProperty(DistributionCosineItem::P_SIGMA, distr->getSigma());
-    }
-    if (pdfItem) {
-        pdfItem->setRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES,
-                                       (int)par_distr.getNbrSamples());
-        pdfItem->setRegisteredProperty(DistributionItem::P_SIGMA_FACTOR,
-                                       par_distr.getSigmaFactor());
-    }
+    setDistribution(item, par_distr, group_name);
 }
 
 //! Returns true if given roughness is non-zero roughness
@@ -404,7 +382,6 @@ void TransformFromDomain::setDetectorMasks(DetectorItem *detectorItem, const GIS
     }
 }
 
-
 void TransformFromDomain::setItemFromSample(BeamDistributionItem *beamDistributionItem,
                                             const ParameterDistribution &parameterDistribution)
 {
@@ -422,64 +399,8 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem *beamDistributi
         || beamDistributionItem->modelType() == Constants::BeamInclinationAngleType) {
         unit_factor = 1. / Units::degree;
     }
-
-    const IDistribution1D *p_distr = parameterDistribution.getDistribution();
-    ParameterizedItem *distributionItem(0);
-    if (const DistributionGate *distr = dynamic_cast<const DistributionGate *>(p_distr)) {
-        distributionItem = beamDistributionItem->setGroupProperty(
-            BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionGateType);
-        distributionItem->setRegisteredProperty(DistributionGateItem::P_MIN,
-                                                unit_factor * distr->getMin());
-        distributionItem->setRegisteredProperty(DistributionGateItem::P_MAX,
-                                                unit_factor * distr->getMax());
-    } else if (const DistributionLorentz *distr
-               = dynamic_cast<const DistributionLorentz *>(p_distr)) {
-        distributionItem = beamDistributionItem->setGroupProperty(
-            BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionLorentzType);
-        distributionItem->setRegisteredProperty(DistributionLorentzItem::P_MEAN,
-                                                unit_factor * distr->getMean());
-        distributionItem->setRegisteredProperty(DistributionLorentzItem::P_HWHM,
-                                                unit_factor * distr->getHWHM());
-    } else if (const DistributionGaussian *distr
-               = dynamic_cast<const DistributionGaussian *>(p_distr)) {
-        distributionItem = beamDistributionItem->setGroupProperty(
-            BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionGaussianType);
-        distributionItem->setRegisteredProperty(DistributionGaussianItem::P_MEAN,
-                                                unit_factor * distr->getMean());
-        distributionItem->setRegisteredProperty(DistributionGaussianItem::P_STD_DEV,
-                                                unit_factor * distr->getStdDev());
-    } else if (const DistributionLogNormal *distr
-               = dynamic_cast<const DistributionLogNormal *>(p_distr)) {
-        distributionItem = beamDistributionItem->setGroupProperty(
-            BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionLogNormalType);
-        distributionItem->setRegisteredProperty(DistributionLogNormalItem::P_MEDIAN,
-                                                unit_factor * distr->getMedian());
-        distributionItem->setRegisteredProperty(DistributionLogNormalItem::P_SCALE_PAR,
-                                                distr->getScalePar());
-    } else if (const DistributionCosine *distr
-               = dynamic_cast<const DistributionCosine *>(p_distr)) {
-        distributionItem = beamDistributionItem->setGroupProperty(
-            BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionCosineType);
-        distributionItem->setRegisteredProperty(DistributionCosineItem::P_MEAN,
-                                                unit_factor * distr->getMean());
-        distributionItem->setRegisteredProperty(DistributionCosineItem::P_SIGMA,
-                                                unit_factor * distr->getSigma());
-    } else {
-        throw GUIHelpers::Error("TransformFromDomain::setItemFromSample(BeamDistributionItem "
-                                "*distributionItem, const ParameterDistribution "
-                                "&parameterDistribution) -> unknown distribution");
-    }
-
-    if (distributionItem->isRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES))
-        distributionItem->setRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES,
-                                                (int)parameterDistribution.getNbrSamples());
-
-    if (distributionItem->isRegisteredProperty(DistributionItem::P_SIGMA_FACTOR)) {
-        double sigma_factor = parameterDistribution.getSigmaFactor();
-        if (sigma_factor == 0.0)
-            sigma_factor = 2.0;
-        distributionItem->setRegisteredProperty(DistributionItem::P_SIGMA_FACTOR, sigma_factor);
-    }
+    QString group_name = BeamDistributionItem::P_DISTRIBUTION;
+    setDistribution(beamDistributionItem, parameterDistribution, group_name, unit_factor);
 }
 
 QString TransformFromDomain::translateParameterNameToGUI(ParameterizedItem *item,
@@ -619,4 +540,45 @@ void set2DLatticeParameters(ParameterizedItem *item, Lattice2DParameters lattice
     }
     item->setRegisteredProperty(InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE,
                                 Units::rad2deg(lattice_params.m_xi));
+}
+
+void setDistribution(ParameterizedItem *item, ParameterDistribution par_distr,
+                     QString group_name, double factor)
+{
+    const IDistribution1D *p_distribution = par_distr.getDistribution();
+    ParameterizedItem *pdfItem = 0;
+    if (const DistributionGate *distr = dynamic_cast<const DistributionGate *>(p_distribution)) {
+        pdfItem = item->setGroupProperty(group_name, Constants::DistributionGateType);
+        pdfItem->setRegisteredProperty(DistributionGateItem::P_MIN, factor*distr->getMin());
+        pdfItem->setRegisteredProperty(DistributionGateItem::P_MAX, factor*distr->getMax());
+    } else if (const DistributionLorentz *distr
+               = dynamic_cast<const DistributionLorentz *>(p_distribution)) {
+        pdfItem = item->setGroupProperty(group_name, Constants::DistributionLorentzType);
+        pdfItem->setRegisteredProperty(DistributionLorentzItem::P_MEAN, factor*distr->getMean());
+        pdfItem->setRegisteredProperty(DistributionLorentzItem::P_HWHM, factor*distr->getHWHM());
+    } else if (const DistributionGaussian *distr
+               = dynamic_cast<const DistributionGaussian *>(p_distribution)) {
+        pdfItem = item->setGroupProperty(group_name, Constants::DistributionGaussianType);
+        pdfItem->setRegisteredProperty(DistributionGaussianItem::P_MEAN, factor*distr->getMean());
+        pdfItem->setRegisteredProperty(DistributionGaussianItem::P_STD_DEV, factor*distr->getStdDev());
+    } else if (const DistributionLogNormal *distr
+               = dynamic_cast<const DistributionLogNormal *>(p_distribution)) {
+        pdfItem = item->setGroupProperty(group_name, Constants::DistributionLogNormalType);
+        pdfItem->setRegisteredProperty(DistributionLogNormalItem::P_MEDIAN, factor*distr->getMedian());
+        pdfItem->setRegisteredProperty(DistributionLogNormalItem::P_SCALE_PAR,
+                                       distr->getScalePar());
+    } else if (const DistributionCosine *distr
+               = dynamic_cast<const DistributionCosine *>(p_distribution)) {
+        pdfItem = item->setGroupProperty(group_name, Constants::DistributionCosineType);
+        pdfItem->setRegisteredProperty(DistributionCosineItem::P_MEAN, factor*distr->getMean());
+        pdfItem->setRegisteredProperty(DistributionCosineItem::P_SIGMA, factor*distr->getSigma());
+    } else {
+        throw GUIHelpers::Error("TransformFromDomain::setDistribution: -> unknown distribution");
+    }
+    if (pdfItem) {
+        pdfItem->setRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES,
+                                       (int)par_distr.getNbrSamples());
+        pdfItem->setRegisteredProperty(DistributionItem::P_SIGMA_FACTOR,
+                                       par_distr.getSigmaFactor());
+    }
 }

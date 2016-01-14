@@ -34,16 +34,6 @@ RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     init_parameters();
 }
 
-void RadialParaCrystalBuilder::init_parameters()
-{
-    clearParameterPool();
-    registerParameter("corr_peak_distance", &m_corr_peak_distance);
-    registerParameter("corr_width", &m_corr_width);
-    registerParameter("corr_length", &m_corr_length);
-    registerParameter("cylinder_height", &m_cylinder_height);
-    registerParameter("cylinder_radius", &m_cylinder_radius);
-}
-
 ISample *RadialParaCrystalBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
@@ -72,6 +62,16 @@ ISample *RadialParaCrystalBuilder::buildSample() const
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
+}
+
+void RadialParaCrystalBuilder::init_parameters()
+{
+    clearParameterPool();
+    registerParameter("corr_peak_distance", &m_corr_peak_distance);
+    registerParameter("corr_width", &m_corr_width);
+    registerParameter("corr_length", &m_corr_length);
+    registerParameter("cylinder_height", &m_cylinder_height);
+    registerParameter("cylinder_radius", &m_cylinder_radius);
 }
 
 // -----------------------------------------------------------------------------
@@ -148,18 +148,6 @@ HexParaCrystalBuilder::HexParaCrystalBuilder()
     init_parameters();
 }
 
-void HexParaCrystalBuilder::init_parameters()
-{
-    clearParameterPool();
-    registerParameter("m_peak_distance", &m_peak_distance);
-    registerParameter("m_corr_length", &m_corr_length);
-    registerParameter("m_domain_size_1", &m_domain_size_1);
-    registerParameter("m_domain_size_2", &m_domain_size_2);
-    registerParameter("cylinder_height", &m_cylinder_height);
-    registerParameter("cylinder_radius", &m_cylinder_radius);
-}
-
-
 ISample *HexParaCrystalBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
@@ -190,6 +178,17 @@ ISample *HexParaCrystalBuilder::buildSample() const
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
+}
+
+void HexParaCrystalBuilder::init_parameters()
+{
+    clearParameterPool();
+    registerParameter("m_peak_distance", &m_peak_distance);
+    registerParameter("m_corr_length", &m_corr_length);
+    registerParameter("m_domain_size_1", &m_domain_size_1);
+    registerParameter("m_domain_size_2", &m_domain_size_2);
+    registerParameter("cylinder_height", &m_cylinder_height);
+    registerParameter("cylinder_radius", &m_cylinder_radius);
 }
 
 // -----------------------------------------------------------------------------

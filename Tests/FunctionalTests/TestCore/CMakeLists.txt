@@ -21,6 +21,7 @@ set(list_of_tests
     "CoreSuite/RadialParaCrystal"
     "CoreSuite/Basic2DParaCrystal"
     "CoreSuite/HexParaCrystal"
+    "CoreSuite/Lattice1D"
     "CoreSuite/RectParaCrystal"
     "CoreSuite/CoreShellParticle"
     "CoreSuite/CoreShellBoxRotateZandY"

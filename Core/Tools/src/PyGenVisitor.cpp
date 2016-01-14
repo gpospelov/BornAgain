@@ -681,20 +681,9 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
         else if (const InterferenceFunction1DLattice *oneDLattice
                  = dynamic_cast<const InterferenceFunction1DLattice *>(interference)) {
             const Lattice1DParameters latticeParameters = oneDLattice->getLatticeParameters();
-            result << indent() << it->second << "_latticeParameters = Lattice1DParameters()\n";
-            if (latticeParameters.m_length != 0) {
-                result << indent() << it->second
-                       << "_latticeParameters.m_length = " << latticeParameters.m_length
-                       << "*nanometer\n";
-            }
-
-            if (latticeParameters.m_xi != 0) {
-                result << indent() << it->second << "_latticeParameters.m_xi = "
-                       << PyGenTools::printDegrees(latticeParameters.m_xi) << "\n";
-            }
-
-            result << indent() << it->second << " = InterferenceFunction1DLattice(" << it->second
-                   << "_latticeParameters)\n";
+            result << indent() << it->second << " = InterferenceFunction1DLattice("
+                   << latticeParameters.m_length << "*nanometer, "
+                   << PyGenTools::printDegrees(latticeParameters.m_xi) << ")\n";
 
             const IFTDistribution1D *pdf = oneDLattice->getProbabilityDistribution();
 

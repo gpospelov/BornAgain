@@ -71,6 +71,7 @@ set(list_of_tests
     "PySuite/RadialParaCrystal"
     "PySuite/Basic2DParaCrystal"
     "PySuite/HexParaCrystal"
+    "PySuite/Lattice1D"
     "PySuite/RectParaCrystal"
     "PySuite/CoreShellParticle"
     "PySuite/CoreShellBoxRotateZandY"

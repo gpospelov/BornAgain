@@ -171,12 +171,12 @@ struct FormFactorRipple2_wrapper : FormFactorRipple2, bp::wrapper< FormFactorRip
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
         else{
-            return this->IFormFactorBorn::getVolume(  );
+            return this->IFormFactor::getVolume(  );
         }
     }
     
     double default_getVolume(  ) const  {
-        return IFormFactorBorn::getVolume( );
+        return IFormFactor::getVolume( );
     }
 
     virtual void printSampleTree(  ) {
@@ -374,14 +374,14 @@ void register_FormFactorRipple2_class(){
                 , default_getRadius_function_type(&FormFactorRipple2_wrapper::default_getRadius) );
         
         }
-        { //::IFormFactorBorn::getVolume
+        { //::IFormFactor::getVolume
         
-            typedef double ( ::IFormFactorBorn::*getVolume_function_type)(  ) const;
+            typedef double ( ::IFormFactor::*getVolume_function_type)(  ) const;
             typedef double ( FormFactorRipple2_wrapper::*default_getVolume_function_type)(  ) const;
             
             FormFactorRipple2_exposer.def( 
                 "getVolume"
-                , getVolume_function_type(&::IFormFactorBorn::getVolume)
+                , getVolume_function_type(&::IFormFactor::getVolume)
                 , default_getVolume_function_type(&FormFactorRipple2_wrapper::default_getVolume) );
         
         }

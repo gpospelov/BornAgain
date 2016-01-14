@@ -57,18 +57,6 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
         return func_evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getVolume(  ) const  {
-        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
-            return func_getVolume(  );
-        else{
-            return this->IFormFactorBorn::getVolume(  );
-        }
-    }
-    
-    double default_getVolume(  ) const  {
-        return IFormFactorBorn::getVolume( );
-    }
-
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -127,6 +115,18 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
     
     double default_getRadius(  ) const  {
         return IFormFactor::getRadius( );
+    }
+
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
+        else{
+            return this->IFormFactor::getVolume(  );
+        }
+    }
+    
+    double default_getVolume(  ) const  {
+        return IFormFactor::getVolume( );
     }
 
     virtual void printSampleTree(  ) {
@@ -232,17 +232,6 @@ void register_IFormFactorBorn_class(){
                 , "evaluate scattering amplitude for complex wavevector @param q  wavevector transfer q=k_i-k_f \n\n:Parameters:\n  - 'q' - wavevector transfer q=k_i-k_f\n" );
         
         }
-        { //::IFormFactorBorn::getVolume
-        
-            typedef double ( ::IFormFactorBorn::*getVolume_function_type)(  ) const;
-            typedef double ( IFormFactorBorn_wrapper::*default_getVolume_function_type)(  ) const;
-            
-            IFormFactorBorn_exposer.def( 
-                "getVolume"
-                , getVolume_function_type(&::IFormFactorBorn::getVolume)
-                , default_getVolume_function_type(&IFormFactorBorn_wrapper::default_getVolume) );
-        
-        }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;
@@ -297,6 +286,17 @@ void register_IFormFactorBorn_class(){
                 "getRadius"
                 , getRadius_function_type(&::IFormFactor::getRadius)
                 , default_getRadius_function_type(&IFormFactorBorn_wrapper::default_getRadius) );
+        
+        }
+        { //::IFormFactor::getVolume
+        
+            typedef double ( ::IFormFactor::*getVolume_function_type)(  ) const;
+            typedef double ( IFormFactorBorn_wrapper::*default_getVolume_function_type)(  ) const;
+            
+            IFormFactorBorn_exposer.def( 
+                "getVolume"
+                , getVolume_function_type(&::IFormFactor::getVolume)
+                , default_getVolume_function_type(&IFormFactorBorn_wrapper::default_getVolume) );
         
         }
         { //::ISample::printSampleTree

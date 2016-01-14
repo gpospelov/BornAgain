@@ -142,12 +142,12 @@ struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLor
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
         else{
-            return this->IFormFactorBorn::getVolume(  );
+            return this->IFormFactor::getVolume(  );
         }
     }
     
     double default_getVolume(  ) const  {
-        return IFormFactorBorn::getVolume( );
+        return IFormFactor::getVolume( );
     }
 
     virtual void printSampleTree(  ) {
@@ -313,14 +313,14 @@ void register_FormFactorLorentz_class(){
                 , default_getRadius_function_type(&FormFactorLorentz_wrapper::default_getRadius) );
         
         }
-        { //::IFormFactorBorn::getVolume
+        { //::IFormFactor::getVolume
         
-            typedef double ( ::IFormFactorBorn::*getVolume_function_type)(  ) const;
+            typedef double ( ::IFormFactor::*getVolume_function_type)(  ) const;
             typedef double ( FormFactorLorentz_wrapper::*default_getVolume_function_type)(  ) const;
             
             FormFactorLorentz_exposer.def( 
                 "getVolume"
-                , getVolume_function_type(&::IFormFactorBorn::getVolume)
+                , getVolume_function_type(&::IFormFactor::getVolume)
                 , default_getVolume_function_type(&FormFactorLorentz_wrapper::default_getVolume) );
         
         }

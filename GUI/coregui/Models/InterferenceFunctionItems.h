@@ -51,6 +51,18 @@ public:
 };
 
 
+class BA_CORE_API_ InterferenceFunction1DLatticeItem : public ParameterizedGraphicsItem
+{
+    Q_OBJECT
+public:
+    static const QString P_LENGTH;
+    static const QString P_ROTATION_ANGLE;
+    static const QString P_PDF;
+    explicit InterferenceFunction1DLatticeItem(ParameterizedItem *parent=0);
+    ~InterferenceFunction1DLatticeItem(){}
+};
+
+
 class BA_CORE_API_ InterferenceFunction2DLatticeItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT

@@ -240,6 +240,20 @@ TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
 
         P_iff->setProbabilityDistributions(*P_pdf1, *P_pdf2);
         P_result = std::move(P_iff);
+    } else if (item.modelType() == Constants::InterferenceFunction1DLatticeType) {
+        double length =
+                item.getRegisteredProperty(InterferenceFunction1DLatticeItem::P_LENGTH).toDouble();
+        double angle =
+                item.getRegisteredProperty(InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE)
+                       .toDouble();
+        auto P_iff = GUIHelpers::make_unique<InterferenceFunction1DLattice>(length, angle);
+        auto pdfItem = item.getSubItems()[InterferenceFunction1DLatticeItem::P_PDF];
+        Q_ASSERT(pdfItem);
+        std::unique_ptr<IFTDistribution1D> P_pdf(
+            dynamic_cast<FTDistribution1DItem *>(pdfItem)->createFTDistribution());
+        Q_ASSERT(P_pdf);
+        P_iff->setProbabilityDistribution(*P_pdf);
+        P_result = std::move(P_iff);
     } else if (item.modelType() == Constants::InterferenceFunction2DLatticeType) {
         auto latticeItem = item.getSubItems()[InterferenceFunction2DLatticeItem::P_LATTICE_TYPE];
         Q_ASSERT(latticeItem);

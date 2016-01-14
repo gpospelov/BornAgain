@@ -17,23 +17,72 @@
 #include "SampleBuilderFactory.h"
 #include "SimulationRegistry.h"
 #include "FitSuite.h"
+#include "FittingWorker.h"
 #include <QDebug>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QHBoxLayout>
+#include <QTabWidget>
+#include <QLabel>
+#include <QString>
+#include <QThread>
 
 
 RunFitWidget::RunFitWidget(QWidget *parent)
     : QWidget(parent)
+    , m_status(0)
 {
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QHBoxLayout *mainLayout = new QHBoxLayout();
+    QVBoxLayout *tabLayout = new QVBoxLayout();
+    tabLayout->setSizeConstraint(QLayout::SetMaximumSize);
 
+    QTabWidget *tabWidget = new QTabWidget();
+    QWidget *tab1 = new QWidget();
+    QWidget *tab2 = new QWidget();
+    QWidget *tab3 = new QWidget();
 
-    QPushButton *runFit = new QPushButton("Run fit");
-    connect(runFit, SIGNAL(clicked()), this, SLOT(onRunFit()));
+    tabWidget->addTab(tab1, QStringLiteral("Import experimental data"));
+    tabWidget->addTab(tab2, QStringLiteral("Setup fitting parameter"));
+    tabWidget->addTab(tab3, QStringLiteral("Run fit"));
 
-    mainLayout->addWidget(runFit);
+    QPushButton *runBut = new QPushButton(QStringLiteral("Run"), tab3);
+    runBut->setGeometry(QRect(10, 10, 99, 27));
+    stopBut = new QPushButton(QStringLiteral("Stop"), tab3);
+    stopBut->setGeometry(QRect(10, 50, 99, 27));
+    m_status = new QLabel(tab3);
+    m_status->setGeometry(QRect(30, 110, 300, 50));
+
+    tabWidget->setCurrentIndex(2);
+    tabLayout->addWidget(tabWidget);
+    mainLayout->addLayout(tabLayout);
+
+    connect(runBut, SIGNAL(clicked()), this, SLOT(onRunClicked()));
+    connect(stopBut, SIGNAL(clicked()), this, SLOT(onStop()));
 
     setLayout(mainLayout);
+}
+
+void RunFitWidget::onRunClicked()
+{
+    QThread *thread = new QThread;
+    FittingWorker *worker = new FittingWorker();
+    worker->moveToThread(thread);
+    connect(thread, SIGNAL(started()), worker, SLOT(startFit()));
+    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+    connect(stopBut, SIGNAL(clicked()), worker, SLOT(interrupt()), Qt::DirectConnection);
+    connect(worker, SIGNAL(statusUpdate(const QString &)),
+            this, SLOT(onStatusUpdate(const QString &)));
+
+    thread->start();
+}
+
+void RunFitWidget::onStatusUpdate(const QString &message)
+{
+    m_status->setText(message);
+}
+
+void RunFitWidget::onStop()
+{
 
 }
 

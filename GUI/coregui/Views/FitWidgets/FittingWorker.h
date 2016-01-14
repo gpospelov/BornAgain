@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/RunFitWidget.h
-//! @brief     Defines class RunFitWidget
+//! @file      coregui/Views/FitWidgets/FittingWorker.h
+//! @brief     Implements class RunFitWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,40 +13,35 @@
 //
 // ************************************************************************** //
 
-#ifndef RUNFITWIDGET_H
-#define RUNFITWIDGET_H
+#ifndef FITTINGWORKER_H
+#define FITTINGWORKER_H
 
 #include "WinDllMacros.h"
-#include <QWidget>
+#include "IFitObserver.h"
+#include <QObject>
 
-class QPushButton;
-class QLabel;
+class FitSuite;
+class IObservable;
 
-class BA_CORE_API_ RunFitWidget : public QWidget
+class BA_CORE_API_ FittingWorker : public QObject, public IFitObserver
 {
     Q_OBJECT
 public:
-    RunFitWidget(QWidget *parent = 0);
+    FittingWorker() : IFitObserver(1) { me = IObservable::observer_t(this); }
+    void update(FitSuite *subject);
 
 public slots:
-    void onRunClicked();
+    void startFit();
 
-    void onStatusUpdate(const QString &message);
-
-    void onStop();
-
-private slots:
-    void onRunFit();
+    void interrupt();
 
 signals:
-    void stopit();
+    void statusUpdate(const QString &);
 
 private:
-    void run_test_fit();
-    void run_test_fit_long();
+    IObservable::observer_t me;
+    boost::shared_ptr<FitSuite> m_fitsuite;
 
-    QLabel *m_status;
-    QPushButton *stopBut;
 };
 
 #endif

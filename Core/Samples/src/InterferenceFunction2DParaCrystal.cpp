@@ -94,7 +94,7 @@ double InterferenceFunction2DParaCrystal::evaluate(const kvector_t& q) const
     return result;
 }
 
-Lattice2DIFParameters InterferenceFunction2DParaCrystal::getLatticeParameters() const
+Lattice2DParameters InterferenceFunction2DParaCrystal::getLatticeParameters() const
 {
     return m_lattice_params;
 }

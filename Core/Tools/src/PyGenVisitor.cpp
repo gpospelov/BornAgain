@@ -680,8 +680,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
 
         else if (const InterferenceFunction1DLattice *oneDLattice
                  = dynamic_cast<const InterferenceFunction1DLattice *>(interference)) {
-            const Lattice1DIFParameters latticeParameters = oneDLattice->getLatticeParameters();
-            result << indent() << it->second << "_latticeParameters = Lattice1DIFParameters()\n";
+            const Lattice1DParameters latticeParameters = oneDLattice->getLatticeParameters();
+            result << indent() << it->second << "_latticeParameters = Lattice1DParameters()\n";
             if (latticeParameters.m_length != 0) {
                 result << indent() << it->second
                        << "_latticeParameters.m_length = " << latticeParameters.m_length
@@ -818,7 +818,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
 
         else if (const InterferenceFunction2DLattice *twoDLattice
                  = dynamic_cast<const InterferenceFunction2DLattice *>(interference)) {
-            const Lattice2DIFParameters latticeParameters = twoDLattice->getLatticeParameters();
+            const Lattice2DParameters latticeParameters = twoDLattice->getLatticeParameters();
             result << indent() << it->second << " = InterferenceFunction2DLattice("
                    << latticeParameters.m_length_1 << "*nanometer, " << latticeParameters.m_length_2
                    << "*nanometer, " << PyGenTools::printDegrees(latticeParameters.m_angle) << ", "

@@ -67,7 +67,7 @@ using namespace BornAgain;
 
 void SetPDF1D(ParameterizedItem *item, const IFTDistribution1D *pdf, QString group_name);
 void setPDF2D(ParameterizedItem *item, const IFTDistribution2D *pdf, QString group_name);
-void set2DLatticeParameters(ParameterizedItem *item, Lattice2DIFParameters lattice_params,
+void set2DLatticeParameters(ParameterizedItem *item, Lattice2DParameters lattice_params,
                             ParameterizedItem *lattice_item);
 
 void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
@@ -92,7 +92,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
                                             const InterferenceFunction2DParaCrystal *sample)
 {
     ParameterizedItem *lattice_item(0);
-    Lattice2DIFParameters lattice_params = sample->getLatticeParameters();
+    Lattice2DParameters lattice_params = sample->getLatticeParameters();
     set2DLatticeParameters(item, lattice_params, lattice_item);
 
     item->setRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH,
@@ -124,7 +124,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
                                             const InterferenceFunction2DLattice *sample)
 {
     ParameterizedItem *lattice_item(0);
-    Lattice2DIFParameters lattice_params = sample->getLatticeParameters();
+    Lattice2DParameters lattice_params = sample->getLatticeParameters();
     set2DLatticeParameters(item, lattice_params, lattice_item);
 
     const IFTDistribution2D *p_pdf = sample->getProbabilityDistribution();
@@ -592,7 +592,7 @@ void setPDF2D(ParameterizedItem *item, const IFTDistribution2D *pdf, QString gro
     }
 }
 
-void set2DLatticeParameters(ParameterizedItem *item, Lattice2DIFParameters lattice_params,
+void set2DLatticeParameters(ParameterizedItem *item, Lattice2DParameters lattice_params,
                             ParameterizedItem *lattice_item)
 {
     if (TransformFromDomain::isSquareLattice(lattice_params.m_length_1, lattice_params.m_length_2,

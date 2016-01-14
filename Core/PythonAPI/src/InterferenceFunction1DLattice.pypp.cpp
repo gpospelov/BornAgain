@@ -191,7 +191,7 @@ void register_InterferenceFunction1DLattice_class(){
         }
         { //::InterferenceFunction1DLattice::getLatticeParameters
         
-            typedef ::Lattice1DIFParameters ( ::InterferenceFunction1DLattice::*getLatticeParameters_function_type)(  ) const;
+            typedef ::Lattice1DParameters ( ::InterferenceFunction1DLattice::*getLatticeParameters_function_type)(  ) const;
             
             InterferenceFunction1DLattice_exposer.def( 
                 "getLatticeParameters"

@@ -87,7 +87,7 @@ double InterferenceFunction1DLattice::evaluate(const kvector_t &q) const
 }
 
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(
-    const Lattice1DIFParameters &lattice_params)
+    const Lattice1DParameters &lattice_params)
     : m_lattice_params(lattice_params), mp_pdf(0), m_prefactor(1.0), m_na(0)
 {
     setName(InterferenceFunction1DLatticeType);

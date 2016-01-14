@@ -57,7 +57,7 @@ void InterferenceFunction2DLattice::accept(ISampleVisitor *visitor) const
 InterferenceFunction2DLattice *InterferenceFunction2DLattice::createSquare(double lattice_length,
                                                                            double xi)
 {
-    Lattice2DIFParameters lattice_params;
+    Lattice2DParameters lattice_params;
     lattice_params.m_length_1 = lattice_length;
     lattice_params.m_length_2 = lattice_length;
     lattice_params.m_angle = Units::PI / 2.0;
@@ -68,7 +68,7 @@ InterferenceFunction2DLattice *InterferenceFunction2DLattice::createSquare(doubl
 InterferenceFunction2DLattice *InterferenceFunction2DLattice::createHexagonal(double lattice_length,
                                                                               double xi)
 {
-    Lattice2DIFParameters lattice_params;
+    Lattice2DParameters lattice_params;
     lattice_params.m_length_1 = lattice_length;
     lattice_params.m_length_2 = lattice_length;
     lattice_params.m_angle = 2.0 * Units::PI / 3.0;
@@ -113,7 +113,7 @@ double InterferenceFunction2DLattice::evaluate(const kvector_t &q) const
     return m_prefactor * result;
 }
 
-Lattice2DIFParameters InterferenceFunction2DLattice::getLatticeParameters() const
+Lattice2DParameters InterferenceFunction2DLattice::getLatticeParameters() const
 {
     return m_lattice_params;
 }
@@ -169,7 +169,7 @@ void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(double qx,
 }
 
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(
-    const Lattice2DIFParameters &lattice_params)
+    const Lattice2DParameters &lattice_params)
     : m_lattice_params(lattice_params), mp_pdf(0), m_prefactor(1.0), m_na(0), m_nb(0)
 {
     setName(InterferenceFunction2DLatticeType);

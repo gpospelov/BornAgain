@@ -17,7 +17,7 @@
 #define INTERFERENCEFUNCTION2DPARACRYSTAL_H_
 
 #include "IInterferenceFunction.h"
-#include "Lattice2DIFParameters.h"
+#include "Lattice2DParameters.h"
 #include "FTDistributions.h"
 #include <iostream>
 
@@ -74,7 +74,7 @@ public:
     bool getIntegrationOverXi() const;
     double getDampingLength() const;
 
-    Lattice2DIFParameters getLatticeParameters() const;
+    Lattice2DParameters getLatticeParameters() const;
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
@@ -87,7 +87,7 @@ protected:
     void transformToPrincipalAxes(double qx, double qy, double gamma, double delta, double &q_pa_1,
                                   double &q_pa_2) const;
 
-    Lattice2DIFParameters m_lattice_params; //!< Lattice parameters
+    Lattice2DParameters m_lattice_params; //!< Lattice parameters
     bool m_integrate_xi; //!< Integrate over the orientation xi
     IFTDistribution2D *m_pdfs[2];
     double m_damping_length; //!< Damping length for removing delta function singularity at q=0.

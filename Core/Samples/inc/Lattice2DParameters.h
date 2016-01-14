@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/inc/Lattice2DIFParameters.h
-//! @brief     Defines class Lattice2DIFParameters.
+//! @file      Samples/inc/Lattice2DParameters.h
+//! @brief     Defines class Lattice2DParameters.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,26 +13,23 @@
 //
 // ************************************************************************** //
 
-#ifndef LATTICE2DIFPARAMETERS_H_
-#define LATTICE2DIFPARAMETERS_H_
+#ifndef LATTICE2DPARAMETERS_H_
+#define LATTICE2DPARAMETERS_H_
 
 #include "IParameterized.h"
 
-//! @class Lattice2DIFParameters
+//! @class Lattice2DParameters
 //! @ingroup samples
 //! @brief Additional parameters for 2D lattice
 
-class Lattice2DIFParameters
+class Lattice2DParameters
 {
 public:
-    Lattice2DIFParameters() : m_length_1(0), m_length_2(0), m_angle(0),
-        m_xi(0) { }
+    Lattice2DParameters() : m_length_1(0), m_length_2(0), m_angle(0), m_xi(0) { }
 
     double m_length_1, m_length_2;
     double m_angle;
     double m_xi;
 };
 
-#endif /* LATTICE2DIFPARAMETERS_H_ */
-
-
+#endif /* LATTICE2DPARAMETERS_H_ */

@@ -22,18 +22,18 @@ GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
 #include "PythonCoreList.h"
-#include "Lattice1DIFParameters.pypp.h"
+#include "Lattice1DParameters.pypp.h"
 
 namespace bp = boost::python;
 
-void register_Lattice1DIFParameters_class(){
+void register_Lattice1DParameters_class(){
 
-    { //::Lattice1DIFParameters
-        typedef bp::class_< Lattice1DIFParameters > Lattice1DIFParameters_exposer_t;
-        Lattice1DIFParameters_exposer_t Lattice1DIFParameters_exposer = Lattice1DIFParameters_exposer_t( "Lattice1DIFParameters", "Additional parameters for 1D lattic.", bp::init< >() );
-        bp::scope Lattice1DIFParameters_scope( Lattice1DIFParameters_exposer );
-        Lattice1DIFParameters_exposer.def_readwrite( "m_length", &Lattice1DIFParameters::m_length );
-        Lattice1DIFParameters_exposer.def_readwrite( "m_xi", &Lattice1DIFParameters::m_xi );
+    { //::Lattice1DParameters
+        typedef bp::class_< Lattice1DParameters > Lattice1DParameters_exposer_t;
+        Lattice1DParameters_exposer_t Lattice1DParameters_exposer = Lattice1DParameters_exposer_t( "Lattice1DParameters", "Additional parameters for 1D lattic.", bp::init< >() );
+        bp::scope Lattice1DParameters_scope( Lattice1DParameters_exposer );
+        Lattice1DParameters_exposer.def_readwrite( "m_length", &Lattice1DParameters::m_length );
+        Lattice1DParameters_exposer.def_readwrite( "m_xi", &Lattice1DParameters::m_xi );
     }
 
 }

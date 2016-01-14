@@ -240,7 +240,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::InterferenceFunction2DParaCrystal::getLatticeParameters
         
-            typedef ::Lattice2DIFParameters ( ::InterferenceFunction2DParaCrystal::*getLatticeParameters_function_type)(  ) const;
+            typedef ::Lattice2DParameters ( ::InterferenceFunction2DParaCrystal::*getLatticeParameters_function_type)(  ) const;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "getLatticeParameters"

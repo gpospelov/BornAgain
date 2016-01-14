@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/inc/Lattice1DIFParameters.h
-//! @brief     Defines class Lattice1DIFParameters.
+//! @file      Samples/inc/Lattice1DParameters.h
+//! @brief     Defines class Lattice1DParameters.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,24 +13,22 @@
 //
 // ************************************************************************** //
 
-#ifndef LATTICE1DIFPARAMETERS_H_
-#define LATTICE1DIFPARAMETERS_H_
+#ifndef LATTICE1DPARAMETERS_H_
+#define LATTICE1DPARAMETERS_H_
 
 #include "IParameterized.h"
 
-//! @class Lattice1DIFParameters
+//! @class Lattice1DParameters
 //! @ingroup samples
 //! @brief Additional parameters for 1D lattice
 
-class BA_CORE_API_ Lattice1DIFParameters
+class BA_CORE_API_ Lattice1DParameters
 {
 public:
-    Lattice1DIFParameters() : m_length(0), m_xi(0) { }
+    Lattice1DParameters() : m_length(0), m_xi(0) { }
 
     double m_length;
     double m_xi;
 };
 
-#endif /* LATTICE1DIFPARAMETERS_H_ */
-
-
+#endif /* LATTICE1DPARAMETERS_H_ */

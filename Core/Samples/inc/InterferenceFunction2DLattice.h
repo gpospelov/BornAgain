@@ -17,7 +17,7 @@
 #define INTERFERENCEFUNCTION2DLATTICE_H_
 
 #include "IInterferenceFunction.h"
-#include "Lattice2DIFParameters.h"
+#include "Lattice2DParameters.h"
 #include "FTDistributions.h"
 
 //! @class InterferenceFunction2DLattice
@@ -49,7 +49,7 @@ public:
 
     virtual double evaluate(const kvector_t& q) const;
 
-    Lattice2DIFParameters getLatticeParameters() const;
+    Lattice2DParameters getLatticeParameters() const;
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
@@ -68,12 +68,12 @@ protected:
     void calculateReciprocalVectorFraction(double qx, double qy,
             double& qx_frac, double& qy_frac) const;
 
-    Lattice2DIFParameters m_lattice_params;
+    Lattice2DParameters m_lattice_params;
     IFTDistribution2D *mp_pdf;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
 
 private:
-    InterferenceFunction2DLattice(const Lattice2DIFParameters& lattice_params);
+    InterferenceFunction2DLattice(const Lattice2DParameters& lattice_params);
 
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();

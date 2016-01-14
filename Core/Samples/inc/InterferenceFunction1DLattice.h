@@ -17,7 +17,7 @@
 #define INTERFERENCEFUNCTION1DLATTICE_H_
 
 #include "IInterferenceFunction.h"
-#include "Lattice1DIFParameters.h"
+#include "Lattice1DParameters.h"
 #include "FTDistributions.h"
 
 //! @class InterferenceFunction1DLattice
@@ -41,7 +41,7 @@ public:
 
     void setProbabilityDistribution(const IFTDistribution1D& pdf);
 
-    Lattice1DIFParameters getLatticeParameters() const {return m_lattice_params; }
+    Lattice1DParameters getLatticeParameters() const {return m_lattice_params; }
 
     const IFTDistribution1D *getProbabilityDistribution() const { return mp_pdf; }
 
@@ -49,11 +49,11 @@ public:
 
 protected:
 
-    Lattice1DIFParameters m_lattice_params;
+    Lattice1DParameters m_lattice_params;
     IFTDistribution1D *mp_pdf;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
 private:
-    InterferenceFunction1DLattice(const Lattice1DIFParameters& lattice_params);
+    InterferenceFunction1DLattice(const Lattice1DParameters& lattice_params);
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 

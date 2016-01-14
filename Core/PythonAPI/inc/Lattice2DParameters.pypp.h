@@ -15,9 +15,9 @@
 //
 // ************************************************************************** //
 
-#ifndef Lattice1DIFParameters_hpp__pyplusplus_wrapper
-#define Lattice1DIFParameters_hpp__pyplusplus_wrapper
+#ifndef Lattice2DParameters_hpp__pyplusplus_wrapper
+#define Lattice2DParameters_hpp__pyplusplus_wrapper
 
-void register_Lattice1DIFParameters_class();
+void register_Lattice2DParameters_class();
 
-#endif//Lattice1DIFParameters_hpp__pyplusplus_wrapper
+#endif//Lattice2DParameters_hpp__pyplusplus_wrapper

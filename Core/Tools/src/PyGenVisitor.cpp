@@ -912,32 +912,32 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
         else if (const InterferenceFunction2DParaCrystal *twoDParaCrystal
                  = dynamic_cast<const InterferenceFunction2DParaCrystal *>(interference)) {
             std::vector<double> domainSize = twoDParaCrystal->getDomainSizes();
-            if (PyGenTools::isSquare(twoDParaCrystal->getLatticeLengths()[0],
-                                     twoDParaCrystal->getLatticeLengths()[1],
-                                     twoDParaCrystal->getAlphaLattice())) {
+            if (PyGenTools::isSquare(twoDParaCrystal->getLatticeParameters().m_length_1,
+                                     twoDParaCrystal->getLatticeParameters().m_length_2,
+                                     twoDParaCrystal->getLatticeParameters().m_angle)) {
                 result << indent() << it->second
                        << " = InterferenceFunction2DParaCrystal.createSquare("
-                       << twoDParaCrystal->getLatticeLengths()[0] << "*nanometer, "
+                       << twoDParaCrystal->getLatticeParameters().m_length_1 << "*nanometer, "
                        << twoDParaCrystal->getDampingLength() << "*nanometer, " << domainSize[0]
                        << "*nanometer, " << domainSize[1] << "*nanometer)\n";
             }
 
-            else if (PyGenTools::isHexagonal(twoDParaCrystal->getLatticeLengths()[0],
-                                             twoDParaCrystal->getLatticeLengths()[1],
-                                             twoDParaCrystal->getAlphaLattice())) {
+            else if (PyGenTools::isHexagonal(twoDParaCrystal->getLatticeParameters().m_length_1,
+                                             twoDParaCrystal->getLatticeParameters().m_length_2,
+                                             twoDParaCrystal->getLatticeParameters().m_angle)) {
                 result << indent() << it->second
                        << " = InterferenceFunction2DParaCrystal.createHexagonal("
-                       << twoDParaCrystal->getLatticeLengths()[0] << "*nanometer, "
+                       << twoDParaCrystal->getLatticeParameters().m_length_1 << "*nanometer, "
                        << twoDParaCrystal->getDampingLength() << "*nanometer, " << domainSize[0]
                        << "*nanometer, " << domainSize[1] << "*nanometer)\n";
             }
 
             else {
                 result << indent() << it->second << " = InterferenceFunction2DParaCrystal("
-                       << twoDParaCrystal->getLatticeLengths()[0] << "*nanometer, "
-                       << twoDParaCrystal->getLatticeLengths()[1] << "*nanometer, "
-                       << PyGenTools::printDegrees(twoDParaCrystal->getAlphaLattice()) << ", "
-                       << PyGenTools::printDegrees(twoDParaCrystal->getLatticeOrientation()) << ", "
+                       << twoDParaCrystal->getLatticeParameters().m_length_1 << "*nanometer, "
+                       << twoDParaCrystal->getLatticeParameters().m_length_2 << "*nanometer, "
+                       << PyGenTools::printDegrees(twoDParaCrystal->getLatticeParameters().m_angle) << ", "
+                       << PyGenTools::printDegrees(twoDParaCrystal->getLatticeParameters().m_xi) << ", "
                        << twoDParaCrystal->getDampingLength() << "*nanometer)\n";
 
                 if (domainSize[0] != 0 || domainSize[1] != 0) {

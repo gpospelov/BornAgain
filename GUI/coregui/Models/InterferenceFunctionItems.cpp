@@ -29,7 +29,6 @@ const QString InterferenceFunctionRadialParaCrystalItem::P_KAPPA =
         QString::fromStdString(BornAgain::SizeSpaceCoupling);
 const QString InterferenceFunctionRadialParaCrystalItem::P_PDF = "PDF";
 
-const QString InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE = "Lattice_type";
 const QString InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE =
         QString::fromStdString(BornAgain::Xi);
 const QString InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH =
@@ -69,7 +68,8 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
         ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::InterferenceFunction2DParaCrystalType, parent)
 {
-    registerGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup);
+    registerGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
+                          Constants::LatticeGroup);
     registerProperty(P_DAMPING_LENGTH, 0.0);
     registerProperty(P_DOMAIN_SIZE1, 20.0*Units::micrometer);
     registerProperty(P_DOMAIN_SIZE2, 20.0*Units::micrometer);

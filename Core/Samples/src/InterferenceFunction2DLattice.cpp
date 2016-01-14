@@ -118,6 +118,20 @@ Lattice2DIFParameters InterferenceFunction2DLattice::getLatticeParameters() cons
     return m_lattice_params;
 }
 
+std::string InterferenceFunction2DLattice::addParametersToExternalPool(
+        std::string path, ParameterPool *external_pool, int copy_number) const
+{
+    // add own parameters
+    std::string  new_path = IParameterized::addParametersToExternalPool(
+            path, external_pool, copy_number);
+
+    // add parameters of the probability density function
+    if (mp_pdf) {
+        mp_pdf->addParametersToExternalPool(new_path, external_pool, 0);
+    }
+    return new_path;
+}
+
 double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx, double qy) const
 {
     if (!mp_pdf) {

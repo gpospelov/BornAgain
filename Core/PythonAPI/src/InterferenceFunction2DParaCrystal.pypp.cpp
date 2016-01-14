@@ -211,15 +211,6 @@ void register_InterferenceFunction2DParaCrystal_class(){
                 , ( bp::arg("q") ) );
         
         }
-        { //::InterferenceFunction2DParaCrystal::getAlphaLattice
-        
-            typedef double ( ::InterferenceFunction2DParaCrystal::*getAlphaLattice_function_type)(  ) const;
-            
-            InterferenceFunction2DParaCrystal_exposer.def( 
-                "getAlphaLattice"
-                , getAlphaLattice_function_type( &::InterferenceFunction2DParaCrystal::getAlphaLattice ) );
-        
-        }
         { //::InterferenceFunction2DParaCrystal::getDampingLength
         
             typedef double ( ::InterferenceFunction2DParaCrystal::*getDampingLength_function_type)(  ) const;
@@ -247,22 +238,13 @@ void register_InterferenceFunction2DParaCrystal_class(){
                 , getIntegrationOverXi_function_type( &::InterferenceFunction2DParaCrystal::getIntegrationOverXi ) );
         
         }
-        { //::InterferenceFunction2DParaCrystal::getLatticeLengths
+        { //::InterferenceFunction2DParaCrystal::getLatticeParameters
         
-            typedef ::std::vector< double > ( ::InterferenceFunction2DParaCrystal::*getLatticeLengths_function_type)(  ) const;
+            typedef ::Lattice2DIFParameters ( ::InterferenceFunction2DParaCrystal::*getLatticeParameters_function_type)(  ) const;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
-                "getLatticeLengths"
-                , getLatticeLengths_function_type( &::InterferenceFunction2DParaCrystal::getLatticeLengths ) );
-        
-        }
-        { //::InterferenceFunction2DParaCrystal::getLatticeOrientation
-        
-            typedef double ( ::InterferenceFunction2DParaCrystal::*getLatticeOrientation_function_type)(  ) const;
-            
-            InterferenceFunction2DParaCrystal_exposer.def( 
-                "getLatticeOrientation"
-                , getLatticeOrientation_function_type( &::InterferenceFunction2DParaCrystal::getLatticeOrientation ) );
+                "getLatticeParameters"
+                , getLatticeParameters_function_type( &::InterferenceFunction2DParaCrystal::getLatticeParameters ) );
         
         }
         { //::InterferenceFunction2DParaCrystal::setDomainSizes

@@ -37,7 +37,6 @@ class BA_CORE_API_ InterferenceFunction2DParaCrystalItem : public ParameterizedG
 {
     Q_OBJECT
 public:
-    static const QString P_LATTICE_TYPE;
     static const QString P_ROTATION_ANGLE;
     static const QString P_DAMPING_LENGTH;
     static const QString P_DOMAIN_SIZE1;

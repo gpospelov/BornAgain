@@ -185,7 +185,7 @@ TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
         P_result = std::move(P_iff);
     } else if (item.modelType() == Constants::InterferenceFunction2DParaCrystalType) {
         auto latticeItem
-                = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE];
+                = item.getSubItems()[InterferenceFunction2DLatticeItem::P_LATTICE_TYPE];
         Q_ASSERT(latticeItem);
         double length_1 {0.0}, length_2 {0.0}, alpha_lattice {0.0};
         if (latticeItem->modelType() == Constants::BasicLatticeType) {

@@ -17,6 +17,7 @@
 #define INTERFERENCEFUNCTION2DPARACRYSTAL_H_
 
 #include "IInterferenceFunction.h"
+#include "Lattice2DIFParameters.h"
 #include "FTDistributions.h"
 #include <iostream>
 
@@ -64,18 +65,16 @@ public:
     void setProbabilityDistributions(const IFTDistribution2D &pdf_1,
                                      const IFTDistribution2D &pdf_2);
 
-    void setIntegrationOverXi(bool integrate_xi)
-    { m_integrate_xi = integrate_xi; }
+    void setIntegrationOverXi(bool integrate_xi);
 
     virtual double evaluate(const kvector_t& q) const;
 
-    std::vector<double> getLatticeLengths() const;
-    double getAlphaLattice() const;
-    double getLatticeOrientation() const;
     std::vector<double> getDomainSizes() const;
     std::vector<const IFTDistribution2D *> getProbabilityDistributions() const;
     bool getIntegrationOverXi() const;
     double getDampingLength() const;
+
+    Lattice2DIFParameters getLatticeParameters() const;
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
@@ -88,16 +87,14 @@ protected:
     void transformToPrincipalAxes(double qx, double qy, double gamma, double delta, double &q_pa_1,
                                   double &q_pa_2) const;
 
-    double m_lattice_lengths[2]; //!< the size of unit cell
-    double m_alpha_lattice; //!< Angle between lattice basis vectors
-    double m_xi; //!< Orientation of the lattice wrt beam axis x
+    Lattice2DIFParameters m_lattice_params; //!< Lattice parameters
     bool m_integrate_xi; //!< Integrate over the orientation xi
     IFTDistribution2D *m_pdfs[2];
     double m_damping_length; //!< Damping length for removing delta function singularity at q=0.
     bool m_use_damping_length; //!< Flag that determines if the damping length should be used.
     double m_domain_sizes[2]; //!< Coherence domain sizes
-private:
 
+private:
     //! Returns interference function for fixed angle xi.
     double interferenceForXi(double xi, void *params) const;
 
@@ -110,14 +107,9 @@ private:
     mutable double m_qy;
 };
 
-inline double InterferenceFunction2DParaCrystal::getAlphaLattice() const
+inline void InterferenceFunction2DParaCrystal::setIntegrationOverXi(bool integrate_xi)
 {
-    return m_alpha_lattice;
-}
-
-inline double InterferenceFunction2DParaCrystal::getLatticeOrientation() const
-{
-    return m_xi;
+    m_integrate_xi = integrate_xi;
 }
 
 inline bool InterferenceFunction2DParaCrystal::getIntegrationOverXi() const
@@ -131,5 +123,3 @@ inline double InterferenceFunction2DParaCrystal::getDampingLength() const
 }
 
 #endif /* INTERFERENCEFUNCTION2DPARACRYSTAL_H_ */
-
-

@@ -35,10 +35,8 @@ public:
     virtual void accept(ISampleVisitor *visitor) const;
 
     double getHeight() const;
-    void setHeight(double height);
 
     double getLength() const;
-    void setLength(double length);
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -57,19 +55,9 @@ inline double FormFactorPrism3::getHeight() const
     return m_height;
 }
 
-inline void FormFactorPrism3::setHeight(double height)
-{
-    m_height = height;
-}
-
 inline double FormFactorPrism3::getLength() const
 {
     return m_length;
-}
-
-inline void FormFactorPrism3::setLength(double length)
-{
-    m_length = length;
 }
 
 #endif /* FORMFACTORPRISM3_H_ */

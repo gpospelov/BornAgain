@@ -252,36 +252,6 @@ void register_FormFactorPyramid_class(){
                 , getLength_function_type( &::FormFactorPyramid::getLength ) );
         
         }
-        { //::FormFactorPyramid::setAlpha
-        
-            typedef void ( ::FormFactorPyramid::*setAlpha_function_type)( double ) ;
-            
-            FormFactorPyramid_exposer.def( 
-                "setAlpha"
-                , setAlpha_function_type( &::FormFactorPyramid::setAlpha )
-                , ( bp::arg("alpha") ) );
-        
-        }
-        { //::FormFactorPyramid::setHeight
-        
-            typedef void ( ::FormFactorPyramid::*setHeight_function_type)( double ) ;
-            
-            FormFactorPyramid_exposer.def( 
-                "setHeight"
-                , setHeight_function_type( &::FormFactorPyramid::setHeight )
-                , ( bp::arg("height") ) );
-        
-        }
-        { //::FormFactorPyramid::setLength
-        
-            typedef void ( ::FormFactorPyramid::*setLength_function_type)( double ) ;
-            
-            FormFactorPyramid_exposer.def( 
-                "setLength"
-                , setLength_function_type( &::FormFactorPyramid::setLength )
-                , ( bp::arg("length") ) );
-        
-        }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;

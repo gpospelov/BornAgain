@@ -38,13 +38,10 @@ public:
     virtual void accept(ISampleVisitor *visitor) const;
 
     double getHeight() const;
-    void setHeight(double height);
 
     virtual double getRadius() const;
-    void setRadius(double radius);
 
     double getAlpha() const;
-    void setAlpha(double alpha);
 
     virtual complex_t evaluate_for_q (const cvector_t& q) const;
 
@@ -74,29 +71,14 @@ inline double FormFactorCone::getHeight() const
     return m_height;
 }
 
-inline void FormFactorCone::setHeight(double height)
-{
-    m_height = height;
-}
-
 inline double FormFactorCone::getRadius() const
 {
     return m_radius;
 }
 
-inline void FormFactorCone::setRadius(double radius)
-{
-    m_radius = radius;
-}
-
 inline double FormFactorCone::getAlpha() const
 {
     return m_alpha;
-}
-
-inline void FormFactorCone::setAlpha(double alpha)
-{
-    m_alpha = alpha;
 }
 
 #endif // FORMFACTORCONE_H

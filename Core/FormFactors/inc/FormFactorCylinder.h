@@ -35,10 +35,8 @@ public:
     virtual void accept(ISampleVisitor *visitor) const;
 
     double getHeight() const;
-    void setHeight(double height);
 
     virtual double getRadius() const;
-    void setRadius(double radius);
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -56,19 +54,9 @@ inline double FormFactorCylinder::getHeight() const
     return m_height;
 }
 
-inline void FormFactorCylinder::setHeight(double height)
-{
-    m_height = height;
-}
-
 inline double FormFactorCylinder::getRadius() const
 {
     return m_radius;
-}
-
-inline void FormFactorCylinder::setRadius(double radius)
-{
-    m_radius = radius;
 }
 
 #endif // FORMFACTORCYLINDER_H

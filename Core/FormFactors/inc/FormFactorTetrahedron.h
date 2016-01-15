@@ -38,13 +38,10 @@ public:
     virtual void accept(ISampleVisitor *visitor) const;
 
     double getHeight() const;
-    void setHeight(double height);
 
     double getLength() const;
-    void setLength(double length);
 
     double getAlpha() const;
-    void setAlpha(double alpha);
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -70,29 +67,14 @@ inline double FormFactorTetrahedron::getHeight() const
     return m_height;
 }
 
-inline void FormFactorTetrahedron::setHeight(double height)
-{
-    m_height = height;
-}
-
 inline double FormFactorTetrahedron::getLength() const
 {
     return m_length;
 }
 
-inline void FormFactorTetrahedron::setLength(double length)
-{
-    m_length = length;
-}
-
 inline double FormFactorTetrahedron::getAlpha() const
 {
     return m_alpha;
-}
-
-inline void FormFactorTetrahedron::setAlpha(double alpha)
-{
-    m_alpha = alpha;
 }
 
 #endif // FORMFACTORTETRAHEDRON_H

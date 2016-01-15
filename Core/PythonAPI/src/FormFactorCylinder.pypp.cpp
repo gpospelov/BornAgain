@@ -245,26 +245,6 @@ void register_FormFactorCylinder_class(){
                 , default_getRadius_function_type(&FormFactorCylinder_wrapper::default_getRadius) );
         
         }
-        { //::FormFactorCylinder::setHeight
-        
-            typedef void ( ::FormFactorCylinder::*setHeight_function_type)( double ) ;
-            
-            FormFactorCylinder_exposer.def( 
-                "setHeight"
-                , setHeight_function_type( &::FormFactorCylinder::setHeight )
-                , ( bp::arg("height") ) );
-        
-        }
-        { //::FormFactorCylinder::setRadius
-        
-            typedef void ( ::FormFactorCylinder::*setRadius_function_type)( double ) ;
-            
-            FormFactorCylinder_exposer.def( 
-                "setRadius"
-                , setRadius_function_type( &::FormFactorCylinder::setRadius )
-                , ( bp::arg("radius") ) );
-        
-        }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;

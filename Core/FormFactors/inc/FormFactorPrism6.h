@@ -34,10 +34,8 @@ public:
     virtual void accept(ISampleVisitor *visitor) const;
 
     double getHeight() const;
-    void setHeight(double height);
 
     virtual double getRadius() const;
-    void setRadius(double radius);
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -56,19 +54,9 @@ inline double FormFactorPrism6::getHeight() const
     return m_height;
 }
 
-inline void FormFactorPrism6::setHeight(double height)
-{
-    m_height = height;
-}
-
 inline double FormFactorPrism6::getRadius() const
 {
     return m_radius;
-}
-
-inline void FormFactorPrism6::setRadius(double radius)
-{
-    m_radius = radius;
 }
 
 #endif // FORMFACTORPRISM6_H

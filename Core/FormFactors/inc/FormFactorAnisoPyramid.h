@@ -39,16 +39,12 @@ public:
     virtual void accept(ISampleVisitor *visitor) const;
 
     double getHeight() const;
-    void setHeight(double height);
 
     double getLength() const;
-    void setLength(double length);
 
     double getWidth() const;
-    void setWidth(double width);
 
     double getAlpha() const;
-    void setAlpha(double alpha);
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -73,19 +69,9 @@ inline double FormFactorAnisoPyramid::getHeight() const
     return m_height;
 }
 
-inline void FormFactorAnisoPyramid::setHeight(double height)
-{
-    m_height = height;
-}
-
 inline double FormFactorAnisoPyramid::getLength() const
 {
     return m_length;
-}
-
-inline void FormFactorAnisoPyramid::setLength(double length)
-{
-    m_length = length;
 }
 
 inline double FormFactorAnisoPyramid::getWidth() const
@@ -93,20 +79,9 @@ inline double FormFactorAnisoPyramid::getWidth() const
     return m_width;
 }
 
-inline void FormFactorAnisoPyramid::setWidth(double width)
-{
-    m_width = width;
-}
-
 inline double FormFactorAnisoPyramid::getAlpha() const
 {
     return m_alpha;
 }
-
-inline void FormFactorAnisoPyramid::setAlpha(double alpha)
-{
-    m_alpha = alpha;
-}
-
 
 #endif // FORMFACTORANISOPYRAMID_H

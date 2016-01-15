@@ -261,46 +261,6 @@ void register_FormFactorAnisoPyramid_class(){
                 , getWidth_function_type( &::FormFactorAnisoPyramid::getWidth ) );
         
         }
-        { //::FormFactorAnisoPyramid::setAlpha
-        
-            typedef void ( ::FormFactorAnisoPyramid::*setAlpha_function_type)( double ) ;
-            
-            FormFactorAnisoPyramid_exposer.def( 
-                "setAlpha"
-                , setAlpha_function_type( &::FormFactorAnisoPyramid::setAlpha )
-                , ( bp::arg("alpha") ) );
-        
-        }
-        { //::FormFactorAnisoPyramid::setHeight
-        
-            typedef void ( ::FormFactorAnisoPyramid::*setHeight_function_type)( double ) ;
-            
-            FormFactorAnisoPyramid_exposer.def( 
-                "setHeight"
-                , setHeight_function_type( &::FormFactorAnisoPyramid::setHeight )
-                , ( bp::arg("height") ) );
-        
-        }
-        { //::FormFactorAnisoPyramid::setLength
-        
-            typedef void ( ::FormFactorAnisoPyramid::*setLength_function_type)( double ) ;
-            
-            FormFactorAnisoPyramid_exposer.def( 
-                "setLength"
-                , setLength_function_type( &::FormFactorAnisoPyramid::setLength )
-                , ( bp::arg("length") ) );
-        
-        }
-        { //::FormFactorAnisoPyramid::setWidth
-        
-            typedef void ( ::FormFactorAnisoPyramid::*setWidth_function_type)( double ) ;
-            
-            FormFactorAnisoPyramid_exposer.def( 
-                "setWidth"
-                , setWidth_function_type( &::FormFactorAnisoPyramid::setWidth )
-                , ( bp::arg("width") ) );
-        
-        }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;

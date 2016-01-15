@@ -254,36 +254,6 @@ void register_FormFactorCone6_class(){
                 , default_getRadius_function_type(&FormFactorCone6_wrapper::default_getRadius) );
         
         }
-        { //::FormFactorCone6::setAlpha
-        
-            typedef void ( ::FormFactorCone6::*setAlpha_function_type)( double ) ;
-            
-            FormFactorCone6_exposer.def( 
-                "setAlpha"
-                , setAlpha_function_type( &::FormFactorCone6::setAlpha )
-                , ( bp::arg("alpha") ) );
-        
-        }
-        { //::FormFactorCone6::setHeight
-        
-            typedef void ( ::FormFactorCone6::*setHeight_function_type)( double ) ;
-            
-            FormFactorCone6_exposer.def( 
-                "setHeight"
-                , setHeight_function_type( &::FormFactorCone6::setHeight )
-                , ( bp::arg("height") ) );
-        
-        }
-        { //::FormFactorCone6::setRadius
-        
-            typedef void ( ::FormFactorCone6::*setRadius_function_type)( double ) ;
-            
-            FormFactorCone6_exposer.def( 
-                "setRadius"
-                , setRadius_function_type( &::FormFactorCone6::setRadius )
-                , ( bp::arg("radius") ) );
-        
-        }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;

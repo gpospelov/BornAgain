@@ -47,54 +47,6 @@ struct FormFactorTruncatedCube_wrapper : FormFactorTruncatedCube, bp::wrapper< F
         return FormFactorTruncatedCube::clone( );
     }
 
-    virtual double getLength(  ) const  {
-        if( bp::override func_getLength = this->get_override( "getLength" ) )
-            return func_getLength(  );
-        else{
-            return this->FormFactorTruncatedCube::getLength(  );
-        }
-    }
-    
-    double default_getLength(  ) const  {
-        return FormFactorTruncatedCube::getLength( );
-    }
-
-    virtual double getRemovedLength(  ) const  {
-        if( bp::override func_getRemovedLength = this->get_override( "getRemovedLength" ) )
-            return func_getRemovedLength(  );
-        else{
-            return this->FormFactorTruncatedCube::getRemovedLength(  );
-        }
-    }
-    
-    double default_getRemovedLength(  ) const  {
-        return FormFactorTruncatedCube::getRemovedLength( );
-    }
-
-    virtual void setLength( double length ) {
-        if( bp::override func_setLength = this->get_override( "setLength" ) )
-            func_setLength( length );
-        else{
-            this->FormFactorTruncatedCube::setLength( length );
-        }
-    }
-    
-    void default_setLength( double length ) {
-        FormFactorTruncatedCube::setLength( length );
-    }
-
-    virtual void setRemovedLength( double removed_length ) {
-        if( bp::override func_setRemovedLength = this->get_override( "setRemovedLength" ) )
-            func_setRemovedLength( removed_length );
-        else{
-            this->FormFactorTruncatedCube::setRemovedLength( removed_length );
-        }
-    }
-    
-    void default_setRemovedLength( double removed_length ) {
-        FormFactorTruncatedCube::setRemovedLength( removed_length );
-    }
-
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -252,47 +204,19 @@ void register_FormFactorTruncatedCube_class(){
         { //::FormFactorTruncatedCube::getLength
         
             typedef double ( ::FormFactorTruncatedCube::*getLength_function_type)(  ) const;
-            typedef double ( FormFactorTruncatedCube_wrapper::*default_getLength_function_type)(  ) const;
             
             FormFactorTruncatedCube_exposer.def( 
                 "getLength"
-                , getLength_function_type(&::FormFactorTruncatedCube::getLength)
-                , default_getLength_function_type(&FormFactorTruncatedCube_wrapper::default_getLength) );
+                , getLength_function_type( &::FormFactorTruncatedCube::getLength ) );
         
         }
         { //::FormFactorTruncatedCube::getRemovedLength
         
             typedef double ( ::FormFactorTruncatedCube::*getRemovedLength_function_type)(  ) const;
-            typedef double ( FormFactorTruncatedCube_wrapper::*default_getRemovedLength_function_type)(  ) const;
             
             FormFactorTruncatedCube_exposer.def( 
                 "getRemovedLength"
-                , getRemovedLength_function_type(&::FormFactorTruncatedCube::getRemovedLength)
-                , default_getRemovedLength_function_type(&FormFactorTruncatedCube_wrapper::default_getRemovedLength) );
-        
-        }
-        { //::FormFactorTruncatedCube::setLength
-        
-            typedef void ( ::FormFactorTruncatedCube::*setLength_function_type)( double ) ;
-            typedef void ( FormFactorTruncatedCube_wrapper::*default_setLength_function_type)( double ) ;
-            
-            FormFactorTruncatedCube_exposer.def( 
-                "setLength"
-                , setLength_function_type(&::FormFactorTruncatedCube::setLength)
-                , default_setLength_function_type(&FormFactorTruncatedCube_wrapper::default_setLength)
-                , ( bp::arg("length") ) );
-        
-        }
-        { //::FormFactorTruncatedCube::setRemovedLength
-        
-            typedef void ( ::FormFactorTruncatedCube::*setRemovedLength_function_type)( double ) ;
-            typedef void ( FormFactorTruncatedCube_wrapper::*default_setRemovedLength_function_type)( double ) ;
-            
-            FormFactorTruncatedCube_exposer.def( 
-                "setRemovedLength"
-                , setRemovedLength_function_type(&::FormFactorTruncatedCube::setRemovedLength)
-                , default_setRemovedLength_function_type(&FormFactorTruncatedCube_wrapper::default_setRemovedLength)
-                , ( bp::arg("removed_length") ) );
+                , getRemovedLength_function_type( &::FormFactorTruncatedCube::getRemovedLength ) );
         
         }
         { //::ISample::cloneInvertB

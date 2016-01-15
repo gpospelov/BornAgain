@@ -243,26 +243,6 @@ void register_FormFactorPrism3_class(){
                 , getLength_function_type( &::FormFactorPrism3::getLength ) );
         
         }
-        { //::FormFactorPrism3::setHeight
-        
-            typedef void ( ::FormFactorPrism3::*setHeight_function_type)( double ) ;
-            
-            FormFactorPrism3_exposer.def( 
-                "setHeight"
-                , setHeight_function_type( &::FormFactorPrism3::setHeight )
-                , ( bp::arg("height") ) );
-        
-        }
-        { //::FormFactorPrism3::setLength
-        
-            typedef void ( ::FormFactorPrism3::*setLength_function_type)( double ) ;
-            
-            FormFactorPrism3_exposer.def( 
-                "setLength"
-                , setLength_function_type( &::FormFactorPrism3::setLength )
-                , ( bp::arg("length") ) );
-        
-        }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;

@@ -236,17 +236,6 @@ void register_FormFactorFullSphere_class(){
                 , default_getRadius_function_type(&FormFactorFullSphere_wrapper::default_getRadius) );
         
         }
-        { //::FormFactorFullSphere::setRadius
-        
-            typedef void ( ::FormFactorFullSphere::*setRadius_function_type)( double ) ;
-            
-            FormFactorFullSphere_exposer.def( 
-                "setRadius"
-                , setRadius_function_type( &::FormFactorFullSphere::setRadius )
-                , ( bp::arg("radius") )
-                , "Returns radius of sphere." );
-        
-        }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;

@@ -37,13 +37,10 @@ public:
     virtual void accept(ISampleVisitor *visitor) const;
 
     double getHeight() const;
-    void setHeight(double height);
 
     double getLength() const;
-    void setLength(double length);
 
     double getAlpha() const;
-    void setAlpha(double alpha);
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -65,29 +62,14 @@ inline double FormFactorPyramid::getHeight() const
     return m_height;
 }
 
-inline void FormFactorPyramid::setHeight(double height)
-{
-    m_height = height;
-}
-
 inline double FormFactorPyramid::getLength() const
 {
     return m_length;
 }
 
-inline void FormFactorPyramid::setLength(double length)
-{
-    m_length = length;
-}
-
 inline double FormFactorPyramid::getAlpha() const
 {
     return m_alpha;
-}
-
-inline void FormFactorPyramid::setAlpha(double alpha)
-{
-    m_alpha = alpha;
 }
 
 #endif // FORMFACTORPYRAMID_H

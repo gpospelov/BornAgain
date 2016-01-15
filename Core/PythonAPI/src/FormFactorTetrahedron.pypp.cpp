@@ -252,36 +252,6 @@ void register_FormFactorTetrahedron_class(){
                 , getLength_function_type( &::FormFactorTetrahedron::getLength ) );
         
         }
-        { //::FormFactorTetrahedron::setAlpha
-        
-            typedef void ( ::FormFactorTetrahedron::*setAlpha_function_type)( double ) ;
-            
-            FormFactorTetrahedron_exposer.def( 
-                "setAlpha"
-                , setAlpha_function_type( &::FormFactorTetrahedron::setAlpha )
-                , ( bp::arg("alpha") ) );
-        
-        }
-        { //::FormFactorTetrahedron::setHeight
-        
-            typedef void ( ::FormFactorTetrahedron::*setHeight_function_type)( double ) ;
-            
-            FormFactorTetrahedron_exposer.def( 
-                "setHeight"
-                , setHeight_function_type( &::FormFactorTetrahedron::setHeight )
-                , ( bp::arg("height") ) );
-        
-        }
-        { //::FormFactorTetrahedron::setLength
-        
-            typedef void ( ::FormFactorTetrahedron::*setLength_function_type)( double ) ;
-            
-            FormFactorTetrahedron_exposer.def( 
-                "setLength"
-                , setLength_function_type( &::FormFactorTetrahedron::setLength )
-                , ( bp::arg("length") ) );
-        
-        }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;

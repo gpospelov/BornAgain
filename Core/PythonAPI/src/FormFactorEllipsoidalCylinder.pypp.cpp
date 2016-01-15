@@ -252,36 +252,6 @@ void register_FormFactorEllipsoidalCylinder_class(){
                 , getRadiusY_function_type( &::FormFactorEllipsoidalCylinder::getRadiusY ) );
         
         }
-        { //::FormFactorEllipsoidalCylinder::setHeight
-        
-            typedef void ( ::FormFactorEllipsoidalCylinder::*setHeight_function_type)( double ) ;
-            
-            FormFactorEllipsoidalCylinder_exposer.def( 
-                "setHeight"
-                , setHeight_function_type( &::FormFactorEllipsoidalCylinder::setHeight )
-                , ( bp::arg("height") ) );
-        
-        }
-        { //::FormFactorEllipsoidalCylinder::setRadiusX
-        
-            typedef void ( ::FormFactorEllipsoidalCylinder::*setRadiusX_function_type)( double ) ;
-            
-            FormFactorEllipsoidalCylinder_exposer.def( 
-                "setRadiusX"
-                , setRadiusX_function_type( &::FormFactorEllipsoidalCylinder::setRadiusX )
-                , ( bp::arg("radius_x") ) );
-        
-        }
-        { //::FormFactorEllipsoidalCylinder::setRadiusY
-        
-            typedef void ( ::FormFactorEllipsoidalCylinder::*setRadiusY_function_type)( double ) ;
-            
-            FormFactorEllipsoidalCylinder_exposer.def( 
-                "setRadiusY"
-                , setRadiusY_function_type( &::FormFactorEllipsoidalCylinder::setRadiusY )
-                , ( bp::arg("radius_y") ) );
-        
-        }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;

@@ -245,26 +245,6 @@ void register_FormFactorPrism6_class(){
                 , default_getRadius_function_type(&FormFactorPrism6_wrapper::default_getRadius) );
         
         }
-        { //::FormFactorPrism6::setHeight
-        
-            typedef void ( ::FormFactorPrism6::*setHeight_function_type)( double ) ;
-            
-            FormFactorPrism6_exposer.def( 
-                "setHeight"
-                , setHeight_function_type( &::FormFactorPrism6::setHeight )
-                , ( bp::arg("height") ) );
-        
-        }
-        { //::FormFactorPrism6::setRadius
-        
-            typedef void ( ::FormFactorPrism6::*setRadius_function_type)( double ) ;
-            
-            FormFactorPrism6_exposer.def( 
-                "setRadius"
-                , setRadius_function_type( &::FormFactorPrism6::setRadius )
-                , ( bp::arg("radius") ) );
-        
-        }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;

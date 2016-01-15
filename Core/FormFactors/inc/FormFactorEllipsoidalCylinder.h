@@ -36,13 +36,10 @@ public:
     virtual void accept(ISampleVisitor *visitor) const;
 
     double getRadiusX() const;
-    void setRadiusX(double radius_x);
 
     double getRadiusY() const;
-    void setRadiusY(double radius_y);
 
     double getHeight() const;
-    void setHeight(double height);
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -62,29 +59,14 @@ inline double FormFactorEllipsoidalCylinder::getRadiusX() const
     return m_radius_x;
 }
 
-inline void FormFactorEllipsoidalCylinder::setRadiusX(double radius_x)
-{
-    m_radius_x = radius_x;
-}
-
 inline double FormFactorEllipsoidalCylinder::getRadiusY() const
 {
     return m_radius_y;
 }
 
-inline void FormFactorEllipsoidalCylinder::setRadiusY(double radius_y)
-{
-    m_radius_y = radius_y;
-}
-
 inline double FormFactorEllipsoidalCylinder::getHeight() const
 {
     return m_height;
-}
-
-inline void FormFactorEllipsoidalCylinder::setHeight(double height)
-{
-    m_height = height;
 }
 
 #endif // FORMFACTORELLIPSOIDALCYLINDER_H

@@ -36,5 +36,6 @@
         <file>images/ParticleComposition.png</file>
         <file>images/SizeDistribution.png</file>
         <file>images/ff_trunccube_32.png</file>
+        <file>images/Lattice1D.png</file>
     </qresource>
 </RCC>

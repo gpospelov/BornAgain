@@ -34,12 +34,12 @@ class BA_CORE_API_ PythonScriptWidget : public QDialog
 
 public:
     PythonScriptWidget(QWidget *parent = 0, ProjectManager *projectManager = 0);
-    ~PythonScriptWidget();
+    virtual ~PythonScriptWidget();
 
     void generatePythonScript(SampleModel *sampleModel, InstrumentModel *instrumentModel);
 
 protected:
-    void resizeEvent(QResizeEvent *event);
+    virtual void resizeEvent(QResizeEvent *event);
 
 private slots:
     void onExportToFileButton();
@@ -53,6 +53,5 @@ private:
     WarningSignWidget *m_warningSign;
     ProjectManager *m_projectManager;
 };
-
 
 #endif

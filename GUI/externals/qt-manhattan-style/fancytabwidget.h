@@ -79,20 +79,20 @@ class FancyTabBar : public QWidget
 
 public:
     FancyTabBar(QWidget *parent = 0);
-    ~FancyTabBar();
+    virtual ~FancyTabBar();
 
     bool event(QEvent *event);
 
-    void paintEvent(QPaintEvent *event);
+    virtual void paintEvent(QPaintEvent *event);
     void paintTab(QPainter *painter, int tabIndex) const;
-    void mousePressEvent(QMouseEvent *);
-    void mouseMoveEvent(QMouseEvent *);
-    void enterEvent(QEvent *);
-    void leaveEvent(QEvent *);
+    virtual void mousePressEvent(QMouseEvent *);
+    virtual void mouseMoveEvent(QMouseEvent *);
+    virtual void enterEvent(QEvent *);
+    virtual void leaveEvent(QEvent *);
     bool validIndex(int index) const { return index >= 0 && index < m_tabs.count(); }
 
-    QSize sizeHint() const;
-    QSize minimumSizeHint() const;
+    virtual QSize sizeHint() const;
+    virtual QSize minimumSizeHint() const;
 
     void setTabEnabled(int index, bool enable);
     bool isTabEnabled(int index) const;

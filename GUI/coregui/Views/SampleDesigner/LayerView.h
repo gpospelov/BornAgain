@@ -18,7 +18,6 @@
 
 #include "ILayerView.h"
 
-
 //! Class that represents view of Layer
 class BA_CORE_API_ LayerView : public ILayerView
 {
@@ -27,18 +26,13 @@ public:
     enum { TYPE = DesignerHelper::LAYER };
 
     LayerView(QGraphicsItem *parent = 0);
-    ~LayerView() { }
+    virtual ~LayerView() { }
 
-    int type() const { return TYPE; }
+    virtual int type() const { return TYPE; }
 
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-    void addView(IView *childView, int row = 0); // to add ParticleLayout
-
-protected:
-//    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
-
+    virtual void addView(IView *childView, int row = 0); // to add ParticleLayout
 };
-
 
 #endif // LAYERVIEW_H

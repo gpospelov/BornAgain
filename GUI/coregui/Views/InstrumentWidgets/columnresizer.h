@@ -25,7 +25,7 @@ class ColumnResizer : public QObject
     Q_OBJECT
 public:
     ColumnResizer(QObject* parent = 0);
-    ~ColumnResizer();
+    virtual ~ColumnResizer();
 
     void addWidget(QWidget* widget);
     void addWidgetsFromLayout(QLayout*, int column);
@@ -36,7 +36,7 @@ private slots:
     void updateWidth();
 
 protected:
-    bool eventFilter(QObject*, QEvent* event);
+    virtual bool eventFilter(QObject*, QEvent* event);
 
 private:
     ColumnResizerPrivate* const d;

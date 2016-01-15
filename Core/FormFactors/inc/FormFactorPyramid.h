@@ -31,7 +31,7 @@ public:
     //! @param angle in radians between base and facet
     FormFactorPyramid(double length, double height, double alpha);
 
-    ~FormFactorPyramid() {}
+    virtual ~FormFactorPyramid() {}
     virtual FormFactorPyramid *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const;

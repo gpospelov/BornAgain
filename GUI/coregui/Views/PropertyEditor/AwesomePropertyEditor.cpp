@@ -41,13 +41,13 @@ public:
             : m_item(item), m_name(property_name) {}
         ParameterizedItem *m_item;
         QString m_name;
-        friend bool operator <(const ItemPropertyPair& left, const ItemPropertyPair& right)
+        friend bool operator<(const ItemPropertyPair& left, const ItemPropertyPair& right)
         {
             if(left.m_item == right.m_item)
                 return left.m_name < right.m_name;
             return left.m_item < right.m_item;
         }
-        friend bool operator == (const ItemPropertyPair& left, const ItemPropertyPair& right)
+        friend bool operator==(const ItemPropertyPair& left, const ItemPropertyPair& right)
         {
             return (left.m_item == right.m_item) && (left.m_name < right.m_name);
         }
@@ -55,7 +55,8 @@ public:
     };
 
     AwesomePropertyEditorPrivate(QWidget *parent, AwesomePropertyEditor::EBrowserType browser_type);
-    ~AwesomePropertyEditorPrivate() { delete m_propertyFactory; }
+    ~AwesomePropertyEditorPrivate();
+
     QtAbstractPropertyBrowser *m_browser;
     QtVariantPropertyManager  *m_manager;
     QtVariantPropertyManager  *m_read_only_manager;
@@ -97,6 +98,11 @@ AwesomePropertyEditorPrivate::AwesomePropertyEditorPrivate(QWidget *parent, Awes
 //    QtVariantEditorFactory *factory = new PropertyVariantFactory();
     m_browser->setFactoryForManager(m_manager, m_propertyFactory);
 
+}
+
+inline AwesomePropertyEditorPrivate::~AwesomePropertyEditorPrivate()
+{
+    delete m_propertyFactory;
 }
 
 

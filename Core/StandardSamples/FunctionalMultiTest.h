@@ -30,12 +30,12 @@ class BA_CORE_API_ FunctionalMultiTest : public IFunctionalTest
 {
 public:
     FunctionalMultiTest(const std::string &name, FunctionalTestComponentService *service);
-    ~FunctionalMultiTest();
+    virtual ~FunctionalMultiTest();
 
-    void runTest();
-    int analyseResults();
+    virtual void runTest();
+    virtual int analyseResults();
 
-    void printResults(std::ostream &ostr) const;
+    virtual void printResults(std::ostream &ostr) const;
 
 private:
     FunctionalTestComponentService *m_componentService;

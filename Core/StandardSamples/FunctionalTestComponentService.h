@@ -34,16 +34,15 @@ class IFunctionalTest;
 class BA_CORE_API_ FunctionalTestComponentService : public IComponentService
 {
 public:
-
     FunctionalTestComponentService(const FunctionalTestInfo &info);
-    ~FunctionalTestComponentService();
+    virtual ~FunctionalTestComponentService();
 
-    IFormFactor *getFormFactor() const;
-    IFTDistribution2D *getFTDistribution2D() const;
-    GISASSimulation *getSimulation() const;
-    SampleBuilder_t getSampleBuilder() const;
-    OutputData<double> *getReferenceData() const;
-    IFunctionalTest *getFunctionalTest() const;
+    virtual IFormFactor *getFormFactor() const;
+    virtual IFTDistribution2D *getFTDistribution2D() const;
+    virtual GISASSimulation *getSimulation() const;
+    virtual SampleBuilder_t getSampleBuilder() const;
+    virtual OutputData<double> *getReferenceData() const;
+    virtual IFunctionalTest *getFunctionalTest() const;
 
     size_t getNumberOfComponents() const;
     void initComponent(size_t component_index);
@@ -68,6 +67,4 @@ protected:
     size_t m_current_component;
 };
 
-
 #endif
-

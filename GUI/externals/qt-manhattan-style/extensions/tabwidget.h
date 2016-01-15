@@ -14,7 +14,7 @@ class QTMANHATTANSTYLESHARED_EXPORT TabWidget : public QWidget
     Q_OBJECT
 public:
     TabWidget(QWidget *parent = 0);
-    ~TabWidget();
+    virtual ~TabWidget();
 
     void setTitle(const QString &title);
     QString title() const { return m_title; }
@@ -34,9 +34,9 @@ signals:
     void currentIndexChanged(int index);
 
 protected:
-    void paintEvent(QPaintEvent *event);
-    void mousePressEvent(QMouseEvent *event);
-    bool event(QEvent *event);
+    virtual void paintEvent(QPaintEvent *event);
+    virtual void mousePressEvent(QMouseEvent *event);
+    virtual bool event(QEvent *event);
 
 private:
     struct Tab {

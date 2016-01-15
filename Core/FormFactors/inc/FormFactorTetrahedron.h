@@ -31,7 +31,7 @@ public:
     //! @param height of Tetrahedron
     //! @param angle in radians between base and facet
     FormFactorTetrahedron(double length, double height, double alpha);
-    ~FormFactorTetrahedron();
+    virtual ~FormFactorTetrahedron();
 
     virtual FormFactorTetrahedron *clone() const;
 

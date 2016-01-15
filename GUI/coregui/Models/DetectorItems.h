@@ -26,7 +26,7 @@ class BA_CORE_API_ DetectorItem : public ParameterizedItem
 public:
     static const QString P_DETECTOR;
     explicit DetectorItem(ParameterizedItem *parent=0);
-    ~DetectorItem(){}
+    virtual ~DetectorItem(){}
 
     MaskContainerItem *getMaskContainerItem() const;
 };
@@ -38,7 +38,7 @@ public:
     static const QString P_ALPHA_AXIS;
     static const QString P_RESOLUTION_FUNCTION;
     explicit PhiAlphaDetectorItem(ParameterizedItem *parent=0);
-    ~PhiAlphaDetectorItem(){}
+    virtual ~PhiAlphaDetectorItem(){}
 };
 
 

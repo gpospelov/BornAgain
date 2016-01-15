@@ -57,7 +57,7 @@ public:
     enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, TEST_VIEW};
 
     explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    virtual ~MainWindow();
 
     MaterialModel *getMaterialModel() { return m_materialModel; }
     InstrumentModel *getInstrumentModel() { return m_instrumentModel; }
@@ -113,7 +113,7 @@ private:
     void createFitModel();
 
     void testGUIObjectBuilder();
-    void showEvent(QShowEvent *event);
+    virtual void showEvent(QShowEvent *event);
 };
 
 #endif // MAINWINDOW_H

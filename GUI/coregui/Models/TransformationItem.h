@@ -25,7 +25,7 @@ class TransformationItem : public ParameterizedGraphicsItem
 public:
     static const QString P_ROT;
     explicit TransformationItem(ParameterizedItem *parent=0);
-    ~TransformationItem(){}
+    virtual ~TransformationItem(){}
 };
 
 

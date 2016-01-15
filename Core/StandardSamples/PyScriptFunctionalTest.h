@@ -32,18 +32,18 @@ class GISASSimulation;
 class BA_CORE_API_ PyScriptFunctionalTest : public IFunctionalTest
 {
 public:
+    PyScriptFunctionalTest(const std::string &name, const std::string &description,
+                           GISASSimulation *reference_simulation, double threshold);
+    virtual ~PyScriptFunctionalTest();
 
-    PyScriptFunctionalTest(const std::string &name, const std::string &description, GISASSimulation *reference_simulation, double threshold);
-    ~PyScriptFunctionalTest();
-
-    void runTest();
-    int analyseResults();
+    virtual void runTest();
+    virtual int analyseResults();
 
     const OutputData<double>* getOutputData() const;
 
     double getDifference() const { return m_difference;}
 
-    void printResults(std::ostream &ostr) const;
+    virtual void printResults(std::ostream &ostr) const;
 
     void setPyScriptFileName(const std::string &file_name);
 
@@ -62,4 +62,3 @@ private:
 };
 
 #endif
-

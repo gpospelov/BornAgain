@@ -30,7 +30,7 @@ public:
     static const QString P_MATERIAL;
     static const QString P_POSITION;
     explicit ParticleItem(ParameterizedItem *parent=0);
-    ~ParticleItem() {}
+    virtual ~ParticleItem() {}
     virtual void insertChildItem(int row, ParameterizedItem *item);
     virtual void onPropertyChange(const QString &name);
     std::unique_ptr<Particle> createParticle() const;

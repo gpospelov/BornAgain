@@ -33,7 +33,7 @@ public:
     //! @param alpha angle in radians between base and facet
     FormFactorAnisoPyramid(double length, double width, double height, double alpha);
 
-    ~FormFactorAnisoPyramid() {}
+    virtual ~FormFactorAnisoPyramid() {}
     virtual FormFactorAnisoPyramid *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const;

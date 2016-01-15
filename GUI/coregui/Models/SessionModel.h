@@ -60,39 +60,29 @@ class BA_CORE_API_ SessionModel : public QAbstractItemModel
     Q_OBJECT
 
 public:
-
     explicit SessionModel(QString model_tag, QObject *parent = 0);
-    ~SessionModel();
+    virtual ~SessionModel();
 
     // Begin overriden methods from QAbstractItemModel
-    Qt::ItemFlags flags(const QModelIndex &index) const;
-    QVariant data(const QModelIndex &index, int role) const;
-    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
-    int rowCount(const QModelIndex &parent) const;
-    int columnCount(const QModelIndex &parent) const;
-    QModelIndex index(int row, int column, const QModelIndex &parent) const;
-    QModelIndex parent(const QModelIndex &child) const;
+    virtual Qt::ItemFlags flags(const QModelIndex &index) const;
+    virtual QVariant data(const QModelIndex &index, int role) const;
+    virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+    virtual int rowCount(const QModelIndex &parent) const;
+    virtual int columnCount(const QModelIndex &parent) const;
+    virtual QModelIndex index(int row, int column, const QModelIndex &parent) const;
+    virtual QModelIndex parent(const QModelIndex &child) const;
 
-    bool setHeaderData(int, Qt::Orientation, const QVariant &, int = Qt::EditRole)
-    {
-        return false;
-    }
-    bool setData(const QModelIndex &index, const QVariant &value, int role);
-    bool removeRows(int row, int count, const QModelIndex &parent);
+    virtual bool setHeaderData(int, Qt::Orientation, const QVariant &, int = Qt::EditRole);
+    virtual bool setData(const QModelIndex &index, const QVariant &value, int role);
+    virtual bool removeRows(int row, int count, const QModelIndex &parent);
 
-    Qt::DropActions supportedDragActions() const
-    {
-        return Qt::MoveAction;
-    }
-    Qt::DropActions supportedDropActions() const
-    {
-        return Qt::MoveAction;
-    }
-    QStringList mimeTypes() const;
-    QMimeData *mimeData(const QModelIndexList &indexes) const;
-    bool canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column,
+    virtual Qt::DropActions supportedDragActions() const;
+    virtual Qt::DropActions supportedDropActions() const;
+    virtual QStringList mimeTypes() const;
+    virtual QMimeData *mimeData(const QModelIndexList &indexes) const;
+    virtual bool canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column,
                          const QModelIndex &parent) const;
-    bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column,
+    virtual bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column,
                       const QModelIndex &parent);
     // End overriden methods from QAbstractItemModel
 
@@ -101,18 +91,9 @@ public:
                                      int row = -1, ParameterizedItem::PortInfo::EPorts port
                                                    = ParameterizedItem::PortInfo::DEFAULT);
 
-    QString getModelTag() const
-    {
-        return m_model_tag;
-    }
-    QString getModelName() const
-    {
-        return m_name;
-    }
-    void setModelName(const QString &name)
-    {
-        m_name = name;
-    }
+    QString getModelTag() const;
+    QString getModelName() const;
+    void setModelName(const QString &name);
 
     QList<QString> getAcceptableChildItems(const QModelIndex &parent) const;
 
@@ -121,26 +102,20 @@ public:
     void save(const QString &filename = QString());
 
     // Sets mimedata pointer of item being dragged
-    void setDraggedItemType(const QString &type)
-    {
-        m_dragged_item_type = type;
-    }
+    void setDraggedItemType(const QString &type);
 
     ParameterizedItem *itemForIndex(const QModelIndex &index) const;
 
     void readFrom(QXmlStreamReader *reader);
     void writeTo(QXmlStreamWriter *writer, ParameterizedItem *parent = 0);
 
-    ParameterizedItem *moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent = 0,
-                               int row = -1);
+    ParameterizedItem *moveParameterizedItem(ParameterizedItem *item,
+                                             ParameterizedItem *new_parent = 0, int row = -1);
 
     ParameterizedItem *copyParameterizedItem(const ParameterizedItem *item_to_copy,
                                              ParameterizedItem *new_parent = 0, int row = -1);
 
-    void setIconProvider(IconProvider *icon_provider)
-    {
-        m_iconProvider = icon_provider;
-    }
+    void setIconProvider(IconProvider *icon_provider);
 
     virtual SessionModel *createCopy(ParameterizedItem *parent = 0);
 
@@ -179,5 +154,45 @@ private:
     IconProvider *m_iconProvider;
     WarningMessageService *m_messageService;
 };
+
+inline bool SessionModel::setHeaderData(int, Qt::Orientation, const QVariant &, int)
+{
+    return false;
+}
+
+inline Qt::DropActions SessionModel::supportedDragActions() const
+{
+    return Qt::MoveAction;
+}
+
+inline Qt::DropActions SessionModel::supportedDropActions() const
+{
+    return Qt::MoveAction;
+}
+
+inline QString SessionModel::getModelTag() const
+{
+    return m_model_tag;
+}
+
+inline QString SessionModel::getModelName() const
+{
+    return m_name;
+}
+
+inline void SessionModel::setModelName(const QString &name)
+{
+    m_name = name;
+}
+
+inline void SessionModel::setDraggedItemType(const QString &type)
+{
+    m_dragged_item_type = type;
+}
+
+inline void SessionModel::setIconProvider(IconProvider *icon_provider)
+{
+    m_iconProvider = icon_provider;
+}
 
 #endif // SESSIONMODEL_H

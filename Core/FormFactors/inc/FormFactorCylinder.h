@@ -29,7 +29,7 @@ public:
     //! @param radius of Cylinder's base
     //! @param height of Cylinder
     FormFactorCylinder(double radius, double height);
-    ~FormFactorCylinder() {}
+    virtual ~FormFactorCylinder() {}
     virtual FormFactorCylinder *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const;

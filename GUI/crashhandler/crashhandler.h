@@ -3,16 +3,12 @@
 
 #include <QObject>
 
-
-
 class CrashHandler : public QObject
 {
     Q_OBJECT
 public:
     explicit CrashHandler(QObject *parent = 0);
-    ~CrashHandler();
-
-
+    virtual ~CrashHandler();
 };
 
 #endif // CRASHHANDLER_H

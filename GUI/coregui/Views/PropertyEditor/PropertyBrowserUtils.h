@@ -55,15 +55,13 @@ class BA_CORE_API_ GroupPropertyEdit : public QWidget
     Q_OBJECT
 public:
     GroupPropertyEdit(QWidget *parent = 0);
-    ~GroupPropertyEdit();
+    virtual ~GroupPropertyEdit();
 
     void setGroupProperty(GroupProperty_t groupProperty);
-    GroupProperty_t getGroupProperty() const {
-        return m_groupProperty;
-    }
+    GroupProperty_t getGroupProperty() const;
 
-    QSize sizeHint() const;
-    QSize minimumSizeHint() const;
+    virtual QSize sizeHint() const;
+    virtual QSize minimumSizeHint() const;
 
 signals:
     void groupPropertyChanged(const GroupProperty_t &group_property);
@@ -76,6 +74,11 @@ private:
     QLabel *m_label;
     GroupProperty_t m_groupProperty;
 };
+
+inline GroupProperty_t GroupPropertyEdit::getGroupProperty() const
+{
+    return m_groupProperty;
+}
 
 
 //! The ColorPropertyEdit class provides PropertyVariantFactory with editing
@@ -130,24 +133,19 @@ private:
 };
 
 #include <QComboBox>
+
 //! The ComboPropertyEdit class provides PropertyVariantFactory with editing
 //! widget for ComboProperty
-//class BA_CORE_API_ ComboPropertyEdit : public QWidget
 class BA_CORE_API_ ComboPropertyEdit : public QComboBox
 {
     Q_OBJECT
 public:
     ComboPropertyEdit(QWidget *parent = 0);
-//    ~ComboPropertyEdit();
 
     void setComboProperty(const ComboProperty &combo_property);
     ComboProperty getComboProperty() const {return m_combo_property; }
 
     QString comboValueText();
-
-//    QSize sizeHint() const;
-//    QSize minimumSizeHint() const;
-
 
 signals:
     void comboPropertyChanged(const ComboProperty &combo_property);
@@ -155,9 +153,7 @@ private slots:
     void onCurrentIndexChanged(QString current_value);
 
 private:
-//    QComboBox *m_comboBox;
     ComboProperty m_combo_property;
 };
-
 
 #endif // PROPERTYBROWSERUTILS_H

@@ -45,12 +45,12 @@ class QtSpinBoxFactory : public QtAbstractEditorFactory<QtIntPropertyManager>
     Q_OBJECT
 public:
     QtSpinBoxFactory(QObject *parent = 0);
-    ~QtSpinBoxFactory();
+    virtual ~QtSpinBoxFactory();
 protected:
-    void connectPropertyManager(QtIntPropertyManager *manager);
-    QWidget *createEditor(QtIntPropertyManager *manager, QtProperty *property,
+    virtual void connectPropertyManager(QtIntPropertyManager *manager);
+    virtual QWidget *createEditor(QtIntPropertyManager *manager, QtProperty *property,
                 QWidget *parent);
-    void disconnectPropertyManager(QtIntPropertyManager *manager);
+    virtual void disconnectPropertyManager(QtIntPropertyManager *manager);
 private:
     QScopedPointer<QtSpinBoxFactoryPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QtSpinBoxFactory)
@@ -69,12 +69,12 @@ class QtSliderFactory : public QtAbstractEditorFactory<QtIntPropertyManager>
     Q_OBJECT
 public:
     QtSliderFactory(QObject *parent = 0);
-    ~QtSliderFactory();
+    virtual ~QtSliderFactory();
 protected:
-    void connectPropertyManager(QtIntPropertyManager *manager);
+    virtual void connectPropertyManager(QtIntPropertyManager *manager);
     QWidget *createEditor(QtIntPropertyManager *manager, QtProperty *property,
                 QWidget *parent);
-    void disconnectPropertyManager(QtIntPropertyManager *manager);
+    virtual void disconnectPropertyManager(QtIntPropertyManager *manager);
 private:
     QScopedPointer<QtSliderFactoryPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QtSliderFactory)
@@ -93,12 +93,12 @@ class QtScrollBarFactory : public QtAbstractEditorFactory<QtIntPropertyManager>
     Q_OBJECT
 public:
     QtScrollBarFactory(QObject *parent = 0);
-    ~QtScrollBarFactory();
+    virtual ~QtScrollBarFactory();
 protected:
-    void connectPropertyManager(QtIntPropertyManager *manager);
+    virtual void connectPropertyManager(QtIntPropertyManager *manager);
     QWidget *createEditor(QtIntPropertyManager *manager, QtProperty *property,
                 QWidget *parent);
-    void disconnectPropertyManager(QtIntPropertyManager *manager);
+    virtual void disconnectPropertyManager(QtIntPropertyManager *manager);
 private:
     QScopedPointer<QtScrollBarFactoryPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QtScrollBarFactory)
@@ -117,12 +117,12 @@ class QtCheckBoxFactory : public QtAbstractEditorFactory<QtBoolPropertyManager>
     Q_OBJECT
 public:
     QtCheckBoxFactory(QObject *parent = 0);
-    ~QtCheckBoxFactory();
+    virtual ~QtCheckBoxFactory();
 protected:
-    void connectPropertyManager(QtBoolPropertyManager *manager);
-    QWidget *createEditor(QtBoolPropertyManager *manager, QtProperty *property,
+    virtual void connectPropertyManager(QtBoolPropertyManager *manager);
+    virtual QWidget *createEditor(QtBoolPropertyManager *manager, QtProperty *property,
                 QWidget *parent);
-    void disconnectPropertyManager(QtBoolPropertyManager *manager);
+    virtual void disconnectPropertyManager(QtBoolPropertyManager *manager);
 private:
     QScopedPointer<QtCheckBoxFactoryPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QtCheckBoxFactory)
@@ -139,12 +139,12 @@ class QtDoubleSpinBoxFactory : public QtAbstractEditorFactory<QtDoublePropertyMa
     Q_OBJECT
 public:
     QtDoubleSpinBoxFactory(QObject *parent = 0);
-    ~QtDoubleSpinBoxFactory();
+    virtual ~QtDoubleSpinBoxFactory();
 protected:
-    void connectPropertyManager(QtDoublePropertyManager *manager);
-    QWidget *createEditor(QtDoublePropertyManager *manager, QtProperty *property,
+    virtual void connectPropertyManager(QtDoublePropertyManager *manager);
+    virtual QWidget *createEditor(QtDoublePropertyManager *manager, QtProperty *property,
                 QWidget *parent);
-    void disconnectPropertyManager(QtDoublePropertyManager *manager);
+    virtual void disconnectPropertyManager(QtDoublePropertyManager *manager);
 private:
     QScopedPointer<QtDoubleSpinBoxFactoryPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QtDoubleSpinBoxFactory)
@@ -164,12 +164,12 @@ class QtLineEditFactory : public QtAbstractEditorFactory<QtStringPropertyManager
     Q_OBJECT
 public:
     QtLineEditFactory(QObject *parent = 0);
-    ~QtLineEditFactory();
+    virtual ~QtLineEditFactory();
 protected:
-    void connectPropertyManager(QtStringPropertyManager *manager);
-    QWidget *createEditor(QtStringPropertyManager *manager, QtProperty *property,
+    virtual void connectPropertyManager(QtStringPropertyManager *manager);
+    virtual QWidget *createEditor(QtStringPropertyManager *manager, QtProperty *property,
                 QWidget *parent);
-    void disconnectPropertyManager(QtStringPropertyManager *manager);
+    virtual void disconnectPropertyManager(QtStringPropertyManager *manager);
 private:
     QScopedPointer<QtLineEditFactoryPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QtLineEditFactory)
@@ -187,12 +187,12 @@ class QtDateEditFactory : public QtAbstractEditorFactory<QtDatePropertyManager>
     Q_OBJECT
 public:
     QtDateEditFactory(QObject *parent = 0);
-    ~QtDateEditFactory();
+    virtual ~QtDateEditFactory();
 protected:
-    void connectPropertyManager(QtDatePropertyManager *manager);
-    QWidget *createEditor(QtDatePropertyManager *manager, QtProperty *property,
+    virtual void connectPropertyManager(QtDatePropertyManager *manager);
+    virtual QWidget *createEditor(QtDatePropertyManager *manager, QtProperty *property,
                 QWidget *parent);
-    void disconnectPropertyManager(QtDatePropertyManager *manager);
+    virtual void disconnectPropertyManager(QtDatePropertyManager *manager);
 private:
     QScopedPointer<QtDateEditFactoryPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QtDateEditFactory)
@@ -211,12 +211,12 @@ class QtTimeEditFactory : public QtAbstractEditorFactory<QtTimePropertyManager>
     Q_OBJECT
 public:
     QtTimeEditFactory(QObject *parent = 0);
-    ~QtTimeEditFactory();
+    virtual ~QtTimeEditFactory();
 protected:
-    void connectPropertyManager(QtTimePropertyManager *manager);
-    QWidget *createEditor(QtTimePropertyManager *manager, QtProperty *property,
+    virtual void connectPropertyManager(QtTimePropertyManager *manager);
+    virtual QWidget *createEditor(QtTimePropertyManager *manager, QtProperty *property,
                 QWidget *parent);
-    void disconnectPropertyManager(QtTimePropertyManager *manager);
+    virtual void disconnectPropertyManager(QtTimePropertyManager *manager);
 private:
     QScopedPointer<QtTimeEditFactoryPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QtTimeEditFactory)
@@ -233,12 +233,12 @@ class QtDateTimeEditFactory : public QtAbstractEditorFactory<QtDateTimePropertyM
     Q_OBJECT
 public:
     QtDateTimeEditFactory(QObject *parent = 0);
-    ~QtDateTimeEditFactory();
+    virtual ~QtDateTimeEditFactory();
 protected:
-    void connectPropertyManager(QtDateTimePropertyManager *manager);
-    QWidget *createEditor(QtDateTimePropertyManager *manager, QtProperty *property,
+    virtual void connectPropertyManager(QtDateTimePropertyManager *manager);
+    virtual QWidget *createEditor(QtDateTimePropertyManager *manager, QtProperty *property,
                 QWidget *parent);
-    void disconnectPropertyManager(QtDateTimePropertyManager *manager);
+    virtual void disconnectPropertyManager(QtDateTimePropertyManager *manager);
 private:
     QScopedPointer<QtDateTimeEditFactoryPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QtDateTimeEditFactory)
@@ -255,12 +255,12 @@ class QtKeySequenceEditorFactory : public QtAbstractEditorFactory<QtKeySequenceP
     Q_OBJECT
 public:
     QtKeySequenceEditorFactory(QObject *parent = 0);
-    ~QtKeySequenceEditorFactory();
+    virtual ~QtKeySequenceEditorFactory();
 protected:
-    void connectPropertyManager(QtKeySequencePropertyManager *manager);
-    QWidget *createEditor(QtKeySequencePropertyManager *manager, QtProperty *property,
+    virtual void connectPropertyManager(QtKeySequencePropertyManager *manager);
+    virtual QWidget *createEditor(QtKeySequencePropertyManager *manager, QtProperty *property,
                 QWidget *parent);
-    void disconnectPropertyManager(QtKeySequencePropertyManager *manager);
+    virtual void disconnectPropertyManager(QtKeySequencePropertyManager *manager);
 private:
     QScopedPointer<QtKeySequenceEditorFactoryPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QtKeySequenceEditorFactory)
@@ -277,12 +277,12 @@ class QtCharEditorFactory : public QtAbstractEditorFactory<QtCharPropertyManager
     Q_OBJECT
 public:
     QtCharEditorFactory(QObject *parent = 0);
-    ~QtCharEditorFactory();
+    virtual ~QtCharEditorFactory();
 protected:
-    void connectPropertyManager(QtCharPropertyManager *manager);
-    QWidget *createEditor(QtCharPropertyManager *manager, QtProperty *property,
+    virtual void connectPropertyManager(QtCharPropertyManager *manager);
+    virtual QWidget *createEditor(QtCharPropertyManager *manager, QtProperty *property,
                 QWidget *parent);
-    void disconnectPropertyManager(QtCharPropertyManager *manager);
+    virtual void disconnectPropertyManager(QtCharPropertyManager *manager);
 private:
     QScopedPointer<QtCharEditorFactoryPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QtCharEditorFactory)
@@ -299,12 +299,12 @@ class QtEnumEditorFactory : public QtAbstractEditorFactory<QtEnumPropertyManager
     Q_OBJECT
 public:
     QtEnumEditorFactory(QObject *parent = 0);
-    ~QtEnumEditorFactory();
+    virtual ~QtEnumEditorFactory();
 protected:
-    void connectPropertyManager(QtEnumPropertyManager *manager);
-    QWidget *createEditor(QtEnumPropertyManager *manager, QtProperty *property,
+    virtual void connectPropertyManager(QtEnumPropertyManager *manager);
+    virtual QWidget *createEditor(QtEnumPropertyManager *manager, QtProperty *property,
                 QWidget *parent);
-    void disconnectPropertyManager(QtEnumPropertyManager *manager);
+    virtual void disconnectPropertyManager(QtEnumPropertyManager *manager);
 private:
     QScopedPointer<QtEnumEditorFactoryPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QtEnumEditorFactory)
@@ -325,12 +325,12 @@ class QtCursorEditorFactory : public QtAbstractEditorFactory<QtCursorPropertyMan
     Q_OBJECT
 public:
     QtCursorEditorFactory(QObject *parent = 0);
-    ~QtCursorEditorFactory();
+    virtual ~QtCursorEditorFactory();
 protected:
-    void connectPropertyManager(QtCursorPropertyManager *manager);
-    QWidget *createEditor(QtCursorPropertyManager *manager, QtProperty *property,
+    virtual void connectPropertyManager(QtCursorPropertyManager *manager);
+    virtual QWidget *createEditor(QtCursorPropertyManager *manager, QtProperty *property,
                 QWidget *parent);
-    void disconnectPropertyManager(QtCursorPropertyManager *manager);
+    virtual void disconnectPropertyManager(QtCursorPropertyManager *manager);
 private:
     QScopedPointer<QtCursorEditorFactoryPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QtCursorEditorFactory)
@@ -347,12 +347,12 @@ class QtColorEditorFactory : public QtAbstractEditorFactory<QtColorPropertyManag
     Q_OBJECT
 public:
     QtColorEditorFactory(QObject *parent = 0);
-    ~QtColorEditorFactory();
+    virtual ~QtColorEditorFactory();
 protected:
-    void connectPropertyManager(QtColorPropertyManager *manager);
-    QWidget *createEditor(QtColorPropertyManager *manager, QtProperty *property,
+    virtual void connectPropertyManager(QtColorPropertyManager *manager);
+    virtual QWidget *createEditor(QtColorPropertyManager *manager, QtProperty *property,
                 QWidget *parent);
-    void disconnectPropertyManager(QtColorPropertyManager *manager);
+    virtual void disconnectPropertyManager(QtColorPropertyManager *manager);
 private:
     QScopedPointer<QtColorEditorFactoryPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QtColorEditorFactory)
@@ -369,12 +369,12 @@ class QtFontEditorFactory : public QtAbstractEditorFactory<QtFontPropertyManager
     Q_OBJECT
 public:
     QtFontEditorFactory(QObject *parent = 0);
-    ~QtFontEditorFactory();
+    virtual ~QtFontEditorFactory();
 protected:
-    void connectPropertyManager(QtFontPropertyManager *manager);
-    QWidget *createEditor(QtFontPropertyManager *manager, QtProperty *property,
+    virtual void connectPropertyManager(QtFontPropertyManager *manager);
+    virtual QWidget *createEditor(QtFontPropertyManager *manager, QtProperty *property,
                 QWidget *parent);
-    void disconnectPropertyManager(QtFontPropertyManager *manager);
+    virtual void disconnectPropertyManager(QtFontPropertyManager *manager);
 private:
     QScopedPointer<QtFontEditorFactoryPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QtFontEditorFactory)

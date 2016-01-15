@@ -31,7 +31,7 @@ public:
     OffSpecSimulation(const ProgramOptions *p_options);
     OffSpecSimulation(const ISample &p_sample, const ProgramOptions *p_options = 0);
     OffSpecSimulation(SampleBuilder_t p_sample_builder, const ProgramOptions *p_options = 0);
-    ~OffSpecSimulation() {}
+    virtual ~OffSpecSimulation() {}
 
     OffSpecSimulation *clone() const;
 

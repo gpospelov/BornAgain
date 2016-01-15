@@ -34,14 +34,14 @@ class BA_CORE_API_ GUIFunctionalTest : public IFunctionalTest
 public:
     GUIFunctionalTest(const std::string &name, const std::string &description,
                       GISASSimulation *reference_simulation, double threshold);
-    ~GUIFunctionalTest();
+    virtual ~GUIFunctionalTest();
 
-    void runTest();
-    int analyseResults();
+    virtual void runTest();
+    virtual int analyseResults();
 
     const OutputData<double>* getOutputData() const;
 
-    void printResults(std::ostream &ostr) const;
+    virtual void printResults(std::ostream &ostr) const;
 
 private:
     void createDomainSimulation();

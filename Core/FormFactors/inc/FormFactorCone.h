@@ -31,7 +31,7 @@ public:
     //! @param height of Cone
     //! @param angle in radians between base and facet
     FormFactorCone(double radius, double height,  double alpha);
-    ~FormFactorCone();
+    virtual ~FormFactorCone();
 
     virtual FormFactorCone* clone() const;
 

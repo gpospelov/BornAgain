@@ -27,7 +27,7 @@ class BA_CORE_API_ FormFactorGauss : public IFormFactorBorn
 public:
     FormFactorGauss(double volume);
     FormFactorGauss(double width, double height);
-    ~FormFactorGauss() {}
+    virtual ~FormFactorGauss() {}
     virtual FormFactorGauss *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const;

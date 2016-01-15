@@ -32,7 +32,7 @@ public:
 
     FormFactorFullSpheroid(double radius, double height);
 
-    ~FormFactorFullSpheroid();
+    virtual ~FormFactorFullSpheroid();
 
     virtual FormFactorFullSpheroid *clone() const;
 

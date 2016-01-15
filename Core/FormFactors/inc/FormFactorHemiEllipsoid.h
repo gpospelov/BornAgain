@@ -32,7 +32,7 @@ public:
     //! @param height of Hemi Ellipsoid
     FormFactorHemiEllipsoid(double radius_x, double radius_y, double height);
 
-    ~FormFactorHemiEllipsoid();
+    virtual ~FormFactorHemiEllipsoid();
 
     virtual FormFactorHemiEllipsoid* clone() const;
 

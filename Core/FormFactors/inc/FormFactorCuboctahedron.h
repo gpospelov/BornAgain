@@ -34,7 +34,7 @@ public:
     FormFactorCuboctahedron(double length, double height,
                             double height_ratio, double alpha);
 
-    ~FormFactorCuboctahedron() {}
+    virtual ~FormFactorCuboctahedron() {}
     virtual FormFactorCuboctahedron *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const;

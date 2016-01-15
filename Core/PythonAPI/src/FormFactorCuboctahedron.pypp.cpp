@@ -59,102 +59,6 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
         return FormFactorCuboctahedron::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getAlpha(  ) const  {
-        if( bp::override func_getAlpha = this->get_override( "getAlpha" ) )
-            return func_getAlpha(  );
-        else{
-            return this->FormFactorCuboctahedron::getAlpha(  );
-        }
-    }
-    
-    double default_getAlpha(  ) const  {
-        return FormFactorCuboctahedron::getAlpha( );
-    }
-
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorCuboctahedron::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorCuboctahedron::getHeight( );
-    }
-
-    virtual double getHeightRatio(  ) const  {
-        if( bp::override func_getHeightRatio = this->get_override( "getHeightRatio" ) )
-            return func_getHeightRatio(  );
-        else{
-            return this->FormFactorCuboctahedron::getHeightRatio(  );
-        }
-    }
-    
-    double default_getHeightRatio(  ) const  {
-        return FormFactorCuboctahedron::getHeightRatio( );
-    }
-
-    virtual double getLength(  ) const  {
-        if( bp::override func_getLength = this->get_override( "getLength" ) )
-            return func_getLength(  );
-        else{
-            return this->FormFactorCuboctahedron::getLength(  );
-        }
-    }
-    
-    double default_getLength(  ) const  {
-        return FormFactorCuboctahedron::getLength( );
-    }
-
-    virtual void setAlpha( double alpha ) {
-        if( bp::override func_setAlpha = this->get_override( "setAlpha" ) )
-            func_setAlpha( alpha );
-        else{
-            this->FormFactorCuboctahedron::setAlpha( alpha );
-        }
-    }
-    
-    void default_setAlpha( double alpha ) {
-        FormFactorCuboctahedron::setAlpha( alpha );
-    }
-
-    virtual void setHeight( double height ) {
-        if( bp::override func_setHeight = this->get_override( "setHeight" ) )
-            func_setHeight( height );
-        else{
-            this->FormFactorCuboctahedron::setHeight( height );
-        }
-    }
-    
-    void default_setHeight( double height ) {
-        FormFactorCuboctahedron::setHeight( height );
-    }
-
-    virtual void setHeightRatio( double height_ratio ) {
-        if( bp::override func_setHeightRatio = this->get_override( "setHeightRatio" ) )
-            func_setHeightRatio( height_ratio );
-        else{
-            this->FormFactorCuboctahedron::setHeightRatio( height_ratio );
-        }
-    }
-    
-    void default_setHeightRatio( double height_ratio ) {
-        FormFactorCuboctahedron::setHeightRatio( height_ratio );
-    }
-
-    virtual void setLength( double length ) {
-        if( bp::override func_setLength = this->get_override( "setLength" ) )
-            func_setLength( length );
-        else{
-            this->FormFactorCuboctahedron::setLength( length );
-        }
-    }
-    
-    void default_setLength( double length ) {
-        FormFactorCuboctahedron::setLength( length );
-    }
-
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -324,92 +228,76 @@ void register_FormFactorCuboctahedron_class(){
         { //::FormFactorCuboctahedron::getAlpha
         
             typedef double ( ::FormFactorCuboctahedron::*getAlpha_function_type)(  ) const;
-            typedef double ( FormFactorCuboctahedron_wrapper::*default_getAlpha_function_type)(  ) const;
             
             FormFactorCuboctahedron_exposer.def( 
                 "getAlpha"
-                , getAlpha_function_type(&::FormFactorCuboctahedron::getAlpha)
-                , default_getAlpha_function_type(&FormFactorCuboctahedron_wrapper::default_getAlpha) );
+                , getAlpha_function_type( &::FormFactorCuboctahedron::getAlpha ) );
         
         }
         { //::FormFactorCuboctahedron::getHeight
         
             typedef double ( ::FormFactorCuboctahedron::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorCuboctahedron_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorCuboctahedron_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorCuboctahedron::getHeight)
-                , default_getHeight_function_type(&FormFactorCuboctahedron_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorCuboctahedron::getHeight ) );
         
         }
         { //::FormFactorCuboctahedron::getHeightRatio
         
             typedef double ( ::FormFactorCuboctahedron::*getHeightRatio_function_type)(  ) const;
-            typedef double ( FormFactorCuboctahedron_wrapper::*default_getHeightRatio_function_type)(  ) const;
             
             FormFactorCuboctahedron_exposer.def( 
                 "getHeightRatio"
-                , getHeightRatio_function_type(&::FormFactorCuboctahedron::getHeightRatio)
-                , default_getHeightRatio_function_type(&FormFactorCuboctahedron_wrapper::default_getHeightRatio) );
+                , getHeightRatio_function_type( &::FormFactorCuboctahedron::getHeightRatio ) );
         
         }
         { //::FormFactorCuboctahedron::getLength
         
             typedef double ( ::FormFactorCuboctahedron::*getLength_function_type)(  ) const;
-            typedef double ( FormFactorCuboctahedron_wrapper::*default_getLength_function_type)(  ) const;
             
             FormFactorCuboctahedron_exposer.def( 
                 "getLength"
-                , getLength_function_type(&::FormFactorCuboctahedron::getLength)
-                , default_getLength_function_type(&FormFactorCuboctahedron_wrapper::default_getLength) );
+                , getLength_function_type( &::FormFactorCuboctahedron::getLength ) );
         
         }
         { //::FormFactorCuboctahedron::setAlpha
         
             typedef void ( ::FormFactorCuboctahedron::*setAlpha_function_type)( double ) ;
-            typedef void ( FormFactorCuboctahedron_wrapper::*default_setAlpha_function_type)( double ) ;
             
             FormFactorCuboctahedron_exposer.def( 
                 "setAlpha"
-                , setAlpha_function_type(&::FormFactorCuboctahedron::setAlpha)
-                , default_setAlpha_function_type(&FormFactorCuboctahedron_wrapper::default_setAlpha)
+                , setAlpha_function_type( &::FormFactorCuboctahedron::setAlpha )
                 , ( bp::arg("alpha") ) );
         
         }
         { //::FormFactorCuboctahedron::setHeight
         
             typedef void ( ::FormFactorCuboctahedron::*setHeight_function_type)( double ) ;
-            typedef void ( FormFactorCuboctahedron_wrapper::*default_setHeight_function_type)( double ) ;
             
             FormFactorCuboctahedron_exposer.def( 
                 "setHeight"
-                , setHeight_function_type(&::FormFactorCuboctahedron::setHeight)
-                , default_setHeight_function_type(&FormFactorCuboctahedron_wrapper::default_setHeight)
+                , setHeight_function_type( &::FormFactorCuboctahedron::setHeight )
                 , ( bp::arg("height") ) );
         
         }
         { //::FormFactorCuboctahedron::setHeightRatio
         
             typedef void ( ::FormFactorCuboctahedron::*setHeightRatio_function_type)( double ) ;
-            typedef void ( FormFactorCuboctahedron_wrapper::*default_setHeightRatio_function_type)( double ) ;
             
             FormFactorCuboctahedron_exposer.def( 
                 "setHeightRatio"
-                , setHeightRatio_function_type(&::FormFactorCuboctahedron::setHeightRatio)
-                , default_setHeightRatio_function_type(&FormFactorCuboctahedron_wrapper::default_setHeightRatio)
+                , setHeightRatio_function_type( &::FormFactorCuboctahedron::setHeightRatio )
                 , ( bp::arg("height_ratio") ) );
         
         }
         { //::FormFactorCuboctahedron::setLength
         
             typedef void ( ::FormFactorCuboctahedron::*setLength_function_type)( double ) ;
-            typedef void ( FormFactorCuboctahedron_wrapper::*default_setLength_function_type)( double ) ;
             
             FormFactorCuboctahedron_exposer.def( 
                 "setLength"
-                , setLength_function_type(&::FormFactorCuboctahedron::setLength)
-                , default_setLength_function_type(&FormFactorCuboctahedron_wrapper::default_setLength)
+                , setLength_function_type( &::FormFactorCuboctahedron::setLength )
                 , ( bp::arg("length") ) );
         
         }

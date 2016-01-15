@@ -37,8 +37,6 @@ public:
 
     virtual double getVolume() const;
 
-    virtual double getHeight() const;
-
     virtual double getRadius() const;
 
 protected:
@@ -60,14 +58,6 @@ inline double IFormFactorDecorator::getVolume() const
 {
     if (mp_form_factor) {
         return mp_form_factor->getVolume();
-    }
-    return 0.0;
-}
-
-inline double IFormFactorDecorator::getHeight() const
-{
-    if (mp_form_factor) {
-        return mp_form_factor->getHeight();
     }
     return 0.0;
 }

@@ -59,54 +59,6 @@ struct FormFactorRipple2_wrapper : FormFactorRipple2, bp::wrapper< FormFactorRip
         return FormFactorRipple2::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getAsymmetry(  ) const  {
-        if( bp::override func_getAsymmetry = this->get_override( "getAsymmetry" ) )
-            return func_getAsymmetry(  );
-        else{
-            return this->FormFactorRipple2::getAsymmetry(  );
-        }
-    }
-    
-    double default_getAsymmetry(  ) const  {
-        return FormFactorRipple2::getAsymmetry( );
-    }
-
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorRipple2::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorRipple2::getHeight( );
-    }
-
-    virtual double getLength(  ) const  {
-        if( bp::override func_getLength = this->get_override( "getLength" ) )
-            return func_getLength(  );
-        else{
-            return this->FormFactorRipple2::getLength(  );
-        }
-    }
-    
-    double default_getLength(  ) const  {
-        return FormFactorRipple2::getLength( );
-    }
-
-    virtual double getWidth(  ) const  {
-        if( bp::override func_getWidth = this->get_override( "getWidth" ) )
-            return func_getWidth(  );
-        else{
-            return this->FormFactorRipple2::getWidth(  );
-        }
-    }
-    
-    double default_getWidth(  ) const  {
-        return FormFactorRipple2::getWidth( );
-    }
-
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -276,45 +228,37 @@ void register_FormFactorRipple2_class(){
         { //::FormFactorRipple2::getAsymmetry
         
             typedef double ( ::FormFactorRipple2::*getAsymmetry_function_type)(  ) const;
-            typedef double ( FormFactorRipple2_wrapper::*default_getAsymmetry_function_type)(  ) const;
             
             FormFactorRipple2_exposer.def( 
                 "getAsymmetry"
-                , getAsymmetry_function_type(&::FormFactorRipple2::getAsymmetry)
-                , default_getAsymmetry_function_type(&FormFactorRipple2_wrapper::default_getAsymmetry) );
+                , getAsymmetry_function_type( &::FormFactorRipple2::getAsymmetry ) );
         
         }
         { //::FormFactorRipple2::getHeight
         
             typedef double ( ::FormFactorRipple2::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorRipple2_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorRipple2_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorRipple2::getHeight)
-                , default_getHeight_function_type(&FormFactorRipple2_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorRipple2::getHeight ) );
         
         }
         { //::FormFactorRipple2::getLength
         
             typedef double ( ::FormFactorRipple2::*getLength_function_type)(  ) const;
-            typedef double ( FormFactorRipple2_wrapper::*default_getLength_function_type)(  ) const;
             
             FormFactorRipple2_exposer.def( 
                 "getLength"
-                , getLength_function_type(&::FormFactorRipple2::getLength)
-                , default_getLength_function_type(&FormFactorRipple2_wrapper::default_getLength) );
+                , getLength_function_type( &::FormFactorRipple2::getLength ) );
         
         }
         { //::FormFactorRipple2::getWidth
         
             typedef double ( ::FormFactorRipple2::*getWidth_function_type)(  ) const;
-            typedef double ( FormFactorRipple2_wrapper::*default_getWidth_function_type)(  ) const;
             
             FormFactorRipple2_exposer.def( 
                 "getWidth"
-                , getWidth_function_type(&::FormFactorRipple2::getWidth)
-                , default_getWidth_function_type(&FormFactorRipple2_wrapper::default_getWidth) );
+                , getWidth_function_type( &::FormFactorRipple2::getWidth ) );
         
         }
         { //::ISample::cloneInvertB

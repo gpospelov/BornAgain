@@ -32,6 +32,12 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const;
 
+    //! Returns height of shape
+    double getHeight() const;
+
+    //! Returns width of shape
+    double getWidth() const;
+
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
 protected:
@@ -43,6 +49,16 @@ private:
     double m_height;
     void initialize();
 };
+
+inline double FormFactorLorentz::getHeight() const
+{
+    return m_height;
+}
+
+inline double FormFactorLorentz::getWidth() const
+{
+    return m_width;
+}
 
 #endif /* FORMFACTORLORENTZ_H_ */
 

@@ -30,15 +30,15 @@ public:
     ~FormFactorGauss() {}
     virtual FormFactorGauss *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
     //! Returns height
-    double getHeight() const { return m_height; }
+    double getHeight() const;
 
-    //! Returns radius of Box
-    double getRadius() const { return m_width; }
+    //! Returns width
+    virtual double getRadius() const;
 
 protected:
     virtual bool check_initialization() const;
@@ -50,6 +50,16 @@ private:
     double m_max_ql;
     void initialize();
 };
+
+inline double FormFactorGauss::getHeight() const
+{
+    return m_height;
+}
+
+inline double FormFactorGauss::getRadius() const
+{
+    return m_width;
+}
 
 #endif /* FORMFACTORGAUSS_H_ */
 

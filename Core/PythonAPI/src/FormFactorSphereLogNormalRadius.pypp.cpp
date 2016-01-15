@@ -59,18 +59,6 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
         return FormFactorSphereLogNormalRadius::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorSphereLogNormalRadius::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorSphereLogNormalRadius::getHeight( );
-    }
-
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -235,17 +223,6 @@ void register_FormFactorSphereLogNormalRadius_class(){
                 , evaluate_for_q_function_type(&::FormFactorSphereLogNormalRadius::evaluate_for_q)
                 , default_evaluate_for_q_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_evaluate_for_q)
                 , ( bp::arg("q") ) );
-        
-        }
-        { //::FormFactorSphereLogNormalRadius::getHeight
-        
-            typedef double ( ::FormFactorSphereLogNormalRadius::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorSphereLogNormalRadius_wrapper::*default_getHeight_function_type)(  ) const;
-            
-            FormFactorSphereLogNormalRadius_exposer.def( 
-                "getHeight"
-                , getHeight_function_type(&::FormFactorSphereLogNormalRadius::getHeight)
-                , default_getHeight_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_getHeight) );
         
         }
         { //::ISample::cloneInvertB

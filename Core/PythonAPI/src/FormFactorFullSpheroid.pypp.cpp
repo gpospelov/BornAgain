@@ -59,18 +59,6 @@ struct FormFactorFullSpheroid_wrapper : FormFactorFullSpheroid, bp::wrapper< For
         return FormFactorFullSpheroid::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorFullSpheroid::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorFullSpheroid::getHeight( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -240,12 +228,10 @@ void register_FormFactorFullSpheroid_class(){
         { //::FormFactorFullSpheroid::getHeight
         
             typedef double ( ::FormFactorFullSpheroid::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorFullSpheroid_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorFullSpheroid_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorFullSpheroid::getHeight)
-                , default_getHeight_function_type(&FormFactorFullSpheroid_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorFullSpheroid::getHeight ) );
         
         }
         { //::FormFactorFullSpheroid::getRadius

@@ -59,18 +59,6 @@ struct FormFactorSphereUniformRadius_wrapper : FormFactorSphereUniformRadius, bp
         return FormFactorSphereUniformRadius::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorSphereUniformRadius::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorSphereUniformRadius::getHeight( );
-    }
-
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -235,17 +223,6 @@ void register_FormFactorSphereUniformRadius_class(){
                 , evaluate_for_q_function_type(&::FormFactorSphereUniformRadius::evaluate_for_q)
                 , default_evaluate_for_q_function_type(&FormFactorSphereUniformRadius_wrapper::default_evaluate_for_q)
                 , ( bp::arg("q") ) );
-        
-        }
-        { //::FormFactorSphereUniformRadius::getHeight
-        
-            typedef double ( ::FormFactorSphereUniformRadius::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorSphereUniformRadius_wrapper::*default_getHeight_function_type)(  ) const;
-            
-            FormFactorSphereUniformRadius_exposer.def( 
-                "getHeight"
-                , getHeight_function_type(&::FormFactorSphereUniformRadius::getHeight)
-                , default_getHeight_function_type(&FormFactorSphereUniformRadius_wrapper::default_getHeight) );
         
         }
         { //::ISample::cloneInvertB

@@ -59,54 +59,6 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
         return FormFactorPrism3::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorPrism3::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorPrism3::getHeight( );
-    }
-
-    virtual double getLength(  ) const  {
-        if( bp::override func_getLength = this->get_override( "getLength" ) )
-            return func_getLength(  );
-        else{
-            return this->FormFactorPrism3::getLength(  );
-        }
-    }
-    
-    double default_getLength(  ) const  {
-        return FormFactorPrism3::getLength( );
-    }
-
-    virtual void setHeight( double height ) {
-        if( bp::override func_setHeight = this->get_override( "setHeight" ) )
-            func_setHeight( height );
-        else{
-            this->FormFactorPrism3::setHeight( height );
-        }
-    }
-    
-    void default_setHeight( double height ) {
-        FormFactorPrism3::setHeight( height );
-    }
-
-    virtual void setLength( double length ) {
-        if( bp::override func_setLength = this->get_override( "setLength" ) )
-            func_setLength( length );
-        else{
-            this->FormFactorPrism3::setLength( length );
-        }
-    }
-    
-    void default_setLength( double length ) {
-        FormFactorPrism3::setLength( length );
-    }
-
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -276,46 +228,38 @@ void register_FormFactorPrism3_class(){
         { //::FormFactorPrism3::getHeight
         
             typedef double ( ::FormFactorPrism3::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorPrism3_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorPrism3_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorPrism3::getHeight)
-                , default_getHeight_function_type(&FormFactorPrism3_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorPrism3::getHeight ) );
         
         }
         { //::FormFactorPrism3::getLength
         
             typedef double ( ::FormFactorPrism3::*getLength_function_type)(  ) const;
-            typedef double ( FormFactorPrism3_wrapper::*default_getLength_function_type)(  ) const;
             
             FormFactorPrism3_exposer.def( 
                 "getLength"
-                , getLength_function_type(&::FormFactorPrism3::getLength)
-                , default_getLength_function_type(&FormFactorPrism3_wrapper::default_getLength) );
+                , getLength_function_type( &::FormFactorPrism3::getLength ) );
         
         }
         { //::FormFactorPrism3::setHeight
         
             typedef void ( ::FormFactorPrism3::*setHeight_function_type)( double ) ;
-            typedef void ( FormFactorPrism3_wrapper::*default_setHeight_function_type)( double ) ;
             
             FormFactorPrism3_exposer.def( 
                 "setHeight"
-                , setHeight_function_type(&::FormFactorPrism3::setHeight)
-                , default_setHeight_function_type(&FormFactorPrism3_wrapper::default_setHeight)
+                , setHeight_function_type( &::FormFactorPrism3::setHeight )
                 , ( bp::arg("height") ) );
         
         }
         { //::FormFactorPrism3::setLength
         
             typedef void ( ::FormFactorPrism3::*setLength_function_type)( double ) ;
-            typedef void ( FormFactorPrism3_wrapper::*default_setLength_function_type)( double ) ;
             
             FormFactorPrism3_exposer.def( 
                 "setLength"
-                , setLength_function_type(&::FormFactorPrism3::setLength)
-                , default_setLength_function_type(&FormFactorPrism3_wrapper::default_setLength)
+                , setLength_function_type( &::FormFactorPrism3::setLength )
                 , ( bp::arg("length") ) );
         
         }

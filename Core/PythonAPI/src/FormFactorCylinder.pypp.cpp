@@ -59,18 +59,6 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
         return FormFactorCylinder::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorCylinder::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorCylinder::getHeight( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -81,30 +69,6 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     
     double default_getRadius(  ) const  {
         return FormFactorCylinder::getRadius( );
-    }
-
-    virtual void setHeight( double height ) {
-        if( bp::override func_setHeight = this->get_override( "setHeight" ) )
-            func_setHeight( height );
-        else{
-            this->FormFactorCylinder::setHeight( height );
-        }
-    }
-    
-    void default_setHeight( double height ) {
-        FormFactorCylinder::setHeight( height );
-    }
-
-    virtual void setRadius( double radius ) {
-        if( bp::override func_setRadius = this->get_override( "setRadius" ) )
-            func_setRadius( radius );
-        else{
-            this->FormFactorCylinder::setRadius( radius );
-        }
-    }
-    
-    void default_setRadius( double radius ) {
-        FormFactorCylinder::setRadius( radius );
     }
 
     virtual ::ISample * cloneInvertB(  ) const  {
@@ -264,12 +228,10 @@ void register_FormFactorCylinder_class(){
         { //::FormFactorCylinder::getHeight
         
             typedef double ( ::FormFactorCylinder::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorCylinder_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorCylinder_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorCylinder::getHeight)
-                , default_getHeight_function_type(&FormFactorCylinder_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorCylinder::getHeight ) );
         
         }
         { //::FormFactorCylinder::getRadius
@@ -286,24 +248,20 @@ void register_FormFactorCylinder_class(){
         { //::FormFactorCylinder::setHeight
         
             typedef void ( ::FormFactorCylinder::*setHeight_function_type)( double ) ;
-            typedef void ( FormFactorCylinder_wrapper::*default_setHeight_function_type)( double ) ;
             
             FormFactorCylinder_exposer.def( 
                 "setHeight"
-                , setHeight_function_type(&::FormFactorCylinder::setHeight)
-                , default_setHeight_function_type(&FormFactorCylinder_wrapper::default_setHeight)
+                , setHeight_function_type( &::FormFactorCylinder::setHeight )
                 , ( bp::arg("height") ) );
         
         }
         { //::FormFactorCylinder::setRadius
         
             typedef void ( ::FormFactorCylinder::*setRadius_function_type)( double ) ;
-            typedef void ( FormFactorCylinder_wrapper::*default_setRadius_function_type)( double ) ;
             
             FormFactorCylinder_exposer.def( 
                 "setRadius"
-                , setRadius_function_type(&::FormFactorCylinder::setRadius)
-                , default_setRadius_function_type(&FormFactorCylinder_wrapper::default_setRadius)
+                , setRadius_function_type( &::FormFactorCylinder::setRadius )
                 , ( bp::arg("radius") ) );
         
         }

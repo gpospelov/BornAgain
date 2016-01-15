@@ -66,18 +66,6 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
         return FormFactorGauss::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorGauss::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorGauss::getHeight( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -248,12 +236,10 @@ void register_FormFactorGauss_class(){
         { //::FormFactorGauss::getHeight
         
             typedef double ( ::FormFactorGauss::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorGauss_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorGauss_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorGauss::getHeight)
-                , default_getHeight_function_type(&FormFactorGauss_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorGauss::getHeight ) );
         
         }
         { //::FormFactorGauss::getRadius

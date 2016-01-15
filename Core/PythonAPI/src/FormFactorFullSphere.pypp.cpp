@@ -59,18 +59,6 @@ struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFac
         return FormFactorFullSphere::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorFullSphere::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorFullSphere::getHeight( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -81,18 +69,6 @@ struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFac
     
     double default_getRadius(  ) const  {
         return FormFactorFullSphere::getRadius( );
-    }
-
-    virtual void setRadius( double radius ) {
-        if( bp::override func_setRadius = this->get_override( "setRadius" ) )
-            func_setRadius( radius );
-        else{
-            this->FormFactorFullSphere::setRadius( radius );
-        }
-    }
-    
-    void default_setRadius( double radius ) {
-        FormFactorFullSphere::setRadius( radius );
     }
 
     virtual ::ISample * cloneInvertB(  ) const  {
@@ -249,17 +225,6 @@ void register_FormFactorFullSphere_class(){
                 , ( bp::arg("q") ) );
         
         }
-        { //::FormFactorFullSphere::getHeight
-        
-            typedef double ( ::FormFactorFullSphere::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorFullSphere_wrapper::*default_getHeight_function_type)(  ) const;
-            
-            FormFactorFullSphere_exposer.def( 
-                "getHeight"
-                , getHeight_function_type(&::FormFactorFullSphere::getHeight)
-                , default_getHeight_function_type(&FormFactorFullSphere_wrapper::default_getHeight) );
-        
-        }
         { //::FormFactorFullSphere::getRadius
         
             typedef double ( ::FormFactorFullSphere::*getRadius_function_type)(  ) const;
@@ -274,13 +239,12 @@ void register_FormFactorFullSphere_class(){
         { //::FormFactorFullSphere::setRadius
         
             typedef void ( ::FormFactorFullSphere::*setRadius_function_type)( double ) ;
-            typedef void ( FormFactorFullSphere_wrapper::*default_setRadius_function_type)( double ) ;
             
             FormFactorFullSphere_exposer.def( 
                 "setRadius"
-                , setRadius_function_type(&::FormFactorFullSphere::setRadius)
-                , default_setRadius_function_type(&FormFactorFullSphere_wrapper::default_setRadius)
-                , ( bp::arg("radius") ) );
+                , setRadius_function_type( &::FormFactorFullSphere::setRadius )
+                , ( bp::arg("radius") )
+                , "Returns radius of sphere." );
         
         }
         { //::ISample::cloneInvertB

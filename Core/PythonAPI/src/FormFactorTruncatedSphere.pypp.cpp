@@ -47,18 +47,6 @@ struct FormFactorTruncatedSphere_wrapper : FormFactorTruncatedSphere, bp::wrappe
         return FormFactorTruncatedSphere::clone( );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorTruncatedSphere::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorTruncatedSphere::getHeight( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -216,12 +204,10 @@ void register_FormFactorTruncatedSphere_class(){
         { //::FormFactorTruncatedSphere::getHeight
         
             typedef double ( ::FormFactorTruncatedSphere::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorTruncatedSphere_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorTruncatedSphere_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorTruncatedSphere::getHeight)
-                , default_getHeight_function_type(&FormFactorTruncatedSphere_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorTruncatedSphere::getHeight ) );
         
         }
         { //::FormFactorTruncatedSphere::getRadius

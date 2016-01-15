@@ -40,6 +40,11 @@ FormFactorCone6::FormFactorCone6(double radius, double height, double alpha)
         new MemberComplexFunctionIntegrator<FormFactorCone6>(p_mf, this);
 }
 
+FormFactorCone6::~FormFactorCone6()
+{
+    delete m_integrator;
+}
+
 bool FormFactorCone6::check_initialization() const
 {
     bool result(true);
@@ -66,6 +71,11 @@ void FormFactorCone6::init_parameters()
 FormFactorCone6* FormFactorCone6::clone() const
 {
    return new FormFactorCone6(m_radius, m_height, m_alpha);
+}
+
+void FormFactorCone6::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 //! Integrand for complex formfactor.

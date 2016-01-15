@@ -31,20 +31,20 @@ public:
     //! @param height of Cone6
     //! @param angle in radians between base and facet
     FormFactorCone6(double radius, double height,  double alpha);
-    ~FormFactorCone6() {delete m_integrator;}
+    ~FormFactorCone6();
 
     virtual FormFactorCone6* clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual double getHeight() const { return m_height; }
-    virtual void setHeight(double height) { m_height = height; }
+    double getHeight() const;
+    void setHeight(double height);
 
-    virtual double getRadius() const { return m_radius; }
-    virtual void setRadius(double radius) { m_radius = radius; }
+    virtual double getRadius() const;
+    void setRadius(double radius);
 
-    virtual double getAlpha() const { return m_alpha; }
-    virtual void setAlpha(double alpha) { m_alpha = alpha; }
+    double getAlpha() const;
+    void setAlpha(double alpha);
 
     virtual complex_t evaluate_for_q (const cvector_t& q) const;
 
@@ -64,6 +64,36 @@ private:
 
     MemberComplexFunctionIntegrator<FormFactorCone6> *m_integrator;
 };
+
+inline double FormFactorCone6::getHeight() const
+{
+    return m_height;
+}
+
+inline void FormFactorCone6::setHeight(double height)
+{
+    m_height = height;
+}
+
+inline double FormFactorCone6::getRadius() const
+{
+    return m_radius;
+}
+
+inline void FormFactorCone6::setRadius(double radius)
+{
+    m_radius = radius;
+}
+
+inline double FormFactorCone6::getAlpha() const
+{
+    return m_alpha;
+}
+
+inline void FormFactorCone6::setAlpha(double alpha)
+{
+    m_alpha = alpha;
+}
 
 #endif // FORMFACTORCONE6_H
 

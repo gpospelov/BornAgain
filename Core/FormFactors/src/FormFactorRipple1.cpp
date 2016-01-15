@@ -39,6 +39,11 @@ FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
         new MemberComplexFunctionIntegrator<FormFactorRipple1>(p_mf, this);
 }
 
+FormFactorRipple1::~FormFactorRipple1()
+{
+    delete m_integrator;
+}
+
 bool FormFactorRipple1::check_initialization() const
 {
     bool result(true);

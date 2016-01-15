@@ -60,17 +60,6 @@ complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(
     return result;
 }
 
-double FormFactorSphereLogNormalRadius::getHeight() const
-{
-    if (m_form_factors.size()<1) return 0.0;
-    double result = 0.0;
-    for (size_t i=0; i<m_form_factors.size(); ++i) {
-        double height = m_form_factors[i]->getHeight();
-        result = std::max(result, height);
-    }
-    return result;
-}
-
 bool FormFactorSphereLogNormalRadius::check_initialization() const
 {
     return true;

@@ -93,18 +93,6 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
         return ISample::getChildren( );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->IFormFactor::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return IFormFactor::getHeight( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -264,17 +252,6 @@ void register_IFormFactorBorn_class(){
                 "getChildren"
                 , getChildren_function_type(&::ISample::getChildren)
                 , default_getChildren_function_type(&IFormFactorBorn_wrapper::default_getChildren) );
-        
-        }
-        { //::IFormFactor::getHeight
-        
-            typedef double ( ::IFormFactor::*getHeight_function_type)(  ) const;
-            typedef double ( IFormFactorBorn_wrapper::*default_getHeight_function_type)(  ) const;
-            
-            IFormFactorBorn_exposer.def( 
-                "getHeight"
-                , getHeight_function_type(&::IFormFactor::getHeight)
-                , default_getHeight_function_type(&IFormFactorBorn_wrapper::default_getHeight) );
         
         }
         { //::IFormFactor::getRadius

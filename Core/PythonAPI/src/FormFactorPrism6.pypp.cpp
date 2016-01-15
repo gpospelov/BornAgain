@@ -59,18 +59,6 @@ struct FormFactorPrism6_wrapper : FormFactorPrism6, bp::wrapper< FormFactorPrism
         return FormFactorPrism6::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorPrism6::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorPrism6::getHeight( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -81,30 +69,6 @@ struct FormFactorPrism6_wrapper : FormFactorPrism6, bp::wrapper< FormFactorPrism
     
     double default_getRadius(  ) const  {
         return FormFactorPrism6::getRadius( );
-    }
-
-    virtual void setHeight( double height ) {
-        if( bp::override func_setHeight = this->get_override( "setHeight" ) )
-            func_setHeight( height );
-        else{
-            this->FormFactorPrism6::setHeight( height );
-        }
-    }
-    
-    void default_setHeight( double height ) {
-        FormFactorPrism6::setHeight( height );
-    }
-
-    virtual void setRadius( double radius ) {
-        if( bp::override func_setRadius = this->get_override( "setRadius" ) )
-            func_setRadius( radius );
-        else{
-            this->FormFactorPrism6::setRadius( radius );
-        }
-    }
-    
-    void default_setRadius( double radius ) {
-        FormFactorPrism6::setRadius( radius );
     }
 
     virtual ::ISample * cloneInvertB(  ) const  {
@@ -264,12 +228,10 @@ void register_FormFactorPrism6_class(){
         { //::FormFactorPrism6::getHeight
         
             typedef double ( ::FormFactorPrism6::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorPrism6_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorPrism6_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorPrism6::getHeight)
-                , default_getHeight_function_type(&FormFactorPrism6_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorPrism6::getHeight ) );
         
         }
         { //::FormFactorPrism6::getRadius
@@ -286,24 +248,20 @@ void register_FormFactorPrism6_class(){
         { //::FormFactorPrism6::setHeight
         
             typedef void ( ::FormFactorPrism6::*setHeight_function_type)( double ) ;
-            typedef void ( FormFactorPrism6_wrapper::*default_setHeight_function_type)( double ) ;
             
             FormFactorPrism6_exposer.def( 
                 "setHeight"
-                , setHeight_function_type(&::FormFactorPrism6::setHeight)
-                , default_setHeight_function_type(&FormFactorPrism6_wrapper::default_setHeight)
+                , setHeight_function_type( &::FormFactorPrism6::setHeight )
                 , ( bp::arg("height") ) );
         
         }
         { //::FormFactorPrism6::setRadius
         
             typedef void ( ::FormFactorPrism6::*setRadius_function_type)( double ) ;
-            typedef void ( FormFactorPrism6_wrapper::*default_setRadius_function_type)( double ) ;
             
             FormFactorPrism6_exposer.def( 
                 "setRadius"
-                , setRadius_function_type(&::FormFactorPrism6::setRadius)
-                , default_setRadius_function_type(&FormFactorPrism6_wrapper::default_setRadius)
+                , setRadius_function_type( &::FormFactorPrism6::setRadius )
                 , ( bp::arg("radius") ) );
         
         }

@@ -59,30 +59,6 @@ struct FormFactorCone6_wrapper : FormFactorCone6, bp::wrapper< FormFactorCone6 >
         return FormFactorCone6::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getAlpha(  ) const  {
-        if( bp::override func_getAlpha = this->get_override( "getAlpha" ) )
-            return func_getAlpha(  );
-        else{
-            return this->FormFactorCone6::getAlpha(  );
-        }
-    }
-    
-    double default_getAlpha(  ) const  {
-        return FormFactorCone6::getAlpha( );
-    }
-
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorCone6::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorCone6::getHeight( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -93,42 +69,6 @@ struct FormFactorCone6_wrapper : FormFactorCone6, bp::wrapper< FormFactorCone6 >
     
     double default_getRadius(  ) const  {
         return FormFactorCone6::getRadius( );
-    }
-
-    virtual void setAlpha( double alpha ) {
-        if( bp::override func_setAlpha = this->get_override( "setAlpha" ) )
-            func_setAlpha( alpha );
-        else{
-            this->FormFactorCone6::setAlpha( alpha );
-        }
-    }
-    
-    void default_setAlpha( double alpha ) {
-        FormFactorCone6::setAlpha( alpha );
-    }
-
-    virtual void setHeight( double height ) {
-        if( bp::override func_setHeight = this->get_override( "setHeight" ) )
-            func_setHeight( height );
-        else{
-            this->FormFactorCone6::setHeight( height );
-        }
-    }
-    
-    void default_setHeight( double height ) {
-        FormFactorCone6::setHeight( height );
-    }
-
-    virtual void setRadius( double radius ) {
-        if( bp::override func_setRadius = this->get_override( "setRadius" ) )
-            func_setRadius( radius );
-        else{
-            this->FormFactorCone6::setRadius( radius );
-        }
-    }
-    
-    void default_setRadius( double radius ) {
-        FormFactorCone6::setRadius( radius );
     }
 
     virtual ::ISample * cloneInvertB(  ) const  {
@@ -288,23 +228,19 @@ void register_FormFactorCone6_class(){
         { //::FormFactorCone6::getAlpha
         
             typedef double ( ::FormFactorCone6::*getAlpha_function_type)(  ) const;
-            typedef double ( FormFactorCone6_wrapper::*default_getAlpha_function_type)(  ) const;
             
             FormFactorCone6_exposer.def( 
                 "getAlpha"
-                , getAlpha_function_type(&::FormFactorCone6::getAlpha)
-                , default_getAlpha_function_type(&FormFactorCone6_wrapper::default_getAlpha) );
+                , getAlpha_function_type( &::FormFactorCone6::getAlpha ) );
         
         }
         { //::FormFactorCone6::getHeight
         
             typedef double ( ::FormFactorCone6::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorCone6_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorCone6_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorCone6::getHeight)
-                , default_getHeight_function_type(&FormFactorCone6_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorCone6::getHeight ) );
         
         }
         { //::FormFactorCone6::getRadius
@@ -321,36 +257,30 @@ void register_FormFactorCone6_class(){
         { //::FormFactorCone6::setAlpha
         
             typedef void ( ::FormFactorCone6::*setAlpha_function_type)( double ) ;
-            typedef void ( FormFactorCone6_wrapper::*default_setAlpha_function_type)( double ) ;
             
             FormFactorCone6_exposer.def( 
                 "setAlpha"
-                , setAlpha_function_type(&::FormFactorCone6::setAlpha)
-                , default_setAlpha_function_type(&FormFactorCone6_wrapper::default_setAlpha)
+                , setAlpha_function_type( &::FormFactorCone6::setAlpha )
                 , ( bp::arg("alpha") ) );
         
         }
         { //::FormFactorCone6::setHeight
         
             typedef void ( ::FormFactorCone6::*setHeight_function_type)( double ) ;
-            typedef void ( FormFactorCone6_wrapper::*default_setHeight_function_type)( double ) ;
             
             FormFactorCone6_exposer.def( 
                 "setHeight"
-                , setHeight_function_type(&::FormFactorCone6::setHeight)
-                , default_setHeight_function_type(&FormFactorCone6_wrapper::default_setHeight)
+                , setHeight_function_type( &::FormFactorCone6::setHeight )
                 , ( bp::arg("height") ) );
         
         }
         { //::FormFactorCone6::setRadius
         
             typedef void ( ::FormFactorCone6::*setRadius_function_type)( double ) ;
-            typedef void ( FormFactorCone6_wrapper::*default_setRadius_function_type)( double ) ;
             
             FormFactorCone6_exposer.def( 
                 "setRadius"
-                , setRadius_function_type(&::FormFactorCone6::setRadius)
-                , default_setRadius_function_type(&FormFactorCone6_wrapper::default_setRadius)
+                , setRadius_function_type( &::FormFactorCone6::setRadius )
                 , ( bp::arg("radius") ) );
         
         }

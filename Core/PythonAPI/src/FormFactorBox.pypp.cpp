@@ -59,18 +59,6 @@ struct FormFactorBox_wrapper : FormFactorBox, bp::wrapper< FormFactorBox > {
         return FormFactorBox::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorBox::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorBox::getHeight( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -240,12 +228,10 @@ void register_FormFactorBox_class(){
         { //::FormFactorBox::getHeight
         
             typedef double ( ::FormFactorBox::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorBox_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorBox_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorBox::getHeight)
-                , default_getHeight_function_type(&FormFactorBox_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorBox::getHeight ) );
         
         }
         { //::FormFactorBox::getLength
@@ -254,8 +240,7 @@ void register_FormFactorBox_class(){
             
             FormFactorBox_exposer.def( 
                 "getLength"
-                , getLength_function_type( &::FormFactorBox::getLength )
-                , "Returns length of Box." );
+                , getLength_function_type( &::FormFactorBox::getLength ) );
         
         }
         { //::FormFactorBox::getRadius
@@ -275,8 +260,7 @@ void register_FormFactorBox_class(){
             
             FormFactorBox_exposer.def( 
                 "getWidth"
-                , getWidth_function_type( &::FormFactorBox::getWidth )
-                , "Returns width of Box." );
+                , getWidth_function_type( &::FormFactorBox::getWidth ) );
         
         }
         { //::ISample::cloneInvertB

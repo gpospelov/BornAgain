@@ -46,6 +46,11 @@ FormFactorCylinder* FormFactorCylinder::clone() const
     return new FormFactorCylinder(m_radius, m_height);
 }
 
+void FormFactorCylinder::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
 complex_t FormFactorCylinder::evaluate_for_q(const cvector_t &q) const
 {
     double R = m_radius;

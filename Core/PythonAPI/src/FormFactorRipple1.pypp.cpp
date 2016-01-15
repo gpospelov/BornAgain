@@ -59,42 +59,6 @@ struct FormFactorRipple1_wrapper : FormFactorRipple1, bp::wrapper< FormFactorRip
         return FormFactorRipple1::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorRipple1::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorRipple1::getHeight( );
-    }
-
-    virtual double getLength(  ) const  {
-        if( bp::override func_getLength = this->get_override( "getLength" ) )
-            return func_getLength(  );
-        else{
-            return this->FormFactorRipple1::getLength(  );
-        }
-    }
-    
-    double default_getLength(  ) const  {
-        return FormFactorRipple1::getLength( );
-    }
-
-    virtual double getWidth(  ) const  {
-        if( bp::override func_getWidth = this->get_override( "getWidth" ) )
-            return func_getWidth(  );
-        else{
-            return this->FormFactorRipple1::getWidth(  );
-        }
-    }
-    
-    double default_getWidth(  ) const  {
-        return FormFactorRipple1::getWidth( );
-    }
-
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -264,34 +228,28 @@ void register_FormFactorRipple1_class(){
         { //::FormFactorRipple1::getHeight
         
             typedef double ( ::FormFactorRipple1::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorRipple1_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorRipple1_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorRipple1::getHeight)
-                , default_getHeight_function_type(&FormFactorRipple1_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorRipple1::getHeight ) );
         
         }
         { //::FormFactorRipple1::getLength
         
             typedef double ( ::FormFactorRipple1::*getLength_function_type)(  ) const;
-            typedef double ( FormFactorRipple1_wrapper::*default_getLength_function_type)(  ) const;
             
             FormFactorRipple1_exposer.def( 
                 "getLength"
-                , getLength_function_type(&::FormFactorRipple1::getLength)
-                , default_getLength_function_type(&FormFactorRipple1_wrapper::default_getLength) );
+                , getLength_function_type( &::FormFactorRipple1::getLength ) );
         
         }
         { //::FormFactorRipple1::getWidth
         
             typedef double ( ::FormFactorRipple1::*getWidth_function_type)(  ) const;
-            typedef double ( FormFactorRipple1_wrapper::*default_getWidth_function_type)(  ) const;
             
             FormFactorRipple1_exposer.def( 
                 "getWidth"
-                , getWidth_function_type(&::FormFactorRipple1::getWidth)
-                , default_getWidth_function_type(&FormFactorRipple1_wrapper::default_getWidth) );
+                , getWidth_function_type( &::FormFactorRipple1::getWidth ) );
         
         }
         { //::ISample::cloneInvertB

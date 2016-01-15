@@ -45,18 +45,6 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
         return func_clone(  );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->IFormFactorDecorator::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return IFormFactorDecorator::getHeight( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -210,17 +198,6 @@ void register_IFormFactorDecorator_class(){
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::IFormFactorDecorator::clone) )
                 , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::IFormFactorDecorator::getHeight
-        
-            typedef double ( ::IFormFactorDecorator::*getHeight_function_type)(  ) const;
-            typedef double ( IFormFactorDecorator_wrapper::*default_getHeight_function_type)(  ) const;
-            
-            IFormFactorDecorator_exposer.def( 
-                "getHeight"
-                , getHeight_function_type(&::IFormFactorDecorator::getHeight)
-                , default_getHeight_function_type(&IFormFactorDecorator_wrapper::default_getHeight) );
         
         }
         { //::IFormFactorDecorator::getRadius

@@ -37,20 +37,19 @@ public:
     ~FormFactorCuboctahedron() {}
     virtual FormFactorCuboctahedron *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual double getHeight() const { return m_height; }
-    virtual void setHeight(double height) { m_height = height; }
+    double getHeight() const;
+    void setHeight(double height);
 
-    virtual double getHeightRatio() const { return m_height_ratio; }
-    virtual void setHeightRatio(double height_ratio) { m_height_ratio
-                                                     = height_ratio; }
+    double getHeightRatio() const;
+    void setHeightRatio(double height_ratio);
 
-    virtual double getLength() const { return m_length; }
-    virtual void setLength(double length) { m_length = length; }
+    double getLength() const;
+    void setLength(double length);
 
-    virtual double getAlpha() const { return m_alpha; }
-    virtual void setAlpha(double alpha) { m_alpha = alpha; }
+    double getAlpha() const;
+    void setAlpha(double alpha);
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -64,5 +63,45 @@ private:
     double m_height_ratio;
     double m_alpha;
 };
+
+inline double FormFactorCuboctahedron::getHeight() const
+{
+    return m_height;
+}
+
+inline void FormFactorCuboctahedron::setHeight(double height)
+{
+    m_height = height;
+}
+
+inline double FormFactorCuboctahedron::getHeightRatio() const
+{
+    return m_height_ratio;
+}
+
+inline void FormFactorCuboctahedron::setHeightRatio(double height_ratio)
+{
+    m_height_ratio = height_ratio;
+}
+
+inline double FormFactorCuboctahedron::getLength() const
+{
+    return m_length;
+}
+
+inline void FormFactorCuboctahedron::setLength(double length)
+{
+    m_length = length;
+}
+
+inline double FormFactorCuboctahedron::getAlpha() const
+{
+    return m_alpha;
+}
+
+inline void FormFactorCuboctahedron::setAlpha(double alpha)
+{
+    m_alpha = alpha;
+}
 
 #endif // FORMFACTORCUBOCTAHEDRON_H

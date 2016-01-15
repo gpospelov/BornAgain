@@ -45,18 +45,6 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         return func_evaluate( boost::ref(wavevectors) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->IFormFactor::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return IFormFactor::getHeight( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -206,17 +194,6 @@ void register_IFormFactor_class(){
                 , bp::pure_virtual( evaluate_function_type(&::IFormFactor::evaluate) )
                 , ( bp::arg("wavevectors") )
                 , "Returns scattering amplitude for complex wavevector bin @param k_i   incoming wavevector @param k_f_bin   outgoing wavevector bin \n\n:Parameters:\n  - 'k_i' - incoming wavevector\n  - 'k_f_bin' - outgoing wavevector bin\n" );
-        
-        }
-        { //::IFormFactor::getHeight
-        
-            typedef double ( ::IFormFactor::*getHeight_function_type)(  ) const;
-            typedef double ( IFormFactor_wrapper::*default_getHeight_function_type)(  ) const;
-            
-            IFormFactor_exposer.def( 
-                "getHeight"
-                , getHeight_function_type(&::IFormFactor::getHeight)
-                , default_getHeight_function_type(&IFormFactor_wrapper::default_getHeight) );
         
         }
         { //::IFormFactor::getRadius

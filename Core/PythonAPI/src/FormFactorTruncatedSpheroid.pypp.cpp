@@ -59,42 +59,6 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
         return FormFactorTruncatedSpheroid::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorTruncatedSpheroid::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorTruncatedSpheroid::getHeight( );
-    }
-
-    virtual double getHeightFlattening(  ) const  {
-        if( bp::override func_getHeightFlattening = this->get_override( "getHeightFlattening" ) )
-            return func_getHeightFlattening(  );
-        else{
-            return this->FormFactorTruncatedSpheroid::getHeightFlattening(  );
-        }
-    }
-    
-    double default_getHeightFlattening(  ) const  {
-        return FormFactorTruncatedSpheroid::getHeightFlattening( );
-    }
-
-    virtual double getHeightFullSpheroid(  ) const  {
-        if( bp::override func_getHeightFullSpheroid = this->get_override( "getHeightFullSpheroid" ) )
-            return func_getHeightFullSpheroid(  );
-        else{
-            return this->FormFactorTruncatedSpheroid::getHeightFullSpheroid(  );
-        }
-    }
-    
-    double default_getHeightFullSpheroid(  ) const  {
-        return FormFactorTruncatedSpheroid::getHeightFullSpheroid( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -264,34 +228,19 @@ void register_FormFactorTruncatedSpheroid_class(){
         { //::FormFactorTruncatedSpheroid::getHeight
         
             typedef double ( ::FormFactorTruncatedSpheroid::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorTruncatedSpheroid_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorTruncatedSpheroid_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorTruncatedSpheroid::getHeight)
-                , default_getHeight_function_type(&FormFactorTruncatedSpheroid_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorTruncatedSpheroid::getHeight ) );
         
         }
         { //::FormFactorTruncatedSpheroid::getHeightFlattening
         
             typedef double ( ::FormFactorTruncatedSpheroid::*getHeightFlattening_function_type)(  ) const;
-            typedef double ( FormFactorTruncatedSpheroid_wrapper::*default_getHeightFlattening_function_type)(  ) const;
             
             FormFactorTruncatedSpheroid_exposer.def( 
                 "getHeightFlattening"
-                , getHeightFlattening_function_type(&::FormFactorTruncatedSpheroid::getHeightFlattening)
-                , default_getHeightFlattening_function_type(&FormFactorTruncatedSpheroid_wrapper::default_getHeightFlattening) );
-        
-        }
-        { //::FormFactorTruncatedSpheroid::getHeightFullSpheroid
-        
-            typedef double ( ::FormFactorTruncatedSpheroid::*getHeightFullSpheroid_function_type)(  ) const;
-            typedef double ( FormFactorTruncatedSpheroid_wrapper::*default_getHeightFullSpheroid_function_type)(  ) const;
-            
-            FormFactorTruncatedSpheroid_exposer.def( 
-                "getHeightFullSpheroid"
-                , getHeightFullSpheroid_function_type(&::FormFactorTruncatedSpheroid::getHeightFullSpheroid)
-                , default_getHeightFullSpheroid_function_type(&FormFactorTruncatedSpheroid_wrapper::default_getHeightFullSpheroid) );
+                , getHeightFlattening_function_type( &::FormFactorTruncatedSpheroid::getHeightFlattening ) );
         
         }
         { //::FormFactorTruncatedSpheroid::getRadius

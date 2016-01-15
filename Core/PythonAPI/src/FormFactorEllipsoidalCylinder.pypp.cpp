@@ -59,66 +59,6 @@ struct FormFactorEllipsoidalCylinder_wrapper : FormFactorEllipsoidalCylinder, bp
         return FormFactorEllipsoidalCylinder::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorEllipsoidalCylinder::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorEllipsoidalCylinder::getHeight( );
-    }
-
-    virtual double getRadiusY(  ) const  {
-        if( bp::override func_getRadiusY = this->get_override( "getRadiusY" ) )
-            return func_getRadiusY(  );
-        else{
-            return this->FormFactorEllipsoidalCylinder::getRadiusY(  );
-        }
-    }
-    
-    double default_getRadiusY(  ) const  {
-        return FormFactorEllipsoidalCylinder::getRadiusY( );
-    }
-
-    virtual void setHeight( double height ) {
-        if( bp::override func_setHeight = this->get_override( "setHeight" ) )
-            func_setHeight( height );
-        else{
-            this->FormFactorEllipsoidalCylinder::setHeight( height );
-        }
-    }
-    
-    void default_setHeight( double height ) {
-        FormFactorEllipsoidalCylinder::setHeight( height );
-    }
-
-    virtual void setRadiusX( double radius_x ) {
-        if( bp::override func_setRadiusX = this->get_override( "setRadiusX" ) )
-            func_setRadiusX( radius_x );
-        else{
-            this->FormFactorEllipsoidalCylinder::setRadiusX( radius_x );
-        }
-    }
-    
-    void default_setRadiusX( double radius_x ) {
-        FormFactorEllipsoidalCylinder::setRadiusX( radius_x );
-    }
-
-    virtual void setRadiusY( double radius_y ) {
-        if( bp::override func_setRadiusY = this->get_override( "setRadiusY" ) )
-            func_setRadiusY( radius_y );
-        else{
-            this->FormFactorEllipsoidalCylinder::setRadiusY( radius_y );
-        }
-    }
-    
-    void default_setRadiusY( double radius_y ) {
-        FormFactorEllipsoidalCylinder::setRadiusY( radius_y );
-    }
-
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -288,12 +228,10 @@ void register_FormFactorEllipsoidalCylinder_class(){
         { //::FormFactorEllipsoidalCylinder::getHeight
         
             typedef double ( ::FormFactorEllipsoidalCylinder::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorEllipsoidalCylinder_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorEllipsoidalCylinder_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorEllipsoidalCylinder::getHeight)
-                , default_getHeight_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorEllipsoidalCylinder::getHeight ) );
         
         }
         { //::FormFactorEllipsoidalCylinder::getRadiusX
@@ -308,47 +246,39 @@ void register_FormFactorEllipsoidalCylinder_class(){
         { //::FormFactorEllipsoidalCylinder::getRadiusY
         
             typedef double ( ::FormFactorEllipsoidalCylinder::*getRadiusY_function_type)(  ) const;
-            typedef double ( FormFactorEllipsoidalCylinder_wrapper::*default_getRadiusY_function_type)(  ) const;
             
             FormFactorEllipsoidalCylinder_exposer.def( 
                 "getRadiusY"
-                , getRadiusY_function_type(&::FormFactorEllipsoidalCylinder::getRadiusY)
-                , default_getRadiusY_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_getRadiusY) );
+                , getRadiusY_function_type( &::FormFactorEllipsoidalCylinder::getRadiusY ) );
         
         }
         { //::FormFactorEllipsoidalCylinder::setHeight
         
             typedef void ( ::FormFactorEllipsoidalCylinder::*setHeight_function_type)( double ) ;
-            typedef void ( FormFactorEllipsoidalCylinder_wrapper::*default_setHeight_function_type)( double ) ;
             
             FormFactorEllipsoidalCylinder_exposer.def( 
                 "setHeight"
-                , setHeight_function_type(&::FormFactorEllipsoidalCylinder::setHeight)
-                , default_setHeight_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_setHeight)
+                , setHeight_function_type( &::FormFactorEllipsoidalCylinder::setHeight )
                 , ( bp::arg("height") ) );
         
         }
         { //::FormFactorEllipsoidalCylinder::setRadiusX
         
             typedef void ( ::FormFactorEllipsoidalCylinder::*setRadiusX_function_type)( double ) ;
-            typedef void ( FormFactorEllipsoidalCylinder_wrapper::*default_setRadiusX_function_type)( double ) ;
             
             FormFactorEllipsoidalCylinder_exposer.def( 
                 "setRadiusX"
-                , setRadiusX_function_type(&::FormFactorEllipsoidalCylinder::setRadiusX)
-                , default_setRadiusX_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_setRadiusX)
+                , setRadiusX_function_type( &::FormFactorEllipsoidalCylinder::setRadiusX )
                 , ( bp::arg("radius_x") ) );
         
         }
         { //::FormFactorEllipsoidalCylinder::setRadiusY
         
             typedef void ( ::FormFactorEllipsoidalCylinder::*setRadiusY_function_type)( double ) ;
-            typedef void ( FormFactorEllipsoidalCylinder_wrapper::*default_setRadiusY_function_type)( double ) ;
             
             FormFactorEllipsoidalCylinder_exposer.def( 
                 "setRadiusY"
-                , setRadiusY_function_type(&::FormFactorEllipsoidalCylinder::setRadiusY)
-                , default_setRadiusY_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_setRadiusY)
+                , setRadiusY_function_type( &::FormFactorEllipsoidalCylinder::setRadiusY )
                 , ( bp::arg("radius_y") ) );
         
         }

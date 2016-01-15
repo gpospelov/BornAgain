@@ -38,9 +38,9 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual double getHeight() const;
-    virtual double getRadiusX() const;
-    virtual double getRadiusY() const;
+    double getHeight() const;
+    double getRadiusX() const;
+    double getRadiusY() const;
 
     virtual complex_t evaluate_for_q (const cvector_t& q) const;
 

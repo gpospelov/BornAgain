@@ -33,11 +33,11 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual double getHeight() const { return m_height; }
-    virtual void setHeight(double height) { m_height = height; }
+    double getHeight() const;
+    void setHeight(double height);
 
-    virtual double getRadius() const { return m_radius; }
-    virtual void setRadius(double radius) { m_radius = radius; }
+    virtual double getRadius() const;
+    void setRadius(double radius);
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -50,6 +50,26 @@ private:
     double m_radius;
     double m_root3; // Cached value of square root of 3
 };
+
+inline double FormFactorPrism6::getHeight() const
+{
+    return m_height;
+}
+
+inline void FormFactorPrism6::setHeight(double height)
+{
+    m_height = height;
+}
+
+inline double FormFactorPrism6::getRadius() const
+{
+    return m_radius;
+}
+
+inline void FormFactorPrism6::setRadius(double radius)
+{
+    m_radius = radius;
+}
 
 #endif // FORMFACTORPRISM6_H
 

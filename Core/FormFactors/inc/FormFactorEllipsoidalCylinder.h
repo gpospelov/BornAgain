@@ -36,13 +36,13 @@ public:
     virtual void accept(ISampleVisitor *visitor) const;
 
     double getRadiusX() const;
-    virtual void setRadiusX(double radius_x);
+    void setRadiusX(double radius_x);
 
-    virtual double getRadiusY() const;
-    virtual void setRadiusY(double radius_y);
+    double getRadiusY() const;
+    void setRadiusY(double radius_y);
 
-    virtual double getHeight() const;
-    virtual void setHeight(double height);
+    double getHeight() const;
+    void setHeight(double height);
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 

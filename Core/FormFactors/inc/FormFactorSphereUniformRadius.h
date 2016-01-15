@@ -35,8 +35,6 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual double getHeight() const { return 2.0*m_mean; }
-
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
 protected:

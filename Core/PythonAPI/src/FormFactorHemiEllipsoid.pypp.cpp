@@ -59,42 +59,6 @@ struct FormFactorHemiEllipsoid_wrapper : FormFactorHemiEllipsoid, bp::wrapper< F
         return FormFactorHemiEllipsoid::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorHemiEllipsoid::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorHemiEllipsoid::getHeight( );
-    }
-
-    virtual double getRadiusX(  ) const  {
-        if( bp::override func_getRadiusX = this->get_override( "getRadiusX" ) )
-            return func_getRadiusX(  );
-        else{
-            return this->FormFactorHemiEllipsoid::getRadiusX(  );
-        }
-    }
-    
-    double default_getRadiusX(  ) const  {
-        return FormFactorHemiEllipsoid::getRadiusX( );
-    }
-
-    virtual double getRadiusY(  ) const  {
-        if( bp::override func_getRadiusY = this->get_override( "getRadiusY" ) )
-            return func_getRadiusY(  );
-        else{
-            return this->FormFactorHemiEllipsoid::getRadiusY(  );
-        }
-    }
-    
-    double default_getRadiusY(  ) const  {
-        return FormFactorHemiEllipsoid::getRadiusY( );
-    }
-
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -264,34 +228,28 @@ void register_FormFactorHemiEllipsoid_class(){
         { //::FormFactorHemiEllipsoid::getHeight
         
             typedef double ( ::FormFactorHemiEllipsoid::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorHemiEllipsoid_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorHemiEllipsoid_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorHemiEllipsoid::getHeight)
-                , default_getHeight_function_type(&FormFactorHemiEllipsoid_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorHemiEllipsoid::getHeight ) );
         
         }
         { //::FormFactorHemiEllipsoid::getRadiusX
         
             typedef double ( ::FormFactorHemiEllipsoid::*getRadiusX_function_type)(  ) const;
-            typedef double ( FormFactorHemiEllipsoid_wrapper::*default_getRadiusX_function_type)(  ) const;
             
             FormFactorHemiEllipsoid_exposer.def( 
                 "getRadiusX"
-                , getRadiusX_function_type(&::FormFactorHemiEllipsoid::getRadiusX)
-                , default_getRadiusX_function_type(&FormFactorHemiEllipsoid_wrapper::default_getRadiusX) );
+                , getRadiusX_function_type( &::FormFactorHemiEllipsoid::getRadiusX ) );
         
         }
         { //::FormFactorHemiEllipsoid::getRadiusY
         
             typedef double ( ::FormFactorHemiEllipsoid::*getRadiusY_function_type)(  ) const;
-            typedef double ( FormFactorHemiEllipsoid_wrapper::*default_getRadiusY_function_type)(  ) const;
             
             FormFactorHemiEllipsoid_exposer.def( 
                 "getRadiusY"
-                , getRadiusY_function_type(&::FormFactorHemiEllipsoid::getRadiusY)
-                , default_getRadiusY_function_type(&FormFactorHemiEllipsoid_wrapper::default_getRadiusY) );
+                , getRadiusY_function_type( &::FormFactorHemiEllipsoid::getRadiusY ) );
         
         }
         { //::ISample::cloneInvertB

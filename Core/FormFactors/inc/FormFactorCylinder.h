@@ -32,13 +32,13 @@ public:
     ~FormFactorCylinder() {}
     virtual FormFactorCylinder *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual double getHeight() const { return m_height; }
-    virtual void setHeight(double height) { m_height = height; }
+    double getHeight() const;
+    void setHeight(double height);
 
-    virtual double getRadius() const { return m_radius; }
-    virtual void setRadius(double radius) { m_radius = radius; }
+    virtual double getRadius() const;
+    void setRadius(double radius);
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -50,6 +50,26 @@ private:
     double m_radius;
     double m_height;
 };
+
+inline double FormFactorCylinder::getHeight() const
+{
+    return m_height;
+}
+
+inline void FormFactorCylinder::setHeight(double height)
+{
+    m_height = height;
+}
+
+inline double FormFactorCylinder::getRadius() const
+{
+    return m_radius;
+}
+
+inline void FormFactorCylinder::setRadius(double radius)
+{
+    m_radius = radius;
+}
 
 #endif // FORMFACTORCYLINDER_H
 

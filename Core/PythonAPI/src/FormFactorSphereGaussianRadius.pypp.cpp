@@ -59,18 +59,6 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
         return FormFactorSphereGaussianRadius::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorSphereGaussianRadius::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorSphereGaussianRadius::getHeight( );
-    }
-
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -235,17 +223,6 @@ void register_FormFactorSphereGaussianRadius_class(){
                 , evaluate_for_q_function_type(&::FormFactorSphereGaussianRadius::evaluate_for_q)
                 , default_evaluate_for_q_function_type(&FormFactorSphereGaussianRadius_wrapper::default_evaluate_for_q)
                 , ( bp::arg("q") ) );
-        
-        }
-        { //::FormFactorSphereGaussianRadius::getHeight
-        
-            typedef double ( ::FormFactorSphereGaussianRadius::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorSphereGaussianRadius_wrapper::*default_getHeight_function_type)(  ) const;
-            
-            FormFactorSphereGaussianRadius_exposer.def( 
-                "getHeight"
-                , getHeight_function_type(&::FormFactorSphereGaussianRadius::getHeight)
-                , default_getHeight_function_type(&FormFactorSphereGaussianRadius_wrapper::default_getHeight) );
         
         }
         { //::ISample::cloneInvertB

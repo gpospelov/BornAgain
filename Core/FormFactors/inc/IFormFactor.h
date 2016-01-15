@@ -62,10 +62,8 @@ public:
     //! Returns the total volume of the particle of this form factor's shape
     virtual double getVolume() const;
 
-    //! Returns the total height of the particle of this form factor's shape
-    virtual double getHeight() const;
-
     //! Returns the total radial size of the particle of this form factor's shape
+    //! The default implementation returns the radius of a sphere with volume getVolume()
     virtual double getRadius() const;
 
     //! Sets reflection/transmission info
@@ -91,14 +89,9 @@ inline double IFormFactor::getVolume() const
     return std::abs(evaluate(zero_wavevectors));
 }
 
-inline double IFormFactor::getHeight() const
-{
-    return std::pow(getVolume(), 1.0/3.0);
-}
-
 inline double IFormFactor::getRadius() const
 {
-    return std::sqrt(getVolume()/getHeight()/Units::PI);
+    return std::pow(3.0*getVolume()/Units::PI/4.0, 1.0/3.0);
 }
 
 #endif // IFORMFACTOR_H

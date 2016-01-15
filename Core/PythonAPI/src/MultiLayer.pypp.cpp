@@ -203,8 +203,7 @@ void register_MultiLayer_class(){
             
             MultiLayer_exposer.def( 
                 "getCrossCorrLength"
-                , getCrossCorrLength_function_type( &::MultiLayer::getCrossCorrLength )
-                , "Returns cross correlation length of roughnesses between interfaces." );
+                , getCrossCorrLength_function_type( &::MultiLayer::getCrossCorrLength ) );
         
         }
         { //::MultiLayer::getCrossCorrSpectralFun
@@ -226,8 +225,7 @@ void register_MultiLayer_class(){
                 "getLayer"
                 , getLayer_function_type( &::MultiLayer::getLayer )
                 , ( bp::arg("i_layer") )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns layer with given index." );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::MultiLayer::getLayerBottomInterface
@@ -249,8 +247,7 @@ void register_MultiLayer_class(){
             MultiLayer_exposer.def( 
                 "getLayerBottomZ"
                 , getLayerBottomZ_function_type( &::MultiLayer::getLayerBottomZ )
-                , ( bp::arg("i_layer") )
-                , "Returns z-coordinate of the layer's bottom." );
+                , ( bp::arg("i_layer") ) );
         
         }
         { //::MultiLayer::getLayerInterface
@@ -261,8 +258,7 @@ void register_MultiLayer_class(){
                 "getLayerInterface"
                 , getLayerInterface_function_type( &::MultiLayer::getLayerInterface )
                 , ( bp::arg("i_interface") )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns layer with given index." );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::MultiLayer::getLayerThickness
@@ -272,8 +268,7 @@ void register_MultiLayer_class(){
             MultiLayer_exposer.def( 
                 "getLayerThickness"
                 , getLayerThickness_function_type( &::MultiLayer::getLayerThickness )
-                , ( bp::arg("i_layer") )
-                , "Returns thickness of layer." );
+                , ( bp::arg("i_layer") ) );
         
         }
         { //::MultiLayer::getLayerTopInterface
@@ -294,8 +289,7 @@ void register_MultiLayer_class(){
             
             MultiLayer_exposer.def( 
                 "getNumberOfInterfaces"
-                , getNumberOfInterfaces_function_type( &::MultiLayer::getNumberOfInterfaces )
-                , "Returns number of interfaces in multilayer." );
+                , getNumberOfInterfaces_function_type( &::MultiLayer::getNumberOfInterfaces ) );
         
         }
         { //::MultiLayer::getNumberOfLayers
@@ -304,8 +298,7 @@ void register_MultiLayer_class(){
             
             MultiLayer_exposer.def( 
                 "getNumberOfLayers"
-                , getNumberOfLayers_function_type( &::MultiLayer::getNumberOfLayers )
-                , "Returns number of layers in multilayer." );
+                , getNumberOfLayers_function_type( &::MultiLayer::getNumberOfLayers ) );
         
         }
         { //::MultiLayer::requiresMatrixRTCoefficients
@@ -325,8 +318,7 @@ void register_MultiLayer_class(){
             MultiLayer_exposer.def( 
                 "setCrossCorrLength"
                 , setCrossCorrLength_function_type( &::MultiLayer::setCrossCorrLength )
-                , ( bp::arg("crossCorrLength") )
-                , "Sets cross correlation length of roughnesses between interfaces." );
+                , ( bp::arg("crossCorrLength") ) );
         
         }
         { //::MultiLayer::setLayerThickness

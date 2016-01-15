@@ -59,40 +59,16 @@ struct FormFactorRipple1_wrapper : FormFactorRipple1, bp::wrapper< FormFactorRip
         return FormFactorRipple1::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
         else{
-            return this->FormFactorRipple1::getHeight(  );
+            return this->FormFactorRipple1::getRadius(  );
         }
     }
     
-    double default_getHeight(  ) const  {
-        return FormFactorRipple1::getHeight( );
-    }
-
-    virtual double getLength(  ) const  {
-        if( bp::override func_getLength = this->get_override( "getLength" ) )
-            return func_getLength(  );
-        else{
-            return this->FormFactorRipple1::getLength(  );
-        }
-    }
-    
-    double default_getLength(  ) const  {
-        return FormFactorRipple1::getLength( );
-    }
-
-    virtual double getWidth(  ) const  {
-        if( bp::override func_getWidth = this->get_override( "getWidth" ) )
-            return func_getWidth(  );
-        else{
-            return this->FormFactorRipple1::getWidth(  );
-        }
-    }
-    
-    double default_getWidth(  ) const  {
-        return FormFactorRipple1::getWidth( );
+    double default_getRadius(  ) const  {
+        return FormFactorRipple1::getRadius( );
     }
 
     virtual ::ISample * cloneInvertB(  ) const  {
@@ -143,28 +119,16 @@ struct FormFactorRipple1_wrapper : FormFactorRipple1, bp::wrapper< FormFactorRip
         return ISample::getChildren( );
     }
 
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else{
-            return this->IFormFactor::getRadius(  );
-        }
-    }
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
-    }
-
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
         else{
-            return this->IFormFactorBorn::getVolume(  );
+            return this->IFormFactor::getVolume(  );
         }
     }
     
     double default_getVolume(  ) const  {
-        return IFormFactorBorn::getVolume( );
+        return IFormFactor::getVolume( );
     }
 
     virtual void printSampleTree(  ) {
@@ -179,16 +143,16 @@ struct FormFactorRipple1_wrapper : FormFactorRipple1, bp::wrapper< FormFactorRip
         ISample::printSampleTree( );
     }
 
-    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+    virtual void setAmbientMaterial( ::IMaterial const & arg0 ) {
         if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
-            func_setAmbientMaterial( boost::ref(material) );
+            func_setAmbientMaterial( boost::ref(arg0) );
         else{
-            this->IFormFactor::setAmbientMaterial( boost::ref(material) );
+            this->IFormFactor::setAmbientMaterial( boost::ref(arg0) );
         }
     }
     
-    void default_setAmbientMaterial( ::IMaterial const & material ) {
-        IFormFactor::setAmbientMaterial( boost::ref(material) );
+    void default_setAmbientMaterial( ::IMaterial const & arg0 ) {
+        IFormFactor::setAmbientMaterial( boost::ref(arg0) );
     }
 
     virtual ::std::size_t size(  ) const  {
@@ -264,34 +228,39 @@ void register_FormFactorRipple1_class(){
         { //::FormFactorRipple1::getHeight
         
             typedef double ( ::FormFactorRipple1::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorRipple1_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorRipple1_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorRipple1::getHeight)
-                , default_getHeight_function_type(&FormFactorRipple1_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorRipple1::getHeight ) );
         
         }
         { //::FormFactorRipple1::getLength
         
             typedef double ( ::FormFactorRipple1::*getLength_function_type)(  ) const;
-            typedef double ( FormFactorRipple1_wrapper::*default_getLength_function_type)(  ) const;
             
             FormFactorRipple1_exposer.def( 
                 "getLength"
-                , getLength_function_type(&::FormFactorRipple1::getLength)
-                , default_getLength_function_type(&FormFactorRipple1_wrapper::default_getLength) );
+                , getLength_function_type( &::FormFactorRipple1::getLength ) );
+        
+        }
+        { //::FormFactorRipple1::getRadius
+        
+            typedef double ( ::FormFactorRipple1::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorRipple1_wrapper::*default_getRadius_function_type)(  ) const;
+            
+            FormFactorRipple1_exposer.def( 
+                "getRadius"
+                , getRadius_function_type(&::FormFactorRipple1::getRadius)
+                , default_getRadius_function_type(&FormFactorRipple1_wrapper::default_getRadius) );
         
         }
         { //::FormFactorRipple1::getWidth
         
             typedef double ( ::FormFactorRipple1::*getWidth_function_type)(  ) const;
-            typedef double ( FormFactorRipple1_wrapper::*default_getWidth_function_type)(  ) const;
             
             FormFactorRipple1_exposer.def( 
                 "getWidth"
-                , getWidth_function_type(&::FormFactorRipple1::getWidth)
-                , default_getWidth_function_type(&FormFactorRipple1_wrapper::default_getWidth) );
+                , getWidth_function_type( &::FormFactorRipple1::getWidth ) );
         
         }
         { //::ISample::cloneInvertB
@@ -340,25 +309,14 @@ void register_FormFactorRipple1_class(){
                 , default_getChildren_function_type(&FormFactorRipple1_wrapper::default_getChildren) );
         
         }
-        { //::IFormFactor::getRadius
+        { //::IFormFactor::getVolume
         
-            typedef double ( ::IFormFactor::*getRadius_function_type)(  ) const;
-            typedef double ( FormFactorRipple1_wrapper::*default_getRadius_function_type)(  ) const;
-            
-            FormFactorRipple1_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorRipple1_wrapper::default_getRadius) );
-        
-        }
-        { //::IFormFactorBorn::getVolume
-        
-            typedef double ( ::IFormFactorBorn::*getVolume_function_type)(  ) const;
+            typedef double ( ::IFormFactor::*getVolume_function_type)(  ) const;
             typedef double ( FormFactorRipple1_wrapper::*default_getVolume_function_type)(  ) const;
             
             FormFactorRipple1_exposer.def( 
                 "getVolume"
-                , getVolume_function_type(&::IFormFactorBorn::getVolume)
+                , getVolume_function_type(&::IFormFactor::getVolume)
                 , default_getVolume_function_type(&FormFactorRipple1_wrapper::default_getVolume) );
         
         }
@@ -382,7 +340,7 @@ void register_FormFactorRipple1_class(){
                 "setAmbientMaterial"
                 , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
                 , default_setAmbientMaterial_function_type(&FormFactorRipple1_wrapper::default_setAmbientMaterial)
-                , ( bp::arg("material") ) );
+                , ( bp::arg("arg0") ) );
         
         }
         { //::ISample::size

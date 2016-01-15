@@ -53,6 +53,22 @@ Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const WavevectorInfo& wavevector
     return result;
 }
 
+double FormFactorDWBAPol::getVolume() const
+{
+    if (mp_form_factor) {
+        return mp_form_factor->getVolume();
+    }
+    return 0.0;
+}
+
+double FormFactorDWBAPol::getRadius() const
+{
+    if (mp_form_factor) {
+        return mp_form_factor->getRadius();
+    }
+    return 0.0;
+}
+
 void FormFactorDWBAPol::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
                                        const ILayerRTCoefficients *p_out_coeffs)
 {

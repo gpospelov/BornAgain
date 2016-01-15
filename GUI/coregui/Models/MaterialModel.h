@@ -27,14 +27,13 @@ class BA_CORE_API_ MaterialModel : public SessionModel
 
 public:
     explicit MaterialModel(QObject *parent = 0);
-    ~MaterialModel(){}
+    virtual ~MaterialModel(){}
 
     MaterialItem *addMaterial(const QString &name, double delta = 0.0, double beta = 0.0);
     void removeMaterial(MaterialItem *);
 
     MaterialItem *getMaterial(const MaterialProperty &property);
     MaterialItem *getMaterial(const QString &material_name);
-
 };
 
 #endif

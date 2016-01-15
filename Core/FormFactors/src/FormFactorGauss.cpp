@@ -52,6 +52,11 @@ FormFactorGauss* FormFactorGauss::clone() const
     return new FormFactorGauss(m_width, m_height);
 }
 
+void FormFactorGauss::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
 complex_t FormFactorGauss::evaluate_for_q(const cvector_t &q) const
 {
     complex_t qzHdiv2 = m_height * q.z() / 2.0;

@@ -88,7 +88,7 @@ class QtAbstractPropertyManager : public QObject
 public:
 
     explicit QtAbstractPropertyManager(QObject *parent = 0);
-    ~QtAbstractPropertyManager();
+    virtual ~QtAbstractPropertyManager();
 
     QSet<QtProperty *> properties() const;
     void clear() const;
@@ -136,7 +136,7 @@ class QtAbstractEditorFactory : public QtAbstractEditorFactoryBase
 {
 public:
     explicit QtAbstractEditorFactory(QObject *parent) : QtAbstractEditorFactoryBase(parent) {}
-    QWidget *createEditor(QtProperty *property, QWidget *parent)
+    virtual QWidget *createEditor(QtProperty *property, QWidget *parent)
     {
         QSetIterator<PropertyManager *> it(m_managers);
         while (it.hasNext()) {
@@ -186,7 +186,7 @@ protected:
     virtual QWidget *createEditor(PropertyManager *manager, QtProperty *property,
                 QWidget *parent) = 0;
     virtual void disconnectPropertyManager(PropertyManager *manager) = 0;
-    void managerDestroyed(QObject *manager)
+    virtual void managerDestroyed(QObject *manager)
     {
         QSetIterator<PropertyManager *> it(m_managers);
         while (it.hasNext()) {
@@ -198,7 +198,7 @@ protected:
         }
     }
 private:
-    void breakConnection(QtAbstractPropertyManager *manager)
+    virtual void breakConnection(QtAbstractPropertyManager *manager)
     {
         QSetIterator<PropertyManager *> it(m_managers);
         while (it.hasNext()) {
@@ -239,7 +239,7 @@ class QtAbstractPropertyBrowser : public QWidget
 public:
 
     explicit QtAbstractPropertyBrowser(QWidget *parent = 0);
-    ~QtAbstractPropertyBrowser();
+    virtual ~QtAbstractPropertyBrowser();
 
     QList<QtProperty *> properties() const;
     QList<QtBrowserItem *> items(QtProperty *property) const;

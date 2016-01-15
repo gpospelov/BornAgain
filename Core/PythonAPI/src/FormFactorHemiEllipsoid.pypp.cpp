@@ -59,40 +59,16 @@ struct FormFactorHemiEllipsoid_wrapper : FormFactorHemiEllipsoid, bp::wrapper< F
         return FormFactorHemiEllipsoid::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
         else{
-            return this->FormFactorHemiEllipsoid::getHeight(  );
+            return this->FormFactorHemiEllipsoid::getRadius(  );
         }
     }
     
-    double default_getHeight(  ) const  {
-        return FormFactorHemiEllipsoid::getHeight( );
-    }
-
-    virtual double getRadiusX(  ) const  {
-        if( bp::override func_getRadiusX = this->get_override( "getRadiusX" ) )
-            return func_getRadiusX(  );
-        else{
-            return this->FormFactorHemiEllipsoid::getRadiusX(  );
-        }
-    }
-    
-    double default_getRadiusX(  ) const  {
-        return FormFactorHemiEllipsoid::getRadiusX( );
-    }
-
-    virtual double getRadiusY(  ) const  {
-        if( bp::override func_getRadiusY = this->get_override( "getRadiusY" ) )
-            return func_getRadiusY(  );
-        else{
-            return this->FormFactorHemiEllipsoid::getRadiusY(  );
-        }
-    }
-    
-    double default_getRadiusY(  ) const  {
-        return FormFactorHemiEllipsoid::getRadiusY( );
+    double default_getRadius(  ) const  {
+        return FormFactorHemiEllipsoid::getRadius( );
     }
 
     virtual ::ISample * cloneInvertB(  ) const  {
@@ -143,28 +119,16 @@ struct FormFactorHemiEllipsoid_wrapper : FormFactorHemiEllipsoid, bp::wrapper< F
         return ISample::getChildren( );
     }
 
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else{
-            return this->IFormFactor::getRadius(  );
-        }
-    }
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
-    }
-
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
         else{
-            return this->IFormFactorBorn::getVolume(  );
+            return this->IFormFactor::getVolume(  );
         }
     }
     
     double default_getVolume(  ) const  {
-        return IFormFactorBorn::getVolume( );
+        return IFormFactor::getVolume( );
     }
 
     virtual void printSampleTree(  ) {
@@ -179,16 +143,16 @@ struct FormFactorHemiEllipsoid_wrapper : FormFactorHemiEllipsoid, bp::wrapper< F
         ISample::printSampleTree( );
     }
 
-    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+    virtual void setAmbientMaterial( ::IMaterial const & arg0 ) {
         if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
-            func_setAmbientMaterial( boost::ref(material) );
+            func_setAmbientMaterial( boost::ref(arg0) );
         else{
-            this->IFormFactor::setAmbientMaterial( boost::ref(material) );
+            this->IFormFactor::setAmbientMaterial( boost::ref(arg0) );
         }
     }
     
-    void default_setAmbientMaterial( ::IMaterial const & material ) {
-        IFormFactor::setAmbientMaterial( boost::ref(material) );
+    void default_setAmbientMaterial( ::IMaterial const & arg0 ) {
+        IFormFactor::setAmbientMaterial( boost::ref(arg0) );
     }
 
     virtual ::std::size_t size(  ) const  {
@@ -264,34 +228,39 @@ void register_FormFactorHemiEllipsoid_class(){
         { //::FormFactorHemiEllipsoid::getHeight
         
             typedef double ( ::FormFactorHemiEllipsoid::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorHemiEllipsoid_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorHemiEllipsoid_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorHemiEllipsoid::getHeight)
-                , default_getHeight_function_type(&FormFactorHemiEllipsoid_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorHemiEllipsoid::getHeight ) );
+        
+        }
+        { //::FormFactorHemiEllipsoid::getRadius
+        
+            typedef double ( ::FormFactorHemiEllipsoid::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorHemiEllipsoid_wrapper::*default_getRadius_function_type)(  ) const;
+            
+            FormFactorHemiEllipsoid_exposer.def( 
+                "getRadius"
+                , getRadius_function_type(&::FormFactorHemiEllipsoid::getRadius)
+                , default_getRadius_function_type(&FormFactorHemiEllipsoid_wrapper::default_getRadius) );
         
         }
         { //::FormFactorHemiEllipsoid::getRadiusX
         
             typedef double ( ::FormFactorHemiEllipsoid::*getRadiusX_function_type)(  ) const;
-            typedef double ( FormFactorHemiEllipsoid_wrapper::*default_getRadiusX_function_type)(  ) const;
             
             FormFactorHemiEllipsoid_exposer.def( 
                 "getRadiusX"
-                , getRadiusX_function_type(&::FormFactorHemiEllipsoid::getRadiusX)
-                , default_getRadiusX_function_type(&FormFactorHemiEllipsoid_wrapper::default_getRadiusX) );
+                , getRadiusX_function_type( &::FormFactorHemiEllipsoid::getRadiusX ) );
         
         }
         { //::FormFactorHemiEllipsoid::getRadiusY
         
             typedef double ( ::FormFactorHemiEllipsoid::*getRadiusY_function_type)(  ) const;
-            typedef double ( FormFactorHemiEllipsoid_wrapper::*default_getRadiusY_function_type)(  ) const;
             
             FormFactorHemiEllipsoid_exposer.def( 
                 "getRadiusY"
-                , getRadiusY_function_type(&::FormFactorHemiEllipsoid::getRadiusY)
-                , default_getRadiusY_function_type(&FormFactorHemiEllipsoid_wrapper::default_getRadiusY) );
+                , getRadiusY_function_type( &::FormFactorHemiEllipsoid::getRadiusY ) );
         
         }
         { //::ISample::cloneInvertB
@@ -340,25 +309,14 @@ void register_FormFactorHemiEllipsoid_class(){
                 , default_getChildren_function_type(&FormFactorHemiEllipsoid_wrapper::default_getChildren) );
         
         }
-        { //::IFormFactor::getRadius
+        { //::IFormFactor::getVolume
         
-            typedef double ( ::IFormFactor::*getRadius_function_type)(  ) const;
-            typedef double ( FormFactorHemiEllipsoid_wrapper::*default_getRadius_function_type)(  ) const;
-            
-            FormFactorHemiEllipsoid_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorHemiEllipsoid_wrapper::default_getRadius) );
-        
-        }
-        { //::IFormFactorBorn::getVolume
-        
-            typedef double ( ::IFormFactorBorn::*getVolume_function_type)(  ) const;
+            typedef double ( ::IFormFactor::*getVolume_function_type)(  ) const;
             typedef double ( FormFactorHemiEllipsoid_wrapper::*default_getVolume_function_type)(  ) const;
             
             FormFactorHemiEllipsoid_exposer.def( 
                 "getVolume"
-                , getVolume_function_type(&::IFormFactorBorn::getVolume)
+                , getVolume_function_type(&::IFormFactor::getVolume)
                 , default_getVolume_function_type(&FormFactorHemiEllipsoid_wrapper::default_getVolume) );
         
         }
@@ -382,7 +340,7 @@ void register_FormFactorHemiEllipsoid_class(){
                 "setAmbientMaterial"
                 , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
                 , default_setAmbientMaterial_function_type(&FormFactorHemiEllipsoid_wrapper::default_setAmbientMaterial)
-                , ( bp::arg("material") ) );
+                , ( bp::arg("arg0") ) );
         
         }
         { //::ISample::size

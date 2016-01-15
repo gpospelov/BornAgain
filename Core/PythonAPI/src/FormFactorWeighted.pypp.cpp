@@ -59,6 +59,18 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
         return FormFactorWeighted::evaluate( boost::ref(wavevectors) );
     }
 
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
+        else{
+            return this->FormFactorWeighted::getRadius(  );
+        }
+    }
+    
+    double default_getRadius(  ) const  {
+        return FormFactorWeighted::getRadius( );
+    }
+
     virtual void setAmbientMaterial( ::IMaterial const & material ) {
         if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
             func_setAmbientMaterial( boost::ref(material) );
@@ -105,30 +117,6 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     
     ::std::vector< const ISample* > default_getChildren(  ) const  {
         return ISample::getChildren( );
-    }
-
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->IFormFactor::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return IFormFactor::getHeight( );
-    }
-
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else{
-            return this->IFormFactor::getRadius(  );
-        }
-    }
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
     }
 
     virtual double getVolume(  ) const  {
@@ -235,6 +223,17 @@ void register_FormFactorWeighted_class(){
                 , ( bp::arg("wavevectors") ) );
         
         }
+        { //::FormFactorWeighted::getRadius
+        
+            typedef double ( ::FormFactorWeighted::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorWeighted_wrapper::*default_getRadius_function_type)(  ) const;
+            
+            FormFactorWeighted_exposer.def( 
+                "getRadius"
+                , getRadius_function_type(&::FormFactorWeighted::getRadius)
+                , default_getRadius_function_type(&FormFactorWeighted_wrapper::default_getRadius) );
+        
+        }
         { //::FormFactorWeighted::setAmbientMaterial
         
             typedef void ( ::FormFactorWeighted::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
@@ -279,28 +278,6 @@ void register_FormFactorWeighted_class(){
                 "getChildren"
                 , getChildren_function_type(&::ISample::getChildren)
                 , default_getChildren_function_type(&FormFactorWeighted_wrapper::default_getChildren) );
-        
-        }
-        { //::IFormFactor::getHeight
-        
-            typedef double ( ::IFormFactor::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorWeighted_wrapper::*default_getHeight_function_type)(  ) const;
-            
-            FormFactorWeighted_exposer.def( 
-                "getHeight"
-                , getHeight_function_type(&::IFormFactor::getHeight)
-                , default_getHeight_function_type(&FormFactorWeighted_wrapper::default_getHeight) );
-        
-        }
-        { //::IFormFactor::getRadius
-        
-            typedef double ( ::IFormFactor::*getRadius_function_type)(  ) const;
-            typedef double ( FormFactorWeighted_wrapper::*default_getRadius_function_type)(  ) const;
-            
-            FormFactorWeighted_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorWeighted_wrapper::default_getRadius) );
         
         }
         { //::IFormFactor::getVolume

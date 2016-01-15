@@ -59,18 +59,6 @@ struct FormFactorFullSpheroid_wrapper : FormFactorFullSpheroid, bp::wrapper< For
         return FormFactorFullSpheroid::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorFullSpheroid::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorFullSpheroid::getHeight( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -135,12 +123,12 @@ struct FormFactorFullSpheroid_wrapper : FormFactorFullSpheroid, bp::wrapper< For
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
         else{
-            return this->IFormFactorBorn::getVolume(  );
+            return this->IFormFactor::getVolume(  );
         }
     }
     
     double default_getVolume(  ) const  {
-        return IFormFactorBorn::getVolume( );
+        return IFormFactor::getVolume( );
     }
 
     virtual void printSampleTree(  ) {
@@ -155,16 +143,16 @@ struct FormFactorFullSpheroid_wrapper : FormFactorFullSpheroid, bp::wrapper< For
         ISample::printSampleTree( );
     }
 
-    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+    virtual void setAmbientMaterial( ::IMaterial const & arg0 ) {
         if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
-            func_setAmbientMaterial( boost::ref(material) );
+            func_setAmbientMaterial( boost::ref(arg0) );
         else{
-            this->IFormFactor::setAmbientMaterial( boost::ref(material) );
+            this->IFormFactor::setAmbientMaterial( boost::ref(arg0) );
         }
     }
     
-    void default_setAmbientMaterial( ::IMaterial const & material ) {
-        IFormFactor::setAmbientMaterial( boost::ref(material) );
+    void default_setAmbientMaterial( ::IMaterial const & arg0 ) {
+        IFormFactor::setAmbientMaterial( boost::ref(arg0) );
     }
 
     virtual ::std::size_t size(  ) const  {
@@ -240,12 +228,10 @@ void register_FormFactorFullSpheroid_class(){
         { //::FormFactorFullSpheroid::getHeight
         
             typedef double ( ::FormFactorFullSpheroid::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorFullSpheroid_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorFullSpheroid_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorFullSpheroid::getHeight)
-                , default_getHeight_function_type(&FormFactorFullSpheroid_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorFullSpheroid::getHeight ) );
         
         }
         { //::FormFactorFullSpheroid::getRadius
@@ -305,14 +291,14 @@ void register_FormFactorFullSpheroid_class(){
                 , default_getChildren_function_type(&FormFactorFullSpheroid_wrapper::default_getChildren) );
         
         }
-        { //::IFormFactorBorn::getVolume
+        { //::IFormFactor::getVolume
         
-            typedef double ( ::IFormFactorBorn::*getVolume_function_type)(  ) const;
+            typedef double ( ::IFormFactor::*getVolume_function_type)(  ) const;
             typedef double ( FormFactorFullSpheroid_wrapper::*default_getVolume_function_type)(  ) const;
             
             FormFactorFullSpheroid_exposer.def( 
                 "getVolume"
-                , getVolume_function_type(&::IFormFactorBorn::getVolume)
+                , getVolume_function_type(&::IFormFactor::getVolume)
                 , default_getVolume_function_type(&FormFactorFullSpheroid_wrapper::default_getVolume) );
         
         }
@@ -336,7 +322,7 @@ void register_FormFactorFullSpheroid_class(){
                 "setAmbientMaterial"
                 , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
                 , default_setAmbientMaterial_function_type(&FormFactorFullSpheroid_wrapper::default_setAmbientMaterial)
-                , ( bp::arg("material") ) );
+                , ( bp::arg("arg0") ) );
         
         }
         { //::ISample::size

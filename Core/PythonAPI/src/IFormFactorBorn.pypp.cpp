@@ -57,18 +57,6 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
         return func_evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getVolume(  ) const  {
-        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
-            return func_getVolume(  );
-        else{
-            return this->IFormFactorBorn::getVolume(  );
-        }
-    }
-    
-    double default_getVolume(  ) const  {
-        return IFormFactorBorn::getVolume( );
-    }
-
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -105,28 +93,21 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
         return ISample::getChildren( );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->IFormFactor::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return IFormFactor::getHeight( );
+    virtual double getRadius(  ) const {
+        bp::override func_getRadius = this->get_override( "getRadius" );
+        return func_getRadius(  );
     }
 
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
         else{
-            return this->IFormFactor::getRadius(  );
+            return this->IFormFactor::getVolume(  );
         }
     }
     
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
+    double default_getVolume(  ) const  {
+        return IFormFactor::getVolume( );
     }
 
     virtual void printSampleTree(  ) {
@@ -141,16 +122,16 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
         ISample::printSampleTree( );
     }
 
-    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+    virtual void setAmbientMaterial( ::IMaterial const & arg0 ) {
         if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
-            func_setAmbientMaterial( boost::ref(material) );
+            func_setAmbientMaterial( boost::ref(arg0) );
         else{
-            this->IFormFactor::setAmbientMaterial( boost::ref(material) );
+            this->IFormFactor::setAmbientMaterial( boost::ref(arg0) );
         }
     }
     
-    void default_setAmbientMaterial( ::IMaterial const & material ) {
-        IFormFactor::setAmbientMaterial( boost::ref(material) );
+    void default_setAmbientMaterial( ::IMaterial const & arg0 ) {
+        IFormFactor::setAmbientMaterial( boost::ref(arg0) );
     }
 
     virtual ::std::size_t size(  ) const  {
@@ -232,17 +213,6 @@ void register_IFormFactorBorn_class(){
                 , "evaluate scattering amplitude for complex wavevector @param q  wavevector transfer q=k_i-k_f \n\n:Parameters:\n  - 'q' - wavevector transfer q=k_i-k_f\n" );
         
         }
-        { //::IFormFactorBorn::getVolume
-        
-            typedef double ( ::IFormFactorBorn::*getVolume_function_type)(  ) const;
-            typedef double ( IFormFactorBorn_wrapper::*default_getVolume_function_type)(  ) const;
-            
-            IFormFactorBorn_exposer.def( 
-                "getVolume"
-                , getVolume_function_type(&::IFormFactorBorn::getVolume)
-                , default_getVolume_function_type(&IFormFactorBorn_wrapper::default_getVolume) );
-        
-        }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;
@@ -277,26 +247,25 @@ void register_IFormFactorBorn_class(){
                 , default_getChildren_function_type(&IFormFactorBorn_wrapper::default_getChildren) );
         
         }
-        { //::IFormFactor::getHeight
-        
-            typedef double ( ::IFormFactor::*getHeight_function_type)(  ) const;
-            typedef double ( IFormFactorBorn_wrapper::*default_getHeight_function_type)(  ) const;
-            
-            IFormFactorBorn_exposer.def( 
-                "getHeight"
-                , getHeight_function_type(&::IFormFactor::getHeight)
-                , default_getHeight_function_type(&IFormFactorBorn_wrapper::default_getHeight) );
-        
-        }
         { //::IFormFactor::getRadius
         
             typedef double ( ::IFormFactor::*getRadius_function_type)(  ) const;
-            typedef double ( IFormFactorBorn_wrapper::*default_getRadius_function_type)(  ) const;
             
             IFormFactorBorn_exposer.def( 
                 "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&IFormFactorBorn_wrapper::default_getRadius) );
+                , bp::pure_virtual( getRadius_function_type(&::IFormFactor::getRadius) )
+                , "Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations " );
+        
+        }
+        { //::IFormFactor::getVolume
+        
+            typedef double ( ::IFormFactor::*getVolume_function_type)(  ) const;
+            typedef double ( IFormFactorBorn_wrapper::*default_getVolume_function_type)(  ) const;
+            
+            IFormFactorBorn_exposer.def( 
+                "getVolume"
+                , getVolume_function_type(&::IFormFactor::getVolume)
+                , default_getVolume_function_type(&IFormFactorBorn_wrapper::default_getVolume) );
         
         }
         { //::ISample::printSampleTree
@@ -319,7 +288,7 @@ void register_IFormFactorBorn_class(){
                 "setAmbientMaterial"
                 , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
                 , default_setAmbientMaterial_function_type(&IFormFactorBorn_wrapper::default_setAmbientMaterial)
-                , ( bp::arg("material") ) );
+                , ( bp::arg("arg0") ) );
         
         }
         { //::ISample::size

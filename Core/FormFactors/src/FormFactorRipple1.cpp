@@ -39,6 +39,11 @@ FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
         new MemberComplexFunctionIntegrator<FormFactorRipple1>(p_mf, this);
 }
 
+FormFactorRipple1::~FormFactorRipple1()
+{
+    delete m_integrator;
+}
+
 bool FormFactorRipple1::check_initialization() const
 {
     bool result(true);
@@ -70,6 +75,11 @@ FormFactorRipple1 *FormFactorRipple1::clone() const
 void FormFactorRipple1::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
+}
+
+double FormFactorRipple1::getRadius() const
+{
+    return ( m_width + m_length ) / 4.0;
 }
 
 //! Integrand for complex formfactor.

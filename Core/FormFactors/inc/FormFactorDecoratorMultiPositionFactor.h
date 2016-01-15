@@ -32,6 +32,10 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const;
 
+    virtual double getVolume() const;
+
+    virtual double getRadius() const;
+
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
 #ifndef GCCXML_SKIP_THIS

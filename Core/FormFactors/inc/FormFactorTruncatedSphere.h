@@ -31,14 +31,15 @@ public:
     //! @param height of Truncated Sphere
     FormFactorTruncatedSphere(double radius, double height);
 
-    ~FormFactorTruncatedSphere() { delete m_integrator; }
+    virtual ~FormFactorTruncatedSphere();
 
     virtual FormFactorTruncatedSphere *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual double getRadius() const { return m_radius; }
-    virtual double getHeight() const { return m_height; }
+    virtual double getRadius() const;
+
+    double getHeight() const;
 
 protected:
     virtual bool check_initialization() const;
@@ -54,6 +55,16 @@ private:
 
     MemberComplexFunctionIntegrator<FormFactorTruncatedSphere> *m_integrator;
 };
+
+inline double FormFactorTruncatedSphere::getRadius() const
+{
+    return m_radius;
+}
+
+inline double FormFactorTruncatedSphere::getHeight() const
+{
+    return m_height;
+}
 
 #endif // FORMFACTORTRUNCATEDSPHERE_H
 

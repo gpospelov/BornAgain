@@ -34,6 +34,11 @@ MultiLayer::~MultiLayer()
     clear();
 }
 
+void MultiLayer::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
 void MultiLayer::init_parameters()
 {
     clearParameterPool();
@@ -242,12 +247,39 @@ void MultiLayer::print(std::ostream& ostr) const
     ostr << "}";
 }
 
+void MultiLayer::addAndRegisterLayer(Layer *child)
+{
+    m_layers.push_back(child);
+    setNLayersInLayers();
+    registerChild(child);
+}
+
+void MultiLayer::addAndRegisterInterface(LayerInterface *child)
+{
+    m_interfaces.push_back(child);
+    registerChild(child);
+}
+
 void MultiLayer::setNLayersInLayers() const
 {
     size_t n_layers = getNumberOfLayers();
     for (size_t i=0; i<getNumberOfLayers(); ++i) {
         m_layers[i]->setNumberOfLayers(n_layers);
     }
+}
+
+size_t MultiLayer::check_layer_index(size_t i_layer) const
+{
+    if( i_layer >= m_layers.size() )
+        throw OutOfBoundsException("Layer index is out of bounds");
+    return i_layer;
+}
+
+size_t MultiLayer::check_interface_index(size_t i_interface) const
+{
+    if( i_interface >= m_interfaces.size() )
+        throw OutOfBoundsException("Interface index is out of bounds");
+    return i_interface;
 }
 
 

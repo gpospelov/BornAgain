@@ -38,6 +38,11 @@ FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double heigh
         new MemberComplexFunctionIntegrator<FormFactorTruncatedSphere>(p_mf, this);
 }
 
+FormFactorTruncatedSphere::~FormFactorTruncatedSphere()
+{
+    delete m_integrator;
+}
+
 bool FormFactorTruncatedSphere::check_initialization() const
 {
     bool result(true);

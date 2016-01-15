@@ -36,6 +36,7 @@ public:
     PropertyVariantManager(QObject *parent = 0);
 
     virtual QVariant value(const QtProperty *property) const;
+    using QtVariantPropertyManager::valueType;
     virtual int valueType(int propertyType) const;
     virtual bool isPropertyTypeSupported(int propertyType) const;
     static int materialTypeId();

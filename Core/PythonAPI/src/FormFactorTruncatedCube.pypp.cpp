@@ -47,52 +47,16 @@ struct FormFactorTruncatedCube_wrapper : FormFactorTruncatedCube, bp::wrapper< F
         return FormFactorTruncatedCube::clone( );
     }
 
-    virtual double getLength(  ) const  {
-        if( bp::override func_getLength = this->get_override( "getLength" ) )
-            return func_getLength(  );
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
         else{
-            return this->FormFactorTruncatedCube::getLength(  );
+            return this->FormFactorTruncatedCube::getRadius(  );
         }
     }
     
-    double default_getLength(  ) const  {
-        return FormFactorTruncatedCube::getLength( );
-    }
-
-    virtual double getRemovedLength(  ) const  {
-        if( bp::override func_getRemovedLength = this->get_override( "getRemovedLength" ) )
-            return func_getRemovedLength(  );
-        else{
-            return this->FormFactorTruncatedCube::getRemovedLength(  );
-        }
-    }
-    
-    double default_getRemovedLength(  ) const  {
-        return FormFactorTruncatedCube::getRemovedLength( );
-    }
-
-    virtual void setLength( double length ) {
-        if( bp::override func_setLength = this->get_override( "setLength" ) )
-            func_setLength( length );
-        else{
-            this->FormFactorTruncatedCube::setLength( length );
-        }
-    }
-    
-    void default_setLength( double length ) {
-        FormFactorTruncatedCube::setLength( length );
-    }
-
-    virtual void setRemovedLength( double removed_length ) {
-        if( bp::override func_setRemovedLength = this->get_override( "setRemovedLength" ) )
-            func_setRemovedLength( removed_length );
-        else{
-            this->FormFactorTruncatedCube::setRemovedLength( removed_length );
-        }
-    }
-    
-    void default_setRemovedLength( double removed_length ) {
-        FormFactorTruncatedCube::setRemovedLength( removed_length );
+    double default_getRadius(  ) const  {
+        return FormFactorTruncatedCube::getRadius( );
     }
 
     virtual ::ISample * cloneInvertB(  ) const  {
@@ -143,40 +107,16 @@ struct FormFactorTruncatedCube_wrapper : FormFactorTruncatedCube, bp::wrapper< F
         return ISample::getChildren( );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->IFormFactor::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return IFormFactor::getHeight( );
-    }
-
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else{
-            return this->IFormFactor::getRadius(  );
-        }
-    }
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
-    }
-
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
         else{
-            return this->IFormFactorBorn::getVolume(  );
+            return this->IFormFactor::getVolume(  );
         }
     }
     
     double default_getVolume(  ) const  {
-        return IFormFactorBorn::getVolume( );
+        return IFormFactor::getVolume( );
     }
 
     virtual void printSampleTree(  ) {
@@ -191,16 +131,16 @@ struct FormFactorTruncatedCube_wrapper : FormFactorTruncatedCube, bp::wrapper< F
         ISample::printSampleTree( );
     }
 
-    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+    virtual void setAmbientMaterial( ::IMaterial const & arg0 ) {
         if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
-            func_setAmbientMaterial( boost::ref(material) );
+            func_setAmbientMaterial( boost::ref(arg0) );
         else{
-            this->IFormFactor::setAmbientMaterial( boost::ref(material) );
+            this->IFormFactor::setAmbientMaterial( boost::ref(arg0) );
         }
     }
     
-    void default_setAmbientMaterial( ::IMaterial const & material ) {
-        IFormFactor::setAmbientMaterial( boost::ref(material) );
+    void default_setAmbientMaterial( ::IMaterial const & arg0 ) {
+        IFormFactor::setAmbientMaterial( boost::ref(arg0) );
     }
 
     virtual ::std::size_t size(  ) const  {
@@ -264,47 +204,30 @@ void register_FormFactorTruncatedCube_class(){
         { //::FormFactorTruncatedCube::getLength
         
             typedef double ( ::FormFactorTruncatedCube::*getLength_function_type)(  ) const;
-            typedef double ( FormFactorTruncatedCube_wrapper::*default_getLength_function_type)(  ) const;
             
             FormFactorTruncatedCube_exposer.def( 
                 "getLength"
-                , getLength_function_type(&::FormFactorTruncatedCube::getLength)
-                , default_getLength_function_type(&FormFactorTruncatedCube_wrapper::default_getLength) );
+                , getLength_function_type( &::FormFactorTruncatedCube::getLength ) );
+        
+        }
+        { //::FormFactorTruncatedCube::getRadius
+        
+            typedef double ( ::FormFactorTruncatedCube::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorTruncatedCube_wrapper::*default_getRadius_function_type)(  ) const;
+            
+            FormFactorTruncatedCube_exposer.def( 
+                "getRadius"
+                , getRadius_function_type(&::FormFactorTruncatedCube::getRadius)
+                , default_getRadius_function_type(&FormFactorTruncatedCube_wrapper::default_getRadius) );
         
         }
         { //::FormFactorTruncatedCube::getRemovedLength
         
             typedef double ( ::FormFactorTruncatedCube::*getRemovedLength_function_type)(  ) const;
-            typedef double ( FormFactorTruncatedCube_wrapper::*default_getRemovedLength_function_type)(  ) const;
             
             FormFactorTruncatedCube_exposer.def( 
                 "getRemovedLength"
-                , getRemovedLength_function_type(&::FormFactorTruncatedCube::getRemovedLength)
-                , default_getRemovedLength_function_type(&FormFactorTruncatedCube_wrapper::default_getRemovedLength) );
-        
-        }
-        { //::FormFactorTruncatedCube::setLength
-        
-            typedef void ( ::FormFactorTruncatedCube::*setLength_function_type)( double ) ;
-            typedef void ( FormFactorTruncatedCube_wrapper::*default_setLength_function_type)( double ) ;
-            
-            FormFactorTruncatedCube_exposer.def( 
-                "setLength"
-                , setLength_function_type(&::FormFactorTruncatedCube::setLength)
-                , default_setLength_function_type(&FormFactorTruncatedCube_wrapper::default_setLength)
-                , ( bp::arg("length") ) );
-        
-        }
-        { //::FormFactorTruncatedCube::setRemovedLength
-        
-            typedef void ( ::FormFactorTruncatedCube::*setRemovedLength_function_type)( double ) ;
-            typedef void ( FormFactorTruncatedCube_wrapper::*default_setRemovedLength_function_type)( double ) ;
-            
-            FormFactorTruncatedCube_exposer.def( 
-                "setRemovedLength"
-                , setRemovedLength_function_type(&::FormFactorTruncatedCube::setRemovedLength)
-                , default_setRemovedLength_function_type(&FormFactorTruncatedCube_wrapper::default_setRemovedLength)
-                , ( bp::arg("removed_length") ) );
+                , getRemovedLength_function_type( &::FormFactorTruncatedCube::getRemovedLength ) );
         
         }
         { //::ISample::cloneInvertB
@@ -353,36 +276,14 @@ void register_FormFactorTruncatedCube_class(){
                 , default_getChildren_function_type(&FormFactorTruncatedCube_wrapper::default_getChildren) );
         
         }
-        { //::IFormFactor::getHeight
+        { //::IFormFactor::getVolume
         
-            typedef double ( ::IFormFactor::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorTruncatedCube_wrapper::*default_getHeight_function_type)(  ) const;
-            
-            FormFactorTruncatedCube_exposer.def( 
-                "getHeight"
-                , getHeight_function_type(&::IFormFactor::getHeight)
-                , default_getHeight_function_type(&FormFactorTruncatedCube_wrapper::default_getHeight) );
-        
-        }
-        { //::IFormFactor::getRadius
-        
-            typedef double ( ::IFormFactor::*getRadius_function_type)(  ) const;
-            typedef double ( FormFactorTruncatedCube_wrapper::*default_getRadius_function_type)(  ) const;
-            
-            FormFactorTruncatedCube_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorTruncatedCube_wrapper::default_getRadius) );
-        
-        }
-        { //::IFormFactorBorn::getVolume
-        
-            typedef double ( ::IFormFactorBorn::*getVolume_function_type)(  ) const;
+            typedef double ( ::IFormFactor::*getVolume_function_type)(  ) const;
             typedef double ( FormFactorTruncatedCube_wrapper::*default_getVolume_function_type)(  ) const;
             
             FormFactorTruncatedCube_exposer.def( 
                 "getVolume"
-                , getVolume_function_type(&::IFormFactorBorn::getVolume)
+                , getVolume_function_type(&::IFormFactor::getVolume)
                 , default_getVolume_function_type(&FormFactorTruncatedCube_wrapper::default_getVolume) );
         
         }
@@ -406,7 +307,7 @@ void register_FormFactorTruncatedCube_class(){
                 "setAmbientMaterial"
                 , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
                 , default_setAmbientMaterial_function_type(&FormFactorTruncatedCube_wrapper::default_setAmbientMaterial)
-                , ( bp::arg("material") ) );
+                , ( bp::arg("arg0") ) );
         
         }
         { //::ISample::size

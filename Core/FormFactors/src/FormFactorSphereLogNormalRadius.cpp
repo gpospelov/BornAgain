@@ -48,6 +48,11 @@ void FormFactorSphereLogNormalRadius::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
+double FormFactorSphereLogNormalRadius::getRadius() const
+{
+    return m_mean;
+}
+
 complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(
         const cvector_t& q) const
 {
@@ -56,17 +61,6 @@ complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(
     for (size_t i=0; i<m_form_factors.size(); ++i) {
         result += m_form_factors[i]->evaluate_for_q(q)
                 * m_probabilities[i];
-    }
-    return result;
-}
-
-double FormFactorSphereLogNormalRadius::getHeight() const
-{
-    if (m_form_factors.size()<1) return 0.0;
-    double result = 0.0;
-    for (size_t i=0; i<m_form_factors.size(); ++i) {
-        double height = m_form_factors[i]->getHeight();
-        result = std::max(result, height);
     }
     return result;
 }

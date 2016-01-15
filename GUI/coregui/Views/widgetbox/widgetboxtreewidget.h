@@ -42,16 +42,7 @@
 #ifndef WIDGETBOXTREEWIDGET_H
 #define WIDGETBOXTREEWIDGET_H
 
-//~/nest/software/Qt5.0.1/5.0.1/clang_64/include/QtDesigner/5.0.1/QtDesigner/private
 #include "qdesigner_widgetbox_p.h"
-
-//#include <QtWidgets/QTreeWidget>
-//#include <QtGui/QIcon>
-//#include <QtCore/QList>
-//#include <QtCore/QHash>
-//#include <QtCore/QXmlStreamReader> // Cannot forward declare them on Mac
-//#include <QtCore/QXmlStreamWriter>
-
 
 #include <QTreeWidget>
 #include <QIcon>
@@ -69,13 +60,11 @@ class QTimer;
 
 class SampleDesignerInterface;
 
-
 namespace qdesigner_internal {
 
 class WidgetBoxCategoryListView;
 
-// WidgetBoxTreeWidget: A tree of categories
-
+//! WidgetBoxTreeWidget: A tree of categories
 class WidgetBoxTreeWidget : public QTreeWidget
 {
     Q_OBJECT
@@ -85,9 +74,8 @@ public:
     typedef QDesignerWidgetBoxInterface::Category Category;
     typedef QDesignerWidgetBoxInterface::CategoryList CategoryList;
 
-//    explicit WidgetBoxTreeWidget(QDesignerFormEditorInterface *core, QWidget *parent = 0);
     explicit WidgetBoxTreeWidget(SampleDesignerInterface *core, QWidget *parent = 0);
-    ~WidgetBoxTreeWidget();
+    virtual ~WidgetBoxTreeWidget();
 
     int categoryCount() const;
     Category category(int cat_idx) const;
@@ -115,8 +103,8 @@ public slots:
     void filter(const QString &);
 
 protected:
-    void contextMenuEvent(QContextMenuEvent *e);
-    void resizeEvent(QResizeEvent *e);
+    virtual void contextMenuEvent(QContextMenuEvent *e);
+    virtual void resizeEvent(QResizeEvent *e);
 
 private slots:
     void slotSave();
@@ -148,7 +136,6 @@ private:
     void restoreExpandedState();
     void updateViewMode();
 
-//    QDesignerFormEditorInterface *m_core;
     SampleDesignerInterface *m_core;
     QString m_file_name;
     typedef QHash<QString, QIcon> IconCache;

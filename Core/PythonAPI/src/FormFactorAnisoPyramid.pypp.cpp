@@ -59,100 +59,16 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
         return FormFactorAnisoPyramid::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getAlpha(  ) const  {
-        if( bp::override func_getAlpha = this->get_override( "getAlpha" ) )
-            return func_getAlpha(  );
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
         else{
-            return this->FormFactorAnisoPyramid::getAlpha(  );
+            return this->FormFactorAnisoPyramid::getRadius(  );
         }
     }
     
-    double default_getAlpha(  ) const  {
-        return FormFactorAnisoPyramid::getAlpha( );
-    }
-
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorAnisoPyramid::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorAnisoPyramid::getHeight( );
-    }
-
-    virtual double getLength(  ) const  {
-        if( bp::override func_getLength = this->get_override( "getLength" ) )
-            return func_getLength(  );
-        else{
-            return this->FormFactorAnisoPyramid::getLength(  );
-        }
-    }
-    
-    double default_getLength(  ) const  {
-        return FormFactorAnisoPyramid::getLength( );
-    }
-
-    virtual double getWidth(  ) const  {
-        if( bp::override func_getWidth = this->get_override( "getWidth" ) )
-            return func_getWidth(  );
-        else{
-            return this->FormFactorAnisoPyramid::getWidth(  );
-        }
-    }
-    
-    double default_getWidth(  ) const  {
-        return FormFactorAnisoPyramid::getWidth( );
-    }
-
-    virtual void setAlpha( double alpha ) {
-        if( bp::override func_setAlpha = this->get_override( "setAlpha" ) )
-            func_setAlpha( alpha );
-        else{
-            this->FormFactorAnisoPyramid::setAlpha( alpha );
-        }
-    }
-    
-    void default_setAlpha( double alpha ) {
-        FormFactorAnisoPyramid::setAlpha( alpha );
-    }
-
-    virtual void setHeight( double height ) {
-        if( bp::override func_setHeight = this->get_override( "setHeight" ) )
-            func_setHeight( height );
-        else{
-            this->FormFactorAnisoPyramid::setHeight( height );
-        }
-    }
-    
-    void default_setHeight( double height ) {
-        FormFactorAnisoPyramid::setHeight( height );
-    }
-
-    virtual void setLength( double length ) {
-        if( bp::override func_setLength = this->get_override( "setLength" ) )
-            func_setLength( length );
-        else{
-            this->FormFactorAnisoPyramid::setLength( length );
-        }
-    }
-    
-    void default_setLength( double length ) {
-        FormFactorAnisoPyramid::setLength( length );
-    }
-
-    virtual void setWidth( double width ) {
-        if( bp::override func_setWidth = this->get_override( "setWidth" ) )
-            func_setWidth( width );
-        else{
-            this->FormFactorAnisoPyramid::setWidth( width );
-        }
-    }
-    
-    void default_setWidth( double width ) {
-        FormFactorAnisoPyramid::setWidth( width );
+    double default_getRadius(  ) const  {
+        return FormFactorAnisoPyramid::getRadius( );
     }
 
     virtual ::ISample * cloneInvertB(  ) const  {
@@ -203,28 +119,16 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
         return ISample::getChildren( );
     }
 
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else{
-            return this->IFormFactor::getRadius(  );
-        }
-    }
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
-    }
-
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
         else{
-            return this->IFormFactorBorn::getVolume(  );
+            return this->IFormFactor::getVolume(  );
         }
     }
     
     double default_getVolume(  ) const  {
-        return IFormFactorBorn::getVolume( );
+        return IFormFactor::getVolume( );
     }
 
     virtual void printSampleTree(  ) {
@@ -239,16 +143,16 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
         ISample::printSampleTree( );
     }
 
-    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+    virtual void setAmbientMaterial( ::IMaterial const & arg0 ) {
         if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
-            func_setAmbientMaterial( boost::ref(material) );
+            func_setAmbientMaterial( boost::ref(arg0) );
         else{
-            this->IFormFactor::setAmbientMaterial( boost::ref(material) );
+            this->IFormFactor::setAmbientMaterial( boost::ref(arg0) );
         }
     }
     
-    void default_setAmbientMaterial( ::IMaterial const & material ) {
-        IFormFactor::setAmbientMaterial( boost::ref(material) );
+    void default_setAmbientMaterial( ::IMaterial const & arg0 ) {
+        IFormFactor::setAmbientMaterial( boost::ref(arg0) );
     }
 
     virtual ::std::size_t size(  ) const  {
@@ -324,93 +228,48 @@ void register_FormFactorAnisoPyramid_class(){
         { //::FormFactorAnisoPyramid::getAlpha
         
             typedef double ( ::FormFactorAnisoPyramid::*getAlpha_function_type)(  ) const;
-            typedef double ( FormFactorAnisoPyramid_wrapper::*default_getAlpha_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "getAlpha"
-                , getAlpha_function_type(&::FormFactorAnisoPyramid::getAlpha)
-                , default_getAlpha_function_type(&FormFactorAnisoPyramid_wrapper::default_getAlpha) );
+                , getAlpha_function_type( &::FormFactorAnisoPyramid::getAlpha ) );
         
         }
         { //::FormFactorAnisoPyramid::getHeight
         
             typedef double ( ::FormFactorAnisoPyramid::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorAnisoPyramid_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorAnisoPyramid::getHeight)
-                , default_getHeight_function_type(&FormFactorAnisoPyramid_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorAnisoPyramid::getHeight ) );
         
         }
         { //::FormFactorAnisoPyramid::getLength
         
             typedef double ( ::FormFactorAnisoPyramid::*getLength_function_type)(  ) const;
-            typedef double ( FormFactorAnisoPyramid_wrapper::*default_getLength_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "getLength"
-                , getLength_function_type(&::FormFactorAnisoPyramid::getLength)
-                , default_getLength_function_type(&FormFactorAnisoPyramid_wrapper::default_getLength) );
+                , getLength_function_type( &::FormFactorAnisoPyramid::getLength ) );
+        
+        }
+        { //::FormFactorAnisoPyramid::getRadius
+        
+            typedef double ( ::FormFactorAnisoPyramid::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorAnisoPyramid_wrapper::*default_getRadius_function_type)(  ) const;
+            
+            FormFactorAnisoPyramid_exposer.def( 
+                "getRadius"
+                , getRadius_function_type(&::FormFactorAnisoPyramid::getRadius)
+                , default_getRadius_function_type(&FormFactorAnisoPyramid_wrapper::default_getRadius) );
         
         }
         { //::FormFactorAnisoPyramid::getWidth
         
             typedef double ( ::FormFactorAnisoPyramid::*getWidth_function_type)(  ) const;
-            typedef double ( FormFactorAnisoPyramid_wrapper::*default_getWidth_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "getWidth"
-                , getWidth_function_type(&::FormFactorAnisoPyramid::getWidth)
-                , default_getWidth_function_type(&FormFactorAnisoPyramid_wrapper::default_getWidth) );
-        
-        }
-        { //::FormFactorAnisoPyramid::setAlpha
-        
-            typedef void ( ::FormFactorAnisoPyramid::*setAlpha_function_type)( double ) ;
-            typedef void ( FormFactorAnisoPyramid_wrapper::*default_setAlpha_function_type)( double ) ;
-            
-            FormFactorAnisoPyramid_exposer.def( 
-                "setAlpha"
-                , setAlpha_function_type(&::FormFactorAnisoPyramid::setAlpha)
-                , default_setAlpha_function_type(&FormFactorAnisoPyramid_wrapper::default_setAlpha)
-                , ( bp::arg("alpha") ) );
-        
-        }
-        { //::FormFactorAnisoPyramid::setHeight
-        
-            typedef void ( ::FormFactorAnisoPyramid::*setHeight_function_type)( double ) ;
-            typedef void ( FormFactorAnisoPyramid_wrapper::*default_setHeight_function_type)( double ) ;
-            
-            FormFactorAnisoPyramid_exposer.def( 
-                "setHeight"
-                , setHeight_function_type(&::FormFactorAnisoPyramid::setHeight)
-                , default_setHeight_function_type(&FormFactorAnisoPyramid_wrapper::default_setHeight)
-                , ( bp::arg("height") ) );
-        
-        }
-        { //::FormFactorAnisoPyramid::setLength
-        
-            typedef void ( ::FormFactorAnisoPyramid::*setLength_function_type)( double ) ;
-            typedef void ( FormFactorAnisoPyramid_wrapper::*default_setLength_function_type)( double ) ;
-            
-            FormFactorAnisoPyramid_exposer.def( 
-                "setLength"
-                , setLength_function_type(&::FormFactorAnisoPyramid::setLength)
-                , default_setLength_function_type(&FormFactorAnisoPyramid_wrapper::default_setLength)
-                , ( bp::arg("length") ) );
-        
-        }
-        { //::FormFactorAnisoPyramid::setWidth
-        
-            typedef void ( ::FormFactorAnisoPyramid::*setWidth_function_type)( double ) ;
-            typedef void ( FormFactorAnisoPyramid_wrapper::*default_setWidth_function_type)( double ) ;
-            
-            FormFactorAnisoPyramid_exposer.def( 
-                "setWidth"
-                , setWidth_function_type(&::FormFactorAnisoPyramid::setWidth)
-                , default_setWidth_function_type(&FormFactorAnisoPyramid_wrapper::default_setWidth)
-                , ( bp::arg("width") ) );
+                , getWidth_function_type( &::FormFactorAnisoPyramid::getWidth ) );
         
         }
         { //::ISample::cloneInvertB
@@ -459,25 +318,14 @@ void register_FormFactorAnisoPyramid_class(){
                 , default_getChildren_function_type(&FormFactorAnisoPyramid_wrapper::default_getChildren) );
         
         }
-        { //::IFormFactor::getRadius
+        { //::IFormFactor::getVolume
         
-            typedef double ( ::IFormFactor::*getRadius_function_type)(  ) const;
-            typedef double ( FormFactorAnisoPyramid_wrapper::*default_getRadius_function_type)(  ) const;
-            
-            FormFactorAnisoPyramid_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorAnisoPyramid_wrapper::default_getRadius) );
-        
-        }
-        { //::IFormFactorBorn::getVolume
-        
-            typedef double ( ::IFormFactorBorn::*getVolume_function_type)(  ) const;
+            typedef double ( ::IFormFactor::*getVolume_function_type)(  ) const;
             typedef double ( FormFactorAnisoPyramid_wrapper::*default_getVolume_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "getVolume"
-                , getVolume_function_type(&::IFormFactorBorn::getVolume)
+                , getVolume_function_type(&::IFormFactor::getVolume)
                 , default_getVolume_function_type(&FormFactorAnisoPyramid_wrapper::default_getVolume) );
         
         }
@@ -501,7 +349,7 @@ void register_FormFactorAnisoPyramid_class(){
                 "setAmbientMaterial"
                 , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
                 , default_setAmbientMaterial_function_type(&FormFactorAnisoPyramid_wrapper::default_setAmbientMaterial)
-                , ( bp::arg("material") ) );
+                , ( bp::arg("arg0") ) );
         
         }
         { //::ISample::size

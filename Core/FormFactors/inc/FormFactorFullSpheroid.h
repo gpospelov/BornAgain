@@ -32,15 +32,15 @@ public:
 
     FormFactorFullSpheroid(double radius, double height);
 
-    ~FormFactorFullSpheroid() {delete m_integrator;}
+    virtual ~FormFactorFullSpheroid();
 
     virtual FormFactorFullSpheroid *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual double getHeight() const { return m_height; }
+    double getHeight() const;
 
-    virtual double getRadius() const { return m_radius; }
+    virtual double getRadius() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -58,6 +58,16 @@ private:
 
     MemberComplexFunctionIntegrator<FormFactorFullSpheroid> *m_integrator;
 };
+
+inline double FormFactorFullSpheroid::getHeight() const
+{
+    return m_height;
+}
+
+inline double FormFactorFullSpheroid::getRadius() const
+{
+    return m_radius;
+}
 
 #endif // FORMFACTORFULLSPHEROID_H
 

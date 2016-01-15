@@ -34,7 +34,7 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual double getHeight() const { return p_ff_sphere->getHeight(); }
+    virtual double getRadius() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 

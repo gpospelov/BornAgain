@@ -33,22 +33,20 @@ public:
     //! @param alpha angle in radians between base and facet
     FormFactorAnisoPyramid(double length, double width, double height, double alpha);
 
-    ~FormFactorAnisoPyramid() {}
+    virtual ~FormFactorAnisoPyramid() {}
     virtual FormFactorAnisoPyramid *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual double getHeight() const { return m_height; }
-    virtual void setHeight(double height) { m_height = height; }
+    virtual double getRadius() const;
 
-    virtual double getLength() const { return m_length; }
-    virtual void setLength(double length) { m_length = length; }
+    double getHeight() const;
 
-    virtual double getWidth() const { return m_width; }
-    virtual void setWidth(double width) { m_width = width; }
+    double getLength() const;
 
-    virtual double getAlpha() const { return m_alpha; }
-    virtual void setAlpha(double alpha) { m_alpha = alpha; }
+    double getWidth() const;
+
+    double getAlpha() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -68,5 +66,24 @@ private:
     double m_alpha;
 };
 
+inline double FormFactorAnisoPyramid::getHeight() const
+{
+    return m_height;
+}
+
+inline double FormFactorAnisoPyramid::getLength() const
+{
+    return m_length;
+}
+
+inline double FormFactorAnisoPyramid::getWidth() const
+{
+    return m_width;
+}
+
+inline double FormFactorAnisoPyramid::getAlpha() const
+{
+    return m_alpha;
+}
 
 #endif // FORMFACTORANISOPYRAMID_H

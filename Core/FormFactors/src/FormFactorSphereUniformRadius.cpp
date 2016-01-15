@@ -47,6 +47,11 @@ void FormFactorSphereUniformRadius::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
+double FormFactorSphereUniformRadius::getRadius() const
+{
+    return m_mean;
+}
+
 complex_t FormFactorSphereUniformRadius::evaluate_for_q(
         const cvector_t& q) const
 {

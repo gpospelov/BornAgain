@@ -47,6 +47,11 @@ void FormFactorTruncatedCube::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
+double FormFactorTruncatedCube::getRadius() const
+{
+    return m_length/2.0;
+}
+
 bool FormFactorTruncatedCube::check_initialization() const
 {
     bool result(true);

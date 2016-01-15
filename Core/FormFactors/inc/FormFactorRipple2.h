@@ -39,10 +39,15 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual double getHeight() const { return m_height; }
-    virtual double getWidth() const { return m_width; }
-    virtual double getLength() const { return m_length; }
-    virtual double getAsymmetry() const { return m_d; }
+    virtual double getRadius() const;
+
+    double getHeight() const;
+
+    double getWidth() const;
+
+    double getLength() const;
+
+    double getAsymmetry() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -58,6 +63,24 @@ private:
     mutable cvector_t m_q;
 };
 
+inline double FormFactorRipple2::getHeight() const
+{
+    return m_height;
+}
+
+inline double FormFactorRipple2::getWidth() const
+{
+    return m_width;
+}
+
+inline double FormFactorRipple2::getLength() const
+{
+    return m_length;
+}
+
+inline double FormFactorRipple2::getAsymmetry() const
+{
+    return m_d;
+}
+
 #endif // FORMFACTORRIPPLE2_H
-
-

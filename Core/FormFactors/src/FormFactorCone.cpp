@@ -39,6 +39,11 @@ FormFactorCone::FormFactorCone(double radius, double height, double alpha)
         new MemberComplexFunctionIntegrator<FormFactorCone>(p_mf, this);
 }
 
+FormFactorCone::~FormFactorCone()
+{
+    delete m_integrator;
+}
+
 bool FormFactorCone::check_initialization() const
 {
     bool result(true);

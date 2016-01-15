@@ -71,6 +71,18 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         return FormFactorCrystal::evaluate_for_q( boost::ref(q) );
     }
 
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
+        else{
+            return this->FormFactorCrystal::getRadius(  );
+        }
+    }
+    
+    double default_getRadius(  ) const  {
+        return FormFactorCrystal::getRadius( );
+    }
+
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
@@ -119,30 +131,6 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         return ISample::getChildren( );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->IFormFactor::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return IFormFactor::getHeight( );
-    }
-
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else{
-            return this->IFormFactor::getRadius(  );
-        }
-    }
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
-    }
-
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
@@ -155,16 +143,16 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         ISample::printSampleTree( );
     }
 
-    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+    virtual void setAmbientMaterial( ::IMaterial const & arg0 ) {
         if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
-            func_setAmbientMaterial( boost::ref(material) );
+            func_setAmbientMaterial( boost::ref(arg0) );
         else{
-            this->IFormFactor::setAmbientMaterial( boost::ref(material) );
+            this->IFormFactor::setAmbientMaterial( boost::ref(arg0) );
         }
     }
     
-    void default_setAmbientMaterial( ::IMaterial const & material ) {
-        IFormFactor::setAmbientMaterial( boost::ref(material) );
+    void default_setAmbientMaterial( ::IMaterial const & arg0 ) {
+        IFormFactor::setAmbientMaterial( boost::ref(arg0) );
     }
 
     virtual ::std::size_t size(  ) const  {
@@ -249,6 +237,17 @@ void register_FormFactorCrystal_class(){
                 , ( bp::arg("q") ) );
         
         }
+        { //::FormFactorCrystal::getRadius
+        
+            typedef double ( ::FormFactorCrystal::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorCrystal_wrapper::*default_getRadius_function_type)(  ) const;
+            
+            FormFactorCrystal_exposer.def( 
+                "getRadius"
+                , getRadius_function_type(&::FormFactorCrystal::getRadius)
+                , default_getRadius_function_type(&FormFactorCrystal_wrapper::default_getRadius) );
+        
+        }
         { //::FormFactorCrystal::getVolume
         
             typedef double ( ::FormFactorCrystal::*getVolume_function_type)(  ) const;
@@ -294,28 +293,6 @@ void register_FormFactorCrystal_class(){
                 , default_getChildren_function_type(&FormFactorCrystal_wrapper::default_getChildren) );
         
         }
-        { //::IFormFactor::getHeight
-        
-            typedef double ( ::IFormFactor::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorCrystal_wrapper::*default_getHeight_function_type)(  ) const;
-            
-            FormFactorCrystal_exposer.def( 
-                "getHeight"
-                , getHeight_function_type(&::IFormFactor::getHeight)
-                , default_getHeight_function_type(&FormFactorCrystal_wrapper::default_getHeight) );
-        
-        }
-        { //::IFormFactor::getRadius
-        
-            typedef double ( ::IFormFactor::*getRadius_function_type)(  ) const;
-            typedef double ( FormFactorCrystal_wrapper::*default_getRadius_function_type)(  ) const;
-            
-            FormFactorCrystal_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorCrystal_wrapper::default_getRadius) );
-        
-        }
         { //::ISample::printSampleTree
         
             typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
@@ -336,7 +313,7 @@ void register_FormFactorCrystal_class(){
                 "setAmbientMaterial"
                 , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
                 , default_setAmbientMaterial_function_type(&FormFactorCrystal_wrapper::default_setAmbientMaterial)
-                , ( bp::arg("material") ) );
+                , ( bp::arg("arg0") ) );
         
         }
         { //::ISample::size

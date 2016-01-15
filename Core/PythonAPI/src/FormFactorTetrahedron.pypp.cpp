@@ -59,76 +59,16 @@ struct FormFactorTetrahedron_wrapper : FormFactorTetrahedron, bp::wrapper< FormF
         return FormFactorTetrahedron::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getAlpha(  ) const  {
-        if( bp::override func_getAlpha = this->get_override( "getAlpha" ) )
-            return func_getAlpha(  );
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
         else{
-            return this->FormFactorTetrahedron::getAlpha(  );
+            return this->FormFactorTetrahedron::getRadius(  );
         }
     }
     
-    double default_getAlpha(  ) const  {
-        return FormFactorTetrahedron::getAlpha( );
-    }
-
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorTetrahedron::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorTetrahedron::getHeight( );
-    }
-
-    virtual double getLength(  ) const  {
-        if( bp::override func_getLength = this->get_override( "getLength" ) )
-            return func_getLength(  );
-        else{
-            return this->FormFactorTetrahedron::getLength(  );
-        }
-    }
-    
-    double default_getLength(  ) const  {
-        return FormFactorTetrahedron::getLength( );
-    }
-
-    virtual void setAlpha( double alpha ) {
-        if( bp::override func_setAlpha = this->get_override( "setAlpha" ) )
-            func_setAlpha( alpha );
-        else{
-            this->FormFactorTetrahedron::setAlpha( alpha );
-        }
-    }
-    
-    void default_setAlpha( double alpha ) {
-        FormFactorTetrahedron::setAlpha( alpha );
-    }
-
-    virtual void setHeight( double height ) {
-        if( bp::override func_setHeight = this->get_override( "setHeight" ) )
-            func_setHeight( height );
-        else{
-            this->FormFactorTetrahedron::setHeight( height );
-        }
-    }
-    
-    void default_setHeight( double height ) {
-        FormFactorTetrahedron::setHeight( height );
-    }
-
-    virtual void setLength( double length ) {
-        if( bp::override func_setLength = this->get_override( "setLength" ) )
-            func_setLength( length );
-        else{
-            this->FormFactorTetrahedron::setLength( length );
-        }
-    }
-    
-    void default_setLength( double length ) {
-        FormFactorTetrahedron::setLength( length );
+    double default_getRadius(  ) const  {
+        return FormFactorTetrahedron::getRadius( );
     }
 
     virtual ::ISample * cloneInvertB(  ) const  {
@@ -179,28 +119,16 @@ struct FormFactorTetrahedron_wrapper : FormFactorTetrahedron, bp::wrapper< FormF
         return ISample::getChildren( );
     }
 
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else{
-            return this->IFormFactor::getRadius(  );
-        }
-    }
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
-    }
-
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
         else{
-            return this->IFormFactorBorn::getVolume(  );
+            return this->IFormFactor::getVolume(  );
         }
     }
     
     double default_getVolume(  ) const  {
-        return IFormFactorBorn::getVolume( );
+        return IFormFactor::getVolume( );
     }
 
     virtual void printSampleTree(  ) {
@@ -215,16 +143,16 @@ struct FormFactorTetrahedron_wrapper : FormFactorTetrahedron, bp::wrapper< FormF
         ISample::printSampleTree( );
     }
 
-    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+    virtual void setAmbientMaterial( ::IMaterial const & arg0 ) {
         if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
-            func_setAmbientMaterial( boost::ref(material) );
+            func_setAmbientMaterial( boost::ref(arg0) );
         else{
-            this->IFormFactor::setAmbientMaterial( boost::ref(material) );
+            this->IFormFactor::setAmbientMaterial( boost::ref(arg0) );
         }
     }
     
-    void default_setAmbientMaterial( ::IMaterial const & material ) {
-        IFormFactor::setAmbientMaterial( boost::ref(material) );
+    void default_setAmbientMaterial( ::IMaterial const & arg0 ) {
+        IFormFactor::setAmbientMaterial( boost::ref(arg0) );
     }
 
     virtual ::std::size_t size(  ) const  {
@@ -300,70 +228,39 @@ void register_FormFactorTetrahedron_class(){
         { //::FormFactorTetrahedron::getAlpha
         
             typedef double ( ::FormFactorTetrahedron::*getAlpha_function_type)(  ) const;
-            typedef double ( FormFactorTetrahedron_wrapper::*default_getAlpha_function_type)(  ) const;
             
             FormFactorTetrahedron_exposer.def( 
                 "getAlpha"
-                , getAlpha_function_type(&::FormFactorTetrahedron::getAlpha)
-                , default_getAlpha_function_type(&FormFactorTetrahedron_wrapper::default_getAlpha) );
+                , getAlpha_function_type( &::FormFactorTetrahedron::getAlpha ) );
         
         }
         { //::FormFactorTetrahedron::getHeight
         
             typedef double ( ::FormFactorTetrahedron::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorTetrahedron_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorTetrahedron_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorTetrahedron::getHeight)
-                , default_getHeight_function_type(&FormFactorTetrahedron_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorTetrahedron::getHeight ) );
         
         }
         { //::FormFactorTetrahedron::getLength
         
             typedef double ( ::FormFactorTetrahedron::*getLength_function_type)(  ) const;
-            typedef double ( FormFactorTetrahedron_wrapper::*default_getLength_function_type)(  ) const;
             
             FormFactorTetrahedron_exposer.def( 
                 "getLength"
-                , getLength_function_type(&::FormFactorTetrahedron::getLength)
-                , default_getLength_function_type(&FormFactorTetrahedron_wrapper::default_getLength) );
+                , getLength_function_type( &::FormFactorTetrahedron::getLength ) );
         
         }
-        { //::FormFactorTetrahedron::setAlpha
+        { //::FormFactorTetrahedron::getRadius
         
-            typedef void ( ::FormFactorTetrahedron::*setAlpha_function_type)( double ) ;
-            typedef void ( FormFactorTetrahedron_wrapper::*default_setAlpha_function_type)( double ) ;
+            typedef double ( ::FormFactorTetrahedron::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorTetrahedron_wrapper::*default_getRadius_function_type)(  ) const;
             
             FormFactorTetrahedron_exposer.def( 
-                "setAlpha"
-                , setAlpha_function_type(&::FormFactorTetrahedron::setAlpha)
-                , default_setAlpha_function_type(&FormFactorTetrahedron_wrapper::default_setAlpha)
-                , ( bp::arg("alpha") ) );
-        
-        }
-        { //::FormFactorTetrahedron::setHeight
-        
-            typedef void ( ::FormFactorTetrahedron::*setHeight_function_type)( double ) ;
-            typedef void ( FormFactorTetrahedron_wrapper::*default_setHeight_function_type)( double ) ;
-            
-            FormFactorTetrahedron_exposer.def( 
-                "setHeight"
-                , setHeight_function_type(&::FormFactorTetrahedron::setHeight)
-                , default_setHeight_function_type(&FormFactorTetrahedron_wrapper::default_setHeight)
-                , ( bp::arg("height") ) );
-        
-        }
-        { //::FormFactorTetrahedron::setLength
-        
-            typedef void ( ::FormFactorTetrahedron::*setLength_function_type)( double ) ;
-            typedef void ( FormFactorTetrahedron_wrapper::*default_setLength_function_type)( double ) ;
-            
-            FormFactorTetrahedron_exposer.def( 
-                "setLength"
-                , setLength_function_type(&::FormFactorTetrahedron::setLength)
-                , default_setLength_function_type(&FormFactorTetrahedron_wrapper::default_setLength)
-                , ( bp::arg("length") ) );
+                "getRadius"
+                , getRadius_function_type(&::FormFactorTetrahedron::getRadius)
+                , default_getRadius_function_type(&FormFactorTetrahedron_wrapper::default_getRadius) );
         
         }
         { //::ISample::cloneInvertB
@@ -412,25 +309,14 @@ void register_FormFactorTetrahedron_class(){
                 , default_getChildren_function_type(&FormFactorTetrahedron_wrapper::default_getChildren) );
         
         }
-        { //::IFormFactor::getRadius
+        { //::IFormFactor::getVolume
         
-            typedef double ( ::IFormFactor::*getRadius_function_type)(  ) const;
-            typedef double ( FormFactorTetrahedron_wrapper::*default_getRadius_function_type)(  ) const;
-            
-            FormFactorTetrahedron_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorTetrahedron_wrapper::default_getRadius) );
-        
-        }
-        { //::IFormFactorBorn::getVolume
-        
-            typedef double ( ::IFormFactorBorn::*getVolume_function_type)(  ) const;
+            typedef double ( ::IFormFactor::*getVolume_function_type)(  ) const;
             typedef double ( FormFactorTetrahedron_wrapper::*default_getVolume_function_type)(  ) const;
             
             FormFactorTetrahedron_exposer.def( 
                 "getVolume"
-                , getVolume_function_type(&::IFormFactorBorn::getVolume)
+                , getVolume_function_type(&::IFormFactor::getVolume)
                 , default_getVolume_function_type(&FormFactorTetrahedron_wrapper::default_getVolume) );
         
         }
@@ -454,7 +340,7 @@ void register_FormFactorTetrahedron_class(){
                 "setAmbientMaterial"
                 , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
                 , default_setAmbientMaterial_function_type(&FormFactorTetrahedron_wrapper::default_setAmbientMaterial)
-                , ( bp::arg("material") ) );
+                , ( bp::arg("arg0") ) );
         
         }
         { //::ISample::size

@@ -31,7 +31,7 @@ class BA_CORE_API_ DistributionHandler : public IParameterized
 public:
     typedef std::vector<ParameterDistribution> Distributions_t;
     DistributionHandler();
-    ~DistributionHandler();
+    virtual ~DistributionHandler();
 
     //! add a sampled parameter distribution
     void addParameterDistribution(const std::string &param_name,

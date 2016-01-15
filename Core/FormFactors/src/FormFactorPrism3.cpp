@@ -51,6 +51,11 @@ void FormFactorPrism3::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
+double FormFactorPrism3::getRadius() const
+{
+    return m_length/2.0;
+}
+
 complex_t FormFactorPrism3::evaluate_for_q(const cvector_t& q) const
 {
     complex_t qz = q.z();

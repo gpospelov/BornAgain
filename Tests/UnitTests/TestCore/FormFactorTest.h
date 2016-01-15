@@ -249,13 +249,11 @@ TEST_F(FormFactorTest, FullSphere)
 
     EXPECT_EQ(BornAgain::FFFullSphereType, fullsphere.getName());
     EXPECT_EQ(5., fullsphere.getRadius());
-    EXPECT_EQ(2.*5., fullsphere.getHeight());
     EXPECT_DOUBLE_EQ(volume, fullsphere.getVolume());
 
     FormFactorFullSphere *fullsphereclone = fullsphere.clone();
     EXPECT_EQ(BornAgain::FFFullSphereType, fullsphereclone->getName());
     EXPECT_EQ(5., fullsphereclone->getRadius());
-    EXPECT_EQ(2.*5., fullsphereclone->getHeight());
     EXPECT_DOUBLE_EQ(volume, fullsphereclone->getVolume());
 }
 
@@ -377,7 +375,6 @@ TEST_F(FormFactorTest, TruncatedSpheroid)
     double height = 5.;
     double radius = 3.;
     double flattening = 1.5;
-    double total_height =2.*flattening *radius;
     double volume = Units::PI*radius*height*height/flattening
             *(1.-height/(3.*flattening*radius));
 
@@ -386,14 +383,12 @@ TEST_F(FormFactorTest, TruncatedSpheroid)
     EXPECT_EQ(BornAgain::FFTruncatedSpheroidType, trspheroid.getName());
     EXPECT_EQ(5., trspheroid.getHeight());
     EXPECT_EQ(3., trspheroid.getRadius());
-    EXPECT_DOUBLE_EQ(total_height, trspheroid.getHeightFullSpheroid());
     EXPECT_DOUBLE_EQ(volume, trspheroid.getVolume());
 
     FormFactorTruncatedSpheroid *trspheroidclone = trspheroid.clone();
     EXPECT_EQ(BornAgain::FFTruncatedSpheroidType, trspheroidclone->getName());
     EXPECT_EQ(5., trspheroidclone->getHeight());
     EXPECT_EQ(3., trspheroidclone->getRadius());
-    EXPECT_DOUBLE_EQ(total_height, trspheroidclone->getHeightFullSpheroid());
     EXPECT_DOUBLE_EQ(volume, trspheroidclone->getVolume());
 }
 

@@ -102,18 +102,6 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
         return ISample::getChildren( );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->IFormFactorDecorator::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return IFormFactorDecorator::getHeight( );
-    }
-
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
@@ -265,17 +253,6 @@ void register_FormFactorDecoratorDebyeWaller_class(){
                 "getChildren"
                 , getChildren_function_type(&::ISample::getChildren)
                 , default_getChildren_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_getChildren) );
-        
-        }
-        { //::IFormFactorDecorator::getHeight
-        
-            typedef double ( ::IFormFactorDecorator::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorDecoratorDebyeWaller_wrapper::*default_getHeight_function_type)(  ) const;
-            
-            FormFactorDecoratorDebyeWaller_exposer.def( 
-                "getHeight"
-                , getHeight_function_type(&::IFormFactorDecorator::getHeight)
-                , default_getHeight_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_getHeight) );
         
         }
         { //::IFormFactorDecorator::getRadius

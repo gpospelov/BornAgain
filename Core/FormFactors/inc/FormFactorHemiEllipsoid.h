@@ -32,15 +32,17 @@ public:
     //! @param height of Hemi Ellipsoid
     FormFactorHemiEllipsoid(double radius_x, double radius_y, double height);
 
-    ~FormFactorHemiEllipsoid();
+    virtual ~FormFactorHemiEllipsoid();
 
     virtual FormFactorHemiEllipsoid* clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual double getHeight() const;
-    virtual double getRadiusX() const;
-    virtual double getRadiusY() const;
+    virtual double getRadius() const;
+
+    double getHeight() const;
+    double getRadiusX() const;
+    double getRadiusY() const;
 
     virtual complex_t evaluate_for_q (const cvector_t& q) const;
 

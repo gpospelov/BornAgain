@@ -24,7 +24,7 @@ class BA_CORE_API_ LayerZeroRoughnessItem : public ParameterizedItem
     Q_OBJECT
 public:
     explicit LayerZeroRoughnessItem(ParameterizedItem *parent=0);
-    ~LayerZeroRoughnessItem(){}
+    virtual ~LayerZeroRoughnessItem(){}
 };
 
 
@@ -36,7 +36,7 @@ public:
     static const QString P_HURST;
     static const QString P_LATERAL_CORR_LENGTH;
     explicit LayerBasicRoughnessItem(ParameterizedItem *parent=0);
-    ~LayerBasicRoughnessItem(){}
+    virtual ~LayerBasicRoughnessItem(){}
 };
 
 

@@ -59,52 +59,16 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
         return FormFactorPrism3::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
         else{
-            return this->FormFactorPrism3::getHeight(  );
+            return this->FormFactorPrism3::getRadius(  );
         }
     }
     
-    double default_getHeight(  ) const  {
-        return FormFactorPrism3::getHeight( );
-    }
-
-    virtual double getLength(  ) const  {
-        if( bp::override func_getLength = this->get_override( "getLength" ) )
-            return func_getLength(  );
-        else{
-            return this->FormFactorPrism3::getLength(  );
-        }
-    }
-    
-    double default_getLength(  ) const  {
-        return FormFactorPrism3::getLength( );
-    }
-
-    virtual void setHeight( double height ) {
-        if( bp::override func_setHeight = this->get_override( "setHeight" ) )
-            func_setHeight( height );
-        else{
-            this->FormFactorPrism3::setHeight( height );
-        }
-    }
-    
-    void default_setHeight( double height ) {
-        FormFactorPrism3::setHeight( height );
-    }
-
-    virtual void setLength( double length ) {
-        if( bp::override func_setLength = this->get_override( "setLength" ) )
-            func_setLength( length );
-        else{
-            this->FormFactorPrism3::setLength( length );
-        }
-    }
-    
-    void default_setLength( double length ) {
-        FormFactorPrism3::setLength( length );
+    double default_getRadius(  ) const  {
+        return FormFactorPrism3::getRadius( );
     }
 
     virtual ::ISample * cloneInvertB(  ) const  {
@@ -155,28 +119,16 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
         return ISample::getChildren( );
     }
 
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else{
-            return this->IFormFactor::getRadius(  );
-        }
-    }
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
-    }
-
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
         else{
-            return this->IFormFactorBorn::getVolume(  );
+            return this->IFormFactor::getVolume(  );
         }
     }
     
     double default_getVolume(  ) const  {
-        return IFormFactorBorn::getVolume( );
+        return IFormFactor::getVolume( );
     }
 
     virtual void printSampleTree(  ) {
@@ -191,16 +143,16 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
         ISample::printSampleTree( );
     }
 
-    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+    virtual void setAmbientMaterial( ::IMaterial const & arg0 ) {
         if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
-            func_setAmbientMaterial( boost::ref(material) );
+            func_setAmbientMaterial( boost::ref(arg0) );
         else{
-            this->IFormFactor::setAmbientMaterial( boost::ref(material) );
+            this->IFormFactor::setAmbientMaterial( boost::ref(arg0) );
         }
     }
     
-    void default_setAmbientMaterial( ::IMaterial const & material ) {
-        IFormFactor::setAmbientMaterial( boost::ref(material) );
+    void default_setAmbientMaterial( ::IMaterial const & arg0 ) {
+        IFormFactor::setAmbientMaterial( boost::ref(arg0) );
     }
 
     virtual ::std::size_t size(  ) const  {
@@ -276,47 +228,30 @@ void register_FormFactorPrism3_class(){
         { //::FormFactorPrism3::getHeight
         
             typedef double ( ::FormFactorPrism3::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorPrism3_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorPrism3_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorPrism3::getHeight)
-                , default_getHeight_function_type(&FormFactorPrism3_wrapper::default_getHeight) );
+                , getHeight_function_type( &::FormFactorPrism3::getHeight ) );
         
         }
         { //::FormFactorPrism3::getLength
         
             typedef double ( ::FormFactorPrism3::*getLength_function_type)(  ) const;
-            typedef double ( FormFactorPrism3_wrapper::*default_getLength_function_type)(  ) const;
             
             FormFactorPrism3_exposer.def( 
                 "getLength"
-                , getLength_function_type(&::FormFactorPrism3::getLength)
-                , default_getLength_function_type(&FormFactorPrism3_wrapper::default_getLength) );
+                , getLength_function_type( &::FormFactorPrism3::getLength ) );
         
         }
-        { //::FormFactorPrism3::setHeight
+        { //::FormFactorPrism3::getRadius
         
-            typedef void ( ::FormFactorPrism3::*setHeight_function_type)( double ) ;
-            typedef void ( FormFactorPrism3_wrapper::*default_setHeight_function_type)( double ) ;
+            typedef double ( ::FormFactorPrism3::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorPrism3_wrapper::*default_getRadius_function_type)(  ) const;
             
             FormFactorPrism3_exposer.def( 
-                "setHeight"
-                , setHeight_function_type(&::FormFactorPrism3::setHeight)
-                , default_setHeight_function_type(&FormFactorPrism3_wrapper::default_setHeight)
-                , ( bp::arg("height") ) );
-        
-        }
-        { //::FormFactorPrism3::setLength
-        
-            typedef void ( ::FormFactorPrism3::*setLength_function_type)( double ) ;
-            typedef void ( FormFactorPrism3_wrapper::*default_setLength_function_type)( double ) ;
-            
-            FormFactorPrism3_exposer.def( 
-                "setLength"
-                , setLength_function_type(&::FormFactorPrism3::setLength)
-                , default_setLength_function_type(&FormFactorPrism3_wrapper::default_setLength)
-                , ( bp::arg("length") ) );
+                "getRadius"
+                , getRadius_function_type(&::FormFactorPrism3::getRadius)
+                , default_getRadius_function_type(&FormFactorPrism3_wrapper::default_getRadius) );
         
         }
         { //::ISample::cloneInvertB
@@ -365,25 +300,14 @@ void register_FormFactorPrism3_class(){
                 , default_getChildren_function_type(&FormFactorPrism3_wrapper::default_getChildren) );
         
         }
-        { //::IFormFactor::getRadius
+        { //::IFormFactor::getVolume
         
-            typedef double ( ::IFormFactor::*getRadius_function_type)(  ) const;
-            typedef double ( FormFactorPrism3_wrapper::*default_getRadius_function_type)(  ) const;
-            
-            FormFactorPrism3_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorPrism3_wrapper::default_getRadius) );
-        
-        }
-        { //::IFormFactorBorn::getVolume
-        
-            typedef double ( ::IFormFactorBorn::*getVolume_function_type)(  ) const;
+            typedef double ( ::IFormFactor::*getVolume_function_type)(  ) const;
             typedef double ( FormFactorPrism3_wrapper::*default_getVolume_function_type)(  ) const;
             
             FormFactorPrism3_exposer.def( 
                 "getVolume"
-                , getVolume_function_type(&::IFormFactorBorn::getVolume)
+                , getVolume_function_type(&::IFormFactor::getVolume)
                 , default_getVolume_function_type(&FormFactorPrism3_wrapper::default_getVolume) );
         
         }
@@ -407,7 +331,7 @@ void register_FormFactorPrism3_class(){
                 "setAmbientMaterial"
                 , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
                 , default_setAmbientMaterial_function_type(&FormFactorPrism3_wrapper::default_setAmbientMaterial)
-                , ( bp::arg("material") ) );
+                , ( bp::arg("arg0") ) );
         
         }
         { //::ISample::size

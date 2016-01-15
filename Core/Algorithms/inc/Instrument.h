@@ -33,7 +33,7 @@ public:
     Instrument(const Instrument &other);
     Instrument& operator=(const Instrument& other);
 
-    ~Instrument() {}
+    virtual ~Instrument() {}
 
     //! Returns the beam data
     Beam getBeam() const;

@@ -49,7 +49,7 @@ public:
     GISASSimulation(SampleBuilder_t p_sample_builder,
                const ProgramOptions *p_options=0);
 
-    ~GISASSimulation() {}
+    virtual ~GISASSimulation() {}
 
     GISASSimulation *clone() const;
 

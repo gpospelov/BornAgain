@@ -29,7 +29,7 @@ public:
     static const QString P_KAPPA;
     static const QString P_PDF;
     explicit InterferenceFunctionRadialParaCrystalItem(ParameterizedItem *parent=0);
-    ~InterferenceFunctionRadialParaCrystalItem(){}
+    virtual ~InterferenceFunctionRadialParaCrystalItem(){}
 };
 
 
@@ -45,8 +45,8 @@ public:
     static const QString P_PDF1;
     static const QString P_PDF2;
     explicit InterferenceFunction2DParaCrystalItem(ParameterizedItem *parent=0);
-    ~InterferenceFunction2DParaCrystalItem(){}
-    void onPropertyChange(const QString &name);
+    virtual ~InterferenceFunction2DParaCrystalItem(){}
+    virtual void onPropertyChange(const QString &name);
 };
 
 
@@ -58,7 +58,7 @@ public:
     static const QString P_ROTATION_ANGLE;
     static const QString P_PDF;
     explicit InterferenceFunction1DLatticeItem(ParameterizedItem *parent=0);
-    ~InterferenceFunction1DLatticeItem(){}
+    virtual ~InterferenceFunction1DLatticeItem(){}
 };
 
 
@@ -70,7 +70,7 @@ public:
     static const QString P_ROTATION_ANGLE;
     static const QString P_PDF;
     explicit InterferenceFunction2DLatticeItem(ParameterizedItem *parent=0);
-    ~InterferenceFunction2DLatticeItem(){}
+    virtual ~InterferenceFunction2DLatticeItem(){}
 };
 
 #endif

@@ -28,12 +28,6 @@ Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo& wavevectors)
     return evaluate(wavevectors) * unit_matrix;
 }
 
-double IFormFactorBorn::getVolume() const
-{
-    cvector_t zero;
-    return std::abs(evaluate_for_q(zero));
-}
-
 bool IFormFactorBorn::check_initialization() const
 {
     return true;

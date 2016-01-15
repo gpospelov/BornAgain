@@ -47,6 +47,11 @@ void FormFactorSphereGaussianRadius::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
+double FormFactorSphereGaussianRadius::getRadius() const
+{
+    return m_mean;
+}
+
 complex_t FormFactorSphereGaussianRadius::evaluate_for_q(
         const cvector_t& q) const
 {

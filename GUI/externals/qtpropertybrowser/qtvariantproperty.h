@@ -55,7 +55,7 @@ class QtVariantPropertyManager;
 class QtVariantProperty : public QtProperty
 {
 public:
-    ~QtVariantProperty();
+    virtual ~QtVariantProperty();
     QVariant value() const;
     QVariant attributeValue(const QString &attribute) const;
     int valueType() const;
@@ -75,12 +75,12 @@ class QtVariantPropertyManager : public QtAbstractPropertyManager
     Q_OBJECT
 public:
     QtVariantPropertyManager(QObject *parent = 0);
-    ~QtVariantPropertyManager();
+    virtual ~QtVariantPropertyManager();
 
     virtual QtVariantProperty *addProperty(int propertyType, const QString &name = QString());
 
     int propertyType(const QtProperty *property) const;
-    int valueType(const QtProperty *property) const;
+    virtual int valueType(const QtProperty *property) const;
     QtVariantProperty *variantProperty(const QtProperty *property) const;
 
     virtual bool isPropertyTypeSupported(int propertyType) const;
@@ -105,8 +105,8 @@ Q_SIGNALS:
                 const QString &attribute, const QVariant &val);
 protected:
     virtual bool hasValue(const QtProperty *property) const;
-    QString valueText(const QtProperty *property) const;
-    QIcon valueIcon(const QtProperty *property) const;
+    virtual QString valueText(const QtProperty *property) const;
+    virtual QIcon valueIcon(const QtProperty *property) const;
     virtual void initializeProperty(QtProperty *property);
     virtual void uninitializeProperty(QtProperty *property);
     virtual QtProperty *createProperty();
@@ -158,13 +158,13 @@ class QtVariantEditorFactory : public QtAbstractEditorFactory<QtVariantPropertyM
     Q_OBJECT
 public:
     QtVariantEditorFactory(QObject *parent = 0);
-    ~QtVariantEditorFactory();
+    virtual ~QtVariantEditorFactory();
     using QtAbstractEditorFactory<QtVariantPropertyManager>::createEditor;
 protected:
-    void connectPropertyManager(QtVariantPropertyManager *manager);
-    QWidget *createEditor(QtVariantPropertyManager *manager, QtProperty *property,
+    virtual void connectPropertyManager(QtVariantPropertyManager *manager);
+    virtual QWidget *createEditor(QtVariantPropertyManager *manager, QtProperty *property,
                 QWidget *parent);
-    void disconnectPropertyManager(QtVariantPropertyManager *manager);
+    virtual void disconnectPropertyManager(QtVariantPropertyManager *manager);
 private:
     QScopedPointer<class QtVariantEditorFactoryPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QtVariantEditorFactory)

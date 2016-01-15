@@ -28,14 +28,10 @@ class BA_CORE_API_ FormFactorDecoratorPositionFactor : public IFormFactorDecorat
 {
 public:
     FormFactorDecoratorPositionFactor(const IFormFactor &form_factor, kvector_t position);
-    virtual ~FormFactorDecoratorPositionFactor()
-    {
-    }
+    virtual ~FormFactorDecoratorPositionFactor() {}
+
     virtual FormFactorDecoratorPositionFactor *clone() const;
-    virtual void accept(ISampleVisitor *visitor) const
-    {
-        visitor->visit(this);
-    }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
@@ -60,6 +56,11 @@ inline FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
 inline FormFactorDecoratorPositionFactor *FormFactorDecoratorPositionFactor::clone() const
 {
     return new FormFactorDecoratorPositionFactor(*mp_form_factor, m_position);
+}
+
+inline void FormFactorDecoratorPositionFactor::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 inline complex_t FormFactorDecoratorPositionFactor::evaluate(

@@ -34,6 +34,11 @@ void FormFactorTrivial::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
+double FormFactorTrivial::getRadius() const
+{
+    return 1.0;
+}
+
 complex_t FormFactorTrivial::evaluate_for_q(const cvector_t& q) const
 {
     (void)q;

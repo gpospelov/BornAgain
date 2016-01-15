@@ -39,7 +39,7 @@ public:
                           size_t nbr_samples, double xmin, double xmax);
 
     ParameterDistribution(const ParameterDistribution &other);
-    ~ParameterDistribution();
+    virtual ~ParameterDistribution();
 
     //! Overload assignment operator
     ParameterDistribution& operator=(const ParameterDistribution &other);
@@ -70,7 +70,7 @@ public:
 
 protected:
     //! Registers some class members for later access via parameter pool
-    void init_parameters();
+    virtual void init_parameters();
 private:
     std::string m_name;
     boost::scoped_ptr<IDistribution1D> mP_distribution;

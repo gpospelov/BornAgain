@@ -31,12 +31,11 @@ class BA_CORE_API_ Error : public std::exception
 public:
     explicit Error(const QString &message) throw()
         : message(message) {}
-    ~Error() throw() {}
+    virtual ~Error() throw() {}
 
-    const char *what() const throw() { return message.toLatin1().data(); }
+    virtual const char *what() const throw() { return message.toLatin1().data(); }
 
 private:
-//    const char *message;
     QString message;
 };
 

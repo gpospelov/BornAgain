@@ -36,16 +36,16 @@ public:
     virtual void accept(ISampleVisitor *visitor) const;
 
     //! Returns length of Box
-    double getLength() const { return m_length; }
+    double getLength() const;
 
     //! Returns height of Box
-    double getHeight() const { return m_height; }
+    double getHeight() const;
 
     //! Returns radius of Box
-    double getRadius() const { return m_length/2.0; }
+    virtual double getRadius() const;
 
     //! Returns width of Box
-    double getWidth() const { return m_width; }
+    double getWidth() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -58,6 +58,26 @@ private:
     double m_width;
     double m_height;
 };
+
+inline double FormFactorBox::getLength() const
+{
+    return m_length;
+}
+
+inline double FormFactorBox::getHeight() const
+{
+    return m_height;
+}
+
+inline double FormFactorBox::getRadius() const
+{
+    return m_length/2.0;
+}
+
+inline double FormFactorBox::getWidth() const
+{
+    return m_width;
+}
 
 #endif // FORMFACTORBOX_H
 

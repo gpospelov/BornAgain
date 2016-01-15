@@ -62,6 +62,16 @@ FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const
     return new FormFactorCuboctahedron(m_length, m_height, m_height_ratio, m_alpha);
 }
 
+void FormFactorCuboctahedron::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+double FormFactorCuboctahedron::getRadius() const
+{
+    return m_length / 2.0;
+}
+
 complex_t FormFactorCuboctahedron::evaluate_for_q(const cvector_t& q) const
 {
     double H = m_height;

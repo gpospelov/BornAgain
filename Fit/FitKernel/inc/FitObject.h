@@ -38,7 +38,7 @@ public:
     FitObject(const GISASSimulation &simulation, const OutputData<double> &real_data,
               double weight = 1);
 
-    ~FitObject();
+    virtual ~FitObject();
 
     //! Returns real (experimental) data.
     const OutputData<double> *getRealData() const;

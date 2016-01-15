@@ -67,7 +67,7 @@ class OutputDataWriteTiffStrategy : public IOutputDataWriteStrategy
 {
 public:
     OutputDataWriteTiffStrategy();
-    ~OutputDataWriteTiffStrategy();
+    virtual ~OutputDataWriteTiffStrategy();
     virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
 private:
     TiffHandler *m_d;

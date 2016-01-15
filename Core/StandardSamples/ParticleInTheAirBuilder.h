@@ -29,11 +29,11 @@ class BA_CORE_API_ ParticleInTheAirBuilder : public ISampleBuilder
 {
 public:
     ParticleInTheAirBuilder();
-    ~ParticleInTheAirBuilder();
+    virtual ~ParticleInTheAirBuilder();
 
-    void init_from(const IComponentService *service);
+    virtual void init_from(const IComponentService *service);
 
-    ISample *buildSample() const;
+    virtual ISample *buildSample() const;
 
 private:
     IFormFactor *m_form_factor;

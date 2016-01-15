@@ -33,6 +33,17 @@ void FormFactorDecoratorMultiPositionFactor::accept(ISampleVisitor *visitor) con
     visitor->visit(this);
 }
 
+double FormFactorDecoratorMultiPositionFactor::getVolume() const
+{
+    size_t nbr_particles = m_positions.size();
+    return nbr_particles * IFormFactorDecorator::getVolume();
+}
+
+double FormFactorDecoratorMultiPositionFactor::getRadius() const
+{
+    return IFormFactorDecorator::getRadius();
+}
+
 complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const WavevectorInfo& wavevectors) const
 {
     cvector_t q = wavevectors.getQ();

@@ -38,6 +38,16 @@ FormFactorCrystal *FormFactorCrystal::clone() const
     return new FormFactorCrystal(m_lattice, *mp_basis_form_factor, *mp_meso_form_factor);
 }
 
+double FormFactorCrystal::getVolume() const
+{
+    return mp_meso_form_factor->getVolume();
+}
+
+double FormFactorCrystal::getRadius() const
+{
+    return mp_meso_form_factor->getRadius();
+}
+
 complex_t FormFactorCrystal::evaluate_for_q(const cvector_t &q) const
 {
     (void)q;
@@ -107,11 +117,6 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevector
     // is canceled by the convolution of Fourier transforms :
     double volume = m_lattice.getVolume();
     return result / volume;
-}
-
-double FormFactorCrystal::getVolume() const
-{
-    return mp_meso_form_factor->getVolume();
 }
 
 void FormFactorCrystal::calculateLargestReciprocalDistance()

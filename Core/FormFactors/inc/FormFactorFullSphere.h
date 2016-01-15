@@ -33,11 +33,7 @@ public:
     virtual void accept(ISampleVisitor *visitor) const;
 
     //! Returns radius of sphere
-    virtual double getRadius() const { return m_radius; }
-    virtual void setRadius(double radius) {m_radius = radius; }
-
-    //! Returns diameter of sphere
-    virtual double getHeight() const { return 2.0*m_radius; }
+    virtual double getRadius() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -48,6 +44,11 @@ protected:
 private:
     double m_radius;
 };
+
+inline double FormFactorFullSphere::getRadius() const
+{
+    return m_radius;
+}
 
 #endif /* FORMFACTORFULLSPHERE_H_ */
 

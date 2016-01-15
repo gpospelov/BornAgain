@@ -43,6 +43,16 @@ void FormFactorWeighted::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
+double FormFactorWeighted::getRadius() const
+{
+    double result { 0.0 };
+    for (size_t index=0; index<m_form_factors.size(); ++index) {
+        double radius = m_form_factors[index]->getRadius();
+        result += m_weights[index]*radius;
+    }
+    return result;
+}
+
 void FormFactorWeighted::addFormFactor(const IFormFactor& form_factor,
                                        double weight)
 {

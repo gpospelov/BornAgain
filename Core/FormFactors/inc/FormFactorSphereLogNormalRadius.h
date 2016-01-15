@@ -38,6 +38,8 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const;
 
+    virtual double getRadius() const;
+
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
 protected:

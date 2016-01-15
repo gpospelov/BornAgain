@@ -76,6 +76,11 @@ void FormFactorTetrahedron::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
+double FormFactorTetrahedron::getRadius() const
+{
+    return m_length / 2.0;
+}
+
 complex_t FormFactorTetrahedron::Integrand(double Z, void* params) const
 {
     (void)params;

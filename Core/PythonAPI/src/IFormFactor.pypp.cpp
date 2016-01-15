@@ -45,16 +45,9 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         return func_evaluate( boost::ref(wavevectors) );
     }
 
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else{
-            return this->IFormFactor::getRadius(  );
-        }
-    }
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
+    virtual double getRadius(  ) const {
+        bp::override func_getRadius = this->get_override( "getRadius" );
+        return func_getRadius(  );
     }
 
     virtual double getVolume(  ) const  {
@@ -69,16 +62,16 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         return IFormFactor::getVolume( );
     }
 
-    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+    virtual void setAmbientMaterial( ::IMaterial const & arg0 ) {
         if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
-            func_setAmbientMaterial( boost::ref(material) );
+            func_setAmbientMaterial( boost::ref(arg0) );
         else{
-            this->IFormFactor::setAmbientMaterial( boost::ref(material) );
+            this->IFormFactor::setAmbientMaterial( boost::ref(arg0) );
         }
     }
     
-    void default_setAmbientMaterial( ::IMaterial const & material ) {
-        IFormFactor::setAmbientMaterial( boost::ref(material) );
+    void default_setAmbientMaterial( ::IMaterial const & arg0 ) {
+        IFormFactor::setAmbientMaterial( boost::ref(arg0) );
     }
 
     virtual ::ISample * cloneInvertB(  ) const  {
@@ -199,12 +192,11 @@ void register_IFormFactor_class(){
         { //::IFormFactor::getRadius
         
             typedef double ( ::IFormFactor::*getRadius_function_type)(  ) const;
-            typedef double ( IFormFactor_wrapper::*default_getRadius_function_type)(  ) const;
             
             IFormFactor_exposer.def( 
                 "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&IFormFactor_wrapper::default_getRadius) );
+                , bp::pure_virtual( getRadius_function_type(&::IFormFactor::getRadius) )
+                , "Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations " );
         
         }
         { //::IFormFactor::getVolume
@@ -227,7 +219,7 @@ void register_IFormFactor_class(){
                 "setAmbientMaterial"
                 , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
                 , default_setAmbientMaterial_function_type(&IFormFactor_wrapper::default_setAmbientMaterial)
-                , ( bp::arg("material") ) );
+                , ( bp::arg("arg0") ) );
         
         }
         { //::ISample::cloneInvertB

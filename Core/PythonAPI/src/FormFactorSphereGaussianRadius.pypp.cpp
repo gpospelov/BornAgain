@@ -59,6 +59,18 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
         return FormFactorSphereGaussianRadius::evaluate_for_q( boost::ref(q) );
     }
 
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
+        else{
+            return this->FormFactorSphereGaussianRadius::getRadius(  );
+        }
+    }
+    
+    double default_getRadius(  ) const  {
+        return FormFactorSphereGaussianRadius::getRadius( );
+    }
+
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -107,18 +119,6 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
         return ISample::getChildren( );
     }
 
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else{
-            return this->IFormFactor::getRadius(  );
-        }
-    }
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
-    }
-
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
@@ -143,16 +143,16 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
         ISample::printSampleTree( );
     }
 
-    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+    virtual void setAmbientMaterial( ::IMaterial const & arg0 ) {
         if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
-            func_setAmbientMaterial( boost::ref(material) );
+            func_setAmbientMaterial( boost::ref(arg0) );
         else{
-            this->IFormFactor::setAmbientMaterial( boost::ref(material) );
+            this->IFormFactor::setAmbientMaterial( boost::ref(arg0) );
         }
     }
     
-    void default_setAmbientMaterial( ::IMaterial const & material ) {
-        IFormFactor::setAmbientMaterial( boost::ref(material) );
+    void default_setAmbientMaterial( ::IMaterial const & arg0 ) {
+        IFormFactor::setAmbientMaterial( boost::ref(arg0) );
     }
 
     virtual ::std::size_t size(  ) const  {
@@ -225,6 +225,17 @@ void register_FormFactorSphereGaussianRadius_class(){
                 , ( bp::arg("q") ) );
         
         }
+        { //::FormFactorSphereGaussianRadius::getRadius
+        
+            typedef double ( ::FormFactorSphereGaussianRadius::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorSphereGaussianRadius_wrapper::*default_getRadius_function_type)(  ) const;
+            
+            FormFactorSphereGaussianRadius_exposer.def( 
+                "getRadius"
+                , getRadius_function_type(&::FormFactorSphereGaussianRadius::getRadius)
+                , default_getRadius_function_type(&FormFactorSphereGaussianRadius_wrapper::default_getRadius) );
+        
+        }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;
@@ -271,17 +282,6 @@ void register_FormFactorSphereGaussianRadius_class(){
                 , default_getChildren_function_type(&FormFactorSphereGaussianRadius_wrapper::default_getChildren) );
         
         }
-        { //::IFormFactor::getRadius
-        
-            typedef double ( ::IFormFactor::*getRadius_function_type)(  ) const;
-            typedef double ( FormFactorSphereGaussianRadius_wrapper::*default_getRadius_function_type)(  ) const;
-            
-            FormFactorSphereGaussianRadius_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorSphereGaussianRadius_wrapper::default_getRadius) );
-        
-        }
         { //::IFormFactor::getVolume
         
             typedef double ( ::IFormFactor::*getVolume_function_type)(  ) const;
@@ -313,7 +313,7 @@ void register_FormFactorSphereGaussianRadius_class(){
                 "setAmbientMaterial"
                 , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
                 , default_setAmbientMaterial_function_type(&FormFactorSphereGaussianRadius_wrapper::default_setAmbientMaterial)
-                , ( bp::arg("material") ) );
+                , ( bp::arg("arg0") ) );
         
         }
         { //::ISample::size

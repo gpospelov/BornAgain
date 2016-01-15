@@ -48,6 +48,11 @@ void FormFactorSphereLogNormalRadius::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
+double FormFactorSphereLogNormalRadius::getRadius() const
+{
+    return m_mean;
+}
+
 complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(
         const cvector_t& q) const
 {

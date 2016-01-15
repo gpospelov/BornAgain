@@ -61,6 +61,14 @@ double FormFactorDWBAPol::getVolume() const
     return 0.0;
 }
 
+double FormFactorDWBAPol::getRadius() const
+{
+    if (mp_form_factor) {
+        return mp_form_factor->getRadius();
+    }
+    return 0.0;
+}
+
 void FormFactorDWBAPol::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
                                        const ILayerRTCoefficients *p_out_coeffs)
 {

@@ -38,14 +38,12 @@ public:
     virtual IFormFactor *clone() const=0;
 
     //! @{ \internal
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this);}
+    virtual void accept(ISampleVisitor *visitor) const;
     //! @}
 
     //! Passes the refractive index of the ambient material in which this
     //! particle is embedded.
-    virtual void setAmbientMaterial(const IMaterial& material) {
-        (void)material;
-    }
+    virtual void setAmbientMaterial(const IMaterial&) {}
 
     //! Returns scattering amplitude for complex wavevector bin
     //! @param k_i   incoming wavevector
@@ -62,24 +60,25 @@ public:
     //! Returns the total volume of the particle of this form factor's shape
     virtual double getVolume() const;
 
-    //! Returns the total radial size of the particle of this form factor's shape
-    //! The default implementation returns the radius of a sphere with volume getVolume()
-    virtual double getRadius() const;
+    //! Returns the (approximate in some cases) radial size of the particle of this
+    //! form factor's shape. This is used for SSCA calculations
+    virtual double getRadius() const=0;
 
     //! Sets reflection/transmission info
     virtual void setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
-                         const ILayerRTCoefficients *p_out_coeffs) {
-        (void)p_in_coeffs;
-        (void)p_out_coeffs;
-    }
+                         const ILayerRTCoefficients *p_out_coeffs);
 };
+
+inline void IFormFactor::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
 
 #ifndef GCCXML_SKIP_THIS
 inline Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const
 {
     // Throws to prevent unanticipated behaviour
-    throw NotImplementedException("IFormFactor::evaluatePol:"
-            " is not implemented by default");
+    throw NotImplementedException("IFormFactor::evaluatePol: is not implemented by default");
 }
 #endif
 
@@ -89,11 +88,11 @@ inline double IFormFactor::getVolume() const
     return std::abs(evaluate(zero_wavevectors));
 }
 
-inline double IFormFactor::getRadius() const
+inline void IFormFactor::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
+                                         const ILayerRTCoefficients *p_out_coeffs)
 {
-    return std::pow(3.0*getVolume()/Units::PI/4.0, 1.0/3.0);
+    (void)p_in_coeffs;
+    (void)p_out_coeffs;
 }
 
 #endif // IFORMFACTOR_H
-
-

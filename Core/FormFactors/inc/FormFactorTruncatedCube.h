@@ -34,6 +34,8 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const;
 
+    virtual double getRadius() const;
+
     double getLength() const;
 
     double getRemovedLength() const;

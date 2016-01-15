@@ -84,6 +84,11 @@ void FormFactorRipple2::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
+double FormFactorRipple2::getRadius() const
+{
+    return ( m_width + m_length ) / 4.0;
+}
+
 //! Complex formfactor.
 complex_t FormFactorRipple2::evaluate_for_q(const cvector_t &q) const
 {

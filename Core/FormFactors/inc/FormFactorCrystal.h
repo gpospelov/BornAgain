@@ -35,6 +35,10 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
+    virtual double getVolume() const;
+
+    virtual double getRadius() const;
+
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
 #ifndef GCCXML_SKIP_THIS
@@ -42,8 +46,6 @@ public:
 #endif
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
-
-    virtual double getVolume() const;
 
 private:
     void calculateLargestReciprocalDistance();

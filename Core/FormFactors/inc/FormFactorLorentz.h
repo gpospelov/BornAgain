@@ -32,6 +32,8 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const;
 
+    virtual double getRadius() const;
+
     //! Returns height of shape
     double getHeight() const;
 

@@ -63,6 +63,11 @@ void FormFactorHemiEllipsoid::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
+double FormFactorHemiEllipsoid::getRadius() const
+{
+    return ( m_radius_x + m_radius_y ) / 2.0;
+}
+
 //! Integrand for complex formfactor.
 complex_t FormFactorHemiEllipsoid::Integrand(double Z, void* params) const
 {

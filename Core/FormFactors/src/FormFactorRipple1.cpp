@@ -77,6 +77,11 @@ void FormFactorRipple1::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
+double FormFactorRipple1::getRadius() const
+{
+    return ( m_width + m_length ) / 4.0;
+}
+
 //! Integrand for complex formfactor.
 complex_t FormFactorRipple1::Integrand(double Z, void* params) const
 {

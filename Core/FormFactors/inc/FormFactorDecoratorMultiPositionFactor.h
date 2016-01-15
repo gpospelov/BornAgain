@@ -32,13 +32,15 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const;
 
+    virtual double getVolume() const;
+
+    virtual double getRadius() const;
+
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
 #ifndef GCCXML_SKIP_THIS
     virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif
-
-    virtual double getVolume() const;
 
 private:
     complex_t getPositionsFactor(const cvector_t &q) const;

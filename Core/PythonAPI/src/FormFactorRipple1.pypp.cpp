@@ -59,6 +59,18 @@ struct FormFactorRipple1_wrapper : FormFactorRipple1, bp::wrapper< FormFactorRip
         return FormFactorRipple1::evaluate_for_q( boost::ref(q) );
     }
 
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
+        else{
+            return this->FormFactorRipple1::getRadius(  );
+        }
+    }
+    
+    double default_getRadius(  ) const  {
+        return FormFactorRipple1::getRadius( );
+    }
+
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -107,18 +119,6 @@ struct FormFactorRipple1_wrapper : FormFactorRipple1, bp::wrapper< FormFactorRip
         return ISample::getChildren( );
     }
 
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else{
-            return this->IFormFactor::getRadius(  );
-        }
-    }
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
-    }
-
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
@@ -143,16 +143,16 @@ struct FormFactorRipple1_wrapper : FormFactorRipple1, bp::wrapper< FormFactorRip
         ISample::printSampleTree( );
     }
 
-    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+    virtual void setAmbientMaterial( ::IMaterial const & arg0 ) {
         if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
-            func_setAmbientMaterial( boost::ref(material) );
+            func_setAmbientMaterial( boost::ref(arg0) );
         else{
-            this->IFormFactor::setAmbientMaterial( boost::ref(material) );
+            this->IFormFactor::setAmbientMaterial( boost::ref(arg0) );
         }
     }
     
-    void default_setAmbientMaterial( ::IMaterial const & material ) {
-        IFormFactor::setAmbientMaterial( boost::ref(material) );
+    void default_setAmbientMaterial( ::IMaterial const & arg0 ) {
+        IFormFactor::setAmbientMaterial( boost::ref(arg0) );
     }
 
     virtual ::std::size_t size(  ) const  {
@@ -243,6 +243,17 @@ void register_FormFactorRipple1_class(){
                 , getLength_function_type( &::FormFactorRipple1::getLength ) );
         
         }
+        { //::FormFactorRipple1::getRadius
+        
+            typedef double ( ::FormFactorRipple1::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorRipple1_wrapper::*default_getRadius_function_type)(  ) const;
+            
+            FormFactorRipple1_exposer.def( 
+                "getRadius"
+                , getRadius_function_type(&::FormFactorRipple1::getRadius)
+                , default_getRadius_function_type(&FormFactorRipple1_wrapper::default_getRadius) );
+        
+        }
         { //::FormFactorRipple1::getWidth
         
             typedef double ( ::FormFactorRipple1::*getWidth_function_type)(  ) const;
@@ -298,17 +309,6 @@ void register_FormFactorRipple1_class(){
                 , default_getChildren_function_type(&FormFactorRipple1_wrapper::default_getChildren) );
         
         }
-        { //::IFormFactor::getRadius
-        
-            typedef double ( ::IFormFactor::*getRadius_function_type)(  ) const;
-            typedef double ( FormFactorRipple1_wrapper::*default_getRadius_function_type)(  ) const;
-            
-            FormFactorRipple1_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorRipple1_wrapper::default_getRadius) );
-        
-        }
         { //::IFormFactor::getVolume
         
             typedef double ( ::IFormFactor::*getVolume_function_type)(  ) const;
@@ -340,7 +340,7 @@ void register_FormFactorRipple1_class(){
                 "setAmbientMaterial"
                 , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
                 , default_setAmbientMaterial_function_type(&FormFactorRipple1_wrapper::default_setAmbientMaterial)
-                , ( bp::arg("material") ) );
+                , ( bp::arg("arg0") ) );
         
         }
         { //::ISample::size

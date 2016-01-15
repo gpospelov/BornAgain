@@ -81,6 +81,11 @@ void FormFactorPyramid::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
+double FormFactorPyramid::getRadius() const
+{
+    return m_length/2.0;
+}
+
 complex_t FormFactorPyramid::evaluate_for_q(const cvector_t& q) const
 {
 

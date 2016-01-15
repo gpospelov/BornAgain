@@ -38,6 +38,8 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const;
 
+    virtual double getRadius() const;
+
     double getHeight() const;
 
     double getWidth() const;

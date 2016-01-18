@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/FittingWorker.h
-//! @brief     Implements class FittingWorker
+//! @file      coregui/Views/FitWidgets/RunFitWidget.h
+//! @brief     Defines class RunFitWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,39 +13,34 @@
 //
 // ************************************************************************** //
 
-#ifndef FITTINGWORKER_H
-#define FITTINGWORKER_H
+#ifndef FITPROGRESSWIDGET_H
+#define FITPROGRESSWIDGET_H
 
 #include "WinDllMacros.h"
-#include <QObject>
-#include <boost/shared_ptr.hpp>
+#include <QWidget>
 
-class FitSuite;
+class QLabel;
 
-class BA_CORE_API_ FittingWorker : public QObject
+class BA_CORE_API_ FitProgressWidget : public QWidget
 {
     Q_OBJECT
 
 public:
 
-    FittingWorker(boost::shared_ptr<FitSuite> suite) {m_fitsuite = suite;}
+    FitProgressWidget(QWidget *parent = 0);
 
 public slots:
 
-    void startFit();
-
-    void interruptFitting();
-
-signals:
-
-    void started();
-
-    void finished();
+    void updateStatus(const QString &text);
 
 private:
 
-    boost::shared_ptr<FitSuite> m_fitsuite;
+    QLabel *m_status;
 
 };
+
+
+
+
 
 #endif

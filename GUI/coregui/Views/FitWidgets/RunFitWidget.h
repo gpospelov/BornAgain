@@ -18,35 +18,48 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <boost/shared_ptr.hpp>
 
-class QPushButton;
+class QSlider;
 class QLabel;
+class QPushButton;
+class RunFitManager;
+class FitSuite;
+class GUIFitObserver;
+class FitProgressWidget;
 
 class BA_CORE_API_ RunFitWidget : public QWidget
 {
     Q_OBJECT
+
 public:
+
     RunFitWidget(QWidget *parent = 0);
 
+    boost::shared_ptr<FitSuite> init_test_fitsuite();
+
 public slots:
-    void onRunClicked();
 
-    void onStatusUpdate(const QString &message);
+    void onIntervalChanged(int value);
 
-    void onStop();
+    void onStartClicked();
 
-private slots:
-    void onRunFit();
+    void onStopClicked();
 
-signals:
-    void stopit();
+    void onFittingStarted();
+
+    void onFittingFinished();
 
 private:
-    void run_test_fit();
-    void run_test_fit_long();
 
-    QLabel *m_status;
-    QPushButton *stopBut;
+    QPushButton *m_start_button;
+    QPushButton *m_stop_button;
+    QLabel *m_interval_label;
+    QSlider *m_interval_slider;
+    RunFitManager *m_runfitmanager;
+    boost::shared_ptr<GUIFitObserver> m_guifitobserver;
+    FitProgressWidget *m_fitprogress;
+
 };
 
 #endif

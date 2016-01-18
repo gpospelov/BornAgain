@@ -14,137 +14,137 @@
 // ************************************************************************** //
 
 #include "RunFitWidget.h"
+#include "RunFitManager.h"
 #include "SampleBuilderFactory.h"
 #include "SimulationRegistry.h"
 #include "FitSuite.h"
-#include "FittingWorker.h"
-#include <QDebug>
-#include <QVBoxLayout>
+#include "GUIFitObserver.h"
+#include "FitProgressWidget.h"
+#include <QWidget>
 #include <QPushButton>
-#include <QHBoxLayout>
-#include <QTabWidget>
+#include <QSlider>
 #include <QLabel>
-#include <QString>
-#include <QThread>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
-
-RunFitWidget::RunFitWidget(QWidget *parent)
-    : QWidget(parent)
-    , m_status(0)
+RunFitWidget::RunFitWidget(QWidget *parent) : QWidget(parent)
+  , m_start_button(0)
+  , m_stop_button(0)
+  , m_interval_label(0)
+  , m_interval_slider(0)
+  , m_runfitmanager(new RunFitManager(this))
+  , m_fitprogress(new FitProgressWidget())
 {
-    QHBoxLayout *mainLayout = new QHBoxLayout();
-    QVBoxLayout *tabLayout = new QVBoxLayout();
-    tabLayout->setSizeConstraint(QLayout::SetMaximumSize);
+    m_guifitobserver = boost::shared_ptr<GUIFitObserver>(new GUIFitObserver(this));
 
-    QTabWidget *tabWidget = new QTabWidget();
-    QWidget *tab1 = new QWidget();
-    QWidget *tab2 = new QWidget();
-    QWidget *tab3 = new QWidget();
+    m_start_button  = new QPushButton();
+    m_start_button->setText(tr("Start"));
+    m_stop_button = new QPushButton();
+    m_stop_button->setText(tr("Stop"));
+    m_stop_button->setEnabled(false);
+    m_interval_label = new QLabel();
+    m_interval_slider = new QSlider();
+    m_interval_slider->setOrientation(Qt::Horizontal);
+    m_interval_slider->setRange(1,20);
+    m_interval_slider->setValue(10);
+    m_interval_slider->setMaximumWidth(150);
+    m_interval_slider->setMinimumWidth(150);
+    onIntervalChanged(10);
+    m_guifitobserver->setInterval(10);
 
-    tabWidget->addTab(tab1, QStringLiteral("Import experimental data"));
-    tabWidget->addTab(tab2, QStringLiteral("Setup fitting parameter"));
-    tabWidget->addTab(tab3, QStringLiteral("Run fit"));
-
-    QPushButton *runBut = new QPushButton(QStringLiteral("Run"), tab3);
-    runBut->setGeometry(QRect(10, 10, 99, 27));
-    stopBut = new QPushButton(QStringLiteral("Stop"), tab3);
-    stopBut->setGeometry(QRect(10, 50, 99, 27));
-    m_status = new QLabel(tab3);
-    m_status->setGeometry(QRect(30, 110, 300, 50));
-
-    tabWidget->setCurrentIndex(2);
-    tabLayout->addWidget(tabWidget);
-    mainLayout->addLayout(tabLayout);
-
-    connect(runBut, SIGNAL(clicked()), this, SLOT(onRunClicked()));
-    connect(stopBut, SIGNAL(clicked()), this, SLOT(onStop()));
-
+    QVBoxLayout *mainLayout = new QVBoxLayout();
+    QHBoxLayout *topLayout = new QHBoxLayout();
+    topLayout->addWidget(m_start_button);
+    topLayout->addWidget(m_stop_button);
+    topLayout->addStretch();
+    topLayout->addWidget(m_interval_label);
+    topLayout->addWidget(m_interval_slider);
+    QWidget *topWidget = new QWidget();
+    topWidget->setLayout(topLayout);
+    mainLayout->addWidget(topWidget);
+    mainLayout->addWidget(m_fitprogress);
+    mainLayout->addStretch();
     setLayout(mainLayout);
-}
 
-void RunFitWidget::onRunClicked()
-{
-    QThread *thread = new QThread;
-    FittingWorker *worker = new FittingWorker();
-    worker->moveToThread(thread);
-    connect(thread, SIGNAL(started()), worker, SLOT(startFit()));
-    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-    connect(stopBut, SIGNAL(clicked()), worker, SLOT(interrupt()), Qt::DirectConnection);
-    connect(worker, SIGNAL(statusUpdate(const QString &)),
-            this, SLOT(onStatusUpdate(const QString &)));
+    connect(m_interval_slider, SIGNAL(sliderMoved(int)), this, SLOT(onIntervalChanged(int)));
+    connect(m_start_button, SIGNAL(clicked()), this, SLOT(onStartClicked()));
+    connect(m_stop_button, SIGNAL(clicked()), this, SLOT(onStopClicked()));
+    connect(m_runfitmanager, SIGNAL(startedFitting()), this, SLOT(onFittingStarted()));
+    connect(m_runfitmanager, SIGNAL(finishedFitting()), this, SLOT(onFittingFinished()));
+    connect(m_interval_slider, SIGNAL(sliderMoved(int)),
+                m_guifitobserver.get(), SLOT(setInterval(int)));
+    connect(m_guifitobserver.get(), SIGNAL(updateStatus(const QString&)),
+                m_fitprogress, SLOT(updateStatus(const QString&)));
 
-    thread->start();
-}
+    // used for test purposes
+    boost::shared_ptr<FitSuite> suite = init_test_fitsuite();
+    suite->attachObserver(m_guifitobserver);
+    m_runfitmanager->setFitSuite(suite);
 
-void RunFitWidget::onStatusUpdate(const QString &message)
-{
-    m_status->setText(message);
-}
 
-void RunFitWidget::onStop()
-{
 
 }
 
-void RunFitWidget::onRunFit()
+void RunFitWidget::onIntervalChanged(int value)
 {
-    run_test_fit();
-//    run_test_fit_long();
+    m_interval_label->setText(QString("Update every %1th iteration").arg(value));
 }
 
-void RunFitWidget::run_test_fit()
+void RunFitWidget::onStartClicked()
 {
-    qDebug() << "RunFitWidget::run_test_fit()";
+    m_runfitmanager->runFitting();
+}
+
+void RunFitWidget::onStopClicked()
+{
+    m_runfitmanager->interruptFitting();
+}
+
+void RunFitWidget::onFittingStarted()
+{
+    m_start_button->setEnabled(false);
+    m_stop_button->setEnabled(true);
+}
+
+void RunFitWidget::onFittingFinished()
+{
+    m_stop_button->setEnabled(false);
+    m_start_button->setEnabled(true);
+}
+
+
+
+// test only
+boost::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
+{
     SampleBuilderFactory builderFactory;
     boost::scoped_ptr<ISample> sample(builderFactory.createSample("CylindersInBABuilder"));
 
     SimulationRegistry simRegistry;
     boost::scoped_ptr<GISASSimulation> simulation(simRegistry.createSimulation("BasicGISAS"));
 
+    simulation->setDetectorParameters(100,-2*Units::degree, 2*Units::degree,100,0,2*Units::degree);
     simulation->setSample(*sample.get());
     simulation->runSimulation();
 
     boost::scoped_ptr<OutputData<double> > real_data(simulation->getDetectorIntensity());
 
-    boost::scoped_ptr<FitSuite> fitSuite(new FitSuite());
-    fitSuite->initPrint(5);
-    fitSuite->addFitParameter("*Height", 4.5 * Units::nanometer, AttLimits::lowerLimited(0.01));
-    fitSuite->addFitParameter("*Radius", 5.5 * Units::nanometer, AttLimits::lowerLimited(0.01));
+    boost::shared_ptr<FitSuite> m_fitsuite = boost::shared_ptr<FitSuite>(new FitSuite());
+    if (true)
+    {
+    m_fitsuite->setMinimizer("Genetic");
+    m_fitsuite->getMinimizer()->getOptions()->setValue("RandomSeed",1);
 
-    fitSuite->addSimulationAndRealData(*simulation.get(), *real_data.get());
+    m_fitsuite->addFitParameter("*Height", 4.5 * Units::nanometer, AttLimits::limited(4.0, 6.0), 0.1);
+    m_fitsuite->addFitParameter("*Radius", 5.5 * Units::nanometer, AttLimits::limited(4.0, 6.0), 0.1);
+    }
+    else
+    {
 
+        m_fitsuite->addFitParameter("*Height", 3.5 * Units::nanometer, AttLimits::lowerLimited(0.01));
+        m_fitsuite->addFitParameter("*Radius", 4.5 * Units::nanometer, AttLimits::lowerLimited(0.01));
+    }
 
-    // run fit
-    fitSuite->runFit();
-}
-
-void RunFitWidget::run_test_fit_long()
-{
-    qDebug() << "RunFitWidget::run_test_fit()";
-    SampleBuilderFactory builderFactory;
-    boost::scoped_ptr<ISample> sample(builderFactory.createSample("CylindersInBABuilder"));
-
-    SimulationRegistry simRegistry;
-    boost::scoped_ptr<GISASSimulation> simulation(simRegistry.createSimulation("BasicGISAS"));
-
-    simulation->setSample(*sample.get());
-    simulation->runSimulation();
-
-    boost::scoped_ptr<OutputData<double> > real_data(simulation->getDetectorIntensity());
-
-    boost::scoped_ptr<FitSuite> fitSuite(new FitSuite());
-    fitSuite->initPrint(100);
-    fitSuite->setMinimizer("Genetic");
-    fitSuite->getMinimizer()->getOptions()->setMaxIterations(1);
-    fitSuite->getMinimizer()->getOptions()->setValue("RandomSeed",1);
-
-    fitSuite->addFitParameter("*Height", 4.5 * Units::nanometer, AttLimits::limited(4.0, 6.0), 0.1);
-    fitSuite->addFitParameter("*Radius", 5.5 * Units::nanometer, AttLimits::limited(4.0, 6.0), 0.1);
-
-    fitSuite->addSimulationAndRealData(*simulation.get(), *real_data.get());
-
-
-    // run fit
-    fitSuite->runFit();
-
+    m_fitsuite->addSimulationAndRealData(*simulation.get(), *real_data.get());
+    return m_fitsuite;
 }

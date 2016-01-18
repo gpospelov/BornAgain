@@ -13,39 +13,16 @@
 //
 // ************************************************************************** //
 
-#ifndef FITTINGWORKER_H
-#define FITTINGWORKER_H
+#include "GUIFitObserver.h"
+#include "FitSuite.h"
 
-#include "WinDllMacros.h"
-#include <QObject>
-#include <boost/shared_ptr.hpp>
-
-class FitSuite;
-
-class BA_CORE_API_ FittingWorker : public QObject
+void GUIFitObserver::update(FitSuite *subject)
 {
-    Q_OBJECT
+    // prepare data for progres widget
+    emit updateStatus(QString("Iteration: %1").arg(subject->getNumberOfIterations()));
+}
 
-public:
-
-    FittingWorker(boost::shared_ptr<FitSuite> suite) {m_fitsuite = suite;}
-
-public slots:
-
-    void startFit();
-
-    void interruptFitting();
-
-signals:
-
-    void started();
-
-    void finished();
-
-private:
-
-    boost::shared_ptr<FitSuite> m_fitsuite;
-
-};
-
-#endif
+void GUIFitObserver::setInterval(int val)
+{
+    m_update_every_nth = val;
+}

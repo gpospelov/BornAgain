@@ -13,39 +13,34 @@
 //
 // ************************************************************************** //
 
-#ifndef FITTINGWORKER_H
-#define FITTINGWORKER_H
+#ifndef GUIFITOBSERVER_H
+#define GUIFITOBSERVER_H
 
 #include "WinDllMacros.h"
+#include "IFitObserver.h"
 #include <QObject>
-#include <boost/shared_ptr.hpp>
 
 class FitSuite;
 
-class BA_CORE_API_ FittingWorker : public QObject
+class BA_CORE_API_ GUIFitObserver : public QObject, public IFitObserver
 {
     Q_OBJECT
 
 public:
 
-    FittingWorker(boost::shared_ptr<FitSuite> suite) {m_fitsuite = suite;}
+    GUIFitObserver(QObject *parent = 0)
+        : QObject(parent)
+        , IFitObserver(1) {}
+
+    void update(FitSuite *subject);
 
 public slots:
 
-    void startFit();
-
-    void interruptFitting();
+    void setInterval(int val);
 
 signals:
 
-    void started();
-
-    void finished();
-
-private:
-
-    boost::shared_ptr<FitSuite> m_fitsuite;
-
+    void updateStatus(const QString &);
 };
 
 #endif

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/FittingWorker.h
-//! @brief     Implements class FittingWorker
+//! @file      coregui/Views/FitWidgets/RunFitManager.h
+//! @brief     Implements class RunFitManager
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,38 +13,54 @@
 //
 // ************************************************************************** //
 
-#ifndef FITTINGWORKER_H
-#define FITTINGWORKER_H
+#ifndef RUNFITMANAGER_H
+#define RUNFITMANAGER_H
 
 #include "WinDllMacros.h"
-#include <QObject>
+#include <atomic>
 #include <boost/shared_ptr.hpp>
+#include <QObject>
 
 class FitSuite;
 
-class BA_CORE_API_ FittingWorker : public QObject
+class BA_CORE_API_ RunFitManager : public QObject
 {
     Q_OBJECT
 
 public:
 
-    FittingWorker(boost::shared_ptr<FitSuite> suite) {m_fitsuite = suite;}
+    RunFitManager(QObject *parent);
+
+    void setFitSuite(boost::shared_ptr<FitSuite> suite);
+
+    void runFitting();
 
 public slots:
-
-    void startFit();
 
     void interruptFitting();
 
 signals:
 
-    void started();
+    void finishedFitting();
 
-    void finished();
+    void startedFitting();
+
+// only used by manager for communication with fittingworker
+private slots:
+
+    void intern_workerFinished();
+
+    void intern_workerStarted();
+
+signals:
+
+    void intern_interruptFittingWorker();
+
 
 private:
 
-    boost::shared_ptr<FitSuite> m_fitsuite;
+    boost::shared_ptr<FitSuite> m_fitSuite;
+    std::atomic<bool> m_is_fit_running;
 
 };
 

@@ -179,6 +179,10 @@ void FitKernel::interruptFitting()
     m_is_interrupted = true;
 }
 
+void FitKernel::resetInterrupt()
+{
+    m_is_interrupted = false;
+}
 
 // results to stdout
 void FitKernel::printResults() const

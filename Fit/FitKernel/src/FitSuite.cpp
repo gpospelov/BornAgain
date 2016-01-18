@@ -163,3 +163,8 @@ void FitSuite::interruptFitting()
 {
     m_kernel->interruptFitting();
 }
+
+void FitSuite::resetInterrupt()
+{
+    m_kernel->resetInterrupt();
+}

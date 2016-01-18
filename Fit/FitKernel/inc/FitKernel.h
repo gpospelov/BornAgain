@@ -27,6 +27,7 @@
 #include <string>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/scoped_ptr.hpp>
+#include <atomic>
 
 class GISASSimulation;
 class ParameterPool;
@@ -104,7 +105,9 @@ class BA_CORE_API_ FitKernel
 
     void interruptFitting();
 
- private:
+    void resetInterrupt();
+
+private:
     FitKernel& operator=(const FitKernel& );
     FitKernel(const FitKernel& );
 
@@ -119,7 +122,7 @@ class BA_CORE_API_ FitKernel
     FitSuiteChiSquaredFunction m_function_chi2;
     FitSuiteGradientFunction m_function_gradient;
     bool m_is_last_iteration;
-    bool m_is_interrupted;
+    std::atomic<bool> m_is_interrupted;
     boost::posix_time::ptime m_start_time;
     boost::posix_time::ptime m_end_time;
     FitSuite *m_fit_suite;

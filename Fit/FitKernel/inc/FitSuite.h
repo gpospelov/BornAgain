@@ -137,6 +137,7 @@ public:
 
     void interruptFitting();
 
+    void resetInterrupt();
 
 private:
     FitSuite& operator=(const FitSuite& );

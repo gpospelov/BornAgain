@@ -139,6 +139,8 @@ public:
 
     void resetInterrupt();
 
+    void isInterrupted();
+
 private:
     FitSuite& operator=(const FitSuite& );
     FitSuite(const FitSuite& );

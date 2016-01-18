@@ -63,7 +63,6 @@ RunFitWidget::RunFitWidget(QWidget *parent) : QWidget(parent)
     topWidget->setLayout(topLayout);
     mainLayout->addWidget(topWidget);
     mainLayout->addWidget(m_fitprogress);
-    mainLayout->addStretch();
     setLayout(mainLayout);
 
     connect(m_interval_slider, SIGNAL(sliderMoved(int)), this, SLOT(onIntervalChanged(int)));
@@ -75,14 +74,15 @@ RunFitWidget::RunFitWidget(QWidget *parent) : QWidget(parent)
                 m_guifitobserver.get(), SLOT(setInterval(int)));
     connect(m_guifitobserver.get(), SIGNAL(updateStatus(const QString&)),
                 m_fitprogress, SLOT(updateStatus(const QString&)));
+    connect(m_guifitobserver.get(), SIGNAL(updatePlots(IntensityDataItem*, IntensityDataItem*))
+            , m_fitprogress, SLOT(updatePlots(IntensityDataItem*, IntensityDataItem*)));
+    connect(m_guifitobserver.get(), SIGNAL(updateLog(const QString&)),
+            m_fitprogress, SLOT(updateLog(const QString&)));
 
     // used for test purposes
     boost::shared_ptr<FitSuite> suite = init_test_fitsuite();
     suite->attachObserver(m_guifitobserver);
     m_runfitmanager->setFitSuite(suite);
-
-
-
 }
 
 void RunFitWidget::onIntervalChanged(int value)
@@ -148,3 +148,4 @@ boost::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
     m_fitsuite->addSimulationAndRealData(*simulation.get(), *real_data.get());
     return m_fitsuite;
 }
+

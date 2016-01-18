@@ -168,3 +168,8 @@ void FitSuite::resetInterrupt()
 {
     m_kernel->resetInterrupt();
 }
+
+void FitSuite::isInterrupted()
+{
+    m_kernel->isInterrupted();
+}

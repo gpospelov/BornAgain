@@ -19,8 +19,10 @@
 #include "WinDllMacros.h"
 #include "IFitObserver.h"
 #include <QObject>
+#include <atomic>
 
 class FitSuite;
+class IntensityDataItem;
 
 class BA_CORE_API_ GUIFitObserver : public QObject, public IFitObserver
 {
@@ -34,6 +36,8 @@ public:
 
     void update(FitSuite *subject);
 
+    void finishedPlotting();
+
 public slots:
 
     void setInterval(int val);
@@ -41,6 +45,14 @@ public slots:
 signals:
 
     void updateStatus(const QString &);
+
+    void updatePlots(IntensityDataItem*, IntensityDataItem*);
+
+    void updateLog(const QString &);
+
+private:
+    std::atomic<bool> m_is_updating_plots;
+    int m_update_interval;
 };
 
 #endif

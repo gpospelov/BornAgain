@@ -45,7 +45,8 @@ signals:
 
     void startedFitting();
 
-// only used by manager for communication with fittingworker
+
+// only used by manager for communication with FittingWorker
 private slots:
 
     void intern_workerFinished();

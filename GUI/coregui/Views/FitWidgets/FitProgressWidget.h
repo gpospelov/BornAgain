@@ -20,6 +20,9 @@
 #include <QWidget>
 
 class QLabel;
+class ColorMapPlot;
+class IntensityDataItem;
+class QPlainTextEdit;
 
 class BA_CORE_API_ FitProgressWidget : public QWidget
 {
@@ -33,9 +36,17 @@ public slots:
 
     void updateStatus(const QString &text);
 
+    void updateLog(const QString &msg);
+
+    void updatePlots(IntensityDataItem *sim, IntensityDataItem *chi);
+
 private:
 
     QLabel *m_status;
+    ColorMapPlot *m_realdataplot;
+    ColorMapPlot *m_simulatedplot;
+    ColorMapPlot *m_chi2plot;
+    QPlainTextEdit *m_log;
 
 };
 

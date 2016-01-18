@@ -15,14 +15,37 @@
 
 #include "GUIFitObserver.h"
 #include "FitSuite.h"
+#include "IntensityDataItem.h"
+#include <boost/scoped_ptr.hpp>
 
 void GUIFitObserver::update(FitSuite *subject)
 {
-    // prepare data for progres widget
-    emit updateStatus(QString("Iteration: %1").arg(subject->getNumberOfIterations()));
+    emit updateLog(QString("NCalls: %1 Chi: %2").
+                      arg(QString::number(subject->getNumberOfIterations()),
+                         QString::number(subject->getChi2())));
+
+    if (subject->getNumberOfIterations() % m_update_interval == 0)
+    {
+        // prepare data for progres widget
+        emit updateStatus(QString("Iteration: %1").arg(subject->getNumberOfIterations()));
+
+
+
+        IntensityDataItem* sim = new IntensityDataItem();
+        sim->setOutputData(subject->getSimulationData()->createOutputData());
+
+        IntensityDataItem* chi = new IntensityDataItem();
+        chi->setOutputData(subject->getChiSquaredMap()->createOutputData());
+        emit updatePlots(sim, chi);
+    }
 }
 
 void GUIFitObserver::setInterval(int val)
 {
-    m_update_every_nth = val;
+    m_update_interval = val;
+}
+
+void GUIFitObserver::finishedPlotting()
+{
+    m_is_updating_plots = false;
 }

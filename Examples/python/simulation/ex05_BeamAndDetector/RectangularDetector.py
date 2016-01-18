@@ -108,13 +108,12 @@ def plot_results(result_sph, result_rect):
                     norm=matplotlib.colors.LogNorm(1e-06, 1.0),
                     extent=[diff.getXmin(), diff.getXmax(), diff.getYmin(), diff.getYmax()],
                     aspect='auto')
-    cb = plt.colorbar(im, pad = 0.025)
+    cb = plt.colorbar(im, pad=0.025)
     plt.xlabel('X, mm', fontsize=12)
     plt.ylabel('Y, mm', fontsize=12)
     plt.text(90.0, 186.0, "Relative difference", horizontalalignment='center', verticalalignment='center', fontsize=11)
 
     plt.subplots_adjust(left=0.05, right=0.95, top=0.88, bottom=0.12)
-    plt.savefig('a.png')
     plt.show()
 
 

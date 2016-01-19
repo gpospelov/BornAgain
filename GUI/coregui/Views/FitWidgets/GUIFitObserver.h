@@ -18,6 +18,7 @@
 
 #include "WinDllMacros.h"
 #include "IFitObserver.h"
+#include "OutputData.h"
 #include <QObject>
 #include <atomic>
 
@@ -32,7 +33,9 @@ public:
 
     GUIFitObserver(QObject *parent = 0)
         : QObject(parent)
-        , IFitObserver(1) {}
+        , IFitObserver(1)
+        , m_update_interval(1)
+    {}
 
     void update(FitSuite *subject);
 
@@ -46,12 +49,14 @@ signals:
 
     void updateStatus(const QString &);
 
-    void updatePlots(IntensityDataItem*, IntensityDataItem*);
+    void updatePlots(OutputData<double>*, OutputData<double>*);
 
     void updateLog(const QString &);
 
+    void startFitting(OutputData<double>*);
+
 private:
-    std::atomic<bool> m_is_updating_plots;
+    std::atomic<bool> m_block_update_plots;
     int m_update_interval;
 };
 

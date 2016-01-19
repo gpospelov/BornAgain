@@ -25,7 +25,6 @@ class QLabel;
 class QPushButton;
 class RunFitManager;
 class FitSuite;
-class GUIFitObserver;
 class FitProgressWidget;
 
 class BA_CORE_API_ RunFitWidget : public QWidget
@@ -36,6 +35,7 @@ public:
 
     RunFitWidget(QWidget *parent = 0);
 
+    // test only
     boost::shared_ptr<FitSuite> init_test_fitsuite();
 
 public slots:
@@ -57,7 +57,6 @@ private:
     QLabel *m_interval_label;
     QSlider *m_interval_slider;
     RunFitManager *m_runfitmanager;
-    boost::shared_ptr<GUIFitObserver> m_guifitobserver;
     FitProgressWidget *m_fitprogress;
 
 };

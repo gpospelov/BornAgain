@@ -17,12 +17,16 @@
 #define FITPROGRESSWIDGET_H
 
 #include "WinDllMacros.h"
+#include "OutputData.h"
+#include <boost/shared_ptr.hpp>
 #include <QWidget>
 
 class QLabel;
 class ColorMapPlot;
 class IntensityDataItem;
 class QPlainTextEdit;
+class QSplitter;
+class GUIFitObserver;
 
 class BA_CORE_API_ FitProgressWidget : public QWidget
 {
@@ -32,13 +36,19 @@ public:
 
     FitProgressWidget(QWidget *parent = 0);
 
+    boost::shared_ptr<GUIFitObserver> getObserver();
+
 public slots:
 
     void updateStatus(const QString &text);
 
     void updateLog(const QString &msg);
 
-    void updatePlots(IntensityDataItem *sim, IntensityDataItem *chi);
+    void updatePlots(OutputData<double> *sim, OutputData<double> *chi);
+
+    void startFitting(OutputData<double> *real);
+
+    void afterReplot();
 
 private:
 
@@ -46,8 +56,14 @@ private:
     ColorMapPlot *m_realdataplot;
     ColorMapPlot *m_simulatedplot;
     ColorMapPlot *m_chi2plot;
+    IntensityDataItem *m_realdata;
+    IntensityDataItem *m_simulated;
+    IntensityDataItem *m_chi2;
     QPlainTextEdit *m_log;
+    QSplitter *m_splitter;
+    boost::shared_ptr<GUIFitObserver> m_guifitobserver;
 
+    void disableInteractions();
 };
 
 

@@ -33,10 +33,9 @@ RunFitWidget::RunFitWidget(QWidget *parent) : QWidget(parent)
   , m_interval_label(0)
   , m_interval_slider(0)
   , m_runfitmanager(new RunFitManager(this))
-  , m_fitprogress(new FitProgressWidget())
+  , m_fitprogress(new FitProgressWidget(this))
 {
-    m_guifitobserver = boost::shared_ptr<GUIFitObserver>(new GUIFitObserver(this));
-
+    // setup ui
     m_start_button  = new QPushButton();
     m_start_button->setText(tr("Start"));
     m_stop_button = new QPushButton();
@@ -46,11 +45,8 @@ RunFitWidget::RunFitWidget(QWidget *parent) : QWidget(parent)
     m_interval_slider = new QSlider();
     m_interval_slider->setOrientation(Qt::Horizontal);
     m_interval_slider->setRange(1,20);
-    m_interval_slider->setValue(10);
     m_interval_slider->setMaximumWidth(150);
     m_interval_slider->setMinimumWidth(150);
-    onIntervalChanged(10);
-    m_guifitobserver->setInterval(10);
 
     QVBoxLayout *mainLayout = new QVBoxLayout();
     QHBoxLayout *topLayout = new QHBoxLayout();
@@ -63,26 +59,19 @@ RunFitWidget::RunFitWidget(QWidget *parent) : QWidget(parent)
     topWidget->setLayout(topLayout);
     mainLayout->addWidget(topWidget);
     mainLayout->addWidget(m_fitprogress);
-    setLayout(mainLayout);
 
-    connect(m_interval_slider, SIGNAL(sliderMoved(int)), this, SLOT(onIntervalChanged(int)));
+    // connect everything
     connect(m_start_button, SIGNAL(clicked()), this, SLOT(onStartClicked()));
     connect(m_stop_button, SIGNAL(clicked()), this, SLOT(onStopClicked()));
     connect(m_runfitmanager, SIGNAL(startedFitting()), this, SLOT(onFittingStarted()));
     connect(m_runfitmanager, SIGNAL(finishedFitting()), this, SLOT(onFittingFinished()));
-    connect(m_interval_slider, SIGNAL(sliderMoved(int)),
-                m_guifitobserver.get(), SLOT(setInterval(int)));
-    connect(m_guifitobserver.get(), SIGNAL(updateStatus(const QString&)),
-                m_fitprogress, SLOT(updateStatus(const QString&)));
-    connect(m_guifitobserver.get(), SIGNAL(updatePlots(IntensityDataItem*, IntensityDataItem*))
-            , m_fitprogress, SLOT(updatePlots(IntensityDataItem*, IntensityDataItem*)));
-    connect(m_guifitobserver.get(), SIGNAL(updateLog(const QString&)),
-            m_fitprogress, SLOT(updateLog(const QString&)));
 
-    // used for test purposes
-    boost::shared_ptr<FitSuite> suite = init_test_fitsuite();
-    suite->attachObserver(m_guifitobserver);
-    m_runfitmanager->setFitSuite(suite);
+    connect(m_interval_slider, SIGNAL(valueChanged(int)), this, SLOT(onIntervalChanged(int)));
+    connect(m_interval_slider, SIGNAL(valueChanged(int)),
+                m_fitprogress->getObserver().get(), SLOT(setInterval(int)));
+
+    setLayout(mainLayout);
+    m_interval_slider->setValue(10);
 }
 
 void RunFitWidget::onIntervalChanged(int value)
@@ -92,6 +81,11 @@ void RunFitWidget::onIntervalChanged(int value)
 
 void RunFitWidget::onStartClicked()
 {
+    // used for test purposes
+    boost::shared_ptr<FitSuite> suite = init_test_fitsuite();
+    suite->attachObserver(m_fitprogress->getObserver());
+
+    m_runfitmanager->setFitSuite(suite);
     m_runfitmanager->runFitting();
 }
 
@@ -148,4 +142,3 @@ boost::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
     m_fitsuite->addSimulationAndRealData(*simulation.get(), *real_data.get());
     return m_fitsuite;
 }
-

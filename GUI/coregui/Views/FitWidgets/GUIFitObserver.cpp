@@ -20,23 +20,27 @@
 
 void GUIFitObserver::update(FitSuite *subject)
 {
+    // discard data after interruption
+    if (subject->isInterrupted())
+        return;
+
+    // update log every time
     emit updateLog(QString("NCalls: %1 Chi: %2").
                       arg(QString::number(subject->getNumberOfIterations()),
-                         QString::number(subject->getChi2())));
+                          QString::number(subject->getChi2())));
 
-    if (subject->getNumberOfIterations() % m_update_interval == 0)
-    {
-        // prepare data for progres widget
+    int curIteration = subject->getNumberOfIterations();
+
+    if (curIteration == 0) {
+        emit startFitting(subject->getRealOutputData()->clone());
+    }
+    if (curIteration % m_update_interval == 0 && !m_block_update_plots) {
+        m_block_update_plots = true;
+
         emit updateStatus(QString("Iteration: %1").arg(subject->getNumberOfIterations()));
 
-
-
-        IntensityDataItem* sim = new IntensityDataItem();
-        sim->setOutputData(subject->getSimulationData()->createOutputData());
-
-        IntensityDataItem* chi = new IntensityDataItem();
-        chi->setOutputData(subject->getChiSquaredMap()->createOutputData());
-        emit updatePlots(sim, chi);
+        emit updatePlots(subject->getSimulationOutputData()->clone(),
+                         subject->getChiSquaredOutputData()->clone());
     }
 }
 
@@ -47,5 +51,5 @@ void GUIFitObserver::setInterval(int val)
 
 void GUIFitObserver::finishedPlotting()
 {
-    m_is_updating_plots = false;
+    m_block_update_plots = false;
 }

@@ -19,7 +19,9 @@
 #include <QThread>
 
 RunFitManager::RunFitManager(QObject *parent = 0)
-    : QObject(parent), m_fitSuite(0), m_is_fit_running(0)
+    : QObject(parent)
+    , m_fitSuite(0)
+    , m_is_fit_running(0)
 {
 }
 
@@ -65,6 +67,7 @@ void RunFitManager::interruptFitting()
 void RunFitManager::intern_workerFinished()
 {
     m_is_fit_running = false;
+    m_fitSuite.reset();
     emit finishedFitting();
 }
 

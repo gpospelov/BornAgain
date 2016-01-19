@@ -19,6 +19,7 @@
 #include "IObserver.h"
 #include "FitKernel.h"
 #include "IHistogram.h"
+#include "OutputData.h"
 
 
 //! @class FitSuite
@@ -139,7 +140,13 @@ public:
 
     void resetInterrupt();
 
-    void isInterrupted();
+    bool isInterrupted();
+
+    OutputData<double> *getRealOutputData(size_t i_item = 0) const;
+
+    OutputData<double> *getSimulationOutputData(size_t i_item = 0) const;
+
+    OutputData<double> *getChiSquaredOutputData(size_t i_item = 0) const;
 
 private:
     FitSuite& operator=(const FitSuite& );

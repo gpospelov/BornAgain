@@ -145,21 +145,21 @@ def plot_results(result):
 
     fig = plt.figure(figsize=(12.80, 10.24))
 
-    ax = plt.subplot(2, 2, 1)
+    plt.subplot(2, 2, 1)
     plot_as_colormap(result)
-    ax.set_title("Intensity as colormap")
+    plt.title("Intensity as colormap")
 
-    ax = plt.subplot(2, 2, 2)
+    plt.subplot(2, 2, 2)
     plot_cropped_map(result)
-    ax.set_title("Cropping")
+    plt.title("Cropping")
 
-    ax = plt.subplot(2, 2, 3)
+    plt.subplot(2, 2, 3)
     plot_relative_difference(result)
-    ax.set_title("Relative difference")
+    plt.title("Relative difference")
 
-    ax = plt.subplot(2, 2, 4)
+    plt.subplot(2, 2, 4)
     plot_slices(result)
-    ax.set_title("Various slicing of 2D into 1D")
+    plt.title("Various slicing of 2D into 1D")
 
     save_to_file(result)
 

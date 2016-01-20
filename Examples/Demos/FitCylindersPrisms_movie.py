@@ -28,6 +28,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.path import Path
 import math
+import random
 from bornagain import *
 
 fig = plt.figure(1)
@@ -86,9 +87,9 @@ def create_real_data():
     for i in range(0, real_data.getAllocatedSize()):
         amplitude = real_data[i]
         sigma = noise_factor*math.sqrt(amplitude)
-        noisy_amplitude = GenerateNormalRandom(amplitude, sigma)
-        if noisy_amplitude < 0.0:
-            noisy_amplitude = 0.0
+        noisy_amplitude = random.gauss(amplitude, sigma)
+        if noisy_amplitude < 0.1:
+            noisy_amplitude = 0.1
         real_data[i] = noisy_amplitude
     IntensityDataIOFactory.writeIntensityData(real_data, 'refdata_fitcylinderprisms.int')
 

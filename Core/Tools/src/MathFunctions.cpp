@@ -20,7 +20,8 @@
 #include <stdexcept>
 #include <fftw3.h>
 #include <gsl/gsl_sf_erf.h>
-#include <gsl/gsl_randist.h>
+#include <random>
+#include <chrono>
 
 double MathFunctions::Gaussian(double value, double average, double std_dev)
 {
@@ -41,11 +42,10 @@ double MathFunctions::StandardNormal(double value)
 
 double MathFunctions::GenerateStandardNormalRandom() // using GSL
 {
-    gsl_rng *r;
-    r = gsl_rng_alloc(gsl_rng_ranlxs2);
-    double result = gsl_ran_ugaussian(r);
-    gsl_rng_free(r);
-    return result;
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine generator(seed);
+    std::normal_distribution<double> distribution(0.0, 1.0);
+    return distribution(generator);
 }
 
 //! @brief simple (and unoptimized) wrapper function

@@ -55,7 +55,6 @@ private:
     double m_height;
     double m_length;
     double m_alpha;
-    double m_root3; // Cached value of square root of 3
 
     // addition integration
     mutable cvector_t m_q;

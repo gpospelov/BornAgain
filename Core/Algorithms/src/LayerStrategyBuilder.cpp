@@ -126,7 +126,7 @@ void LayerStrategyBuilder::collectInterferenceFunctions()
     if (mp_layer->getLayout(m_layout_index)->getNumberOfInterferenceFunctions()) {
         m_ifs = mp_layer->getLayout(m_layout_index)->getInterferenceFunctions();
     }
-    else m_ifs.push_back(new InterferenceFunctionNone);
+    else m_ifs.push_back( new InterferenceFunctionNone() );
 }
 
 double LayerStrategyBuilder::getWavelength()

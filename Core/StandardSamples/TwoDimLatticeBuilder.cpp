@@ -42,11 +42,11 @@ ISample *SquareLatticeBuilder::buildSample() const
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 
-    InterferenceFunction2DLattice *p_interference_function =
-        InterferenceFunction2DLattice::createSquare(10.0*Units::nanometer);
+    std::unique_ptr<InterferenceFunction2DLattice> P_interference_function{
+        InterferenceFunction2DLattice::createSquare(10.0 * Units::nanometer)};
     FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/Units::PI,
                                100.0*Units::nanometer/2.0/Units::PI);
-    p_interference_function->setProbabilityDistribution(pdf);
+    P_interference_function->setProbabilityDistribution(pdf);
 
     // particles
     ParticleLayout particle_layout;
@@ -54,7 +54,7 @@ ISample *SquareLatticeBuilder::buildSample() const
     Particle particle(particle_material, ff_cyl);
     particle_layout.addParticle(particle, 1.0);
 
-    particle_layout.addInterferenceFunction(p_interference_function);
+    particle_layout.addInterferenceFunction(*P_interference_function);
 
     air_layer.addLayout(particle_layout);
 
@@ -122,13 +122,12 @@ ISample *RotatedSquareLatticeBuilder::buildSample() const
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 
-    InterferenceFunction2DLattice *p_interference_function =
-        InterferenceFunction2DLattice::createSquare(10.0*Units::nanometer,
-                                                    30.0*Units::degree);
+    std::unique_ptr<InterferenceFunction2DLattice> P_interference_function{
+        InterferenceFunction2DLattice::createSquare(10.0 * Units::nanometer, 30.0 * Units::degree)};
     FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/Units::PI,
                                100.0*Units::nanometer/2.0/Units::PI);
     pdf.setGamma(30.0*Units::degree);
-    p_interference_function->setProbabilityDistribution(pdf);
+    P_interference_function->setProbabilityDistribution(pdf);
 
     ParticleLayout particle_layout;
     // particle
@@ -137,7 +136,7 @@ ISample *RotatedSquareLatticeBuilder::buildSample() const
     Particle p(particle_material, ff_cyl);
     p.setPosition(position);
     particle_layout.addParticle(p);
-    particle_layout.addInterferenceFunction(p_interference_function);
+    particle_layout.addInterferenceFunction(*P_interference_function);
 
     air_layer.addLayout(particle_layout);
 
@@ -174,12 +173,11 @@ ISample *CustomRotatedLatticeBuilder::buildSample() const
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 
-    InterferenceFunction2DLattice *p_interference_function =
-        InterferenceFunction2DLattice::createSquare(10.0*Units::nanometer,
-                                                    m_xi);
+    std::unique_ptr<InterferenceFunction2DLattice> P_interference_function{
+        InterferenceFunction2DLattice::createSquare(10.0 * Units::nanometer, m_xi)};
     FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/Units::PI,
                                100.0*Units::nanometer/2.0/Units::PI);
-    p_interference_function->setProbabilityDistribution(pdf);
+    P_interference_function->setProbabilityDistribution(pdf);
 
     ParticleLayout particle_layout;
     // particle
@@ -191,7 +189,7 @@ ISample *CustomRotatedLatticeBuilder::buildSample() const
 
     particle_layout.addParticle(cylinder);
 
-    particle_layout.addInterferenceFunction(p_interference_function);
+    particle_layout.addInterferenceFunction(*P_interference_function);
 
     air_layer.addLayout(particle_layout);
 

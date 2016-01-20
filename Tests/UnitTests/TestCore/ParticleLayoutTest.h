@@ -135,9 +135,10 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
     Particle particle5(mat5);
     particleDecoration.addParticle(particle5, 0.0);
 
-    particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
-    particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
-    particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
+    InterferenceFunctionNone iff_none;
+    particleDecoration.addInterferenceFunction(iff_none);
+    particleDecoration.addInterferenceFunction(iff_none);
+    particleDecoration.addInterferenceFunction(iff_none);
 
     ParticleLayout * clone = particleDecoration.clone();
 
@@ -199,9 +200,10 @@ TEST_F(ParticleLayoutTest, ParticleLayoutCloneInvertB)
     Particle particle5(mat5);
     particleDecoration.addParticle(particle5, 0.0);
 
-    particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
-    particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
-    particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
+    InterferenceFunctionNone iff_none;
+    particleDecoration.addInterferenceFunction(iff_none);
+    particleDecoration.addInterferenceFunction(iff_none);
+    particleDecoration.addInterferenceFunction(iff_none);
 
     ParticleLayout * clone = particleDecoration.cloneInvertB();
 
@@ -238,9 +240,10 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInterferenceFunction)
 {
     ParticleLayout particleDecoration;
 
-    particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
-    particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
-    particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
+    InterferenceFunctionNone iff_none;
+    particleDecoration.addInterferenceFunction(iff_none);
+    particleDecoration.addInterferenceFunction(iff_none);
+    particleDecoration.addInterferenceFunction(iff_none);
 
     EXPECT_EQ(size_t(3), particleDecoration.getNumberOfInterferenceFunctions());
     EXPECT_EQ(size_t(3), particleDecoration.getInterferenceFunctions().size());

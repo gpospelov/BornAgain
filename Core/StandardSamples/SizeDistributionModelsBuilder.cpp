@@ -47,7 +47,8 @@ ISample *SizeDistributionDAModelBuilder::buildSample() const
         Particle cylinder2(m_particle, cylinder_ff2);
 
         // interference function
-        InterferenceFunctionRadialParaCrystal interference(18.0*Units::nanometer, 1e3*Units::nanometer);
+        InterferenceFunctionRadialParaCrystal interference(18.0 * Units::nanometer,
+                                                           1e3 * Units::nanometer);
         FTDistribution1DGauss pdf(3*Units::nanometer);
         interference.setProbabilityDistribution(pdf);
 
@@ -173,12 +174,11 @@ ISample *CylindersInSSCABuilder::buildSample() const
 
     Layer air_layer(air_material);
 
-    InterferenceFunctionRadialParaCrystal *p_interference_function =
-            new InterferenceFunctionRadialParaCrystal(15.0*Units::nanometer,
-                    1e3*Units::nanometer);
+    InterferenceFunctionRadialParaCrystal interference_function(15.0 * Units::nanometer,
+                                                                1e3 * Units::nanometer);
     FTDistribution1DGauss pdf(5*Units::nanometer);
-    p_interference_function->setProbabilityDistribution(pdf);
-    p_interference_function->setKappa(4.02698);
+    interference_function.setProbabilityDistribution(pdf);
+    interference_function.setKappa(4.02698);
     ParticleLayout particle_layout;
 
     FormFactorCylinder ff_cylinder(5.0*Units::nanometer, 5.0*Units::nanometer);
@@ -194,7 +194,7 @@ ISample *CylindersInSSCABuilder::buildSample() const
     ParticleDistribution particle_collection(particle_prototype, par_distr);
     particle_layout.addParticle(particle_collection);
 
-    particle_layout.addInterferenceFunction(p_interference_function);
+    particle_layout.addInterferenceFunction(interference_function);
     particle_layout.setApproximation(ILayout::SSCA);
 
     air_layer.addLayout(particle_layout);

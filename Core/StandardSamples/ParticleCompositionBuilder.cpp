@@ -54,12 +54,12 @@ ISample *ParticleCompositionBuilder::buildSample() const
     basis.addParticles(sphere, positions);
     particle_layout.addParticle(basis);
 
-    InterferenceFunction2DLattice *interference =
-            InterferenceFunction2DLattice::createHexagonal(radius*2.0);
+    std::unique_ptr<InterferenceFunction2DLattice> P_interference{
+        InterferenceFunction2DLattice::createHexagonal(radius * 2.0)};
     FTDistribution2DCauchy pdf(10*Units::nanometer, 10*Units::nanometer);
-    interference->setProbabilityDistribution(pdf);
+    P_interference->setProbabilityDistribution(pdf);
 
-    particle_layout.addInterferenceFunction(interference);
+    particle_layout.addInterferenceFunction(*P_interference);
 
     air_layer.addLayout(particle_layout);
     multi_layer->addLayer(air_layer);

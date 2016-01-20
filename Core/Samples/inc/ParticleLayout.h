@@ -84,8 +84,6 @@ public:
     virtual SafePointerVector<IInterferenceFunction> getInterferenceFunctions() const;
 
     //! Adds interference function
-    void addInterferenceFunction(IInterferenceFunction *p_interference_function);
-
     void addInterferenceFunction(const IInterferenceFunction &interference_function);
 
     //! Returns interference function with index

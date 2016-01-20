@@ -66,7 +66,6 @@ ISample *CylindersWithSizeDistributionBuilder::buildSample() const
     ParameterDistribution par_distr(pattern.toStdString(), gauss, n_samples, n_sigma);
     ParticleDistribution particle_collection(nano_particle, par_distr);
     particle_layout.addParticle(particle_collection);
-    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);
 
@@ -141,8 +140,6 @@ ISample *TwoTypesCylindersDistributionBuilder::buildSample() const
     ParameterDistribution par_distr2(pattern2.toStdString(), gauss2, nbins, n_sigma);
     ParticleDistribution particle_collection2(cylinder2, par_distr2);
     particle_layout.addParticle(particle_collection2, 0.05);
-
-    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);
 

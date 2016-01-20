@@ -64,8 +64,6 @@ ISample *CylindersAndPrismsBuilder::buildSample() const
     particle_layout.addParticle(cylinder, m_cylinder_weight);
     particle_layout.addParticle(prism3, 1.0-m_cylinder_weight);
 
-    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
-
     air_layer.addLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);

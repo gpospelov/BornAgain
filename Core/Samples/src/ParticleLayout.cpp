@@ -172,12 +172,6 @@ SafePointerVector<IInterferenceFunction> ParticleLayout::getInterferenceFunction
 
 //! Adds interference functions
 void ParticleLayout::addInterferenceFunction(
-        IInterferenceFunction* p_interference_function)
-{
-    addAndRegisterInterferenceFunction(p_interference_function);
-}
-
-void ParticleLayout::addInterferenceFunction(
     const IInterferenceFunction& interference_function)
 {
     addAndRegisterInterferenceFunction(interference_function.clone());

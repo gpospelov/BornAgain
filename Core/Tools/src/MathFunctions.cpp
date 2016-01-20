@@ -40,7 +40,7 @@ double MathFunctions::StandardNormal(double value)
     return std::exp(-value * value / 2.0) / std::sqrt(Units::PI2);
 }
 
-double MathFunctions::GenerateStandardNormalRandom() // using GSL
+double MathFunctions::GenerateStandardNormalRandom() // using c++11 standard library
 {
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine generator(seed);

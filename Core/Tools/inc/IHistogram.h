@@ -78,14 +78,14 @@ public:
     //! Returns number of bins on y-axis
     size_t getNbinsY() const;
 
-    //! Returns global bin index for given axes indices. For 1D histogram the global bin
+    //! @brief Returns global bin index for given axes indices. For 1D histogram the global bin
     //! index coinside with x-axis index.
     //! @param binx x-axis bin index
     //! @param biny y-axis bin index (for 2D histograms)
     //! @return The global bin index
     size_t getGlobalBin(size_t binx, size_t biny = 0) const;
 
-    //! Returns closest global bin index for given axes coordinates. For 1D
+    //! @brief Returns closest global bin index for given axes coordinates. For 1D
     //! @param x Value on x-axis
     //! @param y Value on y-axis (for 2D histograms)
     //! @return Closest global bin index
@@ -98,22 +98,22 @@ public:
     //! Returns y-axis bin index for given globalbin (for 2D histograms).
     int getYaxisIndex(size_t globalbin) const;
 
-    //! Returns the value on x-axis corresponding to the global bin index.
+    //! @brief Returns the value on x-axis corresponding to the global bin index.
     //! @param globalbin The global bin index
     //! @return The center of corresponding bin of the axis
     double getXaxisValue(size_t globalbin);
 
-    //! Returns the value on y-axis corresponding to the global bin index (for 2D histograms).
+    //! @brief Returns the value on y-axis corresponding to the global bin index (for 2D histograms).
     //! @param globalbin The global bin index
     //! @return The center of corresponding bin of the axis
     double getYaxisValue(size_t globalbin);
 
-    //! Returns content (accumulated value) of the bin with given index.
+    //! @brief Returns content (accumulated value) of the bin with given index.
     //! @param globalbin The global bin index
     //! @return The value accumulated by the bin (integral)
     double getBinContent(size_t globalbin) const;
 
-    //! Returns content (accumulated value) of the bin with given indices (for 2D histograms).
+    //! @brief Returns content (accumulated value) of the bin with given indices (for 2D histograms).
     //! @param binx x-axis bin index
     //! @param biny y-axis bin index
     //! @return The value accumulated by the bin (integral)

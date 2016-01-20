@@ -26,17 +26,20 @@
 
 
 ParticleLayout::ParticleLayout()
+    :  m_total_particle_density(1.0)
 {
     setName(BornAgain::ParticleLayoutType);
 }
 
 ParticleLayout::ParticleLayout(const IAbstractParticle &particle)
+    :  m_total_particle_density(1.0)
 {
     setName(BornAgain::ParticleLayoutType);
     addParticle(particle);
 }
 
 ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundance)
+    :  m_total_particle_density(1.0)
 {
     setName(BornAgain::ParticleLayoutType);
     addParticle(particle, abundance);
@@ -183,6 +186,16 @@ const IInterferenceFunction *ParticleLayout::getInterferenceFunction(size_t inde
         return m_interference_functions[index];
     throw OutOfBoundsException("ParticleLayout::getInterferenceFunction() ->"
                                "Not so many interference functions in this decoration.");
+}
+
+double ParticleLayout::getTotalParticleSurfaceDensity() const
+{
+    return m_total_particle_density;
+}
+
+void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)
+{
+    m_total_particle_density = particle_density;
 }
 
 //! Adds particle information with simultaneous registration in parent class.

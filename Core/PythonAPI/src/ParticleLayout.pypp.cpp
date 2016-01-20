@@ -193,6 +193,30 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         return ParticleLayout::getParticles( );
     }
 
+    virtual double getTotalParticleSurfaceDensity(  ) const  {
+        if( bp::override func_getTotalParticleSurfaceDensity = this->get_override( "getTotalParticleSurfaceDensity" ) )
+            return func_getTotalParticleSurfaceDensity(  );
+        else{
+            return this->ParticleLayout::getTotalParticleSurfaceDensity(  );
+        }
+    }
+    
+    double default_getTotalParticleSurfaceDensity(  ) const  {
+        return ParticleLayout::getTotalParticleSurfaceDensity( );
+    }
+
+    virtual void setTotalParticleSurfaceDensity( double particle_density ) {
+        if( bp::override func_setTotalParticleSurfaceDensity = this->get_override( "setTotalParticleSurfaceDensity" ) )
+            func_setTotalParticleSurfaceDensity( particle_density );
+        else{
+            this->ParticleLayout::setTotalParticleSurfaceDensity( particle_density );
+        }
+    }
+    
+    void default_setTotalParticleSurfaceDensity( double particle_density ) {
+        ParticleLayout::setTotalParticleSurfaceDensity( particle_density );
+    }
+
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
@@ -439,6 +463,29 @@ void register_ParticleLayout_class(){
                 "getParticles"
                 , getParticles_function_type(&::ParticleLayout::getParticles)
                 , default_getParticles_function_type(&ParticleLayout_wrapper::default_getParticles) );
+        
+        }
+        { //::ParticleLayout::getTotalParticleSurfaceDensity
+        
+            typedef double ( ::ParticleLayout::*getTotalParticleSurfaceDensity_function_type)(  ) const;
+            typedef double ( ParticleLayout_wrapper::*default_getTotalParticleSurfaceDensity_function_type)(  ) const;
+            
+            ParticleLayout_exposer.def( 
+                "getTotalParticleSurfaceDensity"
+                , getTotalParticleSurfaceDensity_function_type(&::ParticleLayout::getTotalParticleSurfaceDensity)
+                , default_getTotalParticleSurfaceDensity_function_type(&ParticleLayout_wrapper::default_getTotalParticleSurfaceDensity) );
+        
+        }
+        { //::ParticleLayout::setTotalParticleSurfaceDensity
+        
+            typedef void ( ::ParticleLayout::*setTotalParticleSurfaceDensity_function_type)( double ) ;
+            typedef void ( ParticleLayout_wrapper::*default_setTotalParticleSurfaceDensity_function_type)( double ) ;
+            
+            ParticleLayout_exposer.def( 
+                "setTotalParticleSurfaceDensity"
+                , setTotalParticleSurfaceDensity_function_type(&::ParticleLayout::setTotalParticleSurfaceDensity)
+                , default_setTotalParticleSurfaceDensity_function_type(&ParticleLayout_wrapper::default_setTotalParticleSurfaceDensity)
+                , ( bp::arg("particle_density") ) );
         
         }
         { //::ISample::containsMagneticMaterial

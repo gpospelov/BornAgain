@@ -89,6 +89,12 @@ public:
     //! Returns interference function with index
     const IInterferenceFunction *getInterferenceFunction(size_t index) const;
 
+    //! Returns surface density of all particles
+    virtual double getTotalParticleSurfaceDensity() const;
+
+    //! Sets surface density of all particles
+    virtual void setTotalParticleSurfaceDensity(double particle_density);
+
 private:
     //! Adds particle information with simultaneous registration in parent class.
     void addAndRegisterAbstractParticle(IAbstractParticle *child);
@@ -103,6 +109,9 @@ private:
 
     //! Vector of interference functions
     SafePointerVector<IInterferenceFunction> m_interference_functions;
+
+    //! Total particle surface density
+    double m_total_particle_density;
 };
 
 #endif // PARTICLEDECORATION_H

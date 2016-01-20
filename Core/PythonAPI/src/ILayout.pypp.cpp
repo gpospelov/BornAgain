@@ -87,6 +87,16 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
         return func_getParticles(  );
     }
 
+    virtual double getTotalParticleSurfaceDensity(  ) const {
+        bp::override func_getTotalParticleSurfaceDensity = this->get_override( "getTotalParticleSurfaceDensity" );
+        return func_getTotalParticleSurfaceDensity(  );
+    }
+
+    virtual void setTotalParticleSurfaceDensity( double particle_density ){
+        bp::override func_setTotalParticleSurfaceDensity = this->get_override( "setTotalParticleSurfaceDensity" );
+        func_setTotalParticleSurfaceDensity( particle_density );
+    }
+
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
@@ -293,7 +303,8 @@ void register_ILayout_class(){
             
             ILayout_exposer.def( 
                 "getTotalParticleSurfaceDensity"
-                , getTotalParticleSurfaceDensity_function_type( &::ILayout::getTotalParticleSurfaceDensity ) );
+                , bp::pure_virtual( getTotalParticleSurfaceDensity_function_type(&::ILayout::getTotalParticleSurfaceDensity) )
+                , "Returns surface density of all particles." );
         
         }
         { //::ILayout::setApproximation
@@ -312,8 +323,9 @@ void register_ILayout_class(){
             
             ILayout_exposer.def( 
                 "setTotalParticleSurfaceDensity"
-                , setTotalParticleSurfaceDensity_function_type( &::ILayout::setTotalParticleSurfaceDensity )
-                , ( bp::arg("surface_density") ) );
+                , bp::pure_virtual( setTotalParticleSurfaceDensity_function_type(&::ILayout::setTotalParticleSurfaceDensity) )
+                , ( bp::arg("particle_density") )
+                , "Sets surface density of all particles." );
         
         }
         { //::ISample::containsMagneticMaterial

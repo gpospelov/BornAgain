@@ -353,21 +353,37 @@ const IHistogram &IHistogram::operator+=(const IHistogram &right)
     return *this;
 }
 
-IHistogram *IHistogram::createRelativeDifferenceHistogram(const IHistogram &lhs,
-                                                          const IHistogram &rhs)
+//IHistogram *IHistogram::createRelativeDifferenceHistogram(const IHistogram &lhs,
+//                                                          const IHistogram &rhs)
+//{
+//    if(!rhs.hasSameDimensions(rhs)) {
+//        throw LogicErrorException("IHistogram::createRelativeDifferenceHistogram() -> Error. "
+//                                  "Histograms have different dimension");
+//    }
+
+//    IHistogram *result = rhs.clone();
+//    result->reset();
+
+//    for(size_t i=0; i<rhs.getTotalNumberOfBins(); ++i) {
+//        double diff = Numeric::get_relative_difference(lhs.getBinContent(i), rhs.getBinContent(i));
+//        result->setBinContent(i, diff);
+//    }
+//    return result;
+//}
+
+IHistogram *IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
 {
-    if(!rhs.hasSameDimensions(rhs)) {
-        throw LogicErrorException("IHistogram::createRelativeDifferenceHistogram() -> Error. "
-                                  "Histograms have different dimension");
+    if(!hasSameDimensions(rhs)) {
+        throw LogicErrorException("IHistogram::relativeDifferenceHistogram() -> Error. "
+                                  "Histograms have different dimensions");
     }
 
-    IHistogram *result = rhs.clone();
+    IHistogram *result = this->clone();
     result->reset();
 
-    for(size_t i=0; i<rhs.getTotalNumberOfBins(); ++i) {
-        double diff = Numeric::get_relative_difference(lhs.getBinContent(i), rhs.getBinContent(i));
+    for(size_t i=0; i<getTotalNumberOfBins(); ++i) {
+        double diff = Numeric::get_relative_difference(getBinContent(i), rhs.getBinContent(i));
         result->setBinContent(i, diff);
     }
     return result;
 }
-

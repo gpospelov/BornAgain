@@ -188,8 +188,9 @@ public:
     const IHistogram& operator+=(const IHistogram& right);
 
     //! returns histogram representing relative difference of two histograms.
-    static IHistogram *createRelativeDifferenceHistogram(const IHistogram &lhs,
-                                                         const IHistogram &rhs);
+//    static IHistogram *createRelativeDifferenceHistogram(const IHistogram &lhs,
+//                                                         const IHistogram &rhs);
+    IHistogram *relativeDifferenceHistogram(const IHistogram &rhs);
 
 protected:
     void check_x_axis() const;

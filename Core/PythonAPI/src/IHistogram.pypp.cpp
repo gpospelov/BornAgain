@@ -138,18 +138,6 @@ void register_IHistogram_class(){
                 , "creates new OutputData with histogram's shape and put there values corresponding to DataType." );
         
         }
-        { //::IHistogram::createRelativeDifferenceHistogram
-        
-            typedef ::IHistogram * ( *createRelativeDifferenceHistogram_function_type )( ::IHistogram const &,::IHistogram const & );
-            
-            IHistogram_exposer.def( 
-                "createRelativeDifferenceHistogram"
-                , createRelativeDifferenceHistogram_function_type( &::IHistogram::createRelativeDifferenceHistogram )
-                , ( bp::arg("lhs"), bp::arg("rhs") )
-                , bp::return_value_policy< bp::manage_new_object >()
-                , "returns histogram representing relative difference of two histograms." );
-        
-        }
         { //::IHistogram::findGlobalBin
         
             typedef ::std::size_t ( ::IHistogram::*findGlobalBin_function_type)( double,double ) const;
@@ -491,6 +479,18 @@ void register_IHistogram_class(){
         
         }
         IHistogram_exposer.def( bp::self += bp::self );
+        { //::IHistogram::relativeDifferenceHistogram
+        
+            typedef ::IHistogram * ( ::IHistogram::*relativeDifferenceHistogram_function_type)( ::IHistogram const & ) ;
+            
+            IHistogram_exposer.def( 
+                "relativeDifferenceHistogram"
+                , relativeDifferenceHistogram_function_type( &::IHistogram::relativeDifferenceHistogram )
+                , ( bp::arg("rhs") )
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "returns histogram representing relative difference of two histograms." );
+        
+        }
         { //::IHistogram::reset
         
             typedef void ( ::IHistogram::*reset_function_type)(  ) ;
@@ -524,7 +524,6 @@ void register_IHistogram_class(){
         
         }
         IHistogram_exposer.staticmethod( "createHistogram" );
-        IHistogram_exposer.staticmethod( "createRelativeDifferenceHistogram" );
     }
 
 }

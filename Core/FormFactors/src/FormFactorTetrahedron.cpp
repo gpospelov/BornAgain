@@ -112,37 +112,38 @@ complex_t FormFactorTetrahedron::Integrand(double Z, void* params) const
 
 complex_t FormFactorTetrahedron::evaluate_for_q(const cvector_t& q) const
 {
-    m_q =q ;
     constexpr double root3 = std::sqrt(3.);
+    const complex_t im(0.0,1.0);
     double H = m_height;
     double R = m_length/2;
     double tga = std::tan(m_alpha);
     double L = 2*tga*R/root3-H;
-    const complex_t im(0.0,1.0);
 
-    if (std::abs(m_q.x()) <=  Numeric::double_epsilon ||
-        std::abs(m_q.y())<=  Numeric::double_epsilon ||
-        std::abs(m_q.z())<=  Numeric::double_epsilon ||
-        std::abs(m_q.x())*std::abs(m_q.x())
-        - 3*std::abs(m_q.y())*std::abs(m_q.y()) <=  Numeric::double_epsilon)
-     {
-        if ( std::abs(m_q.mag()) < Numeric::double_epsilon) {
-          double sqrt3HdivRtga = root3*H/R/tga;
-          return tga/3.*R*R*R*(1. - (1.-sqrt3HdivRtga)
-                              *(1.-sqrt3HdivRtga)
-                              *(1.-sqrt3HdivRtga));
-     } else {
-          complex_t integral = m_integrator->integrate(0., m_height);
-          return integral;}
- } else {
+    if (std::abs(q.x()) <=  Numeric::double_epsilon ||
+        std::abs(q.y())<=  Numeric::double_epsilon ||
+        std::abs(q.z())<=  Numeric::double_epsilon ||
+        std::abs(q.x())*std::abs(q.x())
+        - 3*std::abs(q.y())*std::abs(q.y()) <=  Numeric::double_epsilon)
+    {
+        if ( std::abs(q.mag()) < Numeric::double_epsilon) {
+            double sqrt3HdivRtga = root3*H/R/tga;
+            return tga/3*R*R*R*(1 - (1-sqrt3HdivRtga)
+                                 *(1-sqrt3HdivRtga)
+                                 *(1-sqrt3HdivRtga));
+        } else {
+            m_q = q;
+            complex_t integral = m_integrator->integrate(0., m_height);
+            return integral;
+        }
+    } else {
         //general case
-       const complex_t q1=(1./2.)*((root3*q.x() - q.y())/tga - q.z());
-       const complex_t q2=(1./2.)*((root3*q.x() + q.y())/tga + q.z());
-       const complex_t q3 = (q.y()/tga - q.z()/2.);
+        const complex_t q1=(1./2.)*((root3*q.x() - q.y())/tga - q.z());
+        const complex_t q2=(1./2.)*((root3*q.x() + q.y())/tga + q.z());
+        const complex_t q3 = (q.y()/tga - q.z()/2.);
 
-       return H*root3*std::exp(im*q.z()*R*tga/root3)/(q.x()*q.x()-3.*q.y()*q.y())*
+        return H*root3*std::exp(im*q.z()*R*tga/root3)/(q.x()*q.x()-3.*q.y()*q.y())*
             (-(1.+root3*q.y()/q.x())*MathFunctions::Sinc(q1*H)*std::exp(im*q1*L)
-            -(1.-root3*q.y()/q.x())*MathFunctions::Sinc(q2*H)*std::exp(-im*q2*L) +
+             -(1.-root3*q.y()/q.x())*MathFunctions::Sinc(q2*H)*std::exp(-im*q2*L) +
              2.*MathFunctions::Sinc(q3*H)*std::exp(im*q3*L));
     }
 }

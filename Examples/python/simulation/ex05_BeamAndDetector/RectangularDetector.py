@@ -102,7 +102,7 @@ def plot_results(result_sph, result_rect):
     plt.text(90.0, 186.0, "Rectangular detector", horizontalalignment='center', verticalalignment='center', fontsize=11)
 
     # showing relative difference between two plots (sph[i]-rect[i])/rect[i] for every detector pixel
-    diff = IHistogram.createRelativeDifferenceHistogram(result_sph, result_rect)
+    diff = result_sph.relativeDifferenceHistogram(result_rect)
     plt.subplot(1, 3, 3)
     im = plt.imshow(diff.getArray(),
                     norm=matplotlib.colors.LogNorm(1e-06, 1.0),

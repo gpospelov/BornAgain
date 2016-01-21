@@ -59,7 +59,7 @@ void FitKernel::addFitParameter(const std::string& name, double value, const Att
                                 double step, double error)
 {
     if(step <=0.0)
-        step = value * getAttributes().getStepFactor();
+        step = value * getOptions().getStepFactor();
     m_fit_parameters.addParameter(name, value, step, attlim, error);
 }
 
@@ -179,9 +179,14 @@ void FitKernel::printResults() const
     m_minimizer->printResults();
 }
 
-AttFitting &FitKernel::getAttributes()
+FitOptions &FitKernel::getOptions()
 {
-    return m_fit_attributes;
+    return m_fit_options;
+}
+
+void FitKernel::setOptions(const FitOptions &fit_options)
+{
+    m_fit_options = fit_options;
 }
 
 double FitKernel::getRunTime() const

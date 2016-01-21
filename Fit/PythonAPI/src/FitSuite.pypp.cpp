@@ -122,17 +122,6 @@ void register_FitSuite_class(){
                 , "Set all parameters to fixed." );
         
         }
-        { //::FitSuite::getAttributes
-        
-            typedef ::AttFitting & ( ::FitSuite::*getAttributes_function_type)(  ) ;
-            
-            FitSuite_exposer.def( 
-                "getAttributes"
-                , getAttributes_function_type( &::FitSuite::getAttributes )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns general setting of fit kernel." );
-        
-        }
         { //::FitSuite::getChi2
         
             typedef double ( ::FitSuite::*getChi2_function_type)(  ) const;
@@ -229,6 +218,17 @@ void register_FitSuite_class(){
                 , "Returns current number of minimization function calls." );
         
         }
+        { //::FitSuite::getOptions
+        
+            typedef ::FitOptions & ( ::FitSuite::*getOptions_function_type)(  ) ;
+            
+            FitSuite_exposer.def( 
+                "getOptions"
+                , getOptions_function_type( &::FitSuite::getOptions )
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns general setting of fit kernel." );
+        
+        }
         { //::FitSuite::getRealData
         
             typedef ::IHistogram * ( ::FitSuite::*getRealData_function_type)( ::std::size_t ) const;
@@ -304,17 +304,6 @@ void register_FitSuite_class(){
                 , "main method to run the fitting." );
         
         }
-        { //::FitSuite::setAttributes
-        
-            typedef void ( ::FitSuite::*setAttributes_function_type)( ::AttFitting const & ) ;
-            
-            FitSuite_exposer.def( 
-                "setAttributes"
-                , setAttributes_function_type( &::FitSuite::setAttributes )
-                , ( bp::arg("fit_attributes") )
-                , "Sets general setting of fit kernel." );
-        
-        }
         { //::FitSuite::setChiSquaredModule
         
             typedef void ( ::FitSuite::*setChiSquaredModule_function_type)( ::IChiSquaredModule const & ) ;
@@ -335,6 +324,17 @@ void register_FitSuite_class(){
                 , setMinimizer_function_type( &::FitSuite::setMinimizer )
                 , ( bp::arg("minimizer_name"), bp::arg("algorithm_name")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >(), bp::arg("minimizer_options")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >() )
                 , "Sets minimizer with given name and algorithm type @param minimizer The name of the minimizer @param algorithm Optional name of the minimizer's algorithm @param options Optional string with additional minimizer settings \n\n:Parameters:\n  - 'minimizer' - The name of the minimizer\n  - 'algorithm' - Optional name of the minimizer's algorithm\n  - 'options' - Optional string with additional minimizer settings\n" );
+        
+        }
+        { //::FitSuite::setOptions
+        
+            typedef void ( ::FitSuite::*setOptions_function_type)( ::FitOptions const & ) ;
+            
+            FitSuite_exposer.def( 
+                "setOptions"
+                , setOptions_function_type( &::FitSuite::setOptions )
+                , ( bp::arg("fit_options") )
+                , "Sets general setting of fit kernel." );
         
         }
         { //::FitSuite::setParametersFixed

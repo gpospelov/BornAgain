@@ -130,10 +130,10 @@ public:
     double getChi2() const;
 
     //! Returns general setting of fit kernel
-    AttFitting &getAttributes();
+    FitOptions &getOptions();
 
     //! Sets general setting of fit kernel
-    void setAttributes(const AttFitting &fit_attributes);
+    void setOptions(const FitOptions &fit_options);
 
 private:
     FitSuite& operator=(const FitSuite& );

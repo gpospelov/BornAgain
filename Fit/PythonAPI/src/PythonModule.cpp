@@ -5,6 +5,7 @@ GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
+#include "FitOptions.pypp.h"
 #include "FitSuiteObjects.pypp.h"
 #include "IChiSquaredModule.pypp.h"
 #include "FitStrategyDefault.pypp.h"
@@ -34,18 +35,17 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IntensityFunctionSqrt.pypp.h"
 #include "FitObject.pypp.h"
 #include "SquaredFunctionSystematicError.pypp.h"
-#include "AttFitting.pypp.h"
 #include "INamed.pypp.h"
 
 BOOST_PYTHON_MODULE(libBornAgainFit){
     boost::python::docstring_options doc_options(true, true, false);
 
-    register_AttFitting_class();
     register_IChiSquaredModule_class();
     register_ChiSquaredModule_class();
     register_INamed_class();
     register_IIntensityNormalizer_class();
     register_FitObject_class();
+    register_FitOptions_class();
     register_FitParameter_class();
     register_IFitStrategy_class();
     register_FitStrategyAdjustMinimizer_class();

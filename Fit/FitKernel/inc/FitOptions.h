@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FitKernel/inc/AttFitting.h
-//! @brief     Defines class AttFitting.
+//! @file      FitKernel/inc/FitOptions.h
+//! @brief     Defines class FitOptions.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,23 +13,23 @@
 //
 // ************************************************************************** //
 
-#ifndef ATTFITTING_H
-#define ATTFITTING_H
+#ifndef FITOPTIONS_H
+#define FITOPTIONS_H
 
 #include "WinDllMacros.h"
 #include <iostream>
 #include <iomanip>
 
 
-//! @class AttFitting
+//! @class FitOptions
 //! @ingroup fitting
-//! @brief General fitting attributes.
+//! @brief General fitting options.
 
-class BA_CORE_API_ AttFitting
+class BA_CORE_API_ FitOptions
 {
  public:
-    AttFitting();
-    ~AttFitting(){}
+    FitOptions();
+    ~FitOptions(){}
 
     double getDerivEpsilon() const;
     void setDerivEpsilon(double deriv_epsilon);
@@ -42,28 +42,28 @@ class BA_CORE_API_ AttFitting
     double m_step_factor; //! default relative parameter step
 };
 
-inline AttFitting::AttFitting()
+inline FitOptions::FitOptions()
     : m_deriv_epsilon(1e-09)
     , m_step_factor(0.01)
 {
 }
 
-inline double AttFitting::getDerivEpsilon() const
+inline double FitOptions::getDerivEpsilon() const
 {
     return m_deriv_epsilon;
 }
 
-inline void AttFitting::setDerivEpsilon(double deriv_epsilon)
+inline void FitOptions::setDerivEpsilon(double deriv_epsilon)
 {
     m_deriv_epsilon = deriv_epsilon;
 }
 
-inline double AttFitting::getStepFactor() const
+inline double FitOptions::getStepFactor() const
 {
     return m_step_factor;
 }
 
-inline void AttFitting::setStepFactor(double step_factor)
+inline void FitOptions::setStepFactor(double step_factor)
 {
     m_step_factor = step_factor;
 }

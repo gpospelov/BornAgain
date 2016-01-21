@@ -16,7 +16,7 @@
 #include "InterferenceFunction2DParaCrystal.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "MemberFunctionIntegrator.h"
+#include "IntegratorReal.h"
 #include "Exceptions.h"
 
 #include <functional>
@@ -82,12 +82,9 @@ double InterferenceFunction2DParaCrystal::evaluate(const kvector_t& q) const
     m_qy = q.y();
     double result;
     if (m_integrate_xi) {
-        MemberFunctionIntegrator<InterferenceFunction2DParaCrystal>::
-            mem_function p_member_function =
-                    &InterferenceFunction2DParaCrystal::interferenceForXi;
-        MemberFunctionIntegrator<InterferenceFunction2DParaCrystal>
-            integrator(p_member_function, this);
-        result = integrator.integrate(0.0, Units::PI2, nullptr)/Units::PI2;
+        auto integrator
+            = make_integrator(this, &InterferenceFunction2DParaCrystal::interferenceForXi);
+        result = integrator->integrate(0.0, Units::PI2, nullptr)/Units::PI2;
    }
     else {
         result = interferenceForXi(m_lattice_params.m_xi, nullptr);

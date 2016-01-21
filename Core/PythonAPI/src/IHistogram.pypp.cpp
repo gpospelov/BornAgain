@@ -146,7 +146,7 @@ void register_IHistogram_class(){
                 "findGlobalBin"
                 , findGlobalBin_function_type( &::IHistogram::findGlobalBin )
                 , ( bp::arg("x"), bp::arg("y") )
-                , "Returns closest global bin index for given axes coordinates. For 1D @param x Value on x-axis @param y Value on y-axis (for 2D histograms) @return Closest global bin index \n\n:Parameters:\n  - 'x' - Value on x-axis\n  - 'y' - Value on y-axis (for 2D histograms)\n" );
+                , "Returns closest global bin index for given axes coordinates.\n\n:Parameters:\n  - 'x' - Value on x-axis\n  - 'y' - Value on y-axis (for 2D histograms)\n" );
         
         }
         { //::IHistogram::getArray
@@ -190,7 +190,7 @@ void register_IHistogram_class(){
                 "getBinContent"
                 , getBinContent_function_type( &::IHistogram::getBinContent )
                 , ( bp::arg("globalbin") )
-                , "Returns content (accumulated value) of the bin with given index. @param globalbin The global bin index @return The value accumulated by the bin (integral) \n\n:Parameters:\n  - 'globalbin' - The global bin index\n" );
+                , "Returns content (accumulated value) of the bin with given index.\n\n:Parameters:\n  - 'globalbin' - The global bin index\n" );
         
         }
         { //::IHistogram::getBinContent
@@ -201,7 +201,7 @@ void register_IHistogram_class(){
                 "getBinContent"
                 , getBinContent_function_type( &::IHistogram::getBinContent )
                 , ( bp::arg("binx"), bp::arg("biny") )
-                , "Returns content (accumulated value) of the bin with given indices (for 2D histograms). @param binx x-axis bin index @param biny y-axis bin index @return The value accumulated by the bin (integral) \n\n:Parameters:\n  - 'binx' - x-axis bin index\n  - 'biny' - y-axis bin index\n" );
+                , "Returns content (accumulated value) of the bin with given indices (for 2D histograms).\n\n:Parameters:\n  - 'binx' - x-axis bin index\n  - 'biny' - y-axis bin index\n" );
         
         }
         { //::IHistogram::getBinError
@@ -256,7 +256,7 @@ void register_IHistogram_class(){
                 "getGlobalBin"
                 , getGlobalBin_function_type( &::IHistogram::getGlobalBin )
                 , ( bp::arg("binx"), bp::arg("biny")=(::std::size_t)(0) )
-                , "Returns global bin index for given axes indices. For 1D histogram the global bin index coinside with x-axis index. @param binx x-axis bin index @param biny y-axis bin index (for 2D histograms) @return The global bin index \n\n:Parameters:\n  - 'binx' - x-axis bin index\n  - 'biny' - y-axis bin index (for 2D histograms)\n" );
+                , "Returns global bin index for given axes indices.\n\n:Parameters:\n  - 'binx' - x-axis bin index\n  - 'biny' - y-axis bin index (for 2D histograms)\n" );
         
         }
         { //::IHistogram::getMaximum
@@ -370,7 +370,7 @@ void register_IHistogram_class(){
                 "getXaxisValue"
                 , getXaxisValue_function_type( &::IHistogram::getXaxisValue )
                 , ( bp::arg("globalbin") )
-                , "Returns the value on x-axis corresponding to the global bin index. @param globalbin The global bin index @return The center of corresponding bin of the axis \n\n:Parameters:\n  - 'globalbin' - The global bin index\n" );
+                , "Returns the value on x-axis corresponding to the global bin index.\n\n:Parameters:\n  - 'globalbin' - The global bin index\n" );
         
         }
         { //::IHistogram::getXmax
@@ -423,7 +423,7 @@ void register_IHistogram_class(){
                 "getYaxisValue"
                 , getYaxisValue_function_type( &::IHistogram::getYaxisValue )
                 , ( bp::arg("globalbin") )
-                , "Returns the value on y-axis corresponding to the global bin index (for 2D histograms). @param globalbin The global bin index @return The center of corresponding bin of the axis \n\n:Parameters:\n  - 'globalbin' - The global bin index\n" );
+                , "Returns the value on y-axis corresponding to the global bin index (for 2D histograms).\n\n:Parameters:\n  - 'globalbin' - The global bin index\n" );
         
         }
         { //::IHistogram::getYmax

@@ -28,15 +28,18 @@ FitObject::FitObject(
     , m_weight(weight)
 {
     setName("FitObject");
-    if( !m_real_data->hasSameShape(*m_simulation->getOutputData()) ) {
-        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. "
-            "Real data and output data in the simulation have different shape. "
-            "Adjusting simulation's detector.";
-    } else {
-        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. "
-            "Real data and output data in the simulation have same shape.";
-    }
+//    if( !m_real_data->hasSameShape(*m_simulation->getOutputData()) ) {
+//        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. "
+//            "Real data and output data in the simulation have different shape. "
+//            "Adjusting simulation's detector.";
+//    } else {
+//        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. "
+//            "Real data and output data in the simulation have same shape.";
+//    }
     m_simulation->setDetectorParameters(*m_real_data);
+    if( !m_real_data->hasSameShape(*m_simulation->getOutputData()) ) {
+
+    }
 }
 
 FitObject::~FitObject()

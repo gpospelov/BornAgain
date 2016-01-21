@@ -31,15 +31,16 @@ class BA_CORE_API_ AttFitting
     AttFitting();
     ~AttFitting(){}
 
-    double getDerivEpsilon() const { return m_deriv_epsilon; }
-    void setDerivEpsilon(double deriv_epsilon) { m_deriv_epsilon = deriv_epsilon; }
+    double getDerivEpsilon() const;
+    void setDerivEpsilon(double deriv_epsilon);
 
-    double getStepFactor() const { return m_step_factor; }
-    void setStepFactor(double step_factor) { m_step_factor = step_factor; }
+    double getStepFactor() const;
+    void setStepFactor(double step_factor);
 
  private:
     double m_deriv_epsilon;  //! epsilon for derivative calculation
     double m_step_factor; //! default relative parameter step
+    bool m_override_detector_axes; //! Experimental data will override
 };
 
 inline AttFitting::AttFitting()
@@ -47,6 +48,28 @@ inline AttFitting::AttFitting()
     , m_step_factor(0.01)
 {
 }
+
+inline double AttFitting::getDerivEpsilon() const
+{
+    return m_deriv_epsilon;
+}
+
+inline void AttFitting::setDerivEpsilon(double deriv_epsilon)
+{
+    m_deriv_epsilon = deriv_epsilon;
+}
+
+inline double AttFitting::getStepFactor() const
+{
+    return m_step_factor;
+}
+
+inline void AttFitting::setStepFactor(double step_factor)
+{
+    m_step_factor = step_factor;
+}
+
+
 
 #endif // ATTFITTING_H
 

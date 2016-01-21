@@ -92,23 +92,23 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::addSimulationAndRealData
         
-            typedef void ( ::FitSuite::*addSimulationAndRealData_function_type)( ::GISASSimulation const &,::OutputData< double > const & ) ;
+            typedef void ( ::FitSuite::*addSimulationAndRealData_function_type)( ::GISASSimulation const &,::OutputData< double > const &,double ) ;
             
             FitSuite_exposer.def( 
                 "addSimulationAndRealData"
                 , addSimulationAndRealData_function_type( &::FitSuite::addSimulationAndRealData )
-                , ( bp::arg("simulation"), bp::arg("real_data") )
+                , ( bp::arg("simulation"), bp::arg("real_data"), bp::arg("weight")=1 )
                 , "Assigns pair of (simulation, real data) for fitting. More than one pair can be added." );
         
         }
         { //::FitSuite::addSimulationAndRealData
         
-            typedef void ( ::FitSuite::*addSimulationAndRealData_function_type)( ::GISASSimulation const &,::IHistogram const & ) ;
+            typedef void ( ::FitSuite::*addSimulationAndRealData_function_type)( ::GISASSimulation const &,::IHistogram const &,double ) ;
             
             FitSuite_exposer.def( 
                 "addSimulationAndRealData"
                 , addSimulationAndRealData_function_type( &::FitSuite::addSimulationAndRealData )
-                , ( bp::arg("simulation"), bp::arg("real_data") )
+                , ( bp::arg("simulation"), bp::arg("real_data"), bp::arg("weight")=1 )
                 , "Assigns pair of (simulation, real data) for fitting. More than one pair can be added." );
         
         }

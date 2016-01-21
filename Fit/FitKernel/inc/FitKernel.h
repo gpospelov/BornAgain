@@ -47,7 +47,8 @@ class BA_CORE_API_ FitKernel
 
     //! Adds pair of (simulation, real data) for consecutive simulation
     void addSimulationAndRealData(const GISASSimulation& simulation,
-                                  const OutputData<double>& real_data);
+                                  const OutputData<double>& real_data,
+                                  double weight);
 
     //! Adds fit parameter
     void addFitParameter(const std::string& name, double value,

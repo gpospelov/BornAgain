@@ -49,9 +49,9 @@ void FitKernel::clear()
 
 //! Adds pair of (simulation, real data) for consecutive simulation
 void FitKernel::addSimulationAndRealData(const GISASSimulation& simulation,
-                                         const OutputData<double >& real_data)
+                                         const OutputData<double >& real_data, double weight)
 {
-    m_fit_objects.add(simulation, real_data);
+    m_fit_objects.add(simulation, real_data, weight);
 }
 
 //! Adds fit parameter, step is calculated from initial parameter value

@@ -36,11 +36,11 @@ public:
 
     //! Assigns pair of (simulation, real data) for fitting. More than one pair can be added.
     void addSimulationAndRealData(const GISASSimulation& simulation,
-                                  const OutputData<double>& real_data);
+                                  const OutputData<double>& real_data, double weight=1);
 
     //! Assigns pair of (simulation, real data) for fitting. More than one pair can be added.
     void addSimulationAndRealData(const GISASSimulation& simulation,
-                                  const IHistogram& real_data);
+                                  const IHistogram& real_data, double weight=1);
 
     //! Adds fit parameter
     //! @param name The name of fit parameter

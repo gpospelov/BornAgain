@@ -62,11 +62,8 @@ public:
     /// Get total abundance of all particles
     double getTotalAbundance() const;
 
-    //! Returns number of interference functions
-    virtual size_t getNumberOfInterferenceFunctions() const;
-
-    //! Returns interference functions
-    virtual SafePointerVector<IInterferenceFunction> getInterferenceFunctions() const=0;
+    //! Returns interference function
+    virtual const IInterferenceFunction* getInterferenceFunction() const=0;
 
     //! Returns surface density of all particles
     virtual double getTotalParticleSurfaceDensity() const=0;
@@ -93,11 +90,6 @@ inline double ILayout::getTotalAbundance() const
         total_abundance += getAbundanceOfParticle(i);
     }
     return total_abundance;
-}
-
-inline size_t ILayout::getNumberOfInterferenceFunctions() const
-{
-    return 0;
 }
 
 inline ILayout::EInterferenceApproximation ILayout::getApproximation() const

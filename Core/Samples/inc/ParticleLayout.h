@@ -21,7 +21,7 @@
 #include "IInterferenceFunction.h"
 #include "Rotations.h"
 
-#include <boost/shared_ptr.hpp>
+#include <boost/scoped_ptr.hpp>
 
 //! @class ParticleLayout
 //! @ingroup samples
@@ -77,17 +77,11 @@ public:
     //! Get abundance fraction of particle with index
     double getAbundanceOfParticle(size_t index) const;
 
-    //! Returns number of interference functions
-    virtual size_t getNumberOfInterferenceFunctions() const;
-
     //! Returns interference functions
-    virtual SafePointerVector<IInterferenceFunction> getInterferenceFunctions() const;
+    virtual const IInterferenceFunction* getInterferenceFunction() const;
 
-    //! Adds interference function
+    //! Sets interference function
     void addInterferenceFunction(const IInterferenceFunction &interference_function);
-
-    //! Returns interference function with index
-    const IInterferenceFunction *getInterferenceFunction(size_t index) const;
 
     //! Returns surface density of all particles
     virtual double getTotalParticleSurfaceDensity() const;
@@ -99,16 +93,16 @@ private:
     //! Adds particle information with simultaneous registration in parent class.
     void addAndRegisterAbstractParticle(IAbstractParticle *child);
 
-    //! Adds interference function with simultaneous registration in parent class
-    void addAndRegisterInterferenceFunction(IInterferenceFunction *child);
+    //! Sets interference function with simultaneous registration in parent class
+    void setAndRegisterInterferenceFunction(IInterferenceFunction *child);
 
     void print(std::ostream &ostr) const;
 
     //! Vector of the types of particles
     SafePointerVector<IAbstractParticle> m_particles;
 
-    //! Vector of interference functions
-    SafePointerVector<IInterferenceFunction> m_interference_functions;
+    //! Interference function
+    boost::scoped_ptr<IInterferenceFunction> mP_interference_function;
 
     //! Total particle surface density
     double m_total_particle_density;

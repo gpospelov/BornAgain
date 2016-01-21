@@ -21,15 +21,16 @@
 #include <ScalarRTCoefficients.h>
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(SimulationParameters sim_params)
-    : m_sim_params(sim_params)
+    : mP_iff { nullptr }
+    , m_sim_params(sim_params)
 {
 }
 
 void IInterferenceFunctionStrategy::init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
-                                         const SafePointerVector<IInterferenceFunction> &ifs)
+                                         const IInterferenceFunction& iff)
 {
     m_ff_infos = form_factor_infos;
-    m_ifs = ifs;
+    mP_iff.reset(iff.clone());
 }
 
 void IInterferenceFunctionStrategy::setSpecularInfo(const LayerSpecularInfo &specular_info)

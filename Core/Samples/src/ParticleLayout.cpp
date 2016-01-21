@@ -26,20 +26,23 @@
 
 
 ParticleLayout::ParticleLayout()
-    :  m_total_particle_density(1.0)
+    : mP_interference_function {0}
+    , m_total_particle_density {1.0}
 {
     setName(BornAgain::ParticleLayoutType);
 }
 
 ParticleLayout::ParticleLayout(const IAbstractParticle &particle)
-    :  m_total_particle_density(1.0)
+    : mP_interference_function {0}
+    , m_total_particle_density {1.0}
 {
     setName(BornAgain::ParticleLayoutType);
     addParticle(particle);
 }
 
 ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundance)
-    :  m_total_particle_density(1.0)
+    : mP_interference_function {0}
+    , m_total_particle_density {1.0}
 {
     setName(BornAgain::ParticleLayoutType);
     addParticle(particle, abundance);
@@ -56,8 +59,9 @@ ParticleLayout *ParticleLayout::clone() const
     for (size_t i = 0; i < m_particles.size(); ++i)
         p_new->addAndRegisterAbstractParticle(m_particles[i]->clone());
 
-    for (size_t i = 0; i < m_interference_functions.size(); ++i)
-        p_new->addAndRegisterInterferenceFunction(m_interference_functions[i]->clone());
+    if (mP_interference_function){
+        p_new->setAndRegisterInterferenceFunction(mP_interference_function->clone());
+    }
 
     p_new->setTotalParticleSurfaceDensity(getTotalParticleSurfaceDensity());
     p_new->setApproximation(getApproximation());
@@ -72,8 +76,9 @@ ParticleLayout *ParticleLayout::cloneInvertB() const
     for (size_t i = 0; i < m_particles.size(); ++i)
         p_new->addAndRegisterAbstractParticle(m_particles[i]->cloneInvertB());
 
-    for (size_t i = 0; i < m_interference_functions.size(); ++i)
-        p_new->addAndRegisterInterferenceFunction(m_interference_functions[i]->clone());
+    if (mP_interference_function){
+        p_new->setAndRegisterInterferenceFunction(mP_interference_function->clone());
+    }
 
     p_new->setTotalParticleSurfaceDensity(getTotalParticleSurfaceDensity());
     p_new->setApproximation(getApproximation());
@@ -163,29 +168,16 @@ double ParticleLayout::getAbundanceOfParticle(size_t index) const
     return m_particles[index]->getAbundance();
 }
 
-size_t ParticleLayout::getNumberOfInterferenceFunctions() const
+const IInterferenceFunction*  ParticleLayout::getInterferenceFunction() const
 {
-    return m_interference_functions.size();
-}
-
-SafePointerVector<IInterferenceFunction> ParticleLayout::getInterferenceFunctions() const
-{
-    return m_interference_functions;
+    return mP_interference_function.get();
 }
 
 //! Adds interference functions
 void ParticleLayout::addInterferenceFunction(
     const IInterferenceFunction& interference_function)
 {
-    addAndRegisterInterferenceFunction(interference_function.clone());
-}
-
-const IInterferenceFunction *ParticleLayout::getInterferenceFunction(size_t index) const
-{
-    if (index < m_interference_functions.size())
-        return m_interference_functions[index];
-    throw OutOfBoundsException("ParticleLayout::getInterferenceFunction() ->"
-                               "Not so many interference functions in this decoration.");
+    setAndRegisterInterferenceFunction(interference_function.clone());
 }
 
 double ParticleLayout::getTotalParticleSurfaceDensity() const
@@ -206,10 +198,13 @@ void ParticleLayout::addAndRegisterAbstractParticle(IAbstractParticle *child)
 }
 
 //! Adds interference function with simultaneous registration in parent class.
-void ParticleLayout::addAndRegisterInterferenceFunction(
+void ParticleLayout::setAndRegisterInterferenceFunction(
     IInterferenceFunction *child)
 {
-    m_interference_functions.push_back(child);
+    if (mP_interference_function.get()) {
+        deregisterChild(mP_interference_function.get());
+    }
+    mP_interference_function.reset(child);
     registerChild(child);
 }
 

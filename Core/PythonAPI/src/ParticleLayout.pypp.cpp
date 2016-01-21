@@ -133,28 +133,16 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         return ParticleLayout::getAbundanceOfParticle( index );
     }
 
-    virtual ::SafePointerVector< IInterferenceFunction > getInterferenceFunctions(  ) const  {
-        if( bp::override func_getInterferenceFunctions = this->get_override( "getInterferenceFunctions" ) )
-            return func_getInterferenceFunctions(  );
+    virtual ::IInterferenceFunction const * getInterferenceFunction(  ) const  {
+        if( bp::override func_getInterferenceFunction = this->get_override( "getInterferenceFunction" ) )
+            return func_getInterferenceFunction(  );
         else{
-            return this->ParticleLayout::getInterferenceFunctions(  );
+            return this->ParticleLayout::getInterferenceFunction(  );
         }
     }
     
-    ::SafePointerVector< IInterferenceFunction > default_getInterferenceFunctions(  ) const  {
-        return ParticleLayout::getInterferenceFunctions( );
-    }
-
-    virtual ::std::size_t getNumberOfInterferenceFunctions(  ) const  {
-        if( bp::override func_getNumberOfInterferenceFunctions = this->get_override( "getNumberOfInterferenceFunctions" ) )
-            return func_getNumberOfInterferenceFunctions(  );
-        else{
-            return this->ParticleLayout::getNumberOfInterferenceFunctions(  );
-        }
-    }
-    
-    ::std::size_t default_getNumberOfInterferenceFunctions(  ) const  {
-        return ParticleLayout::getNumberOfInterferenceFunctions( );
+    ::IInterferenceFunction const * default_getInterferenceFunction(  ) const  {
+        return ParticleLayout::getInterferenceFunction( );
     }
 
     virtual ::std::size_t getNumberOfParticles(  ) const  {
@@ -309,7 +297,7 @@ void register_ParticleLayout_class(){
                 "addInterferenceFunction"
                 , addInterferenceFunction_function_type( &::ParticleLayout::addInterferenceFunction )
                 , ( bp::arg("interference_function") )
-                , "Adds interference function." );
+                , "Sets interference function." );
         
         }
         { //::ParticleLayout::addParticle
@@ -398,36 +386,14 @@ void register_ParticleLayout_class(){
         }
         { //::ParticleLayout::getInterferenceFunction
         
-            typedef ::IInterferenceFunction const * ( ::ParticleLayout::*getInterferenceFunction_function_type)( ::std::size_t ) const;
+            typedef ::IInterferenceFunction const * ( ::ParticleLayout::*getInterferenceFunction_function_type)(  ) const;
+            typedef ::IInterferenceFunction const * ( ParticleLayout_wrapper::*default_getInterferenceFunction_function_type)(  ) const;
             
             ParticleLayout_exposer.def( 
                 "getInterferenceFunction"
-                , getInterferenceFunction_function_type( &::ParticleLayout::getInterferenceFunction )
-                , ( bp::arg("index") )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns interference function with index." );
-        
-        }
-        { //::ParticleLayout::getInterferenceFunctions
-        
-            typedef ::SafePointerVector< IInterferenceFunction > ( ::ParticleLayout::*getInterferenceFunctions_function_type)(  ) const;
-            typedef ::SafePointerVector< IInterferenceFunction > ( ParticleLayout_wrapper::*default_getInterferenceFunctions_function_type)(  ) const;
-            
-            ParticleLayout_exposer.def( 
-                "getInterferenceFunctions"
-                , getInterferenceFunctions_function_type(&::ParticleLayout::getInterferenceFunctions)
-                , default_getInterferenceFunctions_function_type(&ParticleLayout_wrapper::default_getInterferenceFunctions) );
-        
-        }
-        { //::ParticleLayout::getNumberOfInterferenceFunctions
-        
-            typedef ::std::size_t ( ::ParticleLayout::*getNumberOfInterferenceFunctions_function_type)(  ) const;
-            typedef ::std::size_t ( ParticleLayout_wrapper::*default_getNumberOfInterferenceFunctions_function_type)(  ) const;
-            
-            ParticleLayout_exposer.def( 
-                "getNumberOfInterferenceFunctions"
-                , getNumberOfInterferenceFunctions_function_type(&::ParticleLayout::getNumberOfInterferenceFunctions)
-                , default_getNumberOfInterferenceFunctions_function_type(&ParticleLayout_wrapper::default_getNumberOfInterferenceFunctions) );
+                , getInterferenceFunction_function_type(&::ParticleLayout::getInterferenceFunction)
+                , default_getInterferenceFunction_function_type(&ParticleLayout_wrapper::default_getInterferenceFunction)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ParticleLayout::getNumberOfParticles

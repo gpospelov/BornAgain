@@ -22,55 +22,46 @@
 #include "FormFactors.h"
 #include "FormFactorTools.h"
 
-#include <cmath>
 #include <boost/scoped_ptr.hpp>
 
-LayerStrategyBuilder::LayerStrategyBuilder(
-        const Layer& decorated_layer, const Simulation& simulation,
-        const SimulationParameters& sim_params, size_t layout_index)
-: mp_layer(decorated_layer.clone())
-, mp_simulation(simulation.clone())
-, m_sim_params(sim_params)
-, mp_specular_info(0)
-, m_layout_index(layout_index)
+LayerStrategyBuilder::LayerStrategyBuilder(const Layer &decorated_layer,
+                                           const Simulation &simulation,
+                                           const SimulationParameters &sim_params,
+                                           size_t layout_index)
+    : m_sim_params{sim_params}, mP_specular_info{nullptr}, m_layout_index{layout_index}
 {
-    assert(mp_layer->getNumberOfLayouts()>0);
+    mP_layer.reset(decorated_layer.clone());
+    mP_simulation.reset(simulation.clone());
+    assert(mP_layer->getNumberOfLayouts() > 0);
 }
 
 LayerStrategyBuilder::~LayerStrategyBuilder()
 {
-    delete mp_layer;
-    delete mp_simulation;
-    delete mp_specular_info;
 }
 
 
 void LayerStrategyBuilder::setRTInfo(const LayerSpecularInfo& specular_info)
 {
-    if (mp_specular_info != &specular_info) {
-        delete mp_specular_info;
-        mp_specular_info = specular_info.clone();
-    }
+    mP_specular_info.reset(specular_info.clone());
 }
 
 IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
 {
     collectFormFactorInfos();
-    collectInterferenceFunctions();
-    size_t n_ifs = m_ifs.size();
+    collectInterferenceFunction();
     IInterferenceFunctionStrategy *p_result(0);
-    switch (mp_layer->getLayout(m_layout_index)->getApproximation())
+    switch (mP_layer->getLayout(m_layout_index)->getApproximation())
     {
     case ILayout::DA:
         p_result = new DecouplingApproximationStrategy(m_sim_params);
         break;
     case ILayout::SSCA:
     {
-        if (n_ifs<1) {
+        if (!mP_interference_function) {
             throw Exceptions::ClassInitializationException(
                     "SSCA requires an interference function");
         }
-        double kappa = m_ifs[0]->getKappa();
+        double kappa = mP_interference_function->getKappa();
         if (kappa<=0.0) {
             throw Exceptions::ClassInitializationException(
                     "SSCA requires a strictly positive coupling value");
@@ -87,24 +78,24 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
         throw Exceptions::ClassInitializationException(
                 "Could not create appropriate strategy");
     }
-    p_result->init(m_ff_infos, m_ifs);
-    p_result->setSpecularInfo(*mp_specular_info);
+    p_result->init(m_ff_infos, *mP_interference_function);
+    p_result->setSpecularInfo(*mP_specular_info);
     return p_result;
 }
 
 bool LayerStrategyBuilder::requiresMatrixFFs() const
 {
-    return mp_simulation->getSample()->containsMagneticMaterial();
+    return mP_simulation->getSample()->containsMagneticMaterial();
 }
 
 void LayerStrategyBuilder::collectFormFactorInfos()
 {
-    assert(mp_layer->getNumberOfLayouts()>0);
+    assert(mP_layer->getNumberOfLayouts()>0);
     m_ff_infos.clear();
-    const ILayout *p_layout = mp_layer->getLayout(m_layout_index);
-    const IMaterial *p_layer_material = mp_layer->getMaterial();
+    const ILayout *p_layout = mP_layer->getLayout(m_layout_index);
+    const IMaterial *p_layer_material = mP_layer->getMaterial();
     double wavelength = getWavelength();
-    double total_abundance = mp_layer->getTotalAbundance();
+    double total_abundance = mP_layer->getTotalAbundance();
     if (total_abundance<=0.0) total_abundance = 1.0;
     complex_t wavevector_scattering_factor = Units::PI/wavelength/wavelength;
     SafePointerVector<const IParticle> iparticles = p_layout->getParticles();
@@ -119,19 +110,20 @@ void LayerStrategyBuilder::collectFormFactorInfos()
     return;
 }
 
-void LayerStrategyBuilder::collectInterferenceFunctions()
+void LayerStrategyBuilder::collectInterferenceFunction()
 {
-    assert(mp_layer->getNumberOfLayouts()>0);
-    m_ifs.clear();
-    if (mp_layer->getLayout(m_layout_index)->getNumberOfInterferenceFunctions()) {
-        m_ifs = mp_layer->getLayout(m_layout_index)->getInterferenceFunctions();
+    assert(mP_layer->getNumberOfLayouts()>0);
+    const IInterferenceFunction *p_iff =
+            mP_layer->getLayout(m_layout_index)->getInterferenceFunction();
+    if (p_iff) {
+        mP_interference_function.reset(p_iff->clone());
     }
-    else m_ifs.push_back( new InterferenceFunctionNone() );
+    else mP_interference_function.reset( new InterferenceFunctionNone() );
 }
 
 double LayerStrategyBuilder::getWavelength()
 {
-    return mp_simulation->getWavelength();
+    return mP_simulation->getWavelength();
 }
 
 FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
@@ -144,7 +136,7 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
     // formfactor
     boost::scoped_ptr<IFormFactor> P_ff_particle(P_particle_clone->createFormFactor(factor));
     IFormFactor *p_ff_framework;
-    size_t n_layers = mp_layer->getNumberOfLayers();
+    size_t n_layers = mP_layer->getNumberOfLayers();
     if (n_layers>1) {
         if (requiresMatrixFFs()) {
             p_ff_framework = FormFactorTools::createDWBAMatrixFormFactor(*P_ff_particle);

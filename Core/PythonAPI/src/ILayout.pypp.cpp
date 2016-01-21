@@ -55,21 +55,9 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
         return func_getAbundanceOfParticle( index );
     }
 
-    virtual ::SafePointerVector< IInterferenceFunction > getInterferenceFunctions(  ) const {
-        bp::override func_getInterferenceFunctions = this->get_override( "getInterferenceFunctions" );
-        return func_getInterferenceFunctions(  );
-    }
-
-    virtual ::std::size_t getNumberOfInterferenceFunctions(  ) const  {
-        if( bp::override func_getNumberOfInterferenceFunctions = this->get_override( "getNumberOfInterferenceFunctions" ) )
-            return func_getNumberOfInterferenceFunctions(  );
-        else{
-            return this->ILayout::getNumberOfInterferenceFunctions(  );
-        }
-    }
-    
-    ::std::size_t default_getNumberOfInterferenceFunctions(  ) const  {
-        return ILayout::getNumberOfInterferenceFunctions( );
+    virtual ::IInterferenceFunction const * getInterferenceFunction(  ) const {
+        bp::override func_getInterferenceFunction = this->get_override( "getInterferenceFunction" );
+        return func_getInterferenceFunction(  );
     }
 
     virtual ::std::size_t getNumberOfParticles(  ) const {
@@ -235,25 +223,15 @@ void register_ILayout_class(){
                 , getApproximation_function_type( &::ILayout::getApproximation ) );
         
         }
-        { //::ILayout::getInterferenceFunctions
+        { //::ILayout::getInterferenceFunction
         
-            typedef ::SafePointerVector<IInterferenceFunction> ( ::ILayout::*getInterferenceFunctions_function_type)(  ) const;
+            typedef ::IInterferenceFunction const * ( ::ILayout::*getInterferenceFunction_function_type)(  ) const;
             
             ILayout_exposer.def( 
-                "getInterferenceFunctions"
-                , bp::pure_virtual( getInterferenceFunctions_function_type(&::ILayout::getInterferenceFunctions) )
-                , "Returns interference functions." );
-        
-        }
-        { //::ILayout::getNumberOfInterferenceFunctions
-        
-            typedef ::std::size_t ( ::ILayout::*getNumberOfInterferenceFunctions_function_type)(  ) const;
-            typedef ::std::size_t ( ILayout_wrapper::*default_getNumberOfInterferenceFunctions_function_type)(  ) const;
-            
-            ILayout_exposer.def( 
-                "getNumberOfInterferenceFunctions"
-                , getNumberOfInterferenceFunctions_function_type(&::ILayout::getNumberOfInterferenceFunctions)
-                , default_getNumberOfInterferenceFunctions_function_type(&ILayout_wrapper::default_getNumberOfInterferenceFunctions) );
+                "getInterferenceFunction"
+                , bp::pure_virtual( getInterferenceFunction_function_type(&::ILayout::getInterferenceFunction) )
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns interference function." );
         
         }
         { //::ILayout::getNumberOfParticles

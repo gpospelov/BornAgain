@@ -1121,15 +1121,10 @@ std::string PyGenVisitor::defineParticleLayouts() const
                 particleIndex++;
             }
 
-            size_t numberOfInterferenceFunctions
-                = particleLayout->getNumberOfInterferenceFunctions();
-            size_t interferenceIndex = 0;
-
-            while (interferenceIndex != numberOfInterferenceFunctions) {
+            const IInterferenceFunction* p_iff = particleLayout->getInterferenceFunction();
+            if (p_iff) {
                 result << indent() << it->second << ".addInterferenceFunction("
-                       << m_label->getLabel(
-                              particleLayout->getInterferenceFunction(interferenceIndex)) << ")\n";
-                interferenceIndex++;
+                       << m_label->getLabel(p_iff) << ")\n";
             }
 
             switch (particleLayout->getApproximation()) {

@@ -22,12 +22,11 @@
 
 void
 DecouplingApproximationStrategy::init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
-                                      const SafePointerVector<IInterferenceFunction> &ifs)
+                                      const IInterferenceFunction& iff)
 {
-    IInterferenceFunctionStrategy::init(form_factor_infos, ifs);
+    IInterferenceFunctionStrategy::init(form_factor_infos, iff);
     if (!checkVectorSizes()) {
-        throw ClassInitializationException("Wrong number of formfactors or interference functions "
-                                           "for Decoupling Approximation.");
+        throw ClassInitializationException("No formfactors for Decoupling Approximation.");
     }
 }
 
@@ -54,7 +53,7 @@ double DecouplingApproximationStrategy::evaluateForList(const SimulationElement&
         intensity += fraction * (std::norm(ff));
     }
     double amplitude_norm = std::norm(amplitude);
-    double itf_function = m_ifs[0]->evaluate(sim_element.getMeanQ());
+    double itf_function = mP_iff->evaluate(sim_element.getMeanQ());
     return total_abundance * (intensity + amplitude_norm * (itf_function - 1.0));
 }
 
@@ -86,13 +85,12 @@ double DecouplingApproximationStrategy::evaluateForMatrixList(const SimulationEl
     Eigen::Matrix2cd intensity_matrix = sim_element.getAnalyzerOperator() * mean_intensity;
     double amplitude_trace = std::abs(amplitude_matrix.trace());
     double intensity_trace = std::abs(intensity_matrix.trace());
-    double itf_function = m_ifs[0]->evaluate(sim_element.getMeanQ());
+    double itf_function = mP_iff->evaluate(sim_element.getMeanQ());
     return total_abundance * (intensity_trace + amplitude_trace * (itf_function - 1.0));
 }
 
 bool DecouplingApproximationStrategy::checkVectorSizes() const
 {
     size_t n_ffs = m_ff_infos.size();
-    size_t n_ifs = m_ifs.size();
-    return (n_ffs > 0 && n_ifs == 1);
+    return (n_ffs > 0);
 }

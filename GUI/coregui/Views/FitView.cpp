@@ -407,7 +407,7 @@ void FitView::sampleSelectionChanged(const QItemSelection &newSelection, const Q
 
         ParameterizedItem* selectedItem = m_fitParameterModel->itemForIndex((listOfIndice.at(0)));
         QString itemName = selectedItem->itemName();
-        QString itemGUID = selectedItem->getRegisteredProperty(ParameterizedItem::P_ID).toString();
+        QString itemGUID = selectedItem->getRegisteredProperty(ParameterizedItem::P_PORT).toString();
 
         std::cout<<"Looking for "<<itemName.toStdString()<<" and "<< itemGUID.toStdString()<<" \n";
         std::cout<<"Entering search"<<"\n";
@@ -561,8 +561,8 @@ void FitView::fitParameterSelectionChanged(const QItemSelection &newSelection, c
 }
 /*
 #include "FitView.h"
-#include "RealDataWidget.h"
 #include "FitParameterWidget.h"
+#include "FitParameterWidgetOld.h"
 #include "RunFitWidget.h"
 #include "FitToolBar.h"
 #include "qdebug.h"
@@ -576,13 +576,13 @@ FitView::FitView(FitProxyModel *fitProxyModel, MainWindow *mainWindow)
     , m_fitProxyModel(fitProxyModel)
 {
 
-    m_realDataWidget = new RealDataWidget();
-    m_fitParameterWidget = new FitParameterWidget(m_fitProxyModel);
+    m_FitParameterWidget = new FitParameterWidget();
+    m_FitParameterWidgetOld = new FitParameterWidgetOld(m_fitProxyModel);
     m_runFitWidget = new RunFitWidget();
 
     m_tabWidget = new QTabWidget();
-    m_tabWidget->insertTab(REAL_DATA, m_realDataWidget, tr("Real Data"));
-    m_tabWidget->insertTab(FIT_PARAMETER, m_fitParameterWidget, tr("Fit Parameters"));
+    m_tabWidget->insertTab(REAL_DATA, m_FitParameterWidget, tr("Real Data"));
+    m_tabWidget->insertTab(FIT_PARAMETER, m_FitParameterWidgetOld, tr("Fit Parameters"));
     m_tabWidget->insertTab(RUN_FIT, m_runFitWidget, tr("Run Fit"));
 
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onChangeTabWidget(int)));

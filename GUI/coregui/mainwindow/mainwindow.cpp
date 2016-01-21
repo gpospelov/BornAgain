@@ -132,12 +132,13 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(SIMULATION, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
     m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
 
-    TestView *testView = new TestView();
-    FitView *fitView = new FitView(m_sampleModel, m_instrumentModel, this);
-    m_tabWidget->insertTab(TEST_VIEW, testView, QIcon(":/images/main_simulation.png"), "Run");
-    m_tabWidget->insertTab(FIT_VIEW, fitView, QIcon(":/images/main_jobqueue.png"), "Fit");
 
-    m_tabWidget->setCurrentIndex(FIT_VIEW);
+    // testing fit widgets
+    createFitModel();
+    TestView *testView = new TestView(this);
+    m_tabWidget->insertTab(TEST_VIEW, testView, QIcon(":/images/main_jobqueue.png"), "Fit");
+    m_tabWidget->setCurrentIndex(TEST_VIEW);
+
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);

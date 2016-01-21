@@ -250,7 +250,7 @@ QMimeData* FitModel::mimeData(const QModelIndexList &indices) const
 
             //attach id of immediate predecessor unto the end
             //parentItem = item->parent();
-            ancestors_value.append(item->getRegisteredProperty(ParameterizedItem::P_ID).toString());
+            //ancestors_value.append(item->getRegisteredProperty(ParameterizedItem::P_ID).toString());
 
             item->registerProperty(ancestors, ancestors_value);
 
@@ -439,9 +439,9 @@ bool FitModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
                 if(reader.attributes().value(SessionXML::ParameterNameAttribute).toString() == immediate_predecessor){
                     prev_predecessor = reader.attributes().value(SessionXML::ParameterValueAttribute).toString();
                 }
-                if(reader.attributes().value(SessionXML::ParameterNameAttribute).toString() == ParameterizedItem::P_ID){
+                /*if(reader.attributes().value(SessionXML::ParameterNameAttribute).toString() == ParameterizedItem::P_ID){
                     ID = reader.attributes().value(SessionXML::ParameterValueAttribute).toString();
-                }
+                }*/
             }
 
         }
@@ -538,7 +538,7 @@ ParameterizedItem* FitModel::searchByNameGUID(QString name, QString GUID, QModel
 
                 itemName = parentItem->childAt(i_row)->itemName();
 
-                itemGUID = parentItem->childAt(i_row)->getRegisteredProperty(ParameterizedItem::P_ID).toString();
+                itemGUID = parentItem->childAt(i_row)->getRegisteredProperty(ParameterizedItem::P_PORT).toString();
 
 
                 if(itemName == name && itemGUID == (GUID)){

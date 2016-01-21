@@ -53,7 +53,7 @@ class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
     Q_OBJECT
 
 public:
-    enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, TEST_VIEW, FIT_VIEW};
+    enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, TEST_VIEW};
 
     explicit MainWindow(QWidget *parent = 0);
     virtual ~MainWindow();
@@ -66,6 +66,7 @@ public:
     ActionManager *getActionManager() { return m_actionManager; }
     ProjectManager *getProjectManager() { return m_projectManager; }
     UpdateNotifier *getUpdateNotifier() { return m_updateNotifier; }
+    FitProxyModel *getFitProxyModel() { return m_fitProxyModel; }
 
 public slots:
     void onChangeTabWidget(int index);

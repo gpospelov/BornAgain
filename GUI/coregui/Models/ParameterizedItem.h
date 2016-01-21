@@ -36,7 +36,6 @@ class BA_CORE_API_ ParameterizedItem : public QObject
 public:
     static const QString P_NAME;
     static const QString P_PORT;
-    static const QString P_ID;
     explicit ParameterizedItem(QString model_type = QString(),
                                ParameterizedItem *parent = 0);
 
@@ -141,6 +140,9 @@ public:
     //! retrieves a list of all parameter names in the ParameterizedItem tree starting
     //! with this node and prefixes them
     QStringList getParameterTreeList(QString prefix = "") const;
+
+    //! retrieve value of given parameter name
+    double getParameterValue(const QString &name) const;
 
     //! translates the given parameter name to a domain parameter name
     //! name should start with a child/subitem name or be a direct parameter name

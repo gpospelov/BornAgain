@@ -129,6 +129,12 @@ public:
     //! Returns minimum chi squared value found
     double getChi2() const;
 
+    //! Returns general setting of fit kernel
+    AttFitting &getAttributes();
+
+    //! Sets general setting of fit kernel
+    void setAttributes(const AttFitting &fit_attributes);
+
 private:
     FitSuite& operator=(const FitSuite& );
     FitSuite(const FitSuite& );

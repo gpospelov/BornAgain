@@ -159,4 +159,14 @@ double FitSuite::getChi2() const
     return m_kernel->getFitObjects()->getChiSquaredValue();
 }
 
+AttFitting &FitSuite::getAttributes()
+{
+    return m_kernel->getAttributes();
+}
+
+void FitSuite::setAttributes(const AttFitting &fit_attributes)
+{
+   m_kernel->setAttributes(fit_attributes);
+}
+
 

@@ -40,7 +40,6 @@ class BA_CORE_API_ AttFitting
  private:
     double m_deriv_epsilon;  //! epsilon for derivative calculation
     double m_step_factor; //! default relative parameter step
-    bool m_override_detector_axes; //! Experimental data will override
 };
 
 inline AttFitting::AttFitting()

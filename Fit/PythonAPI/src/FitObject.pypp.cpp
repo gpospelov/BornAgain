@@ -30,7 +30,7 @@ void register_FitObject_class(){
 
     { //::FitObject
         typedef bp::class_< FitObject, bp::bases< IParameterized >, boost::noncopyable > FitObject_exposer_t;
-        FitObject_exposer_t FitObject_exposer = FitObject_exposer_t( "FitObject", "Holds simulation description and real data to run the fit.", bp::init< GISASSimulation const &, OutputData< double > const &, bp::optional< double > >(( bp::arg("simulation"), bp::arg("real_data"), bp::arg("weight")=1 ), "FitObject constructor @param simulaiton The simulation to eun @param real_data The real data @param weight Weight of dataset in chi2 calculations \n\n:Parameters:\n  - 'simulaiton' - The simulation to eun\n  - 'real_data' - The real data\n  - 'weight' - Weight of dataset in chi2 calculations\n") );
+        FitObject_exposer_t FitObject_exposer = FitObject_exposer_t( "FitObject", "Holds simulation description and real data to run the fit.", bp::init< GISASSimulation const &, OutputData< double > const &, bp::optional< double, bool > >(( bp::arg("simulation"), bp::arg("real_data"), bp::arg("weight")=1, bp::arg("adjust_detector_to_data")=(bool)(true) ), "FitObject constructor @param simulaiton The simulation to eun @param real_data The real data @param weight Weight of dataset in chi2 calculations @param adjust_detector_to_data Detector axes will be adjusted to real data axes, if true \n\n:Parameters:\n  - 'simulaiton' - The simulation to eun\n  - 'real_data' - The real data\n  - 'weight' - Weight of dataset in chi2 calculations\n  - 'adjust_detector_to_data' - Detector axes will be adjusted to real data axes, if true\n") );
         bp::scope FitObject_scope( FitObject_exposer );
         { //::FitObject::getRealData
         

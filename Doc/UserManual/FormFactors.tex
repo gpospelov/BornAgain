@@ -13,60 +13,6 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Form factor computations}  \label{SFFcomp}
-
-The Form factor of a hard-shell particle is simply its \E{shape transform},
-as introduced in~(\ref{EFFhardshell}),
-\index{Shape transform}%
-\begin{equation}\label{EFF_SFF2}
-  F(\q)=\int_V {\rm d}^3r\, {\rm e}^{i\q\r},
-\end{equation}
-where $V$ delimits the volume of the particle.
-Here we show for a few selected cases
-how to bring the analytical solution of this integral into a form
- suitable for speedy and stable computation.
-This background material probably is of interest only for
-developers who want to add some more form factors to \BornAgain's collection
-(catalogued in App.~\ref{SFF}).
-
-\index{Form factor!bound for absolute value}%
-From~(\ref{EFF_SFF2}), it is immediately clear that~$F(\q)$ is bounded by
-\begin{equation}
-  |F(\q)|\le V,
-\end{equation}
-with equality holding for~$\q=0$.
-This excludes the presence of nonremovable singularities.
-However, analytical solutions of~(\ref{EFF_SFF2}) do contain
-removable singularities.
-These singularities must be investigated closely
-in order to prevent floating-point errors and ill conditioned computations.
-
-\index{Form factor!singularities}%
-It seems that \E{all} analytical form factors have a singularity at~$\q=0$.
-Furthermore, if the particle has \E{plane} surfaces,
-then there is a singularity for all $\q$ that lie in one of these planes.
-A simple example is provided by the cuboid form factor (Sect.~\ref{SBox})
-\begin{equation}
-F= L W H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x \frac{L}{2}\right)
-\sinc\left(q_y \frac{W}{2}\right) \sinc\left(q_z \frac{H}{2}\right).
-\end{equation}
-If the \E{sinus cardinalis} is written as
-\begin{equation}
-  \sinc(u) = \frac{\sin(u)}{u},
-\end{equation}
-then there appears to be a singularity at $u=0$.
-Applying L'Hôpital's rule, it is obvious
-that this singularity can be removed by the interpolated value
-$\sinc(0)=1$,
-which is of course part of the definition of the special function~$\sinc$.
-
-However, if a particle has planes that do not coincide with
-the $xy$, $xz$, or~$yz$ planes of the Cartesian coordinate system,
-then the straightforward analytical solution of~(\ref{EFF_SFF2})
-results in messy expressions that obscure the symmetries of~$F(\q)$,
-and make it difficult to recognize the singularities and
-to remove them.
-
 \chapter{Form factor library}  \label{SFF}
 
 % Don't number subfigures in this chapter.
@@ -279,6 +225,8 @@ than in the preceding one-quadrant representation.}
 \label{F4quadrants}
 \end{figure}
 
+\index{Shape transform!catalogue|(}
+\index{Form factor!catalogue|(}
 
 %===============================================================================
 \ffsection{AnisoPyramid (rectangle-based)} \label{SAnisoPyramid} 
@@ -1656,6 +1604,5 @@ Agrees with the \IsGISAXS\ form factor
 % Note an erroneous factor~2 in the expression of the volume
 % in the \Code{IsGISAXS} manual.
 
-
-\index{Shape transform|)}
-\index{Form factor|)}
+\index{Shape transform!catalogue|)}
+\index{Form factor!catalogue|)}

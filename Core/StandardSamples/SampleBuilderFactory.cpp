@@ -101,11 +101,6 @@ SampleBuilderFactory::SampleBuilderFactory()
         "2D lattice rotated");
 
     registerItem(
-        "CustomRotatedLatticeBuilder",
-        IFactoryCreateFunction<CustomRotatedLatticeBuilder, ISampleBuilder>,
-        "2D lattice variants");
-
-    registerItem(
         "CustomMorphologyBuilder",
         IFactoryCreateFunction<CustomMorphologyBuilder, ISampleBuilder>,
         "Mixture of different particles a la IsGISAXS morphology file");

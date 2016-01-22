@@ -53,24 +53,4 @@ public:
     ISample *buildSample() const;
 };
 
-//! @class CustomRotatedLatticeBuilder
-//! @ingroup standard_samples
-//! @brief Builds sample: 2D lattice with different disorder (IsGISAXS example #6)
-
-class BA_CORE_API_ CustomRotatedLatticeBuilder : public ISampleBuilder
-{
-public:
-    CustomRotatedLatticeBuilder();
-    ISample *buildSample() const;
-
-protected:
-    void init_parameters();
-
-private:
-    double m_xi;
-
-};
-
-
-
 #endif // ISGISAXS06BUILDER_H

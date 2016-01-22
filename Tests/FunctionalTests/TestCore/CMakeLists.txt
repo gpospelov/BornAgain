@@ -54,7 +54,6 @@ set(list_of_tests
     "CoreSuite/SimulationWithMasks"
     "BatchSimulation"
     "PolDWBAMagCylinders2"
-    "CustomRotatedLattice"
 )
 
 

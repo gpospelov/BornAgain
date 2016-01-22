@@ -99,7 +99,7 @@ protected:
 
 private:
     //! Returns interference function for fixed angle xi.
-    double interferenceForXi(double xi, void *params) const;
+    double interferenceForXi(double xi) const;
 
     //! Returns interference function for fixed xi in the dimension determined by the given index.
     double interference1D(double qx, double qy, double xi, size_t index) const;

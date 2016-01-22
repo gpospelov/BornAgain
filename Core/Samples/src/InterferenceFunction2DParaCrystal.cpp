@@ -84,10 +84,10 @@ double InterferenceFunction2DParaCrystal::evaluate(const kvector_t& q) const
     if (m_integrate_xi) {
         auto integrator
             = make_integrator(this, &InterferenceFunction2DParaCrystal::interferenceForXi);
-        result = integrator->integrate(0.0, Units::PI2, nullptr)/Units::PI2;
+        result = integrator->integrate(0.0, Units::PI2)/Units::PI2;
    }
     else {
-        result = interferenceForXi(m_lattice_params.m_xi, nullptr);
+        result = interferenceForXi(m_lattice_params.m_xi);
     }
     return result;
 }
@@ -172,7 +172,7 @@ void InterferenceFunction2DParaCrystal::init_parameters()
     registerParameter(DomainSize2, &m_domain_sizes[1]);
 }
 
-double InterferenceFunction2DParaCrystal::interferenceForXi(double xi, void *) const
+double InterferenceFunction2DParaCrystal::interferenceForXi(double xi) const
 {
     double result = interference1D(m_qx, m_qy, xi, 0)*interference1D(m_qx, m_qy,
             xi + m_lattice_params.m_angle, 1);

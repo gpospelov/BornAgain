@@ -15,15 +15,57 @@
 
 \chapter{Form factor computations}  \label{SFFcomp}
 
-\BornAgain\ supports embedded nanoparticles of various shapes.
-A catalogue of implemented shapes is provided in Appendix~\ref{SFF}.
-Here we give some background on how the particle form factor is computed.
+The Form factor of a hard-shell particle is simply its \E{shape transform},
+as introduced in~(\ref{EFFhardshell}),
+\index{Shape transform}%
+\begin{equation}\label{EFF_SFF2}
+  F(\q)=\int_V {\rm d}^3r\, {\rm e}^{i\q\r},
+\end{equation}
+where $V$ delimits the volume of the particle.
+Here we show for a few selected cases
+how to bring the analytical solution of this integral into a form
+ suitable for speedy and stable computation.
+This background material probably is of interest only for
+developers who want to add some more form factors to \BornAgain's collection
+(catalogued in App.~\ref{SFF}).
 
-The form factor~$F(\q)$ of a hard-shell particle depends
-only on the particle's shape~$S(\r)$, and therefore is also called
-the \E{shape transform}:
-\nomenclature[2t020]{$S(\r)$}{Shape of nanoparticle}%
+\index{Form factor!bound for absolute value}%
+From~(\ref{EFF_SFF2}), it is immediately clear that~$F(\q)$ is bounded by
+\begin{equation}
+  |F(\q)|\le V,
+\end{equation}
+with equality holding for~$\q=0$.
+This excludes the presence of nonremovable singularities.
+However, analytical solutions of~(\ref{EFF_SFF2}) do contain
+removable singularities.
+These singularities must be investigated closely
+in order to prevent floating-point errors and ill conditioned computations.
 
+\index{Form factor!singularities}%
+It seems that \E{all} analytical form factors have a singularity at~$\q=0$.
+Furthermore, if the particle has \E{plane} surfaces,
+then there is a singularity for all $\q$ that lie in one of these planes.
+A simple example is provided by the cuboid form factor (Sect.~\ref{SBox})
+\begin{equation}
+F= L W H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x \frac{L}{2}\right)
+\sinc\left(q_y \frac{W}{2}\right) \sinc\left(q_z \frac{H}{2}\right).
+\end{equation}
+If the \E{sinus cardinalis} is written as
+\begin{equation}
+  \sinc(u) = \frac{\sin(u)}{u},
+\end{equation}
+then there appears to be a singularity at $u=0$.
+Applying L'Hôpital's rule, it is obvious
+that this singularity can be removed by the interpolated value
+$\sinc(0)=1$,
+which is of course part of the definition of the special function~$\sinc$.
+
+However, if a particle has planes that do not coincide with
+the $xy$, $xz$, or~$yz$ planes of the Cartesian coordinate system,
+then the straightforward analytical solution of~(\ref{EFF_SFF2})
+results in messy expressions that obscure the symmetries of~$F(\q)$,
+and make it difficult to recognize the singularities and
+to remove them.
 
 \chapter{Form factor library}  \label{SFF}
 
@@ -62,6 +104,24 @@ cause our analytic form factors to trivially deviate
 from expressions given in the \IsGISAXS\ manual \cite[Sect.~2.3]{Laz08}
 or in the literature \cite[Appendix]{ReLL09}.
 
+The particles can be rotated in a different direction by using one of
+the following transformations: \Code{CreateRotateX($\theta$),
+  CreateRotateY($\theta$), CreateRotateZ($\theta$)}, where capital X, Y, Z mark rotations
+around the associated axis and $\theta$ is the
+angle of rotation from this axis. For example, the following \Code{Python}\ script shows how to rotate a pyramid by $45^{\circ}$ around
+the $z$-axis:\\
+
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+    pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73 ) )
+    pyramid = Particle(m_particle, pyramid_ff)
+    angle_around_z = 45.*degree
+    transform = Transform3D.createRotateZ(angle_around_z)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(pyramid, transform) 
+\end{lstlisting}
+
+\Tuto{Particle rotation is demonstrated in the example~\tuto{61}{rotated pyramids}.}
+
 We recomputed all expressions to make sure
 that they also hold for complex scattering vectors,
 used to describe in order to take any material absorption into account.
@@ -74,6 +134,8 @@ for tilted particles
 $F(\v{\tilde{q}})$ needs to be computed with
 a rotated scattering vector~$\v{\tilde q}$
 that may be complex in all three components.}
+Some background information on the form factor computations is
+given in App.~\ref{SFFcomp}.
 
 The following tables summarize the implemented particle geometries,
  roughly ordered by decreasing symmetry.
@@ -124,23 +186,8 @@ Shape&Name&Symmetry&Parameters&Reference\\\hline
 
 \index{Rotation of particles}
 \index{Orientation of particles}
-
-The particles can be rotated in a different direction by using one of
-the following transformations: \Code{CreateRotateX($\theta$),
-  CreateRotateY($\theta$), CreateRotateZ($\theta$)}, where capital X, Y, Z mark rotations
-around the associated axis and $\theta$ is the
-angle of rotation from this axis. For example, the following \Code{Python}\ script shows how to rotate a pyramid by $45^{\circ}$ around
-the $z$-axis:\\
-
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
-    pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73 ) )
-    pyramid = Particle(m_particle, pyramid_ff)
-    angle_around_z = 45.*degree
-    transform = Transform3D.createRotateZ(angle_around_z)
-    particle_layout = ParticleLayout()
-    particle_layout.addParticle(pyramid, transform) 
-\end{lstlisting}
-
+\index{CreateRotateX@\Code{CreateRotateX|Y|Z}}
+\index{Transform3D@\Code{Transform3D}}
 
 In the following subsections,
 information about the implemented geometries is given in standardized form.

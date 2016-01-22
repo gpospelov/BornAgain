@@ -54,14 +54,14 @@ We recomputed all expressions to make sure
 that they also hold for complex scattering vectors,
 used to describe in order to take any material absorption into account.
 The implementation in \BornAgain\ allows all three components
-of~$\q$ to be complex.
-According to Sect.~\ref{Smulayabs},
+of~$\q$ to be complex.\footnote
+{According to Sect.~\ref{Smulayabs},
 only the vertical components of $\k_\ti$ and $\k_\tf$ can have imaginary parts.
 However,
-to account for a tilt of the particle,
-it may be necessary to evaluate $F(\v{\tilde q})$ with
+for tilted particles
+$F(\v{\tilde{q}})$ needs to be computed with
 a rotated scattering vector~$\v{\tilde q}$
-that has complex $\tilde q_x$ or~$\tilde q_y$.
+that may be complex in all three components.}
 
 The following tables summarize the implemented particle geometries,
  roughly ordered by decreasing symmetry.
@@ -366,7 +366,7 @@ except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
   \index{Truncated cone (form factor)}
   \index{FormFactorCone@\Code{FormFactorCone}}
 
-\paragraph{Real-space geometry}
+\paragraph{Real-space geometry}\strut\\
 
 \begin{figure}[H]
 \hfill
@@ -449,7 +449,7 @@ except for a substitution $z\to\rho$ in our expression for~$F$.
 \hfill
 \subfigure[Side view]{\raisebox{5mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Cone62dxz.pdf}}}
 \hfill
-\caption{A truncated hexagonal pyramid.}
+\caption{A truncated pyramid, based on a regular hexagon}
 \end{figure}
 
 \FloatBarrier
@@ -766,7 +766,7 @@ computed with $R=3.9$~nm.}
 \end{figure}
 
 \paragraph{References}\strut\\
-This form factor, which certainly goes back at least to Lord Rayleigh,
+This form factor, which goes back at least to Lord Rayleigh,
 agrees with the \E{Full sphere} of \IsGISAXS
 \cite[Eq.~2.36]{Laz08} \cite[Eq.~226]{ReLL09}.
 
@@ -1262,6 +1262,9 @@ Agrees with the \E{Ripple2} form factor of \FitGISAXS\ \cite{Bab13}.
  
 \paragraph{Real-space geometry}\strut\\
 
+\noindent
+Incorrectly named so, since it actually has five, not four surfaces.
+
 \begin{figure}[H]
 \hfill
 \subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Tetrahedron3d.png}}
@@ -1270,7 +1273,7 @@ Agrees with the \E{Ripple2} form factor of \FitGISAXS\ \cite{Bab13}.
 \hfill
 \subfigure[Side view]{\raisebox{5mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Tetrahedron2dxz.pdf}}}
 \hfill
-\caption{A truncated tetrahedron.}
+\caption{A truncated pyramid, based on an equilateral triangle.}
 \end{figure}
 
 \FloatBarrier

@@ -55,6 +55,9 @@ public:
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;
 
+    //! Returns the particle density associated with this 2d lattice
+    virtual double getParticleDensity() const;
+
 protected:
     //! Returns interference from a single reciprocal lattice vector
     double interferenceAtOneRecLatticePoint(double qx, double qy) const;

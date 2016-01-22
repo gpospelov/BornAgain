@@ -116,6 +116,15 @@ std::string InterferenceFunction2DParaCrystal::addParametersToExternalPool(
     return new_path;
 }
 
+double InterferenceFunction2DParaCrystal::getParticleDensity() const
+{
+    double area = getUnitCellArea(m_lattice_params);
+    if (area == 0.0) {
+        return 0.0;
+    }
+    return 1.0/area;
+}
+
 InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::
     createSquare(double peak_distance, double damping_length, double domain_size_1,
         double domain_size_2)

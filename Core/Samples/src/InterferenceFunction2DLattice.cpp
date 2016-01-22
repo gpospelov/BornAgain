@@ -132,6 +132,15 @@ std::string InterferenceFunction2DLattice::addParametersToExternalPool(
     return new_path;
 }
 
+double InterferenceFunction2DLattice::getParticleDensity() const
+{
+    double area = getUnitCellArea(m_lattice_params);
+    if (area == 0.0) {
+        return 0.0;
+    }
+    return 1.0/area;
+}
+
 double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx, double qy) const
 {
     if (!mp_pdf) {

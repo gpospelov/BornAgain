@@ -19,6 +19,7 @@
 #include "Exceptions.h"
 #include "Histogram1D.h"
 #include "Histogram2D.h"
+#include "IntensityDataIOFactory.h"
 #include <sstream>
 #include <boost/scoped_ptr.hpp>
 
@@ -319,6 +320,20 @@ std::vector<double> IHistogram::getDataVector(IHistogram::DataType dataType) con
     return result;
 }
 
+//! Copy content (but not the axes) from other histogram. Dimensions should be the same.
+void IHistogram::copyContentFrom(const IHistogram &other)
+{
+    if(!hasSameDimensions(other)) {
+        throw LogicErrorException("IHistogram::copyContentFrom() -> Error. "
+                                  "Can't copy the data of different shape.");
+    }
+    reset();
+    for(size_t i=0; i<getTotalNumberOfBins(); ++i) {
+        m_data[i] = other.m_data[i];
+    }
+
+}
+
 //! creates new OutputData with histogram's shape and put there values corresponding to DataType
 OutputData<double> *IHistogram::createOutputData(IHistogram::DataType dataType) const
 {
@@ -353,24 +368,6 @@ const IHistogram &IHistogram::operator+=(const IHistogram &right)
     return *this;
 }
 
-//IHistogram *IHistogram::createRelativeDifferenceHistogram(const IHistogram &lhs,
-//                                                          const IHistogram &rhs)
-//{
-//    if(!rhs.hasSameDimensions(rhs)) {
-//        throw LogicErrorException("IHistogram::createRelativeDifferenceHistogram() -> Error. "
-//                                  "Histograms have different dimension");
-//    }
-
-//    IHistogram *result = rhs.clone();
-//    result->reset();
-
-//    for(size_t i=0; i<rhs.getTotalNumberOfBins(); ++i) {
-//        double diff = Numeric::get_relative_difference(lhs.getBinContent(i), rhs.getBinContent(i));
-//        result->setBinContent(i, diff);
-//    }
-//    return result;
-//}
-
 IHistogram *IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
 {
     if(!hasSameDimensions(rhs)) {
@@ -386,4 +383,15 @@ IHistogram *IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
         result->setBinContent(i, diff);
     }
     return result;
+}
+
+void IHistogram::save(const std::string &filename)
+{
+    IntensityDataIOFactory::writeIntensityData(*this, filename);
+}
+
+void IHistogram::load(const std::string &filename)
+{
+    boost::scoped_ptr<IHistogram> hist(IntensityDataIOFactory::readIntensityData(filename));
+    copyContentFrom(*hist);
 }

@@ -47,6 +47,9 @@ public:
     //! Returns simulated data.
     const OutputData<double> *getSimulationData() const;
 
+    //! Returns simulation
+    const GISASSimulation *getSimulation() const;
+
     //! Returns weight of data set in chi2 calculations.
     double getWeight() const;
 

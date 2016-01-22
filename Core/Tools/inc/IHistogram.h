@@ -181,16 +181,23 @@ public:
     //! Returns true if objects a) have same dimensions b) bin boundaries of axes coincide
     bool hasSameShape(const IHistogram& other) const;
 
-    //! Returns true if object have same dimensions and number of axes bins
+    //! Returns true if object have same rank and number of axes bins
     bool hasSameDimensions(const IHistogram& other) const;
 
     //! addition-assignment operator for two histograms
     const IHistogram& operator+=(const IHistogram& right);
 
     //! returns histogram representing relative difference of two histograms.
-//    static IHistogram *createRelativeDifferenceHistogram(const IHistogram &lhs,
-//                                                         const IHistogram &rhs);
     IHistogram *relativeDifferenceHistogram(const IHistogram &rhs);
+
+    //! Saves histogram in file
+    //! Following formats are available: *.txt, *.tif, *.int (*.txt.gz, *.tif.gz, *.int.gz)
+    void save(const std::string &filename);
+
+    //! Loads histogram from file, the shape of array in file should match
+    //! Following formats are available: *.txt, *.tif, *.int (*.txt.gz, *.tif.gz, *.int.gz)
+    //! Only bin content will be loaded, histogram axes remain the same.
+    void load(const std::string &filename);
 
 protected:
     void check_x_axis() const;
@@ -198,6 +205,7 @@ protected:
     void init_from_data(const OutputData<double> &source);
     double getBinData(size_t globalbin, DataType dataType) const;
     std::vector<double> getDataVector(DataType dataType) const;
+    void copyContentFrom(const IHistogram &other);
     OutputData<CumulativeValue> m_data;
 };
 

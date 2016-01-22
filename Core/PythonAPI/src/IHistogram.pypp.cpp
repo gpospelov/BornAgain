@@ -454,7 +454,7 @@ void register_IHistogram_class(){
                 "hasSameDimensions"
                 , hasSameDimensions_function_type( &::IHistogram::hasSameDimensions )
                 , ( bp::arg("other") )
-                , "Returns true if object have same dimensions and number of axes bins." );
+                , "Returns true if object have same rank and number of axes bins." );
         
         }
         { //::IHistogram::hasSameShape
@@ -478,6 +478,17 @@ void register_IHistogram_class(){
                 , "Returns integral of bins content (computed as a sum of all bin content)." );
         
         }
+        { //::IHistogram::load
+        
+            typedef void ( ::IHistogram::*load_function_type)( ::std::string const & ) ;
+            
+            IHistogram_exposer.def( 
+                "load"
+                , load_function_type( &::IHistogram::load )
+                , ( bp::arg("filename") )
+                , "Loads histogram from file, the shape of array in file should match Following formats are available: *.txt, *.tif, *.int (*.txt.gz, *.tif.gz, *.int.gz) Only bin content will be loaded, histogram axes remain the same. " );
+        
+        }
         IHistogram_exposer.def( bp::self += bp::self );
         { //::IHistogram::relativeDifferenceHistogram
         
@@ -499,6 +510,17 @@ void register_IHistogram_class(){
                 "reset"
                 , reset_function_type( &::IHistogram::reset )
                 , "Reset histogram content (axes remains)." );
+        
+        }
+        { //::IHistogram::save
+        
+            typedef void ( ::IHistogram::*save_function_type)( ::std::string const & ) ;
+            
+            IHistogram_exposer.def( 
+                "save"
+                , save_function_type( &::IHistogram::save )
+                , ( bp::arg("filename") )
+                , "Saves histogram in file Following formats are available: *.txt, *.tif, *.int (*.txt.gz, *.tif.gz, *.int.gz) " );
         
         }
         { //::IHistogram::scale

@@ -56,6 +56,11 @@ const OutputData<double> *FitObject::getSimulationData() const
     return m_simulation_data.get();
 }
 
+const GISASSimulation *FitObject::getSimulation() const
+{
+    return m_simulation.get();
+}
+
 
 //! Adds parameters from local pool to external pool
 std::string FitObject::addParametersToExternalPool(
@@ -75,36 +80,6 @@ std::string FitObject::addParametersToExternalPool(
 //! Initialize detector, if necessary, to match experimental data
 void FitObject::init_dataset()
 {
-//    if(m_adjust_detector_to_data) {
-//        if(!same_dimensions_dataset()) {
-//            if(is_possible_to_adjust_simulation()) {
-//                m_simulation->setDetectorParameters(*m_real_data);
-//            } else {
-//                throw LogicErrorException(message.str());
-
-
-//            }
-//        }
-
-//    } else {
-//        std::cout << "XXX 1.3" << std::endl;
-//        if( !same_dimensions_dataset()) {
-//            std::cout << "XXX 1.4" << std::endl;
-//            std::ostringstream message;
-//            message << "FitObject::init_dataset() -> Error. "
-//                    << "Real data and detector have different shape. \n"
-//                    << "    Real data axes -> ";
-//            for(size_t i=0; i<m_real_data->getRank(); ++i) {
-//                message << "#"<< i << ": " << (*m_real_data->getAxis(i)) << " ";
-//            }
-//            message << "\n    Detector axes  -> ";
-//            for(size_t i=0; i<m_simulation->getOutputData()->getRank(); ++i) {
-//                message << "#"<< i << ": " << (*m_simulation->getOutputData()->getAxis(i)) << " ";
-//            }
-//            throw LogicErrorException(message.str());
-//        }
-//    }
-
     if(!same_dimensions_dataset()) {
         if(m_adjust_detector_to_data && is_possible_to_adjust_simulation()) {
             m_simulation->setDetectorParameters(*m_real_data);
@@ -114,11 +89,6 @@ void FitObject::init_dataset()
     }
 
 }
-
-//bool FitObject::same_shape_dataset() const
-//{
-//    return m_real_data->hasSameShape(*m_simulation->getOutputData());
-//}
 
 bool FitObject::same_dimensions_dataset() const
 {
@@ -176,7 +146,6 @@ void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double
                                    IIntensityNormalizer *normalizer)
 {
     m_simulation->runSimulation();
-//    m_simulation->normalize();
     m_simulation_data.reset(m_simulation->getDetectorIntensity());
 
     if(normalizer) {

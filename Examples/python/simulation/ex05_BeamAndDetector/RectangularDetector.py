@@ -88,7 +88,7 @@ def plot_results(result_sph, result_rect):
     cb = plt.colorbar(im, pad = 0.025)
     plt.xlabel(r'$\phi_f ^{\circ}$', fontsize=16)
     plt.ylabel(r'$\alpha_f ^{\circ}$', fontsize=16)
-    plt.text(0.0, 5.3, "Spherical detector", horizontalalignment='center', verticalalignment='center', fontsize=11)
+    plt.title("Spherical detector")
 
     # showing  result of rectangular detector simulation
     plt.subplot(1, 3, 2)
@@ -99,7 +99,7 @@ def plot_results(result_sph, result_rect):
     cb = plt.colorbar(im, pad = 0.025)
     plt.xlabel('X, mm', fontsize=12)
     plt.ylabel('Y, mm', fontsize=12)
-    plt.text(90.0, 186.0, "Rectangular detector", horizontalalignment='center', verticalalignment='center', fontsize=11)
+    plt.title("Rectangular detector")
 
     # showing relative difference between two plots (sph[i]-rect[i])/rect[i] for every detector pixel
     diff = result_sph.relativeDifferenceHistogram(result_rect)
@@ -111,7 +111,7 @@ def plot_results(result_sph, result_rect):
     cb = plt.colorbar(im, pad=0.025)
     plt.xlabel('X, mm', fontsize=12)
     plt.ylabel('Y, mm', fontsize=12)
-    plt.text(90.0, 186.0, "Relative difference", horizontalalignment='center', verticalalignment='center', fontsize=11)
+    plt.title("Relative difference")
 
     plt.subplots_adjust(left=0.05, right=0.95, top=0.88, bottom=0.12)
     plt.show()

@@ -43,6 +43,17 @@ void register_FitObject_class(){
                 , "Returns real (experimental) data." );
         
         }
+        { //::FitObject::getSimulation
+        
+            typedef ::GISASSimulation const * ( ::FitObject::*getSimulation_function_type)(  ) const;
+            
+            FitObject_exposer.def( 
+                "getSimulation"
+                , getSimulation_function_type( &::FitObject::getSimulation )
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns simulation." );
+        
+        }
         { //::FitObject::getSimulationData
         
             typedef ::OutputData< double > const * ( ::FitObject::*getSimulationData_function_type)(  ) const;

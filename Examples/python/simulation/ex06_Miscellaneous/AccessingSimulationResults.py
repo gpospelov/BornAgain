@@ -127,15 +127,15 @@ def save_to_file(result):
     """
     Saves intensity data into file
     """
-    IntensityDataIOFactory.writeIntensityData(result, "result.txt")
-    IntensityDataIOFactory.writeIntensityData(result, "result.tif")
-    IntensityDataIOFactory.writeIntensityData(result, "result.int")
-    IntensityDataIOFactory.writeIntensityData(result, "result.txt.gz")
-    IntensityDataIOFactory.writeIntensityData(result, "result.tif.gz")
-    IntensityDataIOFactory.writeIntensityData(result, "result.int.gz")
-    IntensityDataIOFactory.writeIntensityData(result, "result.txt.bz2")
-    IntensityDataIOFactory.writeIntensityData(result, "result.tif.bz2")
-    IntensityDataIOFactory.writeIntensityData(result, "result.int.bz2")
+    result.save("result.int")
+    result.save("result.tif")
+    result.save("result.txt")
+    result.save("result.int.gz")
+    result.save("result.tif.gz")
+    result.save("result.txt.gz")
+    result.save("result.int.bz2")
+    result.save("result.tif.bz2")
+    result.save("result.txt.bz2")
 
 
 def plot_results(result):

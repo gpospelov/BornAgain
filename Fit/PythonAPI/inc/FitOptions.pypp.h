@@ -15,9 +15,9 @@
 //
 // ************************************************************************** //
 
-#ifndef AttFitting_hpp__pyplusplus_wrapper
-#define AttFitting_hpp__pyplusplus_wrapper
+#ifndef FitOptions_hpp__pyplusplus_wrapper
+#define FitOptions_hpp__pyplusplus_wrapper
 
-void register_AttFitting_class();
+void register_FitOptions_class();
 
-#endif//AttFitting_hpp__pyplusplus_wrapper
+#endif//FitOptions_hpp__pyplusplus_wrapper

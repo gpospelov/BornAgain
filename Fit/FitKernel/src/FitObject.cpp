@@ -18,25 +18,28 @@
 #include "Exceptions.h"
 #include "MessageService.h"
 #include "IIntensityNormalizer.h"
+#include <sstream>
 #include <boost/scoped_ptr.hpp>
 
-FitObject::FitObject(
-    const GISASSimulation& simulation, const OutputData<double >& real_data,
-    double weight)
+FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double >& real_data,
+    double weight, bool adjust_detector_to_data)
     : m_simulation(simulation.clone())
     , m_real_data(real_data.clone())
     , m_weight(weight)
+    , m_adjust_detector_to_data(adjust_detector_to_data)
 {
     setName("FitObject");
-    if( !m_real_data->hasSameShape(*m_simulation->getOutputData()) ) {
-        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. "
-            "Real data and output data in the simulation have different shape. "
-            "Adjusting simulation's detector.";
-    } else {
-        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. "
-            "Real data and output data in the simulation have same shape.";
-    }
-    m_simulation->setDetectorParameters(*m_real_data);
+//    if( !m_real_data->hasSameShape(*m_simulation->getOutputData()) ) {
+//        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. "
+//            "Real data and output data in the simulation have different shape. "
+//            "Adjusting simulation's detector.";
+//    } else {
+//        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. "
+//            "Real data and output data in the simulation have same shape.";
+//    }    
+//    m_simulation->setDetectorParameters(*m_real_data);
+
+    init_dataset();
 }
 
 FitObject::~FitObject()
@@ -53,6 +56,11 @@ const OutputData<double> *FitObject::getSimulationData() const
     return m_simulation_data.get();
 }
 
+const GISASSimulation *FitObject::getSimulation() const
+{
+    return m_simulation.get();
+}
+
 
 //! Adds parameters from local pool to external pool
 std::string FitObject::addParametersToExternalPool(
@@ -67,6 +75,57 @@ std::string FitObject::addParametersToExternalPool(
         m_simulation->addParametersToExternalPool(new_path, external_pool, -1);
 
     return new_path;
+}
+
+//! Initialize detector, if necessary, to match experimental data
+void FitObject::init_dataset()
+{
+    if(!same_dimensions_dataset()) {
+        if(m_adjust_detector_to_data && is_possible_to_adjust_simulation()) {
+            m_simulation->setDetectorParameters(*m_real_data);
+        } else {
+            throw LogicErrorException(get_error_message());
+        }
+    }
+
+}
+
+bool FitObject::same_dimensions_dataset() const
+{
+    return m_real_data->hasSameDimensions(*m_simulation->getOutputData());
+}
+
+//! returns true if it is possible to adjust detector axes to the axes of real data
+//! * rank of two data should coinside
+//! * for every axis, number of real data axis bins should be not large than simulation axis
+//! * for every axis, (min,max) values of real axis should be inside simulation axis
+bool FitObject::is_possible_to_adjust_simulation() const
+{
+    if(m_simulation->getOutputData()->getRank() != m_real_data->getRank()) return false;
+    for(size_t i=0; i<m_real_data->getRank(); ++i) {
+        const IAxis *ra = m_real_data->getAxis(i);
+        const IAxis *sa = m_simulation->getOutputData()->getAxis(i);
+        if(ra->getSize() > sa->getSize()) return false;
+        if(ra->getMin() < sa->getMin()) return false;
+        if(ra->getMax() > sa->getMax()) return false;
+    }
+    return true;
+}
+
+std::string FitObject::get_error_message() const
+{
+    std::ostringstream message;
+    message << "FitObject::init_dataset() -> Error. "
+            << "Real data and detector have different shape. \n"
+            << "Real data axes -> ";
+    for(size_t i=0; i<m_real_data->getRank(); ++i) {
+        message << "#"<< i << ": " << (*m_real_data->getAxis(i)) << " ";
+    }
+    message << "\nDetector axes  -> ";
+    for(size_t i=0; i<m_simulation->getOutputData()->getRank(); ++i) {
+        message << "#"<< i << ": " << (*m_simulation->getOutputData()->getAxis(i)) << " ";
+    }
+    return message.str();
 }
 
 double FitObject::getWeight() const
@@ -87,7 +146,6 @@ void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double
                                    IIntensityNormalizer *normalizer)
 {
     m_simulation->runSimulation();
-//    m_simulation->normalize();
     m_simulation_data.reset(m_simulation->getDetectorIntensity());
 
     if(normalizer) {

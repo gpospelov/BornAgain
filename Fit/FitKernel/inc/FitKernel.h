@@ -16,7 +16,7 @@
 #ifndef FITKERNEL_H
 #define FITKERNEL_H
 
-#include "AttFitting.h"
+#include "FitOptions.h"
 #include "FitSuiteFunctions.h"
 #include "FitSuiteObjects.h"
 #include "FitSuiteParameters.h"
@@ -47,7 +47,8 @@ class BA_CORE_API_ FitKernel
 
     //! Adds pair of (simulation, real data) for consecutive simulation
     void addSimulationAndRealData(const GISASSimulation& simulation,
-                                  const OutputData<double>& real_data);
+                                  const OutputData<double>& real_data,
+                                  double weight);
 
     //! Adds fit parameter
     void addFitParameter(const std::string& name, double value,
@@ -91,8 +92,8 @@ class BA_CORE_API_ FitKernel
     //! Prints results of the screen
     void printResults() const;
 
-    AttFitting &getAttributes();
-    void setAttributes(const AttFitting &fit_attributes) { m_fit_attributes = fit_attributes; }
+    FitOptions &getOptions();
+    void setOptions(const FitOptions &fit_options);
 
     //! Returns total wall time in seconds which was spend for run fit
     double getRunTime() const;
@@ -106,7 +107,7 @@ class BA_CORE_API_ FitKernel
     bool check_prerequisites() const;
     void link_fit_parameters();
 
-    AttFitting m_fit_attributes;
+    FitOptions m_fit_options;
     FitSuiteObjects m_fit_objects;
     FitSuiteParameters m_fit_parameters;
     FitSuiteStrategies m_fit_strategies;

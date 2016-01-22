@@ -36,11 +36,11 @@ public:
 
     //! Assigns pair of (simulation, real data) for fitting. More than one pair can be added.
     void addSimulationAndRealData(const GISASSimulation& simulation,
-                                  const OutputData<double>& real_data);
+                                  const OutputData<double>& real_data, double weight=1);
 
     //! Assigns pair of (simulation, real data) for fitting. More than one pair can be added.
     void addSimulationAndRealData(const GISASSimulation& simulation,
-                                  const IHistogram& real_data);
+                                  const IHistogram& real_data, double weight=1);
 
     //! Adds fit parameter
     //! @param name The name of fit parameter
@@ -128,6 +128,12 @@ public:
 
     //! Returns minimum chi squared value found
     double getChi2() const;
+
+    //! Returns general setting of fit kernel
+    FitOptions &getOptions();
+
+    //! Sets general setting of fit kernel
+    void setOptions(const FitOptions &fit_options);
 
 private:
     FitSuite& operator=(const FitSuite& );

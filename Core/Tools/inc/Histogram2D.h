@@ -34,7 +34,7 @@ typedef _object PyObject;
 class BA_CORE_API_ Histogram2D : public IHistogram
 {
 public:
-    //! Constructor for fix bin size histograms.
+    //! @brief Constructor for fix bin size histograms.
     //! @param nbinsx number of bins on X-axis
     //! @param xlow low edge of the first bin of X-axis
     //! @param xup upper edge of the last bin of X-axis
@@ -43,7 +43,7 @@ public:
     //! @param yup upper edge of the last bin of Y-axis
     Histogram2D(int nbinsx, double xlow, double xup, int nbinsy, double ylow, double yup);
 
-    //! Constructor for variable bin size histograms.
+    //! @brief Constructor for variable bin size histograms.
     //! @param nbinsx number of bins on X-axis
     //! @param xbins Array of size nbins+1 containing low-edges for each
     //! bin and upper edge of last bin.
@@ -71,12 +71,12 @@ public:
     //! from all bins along y-axis.
     Histogram1D *projectionX();
 
-    //! Project a 2D histogram into 1D histogram along X. The projection is made
+    //! @brief Project a 2D histogram into 1D histogram along X. The projection is made
     //! from the y-bin closest to given ordinate yvalue.
     //! @param yvalue the value on y-axis at which projection is taken
     Histogram1D *projectionX(double yvalue);
 
-    //! Project a 2D histogram into 1D histogram along X. The projection is made from
+    //! @brief Project a 2D histogram into 1D histogram along X. The projection is made from
     //! all y-bins corresponding to ordinate between ylow and yup.
     //! @param ylow lower edje on y-axis
     //! @param yup upper edje on y-axis
@@ -86,12 +86,12 @@ public:
     //! from all bins along x-axis.
     Histogram1D *projectionY();
 
-    //! Project a 2D histogram into 1D histogram along Y. The projection is made
+    //! @brief Project a 2D histogram into 1D histogram along Y. The projection is made
     //! from the x-bin closest to given abscissa xvalue.
     //! @param xvalue the value on x-axis at which projection is taken
     Histogram1D *projectionY(double xvalue);
 
-    //! Project a 2D histogram into 1D histogram along Y. The projection is made from
+    //! @brief Project a 2D histogram into 1D histogram along Y. The projection is made from
     //! all x-bins corresponding to abscissa between xlow and xup.
     //! @param xlow lower edje on x-axis
     //! @param xup upper edje on x-axis

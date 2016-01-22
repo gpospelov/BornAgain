@@ -49,9 +49,9 @@ void FitKernel::clear()
 
 //! Adds pair of (simulation, real data) for consecutive simulation
 void FitKernel::addSimulationAndRealData(const GISASSimulation& simulation,
-                                         const OutputData<double >& real_data)
+                                         const OutputData<double >& real_data, double weight)
 {
-    m_fit_objects.add(simulation, real_data);
+    m_fit_objects.add(simulation, real_data, weight);
 }
 
 //! Adds fit parameter, step is calculated from initial parameter value
@@ -59,7 +59,7 @@ void FitKernel::addFitParameter(const std::string& name, double value, const Att
                                 double step, double error)
 {
     if(step <=0.0)
-        step = value * getAttributes().getStepFactor();
+        step = value * getOptions().getStepFactor();
     m_fit_parameters.addParameter(name, value, step, attlim, error);
 }
 
@@ -179,9 +179,14 @@ void FitKernel::printResults() const
     m_minimizer->printResults();
 }
 
-AttFitting &FitKernel::getAttributes()
+FitOptions &FitKernel::getOptions()
 {
-    return m_fit_attributes;
+    return m_fit_options;
+}
+
+void FitKernel::setOptions(const FitOptions &fit_options)
+{
+    m_fit_options = fit_options;
 }
 
 double FitKernel::getRunTime() const

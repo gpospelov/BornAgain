@@ -88,9 +88,9 @@ void register_Histogram2D_class(){
 
     { //::Histogram2D
         typedef bp::class_< Histogram2D_wrapper, bp::bases< IHistogram >, std::auto_ptr< Histogram2D_wrapper >, boost::noncopyable > Histogram2D_exposer_t;
-        Histogram2D_exposer_t Histogram2D_exposer = Histogram2D_exposer_t( "Histogram2D", bp::init< int, double, double, int, double, double >(( bp::arg("nbinsx"), bp::arg("xlow"), bp::arg("xup"), bp::arg("nbinsy"), bp::arg("ylow"), bp::arg("yup") ), "Constructor for fix bin size histograms. @param nbinsx number of bins on X-axis @param xlow low edge of the first bin of X-axis @param xup upper edge of the last bin of X-axis @param nbinsy number of bins on Y axis @param ylow low edge of the first bin of Y-axis @param yup upper edge of the last bin of Y-axis \n\n:Parameters:\n  - 'nbinsx' - number of bins on X-axis\n  - 'xlow' - low edge of the first bin of X-axis\n  - 'xup' - upper edge of the last bin of X-axis\n  - 'nbinsy' - number of bins on Y axis\n  - 'ylow' - low edge of the first bin of Y-axis\n  - 'yup' - upper edge of the last bin of Y-axis\n") );
+        Histogram2D_exposer_t Histogram2D_exposer = Histogram2D_exposer_t( "Histogram2D", bp::init< int, double, double, int, double, double >(( bp::arg("nbinsx"), bp::arg("xlow"), bp::arg("xup"), bp::arg("nbinsy"), bp::arg("ylow"), bp::arg("yup") ), "Constructor for fix bin size histograms.\n\n:Parameters:\n  - 'nbinsx' - number of bins on X-axis\n  - 'xlow' - low edge of the first bin of X-axis\n  - 'xup' - upper edge of the last bin of X-axis\n  - 'nbinsy' - number of bins on Y axis\n  - 'ylow' - low edge of the first bin of Y-axis\n  - 'yup' - upper edge of the last bin of Y-axis\n") );
         bp::scope Histogram2D_scope( Histogram2D_exposer );
-        Histogram2D_exposer.def( bp::init< int, std::vector< double > const &, int, std::vector< double > const & >(( bp::arg("nbinsx"), bp::arg("xbins"), bp::arg("nbinsy"), bp::arg("ybins") ), "Constructor for variable bin size histograms. @param nbinsx number of bins on X-axis @param xbins Array of size nbins+1 containing low-edges for each bin and upper edge of last bin. @param nbinsy number of bins on Y-axis @param ybins Array of size nbins+1 containing low-edges for each bin and upper edge of last bin. \n\n:Parameters:\n  - 'nbinsx' - number of bins on X-axis\n  - 'xbins' - Array of size nbins+1 containing low-edges for each\n  - 'nbinsy' - number of bins on Y-axis\n  - 'ybins' - Array of size nbins+1 containing low-edges for each\n") );
+        Histogram2D_exposer.def( bp::init< int, std::vector< double > const &, int, std::vector< double > const & >(( bp::arg("nbinsx"), bp::arg("xbins"), bp::arg("nbinsy"), bp::arg("ybins") ), "Constructor for variable bin size histograms.\n\n:Parameters:\n  - 'nbinsx' - number of bins on X-axis\n  - 'xbins' - Array of size nbins+1 containing low-edges for each\n  - 'nbinsy' - number of bins on Y-axis\n  - 'ybins' - Array of size nbins+1 containing low-edges for each\n") );
         Histogram2D_exposer.def( bp::init< IAxis const &, IAxis const & >(( bp::arg("axis_x"), bp::arg("axis_y") ), "Constructor for 2D histogram with custom axes.") );
         Histogram2D_exposer.def( bp::init< OutputData< double > const & >(( bp::arg("data") ), "Constructor for 2D histograms from basic OutputData object.") );
         { //::Histogram2D::clone
@@ -159,7 +159,7 @@ void register_Histogram2D_class(){
                 , projectionX_function_type( &::Histogram2D::projectionX )
                 , ( bp::arg("yvalue") )
                 , bp::return_value_policy< bp::manage_new_object >()
-                , "Project a 2D histogram into 1D histogram along X. The projection is made from the y-bin closest to given ordinate yvalue. @param yvalue the value on y-axis at which projection is taken \n\n:Parameters:\n  - 'yvalue' - the value on y-axis at which projection is taken\n" );
+                , "Project a 2D histogram into 1D histogram along X.\n\n:Parameters:\n  - 'yvalue' - the value on y-axis at which projection is taken\n" );
         
         }
         { //::Histogram2D::projectionX
@@ -171,7 +171,7 @@ void register_Histogram2D_class(){
                 , projectionX_function_type( &::Histogram2D::projectionX )
                 , ( bp::arg("ylow"), bp::arg("yup") )
                 , bp::return_value_policy< bp::manage_new_object >()
-                , "Project a 2D histogram into 1D histogram along X. The projection is made from all y-bins corresponding to ordinate between ylow and yup. @param ylow lower edje on y-axis @param yup upper edje on y-axis \n\n:Parameters:\n  - 'ylow' - lower edje on y-axis\n  - 'yup' - upper edje on y-axis\n" );
+                , "Project a 2D histogram into 1D histogram along X.\n\n:Parameters:\n  - 'ylow' - lower edje on y-axis\n  - 'yup' - upper edje on y-axis\n" );
         
         }
         { //::Histogram2D::projectionY
@@ -194,7 +194,7 @@ void register_Histogram2D_class(){
                 , projectionY_function_type( &::Histogram2D::projectionY )
                 , ( bp::arg("xvalue") )
                 , bp::return_value_policy< bp::manage_new_object >()
-                , "Project a 2D histogram into 1D histogram along Y. The projection is made from the x-bin closest to given abscissa xvalue. @param xvalue the value on x-axis at which projection is taken \n\n:Parameters:\n  - 'xvalue' - the value on x-axis at which projection is taken\n" );
+                , "Project a 2D histogram into 1D histogram along Y.\n\n:Parameters:\n  - 'xvalue' - the value on x-axis at which projection is taken\n" );
         
         }
         { //::Histogram2D::projectionY
@@ -206,7 +206,7 @@ void register_Histogram2D_class(){
                 , projectionY_function_type( &::Histogram2D::projectionY )
                 , ( bp::arg("xlow"), bp::arg("xup") )
                 , bp::return_value_policy< bp::manage_new_object >()
-                , "Project a 2D histogram into 1D histogram along Y. The projection is made from all x-bins corresponding to abscissa between xlow and xup. @param xlow lower edje on x-axis @param xup upper edje on x-axis \n\n:Parameters:\n  - 'xlow' - lower edje on x-axis\n  - 'xup' - upper edje on x-axis\n" );
+                , "Project a 2D histogram into 1D histogram along Y.\n\n:Parameters:\n  - 'xlow' - lower edje on x-axis\n  - 'xup' - upper edje on x-axis\n" );
         
         }
     }

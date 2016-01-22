@@ -22,51 +22,51 @@ GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
 #include "PythonFitList.h"
-#include "AttFitting.pypp.h"
+#include "FitOptions.pypp.h"
 
 namespace bp = boost::python;
 
-void register_AttFitting_class(){
+void register_FitOptions_class(){
 
-    { //::AttFitting
-        typedef bp::class_< AttFitting > AttFitting_exposer_t;
-        AttFitting_exposer_t AttFitting_exposer = AttFitting_exposer_t( "AttFitting", "General fitting attributes.", bp::init< >() );
-        bp::scope AttFitting_scope( AttFitting_exposer );
-        { //::AttFitting::getDerivEpsilon
+    { //::FitOptions
+        typedef bp::class_< FitOptions > FitOptions_exposer_t;
+        FitOptions_exposer_t FitOptions_exposer = FitOptions_exposer_t( "FitOptions", "General fitting options.", bp::init< >() );
+        bp::scope FitOptions_scope( FitOptions_exposer );
+        { //::FitOptions::getDerivEpsilon
         
-            typedef double ( ::AttFitting::*getDerivEpsilon_function_type)(  ) const;
+            typedef double ( ::FitOptions::*getDerivEpsilon_function_type)(  ) const;
             
-            AttFitting_exposer.def( 
+            FitOptions_exposer.def( 
                 "getDerivEpsilon"
-                , getDerivEpsilon_function_type( &::AttFitting::getDerivEpsilon ) );
+                , getDerivEpsilon_function_type( &::FitOptions::getDerivEpsilon ) );
         
         }
-        { //::AttFitting::getStepFactor
+        { //::FitOptions::getStepFactor
         
-            typedef double ( ::AttFitting::*getStepFactor_function_type)(  ) const;
+            typedef double ( ::FitOptions::*getStepFactor_function_type)(  ) const;
             
-            AttFitting_exposer.def( 
+            FitOptions_exposer.def( 
                 "getStepFactor"
-                , getStepFactor_function_type( &::AttFitting::getStepFactor ) );
+                , getStepFactor_function_type( &::FitOptions::getStepFactor ) );
         
         }
-        { //::AttFitting::setDerivEpsilon
+        { //::FitOptions::setDerivEpsilon
         
-            typedef void ( ::AttFitting::*setDerivEpsilon_function_type)( double ) ;
+            typedef void ( ::FitOptions::*setDerivEpsilon_function_type)( double ) ;
             
-            AttFitting_exposer.def( 
+            FitOptions_exposer.def( 
                 "setDerivEpsilon"
-                , setDerivEpsilon_function_type( &::AttFitting::setDerivEpsilon )
+                , setDerivEpsilon_function_type( &::FitOptions::setDerivEpsilon )
                 , ( bp::arg("deriv_epsilon") ) );
         
         }
-        { //::AttFitting::setStepFactor
+        { //::FitOptions::setStepFactor
         
-            typedef void ( ::AttFitting::*setStepFactor_function_type)( double ) ;
+            typedef void ( ::FitOptions::*setStepFactor_function_type)( double ) ;
             
-            AttFitting_exposer.def( 
+            FitOptions_exposer.def( 
                 "setStepFactor"
-                , setStepFactor_function_type( &::AttFitting::setStepFactor )
+                , setStepFactor_function_type( &::FitOptions::setStepFactor )
                 , ( bp::arg("step_factor") ) );
         
         }

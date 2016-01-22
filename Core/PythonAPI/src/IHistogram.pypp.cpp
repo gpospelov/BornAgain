@@ -138,18 +138,6 @@ void register_IHistogram_class(){
                 , "creates new OutputData with histogram's shape and put there values corresponding to DataType." );
         
         }
-        { //::IHistogram::createRelativeDifferenceHistogram
-        
-            typedef ::IHistogram * ( *createRelativeDifferenceHistogram_function_type )( ::IHistogram const &,::IHistogram const & );
-            
-            IHistogram_exposer.def( 
-                "createRelativeDifferenceHistogram"
-                , createRelativeDifferenceHistogram_function_type( &::IHistogram::createRelativeDifferenceHistogram )
-                , ( bp::arg("lhs"), bp::arg("rhs") )
-                , bp::return_value_policy< bp::manage_new_object >()
-                , "returns histogram representing relative difference of two histograms." );
-        
-        }
         { //::IHistogram::findGlobalBin
         
             typedef ::std::size_t ( ::IHistogram::*findGlobalBin_function_type)( double,double ) const;
@@ -158,7 +146,7 @@ void register_IHistogram_class(){
                 "findGlobalBin"
                 , findGlobalBin_function_type( &::IHistogram::findGlobalBin )
                 , ( bp::arg("x"), bp::arg("y") )
-                , "Returns closest global bin index for given axes coordinates. For 1D @param x Value on x-axis @param y Value on y-axis (for 2D histograms) @return Closest global bin index \n\n:Parameters:\n  - 'x' - Value on x-axis\n  - 'y' - Value on y-axis (for 2D histograms)\n" );
+                , "Returns closest global bin index for given axes coordinates.\n\n:Parameters:\n  - 'x' - Value on x-axis\n  - 'y' - Value on y-axis (for 2D histograms)\n" );
         
         }
         { //::IHistogram::getArray
@@ -202,7 +190,7 @@ void register_IHistogram_class(){
                 "getBinContent"
                 , getBinContent_function_type( &::IHistogram::getBinContent )
                 , ( bp::arg("globalbin") )
-                , "Returns content (accumulated value) of the bin with given index. @param globalbin The global bin index @return The value accumulated by the bin (integral) \n\n:Parameters:\n  - 'globalbin' - The global bin index\n" );
+                , "Returns content (accumulated value) of the bin with given index.\n\n:Parameters:\n  - 'globalbin' - The global bin index\n" );
         
         }
         { //::IHistogram::getBinContent
@@ -213,7 +201,7 @@ void register_IHistogram_class(){
                 "getBinContent"
                 , getBinContent_function_type( &::IHistogram::getBinContent )
                 , ( bp::arg("binx"), bp::arg("biny") )
-                , "Returns content (accumulated value) of the bin with given indices (for 2D histograms). @param binx x-axis bin index @param biny y-axis bin index @return The value accumulated by the bin (integral) \n\n:Parameters:\n  - 'binx' - x-axis bin index\n  - 'biny' - y-axis bin index\n" );
+                , "Returns content (accumulated value) of the bin with given indices (for 2D histograms).\n\n:Parameters:\n  - 'binx' - x-axis bin index\n  - 'biny' - y-axis bin index\n" );
         
         }
         { //::IHistogram::getBinError
@@ -268,7 +256,7 @@ void register_IHistogram_class(){
                 "getGlobalBin"
                 , getGlobalBin_function_type( &::IHistogram::getGlobalBin )
                 , ( bp::arg("binx"), bp::arg("biny")=(::std::size_t)(0) )
-                , "Returns global bin index for given axes indices. For 1D histogram the global bin index coinside with x-axis index. @param binx x-axis bin index @param biny y-axis bin index (for 2D histograms) @return The global bin index \n\n:Parameters:\n  - 'binx' - x-axis bin index\n  - 'biny' - y-axis bin index (for 2D histograms)\n" );
+                , "Returns global bin index for given axes indices.\n\n:Parameters:\n  - 'binx' - x-axis bin index\n  - 'biny' - y-axis bin index (for 2D histograms)\n" );
         
         }
         { //::IHistogram::getMaximum
@@ -382,7 +370,7 @@ void register_IHistogram_class(){
                 "getXaxisValue"
                 , getXaxisValue_function_type( &::IHistogram::getXaxisValue )
                 , ( bp::arg("globalbin") )
-                , "Returns the value on x-axis corresponding to the global bin index. @param globalbin The global bin index @return The center of corresponding bin of the axis \n\n:Parameters:\n  - 'globalbin' - The global bin index\n" );
+                , "Returns the value on x-axis corresponding to the global bin index.\n\n:Parameters:\n  - 'globalbin' - The global bin index\n" );
         
         }
         { //::IHistogram::getXmax
@@ -435,7 +423,7 @@ void register_IHistogram_class(){
                 "getYaxisValue"
                 , getYaxisValue_function_type( &::IHistogram::getYaxisValue )
                 , ( bp::arg("globalbin") )
-                , "Returns the value on y-axis corresponding to the global bin index (for 2D histograms). @param globalbin The global bin index @return The center of corresponding bin of the axis \n\n:Parameters:\n  - 'globalbin' - The global bin index\n" );
+                , "Returns the value on y-axis corresponding to the global bin index (for 2D histograms).\n\n:Parameters:\n  - 'globalbin' - The global bin index\n" );
         
         }
         { //::IHistogram::getYmax
@@ -466,7 +454,7 @@ void register_IHistogram_class(){
                 "hasSameDimensions"
                 , hasSameDimensions_function_type( &::IHistogram::hasSameDimensions )
                 , ( bp::arg("other") )
-                , "Returns true if object have same dimensions and number of axes bins." );
+                , "Returns true if object have same rank and number of axes bins." );
         
         }
         { //::IHistogram::hasSameShape
@@ -490,7 +478,30 @@ void register_IHistogram_class(){
                 , "Returns integral of bins content (computed as a sum of all bin content)." );
         
         }
+        { //::IHistogram::load
+        
+            typedef void ( ::IHistogram::*load_function_type)( ::std::string const & ) ;
+            
+            IHistogram_exposer.def( 
+                "load"
+                , load_function_type( &::IHistogram::load )
+                , ( bp::arg("filename") )
+                , "Loads histogram from file, the shape of array in file should match Following formats are available: *.txt, *.tif, *.int (*.txt.gz, *.tif.gz, *.int.gz) Only bin content will be loaded, histogram axes remain the same. " );
+        
+        }
         IHistogram_exposer.def( bp::self += bp::self );
+        { //::IHistogram::relativeDifferenceHistogram
+        
+            typedef ::IHistogram * ( ::IHistogram::*relativeDifferenceHistogram_function_type)( ::IHistogram const & ) ;
+            
+            IHistogram_exposer.def( 
+                "relativeDifferenceHistogram"
+                , relativeDifferenceHistogram_function_type( &::IHistogram::relativeDifferenceHistogram )
+                , ( bp::arg("rhs") )
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "returns histogram representing relative difference of two histograms." );
+        
+        }
         { //::IHistogram::reset
         
             typedef void ( ::IHistogram::*reset_function_type)(  ) ;
@@ -499,6 +510,17 @@ void register_IHistogram_class(){
                 "reset"
                 , reset_function_type( &::IHistogram::reset )
                 , "Reset histogram content (axes remains)." );
+        
+        }
+        { //::IHistogram::save
+        
+            typedef void ( ::IHistogram::*save_function_type)( ::std::string const & ) ;
+            
+            IHistogram_exposer.def( 
+                "save"
+                , save_function_type( &::IHistogram::save )
+                , ( bp::arg("filename") )
+                , "Saves histogram in file Following formats are available: *.txt, *.tif, *.int (*.txt.gz, *.tif.gz, *.int.gz) " );
         
         }
         { //::IHistogram::scale
@@ -524,7 +546,6 @@ void register_IHistogram_class(){
         
         }
         IHistogram_exposer.staticmethod( "createHistogram" );
-        IHistogram_exposer.staticmethod( "createRelativeDifferenceHistogram" );
     }
 
 }

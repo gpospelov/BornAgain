@@ -51,7 +51,7 @@ include_classes = [
     "IObservable",
     "IObserver",
     "IParameterized",
-    "AttFitting",
+    "FitOptions",
     "ChiSquaredModule",
     "FitSuite",
     "FitObject",

@@ -57,6 +57,18 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
         return IInterferenceFunction::getKappa( );
     }
 
+    virtual double getParticleDensity(  ) const  {
+        if( bp::override func_getParticleDensity = this->get_override( "getParticleDensity" ) )
+            return func_getParticleDensity(  );
+        else{
+            return this->IInterferenceFunction::getParticleDensity(  );
+        }
+    }
+    
+    double default_getParticleDensity(  ) const  {
+        return IInterferenceFunction::getParticleDensity( );
+    }
+
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -182,6 +194,17 @@ void register_IInterferenceFunction_class(){
                 "getKappa"
                 , getKappa_function_type(&::IInterferenceFunction::getKappa)
                 , default_getKappa_function_type(&IInterferenceFunction_wrapper::default_getKappa) );
+        
+        }
+        { //::IInterferenceFunction::getParticleDensity
+        
+            typedef double ( ::IInterferenceFunction::*getParticleDensity_function_type)(  ) const;
+            typedef double ( IInterferenceFunction_wrapper::*default_getParticleDensity_function_type)(  ) const;
+            
+            IInterferenceFunction_exposer.def( 
+                "getParticleDensity"
+                , getParticleDensity_function_type(&::IInterferenceFunction::getParticleDensity)
+                , default_getParticleDensity_function_type(&IInterferenceFunction_wrapper::default_getParticleDensity) );
         
         }
         { //::ISample::cloneInvertB

@@ -59,6 +59,18 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
         return InterferenceFunction2DLattice::evaluate( boost::ref(q) );
     }
 
+    virtual double getParticleDensity(  ) const  {
+        if( bp::override func_getParticleDensity = this->get_override( "getParticleDensity" ) )
+            return func_getParticleDensity(  );
+        else{
+            return this->InterferenceFunction2DLattice::getParticleDensity(  );
+        }
+    }
+    
+    double default_getParticleDensity(  ) const  {
+        return InterferenceFunction2DLattice::getParticleDensity( );
+    }
+
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -218,6 +230,17 @@ void register_InterferenceFunction2DLattice_class(){
             InterferenceFunction2DLattice_exposer.def( 
                 "getLatticeParameters"
                 , getLatticeParameters_function_type( &::InterferenceFunction2DLattice::getLatticeParameters ) );
+        
+        }
+        { //::InterferenceFunction2DLattice::getParticleDensity
+        
+            typedef double ( ::InterferenceFunction2DLattice::*getParticleDensity_function_type)(  ) const;
+            typedef double ( InterferenceFunction2DLattice_wrapper::*default_getParticleDensity_function_type)(  ) const;
+            
+            InterferenceFunction2DLattice_exposer.def( 
+                "getParticleDensity"
+                , getParticleDensity_function_type(&::InterferenceFunction2DLattice::getParticleDensity)
+                , default_getParticleDensity_function_type(&InterferenceFunction2DLattice_wrapper::default_getParticleDensity) );
         
         }
         { //::InterferenceFunction2DLattice::getProbabilityDistribution

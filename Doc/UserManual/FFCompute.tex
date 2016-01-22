@@ -24,7 +24,6 @@
 
 The Form factor of a hard-shell particle is simply its \E{shape transform},
 as introduced in~(\ref{EFFhardshell}),
-\index{Shape transform}%
 \begin{equation}\label{EFF_SFF2}
   F(\q)=\int_V {\rm d}^3r\, {\rm e}^{i\q\r},
 \end{equation}
@@ -58,6 +57,7 @@ F= L W H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x \frac{L}{2}\right)
 \sinc\left(q_y \frac{W}{2}\right) \sinc\left(q_z \frac{H}{2}\right).
 \end{equation}
 If the \E{sinus cardinalis} is written as
+\index{Sinus cardinalis@Sinus cardinalis (sinc)!removable singularity}
 \begin{equation}
   \sinc(u) = \frac{\sin(u)}{u},
 \end{equation}
@@ -69,13 +69,23 @@ which is of course part of the definition of the special function~$\sinc$.
 
 While all this is clear and easy,
 computations become more involved
-if a particle has planes that do not coincide with
-the $xy$, $xz$, or~$yz$ planes of the Cartesian coordinate system.
+if a particle has planes with normals that are not oriented along
+any of the axes of the Cartesian coordinate system.
 Typically then, the straightforward analytical solution of~(\ref{EFF_SFF2})
 results in messy expressions that obscure the symmetries of~$F(\q)$,
 and make it difficult to recognize the singularities and
 to remove them.
-Therefore we consider a few such cases more closely.
+Therefore we shall consider a few such cases more closely.
+
+% TODO? another concern: integrals without numeric solution
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Special functions near the removable singularity}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\index{Machine epsilon}
+We assume a double-precision machine epsilon
+of \epsilon=2^{-52}\simeq2.2\cdot10^{-16}$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Regular polyhedron}

@@ -1,28 +1,28 @@
-#ifndef MATHFUNCTIONSTEST_H
-#define MATHFUNCTIONSTEST_H
+#ifndef MATRIXFUNCTIONSTEST_H
+#define MATRIXFUNCTIONSTEST_H
 
 #include "MathFunctions.h"
 #include "gtest/gtest.h"
 
-class MathFunctionsTest : public::testing::Test
+class MatrixFunctionsTest : public::testing::Test
 {
 protected:
-    MathFunctionsTest();
-    virtual ~MathFunctionsTest(){}
+    MatrixFunctionsTest();
+    virtual ~MatrixFunctionsTest(){}
 
     Eigen::Matrix2cd matrix_2cd;
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
-MathFunctionsTest::MathFunctionsTest(){
+MatrixFunctionsTest::MatrixFunctionsTest(){
     matrix_2cd(0,0) = complex_t(2.0, 1.0);
     matrix_2cd(0,1) = complex_t(3.0, 1.0);
     matrix_2cd(1,0) = complex_t(4.0, 1.0);
     matrix_2cd(1,1) = complex_t(5.0, 1.0);
 }
 
-TEST_F(MathFunctionsTest, Norm)
+TEST_F(MatrixFunctionsTest, Norm)
 {
 
     Eigen::Matrix2d matrix_norm = MathFunctions::Norm(matrix_2cd);
@@ -32,7 +32,7 @@ TEST_F(MathFunctionsTest, Norm)
     EXPECT_EQ(std::norm((complex_t)matrix_2cd(1,1)), matrix_norm(1,1));
 }
 
-TEST_F(MathFunctionsTest, Abs)
+TEST_F(MatrixFunctionsTest, Abs)
 {
    Eigen::Matrix2d matrix_abs = MathFunctions::Abs(matrix_2cd);
    EXPECT_EQ(std::abs((complex_t)matrix_2cd(0,0)), matrix_abs(0,0));
@@ -41,7 +41,7 @@ TEST_F(MathFunctionsTest, Abs)
    EXPECT_EQ(std::abs((complex_t)matrix_2cd(1,1)), matrix_abs(1,1));
 }
 
-TEST_F(MathFunctionsTest, ProductByElement)
+TEST_F(MatrixFunctionsTest, ProductByElement)
 {
     Eigen::Matrix2cd matrix_2cd2;
     matrix_2cd2(0,0) = complex_t(2.0, 1.0);
@@ -56,7 +56,7 @@ TEST_F(MathFunctionsTest, ProductByElement)
    EXPECT_EQ(complex_t(24.0, 10.0), matrix_prod(1,1));
 }
 
-TEST_F(MathFunctionsTest, Conj)
+TEST_F(MatrixFunctionsTest, Conj)
 {
    Eigen::Matrix2cd matrix_conj = MathFunctions::Conj(matrix_2cd);
    EXPECT_EQ(std::conj((complex_t)matrix_2cd(0,0)), matrix_conj(0,0));
@@ -65,7 +65,7 @@ TEST_F(MathFunctionsTest, Conj)
    EXPECT_EQ(std::conj((complex_t)matrix_2cd(1,1)), matrix_conj(1,1));
 }
 
-TEST_F(MathFunctionsTest, Real)
+TEST_F(MatrixFunctionsTest, Real)
 {
    Eigen::Matrix2d matrix_conj = MathFunctions::Real(matrix_2cd);
    EXPECT_EQ(((complex_t)matrix_2cd(0,0)).real(), matrix_conj(0,0));
@@ -74,4 +74,4 @@ TEST_F(MathFunctionsTest, Real)
    EXPECT_EQ(((complex_t)matrix_2cd(1,1)).real(), matrix_conj(1,1));
 }
 
-#endif //MATHFUNCTIONSTEST_H
+#endif //MATRIXFUNCTIONSTEST_H

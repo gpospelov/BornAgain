@@ -255,17 +255,16 @@ complex_t MathFunctions::crbond_bessel_J1(const complex_t &z)
         else
             kz = 12; //   "      "     "  14
         complex_t cp1 = cone;
-        const complex_t z1m1 = 1. / z1; // useful because multiplication faster than division ?
-        complex_t cq1 = 0.375 * z1m1; 
+        complex_t cq1 = 0.375; 
         const complex_t z1m2 = 1. / (z1*z1); // faster than std::pow(z1, -2.0) ??
         complex_t ptmp = z1m2;
         for (size_t k = 0; k < kz; ++k) {
             cp1 += a1[k] * ptmp;
-            cq1 += b1[k] * ptmp * z1m1;
+            cq1 += b1[k] * ptmp;
             ptmp *= z1m2;
         }
         const complex_t ct2 = z1 - 0.75 * Units::PI;
-        cj1 = std::sqrt(M_2_PI / z1) * (cp1 * std::cos(ct2) - cq1 * std::sin(ct2));
+        cj1 = std::sqrt(M_2_PI / z1) * (cp1 * std::cos(ct2) - cq1/z1 * std::sin(ct2));
     }
     if (std::real(z) < 0.0)
         cj1 = -cj1;

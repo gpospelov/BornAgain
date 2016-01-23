@@ -168,6 +168,7 @@ complex_t MathFunctions::crbond_bessel_J0(const complex_t &z)
     if (std::real(z) < 0.0)
         z1 = -z;
     if (a0 <= 12.0) {
+        // standard power series [http://dlmf.nist.gov/10.2 (10.2.2)]
         complex_t z2 = z * z;
         cj0 = cone;
         complex_t cr = cone;
@@ -178,6 +179,7 @@ complex_t MathFunctions::crbond_bessel_J0(const complex_t &z)
                 break;
         }
     } else {
+        // Hankel's asymptotic expansion [http://dlmf.nist.gov/10.17 (10.17.3)]
         size_t kz;
         if (a0 >= 50.0)
             kz = 8; // can be changed to 10
@@ -232,6 +234,7 @@ complex_t MathFunctions::crbond_bessel_J1(const complex_t &z)
     if (std::real(z) < 0.0)
         z1 = -z;
     if (a0 <= 12.0) {
+        // standard power series [http://dlmf.nist.gov/10.2 (10.2.2)]
         complex_t z2 = z * z;
         cj1 = cone;
         complex_t cr = cone;
@@ -243,6 +246,7 @@ complex_t MathFunctions::crbond_bessel_J1(const complex_t &z)
         }
         cj1 *= 0.5 * z1;
     } else {
+        // Hankel's asymptotic expansion [http://dlmf.nist.gov/10.17 (10.17.3)]
         size_t kz;
         if (a0 >= 50.0)
             kz = 8; // can be changed to 10

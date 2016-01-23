@@ -26,7 +26,8 @@
 \index{Mesoparticles|see {Particles}}%
 In many important GISAS applications,
 fluctuations of the refractive index are due to
-\E{islands}, \E{inclusions} or \E{holes}
+\E{droplets}, \E{islands}, \E{inclusions} or \E{holes}
+\index{Droplets}%
 \index{Island}%
 \index{Inclusion}%
 \index{Hole}%
@@ -38,8 +39,6 @@ In the following, all such inhomogeneities will be described as
 {Documentation on inter-particle correlations is under preparation.
 \BornAgain\ currently offers the same choice of models as \IsGISAXS.
 Therefore, for the moment we refer to the \IsGISAXS\ manual \cite{Laz08}.}
-
-Implemented particle form factors are described in Appendix~\ref{SFF}.
 
 \iffalse
 Our derivation of the DWBA (Sect.~\ref{Sdwba}) has shown
@@ -391,20 +390,25 @@ it is only available for paracrystals
 (to be documented later).
 % and will therefore be discussed later (Sect.~\ref{}).
 }
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Form factors}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\index{Particles!form factor|see {Form factor}}
 \index{Form factor|(}
 
 %===============================================================================
-\subsection{Shape transform} \label{Sshapetrafo}
+\subsection{Shape transform}
 %===============================================================================
 
 \index{Shape transform|(}
-The form factor (\ref{EFFdef}) of a particle is the Fourier transform
+The form factor % TODO RESTORE ~(\ref{EFFdef})
+of a particle is the Fourier transform
 of its shape function $S(\r)=\chi(\r)/\tilde\chi$,
+\nomenclature[2t020]{$S(\r)$}{Shape function}%
+\index{Shape function}%
 \begin{equation}
   F(\q)=\int {\rm d}^3r\, {\rm e}^{i\q\r} S(\r).
 \end{equation}
@@ -412,6 +416,7 @@ For hard-shell particles %the shape function
 $S(\r)$ only takes the values 0 and~1
 so that the form factor becomes
 the \textit{shape transform}
+\index{Shape transform}%
 \begin{equation}\label{EFFhardshell}
   F(\q)=\int_V {\rm d}^3r\, {\rm e}^{i\q\r},
 \end{equation}
@@ -435,74 +440,87 @@ which users may keep fixed at a very large value.
 shape transforms for standard particle geometries like
 spheres, cylinders, prisms, or pyramids,
 plus some ripples.
-Each geometry is is documented in standardized form in Appendix~\ref{SFF}.
+They are available through constructors like
+\begin{lstlisting}
+  FormFactorCone(radius, height, alpha)
+\end{lstlisting}
+These functions are documented in Appendix~\ref{SFF}.
+Some background information on how the form factors are computed
+is given in Appendix~\ref{SFFcomp}.
 
+\index{Form factor!tutorial}%
+\index{Form factor!examples}%
+\index{Form factor!custom implementation}%
+\Tuto{The online tutorial contains an entire section on
+  \tuto{47}{embedded particles}, including several usage examples
+  and a \tuto{72}{list of all available form factors}.
+  If a particle shape is missing, try to implement a \tuto{107}{custom form factor},
+  or/and contact us.}
+
+\index{Large particles!numeric difficulty}%
+\index{Oscillations!from large particle form factor}%
+\index{Monte-Carlo integration!for large particle form factor}%
+\index{Particles!rapid form factor oscillations}%
+\index{Form factor!rapid oscillations}%
+\index{Form factor!large particles}%
+\Warn{For large particles (typically of order 1000nm),
+  the form factor oscillates rapidly within one detector bin
+  so that analytical calculations (performed for the bin center)
+  may give a completely wrong intensity pattern.}
+
+\Tuto{In this case, the best solution we can currently provide
+  is a Monte-Carlo integration, as shown in the example
+  \tuto{TODO}{large particle form factor}.}
+  
 \index{Shape transform|)}
 
-
 %===============================================================================
-\subsection{Core-shell particles} \label{sec:CoreShell}
+\subsection{Inhomogeneous particles}
 %===============================================================================
-\index{Core-shell particles}
 
 For particles that are made of different materials,
-the definition (\ref{EFFdef}) of the form factor~$F(\q)$
-must be generalized in obvious ways,
-not worth explicit documentation.
-In practice, the most important case is the core-shell particle.
+the definition % TODO RESTORE ~(\ref{EFFdef})
+of the form factor~$F(\q)$
+must be generalized in obvious ways.
+In practice, the most important case is the \E{core-shell particle}.
+\index{Inhomogeneous particles}%
+\index{Core-shell particles}%
+\index{Particles!Core-shell}%
 This is supported in \BornAgain\ through the function
+\index{ParticleCoreShell@\Code{ParticleCoreShell}}
 \begin{lstlisting}
   ParticleCoreShell(shell_particle, core_particle, relative_core_position)}
 \end{lstlisting}
 where \Code{shell\_particle} is assumed to be inscribed
 in \Code{core\_particle},
-and \Code{relative\_\discretionary{}{}{}core\_\discretionary{}{}{}position} specifies the position of the
+and \Code{relative\_\discretionary{}{}{}core\_\discretionary{}{}{}position}
+specifies the position of the
 center of the base of the core particle relative
 to center of the base of the shell particle.
 
-Here a usage example:
-\begin{lstlisting}
-    outer_ff = FormFactorBox(16.0*nanometer, 16.0*nanometer, 8.0*nanometer) 
-    inner_ff = FormFactorPyramid(12.0*nanometer, 7.0*nanometer, 60.0*degree)
-    shell_particle = Particle(m_shell, outer_ff)
-    core_particle = Particle(m_core, inner_ff)
-    core_position = kvector_t(1.5*nanometer, 0.0, 0.0)
-    particle = ParticleCoreShell(shell_particle, core_particle, core_position)
-\end{lstlisting}
+\Tuto{See the online tutorial for an example with \tuto{59}{core-shell nanoparticles}.}
 
-%===============================================================================
-\subsection{Rotation of particles}
-%===============================================================================
-\index{Rotation of particles}
-\index{Orientation of particles}
-
-The particles can be rotated in a different direction by using one of
-the following transformations: \Code{CreateRotateX($\theta$),
-  CreateRotateY($\theta$), CreateRotateZ($\theta$)}, where capital X, Y, Z mark rotations
-around the associated axis and $\theta$ is the
-angle of rotation from this axis. For example, the following \Code{Python}\ script shows how to rotate a pyramid by $45^{\circ}$ around
-the $z$-axis:\\
-
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
-    pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73 ) )
-    pyramid = Particle(m_particle, pyramid_ff)
-    angle_around_z = 45.*degree
-    transform = Transform3D.createRotateZ(angle_around_z)
-    particle_layout = ParticleLayout()
-    particle_layout.addParticle(pyramid, transform) 
-\end{lstlisting}
-
-
-\index{Form factor|)}
-\fi
-
-\iffalse
 %===============================================================================
 \subsection{Polydispersity}
 %===============================================================================
 
-... to come
+\index{Polydispersity!embedded particles}%
+\index{Particles!polydispersity}%
+\index{Distribution!of particle parameters}%
+\index{Form factor!parameter distributions}%
+Embedded particles may be \E{polydisperse}, i.~e.\ have statistical distributions
+for some or all their numeric parameters.
+This is supported in \BornAgain\ through the same mechanism
+as for other numeric parameters.
 
+\Tuto{See the online tutorial for the example \tuto{66}{cylinders with size distribution}.
+  The example also shows how two parameters can be tied to each other
+(size distribution with constant ratio radius/height).}
+
+
+\index{Form factor|)}
+
+\iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{OLD STUFF}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

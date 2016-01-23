@@ -37,113 +37,113 @@
 namespace MathFunctions
 {
 
-BA_CORE_API_ double Gaussian(double value, double average, double std_dev);
+    BA_CORE_API_ double Gaussian(double value, double average, double std_dev);
 
-BA_CORE_API_ double IntegratedGaussian(double value, double average, double std_dev);
+    BA_CORE_API_ double IntegratedGaussian(double value, double average, double std_dev);
 
-BA_CORE_API_ double GenerateNormalRandom(double average, double std_dev);
+    BA_CORE_API_ double GenerateNormalRandom(double average, double std_dev);
 
-BA_CORE_API_ double StandardNormal(double value);
+    BA_CORE_API_ double StandardNormal(double value);
 
-BA_CORE_API_ double GenerateStandardNormalRandom();
+    BA_CORE_API_ double GenerateStandardNormalRandom();
 
-BA_CORE_API_ double GenerateUniformRandom();
+    BA_CORE_API_ double GenerateUniformRandom();
 
 //! Bessel function of the first kind and order 0
-BA_CORE_API_ double Bessel_J0(double value);
+    BA_CORE_API_ double Bessel_J0(double value);
 
 //! Bessel function of the first kind and order 1
-BA_CORE_API_ double Bessel_J1(double value);
+    BA_CORE_API_ double Bessel_J1(double value);
 
 //! Bessel function  Bessel_J1(x)/x
-BA_CORE_API_ double Bessel_C1(double value);
+    BA_CORE_API_ double Bessel_C1(double value);
 
 //! Complex Bessel function of the first kind and order 0
-BA_CORE_API_ complex_t Bessel_J0(const complex_t &value);
+    BA_CORE_API_ complex_t Bessel_J0(const complex_t &value);
 
 //! Complex Bessel function of the first kind and order 1
-BA_CORE_API_ complex_t Bessel_J1(const complex_t &value);
+    BA_CORE_API_ complex_t Bessel_J1(const complex_t &value);
 
 //! Complex Bessel function  Bessel_J1(x)/x
-BA_CORE_API_ complex_t Bessel_C1(const complex_t &value);
+    BA_CORE_API_ complex_t Bessel_C1(const complex_t &value);
 
 //! Sine integral function: \f$Si(x)\equiv\int_0^x du \sin(u)/u\f$
-BA_CORE_API_ double Si(double value);
+    BA_CORE_API_ double Si(double value);
 
 //! Sinc function: \f$Sinc(x)\equiv\sin(x)/x\f$
-BA_CORE_API_ double Sinc(double value);
+    BA_CORE_API_ double Sinc(double value);
 
 //! Complex sinc function: \f$sinc(x)\equiv\sin(x)/x\f$
-BA_CORE_API_ complex_t Sinc(const complex_t &value);
+    BA_CORE_API_ complex_t Sinc(const complex_t &value);
 
 //! Complex tanhc function: \f$tanhc(x)\equiv\tanh(x)/x\f$
-BA_CORE_API_ complex_t tanhc(const complex_t &value);
+    BA_CORE_API_ complex_t tanhc(const complex_t &value);
 
-BA_CORE_API_ complex_t Laue(const complex_t &value, size_t N);
+    BA_CORE_API_ complex_t Laue(const complex_t &value, size_t N);
 
-enum EFFTDirection { FORWARD_FFT, BACKWARD_FFT };
-BA_CORE_API_ std::vector<complex_t > FastFourierTransform(const std::vector<complex_t > &data, EFFTDirection tcase);
+    enum EFFTDirection { FORWARD_FFT, BACKWARD_FFT };
+    BA_CORE_API_ std::vector<complex_t > FastFourierTransform(const std::vector<complex_t > &data, EFFTDirection tcase);
 
-BA_CORE_API_ std::vector<complex_t > FastFourierTransform(const std::vector<double > &data, EFFTDirection tcase);
+    BA_CORE_API_ std::vector<complex_t > FastFourierTransform(const std::vector<double > &data, EFFTDirection tcase);
 
-BA_CORE_API_ std::vector<complex_t> ConvolveFFT(const std::vector<double> &signal, const std::vector<double> &resfunc);
+    BA_CORE_API_ std::vector<complex_t> ConvolveFFT(const std::vector<double> &signal, const std::vector<double> &resfunc);
 
 //! fast sine calculations (not actually fast)
-double FastSin(const double& x);
+    double FastSin(const double& x);
 
 //! fast cosine calculation  (not actually fast)
-double FastCos(const double& x);
+    double FastCos(const double& x);
 
 //! fast complex sine calculation
-complex_t FastSin(const complex_t &x);
+    complex_t FastSin(const complex_t &x);
 
 //! fast complex cosine calculation
-complex_t FastCos(const complex_t &x);
+    complex_t FastCos(const complex_t &x);
 
 #ifndef GCCXML_SKIP_THIS
 //! computes the norm element-wise
-BA_CORE_API_ Eigen::Matrix2d Norm(const Eigen::Matrix2cd &M);
+    BA_CORE_API_ Eigen::Matrix2d Norm(const Eigen::Matrix2cd &M);
 
 //! computes the absolute value element-wise
-BA_CORE_API_ Eigen::Matrix2d Abs(const Eigen::Matrix2cd &M);
+    BA_CORE_API_ Eigen::Matrix2d Abs(const Eigen::Matrix2cd &M);
 
 //! computes the complex conjugate element-wise
-BA_CORE_API_ Eigen::Matrix2cd Conj(const Eigen::Matrix2cd &M);
+    BA_CORE_API_ Eigen::Matrix2cd Conj(const Eigen::Matrix2cd &M);
 
 //! element-wise product
-BA_CORE_API_ Eigen::Matrix2cd ProductByElement(const Eigen::Matrix2cd &left,
-        const Eigen::Matrix2cd &right);
+    BA_CORE_API_ Eigen::Matrix2cd ProductByElement(const Eigen::Matrix2cd &left,
+                                                   const Eigen::Matrix2cd &right);
 
 //! take element-wise real value
-BA_CORE_API_ Eigen::Matrix2d Real(const Eigen::Matrix2cd &M);
+    BA_CORE_API_ Eigen::Matrix2d Real(const Eigen::Matrix2cd &M);
 #endif
 
-BA_CORE_API_ inline bool isnan(double x)
-{
+    BA_CORE_API_ inline bool isnan(double x)
+    {
 #ifdef _MSC_VER
-    return _isnan(x);
+        return _isnan(x);
 #else
-    return std::isnan(x);
+        return std::isnan(x);
 #endif
-}
+    }
 
-BA_CORE_API_ inline bool isinf(double x)
-{
+    BA_CORE_API_ inline bool isinf(double x)
+    {
 #ifdef _MSC_VER
-    return !_finite(x);
+        return !_finite(x);
 #else
-    return std::isinf(x);
+        return std::isinf(x);
 #endif
-}
+    }
 
-//! complex bessel J0 function (modified version of C. Bond, see explanations in MathFunctions.cpp)
-BA_CORE_API_ complex_t crbond_bessel_J0(const complex_t &value);
+//! Computes complex Bessel function J0(z), using power series and asymptotic expansion 
+    BA_CORE_API_ complex_t Bessel_J0_PowSer(const complex_t &value);
 
-//! complex bessel J1 function (modified version of C. Bond, see explanations in MathFunctions.cpp)
-BA_CORE_API_ complex_t crbond_bessel_J1(const complex_t &value);
+//! Computes complex Bessel function J0(z), using power series and asymptotic expansion 
+    BA_CORE_API_ complex_t Bessel_J1_PowSer(const complex_t &value);
 
 //! Calculates the geometric series of z to order N
-complex_t geometricSum(complex_t z, int exponent);
+    complex_t geometricSum(complex_t z, int exponent);
 
 } // Namespace MathFunctions
 
@@ -170,7 +170,7 @@ inline double MathFunctions::Bessel_J1(double value)
 
 inline double MathFunctions::Bessel_C1(double value)
 {
-    return ( value > Numeric::double_epsilon ? gsl_sf_bessel_J1(value)/value : 0.5);
+    return value > Numeric::double_epsilon ? gsl_sf_bessel_J1(value)/value : 0.5;
 }
 
 inline complex_t MathFunctions::Bessel_J0(const complex_t &value)
@@ -178,7 +178,7 @@ inline complex_t MathFunctions::Bessel_J0(const complex_t &value)
     if(std::imag(value) < Numeric::double_epsilon) {
         return complex_t(Bessel_J0(std::real(value)), 0.0);
     } else {
-        return crbond_bessel_J0(value);
+        return Bessel_J0_PowSer(value);
     }
 }
 
@@ -187,7 +187,7 @@ inline complex_t MathFunctions::Bessel_J1(const complex_t &value)
     if(std::imag(value) < Numeric::double_epsilon) {
         return complex_t(Bessel_J1(std::real(value)), 0.0);
     } else {
-        return crbond_bessel_J1(value);
+        return Bessel_J1_PowSer(value);
     }
 }
 
@@ -195,9 +195,9 @@ inline complex_t MathFunctions::Bessel_C1(const complex_t &value)
 {
     if(std::imag(value) < Numeric::double_epsilon) {
         double xv = std::real(value);
-        return (std::abs(xv) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(xv)/xv : 0.5);
+        return std::abs(xv) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(xv)/xv : 0.5;
     } else {
-        return (std::abs(value) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(value)/value : 0.5);
+        return std::abs(value) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(value)/value : 0.5;
     }
 }
 

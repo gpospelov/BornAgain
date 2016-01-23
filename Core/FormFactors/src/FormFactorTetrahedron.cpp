@@ -28,7 +28,6 @@ FormFactorTetrahedron::FormFactorTetrahedron(
     m_height = height;
     m_length = length;
     m_alpha = alpha;
-    m_root3 = std::sqrt(3.0);
     check_initialization();
     init_parameters();
 
@@ -46,7 +45,7 @@ FormFactorTetrahedron::~FormFactorTetrahedron()
 bool FormFactorTetrahedron::check_initialization() const
 {
     bool result(true);
-    if(2.*m_root3 * m_height > m_length*std::tan(m_alpha)) {
+    if (2*std::sqrt(3.) * m_height > m_length*std::tan(m_alpha)) {
         std::ostringstream ostr;
         ostr << "FormFactorTetrahedron() -> Error in class initialization with parameters ";
         ostr << " height:" << m_height;
@@ -78,29 +77,30 @@ void FormFactorTetrahedron::accept(ISampleVisitor *visitor) const
 
 double FormFactorTetrahedron::getRadius() const
 {
-    return m_length / 2.0;
+    return m_length / 2;
 }
 
 complex_t FormFactorTetrahedron::Integrand(double Z, void* params) const
 {
     (void)params;
-    double Rz = m_length/2. -m_root3*Z/std::tan(m_alpha);
+    constexpr double root3 = std::sqrt(3.);
+    double Rz = m_length/2 -root3*Z/std::tan(m_alpha);
 
-    complex_t xy_part = complex_t(0.0, 0.0);
-    if (std::abs(m_q.x())==0.0 && std::abs(m_q.y())==0.0) {
-        xy_part = m_root3*Rz*Rz;
+    complex_t xy_part = 0;
+    if (m_q.x()==complex_t(0,0) && m_q.y()==complex_t(0,0)) {
+        xy_part = root3*Rz*Rz;
     }
     else {
-        complex_t r3qyRz = m_root3*m_q.y()*Rz;
+        complex_t r3qyRz = root3*m_q.y()*Rz;
         complex_t expminiqyRdivr3 =
-            std::exp(-complex_t(0.0, 1.0)*m_q.y()*Rz/m_root3);
-        if (std::abs(m_q.x()*m_q.x()-3.0*m_q.y()*m_q.y())==0.0) {
-            xy_part = complex_t(0.0, 1.0)*m_root3*expminiqyRdivr3*
+            std::exp(-complex_t(0.0, 1.0)*m_q.y()*Rz/root3);
+        if (std::abs(m_q.x()*m_q.x()-3.*m_q.y()*m_q.y()) == 0) {
+            xy_part = complex_t(0.0, 1.0)*root3*expminiqyRdivr3*
                    (std::sin(r3qyRz)-r3qyRz*std::exp(complex_t(0.0, 1.0)*r3qyRz))/
                 m_q.x()/m_q.x();
         } else {
             complex_t qxRz = m_q.x()*Rz;
-            xy_part = 2.0*m_root3*expminiqyRdivr3/
+            xy_part = 2*root3*expminiqyRdivr3/
                     (m_q.x()*m_q.x()-3.0*m_q.y()*m_q.y())*(
                         std::exp(complex_t(0.0, 1.0)*r3qyRz) -
                 std::cos(qxRz)-complex_t(0.0, 1.0)*r3qyRz*
@@ -112,42 +112,38 @@ complex_t FormFactorTetrahedron::Integrand(double Z, void* params) const
 
 complex_t FormFactorTetrahedron::evaluate_for_q(const cvector_t& q) const
 {
-    m_q =q ;
-    double H = m_height;
-    double R = m_length/2.0;
-    double tga = std::tan(m_alpha);
-    double L = 2.*tga*R/m_root3-H;
+    constexpr double root3 = std::sqrt(3.);
     const complex_t im(0.0,1.0);
+    double H = m_height;
+    double R = m_length/2;
+    double tga = std::tan(m_alpha);
+    double L = 2*tga*R/root3-H;
 
-    if (std::abs(m_q.x()) <=  Numeric::double_epsilon ||
-        std::abs(m_q.y())<=  Numeric::double_epsilon ||
-        std::abs(m_q.z())<=  Numeric::double_epsilon ||
-        std::abs(m_q.x())*std::abs(m_q.x())
-        - 3.*std::abs(m_q.y())*std::abs(m_q.y()) <=  Numeric::double_epsilon)
-     {
-        if ( std::abs(m_q.mag()) < Numeric::double_epsilon) {
-          double sqrt3HdivRtga = m_root3*H/R/tga;
-          return tga/3.*R*R*R*(1. - (1.-sqrt3HdivRtga)
-                              *(1.-sqrt3HdivRtga)
-                              *(1.-sqrt3HdivRtga));
-     } else {
-          complex_t integral = m_integrator->integrate(0., m_height);
-          return integral;}
- } else {
+    if (std::abs(q.x()) <=  Numeric::double_epsilon ||
+        std::abs(q.y())<=  Numeric::double_epsilon ||
+        std::abs(q.z())<=  Numeric::double_epsilon ||
+        std::abs(q.x())*std::abs(q.x())
+        - 3*std::abs(q.y())*std::abs(q.y()) <=  Numeric::double_epsilon)
+    {
+        if ( std::abs(q.mag()) < Numeric::double_epsilon) {
+            double sqrt3HdivRtga = root3*H/R/tga;
+            return tga/3*R*R*R*(1 - (1-sqrt3HdivRtga)
+                                 *(1-sqrt3HdivRtga)
+                                 *(1-sqrt3HdivRtga));
+        } else {
+            m_q = q;
+            complex_t integral = m_integrator->integrate(0., m_height);
+            return integral;
+        }
+    } else {
         //general case
-       complex_t qx = m_q.x();
-       complex_t qy = m_q.y();
-       complex_t qz = m_q.z();
-       complex_t q1, q2, q3;
-       q1=(1./2.)*((m_root3*qx - qy)/tga - qz);
-       q2=(1./2.)*((m_root3*qx + qy)/tga + qz);
-       q3 = (qy/tga - qz/2.);
+        const complex_t q1=(1./2.)*((root3*q.x() - q.y())/tga - q.z());
+        const complex_t q2=(1./2.)*((root3*q.x() + q.y())/tga + q.z());
+        const complex_t q3 = (q.y()/tga - q.z()/2.);
 
-       return H*m_root3*std::exp(im*qz*R*tga/m_root3)/(qx*qx-3.*qy*qy)*
-            (-(1.+m_root3*qy/qx)*MathFunctions::Sinc(q1*H)*std::exp(im*q1*L)
-            -(1.-m_root3*qy/qx)*MathFunctions::Sinc(q2*H)*std::exp(-im*q2*L) +
+        return H*root3*std::exp(im*q.z()*R*tga/root3)/(q.x()*q.x()-3.*q.y()*q.y())*
+            (-(1.+root3*q.y()/q.x())*MathFunctions::Sinc(q1*H)*std::exp(im*q1*L)
+             -(1.-root3*q.y()/q.x())*MathFunctions::Sinc(q2*H)*std::exp(-im*q2*L) +
              2.*MathFunctions::Sinc(q3*H)*std::exp(im*q3*L));
     }
 }
-
-

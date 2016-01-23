@@ -39,7 +39,7 @@
 #include "MatrixRTCoefficientsTest.h"
 #include "ScalarSpecularInfoMapTest.h"
 #include "MatrixSpecularInfoMapTest.h"
-#include "MathFunctionsTest.h"
+#include "MatrixFunctionsTest.h"
 #include "FixedBinAxisTest.h"
 #include "VariableBinAxisTest.h"
 #include "ConstKBinAxisTest.h"
@@ -56,7 +56,7 @@
 #include "DetectorMaskTest.h"
 #include "Shape2DTest.h"
 #include "RectangularDetectorTest.h"
-
+#include "SpecialFunctionsTest.h"
 
 
 struct ErrorStreamRedirect {

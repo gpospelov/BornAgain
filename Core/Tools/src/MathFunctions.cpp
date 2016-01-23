@@ -137,14 +137,14 @@ std::vector<complex_t> MathFunctions::ConvolveFFT(const std::vector<double> &sig
     return result;
 }
 
-//! Complex Bessel function of 1st kind, 0st order
+//! Computes the complex Bessel function J0(z), using standard power series and asymptotic expansion.
 //!
-//! Taken from http://www.crbond.com/math.htm
-//! (C) 2003, C. Bond. All rights reserved.
-//! Algorithm from "Computation of Special Functions", Zhang and Jin, John Wiley and Sons, 1996.
-//!
-//! Given code is modified version, produces exactly same results but 5x faster
-complex_t MathFunctions::crbond_bessel_J0(const complex_t &z)
+//! Forked from unoptimized code at http://www.crbond.com/math.htm,
+//! who refers to "Computation of Special Functions", Zhang and Jin, John Wiley and Sons, 1996.
+
+//! TODO: Some optimizations of J1 not yet propagated here.
+
+complex_t MathFunctions::Bessel_J0_PowSer(const complex_t &z)
 {
     complex_t cj0;
     static const complex_t cone(1.0, 0.0);
@@ -201,14 +201,11 @@ complex_t MathFunctions::crbond_bessel_J0(const complex_t &z)
     return cj0;
 }
 
-//! Complex Bessel function of 1st kind, 1st order
+//! Computes the complex Bessel function J1(z), using standard power series and asymptotic expansion.
 //!
-//! Taken from http://www.crbond.com/math.htm
-//! (C) 2003, C. Bond. All rights reserved.
-//! Algorithm from "Computation of Special Functions", Zhang and Jin, John Wiley and Sons, 1996.
-//!
-//! Given code is modified version, produces exactly same results but 5x faster
-complex_t MathFunctions::crbond_bessel_J1(const complex_t &z)
+//! Forked from same source as for Bessel_J0_PowSer
+
+complex_t MathFunctions::Bessel_J1_PowSer(const complex_t &z)
 {
     complex_t cj1;
     static const complex_t cone(1.0, 0.0);
@@ -237,7 +234,7 @@ complex_t MathFunctions::crbond_bessel_J1(const complex_t &z)
         // standard power series [http://dlmf.nist.gov/10.2 (10.2.2)]
         const complex_t z2 = 0.25 * z * z;
         cj1 = cone;
-        complex_t cr = cone;
+        complex_t cr = cone; // powers will be computed recursively
         for (int k = 1; k <= 40; ++k) {
             cr *= -z2 / (double)(k * (k + 1));
             cj1 += cr;
@@ -255,12 +252,12 @@ complex_t MathFunctions::crbond_bessel_J1(const complex_t &z)
         else
             kz = 12; //   "      "     "  14
         complex_t cp1 = cone;
-        complex_t cq1 = 0.375; 
+        complex_t cq1 = 0.375; // division by z1 postponed to final sum
         const complex_t z1m2 = 1. / (z1*z1); // faster than std::pow(z1, -2.0) ??
-        complex_t ptmp = z1m2;
+        complex_t ptmp = z1m2; // powers will be computed recursively
         for (size_t k = 0; k < kz; ++k) {
             cp1 += a1[k] * ptmp;
-            cq1 += b1[k] * ptmp;
+            cq1 += b1[k] * ptmp; // division by z1 postponed to final sum
             ptmp *= z1m2;
         }
         const complex_t ct2 = z1 - 0.75 * Units::PI;

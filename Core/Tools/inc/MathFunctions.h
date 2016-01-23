@@ -170,7 +170,7 @@ inline double MathFunctions::Bessel_J1(double value)
 
 inline double MathFunctions::Bessel_C1(double value)
 {
-    return ( value > Numeric::double_epsilon ? gsl_sf_bessel_J1(value)/value : 0.5);
+    return value > Numeric::double_epsilon ? gsl_sf_bessel_J1(value)/value : 0.5;
 }
 
 inline complex_t MathFunctions::Bessel_J0(const complex_t &value)
@@ -195,9 +195,9 @@ inline complex_t MathFunctions::Bessel_C1(const complex_t &value)
 {
     if(std::imag(value) < Numeric::double_epsilon) {
         double xv = std::real(value);
-        return (std::abs(xv) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(xv)/xv : 0.5);
+        return std::abs(xv) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(xv)/xv : 0.5;
     } else {
-        return (std::abs(value) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(value)/value : 0.5);
+        return std::abs(value) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(value)/value : 0.5;
     }
 }
 

@@ -46,5 +46,5 @@ FitView::FitView(MainWindow *mainWindow)
     layout->addWidget(tabs);
     setLayout(layout);
 
-    tabs->setCurrentIndex(2);
+    tabs->setCurrentIndex(1);
 }

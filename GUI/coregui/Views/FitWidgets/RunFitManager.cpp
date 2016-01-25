@@ -18,7 +18,7 @@
 #include "FitSuite.h"
 #include <QThread>
 
-RunFitManager::RunFitManager(QObject *parent = 0)
+RunFitManager::RunFitManager(QObject *parent)
     : QObject(parent)
     , m_fitSuite(0)
     , m_is_fit_running(0)

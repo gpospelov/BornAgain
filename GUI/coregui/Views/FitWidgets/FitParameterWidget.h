@@ -16,6 +16,8 @@
 #ifndef FITPARAMETERWIDGET_H
 #define FITPARAMETERWIDGET_H
 
+// FIXME_DAVID Use forward class declaration in headers as much as possible, instead of include's
+
 #include <QWidget>
 #include <QStandardItemModel>
 #include <QPlainTextEdit>
@@ -53,6 +55,11 @@ class BA_CORE_API_ FitParameterWidget : public QWidget
     Q_OBJECT
 
 public:
+// FIXME_DAVID - suggestion: Change constructor to not to rely on MainWindow
+// a) to provide looser coupling b) to avoid duplication parent <--> main
+//
+// Just use same approach as in other models, e.g. new SampleView(m_sampleModel, m_instrumentModel);
+
     FitParameterWidget(MainWindow *main, QWidget *parent = 0);
 
 public slots:
@@ -63,6 +70,10 @@ private:
     QTreeView *m_treeview;
     MainWindow *m_main;
 };
+
+// FIXME_DAVID Bad naming, *SelectionModel usualy refered to something related to QItemSelectionModel
+// - suggestion: SampleParameterModel (on the left) FitParameterModel (on the right)
+// Although, SampleParameterModel might be not the best name (since it will contain parameters from both, SampleMNodel and InstrumentModel)
 
 class FitParameterSelectionModel : public QStandardItemModel
 {
@@ -77,6 +88,11 @@ public:
          types << "application/vnd.text.list";
          return types;
      }
+
+    // FIXME_DAVID I know, you are prototyping, but just for the future
+    // - do not use inline classes in GUI, move all implementation details into *.cpp. Even for simple return methods.
+    // - headers should be clean as much as possible
+    // - this advice, of course, stands for GUI only, where performance improvements because of inline anyway is not visible
     QMimeData *mimeData(const QModelIndexList &indexes) const
      {
          QMimeData *mimeData = new QMimeData();

@@ -27,6 +27,20 @@
 #include <QCheckBox>
 #include <QTabWidget>
 
+
+
+// FIXME_DAVID Rename Ivona's FitView into ObsoleteFitView. And use nice name FitView for own purpose.
+//  -- suggestion: for consistency use prefix Obsolete for all classes you are goind to throw soon
+//  -- you may want to add to all Ivona's classes prefix Obsolete. Don't forget about 'ifndef' header guards
+
+// FIXME_DAVID Move your activity from TestView to FitView.
+// - FitView should contain QTabWidget with 3 tabs:
+// - 1) ImportDataWidget (empty for the moment) 2) FitSettingsWidget 3) RunFitWidget
+
+// FIXME_DAVID FitSettingsWidget should contain
+// - FitParametersWidget (for the moment), and later sample/instrument selector + MinimizerSettingsWidgert
+
+
 TestView::TestView(MainWindow *window, QWidget *parent)
     : QWidget(parent)
     , m_mainWindow(window)
@@ -125,6 +139,8 @@ void TestView::test_AccordionWidget()
 
 void TestView::test_RunFitWidget()
 {
+    // FIXME_DAVID Use consistent variable names: not 'maskEditor', but runFitWidget
+
     RunFitWidget *maskEditor = new RunFitWidget();
     //FitView *fw = new FitView(m_mainWindow->getSampleModel(), m_mainWindow->getInstrumentModel());
     FitParameterWidgetOld *fpw = new FitParameterWidgetOld(m_mainWindow->getFitProxyModel());

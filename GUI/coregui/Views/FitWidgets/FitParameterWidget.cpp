@@ -70,6 +70,13 @@ FitParameterWidget::FitParameterWidget(MainWindow *main, QWidget *parent)
 }
 
 
+// FIXME_DAVID Pretty impressive that you have managed to build a tree without recursive calls
+// Anyway, if it works and looks compact, no reason to rewrite it to use recursion
+// - Just isolate model creation into separate call, to not to mix inside updateParameters() two
+//   various activities: building the model, and initializing m_textEdit and m_treeView
+//
+
+
 
 void FitParameterWidget::updateParameters()
 {
@@ -111,6 +118,8 @@ void FitParameterWidget::updateParameters()
             }
         }
         // now we can add the value to it
+
+        // FIXME_DAVID Can you add value to the same row as property name, to have them in one line?
 
         QStandardItem *data = new QStandardItem();
         double value = m_main->getSampleModel()->getTopItem()->getParameterValue(str);

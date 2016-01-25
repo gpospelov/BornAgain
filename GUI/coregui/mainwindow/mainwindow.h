@@ -43,7 +43,6 @@ class MaterialEditor;
 class ToolTipDataBase;
 class MaterialModel;
 class SampleModel;
-class FitProxyModel;
 class FitView;
 class JobModel;
 class UpdateNotifier;
@@ -53,7 +52,7 @@ class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
     Q_OBJECT
 
 public:
-    enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, TEST_VIEW};
+    enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, FIT};
 
     explicit MainWindow(QWidget *parent = 0);
     virtual ~MainWindow();
@@ -66,7 +65,6 @@ public:
     ActionManager *getActionManager() { return m_actionManager; }
     ProjectManager *getProjectManager() { return m_projectManager; }
     UpdateNotifier *getUpdateNotifier() { return m_updateNotifier; }
-    FitProxyModel *getFitProxyModel() { return m_fitProxyModel; }
 
 public slots:
     void onChangeTabWidget(int index);
@@ -102,7 +100,6 @@ private:
     MaterialModel *m_materialModel; //!< model for all materials
     MaterialEditor *m_materialEditor;
     ToolTipDataBase *m_toolTipDataBase;
-    FitProxyModel *m_fitProxyModel;
     UpdateNotifier *m_updateNotifier;
 
     void createModels();

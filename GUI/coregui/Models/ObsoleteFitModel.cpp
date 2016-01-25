@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "FitModel.h"
+#include "ObsoleteFitModel.h"
 #include "ItemIDFactory.h"
 
 namespace
@@ -22,7 +22,7 @@ enum EColumn { ITEM_Name, ITEM_Property_Value, ITEM_Ancestors, MAX_COLUMNS };
     QString FitParameterModel_Name = "FitParameterModel";
 }
 
-FitModel::FitModel(int columns, AcceptableFitModelNames modelName, QObject *parent)
+ObsoleteFitModel::ObsoleteFitModel(int columns, AcceptableFitModelNames modelName, QObject *parent)
     : SessionModel(SessionXML::FitModelTag, parent)
 {
     parameter = "Parameter";
@@ -32,7 +32,7 @@ FitModel::FitModel(int columns, AcceptableFitModelNames modelName, QObject *pare
     m_modelName = modelName;
 }
 
-QVariant FitModel::data(const QModelIndex &index, int role) const{
+QVariant ObsoleteFitModel::data(const QModelIndex &index, int role) const{
 
     ParameterizedItem* root = this->rootItem();
 
@@ -84,7 +84,7 @@ QVariant FitModel::data(const QModelIndex &index, int role) const{
 }
 
 
-QModelIndex FitModel::index(int row, int column, const QModelIndex &parent) const
+QModelIndex ObsoleteFitModel::index(int row, int column, const QModelIndex &parent) const
 {
     if (!rootItem() || row < 0 || column < 0 || column >= m_columns
         || (parent.isValid() && parent.column() != 0))
@@ -100,7 +100,7 @@ QModelIndex FitModel::index(int row, int column, const QModelIndex &parent) cons
 }
 
 
-QVariant FitModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant ObsoleteFitModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
 
@@ -119,7 +119,7 @@ QVariant FitModel::headerData(int section, Qt::Orientation orientation, int role
     return QVariant();
 }
 
-bool FitModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool ObsoleteFitModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     if (!index.isValid())
         return false;
@@ -154,14 +154,14 @@ bool FitModel::setData(const QModelIndex &index, const QVariant &value, int role
     return false;
 }
 
-int FitModel::columnCount(const QModelIndex &parent) const
+int ObsoleteFitModel::columnCount(const QModelIndex &parent) const
 {
     if (parent.isValid() && parent.column() != 0)
         return 0;
     return m_columns;
 }
 
-bool FitModel::insertRows(int position, int rows, const QModelIndex &parent){
+bool ObsoleteFitModel::insertRows(int position, int rows, const QModelIndex &parent){
     ParameterizedItem *parentItem = itemForIndex(parent);
 
     beginInsertRows(parent, position, position + rows - 1);
@@ -176,7 +176,7 @@ bool FitModel::insertRows(int position, int rows, const QModelIndex &parent){
 }
 
 
-bool FitModel::insertColumns(int column, int count, const QModelIndex & parent){
+bool ObsoleteFitModel::insertColumns(int column, int count, const QModelIndex & parent){
 
     Q_UNUSED(column);
     Q_UNUSED(count);
@@ -185,7 +185,7 @@ bool FitModel::insertColumns(int column, int count, const QModelIndex & parent){
 
 }
 
-bool FitModel::removeRows(int row, int count, const QModelIndex & parent){
+bool ObsoleteFitModel::removeRows(int row, int count, const QModelIndex & parent){
 
     ParameterizedItem *parentItem = itemForIndex(parent);
 
@@ -207,7 +207,7 @@ bool FitModel::removeRows(int row, int count, const QModelIndex & parent){
     //trying to delete more children than what is the parent item has
     return false;
 }
-bool FitModel::removeColumns(int column, int count, const QModelIndex & parent){
+bool ObsoleteFitModel::removeColumns(int column, int count, const QModelIndex & parent){
 
     Q_UNUSED(column);
     Q_UNUSED(count);
@@ -215,11 +215,11 @@ bool FitModel::removeColumns(int column, int count, const QModelIndex & parent){
     return true;
 }
 
-Qt::DropActions FitModel::supportedDropActions() const{
+Qt::DropActions ObsoleteFitModel::supportedDropActions() const{
     return Qt::CopyAction | Qt::MoveAction;
 }
 
-QMimeData* FitModel::mimeData(const QModelIndexList &indices) const
+QMimeData* ObsoleteFitModel::mimeData(const QModelIndexList &indices) const
 {
     qDebug()<<"beginning of Function MimeData";
 
@@ -268,7 +268,7 @@ QMimeData* FitModel::mimeData(const QModelIndexList &indices) const
     return 0;
 }
 
-bool FitModel::canDropMimeData(const QMimeData *data,
+bool ObsoleteFitModel::canDropMimeData(const QMimeData *data,
                                Qt::DropAction action, int row, int column, const QModelIndex &parent) const{
 
     qDebug()<<"Beginning of canDropMimeData =====================================";
@@ -368,7 +368,7 @@ bool FitModel::canDropMimeData(const QMimeData *data,
      return true;
 }
 
-Qt::ItemFlags FitModel::flags(const QModelIndex &index) const
+Qt::ItemFlags ObsoleteFitModel::flags(const QModelIndex &index) const
 {
 
     ParameterizedItem* item = this->itemForIndex(index);
@@ -391,7 +391,7 @@ Qt::ItemFlags FitModel::flags(const QModelIndex &index) const
     }
 }
 
-bool FitModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
+bool ObsoleteFitModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
                             int row, int column, const QModelIndex &parent){
 
     if (!canDropMimeData(data, action, row, column, parent))
@@ -494,7 +494,7 @@ bool FitModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
 
 //special function used by ProxySampleModel to search for corresponding item in fitParameterModel
 //and vice versa
-ParameterizedItem* FitModel::searchByNameGUID(QString name, QString GUID, QModelIndex parentIndex, bool found){
+ParameterizedItem* ObsoleteFitModel::searchByNameGUID(QString name, QString GUID, QModelIndex parentIndex, bool found){
 
     ParameterizedItem* returnItem = NULL;
 

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITMODEL_H
-#define FITMODEL_H
+#ifndef OBSOLETEFITMODEL_H
+#define OBSOLETEFITMODEL_H
 
 #include "SessionModel.h"
 #include "GUIHelpers.h"
@@ -26,7 +26,7 @@
 #include <QMimeData>
 #include <QItemSelection>
 
-class BA_CORE_API_ FitModel : public SessionModel
+class BA_CORE_API_ ObsoleteFitModel : public SessionModel
 {
     Q_OBJECT
 
@@ -38,8 +38,8 @@ public:
                                    testModel };
 
     //'columns' parameter needed is needed because the left and right side have different num of cols
-    explicit FitModel(int columns, AcceptableFitModelNames modelName = testModel, QObject *parent = 0);
-    ~FitModel() {}
+    explicit ObsoleteFitModel(int columns, AcceptableFitModelNames modelName = testModel, QObject *parent = 0);
+    ~ObsoleteFitModel() {}
 
     //overwritten methods from SessionModel
     QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;

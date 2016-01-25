@@ -13,14 +13,14 @@
 //
 // ************************************************************************** //
 
-#include "FitParameterWidgetOld.h"
-#include "FitParameterItem.h"
+#include "ObsoleteFitParameterWidget.h"
+#include "ObsoleteFitParameterItem.h"
 #include <QDebug>
 #include <QVBoxLayout>
 
 
 
-FitParameterWidgetOld::FitParameterWidgetOld(FitProxyModel *fitProxyModel, QWidget *parent)
+ObsoleteFitParameterWidget::ObsoleteFitParameterWidget(ObsoleteFitProxyModel *fitProxyModel, QWidget *parent)
     : QWidget(parent)
     , m_treeView(0)
     , m_fitProxyModel(fitProxyModel)
@@ -98,7 +98,7 @@ FitParameterWidgetOld::FitParameterWidgetOld(FitProxyModel *fitProxyModel, QWidg
 
 }
 
-QStandardItemModel *FitParameterWidgetOld::createParameterModel(FitModel *fitModel)
+QStandardItemModel *ObsoleteFitParameterWidget::createParameterModel(ObsoleteFitModel *fitModel)
 {
     QStandardItemModel *result(0);
     result = new QStandardItemModel();
@@ -118,7 +118,7 @@ QStandardItemModel *FitParameterWidgetOld::createParameterModel(FitModel *fitMod
     return result;
 }
 
-QStandardItemModel *FitParameterWidgetOld::iterateSessionModel(FitModel *fitModel, const QModelIndex &parentIndex, QStandardItemModel *parentItem)
+QStandardItemModel *ObsoleteFitParameterWidget::iterateSessionModel(ObsoleteFitModel *fitModel, const QModelIndex &parentIndex, QStandardItemModel *parentItem)
 {
     Q_ASSERT(fitModel);
 
@@ -146,7 +146,7 @@ QStandardItemModel *FitParameterWidgetOld::iterateSessionModel(FitModel *fitMode
     return parentItem;
 }
 
-void FitParameterWidgetOld::insertRowIntoItem(QStandardItemModel *parentItem, QString title, QVariant value, QVariant min, QVariant max, QVariant isUse)
+void ObsoleteFitParameterWidget::insertRowIntoItem(QStandardItemModel *parentItem, QString title, QVariant value, QVariant min, QVariant max, QVariant isUse)
 {
 
     QStandardItem *titleItem = new QStandardItem(title);
@@ -177,9 +177,9 @@ void FitParameterWidgetOld::insertRowIntoItem(QStandardItemModel *parentItem, QS
 
 }
 
-void FitParameterWidgetOld::initFitModel()
+void ObsoleteFitParameterWidget::initFitModel()
 {
-    m_fitModel = new FitModel(2);
+    m_fitModel = new ObsoleteFitModel(2);
 
 //    ParameterizedItem *item1 = m_fitModel->insertNewItem(Constants::FitParameterType);
 //    item1->setItemName("Par1");

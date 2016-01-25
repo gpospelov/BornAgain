@@ -28,7 +28,7 @@
 
 class QTreeView;
 class MainWindow;
-
+class FitParameterModel;
 
 
 class DebugTextEdit : public QPlainTextEdit
@@ -65,10 +65,13 @@ public:
 public slots:
     void updateParameters();
 
+    void expandRightTree();
 private:
     DebugTextEdit *m_textedit;
     QTreeView *m_treeview;
+    QTreeView *m_fitpara;
     MainWindow *m_main;
+    FitParameterModel *m_model;
 };
 
 // FIXME_DAVID Bad naming, *SelectionModel usualy refered to something related to QItemSelectionModel
@@ -106,7 +109,6 @@ public:
                           parents << cur->text();
                           cur = cur->parent();
                       }
-                      parents.removeFirst();
                       std::reverse(parents.begin(), parents.end());
                       list << parents.join("/");
                   }
@@ -117,6 +119,22 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const {
         return itemFromIndex(index)->flags();
     }
+};
+
+// some more ...
+
+class FitParameterModel : public QStandardItemModel
+{
+    Q_OBJECT
+public:
+    bool dropMimeData(const QMimeData *data,
+         Qt::DropAction action, int row, int column, const QModelIndex &parent);
+
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    Qt::DropActions supportedDropActions() const;
+    QStringList mimeTypes() const;
+signals:
+    void dropFinished();
 };
 
 #endif

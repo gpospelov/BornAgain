@@ -38,7 +38,6 @@
 #include "MaterialItem.h"
 #include "RefractiveIndexItem.h"
 #include "MagneticFieldItem.h"
-#include "FitParameterItem.h"
 #include "JobItem.h"
 #include "IntensityDataItem.h"
 #include "AxesItems.h"
@@ -142,8 +141,6 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::RefractiveIndexType] = &createInstance<RefractiveIndexItem>;
 
     result[Constants::MagneticFieldType] = &createInstance<MagneticFieldItem>;
-
-    result[Constants::FitParameterType] = &createInstance<FitParameterItem>;
 
     result[Constants::JobItemType] = &createInstance<JobItem>;
 

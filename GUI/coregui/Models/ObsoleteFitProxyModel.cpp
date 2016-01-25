@@ -13,25 +13,25 @@
 //
 // ************************************************************************** //
 
-#include "FitProxyModel.h"
-#include "FitModel.h"
+#include "ObsoleteFitProxyModel.h"
+#include "ObsoleteFitModel.h"
 #include "ParameterizedItem.h"
-#include "FitParameterItem.h"
+#include "ObsoleteFitParameterItem.h"
 #include <QDebug>
 
 
-FitProxyModel::FitProxyModel(QObject *parent)
+ObsoleteFitProxyModel::ObsoleteFitProxyModel(QObject *parent)
     : QAbstractItemModel(parent)
 {
 
 }
 
-void FitProxyModel::setFitModel(FitModel *fitModel)
+void ObsoleteFitProxyModel::setFitModel(ObsoleteFitModel *fitModel)
 {
     m_fitModel = fitModel;
 }
 
-QVariant FitProxyModel::data(const QModelIndex &index, int role) const
+QVariant ObsoleteFitProxyModel::data(const QModelIndex &index, int role) const
 {
 
 //    if(role == Qt::DisplayRole) {
@@ -86,7 +86,7 @@ QVariant FitProxyModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-int FitProxyModel::rowCount(const QModelIndex &parentIndex) const
+int ObsoleteFitProxyModel::rowCount(const QModelIndex &parentIndex) const
 {
     if(parentIndex.isValid())
     {
@@ -120,7 +120,7 @@ int FitProxyModel::rowCount(const QModelIndex &parentIndex) const
     return counter;
 }
 
-int FitProxyModel::columnCount(const QModelIndex &parentIndex) const
+int ObsoleteFitProxyModel::columnCount(const QModelIndex &parentIndex) const
 {
     if(!parentIndex.isValid())
     {
@@ -135,7 +135,7 @@ int FitProxyModel::columnCount(const QModelIndex &parentIndex) const
     return 0;
 }
 
-QModelIndex FitProxyModel::index(int row, int column,
+QModelIndex ObsoleteFitProxyModel::index(int row, int column,
                                  const QModelIndex &parentIndex) const
 {
     ParameterizedItem *parent_item = m_fitModel->itemForIndex(parentIndex);
@@ -145,7 +145,7 @@ QModelIndex FitProxyModel::index(int row, int column,
     return QModelIndex();
 }
 
-QModelIndex FitProxyModel::parent(const QModelIndex &/*child*/) const
+QModelIndex ObsoleteFitProxyModel::parent(const QModelIndex &/*child*/) const
 {
     /*if (!child.isValid()) return QModelIndex();
     if (ParameterizedItem *child_item = itemForIndex(child)) {
@@ -162,7 +162,7 @@ QModelIndex FitProxyModel::parent(const QModelIndex &/*child*/) const
 
 }
 
-Qt::ItemFlags FitProxyModel::flags(const QModelIndex &index) const
+Qt::ItemFlags ObsoleteFitProxyModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags result_flags = QAbstractItemModel::flags(index);
     if (index.isValid()) {
@@ -174,7 +174,7 @@ Qt::ItemFlags FitProxyModel::flags(const QModelIndex &index) const
     return result_flags;
 }
 
-bool FitProxyModel::setData(const QModelIndex &index,
+bool ObsoleteFitProxyModel::setData(const QModelIndex &index,
                            const QVariant &value, int role)
 {
     if (!index.isValid()) return false;
@@ -211,7 +211,7 @@ bool FitProxyModel::setData(const QModelIndex &index,
     return false;
 }
 
-ParameterizedItem *FitProxyModel::itemForIndex(const QModelIndex &index) const
+ParameterizedItem *ObsoleteFitProxyModel::itemForIndex(const QModelIndex &index) const
 {
     if (index.isValid()) {
         if (ParameterizedItem *item = static_cast<ParameterizedItem *>(

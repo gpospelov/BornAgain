@@ -13,22 +13,22 @@
 //
 // ************************************************************************** //
 
-#ifndef FITPROXYMODEL_H
-#define FITPROXYMODEL_H
+#ifndef OBSOLETEFITPROXYMODEL_H
+#define OBSOLETEFITPROXYMODEL_H
 
 
 #include <QAbstractItemModel>
 
-class FitModel;
+class ObsoleteFitModel;
 class ParameterizedItem;
 
-class BA_CORE_API_ FitProxyModel : public QAbstractItemModel
+class BA_CORE_API_ ObsoleteFitProxyModel : public QAbstractItemModel
 {
     Q_OBJECT
 
 public:
-    explicit FitProxyModel(QObject *parent = 0);
-    virtual ~FitProxyModel(){}
+    explicit ObsoleteFitProxyModel(QObject *parent = 0);
+    virtual ~ObsoleteFitProxyModel(){}
 
     // overriden methods
     virtual QVariant data(const QModelIndex &index, int role) const;
@@ -40,14 +40,14 @@ public:
     virtual bool setData(const QModelIndex &index, const QVariant &value, int role);
     //end if overriden methods
 
-    void setFitModel(FitModel *fitModel);
-    FitModel *getFitModel()
+    void setFitModel(ObsoleteFitModel *fitModel);
+    ObsoleteFitModel *getFitModel()
         { return m_fitModel; }
 
     ParameterizedItem *itemForIndex(const QModelIndex &index) const;
 
 private:
-    FitModel *m_fitModel;
+    ObsoleteFitModel *m_fitModel;
 
 };
 

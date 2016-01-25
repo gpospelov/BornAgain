@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "FitParameterItem.h"
+#include "ObsoleteFitParameterItem.h"
 
 const QString FitParameterItem::P_MIN = "Min";
 const QString FitParameterItem::P_MAX = "Max";

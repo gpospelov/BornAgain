@@ -13,37 +13,37 @@
 //
 // ************************************************************************** //
 
-#ifndef FitParameterWidgetOld_H
-#define FitParameterWidgetOld_H
+#ifndef OBSOLETEFITPARAMETERWIDGET_H
+#define OBSOLETEFITPARAMETERWIDGET_H
 
 #include <QWidget>
 #include <QTreeView>
 #include <QAction>
 #include <QTableWidget>
 
-#include "FitProxyModel.h"
-#include "FitModel.h"
+#include "ObsoleteFitProxyModel.h"
+#include "ObsoleteFitModel.h"
 
-class FitModel;
+class ObsoleteFitModel;
 
 
 
-class BA_CORE_API_ FitParameterWidgetOld : public QWidget
+class BA_CORE_API_ ObsoleteFitParameterWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    FitParameterWidgetOld(FitProxyModel *fitProxyModel, QWidget *parent = 0);
+    ObsoleteFitParameterWidget(ObsoleteFitProxyModel *fitProxyModel, QWidget *parent = 0);
 
 private:
-    FitModel *m_fitModel;
+    ObsoleteFitModel *m_fitModel;
     QStandardItemModel *m_parameterModel;
     QTreeView *m_treeView;
-    FitProxyModel *m_fitProxyModel;
+    ObsoleteFitProxyModel *m_fitProxyModel;
 
 
-    QStandardItemModel *createParameterModel(FitModel *fitModel);
-    QStandardItemModel *iterateSessionModel(FitModel *fitModel, const QModelIndex &parentIndex = QModelIndex(), QStandardItemModel *parentItem = 0);
+    QStandardItemModel *createParameterModel(ObsoleteFitModel *fitModel);
+    QStandardItemModel *iterateSessionModel(ObsoleteFitModel *fitModel, const QModelIndex &parentIndex = QModelIndex(), QStandardItemModel *parentItem = 0);
     void insertRowIntoItem(QStandardItemModel *parentItem, QString title, QVariant value, QVariant min, QVariant max, QVariant isUse);
 
 

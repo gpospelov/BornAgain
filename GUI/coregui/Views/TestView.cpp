@@ -17,7 +17,6 @@
 #include "RunFitWidget.h"
 #include "FitView.h"
 #include "mainwindow.h"
-#include "FitParameterWidgetOld.h"
 #include "FitParameterWidget.h"
 #include "JobModel.h"
 #include <QMimeData>
@@ -143,13 +142,12 @@ void TestView::test_RunFitWidget()
 
     RunFitWidget *maskEditor = new RunFitWidget();
     //FitView *fw = new FitView(m_mainWindow->getSampleModel(), m_mainWindow->getInstrumentModel());
-    FitParameterWidgetOld *fpw = new FitParameterWidgetOld(m_mainWindow->getFitProxyModel());
+
     FitParameterWidget *fitting = new FitParameterWidget(m_mainWindow);
     QVBoxLayout *layout = new QVBoxLayout;
     QTabWidget *tabs = new QTabWidget;
     tabs->addTab(maskEditor, "Run Fit");
     //tabs->addTab(fw, "FitView by Ivonna");
-    tabs->addTab(fpw, "FitParameterWidgetOld");
     tabs->addTab(fitting, "Test TreeView");
     layout->setMargin(0);
     layout->setSpacing(0);

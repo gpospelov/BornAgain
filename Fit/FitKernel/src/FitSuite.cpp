@@ -119,19 +119,19 @@ IHistogram *FitSuite::getChiSquaredMap(size_t i_item) const
     return IHistogram::createHistogram(*data);
 }
 
-OutputData<double> *FitSuite::getRealOutputData(size_t i_item) const
+const OutputData<double> *FitSuite::getRealOutputData(size_t i_item) const
 {
-    *m_kernel->getFitObjects()->getRealData(i_item);
+    return m_kernel->getFitObjects()->getRealData(i_item);
 }
 
-OutputData<double> *FitSuite::getSimulationOutputData(size_t i_item) const
+const OutputData<double> *FitSuite::getSimulationOutputData(size_t i_item) const
 {
-    *m_kernel->getFitObjects()->getSimulationData(i_item);
+    return m_kernel->getFitObjects()->getSimulationData(i_item);
 }
 
-OutputData<double> *FitSuite::getChiSquaredOutputData(size_t i_item) const
+const OutputData<double> *FitSuite::getChiSquaredOutputData(size_t i_item) const
 {
-    *m_kernel->getFitObjects()->getChiSquaredMap(i_item);
+    return m_kernel->getFitObjects()->getChiSquaredMap(i_item);
 }
 
 

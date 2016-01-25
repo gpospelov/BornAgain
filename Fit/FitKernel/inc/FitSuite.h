@@ -142,11 +142,11 @@ public:
 
     bool isInterrupted();
 
-    OutputData<double> *getRealOutputData(size_t i_item = 0) const;
+    const OutputData<double> *getRealOutputData(size_t i_item = 0) const;
 
-    OutputData<double> *getSimulationOutputData(size_t i_item = 0) const;
+    const OutputData<double> *getSimulationOutputData(size_t i_item = 0) const;
 
-    OutputData<double> *getChiSquaredOutputData(size_t i_item = 0) const;
+    const OutputData<double> *getChiSquaredOutputData(size_t i_item = 0) const;
 
 private:
     FitSuite& operator=(const FitSuite& );

@@ -253,7 +253,7 @@ void TransformFromDomain::setItemFromSample(BeamItem *beamItem, const GISASSimul
     }
 }
 
-void TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem,
+void TransformFromDomain::setItemFromSample(SphericalDetectorItem *detectorItem,
                                             const GISASSimulation &simulation)
 {
     Q_ASSERT(detectorItem);
@@ -264,14 +264,14 @@ void TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem,
     const IAxis &alpha_axis = detector->getAxis(1);
 
     BasicAxisItem *phiAxisItem = dynamic_cast<BasicAxisItem *>(
-        detectorItem->getSubItems()[PhiAlphaDetectorItem::P_PHI_AXIS]);
+        detectorItem->getSubItems()[SphericalDetectorItem::P_PHI_AXIS]);
     Q_ASSERT(phiAxisItem);
     phiAxisItem->setRegisteredProperty(BasicAxisItem::P_NBINS, (int)phi_axis.getSize());
     phiAxisItem->setRegisteredProperty(BasicAxisItem::P_MIN, Units::rad2deg(phi_axis.getMin()));
     phiAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, Units::rad2deg(phi_axis.getMax()));
 
     BasicAxisItem *alphaAxisItem = dynamic_cast<BasicAxisItem *>(
-        detectorItem->getSubItems()[PhiAlphaDetectorItem::P_ALPHA_AXIS]);
+        detectorItem->getSubItems()[SphericalDetectorItem::P_ALPHA_AXIS]);
     Q_ASSERT(alphaAxisItem);
     alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_NBINS, (int)alpha_axis.getSize());
     alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_MIN, Units::rad2deg(alpha_axis.getMin()));
@@ -285,7 +285,7 @@ void TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem,
                 = dynamic_cast<const ResolutionFunction2DGaussian *>(
                     p_convfunc->getResolutionFunction2D())) {
                 ParameterizedItem *item
-                    = detectorItem->setGroupProperty(PhiAlphaDetectorItem::P_RESOLUTION_FUNCTION,
+                    = detectorItem->setGroupProperty(SphericalDetectorItem::P_RESOLUTION_FUNCTION,
                                                      Constants::ResolutionFunction2DGaussianType);
                 item->setRegisteredProperty(ResolutionFunction2DGaussianItem::P_SIGMA_X,
                                             Units::rad2deg(resfunc->getSigmaX()));
@@ -293,13 +293,13 @@ void TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem,
                                             Units::rad2deg(resfunc->getSigmaY()));
             } else {
                 throw GUIHelpers::Error("TransformFromDomain::setItemFromSample("
-                                        "PhiAlphaDetectorItem *detectorItem, const GISASSimulation "
+                                        "SphericalDetectorItem *detectorItem, const GISASSimulation "
                                         "&simulation) -> Error, unknown detector resolution "
                                         "function");
             }
         } else {
             throw GUIHelpers::Error(
-                "TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem "
+                "TransformFromDomain::setItemFromSample(SphericalDetectorItem "
                 "*detectorItem, const GISASSimulation &simulation) -> Error, not a "
                 "ConvolutionDetectorResolution function");
         }

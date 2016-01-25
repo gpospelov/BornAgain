@@ -324,7 +324,7 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
 
     if (subDetector->modelType() == Constants::SphericalDetectorType) {
         auto x_axis = dynamic_cast<BasicAxisItem *>(
-            subDetector->getSubItems()[PhiAlphaDetectorItem::P_PHI_AXIS]);
+            subDetector->getSubItems()[SphericalDetectorItem::P_PHI_AXIS]);
         Q_ASSERT(x_axis);
         int n_x = x_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
         double x_min
@@ -333,7 +333,7 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
             = Units::deg2rad(x_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
 
         auto y_axis = dynamic_cast<BasicAxisItem *>(
-            subDetector->getSubItems()[PhiAlphaDetectorItem::P_ALPHA_AXIS]);
+            subDetector->getSubItems()[SphericalDetectorItem::P_ALPHA_AXIS]);
         Q_ASSERT(y_axis);
         int n_y = y_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
         double y_min
@@ -345,7 +345,7 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
 
         // setting up resolution function
         auto resfuncItem = dynamic_cast<ResolutionFunctionItem *>(
-            subDetector->getSubItems()[PhiAlphaDetectorItem::P_RESOLUTION_FUNCTION]);
+            subDetector->getSubItems()[SphericalDetectorItem::P_RESOLUTION_FUNCTION]);
         Q_ASSERT(resfuncItem);
         std::unique_ptr<IResolutionFunction2D> P_res_func(resfuncItem->createResolutionFunction());
         if (P_res_func)

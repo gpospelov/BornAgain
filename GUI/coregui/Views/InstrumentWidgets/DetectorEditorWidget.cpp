@@ -72,23 +72,23 @@ void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
     if (!m_detectorItem)
         return;
 
-    PhiAlphaDetectorItem *subDetector = dynamic_cast<PhiAlphaDetectorItem *>(
+    SphericalDetectorItem *subDetector = dynamic_cast<SphericalDetectorItem *>(
         detectorItem->getSubItems()[DetectorItem::P_DETECTOR]);
 
     m_detectorTypeEditor->addItemProperty(detectorItem, DetectorItem::P_DETECTOR, QString(),
                                      AwesomePropertyEditor::SKIP);
 
-    ParameterizedItem *phiAxisItem = subDetector->getSubItems()[PhiAlphaDetectorItem::P_PHI_AXIS];
+    ParameterizedItem *phiAxisItem = subDetector->getSubItems()[SphericalDetectorItem::P_PHI_AXIS];
     m_phiAxisEditor->addItemProperties(phiAxisItem, QString("Phi axis"),
                                        AwesomePropertyEditor::INSERT_AFTER);
 
     ParameterizedItem *alphaAxisItem
-        = subDetector->getSubItems()[PhiAlphaDetectorItem::P_ALPHA_AXIS];
+        = subDetector->getSubItems()[SphericalDetectorItem::P_ALPHA_AXIS];
     m_alphaAxisEditor->addItemProperties(alphaAxisItem, QString("Alpha axis"),
                                          AwesomePropertyEditor::INSERT_AFTER);
 
     m_resolutionFunctionEditor->addItemProperty(
-        subDetector, PhiAlphaDetectorItem::P_RESOLUTION_FUNCTION, "Resolution function",
+        subDetector, SphericalDetectorItem::P_RESOLUTION_FUNCTION, "Resolution function",
                 AwesomePropertyEditor::INSERT_AFTER);
 }
 

@@ -41,11 +41,11 @@ MaskContainerItem *DetectorItem::getMaskContainerItem() const
 
 // -------------------------------------------------------------------------- //
 
-const QString PhiAlphaDetectorItem::P_PHI_AXIS = "Phi axis";
-const QString PhiAlphaDetectorItem::P_ALPHA_AXIS = "Alpha axis";
-const QString PhiAlphaDetectorItem::P_RESOLUTION_FUNCTION = "Type";
+const QString SphericalDetectorItem::P_PHI_AXIS = "Phi axis";
+const QString SphericalDetectorItem::P_ALPHA_AXIS = "Alpha axis";
+const QString SphericalDetectorItem::P_RESOLUTION_FUNCTION = "Type";
 
-PhiAlphaDetectorItem::PhiAlphaDetectorItem(ParameterizedItem *parent)
+SphericalDetectorItem::SphericalDetectorItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::SphericalDetectorType, parent)
 {
     registerGroupProperty(P_PHI_AXIS, Constants::BasicAxisType);

@@ -31,14 +31,14 @@ public:
     MaskContainerItem *getMaskContainerItem() const;
 };
 
-class PhiAlphaDetectorItem : public ParameterizedItem
+class SphericalDetectorItem : public ParameterizedItem
 {
 public:
     static const QString P_PHI_AXIS;
     static const QString P_ALPHA_AXIS;
     static const QString P_RESOLUTION_FUNCTION;
-    explicit PhiAlphaDetectorItem(ParameterizedItem *parent=0);
-    virtual ~PhiAlphaDetectorItem(){}
+    explicit SphericalDetectorItem(ParameterizedItem *parent=0);
+    virtual ~SphericalDetectorItem(){}
 };
 
 

@@ -27,6 +27,7 @@ DetectorItem::DetectorItem(ParameterizedItem *parent)
 {
     registerGroupProperty(P_DETECTOR, Constants::DetectorGroup);
     addToValidChildren(Constants::MaskContainerType);
+    setGroupProperty(P_DETECTOR, Constants::SphericalDetectorType);
 }
 
 MaskContainerItem *DetectorItem::getMaskContainerItem() const
@@ -63,4 +64,27 @@ SphericalDetectorItem::SphericalDetectorItem(ParameterizedItem *parent)
 }
 
 
+// -------------------------------------------------------------------------- //
 
+const QString RectangularDetectorItem::P_X_AXIS = "X axis";
+const QString RectangularDetectorItem::P_Y_AXIS = "Y axis";
+const QString RectangularDetectorItem::P_RESOLUTION_FUNCTION = "Type";
+
+
+RectangularDetectorItem::RectangularDetectorItem(ParameterizedItem *parent)
+    : ParameterizedItem(Constants::RectangularDetectorType, parent)
+{
+    registerGroupProperty(P_X_AXIS, Constants::BasicAxisType);
+    getSubItems()[P_X_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
+    getSubItems()[P_X_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, -1.0);
+    getSubItems()[P_X_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 1.0);
+
+    registerGroupProperty(P_Y_AXIS, Constants::BasicAxisType);
+    getSubItems()[P_Y_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
+    getSubItems()[P_Y_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, 0.0);
+    getSubItems()[P_Y_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 2.0);
+
+
+    registerGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
+    setGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionNoneType);
+}

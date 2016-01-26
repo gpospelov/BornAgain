@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InstrumentWidgets/SphericalDetectorWidget.cpp
-//! @brief     Implements class SphericalDetectorWidget
+//! @file      coregui/Views/InstrumentWidgets/RectangularDetectorWidget.cpp
+//! @brief     Implements class RectangularDetectorWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "SphericalDetectorWidget.h"
+#include "RectangularDetectorWidget.h"
 #include "AwesomePropertyEditor.h"
 #include "DetectorItems.h"
 #include "GroupBox.h"
@@ -22,23 +22,23 @@
 #include <QGroupBox>
 #include <QVBoxLayout>
 
-SphericalDetectorWidget::SphericalDetectorWidget(ColumnResizer *columnResizer,
-                                                 DetectorItem *detectorItem, QWidget *parent)
+RectangularDetectorWidget::RectangularDetectorWidget(ColumnResizer *columnResizer,
+                                                     DetectorItem *detectorItem, QWidget *parent)
     : QWidget(parent)
     , m_detectorTypeEditor(0)
-    , m_phiAxisEditor(0)
-    , m_alphaAxisEditor(0)
+    , m_xAxisEditor(0)
+    , m_yAxisEditor(0)
     , m_resolutionFunctionEditor(0)
     , m_gridLayout(new QGridLayout)
 {
 //    m_detectorTypeEditor = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
 //    m_gridLayout->addWidget(m_detectorTypeEditor, 0, 0);
 
-    m_phiAxisEditor = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    m_gridLayout->addWidget(m_phiAxisEditor, 1, 0);
-    m_alphaAxisEditor
+    m_xAxisEditor = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+    m_gridLayout->addWidget(m_xAxisEditor, 1, 0);
+    m_yAxisEditor
         = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    m_gridLayout->addWidget(m_alphaAxisEditor, 1, 1);
+    m_gridLayout->addWidget(m_yAxisEditor, 1, 1);
 
     m_resolutionFunctionEditor
         = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
@@ -58,18 +58,10 @@ SphericalDetectorWidget::SphericalDetectorWidget(ColumnResizer *columnResizer,
     setDetectorItem(detectorItem);
 }
 
-SphericalDetectorWidget::~SphericalDetectorWidget()
+void RectangularDetectorWidget::setDetectorItem(DetectorItem *detectorItem)
 {
-//    m_detectorTypeEditor->clearEditor();
-//    m_phiAxisEditor->clearEditor();
-//    m_alphaAxisEditor->clearEditor();
-//    m_resolutionFunctionEditor->clearEditor();
-}
-
-void SphericalDetectorWidget::setDetectorItem(DetectorItem *detectorItem)
-{
-    m_phiAxisEditor->clearEditor();
-    m_alphaAxisEditor->clearEditor();
+    m_xAxisEditor->clearEditor();
+    m_yAxisEditor->clearEditor();
     m_resolutionFunctionEditor->clearEditor();
 
     if (!detectorItem)
@@ -78,21 +70,21 @@ void SphericalDetectorWidget::setDetectorItem(DetectorItem *detectorItem)
 //    m_detectorTypeEditor->addItemProperty(detectorItem, DetectorItem::P_DETECTOR, QString(),
 //                                     AwesomePropertyEditor::SKIP);
 
-    SphericalDetectorItem *sphericalDetector = dynamic_cast<SphericalDetectorItem *>(
+    RectangularDetectorItem *rectangularDetector = dynamic_cast<RectangularDetectorItem *>(
                 detectorItem->getSubItems()[DetectorItem::P_DETECTOR]);
-    Q_ASSERT(sphericalDetector);
+    Q_ASSERT(rectangularDetector);
 
-    ParameterizedItem *phiAxisItem = sphericalDetector->getSubItems()[SphericalDetectorItem::P_PHI_AXIS];
-    m_phiAxisEditor->addItemProperties(phiAxisItem, QString("Phi axis"),
+    ParameterizedItem *xAxisItem = rectangularDetector->getSubItems()[RectangularDetectorItem::P_X_AXIS];
+    m_xAxisEditor->addItemProperties(xAxisItem, QString("X axis"),
                                        AwesomePropertyEditor::INSERT_AFTER);
 
-    ParameterizedItem *alphaAxisItem
-        = sphericalDetector->getSubItems()[SphericalDetectorItem::P_ALPHA_AXIS];
-    m_alphaAxisEditor->addItemProperties(alphaAxisItem, QString("Alpha axis"),
+    ParameterizedItem *yAxisItem
+        = rectangularDetector->getSubItems()[RectangularDetectorItem::P_Y_AXIS];
+    m_yAxisEditor->addItemProperties(yAxisItem, QString("Y axis"),
                                          AwesomePropertyEditor::INSERT_AFTER);
 
     m_resolutionFunctionEditor->addItemProperty(
-        sphericalDetector, SphericalDetectorItem::P_RESOLUTION_FUNCTION, "Resolution function",
+        rectangularDetector, RectangularDetectorItem::P_RESOLUTION_FUNCTION, "Resolution function",
                 AwesomePropertyEditor::INSERT_AFTER);
 }
 

@@ -38,7 +38,15 @@ public:
     static const QString P_ALPHA_AXIS;
     static const QString P_RESOLUTION_FUNCTION;
     explicit SphericalDetectorItem(ParameterizedItem *parent=0);
-    virtual ~SphericalDetectorItem(){}
+};
+
+class RectangularDetectorItem : public ParameterizedItem
+{
+public:
+    static const QString P_X_AXIS;
+    static const QString P_Y_AXIS;
+    static const QString P_RESOLUTION_FUNCTION;
+    explicit RectangularDetectorItem(ParameterizedItem *parent=0);
 };
 
 

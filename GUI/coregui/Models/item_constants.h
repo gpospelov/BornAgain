@@ -72,6 +72,7 @@ const ModelType LayerBasicRoughnessType = "LayerBasicRoughness";
 const ModelType LayerZeroRoughnessType = "LayerZeroRoughness";
 
 const ModelType SphericalDetectorType = "SphericalDetector";
+const ModelType RectangularDetectorType = "RectangularDetector";
 
 const ModelType DistributionNoneType = "DistributionNone";
 const ModelType DistributionGateType = "DistributionGate";

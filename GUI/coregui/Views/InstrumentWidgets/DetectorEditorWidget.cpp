@@ -19,51 +19,28 @@
 #include "GroupBox.h"
 #include "ExtendedDetectorDialog.h"
 #include "SphericalDetectorWidget.h"
+#include "RectangularDetectorWidget.h"
 #include "columnresizer.h"
+#include "GUIHelpers.h"
 #include <QGroupBox>
+#include <QLabel>
 #include <QVBoxLayout>
+#include <QDebug>
 
 DetectorEditorWidget::DetectorEditorWidget(ColumnResizer *columnResizer, QWidget *parent)
     : QWidget(parent)
+    , m_columnResizer(columnResizer)
     , m_groupBox(new GroupBox("Detector Parameters"))
-    , m_detectorTypeEditor(0)
-//    , m_phiAxisEditor(0)
-//    , m_alphaAxisEditor(0)
-//    , m_resolutionFunctionEditor(0)
-    , m_gridLayout(0)
     , m_detectorItem(0)
+    , m_subDetectorWidget(0)
 {
-//    QGroupBox *groupBox = new QGroupBox("Detector Parameters");
     QVBoxLayout *groupLayout = new QVBoxLayout;
     m_groupBox->setButtonToolTip("Gives access to the detector mask editor");
     m_groupBox->setLayout(groupLayout);
     connect(m_groupBox, SIGNAL(clicked()), this, SLOT(onGroupBoxExtendedButton()));
 
-    // whole content is represented as grid layout
-    m_gridLayout = new QGridLayout;
-
     m_detectorTypeEditor = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    m_gridLayout->addWidget(m_detectorTypeEditor, 0, 0);
-
-//    m_phiAxisEditor = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-//    m_gridLayout->addWidget(m_phiAxisEditor, 1, 0);
-//    m_alphaAxisEditor
-//        = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-//    m_gridLayout->addWidget(m_alphaAxisEditor, 1, 1);
-
-//    m_resolutionFunctionEditor
-//        = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-//    m_gridLayout->addWidget(m_resolutionFunctionEditor, 1, 2);
-
-    groupLayout->addLayout(m_gridLayout);
-
-//    groupLayout->addWidget(m_detectorTypeEditor);
-
-//    columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
-    columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
-    columnResizer->addWidgetsFromGridLayout(m_gridLayout, 1);
-    columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
-
+    groupLayout->addWidget(m_detectorTypeEditor);
 
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -74,42 +51,99 @@ DetectorEditorWidget::DetectorEditorWidget(ColumnResizer *columnResizer, QWidget
 
 void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
 {
+    qDebug() << "DetectorEditorWidget::setDetectorItem() -> XXX";
+
+    if(m_detectorItem) {
+        disconnect(m_detectorItem,
+                   SIGNAL(propertyChanged(const QString &)),
+                   this,
+                   SLOT(onPropertyChanged(const QString &)));
+        disconnect(m_detectorItem,
+                   SIGNAL(subItemChanged(const QString &)),
+                   this,
+                   SLOT(onSubItemChanged(const QString &)));
+        disconnect(m_detectorItem,
+                   SIGNAL(subItemPropertyChanged(const QString &, const QString &)),
+                   this,
+                   SLOT(onSubItemPropertyChanged(const QString &, const QString &)));
+    }
+
     m_detectorItem = detectorItem;
+
+    if(!m_detectorItem) return;
+
+    connect(m_detectorItem,
+               SIGNAL(propertyChanged(const QString &)),
+               this,
+               SLOT(onPropertyChanged(const QString &)));
+    connect(m_detectorItem,
+               SIGNAL(subItemChanged(const QString &)),
+               this,
+               SLOT(onSubItemChanged(const QString &)));
+    connect(m_detectorItem,
+               SIGNAL(subItemPropertyChanged(const QString &, const QString &)),
+               this,
+               SLOT(onSubItemPropertyChanged(const QString &, const QString &)));
+
     m_detectorTypeEditor->clearEditor();
-//    m_phiAxisEditor->clearEditor();
-//    m_alphaAxisEditor->clearEditor();
-//    m_resolutionFunctionEditor->clearEditor();
-
-    if (!m_detectorItem)
-        return;
-
-    m_detectorTypeEditor->addItemProperty(detectorItem, DetectorItem::P_DETECTOR, QString(),
+    m_detectorTypeEditor->addItemProperty(m_detectorItem, DetectorItem::P_DETECTOR, QString(),
                                      AwesomePropertyEditor::SKIP);
 
-//    SphericalDetectorItem *subDetector = dynamic_cast<SphericalDetectorItem *>(
-//        detectorItem->getSubItems()[DetectorItem::P_DETECTOR]);
+    init_SubDetector_Widget();
+}
 
+void DetectorEditorWidget::onPropertyChanged(const QString &propertyName)
+{
 
-//    m_sphericalDetectorWidget = new SphericalDetectorWidget();
-//    dynamic_cast<QVBoxLayout *>(layout())->insertWidget(1, m_sphericalDetectorWidget);
-//    m_sphericalDetectorWidget->setDetectorItem(subDetector);
+}
 
-//    ParameterizedItem *phiAxisItem = subDetector->getSubItems()[SphericalDetectorItem::P_PHI_AXIS];
-//    m_phiAxisEditor->addItemProperties(phiAxisItem, QString("Phi axis"),
-//                                       AwesomePropertyEditor::INSERT_AFTER);
+void DetectorEditorWidget::onSubItemChanged(const QString &propertyName)
+{
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << "DetectorEditorWidget::onSubItemChanged" << propertyName;
+    if(propertyName == DetectorItem::P_DETECTOR) {
+        init_SubDetector_Widget();
+    }
+}
 
-//    ParameterizedItem *alphaAxisItem
-//        = subDetector->getSubItems()[SphericalDetectorItem::P_ALPHA_AXIS];
-//    m_alphaAxisEditor->addItemProperties(alphaAxisItem, QString("Alpha axis"),
-//                                         AwesomePropertyEditor::INSERT_AFTER);
+void DetectorEditorWidget::onSubItemPropertyChanged(const QString &property_group, const QString &property_name)
+{
+    qDebug() << "DetectorEditorWidget::onSubItemPropertyChanged" << property_group << property_name;
 
-//    m_resolutionFunctionEditor->addItemProperty(
-//        subDetector, SphericalDetectorItem::P_RESOLUTION_FUNCTION, "Resolution function",
-//                AwesomePropertyEditor::INSERT_AFTER);
 }
 
 void DetectorEditorWidget::onGroupBoxExtendedButton()
 {
     emit extendedDetectorEditorRequest(m_detectorItem);
 }
+
+void DetectorEditorWidget::init_SubDetector_Widget()
+{
+    if(m_subDetectorWidget) m_groupBox->layout()->removeWidget(m_subDetectorWidget);
+    delete m_subDetectorWidget;
+    m_subDetectorWidget = 0;
+
+
+
+
+    ParameterizedItem *subItem = m_detectorItem->getSubItems()[DetectorItem::P_DETECTOR];
+
+    if(subItem->modelType() == Constants::SphericalDetectorType) {
+        m_subDetectorWidget = new SphericalDetectorWidget(m_columnResizer, m_detectorItem);
+    } else if(subItem->modelType() == Constants::RectangularDetectorType) {
+        m_subDetectorWidget = new RectangularDetectorWidget(m_columnResizer, m_detectorItem);
+    } else {
+        throw GUIHelpers::Error("DetectorEditorWidget::init_SubDetector_Widget() -> Error!"
+                                "Unknown sybdetector type.");
+    }
+
+    m_groupBox->layout()->addWidget(m_subDetectorWidget);
+}
+
+
 

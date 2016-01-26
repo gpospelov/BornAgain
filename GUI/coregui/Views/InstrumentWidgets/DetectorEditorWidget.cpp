@@ -18,16 +18,18 @@
 #include "DetectorItems.h"
 #include "GroupBox.h"
 #include "ExtendedDetectorDialog.h"
+#include "SphericalDetectorWidget.h"
+#include "columnresizer.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
 
-DetectorEditorWidget::DetectorEditorWidget(QWidget *parent)
+DetectorEditorWidget::DetectorEditorWidget(ColumnResizer *columnResizer, QWidget *parent)
     : QWidget(parent)
     , m_groupBox(new GroupBox("Detector Parameters"))
     , m_detectorTypeEditor(0)
-    , m_phiAxisEditor(0)
-    , m_alphaAxisEditor(0)
-    , m_resolutionFunctionEditor(0)
+//    , m_phiAxisEditor(0)
+//    , m_alphaAxisEditor(0)
+//    , m_resolutionFunctionEditor(0)
     , m_gridLayout(0)
     , m_detectorItem(0)
 {
@@ -42,17 +44,26 @@ DetectorEditorWidget::DetectorEditorWidget(QWidget *parent)
 
     m_detectorTypeEditor = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
     m_gridLayout->addWidget(m_detectorTypeEditor, 0, 0);
-    m_phiAxisEditor = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    m_gridLayout->addWidget(m_phiAxisEditor, 1, 0);
-    m_alphaAxisEditor
-        = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    m_gridLayout->addWidget(m_alphaAxisEditor, 1, 1);
 
-    m_resolutionFunctionEditor
-        = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    m_gridLayout->addWidget(m_resolutionFunctionEditor, 1, 2);
+//    m_phiAxisEditor = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+//    m_gridLayout->addWidget(m_phiAxisEditor, 1, 0);
+//    m_alphaAxisEditor
+//        = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+//    m_gridLayout->addWidget(m_alphaAxisEditor, 1, 1);
+
+//    m_resolutionFunctionEditor
+//        = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+//    m_gridLayout->addWidget(m_resolutionFunctionEditor, 1, 2);
 
     groupLayout->addLayout(m_gridLayout);
+
+//    groupLayout->addWidget(m_detectorTypeEditor);
+
+//    columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
+    columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
+    columnResizer->addWidgetsFromGridLayout(m_gridLayout, 1);
+    columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
+
 
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -65,31 +76,36 @@ void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
 {
     m_detectorItem = detectorItem;
     m_detectorTypeEditor->clearEditor();
-    m_phiAxisEditor->clearEditor();
-    m_alphaAxisEditor->clearEditor();
-    m_resolutionFunctionEditor->clearEditor();
+//    m_phiAxisEditor->clearEditor();
+//    m_alphaAxisEditor->clearEditor();
+//    m_resolutionFunctionEditor->clearEditor();
 
     if (!m_detectorItem)
         return;
 
-    SphericalDetectorItem *subDetector = dynamic_cast<SphericalDetectorItem *>(
-        detectorItem->getSubItems()[DetectorItem::P_DETECTOR]);
-
     m_detectorTypeEditor->addItemProperty(detectorItem, DetectorItem::P_DETECTOR, QString(),
                                      AwesomePropertyEditor::SKIP);
 
-    ParameterizedItem *phiAxisItem = subDetector->getSubItems()[SphericalDetectorItem::P_PHI_AXIS];
-    m_phiAxisEditor->addItemProperties(phiAxisItem, QString("Phi axis"),
-                                       AwesomePropertyEditor::INSERT_AFTER);
+//    SphericalDetectorItem *subDetector = dynamic_cast<SphericalDetectorItem *>(
+//        detectorItem->getSubItems()[DetectorItem::P_DETECTOR]);
 
-    ParameterizedItem *alphaAxisItem
-        = subDetector->getSubItems()[SphericalDetectorItem::P_ALPHA_AXIS];
-    m_alphaAxisEditor->addItemProperties(alphaAxisItem, QString("Alpha axis"),
-                                         AwesomePropertyEditor::INSERT_AFTER);
 
-    m_resolutionFunctionEditor->addItemProperty(
-        subDetector, SphericalDetectorItem::P_RESOLUTION_FUNCTION, "Resolution function",
-                AwesomePropertyEditor::INSERT_AFTER);
+//    m_sphericalDetectorWidget = new SphericalDetectorWidget();
+//    dynamic_cast<QVBoxLayout *>(layout())->insertWidget(1, m_sphericalDetectorWidget);
+//    m_sphericalDetectorWidget->setDetectorItem(subDetector);
+
+//    ParameterizedItem *phiAxisItem = subDetector->getSubItems()[SphericalDetectorItem::P_PHI_AXIS];
+//    m_phiAxisEditor->addItemProperties(phiAxisItem, QString("Phi axis"),
+//                                       AwesomePropertyEditor::INSERT_AFTER);
+
+//    ParameterizedItem *alphaAxisItem
+//        = subDetector->getSubItems()[SphericalDetectorItem::P_ALPHA_AXIS];
+//    m_alphaAxisEditor->addItemProperties(alphaAxisItem, QString("Alpha axis"),
+//                                         AwesomePropertyEditor::INSERT_AFTER);
+
+//    m_resolutionFunctionEditor->addItemProperty(
+//        subDetector, SphericalDetectorItem::P_RESOLUTION_FUNCTION, "Resolution function",
+//                AwesomePropertyEditor::INSERT_AFTER);
 }
 
 void DetectorEditorWidget::onGroupBoxExtendedButton()

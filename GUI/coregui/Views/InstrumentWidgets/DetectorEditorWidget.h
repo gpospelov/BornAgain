@@ -23,12 +23,14 @@ class GroupBox;
 class DetectorItem;
 class AwesomePropertyEditor;
 class QGridLayout;
+class SphericalDetectorWidget;
+class ColumnResizer;
 
 class BA_CORE_API_ DetectorEditorWidget : public QWidget
 {
     Q_OBJECT
 public:
-    DetectorEditorWidget(QWidget *parent = 0);
+    DetectorEditorWidget(ColumnResizer *columnResizer, QWidget *parent = 0);
 
     void setDetectorItem(DetectorItem *detectorItem);
 
@@ -43,11 +45,12 @@ private slots:
 private:
     GroupBox *m_groupBox;
     AwesomePropertyEditor *m_detectorTypeEditor;
-    AwesomePropertyEditor *m_phiAxisEditor;
-    AwesomePropertyEditor *m_alphaAxisEditor;
-    AwesomePropertyEditor *m_resolutionFunctionEditor;
+//    AwesomePropertyEditor *m_phiAxisEditor;
+//    AwesomePropertyEditor *m_alphaAxisEditor;
+//    AwesomePropertyEditor *m_resolutionFunctionEditor;
     QGridLayout *m_gridLayout;
     DetectorItem *m_detectorItem;
+    SphericalDetectorWidget *m_sphericalDetectorWidget;
 };
 
 #endif

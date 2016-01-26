@@ -46,7 +46,17 @@ public:
     static const QString P_X_AXIS;
     static const QString P_Y_AXIS;
     static const QString P_RESOLUTION_FUNCTION;
+    static const QString P_ALIGNMENT;
+    static const QString P_NORMAL;
+    static const QString P_DIRECTION;
+    static const QString P_UV;
+    static const QString P_UV_DPOS;
+    static const QString P_DISTANCE;
+
     explicit RectangularDetectorItem(ParameterizedItem *parent=0);
+
+private:
+    void set_properties_appearance();
 };
 
 //class DetectorAlignmentItem : public ParameterizedItem

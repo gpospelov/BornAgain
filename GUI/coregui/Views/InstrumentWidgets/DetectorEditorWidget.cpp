@@ -22,6 +22,7 @@
 #include "RectangularDetectorWidget.h"
 #include "columnresizer.h"
 #include "GUIHelpers.h"
+#include "DetectorItems.h"
 #include <QGroupBox>
 #include <QLabel>
 #include <QVBoxLayout>
@@ -129,14 +130,15 @@ void DetectorEditorWidget::init_SubDetector_Widget()
     m_subDetectorWidget = 0;
 
 
-
-
     ParameterizedItem *subItem = m_detectorItem->getSubItems()[DetectorItem::P_DETECTOR];
+//    if(SphericalDetectorItem *SphericalDetectorItem = dynamic_cast<)
+
 
     if(subItem->modelType() == Constants::SphericalDetectorType) {
         m_subDetectorWidget = new SphericalDetectorWidget(m_columnResizer, m_detectorItem);
     } else if(subItem->modelType() == Constants::RectangularDetectorType) {
-        m_subDetectorWidget = new RectangularDetectorWidget(m_columnResizer, m_detectorItem);
+        m_subDetectorWidget = new RectangularDetectorWidget(
+            m_columnResizer, dynamic_cast<RectangularDetectorItem *>(subItem));
     } else {
         throw GUIHelpers::Error("DetectorEditorWidget::init_SubDetector_Widget() -> Error!"
                                 "Unknown sybdetector type.");

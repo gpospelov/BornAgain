@@ -232,7 +232,7 @@ void ColumnResizer::dropWidgetsFromGridLayout(QGridLayout *layout)
         }
     }
 
-    d->scheduleWidthUpdate();
+    //d->scheduleWidthUpdate();
 }
 
 #include <columnresizer.moc>

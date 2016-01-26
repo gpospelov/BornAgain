@@ -69,7 +69,12 @@ SphericalDetectorItem::SphericalDetectorItem(ParameterizedItem *parent)
 const QString RectangularDetectorItem::P_X_AXIS = "X axis";
 const QString RectangularDetectorItem::P_Y_AXIS = "Y axis";
 const QString RectangularDetectorItem::P_RESOLUTION_FUNCTION = "Type";
-
+const QString RectangularDetectorItem::P_ALIGNMENT = "Alignment";
+const QString RectangularDetectorItem::P_NORMAL = "Normal vector";
+const QString RectangularDetectorItem::P_DIRECTION = "Direction vector";
+const QString RectangularDetectorItem::P_UV = "uv";
+const QString RectangularDetectorItem::P_UV_DPOS = "uv of direct beam";
+const QString RectangularDetectorItem::P_DISTANCE = "Distance";
 
 RectangularDetectorItem::RectangularDetectorItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::RectangularDetectorType, parent)
@@ -87,7 +92,54 @@ RectangularDetectorItem::RectangularDetectorItem(ParameterizedItem *parent)
     getSubItems()[P_Y_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 2.0);
     getSubItems()[P_Y_AXIS]->setPropertyAttribute(BasicAxisItem::P_MAX, PropertyAttribute::labeled("height"));
 
-
     registerGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
     setGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionNoneType);
+
+
+    ComboProperty alignment;
+
+    alignment << Constants::ALIGNMENT_GENERIC << Constants::ALIGNMENT_TO_DIRECT_BEAM
+              << Constants::ALIGNMENT_TO_SAMPLE << Constants::ALIGNMENT_TO_REFLECTED_BEAM
+              << Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS;
+    alignment.setValue(Constants::ALIGNMENT_TO_DIRECT_BEAM);
+    registerProperty(P_ALIGNMENT, alignment.getVariant());
+
+    registerGroupProperty(P_NORMAL, Constants::VectorType);
+    registerGroupProperty(P_DIRECTION, Constants::VectorType);
+    registerGroupProperty(P_UV, Constants::VectorType);
+    registerGroupProperty(P_UV_DPOS, Constants::VectorType);
+    registerProperty(P_DISTANCE, 1000.0);
+
+    set_properties_appearance();
 }
+
+void RectangularDetectorItem::set_properties_appearance()
+{
+    ComboProperty alignment = getRegisteredProperty(P_ALIGNMENT).value<ComboProperty>();
+    QStringList prop_list;
+    prop_list << P_NORMAL << P_DIRECTION << P_UV << P_UV_DPOS << P_DISTANCE;
+    foreach(auto prop, prop_list) {
+        setPropertyAppearance(prop, PropertyAttribute::HIDDEN);
+    }
+
+    if (alignment.getValue() == Constants::ALIGNMENT_GENERIC) {
+        setPropertyAppearance(P_NORMAL, PropertyAttribute::VISIBLE);
+        setPropertyAppearance(P_DIRECTION, PropertyAttribute::VISIBLE);
+        setPropertyAppearance(P_UV, PropertyAttribute::VISIBLE);
+
+    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_DIRECT_BEAM) {
+        setPropertyAppearance(P_DISTANCE, PropertyAttribute::VISIBLE);
+        setPropertyAppearance(P_UV, PropertyAttribute::VISIBLE);
+    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_SAMPLE) {
+        setPropertyAppearance(P_DISTANCE, PropertyAttribute::VISIBLE);
+        setPropertyAppearance(P_UV, PropertyAttribute::VISIBLE);
+    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM) {
+        setPropertyAppearance(P_DISTANCE, PropertyAttribute::VISIBLE);
+        setPropertyAppearance(P_UV, PropertyAttribute::VISIBLE);
+    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS) {
+        setPropertyAppearance(P_DISTANCE, PropertyAttribute::VISIBLE);
+        setPropertyAppearance(P_UV_DPOS, PropertyAttribute::VISIBLE);
+    }
+}
+
+

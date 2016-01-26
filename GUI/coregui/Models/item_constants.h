@@ -172,6 +172,13 @@ const ModelType JOB_RUN_IMMEDIATELY = "Immediately";
 const ModelType JOB_RUN_IN_BACKGROUND = "In background";
 const ModelType JOB_RUN_SUBMIT_ONLY = "Submit only";
 const ModelType JOB_BACKUP = "_backup";
+
+const ModelType ALIGNMENT_GENERIC = "Generic";
+const ModelType ALIGNMENT_TO_SAMPLE = "Perpendicular to sample x-axis";
+const ModelType ALIGNMENT_TO_DIRECT_BEAM = "Perpendicular to direct beam";
+const ModelType ALIGNMENT_TO_REFLECTED_BEAM = "Perpendicular to reflected beam";
+const ModelType ALIGNMENT_TO_REFLECTED_BEAM_DPOS = "Perpendicular to reflected beam (dpos)";
+
 }
 
 #endif

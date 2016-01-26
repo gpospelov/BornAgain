@@ -65,7 +65,7 @@ SphericalDetectorWidget::~SphericalDetectorWidget()
 //    m_phiAxisEditor->clearEditor();
 //    m_alphaAxisEditor->clearEditor();
 //    m_resolutionFunctionEditor->clearEditor();
-    m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
+//    m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
 
 }
 

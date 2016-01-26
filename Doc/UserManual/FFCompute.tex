@@ -7,7 +7,7 @@
 %%   copyright:  Forschungszentrum Jülich GmbH 2015
 %%
 %%   license:    Creative Commons CC-BY-SA
-%%   
+%%
 %%   authors:    Scientific Computing Group at MLZ Garching
 %%               C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 %%
@@ -79,6 +79,31 @@ Therefore we shall consider a few such cases more closely.
 
 % TODO? another concern: integrals without numeric solution
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Regular polyhedron}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+To compute the two-dimensional form factor
+of a regular $n$-polygon in a systematic way,
+we decompose the polygon into~$n$ gleichschenklige triangles.
+Thus the form factor shall be computed as
+\begin{equation}
+  F(\q) = \sum_{j=0}^{n-1} \Gamma(D^{2j}\q),
+\end{equation}
+where the matrix
+\begin{equation}
+  D\coloneqq\left(\begin{array}{ll}\cos\eta&\sin\eta\\
+                          -\sin\eta&\cos\eta\end{array}\right)
+\end{equation}
+describes a rotation by an angle $\eta\coloneqq\pi/n$.
+The form factor of one triangle is given by
+\begin{equation}
+  \Gamma(\q)
+  =\int_0^{R\cos\eta}\!\mathup dx\,\mathup e^{iq_x x}
+   \int_{-R\tan\eta}^{+R\tan\eta}\!\mathup dy\,\mathup e^{iq_yy}.
+\end{equation}
+Straightforward calculation yields
+
 \Work{work in progress \ldots}
 \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -89,9 +114,6 @@ Therefore we shall consider a few such cases more closely.
 We assume a double-precision machine epsilon
 of $\epsilon=2^{-52}\simeq2.2\cdot10^{-16}$.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Regular polyhedron}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \fi
 
 \index{Shape transform!computation|)}

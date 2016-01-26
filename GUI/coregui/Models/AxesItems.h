@@ -23,13 +23,14 @@ class BA_CORE_API_  BasicAxisItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
+    static const QString P_IS_VISIBLE;
     static const QString P_NBINS;
     static const QString P_MIN;
     static const QString P_MAX;
     static const QString P_TITLE;
     explicit BasicAxisItem(const QString &type=Constants::BasicAxisType, ParameterizedItem *parent=0);
 
-    ~BasicAxisItem(){}
+    virtual ~BasicAxisItem(){}
 protected:
     void register_basic_properties();
 };
@@ -41,7 +42,7 @@ public:
     static const QString P_IS_LOGSCALE;
     static const QString P_LOCK_MIN_MAX;
     explicit AmplitudeAxisItem(ParameterizedItem *parent=0);
-    ~AmplitudeAxisItem(){}
+    virtual ~AmplitudeAxisItem(){}
 };
 
 #endif

@@ -14,7 +14,9 @@
 // ************************************************************************** //
 
 #include "LayerInterface.h"
+#include "BornAgainNamespace.h"
 #include "MessageService.h"
+
 #include <iostream>
 #include <iomanip>
 
@@ -23,7 +25,7 @@ LayerInterface::LayerInterface()
 , m_LayerTop(0)
 , m_LayerBottom(0)
 {
-    setName("LayerInterface");
+    setName(BornAgain::LayerInterfaceType);
 }
 
 LayerInterface::~LayerInterface()
@@ -34,6 +36,11 @@ LayerInterface::~LayerInterface()
 LayerInterface *LayerInterface::clone() const
 {
     throw NotImplementedException("LayerInterface::clone() -> Not allowed to clone.");
+}
+
+void LayerInterface::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 LayerInterface *LayerInterface::createSmoothInterface(const Layer *p_layer_top, const Layer *p_layer_bottom)
@@ -53,6 +60,16 @@ LayerInterface *LayerInterface::createRoughInterface(const Layer *p_layer_top, c
     return lr;
 }
 
+void LayerInterface::setLayerTop(const Layer *p_layer_top)
+{
+    m_LayerTop = p_layer_top;
+}
+
+void LayerInterface::setLayerBottom(const Layer *p_layer_bottom)
+{
+    m_LayerBottom = p_layer_bottom;
+}
+
 void LayerInterface::setRoughness(const LayerRoughness& roughness)
 {
     if(m_roughness) {
@@ -64,6 +81,21 @@ void LayerInterface::setRoughness(const LayerRoughness& roughness)
     //m_roughness = new LayerRoughness(roughness);
     m_roughness = roughness.clone();
     registerChild(m_roughness);
+}
+
+const LayerRoughness *LayerInterface::getRoughness() const
+{
+    return m_roughness;
+}
+
+const Layer *LayerInterface::getLayerTop() const
+{
+    return m_LayerTop;
+}
+
+const Layer *LayerInterface::getLayerBottom() const
+{
+    return m_LayerBottom;
 }
 
 void LayerInterface::print(std::ostream& ostr) const

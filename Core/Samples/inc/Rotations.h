@@ -19,8 +19,6 @@
 #include "ISample.h"
 #include "Transform3D.h"
 
-#include <memory>
-
 //! @class IRotation
 //! @ingroup samples
 //! @brief An interface for classes representing a rotation
@@ -42,10 +40,13 @@ public:
     virtual IRotation *createInverse() const=0;
 
     //! Calls the ISampleVisitor's visit method
-    void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const;
 
     //! Returns transformation.
     virtual Geometry::Transform3D getTransform3D() const=0;
+
+    //! Returns true if roation matrix is identity matrix (no rotations)
+    virtual bool isIdentity() const;
 };
 
 BA_CORE_API_ IRotation *CreateProduct(const IRotation& left, const IRotation &right);
@@ -56,20 +57,17 @@ public:
     RotationX(double angle);
 
     RotationX *clone() const;
-
     RotationX *cloneInvertB() const;
-
     RotationX *createInverse() const;
 
-    double getAngle() const { return m_angle; }
+    double getAngle() const;
 
-    void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const;
 
     Geometry::Transform3D getTransform3D() const;
 
 protected:
     void init_parameters();
-
     double m_angle;
 };
 
@@ -79,43 +77,37 @@ public:
     RotationY(double angle);
 
     RotationY *clone() const;
-
     RotationY *cloneInvertB() const;
-
     RotationY *createInverse() const;
 
-    double getAngle() const { return m_angle; }
+    double getAngle() const;
 
-    void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const;
 
     Geometry::Transform3D getTransform3D() const;
 
 protected:
     void init_parameters();
-
     double m_angle;
 };
 
 class BA_CORE_API_ RotationZ : public IRotation
 {
 public:
-    RotationZ(double angle);
+    RotationZ(double angle = 0.0);
 
     RotationZ *clone() const;
-
     RotationZ *cloneInvertB() const;
-
     RotationZ *createInverse() const;
 
-    double getAngle() const { return m_angle; }
+    double getAngle() const;
 
-    void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const;
 
     Geometry::Transform3D getTransform3D() const;
 
 protected:
     void init_parameters();
-
     double m_angle;
 };
 
@@ -125,28 +117,21 @@ public:
     RotationEuler(double alpha, double beta, double gamma);
 
     RotationEuler *clone() const;
-
     RotationEuler *cloneInvertB() const;
-
     IRotation *createInverse() const;
 
-    double getAlpha() const { return m_alpha; }
+    double getAlpha() const;
+    double getBeta() const;
+    double getGamma() const;
 
-    double getBeta() const { return m_beta; }
-
-    double getGamma() const { return m_gamma; }
-
-    void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const;
 
     Geometry::Transform3D getTransform3D() const;
 
 protected:
     void init_parameters();
-
     double m_alpha, m_beta, m_gamma;
 };
 
 
 #endif // ROTATIONS_H
-
-

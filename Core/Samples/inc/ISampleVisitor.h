@@ -34,14 +34,13 @@ class LayerInterface;
 // -
 class MultiLayer;
 // -
+class IAbstractParticle;
 class IParticle;
 class Particle;
 class ParticleDistribution;
 class ParticleComposition;
 class MesoCrystal;
 class ParticleCoreShell;
-// -
-class ParticleInfo;
 // -
 class IFormFactor;
 // -
@@ -63,9 +62,6 @@ class FormFactorFullSphere;
 class FormFactorFullSpheroid;
 class FormFactorGauss;
 class FormFactorHemiEllipsoid;
-class FormFactorInfLongBox;
-class FormFactorInfLongRipple1;
-class FormFactorInfLongRipple2;
 class FormFactorLorentz;
 class FormFactorPrism3;
 class FormFactorPrism6;
@@ -79,7 +75,6 @@ class FormFactorTrivial;
 class FormFactorTruncatedCube;
 class FormFactorTruncatedSphere;
 class FormFactorTruncatedSpheroid;
-class IFormFactorBornSeparable;
 // -
 class IFormFactorDecorator;
 // -
@@ -137,6 +132,7 @@ public:
 
     virtual void visit(const MultiLayer *);
 
+    virtual void visit(const IAbstractParticle *);
     virtual void visit(const IParticle *);
     virtual void visit(const Particle *);
     virtual void visit(const ParticleDistribution *);
@@ -144,15 +140,9 @@ public:
     virtual void visit(const MesoCrystal *);
     virtual void visit(const ParticleCoreShell *);
 
-    virtual void visit(const ParticleInfo *);
-
     virtual void visit(const IFormFactor *);
-
-    virtual void visit(const FormFactorDWBAPol *);
-
-    virtual void visit(const FormFactorWeighted *);
-
     virtual void visit(const IFormFactorBorn *);
+    virtual void visit(const IFormFactorDecorator *);
 
     virtual void visit(const FormFactorAnisoPyramid *);
     virtual void visit(const FormFactorBox *);
@@ -166,9 +156,6 @@ public:
     virtual void visit(const FormFactorFullSpheroid *);
     virtual void visit(const FormFactorGauss *);
     virtual void visit(const FormFactorHemiEllipsoid *);
-    virtual void visit(const FormFactorInfLongBox *);
-    virtual void visit(const FormFactorInfLongRipple1 *);
-    virtual void visit(const FormFactorInfLongRipple2 *);
     virtual void visit(const FormFactorLorentz *);
     virtual void visit(const FormFactorPrism3 *);
     virtual void visit(const FormFactorPrism6 *);
@@ -182,11 +169,10 @@ public:
     virtual void visit(const FormFactorTruncatedCube *);
     virtual void visit(const FormFactorTruncatedSphere *);
     virtual void visit(const FormFactorTruncatedSpheroid *);
-    virtual void visit(const IFormFactorBornSeparable *);
-
-    virtual void visit(const IFormFactorDecorator *);
 
     virtual void visit(const FormFactorDWBA *);
+    virtual void visit(const FormFactorDWBAPol *);
+    virtual void visit(const FormFactorWeighted *);
     virtual void visit(const FormFactorDecoratorDebyeWaller *);
     virtual void visit(const FormFactorDecoratorFactor *);
     virtual void visit(const FormFactorDecoratorMaterial *);
@@ -224,7 +210,8 @@ private:
     int m_level;
 };
 
-BA_CORE_API_ void VisitSampleTree(const ISample &sample, ISampleVisitor &visitor);
+BA_CORE_API_ void VisitSampleTreePreorder(const ISample &sample, ISampleVisitor &visitor);
+BA_CORE_API_ void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor);
 
 
 #endif // ISAMPLEVISITOR_H

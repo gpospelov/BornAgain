@@ -63,8 +63,8 @@ class OutputDataIOTest(unittest.TestCase):
         data = IntensityData()
         data.addAxis(FixedBinAxis("axis0", 10, -1.00000001, 1.0))
         fill_data(data)
-        IntensityDataIOFactory.writeIntensityData(data, "tmp.int")
-        newdata = IntensityDataIOFactory.readIntensityData("tmp.int")
+        IntensityDataIOFactory.writeOutputData(data, "tmp.int")
+        newdata = IntensityDataIOFactory.readOutputData("tmp.int")
         self.assertTrue(is_the_same_data(data, newdata))
 
     def test_02_FixedBinAxis_2D(self):
@@ -72,8 +72,8 @@ class OutputDataIOTest(unittest.TestCase):
         data.addAxis(FixedBinAxis("axis0", 9, -1.00000001, 1.0))
         data.addAxis(FixedBinAxis("axis1", 3, -4.0, 5.0))
         fill_data(data)
-        IntensityDataIOFactory.writeIntensityData(data, "tmp.int")
-        newdata = IntensityDataIOFactory.readIntensityData("tmp.int")
+        IntensityDataIOFactory.writeOutputData(data, "tmp.int")
+        newdata = IntensityDataIOFactory.readOutputData("tmp.int")
         self.assertTrue(is_the_same_data(data, newdata))
 
     def test_03_FixedBinAxis_3D(self):
@@ -82,16 +82,16 @@ class OutputDataIOTest(unittest.TestCase):
         data.addAxis(FixedBinAxis("axis1", 1, -4.0, 5.0))
         data.addAxis(FixedBinAxis("axis2", 3, 0.0, 1.0))
         fill_data(data)
-        IntensityDataIOFactory.writeIntensityData(data, "tmp.int")
-        newdata = IntensityDataIOFactory.readIntensityData("tmp.int")
+        IntensityDataIOFactory.writeOutputData(data, "tmp.int")
+        newdata = IntensityDataIOFactory.readOutputData("tmp.int")
         self.assertTrue(is_the_same_data(data, newdata))
 
     def test_04_VariableBinAxis_1D(self):
         data = IntensityData()
         data.addAxis(VariableBinAxis("axis0", 10, get_boundaries_flat_in_sin(10, -5.0, 5.0)))
         fill_data(data)
-        IntensityDataIOFactory.writeIntensityData(data, "tmp.int")
-        newdata = IntensityDataIOFactory.readIntensityData("tmp.int")
+        IntensityDataIOFactory.writeOutputData(data, "tmp.int")
+        newdata = IntensityDataIOFactory.readOutputData("tmp.int")
         self.assertTrue(is_the_same_data(data, newdata))
 
     def test_05_VariableBinAxis_2D(self):
@@ -99,8 +99,8 @@ class OutputDataIOTest(unittest.TestCase):
         data.addAxis(VariableBinAxis("axis0", 10, get_boundaries_flat_in_sin(10, -5.0, 5.0)))
         data.addAxis(VariableBinAxis("axis1", 3, get_boundaries_flat_in_sin(3, 0.0, 2.0)))
         fill_data(data)
-        IntensityDataIOFactory.writeIntensityData(data, "tmp.int")
-        newdata = IntensityDataIOFactory.readIntensityData("tmp.int")
+        IntensityDataIOFactory.writeOutputData(data, "tmp.int")
+        newdata = IntensityDataIOFactory.readOutputData("tmp.int")
         self.assertTrue(is_the_same_data(data, newdata))
 
     def test_06_VariableAndFixedMix(self):
@@ -108,8 +108,8 @@ class OutputDataIOTest(unittest.TestCase):
         data.addAxis(FixedBinAxis("axis0", 10, -5.0, 5.0))
         data.addAxis(VariableBinAxis("axis1", 3, get_boundaries_flat_in_sin(3, 0.0, 2.0)))
         fill_data(data)
-        IntensityDataIOFactory.writeIntensityData(data, "tmp.int")
-        newdata = IntensityDataIOFactory.readIntensityData("tmp.int")
+        IntensityDataIOFactory.writeOutputData(data, "tmp.int")
+        newdata = IntensityDataIOFactory.readOutputData("tmp.int")
         self.assertTrue(is_the_same_data(data, newdata))
 
     def test_07_ConstKBinAxis_2D(self):
@@ -117,8 +117,8 @@ class OutputDataIOTest(unittest.TestCase):
         data.addAxis(ConstKBinAxis("axis0", 9, -1.00000001*degree, 1.0*degree))
         data.addAxis(ConstKBinAxis("axis1", 3, -4.0*degree, 5.0*degree))
         fill_data(data)
-        IntensityDataIOFactory.writeIntensityData(data, "tmp.int")
-        newdata = IntensityDataIOFactory.readIntensityData("tmp.int")
+        IntensityDataIOFactory.writeOutputData(data, "tmp.int")
+        newdata = IntensityDataIOFactory.readOutputData("tmp.int")
         self.assertTrue(is_the_same_data(data, newdata))
 
     def test_08_CustomBinAxis_2D(self):
@@ -126,10 +126,27 @@ class OutputDataIOTest(unittest.TestCase):
         data.addAxis(CustomBinAxis("axis0", 9, -1.00000001*degree, 1.0*degree))
         data.addAxis(CustomBinAxis("axis1", 3, -4.0*degree, 5.0*degree))
         fill_data(data)
-        IntensityDataIOFactory.writeIntensityData(data, "tmp.int")
-        newdata = IntensityDataIOFactory.readIntensityData("tmp.int")
+        IntensityDataIOFactory.writeOutputData(data, "tmp.int")
+        newdata = IntensityDataIOFactory.readOutputData("tmp.int")
         self.assertTrue(is_the_same_data(data, newdata))
 
+    def test_SaveToINT(self):
+        data = IntensityData()
+        data.addAxis(FixedBinAxis("x", 10, 0.0, 10.0))
+        data.addAxis(FixedBinAxis("y", 5, 0.0, 5.0))
+        fill_data(data)
+
+        IntensityDataIOFactory.writeOutputData(data, "tmp.int")
+        newdata = IntensityDataIOFactory.readOutputData("tmp.int")
+        self.assertTrue(is_the_same_data(data, newdata))
+
+        IntensityDataIOFactory.writeOutputData(data, "tmp.int.gz")
+        newdata = IntensityDataIOFactory.readOutputData("tmp.int.gz")
+        self.assertTrue(is_the_same_data(data, newdata))
+
+        IntensityDataIOFactory.writeOutputData(data, "tmp.int.bz2")
+        newdata = IntensityDataIOFactory.readOutputData("tmp.int.bz2")
+        self.assertTrue(is_the_same_data(data, newdata))
 
 if __name__ == '__main__':
     unittest.main()

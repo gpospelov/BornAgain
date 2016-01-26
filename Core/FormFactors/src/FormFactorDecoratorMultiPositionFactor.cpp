@@ -14,48 +14,57 @@
 // ************************************************************************** //
 
 #include "FormFactorDecoratorMultiPositionFactor.h"
+#include "BornAgainNamespace.h"
 
 FormFactorDecoratorMultiPositionFactor::FormFactorDecoratorMultiPositionFactor(
-        const IFormFactor& form_factor, std::vector<kvector_t> positions)
-: IFormFactorDecorator(form_factor.clone())
-, m_positions(positions)
+    const IFormFactor &form_factor, std::vector<kvector_t> positions)
+    : IFormFactorDecorator(form_factor), m_positions(positions)
 {
-    setName("FormFactorDecoratorMultiPositionFactor");
+    setName(BornAgain::FormFactorDecoratorMultiPositionFactorType);
 }
 
-FormFactorDecoratorMultiPositionFactor*
-FormFactorDecoratorMultiPositionFactor::clone() const
+FormFactorDecoratorMultiPositionFactor *FormFactorDecoratorMultiPositionFactor::clone() const
 {
-    return new FormFactorDecoratorMultiPositionFactor(
-            *mp_form_factor, m_positions);
+    return new FormFactorDecoratorMultiPositionFactor(*mp_form_factor, m_positions);
 }
 
-complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const
+void FormFactorDecoratorMultiPositionFactor::accept(ISampleVisitor *visitor) const
 {
-    cvector_t q = k_i - k_f_bin.getMidPoint();
-    return getPositionsFactor(q)*mp_form_factor->
-               evaluate(k_i, k_f_bin, alpha_f_bin);
+    visitor->visit(this);
+}
+
+double FormFactorDecoratorMultiPositionFactor::getVolume() const
+{
+    size_t nbr_particles = m_positions.size();
+    return nbr_particles * IFormFactorDecorator::getVolume();
+}
+
+double FormFactorDecoratorMultiPositionFactor::getRadius() const
+{
+    return IFormFactorDecorator::getRadius();
+}
+
+complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const WavevectorInfo& wavevectors) const
+{
+    cvector_t q = wavevectors.getQ();
+    return getPositionsFactor(q) * mp_form_factor->evaluate(wavevectors);
 }
 
 Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactor::evaluatePol(
-        const cvector_t& k_i, const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin,
-        const Bin1D &phi_f_bin) const
+        const WavevectorInfo& wavevectors) const
 {
-    cvector_t q = k_i - k_f_bin.getMidPoint();
-    Eigen::Matrix2cd ff = mp_form_factor->evaluatePol(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
-    return getPositionsFactor(q)*ff;
+    cvector_t q = wavevectors.getQ();
+    Eigen::Matrix2cd ff = mp_form_factor->evaluatePol(wavevectors);
+    return getPositionsFactor(q) * ff;
 }
 
-complex_t FormFactorDecoratorMultiPositionFactor::getPositionsFactor(
-        const cvector_t &q) const
+complex_t FormFactorDecoratorMultiPositionFactor::getPositionsFactor(const cvector_t &q) const
 {
     complex_t result;
-    for (size_t i=0; i<m_positions.size(); ++i) {
-        complex_t qr = q.x()*m_positions[i].x() + q.y()*m_positions[i].y()
-                + q.z()*m_positions[i].z();
-        result += std::exp(complex_t(0.0, 1.0)*qr);
+    for (size_t i = 0; i < m_positions.size(); ++i) {
+        complex_t qr = q.x() * m_positions[i].x() + q.y() * m_positions[i].y()
+                       + q.z() * m_positions[i].z();
+        result += std::exp(complex_t(0.0, 1.0) * qr);
     }
     return result;
 }
-

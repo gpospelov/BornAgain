@@ -70,7 +70,7 @@ def make_plot( results, det, name, nrow=1 ):
     # Plot the subfigures.
     for res in results:
         ax = axes[res.idx]
-        im = ax.imshow(numpy.rot90(res.data, 1),
+        im = ax.imshow(res.data,
                        norm=norm,
                        extent=det.rectangle(),
                        aspect=1)

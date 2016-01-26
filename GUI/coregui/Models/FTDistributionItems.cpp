@@ -31,8 +31,7 @@ const QString FTDistribution2DVoigtItem::P_ETA = "Eta";
 FTDistribution1DCauchyItem::FTDistribution1DCauchyItem(ParameterizedItem *parent)
     : FTDistribution1DItem(QString("FTDistribution1DCauchy"), parent)
 {
-    setItemName("FTDistribution1DCauchy");
-    registerProperty(P_CORR_LENGTH, 1.0);
+    registerProperty(P_CORR_LENGTH, 1000.0);
 }
 
 IFTDistribution1D *FTDistribution1DCauchyItem::createFTDistribution() const
@@ -45,8 +44,7 @@ IFTDistribution1D *FTDistribution1DCauchyItem::createFTDistribution() const
 FTDistribution1DGaussItem::FTDistribution1DGaussItem(ParameterizedItem *parent)
     : FTDistribution1DItem(QString("FTDistribution1DGauss"), parent)
 {
-    setItemName("FTDistribution1DGauss");
-    registerProperty(P_CORR_LENGTH, 1.0);
+    registerProperty(P_CORR_LENGTH, 1000.0);
 }
 
 IFTDistribution1D *FTDistribution1DGaussItem::createFTDistribution() const
@@ -59,8 +57,7 @@ IFTDistribution1D *FTDistribution1DGaussItem::createFTDistribution() const
 FTDistribution1DGateItem::FTDistribution1DGateItem(ParameterizedItem *parent)
     : FTDistribution1DItem(QString("FTDistribution1DGate"), parent)
 {
-    setItemName("FTDistribution1DGate");
-    registerProperty(P_CORR_LENGTH, 1.0);
+    registerProperty(P_CORR_LENGTH, 1000.0);
 }
 
 IFTDistribution1D *FTDistribution1DGateItem::createFTDistribution() const
@@ -73,8 +70,7 @@ IFTDistribution1D *FTDistribution1DGateItem::createFTDistribution() const
 FTDistribution1DTriangleItem::FTDistribution1DTriangleItem(ParameterizedItem *parent)
     : FTDistribution1DItem(QString("FTDistribution1DTriangle"), parent)
 {
-    setItemName("FTDistribution1DTriangle");
-    registerProperty(P_CORR_LENGTH, 1.0);
+    registerProperty(P_CORR_LENGTH, 1000.0);
 }
 
 IFTDistribution1D *FTDistribution1DTriangleItem::createFTDistribution() const
@@ -87,8 +83,7 @@ IFTDistribution1D *FTDistribution1DTriangleItem::createFTDistribution() const
 FTDistribution1DCosineItem::FTDistribution1DCosineItem(ParameterizedItem *parent)
     : FTDistribution1DItem(QString("FTDistribution1DCosine"), parent)
 {
-    setItemName("FTDistribution1DCosine");
-    registerProperty(P_CORR_LENGTH, 1.0);
+    registerProperty(P_CORR_LENGTH, 1000.0);
 }
 
 IFTDistribution1D *FTDistribution1DCosineItem::createFTDistribution() const
@@ -101,8 +96,7 @@ IFTDistribution1D *FTDistribution1DCosineItem::createFTDistribution() const
 FTDistribution1DVoigtItem::FTDistribution1DVoigtItem(ParameterizedItem *parent)
     : FTDistribution1DItem(QString("FTDistribution1DVoigt"), parent)
 {
-    setItemName("FTDistribution1DVoigt");
-    registerProperty(P_CORR_LENGTH, 1.0);
+    registerProperty(P_CORR_LENGTH, 1000.0);
     registerProperty(P_ETA, 0.5, PropertyAttribute(AttLimits::limited(-1.0, 1.0)));
 }
 
@@ -120,9 +114,8 @@ IFTDistribution1D *FTDistribution1DVoigtItem::createFTDistribution() const
 FTDistribution2DCauchyItem::FTDistribution2DCauchyItem(ParameterizedItem *parent)
     : FTDistribution2DItem(QString("FTDistribution2DCauchy"), parent)
 {
-    setItemName("FTDistribution2DCauchy");
-    registerProperty(P_CORR_LENGTH_X, 1.0);
-    registerProperty(P_CORR_LENGTH_Y, 1.0);
+    registerProperty(P_CORR_LENGTH_X, 1000.0);
+    registerProperty(P_CORR_LENGTH_Y, 1000.0);
 }
 
 IFTDistribution2D *FTDistribution2DCauchyItem::createFTDistribution() const
@@ -140,9 +133,8 @@ IFTDistribution2D *FTDistribution2DCauchyItem::createFTDistribution() const
 FTDistribution2DGaussItem::FTDistribution2DGaussItem(ParameterizedItem *parent)
     : FTDistribution2DItem(QString("FTDistribution2DGauss"), parent)
 {
-    setItemName("FTDistribution2DGauss");
-    registerProperty(P_CORR_LENGTH_X, 1.0);
-    registerProperty(P_CORR_LENGTH_Y, 1.0);
+    registerProperty(P_CORR_LENGTH_X, 1000.0);
+    registerProperty(P_CORR_LENGTH_Y, 1000.0);
 }
 
 IFTDistribution2D *FTDistribution2DGaussItem::createFTDistribution() const
@@ -160,9 +152,8 @@ IFTDistribution2D *FTDistribution2DGaussItem::createFTDistribution() const
 FTDistribution2DGateItem::FTDistribution2DGateItem(ParameterizedItem *parent)
     : FTDistribution2DItem(QString("FTDistribution2DGate"), parent)
 {
-    setItemName("FTDistribution2DGate");
-    registerProperty(P_CORR_LENGTH_X, 1.0);
-    registerProperty(P_CORR_LENGTH_Y, 1.0);
+    registerProperty(P_CORR_LENGTH_X, 1000.0);
+    registerProperty(P_CORR_LENGTH_Y, 1000.0);
 }
 
 IFTDistribution2D *FTDistribution2DGateItem::createFTDistribution() const
@@ -180,9 +171,8 @@ IFTDistribution2D *FTDistribution2DGateItem::createFTDistribution() const
 FTDistribution2DConeItem::FTDistribution2DConeItem(ParameterizedItem *parent)
     : FTDistribution2DItem(QString("FTDistribution2DCone"), parent)
 {
-    setItemName("FTDistribution2DCone");
-    registerProperty(P_CORR_LENGTH_X, 1.0);
-    registerProperty(P_CORR_LENGTH_Y, 1.0);
+    registerProperty(P_CORR_LENGTH_X, 1000.0);
+    registerProperty(P_CORR_LENGTH_Y, 1000.0);
 }
 
 IFTDistribution2D *FTDistribution2DConeItem::createFTDistribution() const
@@ -200,9 +190,8 @@ IFTDistribution2D *FTDistribution2DConeItem::createFTDistribution() const
 FTDistribution2DVoigtItem::FTDistribution2DVoigtItem(ParameterizedItem *parent)
     : FTDistribution2DItem(QString("FTDistribution2DVoigt"), parent)
 {
-    setItemName("FTDistribution2DVoigt");
-    registerProperty(P_CORR_LENGTH_X, 1.0);
-    registerProperty(P_CORR_LENGTH_Y, 1.0);
+    registerProperty(P_CORR_LENGTH_X, 1000.0);
+    registerProperty(P_CORR_LENGTH_Y, 1000.0);
     registerProperty(P_ETA, 0.5, PropertyAttribute(AttLimits::limited(-1.0, 1.0)));
 }
 

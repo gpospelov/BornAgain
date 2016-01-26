@@ -21,8 +21,6 @@ GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
-#include "__call_policies.pypp.hpp"
-#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "OffSpecSimulation.pypp.h"
 
@@ -49,16 +47,16 @@ struct OffSpecSimulation_wrapper : OffSpecSimulation, bp::wrapper< OffSpecSimula
         return OffSpecSimulation::clone( );
     }
 
-    virtual ::OutputData< double > * getIntensityData(  ) const  {
-        if( bp::override func_getIntensityData = this->get_override( "getIntensityData" ) )
-            return func_getIntensityData(  );
+    virtual ::OutputData< double > * getDetectorIntensity(  ) const  {
+        if( bp::override func_getDetectorIntensity = this->get_override( "getDetectorIntensity" ) )
+            return func_getDetectorIntensity(  );
         else{
-            return this->OffSpecSimulation::getIntensityData(  );
+            return this->OffSpecSimulation::getDetectorIntensity(  );
         }
     }
     
-    ::OutputData< double > * default_getIntensityData(  ) const  {
-        return OffSpecSimulation::getIntensityData( );
+    ::OutputData< double > * default_getDetectorIntensity(  ) const  {
+        return OffSpecSimulation::getDetectorIntensity( );
     }
 
     virtual int getNumberOfSimulationElements(  ) const  {
@@ -95,97 +93,6 @@ struct OffSpecSimulation_wrapper : OffSpecSimulation, bp::wrapper< OffSpecSimula
     
     void default_prepareSimulation(  ) {
         OffSpecSimulation::prepareSimulation( );
-    }
-
-    virtual bool areParametersChanged(  ) {
-        if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
-            return func_areParametersChanged(  );
-        else{
-            return this->IParameterized::areParametersChanged(  );
-        }
-    }
-    
-    bool default_areParametersChanged(  ) {
-        return IParameterized::areParametersChanged( );
-    }
-
-    virtual void clearParameterPool(  ) {
-        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
-            func_clearParameterPool(  );
-        else{
-            this->IParameterized::clearParameterPool(  );
-        }
-    }
-    
-    void default_clearParameterPool(  ) {
-        IParameterized::clearParameterPool( );
-    }
-
-    virtual ::ParameterPool * createParameterTree(  ) const  {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
-        else{
-            return this->IParameterized::createParameterTree(  );
-        }
-    }
-    
-    ::ParameterPool * default_createParameterTree(  ) const  {
-        return IParameterized::createParameterTree( );
-    }
-
-    virtual void printParameters(  ) const  {
-        if( bp::override func_printParameters = this->get_override( "printParameters" ) )
-            func_printParameters(  );
-        else{
-            this->IParameterized::printParameters(  );
-        }
-    }
-    
-    void default_printParameters(  ) const  {
-        IParameterized::printParameters( );
-    }
-
-    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
-        namespace bpl = boost::python;
-        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
-        }
-        else{
-            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
-        }
-    }
-    
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
-        if( dynamic_cast< OffSpecSimulation_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-        else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-    }
-
-    virtual bool setParameterValue( ::std::string const & name, double value ) {
-        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
-            return func_setParameterValue( name, value );
-        else{
-            return this->IParameterized::setParameterValue( name, value );
-        }
-    }
-    
-    bool default_setParameterValue( ::std::string const & name, double value ) {
-        return IParameterized::setParameterValue( name, value );
-    }
-
-    virtual void setParametersAreChanged(  ) {
-        if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
-            func_setParametersAreChanged(  );
-        else{
-            this->IParameterized::setParametersAreChanged(  );
-        }
-    }
-    
-    void default_setParametersAreChanged(  ) {
-        IParameterized::setParametersAreChanged( );
     }
 
     virtual void transferToCPP(  ) {
@@ -234,6 +141,18 @@ void register_OffSpecSimulation_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::OffSpecSimulation::getDetectorIntensity
+        
+            typedef ::OutputData< double > * ( ::OffSpecSimulation::*getDetectorIntensity_function_type)(  ) const;
+            typedef ::OutputData< double > * ( OffSpecSimulation_wrapper::*default_getDetectorIntensity_function_type)(  ) const;
+            
+            OffSpecSimulation_exposer.def( 
+                "getDetectorIntensity"
+                , getDetectorIntensity_function_type(&::OffSpecSimulation::getDetectorIntensity)
+                , default_getDetectorIntensity_function_type(&OffSpecSimulation_wrapper::default_getDetectorIntensity)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::OffSpecSimulation::getInstrument
         
             typedef ::Instrument const & ( ::OffSpecSimulation::*getInstrument_function_type)(  ) const;
@@ -247,14 +166,13 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::getIntensityData
         
-            typedef ::OutputData< double > * ( ::OffSpecSimulation::*getIntensityData_function_type)(  ) const;
-            typedef ::OutputData< double > * ( OffSpecSimulation_wrapper::*default_getIntensityData_function_type)(  ) const;
+            typedef ::Histogram2D * ( ::OffSpecSimulation::*getIntensityData_function_type)(  ) const;
             
             OffSpecSimulation_exposer.def( 
                 "getIntensityData"
-                , getIntensityData_function_type(&::OffSpecSimulation::getIntensityData)
-                , default_getIntensityData_function_type(&OffSpecSimulation_wrapper::default_getIntensityData)
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , getIntensityData_function_type( &::OffSpecSimulation::getIntensityData )
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "Returns clone of the detector intensity map in the form of 2D histogram." );
         
         }
         { //::OffSpecSimulation::getNumberOfSimulationElements
@@ -357,24 +275,13 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::setDetectorParameters
         
-            typedef void ( ::OffSpecSimulation::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double,bool ) ;
+            typedef void ( ::OffSpecSimulation::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double ) ;
             
             OffSpecSimulation_exposer.def( 
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::OffSpecSimulation::setDetectorParameters )
-                , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) )
+                , ( bp::arg("n_x"), bp::arg("x_min"), bp::arg("x_max"), bp::arg("n_y"), bp::arg("y_min"), bp::arg("y_max") )
                 , "Sets detector parameters using angle ranges." );
-        
-        }
-        { //::OffSpecSimulation::setDetectorParameters
-        
-            typedef void ( ::OffSpecSimulation::*setDetectorParameters_function_type)( ::DetectorParameters const & ) ;
-            
-            OffSpecSimulation_exposer.def( 
-                "setDetectorParameters"
-                , setDetectorParameters_function_type( &::OffSpecSimulation::setDetectorParameters )
-                , ( bp::arg("params") )
-                , "Sets detector parameters using parameter object." );
         
         }
         { //::OffSpecSimulation::setDetectorResolutionFunction
@@ -397,85 +304,6 @@ void register_OffSpecSimulation_class(){
                 , setInstrument_function_type( &::OffSpecSimulation::setInstrument )
                 , ( bp::arg("instrument") )
                 , "Sets the instrument containing beam and detector information." );
-        
-        }
-        { //::IParameterized::areParametersChanged
-        
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( OffSpecSimulation_wrapper::*default_areParametersChanged_function_type)(  ) ;
-            
-            OffSpecSimulation_exposer.def( 
-                "areParametersChanged"
-                , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&OffSpecSimulation_wrapper::default_areParametersChanged) );
-        
-        }
-        { //::IParameterized::clearParameterPool
-        
-            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( OffSpecSimulation_wrapper::*default_clearParameterPool_function_type)(  ) ;
-            
-            OffSpecSimulation_exposer.def( 
-                "clearParameterPool"
-                , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&OffSpecSimulation_wrapper::default_clearParameterPool) );
-        
-        }
-        { //::IParameterized::createParameterTree
-        
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( OffSpecSimulation_wrapper::*default_createParameterTree_function_type)(  ) const;
-            
-            OffSpecSimulation_exposer.def( 
-                "createParameterTree"
-                , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&OffSpecSimulation_wrapper::default_createParameterTree)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::IParameterized::printParameters
-        
-            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( OffSpecSimulation_wrapper::*default_printParameters_function_type)(  ) const;
-            
-            OffSpecSimulation_exposer.def( 
-                "printParameters"
-                , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&OffSpecSimulation_wrapper::default_printParameters) );
-        
-        }
-        { //::IParameterized::registerParameter
-        
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
-            
-            OffSpecSimulation_exposer.def( 
-                "registerParameter"
-                , default_registerParameter_function_type( &OffSpecSimulation_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "main method to register data address in the pool." );
-        
-        }
-        { //::IParameterized::setParameterValue
-        
-            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( OffSpecSimulation_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
-            
-            OffSpecSimulation_exposer.def( 
-                "setParameterValue"
-                , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&OffSpecSimulation_wrapper::default_setParameterValue)
-                , ( bp::arg("name"), bp::arg("value") ) );
-        
-        }
-        { //::IParameterized::setParametersAreChanged
-        
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( OffSpecSimulation_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
-            
-            OffSpecSimulation_exposer.def( 
-                "setParametersAreChanged"
-                , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&OffSpecSimulation_wrapper::default_setParametersAreChanged) );
         
         }
         { //::ICloneable::transferToCPP

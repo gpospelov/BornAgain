@@ -31,7 +31,7 @@ class BA_CORE_API_ ROOTMinimizerHelper
 
     //! translate text with options into appropriate calls of minimizer's
     //! set method
-    static void setOptions(ROOT::Math::Minimizer *minimizer,
+    static void setOptions(BA_ROOT::Math::Minimizer *minimizer,
             const std::string& options);
 
     //! Prints results of minimization
@@ -51,13 +51,13 @@ class BA_CORE_API_ ROOTMinimizerHelper
 //            const std::string& command);
 
     //! Prints minimizer options
-    static void printOptions(const ROOT::Math::Minimizer *minimizer);
+    static void printOptions(const BA_ROOT::Math::Minimizer *minimizer);
 
     //! Prints minimizer status
-    static void printStatus(const ROOT::Math::Minimizer *minimizer);
+    static void printStatus(const BA_ROOT::Math::Minimizer *minimizer);
 
     //! Prints variables
-    static void printVariables(const ROOT::Math::Minimizer *minimizer);
+    static void printVariables(const BA_ROOT::Math::Minimizer *minimizer);
 
 };
 

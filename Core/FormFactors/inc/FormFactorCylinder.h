@@ -29,18 +29,14 @@ public:
     //! @param radius of Cylinder's base
     //! @param height of Cylinder
     FormFactorCylinder(double radius, double height);
-    ~FormFactorCylinder() {}
+    virtual ~FormFactorCylinder() {}
     virtual FormFactorCylinder *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual int getNumberOfStochasticParameters() const { return 2; }
+    double getHeight() const;
 
-    virtual double getHeight() const { return m_height; }
-    virtual void setHeight(double height) { m_height = height; }
-
-    virtual double getRadius() const { return m_radius; }
-    virtual void setRadius(double radius) { m_radius = radius; }
+    virtual double getRadius() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -52,6 +48,16 @@ private:
     double m_radius;
     double m_height;
 };
+
+inline double FormFactorCylinder::getHeight() const
+{
+    return m_height;
+}
+
+inline double FormFactorCylinder::getRadius() const
+{
+    return m_radius;
+}
 
 #endif // FORMFACTORCYLINDER_H
 

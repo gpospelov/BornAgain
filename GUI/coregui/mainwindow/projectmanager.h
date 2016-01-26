@@ -20,9 +20,11 @@
 #include <QObject>
 #include <QString>
 #include <QStringList>
+
 class MainWindow;
 class ProjectDocument;
 class QSettings;
+class WarningMessageService;
 
 //! handles activity related to opening/save projects
 class BA_CORE_API_ ProjectManager : public QObject
@@ -30,13 +32,13 @@ class BA_CORE_API_ ProjectManager : public QObject
     Q_OBJECT
 public:
     ProjectManager(MainWindow *parent);
-    ~ProjectManager();
+    virtual ~ProjectManager();
 
     void createNewProject();
     bool closeCurrentProject();
 
-    void readSettings(QSettings *settings);
-    void writeSettings(QSettings *settings);
+    void readSettings();
+    void writeSettings();
 
     QStringList getRecentProjects();
 
@@ -53,23 +55,25 @@ public slots:
     void openProject(QString fileName = QString());
     void newProject();
 
-//    bool saveModifiedProject();
-
 private:
 //    ProjectDocument *createNewProject();
     void addToRecentProjects();
 
-    QString getDefaultProjectPath();
+    QString getDefaultWorkingDirectory();
     QString getUntitledProjectName();
+
+    void riseProjectLoadFailedDialog();
+    void riseProjectLoadWarningDialog();
+
+    void deleteCurrentProject();
 
     MainWindow *m_mainWindow;
 
     ProjectDocument *m_project_document;
 
-    QString m_defaultProjectPath;
+    QString m_defaultWorkingDirectory;
     QStringList m_recentProjects;
-
+    WarningMessageService *m_messageService;
 };
-
 
 #endif

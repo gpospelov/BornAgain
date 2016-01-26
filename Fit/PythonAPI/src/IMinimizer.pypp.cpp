@@ -107,6 +107,30 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
         return IMinimizer::getNumberOfVariables( );
     }
 
+    virtual ::MinimizerOptions * getOptions(  ) {
+        if( bp::override func_getOptions = this->get_override( "getOptions" ) )
+            return func_getOptions(  );
+        else{
+            return this->IMinimizer::getOptions(  );
+        }
+    }
+    
+    ::MinimizerOptions * default_getOptions(  ) {
+        return IMinimizer::getOptions( );
+    }
+
+    virtual ::MinimizerOptions const * getOptions(  ) const  {
+        if( bp::override func_getOptions = this->get_override( "getOptions" ) )
+            return func_getOptions(  );
+        else{
+            return this->IMinimizer::getOptions(  );
+        }
+    }
+    
+    ::MinimizerOptions const * default_getOptions(  ) const  {
+        return IMinimizer::getOptions( );
+    }
+
     virtual double getValueOfVariableAtMinimum( ::std::size_t arg0 ) const  {
         if( bp::override func_getValueOfVariableAtMinimum = this->get_override( "getValueOfVariableAtMinimum" ) )
             return func_getValueOfVariableAtMinimum( arg0 );
@@ -297,21 +321,25 @@ void register_IMinimizer_class(){
         }
         { //::IMinimizer::getOptions
         
-            typedef ::MinimizerOptions & ( ::IMinimizer::*getOptions_function_type)(  ) ;
+            typedef ::MinimizerOptions * ( ::IMinimizer::*getOptions_function_type)(  ) ;
+            typedef ::MinimizerOptions * ( IMinimizer_wrapper::*default_getOptions_function_type)(  ) ;
             
             IMinimizer_exposer.def( 
                 "getOptions"
                 , getOptions_function_type(&::IMinimizer::getOptions)
+                , default_getOptions_function_type(&IMinimizer_wrapper::default_getOptions)
                 , bp::return_internal_reference< >() );
         
         }
         { //::IMinimizer::getOptions
         
-            typedef ::MinimizerOptions const & ( ::IMinimizer::*getOptions_function_type)(  ) const;
+            typedef ::MinimizerOptions const * ( ::IMinimizer::*getOptions_function_type)(  ) const;
+            typedef ::MinimizerOptions const * ( IMinimizer_wrapper::*default_getOptions_function_type)(  ) const;
             
             IMinimizer_exposer.def( 
                 "getOptions"
                 , getOptions_function_type(&::IMinimizer::getOptions)
+                , default_getOptions_function_type(&IMinimizer_wrapper::default_getOptions)
                 , bp::return_internal_reference< >() );
         
         }

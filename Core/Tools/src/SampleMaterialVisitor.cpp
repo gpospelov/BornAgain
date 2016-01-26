@@ -112,10 +112,6 @@ void SampleMaterialVisitor::visit(const ParticleCoreShell *)
 {
 }
 
-void SampleMaterialVisitor::visit(const ParticleInfo *)
-{
-}
-
 void SampleMaterialVisitor::visit(const IFormFactor *)
 {
 }
@@ -180,18 +176,6 @@ void SampleMaterialVisitor::visit(const FormFactorHemiEllipsoid *)
 {
 }
 
-void SampleMaterialVisitor::visit(const FormFactorInfLongBox *)
-{
-}
-
-void SampleMaterialVisitor::visit(const FormFactorInfLongRipple1 *)
-{
-}
-
-void SampleMaterialVisitor::visit(const FormFactorInfLongRipple2 *)
-{
-}
-
 void SampleMaterialVisitor::visit(const FormFactorLorentz *)
 {
 }
@@ -241,10 +225,6 @@ void SampleMaterialVisitor::visit(const FormFactorTruncatedSphere *)
 }
 
 void SampleMaterialVisitor::visit(const FormFactorTruncatedSpheroid *)
-{
-}
-
-void SampleMaterialVisitor::visit(const IFormFactorBornSeparable *)
 {
 }
 

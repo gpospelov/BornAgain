@@ -21,8 +21,6 @@ GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
-#include "__call_policies.pypp.hpp"
-#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "FormFactorCrystal.pypp.h"
 
@@ -30,8 +28,8 @@ namespace bp = boost::python;
 
 struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCrystal > {
 
-    FormFactorCrystal_wrapper(::Crystal const & p_crystal, ::IFormFactor const & meso_crystal_form_factor, ::IMaterial const & p_material, ::complex_t wavevector_scattering_factor )
-    : FormFactorCrystal( boost::ref(p_crystal), boost::ref(meso_crystal_form_factor), boost::ref(p_material), wavevector_scattering_factor )
+    FormFactorCrystal_wrapper(::Lattice const & lattice, ::IFormFactor const & basis_form_factor, ::IFormFactor const & meso_form_factor )
+    : FormFactorCrystal( boost::ref(lattice), boost::ref(basis_form_factor), boost::ref(meso_form_factor) )
       , bp::wrapper< FormFactorCrystal >(){
         // constructor
     m_pyobj = 0;
@@ -49,16 +47,16 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         return FormFactorCrystal::clone( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
+    virtual ::complex_t evaluate( ::WavevectorInfo const & wavevectors ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
+            return func_evaluate( boost::ref(wavevectors) );
         else{
-            return this->FormFactorCrystal::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
+            return this->FormFactorCrystal::evaluate( boost::ref(wavevectors) );
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
-        return FormFactorCrystal::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
+    ::complex_t default_evaluate( ::WavevectorInfo const & wavevectors ) const  {
+        return FormFactorCrystal::evaluate( boost::ref(wavevectors) );
     }
 
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
@@ -73,6 +71,18 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         return FormFactorCrystal::evaluate_for_q( boost::ref(q) );
     }
 
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
+        else{
+            return this->FormFactorCrystal::getRadius(  );
+        }
+    }
+    
+    double default_getRadius(  ) const  {
+        return FormFactorCrystal::getRadius( );
+    }
+
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
@@ -83,42 +93,6 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
     
     double default_getVolume(  ) const  {
         return FormFactorCrystal::getVolume( );
-    }
-
-    virtual void setAmbientMaterial( ::IMaterial const & material ) {
-        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
-            func_setAmbientMaterial( boost::ref(material) );
-        else{
-            this->FormFactorCrystal::setAmbientMaterial( boost::ref(material) );
-        }
-    }
-    
-    void default_setAmbientMaterial( ::IMaterial const & material ) {
-        FormFactorCrystal::setAmbientMaterial( boost::ref(material) );
-    }
-
-    virtual bool areParametersChanged(  ) {
-        if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
-            return func_areParametersChanged(  );
-        else{
-            return this->IParameterized::areParametersChanged(  );
-        }
-    }
-    
-    bool default_areParametersChanged(  ) {
-        return IParameterized::areParametersChanged( );
-    }
-
-    virtual void clearParameterPool(  ) {
-        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
-            func_clearParameterPool(  );
-        else{
-            this->IParameterized::clearParameterPool(  );
-        }
-    }
-    
-    void default_clearParameterPool(  ) {
-        IParameterized::clearParameterPool( );
     }
 
     virtual ::ISample * cloneInvertB(  ) const  {
@@ -145,100 +119,16 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         return ISample::containsMagneticMaterial( );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) const  {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
+    virtual ::std::vector< const ISample* > getChildren(  ) const  {
+        if( bp::override func_getChildren = this->get_override( "getChildren" ) )
+            return func_getChildren(  );
         else{
-            return this->IParameterized::createParameterTree(  );
+            return this->ISample::getChildren(  );
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) const  {
-        return IParameterized::createParameterTree( );
-    }
-
-    virtual ::ICompositeSample * getCompositeSample(  ) {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ISample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample * default_getCompositeSample(  ) {
-        return ISample::getCompositeSample( );
-    }
-
-    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ISample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample const * default_getCompositeSample(  ) const  {
-        return ISample::getCompositeSample( );
-    }
-
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->IFormFactor::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return IFormFactor::getHeight( );
-    }
-
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->IFormFactor::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return IFormFactor::getNumberOfStochasticParameters( );
-    }
-
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else{
-            return this->IFormFactor::getRadius(  );
-        }
-    }
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
-    }
-
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
-        else{
-            return this->ISample::preprocess(  );
-        }
-    }
-    
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
-    }
-
-    virtual void printParameters(  ) const  {
-        if( bp::override func_printParameters = this->get_override( "printParameters" ) )
-            func_printParameters(  );
-        else{
-            this->IParameterized::printParameters(  );
-        }
-    }
-    
-    void default_printParameters(  ) const  {
-        IParameterized::printParameters( );
+    ::std::vector< const ISample* > default_getChildren(  ) const  {
+        return ISample::getChildren( );
     }
 
     virtual void printSampleTree(  ) {
@@ -253,47 +143,28 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         ISample::printSampleTree( );
     }
 
-    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
-        namespace bpl = boost::python;
-        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
-        }
+    virtual void setAmbientMaterial( ::IMaterial const & arg0 ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(arg0) );
         else{
-            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
+            this->IFormFactor::setAmbientMaterial( boost::ref(arg0) );
         }
     }
     
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
-        if( dynamic_cast< FormFactorCrystal_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-        else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
+    void default_setAmbientMaterial( ::IMaterial const & arg0 ) {
+        IFormFactor::setAmbientMaterial( boost::ref(arg0) );
     }
 
-    virtual bool setParameterValue( ::std::string const & name, double value ) {
-        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
-            return func_setParameterValue( name, value );
+    virtual ::std::size_t size(  ) const  {
+        if( bp::override func_size = this->get_override( "size" ) )
+            return func_size(  );
         else{
-            return this->IParameterized::setParameterValue( name, value );
+            return this->ISample::size(  );
         }
     }
     
-    bool default_setParameterValue( ::std::string const & name, double value ) {
-        return IParameterized::setParameterValue( name, value );
-    }
-
-    virtual void setParametersAreChanged(  ) {
-        if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
-            func_setParametersAreChanged(  );
-        else{
-            this->IParameterized::setParametersAreChanged(  );
-        }
-    }
-    
-    void default_setParametersAreChanged(  ) {
-        IParameterized::setParametersAreChanged( );
+    ::std::size_t default_size(  ) const  {
+        return ISample::size( );
     }
 
     virtual void transferToCPP(  ) {
@@ -328,7 +199,7 @@ void register_FormFactorCrystal_class(){
 
     { //::FormFactorCrystal
         typedef bp::class_< FormFactorCrystal_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorCrystal_wrapper >, boost::noncopyable > FormFactorCrystal_exposer_t;
-        FormFactorCrystal_exposer_t FormFactorCrystal_exposer = FormFactorCrystal_exposer_t( "FormFactorCrystal", "The formfactor for mesocrystals with a bulk crystal structure of particles.", bp::init< Crystal const &, IFormFactor const &, IMaterial const &, complex_t >(( bp::arg("p_crystal"), bp::arg("meso_crystal_form_factor"), bp::arg("p_material"), bp::arg("wavevector_scattering_factor") )) );
+        FormFactorCrystal_exposer_t FormFactorCrystal_exposer = FormFactorCrystal_exposer_t( "FormFactorCrystal", "The formfactor for mesocrystals with a bulk crystal structure of particles.", bp::init< Lattice const &, IFormFactor const &, IFormFactor const & >(( bp::arg("lattice"), bp::arg("basis_form_factor"), bp::arg("meso_form_factor") )) );
         bp::scope FormFactorCrystal_scope( FormFactorCrystal_exposer );
         { //::FormFactorCrystal::clone
         
@@ -344,14 +215,14 @@ void register_FormFactorCrystal_class(){
         }
         { //::FormFactorCrystal::evaluate
         
-            typedef ::complex_t ( ::FormFactorCrystal::*evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
-            typedef ::complex_t ( FormFactorCrystal_wrapper::*default_evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( ::FormFactorCrystal::*evaluate_function_type)( ::WavevectorInfo const & ) const;
+            typedef ::complex_t ( FormFactorCrystal_wrapper::*default_evaluate_function_type)( ::WavevectorInfo const & ) const;
             
             FormFactorCrystal_exposer.def( 
                 "evaluate"
                 , evaluate_function_type(&::FormFactorCrystal::evaluate)
                 , default_evaluate_function_type(&FormFactorCrystal_wrapper::default_evaluate)
-                , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f_bin") ) );
+                , ( bp::arg("wavevectors") ) );
         
         }
         { //::FormFactorCrystal::evaluate_for_q
@@ -366,6 +237,17 @@ void register_FormFactorCrystal_class(){
                 , ( bp::arg("q") ) );
         
         }
+        { //::FormFactorCrystal::getRadius
+        
+            typedef double ( ::FormFactorCrystal::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorCrystal_wrapper::*default_getRadius_function_type)(  ) const;
+            
+            FormFactorCrystal_exposer.def( 
+                "getRadius"
+                , getRadius_function_type(&::FormFactorCrystal::getRadius)
+                , default_getRadius_function_type(&FormFactorCrystal_wrapper::default_getRadius) );
+        
+        }
         { //::FormFactorCrystal::getVolume
         
             typedef double ( ::FormFactorCrystal::*getVolume_function_type)(  ) const;
@@ -375,40 +257,6 @@ void register_FormFactorCrystal_class(){
                 "getVolume"
                 , getVolume_function_type(&::FormFactorCrystal::getVolume)
                 , default_getVolume_function_type(&FormFactorCrystal_wrapper::default_getVolume) );
-        
-        }
-        { //::FormFactorCrystal::setAmbientMaterial
-        
-            typedef void ( ::FormFactorCrystal::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
-            typedef void ( FormFactorCrystal_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
-            
-            FormFactorCrystal_exposer.def( 
-                "setAmbientMaterial"
-                , setAmbientMaterial_function_type(&::FormFactorCrystal::setAmbientMaterial)
-                , default_setAmbientMaterial_function_type(&FormFactorCrystal_wrapper::default_setAmbientMaterial)
-                , ( bp::arg("material") ) );
-        
-        }
-        { //::IParameterized::areParametersChanged
-        
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( FormFactorCrystal_wrapper::*default_areParametersChanged_function_type)(  ) ;
-            
-            FormFactorCrystal_exposer.def( 
-                "areParametersChanged"
-                , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&FormFactorCrystal_wrapper::default_areParametersChanged) );
-        
-        }
-        { //::IParameterized::clearParameterPool
-        
-            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( FormFactorCrystal_wrapper::*default_clearParameterPool_function_type)(  ) ;
-            
-            FormFactorCrystal_exposer.def( 
-                "clearParameterPool"
-                , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&FormFactorCrystal_wrapper::default_clearParameterPool) );
         
         }
         { //::ISample::cloneInvertB
@@ -434,95 +282,15 @@ void register_FormFactorCrystal_class(){
                 , default_containsMagneticMaterial_function_type(&FormFactorCrystal_wrapper::default_containsMagneticMaterial) );
         
         }
-        { //::IParameterized::createParameterTree
+        { //::ISample::getChildren
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( FormFactorCrystal_wrapper::*default_createParameterTree_function_type)(  ) const;
+            typedef ::std::vector< const ISample* > ( ::ISample::*getChildren_function_type)(  ) const;
+            typedef ::std::vector< const ISample* > ( FormFactorCrystal_wrapper::*default_getChildren_function_type)(  ) const;
             
             FormFactorCrystal_exposer.def( 
-                "createParameterTree"
-                , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&FormFactorCrystal_wrapper::default_createParameterTree)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::ISample::getCompositeSample
-        
-            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type)(  ) ;
-            typedef ::ICompositeSample * ( FormFactorCrystal_wrapper::*default_getCompositeSample_function_type)(  ) ;
-            
-            FormFactorCrystal_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorCrystal_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ISample::getCompositeSample
-        
-            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type)(  ) const;
-            typedef ::ICompositeSample const * ( FormFactorCrystal_wrapper::*default_getCompositeSample_function_type)(  ) const;
-            
-            FormFactorCrystal_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorCrystal_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IFormFactor::getHeight
-        
-            typedef double ( ::IFormFactor::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorCrystal_wrapper::*default_getHeight_function_type)(  ) const;
-            
-            FormFactorCrystal_exposer.def( 
-                "getHeight"
-                , getHeight_function_type(&::IFormFactor::getHeight)
-                , default_getHeight_function_type(&FormFactorCrystal_wrapper::default_getHeight) );
-        
-        }
-        { //::IFormFactor::getNumberOfStochasticParameters
-        
-            typedef int ( ::IFormFactor::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorCrystal_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorCrystal_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::IFormFactor::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorCrystal_wrapper::default_getNumberOfStochasticParameters) );
-        
-        }
-        { //::IFormFactor::getRadius
-        
-            typedef double ( ::IFormFactor::*getRadius_function_type)(  ) const;
-            typedef double ( FormFactorCrystal_wrapper::*default_getRadius_function_type)(  ) const;
-            
-            FormFactorCrystal_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorCrystal_wrapper::default_getRadius) );
-        
-        }
-        { //::ISample::preprocess
-        
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( FormFactorCrystal_wrapper::*default_preprocess_function_type)(  ) ;
-            
-            FormFactorCrystal_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&FormFactorCrystal_wrapper::default_preprocess) );
-        
-        }
-        { //::IParameterized::printParameters
-        
-            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( FormFactorCrystal_wrapper::*default_printParameters_function_type)(  ) const;
-            
-            FormFactorCrystal_exposer.def( 
-                "printParameters"
-                , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&FormFactorCrystal_wrapper::default_printParameters) );
+                "getChildren"
+                , getChildren_function_type(&::ISample::getChildren)
+                , default_getChildren_function_type(&FormFactorCrystal_wrapper::default_getChildren) );
         
         }
         { //::ISample::printSampleTree
@@ -536,38 +304,27 @@ void register_FormFactorCrystal_class(){
                 , default_printSampleTree_function_type(&FormFactorCrystal_wrapper::default_printSampleTree) );
         
         }
-        { //::IParameterized::registerParameter
+        { //::IFormFactor::setAmbientMaterial
         
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
+            typedef void ( ::IFormFactor::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( FormFactorCrystal_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
             
             FormFactorCrystal_exposer.def( 
-                "registerParameter"
-                , default_registerParameter_function_type( &FormFactorCrystal_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "main method to register data address in the pool." );
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&FormFactorCrystal_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("arg0") ) );
         
         }
-        { //::IParameterized::setParameterValue
+        { //::ISample::size
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( FormFactorCrystal_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef ::std::size_t ( ::ISample::*size_function_type)(  ) const;
+            typedef ::std::size_t ( FormFactorCrystal_wrapper::*default_size_function_type)(  ) const;
             
             FormFactorCrystal_exposer.def( 
-                "setParameterValue"
-                , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&FormFactorCrystal_wrapper::default_setParameterValue)
-                , ( bp::arg("name"), bp::arg("value") ) );
-        
-        }
-        { //::IParameterized::setParametersAreChanged
-        
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( FormFactorCrystal_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
-            
-            FormFactorCrystal_exposer.def( 
-                "setParametersAreChanged"
-                , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&FormFactorCrystal_wrapper::default_setParametersAreChanged) );
+                "size"
+                , size_function_type(&::ISample::size)
+                , default_size_function_type(&FormFactorCrystal_wrapper::default_size) );
         
         }
         { //::ICloneable::transferToCPP

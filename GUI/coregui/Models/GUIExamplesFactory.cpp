@@ -28,19 +28,28 @@
 QMap<QString, QString > init_NameToRegistry()
 {
     QMap<QString, QString > result;
-    result["example01"] = "gui_CylinderAndPrisms";
-    result["example02"] = "gui_Interference1DParaCrystal";
-    result["example03"] = "gui_Interference2DParaCrystal";
-    result["example04"] = "gui_CoreShellParticles";
-    result["example05"] = "LayerWithRoughness";
-    result["example06"] = "gui_Interference2DSquareLattice";
-    result["example07"] = "gui_RotatedPyramids";
-    result["example08"] = "part_distribution";
-    result["example09"] = "gui_ParticleComposition";
+    result["example01"] = "CylindersAndPrismsBuilder";
+    result["example02"] = "RadialParaCrystalBuilder";
+    result["example03"] = "HexParaCrystalBuilder";
+    result["example04"] = "CoreShellParticleBuilder";
+    result["example05"] = "MultiLayerWithRoughnessBuilder";
+    result["example06"] = "SquareLatticeBuilder";
+    result["example07"] = "RotatedPyramidsBuilder";
+    result["example08"] = "CylindersWithSizeDistributionBuilder";
+    result["example09"] = "ParticleCompositionBuilder";
+
     // temporary for testing
-//    result["example08"] = "beam_divergence";
-//    result["example08"] = "detector_resolution";
-//    result["example08"] = "gui_isgisaxs06b";
+    //result["example09"] = "MultipleLayoutBuilder";
+//    result["example09"] = "TwoTypesCylindersDistributionBuilder";
+    //result["example09"] = "RectParaCrystalBuilder";
+    //result["example09"] = "SizeDistributionLMAModelBuilder";
+    //result["example09"] = "CylindersInSSCABuilder";
+    //result["example09"] = "TransformBoxBuilder";
+    //result["example09"] = "BoxCompositionRotateZandYBuilder";
+    //result["example09"] = "CoreShellBoxRotateZandYBuilder";
+    //result["example09"] = "BoxStackCompositionBuilder";
+
+
     return result;
 }
 
@@ -55,22 +64,22 @@ bool GUIExamplesFactory::isValidExampleName(const QString &name)
 ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, SampleModel *sampleModel)
 {
     QString exampleName = m_name_to_registry[name];
-    SimulationRegistry registry;
-    boost::scoped_ptr<GISASSimulation> P_simulation(registry.createSimulation(exampleName.toStdString()));
-    Q_ASSERT(P_simulation.get());
+
+    SampleBuilderFactory factory;
+    boost::scoped_ptr<ISample> sample(factory.createSample(exampleName.toStdString()));
 
     GUIObjectBuilder guiBuilder;
-    return guiBuilder.populateSampleModel(sampleModel, *P_simulation, name);
+    return guiBuilder.populateSampleModel(sampleModel, *sample.get(), name);
 }
 
-ParameterizedItem *GUIExamplesFactory::createInstrumentItems(const QString &name, InstrumentModel *instrumentModel)
-{
-    QString exampleName = m_name_to_registry[name];
-    SimulationRegistry registry;
-    boost::scoped_ptr<GISASSimulation> P_simulation(registry.createSimulation(exampleName.toStdString()));
-    Q_ASSERT(P_simulation.get());
+//ParameterizedItem *GUIExamplesFactory::createInstrumentItems(const QString &name, InstrumentModel *instrumentModel)
+//{
+//    QString exampleName = m_name_to_registry[name];
+//    SimulationRegistry registry;
+//    boost::scoped_ptr<GISASSimulation> P_simulation(registry.createSimulation(exampleName.toStdString()));
+//    Q_ASSERT(P_simulation.get());
 
-    QString instrumentName = name + "_instrument";
-    GUIObjectBuilder guiBuilder;
-    return guiBuilder.populateInstrumentModel(instrumentModel, *P_simulation, instrumentName);
-}
+//    QString instrumentName = name + "_instrument";
+//    GUIObjectBuilder guiBuilder;
+//    return guiBuilder.populateInstrumentModel(instrumentModel, *P_simulation, instrumentName);
+//}

@@ -14,27 +14,14 @@
 // ************************************************************************** //
 
 #include "ParticleDistribution.h"
-#include "ParticleInfo.h"
-
-#include <boost/scoped_ptr.hpp>
+#include "BornAgainNamespace.h"
 
 ParticleDistribution::ParticleDistribution(const IParticle &prototype,
                                            const ParameterDistribution &par_distr)
     : m_par_distribution(par_distr)
 {
-    setName("ParticleDistribution");
+    setName(BornAgain::ParticleDistributionType);
     mP_particle.reset(prototype.clone());
-    registerChild(mP_particle.get());
-}
-
-ParticleDistribution::ParticleDistribution(const IParticle &prototype,
-                                           const ParameterDistribution &par_distr,
-                                           kvector_t position)
-    : m_par_distribution(par_distr)
-{
-    setName("ParticleDistribution");
-    mP_particle.reset(prototype.clone());
-    mP_particle->setPosition(position);
     registerChild(mP_particle.get());
 }
 
@@ -42,6 +29,7 @@ ParticleDistribution *ParticleDistribution::clone() const
 {
     ParticleDistribution *p_result
         = new ParticleDistribution(*mP_particle, m_par_distribution);
+    p_result->setAbundance(m_abundance);
     return p_result;
 }
 
@@ -51,22 +39,30 @@ ParticleDistribution *ParticleDistribution::cloneInvertB() const
                                               "cloneInvertB: should never be called");
 }
 
-IFormFactor *ParticleDistribution::createFormFactor(complex_t wavevector_scattering_factor) const
+void ParticleDistribution::accept(ISampleVisitor *visitor) const
 {
-    (void)wavevector_scattering_factor;
-    throw Exceptions::NotImplementedException("ParticleDistribution::"
-                                              "createFormFactor: should never be called");
+    visitor->visit(this);
 }
 
-std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(double abundance) const
+void ParticleDistribution::setAmbientMaterial(const IMaterial &material)
 {
-    std::vector<ParticleInfo *> result;
-    boost::scoped_ptr<ParameterPool> P_pool(createDistributedParameterPool() );
+    mP_particle->setAmbientMaterial(material);
+}
+
+const IMaterial *ParticleDistribution::getAmbientMaterial() const
+{
+    return mP_particle->getAmbientMaterial();
+}
+
+void ParticleDistribution::generateParticles(
+        std::vector<const IParticle *> &particle_vector) const
+{
+    std::unique_ptr<ParameterPool> P_pool(createDistributedParameterPool());
     std::string main_par_name = m_par_distribution.getMainParameterName();
     std::vector<ParameterPool::parameter_t> main_par_matches
         = P_pool->getMatchedParameters(main_par_name);
     if (main_par_matches.size() != 1) {
-        throw Exceptions::RuntimeErrorException("ParticleDistribution::generateParticleInfos: "
+        throw Exceptions::RuntimeErrorException("ParticleDistribution::generateParticles: "
                                                 "main parameter name matches nothing or more than "
                                                 "one parameter");
     }
@@ -80,7 +76,7 @@ std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(double a
             = P_pool->getMatchedParameters(linked_par_names[i]);
         if (linked_par_matches.size() != 1) {
             throw Exceptions::RuntimeErrorException(
-                "ParticleDistribution::generateParticleInfos: "
+                "ParticleDistribution::generateParticles: "
                 "linked parameter name matches nothing or more than "
                 "one parameter");
         }
@@ -91,15 +87,13 @@ std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(double a
     }
     for (size_t i = 0; i < main_par_samples.size(); ++i) {
         ParameterSample main_sample = main_par_samples[i];
-        double particle_abundance = abundance * main_sample.weight;
-        ParticleInfo *p_particle_info = new ParticleInfo(*mP_particle);
-        p_particle_info->setAbundance(particle_abundance);
-        boost::scoped_ptr<ParameterPool> P_new_pool(
-                    p_particle_info->getParticle()->createParameterTree() );
+        double particle_abundance = getAbundance() * main_sample.weight;
+        IParticle *p_particle_clone = mP_particle->clone();
+        std::unique_ptr<ParameterPool> P_new_pool(p_particle_clone->createParameterTree());
         int changed = P_new_pool->setMatchedParametersValue(main_par_name, main_sample.value);
         if (changed != 1) {
             throw Exceptions::RuntimeErrorException(
-                "ParticleDistribution::generateParticleInfos: "
+                "ParticleDistribution::generateParticles: "
                 "main parameter name matches nothing or more than "
                 "one parameter");
         }
@@ -109,18 +103,27 @@ std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(double a
             changed = P_new_pool->setMatchedParametersValue(it->first, new_linked_value);
             if (changed != 1) {
                 throw Exceptions::RuntimeErrorException(
-                    "ParticleDistribution::generateParticleInfos: "
+                    "ParticleDistribution::generateParticles: "
                     "linked parameter name matches nothing or more than "
                     "one parameter");
             }
         }
-        result.push_back(p_particle_info);
+        p_particle_clone->setAbundance(particle_abundance);
+        particle_vector.push_back(p_particle_clone);
     }
-    return result;
 }
 
-void ParticleDistribution::applyTransformationToSubParticles(const IRotation& rotation)
+ParameterDistribution ParticleDistribution::getParameterDistribution() const
 {
-    mP_particle->applyRotation(rotation);
-    return;
+    return m_par_distribution;
+}
+
+ParameterPool *ParticleDistribution::createDistributedParameterPool() const
+{
+    return mP_particle->createParameterTree();
+}
+
+const IParticle *ParticleDistribution::getParticle() const
+{
+    return mP_particle.get();
 }

@@ -32,28 +32,31 @@ class BA_CORE_API_ NewProjectDialog : public QDialog
 {
     Q_OBJECT
 public:
-    NewProjectDialog(QWidget *parent = 0);
+    NewProjectDialog(QWidget *parent = 0, const QString &workingDirectory = QString(),
+                     const QString &projectName = QString());
 
+    QString getWorkingDirectory() const;
+    void setWorkingDirectory(const QString &text);
 
-    void setProjectName(const QString &text) { return m_projectNameEdit->setText(text); }
-    void setProjectPath(const QString &text) { return m_projectPathEdit->setText(text); }
+    void setProjectName(const QString &text);
 
-    QString getProjectName() { return m_projectNameEdit->text(); }
-    QString getProjectPath() { return m_projectPathEdit->text(); }
+    QString getProjectFileName() const;
 
 private slots:
-    void setDirectory();
+    void onBrowseDirectory();
     void checkIfProjectPathIsValid(const QString &dirname);
     void checkIfProjectNameIsValid(const QString &projectName);
     void createProjectDir();
 
 private:
+    QString getProjectName() const { return m_projectNameEdit->text(); }
+
     void setValidProjectName(bool status);
     void setValidProjectPath(bool status);
     void updateWarningStatus();
 
     QLineEdit *m_projectNameEdit;
-    QLineEdit *m_projectPathEdit;
+    QLineEdit *m_workDirEdit;
     QPushButton *m_browseButton;
     QLabel *m_warningLabel;
     QPushButton *m_cancelButton;
@@ -61,8 +64,6 @@ private:
 
     bool m_valid_projectName;
     bool m_valid_projectPath;
-
 };
-
 
 #endif

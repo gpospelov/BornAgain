@@ -30,7 +30,6 @@ typedef std::vector<double> vdouble1d_t;
 typedef std::vector<vdouble1d_t> vdouble2d_t;
 typedef std::pair<complex_t, complex_t> complexpair_t;
 
-
 #endif // TYPES_H
 
 

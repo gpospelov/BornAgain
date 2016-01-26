@@ -44,15 +44,15 @@ class QTMANHATTANSTYLESHARED_EXPORT ProgressBar : public QWidget
 
 public:
     explicit ProgressBar(QWidget *parent = 0);
-    ~ProgressBar();
+    virtual ~ProgressBar();
 
     QString title() const;
     void setTitle(const QString &title);
     void setError(bool on);
     bool hasError() const;
-    QSize sizeHint() const;
-    void paintEvent(QPaintEvent *);
-    void mouseMoveEvent(QMouseEvent *);
+    virtual QSize sizeHint() const;
+    virtual void paintEvent(QPaintEvent *);
+    virtual void mouseMoveEvent(QMouseEvent *);
     int minimum() const { return m_minimum; }
     int maximum() const { return m_maximum; }
     int value() const { return m_value; }
@@ -63,13 +63,13 @@ public:
     void setFinished(bool b);
     float cancelButtonFader() { return m_cancelButtonFader; }
     void setCancelButtonFader(float value) { update(); m_cancelButtonFader= value;}
-    bool event(QEvent *);
+    virtual bool event(QEvent *);
 
 signals:
     void clicked();
 
 protected:
-    void mousePressEvent(QMouseEvent *event);
+    virtual void mousePressEvent(QMouseEvent *event);
 
 private:
     QImage bar;

@@ -5,24 +5,3 @@ Each test defines simple geometry, runs simulation and then compare results of t
 
 Tests are compiled and executed automatically when user builds the whole project with 'check' target
 cmake; make check
-
---- List of tests ---
-
-IsGISAXS01     - Mixture of cylinders and prisms without interference (IsGISAXS example #1)
-IsGISAXS02     - Mixture cylinder particles with different size distribution (IsGISAXS example #2)
-IsGISAXS03     - Cylinder formfactor in BA and DWBA (IsGISAXS example #3)
-IsGISAXS04     - 1D and 2D paracrystal (IsGISAXS example #4)
-IsGISAXS06     - 2D lattice with different disorder (IsGISAXS example #6)
-IsGISAXS07     - Mixture of different particles defined in morphology file (IsGISAXS example #7)
-IsGISAXS08     - 2DDL paracrystal (IsGISAXS example #8)
-IsGISAXS09     - Pyramids on top of substrate - Rotated pyramids on top of substrate (IsGISAXS example #9)
-IsGISAXS10     - Cylinders with interference on top of substrate (IsGISAXS example #10)
-IsGISAXS11     - Core shell nanoparticles (IsGISAXS example #11)
-IsGISAXS15     - Size spacing correlation approximation (IsGISAXS example #15)
-
-LayerRoughness      - 10 layers system with correlated roughness
-MesoCrystal         - Meso crystal simulation
-PolDWBAMagCylinders - Magnetic cylinders in DWBA
-Ripple1             - Cosine ripple
-Ripple2             - Triangular ripple
-

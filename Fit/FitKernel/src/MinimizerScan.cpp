@@ -26,7 +26,7 @@ void MinimizerScan::minimize()
     // scanning values of fit parameters
     for(OutputData<double>::iterator it = m_fcnvalues_map->begin(); it!=m_fcnvalues_map->end(); ++it) {
         for(size_t i_axis=0; i_axis<m_fcnvalues_map->getRank(); ++i_axis) {
-            size_t xbin = m_fcnvalues_map->toCoordinate(it.getIndex(), i_axis);
+            size_t xbin = m_fcnvalues_map->getAxisBinIndex(it.getIndex(), i_axis);
             double value = (*m_fcnvalues_map->getAxis(i_axis))[xbin];
             std::string parname = m_fcnvalues_map->getAxis(i_axis)->getName();
             m_parameters.getParameter(parname)->setValue(value);
@@ -64,7 +64,7 @@ void MinimizerScan::set_parvalues_to_minimum()
     assert(m_fcnvalues_map);
     OutputData<double>::iterator it = std::min_element(m_fcnvalues_map->begin(), m_fcnvalues_map->end());
     for(size_t i_axis=0; i_axis<m_fcnvalues_map->getRank(); ++i_axis) {
-        size_t xbin = m_fcnvalues_map->toCoordinate(it.getIndex(), i_axis);
+        size_t xbin = m_fcnvalues_map->getAxisBinIndex(it.getIndex(), i_axis);
         double value = (*m_fcnvalues_map->getAxis(i_axis))[xbin];
         std::string parname = m_fcnvalues_map->getAxis(i_axis)->getName();
         m_parameters.getParameter(parname)->setValue(value);

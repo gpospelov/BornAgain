@@ -92,8 +92,7 @@ private:
     void removeItemViewFromScene(ParameterizedItem *item);
     bool isMultiLayerNearby(QGraphicsSceneDragDropEvent *event);
     void adjustSceneRect();
-
-//    ParameterizedItem *dropCompleteSample(const QString &name);
+    bool isAcceptedByMultiLayer(const DesignerMimeData *mimeData, QGraphicsSceneDragDropEvent *event);
 
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
@@ -101,10 +100,10 @@ private:
     bool m_block_selection;
 
     QMap<ParameterizedItem *, IView *> m_ItemToView;
-    //!< COrrespondance of model's item and scene's view
+    //!< Correspondance of model's item and scene's view
 
     QLineF m_layer_interface_line;
-    //!< foreground line representing appropriate interface during lauer's movement
+    //!< Foreground line representing appropriate interface during layer's movement
 
     SampleViewAligner *m_aligner;
 

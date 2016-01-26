@@ -40,7 +40,7 @@ void FitSuiteWriteTreeObserver::update(IObservable *subject)
     // preparing root file for writing
     // if it is first call the file will be opened in 'recreate' mode, otherwise in 'update' mode
     TFile *top(0);
-    if(fitSuite->getNCalls() == 0) {
+    if(fitSuite->getNumberOfIterations() == 0) {
         top = new TFile(m_file_name.c_str(),"RECREATE");
     } else {
         top = new TFile(m_file_name.c_str(),"UPDATE");
@@ -88,8 +88,8 @@ void FitSuiteWriteTreeObserver::update(IObservable *subject)
         event->parnames.push_back( (*it)->getName().c_str() );
         event->parfixed.push_back( (*it)->isFixed() );
     }
-    event->niter = (int)fitSuite->getNCalls();
-    event->nstrategy = (int)fitSuite->getNStrategy();
+    event->niter = (int)fitSuite->getNumberOfIterations();
+    event->nstrategy = (int)fitSuite->getCurrentStrategyIndex();
 
     // appending data to the tree
     tree->Fill();

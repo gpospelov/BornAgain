@@ -3,7 +3,7 @@ Cylinders of two different sizes in Local Monodisperse Approximation
 """
 import numpy
 import matplotlib
-import pylab
+from matplotlib import pyplot as plt
 from bornagain import *
 
 phi_min, phi_max = 0.0, 2.0
@@ -42,11 +42,11 @@ def get_sample():
 
      # assembling the sample
     particle_layout1 = ParticleLayout()
-    particle_layout1.addParticle(cylinder1, 0.0, 0.8)
+    particle_layout1.addParticle(cylinder1, 0.8)
     particle_layout1.addInterferenceFunction(interference1)
 
     particle_layout2 = ParticleLayout()
-    particle_layout2.addParticle(cylinder2, 0.0, 0.2)
+    particle_layout2.addParticle(cylinder2, 0.2)
     particle_layout2.addInterferenceFunction(interference2)
 
     air_layer = Layer(m_ambience)
@@ -77,16 +77,18 @@ def run_simulation():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    result = simulation.getIntensityData().getArray() + 1  # for log scale
+    result = simulation.getIntensityData()
 
     # showing the result
-    im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
-                 extent=[phi_min, phi_max, alpha_min, alpha_max], aspect='auto')
-    cb = pylab.colorbar(im)
+    im = plt.imshow(result.getArray(),
+                    norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+                    extent=[result.getXmin()/deg, result.getXmax()/deg, result.getYmin()/deg, result.getYmax()/deg],
+                    aspect='auto')
+    cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)
-    pylab.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
-    pylab.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
-    pylab.show()
+    plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
+    plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
+    plt.show()
 
 
 if __name__ == '__main__':

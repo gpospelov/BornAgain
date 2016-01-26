@@ -130,7 +130,7 @@ void TestRoughness::DrawProfile()
     leg->AddEntry(vgr_profile[1][0], "FFT method","pl");
 
     // loop over test methods and set of roughnesses
-    int a_colors[]={kBlue, kRed};
+    int a_colors[]={kBlue, kRed, kGreen+1, kBlue, kRed, kGreen+1};
     for(size_t i_method=0; i_method<nmethods; i_method++){
         for(size_t i_set=0; i_set<nsets; i_set++) {
             if(i_set<3) {
@@ -154,6 +154,56 @@ void TestRoughness::DrawProfile()
             gr->Draw("l");
         } // i_set
     } // i_method
+
+
+    // ---------------------
+    int i_method_sel = 1;
+//    TCanvas *c2 = new TCanvas("c2_test_roughness","Surface Roughness Profile",900, 600);
+    TCanvas *c2 = new TCanvas("c2_test_roughness","Surface Roughness Profile",550, 500);
+    c2->Divide(1,2);
+
+    std::vector<TLegend *> legends;
+    for(size_t i=0; i<2; ++i) {
+//        TLegend *leg = new TLegend(0.725,0.6,0.915,0.9);
+        TLegend *leg = new TLegend(0.65,0.6,0.92,0.9);
+        leg->SetTextSize(0.05);
+        leg->SetBorderSize(1);
+        leg->SetFillStyle(0);
+        legends.push_back(leg);
+
+        c2->cd(1+i);
+        gPad->SetLeftMargin(0.05);
+        gPad->SetRightMargin(0.05);
+        gPad->SetTopMargin(0.05);
+        href->Draw("][");
+        leg->Draw();
+    }
+
+
+    for(size_t i_set=0; i_set<nsets; i_set++) {
+        int ncomp = i_set/3;
+        c2->cd(1+ncomp);
+        TGraph *gr = vgr_profile[i_method_sel][i_set];
+        gr->SetLineColor( a_colors[i_set] );
+        gr->SetMarkerColor( a_colors[i_set] );
+        gr->Draw("l");
+
+
+
+        std::ostringstream out;
+        out << "#sigma: " << std::setprecision(3) << roughnessSet[i_set].sigma
+            << "   H: " << std::setprecision(3) << roughnessSet[i_set].hurst
+            << "   L_{c}:" << std::setprecision(5) << roughnessSet[i_set].clength;
+
+        std::cout << "XXX" << ncomp << " " << out.str() << std::endl;
+        legends[ncomp]->AddEntry(gr, out.str().c_str(),"pl");
+
+
+    }
+
+
+
+
 
     delete m_roughness;
     m_roughness = 0;

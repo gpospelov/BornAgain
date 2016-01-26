@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      StandardSamples/MultipleLayoutBuilder.cpp
-//! @brief     Defines class MultipleLayoutBuilder.
+//! @brief     Implements class MultipleLayoutBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,7 +20,6 @@
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
 #include "Units.h"
-#include "InterferenceFunctionNone.h"
 
 MultipleLayoutBuilder::MultipleLayoutBuilder()
     : m_cylinder_height(5*Units::nanometer)
@@ -64,8 +63,8 @@ ISample *MultipleLayoutBuilder::buildSample() const
     FormFactorPrism3 ff_prism3(m_prism_length, m_prism_height);
     Particle prism3(particle_material, ff_prism3);
 
-    particle_layout_1.addParticle(cylinder, 0.0, m_cylinder_weight);
-    particle_layout_2.addParticle(prism3, 0.0, 1.0-m_cylinder_weight);
+    particle_layout_1.addParticle(cylinder, m_cylinder_weight);
+    particle_layout_2.addParticle(prism3, 1.0-m_cylinder_weight);
 
     air_layer.addLayout(particle_layout_1);
     air_layer.addLayout(particle_layout_2);

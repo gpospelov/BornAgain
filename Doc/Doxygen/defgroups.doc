@@ -51,7 +51,13 @@
 @brief Different tools.
 
 \defgroup tools_internal
-@brief More different tools.
+@brief Tools internal classes.
+
+\defgroup input_output Input and output
+@brief Various routines for input/output.
+
+\defgroup input_output_internal
+@brief Input/output internal classes.
 
 
 */

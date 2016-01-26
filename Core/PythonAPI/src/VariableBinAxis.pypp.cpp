@@ -95,6 +95,18 @@ struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis >
         return VariableBinAxis::getBinBoundaries( );
     }
 
+    virtual double getBinCenter( ::std::size_t index ) const  {
+        if( bp::override func_getBinCenter = this->get_override( "getBinCenter" ) )
+            return func_getBinCenter( index );
+        else{
+            return this->VariableBinAxis::getBinCenter( index );
+        }
+    }
+    
+    double default_getBinCenter( ::std::size_t index ) const  {
+        return VariableBinAxis::getBinCenter( index );
+    }
+
     virtual ::std::vector< double > getBinCenters(  ) const  {
         if( bp::override func_getBinCenters = this->get_override( "getBinCenters" ) )
             return func_getBinCenters(  );
@@ -247,6 +259,18 @@ void register_VariableBinAxis_class(){
                 "getBinBoundaries"
                 , getBinBoundaries_function_type(&::VariableBinAxis::getBinBoundaries)
                 , default_getBinBoundaries_function_type(&VariableBinAxis_wrapper::default_getBinBoundaries) );
+        
+        }
+        { //::VariableBinAxis::getBinCenter
+        
+            typedef double ( ::VariableBinAxis::*getBinCenter_function_type)( ::std::size_t ) const;
+            typedef double ( VariableBinAxis_wrapper::*default_getBinCenter_function_type)( ::std::size_t ) const;
+            
+            VariableBinAxis_exposer.def( 
+                "getBinCenter"
+                , getBinCenter_function_type(&::VariableBinAxis::getBinCenter)
+                , default_getBinCenter_function_type(&VariableBinAxis_wrapper::default_getBinCenter)
+                , ( bp::arg("index") ) );
         
         }
         { //::VariableBinAxis::getBinCenters

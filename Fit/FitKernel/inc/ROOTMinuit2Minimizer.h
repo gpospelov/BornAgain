@@ -34,7 +34,7 @@ public:
 protected:
    virtual void propagateOptions();
 
-   ROOT::Minuit2::Minuit2Minimizer *m_minuit2_minimizer;
+   BA_ROOT::Minuit2::Minuit2Minimizer *m_minuit2_minimizer;
 
 };
 

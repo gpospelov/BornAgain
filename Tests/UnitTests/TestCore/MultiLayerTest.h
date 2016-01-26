@@ -2,6 +2,7 @@
 #define MULTILAYERTEST_H
 
 #include "MultiLayer.h"
+#include "BornAgainNamespace.h"
 #include "Layer.h"
 #include "HomogeneousMaterial.h"
 #include "Materials.h"
@@ -17,15 +18,15 @@ protected:
 
 TEST_F(MultiLayerTest, BasicProperty)
 {
-    MultiLayer mLayer;
+    MultiLayer multi_layer;
     //check default properties
-    EXPECT_EQ("MultiLayer", mLayer.getName());
-    EXPECT_EQ(0.0, mLayer.getCrossCorrLength());
-    EXPECT_EQ(size_t(0), mLayer.getNumberOfLayers());
-    EXPECT_EQ(size_t(0), mLayer.getNumberOfInterfaces());
+    EXPECT_EQ(BornAgain::MultiLayerType, multi_layer.getName());
+    EXPECT_EQ(0.0, multi_layer.getCrossCorrLength());
+    EXPECT_EQ(size_t(0), multi_layer.getNumberOfLayers());
+    EXPECT_EQ(size_t(0), multi_layer.getNumberOfInterfaces());
     //set parameter
-    mLayer.setParameterValue("crossCorrLength", -2.54);
-    EXPECT_EQ(-2.54,mLayer.getCrossCorrLength());
+    multi_layer.setParameterValue(BornAgain::CrossCorrelationLength, -2.54);
+    EXPECT_EQ(-2.54,multi_layer.getCrossCorrLength());
 
     // adding layers
     HomogeneousMaterial air ("air",0,1.0);
@@ -36,16 +37,15 @@ TEST_F(MultiLayerTest, BasicProperty)
     Layer ironLayer(iron, 20*Units::nanometer);
     Layer chromiumLayer(chromium, 40*Units::nanometer);
     Layer stoneLayer(stone, 0*Units::nanometer);
-    mLayer.addLayer(airLayer);
-    EXPECT_EQ(size_t(1), mLayer.getNumberOfLayers());
-    EXPECT_EQ(size_t(0), mLayer.getNumberOfInterfaces());
+    multi_layer.addLayer(airLayer);
+    EXPECT_EQ(size_t(1), multi_layer.getNumberOfLayers());
+    EXPECT_EQ(size_t(0), multi_layer.getNumberOfInterfaces());
 
-    mLayer.addLayer(ironLayer);
-    mLayer.addLayer(chromiumLayer);
-    mLayer.addLayer(stoneLayer);
-    EXPECT_EQ(size_t(4), mLayer.getNumberOfLayers());
-    EXPECT_EQ(size_t(3), mLayer.getNumberOfInterfaces());   
-
+    multi_layer.addLayer(ironLayer);
+    multi_layer.addLayer(chromiumLayer);
+    multi_layer.addLayer(stoneLayer);
+    EXPECT_EQ(size_t(4), multi_layer.getNumberOfLayers());
+    EXPECT_EQ(size_t(3), multi_layer.getNumberOfInterfaces());
 }
 
 TEST_F(MultiLayerTest, LayerThicknesses)
@@ -89,7 +89,6 @@ TEST_F(MultiLayerTest, LayerThicknesses)
     EXPECT_EQ(-85.0, mLayer.getLayerBottomZ(3));
 }
 
-
 TEST_F(MultiLayerTest, CheckAllLayers)
 {
     MultiLayer mLayer;
@@ -111,25 +110,24 @@ TEST_F(MultiLayerTest, CheckAllLayers)
 
     //check individual layer
     const Layer * layer0 = mLayer.getLayer(0);
-    EXPECT_EQ("Layer", layer0->getName());
+    EXPECT_EQ(BornAgain::LayerType, layer0->getName());
     EXPECT_EQ(0, layer0->getThickness());
     EXPECT_EQ(airLayer.getMaterial()->getName(), layer0->getMaterial()->getName());
 
     const Layer * layer1 = mLayer.getLayer(1);
-    EXPECT_EQ("Layer", layer1->getName());
+    EXPECT_EQ(BornAgain::LayerType, layer1->getName());
     EXPECT_EQ(20, layer1->getThickness());
     EXPECT_EQ(ironLayer.getMaterial()->getName(), layer1->getMaterial()->getName());
 
     const Layer * layer2 = mLayer.getLayer(2);
-    EXPECT_EQ("Layer", layer2->getName());
+    EXPECT_EQ(BornAgain::LayerType, layer2->getName());
     EXPECT_EQ(40, layer2->getThickness());
     EXPECT_EQ(chromiumLayer.getMaterial()->getName(), layer2->getMaterial()->getName());
 
     const Layer * layer3 = mLayer.getLayer(3);
-    EXPECT_EQ("Layer", layer3->getName());
+    EXPECT_EQ(BornAgain::LayerType, layer3->getName());
     EXPECT_EQ(0, layer3->getThickness());
     EXPECT_EQ(stoneLayer.getMaterial()->getName(), layer3->getMaterial()->getName());
-
 }
 
 TEST_F(MultiLayerTest, LayerInterfaces)
@@ -153,49 +151,48 @@ TEST_F(MultiLayerTest, LayerInterfaces)
 
     //check interfaces
     const LayerInterface * interface0 = mLayer.getLayerInterface(0);
-    EXPECT_TRUE(NULL!=interface0);
-    EXPECT_EQ("LayerInterface",interface0->getName());
-    EXPECT_EQ(NULL, interface0->getRoughness());
+    EXPECT_TRUE(nullptr!=interface0);
+    EXPECT_EQ(BornAgain::LayerInterfaceType, interface0->getName());
+    EXPECT_EQ(nullptr, interface0->getRoughness());
     EXPECT_EQ(layer0.getMaterial()->getName(), interface0->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer1.getMaterial()->getName(), interface0->getLayerBottom()->getMaterial()->getName());
 
     const LayerInterface * interface1 = mLayer.getLayerInterface(1);
-    EXPECT_TRUE(NULL!=interface1);
-    EXPECT_EQ("LayerInterface",interface1->getName());
-    EXPECT_EQ(NULL, interface1->getRoughness());
+    EXPECT_TRUE(nullptr!=interface1);
+    EXPECT_EQ(BornAgain::LayerInterfaceType, interface1->getName());
+    EXPECT_EQ(nullptr, interface1->getRoughness());
     EXPECT_EQ(layer1.getMaterial()->getName(), interface1->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer2.getMaterial()->getName(), interface1->getLayerBottom()->getMaterial()->getName());
 
     const LayerInterface * interface2 = mLayer.getLayerInterface(2);
-    EXPECT_TRUE(NULL!=interface2);
-    EXPECT_EQ("LayerInterface",interface2->getName());
-    EXPECT_EQ(NULL, interface2->getRoughness());
+    EXPECT_TRUE(nullptr!=interface2);
+    EXPECT_EQ(BornAgain::LayerInterfaceType, interface2->getName());
+    EXPECT_EQ(nullptr, interface2->getRoughness());
     EXPECT_EQ(layer2.getMaterial()->getName(), interface2->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer3.getMaterial()->getName(), interface2->getLayerBottom()->getMaterial()->getName());
 
     //bottom interface
     const LayerInterface * interfaceBottom = mLayer.getLayerBottomInterface(0);
-    EXPECT_TRUE(NULL!=interfaceBottom);
-    EXPECT_EQ("LayerInterface",interfaceBottom->getName());
-    EXPECT_EQ(NULL, interfaceBottom->getRoughness());
+    EXPECT_TRUE(nullptr!=interfaceBottom);
+    EXPECT_EQ(BornAgain::LayerInterfaceType, interfaceBottom->getName());
+    EXPECT_EQ(nullptr, interfaceBottom->getRoughness());
     EXPECT_EQ(layer0.getMaterial()->getName(), interfaceBottom->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer1.getMaterial()->getName(), interfaceBottom->getLayerBottom()->getMaterial()->getName());
 
     //top interface
     const LayerInterface * interfaceTop = mLayer.getLayerTopInterface(3);
-    EXPECT_TRUE(NULL!=interfaceTop);
-    EXPECT_EQ("LayerInterface",interfaceTop->getName());
-    EXPECT_EQ(NULL, interfaceTop->getRoughness());
+    EXPECT_TRUE(nullptr!=interfaceTop);
+    EXPECT_EQ(BornAgain::LayerInterfaceType, interfaceTop->getName());
+    EXPECT_EQ(nullptr, interfaceTop->getRoughness());
     EXPECT_EQ(layer2.getMaterial()->getName(), interfaceTop->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer3.getMaterial()->getName(), interfaceTop->getLayerBottom()->getMaterial()->getName());
 
     //null interface
     const LayerInterface * interfaceTopNull = mLayer.getLayerTopInterface(0);
-    EXPECT_TRUE(NULL==interfaceTopNull);
+    EXPECT_TRUE(nullptr==interfaceTopNull);
 
     const LayerInterface * interfaceBottomNull = mLayer.getLayerBottomInterface(3);
-    EXPECT_TRUE(NULL==interfaceBottomNull);
-
+    EXPECT_TRUE(nullptr==interfaceBottomNull);
 }
 
 TEST_F(MultiLayerTest, Clone)
@@ -220,7 +217,7 @@ TEST_F(MultiLayerTest, Clone)
     MultiLayer * mLayerClone = mLayer.clone();
 
     //check properties
-    EXPECT_EQ("MultiLayer", mLayerClone->getName());
+    EXPECT_EQ(BornAgain::MultiLayerType, mLayerClone->getName());
     EXPECT_EQ(0.0,mLayerClone->getCrossCorrLength());
     EXPECT_EQ(size_t(4), mLayerClone->getNumberOfLayers());
     EXPECT_EQ(size_t(3), mLayerClone->getNumberOfInterfaces());
@@ -260,52 +257,51 @@ TEST_F(MultiLayerTest, Clone)
 
     //check interfaces
     const LayerInterface * interface0 = mLayerClone->getLayerInterface(0);
-    EXPECT_TRUE(NULL!=interface0);
-    EXPECT_EQ("LayerInterface",interface0->getName());
-    EXPECT_EQ(NULL, interface0->getRoughness());
+    EXPECT_TRUE(nullptr!=interface0);
+    EXPECT_EQ(BornAgain::LayerInterfaceType, interface0->getName());
+    EXPECT_EQ(nullptr, interface0->getRoughness());
     EXPECT_EQ(layer0.getMaterial()->getName(), interface0->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer1.getMaterial()->getName(), interface0->getLayerBottom()->getMaterial()->getName());
 
     const LayerInterface * interface1 = mLayerClone->getLayerInterface(1);
-    EXPECT_TRUE(NULL!=interface1);
-    EXPECT_EQ("LayerInterface",interface1->getName());
-    EXPECT_EQ(NULL, interface1->getRoughness());
+    EXPECT_TRUE(nullptr!=interface1);
+    EXPECT_EQ(BornAgain::LayerInterfaceType, interface1->getName());
+    EXPECT_EQ(nullptr, interface1->getRoughness());
     EXPECT_EQ(layer1.getMaterial()->getName(), interface1->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer2.getMaterial()->getName(), interface1->getLayerBottom()->getMaterial()->getName());
 
     const LayerInterface * interface2 = mLayerClone->getLayerInterface(2);
-    EXPECT_TRUE(NULL!=interface2);
-    EXPECT_EQ("LayerInterface",interface2->getName());
-    EXPECT_EQ(NULL, interface2->getRoughness());
+    EXPECT_TRUE(nullptr!=interface2);
+    EXPECT_EQ(BornAgain::LayerInterfaceType, interface2->getName());
+    EXPECT_EQ(nullptr, interface2->getRoughness());
     EXPECT_EQ(layer2.getMaterial()->getName(), interface2->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer3.getMaterial()->getName(), interface2->getLayerBottom()->getMaterial()->getName());
 
     //top interface
     const LayerInterface * interfaceBottom = mLayerClone->getLayerTopInterface(1);
-    EXPECT_TRUE(NULL!=interfaceBottom);
-    EXPECT_EQ("LayerInterface",interfaceBottom->getName());
-    EXPECT_EQ(NULL, interfaceBottom->getRoughness());
+    EXPECT_TRUE(nullptr!=interfaceBottom);
+    EXPECT_EQ(BornAgain::LayerInterfaceType, interfaceBottom->getName());
+    EXPECT_EQ(nullptr, interfaceBottom->getRoughness());
     EXPECT_EQ(layer0.getMaterial()->getName(), interfaceBottom->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer1.getMaterial()->getName(), interfaceBottom->getLayerBottom()->getMaterial()->getName());
 
     //Bottom interface
     const LayerInterface * interfaceTop = mLayerClone->getLayerBottomInterface(2);
-    EXPECT_TRUE(NULL!=interfaceTop);
-    EXPECT_EQ("LayerInterface",interfaceTop->getName());
-    EXPECT_EQ(NULL, interfaceTop->getRoughness());
+    EXPECT_TRUE(nullptr!=interfaceTop);
+    EXPECT_EQ(BornAgain::LayerInterfaceType, interfaceTop->getName());
+    EXPECT_EQ(nullptr, interfaceTop->getRoughness());
     EXPECT_EQ(layer2.getMaterial()->getName(), interfaceTop->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer3.getMaterial()->getName(), interfaceTop->getLayerBottom()->getMaterial()->getName());
 
     //null interface
     const LayerInterface * interfaceTopNull = mLayerClone->getLayerTopInterface(0);
-    EXPECT_TRUE(NULL==interfaceTopNull);
+    EXPECT_TRUE(nullptr==interfaceTopNull);
 
     const LayerInterface * interfaceBottomNull = mLayerClone->getLayerBottomInterface(3);
-    EXPECT_TRUE(NULL==interfaceBottomNull);
+    EXPECT_TRUE(nullptr==interfaceBottomNull);
 
     delete mLayerClone;
 }
-
 
 TEST_F(MultiLayerTest, CloneInvertB)
 {
@@ -329,7 +325,7 @@ TEST_F(MultiLayerTest, CloneInvertB)
     MultiLayer * mLayerClone = mLayer.cloneInvertB();
 
     //check properties
-    EXPECT_EQ("MultiLayer", mLayerClone->getName());
+    EXPECT_EQ(BornAgain::MultiLayerType, mLayerClone->getName());
     EXPECT_EQ(0.0,mLayerClone->getCrossCorrLength());
     EXPECT_EQ(size_t(4), mLayerClone->getNumberOfLayers());
     EXPECT_EQ(size_t(3), mLayerClone->getNumberOfInterfaces());
@@ -348,69 +344,69 @@ TEST_F(MultiLayerTest, CloneInvertB)
 
     //check individual layer
     const Layer * layerCopy0 = mLayerClone->getLayer(0);
-    EXPECT_EQ(layer0.getName()+"_inv", layerCopy0->getName());
+    EXPECT_EQ(layer0.getName(), layerCopy0->getName());
     EXPECT_EQ(layer0.getThickness(), layerCopy0->getThickness());
     EXPECT_EQ(layer0.getMaterial()->getName(), layerCopy0->getMaterial()->getName());
 
     const Layer * layerCopy1 = mLayerClone->getLayer(1);
-    EXPECT_EQ(layer1.getName()+"_inv", layerCopy1->getName());
+    EXPECT_EQ(layer1.getName(), layerCopy1->getName());
     EXPECT_EQ(layer1.getThickness(), layerCopy1->getThickness());
     EXPECT_EQ(layer1.getMaterial()->getName(), layerCopy1->getMaterial()->getName());
 
     const Layer * layerCopy2 = mLayerClone->getLayer(2);
-    EXPECT_EQ(layer2.getName()+"_inv", layerCopy2->getName());
+    EXPECT_EQ(layer2.getName(), layerCopy2->getName());
     EXPECT_EQ(layer2.getThickness(), layerCopy2->getThickness());
     EXPECT_EQ(layer2.getMaterial()->getName(), layerCopy2->getMaterial()->getName());
 
     const Layer * layerCopy3 = mLayerClone->getLayer(3);
-    EXPECT_EQ(layer3.getName()+"_inv", layerCopy3->getName());
+    EXPECT_EQ(layer3.getName(), layerCopy3->getName());
     EXPECT_EQ(layer3.getThickness(), layerCopy3->getThickness());
     EXPECT_EQ(layer3.getMaterial()->getName(), layerCopy3->getMaterial()->getName());
 
     //check interfaces
     const LayerInterface * interface0 = mLayerClone->getLayerInterface(0);
-    EXPECT_TRUE(NULL!=interface0);
-    EXPECT_EQ("LayerInterface",interface0->getName());
-    EXPECT_EQ(NULL, interface0->getRoughness());
+    EXPECT_TRUE(nullptr!=interface0);
+    EXPECT_EQ(BornAgain::LayerInterfaceType, interface0->getName());
+    EXPECT_EQ(nullptr, interface0->getRoughness());
     EXPECT_EQ(layer0.getMaterial()->getName(), interface0->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer1.getMaterial()->getName(), interface0->getLayerBottom()->getMaterial()->getName());
 
     const LayerInterface * interface1 = mLayerClone->getLayerInterface(1);
-    EXPECT_TRUE(NULL!=interface1);
-    EXPECT_EQ("LayerInterface",interface1->getName());
-    EXPECT_EQ(NULL, interface1->getRoughness());
+    EXPECT_TRUE(nullptr!=interface1);
+    EXPECT_EQ(BornAgain::LayerInterfaceType, interface1->getName());
+    EXPECT_EQ(nullptr, interface1->getRoughness());
     EXPECT_EQ(layer1.getMaterial()->getName(), interface1->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer2.getMaterial()->getName(), interface1->getLayerBottom()->getMaterial()->getName());
 
     const LayerInterface * interface2 = mLayerClone->getLayerInterface(2);
-    EXPECT_TRUE(NULL!=interface2);
-    EXPECT_EQ("LayerInterface",interface2->getName());
-    EXPECT_EQ(NULL, interface2->getRoughness());
+    EXPECT_TRUE(nullptr!=interface2);
+    EXPECT_EQ(BornAgain::LayerInterfaceType, interface2->getName());
+    EXPECT_EQ(nullptr, interface2->getRoughness());
     EXPECT_EQ(layer2.getMaterial()->getName(), interface2->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer3.getMaterial()->getName(), interface2->getLayerBottom()->getMaterial()->getName());
 
     //top interface
     const LayerInterface * interfaceBottom = mLayerClone->getLayerTopInterface(1);
-    EXPECT_TRUE(NULL!=interfaceBottom);
-    EXPECT_EQ("LayerInterface",interfaceBottom->getName());
-    EXPECT_EQ(NULL, interfaceBottom->getRoughness());
+    EXPECT_TRUE(nullptr!=interfaceBottom);
+    EXPECT_EQ(BornAgain::LayerInterfaceType, interfaceBottom->getName());
+    EXPECT_EQ(nullptr, interfaceBottom->getRoughness());
     EXPECT_EQ(layer0.getMaterial()->getName(), interfaceBottom->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer1.getMaterial()->getName(), interfaceBottom->getLayerBottom()->getMaterial()->getName());
 
     //Bottom interface
     const LayerInterface * interfaceTop = mLayerClone->getLayerBottomInterface(2);
-    EXPECT_TRUE(NULL!=interfaceTop);
-    EXPECT_EQ("LayerInterface",interfaceTop->getName());
-    EXPECT_EQ(NULL, interfaceTop->getRoughness());
+    EXPECT_TRUE(nullptr!=interfaceTop);
+    EXPECT_EQ(BornAgain::LayerInterfaceType, interfaceTop->getName());
+    EXPECT_EQ(nullptr, interfaceTop->getRoughness());
     EXPECT_EQ(layer2.getMaterial()->getName(), interfaceTop->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer3.getMaterial()->getName(), interfaceTop->getLayerBottom()->getMaterial()->getName());
 
     //null interface
     const LayerInterface * interfaceTopNull = mLayerClone->getLayerTopInterface(0);
-    EXPECT_TRUE(NULL==interfaceTopNull);
+    EXPECT_TRUE(nullptr==interfaceTopNull);
 
     const LayerInterface * interfaceBottomNull = mLayerClone->getLayerBottomInterface(3);
-    EXPECT_TRUE(NULL==interfaceBottomNull);
+    EXPECT_TRUE(nullptr==interfaceBottomNull);
 
     delete mLayerClone;
 }
@@ -440,13 +436,12 @@ TEST_F(MultiLayerTest, WithRoughness)
     const LayerRoughness * roughness1 = interface1->getRoughness();
 
     EXPECT_TRUE(roughness0);
-    EXPECT_EQ(NULL, roughness1);
+    EXPECT_EQ(nullptr, roughness1);
 
     EXPECT_EQ(1.1, roughness0->getSigma());
     EXPECT_EQ(-7.3, roughness0->getHurstParameter());
     EXPECT_EQ(0.1, roughness0->getLatteralCorrLength());
 }
-
 
 TEST_F(MultiLayerTest, CloneWithRoughness)
 {
@@ -488,7 +483,6 @@ TEST_F(MultiLayerTest, CloneWithRoughness)
 
     delete mLayerClone;
 }
-
 
 TEST_F(MultiLayerTest, CloneInvertBWithRoughness)
 {
@@ -556,7 +550,6 @@ TEST_F(MultiLayerTest, WithMagneticMaterial)
     EXPECT_TRUE(mLayer.containsMagneticMaterial());
 }
 
-
 TEST_F(MultiLayerTest, CloneWithMagneticMaterial)
 {
     MultiLayer mLayer;
@@ -577,7 +570,6 @@ TEST_F(MultiLayerTest, CloneWithMagneticMaterial)
     EXPECT_TRUE(mLayerClone->containsMagneticMaterial());
     delete mLayerClone;
 }
-
 
 TEST_F(MultiLayerTest, CloneInvertBMagneticMaterial)
 {
@@ -600,7 +592,6 @@ TEST_F(MultiLayerTest, CloneInvertBMagneticMaterial)
     EXPECT_TRUE(mLayerClone->containsMagneticMaterial());
     delete mLayerClone;
 }
-
 
 TEST_F(MultiLayerTest, MultiLayerCompositeTest)
 {
@@ -629,17 +620,17 @@ TEST_F(MultiLayerTest, MultiLayerCompositeTest)
     std::vector<Layer *> layer_buffer;
     std::vector<LayerInterface *> interface_buffer;
     int counter(0);
-    for(MultiLayer::iterator_t it=mLayer.begin_shallow();it!=mLayer.end_shallow(); ++it)
+    for(size_t index=0; index<mLayer.size();++index)
     {
-        ISample *sample = *it;
+        ISample *sample = mLayer[index];
         if(counter%2 == 1)
         {
             LayerInterface *interface = dynamic_cast<LayerInterface *>(sample);
-            EXPECT_TRUE(NULL != interface);
+            EXPECT_TRUE(nullptr != interface);
             interface_buffer.push_back(interface);
         } else {
             Layer *layer = dynamic_cast<Layer *>(sample);
-            EXPECT_TRUE(NULL != layer);
+            EXPECT_TRUE(nullptr != layer);
             layer_buffer.push_back(layer);
         }
         counter++;
@@ -652,24 +643,18 @@ TEST_F(MultiLayerTest, MultiLayerCompositeTest)
     for(size_t i=0; i<interface_buffer.size(); ++i) {
         EXPECT_EQ( double((i+1)*10), interface_buffer[i]->getLayerBottom()->getThickness());
     }
-
 }
 
 /*
-
 index_0
 -----------------  0.0
 index_1
 -----------------  -10.0
 index_2
-
 -----------------  -30.0
 index_3
-
-
 -----------------  -60.0
 index_4
-
 */
 
 TEST_F(MultiLayerTest, MultiLayerZtoIndex)
@@ -698,8 +683,6 @@ TEST_F(MultiLayerTest, MultiLayerZtoIndex)
     EXPECT_EQ(3, multilayer.zToLayerIndex(-31.0));
     EXPECT_EQ(3, multilayer.zToLayerIndex(-60.0));
     EXPECT_EQ(4, multilayer.zToLayerIndex(-61.0));
-
 }
-
 
 #endif

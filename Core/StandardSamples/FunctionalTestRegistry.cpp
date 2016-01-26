@@ -16,181 +16,323 @@
 #include "FunctionalTestRegistry.h"
 #include "Exceptions.h"
 #include "Utils.h"
-#include <iostream>
-#include <iomanip>
-
-#include <boost/scoped_ptr.hpp>
-
-FunctionalTestRegistry::Catalogue FunctionalTestRegistry::m_catalogue = FunctionalTestRegistry::Catalogue();
 
 
-FunctionalTestRegistry::Catalogue::Catalogue()
+FunctionalTestRegistry::FunctionalTestRegistry()
 {
-    add("isgisaxs01",
+
+    add("FormFactors",
+        "Test of all form factors defined",
+        "MiniGISAS",
+        "ParticleInTheAirBuilder",
+        "FormFactorsRegistry",
+        2e-10);
+
+    add("CylindersAndPrisms",
         "Mixture of cylinders and prisms without interference",
-        "isgisaxs01_reference.int.gz", 2e-10);
+        "MiniGISAS",
+        "CylindersAndPrismsBuilder",
+        "None",
+        2e-10);
 
-    add("isgisaxs02",
-        "Mixture cylinder particles with different size distribution",
-        "isgisaxs02_reference.int.gz", 2e-10);
+    add("RadialParaCrystal",
+        "Interference function of radial paracrystal",
+        "MiniGISAS",
+        "RadialParaCrystalBuilder",
+        "None",
+        2e-10);
 
-    add("cylinders_ba",
-        "Cylinder formfactor in BA",
-        "isgisaxs03_reference_BA.int.gz", 2e-10);
-    add("cylinders_dwba",
-        "Cylinder formfactor in DWBA",
-        "isgisaxs03_reference_DWBA.int.gz", 2e-10);
-    add("cylinders_basize",
-        "Cylinder formfactor in BA with size distribution",
-        "isgisaxs03_reference_BA_size.int.gz", 2e-10);
+    add("Basic2DParaCrystal",
+        "Interference function of basic 2D paracrystal with variety of FT distributions",
+        "MiniGISAS",
+        "Basic2DParaCrystalBuilder",
+        "FTDistributions2DRegistry",
+        2e-10);
 
-    add("isgisaxs04_1DDL",
-        "Radial paracrystal",
-        "isgisaxs04_reference_1DDL.int.gz", 2e-10);
-    add("isgisaxs04_2DDL",
-        "2D paracrystal",
-        "isgisaxs04_reference_2DDLh.int.gz", 2e-10);
+    add("HexParaCrystal",
+        "Interference function of 2D hexagonal paracrystal",
+        "MiniGISAS",
+        "HexParaCrystalBuilder",
+        "None",
+        2e-10);
 
-    add("isgisaxs06a",
-        "2D lattice with disorders",
-        "isgisaxs06_reference_lattice.int.gz", 2e-10);
-    add("isgisaxs06b",
-        "2D lattice centered",
-        "isgisaxs06_reference_centered.int.gz", 2e-10);
-    add("isgisaxs06c",
-        "2D lattice rotated",
-        "isgisaxs06_reference_rotated.int.gz", 2e-10);
-// this test is complicated for given Registry, see Tests/FunctionalTest/TesCore/IsGISAXS06L4
-//    add("isgisaxs06_lattice4",
-//        "2D lattice variants",
-//        "isgisaxs06_reference_variants.int.gz", 2e-10);
+    add("Lattice1D",
+        "Interference function of 21D lattice",
+        "MiniGISAS",
+        "Lattice1DBuilder",
+        "None",
+        2e-10);
 
-    add("isgisaxs07",
-        "Mixture of different particles a la IsGISAXS morphology file",
-        "isgisaxs07_reference.int.gz", 2e-10);
+    add("RectParaCrystal",
+        "Interference function of 2D rectanguler paracrystal",
+        "MiniGISAS",
+        "RectParaCrystalBuilder",
+        "None",
+        2e-10);
 
-    add("isgisaxs08a",
-        "2DDL paracrystal lattice",
-        "isgisaxs08_reference_2DDL_lattice.int.gz", 3e-10);
-    add("isgisaxs08b",
-        "2D paracrystal lattice with isotropic pdfs",
-        "isgisaxs08_reference_2DDL_lattice2.int.gz", 2e-10);
+    // --- CoreShell ---
 
-    add("isgisaxs09a",
-        "Pyramids on top of substrate",
-        "isgisaxs09_reference_pyramid_Z0.int.gz", 2e-10);
-    add("isgisaxs09b",
-        "Rotated pyramids on top of substrate",
-        "isgisaxs09_reference_pyramid_Z45.int.gz", 2e-10);
+    add("CoreShellParticle",
+        "Core shell particle",
+        "MiniGISAS",
+        "CoreShellParticleBuilder",
+        "None",
+        2e-10);
 
-    add("isgisaxs10",
-        "Cylinders with interference on top of substrate",
-        "isgisaxs10_reference.int.gz", 2e-10);
+    add("CoreShellBoxRotateZandY",
+        "Rotation and translation of core shell box particle in 3 layers system",
+        "MiniGISAS",
+        "CoreShellBoxRotateZandYBuilder",
+        "None",
+        2e-10);
 
-    add("isgisaxs11",
-        "Core shell nanoparticles",
-        "isgisaxs11_reference.int.gz", 2e-10);
+    // ---
 
-    add("isgisaxs15",
+    add("MultiLayerWithRoughness",
+        "Multilayer with roughness",
+        "MiniGISAS",
+        "MultiLayerWithRoughnessBuilder",
+        "None",
+        2e-10);
+
+    add("SquareLattice",
+        "Interference function of 2D square lattice",
+        "MiniGISAS",
+        "SquareLatticeBuilder",
+        "None",
+        2e-10);
+
+    add("CenteredSquareLattice",
+        "Interference function of 2D square lattice",
+        "MiniGISAS",
+        "CenteredSquareLatticeBuilder",
+        "None",
+        2e-10);
+
+    add("RotatedSquareLattice",
+        "Interference function of rotated 2D square lattice",
+        "MiniGISAS",
+        "RotatedSquareLatticeBuilder",
+        "None",
+        2e-10);
+
+    add("RotatedPyramids",
+        "Interference function of rotated 2D square lattice",
+        "MiniGISAS",
+        "RotatedPyramidsBuilder",
+        "None",
+        2e-10);
+
+    // --- Compositions ---
+
+    add("ParticleComposition",
+        "Two layers of spheres at hex lattice",
+        "MiniGISAS",
+        "ParticleCompositionBuilder",
+        "None",
+        2e-10);
+
+    add("BoxCompositionRotateX",
+        "Two boxes in particle composition rotated in X by 90 degrees",
+        "MiniGISAS",
+        "BoxCompositionRotateXBuilder",
+        "None",
+        2e-10);
+
+    add("BoxCompositionRotateY",
+        "Two boxes in particle composition rotated in Y by 90 degrees",
+        "MiniGISAS",
+        "BoxCompositionRotateYBuilder",
+        "None",
+        2e-10);
+
+    add("BoxCompositionRotateZ",
+        "Two boxes in particle composition rotated in Z by 90 degrees",
+        "MiniGISAS",
+        "BoxCompositionRotateZBuilder",
+        "None",
+        2e-10);
+
+    add("BoxCompositionRotateZandY",
+        "Two boxes in particle composition rotated in Z and Y by 90 degrees",
+        "MiniGISAS",
+        "BoxCompositionRotateZandYBuilder",
+        "None",
+        2e-10);
+
+    add("BoxStackComposition",
+        "Two different boxes are first rotated and then composed, composition is then rotated.",
+        "MiniGISAS",
+        "BoxStackCompositionBuilder",
+        "None",
+        2e-10);
+
+    // ---
+
+    add("CylindersWithSizeDistribution",
+        "Cylinders in BA with size distributions",
+        "MiniGISAS",
+        "CylindersWithSizeDistributionBuilder",
+        "None",
+        2e-10);
+
+    add("TwoTypesCylindersDistribution",
+        "Cylinders in BA with size distributions",
+        "MiniGISAS",
+        "TwoTypesCylindersDistributionBuilder",
+        "None",
+        2e-10);
+
+    add("BeamDivergence",
+        "Cylinders in BA in the presence of beam divergence",
+        "MiniGISASBeamDivergence",
+        "CylindersInBABuilder",
+        "None",
+        2e-10);
+
+    add("DetectorResolution",
+        "Cylinders in BA with detector resolution",
+        "MiniGISASDetectorResolution",
+        "CylindersInBABuilder",
+        "None",
+        2e-10);
+
+    add("MultipleLayout",
+        "Two types of particles in different layouts",
+        "MiniGISAS",
+        "MultipleLayoutBuilder",
+        "None",
+        2e-10);
+
+    add("ApproximationDA",
+        "Size distribution model: decoupling approximation",
+        "MiniGISAS",
+        "SizeDistributionDAModelBuilder",
+        "None",
+        2e-10);
+
+    add("ApproximationLMA",
+        "Size distribution model: local monodisperse approximation",
+        "MiniGISAS",
+        "SizeDistributionLMAModelBuilder",
+        "None",
+        2e-10);
+
+    add("ApproximationSSCA",
+        "Size distribution model: size space coupling approximation",
+        "MiniGISAS",
+        "SizeDistributionSSCAModelBuilder",
+        "None",
+        2e-10);
+
+    add("CylindersInSSCA",
         "Size spacing correlation approximation",
-        "isgisaxs15_reference.int.gz", 2e-10);
+        "MiniGISAS",
+        "CylindersInSSCABuilder",
+        "None",
+        2e-10);
 
-    add("mesocrystal01",
-        "Mesocrystals of cylindrical shape composed by spherical nanoparticles",
-        "mesocrystal01_reference.int.gz", 1e-10, true);
+    add("CosineRipple",
+        "Cosine ripple within radial paracrystal model",
+        "MiniGISAS",
+        "CosineRippleBuilder",
+        "None",
+        2e-10);
 
-    add("polmagcylinders1",
-        "Polarized DWBA with zero magnetic field",
-        "polmagcylinders1_reference.int.gz", 1e-10);
-    // this test is complicated for given Registry
-  //  add("polmagcylinders2",
-  //      "Polarized DWBA with zero magnetic field",
-  //      "isgi_cylinder_DWBA.ima.gz", 1e-10);
+    add("TriangularRipple",
+        "Triangular ripple within radial paracrystal model",
+        "MiniGISAS",
+        "TriangularRippleBuilder",
+        "None",
+        2e-10);
 
-    add("LayerWithRoughness",
-        "Layers with correlated roughness",
-        "roughness01_reference.int.gz", 1e-10);
+    add("MesoCrystal",
+        "Cylindrical mesocrystal composed of spherical nano particles",
+        "MiniGISAS",
+        "MesoCrystalBuilder",
+        "None",
+        2e-10);
 
-    add("ripple2",
-        "Triangular ripple within the 1D-paracrystal model",
-        "ripple2_sym_reference.int.gz", 1e-10);
+    add("CustomMorphology",
+        "Custom particle mixture a la isgisaxs morphology approach",
+        "MiniGISAS",
+        "CustomMorphologyBuilder",
+        "None",
+        2e-10);
 
-    add("ripple1",
-        "Cosine ripple within the 1D-paracrystal model",
-        "ripple1_reference.int.gz", 1e-10);
+    add("MagneticParticleZeroField",
+        "Magnetic cylinders with zero field",
+        "MiniGISAS",
+        "MagneticParticleZeroFieldBuilder",
+        "None",
+        2e-10);
 
-    add("beam_divergence",
-        "Cylinders in DWBA with beam divergence",
-        "beamdivergence_reference.int.gz", 1e-10);
+    add("TransformBox",
+        "Rotated/translated box in 3 layers system",
+        "MiniGISAS",
+        "TransformBoxBuilder",
+        "None",
+        1e-10);
+
+    add("SimulationWithMasks",
+        "Various masks are added to the simulation",
+        "GISASWithMasks",
+        "CylindersAndPrismsBuilder",
+        "None",
+        1e-10);
+
 
 }
 
-
-void FunctionalTestRegistry::Catalogue::add(const std::string &name,
-    const std::string &description, const std::string &reference, double threshold, bool normalize)
+void FunctionalTestRegistry::add(const std::string &test_name,
+                                 const std::string &test_description,
+                                 const std::string &simulation_name,
+                                 const std::string &sample_builder_name,
+                                 const std::string &component_registry_name,
+                                 double threshold)
 {
-    catalogue_t::iterator it = m_data.find(name);
-    if( it != m_data.end() ) {
-        throw ExistingClassRegistrationException("FunctionalTestRegistry::Catalogue::add() -> "
-                                                 "Error. Existing item " +name);
+    catalogue_t::iterator it = m_catalogue.find(test_name);
+    if( it != m_catalogue.end() ) {
+        throw ExistingClassRegistrationException("AdvancedFunctionalTestRegistry::register_test_info() -> "
+                                                 "Error. Existing item " + test_name);
     }
-    m_data[name] = FunctionalTestInfo(name, description, reference, threshold, normalize);
+    m_catalogue[test_name] = FunctionalTestInfo(test_name,
+                                                        test_description,
+                                                        simulation_name,
+                                                        sample_builder_name,
+                                                        component_registry_name,
+                                                        threshold);
 }
 
-
-void FunctionalTestRegistry::Catalogue::print()
+FunctionalTestInfo FunctionalTestRegistry::getTestInfo(const std::string &test_name)
 {
-    std::cout << "--- FunctionalTestRegistry::Catalogue::print() ---" << std::endl;
-    for(catalogue_t::iterator it = m_data.begin(); it!= m_data.end(); ++it) {
-        FunctionalTestInfo &info = (*it).second;
-        std::cout << Utils::AdjustStringLength(info.m_name, 20) << " | "
-                  << Utils::AdjustStringLength(info.m_description, 40) << " | "
-                  << Utils::AdjustStringLength(info.m_reference_file, 40) << " | "
-                  << std::setw(6) << std::left  << info.m_threshold << std::endl;
+    catalogue_t::iterator it = m_catalogue.find(test_name);
+    if( it == m_catalogue.end() ) {
+        throw ExistingClassRegistrationException("AdvancedFunctionalTestRegistry::getTestInfo() -> "
+                                                 "Error. Item not found " + test_name);
     }
+
+    return m_catalogue[test_name];
 }
 
-
-FunctionalTestInfo FunctionalTestRegistry::Catalogue::getInfo(const std::string &name)
+void FunctionalTestRegistry::printCatalogue(std::ostream &ostr)
 {
-    catalogue_t::iterator it = m_data.find(name);
-    if( it == m_data.end() ) {
-        std::ostringstream ostr;
-        ostr << "FunctionalTestRegistry::Catalogue::getInfo() -> Error. "
-             << "Not existing test name '" << name << "'. "
-             << "Existing items are:" << std::endl;
-        for(catalogue_t::iterator it2 = m_data.begin(); it2!=m_data.end(); ++it2) {
-            ostr << (*it2).first << std::endl;
-        }
-        throw ExistingClassRegistrationException(ostr.str());
+    for(catalogue_t::const_iterator it = m_catalogue.begin(); it != m_catalogue.end(); ++it) {
+        FunctionalTestInfo info = it->second;
+        ostr << Utils::AdjustStringLength(info.m_test_name, 20) << " | ";
+        ostr << Utils::AdjustStringLength(info.m_test_description, 40) << " | ";
+        ostr << info.m_simulation_name << ", ";
+        ostr << info.m_sample_builder_name << ", ";
+        ostr << info.m_component_registry_name;
+        ostr << "\n";
     }
-    return m_data[name];
+
 }
 
-
-bool FunctionalTestRegistry::isRegisteredName(const std::string &name)
+bool FunctionalTestRegistry::isValidTest(const std::string &test_name)
 {
-    if( m_catalogue.m_data.find(name) == m_catalogue.m_data.end() ) {
-        return false;
-    } else {
-        return true;
-    }
+    return find(test_name) != end();
 }
 
-
-FunctionalTest* FunctionalTestRegistry::getTest(const std::string &name)
-{
-    FunctionalTest* test = new FunctionalTest(m_catalogue.getInfo(name));
-    return test;
-}
-
-
-int FUNCTIONAL_TEST(const std::string &name)
-{
-    FunctionalTestRegistry registry;
-    boost::scoped_ptr<FunctionalTest> P_test(registry.getTest(name));
-    P_test->runTest();
-    return P_test->analyseResults();
-}
 
 

@@ -17,6 +17,8 @@
 #include "Utils.h"
 #include <boost/lexical_cast.hpp>
 #include "Math/GenAlgoOptions.h"
+#include "Math/Minimizer.h"
+
 
 // ----------------------------------------------------------------------------
 // translate text with options into appropriate calls of minimizer's set method
@@ -133,7 +135,7 @@ void ROOTMinimizerHelper::printResults(const ROOTMinimizer *minimizer)
     std::cout << std::setw(25) << std::left << "  MinimizerAlgorithm" << ": " << minimizer->getAlgorithmName() << std::endl;
     //printOptions(minimizer->getROOTMinimizer());
     std::cout << "--- Options --------------------------------------------------------------------" << std::endl;
-    minimizer->getOptions().print();
+    minimizer->getOptions()->print();
     printStatus(minimizer->getROOTMinimizer());
     printVariables(minimizer->getROOTMinimizer());
     // own print method of the minimizer
@@ -142,10 +144,10 @@ void ROOTMinimizerHelper::printResults(const ROOTMinimizer *minimizer)
 
 
 // print minimizer description
-void ROOTMinimizerHelper::printOptions(const ROOT::Math::Minimizer *minimizer)
+void ROOTMinimizerHelper::printOptions(const BA_ROOT::Math::Minimizer *minimizer)
 {
     std::cout << "--- Options --------------------------------------------------------------------" << std::endl;
-    ROOT::Math::MinimizerOptions opt = minimizer->Options();
+    BA_ROOT::Math::MinimizerOptions opt = minimizer->Options();
     std::cout << std::setw(25) << std::left << "  Strategy"           << ": " << minimizer->Strategy() << std::endl;
     std::cout << std::setw(25) << std::left << "  Tolerance"          << ": " << minimizer->Tolerance() << std::endl;
     std::cout << std::setw(25) << std::left << "  MaxFunctionCalls"   << ": " << minimizer->MaxFunctionCalls() << std::endl;
@@ -161,7 +163,7 @@ void ROOTMinimizerHelper::printOptions(const ROOT::Math::Minimizer *minimizer)
 }
 
 
-void ROOTMinimizerHelper::printStatus(const ROOT::Math::Minimizer *minimizer)
+void ROOTMinimizerHelper::printStatus(const BA_ROOT::Math::Minimizer *minimizer)
 {
     std::cout << "--- Status --------------------------------------------------------------------- " << std::endl;
     std::map<int, std::string> minimizerStatus;
@@ -200,7 +202,7 @@ void ROOTMinimizerHelper::printStatus(const ROOT::Math::Minimizer *minimizer)
 }
 
 
-void ROOTMinimizerHelper::printVariables(const ROOT::Math::Minimizer *minimizer)
+void ROOTMinimizerHelper::printVariables(const BA_ROOT::Math::Minimizer *minimizer)
 {
     std::cout << "--- Variables ------------------------------------------------------------------" << std::endl;
     std::cout << std::setw(25) << std::left << "  NumberOfVariables"      << ": "

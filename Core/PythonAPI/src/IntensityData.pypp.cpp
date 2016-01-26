@@ -67,6 +67,17 @@ void register_IntensityData_class(){
                 , ( bp::arg("name"), bp::arg("size"), bp::arg("start"), bp::arg("end") ) );
         
         }
+        { //::OutputData< double >::addMask
+        
+            typedef OutputData< double > exported_class_t;
+            typedef void ( exported_class_t::*addMask_function_type)( ::Mask const & ) ;
+            
+            IntensityData_exposer.def( 
+                "addMask"
+                , addMask_function_type( &::OutputData< double >::addMask )
+                , ( bp::arg("mask") ) );
+        
+        }
         { //::OutputData< double >::clear
         
             typedef OutputData< double > exported_class_t;
@@ -97,6 +108,17 @@ void register_IntensityData_class(){
                 "copyFrom"
                 , copyFrom_function_type( &::OutputData< double >::copyFrom )
                 , ( bp::arg("other") ) );
+        
+        }
+        { //::OutputData< double >::findGlobalIndex
+        
+            typedef OutputData< double > exported_class_t;
+            typedef ::std::size_t ( exported_class_t::*findGlobalIndex_function_type)( ::std::vector< double > const & ) const;
+            
+            IntensityData_exposer.def( 
+                "findGlobalIndex"
+                , findGlobalIndex_function_type( &::OutputData< double >::findGlobalIndex )
+                , ( bp::arg("coordinates") ) );
         
         }
         { //::OutputData< double >::getAllSizes
@@ -131,6 +153,28 @@ void register_IntensityData_class(){
                 , "returns data as Python numpy array." );
         
         }
+        { //::OutputData< double >::getAxesBinIndices
+        
+            typedef OutputData< double > exported_class_t;
+            typedef ::std::vector< int > ( exported_class_t::*getAxesBinIndices_function_type)( ::std::size_t ) const;
+            
+            IntensityData_exposer.def( 
+                "getAxesBinIndices"
+                , getAxesBinIndices_function_type( &::OutputData< double >::getAxesBinIndices )
+                , ( bp::arg("global_index") ) );
+        
+        }
+        { //::OutputData< double >::getAxesValues
+        
+            typedef OutputData< double > exported_class_t;
+            typedef ::std::vector< double > ( exported_class_t::*getAxesValues_function_type)( ::std::size_t ) const;
+            
+            IntensityData_exposer.def( 
+                "getAxesValues"
+                , getAxesValues_function_type( &::OutputData< double >::getAxesValues )
+                , ( bp::arg("global_index") ) );
+        
+        }
         { //::OutputData< double >::getAxis
         
             typedef OutputData< double > exported_class_t;
@@ -139,7 +183,7 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "getAxis"
                 , getAxis_function_type( &::OutputData< double >::getAxis )
-                , ( bp::arg("index") )
+                , ( bp::arg("serial_number") )
                 , bp::return_internal_reference< >() );
         
         }
@@ -151,30 +195,97 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "getAxis"
                 , getAxis_function_type( &::OutputData< double >::getAxis )
-                , ( bp::arg("label") )
+                , ( bp::arg("axis_name") )
                 , bp::return_internal_reference< >() );
         
         }
-        { //::OutputData< double >::getAxisIndex
+        { //::OutputData< double >::getAxisBin
         
             typedef OutputData< double > exported_class_t;
-            typedef ::std::size_t ( exported_class_t::*getAxisIndex_function_type)( ::std::string const & ) const;
+            typedef ::Bin1D ( exported_class_t::*getAxisBin_function_type)( ::std::size_t,::std::size_t ) const;
             
             IntensityData_exposer.def( 
-                "getAxisIndex"
-                , getAxisIndex_function_type( &::OutputData< double >::getAxisIndex )
-                , ( bp::arg("label") ) );
+                "getAxisBin"
+                , getAxisBin_function_type( &::OutputData< double >::getAxisBin )
+                , ( bp::arg("global_index"), bp::arg("i_selected_axis") ) );
         
         }
-        { //::OutputData< double >::getIndexOfAxis
+        { //::OutputData< double >::getAxisBin
         
             typedef OutputData< double > exported_class_t;
-            typedef ::std::size_t ( exported_class_t::*getIndexOfAxis_function_type)( ::std::string const &,::std::size_t ) const;
+            typedef ::Bin1D ( exported_class_t::*getAxisBin_function_type)( ::std::size_t,::std::string const & ) const;
             
             IntensityData_exposer.def( 
-                "getIndexOfAxis"
-                , getIndexOfAxis_function_type( &::OutputData< double >::getIndexOfAxis )
-                , ( bp::arg("axis_name"), bp::arg("total_index") ) );
+                "getAxisBin"
+                , getAxisBin_function_type( &::OutputData< double >::getAxisBin )
+                , ( bp::arg("global_index"), bp::arg("axis_name") ) );
+        
+        }
+        { //::OutputData< double >::getAxisBinIndex
+        
+            typedef OutputData< double > exported_class_t;
+            typedef int ( exported_class_t::*getAxisBinIndex_function_type)( ::std::size_t,::std::size_t ) const;
+            
+            IntensityData_exposer.def( 
+                "getAxisBinIndex"
+                , getAxisBinIndex_function_type( &::OutputData< double >::getAxisBinIndex )
+                , ( bp::arg("global_index"), bp::arg("i_selected_axis") ) );
+        
+        }
+        { //::OutputData< double >::getAxisBinIndex
+        
+            typedef OutputData< double > exported_class_t;
+            typedef int ( exported_class_t::*getAxisBinIndex_function_type)( ::std::size_t,::std::string const & ) const;
+            
+            IntensityData_exposer.def( 
+                "getAxisBinIndex"
+                , getAxisBinIndex_function_type( &::OutputData< double >::getAxisBinIndex )
+                , ( bp::arg("global_index"), bp::arg("axis_name") ) );
+        
+        }
+        { //::OutputData< double >::getAxisSerialNumber
+        
+            typedef OutputData< double > exported_class_t;
+            typedef ::std::size_t ( exported_class_t::*getAxisSerialNumber_function_type)( ::std::string const & ) const;
+            
+            IntensityData_exposer.def( 
+                "getAxisSerialNumber"
+                , getAxisSerialNumber_function_type( &::OutputData< double >::getAxisSerialNumber )
+                , ( bp::arg("axis_name") ) );
+        
+        }
+        { //::OutputData< double >::getAxisValue
+        
+            typedef OutputData< double > exported_class_t;
+            typedef double ( exported_class_t::*getAxisValue_function_type)( ::std::size_t,::std::size_t ) const;
+            
+            IntensityData_exposer.def( 
+                "getAxisValue"
+                , getAxisValue_function_type( &::OutputData< double >::getAxisValue )
+                , ( bp::arg("global_index"), bp::arg("i_selected_axis") ) );
+        
+        }
+        { //::OutputData< double >::getAxisValue
+        
+            typedef OutputData< double > exported_class_t;
+            typedef double ( exported_class_t::*getAxisValue_function_type)( ::std::size_t,::std::string const & ) const;
+            
+            IntensityData_exposer.def( 
+                "getAxisValue"
+                , getAxisValue_function_type( &::OutputData< double >::getAxisValue )
+                , ( bp::arg("global_index"), bp::arg("axis_name") ) );
+        
+        }
+        { //::OutputData< double >::getMask
+        
+            typedef OutputData< double > exported_class_t;
+            typedef ::Mask * ( exported_class_t::*getMask_function_type)(  ) const;
+            
+            IntensityData_exposer.def( 
+                "getMask"
+                , getMask_function_type( &::OutputData< double >::getMask )
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns mask that will be used by iterators." );
         
         }
         { //::OutputData< double >::getRank
@@ -198,50 +309,14 @@ void register_IntensityData_class(){
                 , getRawDataVector_function_type( &::OutputData< double >::getRawDataVector ) );
         
         }
-        { //::OutputData< double >::getValueOfAxis
+        { //::OutputData< double >::isInitialized
         
             typedef OutputData< double > exported_class_t;
-            typedef double ( exported_class_t::*getValueOfAxis_function_type)( ::std::string const &,::std::size_t ) const;
+            typedef bool ( exported_class_t::*isInitialized_function_type)(  ) const;
             
             IntensityData_exposer.def( 
-                "getValueOfAxis"
-                , getValueOfAxis_function_type( &::OutputData< double >::getValueOfAxis )
-                , ( bp::arg("axis_name"), bp::arg("index") ) );
-        
-        }
-        { //::OutputData< double >::getValueOfAxis
-        
-            typedef OutputData< double > exported_class_t;
-            typedef double ( exported_class_t::*getValueOfAxis_function_type)( ::std::size_t,::std::size_t ) const;
-            
-            IntensityData_exposer.def( 
-                "getValueOfAxis"
-                , getValueOfAxis_function_type( &::OutputData< double >::getValueOfAxis )
-                , ( bp::arg("axis_number"), bp::arg("index") ) );
-        
-        }
-        { //::OutputData< double >::hasSameDimensions
-        
-            typedef OutputData< double > exported_class_t;
-            typedef bool ( exported_class_t::*hasSameDimensions_function_type)( ::OutputData< double > const & ) const;
-            
-            IntensityData_exposer.def( 
-                "hasSameDimensions"
-                , hasSameDimensions_function_type( &::OutputData< double >::hasSameDimensions )
-                , ( bp::arg("right") )
-                , "Returns true if object have same dimensions." );
-        
-        }
-        { //::OutputData< double >::hasSameShape
-        
-            typedef OutputData< double > exported_class_t;
-            typedef bool ( exported_class_t::*hasSameShape_function_type)( ::OutputData< double > const & ) const;
-            
-            IntensityData_exposer.def( 
-                "hasSameShape"
-                , hasSameShape_function_type( &::OutputData< double >::hasSameShape )
-                , ( bp::arg("right") )
-                , "Returns true if object have same dimensions and shape of axis." );
+                "isInitialized"
+                , isInitialized_function_type( &::OutputData< double >::isInitialized ) );
         
         }
         IntensityData_exposer.def( bp::self *= bp::self );
@@ -306,6 +381,17 @@ void register_IntensityData_class(){
                 , ( bp::arg("value") ) );
         
         }
+        { //::OutputData< double >::setMask
+        
+            typedef OutputData< double > exported_class_t;
+            typedef void ( exported_class_t::*setMask_function_type)( ::Mask const & ) ;
+            
+            IntensityData_exposer.def( 
+                "setMask"
+                , setMask_function_type( &::OutputData< double >::setMask )
+                , ( bp::arg("mask") ) );
+        
+        }
         { //::OutputData< double >::setRawDataVector
         
             typedef OutputData< double > exported_class_t;
@@ -317,37 +403,15 @@ void register_IntensityData_class(){
                 , ( bp::arg("data_vector") ) );
         
         }
-        { //::OutputData< double >::toCoordinate
+        { //::OutputData< double >::toGlobalIndex
         
             typedef OutputData< double > exported_class_t;
-            typedef int ( exported_class_t::*toCoordinate_function_type)( ::std::size_t,::std::size_t ) const;
+            typedef ::std::size_t ( exported_class_t::*toGlobalIndex_function_type)( ::std::vector< int > const & ) const;
             
             IntensityData_exposer.def( 
-                "toCoordinate"
-                , toCoordinate_function_type( &::OutputData< double >::toCoordinate )
-                , ( bp::arg("index"), bp::arg("i_selected_axis") ) );
-        
-        }
-        { //::OutputData< double >::toCoordinates
-        
-            typedef OutputData< double > exported_class_t;
-            typedef ::std::vector< int > ( exported_class_t::*toCoordinates_function_type)( ::std::size_t ) const;
-            
-            IntensityData_exposer.def( 
-                "toCoordinates"
-                , toCoordinates_function_type( &::OutputData< double >::toCoordinates )
-                , ( bp::arg("index") ) );
-        
-        }
-        { //::OutputData< double >::toIndex
-        
-            typedef OutputData< double > exported_class_t;
-            typedef ::std::size_t ( exported_class_t::*toIndex_function_type)( ::std::vector< int > ) const;
-            
-            IntensityData_exposer.def( 
-                "toIndex"
-                , toIndex_function_type( &::OutputData< double >::toIndex )
-                , ( bp::arg("coordinates") ) );
+                "toGlobalIndex"
+                , toGlobalIndex_function_type( &::OutputData< double >::toGlobalIndex )
+                , ( bp::arg("axes_indices") ) );
         
         }
         { //::OutputData< double >::totalSum

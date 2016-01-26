@@ -25,7 +25,7 @@ class BA_CORE_API_ FitModel : public SessionModel
 
 public:
     explicit FitModel(QObject *parent = 0);
-    ~FitModel(){}
+    virtual ~FitModel(){}
 
 };
 

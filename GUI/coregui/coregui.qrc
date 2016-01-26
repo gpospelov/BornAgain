@@ -48,5 +48,16 @@
         <file>images/warning@2x.png</file>
         <file>images/warning.png</file>
         <file>images/magnifier.png</file>
+        <file>images/warning_64x64.png</file>
+        <file>images/rotationArrow.png</file>
+        <file>images/rectangle.png</file>
+        <file>images/mouseCursor.png</file>
+        <file>images/ellipse.png</file>
+        <file>images/polygon.png</file>
+        <file>images/bringToFront.png</file>
+        <file>images/sendToBack.png</file>
+        <file>images/include.png</file>
+        <file>images/exclude.png</file>
+        <file>images/jTxpL5ELc.png</file>
     </qresource>
 </RCC>

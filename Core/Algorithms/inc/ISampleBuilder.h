@@ -19,6 +19,7 @@
 #include "ISample.h"
 #include <boost/shared_ptr.hpp>
 
+class IComponentService;
 
 //! @class ISampleBuilder
 //! @ingroup simulation_internal
@@ -33,6 +34,9 @@ public:
 
     virtual ISample *buildSample() const {
         throw NotImplementedException("ISampleBuilder::buildSample() -> Not implemented"); }
+
+    virtual void init_from(const IComponentService *){}
+
 protected:
 };
 

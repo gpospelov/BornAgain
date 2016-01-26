@@ -30,44 +30,37 @@ class DWBASimulation;
 class BA_CORE_API_ ISample : public ICloneable, public IParameterized
 {
 public:
-    ISample() { setName("ISample"); }
-    virtual ~ISample() {}
+    //! Returns a clone of this ISample object.
+    virtual ISample *clone() const=0;
 
-    //! Returns pointer to "this", if it is composite sample (to overload).
-    virtual ICompositeSample *getCompositeSample() { return 0; }
-    virtual const ICompositeSample *getCompositeSample() const { return 0; }
-
-    virtual ISample *clone() const =0;
-
-    //! Returns a clone with inverted magnetic fields
+    //! Returns a clone with inverted magnetic fields.
     virtual ISample *cloneInvertB() const;
 
-    //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) const = 0;
+    //! Calls the ISampleVisitor's visit method.
+    virtual void accept(ISampleVisitor *p_visitor) const=0;
 
     //! Returns an ISimulation if DWBA is required.
-    virtual DWBASimulation *createDWBASimulation() const { return 0; }
+    virtual DWBASimulation *createDWBASimulation() const;
 
-    //! Adds params from local to external pool, recurses over direct children.
-    virtual std::string addParametersToExternalPool(
-        std::string path,
-        ParameterPool *external_pool,
-        int copy_number=-1) const;
-
+    //! Outputs the tree of parameters generated from this ISample object and its descendants.
     virtual void printSampleTree();
 
-    friend std::ostream& operator<<(std::ostream& ostr, const ISample& m)
-    { m.print(ostr); return ostr; }
-
+    //! Indicates if this ISample object contains a material with magnetic properties.
     virtual bool containsMagneticMaterial() const;
 
-    virtual bool preprocess() {
-        return false;
-    }
+    //! Returns a vector of children (const).
+    //! Default implementation returns empty vector.
+    virtual std::vector<const ISample*> getChildren() const;
 
-//protected:
-//    virtual void print(std::ostream& ostr) const;
+    //! Returns number of children.
+    //! Default implementation returns zero.
+    virtual size_t size() const;
 };
+
+inline size_t ISample::size() const
+{
+    return 0;
+}
 
 #endif // ISAMPLE_H
 

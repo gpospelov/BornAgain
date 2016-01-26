@@ -16,7 +16,6 @@
 #ifndef CYLINDERSBUILDER_H
 #define CYLINDERSBUILDER_H
 
-
 #include "ISampleBuilder.h"
 
 //! @class CylindersInBABuilder
@@ -55,27 +54,6 @@ private:
     double m_height;
     double m_radius;
 };
-
-
-//! @class CylindersWithSizeDistributionBuilder
-//! @ingroup standard_samples
-//! @brief Builds sample: cylinder formfactor in BA with size distribution
-//! (IsGISAXS example #3, part II)
-
-class CylindersWithSizeDistributionBuilder : public ISampleBuilder
-{
-public:
-    CylindersWithSizeDistributionBuilder();
-    ISample *buildSample() const;
-
-protected:
-    void init_parameters();
-
-private:
-    double m_height;
-    double m_radius;
-};
-
 
 
 #endif // CYLINDERSBUILDER_H

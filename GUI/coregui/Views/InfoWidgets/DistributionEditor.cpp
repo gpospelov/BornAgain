@@ -95,3 +95,4 @@ void DistributionEditor::setNameOfEditor(QString name)
     m_box->setTitle(name);
     m_plotwidget->setXAxisName(name);
 }
+

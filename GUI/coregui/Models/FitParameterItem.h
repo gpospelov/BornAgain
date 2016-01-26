@@ -28,7 +28,7 @@ public:
     static const QString P_VALUE;
     static const QString P_USE;
     explicit FitParameterItem(ParameterizedItem *parent=0);
-    ~FitParameterItem(){}
+    virtual ~FitParameterItem(){}
 
     void setParNames(QStringList par_names);
     QStringList getParNames();

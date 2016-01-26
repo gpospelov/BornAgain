@@ -25,31 +25,31 @@
 //! @brief Decorates a scalar formfactor with the correct factor for the material's
 //! refractive index and that of its surrounding material.
 
-class BA_CORE_API_  FormFactorDecoratorMaterial : public FormFactorDecoratorFactor
+class BA_CORE_API_ FormFactorDecoratorMaterial : public FormFactorDecoratorFactor
 {
 public:
-    FormFactorDecoratorMaterial(IFormFactor *p_form_factor,
-            complex_t wavevector_scattering_factor=1.0);
-    virtual ~FormFactorDecoratorMaterial();
+    FormFactorDecoratorMaterial(const IFormFactor &form_factor,
+                                complex_t wavevector_scattering_factor = 1.0);
 
     virtual FormFactorDecoratorMaterial *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const
+    {
+        visitor->visit(this);
+    }
 
     //! Sets the material of the scatterer
-    virtual void setMaterial(const IMaterial& material);
+    virtual void setMaterial(const IMaterial &material);
 
     //! Sets the ambient material
-    virtual void setAmbientMaterial(const IMaterial& material);
+    virtual void setAmbientMaterial(const IMaterial &material);
 
     //! Retrieves the refractive index of the ambient material
     virtual complex_t getAmbientRefractiveIndex() const;
 
 #ifndef GCCXML_SKIP_THIS
     //! Returns scattering amplitude for matrix interactions
-    virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin,
-            const Bin1D &phi_f_bin) const;
+    virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif
 
 private:
@@ -61,5 +61,3 @@ private:
 };
 
 #endif /* FORMFACTORDECORATORMATERIAL_H_ */
-
-

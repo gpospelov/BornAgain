@@ -19,7 +19,6 @@
 #include "Exceptions.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
-#include "FitStrategyAdjustData.h"
 #include "FitStrategyAdjustParameters.h"
 #include "FormFactors.h"
 #include "Simulation.h"
@@ -44,7 +43,6 @@
 #include "TPaveText.h"
 #include "TH2D.h"
 
-#include <boost/assign/list_of.hpp>
 
 
 TestFittingModule2::TestFittingModule2()
@@ -96,73 +94,76 @@ void TestFittingModule2::execute()
 
 void TestFittingModule2::fit_example_basics()
 {
-    initializeSimulation();
-    initializeRealData();
+    throw NotImplementedException("Code is obsolete");
 
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",
-                                5*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
-                                6*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_length",
-                                10*Units::nanometer, 2*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",
-                                6*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio",
-                                0.2, 0.1,
-                                AttLimits::fixed());
+//    initializeSimulation();
+//    initializeRealData();
 
-    m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data);
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",
+//                                5*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
+//                                6*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_length",
+//                                10*Units::nanometer, 2*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",
+//                                6*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio",
+//                                0.2, 0.1,
+//                                AttLimits::fixed());
 
-    m_fitSuite->runFit();
+//    m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data);
+
+//    m_fitSuite->runFit();
 }
 
 //! Fit example with chi2 module adjustment.
 
 void TestFittingModule2::fit_example_chimodule()
 {
-    initializeSimulation();
-    initializeRealData();
+    throw NotImplementedException("Code is obsolete");
+//    initializeSimulation();
+//    initializeRealData();
 
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",
-                                4*Units::nanometer, 0.01*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
-                                6*Units::nanometer, 0.01*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_length",
-                                8*Units::nanometer, 0.02*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",
-                                6*Units::nanometer, 0.01*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio",
-                                0.2, 0.1,
-                                AttLimits::fixed());
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",
+//                                4*Units::nanometer, 0.01*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
+//                                6*Units::nanometer, 0.01*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_length",
+//                                8*Units::nanometer, 0.02*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",
+//                                6*Units::nanometer, 0.01*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio",
+//                                0.2, 0.1,
+//                                AttLimits::fixed());
 
-    // setting up fitSuite
-    ChiSquaredModule chiModule;
-    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError() );
-    chiModule.setIntensityNormalizer( IntensityScaleAndShiftNormalizer() );
-    m_fitSuite->addSimulationAndRealData(
-        *mp_simulation, *mp_real_data, chiModule);
-
-
-//    ParameterPool *pool = m_fitSuite->getFitObjects()->createParameterTree();
-//    std::cout << *pool;
-
-    m_fitSuite->getFitParameters()->printParameters();
-    m_fitSuite->getFitObjects()->printParameters();
+//    // setting up fitSuite
+//    ChiSquaredModule chiModule;
+//    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError() );
+//    chiModule.setIntensityNormalizer( IntensityScaleAndShiftNormalizer() );
+//    m_fitSuite->addSimulationAndRealData(
+//        *mp_simulation, *mp_real_data, chiModule);
 
 
-    for(FitSuiteParameters::iterator it =
-            m_fitSuite->getFitParameters()->begin();
-        it!=m_fitSuite->getFitParameters()->end(); ++it)
-        std::cout << (*it) << std::endl;
-    m_fitSuite->runFit();
+////    ParameterPool *pool = m_fitSuite->getFitObjects()->createParameterTree();
+////    std::cout << *pool;
+
+//    m_fitSuite->getFitParameters()->printParameters();
+//    m_fitSuite->getFitObjects()->printParameters();
+
+
+//    for(FitSuiteParameters::iterator it =
+//            m_fitSuite->getFitParameters()->begin();
+//        it!=m_fitSuite->getFitParameters()->end(); ++it)
+//        std::cout << (*it) << std::endl;
+//    m_fitSuite->runFit();
 }
 
 
@@ -170,86 +171,90 @@ void TestFittingModule2::fit_example_chimodule()
 
 void TestFittingModule2::fit_example_strategy_data()
 {
-    initializeSimulation();
-    initializeRealData();
+    throw NotImplementedException("TestFittingModule2::fit_example_strategy_data() -> Obsolete code.");
 
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",
-                                12*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
-                                2*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_length",
-                                24*Units::nanometer, 2*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",
-                                2*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio",
-                                0.2, 0.1,
-                                AttLimits::fixed());
+//    initializeSimulation();
+//    initializeRealData();
 
-    // Applying fit strategy: resizing real data
-    m_fitSuite->addFitStrategy(new FitStrategyAdjustData(3));
-    m_fitSuite->addFitStrategy(new FitStrategyAdjustData(2));
-    m_fitSuite->addFitStrategy(new FitStrategyAdjustData(1));
-    m_fitSuite->addFitStrategy(new FitStrategyDefault());
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",
+//                                12*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
+//                                2*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_length",
+//                                24*Units::nanometer, 2*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",
+//                                2*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio",
+//                                0.2, 0.1,
+//                                AttLimits::fixed());
 
-    m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data);
+//    // Applying fit strategy: resizing real data
+//    m_fitSuite->addFitStrategy(new FitStrategyAdjustData(3));
+//    m_fitSuite->addFitStrategy(new FitStrategyAdjustData(2));
+//    m_fitSuite->addFitStrategy(new FitStrategyAdjustData(1));
+//    m_fitSuite->addFitStrategy(new FitStrategyDefault());
 
-    m_fitSuite->setMinimizer(
-        MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+//    m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data);
 
-    m_fitSuite->runFit();
+//    m_fitSuite->setMinimizer(
+//        MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+
+//    m_fitSuite->runFit();
 }
 
 
 //! Fix example with adjust parameters strategies
 void TestFittingModule2::fit_example_strategy_parameters()
 {
-    initializeSimulation();
-    initializeRealData();
+    throw NotImplementedException("Code is obsolete");
 
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",
-                                12*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
-                                2*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side",
-                                12*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",
-                                2*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio",
-                                0.2, 0.1,
-                                AttLimits::fixed());
+//    initializeSimulation();
+//    initializeRealData();
 
-    // Applying fit strategy
-    FitStrategyReleaseParameters strategy;
-    std::vector<std::string> pars = boost::assign::list_of("*SampleBuilder/m_cylinder_height")("*SampleBuilder/m_cylinder_radius");
-    strategy.setReleased(pars);
-    m_fitSuite->addFitStrategy(strategy);
-    pars = boost::assign::list_of("*SampleBuilder/m_prism3_half_side")("*SampleBuilder/m_prism3_height");
-    strategy.setReleased(pars);
-    m_fitSuite->addFitStrategy(strategy);
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",
+//                                12*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
+//                                2*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side",
+//                                12*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",
+//                                2*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio",
+//                                0.2, 0.1,
+//                                AttLimits::fixed());
 
-//    FitStrategyFixParameters strategy2;
-//    pars = boost::assign::list_of("*SampleBuilder/m_cylinder_ratio");
-//    strategy2.setFixed(pars);
-//    m_fitSuite->addFitStrategy(strategy2);
+//    // Applying fit strategy
+//    FitStrategyReleaseParameters strategy;
+//    std::vector<std::string> pars = boost::assign::list_of("*SampleBuilder/m_cylinder_height")("*SampleBuilder/m_cylinder_radius");
+//    strategy.setReleased(pars);
+//    m_fitSuite->addFitStrategy(strategy);
+//    pars = boost::assign::list_of("*SampleBuilder/m_prism3_half_side")("*SampleBuilder/m_prism3_height");
+//    strategy.setReleased(pars);
+//    m_fitSuite->addFitStrategy(strategy);
 
-    pars = boost::assign::list_of("*SampleBuilder/m_cylinder_height")("*SampleBuilder/m_cylinder_radius")("*SampleBuilder/m_prism3_half_side")("*SampleBuilder/m_prism3_height");
-    strategy.setReleased(pars);
-    m_fitSuite->addFitStrategy(strategy);
+////    FitStrategyFixParameters strategy2;
+////    pars = boost::assign::list_of("*SampleBuilder/m_cylinder_ratio");
+////    strategy2.setFixed(pars);
+////    m_fitSuite->addFitStrategy(strategy2);
 
-    m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data);
+//    pars = boost::assign::list_of("*SampleBuilder/m_cylinder_height")("*SampleBuilder/m_cylinder_radius")("*SampleBuilder/m_prism3_half_side")("*SampleBuilder/m_prism3_height");
+//    strategy.setReleased(pars);
+//    m_fitSuite->addFitStrategy(strategy);
 
-    m_fitSuite->setMinimizer(
-        MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+//    m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data);
 
-    m_fitSuite->runFit();
+//    m_fitSuite->setMinimizer(
+//        MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+
+//    m_fitSuite->runFit();
 }
 
 
@@ -257,61 +262,63 @@ void TestFittingModule2::fit_example_strategy_parameters()
 
 void TestFittingModule2::fit_example_mask()
 {
-    initializeSimulation();
-    initializeRealData();
+    throw NotImplementedException("Code is obsolete");
 
-    ResolutionFunction2DGaussian resfunc(0.0002, 0.0002);
-    mp_simulation->setDetectorResolutionFunction(resfunc);
+//    initializeSimulation();
+//    initializeRealData();
 
-    TCanvas *c1 = DrawHelper::createAndRegisterCanvas(
-        "c1_test_meso_crystal", "mesocrystal");
-    c1->cd(); gPad->SetLogz();
-    c1->Divide(2,2);
+//    ResolutionFunction2DGaussian resfunc(0.0002, 0.0002);
+//    mp_simulation->setDetectorResolutionFunction(resfunc);
 
-    c1->cd(1);
-    gPad->SetLogz();
-    gPad->SetRightMargin(0.115);
-    gPad->SetLeftMargin(0.115);
-    IsGISAXSTools::setMinimum(1.0);
-    IsGISAXSTools::setMaximum(1e10);
-    IsGISAXSTools::drawOutputDataInPad(*mp_real_data, "COLZ", "real_data");
-    c1->Update();
+//    TCanvas *c1 = DrawHelper::createAndRegisterCanvas(
+//        "c1_test_meso_crystal", "mesocrystal");
+//    c1->cd(); gPad->SetLogz();
+//    c1->Divide(2,2);
 
-    const double minima[]={0.003, 0.003};
-    const double maxima[]={0.03, 0.03};
-    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(
-        *mp_real_data, minima, maxima);
-    mp_real_data->setMask(*mask1);
+//    c1->cd(1);
+//    gPad->SetLogz();
+//    gPad->SetRightMargin(0.115);
+//    gPad->SetLeftMargin(0.115);
+//    IsGISAXSTools::setMinimum(1.0);
+//    IsGISAXSTools::setMaximum(1e10);
+//    IsGISAXSTools::drawOutputDataInPad(*mp_real_data, "COLZ", "real_data");
+//    c1->Update();
 
-    c1->cd(2);
-    gPad->SetLogz();
-    gPad->SetRightMargin(0.115);
-    gPad->SetLeftMargin(0.115);
-    IsGISAXSTools::drawOutputDataInPad(*mp_real_data, "COLZ", "real_data");
-    c1->Update();
+//    const double minima[]={0.003, 0.003};
+//    const double maxima[]={0.03, 0.03};
+//    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(
+//        *mp_real_data, minima, maxima);
+//    mp_real_data->setMask(*mask1);
 
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",
-                                4*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
-                                4*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_length",
-                                8*Units::nanometer, 2*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",
-                                4*Units::nanometer, 1*Units::nanometer,
-                                AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio",
-                                0.2, 0.1,
-                                AttLimits::fixed());
+//    c1->cd(2);
+//    gPad->SetLogz();
+//    gPad->SetRightMargin(0.115);
+//    gPad->SetLeftMargin(0.115);
+//    IsGISAXSTools::drawOutputDataInPad(*mp_real_data, "COLZ", "real_data");
+//    c1->Update();
 
-    ChiSquaredModule chiModule;
-    chiModule.setIntensityNormalizer( IntensityScaleAndShiftNormalizer(1.0,0) );
-    m_fitSuite->addSimulationAndRealData(
-        *mp_simulation, *mp_real_data, chiModule);
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",
+//                                4*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
+//                                4*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_length",
+//                                8*Units::nanometer, 2*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",
+//                                4*Units::nanometer, 1*Units::nanometer,
+//                                AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio",
+//                                0.2, 0.1,
+//                                AttLimits::fixed());
 
-    m_fitSuite->runFit();
+//    ChiSquaredModule chiModule;
+//    chiModule.setIntensityNormalizer( IntensityScaleAndShiftNormalizer(1.0,0) );
+//    m_fitSuite->addSimulationAndRealData(
+//        *mp_simulation, *mp_real_data, chiModule);
+
+//    m_fitSuite->runFit();
 }
 
 //! Initialize simulation.
@@ -391,8 +398,8 @@ ISample *TestFittingModule2::SampleBuilder::buildSample() const
                            m_cylinder_radius, m_cylinder_height) );
     Particle particle2(particle_material, FormFactorPrism3(
                            m_prism3_length, m_prism3_height) );
-    particle_layout.addParticle(particle1, 0.0, m_cylinder_ratio);
-    particle_layout.addParticle(particle2, 0.0, 1.0 - m_cylinder_ratio);
+    particle_layout.addParticle(particle1, m_cylinder_ratio);
+    particle_layout.addParticle(particle2, 1.0 - m_cylinder_ratio);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);

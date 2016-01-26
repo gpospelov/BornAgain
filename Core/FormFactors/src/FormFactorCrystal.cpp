@@ -14,50 +14,38 @@
 // ************************************************************************** //
 
 #include "FormFactorCrystal.h"
+#include "BornAgainNamespace.h"
+#include "FormFactorDecoratorPositionFactor.h"
 
-FormFactorCrystal::FormFactorCrystal(const Crystal &p_crystal,
-                                     const IFormFactor &meso_crystal_form_factor,
-                                     const IMaterial &material,
-                                     complex_t wavevector_scattering_factor)
-    : m_lattice(p_crystal.getTransformedLattice()),
-      m_wavevector_scattering_factor(wavevector_scattering_factor),
-      mp_ambient_material(material.clone()), m_max_rec_length(0.0)
+FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor,
+                                     const IFormFactor &meso_form_factor)
+    : m_lattice(lattice),
+      mp_basis_form_factor(basis_form_factor.clone()),
+      mp_meso_form_factor(meso_form_factor.clone())
 {
-    setName("FormFactorCrystal");
-    mp_lattice_basis = p_crystal.getLatticeBasis()->clone();
-    mp_basis_form_factor = mp_lattice_basis->createFormFactor(m_wavevector_scattering_factor);
-    const IRotation *p_rotation = p_crystal.getRotation();
-    if (p_rotation) {
-        mp_meso_form_factor
-            = new FormFactorDecoratorRotation(meso_crystal_form_factor.clone(), *p_rotation);
-    } else {
-        mp_meso_form_factor = meso_crystal_form_factor.clone();
-    }
-    setAmbientMaterial(material);
+    setName(BornAgain::FormFactorCrystalType);
     calculateLargestReciprocalDistance();
 }
 
 FormFactorCrystal::~FormFactorCrystal()
 {
-    delete mp_lattice_basis;
     delete mp_basis_form_factor;
     delete mp_meso_form_factor;
-    delete mp_ambient_material;
 }
 
 FormFactorCrystal *FormFactorCrystal::clone() const
 {
-    Crystal np_crystal(*mp_lattice_basis, m_lattice);
-    FormFactorCrystal *result = new FormFactorCrystal(
-        np_crystal, *mp_meso_form_factor, *mp_ambient_material, m_wavevector_scattering_factor);
-    result->setName(getName());
-    return result;
+    return new FormFactorCrystal(m_lattice, *mp_basis_form_factor, *mp_meso_form_factor);
 }
 
-void FormFactorCrystal::setAmbientMaterial(const IMaterial &material)
+double FormFactorCrystal::getVolume() const
 {
-    mp_lattice_basis->setAmbientMaterial(material);
-    mp_basis_form_factor->setAmbientMaterial(material);
+    return mp_meso_form_factor->getVolume();
+}
+
+double FormFactorCrystal::getRadius() const
+{
+    return mp_meso_form_factor->getRadius();
 }
 
 complex_t FormFactorCrystal::evaluate_for_q(const cvector_t &q) const
@@ -67,15 +55,10 @@ complex_t FormFactorCrystal::evaluate_for_q(const cvector_t &q) const
                               " explicitly for FormFactorCrystal");
 }
 
-complex_t FormFactorCrystal::evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-                                      const Bin1D &alpha_f_bin) const
+complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
 {
-    // construct a real reciprocal vector
-    cvector_t q_bin_lower = k_i - k_f_bin.m_q_lower;
-    cvector_t q_bin_upper = k_i - k_f_bin.m_q_upper;
-    Bin1DCVector q_bin = Bin1DCVector(q_bin_lower, q_bin_upper);
-
-    cvector_t q = q_bin.getMidPoint();
+    // construct reciprocal vector
+    cvector_t q = wavevectors.getQ();
     kvector_t q_real(q.x().real(), q.y().real(), q.z().real());
     cvector_t k_zero;
     // calculate the used radius in function of the reciprocal lattice scale
@@ -89,11 +72,13 @@ complex_t FormFactorCrystal::evaluate(const cvector_t &k_i, const Bin1DCVector &
     complex_t result(0.0, 0.0);
     for (KVectorContainer::const_iterator it = rec_vectors.begin(); it != rec_vectors.end(); ++it) {
         cvector_t q_i((*it).x(), (*it).y(), (*it).z());
-        Bin1DCVector min_q_i_zero_bin(-q_i, -q_i);
-        Bin1DCVector q_i_min_q(q_i - q_bin.m_q_lower, q_i - q_bin.m_q_upper);
+        cvector_t min_q_i= -q_i;
+        cvector_t q_i_min_q = q_i - q;
+        WavevectorInfo basis_wavevectors(k_zero, min_q_i);
         complex_t basis_factor
-            = mp_basis_form_factor->evaluate(k_zero, min_q_i_zero_bin, alpha_f_bin);
-        complex_t meso_factor = mp_meso_form_factor->evaluate(k_zero, q_i_min_q, alpha_f_bin);
+            = mp_basis_form_factor->evaluate(basis_wavevectors);
+        WavevectorInfo meso_wavevectors(k_zero, q_i_min_q);
+        complex_t meso_factor = mp_meso_form_factor->evaluate(meso_wavevectors);
         result += basis_factor * meso_factor;
     }
     // the transformed delta train gets a factor of (2pi)^3/V, but the (2pi)^3
@@ -102,16 +87,10 @@ complex_t FormFactorCrystal::evaluate(const cvector_t &k_i, const Bin1DCVector &
     return result / volume;
 }
 
-Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-                                                const Bin1D &alpha_f_bin,
-                                                const Bin1D &phi_f_bin) const
+Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevectors) const
 {
-    // construct a real reciprocal vector
-    cvector_t q_bin_lower = k_i - k_f_bin.m_q_lower;
-    cvector_t q_bin_upper = k_i - k_f_bin.m_q_upper;
-    Bin1DCVector q_bin = Bin1DCVector(q_bin_lower, q_bin_upper);
-
-    cvector_t q = q_bin.getMidPoint();
+    // construct reciprocal vector
+    cvector_t q = wavevectors.getQ();
     kvector_t q_real(q.x().real(), q.y().real(), q.z().real());
     cvector_t k_zero;
     // calculate the used radius in function of the reciprocal lattice scale
@@ -125,22 +104,19 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t &k_i, const Bin1
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
     for (KVectorContainer::const_iterator it = rec_vectors.begin(); it != rec_vectors.end(); ++it) {
         cvector_t q_i((*it).x(), (*it).y(), (*it).z());
-        Bin1DCVector min_q_i_zero_bin(-q_i, -q_i);
-        Bin1DCVector q_i_min_q(q_i - q_bin.m_q_lower, q_i - q_bin.m_q_upper);
+        cvector_t min_q_i= -q_i;
+        cvector_t q_i_min_q = q_i - q;
+        WavevectorInfo basis_wavevectors(k_zero, min_q_i);
         Eigen::Matrix2cd basis_factor
-            = mp_basis_form_factor->evaluatePol(k_zero, min_q_i_zero_bin, alpha_f_bin, phi_f_bin);
-        complex_t meso_factor = mp_meso_form_factor->evaluate(k_zero, q_i_min_q, alpha_f_bin);
+            = mp_basis_form_factor->evaluatePol(basis_wavevectors);
+        WavevectorInfo meso_wavevectors(k_zero, q_i_min_q);
+        complex_t meso_factor = mp_meso_form_factor->evaluate(meso_wavevectors);
         result += basis_factor * meso_factor;
     }
     // the transformed delta train gets a factor of (2pi)^3/V, but the (2pi)^3
     // is canceled by the convolution of Fourier transforms :
     double volume = m_lattice.getVolume();
     return result / volume;
-}
-
-double FormFactorCrystal::getVolume() const
-{
-    return mp_meso_form_factor->getVolume();
 }
 
 void FormFactorCrystal::calculateLargestReciprocalDistance()

@@ -42,18 +42,6 @@ struct ChiSquaredModule_wrapper : ChiSquaredModule, bp::wrapper< ChiSquaredModul
     m_pyobj = 0;
     }
 
-    virtual double calculateChiSquared(  ) {
-        if( bp::override func_calculateChiSquared = this->get_override( "calculateChiSquared" ) )
-            return func_calculateChiSquared(  );
-        else{
-            return this->ChiSquaredModule::calculateChiSquared(  );
-        }
-    }
-    
-    double default_calculateChiSquared(  ) {
-        return ChiSquaredModule::calculateChiSquared( );
-    }
-
     virtual ::ChiSquaredModule * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
@@ -64,42 +52,6 @@ struct ChiSquaredModule_wrapper : ChiSquaredModule, bp::wrapper< ChiSquaredModul
     
     ::ChiSquaredModule * default_clone(  ) const  {
         return ChiSquaredModule::clone( );
-    }
-
-    virtual ::OutputData< double > * createChi2DifferenceMap(  ) const  {
-        if( bp::override func_createChi2DifferenceMap = this->get_override( "createChi2DifferenceMap" ) )
-            return func_createChi2DifferenceMap(  );
-        else{
-            return this->ChiSquaredModule::createChi2DifferenceMap(  );
-        }
-    }
-    
-    ::OutputData< double > * default_createChi2DifferenceMap(  ) const  {
-        return ChiSquaredModule::createChi2DifferenceMap( );
-    }
-
-    virtual double getResidualValue( ::std::size_t index ) const  {
-        if( bp::override func_getResidualValue = this->get_override( "getResidualValue" ) )
-            return func_getResidualValue( index );
-        else{
-            return this->ChiSquaredModule::getResidualValue( index );
-        }
-    }
-    
-    double default_getResidualValue( ::std::size_t index ) const  {
-        return ChiSquaredModule::getResidualValue( index );
-    }
-
-    virtual ::IFittingDataSelector const * getFittingDataSelector(  ) const  {
-        if( bp::override func_getFittingDataSelector = this->get_override( "getFittingDataSelector" ) )
-            return func_getFittingDataSelector(  );
-        else{
-            return this->IChiSquaredModule::getFittingDataSelector(  );
-        }
-    }
-    
-    ::IFittingDataSelector const * default_getFittingDataSelector(  ) const  {
-        return IChiSquaredModule::getFittingDataSelector( );
     }
 
     virtual ::IIntensityFunction const * getIntensityFunction(  ) const  {
@@ -138,18 +90,6 @@ struct ChiSquaredModule_wrapper : ChiSquaredModule, bp::wrapper< ChiSquaredModul
         return IChiSquaredModule::getIntensityNormalizer( );
     }
 
-    virtual void setFittingDataSelector( ::IFittingDataSelector const & selector ) {
-        if( bp::override func_setFittingDataSelector = this->get_override( "setFittingDataSelector" ) )
-            func_setFittingDataSelector( boost::ref(selector) );
-        else{
-            this->IChiSquaredModule::setFittingDataSelector( boost::ref(selector) );
-        }
-    }
-    
-    void default_setFittingDataSelector( ::IFittingDataSelector const & selector ) {
-        IChiSquaredModule::setFittingDataSelector( boost::ref(selector) );
-    }
-
     virtual void setIntensityFunction( ::IIntensityFunction const & intensity_function ) {
         if( bp::override func_setIntensityFunction = this->get_override( "setIntensityFunction" ) )
             func_setIntensityFunction( boost::ref(intensity_function) );
@@ -185,17 +125,6 @@ void register_ChiSquaredModule_class(){
         ChiSquaredModule_exposer_t ChiSquaredModule_exposer = ChiSquaredModule_exposer_t( "ChiSquaredModule", "Calculation of chi2 between two data set.", bp::init< >() );
         bp::scope ChiSquaredModule_scope( ChiSquaredModule_exposer );
         ChiSquaredModule_exposer.def( bp::init< ChiSquaredModule const & >(( bp::arg("other") )) );
-        { //::ChiSquaredModule::calculateChiSquared
-        
-            typedef double ( ::ChiSquaredModule::*calculateChiSquared_function_type)(  ) ;
-            typedef double ( ChiSquaredModule_wrapper::*default_calculateChiSquared_function_type)(  ) ;
-            
-            ChiSquaredModule_exposer.def( 
-                "calculateChiSquared"
-                , calculateChiSquared_function_type(&::ChiSquaredModule::calculateChiSquared)
-                , default_calculateChiSquared_function_type(&ChiSquaredModule_wrapper::default_calculateChiSquared) );
-        
-        }
         { //::ChiSquaredModule::clone
         
             typedef ::ChiSquaredModule * ( ::ChiSquaredModule::*clone_function_type)(  ) const;
@@ -206,42 +135,6 @@ void register_ChiSquaredModule_class(){
                 , clone_function_type(&::ChiSquaredModule::clone)
                 , default_clone_function_type(&ChiSquaredModule_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::ChiSquaredModule::createChi2DifferenceMap
-        
-            typedef ::OutputData< double > * ( ::ChiSquaredModule::*createChi2DifferenceMap_function_type)(  ) const;
-            typedef ::OutputData< double > * ( ChiSquaredModule_wrapper::*default_createChi2DifferenceMap_function_type)(  ) const;
-            
-            ChiSquaredModule_exposer.def( 
-                "createChi2DifferenceMap"
-                , createChi2DifferenceMap_function_type(&::ChiSquaredModule::createChi2DifferenceMap)
-                , default_createChi2DifferenceMap_function_type(&ChiSquaredModule_wrapper::default_createChi2DifferenceMap)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::ChiSquaredModule::getResidualValue
-        
-            typedef double ( ::ChiSquaredModule::*getResidualValue_function_type)( ::std::size_t ) const;
-            typedef double ( ChiSquaredModule_wrapper::*default_getResidualValue_function_type)( ::std::size_t ) const;
-            
-            ChiSquaredModule_exposer.def( 
-                "getResidualValue"
-                , getResidualValue_function_type(&::ChiSquaredModule::getResidualValue)
-                , default_getResidualValue_function_type(&ChiSquaredModule_wrapper::default_getResidualValue)
-                , ( bp::arg("index") ) );
-        
-        }
-        { //::IChiSquaredModule::getFittingDataSelector
-        
-            typedef ::IFittingDataSelector const * ( ::IChiSquaredModule::*getFittingDataSelector_function_type)(  ) const;
-            typedef ::IFittingDataSelector const * ( ChiSquaredModule_wrapper::*default_getFittingDataSelector_function_type)(  ) const;
-            
-            ChiSquaredModule_exposer.def( 
-                "getFittingDataSelector"
-                , getFittingDataSelector_function_type(&::IChiSquaredModule::getFittingDataSelector)
-                , default_getFittingDataSelector_function_type(&ChiSquaredModule_wrapper::default_getFittingDataSelector)
-                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IChiSquaredModule::getIntensityFunction
@@ -278,18 +171,6 @@ void register_ChiSquaredModule_class(){
                 , getIntensityNormalizer_function_type(&::IChiSquaredModule::getIntensityNormalizer)
                 , default_getIntensityNormalizer_function_type(&ChiSquaredModule_wrapper::default_getIntensityNormalizer)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IChiSquaredModule::setFittingDataSelector
-        
-            typedef void ( ::IChiSquaredModule::*setFittingDataSelector_function_type)( ::IFittingDataSelector const & ) ;
-            typedef void ( ChiSquaredModule_wrapper::*default_setFittingDataSelector_function_type)( ::IFittingDataSelector const & ) ;
-            
-            ChiSquaredModule_exposer.def( 
-                "setFittingDataSelector"
-                , setFittingDataSelector_function_type(&::IChiSquaredModule::setFittingDataSelector)
-                , default_setFittingDataSelector_function_type(&ChiSquaredModule_wrapper::default_setFittingDataSelector)
-                , ( bp::arg("selector") ) );
         
         }
         { //::IChiSquaredModule::setIntensityFunction

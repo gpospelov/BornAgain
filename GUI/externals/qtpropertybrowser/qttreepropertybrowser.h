@@ -63,7 +63,7 @@ public:
     };
 
     QtTreePropertyBrowser(QWidget *parent = 0);
-    ~QtTreePropertyBrowser();
+    virtual ~QtTreePropertyBrowser();
 
     int indentation() const;
     void setIndentation(int i);

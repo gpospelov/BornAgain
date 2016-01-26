@@ -1,5 +1,5 @@
 // @(#)root/minuit2:$Id$
-// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005  
+// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005
 
 /**********************************************************************
  *                                                                    *
@@ -12,7 +12,7 @@
 
 #include "Minuit2/MnMatrix.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 
@@ -21,7 +21,7 @@ class MnUserCovariance;
 class MinimumError;
 
 /**
-   class to reduce the covariance matrix when a parameter is fixed by 
+   class to reduce the covariance matrix when a parameter is fixed by
    removing the corresponding row and index
  */
 class MnCovarianceSqueeze {

@@ -16,8 +16,6 @@
 #include "ISample.h"
 #include "SampleMaterialVisitor.h"
 #include "ICompositeSample.h"
-#include "ICompositeIterator.h"
-#include "Utils.h"
 #include "SamplePrintVisitor.h"
 
 ISample* ISample::cloneInvertB() const
@@ -26,63 +24,25 @@ ISample* ISample::cloneInvertB() const
         "ISample::cloneInvertB() -> Error! Method is not implemented");
 }
 
-std::string ISample::addParametersToExternalPool(
-    std::string path, ParameterPool *external_pool, int copy_number) const
+DWBASimulation *ISample::createDWBASimulation() const
 {
-    std::string new_path =
-        IParameterized::addParametersToExternalPool(
-            path, external_pool, copy_number);
-    // go through direct children of given sample and
-    // copy their parameters recursively
-    const ICompositeSample *sample = getCompositeSample();
-    if( sample ) {
-        // Here we need some default mechanism to handle cases with
-        // many children with same name.
-        // Lets run through all direct children and save their names
-        Utils::StringUsageMap strUsageMap;
-        for(std::list<ISample*>::const_iterator it =
-                sample->begin_shallow(); it!=sample->end_shallow(); ++it) {
-            strUsageMap.add( new_path +(*it)->getName() ); // saving children name
-        }
-        // Now we run through direct children again,
-        // and assign copy number for all children with same name
-        Utils::StringUsageMap strUsageMap2;
-        for(std::list<ISample*>::const_iterator it=
-                sample->begin_shallow(); it!=sample->end_shallow(); ++it) {
-            std::string children_name = new_path +(*it)->getName();
-            strUsageMap2.add(children_name);
-            int ncopy = strUsageMap2[children_name]-1; // starting from 0
-
-            // if object is in single exemplar, we do not want any copy number
-            if(strUsageMap[children_name] == 1) ncopy = -1;
-
-            (*it)->addParametersToExternalPool(new_path, external_pool, ncopy);
-        }
-    }
-    return new_path;
+    return nullptr;
 }
 
 void ISample::printSampleTree()
 {
     SamplePrintVisitor visitor;
-    VisitSampleTree(*this, visitor);
+    VisitSampleTreePreorder(*this, visitor);
 }
 
 bool ISample::containsMagneticMaterial() const
 {
     SampleMaterialVisitor material_vis;
-    VisitSampleTree(*this, material_vis);
+    VisitSampleTreePreorder(*this, material_vis);
     return material_vis.containsMagneticMaterial();
-
 }
 
-//void ISample::print(std::ostream& ostr) const
-//{
-//    ostr << "ISample:" << getName() << "<" << this << ">{ " <<
-//        "params={ " << m_parameters << " }";
-//    ostr << " }";
-//}
-
-
-
-
+std::vector<const ISample *> ISample::getChildren() const
+{
+    return std::vector<const ISample*>{};
+}

@@ -14,14 +14,15 @@
 // ************************************************************************** //
 
 #include "FormFactorDWBAPol.h"
+#include "BornAgainNamespace.h"
 #include "Exceptions.h"
 
-FormFactorDWBAPol::FormFactorDWBAPol(IFormFactor* p_form_factor)
-: mp_form_factor(p_form_factor)
+FormFactorDWBAPol::FormFactorDWBAPol(const IFormFactor &form_factor)
+: mp_form_factor(form_factor.clone())
 , mp_in_coeffs(0)
 , mp_out_coeffs(0)
 {
-    setName("FormFactorDWBAPol");
+    setName(BornAgain::FormFactorPolarizedDWBAType);
 }
 
 FormFactorDWBAPol::~FormFactorDWBAPol()
@@ -30,32 +31,42 @@ FormFactorDWBAPol::~FormFactorDWBAPol()
 
 FormFactorDWBAPol* FormFactorDWBAPol::clone() const
 {
-    FormFactorDWBAPol *p_result = new FormFactorDWBAPol(mp_form_factor->clone());
+    FormFactorDWBAPol *p_result = new FormFactorDWBAPol(*mp_form_factor);
     p_result->setSpecularInfo(mp_in_coeffs, mp_out_coeffs);
-    p_result->setName(getName());
     return p_result;
 }
 
-complex_t FormFactorDWBAPol::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f) const
+complex_t FormFactorDWBAPol::evaluate(const WavevectorInfo&) const
 {
-    (void)k_i;
-    (void)k_f_bin;
-    (void)alpha_f;
     throw NotImplementedException("FormFactorDWBAPol::evaluate: "
             "should never be called for matrix interactions");
 }
 
-Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f, const Bin1D &phi_f) const
+Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const WavevectorInfo& wavevectors) const
 {
-    calculateTerms(k_i, k_f_bin, alpha_f, phi_f);
+    calculateTerms(wavevectors);
     Eigen::Matrix2cd result =
             m_M11_S + m_M11_RS + m_M11_SR + m_M11_RSR +
             m_M12_S + m_M12_RS + m_M12_SR + m_M12_RSR +
             m_M21_S + m_M21_RS + m_M21_SR + m_M21_RSR +
             m_M22_S + m_M22_RS + m_M22_SR + m_M22_RSR;
     return result;
+}
+
+double FormFactorDWBAPol::getVolume() const
+{
+    if (mp_form_factor) {
+        return mp_form_factor->getVolume();
+    }
+    return 0.0;
+}
+
+double FormFactorDWBAPol::getRadius() const
+{
+    if (mp_form_factor) {
+        return mp_form_factor->getRadius();
+    }
+    return 0.0;
 }
 
 void FormFactorDWBAPol::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
@@ -65,30 +76,25 @@ void FormFactorDWBAPol::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
     mp_out_coeffs = p_out_coeffs;
 }
 
-void FormFactorDWBAPol::calculateTerms(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin, const Bin1D &phi_f_bin) const
+void FormFactorDWBAPol::calculateTerms(const WavevectorInfo& wavevectors) const
 {
     // the required wavevectors inside the layer for
     // different eigenmodes and in- and outgoing wavevector;
-    complex_t kix = k_i.x();
-    complex_t kiy = k_i.y();
+    complex_t kix = wavevectors.getKi().x();
+    complex_t kiy = wavevectors.getKi().y();
     cvector_t ki_1R(kix, kiy, mp_in_coeffs->getKz()(0));
     cvector_t ki_1T(kix, kiy, -mp_in_coeffs->getKz()(0));
     cvector_t ki_2R(kix, kiy, mp_in_coeffs->getKz()(1));
     cvector_t ki_2T(kix, kiy, -mp_in_coeffs->getKz()(1));
 
-    Bin1DCVector kf_1R = k_f_bin;
-    kf_1R.m_q_lower.setZ(-(complex_t)mp_out_coeffs->getKz()(0));
-    kf_1R.m_q_upper.setZ(-(complex_t)mp_out_coeffs->getKz()(0));
-    Bin1DCVector kf_1T = k_f_bin;
-    kf_1T.m_q_lower.setZ((complex_t)mp_out_coeffs->getKz()(0));
-    kf_1T.m_q_upper.setZ((complex_t)mp_out_coeffs->getKz()(0));
-    Bin1DCVector kf_2R = k_f_bin;
-    kf_2R.m_q_lower.setZ(-(complex_t)mp_out_coeffs->getKz()(1));
-    kf_2R.m_q_upper.setZ(-(complex_t)mp_out_coeffs->getKz()(1));
-    Bin1DCVector kf_2T = k_f_bin;
-    kf_2T.m_q_lower.setZ((complex_t)mp_out_coeffs->getKz()(1));
-    kf_2T.m_q_upper.setZ((complex_t)mp_out_coeffs->getKz()(1));
+    cvector_t kf_1R = wavevectors.getKf();
+    kf_1R.setZ(-(complex_t)mp_out_coeffs->getKz()(0));
+    cvector_t kf_1T = kf_1R;
+    kf_1T.setZ((complex_t)mp_out_coeffs->getKz()(0));
+    cvector_t kf_2R = kf_1R;
+    kf_2R.setZ(-(complex_t)mp_out_coeffs->getKz()(1));
+    cvector_t kf_2T = kf_1R;
+    kf_2T.setZ((complex_t)mp_out_coeffs->getKz()(1));
     // now each of the 16 matrix terms of the polarized DWBA is calculated:
     // NOTE: when the underlying reflection/transmission coefficients are
     // scalar, the eigenmodes have identical eigenvalues and spin polarization
@@ -101,102 +107,102 @@ void FormFactorDWBAPol::calculateTerms(const cvector_t& k_i,
     Eigen::Matrix2cd ff_BA;
 
     // eigenmode 1 -> eigenmode 1: direct scattering
-    ff_BA = mp_form_factor->evaluatePol(ki_1T, kf_1T, alpha_f_bin, phi_f_bin);
-    m_M11_S(0,0) = - mp_out_coeffs->T1min().transpose() * ff_BA * mp_in_coeffs->T1plus();
-    m_M11_S(0,1) =  mp_out_coeffs->T1plus().transpose() * ff_BA * mp_in_coeffs->T1plus();
-    m_M11_S(1,0) = - mp_out_coeffs->T1min().transpose() * ff_BA * mp_in_coeffs->T1min();
-    m_M11_S(1,1) =  mp_out_coeffs->T1plus().transpose() * ff_BA * mp_in_coeffs->T1min();
+    ff_BA = mp_form_factor->evaluatePol(WavevectorInfo(ki_1T, kf_1T));
+    m_M11_S(0,0) = - mp_out_coeffs->T1min().conjugate().dot(ff_BA * mp_in_coeffs->T1plus());
+    m_M11_S(0,1) =  mp_out_coeffs->T1plus().conjugate().dot(ff_BA * mp_in_coeffs->T1plus());
+    m_M11_S(1,0) = - mp_out_coeffs->T1min().conjugate().dot(ff_BA * mp_in_coeffs->T1min());
+    m_M11_S(1,1) =  mp_out_coeffs->T1plus().conjugate().dot(ff_BA * mp_in_coeffs->T1min());
     // eigenmode 1 -> eigenmode 1: reflection and then scattering
-    ff_BA = mp_form_factor->evaluatePol(ki_1R, kf_1T, alpha_f_bin, phi_f_bin);
-    m_M11_RS(0,0) = - mp_out_coeffs->T1min().transpose() * ff_BA * mp_in_coeffs->R1plus();
-    m_M11_RS(0,1) =  mp_out_coeffs->T1plus().transpose() * ff_BA * mp_in_coeffs->R1plus();
-    m_M11_RS(1,0) = - mp_out_coeffs->T1min().transpose() * ff_BA * mp_in_coeffs->R1min();
-    m_M11_RS(1,1) =  mp_out_coeffs->T1plus().transpose() * ff_BA * mp_in_coeffs->R1min();
+    ff_BA = mp_form_factor->evaluatePol(WavevectorInfo(ki_1R, kf_1T));
+    m_M11_RS(0,0) = - mp_out_coeffs->T1min().conjugate().dot(ff_BA * mp_in_coeffs->R1plus());
+    m_M11_RS(0,1) =  mp_out_coeffs->T1plus().conjugate().dot(ff_BA * mp_in_coeffs->R1plus());
+    m_M11_RS(1,0) = - mp_out_coeffs->T1min().conjugate().dot(ff_BA * mp_in_coeffs->R1min());
+    m_M11_RS(1,1) =  mp_out_coeffs->T1plus().conjugate().dot(ff_BA * mp_in_coeffs->R1min());
     // eigenmode 1 -> eigenmode 1: scattering and then reflection
-    ff_BA = mp_form_factor->evaluatePol(ki_1T, kf_1R, alpha_f_bin, phi_f_bin);
-    m_M11_SR(0,0) = - mp_out_coeffs->R1min().transpose() * ff_BA * mp_in_coeffs->T1plus();
-    m_M11_SR(0,1) =  mp_out_coeffs->R1plus().transpose() * ff_BA * mp_in_coeffs->T1plus();
-    m_M11_SR(1,0) = - mp_out_coeffs->R1min().transpose() * ff_BA * mp_in_coeffs->T1min();
-    m_M11_SR(1,1) =  mp_out_coeffs->R1plus().transpose() * ff_BA * mp_in_coeffs->T1min();
+    ff_BA = mp_form_factor->evaluatePol(WavevectorInfo(ki_1T, kf_1R));
+    m_M11_SR(0,0) = - mp_out_coeffs->R1min().conjugate().dot(ff_BA * mp_in_coeffs->T1plus());
+    m_M11_SR(0,1) =  mp_out_coeffs->R1plus().conjugate().dot(ff_BA * mp_in_coeffs->T1plus());
+    m_M11_SR(1,0) = - mp_out_coeffs->R1min().conjugate().dot(ff_BA * mp_in_coeffs->T1min());
+    m_M11_SR(1,1) =  mp_out_coeffs->R1plus().conjugate().dot(ff_BA * mp_in_coeffs->T1min());
     // eigenmode 1 -> eigenmode 1: reflection, scattering and again reflection
-    ff_BA = mp_form_factor->evaluatePol(ki_1R, kf_1R, alpha_f_bin, phi_f_bin);
-    m_M11_RSR(0,0) = - mp_out_coeffs->R1min().transpose() * ff_BA * mp_in_coeffs->R1plus();
-    m_M11_RSR(0,1) =  mp_out_coeffs->R1plus().transpose() * ff_BA * mp_in_coeffs->R1plus();
-    m_M11_RSR(1,0) = - mp_out_coeffs->R1min().transpose() * ff_BA * mp_in_coeffs->R1min();
-    m_M11_RSR(1,1) =  mp_out_coeffs->R1plus().transpose() * ff_BA * mp_in_coeffs->R1min();
+    ff_BA = mp_form_factor->evaluatePol(WavevectorInfo(ki_1R, kf_1R));
+    m_M11_RSR(0,0) = - mp_out_coeffs->R1min().conjugate().dot(ff_BA * mp_in_coeffs->R1plus());
+    m_M11_RSR(0,1) =  mp_out_coeffs->R1plus().conjugate().dot(ff_BA * mp_in_coeffs->R1plus());
+    m_M11_RSR(1,0) = - mp_out_coeffs->R1min().conjugate().dot(ff_BA * mp_in_coeffs->R1min());
+    m_M11_RSR(1,1) =  mp_out_coeffs->R1plus().conjugate().dot(ff_BA * mp_in_coeffs->R1min());
 
     // eigenmode 1 -> eigenmode 2: direct scattering
-    ff_BA = mp_form_factor->evaluatePol(ki_1T, kf_2T, alpha_f_bin, phi_f_bin);
-    m_M12_S(0,0) = - mp_out_coeffs->T2min().transpose() * ff_BA * mp_in_coeffs->T1plus();
-    m_M12_S(0,1) =  mp_out_coeffs->T2plus().transpose() * ff_BA * mp_in_coeffs->T1plus();
-    m_M12_S(1,0) = - mp_out_coeffs->T2min().transpose() * ff_BA * mp_in_coeffs->T1min();
-    m_M12_S(1,1) =  mp_out_coeffs->T2plus().transpose() * ff_BA * mp_in_coeffs->T1min();
+    ff_BA = mp_form_factor->evaluatePol(WavevectorInfo(ki_1T, kf_2T));
+    m_M12_S(0,0) = - mp_out_coeffs->T2min().conjugate().dot(ff_BA * mp_in_coeffs->T1plus());
+    m_M12_S(0,1) =  mp_out_coeffs->T2plus().conjugate().dot(ff_BA * mp_in_coeffs->T1plus());
+    m_M12_S(1,0) = - mp_out_coeffs->T2min().conjugate().dot(ff_BA * mp_in_coeffs->T1min());
+    m_M12_S(1,1) =  mp_out_coeffs->T2plus().conjugate().dot(ff_BA * mp_in_coeffs->T1min());
     // eigenmode 1 -> eigenmode 2: reflection and then scattering
-    ff_BA = mp_form_factor->evaluatePol(ki_1R, kf_2T, alpha_f_bin, phi_f_bin);
-    m_M12_RS(0,0) = - mp_out_coeffs->T2min().transpose() * ff_BA * mp_in_coeffs->R1plus();
-    m_M12_RS(0,1) =  mp_out_coeffs->T2plus().transpose() * ff_BA * mp_in_coeffs->R1plus();
-    m_M12_RS(1,0) = - mp_out_coeffs->T2min().transpose() * ff_BA * mp_in_coeffs->R1min();
-    m_M12_RS(1,1) =  mp_out_coeffs->T2plus().transpose() * ff_BA * mp_in_coeffs->R1min();
+    ff_BA = mp_form_factor->evaluatePol(WavevectorInfo(ki_1R, kf_2T));
+    m_M12_RS(0,0) = - mp_out_coeffs->T2min().conjugate().dot(ff_BA * mp_in_coeffs->R1plus());
+    m_M12_RS(0,1) =  mp_out_coeffs->T2plus().conjugate().dot(ff_BA * mp_in_coeffs->R1plus());
+    m_M12_RS(1,0) = - mp_out_coeffs->T2min().conjugate().dot(ff_BA * mp_in_coeffs->R1min());
+    m_M12_RS(1,1) =  mp_out_coeffs->T2plus().conjugate().dot(ff_BA * mp_in_coeffs->R1min());
     // eigenmode 1 -> eigenmode 2: scattering and then reflection
-    ff_BA = mp_form_factor->evaluatePol(ki_1T, kf_2R, alpha_f_bin, phi_f_bin);
-    m_M12_SR(0,0) = - mp_out_coeffs->R2min().transpose() * ff_BA * mp_in_coeffs->T1plus();
-    m_M12_SR(0,1) =  mp_out_coeffs->R2plus().transpose() * ff_BA * mp_in_coeffs->T1plus();
-    m_M12_SR(1,0) = - mp_out_coeffs->R2min().transpose() * ff_BA * mp_in_coeffs->T1min();
-    m_M12_SR(1,1) =  mp_out_coeffs->R2plus().transpose() * ff_BA * mp_in_coeffs->T1min();
+    ff_BA = mp_form_factor->evaluatePol(WavevectorInfo(ki_1T, kf_2R));
+    m_M12_SR(0,0) = - mp_out_coeffs->R2min().conjugate().dot(ff_BA * mp_in_coeffs->T1plus());
+    m_M12_SR(0,1) =  mp_out_coeffs->R2plus().conjugate().dot(ff_BA * mp_in_coeffs->T1plus());
+    m_M12_SR(1,0) = - mp_out_coeffs->R2min().conjugate().dot(ff_BA * mp_in_coeffs->T1min());
+    m_M12_SR(1,1) =  mp_out_coeffs->R2plus().conjugate().dot(ff_BA * mp_in_coeffs->T1min());
     // eigenmode 1 -> eigenmode 2: reflection, scattering and again reflection
-    ff_BA = mp_form_factor->evaluatePol(ki_1R, kf_2R, alpha_f_bin, phi_f_bin);
-    m_M12_RSR(0,0) = - mp_out_coeffs->R2min().transpose() * ff_BA * mp_in_coeffs->R1plus();
-    m_M12_RSR(0,1) =  mp_out_coeffs->R2plus().transpose() * ff_BA * mp_in_coeffs->R1plus();
-    m_M12_RSR(1,0) = - mp_out_coeffs->R2min().transpose() * ff_BA * mp_in_coeffs->R1min();
-    m_M12_RSR(1,1) =  mp_out_coeffs->R2plus().transpose() * ff_BA * mp_in_coeffs->R1min();
+    ff_BA = mp_form_factor->evaluatePol(WavevectorInfo(ki_1R, kf_2R));
+    m_M12_RSR(0,0) = - mp_out_coeffs->R2min().conjugate().dot(ff_BA * mp_in_coeffs->R1plus());
+    m_M12_RSR(0,1) =  mp_out_coeffs->R2plus().conjugate().dot(ff_BA * mp_in_coeffs->R1plus());
+    m_M12_RSR(1,0) = - mp_out_coeffs->R2min().conjugate().dot(ff_BA * mp_in_coeffs->R1min());
+    m_M12_RSR(1,1) =  mp_out_coeffs->R2plus().conjugate().dot(ff_BA * mp_in_coeffs->R1min());
 
     // eigenmode 2 -> eigenmode 1: direct scattering
-    ff_BA = mp_form_factor->evaluatePol(ki_2T, kf_1T, alpha_f_bin, phi_f_bin);
-    m_M21_S(0,0) = - mp_out_coeffs->T1min().transpose() * ff_BA * mp_in_coeffs->T2plus();
-    m_M21_S(0,1) =  mp_out_coeffs->T1plus().transpose() * ff_BA * mp_in_coeffs->T2plus();
-    m_M21_S(1,0) = - mp_out_coeffs->T1min().transpose() * ff_BA * mp_in_coeffs->T2min();
-    m_M21_S(1,1) =  mp_out_coeffs->T1plus().transpose() * ff_BA * mp_in_coeffs->T2min();
+    ff_BA = mp_form_factor->evaluatePol(WavevectorInfo(ki_2T, kf_1T));
+    m_M21_S(0,0) = - mp_out_coeffs->T1min().conjugate().dot(ff_BA * mp_in_coeffs->T2plus());
+    m_M21_S(0,1) =  mp_out_coeffs->T1plus().conjugate().dot(ff_BA * mp_in_coeffs->T2plus());
+    m_M21_S(1,0) = - mp_out_coeffs->T1min().conjugate().dot(ff_BA * mp_in_coeffs->T2min());
+    m_M21_S(1,1) =  mp_out_coeffs->T1plus().conjugate().dot(ff_BA * mp_in_coeffs->T2min());
     // eigenmode 2 -> eigenmode 1: reflection and then scattering
-    ff_BA = mp_form_factor->evaluatePol(ki_2R, kf_1T, alpha_f_bin, phi_f_bin);
-    m_M21_RS(0,0) = - mp_out_coeffs->T1min().transpose() * ff_BA * mp_in_coeffs->R2plus();
-    m_M21_RS(0,1) =  mp_out_coeffs->T1plus().transpose() * ff_BA * mp_in_coeffs->R2plus();
-    m_M21_RS(1,0) = - mp_out_coeffs->T1min().transpose() * ff_BA * mp_in_coeffs->R2min();
-    m_M21_RS(1,1) =  mp_out_coeffs->T1plus().transpose() * ff_BA * mp_in_coeffs->R2min();
+    ff_BA = mp_form_factor->evaluatePol(WavevectorInfo(ki_2R, kf_1T));
+    m_M21_RS(0,0) = - mp_out_coeffs->T1min().conjugate().dot(ff_BA * mp_in_coeffs->R2plus());
+    m_M21_RS(0,1) =  mp_out_coeffs->T1plus().conjugate().dot(ff_BA * mp_in_coeffs->R2plus());
+    m_M21_RS(1,0) = - mp_out_coeffs->T1min().conjugate().dot(ff_BA * mp_in_coeffs->R2min());
+    m_M21_RS(1,1) =  mp_out_coeffs->T1plus().conjugate().dot(ff_BA * mp_in_coeffs->R2min());
     // eigenmode 2 -> eigenmode 1: scattering and then reflection
-    ff_BA = mp_form_factor->evaluatePol(ki_2T, kf_1R, alpha_f_bin, phi_f_bin);
-    m_M21_SR(0,0) = - mp_out_coeffs->R1min().transpose() * ff_BA * mp_in_coeffs->T2plus();
-    m_M21_SR(0,1) =  mp_out_coeffs->R1plus().transpose() * ff_BA * mp_in_coeffs->T2plus();
-    m_M21_SR(1,0) = - mp_out_coeffs->R1min().transpose() * ff_BA * mp_in_coeffs->T2min();
-    m_M21_SR(1,1) =  mp_out_coeffs->R1plus().transpose() * ff_BA * mp_in_coeffs->T2min();
+    ff_BA = mp_form_factor->evaluatePol(WavevectorInfo(ki_2T, kf_1R));
+    m_M21_SR(0,0) = - mp_out_coeffs->R1min().conjugate().dot(ff_BA * mp_in_coeffs->T2plus());
+    m_M21_SR(0,1) =  mp_out_coeffs->R1plus().conjugate().dot(ff_BA * mp_in_coeffs->T2plus());
+    m_M21_SR(1,0) = - mp_out_coeffs->R1min().conjugate().dot(ff_BA * mp_in_coeffs->T2min());
+    m_M21_SR(1,1) =  mp_out_coeffs->R1plus().conjugate().dot(ff_BA * mp_in_coeffs->T2min());
     // eigenmode 2 -> eigenmode 1: reflection, scattering and again reflection
-    ff_BA = mp_form_factor->evaluatePol(ki_2R, kf_1R, alpha_f_bin, phi_f_bin);
-    m_M21_RSR(0,0) = - mp_out_coeffs->R1min().transpose() * ff_BA * mp_in_coeffs->R2plus();
-    m_M21_RSR(0,1) =  mp_out_coeffs->R1plus().transpose() * ff_BA * mp_in_coeffs->R2plus();
-    m_M21_RSR(1,0) = - mp_out_coeffs->R1min().transpose() * ff_BA * mp_in_coeffs->R2min();
-    m_M21_RSR(1,1) =  mp_out_coeffs->R1plus().transpose() * ff_BA * mp_in_coeffs->R2min();
+    ff_BA = mp_form_factor->evaluatePol(WavevectorInfo(ki_2R, kf_1R));
+    m_M21_RSR(0,0) = - mp_out_coeffs->R1min().conjugate().dot(ff_BA * mp_in_coeffs->R2plus());
+    m_M21_RSR(0,1) =  mp_out_coeffs->R1plus().conjugate().dot(ff_BA * mp_in_coeffs->R2plus());
+    m_M21_RSR(1,0) = - mp_out_coeffs->R1min().conjugate().dot(ff_BA * mp_in_coeffs->R2min());
+    m_M21_RSR(1,1) =  mp_out_coeffs->R1plus().conjugate().dot(ff_BA * mp_in_coeffs->R2min());
 
     // eigenmode 2 -> eigenmode 2: direct scattering
-    ff_BA = mp_form_factor->evaluatePol(ki_2T, kf_2T, alpha_f_bin, phi_f_bin);
-    m_M22_S(0,0) = - mp_out_coeffs->T2min().transpose() * ff_BA * mp_in_coeffs->T2plus();
-    m_M22_S(0,1) =  mp_out_coeffs->T2plus().transpose() * ff_BA * mp_in_coeffs->T2plus();
-    m_M22_S(1,0) = - mp_out_coeffs->T2min().transpose() * ff_BA * mp_in_coeffs->T2min();
-    m_M22_S(1,1) =  mp_out_coeffs->T2plus().transpose() * ff_BA * mp_in_coeffs->T2min();
+    ff_BA = mp_form_factor->evaluatePol(WavevectorInfo(ki_2T, kf_2T));
+    m_M22_S(0,0) = - mp_out_coeffs->T2min().conjugate().dot(ff_BA * mp_in_coeffs->T2plus());
+    m_M22_S(0,1) =  mp_out_coeffs->T2plus().conjugate().dot(ff_BA * mp_in_coeffs->T2plus());
+    m_M22_S(1,0) = - mp_out_coeffs->T2min().conjugate().dot(ff_BA * mp_in_coeffs->T2min());
+    m_M22_S(1,1) =  mp_out_coeffs->T2plus().conjugate().dot(ff_BA * mp_in_coeffs->T2min());
     // eigenmode 2 -> eigenmode 2: reflection and then scattering
-    ff_BA = mp_form_factor->evaluatePol(ki_2R, kf_2T, alpha_f_bin, phi_f_bin);
-    m_M22_RS(0,0) = - mp_out_coeffs->T2min().transpose() * ff_BA * mp_in_coeffs->R2plus();
-    m_M22_RS(0,1) =  mp_out_coeffs->T2plus().transpose() * ff_BA * mp_in_coeffs->R2plus();
-    m_M22_RS(1,0) = - mp_out_coeffs->T2min().transpose() * ff_BA * mp_in_coeffs->R2min();
-    m_M22_RS(1,1) =  mp_out_coeffs->T2plus().transpose() * ff_BA * mp_in_coeffs->R2min();
+    ff_BA = mp_form_factor->evaluatePol(WavevectorInfo(ki_2R, kf_2T));
+    m_M22_RS(0,0) = - mp_out_coeffs->T2min().conjugate().dot(ff_BA * mp_in_coeffs->R2plus());
+    m_M22_RS(0,1) =  mp_out_coeffs->T2plus().conjugate().dot(ff_BA * mp_in_coeffs->R2plus());
+    m_M22_RS(1,0) = - mp_out_coeffs->T2min().conjugate().dot(ff_BA * mp_in_coeffs->R2min());
+    m_M22_RS(1,1) =  mp_out_coeffs->T2plus().conjugate().dot(ff_BA * mp_in_coeffs->R2min());
     // eigenmode 2 -> eigenmode 2: scattering and then reflection
-    ff_BA = mp_form_factor->evaluatePol(ki_2T, kf_2R, alpha_f_bin, phi_f_bin);
-    m_M22_SR(0,0) = - mp_out_coeffs->R2min().transpose() * ff_BA * mp_in_coeffs->T2plus();
-    m_M22_SR(0,1) =  mp_out_coeffs->R2plus().transpose() * ff_BA * mp_in_coeffs->T2plus();
-    m_M22_SR(1,0) = - mp_out_coeffs->R2min().transpose() * ff_BA * mp_in_coeffs->T2min();
-    m_M22_SR(1,1) =  mp_out_coeffs->R2plus().transpose() * ff_BA * mp_in_coeffs->T2min();
+    ff_BA = mp_form_factor->evaluatePol(WavevectorInfo(ki_2T, kf_2R));
+    m_M22_SR(0,0) = - mp_out_coeffs->R2min().conjugate().dot(ff_BA * mp_in_coeffs->T2plus());
+    m_M22_SR(0,1) =  mp_out_coeffs->R2plus().conjugate().dot(ff_BA * mp_in_coeffs->T2plus());
+    m_M22_SR(1,0) = - mp_out_coeffs->R2min().conjugate().dot(ff_BA * mp_in_coeffs->T2min());
+    m_M22_SR(1,1) =  mp_out_coeffs->R2plus().conjugate().dot(ff_BA * mp_in_coeffs->T2min());
     // eigenmode 2 -> eigenmode 2: reflection, scattering and again reflection
-    ff_BA = mp_form_factor->evaluatePol(ki_2R, kf_2R, alpha_f_bin, phi_f_bin);
-    m_M22_RSR(0,0) = - mp_out_coeffs->R2min().transpose() * ff_BA * mp_in_coeffs->R2plus();
-    m_M22_RSR(0,1) =  mp_out_coeffs->R2plus().transpose() * ff_BA * mp_in_coeffs->R2plus();
-    m_M22_RSR(1,0) = - mp_out_coeffs->R2min().transpose() * ff_BA * mp_in_coeffs->R2min();
-    m_M22_RSR(1,1) =  mp_out_coeffs->R2plus().transpose() * ff_BA * mp_in_coeffs->R2min();
+    ff_BA = mp_form_factor->evaluatePol(WavevectorInfo(ki_2R, kf_2R));
+    m_M22_RSR(0,0) = - mp_out_coeffs->R2min().conjugate().dot(ff_BA * mp_in_coeffs->R2plus());
+    m_M22_RSR(0,1) =  mp_out_coeffs->R2plus().conjugate().dot(ff_BA * mp_in_coeffs->R2plus());
+    m_M22_RSR(1,0) = - mp_out_coeffs->R2min().conjugate().dot(ff_BA * mp_in_coeffs->R2min());
+    m_M22_RSR(1,1) =  mp_out_coeffs->R2plus().conjugate().dot(ff_BA * mp_in_coeffs->R2min());
 }

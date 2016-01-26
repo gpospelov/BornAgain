@@ -23,10 +23,13 @@
 class QIODevice;
 class QModelIndex;
 class JobItem;
+class SessionModel;
 class InstrumentModel;
 class MaterialModel;
 class SampleModel;
 class JobModel;
+class QXmlStreamReader;
+class WarningMessageService;
 
 namespace ProjectDocumentXML
 {
@@ -42,7 +45,6 @@ const QString InfoNameAttribute("ProjectName");
 //!
 //! e.g. if project file is /home/users/development/Untitled/Untitled.pro
 //! getProjectName()     - 'Untitled'
-//! getProgectPath()     - '/home/users/development'
 //! getProjectDir()      - 'home/users/development/Untitled
 //! getProjectFileName() - '/home/users/development/Untitled/Untitled.pro'
 class BA_CORE_API_ ProjectDocument : public QObject
@@ -50,32 +52,49 @@ class BA_CORE_API_ ProjectDocument : public QObject
     Q_OBJECT
 
 public:
+    enum EDocumentStatus {
+        STATUS_OK = 0x0001,
+        STATUS_WARNING = 0x0002,
+        STATUS_FAILED = 0x0004
+    };
+
     ProjectDocument();
-    ProjectDocument(const QString &projectfilename);
-    ProjectDocument(const QString &path, const QString &name);
+    ProjectDocument(const QString &projectFileName);
+
+    QString getProjectName() const;
+    void setProjectName(const QString &text);
+
+    QString getProjectDir() const;
+    void setProjectDir(const QString &text);
+
+    QString getProjectFileName() const;
+    void setProjectFileName(const QString &text);
+
+    static QString getProjectFileExtension();
+
+    void setMaterialModel(MaterialModel *materialModel);
+    void setInstrumentModel(InstrumentModel *instrumentModel);
+    void setSampleModel(SampleModel *sampleModel);
+    void setJobModel(JobModel *jobModel);
 
     bool save();
     bool load(const QString &project_file_name);
 
-    QString getProjectPath() const { return m_project_path; }
-    QString getProjectName() const { return m_project_name; }
-
-    void setProjectPath(const QString &text) { m_project_path = text; }
-    void setProjectName(const QString &text) { m_project_name = text; emit modified();}
-    void setProjectFileName(const QString &text);
-
-    QString getProjectFileName();
-    QString getProjectDir();
-
-    bool isModified() { return m_modified; }
-    void setMaterialModel(MaterialModel *materialModel);
-    void setInstrumentModel(InstrumentModel *model);
-    void setSampleModel(SampleModel *model);
-    void setJobModel(JobModel *model);
-
     bool hasValidNameAndPath();
 
-    QString getErrorMessage() const { return m_error_message; }
+    bool isModified();
+
+    void setMessageService(WarningMessageService *messageService);
+
+    EDocumentStatus getDocumentStatus() const;
+
+    bool isReady() const;
+
+    bool hasWarnings() const;
+
+    bool hasErrors() const;
+
+    QString getDocumentVersion() const;
 
 signals:
     void modified();
@@ -83,24 +102,30 @@ signals:
 public slots:
     void onDataChanged(const QModelIndex &, const QModelIndex &);
     void onJobModelChanged(const QString &);
-    void onRowsChanged(const QModelIndex &parent, int first, int last);
+    void onRowsChanged(const QModelIndex &parent, int, int);
 
 private:
-    bool writeTo(QIODevice *device);
-    bool readFrom(QIODevice *device);
+    void readFrom(QIODevice *device);
+    void writeTo(QIODevice *device);
+    void readModel(SessionModel *model, QXmlStreamReader *reader);
 
     void reviseOutputData();
     void saveOutputData();
     void loadOutputData();
 
-    QString m_project_path;
+    void disconnectModel(SessionModel *model);
+    void connectModel(SessionModel *model);
+
+    QString m_project_dir;
     QString m_project_name;
     MaterialModel *m_materialModel;
     InstrumentModel *m_instrumentModel;
     SampleModel *m_sampleModel;
     JobModel *m_jobModel;
     bool m_modified;
-    QString m_error_message;
+    EDocumentStatus m_documentStatus;
+    WarningMessageService *m_messageService;
+    QString m_currentVersion;
 };
 
 

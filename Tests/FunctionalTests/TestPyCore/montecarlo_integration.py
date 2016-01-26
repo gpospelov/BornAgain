@@ -33,7 +33,7 @@ def get_sample(cylinder_radius, cylinder_height):
     cylinder_ff = FormFactorCylinder(cylinder_radius, cylinder_height)
     cylinder = Particle(m_particle, cylinder_ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
 
     air_layer = Layer(m_ambience)
     air_layer.addLayout(particle_layout)
@@ -77,6 +77,7 @@ def run_test():
     run test and analyse test results
     """
     result = run_simulation()
+    # IntensityDataIOFactory.writeIntensityData(result, 'montecarlo_integration.int')
     reference = get_reference_data('montecarlo_integration.int.gz')
     diff = IntensityDataFunctions.getRelativeDifference(result, reference)
     status = "OK"

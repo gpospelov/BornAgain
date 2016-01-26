@@ -17,17 +17,14 @@
 #include "FormFactorDWBA.h"
 #include "FormFactorDWBAPol.h"
 
-IFormFactor* FormFactorTools::createDWBAScalarFormFactor(
-        IFormFactor* p_form_factor)
+IFormFactor *FormFactorTools::createDWBAScalarFormFactor(const IFormFactor &form_factor)
 {
-    FormFactorDWBA *p_result =
-        new FormFactorDWBA(p_form_factor);
+    FormFactorDWBA *p_result = new FormFactorDWBA(form_factor);
     return p_result;
 }
 
-IFormFactor* FormFactorTools::createDWBAMatrixFormFactor(
-        IFormFactor* p_form_factor)
+IFormFactor *FormFactorTools::createDWBAMatrixFormFactor(const IFormFactor &form_factor)
 {
-    FormFactorDWBAPol *p_result = new FormFactorDWBAPol(p_form_factor);
+    FormFactorDWBAPol *p_result = new FormFactorDWBAPol(form_factor);
     return p_result;
 }

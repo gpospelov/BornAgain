@@ -16,8 +16,10 @@
 #ifndef NUMERIC_H_
 #define NUMERIC_H_
 
+#include "WinDllMacros.h"
 #include <limits>
 #include <cmath>
+#include <algorithm>
 
 //! Floating-point epsilon, tolerances, almost-equal.
 
@@ -27,13 +29,15 @@ static const double required_precision = 1.e-4;
 
 static const double double_epsilon = std::numeric_limits<double>::epsilon();
 
-//! threshold on probability value during calculation of weighted form factor
-static const double probthreshold = 0.0000000001;
+static const double double_min = std::numeric_limits<double>::min();
 
 //! compare two doubles
-inline bool areAlmostEqual(double a, double b, double tolerance_factor=1.0)
-    { return std::abs(a-b) < tolerance_factor*Numeric::double_epsilon; }
-}
+bool BA_CORE_API_ areAlmostEqual(double a, double b, double tolerance_factor=1.0);
+
+//! calculates safe relative difference |(a-b)/b|
+double BA_CORE_API_ get_relative_difference(double a, double b);
+
+} // Numeric namespace
 
 #endif /* NUMERIC_H_ */
 

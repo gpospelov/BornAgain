@@ -36,7 +36,7 @@
     <category name="Interference functions">
 
         <categoryentry name="Radial paracrystal" icon="images/ParaCrystal1D.png">
-            <widget class="InterferenceFunctionRadialParaCrystal">
+            <widget class="InterferenceRadialParaCrystal">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>
@@ -44,7 +44,15 @@
         </categoryentry>
 
         <categoryentry  name="2D paracrystal" icon="images/ParaCrystal2D.png">
-            <widget class="InterferenceFunction2DParaCrystal">
+            <widget class="Interference2DParaCrystal">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
+        <categoryentry  name="1D lattice" icon="images/Lattice1D.png">
+            <widget class="Interference1DLattice">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>
@@ -52,7 +60,7 @@
         </categoryentry>
 
         <categoryentry  name="2D lattice" icon="images/Lattice2D.png">
-            <widget class="InterferenceFunction2DLattice">
+            <widget class="Interference2DLattice">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>
@@ -219,8 +227,8 @@
 
     <category name="Transformations">
 
-        <categoryentry name="Transformation" icon="images/Transformation.png">
-            <widget class="Transformation">
+        <categoryentry name="Rotation" icon="images/Transformation.png">
+            <widget class="Rotation">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>

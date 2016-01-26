@@ -30,7 +30,7 @@ def RunSimulation():
     cylinder = Particle(magParticle, cylinder_ff)
     
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
 
@@ -57,6 +57,7 @@ def RunSimulation():
 # --------------------------------------------------------------
 def run_test():
     result = RunSimulation()
+    # IntensityDataIOFactory.writeIntensityData(result, 'polmagcylinders1_reference.int')
 
     reference = get_reference_data('polmagcylinders1_reference.int.gz')
 

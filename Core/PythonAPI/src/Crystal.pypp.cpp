@@ -21,8 +21,6 @@ GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
-#include "__call_policies.pypp.hpp"
-#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "Crystal.pypp.h"
 
@@ -35,18 +33,6 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
       , bp::wrapper< Crystal >(){
         // constructor
     m_pyobj = 0;
-    }
-
-    virtual void applyRotation( ::IRotation const & rotation ) {
-        if( bp::override func_applyRotation = this->get_override( "applyRotation" ) )
-            func_applyRotation( boost::ref(rotation) );
-        else{
-            this->Crystal::applyRotation( boost::ref(rotation) );
-        }
-    }
-    
-    void default_applyRotation( ::IRotation const & rotation ) {
-        Crystal::applyRotation( boost::ref(rotation) );
     }
 
     virtual ::Crystal * clone(  ) const  {
@@ -73,18 +59,6 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         return Crystal::cloneInvertB( );
     }
 
-    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::IMaterial const & p_ambient_material, ::complex_t wavevector_scattering_factor ) const  {
-        if( bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" ) )
-            return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
-        else{
-            return this->Crystal::createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
-        }
-    }
-    
-    ::IFormFactor * default_createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::IMaterial const & p_ambient_material, ::complex_t wavevector_scattering_factor ) const  {
-        return Crystal::createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
-    }
-
     virtual ::IMaterial const * getAmbientMaterial(  ) const  {
         if( bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" ) )
             return func_getAmbientMaterial(  );
@@ -109,28 +83,16 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         Crystal::setAmbientMaterial( boost::ref(material) );
     }
 
-    virtual bool areParametersChanged(  ) {
-        if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
-            return func_areParametersChanged(  );
+    virtual void applyRotation( ::IRotation const & rotation ) {
+        if( bp::override func_applyRotation = this->get_override( "applyRotation" ) )
+            func_applyRotation( boost::ref(rotation) );
         else{
-            return this->IParameterized::areParametersChanged(  );
+            this->IClusteredParticles::applyRotation( boost::ref(rotation) );
         }
     }
     
-    bool default_areParametersChanged(  ) {
-        return IParameterized::areParametersChanged( );
-    }
-
-    virtual void clearParameterPool(  ) {
-        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
-            func_clearParameterPool(  );
-        else{
-            this->IParameterized::clearParameterPool(  );
-        }
-    }
-    
-    void default_clearParameterPool(  ) {
-        IParameterized::clearParameterPool( );
+    void default_applyRotation( ::IRotation const & rotation ) {
+        IClusteredParticles::applyRotation( boost::ref(rotation) );
     }
 
     virtual bool containsMagneticMaterial(  ) const  {
@@ -145,64 +107,16 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         return ISample::containsMagneticMaterial( );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) const  {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
+    virtual ::std::vector< const ISample* > getChildren(  ) const  {
+        if( bp::override func_getChildren = this->get_override( "getChildren" ) )
+            return func_getChildren(  );
         else{
-            return this->IParameterized::createParameterTree(  );
+            return this->ICompositeSample::getChildren(  );
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) const  {
-        return IParameterized::createParameterTree( );
-    }
-
-    virtual ::ICompositeSample * getCompositeSample(  ) {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ICompositeSample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample * default_getCompositeSample(  ) {
-        return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ICompositeSample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample const * default_getCompositeSample(  ) const  {
-        return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
-        else{
-            return this->ISample::preprocess(  );
-        }
-    }
-    
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
-    }
-
-    virtual void printParameters(  ) const  {
-        if( bp::override func_printParameters = this->get_override( "printParameters" ) )
-            func_printParameters(  );
-        else{
-            this->IParameterized::printParameters(  );
-        }
-    }
-    
-    void default_printParameters(  ) const  {
-        IParameterized::printParameters( );
+    ::std::vector< const ISample* > default_getChildren(  ) const  {
+        return ICompositeSample::getChildren( );
     }
 
     virtual void printSampleTree(  ) {
@@ -215,49 +129,6 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
-    }
-
-    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
-        namespace bpl = boost::python;
-        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
-        }
-        else{
-            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
-        }
-    }
-    
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
-        if( dynamic_cast< Crystal_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-        else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-    }
-
-    virtual bool setParameterValue( ::std::string const & name, double value ) {
-        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
-            return func_setParameterValue( name, value );
-        else{
-            return this->IParameterized::setParameterValue( name, value );
-        }
-    }
-    
-    bool default_setParameterValue( ::std::string const & name, double value ) {
-        return IParameterized::setParameterValue( name, value );
-    }
-
-    virtual void setParametersAreChanged(  ) {
-        if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
-            func_setParametersAreChanged(  );
-        else{
-            this->IParameterized::setParametersAreChanged(  );
-        }
-    }
-    
-    void default_setParametersAreChanged(  ) {
-        IParameterized::setParametersAreChanged( );
     }
 
     virtual ::std::size_t size(  ) const  {
@@ -306,18 +177,6 @@ void register_Crystal_class(){
         typedef bp::class_< Crystal_wrapper, bp::bases< IClusteredParticles >, std::auto_ptr< Crystal_wrapper >, boost::noncopyable > Crystal_exposer_t;
         Crystal_exposer_t Crystal_exposer = Crystal_exposer_t( "Crystal", "A crystal structure with a form factor as a basis.", bp::init< ParticleComposition const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) );
         bp::scope Crystal_scope( Crystal_exposer );
-        { //::Crystal::applyRotation
-        
-            typedef void ( ::Crystal::*applyRotation_function_type)( ::IRotation const & ) ;
-            typedef void ( Crystal_wrapper::*default_applyRotation_function_type)( ::IRotation const & ) ;
-            
-            Crystal_exposer.def( 
-                "applyRotation"
-                , applyRotation_function_type(&::Crystal::applyRotation)
-                , default_applyRotation_function_type(&Crystal_wrapper::default_applyRotation)
-                , ( bp::arg("rotation") ) );
-        
-        }
         { //::Crystal::clone
         
             typedef ::Crystal * ( ::Crystal::*clone_function_type)(  ) const;
@@ -342,19 +201,6 @@ void register_Crystal_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::Crystal::createTotalFormFactor
-        
-            typedef ::IFormFactor * ( ::Crystal::*createTotalFormFactor_function_type)( ::IFormFactor const &,::IMaterial const &,::complex_t ) const;
-            typedef ::IFormFactor * ( Crystal_wrapper::*default_createTotalFormFactor_function_type)( ::IFormFactor const &,::IMaterial const &,::complex_t ) const;
-            
-            Crystal_exposer.def( 
-                "createTotalFormFactor"
-                , createTotalFormFactor_function_type(&::Crystal::createTotalFormFactor)
-                , default_createTotalFormFactor_function_type(&Crystal_wrapper::default_createTotalFormFactor)
-                , ( bp::arg("meso_crystal_form_factor"), bp::arg("p_ambient_material"), bp::arg("wavevector_scattering_factor") )
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
         { //::Crystal::getAmbientMaterial
         
             typedef ::IMaterial const * ( ::Crystal::*getAmbientMaterial_function_type)(  ) const;
@@ -375,26 +221,6 @@ void register_Crystal_class(){
                 "getLatticeBasis"
                 , getLatticeBasis_function_type( &::Crystal::getLatticeBasis )
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::Crystal::getRotation
-        
-            typedef ::IRotation const * ( ::Crystal::*getRotation_function_type)(  ) const;
-            
-            Crystal_exposer.def( 
-                "getRotation"
-                , getRotation_function_type( &::Crystal::getRotation )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Gets transformation." );
-        
-        }
-        { //::Crystal::getTransformedLattice
-        
-            typedef ::Lattice ( ::Crystal::*getTransformedLattice_function_type)(  ) const;
-            
-            Crystal_exposer.def( 
-                "getTransformedLattice"
-                , getTransformedLattice_function_type( &::Crystal::getTransformedLattice ) );
         
         }
         { //::Crystal::setAmbientMaterial
@@ -419,26 +245,16 @@ void register_Crystal_class(){
                 , ( bp::arg("dw_factor") ) );
         
         }
-        { //::IParameterized::areParametersChanged
+        { //::IClusteredParticles::applyRotation
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( Crystal_wrapper::*default_areParametersChanged_function_type)(  ) ;
+            typedef void ( ::IClusteredParticles::*applyRotation_function_type)( ::IRotation const & ) ;
+            typedef void ( Crystal_wrapper::*default_applyRotation_function_type)( ::IRotation const & ) ;
             
             Crystal_exposer.def( 
-                "areParametersChanged"
-                , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&Crystal_wrapper::default_areParametersChanged) );
-        
-        }
-        { //::IParameterized::clearParameterPool
-        
-            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( Crystal_wrapper::*default_clearParameterPool_function_type)(  ) ;
-            
-            Crystal_exposer.def( 
-                "clearParameterPool"
-                , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&Crystal_wrapper::default_clearParameterPool) );
+                "applyRotation"
+                , applyRotation_function_type(&::IClusteredParticles::applyRotation)
+                , default_applyRotation_function_type(&Crystal_wrapper::default_applyRotation)
+                , ( bp::arg("rotation") ) );
         
         }
         { //::ISample::containsMagneticMaterial
@@ -452,62 +268,15 @@ void register_Crystal_class(){
                 , default_containsMagneticMaterial_function_type(&Crystal_wrapper::default_containsMagneticMaterial) );
         
         }
-        { //::IParameterized::createParameterTree
+        { //::ICompositeSample::getChildren
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( Crystal_wrapper::*default_createParameterTree_function_type)(  ) const;
+            typedef ::std::vector< const ISample* > ( ::ICompositeSample::*getChildren_function_type)(  ) const;
+            typedef ::std::vector< const ISample* > ( Crystal_wrapper::*default_getChildren_function_type)(  ) const;
             
             Crystal_exposer.def( 
-                "createParameterTree"
-                , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&Crystal_wrapper::default_createParameterTree)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::ICompositeSample::getCompositeSample
-        
-            typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) ;
-            typedef ::ICompositeSample * ( Crystal_wrapper::*default_getCompositeSample_function_type)(  ) ;
-            
-            Crystal_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&Crystal_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ICompositeSample::getCompositeSample
-        
-            typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) const;
-            typedef ::ICompositeSample const * ( Crystal_wrapper::*default_getCompositeSample_function_type)(  ) const;
-            
-            Crystal_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&Crystal_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ISample::preprocess
-        
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( Crystal_wrapper::*default_preprocess_function_type)(  ) ;
-            
-            Crystal_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&Crystal_wrapper::default_preprocess) );
-        
-        }
-        { //::IParameterized::printParameters
-        
-            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( Crystal_wrapper::*default_printParameters_function_type)(  ) const;
-            
-            Crystal_exposer.def( 
-                "printParameters"
-                , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&Crystal_wrapper::default_printParameters) );
+                "getChildren"
+                , getChildren_function_type(&::ICompositeSample::getChildren)
+                , default_getChildren_function_type(&Crystal_wrapper::default_getChildren) );
         
         }
         { //::ISample::printSampleTree
@@ -519,40 +288,6 @@ void register_Crystal_class(){
                 "printSampleTree"
                 , printSampleTree_function_type(&::ISample::printSampleTree)
                 , default_printSampleTree_function_type(&Crystal_wrapper::default_printSampleTree) );
-        
-        }
-        { //::IParameterized::registerParameter
-        
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
-            
-            Crystal_exposer.def( 
-                "registerParameter"
-                , default_registerParameter_function_type( &Crystal_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "main method to register data address in the pool." );
-        
-        }
-        { //::IParameterized::setParameterValue
-        
-            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( Crystal_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
-            
-            Crystal_exposer.def( 
-                "setParameterValue"
-                , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&Crystal_wrapper::default_setParameterValue)
-                , ( bp::arg("name"), bp::arg("value") ) );
-        
-        }
-        { //::IParameterized::setParametersAreChanged
-        
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( Crystal_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
-            
-            Crystal_exposer.def( 
-                "setParametersAreChanged"
-                , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&Crystal_wrapper::default_setParametersAreChanged) );
         
         }
         { //::ICompositeSample::size

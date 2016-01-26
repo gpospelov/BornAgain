@@ -14,151 +14,105 @@
 // ************************************************************************** //
 
 #include "Instrument.h"
-
+#include "SphericalDetector.h"
 #include "ConvolutionDetectorResolution.h"
-
 #include "BornAgainNamespace.h"
+#include "CustomBinAxis.h"
+#include "ConstKBinAxis.h"
 
 Instrument::Instrument()
     : IParameterized("Instrument")
 {
+    mP_detector.reset(new SphericalDetector());
     init_parameters();
 }
 
-Instrument::Instrument(const Instrument& other)
-: IParameterized()
-, m_detector(other.m_detector)
-, m_beam(other.m_beam)
+Instrument::Instrument(const Instrument &other) : IParameterized(), m_beam(other.m_beam)
 {
+    mP_detector.reset(other.mP_detector->clone());
     setName(other.getName());
     init_parameters();
 }
 
-void Instrument::matchDetectorParameters(const OutputData<double>& output_data)
+Instrument &Instrument::operator=(const Instrument &other)
 {
-    m_detector.clear();
-    for(size_t i_axis=0; i_axis<output_data.getRank(); ++i_axis) {
-        const IAxis *axis = output_data.getAxis(i_axis);
-        m_detector.addAxis(*axis);
+    if (this != &other) {
+        m_beam = other.m_beam;
+        mP_detector.reset(other.mP_detector->clone());
+        init_parameters();
     }
+    return *this;
 }
 
-void Instrument::setDetectorParameters(
-    size_t n_phi, double phi_f_min, double phi_f_max,
-    size_t n_alpha, double alpha_f_min, double alpha_f_max,
-    bool isgisaxs_style)
+void Instrument::setDetector(const IDetector2D& detector)
 {
-    if(phi_f_max <= phi_f_min) {
-        throw LogicErrorException("Instrument::setDetectorParameters() -> Error! phi_f_max <= phi_f_min");
-    }
-    if(alpha_f_max <= alpha_f_min) {
-        throw LogicErrorException("Instrument::setDetectorParameters() -> Error! alpha_f_max <= alpha_f_min");
-    }
-    AxisParameters phi_params;
-    phi_params.m_name = BornAgain::PHI_AXIS_NAME;
-    phi_params.m_range = TSampledRange<double>(n_phi, phi_f_min, phi_f_max);
-    AxisParameters alpha_params;
-    alpha_params.m_name = BornAgain::ALPHA_AXIS_NAME;
-    alpha_params.m_range =
-        TSampledRange<double>(n_alpha, alpha_f_min, alpha_f_max);
-    if (isgisaxs_style) {
-        phi_params.m_sample_method = AxisParameters::E_ISGISAXS;
-        alpha_params.m_sample_method = AxisParameters::E_ISGISAXS;
-    }
-    else {
-        phi_params.m_sample_method = AxisParameters::E_DEFAULT;
-        alpha_params.m_sample_method = AxisParameters::E_DEFAULT;
-    }
-    DetectorParameters detector_params = { phi_params, alpha_params };
-    setDetectorParameters(detector_params);
+    mP_detector.reset(detector.clone());
 }
 
-void Instrument::setDetectorParameters(const DetectorParameters& params)
+void Instrument::matchDetectorAxes(const OutputData<double> &output_data)
 {
-    m_detector.clear();
+    mP_detector->matchDetectorAxes(output_data);
+}
 
-    m_detector.addAxis(params.m_phi_params);
-    m_detector.addAxis(params.m_alpha_params);
+void Instrument::setDetectorParameters(size_t n_x, double x_min, double x_max,
+                                       size_t n_y, double y_min, double y_max)
+{
+    mP_detector->setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
 }
 
 void Instrument::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
 {
-    m_detector.clear();
-
-    IAxis *p_axis0 = axis0.clone();
-    p_axis0->setName(BornAgain::PHI_AXIS_NAME);
-
-    IAxis *p_axis1 = axis1.clone();
-    p_axis1->setName(BornAgain::ALPHA_AXIS_NAME);
-
-    m_detector.addAxis(*p_axis0);
-    m_detector.addAxis(*p_axis1);
-
-    delete p_axis0;
-    delete p_axis1;
+    mP_detector->setDetectorAxes(axis0, axis1);
 }
 
-std::string Instrument::addParametersToExternalPool(
-    std::string path,
-    ParameterPool* external_pool, int copy_number) const
+std::string Instrument::addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                                    int copy_number) const
 {
     // add own parameters
-    std::string new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
+    std::string new_path
+        = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
 
     // add parameters of the beam
     m_beam.addParametersToExternalPool(new_path, external_pool, -1);
 
     // add parameters of the detector
-    m_detector.addParametersToExternalPool(new_path, external_pool, -1);
+    mP_detector->addParametersToExternalPool(new_path, external_pool, -1);
 
     return new_path;
 }
 
-void Instrument::normalize(OutputData<double> *p_intensity) const
+std::vector<SimulationElement> Instrument::createSimulationElements()
 {
-    // normalize by intensity, if strictly positive
-    if (getIntensity()>0.0) {
-        p_intensity->scaleAll(getIntensity());
-    }
-    kvector_t realpart(getBeam().getCentralK().x().real(),
-                   getBeam().getCentralK().y().real(),
-                   getBeam().getCentralK().z().real());
-
-    // normalize by detector cell sizes
-    double sin_alpha_i = std::abs(realpart.cosTheta());
-    m_detector.normalize(p_intensity, sin_alpha_i);
+    return mP_detector->createSimulationElements(m_beam);
 }
 
-void Instrument::setDetectorResolutionFunction(
-    IResolutionFunction2D* p_resolution_function)
+void Instrument::setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function)
 {
-    if(p_resolution_function) {
-        m_detector.setDetectorResolution(
-            new ConvolutionDetectorResolution(p_resolution_function) );
+    if (p_resolution_function) {
+        mP_detector->setDetectorResolution(
+            new ConvolutionDetectorResolution(p_resolution_function));
     } else {
-        m_detector.setDetectorResolution(0);
+        mP_detector->setDetectorResolution(0);
     }
 }
 
-void Instrument::setDetectorResolutionFunction(
-    const IResolutionFunction2D &p_resolution_function)
+void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D &p_resolution_function)
 {
-    m_detector.setDetectorResolution(
-                new ConvolutionDetectorResolution(p_resolution_function) );
+    mP_detector->setDetectorResolution(new ConvolutionDetectorResolution(p_resolution_function));
 }
 
-void Instrument::applyDetectorResolution(OutputData<double>* p_intensity_map) const
+void Instrument::applyDetectorResolution(OutputData<double> *p_intensity_map) const
 {
-    m_detector.applyDetectorResolution(p_intensity_map);
+    mP_detector->applyDetectorResolution(p_intensity_map);
 }
 
 void Instrument::init_parameters()
 {
 }
 
-void Instrument::print(std::ostream& ostr) const
+void Instrument::print(std::ostream &ostr) const
 {
     ostr << "Instrument: '" << getName() << "' " << m_parameters << std::endl;
     ostr << "    " << m_beam << std::endl;
-    ostr << "    " << m_detector << std::endl;
+    ostr << "    " << *mP_detector << std::endl;
 }

@@ -136,22 +136,22 @@ void SampleView::resetToDefaultLayout()
     addDockWidget(Qt::BottomDockWidgetArea,
                   m_dockWidgets[INFO]);
 
-//    tabifyDockWidget(m_dockWidgets[SampleInspectorSubWindow],
-//                     m_dockWidgets[PropertyEditorSubWindow]);
-
     foreach (QDockWidget *dockWidget, dockWidgetList)
         dockWidget->show();
 
     setTrackingEnabled(true);
-//    setTrackingEnabled(false);
 }
 
 void SampleView::addItem(const QString &item_name)
 {
     QModelIndex currentIndex = getTreeView()->currentIndex();
-    ParameterizedItem * new_item = getSampleModel()->insertNewItem(
-                item_name, currentIndex);
-    if (new_item) setCurrentIndex(getSampleModel()->indexOfItem(new_item));
+    QModelIndex currentIndexAtColumnZero = getIndexAtColumnZero(currentIndex);
+    ParameterizedItem *new_item
+        = getSampleModel()->insertNewItem(item_name, currentIndexAtColumnZero);
+    if (new_item) {
+        QModelIndex new_index = getSampleModel()->indexOfItem(new_item);
+        scrollToIndex(new_index);
+    }
     setDirty();
 }
 
@@ -284,7 +284,8 @@ void SampleView::connectSignals()
     connect(m_toolBar, SIGNAL(zoomIn()),
             m_sampleDesigner->getView(), SLOT(zoomIn()));
 
-    connect(m_sampleDesigner->getScene(), SIGNAL(selectionModeChangeRequest(int)), m_sampleDesigner->getView(), SLOT(onSelectionMode(int)));
+    connect(m_sampleDesigner->getScene(), SIGNAL(selectionModeChangeRequest(int)),
+            m_sampleDesigner->getView(), SLOT(onSelectionMode(int)));
 
     // connect context menu for tree view
     connect(m_tree_view, SIGNAL(customContextMenuRequested(const QPoint &)),
@@ -302,12 +303,18 @@ void SampleView::connectSignals()
 
 }
 
-void SampleView::setCurrentIndex(const QModelIndex &index)
+void SampleView::scrollToIndex(const QModelIndex &index)
 {
     if (index.isValid()) {
         m_tree_view->scrollTo(index);
-        m_tree_view->setCurrentIndex(index);
     }
+}
+
+QModelIndex SampleView::getIndexAtColumnZero(const QModelIndex &index)
+{
+    if (index==QModelIndex() || index.column()==0) return index;
+    QModelIndex parent_index = getSampleModel()->parent(index);
+    return getSampleModel()->index(index.row(), 0, parent_index);
 }
 
 SampleModel *SampleView::getSampleModel()

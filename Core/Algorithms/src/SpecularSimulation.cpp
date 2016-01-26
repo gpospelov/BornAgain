@@ -241,7 +241,7 @@ void SpecularSimulation::collectRTCoefficientsScalar(const MultiLayer *multilaye
 {
     OutputData<MultiLayerRTCoefficients_t>::iterator it = m_data.begin();
     while (it != m_data.end()) {
-        double alpha_i = m_data.getValueOfAxis(0, it.getIndex());
+        double alpha_i = m_data.getAxisValue(it.getIndex(), 0);
         kvector_t kvec;
         kvec.setLambdaAlphaPhi(m_lambda, -alpha_i, 0.0);
 

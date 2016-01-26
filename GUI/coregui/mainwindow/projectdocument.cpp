@@ -23,6 +23,8 @@
 #include "SampleModel.h"
 #include "IntensityDataIOFactory.h"
 #include "BAVersion.h"
+#include "WarningMessageService.h"
+#include "MessageContainer.h"
 #include <QFile>
 #include <QTextStream>
 #include <QFileInfo>
@@ -33,158 +35,108 @@
 #include <QXmlStreamReader>
 #include <QDebug>
 
+namespace {
+const QString OPEN_FILE_ERROR = "OPEN_FILE_ERROR";
+const QString EXCEPTION_THROW = "EXCEPTION_THROW";
+const QString XML_FORMAT_ERROR = "XML_FORMAT_ERROR";
+}
+
 ProjectDocument::ProjectDocument()
-    : m_materialModel(0), m_instrumentModel(0), m_sampleModel(0), m_jobModel(0), m_modified(false)
+    : m_materialModel(0), m_instrumentModel(0), m_sampleModel(0), m_jobModel(0)
+    , m_modified(false), m_documentStatus(STATUS_OK), m_messageService(0)
 {
+    setObjectName("ProjectDocument");
 }
 
 ProjectDocument::ProjectDocument(const QString &projectFileName)
-    : m_sampleModel(0), m_jobModel(0), m_modified(false)
+    : m_materialModel(0), m_instrumentModel(0), m_sampleModel(0), m_jobModel(0)
+    , m_modified(false), m_documentStatus(STATUS_OK), m_messageService(0)
 {
+    setObjectName("ProjectDocument");
     setProjectFileName(projectFileName);
-    qDebug() << "ProjectDocument::ProjectDocument(const QString &projectFileName)"
-             << projectFileName << getProjectPath() << getProjectName() << getProjectFileName();
+}
+
+QString ProjectDocument::getProjectName() const
+{
+    return m_project_name;
+}
+
+void ProjectDocument::setProjectName(const QString &text)
+{
+    m_project_name = text;
+    emit modified();
+}
+
+QString ProjectDocument::getProjectDir() const
+{
+    return m_project_dir;
+}
+
+void ProjectDocument::setProjectDir(const QString &text)
+{
+    m_project_dir = text;
+}
+
+QString ProjectDocument::getProjectFileName() const
+{
+    QString result = getProjectDir() + "/" + getProjectName() + getProjectFileExtension();
+    return result;
 }
 
 void ProjectDocument::setProjectFileName(const QString &projectFileName)
 {
     QFileInfo info(projectFileName);
     setProjectName(info.baseName());
-
-    QFileInfo info_dir(info.path());
-    setProjectPath(info_dir.path());
+    setProjectDir(info.path());
 }
 
-ProjectDocument::ProjectDocument(const QString &path, const QString &name)
-    : m_project_path(path), m_project_name(name), m_materialModel(0), m_sampleModel(0),
-      m_jobModel(0), m_modified(false)
+QString ProjectDocument::getProjectFileExtension()
 {
-}
-
-void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
-{
-    qDebug() << "ProjectDocument::onDataChanged()";
-    m_modified = true;
-    emit modified();
-}
-
-void ProjectDocument::onJobModelChanged(const QString &)
-{
-    m_modified = true;
-    emit modified();
-}
-
-void ProjectDocument::onRowsChanged(const QModelIndex &parent, int first, int last)
-{
-    Q_UNUSED(parent);
-    Q_UNUSED(first);
-    Q_UNUSED(last);
-    m_modified = true;
-    emit modified();
+    return QString(".pro");
 }
 
 void ProjectDocument::setMaterialModel(MaterialModel *materialModel)
 {
     if (materialModel != m_materialModel) {
-        if (m_materialModel) {
-            disconnect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
-                       SLOT(onDataChanged(QModelIndex, QModelIndex)));
-            disconnect(m_materialModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                       SLOT(onRowsChanged(QModelIndex, int, int)));
-            disconnect(m_materialModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                       SLOT(onRowsChanged(QModelIndex, int,int)));
-        }
-
+        disconnectModel(m_materialModel);
         m_materialModel = materialModel;
-        connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
-                SLOT(onDataChanged(QModelIndex, QModelIndex)));
-        connect(m_materialModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                SLOT(onRowsChanged(QModelIndex, int, int)));
-        connect(m_materialModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                   SLOT(onRowsChanged(QModelIndex, int,int)));
+        connectModel(m_materialModel);
     }
 }
 
-void ProjectDocument::setInstrumentModel(InstrumentModel *model)
+void ProjectDocument::setInstrumentModel(InstrumentModel *instrumentModel)
 {
-    if (model != m_instrumentModel) {
-        if (m_instrumentModel) {
-            disconnect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
-                       SLOT(onDataChanged(QModelIndex, QModelIndex)));
-            disconnect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                       SLOT(onRowsChanged(QModelIndex, int, int)));
-            disconnect(m_instrumentModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                       SLOT(onRowsChanged(QModelIndex, int,int)));
-        }
-        m_instrumentModel = model;
-        connect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
-                SLOT(onDataChanged(QModelIndex, QModelIndex)));
-        connect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                SLOT(onRowsChanged(QModelIndex, int, int)));
-        connect(m_instrumentModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                   SLOT(onRowsChanged(QModelIndex, int,int)));
+    if (instrumentModel != m_instrumentModel) {
+        disconnectModel(m_instrumentModel);
+        m_instrumentModel = instrumentModel;
+        connectModel(m_instrumentModel);
     }
 }
 
-void ProjectDocument::setSampleModel(SampleModel *model)
+void ProjectDocument::setSampleModel(SampleModel *sampleModel)
 {
-    if (model != m_sampleModel) {
-        if (m_sampleModel) {
-            disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
-                       SLOT(onDataChanged(QModelIndex, QModelIndex)));
-            disconnect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                       SLOT(onRowsRemoved(QModelIndex, int, int)));
-            disconnect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                       SLOT(onRowsInserted(QModelIndex, int,int)));
-        }
-        m_sampleModel = model;
-        connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
-                SLOT(onDataChanged(QModelIndex, QModelIndex)));
-        connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                SLOT(onRowsChanged(QModelIndex, int, int)));
-        connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                   SLOT(onRowsChanged(QModelIndex, int,int)));
+    if (sampleModel != m_sampleModel) {
+        disconnectModel(m_sampleModel);
+        m_sampleModel = sampleModel;
+        connectModel(m_sampleModel);
     }
 }
 
-void ProjectDocument::setJobModel(JobModel *model)
+void ProjectDocument::setJobModel(JobModel *jobModel)
 {
-    if (model != m_jobModel) {
-        if (m_jobModel) {
-            disconnect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this,
-                       SLOT(onJobModelChanged(QString)));
-            disconnect(m_jobModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                       SLOT(onRowsChanged(QModelIndex, int, int)));
-            disconnect(m_jobModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                       SLOT(onRowsChanged(QModelIndex, int,int)));
-        }
-        m_jobModel = model;
-
-        connect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this,
-                SLOT(onJobModelChanged(QString)));
-        connect(m_jobModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                SLOT(onRowsChanged(QModelIndex, int, int)));
-        connect(m_jobModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                   SLOT(onRowsChanged(QModelIndex, int,int)));
+    if (jobModel != m_jobModel) {
+        disconnectModel(m_jobModel);
+        m_jobModel = jobModel;
+        connectModel(m_jobModel);
     }
-}
-
-bool ProjectDocument::hasValidNameAndPath()
-{
-    return (!m_project_name.isEmpty() && !m_project_path.isEmpty());
 }
 
 bool ProjectDocument::save()
 {
-    qDebug() << "ProjectDocument::save() -> " << getProjectName() << getProjectPath()
-             << getProjectFileName();
-
     reviseOutputData();
-
     QString filename = getProjectFileName();
 
     QFile file(filename);
-    // if (!file.open(QFile::WriteOnly | QFile::Text)) {
     if (!file.open(QFile::ReadWrite | QIODevice::Truncate | QFile::Text)) {
         qDebug() << "ProjectDocument::save() -> Error! Can't save file";
         return false;
@@ -203,66 +155,101 @@ bool ProjectDocument::save()
 
 bool ProjectDocument::load(const QString &project_file_name)
 {
-    bool success_read(false);
-    m_error_message.clear();
+    m_documentStatus = STATUS_OK;
+
     setProjectFileName(project_file_name);
 
     QFile file(getProjectFileName());
-    if (!file.open(QFile::ReadOnly | QFile::Text)) {
-        m_error_message
-            = QString("Can't open '%1'. Wrong permissions or binary file.").arg(project_file_name);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        m_messageService->send_message(this, OPEN_FILE_ERROR, file.errorString());
+        m_documentStatus = EDocumentStatus(m_documentStatus|STATUS_FAILED);
         return false;
     }
 
     try {
         // loading project file
-        success_read = readFrom(&file);
+        readFrom(&file);
         file.close();
 
         // loading accompanying non-xml data
         loadOutputData();
+
     } catch (const std::exception &ex) {
-        m_error_message.append(
-            QString("Exception was thrown with the error message '%1'").arg(QString(ex.what())));
-        success_read = false;
+        m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
+        m_messageService->send_message(this, EXCEPTION_THROW, QString(ex.what()));
+        return false;
     }
 
-    return success_read;
+    return true;
 }
 
-bool ProjectDocument::readFrom(QIODevice *device)
+bool ProjectDocument::hasValidNameAndPath()
 {
-    Q_ASSERT(m_materialModel);
-    disconnect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
-               SLOT(onDataChanged(QModelIndex, QModelIndex)));
-    disconnect(m_materialModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-               SLOT(onRowsChanged(QModelIndex, int, int)));
-    disconnect(m_materialModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-               SLOT(onRowsChanged(QModelIndex, int,int)));
+    return (!m_project_name.isEmpty() && !m_project_dir.isEmpty());
+}
 
-    Q_ASSERT(m_instrumentModel);
-    disconnect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
-               SLOT(onDataChanged(QModelIndex, QModelIndex)));
-    disconnect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-               SLOT(onRowsChanged(QModelIndex, int, int)));
-    disconnect(m_instrumentModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-               SLOT(onRowsChanged(QModelIndex, int,int)));
+bool ProjectDocument::isModified()
+{
+    return m_modified;
+}
 
-    Q_ASSERT(m_sampleModel);
-    disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
-               SLOT(onDataChanged(QModelIndex, QModelIndex)));
-    disconnect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-               SLOT(onRowsChanged(QModelIndex, int, int)));
-    disconnect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-               SLOT(onRowsChanged(QModelIndex, int,int)));
+void ProjectDocument::setMessageService(WarningMessageService *messageService)
+{
+    m_messageService = messageService;
+}
 
-    Q_ASSERT(m_jobModel);
-    disconnect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this,
-               SLOT(onJobModelChanged(QString)));
-    disconnect(m_jobModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-               SLOT(onRowsChanged(QModelIndex, int, int)));
-    disconnect(m_jobModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-               SLOT(onRowsChanged(QModelIndex, int,int)));
+ProjectDocument::EDocumentStatus ProjectDocument::getDocumentStatus() const
+{
+    return m_documentStatus;
+}
+
+bool ProjectDocument::isReady() const
+{
+    return (m_documentStatus == STATUS_OK);
+}
+
+bool ProjectDocument::hasWarnings() const
+{
+    return (m_documentStatus & STATUS_WARNING);
+}
+
+bool ProjectDocument::hasErrors() const
+{
+    return (m_documentStatus & STATUS_FAILED);
+}
+
+QString ProjectDocument::getDocumentVersion() const
+{
+    QString result(m_currentVersion);
+    if(result.isEmpty()) result = GUIHelpers::getBornAgainVersionString();
+    return QString("1.2.0");
+    return result;
+}
+
+void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
+{
+    m_modified = true;
+    emit modified();
+}
+
+void ProjectDocument::onJobModelChanged(const QString &)
+{
+    m_modified = true;
+    emit modified();
+}
+
+void ProjectDocument::onRowsChanged(const QModelIndex &, int , int )
+{
+    m_modified = true;
+    emit modified();
+}
+
+void ProjectDocument::readFrom(QIODevice *device)
+{
+    disconnectModel(m_materialModel);
+    disconnectModel(m_instrumentModel);
+    disconnectModel(m_sampleModel);
+    disconnectModel(m_jobModel);
 
     QXmlStreamReader reader(device);
 
@@ -270,72 +257,40 @@ bool ProjectDocument::readFrom(QIODevice *device)
         reader.readNext();
         if (reader.isStartElement()) {
             if (reader.name() == ProjectDocumentXML::BornAgainTag) {
-                const QString version = reader.attributes()
+                m_currentVersion = reader.attributes()
                                             .value(ProjectDocumentXML::BornAgainVersionAttribute)
                                             .toString();
-                if (version != GUIHelpers::getBornAgainVersionString()) {
-                    m_error_message.append(
-                        QString("Given project was created using BornAgain ver. %1").arg(version));
-                    m_error_message.append(
-                        QString(" which is different from the version %1 you are currently using.")
-                            .arg(GUIHelpers::getBornAgainVersionString()));
-                    m_error_message.append(QString(
-                        " At the moment we do not support import from older versions.\n\n"));
-                }
             } else if (reader.name() == ProjectDocumentXML::InfoTag) {
                 //
             } else if (reader.name() == SessionXML::MaterialModelTag) {
-                m_materialModel->readFrom(&reader);
+                readModel(m_materialModel, &reader);
 
             } else if (reader.name() == SessionXML::InstrumentModelTag) {
-                m_instrumentModel->readFrom(&reader);
+                readModel(m_instrumentModel, &reader);
 
             } else if (reader.name() == SessionXML::SampleModelTag) {
-                m_sampleModel->readFrom(&reader);
+                readModel(m_sampleModel, &reader);
 
             } else if (reader.name() == SessionXML::JobModelTag) {
-                m_jobModel->readFrom(&reader);
+                readModel(m_jobModel, &reader);
+
             }
         }
     }
 
     if (reader.hasError()) {
-        m_error_message.append(
-            QString("File parse error with error message '%1").arg(reader.errorString()));
-        return false;
+        m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
+        m_messageService->send_message(this, XML_FORMAT_ERROR, reader.errorString());
+        return;
     }
 
-    connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
-            SLOT(onDataChanged(QModelIndex, QModelIndex)));
-    connect(m_materialModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-               SLOT(onRowsChanged(QModelIndex, int, int)));
-    connect(m_materialModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-               SLOT(onRowsChanged(QModelIndex, int,int)));
-
-    connect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
-            SLOT(onDataChanged(QModelIndex, QModelIndex)));
-    connect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-               SLOT(onRowsChanged(QModelIndex, int, int)));
-    connect(m_instrumentModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-               SLOT(onRowsChanged(QModelIndex, int,int)));
-
-    connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
-            SLOT(onDataChanged(QModelIndex, QModelIndex)));
-    connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-               SLOT(onRowsChanged(QModelIndex, int, int)));
-    connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-               SLOT(onRowsChanged(QModelIndex, int,int)));
-
-    connect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this,
-            SLOT(onJobModelChanged(QString)));
-    connect(m_jobModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-               SLOT(onRowsChanged(QModelIndex, int, int)));
-    connect(m_jobModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-               SLOT(onRowsChanged(QModelIndex, int,int)));
-    return true;
+    connectModel(m_materialModel);
+    connectModel(m_instrumentModel);
+    connectModel(m_sampleModel);
+    connectModel(m_jobModel);
 }
 
-bool ProjectDocument::writeTo(QIODevice *device)
+void ProjectDocument::writeTo(QIODevice *device)
 {
     QXmlStreamWriter writer(device);
     writer.setAutoFormatting(true);
@@ -348,47 +303,31 @@ bool ProjectDocument::writeTo(QIODevice *device)
     writer.writeAttribute(ProjectDocumentXML::InfoNameAttribute, getProjectName());
     writer.writeEndElement(); // InfoTag
 
-    Q_ASSERT(m_materialModel);
     m_materialModel->writeTo(&writer);
-
-    Q_ASSERT(m_instrumentModel);
     m_instrumentModel->writeTo(&writer);
-
-    Q_ASSERT(m_sampleModel);
     m_sampleModel->writeTo(&writer);
-
-    Q_ASSERT(m_jobModel);
     m_jobModel->writeTo(&writer);
 
-    writer.writeEndElement(); // BornAgain
+    writer.writeEndElement(); // BornAgain tag
     writer.writeEndDocument();
-
-    return true;
 }
 
-//! returns project file name
-//!
-//! if ProjectPath=/home/username and ProjectName=MultiLayer then project file
-//! will be /home/username/MultiLayer/MultiLayer.pro
-QString ProjectDocument::getProjectFileName()
+void ProjectDocument::readModel(SessionModel *model, QXmlStreamReader *reader)
 {
-    QString result = getProjectPath() + "/" + getProjectName() + "/" + getProjectName() + ".pro";
-    return result;
-}
+    model->setMessageService(m_messageService);
 
-//! returns project directory
-QString ProjectDocument::getProjectDir()
-{
-    QString result = getProjectPath() + "/" + getProjectName();
-    return result;
+    model->readFrom(reader);
+
+    if(m_messageService->hasWarnings(model)) {
+        m_documentStatus = EDocumentStatus(m_documentStatus|STATUS_WARNING);
+    }
+    model->setMessageService(0);
 }
 
 //! Adjusts name of IntensityData item to possibly changed name of JobItem. Take care of old
 //! *.int files in project directory by removing them.
 void ProjectDocument::reviseOutputData()
 {
-    //    QMap<QString, int> name_to_copy_number;
-
     for (int i = 0; i < m_jobModel->rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = m_jobModel->getJobItemForIndex(m_jobModel->index(i, 0, QModelIndex()));
         IntensityDataItem *dataItem = jobItem->getIntensityDataItem();
@@ -403,15 +342,6 @@ void ProjectDocument::reviseOutputData()
 
             // making new name of *.int file from jobItem name
             dataItem->setNameFromProposed(jobItem->itemName());
-
-            // handling name repetition
-            //            int ncopy = name_to_copy_number[dataItem->itemName()];
-            //            if(ncopy > 0) {
-            //                QString new_name =
-            //                QString("%1(%2)").arg(dataItem->itemName()).arg(ncopy);
-            //                dataItem->setItemName(new_name);
-            //            }
-            //            name_to_copy_number[dataItem->itemName()] = ncopy+1;
         }
     }
 }
@@ -427,7 +357,7 @@ void ProjectDocument::saveOutputData()
             QString filename = getProjectDir() + "/" + dataItem->itemName();
             const OutputData<double> *data = dataItem->getOutputData();
             if (data) {
-                IntensityDataIOFactory::writeIntensityData(*data, filename.toStdString());
+                IntensityDataIOFactory::writeOutputData(*data, filename.toStdString());
             }
         }
     }
@@ -436,8 +366,6 @@ void ProjectDocument::saveOutputData()
 //! load OutputData from project directory
 void ProjectDocument::loadOutputData()
 {
-    Q_ASSERT(m_jobModel);
-
     for (int i = 0; i < m_jobModel->rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = m_jobModel->getJobItemForIndex(m_jobModel->index(i, 0, QModelIndex()));
         IntensityDataItem *dataItem = jobItem->getIntensityDataItem();
@@ -445,8 +373,11 @@ void ProjectDocument::loadOutputData()
             QString filename = getProjectDir() + "/" + dataItem->itemName();
             QFileInfo info(filename);
             if (info.exists()) {
-                jobItem->getIntensityDataItem()->setOutputData(
-                    IntensityDataIOFactory::readIntensityData(filename.toStdString()));
+                IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();
+                if(intensityItem) {
+                    intensityItem->setOutputData(
+                        IntensityDataIOFactory::readOutputData(filename.toStdString()));
+                }
             } else {
                 jobItem->setStatus(Constants::STATUS_FAILED);
                 QString warning("Error while loading job from file, intensity data file '");
@@ -457,3 +388,28 @@ void ProjectDocument::loadOutputData()
         }
     }
 }
+
+void ProjectDocument::disconnectModel(SessionModel *model)
+{
+    if(model) {
+        disconnect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
+                   SLOT(onDataChanged(QModelIndex, QModelIndex)));
+        disconnect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+                   SLOT(onRowsChanged(QModelIndex, int, int)));
+        disconnect(model, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
+                   SLOT(onRowsChanged(QModelIndex, int,int)));
+    }
+}
+
+void ProjectDocument::connectModel(SessionModel *model)
+{
+    if(model) {
+        connect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
+                   SLOT(onDataChanged(QModelIndex, QModelIndex)));
+        connect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+                   SLOT(onRowsChanged(QModelIndex, int, int)));
+        connect(model, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
+                   SLOT(onRowsChanged(QModelIndex, int,int)));
+    }
+}
+

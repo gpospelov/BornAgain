@@ -36,49 +36,32 @@ public:
     enum { TYPE = DesignerHelper::NODE_EDITOR_PORT };
 
     //! type of ports, same type can be connected together
-    enum EPortType
-    {
-        DEFAULT,
-        INTERFERENCE,
-        PARTICLE_LAYOUT,
-        FORM_FACTOR,
-        TRANSFORMATION
-    };
+    enum EPortType { DEFAULT, INTERFERENCE, PARTICLE_LAYOUT, FORM_FACTOR, TRANSFORMATION };
 
     //! port direction
-    enum EPortDirection
-    {
-        INPUT,
-        OUTPUT
-    };
+    enum EPortDirection { INPUT, OUTPUT };
 
-    NodeEditorPort(QGraphicsItem *parent = 0, const QString &name=QString("unnamed"), EPortDirection direction = INPUT, EPortType port_type = DEFAULT);
+    NodeEditorPort(QGraphicsItem *parent = 0, const QString &name = QString("unnamed"),
+                   EPortDirection direction = INPUT, EPortType port_type = DEFAULT);
 
-//    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-//    virtual QRectF boundingRect() const;
-
-    ~NodeEditorPort();
+    virtual ~NodeEditorPort();
 
     bool isOutput();
     bool isInput();
 
-    QVector<NodeEditorConnection*>& connections();
+    QVector<NodeEditorConnection *> &connections();
 
-    const QString& portName() const { return m_name; }
+    const QString &portName() const;
 
-    int type() const { return TYPE; }
+    virtual int type() const;
 
-    IView* block() const;
+    bool isConnected(NodeEditorPort *);
 
-    bool isConnected(NodeEditorPort*);
+    bool isConnected();
 
-    bool isConnected() { return m_connections.size(); }
-
-    EPortType getPortType() const { return m_port_type; }
+    EPortType getPortType() const;
 
     static QColor getPortTypeColor(NodeEditorPort::EPortType port_type);
-
-//    void deleteAllConnections();
 
 protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
@@ -90,9 +73,27 @@ private:
     QColor m_color;
     int m_radius;
     int m_margin;
-    QVector<NodeEditorConnection*> m_connections;
-//    QRect m_rect;
+    QVector<NodeEditorConnection *> m_connections;
 };
 
+inline const QString &NodeEditorPort::portName() const
+{
+    return m_name;
+}
+
+inline int NodeEditorPort::type() const
+{
+    return TYPE;
+}
+
+inline bool NodeEditorPort::isConnected()
+{
+    return m_connections.size();
+}
+
+inline NodeEditorPort::EPortType NodeEditorPort::getPortType() const
+{
+    return m_port_type;
+}
 
 #endif // NODEEDITORPORT_H

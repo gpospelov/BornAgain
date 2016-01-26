@@ -31,21 +31,18 @@ public:
     //! @param angle in radians between base and facet
     FormFactorPyramid(double length, double height, double alpha);
 
-    ~FormFactorPyramid() {}
+    virtual ~FormFactorPyramid() {}
     virtual FormFactorPyramid *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual int getNumberOfStochasticParameters() const { return 3; }
+    virtual double getRadius() const;
 
-    virtual double getHeight() const { return m_height; }
-    virtual void setHeight(double height) { m_height = height; }
+    double getHeight() const;
 
-    virtual double getLength() const { return m_length; }
-    virtual void setLength(double length) { m_length = length; }
+    double getLength() const;
 
-    virtual double getAlpha() const { return m_alpha; }
-    virtual void setAlpha(double alpha) { m_alpha = alpha; }
+    double getAlpha() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -54,11 +51,27 @@ protected:
     virtual void init_parameters();
 
 private:
+    complex_t fullPyramidPrimitive(complex_t a, complex_t b, complex_t c, double z) const;
+    complex_t g(complex_t x, complex_t c, double z) const;  // helper function
+    complex_t h(complex_t x, double z) const;  // helper function
     double m_length;
     double m_height;
     double m_alpha;
 };
 
+inline double FormFactorPyramid::getHeight() const
+{
+    return m_height;
+}
+
+inline double FormFactorPyramid::getLength() const
+{
+    return m_length;
+}
+
+inline double FormFactorPyramid::getAlpha() const
+{
+    return m_alpha;
+}
+
 #endif // FORMFACTORPYRAMID_H
-
-

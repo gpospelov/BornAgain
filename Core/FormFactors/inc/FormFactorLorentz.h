@@ -27,12 +27,18 @@ class BA_CORE_API_ FormFactorLorentz : public IFormFactorBorn
 public:
     FormFactorLorentz(double volume);
     FormFactorLorentz(double width, double height);
-    ~FormFactorLorentz() {}
+
     virtual FormFactorLorentz *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual int getNumberOfStochasticParameters() const { return 2; }
+    virtual double getRadius() const;
+
+    //! Returns height of shape
+    double getHeight() const;
+
+    //! Returns width of shape
+    double getWidth() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -43,7 +49,18 @@ protected:
 private:
     double m_width;
     double m_height;
+    void initialize();
 };
+
+inline double FormFactorLorentz::getHeight() const
+{
+    return m_height;
+}
+
+inline double FormFactorLorentz::getWidth() const
+{
+    return m_width;
+}
 
 #endif /* FORMFACTORLORENTZ_H_ */
 

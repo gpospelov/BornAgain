@@ -65,7 +65,7 @@ void TestPolarizedMeso::execute()
     simulation.setSample(*mp_sample);
     simulation.runSimulation();
 
-    simulation.normalize();
+//    simulation.normalize();
 
     IsGISAXSTools::drawLogOutputData(*simulation.getOutputData(),
             "c1_polMeso", "Polarized Mesocrystal", "CONT4 Z",
@@ -109,7 +109,7 @@ MultiLayer* TestPolarizedMeso::createSample() const
             boost::scoped_ptr<MesoCrystal> meso(createMeso(
                              m_lattice_length_a, m_lattice_length_c,
                              particle_material, m_nanoparticle_size, &ff_box) );
-            particle_layout.addParticle(*meso, transform);
+            particle_layout.addParticle(*meso, 1.0, kvector_t(0,0,0), transform);
         }
     }
 

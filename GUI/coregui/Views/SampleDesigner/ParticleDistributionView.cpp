@@ -22,7 +22,6 @@ ParticleDistributionView::ParticleDistributionView(QGraphicsItem *parent)
     : ConnectableView(parent)
 {
     setName(Constants::ParticleDistributionType);
-    setLabel("Distributed\nparticle");
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleDistributionType));
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR);
@@ -31,10 +30,11 @@ ParticleDistributionView::ParticleDistributionView(QGraphicsItem *parent)
     m_label_vspace = 45;
 }
 
-
 void ParticleDistributionView::addView(IView *childView, int /* row */)
 {
-    int index = childView->getParameterizedItem()->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+    int index = childView->getParameterizedItem()
+                    ->getRegisteredProperty(ParameterizedItem::P_PORT)
+                    .toInt();
     qDebug() << "ParticleDistributionType::addView()" << index;
     connectInputPort(dynamic_cast<ConnectableView *>(childView), index);
 }

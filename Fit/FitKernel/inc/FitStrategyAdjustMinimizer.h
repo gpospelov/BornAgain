@@ -19,22 +19,38 @@
 #include "IFitStrategy.h"
 #include "IMinimizer.h"
 
+class MinimizerOptions;
+
 //! @class FitStrategyAdjustMinimizer
 //! @ingroup fitting
 //! @brief Strategy modifies mimimizer settings before running minimization round
 
 class BA_CORE_API_ FitStrategyAdjustMinimizer : public IFitStrategy
 {
-public:
-    FitStrategyAdjustMinimizer() : IFitStrategy("FitStrategyAdjustMinimizer"), m_minimizer(0) {}
-    virtual ~FitStrategyAdjustMinimizer(){ delete m_minimizer; }
+public:    
+    FitStrategyAdjustMinimizer();
+
+    FitStrategyAdjustMinimizer(const std::string& minimizer_name,
+                               const std::string& algorithm_name = std::string(),
+                               const std::string& minimizer_options=std::string());
+
+    virtual ~FitStrategyAdjustMinimizer();
 
     virtual FitStrategyAdjustMinimizer *clone() const;
 
-    IMinimizer *getMinimizer() { return m_minimizer; }
-    void setMinimizer(IMinimizer *minimizer) { m_minimizer = minimizer; }
+    IMinimizer *getMinimizer();
+    void setMinimizer(IMinimizer *minimizer);
+
+    void setMinimizer(const std::string& minimizer_name,
+                      const std::string& algorithm_name = std::string(),
+                      const std::string& minimizer_options=std::string());
 
     virtual void execute();
+
+    virtual MinimizerOptions *getMinimizerOptions();
+
+protected:
+    virtual void print(std::ostream &ostr) const;
 
 private:
     IMinimizer *m_minimizer;

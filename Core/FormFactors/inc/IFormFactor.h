@@ -21,6 +21,7 @@
 #include "ISample.h"
 #include "Bin.h"
 #include "EigenCore.h"
+#include "WavevectorInfo.h"
 
 class ILayerRTCoefficients;
 
@@ -37,87 +38,61 @@ public:
     virtual IFormFactor *clone() const=0;
 
     //! @{ \internal
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this);}
+    virtual void accept(ISampleVisitor *visitor) const;
     //! @}
 
     //! Passes the refractive index of the ambient material in which this
     //! particle is embedded.
-    virtual void setAmbientMaterial(const IMaterial& material) {
-        (void)material;
-    }
+    virtual void setAmbientMaterial(const IMaterial&) {}
 
     //! Returns scattering amplitude for complex wavevector bin
     //! @param k_i   incoming wavevector
     //! @param k_f_bin   outgoing wavevector bin
-    //! @param alpha_f outgoing angle wrt scattering surface
-    virtual complex_t evaluate(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const=0;
+    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const=0;
 
 #ifndef GCCXML_SKIP_THIS
     //! Returns scattering amplitude for matrix interactions
     //! @param k_i   incoming wavevector
     //! @param k_f_bin   outgoing wavevector bin
-    //! @param alpha_f outgoing inclination angle wrt scattering surface
-    //! @param phi_f outgoing azimuthal angle wrt scattering surface
-    virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin,
-            const Bin1D &phi_f_bin) const;
+    virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif
-
-    //! Returns number of variable/stochastic parameters
-    virtual int getNumberOfStochasticParameters() const { return 0; }
 
     //! Returns the total volume of the particle of this form factor's shape
     virtual double getVolume() const;
 
-    //! Returns the total height of the particle of this form factor's shape
-    virtual double getHeight() const;
-
-    //! Returns the total radial size of the particle of this form factor's shape
-    virtual double getRadius() const;
+    //! Returns the (approximate in some cases) radial size of the particle of this
+    //! form factor's shape. This is used for SSCA calculations
+    virtual double getRadius() const=0;
 
     //! Sets reflection/transmission info
     virtual void setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
-                         const ILayerRTCoefficients *p_out_coeffs) {
-        (void)p_in_coeffs;
-        (void)p_out_coeffs;
-    }
-
-
+                         const ILayerRTCoefficients *p_out_coeffs);
 };
 
-#ifndef GCCXML_SKIP_THIS
-inline Eigen::Matrix2cd IFormFactor::evaluatePol(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin, const Bin1D &phi_f_bin) const
+inline void IFormFactor::accept(ISampleVisitor *visitor) const
 {
-    (void)k_i;
-    (void)k_f_bin;
-    (void)alpha_f_bin;
-    (void)phi_f_bin;
+    visitor->visit(this);
+}
+
+#ifndef GCCXML_SKIP_THIS
+inline Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const
+{
     // Throws to prevent unanticipated behaviour
-    throw NotImplementedException("IFormFactor::evaluatePol:"
-            " is not implemented by default");
+    throw NotImplementedException("IFormFactor::evaluatePol: is not implemented by default");
 }
 #endif
 
 inline double IFormFactor::getVolume() const
 {
-    cvector_t zero_vector;
-    Bin1DCVector zero_vector_bin(zero_vector, zero_vector);
-    Bin1D zero_bin;
-    return std::abs(evaluate(zero_vector, zero_vector_bin, zero_bin));
+    WavevectorInfo zero_wavevectors;
+    return std::abs(evaluate(zero_wavevectors));
 }
 
-inline double IFormFactor::getHeight() const
+inline void IFormFactor::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
+                                         const ILayerRTCoefficients *p_out_coeffs)
 {
-    return std::pow(getVolume(), 1.0/3.0);
-}
-
-inline double IFormFactor::getRadius() const
-{
-    return std::sqrt(getVolume()/getHeight()/Units::PI);
+    (void)p_in_coeffs;
+    (void)p_out_coeffs;
 }
 
 #endif // IFORMFACTOR_H
-
-

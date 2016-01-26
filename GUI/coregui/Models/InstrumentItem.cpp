@@ -20,15 +20,14 @@
 InstrumentItem::InstrumentItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::InstrumentType, parent)
 {
-    setItemName(Constants::InstrumentType);
+    registerProperty(P_NAME, Constants::InstrumentType);
     addToValidChildren(Constants::BeamType);
     addToValidChildren(Constants::DetectorType);
 }
 
-
 BeamItem *InstrumentItem::getBeamItem()
 {
-    foreach(ParameterizedItem *item, childItems()) {
+    for(ParameterizedItem *item : childItems()) {
         if(item->modelType() == Constants::BeamType) {
             return dynamic_cast<BeamItem *>(item);
         }
@@ -36,14 +35,12 @@ BeamItem *InstrumentItem::getBeamItem()
     return 0;
 }
 
-
 DetectorItem *InstrumentItem::getDetectorItem()
 {
-    foreach(ParameterizedItem *item, childItems()) {
+    for(ParameterizedItem *item : childItems()) {
         if(item->modelType() == Constants::DetectorType) {
             return dynamic_cast<DetectorItem *>(item);
         }
     }
     return 0;
 }
-

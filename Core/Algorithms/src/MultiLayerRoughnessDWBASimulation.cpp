@@ -62,9 +62,8 @@ void MultiLayerRoughnessDWBASimulation::runProtected()
 
 double MultiLayerRoughnessDWBASimulation::evaluate(const SimulationElement& sim_element)
 {
-    kvector_t k_i = sim_element.getKI();
-    kvector_t k_f = sim_element.getMeanKF();
-    kvector_t q = k_f - k_i;
+    kvector_t q = sim_element.getMeanQ();
+    double wavelength = sim_element.getWavelength();
     double autocorr(0.0);
     complex_t crosscorr(0.0, 0.0);
 
@@ -100,7 +99,7 @@ double MultiLayerRoughnessDWBASimulation::evaluate(const SimulationElement& sim_
     }
 
     //! @TODO clarify complex vs double
-    return (autocorr+crosscorr.real())*k_i.mag2()/16./Units::PI;
+    return (autocorr+crosscorr.real())*Units::PI/4./wavelength/wavelength;
 }
 
 complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(size_t ilayer) const

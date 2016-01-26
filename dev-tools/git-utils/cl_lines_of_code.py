@@ -79,6 +79,7 @@ def dirCore(x):
     if "/Core/src" in x: return True
     if "/Fit/Factory" in x: return True
     if "/Fit/FitKernel" in x: return True
+    if "/Fit/StandardFits" in x: return True
     if "/Core/Geometry" in x: return True
     return False
 
@@ -97,6 +98,7 @@ def dirFuncTest(x):
 
 def dirGUI(x):
     if "/GUI/coregui" in x  and not "widgetbox" in x and not "qttools" in x: return True
+    if "/GUI/main" in x: return True
     if "/AppGUI/coregui" in x: return True
     if "/BASuite" in x: return True
     return False
@@ -112,6 +114,7 @@ def dirSkip(x):
 def dirUnitTests(x):
     if "/UnitTests/" in x: return True
     if "/Tests/UnitTests/TestCore/" in x: return True
+    if "/Tests/UnitTests/TestFit/" in x: return True
     return False
 
 

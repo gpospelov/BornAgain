@@ -41,7 +41,8 @@ def run_simulation_lattice():
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    detector = IsGISAXSDetector(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     simulation.setSample(multi_layer)
@@ -66,7 +67,7 @@ def run_simulation_centered():
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
     position1 = kvector_t(0.0, 0.0, 0.0)
-    position2 = kvector_t(5.0*nanometer, 5.0*nanometer, 0.0)
+    position2 = kvector_t(5.0*nanometer, -5.0*nanometer, 0.0)
     basis = ParticleComposition()
     basis.addParticles(cylinder, [position1, position2])
 
@@ -84,7 +85,8 @@ def run_simulation_centered():
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    detector = IsGISAXSDetector(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     simulation.setSample(multi_layer)
@@ -120,7 +122,8 @@ def run_simulation_rotated():
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    detector = IsGISAXSDetector(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     simulation.setSample(multi_layer)
@@ -135,7 +138,8 @@ def run_simulation_variants():
 
     # building simulation
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    detector = IsGISAXSDetector(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     # running simulation and copying data
@@ -155,9 +159,9 @@ def run_simulation_variants():
         simulation.runSimulation()
 
         single_output = simulation.getIntensityData()
-        single_output.scaleAll(probability)
+        single_output.scale(probability)
         outputdata_total += single_output
-    outputdata_total.scaleAll(1.0/total_weight)
+    outputdata_total.scale(1.0/total_weight)
     return outputdata_total
 
 

@@ -29,7 +29,7 @@ def RunSimulation1():
     pdf2 = FTDistribution2DCauchy(0.5*nanometer, 2.0*nanometer)
     interference.setProbabilityDistributions(pdf1, pdf2)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
     particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
@@ -42,7 +42,8 @@ def RunSimulation1():
     
     # build and run experiment
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    detector = IsGISAXSDetector(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
@@ -68,7 +69,7 @@ def RunSimulation2():
     pdf2 = FTDistribution2DCauchy(0.5*nanometer, 0.5*nanometer)
     interference.setProbabilityDistributions(pdf1, pdf2)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
     particle_layout.addInterferenceFunction(interference)
     
     air_layer = Layer(mAmbience)
@@ -81,7 +82,8 @@ def RunSimulation2():
     
     # build and run experiment
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    detector = IsGISAXSDetector(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()

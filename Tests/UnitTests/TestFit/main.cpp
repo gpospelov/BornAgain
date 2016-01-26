@@ -6,6 +6,7 @@
 #include "FitParameterTest.h"
 #include "FitParameterLinkedTest.h"
 #include "MinimizerOptionsTest.h"
+#include "FitObjectTest.h"
 
 
 struct ErrorStreamRedirect {

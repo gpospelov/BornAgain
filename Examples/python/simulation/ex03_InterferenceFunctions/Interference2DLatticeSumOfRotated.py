@@ -1,7 +1,7 @@
 # 2D lattice with different disorder (IsGISAXS example #6), sum of rotated lattices
 import numpy
 import matplotlib
-import pylab
+from matplotlib import pyplot as plt
 from bornagain import *
 
 phi_min, phi_max = 0.0, 2.0
@@ -29,7 +29,7 @@ def get_sample(xi_value):
     position = kvector_t(0.0, 0.0, 0.0)
     cylinder = Particle(m_particle, ff_cyl.clone())
     cylinder.setPosition(position)
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
     particle_layout.addInterferenceFunction(p_interference_function)
 
     air_layer.addLayout(particle_layout)
@@ -61,7 +61,6 @@ def run_simulation():
     nbins = 3
     xi_min = 0.0*degree
     xi_max = 240.0*degree
-    # xi= StochasticSampledParameter(StochasticDoubleGate(xi_min, xi_max), nbins, xi_min, xi_max)
     total_weight = 0.0
     xi_distr = DistributionGate(xi_min, xi_max)
     xi_samples = xi_distr.generateValueList(nbins, 0.0)
@@ -74,13 +73,22 @@ def run_simulation():
         simulation.runSimulation()
 
         single_output = simulation.getIntensityData()
-        single_output.scaleAll(probability)
+        single_output.scale(probability)
         OutputData_total += single_output
-    OutputData_total.scaleAll(1.0/total_weight)
+    OutputData_total.scale(1.0/total_weight)
 
-    result = OutputData_total.getArray() + 1  # for log scale
-    pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(), extent=[0.0, 2.0, 0, 2.0])
-    pylab.show()
+    result = OutputData_total
+
+    # showing the result
+    im = plt.imshow(result.getArray(),
+                    norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+                    extent=[result.getXmin()/deg, result.getXmax()/deg, result.getYmin()/deg, result.getYmax()/deg],
+                    aspect='auto')
+    cb = plt.colorbar(im)
+    cb.set_label(r'Intensity (arb. u.)', size=16)
+    plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
+    plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
+    plt.show()
 
 
 if __name__ == '__main__':

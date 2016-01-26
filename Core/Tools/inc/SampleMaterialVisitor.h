@@ -55,8 +55,6 @@ public:
     void visit(const MesoCrystal *sample);
     void visit(const ParticleCoreShell *sample);
 
-    void visit(const ParticleInfo *sample);
-
     void visit(const IFormFactor *sample);
 
     void visit(const FormFactorDWBAPol *sample);
@@ -77,9 +75,6 @@ public:
     void visit(const FormFactorFullSpheroid *sample);
     void visit(const FormFactorGauss *sample);
     void visit(const FormFactorHemiEllipsoid *sample);
-    void visit(const FormFactorInfLongBox *sample);
-    void visit(const FormFactorInfLongRipple1 *sample);
-    void visit(const FormFactorInfLongRipple2 *sample);
     void visit(const FormFactorLorentz *sample);
     void visit(const FormFactorPrism3 *sample);
     void visit(const FormFactorPrism6 *sample);
@@ -93,7 +88,6 @@ public:
     void visit(const FormFactorTruncatedCube *sample);
     void visit(const FormFactorTruncatedSphere *sample);
     void visit(const FormFactorTruncatedSpheroid *sample);
-    void visit(const IFormFactorBornSeparable *sample);
 
     void visit(const IFormFactorDecorator *sample);
 

@@ -31,44 +31,90 @@ public:
 
     ComboProperty(const QStringList &values = QStringList(),
                   const QString &current_value = QString("Undefined"));
-    virtual ~ComboProperty(){}
-    QString getValue() const { return m_current_value; }
+    virtual ~ComboProperty() {}
+    QString getValue() const;
 
     void setValue(const QString &name);
-    bool operator!=(const ComboProperty &other) {
-        return (getValue() != other.getValue());
-    }
-    bool isDefined() { return m_current_value != QStringLiteral("Undefined"); }
+    bool operator!=(const ComboProperty &other);
+    bool isDefined();
 
-    QStringList getValues() const { return m_values;}
+    QStringList getValues() const;
 
     int index() const;
     int toIndex(const QString &value) const;
     QString toString(int index) const;
 
-    inline ComboProperty &operator<<(const QString &str)
-    {
-        m_values.append(str);
-        if(m_values.size()) m_current_value=m_values.at(0);
-        return *this;
-    }
+    inline ComboProperty &operator<<(const QString &str);
 
-    QVariant getVariant() const {
-        QVariant result;
-        result.setValue(*this);
-        return result;
-    }
+    QVariant getVariant() const;
 
-    int getIndex() const { return toIndex(m_current_value); }
+    int getIndex() const;
 
-    QString getCachedValue() const { return m_cached_value; }
+    QString getCachedValue() const;
     void setCachedValue(const QString &name);
+
+    bool cacheContainsGUIValue() const;
+    void setCacheContainsGUIFlag(bool flag=true);
 
 private:
     QStringList m_values;
     QString m_current_value;
     QString m_cached_value;  // for comboboxes with dynamically generated value lists
+    bool m_cache_contains_GUI_value;
 };
+
+inline QString ComboProperty::getValue() const
+{
+    return m_current_value;
+}
+
+inline bool ComboProperty::operator!=(const ComboProperty &other)
+{
+    return (getValue() != other.getValue());
+}
+
+inline bool ComboProperty::isDefined()
+{
+    return m_current_value != QStringLiteral("Undefined");
+}
+
+inline QStringList ComboProperty::getValues() const
+{
+    return m_values;
+}
+
+inline ComboProperty &ComboProperty::operator<<(const QString &str)
+{
+    m_values.append(str);
+    if(m_values.size()) m_current_value=m_values.at(0);
+    return *this;
+}
+
+inline QVariant ComboProperty::getVariant() const {
+    QVariant result;
+    result.setValue(*this);
+    return result;
+}
+
+inline int ComboProperty::getIndex() const
+{
+    return toIndex(m_current_value);
+}
+
+inline QString ComboProperty::getCachedValue() const
+{
+    return m_cached_value;
+}
+
+inline bool ComboProperty::cacheContainsGUIValue() const
+{
+    return m_cache_contains_GUI_value;
+}
+
+inline void ComboProperty::setCacheContainsGUIFlag(bool flag)
+{
+    m_cache_contains_GUI_value = flag;
+}
 
 Q_DECLARE_METATYPE(ComboProperty)
 

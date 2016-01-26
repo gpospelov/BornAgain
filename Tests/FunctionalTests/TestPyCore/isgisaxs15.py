@@ -28,9 +28,9 @@ def RunSimulation():
     particle_prototype = Particle(mParticle, cylinder_ff)
     radius_distr = DistributionGaussian(5.0*nanometer, 1.25*nanometer)
 
-    par_distr = ParameterDistribution("*/radius", radius_distr, 30, 3.0)
+    par_distr = ParameterDistribution("*/Radius", radius_distr, 30, 3.0)
     # link height linearly with distribution of radius:
-    par_distr.linkParameter("*/height")
+    par_distr.linkParameter("*/Height")
     part_coll = ParticleDistribution(particle_prototype, par_distr)
     particle_layout.addParticle(part_coll)
 
@@ -44,7 +44,8 @@ def RunSimulation():
 
     # build and run experiment
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(150, 0.05 * degree, 1.5 * degree, 150, 0.05 * degree, 1.5 * degree, True)
+    detector = IsGISAXSDetector(150, 0.05*degree, 1.5*degree, 150, 0.05*degree, 1.5*degree)
+    simulation.setDetector(detector)
     simulation.setBeamParameters(1.0 * angstrom, 0.2 * degree, 0.0 * degree)
 
     simulation.setSample(multi_layer)

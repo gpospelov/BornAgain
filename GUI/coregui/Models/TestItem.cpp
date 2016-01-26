@@ -26,7 +26,6 @@ const QString TestItem::P_VECTOR = "Vector";
 TestItem::TestItem(ParameterizedItem *parent)
     : ParameterizedItem(QString("TestItem"), parent)
 {
-    setItemName(QString("TestItem"));
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
     registerProperty(P_VALUE, 99.0);
     ComboProperty types;

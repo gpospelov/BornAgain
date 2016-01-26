@@ -1,9 +1,9 @@
 """
-Infinitely long boxes at 1D lattice, OffSpecular simulation
+Long boxes at 1D lattice, OffSpecular simulation
 """
 import numpy
 import matplotlib
-import pylab
+from matplotlib import pyplot as plt
 from bornagain import *
 
 phi_f_min, phi_f_max = -1.0, 1.0
@@ -28,11 +28,11 @@ def get_sample():
     pdf = FTDistribution1DCauchy(1e+6)
     interference.setProbabilityDistribution(pdf)
 
-    infbox_ff = FormFactorInfLongBox(20*nanometer, 10.0*nanometer)
-    infbox = Particle(m_particle, infbox_ff)
+    box_ff = FormFactorBox(1000*nanometer, 20*nanometer, 10.0*nanometer)
+    box = Particle(m_particle, box_ff)
     transform = RotationZ(90.0*degree)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(infbox, transform)
+    particle_layout.addParticle(box, 1.0, kvector_t(0.0, 0.0, 0.0), transform)
     particle_layout.addInterferenceFunction(interference)
 
     # assembling the sample
@@ -67,16 +67,18 @@ def run_simulation():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    result = simulation.getIntensityData().getArray() + 1  # for log scale
+    result = simulation.getIntensityData()
 
     # showing the result
-    im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
-                      extent=[alpha_i_min, alpha_i_max, alpha_f_min, alpha_f_max], aspect='auto')
-    cb = pylab.colorbar(im)
-    cb.set_label(r'Intensity (arb. u.)', fontsize=16)
-    pylab.xlabel(r'$\alpha_i (^{\circ})$', fontsize=16)
-    pylab.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
-    pylab.show()
+    im = plt.imshow(result.getArray(),
+                    norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+                    extent=[result.getXmin()/deg, result.getXmax()/deg, result.getYmin()/deg, result.getYmax()/deg],
+                    aspect='auto')
+    cb = plt.colorbar(im)
+    cb.set_label(r'Intensity (arb. u.)', size=16)
+    plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
+    plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
+    plt.show()
 
 
 if __name__ == '__main__':

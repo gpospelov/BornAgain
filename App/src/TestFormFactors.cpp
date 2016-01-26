@@ -25,6 +25,7 @@
 #include "FormFactors.h"
 #include "InterferenceFunctionNone.h"
 #include "FileSystem.h"
+#include "IsGISAXSDetector.h"
 
 TestFormFactors::TestFormFactors()
 : IApplicationTest("TestFormFactors")
@@ -144,16 +145,15 @@ void TestFormFactors::run_isgisaxs_simulation(IFormFactor *p_form_factor)
 
     // building simulation
     GISASSimulation simulation(mp_options);
-    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                                     100, 0.0*Units::degree, 2.0*Units::degree,
-                                     true);
-    simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-               0.0*Units::degree);
+    IsGISAXSDetector detector;
+    detector.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+                                     100, 0.0*Units::degree, 2.0*Units::degree);
+    simulation.setDetector(detector);
 
     simulation.setSample(multi_layer);
     simulation.runSimulation();
     std::cout << mp_form_factor->getName().substr(10) <<std::endl;
-    IntensityDataIOFactory::writeIntensityData(*simulation.getOutputData(),
+    IntensityDataIOFactory::writeOutputData(*simulation.getOutputData(),
                        "this_"+mp_form_factor->getName().substr(10)+"_BA.ima");
 }
 
@@ -222,9 +222,9 @@ void TestFormFactors::finalise()
     const double threshold(2e-10);
 
     for(size_t i=0; i<tocompare.size(); ++i) {
-        OutputData<double> *isgi_data = IntensityDataIOFactory::readIntensityData(
+        OutputData<double> *isgi_data = IntensityDataIOFactory::readOutputData(
                 tocompare[i].isginame);
-        OutputData<double> *our_data = IntensityDataIOFactory::readIntensityData(
+        OutputData<double> *our_data = IntensityDataIOFactory::readOutputData(
                 tocompare[i].thisname);
 
         IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data,

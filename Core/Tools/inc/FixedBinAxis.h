@@ -46,6 +46,8 @@ public:
 
     double getMax() const;
 
+    double getBinCenter(size_t index) const;
+
     size_t findClosestIndex(double value) const;
 
     std::vector<double > getBinCenters() const;

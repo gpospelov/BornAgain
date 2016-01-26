@@ -88,6 +88,10 @@ double ModelTuningDelegate::SliderData::slider_to_value(int slider)
 ModelTuningDelegate::ModelTuningDelegate(QObject *parent)
     : QItemDelegate(parent)
     , m_valueColumn(1)
+    , m_slider(0)
+    , m_valueBox(0)
+    , m_contentWidget(0)
+    , m_contentLayout(0)
 {
 
 }
@@ -125,7 +129,7 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
                                            const QModelIndex &index) const
 {
     if (index.column() == m_valueColumn) {
-        if(index.parent().isValid() == false) return NULL;
+        if(index.parent().isValid() == false) return nullptr;
 
         double value = index.model()->data(index, Qt::EditRole).toDouble();
 
@@ -145,7 +149,7 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
         if(limits.hasLowerLimit()) {
             m_valueBox->setMinimum(limits.getLowerLimit());
         } else {
-            m_valueBox->setMinimum(minimum_doublespin_value);
+            m_valueBox->setMinimum(-maximum_doublespin_value);
         }
 
         if(limits.hasUpperLimit()) {
@@ -238,7 +242,7 @@ void ModelTuningDelegate::setModelData(QWidget *editor,
         model->setData(index, m_valueBox->value());
         ItemLink link = model->data(index, Qt::UserRole).value<ItemLink>();
 
-        if(link.getItem() != NULL)
+        if(link.getItem() != nullptr)
         {
             qDebug() << "SampleTuningDelegate::setModelData() -> setting property " << link.getPropertyName();
             //link.getItem()->setRegisteredProperty(link.getPropertyName(), m_valueBox->value());

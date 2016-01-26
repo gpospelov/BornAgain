@@ -21,11 +21,11 @@ def RunSimulation():
     mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    ripple2_ff = FormFactorRipple2(100 * nanometer, 20 * nanometer, 4 * nanometer, 3 * nanometer)
+    ripple2_ff = FormFactorRipple2(100 * nanometer, 20 * nanometer, 4 * nanometer, -3 * nanometer)
     ripple = Particle(mParticle, ripple2_ff)
 
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(ripple, 0.0, 1.0)
+    particle_layout.addParticle(ripple, 1.0)
 
     interference = InterferenceFunctionRadialParaCrystal(20 * nanometer, 1e7 * nanometer)
     pdf = FTDistribution1DGauss(4 * nanometer)

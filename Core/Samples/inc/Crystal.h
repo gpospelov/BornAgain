@@ -30,53 +30,38 @@ class BA_CORE_API_ Crystal : public IClusteredParticles
 {
 public:
     Crystal(const ParticleComposition& lattice_basis, const Lattice& lattice);
-    ~Crystal();
+    virtual ~Crystal();
 
-    Crystal *clone() const;
+    virtual Crystal *clone() const;
 
     //! Returns a clone with inverted magnetic fields
-    Crystal *cloneInvertB() const;
+    virtual Crystal *cloneInvertB() const;
 
-    //! Calls the ISampleVisitor's visit method
-    void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    void setAmbientMaterial(const IMaterial& material) {
+    virtual void setAmbientMaterial(const IMaterial& material) {
         mp_lattice_basis->setAmbientMaterial(material);
     }
 
-    const IMaterial* getAmbientMaterial() const {
+    virtual const IMaterial* getAmbientMaterial() const {
         return mp_lattice_basis->getAmbientMaterial();
     }
 
-    IFormFactor *createTotalFormFactor(
-        const IFormFactor& meso_crystal_form_factor,
-        const IMaterial &p_ambient_material,
-        complex_t wavevector_scattering_factor) const;
+    virtual IFormFactor *createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
+                                       complex_t wavevector_scattering_factor,
+                                       const IRotation *p_rotation, kvector_t translation) const;
 
-    Lattice getTransformedLattice() const;
+    Lattice getTransformedLattice(const IRotation *p_rotation) const;
 
     const ParticleComposition *getLatticeBasis() const { return mp_lattice_basis; }
 
     void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
 
-    //! Composes transformation with existing one
-    void applyRotation(const IRotation& rotation);
-
-    //! Gets transformation
-    const IRotation* getRotation() const {
-        return mP_rotation.get();
-    }
-
-
 private:
     //! Private constructor
     Crystal(ParticleComposition *p_lattice_basis, const Lattice& lattice);
 
-    //! Propagates a transformation to child particles
-    void applyTransformationToSubParticles(const IRotation& rotation);
-
     Lattice m_lattice;
-    boost::scoped_ptr<IRotation> mP_rotation;
     ParticleComposition *mp_lattice_basis;
     double m_dw_factor;
 };

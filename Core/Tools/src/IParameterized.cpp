@@ -16,10 +16,9 @@
 
 #include "IParameterized.h"
 
-#include <boost/scoped_ptr.hpp>
-
 #include "Utils.h"
 #include <iostream>
+#include <memory>
 
 IParameterized& IParameterized::operator=(const IParameterized& other)
 {
@@ -31,15 +30,13 @@ IParameterized& IParameterized::operator=(const IParameterized& other)
     return *this;
 }
 
-
 ParameterPool *IParameterized::createParameterTree() const
 {
-    ParameterPool *newpool = new ParameterPool;
+    std::unique_ptr<ParameterPool> P_new_pool { new ParameterPool };
     std::string path("/");
-    addParametersToExternalPool(path, newpool);
-    return newpool;
+    addParametersToExternalPool(path, P_new_pool.get());
+    return P_new_pool.release();
 }
-
 
 std::string IParameterized::addParametersToExternalPool(
     std::string path, ParameterPool *external_pool, int copy_number) const
@@ -58,13 +55,12 @@ std::string IParameterized::addParametersToExternalPool(
     return path;
 }
 
-
 bool IParameterized::setParameterValue(const std::string &name, double value)
 {
     if(name.find('*') == std::string::npos && name.find('/') == std::string::npos) {
         return m_parameters.setParameterValue(name, value);
     }
-    boost::scoped_ptr<ParameterPool> P_pool(createParameterTree());
+    std::unique_ptr<ParameterPool> P_pool { createParameterTree() };
     if(name.find('*') != std::string::npos) {
         return P_pool->setMatchedParametersValue(name, value);
     } else {
@@ -72,14 +68,11 @@ bool IParameterized::setParameterValue(const std::string &name, double value)
     }
 }
 
-
 void IParameterized::printParameters() const
 {
-    ParameterPool *p_pool = createParameterTree();
-    std::cout << *p_pool << std::endl;
-    delete p_pool;
+    std::unique_ptr<ParameterPool> P_pool { createParameterTree() };
+    std::cout << *P_pool << std::endl;
 }
-
 
 void IParameterized::init_parameters()
 {
@@ -92,5 +85,29 @@ void IParameterized::print(std::ostream& ostr) const
     ostr << "IParameterized:" << getName() << " " << m_parameters;
 }
 
+ParameterPattern::ParameterPattern()
+    : m_pattern { }
+{
+}
 
+ParameterPattern::ParameterPattern(std::string root_object)
+    : m_pattern { "/" + root_object }
+{
+}
 
+ParameterPattern &ParameterPattern::beginsWith(std::string start_type)
+{
+    m_pattern = start_type;
+    return *this;
+}
+
+ParameterPattern &ParameterPattern::add(std::string object_type)
+{
+    m_pattern = m_pattern + "/" + object_type;
+    return *this;
+}
+
+std::string ParameterPattern::toStdString() const
+{
+    return m_pattern;
+}

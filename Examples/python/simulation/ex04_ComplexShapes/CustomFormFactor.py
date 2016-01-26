@@ -3,9 +3,9 @@ Custom form factor in DWBA.
 """
 import numpy
 import matplotlib
-import pylab
-import cmath
+from matplotlib import pyplot as plt
 from bornagain import *
+import cmath
 
 phi_min, phi_max = -1.0, 1.0
 alpha_min, alpha_max = 0.0, 2.0
@@ -61,7 +61,7 @@ def get_sample():
     ff = CustomFormFactor(20.0*nanometer, 15.0*nanometer)
     particle = Particle(m_particle, ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(particle, 0.0, 1.0)
+    particle_layout.addParticle(particle, 1.0)
     air_layer = Layer(m_ambience)
     air_layer.addLayout(particle_layout)
     substrate_layer = Layer(m_substrate)
@@ -96,16 +96,18 @@ def run_simulation():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    result = simulation.getIntensityData().getArray()
+    result = simulation.getIntensityData()
 
     # showing the result
-    im = pylab.imshow(numpy.rot90(result + 1, 1), norm=matplotlib.colors.LogNorm(),
-                 extent=[phi_min, phi_max, alpha_min, alpha_max], aspect='auto')
-    cb = pylab.colorbar(im)
-    cb.set_label(r'Intensity (arb. u.)', fontsize=16)
-    pylab.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
-    pylab.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
-    pylab.show()
+    im = plt.imshow(result.getArray(),
+                    norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+                    extent=[result.getXmin()/deg, result.getXmax()/deg, result.getYmin()/deg, result.getYmax()/deg],
+                    aspect='auto')
+    cb = plt.colorbar(im)
+    cb.set_label(r'Intensity (arb. u.)', size=16)
+    plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
+    plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
+    plt.show()
 
 
 if __name__ == '__main__':

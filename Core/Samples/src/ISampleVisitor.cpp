@@ -16,21 +16,30 @@
 #include "ISampleVisitor.h"
 #include "ISample.h"
 #include "ICompositeSample.h"
-#include "ICompositeIterator.h"
+#include "SampleTreeIterator.h"
+#include "ISampleIteratorStrategy.h"
 
-void VisitSampleTree(const ISample &sample, ISampleVisitor &visitor)
+void VisitSampleTreePreorder(const ISample &sample, ISampleVisitor &visitor)
 {
-    sample.accept(&visitor);
-    const ICompositeSample *composite = sample.getCompositeSample();
-    if (composite) {
-        ICompositeIterator it = composite->createIterator();
-        it.first();
-        while (!it.is_done()) {
-            visitor.setLevel(it.get_level());
-            ISample *child = it.get_current();
-            child->accept(&visitor);
-            it.next();
-        }
+    SampleTreeIterator<SampleIteratorPreorderStrategy> it(&sample);
+    it.first();
+    while (!it.isDone()) {
+        visitor.setLevel(it.getLevel());
+        const ISample *child = it.getCurrent();
+        child->accept(&visitor);
+        it.next();
+    }
+}
+
+void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor)
+{
+    SampleTreeIterator<SampleIteratorPostorderStrategy> it(&sample);
+    it.first();
+    while (!it.isDone()) {
+        visitor.setLevel(it.getLevel());
+        const ISample *child = it.getCurrent();
+        child->accept(&visitor);
+        it.next();
     }
 }
 
@@ -85,7 +94,13 @@ void ISampleVisitor::visit(const LayerInterface *)
 void ISampleVisitor::visit(const MultiLayer *)
 {
     throw NotImplementedException(
-        "ISampleVisitor::visit(const MultiLayer *) -> Error. Not implemented.");
+                "ISampleVisitor::visit(const MultiLayer *) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const IAbstractParticle *)
+{
+    throw NotImplementedException(
+        "ISampleVisitor::visit(const IAbstractParticle *) -> Error. Not implemented.");
 }
 
 void ISampleVisitor::visit(const IParticle *)
@@ -122,12 +137,6 @@ void ISampleVisitor::visit(const ParticleCoreShell *)
 {
     throw NotImplementedException(
         "ISampleVisitor::visit(const ParticleCoreShell *) -> Error. Not implemented.");
-}
-
-void ISampleVisitor::visit(const ParticleInfo *)
-{
-    throw NotImplementedException(
-        "ISampleVisitor::visit(const ParticleInfo *) -> Error. Not implemented.");
 }
 
 void ISampleVisitor::visit(const IFormFactor *)
@@ -226,24 +235,6 @@ void ISampleVisitor::visit(const FormFactorHemiEllipsoid *)
         "ISampleVisitor::visit const FormFactorHemiEllipsoid *) -> Error. Not implemented.");
 }
 
-void ISampleVisitor::visit(const FormFactorInfLongBox *)
-{
-    throw NotImplementedException(
-        "ISampleVisitor::visit(const FormFactorInfLongBox *) -> Error. Not implemented.");
-}
-
-void ISampleVisitor::visit(const FormFactorInfLongRipple1 *)
-{
-    throw NotImplementedException(
-        "ISampleVisitor::visit(const FormFactorInfLongRipple1 *) -> Error. Not implemented.");
-}
-
-void ISampleVisitor::visit(const FormFactorInfLongRipple2 *)
-{
-    throw NotImplementedException(
-        "ISampleVisitor::visit(const FormFactorInfLongRipple2 *) -> Error. Not implemented.");
-}
-
 void ISampleVisitor::visit(const FormFactorLorentz *)
 {
     throw NotImplementedException(
@@ -326,12 +317,6 @@ void ISampleVisitor::visit(const FormFactorTruncatedSpheroid *)
 {
     throw NotImplementedException(
         "ISampleVisitor::visit(const FormFactorTruncatedSpheroid *) -> Error. Not implemented.");
-}
-
-void ISampleVisitor::visit(const IFormFactorBornSeparable *)
-{
-    throw NotImplementedException(
-        "ISampleVisitor::visit(const IFormFactorBornSeparable *) -> Error. Not implemented.");
 }
 
 void ISampleVisitor::visit(const IFormFactorDecorator *)
@@ -476,3 +461,4 @@ bool ISampleVisitor::visitLeave(const ICompositeSample *)
     m_level--;
     return false;
 }
+

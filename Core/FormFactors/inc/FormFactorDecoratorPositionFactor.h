@@ -16,8 +16,9 @@
 #ifndef FORMFACTORDECORATORPOSITIONFACTOR_H_
 #define FORMFACTORDECORATORPOSITIONFACTOR_H_
 
-#include "Types.h"
 #include "IFormFactorDecorator.h"
+#include "BornAgainNamespace.h"
+#include "Types.h"
 
 //! @class FormFactorDecoratorPositionFactor
 //! @ingroup formfactors_internal
@@ -26,71 +27,63 @@
 class BA_CORE_API_ FormFactorDecoratorPositionFactor : public IFormFactorDecorator
 {
 public:
-    FormFactorDecoratorPositionFactor(const IFormFactor& form_factor,
-            kvector_t position);
+    FormFactorDecoratorPositionFactor(const IFormFactor &form_factor, kvector_t position);
     virtual ~FormFactorDecoratorPositionFactor() {}
-    virtual FormFactorDecoratorPositionFactor *clone() const;
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
-    virtual complex_t evaluate(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const;
+    virtual FormFactorDecoratorPositionFactor *clone() const;
+    virtual void accept(ISampleVisitor *visitor) const;
+
+    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
 #ifndef GCCXML_SKIP_THIS
-    virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin,
-            const Bin1D &phi_f_bin) const;
+    virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif
 
-    virtual int getNumberOfStochasticParameters() const {
-        return mp_form_factor->getNumberOfStochasticParameters();
-    }
 protected:
     kvector_t m_position;
+
 private:
     complex_t getPositionFactor(const cvector_t &q) const;
 };
 
 inline FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
-        const IFormFactor& form_factor, kvector_t position)
-: IFormFactorDecorator(form_factor.clone())
-, m_position(position)
+    const IFormFactor &form_factor, kvector_t position)
+    : IFormFactorDecorator(form_factor), m_position(position)
 {
-    setName("FormFactorDecoratorPositionFactor");
+    setName(BornAgain::FormFactorDecoratorPositionFactorType);
 }
 
-inline FormFactorDecoratorPositionFactor*
-FormFactorDecoratorPositionFactor::clone() const
+inline FormFactorDecoratorPositionFactor *FormFactorDecoratorPositionFactor::clone() const
 {
     return new FormFactorDecoratorPositionFactor(*mp_form_factor, m_position);
 }
 
-inline complex_t FormFactorDecoratorPositionFactor::evaluate(
-        const cvector_t& k_i, const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const
+inline void FormFactorDecoratorPositionFactor::accept(ISampleVisitor *visitor) const
 {
-    cvector_t q = k_i - k_f_bin.getMidPoint();
+    visitor->visit(this);
+}
+
+inline complex_t FormFactorDecoratorPositionFactor::evaluate(
+        const WavevectorInfo& wavevectors) const
+{
+    cvector_t q = wavevectors.getQ();
     complex_t pos_factor = getPositionFactor(q);
-    return pos_factor*mp_form_factor->evaluate(k_i, k_f_bin, alpha_f_bin);
+    return pos_factor * mp_form_factor->evaluate(wavevectors);
 }
 
 inline Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(
-        const cvector_t& k_i, const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin,
-        const Bin1D &phi_f_bin) const
+        const WavevectorInfo& wavevectors) const
 {
-    cvector_t q = k_i - k_f_bin.getMidPoint();
+    cvector_t q = wavevectors.getQ();
     complex_t pos_factor = getPositionFactor(q);
-    return pos_factor*mp_form_factor->evaluatePol(k_i, k_f_bin, alpha_f_bin,
-            phi_f_bin);
+    return pos_factor * mp_form_factor->evaluatePol(wavevectors);
 }
 
-inline complex_t FormFactorDecoratorPositionFactor::getPositionFactor(
-        const cvector_t &q) const
+inline complex_t FormFactorDecoratorPositionFactor::getPositionFactor(const cvector_t &q) const
 {
-    complex_t qr = q.x()*m_position.x() + q.y()*m_position.y()
-            + q.z()*m_position.z();
-    complex_t pos_factor = std::exp(complex_t(0.0, 1.0)*qr);
+    complex_t qr = q.x() * m_position.x() + q.y() * m_position.y() + q.z() * m_position.z();
+    complex_t pos_factor = std::exp(complex_t(0.0, 1.0) * qr);
     return pos_factor;
 }
 
 #endif /* FORMFACTORDECORATORPOSITIONFACTOR_H_ */
-
-

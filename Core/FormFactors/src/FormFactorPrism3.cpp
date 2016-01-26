@@ -14,12 +14,14 @@
 // ************************************************************************** //
 
 #include "FormFactorPrism3.h"
-
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
+
+using namespace  BornAgain;
 
 FormFactorPrism3::FormFactorPrism3(double length, double height)
 {
-    setName("FormFactorPrism3");
+    setName(FFPrism3Type);
     m_length = length;
     m_height = height;
     m_root3 = std::sqrt(3.0);
@@ -35,15 +37,23 @@ bool FormFactorPrism3::check_initialization() const
 void FormFactorPrism3::init_parameters()
 {
     clearParameterPool();
-    registerParameter("length", &m_length, AttLimits::n_positive());
-    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter(Length, &m_length, AttLimits::n_positive());
+    registerParameter(Height, &m_height, AttLimits::n_positive());
 }
 
 FormFactorPrism3* FormFactorPrism3::clone() const
 {
-    FormFactorPrism3 *result = new FormFactorPrism3(m_length, m_height);
-    result->setName(getName());
-    return result;
+    return new FormFactorPrism3(m_length, m_height);
+}
+
+void FormFactorPrism3::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+double FormFactorPrism3::getRadius() const
+{
+    return m_length/2.0;
 }
 
 complex_t FormFactorPrism3::evaluate_for_q(const cvector_t& q) const
@@ -77,7 +87,6 @@ complex_t FormFactorPrism3::evaluate_for_q(const cvector_t& q) const
                 (q.x()*q.x()-3.0*q.y()*q.y());
         }
     }
-
     return xy_part*z_part;
 }
 

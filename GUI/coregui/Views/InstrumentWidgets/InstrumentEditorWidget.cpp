@@ -34,7 +34,6 @@
 class AdjustingScrollArea : public QScrollArea {
     bool eventFilter(QObject * obj, QEvent * ev) {
         if (obj == widget() && ev->type() != QEvent::Resize) {
-//            setMaximumWidth(width() - viewport()->width() + widget()->width());
             widget()->setMaximumWidth(viewport()->width());
             setMaximumHeight(height() - viewport()->height() + widget()->height());
         }
@@ -57,7 +56,6 @@ public:
         w->installEventFilter(this);
     }
 };
-
 
 InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     : QWidget(parent)
@@ -111,27 +109,48 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     mainLayout->addWidget(instrumentGroup);
     setLayout(mainLayout);
 
-    connect(m_nameLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onChangedEditor(const QString &)));
+    connect(m_nameLineEdit,
+            SIGNAL(textChanged(const QString &)),
+            this,
+            SLOT(onChangedEditor(const QString &))
+            );
+
+    connect(m_instrumentComponents,
+            SIGNAL(extendedDetectorEditorRequest(DetectorItem *)),
+            this,
+            SIGNAL(extendedDetectorEditorRequest(DetectorItem *))
+            );
 }
 
 void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
 {
     Q_ASSERT(instrument);
-
     if(instrument != m_currentItem) {
         if(m_currentItem) {
-            disconnect(m_currentItem, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChanged(QString)));
-            disconnect(m_currentItem, SIGNAL(subItemChanged(QString)), this, SLOT(onPropertyChanged(QString)));
+            disconnect(m_currentItem,
+                       SIGNAL(propertyChanged(QString)),
+                       this,
+                       SLOT(onPropertyChanged(QString))
+                       );
+            disconnect(m_currentItem,
+                       SIGNAL(subItemChanged(QString)),
+                       this,
+                       SLOT(onPropertyChanged(QString))
+                       );
         }
-
         m_currentItem = instrument;
-
-        connect(m_currentItem, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChanged(QString)));
-        connect(m_currentItem, SIGNAL(subItemChanged(QString)), this, SLOT(onPropertyChanged(QString)));
-
+        connect(m_currentItem,
+                   SIGNAL(propertyChanged(QString)),
+                   this,
+                   SLOT(onPropertyChanged(QString))
+                   );
+        connect(m_currentItem,
+                   SIGNAL(subItemChanged(QString)),
+                   this,
+                   SLOT(onPropertyChanged(QString))
+                   );
         updateWidgets();
     }
-
     InstrumentItem *instrumentItem = dynamic_cast<InstrumentItem *>(instrument);
 
     m_instrumentComponents->setBeamItem(instrumentItem->getBeamItem());
@@ -147,13 +166,10 @@ void InstrumentEditorWidget::onChangedEditor(const QString &)
     m_currentItem->setItemName(m_nameLineEdit->text());
 }
 
-
 void InstrumentEditorWidget::onPropertyChanged(const QString &)
 {
     qDebug() << "InstrumentEditorWidget::onPropertyChanged() ->";
-//    updateWidgets();
 }
-
 
 void InstrumentEditorWidget::updateWidgets()
 {
@@ -163,8 +179,3 @@ void InstrumentEditorWidget::updateWidgets()
     m_nameLineEdit->setText(m_currentItem->itemName());
     m_block_signals = false;
 }
-
-
-
-
-

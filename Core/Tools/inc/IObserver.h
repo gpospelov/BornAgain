@@ -32,10 +32,7 @@ public:
     virtual ~IObserver() {}
 
     //! method which is used by observable subject to notify change in status
-    virtual void update (IObservable* /*subject*/) {
-        throw NotImplementedException("IObserver::update() -> Not implemented");
-    }
-
+    virtual void notify (IObservable* subject);
 };
 
 //! @class IObservable
@@ -48,7 +45,7 @@ public:
     typedef boost::shared_ptr<IObserver > observer_t;
     typedef std::list<observer_t > observerlist_t;
 
-    virtual ~IObservable(){}
+    virtual ~IObservable() {}
 
     //! attach observer to the list of observers
     virtual void attachObserver(observer_t obj);
@@ -59,6 +56,10 @@ public:
 private:
     observerlist_t m_observers;
 };
+
+inline void IObserver::notify(IObservable *) {
+    throw NotImplementedException("IObserver::update() -> Not implemented");
+}
 
 #endif // IOBSERVER_H
 

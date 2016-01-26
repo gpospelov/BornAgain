@@ -5,8 +5,8 @@ from ROOT to our source tree.
 import os
 import filecmp
 
-ROOT_SOURCE = "/home/pospelov/software/root/root_v5.34.20.source"
-BORNAGAIN_SOURCE = "/home/pospelov/development/BornAgain/source/ThirdParty/RootMinimizers"
+ROOT_SOURCE = "/home/pospelov/software/root/root-6.04.02.source"
+BORNAGAIN_SOURCE = "/home/pospelov/development/BornAgain/BornAgain/ThirdParty/RootMinimizers"
 
 
 
@@ -65,7 +65,7 @@ def build_difference_map():
                 print ba_file, found_files[0]
                 #os.system(cmd)
         else:
-            print ba_file, len(found_files)
+            print ba_file, len(found_files), found_files
 
 
 if __name__ == '__main__':

@@ -2,45 +2,6 @@
 # CMakeLists.txt file for building TestCore functional tests
 ############################################################################
 
-set(CMAKE_CXX_FLAGS "-DSTANDALONE")
-
-set(list_of_tests
-    "IsGISAXS01"
-    "IsGISAXS02"
-    "CylindersInBA"
-    "CylindersInDWBA"
-    "CylindersWithSizeDistribution"
-    "IsGISAXS041DDL"
-    "IsGISAXS042DDL"
-    "IsGISAXS06L1"
-    "IsGISAXS06L2"
-    "IsGISAXS06L3"
-    "IsGISAXS06L4"
-    "IsGISAXS07"
-    "IsGISAXS08a"
-    "IsGISAXS08b"
-    "IsGISAXS09a"
-    "IsGISAXS09b"
-    "IsGISAXS10"
-    "IsGISAXS11"
-    "IsGISAXS15"
-    "FormFactors"
-    "MesoCrystal1"
-    "PolDWBAMagCylinders1"
-    "PolDWBAMagCylinders2"
-    "LayerRoughness"
-    "Ripple2"
-    "Ripple1"
-    "BatchSimulation"
-    "BeamDivergence"
-)
-
-# for some reason these flags doesn't propagated here by SetUpWindows.cmake
-if(MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc ")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHsc ")
-endif()
-
 include_directories(
     ${Boost_INCLUDE_DIRS}
     ${BornAgainCore_INCLUDE_DIRS}
@@ -48,9 +9,66 @@ include_directories(
     ${GSL_INCLUDE_DIR}
 )
 
-foreach(_test ${list_of_tests})
-   BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY})
-   BORNAGAIN_ADD_TEST(${_test} INPUT_DIR ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/)
+# for some reason these flags aren't propagated here by SetUpWindows.cmake
+if(MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc ")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHsc ")
+endif()
+
+set(list_of_tests
+    "CoreSuite/FormFactors"
+    "CoreSuite/CylindersAndPrisms"
+    "CoreSuite/RadialParaCrystal"
+    "CoreSuite/Basic2DParaCrystal"
+    "CoreSuite/HexParaCrystal"
+    "CoreSuite/Lattice1D"
+    "CoreSuite/RectParaCrystal"
+    "CoreSuite/CoreShellParticle"
+    "CoreSuite/CoreShellBoxRotateZandY"
+    "CoreSuite/MultiLayerWithRoughness"
+    "CoreSuite/SquareLattice"
+    "CoreSuite/CenteredSquareLattice"
+    "CoreSuite/RotatedSquareLattice"
+    "CoreSuite/RotatedPyramids"
+    "CoreSuite/ParticleComposition"
+    "CoreSuite/CylindersWithSizeDistribution"
+    "CoreSuite/TwoTypesCylindersDistribution"
+    "CoreSuite/BeamDivergence"
+    "CoreSuite/DetectorResolution"
+    "CoreSuite/MultipleLayout"
+    "CoreSuite/ApproximationDA"
+    "CoreSuite/ApproximationLMA"
+    "CoreSuite/ApproximationSSCA"
+    "CoreSuite/CylindersInSSCA"
+    "CoreSuite/CosineRipple"
+    "CoreSuite/TriangularRipple"
+    "CoreSuite/MesoCrystal"
+    "CoreSuite/CustomMorphology"
+    "CoreSuite/MagneticParticleZeroField"
+    "CoreSuite/TransformBox"
+    "CoreSuite/BoxCompositionRotateX"
+    "CoreSuite/BoxCompositionRotateY"
+    "CoreSuite/BoxCompositionRotateZ"
+    "CoreSuite/BoxCompositionRotateZandY"
+    "CoreSuite/BoxStackComposition"
+    "CoreSuite/SimulationWithMasks"
+    "BatchSimulation"
+    "PolDWBAMagCylinders2"
+    "CustomRotatedLattice"
+)
+
+
+# Adding executables.
+get_list_of_executables_from_list_of_tests("${list_of_tests}" ${list_of_executables})
+foreach(test_exe_name ${list_of_executables})
+   BORNAGAIN_EXECUTABLE(${test_exe_name} LOCATIONS ${test_exe_name} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY})
 endforeach()
+
+# Adding tests
+foreach(_test ${list_of_tests})
+    get_test_name_and_argument(${_test} ${test_exe_name} ${test_argument})
+    BORNAGAIN_ADD_TEST(${_test} ${test_exe_name} TEST_ARGUMENTS ${test_argument})
+endforeach()
+
 
 

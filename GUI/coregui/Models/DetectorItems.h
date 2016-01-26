@@ -18,6 +18,7 @@
 
 #include "ParameterizedItem.h"
 
+class MaskContainerItem;
 
 class BA_CORE_API_ DetectorItem : public ParameterizedItem
 {
@@ -25,18 +26,19 @@ class BA_CORE_API_ DetectorItem : public ParameterizedItem
 public:
     static const QString P_DETECTOR;
     explicit DetectorItem(ParameterizedItem *parent=0);
-    ~DetectorItem(){}
+    virtual ~DetectorItem(){}
+
+    MaskContainerItem *getMaskContainerItem() const;
 };
 
 class PhiAlphaDetectorItem : public ParameterizedItem
 {
 public:
-    static const QString P_BINNING;
     static const QString P_PHI_AXIS;
     static const QString P_ALPHA_AXIS;
     static const QString P_RESOLUTION_FUNCTION;
     explicit PhiAlphaDetectorItem(ParameterizedItem *parent=0);
-    ~PhiAlphaDetectorItem(){}
+    virtual ~PhiAlphaDetectorItem(){}
 };
 
 

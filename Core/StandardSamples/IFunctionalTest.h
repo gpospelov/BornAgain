@@ -13,77 +13,54 @@
 //
 // ************************************************************************** //
 
-#ifndef _IFUNCTIONALTEST_H
-#define _IFUNCTIONALTEST_H
+#ifndef IFUNCTIONALTEST_H
+#define IFUNCTIONALTEST_H
 
-
-#include "GISASSimulation.h"
-#include <boost/shared_ptr.hpp>
+#include "WinDllMacros.h"
+#include <map>
 #include <string>
-
 
 //! @class IFunctionalTest
 //! @ingroup standard_samples
-//! @brief Interface to the functional tests
+//! @brief Basic class for all functional tests
 
 class BA_CORE_API_ IFunctionalTest
 {
 public:
+    enum ETestResult { SUCCESS, FAILED, FAILED_DIFF, FAILED_NOREF};
+
+    IFunctionalTest();
+    IFunctionalTest(const std::string &name, const std::string &description);
     virtual ~IFunctionalTest() {}
-    virtual void runTest() =0;
-};
 
+    virtual void runTest() = 0;
+    virtual int analyseResults() = 0;
 
-//! @class FunctionalTestInfo
-//! @ingroup standard_samples
-//! @brief Functional test info and description
+    std::string getName() const;
+    void setName(const std::string &name);
 
-class BA_CORE_API_ FunctionalTestInfo
-{
-public:
-    FunctionalTestInfo()
-        : m_threshold(0) {  }
+    std::string getDescription() const;
+    void setDescription(const std::string &description);
 
-    FunctionalTestInfo(const std::string &name, const std::string &description,
-              const std::string &reference, double threshold, bool normalize = false )
-        : m_name(name)
-        , m_description(description)
-        , m_reference_file(reference)
-        , m_threshold(threshold)
-        , m_normalize(normalize)
-    {  }
+    ETestResult getTestResult() const;
+    std::string getTestResultString() const;
+
+    std::string getFormattedInfoString() const;
+
+    friend std::ostream &operator<<(std::ostream &ostr, const IFunctionalTest &m)
+    {
+        m.printResults(ostr);
+        return ostr;
+    }
+
+protected:
+    virtual void printResults(std::ostream &ostr) const;
 
     std::string m_name;
     std::string m_description;
-    std::string m_reference_file;
-    double m_threshold;
-    bool m_normalize;
+    ETestResult m_result;
+    static std::map<ETestResult, std::string> m_result_to_string;
 };
 
-
-//! @class FunctionalTest
-//! @ingroup standard_samples
-//! @brief Basic functional test
-
-class BA_CORE_API_ FunctionalTest : public IFunctionalTest
-{
-public:
-    enum ETestResult { SUCCESS, FAILED};
-
-    FunctionalTest(const FunctionalTestInfo &info);
-    ~FunctionalTest();
-
-    GISASSimulation *getSimulation() { return m_simulation; }
-    const OutputData<double> *getReference() const { return m_reference; }
-    std::string getName() const { return m_info.m_name; }
-    std::string getDescription() const { return m_info.m_description; }
-    void runTest();
-    int analyseResults();
-
-private:
-    FunctionalTestInfo m_info;
-    GISASSimulation *m_simulation;
-    OutputData<double> *m_reference;
-};
 
 #endif

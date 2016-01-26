@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "MinimizerTest.h"
+#include "FitParameter.h"
 
 //! run minimization
 void MinimizerTest::minimize()

@@ -12,7 +12,7 @@
 #  GSL_LIBRARIES - full path to the libraries
 #  GSL_LIBRARY_DIRS, the directory where the PLplot library is found.
 #  GSL_CFLAGS, additional c (c++) required
- 
+
 
 
 #FIXME check windows
@@ -23,10 +23,10 @@ IF(WIN32)
         $ENV{GSL_DIR}/include
         "C:/opt/local/include"
     )
-  
+
     set(gsl_library_name gsl)
     set(gslcblas_library_name cblas)
-        
+
     if( GSL_INCLUDE_DIR )
         # look for gsl library
         find_library( GSL_LIBRARY
@@ -35,28 +35,28 @@ IF(WIN32)
             #$ENV{GSL_DIR}/lib
             "C:/opt/local/lib"
         )
-        
+
         if( GSL_LIBRARY )
             set( GSL_INCLUDE_DIRS ${GSL_INCLUDE_DIR} )
             get_filename_component( GSL_LIBRARY_DIRS ${GSL_LIBRARY} PATH )
             set( GSL_FOUND ON )
         endif( GSL_LIBRARY )
- 
+
         # look for gsl cblas library
         find_library( GSL_CBLAS_LIBRARY
             NAMES ${gslcblas_library_name}
             PATHS $ENV{GSL_DIR}/lib
             "C:/opt/local/lib"
         )
-    
+
         if( GSL_CBLAS_LIBRARY )
             set( GSL_CBLAS_FOUND ON )
         endif( GSL_CBLAS_LIBRARY )
- 
+
         set( GSL_LIBRARIES ${GSL_LIBRARY} ${GSL_CBLAS_LIBRARY} )
         set( GSL_CFLAGS "-DGSL_DLL")
     endif( GSL_INCLUDE_DIR )
- 
+
     mark_as_advanced(
         GSL_INCLUDE_DIR
         GSL_LIBRARY
@@ -72,19 +72,19 @@ IF(WIN32)
 #         $ENV{GSL_HOME}
 #         $ENV{EXTRA}
 #         "C:/Program Files/GnuWin32")
-# 
+#
 #     FIND_PATH(GSL_INCLUDE_DIR
 #         NAMES gsl/gsl_cdf.h gsl/gsl_randist.h
 #         PATHS ${GSL_POSSIBLE_ROOT_DIRS}
 #         PATH_SUFFIXES include
 #         DOC "GSL header include dir")
-# 
+#
 #     FIND_LIBRARY(GSL_GSL_LIBRARY
 #         NAMES libgsl.dll.a gsl libgsl
 #         PATHS  ${GSL_POSSIBLE_ROOT_DIRS}
 #         PATH_SUFFIXES lib
 #         DOC "GSL library")
-# 
+#
 #     if(NOT GSL_GSL_LIBRARY)
 #         FIND_FILE(GSL_GSL_LIBRARY
 #             NAMES libgsl.dll.a
@@ -92,13 +92,13 @@ IF(WIN32)
 #             PATH_SUFFIXES lib
 #             DOC "GSL library")
 #     endif(NOT GSL_GSL_LIBRARY)
-# 
+#
 #     FIND_LIBRARY(GSL_GSLCBLAS_LIBRARY
 #         NAMES libgslcblas.dll.a gslcblas libgslcblas
 #         PATHS  ${GSL_POSSIBLE_ROOT_DIRS}
 #         PATH_SUFFIXES lib
 #         DOC "GSL cblas library dir")
-# 
+#
 #     if(NOT GSL_GSLCBLAS_LIBRARY)
 #         FIND_FILE(GSL_GSLCBLAS_LIBRARY
 #             NAMES libgslcblas.dll.a
@@ -106,7 +106,7 @@ IF(WIN32)
 #             PATH_SUFFIXES lib
 #             DOC "GSL library")
 #     endif(NOT GSL_GSLCBLAS_LIBRARY)
-# 
+#
 #     SET(GSL_LIBRARIES ${GSL_GSL_LIBRARY})
 
 
@@ -154,6 +154,14 @@ ELSE(WIN32)
             SET(GSL_VERSION_MAJOR ${CMAKE_MATCH_1})
             STRING(REGEX MATCH ".\\.(.*)" GSL_VERSION_MINOR_ "${GSL_FULL_VERSION}")
             SET(GSL_VERSION_MINOR ${CMAKE_MATCH_1})
+
+            # define BORNAGAIN_GSL_BIGGEROREQUAL_2 when gsl version >= 2.0
+            IF (NOT ${GSL_FULL_VERSION} VERSION_LESS 2.0)
+                add_definitions(-DBORNAGAIN_GSL_BIGGEROREQUAL_2)
+                message( STATUS "GSL version >= 2.0")
+            ELSE (NOT ${GSL_FULL_VERSION} VERSION_LESS 2.0)
+                message( STATUS "GSL version < 2.0")
+            ENDIF (NOT ${GSL_FULL_VERSION} VERSION_LESS 2.0)
 
             # split off the link dirs (for rpath)
             # use regular expression to match wildcard equivalent "-L*<endchar>"
@@ -215,7 +223,7 @@ ENDIF(GSL_LIBRARIES)
 #        "C:/opt/local/include"
 #    )
 ##    message("XXXXX ${GSL_INCLUDE_DIR}")
-  
+
 #  if(MSVC)
 #    set(gsl_library_name gsl)
 #    set(gslcblas_library_name cblas)
@@ -223,8 +231,8 @@ ENDIF(GSL_LIBRARIES)
 #    set(gsl_library_name libgsl-0)
 #    set(gslcblas_library_name libgslcblas-0)
 #  endif()
-        
-  
+
+
 #  if( GSL_INCLUDE_DIR )
 #    # look for gsl library
 #    find_library( GSL_LIBRARY
@@ -239,7 +247,7 @@ ENDIF(GSL_LIBRARIES)
 #      get_filename_component( GSL_LIBRARY_DIRS ${GSL_LIBRARY} PATH )
 #      set( GSL_FOUND ON )
 #    endif( GSL_LIBRARY )
- 
+
 #    # look for gsl cblas library
 #    find_library( GSL_CBLAS_LIBRARY
 #        NAMES ${gslcblas_library_name}
@@ -249,11 +257,11 @@ ENDIF(GSL_LIBRARIES)
 #    if( GSL_CBLAS_LIBRARY )
 #      set( GSL_CBLAS_FOUND ON )
 #    endif( GSL_CBLAS_LIBRARY )
- 
+
 #    set( GSL_LIBRARIES ${GSL_LIBRARY} ${GSL_CBLAS_LIBRARY} )
 #	set( GSL_CFLAGS "-DGSL_DLL")
 #  endif( GSL_INCLUDE_DIR )
- 
+
 #  mark_as_advanced(
 #    GSL_INCLUDE_DIR
 #    GSL_LIBRARY
@@ -267,10 +275,10 @@ ENDIF(GSL_LIBRARIES)
 #      $ENV{GSL_DIR}/bin
 #      ${GSL_DIR}/bin
 #    )
- 
+
 #    if( GSL_CONFIG_EXECUTABLE )
 #      set( GSL_FOUND ON )
- 
+
 #      # run the gsl-config program to get cxxflags
 #      execute_process(
 #        COMMAND sh "${GSL_CONFIG_EXECUTABLE}" --cflags
@@ -281,13 +289,13 @@ ENDIF(GSL_LIBRARIES)
 #      if( RET EQUAL 0 )
 #        string( STRIP "${GSL_CFLAGS}" GSL_CFLAGS )
 #        separate_arguments( GSL_CFLAGS )
- 
+
 #        # parse definitions from cflags; drop -D* from CFLAGS
 #        string( REGEX MATCHALL "-D[^;]+"
 #          GSL_DEFINITIONS  "${GSL_CFLAGS}" )
 #        string( REGEX REPLACE "-D[^;]+;" ""
 #          GSL_CFLAGS "${GSL_CFLAGS}" )
- 
+
 #        # parse include dirs from cflags; drop -I prefix
 #        string( REGEX MATCHALL "-I[^;]+"
 #          GSL_INCLUDE_DIRS "${GSL_CFLAGS}" )
@@ -298,7 +306,7 @@ ENDIF(GSL_LIBRARIES)
 #      else( RET EQUAL 0 )
 #        set( GSL_FOUND FALSE )
 #      endif( RET EQUAL 0 )
- 
+
 #      # run the gsl-config program to get the libs
 #      execute_process(
 #        COMMAND sh "${GSL_CONFIG_EXECUTABLE}" --libs
@@ -309,7 +317,7 @@ ENDIF(GSL_LIBRARIES)
 #      if( RET EQUAL 0 )
 #        string(STRIP "${GSL_LIBRARIES}" GSL_LIBRARIES )
 #        separate_arguments( GSL_LIBRARIES )
- 
+
 #        # extract linkdirs (-L) for rpath (i.e., LINK_DIRECTORIES)
 #        string( REGEX MATCHALL "-L[^;]+"
 #          GSL_LIBRARY_DIRS "${GSL_LIBRARIES}" )
@@ -318,7 +326,7 @@ ENDIF(GSL_LIBRARIES)
 #      else( RET EQUAL 0 )
 #        set( GSL_FOUND FALSE )
 #      endif( RET EQUAL 0 )
- 
+
 #      MARK_AS_ADVANCED(
 #        GSL_CFLAGS
 #      )
@@ -333,7 +341,7 @@ ENDIF(GSL_LIBRARIES)
 #    endif( GSL_CONFIG_EXECUTABLE )
 #  endif( UNIX OR MSYS )
 #endif( WIN32 AND NOT CYGWIN AND NOT MSYS )
- 
+
 
 #if(GSL_FOUND)
 #    message( STATUS "Found GSL: GSL_INCLUDE_DIRS=${GSL_INCLUDE_DIRS} GSL_LIBRARIES=${GSL_LIBRARIES}" )

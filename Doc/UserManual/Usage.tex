@@ -146,8 +146,8 @@ The same procedure has been applied for the prism in lines~\ref{particlesprism1}
 %-------------------------------------------------------------------------------
 \begin{lstlisting}[language=python, style=eclipseboxed, name=ex1,nolol]
     particle_layout = ParticleLayout()  @\label{particlesdecor1}@
-    particle_layout.addParticle(cylinder, 0.0, 0.5)  @\label{particlesdecor2}@
-    particle_layout.addParticle(prism, 0.0, 0.5)@\label{particlesdecor3}@
+    particle_layout.addParticle(cylinder, 0.5)  @\label{particlesdecor2}@
+    particle_layout.addParticle(prism, 0.5)@\label{particlesdecor3}@
     interference = InterferenceFunctionNone()  @\label{particlesnointerf}@
     particle_layout.addInterferenceFunction(interference)  @\label{particlesinterf}@
 \end{lstlisting}
@@ -157,26 +157,13 @@ in our sample is called \Code{ParticleLayout}
 for each particle shape (lines~\ref{particlesdecor2}, \ref{particlesdecor3}). Its general syntax is 
 
 \begin{lstlisting}[language=python, style=eclipse,numbers=none]
-addParticle(<particle_name>, depth, abundance) 
+addParticle(<particle_name>, abundance) 
 \end{lstlisting}
 where \Code{<particle\_name>} is the name used to define the particles
-(lines~\ref{particlescyl2} and \ref{particlesprism2}), \Code{depth}
-(default value = 0)
-is the vertical position, expressed in nanometers, of the particles in a given layer (the
-association with a particular layer will be done during the next step) and
+(lines~\ref{particlescyl2} and \ref{particlesprism2}) and
 \Code{abundance} is the proportion of this type of particles, 
 normalized to the total number of particles. Here we have 50\% of cylinders
 and 50\% of prisms.
-
-\ImportantPoint{Remark:}{Depth of particles\\
-The vertical positions of the particles in a layer are given in relative
-coordinates. For the top layer, the bottom of the layer corresponds to
-\Code{depth}=0 and negative values would correspond to particles
-floating above layer 1 since the vertical axis,
-shown in Fig.~\ref{fig:multil3d} is pointing upwards.
-But for all the other layers, it is the top of the
-layer which corresponds to \Code{depth}=0.}\\
-
 
 \noindent Finally, lines~\ref{particlesnointerf} and
 \ref{particlesinterf} specify that there is \textbf{no coherent interference} between
@@ -903,8 +890,8 @@ def get_sample(): @\label{script2::get_sample}@
     prism_ff = FormFactorPrism3(2.0*nanometer, 1.0*nanometer)
     prism = Particle(m_particle, prism_ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 0.5)
-    particle_layout.addParticle(prism, 0.0, 0.5)
+    particle_layout.addParticle(cylinder, 0.5)
+    particle_layout.addParticle(prism, 0.5)
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
 

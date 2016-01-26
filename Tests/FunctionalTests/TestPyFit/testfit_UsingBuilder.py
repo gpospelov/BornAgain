@@ -48,18 +48,19 @@ def runTest():
 
     # setting up fitting
     fitSuite = FitSuite()
-    fitSuite.setMinimizer( MinimizerFactory.createMinimizer("Minuit2", "Combined") )
-    fitSuite.initPrint(10);
-    fitSuite.addFitParameter("*SampleBuilder/cylinder_height",  4*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
-    fitSuite.addFitParameter("*SampleBuilder/cylinder_radius",  6*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
-    fitSuite.addFitParameter("*SampleBuilder/prism3_half_side", 4*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
-    fitSuite.addFitParameter("*SampleBuilder/prism3_height",    6*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
-    fitSuite.addFitParameter("*SampleBuilder/cylinder_ratio", 0.2, 0.1, AttLimits.fixed());
+    fitSuite.setMinimizer("Minuit2", "Combined")
+    fitSuite.initPrint(10)
+    fitSuite.addFitParameter("*SampleBuilder/cylinder_height",  4*nanometer,  AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter("*SampleBuilder/cylinder_radius",  6*nanometer,  AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter("*SampleBuilder/prism3_half_side", 4*nanometer,  AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter("*SampleBuilder/prism3_height",    6*nanometer,  AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter("*SampleBuilder/cylinder_ratio", 0.2, AttLimits.fixed())
 
-    chiModule = ChiSquaredModule()
-    chiModule.setChiSquaredFunction( SquaredFunctionMeanSquaredError() )
+    # chiModule = ChiSquaredModule()
+    # chiModule.setChiSquaredFunction( SquaredFunctionMeanSquaredError() )
 
-    fitSuite.addSimulationAndRealData(simulation, real_data, chiModule)
+    # fitSuite.addSimulationAndRealData(simulation, real_data, chiModule)
+    fitSuite.addSimulationAndRealData(simulation, real_data)
     fitSuite.runFit()
 
     # analysing fit results
@@ -88,12 +89,13 @@ def createRealData(simulation):
     simulation.runSimulation();
     real_data = simulation.getIntensityData()
     noise_factor = 0.1
-    for i in range(0,real_data.getAllocatedSize()):
-        amplitude = real_data[i]
+    for i in range(0, real_data.getTotalNumberOfBins()):
+        amplitude = real_data.getBinContent(i)
         sigma = noise_factor*math.sqrt(amplitude)
         noisy_amplitude = GenerateNormalRandom(amplitude, sigma)
-        if(noisy_amplitude < 0.0) : noisy_amplitude = 0.0
-        real_data[i] = noisy_amplitude
+        if noisy_amplitude < 0.0:
+            noisy_amplitude = 0.0
+        real_data.setBinContent(i, noisy_amplitude)
     return real_data
 
 
@@ -135,8 +137,8 @@ class MySampleBuilder(ISampleBuilder):
         interference = InterferenceFunctionNone()
 
         particle_layout = ParticleLayout()
-        particle_layout.addParticle(cylinder, 0.0, self.cylinder_ratio.value)
-        particle_layout.addParticle(prism, 0.0, 1.0 - self.cylinder_ratio.value)
+        particle_layout.addParticle(cylinder, self.cylinder_ratio.value)
+        particle_layout.addParticle(prism, 1.0 - self.cylinder_ratio.value)
         particle_layout.addInterferenceFunction(interference)
 
         air_layer.addLayout(particle_layout)

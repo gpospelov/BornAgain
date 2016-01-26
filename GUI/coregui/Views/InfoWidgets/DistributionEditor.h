@@ -17,6 +17,7 @@
 #define DISTRIBUTIONEDITOR_H
 
 #include <QWidget>
+#include "qcustomplot.h"
 
 class QGroupBox;
 class DistributionWidget;

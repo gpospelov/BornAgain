@@ -16,14 +16,15 @@
 #include "OffSpecSimulation.h"
 #include "OutputDataFunctions.h"
 #include "BornAgainNamespace.h"
+#include "Histogram2D.h"
+#include <boost/scoped_ptr.hpp>
 
 OffSpecSimulation::OffSpecSimulation()
 : m_instrument()
 , mp_alpha_i_axis(0)
 , m_intensity_map()
 {
-    setName("OffSpecSimulation");
-    init_parameters();
+    initialize();
 }
 
 OffSpecSimulation::OffSpecSimulation(const ProgramOptions* p_options)
@@ -32,8 +33,7 @@ OffSpecSimulation::OffSpecSimulation(const ProgramOptions* p_options)
 , mp_alpha_i_axis(0)
 , m_intensity_map()
 {
-    setName("OffSpecSimulation");
-    init_parameters();
+    initialize();
 }
 
 OffSpecSimulation::OffSpecSimulation(const ISample& p_sample,
@@ -43,8 +43,7 @@ OffSpecSimulation::OffSpecSimulation(const ISample& p_sample,
 , mp_alpha_i_axis(0)
 , m_intensity_map()
 {
-    setName("OffSpecSimulation");
-    init_parameters();
+    initialize();
 }
 
 OffSpecSimulation::OffSpecSimulation(SampleBuilder_t p_sample_builder,
@@ -54,8 +53,7 @@ OffSpecSimulation::OffSpecSimulation(SampleBuilder_t p_sample_builder,
 , mp_alpha_i_axis(0)
 , m_intensity_map()
 {
-    setName("OffSpecSimulation");
-    init_parameters();
+    initialize();
 }
 
 OffSpecSimulation* OffSpecSimulation::clone() const
@@ -82,10 +80,16 @@ int OffSpecSimulation::getNumberOfSimulationElements() const
     return phi_axis.getSize()*alpha_axis.getSize()*mp_alpha_i_axis->getSize();
 }
 
-OutputData<double> *OffSpecSimulation::getIntensityData() const
+OutputData<double> *OffSpecSimulation::getDetectorIntensity() const
 {
     OutputData<double> *result = m_intensity_map.clone();
     return result;
+}
+
+Histogram2D *OffSpecSimulation::getIntensityData() const
+{
+    boost::scoped_ptr<OutputData<double> > data(getDetectorIntensity());
+    return new Histogram2D(*data);
 }
 
 void OffSpecSimulation::setInstrument(const Instrument& instrument)
@@ -120,22 +124,14 @@ void OffSpecSimulation::setBeamPolarization(const kvector_t &bloch_vector)
 
 void OffSpecSimulation::setDetectorParameters(const OutputData<double>& output_data)
 {
-    m_instrument.matchDetectorParameters(output_data);
+    m_instrument.matchDetectorAxes(output_data);
     updateIntensityMap();
 }
 
-void OffSpecSimulation::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
-                                              size_t n_alpha, double alpha_f_min,
-                                              double alpha_f_max, bool isgisaxs_style)
+void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x_max,
+                                              size_t n_y, double y_min, double y_max)
 {
-    m_instrument.setDetectorParameters(n_phi, phi_f_min, phi_f_max, n_alpha, alpha_f_min,
-                                       alpha_f_max, isgisaxs_style);
-    updateIntensityMap();
-}
-
-void OffSpecSimulation::setDetectorParameters(const DetectorParameters& params)
-{
-    m_instrument.setDetectorParameters(params);
+    m_instrument.setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
     updateIntensityMap();
 }
 
@@ -171,9 +167,9 @@ std::string OffSpecSimulation::addParametersToExternalPool(std::string path,
        // add parameters of the sample builder
         mp_sample_builder->addParametersToExternalPool(
             new_path, external_pool, -1);
-    } else if (mp_sample) {
-        // add parameters of directly the sample
-        mp_sample->addParametersToExternalPool(new_path, external_pool, -1);
+    } else if (mP_sample.get()) {
+        // add parameters of the existing sample
+        mP_sample->addParametersToExternalPool(new_path, external_pool, -1);
     }
 
     return new_path;
@@ -193,8 +189,7 @@ OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
     if(other.mp_alpha_i_axis) mp_alpha_i_axis = other.mp_alpha_i_axis->clone();
     m_intensity_map.copyFrom(other.m_intensity_map);
 
-    setName("OffSpecSimulation");
-    init_parameters();
+    initialize();
 }
 
 void OffSpecSimulation::init_parameters()
@@ -207,26 +202,17 @@ void OffSpecSimulation::initSimulationElementVector()
     Beam beam = m_instrument.getBeam();
     double wavelength = beam.getWavelength();
     double phi_i = beam.getPhi();
-    Eigen::Matrix2cd beam_polarization = beam.getPolarization();
-    Eigen::Matrix2cd analyzer_operator = m_instrument.getDetector().getAnalyzerOperator();
     checkInitialization();
 
-    const IAxis &phi_axis = m_instrument.getDetectorAxis(0);
-    const IAxis &alpha_axis = m_instrument.getDetectorAxis(1);
     for (size_t alpha_i_index = 0; alpha_i_index < mp_alpha_i_axis->getSize(); ++alpha_i_index) {
         // Incoming angle by convention defined as positive:
-        double alpha_i = - mp_alpha_i_axis->getBin(alpha_i_index).getMidPoint();
-        for (size_t phi_f_index = 0; phi_f_index < phi_axis.getSize(); ++phi_f_index) {
-            Bin1D phi_bin = phi_axis.getBin(phi_f_index);
-            for (size_t alpha_f_index = 0; alpha_f_index < alpha_axis.getSize(); ++alpha_f_index) {
-                Bin1D alpha_bin = alpha_axis.getBin(alpha_f_index);
-                SimulationElement sim_element(wavelength, alpha_i, phi_i, alpha_bin.m_lower,
-                                              alpha_bin.m_upper, phi_bin.m_lower, phi_bin.m_upper);
-                sim_element.setPolarization(beam_polarization);
-                sim_element.setAnalyzerOperator(analyzer_operator);
-                m_sim_elements.push_back(sim_element);
-            }
-        }
+        double alpha_i = mp_alpha_i_axis->getBin(alpha_i_index).getMidPoint();
+        beam.setCentralK(wavelength, alpha_i, phi_i);
+        m_instrument.setBeam(beam);
+        std::vector<SimulationElement> sim_elements_alpha_i =
+                m_instrument.createSimulationElements();
+        m_sim_elements.insert(m_sim_elements.end(), sim_elements_alpha_i.begin(),
+                              sim_elements_alpha_i.end());
     }
 }
 
@@ -242,8 +228,13 @@ void OffSpecSimulation::transferResultsToIntensityMap()
                                     "calculated intensities");
     }
     for (size_t i=0; i<mp_alpha_i_axis->getSize(); ++i) {
-        normalizeAndTransferDetectorImage(i);
+        transferDetectorImage(i);
     }
+}
+
+double OffSpecSimulation::getBeamIntensity() const
+{
+    return m_instrument.getBeamIntensity();
 }
 
 void OffSpecSimulation::updateIntensityMap()
@@ -259,7 +250,7 @@ void OffSpecSimulation::updateIntensityMap()
     m_intensity_map.setAllTo(0.);
 }
 
-void OffSpecSimulation::normalizeAndTransferDetectorImage(int index)
+void OffSpecSimulation::transferDetectorImage(int index)
 {
     OutputData<double> detector_image;
     size_t detector_dimension = m_instrument.getDetectorDimension();
@@ -270,16 +261,10 @@ void OffSpecSimulation::normalizeAndTransferDetectorImage(int index)
     for (size_t i=0; i<detector_size; ++i) {
         detector_image[i] = m_sim_elements[index*detector_size + i].getIntensity();
     }
-    Beam beam = m_instrument.getBeam();
-    double wavelength = beam.getWavelength();
-    double phi_i = beam.getPhi();
-    double alpha_i = mp_alpha_i_axis->getBin(index).getMidPoint();
-    m_instrument.setBeamParameters(wavelength, alpha_i, phi_i);
-    m_instrument.normalize(&detector_image);
     m_instrument.applyDetectorResolution(&detector_image);
-    size_t alpha_f_size = m_instrument.getDetectorAxis(1).getSize();
+    size_t y_axis_size = m_instrument.getDetectorAxis(1).getSize();
     for (size_t i=0; i<detector_size; ++i) {
-        m_intensity_map[index*alpha_f_size + i%alpha_f_size] += detector_image[i];
+        m_intensity_map[index*y_axis_size + i%y_axis_size] += detector_image[i];
     }
 }
 
@@ -304,4 +289,10 @@ void OffSpecSimulation::checkInitialization() const
         throw RuntimeErrorException("OffSpecSimulation::checkInitialization: "
                                     "alpha-axis is not correct");
     }
+}
+
+void OffSpecSimulation::initialize()
+{
+    setName(BornAgain::OffSpecSimulationType);
+    init_parameters();
 }

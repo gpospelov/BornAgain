@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/utils/GUIFunctionalTest.h
+//! @file      coregui/Models/GUIFunctionalTest.h
 //! @brief     Defines class GUIFunctionalTest
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -16,35 +16,41 @@
 #ifndef GUIFUNCTIONALTEST_H
 #define GUIFUNCTIONALTEST_H
 
-#include <string>
 #include "WinDllMacros.h"
+#include "IFunctionalTest.h"
 #include "OutputData.h"
+#include <string>
+
 class GISASSimulation;
 
-//! Simple test for converting domain simulation into GUI and back, and then
-//! comparing results of two simulations in domain space
-class BA_CORE_API_ GUIFunctionalTest
+//! @class GUIFunctionalTest
+//! @ingroup standard_samples
+//! @brief GUI functional test  compares results of the reference simulation with
+//! the one obtained through domain->GUI->domain convertion. Normally invoked by
+//! FunctionalMultiTest.
+
+class BA_CORE_API_ GUIFunctionalTest : public IFunctionalTest
 {
 public:
-    enum ETestResult { SUCCESS, FAILED};
-    GUIFunctionalTest(const std::string &name);
+    GUIFunctionalTest(const std::string &name, const std::string &description,
+                      GISASSimulation *reference_simulation, double threshold);
     virtual ~GUIFunctionalTest();
+
     virtual void runTest();
     virtual int analyseResults();
+
+    const OutputData<double>* getOutputData() const;
+
+    virtual void printResults(std::ostream &ostr) const;
 
 private:
     void createDomainSimulation();
 
-    std::string m_name;
-    double m_threshold;
     GISASSimulation *m_reference_simulation;
     GISASSimulation *m_domain_simulation;
+    double m_threshold;
+    double m_difference;
 };
 
-//! run functional tests with given name
-BA_CORE_API_ int GUI_FUNCTIONAL_TEST(const std::string &name);
-
-
 #endif
-
 

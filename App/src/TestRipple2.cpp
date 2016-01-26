@@ -78,7 +78,7 @@ void TestRipple2::save_results()
     // run simulation for default sample parameters
     //mp_simulation->runSimulation();
     std::string filename(getOutputPath()+"test_ripple2_asym.ima");
-    IntensityDataIOFactory::writeIntensityData(*(mp_simulation->getIntensityData()),
+    IntensityDataIOFactory::writeOutputData(*(mp_simulation->getDetectorIntensity()),
                                          filename);
 }
 
@@ -144,7 +144,7 @@ void TestRipple2::initializeSimulation()
     delete mp_simulation;
     mp_simulation = new GISASSimulation(mp_options);
     mp_simulation->setSampleBuilder(mp_sample_builder);
-    mp_simulation->setDetectorParameters(400, -1.5*Units::degree, 1.5*Units::degree, 400, 0.0*Units::degree, 2.0*Units::degree, true);
+    mp_simulation->setDetectorParameters(400, -1.5*Units::degree, 1.5*Units::degree, 400, 0.0*Units::degree, 2.0*Units::degree);
     mp_simulation->setBeamParameters(1.6*Units::angstrom, 0.3*Units::degree, 0.0*Units::degree);
 }
 
@@ -188,7 +188,7 @@ ISample *TestRipple2::TestSampleBuilder::buildSample() const
 
 
     ParticleLayout particle_layout;
-    particle_layout.addParticle(ripple,0.0,1.0);
+    particle_layout.addParticle(ripple, 1.0);
     InterferenceFunctionRadialParaCrystal *p_interference_function =
             new InterferenceFunctionRadialParaCrystal(m_interf_distance,
                     1e7*Units::nanometer); // peak_distance, corr_length
@@ -210,7 +210,7 @@ ISample *TestRipple2::TestSampleBuilder::buildSample() const
 
 void TestRipple2::plot_results()
 {
-    OutputData<double> *m_result = mp_simulation->getIntensityData();
+    OutputData<double> *m_result = mp_simulation->getDetectorIntensity();
     const IAxis *axisPhi = m_result->getAxis(0);
     const IAxis *axisAlpha = m_result->getAxis(1);
 
@@ -227,8 +227,8 @@ void TestRipple2::plot_results()
     OutputData<double>::const_iterator it = m_result->begin();
     while (it != m_result->end())
     {
-        double x = m_result->getValueOfAxis( axisPhi->getName(), it.getIndex() );
-        double y = m_result->getValueOfAxis( axisAlpha->getName(), it.getIndex() );
+        double x = m_result->getAxisValue(it.getIndex(), axisPhi->getName());
+        double y = m_result->getAxisValue(it.getIndex(), axisAlpha->getName());
         double value = *it++;
         hist->Fill(x/Units::degree, y/Units::degree, value);
     }

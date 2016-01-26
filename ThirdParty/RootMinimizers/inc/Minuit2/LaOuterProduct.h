@@ -1,5 +1,5 @@
 // @(#)root/minuit2:$Id$
-// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005  
+// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005
 
 /**********************************************************************
  *                                                                    *
@@ -19,7 +19,7 @@
 #include "Minuit2/LAVector.h"
 #include "Minuit2/LASymMatrix.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 
@@ -42,7 +42,7 @@ inline ABObj<sym, VectorOuterProduct<ABObj<vec, LAVector, T>, T>, T> operator/(c
 //   std::cout<<"ABObj<sym, VectorOuterProduct<ABObj<vec, LAVector, T>, T>, T> operator/(const ABObj<sym, VectorOuterProduct<ABObj<vec, LAVector, T>, T>, T>& obj, T f)"<<std::endl;
   return ABObj<sym, VectorOuterProduct<ABObj<vec, LAVector, T>, T>, T>(obj.Obj(), obj.f()/f);
 }
- 
+
 // -outer
 template<class T>
 inline ABObj<sym, VectorOuterProduct<ABObj<vec, LAVector, T>, T>, T> operator-(const ABObj<sym, VectorOuterProduct<ABObj<vec, LAVector, T>, T>, T>& obj) {

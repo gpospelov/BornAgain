@@ -45,6 +45,7 @@
 #include "BeamDistributionItem.h"
 #include "BeamWavelengthItem.h"
 #include "BeamAngleItems.h"
+#include "MaskItems.h"
 #include <QDebug>
 
 namespace {
@@ -64,6 +65,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::InterferenceFunctionRadialParaCrystalType] = &createInstance<InterferenceFunctionRadialParaCrystalItem>;
     result[Constants::InterferenceFunction2DParaCrystalType] = &createInstance<InterferenceFunction2DParaCrystalItem>;
     result[Constants::InterferenceFunction2DLatticeType] = &createInstance<InterferenceFunction2DLatticeItem>;
+    result[Constants::InterferenceFunction1DLatticeType] = &createInstance<InterferenceFunction1DLatticeItem>;
     result[Constants::InstrumentType] = &createInstance<InstrumentItem>;
     result[Constants::DetectorType] = &createInstance<DetectorItem>;
     result[Constants::BeamType] = &createInstance<BeamItem>;
@@ -98,7 +100,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::LayerZeroRoughnessType] = &createInstance<LayerZeroRoughnessItem>;
 
     result[Constants::DetectorType] = &createInstance<DetectorItem>;
-    result[Constants::PhiAlphaDetectorType] = &createInstance<PhiAlphaDetectorItem>;
+    result[Constants::SphericalDetectorType] = &createInstance<PhiAlphaDetectorItem>;
 
     result[Constants::DistributionNoneType] = &createInstance<DistributionNoneItem>;
     result[Constants::DistributionGateType] = &createInstance<DistributionGateItem>;
@@ -147,6 +149,15 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::ResolutionFunctionNoneType] = &createInstance<ResolutionFunctionNoneItem>;
     result[Constants::ResolutionFunction2DGaussianType] = &createInstance<ResolutionFunction2DGaussianItem>;
 
+    result[Constants::MaskContainerType] = &createInstance<MaskContainerItem>;
+    result[Constants::RectangleMaskType] = &createInstance<RectangleItem>;
+    result[Constants::PolygonPointType] = &createInstance<PolygonPointItem>;
+    result[Constants::PolygonMaskType] = &createInstance<PolygonItem>;
+    result[Constants::VerticalLineMaskType] = &createInstance<VerticalLineItem>;
+    result[Constants::HorizontalLineMaskType] = &createInstance<HorizontalLineItem>;
+    result[Constants::EllipseMaskType] = &createInstance<EllipseItem>;
+    result[Constants::MaskAllType] = &createInstance<MaskAllItem>;
+
     return result;
 }
 }
@@ -156,16 +167,15 @@ QStringList ItemFactory::m_valid_top_item_names = QStringList()
         << Constants::LayerType
         << Constants::ParticleLayoutType
         << Constants::ParticleType
-        << Constants::TransformationType
         << Constants::ParticleCoreShellType
+        << Constants::ParticleCompositionType
         << Constants::ParticleDistributionType
+        << Constants::TransformationType
         << Constants::InterferenceFunctionRadialParaCrystalType
         << Constants::InterferenceFunction2DParaCrystalType
         << Constants::InterferenceFunction2DLatticeType;
 
-
 ItemFactory::ItemMap_t ItemFactory::m_item_map = initializeItemMap();
-
 
 ParameterizedItem *ItemFactory::createItem(const QString &model_name,
                                            ParameterizedItem *parent)
@@ -179,18 +189,15 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
     if(parent) {
         parent->insertChildItem(-1, result);
     }
-
+    qDebug() << "       result:" << result;
     return result;
 }
-
 
 ParameterizedItem *ItemFactory::createEmptyItem()
 {
     return new ParameterizedItem();
 }
 
-
 QList<QString> ItemFactory::getValidTopItemNames() {
     return m_valid_top_item_names;
 }
-

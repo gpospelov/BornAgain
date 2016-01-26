@@ -28,8 +28,8 @@ def RunSimulation():
     prism_ff = FormFactorPrism3(10*nanometer, 5*nanometer)
     prism = Particle(mParticle, prism_ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 0.5)
-    particle_layout.addParticle(prism, 0.0, 0.5)
+    particle_layout.addParticle(cylinder, 0.5)
+    particle_layout.addParticle(prism, 0.5)
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
     # air layer with particles and substrate form multi layer
@@ -47,7 +47,6 @@ def RunSimulation():
     simulation.setBeamIntensity(1e+08)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    simulation.normalize()
     return simulation.getIntensityData()
 
 

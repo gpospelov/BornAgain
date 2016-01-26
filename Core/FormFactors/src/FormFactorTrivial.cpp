@@ -14,19 +14,29 @@
 // ************************************************************************** //
 
 #include "FormFactorTrivial.h"
+#include "BornAgainNamespace.h"
+
 
 FormFactorTrivial::FormFactorTrivial()
 {
-    setName("FormFactorTrivial");
+    setName(BornAgain::FormFactorTrivialType);
     check_initialization();
     init_parameters();
 }
 
 FormFactorTrivial* FormFactorTrivial::clone() const
 {
-    FormFactorTrivial *result = new FormFactorTrivial();
-    result->setName(getName());
-    return result;
+    return new FormFactorTrivial();
+}
+
+void FormFactorTrivial::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+double FormFactorTrivial::getRadius() const
+{
+    return 1.0;
 }
 
 complex_t FormFactorTrivial::evaluate_for_q(const cvector_t& q) const

@@ -14,15 +14,18 @@
 // ************************************************************************** //
 
 #include "FormFactorTruncatedCube.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorBox.h"
 #include "MathFunctions.h"
+
+using namespace  BornAgain;
 
 FormFactorTruncatedCube::FormFactorTruncatedCube(
    double length, double removed_length)
     : m_length(length)
     , m_removed_length(removed_length)
 {
-    setName("FormFactorTruncatedCube");
+    setName(FFTruncatedCubeType);
     check_initialization();
     init_parameters();
 }
@@ -30,16 +33,23 @@ FormFactorTruncatedCube::FormFactorTruncatedCube(
 void FormFactorTruncatedCube::init_parameters()
 {
     clearParameterPool();
-    registerParameter("length", &m_length);
-    registerParameter("removed_length", &m_removed_length);
+    registerParameter(Length, &m_length);
+    registerParameter(RemovedLength, &m_removed_length);
 }
 
 FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const
 {
-    FormFactorTruncatedCube *result =
-        new FormFactorTruncatedCube(m_length, m_removed_length);
-    result->setName(getName());
-    return result;
+    return new FormFactorTruncatedCube(m_length, m_removed_length);
+}
+
+void FormFactorTruncatedCube::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+double FormFactorTruncatedCube::getRadius() const
+{
+    return m_length/2.0;
 }
 
 bool FormFactorTruncatedCube::check_initialization() const
@@ -54,125 +64,6 @@ bool FormFactorTruncatedCube::check_initialization() const
         throw Exceptions::ClassInitializationException(ostr.str());
     }
     return result;
-}
-
-complex_t FormFactorTruncatedCube::FormFactorVertex(const cvector_t& q) const
-{
-    double L = m_length;
-    double t = m_removed_length;
-    const complex_t im(0.,1.);
-    complex_t ecke = 0.0;
-    complex_t qz = q.z();
-    complex_t qy = q.y();
-    complex_t qx = q.x();
-//    complex_t expiqyt = std::exp(im*qy*t);
-    complex_t expiqzt = std::exp(im*qz*t);
-    complex_t qxhL = 0.5*qx*L;
-    complex_t qyhL = 0.5*qy*L;
-    complex_t expiqxhL = std::exp(im*qxhL);
-    complex_t expiqyhL = std::exp(im*qyhL);
-
-
-    if (std::abs(qz) <= Numeric::double_epsilon)
-    {
-        if (std::abs(qx) <= Numeric::double_epsilon)
-        {
-            if (std::abs(qy) <= Numeric::double_epsilon)
-            {
-                // Volume
-                ecke = 1./6.*t*t*t;
-            }
-            else
-            {
-                ecke = -im* expiqyhL*(0.5*qy*qy*t*t + im*qy*t - 1. + std::exp(-im*qy*t))/(qy*qy*qy);
-            }
-        }
-        else
-        {
-            if (std::abs(qy) <= Numeric::double_epsilon)
-            {
-                ecke = -im*expiqxhL*(0.5*qx*qx*t*t + im*qx*t - 1. + std::exp(-im*qx*t))/(qx*qx*qx);
-            }
-            else
-            {
-                ecke = im*expiqxhL*expiqyhL*std::exp(-0.5*im*t*(qx + qy))*(
-                            std::exp(0.5*im*t*(qx + qy))*(im*qx*qy*t - qx - qy)
-                            + (qx + qy)*std::cos(0.5*t*(qx - qy))
-                            + 0.5*im*t*(qx*qx + qy*qy)*MathFunctions::Sinc(0.5*(qx - qy)*t)
-                            )/(qy*qy*qx*qx);
-            }
-        }
-    }
-    //qz!=0
-    else
-    {
-        if (std::abs(qy) <= Numeric::double_epsilon)
-        {
-            if (std::abs(qx) <= Numeric::double_epsilon)
-            {
-                ecke = im*(0.5*qz*t*qz*t - im*qz*t + expiqzt - 1.)/(qz*qz*qz);
-            }
-            else
-            {
-                ecke = -im*expiqxhL*(
-                            (qz - qx)*std::exp(-im*qx*t)
-                            + im*qx*qz*t + qx - qz
-                            - im*qx*qx*t*std::exp(0.5*t*im*(qz - qx))*MathFunctions::Sinc(0.5*(qx + qz)*t)
-                            )/(qz*qz*qx*qx);
-            }
-        }
-        // qy !=0
-        else
-        {
-            if (std::abs(qz+qy) <= Numeric::double_epsilon)
-            {
-                if (std::abs(qx-qy) <= Numeric::double_epsilon)
-                {
-                    ecke = im*expiqyhL*expiqyhL*(
-                                1. + (0.5*qy*t*qy*t - im*qy*t - 1.)*std::exp(-im*qy*t)
-                                )/(qy*qy*qy);
-                 }
-                else
-                {
-                    if (std::abs(qx) <= Numeric::double_epsilon)
-                   {
-                         ecke = - expiqyhL*(
-                                     qy*t + 2.*im + std::exp(-im*qy*t)*(qy*t - 2.*im)
-                                     )/(qy*qy*qy);
-                    }
-                    else
-                    {
-                        ecke = -im*expiqxhL*expiqyhL*(qx*std::exp(-im*qy*t)*(im*t*qy*(qx - qy) + qx - 2.*qy)
-                                    - (qx - qy)*(qx - qy) + std::exp(-im*qx*t)*qy*qy
-                                    )/((qx - qy)*(qx - qy)*qy*qy*qx);
-                    }
-                }
-            }
-            // qz!=qy
-            else {
-                   if (std::abs(qx) <= Numeric::double_epsilon)
-                   {
-                     ecke = im*expiqyhL*(
-                                 std::exp(im*.5*(qz - qy)*t)*(
-                                     (qy - qz)*std::cos(.5*t*(qy + qz))
-                                     + .5*im*t*(qy*qy + qz*qz)*MathFunctions::Sinc(.5*t*(qy + qz))
-                                     )
-                                 -im*qy*qz*t - qy + qz
-                                 )/(qy*qy*qz*qz);
-                   }
-                   else
-                   {
-                      // General case
-                     ecke = t/qz*expiqxhL*expiqyhL*std::exp(-im*qx*0.5*t)*(
-                                 MathFunctions::Sinc(0.5*qx*t)/qy
-                                 - qz/(qy*(qy + qz))*std::exp(-.5*im*qy*t)*MathFunctions::Sinc(.5*(qx - qy)*t)
-                                 - std::exp(.5*im*qz*t)*MathFunctions::Sinc(.5*(qx + qz)*t)/(qy + qz)
-                                 );
-                   }
-                 }
-        }
-    }
-    return ecke;
 }
 
 complex_t FormFactorTruncatedCube::evaluate_for_q(const cvector_t& q) const
@@ -193,16 +84,90 @@ complex_t FormFactorTruncatedCube::evaluate_for_q(const cvector_t& q) const
     cvector_t rotatq7(-qx, -qy, -qz);
     cvector_t rotatq8(-qy, qx, -qz);
 
-    complex_t ffE1 = FormFactorVertex(rotatq1);
-    complex_t ffE2 = FormFactorVertex(rotatq2);
-    complex_t ffE3 = FormFactorVertex(rotatq3);
-    complex_t ffE4 = FormFactorVertex(rotatq4);
-    complex_t ffE5 = FormFactorVertex(rotatq5);
-    complex_t ffE6 = FormFactorVertex(rotatq6);
-    complex_t ffE7 = FormFactorVertex(rotatq7);
-    complex_t ffE8 = FormFactorVertex(rotatq8);
+    complex_t ffE1 = ffVertex(rotatq1);
+    complex_t ffE2 = ffVertex(rotatq2);
+    complex_t ffE3 = ffVertex(rotatq3);
+    complex_t ffE4 = ffVertex(rotatq4);
+    complex_t ffE5 = ffVertex(rotatq5);
+    complex_t ffE6 = ffVertex(rotatq6);
+    complex_t ffE7 = ffVertex(rotatq7);
+    complex_t ffE8 = ffVertex(rotatq8);
 
-    complex_t result = ffcube - ffE1 - ffE2 - ffE3 - ffE4 + std::exp(im*qz*m_length)*(-ffE5 - ffE6 - ffE7 - ffE8);
+    complex_t result = ffcube - (ffE1 + ffE2 + ffE3 + ffE4)
+                              - std::exp(im*qz*m_length)*(ffE5 + ffE6 + ffE7 + ffE8);
 
     return result;
 }
+
+bool compareModulus(complex_t a, complex_t b) {
+    return (std::abs(a) < std::abs(b));
+}
+
+complex_t FormFactorTruncatedCube::ffVertex(const cvector_t& q) const
+{
+    double L = m_length;
+    double t = m_removed_length;
+    const complex_t im(0.,1.);
+    complex_t a = q.x();
+    complex_t b = q.y();
+    complex_t c = -q.z();
+
+    complex_t prefactor = std::exp(im*L*(a+b)/2.0);
+    std::vector<complex_t> qvector(3);
+    qvector[0] = a;
+    qvector[1] = b;
+    qvector[2] = c;
+    std::sort(qvector.begin(), qvector.end(), compareModulus);
+
+    return prefactor*ffVertexSymmetric(t, qvector[0], qvector[1], qvector[2]);
+}
+
+// Version of the vertex form factor which is symmetric in a,b,c
+// Expects the arguments (a,b,c) to be ordered by their absolute value: |a|<=|b|<=|c|
+complex_t FormFactorTruncatedCube::ffVertexSymmetric(double t, complex_t a, complex_t b,
+                                                     complex_t c) const
+{
+    const complex_t im(0.,1.);
+    if (std::norm(a*t) <= Numeric::double_epsilon) {
+        if (std::norm(b*t) <= Numeric::double_epsilon) {
+            if (std::norm(c*t) <= Numeric::double_epsilon) {
+                return std::pow(t, 3)/6.0;
+            }
+            return -im*(std::exp(-im*c*t) - (1.0 - im*c*t - c*c*t*t/2.0))/(c*c*c);
+        }
+        if (std::norm((b-c)*t) <= Numeric::double_epsilon) {
+            return -im*(std::exp(-im*c*t)*(-2.0-im*c*t) + 2.0 - im*c*t)/(c*c*c);
+        }
+        complex_t numerator = -im * ( c*c*std::exp(-im*b*t) - b*b*std::exp(-im*c*t)
+                                    + b*b - c*c -im*t*b*c*(b-c) );
+        complex_t denominator = b*b*c*c*(b-c);
+        return numerator/denominator;
+    }
+    if (std::norm((a-b)*t) <= Numeric::double_epsilon) {
+        if (std::norm((b-c)*t) <= Numeric::double_epsilon) {
+            return im*(1.0 - std::exp(-im*b*t)*(1.0 + im*b*t - b*b*t*t/2.0))/std::pow(b,3);
+        } else {
+            return ffVertexDiagonal(t, a, c);
+        }
+    } else if (std::norm((b-c)*t) <= Numeric::double_epsilon) {
+        return ffVertexDiagonal(t, b, a);
+    }
+    complex_t t1 = 1.0;
+    complex_t t2 = -b*c*std::exp(-im*a*t)/((a-b)*(a-c));
+    complex_t t3 = -a*c*std::exp(-im*b*t)/((b-a)*(b-c));
+    complex_t t4 = -a*b*std::exp(-im*c*t)/((c-a)*(c-b));
+    return im*(t1+t2+t3+t4)/(a*b*c);
+}
+
+// Version of the vertex form factor that treats the case where two q components are
+// equal; they will be passed as the 'a' parameter
+complex_t FormFactorTruncatedCube::ffVertexDiagonal(double t, complex_t a, complex_t b) const
+{
+    const complex_t im(0.,1.);
+    complex_t prefactor = im/(a*a*b*std::pow(a-b, 2));
+    complex_t t1 = (a-b)*(a-b);
+    complex_t t2 = -a*a*std::exp(-im*b*t);
+    complex_t t3 = std::exp(-im*a*t)*(2.0*a*b - b*b + im*a*b*(a-b)*t);
+    return prefactor*(t1 + t2 + t3);
+}
+

@@ -14,14 +14,66 @@
 // ************************************************************************** //
 
 #include "IFitStrategy.h"
-#include "FitSuite.h"
+#include "FitKernel.h"
+
+IFitStrategy::IFitStrategy()
+    : m_fit_kernel(0)
+{
+
+}
+
+IFitStrategy::IFitStrategy(const std::string &name)
+    : INamed(name), m_fit_kernel(0)
+{
+
+}
+
+IFitStrategy::~IFitStrategy()
+{
+
+}
+
+void IFitStrategy::init(FitKernel *fit_suite)
+{
+    m_fit_kernel = fit_suite;
+}
+
+//std::ostream &IFitStrategy::operator<<(std::ostream &ostr, const IFitStrategy &m)
+//{
+//    m.print(ostr);
+//    return ostr;
+//}
+
+void IFitStrategy::print(std::ostream &ostr) const
+{
+    ostr << getName();
+}
+
+IFitStrategy::IFitStrategy(const IFitStrategy &other)
+    : INamed(other)
+{
+    m_fit_kernel = other.m_fit_kernel;
+}
+
+// ----------------------------------------------------------------------------
+
+FitStrategyDefault::FitStrategyDefault()
+    : IFitStrategy("DefaultFitStrategy")
+{
+
+}
+
+IFitStrategy *FitStrategyDefault::clone() const
+{
+    return new FitStrategyDefault();
+}
 
 void FitStrategyDefault::execute()
 {
-    if( !m_fit_suite ) throw NullPointerException("FitStrategyDefault::execute() -> FitSuite doesn't exists");
+    if( !m_fit_kernel )
+        throw NullPointerException("FitStrategyDefault::execute() -> FitSuite doesn't exists");
 
     // calling minimization
-    m_fit_suite->minimize();
+    m_fit_kernel->minimize();
 }
-
 

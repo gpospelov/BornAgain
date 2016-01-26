@@ -17,6 +17,7 @@
 #define FORMFACTORDECORATORFACTOR_H_
 
 #include "IFormFactorDecorator.h"
+#include "BornAgainNamespace.h"
 
 //! @class FormFactorDecoratorFactor
 //! @ingroup formfactors_internal
@@ -25,48 +26,41 @@
 class BA_CORE_API_ FormFactorDecoratorFactor : public IFormFactorDecorator
 {
 public:
-    FormFactorDecoratorFactor(IFormFactor *p_form_factor, const complex_t& factor);
+    FormFactorDecoratorFactor(const IFormFactor &form_factor, const complex_t &factor);
+
     virtual ~FormFactorDecoratorFactor() {}
+
     virtual FormFactorDecoratorFactor *clone() const;
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
+    virtual void accept(ISampleVisitor *visitor) const;
 
     //! Evaluate the form factor for scalar calculations
-    virtual complex_t evaluate(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const;
-
-    virtual int getNumberOfStochasticParameters() const;
+    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
 protected:
     complex_t m_factor;
 };
 
-inline FormFactorDecoratorFactor::FormFactorDecoratorFactor(
-        IFormFactor* p_form_factor, const complex_t& factor)
-: IFormFactorDecorator(p_form_factor)
-, m_factor(factor)
+inline FormFactorDecoratorFactor::FormFactorDecoratorFactor(const IFormFactor &form_factor,
+                                                            const complex_t &factor)
+    : IFormFactorDecorator(form_factor), m_factor(factor)
 {
-    setName("FormFactorDecoratorFactor");
+    setName(BornAgain::FormFactorDecoratorFactorType);
 }
 
-inline FormFactorDecoratorFactor* FormFactorDecoratorFactor::clone() const
+inline FormFactorDecoratorFactor *FormFactorDecoratorFactor::clone() const
 {
-    FormFactorDecoratorFactor *result = new FormFactorDecoratorFactor(
-            mp_form_factor->clone(), m_factor);
-    result->setName(getName());
-    return result;
+    return new FormFactorDecoratorFactor(*mp_form_factor, m_factor);
 }
 
-inline complex_t FormFactorDecoratorFactor::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const
+inline void FormFactorDecoratorFactor::accept(ISampleVisitor *visitor) const
 {
-    return m_factor*mp_form_factor->evaluate(k_i, k_f_bin, alpha_f_bin);
+    visitor->visit(this);
 }
 
-inline int FormFactorDecoratorFactor::getNumberOfStochasticParameters() const
+inline complex_t FormFactorDecoratorFactor::evaluate(const WavevectorInfo& wavevectors) const
 {
-    return mp_form_factor->getNumberOfStochasticParameters();
+    return m_factor * mp_form_factor->evaluate(wavevectors);
 }
 
 #endif /* FORMFACTORDECORATORFACTOR_H_ */
-
-

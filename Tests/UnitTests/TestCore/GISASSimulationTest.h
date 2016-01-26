@@ -8,7 +8,7 @@
 #include "ISampleBuilder.h"
 #include "BornAgainNamespace.h"
 
-
+#include <boost/scoped_ptr.hpp>
 #include <cmath>
 #include "gtest/gtest.h"
 
@@ -48,11 +48,11 @@ GISASSimulationTest::~GISASSimulationTest()
 
 TEST_F(GISASSimulationTest, SimulationInitialState)
 {
-    EXPECT_EQ( NULL, emptySimulation.getSample());
+    EXPECT_EQ( nullptr, emptySimulation.getSample());
     EXPECT_EQ( size_t(1), emptySimulation.getOutputData()->getAllocatedSize());
     EXPECT_EQ( size_t(0), emptySimulation.getOutputData()->getRank());
     EXPECT_TRUE(emptySimulation.getOutputData()->getRank() == emptySimulation.getInstrument().getDetectorDimension() );
-    EXPECT_EQ(NULL, emptySimulation.getSampleBuilder().get());
+    EXPECT_EQ(nullptr, emptySimulation.getSampleBuilder().get());
 }
 
 
@@ -63,33 +63,31 @@ TEST_F(GISASSimulationTest, SimulationConstruction)
     EXPECT_TRUE( constructedSimulation.getOutputData()->hasSameShape(test_data));
     EXPECT_EQ( double(0), constructedSimulation.getOutputData()->totalSum());
 
-    constructedSimulation.normalize();
-    EXPECT_EQ( double(0), constructedSimulation.getOutputData()->totalSum());
-
     MultiLayer ml;
     Layer layer;
     ml.addLayer(layer);
     constructedSimulation.setSample(ml);
     EXPECT_EQ( size_t(1), dynamic_cast<MultiLayer *>(constructedSimulation.getSample())->getNumberOfLayers());
     constructedSimulation.setSampleBuilder(sample_builder);
-    EXPECT_EQ( NULL, constructedSimulation.getSample());
+    EXPECT_EQ( nullptr, constructedSimulation.getSample());
     EXPECT_EQ( sample_builder.get(), constructedSimulation.getSampleBuilder().get());
 
     constructedSimulation.prepareSimulation();
 
-    EXPECT_FALSE( NULL == constructedSimulation.getSample());
-    EXPECT_EQ( std::string("Layer"), constructedSimulation.getSample()->getName());
-    EXPECT_EQ( double(0), dynamic_cast<Layer *>(constructedSimulation.getSample())->getThickness());
+    EXPECT_TRUE( nullptr == constructedSimulation.getSample());
+    boost::scoped_ptr<ISample> sample(constructedSimulation.getSampleBuilder()->buildSample());
+    EXPECT_EQ( std::string("Layer"), sample->getName());
+    EXPECT_EQ( double(0), dynamic_cast<Layer *>(sample.get())->getThickness());
 }
 
 TEST_F(GISASSimulationTest, SimulationInitialStateOfClone)
 {
     GISASSimulation *emptyClonedSimulation = emptySimulation.clone();
-    EXPECT_EQ( NULL, emptyClonedSimulation->getSample());
+    EXPECT_EQ( nullptr, emptyClonedSimulation->getSample());
     EXPECT_EQ( size_t(1), emptyClonedSimulation->getOutputData()->getAllocatedSize());
     EXPECT_EQ( size_t(0), emptyClonedSimulation->getOutputData()->getRank());
-    EXPECT_TRUE(emptyClonedSimulation->getOutputData()->getRank() == emptyClonedSimulation->getInstrument().getDetector().getDimension() );
-    EXPECT_EQ( double(1), emptyClonedSimulation->getInstrument().getIntensity());
+    EXPECT_TRUE(emptyClonedSimulation->getOutputData()->getRank() == emptyClonedSimulation->getInstrument().getDetector()->getDimension() );
+    EXPECT_EQ( 0.0, emptyClonedSimulation->getInstrument().getBeamIntensity());
     delete emptyClonedSimulation;
 }
 
@@ -104,10 +102,10 @@ TEST_F(GISASSimulationTest, SimulationClone)
     delete originalSimulation;
 
     EXPECT_TRUE( clonedSimulation->getOutputData()->hasSameShape(test_data));
-    EXPECT_EQ( double(10), clonedSimulation->getInstrument().getIntensity());
-    EXPECT_TRUE( NULL == clonedSimulation->getSample());
+    EXPECT_EQ( double(10), clonedSimulation->getInstrument().getBeamIntensity());
+    EXPECT_TRUE( nullptr == clonedSimulation->getSample());
     clonedSimulation->prepareSimulation();
-    EXPECT_FALSE( NULL == clonedSimulation->getSample());
+    EXPECT_TRUE( nullptr == clonedSimulation->getSample());
 
     delete clonedSimulation;
 }

@@ -16,20 +16,27 @@
 #ifndef PARTICLECORESHELLITEM_H
 #define PARTICLECORESHELLITEM_H
 
+#include "ParticleCoreShell.h"
 #include "ParameterizedGraphicsItem.h"
+
 #include <QVector>
+#include <memory>
 
 class BA_CORE_API_ ParticleCoreShellItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:
     enum ECoreShell { CORE, SHELL};
-    static const QString P_CORE_POS;
     explicit ParticleCoreShellItem(ParameterizedItem *parent=0);
-    ~ParticleCoreShellItem(){}
-    void insertChildItem(int row, ParameterizedItem *item);
+    virtual ~ParticleCoreShellItem() {}
+    virtual void insertChildItem(int row, ParameterizedItem *item);
+    virtual void onPropertyChange(const QString &name);
+    std::unique_ptr<ParticleCoreShell> createParticleCoreShell() const;
+
+    void notifyChildParticlePortChanged();
+
+private:
+    PortInfo::EPorts getFirstAvailableParticlePort() const;
 };
 
-
 #endif
-

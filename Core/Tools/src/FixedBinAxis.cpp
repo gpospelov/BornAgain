@@ -73,6 +73,11 @@ double FixedBinAxis::getMax() const
     return m_end;
 }
 
+double FixedBinAxis::getBinCenter(size_t index) const
+{
+    return (*this)[index];
+}
+
 
 size_t FixedBinAxis::findClosestIndex(double value) const
 {
@@ -139,8 +144,8 @@ bool FixedBinAxis::equals(const IAxis& other) const
     if (!IAxis::equals(other)) return false;
     if (const FixedBinAxis *otherAxis = dynamic_cast<const FixedBinAxis *>(&other)) {
         if (getSize() != otherAxis->getSize()) return false;
-        if ( std::abs(getMin() - otherAxis->getMin()) > Numeric::double_epsilon) return false;
-        if ( std::abs(getMax() - otherAxis->getMax()) > Numeric::double_epsilon) return false;
+        if ( !Numeric::areAlmostEqual(m_start, otherAxis->m_start)) return false;
+        if ( !Numeric::areAlmostEqual(m_end, otherAxis->m_end)) return false;
         return true;
     }
     return false;

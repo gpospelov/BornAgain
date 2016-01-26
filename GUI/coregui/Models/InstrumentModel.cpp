@@ -19,7 +19,7 @@
 InstrumentModel::InstrumentModel(QObject *parent)
     : SessionModel(SessionXML::InstrumentModelTag, parent)
 {
-
+    setObjectName(SessionXML::InstrumentModelTag);
 }
 
 

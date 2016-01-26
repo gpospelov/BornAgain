@@ -34,25 +34,20 @@ public:
     FormFactorCuboctahedron(double length, double height,
                             double height_ratio, double alpha);
 
-    ~FormFactorCuboctahedron() {}
+    virtual ~FormFactorCuboctahedron() {}
     virtual FormFactorCuboctahedron *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual int getNumberOfStochasticParameters() const { return 4; }
+    virtual double getRadius() const;
 
-    virtual double getHeight() const { return m_height; }
-    virtual void setHeight(double height) { m_height = height; }
+    double getHeight() const;
 
-    virtual double getHeightRatio() const { return m_height_ratio; }
-    virtual void setHeightRatio(double height_ratio) { m_height_ratio
-                                                     = height_ratio; }
+    double getHeightRatio() const;
 
-    virtual double getLength() const { return m_length; }
-    virtual void setLength(double length) { m_length = length; }
+    double getLength() const;
 
-    virtual double getAlpha() const { return m_alpha; }
-    virtual void setAlpha(double alpha) { m_alpha = alpha; }
+    double getAlpha() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -66,5 +61,25 @@ private:
     double m_height_ratio;
     double m_alpha;
 };
+
+inline double FormFactorCuboctahedron::getHeight() const
+{
+    return m_height;
+}
+
+inline double FormFactorCuboctahedron::getHeightRatio() const
+{
+    return m_height_ratio;
+}
+
+inline double FormFactorCuboctahedron::getLength() const
+{
+    return m_length;
+}
+
+inline double FormFactorCuboctahedron::getAlpha() const
+{
+    return m_alpha;
+}
 
 #endif // FORMFACTORCUBOCTAHEDRON_H

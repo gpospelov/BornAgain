@@ -27,7 +27,6 @@
 #include "ThreadInfoTest.h"
 #include "ParticleCompositionTest.h"
 #include "LayerRoughnessTest.h"
-#include "ParticleInfoTest.h"
 #include "LLDataTest.h"
 #include "TRangeTest.h"
 #include "FTDistributionsTest.h"
@@ -40,7 +39,7 @@
 #include "MatrixRTCoefficientsTest.h"
 #include "ScalarSpecularInfoMapTest.h"
 #include "MatrixSpecularInfoMapTest.h"
-#include "MathFunctionsTest.h"
+#include "MatrixFunctionsTest.h"
 #include "FixedBinAxisTest.h"
 #include "VariableBinAxisTest.h"
 #include "ConstKBinAxisTest.h"
@@ -50,6 +49,14 @@
 #include "ParticleCoreShellTest.h"
 #include "ParameterDistributionTest.h"
 #include "UtilsTest.h"
+#include "CumulativeValueTest.h"
+#include "Histogram1DTest.h"
+#include "Histogram2DTest.h"
+#include "PolygonTest.h"
+#include "DetectorMaskTest.h"
+#include "Shape2DTest.h"
+#include "RectangularDetectorTest.h"
+#include "SpecialFunctionsTest.h"
 
 
 struct ErrorStreamRedirect {

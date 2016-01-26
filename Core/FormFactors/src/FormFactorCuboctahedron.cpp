@@ -14,13 +14,16 @@
 // ************************************************************************** //
 
 #include "FormFactorCuboctahedron.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorPyramid.h"
 #include "MathFunctions.h"
+
+using namespace  BornAgain;
 
 FormFactorCuboctahedron::FormFactorCuboctahedron(
     double length, double height, double height_ratio, double alpha)
 {
-    setName("FormFactorCuboctahedron");
+    setName(FFCuboctahedronType);
     m_height = height;
     m_length = length;
     m_height_ratio = height_ratio;
@@ -48,19 +51,25 @@ bool FormFactorCuboctahedron::check_initialization() const
 void FormFactorCuboctahedron::init_parameters()
 {
     clearParameterPool();
-    registerParameter("height", &m_height, AttLimits::n_positive());
-    registerParameter("height_ratio", &m_height_ratio, AttLimits::n_positive());
-    registerParameter("length", &m_length, AttLimits::n_positive());
-    registerParameter("alpha", &m_alpha, AttLimits::n_positive());
+    registerParameter(Height, &m_height, AttLimits::n_positive());
+    registerParameter(HeightRatio, &m_height_ratio, AttLimits::n_positive());
+    registerParameter(Length, &m_length, AttLimits::n_positive());
+    registerParameter(Alpha, &m_alpha, AttLimits::n_positive());
 }
 
 FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const
 {
-    FormFactorCuboctahedron *result =
-        new FormFactorCuboctahedron(m_length, m_height,
-                                    m_height_ratio, m_alpha);
-    result->setName(getName());
-    return result;
+    return new FormFactorCuboctahedron(m_length, m_height, m_height_ratio, m_alpha);
+}
+
+void FormFactorCuboctahedron::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+double FormFactorCuboctahedron::getRadius() const
+{
+    return m_length / 2.0;
 }
 
 complex_t FormFactorCuboctahedron::evaluate_for_q(const cvector_t& q) const
@@ -68,7 +77,6 @@ complex_t FormFactorCuboctahedron::evaluate_for_q(const cvector_t& q) const
     double H = m_height;
     double L = m_length;
     double rh = m_height_ratio;
-    //double tga = std::tan(m_alpha);
 
     complex_t qx = q.x();
     complex_t qy = q.y();

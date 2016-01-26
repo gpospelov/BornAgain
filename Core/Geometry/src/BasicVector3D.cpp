@@ -90,7 +90,7 @@ complex_t BasicVector3D<complex_t>::magxy() const
 template<>
 double BasicVector3D<double>::phi() const
 {
-    return x() == 0.0 && y() == 0.0 ? 0.0 : std::atan2(y(),x());
+    return x() == 0.0 && y() == 0.0 ? 0.0 : std::atan2(-y(),x());
 }
 
 //! Returns polar angle.
@@ -164,6 +164,11 @@ double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const
     return std::acos(cosa);
 }
 
+BasicVector3D<std::complex<double> > toComplexVector(const BasicVector3D<double> &real_vector)
+{
+    return BasicVector3D<std::complex<double> >(complex_t(real_vector.x()),
+                                                complex_t(real_vector.y()),
+                                                complex_t(real_vector.z()));
+}
+
 }  // namespace Geometry
-
-

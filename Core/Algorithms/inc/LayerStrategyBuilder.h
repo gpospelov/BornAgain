@@ -27,7 +27,6 @@ class IInterferenceFunction;
 class IInterferenceFunctionStrategy;
 class Layer;
 class Simulation;
-class ParticleInfo;
 class IFormFactor;
 class LayerSpecularInfo;
 
@@ -72,15 +71,13 @@ private:
     //! retrieve wavelength from simulation
     double getWavelength();
     //! Creates formfactor info for single particle
-    FormFactorInfo *createFormFactorInfo(
-        const ParticleInfo &particle_info,
-        const IMaterial *p_ambient_material,
-        complex_t factor) const;
+    FormFactorInfo *createFormFactorInfo(const IParticle *particle,
+                                         const IMaterial *p_ambient_material,
+                                         complex_t factor) const;
 
     SafePointerVector<FormFactorInfo> m_ff_infos;
     SafePointerVector<IInterferenceFunction> m_ifs;
 };
-
 
 //! @class FormFactorInfo
 //! @ingroup formfactors_internal
@@ -91,7 +88,7 @@ class BA_CORE_API_ FormFactorInfo : public ICloneable
 public:
     FormFactorInfo()
         : mp_ff(0), m_pos_x(0.0), m_pos_y(0.0), m_abundance(0.0) {}
-    ~FormFactorInfo();
+    virtual ~FormFactorInfo();
     /* out-of-place implementation required due to IFormFactor */
     virtual FormFactorInfo *clone() const;
     IFormFactor *mp_ff;

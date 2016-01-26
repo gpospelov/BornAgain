@@ -2,9 +2,9 @@
 R and T coefficients in multilayer, Specular simulation.
 """
 import numpy
-import pylab
+import matplotlib
+from matplotlib import pyplot as plt
 from bornagain import *
-
 
 alpha_i_min, alpha_i_max = 0.0, 2.0  # incoming beam
 
@@ -66,10 +66,7 @@ def run_simulation():
     selected_layers = [0, 1, 20, 21]
     alpha_angles = simulation.getAlphaAxis().getBinCenters()
 
-    dpi = 72.
-    xinch = 1024 / dpi
-    yinch = 768 / dpi
-    fig = pylab.figure(figsize=(xinch, yinch))
+    fig = plt.figure(figsize=(12.80, 10.24))
 
     nplot = 1
     for layer_index in selected_layers:
@@ -82,16 +79,16 @@ def run_simulation():
         for coeff in simulation.getScalarT(layer_index):
             T.append(numpy.abs(coeff))
 
-        pylab.subplot(2, 2, nplot)
-        pylab.ylim(ymax=50.0, ymin=1e-06)
-        pylab.xlabel(r'$\alpha_f$ (rad)', fontsize=16)
-        pylab.semilogy(alpha_angles, R)
-        pylab.semilogy(alpha_angles, T)
-        pylab.legend(['|R| layer #'+str(layer_index), '|T| layer #'+str(layer_index)], loc='upper right')
+        plt.subplot(2, 2, nplot)
+        plt.ylim(ymax=50.0, ymin=1e-06)
+        plt.xlabel(r'$\alpha_f$ (rad)', fontsize=16)
+        plt.semilogy(alpha_angles, R)
+        plt.semilogy(alpha_angles, T)
+        plt.legend(['|R| layer #'+str(layer_index), '|T| layer #'+str(layer_index)], loc='upper right')
         nplot = nplot + 1
 
 
-    pylab.show()
+    plt.show()
 
 
 if __name__ == '__main__':

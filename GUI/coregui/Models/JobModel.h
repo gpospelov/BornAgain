@@ -30,7 +30,7 @@ class BA_CORE_API_ JobModel : public SessionModel
 
 public:
     explicit JobModel(QObject *parent = 0);
-    ~JobModel();
+    virtual ~JobModel();
 
     JobQueueData *getJobQueueData() { return m_queue_data; }
 

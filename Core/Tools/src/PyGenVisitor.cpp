@@ -31,12 +31,14 @@
 #include "Particle.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
-#include "ParticleInfo.h"
 #include "ParticleLayout.h"
 #include "PyGenVisitor.h"
 #include "PyGenTools.h"
 #include "ParameterDistribution.h"
 #include "Rotations.h"
+#include "DetectorMask.h"
+#include "ConvolutionDetectorResolution.h"
+#include "ResolutionFunction2DGaussian.h"
 
 PyGenVisitor::PyGenVisitor() : m_label(new SampleLabelHandler())
 {
@@ -113,21 +115,6 @@ void PyGenVisitor::visit(const FormFactorGauss *sample)
 }
 
 void PyGenVisitor::visit(const FormFactorHemiEllipsoid *sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorInfLongBox *sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorInfLongRipple1 *sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorInfLongRipple2 *sample)
 {
     m_label->setLabel(sample);
 }
@@ -281,8 +268,8 @@ std::string PyGenVisitor::definePreamble() const
     std::ostringstream result;
     result << "import numpy\n";
     result << "#NOTE: Uncomment the next import statements for plotting\n";
-    result << "#import pylab\n";
     result << "#import matplotlib\n";
+    result << "#from matplotlib import pyplot as plt\n";
     result << "from bornagain import *\n\n\n";
     //    result << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
     //    result << "#NOTE: Running this Script by default will write output data"
@@ -303,8 +290,8 @@ std::string PyGenVisitor::defineGetSample() const
     result << defineFormFactors();
     result << defineParticles();
     result << defineCoreShellParticles();
-    result << defineParticleDistributions();
     result << defineParticleCompositions();
+    result << defineParticleDistributions();
     result << defineInterferenceFunctions();
     result << defineParticleLayouts();
     result << defineRoughnesses();
@@ -322,8 +309,10 @@ std::string PyGenVisitor::defineGetSimulation(const GISASSimulation *simulation)
     //    result << indent() << "# Creating and returning GISAXS simulation\n";
     result << indent() << "simulation = GISASSimulation()\n";
     result << defineDetector(simulation);
+    result << defineDetectorResolutionFunction(simulation);
     result << defineBeam(simulation);
     result << defineParameterDistributions(simulation);
+    result << defineMasks(simulation);
     result << indent() << "return simulation\n\n\n";
     return result.str();
 }
@@ -439,14 +428,14 @@ std::string PyGenVisitor::defineFormFactors() const
 
         else if (const FormFactorCylinder *cylinder
                  = dynamic_cast<const FormFactorCylinder *>(p_ff)) {
-            result << " = FormFactorCylinder(" << cylinder->getHeight() << "*nanometer, "
-                   << cylinder->getRadius() << "*nanometer)\n";
+            result << " = FormFactorCylinder(" << cylinder->getRadius() << "*nanometer, "
+                   << cylinder->getHeight() << "*nanometer)\n";
         }
 
         else if (const FormFactorEllipsoidalCylinder *ellipsoidalCylinder
                  = dynamic_cast<const FormFactorEllipsoidalCylinder *>(p_ff)) {
-            result << " = FormFactorEllipsoidalCylinder(" << ellipsoidalCylinder->getRadiusA()
-                   << "*nanometer, " << ellipsoidalCylinder->getRadiusB() << "*nanometer, "
+            result << " = FormFactorEllipsoidalCylinder(" << ellipsoidalCylinder->getRadiusX()
+                   << "*nanometer, " << ellipsoidalCylinder->getRadiusY() << "*nanometer, "
                    << ellipsoidalCylinder->getHeight() << "*nanometer)\n";
         }
 
@@ -472,27 +461,8 @@ std::string PyGenVisitor::defineFormFactors() const
 
         else if (const FormFactorHemiEllipsoid *hemiEllipsoid
                  = dynamic_cast<const FormFactorHemiEllipsoid *>(p_ff)) {
-            result << " = FormFactorHemiEllipsoid(" << hemiEllipsoid->getRadiusA() << "*nanometer, "
-                   << hemiEllipsoid->getRadiusB() << "*nanometer, " << hemiEllipsoid->getHeight()
-                   << "*nanometer)\n";
-        }
-
-        else if (const FormFactorInfLongBox *infLongBox
-                 = dynamic_cast<const FormFactorInfLongBox *>(p_ff)) {
-            result << " = FormFactorInfLongBox(" << infLongBox->getWidth() << "*nanometer, "
-                   << infLongBox->getHeight() << "*nanometer)\n";
-        }
-
-        else if (const FormFactorInfLongRipple1 *infLongRipple1
-                 = dynamic_cast<const FormFactorInfLongRipple1 *>(p_ff)) {
-            result << " = FormFactorInfLongRipple1(" << infLongRipple1->getWidth() << "*nanometer, "
-                   << infLongRipple1->getHeight() << "*nanometer)\n";
-        }
-
-        else if (const FormFactorInfLongRipple2 *infLongRipple2
-                 = dynamic_cast<const FormFactorInfLongRipple2 *>(p_ff)) {
-            result << " = FormFactorInfLongRipple2(" << infLongRipple2->getWidth() << "*nanometer, "
-                   << infLongRipple1->getHeight() << "*nanometer, " << infLongRipple2->getAsymetry()
+            result << " = FormFactorHemiEllipsoid(" << hemiEllipsoid->getRadiusX() << "*nanometer, "
+                   << hemiEllipsoid->getRadiusY() << "*nanometer, " << hemiEllipsoid->getHeight()
                    << "*nanometer)\n";
         }
 
@@ -529,7 +499,7 @@ std::string PyGenVisitor::defineFormFactors() const
 
         else if (const FormFactorRipple2 *ripple2 = dynamic_cast<const FormFactorRipple2 *>(p_ff)) {
             result << " = FormFactorRipple2(" << ripple2->getLength() << "*nanometer, "
-                   << ripple2->getWidth() << "*nanometer, " << ripple2->getHeight() << "nanometer, "
+                   << ripple2->getWidth() << "*nanometer, " << ripple2->getHeight() << "*nanometer, "
                    << ripple2->getAsymmetry() << "*nanometer)\n";
         }
 
@@ -579,42 +549,14 @@ std::string PyGenVisitor::defineParticles() const
     result << "\n" << indent() << "# Defining Particles\n";
     SampleLabelHandler::particles_t::iterator it = m_label->getParticleMap()->begin();
     while (it != m_label->getParticleMap()->end()) {
-        const Particle *particle = it->first;
-
-        if (particle->getRotation()) {
-            double alpha, beta, gamma;
-            particle->getRotation()->getTransform3D().calculateEulerAngles(&alpha, &beta, &gamma);
-            switch (particle->getRotation()->getTransform3D().getRotationType()) {
-            case Geometry::Transform3D::EULER:
-                result << indent() << it->second << "_rotation = RotationEuler("
-                       << PyGenTools::printDegrees(alpha) << ", " << PyGenTools::printDegrees(beta)
-                       << ", " << PyGenTools::printDegrees(gamma) << ")\n";
-                break;
-            case Geometry::Transform3D::XAXIS:
-                result << indent() << it->second << "_rotation = RotationX("
-                       << PyGenTools::printDegrees(beta) << ")\n";
-                break;
-            case Geometry::Transform3D::YAXIS:
-                result << indent() << it->second << "_rotation = RotationY("
-                       << PyGenTools::printDegrees(gamma) << ")\n";
-                break;
-            case Geometry::Transform3D::ZAXIS:
-                result << indent() << it->second << "_rotation = RotationZ("
-                       << PyGenTools::printDegrees(alpha) << ")\n";
-                break;
-            default:
-                break;
-            }
-        }
-        result << indent() << it->second << " = Particle("
-               << m_label->getLabel(particle->getMaterial()) << ", "
-               << m_label->getLabel(particle->getFormFactor());
-
-        if (particle->getRotation()) {
-            result << ", " << it->second << "_rotation";
-        }
-
+        const Particle *p_particle = it->first;
+        std::string particle_name = it->second;
+        result << indent() << particle_name << " = Particle("
+               << m_label->getLabel(p_particle->getMaterial()) << ", "
+               << m_label->getLabel(p_particle->getFormFactor());
         result << ")\n";
+        setRotationInformation(p_particle, particle_name, result);
+        setPositionInformation(p_particle, particle_name, result);
         it++;
     }
     return result.str();
@@ -631,13 +573,13 @@ std::string PyGenVisitor::defineCoreShellParticles() const
         = m_label->getParticleCoreShellMap()->begin();
 
     while (it != m_label->getParticleCoreShellMap()->end()) {
-        kvector_t position = it->first->getRelativeCorePosition();
-        result << indent() << it->second << "_relPosition = kvector_t(" << position.x()
-               << "*nanometer, " << position.y() << "*nanometer, " << position.z() << "*nanometer)";
+        const ParticleCoreShell* p_coreshell = it->first;
         result << "\n" << indent() << it->second << " = ParticleCoreShell("
-               << m_label->getLabel(it->first->getShellParticle()) << ", "
-               << m_label->getLabel(it->first->getCoreParticle()) << ", " << it->second
-               << "_relPosition)\n";
+               << m_label->getLabel(p_coreshell->getShellParticle()) << ", "
+               << m_label->getLabel(p_coreshell->getCoreParticle()) << ")\n";
+        std::string core_shell_name = it->second;
+        setRotationInformation(p_coreshell, core_shell_name, result);
+        setPositionInformation(p_coreshell, core_shell_name, result);
         it++;
     }
     return result.str();
@@ -650,7 +592,7 @@ std::string PyGenVisitor::defineParticleDistributions() const
 
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Defining collection of particles with size distribution\n";
+    result << "\n" << indent() << "# Defining particles with parameter following a distribution\n";
     SampleLabelHandler::particledistributions_t::iterator it
         = m_label->getParticleDistributionsMap()->begin();
 
@@ -673,6 +615,17 @@ std::string PyGenVisitor::defineParticleDistributions() const
                << "\"" << par_distr.getMainParameterName() << "\""
                << ", " << s_distr.str() << ", " << par_distr.getNbrSamples() << ", "
                << PyGenTools::printDouble(par_distr.getSigmaFactor()) << ")\n";
+
+        // linked parameters
+        std::vector<std::string> linked_pars = par_distr.getLinkedParameterNames();
+        if(linked_pars.size()) {
+            result << indent() << s_par_distr.str();
+            for(size_t i=0; i<linked_pars.size(); ++i) {
+                result << ".linkParameter(\"" << linked_pars[i] << "\")";
+            }
+            result << "\n";
+        }
+
         result << indent() << it->second << " = ParticleDistribution("
                << m_label->getLabel(it->first->getParticle()) << ", " << s_par_distr.str() << ")\n";
         it++;
@@ -687,22 +640,21 @@ std::string PyGenVisitor::defineParticleCompositions() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Defining collection of particles with specific positions\n";
+    result << "\n" << indent() << "# Defining composition of particles at specific positions\n";
     SampleLabelHandler::particlecompositions_t::iterator it
         = m_label->getParticleCompositionMap()->begin();
 
     while (it != m_label->getParticleCompositionMap()->end()) {
-        result << indent() << it->second << " = ParticleComposition()\n";
-        for (size_t i = 0; i < it->first->getNbrParticles(); ++i) {
-            kvector_t position = it->first->getParticlePosition(i);
-            result << indent() << "particle_" << i + 1 << "_position"
-                   << " = kvector_t(" << position.x() << "*nanometer, " << position.y()
-                   << "*nanometer, " << position.z() << "*nanometer)\n";
-            result << indent() << it->second << ".addParticle("
-                   << m_label->getLabel(it->first->getParticle(i)) << ", ";
-            result << "particle_" << i + 1 << "_position"
-                   << ")\n";
+        const ParticleComposition *p_particle_composition = it->first;
+        std::string particle_composition_name = it->second;
+        result << indent() << particle_composition_name << " = ParticleComposition()\n";
+        for (size_t i = 0; i < p_particle_composition->getNbrParticles(); ++i) {
+            result << indent() << particle_composition_name << ".addParticle("
+                   << m_label->getLabel(p_particle_composition->getParticle(i))
+            << ")\n";
         }
+        setRotationInformation(p_particle_composition, particle_composition_name, result);
+        setPositionInformation(p_particle_composition, particle_composition_name, result);
         it++;
     }
     return result.str();
@@ -728,21 +680,10 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
 
         else if (const InterferenceFunction1DLattice *oneDLattice
                  = dynamic_cast<const InterferenceFunction1DLattice *>(interference)) {
-            const Lattice1DIFParameters latticeParameters = oneDLattice->getLatticeParameters();
-            result << indent() << it->second << "_latticeParameters = Lattice1DIFParameters()\n";
-            if (latticeParameters.m_length != 0) {
-                result << indent() << it->second
-                       << "_latticeParameters.m_length = " << latticeParameters.m_length
-                       << "*nanometer\n";
-            }
-
-            if (latticeParameters.m_xi != 0) {
-                result << indent() << it->second << "_latticeParameters.m_xi = "
-                       << PyGenTools::printDegrees(latticeParameters.m_xi) << "\n";
-            }
-
-            result << indent() << it->second << " = InterferenceFunction1DLattice(" << it->second
-                   << "_latticeParameters)\n";
+            const Lattice1DParameters latticeParameters = oneDLattice->getLatticeParameters();
+            result << indent() << it->second << " = InterferenceFunction1DLattice("
+                   << latticeParameters.m_length << "*nanometer, "
+                   << PyGenTools::printDegrees(latticeParameters.m_xi) << ")\n";
 
             const IFTDistribution1D *pdf = oneDLattice->getProbabilityDistribution();
 
@@ -812,7 +753,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                        << PyGenTools::printDouble(oneDParaCrystal->getDomainSize()) << ")\n";
             }
 
-            const IFTDistribution1D *pdf = oneDParaCrystal->getPropabilityDistribution();
+            const IFTDistribution1D *pdf = oneDParaCrystal->getProbabilityDistribution();
 
             if (const FTDistribution1DVoigt *fTD1DVoigt
                 = dynamic_cast<const FTDistribution1DVoigt *>(pdf)) {
@@ -866,7 +807,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
 
         else if (const InterferenceFunction2DLattice *twoDLattice
                  = dynamic_cast<const InterferenceFunction2DLattice *>(interference)) {
-            const Lattice2DIFParameters latticeParameters = twoDLattice->getLatticeParameters();
+            const Lattice2DParameters latticeParameters = twoDLattice->getLatticeParameters();
             result << indent() << it->second << " = InterferenceFunction2DLattice("
                    << latticeParameters.m_length_1 << "*nanometer, " << latticeParameters.m_length_2
                    << "*nanometer, " << PyGenTools::printDegrees(latticeParameters.m_angle) << ", "
@@ -960,32 +901,32 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
         else if (const InterferenceFunction2DParaCrystal *twoDParaCrystal
                  = dynamic_cast<const InterferenceFunction2DParaCrystal *>(interference)) {
             std::vector<double> domainSize = twoDParaCrystal->getDomainSizes();
-            if (PyGenTools::isSquare(twoDParaCrystal->getLatticeLengths()[0],
-                                     twoDParaCrystal->getLatticeLengths()[1],
-                                     twoDParaCrystal->getAlphaLattice())) {
+            if (PyGenTools::isSquare(twoDParaCrystal->getLatticeParameters().m_length_1,
+                                     twoDParaCrystal->getLatticeParameters().m_length_2,
+                                     twoDParaCrystal->getLatticeParameters().m_angle)) {
                 result << indent() << it->second
                        << " = InterferenceFunction2DParaCrystal.createSquare("
-                       << twoDParaCrystal->getLatticeLengths()[0] << "*nanometer, "
+                       << twoDParaCrystal->getLatticeParameters().m_length_1 << "*nanometer, "
                        << twoDParaCrystal->getDampingLength() << "*nanometer, " << domainSize[0]
                        << "*nanometer, " << domainSize[1] << "*nanometer)\n";
             }
 
-            else if (PyGenTools::isHexagonal(twoDParaCrystal->getLatticeLengths()[0],
-                                             twoDParaCrystal->getLatticeLengths()[1],
-                                             twoDParaCrystal->getAlphaLattice())) {
+            else if (PyGenTools::isHexagonal(twoDParaCrystal->getLatticeParameters().m_length_1,
+                                             twoDParaCrystal->getLatticeParameters().m_length_2,
+                                             twoDParaCrystal->getLatticeParameters().m_angle)) {
                 result << indent() << it->second
                        << " = InterferenceFunction2DParaCrystal.createHexagonal("
-                       << twoDParaCrystal->getLatticeLengths()[0] << "*nanometer, "
+                       << twoDParaCrystal->getLatticeParameters().m_length_1 << "*nanometer, "
                        << twoDParaCrystal->getDampingLength() << "*nanometer, " << domainSize[0]
                        << "*nanometer, " << domainSize[1] << "*nanometer)\n";
             }
 
             else {
-                result << indent() << it->second << " = InterferenceFunction2DParaCrystal"
-                       << twoDParaCrystal->getLatticeLengths()[0] << "*nanometer, "
-                       << twoDParaCrystal->getLatticeLengths()[1] << "*nanometer, "
-                       << PyGenTools::printDegrees(twoDParaCrystal->getAlphaLattice()) << ", "
-                       << PyGenTools::printDegrees(twoDParaCrystal->getLatticeOrientation()) << ", "
+                result << indent() << it->second << " = InterferenceFunction2DParaCrystal("
+                       << twoDParaCrystal->getLatticeParameters().m_length_1 << "*nanometer, "
+                       << twoDParaCrystal->getLatticeParameters().m_length_2 << "*nanometer, "
+                       << PyGenTools::printDegrees(twoDParaCrystal->getLatticeParameters().m_angle) << ", "
+                       << PyGenTools::printDegrees(twoDParaCrystal->getLatticeParameters().m_xi) << ", "
                        << twoDParaCrystal->getDampingLength() << "*nanometer)\n";
 
                 if (domainSize[0] != 0 || domainSize[1] != 0) {
@@ -1141,7 +1082,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             }
 
             result << indent() << it->second << ".setProbabilityDistributions(" << it->second
-                   << "_pdf_2, " << it->second << "_pdf_2)\n";
+                   << "_pdf_1, " << it->second << "_pdf_2)\n";
         }
 
         else {
@@ -1172,28 +1113,11 @@ std::string PyGenVisitor::defineParticleLayouts() const
             size_t particleIndex = 0;
 
             while (particleIndex != numberOfParticles) {
-                const IParticle *p_particle = particleLayout->getParticle(particleIndex);
+                const IAbstractParticle *p_particle = particleLayout->getParticle(particleIndex);
                 double abundance = particleLayout->getAbundanceOfParticle(particleIndex);
-                kvector_t pos = p_particle->getPosition();
-                if (pos.x() != 0.0 || pos.y() != 0.0) {
-                    result << indent() << m_label->getLabel(p_particle)
-                           << "_position = kvector_t(" << pos.x() << "*nanometer, " << pos.y()
-                           << "*nanometer, " << pos.z() << "*nanometer)\n";
-
-                    result << indent() << m_label->getLabel(p_particle)
-                           << "_positionInfo = ParticleInfo("
-                           << m_label->getLabel(p_particle) << ", "
-                           << m_label->getLabel(p_particle) << "_position, "
-                           << PyGenTools::printDouble(abundance) << ")\n";
-
-                    result << indent() << it->second << ".addParticleInfo("
-                           << m_label->getLabel(p_particle) << "_positionInfo)\n";
-                } else {
-                    result << indent() << it->second << ".addParticle("
-                           << m_label->getLabel(p_particle) << ", "
-                           << PyGenTools::printDouble(-pos.z()) << ", "
-                           << PyGenTools::printDouble(abundance) << ")\n";
-                }
+                result << indent() << it->second << ".addParticle("
+                       << m_label->getLabel(p_particle) << ", "
+                       << PyGenTools::printDouble(abundance) << ")\n";
                 particleIndex++;
             }
 
@@ -1214,10 +1138,6 @@ std::string PyGenVisitor::defineParticleLayouts() const
             case ILayout::SSCA:
                 result << indent() << it->second << ".setApproximation(ILayout.";
                 result << "SSCA)\n";
-                break;
-            case ILayout::ISGISAXSMOR:
-                result << indent() << it->second << ".setApproximation(ILayout.";
-                result << "ISGISAXSMOR)\n";
                 break;
             }
             result << indent() << it->second << ".setTotalParticleSurfaceDensity("
@@ -1334,6 +1254,38 @@ std::string PyGenVisitor::defineDetector(const GISASSimulation *simulation) cons
     return result.str();
 }
 
+std::string PyGenVisitor::defineDetectorResolutionFunction(const GISASSimulation *simulation) const
+{
+    std::ostringstream result;
+    const IDetector2D *detector = simulation->getInstrument().getDetector();
+
+    if (const IDetectorResolution *p_resfunc = detector->getDetectorResolutionFunction()) {
+        if (const ConvolutionDetectorResolution *p_convfunc
+            = dynamic_cast<const ConvolutionDetectorResolution *>(p_resfunc)) {
+            if (const ResolutionFunction2DGaussian *resfunc
+                = dynamic_cast<const ResolutionFunction2DGaussian *>(
+                    p_convfunc->getResolutionFunction2D())) {
+
+                result << indent() << "simulation.setDetectorResolutionFunction(";
+                result << "ResolutionFunction2DGaussian(";
+                result << PyGenTools::printDegrees(resfunc->getSigmaX()) << ", ";
+                result << PyGenTools::printDegrees(resfunc->getSigmaY()) << "))\n";
+
+            } else {
+                std::string message("PyGenVisitor::defineDetectorResolutionFunction() -> Error.");
+                message += "Unknown detector resolution function";
+                throw Exceptions::RuntimeErrorException(message);
+            }
+        } else {
+            std::string message("PyGenVisitor::defineDetectorResolutionFunction() -> Error.");
+            message += "Not a ConvolutionDetectorResolution function";
+            throw Exceptions::RuntimeErrorException(message);
+        }
+    }
+
+    return result.str();
+}
+
 std::string PyGenVisitor::defineBeam(const GISASSimulation *simulation) const
 {
     std::ostringstream result;
@@ -1343,6 +1295,11 @@ std::string PyGenVisitor::defineBeam(const GISASSimulation *simulation) const
     result << simulation->getInstrument().getBeam().getWavelength() << "*nanometer, "
            << PyGenTools::printDegrees(simulation->getInstrument().getBeam().getAlpha()) << ", "
            << PyGenTools::printDegrees(simulation->getInstrument().getBeam().getPhi()) << ")\n";
+    double beam_intensity = simulation->getInstrument().getBeamIntensity();
+    if(beam_intensity > 0.0) {
+        result << indent() << "simulation.setBeamIntensity("
+               << PyGenTools::printScientificDouble(beam_intensity) << ")\n";
+    }
     return result.str();
 }
 
@@ -1366,6 +1323,26 @@ std::string PyGenVisitor::defineParameterDistributions(const GISASSimulation *si
     return result.str();
 }
 
+std::string PyGenVisitor::defineMasks(const GISASSimulation *simulation) const
+{
+    std::ostringstream result;
+    result << std::setprecision(12);
+
+    const IDetector2D *detector = simulation->getInstrument().getDetector();
+    const DetectorMask *detectorMask = detector->getDetectorMask();
+    if(detectorMask && detectorMask->getNumberOfMasks()) {
+        result << "\n";
+        for(size_t i_mask=0; i_mask<detectorMask->getNumberOfMasks(); ++i_mask) {
+            bool mask_value(false);
+            const Geometry::IShape2D *shape = detectorMask->getMaskShape(i_mask, mask_value);
+            result << PyGenTools::getRepresentation(indent(), shape, mask_value);
+        }
+        result << "\n";
+    }
+
+    return result.str();
+}
+
 std::string PyGenVisitor::definePlotting(const GISASSimulation *simulation) const
 {
     std::ostringstream result;
@@ -1373,10 +1350,9 @@ std::string PyGenVisitor::definePlotting(const GISASSimulation *simulation) cons
     //    result << "#NOTE: Uncomment the next function for plotting\n";
     //    result << "#NOTE: This requires the presence of matplotlib library\n";
     result << "def plotSimulation(simulation):\n";
-    result << "" << indent() << "result = simulation.getIntensityData().getArray()"
-           << "+ 1 # +1 for log scale\n";
-    result << "" << indent() << "im = pylab.imshow(numpy.rot90(result, 1), "
-           << "norm=matplotlib.colors.LogNorm(), extent=[";
+    result << "" << indent() << "result = simulation.getIntensityData()\n";
+    result << "" << indent() << "im = plt.imshow(result.getArray(), "
+           << "norm=matplotlib.colors.LogNorm(1, result.getMaximum()), extent=[";
     size_t index = 0;
     size_t numberOfDetectorDimensions = simulation->getInstrument().getDetectorDimension();
     while (index < numberOfDetectorDimensions) {
@@ -1390,8 +1366,8 @@ std::string PyGenVisitor::definePlotting(const GISASSimulation *simulation) cons
         index++;
     }
     result << "]) \n";
-    result << indent() << "pylab.colorbar(im)\n";
-    result << indent() << "pylab.show()\n\n\n";
+    result << indent() << "plt.colorbar(im)\n";
+    result << indent() << "plt.show()\n\n\n";
     return result.str();
 }
 
@@ -1416,3 +1392,54 @@ std::string PyGenVisitor::indent() const
     std::string result("    ");
     return result;
 }
+
+void PyGenVisitor::setRotationInformation(const IParticle *p_particle, std::string name,
+                                          std::ostringstream &result) const
+{
+    if (p_particle->getRotation()) {
+        double alpha, beta, gamma;
+        p_particle->getRotation()->getTransform3D().calculateEulerAngles(&alpha, &beta, &gamma);
+        switch (p_particle->getRotation()->getTransform3D().getRotationType()) {
+        case Geometry::Transform3D::EULER:
+            result << indent() << name << "_rotation = RotationEuler("
+                   << PyGenTools::printDegrees(alpha) << ", " << PyGenTools::printDegrees(beta)
+                   << ", " << PyGenTools::printDegrees(gamma) << ")\n";
+            break;
+        case Geometry::Transform3D::XAXIS:
+            result << indent() << name << "_rotation = RotationX("
+                   << PyGenTools::printDegrees(beta) << ")\n";
+            break;
+        case Geometry::Transform3D::YAXIS:
+            result << indent() << name << "_rotation = RotationY("
+                   << PyGenTools::printDegrees(gamma) << ")\n";
+            break;
+        case Geometry::Transform3D::ZAXIS:
+            result << indent() << name << "_rotation = RotationZ("
+                   << PyGenTools::printDegrees(alpha) << ")\n";
+            break;
+        default:
+            break;
+        }
+        result << indent() << name << ".setRotation("
+               << name << "_rotation)\n";
+    }
+}
+
+void PyGenVisitor::setPositionInformation(const IParticle *p_particle, std::string name,
+                                          std::ostringstream &result) const
+{
+    kvector_t pos = p_particle->getPosition();
+    bool has_position_info = (pos != kvector_t());
+
+    if (has_position_info) {
+        result << indent() << name
+               << "_position = kvector_t(" << pos.x() << "*nanometer, " << pos.y()
+               << "*nanometer, " << pos.z() << "*nanometer)\n";
+
+        result << indent()
+               << name << ".setPosition("
+               << name << "_position)\n";
+    }
+}
+
+

@@ -14,31 +14,87 @@
 // ************************************************************************** //
 
 #include "ParticleItem.h"
+#include "ParticleCoreShellItem.h"
 #include "FormFactorItems.h"
 #include "MaterialUtils.h"
+#include "VectorItem.h"
+#include "TransformToDomain.h"
+#include "GUIHelpers.h"
+
 #include <QDebug>
 
 const QString ParticleItem::P_FORM_FACTOR = "Form Factor";
-const QString ParticleItem::P_DEPTH = "Depth";
 const QString ParticleItem::P_ABUNDANCE = "Abundance";
 const QString ParticleItem::P_MATERIAL = "Material";
-
+const QString ParticleItem::P_POSITION = "Position Offset";
 
 ParticleItem::ParticleItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleType, parent)
 {
-    setItemName(Constants::ParticleType);
-    setItemPort(ParameterizedItem::PortInfo::PORT_0);
     registerGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
     registerProperty(P_MATERIAL,
                      MaterialUtils::getDefaultMaterialProperty().getVariant());
-    registerProperty(P_DEPTH, 0.0, PropertyAttribute(AttLimits::limited(-10000.0, 10000.0), 2));
     registerProperty(P_ABUNDANCE, 1.0,
                      PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
+    registerGroupProperty(P_POSITION, Constants::VectorType);
+    PositionTranslator position_translator;
+    addParameterTranslator(position_translator);
 
     addToValidChildren(Constants::TransformationType, PortInfo::PORT_0, 1);
-
-    setPropertyAppearance(ParameterizedItem::P_NAME,
-                          PropertyAttribute::VISIBLE);
+    RotationTranslator rotation_translator;
+    addParameterTranslator(rotation_translator);
 }
 
+void ParticleItem::insertChildItem(int row, ParameterizedItem *item)
+{
+    ParameterizedItem::insertChildItem(row, item);
+    if (item->modelType() == Constants::TransformationType) {
+        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+        if (port == PortInfo::DEFAULT) {
+            item->setItemPort(PortInfo::PORT_0);
+        }
+    }
+}
+
+void ParticleItem::onPropertyChange(const QString &name)
+{
+    ParameterizedItem::onPropertyChange(name);
+    if (name == P_PORT && parent()) {
+        if (parent()->modelType() == Constants::ParticleCoreShellType
+            || parent()->modelType() == Constants::ParticleCompositionType
+            || parent()->modelType() == Constants::ParticleDistributionType) {
+            setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
+            setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
+            int port = getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+            if (parent()->modelType() == Constants::ParticleCoreShellType) {
+                auto p_coreshell = static_cast<ParticleCoreShellItem*>(parent());
+                p_coreshell->notifyChildParticlePortChanged();
+                if (port == PortInfo::PORT_1) {
+                    ParameterizedItem *p_position_item = getSubItems()[ParticleItem::P_POSITION];
+                    p_position_item->setRegisteredProperty(VectorItem::P_X, 0.0);
+                    p_position_item->setRegisteredProperty(VectorItem::P_Y, 0.0);
+                    p_position_item->setRegisteredProperty(VectorItem::P_Z, 0.0);
+                    setPropertyAppearance(ParticleItem::P_POSITION, PropertyAttribute::DISABLED);
+                }
+            }
+        }
+    }
+}
+
+std::unique_ptr<Particle> ParticleItem::createParticle() const
+{
+    auto P_material = TransformToDomain::createDomainMaterial(*this);
+    auto P_particle = GUIHelpers::make_unique<Particle>(*P_material);
+
+    double abundance = getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+    P_particle->setAbundance(abundance);
+
+    auto ffItem = static_cast<FormFactorItem*>(getSubItems()[ParticleItem::P_FORM_FACTOR]);
+    Q_ASSERT(ffItem);
+    auto P_ff = ffItem->createFormFactor();
+    P_particle->setFormFactor(*P_ff);
+
+    TransformToDomain::setTransformationInfo(P_particle.get(), *this);
+
+    return P_particle;
+}

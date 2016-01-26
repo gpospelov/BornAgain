@@ -20,12 +20,13 @@
 #include <boost/regex.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/date_time/local_time_adjustor.hpp>
+#include <boost/date_time/c_local_time_adjustor.hpp>
 #include <string>
+#include <thread>
 
 #include "Macros.h"
-GCC_DIAG_OFF(strict-aliasing);
-#include <boost/thread.hpp>
-GCC_DIAG_ON(strict-aliasing);
 
 
 #ifdef DEBUG_FPE
@@ -45,13 +46,13 @@ vdouble1d_t Utils::String::parse_doubles(const std::string& str)
     std::istringstream iss(str);
     std::string svalue;
     while(iss >> svalue) {
-        buff_1d.push_back(std::strtod(svalue.c_str(), NULL));
+        buff_1d.push_back(std::strtod(svalue.c_str(), nullptr));
     }
 // approach below doesnt work under mac 10.6 for doubles like 4.3882628771e-313
 //    std::copy(std::istream_iterator<double>(iss),
 //              std::istream_iterator<double>(), back_inserter(buff_1d));
     if( buff_1d.empty() ) {
-        std::cout << "OutputDataReadFileASCII::parse_doubles() -> "
+        std::cout << "Utils::String::parse_doubles -> "
             "Warning! No parsed values in 1d vector of doubles." << std::endl;
         std::cout << "Line '" << str << "'" << std::endl;
     }
@@ -127,10 +128,30 @@ void Utils::String::replaceItemsFromString(std::string &text, const std::vector<
     }
 }
 
+std::string Utils::String::getScientificDoubleString(double value, size_t precision)
+{
+    std::ostringstream svalue;
+    size_t total_width = precision+5;
+    svalue << std::setw(total_width) << std::left << std::scientific << std::setprecision(precision)
+           << value;
+    return svalue.str();
+}
+
 
 int Utils::System::getThreadHardwareConcurrency()
 {
-    return (int)boost::thread::hardware_concurrency();
+    return std::thread::hardware_concurrency();
+}
+
+std::string Utils::System::getCurrentDateAndTime()
+{
+    using boost::posix_time::ptime;
+    using boost::posix_time::second_clock;
+    using boost::posix_time::to_simple_string;
+    using boost::gregorian::day_clock;
+
+    ptime todayUtc(day_clock::universal_day(), second_clock::universal_time().time_of_day());
+    return to_simple_string(todayUtc);
 }
 
 

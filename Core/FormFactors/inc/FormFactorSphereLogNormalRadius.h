@@ -36,11 +36,9 @@ public:
     virtual FormFactorSphereLogNormalRadius *clone() const;
     virtual ~FormFactorSphereLogNormalRadius();
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual int getNumberOfStochasticParameters() const;
-
-    virtual double getHeight() const;
+    virtual double getRadius() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 

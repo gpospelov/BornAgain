@@ -11,8 +11,7 @@ class ParameterDistributionTest : public ::testing::Test
 {
 
 protected:
-   ParameterDistributionTest(){}
-    virtual ~ParameterDistributionTest(){}
+   ParameterDistributionTest() {}
 };
 
 TEST_F(ParameterDistributionTest, ParameterDistributionConstructor)
@@ -52,31 +51,6 @@ TEST_F(ParameterDistributionTest, ParameterDistributionConstructor)
     EXPECT_EQ(0.0, pardistr3.getSigmaFactor());
     EXPECT_EQ(AttLimits(), pardistr3.getLimits());
     EXPECT_EQ(pardistr3.getLinkedParameterNames().size(), size_t(0));
-
-
-//    ParameterDistribution pd1D1(name, distribution, 0, 1.0);
-//    EXPECT_THROW(pd1D1.generateSamples(),OutOfBoundsException);
-//    std::vector<ParameterSample> list = pd1D.generateSamples();
-//    ParameterSample parameterSample = list[0];
-//    EXPECT_EQ(pd1D.getDistribution()->getMean(), parameterSample.value);
-//    EXPECT_EQ(pd1D.getDistribution()->probabilityDensity(pd1D.getDistribution()->getMean()), parameterSample.weight);
-//    pd1D.linkParameter("parameter");
-
-//    std::vector<std::string> linked_par_names = pd1D.getLinkedParameterNames();
-//    EXPECT_EQ("parameter", linked_par_names[0]);
-
-
-//    std::string nameOther = "ParameterDistribution2";
-//    DistributionGate distributionOther(1.0,2.0);
-//    ParameterDistribution pd1DOther(nameOther,distributionOther,1,0.0);
-//    pd1D.operator =(pd1DOther);
-//    EXPECT_EQ(pd1DOther.getDistribution()->getName(), pd1D.getDistribution()->getName());
-//    EXPECT_EQ(pd1DOther.getLinkedParameterNames(), pd1D.getLinkedParameterNames());
-//    EXPECT_EQ(pd1DOther.getNbrSamples(), pd1D.getNbrSamples());
-//    EXPECT_EQ(pd1DOther.getName(), pd1D.getName());
-//    EXPECT_EQ(pd1DOther.getMainParameterName(), pd1D.getMainParameterName());
-//    EXPECT_EQ(pd1DOther.getSigmaFactor(), pd1D.getSigmaFactor());
-
 }
 
 TEST_F(ParameterDistributionTest, ParameterDistributionCopyConstructor)
@@ -162,7 +136,6 @@ TEST_F(ParameterDistributionTest, GenerateSamples)
     EXPECT_EQ(sample_values[0].value, xmin);
     EXPECT_EQ(sample_values[1].value, xmin + (xmax-xmin)/2.0);
     EXPECT_EQ(sample_values[2].value, xmax);
-
 }
 
 

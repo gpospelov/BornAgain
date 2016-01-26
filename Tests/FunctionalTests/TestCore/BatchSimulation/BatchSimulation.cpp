@@ -1,29 +1,28 @@
-#include "FunctionalTestRegistry.h"
-#include "FileSystem.h"
 #include "SimulationRegistry.h"
-#include "IntensityDataIOFactory.h"
-#include "MessageService.h"
-#include "IntensityDataFunctions.h"
 #include "IFunctionalTest.h"
+#include "IntensityDataFunctions.h"
+#include "SampleBuilderFactory.h"
 #include <iostream>
-
+#include <boost/scoped_ptr.hpp>
 
 int TestBatchSimulation()
 {
     SimulationRegistry sim_registry;
-    GISASSimulation *simulation = sim_registry.createSimulation("isgisaxs01");
+    boost::scoped_ptr<GISASSimulation > simulation(sim_registry.createSimulation("MiniGISAS"));
 
-    std::string filename = Utils::FileSystem::GetReferenceDataDir() + "isgisaxs01_reference.int.gz";
-    OutputData<double> *reference = IntensityDataIOFactory::readIntensityData(filename);
+    SampleBuilderFactory sampleFactory;
+    SampleBuilder_t builder = sampleFactory.createBuilder("CylindersInBABuilder");
 
-
-    OutputData<double> *result = reference->clone();
+    simulation->setSampleBuilder(builder);
+    simulation->runSimulation();
+    boost::scoped_ptr<OutputData<double > > reference(simulation->getDetectorIntensity());
+    boost::scoped_ptr<OutputData<double > > result(reference->clone());
     result->setAllTo(0.0);
 
     const int n_batches = 9;
     const double threshold = 2e-10;
     for(size_t i_batch=0; i_batch<n_batches; ++i_batch) {
-        GISASSimulation *batch = simulation->clone();
+        boost::scoped_ptr<GISASSimulation > batch(simulation->clone());
         ThreadInfo threadInfo;
         threadInfo.n_threads = 1;
         threadInfo.n_batches = n_batches;
@@ -32,8 +31,6 @@ int TestBatchSimulation()
 
         batch->runSimulation();
         *result += *batch->getOutputData();
-
-        delete batch;
     }
 
 
@@ -42,19 +39,14 @@ int TestBatchSimulation()
     std::cout << "BatchSimulation" << " " << "Running simulations in batch mode" << " " << diff
               << " " << (diff>threshold ? "[FAILED]" : "[OK]") << std::endl;
 
-    if( diff > threshold ) return FunctionalTest::FAILED;
+    if( diff > threshold ) return IFunctionalTest::FAILED;
 
-    delete simulation;
-    delete reference;
-
-    return FunctionalTest::SUCCESS;
+    return IFunctionalTest::SUCCESS;
 }
 
 
-int main(int argc, char **argv)
+int main(int, char **)
 {
-    if(argc == 2) Utils::FileSystem::SetReferenceDataDir(argv[1]);
-    //MSG::SetLevel(MSG::DEBUG);
     return TestBatchSimulation();
 }
 

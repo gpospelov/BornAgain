@@ -52,7 +52,13 @@
 // sdk
 #include <QtDesigner/QDesignerFormEditorInterface>
 #include <QtDesigner/QDesignerDnDItemInterface>
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 5, 0)
 #include <QtDesigner/QDesignerCustomWidgetInterface>
+#else
+#include <QtUiPlugin/QDesignerCustomWidgetInterface>
+#endif
+
 //#include <QtDesigner/QDesignerSettingsInterface>
 
 //#include <QtWidgets/QHeaderView>

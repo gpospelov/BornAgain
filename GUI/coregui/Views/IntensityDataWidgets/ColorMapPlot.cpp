@@ -31,18 +31,23 @@ ColorMapPlot::ColorMapPlot(QWidget *parent)
     vlayout->setSpacing(0);
     vlayout->addWidget(m_customPlot);
     setLayout(vlayout);
+    setMouseTracking(false);
+    m_customPlot->setMouseTracking(false);
+
 }
 
 //! initializes everything with new IntensityDataItem or plot it, if it was already the case
 void ColorMapPlot::setItem(IntensityDataItem *item)
 {
-    if (m_item == item) {
+    if (item && (m_item == item)) {
         // qDebug() << "ColorMapPlot::setItem(NIntensityDataItem *item) item==m_item";
         plotItem(m_item);
         return;
     }
 
     if (m_item) {
+        disconnect(m_item, SIGNAL(intensityModified()), this,
+                   SLOT(onIntensityModified()));
         disconnect(m_item, SIGNAL(propertyChanged(QString)), this,
                    SLOT(onPropertyChanged(QString)));
         disconnect(m_item, SIGNAL(subItemPropertyChanged(QString, QString)), this,
@@ -56,6 +61,8 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
 
     plotItem(m_item);
 
+    connect(m_item, SIGNAL(intensityModified()), this,
+               SLOT(onIntensityModified()));
     connect(m_item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChanged(QString)));
 
     connect(m_item, SIGNAL(subItemPropertyChanged(QString, QString)), this,
@@ -95,7 +102,7 @@ void ColorMapPlot::drawLinesOverTheMap()
 
     double fraction = (keyRange.upper - keyRange.lower) / keySize;
 
-    QVector<double> x1(keySize + 1), y1(valueSize + 1);
+    QVector<double> x1(keySize + 1), y1(keySize + 1);
     for (int i = 0; i < x1.size(); i++) {
         x1[i] = keyRange.lower + (i * fraction);
         y1[i] = m_posData.m_yPos;
@@ -105,7 +112,7 @@ void ColorMapPlot::drawLinesOverTheMap()
     // draw vertical line
     fraction = (valueRange.upper - valueRange.lower) / valueSize;
 
-    QVector<double> x2(valueSize + 1), y2(keySize + 1);
+    QVector<double> x2(valueSize + 1), y2(valueSize + 1);
     for (int i = 0; i < x2.size(); i++) {
         x2[i] = m_posData.m_xPos;
         y2[i] = valueRange.lower + (i * fraction);
@@ -118,11 +125,57 @@ void ColorMapPlot::drawLinesOverTheMap()
 //! switches visibility of two crossed lines
 void ColorMapPlot::showLinesOverTheMap(bool isVisible)
 {
+    m_customPlot->setMouseTracking(isVisible);
+
     if (m_customPlot->graph(0) && m_customPlot->graph(1)) {
         m_customPlot->graph(0)->setVisible(isVisible);
         m_customPlot->graph(1)->setVisible(isVisible);
         m_customPlot->replot();
     }
+}
+
+double ColorMapPlot::xAxisCoordToPixel(double axis_coordinate) const
+{
+    double result = m_customPlot->xAxis->coordToPixel(axis_coordinate);
+//    qDebug() << "ColorMapPlot::xAxisCoordToPixel axis_coordinate:" << axis_coordinate << "result:" << result;
+    return result;
+}
+
+double ColorMapPlot::yAxisCoordToPixel(double axis_coordinate) const
+{
+    return m_customPlot->yAxis->coordToPixel(axis_coordinate);
+}
+
+double ColorMapPlot::pixelToXaxisCoord(double pixel) const
+{
+    return m_customPlot->xAxis->pixelToCoord(pixel);
+}
+
+double ColorMapPlot::pixelToYaxisCoord(double pixel) const
+{
+    return m_customPlot->yAxis->pixelToCoord(pixel);
+}
+
+QRectF ColorMapPlot::getViewportRectangleInWidgetCoordinates()
+{
+    QCPRange xrange = m_customPlot->xAxis->range();
+    QCPRange yrange = m_customPlot->yAxis->range();
+    double left = xrange.lower;
+    double right = xrange.upper;
+    double top = yrange.upper;
+    double bottom = yrange.lower;
+
+    return QRectF(xAxisCoordToPixel(left),
+                  yAxisCoordToPixel(top),
+                  xAxisCoordToPixel(right) - xAxisCoordToPixel(left),
+                  yAxisCoordToPixel(bottom) - yAxisCoordToPixel(top));
+}
+
+//! to track move events (used when showing profile histograms and printing status string)
+void ColorMapPlot::setTrackMoveEventsFlag(bool flag)
+{
+    setMouseTracking(flag);
+    m_customPlot->setMouseTracking(flag);
 }
 
 //! sets logarithmic scale
@@ -146,8 +199,10 @@ void ColorMapPlot::resetView()
 {
     m_block_update = true;
     m_colorMap->rescaleAxes();
-    QCPRange newDataRange = calculateDataRange(m_item);
-    m_colorMap->setDataRange(newDataRange);
+    if(!m_item->isZAxisLocked()) {
+        QCPRange newDataRange = calculateDataRange(m_item);
+        m_colorMap->setDataRange(newDataRange);
+    }
     m_customPlot->replot();
     m_block_update = false;
 }
@@ -156,10 +211,11 @@ void ColorMapPlot::resetView()
 void ColorMapPlot::onMouseMove(QMouseEvent *event)
 {
     m_posData.reset();
-
     QPoint point = event->pos();
     double xPos = m_customPlot->xAxis->pixelToCoord(point.x());
     double yPos = m_customPlot->yAxis->pixelToCoord(point.y());
+
+//    qDebug() << "AAA ColorMapPlot::onMouseMove() " << point << "xpos:" << xPos << "yPos:" << yPos;
 
     if (m_customPlot->xAxis->range().contains(xPos)
         && m_customPlot->yAxis->range().contains(yPos)) {
@@ -225,6 +281,12 @@ void ColorMapPlot::getVerticalSlice(QVector<double> &x, QVector<double> &y)
             y[i] = 0;
         }
     }
+}
+
+void ColorMapPlot::onIntensityModified()
+{
+    qDebug() << "ColorMapPlot::onIntensityModified()";
+    plotItem(m_item);
 }
 
 //! updates color map depending on  IntensityDataItem properties
@@ -299,6 +361,10 @@ void ColorMapPlot::onSubItemPropertyChanged(const QString &property_group,
             }
         } else if (property_name == AmplitudeAxisItem::P_IS_LOGSCALE) {
             setLogz(m_item->isLogz());
+
+        } else if (property_name == BasicAxisItem::P_IS_VISIBLE) {
+            setColorScaleVisible(m_item->getSubItems()[IntensityDataItem::P_ZAXIS]
+                ->getRegisteredProperty(BasicAxisItem::P_IS_VISIBLE).toBool());
         }
         m_customPlot->replot();
     }
@@ -416,13 +482,15 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
 
     OutputData<double>::const_iterator it = data->begin();
     while (it != data->end()) {
-        std::vector<int> indices = data->toCoordinates(it.getIndex());
+        std::vector<int> indices = data->getAxesBinIndices(it.getIndex());
 
         m_colorMap->data()->setCell(indices[0], indices[1], *it);
 
         ++it;
     }
 
+    setColorScaleVisible(intensityItem->getSubItems()[IntensityDataItem::P_ZAXIS]
+        ->getRegisteredProperty(BasicAxisItem::P_IS_VISIBLE).toBool());
 
     m_colorMap->setGradient(m_gradient_map[intensityItem->getGradient()]);
 
@@ -472,4 +540,17 @@ QCPRange ColorMapPlot::calculateDataRange(IntensityDataItem *intensityItem)
         max = max * 1.1;
     }
     return QCPRange(min, max);
+}
+
+void ColorMapPlot::setColorScaleVisible(bool visibility_flag)
+{
+    m_colorScale->setVisible(visibility_flag);
+    if(visibility_flag) {
+        m_customPlot->plotLayout()->addElement(
+            0, 1, m_colorScale); // add it to the right of the main axis rect
+    } else {
+        m_customPlot->plotLayout()->take(m_colorScale);
+        m_customPlot->plotLayout()->simplify();
+
+    }
 }

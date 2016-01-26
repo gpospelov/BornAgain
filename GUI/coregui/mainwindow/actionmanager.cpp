@@ -19,6 +19,7 @@
 #include "mainwindow_constants.h"
 #include "projectmanager.h"
 #include "stringutils.h"
+#include "UpdateNotifier.h"
 #include <QMenuBar>
 #include <QShortcut>
 #include <QSettings>
@@ -37,6 +38,7 @@ ActionManager::ActionManager(MainWindow *parent)
     , m_saveAsAction(0)
     , m_menuBar(0)
     , m_fileMenu(0)
+    , m_settingsMenu(0)
     , m_helpMenu(0)
     , m_runSimulationShortcut(0)
 {
@@ -121,6 +123,11 @@ void ActionManager::createMenus()
     m_fileMenu->addSeparator();
     m_fileMenu->addAction(m_exitAction);
 
+    // Settings Menu
+    m_settingsMenu = m_menuBar->addMenu(tr("&Settings"));
+    connect(m_settingsMenu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowSettings()));
+
+
     // Help Menu
     m_helpMenu = m_menuBar->addMenu(tr("&Help"));
     m_helpMenu->addAction(m_aboutAction);
@@ -160,6 +167,25 @@ void ActionManager::aboutToShowRecentProjects()
 
 }
 
+void ActionManager::aboutToShowSettings()
+{
+    m_settingsMenu->clear();
+    QSettings settings;
+    settings.beginGroup(Constants::S_UPDATES);
+    QAction *action = m_settingsMenu->addAction(tr("Check for Updates"));
+    action->setCheckable(true);
+    action->setChecked(settings.value(Constants::S_CHECKFORUPDATES, false).toBool());
+    connect(action, SIGNAL(toggled(bool)), this, SLOT(toggleCheckForUpdates(bool)));
+    settings.endGroup();
+}
 
+void ActionManager::toggleCheckForUpdates(bool status)
+{
+    QSettings settings;
+    settings.beginGroup(Constants::S_UPDATES);
+    settings.setValue(Constants::S_CHECKFORUPDATES, status);
+    settings.endGroup();
+    m_mainWindow->getUpdateNotifier()->checkForUpdates();
+}
 
 

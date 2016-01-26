@@ -43,12 +43,6 @@ public:
     //! Returns file extension
     static std::string GetFileExtension(const std::string& name);
 
-    //! Returns true if name contains *.gz extension
-    static bool isGZipped(const std::string& name);
-
-    //! Returns file extension after stripping '.gz' if any
-    static std::string GetFileMainExtension(const std::string& name);
-
     //! returns path to executable
     static std::string GetPathToExecutable(const std::string& argv0=GetArgvPath());
 
@@ -64,6 +58,12 @@ public:
     //! return path to the reference data
     static std::string GetReferenceDataDir();
     static void SetReferenceDataDir(const std::string &path) {m_reference_data_dir = path; }
+
+    //! creates directory in current directory
+    static bool CreateDirectory(const std::string &dir_name);
+
+    //! join paths together
+    static std::string GetJoinPath(const std::string &spath1, const std::string &spath2);
 
 private:
     static std::string m_argv0_path; //!< it's value of argv[0], i.e. the path from working directory to executable module including the name of executable module

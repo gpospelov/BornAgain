@@ -25,7 +25,8 @@ VariableBinAxis::VariableBinAxis(const std::string &name, size_t nbins, const st
     , m_nbins(nbins)
 {
     if(m_nbins != bin_boundaries.size()-1)
-        throw Exceptions::LogicErrorException("VariableBinAxis::VariableBinAxis() -> Error! The size of value_vector should be of size [nbins+1].");
+        throw Exceptions::LogicErrorException("VariableBinAxis::VariableBinAxis() -> Error! "
+            "The size of bin_boundaries should be of size [nbins+1].");
 
     setBinBoundaries(bin_boundaries);
 }
@@ -77,6 +78,11 @@ double VariableBinAxis::getMin() const
 double VariableBinAxis::getMax() const
 {
     return m_bin_boundaries.back();
+}
+
+double VariableBinAxis::getBinCenter(size_t index) const
+{
+    return getBin(index).getMidPoint();
 }
 
 
@@ -157,7 +163,7 @@ bool VariableBinAxis::equals(const IAxis& other) const
     if (const VariableBinAxis *p_other_cast = dynamic_cast<const VariableBinAxis *>(&other)) {
         if (getSize() != p_other_cast->getSize()) return false;
         for(size_t i=0; i<m_bin_boundaries.size(); ++i) {
-            if( std::abs(m_bin_boundaries[i] - p_other_cast->m_bin_boundaries[i]) > Numeric::double_epsilon ) {
+            if( !Numeric::areAlmostEqual(m_bin_boundaries[i], p_other_cast->m_bin_boundaries[i])) {
                 return false;
             }
         }

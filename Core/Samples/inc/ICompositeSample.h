@@ -26,20 +26,13 @@
 class BA_CORE_API_ ICompositeSample : public ISample
 {
 public:
-    typedef std::list<ISample*>::iterator iterator_t;
-    typedef std::list<ISample*>::const_iterator const_iterator_t;
-
     ICompositeSample() {}
     virtual ~ICompositeSample() {}
 
     ICompositeSample *clone() const = 0;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
-
-    //! to confirm compound nature of given class
-    virtual ICompositeSample *getCompositeSample() { return this; }
-    virtual const ICompositeSample *getCompositeSample() const { return this; }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     //! Registers child in the container.
     virtual void registerChild(ISample *sample);
@@ -47,28 +40,39 @@ public:
     //! Removes registered child from the container
     virtual void deregisterChild(ISample *sample);
 
-    //! Begins iteration over local registered children.
-    iterator_t begin_shallow() { return m_samples.begin(); }
+    //! Returns child pointer by index (with range checking)
+    ISample *operator[](size_t index);
 
-    //! Ends iteration over local registered children.
-    iterator_t end_shallow() { return m_samples.end(); }
+    //! Returns child pointer by index (with range checking)
+    const ISample *operator[](size_t index) const;
 
-    //! Begins read-only iteration over local registered children.
-    const_iterator_t begin_shallow() const { return m_samples.begin(); }
-
-    //! Ends read-only iteration over local registered children.
-    const_iterator_t end_shallow() const { return m_samples.end(); }
+    //! Returns a vector of children (const).
+    virtual std::vector<const ISample*> getChildren() const;
 
     //! Returns number of children.
-    virtual size_t size() const { return m_samples.size(); }
+    virtual size_t size() const;
 
-    //! Creates general iterator to walk through tree of composite children.
-    class ICompositeIterator createIterator() const;
+    //! Adds parameters from local pool to external pool and recursively calls its direct children.
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                                    int copy_number = -1) const;
 
 private:
+    //! Check child index
+    bool childIndexInRange(size_t index) const;
+
     //! List of registered children.
-    std::list<ISample*> m_samples;
+    std::vector<ISample*> m_samples;
 };
+
+inline void ICompositeSample::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+inline size_t ICompositeSample::size() const
+{
+    return m_samples.size();
+}
 
 #endif // ICOMPOSITESAMPLE_H
 

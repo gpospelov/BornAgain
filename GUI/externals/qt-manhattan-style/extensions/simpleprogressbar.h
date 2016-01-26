@@ -12,12 +12,12 @@ class QTMANHATTANSTYLESHARED_EXPORT SimpleProgressBar : public QWidget
 
 public:
     explicit SimpleProgressBar(int width = 50, int height = 12, QWidget *parent = 0);
-    ~SimpleProgressBar();
+    virtual ~SimpleProgressBar();
 
     void setError(bool on);
     bool hasError() const;
-    QSize sizeHint() const;
-    void paintEvent(QPaintEvent *);
+    virtual QSize sizeHint() const;
+    virtual void paintEvent(QPaintEvent *);
     int minimum() const { return m_minimum; }
     int maximum() const { return m_maximum; }
     int value() const { return m_value; }

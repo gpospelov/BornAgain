@@ -115,35 +115,37 @@ void TestFittingModule1::initializeSimulation()
 /* ************************************************************************* */
 void TestFittingModule1::initializeSample1()
 {
-    delete mp_sample;
+    throw NotImplementedException("Code is obsolete");
 
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    HomogeneousMaterial air_material("Air", n_air);
-    HomogeneousMaterial particle_material("Particle", n_particle);
+//    delete mp_sample;
 
-    Layer air_layer;
-    air_layer.setMaterial(air_material);
-    Particle particle(particle_material, FormFactorCylinder(
-                          5*Units::nanometer, 5*Units::nanometer));
-    ParticleLayout particle_layout(particle);
-    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
+//    MultiLayer *p_multi_layer = new MultiLayer();
+//    complex_t n_air(1.0, 0.0);
+//    complex_t n_particle(1.0-6e-4, 2e-8);
+//    HomogeneousMaterial air_material("Air", n_air);
+//    HomogeneousMaterial particle_material("Particle", n_particle);
 
-    air_layer.addLayout(particle_layout);
+//    Layer air_layer;
+//    air_layer.setMaterial(air_material);
+//    Particle particle(particle_material, FormFactorCylinder(
+//                          5*Units::nanometer, 5*Units::nanometer));
+//    ParticleLayout particle_layout(particle);
+//    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    p_multi_layer->addLayer(air_layer);
-    mp_sample = p_multi_layer;
+//    air_layer.addLayout(particle_layout);
 
-    // defining parameters for minimization
-    if( !m_fitSuite ) {
-        throw NullPointerException("TestFittingModule::initializeSample() -> Error! No FitSuite is defined");
-    }
+//    p_multi_layer->addLayer(air_layer);
+//    mp_sample = p_multi_layer;
 
-//    m_fitSuite->addFitParameter("*height", 4.*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
-//    m_fitSuite->addFitParameter("*radius", 6.*Units::nanometer, 0.06*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*height", 4.*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(0.01, 10.) );
-    m_fitSuite->addFitParameter("*radius", 6.*Units::nanometer, 0.06*Units::nanometer, AttLimits::limited(0.01, 10.) );
+//    // defining parameters for minimization
+//    if( !m_fitSuite ) {
+//        throw NullPointerException("TestFittingModule::initializeSample() -> Error! No FitSuite is defined");
+//    }
+
+////    m_fitSuite->addFitParameter("*height", 4.*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
+////    m_fitSuite->addFitParameter("*radius", 6.*Units::nanometer, 0.06*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*height", 4.*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(0.01, 10.) );
+//    m_fitSuite->addFitParameter("*radius", 6.*Units::nanometer, 0.06*Units::nanometer, AttLimits::limited(0.01, 10.) );
 }
 
 
@@ -152,48 +154,50 @@ void TestFittingModule1::initializeSample1()
 /* ************************************************************************* */
 void TestFittingModule1::initializeSample2()
 {
-    delete mp_sample;
+    throw NotImplementedException("Code is obsolete");
 
-    double cylinder_height = 5.0*Units::nanometer;
-    double cylinder_radius = 5.0*Units::nanometer;
-    double prism3_length = 10.0*Units::nanometer;
-    double prism3_height = 5.0*Units::nanometer;
+//    delete mp_sample;
 
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_substrate(1.0-6e-6, 2e-8);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    HomogeneousMaterial air_material("Air", n_air);
-    HomogeneousMaterial substrate_material("Substrate", n_substrate);
-    HomogeneousMaterial particle_material("Particle", n_particle);
-    Layer air_layer;
-    air_layer.setMaterial(air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(substrate_material);
-    ParticleLayout particle_layout;
-    Particle particle1(particle_material, FormFactorCylinder(
-                           cylinder_radius, cylinder_height) );
-    Particle particle2(particle_material, FormFactorPrism3(
-                           prism3_length, prism3_height) );
-    particle_layout.addParticle(particle1, 0.0, 0.2);
-    particle_layout.addParticle(particle2, 0.0, 0.8);
-    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
+//    double cylinder_height = 5.0*Units::nanometer;
+//    double cylinder_radius = 5.0*Units::nanometer;
+//    double prism3_length = 10.0*Units::nanometer;
+//    double prism3_height = 5.0*Units::nanometer;
 
-    air_layer.addLayout(particle_layout);
+//    MultiLayer *p_multi_layer = new MultiLayer();
+//    complex_t n_air(1.0, 0.0);
+//    complex_t n_substrate(1.0-6e-6, 2e-8);
+//    complex_t n_particle(1.0-6e-4, 2e-8);
+//    HomogeneousMaterial air_material("Air", n_air);
+//    HomogeneousMaterial substrate_material("Substrate", n_substrate);
+//    HomogeneousMaterial particle_material("Particle", n_particle);
+//    Layer air_layer;
+//    air_layer.setMaterial(air_material);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(substrate_material);
+//    ParticleLayout particle_layout;
+//    Particle particle1(particle_material, FormFactorCylinder(
+//                           cylinder_radius, cylinder_height) );
+//    Particle particle2(particle_material, FormFactorPrism3(
+//                           prism3_length, prism3_height) );
+//    particle_layout.addParticle(particle1, 0.2);
+//    particle_layout.addParticle(particle2, 0.8);
+//    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    p_multi_layer->addLayer(air_layer);
-    p_multi_layer->addLayer(substrate_layer);
+//    air_layer.addLayout(particle_layout);
 
-    mp_sample = p_multi_layer;
-    // defining parameters for minimization
-    if( !m_fitSuite ) {
-        throw NullPointerException("TestFittingModule::initializeSample() -> Error! No FitSuite is defined");
-    }
+//    p_multi_layer->addLayer(air_layer);
+//    p_multi_layer->addLayer(substrate_layer);
 
-    m_fitSuite->addFitParameter("*FormFactorCylinder/height", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*FormFactorPrism3/length", 24*Units::nanometer, 2*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*FormFactorPrism3/height", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    mp_sample = p_multi_layer;
+//    // defining parameters for minimization
+//    if( !m_fitSuite ) {
+//        throw NullPointerException("TestFittingModule::initializeSample() -> Error! No FitSuite is defined");
+//    }
+
+//    m_fitSuite->addFitParameter("*FormFactorCylinder/height", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*FormFactorPrism3/length", 24*Units::nanometer, 2*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*FormFactorPrism3/height", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 }
 
 /* ************************************************************************* */
@@ -204,8 +208,8 @@ void TestFittingModule1::initializeRealData()
     if( !mp_simulation ) throw NullPointerException("TestFittingModule2::initializeRealData() -> Error! No simulation of sample defined ");
 
     mp_simulation->runSimulation();
-    mp_simulation->normalize();
-    m_fitSuite->getFitObjects()->setSimulationNormalize(true);
+    //mp_simulation->normalize();
+    //m_fitSuite->getFitObjects()->setSimulationNormalize(true);
     delete mp_real_data;
     mp_real_data = IsGISAXSTools::createNoisyData(*mp_simulation->getOutputData());
 }

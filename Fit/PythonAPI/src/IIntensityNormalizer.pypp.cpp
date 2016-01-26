@@ -35,6 +35,11 @@ struct IIntensityNormalizer_wrapper : IIntensityNormalizer, bp::wrapper< IIntens
         m_pyobj = 0;
     }
 
+    virtual void apply( ::OutputData< double > & data ) const {
+        bp::override func_apply = this->get_override( "apply" );
+        func_apply( boost::ref(data) );
+    }
+
     virtual ::IIntensityNormalizer * clone(  ) const {
         bp::override func_clone = this->get_override( "clone" );
         return func_clone(  );
@@ -50,78 +55,6 @@ struct IIntensityNormalizer_wrapper : IIntensityNormalizer, bp::wrapper< IIntens
         func_setMaximumIntensity( arg0 );
     }
 
-    virtual bool areParametersChanged(  ) {
-        if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
-            return func_areParametersChanged(  );
-        else{
-            return this->IParameterized::areParametersChanged(  );
-        }
-    }
-    
-    bool default_areParametersChanged(  ) {
-        return IParameterized::areParametersChanged( );
-    }
-
-    virtual void clearParameterPool(  ) {
-        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
-            func_clearParameterPool(  );
-        else{
-            this->IParameterized::clearParameterPool(  );
-        }
-    }
-    
-    void default_clearParameterPool(  ) {
-        IParameterized::clearParameterPool( );
-    }
-
-    virtual ::ParameterPool * createParameterTree(  ) const  {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
-        else{
-            return this->IParameterized::createParameterTree(  );
-        }
-    }
-    
-    ::ParameterPool * default_createParameterTree(  ) const  {
-        return IParameterized::createParameterTree( );
-    }
-
-    virtual void printParameters(  ) const  {
-        if( bp::override func_printParameters = this->get_override( "printParameters" ) )
-            func_printParameters(  );
-        else{
-            this->IParameterized::printParameters(  );
-        }
-    }
-    
-    void default_printParameters(  ) const  {
-        IParameterized::printParameters( );
-    }
-
-    virtual bool setParameterValue( ::std::string const & name, double value ) {
-        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
-            return func_setParameterValue( name, value );
-        else{
-            return this->IParameterized::setParameterValue( name, value );
-        }
-    }
-    
-    bool default_setParameterValue( ::std::string const & name, double value ) {
-        return IParameterized::setParameterValue( name, value );
-    }
-
-    virtual void setParametersAreChanged(  ) {
-        if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
-            func_setParametersAreChanged(  );
-        else{
-            this->IParameterized::setParametersAreChanged(  );
-        }
-    }
-    
-    void default_setParametersAreChanged(  ) {
-        IParameterized::setParametersAreChanged( );
-    }
-
     PyObject* m_pyobj;
 
 };
@@ -132,6 +65,16 @@ void register_IIntensityNormalizer_class(){
         typedef bp::class_< IIntensityNormalizer_wrapper, bp::bases< IParameterized >, std::auto_ptr< IIntensityNormalizer_wrapper >, boost::noncopyable > IIntensityNormalizer_exposer_t;
         IIntensityNormalizer_exposer_t IIntensityNormalizer_exposer = IIntensityNormalizer_exposer_t( "IIntensityNormalizer", "Interface to OutputData normalizers." );
         bp::scope IIntensityNormalizer_scope( IIntensityNormalizer_exposer );
+        { //::IIntensityNormalizer::apply
+        
+            typedef void ( ::IIntensityNormalizer::*apply_function_type)( ::OutputData<double> & ) const;
+            
+            IIntensityNormalizer_exposer.def( 
+                "apply"
+                , bp::pure_virtual( apply_function_type(&::IIntensityNormalizer::apply) )
+                , ( bp::arg("data") ) );
+        
+        }
         { //::IIntensityNormalizer::clone
         
             typedef ::IIntensityNormalizer * ( ::IIntensityNormalizer::*clone_function_type)(  ) const;
@@ -161,74 +104,6 @@ void register_IIntensityNormalizer_class(){
                 "setMaximumIntensity"
                 , bp::pure_virtual( setMaximumIntensity_function_type(&::IIntensityNormalizer::setMaximumIntensity) )
                 , ( bp::arg("arg0") ) );
-        
-        }
-        { //::IParameterized::areParametersChanged
-        
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( IIntensityNormalizer_wrapper::*default_areParametersChanged_function_type)(  ) ;
-            
-            IIntensityNormalizer_exposer.def( 
-                "areParametersChanged"
-                , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&IIntensityNormalizer_wrapper::default_areParametersChanged) );
-        
-        }
-        { //::IParameterized::clearParameterPool
-        
-            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( IIntensityNormalizer_wrapper::*default_clearParameterPool_function_type)(  ) ;
-            
-            IIntensityNormalizer_exposer.def( 
-                "clearParameterPool"
-                , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&IIntensityNormalizer_wrapper::default_clearParameterPool) );
-        
-        }
-        { //::IParameterized::createParameterTree
-        
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( IIntensityNormalizer_wrapper::*default_createParameterTree_function_type)(  ) const;
-            
-            IIntensityNormalizer_exposer.def( 
-                "createParameterTree"
-                , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&IIntensityNormalizer_wrapper::default_createParameterTree)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::IParameterized::printParameters
-        
-            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( IIntensityNormalizer_wrapper::*default_printParameters_function_type)(  ) const;
-            
-            IIntensityNormalizer_exposer.def( 
-                "printParameters"
-                , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&IIntensityNormalizer_wrapper::default_printParameters) );
-        
-        }
-        { //::IParameterized::setParameterValue
-        
-            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( IIntensityNormalizer_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
-            
-            IIntensityNormalizer_exposer.def( 
-                "setParameterValue"
-                , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&IIntensityNormalizer_wrapper::default_setParameterValue)
-                , ( bp::arg("name"), bp::arg("value") ) );
-        
-        }
-        { //::IParameterized::setParametersAreChanged
-        
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( IIntensityNormalizer_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
-            
-            IIntensityNormalizer_exposer.def( 
-                "setParametersAreChanged"
-                , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&IIntensityNormalizer_wrapper::default_setParametersAreChanged) );
         
         }
     }

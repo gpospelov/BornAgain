@@ -26,26 +26,22 @@ class BA_CORE_API_ FormFactorEllipsoidalCylinder : public IFormFactorBorn
 {
 public:
     //! @brief Ellipsoidal Cylinder constructor
-    //! @param radius_a half length of one horizontal main axes
-    //! @param radius_b half length of the other horizontal main axes
+    //! @param radius_x half length of one horizontal main axes
+    //! @param radius_y half length of the other horizontal main axes
     //! @param height of Ellipsoidal Cylinder
-    FormFactorEllipsoidalCylinder(double radius_a, double radius_b,
-                        double height);
-    ~FormFactorEllipsoidalCylinder() {}
+    FormFactorEllipsoidalCylinder(double radius_x, double radius_y, double height);
+
     virtual FormFactorEllipsoidalCylinder *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual int getNumberOfStochasticParameters() const { return 3; }
+    virtual double getRadius() const;
 
-    double getRadiusA() const { return m_radius_a; }
-    virtual void setRadiusA(double radius_a) { m_radius_a = radius_a; }
+    double getRadiusX() const;
 
-    virtual double getRadiusB() const { return m_radius_b; }
-    virtual void setRadiusB(double radius_b) { m_radius_b = radius_b; }
+    double getRadiusY() const;
 
-    virtual double getHeight() const { return m_height; }
-    virtual void setHeight(double height) { m_height = height; }
+    double getHeight() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -54,11 +50,26 @@ protected:
     virtual void init_parameters();
 
 private:
-    double m_radius_a;
-    double m_radius_b;
+    double m_radius_x;
+    double m_radius_y;
     double m_height;
 
 };
+
+inline double FormFactorEllipsoidalCylinder::getRadiusX() const
+{
+    return m_radius_x;
+}
+
+inline double FormFactorEllipsoidalCylinder::getRadiusY() const
+{
+    return m_radius_y;
+}
+
+inline double FormFactorEllipsoidalCylinder::getHeight() const
+{
+    return m_height;
+}
 
 #endif // FORMFACTORELLIPSOIDALCYLINDER_H
 

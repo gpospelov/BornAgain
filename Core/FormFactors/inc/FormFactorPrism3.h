@@ -29,18 +29,16 @@ public:
     //! @param length of a side of Prism3's base
     //! @param height of Prism3
     FormFactorPrism3(double length, double height);
-    ~FormFactorPrism3() {}
+
     virtual FormFactorPrism3 *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual int getNumberOfStochasticParameters() const { return 2; }
+    virtual double getRadius() const;
 
-    virtual double getHeight() const { return m_height; }
-    virtual void setHeight(double height) { m_height = height; }
+    double getHeight() const;
 
-    virtual double getLength() const { return m_length; }
-    virtual void setLength(double length) { m_length = length; }
+    double getLength() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -54,6 +52,14 @@ private:
     double m_root3; // Cached value of square root of 3
 };
 
+inline double FormFactorPrism3::getHeight() const
+{
+    return m_height;
+}
+
+inline double FormFactorPrism3::getLength() const
+{
+    return m_length;
+}
+
 #endif /* FORMFACTORPRISM3_H_ */
-
-

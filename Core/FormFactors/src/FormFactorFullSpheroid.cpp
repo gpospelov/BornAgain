@@ -14,14 +14,17 @@
 // ************************************************************************** //
 
 #include "FormFactorFullSpheroid.h"
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "MemberFunctionIntegrator.h"
 #include "MemberComplexFunctionIntegrator.h"
 
+using namespace  BornAgain;
+
 FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height )
 {
-    setName("FormFactorFullSpheroid");
+    setName(FFFullSpheroidType);
     m_radius = radius;
     m_height = height;
     check_initialization();
@@ -33,6 +36,11 @@ FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height )
         new MemberComplexFunctionIntegrator<FormFactorFullSpheroid>(p_mf, this);
 }
 
+FormFactorFullSpheroid::~FormFactorFullSpheroid()
+{
+    delete m_integrator;
+}
+
 bool FormFactorFullSpheroid::check_initialization() const
 {
     return true;
@@ -41,16 +49,18 @@ bool FormFactorFullSpheroid::check_initialization() const
 void FormFactorFullSpheroid::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius, AttLimits::n_positive());
-    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter(Radius, &m_radius, AttLimits::n_positive());
+    registerParameter(Height, &m_height, AttLimits::n_positive());
 }
 
 FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const
 {
-   FormFactorFullSpheroid* result =
-       new FormFactorFullSpheroid(m_radius, m_height);
-   result->setName(getName());
-   return result;
+   return new FormFactorFullSpheroid(m_radius, m_height);
+}
+
+void FormFactorFullSpheroid::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 //! Integrand for complex formfactor.
@@ -61,8 +71,8 @@ complex_t FormFactorFullSpheroid::Integrand(double Z, void* params) const
     double H = m_height;
 
     double Rz  = R*std::sqrt(1-4.0*Z*Z/(H*H));
-    complex_t qrRz = m_q.magxy()*Rz;
-
+    complex_t qxy = std::sqrt(m_q.x()*m_q.x()+m_q.y()*m_q.y());
+    complex_t qrRz = qxy*Rz;
     complex_t J1_qrRz_div_qrRz = MathFunctions::Bessel_C1(qrRz);
 
     return Rz*Rz* J1_qrRz_div_qrRz *std::cos(m_q.z()*Z);
@@ -75,16 +85,12 @@ complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t& q) const
     m_q = q;
 
     if (std::abs(m_q.mag()) <= Numeric::double_epsilon) {
-
         return Units::PI2*R*R*H/3.;
-
     } else {
-
         complex_t qzH_half  = m_q.z()*H/2.0;
         complex_t z_part    =  std::exp(complex_t(0.0, 1.0)*qzH_half);
 
         return 4.0* Units::PI * z_part *m_integrator->integrate(0.0, H/2.0);
-
     }
 }
 

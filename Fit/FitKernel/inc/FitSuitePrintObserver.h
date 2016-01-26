@@ -16,7 +16,7 @@
 #ifndef FITSUITEPRINTOBSERVER_H
 #define FITSUITEPRINTOBSERVER_H
 
-#include "IObserver.h"
+#include "IFitObserver.h"
 #include <boost/date_time/posix_time/posix_time.hpp>
 class FitSuite;
 
@@ -24,24 +24,23 @@ class FitSuite;
 //! @ingroup fitting_internal
 //! @brief Prints fit progress at the end of each FitSuite's iteration
 
-class BA_CORE_API_ FitSuitePrintObserver : public IObserver
+class BA_CORE_API_ FitSuitePrintObserver : public IFitObserver
 {
 public:
     FitSuitePrintObserver(int print_every_nth = 1);
-    virtual ~FitSuitePrintObserver(){}
+    virtual ~FitSuitePrintObserver() {}
 
-    void update(IObservable *subject);
+    void update(FitSuite *fit_suite);
 
-private:
-    bool skipIteration();
-    void checkStrategy();
+protected:
+    void printIterationHeader();
+    void printWallTime();
+    void printParameters();
+    void printFitResults();
 
-    FitSuite *m_fitSuite;
-    int m_print_every_nth;
-    int m_previous_strategy_index;
+    FitSuite *m_fit_suite;
     boost::posix_time::ptime m_start_time;
     boost::posix_time::ptime m_last_call_time;
-    bool m_strategy_is_changed;
 };
 
 #endif // FITSUITEPRINTOBSERVER_H

@@ -4,10 +4,10 @@
 
 set(list_of_tests
     "testfit_UsingBuilder.py"
-    "testfit_GSLLMA.py"
-    "testfit_GSLMultiMin.py"
-    "testfit_GSLSimAn.py"
-    "testfit_Minuit2.py"
+#    "testfit_GSLLMA.py"
+#    "testfit_GSLMultiMin.py"
+#    "testfit_GSLSimAn.py"
+#    "testfit_Minuit2.py"
 )
 
 #if(ROOT_FOUND)

@@ -1,5 +1,5 @@
 // @(#)root/minuit2:$Id$
-// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005  
+// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005
 
 /**********************************************************************
  *                                                                    *
@@ -13,7 +13,7 @@
 #include "Minuit2/ABTypes.h"
 #include "Minuit2/ABObj.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

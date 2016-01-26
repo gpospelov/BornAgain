@@ -47,7 +47,7 @@ public:
     iterator end() { return m_pointers.end(); }
     const_iterator end() const { return m_pointers.end(); }
 
-    std::vector<T *> getSTLVector() const { return m_pointers; }
+    std::vector<const T *> getSTLVector() const;
 
     bool deleteElement(T* pointer);
 
@@ -115,6 +115,16 @@ template<class T>
 inline const T* SafePointerVector<T>::operator[](size_t index) const
 {
     return m_pointers[index];
+}
+
+template<class T>
+inline std::vector<const T *> SafePointerVector<T>::getSTLVector() const
+{
+    std::vector<const T *> result;
+    for (size_t i=0; i<m_pointers.size(); ++i) {
+        result.push_back(m_pointers[i]);
+    }
+    return result;
 }
 
 template<class T>

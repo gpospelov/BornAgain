@@ -20,7 +20,7 @@
 #include "CylindersAndPrisms.h"
 
 
-void CylindersAndPrismsExample::initSample() 
+void CylindersAndPrismsExample::initSample()
 {
     m_sample = new MultiLayer();
 
@@ -34,10 +34,10 @@ void CylindersAndPrismsExample::initSample()
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
     Particle cylinder(particle_material, FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer));
-    particle_layout.addParticle(cylinder, 0.0, 0.5);
-    
+    particle_layout.addParticle(cylinder, 0.5);
+
     Particle prism(particle_material, FormFactorPrism3(10*Units::nanometer, 5*Units::nanometer));
-    particle_layout.addParticle(prism, 0.0, 0.5);
+    particle_layout.addParticle(prism, 0.5);
 
     air_layer.addLayout(particle_layout);
 
@@ -46,13 +46,13 @@ void CylindersAndPrismsExample::initSample()
 
 }
 
-void CylindersAndPrismsExample::initSimulation()  
+void CylindersAndPrismsExample::initSimulation()
 {
     m_simulation = new GISASSimulation();
 
     m_simulation->setDetectorParameters(
                 400,-1.0*Units::degree, 1.0*Units::degree, 400,
-                0.0*Units::degree, 2.0*Units::degree, true);
+                0.0*Units::degree, 2.0*Units::degree);
     m_simulation->setBeamParameters(
                 1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 
@@ -65,7 +65,7 @@ CylindersAndPrismsExample::CylindersAndPrismsExample() : m_result(0), m_simulati
     initSimulation();
 }
 
-void CylindersAndPrismsExample::runSimulation() 
+void CylindersAndPrismsExample::runSimulation()
 {
     m_simulation->runSimulation();
     m_result = m_simulation->getIntensityData();

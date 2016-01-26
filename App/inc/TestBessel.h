@@ -36,22 +36,6 @@ public:
     ~TestBessel(){}
     virtual void execute();
     void run_benchmark();
-
-    // (x1-x2)/x2
-    double rel_diff(double x1, double x2)
-    {
-        double ratio(0);
-        double diff = x1 - x2;
-        if( std::abs(diff) <= Numeric::double_epsilon && std::abs(x2) <= Numeric::double_epsilon) {
-            ratio = 0.0;
-        } else if(std::abs(x2) <= Numeric::double_epsilon) {
-            ratio = diff/Numeric::double_epsilon;
-        } else {
-            ratio = diff/x2;
-        }
-        return ratio;
-    }
-
 };
 
 #endif // TESTBESSEL_H

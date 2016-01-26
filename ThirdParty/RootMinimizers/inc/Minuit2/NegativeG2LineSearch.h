@@ -1,5 +1,5 @@
 // @(#)root/minuit2:$Id$
-// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005  
+// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005
 
 /**********************************************************************
  *                                                                    *
@@ -10,7 +10,7 @@
 #ifndef ROOT_Minuit2_NegativeG2LineSearch
 #define ROOT_Minuit2_NegativeG2LineSearch
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 
@@ -21,10 +21,10 @@ class GradientCalculator;
 class MnMachinePrecision;
 class FunctionGradient;
 
-/** In case that one of the components of the second derivative g2 calculated 
-    by the numerical Gradient calculator is negative, a 1dim line search in 
-    the direction of that component is done in order to find a better position 
-    where g2 is again positive. 
+/** In case that one of the components of the second derivative g2 calculated
+    by the numerical Gradient calculator is negative, a 1dim line search in
+    the direction of that component is done in order to find a better position
+    where g2 is again positive.
  */
 
 class NegativeG2LineSearch {
@@ -32,7 +32,7 @@ class NegativeG2LineSearch {
 public:
 
   NegativeG2LineSearch() {}
-  
+
   ~NegativeG2LineSearch() {}
 
   MinimumState operator()(const MnFcn&, const MinimumState&, const  GradientCalculator&, const MnMachinePrecision&) const;

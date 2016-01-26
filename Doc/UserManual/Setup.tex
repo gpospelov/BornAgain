@@ -228,11 +228,13 @@
 \defineBox{boxWarn}{boxxWarn}{magenta!40}{magenta}
   {\marginSymbolLarge{fig/fancymanual/Achtung.png}{WARN}}
 \defineBox{boxNote}{boxxNote}{yellow!33}{yellow}{{}}
+\defineBox{boxTuto}{boxxTuto}{blue!20}{blue}{{}}
 \defineBox{boxEmph}{boxxEmph}{green!20}{green}{{}}
 
 \def\Warn#1{\begin{boxWarn}#1\end{boxWarn}}
 \def\Work#1{\begin{boxWork}#1\end{boxWork}}
 \def\Note#1{\begin{boxNote}#1\end{boxNote}}
+\def\Tuto#1{\begin{boxTuto}#1\end{boxTuto}}
 \def\Emph#1{\begin{boxEmph}#1\end{boxEmph}}
 
 \def\MissingSection{\begin{boxWork}\ldots\ to be written \ldots\end{boxWork}}
@@ -263,4 +265,5 @@
     urlcolor={blue!80!black},
     pdftitle={BornAgain User Manual} % seems to be ignored
 }
+\def\tuto#1#2{\href{http://bornagainproject.org/node/#1}{#2}}
 \ifdraft{\usepackage[right]{showlabels}}{}

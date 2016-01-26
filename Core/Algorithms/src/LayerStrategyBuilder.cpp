@@ -79,9 +79,6 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
             m_sim_params, kappa);
         break;
     }
-    case ILayout::ISGISAXSMOR:
-        p_result = new IsGISAXSMorphologyFileStrategy(m_sim_params);
-        break;
     default:
         throw Exceptions::ClassInitializationException(
                 "Unknown interference function approximation");
@@ -110,16 +107,13 @@ void LayerStrategyBuilder::collectFormFactorInfos()
     double total_abundance = mp_layer->getTotalAbundance();
     if (total_abundance<=0.0) total_abundance = 1.0;
     complex_t wavevector_scattering_factor = Units::PI/wavelength/wavelength;
-    size_t number_of_particles = p_layout->getNumberOfParticles();
-    for (size_t particle_index =
-             0; particle_index<number_of_particles; ++particle_index) {
-        ParticleInfo particle_info(*p_layout->getParticle(particle_index),
-                                   p_layout->getAbundanceOfParticle(particle_index) );
+    SafePointerVector<const IParticle> iparticles = p_layout->getParticles();
+    size_t number_of_particles = iparticles.size();
+    for (size_t i = 0; i<number_of_particles; ++i) {
         FormFactorInfo *p_ff_info;
-        p_ff_info = createFormFactorInfo(particle_info, p_layer_material,
-                wavevector_scattering_factor);
-        p_ff_info->m_abundance =
-            p_layout->getAbundanceOfParticle(particle_index)/total_abundance;
+        p_ff_info = createFormFactorInfo(iparticles[i], p_layer_material,
+                                         wavevector_scattering_factor);
+        p_ff_info->m_abundance /= total_abundance;
         m_ff_infos.push_back(p_ff_info);
     }
     return;
@@ -141,35 +135,32 @@ double LayerStrategyBuilder::getWavelength()
 }
 
 FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
-        const ParticleInfo &particle_info,
-        const IMaterial *p_ambient_material,
-        complex_t factor) const
+        const IParticle *particle, const IMaterial *p_ambient_material, complex_t factor) const
 {
     FormFactorInfo *p_result = new FormFactorInfo;
-    boost::scoped_ptr<IParticle> P_particle_clone(particle_info.
-            getParticle()->clone());
+    boost::scoped_ptr<IParticle> P_particle_clone(particle->clone());
     P_particle_clone->setAmbientMaterial(*p_ambient_material);
 
     // formfactor
-    IFormFactor *p_ff_particle = P_particle_clone->createFormFactor(factor);
-    IFormFactor *p_ff_framework(p_ff_particle);
+    boost::scoped_ptr<IFormFactor> P_ff_particle(P_particle_clone->createFormFactor(factor));
+    IFormFactor *p_ff_framework;
     size_t n_layers = mp_layer->getNumberOfLayers();
     if (n_layers>1) {
         if (requiresMatrixFFs()) {
-            p_ff_framework = FormFactorTools::createDWBAMatrixFormFactor(
-                    p_ff_particle);
+            p_ff_framework = FormFactorTools::createDWBAMatrixFormFactor(*P_ff_particle);
         }
         else {
-            p_ff_framework = FormFactorTools::createDWBAScalarFormFactor(
-                    p_ff_particle);
+            p_ff_framework = FormFactorTools::createDWBAScalarFormFactor(*P_ff_particle);
         }
+    } else {
+        p_ff_framework = P_ff_particle->clone();
     }
     p_result->mp_ff = p_ff_framework;
     // Other info (position and abundance)
     kvector_t position = P_particle_clone->getPosition();
     p_result->m_pos_x = position.x();
     p_result->m_pos_y = position.y();
-    p_result->m_abundance = particle_info.getAbundance();
+    p_result->m_abundance = particle->getAbundance();
     return p_result;
 }
 

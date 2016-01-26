@@ -32,17 +32,19 @@ public:
     //! @param height of cosine cross section
     FormFactorRipple1(double length, double width, double height);
 
-    virtual ~FormFactorRipple1() { delete m_integrator; }
+    virtual ~FormFactorRipple1();
 
     virtual FormFactorRipple1 *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual int getNumberOfStochasticParameters() const { return 3; }
+    virtual double getRadius() const;
 
-    virtual double getHeight() const { return m_height; }
-    virtual double getWidth() const { return m_width; }
-    virtual double getLength() const { return m_length; }
+    double getHeight() const;
+
+    double getWidth() const;
+
+    double getLength() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -60,6 +62,21 @@ private:
 
     MemberComplexFunctionIntegrator<FormFactorRipple1> *m_integrator;
 };
+
+inline double FormFactorRipple1::getHeight() const
+{
+    return m_height;
+}
+
+inline double FormFactorRipple1::getWidth() const
+{
+    return m_width;
+}
+
+inline double FormFactorRipple1::getLength() const
+{
+    return m_length;
+}
 
 #endif // FORMFACTORRIPPLE1_H
 

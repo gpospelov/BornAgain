@@ -16,6 +16,7 @@
 #include "DetectorItems.h"
 #include "ComboProperty.h"
 #include "AngleProperty.h"
+#include "MaskItems.h"
 #include "AxesItems.h"
 #include <QDebug>
 
@@ -24,25 +25,29 @@ const QString DetectorItem::P_DETECTOR = "Detector";
 DetectorItem::DetectorItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::DetectorType, parent)
 {
-    setItemName(Constants::DetectorType);
     registerGroupProperty(P_DETECTOR, Constants::DetectorGroup);
+    addToValidChildren(Constants::MaskContainerType);
+}
+
+MaskContainerItem *DetectorItem::getMaskContainerItem() const
+{
+    foreach(ParameterizedItem *item, childItems()) {
+        if(MaskContainerItem *container = dynamic_cast<MaskContainerItem *>(item)) {
+            return container;
+        }
+    }
+    return 0;
 }
 
 // -------------------------------------------------------------------------- //
 
-const QString PhiAlphaDetectorItem::P_BINNING = "Binning";
 const QString PhiAlphaDetectorItem::P_PHI_AXIS = "Phi axis";
 const QString PhiAlphaDetectorItem::P_ALPHA_AXIS = "Alpha axis";
 const QString PhiAlphaDetectorItem::P_RESOLUTION_FUNCTION = "Type";
 
 PhiAlphaDetectorItem::PhiAlphaDetectorItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::PhiAlphaDetectorType, parent)
+    : ParameterizedItem(Constants::SphericalDetectorType, parent)
 {
-    setItemName(Constants::PhiAlphaDetectorType);
-    ComboProperty binning;
-    binning << Constants::AXIS_CONSTK_BINNING << Constants::AXIS_FIXED_BINNING;
-    registerProperty(P_BINNING, binning.getVariant());
-
     registerGroupProperty(P_PHI_AXIS, Constants::BasicAxisType);
     getSubItems()[P_PHI_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
     getSubItems()[P_PHI_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, -1.0);

@@ -19,7 +19,7 @@ ROOTSimAnMinimizer::ROOTSimAnMinimizer(const std::string& minimizer_name, const 
     : ROOTMinimizer(minimizer_name, algo_type)
 {
 //    m_siman_minimizer = new ROOT::Patch::GSLSimAnMinimizer();
-    m_siman_minimizer = new ROOT::Math::GSLSimAnMinimizer();
+    m_siman_minimizer = new BA_ROOT::Math::GSLSimAnMinimizer();
     m_root_minimizer = m_siman_minimizer;
 
     m_options.addValue("ntries", 100);
@@ -38,7 +38,7 @@ void ROOTSimAnMinimizer::propagateOptions()
 {
     ROOTMinimizer::propagateOptions();
 
-    ROOT::Math::GSLSimAnParams& pars = m_siman_minimizer->getSolver().Params();
+    BA_ROOT::Math::GSLSimAnParams& pars = m_siman_minimizer->getSolver().Params();
     m_options.getValue("ntries", pars.n_tries);
     m_options.getValue("niters_fixed_t", pars.iters_fixed_T);
     m_options.getValue("step_size", pars.step_size);

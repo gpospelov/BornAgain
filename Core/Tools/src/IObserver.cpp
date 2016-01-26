@@ -23,7 +23,7 @@ void IObservable::attachObserver(observer_t obj)
 void IObservable::notifyObservers()
 {
     for(observerlist_t::iterator it = m_observers.begin(); it!=m_observers.end(); ++it) {
-        (*it)->update(this);
+        (*it)->notify(this);
     }
 }
 

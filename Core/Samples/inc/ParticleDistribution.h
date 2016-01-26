@@ -17,80 +17,48 @@
 #define PARTICLEDISTRIBUTION_H
 
 #include "IParticle.h"
-#include "ParticleInfo.h"
 #include "ParameterDistribution.h"
-
-class ParticleInfo;
+#include "SafePointerVector.h"
 
 //! @class ParticleDistribution
 //! @ingroup samples
 //! @brief A particle with a form factor and refractive index
 
-class BA_CORE_API_ ParticleDistribution : public IParticle
+class BA_CORE_API_ ParticleDistribution : public IAbstractParticle
 {
 public:
     ParticleDistribution(const IParticle &prototype, const ParameterDistribution &par_distr);
 
-    ParticleDistribution(const IParticle &prototype, const ParameterDistribution &par_distr,
-                         kvector_t position);
-
-    virtual ~ParticleDistribution()
-    {
-    }
     virtual ParticleDistribution *clone() const;
 
     //! Returns a clone with inverted magnetic fields
     virtual ParticleDistribution *cloneInvertB() const;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const
-    {
-        visitor->visit(this);
-    }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     //! Sets the refractive index of the ambient material (which influences its
     //! scattering power)
-    virtual void setAmbientMaterial(const IMaterial &material)
-    {
-        mP_particle->setAmbientMaterial(material);
-    }
+    virtual void setAmbientMaterial(const IMaterial &material);
 
     //! Returns particle's material.
-    virtual const IMaterial *getAmbientMaterial() const
-    {
-        return mP_particle->getAmbientMaterial();
-    }
+    virtual const IMaterial *getAmbientMaterial() const;
 
-    //! Should not be called for objects of this class:
-    //! The object should spawn particles that will create the
-    //! required form factors
-    virtual IFormFactor *createFormFactor(complex_t wavevector_scattering_factor) const;
-
-    //! Returns list of new particles generated according to a distribution
-    std::vector<ParticleInfo *> generateParticleInfos(double abundance) const;
+    //! Initializes list of new particles generated according to a distribution
+    virtual void generateParticles(std::vector<const IParticle *> &particle_vector) const;
 
     //! Returns the distributed parameter data
-    ParameterDistribution getParameterDistribution() const
-    {
-        return m_par_distribution;
-    }
+    ParameterDistribution getParameterDistribution() const;
 
     //! Returns the parameter pool that can be used for parameter distributions
-    ParameterPool *createDistributedParameterPool() const {
-        return mP_particle->createParameterTree();
-    }
+    ParameterPool *createDistributedParameterPool() const;
 
     //! Returns particle.
-    const IParticle *getParticle() const
-    {
-        return mP_particle.get();
-    }
+    const IParticle *getParticle() const;
 
-protected:
+private:
     boost::scoped_ptr<IParticle> mP_particle;
     ParameterDistribution m_par_distribution;
-    //! Propagates a transformation to child particles
-    virtual void applyTransformationToSubParticles(const IRotation& rotation);
 };
 
 #endif // PARTICLEDISTRIBUTION_H

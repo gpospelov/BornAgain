@@ -35,7 +35,7 @@ IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::IntensityDataType, parent)
     , m_data(0)
 {
-    setItemName(Constants::IntensityDataType);
+    registerProperty(P_NAME, Constants::IntensityDataType);
     registerProperty(P_PROJECTIONS_FLAG, false);
     registerProperty(P_IS_INTERPOLATED, true);
 
@@ -61,6 +61,8 @@ IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
 
     registerGroupProperty(P_ZAXIS, Constants::AmplitudeAxisType);
     getSubItems()[P_ZAXIS]->setPropertyAppearance(BasicAxisItem::P_NBINS, PropertyAttribute::HIDDEN);
+
+    addToValidChildren(Constants::MaskContainerType);
 }
 
 IntensityDataItem::~IntensityDataItem()
@@ -100,6 +102,7 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
     }
 
     blockSignals(false);
+    qDebug() << "Emmitting intensityModified();";
     emit intensityModified();
 }
 
@@ -223,7 +226,7 @@ void IntensityDataItem::setZAxisLocked(bool state)
 }
 
 //! Sets the name of intensity data item from proposed name. This name will be used to save file
-//! on disk, so it has to be cleaned from special character.
+//! on disk, so special characters should be removed.
 void IntensityDataItem::setNameFromProposed(const QString &proposed_name)
 {
     QString valid_name = GUIHelpers::getValidFileName(proposed_name);

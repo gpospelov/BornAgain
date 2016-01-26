@@ -18,7 +18,6 @@
 #include "Exceptions.h"
 #include <boost/filesystem.hpp>
 
-
 std::string Utils::FileSystem::m_argv0_path = std::string();
 std::string Utils::FileSystem::m_reference_data_dir = std::string();
 
@@ -45,7 +44,6 @@ std::string Utils::FileSystem::GetWorkingPath()
 std::string Utils::FileSystem::GetHomePath()
 {
     throw NotImplementedException("Utils::FileSystem::GetHomePath()-> Not implemented anymore...");
-    return std::string();
 }
 
 std::string Utils::FileSystem::GetPathToExecutable(const std::string& argv0)
@@ -71,28 +69,6 @@ std::string Utils::FileSystem::GetPathToData(const std::string& rel_data_path, c
 std::string Utils::FileSystem::GetFileExtension(const std::string& name)
 {
     return boost::filesystem::extension(name.c_str());
-}
-
-//! Does name contain *.gz extension?
-
-bool Utils::FileSystem::isGZipped(const std::string& name)
-{
-    static const std::string gzip_extension(".gz");
-    if ( Utils::FileSystem::GetFileExtension(name) == gzip_extension)
-        return true;
-    return false;
-}
-
-//! Returns file main extension (without .gz).
-
-std::string Utils::FileSystem::GetFileMainExtension(const std::string& name)
-{
-    if( !isGZipped(name) ) {
-        return Utils::FileSystem::GetFileExtension(name);
-    } else {
-        std::string stripped_name = name.substr(0, name.size()-3);
-        return Utils::FileSystem::GetFileExtension(stripped_name);
-    }
 }
 
 
@@ -123,4 +99,19 @@ std::string Utils::FileSystem::GetReferenceDataDir()
     }
 }
 
+
+bool Utils::FileSystem::CreateDirectory(const std::string &dir_name)
+{
+    boost::filesystem::path dir(dir_name);
+    return boost::filesystem::create_directory(dir);
+}
+
+std::string Utils::FileSystem::GetJoinPath(const std::string &spath1, const std::string &spath2)
+{
+    boost::filesystem::path path1(spath1);
+    boost::filesystem::path path2(spath2);
+    boost::filesystem::path full_path = path1 / path2;
+
+    return full_path.string();
+}
 

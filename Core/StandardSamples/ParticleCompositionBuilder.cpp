@@ -22,15 +22,10 @@
 #include "ParticleLayout.h"
 #include "FTDistributions.h"
 #include "Units.h"
+#include "Rotations.h"
+#include "FormFactorBox.h"
 
-
-// ----------------------------------------------------------------------------
-// Pyramids on top of substrate
-// ----------------------------------------------------------------------------
-ParticleCompositionBuilder::ParticleCompositionBuilder()
-{
-}
-
+// --- ParticleCompositionBuilder ---
 
 ISample *ParticleCompositionBuilder::buildSample() const
 {
@@ -49,7 +44,7 @@ ISample *ParticleCompositionBuilder::buildSample() const
     ParticleLayout particle_layout;
 
     kvector_t pos0(0.0, 0.0, 0.0);
-    kvector_t pos1(radius, radius, std::sqrt(3.0)*radius);
+    kvector_t pos1(radius, radius/std::sqrt(3.0), std::sqrt(8.0/3.0)*radius);
     std::vector<kvector_t> positions;
     positions.push_back(pos0);
     positions.push_back(pos1);
@@ -59,7 +54,8 @@ ISample *ParticleCompositionBuilder::buildSample() const
     basis.addParticles(sphere, positions);
     particle_layout.addParticle(basis);
 
-    InterferenceFunction2DLattice *interference = InterferenceFunction2DLattice::createHexagonal(radius*2.0);
+    InterferenceFunction2DLattice *interference =
+            InterferenceFunction2DLattice::createHexagonal(radius*2.0);
     FTDistribution2DCauchy pdf(10*Units::nanometer, 10*Units::nanometer);
     interference->setProbabilityDistribution(pdf);
 
@@ -71,3 +67,4 @@ ISample *ParticleCompositionBuilder::buildSample() const
 
     return multi_layer;
 }
+

@@ -21,14 +21,14 @@
 ROOTGeneticMinimizer::ROOTGeneticMinimizer(const std::string& minimizer_name, const std::string& algo_type)
   : ROOTMinimizer(minimizer_name, algo_type)
 {
-    m_genetic_minimizer = new ROOT::Math::GeneticMinimizer();
+    m_genetic_minimizer = new BA_ROOT::Math::GeneticMinimizer();
     m_root_minimizer = m_genetic_minimizer;
 
     m_options.setMaxIterations(40);
     m_options.setTolerance(0.01);
 
     // getting default values from Genetic minimizer
-    ROOT::Math::GeneticMinimizerParameters pars;
+    BA_ROOT::Math::GeneticMinimizerParameters pars;
     m_options.addValue("PopSize", pars.fPopSize);     // 300
 //    m_options.addValue("Steps", pars.fNsteps);        // 100,  via setMaxIterations
     m_options.addValue("Cycles", pars.fCycles);       // 3
@@ -60,7 +60,7 @@ void ROOTGeneticMinimizer::propagateOptions()
     ROOTMinimizer::propagateOptions();
 
     // setting minimizer parameters
-    ROOT::Math::GeneticMinimizerParameters pars;
+    BA_ROOT::Math::GeneticMinimizerParameters pars;
     pars.fPopSize = m_options.getIntValue("PopSize");
     pars.fNsteps = m_options.getMaxIterations();
     pars.fCycles = m_options.getIntValue("Cycles");

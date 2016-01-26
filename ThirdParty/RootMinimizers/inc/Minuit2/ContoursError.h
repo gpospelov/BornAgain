@@ -1,5 +1,5 @@
 // @(#)root/minuit2:$Id$
-// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005  
+// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005
 
 /**********************************************************************
  *                                                                    *
@@ -16,7 +16,7 @@
 #include <vector>
 #include <utility>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 
@@ -67,7 +67,7 @@ public:
   unsigned int NFcn() const {return fNFcn;}
   double XMin() const {return fXMinos.Min();}
   double YMin() const {return fYMinos.Min();}
-  
+
 private:
 
   unsigned int fParX;

@@ -63,27 +63,29 @@ TestFittingModule3::~TestFittingModule3()
 
 void TestFittingModule3::execute()
 {
-    // initializing simulation, sample and data
-    initializeSample();
-    initializeSimulation();
-    initializeRealData();
+    throw NotImplementedException("Code is obsolete");
 
-    // setting up fitSuite
-    m_fitSuite->addFitParameter("*FormFactorCylinder/height", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*FormFactorPrism3/length", 8.0*Units::nanometer, 0.08*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*FormFactorPrism3/length", 8.0*Units::nanometer, 0.08*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    // initializing simulation, sample and data
+//    initializeSample();
+//    initializeSimulation();
+//    initializeRealData();
 
-    // putting scans
-    for(DataScan_t::iterator it=m_data_scans.begin(); it!= m_data_scans.end(); ++it) {
-        m_fitSuite->addSimulationAndRealData(*m_simulation, *(*it));
-    }
+//    // setting up fitSuite
+//    m_fitSuite->addFitParameter("*FormFactorCylinder/height", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*FormFactorPrism3/length", 8.0*Units::nanometer, 0.08*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*FormFactorPrism3/length", 8.0*Units::nanometer, 0.08*Units::nanometer, AttLimits::lowerLimited(0.01) );
 
-    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
-    m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
-    m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
+//    // putting scans
+//    for(DataScan_t::iterator it=m_data_scans.begin(); it!= m_data_scans.end(); ++it) {
+//        m_fitSuite->addSimulationAndRealData(*m_simulation, *(*it));
+//    }
 
-    m_fitSuite->runFit();
+//    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+//    m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
+//    m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
+
+//    m_fitSuite->runFit();
 }
 
 
@@ -130,8 +132,8 @@ void TestFittingModule3::initializeSample()
     Particle particle2(particle_material, FormFactorPrism3(
                            prism3_length, prism3_height) );
     ParticleLayout particle_layout;
-    particle_layout.addParticle(particle1,0.0, 0.2);
-    particle_layout.addParticle(particle2, 0.0, 0.8);
+    particle_layout.addParticle(particle1, 0.2);
+    particle_layout.addParticle(particle2, 0.8);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);

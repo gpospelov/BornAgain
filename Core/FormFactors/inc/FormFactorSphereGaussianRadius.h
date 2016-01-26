@@ -32,11 +32,9 @@ public:
     virtual FormFactorSphereGaussianRadius *clone() const;
     virtual ~FormFactorSphereGaussianRadius();
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual int getNumberOfStochasticParameters() const;
-
-    virtual double getHeight() const { return p_ff_sphere->getHeight(); }
+    virtual double getRadius() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 

@@ -126,6 +126,17 @@ void register_ParameterPool_class(){
                 , "Returns a clone with _prefix_ added to every parameter key." );
         
         }
+        { //::ParameterPool::getMatchedParameters
+        
+            typedef ::std::vector< RealParameterWrapper > ( ::ParameterPool::*getMatchedParameters_function_type)( ::std::string const & ) const;
+            
+            ParameterPool_exposer.def( 
+                "getMatchedParameters"
+                , getMatchedParameters_function_type( &::ParameterPool::getMatchedParameters )
+                , ( bp::arg("wildcards") )
+                , "Returns vector of parameters which fit pattern." );
+        
+        }
         { //::ParameterPool::getParameter
         
             typedef ::RealParameterWrapper ( ::ParameterPool::*getParameter_function_type)( ::std::string const & ) const;
@@ -135,6 +146,16 @@ void register_ParameterPool_class(){
                 , getParameter_function_type( &::ParameterPool::getParameter )
                 , ( bp::arg("name") )
                 , "Returns parameter named _name_." );
+        
+        }
+        { //::ParameterPool::getParameterNames
+        
+            typedef ::std::vector< std::string > ( ::ParameterPool::*getParameterNames_function_type)(  ) const;
+            
+            ParameterPool_exposer.def( 
+                "getParameterNames"
+                , getParameterNames_function_type( &::ParameterPool::getParameterNames )
+                , "Returns all parameter names." );
         
         }
         { //::ParameterPool::setMatchedParametersValue

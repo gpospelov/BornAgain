@@ -1,5 +1,5 @@
 // @(#)root/minuit2:$Id$
-// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005  
+// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005
 
 /**********************************************************************
  *                                                                    *
@@ -13,7 +13,7 @@
 #include "Minuit2/MnRefCountedPointer.h"
 #include "Minuit2/BasicFunctionGradient.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 
@@ -23,19 +23,19 @@ class FunctionGradient {
 private:
 
 public:
-  
-  explicit FunctionGradient(unsigned int n) : 
+
+  explicit FunctionGradient(unsigned int n) :
    fData(MnRefCountedPointer<BasicFunctionGradient>(new BasicFunctionGradient(n)))  {}
-  
-  explicit FunctionGradient(const MnAlgebraicVector& grd) : 
+
+  explicit FunctionGradient(const MnAlgebraicVector& grd) :
    fData(MnRefCountedPointer<BasicFunctionGradient>(new BasicFunctionGradient(grd))) {}
 
   FunctionGradient(const MnAlgebraicVector& grd, const MnAlgebraicVector& g2,
                    const MnAlgebraicVector& gstep) :
    fData(MnRefCountedPointer<BasicFunctionGradient>(new BasicFunctionGradient(grd, g2, gstep))) {}
-  
+
   ~FunctionGradient() {}
-  
+
   FunctionGradient(const FunctionGradient& grad) : fData(grad.fData) {}
 
   FunctionGradient& operator=(const FunctionGradient& grad) {

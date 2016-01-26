@@ -45,7 +45,7 @@ OutputData<double>* OutputDataFunctions::doubleBinSize(
     OutputData<double>::const_iterator it_source = source.begin();
     while (it_source != source.end()) {
         std::vector<int> source_indices =
-                source.toCoordinates(it_source.getIndex());
+                source.getAxesBinIndices(it_source.getIndex());
         std::vector<int> dest_indices;
         double boundary_factor = 1.0;
         for (size_t i=0; i<source_indices.size(); ++i) {
@@ -56,7 +56,7 @@ OutputData<double>* OutputDataFunctions::doubleBinSize(
                 boundary_factor *= 2.0;
             }
         }
-        (*p_result)[p_result->toIndex(dest_indices)] =
+        (*p_result)[p_result->toGlobalIndex(dest_indices)] =
                 boundary_factor*(*it_source++);
     }
     return p_result;
@@ -290,7 +290,7 @@ OutputData<double>* OutputDataFunctions::sliceAccrossOneAxis(
     while (it_data != data.end())
     {
         size_t current_fixed_axis_nbin =
-                data.toCoordinates(it_data.getIndex())[fixed_axis_index];
+                data.getAxesBinIndices(it_data.getIndex())[fixed_axis_index];
         if( current_fixed_axis_nbin == nbin_found ) {
             *it_sliced = *it_data;
             ++it_sliced;
@@ -327,7 +327,7 @@ OutputData<double>* OutputDataFunctions::selectRangeOnOneAxis(
                 " -> Error! Axis range xmax<xmin. ");
     }
 
-    size_t selected_axis_index = data.getAxisIndex(selected_axis_name);
+    size_t selected_axis_index = data.getAxisSerialNumber(selected_axis_name);
     size_t nbin1 = selected_axis->findClosestIndex(axis_value1);
     size_t nbin2 = selected_axis->findClosestIndex(axis_value2);
     double x1 = (*selected_axis)[nbin1];
@@ -350,7 +350,7 @@ OutputData<double>* OutputDataFunctions::selectRangeOnOneAxis(
     OutputData<double>::iterator it_new = new_data->begin();
     while (it_data != data.end())
     {
-        std::vector<int > orig_coord = data.toCoordinates(it_data.getIndex());
+        std::vector<int > orig_coord = data.getAxesBinIndices(it_data.getIndex());
         size_t xbin = orig_coord[selected_axis_index];
         if( xbin>=nbin1 && xbin <= nbin2 ) {
 //            std::vector<int > new_coord = orig_coord;
@@ -394,105 +394,3 @@ void OutputDataFunctions::applyFunction(
         ++it;
     }
 }
-
-
-Mask* OutputDataFunctions::CreateRectangularMask(
-    const OutputData<double>& data,
-    const double* minima, const double* maxima, bool invert_flag)
-{
-    size_t rank = data.getRank();
-    int *minima_i = new int[rank];
-    int *maxima_i = new int[rank];
-    int *dims_i = new int[rank];
-    for (size_t i=0; i<rank; ++i) {
-        const IAxis *p_axis = data.getAxis(i);
-        minima_i[i] = (int)p_axis->findClosestIndex(minima[i]);
-        maxima_i[i] = (int)p_axis->findClosestIndex(maxima[i]);
-        dims_i[i] = (int)p_axis->getSize();
-    }
-    MaskCoordinateRectangleFunction *p_rectangle_function =
-            new MaskCoordinateRectangleFunction(rank, minima_i, maxima_i);
-    p_rectangle_function->setInvertFlag(invert_flag);
-    delete[] minima_i;
-    delete[] maxima_i;
-    MaskCoordinates *p_result = new MaskCoordinates(rank, dims_i);
-    delete[] dims_i;
-    p_result->setMaskCoordinateFunction(p_rectangle_function);
-    return p_result;
-}
-
-
-Mask* OutputDataFunctions::CreateRectangularMask(const OutputData<double>& data, double x1, double y1, double x2, double y2, bool invert_flag)
-{
-    if(data.getRank() != 2) throw LogicErrorException(
-            "OutputDataFunctions::CreateRectangularMask2D()"
-            " -> Error! Number of dimensions should be 2");
-    const double minima[2]={x1, y1};
-    const double maxima[2]={x2, y2};
-    return OutputDataFunctions::CreateRectangularMask(data, minima, maxima, invert_flag);
-}
-
-
-Mask* OutputDataFunctions::CreateEllipticMask(
-    const OutputData<double>& data,
-    const double* center, const double* radii, bool invert_flag)
-{
-    size_t rank = data.getRank();
-    int *center_i = new int[rank];
-    int *radii_i = new int[rank];
-    int *dims_i = new int[rank];
-    for (size_t i=0; i<rank; ++i) {
-        const IAxis *p_axis = data.getAxis(i);
-        center_i[i] = (int)p_axis->findClosestIndex(center[i]);
-        int lower_index = (int)p_axis->findClosestIndex(
-                (*p_axis)[center_i[i]] - radii[i] );
-//        int lower_index = (int)p_axis->findClosestIndex(center[i] - radii[i]);
-
-        radii_i[i] = center_i[i] - lower_index;
-//        std::cout << "XXX " << i << " center:" << center[i] << " center_i" << center_i[i] << " lower_index:" << lower_index << " radii_i[i]:" << radii_i[i]<< std::endl;
-        dims_i[i] = (int)p_axis->getSize();
-    }
-    MaskCoordinateEllipseFunction *p_ellipse_function =
-            new MaskCoordinateEllipseFunction(rank, center_i, radii_i);
-    p_ellipse_function->setInvertFlag(invert_flag);
-    delete[] center_i;
-    delete[] radii_i;
-    MaskCoordinates *p_result = new MaskCoordinates(rank, dims_i);
-    delete[] dims_i;
-    p_result->setMaskCoordinateFunction(p_ellipse_function);
-    return p_result;
-}
-
-
-Mask* OutputDataFunctions::CreateEllipticMask(const OutputData<double>& data, double xc, double yc, double rx, double ry, bool invert_flag)
-{
-    if(data.getRank() != 2) throw LogicErrorException(
-            "OutputDataFunctions::CreateRectangularMask2D() -> Error! Number"
-            " of dimensions should be 2");
-    const double center[2]={xc, yc};
-    const double radii[2]={rx, ry};
-    return OutputDataFunctions::CreateEllipticMask(data, center, radii, invert_flag);
-}
-
-//double OutputDataFunctions::GetDifference(const OutputData<double> &result,
-//                     const OutputData<double> &reference)
-//{
-//    OutputData<double> *c_result = result.clone();
-
-//    // Calculating average relative difference.
-//    *c_result -= reference;
-//    *c_result /= reference;
-
-//    double diff(0);
-//    for(OutputData<double>::const_iterator it =
-//            c_result->begin(); it!=c_result->end(); ++it) {
-//        diff+= std::abs(*it);
-//    }
-//    diff /= c_result->getAllocatedSize();
-
-//    if (MathFunctions::isnan(diff)) throw RuntimeErrorException("diff=NaN!");
-
-//    delete c_result;
-
-//    return diff;
-//}

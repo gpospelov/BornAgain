@@ -27,25 +27,22 @@ class BA_CORE_API_ FormFactorHemiEllipsoid : public IFormFactorBorn
 {
 public:
     //! @brief Hemi Ellipsoid constructor
-    //! @param radius_a half length of one horizontal main axes
-    //! @param radius_b half length of the other horizontal main axes
+    //! @param radius_x half length of one horizontal main axes
+    //! @param radius_y half length of the other horizontal main axes
     //! @param height of Hemi Ellipsoid
+    FormFactorHemiEllipsoid(double radius_x, double radius_y, double height);
 
-    FormFactorHemiEllipsoid(double radius_a, double radius_b, double height);
-
-    ~FormFactorHemiEllipsoid() {delete m_integrator;}
+    virtual ~FormFactorHemiEllipsoid();
 
     virtual FormFactorHemiEllipsoid* clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual int getNumberOfStochasticParameters() const { return 3; }
+    virtual double getRadius() const;
 
-    virtual double getHeight() const { return m_height; }
-
-    virtual double getRadiusA() const { return m_radius_a; }
-
-    virtual double getRadiusB() const { return m_radius_b; }
+    double getHeight() const;
+    double getRadiusX() const;
+    double getRadiusY() const;
 
     virtual complex_t evaluate_for_q (const cvector_t& q) const;
 
@@ -54,18 +51,34 @@ protected:
     virtual void init_parameters();
 
 private:
-
     complex_t Integrand(double Z, void* params) const;
 
-    double m_radius_a;
-    double m_radius_b;
+    double m_radius_x;
+    double m_radius_y;
     double m_height;
     mutable cvector_t m_q;
 
     MemberComplexFunctionIntegrator<FormFactorHemiEllipsoid> *m_integrator;
-
 };
 
+inline FormFactorHemiEllipsoid::~FormFactorHemiEllipsoid()
+{
+    delete m_integrator;
+}
+
+inline double FormFactorHemiEllipsoid::getHeight() const
+{
+    return m_height;
+}
+
+inline double FormFactorHemiEllipsoid::getRadiusX() const
+{
+    return m_radius_x;
+}
+
+inline double FormFactorHemiEllipsoid::getRadiusY() const
+{
+    return m_radius_y;
+}
+
 #endif // FORMFACTORHEMIELLIPSOID_H
-
-

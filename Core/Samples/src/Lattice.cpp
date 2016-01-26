@@ -124,31 +124,6 @@ void Lattice::computeReciprocalLatticeVectorsWithinRadius(
             m_b1, m_b2, m_b3, m_a1, m_a2, m_a3);
 }
 
-std::vector<double> Lattice::collectBraggAngles(size_t size, double max_radius,
-        const TRange<double>& phi_range, const TRange<double>& z_range) const
-{
-    std::vector<double> result;
-//    int granularity = std::max(1000, (int)size); //
-    double brillouin_volume = 8*Units::PI*Units::PI*Units::PI/getVolume();
-    double max_volume = max_radius*max_radius*phi_range.getDifference()*z_range.getDifference()/2.0;
-    int max_nbr_angles = (int)(max_volume/brillouin_volume);
-    if (size < (size_t)max_nbr_angles) {
-        max_radius *= (double)size/max_nbr_angles;
-    }
-    double radius = std::max(max_radius, z_range.getUpperBound());
-
-    computeReciprocalLatticeVectorsWithinRadius(kvector_t(0.0, 0.0, 0.0), radius);
-    const KVectorContainer& rec_vectors = getKVectorContainer();
-    for(KVectorContainer::const_iterator it = rec_vectors.begin(); it!= rec_vectors.end(); ++it) {
-        const kvector_t& rvec = (*it);
-        double phi = rvec.phi();
-        if (rvec.magxy()<max_radius && phi_range.inRange(phi) && z_range.inRange(rvec.z())) {
-            result.push_back(phi);
-        }
-    }
-    return result;
-}
-
 Lattice Lattice::createFCCLattice(double a)
 {
     double b = a/2.0;

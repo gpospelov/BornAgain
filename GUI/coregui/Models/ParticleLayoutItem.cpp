@@ -24,9 +24,6 @@ const QString ParticleLayoutItem::P_TOTAL_DENSITY = "Total particle density";
 ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleLayoutType, parent)
 {
-    setItemName(Constants::ParticleLayoutType);
-    setItemPort(ParameterizedItem::PortInfo::PORT_0);
-
     ComboProperty approx;
     approx << "Decoupling Approximation" << "Size Space Coupling Approximation";
     registerProperty(P_APPROX, approx.getVariant());
@@ -38,10 +35,33 @@ ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     addToValidChildren(Constants::ParticleDistributionType, PortInfo::PORT_0);
     addToValidChildren(Constants::InterferenceFunctionRadialParaCrystalType, PortInfo::PORT_1, 1);
     addToValidChildren(Constants::InterferenceFunction2DParaCrystalType, PortInfo::PORT_1, 1);
+    addToValidChildren(Constants::InterferenceFunction1DLatticeType, PortInfo::PORT_1, 1);
     addToValidChildren(Constants::InterferenceFunction2DLatticeType, PortInfo::PORT_1, 1);
 }
 
 ParticleLayoutItem::~ParticleLayoutItem()
 {
+}
+
+void ParticleLayoutItem::insertChildItem(int row, ParameterizedItem *item)
+{
+    ParameterizedItem::insertChildItem(row, item);
+    if (item->modelType() == Constants::ParticleType
+        || item->modelType() == Constants::ParticleCoreShellType
+        || item->modelType() == Constants::ParticleCompositionType
+        || item->modelType() == Constants::ParticleDistributionType) {
+        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+        if (port == PortInfo::DEFAULT) {
+            item->setItemPort(PortInfo::PORT_0);
+        }
+    } else if (item->modelType() == Constants::InterferenceFunctionRadialParaCrystalType
+               || item->modelType() == Constants::InterferenceFunction2DParaCrystalType
+               || item->modelType() == Constants::InterferenceFunction1DLatticeType
+               || item->modelType() == Constants::InterferenceFunction2DLatticeType) {
+        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+        if (port == PortInfo::DEFAULT) {
+            item->setItemPort(PortInfo::PORT_1);
+        }
+    }
 }
 

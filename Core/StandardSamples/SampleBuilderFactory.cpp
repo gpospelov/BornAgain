@@ -14,170 +14,224 @@
 // ************************************************************************** //
 
 #include "SampleBuilderFactory.h"
-#include "IsGISAXS01Builder.h"
-#include "IsGISAXS02Builder.h"
+#include "CylindersAndPrismsBuilder.h"
 #include "CylindersBuilder.h"
-#include "IsGISAXS04Builder.h"
-#include "IsGISAXS06Builder.h"
-#include "IsGISAXS07Builder.h"
-#include "IsGISAXS08Builder.h"
-#include "IsGISAXS09Builder.h"
-#include "IsGISAXS10Builder.h"
-#include "IsGISAXS11Builder.h"
-#include "IsGISAXS15Builder.h"
-#include "MesoCrystal01Builder.h"
+#include "ParaCrystalBuilder.h"
+#include "LatticeBuilder.h"
+#include "TwoDimLatticeBuilder.h"
+#include "CustomMorphologyBuilder.h"
+#include "RotatedPyramidsBuilder.h"
+#include "CoreShellParticleBuilder.h"
+#include "MesoCrystalBuilder.h"
 #include "MultipleLayoutBuilder.h"
-#include "PolarizedDWBAMagCylindersBuilder.h"
-#include "LayerRoughnessBuilder.h"
+#include "MagneticParticlesBuilder.h"
+#include "MultiLayerWithRoughnessBuilder.h"
 #include "ParticleCompositionBuilder.h"
-#include "Ripple2Builder.h"
-#include "Ripple1Builder.h"
+#include "ParticleInTheAirBuilder.h"
+#include "ParticleDistributionsBuilder.h"
+#include "RipplesBuilder.h"
+#include "SizeDistributionModelsBuilder.h"
+#include "TransformationsBuilder.h"
+#include "BoxCompositionBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
-
     registerItem(
-        "isgisaxs01",
-        IFactoryCreateFunction<IsGISAXS01Builder, ISampleBuilder>,
+        "CylindersAndPrismsBuilder",
+        IFactoryCreateFunction<CylindersAndPrismsBuilder, ISampleBuilder>,
         "Mixture of cylinders and prisms without interference");
 
     registerItem(
-        "isgisaxs02",
-        IFactoryCreateFunction<IsGISAXS02Builder, ISampleBuilder>,
-        "Mixture cylinder particles with different size distribution ");
+        "TwoTypesCylindersDistributionBuilder",
+        IFactoryCreateFunction<TwoTypesCylindersDistributionBuilder, ISampleBuilder>,
+        "Mixture of cylinder particles with two types size distribution ");
 
     registerItem(
-        "cylinders_ba",
+        "CylindersInBABuilder",
         IFactoryCreateFunction<CylindersInBABuilder, ISampleBuilder>,
         "Cylinder formfactor in BA");
     registerItem(
-        "cylinders_dwba",
+        "CylindersInDWBABuilder",
         IFactoryCreateFunction<CylindersInDWBABuilder, ISampleBuilder>,
         "Cylinder formfactor in DWBA");
+
     registerItem(
-        "cylinders_basize",
+        "CylindersWithSizeDistributionBuilder",
         IFactoryCreateFunction<CylindersWithSizeDistributionBuilder, ISampleBuilder>,
         "Cylinder formfactor in BA with size distribution");
 
     registerItem(
-        "isgisaxs04_1DDL",
-        IFactoryCreateFunction<IsGISAXS04Para1DBuilder, ISampleBuilder>,
-        "IsGISAXS04 example, 1DDL structure factor");
-    registerItem(
-        "isgisaxs04_2DDL",
-        IFactoryCreateFunction<IsGISAXS04Para2DBuilder, ISampleBuilder>,
-        "IsGISAXS04 example, 2DDL structure factor");
+        "RadialParaCrystalBuilder",
+        IFactoryCreateFunction<RadialParaCrystalBuilder, ISampleBuilder>,
+        "Interference function of radial paracrystal");
 
     registerItem(
-        "isgisaxs06a",
-        IFactoryCreateFunction<IsGISAXS06Lattice1Builder, ISampleBuilder>,
-        "2D lattice with disorder");
+        "Basic2DParaCrystalBuilder",
+        IFactoryCreateFunction<Basic2DParaCrystalBuilder, ISampleBuilder>,
+        "Interference function of 2D basic paracrystal with variety of FT distributions");
+
     registerItem(
-        "isgisaxs06b",
-        IFactoryCreateFunction<IsGISAXS06Lattice2Builder, ISampleBuilder>,
-        "2D lattice centered");
+        "HexParaCrystalBuilder",
+        IFactoryCreateFunction<HexParaCrystalBuilder, ISampleBuilder>,
+        "Interference function of 2D hexagonal paracrystal");
+
     registerItem(
-        "isgisaxs06c",
-        IFactoryCreateFunction<IsGISAXS06Lattice3Builder, ISampleBuilder>,
+        "Lattice1DBuilder",
+        IFactoryCreateFunction<Lattice1DBuilder, ISampleBuilder>,
+        "Interference function of 1D lattice");
+
+    registerItem(
+        "RectParaCrystalBuilder",
+        IFactoryCreateFunction<RectParaCrystalBuilder, ISampleBuilder>,
+        "Interference function of 2D rectangular paracrystal");
+
+    registerItem(
+        "SquareLatticeBuilder",
+        IFactoryCreateFunction<SquareLatticeBuilder, ISampleBuilder>,
+        "Interference of square lattice with disordered");
+
+    registerItem(
+        "CenteredSquareLatticeBuilder",
+        IFactoryCreateFunction<CenteredSquareLatticeBuilder, ISampleBuilder>,
+        "Interference of centered square lattice");
+
+    registerItem(
+        "RotatedSquareLatticeBuilder",
+        IFactoryCreateFunction<RotatedSquareLatticeBuilder, ISampleBuilder>,
         "2D lattice rotated");
+
     registerItem(
-        "isgisaxs06d",
-        IFactoryCreateFunction<IsGISAXS06Lattice4Builder, ISampleBuilder>,
+        "CustomRotatedLatticeBuilder",
+        IFactoryCreateFunction<CustomRotatedLatticeBuilder, ISampleBuilder>,
         "2D lattice variants");
 
     registerItem(
-        "isgisaxs07",
-        IFactoryCreateFunction<IsGISAXS07Builder, ISampleBuilder>,
+        "CustomMorphologyBuilder",
+        IFactoryCreateFunction<CustomMorphologyBuilder, ISampleBuilder>,
         "Mixture of different particles a la IsGISAXS morphology file");
 
     registerItem(
-        "isgisaxs08a",
-        IFactoryCreateFunction<IsGISAXS08ABuilder, ISampleBuilder>,
-        "2DDL paracrystal lattice");
-
-    registerItem(
-        "isgisaxs08b",
-        IFactoryCreateFunction<IsGISAXS08BBuilder, ISampleBuilder>,
-        "2D paracrystal lattice with isotropic pdfs");
-
-    registerItem(
-        "isgisaxs09a",
-        IFactoryCreateFunction<IsGISAXS09ABuilder, ISampleBuilder>,
-        "Pyramids on top of substrate");
-    registerItem(
-        "isgisaxs09b",
-        IFactoryCreateFunction<IsGISAXS09BBuilder, ISampleBuilder>,
+        "RotatedPyramidsBuilder",
+        IFactoryCreateFunction<RotatedPyramidsBuilder, ISampleBuilder>,
         "Rotated pyramids on top of substrate");
 
     registerItem(
-        "isgisaxs10",
-        IFactoryCreateFunction<IsGISAXS10Builder, ISampleBuilder>,
-        "Cylinders on top of substrate with interference");
-
-    registerItem(
-        "isgisaxs11",
-        IFactoryCreateFunction<IsGISAXS11Builder, ISampleBuilder>,
+        "CoreShellParticleBuilder",
+        IFactoryCreateFunction<CoreShellParticleBuilder, ISampleBuilder>,
         "Core shell nanoparticles");
 
     registerItem(
-        "isgisaxs15",
-        IFactoryCreateFunction<IsGISAXS15Builder, ISampleBuilder>,
+        "CoreShellBoxRotateZandYBuilder",
+        IFactoryCreateFunction<CoreShellBoxRotateZandYBuilder, ISampleBuilder>,
+        "Rotation and translation of core shell box particle in 3 layers system.");
+
+    registerItem(
+        "SizeDistributionDAModelBuilder",
+        IFactoryCreateFunction<SizeDistributionDAModelBuilder, ISampleBuilder>,
+        "Size distribution model: decoupling approximation");
+
+    registerItem(
+        "SizeDistributionLMAModelBuilder",
+        IFactoryCreateFunction<SizeDistributionLMAModelBuilder, ISampleBuilder>,
+        "Size distribution model: local monodisperse approximation");
+
+    registerItem(
+        "SizeDistributionSSCAModelBuilder",
+        IFactoryCreateFunction<SizeDistributionSSCAModelBuilder, ISampleBuilder>,
+        "Size distribution model: size space coupling approximation");
+
+    registerItem(
+        "CylindersInSSCABuilder",
+        IFactoryCreateFunction<CylindersInSSCABuilder, ISampleBuilder>,
         "Size spacing correlation approximation");
 
     registerItem(
-        "mesocrystal01",
-        IFactoryCreateFunction<MesoCrystal01Builder, ISampleBuilder>,
+        "MesoCrystalBuilder",
+        IFactoryCreateFunction<MesoCrystalBuilder, ISampleBuilder>,
         "Mesocrystals of cylindrical shape composed by spherical nanoparticles");
 
     registerItem(
-        "polmagcylinders1",
-        IFactoryCreateFunction<PolarizedDWBAMagCylinders1Builder, ISampleBuilder>,
+        "MagneticParticleZeroFieldBuilder",
+        IFactoryCreateFunction<MagneticParticleZeroFieldBuilder, ISampleBuilder>,
         "Polarized DWBA with zero magnetic field");
+
     registerItem(
-        "polmagcylinders2",
-        IFactoryCreateFunction<PolarizedDWBAMagCylinders2Builder, ISampleBuilder>,
+        "MagneticCylindersBuilder",
+        IFactoryCreateFunction<MagneticCylindersBuilder, ISampleBuilder>,
         "Polarized DWBA with non-zero magnetic field");
 
     registerItem(
-        "LayerWithRoughness",
-        IFactoryCreateFunction<LayerRoughnessBuilder, ISampleBuilder>,
+        "MultiLayerWithRoughnessBuilder",
+        IFactoryCreateFunction<MultiLayerWithRoughnessBuilder, ISampleBuilder>,
         "Layer with correlated roughness");
 
     registerItem(
-       "multiple_layouts",
+       "MultipleLayoutBuilder",
        IFactoryCreateFunction<MultipleLayoutBuilder, ISampleBuilder>,
       "cylinder and prisms using multiple layouts");
 
     registerItem(
-        "ripple2",
-        IFactoryCreateFunction<Ripple2Builder, ISampleBuilder>,
+        "TriangularRippleBuilder",
+        IFactoryCreateFunction<TriangularRippleBuilder, ISampleBuilder>,
         "triangular ripple within the 1D-paracrystal model");
 
     registerItem(
-        "ripple1",
-        IFactoryCreateFunction<Ripple1Builder, ISampleBuilder>,
+        "CosineRippleBuilder",
+        IFactoryCreateFunction<CosineRippleBuilder, ISampleBuilder>,
         "cosine ripple within the 1D-paracrystal model");
 
     registerItem(
-        "ParticleComposition",
+        "ParticleCompositionBuilder",
         IFactoryCreateFunction<ParticleCompositionBuilder, ISampleBuilder>,
         "Composition of particles to represent two layers of spheres in hex lattice");
 
-}
+    registerItem(
+        "BoxCompositionRotateXBuilder",
+        IFactoryCreateFunction<BoxCompositionRotateXBuilder, ISampleBuilder>,
+        "Two boxes in particle composition rotated in X by 90 degrees");
 
+    registerItem(
+        "BoxCompositionRotateYBuilder",
+        IFactoryCreateFunction<BoxCompositionRotateYBuilder, ISampleBuilder>,
+        "Two boxes in particle composition rotated in Y by 90 degrees");
+
+    registerItem(
+        "BoxCompositionRotateZBuilder",
+        IFactoryCreateFunction<BoxCompositionRotateZBuilder, ISampleBuilder>,
+        "Two boxes in particle composition rotated in Z by 90 degrees");
+
+    registerItem(
+        "BoxCompositionRotateZandYBuilder",
+        IFactoryCreateFunction<BoxCompositionRotateZandYBuilder, ISampleBuilder>,
+        "Two boxes in particle composition rotated in Z and Y by 90 degrees");
+
+    registerItem(
+        "BoxStackCompositionBuilder",
+        IFactoryCreateFunction<BoxStackCompositionBuilder, ISampleBuilder>,
+        "Two different boxes are first rotated and then composed, composition is then rotated.");
+
+    registerItem(
+        "ParticleInTheAirBuilder",
+        IFactoryCreateFunction<ParticleInTheAirBuilder, ISampleBuilder>,
+        "Particle in the air layer to test form factors");
+
+    registerItem(
+        "TransformBoxBuilder",
+        IFactoryCreateFunction<TransformBoxBuilder, ISampleBuilder>,
+        "Rotated and translated box in 3 layer system");
+}
 
 ISample *SampleBuilderFactory::createSample(const std::string& name)
 {
     SampleBuilder_t builder(createItem(name));
     ISample *result = builder->buildSample();
-    result->setName(name);
+//    result->setName(name);
     return result;
 }
-
 
 SampleBuilder_t SampleBuilderFactory::createBuilder(const std::string& name)
 {
     SampleBuilder_t result(createItem(name));
-    result->setName(name);
+//    result->setName(name);
     return result;
 }

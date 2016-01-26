@@ -154,6 +154,9 @@ public:
     //! Returns cross product of vectors.
     BasicVector3D<T> cross(const BasicVector3D<T>& v ) const;
 
+    //! Returns normalized vector
+    BasicVector3D<T> normalize() const;
+
     //! Returns square of transverse component with respect to given axis.
     double perp2(const BasicVector3D<T>& v) const;
 
@@ -183,7 +186,7 @@ public:
 
     //! Returns unit vector in direction of this (or null vector).
     inline BasicVector3D<T> unit() const {
-        double len = std::abs(mag());
+        double len = mag();
         return (len > 0.0) ?
             BasicVector3D<T>(x()/len, y()/len, z()/len) :
             BasicVector3D<T>();
@@ -199,11 +202,10 @@ public:
         {
             T k = Units::PI2/_lambda;
             v_[0] = k*std::cos(_alpha) * std::cos(_phi);
-            v_[1] = k*std::cos(_alpha) * std::sin(_phi);
+            v_[1] = -k*std::cos(_alpha) * std::sin(_phi);
             v_[2] = k*std::sin(_alpha);
         }
 };
-
 
 // =========================================================================
 // Non-member functions for BasicVector3D<T>
@@ -325,11 +327,12 @@ template<> BA_CORE_API_ double BasicVector3D<double>::dot(
 template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::cross(
         const BasicVector3D<double>& v) const;
 
-
 template<> BA_CORE_API_ double BasicVector3D<double>::phi() const;
 
 template<> BA_CORE_API_ double BasicVector3D<double>::theta() const;
 
+BA_CORE_API_ BasicVector3D<std::complex<double> > toComplexVector(
+        const BasicVector3D<double>& real_vector);
 
 }  // namespace Geometry
 

@@ -42,7 +42,7 @@ public:
     Simulation(const ISample& p_sample, const ProgramOptions *p_options=0);
     Simulation(SampleBuilder_t p_sample_builder,
                const ProgramOptions *p_options=0);
-    virtual ~Simulation() { delete mp_sample; }
+    virtual ~Simulation() { }
 
     virtual Simulation *clone() const=0;
 
@@ -59,7 +59,7 @@ public:
     void setSample(const ISample& sample);
 
     //! Returns the sample
-    ISample *getSample() const { return mp_sample; }
+    ISample *getSample() const { return mP_sample.get(); }
 
     //! Sets the sample builder
     void setSampleBuilder(SampleBuilder_t sample_builder);
@@ -87,7 +87,7 @@ public:
     virtual int getNumberOfSimulationElements() const=0;
 
     //! Clone simulated intensity map
-    virtual OutputData<double>* getIntensityData() const=0;
+    virtual OutputData<double>* getDetectorIntensity() const=0;
 
     //! Adds parameters from local to external pool, and call recursion over direct children
     std::string addParametersToExternalPool(
@@ -131,11 +131,20 @@ protected:
     //! SimulationElement objects
     virtual void transferResultsToIntensityMap()=0;
 
+    //! Returns the intensity of the beam
+    virtual double getBeamIntensity() const=0;
+
     //! Update the sample by calling the sample builder, if present
     void updateSample();
 
     //! Run a single simulation with the current parameter settings
     void runSingleSimulation();
+
+#ifndef GCCXML_SKIP_THIS
+    //! Normalize the detector counts
+    void normalize(std::vector<SimulationElement>::iterator begin_it,
+                   std::vector<SimulationElement>::iterator end_it) const;
+#endif
 
     //! Verify existence of the DWBASimulation object
     void verifyDWBASimulation(DWBASimulation *dwbaSimulation);
@@ -147,12 +156,11 @@ protected:
     std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
 
     // components describing an experiment and its simulation:
-    ISample *mp_sample;
+    boost::scoped_ptr<ISample> mP_sample;
     SampleBuilder_t mp_sample_builder;
     SimulationParameters m_sim_params;
     ThreadInfo m_thread_info;
 
-    bool m_is_normalized;
     const ProgramOptions *mp_options;
 
     DistributionHandler m_distribution_handler;

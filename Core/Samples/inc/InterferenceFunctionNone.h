@@ -25,19 +25,13 @@
 class BA_CORE_API_ InterferenceFunctionNone : public IInterferenceFunction
 {
 public:
-    InterferenceFunctionNone() { setName("InterferenceFunctionNone"); }
-    virtual ~InterferenceFunctionNone() {}
-    virtual InterferenceFunctionNone *clone() const
-    {
-        InterferenceFunctionNone *result = new InterferenceFunctionNone();
-        result->setName(getName());
-        return result;
-    }
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    InterferenceFunctionNone();
 
-    virtual double evaluate(const cvector_t& q) const { (void)q; return 1.0; }
+    virtual InterferenceFunctionNone *clone() const;
+
+    virtual void accept(ISampleVisitor *visitor) const;
+
+    virtual double evaluate(const kvector_t& q) const;
 };
 
 #endif /* INTERFERENCEFUNCTIONNONE_H_ */
-
-

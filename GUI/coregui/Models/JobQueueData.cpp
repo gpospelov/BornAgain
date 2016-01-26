@@ -79,7 +79,6 @@ bool JobQueueData::hasUnfinishedJobs()
 
 void JobQueueData::setResults(JobItem *jobItem, const GISASSimulation *simulation)
 {
-    //qDebug() << "JobQueueData::setResults(NJobItem *jobItem, const Simulation *simulation)";
     if(!simulation)
         throw GUIHelpers::Error("NJobItem::setResults() -> Error. Null simulation.");
 
@@ -88,13 +87,9 @@ void JobQueueData::setResults(JobItem *jobItem, const GISASSimulation *simulatio
     if(!intensityItem) {
         intensityItem = static_cast<IntensityDataItem *>(m_jobModel->insertNewItem(Constants::IntensityDataType, m_jobModel->indexOfItem(jobItem)));
     }
-
     intensityItem->setNameFromProposed(jobItem->itemName());
-    intensityItem->setOutputData(simulation->getIntensityData());
+    intensityItem->setOutputData(simulation->getDetectorIntensity());
 }
-
-
-
 
 void JobQueueData::runJob(const QString &identifier)
 {
@@ -102,7 +97,6 @@ void JobQueueData::runJob(const QString &identifier)
     JobItem *jobItem = m_jobModel->getJobItemForIdentifier(identifier);
     runJob(jobItem);
 }
-
 
 //! submit job and run it in a thread
 void JobQueueData::runJob(JobItem *jobItem)
@@ -118,8 +112,6 @@ void JobQueueData::runJob(JobItem *jobItem)
 
     GISASSimulation *simulation(0);
     try{
-//        simulation = DomainSimulationBuilder::getSimulation(jobItem->getSampleModel(),
-//                                                            jobItem->getInstrumentModel());
         simulation = DomainSimulationBuilder::getSimulation(jobItem->getMultiLayerItem(),
                                                             jobItem->getInstrumentItem());
     } catch(const std::exception &ex) {

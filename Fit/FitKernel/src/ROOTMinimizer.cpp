@@ -20,10 +20,11 @@
 #include "ROOTMinimizerFunction.h"
 #include <iomanip>
 #include <sstream>
-#include <boost/assign/list_of.hpp>
-#include <boost/assign/list_of.hpp>
 #include "ROOTMinimizerHelper.h"
 #include "MinimizerOptions.h"
+#include "Math/Minimizer.h"
+#include "Math/Functor.h"
+
 
 
 // ----------------------------------------------------------------------------
@@ -114,6 +115,12 @@ void ROOTMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t
     if( isGradientBasedAgorithm() ) m_root_minimizer->SetFunction(*m_gradient_func);
 }
 
+size_t ROOTMinimizer::getNumberOfVariables() const { return m_root_minimizer->NDim(); }
+
+double ROOTMinimizer::getMinValue() const { return m_root_minimizer->MinValue(); }
+
+double ROOTMinimizer::getValueOfVariableAtMinimum(size_t i) const {return m_root_minimizer->X()[check_index(i)]; }
+
 
 std::vector<double > ROOTMinimizer::getValueOfVariablesAtMinimum() const
 {
@@ -122,6 +129,8 @@ std::vector<double > ROOTMinimizer::getValueOfVariablesAtMinimum() const
     std::copy(m_root_minimizer->X(), m_root_minimizer->X()+getNumberOfVariables(), result.begin());
     return result;
 }
+
+double ROOTMinimizer::getErrorOfVariable(size_t i) const { return (m_root_minimizer->Errors() == 0? 0 : m_root_minimizer->Errors()[check_index(i)]); }
 
 
 std::vector<double > ROOTMinimizer::getErrorOfVariables() const
@@ -140,11 +149,17 @@ void ROOTMinimizer::printResults() const
     ROOTMinimizerHelper::printResults(this);
 }
 
+void ROOTMinimizer::clear() { m_root_minimizer->Clear(); }
+
 
 size_t ROOTMinimizer::getNCalls() const
 {
     return m_root_minimizer->NCalls();
 }
+
+MinimizerOptions *ROOTMinimizer::getOptions() { return &m_options; }
+
+const MinimizerOptions *ROOTMinimizer::getOptions() const { return &m_options; }
 
 
 void ROOTMinimizer::setOptions(const MinimizerOptions &options)
@@ -152,6 +167,14 @@ void ROOTMinimizer::setOptions(const MinimizerOptions &options)
     m_options = options;
     propagateOptions();
 }
+
+BA_ROOT::Math::Minimizer *ROOTMinimizer::getROOTMinimizer() { return m_root_minimizer; }
+
+const BA_ROOT::Math::Minimizer *ROOTMinimizer::getROOTMinimizer() const { return m_root_minimizer; }
+
+std::string ROOTMinimizer::getMinimizerName() const { return m_minimizer_name; }
+
+std::string ROOTMinimizer::getAlgorithmName() const { return m_algo_type; }
 
 
 void ROOTMinimizer::propagateOptions()
@@ -162,6 +185,8 @@ void ROOTMinimizer::propagateOptions()
     m_root_minimizer->SetMaxIterations(m_options.getMaxIterations());
     m_root_minimizer->SetPrintLevel(m_options.getPrintLevel());
 }
+
+size_t ROOTMinimizer::check_index(size_t index) const { return index<getNumberOfVariables() ? index : throw OutOfBoundsException("ROOTMinimizer::getErrorOfVariable() -> Wrong number of the variable"); }
 
 
 

@@ -1,5 +1,5 @@
 // @(#)root/minuit2:$Id$
-// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005  
+// Authors: M. Winkler, F. James, L. Moneta, A. Zsenei   2003-2005
 
 /**********************************************************************
  *                                                                    *
@@ -14,13 +14,13 @@
 #include "Minuit2/MinimumState.h"
 #include "Minuit2/MnFcn.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 
 
 FunctionMinimum ScanBuilder::Minimum(const MnFcn& mfcn, const GradientCalculator&, const MinimumSeed& seed, const MnStrategy&, unsigned int, double) const {
-   // find the function minimum performing a parameter scan (using MnParameterScan class)  
+   // find the function minimum performing a parameter scan (using MnParameterScan class)
    // function gradient is not used
    MnAlgebraicVector x = seed.Parameters().Vec();
    MnUserParameterState upst(seed.State(), mfcn.Up(), seed.Trafo());

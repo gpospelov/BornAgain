@@ -28,7 +28,7 @@ class SampleValidator
 public:
     SampleValidator();
 
-    bool isVaildSampleModel(SampleModel *sampleModel);
+    bool isValidSampleModel(SampleModel *sampleModel);
 
     QString getValidationMessage() const { return m_validation_message; }
 

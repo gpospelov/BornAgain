@@ -27,10 +27,8 @@
 class BA_CORE_API_ MesoCrystal : public IParticle
 {
 public:
-    MesoCrystal(IClusteredParticles *p_particle_structure,
-            IFormFactor *p_form_factor);
-    MesoCrystal(const IClusteredParticles& particle_structure,
-            IFormFactor& form_factor);
+    MesoCrystal(IClusteredParticles *p_particle_structure, IFormFactor *p_form_factor);
+    MesoCrystal(const IClusteredParticles &particle_structure, IFormFactor &form_factor);
 
     virtual ~MesoCrystal();
     virtual MesoCrystal *clone() const;
@@ -39,27 +37,29 @@ public:
     virtual MesoCrystal *cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     virtual void setAmbientMaterial(const IMaterial& material);
     virtual const IMaterial* getAmbientMaterial() const;
 
-    virtual IFormFactor* createFormFactor(
-            complex_t wavevector_scattering_factor) const;
+    //! Create a form factor for this particle with an extra scattering factor
+    virtual IFormFactor *createTransformedFormFactor(complex_t wavevector_scattering_factor,
+                                                     const IRotation* p_rotation,
+                                                     kvector_t translation) const;
 
     //! @brief get the internal structure, which is in principle unbounded in
     //! space (eg.  an infinite crystal)
-    const IClusteredParticles *getClusteredParticles() const {
-        return mp_particle_structure;
-    }
-
-protected:
-    //! Propagates a transformation to child particles
-    virtual void applyTransformationToSubParticles(const IRotation& rotation);
+    const IClusteredParticles *getClusteredParticles() const;
 
 private:
+    //! Creates a form factor decorated with the IParticle's position/rotation
+    IFormFactor *createTransformationDecoratedFormFactor(const IFormFactor &bare_ff,
+                                                         const IRotation* p_rotation,
+                                                         kvector_t translation) const;
+
     IClusteredParticles *mp_particle_structure;
     IFormFactor *mp_meso_form_factor;
+    void initialize();
 };
 
 #endif /* MESOCRYSTAL_H_ */

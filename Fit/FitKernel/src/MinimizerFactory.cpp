@@ -20,10 +20,7 @@
 #include "ROOTMultiMinMinimizer.h"
 #include "ROOTSimAnMinimizer.h"
 #include "ROOTLMAMinimizer.h"
-#ifdef HAS_GENETIC_MINIMIZER
 #include "ROOTGeneticMinimizer.h"
-#endif
-#include <boost/assign/list_of.hpp>
 #include <iomanip>
 
 MinimizerFactory::Catalogue MinimizerFactory::m_catalogue =
@@ -34,15 +31,15 @@ MinimizerFactory::Catalogue MinimizerFactory::m_catalogue =
 MinimizerFactory::Catalogue::Catalogue()
 {
     // our minimizers
-    //m_data["Test"]        = boost::assign::list_of("");
-    //m_data["Scan"]        = boost::assign::list_of("");
+    //m_data["Test"]        = {""};
+    //m_data["Scan"]        = {""};
     // ROOT minimizers
-    //m_data["Minuit"]      = boost::assign::list_of("Migrad")("Simplex")("Combined")("Scan");
-    m_data["Minuit2"]     = boost::assign::list_of("Migrad")("Simplex")("Combined")("Scan")("Fumili");
-    m_data["GSLMultiMin"] = boost::assign::list_of("ConjugateFR")("ConjugatePR")("BFGS")("BFGS2")("SteepestDescent");
-    m_data["GSLLMA"] = boost::assign::list_of("");
-    m_data["GSLSimAn"]    = boost::assign::list_of("");
-    m_data["Genetic"]     = boost::assign::list_of(""); // available only with ROOT libraries
+    //m_data["Minuit"]      = {"Migrad", "Simplex", "Combined", "Scan"};
+    m_data["Minuit2"]     = {"Migrad", "Simplex", "Combined", "Scan", "Fumili"};
+    m_data["GSLMultiMin"] = {"ConjugateFR", "ConjugatePR", "BFGS", "BFGS2", "SteepestDescent"};
+    m_data["GSLLMA"]      = {""};
+    m_data["GSLSimAn"]    = {""};
+    m_data["Genetic"]     = {""}; // available only with ROOT libraries
 }
 
 
@@ -105,14 +102,8 @@ IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, cons
     } else if( minimizer == "GSLSimAn" ) {
         result = new ROOTSimAnMinimizer(minimizer, algorithm);
 
-#ifdef HAS_GENETIC_MINIMIZER
     } else if( minimizer == "Genetic" ) {
         result = new ROOTGeneticMinimizer(minimizer, algorithm);
-#else
-    } else if( minimizer == "Genetic" ) {
-        std::cout << "MinimizerFactory::createMinimizer() -> Error! Genetic minimizer doesn't exists (project was compiled without ROOT support)." << std::endl;
-        result = 0;
-#endif
 
     }
 
@@ -140,11 +131,7 @@ IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, cons
 IMinimizer *MinimizerFactory::createMinimizer(const IMinimizer *minimizer)
 {
     IMinimizer *result = createMinimizer(minimizer->getMinimizerName(), minimizer->getAlgorithmName());
-    result->setOptions(minimizer->getOptions());
+    result->setOptions(*minimizer->getOptions());
     return result;
 }
-
-
-
-
 

@@ -50,18 +50,38 @@ cause our analytic form factors to trivially deviate
 from expressions given in the \IsGISAXS\ manual \cite[Sect.~2.3]{Laz08}
 or in the literature \cite[Appendix]{ReLL09}.
 
+The particles can be rotated in a different direction by using one of
+the following transformations: \Code{CreateRotateX($\theta$),
+  CreateRotateY($\theta$), CreateRotateZ($\theta$)}, where capital X, Y, Z mark rotations
+around the associated axis and $\theta$ is the
+angle of rotation from this axis. For example, the following \Code{Python}\ script shows how to rotate a pyramid by $45^{\circ}$ around
+the $z$-axis:\\
+
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+    pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73 ) )
+    pyramid = Particle(m_particle, pyramid_ff)
+    angle_around_z = 45.*degree
+    transform = Transform3D.createRotateZ(angle_around_z)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(pyramid, transform) 
+\end{lstlisting}
+
+\Tuto{Particle rotation is demonstrated in the example~\tuto{61}{rotated pyramids}.}
+
 We recomputed all expressions to make sure
 that they also hold for complex scattering vectors,
 used to describe in order to take any material absorption into account.
 The implementation in \BornAgain\ allows all three components
-of~$\q$ to be complex.
-According to Sect.~\ref{Smulayabs},
+of~$\q$ to be complex.\footnote
+{According to Sect.~\ref{Smulayabs},
 only the vertical components of $\k_\ti$ and $\k_\tf$ can have imaginary parts.
 However,
-to account for a tilt of the particle,
-it may be necessary to evaluate $F(\v{\tilde q})$ with
+for tilted particles
+$F(\v{\tilde{q}})$ needs to be computed with
 a rotated scattering vector~$\v{\tilde q}$
-that has complex $\tilde q_x$ or~$\tilde q_y$.
+that may be complex in all three components.}
+Some background information on the form factor computations is
+given in App.~\ref{SFFcomp}.
 
 The following tables summarize the implemented particle geometries,
  roughly ordered by decreasing symmetry.
@@ -109,6 +129,11 @@ Shape&Name&Symmetry&Parameters&Reference\\\hline
 \end{longtable}
 \end{center}
 %\thispagestyle{empty}\clearpage
+
+\index{Rotation of particles}
+\index{Orientation of particles}
+\index{CreateRotateX@\Code{CreateRotateX|Y|Z}}
+\index{Transform3D@\Code{Transform3D}}
 
 In the following subsections,
 information about the implemented geometries is given in standardized form.
@@ -200,6 +225,8 @@ than in the preceding one-quadrant representation.}
 \label{F4quadrants}
 \end{figure}
 
+\index{Shape transform!catalogue|(}
+\index{Form factor!catalogue|(}
 
 %===============================================================================
 \ffsection{AnisoPyramid (rectangle-based)} \label{SAnisoPyramid} 
@@ -237,9 +264,7 @@ with the parameters
 \end{itemize}
 They must fulfill
 \begin{displaymath}
-  H \le \frac{\tan\alpha}{2} L
-  \quad\text{and}\quad
-  H \le \frac{\tan\alpha}{2} W
+  H \le \frac{\tan\alpha}{2} \min\,(L,W).
 \end{displaymath}
 
 \paragraph{Form factor etc}\strut\\
@@ -368,7 +393,7 @@ except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
   \index{Truncated cone (form factor)}
   \index{FormFactorCone@\Code{FormFactorCone}}
 
-\paragraph{Real-space geometry}
+\paragraph{Real-space geometry}\strut\\
 
 \begin{figure}[H]
 \hfill
@@ -451,7 +476,7 @@ except for a substitution $z\to\rho$ in our expression for~$F$.
 \hfill
 \subfigure[Side view]{\raisebox{5mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Cone62dxz.pdf}}}
 \hfill
-\caption{A truncated hexagonal pyramid.}
+\caption{A truncated pyramid, based on a regular hexagon}
 \end{figure}
 
 \FloatBarrier
@@ -768,7 +793,7 @@ computed with $R=3.9$~nm.}
 \end{figure}
 
 \paragraph{References}\strut\\
-This form factor, which certainly goes back at least to Lord Rayleigh,
+This form factor, which goes back at least to Lord Rayleigh,
 agrees with the \E{Full sphere} of \IsGISAXS
 \cite[Eq.~2.36]{Laz08} \cite[Eq.~226]{ReLL09}.
 
@@ -1082,34 +1107,21 @@ They must fulfill
 \paragraph{Form factor etc}\strut\\
 Notation:
 \begin{displaymath}
-  \ell\coloneqq L/2,\quad
-  h\coloneqq H/2,\quad
-  f_\pm(z)\coloneqq \exp(\pm i z)\sinc(z).
+  a\coloneqq q_x/\tan\alpha,\quad
+  b\coloneqq q_y/\tan\alpha,\quad
+  c\coloneqq q_z.
 \end{displaymath}
 Results:
 \begin{equation*}
+  \DS F= \frac{\exp(iq_zL\tan\alpha/2)}{\tan^2\alpha} \Big\{ I_p(H-L\tan\alpha/2) - I_p(-L\tan\alpha/2) \Big\} 
+\end{equation*}
+Where $I_p(z)$ is an antiderivative for the final z--integration in the Fourier transform of the non--truncated pyramid shape function:
+\begin{equation*}
 \begin{array}{@{}l@{}l@{}}
-\DS F=
-\frac{H}{q_xq_y} \Big\{
-   &+\DS  f_+\left(\left(\frac{q_x-q_y}{\tan\alpha} +q_z\right)h\right)
-        \exp(-i(q_x-q_y)\ell)
-\\[3.6ex]
-   &\DS+ f_-\left(\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right)
-        \exp(+i(q_x-q_y)\ell)
-\\[3.6ex]
-   &\DS- f_+\left(\left(\frac{q_x+q_y}{\tan\alpha} +q_z\right)h\right)
-        \exp(-i(q_x+q_y)\ell)
-\\[3.6ex]
-   &\DS- f_-\left(\left(\frac{q_x+q_y}{\tan\alpha} -q_z\right)h\right)
-        \exp(+i(q_x+q_y)\ell)
-\Big\},
+  \DS I_p(z) = & 4\exp(icz)\Big\{ \sin(az)\big[b(a^2-b^2+c^2)\cos(bz) + ic(a^2+b^2-c^2)\sin(bz)\big] \\
+  & +a\cos(az)\big[(-a^2+b^2+c^2)\sin(bz) + 2ibc\cos(bz) \big] \Big\} \\
+  & / \Big\{ab\big[(a+b)^2-c^2\big]\big[(a-b)^2-c^2\big]\Big\}
 \end{array}
-\end{equation*}
-\begin{equation*}
-  V= H \Big[L^2 - \frac{2LH}{\tan\alpha} + \dfrac{4}{3} \dfrac{H^2}{\tan^2\alpha}\Big].
-\end{equation*}
-\begin{equation*}
-  S=L^2.
 \end{equation*}
 \begin{equation*}
   V = \dfrac{1}{6}  L^3 \tan\alpha\left[ 1
@@ -1277,6 +1289,9 @@ Agrees with the \E{Ripple2} form factor of \FitGISAXS\ \cite{Bab13}.
  
 \paragraph{Real-space geometry}\strut\\
 
+\noindent
+Incorrectly named so, since it actually has five, not four surfaces.
+
 \begin{figure}[H]
 \hfill
 \subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Tetrahedron3d.png}}
@@ -1285,7 +1300,7 @@ Agrees with the \E{Ripple2} form factor of \FitGISAXS\ \cite{Bab13}.
 \hfill
 \subfigure[Side view]{\raisebox{5mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Tetrahedron2dxz.pdf}}}
 \hfill
-\caption{A truncated tetrahedron.}
+\caption{A truncated pyramid, based on an equilateral triangle.}
 \end{figure}
 
 \FloatBarrier
@@ -1589,6 +1604,5 @@ Agrees with the \IsGISAXS\ form factor
 % Note an erroneous factor~2 in the expression of the volume
 % in the \Code{IsGISAXS} manual.
 
-
-\index{Shape transform|)}
-\index{Form factor|)}
+\index{Shape transform!catalogue|)}
+\index{Form factor!catalogue|)}

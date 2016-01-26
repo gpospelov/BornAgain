@@ -36,7 +36,7 @@ public:
     static const QString P_ZAXIS;
 
     explicit IntensityDataItem(ParameterizedItem *parent=0);
-    ~IntensityDataItem();
+    virtual ~IntensityDataItem();
 
     OutputData<double> *getOutputData() { return m_data; }
     void setOutputData(OutputData<double> *data);

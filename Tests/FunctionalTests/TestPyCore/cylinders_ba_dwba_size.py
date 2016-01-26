@@ -23,7 +23,7 @@ def RunSimulationDWBA():
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
     # air layer with particles and substrate form multi layer
@@ -37,7 +37,8 @@ def RunSimulationDWBA():
     
     # build and run experiment
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    detector = IsGISAXSDetector(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
@@ -58,7 +59,7 @@ def RunSimulationBA():
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
     
@@ -71,7 +72,8 @@ def RunSimulationBA():
     
     # build and run experiment
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    detector = IsGISAXSDetector(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
@@ -100,7 +102,7 @@ def RunSimulationBA_Size():
     n_sigma = 4.0*numpy.sqrt(2.0*numpy.log(2.0))
     gauss = DistributionGaussian(radius, sigma)
 
-    par_distr = ParameterDistribution("*/radius", gauss, nbins, n_sigma)
+    par_distr = ParameterDistribution("*/Radius", gauss, nbins, n_sigma)
     part_coll = ParticleDistribution(nano_particle, par_distr)
     particle_layout.addParticle(part_coll)
 
@@ -114,7 +116,8 @@ def RunSimulationBA_Size():
 
     # build and run experiment  
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    detector = IsGISAXSDetector(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()

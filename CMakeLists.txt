@@ -2,7 +2,7 @@
 # CMakeLists.txt file for building BornAgain framework
 ############################################################################
 
-cmake_minimum_required(VERSION 2.8.11 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 project(BornAgain)
 
@@ -17,15 +17,14 @@ option(BORNAGAIN_USERMANUAL "Build the User Manual" OFF)
 option(BORNAGAIN_MANPAGE "Build Unix man page" OFF)
 option(BUILD_DEBIAN "Build a debian package" OFF)
 option(BORNAGAIN_APPLE_BUNDLE "Create a Mac OS X bundle" OFF)
-option(ROOT_SUPPORT "Build with dependencies from ROOT" OFF)
 option(BORNAGAIN_OPENMPI "Build with OpenMPI support" OFF)
 option(BORNAGAIN_RELEASE "Special option for making release" OFF)
-option(BORNAGAIN_CRASHHADLER "Additional machinery to send crash reports" OFF)
+option(BORNAGAIN_CRASHHANDLER "Additional machinery to send crash reports" OFF)
+option(BORNAGAIN_TIFF_SUPPORT "Tiff files read/write support" ON)
 
 #--- Including macros ---
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 include(BornAgainMacros)
-#AssureOutOfSourceBuilds()
 include(SearchInstalledSoftware)
 include(CheckCompiler)
 include(BornAgainConfiguration)
@@ -38,10 +37,9 @@ if(BORNAGAIN_MANPAGE)
     add_subdirectory(man)
 endif()
 
+add_subdirectory(ThirdParty)
 add_subdirectory(Core)
-add_subdirectory(ThirdParty/gtest)
 add_subdirectory(Tests/UnitTests/TestCore)
-add_subdirectory(ThirdParty/RootMinimizers)
 add_subdirectory(Fit)
 add_subdirectory(Tests/UnitTests/TestFit)
 

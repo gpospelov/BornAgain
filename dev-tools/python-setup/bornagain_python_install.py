@@ -122,7 +122,7 @@ from setuptools import setup
 datadir = os.path.join('bornagain', 'lib','BornAgain-{0}')
 datafiles = [(datadir, [f for f in glob.glob(os.path.join(datadir, '*'))])]
 
-datadir = os.path.join('bornagain', 'lib','ThirdParty')
+datadir = os.path.join('bornagain', 'lib','Frameworks')
 datafiles += [(datadir, [f for f in glob.glob(os.path.join(datadir, '*'))])]
 
 setup(name='bornagain',
@@ -165,17 +165,25 @@ from libBornAgainFit import *
     pass
 
 
+def prepare_init_module(app_dir, bundle_dir):
+    source_dir = os.path.join(app_dir, "Contents", "libexec")
+    libexec_dir = os.path.join(source_dir, "BornAgain-"+BORNAGAIN_VERSION, "bornagain")    
+    package_dir = os.path.join(bundle_dir, "bornagain")
+    print "--> Copying modules from '{0}' to '{1}'".format(libexec_dir, package_dir)
+    shutil.copytree(libexec_dir, package_dir)
+    return package_dir
+    
+
 def copy_libraries(app_dir, destination_dir):
     """
-    Coopy libraries from BornAgain.app into corresponding BornAgain Python package directory
+    Copy libraries from BornAgain.app into corresponding BornAgain Python package directory
     """
     print "--> Copying libraries from '{0}'".format(app_dir)
-    source_dir = os.path.join(app_dir, "Contents", "lib")
-    app_bornagainlib_dir = os.path.join(source_dir, "BornAgain-"+BORNAGAIN_VERSION)
-    app_thirdpartylib_dir = os.path.join(source_dir, "ThirdParty")
- 
+    app_bornagainlib_dir = os.path.join(app_dir, "Contents", "lib", "BornAgain-"+BORNAGAIN_VERSION)
+    app_frameworks_dir = os.path.join(app_dir, "Contents", "Frameworks")
+
+    # copying BornAgain libraries
     shutil.copytree(app_bornagainlib_dir, os.path.join(destination_dir, "BornAgain-"+BORNAGAIN_VERSION))
-    shutil.copytree(app_thirdpartylib_dir, os.path.join(destination_dir, "ThirdParty"))
 
     # cleaning unnecessary files
     libfiles = glob.glob(os.path.join(destination_dir, '*/libBornAgainGUI*'))
@@ -183,17 +191,30 @@ def copy_libraries(app_dir, destination_dir):
         os.remove(f)
     pass
 
+    # copying libraries from Frameworks
+    frameworks_libs = glob.glob(os.path.join(app_frameworks_dir, 'lib*'))
+    frameworks_dest = os.path.join(destination_dir, "Frameworks")
+    if not os.path.exists(frameworks_dest):
+        os.makedirs(frameworks_dest)
+    for lib in frameworks_libs:
+        shutil.copyfile(lib, os.path.join(frameworks_dest, os.path.basename(lib)))
+
 
 def patch_libraries(dir_name):
     """
     Patches libraries depending on Python to point on the same shared libpython2.7.dylib which current interpreter is using
     """
     print "--> Patching libraries to rely on '{0}'".format(get_python_shared_library())
-    #libfiles = [(dir_name, [f for f in glob.glob(os.path.join(dir_name, '*/libBornAgainCore*'))])]
     libfiles = glob.glob(os.path.join(dir_name, '*/libBornAgain*'))
+    for f in libfiles:
+        cmd = "install_name_tool -delete_rpath  @loader_path/../../Frameworks " + f
+        cmd = "install_name_tool -add_rpath  @loader_path/../Frameworks " + f
+        run_command(cmd)
+
     libfiles += glob.glob(os.path.join(dir_name, '*/libboost_python*'))
     for f in libfiles:
-        cmd = "install_name_tool -change @rpath/libpython2.7.dylib " + get_python_shared_library() + " " + f
+        # cmd = "install_name_tool -change @rpath/libpython2.7.dylib " + get_python_shared_library() + " " + f
+        cmd = "install_name_tool -change @rpath/Python.framework/Versions/2.7/Python " + get_python_shared_library() + " " + f
         run_command(cmd)
 
     pass
@@ -212,8 +233,7 @@ def create_bundle(app_dir):
     
     generate_setup_py(bundle_dir)
     
-    package_dir = create_package_dir(bundle_dir)
-    generate_init_py(package_dir)
+    package_dir = prepare_init_module(app_dir, bundle_dir)
     
     library_dir = create_library_dir(package_dir)
     copy_libraries(app_dir, library_dir)

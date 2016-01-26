@@ -23,49 +23,45 @@
 #include "BornAgainNamespace.h"
 #include "ProgressHandlerDWBA.h"
 #include "OMPISimulation.h"
-
 #include "Macros.h"
-GCC_DIAG_OFF(strict-aliasing);
-#include <boost/thread.hpp>
-GCC_DIAG_ON(strict-aliasing);
+
+#include <memory>
+#include <thread>
 #include <gsl/gsl_errno.h>
-#include <boost/scoped_ptr.hpp>
 
 Simulation::Simulation()
-    : IParameterized("Simulation"), mp_sample(0), m_is_normalized(false), mp_options(0)
+    : IParameterized("Simulation"), mp_options(0)
 {
     init_parameters();
 }
 
 Simulation::Simulation(const ProgramOptions *p_options)
-    : IParameterized("Simulation"), mp_sample(0), m_is_normalized(false), mp_options(p_options)
+    : IParameterized("Simulation"), mp_options(p_options)
 {
     init_parameters();
 }
 
 Simulation::Simulation(const ISample &p_sample, const ProgramOptions *p_options)
-    : IParameterized("Simulation"), mp_sample(p_sample.clone()), m_is_normalized(false),
-      mp_options(p_options)
+    : IParameterized("Simulation"), mp_options(p_options)
 {
+    mP_sample.reset(p_sample.clone());
     init_parameters();
 }
 
 Simulation::Simulation(SampleBuilder_t p_sample_builder, const ProgramOptions *p_options)
-    : IParameterized("Simulation"), mp_sample(0), mp_sample_builder(p_sample_builder),
-      m_is_normalized(false), mp_options(p_options)
+    : IParameterized("Simulation"), mp_sample_builder(p_sample_builder), mp_options(p_options)
 {
     init_parameters();
 }
 
 Simulation::Simulation(const Simulation &other)
-    : ICloneable(), IParameterized(other), mp_sample(0), mp_sample_builder(other.mp_sample_builder),
+    : ICloneable(), IParameterized(other), mp_sample_builder(other.mp_sample_builder),
       m_sim_params(other.m_sim_params), m_thread_info(other.m_thread_info),
-      m_is_normalized(other.m_is_normalized), mp_options(other.mp_options),
-      m_distribution_handler(other.m_distribution_handler), m_progress(other.m_progress)
+      mp_options(other.mp_options), m_distribution_handler(other.m_distribution_handler),
+      m_progress(other.m_progress)
 {
-    if (other.mp_sample)
-        mp_sample = other.mp_sample->clone();
-
+    if (other.mP_sample.get())
+        mP_sample.reset(other.mP_sample->clone());
     init_parameters();
 }
 
@@ -76,16 +72,12 @@ void Simulation::init_parameters()
 void Simulation::prepareSimulation()
 {
     gsl_set_error_handler_off();
-    m_is_normalized = false;
-    updateSample();
 }
 
 //! Run simulation with possible averaging over parameter distributions
 void Simulation::runSimulation()
 {
     prepareSimulation();
-    if (!mp_sample)
-        throw NullPointerException("Simulation::runSimulation() -> Error! No sample set.");
 
     size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 
@@ -93,7 +85,7 @@ void Simulation::runSimulation()
 
     // no averaging needed:
     if (param_combinations == 1) {
-        boost::scoped_ptr<ParameterPool> P_param_pool(createParameterTree());
+        std::unique_ptr<ParameterPool> P_param_pool(createParameterTree());
         m_distribution_handler.setParameterValues(P_param_pool.get(), 0);
         runSingleSimulation();
         transferResultsToIntensityMap();
@@ -103,7 +95,7 @@ void Simulation::runSimulation()
     // average over parameter distributions:
     initSimulationElementVector();
     std::vector<SimulationElement> total_intensity = m_sim_elements;
-    boost::scoped_ptr<ParameterPool> P_param_pool(createParameterTree());
+    std::unique_ptr<ParameterPool> P_param_pool(createParameterTree());
     for (size_t index = 0; index < param_combinations; ++index) {
         double weight = m_distribution_handler.setParameterValues(P_param_pool.get(), index);
         runSingleSimulation();
@@ -123,8 +115,7 @@ void Simulation::runOMPISimulation()
 //! The ISample object will not be owned by the Simulation object
 void Simulation::setSample(const ISample &sample)
 {
-    delete mp_sample;
-    mp_sample = sample.clone();
+    mP_sample.reset(sample.clone());
 }
 
 void Simulation::setSampleBuilder(SampleBuilder_t p_sample_builder)
@@ -134,8 +125,7 @@ void Simulation::setSampleBuilder(SampleBuilder_t p_sample_builder)
                                    "Error! Attempt to set null sample builder.");
 
     mp_sample_builder = p_sample_builder;
-    delete mp_sample;
-    mp_sample = 0;
+    mP_sample.reset(0);
 }
 
 std::string Simulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool,
@@ -148,9 +138,9 @@ std::string Simulation::addParametersToExternalPool(std::string path, ParameterP
     if (mp_sample_builder.get()) {
         // add parameters of the sample builder
         mp_sample_builder->addParametersToExternalPool(new_path, external_pool, -1);
-    } else if (mp_sample) {
+    } else if (mP_sample.get()) {
         // add parameters of directly the sample
-        mp_sample->addParametersToExternalPool(new_path, external_pool, -1);
+        mP_sample->addParametersToExternalPool(new_path, external_pool, -1);
     }
 
     return new_path;
@@ -190,8 +180,7 @@ void Simulation::updateSample()
                                    "OMG, some body has called me from python, what an idea... ";
             setSample(*p_new_sample);
         } else {
-            delete mp_sample;
-            mp_sample = p_new_sample;
+            mP_sample.reset(p_new_sample);
         }
     }
 }
@@ -226,23 +215,21 @@ void Simulation::runSingleSimulation()
         m_thread_info.n_threads = 1;
     if (m_thread_info.n_threads == 1) {
         // Single thread.
-        DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
-        verifyDWBASimulation(p_dwba_simulation);
-        p_dwba_simulation->init(*this, batch_start, batch_end);
-        p_dwba_simulation->run(); // the work is done here
-        if (!p_dwba_simulation->isCompleted()) {
-            std::string message = p_dwba_simulation->getRunMessage();
-            delete p_dwba_simulation;
+        std::unique_ptr<DWBASimulation> P_dwba_simulation(mP_sample->createDWBASimulation());
+        verifyDWBASimulation(P_dwba_simulation.get());
+        P_dwba_simulation->init(*this, batch_start, batch_end);
+        P_dwba_simulation->run(); // the work is done here
+        if (!P_dwba_simulation->isCompleted()) {
+            std::string message = P_dwba_simulation->getRunMessage();
             throw Exceptions::RuntimeErrorException("Simulation::runSimulation() -> Simulation has "
                                                     "terminated unexpectedly with following error "
                                                     "message.\n" + message);
         }
-        delete p_dwba_simulation;
     } else {
         // Multithreading.
         if (m_thread_info.n_threads == 0) {
             // Take optimal number of threads from the hardware.
-            m_thread_info.n_threads = (int)boost::thread::hardware_concurrency();
+            m_thread_info.n_threads = (int)std::thread::hardware_concurrency();
             msglog(MSG::DEBUG) << "Simulation::runSimulation() -> Info. Number of threads "
                                << m_thread_info.n_threads << " (taken from hardware concurrency)"
                                << ", n_batches = " << m_thread_info.n_batches
@@ -253,7 +240,7 @@ void Simulation::runSingleSimulation()
                                << ", n_batches = " << m_thread_info.n_batches
                                << ", current_batch = " << m_thread_info.current_batch;
         }
-        std::vector<boost::thread *> threads;
+        std::vector<std::thread *> threads;
         std::vector<DWBASimulation *> simulations;
 
         // Initialize n simulations.
@@ -262,7 +249,7 @@ void Simulation::runSingleSimulation()
         if (total_batch_elements % m_thread_info.n_threads) ++element_thread_step;
         for (int i_thread = 0; i_thread < m_thread_info.n_threads; ++i_thread) {
             if (i_thread*element_thread_step >= total_batch_elements) break;
-            DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
+            DWBASimulation *p_dwba_simulation = mP_sample->createDWBASimulation();
             verifyDWBASimulation(p_dwba_simulation);
             std::vector<SimulationElement>::iterator begin_it = batch_start
                                                                 + i_thread * element_thread_step;
@@ -280,7 +267,7 @@ void Simulation::runSingleSimulation()
         // Run simulations in n threads.
         for (std::vector<DWBASimulation *>::iterator it = simulations.begin();
              it != simulations.end(); ++it) {
-            threads.push_back(new boost::thread(boost::bind(&DWBASimulation::run, *it)));
+            threads.push_back(new std::thread(boost::bind(&DWBASimulation::run, *it)));
         }
 
         // Wait for threads to complete.
@@ -304,6 +291,21 @@ void Simulation::runSingleSimulation()
                 "Simulation::runSingleSimulation() -> Simulation has terminated unexpectedly "
                 "with the following error message.\n" + failure_message);
         }
+    }
+    normalize(batch_start, batch_end);
+}
+
+void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
+                           std::vector<SimulationElement>::iterator end_it) const
+{
+    double beam_intensity = getBeamIntensity();
+    // no normalization when beam intensity is zero:
+    if (beam_intensity==0.0) return;
+    for(std::vector<SimulationElement>::iterator it=begin_it; it!=end_it; ++it) {
+        double sin_alpha_i = std::abs(std::sin(it->getAlphaI()));
+        if (sin_alpha_i==0.0) sin_alpha_i = 1.0;
+        double solid_angle = it->getSolidAngle();
+        it->setIntensity(it->getIntensity()*beam_intensity*solid_angle/sin_alpha_i);
     }
 }
 

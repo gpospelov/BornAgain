@@ -28,11 +28,14 @@ class NodeEditorPort;
 //! view of ISample's with rectangular shape and node functionality
 class BA_CORE_API_ ConnectableView : public IView
 {
+    Q_OBJECT
 public:
     enum { TYPE = DesignerHelper::ISAMPLE_RECT };
     ConnectableView(QGraphicsItem *parent = 0, QRect rect = QRect(0,0,50,50) );
     virtual ~ConnectableView(){}
     int type() const { return TYPE; }
+    virtual void setParameterizedItem(ParameterizedItem *item);
+
     virtual QRectF boundingRect() const { return getRectangle(); }
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
@@ -49,14 +52,15 @@ public:
     //! connects input port with given index with output port of other view
     void connectInputPort(ConnectableView *other, int port_number);
 
-    QList<NodeEditorPort *> getInputPorts() { return m_output_ports; }
+    QList<NodeEditorPort *> getInputPorts() { return m_input_ports; }
     QList<NodeEditorPort *> getOutputPorts() { return m_output_ports; }
 
     int getInputPortIndex(NodeEditorPort *port);
 
-public slots:
     virtual void setName(const QString &name) { m_name = name; }
     virtual void setColor(const QColor &color) { m_color = color; }
+public slots:
+    virtual void onSiblingsChanged();
 
 protected:
     virtual void setPortCoordinates();
@@ -72,6 +76,9 @@ protected:
     QString m_label;
     QList<NodeEditorPort *> m_input_ports;
     QList<NodeEditorPort *> m_output_ports;
+
+private:
+    QString hyphenate(const QString& name) const;
 };
 
 

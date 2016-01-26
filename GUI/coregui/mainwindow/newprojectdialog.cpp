@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "newprojectdialog.h"
+#include "projectdocument.h"
 #include <QLabel>
 #include <QLineEdit>
 #include <QGroupBox>
@@ -24,19 +25,14 @@
 #include <QStatusBar>
 #include <QDir>
 #include <QFileDialog>
+#include <QDebug>
 
 #include <iostream>
 
-NewProjectDialog::NewProjectDialog(QWidget *parent)
-    : QDialog(parent)
-    , m_projectNameEdit(0)
-    , m_projectPathEdit(0)
-    , m_browseButton(0)
-    , m_warningLabel(0)
-    , m_cancelButton(0)
-    , m_createButton(0)
-    , m_valid_projectName(true)
-    , m_valid_projectPath(true)
+NewProjectDialog::NewProjectDialog(QWidget *parent, const QString &workingDirectory
+                                   , const QString &projectName)
+    : QDialog(parent), m_projectNameEdit(0), m_workDirEdit(0), m_browseButton(0), m_warningLabel(0),
+      m_cancelButton(0), m_createButton(0), m_valid_projectName(true), m_valid_projectPath(true)
 
 {
     setMinimumSize(480, 280);
@@ -45,17 +41,19 @@ NewProjectDialog::NewProjectDialog(QWidget *parent)
     QLabel *nameLabel = new QLabel(tr("Project name:"));
     m_projectNameEdit = new QLineEdit;
     m_projectNameEdit->setText("Untitled");
-    connect(m_projectNameEdit, SIGNAL(textEdited(QString)), this, SLOT(checkIfProjectNameIsValid(QString)));
+    connect(m_projectNameEdit, SIGNAL(textEdited(QString)), this,
+            SLOT(checkIfProjectNameIsValid(QString)));
     nameLabel->setBuddy(m_projectNameEdit);
 
     QLabel *parentDirLabel = new QLabel(tr("Create in:"));
-    m_projectPathEdit = new QLineEdit;
-    m_projectPathEdit->setText(QDir::homePath());
-    connect(m_projectPathEdit, SIGNAL(textEdited(QString)), this, SLOT(checkIfProjectPathIsValid(QString)));
-    parentDirLabel->setBuddy(m_projectPathEdit);
+    m_workDirEdit = new QLineEdit;
+    m_workDirEdit->setText(QDir::homePath());
+    connect(m_workDirEdit, SIGNAL(textEdited(QString)), this,
+            SLOT(checkIfProjectPathIsValid(QString)));
+    parentDirLabel->setBuddy(m_workDirEdit);
 
     m_browseButton = new QPushButton(tr("Browse"));
-    connect(m_browseButton, SIGNAL(clicked()), this, SLOT(setDirectory()));
+    connect(m_browseButton, SIGNAL(clicked()), this, SLOT(onBrowseDirectory()));
 
     m_warningLabel = new QLabel();
 
@@ -71,8 +69,8 @@ NewProjectDialog::NewProjectDialog(QWidget *parent)
     layout->addWidget(nameLabel, 0, 0);
     layout->addWidget(m_projectNameEdit, 0, 1);
     layout->addWidget(parentDirLabel, 1, 0);
-    layout->addWidget(m_projectPathEdit, 1, 1);
-    layout->addWidget(m_browseButton,1,2);
+    layout->addWidget(m_workDirEdit, 1, 1);
+    layout->addWidget(m_browseButton, 1, 2);
 
     projectGroup->setLayout(layout);
 
@@ -88,44 +86,65 @@ NewProjectDialog::NewProjectDialog(QWidget *parent)
     mainLayout->addLayout(buttonsLayout);
 
     setLayout(mainLayout);
+
+    setWorkingDirectory(workingDirectory);
+    setProjectName(projectName);
 }
 
+QString NewProjectDialog::getWorkingDirectory() const
+{
+    return m_workDirEdit->text();
+}
+
+void NewProjectDialog::setWorkingDirectory(const QString &text)
+{
+    return m_workDirEdit->setText(text);
+}
+
+void NewProjectDialog::setProjectName(const QString &text)
+{
+    return m_projectNameEdit->setText(text);
+}
+
+QString NewProjectDialog::getProjectFileName() const
+{
+    QString projectDir = getWorkingDirectory() + QString("/") + getProjectName();
+    QString projectFile = getProjectName() + ProjectDocument::getProjectFileExtension();
+    QString result = projectDir + QString("/") + projectFile;
+    return result;
+}
 
 //! calls directory selection dialog
-void NewProjectDialog::setDirectory()
+void NewProjectDialog::onBrowseDirectory()
 {
-    QString dirname = QFileDialog::getExistingDirectory(this,
-                                "Select directory",
-                                getProjectPath(),
-                                QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly);
+    QString dirname = QFileDialog::getExistingDirectory(
+        this, "Select directory", getWorkingDirectory(),
+        QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly);
 
     if (!dirname.isEmpty()) {
         checkIfProjectPathIsValid(dirname);
         checkIfProjectNameIsValid(getProjectName());
     }
-
 }
-
 
 //! checks if ProjectPath is valid. Corresponding directory should exists.
 void NewProjectDialog::checkIfProjectPathIsValid(const QString &dirname)
 {
-    if(QFile::exists(dirname)) {
+    if (QFile::exists(dirname)) {
         setValidProjectPath(true);
-        m_projectPathEdit->setText(dirname);
+        m_workDirEdit->setText(dirname);
     } else {
         setValidProjectPath(false);
     }
     updateWarningStatus();
 }
 
-
 //! checks if project name is valid. There should not be the directory with such
 //! name in ProjectPath
 void NewProjectDialog::checkIfProjectNameIsValid(const QString &projectName)
 {
-    QDir projectDir = getProjectPath() + "/" + projectName;
-    if(projectDir.exists()) {
+    QDir projectDir = getWorkingDirectory() + "/" + projectName;
+    if (projectDir.exists()) {
         setValidProjectName(false);
     } else {
         setValidProjectName(true);
@@ -133,21 +152,19 @@ void NewProjectDialog::checkIfProjectNameIsValid(const QString &projectName)
     updateWarningStatus();
 }
 
-
 //! sets flags wether project name is valid and then updates color of LineEdit
 //! and warning message
 void NewProjectDialog::setValidProjectName(bool status)
 {
     m_valid_projectName = status;
     QPalette palette;
-    if(m_valid_projectName) {
+    if (m_valid_projectName) {
         palette.setColor(QPalette::Text, Qt::black);
     } else {
-        palette.setColor(QPalette::Text,Qt::darkRed);
+        palette.setColor(QPalette::Text, Qt::darkRed);
     }
     m_projectNameEdit->setPalette(palette);
 }
-
 
 //! sets flags wether project path is valid and then updates color of LineEdit
 //! and warning message
@@ -155,30 +172,31 @@ void NewProjectDialog::setValidProjectPath(bool status)
 {
     m_valid_projectPath = status;
     QPalette palette;
-    if(m_valid_projectPath) {
+    if (m_valid_projectPath) {
         palette.setColor(QPalette::Text, Qt::black);
     } else {
-        palette.setColor(QPalette::Text,Qt::darkRed);
+        palette.setColor(QPalette::Text, Qt::darkRed);
     }
-    m_projectPathEdit->setPalette(palette);
+    m_workDirEdit->setPalette(palette);
 }
-
 
 //! updates warning label depending on validity of project name and path
 void NewProjectDialog::updateWarningStatus()
 {
-    if(m_valid_projectPath && m_valid_projectName) {
+    if (m_valid_projectPath && m_valid_projectName) {
         m_createButton->setEnabled(true);
         m_warningLabel->setText("");
-    } else if(!m_valid_projectPath ) {
+    } else if (!m_valid_projectPath) {
         m_createButton->setEnabled(false);
-        m_warningLabel->setText("<font color='darkRed'> The path '"+getProjectPath()+"' does not exist. </font>");
-    } else if(!m_valid_projectName ) {
+        m_warningLabel->setText("<font color='darkRed'> The path '" + getWorkingDirectory()
+                                + "' does not exist. </font>");
+    } else if (!m_valid_projectName) {
         m_createButton->setEnabled(false);
-        if(getProjectName().isEmpty()) {
+        if (getProjectName().isEmpty()) {
             m_warningLabel->setText("<font color='darkRed'> Please specify project name. </font>");
         } else {
-            m_warningLabel->setText("<font color='darkRed'> The directory '"+getProjectName()+"' already exists. </font>");
+            m_warningLabel->setText("<font color='darkRed'> The directory '" + getProjectName()
+                                    + "' already exists. </font>");
         }
     }
 }
@@ -186,11 +204,12 @@ void NewProjectDialog::updateWarningStatus()
 //! creates directory with selected ProjectName in selected ProjectPath
 void NewProjectDialog::createProjectDir()
 {
-    QDir parentDir = getProjectPath();
-    if( !parentDir.mkdir(getProjectName()) ) {
-        m_warningLabel->setText("<font color='darkRed'> Can't make subdirectory' '"+getProjectName()+"' in '"+getProjectPath()+"' </font>");
+    QDir parentDir = getWorkingDirectory();
+    if (!parentDir.mkdir(getProjectName())) {
+        m_warningLabel->setText("<font color='darkRed'> Can't make subdirectory' '"
+                                + getProjectName() + "' in '" + getWorkingDirectory()
+                                + "' </font>");
     } else {
         accept();
     }
 }
-

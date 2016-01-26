@@ -3,7 +3,7 @@ Cylinder form factor in DWBA with beam divergence
 """
 import numpy
 import matplotlib
-import pylab
+from matplotlib import pyplot as plt
 from bornagain import *
 
 phi_min, phi_max = 0.0, 2.0
@@ -23,7 +23,7 @@ def get_sample():
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(m_particle, cylinder_ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
 
     # assembling the sample
     air_layer = Layer(m_ambience)
@@ -46,9 +46,9 @@ def get_simulation():
     wavelength_distr = DistributionLogNormal(1.0*angstrom, 0.1)
     alpha_distr = DistributionGaussian(0.2*degree, 0.1*degree)
     phi_distr = DistributionGaussian(0.0*degree, 0.1*degree)
-    simulation.addParameterDistribution("*/Beam/wavelength", wavelength_distr, 5)
-    simulation.addParameterDistribution("*/Beam/alpha", alpha_distr, 5)
-    simulation.addParameterDistribution("*/Beam/phi", phi_distr, 5)
+    simulation.addParameterDistribution("*/Beam/Wavelength", wavelength_distr, 5)
+    simulation.addParameterDistribution("*/Beam/Alpha", alpha_distr, 5)
+    simulation.addParameterDistribution("*/Beam/Phi", phi_distr, 5)
     return simulation
 
 
@@ -62,16 +62,18 @@ def run_simulation():
     simulation.printParameters()
     simulation.runSimulation()
 
-    result = simulation.getIntensityData().getArray() + 1  # for log scale
+    result = simulation.getIntensityData()
 
     # showing the result
-    im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
-                      extent=[phi_min, phi_max, alpha_min, alpha_max], aspect='auto')
-    cb = pylab.colorbar(im)
-    cb.set_label(r'Intensity (arb. u.)', fontsize=16)
-    pylab.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
-    pylab.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
-    pylab.show()
+    im = plt.imshow(result.getArray(),
+                    norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+                    extent=[result.getXmin()/deg, result.getXmax()/deg, result.getYmin()/deg, result.getYmax()/deg],
+                    aspect='auto')
+    cb = plt.colorbar(im)
+    cb.set_label(r'Intensity (arb. u.)', size=16)
+    plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
+    plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
+    plt.show()
 
 
 if __name__ == '__main__':

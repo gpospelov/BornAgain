@@ -22,7 +22,7 @@ namespace Constants {
 
 // --- Items -------------------------------------------------------------------
 
-typedef QString ModelType;
+using ModelType = QString;
 
 const ModelType LayerType = "Layer";
 const ModelType MultiLayerType = "MultiLayer";
@@ -31,10 +31,11 @@ const ModelType ParticleLayoutType = "ParticleLayout";
 const ModelType ParticleCoreShellType = "ParticleCoreShell";
 const ModelType ParticleDistributionType = "ParticleDistribution";
 const ModelType ParticleCompositionType = "ParticleComposition";
-const ModelType TransformationType = "Transformation";
-const ModelType InterferenceFunctionRadialParaCrystalType = "InterferenceFunctionRadialParaCrystal";
-const ModelType InterferenceFunction2DParaCrystalType = "InterferenceFunction2DParaCrystal";
-const ModelType InterferenceFunction2DLatticeType = "InterferenceFunction2DLattice";
+const ModelType TransformationType = "Rotation";
+const ModelType InterferenceFunctionRadialParaCrystalType = "InterferenceRadialParaCrystal";
+const ModelType InterferenceFunction2DParaCrystalType = "Interference2DParaCrystal";
+const ModelType InterferenceFunction1DLatticeType = "Interference1DLattice";
+const ModelType InterferenceFunction2DLatticeType = "Interference2DLattice";
 const ModelType InstrumentType = "Instrument";
 const ModelType DetectorType = "Detector";
 const ModelType BeamType = "Beam";
@@ -70,7 +71,7 @@ const ModelType VectorType = "Vector";
 const ModelType LayerBasicRoughnessType = "LayerBasicRoughness";
 const ModelType LayerZeroRoughnessType = "LayerZeroRoughness";
 
-const ModelType PhiAlphaDetectorType = "PhiAlphaDetector";
+const ModelType SphericalDetectorType = "SphericalDetector";
 
 const ModelType DistributionNoneType = "DistributionNone";
 const ModelType DistributionGateType = "DistributionGate";
@@ -120,10 +121,19 @@ const ModelType BeamInclinationAngleType = "BeamInclinationAngle";
 const ModelType ResolutionFunctionNoneType = "ResolutionFunctionNone";
 const ModelType ResolutionFunction2DGaussianType = "ResolutionFunction2DGaussian";
 
+const ModelType MaskContainerType = "MaskContainer";
+const ModelType RectangleMaskType = "RectangleMask";
+const ModelType PolygonMaskType = "PolygonMask";
+const ModelType PolygonPointType = "PolygonPoint";
+const ModelType EllipseMaskType = "EllipseMask";
+const ModelType VerticalLineMaskType = "VerticalLineMask";
+const ModelType HorizontalLineMaskType = "HorizontalLineMask";
+const ModelType MaskAllType = "MaskAllMask";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
-const ModelType RotationGroup = "Rotation";
+const ModelType RotationGroup = "Rotation group";
 const ModelType LayerRoughnessGroup = "Roughness";
 const ModelType DetectorGroup = "Detector group";
 const ModelType DistributionGroup = "Distribution group";
@@ -157,15 +167,10 @@ const ModelType GRADIENT_SPECTRUM = "Spectrum";
 const ModelType GRADIENT_JET = "Jet";
 const ModelType GRADIENT_HUES = "Hues";
 
-const ModelType AXIS_FIXED_BINNING = "Fixed";
-const ModelType AXIS_CONSTK_BINNING = "Const KBin";
-
 const ModelType JOB_RUN_IMMEDIATELY = "Immediately";
 const ModelType JOB_RUN_IN_BACKGROUND = "In background";
 const ModelType JOB_RUN_SUBMIT_ONLY = "Submit only";
 const ModelType JOB_BACKUP = "_backup";
-
 }
-
 
 #endif

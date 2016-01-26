@@ -14,6 +14,9 @@
 // ************************************************************************** //
 
 #include "FormFactorSphereGaussianRadius.h"
+#include "BornAgainNamespace.h"
+
+using namespace  BornAgain;
 
 FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean,
                                                                double sigma)
@@ -22,7 +25,7 @@ FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean,
 , m_mean_r3(0.0)
 , p_ff_sphere(0)
 {
-    setName("FormFactorSphereGaussianRadius");
+    setName(FormFactorSphereGaussianRadiusType);
     m_mean_r3 = calculateMeanR3();
     p_ff_sphere = new FormFactorFullSphere(m_mean_r3);
     check_initialization();
@@ -31,10 +34,7 @@ FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean,
 
 FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const
 {
-    FormFactorSphereGaussianRadius *result =
-        new FormFactorSphereGaussianRadius(m_mean, m_sigma);
-    result->setName(getName());
-    return result;
+    return new FormFactorSphereGaussianRadius(m_mean, m_sigma);
 }
 
 FormFactorSphereGaussianRadius::~FormFactorSphereGaussianRadius()
@@ -42,9 +42,14 @@ FormFactorSphereGaussianRadius::~FormFactorSphereGaussianRadius()
     delete p_ff_sphere;
 }
 
-int FormFactorSphereGaussianRadius::getNumberOfStochasticParameters() const
+void FormFactorSphereGaussianRadius::accept(ISampleVisitor *visitor) const
 {
-    return 2;
+    visitor->visit(this);
+}
+
+double FormFactorSphereGaussianRadius::getRadius() const
+{
+    return m_mean;
 }
 
 complex_t FormFactorSphereGaussianRadius::evaluate_for_q(
@@ -68,6 +73,6 @@ bool FormFactorSphereGaussianRadius::check_initialization() const
 void FormFactorSphereGaussianRadius::init_parameters()
 {
     clearParameterPool();
-    registerParameter("mean_radius", &m_mean, AttLimits::n_positive());
-    registerParameter("sigma_radius", &m_sigma, AttLimits::n_positive());
+    registerParameter(MeanRadius, &m_mean, AttLimits::n_positive());
+    registerParameter(SigmaRadius, &m_sigma, AttLimits::n_positive());
 }

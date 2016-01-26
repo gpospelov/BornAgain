@@ -16,7 +16,6 @@
 #include "SimulationSetupWidget.h"
 #include "GISASSimulation.h"
 #include "mainwindow.h"
-#include "PythonScriptSampleBuilder.h"
 #include "JobModel.h"
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
@@ -205,7 +204,7 @@ void SimulationSetupWidget::onRunSimulation()
     }
 
     SampleValidator sampleValidator;
-    if (!sampleValidator.isVaildSampleModel(jobSampleModel)) {
+    if (!sampleValidator.isValidSampleModel(jobSampleModel)) {
         QMessageBox::warning(this, tr("Not suitable MultiLayer"),
                              sampleValidator.getValidationMessage());
         return;
@@ -232,7 +231,7 @@ void SimulationSetupWidget::onExportToPythonScript()
     }
 
     SampleValidator sampleValidator;
-    if(!sampleValidator.isVaildSampleModel(sampleModel)) {
+    if(!sampleValidator.isValidSampleModel(sampleModel)) {
         QMessageBox::warning(this, tr("Not suitable MultiLayer"),
                              sampleValidator.getValidationMessage());
         return;

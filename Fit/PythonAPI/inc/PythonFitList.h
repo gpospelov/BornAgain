@@ -21,6 +21,7 @@
 #include "IIntensityFunction.h"
 #include "FitStrategyAdjustParameters.h"
 #include "FitStrategyAdjustMinimizer.h"
+#include "IFitObserver.h"
 
 //! file containig additional exposers
 #include "PythonFitExposer.h"

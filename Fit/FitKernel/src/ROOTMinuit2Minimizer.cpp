@@ -19,7 +19,7 @@
 ROOTMinuit2Minimizer::ROOTMinuit2Minimizer(const std::string& minimizer_name, const std::string& algo_type)
     : ROOTMinimizer(minimizer_name, algo_type)
 {
-    m_minuit2_minimizer = new ROOT::Minuit2::Minuit2Minimizer(algo_type.c_str());
+    m_minuit2_minimizer = new BA_ROOT::Minuit2::Minuit2Minimizer(algo_type.c_str());
     m_root_minimizer = m_minuit2_minimizer;
 
     m_options.addValue("Strategy", 1);

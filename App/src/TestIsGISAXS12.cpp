@@ -105,7 +105,7 @@ void TestIsGISAXS12::run_isgisaxs_comparison()
 {
     // run simulation for default sample parameters
     m_simulation->runSimulation();
-    IntensityDataIOFactory::writeIntensityData(*(m_simulation->getOutputData()), "this_fitconstraints.ima");
+    IntensityDataIOFactory::writeOutputData(*(m_simulation->getOutputData()), "this_fitconstraints.ima");
 
     // plotting results of comparison we/isgisaxs for the sample with default parameters
     std::string isgi_file(getOutputPath()+"isgi_fitconstraints_optimal.ima.gz");
@@ -114,8 +114,8 @@ void TestIsGISAXS12::run_isgisaxs_comparison()
     // -------------
     // plot results
     // -------------
-    OutputData<double> *isgi_data = IntensityDataIOFactory::readIntensityData(isgi_file);
-    OutputData<double> *our_data = IntensityDataIOFactory::readIntensityData(this_file);
+    OutputData<double> *isgi_data = IntensityDataIOFactory::readOutputData(isgi_file);
+    OutputData<double> *our_data = IntensityDataIOFactory::readOutputData(this_file);
 
     IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data,"TestIsGISAXS12_c1", "ex-12: Mixture of cylindrical particles with different size distribution");
     delete isgi_data;
@@ -205,91 +205,93 @@ void TestIsGISAXS12::plot_isgisaxs_fit_results()
 /* ************************************************************************* */
 void TestIsGISAXS12::run_isgisaxs_fit()
 {
-    // reading 1D data scans defined in isgisaxs example
-    IsGISAXSData::DataSet_t isgi_scans;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans, IsGISAXSData::DATA_TO_FIT);
+    throw NotImplementedException("Obsolete code");
 
-    // creating fit suite
-    m_fitSuite = new FitSuite();
-    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
-    m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver(10) );
-    m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver(10) );
+//    // reading 1D data scans defined in isgisaxs example
+//    IsGISAXSData::DataSet_t isgi_scans;
+//    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans, IsGISAXSData::DATA_TO_FIT);
 
-    m_fitSuite->addFitParameter("*Normalizer/scale", 1e5, 1, AttLimits::limited(1e4, 2e5));
-    m_fitSuite->addFitParameter("*Normalizer/shift", 10, 0.01, AttLimits::limited(1., 20.));
+//    // creating fit suite
+//    m_fitSuite = new FitSuite();
+//    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+//    m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver(10) );
+//    m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver(10) );
 
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability1",  0.4, 0.01, AttLimits::limited(0.01, 1.0) );
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius1",  4*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(1., 10.) );
-    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius1",  0.2, 0.01, AttLimits::limited(0.01, 1.) );
-    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio1",  0.8, 0.01, AttLimits::limited(0.01, 10.) );
+//    m_fitSuite->addFitParameter("*Normalizer/scale", 1e5, 1, AttLimits::limited(1e4, 2e5));
+//    m_fitSuite->addFitParameter("*Normalizer/shift", 10, 0.01, AttLimits::limited(1., 20.));
 
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability2",  0.6, 0.01, AttLimits::limited(0.01, 1.0) );
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius2",  4*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(1., 10.) );
-    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius2",  0.2, 0.01, AttLimits::limited(0.01, 1.) );
-    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio2",  0.8, 0.01, AttLimits::limited(0.01, 10.) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability1",  0.4, 0.01, AttLimits::limited(0.01, 1.0) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius1",  4*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(1., 10.) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius1",  0.2, 0.01, AttLimits::limited(0.01, 1.) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio1",  0.8, 0.01, AttLimits::limited(0.01, 10.) );
 
-    m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  12*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(0.01, 50.0) );
-    m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  6*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(0.01, 10.) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability2",  0.6, 0.01, AttLimits::limited(0.01, 1.0) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius2",  4*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(1., 10.) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius2",  0.2, 0.01, AttLimits::limited(0.01, 1.) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio2",  0.8, 0.01, AttLimits::limited(0.01, 10.) );
+
+//    m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  12*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(0.01, 50.0) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  6*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(0.01, 10.) );
 
 
-    // setting up fitSuite
-    ChiSquaredModule chiModule;
-    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
-    chiModule.setIntensityNormalizer( IntensityNormalizer() );
+//    // setting up fitSuite
+//    ChiSquaredModule chiModule;
+//    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
+//    chiModule.setIntensityNormalizer( IntensityNormalizer() );
 
-    for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin(); it!= isgi_scans.end(); ++it) {
-        m_fitSuite->addSimulationAndRealData(*m_simulation, *(*it), chiModule);
-    }
+//    for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin(); it!= isgi_scans.end(); ++it) {
+//        m_fitSuite->addSimulationAndRealData(*m_simulation, *(*it), chiModule);
+//    }
 
-    m_fitSuite->runFit();
+//    m_fitSuite->runFit();
 
-    // drawing results
-    TCanvas *c2 = new TCanvas("c2","BornAgain fit results",800,600);
-    c2->Divide(2,2);
-    TLegend *leg1 = new TLegend(0.5,0.6,0.85,0.85);
-    leg1->SetBorderSize(1);
-    leg1->SetFillStyle(0);
-    for(size_t i_set=0; i_set<m_fitSuite->getFitObjects()->size(); ++i_set) {
-        c2->cd((int)i_set+1);
-        const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i_set);
-        TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"BornAgain_real");
-        TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"BornAgain_simul");
-        hreal->SetLineColor(kBlue);
-        gPad->SetLogy();
-        hreal->DrawCopy();
-        hsimul->DrawCopy("same");
-        if(i_set==0) {
-            leg1->AddEntry(hreal,"BornAgain data","lp");
-            leg1->AddEntry(hsimul,"BornAgain simul","lp");
-        }
-    }
-    c2->cd(1); leg1->Draw();
-    c2->cd(2); leg1->Draw();
+//    // drawing results
+//    TCanvas *c2 = new TCanvas("c2","BornAgain fit results",800,600);
+//    c2->Divide(2,2);
+//    TLegend *leg1 = new TLegend(0.5,0.6,0.85,0.85);
+//    leg1->SetBorderSize(1);
+//    leg1->SetFillStyle(0);
+//    for(size_t i_set=0; i_set<m_fitSuite->getFitObjects()->size(); ++i_set) {
+//        c2->cd((int)i_set+1);
+//        const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i_set);
+//        TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"BornAgain_real");
+//        TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"BornAgain_simul");
+//        hreal->SetLineColor(kBlue);
+//        gPad->SetLogy();
+//        hreal->DrawCopy();
+//        hsimul->DrawCopy("same");
+//        if(i_set==0) {
+//            leg1->AddEntry(hreal,"BornAgain data","lp");
+//            leg1->AddEntry(hsimul,"BornAgain simul","lp");
+//        }
+//    }
+//    c2->cd(1); leg1->Draw();
+//    c2->cd(2); leg1->Draw();
 
-    // drawing ratio
-    TLegend *leg2 = new TLegend(0.5,0.6,0.85,0.85);
-    leg2->SetBorderSize(1);
-    leg2->SetFillStyle(0);
-    for(size_t i_set=0; i_set<m_fitSuite->getFitObjects()->size(); ++i_set) {
-        c2->cd(3+1);
-        const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i_set);
-        OutputData<double > *real = obj->getChiSquaredModule()->getRealData()->clone();
-        OutputData<double > *simul = obj->getChiSquaredModule()->getSimulationData()->clone();
+//    // drawing ratio
+//    TLegend *leg2 = new TLegend(0.5,0.6,0.85,0.85);
+//    leg2->SetBorderSize(1);
+//    leg2->SetFillStyle(0);
+//    for(size_t i_set=0; i_set<m_fitSuite->getFitObjects()->size(); ++i_set) {
+//        c2->cd(3+1);
+//        const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i_set);
+//        OutputData<double > *real = obj->getChiSquaredModule()->getRealData()->clone();
+//        OutputData<double > *simul = obj->getChiSquaredModule()->getSimulationData()->clone();
 
-        c2->cd((int)(i_set+3));
-        *simul /= *real;
-        TH1D *hratio = IsGISAXSTools::getOutputDataScanHist(*simul,"BornAgain_real_simul_ratio");
-        hratio->DrawCopy();
-        if(i_set==0) {
-            leg2->AddEntry(hratio,"BornAgain simul/real","lp");
-        }
-        delete real;
-        delete simul;
-    }
-    c2->cd(3); leg2->Draw();
-    c2->cd(4); leg2->Draw();
+//        c2->cd((int)(i_set+3));
+//        *simul /= *real;
+//        TH1D *hratio = IsGISAXSTools::getOutputDataScanHist(*simul,"BornAgain_real_simul_ratio");
+//        hratio->DrawCopy();
+//        if(i_set==0) {
+//            leg2->AddEntry(hratio,"BornAgain simul/real","lp");
+//        }
+//        delete real;
+//        delete simul;
+//    }
+//    c2->cd(3); leg2->Draw();
+//    c2->cd(4); leg2->Draw();
 
-    c2->Update();
+//    c2->Update();
 }
 
 
@@ -300,122 +302,124 @@ void TestIsGISAXS12::run_isgisaxs_fit()
 // run chi module test on isgisaxs data/result pair to check module numericaly
 void TestIsGISAXS12::run_test_chimodule()
 {
-    IsGISAXSData::DataSet_t isgi_scans;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans, IsGISAXSData::DATA_TO_FIT);
+    throw NotImplementedException("Code is obsolete");
 
-    IsGISAXSData::DataSet_t isgi_results;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::SIM_RESULT);
+//    IsGISAXSData::DataSet_t isgi_scans;
+//    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans, IsGISAXSData::DATA_TO_FIT);
 
-    // setting up fitSuite
-    ChiSquaredModule chiModule;
-    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
+//    IsGISAXSData::DataSet_t isgi_results;
+//    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::SIM_RESULT);
 
-    IntensityNormalizer normalizer(1.31159E+05, -8.10009E-02);
+//    // setting up fitSuite
+//    ChiSquaredModule chiModule;
+//    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
 
-    double max_intensity(0);
-    for(int i=0; i<(int)isgi_results.size(); ++i) {
-        OutputData<double>::const_iterator cit = std::max_element(isgi_results[i]->begin(), isgi_results[i]->end());
-        max_intensity = std::max(max_intensity, *cit);
-    }
-    std::cout << "XXX " << max_intensity << std::endl;
-    normalizer.setMaximumIntensity(max_intensity);
-//    chiModule.setOutputDataNormalizer( normalizer );
+//    IntensityNormalizer normalizer(1.31159E+05, -8.10009E-02);
 
-    double chi_sum(0);
-    for(int i=0; i<(int)isgi_scans.size(); ++i) {
-        chiModule.setRealAndSimulatedData(*isgi_scans[i], *isgi_results[i]);
-        std::cout << " AAA " << isgi_scans.size()*isgi_results[i]->getAllocatedSize() - 12 << std::endl;
-        chiModule.setNdegreeOfFreedom((int)(isgi_scans.size()*isgi_results[i]->getAllocatedSize()) - 12);
-        double chi = 0.5*0.5*chiModule.calculateChiSquared();
-        chi_sum += chi;
-        std::cout << "chi : " << chi << " chi_sum:" << chi_sum << std::endl;
-    }
-    std::cout << "chi_sum " << chi_sum << std::endl;
+//    double max_intensity(0);
+//    for(int i=0; i<(int)isgi_results.size(); ++i) {
+//        OutputData<double>::const_iterator cit = std::max_element(isgi_results[i]->begin(), isgi_results[i]->end());
+//        max_intensity = std::max(max_intensity, *cit);
+//    }
+//    std::cout << "XXX " << max_intensity << std::endl;
+//    normalizer.setMaximumIntensity(max_intensity);
+////    chiModule.setOutputDataNormalizer( normalizer );
 
-    return;
+//    double chi_sum(0);
+//    for(int i=0; i<(int)isgi_scans.size(); ++i) {
+//        chiModule.setRealAndSimulatedData(*isgi_scans[i], *isgi_results[i]);
+//        std::cout << " AAA " << isgi_scans.size()*isgi_results[i]->getAllocatedSize() - 12 << std::endl;
+//        chiModule.setNdegreeOfFreedom((int)(isgi_scans.size()*isgi_results[i]->getAllocatedSize()) - 12);
+//        double chi = 0.5*0.5*chiModule.calculateChiSquared();
+//        chi_sum += chi;
+//        std::cout << "chi : " << chi << " chi_sum:" << chi_sum << std::endl;
+//    }
+//    std::cout << "chi_sum " << chi_sum << std::endl;
+
+//    return;
 }
 
 
 // run test minimizer to check the whole chain
 void TestIsGISAXS12::run_test_minimizer()
 {
-    // reading isgisaxs real data
-    IsGISAXSData::DataSet_t isgi_scans_smoothed;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans_smoothed, IsGISAXSData::DATA_TO_FIT);
-    // isgisaxs fit results
-    IsGISAXSData::DataSet_t isgi_results;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::SIM_RESULT);
+//    // reading isgisaxs real data
+//    IsGISAXSData::DataSet_t isgi_scans_smoothed;
+//    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans_smoothed, IsGISAXSData::DATA_TO_FIT);
+//    // isgisaxs fit results
+//    IsGISAXSData::DataSet_t isgi_results;
+//    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::SIM_RESULT);
 
-    // Putting parameters found by isgisaxs into our sample and run FitSuite once with the help of TestMinimizer to see if
-    // our simulation produces numerically same results
+//    // Putting parameters found by isgisaxs into our sample and run FitSuite once with the help of TestMinimizer to see if
+//    // our simulation produces numerically same results
 
-    m_fitSuite = new FitSuite();
-    m_fitSuite->setMinimizer( new MinimizerTest() );
+//    m_fitSuite = new FitSuite();
+//    m_fitSuite->setMinimizer( new MinimizerTest() );
 
-    m_fitSuite->addFitParameter("*Normalizer/scale", 1.31159E+05, 100, AttLimits::limited(1e4, 2e5));
-    m_fitSuite->addFitParameter("*Normalizer/shift", -8.10009E-02, 1, AttLimits::limited(-10., 20.));
+//    m_fitSuite->addFitParameter("*Normalizer/scale", 1.31159E+05, 100, AttLimits::limited(1e4, 2e5));
+//    m_fitSuite->addFitParameter("*Normalizer/shift", -8.10009E-02, 1, AttLimits::limited(-10., 20.));
 
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability1",  5.34055E-01, 0.1, AttLimits::limited(0.01, 1.0) );
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius1",  4.90801E+00, 1*Units::nanometer, AttLimits::limited(1., 10.) );
-    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius1",  1.90651E-01, 0.1, AttLimits::limited(0.01, 1.) );
-    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio1",  1.00193E+00, 0.1, AttLimits::limited(0.01, 10.) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability1",  5.34055E-01, 0.1, AttLimits::limited(0.01, 1.0) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius1",  4.90801E+00, 1*Units::nanometer, AttLimits::limited(1., 10.) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius1",  1.90651E-01, 0.1, AttLimits::limited(0.01, 1.) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio1",  1.00193E+00, 0.1, AttLimits::limited(0.01, 10.) );
 
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability2",  4.70783E-01, 0.1, AttLimits::limited(0.01, 1.0) );
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius2",  5.16801E+00, 1*Units::nanometer, AttLimits::limited(1., 10.) );
-    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius2",  2.03908E-01, 0.1, AttLimits::limited(0.01, 1.) );
-    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio2",  9.77402E-01, 0.1, AttLimits::limited(0.01, 10.) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability2",  4.70783E-01, 0.1, AttLimits::limited(0.01, 1.0) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius2",  5.16801E+00, 1*Units::nanometer, AttLimits::limited(1., 10.) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius2",  2.03908E-01, 0.1, AttLimits::limited(0.01, 1.) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio2",  9.77402E-01, 0.1, AttLimits::limited(0.01, 10.) );
 
-    m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  1.49681E+01, 1*Units::nanometer, AttLimits::limited(0.01, 50.0) );
-    m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  3.03315E+00, 1*Units::nanometer, AttLimits::limited(0.01, 10.) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  1.49681E+01, 1*Units::nanometer, AttLimits::limited(0.01, 50.0) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  3.03315E+00, 1*Units::nanometer, AttLimits::limited(0.01, 10.) );
 
-    // setting up fitSuite
-    ChiSquaredModule chiModule;
-    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
-    chiModule.setIntensityNormalizer( IntensityNormalizer() );
-    for(IsGISAXSData::DataSet_t::iterator it=isgi_scans_smoothed.begin(); it!= isgi_scans_smoothed.end(); ++it) {
-        m_fitSuite->addSimulationAndRealData(*m_simulation, *(*it), chiModule);
-    }
-    m_fitSuite->runFit();
+//    // setting up fitSuite
+//    ChiSquaredModule chiModule;
+//    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
+//    chiModule.setIntensityNormalizer( IntensityNormalizer() );
+//    for(IsGISAXSData::DataSet_t::iterator it=isgi_scans_smoothed.begin(); it!= isgi_scans_smoothed.end(); ++it) {
+//        m_fitSuite->addSimulationAndRealData(*m_simulation, *(*it), chiModule);
+//    }
+//    m_fitSuite->runFit();
 
-    TCanvas *c1 = new TCanvas("c1_test_minimizer","TestMinimizer", 800, 600);
-    c1->Divide(2,2);
+//    TCanvas *c1 = new TCanvas("c1_test_minimizer","TestMinimizer", 800, 600);
+//    c1->Divide(2,2);
 
-    // drawing BornAgain simul on top of isgisaxs simul
-    TLegend *leg1 = new TLegend(0.5,0.6,0.85,0.85);
-    leg1->SetBorderSize(1);
-    leg1->SetFillStyle(0);
-    for(int i_set=0; i_set<(int)isgi_results.size(); ++i_set) {
-        c1->cd(1+i_set);
-        gPad->SetLogy();
-        TH1D *hdata = IsGISAXSTools::getOutputDataScanHist(*isgi_results[i_set], "data");
-        hdata->SetLineColor(kRed);
-        hdata->DrawCopy();
-        const OutputData<double > *data = m_fitSuite->getFitObjects()->getObject(i_set)->getChiSquaredModule()->getSimulationData();
-        TH1D *simul_data = IsGISAXSTools::getOutputDataScanHist(*data, "data_from_module");
-        simul_data->SetLineColor(kBlue);
-        simul_data->DrawCopy("same");
+//    // drawing BornAgain simul on top of isgisaxs simul
+//    TLegend *leg1 = new TLegend(0.5,0.6,0.85,0.85);
+//    leg1->SetBorderSize(1);
+//    leg1->SetFillStyle(0);
+//    for(int i_set=0; i_set<(int)isgi_results.size(); ++i_set) {
+//        c1->cd(1+i_set);
+//        gPad->SetLogy();
+//        TH1D *hdata = IsGISAXSTools::getOutputDataScanHist(*isgi_results[i_set], "data");
+//        hdata->SetLineColor(kRed);
+//        hdata->DrawCopy();
+//        const OutputData<double > *data = m_fitSuite->getFitObjects()->getObject(i_set)->getChiSquaredModule()->getSimulationData();
+//        TH1D *simul_data = IsGISAXSTools::getOutputDataScanHist(*data, "data_from_module");
+//        simul_data->SetLineColor(kBlue);
+//        simul_data->DrawCopy("same");
 
-        if(i_set==0) leg1->AddEntry(hdata,"isgisaxs results","lp");
-        if(i_set==0) leg1->AddEntry(simul_data,"BornAgain simul","lp");
-    }
-    c1->cd(1); leg1->Draw();
-    c1->cd(2); leg1->Draw();
+//        if(i_set==0) leg1->AddEntry(hdata,"isgisaxs results","lp");
+//        if(i_set==0) leg1->AddEntry(simul_data,"BornAgain simul","lp");
+//    }
+//    c1->cd(1); leg1->Draw();
+//    c1->cd(2); leg1->Draw();
 
-    TLegend *leg2 = new TLegend(0.5,0.6,0.85,0.85);
-    leg2->SetBorderSize(1);
-    leg2->SetFillStyle(0);
-    for(int i_set=0; i_set<(int)isgi_results.size(); ++i_set) {
-        c1->cd(3+i_set);
-        OutputData<double > *data = m_fitSuite->getFitObjects()->getObject(i_set)->getChiSquaredModule()->getSimulationData()->clone();
-        *data /= *isgi_results[i_set];
-        TH1D *hdata = IsGISAXSTools::getOutputDataScanHist(*data, "BornAgain_isgisaxs_simul");
-        hdata->SetLineColor(kRed);
-        hdata->DrawCopy();
-        delete data;
-        if(i_set==0) leg2->AddEntry(hdata,"BornAgain/isgisaxs simul","lp");
-    }
-    c1->cd(3); leg1->Draw();
-    c1->cd(4); leg1->Draw();
+//    TLegend *leg2 = new TLegend(0.5,0.6,0.85,0.85);
+//    leg2->SetBorderSize(1);
+//    leg2->SetFillStyle(0);
+//    for(int i_set=0; i_set<(int)isgi_results.size(); ++i_set) {
+//        c1->cd(3+i_set);
+//        OutputData<double > *data = m_fitSuite->getFitObjects()->getObject(i_set)->getChiSquaredModule()->getSimulationData()->clone();
+//        *data /= *isgi_results[i_set];
+//        TH1D *hdata = IsGISAXSTools::getOutputDataScanHist(*data, "BornAgain_isgisaxs_simul");
+//        hdata->SetLineColor(kRed);
+//        hdata->DrawCopy();
+//        delete data;
+//        if(i_set==0) leg2->AddEntry(hdata,"BornAgain/isgisaxs simul","lp");
+//    }
+//    c1->cd(3); leg1->Draw();
+//    c1->cd(4); leg1->Draw();
 }
 
 
@@ -427,7 +431,7 @@ void TestIsGISAXS12::initializeSimulation()
     delete m_simulation;
     m_simulation = new GISASSimulation(mp_options);
     m_simulation->setSampleBuilder(m_sample_builder);
-    m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree);
     m_simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 }
 
@@ -514,10 +518,10 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     // building nano particles
     ParameterDistribution par_distr1("*/radius", gauss1, nbins, nfwhm);
     ParticleDistribution particle_collection1(cylinder1, par_distr1);
-    particle_layout.addParticle(particle_collection1, 0.0, particle_probability1);
+    particle_layout.addParticle(particle_collection1, particle_probability1);
     ParameterDistribution par_distr2("*/radius", gauss2, nbins, nfwhm);
     ParticleDistribution particle_collection2(cylinder2, par_distr2);
-    particle_layout.addParticle(particle_collection2, 0.0, particle_probability2);
+    particle_layout.addParticle(particle_collection2, particle_probability2);
 
     air_layer.addLayout(particle_layout);
 

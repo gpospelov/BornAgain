@@ -21,6 +21,8 @@ void register_python2cpp_converters()
     Vector_from_python_list<double>();
     Vector_from_python_list<kvector_t>();
     Vector_from_python_list<std::string>();
+    Vector_from_python_list<int>();
+    Vector_from_python_list<std::vector<double> >();
 }
 
 

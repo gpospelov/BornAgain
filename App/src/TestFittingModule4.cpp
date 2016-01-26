@@ -50,59 +50,61 @@ TestFittingModule4::~TestFittingModule4()
 
 void TestFittingModule4::execute()
 {
-    // initializing data
-    initializeSample();
-    initializeSimulation();
-    initializeRealData();
+    throw NotImplementedException("Code is obsolete");
 
-    ChiSquaredModule chiModule;
-    //chiModule.setChiSquaredFunction( SquaredFunctionSimError() );
-    chiModule.setChiSquaredFunction( new SquaredFunctionDefault() );
+//    // initializing data
+//    initializeSample();
+//    initializeSimulation();
+//    initializeRealData();
 
-    m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data, chiModule);
+//    ChiSquaredModule chiModule;
+//    //chiModule.setChiSquaredFunction( SquaredFunctionSimError() );
+//    chiModule.setChiSquaredFunction( new SquaredFunctionDefault() );
 
-    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+//    m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data, chiModule);
 
-    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
-    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Fumili") );
-    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLLMA") ); // LMA
-    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLSimAn") );
-    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Genetic") );
-    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Scan") );
+//    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
 
-
-    //m_fitSuite->getMinimizer()->getOptions().setPrintLevel(10);
-
-    // Genetic
-//    m_fitSuite->getMinimizer()->getOptions().setMaxIterations(5);
-//    m_fitSuite->getMinimizer()->getOptions().setValue("Steps",5);
-//    m_fitSuite->getMinimizer()->getOptions().setValue("PopSize",100);
-//    m_fitSuite->getMinimizer()->getOptions().setTolerance(100);
-
-    // GSLSimAn
-//    m_fitSuite->getMinimizer()->getOptions().setValue("ntries",50);
-//    m_fitSuite->getMinimizer()->getOptions().setValue("niters_fixed_t",5);
-//    m_fitSuite->getMinimizer()->getOptions().setMaxIterations(5);
-
-//    m_fitSuite->getMinimizer()->getOptions().setValue("Strategy",2);
-
-    //m_fitSuite->getMinimizer()->getOptions().print();
+//    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
+//    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Fumili") );
+//    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLLMA") ); // LMA
+//    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLSimAn") );
+//    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Genetic") );
+//    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Scan") );
 
 
-    m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver(100) );
-    m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
+//    //m_fitSuite->getMinimizer()->getOptions().setPrintLevel(10);
 
-    FitStrategyAdjustMinimizer *strategy1 = new FitStrategyAdjustMinimizer();
-    strategy1->setMinimizer(MinimizerFactory::createMinimizer("Genetic"));
-    strategy1->getMinimizer()->getOptions().setMaxIterations(5);
-    strategy1->getMinimizer()->getOptions().setValue("Steps",5);
-    m_fitSuite->addFitStrategy(strategy1);
+//    // Genetic
+////    m_fitSuite->getMinimizer()->getOptions().setMaxIterations(5);
+////    m_fitSuite->getMinimizer()->getOptions().setValue("Steps",5);
+////    m_fitSuite->getMinimizer()->getOptions().setValue("PopSize",100);
+////    m_fitSuite->getMinimizer()->getOptions().setTolerance(100);
 
-    FitStrategyAdjustMinimizer *strategy2 = new FitStrategyAdjustMinimizer();
-    strategy2->setMinimizer(MinimizerFactory::createMinimizer("Minuit2","Migrad"));
-    m_fitSuite->addFitStrategy(strategy2);
+//    // GSLSimAn
+////    m_fitSuite->getMinimizer()->getOptions().setValue("ntries",50);
+////    m_fitSuite->getMinimizer()->getOptions().setValue("niters_fixed_t",5);
+////    m_fitSuite->getMinimizer()->getOptions().setMaxIterations(5);
 
-    m_fitSuite->runFit();
+////    m_fitSuite->getMinimizer()->getOptions().setValue("Strategy",2);
+
+//    //m_fitSuite->getMinimizer()->getOptions().print();
+
+
+//    m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver(100) );
+//    m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
+
+//    FitStrategyAdjustMinimizer *strategy1 = new FitStrategyAdjustMinimizer();
+//    strategy1->setMinimizer(MinimizerFactory::createMinimizer("Genetic"));
+//    strategy1->getMinimizer()->getOptions().setMaxIterations(5);
+//    strategy1->getMinimizer()->getOptions().setValue("Steps",5);
+//    m_fitSuite->addFitStrategy(strategy1);
+
+//    FitStrategyAdjustMinimizer *strategy2 = new FitStrategyAdjustMinimizer();
+//    strategy2->setMinimizer(MinimizerFactory::createMinimizer("Minuit2","Migrad"));
+//    m_fitSuite->addFitStrategy(strategy2);
+
+//    m_fitSuite->runFit();
 }
 
 
@@ -130,34 +132,36 @@ void TestFittingModule4::initializeSimulation()
 /* ************************************************************************* */
 void TestFittingModule4::initializeSample()
 {
-    delete mp_sample;
+    throw NotImplementedException("Code is obsolete");
 
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    HomogeneousMaterial air_material("Air", n_air);
-    HomogeneousMaterial particle_material("Particle", n_particle);
+//    delete mp_sample;
 
-    Layer air_layer;
-    air_layer.setMaterial(air_material);
-    Particle particle(particle_material, FormFactorCylinder(
-                          5*Units::nanometer, 5*Units::nanometer) );
-    ParticleLayout particle_layout(particle);
+//    MultiLayer *p_multi_layer = new MultiLayer();
+//    complex_t n_air(1.0, 0.0);
+//    complex_t n_particle(1.0-6e-4, 2e-8);
+//    HomogeneousMaterial air_material("Air", n_air);
+//    HomogeneousMaterial particle_material("Particle", n_particle);
 
-    air_layer.addLayout(particle_layout);
+//    Layer air_layer;
+//    air_layer.setMaterial(air_material);
+//    Particle particle(particle_material, FormFactorCylinder(
+//                          5*Units::nanometer, 5*Units::nanometer) );
+//    ParticleLayout particle_layout(particle);
 
-    p_multi_layer->addLayer(air_layer);
-    mp_sample = p_multi_layer;
+//    air_layer.addLayout(particle_layout);
 
-    // defining parameters for minimization
-    if( !m_fitSuite ) {
-        throw NullPointerException("TestFittingModule::initializeSample() -> Error! No FitSuite is defined");
-    }
+//    p_multi_layer->addLayer(air_layer);
+//    mp_sample = p_multi_layer;
 
-    m_fitSuite->addFitParameter("*height", 1.*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(0.01, 30.) );
-    m_fitSuite->addFitParameter("*radius", 20.*Units::nanometer, 0.06*Units::nanometer, AttLimits::limited(0.01, 30.) );
-//    m_fitSuite->addFitParameter("*height", 6.*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(0.01, 30.) );
-//    m_fitSuite->addFitParameter("*radius", 6.*Units::nanometer, 0.06*Units::nanometer, AttLimits::limited(0.01, 30.) );
+//    // defining parameters for minimization
+//    if( !m_fitSuite ) {
+//        throw NullPointerException("TestFittingModule::initializeSample() -> Error! No FitSuite is defined");
+//    }
+
+//    m_fitSuite->addFitParameter("*height", 1.*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(0.01, 30.) );
+//    m_fitSuite->addFitParameter("*radius", 20.*Units::nanometer, 0.06*Units::nanometer, AttLimits::limited(0.01, 30.) );
+////    m_fitSuite->addFitParameter("*height", 6.*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(0.01, 30.) );
+////    m_fitSuite->addFitParameter("*radius", 6.*Units::nanometer, 0.06*Units::nanometer, AttLimits::limited(0.01, 30.) );
 }
 
 
@@ -166,8 +170,8 @@ void TestFittingModule4::initializeRealData()
     if( !mp_simulation ) throw NullPointerException("TestFittingModule2::initializeRealData() -> Error! No simulation of sample defined ");
 
     mp_simulation->runSimulation();
-    mp_simulation->normalize();
-    m_fitSuite->getFitObjects()->setSimulationNormalize(true);
+    //mp_simulation->normalize();
+    //m_fitSuite->getFitObjects()->setSimulationNormalize(true);
     delete mp_real_data;
     mp_real_data = IsGISAXSTools::createNoisyData(*mp_simulation->getOutputData());
 }

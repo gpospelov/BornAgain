@@ -16,10 +16,11 @@
 #include "DistributionWidget.h"
 #include "qcustomplot.h"
 #include "DistributionItem.h"
+#include "Distributions.h"
+
 #include <QLabel>
 #include <QVBoxLayout>
 #include <sstream>
-#include <boost/scoped_ptr.hpp>
 
 namespace
 {
@@ -61,6 +62,8 @@ DistributionWidget::DistributionWidget(QWidget *parent)
 
     setStyleSheet("background-color:white;");
     connect(m_plot, SIGNAL(mousePress(QMouseEvent *)), this, SLOT(onMousePress(QMouseEvent *)));
+    connect(m_plot, SIGNAL(mouseRelease(QMouseEvent*)), this, SLOT(onMouseRelease(QMouseEvent*)));
+    connect(m_plot, SIGNAL(mouseRelease(QMouseEvent*)), this, SLOT(onMouseRelease(QMouseEvent*)));
 }
 
 void DistributionWidget::setItem(DistributionItem *item)
@@ -98,12 +101,10 @@ void DistributionWidget::plotItem()
     m_plot->xAxis2->setTicks(false);
     m_plot->yAxis2->setTicks(false);
 
-    // boost::scoped_ptr<IDistribution1D> distribution(m_item->createDistribution());
-
-    IDistribution1D *distribution(0);
+    std::unique_ptr<IDistribution1D> P_distribution {};
     bool exceptionThrown = false;
     try {
-        distribution = m_item->createDistribution();
+        P_distribution = m_item->createDistribution();
     } catch (const std::exception &ex) {
         exceptionThrown = true;
         Q_UNUSED(ex);
@@ -130,19 +131,19 @@ void DistributionWidget::plotItem()
 
         QVector<double> xBar;
         QVector<double> x;
-        xBar = xBar.fromStdVector(distribution->generateValueList(numberOfSamples, sigmafactor));
-        x = x.fromStdVector(distribution->generateValueList(number_of_points_for_smooth_plot,
+        xBar = xBar.fromStdVector(P_distribution->generateValueList(numberOfSamples, sigmafactor));
+        x = x.fromStdVector(P_distribution->generateValueList(number_of_points_for_smooth_plot,
                                                             sigmafactor_for_smooth_plot));
         QVector<double> yBar(xBar.size());
         QVector<double> y(x.size());
         double sumOfWeigths(0);
 
         for (int i = 0; i < xBar.size(); ++i) {
-            yBar[i] = distribution->probabilityDensity(xBar[i]);
+            yBar[i] = P_distribution->probabilityDensity(xBar[i]);
             sumOfWeigths += yBar[i];
         }
         for (int i = 0; i < x.size(); ++i) {
-            y[i] = distribution->probabilityDensity(x[i]);
+            y[i] = P_distribution->probabilityDensity(x[i]);
         }
         for (int i = 0; i < y.size(); ++i) {
             y[i] = y[i] / sumOfWeigths;
@@ -179,8 +180,6 @@ void DistributionWidget::plotItem()
     }
     m_plot->replot();
     connect(m_plot, SIGNAL(mouseMove(QMouseEvent *)), this, SLOT(onMouseMove(QMouseEvent *)));
-
-    delete distribution;
 }
 
 void DistributionWidget::onPropertyChanged()
@@ -253,6 +252,7 @@ void DistributionWidget::onMousePress(QMouseEvent *event)
         menu.exec(point);
     }
 }
+
 void DistributionWidget::resetView()
 {
     m_plot->xAxis->setRange(*m_xRange);
@@ -283,3 +283,4 @@ void DistributionWidget::resizeEvent(QResizeEvent *event)
         m_warningSign->setPosition(pos.x(), pos.y());
     }
 }
+

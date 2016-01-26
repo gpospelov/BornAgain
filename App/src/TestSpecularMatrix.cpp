@@ -62,8 +62,7 @@ void TestSpecularMatrix::test_standard_samples()
         OutputData<SpecularMatrix::MultiLayerCoeff_t >::iterator it =
                 mp_coeffs->begin();
         while (it != mp_coeffs->end()) {
-            double alpha_i = mp_coeffs->getValueOfAxis("alpha_i",
-                    it.getIndex());
+            double alpha_i = mp_coeffs->getAxisValue(it.getIndex(), "alpha_i");
             kvector_t kvec;
             kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
 
@@ -109,7 +108,7 @@ void TestSpecularMatrix::draw_standard_samples()
             mp_coeffs->begin();
     int i_point = 0;
     while (it != mp_coeffs->end()) {
-        double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
+        double alpha_i = mp_coeffs->getAxisValue(it.getIndex(), "alpha_i");
         const SpecularMatrix::MultiLayerCoeff_t coeffs = *it++;
 
         // Filling graphics for R,T as a function of alpha_i
@@ -232,8 +231,8 @@ void TestSpecularMatrix::test_roughness_set()
     OutputData<SpecularMatrix::MultiLayerCoeff_t >::iterator it =
             mp_coeffs->begin();
     while (it != mp_coeffs->end()) {
-        double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
-        double roughness = mp_coeffs->getValueOfAxis("roughness", it.getIndex());
+        double alpha_i = mp_coeffs->getAxisValue(it.getIndex(), "alpha_i");
+        double roughness = mp_coeffs->getAxisValue(it.getIndex(), "roughness");
         multipar.setValue(roughness);
 
         kvector_t kvec;
@@ -276,9 +275,9 @@ void TestSpecularMatrix::draw_roughness_set()
     OutputData<SpecularMatrix::MultiLayerCoeff_t >::const_iterator it =
             mp_coeffs->begin();
     while (it != mp_coeffs->end()) {
-        double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
-        size_t i_alpha = mp_coeffs->getIndexOfAxis("alpha_i", it.getIndex());
-        size_t i_rough = mp_coeffs->getIndexOfAxis("roughness", it.getIndex());
+        double alpha_i = mp_coeffs->getAxisValue(it.getIndex(), "alpha_i");
+        size_t i_alpha = mp_coeffs->getAxisBinIndex(it.getIndex(), "alpha_i");
+        size_t i_rough = mp_coeffs->getAxisBinIndex(it.getIndex(), "roughness");
 
         SpecularMatrix::MultiLayerCoeff_t coeffs = *it;
 

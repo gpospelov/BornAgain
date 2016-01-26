@@ -15,7 +15,7 @@
 
 #include "ParticleView.h"
 #include "ParticleItem.h"
-#include "FancyGroupProperty.h"
+#include "GroupProperty.h"
 #include "GUIHelpers.h"
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
@@ -27,7 +27,6 @@ ParticleView::ParticleView(QGraphicsItem *parent)
     : ConnectableView(parent)
 {
     setName(Constants::ParticleType);
-    setLabel(Constants::ParticleType);
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleType));
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR);
@@ -76,9 +75,10 @@ void ParticleView::setParameterizedItem(ParameterizedItem *item)
 void ParticleView::onPropertyChange(const QString &propertyName)
 {
     if(propertyName == ParticleItem::P_FORM_FACTOR) {
-        FancyGroupProperty_t group_property = getParameterizedItem()->getRegisteredProperty(ParticleItem::P_FORM_FACTOR).value<FancyGroupProperty_t>();
+        GroupProperty_t group_property = getParameterizedItem()->getRegisteredProperty(ParticleItem::P_FORM_FACTOR).value<GroupProperty_t>();
 
-        QString filename = QString(":/SampleDesigner/images/ff_%1_32.png").arg(group_property->getValue());
+        QString current_ff_type = group_property->getCurrentType();
+        QString filename = QString(":/SampleDesigner/images/ff_%1_32.png").arg(current_ff_type);
         m_pixmap = QPixmap(filename);
         update();
     } else {

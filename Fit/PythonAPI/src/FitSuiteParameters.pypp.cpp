@@ -50,7 +50,7 @@ void register_FitSuiteParameters_class(){
             FitSuiteParameters_exposer.def( 
                 "clear"
                 , clear_function_type( &::FitSuiteParameters::clear )
-                , "clear all defined parameters." );
+                , "Clears all defined parameters." );
         
         }
         { //::FitSuiteParameters::fixAll
@@ -126,7 +126,7 @@ void register_FitSuiteParameters_class(){
                 , __getitem___function_type( &::FitSuiteParameters::operator[] )
                 , ( bp::arg("index") )
                 , bp::return_internal_reference< >()
-                , "access to parameters." );
+                , "Indexed access to parameters." );
         
         }
         { //::FitSuiteParameters::operator[]
@@ -138,7 +138,7 @@ void register_FitSuiteParameters_class(){
                 , __getitem___function_type( &::FitSuiteParameters::operator[] )
                 , ( bp::arg("index") )
                 , bp::return_internal_reference< >()
-                , "access to parameters." );
+                , "Indexed access to parameters." );
         
         }
         { //::FitSuiteParameters::operator[]
@@ -150,7 +150,7 @@ void register_FitSuiteParameters_class(){
                 , __getitem___function_type( &::FitSuiteParameters::operator[] )
                 , ( bp::arg("name") )
                 , bp::return_internal_reference< >()
-                , "access to parameters." );
+                , "Access to parameters by parameter name." );
         
         }
         { //::FitSuiteParameters::operator[]
@@ -161,7 +161,8 @@ void register_FitSuiteParameters_class(){
                 "__getitem__"
                 , __getitem___function_type( &::FitSuiteParameters::operator[] )
                 , ( bp::arg("name") )
-                , bp::return_internal_reference< >() );
+                , bp::return_internal_reference< >()
+                , "Access to parameters by parameter name." );
         
         }
         { //::FitSuiteParameters::printParameters
@@ -192,7 +193,7 @@ void register_FitSuiteParameters_class(){
                 "setErrors"
                 , setErrors_function_type( &::FitSuiteParameters::setErrors )
                 , ( bp::arg("pars_errors") )
-                , "set errors to all parameters." );
+                , "Sets errors to all parameters." );
         
         }
         { //::FitSuiteParameters::setParametersFixed
@@ -223,8 +224,7 @@ void register_FitSuiteParameters_class(){
             
             FitSuiteParameters_exposer.def( 
                 "size"
-                , size_function_type( &::FitSuiteParameters::size )
-                , "Returns number of parameters." );
+                , size_function_type( &::FitSuiteParameters::size ) );
         
         }
     }

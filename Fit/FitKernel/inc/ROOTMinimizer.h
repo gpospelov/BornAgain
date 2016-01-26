@@ -19,11 +19,17 @@
 #include "IMinimizer.h"
 #include "OutputData.h"
 #include "Exceptions.h"
-#include "ROOTMinimizerFunction.h"
 #include "FitSuiteParameters.h"
 #include <string>
-#include "Math/Minimizer.h"
-#include "Math/Functor.h"
+
+class ROOTMinimizerChiSquaredFunction;
+class ROOTMinimizerGradientFunction;
+
+namespace BA_ROOT {
+namespace Math {
+class Minimizer;
+}
+}
 
 
 //! @class ROOTMinimizer
@@ -46,43 +52,43 @@ class BA_CORE_API_ ROOTMinimizer : public IMinimizer
 
     virtual void setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize);
 
-    virtual size_t getNumberOfVariables() const { return m_root_minimizer->NDim(); }
+    virtual size_t getNumberOfVariables() const;
 
-    virtual double getMinValue() const { return m_root_minimizer->MinValue(); }
+    virtual double getMinValue() const;
 
-    virtual double getValueOfVariableAtMinimum(size_t i) const {return m_root_minimizer->X()[check_index(i)]; }
+    virtual double getValueOfVariableAtMinimum(size_t i) const;
 
     virtual std::vector<double > getValueOfVariablesAtMinimum() const;
 
-    virtual double getErrorOfVariable(size_t i) const { return (m_root_minimizer->Errors() == 0? 0 : m_root_minimizer->Errors()[check_index(i)]); }
+    virtual double getErrorOfVariable(size_t i) const;
 
     virtual std::vector<double > getErrorOfVariables() const;
 
     virtual void printResults() const;
 
-    virtual void clear() { m_root_minimizer->Clear(); }
+    virtual void clear();
 
     virtual size_t getNCalls() const;
 
     //! return minimizer options
-    virtual MinimizerOptions &getOptions() { return m_options; }
-    virtual const MinimizerOptions &getOptions() const { return m_options; }
+    virtual MinimizerOptions *getOptions();
+    virtual const MinimizerOptions *getOptions() const;
 
     //! set minimizer options
     virtual void setOptions(const MinimizerOptions &options);
 
     //! Returns created minimizer
-    ROOT::Math::Minimizer *getROOTMinimizer() { return m_root_minimizer; }
-    const ROOT::Math::Minimizer *getROOTMinimizer() const { return m_root_minimizer; }
+    BA_ROOT::Math::Minimizer *getROOTMinimizer();
+    const BA_ROOT::Math::Minimizer *getROOTMinimizer() const;
 
     //! Checks if type of algorithm is Levenberg-Marquardt or similar
     virtual bool isGradientBasedAgorithm() { return false;}
 
     //! return name of the minimizer
-    virtual std::string getMinimizerName() const { return m_minimizer_name; }
+    virtual std::string getMinimizerName() const;
 
     //! return name of the minimization algorithm
-    virtual std::string getAlgorithmName() const { return m_algo_type; }
+    virtual std::string getAlgorithmName() const;
 
  protected:
     virtual void propagateOptions();
@@ -90,11 +96,11 @@ class BA_CORE_API_ ROOTMinimizer : public IMinimizer
     ROOTMinimizer(const ROOTMinimizer& );
     ROOTMinimizer& operator=(const ROOTMinimizer& );
 
-    size_t check_index(size_t index) const { return index<getNumberOfVariables() ? index : throw OutOfBoundsException("ROOTMinimizer::getErrorOfVariable() -> Wrong number of the variable"); }
+    size_t check_index(size_t index) const;
 
     std::string m_minimizer_name;
     std::string m_algo_type;
-    ROOT::Math::Minimizer *m_root_minimizer;
+    BA_ROOT::Math::Minimizer *m_root_minimizer;
     ROOTMinimizerChiSquaredFunction *m_chi2_func;
     ROOTMinimizerGradientFunction *m_gradient_func;
     MinimizerOptions m_options;

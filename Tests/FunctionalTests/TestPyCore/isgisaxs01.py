@@ -28,8 +28,8 @@ def RunSimulation():
     prism_ff = FormFactorPrism3(10*nanometer, 5*nanometer)
     prism = Particle(mParticle, prism_ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 0.5)
-    particle_layout.addParticle(prism, 0.0, 0.5)
+    particle_layout.addParticle(cylinder, 0.5)
+    particle_layout.addParticle(prism, 0.5)
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
     # air layer with particles and substrate form multi layer
@@ -42,7 +42,8 @@ def RunSimulation():
 
     # build and run experiment
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100,-1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    detector = IsGISAXSDetector(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()

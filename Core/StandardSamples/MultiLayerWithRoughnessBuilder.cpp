@@ -1,0 +1,76 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      StandardSamples/MultiLayerWithRoughnessBuilder.cpp
+//! @brief     Implement class MultiLayerWithRoughnessBuilder.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
+#include "MultiLayerWithRoughnessBuilder.h"
+#include "MultiLayer.h"
+#include "ParticleLayout.h"
+#include "Materials.h"
+#include "Units.h"
+#include "IRoughness.h"
+
+MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
+    : m_thicknessA(2.5*Units::nanometer)
+    , m_thicknessB(5.0*Units::nanometer)
+    , m_sigma(1.0*Units::nanometer)
+    , m_hurst(0.3)
+    , m_latteralCorrLength(5.0*Units::nanometer)
+    , m_crossCorrLength(1e-4)
+{
+    init_parameters();
+}
+
+
+void MultiLayerWithRoughnessBuilder::init_parameters()
+{
+    clearParameterPool();
+    registerParameter("thicknessA", &m_thicknessA);
+    registerParameter("thicknessB", &m_thicknessB);
+    registerParameter("sigma", &m_sigma);
+    registerParameter("hurst", &m_hurst);
+    registerParameter("latteralCorrLength", &m_latteralCorrLength);
+    registerParameter("crossCorrLength", &m_crossCorrLength);
+}
+
+
+ISample *MultiLayerWithRoughnessBuilder::buildSample() const
+{
+    MultiLayer *multi_layer = new MultiLayer();
+    HomogeneousMaterial air_material("Air", 0., 0.);
+    HomogeneousMaterial substrate_material("Substrate", 15e-6, 0.0);
+    HomogeneousMaterial part_a_material("PartA", 5e-6, 0.0);
+    HomogeneousMaterial part_b_material("PartB", 10e-6, 0.0);
+
+    Layer air_layer;
+    air_layer.setMaterialAndThickness(air_material, 0);
+	Layer partA_layer;
+    partA_layer.setMaterialAndThickness(part_a_material, m_thicknessA);
+	Layer partB_layer;
+    partB_layer.setMaterialAndThickness(part_b_material, m_thicknessB);
+    Layer substrate_layer;
+    substrate_layer.setMaterialAndThickness(substrate_material, 0);
+
+    LayerRoughness roughness(m_sigma, m_hurst, m_latteralCorrLength);
+
+    multi_layer->addLayer(air_layer);
+    for (int i = 0; i<5; ++i) {
+        multi_layer->addLayerWithTopRoughness(partA_layer, roughness);
+        multi_layer->addLayerWithTopRoughness(partB_layer, roughness);
+    }
+
+    multi_layer->addLayerWithTopRoughness(substrate_layer, roughness);
+    multi_layer->setCrossCorrLength(m_crossCorrLength);
+    return multi_layer;
+}
+

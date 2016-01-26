@@ -33,24 +33,20 @@ public:
     //! @param alpha angle in radians between base and facet
     FormFactorAnisoPyramid(double length, double width, double height, double alpha);
 
-    ~FormFactorAnisoPyramid() {}
+    virtual ~FormFactorAnisoPyramid() {}
     virtual FormFactorAnisoPyramid *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual int getNumberOfStochasticParameters() const { return 4; }
+    virtual double getRadius() const;
 
-    virtual double getHeight() const { return m_height; }
-    virtual void setHeight(double height) { m_height = height; }
+    double getHeight() const;
 
-    virtual double getLength() const { return m_length; }
-    virtual void setLength(double length) { m_length = length; }
+    double getLength() const;
 
-    virtual double getWidth() const { return m_width; }
-    virtual void setWidth(double width) { m_width = width; }
+    double getWidth() const;
 
-    virtual double getAlpha() const { return m_alpha; }
-    virtual void setAlpha(double alpha) { m_alpha = alpha; }
+    double getAlpha() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -59,11 +55,35 @@ protected:
     virtual void init_parameters();
 
 private:
+    complex_t fullAnisoPyramidPrimitive(complex_t a, complex_t b, complex_t c,
+                                        double d, double z) const;
+    complex_t g(complex_t x, complex_t c, complex_t bd, double z) const;  // helper function
+    complex_t h(complex_t x, complex_t bd, double z) const;               // helper function
+    complex_t k(complex_t x, double d, double z) const;                   // helper function
     double m_length;
     double m_width;
     double m_height;
     double m_alpha;
 };
 
+inline double FormFactorAnisoPyramid::getHeight() const
+{
+    return m_height;
+}
+
+inline double FormFactorAnisoPyramid::getLength() const
+{
+    return m_length;
+}
+
+inline double FormFactorAnisoPyramid::getWidth() const
+{
+    return m_width;
+}
+
+inline double FormFactorAnisoPyramid::getAlpha() const
+{
+    return m_alpha;
+}
 
 #endif // FORMFACTORANISOPYRAMID_H

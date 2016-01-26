@@ -18,17 +18,11 @@
 #include "GUIHelpers.h"
 #include <QDebug>
 
-const QString TransformationItem::P_POS = "Position";
-const QString TransformationItem::P_ROT = "Rotation";
+const QString TransformationItem::P_ROT = "Rotation type";
 
 
 TransformationItem::TransformationItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::TransformationType, parent)
 {
-    setItemName(Constants::TransformationType);
-    setItemPort(ParameterizedItem::PortInfo::PORT_0);
-
-    registerGroupProperty(P_POS, Constants::VectorType);
     registerGroupProperty(P_ROT, Constants::RotationGroup );
 }
-

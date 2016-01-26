@@ -62,8 +62,8 @@ public:
 
     virtual double calculateSquaredDifference(double real_value, double simulated_value) const
     {
+        if (Numeric::areAlmostEqual(real_value, simulated_value)) return 0.0;
         double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
-        if (diff_squared < Numeric::double_epsilon) return 0.0;
         double normalization = calculateSquaredError(real_value);
         return diff_squared/normalization;
     }
@@ -94,8 +94,8 @@ public:
 
     virtual double calculateSquaredDifference(double real_value, double simulated_value) const
     {
+        if (Numeric::areAlmostEqual(real_value, simulated_value)) return 0.0;
         double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
-        if (diff_squared < Numeric::double_epsilon) return 0.0;
         double normalization = calculateSquaredError(real_value, simulated_value);
         return diff_squared/normalization;
     }
@@ -124,8 +124,8 @@ public:
 
     virtual double calculateSquaredDifference(double real_value, double simulated_value) const
     {
+        if (Numeric::areAlmostEqual(real_value, simulated_value)) return 0.0;
         double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
-        if (diff_squared < Numeric::double_epsilon) return 0.0;
         double normalization = calculateSquaredError(real_value, simulated_value);
         return diff_squared/normalization;
     }
@@ -192,7 +192,7 @@ public:
         double sigma_squared = m_sigma*m_sigma;
         return diff_squared/sigma_squared;
     }
-    virtual double calculateSquaredError(double /* real_value */, double /* simulated_value */) const
+    virtual double calculateSquaredError(double, double) const
     {
         return m_sigma*m_sigma;
     }

@@ -1,21 +1,15 @@
 """
-Mixture of cylinders and prisms without interference.
-
-This example shows how to create a sample with fixed parameters and then
-change this parameters on the fly during runtime.
-The example doesn't contain any fitting and serve as a gentle introduction
-to other fitting examples.
+Working with sample parameters
 """
 
-import numpy
 import matplotlib
-import pylab
+from matplotlib import pyplot as plt
 from bornagain import *
 
 
 def get_sample():
     """
-    Build and return the sample representing cylinders and pyramids on top of
+    Build and return the sample representing cylinders and prisms on top of
     substrate without interference. Sample is made for fixed set of parameters.
     """
     # defining materials
@@ -29,8 +23,8 @@ def get_sample():
     prism_ff = FormFactorPrism3(5*nanometer, 5*nanometer)
     prism = Particle(m_particle, prism_ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 0.5)
-    particle_layout.addParticle(prism, 0.0, 0.5)
+    particle_layout.addParticle(cylinder, 0.5)
+    particle_layout.addParticle(prism, 0.5)
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
 
@@ -49,7 +43,7 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -74,32 +68,32 @@ def run_simulations():
     # initial sample is used
     simulation.setSample(sample)
     simulation.runSimulation()
-    results.append(simulation.getIntensityData().getArray())
+    results.append(simulation.getIntensityData())
 
     # simulation #2
     # one sample parameter (height of the cylinder) is changed using exact parameter name
     sample.setParameterValue(
-        "/MultiLayer/Layer0/ParticleLayout/ParticleInfo0/Particle/FormFactorCylinder/height", 10*nanometer)
+        "/MultiLayer/Layer0/ParticleLayout/ParticleInfo0/Particle/FormFactorCylinder/height", 10.0*nanometer)
 
     simulation.setSample(sample)
     simulation.runSimulation()
-    results.append(simulation.getIntensityData().getArray())
+    results.append(simulation.getIntensityData())
 
     # simulation #3
-    # all parameters which are matching criteria will be changed (height of the cylinder in this case)
-    sample.setParameterValue("*/FormFactorCylinder/height", 100*nanometer)
+    # all parameters matching criteria will be changed (height of the cylinder in this case)
+    sample.setParameterValue("*/FormFactorCylinder/height", 100.0*nanometer)
     simulation.setSample(sample)
     simulation.runSimulation()
-    results.append(simulation.getIntensityData().getArray())
+    results.append(simulation.getIntensityData())
 
     # simulation #4
     # all parameters which are matching criteria will be changed
-    sample.setParameterValue("*/FormFactorCylinder/height", 10*nanometer)
+    sample.setParameterValue("*/FormFactorCylinder/height", 10.0*nanometer)
     # both FormFactorPrism3/half_side and FormFactorPrism3/height will be set to 10 nanometer
-    sample.setParameterValue("*/FormFactorPrism3/*", 10*nanometer)
+    sample.setParameterValue("*/FormFactorPrism3/*", 10.0*nanometer)
     simulation.setSample(sample)
     simulation.runSimulation()
-    results.append(simulation.getIntensityData().getArray())
+    results.append(simulation.getIntensityData())
 
     return results
 
@@ -108,11 +102,13 @@ def draw_results(results):
     """
     Draw results of several simulations on canvas
     """
-    pylab.figure(1)
-    for i in range(0, len(results)):
-        pylab.subplot(2, 2, i+1)
-        pylab.imshow(numpy.rot90(results[i] + 1, 1),norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
-    pylab.show()
+    plt.figure(1)
+    for nplot, hist in enumerate(results):
+        plt.subplot(2, 2, nplot+1)
+        plt.imshow(hist.getArray(), norm=matplotlib.colors.LogNorm(1, hist.getMaximum()),
+                   extent=[hist.getXmin()/deg, hist.getXmax()/deg, hist.getYmin()/deg, hist.getYmax()/deg])
+
+    plt.show()
 
 
 if __name__ == '__main__':

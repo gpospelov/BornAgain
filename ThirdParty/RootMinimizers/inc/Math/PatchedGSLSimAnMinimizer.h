@@ -51,7 +51,7 @@
 
 
 
-namespace ROOT { 
+namespace BA_ROOT { 
 
    namespace Math { 
 
@@ -68,7 +68,7 @@ namespace ROOT {
 
    @ingroup MultiMin
 */ 
-class GSLSimAnMinimizer : public  ROOT::Math::BasicMinimizer {
+class GSLSimAnMinimizer : public  BA_ROOT::Math::BasicMinimizer {
 
 public: 
 
@@ -88,7 +88,7 @@ private:
    /** 
       Copy constructor
    */ 
-   GSLSimAnMinimizer(const GSLSimAnMinimizer &) : ROOT::Math::BasicMinimizer() {} 
+   GSLSimAnMinimizer(const GSLSimAnMinimizer &) : BA_ROOT::Math::BasicMinimizer() {} 
 
    /** 
       Assignment operator
@@ -107,7 +107,7 @@ public:
    //number of calls 
    unsigned int NCalls() const; 
 
-   ROOT::Math::GSLSimAnnealing& getSolver() { return fSolver; }
+   BA_ROOT::Math::GSLSimAnnealing& getSolver() { return fSolver; }
 
 
 protected: 
@@ -115,7 +115,7 @@ protected:
 private: 
    
 
-   ROOT::Math::GSLSimAnnealing  fSolver; 
+   BA_ROOT::Math::GSLSimAnnealing  fSolver; 
    
 
 }; 

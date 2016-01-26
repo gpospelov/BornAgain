@@ -33,22 +33,17 @@ public:
 
     FormFactorTruncatedSpheroid(double radius, double height, double height_flattening);
 
-    ~FormFactorTruncatedSpheroid() {delete m_integrator;}
+    virtual ~FormFactorTruncatedSpheroid();
 
     virtual FormFactorTruncatedSpheroid *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual int getNumberOfStochasticParameters() const { return 3; }
+    double getHeight() const;
 
-    virtual double getHeight() const { return m_height; }
+    double getHeightFlattening() const;
 
-    virtual double getHeightFlattening() const { return m_height_flattening; }
-
-    virtual double getRadius() const { return m_radius; }
-
-    virtual double getHeightFullSpheroid() const
-    { return 2.*m_height_flattening*m_radius; }
+    virtual double getRadius() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -67,6 +62,21 @@ private:
 
     MemberComplexFunctionIntegrator<FormFactorTruncatedSpheroid> *m_integrator;
 };
+
+inline double FormFactorTruncatedSpheroid::getHeight() const
+{
+    return m_height;
+}
+
+inline double FormFactorTruncatedSpheroid::getHeightFlattening() const
+{
+    return m_height_flattening;
+}
+
+inline double FormFactorTruncatedSpheroid::getRadius() const
+{
+    return m_radius;
+}
 
 
 #endif // FORMFACTORTRUNCATEDSPHEROID_H

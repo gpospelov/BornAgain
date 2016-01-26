@@ -98,10 +98,10 @@ void TestDiffuseReflection::execute()
 
         OutputData<double>::iterator it = m_data_offspec->begin();
         while (it != m_data_offspec->end()) {
-            double alpha_i = m_data_offspec->getValueOfAxis("alpha_i", it.getIndex());
-            double alpha_f = m_data_offspec->getValueOfAxis(BornAgain::ALPHA_AXIS_NAME, it.getIndex());
-            size_t index_alpha_i = m_data_offspec->getIndexOfAxis("alpha_i", it.getIndex());
-            size_t index_alpha_f = m_data_offspec->getIndexOfAxis(BornAgain::ALPHA_AXIS_NAME, it.getIndex());
+            double alpha_i = m_data_offspec->getAxisValue(it.getIndex(), "alpha_i");
+            double alpha_f = m_data_offspec->getAxisValue(it.getIndex(), BornAgain::ALPHA_AXIS_NAME);
+            size_t index_alpha_i = m_data_offspec->getAxisBinIndex(it.getIndex(), "alpha_i");
+            size_t index_alpha_f = m_data_offspec->getAxisBinIndex(it.getIndex(), BornAgain::ALPHA_AXIS_NAME);
             ki.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
             kf.setLambdaAlphaPhi(1.54*Units::angstrom, alpha_f, 0.0);
             calc.execute(*m_sample, ki, kf);
@@ -189,10 +189,10 @@ void TestDiffuseReflection::draw()
 
     OutputData<double>::const_iterator it = m_data_offspec->begin();
     while (it != m_data_offspec->end()) {
-        double alpha_i = m_data_offspec->getValueOfAxis("alpha_i", it.getIndex());
-        double alpha_f = m_data_offspec->getValueOfAxis(BornAgain::ALPHA_AXIS_NAME, it.getIndex());
-        size_t index_alpha_i = m_data_offspec->getIndexOfAxis("alpha_i", it.getIndex());
-        size_t index_alpha_f = m_data_offspec->getIndexOfAxis(BornAgain::ALPHA_AXIS_NAME, it.getIndex());
+        double alpha_i = m_data_offspec->getAxisValue(it.getIndex(), "alpha_i");
+        double alpha_f = m_data_offspec->getAxisValue(it.getIndex(), BornAgain::ALPHA_AXIS_NAME);
+        size_t index_alpha_i = m_data_offspec->getAxisBinIndex(it.getIndex(), "alpha_i");
+        size_t index_alpha_f = m_data_offspec->getAxisBinIndex(it.getIndex(), BornAgain::ALPHA_AXIS_NAME);
         double r = *it++;
         hspect.Fill(r);
         if(index_alpha_i==5) {

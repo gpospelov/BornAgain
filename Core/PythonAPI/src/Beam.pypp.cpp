@@ -21,126 +21,15 @@ GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
-#include "__call_policies.pypp.hpp"
-#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "Beam.pypp.h"
 
 namespace bp = boost::python;
 
-struct Beam_wrapper : Beam, bp::wrapper< Beam > {
-
-    Beam_wrapper( )
-    : Beam( )
-      , bp::wrapper< Beam >(){
-        // null constructor
-    
-    }
-
-    Beam_wrapper(::Beam const & other )
-    : Beam( boost::ref(other) )
-      , bp::wrapper< Beam >(){
-        // copy constructor
-    
-    }
-
-    virtual bool areParametersChanged(  ) {
-        if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
-            return func_areParametersChanged(  );
-        else{
-            return this->IParameterized::areParametersChanged(  );
-        }
-    }
-    
-    bool default_areParametersChanged(  ) {
-        return IParameterized::areParametersChanged( );
-    }
-
-    virtual void clearParameterPool(  ) {
-        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
-            func_clearParameterPool(  );
-        else{
-            this->IParameterized::clearParameterPool(  );
-        }
-    }
-    
-    void default_clearParameterPool(  ) {
-        IParameterized::clearParameterPool( );
-    }
-
-    virtual ::ParameterPool * createParameterTree(  ) const  {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
-        else{
-            return this->IParameterized::createParameterTree(  );
-        }
-    }
-    
-    ::ParameterPool * default_createParameterTree(  ) const  {
-        return IParameterized::createParameterTree( );
-    }
-
-    virtual void printParameters(  ) const  {
-        if( bp::override func_printParameters = this->get_override( "printParameters" ) )
-            func_printParameters(  );
-        else{
-            this->IParameterized::printParameters(  );
-        }
-    }
-    
-    void default_printParameters(  ) const  {
-        IParameterized::printParameters( );
-    }
-
-    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
-        namespace bpl = boost::python;
-        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
-        }
-        else{
-            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
-        }
-    }
-    
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
-        if( dynamic_cast< Beam_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-        else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-    }
-
-    virtual bool setParameterValue( ::std::string const & name, double value ) {
-        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
-            return func_setParameterValue( name, value );
-        else{
-            return this->IParameterized::setParameterValue( name, value );
-        }
-    }
-    
-    bool default_setParameterValue( ::std::string const & name, double value ) {
-        return IParameterized::setParameterValue( name, value );
-    }
-
-    virtual void setParametersAreChanged(  ) {
-        if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
-            func_setParametersAreChanged(  );
-        else{
-            this->IParameterized::setParametersAreChanged(  );
-        }
-    }
-    
-    void default_setParametersAreChanged(  ) {
-        IParameterized::setParametersAreChanged( );
-    }
-
-};
-
 void register_Beam_class(){
 
     { //::Beam
-        typedef bp::class_< Beam_wrapper, bp::bases< IParameterized > > Beam_exposer_t;
+        typedef bp::class_< Beam, bp::bases< IParameterized > > Beam_exposer_t;
         Beam_exposer_t Beam_exposer = Beam_exposer_t( "Beam", "Ideal collimated beam defined by wavelength, direction and intensity.", bp::init< >() );
         bp::scope Beam_scope( Beam_exposer );
         Beam_exposer.def( bp::init< Beam const & >(( bp::arg("other") )) );
@@ -155,7 +44,7 @@ void register_Beam_class(){
         }
         { //::Beam::getCentralK
         
-            typedef ::cvector_t ( ::Beam::*getCentralK_function_type)(  ) const;
+            typedef ::kvector_t ( ::Beam::*getCentralK_function_type)(  ) const;
             
             Beam_exposer.def( 
                 "getCentralK"
@@ -169,8 +58,7 @@ void register_Beam_class(){
             
             Beam_exposer.def( 
                 "getIntensity"
-                , getIntensity_function_type( &::Beam::getIntensity )
-                , "Gets the beam intensity in neutrons/sec." );
+                , getIntensity_function_type( &::Beam::getIntensity ) );
         
         }
         { //::Beam::getPhi
@@ -220,8 +108,7 @@ void register_Beam_class(){
             Beam_exposer.def( 
                 "setIntensity"
                 , setIntensity_function_type( &::Beam::setIntensity )
-                , ( bp::arg("intensity") )
-                , "Sets the beam intensity in neutrons/sec." );
+                , ( bp::arg("intensity") ) );
         
         }
         { //::Beam::setPolarization
@@ -233,85 +120,6 @@ void register_Beam_class(){
                 , setPolarization_function_type( &::Beam::setPolarization )
                 , ( bp::arg("bloch_vector") )
                 , "Sets the polarization density matrix according to the given Bloch vector." );
-        
-        }
-        { //::IParameterized::areParametersChanged
-        
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( Beam_wrapper::*default_areParametersChanged_function_type)(  ) ;
-            
-            Beam_exposer.def( 
-                "areParametersChanged"
-                , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&Beam_wrapper::default_areParametersChanged) );
-        
-        }
-        { //::IParameterized::clearParameterPool
-        
-            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( Beam_wrapper::*default_clearParameterPool_function_type)(  ) ;
-            
-            Beam_exposer.def( 
-                "clearParameterPool"
-                , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&Beam_wrapper::default_clearParameterPool) );
-        
-        }
-        { //::IParameterized::createParameterTree
-        
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( Beam_wrapper::*default_createParameterTree_function_type)(  ) const;
-            
-            Beam_exposer.def( 
-                "createParameterTree"
-                , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&Beam_wrapper::default_createParameterTree)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::IParameterized::printParameters
-        
-            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( Beam_wrapper::*default_printParameters_function_type)(  ) const;
-            
-            Beam_exposer.def( 
-                "printParameters"
-                , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&Beam_wrapper::default_printParameters) );
-        
-        }
-        { //::IParameterized::registerParameter
-        
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
-            
-            Beam_exposer.def( 
-                "registerParameter"
-                , default_registerParameter_function_type( &Beam_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "main method to register data address in the pool." );
-        
-        }
-        { //::IParameterized::setParameterValue
-        
-            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( Beam_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
-            
-            Beam_exposer.def( 
-                "setParameterValue"
-                , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&Beam_wrapper::default_setParameterValue)
-                , ( bp::arg("name"), bp::arg("value") ) );
-        
-        }
-        { //::IParameterized::setParametersAreChanged
-        
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( Beam_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
-            
-            Beam_exposer.def( 
-                "setParametersAreChanged"
-                , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&Beam_wrapper::default_setParametersAreChanged) );
         
         }
     }

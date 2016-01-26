@@ -26,6 +26,9 @@ def finalize_git():
     cmd = "cd %s; git merge --no-ff %s -m \"Merge %s\"" % (get_source_dir(), get_branch_name(), get_version())
     run_command(cmd)
 
+    cmd = "cd %s; git push" % get_source_dir()
+    run_command(cmd)
+
     cmd = "cd %s; git tag -a %s -m \"Release %s\"" % (get_source_dir(), get_version(), get_version())
     run_command(cmd)
 

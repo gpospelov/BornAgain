@@ -1,7 +1,6 @@
 ############################################################################
 # CMakeLists.txt file for building libBornAgainGUI library
 ############################################################################
-cmake_minimum_required(VERSION 2.8.11 FATAL_ERROR)
 if(POLICY CMP0020)
     cmake_policy(SET CMP0020 NEW)
 endif()
@@ -33,6 +32,8 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/SimulationWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/FitWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/PropertyEditor
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/MaskWidgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/AccordionWidget
 )
 include_directories(${include_dirs})
 
@@ -50,6 +51,8 @@ file(GLOB source_files
     "Views/SimulationWidgets/*.cpp"
     "Views/FitWidgets/*.cpp"
     "Views/PropertyEditor/*.cpp"
+    "Views/MaskWidgets/*.cpp"
+    "Views/AccordionWidget/*.cpp"
 )
 
 set(source_widgetbox
@@ -74,6 +77,8 @@ file(GLOB include_files
     "Views/SimulationWidgets/*.h"
     "Views/FitWidgets/*.h"
     "Views/PropertyEditor/*.h"
+    "Views/MaskWidgets/*.h"
+    "Views/AccordionWidget/*.h"
 )
 
 set(include_widgetbox
@@ -87,9 +92,10 @@ list(APPEND include_files ${include_widgetbox})
 
 set(resource_files
     "coregui.qrc"
-#    "qttools/qtpropertybrowser/qtpropertybrowser.qrc"
     "Views/SampleDesigner/SampleDesigner.qrc"
+    "Views/MaskWidgets/MaskWidgets.qrc"
     "Views/widgetbox/widgetbox.qrc"
+    "Views/AccordionWidget/accordionwidgeticons.qrc"
 )
 
 
@@ -97,10 +103,14 @@ set(resource_files
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 qt5_add_resources(RC_SRCS ${resource_files})
- 
+
 # --- definitions ------
-if(BORNAGAIN_CRASHHADLER)
+if(BORNAGAIN_CRASHHANDLER)
     add_definitions(-DBORNAGAIN_CRASHHANDLER)
+endif()
+
+if(BORNAGAIN_TIFF_SUPPORT)
+    add_definitions(-DBORNAGAIN_TIFF_SUPPORT)
 endif()
 
 if(WIN32)
@@ -151,6 +161,7 @@ target_link_libraries(${library_name}
 #     Qt5::Script
     Qt5::Designer
     Qt5::PrintSupport
+    Qt5::Network
 )
 
 
@@ -168,11 +179,12 @@ if(WIN32)
     ${QTDIR}/bin/Qt5WebKitWidgets.dll
     ${QTDIR}/bin/Qt5Designer.dll
     ${QTDIR}/bin/Qt5Xml.dll
+    ${QTDIR}/bin/Qt5Svg.dll
     #${QTDIR}/bin/libGLESv2.dll
-    #${QTDIR}/bin/libEGL.dll    
-    ${QTDIR}/bin/icuin52.dll
-    ${QTDIR}/bin/icuuc52.dll
-    ${QTDIR}/bin/icudt52.dll
+    #${QTDIR}/bin/libEGL.dll
+    ${QTDIR}/bin/icuin54.dll
+    ${QTDIR}/bin/icuuc54.dll
+    ${QTDIR}/bin/icudt54.dll
     ${QTDIR}/bin/Qt5Multimedia.dll
     ${QTDIR}/bin/Qt5MultimediaWidgets.dll
     ${QTDIR}/bin/Qt5OpenGL.dll
@@ -183,12 +195,16 @@ if(WIN32)
     ${QTDIR}/bin/Qt5Sensors.dll
     ${QTDIR}/bin/Qt5Sql.dll
     #${QTDIR}/bin/Qt5V8.dll
-    ${QTDIR}/bin/Qt5WebKit.dll    
+    ${QTDIR}/bin/Qt5WebKit.dll
     DESTINATION ${destination_lib} COMPONENT Libraries)
 
     install(FILES
     ${QTDIR}/plugins/platforms/qwindows.dll
     DESTINATION bin/platforms COMPONENT Libraries)
+
+    install(FILES
+    ${QTDIR}/plugins/iconengines/qsvgicon.dll
+    DESTINATION bin/iconengines COMPONENT Libraries)
 
 endif()
 

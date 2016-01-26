@@ -18,11 +18,13 @@
 #include "HorizontalSlicePlot.h"
 #include "VerticalSlicePlot.h"
 #include "IntensityDataItem.h"
+#include "SavePlotAssistant.h"
 #include "qcustomplot.h"
 #include <QSplitter>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QDebug>
+
 
 IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
     : QWidget(parent)
@@ -43,6 +45,8 @@ IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
 {
     setObjectName(QStringLiteral("IntensityDataPlotWidget"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    m_centralPlot->setTrackMoveEventsFlag(true);
 
     m_splitterTop->addWidget(m_verticalPlot);
     m_splitterTop->addWidget(m_centralPlot);
@@ -162,36 +166,15 @@ void IntensityDataPlotWidget::onMousePress(QMouseEvent *event)
 //! saves plot into proposed directory
 void IntensityDataPlotWidget::savePlot(const QString &dirname)
 {
-    //qDebug() << "IntensityDataPlotWidget::savePlot(const QString &dirname)" << dirname;
     Q_ASSERT(m_item);
 
     bool projections_flag = m_item->getRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG).toBool();
     if(projections_flag)
         m_centralPlot->showLinesOverTheMap(false);
 
-    QString filters("*.png;;*.jpg;;*.pdf");
-    QString defaultFilter("*.png");
-    QString defaultName = dirname + QString("/untitled");
-    QString fileName =QFileDialog::getSaveFileName(0, "Save Plot", defaultName,
-        filters, &defaultFilter);
-    QString extension =  defaultFilter.mid(1);
+    SavePlotAssistant saveAssistant;
+    saveAssistant.savePlot(dirname, m_centralPlot, m_item);
 
-    if (!fileName.isEmpty() && !defaultFilter.isEmpty()) {
-
-        if(fileName.endsWith(tr(".pdf"), Qt::CaseInsensitive)) {
-            m_centralPlot->getCustomPlot()->savePdf(fileName, true, m_centralPlot->width(), m_centralPlot->height());
-        } else if(fileName.endsWith(tr(".jpg"), Qt::CaseInsensitive)) {
-            m_centralPlot->getCustomPlot()->saveJpg(fileName);
-        } else if(fileName.endsWith(tr(".png"), Qt::CaseInsensitive)) {
-            m_centralPlot->getCustomPlot()->savePng(fileName);
-        } else if(defaultFilter == "*.pdf") {
-            m_centralPlot->getCustomPlot()->savePdf(fileName+extension, true, m_centralPlot->width(), m_centralPlot->height());
-        } else if(defaultFilter == "*.jpg") {
-            m_centralPlot->getCustomPlot()->saveJpg(fileName+extension);
-        } else {
-            m_centralPlot->getCustomPlot()->savePng(fileName+extension);
-        }
-    }
     m_centralPlot->showLinesOverTheMap(projections_flag);
 }
 
@@ -315,3 +298,4 @@ bool IntensityDataPlotWidget::isLeftAreaVisible()
     QList<int> sizes = m_splitterTop->sizes();
     return sizes[0] != 0;
 }
+

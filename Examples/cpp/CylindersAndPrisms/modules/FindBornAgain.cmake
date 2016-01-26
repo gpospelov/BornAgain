@@ -6,8 +6,8 @@
 set(BORNAGAINSYS $ENV{BORNAGAINSYS})
 
 if(BORNAGAINSYS)
-    set(BORNAGAIN_LIBRARY_DIR ${BORNAGAINSYS}/lib/BornAgain-1.2)
-    set(BORNAGAIN_INCLUDE_DIR ${BORNAGAINSYS}/include/BornAgain-1.2)
+    set(BORNAGAIN_LIBRARY_DIR ${BORNAGAINSYS}/lib/BornAgain-1.4)
+    set(BORNAGAIN_INCLUDE_DIR ${BORNAGAINSYS}/include/BornAgain-1.4)
 endif()
 
 find_library (BORNAGAIN_CORE BornAgainCore

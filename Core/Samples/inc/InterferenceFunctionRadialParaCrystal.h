@@ -40,29 +40,25 @@ public:
     virtual ~InterferenceFunctionRadialParaCrystal() {}
     virtual InterferenceFunctionRadialParaCrystal *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     //! @brief Sets size of coherence domain
     //! @param size: size in lattice direction
-    void setDomainSize(double size) {
-        m_domain_size = size;
-    }
+    void setDomainSize(double size);
 
     //! @brief Gets size of coherence domain
     //! @param size: size in lattice direction
-    double getDomainSize() const {
-        return m_domain_size;
-    }
+    double getDomainSize() const;
 
     //! @brief Sets size-spacing coupling parameter
     //! @param kappa: size-spacing coupling parameter
-    void setKappa(double kappa) { m_kappa = kappa; }
+    void setKappa(double kappa);
 
     //! @brief Gets size-spacing coupling parameter
     //! @param kappa: size-spacing coupling parameter
-    virtual double getKappa() const { return m_kappa; }
+    virtual double getKappa() const;
 
-    virtual double evaluate(const cvector_t& q) const;
+    virtual double evaluate(const kvector_t& q) const;
     //TODO: replace these with strategy pattern for different algorithms
     complex_t FTPDF(double qpar) const;
 
@@ -72,11 +68,11 @@ public:
 
     //! Gets the Fourier transformed probability distribution of the
     //! nearest particle
-    const IFTDistribution1D *getPropabilityDistribution() const;
+    const IFTDistribution1D *getProbabilityDistribution() const;
 
-    double getPeakDistance() const { return m_peak_distance; }
+    double getPeakDistance() const;
 
-    double getDampingLength() const { return m_damping_length; }
+    double getDampingLength() const;
 
 protected:
     double m_peak_distance; //!< the distance to the first neighbor peak

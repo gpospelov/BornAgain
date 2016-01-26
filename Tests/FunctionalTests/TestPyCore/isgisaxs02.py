@@ -39,12 +39,12 @@ def RunSimulation():
     #Building nano particles
     particle_layout = ParticleLayout()
 
-    par_distr1 = ParameterDistribution("*/radius", gauss1, nbins, n_sigma)
+    par_distr1 = ParameterDistribution("*/Radius", gauss1, nbins, n_sigma)
     part_coll1 = ParticleDistribution(cylinder1, par_distr1)
-    particle_layout.addParticle(part_coll1, 0.0, 0.95)
-    par_distr2 = ParameterDistribution("*/radius", gauss2, nbins, n_sigma)
+    particle_layout.addParticle(part_coll1, 0.95)
+    par_distr2 = ParameterDistribution("*/Radius", gauss2, nbins, n_sigma)
     part_coll2 = ParticleDistribution(cylinder2, par_distr2)
-    particle_layout.addParticle(part_coll2, 0.0, 0.05)
+    particle_layout.addParticle(part_coll2, 0.05)
 
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
@@ -56,7 +56,8 @@ def RunSimulation():
     
     # build and run experiment
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    detector = IsGISAXSDetector(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
   
     simulation.setSample(multi_layer)

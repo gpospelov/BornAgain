@@ -79,7 +79,7 @@ class MySampleBuilder(ISampleBuilder):
         n_max_phi_rotation_steps = 2
         n_alpha_rotation_steps = 1
         alpha_step = 5.0*degree/n_alpha_rotation_steps
-        alpha_start = - (n_alpha_rotation_steps/2.0)*alpha_step;
+        alpha_start = - (n_alpha_rotation_steps/2.0)*alpha_step
 
         phi_step = 2*numpy.pi/3.0/n_max_phi_rotation_steps
         phi_start = 0.0;
@@ -88,7 +88,8 @@ class MySampleBuilder(ISampleBuilder):
 
                 total_transform = RotationZ(phi_start + i*phi_step)
                 meso = self.createMesoCrystal(self.lattice_length_a.value, self.lattice_length_c.value, n_particle_adapted, ff_meso)
-                particle_layout.addParticle(meso, total_transform, self.meso_height.value)
+                meso.setPosition(0.0, 0.0, -self.meso_height.value)
+                particle_layout.addParticle(meso, 1.0, kvector_t(0,0,0), total_transform)
 
         particle_layout.setTotalParticleSurfaceDensity(surface_density)
         particle_layout.addInterferenceFunction(p_interference_funtion)
@@ -158,7 +159,6 @@ def runTest():
 
     #running simulation
     simulation.runSimulation()
-    simulation.normalize()
     result = simulation.getIntensityData()
 
     diff = IntensityDataFunctions.getRelativeDifference(result, reference)

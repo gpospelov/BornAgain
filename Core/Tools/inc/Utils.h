@@ -49,6 +49,9 @@ public:
 
     //! replace all occurences of items from string text with delimeter
     static void replaceItemsFromString(std::string &text, const std::vector<std::string> &items, const std::string &replacement=std::string(""));
+
+    //! return string representing scientific double with given precision
+    static std::string getScientificDoubleString(double value, size_t precision = 4);
 };
 
 
@@ -229,6 +232,7 @@ class BA_CORE_API_ System
 {
 public:
     static int getThreadHardwareConcurrency();
+    static std::string getCurrentDateAndTime();
 };
 
 //! enables exception throw in the case of NaN, Inf

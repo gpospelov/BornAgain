@@ -14,16 +14,15 @@
 // ************************************************************************** //
 
 #include "Crystal.h"
+#include "BornAgainNamespace.h"
 #include "FormFactors.h"
 #include "Units.h"
 #include "MathFunctions.h"
 
-Crystal::Crystal(const ParticleComposition& lattice_basis,
-        const Lattice& lattice)
-: m_lattice(lattice)
-, m_dw_factor(0.0)
+Crystal::Crystal(const ParticleComposition &lattice_basis, const Lattice &lattice)
+    : m_lattice(lattice), m_dw_factor(0.0)
 {
-    setName("Crystal");
+    setName(BornAgain::CrystalType);
     mp_lattice_basis = lattice_basis.clone();
     registerChild(mp_lattice_basis);
 }
@@ -33,69 +32,54 @@ Crystal::~Crystal()
     delete mp_lattice_basis;
 }
 
-Crystal* Crystal::clone() const
+Crystal *Crystal::clone() const
 {
     Crystal *p_new = new Crystal(*mp_lattice_basis, m_lattice);
     p_new->setDWFactor(m_dw_factor);
-    if (mP_rotation.get()) {
-        p_new->mP_rotation.reset(mP_rotation->clone());
-    }
     return p_new;
 }
 
-Crystal* Crystal::cloneInvertB() const
+Crystal *Crystal::cloneInvertB() const
 {
     Crystal *p_new = new Crystal(mp_lattice_basis->cloneInvertB(), m_lattice);
     p_new->setDWFactor(m_dw_factor);
-    p_new->setName(getName() + "_inv");
     return p_new;
 }
 
-IFormFactor* Crystal::createTotalFormFactor(
-        const IFormFactor& meso_crystal_form_factor,
-        const IMaterial &p_ambient_material,
-        complex_t wavevector_scattering_factor) const
+void Crystal::accept(ISampleVisitor *visitor) const
 {
-    FormFactorCrystal *p_ff_crystal =
-        new FormFactorCrystal(*this, meso_crystal_form_factor,
-                p_ambient_material, wavevector_scattering_factor);
-    if (m_dw_factor>0.0) {
-        return new FormFactorDecoratorDebyeWaller(p_ff_crystal, m_dw_factor);
-    }
-    return p_ff_crystal;
+    visitor->visit(this);
 }
 
-Lattice Crystal::getTransformedLattice() const
+IFormFactor *Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
+                                            complex_t wavevector_scattering_factor,
+                                            const IRotation *p_rotation,
+                                            kvector_t translation) const
 {
-    if (mP_rotation.get()) {
-        return m_lattice.createTransformedLattice(*mP_rotation);
+    Lattice transformed_lattice = getTransformedLattice(p_rotation);
+    boost::scoped_ptr<IFormFactor> P_basis_ff(mp_lattice_basis->createTransformedFormFactor(
+        wavevector_scattering_factor, p_rotation, translation));
+    boost::scoped_ptr<FormFactorCrystal> P_ff_crystal(
+        new FormFactorCrystal(transformed_lattice, *P_basis_ff, meso_crystal_form_factor));
+    if (m_dw_factor > 0.0) {
+        return new FormFactorDecoratorDebyeWaller(*P_ff_crystal, m_dw_factor);
+    }
+    return P_ff_crystal->clone();
+}
+
+Lattice Crystal::getTransformedLattice(const IRotation *p_rotation) const
+{
+    if (p_rotation) {
+        return m_lattice.createTransformedLattice(*p_rotation);
     } else {
         return m_lattice;
     }
 }
 
-void Crystal::applyRotation(const IRotation& rotation)
+Crystal::Crystal(ParticleComposition *p_lattice_basis, const Lattice &lattice)
+    : m_lattice(lattice), m_dw_factor(0.0)
 {
-    if (mP_rotation.get()) {
-        IRotation *total_rotation = CreateProduct(rotation, *mP_rotation);
-        mP_rotation.reset(total_rotation);
-    }
-    else {
-        mP_rotation.reset(rotation.clone());
-    }
-    applyTransformationToSubParticles(rotation);
-}
-
-Crystal::Crystal(ParticleComposition* p_lattice_basis, const Lattice& lattice)
-: m_lattice(lattice)
-, m_dw_factor(0.0)
-{
-    setName("Crystal");
+    setName(BornAgain::CrystalType);
     mp_lattice_basis = p_lattice_basis;
     registerChild(mp_lattice_basis);
-}
-
-void Crystal::applyTransformationToSubParticles(const IRotation& rotation)
-{
-    mp_lattice_basis->applyRotation(rotation);
 }

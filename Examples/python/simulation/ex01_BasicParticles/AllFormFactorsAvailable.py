@@ -3,7 +3,7 @@ All formfactors available in BornAgain in the Born Approximation
 """
 import numpy
 import matplotlib
-import pylab
+from matplotlib import pyplot as plt
 from bornagain import *
 
 phi_min, phi_max = -2.0, 2.0
@@ -44,7 +44,7 @@ def get_sample(formfactor):
     # collection of particles
     particle = Particle(m_particle, formfactor)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(particle, 0.0, 1.0)
+    particle_layout.addParticle(particle, 1.0)
 
     air_layer = Layer(m_ambience)
     air_layer.addLayout(particle_layout)
@@ -69,10 +69,7 @@ def run_simulation():
     Run simulation one by one for every form factor from the list and plot results on a single canvas
     """
 
-    dpi = 72.
-    xinch = 1024 / dpi
-    yinch = 768 / dpi
-    fig = pylab.figure(figsize=(xinch, yinch))
+    fig = plt.figure(figsize=(12.80, 10.24))
 
     nplot = 1
     for ff in formfactors:
@@ -84,21 +81,23 @@ def run_simulation():
         simulation = get_simulation()
         simulation.setSample(sample)
         simulation.runSimulation()
-        result = simulation.getIntensityData().getArray() + 1  # for log scale
+        result = simulation.getIntensityData()
 
         # showing the result
-        pylab.subplot(4, 5, nplot)
-        pylab.subplots_adjust(wspace=0.3, hspace=0.3)
+        plt.subplot(4, 5, nplot)
+        plt.subplots_adjust(wspace=0.3, hspace=0.3)
         nplot = nplot + 1
 
-        im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
-                 extent=[phi_min, phi_max, alpha_min, alpha_max], aspect='auto')
-        pylab.tick_params(axis='both', which='major', labelsize=8)
-        pylab.tick_params(axis='both', which='minor', labelsize=6)
-        pylab.xticks(numpy.arange(phi_min, phi_max+0.0001, 1.0))
-        pylab.text(-0.1, 2.17, name, horizontalalignment='center', verticalalignment='center', fontsize=11)
+        im = plt.imshow(result.getArray(),
+                        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+                        extent=[result.getXmin()/deg, result.getXmax()/deg, result.getYmin()/deg, result.getYmax()/deg],
+                        aspect='auto')
+        plt.tick_params(axis='both', which='major', labelsize=8)
+        plt.tick_params(axis='both', which='minor', labelsize=6)
+        plt.xticks(numpy.arange(phi_min, phi_max+0.0001, 1.0))
+        plt.text(-0.1, 2.17, name, horizontalalignment='center', verticalalignment='center', fontsize=11)
 
-    pylab.show()
+    plt.show()
 
 
 if __name__ == '__main__':

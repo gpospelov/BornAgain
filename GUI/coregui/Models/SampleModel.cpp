@@ -21,13 +21,10 @@
 #include "ParticleItem.h"
 #include <QDebug>
 
-
-SampleModel::SampleModel(QObject *parent)
-    : SessionModel(SessionXML::SampleModelTag, parent)
+SampleModel::SampleModel(QObject *parent) : SessionModel(SessionXML::SampleModelTag, parent)
 {
-
+    setObjectName(SessionXML::SampleModelTag);
 }
-
 
 SampleModel *SampleModel::createCopy(ParameterizedItem *parent)
 {
@@ -35,7 +32,6 @@ SampleModel *SampleModel::createCopy(ParameterizedItem *parent)
     result->initFrom(this, parent);
     return result;
 }
-
 
 //! returns list of MultiLayers defined in the model
 QMap<QString, ParameterizedItem *> SampleModel::getSampleMap() const
@@ -48,50 +44,44 @@ MultiLayerItem *SampleModel::getMultiLayerItem(const QString &item_name)
     return dynamic_cast<MultiLayerItem *>(getTopItem(Constants::MultiLayerType, item_name));
 }
 
-
 void SampleModel::onMaterialModelChanged(const QModelIndex &first, const QModelIndex & /* second */)
 {
     MaterialModel *materialModel = qobject_cast<MaterialModel *>(sender());
-
     qDebug() << "SampleModel::onMaterialModelChanged()" << first;
-
     Q_ASSERT(materialModel);
-
     MaterialItem *material = dynamic_cast<MaterialItem *>(materialModel->itemForIndex(first));
     Q_ASSERT(material);
-
     m_material_identifier = material->getIdentifier();
 
     exploreForMaterials();
 }
 
-
-void SampleModel::exploreForMaterials(const QModelIndex & parentIndex)
+void SampleModel::exploreForMaterials(const QModelIndex &parentIndex)
 {
-
-    qDebug() << "SampleModel::exploreForMaterials";
-
-    if(!parentIndex.isValid()) {
+    if (!parentIndex.isValid()) {
         qDebug() << "Dumping model";
     }
 
-    for( int i_row = 0; i_row < rowCount( parentIndex ); ++i_row) {
-         QModelIndex itemIndex = index( i_row, 0, parentIndex );
+    for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
+        QModelIndex itemIndex = index(i_row, 0, parentIndex);
+        if (ParameterizedItem *item = itemForIndex(itemIndex)) {
+            if (item->modelType() == Constants::LayerType
+                || item->modelType() == Constants::ParticleType) {
+                qDebug() << " found item" << item->modelType();
+                MaterialProperty material_property
+                    = item->getRegisteredProperty(LayerItem::P_MATERIAL).value<MaterialProperty>();
+                if (material_property.getIdentifier() == m_material_identifier) {
+//                    item->setRegisteredProperty(LayerItem::P_MATERIAL,
+//                                                material_property.getVariant());
+                    // MaterialProperty of the layer corresponds to the material which just has been changed
+                    // To trigger color change in ILayerView we have to trigger propertyChanged
+                    emit item->propertyChanged(LayerItem::P_MATERIAL);
+                }
+            }
+        } else {
+            qDebug() << "not a parameterized graphics item";
+        }
 
-         if (ParameterizedItem *item = itemForIndex(itemIndex)){
-             if(item->modelType() == Constants::LayerType || item->modelType() == Constants::ParticleType) {
-                 qDebug() << " found item" << item->modelType();
-                 MaterialProperty material_property = item->getRegisteredProperty(LayerItem::P_MATERIAL).value<MaterialProperty>();
-                 if(material_property.getIdentifier() == m_material_identifier) {
-                     item->setRegisteredProperty(LayerItem::P_MATERIAL, material_property.getVariant());
-                 }
-
-             }
-
-         } else {
-             qDebug() << "not a parameterized graphics item";
-         }
-
-         exploreForMaterials(itemIndex);
-     }
+        exploreForMaterials(itemIndex);
+    }
 }

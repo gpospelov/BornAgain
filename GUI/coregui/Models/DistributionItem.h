@@ -17,8 +17,10 @@
 #define DISTRIBUTIONITEM_H
 
 #include "ParameterizedItem.h"
-#include "Distributions.h"
 
+#include <memory>
+
+class IDistribution1D;
 
 class BA_CORE_API_ DistributionItem : public ParameterizedItem
 {
@@ -27,9 +29,7 @@ public:
     static const QString P_NUMBER_OF_SAMPLES;
     static const QString P_SIGMA_FACTOR;
     explicit DistributionItem(const QString name, ParameterizedItem *parent=0);
-    virtual ~DistributionItem() {}
-
-    virtual IDistribution1D *createDistribution() const=0;
+    virtual std::unique_ptr<IDistribution1D> createDistribution() const=0;
 
     virtual void init_parameters(double, PropertyAttribute){}
 protected:
@@ -43,7 +43,7 @@ class BA_CORE_API_ DistributionNoneItem : public DistributionItem
 public:
     static const QString P_VALUE;
     explicit DistributionNoneItem(ParameterizedItem *parent=0);
-    virtual IDistribution1D *createDistribution() const;
+    virtual std::unique_ptr<IDistribution1D> createDistribution() const;
     virtual void init_parameters(double value, PropertyAttribute attribute);
 };
 
@@ -56,7 +56,7 @@ public:
     static const QString P_MAX;
     explicit DistributionGateItem(ParameterizedItem *parent=0);
 
-    virtual IDistribution1D *createDistribution() const;
+    virtual std::unique_ptr<IDistribution1D> createDistribution() const;
     virtual void init_parameters(double value, PropertyAttribute attribute);
 };
 
@@ -69,7 +69,7 @@ public:
     static const QString P_HWHM;
     explicit DistributionLorentzItem(ParameterizedItem *parent=0);
 
-    virtual IDistribution1D *createDistribution() const;
+    virtual std::unique_ptr<IDistribution1D> createDistribution() const;
     virtual void init_parameters(double value, PropertyAttribute attribute);
 };
 
@@ -82,7 +82,7 @@ public:
     static const QString P_STD_DEV;
     explicit DistributionGaussianItem(ParameterizedItem *parent=0);
 
-    virtual IDistribution1D *createDistribution() const;
+    virtual std::unique_ptr<IDistribution1D> createDistribution() const;
     virtual void init_parameters(double value, PropertyAttribute attribute);
 };
 
@@ -95,7 +95,7 @@ public:
     static const QString P_SCALE_PAR;
     explicit DistributionLogNormalItem(ParameterizedItem *parent=0);
 
-    virtual IDistribution1D *createDistribution() const;
+    virtual std::unique_ptr<IDistribution1D> createDistribution() const;
     virtual void init_parameters(double value, PropertyAttribute attribute);
 };
 
@@ -108,7 +108,7 @@ public:
     static const QString P_SIGMA;
     explicit DistributionCosineItem(ParameterizedItem *parent=0);
 
-    virtual IDistribution1D *createDistribution() const;
+    virtual std::unique_ptr<IDistribution1D> createDistribution() const;
     virtual void init_parameters(double value, PropertyAttribute attribute);
 };
 

@@ -2,12 +2,14 @@
 #define DETECTORTEST_H
 
 
-#include "Detector.h"
+#include "SphericalDetector.h"
 #include "Exceptions.h"
 #include "OutputData.h"
 #include "FixedBinAxis.h"
 #include "ConvolutionDetectorResolution.h"
 #include "ResolutionFunction2DGaussian.h"
+#include "Polygon.h"
+#include <boost/scoped_ptr.hpp>
 
 #include "gtest/gtest.h"
 
@@ -18,15 +20,15 @@ class DetectorTest : public ::testing::Test
     DetectorTest();
     virtual ~DetectorTest();
 
-    Detector emptyDetector;
-    Detector constructedDetector;
-    Detector *originalDetector;
-    Detector copyOfOriginalDetector;
+    SphericalDetector emptyDetector;
+    SphericalDetector constructedDetector;
+    SphericalDetector *originalDetector;
+    SphericalDetector copyOfOriginalDetector;
 };
 
 DetectorTest::DetectorTest()
 {
-    originalDetector = new Detector();
+    originalDetector = new SphericalDetector();
     FixedBinAxis axis0("axis0", 10, 0.0, 10.0);
     FixedBinAxis axis1("axis1", 20, 0.0, 20.0);
     originalDetector->addAxis(axis0);
@@ -85,5 +87,57 @@ TEST_F(DetectorTest, DetectorCopying)
     EXPECT_TRUE(std::string("ConvolutionDetectorResolution")
         == copyOfOriginalDetector.getDetectorResolutionFunction()->getName());
 }
+
+TEST_F(DetectorTest, MaskOfDetector)
+{
+    SphericalDetector detector;
+    detector.addAxis(FixedBinAxis("x-axis", 12, -4.0, 8.0));
+    detector.addAxis(FixedBinAxis("y-axis", 6, -2.0, 4.0));
+
+    std::vector<double> x = {4.0, -4.0, -4.0, 4.0, 4.0};
+    std::vector<double> y = {2.0, 2.0, -2.0, -2.0, 2.0};
+
+    Geometry::Polygon polygon(x, y);
+    detector.addMask(polygon, true);
+
+    const OutputData<bool> *mask = detector.getDetectorMask()->getMaskData();
+    for(size_t index=0; index<mask->getAllocatedSize(); ++index) {
+        double x = mask->getAxisValue(index, 0);
+        double y = mask->getAxisValue(index, 1);
+        if( x>= -4.0 && x <=4.0 && y>=-2.0 && y<=2.0) {
+            EXPECT_TRUE(detector.isMasked(index));
+        } else {
+            EXPECT_FALSE(detector.isMasked(index));
+        }
+    }
+
+    SphericalDetector detector2 = detector;
+    mask = detector2.getDetectorMask()->getMaskData();
+    for(size_t index=0; index<mask->getAllocatedSize(); ++index) {
+        double x = mask->getAxisValue(index, 0);
+        double y = mask->getAxisValue(index, 1);
+        if( x>= -4.0 && x <=4.0 && y>=-2.0 && y<=2.0) {
+            EXPECT_TRUE(detector2.isMasked(index));
+        } else {
+            EXPECT_FALSE(detector2.isMasked(index));
+        }
+    }
+
+    mask = detector.getDetectorMask()->getMaskData();
+    for(size_t index=0; index<mask->getAllocatedSize(); ++index) {
+        double x = mask->getAxisValue(index, 0);
+        double y = mask->getAxisValue(index, 1);
+        if( x>= -4.0 && x <=4.0 && y>=-2.0 && y<=2.0) {
+            EXPECT_TRUE(detector.isMasked(index));
+        } else {
+            EXPECT_FALSE(detector.isMasked(index));
+        }
+    }
+
+
+
+}
+
+
 
 #endif // DETECTORTEST_H

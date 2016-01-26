@@ -7,7 +7,7 @@ In this case Monte-Carlo integration over detector bin should be used.
 """
 import numpy
 import matplotlib
-import pylab
+from matplotlib import pyplot as plt
 from bornagain import *
 
 phi_min, phi_max = -2.0, 2.0
@@ -30,7 +30,7 @@ def get_sample(cylinder_radius, cylinder_height):
     cylinder_ff = FormFactorCylinder(cylinder_radius, cylinder_height)
     cylinder = Particle(m_particle, cylinder_ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
 
     air_layer = Layer(m_ambience)
     air_layer.addLayout(particle_layout)
@@ -65,10 +65,7 @@ def run_simulation():
     Run simulation and plot results 4 times: for small and large cylinders, with and without integration
     """
 
-    dpi = 72.
-    xinch = 1024 / dpi
-    yinch = 768 / dpi
-    fig = pylab.figure(figsize=(xinch, yinch))
+    fig = plt.figure(figsize=(12.80, 10.24))
 
     # conditions to define cylinders scale factor and Monte-Carlo integration flag
     conditions = [
@@ -87,19 +84,22 @@ def run_simulation():
         simulation = get_simulation(integration_flag)
         simulation.setSample(sample)
         simulation.runSimulation()
-        result = simulation.getIntensityData().getArray() + 1  # for log scale
+        result = simulation.getIntensityData()
 
         # plotting results
-        pylab.subplot(2, 2, i_plot+1)
-        pylab.subplots_adjust(wspace=0.3, hspace=0.3)
-        im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(10, conditions[i_plot]['max']),
-                     extent=[phi_min, phi_max, alpha_min, alpha_max], aspect='auto')
-        pylab.colorbar(im)
-        pylab.xlabel(r'$\phi_f$', fontsize=16)
-        pylab.ylabel(r'$\alpha_f$', fontsize=16)
-        pylab.text(0.0, 2.1, conditions[i_plot]['title'], horizontalalignment='center', verticalalignment='center', fontsize=13)
+        plt.subplot(2, 2, i_plot+1)
+        plt.subplots_adjust(wspace=0.3, hspace=0.3)
+        im = plt.imshow(result.getArray(),
+                        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+                        extent=[result.getXmin()/deg, result.getXmax()/deg, result.getYmin()/deg, result.getYmax()/deg],
+                        aspect='auto')
+        cb = plt.colorbar(im)
+        cb.set_label(r'Intensity (arb. u.)', size=16)
+        plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
+        plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
+        plt.text(0.0, 2.1, conditions[i_plot]['title'], horizontalalignment='center', verticalalignment='center', fontsize=13)
 
-    pylab.show()
+    plt.show()
 
 
 if __name__ == '__main__':

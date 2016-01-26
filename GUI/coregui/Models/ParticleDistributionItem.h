@@ -16,6 +16,7 @@
 #ifndef PARTICLEDISTRIBUTIONITEM_H
 #define PARTICLEDISTRIBUTIONITEM_H
 
+#include "ParticleDistribution.h"
 #include "ParameterizedGraphicsItem.h"
 
 #include <QStringList>
@@ -30,13 +31,17 @@ public:
     static const QString P_DISTRIBUTION;
     static const QString NO_SELECTION;
     explicit ParticleDistributionItem(ParameterizedItem *parent=0);
-    ~ParticleDistributionItem();
+    virtual ~ParticleDistributionItem();
 
-    void insertChildItem(int row, ParameterizedItem *item);
+    virtual void insertChildItem(int row, ParameterizedItem *item);
 
-    void onChildPropertyChange();
+    virtual void onChildPropertyChange();
+
+    std::unique_ptr<ParticleDistribution> createParticleDistribution() const;
+
 public slots:
     void updateParameterList();
+
 private:
     QStringList getChildParameterNames() const;
     QStringList extractFromParameterPool(const ParameterPool *pool) const;

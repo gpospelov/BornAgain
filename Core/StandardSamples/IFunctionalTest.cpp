@@ -14,50 +14,77 @@
 // ************************************************************************** //
 
 #include "IFunctionalTest.h"
-#include "SimulationRegistry.h"
-#include "IntensityDataIOFactory.h"
-#include "IntensityDataFunctions.h"
-#include "FileSystem.h"
-#include <boost/scoped_ptr.hpp>
+#include "Utils.h"
 
-FunctionalTest::FunctionalTest(const FunctionalTestInfo &info)
-    : m_info(info),
-      m_simulation(0),
-      m_reference(0)
-{
-    SimulationRegistry sim_registry;
-    m_simulation = sim_registry.createSimulation(getName());
+namespace {
 
-    std::string filename = Utils::FileSystem::GetReferenceDataDir() + m_info.m_reference_file;
-    m_reference = IntensityDataIOFactory::readIntensityData(filename);
+std::map<IFunctionalTest::ETestResult, std::string>  InitTestResultToString() {
+    std::map<IFunctionalTest::ETestResult, std::string> result;
+    result[IFunctionalTest::SUCCESS] = "[SUCCESS]";
+    result[IFunctionalTest::FAILED_DIFF] = "[FAILED_DIFF]";
+    result[IFunctionalTest::FAILED_NOREF] = "[FAILED_NOREF]";
+    result[IFunctionalTest::FAILED] = "[FAILED]";
+    return result;
 }
 
+const size_t width_name = 25;
+const size_t width_description = 40;
+const size_t width_result = 15;
 
-FunctionalTest::~FunctionalTest()
-{
-    delete m_simulation;
-    delete m_reference;
 }
 
+std::map<IFunctionalTest::ETestResult, std::string> IFunctionalTest::m_result_to_string = InitTestResultToString();
 
-void FunctionalTest::runTest()
+IFunctionalTest::IFunctionalTest() : m_result(SUCCESS)
 {
-    m_simulation->runSimulation();
-    if(m_info.m_normalize) m_simulation->normalize();
 }
 
-
-int FunctionalTest::analyseResults()
+IFunctionalTest::IFunctionalTest(const std::string &name, const std::string &description)
+    : m_name(name)
+    , m_description(description)
+    , m_result(SUCCESS)
 {
-    assert(m_simulation);
-    assert(m_reference);
-    boost::scoped_ptr<OutputData<double> > P_data(m_simulation->getIntensityData());
+}
 
-    double diff = IntensityDataFunctions::getRelativeDifference(*P_data,*m_reference);
+std::string IFunctionalTest::getName() const
+{
+    return m_name;
+}
 
-    std::cout << getName() << " " << getDescription() << " " << diff
-              << " " << (diff>m_info.m_threshold ? "[FAILED]" : "[OK]") << std::endl;
+void IFunctionalTest::setName(const std::string &name)
+{
+    m_name = name;
+}
 
-    if( diff > m_info.m_threshold ) return FAILED;
-    return SUCCESS;
+std::string IFunctionalTest::getDescription() const {
+    return m_description;
+}
+
+void IFunctionalTest::setDescription(const std::string &description)
+{
+    m_description = description;
+}
+
+IFunctionalTest::ETestResult IFunctionalTest::getTestResult() const
+{
+    return m_result;
+}
+
+std::string IFunctionalTest::getTestResultString() const
+{
+    return m_result_to_string[m_result];
+}
+
+std::string IFunctionalTest::getFormattedInfoString() const
+{
+    std::ostringstream ostr;
+    ostr <<  Utils::AdjustStringLength(getName(), width_name);
+    ostr <<  Utils::AdjustStringLength(getDescription(), width_description);
+    ostr << Utils::AdjustStringLength(getTestResultString(), width_result);
+    return ostr.str();
+}
+
+void IFunctionalTest::printResults(std::ostream &ostr) const
+{
+    ostr << getFormattedInfoString();
 }

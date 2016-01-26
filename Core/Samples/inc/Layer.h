@@ -33,63 +33,50 @@ public:
     Layer();
 
     //! Constructs layer made of _material_ with _thickness_ in nanometers and decoration
-//    Layer(const IMaterial* material, double thickness=0, ILayout *decoration=0);
     Layer(const IMaterial &material, double thickness = 0);
 
     virtual ~Layer();
 
-    virtual Layer *clone() const { return new Layer(*this); }
+    virtual Layer *clone() const;
 
     //! Returns a clone with inverted magnetic fields
     virtual Layer *cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor* visitor) const;
 
     //! Sets layer thickness in nanometers.
     virtual void setThickness(double thickness);
 
     //! Returns layer thickness in nanometers.
-    virtual double getThickness() const { return m_thickness; }
+    virtual double getThickness() const;
 
     //! Sets _material_ of the layer.
     virtual void setMaterial(const IMaterial& material);
 
     //! Sets _material_ and _thickness_.
-    virtual void setMaterialAndThickness(const IMaterial& material,
-                                         double thickness);
+    virtual void setMaterialAndThickness(const IMaterial& material, double thickness);
 
     //! Returns layer's material.
-    virtual const IMaterial* getMaterial() const { return mp_material; }
+    virtual const IMaterial* getMaterial() const;
 
     //! Returns refractive index of the layer's material.
     virtual complex_t getRefractiveIndex() const;
 
     //! Returns squared refractive index of the layer's material.
-    complex_t getRefractiveIndex2() const {
-        return getRefractiveIndex()*getRefractiveIndex();
-    }
+    complex_t getRefractiveIndex2() const;
 
     //! sets particle layout
     virtual void addLayout(const ILayout& decoration);
 
     //! gets number of layouts present
-    size_t getNumberOfLayouts() const {
-        return m_layouts.size();
-    }
+    size_t getNumberOfLayouts() const;
 
     //! returns particle decoration
-    virtual const ILayout* getLayout(size_t i) const {
-        if (i>=m_layouts.size()) {
-            return 0;
-        }
-        return m_layouts[i];
-    }
+    virtual const ILayout* getLayout(size_t i) const;
 
     //! Returns true if decoration is present
-    virtual bool hasDWBASimulation() const {
-        return (m_layouts.size()>0);
-    }
+    virtual bool hasDWBASimulation() const;
 
     //! creates and returns a LayerDWBASimulation for the given layout
     LayerDWBASimulation *createLayoutSimulation(size_t layout_index) const;
@@ -98,13 +85,9 @@ public:
 
     double getTotalAbundance() const;
 
-    void setNumberOfLayers(size_t n_layers) {
-        mn_layers = n_layers;
-    }
+    void setNumberOfLayers(size_t n_layers);
 
-    size_t getNumberOfLayers() const {
-        return mn_layers;
-    }
+    size_t getNumberOfLayers() const;
 
 protected:
     Layer(const Layer& other);
@@ -120,24 +103,12 @@ protected:
     IMaterial* mp_material;   //!< pointer to the material
     SafePointerVector<ILayout> m_layouts; //!< independent layouts in this layer
     size_t mn_layers;
+private:
+    void initialize();
 };
 
-
-inline complex_t Layer::getRefractiveIndex() const
-{
-    return (mp_material ? mp_material->getRefractiveIndex()
-                        : complex_t(1.0,0.0));
+inline size_t Layer::getNumberOfLayouts() const {
+    return m_layouts.size();
 }
-
-inline double Layer::getTotalParticleSurfaceDensity(size_t layout_index) const
-{
-    if (getNumberOfLayouts()==0 || layout_index>=getNumberOfLayouts()) {
-        return 0.0;
-    }
-    return getLayout(layout_index)->getTotalParticleSurfaceDensity();
-}
-
 
 #endif // LAYER_H
-
-

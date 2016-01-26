@@ -6,23 +6,7 @@ if(POLICY CMP0043)
     cmake_policy(SET CMP0043 NEW)
 endif()
 
-
 find_package(Qt5Widgets REQUIRED)
-
-set(list_of_tests
-    "TestGUI01"
-    "TestGUI02"
-    "TestGUI03"
-    "TestGUI04"
-    "TestGUI05"
-    "TestGUI06"
-    "TestGUI07"
-    "TestGUI08"
-    "TestGUIBeamDivergence"
-    "TestGUIDetectorResolution"
-    "TestGUIParticleDistribution"
-    "TestGUIParticleComposition"
-)
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake
 if(MSVC)
@@ -38,17 +22,51 @@ include_directories(
     ${GSL_INCLUDE_DIR}
 )
 
-foreach(_test ${list_of_tests})
-   #BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY} ${BornAgainGUI_LIBRARY})
+set(list_of_tests
+    "GUISuite/FormFactors"
+    "GUISuite/CylindersAndPrisms"
+    "GUISuite/RadialParaCrystal"
+    "GUISuite/Basic2DParaCrystal"
+    "GUISuite/HexParaCrystal"
+    "GUISuite/Lattice1D"
+    "GUISuite/RectParaCrystal"
+    "GUISuite/CoreShellParticle"
+    "GUISuite/CoreShellBoxRotateZandY"
+    "GUISuite/MultiLayerWithRoughness"
+    "GUISuite/SquareLattice"
+    "GUISuite/CenteredSquareLattice"
+    "GUISuite/RotatedSquareLattice"
+    "GUISuite/RotatedPyramids"
+    "GUISuite/ParticleComposition"
+    "GUISuite/CylindersWithSizeDistribution"
+    "GUISuite/TwoTypesCylindersDistribution"
+    "GUISuite/BeamDivergence"
+    "GUISuite/DetectorResolution"
+    "GUISuite/MultipleLayout"
+    "GUISuite/ApproximationDA"
+    "GUISuite/ApproximationLMA"
+    "GUISuite/ApproximationSSCA"
+#    "GUISuite/CylindersInSSCA" # no yet implemented (linked parameter)
+    "GUISuite/CosineRipple"
+    "GUISuite/TriangularRipple"
+    "GUISuite/TransformBox"
+    "GUISuite/BoxCompositionRotateX"
+    "GUISuite/BoxCompositionRotateY"
+    "GUISuite/BoxCompositionRotateZ"
+    "GUISuite/BoxCompositionRotateZandY"
+    "GUISuite/BoxStackComposition"
+    "GUISuite/SimulationWithMasks"
+)
 
-   file(GLOB source_files "${_test}/*.cpp")
-   file(GLOB include_files "${_test}/*.h")
-   add_executable( ${_test} ${source_files} ${include_files})
-   target_link_libraries(${_test} ${BornAgainCore_LIBRARY} ${BornAgainGUI_LIBRARY})
-
-   qt5_use_modules(${_test} Widgets Core Gui Script Designer PrintSupport)
-
-   BORNAGAIN_ADD_TEST(${_test} INPUT_DIR ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/)
+# Adding executables.
+get_list_of_executables_from_list_of_tests("${list_of_tests}" ${list_of_executables})
+foreach(test_exe_name ${list_of_executables})
+   BORNAGAIN_EXECUTABLE(${test_exe_name} LOCATIONS ${test_exe_name} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY} ${BornAgainGUI_LIBRARY})
+   qt5_use_modules(${test_exe_name} Widgets Core Gui Designer PrintSupport Network)
 endforeach()
 
-
+# Adding tests
+foreach(_test ${list_of_tests})
+    get_test_name_and_argument(${_test} ${test_exe_name} ${test_argument})
+    BORNAGAIN_ADD_TEST(${_test} ${test_exe_name} TEST_ARGUMENTS ${test_argument})
+endforeach()

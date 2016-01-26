@@ -14,65 +14,53 @@
 // ************************************************************************** //
 
 #include "FitObject.h"
+#include "GISASSimulation.h"
 #include "Exceptions.h"
 #include "MessageService.h"
+#include "IIntensityNormalizer.h"
+#include <sstream>
 #include <boost/scoped_ptr.hpp>
 
-FitObject::FitObject(
-    const GISASSimulation& simulation, const OutputData<double >& real_data,
-    const IChiSquaredModule& chi2_module, double weight)
+FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double >& real_data,
+    double weight, bool adjust_detector_to_data)
     : m_simulation(simulation.clone())
     , m_real_data(real_data.clone())
-    , m_chi2_module(chi2_module.clone())
     , m_weight(weight)
+    , m_adjust_detector_to_data(adjust_detector_to_data)
 {
     setName("FitObject");
-    if( !m_real_data->hasSameShape(*m_simulation->getOutputData()) ) {
-        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. "
-            "Real data and output data in the simulation have different shape. "
-            "Adjusting simulation's detector.";
-    } else {
-        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. "
-            "Real data and output data in the simulation have same shape.";
-    }
-    m_simulation->setDetectorParameters(*m_real_data);
+//    if( !m_real_data->hasSameShape(*m_simulation->getOutputData()) ) {
+//        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. "
+//            "Real data and output data in the simulation have different shape. "
+//            "Adjusting simulation's detector.";
+//    } else {
+//        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. "
+//            "Real data and output data in the simulation have same shape.";
+//    }    
+//    m_simulation->setDetectorParameters(*m_real_data);
+
+    init_dataset();
 }
 
 FitObject::~FitObject()
 {
-    delete m_simulation;
-    delete m_real_data;
-    delete m_chi2_module;
 }
 
-//! Sets real data
-void FitObject::setRealData(const OutputData<double >& real_data)
+const OutputData<double> *FitObject::getRealData() const
 {
-    delete m_real_data;
-    m_real_data = real_data.clone();
-    if( m_simulation) {
-        if( !m_real_data->hasSameShape(*m_simulation->getOutputData()) ) {
-            msglog(MSG::INFO) << "FitObject::setRealData() -> "
-                "Real data and the detector have different shape. "
-                "Adjusting detector...";
-        } else {
-            msglog(MSG::INFO) << "FitObject::setRealData() -> "
-                "Real data and the detector have same shape. "
-                "No need to adjust detector.";
-        }
-        m_simulation->setDetectorParameters(*m_real_data);
-    }
+    return m_real_data.get();
 }
 
-//! Updates m_chi2_module; returns chi squared value.
-
-double FitObject::calculateChiSquared()
+const OutputData<double> *FitObject::getSimulationData() const
 {
-    boost::scoped_ptr<OutputData<double> > P_sim_data(m_simulation->getIntensityData());
-    m_chi2_module->setRealAndSimulatedData(*m_real_data, *P_sim_data.get());
-
-    return m_chi2_module->calculateChiSquared();
+    return m_simulation_data.get();
 }
+
+const GISASSimulation *FitObject::getSimulation() const
+{
+    return m_simulation.get();
+}
+
 
 //! Adds parameters from local pool to external pool
 std::string FitObject::addParametersToExternalPool(
@@ -86,13 +74,108 @@ std::string FitObject::addParametersToExternalPool(
     if(m_simulation)
         m_simulation->addParametersToExternalPool(new_path, external_pool, -1);
 
-    if(m_chi2_module) {
-        const IIntensityNormalizer* data_normalizer =
-            m_chi2_module->getIntensityNormalizer();
-        if(data_normalizer)
-            data_normalizer->addParametersToExternalPool(
-                new_path, external_pool, -1);
+    return new_path;
+}
+
+//! Initialize detector, if necessary, to match experimental data
+void FitObject::init_dataset()
+{
+    if(!same_dimensions_dataset()) {
+        if(m_adjust_detector_to_data && is_possible_to_adjust_simulation()) {
+            m_simulation->setDetectorParameters(*m_real_data);
+        } else {
+            throw LogicErrorException(get_error_message());
+        }
     }
 
-    return new_path;
+}
+
+bool FitObject::same_dimensions_dataset() const
+{
+    return m_real_data->hasSameDimensions(*m_simulation->getOutputData());
+}
+
+//! returns true if it is possible to adjust detector axes to the axes of real data
+//! * rank of two data should coinside
+//! * for every axis, number of real data axis bins should be not large than simulation axis
+//! * for every axis, (min,max) values of real axis should be inside simulation axis
+bool FitObject::is_possible_to_adjust_simulation() const
+{
+    if(m_simulation->getOutputData()->getRank() != m_real_data->getRank()) return false;
+    for(size_t i=0; i<m_real_data->getRank(); ++i) {
+        const IAxis *ra = m_real_data->getAxis(i);
+        const IAxis *sa = m_simulation->getOutputData()->getAxis(i);
+        if(ra->getSize() > sa->getSize()) return false;
+        if(ra->getMin() < sa->getMin()) return false;
+        if(ra->getMax() > sa->getMax()) return false;
+    }
+    return true;
+}
+
+std::string FitObject::get_error_message() const
+{
+    std::ostringstream message;
+    message << "FitObject::init_dataset() -> Error. "
+            << "Real data and detector have different shape. \n"
+            << "Real data axes -> ";
+    for(size_t i=0; i<m_real_data->getRank(); ++i) {
+        message << "#"<< i << ": " << (*m_real_data->getAxis(i)) << " ";
+    }
+    message << "\nDetector axes  -> ";
+    for(size_t i=0; i<m_simulation->getOutputData()->getRank(); ++i) {
+        message << "#"<< i << ": " << (*m_simulation->getOutputData()->getAxis(i)) << " ";
+    }
+    return message.str();
+}
+
+double FitObject::getWeight() const
+{
+    return m_weight;
+}
+
+size_t FitObject::getSizeOfData() const
+{
+    // FIXME Fix this hell
+    size_t result = m_real_data->getAllocatedSize() - m_simulation->getInstrument().getDetector()->getDetectorMask()->getNumberOfMaskedChannels();
+    return result;
+}
+
+//! Runs simulation and put results (the real and simulated intensities) into
+//! external vector. Masked channels will be excluded from the vector.
+void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double weight,
+                                   IIntensityNormalizer *normalizer)
+{
+    m_simulation->runSimulation();
+    m_simulation_data.reset(m_simulation->getDetectorIntensity());
+
+    if(normalizer) {
+        normalizer->apply(*m_simulation_data.get());
+    }
+
+    const OutputData<bool> *masks(0);
+    if(m_simulation->getInstrument().getDetector()->hasMasks()) {
+        masks = m_simulation->getInstrument().getDetector()->getDetectorMask()->getMaskData();
+    }
+
+    for(size_t index=0; index<m_simulation_data->getAllocatedSize(); ++index) {
+        if(masks && (*masks)[index]) continue;
+        FitElement element(index, (*m_simulation_data)[index], (*m_real_data)[index], weight);
+        fit_elements.push_back(element);
+    }
+}
+
+//!Creates ChiSquared map from external vector.
+// It is used from Python in one example, didn't find nicer way/place to create such map.
+OutputData<double> *FitObject::getChiSquaredMap(std::vector<FitElement>::const_iterator first,
+                                                std::vector<FitElement>::const_iterator last) const
+{
+    OutputData<double> *result = new OutputData<double>;
+    result->copyShapeFrom(*m_simulation_data.get());
+
+    for(std::vector<FitElement>::const_iterator it=first; it!=last; ++it) {
+        (*result)[it->getIndex()] = it->getSquaredDifference();
+
+    }
+
+    return result;
 }

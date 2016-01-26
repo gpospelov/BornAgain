@@ -26,11 +26,14 @@
 template<>
 PyObject *OutputData<double>::getArray() const
 {
-    std::vector<int > dimensions;
+    std::vector<size_t > dimensions;
     for(size_t i=0; i<getRank(); i++) {
-        //const AxisDouble *axis = output_data.getAxis(i);
-        const IAxis *axis = getAxis(i);
-        dimensions.push_back( (int)axis->getSize() );
+        dimensions.push_back(getAxis(i)->getSize());
+    }
+
+    // for rot90 of 2-dim arrays to conform with numpy
+    if(dimensions.size() == 2) {
+        std::swap(dimensions[0], dimensions[1]);
     }
 
     // creating ndarray objects describing size of dimensions
@@ -43,7 +46,7 @@ PyObject *OutputData<double>::getArray() const
     // creating standalone numpy array
     PyObject *pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy, NPY_DOUBLE);
     delete [] ndimsizes_numpy;
-    if(pyarray == NULL ) {
+    if(pyarray == nullptr ) {
         throw RuntimeErrorException(
                 "ExportOutputData() -> Panic in PyArray_SimpleNew");
     }
@@ -52,9 +55,18 @@ PyObject *OutputData<double>::getArray() const
     // getting pointer to data buffer of numpy array
     double *array_buffer = (double *)PyArray_DATA((PyArrayObject*)pyarray);
 
-    // filling numpy array with output_data (including masked areas)
-    for(size_t index=0; index<getAllocatedSize(); ++index) {
-        *array_buffer++ = (*this)[index];
+    // filling numpy array with output_data
+    if(getRank() == 2) {
+        for(size_t index=0; index<getAllocatedSize(); ++index) {
+            std::vector<int> axes_indices = getAxesBinIndices(index);
+            size_t offset = axes_indices[0] + m_value_axes[0]->getSize()*(m_value_axes[1]->getSize() - 1 - axes_indices[1]);
+            array_buffer[offset] = (*this)[index];
+        }
+
+    } else {
+        for(size_t index=0; index<getAllocatedSize(); ++index) {
+            *array_buffer++ = (*this)[index];
+        }
     }
 
     return pyarray;

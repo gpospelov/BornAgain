@@ -23,6 +23,7 @@ class BeamItem;
 class DetectorItem;
 class BeamEditorWidget;
 class DetectorEditorWidget;
+class ColumnResizer;
 
 class BA_CORE_API_ InstrumentComponentsWidget : public QWidget
 {
@@ -33,11 +34,15 @@ public:
     void setBeamItem(BeamItem *beamItem);
     void setDetectorItem(DetectorItem *detectorItem);
 
+signals:
+    void extendedDetectorEditorRequest(DetectorItem *);
+
 private:
     BeamEditorWidget *m_beamEditor;
     DetectorEditorWidget *m_detectorEditor;
     BeamItem *m_beamItem;
     DetectorItem *m_detectorItem;
+    ColumnResizer *m_columnResizer;
 };
 
 #endif

@@ -31,8 +31,7 @@ public:
     static bool isValidExampleName(const QString &name);
 
     static ParameterizedItem *createSampleItems(const QString &name, SampleModel *sampleModel);
-    static ParameterizedItem *createInstrumentItems(const QString &name, InstrumentModel *instrumentModel);
-
+//    static ParameterizedItem *createInstrumentItems(const QString &name, InstrumentModel *instrumentModel);
 
 private:
     static QMap<QString, QString> m_name_to_registry;

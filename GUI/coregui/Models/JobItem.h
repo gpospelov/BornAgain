@@ -39,7 +39,7 @@ public:
     static const QString P_NTHREADS;
     static const QString P_RUN_POLICY;
     explicit JobItem(ParameterizedItem *parent=0);
-    ~JobItem();
+    virtual ~JobItem();
 
     QString getIdentifier() const;
     void setIdentifier(const QString &identifier);
@@ -78,8 +78,6 @@ public:
     MultiLayerItem *getMultiLayerItem(bool from_backup = false);
 
     InstrumentItem *getInstrumentItem(bool from_backup = false);
-
-//    void onPropertyChange(const QString &name);
 
 private:
     static QMap<QString, QString> m_run_policies; // run policy, policy description

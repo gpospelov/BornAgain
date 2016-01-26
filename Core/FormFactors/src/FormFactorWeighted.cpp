@@ -14,10 +14,12 @@
 // ************************************************************************** //
 
 #include "FormFactorWeighted.h"
+#include "BornAgainNamespace.h"
+
 
 FormFactorWeighted::FormFactorWeighted()
 {
-    setName("FormFactorWeighted");
+    setName(BornAgain::FormFactorWeightedType);
 }
 
 FormFactorWeighted::~FormFactorWeighted()
@@ -33,12 +35,26 @@ FormFactorWeighted* FormFactorWeighted::clone() const
     for (size_t index=0; index<m_form_factors.size(); ++index) {
         result->addFormFactor(*m_form_factors[index], m_weights[index]);
     }
-    result->setName(getName());
+    return result;
+}
+
+void FormFactorWeighted::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+double FormFactorWeighted::getRadius() const
+{
+    double result { 0.0 };
+    for (size_t index=0; index<m_form_factors.size(); ++index) {
+        double radius = m_form_factors[index]->getRadius();
+        result += m_weights[index]*radius;
+    }
     return result;
 }
 
 void FormFactorWeighted::addFormFactor(const IFormFactor& form_factor,
-        double weight)
+                                       double weight)
 {
     m_form_factors.push_back(form_factor.clone());
     m_weights.push_back(weight);
@@ -51,35 +67,22 @@ void FormFactorWeighted::setAmbientMaterial(const IMaterial& material)
     }
 }
 
-complex_t FormFactorWeighted::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const
+complex_t FormFactorWeighted::evaluate(const WavevectorInfo& wavevectors) const
 {
     complex_t result(0.0, 0.0);
     for (size_t index=0; index<m_form_factors.size(); ++index) {
-        complex_t ff_evaluate = m_form_factors[index]->evaluate(k_i, k_f_bin,
-                alpha_f_bin);
+        complex_t ff_evaluate = m_form_factors[index]->evaluate(wavevectors);
         result += m_weights[index]*ff_evaluate;
     }
     return result;
 }
 
-Eigen::Matrix2cd FormFactorWeighted::evaluatePol(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin, const Bin1D &phi_f_bin) const
+Eigen::Matrix2cd FormFactorWeighted::evaluatePol(const WavevectorInfo& wavevectors) const
 {
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
     for (size_t index=0; index<m_form_factors.size(); ++index) {
-        Eigen::Matrix2cd ff_evaluate = m_form_factors[index]->evaluatePol(
-                k_i, k_f_bin, alpha_f_bin, phi_f_bin);
+        Eigen::Matrix2cd ff_evaluate = m_form_factors[index]->evaluatePol(wavevectors);
         result += m_weights[index]*ff_evaluate;
-    }
-    return result;
-}
-
-int FormFactorWeighted::getNumberOfStochasticParameters() const
-{
-    int result=0;
-    for (size_t index=0; index<m_form_factors.size(); ++index) {
-        result += m_form_factors[index]->getNumberOfStochasticParameters();
     }
     return result;
 }

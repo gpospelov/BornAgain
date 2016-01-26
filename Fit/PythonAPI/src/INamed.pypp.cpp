@@ -32,7 +32,7 @@ void register_INamed_class(){
         typedef bp::class_< INamed > INamed_exposer_t;
         INamed_exposer_t INamed_exposer = INamed_exposer_t( "INamed", "Interface for named objects.", bp::init< >("Default constructor, setting name="".") );
         bp::scope INamed_scope( INamed_exposer );
-        INamed_exposer.def( bp::init< std::string const & >(( bp::arg("name") ), "Constructor that sets the _name_.") );
+        INamed_exposer.def( bp::init< std::string >(( bp::arg("name") ), "Constructor that sets the _name_.") );
         { //::INamed::getName
         
             typedef ::std::string ( ::INamed::*getName_function_type)(  ) const;
@@ -41,17 +41,6 @@ void register_INamed_class(){
                 "getName"
                 , getName_function_type( &::INamed::getName )
                 , "Returns the name." );
-        
-        }
-        { //::INamed::setName
-        
-            typedef void ( ::INamed::*setName_function_type)( ::std::string ) ;
-            
-            INamed_exposer.def( 
-                "setName"
-                , setName_function_type( &::INamed::setName )
-                , ( bp::arg("name") )
-                , "Sets the _name_." );
         
         }
     }

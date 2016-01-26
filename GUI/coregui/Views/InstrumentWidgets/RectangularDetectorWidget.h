@@ -19,6 +19,7 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
+class ColumnResizer;
 class GroupBox;
 class DetectorItem;
 class AwesomePropertyEditor;
@@ -31,10 +32,12 @@ class BA_CORE_API_ RectangularDetectorWidget : public QWidget
 public:
     RectangularDetectorWidget(ColumnResizer *columnResizer,
                               DetectorItem *detectorItem, QWidget *parent = 0);
+    virtual ~RectangularDetectorWidget();
 
     void setDetectorItem(DetectorItem *detectorItem);
 
 private:
+    ColumnResizer *m_columnResizer;
     AwesomePropertyEditor *m_detectorTypeEditor;
     AwesomePropertyEditor *m_xAxisEditor;
     AwesomePropertyEditor *m_yAxisEditor;

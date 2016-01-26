@@ -49,5 +49,13 @@ public:
     explicit RectangularDetectorItem(ParameterizedItem *parent=0);
 };
 
+//class DetectorAlignmentItem : public ParameterizedItem
+//{
+//public:
+//    static const QString P_X_AXIS;
+//    static const QString P_Y_AXIS;
+//    explicit RectangularDetectorItem(ParameterizedItem *parent=0);
+//};
+
 
 #endif

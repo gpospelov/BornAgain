@@ -49,6 +49,7 @@ public:
     static PropertyAttribute visibleProperty() { return PropertyAttribute(VISIBLE); }
     static PropertyAttribute hiddenProperty() { return PropertyAttribute(HIDDEN); }
     static PropertyAttribute disabledProperty() { return PropertyAttribute(DISABLED); }
+    static PropertyAttribute labeled(const QString &label) { return PropertyAttribute(VISIBLE, AttLimits::lowerLimited(0.0), 2, label); }
 
     EAppearance getAppearance() const { return m_appearance; }
     void setAppearance(EAppearance appearance) { m_appearance = appearance; }

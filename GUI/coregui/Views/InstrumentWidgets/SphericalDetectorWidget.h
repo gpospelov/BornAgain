@@ -37,6 +37,7 @@ public:
     void setDetectorItem(DetectorItem *detectorItem);
 
 private:
+    ColumnResizer *m_columnResizer;
     AwesomePropertyEditor *m_detectorTypeEditor;
     AwesomePropertyEditor *m_phiAxisEditor;
     AwesomePropertyEditor *m_alphaAxisEditor;

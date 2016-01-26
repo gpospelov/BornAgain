@@ -135,6 +135,14 @@ void ColumnResizer::updateWidth()
     }
 }
 
+void ColumnResizer::removeWidget(QWidget *widget)
+{
+    if(d->m_widgets.contains(widget)) {
+        d->m_widgets.removeAll(widget);
+        widget->removeEventFilter(this);
+    }
+}
+
 bool ColumnResizer::eventFilter(QObject*, QEvent* event)
 {
     if (event->type() == QEvent::Resize) {
@@ -196,6 +204,35 @@ void ColumnResizer::addWidgetsFromFormLayout(QFormLayout* layout, QFormLayout::I
         addWidget(widget);
         d->m_wrWidgetItemList << newItem;
     }
+}
+
+void ColumnResizer::dropWidgetsFromGridLayout(QGridLayout *layout)
+{
+    // removing all widgets from being supervised
+    for (int row = 0; row < layout->rowCount(); ++row) {
+        for(int column =0; column<layout->columnCount(); ++column) {
+            QLayoutItem* item = layout->itemAtPosition(row, column);
+            if (!item) {
+                continue;
+            }
+            QWidget* widget = item->widget();
+            if (!widget) {
+                continue;
+            }
+            removeWidget(widget);
+        }
+    }
+
+    // removing their layout
+    QMutableListIterator<GridColumnInfo> it(d->m_gridColumnInfoList);
+    while (it.hasNext()) {
+        GridColumnInfo ci = it.next();
+        if(ci.first == layout) {
+            it.remove();
+        }
+    }
+
+    d->scheduleWidthUpdate();
 }
 
 #include <columnresizer.moc>

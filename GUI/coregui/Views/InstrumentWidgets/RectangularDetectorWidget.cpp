@@ -25,6 +25,7 @@
 RectangularDetectorWidget::RectangularDetectorWidget(ColumnResizer *columnResizer,
                                                      DetectorItem *detectorItem, QWidget *parent)
     : QWidget(parent)
+    , m_columnResizer(columnResizer)
     , m_detectorTypeEditor(0)
     , m_xAxisEditor(0)
     , m_yAxisEditor(0)
@@ -44,9 +45,9 @@ RectangularDetectorWidget::RectangularDetectorWidget(ColumnResizer *columnResize
         = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
     m_gridLayout->addWidget(m_resolutionFunctionEditor, 1, 2);
 
-//    columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
-//    columnResizer->addWidgetsFromGridLayout(m_gridLayout, 1);
-//    columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
+    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
+    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 1);
+    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
 
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -56,6 +57,11 @@ RectangularDetectorWidget::RectangularDetectorWidget(ColumnResizer *columnResize
     setLayout(mainLayout);
 
     setDetectorItem(detectorItem);
+}
+
+RectangularDetectorWidget::~RectangularDetectorWidget()
+{
+    m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
 }
 
 void RectangularDetectorWidget::setDetectorItem(DetectorItem *detectorItem)

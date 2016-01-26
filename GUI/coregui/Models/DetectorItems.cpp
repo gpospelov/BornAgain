@@ -76,13 +76,16 @@ RectangularDetectorItem::RectangularDetectorItem(ParameterizedItem *parent)
 {
     registerGroupProperty(P_X_AXIS, Constants::BasicAxisType);
     getSubItems()[P_X_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
-    getSubItems()[P_X_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, -1.0);
+    getSubItems()[P_X_AXIS]->setPropertyAppearance(BasicAxisItem::P_MIN, PropertyAttribute::HIDDEN);
+
     getSubItems()[P_X_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 1.0);
+    getSubItems()[P_X_AXIS]->setPropertyAttribute(BasicAxisItem::P_MAX, PropertyAttribute::labeled("width"));
 
     registerGroupProperty(P_Y_AXIS, Constants::BasicAxisType);
     getSubItems()[P_Y_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
-    getSubItems()[P_Y_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, 0.0);
+    getSubItems()[P_Y_AXIS]->setPropertyAppearance(BasicAxisItem::P_MIN, PropertyAttribute::HIDDEN);
     getSubItems()[P_Y_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 2.0);
+    getSubItems()[P_Y_AXIS]->setPropertyAttribute(BasicAxisItem::P_MAX, PropertyAttribute::labeled("height"));
 
 
     registerGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);

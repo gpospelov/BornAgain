@@ -25,7 +25,7 @@
 The Form factor of a hard-shell particle is simply its \E{shape transform},
 as introduced in~(\ref{EFFhardshell}),
 \begin{equation}\label{EFF_SFF2}
-  F(\q)=\int_V {\rm d}^3r\, {\rm e}^{i\q\r},
+  F(\q)=\int_V\!\d^3r\, \e^{i\q\r},
 \end{equation}
 where $V$ delimits the volume of the particle.
 Here we show for a few selected cases
@@ -84,25 +84,51 @@ Therefore we shall consider a few such cases more closely.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 To compute the two-dimensional form factor
-of a regular $n$-polygon in a systematic way,
-we decompose the polygon into~$n$ gleichschenklige triangles.
+of a regular $n$-gon in a systematic way,
+we decompose the polygon into~$n$ isosceles triangles
+with vertex angles of $2\eta\coloneqq2\pi/n$.
 Thus the form factor shall be computed as
 \begin{equation}
-  F(\q) = \sum_{j=0}^{n-1} \Gamma(D^{2j}\q),
+  F(\q) = \sum_{j=0}^{n-1} \Gamma(D^{2j}\q)
 \end{equation}
-where the matrix
+with the rotation matrix
 \begin{equation}
   D\coloneqq\left(\begin{array}{ll}\cos\eta&\sin\eta\\
-                          -\sin\eta&\cos\eta\end{array}\right)
+                          -\sin\eta&\cos\eta\end{array}\right).
 \end{equation}
-describes a rotation by an angle $\eta\coloneqq\pi/n$.
 The form factor of one triangle is given by
 \begin{equation}
   \Gamma(\q)
-  =\int_0^{R\cos\eta}\!\mathup dx\,\mathup e^{iq_x x}
-   \int_{-R\tan\eta}^{+R\tan\eta}\!\mathup dy\,\mathup e^{iq_yy}.
+  =\int_0^{R\cos\eta}\!\d x\,\e^{iq_x x}
+   \int_{-R\tan\eta}^{+R\tan\eta}\!\d y\,\e^{iq_yy}.
 \end{equation}
 Straightforward calculation yields
+\begin{equation}\label{EngonG}
+  \Gamma(\q)
+  = \frac{\cos\eta}{\hy\q}\left(
+    \frac{1-\e^{i\hx D\q R}}{\hx D\q}
+   -\frac{1-\e^{i\hx D^{-1}\q R}}{\hx D^{-1}\q}\right).
+\end{equation}
+The singularities at $\hx D\q=0$ or $\hx D^{-1}\q=0$ are obviously removable.
+To investigate the singularity at~$\hy\q=0$,
+we let $\q=a\hx+\epsilon\hy$.
+Then $\hx D^{\pm1}\q = a\cos\eta\pm\epsilon\sin\eta$,
+and
+\begin{equation}\label{EngonGsing3}
+  \Gamma(\q) = \frac{2\cos\eta\,\sin\eta
+  \left\{ -1+\left[\cos(\epsilon R\cos\eta)
+        -iaR\cos\eta\sinc(\epsilon R\sin\eta)\right]\e^{iaR\cos\eta}\right\}}
+{a^2\cos^2\eta-\epsilon^2\sin^2\eta}.
+\end{equation}
+For $\eta\to0$ at finite~$a$, the only singularity is in the sinc function,
+hence it is removable.
+Finally, for the singularity at $q\to0$, we choose $\epsilon=0$ and
+expand~(\ref{EngonGsing3}) for $a\to0$,
+which yields
+\begin{equation}
+  \Gamma(0) = R^2\,\sin\eta\,\cos\eta,
+\end{equation}
+which is the surface of the triangle, as it ought to be.
 
 \Work{work in progress \ldots}
 \iffalse

@@ -50,7 +50,7 @@ const QString InterferenceFunction1DLatticeItem::P_LENGTH =
         QString::fromStdString(BornAgain::Length);
 const QString InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE =
         QString::fromStdString(BornAgain::Xi);
-const QString InterferenceFunction1DLatticeItem::P_PDF = "PDF";
+const QString InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION = "Decay Function";
 
 
 InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystalItem(
@@ -97,7 +97,7 @@ InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem(Parameteriz
 {
     registerProperty(P_LENGTH, 20.0*Units::nanometer);
     registerProperty(P_ROTATION_ANGLE, 0.0);
-    registerGroupProperty(P_PDF, Constants::FTDistribution1DGroup);
+    registerGroupProperty(P_DECAY_FUNCTION, Constants::FTDistribution1DGroup);
 }
 
 InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem(

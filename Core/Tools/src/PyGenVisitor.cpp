@@ -685,43 +685,43 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                    << latticeParameters.m_length << "*nanometer, "
                    << PyGenTools::printDegrees(latticeParameters.m_xi) << ")\n";
 
-            const IFTDistribution1D *pdf = oneDLattice->getProbabilityDistribution();
+            const IFTDecayFunction1D *pdf = oneDLattice->getDecayFunction();
 
-            if (const FTDistribution1DVoigt *fTD1DVoigt
-                = dynamic_cast<const FTDistribution1DVoigt *>(pdf)) {
-                result << indent() << it->second << "_pdf  = FTDistribution1DVoigt("
+            if (const FTDecayFunction1DVoigt *fTD1DVoigt
+                = dynamic_cast<const FTDecayFunction1DVoigt *>(pdf)) {
+                result << indent() << it->second << "_pdf  = FTDecayFunction1DVoigt("
                        << PyGenTools::printDouble(fTD1DVoigt->getOmega()) << ", "
                        << PyGenTools::printDouble(fTD1DVoigt->getEta()) << ")\n";
             }
 
             if (pdf->getOmega() != 0.0) {
-                if (const FTDistribution1DCauchy *fTD1DCauchy
-                    = dynamic_cast<const FTDistribution1DCauchy *>(pdf)) {
-                    result << indent() << it->second << "_pdf  = FTDistribution1DCauchy("
+                if (const FTDecayFunction1DCauchy *fTD1DCauchy
+                    = dynamic_cast<const FTDecayFunction1DCauchy *>(pdf)) {
+                    result << indent() << it->second << "_pdf  = FTDecayFunction1DCauchy("
                            << PyGenTools::printDouble(fTD1DCauchy->getOmega()) << ")\n";
                 }
 
-                else if (const FTDistribution1DCosine *fTD1DCosine
-                         = dynamic_cast<const FTDistribution1DCosine *>(pdf)) {
-                    result << indent() << it->second << "_pdf  = FTDistribution1DCosine("
+                else if (const FTDecayFunction1DCosine *fTD1DCosine
+                         = dynamic_cast<const FTDecayFunction1DCosine *>(pdf)) {
+                    result << indent() << it->second << "_pdf  = FTDecayFunction1DCosine("
                            << PyGenTools::printDouble(fTD1DCosine->getOmega()) << ")\n";
                 }
 
-                else if (const FTDistribution1DGate *fTD1DGate
-                         = dynamic_cast<const FTDistribution1DGate *>(pdf)) {
-                    result << indent() << it->second << "_pdf  = FTDistribution1DGate("
+                else if (const FTDecayFunction1DGate *fTD1DGate
+                         = dynamic_cast<const FTDecayFunction1DGate *>(pdf)) {
+                    result << indent() << it->second << "_pdf  = FTDecayFunction1DGate("
                            << PyGenTools::printDouble(fTD1DGate->getOmega()) << ")\n";
                 }
 
-                else if (const FTDistribution1DGauss *fTD1DGauss
-                         = dynamic_cast<const FTDistribution1DGauss *>(pdf)) {
-                    result << indent() << it->second << "_pdf  = FTDistribution1DGauss("
+                else if (const FTDecayFunction1DGauss *fTD1DGauss
+                         = dynamic_cast<const FTDecayFunction1DGauss *>(pdf)) {
+                    result << indent() << it->second << "_pdf  = FTDecayFunction1DGauss("
                            << PyGenTools::printDouble(fTD1DGauss->getOmega()) << ")\n";
                 }
 
-                else if (const FTDistribution1DTriangle *fTD1DTriangle
-                         = dynamic_cast<const FTDistribution1DTriangle *>(pdf)) {
-                    result << indent() << it->second << "_pdf  = FTDistribution1DTriangle("
+                else if (const FTDecayFunction1DTriangle *fTD1DTriangle
+                         = dynamic_cast<const FTDecayFunction1DTriangle *>(pdf)) {
+                    result << indent() << it->second << "_pdf  = FTDecayFunction1DTriangle("
                            << PyGenTools::printDouble(fTD1DTriangle->getOmega()) << ")\n";
                 }
 

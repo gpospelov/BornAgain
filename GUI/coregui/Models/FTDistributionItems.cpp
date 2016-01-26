@@ -14,7 +14,10 @@
 // ************************************************************************** //
 
 #include "FTDistributionItems.h"
+#include "item_constants.h"
 #include "Units.h"
+
+using namespace Constants;
 
 const QString FTDistribution1DItem::P_CORR_LENGTH = "Corr_length";
 const QString FTDistribution1DVoigtItem::P_ETA = "Eta";
@@ -29,7 +32,7 @@ const QString FTDistribution2DVoigtItem::P_ETA = "Eta";
 
 // Cauchy
 FTDistribution1DCauchyItem::FTDistribution1DCauchyItem(ParameterizedItem *parent)
-    : FTDistribution1DItem(QString("FTDistribution1DCauchy"), parent)
+    : FTDistribution1DItem(FTDistribution1DCauchyType, parent)
 {
     registerProperty(P_CORR_LENGTH, 1.0);
 }

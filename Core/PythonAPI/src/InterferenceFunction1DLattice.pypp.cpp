@@ -216,7 +216,7 @@ void register_InterferenceFunction1DLattice_class(){
             
             InterferenceFunction1DLattice_exposer.def( 
                 "getProbabilityDistribution"
-                , getProbabilityDistribution_function_type( &::InterferenceFunction1DLattice::getProbabilityDistribution )
+                , getProbabilityDistribution_function_type( &::InterferenceFunction1DLattice::getDecayFunction )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
@@ -226,7 +226,7 @@ void register_InterferenceFunction1DLattice_class(){
             
             InterferenceFunction1DLattice_exposer.def( 
                 "setProbabilityDistribution"
-                , setProbabilityDistribution_function_type( &::InterferenceFunction1DLattice::setProbabilityDistribution )
+                , setProbabilityDistribution_function_type( &::InterferenceFunction1DLattice::setDecayFunction )
                 , ( bp::arg("pdf") ) );
         
         }

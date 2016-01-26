@@ -48,6 +48,7 @@
 #include "MaskItems.h"
 #include "BornAgainNamespace.h"
 #include "ParticleDistributionItem.h"
+#include "FTDecayFunctionItems.h"
 
 
 #include <QDebug>
@@ -247,12 +248,12 @@ TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
                 item.getRegisteredProperty(InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE)
                        .toDouble());
         auto P_iff = GUIHelpers::make_unique<InterferenceFunction1DLattice>(length, angle);
-        auto pdfItem = item.getSubItems()[InterferenceFunction1DLatticeItem::P_PDF];
+        auto pdfItem = item.getSubItems()[InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION];
         Q_ASSERT(pdfItem);
-        std::unique_ptr<IFTDistribution1D> P_pdf(
-            dynamic_cast<FTDistribution1DItem *>(pdfItem)->createFTDistribution());
+        std::unique_ptr<IFTDecayFunction1D> P_pdf(
+            dynamic_cast<FTDecayFunction1DItem *>(pdfItem)->createFTDecayFunction());
         Q_ASSERT(P_pdf);
-        P_iff->setProbabilityDistribution(*P_pdf);
+        P_iff->setDecayFunction(*P_pdf);
         P_result = std::move(P_iff);
     } else if (item.modelType() == Constants::InterferenceFunction2DLatticeType) {
         auto latticeItem = item.getSubItems()[InterferenceFunction2DLatticeItem::P_LATTICE_TYPE];

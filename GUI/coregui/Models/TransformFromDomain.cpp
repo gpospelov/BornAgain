@@ -19,6 +19,7 @@
 #include "InterferenceFunctionItems.h"
 #include "FTDistributions.h"
 #include "FTDistributionItems.h"
+#include "FTDecayFunctionItems.h"
 #include "LatticeTypeItems.h"
 #include "Numeric.h"
 #include "Units.h"
@@ -67,6 +68,9 @@ using namespace BornAgain;
 
 void SetPDF1D(ParameterizedItem *item, const IFTDistribution1D *pdf, QString group_name);
 void setPDF2D(ParameterizedItem *item, const IFTDistribution2D *pdf, QString group_name);
+void SetDecayFunction1D(ParameterizedItem *item, const IFTDecayFunction1D *ipdf,
+                        QString group_name);
+
 void set2DLatticeParameters(ParameterizedItem *item, Lattice2DParameters lattice_params,
                             ParameterizedItem *lattice_item);
 void setDistribution(ParameterizedItem *item, ParameterDistribution par_distr,
@@ -126,10 +130,10 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     item->setRegisteredProperty(InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE,
                                 Units::rad2deg(lattice_params.m_xi));
 
-    const IFTDistribution1D *pdf = sample->getProbabilityDistribution();
-    QString group_name = InterferenceFunction1DLatticeItem::P_PDF;
+    const IFTDecayFunction1D *pdf = sample->getDecayFunction();
+    QString group_name = InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION;
     qDebug() << "    group_name" << group_name;
-    SetPDF1D(item, pdf, group_name);
+    SetDecayFunction1D(item, pdf, group_name);
 }
 
 void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
@@ -449,9 +453,7 @@ void SetPDF1D(ParameterizedItem *item, const IFTDistribution1D *ipdf, QString gr
         pdfItem->setRegisteredProperty(FTDistribution1DVoigtItem::P_CORR_LENGTH, pdf->getOmega());
         pdfItem->setRegisteredProperty(FTDistribution1DVoigtItem::P_ETA, pdf->getEta());
     } else {
-        throw GUIHelpers::Error("TransformFromDomain::"
-                                "setItemFromSample(ParameterizedItem *item, const "
-                                "InterferenceFunction2DParaCrystal *sample) -> Error");
+        throw GUIHelpers::Error("TransformFromDomain::setPDF1D: -> Error");
     }
 }
 
@@ -510,6 +512,43 @@ void setPDF2D(ParameterizedItem *item, const IFTDistribution2D *pdf, QString gro
         pdfItem->setRegisteredProperty(FTDistribution2DVoigtItem::P_ETA, pdf_voigt->getEta());
     } else {
         throw GUIHelpers::Error("TransformFromDomain::setPDF2D: -> Error");
+    }
+}
+
+void SetDecayFunction1D(ParameterizedItem *item, const IFTDecayFunction1D *ipdf, QString group_name)
+{
+    if (const FTDecayFunction1DCauchy *pdf = dynamic_cast<const FTDecayFunction1DCauchy *>(ipdf)) {
+        ParameterizedItem *pdfItem
+            = item->setGroupProperty(group_name, Constants::FTDecayFunction1DCauchyType);
+        pdfItem->setRegisteredProperty(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
+    } else if (const FTDecayFunction1DGauss *pdf
+               = dynamic_cast<const FTDecayFunction1DGauss *>(ipdf)) {
+        ParameterizedItem *pdfItem
+            = item->setGroupProperty(group_name, Constants::FTDecayFunction1DGaussType);
+        pdfItem->setRegisteredProperty(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
+    } else if (const FTDecayFunction1DGate *pdf = dynamic_cast<const FTDecayFunction1DGate *>(ipdf)) {
+        ParameterizedItem *pdfItem
+            = item->setGroupProperty(group_name, Constants::FTDecayFunction1DGateType);
+        pdfItem->setRegisteredProperty(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
+    } else if (const FTDecayFunction1DTriangle *pdf
+               = dynamic_cast<const FTDecayFunction1DTriangle *>(ipdf)) {
+        ParameterizedItem *pdfItem
+            = item->setGroupProperty(group_name, Constants::FTDecayFunction1DTriangleType);
+        pdfItem->setRegisteredProperty(FTDecayFunction1DItem::P_DECAY_LENGTH,
+                                       pdf->getOmega());
+    } else if (const FTDecayFunction1DCosine *pdf
+               = dynamic_cast<const FTDecayFunction1DCosine *>(ipdf)) {
+        ParameterizedItem *pdfItem
+            = item->setGroupProperty(group_name, Constants::FTDecayFunction1DCosineType);
+        pdfItem->setRegisteredProperty(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
+    } else if (const FTDecayFunction1DVoigt *pdf
+               = dynamic_cast<const FTDecayFunction1DVoigt *>(ipdf)) {
+        ParameterizedItem *pdfItem
+            = item->setGroupProperty(group_name, Constants::FTDecayFunction1DVoigtType);
+        pdfItem->setRegisteredProperty(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
+        pdfItem->setRegisteredProperty(FTDecayFunction1DVoigtItem::P_ETA, pdf->getEta());
+    } else {
+        throw GUIHelpers::Error("TransformFromDomain::SetDecayFunction1D: -> Error");
     }
 }
 

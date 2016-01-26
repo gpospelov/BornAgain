@@ -56,7 +56,7 @@ class BA_CORE_API_ InterferenceFunction1DLatticeItem : public ParameterizedGraph
 public:
     static const QString P_LENGTH;
     static const QString P_ROTATION_ANGLE;
-    static const QString P_PDF;
+    static const QString P_DECAY_FUNCTION;
     explicit InterferenceFunction1DLatticeItem(ParameterizedItem *parent=0);
     virtual ~InterferenceFunction1DLatticeItem(){}
 };

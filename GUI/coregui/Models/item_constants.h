@@ -93,6 +93,13 @@ const ModelType FTDistribution2DGateType = "FTDistribution2DGate";
 const ModelType FTDistribution2DConeType = "FTDistribution2DCone";
 const ModelType FTDistribution2DVoigtType = "FTDistribution2DVoigt";
 
+const ModelType FTDecayFunction1DCauchyType = "FTDecayFunction1DCauchy";
+const ModelType FTDecayFunction1DGaussType = "FTDecayFunction1DGauss";
+const ModelType FTDecayFunction1DGateType = "FTDecayFunction1DGate";
+const ModelType FTDecayFunction1DTriangleType = "FTDecayFunction1DTriangle";
+const ModelType FTDecayFunction1DCosineType = "FTDecayFunction1DCosine";
+const ModelType FTDecayFunction1DVoigtType = "FTDecayFunction1DVoigt";
+
 const ModelType BasicLatticeType = "BasicLatticeType";
 const ModelType SquareLatticeType = "SquareLatticeType";
 const ModelType HexagonalLatticeType = "HexagonalLatticeType";
@@ -140,6 +147,7 @@ const ModelType DistributionGroup = "Distribution group";
 const ModelType DistributionExtendedGroup = "Distribution extended group";
 const ModelType FTDistribution1DGroup = "PDF 1D";
 const ModelType FTDistribution2DGroup = "PDF 2D";
+const ModelType FTDecayFunction1DGroup = "Decay function 1D";
 const ModelType LatticeGroup = "Lattice group";
 const ModelType MaterialGroup = "Material group";
 const ModelType ResolutionFunctionGroup = "Resolution function group";

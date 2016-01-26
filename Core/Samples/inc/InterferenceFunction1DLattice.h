@@ -18,7 +18,7 @@
 
 #include "IInterferenceFunction.h"
 #include "Lattice1DParameters.h"
-#include "FTDistributions.h"
+#include "FTDecayFunctions.h"
 
 //! @class InterferenceFunction1DLattice
 //! @ingroup interference
@@ -38,17 +38,17 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const;
 
-    void setProbabilityDistribution(const IFTDistribution1D& pdf);
+    void setDecayFunction(const IFTDecayFunction1D& pdf);
 
     Lattice1DParameters getLatticeParameters() const;
 
-    const IFTDistribution1D *getProbabilityDistribution() const;
+    const IFTDecayFunction1D *getDecayFunction() const;
 
     virtual double evaluate(const kvector_t& q) const;
 
 protected:
     Lattice1DParameters m_lattice_params;
-    IFTDistribution1D *mp_pdf;
+    IFTDecayFunction1D *mp_pdf;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
 
 private:
@@ -56,7 +56,6 @@ private:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
-    double m_prefactor; //!< fixed prefactor for normalization
     int m_na; //!< determines the number of reciprocal lattice points to use
 };
 
@@ -65,7 +64,7 @@ inline Lattice1DParameters InterferenceFunction1DLattice::getLatticeParameters()
     return m_lattice_params;
 }
 
-inline const IFTDistribution1D *InterferenceFunction1DLattice::getProbabilityDistribution() const
+inline const IFTDecayFunction1D *InterferenceFunction1DLattice::getDecayFunction() const
 {
     return mp_pdf;
 }

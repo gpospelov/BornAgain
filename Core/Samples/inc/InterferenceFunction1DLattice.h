@@ -27,7 +27,6 @@
 class BA_CORE_API_ InterferenceFunction1DLattice : public IInterferenceFunction
 {
 public:
-
     //! @brief constructor
     //! @param lattice_params Lattice parameters
     //! @param length Lattice length
@@ -41,17 +40,17 @@ public:
 
     void setProbabilityDistribution(const IFTDistribution1D& pdf);
 
-    Lattice1DParameters getLatticeParameters() const {return m_lattice_params; }
+    Lattice1DParameters getLatticeParameters() const;
 
-    const IFTDistribution1D *getProbabilityDistribution() const { return mp_pdf; }
+    const IFTDistribution1D *getProbabilityDistribution() const;
 
     virtual double evaluate(const kvector_t& q) const;
 
 protected:
-
     Lattice1DParameters m_lattice_params;
     IFTDistribution1D *mp_pdf;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
+
 private:
     InterferenceFunction1DLattice(const Lattice1DParameters& lattice_params);
     //! Registers some class members for later access via parameter pool
@@ -61,6 +60,14 @@ private:
     int m_na; //!< determines the number of reciprocal lattice points to use
 };
 
+inline Lattice1DParameters InterferenceFunction1DLattice::getLatticeParameters() const
+{
+    return m_lattice_params;
+}
+
+inline const IFTDistribution1D *InterferenceFunction1DLattice::getProbabilityDistribution() const
+{
+    return mp_pdf;
+}
+
 #endif /* INTERFERENCEFUNCTION1DLATTICE_H_ */
-
-

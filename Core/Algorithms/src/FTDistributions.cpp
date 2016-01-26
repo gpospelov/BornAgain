@@ -22,6 +22,11 @@ using namespace BornAgain;
 
 //===============1D======================
 
+void IFTDistribution1D::print(std::ostream& ostr) const
+{
+    ostr << getName() << " " << *getParameterPool();
+}
+
 void IFTDistribution1D::init_parameters()
 {
     clearParameterPool();
@@ -154,11 +159,6 @@ void FTDistribution1DVoigt::init_parameters()
 {
     IFTDistribution1D::init_parameters();
     registerParameter(Eta, &m_eta);
-}
-
-void IFTDistribution1D::print(std::ostream& ostr) const
-{
-    ostr << getName() << " " << *getParameterPool();
 }
 
 //==============2D====================

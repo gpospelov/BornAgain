@@ -256,7 +256,7 @@ void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, Pa
     QList<QByteArray> property_names = item->dynamicPropertyNames();
     for (int i = 0; i < property_names.length(); ++i) {
         QString prop_name = QString(property_names[i]);
-        PropertyAttribute prop_attribute = item->getPropertyAttribute(prop_name);
+        const PropertyAttribute &prop_attribute = item->getPropertyAttribute(prop_name);
 
         if(prop_attribute.isHidden()) continue;
 

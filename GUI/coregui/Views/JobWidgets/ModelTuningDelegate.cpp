@@ -136,7 +136,7 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
         m_current_link = index.model()->data(index, Qt::UserRole).value<ItemLink>();
 
         ParameterizedItem *item = m_current_link.getItem();
-        PropertyAttribute attribute = item->getPropertyAttribute(m_current_link.getPropertyName());
+        const PropertyAttribute &attribute = item->getPropertyAttribute(m_current_link.getPropertyName());
         AttLimits limits = attribute.getLimits();
 
         // initializing value box

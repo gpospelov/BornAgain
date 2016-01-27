@@ -110,7 +110,8 @@ public:
     QVariant getRegisteredProperty(const QString &name) const;
     void removeRegisteredProperty(const QString &name);
 
-    PropertyAttribute getPropertyAttribute(const QString &name) const;
+    const PropertyAttribute& getPropertyAttribute(const QString &name) const;
+    PropertyAttribute& getPropertyAttribute(const QString &name);
 
     void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
 

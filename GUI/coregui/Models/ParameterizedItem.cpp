@@ -286,19 +286,39 @@ void ParameterizedItem::removeRegisteredProperty(const QString &name)
     }
 }
 
-PropertyAttribute ParameterizedItem::getPropertyAttribute(const QString &name) const
+
+const PropertyAttribute &ParameterizedItem::getPropertyAttribute(const QString &name) const
 {
-    if (!m_registered_properties.contains(name))
-        throw GUIHelpers::Error(
-            "ParameterizedItem::getPropertyAttribute() -> Error. Unknown property " + name + " "
-            + modelType());
+//    if (!m_registered_properties.contains(name))
+//        throw GUIHelpers::Error(
+//            "ParameterizedItem::getPropertyAttribute() -> Error. Unknown property " + name + " "
+//            + modelType());
 
-    if (!m_property_attribute.contains(name))
-        throw GUIHelpers::Error(
-            "ParameterizedItem::getPropertyAttribute() -> Error. Unknown property attribute "
-            + name);
+//    if (!m_property_attribute.contains(name))
+//        throw GUIHelpers::Error(
+//            "ParameterizedItem::getPropertyAttribute() -> Error. Unknown property attribute "
+//            + name);
 
-    return m_property_attribute[name];
+    QMap<QString, PropertyAttribute>::const_iterator it = m_property_attribute.find(name);
+    if(it == m_property_attribute.end()) {
+        throw GUIHelpers::Error("ParameterizedItem::getPropertyAttribute() -> Error. "
+                                "Unknown property attribute " + name);
+
+    }
+    return it.value();
+
+//    return m_property_attribute[name];
+}
+
+PropertyAttribute &ParameterizedItem::getPropertyAttribute(const QString &name)
+{
+    QMap<QString, PropertyAttribute>::iterator it = m_property_attribute.find(name);
+    if(it == m_property_attribute.end()) {
+        throw GUIHelpers::Error("ParameterizedItem::getPropertyAttribute() -> Error. "
+                                "Unknown property attribute " + name);
+
+    }
+    return it.value();
 }
 
 void ParameterizedItem::setPropertyAttribute(const QString &name,
@@ -414,7 +434,7 @@ QStringList ParameterizedItem::getParameterTreeList(QString prefix) const
     if (m_sub_items.size() > 0) {
         for (QMap<QString, ParameterizedItem *>::const_iterator it = m_sub_items.begin();
              it != m_sub_items.end(); ++it) {
-            PropertyAttribute prop_attribute = getPropertyAttribute(it.key());
+            const PropertyAttribute &prop_attribute = getPropertyAttribute(it.key());
             if (prop_attribute.isHidden() || prop_attribute.isDisabled()) continue;
             ParameterizedItem *p_subitem = it.value();
             QString subitem_name = p_subitem->displayName();
@@ -596,11 +616,8 @@ QStringList ParameterizedItem::getParameterList(QString prefix) const
     QList<QByteArray> property_names = dynamicPropertyNames();
     for (int i = 0; i < property_names.length(); ++i) {
         QString prop_name = QString(property_names[i]);
-        PropertyAttribute prop_attribute = getPropertyAttribute(prop_name);
-        if (prop_attribute.getAppearance() & (PropertyAttribute::HIDDEN |
-                                              PropertyAttribute::DISABLED) ) {
-            continue;
-        }
+        const PropertyAttribute &prop_attribute = getPropertyAttribute(prop_name);
+        if (prop_attribute.isHidden() || prop_attribute.isDisabled() ) continue;
         QVariant variant = property(prop_name.toUtf8().constData());
         int type = GUIHelpers::getVariantType(variant);
         if (type == QVariant::Double) {

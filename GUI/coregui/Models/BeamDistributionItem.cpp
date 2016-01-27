@@ -70,7 +70,7 @@ BeamDistributionItem::getParameterDistributionForName(const std::string &paramet
                                                      DistributionItem::P_SIGMA_FACTOR).toInt();
             }
 
-            auto cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
+            PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
             AttLimits limits;
             if (modelType() == Constants::BeamWavelengthType) {
                 limits = cached_attribute.getLimits();

@@ -247,7 +247,7 @@ void AwesomePropertyEditor::onPropertyChanged(const QString &property_name)
 
         qDebug() << "       AwesomePropertyEditor::onPropertyChanged(const QString &property_name) -> Setting variant_property";
         variant_property->setValue(property_value);
-        PropertyAttribute prop_attribute = item->getPropertyAttribute(property_name);
+        const PropertyAttribute &prop_attribute = item->getPropertyAttribute(property_name);
         if(prop_attribute.isDisabled()) {
             variant_property->setEnabled(false);
         } else {
@@ -282,7 +282,7 @@ void AwesomePropertyEditor::onSubItemChanged(const QString &property_name)
                 this, SLOT(onSubItemChanged(QString)));
 
         variant_property->setValue(property_value);
-        PropertyAttribute prop_attribute = item->getPropertyAttribute(property_name);
+        const PropertyAttribute &prop_attribute = item->getPropertyAttribute(property_name);
         if(prop_attribute.isDisabled()) {
             variant_property->setEnabled(false);
         } else {
@@ -356,7 +356,7 @@ QtVariantProperty *AwesomePropertyEditor::createQtVariantProperty(ParameterizedI
     qDebug() << "QtVariantProperty *AwesomePropertyEditor::createQtVariantProperty(ParameterizedItem *item, const QString &property_name) item" << item << property_name;
     QtVariantProperty *result(0);
 
-    PropertyAttribute prop_attribute = item->getPropertyAttribute(property_name);
+    const PropertyAttribute &prop_attribute = item->getPropertyAttribute(property_name);
     if(prop_attribute.isHidden()) return 0;
 
     QVariant prop_value = item->property(property_name.toUtf8().data());

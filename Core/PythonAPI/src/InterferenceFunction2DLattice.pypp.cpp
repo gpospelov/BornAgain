@@ -223,6 +223,16 @@ void register_InterferenceFunction2DLattice_class(){
                 , ( bp::arg("q") ) );
         
         }
+        { //::InterferenceFunction2DLattice::getDecayFunction
+        
+            typedef ::IFTDecayFunction2D const * ( ::InterferenceFunction2DLattice::*getDecayFunction_function_type)(  ) const;
+            
+            InterferenceFunction2DLattice_exposer.def( 
+                "getDecayFunction"
+                , getDecayFunction_function_type( &::InterferenceFunction2DLattice::getDecayFunction )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::InterferenceFunction2DLattice::getLatticeParameters
         
             typedef ::Lattice2DParameters ( ::InterferenceFunction2DLattice::*getLatticeParameters_function_type)(  ) const;
@@ -243,23 +253,13 @@ void register_InterferenceFunction2DLattice_class(){
                 , default_getParticleDensity_function_type(&InterferenceFunction2DLattice_wrapper::default_getParticleDensity) );
         
         }
-        { //::InterferenceFunction2DLattice::getProbabilityDistribution
+        { //::InterferenceFunction2DLattice::setDecayFunction
         
-            typedef ::IFTDistribution2D const * ( ::InterferenceFunction2DLattice::*getProbabilityDistribution_function_type)(  ) const;
+            typedef void ( ::InterferenceFunction2DLattice::*setDecayFunction_function_type)( ::IFTDecayFunction2D const & ) ;
             
             InterferenceFunction2DLattice_exposer.def( 
-                "getProbabilityDistribution"
-                , getProbabilityDistribution_function_type( &::InterferenceFunction2DLattice::getDecayFunction )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::InterferenceFunction2DLattice::setProbabilityDistribution
-        
-            typedef void ( ::InterferenceFunction2DLattice::*setProbabilityDistribution_function_type)( ::IFTDistribution2D const & ) ;
-            
-            InterferenceFunction2DLattice_exposer.def( 
-                "setProbabilityDistribution"
-                , setProbabilityDistribution_function_type( &::InterferenceFunction2DLattice::setDecayFunction )
+                "setDecayFunction"
+                , setDecayFunction_function_type( &::InterferenceFunction2DLattice::setDecayFunction )
                 , ( bp::arg("pdf") ) );
         
         }

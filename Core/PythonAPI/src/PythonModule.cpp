@@ -103,6 +103,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IFTDistribution1D.pypp.h"
 #include "DistributionLorentz.pypp.h"
 #include "IDistribution1D.pypp.h"
+#include "FTDecayFunction2DVoigt.pypp.h"
 #include "FTDecayFunction1DCauchy.pypp.h"
 #include "Lattice2DParameters.pypp.h"
 #include "vdouble2d_t.pypp.h"
@@ -131,8 +132,10 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FTDecayFunction1DTriangle.pypp.h"
 #include "PythonInterface_global_variables.pypp.h"
 #include "Beam.pypp.h"
+#include "FTDecayFunction2DCauchy.pypp.h"
 #include "HomogeneousMaterial.pypp.h"
 #include "Rectangle.pypp.h"
+#include "FTDecayFunction2DGauss.pypp.h"
 #include "ICloneable.pypp.h"
 #include "Histogram2D.pypp.h"
 #include "ParticleCoreShell.pypp.h"
@@ -201,6 +204,9 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FTDecayFunction1DGauss_class();
     register_FTDecayFunction1DTriangle_class();
     register_FTDecayFunction1DVoigt_class();
+    register_FTDecayFunction2DCauchy_class();
+    register_FTDecayFunction2DGauss_class();
+    register_FTDecayFunction2DVoigt_class();
     register_IFTDistribution1D_class();
     register_FTDistribution1DCauchy_class();
     register_FTDistribution1DCosine_class();

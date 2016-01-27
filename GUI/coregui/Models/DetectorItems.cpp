@@ -18,6 +18,7 @@
 #include "AngleProperty.h"
 #include "MaskItems.h"
 #include "AxesItems.h"
+#include "VectorItem.h"
 #include <QDebug>
 
 const QString DetectorItem::P_DETECTOR = "Detector";
@@ -106,7 +107,13 @@ RectangularDetectorItem::RectangularDetectorItem(ParameterizedItem *parent)
 
     registerGroupProperty(P_NORMAL, Constants::VectorType);
     registerGroupProperty(P_DIRECTION, Constants::VectorType);
+
     registerGroupProperty(P_UV, Constants::VectorType);
+    getSubItems()[P_UV]->setPropertyAttribute(VectorItem::P_X, PropertyAttribute::labeled("u0"));
+    getSubItems()[P_UV]->setPropertyAttribute(VectorItem::P_Y, PropertyAttribute::labeled("v0"));
+    getSubItems()[P_UV]->setPropertyAppearance(VectorItem::P_Z, PropertyAttribute::HIDDEN);
+
+
     registerGroupProperty(P_UV_DPOS, Constants::VectorType);
     registerProperty(P_DISTANCE, 1000.0);
 

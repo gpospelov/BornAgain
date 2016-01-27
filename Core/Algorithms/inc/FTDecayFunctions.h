@@ -151,4 +151,108 @@ public:
 };
 */
 
+//! @class IFTDecayFunction2D
+//! @ingroup algorithms_internal
+//! @brief Interface for 2 dimensional decay function in reciprocal space.
+class BA_CORE_API_ IFTDecayFunction2D : public IParameterized
+{
+public:
+    IFTDecayFunction2D(double decay_length_x, double decay_length_y)
+        : m_omega_x(decay_length_x)
+        , m_omega_y(decay_length_y)
+        , m_gamma(0.0)
+        , m_delta(Units::PI/2.0) {}
+    virtual ~IFTDecayFunction2D() {}
+
+    virtual IFTDecayFunction2D *clone() const=0;
+
+    //! set angle between first lattice vector and X-axis of distribution (both in direct space)
+    void setGamma(double gamma) { m_gamma = gamma; }
+
+    //! get angle between first lattice vector and X-axis of distribution (both in direct space)
+    double getGamma() const { return m_gamma; }
+
+    //! get angle between X- and Y-axis of distribution (in direct space)
+    double getDelta() const { return m_delta; }
+
+    //! get coherence length in X-direction
+    double getDecayLengthX() const { return m_omega_x; }
+
+    //! get coherence length in Y-direction
+    double getDecayLengthY() const { return m_omega_y; }
+
+    //! evaluate Fourier transformed decay function for q in X,Y coordinates
+    virtual double evaluate(double qx, double qy) const=0;
+
+    //! transform back to a*, b* basis:
+    void transformToStarBasis(double qX, double qY,
+            double alpha, double a, double b, double& qa, double& qb) const;
+
+    friend std::ostream& operator<<(std::ostream& ostr, const IFTDecayFunction2D& m)
+    { m.print(ostr); return ostr; }
+
+protected:
+    virtual void print(std::ostream& ostr) const;
+    virtual void init_parameters();
+    double m_omega_x;
+    double m_omega_y;
+    double m_gamma;
+    double m_delta;
+};
+
+
+//! @class FTDecayFunction2DCauchy
+//! @ingroup algorithms
+//! @brief 2 dimensional Cauchy decay function in reciprocal space.
+//! Corresponds to exp(-r) in real space
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
+class BA_CORE_API_ FTDecayFunction2DCauchy : public IFTDecayFunction2D
+{
+public:
+    FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y);
+    virtual ~FTDecayFunction2DCauchy() {}
+
+    virtual FTDecayFunction2DCauchy *clone() const;
+
+    virtual double evaluate(double qx, double qy) const;
+};
+
+
+//! @class FTDecayFunction2DGauss
+//! @ingroup algorithms
+//! @brief 2 dimensional Gauss decay function in reciprocal space.
+//! Corresponds to exp(-r^2/2) in real space
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
+class BA_CORE_API_ FTDecayFunction2DGauss : public IFTDecayFunction2D
+{
+public:
+    FTDecayFunction2DGauss(double decay_length_x, double decay_length_y);
+    virtual ~FTDecayFunction2DGauss() {}
+
+    virtual FTDecayFunction2DGauss *clone() const;
+
+    virtual double evaluate(double qx, double qy) const;
+};
+
+//! @class FTDecayFunction2DVoigt
+//! @ingroup algorithms
+//! @brief 2 dimensional Voigt decay function in reciprocal space.
+//! Corresponds to eta*Gauss + (1-eta)*Cauchy
+class BA_CORE_API_ FTDecayFunction2DVoigt : public IFTDecayFunction2D
+{
+public:
+    FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta);
+    virtual ~FTDecayFunction2DVoigt() {}
+
+    virtual FTDecayFunction2DVoigt *clone() const;
+
+    virtual double evaluate(double qx, double qy) const;
+
+    virtual double getEta() const { return m_eta; }
+
+protected:
+    virtual void init_parameters();
+    double m_eta;
+};
+
 #endif /* FTDECAYFUNCTIONS_H_ */

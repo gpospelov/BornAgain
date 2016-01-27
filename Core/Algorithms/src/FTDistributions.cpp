@@ -199,10 +199,10 @@ FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x,
     init_parameters();
 }
 
-FTDistribution2DCauchy* FTDistribution2DCauchy::clone() const
+FTDistribution2DCauchy *FTDistribution2DCauchy::clone() const
 {
-    FTDistribution2DCauchy *p_clone = new FTDistribution2DCauchy(
-            m_coherence_length_x, m_coherence_length_y);
+    FTDistribution2DCauchy *p_clone
+        = new FTDistribution2DCauchy(m_coherence_length_x, m_coherence_length_y);
     p_clone->setGamma(m_gamma);
     return p_clone;
 }

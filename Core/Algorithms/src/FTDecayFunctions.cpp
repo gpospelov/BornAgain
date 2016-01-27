@@ -163,3 +163,93 @@ double FTDecayFunction1DCosine::evaluate(double q) const
 */
 
 //==============2D====================
+
+void IFTDecayFunction2D::transformToStarBasis(double qX, double qY, double alpha,
+                                              double a, double b, double &qa, double &qb) const
+{
+    double prefactor = 1.0/Units::PI2; // divide by sin(m_delta)
+                                     // for unnormalized X*,Y* basis
+    qa = a*prefactor*( std::sin(m_gamma+m_delta)*qX - std::sin(m_gamma)*qY );
+    qb = b*prefactor*( -std::sin(alpha-m_gamma-m_delta)*qX + std::sin(alpha-m_gamma)*qY );
+}
+
+void IFTDecayFunction2D::print(std::ostream &ostr) const
+{
+    ostr << getName() << " " << *getParameterPool();
+}
+
+void IFTDecayFunction2D::init_parameters()
+{
+    clearParameterPool();
+    registerParameter(OmegaX, &m_omega_x);
+    registerParameter(OmegaY, &m_omega_y);
+}
+
+FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y)
+    : IFTDecayFunction2D(decay_length_x, decay_length_y)
+{
+    setName(FTDecayFunction2DCauchyType);
+    init_parameters();
+}
+
+FTDecayFunction2DCauchy *FTDecayFunction2DCauchy::clone() const
+{
+    FTDecayFunction2DCauchy *p_clone = new FTDecayFunction2DCauchy(m_omega_x, m_omega_y);
+    p_clone->setGamma(m_gamma);
+    return p_clone;
+}
+
+double FTDecayFunction2DCauchy::evaluate(double qx, double qy) const
+{
+    double sum_sq = qx*qx*m_omega_x*m_omega_x + qy*qy*m_omega_y*m_omega_y;
+    return Units::PI2*m_omega_x*m_omega_y*std::pow(1.0 + sum_sq, -1.5);
+}
+
+FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y)
+    : IFTDecayFunction2D(decay_length_x, decay_length_y)
+{
+    setName(FTDecayFunction2DGaussType);
+    init_parameters();
+}
+
+FTDecayFunction2DGauss *FTDecayFunction2DGauss::clone() const
+{
+    FTDecayFunction2DGauss *p_clone = new FTDecayFunction2DGauss(m_omega_x, m_omega_y);
+    p_clone->setGamma(m_gamma);
+    return p_clone;
+}
+
+double FTDecayFunction2DGauss::evaluate(double qx, double qy) const
+{
+    double sum_sq = qx*qx*m_omega_x*m_omega_x + qy*qy*m_omega_y*m_omega_y;
+    return Units::PI2*m_omega_x*m_omega_y*std::exp(-sum_sq/2.0);
+}
+
+FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y,
+                                               double eta)
+    : IFTDecayFunction2D(decay_length_x, decay_length_y)
+    , m_eta(eta)
+{
+    setName(FTDecayFunction2DVoigtType);
+    init_parameters();
+}
+
+FTDecayFunction2DVoigt *FTDecayFunction2DVoigt::clone() const
+{
+    FTDecayFunction2DVoigt *p_clone = new FTDecayFunction2DVoigt(m_omega_x, m_omega_y, m_eta);
+    p_clone->setGamma(m_gamma);
+    return p_clone;
+}
+
+double FTDecayFunction2DVoigt::evaluate(double qx, double qy) const
+{
+    double sum_sq = qx*qx*m_omega_x*m_omega_x + qy*qy*m_omega_y*m_omega_y;
+    return Units::PI2*m_omega_x*m_omega_y*(m_eta*std::exp(-sum_sq/2.0)
+                                           + (1.0-m_eta)*std::pow(1.0 + sum_sq, -1.5));
+}
+
+void FTDecayFunction2DVoigt::init_parameters()
+{
+    IFTDecayFunction2D::init_parameters();
+    registerParameter(Eta, &m_eta);
+}

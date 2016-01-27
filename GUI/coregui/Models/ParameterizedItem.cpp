@@ -289,16 +289,6 @@ void ParameterizedItem::removeRegisteredProperty(const QString &name)
 
 const PropertyAttribute &ParameterizedItem::getPropertyAttribute(const QString &name) const
 {
-//    if (!m_registered_properties.contains(name))
-//        throw GUIHelpers::Error(
-//            "ParameterizedItem::getPropertyAttribute() -> Error. Unknown property " + name + " "
-//            + modelType());
-
-//    if (!m_property_attribute.contains(name))
-//        throw GUIHelpers::Error(
-//            "ParameterizedItem::getPropertyAttribute() -> Error. Unknown property attribute "
-//            + name);
-
     QMap<QString, PropertyAttribute>::const_iterator it = m_property_attribute.find(name);
     if(it == m_property_attribute.end()) {
         throw GUIHelpers::Error("ParameterizedItem::getPropertyAttribute() -> Error. "
@@ -306,8 +296,6 @@ const PropertyAttribute &ParameterizedItem::getPropertyAttribute(const QString &
 
     }
     return it.value();
-
-//    return m_property_attribute[name];
 }
 
 PropertyAttribute &ParameterizedItem::getPropertyAttribute(const QString &name)
@@ -336,20 +324,6 @@ void ParameterizedItem::setPropertyAttribute(const QString &name,
     m_property_attribute[name] = attribute;
 }
 
-void ParameterizedItem::setPropertyAppearance(const QString &name,
-                                              const PropertyAttribute::EAppearance &appearance)
-{
-    if (!m_registered_properties.contains(name))
-        throw GUIHelpers::Error(
-            "ParameterizedItem::setPropertyAppearance() -> Error. Unknown property " + name);
-
-    if (!m_property_attribute.contains(name))
-        throw GUIHelpers::Error(
-            "ParameterizedItem::setPropertyAppearance() -> Error. Unknown property attribute "
-            + name);
-
-    m_property_attribute[name].setAppearance(appearance);
-}
 
 void ParameterizedItem::onPropertyChange(const QString &name)
 {

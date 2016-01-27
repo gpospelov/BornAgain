@@ -115,9 +115,6 @@ public:
 
     void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
 
-    void setPropertyAppearance(const QString &name,
-                               const PropertyAttribute::EAppearance &appearance);
-
     virtual void onPropertyChange(const QString &name);
 
     virtual void onChildPropertyChange();

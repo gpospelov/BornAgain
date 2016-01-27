@@ -51,12 +51,12 @@ SphericalDetectorItem::SphericalDetectorItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::SphericalDetectorType, parent)
 {
     registerGroupProperty(P_PHI_AXIS, Constants::BasicAxisType);
-    getSubItems()[P_PHI_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
+    getSubItems()[P_PHI_AXIS]->getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
     getSubItems()[P_PHI_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, -1.0);
     getSubItems()[P_PHI_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 1.0);
 
     registerGroupProperty(P_ALPHA_AXIS, Constants::BasicAxisType);
-    getSubItems()[P_ALPHA_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
+    getSubItems()[P_ALPHA_AXIS]->getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
     getSubItems()[P_ALPHA_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, 0.0);
     getSubItems()[P_ALPHA_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 2.0);
 
@@ -81,15 +81,15 @@ RectangularDetectorItem::RectangularDetectorItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::RectangularDetectorType, parent)
 {
     registerGroupProperty(P_X_AXIS, Constants::BasicAxisType);
-    getSubItems()[P_X_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
-    getSubItems()[P_X_AXIS]->setPropertyAppearance(BasicAxisItem::P_MIN, PropertyAttribute::HIDDEN);
+    getSubItems()[P_X_AXIS]->getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
+    getSubItems()[P_X_AXIS]->getPropertyAttribute(BasicAxisItem::P_MIN).setHidden();
 
     getSubItems()[P_X_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 1.0);
     getSubItems()[P_X_AXIS]->getPropertyAttribute(BasicAxisItem::P_MAX).setLabel("width");
 
     registerGroupProperty(P_Y_AXIS, Constants::BasicAxisType);
-    getSubItems()[P_Y_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
-    getSubItems()[P_Y_AXIS]->setPropertyAppearance(BasicAxisItem::P_MIN, PropertyAttribute::HIDDEN);
+    getSubItems()[P_Y_AXIS]->getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
+    getSubItems()[P_Y_AXIS]->getPropertyAttribute(BasicAxisItem::P_MIN).setHidden();
     getSubItems()[P_Y_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 2.0);
     getSubItems()[P_Y_AXIS]->getPropertyAttribute(BasicAxisItem::P_MAX).setLabel("height");
 
@@ -125,26 +125,26 @@ void RectangularDetectorItem::set_properties_appearance()
     QStringList prop_list;
     prop_list << P_NORMAL << P_DIRECTION << P_UV << P_UV_DPOS << P_DISTANCE;
     foreach(auto prop, prop_list) {
-        setPropertyAppearance(prop, PropertyAttribute::HIDDEN);
+        getPropertyAttribute(prop).setHidden();
     }
 
     if (alignment.getValue() == Constants::ALIGNMENT_GENERIC) {
-        setPropertyAppearance(P_NORMAL, PropertyAttribute::VISIBLE);
-        setPropertyAppearance(P_DIRECTION, PropertyAttribute::VISIBLE);
-        setPropertyAppearance(P_UV, PropertyAttribute::VISIBLE);
+        getPropertyAttribute(P_NORMAL).setVisible();
+        getPropertyAttribute(P_DIRECTION).setVisible();
+        getPropertyAttribute(P_UV).setVisible();
 
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_DIRECT_BEAM) {
-        setPropertyAppearance(P_DISTANCE, PropertyAttribute::VISIBLE);
-        setPropertyAppearance(P_UV, PropertyAttribute::VISIBLE);
+        getPropertyAttribute(P_DISTANCE).setVisible();
+        getPropertyAttribute(P_UV).setVisible();
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_SAMPLE) {
-        setPropertyAppearance(P_DISTANCE, PropertyAttribute::VISIBLE);
-        setPropertyAppearance(P_UV, PropertyAttribute::VISIBLE);
+        getPropertyAttribute(P_DISTANCE).setVisible();
+        getPropertyAttribute(P_UV).setVisible();
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM) {
-        setPropertyAppearance(P_DISTANCE, PropertyAttribute::VISIBLE);
-        setPropertyAppearance(P_UV, PropertyAttribute::VISIBLE);
+        getPropertyAttribute(P_DISTANCE).setVisible();
+        getPropertyAttribute(P_UV).setVisible();
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS) {
-        setPropertyAppearance(P_DISTANCE, PropertyAttribute::VISIBLE);
-        setPropertyAppearance(P_UV_DPOS, PropertyAttribute::VISIBLE);
+        getPropertyAttribute(P_DISTANCE).setVisible();
+        getPropertyAttribute(P_UV_DPOS).setVisible();
     }
 }
 

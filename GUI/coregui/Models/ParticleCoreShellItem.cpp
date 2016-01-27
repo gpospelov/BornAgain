@@ -55,7 +55,7 @@ void ParticleCoreShellItem::onPropertyChange(const QString &name)
         if (parent()->modelType() == Constants::ParticleCompositionType
             || parent()->modelType() == Constants::ParticleDistributionType) {
             setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-            setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
+            getPropertyAttribute(ParticleItem::P_ABUNDANCE).setDisabled();
         }
     }
 }

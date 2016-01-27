@@ -46,7 +46,6 @@ AmplitudeAxisItem::AmplitudeAxisItem(ParameterizedItem *parent)
 {
     registerProperty(P_LOCK_MIN_MAX, false).setHidden();
     registerProperty(P_IS_LOGSCALE, true);
-    setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
-//    getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
-    setPropertyAppearance(BasicAxisItem::P_IS_VISIBLE, PropertyAttribute::VISIBLE);
+    getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
+    getPropertyAttribute(BasicAxisItem::P_IS_VISIBLE).setVisible();
 }

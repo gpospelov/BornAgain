@@ -164,7 +164,7 @@ Geometry::IShape2D *EllipseItem::createShape() const
 MaskAllItem::MaskAllItem(ParameterizedItem *parent)
     : MaskItem(Constants::MaskAllType, parent)
 {
-    setPropertyAppearance(MaskItem::P_MASK_VALUE, PropertyAttribute::DISABLED);
+    getPropertyAttribute(MaskItem::P_MASK_VALUE).setDisabled();
 }
 
 Geometry::IShape2D *MaskAllItem::createShape() const

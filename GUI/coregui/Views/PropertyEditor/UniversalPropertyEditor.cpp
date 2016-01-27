@@ -334,9 +334,9 @@ void UniversalPropertyEditor::addSubProperties(QtProperty *item_property,
 
             QString toolTip = prop_attribute.getToolTip();
             if(toolTip.isEmpty()) {
-                toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), property_name);
+                toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), prop_name);
             }
-            if(!toolTip.isEmpty()) result->setToolTip(toolTip);
+            if(!toolTip.isEmpty()) subProperty->setToolTip(toolTip);
 
             if(prop_attribute.isDisabled()) {
                 subProperty->setEnabled(false);

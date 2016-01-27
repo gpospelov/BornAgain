@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/DetectorItem.h
-//! @brief     Defines class DetectorItem
+//! @file      coregui/Models/SphericalDetectorItem.h
+//! @brief     Defines class SphericalDetectorItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,27 +13,18 @@
 //
 // ************************************************************************** //
 
-#ifndef DETECTOR_ITEMS_H
-#define DETECTOR_ITEMS_H
+#ifndef SPHERICALDETECTORITEM_H
+#define SPHERICALDETECTORITEM_H
 
 #include "ParameterizedItem.h"
-#include "SphericalDetectorItem.h"
-#include "RectangularDetectorItem.h"
 
-class MaskContainerItem;
-
-//! DetectorItem, holds masks and either rectangular or spherical detector as sub item
-class BA_CORE_API_ DetectorItem : public ParameterizedItem
+class SphericalDetectorItem : public ParameterizedItem
 {
-    Q_OBJECT
 public:
-    static const QString P_DETECTOR;
-    explicit DetectorItem(ParameterizedItem *parent=0);
-    virtual ~DetectorItem(){}
-
-    MaskContainerItem *getMaskContainerItem() const;
+    static const QString P_PHI_AXIS;
+    static const QString P_ALPHA_AXIS;
+    static const QString P_RESOLUTION_FUNCTION;
+    explicit SphericalDetectorItem(ParameterizedItem *parent=0);
 };
-
-
 
 #endif

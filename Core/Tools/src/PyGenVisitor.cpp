@@ -801,14 +801,14 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                    << "*nanometer, " << PyGenTools::printDegrees(latticeParameters.m_angle) << ", "
                    << PyGenTools::printDegrees(latticeParameters.m_xi) << ")\n";
 
-            const IFTDistribution2D *pdf = twoDLattice->getProbabilityDistribution();
+            const IFTDecayFunction2D *pdf = twoDLattice->getDecayFunction();
 
-            if (const FTDistribution2DCauchy *fTD2DCauchy
-                = dynamic_cast<const FTDistribution2DCauchy *>(pdf)) {
-                result << indent() << it->second << "_pdf  = FTDistribution2DCauchy("
-                       << PyGenTools::printDouble(fTD2DCauchy->getCoherenceLengthX())
+            if (const FTDecayFunction2DCauchy *fTD2DCauchy
+                = dynamic_cast<const FTDecayFunction2DCauchy *>(pdf)) {
+                result << indent() << it->second << "_pdf  = FTDecayFunction2DCauchy("
+                       << PyGenTools::printDouble(fTD2DCauchy->getDecayLengthX())
                        << "*nanometer, "
-                       << PyGenTools::printDouble(fTD2DCauchy->getCoherenceLengthY())
+                       << PyGenTools::printDouble(fTD2DCauchy->getDecayLengthY())
                        << "*nanometer"
                        << ")\n";
                 if (fTD2DCauchy->getGamma() != 0.0) {
@@ -818,39 +818,11 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                 }
             }
 
-            else if (const FTDistribution2DCone *fTD2DCone
-                     = dynamic_cast<const FTDistribution2DCone *>(pdf)) {
-                result << indent() << it->second << "_pdf  = FTDistribution2DCone("
-                       << fTD2DCone->getCoherenceLengthX() << "*nanometer, "
-                       << fTD2DCone->getCoherenceLengthY() << "*nanometer"
-                       << ")\n";
-
-                if (fTD2DCone->getGamma() != 0.0) {
-                    result << indent() << it->second << "_pdf"
-                           << ".setGamma(" << PyGenTools::printDegrees(fTD2DCone->getGamma())
-                           << ")\n";
-                }
-            }
-
-            else if (const FTDistribution2DGate *fTD2DGate
-                     = dynamic_cast<const FTDistribution2DGate *>(pdf)) {
-                result << indent() << it->second << "_pdf  = FTDistribution2DGate("
-                       << fTD2DGate->getCoherenceLengthX() << "*nanometer, "
-                       << fTD2DGate->getCoherenceLengthY() << "*nanometer"
-                       << ")\n";
-
-                if (fTD2DGate->getGamma() != 0.0) {
-                    result << indent() << it->second << "_pdf"
-                           << ".setGamma(" << PyGenTools::printDegrees(fTD2DGate->getGamma())
-                           << ")\n";
-                }
-            }
-
-            else if (const FTDistribution2DGauss *fTD2DGauss
-                     = dynamic_cast<const FTDistribution2DGauss *>(pdf)) {
-                result << indent() << it->second << "_pdf  = FTDistribution2DGauss("
-                       << fTD2DGauss->getCoherenceLengthX() << "*nanometer, "
-                       << fTD2DGauss->getCoherenceLengthY() << "*nanometer"
+            else if (const FTDecayFunction2DGauss *fTD2DGauss
+                     = dynamic_cast<const FTDecayFunction2DGauss *>(pdf)) {
+                result << indent() << it->second << "_pdf  = FTDecayFunction2DGauss("
+                       << fTD2DGauss->getDecayLengthX() << "*nanometer, "
+                       << fTD2DGauss->getDecayLengthY() << "*nanometer"
                        << ")\n";
 
                 if (fTD2DGauss->getGamma() != 0.0) {
@@ -860,11 +832,11 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                 }
             }
 
-            else if (const FTDistribution2DVoigt *fTD2DVoigt
-                     = dynamic_cast<const FTDistribution2DVoigt *>(pdf)) {
-                result << indent() << it->second << "_pdf  = FTDistribution2DVoigt("
-                       << fTD2DVoigt->getCoherenceLengthX() << "*nanometer, "
-                       << fTD2DVoigt->getCoherenceLengthY() << "*nanometer, "
+            else if (const FTDecayFunction2DVoigt *fTD2DVoigt
+                     = dynamic_cast<const FTDecayFunction2DVoigt *>(pdf)) {
+                result << indent() << it->second << "_pdf  = FTDecayFunction2DVoigt("
+                       << fTD2DVoigt->getDecayLengthX() << "*nanometer, "
+                       << fTD2DVoigt->getDecayLengthY() << "*nanometer, "
                        << PyGenTools::printDouble(fTD2DVoigt->getEta()) << ")\n";
 
                 if (fTD2DVoigt->getGamma() != 0.0) {

@@ -18,7 +18,7 @@
 
 #include "IInterferenceFunction.h"
 #include "Lattice2DParameters.h"
-#include "FTDistributions.h"
+#include "FTDecayFunctions.h"
 
 //! @class InterferenceFunction2DLattice
 //! @ingroup interference
@@ -43,9 +43,9 @@ public:
     static InterferenceFunction2DLattice *createSquare(double lattice_length, double xi = 0.0);
     static InterferenceFunction2DLattice *createHexagonal(double lattice_length, double xi = 0.0);
 
-    void setProbabilityDistribution(const IFTDistribution2D& pdf);
+    void setDecayFunction(const IFTDecayFunction2D& pdf);
 
-    const IFTDistribution2D *getProbabilityDistribution() const;
+    const IFTDecayFunction2D *getDecayFunction() const;
 
     virtual double evaluate(const kvector_t& q) const;
 
@@ -72,7 +72,7 @@ protected:
             double& qx_frac, double& qy_frac) const;
 
     Lattice2DParameters m_lattice_params;
-    IFTDistribution2D *mp_pdf;
+    IFTDecayFunction2D *mp_pdf;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
 
 private:
@@ -90,7 +90,6 @@ private:
 
     double m_asx, m_asy; //!< x,y coordinates of a*
     double m_bsx, m_bsy; //!< x,y coordinates of b*
-    double m_prefactor; //!< fixed prefactor for normalization
     int m_na, m_nb; //!< determines the number of reciprocal lattice points to use
 };
 

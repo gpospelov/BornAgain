@@ -98,6 +98,10 @@ const ModelType FTDecayFunction1DGaussType = "FTDecayFunction1DGauss";
 const ModelType FTDecayFunction1DTriangleType = "FTDecayFunction1DTriangle";
 const ModelType FTDecayFunction1DVoigtType = "FTDecayFunction1DVoigt";
 
+const ModelType FTDecayFunction2DCauchyType = "FTDecayFunction2DCauchy";
+const ModelType FTDecayFunction2DGaussType = "FTDecayFunction2DGauss";
+const ModelType FTDecayFunction2DVoigtType = "FTDecayFunction2DVoigt";
+
 const ModelType BasicLatticeType = "BasicLatticeType";
 const ModelType SquareLatticeType = "SquareLatticeType";
 const ModelType HexagonalLatticeType = "HexagonalLatticeType";

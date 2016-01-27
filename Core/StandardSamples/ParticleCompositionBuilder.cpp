@@ -20,7 +20,7 @@
 #include "Materials.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
-#include "FTDistributions.h"
+#include "FTDecayFunctions.h"
 #include "Units.h"
 #include "Rotations.h"
 #include "FormFactorBox.h"
@@ -56,8 +56,8 @@ ISample *ParticleCompositionBuilder::buildSample() const
 
     std::unique_ptr<InterferenceFunction2DLattice> P_interference{
         InterferenceFunction2DLattice::createHexagonal(radius * 2.0)};
-    FTDistribution2DCauchy pdf(10*Units::nanometer, 10*Units::nanometer);
-    P_interference->setProbabilityDistribution(pdf);
+    FTDecayFunction2DCauchy pdf(10*Units::nanometer, 10*Units::nanometer);
+    P_interference->setDecayFunction(pdf);
 
     particle_layout.addInterferenceFunction(*P_interference);
 

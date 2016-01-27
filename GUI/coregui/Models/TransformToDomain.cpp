@@ -288,10 +288,10 @@ TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
             = GUIHelpers::make_unique<InterferenceFunction2DLattice>(length_1, length_2, angle, xi);
         auto pdfItem = item.getSubItems()[InterferenceFunction2DLatticeItem::P_PDF];
         Q_ASSERT(pdfItem);
-        std::unique_ptr<IFTDistribution2D> P_pdf(
-            dynamic_cast<FTDistribution2DItem *>(pdfItem)->createFTDistribution());
+        std::unique_ptr<IFTDecayFunction2D> P_pdf(
+            dynamic_cast<FTDecayFunction2DItem *>(pdfItem)->createFTDecayFunction());
         Q_ASSERT(P_pdf);
-        P_iff->setProbabilityDistribution(*P_pdf);
+        P_iff->setDecayFunction(*P_pdf);
         P_result = std::move(P_iff);
     }
     return P_result;

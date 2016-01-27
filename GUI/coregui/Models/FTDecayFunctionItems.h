@@ -65,5 +65,47 @@ public:
     virtual IFTDecayFunction1D *createFTDecayFunction() const;
 };
 
+class BA_CORE_API_ FTDecayFunction2DItem : public ParameterizedItem
+{
+    Q_OBJECT
+public:
+    static const QString P_DECAY_LENGTH_X;
+    static const QString P_DECAY_LENGTH_Y;
+    static const QString P_GAMMA;
+    explicit FTDecayFunction2DItem(const QString name, ParameterizedItem *parent)
+        : ParameterizedItem(name, parent) {
+         registerProperty(P_GAMMA, 0.0);
+    }
+    virtual IFTDecayFunction2D *createFTDecayFunction() const { return 0;}
+    virtual ~FTDecayFunction2DItem(){}
+};
+
+class BA_CORE_API_ FTDecayFunction2DCauchyItem : public FTDecayFunction2DItem
+{
+    Q_OBJECT
+public:
+    explicit FTDecayFunction2DCauchyItem(ParameterizedItem *parent=0);
+    virtual IFTDecayFunction2D *createFTDecayFunction() const;
+};
+
+class BA_CORE_API_ FTDecayFunction2DGaussItem : public FTDecayFunction2DItem
+{
+    Q_OBJECT
+public:
+    explicit FTDecayFunction2DGaussItem(ParameterizedItem *parent=0);
+    virtual IFTDecayFunction2D *createFTDecayFunction() const;
+};
+
+class BA_CORE_API_ FTDecayFunction2DVoigtItem : public FTDecayFunction2DItem
+{
+    Q_OBJECT
+public:
+    static const QString P_ETA;
+    explicit FTDecayFunction2DVoigtItem(ParameterizedItem *parent=0);
+    virtual IFTDecayFunction2D *createFTDecayFunction() const;
+};
+
+
+
 #endif // FTDECAYFUNCTIONITEMS_H
 

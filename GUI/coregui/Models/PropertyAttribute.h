@@ -60,6 +60,9 @@ public:
     QString getToolTip() const;
     PropertyAttribute& setToolTip(const QString &tooltip);
 
+    bool isVisible() const;
+    PropertyAttribute& setVisible();
+
     bool isHidden() const;
     PropertyAttribute& setHidden();
 

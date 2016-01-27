@@ -118,6 +118,17 @@ PropertyAttribute &PropertyAttribute::setToolTip(const QString &tooltip)
     return *this;
 }
 
+bool PropertyAttribute::isVisible() const
+{
+    return (m_appearance & PropertyAttribute::VISIBLE);
+}
+
+PropertyAttribute &PropertyAttribute::setVisible()
+{
+    m_appearance = VISIBLE;
+    return *this;
+}
+
 bool PropertyAttribute::isHidden() const
 {
     return (m_appearance & PropertyAttribute::HIDDEN);

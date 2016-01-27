@@ -332,8 +332,11 @@ void UniversalPropertyEditor::addSubProperties(QtProperty *item_property,
                 subProperty->setAttribute(QLatin1String("singleStep"), 1./std::pow(10.,prop_attribute.getDecimals()-1));
             }
 
-            QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), prop_name);
-            if(!toolTip.isEmpty()) subProperty->setToolTip(toolTip);
+            QString toolTip = prop_attribute.getToolTip();
+            if(toolTip.isEmpty()) {
+                toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), property_name);
+            }
+            if(!toolTip.isEmpty()) result->setToolTip(toolTip);
 
             if(prop_attribute.isDisabled()) {
                 subProperty->setEnabled(false);

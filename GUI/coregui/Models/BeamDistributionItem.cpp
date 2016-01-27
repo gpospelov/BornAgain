@@ -40,7 +40,7 @@ void BeamDistributionItem::onPropertyChange(const QString &name)
         if(distribution) {
             double cached_value = getRegisteredProperty(P_CACHED_VALUE).toDouble();
             PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
-            cached_attribute.setAppearance(PropertyAttribute::VISIBLE);
+            cached_attribute.setVisible();
             // do not propagate this change back to me, or I will enter an infinite
             // signal-slot loop
             disconnect(getSubItems()[P_DISTRIBUTION], SIGNAL(propertyChanged(QString)),
@@ -97,7 +97,7 @@ void BeamDistributionItem::onSubItemChanged(const QString &propertyName)
         Q_ASSERT(distribution);
         double cached_value = getRegisteredProperty(P_CACHED_VALUE).toDouble();
         PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
-        cached_attribute.setAppearance(PropertyAttribute::VISIBLE);
+        cached_attribute.setVisible();
         distribution->init_parameters(cached_value, cached_attribute);
     }
     ParameterizedItem::onSubItemChanged(propertyName);

@@ -85,13 +85,13 @@ RectangularDetectorItem::RectangularDetectorItem(ParameterizedItem *parent)
     getSubItems()[P_X_AXIS]->setPropertyAppearance(BasicAxisItem::P_MIN, PropertyAttribute::HIDDEN);
 
     getSubItems()[P_X_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 1.0);
-    getSubItems()[P_X_AXIS]->setPropertyAttribute(BasicAxisItem::P_MAX, PropertyAttribute::labeled("width"));
+    getSubItems()[P_X_AXIS]->getPropertyAttribute(BasicAxisItem::P_MAX).setLabel("width");
 
     registerGroupProperty(P_Y_AXIS, Constants::BasicAxisType);
     getSubItems()[P_Y_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
     getSubItems()[P_Y_AXIS]->setPropertyAppearance(BasicAxisItem::P_MIN, PropertyAttribute::HIDDEN);
     getSubItems()[P_Y_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 2.0);
-    getSubItems()[P_Y_AXIS]->setPropertyAttribute(BasicAxisItem::P_MAX, PropertyAttribute::labeled("height"));
+    getSubItems()[P_Y_AXIS]->getPropertyAttribute(BasicAxisItem::P_MAX).setLabel("height");
 
     registerGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
     setGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionNoneType);
@@ -109,10 +109,9 @@ RectangularDetectorItem::RectangularDetectorItem(ParameterizedItem *parent)
     registerGroupProperty(P_DIRECTION, Constants::VectorType);
 
     registerGroupProperty(P_UV, Constants::VectorType);
-    getSubItems()[P_UV]->setPropertyAttribute(VectorItem::P_X, PropertyAttribute::labeled("u0"));
-    getSubItems()[P_UV]->setPropertyAttribute(VectorItem::P_Y, PropertyAttribute::labeled("v0"));
-    getSubItems()[P_UV]->setPropertyAppearance(VectorItem::P_Z, PropertyAttribute::HIDDEN);
-
+    getSubItems()[P_UV]->getPropertyAttribute(VectorItem::P_X).setLabel("u0").setToolTip("xxxx");
+    getSubItems()[P_UV]->getPropertyAttribute(VectorItem::P_Y).setLabel("v0");
+    getSubItems()[P_UV]->getPropertyAttribute(VectorItem::P_Z).setHidden();
 
     registerGroupProperty(P_UV_DPOS, Constants::VectorType);
     registerProperty(P_DISTANCE, 1000.0);

@@ -390,7 +390,10 @@ QtVariantProperty *AwesomePropertyEditor::createQtVariantProperty(ParameterizedI
         if(limits.hasUpperLimit()) result->setAttribute(QLatin1String("maximum"), int(limits.getUpperLimit()));
     }
 
-    QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), property_name);
+    QString toolTip = prop_attribute.getToolTip();
+    if(toolTip.isEmpty()) {
+        toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), property_name);
+    }
     if(!toolTip.isEmpty()) result->setToolTip(toolTip);
 
     if(prop_attribute.isDisabled()) {

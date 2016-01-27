@@ -100,7 +100,7 @@ FTDistribution1DVoigtItem::FTDistribution1DVoigtItem(ParameterizedItem *parent)
     : FTDistribution1DItem(QString("FTDistribution1DVoigt"), parent)
 {
     registerProperty(P_CORR_LENGTH, 1.0);
-    registerProperty(P_ETA, 0.5, PropertyAttribute(AttLimits::limited(-1.0, 1.0)));
+    registerProperty(P_ETA, 0.5, PropertyAttribute(AttLimits::limited(0.0, 1.0)));
 }
 
 IFTDistribution1D *FTDistribution1DVoigtItem::createFTDistribution() const

@@ -65,7 +65,7 @@ FTDecayFunction1DVoigtItem::FTDecayFunction1DVoigtItem(ParameterizedItem *parent
     : FTDecayFunction1DItem(QString("FTDecayFunction1DVoigt"), parent)
 {
     registerProperty(P_DECAY_LENGTH, 1000.0);
-    registerProperty(P_ETA, 0.5, PropertyAttribute(AttLimits::limited(-1.0, 1.0)));
+    registerProperty(P_ETA, 0.5, PropertyAttribute(AttLimits::limited(0.0, 1.0)));
 }
 
 IFTDecayFunction1D *FTDecayFunction1DVoigtItem::createFTDecayFunction() const

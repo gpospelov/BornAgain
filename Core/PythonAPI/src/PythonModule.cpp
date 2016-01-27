@@ -19,7 +19,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "SimulationParameters.pypp.h"
 #include "ThreadInfo.pypp.h"
 #include "InterferenceFunction2DLattice.pypp.h"
-#include "FTDecayFunction1DCosine.pypp.h"
 #include "LayerInterface.pypp.h"
 #include "ILayout.pypp.h"
 #include "FormFactorCone6.pypp.h"
@@ -69,7 +68,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "Polygon.pypp.h"
 #include "OffSpecSimulation.pypp.h"
 #include "FormFactorRipple1.pypp.h"
-#include "FTDecayFunction1DGate.pypp.h"
 #include "Simulation.pypp.h"
 #include "IObservable.pypp.h"
 #include "FormFactorLorentz.pypp.h"
@@ -200,8 +198,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_DistributionLorentz_class();
     register_IFTDecayFunction1D_class();
     register_FTDecayFunction1DCauchy_class();
-    register_FTDecayFunction1DCosine_class();
-    register_FTDecayFunction1DGate_class();
     register_FTDecayFunction1DGauss_class();
     register_FTDecayFunction1DTriangle_class();
     register_FTDecayFunction1DVoigt_class();

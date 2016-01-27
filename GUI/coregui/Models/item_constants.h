@@ -95,9 +95,7 @@ const ModelType FTDistribution2DVoigtType = "FTDistribution2DVoigt";
 
 const ModelType FTDecayFunction1DCauchyType = "FTDecayFunction1DCauchy";
 const ModelType FTDecayFunction1DGaussType = "FTDecayFunction1DGauss";
-const ModelType FTDecayFunction1DGateType = "FTDecayFunction1DGate";
 const ModelType FTDecayFunction1DTriangleType = "FTDecayFunction1DTriangle";
-const ModelType FTDecayFunction1DCosineType = "FTDecayFunction1DCosine";
 const ModelType FTDecayFunction1DVoigtType = "FTDecayFunction1DVoigt";
 
 const ModelType BasicLatticeType = "BasicLatticeType";

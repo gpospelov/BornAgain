@@ -97,7 +97,7 @@ InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem(Parameteriz
 {
     registerProperty(P_LENGTH, 20.0*Units::nanometer);
     registerProperty(P_ROTATION_ANGLE, 0.0);
-    registerGroupProperty(P_DECAY_FUNCTION, Constants::FTDistribution1DGroup);
+    registerGroupProperty(P_DECAY_FUNCTION, Constants::FTDecayFunction1DGroup);
 }
 
 InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem(

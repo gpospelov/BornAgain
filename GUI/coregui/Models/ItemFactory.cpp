@@ -125,9 +125,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
 
     result[Constants::FTDecayFunction1DCauchyType] = &createInstance<FTDecayFunction1DCauchyItem>;
     result[Constants::FTDecayFunction1DGaussType] = &createInstance<FTDecayFunction1DGaussItem>;
-    result[Constants::FTDecayFunction1DGateType] = &createInstance<FTDecayFunction1DGateItem>;
     result[Constants::FTDecayFunction1DTriangleType] = &createInstance<FTDecayFunction1DTriangleItem>;
-    result[Constants::FTDecayFunction1DCosineType] = &createInstance<FTDecayFunction1DCosineItem>;
     result[Constants::FTDecayFunction1DVoigtType] = &createInstance<FTDecayFunction1DVoigtItem>;
 
     result[Constants::BasicLatticeType] = &createInstance<BasicLatticeTypeItem>;

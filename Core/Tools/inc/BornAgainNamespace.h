@@ -129,9 +129,7 @@ const std::string FTDistribution2DVoigtType = "FTDistribution2DVoigt";
 
 const std::string FTDecayFunction1DCauchyType = "FTDecayFunction1DCauchy";
 const std::string FTDecayFunction1DGaussType = "FTDecayFunction1DGauss";
-const std::string FTDecayFunction1DGateType = "FTDecayFunction1DGate";
 const std::string FTDecayFunction1DTriangleType = "FTDecayFunction1DTriangle";
-const std::string FTDecayFunction1DCosineType = "FTDecayFunction1DCosine";
 const std::string FTDecayFunction1DVoigtType = "FTDecayFunction1DVoigt";
 
 // Parameter names (dimensions, angles, ...)

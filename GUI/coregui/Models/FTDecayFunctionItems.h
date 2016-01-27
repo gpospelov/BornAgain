@@ -48,27 +48,11 @@ public:
     virtual IFTDecayFunction1D *createFTDecayFunction() const;
 };
 
-class BA_CORE_API_ FTDecayFunction1DGateItem : public FTDecayFunction1DItem
-{
-    Q_OBJECT
-public:
-    explicit FTDecayFunction1DGateItem(ParameterizedItem *parent=0);
-    virtual IFTDecayFunction1D *createFTDecayFunction() const;
-};
-
 class BA_CORE_API_ FTDecayFunction1DTriangleItem : public FTDecayFunction1DItem
 {
     Q_OBJECT
 public:
     explicit FTDecayFunction1DTriangleItem(ParameterizedItem *parent=0);
-    virtual IFTDecayFunction1D *createFTDecayFunction() const;
-};
-
-class BA_CORE_API_ FTDecayFunction1DCosineItem : public FTDecayFunction1DItem
-{
-    Q_OBJECT
-public:
-    explicit FTDecayFunction1DCosineItem(ParameterizedItem *parent=0);
     virtual IFTDecayFunction1D *createFTDecayFunction() const;
 };
 

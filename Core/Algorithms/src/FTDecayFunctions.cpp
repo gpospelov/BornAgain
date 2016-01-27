@@ -71,24 +71,6 @@ double FTDecayFunction1DGauss::evaluate(double q) const
     return m_omega*std::sqrt(Units::PI2)*std::exp(-sum_sq/2.0);
 }
 
-FTDecayFunction1DGate::FTDecayFunction1DGate(double omega)
-    : IFTDecayFunction1D(omega)
-{
-    setName(FTDecayFunction1DGateType);
-    init_parameters();
-}
-
-FTDecayFunction1DGate *FTDecayFunction1DGate::clone() const
-{
-    FTDecayFunction1DGate *p_clone = new FTDecayFunction1DGate(m_omega);
-    return p_clone;
-}
-
-double FTDecayFunction1DGate::evaluate(double q) const
-{
-    return 2.0*m_omega*MathFunctions::Sinc(q*m_omega);
-}
-
 FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double omega)
     : IFTDecayFunction1D(omega)
 {
@@ -106,30 +88,6 @@ double FTDecayFunction1DTriangle::evaluate(double q) const
 {
     double sincqw2 = MathFunctions::Sinc(q*m_omega/2.0);
     return m_omega*sincqw2*sincqw2;
-}
-
-FTDecayFunction1DCosine::FTDecayFunction1DCosine(double omega)
-    : IFTDecayFunction1D(omega)
-{
-    setName(FTDecayFunction1DCosineType);
-    init_parameters();
-}
-
-FTDecayFunction1DCosine *FTDecayFunction1DCosine::clone() const
-{
-    FTDecayFunction1DCosine *p_clone = new FTDecayFunction1DCosine(m_omega);
-    return p_clone;
-}
-
-double FTDecayFunction1DCosine::evaluate(double q) const
-{
-    double qw = std::abs(q*m_omega);
-    if (std::abs(qw/Units::PI-1.0) < Numeric::double_epsilon) {
-        return m_omega/2.0;
-    }
-    else {
-        return m_omega*MathFunctions::Sinc(qw)/(1.0-qw*qw/Units::PI/Units::PI);
-    }
 }
 
 FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double omega, double eta)
@@ -159,5 +117,49 @@ void FTDecayFunction1DVoigt::init_parameters()
     IFTDecayFunction1D::init_parameters();
     registerParameter(Eta, &m_eta);
 }
+
+/* Commented out decay functions: see header for rationale
+FTDecayFunction1DGate::FTDecayFunction1DGate(double omega)
+    : IFTDecayFunction1D(omega)
+{
+    setName(FTDecayFunction1DGateType);
+    init_parameters();
+}
+
+FTDecayFunction1DGate *FTDecayFunction1DGate::clone() const
+{
+    FTDecayFunction1DGate *p_clone = new FTDecayFunction1DGate(m_omega);
+    return p_clone;
+}
+
+double FTDecayFunction1DGate::evaluate(double q) const
+{
+    return 2.0*m_omega*MathFunctions::Sinc(q*m_omega);
+}
+
+FTDecayFunction1DCosine::FTDecayFunction1DCosine(double omega)
+    : IFTDecayFunction1D(omega)
+{
+    setName(FTDecayFunction1DCosineType);
+    init_parameters();
+}
+
+FTDecayFunction1DCosine *FTDecayFunction1DCosine::clone() const
+{
+    FTDecayFunction1DCosine *p_clone = new FTDecayFunction1DCosine(m_omega);
+    return p_clone;
+}
+
+double FTDecayFunction1DCosine::evaluate(double q) const
+{
+    double qw = std::abs(q*m_omega);
+    if (std::abs(qw/Units::PI-1.0) < Numeric::double_epsilon) {
+        return m_omega/2.0;
+    }
+    else {
+        return m_omega*MathFunctions::Sinc(qw)/(1.0-qw*qw/Units::PI/Units::PI);
+    }
+}
+*/
 
 //==============2D====================

@@ -701,18 +701,6 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                            << PyGenTools::printDouble(fTD1DCauchy->getOmega()) << ")\n";
                 }
 
-                else if (const FTDecayFunction1DCosine *fTD1DCosine
-                         = dynamic_cast<const FTDecayFunction1DCosine *>(pdf)) {
-                    result << indent() << it->second << "_pdf  = FTDecayFunction1DCosine("
-                           << PyGenTools::printDouble(fTD1DCosine->getOmega()) << ")\n";
-                }
-
-                else if (const FTDecayFunction1DGate *fTD1DGate
-                         = dynamic_cast<const FTDecayFunction1DGate *>(pdf)) {
-                    result << indent() << it->second << "_pdf  = FTDecayFunction1DGate("
-                           << PyGenTools::printDouble(fTD1DGate->getOmega()) << ")\n";
-                }
-
                 else if (const FTDecayFunction1DGauss *fTD1DGauss
                          = dynamic_cast<const FTDecayFunction1DGauss *>(pdf)) {
                     result << indent() << it->second << "_pdf  = FTDecayFunction1DGauss("

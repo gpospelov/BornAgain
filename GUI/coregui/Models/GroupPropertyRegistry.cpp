@@ -102,9 +102,7 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     std::map<QString, QString> pdecay_1d;
     pdecay_1d[Constants::FTDecayFunction1DCauchyType] = "Cauchy 1D";
     pdecay_1d[Constants::FTDecayFunction1DGaussType] = "Gauss 1D";
-    pdecay_1d[Constants::FTDecayFunction1DGateType] = "Gate 1D";
     pdecay_1d[Constants::FTDecayFunction1DTriangleType] = "Triangle 1D";
-    pdecay_1d[Constants::FTDecayFunction1DCosineType] = "Cosine 1D";
     pdecay_1d[Constants::FTDecayFunction1DVoigtType] = "Voigt 1D";
     result[Constants::FTDecayFunction1DGroup] = pdecay_1d;
 

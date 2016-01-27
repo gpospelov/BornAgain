@@ -16,7 +16,7 @@
 #include "FTDecayFunctionItems.h"
 #include "Units.h"
 
-const QString FTDecayFunction1DItem::P_DECAY_LENGTH = "Corr_length";
+const QString FTDecayFunction1DItem::P_DECAY_LENGTH = "Decay Length";
 const QString FTDecayFunction1DVoigtItem::P_ETA = "Eta";
 
 //===============1D======================
@@ -47,19 +47,6 @@ IFTDecayFunction1D *FTDecayFunction1DGaussItem::createFTDecayFunction() const
                 getRegisteredProperty(P_DECAY_LENGTH).toDouble() );
 }
 
-// Gate
-FTDecayFunction1DGateItem::FTDecayFunction1DGateItem(ParameterizedItem *parent)
-    : FTDecayFunction1DItem(QString("FTDecayFunction1DGate"), parent)
-{
-    registerProperty(P_DECAY_LENGTH, 1000.0);
-}
-
-IFTDecayFunction1D *FTDecayFunction1DGateItem::createFTDecayFunction() const
-{
-    return new FTDecayFunction1DGate(
-                getRegisteredProperty(P_DECAY_LENGTH).toDouble() );
-}
-
 // Triangle
 FTDecayFunction1DTriangleItem::FTDecayFunction1DTriangleItem(ParameterizedItem *parent)
     : FTDecayFunction1DItem(QString("FTDecayFunction1DTriangle"), parent)
@@ -70,19 +57,6 @@ FTDecayFunction1DTriangleItem::FTDecayFunction1DTriangleItem(ParameterizedItem *
 IFTDecayFunction1D *FTDecayFunction1DTriangleItem::createFTDecayFunction() const
 {
     return new FTDecayFunction1DTriangle(
-                getRegisteredProperty(P_DECAY_LENGTH).toDouble() );
-}
-
-// Cosine
-FTDecayFunction1DCosineItem::FTDecayFunction1DCosineItem(ParameterizedItem *parent)
-    : FTDecayFunction1DItem(QString("FTDecayFunction1DCosine"), parent)
-{
-    registerProperty(P_DECAY_LENGTH, 1000.0);
-}
-
-IFTDecayFunction1D *FTDecayFunction1DCosineItem::createFTDecayFunction() const
-{
-    return new FTDecayFunction1DCosine(
                 getRegisteredProperty(P_DECAY_LENGTH).toDouble() );
 }
 
@@ -100,4 +74,3 @@ IFTDecayFunction1D *FTDecayFunction1DVoigtItem::createFTDecayFunction() const
                 getRegisteredProperty(P_DECAY_LENGTH).toDouble(),
                 getRegisteredProperty(P_ETA).toDouble() );
 }
-

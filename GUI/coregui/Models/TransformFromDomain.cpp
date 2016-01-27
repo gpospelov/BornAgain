@@ -526,21 +526,12 @@ void SetDecayFunction1D(ParameterizedItem *item, const IFTDecayFunction1D *ipdf,
         ParameterizedItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction1DGaussType);
         pdfItem->setRegisteredProperty(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
-    } else if (const FTDecayFunction1DGate *pdf = dynamic_cast<const FTDecayFunction1DGate *>(ipdf)) {
-        ParameterizedItem *pdfItem
-            = item->setGroupProperty(group_name, Constants::FTDecayFunction1DGateType);
-        pdfItem->setRegisteredProperty(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
     } else if (const FTDecayFunction1DTriangle *pdf
                = dynamic_cast<const FTDecayFunction1DTriangle *>(ipdf)) {
         ParameterizedItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction1DTriangleType);
         pdfItem->setRegisteredProperty(FTDecayFunction1DItem::P_DECAY_LENGTH,
                                        pdf->getOmega());
-    } else if (const FTDecayFunction1DCosine *pdf
-               = dynamic_cast<const FTDecayFunction1DCosine *>(ipdf)) {
-        ParameterizedItem *pdfItem
-            = item->setGroupProperty(group_name, Constants::FTDecayFunction1DCosineType);
-        pdfItem->setRegisteredProperty(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
     } else if (const FTDecayFunction1DVoigt *pdf
                = dynamic_cast<const FTDecayFunction1DVoigt *>(ipdf)) {
         ParameterizedItem *pdfItem

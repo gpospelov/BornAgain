@@ -48,6 +48,7 @@ RectangularDetectorWidget::RectangularDetectorWidget(ColumnResizer *columnResize
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 1);
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
+    connect(m_columnResizer, SIGNAL(destroyed(QObject*)), this, SLOT(onColumnResizerDestroyed(QObject *)));
 
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -61,7 +62,7 @@ RectangularDetectorWidget::RectangularDetectorWidget(ColumnResizer *columnResize
 
 RectangularDetectorWidget::~RectangularDetectorWidget()
 {
-//    m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
+    if(m_columnResizer) m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
 }
 
 void RectangularDetectorWidget::setDetectorItem(RectangularDetectorItem *detectorItem)
@@ -108,6 +109,11 @@ void RectangularDetectorWidget::onPropertyChanged(const QString &propertyName)
         init_alignment_editors();
     }
 
+}
+
+void RectangularDetectorWidget::onColumnResizerDestroyed(QObject *object)
+{
+    if(object == m_columnResizer) m_columnResizer = 0;
 }
 
 //! create various editors to hold RectangularDetector properties

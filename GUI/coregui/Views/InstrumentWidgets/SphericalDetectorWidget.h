@@ -36,6 +36,9 @@ public:
 
     void setDetectorItem(DetectorItem *detectorItem);
 
+public slots:
+    void onColumnResizerDestroyed(QObject *object);
+
 private:
     ColumnResizer *m_columnResizer;
     AwesomePropertyEditor *m_detectorTypeEditor;

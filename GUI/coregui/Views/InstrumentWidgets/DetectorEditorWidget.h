@@ -31,6 +31,7 @@ class BA_CORE_API_ DetectorEditorWidget : public QWidget
     Q_OBJECT
 public:
     DetectorEditorWidget(ColumnResizer *columnResizer, QWidget *parent = 0);
+    virtual ~DetectorEditorWidget();
 
     void setDetectorItem(DetectorItem *detectorItem);
 

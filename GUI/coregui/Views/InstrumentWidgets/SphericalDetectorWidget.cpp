@@ -21,6 +21,7 @@
 #include "columnresizer.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
+#include <QDebug>
 
 SphericalDetectorWidget::SphericalDetectorWidget(ColumnResizer *columnResizer,
                                                  DetectorItem *detectorItem, QWidget *parent)
@@ -49,6 +50,8 @@ SphericalDetectorWidget::SphericalDetectorWidget(ColumnResizer *columnResizer,
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 1);
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
 
+    connect(m_columnResizer, SIGNAL(destroyed(QObject*)), this, SLOT(onColumnResizerDestroyed(QObject *)));
+
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setContentsMargins(0,0,0,0);
@@ -61,11 +64,12 @@ SphericalDetectorWidget::SphericalDetectorWidget(ColumnResizer *columnResizer,
 
 SphericalDetectorWidget::~SphericalDetectorWidget()
 {
+    qDebug() << "SphericalDetectorWidget::~SphericalDetectorWidget()";
 //    m_detectorTypeEditor->clearEditor();
 //    m_phiAxisEditor->clearEditor();
 //    m_alphaAxisEditor->clearEditor();
 //    m_resolutionFunctionEditor->clearEditor();
-//    m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
+    if(m_columnResizer) m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
 
 }
 
@@ -97,6 +101,11 @@ void SphericalDetectorWidget::setDetectorItem(DetectorItem *detectorItem)
     m_resolutionFunctionEditor->addItemProperty(
         sphericalDetector, SphericalDetectorItem::P_RESOLUTION_FUNCTION, "Resolution function",
                 AwesomePropertyEditor::INSERT_AFTER);
+}
+
+void SphericalDetectorWidget::onColumnResizerDestroyed(QObject *object)
+{
+    if(object == m_columnResizer) m_columnResizer = 0;
 }
 
 

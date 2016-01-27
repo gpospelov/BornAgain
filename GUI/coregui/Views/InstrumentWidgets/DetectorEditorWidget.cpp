@@ -50,6 +50,11 @@ DetectorEditorWidget::DetectorEditorWidget(ColumnResizer *columnResizer, QWidget
     setLayout(mainLayout);
 }
 
+DetectorEditorWidget::~DetectorEditorWidget()
+{
+    qDebug() << "DetectorEditorWidget::~DetectorEditorWidget()";
+}
+
 void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
 {
     qDebug() << "DetectorEditorWidget::setDetectorItem() -> XXX";

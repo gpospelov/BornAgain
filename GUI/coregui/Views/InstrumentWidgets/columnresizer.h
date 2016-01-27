@@ -34,6 +34,9 @@ public:
 
     void dropWidgetsFromGridLayout(QGridLayout *layout);
 
+//public slots:
+//    void onObjectDestroyed(QObject *object);
+
 private slots:
     void updateWidth();
 

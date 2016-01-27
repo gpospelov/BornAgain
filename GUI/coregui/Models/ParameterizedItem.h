@@ -103,8 +103,9 @@ public:
                                              const Constants::ModelType &group_model);
     ParameterizedItem *setGroupProperty(const QString &name, const QString &value);
 
-    void registerProperty(const QString &name, const QVariant &variant,
+    PropertyAttribute& registerProperty(const QString &name, const QVariant &variant,
                           const PropertyAttribute &attribute = PropertyAttribute());
+
     void setRegisteredProperty(const QString &name, const QVariant &variant);
     QVariant getRegisteredProperty(const QString &name) const;
     void removeRegisteredProperty(const QString &name);

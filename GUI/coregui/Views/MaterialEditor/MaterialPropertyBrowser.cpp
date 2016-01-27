@@ -258,7 +258,7 @@ void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, Pa
         QString prop_name = QString(property_names[i]);
         PropertyAttribute prop_attribute = item->getPropertyAttribute(prop_name);
 
-        if(prop_attribute.getAppearance() & PropertyAttribute::HIDDEN) continue;
+        if(prop_attribute.isHidden()) continue;
 
         QVariant prop_value = item->property(prop_name.toUtf8().data());
         int type = GUIHelpers::getVariantType(prop_value);
@@ -277,7 +277,7 @@ void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, Pa
             QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), prop_name);
             if(!toolTip.isEmpty()) subProperty->setToolTip(toolTip);
 
-            if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
+            if(prop_attribute.isDisabled()) {
                 subProperty->setEnabled(false);
             }
 

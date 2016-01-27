@@ -50,8 +50,8 @@ IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
     gradient.setValue(Constants::GRADIENT_JET);
     registerProperty(P_GRADIENT, gradient.getVariant());
 
-    registerProperty(P_AXES_UNITS, AngleProperty::Degrees(), PropertyAttribute(PropertyAttribute::HIDDEN));
-    registerProperty(P_PROPERTY_PANEL_FLAG, false, PropertyAttribute(PropertyAttribute::HIDDEN));
+    registerProperty(P_AXES_UNITS, AngleProperty::Degrees()).setHidden();
+    registerProperty(P_PROPERTY_PANEL_FLAG, false).setHidden();
 
     registerGroupProperty(P_XAXIS, Constants::BasicAxisType);
     getSubItems()[P_XAXIS]->setPropertyAppearance(BasicAxisItem::P_NBINS, PropertyAttribute::HIDDEN);

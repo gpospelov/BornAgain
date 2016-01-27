@@ -35,21 +35,6 @@ PropertyAttribute::PropertyAttribute(const AttLimits &limits, int decimals)
 
 }
 
-PropertyAttribute PropertyAttribute::visibleProperty()
-{
-    return PropertyAttribute(VISIBLE);
-}
-
-PropertyAttribute PropertyAttribute::hiddenProperty()
-{
-    return PropertyAttribute(HIDDEN);
-}
-
-PropertyAttribute PropertyAttribute::disabledProperty()
-{
-    return PropertyAttribute(DISABLED);
-}
-
 PropertyAttribute PropertyAttribute::labeled(const QString &label)
 {
     return PropertyAttribute(VISIBLE, AttLimits::lowerLimited(0.0), 2, label);
@@ -70,9 +55,34 @@ AttLimits PropertyAttribute::getLimits() const
     return m_limits;
 }
 
-void PropertyAttribute::setLimits(AttLimits limits)
+PropertyAttribute& PropertyAttribute::setLimits(const AttLimits &limits)
 {
     m_limits = limits;
+    return *this;
+}
+
+PropertyAttribute &PropertyAttribute::lowerLimited(double value)
+{
+    m_limits = AttLimits::lowerLimited(value);
+    return *this;
+}
+
+PropertyAttribute &PropertyAttribute::upperLimited(double value)
+{
+    m_limits = AttLimits::upperLimited(value);
+    return *this;
+}
+
+PropertyAttribute &PropertyAttribute::limited(double left_bound_value, double right_bound_value)
+{
+    m_limits = AttLimits::limited(left_bound_value, right_bound_value);
+    return *this;
+}
+
+PropertyAttribute &PropertyAttribute::limitless()
+{
+    m_limits = AttLimits::limitless();
+    return *this;
 }
 
 int PropertyAttribute::getDecimals() const
@@ -80,9 +90,10 @@ int PropertyAttribute::getDecimals() const
     return m_decimals;
 }
 
-void PropertyAttribute::setDecimals(int decimals)
+PropertyAttribute &PropertyAttribute::setDecimals(int decimals)
 {
     m_decimals = decimals;
+    return *this;
 }
 
 QString PropertyAttribute::getLabel() const
@@ -90,9 +101,10 @@ QString PropertyAttribute::getLabel() const
     return m_label;
 }
 
-void PropertyAttribute::setLabel(const QString &label)
+PropertyAttribute &PropertyAttribute::setLabel(const QString &label)
 {
     m_label = label;
+    return *this;
 }
 
 QString PropertyAttribute::getToolTip() const
@@ -100,9 +112,10 @@ QString PropertyAttribute::getToolTip() const
     return m_tooltip;
 }
 
-void PropertyAttribute::setToolTip(const QString &tooltip)
+PropertyAttribute &PropertyAttribute::setToolTip(const QString &tooltip)
 {
     m_tooltip = tooltip;
+    return *this;
 }
 
 bool PropertyAttribute::isHidden() const
@@ -110,14 +123,32 @@ bool PropertyAttribute::isHidden() const
     return (m_appearance & PropertyAttribute::HIDDEN);
 }
 
+PropertyAttribute& PropertyAttribute::setHidden()
+{
+    m_appearance = HIDDEN;
+    return *this;
+}
+
 bool PropertyAttribute::isDisabled() const
 {
     return (m_appearance & PropertyAttribute::DISABLED);
 }
 
+PropertyAttribute& PropertyAttribute::setDisabled()
+{
+    m_appearance = DISABLED;
+    return *this;
+}
+
 bool PropertyAttribute::isReadOnly() const
 {
     return (m_appearance & PropertyAttribute::READONLY);
+}
+
+PropertyAttribute& PropertyAttribute::setReadOnly()
+{
+    m_appearance = READONLY;
+    return *this;
 }
 
 

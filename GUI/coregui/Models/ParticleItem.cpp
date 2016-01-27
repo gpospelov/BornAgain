@@ -34,8 +34,7 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     registerGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
     registerProperty(P_MATERIAL,
                      MaterialUtils::getDefaultMaterialProperty().getVariant());
-    registerProperty(P_ABUNDANCE, 1.0,
-                     PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
+    registerProperty(P_ABUNDANCE, 1.0).limited(0.0, 1.0).setDecimals(3);
     registerGroupProperty(P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;
     addParameterTranslator(position_translator);

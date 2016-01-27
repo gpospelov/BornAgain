@@ -189,7 +189,7 @@ void UniversalPropertyEditor::onPropertyChanged(const QString &property_name)
         variant_property->setValue(property_value);
 
         PropertyAttribute prop_attribute = m_item->getPropertyAttribute(property_name);
-        if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
+        if(prop_attribute.isDisabled()) {
             variant_property->setEnabled(false);
         } else {
             variant_property->setEnabled(true);
@@ -223,7 +223,7 @@ void UniversalPropertyEditor::onSubItemPropertyChanged(const QString &property_g
             variant_property->setValue(property_value);
 
             PropertyAttribute prop_attribute = subItem->getPropertyAttribute(property_name);
-            if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
+            if(prop_attribute.isDisabled()) {
                 variant_property->setEnabled(false);
             } else {
                 variant_property->setEnabled(true);
@@ -335,7 +335,7 @@ void UniversalPropertyEditor::addSubProperties(QtProperty *item_property,
             QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), prop_name);
             if(!toolTip.isEmpty()) subProperty->setToolTip(toolTip);
 
-            if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
+            if(prop_attribute.isDisabled()) {
                 subProperty->setEnabled(false);
             }
 

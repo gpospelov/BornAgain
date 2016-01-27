@@ -43,8 +43,8 @@ const QString ResolutionFunction2DGaussianItem::P_SIGMA_Y = "Sigma alpha";
 ResolutionFunction2DGaussianItem::ResolutionFunction2DGaussianItem(ParameterizedItem *parent)
     : ResolutionFunctionItem(Constants::ResolutionFunction2DGaussianType, parent)
 {
-    registerProperty(P_SIGMA_X, 0.02, PropertyAttribute(AttLimits::lowerLimited(0.0), 3));
-    registerProperty(P_SIGMA_Y, 0.02, PropertyAttribute(AttLimits::lowerLimited(0.0), 3));
+    registerProperty(P_SIGMA_X, 0.02).lowerLimited(0.0).setDecimals(3);
+    registerProperty(P_SIGMA_Y, 0.02).lowerLimited(0.0).setDecimals(3);
 }
 
 IResolutionFunction2D *ResolutionFunction2DGaussianItem::createResolutionFunction() const

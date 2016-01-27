@@ -74,7 +74,7 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
     registerProperty(P_DOMAIN_SIZE1, 20.0*Units::micrometer);
     registerProperty(P_DOMAIN_SIZE2, 20.0*Units::micrometer);
     registerProperty(P_XI_INTEGRATION, true);
-    registerProperty(P_ROTATION_ANGLE, 0.0, PropertyAttribute(PropertyAttribute::DISABLED));
+    registerProperty(P_ROTATION_ANGLE, 0.0).setDisabled();
     registerGroupProperty(P_PDF1, Constants::FTDistribution2DGroup);
     registerGroupProperty(P_PDF2, Constants::FTDistribution2DGroup);
 }

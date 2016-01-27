@@ -76,10 +76,7 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SessionModel *sampleMo
 
                 PropertyAttribute prop_attribute = item->getPropertyAttribute(propertyName);
 
-                if (prop_attribute.getAppearance() & PropertyAttribute::HIDDEN)
-                    continue;
-                if (prop_attribute.getAppearance() & PropertyAttribute::DISABLED)
-                    continue;
+                if (prop_attribute.isHidden() || prop_attribute.isDisabled()) continue;
 
                 // if(item->getPropertyAttribute(propertyName) & ParameterizedItem::HiddenProperty)
                 // continue;

@@ -22,8 +22,7 @@
 ParticleCompositionItem::ParticleCompositionItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleCompositionType, parent)
 {
-    registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
-                     PropertyAttribute(AttLimits::limited(0.0, 1.0), 3));
+    registerProperty(ParticleItem::P_ABUNDANCE, 1.0).limited(0.0, 1.0).setDecimals(3);
     registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;
     addParameterTranslator(position_translator);

@@ -39,29 +39,36 @@ public:
 
     explicit PropertyAttribute(const AttLimits &limits, int decimals=2);
 
-    static PropertyAttribute visibleProperty();
-    static PropertyAttribute hiddenProperty();
-    static PropertyAttribute disabledProperty();
     static PropertyAttribute labeled(const QString &label);
 
     EAppearance getAppearance() const;
     void setAppearance(EAppearance appearance);
 
     AttLimits getLimits() const;
-    void setLimits(AttLimits limits);
+    PropertyAttribute& setLimits(const AttLimits &limits);
+    PropertyAttribute& lowerLimited(double value);
+    PropertyAttribute& upperLimited(double value);
+    PropertyAttribute& limited(double left_bound_value, double right_bound_value);
+    PropertyAttribute& limitless();
 
     int getDecimals() const;
-    void setDecimals(int decimals);
+    PropertyAttribute& setDecimals(int decimals);
 
     QString getLabel() const;
-    void setLabel(const QString &label);
+    PropertyAttribute& setLabel(const QString &label);
 
     QString getToolTip() const;
-    void setToolTip(const QString &tooltip);
+    PropertyAttribute& setToolTip(const QString &tooltip);
 
     bool isHidden() const;
+    PropertyAttribute& setHidden();
+
     bool isDisabled() const;
+    PropertyAttribute& setDisabled();
+
     bool isReadOnly() const;
+    PropertyAttribute& setReadOnly();
+
 private:
     EAppearance m_appearance;
     AttLimits m_limits;

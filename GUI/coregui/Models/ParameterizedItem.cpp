@@ -37,7 +37,7 @@ ParameterizedItem::ParameterizedItem(QString model_type, ParameterizedItem *pare
     if (mp_parent) {
         mp_parent->insertChildItem(-1, this);
     }
-    registerProperty(P_PORT, -1, PropertyAttribute(PropertyAttribute::HIDDEN));
+    registerProperty(P_PORT, -1).setHidden();
 }
 
 ParameterizedItem::~ParameterizedItem()
@@ -219,7 +219,7 @@ ParameterizedItem *ParameterizedItem::setGroupProperty(const QString &name, cons
     return m_sub_items[name];
 }
 
-void ParameterizedItem::registerProperty(const QString &name, const QVariant &variant,
+PropertyAttribute &ParameterizedItem::registerProperty(const QString &name, const QVariant &variant,
                                          const PropertyAttribute &attribute)
 {
     if (m_registered_properties.contains(name))
@@ -234,6 +234,7 @@ void ParameterizedItem::registerProperty(const QString &name, const QVariant &va
     m_property_attribute[name] = attribute;
 
     setProperty(name.toUtf8().constData(), variant);
+    return m_property_attribute[name];
 }
 
 void ParameterizedItem::setRegisteredProperty(const QString &name, const QVariant &variant)
@@ -414,10 +415,7 @@ QStringList ParameterizedItem::getParameterTreeList(QString prefix) const
         for (QMap<QString, ParameterizedItem *>::const_iterator it = m_sub_items.begin();
              it != m_sub_items.end(); ++it) {
             PropertyAttribute prop_attribute = getPropertyAttribute(it.key());
-            if (prop_attribute.getAppearance() & (PropertyAttribute::HIDDEN |
-                                                  PropertyAttribute::DISABLED) ) {
-                continue;
-            }
+            if (prop_attribute.isHidden() || prop_attribute.isDisabled()) continue;
             ParameterizedItem *p_subitem = it.value();
             QString subitem_name = p_subitem->displayName();
             QString subitem_prefix = prefix + subitem_name + QString("/");

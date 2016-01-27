@@ -728,11 +728,11 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                 else {
                     std::ostringstream pdfException;
                     pdfException << "\n" << pdf->getName() << " :: Not Casted To Any "
-                                 << "Probability Distribution Function\n";
+                                 << "Decay Function\n";
                     throw NotImplementedException(pdfException.str());
                 }
 
-                result << indent() << it->second << ".setProbabilityDistribution(" << it->second
+                result << indent() << it->second << ".setDecayFunction(" << it->second
                        << "_pdf)\n";
             }
         }

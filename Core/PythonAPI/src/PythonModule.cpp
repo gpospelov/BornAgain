@@ -19,6 +19,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "SimulationParameters.pypp.h"
 #include "ThreadInfo.pypp.h"
 #include "InterferenceFunction2DLattice.pypp.h"
+#include "FTDecayFunction1DCosine.pypp.h"
 #include "LayerInterface.pypp.h"
 #include "ILayout.pypp.h"
 #include "FormFactorCone6.pypp.h"
@@ -54,6 +55,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "vector_longinteger_t.pypp.h"
 #include "ResolutionFunction2DGaussian.pypp.h"
 #include "RectangularDetector.pypp.h"
+#include "FTDecayFunction1DGauss.pypp.h"
 #include "FTDistribution1DGauss.pypp.h"
 #include "FTDistribution1DGate.pypp.h"
 #include "FormFactorAnisoPyramid.pypp.h"
@@ -67,6 +69,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "Polygon.pypp.h"
 #include "OffSpecSimulation.pypp.h"
 #include "FormFactorRipple1.pypp.h"
+#include "FTDecayFunction1DGate.pypp.h"
 #include "Simulation.pypp.h"
 #include "IObservable.pypp.h"
 #include "FormFactorLorentz.pypp.h"
@@ -102,11 +105,13 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IFTDistribution1D.pypp.h"
 #include "DistributionLorentz.pypp.h"
 #include "IDistribution1D.pypp.h"
+#include "FTDecayFunction1DCauchy.pypp.h"
 #include "Lattice2DParameters.pypp.h"
 #include "vdouble2d_t.pypp.h"
 #include "Line.pypp.h"
 #include "HomogeneousMagneticMaterial.pypp.h"
 #include "vector_realparameter_t.pypp.h"
+#include "FTDecayFunction1DVoigt.pypp.h"
 #include "IAbstractParticle.pypp.h"
 #include "FormFactorTruncatedCube.pypp.h"
 #include "FormFactorCuboctahedron.pypp.h"
@@ -125,6 +130,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "ISample.pypp.h"
 #include "ISampleBuilder.pypp.h"
 #include "IRotation.pypp.h"
+#include "FTDecayFunction1DTriangle.pypp.h"
 #include "PythonInterface_global_variables.pypp.h"
 #include "Beam.pypp.h"
 #include "HomogeneousMaterial.pypp.h"
@@ -148,6 +154,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FTDistribution2DVoigt.pypp.h"
 #include "FormFactorGauss.pypp.h"
 #include "InterferenceFunction2DParaCrystal.pypp.h"
+#include "IFTDecayFunction1D.pypp.h"
 #include "SphericalDetector.pypp.h"
 #include "ICompositeSample.pypp.h"
 #include "Bin1D.pypp.h"
@@ -191,6 +198,13 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_DistributionGaussian_class();
     register_DistributionLogNormal_class();
     register_DistributionLorentz_class();
+    register_IFTDecayFunction1D_class();
+    register_FTDecayFunction1DCauchy_class();
+    register_FTDecayFunction1DCosine_class();
+    register_FTDecayFunction1DGate_class();
+    register_FTDecayFunction1DGauss_class();
+    register_FTDecayFunction1DTriangle_class();
+    register_FTDecayFunction1DVoigt_class();
     register_IFTDistribution1D_class();
     register_FTDistribution1DCauchy_class();
     register_FTDistribution1DCosine_class();

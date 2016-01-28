@@ -37,7 +37,7 @@ ParameterizedItem::ParameterizedItem(QString model_type, ParameterizedItem *pare
     if (mp_parent) {
         mp_parent->insertChildItem(-1, this);
     }
-    registerProperty(P_PORT, -1, PropertyAttribute(PropertyAttribute::HIDDEN));
+    registerProperty(P_PORT, -1).setHidden();
 }
 
 ParameterizedItem::~ParameterizedItem()
@@ -219,7 +219,7 @@ ParameterizedItem *ParameterizedItem::setGroupProperty(const QString &name, cons
     return m_sub_items[name];
 }
 
-void ParameterizedItem::registerProperty(const QString &name, const QVariant &variant,
+PropertyAttribute &ParameterizedItem::registerProperty(const QString &name, const QVariant &variant,
                                          const PropertyAttribute &attribute)
 {
     if (m_registered_properties.contains(name))
@@ -234,6 +234,7 @@ void ParameterizedItem::registerProperty(const QString &name, const QVariant &va
     m_property_attribute[name] = attribute;
 
     setProperty(name.toUtf8().constData(), variant);
+    return m_property_attribute[name];
 }
 
 void ParameterizedItem::setRegisteredProperty(const QString &name, const QVariant &variant)
@@ -285,19 +286,27 @@ void ParameterizedItem::removeRegisteredProperty(const QString &name)
     }
 }
 
-PropertyAttribute ParameterizedItem::getPropertyAttribute(const QString &name) const
+
+const PropertyAttribute &ParameterizedItem::getPropertyAttribute(const QString &name) const
 {
-    if (!m_registered_properties.contains(name))
-        throw GUIHelpers::Error(
-            "ParameterizedItem::getPropertyAttribute() -> Error. Unknown property " + name + " "
-            + modelType());
+    QMap<QString, PropertyAttribute>::const_iterator it = m_property_attribute.find(name);
+    if(it == m_property_attribute.end()) {
+        throw GUIHelpers::Error("ParameterizedItem::getPropertyAttribute() -> Error. "
+                                "Unknown property attribute " + name);
 
-    if (!m_property_attribute.contains(name))
-        throw GUIHelpers::Error(
-            "ParameterizedItem::getPropertyAttribute() -> Error. Unknown property attribute "
-            + name);
+    }
+    return it.value();
+}
 
-    return m_property_attribute[name];
+PropertyAttribute &ParameterizedItem::getPropertyAttribute(const QString &name)
+{
+    QMap<QString, PropertyAttribute>::iterator it = m_property_attribute.find(name);
+    if(it == m_property_attribute.end()) {
+        throw GUIHelpers::Error("ParameterizedItem::getPropertyAttribute() -> Error. "
+                                "Unknown property attribute " + name);
+
+    }
+    return it.value();
 }
 
 void ParameterizedItem::setPropertyAttribute(const QString &name,
@@ -315,20 +324,6 @@ void ParameterizedItem::setPropertyAttribute(const QString &name,
     m_property_attribute[name] = attribute;
 }
 
-void ParameterizedItem::setPropertyAppearance(const QString &name,
-                                              const PropertyAttribute::EAppearance &appearance)
-{
-    if (!m_registered_properties.contains(name))
-        throw GUIHelpers::Error(
-            "ParameterizedItem::setPropertyAppearance() -> Error. Unknown property " + name);
-
-    if (!m_property_attribute.contains(name))
-        throw GUIHelpers::Error(
-            "ParameterizedItem::setPropertyAppearance() -> Error. Unknown property attribute "
-            + name);
-
-    m_property_attribute[name].setAppearance(appearance);
-}
 
 void ParameterizedItem::onPropertyChange(const QString &name)
 {
@@ -413,11 +408,8 @@ QStringList ParameterizedItem::getParameterTreeList(QString prefix) const
     if (m_sub_items.size() > 0) {
         for (QMap<QString, ParameterizedItem *>::const_iterator it = m_sub_items.begin();
              it != m_sub_items.end(); ++it) {
-            PropertyAttribute prop_attribute = getPropertyAttribute(it.key());
-            if (prop_attribute.getAppearance() & (PropertyAttribute::HIDDEN |
-                                                  PropertyAttribute::DISABLED) ) {
-                continue;
-            }
+            const PropertyAttribute &prop_attribute = getPropertyAttribute(it.key());
+            if (prop_attribute.isHidden() || prop_attribute.isDisabled()) continue;
             ParameterizedItem *p_subitem = it.value();
             QString subitem_name = p_subitem->displayName();
             QString subitem_prefix = prefix + subitem_name + QString("/");
@@ -598,11 +590,8 @@ QStringList ParameterizedItem::getParameterList(QString prefix) const
     QList<QByteArray> property_names = dynamicPropertyNames();
     for (int i = 0; i < property_names.length(); ++i) {
         QString prop_name = QString(property_names[i]);
-        PropertyAttribute prop_attribute = getPropertyAttribute(prop_name);
-        if (prop_attribute.getAppearance() & (PropertyAttribute::HIDDEN |
-                                              PropertyAttribute::DISABLED) ) {
-            continue;
-        }
+        const PropertyAttribute &prop_attribute = getPropertyAttribute(prop_name);
+        if (prop_attribute.isHidden() || prop_attribute.isDisabled() ) continue;
         QVariant variant = property(prop_name.toUtf8().constData());
         int type = GUIHelpers::getVariantType(variant);
         if (type == QVariant::Double) {

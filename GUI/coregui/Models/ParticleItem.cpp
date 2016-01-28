@@ -34,8 +34,7 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     registerGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
     registerProperty(P_MATERIAL,
                      MaterialUtils::getDefaultMaterialProperty().getVariant());
-    registerProperty(P_ABUNDANCE, 1.0,
-                     PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
+    registerProperty(P_ABUNDANCE, 1.0).limited(0.0, 1.0).setDecimals(3);
     registerGroupProperty(P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;
     addParameterTranslator(position_translator);
@@ -64,7 +63,7 @@ void ParticleItem::onPropertyChange(const QString &name)
             || parent()->modelType() == Constants::ParticleCompositionType
             || parent()->modelType() == Constants::ParticleDistributionType) {
             setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-            setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
+            getPropertyAttribute(ParticleItem::P_ABUNDANCE).setDisabled();
             int port = getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
             if (parent()->modelType() == Constants::ParticleCoreShellType) {
                 auto p_coreshell = static_cast<ParticleCoreShellItem*>(parent());
@@ -74,7 +73,7 @@ void ParticleItem::onPropertyChange(const QString &name)
                     p_position_item->setRegisteredProperty(VectorItem::P_X, 0.0);
                     p_position_item->setRegisteredProperty(VectorItem::P_Y, 0.0);
                     p_position_item->setRegisteredProperty(VectorItem::P_Z, 0.0);
-                    setPropertyAppearance(ParticleItem::P_POSITION, PropertyAttribute::DISABLED);
+                    getPropertyAttribute(ParticleItem::P_POSITION).setDisabled();
                 }
             }
         }

@@ -32,10 +32,16 @@ public:
     void addWidgetsFromGridLayout(QGridLayout*, int column);
     void addWidgetsFromFormLayout(QFormLayout*, QFormLayout::ItemRole role);
 
+    void dropWidgetsFromGridLayout(QGridLayout *layout);
+
+//public slots:
+//    void onObjectDestroyed(QObject *object);
+
 private slots:
     void updateWidth();
 
 protected:
+    void removeWidget(QWidget* widget);
     virtual bool eventFilter(QObject*, QEvent* event);
 
 private:

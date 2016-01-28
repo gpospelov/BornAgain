@@ -85,6 +85,7 @@ public:
     ColumnResizerPrivate(ColumnResizer* q_ptr)
     : q(q_ptr)
     , m_updateTimer(new QTimer(q))
+    , block_update(false)
     {
         m_updateTimer->setSingleShot(true);
         m_updateTimer->setInterval(0);
@@ -93,6 +94,7 @@ public:
 
     void scheduleWidthUpdate()
     {
+        if(block_update) return;
         m_updateTimer->start();
     }
 
@@ -101,6 +103,7 @@ public:
     QList<QWidget*> m_widgets;
     QList<FormLayoutWidgetItem*> m_wrWidgetItemList;
     QList<GridColumnInfo> m_gridColumnInfoList;
+    bool block_update;
 };
 
 ColumnResizer::ColumnResizer(QObject* parent)
@@ -110,6 +113,7 @@ ColumnResizer::ColumnResizer(QObject* parent)
 
 ColumnResizer::~ColumnResizer()
 {
+    qDebug() << "ColumnResizer::~ColumnResizer() ->";
     delete d;
 }
 
@@ -117,13 +121,17 @@ void ColumnResizer::addWidget(QWidget* widget)
 {
     d->m_widgets.append(widget);
     widget->installEventFilter(this);
+//    connect(widget, SIGNAL(destroyed(QObject*)), this, SLOT(onObjectDestroyed(QObject*)));
     d->scheduleWidthUpdate();
 }
 
 void ColumnResizer::updateWidth()
 {
+    if(d->block_update) return;
+    qDebug() << "ColumnResizer::updateWidth()";
     int width = 0;
     Q_FOREACH(QWidget* widget, d->m_widgets) {
+        qDebug() << "       ColumnResizer::updateWidth()" << widget;
         width = qMax(widget->sizeHint().width(), width);
     }
     Q_FOREACH(FormLayoutWidgetItem* item, d->m_wrWidgetItemList) {
@@ -132,6 +140,14 @@ void ColumnResizer::updateWidth()
     }
     Q_FOREACH(GridColumnInfo info, d->m_gridColumnInfoList) {
         info.first->setColumnMinimumWidth(info.second, width);
+    }
+}
+
+void ColumnResizer::removeWidget(QWidget *widget)
+{
+    if(d->m_widgets.contains(widget)) {
+        d->m_widgets.removeAll(widget);
+        widget->removeEventFilter(this);
     }
 }
 
@@ -176,6 +192,8 @@ void ColumnResizer::addWidgetsFromGridLayout(QGridLayout* layout, int column)
         addWidget(widget);
     }
     d->m_gridColumnInfoList << GridColumnInfo(layout, column);
+//    connect(layout, SIGNAL(destroyed(QObject*)), this, SLOT(onObjectDestroyed(QObject*)));
+
 }
 
 void ColumnResizer::addWidgetsFromFormLayout(QFormLayout* layout, QFormLayout::ItemRole role)
@@ -197,6 +215,61 @@ void ColumnResizer::addWidgetsFromFormLayout(QFormLayout* layout, QFormLayout::I
         d->m_wrWidgetItemList << newItem;
     }
 }
+
+void ColumnResizer::dropWidgetsFromGridLayout(QGridLayout *layout)
+{
+    qDebug() << "ColumnResizer::dropWidgetsFromGridLayout";
+//    d->block_update = true;
+    // removing all widgets from being supervised
+    for (int row = 0; row < layout->rowCount(); ++row) {
+        for(int column =0; column<layout->columnCount(); ++column) {
+            QLayoutItem* item = layout->itemAtPosition(row, column);
+            if (!item) {
+                continue;
+            }
+            QWidget* widget = item->widget();
+            if (!widget) {
+                continue;
+            }
+            removeWidget(widget);
+        }
+    }
+
+    // removing their layout
+    QMutableListIterator<GridColumnInfo> it(d->m_gridColumnInfoList);
+    while (it.hasNext()) {
+        GridColumnInfo ci = it.next();
+        if(ci.first == layout) {
+            it.remove();
+        }
+    }
+
+//    d->block_update = false;
+    //d->scheduleWidthUpdate();
+}
+
+//void ColumnResizer::onObjectDestroyed(QObject *object)
+//{
+//    qDebug() << "================================";
+//    qDebug() << "ColumnResizer::onObjectDestroyed" << object;
+//    d->block_update = true;
+//    if(QWidget *widget = dynamic_cast<QWidget *>(object)) {
+//        Q_ASSERT(0);
+//        if(d->m_widgets.contains(widget)) {
+//            d->m_widgets.removeAll(widget);
+//        }
+//    }
+//    else if(QGridLayout *layout = qobject_cast<QGridLayout *>(object)) {
+//        QMutableListIterator<GridColumnInfo> it(d->m_gridColumnInfoList);
+//        while (it.hasNext()) {
+//            GridColumnInfo ci = it.next();
+//            if(ci.first == layout) {
+//                it.remove();
+//            }
+//        }
+//    }
+//    d->block_update = false;
+//}
 
 #include <columnresizer.moc>
 // vi: ts=4 sw=4 et

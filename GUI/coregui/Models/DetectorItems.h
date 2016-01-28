@@ -17,9 +17,12 @@
 #define DETECTOR_ITEMS_H
 
 #include "ParameterizedItem.h"
+#include "SphericalDetectorItem.h"
+#include "RectangularDetectorItem.h"
 
 class MaskContainerItem;
 
+//! DetectorItem, holds masks and either rectangular or spherical detector as sub item
 class BA_CORE_API_ DetectorItem : public ParameterizedItem
 {
     Q_OBJECT
@@ -31,15 +34,6 @@ public:
     MaskContainerItem *getMaskContainerItem() const;
 };
 
-class PhiAlphaDetectorItem : public ParameterizedItem
-{
-public:
-    static const QString P_PHI_AXIS;
-    static const QString P_ALPHA_AXIS;
-    static const QString P_RESOLUTION_FUNCTION;
-    explicit PhiAlphaDetectorItem(ParameterizedItem *parent=0);
-    virtual ~PhiAlphaDetectorItem(){}
-};
 
 
 #endif

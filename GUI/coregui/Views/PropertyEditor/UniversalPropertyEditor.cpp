@@ -188,8 +188,8 @@ void UniversalPropertyEditor::onPropertyChanged(const QString &property_name)
 
         variant_property->setValue(property_value);
 
-        PropertyAttribute prop_attribute = m_item->getPropertyAttribute(property_name);
-        if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
+        const PropertyAttribute &prop_attribute = m_item->getPropertyAttribute(property_name);
+        if(prop_attribute.isDisabled()) {
             variant_property->setEnabled(false);
         } else {
             variant_property->setEnabled(true);
@@ -222,8 +222,8 @@ void UniversalPropertyEditor::onSubItemPropertyChanged(const QString &property_g
 
             variant_property->setValue(property_value);
 
-            PropertyAttribute prop_attribute = subItem->getPropertyAttribute(property_name);
-            if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
+            const PropertyAttribute &prop_attribute = subItem->getPropertyAttribute(property_name);
+            if(prop_attribute.isDisabled()) {
                 variant_property->setEnabled(false);
             } else {
                 variant_property->setEnabled(true);
@@ -302,15 +302,15 @@ void UniversalPropertyEditor::addSubProperties(QtProperty *item_property,
     QList<QByteArray> property_names = item->dynamicPropertyNames();
     for (int i = 0; i < property_names.length(); ++i) {
         QString prop_name = QString(property_names[i]);
-        PropertyAttribute prop_attribute = item->getPropertyAttribute(prop_name);
+        const PropertyAttribute &prop_attribute = item->getPropertyAttribute(prop_name);
 
-        if(prop_attribute.getAppearance() & PropertyAttribute::HIDDEN) continue;
+        if(prop_attribute.isHidden()) continue;
 
         QVariant prop_value = item->property(prop_name.toUtf8().data());
         int type = GUIHelpers::getVariantType(prop_value);
 
         QtVariantPropertyManager *manager = m_manager;
-        if(prop_attribute.getAppearance() & PropertyAttribute::READONLY) manager = m_read_only_manager;
+        if(prop_attribute.isReadOnly()) manager = m_read_only_manager;
 
         QtVariantProperty *subProperty = 0;
         if (m_manager->isPropertyTypeSupported(type)) {
@@ -332,10 +332,13 @@ void UniversalPropertyEditor::addSubProperties(QtProperty *item_property,
                 subProperty->setAttribute(QLatin1String("singleStep"), 1./std::pow(10.,prop_attribute.getDecimals()-1));
             }
 
-            QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), prop_name);
+            QString toolTip = prop_attribute.getToolTip();
+            if(toolTip.isEmpty()) {
+                toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), prop_name);
+            }
             if(!toolTip.isEmpty()) subProperty->setToolTip(toolTip);
 
-            if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
+            if(prop_attribute.isDisabled()) {
                 subProperty->setEnabled(false);
             }
 

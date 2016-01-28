@@ -53,10 +53,10 @@ const QString RectangleItem::P_YUP = "yup";
 RectangleItem::RectangleItem(ParameterizedItem *parent)
     : MaskItem(Constants::RectangleMaskType, parent)
 {
-    registerProperty(P_XLOW, 0.0, PropertyAttribute(AttLimits::limitless()));
-    registerProperty(P_YLOW, 0.0, PropertyAttribute(AttLimits::limitless()));
-    registerProperty(P_XUP, 0.0, PropertyAttribute(AttLimits::limitless()));
-    registerProperty(P_YUP, 0.0, PropertyAttribute(AttLimits::limitless()));
+    registerProperty(P_XLOW, 0.0).limitless();
+    registerProperty(P_YLOW, 0.0).limitless();
+    registerProperty(P_XUP, 0.0).limitless();
+    registerProperty(P_YUP, 0.0).limitless();
 }
 
 Geometry::IShape2D *RectangleItem::createShape() const
@@ -75,8 +75,8 @@ const QString PolygonPointItem::P_POSY = "Y position";
 PolygonPointItem::PolygonPointItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::PolygonPointType, parent)
 {
-    registerProperty(P_POSX, 0.0, PropertyAttribute(AttLimits::limitless()));
-    registerProperty(P_POSY, 0.0, PropertyAttribute(AttLimits::limitless()));
+    registerProperty(P_POSX, 0.0).limitless();
+    registerProperty(P_POSY, 0.0).limitless();
 }
 
 /* ------------------------------------------------------------------------- */
@@ -87,7 +87,7 @@ PolygonItem::PolygonItem(ParameterizedItem *parent)
     : MaskItem(Constants::PolygonMaskType, parent)
 {
     addToValidChildren(Constants::PolygonPointType);
-    registerProperty(P_ISCLOSED, false, PropertyAttribute::hiddenProperty());
+    registerProperty(P_ISCLOSED, false).setHidden();
 }
 
 Geometry::IShape2D *PolygonItem::createShape() const
@@ -106,7 +106,7 @@ const QString VerticalLineItem::P_POSX = "X position";
 VerticalLineItem::VerticalLineItem(ParameterizedItem *parent)
     : MaskItem(Constants::VerticalLineMaskType, parent)
 {
-    registerProperty(P_POSX, 0.0, PropertyAttribute(AttLimits::limitless()));
+    registerProperty(P_POSX, 0.0).limitless();
 }
 
 Geometry::IShape2D *VerticalLineItem::createShape() const
@@ -121,7 +121,7 @@ const QString HorizontalLineItem::P_POSY = "Y position";
 HorizontalLineItem::HorizontalLineItem(ParameterizedItem *parent)
     : MaskItem(Constants::HorizontalLineMaskType, parent)
 {
-    registerProperty(P_POSY, 0.0, PropertyAttribute(AttLimits::limitless()));
+    registerProperty(P_POSY, 0.0).limitless();
 }
 
 Geometry::IShape2D *HorizontalLineItem::createShape() const
@@ -141,11 +141,11 @@ const QString EllipseItem::P_ANGLE = "Angle";
 EllipseItem::EllipseItem(ParameterizedItem *parent)
     : MaskItem(Constants::EllipseMaskType, parent)
 {
-    registerProperty(P_XCENTER, 0.0, PropertyAttribute(AttLimits::limitless()));
-    registerProperty(P_YCENTER, 0.0, PropertyAttribute(AttLimits::limitless()));
+    registerProperty(P_XCENTER, 0.0).limitless();
+    registerProperty(P_YCENTER, 0.0).limitless();
     registerProperty(P_XRADIUS, 0.0);
     registerProperty(P_YRADIUS, 0.0);
-    registerProperty(P_ANGLE, 0.0, PropertyAttribute(AttLimits::limitless()));
+    registerProperty(P_ANGLE, 0.0).limitless();
 }
 
 Geometry::IShape2D *EllipseItem::createShape() const
@@ -164,7 +164,7 @@ Geometry::IShape2D *EllipseItem::createShape() const
 MaskAllItem::MaskAllItem(ParameterizedItem *parent)
     : MaskItem(Constants::MaskAllType, parent)
 {
-    setPropertyAppearance(MaskItem::P_MASK_VALUE, PropertyAttribute::DISABLED);
+    getPropertyAttribute(MaskItem::P_MASK_VALUE).setDisabled();
 }
 
 Geometry::IShape2D *MaskAllItem::createShape() const

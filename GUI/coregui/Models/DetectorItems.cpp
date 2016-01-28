@@ -14,10 +14,8 @@
 // ************************************************************************** //
 
 #include "DetectorItems.h"
-#include "ComboProperty.h"
 #include "AngleProperty.h"
 #include "MaskItems.h"
-#include "AxesItems.h"
 #include <QDebug>
 
 const QString DetectorItem::P_DETECTOR = "Detector";
@@ -27,6 +25,7 @@ DetectorItem::DetectorItem(ParameterizedItem *parent)
 {
     registerGroupProperty(P_DETECTOR, Constants::DetectorGroup);
     addToValidChildren(Constants::MaskContainerType);
+    setGroupProperty(P_DETECTOR, Constants::SphericalDetectorType);
 }
 
 MaskContainerItem *DetectorItem::getMaskContainerItem() const
@@ -38,29 +37,5 @@ MaskContainerItem *DetectorItem::getMaskContainerItem() const
     }
     return 0;
 }
-
-// -------------------------------------------------------------------------- //
-
-const QString PhiAlphaDetectorItem::P_PHI_AXIS = "Phi axis";
-const QString PhiAlphaDetectorItem::P_ALPHA_AXIS = "Alpha axis";
-const QString PhiAlphaDetectorItem::P_RESOLUTION_FUNCTION = "Type";
-
-PhiAlphaDetectorItem::PhiAlphaDetectorItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::SphericalDetectorType, parent)
-{
-    registerGroupProperty(P_PHI_AXIS, Constants::BasicAxisType);
-    getSubItems()[P_PHI_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
-    getSubItems()[P_PHI_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, -1.0);
-    getSubItems()[P_PHI_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 1.0);
-
-    registerGroupProperty(P_ALPHA_AXIS, Constants::BasicAxisType);
-    getSubItems()[P_ALPHA_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
-    getSubItems()[P_ALPHA_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, 0.0);
-    getSubItems()[P_ALPHA_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 2.0);
-
-    registerGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
-    setGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionNoneType);
-}
-
 
 

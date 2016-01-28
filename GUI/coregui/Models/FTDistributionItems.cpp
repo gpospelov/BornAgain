@@ -97,7 +97,7 @@ FTDistribution1DVoigtItem::FTDistribution1DVoigtItem(ParameterizedItem *parent)
     : FTDistribution1DItem(QString("FTDistribution1DVoigt"), parent)
 {
     registerProperty(P_CORR_LENGTH, 1000.0);
-    registerProperty(P_ETA, 0.5, PropertyAttribute(AttLimits::limited(-1.0, 1.0)));
+    registerProperty(P_ETA, 0.5).limited(-1.0, 1.0);
 }
 
 IFTDistribution1D *FTDistribution1DVoigtItem::createFTDistribution() const
@@ -192,7 +192,7 @@ FTDistribution2DVoigtItem::FTDistribution2DVoigtItem(ParameterizedItem *parent)
 {
     registerProperty(P_CORR_LENGTH_X, 1000.0);
     registerProperty(P_CORR_LENGTH_Y, 1000.0);
-    registerProperty(P_ETA, 0.5, PropertyAttribute(AttLimits::limited(-1.0, 1.0)));
+    registerProperty(P_ETA, 0.5).limited(-1.0, 1.0);
 }
 
 IFTDistribution2D *FTDistribution2DVoigtItem::createFTDistribution() const

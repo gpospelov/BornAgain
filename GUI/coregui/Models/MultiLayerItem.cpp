@@ -45,14 +45,14 @@ void MultiLayerItem::updateLayers()
 {
     for(int i = 0; i<childItemCount(); ++i) {
         if(i == 0) {
-            childAt(i)->setPropertyAppearance(LayerItem::P_ROUGHNESS, PropertyAttribute::DISABLED);
+            childAt(i)->getPropertyAttribute(LayerItem::P_ROUGHNESS).setDisabled();
         } else {
-            childAt(i)->setPropertyAppearance(LayerItem::P_ROUGHNESS, PropertyAttribute::VISIBLE);
+            childAt(i)->getPropertyAttribute(LayerItem::P_ROUGHNESS).setVisible();
         }
         if(i==0 || i==childItemCount()-1) {
-            childAt(i)->setPropertyAppearance(LayerItem::P_THICKNESS, PropertyAttribute::DISABLED);
+            childAt(i)->getPropertyAttribute(LayerItem::P_THICKNESS).setDisabled();
         } else {
-            childAt(i)->setPropertyAppearance(LayerItem::P_THICKNESS, PropertyAttribute::VISIBLE);
+            childAt(i)->getPropertyAttribute(LayerItem::P_THICKNESS).setVisible();
         }
     }
 }

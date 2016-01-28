@@ -28,7 +28,7 @@ const QString BeamDistributionItem::P_CACHED_VALUE = "Cached value";
 BeamDistributionItem::BeamDistributionItem(const QString name, ParameterizedItem *parent)
     : ParameterizedItem(name, parent)
 {
-    registerProperty(P_CACHED_VALUE, 0.0, PropertyAttribute(PropertyAttribute::HIDDEN));
+    registerProperty(P_CACHED_VALUE, 0.0).setHidden();
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
     setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
 }
@@ -40,7 +40,7 @@ void BeamDistributionItem::onPropertyChange(const QString &name)
         if(distribution) {
             double cached_value = getRegisteredProperty(P_CACHED_VALUE).toDouble();
             PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
-            cached_attribute.setAppearance(PropertyAttribute::VISIBLE);
+            cached_attribute.setVisible();
             // do not propagate this change back to me, or I will enter an infinite
             // signal-slot loop
             disconnect(getSubItems()[P_DISTRIBUTION], SIGNAL(propertyChanged(QString)),
@@ -70,7 +70,7 @@ BeamDistributionItem::getParameterDistributionForName(const std::string &paramet
                                                      DistributionItem::P_SIGMA_FACTOR).toInt();
             }
 
-            auto cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
+            PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
             AttLimits limits;
             if (modelType() == Constants::BeamWavelengthType) {
                 limits = cached_attribute.getLimits();
@@ -97,7 +97,7 @@ void BeamDistributionItem::onSubItemChanged(const QString &propertyName)
         Q_ASSERT(distribution);
         double cached_value = getRegisteredProperty(P_CACHED_VALUE).toDouble();
         PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
-        cached_attribute.setAppearance(PropertyAttribute::VISIBLE);
+        cached_attribute.setVisible();
         distribution->init_parameters(cached_value, cached_attribute);
     }
     ParameterizedItem::onSubItemChanged(propertyName);

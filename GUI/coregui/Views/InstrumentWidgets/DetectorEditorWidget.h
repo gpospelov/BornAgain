@@ -23,31 +23,36 @@ class GroupBox;
 class DetectorItem;
 class AwesomePropertyEditor;
 class QGridLayout;
+class SphericalDetectorWidget;
+class ColumnResizer;
 
 class BA_CORE_API_ DetectorEditorWidget : public QWidget
 {
     Q_OBJECT
 public:
-    DetectorEditorWidget(QWidget *parent = 0);
+    DetectorEditorWidget(ColumnResizer *columnResizer, QWidget *parent = 0);
+    virtual ~DetectorEditorWidget();
 
     void setDetectorItem(DetectorItem *detectorItem);
 
-    QGridLayout *getGridLayout() { return m_gridLayout;}
-
 signals:
     void extendedDetectorEditorRequest(DetectorItem *);
+
+public slots:
+    void onPropertyChanged(const QString &propertyName);
+    void onSubItemChanged(const QString &propertyName);
+    void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
 
 private slots:
     void onGroupBoxExtendedButton();
 
 private:
-    GroupBox *m_groupBox;
+    void init_SubDetector_Widget();
     AwesomePropertyEditor *m_detectorTypeEditor;
-    AwesomePropertyEditor *m_phiAxisEditor;
-    AwesomePropertyEditor *m_alphaAxisEditor;
-    AwesomePropertyEditor *m_resolutionFunctionEditor;
-    QGridLayout *m_gridLayout;
+    ColumnResizer *m_columnResizer;
+    GroupBox *m_groupBox;
     DetectorItem *m_detectorItem;
+    QWidget *m_subDetectorWidget;
 };
 
 #endif

@@ -322,39 +322,25 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
     auto subDetector = item.getSubItems()[DetectorItem::P_DETECTOR];
     Q_ASSERT(subDetector);
 
-    if (subDetector->modelType() == Constants::SphericalDetectorType) {
-        auto x_axis = dynamic_cast<BasicAxisItem *>(
-            subDetector->getSubItems()[PhiAlphaDetectorItem::P_PHI_AXIS]);
-        Q_ASSERT(x_axis);
-        int n_x = x_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
-        double x_min
-            = Units::deg2rad(x_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble());
-        double x_max
-            = Units::deg2rad(x_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
+    if(auto sphericalDetector = dynamic_cast<SphericalDetectorItem *>(subDetector)) {
+        auto detector = sphericalDetector->createDetector();
+        instrument->setDetector(*detector);
+        auto resfunc = sphericalDetector->createResolutionFunction();
+        if(resfunc) instrument->setDetectorResolutionFunction(*resfunc);
+    }
 
-        auto y_axis = dynamic_cast<BasicAxisItem *>(
-            subDetector->getSubItems()[PhiAlphaDetectorItem::P_ALPHA_AXIS]);
-        Q_ASSERT(y_axis);
-        int n_y = y_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
-        double y_min
-            = Units::deg2rad(y_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble());
-        double y_max
-            = Units::deg2rad(y_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
+    else if(auto rectangularDetector = dynamic_cast<RectangularDetectorItem *>(subDetector)) {
+        auto detector = rectangularDetector->createDetector();
+        instrument->setDetector(*detector);
+        auto resfunc = rectangularDetector->createResolutionFunction();
+        if(resfunc) instrument->setDetectorResolutionFunction(*resfunc);
 
-        instrument->setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
-
-        // setting up resolution function
-        auto resfuncItem = dynamic_cast<ResolutionFunctionItem *>(
-            subDetector->getSubItems()[PhiAlphaDetectorItem::P_RESOLUTION_FUNCTION]);
-        Q_ASSERT(resfuncItem);
-        std::unique_ptr<IResolutionFunction2D> P_res_func(resfuncItem->createResolutionFunction());
-        if (P_res_func)
-            instrument->setDetectorResolutionFunction(*P_res_func);
     } else {
         throw GUIHelpers::Error(
             "TransformToDomain::initInstrumentWithDetectorItem() -> Error. Unknown model type "
             + subDetector->modelType());
     }
+
 }
 
 //! adds DistributionParameters to the Simulation

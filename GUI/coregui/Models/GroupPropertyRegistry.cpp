@@ -63,6 +63,7 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
 
     std::map<QString, QString> detectors;
     detectors[Constants::SphericalDetectorType] = "[Phi, Alpha] plane";
+    detectors[Constants::RectangularDetectorType] = "Rectangular detector";
     result[Constants::DetectorGroup] = detectors;
 
     std::map<QString, QString> distributions;

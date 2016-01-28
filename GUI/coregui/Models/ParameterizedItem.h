@@ -103,18 +103,17 @@ public:
                                              const Constants::ModelType &group_model);
     ParameterizedItem *setGroupProperty(const QString &name, const QString &value);
 
-    void registerProperty(const QString &name, const QVariant &variant,
+    PropertyAttribute& registerProperty(const QString &name, const QVariant &variant,
                           const PropertyAttribute &attribute = PropertyAttribute());
+
     void setRegisteredProperty(const QString &name, const QVariant &variant);
     QVariant getRegisteredProperty(const QString &name) const;
     void removeRegisteredProperty(const QString &name);
 
-    PropertyAttribute getPropertyAttribute(const QString &name) const;
+    const PropertyAttribute& getPropertyAttribute(const QString &name) const;
+    PropertyAttribute& getPropertyAttribute(const QString &name);
 
     void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
-
-    void setPropertyAppearance(const QString &name,
-                               const PropertyAttribute::EAppearance &appearance);
 
     virtual void onPropertyChange(const QString &name);
 

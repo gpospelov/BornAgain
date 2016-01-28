@@ -22,15 +22,22 @@ const QString VectorItem::P_Z = "Z";
 VectorItem::VectorItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::VectorType, parent)
 {
-    registerProperty(P_X, 0.0, PropertyAttribute(AttLimits::limitless()));
-    registerProperty(P_Y, 0.0, PropertyAttribute(AttLimits::limitless()));
-    registerProperty(P_Z, 0.0, PropertyAttribute(AttLimits::limitless()));
+    registerProperty(P_X, 0.0).limitless();
+    registerProperty(P_Y, 0.0).limitless();
+    registerProperty(P_Z, 0.0).limitless();
 }
 
 QString VectorItem::itemLabel() const
 {
     return QString("(%1, %2, %3)").arg(getRegisteredProperty(P_X).toDouble())
                                   .arg(getRegisteredProperty(P_Y).toDouble())
-                                  .arg(getRegisteredProperty(P_Z).toDouble());
+            .arg(getRegisteredProperty(P_Z).toDouble());
+}
+
+kvector_t VectorItem::getVector() const
+{
+    return kvector_t(getRegisteredProperty(P_X).toDouble(),
+                     getRegisteredProperty(P_Y).toDouble(),
+                     getRegisteredProperty(P_Z).toDouble());
 }
 

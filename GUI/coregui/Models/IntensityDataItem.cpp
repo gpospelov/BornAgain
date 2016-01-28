@@ -50,17 +50,17 @@ IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
     gradient.setValue(Constants::GRADIENT_JET);
     registerProperty(P_GRADIENT, gradient.getVariant());
 
-    registerProperty(P_AXES_UNITS, AngleProperty::Degrees(), PropertyAttribute(PropertyAttribute::HIDDEN));
-    registerProperty(P_PROPERTY_PANEL_FLAG, false, PropertyAttribute(PropertyAttribute::HIDDEN));
+    registerProperty(P_AXES_UNITS, AngleProperty::Degrees()).setHidden();
+    registerProperty(P_PROPERTY_PANEL_FLAG, false).setHidden();
 
     registerGroupProperty(P_XAXIS, Constants::BasicAxisType);
-    getSubItems()[P_XAXIS]->setPropertyAppearance(BasicAxisItem::P_NBINS, PropertyAttribute::HIDDEN);
+    getSubItems()[P_XAXIS]->getPropertyAttribute(BasicAxisItem::P_NBINS).setHidden();
 
     registerGroupProperty(P_YAXIS, Constants::BasicAxisType);
-    getSubItems()[P_YAXIS]->setPropertyAppearance(BasicAxisItem::P_NBINS, PropertyAttribute::HIDDEN);
+    getSubItems()[P_YAXIS]->getPropertyAttribute(BasicAxisItem::P_NBINS).setHidden();
 
     registerGroupProperty(P_ZAXIS, Constants::AmplitudeAxisType);
-    getSubItems()[P_ZAXIS]->setPropertyAppearance(BasicAxisItem::P_NBINS, PropertyAttribute::HIDDEN);
+    getSubItems()[P_ZAXIS]->getPropertyAttribute(BasicAxisItem::P_NBINS).setHidden();
 
     addToValidChildren(Constants::MaskContainerType);
 }

@@ -159,8 +159,6 @@ complex_t MathFunctions::Bessel_J1c(const complex_t z)
 //! Forked from unoptimized code at http://www.crbond.com/math.htm,
 //! who refers to "Computation of Special Functions", Zhang and Jin, John Wiley and Sons, 1996.
 
-//! TODO: Some optimizations of J1 not yet propagated here.
-
 complex_t MathFunctions::Bessel_J0_PowSer(const complex_t z)
 {
     complex_t cj0;

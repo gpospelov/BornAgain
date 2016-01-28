@@ -128,31 +128,28 @@ double MathFunctions::Bessel_J1(double x)
 
 double MathFunctions::Bessel_J1c(double x)
 {
-    return x > Numeric::double_epsilon ? gsl_sf_bessel_J1(x)/x : 0.5;
+    return x==0 ? 0.5 : gsl_sf_bessel_J1(x)/x;
 }
 
 complex_t MathFunctions::Bessel_J0(const complex_t z)
 {
-    assert( std::imag(z)>=0 );
-    if (std::imag(z) < Numeric::double_epsilon)
-        return complex_t(Bessel_J0(std::real(z)), 0.0);
+    if (std::imag(z)==0)
+        return gsl_sf_bessel_J0(std::real(z));
     return Bessel_J0_PowSer(z);
 }
 
 complex_t MathFunctions::Bessel_J1(const complex_t z)
 {
-    assert( std::imag(z)>=0 );
-    if( std::imag(z) < Numeric::double_epsilon)
-        return complex_t(Bessel_J1(std::real(z)), 0.0);
+    if (std::imag(z)==0)
+        return gsl_sf_bessel_J1(std::real(z));
     return Bessel_J1_PowSer(z);
 }
 
 complex_t MathFunctions::Bessel_J1c(const complex_t z)
 {
-    assert( std::imag(z)>=0 );
-    if(std::imag(z) < Numeric::double_epsilon) {
+    if (std::imag(z)==0) {
         double xv = std::real(z);
-        return xv==0 ? 0.5 : MathFunctions::Bessel_J1(xv)/xv;
+        return xv==0 ? 0.5 : gsl_sf_bessel_J1(xv)/xv;
     }
     return z==complex_t(0.,0.) ? 0.5 : MathFunctions::Bessel_J1_PowSer(z)/z;
 }

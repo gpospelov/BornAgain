@@ -64,7 +64,7 @@ complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t& q) const
         radial = volume;
     }
     else {
-        radial = 3*volume*(MathFunctions::FastSin(qR) - qR*MathFunctions::FastCos(qR))/(qR*qR*qR);
+        radial = 3*volume*(sin(qR) - qR*cos(qR))/(qR*qR*qR);
     }
 
     return radial*z_part;

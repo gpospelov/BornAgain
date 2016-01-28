@@ -88,18 +88,6 @@ namespace MathFunctions
 
     BA_CORE_API_ std::vector<complex_t> ConvolveFFT(const std::vector<double> &signal, const std::vector<double> &resfunc);
 
-//! fast sine calculations (not actually fast)
-    double FastSin(const double& x);
-
-//! fast cosine calculation  (not actually fast)
-    double FastCos(const double& x);
-
-//! fast complex sine calculation
-    complex_t FastSin(const complex_t &x);
-
-//! fast complex cosine calculation
-    complex_t FastCos(const complex_t &x);
-
 #ifndef GCCXML_SKIP_THIS
 //! computes the norm element-wise
     BA_CORE_API_ Eigen::Matrix2d Norm(const Eigen::Matrix2cd &M);
@@ -136,10 +124,10 @@ namespace MathFunctions
 #endif
     }
 
-//! Computes complex Bessel function J0(z), using power series and asymptotic expansion 
+//! Computes complex Bessel function J0(z), using power series and asymptotic expansion
     BA_CORE_API_ complex_t Bessel_J0_PowSer(const complex_t &value);
 
-//! Computes complex Bessel function J0(z), using power series and asymptotic expansion 
+//! Computes complex Bessel function J0(z), using power series and asymptotic expansion
     BA_CORE_API_ complex_t Bessel_J1_PowSer(const complex_t &value);
 
 //! Calculates the geometric series of z to order N
@@ -234,38 +222,6 @@ inline complex_t MathFunctions::Laue(const complex_t &value, size_t N) // Exp(iN
     return std::exp(complex_t(0.0, 1.0)*value*(double)N/2.0)*std::sin(value*(N+1.0)/2.0)/std::sin(value/2.0);
 }
 
-//! fast sine calculations (not actually fast)
-inline double MathFunctions::FastSin(const double& x) {
-    const double P = 0.225f;
-    const double A = 16 * std::sqrt(P);
-    const double B = (1 - P) / std::sqrt(P);
-    double y = x / (2 * Units::PI);
-    y = y - std::floor(y + 0.5);  // y in range -0.5..0.5
-    y = A * y * (0.5 - std::abs(y));
-    return y * (B + std::abs(y));
-}
-
-//! fast cosine calculation  (not actually fast)
-inline double MathFunctions::FastCos(const double& x) {
-    const double P = 0.225f;
-    const double A = 16 * std::sqrt(P);
-    const double B = (1 - P) / std::sqrt(P);
-    double y = x / (2 * Units::PI)+0.25; // pi/2. shift
-    y = y - std::floor(y + 0.5);  // y in range -0.5..0.5
-    y = A * y * (0.5 - std::abs(y));
-    return y * (B + std::abs(y));
-}
-
-//! fast complex sine calculation
-inline complex_t MathFunctions::FastSin(const complex_t &x) {
-    return complex_t( std::sin(x.real())*std::cosh(x.imag()), std::cos(x.real())*std::sinh(x.imag()));
-}
-
-//! fast complex cosine calculation
-inline complex_t MathFunctions::FastCos(const complex_t &x) {
-    return complex_t( std::cos(x.real())*std::cosh(x.imag()), -1*std::sin(x.real())*std::sinh(x.imag()));
-}
-
 #ifndef GCCXML_SKIP_THIS
 inline Eigen::Matrix2d MathFunctions::Norm(const Eigen::Matrix2cd &M) {
     Eigen::Matrix2d result;
@@ -315,5 +271,3 @@ inline Eigen::Matrix2d MathFunctions::Real(const Eigen::Matrix2cd &M) {
 #endif
 
 #endif // MATHFUNCTIONS_H
-
-

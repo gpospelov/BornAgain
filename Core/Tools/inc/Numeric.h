@@ -25,8 +25,6 @@
 
 namespace Numeric {
 
-static const double required_precision = 1.e-4;
-
 static const double double_epsilon = std::numeric_limits<double>::epsilon();
 
 static const double double_min = std::numeric_limits<double>::min();
@@ -40,5 +38,3 @@ double BA_CORE_API_ get_relative_difference(double a, double b);
 } // Numeric namespace
 
 #endif /* NUMERIC_H_ */
-
-

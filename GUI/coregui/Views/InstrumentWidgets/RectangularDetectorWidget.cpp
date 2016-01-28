@@ -27,7 +27,7 @@
 RectangularDetectorWidget::RectangularDetectorWidget(ColumnResizer *columnResizer,
                                                      RectangularDetectorItem *detectorItem, QWidget *parent)
     : QWidget(parent)
-    , m_columnResizer(columnResizer)
+    , m_columnResizer(0)
     , m_detectorTypeEditor(0)
     , m_xAxisEditor(0)
     , m_yAxisEditor(0)
@@ -39,16 +39,8 @@ RectangularDetectorWidget::RectangularDetectorWidget(ColumnResizer *columnResize
     , m_gridLayout(new QGridLayout)
     , m_detectorItem(0)
 {
-//    m_detectorTypeEditor = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-//    m_gridLayout->addWidget(m_detectorTypeEditor, 0, 0);
-
     create_editors();
-
-
-    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
-    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 1);
-    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
-    connect(m_columnResizer, SIGNAL(destroyed(QObject*)), this, SLOT(onColumnResizerDestroyed(QObject *)));
+    setColumnResizer(columnResizer);
 
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -83,23 +75,7 @@ void RectangularDetectorWidget::setDetectorItem(RectangularDetectorItem *detecto
                this,
                SLOT(onPropertyChanged(const QString &)));
 
-
-//    m_xAxisEditor->clearEditor();
-//    m_yAxisEditor->clearEditor();
-//    m_resolutionFunctionEditor->clearEditor();
-
-//    if (!detectorItem)
-//        return;
-
-////    m_detectorTypeEditor->addItemProperty(detectorItem, DetectorItem::P_DETECTOR, QString(),
-////                                     AwesomePropertyEditor::SKIP);
-
-//    m_detectorItem = dynamic_cast<RectangularDetectorItem *>(
-//                detectorItem->getSubItems()[DetectorItem::P_DETECTOR]);
-//    Q_ASSERT(m_detectorItem);
-
     init_editors();
-
 }
 
 void RectangularDetectorWidget::onPropertyChanged(const QString &propertyName)
@@ -114,6 +90,30 @@ void RectangularDetectorWidget::onPropertyChanged(const QString &propertyName)
 void RectangularDetectorWidget::onColumnResizerDestroyed(QObject *object)
 {
     if(object == m_columnResizer) m_columnResizer = 0;
+}
+
+//! set widget alignment to be under the control of external resizer
+void RectangularDetectorWidget::setColumnResizer(ColumnResizer *columnResizer)
+{
+    if(m_columnResizer) {
+        m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
+        disconnect(m_columnResizer,
+                   SIGNAL(destroyed(QObject*)),
+                   this,
+                   SLOT(onColumnResizerDestroyed(QObject *)));
+    }
+    m_columnResizer = columnResizer;
+
+    if(m_columnResizer) {
+        connect(m_columnResizer,
+                SIGNAL(destroyed(QObject*)),
+                this,
+                SLOT(onColumnResizerDestroyed(QObject *)));
+
+    }
+    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
+    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 1);
+    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
 }
 
 //! create various editors to hold RectangularDetector properties
@@ -170,7 +170,6 @@ void RectangularDetectorWidget::init_editors()
                 AwesomePropertyEditor::SKIP);
 
     init_alignment_editors();
-
 }
 
 void RectangularDetectorWidget::init_alignment_editors()
@@ -194,10 +193,12 @@ void RectangularDetectorWidget::init_alignment_editors()
         m_normalEditor->show();
         m_directionEditor->show();
 
-        ParameterizedItem *uvItem
-            = m_detectorItem->getSubItems()[RectangularDetectorItem::P_UV];
-
-        m_positionsEditor->addItemProperties(uvItem, "Uv",AwesomePropertyEditor::INSERT_AFTER);
+        m_positionsEditor->addItemProperty(
+            m_detectorItem, RectangularDetectorItem::P_U0, "Positions",
+                    AwesomePropertyEditor::INSERT_AFTER);
+        m_positionsEditor->addItemProperty(
+            m_detectorItem, RectangularDetectorItem::P_V0, "Positions",
+                    AwesomePropertyEditor::INSERT_AFTER);
 
         ParameterizedItem *normalVectorItem
             = m_detectorItem->getSubItems()[RectangularDetectorItem::P_NORMAL];
@@ -209,32 +210,33 @@ void RectangularDetectorWidget::init_alignment_editors()
         m_directionEditor->addItemProperties(directionVectorItem, "Direction vector",
                     AwesomePropertyEditor::INSERT_AFTER);
 
-
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_DIRECT_BEAM ||
-               alignment.getValue() == Constants::ALIGNMENT_TO_SAMPLE ||
-               alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM) {
+               alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS) {
         m_positionsEditor->show();
-
-        ParameterizedItem *uvItem
-            = m_detectorItem->getSubItems()[RectangularDetectorItem::P_UV];
-        m_positionsEditor->addItemProperties(uvItem, "Positions",
+        m_positionsEditor->addItemProperty(
+            m_detectorItem, RectangularDetectorItem::P_DBEAM_U0, "Positions",
+                    AwesomePropertyEditor::INSERT_AFTER);
+        m_positionsEditor->addItemProperty(
+            m_detectorItem, RectangularDetectorItem::P_DBEAM_V0, "Positions",
                     AwesomePropertyEditor::INSERT_AFTER);
         m_positionsEditor->addItemProperty(
             m_detectorItem, RectangularDetectorItem::P_DISTANCE, "Positions",
                     AwesomePropertyEditor::INSERT_AFTER);
 
+    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_SAMPLE ||
+               alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM) {
+        m_positionsEditor->show();
 
-//        setPropertyAppearance(P_DISTANCE, PropertyAttribute::VISIBLE);
-//        setPropertyAppearance(P_UV, PropertyAttribute::VISIBLE);
-    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_SAMPLE) {
-//        setPropertyAppearance(P_DISTANCE, PropertyAttribute::VISIBLE);
-//        setPropertyAppearance(P_UV, PropertyAttribute::VISIBLE);
-    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM) {
-//        setPropertyAppearance(P_DISTANCE, PropertyAttribute::VISIBLE);
-//        setPropertyAppearance(P_UV, PropertyAttribute::VISIBLE);
-    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS) {
-//        setPropertyAppearance(P_DISTANCE, PropertyAttribute::VISIBLE);
-//        setPropertyAppearance(P_UV_DPOS, PropertyAttribute::VISIBLE);
+        m_positionsEditor->addItemProperty(
+            m_detectorItem, RectangularDetectorItem::P_U0, "Positions",
+                    AwesomePropertyEditor::INSERT_AFTER);
+        m_positionsEditor->addItemProperty(
+            m_detectorItem, RectangularDetectorItem::P_V0, "Positions",
+                    AwesomePropertyEditor::INSERT_AFTER);
+        m_positionsEditor->addItemProperty(
+            m_detectorItem, RectangularDetectorItem::P_DISTANCE, "Positions",
+                    AwesomePropertyEditor::INSERT_AFTER);
+
     }
 
 }

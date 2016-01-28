@@ -17,6 +17,7 @@
 #define VECTORITEM_H
 
 #include "ParameterizedItem.h"
+#include "Types.h"
 
 class BA_CORE_API_  VectorItem : public ParameterizedItem
 {
@@ -28,6 +29,8 @@ public:
     explicit VectorItem(ParameterizedItem *parent=0);
     virtual ~VectorItem(){}
     virtual QString itemLabel() const;
+
+    kvector_t getVector() const;
 };
 
 #endif

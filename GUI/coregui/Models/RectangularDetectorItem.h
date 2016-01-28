@@ -17,6 +17,12 @@
 #define RECTANGULARDETECTORITEM_H
 
 #include "ParameterizedItem.h"
+#include "Types.h"
+#include <memory>
+
+class IDetector2D;
+class IResolutionFunction2D;
+
 
 class RectangularDetectorItem : public ParameterizedItem
 {
@@ -27,16 +33,25 @@ public:
     static const QString P_ALIGNMENT;
     static const QString P_NORMAL;
     static const QString P_DIRECTION;
-    static const QString P_UV;
-    static const QString P_UV_DPOS;
+    static const QString P_U0;
+    static const QString P_V0;
+    static const QString P_DBEAM_U0;
+    static const QString P_DBEAM_V0;
     static const QString P_DISTANCE;
 
     explicit RectangularDetectorItem(ParameterizedItem *parent=0);
 
     virtual void onPropertyChange(const QString &name);
 
+    std::unique_ptr<IDetector2D> createDetector() const;
+    std::unique_ptr<IResolutionFunction2D> createResolutionFunction();
+
 private:
     void update_properties_appearance();
+
+    kvector_t getNormalVector() const;
+    kvector_t getDirectionVector() const;
+
     bool m_is_constructed;
 };
 

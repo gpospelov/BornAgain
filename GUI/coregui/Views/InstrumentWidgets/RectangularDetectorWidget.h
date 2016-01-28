@@ -39,6 +39,7 @@ public:
 public slots:
     void onPropertyChanged(const QString &propertyName);
     void onColumnResizerDestroyed(QObject *object);
+    void setColumnResizer(ColumnResizer *columnResizer);
 
 private:
     void create_editors();

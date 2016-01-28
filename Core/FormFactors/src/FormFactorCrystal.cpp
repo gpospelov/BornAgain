@@ -74,10 +74,10 @@ complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
         cvector_t q_i((*it).x(), (*it).y(), (*it).z());
         cvector_t min_q_i= -q_i;
         cvector_t q_i_min_q = q_i - q;
-        WavevectorInfo basis_wavevectors(k_zero, min_q_i);
+        WavevectorInfo basis_wavevectors(k_zero, min_q_i, wavevectors.getWavelength());
         complex_t basis_factor
             = mp_basis_form_factor->evaluate(basis_wavevectors);
-        WavevectorInfo meso_wavevectors(k_zero, q_i_min_q);
+        WavevectorInfo meso_wavevectors(k_zero, q_i_min_q, wavevectors.getWavelength());
         complex_t meso_factor = mp_meso_form_factor->evaluate(meso_wavevectors);
         result += basis_factor * meso_factor;
     }
@@ -106,10 +106,10 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevector
         cvector_t q_i((*it).x(), (*it).y(), (*it).z());
         cvector_t min_q_i= -q_i;
         cvector_t q_i_min_q = q_i - q;
-        WavevectorInfo basis_wavevectors(k_zero, min_q_i);
+        WavevectorInfo basis_wavevectors(k_zero, min_q_i, wavevectors.getWavelength());
         Eigen::Matrix2cd basis_factor
             = mp_basis_form_factor->evaluatePol(basis_wavevectors);
-        WavevectorInfo meso_wavevectors(k_zero, q_i_min_q);
+        WavevectorInfo meso_wavevectors(k_zero, q_i_min_q, wavevectors.getWavelength());
         complex_t meso_factor = mp_meso_form_factor->evaluate(meso_wavevectors);
         result += basis_factor * meso_factor;
     }

@@ -52,13 +52,12 @@ void Crystal::accept(ISampleVisitor *visitor) const
 }
 
 IFormFactor *Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
-                                            complex_t wavevector_scattering_factor,
                                             const IRotation *p_rotation,
                                             kvector_t translation) const
 {
     Lattice transformed_lattice = getTransformedLattice(p_rotation);
-    boost::scoped_ptr<IFormFactor> P_basis_ff(mp_lattice_basis->createTransformedFormFactor(
-        wavevector_scattering_factor, p_rotation, translation));
+    boost::scoped_ptr<IFormFactor> P_basis_ff(
+        mp_lattice_basis->createTransformedFormFactor(p_rotation, translation));
     boost::scoped_ptr<FormFactorCrystal> P_ff_crystal(
         new FormFactorCrystal(transformed_lattice, *P_basis_ff, meso_crystal_form_factor));
     if (m_dw_factor > 0.0) {

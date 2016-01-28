@@ -48,7 +48,6 @@ public:
     }
 
     virtual IFormFactor *createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
-                                       complex_t wavevector_scattering_factor,
                                        const IRotation *p_rotation, kvector_t translation) const;
 
     Lattice getTransformedLattice(const IRotation *p_rotation) const;

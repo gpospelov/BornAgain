@@ -94,16 +94,13 @@ void LayerStrategyBuilder::collectFormFactorInfos()
     m_ff_infos.clear();
     const ILayout *p_layout = mP_layer->getLayout(m_layout_index);
     const IMaterial *p_layer_material = mP_layer->getMaterial();
-    double wavelength = getWavelength();
     double total_abundance = mP_layer->getTotalAbundance();
     if (total_abundance<=0.0) total_abundance = 1.0;
-    complex_t wavevector_scattering_factor = Units::PI/wavelength/wavelength;
     SafePointerVector<const IParticle> iparticles = p_layout->getParticles();
     size_t number_of_particles = iparticles.size();
     for (size_t i = 0; i<number_of_particles; ++i) {
         FormFactorInfo *p_ff_info;
-        p_ff_info = createFormFactorInfo(iparticles[i], p_layer_material,
-                                         wavevector_scattering_factor);
+        p_ff_info = createFormFactorInfo(iparticles[i], p_layer_material);
         p_ff_info->m_abundance /= total_abundance;
         m_ff_infos.push_back(p_ff_info);
     }
@@ -121,20 +118,16 @@ void LayerStrategyBuilder::collectInterferenceFunction()
     else mP_interference_function.reset( new InterferenceFunctionNone() );
 }
 
-double LayerStrategyBuilder::getWavelength()
-{
-    return mP_simulation->getWavelength();
-}
-
-FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
-        const IParticle *particle, const IMaterial *p_ambient_material, complex_t factor) const
+FormFactorInfo *
+LayerStrategyBuilder::createFormFactorInfo(const IParticle *particle,
+                                           const IMaterial *p_ambient_material) const
 {
     FormFactorInfo *p_result = new FormFactorInfo;
     boost::scoped_ptr<IParticle> P_particle_clone(particle->clone());
     P_particle_clone->setAmbientMaterial(*p_ambient_material);
 
     // formfactor
-    boost::scoped_ptr<IFormFactor> P_ff_particle(P_particle_clone->createFormFactor(factor));
+    boost::scoped_ptr<IFormFactor> P_ff_particle(P_particle_clone->createFormFactor());
     IFormFactor *p_ff_framework;
     size_t n_layers = mP_layer->getNumberOfLayers();
     if (n_layers>1) {

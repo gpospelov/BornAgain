@@ -22,7 +22,7 @@ TEST_F(ParticleTest, InitialState)
     EXPECT_EQ(nullptr, particle.getMaterial());
     EXPECT_EQ(complex_t(0,0), particle.getRefractiveIndex());
     EXPECT_EQ(nullptr, particle.getFormFactor());
-    EXPECT_EQ(nullptr, particle.createFormFactor(1.0));
+    EXPECT_EQ(nullptr, particle.createFormFactor());
     EXPECT_EQ(BornAgain::ParticleType, particle.getName());
 }
 
@@ -33,7 +33,7 @@ TEST_F(ParticleTest, Clone)
     EXPECT_EQ(nullptr, particle2->getMaterial());
     EXPECT_EQ(complex_t(0,0), particle2->getRefractiveIndex());
     EXPECT_EQ(nullptr, particle2->getFormFactor());
-    EXPECT_EQ(nullptr, particle2->createFormFactor(1.0));
+    EXPECT_EQ(nullptr, particle2->createFormFactor());
     EXPECT_EQ(BornAgain::ParticleType, particle2->getName());
     delete particle2;
 }
@@ -45,7 +45,7 @@ TEST_F(ParticleTest, CloneInvertB)
     EXPECT_EQ(nullptr, particle2->getMaterial());
     EXPECT_EQ(complex_t(0,0), particle2->getRefractiveIndex());
     EXPECT_EQ(nullptr, particle2->getFormFactor());
-    EXPECT_EQ(nullptr, particle2->createFormFactor(1.0));
+    EXPECT_EQ(nullptr, particle2->createFormFactor());
     EXPECT_EQ(BornAgain::ParticleType, particle2->getName());
     delete particle2;
 }
@@ -58,7 +58,7 @@ TEST_F(ParticleTest, Constructors)
     EXPECT_EQ("Air", p1->getMaterial()->getName());
     EXPECT_EQ(complex_t(1,0), p1->getRefractiveIndex());
     EXPECT_EQ(nullptr, p1->getFormFactor());
-    EXPECT_EQ(nullptr, p1->createFormFactor(1.0));
+    EXPECT_EQ(nullptr, p1->createFormFactor());
     EXPECT_EQ( nullptr, p1->getRotation());
 
     delete p1;
@@ -68,10 +68,10 @@ TEST_F(ParticleTest, Constructors)
     EXPECT_EQ(BornAgain::FFFullSphereType, p2->getFormFactor()->getName());
     EXPECT_EQ(1, p2->getFormFactor()->getRadius());
     EXPECT_TRUE(dynamic_cast<FormFactorDecoratorMaterial *>(
-            p2->createFormFactor(1.0)));
+            p2->createFormFactor()));
     EXPECT_EQ(complex_t(1,0),
               dynamic_cast<FormFactorDecoratorMaterial *>(
-                      p2->createFormFactor(1.0))->getAmbientRefractiveIndex());
+                      p2->createFormFactor())->getAmbientRefractiveIndex());
     delete p2;
 
     FormFactorFullSphere sphere3(1.0);

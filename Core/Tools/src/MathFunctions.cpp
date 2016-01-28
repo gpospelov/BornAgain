@@ -66,23 +66,23 @@ complex_t MathFunctions::sinc(const complex_t z)  // Sin(x)/x
     // There is no loss of precision in computing sin(z)/z.
     // Therefore there is no need for an expensive test like abs(z)<eps.
     if( z==complex_t(0.,0.) )
-        return complex_t(1.0, 0.0);
+        return 1.0;
     return std::sin(z)/z;
 }
 
 complex_t MathFunctions::tanhc(const complex_t z)  // tanh(x)/x
 {
     if(std::abs(z)<Numeric::double_epsilon)
-        return complex_t(1.0, 0.0);
+        return 1.0;
     return std::tanh(z)/z;
 }
 
 complex_t MathFunctions::Laue(const complex_t z, size_t N) // Exp(iNx/2)*Sin((N+1)x)/Sin(x)
 {
     if (N==0)
-        return complex_t(1.0, 0.0);
+        return 1.0;
     if(std::abs(z)<Numeric::double_epsilon)
-        return complex_t(N+1.0, 0.0);
+        return N+1.0;
     return std::exp(complex_t(0.0, 1.0)*z*(double)N/2.0)*std::sin(z*(N+1.0)/2.0)/std::sin(z/2.0);
 }
 
@@ -151,7 +151,7 @@ complex_t MathFunctions::Bessel_J1c(const complex_t z)
         double xv = std::real(z);
         return xv==0 ? 0.5 : gsl_sf_bessel_J1(xv)/xv;
     }
-    return z==complex_t(0.,0.) ? 0.5 : MathFunctions::Bessel_J1_PowSer(z)/z;
+    return z==0. ? 0.5 : MathFunctions::Bessel_J1_PowSer(z)/z;
 }
 
 //! Computes the complex Bessel function J0(z), using standard power series and asymptotic expansion.

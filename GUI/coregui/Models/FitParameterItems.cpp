@@ -15,6 +15,12 @@
 
 #include "FitParameterItems.h"
 
+FitParameterContainer::FitParameterContainer(ParameterizedItem *parent)
+    : ParameterizedItem(Constants::FitParameterContainerType, parent)
+{
+    addToValidChildren(Constants::FitParameterType);
+}
+
 
 const QString FitParameterItem::P_USE = "use";
 const QString FitParameterItem::P_INIT = "init";
@@ -24,7 +30,6 @@ const QString FitParameterItem::P_MAX = "max";
 FitParameterItem::FitParameterItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::FitParameterType, parent)
 {
-    registerProperty(P_NAME, Constants::FitParameterType);
     registerProperty(P_USE, false);
     registerProperty(P_INIT, 5.0);
     registerProperty(P_MIN, 0.0);
@@ -32,11 +37,13 @@ FitParameterItem::FitParameterItem(ParameterizedItem *parent)
     addToValidChildren(Constants::FitParameterLinkType);
 }
 
+
+
 const QString FitParameterLinkItem::P_LINK = "link";
 
 FitParameterLinkItem::FitParameterLinkItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::FitParameterLinkType, parent)
 {
-    registerProperty(P_LINK, Constants::FitParameterLinkType);
+    registerProperty(P_LINK, "");
 }
 

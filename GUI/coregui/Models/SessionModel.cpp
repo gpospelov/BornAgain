@@ -41,6 +41,7 @@ const QString NON_EXISTING_SUBITEM = "NON_EXISTING_SUBITEM";
 
 SessionModel::SessionModel(QString model_tag, QObject *parent)
     : QAbstractItemModel(parent), m_root_item(0), m_name("DefaultName"), m_model_tag(model_tag)
+    , m_maxColumns(MAX_COLUMNS)
     , m_iconProvider(0)
     , m_messageService(0)
 {
@@ -70,7 +71,7 @@ Qt::ItemFlags SessionModel::flags(const QModelIndex &index) const
 
 QVariant SessionModel::data(const QModelIndex &index, int role) const
 {
-    if (!m_root_item || !index.isValid() || index.column() < 0 || index.column() >= MAX_COLUMNS) {
+    if (!m_root_item || !index.isValid() || index.column() < 0 || index.column() >= m_maxColumns) {
         return QVariant();
     }
     if (ParameterizedItem *item = itemForIndex(index)) {
@@ -115,12 +116,12 @@ int SessionModel::columnCount(const QModelIndex &parent) const
 {
     if (parent.isValid() && parent.column() != 0)
         return 0;
-    return MAX_COLUMNS;
+    return m_maxColumns;
 }
 
 QModelIndex SessionModel::index(int row, int column, const QModelIndex &parent) const
 {
-    if (!m_root_item || row < 0 || column < 0 || column >= MAX_COLUMNS
+    if (!m_root_item || row < 0 || column < 0 || column >= m_maxColumns
         || (parent.isValid() && parent.column() != 0))
         return QModelIndex();
     ParameterizedItem *parent_item = itemForIndex(parent);

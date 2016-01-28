@@ -128,23 +128,25 @@ public:
 
     virtual void initFrom(SessionModel *model, ParameterizedItem *parent);
 
-    ParameterizedItem* rootItem() const;
+
 
 public slots:
     void onItemPropertyChange(const QString &property_name, const QString &name = QString());
 
 protected:
-
-    //moved from private to protected because FitModel need to override the mimeData function
-    void writeItemAndChildItems(QXmlStreamWriter *writer, const ParameterizedItem *item) const;
+    // subclasses my wish to change the column count or the root item itself
+    void setMaxColumns(int maxColumns) {m_maxColumns = maxColumns;}
+    void setRootItem(ParameterizedItem *root) {m_root_item = root;}
 
 private:
+    ParameterizedItem* rootItem() const;
+
     ParameterizedItem *insertNewItem(QString model_type, ParameterizedItem *parent, int row = -1,
                                      ParameterizedItem::PortInfo::EPorts port
                                      = ParameterizedItem::PortInfo::DEFAULT);
     void readItems(QXmlStreamReader *reader, ParameterizedItem *item, int row = -1);
     QString readProperty(QXmlStreamReader *reader, ParameterizedItem *item);
-
+    void writeItemAndChildItems(QXmlStreamWriter *writer, const ParameterizedItem *item) const;
     void writeProperty(QXmlStreamWriter *writer, const ParameterizedItem *item,
                        const char *property_name) const;
     void writePropertyItem(QXmlStreamWriter *writer, ParameterizedItem *item) const;
@@ -157,6 +159,7 @@ private:
     QString m_dragged_item_type;
     QString m_name;      //!< model name
     QString m_model_tag; //!< model tag (SampleModel, InstrumentModel)
+    int m_maxColumns;
     IconProvider *m_iconProvider;
     WarningMessageService *m_messageService;
 };

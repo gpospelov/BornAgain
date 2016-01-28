@@ -17,11 +17,11 @@
 
 #include "ParameterizedItem.h"
 
-class BA_CORE_API_ FitParameterSettings : public ParameterizedItem
+class BA_CORE_API_ FitParameterContainer : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    explicit FitParameterSettings(ParameterizedItem *parent=0);
+    explicit FitParameterContainer(ParameterizedItem *parent=0);
 };
 
 class BA_CORE_API_ FitParameterItem : public ParameterizedItem

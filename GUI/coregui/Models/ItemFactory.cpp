@@ -167,7 +167,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::EllipseMaskType] = &createInstance<EllipseItem>;
     result[Constants::MaskAllType] = &createInstance<MaskAllItem>;
 
-    result[Constants::FitParameterSettings] = &createInstance<FitParameterSettings>;
+    result[Constants::FitParameterContainerType] = &createInstance<FitParameterContainer>;
     result[Constants::FitParameterType] = &createInstance<FitParameterItem>;
     result[Constants::FitParameterLinkType] = &createInstance<FitParameterLinkItem>;
 

@@ -143,12 +143,12 @@ void TestView::test_RunFitWidget()
     RunFitWidget *maskEditor = new RunFitWidget();
     //FitView *fw = new FitView(m_mainWindow->getSampleModel(), m_mainWindow->getInstrumentModel());
 
-    FitParameterWidget *fitting = new FitParameterWidget(m_mainWindow);
+    //FitParameterWidget *fitting = new FitParameterWidget(m_mainWindow);
     QVBoxLayout *layout = new QVBoxLayout;
     QTabWidget *tabs = new QTabWidget;
     tabs->addTab(maskEditor, "Run Fit");
     //tabs->addTab(fw, "FitView by Ivonna");
-    tabs->addTab(fitting, "Test TreeView");
+    //tabs->addTab(fitting, "Test TreeView");
     layout->setMargin(0);
     layout->setSpacing(0);
     layout->addWidget(tabs);

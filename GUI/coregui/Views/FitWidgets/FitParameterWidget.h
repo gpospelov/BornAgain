@@ -17,14 +17,21 @@
 #define FITPARAMETERWIDGET_H
 
 #include "WinDllMacros.h"
+#include "SessionModel.h"
 #include <QWidget>
 #include <QStandardItemModel>
+#include <QAbstractItemModel>
 
 class QTreeView;
 class MainWindow;
-class FitParameterModel;
 class FitSelectorModel;
 class QMenu;
+class SampleModel;
+class InstrumentModel;
+class FitModel;
+class ParameterizedItem;
+class FitParameterModel;
+class QItemSelection;
 
 
 class BA_CORE_API_ FitParameterWidget : public QWidget
@@ -32,36 +39,33 @@ class BA_CORE_API_ FitParameterWidget : public QWidget
     Q_OBJECT
 
 public:
-// FIXME_DAVID - suggestion: Change constructor to not to rely on MainWindow
-// a) to provide looser coupling b) to avoid duplication parent <--> main
-//
-// Just use same approach as in other models, e.g. new SampleView(m_sampleModel, m_instrumentModel);
-
-    FitParameterWidget(MainWindow *main, QWidget *parent = 0);
+    FitParameterWidget(SampleModel *sampleModel, InstrumentModel *instrumentModel,
+                       FitModel *fitModel, QWidget *parent = 0);
     void addParameter();
-    FitSelectorModel *getSelectorModel();
-
-
+    FitSelectorModel *buildSelectorModel();
 
 public slots:
     void updateParameters();
     void expandFitPara();
     void onCustomContextMenu(const QPoint &point);
     void removeParameter();
-    void onAddParameter();
     void onDataChanged(const QModelIndex &left, const QModelIndex &right);
+    void onSelectionChanged(const QItemSelection&se, const QItemSelection&);
 
+    void onSelectionChanged2(const QItemSelection &se);
 private:
     QTreeView *m_treeview;
     QTreeView *m_fitpara;
-    MainWindow *m_main;
     FitParameterModel *m_model;
     QMenu *m_contextMenu;
     QAction *m_remove;
     QAction *m_add;
     int m_parameter_count;
+    SampleModel *m_sampleModel;
+    InstrumentModel *m_instrumentModel;
+    FitModel *m_fitModel;
+    FitSelectorModel *m_selector;
 };
-
 
 
 
@@ -79,18 +83,26 @@ public:
 
 // -------------------------
 
-class BA_CORE_API_ FitParameterModel : public QStandardItemModel
+class BA_CORE_API_ FitParameterModel : public SessionModel
 {
     Q_OBJECT
 
 public:
-    bool dropMimeData(const QMimeData *data,
-         Qt::DropAction action, int row, int column, const QModelIndex &parent);
-    Qt::ItemFlags flags(const QModelIndex &index) const;
+    explicit FitParameterModel(FitModel *fitmodel, QWidget *parent);
+    ~FitParameterModel();
+    Qt::ItemFlags flags(const QModelIndex & index) const Q_DECL_OVERRIDE;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+    bool setData(const QModelIndex &index, const QVariant &value, int role);
     QStringList mimeTypes() const;
-
-signals:
-    void dropFinished();
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+    bool canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column,
+                             const QModelIndex &parent) const;
+    bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent);
+    Qt::DropActions supportedDropActions() const;
+public slots:
+    void addParameter();
+private:
+    FitModel *m_fitmodel;
 };
 
 #endif

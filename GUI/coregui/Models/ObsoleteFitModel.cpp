@@ -34,7 +34,7 @@ ObsoleteFitModel::ObsoleteFitModel(int columns, AcceptableFitModelNames modelNam
 
 QVariant ObsoleteFitModel::data(const QModelIndex &index, int role) const{
 
-    ParameterizedItem* root = this->rootItem();
+    ParameterizedItem* root = this->itemForIndex(QModelIndex());
 
     if (!root || !index.isValid() || index.column() < 0 || index.column() >= m_columns) {
         return QVariant();
@@ -86,7 +86,7 @@ QVariant ObsoleteFitModel::data(const QModelIndex &index, int role) const{
 
 QModelIndex ObsoleteFitModel::index(int row, int column, const QModelIndex &parent) const
 {
-    if (!rootItem() || row < 0 || column < 0 || column >= m_columns
+    if (!itemForIndex(QModelIndex()) || row < 0 || column < 0 || column >= m_columns
         || (parent.isValid() && parent.column() != 0))
         return QModelIndex();
 
@@ -236,7 +236,7 @@ QMimeData* ObsoleteFitModel::mimeData(const QModelIndexList &indices) const
 
             QString ancestors_value;
 
-            while(parentItem != rootItem()){
+            while(parentItem != itemForIndex(QModelIndex())){
                 QString text = parentItem->itemName();
 
                 ancestors_value.append(text);
@@ -261,7 +261,7 @@ QMimeData* ObsoleteFitModel::mimeData(const QModelIndexList &indices) const
         QMimeData *mime_data = new QMimeData;
         QByteArray xml_data;
         QXmlStreamWriter writer(&xml_data);
-        writeItemAndChildItems(&writer, item);
+        //writeItemAndChildItems(&writer, item);
         mime_data->setData(SessionXML::MimeType, qCompress(xml_data, MaxCompression));
         return mime_data;
     }

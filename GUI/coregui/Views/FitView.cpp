@@ -16,6 +16,8 @@
 #include "RunFitWidget.h"
 #include "mainwindow.h"
 #include "FitParameterWidget.h"
+#include "FitModel.h"
+#include "FitParameterItems.h"
 #include <QVBoxLayout>
 #include <QTabWidget>
 
@@ -42,7 +44,18 @@
 FitView::FitView(MainWindow *mainWindow)
     : QWidget(mainWindow)
 {
-    FitParameterWidget *fitting = new FitParameterWidget(mainWindow);
+    // FitModel is constructed here, should be moved to mainwindow in sometime
+    FitModel *fitmodel = new FitModel(this);
+    auto fitsettings = fitmodel->insertNewItem(Constants::FitParameterContainerType, QModelIndex());
+    auto parameter = fitmodel->insertNewItem(Constants::FitParameterType,
+                                             fitmodel->indexOfItem(fitsettings));
+    auto parameter2 = fitmodel->insertNewItem(Constants::FitParameterType,
+                                             fitmodel->indexOfItem(fitsettings));
+    fitmodel->insertNewItem(Constants::FitParameterType,
+                                                 fitmodel->indexOfItem(fitsettings));
+    FitParameterWidget *fitting = new FitParameterWidget(mainWindow->getSampleModel(),
+                                                         mainWindow->getInstrumentModel(),
+                                                         fitmodel, this);
     RunFitWidget *runFitWidget = new RunFitWidget();
 
     QVBoxLayout *layout = new QVBoxLayout;
@@ -50,16 +63,8 @@ FitView::FitView(MainWindow *mainWindow)
 
     QTreeView *view = new QTreeView;
 
-    /*TestModel *model = new TestModel("TestModel");
-    auto fit = model->insertNewItem(Constants::FitParameterType, QModelIndex());
-    model->insertNewItem(Constants::FitParameterLinkType, model->indexOfItem(fit));
-    model->insertNewItem(Constants::FitParameterLinkType, model->indexOfItem(fit));
 
-    auto layer = model->insertNewItem(Constants::MultiLayerType, QModelIndex());
-    model->insertNewItem(Constants::LayerType, model->indexOfItem(layer));
-
-    view->setModel(model);
-    view->setRootIndex(model->indexOfItem(fit));*/
+    view->setModel(fitmodel);
 
 
     tabs->addTab(new QWidget(), "Import Experimental Data");

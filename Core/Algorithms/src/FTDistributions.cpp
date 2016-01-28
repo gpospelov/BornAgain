@@ -82,7 +82,7 @@ FTDistribution1DGate *FTDistribution1DGate::clone() const
 
 double FTDistribution1DGate::evaluate(double q) const
 {
-    return MathFunctions::Sinc(q*m_omega);
+    return MathFunctions::sinc(q*m_omega);
 }
 
 FTDistribution1DTriangle::FTDistribution1DTriangle(double omega)
@@ -100,7 +100,7 @@ FTDistribution1DTriangle *FTDistribution1DTriangle::clone() const
 
 double FTDistribution1DTriangle::evaluate(double q) const
 {
-    double sincqw2 = MathFunctions::Sinc(q*m_omega/2.0);
+    double sincqw2 = MathFunctions::sinc(q*m_omega/2.0);
     return sincqw2*sincqw2;
 }
 
@@ -124,7 +124,7 @@ double FTDistribution1DCosine::evaluate(double q) const
         return 0.5;
     }
     else {
-        return MathFunctions::Sinc(qw)/(1.0-qw*qw/Units::PI/Units::PI);
+        return MathFunctions::sinc(qw)/(1.0-qw*qw/Units::PI/Units::PI);
     }
 }
 

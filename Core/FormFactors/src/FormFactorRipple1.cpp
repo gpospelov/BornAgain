@@ -88,14 +88,14 @@ complex_t FormFactorRipple1::Integrand(double Z, void* params) const
     (void)params;  // to avoid unused-variable warning
     complex_t iqZ = complex_t(0.0, 1.0)*m_q.z()*Z;
     complex_t aa = std::acos(2.0*Z/m_height - 1.0);
-    return std::exp(iqZ)*aa*MathFunctions::Sinc(aa*m_q.y()*m_width/(Units::PI2));
+    return std::exp(iqZ)*aa*MathFunctions::sinc(aa*m_q.y()*m_width/(Units::PI2));
 }
 
 //! Complex formfactor.
 complex_t FormFactorRipple1::evaluate_for_q(const cvector_t& q) const
 {
     m_q = q;
-    complex_t factor = m_length*MathFunctions::Sinc(m_q.x()*m_length*0.5)*m_width/Units::PI;
+    complex_t factor = m_length*MathFunctions::sinc(m_q.x()*m_length*0.5)*m_width/Units::PI;
     complex_t aaa = m_q.y()*m_width/(Units::PI2);
     complex_t aaa2 = aaa*aaa;
 
@@ -105,7 +105,7 @@ complex_t FormFactorRipple1::evaluate_for_q(const cvector_t& q) const
     else if (0.0==m_q.z() && 1.0 == aaa2)
         return factor*Units::PID4*m_height;
     else if (0.0==m_q.z())
-        return factor*Units::PID2*m_height*MathFunctions::Sinc(m_q.y()*m_width*0.5)/(1.0-aaa2);
+        return factor*Units::PID2*m_height*MathFunctions::sinc(m_q.y()*m_width*0.5)/(1.0-aaa2);
 
     // numerical integration otherwise
     complex_t integral = m_integrator->integrate(0, m_height);

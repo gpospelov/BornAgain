@@ -21,6 +21,150 @@
 #include <fftw3.h>
 #include <gsl/gsl_sf_erf.h>
 #include <gsl/gsl_randist.h>
+#include "gsl/gsl_sf_bessel.h"
+#include "gsl/gsl_sf_trig.h"
+#include "gsl/gsl_sf_expint.h"
+#include "gsl/gsl_integration.h"
+
+
+double MathFunctions::GenerateNormalRandom(double average, double std_dev)
+{
+    return GenerateStandardNormalRandom()*std_dev + average;
+}
+
+double MathFunctions::GenerateUniformRandom()
+{
+    int random_int = std::rand();
+    return (double)random_int / RAND_MAX;
+}
+
+double MathFunctions::Bessel_J0(double value)
+{
+    return gsl_sf_bessel_J0(value);
+}
+
+double MathFunctions::Bessel_J1(double value)
+{
+    return gsl_sf_bessel_J1(value);
+}
+
+double MathFunctions::Bessel_C1(double value)
+{
+    return value > Numeric::double_epsilon ? gsl_sf_bessel_J1(value)/value : 0.5;
+}
+
+complex_t MathFunctions::Bessel_J0(const complex_t &value)
+{
+    if(std::imag(value) < Numeric::double_epsilon) {
+        return complex_t(Bessel_J0(std::real(value)), 0.0);
+    } else {
+        return Bessel_J0_PowSer(value);
+    }
+}
+
+complex_t MathFunctions::Bessel_J1(const complex_t &value)
+{
+    if(std::imag(value) < Numeric::double_epsilon) {
+        return complex_t(Bessel_J1(std::real(value)), 0.0);
+    } else {
+        return Bessel_J1_PowSer(value);
+    }
+}
+
+complex_t MathFunctions::Bessel_C1(const complex_t &value)
+{
+    if(std::imag(value) < Numeric::double_epsilon) {
+        double xv = std::real(value);
+        return std::abs(xv) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(xv)/xv : 0.5;
+    } else {
+        return std::abs(value) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(value)/value : 0.5;
+    }
+}
+
+double MathFunctions::Si(double value)  // int_0^x du Sin(u)/u
+{
+    return gsl_sf_Si(value);
+}
+
+double MathFunctions::sinc(double value)  // Sin(x)/x
+{
+    return gsl_sf_sinc(value/Units::PI);
+}
+
+complex_t MathFunctions::sinc(const complex_t &value)  // Sin(x)/x
+{
+    // This is an exception from the rule that we must not test floating-point numbers for equality.
+    // For small non-zero values, sin(z) returns quite accurately z or z-z^3/6.
+    // There is no loss of precision in computing sin(z)/z.
+    // Therefore there is no need for an expensive test like abs(z)<eps.
+    if( value==complex_t(0.,0.) )
+        return complex_t(1.0, 0.0);
+    return std::sin(value)/value;
+}
+
+complex_t MathFunctions::tanhc(const complex_t &value)  // tanh(x)/x
+{
+    if(std::abs(value)<Numeric::double_epsilon)
+        return complex_t(1.0, 0.0);
+    return std::tanh(value)/value;
+}
+
+complex_t MathFunctions::Laue(const complex_t &value, size_t N) // Exp(iNx/2)*Sin((N+1)x)/Sin(x)
+{
+    if (N==0)
+        return complex_t(1.0, 0.0);
+    if(std::abs(value)<Numeric::double_epsilon)
+        return complex_t(N+1.0, 0.0);
+    return std::exp(complex_t(0.0, 1.0)*value*(double)N/2.0)*std::sin(value*(N+1.0)/2.0)/std::sin(value/2.0);
+}
+
+#ifndef GCCXML_SKIP_THIS
+Eigen::Matrix2d MathFunctions::Norm(const Eigen::Matrix2cd &M) {
+    Eigen::Matrix2d result;
+    result(0,0) = std::norm((complex_t)M(0,0));
+    result(0,1) = std::norm((complex_t)M(0,1));
+    result(1,0) = std::norm((complex_t)M(1,0));
+    result(1,1) = std::norm((complex_t)M(1,1));
+    return result;
+}
+
+Eigen::Matrix2d MathFunctions::Abs(const Eigen::Matrix2cd &M) {
+    Eigen::Matrix2d result;
+    result(0,0) = std::abs((complex_t)M(0,0));
+    result(0,1) = std::abs((complex_t)M(0,1));
+    result(1,0) = std::abs((complex_t)M(1,0));
+    result(1,1) = std::abs((complex_t)M(1,1));
+    return result;
+}
+
+Eigen::Matrix2cd MathFunctions::Conj(const Eigen::Matrix2cd &M) {
+    Eigen::Matrix2cd result;
+    result(0,0) = std::conj((complex_t)M(0,0));
+    result(0,1) = std::conj((complex_t)M(0,1));
+    result(1,0) = std::conj((complex_t)M(1,0));
+    result(1,1) = std::conj((complex_t)M(1,1));
+    return result;
+}
+
+Eigen::Matrix2cd MathFunctions::ProductByElement(
+        const Eigen::Matrix2cd &left, const Eigen::Matrix2cd &right) {
+    Eigen::Matrix2cd result;
+    result(0,0) = left(0,0) * right(0,0);
+    result(0,1) = left(0,1) * right(0,1);
+    result(1,0) = left(1,0) * right(1,0);
+    result(1,1) = left(1,1) * right(1,1);
+    return result;
+}
+
+Eigen::Matrix2d MathFunctions::Real(const Eigen::Matrix2cd &M) {
+    Eigen::Matrix2d result;
+    result(0,0) = ((complex_t)M(0,0)).real();
+    result(0,1) = ((complex_t)M(0,1)).real();
+    result(1,0) = ((complex_t)M(1,0)).real();
+    result(1,1) = ((complex_t)M(1,1)).real();
+    return result;
+}
+#endif
 
 double MathFunctions::Gaussian(double value, double average, double std_dev)
 {

@@ -45,9 +45,9 @@ complex_t FormFactorBox::evaluate_for_q(const cvector_t& q) const
 
     return m_height*m_length*m_width*
         std::exp(complex_t(0.,1.)*qzHdiv2) *
-        MathFunctions::Sinc(qxRdiv2) *
-        MathFunctions::Sinc(qyWdiv2) *
-            MathFunctions::Sinc(qzHdiv2);
+        MathFunctions::sinc(qxRdiv2) *
+        MathFunctions::sinc(qyWdiv2) *
+            MathFunctions::sinc(qzHdiv2);
 }
 
 bool FormFactorBox::check_initialization() const

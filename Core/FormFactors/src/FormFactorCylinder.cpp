@@ -57,7 +57,7 @@ complex_t FormFactorCylinder::evaluate_for_q(const cvector_t &q) const
     double H = m_height;
 
     complex_t qzH_half = q.z() * H / 2.0;
-    complex_t z_part = H * MathFunctions::Sinc(qzH_half) * std::exp(complex_t(0.0, 1.0) * qzH_half);
+    complex_t z_part = H * MathFunctions::sinc(qzH_half) * std::exp(complex_t(0.0, 1.0) * qzH_half);
     complex_t qxy = std::sqrt(q.x() * q.x() + q.y() * q.y());
     complex_t qrR = qxy * R;
     complex_t J1_qrR_div_qrR

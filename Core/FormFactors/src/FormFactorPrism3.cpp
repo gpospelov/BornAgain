@@ -63,7 +63,7 @@ complex_t FormFactorPrism3::evaluate_for_q(const cvector_t& q) const
     double H = m_height;
 
     complex_t qzH_half = qz*H/2.0;
-    complex_t z_part = H*MathFunctions::Sinc(qzH_half)*
+    complex_t z_part = H*MathFunctions::sinc(qzH_half)*
         std::exp(complex_t(0.0, 1.0)*qzH_half);
 
     complex_t xy_part = complex_t(0.0, 0.0);
@@ -82,7 +82,7 @@ complex_t FormFactorPrism3::evaluate_for_q(const cvector_t& q) const
             complex_t qxR = q.x()*R;
             xy_part = std::exp(complex_t(0.0, 1.0)*r3qyR) -
                 std::cos(qxR)-complex_t(0.0, 1.0)*r3qyR*
-                MathFunctions::Sinc(qxR);
+                MathFunctions::sinc(qxR);
             xy_part *= 2.0*m_root3*expminiqyRdivr3/
                 (q.x()*q.x()-3.0*q.y()*q.y());
         }

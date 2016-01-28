@@ -27,258 +27,126 @@
 #include "gsl/gsl_integration.h"
 
 
-double MathFunctions::GenerateNormalRandom(double average, double std_dev)
+// ************************************************************************** //
+//  Various functions
+// ************************************************************************** //
+
+double MathFunctions::StandardNormal(double x)
 {
-    return GenerateStandardNormalRandom()*std_dev + average;
+    return std::exp(-x * x / 2.0) / std::sqrt(Units::PI2);
 }
 
-double MathFunctions::GenerateUniformRandom()
+double MathFunctions::Gaussian(double x, double average, double std_dev)
 {
-    int random_int = std::rand();
-    return (double)random_int / RAND_MAX;
+    return StandardNormal((x - average) / std_dev) / std_dev;
 }
 
-double MathFunctions::Bessel_J0(double value)
+double MathFunctions::IntegratedGaussian(double x, double average, double std_dev)
 {
-    return gsl_sf_bessel_J0(value);
+    double normalized_x = (x - average) / std_dev;
+    double root2 = std::sqrt(2.0);
+    return (gsl_sf_erf(normalized_x / root2) + 1.0) / 2.0;
 }
 
-double MathFunctions::Bessel_J1(double value)
+double MathFunctions::Si(double x)  // int_0^x du Sin(u)/u
 {
-    return gsl_sf_bessel_J1(value);
+    return gsl_sf_Si(x);
 }
 
-double MathFunctions::Bessel_C1(double value)
+double MathFunctions::sinc(double x)  // Sin(x)/x
 {
-    return value > Numeric::double_epsilon ? gsl_sf_bessel_J1(value)/value : 0.5;
+    return gsl_sf_sinc(x/Units::PI);
 }
 
-complex_t MathFunctions::Bessel_J0(const complex_t &value)
-{
-    if(std::imag(value) < Numeric::double_epsilon) {
-        return complex_t(Bessel_J0(std::real(value)), 0.0);
-    } else {
-        return Bessel_J0_PowSer(value);
-    }
-}
-
-complex_t MathFunctions::Bessel_J1(const complex_t &value)
-{
-    if(std::imag(value) < Numeric::double_epsilon) {
-        return complex_t(Bessel_J1(std::real(value)), 0.0);
-    } else {
-        return Bessel_J1_PowSer(value);
-    }
-}
-
-complex_t MathFunctions::Bessel_C1(const complex_t &value)
-{
-    if(std::imag(value) < Numeric::double_epsilon) {
-        double xv = std::real(value);
-        return std::abs(xv) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(xv)/xv : 0.5;
-    } else {
-        return std::abs(value) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(value)/value : 0.5;
-    }
-}
-
-double MathFunctions::Si(double value)  // int_0^x du Sin(u)/u
-{
-    return gsl_sf_Si(value);
-}
-
-double MathFunctions::sinc(double value)  // Sin(x)/x
-{
-    return gsl_sf_sinc(value/Units::PI);
-}
-
-complex_t MathFunctions::sinc(const complex_t &value)  // Sin(x)/x
+complex_t MathFunctions::sinc(const complex_t &z)  // Sin(x)/x
 {
     // This is an exception from the rule that we must not test floating-point numbers for equality.
-    // For small non-zero values, sin(z) returns quite accurately z or z-z^3/6.
+    // For small non-zero arguments, sin(z) returns quite accurately z or z-z^3/6.
     // There is no loss of precision in computing sin(z)/z.
     // Therefore there is no need for an expensive test like abs(z)<eps.
-    if( value==complex_t(0.,0.) )
+    if( z==complex_t(0.,0.) )
         return complex_t(1.0, 0.0);
-    return std::sin(value)/value;
+    return std::sin(z)/z;
 }
 
-complex_t MathFunctions::tanhc(const complex_t &value)  // tanh(x)/x
+complex_t MathFunctions::tanhc(const complex_t &z)  // tanh(x)/x
 {
-    if(std::abs(value)<Numeric::double_epsilon)
+    if(std::abs(z)<Numeric::double_epsilon)
         return complex_t(1.0, 0.0);
-    return std::tanh(value)/value;
+    return std::tanh(z)/z;
 }
 
-complex_t MathFunctions::Laue(const complex_t &value, size_t N) // Exp(iNx/2)*Sin((N+1)x)/Sin(x)
+complex_t MathFunctions::Laue(const complex_t &z, size_t N) // Exp(iNx/2)*Sin((N+1)x)/Sin(x)
 {
     if (N==0)
         return complex_t(1.0, 0.0);
-    if(std::abs(value)<Numeric::double_epsilon)
+    if(std::abs(z)<Numeric::double_epsilon)
         return complex_t(N+1.0, 0.0);
-    return std::exp(complex_t(0.0, 1.0)*value*(double)N/2.0)*std::sin(value*(N+1.0)/2.0)/std::sin(value/2.0);
+    return std::exp(complex_t(0.0, 1.0)*z*(double)N/2.0)*std::sin(z*(N+1.0)/2.0)/std::sin(z/2.0);
 }
 
-#ifndef GCCXML_SKIP_THIS
-Eigen::Matrix2d MathFunctions::Norm(const Eigen::Matrix2cd &M) {
-    Eigen::Matrix2d result;
-    result(0,0) = std::norm((complex_t)M(0,0));
-    result(0,1) = std::norm((complex_t)M(0,1));
-    result(1,0) = std::norm((complex_t)M(1,0));
-    result(1,1) = std::norm((complex_t)M(1,1));
-    return result;
-}
-
-Eigen::Matrix2d MathFunctions::Abs(const Eigen::Matrix2cd &M) {
-    Eigen::Matrix2d result;
-    result(0,0) = std::abs((complex_t)M(0,0));
-    result(0,1) = std::abs((complex_t)M(0,1));
-    result(1,0) = std::abs((complex_t)M(1,0));
-    result(1,1) = std::abs((complex_t)M(1,1));
-    return result;
-}
-
-Eigen::Matrix2cd MathFunctions::Conj(const Eigen::Matrix2cd &M) {
-    Eigen::Matrix2cd result;
-    result(0,0) = std::conj((complex_t)M(0,0));
-    result(0,1) = std::conj((complex_t)M(0,1));
-    result(1,0) = std::conj((complex_t)M(1,0));
-    result(1,1) = std::conj((complex_t)M(1,1));
-    return result;
-}
-
-Eigen::Matrix2cd MathFunctions::ProductByElement(
-        const Eigen::Matrix2cd &left, const Eigen::Matrix2cd &right) {
-    Eigen::Matrix2cd result;
-    result(0,0) = left(0,0) * right(0,0);
-    result(0,1) = left(0,1) * right(0,1);
-    result(1,0) = left(1,0) * right(1,0);
-    result(1,1) = left(1,1) * right(1,1);
-    return result;
-}
-
-Eigen::Matrix2d MathFunctions::Real(const Eigen::Matrix2cd &M) {
-    Eigen::Matrix2d result;
-    result(0,0) = ((complex_t)M(0,0)).real();
-    result(0,1) = ((complex_t)M(0,1)).real();
-    result(1,0) = ((complex_t)M(1,0)).real();
-    result(1,1) = ((complex_t)M(1,1)).real();
-    return result;
-}
-#endif
-
-double MathFunctions::Gaussian(double value, double average, double std_dev)
+complex_t MathFunctions::geometricSum(complex_t z, int exponent)
 {
-    return StandardNormal((value - average) / std_dev) / std_dev;
-}
-
-double MathFunctions::IntegratedGaussian(double value, double average, double std_dev)
-{
-    double normalized_value = (value - average) / std_dev;
-    double root2 = std::sqrt(2.0);
-    return (gsl_sf_erf(normalized_value / root2) + 1.0) / 2.0;
-}
-
-double MathFunctions::StandardNormal(double value)
-{
-    return std::exp(-value * value / 2.0) / std::sqrt(Units::PI2);
-}
-
-double MathFunctions::GenerateStandardNormalRandom() // using GSL
-{
-    gsl_rng *r;
-    r = gsl_rng_alloc(gsl_rng_ranlxs2);
-    double result = gsl_ran_ugaussian(r);
-    gsl_rng_free(r);
-    return result;
-}
-
-//! @brief simple (and unoptimized) wrapper function
-//!   for the discrete fast Fourier transformation library (fftw3)
-
-std::vector<complex_t> MathFunctions::FastFourierTransform(const std::vector<complex_t> &data,
-                                                           MathFunctions::EFFTDirection ftCase)
-{
-    double scale(1.);
-    size_t npx = data.size();
-
-    fftw_complex *ftData = (fftw_complex *)fftw_malloc(sizeof(fftw_complex) * npx);
-    fftw_complex *ftResult = (fftw_complex *)fftw_malloc(sizeof(fftw_complex) * npx);
-    memset(ftData, 0, sizeof(fftw_complex) * npx);
-    memset(ftResult, 0, sizeof(fftw_complex) * npx);
-
-    for (size_t i = 0; i < npx; i++) {
-        ftData[i][0] = data[i].real();
-        ftData[i][1] = data[i].imag();
+    if (exponent < 1) {
+        throw LogicErrorException("MathFunctions::geometricSeries:"
+                                  " exponent should be > 0");
     }
-
-    fftw_plan plan;
-    switch (ftCase) {
-    case MathFunctions::FORWARD_FFT:
-        plan = fftw_plan_dft_1d((int)npx, ftData, ftResult, FFTW_FORWARD, FFTW_ESTIMATE);
-        break;
-    case MathFunctions::BACKWARD_FFT:
-        plan = fftw_plan_dft_1d((int)npx, ftData, ftResult, FFTW_BACKWARD, FFTW_ESTIMATE);
-        scale = 1. / double(npx);
-        break;
-    default:
-        throw std::runtime_error(
-            "MathFunctions::FastFourierTransform -> Panic! Unknown transform case.");
+    complex_t result(0.0, 0.0);
+    double nd = (double)exponent;
+    --exponent;
+    while (exponent > 0) {
+        result += std::pow(z, exponent) * (nd - exponent);
+        --exponent;
     }
-
-    fftw_execute(plan);
-
-    // saving data for user
-    std::vector<complex_t> outData;
-    outData.resize(npx);
-    for (size_t i = 0; i < npx; i++) {
-        outData[i] = scale * complex_t(ftResult[i][0], ftResult[i][1]);
-    }
-
-    fftw_destroy_plan(plan);
-    fftw_free(ftData);
-    fftw_free(ftResult);
-
-    return outData;
-}
-
-//! @brief simple (and unoptimized) wrapper function
-//!   for the discrete fast Fourier transformation library (fftw3);
-//!   transforms real to complex
-
-std::vector<complex_t> MathFunctions::FastFourierTransform(const std::vector<double> &data,
-                                                           MathFunctions::EFFTDirection ftCase)
-{
-    std::vector<complex_t> cdata;
-    cdata.resize(data.size());
-    for (size_t i = 0; i < data.size(); i++) {
-        cdata[i] = complex_t(data[i], 0);
-    }
-    return MathFunctions::FastFourierTransform(cdata, ftCase);
-}
-
-//! convolution of two real vectors of equal size
-
-std::vector<complex_t> MathFunctions::ConvolveFFT(const std::vector<double> &signal,
-                                                  const std::vector<double> &resfunc)
-{
-    if (signal.size() != resfunc.size()) {
-        throw std::runtime_error("MathFunctions::ConvolveFFT() -> This convolution works only for "
-                                 "two vectors of equal size. Use Convolve class instead.");
-    }
-    std::vector<complex_t> fft_signal
-        = MathFunctions::FastFourierTransform(signal, MathFunctions::FORWARD_FFT);
-    std::vector<complex_t> fft_resfunc
-        = MathFunctions::FastFourierTransform(resfunc, MathFunctions::FORWARD_FFT);
-
-    std::vector<complex_t> fft_prod;
-    fft_prod.resize(fft_signal.size());
-    for (size_t i = 0; i < fft_signal.size(); i++) {
-        fft_prod[i] = fft_signal[i] * fft_resfunc[i];
-    }
-
-    std::vector<complex_t> result
-        = MathFunctions::FastFourierTransform(fft_prod, MathFunctions::BACKWARD_FFT);
     return result;
+}
+
+
+// ************************************************************************** //
+//  Bessel functions
+// ************************************************************************** //
+
+double MathFunctions::Bessel_J0(double x)
+{
+    return gsl_sf_bessel_J0(x);
+}
+
+double MathFunctions::Bessel_J1(double x)
+{
+    return gsl_sf_bessel_J1(x);
+}
+
+double MathFunctions::Bessel_C1(double x)
+{
+    return x > Numeric::double_epsilon ? gsl_sf_bessel_J1(x)/x : 0.5;
+}
+
+complex_t MathFunctions::Bessel_J0(const complex_t &z)
+{
+    if(std::imag(z) < Numeric::double_epsilon) {
+        return complex_t(Bessel_J0(std::real(z)), 0.0);
+    } else {
+        return Bessel_J0_PowSer(z);
+    }
+}
+
+complex_t MathFunctions::Bessel_J1(const complex_t &z)
+{
+    if(std::imag(z) < Numeric::double_epsilon) {
+        return complex_t(Bessel_J1(std::real(z)), 0.0);
+    } else {
+        return Bessel_J1_PowSer(z);
+    }
+}
+
+complex_t MathFunctions::Bessel_C1(const complex_t &z)
+{
+    if(std::imag(z) < Numeric::double_epsilon) {
+        double xv = std::real(z);
+        return std::abs(xv) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(xv)/xv : 0.5;
+    } else {
+        return std::abs(z) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(z)/z : 0.5;
+    }
 }
 
 //! Computes the complex Bessel function J0(z), using standard power series and asymptotic expansion.
@@ -412,18 +280,123 @@ complex_t MathFunctions::Bessel_J1_PowSer(const complex_t &z)
     return cj1;
 }
 
-complex_t MathFunctions::geometricSum(complex_t z, int exponent)
+// ************************************************************************** //
+//  Fourier transform and convolution
+// ************************************************************************** //
+
+//! @brief simple (and unoptimized) wrapper function
+//!   for the discrete fast Fourier transformation library (fftw3)
+
+std::vector<complex_t>
+MathFunctions::FastFourierTransform(const std::vector<complex_t> &data,
+                                    MathFunctions::EFFTDirection ftCase)
 {
-    if (exponent < 1) {
-        throw LogicErrorException("MathFunctions::geometricSeries:"
-                                  " exponent should be > 0");
+    double scale(1.);
+    size_t npx = data.size();
+
+    fftw_complex *ftData = (fftw_complex *)fftw_malloc(sizeof(fftw_complex) * npx);
+    fftw_complex *ftResult = (fftw_complex *)fftw_malloc(sizeof(fftw_complex) * npx);
+    memset(ftData, 0, sizeof(fftw_complex) * npx);
+    memset(ftResult, 0, sizeof(fftw_complex) * npx);
+
+    for (size_t i = 0; i < npx; i++) {
+        ftData[i][0] = data[i].real();
+        ftData[i][1] = data[i].imag();
     }
-    complex_t result(0.0, 0.0);
-    double nd = (double)exponent;
-    --exponent;
-    while (exponent > 0) {
-        result += std::pow(z, exponent) * (nd - exponent);
-        --exponent;
+
+    fftw_plan plan;
+    switch (ftCase) {
+    case MathFunctions::FORWARD_FFT:
+        plan = fftw_plan_dft_1d((int)npx, ftData, ftResult, FFTW_FORWARD, FFTW_ESTIMATE);
+        break;
+    case MathFunctions::BACKWARD_FFT:
+        plan = fftw_plan_dft_1d((int)npx, ftData, ftResult, FFTW_BACKWARD, FFTW_ESTIMATE);
+        scale = 1. / double(npx);
+        break;
+    default:
+        throw std::runtime_error(
+            "MathFunctions::FastFourierTransform -> Panic! Unknown transform case.");
     }
+
+    fftw_execute(plan);
+
+    // saving data for user
+    std::vector<complex_t> outData;
+    outData.resize(npx);
+    for (size_t i = 0; i < npx; i++) {
+        outData[i] = scale * complex_t(ftResult[i][0], ftResult[i][1]);
+    }
+
+    fftw_destroy_plan(plan);
+    fftw_free(ftData);
+    fftw_free(ftResult);
+
+    return outData;
+}
+
+//! @brief simple (and unoptimized) wrapper function
+//!   for the discrete fast Fourier transformation library (fftw3);
+//!   transforms real to complex
+
+std::vector<complex_t>
+MathFunctions::FastFourierTransform(const std::vector<double> &data,
+                                    MathFunctions::EFFTDirection ftCase)
+{
+    std::vector<complex_t> cdata;
+    cdata.resize(data.size());
+    for (size_t i = 0; i < data.size(); i++) {
+        cdata[i] = complex_t(data[i], 0);
+    }
+    return MathFunctions::FastFourierTransform(cdata, ftCase);
+}
+
+//! convolution of two real vectors of equal size
+
+std::vector<complex_t>
+MathFunctions::ConvolveFFT(const std::vector<double> &signal,
+                           const std::vector<double> &resfunc)
+{
+    if (signal.size() != resfunc.size()) {
+        throw std::runtime_error("MathFunctions::ConvolveFFT() -> This convolution works only for "
+                                 "two vectors of equal size. Use Convolve class instead.");
+    }
+    std::vector<complex_t> fft_signal
+        = MathFunctions::FastFourierTransform(signal, MathFunctions::FORWARD_FFT);
+    std::vector<complex_t> fft_resfunc
+        = MathFunctions::FastFourierTransform(resfunc, MathFunctions::FORWARD_FFT);
+
+    std::vector<complex_t> fft_prod;
+    fft_prod.resize(fft_signal.size());
+    for (size_t i = 0; i < fft_signal.size(); i++) {
+        fft_prod[i] = fft_signal[i] * fft_resfunc[i];
+    }
+
+    std::vector<complex_t> result
+        = MathFunctions::FastFourierTransform(fft_prod, MathFunctions::BACKWARD_FFT);
+    return result;
+}
+
+
+// ************************************************************************** //
+//  Random number generators
+// ************************************************************************** //
+
+double MathFunctions::GenerateUniformRandom()
+{
+    int random_int = std::rand();
+    return (double)random_int / RAND_MAX;
+}
+
+double MathFunctions::GenerateNormalRandom(double average, double std_dev)
+{
+    return GenerateStandardNormalRandom()*std_dev + average;
+}
+
+double MathFunctions::GenerateStandardNormalRandom() // using GSL
+{
+    gsl_rng *r;
+    r = gsl_rng_alloc(gsl_rng_ranlxs2);
+    double result = gsl_ran_ugaussian(r);
+    gsl_rng_free(r);
     return result;
 }

@@ -73,7 +73,7 @@ struct FTDecayFunction2DCauchy_wrapper : FTDecayFunction2DCauchy, bp::wrapper< F
 void register_FTDecayFunction2DCauchy_class(){
 
     { //::FTDecayFunction2DCauchy
-        typedef bp::class_< FTDecayFunction2DCauchy_wrapper, std::auto_ptr< FTDecayFunction2DCauchy_wrapper > > FTDecayFunction2DCauchy_exposer_t;
+        typedef bp::class_< FTDecayFunction2DCauchy_wrapper, bp::bases< IFTDecayFunction2D >, std::auto_ptr< FTDecayFunction2DCauchy_wrapper > > FTDecayFunction2DCauchy_exposer_t;
         FTDecayFunction2DCauchy_exposer_t FTDecayFunction2DCauchy_exposer = FTDecayFunction2DCauchy_exposer_t( "FTDecayFunction2DCauchy", "2 dimensional Cauchy decay function in reciprocal space.", bp::init< double, double >(( bp::arg("decay_length_x"), bp::arg("decay_length_y") )) );
         bp::scope FTDecayFunction2DCauchy_scope( FTDecayFunction2DCauchy_exposer );
         { //::FTDecayFunction2DCauchy::clone

@@ -126,6 +126,7 @@ include_classes = [
     "IDetectorResolution",
     "IDistribution1D",
     "IFTDecayFunction1D",
+    "IFTDecayFunction2D",
     "IFTDistribution1D",
     "IFTDistribution2D",
     "IFormFactor",

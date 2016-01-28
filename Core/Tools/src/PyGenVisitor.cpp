@@ -853,7 +853,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                 throw NotImplementedException(pdfException.str());
             }
 
-            result << indent() << it->second << ".setProbabilityDistribution(" << it->second
+            result << indent() << it->second << ".setDecayFunction(" << it->second
                    << "_pdf)\n";
 
         }

@@ -85,7 +85,7 @@ struct FTDecayFunction2DVoigt_wrapper : FTDecayFunction2DVoigt, bp::wrapper< FTD
 void register_FTDecayFunction2DVoigt_class(){
 
     { //::FTDecayFunction2DVoigt
-        typedef bp::class_< FTDecayFunction2DVoigt_wrapper, std::auto_ptr< FTDecayFunction2DVoigt_wrapper > > FTDecayFunction2DVoigt_exposer_t;
+        typedef bp::class_< FTDecayFunction2DVoigt_wrapper, bp::bases< IFTDecayFunction2D >, std::auto_ptr< FTDecayFunction2DVoigt_wrapper > > FTDecayFunction2DVoigt_exposer_t;
         FTDecayFunction2DVoigt_exposer_t FTDecayFunction2DVoigt_exposer = FTDecayFunction2DVoigt_exposer_t( "FTDecayFunction2DVoigt", "2 dimensional Voigt decay function in reciprocal space.", bp::init< double, double, double >(( bp::arg("decay_length_x"), bp::arg("decay_length_y"), bp::arg("eta") )) );
         bp::scope FTDecayFunction2DVoigt_scope( FTDecayFunction2DVoigt_exposer );
         { //::FTDecayFunction2DVoigt::clone

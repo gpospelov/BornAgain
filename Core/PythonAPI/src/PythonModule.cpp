@@ -67,6 +67,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IHistogram.pypp.h"
 #include "Polygon.pypp.h"
 #include "OffSpecSimulation.pypp.h"
+#include "IFTDecayFunction2D.pypp.h"
 #include "FormFactorRipple1.pypp.h"
 #include "Simulation.pypp.h"
 #include "IObservable.pypp.h"
@@ -204,6 +205,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FTDecayFunction1DGauss_class();
     register_FTDecayFunction1DTriangle_class();
     register_FTDecayFunction1DVoigt_class();
+    register_IFTDecayFunction2D_class();
     register_FTDecayFunction2DCauchy_class();
     register_FTDecayFunction2DGauss_class();
     register_FTDecayFunction2DVoigt_class();

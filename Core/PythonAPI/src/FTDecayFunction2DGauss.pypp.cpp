@@ -73,7 +73,7 @@ struct FTDecayFunction2DGauss_wrapper : FTDecayFunction2DGauss, bp::wrapper< FTD
 void register_FTDecayFunction2DGauss_class(){
 
     { //::FTDecayFunction2DGauss
-        typedef bp::class_< FTDecayFunction2DGauss_wrapper, std::auto_ptr< FTDecayFunction2DGauss_wrapper > > FTDecayFunction2DGauss_exposer_t;
+        typedef bp::class_< FTDecayFunction2DGauss_wrapper, bp::bases< IFTDecayFunction2D >, std::auto_ptr< FTDecayFunction2DGauss_wrapper > > FTDecayFunction2DGauss_exposer_t;
         FTDecayFunction2DGauss_exposer_t FTDecayFunction2DGauss_exposer = FTDecayFunction2DGauss_exposer_t( "FTDecayFunction2DGauss", "2 dimensional Gauss decay function in reciprocal space.", bp::init< double, double >(( bp::arg("decay_length_x"), bp::arg("decay_length_y") )) );
         bp::scope FTDecayFunction2DGauss_scope( FTDecayFunction2DGauss_exposer );
         { //::FTDecayFunction2DGauss::clone

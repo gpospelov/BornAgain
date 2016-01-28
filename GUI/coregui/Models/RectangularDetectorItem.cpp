@@ -19,7 +19,7 @@
 #include "ComboProperty.h"
 #include "RectangularDetector.h"
 #include "ResolutionFunctionItems.h"
-
+#include <QDebug>
 
 namespace {
 const double default_detector_width = 20.0;
@@ -97,7 +97,10 @@ RectangularDetectorItem::RectangularDetectorItem(ParameterizedItem *parent)
 
     // alignment parameters
     registerGroupProperty(P_NORMAL, Constants::VectorType);
+    getSubItems()[P_NORMAL]->setRegisteredProperty(VectorItem::P_X, default_detector_distance);
+
     registerGroupProperty(P_DIRECTION, Constants::VectorType);
+    getSubItems()[P_DIRECTION]->setRegisteredProperty(VectorItem::P_Y, -1.0);
 
     registerProperty(P_U0, default_detector_width/2.).setToolTip(tooltip_u0);
     registerProperty(P_V0, 0.0).setToolTip(tooltip_v0);
@@ -124,47 +127,62 @@ std::unique_ptr<IDetector2D> RectangularDetectorItem::createDetector() const
         getSubItems()[RectangularDetectorItem::P_X_AXIS]);
     Q_ASSERT(x_axis);
     int n_x = x_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
-    double width
-        = Units::deg2rad(x_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
+    double width = x_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
 
     auto y_axis = dynamic_cast<BasicAxisItem *>(
         getSubItems()[RectangularDetectorItem::P_Y_AXIS]);
     Q_ASSERT(y_axis);
     int n_y = y_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
-    double height
-        = Units::deg2rad(y_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
+    double height = y_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
+
+//    std::unique_ptr<RectangularDetector> result(new RectangularDetector(100, 20.0, 100, 20.0));
+//    result->setPerpendicularToSampleX(1000.0, 10.0, 0.0);
 
     std::unique_ptr<RectangularDetector> result(new RectangularDetector(n_x, width, n_y, height));
 
+
     // distance and alighnment
+    double u0 = getRegisteredProperty(P_U0).toDouble();
+    double v0 = getRegisteredProperty(P_V0).toDouble();
+    double dbeam_u0 = getRegisteredProperty(P_DBEAM_U0).toDouble();
+    double dbeam_v0 = getRegisteredProperty(P_DBEAM_V0).toDouble();
     double distance = getRegisteredProperty(P_DISTANCE).toDouble();
 
     kvector_t normal = getNormalVector();
     kvector_t direction = getDirectionVector();
 
-
-
-
     ComboProperty alignment = getRegisteredProperty(P_ALIGNMENT).value<ComboProperty>();
 
     if (alignment.getValue() == Constants::ALIGNMENT_GENERIC) {
+        result->setPosition(normal, u0, v0, direction);
 
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_DIRECT_BEAM) {
+        result->setPerpendicularToDirectBeam(distance, dbeam_u0, dbeam_v0);
 
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_SAMPLE) {
+        qDebug() << n_x << n_y << width << height << " xx " << distance << u0 << v0;
+//        Q_ASSERT(0);
+
+        result->setPerpendicularToSampleX(distance, u0, v0);
 
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM) {
+        result->setPerpendicularToReflectedBeam(distance, u0, v0);
 
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS) {
-
+        result->setPerpendicularToReflectedBeam(distance);
+        result->setDirectBeamPosition(dbeam_u0, dbeam_v0);
     }
 
-
-
-
-
     return std::move(result);
+}
 
+std::unique_ptr<IResolutionFunction2D> RectangularDetectorItem::createResolutionFunction()
+{
+    auto resfuncItem = dynamic_cast<ResolutionFunctionItem *>(
+        getSubItems()[P_RESOLUTION_FUNCTION]);
+    Q_ASSERT(resfuncItem);
+    std::unique_ptr<IResolutionFunction2D> result(resfuncItem->createResolutionFunction());
+    return std::move(result);
 }
 
 //! updates property tooltips and visibility flags, depending from type of alignment selected

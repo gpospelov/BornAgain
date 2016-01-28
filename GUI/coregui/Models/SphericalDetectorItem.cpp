@@ -75,10 +75,10 @@ std::unique_ptr<IResolutionFunction2D> SphericalDetectorItem::createResolutionFu
 {
     // setting up resolution function
     auto resfuncItem = dynamic_cast<ResolutionFunctionItem *>(
-        getSubItems()[SphericalDetectorItem::P_RESOLUTION_FUNCTION]);
+        getSubItems()[P_RESOLUTION_FUNCTION]);
     Q_ASSERT(resfuncItem);
 
-    std::unique_ptr<IResolutionFunction2D> result(resfuncItem->createResolutionFunction());
+    std::unique_ptr<IResolutionFunction2D> result(resfuncItem->createResolutionFunction(Units::degree));
 
     return std::move(result);
 }

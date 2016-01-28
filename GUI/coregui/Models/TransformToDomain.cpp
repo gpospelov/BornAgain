@@ -361,6 +361,14 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
         instrument->setDetector(*detector);
         auto resfunc = sphericalDetector->createResolutionFunction();
         if(resfunc) instrument->setDetectorResolutionFunction(*resfunc);
+    }
+
+    else if(auto rectangularDetector = dynamic_cast<RectangularDetectorItem *>(subDetector)) {
+        auto detector = rectangularDetector->createDetector();
+        instrument->setDetector(*detector);
+        auto resfunc = rectangularDetector->createResolutionFunction();
+        if(resfunc) instrument->setDetectorResolutionFunction(*resfunc);
+
     } else {
         throw GUIHelpers::Error(
             "TransformToDomain::initInstrumentWithDetectorItem() -> Error. Unknown model type "

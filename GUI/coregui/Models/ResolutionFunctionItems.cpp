@@ -30,15 +30,16 @@ ResolutionFunctionNoneItem::ResolutionFunctionNoneItem(ParameterizedItem *parent
 {
 }
 
-IResolutionFunction2D *ResolutionFunctionNoneItem::createResolutionFunction() const
+IResolutionFunction2D *ResolutionFunctionNoneItem::createResolutionFunction(double scale) const
 {
+    Q_UNUSED(scale);
     return 0;
 }
 
 /* ------------------------------------------------ */
 
-const QString ResolutionFunction2DGaussianItem::P_SIGMA_X = "Sigma phi";
-const QString ResolutionFunction2DGaussianItem::P_SIGMA_Y = "Sigma alpha";
+const QString ResolutionFunction2DGaussianItem::P_SIGMA_X = "Sigma X";
+const QString ResolutionFunction2DGaussianItem::P_SIGMA_Y = "Sigma Y";
 
 ResolutionFunction2DGaussianItem::ResolutionFunction2DGaussianItem(ParameterizedItem *parent)
     : ResolutionFunctionItem(Constants::ResolutionFunction2DGaussianType, parent)
@@ -47,9 +48,9 @@ ResolutionFunction2DGaussianItem::ResolutionFunction2DGaussianItem(Parameterized
     registerProperty(P_SIGMA_Y, 0.02).lowerLimited(0.0).setDecimals(3);
 }
 
-IResolutionFunction2D *ResolutionFunction2DGaussianItem::createResolutionFunction() const
+IResolutionFunction2D *ResolutionFunction2DGaussianItem::createResolutionFunction(double scale) const
 {
-    double sigma_x = Units::deg2rad(getRegisteredProperty(P_SIGMA_X).toDouble());
-    double sigma_y = Units::deg2rad(getRegisteredProperty(P_SIGMA_Y).toDouble());
-    return new ResolutionFunction2DGaussian(sigma_x, sigma_y);
+    double sigma_x = getRegisteredProperty(P_SIGMA_X).toDouble();
+    double sigma_y = getRegisteredProperty(P_SIGMA_Y).toDouble();
+    return new ResolutionFunction2DGaussian(sigma_x*scale, sigma_y*scale);
 }

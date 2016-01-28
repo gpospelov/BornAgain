@@ -7,8 +7,7 @@ endif()
 
 
 # --- Eigen3 ---
-set(EIGEN3_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/ThirdParty/eigen3)
-message(STATUS "Build in version of Eigen3 will be used")
+find_package(Eigen3 REQUIRED)
 
 # --- FFTW3 ---
 find_package(FFTW REQUIRED)

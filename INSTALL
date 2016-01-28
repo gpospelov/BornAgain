@@ -11,15 +11,16 @@ Required:
 * compilers: clang  versions >=3.1 or GCC versions >=4.2
 * cmake >=2.8.12
 * boost library >=1.48
-* GNU scientific library >= 1.15
+* eigen3
 * fftw3 library >=3.3
+* gsl (GNU scientific library) >= 1.15
 * python >=2.7, python-devel, python-numpy-devel, python-matplotlib
 * Qt5
 
 -------------------------------------------------------------------------------
 2) Getting the source
 -------------------------------------------------------------------------------
-git clone git://apps.jcns.fz-juelich.de/BornAgain.git 
+git clone git://apps.jcns.fz-juelich.de/BornAgain.git
 
 
 -------------------------------------------------------------------------------

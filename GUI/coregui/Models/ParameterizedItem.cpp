@@ -328,6 +328,7 @@ void ParameterizedItem::setPropertyAppearance(const QString &name,
             + name);
 
     m_property_attribute[name].setAppearance(appearance);
+    emit propertyChanged(name);
 }
 
 void ParameterizedItem::onPropertyChange(const QString &name)

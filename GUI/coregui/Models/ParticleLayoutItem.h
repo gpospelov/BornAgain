@@ -27,7 +27,7 @@ public:
     explicit ParticleLayoutItem(ParameterizedItem *parent=0);
     virtual ~ParticleLayoutItem();
     virtual void insertChildItem(int row, ParameterizedItem *item);
+    virtual void onChildPropertyChange();
 };
 
 #endif // PARTICLELAYOUTITEM_H
-

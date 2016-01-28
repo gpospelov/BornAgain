@@ -65,3 +65,16 @@ void ParticleLayoutItem::insertChildItem(int row, ParameterizedItem *item)
     }
 }
 
+void ParticleLayoutItem::onChildPropertyChange()
+{
+    for (auto child_item : childItems()) {
+        if (child_item->modelType() == Constants::InterferenceFunction2DParaCrystalType
+            || child_item->modelType() == Constants::InterferenceFunction2DLatticeType) {
+            setPropertyAppearance(P_TOTAL_DENSITY, PropertyAttribute::DISABLED);
+            ParameterizedItem::onChildPropertyChange();
+            return;
+        }
+    }
+    setPropertyAppearance(P_TOTAL_DENSITY, PropertyAttribute::VISIBLE);
+    ParameterizedItem::onChildPropertyChange();
+}

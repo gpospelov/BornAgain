@@ -182,8 +182,10 @@ void ParticleLayout::addInterferenceFunction(
 
 double ParticleLayout::getTotalParticleSurfaceDensity() const
 {
-    return mP_interference_function ? mP_interference_function->getParticleDensity()
-                                    : m_total_particle_density;
+    double iff_density = mP_interference_function ? mP_interference_function->getParticleDensity()
+                                                  : 0.0;
+    return iff_density > 0.0 ? iff_density
+                             : m_total_particle_density;
 }
 
 void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)

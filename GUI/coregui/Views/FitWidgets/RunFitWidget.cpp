@@ -47,6 +47,7 @@ RunFitWidget::RunFitWidget(QWidget *parent) : QWidget(parent)
     m_interval_slider->setRange(1,20);
     m_interval_slider->setMaximumWidth(150);
     m_interval_slider->setMinimumWidth(150);
+    m_interval_slider->setFocusPolicy(Qt::NoFocus);
 
     QVBoxLayout *mainLayout = new QVBoxLayout();
     QHBoxLayout *topLayout = new QHBoxLayout();

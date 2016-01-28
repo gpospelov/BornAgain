@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/TestView.h
-//! @brief     Defines class TestView
+//! @file      coregui/Models/NJobModel.cpp
+//! @brief     Implements class NJobModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,19 +13,12 @@
 //
 // ************************************************************************** //
 
-#ifndef FITVIEW_H
-#define FITVIEW_H
+#include "FitModel.h"
 
-#include <WinDllMacros.h>
-#include <QWidget>
 
-class MainWindow;
-
-class BA_CORE_API_ FitView : public QWidget
+FitModel::FitModel(QObject *parent)
+    : SessionModel(SessionXML::FitModelTag, parent)
 {
-    Q_OBJECT
-public:
-    FitView(MainWindow *window);
-};
 
-#endif
+}
+

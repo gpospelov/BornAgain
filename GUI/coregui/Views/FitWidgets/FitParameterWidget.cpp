@@ -84,6 +84,9 @@ FitParameterWidget::FitParameterWidget(MainWindow *main, QWidget *parent)
     connect(m_fitpara, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(onCustomContextMenu(const QPoint &)));
 
+    connect(m_model, SIGNAL(dataChanged(const QModelIndex &,const QModelIndex &,QVector<int>)),
+            this, SLOT(onDataChanged(const QModelIndex &,const QModelIndex &)));
+
     QSplitter *splitter = new QSplitter();
     splitter->addWidget(m_treeview);
     splitter->addWidget(m_fitpara);
@@ -145,7 +148,8 @@ FitSelectorModel *FitParameterWidget::getSelectorModel() {
     model->setHorizontalHeaderItem(1, new QStandardItem("Value"));
     QStandardItem *root = model->invisibleRootItem();
 
-    QStringList parameterTree = m_main->getSampleModel()->getTopItem()->getParameterTreeList();
+    ParameterizedItem *top = m_main->getSampleModel()->rootItem();
+    QStringList parameterTree = top->getParameterTreeList();
 
     foreach (const QString &str, parameterTree) {
         QStringList parts = str.split("/");
@@ -167,7 +171,7 @@ FitSelectorModel *FitParameterWidget::getSelectorModel() {
                 item->setEditable(false);
                 data->setEditable(false);
                 if (partIndex == parts.size() - 1) { // arrived at the end
-                    double value = m_main->getSampleModel()->getTopItem()->getParameterValue(str);
+                    double value = top->getParameterValue(str);
                     data->setData(QVariant(value), Qt::EditRole);
                 } else {
                     item->setDragEnabled(false);
@@ -205,6 +209,10 @@ void FitParameterWidget::removeParameter() {
 
 void FitParameterWidget::onAddParameter() {
     addParameter();
+}
+
+void FitParameterWidget::onDataChanged(const QModelIndex &left,const QModelIndex &right) {
+
 }
 
 

@@ -42,12 +42,14 @@ public:
     FitSelectorModel *getSelectorModel();
 
 
+
 public slots:
     void updateParameters();
     void expandFitPara();
     void onCustomContextMenu(const QPoint &point);
     void removeParameter();
     void onAddParameter();
+    void onDataChanged(const QModelIndex &left, const QModelIndex &right);
 
 private:
     QTreeView *m_treeview;

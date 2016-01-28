@@ -115,7 +115,9 @@ const ModelType RefractiveIndexType = "RefractiveIndex";
 
 const ModelType MagneticFieldType = "MagneticField";
 
+const ModelType FitParameterSettings = "FitParameterSettings";
 const ModelType FitParameterType = "FitParameter";
+const ModelType FitParameterLinkType = "FitParameterLink";
 
 const ModelType JobItemType = "JobItem";
 const ModelType IntensityDataType = "IntensityData";

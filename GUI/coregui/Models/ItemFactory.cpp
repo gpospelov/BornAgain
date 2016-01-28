@@ -46,6 +46,7 @@
 #include "BeamWavelengthItem.h"
 #include "BeamAngleItems.h"
 #include "MaskItems.h"
+#include "FitParameterItems.h"
 #include <QDebug>
 
 namespace {
@@ -165,6 +166,10 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::HorizontalLineMaskType] = &createInstance<HorizontalLineItem>;
     result[Constants::EllipseMaskType] = &createInstance<EllipseItem>;
     result[Constants::MaskAllType] = &createInstance<MaskAllItem>;
+
+    result[Constants::FitParameterSettings] = &createInstance<FitParameterSettings>;
+    result[Constants::FitParameterType] = &createInstance<FitParameterItem>;
+    result[Constants::FitParameterLinkType] = &createInstance<FitParameterLinkItem>;
 
     return result;
 }

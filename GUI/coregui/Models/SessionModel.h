@@ -128,11 +128,12 @@ public:
 
     virtual void initFrom(SessionModel *model, ParameterizedItem *parent);
 
+    ParameterizedItem* rootItem() const;
+
 public slots:
     void onItemPropertyChange(const QString &property_name, const QString &name = QString());
 
 protected:
-    ParameterizedItem* rootItem() const;
 
     //moved from private to protected because FitModel need to override the mimeData function
     void writeItemAndChildItems(QXmlStreamWriter *writer, const ParameterizedItem *item) const;

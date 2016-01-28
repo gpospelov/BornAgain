@@ -15,12 +15,12 @@
 
 #include "ObsoleteFitParameterItem.h"
 
-const QString FitParameterItem::P_MIN = "Min";
-const QString FitParameterItem::P_MAX = "Max";
-const QString FitParameterItem::P_VALUE = "Value";
-const QString FitParameterItem::P_USE = "Use";
+const QString ObsoleteFitParameterItem::P_MIN = "Min";
+const QString ObsoleteFitParameterItem::P_MAX = "Max";
+const QString ObsoleteFitParameterItem::P_VALUE = "Value";
+const QString ObsoleteFitParameterItem::P_USE = "Use";
 
-FitParameterItem::FitParameterItem(ParameterizedItem *parent)
+ObsoleteFitParameterItem::ObsoleteFitParameterItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::FitParameterType, parent)
 {
     setItemName(Constants::FitParameterType);
@@ -31,12 +31,12 @@ FitParameterItem::FitParameterItem(ParameterizedItem *parent)
     registerProperty(P_USE, true);
 }
 
-void FitParameterItem::setParNames(QStringList par_names)
+void ObsoleteFitParameterItem::setParNames(QStringList par_names)
 {
     m_par_names = par_names;
 }
 
-QStringList FitParameterItem::getParNames()
+QStringList ObsoleteFitParameterItem::getParNames()
 {
     return m_par_names;
 }

@@ -62,10 +62,10 @@ QVariant ObsoleteFitProxyModel::data(const QModelIndex &index, int role) const
             if(role == Qt::DisplayRole || role == Qt::EditRole) {
                 switch (index.column()) {
                 case 0: return item->itemName();
-                case 1: return item->getRegisteredProperty(FitParameterItem::P_USE);
-                case 2: return item->getRegisteredProperty(FitParameterItem::P_VALUE);
-                case 3: return item->getRegisteredProperty(FitParameterItem::P_MIN);
-                case 4: return item->getRegisteredProperty(FitParameterItem::P_MAX);
+                case 1: return item->getRegisteredProperty(ObsoleteFitParameterItem::P_USE);
+                case 2: return item->getRegisteredProperty(ObsoleteFitParameterItem::P_VALUE);
+                case 3: return item->getRegisteredProperty(ObsoleteFitParameterItem::P_MIN);
+                case 4: return item->getRegisteredProperty(ObsoleteFitParameterItem::P_MAX);
                 default: return QVariant();
                 }
             }
@@ -75,7 +75,7 @@ QVariant ObsoleteFitProxyModel::data(const QModelIndex &index, int role) const
     if(index.isValid() && index.parent().isValid())
     {
         //description
-        if (FitParameterItem *item = dynamic_cast<FitParameterItem *>(itemForIndex(index.parent()))) {
+        if (ObsoleteFitParameterItem *item = dynamic_cast<ObsoleteFitParameterItem *>(itemForIndex(index.parent()))) {
             if(item->getParNames().size() >0)
             {
                 return QVariant(item->getParNames().at(0));
@@ -189,16 +189,16 @@ bool ObsoleteFitProxyModel::setData(const QModelIndex &index,
                 item->setItemName(value.toString());
                 break;
             case 1:
-                item->setRegisteredProperty(FitParameterItem::P_USE, value);
+                item->setRegisteredProperty(ObsoleteFitParameterItem::P_USE, value);
                 break;
             case 2:
-                item->setRegisteredProperty(FitParameterItem::P_VALUE, value);
+                item->setRegisteredProperty(ObsoleteFitParameterItem::P_VALUE, value);
                 break;
             case 3:
-                item->setRegisteredProperty(FitParameterItem::P_MIN, value);
+                item->setRegisteredProperty(ObsoleteFitParameterItem::P_MIN, value);
                 break;
             case 4:
-                item->setRegisteredProperty(FitParameterItem::P_MAX, value);
+                item->setRegisteredProperty(ObsoleteFitParameterItem::P_MAX, value);
                 break;
             default:
                 return false;

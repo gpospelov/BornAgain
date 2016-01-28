@@ -135,9 +135,9 @@ QStandardItemModel *ObsoleteFitParameterWidget::iterateSessionModel(ObsoleteFitM
         if (ParameterizedItem *item = fitModel->itemForIndex(itemIndex)){
 
 
-            qDebug() << "FitParameterWidgetOld::iterateSessionModel: " << item->itemName() << item->getRegisteredProperty(FitParameterItem::P_MIN)<<  item->getRegisteredProperty(FitParameterItem::P_MAX);
+            qDebug() << "FitParameterWidgetOld::iterateSessionModel: " << item->itemName() << item->getRegisteredProperty(ObsoleteFitParameterItem::P_MIN)<<  item->getRegisteredProperty(ObsoleteFitParameterItem::P_MAX);
 
-            insertRowIntoItem(parentItem, item->itemName(), item->getRegisteredProperty(FitParameterItem::P_VALUE), item->getRegisteredProperty(FitParameterItem::P_MIN), item->getRegisteredProperty(FitParameterItem::P_MAX), item->getRegisteredProperty(FitParameterItem::P_USE));
+            insertRowIntoItem(parentItem, item->itemName(), item->getRegisteredProperty(ObsoleteFitParameterItem::P_VALUE), item->getRegisteredProperty(ObsoleteFitParameterItem::P_MIN), item->getRegisteredProperty(ObsoleteFitParameterItem::P_MAX), item->getRegisteredProperty(ObsoleteFitParameterItem::P_USE));
 
         }
 
@@ -189,19 +189,19 @@ void ObsoleteFitParameterWidget::initFitModel()
 //    item1->setRegisteredProperty(FitParameterItem::P_MAX, 5.0);
 //    //item1->setRegisteredProperty(FitParameterItem::P_NAME, tr("Par1"));
 
-    FitParameterItem *item1 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
+    ObsoleteFitParameterItem *item1 = dynamic_cast<ObsoleteFitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
     item1->setItemName("Par1");
     QStringList descList1;
     descList1 << "This is description 1" << "This is description 2" << "This is description 3";
     item1->setParNames(descList1);
 
-    FitParameterItem *item2 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
+    ObsoleteFitParameterItem *item2 = dynamic_cast<ObsoleteFitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
     item2->setItemName("Par2");
     QStringList descList2;
     descList2 << "This is description 1" << "This is description 2" << "This is description 3";
     item2->setParNames(descList2);
 
-    FitParameterItem *item3 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
+    ObsoleteFitParameterItem *item3 = dynamic_cast<ObsoleteFitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
     item3->setItemName("Par3");
     QStringList descList3;
     descList3 << "This is description 1" << "This is description 2" << "This is description 3";

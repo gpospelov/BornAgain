@@ -64,11 +64,6 @@ OffSpecSimulation* OffSpecSimulation::clone() const
 void OffSpecSimulation::prepareSimulation()
 {
     checkInitialization();
-    if (getWavelength() <= 0.0) {
-        throw ClassInitializationException(
-                "OffSpecSimulation::prepareSimulation() "
-                "-> Error. Incoming wavelength <= 0.");
-    }
     Simulation::prepareSimulation();
 }
 
@@ -173,11 +168,6 @@ std::string OffSpecSimulation::addParametersToExternalPool(std::string path,
     }
 
     return new_path;
-}
-
-double OffSpecSimulation::getWavelength() const
-{
-    return m_instrument.getBeam().getWavelength();
 }
 
 OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)

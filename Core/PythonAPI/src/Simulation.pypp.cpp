@@ -55,18 +55,6 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
         return func_getNumberOfSimulationElements(  );
     }
 
-    virtual double getWavelength(  ) const  {
-        if( bp::override func_getWavelength = this->get_override( "getWavelength" ) )
-            return func_getWavelength(  );
-        else{
-            return this->Simulation::getWavelength(  );
-        }
-    }
-    
-    double default_getWavelength(  ) const  {
-        return Simulation::getWavelength( );
-    }
-
     virtual void initSimulationElementVector(  ){
         bp::override func_initSimulationElementVector = this->get_override( "initSimulationElementVector" );
         func_initSimulationElementVector(  );
@@ -225,17 +213,6 @@ void register_Simulation_class(){
                 "getSimulationParameters"
                 , getSimulationParameters_function_type( &::Simulation::getSimulationParameters )
                 , "Returns simulation parameters." );
-        
-        }
-        { //::Simulation::getWavelength
-        
-            typedef double ( ::Simulation::*getWavelength_function_type)(  ) const;
-            typedef double ( Simulation_wrapper::*default_getWavelength_function_type)(  ) const;
-            
-            Simulation_exposer.def( 
-                "getWavelength"
-                , getWavelength_function_type(&::Simulation::getWavelength)
-                , default_getWavelength_function_type(&Simulation_wrapper::default_getWavelength) );
         
         }
         { //::Simulation::initSimulationElementVector

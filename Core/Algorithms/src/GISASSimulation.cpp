@@ -73,12 +73,6 @@ void GISASSimulation::prepareSimulation()
         throw LogicErrorException("GISASSimulation::prepareSimulation() "
                 "-> Error. The detector was not properly configured.");
     }
-    if (getWavelength() <= 0.0) {
-        throw ClassInitializationException(
-                "GISASSimulation::prepareSimulation() "
-                "-> Error. Incoming wavelength <= 0.");
-    }
-
     getInstrument().getDetector()->init(this);
 
     Simulation::prepareSimulation();
@@ -202,11 +196,6 @@ std::string GISASSimulation::addParametersToExternalPool(
     }
 
     return new_path;
-}
-
-double GISASSimulation::getWavelength() const
-{
-    return m_instrument.getBeam().getWavelength();
 }
 
 void GISASSimulation::removeMasks()

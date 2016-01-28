@@ -579,13 +579,11 @@ void GUIObjectBuilder::visit(const InterferenceFunctionNone *)
 {
     qDebug() << "GUIObjectBuilder::visit(const InterferenceFunctionNone *)"
              << getLevel();
-
 }
 
 void GUIObjectBuilder::visit(const LayerRoughness *)
 {
     qDebug() << "GUIObjectBuilder::visit(const LayerRoughness *)" << getLevel();
-
 }
 
 void GUIObjectBuilder::visit(const RotationX *sample)

@@ -124,7 +124,6 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
                                             const InterferenceFunction1DLattice *sample)
 {
     Lattice1DParameters lattice_params = sample->getLatticeParameters();
-
     item->setRegisteredProperty(InterferenceFunction1DLatticeItem::P_LENGTH,
                                 lattice_params.m_length);
     item->setRegisteredProperty(InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE,
@@ -144,7 +143,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     set2DLatticeParameters(item, lattice_params, lattice_item);
 
     const IFTDecayFunction2D *p_pdf = sample->getDecayFunction();
-    QString group_name = InterferenceFunction2DLatticeItem::P_PDF;
+    QString group_name = InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION;
     qDebug() << "    group_name" << group_name;
     SetDecayFunction2D(item, p_pdf, group_name);
 }
@@ -548,34 +547,34 @@ void SetDecayFunction2D(ParameterizedItem *item, const IFTDecayFunction2D *pdf, 
     if (const FTDecayFunction2DCauchy *pdf_cauchy
         = dynamic_cast<const FTDecayFunction2DCauchy *>(pdf)) {
         ParameterizedItem *pdfItem
-            = item->setGroupProperty(group_name, Constants::FTDistribution2DCauchyType);
-        pdfItem->setRegisteredProperty(FTDistribution2DCauchyItem::P_CORR_LENGTH_X,
+            = item->setGroupProperty(group_name, Constants::FTDecayFunction2DCauchyType);
+        pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_DECAY_LENGTH_X,
                                        pdf_cauchy->getDecayLengthX());
-        pdfItem->setRegisteredProperty(FTDistribution2DCauchyItem::P_CORR_LENGTH_Y,
+        pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_DECAY_LENGTH_Y,
                                        pdf_cauchy->getDecayLengthY());
-        pdfItem->setRegisteredProperty(FTDistribution2DCauchyItem::P_GAMMA,
+        pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_GAMMA,
                                        Units::rad2deg(pdf_cauchy->getGamma()));
     } else if (const FTDecayFunction2DGauss *pdf_gauss
                = dynamic_cast<const FTDecayFunction2DGauss *>(pdf)) {
         ParameterizedItem *pdfItem
-            = item->setGroupProperty(group_name, Constants::FTDistribution2DGaussType);
-        pdfItem->setRegisteredProperty(FTDistribution2DGaussItem::P_CORR_LENGTH_X,
+            = item->setGroupProperty(group_name, Constants::FTDecayFunction2DGaussType);
+        pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_DECAY_LENGTH_X,
                                        pdf_gauss->getDecayLengthX());
-        pdfItem->setRegisteredProperty(FTDistribution2DGaussItem::P_CORR_LENGTH_Y,
+        pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_DECAY_LENGTH_Y,
                                        pdf_gauss->getDecayLengthY());
-        pdfItem->setRegisteredProperty(FTDistribution2DGaussItem::P_GAMMA,
+        pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_GAMMA,
                                        Units::rad2deg(pdf_gauss->getGamma()));
     } else if (const FTDecayFunction2DVoigt *pdf_voigt
                = dynamic_cast<const FTDecayFunction2DVoigt *>(pdf)) {
         ParameterizedItem *pdfItem
-            = item->setGroupProperty(group_name, Constants::FTDistribution2DVoigtType);
-        pdfItem->setRegisteredProperty(FTDistribution2DVoigtItem::P_CORR_LENGTH_X,
+            = item->setGroupProperty(group_name, Constants::FTDecayFunction2DVoigtType);
+        pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_DECAY_LENGTH_X,
                                        pdf_voigt->getDecayLengthX());
-        pdfItem->setRegisteredProperty(FTDistribution2DVoigtItem::P_CORR_LENGTH_Y,
+        pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_DECAY_LENGTH_Y,
                                        pdf_voigt->getDecayLengthY());
-        pdfItem->setRegisteredProperty(FTDistribution2DVoigtItem::P_GAMMA,
+        pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_GAMMA,
                                        Units::rad2deg(pdf_voigt->getGamma()));
-        pdfItem->setRegisteredProperty(FTDistribution2DVoigtItem::P_ETA, pdf_voigt->getEta());
+        pdfItem->setRegisteredProperty(FTDecayFunction2DVoigtItem::P_ETA, pdf_voigt->getEta());
     } else {
         throw GUIHelpers::Error("TransformFromDomain::SetDecayFunction2D: -> Error");
     }

@@ -286,7 +286,7 @@ TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
                 .toDouble());
         auto P_iff
             = GUIHelpers::make_unique<InterferenceFunction2DLattice>(length_1, length_2, angle, xi);
-        auto pdfItem = item.getSubItems()[InterferenceFunction2DLatticeItem::P_PDF];
+        auto pdfItem = item.getSubItems()[InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION];
         Q_ASSERT(pdfItem);
         std::unique_ptr<IFTDecayFunction2D> P_pdf(
             dynamic_cast<FTDecayFunction2DItem *>(pdfItem)->createFTDecayFunction());

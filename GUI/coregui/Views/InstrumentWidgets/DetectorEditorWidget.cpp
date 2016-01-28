@@ -100,7 +100,7 @@ void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
 
 void DetectorEditorWidget::onPropertyChanged(const QString &propertyName)
 {
-
+    Q_UNUSED(propertyName);
 }
 
 void DetectorEditorWidget::onSubItemChanged(const QString &propertyName)

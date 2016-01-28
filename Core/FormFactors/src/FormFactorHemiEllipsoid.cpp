@@ -83,7 +83,7 @@ complex_t FormFactorHemiEllipsoid::Integrand(double Z, void* params) const
     complex_t qyWz = m_q.y()*Wz;
 
     complex_t gamma = std::sqrt (qxRz*qxRz + qyWz*qyWz);
-    complex_t J1_gamma_div_gamma = MathFunctions::Bessel_C1(gamma);
+    complex_t J1_gamma_div_gamma = MathFunctions::Bessel_J1c(gamma);
     complex_t exp_imag = std::exp(complex_t(0.0,1.0)*m_q.z()*Z);
 
     return Rz * Wz * J1_gamma_div_gamma *exp_imag;

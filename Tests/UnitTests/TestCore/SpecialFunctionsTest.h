@@ -39,19 +39,19 @@ TEST_F(SpecialFunctionsTest, BesselJ1)
 
     // TODO: for a more independent test we compute J1(z) in some different way;
     // see e.g. http://keisan.casio.com/exec/system/1180573474
-    res = MathFunctions::Bessel_J1_PowSer(complex_t(0.8,1.5));
+    res = MathFunctions::Bessel_J1(complex_t(0.8,1.5));
     EXPECT_NEAR( res.real(), 0.72837687825769404, eps*std::abs(res) );
     EXPECT_NEAR( res.imag(), 0.75030568686427268, eps*std::abs(res) );
 
-    res = MathFunctions::Bessel_J1_PowSer(complex_t(1e-2,1e2));
+    res = MathFunctions::Bessel_J1(complex_t(1e-2,1e2));
     EXPECT_NEAR( res.real(), 1.0630504683139779e+40, eps*std::abs(res) );
     EXPECT_NEAR( res.imag(), 1.0683164984973165e+42, eps*std::abs(res) );
 
-    res = MathFunctions::Bessel_J1_PowSer(complex_t(-1e2,-1e-2));
+    res = MathFunctions::Bessel_J1(complex_t(-1e2,1e-2));
     EXPECT_NEAR( res.real(), 0.077149198549289394, eps*std::abs(res) );
-    EXPECT_NEAR( res.imag(), -0.0002075766253119904, eps*std::abs(res) );
+    EXPECT_NEAR( res.imag(), 0.0002075766253119904, eps*std::abs(res) );
 
-    res = MathFunctions::Bessel_J1_PowSer(complex_t(7,9));
+    res = MathFunctions::Bessel_J1(complex_t(7,9));
     EXPECT_NEAR( res.real(),       370.00180888861155, eps*std::abs(res) );
     EXPECT_NEAR( res.imag(),       856.00300811057934, eps*std::abs(res) );
 }

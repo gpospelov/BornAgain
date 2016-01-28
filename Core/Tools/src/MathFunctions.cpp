@@ -16,6 +16,7 @@
 #include "MathFunctions.h"
 
 #include <cmath>
+#include <cassert>
 #include <cstring>
 #include <stdexcept>
 #include <fftw3.h>
@@ -106,6 +107,15 @@ complex_t MathFunctions::geometricSum(complex_t z, int exponent)
 //  Bessel functions
 // ************************************************************************** //
 
+namespace MathFunctions
+{
+//! Computes complex Bessel function J0(z), using power series and asymptotic expansion
+    BA_CORE_API_ complex_t Bessel_J0_PowSer(const complex_t z);
+
+//! Computes complex Bessel function J0(z), using power series and asymptotic expansion
+    BA_CORE_API_ complex_t Bessel_J1_PowSer(const complex_t z);
+}
+
 double MathFunctions::Bessel_J0(double x)
 {
     return gsl_sf_bessel_J0(x);
@@ -116,37 +126,35 @@ double MathFunctions::Bessel_J1(double x)
     return gsl_sf_bessel_J1(x);
 }
 
-double MathFunctions::Bessel_C1(double x)
+double MathFunctions::Bessel_J1c(double x)
 {
     return x > Numeric::double_epsilon ? gsl_sf_bessel_J1(x)/x : 0.5;
 }
 
 complex_t MathFunctions::Bessel_J0(const complex_t z)
 {
-    if(std::imag(z) < Numeric::double_epsilon) {
+    assert( std::imag(z)>=0 );
+    if (std::imag(z) < Numeric::double_epsilon)
         return complex_t(Bessel_J0(std::real(z)), 0.0);
-    } else {
-        return Bessel_J0_PowSer(z);
-    }
+    return Bessel_J0_PowSer(z);
 }
 
 complex_t MathFunctions::Bessel_J1(const complex_t z)
 {
-    if(std::imag(z) < Numeric::double_epsilon) {
+    assert( std::imag(z)>=0 );
+    if( std::imag(z) < Numeric::double_epsilon)
         return complex_t(Bessel_J1(std::real(z)), 0.0);
-    } else {
-        return Bessel_J1_PowSer(z);
-    }
+    return Bessel_J1_PowSer(z);
 }
 
-complex_t MathFunctions::Bessel_C1(const complex_t z)
+complex_t MathFunctions::Bessel_J1c(const complex_t z)
 {
+    assert( std::imag(z)>=0 );
     if(std::imag(z) < Numeric::double_epsilon) {
         double xv = std::real(z);
-        return std::abs(xv) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(xv)/xv : 0.5;
-    } else {
-        return std::abs(z) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(z)/z : 0.5;
+        return xv==0 ? 0.5 : MathFunctions::Bessel_J1(xv)/xv;
     }
+    return z==complex_t(0.,0.) ? 0.5 : MathFunctions::Bessel_J1_PowSer(z)/z;
 }
 
 //! Computes the complex Bessel function J0(z), using standard power series and asymptotic expansion.

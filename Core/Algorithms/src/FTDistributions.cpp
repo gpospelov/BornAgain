@@ -269,7 +269,7 @@ double FTDistribution2DGate::evaluate(double qx, double qy) const
 {
     double scaled_q = std::sqrt(qx*qx*m_coherence_length_x*m_coherence_length_x
             + qy*qy*m_coherence_length_y*m_coherence_length_y);
-    return MathFunctions::Bessel_C1(scaled_q)*2.0;
+    return MathFunctions::Bessel_J1c(scaled_q)*2.0;
 }
 
 FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x,
@@ -300,7 +300,7 @@ double FTDistribution2DCone::evaluate(double qx, double qy) const
     MemberFunctionIntegrator<FTDistribution2DCone>
                 integrator(p_member_function, this);
     double integral = integrator.integrate(0.0, scaled_q, (void*)0);
-    return 6.0*(MathFunctions::Bessel_C1(scaled_q)
+    return 6.0*(MathFunctions::Bessel_J1c(scaled_q)
                 - integral/scaled_q/scaled_q/scaled_q);
 }
 

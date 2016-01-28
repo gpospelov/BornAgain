@@ -83,7 +83,7 @@ complex_t FormFactorTruncatedSpheroid::Integrand(double Z, void*) const
 
     double Rz  = std::sqrt(R*R-Z*Z/(fp*fp));
     complex_t qrRz = std::sqrt(m_q.x()*m_q.x()+m_q.y()*m_q.y())*Rz;
-    complex_t J1_qrRz_div_qrRz = MathFunctions::Bessel_C1(qrRz);
+    complex_t J1_qrRz_div_qrRz = MathFunctions::Bessel_J1c(qrRz);
 
     return Rz * Rz * J1_qrRz_div_qrRz * std::exp(complex_t(0.0,1.0)*m_q.z()*Z);
 }

@@ -44,12 +44,12 @@ namespace MathFunctions
     BA_CORE_API_ double sinc(double x);
 
 //! Complex sinc function: \f$sinc(x)\equiv\sin(x)/x\f$
-    BA_CORE_API_ complex_t sinc(const complex_t &z);
+    BA_CORE_API_ complex_t sinc(const complex_t z);
 
 //! Complex tanhc function: \f$tanhc(x)\equiv\tanh(x)/x\f$
-    BA_CORE_API_ complex_t tanhc(const complex_t &z);
+    BA_CORE_API_ complex_t tanhc(const complex_t z);
 
-    BA_CORE_API_ complex_t Laue(const complex_t &z, size_t N);
+    BA_CORE_API_ complex_t Laue(const complex_t z, size_t N);
 
 //! Calculates the geometric series of z to order N
     complex_t geometricSum(complex_t z, int exponent);
@@ -69,19 +69,19 @@ namespace MathFunctions
     BA_CORE_API_ double Bessel_C1(double x);
 
 //! Complex Bessel function of the first kind and order 0
-    BA_CORE_API_ complex_t Bessel_J0(const complex_t &z);
+    BA_CORE_API_ complex_t Bessel_J0(const complex_t z);
 
 //! Complex Bessel function of the first kind and order 1
-    BA_CORE_API_ complex_t Bessel_J1(const complex_t &z);
+    BA_CORE_API_ complex_t Bessel_J1(const complex_t z);
 
 //! Complex Bessel function  Bessel_J1(x)/x
-    BA_CORE_API_ complex_t Bessel_C1(const complex_t &z);
+    BA_CORE_API_ complex_t Bessel_C1(const complex_t z);
 
 //! Computes complex Bessel function J0(z), using power series and asymptotic expansion
-    BA_CORE_API_ complex_t Bessel_J0_PowSer(const complex_t &z);
+    BA_CORE_API_ complex_t Bessel_J0_PowSer(const complex_t z);
 
 //! Computes complex Bessel function J0(z), using power series and asymptotic expansion
-    BA_CORE_API_ complex_t Bessel_J1_PowSer(const complex_t &z);
+    BA_CORE_API_ complex_t Bessel_J1_PowSer(const complex_t z);
 
 
 // ************************************************************************** //

@@ -58,7 +58,7 @@ double MathFunctions::sinc(double x)  // Sin(x)/x
     return gsl_sf_sinc(x/Units::PI);
 }
 
-complex_t MathFunctions::sinc(const complex_t &z)  // Sin(x)/x
+complex_t MathFunctions::sinc(const complex_t z)  // Sin(x)/x
 {
     // This is an exception from the rule that we must not test floating-point numbers for equality.
     // For small non-zero arguments, sin(z) returns quite accurately z or z-z^3/6.
@@ -69,14 +69,14 @@ complex_t MathFunctions::sinc(const complex_t &z)  // Sin(x)/x
     return std::sin(z)/z;
 }
 
-complex_t MathFunctions::tanhc(const complex_t &z)  // tanh(x)/x
+complex_t MathFunctions::tanhc(const complex_t z)  // tanh(x)/x
 {
     if(std::abs(z)<Numeric::double_epsilon)
         return complex_t(1.0, 0.0);
     return std::tanh(z)/z;
 }
 
-complex_t MathFunctions::Laue(const complex_t &z, size_t N) // Exp(iNx/2)*Sin((N+1)x)/Sin(x)
+complex_t MathFunctions::Laue(const complex_t z, size_t N) // Exp(iNx/2)*Sin((N+1)x)/Sin(x)
 {
     if (N==0)
         return complex_t(1.0, 0.0);
@@ -121,7 +121,7 @@ double MathFunctions::Bessel_C1(double x)
     return x > Numeric::double_epsilon ? gsl_sf_bessel_J1(x)/x : 0.5;
 }
 
-complex_t MathFunctions::Bessel_J0(const complex_t &z)
+complex_t MathFunctions::Bessel_J0(const complex_t z)
 {
     if(std::imag(z) < Numeric::double_epsilon) {
         return complex_t(Bessel_J0(std::real(z)), 0.0);
@@ -130,7 +130,7 @@ complex_t MathFunctions::Bessel_J0(const complex_t &z)
     }
 }
 
-complex_t MathFunctions::Bessel_J1(const complex_t &z)
+complex_t MathFunctions::Bessel_J1(const complex_t z)
 {
     if(std::imag(z) < Numeric::double_epsilon) {
         return complex_t(Bessel_J1(std::real(z)), 0.0);
@@ -139,7 +139,7 @@ complex_t MathFunctions::Bessel_J1(const complex_t &z)
     }
 }
 
-complex_t MathFunctions::Bessel_C1(const complex_t &z)
+complex_t MathFunctions::Bessel_C1(const complex_t z)
 {
     if(std::imag(z) < Numeric::double_epsilon) {
         double xv = std::real(z);
@@ -156,7 +156,7 @@ complex_t MathFunctions::Bessel_C1(const complex_t &z)
 
 //! TODO: Some optimizations of J1 not yet propagated here.
 
-complex_t MathFunctions::Bessel_J0_PowSer(const complex_t &z)
+complex_t MathFunctions::Bessel_J0_PowSer(const complex_t z)
 {
     complex_t cj0;
     static const complex_t cone(1.0, 0.0);
@@ -217,7 +217,7 @@ complex_t MathFunctions::Bessel_J0_PowSer(const complex_t &z)
 //!
 //! Forked from same source as for Bessel_J0_PowSer
 
-complex_t MathFunctions::Bessel_J1_PowSer(const complex_t &z)
+complex_t MathFunctions::Bessel_J1_PowSer(const complex_t z)
 {
     complex_t cj1;
     static const complex_t cone(1.0, 0.0);

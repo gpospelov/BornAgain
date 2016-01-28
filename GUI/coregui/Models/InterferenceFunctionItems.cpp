@@ -41,16 +41,16 @@ const QString InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION = "Integra
 const QString InterferenceFunction2DParaCrystalItem::P_PDF1 = "PDF #1";
 const QString InterferenceFunction2DParaCrystalItem::P_PDF2 = "PDF #2";
 
-const QString InterferenceFunction2DLatticeItem::P_LATTICE_TYPE = "Lattice_type";
-const QString InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE =
-        QString::fromStdString(BornAgain::Xi);
-const QString InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION = "PDF";
-
 const QString InterferenceFunction1DLatticeItem::P_LENGTH =
         QString::fromStdString(BornAgain::Length);
 const QString InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE =
         QString::fromStdString(BornAgain::Xi);
 const QString InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION = "Decay Function";
+
+const QString InterferenceFunction2DLatticeItem::P_LATTICE_TYPE = "Lattice_type";
+const QString InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE =
+        QString::fromStdString(BornAgain::Xi);
+const QString InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION = "Decay Function";
 
 
 InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystalItem(
@@ -106,5 +106,5 @@ InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem(
 {
     registerGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup);
     registerProperty(P_ROTATION_ANGLE, 0.0);
-    registerGroupProperty(P_DECAY_FUNCTION, Constants::FTDistribution2DGroup);
+    registerGroupProperty(P_DECAY_FUNCTION, Constants::FTDecayFunction2DGroup);
 }

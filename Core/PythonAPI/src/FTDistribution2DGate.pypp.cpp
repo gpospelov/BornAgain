@@ -66,18 +66,6 @@ struct FTDistribution2DGate_wrapper : FTDistribution2DGate, bp::wrapper< FTDistr
         return FTDistribution2DGate::evaluate( qx, qy );
     }
 
-    virtual double evaluateLattice( double qx, double qy ) const  {
-        if( bp::override func_evaluateLattice = this->get_override( "evaluateLattice" ) )
-            return func_evaluateLattice( qx, qy );
-        else{
-            return this->IFTDistribution2D::evaluateLattice( qx, qy );
-        }
-    }
-    
-    double default_evaluateLattice( double qx, double qy ) const  {
-        return IFTDistribution2D::evaluateLattice( qx, qy );
-    }
-
     PyObject* m_pyobj;
 
 };
@@ -109,18 +97,6 @@ void register_FTDistribution2DGate_class(){
                 "evaluate"
                 , evaluate_function_type(&::FTDistribution2DGate::evaluate)
                 , default_evaluate_function_type(&FTDistribution2DGate_wrapper::default_evaluate)
-                , ( bp::arg("qx"), bp::arg("qy") ) );
-        
-        }
-        { //::IFTDistribution2D::evaluateLattice
-        
-            typedef double ( ::IFTDistribution2D::*evaluateLattice_function_type)( double,double ) const;
-            typedef double ( FTDistribution2DGate_wrapper::*default_evaluateLattice_function_type)( double,double ) const;
-            
-            FTDistribution2DGate_exposer.def( 
-                "evaluateLattice"
-                , evaluateLattice_function_type(&::IFTDistribution2D::evaluateLattice)
-                , default_evaluateLattice_function_type(&FTDistribution2DGate_wrapper::default_evaluateLattice)
                 , ( bp::arg("qx"), bp::arg("qy") ) );
         
         }

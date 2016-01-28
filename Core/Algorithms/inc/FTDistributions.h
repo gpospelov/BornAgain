@@ -24,7 +24,6 @@
 //! @class IFTDistribution1D
 //! @ingroup algorithms_internal
 //! @brief Interface for 1 dimensional distributions in Fourier space
-
 class BA_CORE_API_ IFTDistribution1D : public IParameterized
 {
 public:
@@ -45,12 +44,10 @@ protected:
     double m_omega;
 };
 
-
 //! @class FTDistribution1DCauchy
 //! @ingroup algorithms
 //! @brief 1 dimensional Cauchy distribution in Fourier space.
 //! Corresponds to a normalized exp(-|x|) in real space
-
 class BA_CORE_API_ FTDistribution1DCauchy : public IFTDistribution1D
 {
 public:
@@ -66,7 +63,6 @@ public:
 //! @ingroup algorithms
 //! @brief 1 dimensional Gauss distribution in Fourier space.
 //! Corresponds to a normalized exp(-x^2) in real space
-
 class BA_CORE_API_ FTDistribution1DGauss : public IFTDistribution1D
 {
 public:
@@ -78,13 +74,11 @@ public:
     virtual double evaluate(double q) const;
 };
 
-
 //! @class FTDistribution1DGate
 //! @ingroup algorithms
 //! @brief 1 dimensional Gate distribution in Fourier space.
 //! Corresponds to a normalized constant if |x|<omega (and 0 otherwise)
 //! in real space
-
 class BA_CORE_API_ FTDistribution1DGate : public IFTDistribution1D
 {
 public:
@@ -96,13 +90,11 @@ public:
     virtual double evaluate(double q) const;
 };
 
-
 //! @class FTDistribution1DTriangle
 //! @ingroup algorithms
 //! @brief 1 dimensional triangle distribution in Fourier space.
 //! Corresponds to a normalized 1-|x|/omega if |x|<omega (and 0 otherwise)
 //! in real space
-
 class BA_CORE_API_ FTDistribution1DTriangle : public IFTDistribution1D
 {
 public:
@@ -114,13 +106,11 @@ public:
     virtual double evaluate(double q) const;
 };
 
-
 //! @class FTDistribution1DCosine
 //! @ingroup algorithms
 //! @brief 1 dimensional triangle distribution in Fourier space.
 //! Corresponds to a normalized 1+cos(pi*x/omega) if |x|<omega (and 0 otherwise)
 //! in real space
-
 class BA_CORE_API_ FTDistribution1DCosine : public IFTDistribution1D
 {
 public:
@@ -132,12 +122,10 @@ public:
     virtual double evaluate(double q) const;
 };
 
-
 //! @class FTDistribution1DVoigt
 //! @ingroup algorithms
 //! @brief 1 dimensional Voigt distribution in Fourier space.
 //! Corresponds to eta*Gauss + (1-eta)*Cauchy
-
 class BA_CORE_API_ FTDistribution1DVoigt : public IFTDistribution1D
 {
 public:
@@ -154,7 +142,6 @@ protected:
     virtual void init_parameters();
     double m_eta;
 };
-
 
 //! @class IFTDistribution2D
 //! @ingroup algorithms_internal
@@ -191,15 +178,6 @@ public:
     //! total integral is equal to 1
     virtual double evaluate(double qx, double qy) const=0;
 
-    //! evaluate Fourier transformed distribution for q in X,Y coordinates
-    //! the function is assumed to be normalized in reciprocal space:
-    //! total integral is (2pi)^2
-    virtual double evaluateLattice(double qx, double qy) const;
-
-    //! transform back to a*, b* basis:
-    void transformToStarBasis(double qX, double qY,
-            double alpha, double a, double b, double& qa, double& qb) const;
-
     friend std::ostream& operator<<(std::ostream& ostr, const IFTDistribution2D& m)
     { m.print(ostr); return ostr; }
 
@@ -212,13 +190,11 @@ protected:
     double m_delta;
 };
 
-
 //! @class FTDistribution2DCauchy
 //! @ingroup algorithms
 //! @brief 2 dimensional Cauchy distribution in Fourier space.
 //! Corresponds to a normalized exp(-r) in real space
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
-
 class BA_CORE_API_ FTDistribution2DCauchy : public IFTDistribution2D
 {
 public:
@@ -228,17 +204,13 @@ public:
     virtual FTDistribution2DCauchy *clone() const;
 
     virtual double evaluate(double qx, double qy) const;
-
-    virtual double evaluateLattice(double qx, double qy) const;
 };
-
 
 //! @class FTDistribution2DGauss
 //! @ingroup algorithms
 //! @brief 2 dimensional Gauss distribution in Fourier space.
 //! Corresponds to normalized exp(-r^2/2) in real space
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
-
 class BA_CORE_API_ FTDistribution2DGauss : public IFTDistribution2D
 {
 public:
@@ -248,17 +220,13 @@ public:
     virtual FTDistribution2DGauss *clone() const;
 
     virtual double evaluate(double qx, double qy) const;
-
-    virtual double evaluateLattice(double qx, double qy) const;
 };
-
 
 //! @class FTDistribution2DGate
 //! @ingroup algorithms
 //! @brief 2 dimensional gate distribution in Fourier space
 //! Corresponds to normalized constant if r<1 (and 0 otherwise) in real space.
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
-
 class BA_CORE_API_ FTDistribution2DGate : public IFTDistribution2D
 {
 public:
@@ -270,13 +238,11 @@ public:
     virtual double evaluate(double qx, double qy) const;
 };
 
-
 //! @class FTDistribution2DCone
 //! @ingroup algorithms
 //! @brief 2 dimensional cone distribution in Fourier space.
 //! Corresponds to 1-r if r<1 (and 0 otherwise) in real space
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
-
 class BA_CORE_API_ FTDistribution2DCone : public IFTDistribution2D
 {
 public:
@@ -293,12 +259,10 @@ private:
     double coneIntegrand2(double value, void *params) const;
 };
 
-
 //! @class FTDistribution2DVoigt
 //! @ingroup algorithms
 //! @brief 2 dimensional Voigt distribution in Fourier space.
 //! Corresponds to eta*Gauss + (1-eta)*Cauchy
-
 class BA_CORE_API_ FTDistribution2DVoigt : public IFTDistribution2D
 {
 public:
@@ -309,8 +273,6 @@ public:
     virtual FTDistribution2DVoigt *clone() const;
 
     virtual double evaluate(double qx, double qy) const;
-
-    virtual double evaluateLattice(double qx, double qy) const;
 
     virtual double getEta() const { return m_eta;}
 

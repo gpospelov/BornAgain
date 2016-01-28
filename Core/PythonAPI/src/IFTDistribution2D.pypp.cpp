@@ -45,18 +45,6 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
         return func_evaluate( qx, qy );
     }
 
-    virtual double evaluateLattice( double qx, double qy ) const  {
-        if( bp::override func_evaluateLattice = this->get_override( "evaluateLattice" ) )
-            return func_evaluateLattice( qx, qy );
-        else{
-            return this->IFTDistribution2D::evaluateLattice( qx, qy );
-        }
-    }
-    
-    double default_evaluateLattice( double qx, double qy ) const  {
-        return IFTDistribution2D::evaluateLattice( qx, qy );
-    }
-
     PyObject* m_pyobj;
 
 };
@@ -86,18 +74,6 @@ void register_IFTDistribution2D_class(){
                 , bp::pure_virtual( evaluate_function_type(&::IFTDistribution2D::evaluate) )
                 , ( bp::arg("qx"), bp::arg("qy") )
                 , "evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 " );
-        
-        }
-        { //::IFTDistribution2D::evaluateLattice
-        
-            typedef double ( ::IFTDistribution2D::*evaluateLattice_function_type)( double,double ) const;
-            typedef double ( IFTDistribution2D_wrapper::*default_evaluateLattice_function_type)( double,double ) const;
-            
-            IFTDistribution2D_exposer.def( 
-                "evaluateLattice"
-                , evaluateLattice_function_type(&::IFTDistribution2D::evaluateLattice)
-                , default_evaluateLattice_function_type(&IFTDistribution2D_wrapper::default_evaluateLattice)
-                , ( bp::arg("qx"), bp::arg("qy") ) );
         
         }
         { //::IFTDistribution2D::getCoherenceLengthX
@@ -144,17 +120,6 @@ void register_IFTDistribution2D_class(){
                 "setGamma"
                 , setGamma_function_type( &::IFTDistribution2D::setGamma )
                 , ( bp::arg("gamma") ) );
-        
-        }
-        { //::IFTDistribution2D::transformToStarBasis
-        
-            typedef void ( ::IFTDistribution2D::*transformToStarBasis_function_type)( double,double,double,double,double,double &,double & ) const;
-            
-            IFTDistribution2D_exposer.def( 
-                "transformToStarBasis"
-                , transformToStarBasis_function_type( &::IFTDistribution2D::transformToStarBasis )
-                , ( bp::arg("qX"), bp::arg("qY"), bp::arg("alpha"), bp::arg("a"), bp::arg("b"), bp::arg("qa"), bp::arg("qb") )
-                , "transform back to a*, b* basis:." );
         
         }
     }

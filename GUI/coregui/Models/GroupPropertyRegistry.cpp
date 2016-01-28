@@ -106,6 +106,12 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     pdecay_1d[Constants::FTDecayFunction1DVoigtType] = "Voigt 1D";
     result[Constants::FTDecayFunction1DGroup] = pdecay_1d;
 
+    std::map<QString, QString> pdecay_2d;
+    pdecay_2d[Constants::FTDecayFunction2DCauchyType] = "Cauchy 2D";
+    pdecay_2d[Constants::FTDecayFunction2DGaussType] = "Gauss 2D";
+    pdecay_2d[Constants::FTDecayFunction2DVoigtType] = "Voigt 2D";
+    result[Constants::FTDecayFunction2DGroup] = pdecay_2d;
+
     std::map<QString, QString> lattices;
     lattices[Constants::BasicLatticeType] = "Basic";
     lattices[Constants::SquareLatticeType] = "Square";

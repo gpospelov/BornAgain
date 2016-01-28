@@ -66,18 +66,6 @@ struct FTDistribution2DCauchy_wrapper : FTDistribution2DCauchy, bp::wrapper< FTD
         return FTDistribution2DCauchy::evaluate( qx, qy );
     }
 
-    virtual double evaluateLattice( double qx, double qy ) const  {
-        if( bp::override func_evaluateLattice = this->get_override( "evaluateLattice" ) )
-            return func_evaluateLattice( qx, qy );
-        else{
-            return this->FTDistribution2DCauchy::evaluateLattice( qx, qy );
-        }
-    }
-    
-    double default_evaluateLattice( double qx, double qy ) const  {
-        return FTDistribution2DCauchy::evaluateLattice( qx, qy );
-    }
-
     PyObject* m_pyobj;
 
 };
@@ -109,18 +97,6 @@ void register_FTDistribution2DCauchy_class(){
                 "evaluate"
                 , evaluate_function_type(&::FTDistribution2DCauchy::evaluate)
                 , default_evaluate_function_type(&FTDistribution2DCauchy_wrapper::default_evaluate)
-                , ( bp::arg("qx"), bp::arg("qy") ) );
-        
-        }
-        { //::FTDistribution2DCauchy::evaluateLattice
-        
-            typedef double ( ::FTDistribution2DCauchy::*evaluateLattice_function_type)( double,double ) const;
-            typedef double ( FTDistribution2DCauchy_wrapper::*default_evaluateLattice_function_type)( double,double ) const;
-            
-            FTDistribution2DCauchy_exposer.def( 
-                "evaluateLattice"
-                , evaluateLattice_function_type(&::FTDistribution2DCauchy::evaluateLattice)
-                , default_evaluateLattice_function_type(&FTDistribution2DCauchy_wrapper::default_evaluateLattice)
                 , ( bp::arg("qx"), bp::arg("qy") ) );
         
         }

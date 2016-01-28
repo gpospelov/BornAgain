@@ -150,6 +150,7 @@ const ModelType DistributionExtendedGroup = "Distribution extended group";
 const ModelType FTDistribution1DGroup = "PDF 1D";
 const ModelType FTDistribution2DGroup = "PDF 2D";
 const ModelType FTDecayFunction1DGroup = "Decay function 1D";
+const ModelType FTDecayFunction2DGroup = "Decay function 1D";
 const ModelType LatticeGroup = "Lattice group";
 const ModelType MaterialGroup = "Material group";
 const ModelType ResolutionFunctionGroup = "Resolution function group";

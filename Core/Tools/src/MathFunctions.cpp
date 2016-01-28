@@ -186,11 +186,11 @@ complex_t MathFunctions::Bessel_J0_PowSer(const complex_t z)
         z1 = -z;
     if (a0 <= 12.0) {
         // standard power series [http://dlmf.nist.gov/10.2 (10.2.2)]
-        complex_t z2 = z * z;
+        complex_t z2 = 0.25 * z * z;
         cj0 = cone;
         complex_t cr = cone;
         for (size_t k = 1; k <= 40; ++k) {
-            cr *= -0.25 * z2 / (double)(k * k);
+            cr *= -z2 / (double)(k * k);
             cj0 += cr;
             if (std::abs(cr) < std::abs(cj0) * eps)
                 break;
@@ -206,14 +206,15 @@ complex_t MathFunctions::Bessel_J0_PowSer(const complex_t z)
             kz = 12; //   "      "     "  14
         complex_t ct1 = z1 - Units::PID4;
         complex_t cp0 = cone;
-        complex_t cq0 = -0.125 / z1;
-        complex_t ptmp = std::pow(z1, -2.0);
+        complex_t cq0 = -0.125;
+        const complex_t z1m2 = 1. / (z1*z1); // faster than std::pow(z1, -2.0) ??
+        complex_t ptmp = z1m2;
         for (size_t k = 0; k < kz; ++k) {
             cp0 += a[k] * ptmp;
-            cq0 += b[k] * ptmp / z1;
-            ptmp /= (z1 * z1);
+            cq0 += b[k] * ptmp;
+            ptmp *= z1m2;
         }
-        cj0 = std::sqrt(M_2_PI / z1) * (cp0 * std::cos(ct1) - cq0 * std::sin(ct1));
+        cj0 = std::sqrt(M_2_PI / z1) * (cp0 * std::cos(ct1) - cq0/z1 * std::sin(ct1));
     }
     return cj0;
 }

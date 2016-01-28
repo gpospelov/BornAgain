@@ -7,7 +7,7 @@
 %%   copyright:  Forschungszentrum Jülich GmbH 2015
 %%
 %%   license:    Creative Commons CC-BY-SA
-%%   
+%%
 %%   authors:    Scientific Computing Group at MLZ Garching
 %%               C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 %%
@@ -16,7 +16,7 @@
 % Vectors
 \renewcommand{\v}[1]{\ensuremath{\mathbf{#1}}}
 % unused \newcommand{\unitvec}[1]{\ensuremath{\widehat{\vect{#1}}}}
-\newcommand{\Nabla}{\mathbf{\nabla}}
+\newcommand{\Nabla}{\v{\nabla}}
 
 % Curly letters
 \newcommand{\curlf}{\ensuremath{\mathcal{F}}}
@@ -40,9 +40,9 @@
 \newcommand{\FitGISAXS}{\Code{FitGISAXS}}%
 
 
-\def\d{\text{d}}
+\def\d{\mathup d}
 \def\DS{\displaystyle}
-\def\e{\text{e}}
+\def\e{\mathup e}
 \def\E#1{\textsl{#1}}
 \def\etal{\E{et al.}}
 \def\FD{\mathcal{F}}
@@ -56,8 +56,10 @@
 \def\plll{\parallel}
 \def\PD{\mathcal{P}}
 \def\q{\v{q}}
-  \let\ringaccent\r
-  \def\AA{\ringaccent A}
+\def\hx{\v{\hat x}}
+\def\hy{\v{\hat y}}
+\let\ringaccent\r
+\def\AA{\ringaccent A}
 \def\r{\v{r}}
 \def\R{\v{R}}
 \def\rD{\r_\text{D}}

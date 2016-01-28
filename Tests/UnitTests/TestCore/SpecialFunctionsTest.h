@@ -19,6 +19,9 @@
 #include "MathFunctions.h"
 #include "gtest/gtest.h"
 
+#define EXPECT_CNEAR(a,b,epsi) \
+  EXPECT_NEAR((a).real(),(b).real(),epsi); EXPECT_NEAR((a).imag(),(b).imag(),epsi);
+
 class SpecialFunctionsTest : public ::testing::Test
 {
 protected:
@@ -36,21 +39,56 @@ TEST_F(SpecialFunctionsTest, BesselJ1)
 
     // TODO: for a more independent test we compute J1(z) in some different way;
     // see e.g. http://keisan.casio.com/exec/system/1180573474
-    res = MathFunctions::Bessel_J1_PowSer(complex_t(0.8,1.5));
+    res = MathFunctions::Bessel_J1(complex_t(0.8,1.5));
     EXPECT_NEAR( res.real(), 0.72837687825769404, eps*std::abs(res) );
     EXPECT_NEAR( res.imag(), 0.75030568686427268, eps*std::abs(res) );
 
-    res = MathFunctions::Bessel_J1_PowSer(complex_t(1e-2,1e2));
+    res = MathFunctions::Bessel_J1(complex_t(1e-2,1e2));
     EXPECT_NEAR( res.real(), 1.0630504683139779e+40, eps*std::abs(res) );
     EXPECT_NEAR( res.imag(), 1.0683164984973165e+42, eps*std::abs(res) );
 
-    res = MathFunctions::Bessel_J1_PowSer(complex_t(-1e2,-1e-2));
+    res = MathFunctions::Bessel_J1(complex_t(-1e2,1e-2));
     EXPECT_NEAR( res.real(), 0.077149198549289394, eps*std::abs(res) );
-    EXPECT_NEAR( res.imag(), -0.0002075766253119904, eps*std::abs(res) );
+    EXPECT_NEAR( res.imag(), 0.0002075766253119904, eps*std::abs(res) );
 
-    res = MathFunctions::Bessel_J1_PowSer(complex_t(7,9));
+    res = MathFunctions::Bessel_J1(complex_t(7,9));
     EXPECT_NEAR( res.real(),       370.00180888861155, eps*std::abs(res) );
     EXPECT_NEAR( res.imag(),       856.00300811057934, eps*std::abs(res) );
+}
+
+// Test accuracy of complex function sinc(z) near the removable singularity at z=0
+
+TEST_F(SpecialFunctionsTest, csinc)
+{
+    const double eps = 2.3e-16; // little more than the machine precision
+
+    for( int i=0; i<24; ++i ) {
+        double ph = 2*M_PI*i/24;
+        //std::cout << "---------------------------------------------------------------------\n";
+        //std::cout << "phase = " << ph << "\n";
+        EXPECT_EQ( MathFunctions::sinc(complex_t(0,0)),       complex_t(1.,0.) );
+        complex_t z;
+        z=std::polar(1e-17,ph); EXPECT_CNEAR( MathFunctions::sinc(z), complex_t(1.,0.), eps );
+        z=std::polar(2e-17,ph); EXPECT_CNEAR( MathFunctions::sinc(z), complex_t(1.,0.), eps );
+        z=std::polar(5e-17,ph); EXPECT_CNEAR( MathFunctions::sinc(z), complex_t(1.,0.), eps );
+        z=std::polar(1e-16,ph); EXPECT_CNEAR( MathFunctions::sinc(z), complex_t(1.,0.), eps );
+        z=std::polar(2e-16,ph); EXPECT_CNEAR( MathFunctions::sinc(z), complex_t(1.,0.), eps );
+        z=std::polar(5e-16,ph); EXPECT_CNEAR( MathFunctions::sinc(z), complex_t(1.,0.), eps );
+        z=std::polar(1e-15,ph); EXPECT_CNEAR( MathFunctions::sinc(z), complex_t(1.,0.), eps );
+        z=std::polar(1e-13,ph); EXPECT_CNEAR( MathFunctions::sinc(z), complex_t(1.,0.), eps );
+        z=std::polar(1e-11,ph); EXPECT_CNEAR( MathFunctions::sinc(z), complex_t(1.,0.), eps );
+        z=std::polar(1e-9, ph); EXPECT_CNEAR( MathFunctions::sinc(z), complex_t(1.,0.), eps );
+        z=std::polar(5e-8,ph); EXPECT_CNEAR( MathFunctions::sinc(z), 1.-z*z/6., eps );
+        z=std::polar(2e-8,ph); EXPECT_CNEAR( MathFunctions::sinc(z), 1.-z*z/6., eps );
+        z=std::polar(1e-8,ph); EXPECT_CNEAR( MathFunctions::sinc(z), 1.-z*z/6., eps );
+        z=std::polar(5e-7,ph); EXPECT_CNEAR( MathFunctions::sinc(z), 1.-z*z/6., eps );
+        z=std::polar(2e-7,ph); EXPECT_CNEAR( MathFunctions::sinc(z), 1.-z*z/6., eps );
+        z=std::polar(1e-7,ph); EXPECT_CNEAR( MathFunctions::sinc(z), 1.-z*z/6., eps );
+        z=std::polar(1e-6,ph); EXPECT_CNEAR( MathFunctions::sinc(z), 1.-z*z/6., eps );
+        z=std::polar(1e-5,ph); EXPECT_CNEAR( MathFunctions::sinc(z), 1.-z*z/6., eps );
+        z=std::polar(1e-4,ph); EXPECT_CNEAR( MathFunctions::sinc(z), 1.-z*z/6.*(1.-z*z/20.), eps );
+        z=std::polar(1e-3,ph); EXPECT_CNEAR( MathFunctions::sinc(z), 1.-z*z/6.*(1.-z*z/20.), eps );
+    }
 }
 
 #endif //SPECIALFUNCTIONSTEST_H

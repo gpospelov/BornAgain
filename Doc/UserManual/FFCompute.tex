@@ -7,7 +7,7 @@
 %%   copyright:  Forschungszentrum Jülich GmbH 2015
 %%
 %%   license:    Creative Commons CC-BY-SA
-%%   
+%%
 %%   authors:    Scientific Computing Group at MLZ Garching
 %%               C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 %%
@@ -25,7 +25,7 @@
 The Form factor of a hard-shell particle is simply its \E{shape transform},
 as introduced in~(\ref{EFFhardshell}),
 \begin{equation}\label{EFF_SFF2}
-  F(\q)=\int_V {\rm d}^3r\, {\rm e}^{i\q\r},
+  F(\q)=\int_V\!\d^3r\, \e^{i\q\r},
 \end{equation}
 where $V$ delimits the volume of the particle.
 Here we show for a few selected cases
@@ -65,7 +65,7 @@ then there appears to be a singularity at $u=0$.
 Applying L'Hôpital's rule, it is obvious
 that this singularity can be removed by the interpolated value
 $\sinc(0)=1$,
-which is of course part of the definition of the special function~$\sinc$.
+as is done in the generally agreed definition of the special function~$\sinc$.
 
 While all this is clear and easy,
 computations become more involved
@@ -79,6 +79,111 @@ Therefore we shall consider a few such cases more closely.
 
 % TODO? another concern: integrals without numeric solution
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Regular polyhedron}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\tqx{\alpha} %\tilde{q}_x}
+\def\tqy{\beta}  %\tilde{q}_y}
+
+To compute the two-dimensional form factor
+of a regular $n$-gon in a systematic way,
+we decompose the polygon into~$n$ isosceles triangles
+with vertex angles of $2\eta\coloneqq2\pi/n$.
+Thus the form factor shall be computed as
+\begin{equation}
+  F(\q) = \sum_{j=0}^{n-1} \Gamma_n(D^{2j}\q)
+\end{equation}
+with the rotation matrix
+\begin{equation}
+  D\coloneqq\left(\begin{array}{ll}\cos\eta&\sin\eta\\
+                          -\sin\eta&\cos\eta\end{array}\right).
+\end{equation}
+The form factor of one triangle is given by
+\begin{equation}
+  \Gamma_n(\q)
+  =\int_0^{R\cos\eta}\!\d x\,\e^{iq_x x}
+   \int_{-R\tan\eta}^{+R\tan\eta}\!\d y\,\e^{iq_yy}.
+\end{equation}
+Straightforward calculation yields
+\begin{equation}\label{EngonG}
+  \Gamma_n(\q)
+  = \frac{\cos\eta}{\hy\q}\left(
+    \frac{1-\e^{i\hx D\q R}}{\hx D\q}
+   -\frac{1-\e^{i\hx D^{-1}\q R}}{\hx D^{-1}\q}\right).
+\end{equation}
+In reduced coordinates
+\begin{equation}
+    \tqx\coloneqq q_x R\cos\eta,\quad
+    \tqy\coloneqq q_y R\sin\eta,
+\end{equation}
+and with the triangle area
+\begin{equation}
+  A_n = R^2 \cos\eta\,\sin\eta,
+\end{equation}
+(\ref{EngonG}) takes the form
+\begin{equation}\label{EngonG2}
+  \Gamma_n(\q) =
+    \frac{A_n}{\tqy}\left(
+    \frac{1-\e^{i(\tqx+\tqy)}}{\tqx+\tqy}
+   -\frac{1-\e^{i(\tqx-\tqy)}}{\tqx-\tqy}\right).
+\end{equation}
+There are singularities along the lines
+$\beta=0$, $\alpha=-\beta$ and $\alpha=\beta$.
+At the point $\alpha=\beta=0$ they combine into a second-order singularity.
+As expected, all these singularities are removable.
+We handle them by series expansion up to the next-to-leading order.
+For the cases $\alpha=\pm\beta$,
+we define the phase-shifted sinus cardinalis through
+\begin{equation}
+  E(z)\coloneqq\frac{1-e^{iz}}{z},
+\end{equation}
+to be understood with analytical continuation at $z=0$.
+Given the machine precision~$\epsilon$,
+we handle them case-by-case
+by expanding up to next-to-leading order:
+\begin{equation}
+  \Gamma_n(\q) = \left\{\begin{array}{ll}
+  \displaystyle
+  A_n\left[ 1 + i\frac{2\alpha}{3} - \frac{\alpha\beta}{4} - \frac{\beta^2}{12}
+     \right]
+  &\text{ if $|\alpha|<\epsilon^{2/3}$ and $|\beta|<\epsilon^{2/3}$,}\\
+  \displaystyle
+  A_n\left[ 1 + i\frac{2\alpha}{3} - \frac{\alpha\beta}{4} - \frac{\beta^2}{12}
+     \right]
+  &\text{ if $|\alpha|<\epsilon^{2/3}$ and $|\beta|<\epsilon^{2/3}$,}\\
+  \end{array}\right.
+\end{equation}
+
+The singularity at $\beta=0$ is removed in~(\ref{EngonG3})
+by the analytical continuation that is part of the definition
+of the sinc function.
+
+Or, after some sorting of terms,
+\begin{equation}\label{EngonG3}
+  \Gamma_n(\q) = 2 A_n
+   \frac{ -1+\left[\cos\tqy
+        -i\tqx\sinc(\tqy)\right]\e^{i\tqx}}
+   {\tqx^2-\tqy^2}.
+\end{equation}
+
+Near the singularity
+$\hx D\q=0$ or $\hx D^{-1}\q=0$ are removable.
+It is less obvious to see that the line singularity at~$\hy\q=0$ and
+the point singularity at $q=0$ are removable as well.
+To investigate them,
+Then $\hx D^{\pm1}\q R = \tqx\pm\tqy$,
+and
+For $\eta\to0$ at finite~$a$, the only singularity is in the sinc function,
+hence it is removable.
+Finally, for the singularity at $q\to0$, we choose $\epsilon=0$ and
+expand~(\ref{EngonGsing3}) for $a\to0$,
+which yields
+\begin{equation}
+  \Gamma_n(0) = R^2\,\sin\eta\,\cos\eta,
+\end{equation}
+which is the area of the triangle, as it ought to be.
+
 \Work{work in progress \ldots}
 \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -89,9 +194,6 @@ Therefore we shall consider a few such cases more closely.
 We assume a double-precision machine epsilon
 of $\epsilon=2^{-52}\simeq2.2\cdot10^{-16}$.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Regular polyhedron}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \fi
 
 \index{Shape transform!computation|)}

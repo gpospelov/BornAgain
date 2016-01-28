@@ -104,7 +104,7 @@ complex_t FormFactorTetrahedron::Integrand(double Z, void* params) const
                     (m_q.x()*m_q.x()-3.0*m_q.y()*m_q.y())*(
                         std::exp(complex_t(0.0, 1.0)*r3qyRz) -
                 std::cos(qxRz)-complex_t(0.0, 1.0)*r3qyRz*
-                MathFunctions::Sinc(qxRz));
+                MathFunctions::sinc(qxRz));
         }
     }
     return xy_part *std::exp(complex_t(0.0, 1.0)*m_q.z()*Z);
@@ -142,8 +142,8 @@ complex_t FormFactorTetrahedron::evaluate_for_q(const cvector_t& q) const
         const complex_t q3 = (q.y()/tga - q.z()/2.);
 
         return H*root3*std::exp(im*q.z()*R*tga/root3)/(q.x()*q.x()-3.*q.y()*q.y())*
-            (-(1.+root3*q.y()/q.x())*MathFunctions::Sinc(q1*H)*std::exp(im*q1*L)
-             -(1.-root3*q.y()/q.x())*MathFunctions::Sinc(q2*H)*std::exp(-im*q2*L) +
-             2.*MathFunctions::Sinc(q3*H)*std::exp(im*q3*L));
+            (-(1.+root3*q.y()/q.x())*MathFunctions::sinc(q1*H)*std::exp(im*q1*L)
+             -(1.-root3*q.y()/q.x())*MathFunctions::sinc(q2*H)*std::exp(-im*q2*L) +
+             2.*MathFunctions::sinc(q3*H)*std::exp(im*q3*L));
     }
 }

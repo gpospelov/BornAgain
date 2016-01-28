@@ -103,7 +103,7 @@ void FormFactorDWBAPol::calculateTerms(const WavevectorInfo& wavevectors) const
     //     real m_M12 = calculated m_M11
     //     real m_M21 = calculated m_M22
     //     real m_M22 = calculated m_M21
-    // Since both eigenvalues are identical, this does not influence the result.
+    // since both eigenvalues are identical, this does not influence the result.
     Eigen::Matrix2cd ff_BA;
 
     // eigenmode 1 -> eigenmode 1: direct scattering

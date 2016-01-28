@@ -39,7 +39,6 @@
 #include "MatrixRTCoefficientsTest.h"
 #include "ScalarSpecularInfoMapTest.h"
 #include "MatrixSpecularInfoMapTest.h"
-#include "MatrixFunctionsTest.h"
 #include "FixedBinAxisTest.h"
 #include "VariableBinAxisTest.h"
 #include "ConstKBinAxisTest.h"
@@ -84,4 +83,3 @@ int main(int argc, char** argv)
     // run all google tests
     return RUN_ALL_TESTS();
 }
-

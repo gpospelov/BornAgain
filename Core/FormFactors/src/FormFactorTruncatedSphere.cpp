@@ -81,7 +81,7 @@ complex_t FormFactorTruncatedSphere::Integrand(double Z, void* params) const
     complex_t qx = m_q.x();
     complex_t qy = m_q.y();
     complex_t q_p = std::sqrt(qx*qx + qy*qy); // NOT the modulus!
-    return Rz*Rz*MathFunctions::Bessel_C1(q_p*Rz) *
+    return Rz*Rz*MathFunctions::Bessel_J1c(q_p*Rz) *
         std::exp(complex_t(0.0, 1.0)*m_q.z()*Z);
 }
 

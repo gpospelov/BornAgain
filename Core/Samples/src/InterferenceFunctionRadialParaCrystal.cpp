@@ -110,7 +110,7 @@ double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t& q) const
             if (std::log(std::abs(fp)+double_min)*nd < std::log(double_min)) {
                 tmp = complex_t(0.0, 0.0);
             } else {
-            tmp = std::pow(fp,n-1);
+                tmp = std::pow(fp,n-1);
             }
             double intermediate = ((1.0-1.0/nd)*fp/(1.0-fp)
                     - fp*fp*(1.0-tmp)/nd/(1.0-fp)/(1.0-fp)).real();

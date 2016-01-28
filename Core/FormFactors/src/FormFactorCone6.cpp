@@ -90,11 +90,11 @@ complex_t FormFactorCone6::Integrand(double Z, void *) const
     complex_t qyr3R_half = m_root3 * qy * Rz / 2.;
 
     if (std::abs(3.0 * qy * qy - qx * qx) == 0.0) {
-        return Rz * Rz * m_root3 / 2.0 * MathFunctions::Sinc(qyr3R_half)
-               * (MathFunctions::Sinc(qyr3R_half) + 2.0 * std::cos(qyr3R_half));
+        return Rz * Rz * m_root3 / 2.0 * MathFunctions::sinc(qyr3R_half)
+               * (MathFunctions::sinc(qyr3R_half) + 2.0 * std::cos(qyr3R_half));
     } else {
-        return (3. / 4. * qy * Rz * qy * Rz * MathFunctions::Sinc(qxR_half)
-                * MathFunctions::Sinc(qyr3R_half) + std::cos(2.0 * qxR_half)
+        return (3. / 4. * qy * Rz * qy * Rz * MathFunctions::sinc(qxR_half)
+                * MathFunctions::sinc(qyr3R_half) + std::cos(2.0 * qxR_half)
                 - std::cos(qyr3R_half) * std::cos(qxR_half))
                * std::exp(complex_t(0.0, 1.0) * qz * Z);
     }

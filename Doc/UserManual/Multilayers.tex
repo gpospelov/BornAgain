@@ -20,7 +20,7 @@
 \index{Multilayer|(}%
 \index{Layer structures|see {Multilayer}}
 
-In Sect.~\ref{Sdwba},
+In Sect.~\ref{Swave21},
 we have discussed wave propagation and scattering in 2$+$1 dimensional systems
 that are translationally invariant in the horizontal $xy$ plane,
 and have a vertical refractive index profile $\nz(z)$.
@@ -42,12 +42,8 @@ Support for rough interfaces is already implemented in \BornAgain,
 but documentation is adjourned to a later edition of this manual.
 % For rough interfaces, see Chapter~\ref{sec:Roughness}.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Scalar case}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %===============================================================================
-\subsection{Wave propagation and DWBA matrix element}
+\section{Wave propagation}\label{Slayerprop}
 %===============================================================================
 
 To compute scattering cross sections in DWBA,
@@ -66,7 +62,7 @@ as well as for the back-traced detected wave ($w=\tf$).
 \index{Multilayer!coordinates}%
 \index{Layer!coordinate}%
 of layer~$l$, except for $z_0$ which is the coordinate of the \E{bottom} interface
-of the air/vacuum layer~0.}
+of the air or vacuum layer~0.}
 \label{Fdefz}
 \end{figure}
 
@@ -81,20 +77,25 @@ as per~(\ref{Epsipm}).
 Each component is a plane wave,
 with a wavevector
 \begin{equation}\label{Ekpmwj3}
-  \k^\pm_{w\il}= \k_{\parallel w} \pm k_{\perp w\il}\v{\hat z}.
+  \k^\pm_{w\il}= \k_{\plll w} \pm k_{\perp w\il}\v{\hat z}.
 \end{equation}
 \nomenclature[2z060]{$\v{\hat z}$}{Unit vector along the sample normal}%
 \nomenclature[2k043 2w010 2l010 \pm]{$\k^\pm_{w\il}$}{wavevector of the plane wave $\psi^\pm_{w\il}(\r)$}%
 As explained in connection with~(\ref{Ekpar}),
-the in-plane wavevector $\k_{\parallel w}$ remains constant
+the in-plane wavevector $\k_{\plll w}$ remains constant
 across layer interfaces.
 The vertical wavenumber is obtained from (\ref{Ewavez}),
 \begin{equation}\label{Ekperpwj}
-  k_{\perp w\il} = \sqrt{K^2 \nzj - k_{\parallel w}^2}.
+  k_{\perp w\il} = \sqrt{K^2 \nzj - k_{\plll w}^2}.
 \end{equation}
+In Sect.~\ref{Smulayabs} we will discuss how to interpret this expression
+in the case of a negative or complex radicand.
+All of the following, unless explicitly restricted to real wavenumbers,
+allows for complex values of~$k_\perp$.
+
 We factorize the corresponding wavefunctions as
-\begin{equation}
-  \psi^\pm_{w\il}(\r)=\e^{i\k_{\parallel w}\r_\parallel}\phi^\pm_{w\il}(z),
+\begin{equation}\label{Eplawafa}
+  \psi^\pm_{w\il}(\r)=\e^{i\k_{\plll w}\r_\plll}\phi^\pm_{w\il}(z),
 \end{equation}
 with vertical propagation described by a one-dimensional wavefunction
 \begin{equation}\label{Ephizwj}
@@ -107,30 +108,24 @@ as defined in Fig.~\ref{Fdefz}.
 \nomenclature[2z020 2l010]{$z_l$}{Vertical coordinate at the top of layer~$l$ (at the bottom for $l=0$)}%
 \index{Multilayer!coordinates}%
 \index{Layer!coordinate}%
-The amplitudes $A$ are often written with distinct letters
-T and~R to designate the transmitted or reflected beam,
-\begin{equation}
-  T_{w\il} \coloneqq  A^-_{w\il},\quad
-  R_{w\il} \coloneqq  A^+_{w\il}.
-\end{equation}
-\nomenclature[2t126 2w020 2l020 0]{$T_{w\il}$}{Partial amplitude of $\psi_w(\r)$
-  in layer $\il$ in downward (transmission) direction, also denoted $A^-_{w\il}$}%
-\nomenclature[2r126 2w020 2l020 0]{$R_{w\il}$}{Partial amplitude of $\psi_w(\r)$
-  in layer $\il$ in upward (reflection) direction, also denoted $A^+_{w\il}$}%
-They need to be computed recursively,
-as described in the following subsection~\ref{Sacrolay}.
+The amplitudes $A^\pm_{wl}$ need to be computed recursively,
+as described below in section~\ref{Sacrolay}.
+
+%===============================================================================
+\section{Refraction, absorption, flux}\label{Smulayabs}
+%===============================================================================
 
 In the absence of absorption,
 wavevectors are real
 so that we can describe the beam in terms of a glancing angle
 \begin{equation}\label{Edef_alpha}
-  \alpha_{w\il}\coloneqq \arctan(k_{\perp w\il}/k_{\parallel w}).  
+  \alpha_{w\il}\coloneqq \arctan(k_{\perp w\il}/k_{\plll w}).  
 \end{equation}
 Equivalently,
 \begin{equation}
-  k_{\parallel w}=K n_\il \cos\alpha_{w\il}. 
+  k_{\plll w}=K n_\il \cos\alpha_{w\il}. 
 \end{equation}
-Since $k_{\parallel w}$ is constant across layers,
+Since $k_{\plll w}$ is constant across layers,
 we have
 \begin{equation}\label{ESnell}
   n_\il \cos\alpha_{w\il} = \text{the same for all }\il,
@@ -138,6 +133,69 @@ we have
 which is Snell's refraction law.
 \index{Refraction!Snell's law}
 \index{Snell's law}
+
+In general, however, the vertical wavenumber $k_{\perp}$,
+given by (\ref{Ekperpwj}),
+can become imaginary or complex.
+This makes the above geometric interpretation untenable.
+Yet the algebraic formalism developed in Sect.~\ref{Slayerprop}
+remains applicable.
+The horizontal wavevector $\k_\plll$ remains constant and real 
+as initialized somewhere above the sample.
+However, the radicand in (\ref{Ekperpwj}) can become
+negative (total reflection conditions) or complex
+(absorbing layer,
+with a positive imaginary part of $\overline{n^2}$).
+In both cases, the vertical wavevector component $k_{\perp}$
+becomes complex.
+\index{Wavevector!complex}%
+We write
+\begin{equation}\label{decompkperp}
+  k_\perp \eqqcolon k_\perp' + i k_\perp''
+\end{equation}
+for its decomposition into a real and an imaginary part.
+With (\ref{Endb1}) and $\beta\ge0$,
+we have always $k_\perp'\ge0$ and $k_\perp''\ge0$.
+In analogy with (\ref{decompkperp}),
+full wavevectors have the decomposition
+\begin{equation}
+  \k^\pm
+  \eqqcolon {\k^\pm}' + i{\k^\pm}''
+  = \k_\plll \pm (k_\perp' + i k_\perp'')\v{\hat z}.
+\end{equation}
+After these preparations,
+we can compute the flux~(\ref{EdefJ})
+associated with the plane-wave solution (\ref{Eplawafa},\ref{Ephizwj}):
+\begin{equation}
+  \begin{array}{@{}l@{\;}l}
+  \v{J}(\r)
+  =&   \left|A^-\right|^2 \e^{+2k_\perp'' (z-z_l)} {\k^-}'
+    + \left|A^+\right|^2 \e^{-2k_\perp''(z-z_l)} {\k^+}'
+\\[2ex]
+  &+ \left[
+      A^-{A^+}^* \e^{-2ik_\perp'(z-z_l)} {\left(\k_\plll-ik_\perp''\v{\hat z}\right)}
+    + \text{c.c.}
+    \right].
+  \end{array}
+\end{equation}
+The first two terms describe the exponential intensity decrease
+due to absorption.
+The oscillatory term in square brackets
+is a wave-mechanical subtlety
+of no interest for us.
+In the special case of a pure imaginary~$k_{\perp \il}$,
+the flux direction is $\k'=\k_\plll$.
+Then $\psi_\il(\r)$ is an \E{evanescent wave},
+\index{Evanescent wave}%
+travelling horizontally.
+Since a stationary evanescent wave implies that there is
+no vertical energy transport,
+all incoming radiation undergoes \E{total reflection}.
+\index{Total reflection}%
+
+%===============================================================================
+\section{DWBA matrix element}
+%===============================================================================
 
 Since the $\psi^\pm_{w\il}$ are plane waves within layer~$\il$,
 we can at once write down the DWBA transition matrix element~(\ref{Edwba})
@@ -151,7 +209,7 @@ we can at once write down the DWBA transition matrix element~(\ref{Edwba})
 where
 \begin{equation}\label{Echij}
   \chi_\il(\v{q})
-  \coloneqq  \int_{z_\il}^{z_{\il-1}}\!\d z \int\!\d^2r_\parallel\, \e^{i\v{q}\,\r}\chi(\r)
+  \coloneqq  \int_{z_\il}^{z_{\il-1}}\!\d z \int\!\d^2r_\plll\, \e^{i\v{q}\,\r}\chi(\r)
 \end{equation}
 \nomenclature[1χ032 2l010 2q040]{$\chi_\il(\v{q})$}{Fourier transform of the perturbation potential $\chi(\r)$, evaluated in one sample layer}%
 is the Fourier transform
@@ -179,7 +237,7 @@ Accordingly, we can write (\ref{Edwba_ml0}) as
 From~(\ref{Ekpmwj3}) we see that all four wavevectors $\q^u$
 have the same horizontal component,
 \begin{equation}\label{Eqpp}
-  \q^u = \q_\parallel + q^u_\perp \v{\hat z}
+  \q^u = \q_\plll + q^u_\perp \v{\hat z}
 \end{equation}
 whence the vertical components
 \begin{equation}
@@ -191,9 +249,9 @@ whence the vertical components
     \end{array}
 \end{equation}
 
-%-------------------------------------------------------------------------------
-\subsection{Wave propagation across layers}\label{Sacrolay}
-%-------------------------------------------------------------------------------
+%===============================================================================
+\section{Wave propagation across layers}\label{Sacrolay}
+%===============================================================================
 
 \index{Fresnel coefficients}%
 \index{Transmission|see {Fresnel coefficients}}%
@@ -222,7 +280,7 @@ $\Phi_l$, $\Phi_{l-1}$ in adjacent layers.}
 \end{figure}
 
 To deal with the coordinate offsets introduced in (\ref{Ephizwj}),
-we introduce the function
+we introduce the function%
 \begin{equation}
   d_\il\coloneqq z_{\il}-z_{\il+1},
 \end{equation}
@@ -241,7 +299,7 @@ Accordingly, the continuity conditions at the interface are
 \end{equation}
 We abbreviate
 \begin{equation}
-  f_\il \coloneqq  k_{\perp \il}/K = \sqrt{\nzj-(k_\parallel/K)^2}
+  f_\il \coloneqq  k_{\perp \il}/K = \sqrt{\nzj-(k_\plll/K)^2}
 \end{equation}
 and
 \begin{equation}
@@ -327,20 +385,26 @@ At this point,
 it may be an interesting exercise to make
  a connection with a well known textbook result.
 Consider a system
-with a single interface between two semi-infinite media.
-A straightforward computation will show
-that the transmission and reflection probabilities
-determined as above
-agree with Fresnel's result for $s$-polarized light,\footnote
+with a single interface between two semi-infinite,
+non-absorbing media.
+The reflected flux,
+normalized to the incident vertical flux $J_{0\perp}^-=-Kf_0$,
+is
+\index{Reflected flux}%
+\begin{equation}
+  \frac{J_{0\perp}^+}{J_{0\perp}^-}
+  = - \left(\frac{f_0-f_1}{f_0+f_1}\right)^2,
+\end{equation}
+and the transmitted flux
+\index{Trasmitted flux}%
+\begin{equation}
+  \frac{J_{1\perp}^-}{J_{0\perp}^-}
+  = \frac{4f_0 f_1}{(f_0+f_1)^2}.
+\end{equation}
+This satisfies mass conservation, $J_{0\perp}^-+J_{0\perp}^+=J_{1\perp}^-$,
+and agrees with Fresnel's result for $s$-polarized light.\footnote
 {See any optics textbook, e.g.\ Born~\&~Wolf \cite[ch.~1.5.2]{BoWo99}
   or Hecht \cite[ch.~4.6.2]{Hec02}.}
-\begin{equation}
-  \left| A^-_N\right|^2
-  = \left| \frac{2f_0}{f_0+f_1}\right|^2,
-  \quad
-  \left| A^+_0\right|^2
-  = \left|\frac{f_0-f_1}{f_0+f_1}\right|^2.
-\end{equation}
 
 The above algorithm fails if $f_{\il}\to0$
 because $M_{\il+1}$ becomes singular.
@@ -354,67 +418,6 @@ this ought to be inconsequential
 because the index of refraction should always
 have an absorptive component that prevents $f_{\il}$ from becoming zero.
 
-
-%-------------------------------------------------------------------------------
-\subsection{Damped waves in absorbing media or under total reflection}
-  \label{Smulayabs}
-%-------------------------------------------------------------------------------
-
-In Sect.~\ref{Sabsorption},
-we have chosen the horizontal wavevector $\k_{\parallel}$
-to be always real and constant.
-In contrast, the vertical wavenumber $k_{\perp \il}$,
-given by (\ref{Ekperpwj}),
-can become imaginary or complex.
-If $\overline{n_\il^2}$ is real and smaller than~$n_0^2\cos^2\alpha_0$,
-then Snell's law of refraction (\ref{ESnell}) cannot be fulfilled,
-and the radicand in (\ref{Ekperpwj}) becomes negative
-so that $k_{\perp \il}$ becomes pure imaginary.
-\index{Wavevector!complex}%
-If the layer is absorbing,
-described by a positive imaginary part of $\overline{n_\il^2}$,
-then the radicand in (\ref{Ekperpwj}) becomes complex,
-and the wavenumber $k_{\perp \il}$ as well.
-For complex $k_{\perp \il}$,
-the theory developed above remains applicable,
-except that the geometric interpretation of the wavevectors $\k_\pm$
-in Eqs.~(\ref{Edef_alpha}--\ref{ESnell}) is untenable.
-
-Writing
-\begin{equation}
-  k_\perp = k_\perp' + i k_\perp''
-\end{equation}
-for a decomposition into a real and an imaginary part,
-we find an exponential decay of the plane wave amplitudes
-\begin{equation}\label{Ephidamp}
-  \left|\phi^\pm_\il(z)\right|
-  = \e^{\mp k_{\perp \il}'' z}
-\end{equation}
-along their propagation direction~$\pm z$.
-With an analogous decomposition
-of the three-dimensional wavevector (\ref{Ekpmwj3}),
-we obtain for the flux, defined as in~(\ref{EdefJ}),
-\begin{equation}
-  \v{J}_\il(\r) = \k' \e^{-2k_{\perp \il}z}.
-\end{equation}
-In the special case of a pure imaginary~$k_{\perp \il}$,
-the flux direction is $\k'=\k_\parallel$.
-Then $\psi_\il(\r)$ is an \E{evanescent wave},
-\index{Evanescent wave}%
-travelling horizontally.
-Since a stationary evanescent wave implies that there is
-no vertical energy transport,
-all incoming radiation undergoes \E{total reflection}.
-\index{Total reflection}%
-
-In the generic case of a complex~$k_{\perp \il}$,
-the flux has a vertical component.
-Accordingly, the total reflection is not perfect.
-Some intensity is dissipated in layer $\il$.
-\index{Dissipation}%
-And if layer $\il<N$ is not too thick,
-then some radiation intensity also tunnels into the adjacent layer $\il+1$.
-\index{Tunneling}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \newpage % TEMPORARY

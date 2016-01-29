@@ -99,6 +99,11 @@ set(list_of_tests
     "PySuite/BoxCompositionRotateZandY"
     "PySuite/BoxStackComposition"
     "PySuite/SimulationWithMasks"
+    "PySuite/RectDetectorGeneric"
+    "PySuite/RectDetectorPerpToSample"
+    "PySuite/RectDetectorPerpToDirectBeam"
+    "PySuite/RectDetectorPerpToReflectedBeam"
+    "PySuite/RectDetectorPerpToReflectedBeamDpos"
 )
 
 # Adding executables.

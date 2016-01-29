@@ -333,9 +333,9 @@ void MainWindow::testGUIObjectBuilder()
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(m_sampleModel, *P_sample);
 
-//    SimulationRegistry simRegistry;
-//    boost::scoped_ptr<GISASSimulation> simulation(simRegistry.createSimulation("GISASWithMasks"));
-//    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
+    SimulationRegistry simRegistry;
+    boost::scoped_ptr<GISASSimulation> simulation(simRegistry.createSimulation("GISASWithMasks"));
+    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
 }
 
 void MainWindow::onAboutApplication()

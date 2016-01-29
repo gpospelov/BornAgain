@@ -406,8 +406,10 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem *detectorIte
         detectorItem->setDetectorAlignment(Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS);
         detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DISTANCE,
                                             detector.getDistance());
-        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DBEAM_U0, detector.getU0());
-        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DBEAM_V0, detector.getV0());
+        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DBEAM_U0,
+                                            detector.getDirectBeamU0());
+        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DBEAM_V0,
+                                            detector.getDirectBeamV0());
 
     } else {
         throw GUIHelpers::Error(

@@ -334,7 +334,7 @@ void MainWindow::testGUIObjectBuilder()
     guiBuilder.populateSampleModel(m_sampleModel, *P_sample);
 
     SimulationRegistry simRegistry;
-    boost::scoped_ptr<GISASSimulation> simulation(simRegistry.createSimulation("RectDetectorPerpToSample"));
+    boost::scoped_ptr<GISASSimulation> simulation(simRegistry.createSimulation("RectDetectorPerpToReflectedBeamDpos"));
     guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
 }
 

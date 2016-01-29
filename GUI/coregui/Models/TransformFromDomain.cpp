@@ -58,6 +58,9 @@
 #include "InfinitePlane.h"
 #include "MaskItems.h"
 #include "BornAgainNamespace.h"
+#include "RectangularDetector.h"
+#include "RectangularDetectorItem.h"
+#include "VectorItem.h"
 
 #include <QString>
 #include <QDebug>
@@ -253,15 +256,44 @@ void TransformFromDomain::setItemFromSample(BeamItem *beamItem, const GISASSimul
     }
 }
 
-void TransformFromDomain::setItemFromSample(SphericalDetectorItem *detectorItem,
+void TransformFromDomain::setItemFromSample(DetectorItem *detectorItem,
                                             const GISASSimulation &simulation)
 {
     Q_ASSERT(detectorItem);
-    const IDetector2D *detector = simulation.getInstrument().getDetector();
+    const IDetector2D *iDetector = simulation.getInstrument().getDetector();
+    if(auto detector = dynamic_cast<const SphericalDetector *>(iDetector)) {
+        auto item = dynamic_cast<SphericalDetectorItem *>
+                (detectorItem->setGroupProperty(DetectorItem::P_DETECTOR,
+                                             Constants::SphericalDetectorType));
+        Q_ASSERT(item);
+        setItemFromSample(item, *detector);
 
+    }
+
+    else if(auto detector = dynamic_cast<const RectangularDetector *>(iDetector)) {
+        auto item = dynamic_cast<RectangularDetectorItem *>
+                (detectorItem->setGroupProperty(DetectorItem::P_DETECTOR,
+                                             Constants::RectangularDetectorType));
+        Q_ASSERT(item);
+        setItemFromSample(item, *detector);
+
+    }
+
+    else {
+        throw GUIHelpers::Error(
+            "TransformFromDomain::setItemFromSample(DetectorItem*) -> Unknown detector type.");
+
+    }
+
+}
+
+
+void TransformFromDomain::setItemFromSample(SphericalDetectorItem *detectorItem,
+                                            const SphericalDetector &detector)
+{
     // Axes
-    const IAxis &phi_axis = detector->getAxis(0);
-    const IAxis &alpha_axis = detector->getAxis(1);
+    const IAxis &phi_axis = detector.getAxis(0);
+    const IAxis &alpha_axis = detector.getAxis(1);
 
     BasicAxisItem *phiAxisItem = dynamic_cast<BasicAxisItem *>(
         detectorItem->getSubItems()[SphericalDetectorItem::P_PHI_AXIS]);
@@ -278,7 +310,7 @@ void TransformFromDomain::setItemFromSample(SphericalDetectorItem *detectorItem,
     alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
 
     // detector resolution
-    if (const IDetectorResolution *p_resfunc = detector->getDetectorResolutionFunction()) {
+    if (const IDetectorResolution *p_resfunc = detector.getDetectorResolutionFunction()) {
         if (const ConvolutionDetectorResolution *p_convfunc
             = dynamic_cast<const ConvolutionDetectorResolution *>(p_resfunc)) {
             if (const ResolutionFunction2DGaussian *resfunc
@@ -300,6 +332,112 @@ void TransformFromDomain::setItemFromSample(SphericalDetectorItem *detectorItem,
         } else {
             throw GUIHelpers::Error(
                 "TransformFromDomain::setItemFromSample(SphericalDetectorItem "
+                "*detectorItem, const GISASSimulation &simulation) -> Error, not a "
+                "ConvolutionDetectorResolution function");
+        }
+    }
+}
+
+
+void TransformFromDomain::setItemFromSample(RectangularDetectorItem *detectorItem,
+                                            const RectangularDetector &detector)
+{
+    // Axes
+    BasicAxisItem *xAxisItem = dynamic_cast<BasicAxisItem *>(
+        detectorItem->getSubItems()[RectangularDetectorItem::P_X_AXIS]);
+    Q_ASSERT(xAxisItem);
+    xAxisItem->setRegisteredProperty(BasicAxisItem::P_NBINS, (int)detector.getNbinsX());
+    xAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, detector.getWidth());
+
+    BasicAxisItem *yAxisItem = dynamic_cast<BasicAxisItem *>(
+        detectorItem->getSubItems()[RectangularDetectorItem::P_Y_AXIS]);
+    Q_ASSERT(yAxisItem);
+    yAxisItem->setRegisteredProperty(BasicAxisItem::P_NBINS, (int)detector.getNbinsY());
+    yAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, detector.getHeight());
+
+    if(detector.getDetectorArrangment() == RectangularDetector::GENERIC) {
+        detectorItem->setDetectorAlignment(Constants::ALIGNMENT_GENERIC);
+
+        kvector_t normal = detector.getNormalVector();
+        detectorItem->getSubItems()[RectangularDetectorItem::P_NORMAL]->setRegisteredProperty(
+            VectorItem::P_X, normal.x());
+        detectorItem->getSubItems()[RectangularDetectorItem::P_NORMAL]->setRegisteredProperty(
+            VectorItem::P_Y, normal.y());
+        detectorItem->getSubItems()[RectangularDetectorItem::P_NORMAL]->setRegisteredProperty(
+            VectorItem::P_Z, normal.z());
+
+        kvector_t direction = detector.getDirectionVector();
+        detectorItem->getSubItems()[RectangularDetectorItem::P_DIRECTION]->setRegisteredProperty(
+            VectorItem::P_X, direction.x());
+        detectorItem->getSubItems()[RectangularDetectorItem::P_DIRECTION]->setRegisteredProperty(
+            VectorItem::P_Y, direction.y());
+        detectorItem->getSubItems()[RectangularDetectorItem::P_DIRECTION]->setRegisteredProperty(
+            VectorItem::P_Z, direction.z());
+
+        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_U0, detector.getU0());
+        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_V0, detector.getV0());
+    }
+
+    else if (detector.getDetectorArrangment() == RectangularDetector::PERPENDICULAR_TO_SAMPLE) {
+        detectorItem->setDetectorAlignment(Constants::ALIGNMENT_TO_SAMPLE);
+        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DISTANCE,
+                                            detector.getDistance());
+        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_U0, detector.getU0());
+        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_V0, detector.getV0());
+
+    } else if (detector.getDetectorArrangment()
+               == RectangularDetector::PERPENDICULAR_TO_DIRECT_BEAM) {
+        detectorItem->setDetectorAlignment(Constants::ALIGNMENT_TO_DIRECT_BEAM);
+        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DISTANCE,
+                                            detector.getDistance());
+        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DBEAM_U0, detector.getU0());
+        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DBEAM_V0, detector.getV0());
+
+    } else if (detector.getDetectorArrangment()
+               == RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM) {
+        detectorItem->setDetectorAlignment(Constants::ALIGNMENT_TO_REFLECTED_BEAM);
+        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DISTANCE,
+                                            detector.getDistance());
+        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_U0, detector.getU0());
+        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_V0, detector.getV0());
+
+    } else if (detector.getDetectorArrangment()
+               == RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
+        detectorItem->setDetectorAlignment(Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS);
+        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DISTANCE,
+                                            detector.getDistance());
+        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DBEAM_U0, detector.getU0());
+        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DBEAM_V0, detector.getV0());
+
+    } else {
+        throw GUIHelpers::Error(
+            "TransformFromDomain::setItemFromSample(RectangularDetectorItem *detectorItem "
+            "Error. Unknown detector arrangement");
+    }
+
+    // detector resolution
+    if (const IDetectorResolution *p_resfunc = detector.getDetectorResolutionFunction()) {
+        if (const ConvolutionDetectorResolution *p_convfunc
+            = dynamic_cast<const ConvolutionDetectorResolution *>(p_resfunc)) {
+            if (const ResolutionFunction2DGaussian *resfunc
+                = dynamic_cast<const ResolutionFunction2DGaussian *>(
+                    p_convfunc->getResolutionFunction2D())) {
+                ParameterizedItem *item
+                    = detectorItem->setGroupProperty(RectangularDetectorItem::P_RESOLUTION_FUNCTION,
+                                                     Constants::ResolutionFunction2DGaussianType);
+                item->setRegisteredProperty(ResolutionFunction2DGaussianItem::P_SIGMA_X,
+                                            resfunc->getSigmaX());
+                item->setRegisteredProperty(ResolutionFunction2DGaussianItem::P_SIGMA_Y,
+                                            resfunc->getSigmaY());
+            } else {
+                throw GUIHelpers::Error("TransformFromDomain::setItemFromSample("
+                                        "RectangularDetectorItem *detectorItem, const GISASSimulation "
+                                        "&simulation) -> Error, unknown detector resolution "
+                                        "function");
+            }
+        } else {
+            throw GUIHelpers::Error(
+                "TransformFromDomain::setItemFromSample(RectangularDetectorItem "
                 "*detectorItem, const GISASSimulation &simulation) -> Error, not a "
                 "ConvolutionDetectorResolution function");
         }

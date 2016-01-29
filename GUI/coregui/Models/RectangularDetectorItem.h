@@ -46,6 +46,8 @@ public:
     std::unique_ptr<IDetector2D> createDetector() const;
     std::unique_ptr<IResolutionFunction2D> createResolutionFunction();
 
+    void setDetectorAlignment(const QString &alignment);
+
 private:
     void update_properties_appearance();
 

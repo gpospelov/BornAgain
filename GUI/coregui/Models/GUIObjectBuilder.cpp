@@ -111,15 +111,11 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *in
     // detector
     DetectorItem *detectorItem = dynamic_cast<DetectorItem *>(instrumentModel->insertNewItem(
         Constants::DetectorType, instrumentModel->indexOfItem(instrumentItem)));
+    TransformFromDomain::setItemFromSample(detectorItem, simulation);
 
     // detector masks
     TransformFromDomain::setDetectorMasks(detectorItem, simulation);
 
-    // sub-detector
-    SphericalDetectorItem *detectorSubItem =
-            dynamic_cast<SphericalDetectorItem *>(detectorItem->getSubItems()[DetectorItem::P_DETECTOR]);
-
-    TransformFromDomain::setItemFromSample(detectorSubItem, simulation);
 
     return instrumentItem;
 }

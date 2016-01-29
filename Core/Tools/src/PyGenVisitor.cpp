@@ -39,6 +39,8 @@
 #include "DetectorMask.h"
 #include "ConvolutionDetectorResolution.h"
 #include "ResolutionFunction2DGaussian.h"
+#include "RectangularDetector.h"
+#include "SphericalDetector.h"
 
 PyGenVisitor::PyGenVisitor() : m_label(new SampleLabelHandler())
 {
@@ -1229,28 +1231,90 @@ std::string PyGenVisitor::defineMultiLayers() const
 
 std::string PyGenVisitor::defineDetector(const GISASSimulation *simulation) const
 {
-    size_t numberOfDetectorDimensions = simulation->getInstrument().getDetectorDimension();
-    if (numberOfDetectorDimensions != 2) {
+    const IDetector2D *iDetector = simulation->getInstrument().getDetector();
+
+    if (iDetector->getDimension() != 2) {
         throw Exceptions::RuntimeErrorException("PyGenVisitor::defineDetector: "
                                                 "detector must be two-dimensional for GISAS");
     }
+
     std::ostringstream result;
     result << std::setprecision(12);
-    // result << indent() << "# Defining Detector Parameters\n";
-    result << indent() << "simulation.setDetectorParameters(";
-    size_t index = 0;
-    while (index < numberOfDetectorDimensions) {
-        if (index != 0) {
-            result << ", ";
+
+    if(auto detector = dynamic_cast<const SphericalDetector *>(iDetector)) {
+        result << indent() << "simulation.setDetectorParameters(";
+        for(size_t index=0; index<detector->getDimension(); ++index) {
+            if (index != 0) result << ", ";
+            result << detector->getAxis(index).getSize() << ", "
+                   << PyGenTools::printDegrees(
+                          detector->getAxis(index).getMin()) << ", "
+                   << PyGenTools::printDegrees(
+                          detector->getAxis(index).getMax());
         }
-        result << simulation->getInstrument().getDetectorAxis(index).getSize() << ", "
-               << PyGenTools::printDegrees(
-                      simulation->getInstrument().getDetectorAxis(index).getMin()) << ", "
-               << PyGenTools::printDegrees(
-                      simulation->getInstrument().getDetectorAxis(index).getMax());
-        index++;
+        result << ")\n";
+
+    } else if(auto detector = dynamic_cast<const RectangularDetector *>(iDetector)) {
+        result << indent() << "\n";
+        result << indent() << "detector = RectangularDetector("
+               << detector->getNbinsX() << ", "
+               << PyGenTools::printDouble(detector->getWidth()) << ", "
+               << detector->getNbinsY() << ", "
+               << PyGenTools::printDouble(detector->getHeight()) << ")\n";
+        if(detector->getDetectorArrangment() == RectangularDetector::GENERIC) {
+            result << indent() << "detector.setPosition("
+                   << PyGenTools::printKvector(detector->getNormalVector()) << ", "
+                   << PyGenTools::printDouble(detector->getU0()) << ", "
+                   << PyGenTools::printDouble(detector->getV0());
+            if(PyGenTools::isDefaultDirection(detector->getDirectionVector())) {
+                result << ")\n";
+            } else {
+                result << ", " << PyGenTools::printKvector(detector->getDirectionVector()) << ")\n";
+            }
+
+        } else if (detector->getDetectorArrangment()
+                   == RectangularDetector::PERPENDICULAR_TO_SAMPLE) {
+            result << indent() << "detector.setPerpendicularToSampleX("
+                   << PyGenTools::printDouble(detector->getDistance()) << ", "
+                   << PyGenTools::printDouble(detector->getU0()) << ", "
+                   << PyGenTools::printDouble(detector->getV0()) << ")\n";
+
+        } else if (detector->getDetectorArrangment()
+                   == RectangularDetector::PERPENDICULAR_TO_DIRECT_BEAM) {
+            result << indent() << "detector.setPerpendicularToDirectBeam("
+                   << PyGenTools::printDouble(detector->getDistance()) << ", "
+                   << PyGenTools::printDouble(detector->getU0()) << ", "
+                   << PyGenTools::printDouble(detector->getV0()) << ")\n";
+
+        } else if (detector->getDetectorArrangment()
+                   == RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM) {
+            result << indent() << "detector.setPerpendicularToReflectedBeam("
+                   << PyGenTools::printDouble(detector->getDistance()) << ", "
+                   << PyGenTools::printDouble(detector->getU0()) << ", "
+                   << PyGenTools::printDouble(detector->getV0()) << ")\n";
+
+
+        } else if (detector->getDetectorArrangment()
+                   == RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
+            result << indent() << "detector.setPerpendicularToReflectedBeam("
+                   << PyGenTools::printDouble(detector->getDistance()) << ")\n";
+            result << indent() << "detector.setDirectBeamPosition("
+                   << PyGenTools::printDouble(detector->getDirectBeamU0()) << ", "
+                   << PyGenTools::printDouble(detector->getDirectBeamV0()) << ")\n";
+
+        } else {
+            throw Exceptions::RuntimeErrorException(
+                "PyGenVisitor::defineDetector: unknown alignment");
+        }
+
+        result << indent() << "simulation.setDetector(detector)\n\n";
+
     }
-    result << ")\n";
+
+
+    else {
+        throw Exceptions::RuntimeErrorException("PyGenVisitor::defineDetector: unknown detector");
+    }
+
     return result.str();
 }
 

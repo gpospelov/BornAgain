@@ -77,19 +77,21 @@ bool JobQueueData::hasUnfinishedJobs()
     return m_simulations.size();
 }
 
-void JobQueueData::setResults(JobItem *jobItem, const GISASSimulation *simulation)
-{
-    if(!simulation)
-        throw GUIHelpers::Error("NJobItem::setResults() -> Error. Null simulation.");
+//void JobQueueData::setResults(JobItem *jobItem, const GISASSimulation *simulation)
+//{
+//    if(!simulation)
+//        throw GUIHelpers::Error("NJobItem::setResults() -> Error. Null simulation.");
 
-    IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();
+//    jobItem->setResults(simulation);
+////    IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();
 
-    if(!intensityItem) {
-        intensityItem = static_cast<IntensityDataItem *>(m_jobModel->insertNewItem(Constants::IntensityDataType, m_jobModel->indexOfItem(jobItem)));
-    }
-    intensityItem->setNameFromProposed(jobItem->itemName());
-    intensityItem->setOutputData(simulation->getDetectorIntensity());
-}
+////    if(!intensityItem) {
+////        intensityItem = static_cast<IntensityDataItem *>(m_jobModel->insertNewItem(Constants::IntensityDataType, m_jobModel->indexOfItem(jobItem)));
+////    }
+////    intensityItem->setNameFromProposed(jobItem->itemName());
+//////    intensityItem->setOutputData(simulation->getDetectorIntensity());
+////    intensityItem->setResults(simulation);
+//}
 
 void JobQueueData::runJob(const QString &identifier)
 {
@@ -210,10 +212,12 @@ void JobQueueData::onFinishedJob()
     jobItem->setStatus(runner->getStatus());
     if(jobItem->isFailed()) {
         jobItem->setComments(runner->getFailureMessage());
+        delete getSimulation(runner->getIdentifier());
     } else {
         // propagating simulation results
         GISASSimulation *simulation = getSimulation(runner->getIdentifier());
-        setResults(jobItem, simulation);
+//        setResults(jobItem, simulation);
+        jobItem->setResults(simulation);
     }
 
     // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)
@@ -313,7 +317,7 @@ void JobQueueData::assignForDeletion(JobRunner *runner)
 
 void JobQueueData::clearSimulation(const QString &identifier)
 {
-    GISASSimulation *simulation = getSimulation(identifier);
+//    GISASSimulation *simulation = getSimulation(identifier);
     m_simulations.remove(identifier);
-    delete simulation;
+    // delete simulation; now owned by IntensityDataItem
 }

@@ -79,6 +79,8 @@ public:
 
     InstrumentItem *getInstrumentItem(bool from_backup = false);
 
+    void setResults(const GISASSimulation *simulation);
+
 private:
     static QMap<QString, QString> m_run_policies; // run policy, policy description
 };

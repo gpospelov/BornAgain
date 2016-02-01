@@ -18,6 +18,7 @@
 
 #include "ParameterizedItem.h"
 #include "OutputData.h"
+class GISASSimulation;
 
 
 class BA_CORE_API_ IntensityDataItem : public ParameterizedItem
@@ -38,8 +39,9 @@ public:
     explicit IntensityDataItem(ParameterizedItem *parent=0);
     virtual ~IntensityDataItem();
 
-    OutputData<double> *getOutputData() { return m_data; }
+    const OutputData<double> *getOutputData() const { return m_data; }
     void setOutputData(OutputData<double> *data);
+    void setResults(const GISASSimulation *simulation);
 
     //! returns lower and upper zoom ranges of x-axis
     double getLowerX() const;
@@ -94,6 +96,7 @@ public slots:
 
 private:
     OutputData<double> *m_data; //!< simulation results
+    std::unique_ptr<const GISASSimulation> m_simulation; //!< simulation results
 };
 
 #endif // NINTENSITYDATAITEM_H

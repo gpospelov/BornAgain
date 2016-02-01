@@ -19,6 +19,7 @@
 #include "AxesItems.h"
 #include "Units.h"
 #include "GUIHelpers.h"
+#include "GISASSimulation.h"
 #include <QDebug>
 
 const QString IntensityDataItem::P_PROJECTIONS_FLAG = "Projections";
@@ -104,6 +105,13 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
     blockSignals(false);
     qDebug() << "Emmitting intensityModified();";
     emit intensityModified();
+}
+
+void IntensityDataItem::setResults(const GISASSimulation *simulation)
+{
+    Q_ASSERT(simulation);
+    m_simulation.reset(simulation);
+    setOutputData(m_simulation->getDetectorIntensity());
 }
 
 double IntensityDataItem::getLowerX() const

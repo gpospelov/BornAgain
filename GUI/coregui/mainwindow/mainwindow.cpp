@@ -61,6 +61,7 @@
 #include "GUIHelpers.h"
 #include "UpdateNotifier.h"
 #include "FitModel.h"
+#include "FitParameterItems.h"
 
 #include <boost/scoped_ptr.hpp>
 
@@ -317,7 +318,10 @@ void MainWindow::resetModels()
 
     m_fitModel->clear();
     m_fitModel->insertNewItem(Constants::FitParameterContainerType, QModelIndex());
-    m_fitModel->insertNewItem(Constants::FitSelectionType, QModelIndex());
+    ParameterizedItem *selection = m_fitModel->insertNewItem(Constants::FitSelectionType, QModelIndex());
+    selection->setRegisteredProperty(FitSelectionItem::P_SAMPLE_INDEX, "MultiLayer");
+    selection->setRegisteredProperty(FitSelectionItem::P_INSTRUMENT_INDEX, "Instrument");
+
 }
 
 void MainWindow::testGUIObjectBuilder()

@@ -54,7 +54,7 @@ const QString FitSelectionItem::P_INSTRUMENT_INDEX = "Instrument Index";
 FitSelectionItem::FitSelectionItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::FitSelectionType, parent)
 {
-    registerProperty(P_SAMPLE_INDEX, -1);
-    registerProperty(P_INSTRUMENT_INDEX, -1);
+    registerProperty(P_SAMPLE_INDEX, "");
+    registerProperty(P_INSTRUMENT_INDEX, "");
 }
 

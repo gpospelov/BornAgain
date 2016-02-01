@@ -40,7 +40,9 @@ FitView::FitView(MainWindow *mainWindow)
     // FitModel is constructed here, should be moved to mainwindow in sometime
     FitModel *fitmodel = mainWindow->getFitModel();
 
-    FitSettingsWidget *settings = new FitSettingsWidget(this);
+    FitSettingsWidget *settings = new FitSettingsWidget(mainWindow->getFitModel(),
+                                                        mainWindow->getSampleModel(),
+                                                        mainWindow->getInstrumentModel(), this);
     FitParameterWidget *fitting = new FitParameterWidget(mainWindow->getSampleModel(),
                                                          mainWindow->getInstrumentModel(),
                                                          fitmodel, this);

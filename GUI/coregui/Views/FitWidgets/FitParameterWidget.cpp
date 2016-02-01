@@ -17,6 +17,7 @@
 #include "SampleModel.h"
 #include "FitModel.h"
 #include "FitParameterItems.h"
+#include "InstrumentModel.h"
 #include <QVBoxLayout>
 #include <QTreeView>
 #include <QSplitter>
@@ -89,8 +90,6 @@ FitParameterWidget::FitParameterWidget(SampleModel *sampleModel, InstrumentModel
     vlayout->addWidget(m_splitter);
     this->setLayout(vlayout);
 
-    updateSelector();
-
     // update selector when sample model changes - more jobs to be done here
     //connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
     //        this, SLOT(updateSelector()));
@@ -118,11 +117,6 @@ FitParameterWidget::FitParameterWidget(SampleModel *sampleModel, InstrumentModel
 
 }
 
-void FitParameterWidget::showEvent(QShowEvent *)
-{
-    updateSelector();
-}
-
 void FitParameterWidget::updateSelector()
 {
     buildSelectorModel();
@@ -136,14 +130,34 @@ void FitParameterWidget::updateSelector()
                this, SLOT(onSelectorSelectionChanged(QItemSelection)));
 }
 
-void FitParameterWidget::buildSelectorModel() {
+ParameterizedItem *FitParameterWidget::getTopItemFromSelection(SessionModel *model,
+                                                               const QString &itemType,
+                                                               const QString &selectionType)
+{
+    QString selectedSample = m_fitModel->itemForIndex(QModelIndex())
+            ->getChildOfType(Constants::FitSelectionType)
+            ->getRegisteredProperty(selectionType).toString();
 
-    m_selectorModel = new FitSelectorModel();
-    m_selectorModel->setHorizontalHeaderItem(0, new QStandardItem("Property"));
-    m_selectorModel->setHorizontalHeaderItem(1, new QStandardItem("Value"));
-    QStandardItem *root = m_selectorModel->invisibleRootItem();
+    if (selectedSample.isEmpty())
+        return NULL;
 
-    ParameterizedItem *top = m_sampleModel->itemForIndex(QModelIndex());
+    ParameterizedItem *top = 0;
+
+    for (int i_row = 0; i_row < model->rowCount(QModelIndex()); ++i_row) {
+        QModelIndex itemIndex = model->index(i_row, 0, QModelIndex());
+        if (ParameterizedItem *item = model->itemForIndex(itemIndex)) {
+            if (item->modelType()  == itemType) {
+                if (item->displayName() == selectedSample)
+                    top = item;
+            }
+        }
+    }
+
+    return top;
+}
+
+void FitParameterWidget::buildTree(QStandardItem *root, ParameterizedItem *top)
+{
     QStringList parameterTree = top->getParameterTreeList();
 
     foreach (const QString &str, parameterTree) {
@@ -177,6 +191,48 @@ void FitParameterWidget::buildSelectorModel() {
             }
         }
     }
+}
+
+void FitParameterWidget::buildSelectorModel() {
+
+    m_selectorModel = new FitSelectorModel();
+    m_selectorModel->setHorizontalHeaderItem(0, new QStandardItem("Property"));
+    m_selectorModel->setHorizontalHeaderItem(1, new QStandardItem("Value"));
+    QStandardItem *root = m_selectorModel->invisibleRootItem();
+
+    ParameterizedItem *topSample = getTopItemFromSelection(m_sampleModel, Constants::MultiLayerType,
+                                                     FitSelectionItem::P_SAMPLE_INDEX);
+    ParameterizedItem *topInst = getTopItemFromSelection(m_instrumentModel,
+                                                         Constants::InstrumentType,
+                                                         FitSelectionItem::P_INSTRUMENT_INDEX);
+    if (topSample && topInst) {
+        buildTree(root, topSample);
+        buildTree(root, topInst);
+
+        // check for consistency
+        for (int i=0; i<m_parameterModel->rowCount(QModelIndex()); i++){
+            int rowcount = m_parameterModel->rowCount(m_parameterModel->index(i,0,QModelIndex()));
+            QModelIndex child = m_parameterModel->index(i,0,QModelIndex());
+            for (int j = 0; j < rowcount; j++) {
+                QModelIndex curIndex = m_parameterModel->index(j,0, child);
+                QString value = m_parameterModel->itemForIndex(curIndex)
+                        ->getRegisteredProperty(FitParameterLinkItem::P_LINK).toString();
+                auto item = m_selectorModel->getItemFromPath(value);
+                if (item == m_selectorModel->invisibleRootItem()) {
+                    m_parameterModel->removeRow(j, child);
+                    if (rowcount == 1) {
+                        m_parameterModel->removeRow(i);
+                        i--;
+                    }
+                    j--;
+                    rowcount--;
+                }
+            }
+        }
+
+        spanParameters();
+    }
+
 }
 
 void FitParameterWidget::spanParameters()

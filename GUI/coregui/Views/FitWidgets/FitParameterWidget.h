@@ -43,7 +43,7 @@ public:
     static const QString MIME_TYPE;
     FitParameterWidget(SampleModel *sampleModel, InstrumentModel *instrumentModel,
                        FitModel *fitModel, QWidget *parent = 0);
-    void showEvent(QShowEvent *);
+
 public slots:
     void updateSelector();
     void spanParameters();
@@ -61,6 +61,9 @@ private:
     void buildSelectorModel();
     void connectSelectorView(bool active = true);
     void connectParameterView(bool active = true);
+    ParameterizedItem *getTopItemFromSelection(SessionModel *model, const QString &itemType,
+                                               const QString &selectionType);
+    void buildTree(QStandardItem *root, ParameterizedItem *top);
 
     FitModel *m_fitModel;
     SampleModel *m_sampleModel;

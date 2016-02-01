@@ -66,18 +66,6 @@ struct FTDistribution2DVoigt_wrapper : FTDistribution2DVoigt, bp::wrapper< FTDis
         return FTDistribution2DVoigt::evaluate( qx, qy );
     }
 
-    virtual double evaluateLattice( double qx, double qy ) const  {
-        if( bp::override func_evaluateLattice = this->get_override( "evaluateLattice" ) )
-            return func_evaluateLattice( qx, qy );
-        else{
-            return this->FTDistribution2DVoigt::evaluateLattice( qx, qy );
-        }
-    }
-    
-    double default_evaluateLattice( double qx, double qy ) const  {
-        return FTDistribution2DVoigt::evaluateLattice( qx, qy );
-    }
-
     virtual double getEta(  ) const  {
         if( bp::override func_getEta = this->get_override( "getEta" ) )
             return func_getEta(  );
@@ -121,18 +109,6 @@ void register_FTDistribution2DVoigt_class(){
                 "evaluate"
                 , evaluate_function_type(&::FTDistribution2DVoigt::evaluate)
                 , default_evaluate_function_type(&FTDistribution2DVoigt_wrapper::default_evaluate)
-                , ( bp::arg("qx"), bp::arg("qy") ) );
-        
-        }
-        { //::FTDistribution2DVoigt::evaluateLattice
-        
-            typedef double ( ::FTDistribution2DVoigt::*evaluateLattice_function_type)( double,double ) const;
-            typedef double ( FTDistribution2DVoigt_wrapper::*default_evaluateLattice_function_type)( double,double ) const;
-            
-            FTDistribution2DVoigt_exposer.def( 
-                "evaluateLattice"
-                , evaluateLattice_function_type(&::FTDistribution2DVoigt::evaluateLattice)
-                , default_evaluateLattice_function_type(&FTDistribution2DVoigt_wrapper::default_evaluateLattice)
                 , ( bp::arg("qx"), bp::arg("qy") ) );
         
         }

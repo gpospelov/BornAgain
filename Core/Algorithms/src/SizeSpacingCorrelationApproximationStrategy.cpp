@@ -24,14 +24,12 @@ SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximation
 }
 
 void SizeSpacingCorrelationApproximationStrategy::init(
-    const SafePointerVector<FormFactorInfo> &form_factor_infos,
-    const SafePointerVector<IInterferenceFunction> &ifs)
+    const SafePointerVector<FormFactorInfo> &form_factor_infos, const IInterferenceFunction &iff)
 {
-    IInterferenceFunctionStrategy::init(form_factor_infos, ifs);
+    IInterferenceFunctionStrategy::init(form_factor_infos, iff);
     if (!checkVectorSizes()) {
         throw ClassInitializationException(
-            "Wrong number of formfactors"
-            " or interference functions for Size-Spacing Correlation Approximation.");
+            "No formfactors for Size-Spacing Correlation Approximation.");
     }
     initMeanRadius();
 }
@@ -92,8 +90,7 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
 bool SizeSpacingCorrelationApproximationStrategy::checkVectorSizes() const
 {
     size_t n_ffs = m_ff_infos.size();
-    size_t n_ifs = m_ifs.size();
-    return (n_ffs > 0 && n_ifs == 1);
+    return (n_ffs > 0);
 }
 
 complex_t SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicFF(
@@ -164,7 +161,7 @@ complex_t
 SizeSpacingCorrelationApproximationStrategy::getCharacteristicDistribution(double qp) const
 {
     const InterferenceFunctionRadialParaCrystal *p_iff
-        = dynamic_cast<const InterferenceFunctionRadialParaCrystal *>(m_ifs[0]);
+        = dynamic_cast<const InterferenceFunctionRadialParaCrystal *>(mP_iff.get());
     if (p_iff == 0) {
         throw ClassInitializationException("Wrong interference function for SSCA");
     }

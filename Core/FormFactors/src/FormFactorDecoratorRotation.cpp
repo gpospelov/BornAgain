@@ -40,6 +40,7 @@ complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo &wavevector
 {
     cvector_t rotated_ki = m_transform.transformedInverse(wavevectors.getKi());
     cvector_t rotated_kf = m_transform.transformedInverse(wavevectors.getKf());
-    WavevectorInfo rotated_wavevectors(rotated_ki, rotated_kf);
+    double wavelength = wavevectors.getWavelength();
+    WavevectorInfo rotated_wavevectors(rotated_ki, rotated_kf, wavelength);
     return mp_form_factor->evaluate(rotated_wavevectors);
 }

@@ -59,6 +59,18 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
         return InterferenceFunction2DParaCrystal::evaluate( boost::ref(q) );
     }
 
+    virtual double getParticleDensity(  ) const  {
+        if( bp::override func_getParticleDensity = this->get_override( "getParticleDensity" ) )
+            return func_getParticleDensity(  );
+        else{
+            return this->InterferenceFunction2DParaCrystal::getParticleDensity(  );
+        }
+    }
+    
+    double default_getParticleDensity(  ) const  {
+        return InterferenceFunction2DParaCrystal::getParticleDensity( );
+    }
+
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -245,6 +257,17 @@ void register_InterferenceFunction2DParaCrystal_class(){
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "getLatticeParameters"
                 , getLatticeParameters_function_type( &::InterferenceFunction2DParaCrystal::getLatticeParameters ) );
+        
+        }
+        { //::InterferenceFunction2DParaCrystal::getParticleDensity
+        
+            typedef double ( ::InterferenceFunction2DParaCrystal::*getParticleDensity_function_type)(  ) const;
+            typedef double ( InterferenceFunction2DParaCrystal_wrapper::*default_getParticleDensity_function_type)(  ) const;
+            
+            InterferenceFunction2DParaCrystal_exposer.def( 
+                "getParticleDensity"
+                , getParticleDensity_function_type(&::InterferenceFunction2DParaCrystal::getParticleDensity)
+                , default_getParticleDensity_function_type(&InterferenceFunction2DParaCrystal_wrapper::default_getParticleDensity) );
         
         }
         { //::InterferenceFunction2DParaCrystal::setDomainSizes

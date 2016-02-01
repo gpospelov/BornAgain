@@ -22,6 +22,8 @@
 #include "Types.h"
 #include "IMaterial.h"
 
+#include <boost/scoped_ptr.hpp>
+
 class FormFactorInfo;
 class IInterferenceFunction;
 class IInterferenceFunctionStrategy;
@@ -54,10 +56,10 @@ public:
     virtual IInterferenceFunctionStrategy *createStrategy();
 
 protected:
-    Layer *mp_layer;                            //!< decorated layer
-    Simulation *mp_simulation;                  //!< simulation
+    boost::scoped_ptr<Layer> mP_layer;                            //!< decorated layer
+    boost::scoped_ptr<Simulation> mP_simulation;                  //!< simulation
     SimulationParameters m_sim_params;          //!< simulation parameters
-    LayerSpecularInfo *mp_specular_info; //!< R and T coefficients for DWBA
+    boost::scoped_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
     size_t m_layout_index; //!< index for the layout to be used in the layer
 
 private:
@@ -66,17 +68,17 @@ private:
     //! collect the formfactor info of all particles in the decoration and decorate
     //! these for DWBA when needed
     void collectFormFactorInfos();
-    //! collect the interference functions
-    void collectInterferenceFunctions();
-    //! retrieve wavelength from simulation
-    double getWavelength();
+    //! collect the interference function
+    void collectInterferenceFunction();
     //! Creates formfactor info for single particle
     FormFactorInfo *createFormFactorInfo(const IParticle *particle,
-                                         const IMaterial *p_ambient_material,
-                                         complex_t factor) const;
+                                         const IMaterial *p_ambient_material) const;
 
+    //! Info about form factors
     SafePointerVector<FormFactorInfo> m_ff_infos;
-    SafePointerVector<IInterferenceFunction> m_ifs;
+
+    //! Interference function
+    boost::scoped_ptr<IInterferenceFunction> mP_interference_function;
 };
 
 //! @class FormFactorInfo

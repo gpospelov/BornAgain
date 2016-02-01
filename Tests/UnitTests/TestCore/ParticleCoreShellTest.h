@@ -37,7 +37,7 @@ ParticleCoreShellTest::~ParticleCoreShellTest()
 TEST_F(ParticleCoreShellTest, InitialState)
 {
     EXPECT_EQ(nullptr, mp_coreshell->getAmbientMaterial());
-    EXPECT_EQ(nullptr, mp_coreshell->createFormFactor(1.0));
+    EXPECT_EQ(nullptr, mp_coreshell->createFormFactor());
     EXPECT_EQ(nullptr, mp_coreshell->getRotation());
     EXPECT_EQ(BornAgain::ParticleCoreShellType, mp_coreshell->getName());
     EXPECT_EQ(BornAgain::ParticleType, mp_coreshell->getCoreParticle()->getName());
@@ -48,7 +48,7 @@ TEST_F(ParticleCoreShellTest, Clone)
 {
     ParticleCoreShell *p_clone = mp_coreshell->clone();
     EXPECT_EQ(nullptr, p_clone->getAmbientMaterial());
-    EXPECT_EQ(nullptr, p_clone->createFormFactor(1.0));
+    EXPECT_EQ(nullptr, p_clone->createFormFactor());
     EXPECT_EQ(nullptr, p_clone->getRotation());
     EXPECT_EQ(BornAgain::ParticleCoreShellType, p_clone->getName());
     EXPECT_EQ(BornAgain::ParticleType, p_clone->getCoreParticle()->getName());
@@ -60,7 +60,7 @@ TEST_F(ParticleCoreShellTest, CloneInvertB)
 {
     ParticleCoreShell *p_clone = mp_coreshell->cloneInvertB();
     EXPECT_EQ(nullptr, p_clone->getAmbientMaterial());
-    EXPECT_EQ(nullptr, p_clone->createFormFactor(1.0));
+    EXPECT_EQ(nullptr, p_clone->createFormFactor());
     EXPECT_EQ(nullptr, p_clone->getRotation());
     EXPECT_EQ(BornAgain::ParticleCoreShellType, p_clone->getName());
     EXPECT_EQ(BornAgain::ParticleType, p_clone->getCoreParticle()->getName());
@@ -81,7 +81,7 @@ TEST_F(ParticleCoreShellTest, AmbientMaterial)
     p_material = mp_coreshell->getShellParticle()->getAmbientMaterial();
     EXPECT_EQ("Air", p_material->getName());
     EXPECT_EQ(complex_t(1.0, 0.0), p_material->getRefractiveIndex());
-    EXPECT_EQ(nullptr, mp_coreshell->createFormFactor(1.0));
+    EXPECT_EQ(nullptr, mp_coreshell->createFormFactor());
     EXPECT_EQ(BornAgain::ParticleCoreShellType, mp_coreshell->getName());
     EXPECT_EQ(BornAgain::ParticleType, mp_coreshell->getCoreParticle()->getName());
     EXPECT_EQ(BornAgain::ParticleType, mp_coreshell->getShellParticle()->getName());

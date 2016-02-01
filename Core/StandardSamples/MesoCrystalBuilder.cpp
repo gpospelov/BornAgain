@@ -92,8 +92,6 @@ ISample* MesoCrystalBuilder::buildSample() const
     Layer avg_layer(average_layer_material, m_meso_height);
     Layer substrate_layer(substrate_material);
 
-    IInterferenceFunction *p_interference_funtion =
-        new InterferenceFunctionNone();
     ParticleLayout particle_layout;
     size_t n_max_phi_rotation_steps = int(m_nphi_rotations);
     size_t n_alpha_rotation_steps = 1;
@@ -116,7 +114,6 @@ ISample* MesoCrystalBuilder::buildSample() const
     }
 
     particle_layout.setTotalParticleSurfaceDensity(surface_density);
-    particle_layout.addInterferenceFunction(p_interference_funtion);
 
     avg_layer.addLayout(particle_layout);
 

@@ -71,18 +71,6 @@ struct OffSpecSimulation_wrapper : OffSpecSimulation, bp::wrapper< OffSpecSimula
         return OffSpecSimulation::getNumberOfSimulationElements( );
     }
 
-    virtual double getWavelength(  ) const  {
-        if( bp::override func_getWavelength = this->get_override( "getWavelength" ) )
-            return func_getWavelength(  );
-        else{
-            return this->OffSpecSimulation::getWavelength(  );
-        }
-    }
-    
-    double default_getWavelength(  ) const  {
-        return OffSpecSimulation::getWavelength( );
-    }
-
     virtual void prepareSimulation(  ) {
         if( bp::override func_prepareSimulation = this->get_override( "prepareSimulation" ) )
             func_prepareSimulation(  );
@@ -184,17 +172,6 @@ void register_OffSpecSimulation_class(){
                 "getNumberOfSimulationElements"
                 , getNumberOfSimulationElements_function_type(&::OffSpecSimulation::getNumberOfSimulationElements)
                 , default_getNumberOfSimulationElements_function_type(&OffSpecSimulation_wrapper::default_getNumberOfSimulationElements) );
-        
-        }
-        { //::OffSpecSimulation::getWavelength
-        
-            typedef double ( ::OffSpecSimulation::*getWavelength_function_type)(  ) const;
-            typedef double ( OffSpecSimulation_wrapper::*default_getWavelength_function_type)(  ) const;
-            
-            OffSpecSimulation_exposer.def( 
-                "getWavelength"
-                , getWavelength_function_type(&::OffSpecSimulation::getWavelength)
-                , default_getWavelength_function_type(&OffSpecSimulation_wrapper::default_getWavelength) );
         
         }
         { //::OffSpecSimulation::prepareSimulation

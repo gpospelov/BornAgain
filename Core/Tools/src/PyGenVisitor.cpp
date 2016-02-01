@@ -687,54 +687,42 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                    << latticeParameters.m_length << "*nanometer, "
                    << PyGenTools::printDegrees(latticeParameters.m_xi) << ")\n";
 
-            const IFTDistribution1D *pdf = oneDLattice->getProbabilityDistribution();
+            const IFTDecayFunction1D *pdf = oneDLattice->getDecayFunction();
 
-            if (const FTDistribution1DVoigt *fTD1DVoigt
-                = dynamic_cast<const FTDistribution1DVoigt *>(pdf)) {
-                result << indent() << it->second << "_pdf  = FTDistribution1DVoigt("
+            if (const FTDecayFunction1DVoigt *fTD1DVoigt
+                = dynamic_cast<const FTDecayFunction1DVoigt *>(pdf)) {
+                result << indent() << it->second << "_pdf  = FTDecayFunction1DVoigt("
                        << PyGenTools::printDouble(fTD1DVoigt->getOmega()) << ", "
                        << PyGenTools::printDouble(fTD1DVoigt->getEta()) << ")\n";
             }
 
             if (pdf->getOmega() != 0.0) {
-                if (const FTDistribution1DCauchy *fTD1DCauchy
-                    = dynamic_cast<const FTDistribution1DCauchy *>(pdf)) {
-                    result << indent() << it->second << "_pdf  = FTDistribution1DCauchy("
+                if (const FTDecayFunction1DCauchy *fTD1DCauchy
+                    = dynamic_cast<const FTDecayFunction1DCauchy *>(pdf)) {
+                    result << indent() << it->second << "_pdf  = FTDecayFunction1DCauchy("
                            << PyGenTools::printDouble(fTD1DCauchy->getOmega()) << ")\n";
                 }
 
-                else if (const FTDistribution1DCosine *fTD1DCosine
-                         = dynamic_cast<const FTDistribution1DCosine *>(pdf)) {
-                    result << indent() << it->second << "_pdf  = FTDistribution1DCosine("
-                           << PyGenTools::printDouble(fTD1DCosine->getOmega()) << ")\n";
-                }
-
-                else if (const FTDistribution1DGate *fTD1DGate
-                         = dynamic_cast<const FTDistribution1DGate *>(pdf)) {
-                    result << indent() << it->second << "_pdf  = FTDistribution1DGate("
-                           << PyGenTools::printDouble(fTD1DGate->getOmega()) << ")\n";
-                }
-
-                else if (const FTDistribution1DGauss *fTD1DGauss
-                         = dynamic_cast<const FTDistribution1DGauss *>(pdf)) {
-                    result << indent() << it->second << "_pdf  = FTDistribution1DGauss("
+                else if (const FTDecayFunction1DGauss *fTD1DGauss
+                         = dynamic_cast<const FTDecayFunction1DGauss *>(pdf)) {
+                    result << indent() << it->second << "_pdf  = FTDecayFunction1DGauss("
                            << PyGenTools::printDouble(fTD1DGauss->getOmega()) << ")\n";
                 }
 
-                else if (const FTDistribution1DTriangle *fTD1DTriangle
-                         = dynamic_cast<const FTDistribution1DTriangle *>(pdf)) {
-                    result << indent() << it->second << "_pdf  = FTDistribution1DTriangle("
+                else if (const FTDecayFunction1DTriangle *fTD1DTriangle
+                         = dynamic_cast<const FTDecayFunction1DTriangle *>(pdf)) {
+                    result << indent() << it->second << "_pdf  = FTDecayFunction1DTriangle("
                            << PyGenTools::printDouble(fTD1DTriangle->getOmega()) << ")\n";
                 }
 
                 else {
                     std::ostringstream pdfException;
                     pdfException << "\n" << pdf->getName() << " :: Not Casted To Any "
-                                 << "Probability Distribution Function\n";
+                                 << "Decay Function\n";
                     throw NotImplementedException(pdfException.str());
                 }
 
-                result << indent() << it->second << ".setProbabilityDistribution(" << it->second
+                result << indent() << it->second << ".setDecayFunction(" << it->second
                        << "_pdf)\n";
             }
         }
@@ -815,14 +803,14 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                    << "*nanometer, " << PyGenTools::printDegrees(latticeParameters.m_angle) << ", "
                    << PyGenTools::printDegrees(latticeParameters.m_xi) << ")\n";
 
-            const IFTDistribution2D *pdf = twoDLattice->getProbabilityDistribution();
+            const IFTDecayFunction2D *pdf = twoDLattice->getDecayFunction();
 
-            if (const FTDistribution2DCauchy *fTD2DCauchy
-                = dynamic_cast<const FTDistribution2DCauchy *>(pdf)) {
-                result << indent() << it->second << "_pdf  = FTDistribution2DCauchy("
-                       << PyGenTools::printDouble(fTD2DCauchy->getCoherenceLengthX())
+            if (const FTDecayFunction2DCauchy *fTD2DCauchy
+                = dynamic_cast<const FTDecayFunction2DCauchy *>(pdf)) {
+                result << indent() << it->second << "_pdf  = FTDecayFunction2DCauchy("
+                       << PyGenTools::printDouble(fTD2DCauchy->getDecayLengthX())
                        << "*nanometer, "
-                       << PyGenTools::printDouble(fTD2DCauchy->getCoherenceLengthY())
+                       << PyGenTools::printDouble(fTD2DCauchy->getDecayLengthY())
                        << "*nanometer"
                        << ")\n";
                 if (fTD2DCauchy->getGamma() != 0.0) {
@@ -832,39 +820,11 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                 }
             }
 
-            else if (const FTDistribution2DCone *fTD2DCone
-                     = dynamic_cast<const FTDistribution2DCone *>(pdf)) {
-                result << indent() << it->second << "_pdf  = FTDistribution2DCone("
-                       << fTD2DCone->getCoherenceLengthX() << "*nanometer, "
-                       << fTD2DCone->getCoherenceLengthY() << "*nanometer"
-                       << ")\n";
-
-                if (fTD2DCone->getGamma() != 0.0) {
-                    result << indent() << it->second << "_pdf"
-                           << ".setGamma(" << PyGenTools::printDegrees(fTD2DCone->getGamma())
-                           << ")\n";
-                }
-            }
-
-            else if (const FTDistribution2DGate *fTD2DGate
-                     = dynamic_cast<const FTDistribution2DGate *>(pdf)) {
-                result << indent() << it->second << "_pdf  = FTDistribution2DGate("
-                       << fTD2DGate->getCoherenceLengthX() << "*nanometer, "
-                       << fTD2DGate->getCoherenceLengthY() << "*nanometer"
-                       << ")\n";
-
-                if (fTD2DGate->getGamma() != 0.0) {
-                    result << indent() << it->second << "_pdf"
-                           << ".setGamma(" << PyGenTools::printDegrees(fTD2DGate->getGamma())
-                           << ")\n";
-                }
-            }
-
-            else if (const FTDistribution2DGauss *fTD2DGauss
-                     = dynamic_cast<const FTDistribution2DGauss *>(pdf)) {
-                result << indent() << it->second << "_pdf  = FTDistribution2DGauss("
-                       << fTD2DGauss->getCoherenceLengthX() << "*nanometer, "
-                       << fTD2DGauss->getCoherenceLengthY() << "*nanometer"
+            else if (const FTDecayFunction2DGauss *fTD2DGauss
+                     = dynamic_cast<const FTDecayFunction2DGauss *>(pdf)) {
+                result << indent() << it->second << "_pdf  = FTDecayFunction2DGauss("
+                       << fTD2DGauss->getDecayLengthX() << "*nanometer, "
+                       << fTD2DGauss->getDecayLengthY() << "*nanometer"
                        << ")\n";
 
                 if (fTD2DGauss->getGamma() != 0.0) {
@@ -874,11 +834,11 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                 }
             }
 
-            else if (const FTDistribution2DVoigt *fTD2DVoigt
-                     = dynamic_cast<const FTDistribution2DVoigt *>(pdf)) {
-                result << indent() << it->second << "_pdf  = FTDistribution2DVoigt("
-                       << fTD2DVoigt->getCoherenceLengthX() << "*nanometer, "
-                       << fTD2DVoigt->getCoherenceLengthY() << "*nanometer, "
+            else if (const FTDecayFunction2DVoigt *fTD2DVoigt
+                     = dynamic_cast<const FTDecayFunction2DVoigt *>(pdf)) {
+                result << indent() << it->second << "_pdf  = FTDecayFunction2DVoigt("
+                       << fTD2DVoigt->getDecayLengthX() << "*nanometer, "
+                       << fTD2DVoigt->getDecayLengthY() << "*nanometer, "
                        << PyGenTools::printDouble(fTD2DVoigt->getEta()) << ")\n";
 
                 if (fTD2DVoigt->getGamma() != 0.0) {
@@ -895,7 +855,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                 throw NotImplementedException(pdfException.str());
             }
 
-            result << indent() << it->second << ".setProbabilityDistribution(" << it->second
+            result << indent() << it->second << ".setDecayFunction(" << it->second
                    << "_pdf)\n";
 
         }
@@ -1123,15 +1083,10 @@ std::string PyGenVisitor::defineParticleLayouts() const
                 particleIndex++;
             }
 
-            size_t numberOfInterferenceFunctions
-                = particleLayout->getNumberOfInterferenceFunctions();
-            size_t interferenceIndex = 0;
-
-            while (interferenceIndex != numberOfInterferenceFunctions) {
+            const IInterferenceFunction* p_iff = particleLayout->getInterferenceFunction();
+            if (p_iff) {
                 result << indent() << it->second << ".addInterferenceFunction("
-                       << m_label->getLabel(
-                              particleLayout->getInterferenceFunction(interferenceIndex)) << ")\n";
-                interferenceIndex++;
+                       << m_label->getLabel(p_iff) << ")\n";
             }
 
             switch (particleLayout->getApproximation()) {

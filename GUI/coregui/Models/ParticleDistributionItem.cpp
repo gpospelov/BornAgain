@@ -74,7 +74,6 @@ void ParticleDistributionItem::onChildPropertyChange()
 
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const
 {
-//    auto P_part_distr = GUIHelpers::make_unique<ParticleDistribution>();
     auto children = childItems();
     if (children.size() == 0) {
         return nullptr;

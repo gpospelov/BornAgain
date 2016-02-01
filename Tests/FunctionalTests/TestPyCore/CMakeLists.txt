@@ -22,18 +22,7 @@ include_directories(
 set(list_of_python_tests
     "intensitydata.py"
     "intensitydata_io.py"
-    "isgisaxs01.py"
-    "isgisaxs01_normalize.py"
-    "isgisaxs02.py"
     "cylinders_ba_dwba_size.py"
-    "isgisaxs04.py"
-    "isgisaxs06.py"
-    "isgisaxs07.py"
-    "isgisaxs08.py"
-    "isgisaxs09.py"
-    "isgisaxs10.py"
-    "isgisaxs11.py"
-    "isgisaxs15.py"
     "mesocrystal1.py"
     "polmagcylinders1.py"
     "polmagcylinders2.py"
@@ -49,7 +38,6 @@ set(list_of_python_tests
     "transform_box.py"
     "transform_CoreShellBox.py"
     "transform_BoxComposition.py"
-#    "transform_BoxComposition.py" # broken, problems with absoprtion in FormFactorTruncatedSphere
 )
 
 if(BORNAGAIN_TIFF_SUPPORT)

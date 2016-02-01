@@ -107,6 +107,18 @@ struct InterferenceFunctionRadialParaCrystal_wrapper : InterferenceFunctionRadia
         return ISample::getChildren( );
     }
 
+    virtual double getParticleDensity(  ) const  {
+        if( bp::override func_getParticleDensity = this->get_override( "getParticleDensity" ) )
+            return func_getParticleDensity(  );
+        else{
+            return this->IInterferenceFunction::getParticleDensity(  );
+        }
+    }
+    
+    double default_getParticleDensity(  ) const  {
+        return IInterferenceFunction::getParticleDensity( );
+    }
+
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
@@ -215,7 +227,7 @@ void register_InterferenceFunctionRadialParaCrystal_class(){
             InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "getDomainSize"
                 , getDomainSize_function_type( &::InterferenceFunctionRadialParaCrystal::getDomainSize )
-                , "Gets size of coherence domain.\n\n:Parameters:\n  - 'size:' - size in lattice direction\n" );
+                , "Gets size of coherence domain." );
         
         }
         { //::InterferenceFunctionRadialParaCrystal::getKappa
@@ -315,6 +327,17 @@ void register_InterferenceFunctionRadialParaCrystal_class(){
                 "getChildren"
                 , getChildren_function_type(&::ISample::getChildren)
                 , default_getChildren_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_getChildren) );
+        
+        }
+        { //::IInterferenceFunction::getParticleDensity
+        
+            typedef double ( ::IInterferenceFunction::*getParticleDensity_function_type)(  ) const;
+            typedef double ( InterferenceFunctionRadialParaCrystal_wrapper::*default_getParticleDensity_function_type)(  ) const;
+            
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
+                "getParticleDensity"
+                , getParticleDensity_function_type(&::IInterferenceFunction::getParticleDensity)
+                , default_getParticleDensity_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_getParticleDensity) );
         
         }
         { //::ISample::printSampleTree

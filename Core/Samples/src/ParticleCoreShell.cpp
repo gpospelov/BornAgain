@@ -78,8 +78,7 @@ const IMaterial *ParticleCoreShell::getAmbientMaterial() const
     return mp_shell->getAmbientMaterial();
 }
 
-IFormFactor *ParticleCoreShell::createTransformedFormFactor(complex_t wavevector_scattering_factor,
-                                                            const IRotation *p_rotation,
+IFormFactor *ParticleCoreShell::createTransformedFormFactor(const IRotation *p_rotation,
                                                             kvector_t translation) const
 {
     if (!mp_core || !mp_shell)
@@ -90,7 +89,7 @@ IFormFactor *ParticleCoreShell::createTransformedFormFactor(complex_t wavevector
 
     // shell form factor
     std::unique_ptr<IFormFactor> P_ff_shell{ mp_shell->createTransformedFormFactor(
-        wavevector_scattering_factor, P_total_rotation.get(), total_position) };
+        P_total_rotation.get(), total_position) };
     if (!P_ff_shell)
         return nullptr;
     P_result->addFormFactor(*P_ff_shell, 1.0);
@@ -99,7 +98,7 @@ IFormFactor *ParticleCoreShell::createTransformedFormFactor(complex_t wavevector
     std::unique_ptr<Particle> P_core_clone { mp_core->clone() };
     P_core_clone->setAmbientMaterial(*mp_shell->getMaterial());
     std::unique_ptr<IFormFactor> P_ff_core{ P_core_clone->createTransformedFormFactor(
-        wavevector_scattering_factor, P_total_rotation.get(), total_position) };
+        P_total_rotation.get(), total_position) };
     if (!P_ff_core)
         return nullptr;
     P_result->addFormFactor(*P_ff_core, 1.0);

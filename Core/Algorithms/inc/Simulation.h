@@ -106,9 +106,6 @@ public:
 
     const DistributionHandler& getDistributionHandler() const;
 
-    //! returns wavelength if this is uniquely defined for the current simulation
-    virtual double getWavelength() const;
-
 #ifndef GCCXML_SKIP_THIS
     //! sets progress handler (used by GUI)
     void setProgressHandler(ProgressHandler_t progress) { m_progress = progress; }

@@ -107,6 +107,18 @@ struct InterferenceFunctionNone_wrapper : InterferenceFunctionNone, bp::wrapper<
         return IInterferenceFunction::getKappa( );
     }
 
+    virtual double getParticleDensity(  ) const  {
+        if( bp::override func_getParticleDensity = this->get_override( "getParticleDensity" ) )
+            return func_getParticleDensity(  );
+        else{
+            return this->IInterferenceFunction::getParticleDensity(  );
+        }
+    }
+    
+    double default_getParticleDensity(  ) const  {
+        return IInterferenceFunction::getParticleDensity( );
+    }
+
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
@@ -232,6 +244,17 @@ void register_InterferenceFunctionNone_class(){
                 "getKappa"
                 , getKappa_function_type(&::IInterferenceFunction::getKappa)
                 , default_getKappa_function_type(&InterferenceFunctionNone_wrapper::default_getKappa) );
+        
+        }
+        { //::IInterferenceFunction::getParticleDensity
+        
+            typedef double ( ::IInterferenceFunction::*getParticleDensity_function_type)(  ) const;
+            typedef double ( InterferenceFunctionNone_wrapper::*default_getParticleDensity_function_type)(  ) const;
+            
+            InterferenceFunctionNone_exposer.def( 
+                "getParticleDensity"
+                , getParticleDensity_function_type(&::IInterferenceFunction::getParticleDensity)
+                , default_getParticleDensity_function_type(&InterferenceFunctionNone_wrapper::default_getParticleDensity) );
         
         }
         { //::ISample::printSampleTree

@@ -16,7 +16,7 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInitial)
 
     EXPECT_EQ(BornAgain::ParticleLayoutType, particleDecoration.getName());
     EXPECT_EQ(size_t(0), particleDecoration.getNumberOfParticles());
-    EXPECT_EQ(size_t(0), particleDecoration.getNumberOfInterferenceFunctions());
+    EXPECT_EQ(nullptr, particleDecoration.getInterferenceFunction());
 }
 
 TEST_F(ParticleLayoutTest, ParticleLayoutInitByValue)
@@ -27,14 +27,14 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInitByValue)
 
     EXPECT_EQ(BornAgain::ParticleLayoutType, particleDecoration.getName());
     EXPECT_EQ(size_t(1), particleDecoration.getNumberOfParticles());
-    EXPECT_EQ(size_t(0), particleDecoration.getNumberOfInterferenceFunctions());
+    EXPECT_EQ(nullptr, particleDecoration.getInterferenceFunction());
 
 
     const IAbstractParticle * p_particle = particleDecoration.getParticle(size_t(0));
     EXPECT_TRUE(nullptr!=p_particle);
     EXPECT_EQ(2.0, particleDecoration.getAbundanceOfParticle(size_t(0)));
 
-    EXPECT_EQ(size_t(0), particleDecoration.getNumberOfInterferenceFunctions());
+    EXPECT_EQ(nullptr, particleDecoration.getInterferenceFunction());
 }
 
 TEST_F(ParticleLayoutTest, ParticleLayoutInitByRef)
@@ -45,7 +45,7 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInitByRef)
 
     EXPECT_EQ(BornAgain::ParticleLayoutType, particleDecoration.getName());
     EXPECT_EQ(size_t(1), particleDecoration.getNumberOfParticles());
-    EXPECT_EQ(size_t(0), particleDecoration.getNumberOfInterferenceFunctions());
+    EXPECT_EQ(nullptr, particleDecoration.getInterferenceFunction());
 
 
     const IAbstractParticle * p_particle = particleDecoration.getParticle(size_t(0));
@@ -135,9 +135,10 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
     Particle particle5(mat5);
     particleDecoration.addParticle(particle5, 0.0);
 
-    particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
-    particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
-    particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
+    InterferenceFunctionNone iff_none;
+    particleDecoration.addInterferenceFunction(iff_none);
+    particleDecoration.addInterferenceFunction(iff_none);
+    particleDecoration.addInterferenceFunction(iff_none);
 
     ParticleLayout * clone = particleDecoration.clone();
 
@@ -163,11 +164,7 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
     EXPECT_TRUE(nullptr!=p_particle5);
     EXPECT_EQ(0.0, particleDecoration.getAbundanceOfParticle(size_t(4)));
 
-    EXPECT_EQ(size_t(3), clone->getNumberOfInterferenceFunctions());
-    EXPECT_EQ(size_t(3), clone->getInterferenceFunctions().size());
-    EXPECT_TRUE(nullptr!=clone->getInterferenceFunction(size_t(0)));
-    EXPECT_TRUE(nullptr!=clone->getInterferenceFunction(size_t(1)));
-    EXPECT_TRUE(nullptr!=clone->getInterferenceFunction(size_t(2)));
+    EXPECT_TRUE(nullptr!=clone->getInterferenceFunction());
 }
 
 TEST_F(ParticleLayoutTest, ParticleLayoutCloneInvertB)
@@ -199,9 +196,8 @@ TEST_F(ParticleLayoutTest, ParticleLayoutCloneInvertB)
     Particle particle5(mat5);
     particleDecoration.addParticle(particle5, 0.0);
 
-    particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
-    particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
-    particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
+    InterferenceFunctionNone iff_none;
+    particleDecoration.addInterferenceFunction(iff_none);
 
     ParticleLayout * clone = particleDecoration.cloneInvertB();
 
@@ -227,26 +223,17 @@ TEST_F(ParticleLayoutTest, ParticleLayoutCloneInvertB)
     EXPECT_TRUE(nullptr!=p_particle5);
     EXPECT_EQ(0.0, particleDecoration.getAbundanceOfParticle(size_t(4)));
 
-    EXPECT_EQ(size_t(3), clone->getNumberOfInterferenceFunctions());
-    EXPECT_EQ(size_t(3), clone->getInterferenceFunctions().size());
-    EXPECT_TRUE(nullptr!=clone->getInterferenceFunction(size_t(0)));
-    EXPECT_TRUE(nullptr!=clone->getInterferenceFunction(size_t(1)));
-    EXPECT_TRUE(nullptr!=clone->getInterferenceFunction(size_t(2)));
+    EXPECT_TRUE(nullptr!=clone->getInterferenceFunction());
 }
 
 TEST_F(ParticleLayoutTest, ParticleLayoutInterferenceFunction)
 {
     ParticleLayout particleDecoration;
 
-    particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
-    particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
-    particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
+    InterferenceFunctionNone iff_none;
+    particleDecoration.addInterferenceFunction(iff_none);
 
-    EXPECT_EQ(size_t(3), particleDecoration.getNumberOfInterferenceFunctions());
-    EXPECT_EQ(size_t(3), particleDecoration.getInterferenceFunctions().size());
-    EXPECT_TRUE(nullptr!=particleDecoration.getInterferenceFunction(size_t(0)));
-    EXPECT_TRUE(nullptr!=particleDecoration.getInterferenceFunction(size_t(1)));
-    EXPECT_TRUE(nullptr!=particleDecoration.getInterferenceFunction(size_t(2)));
+    EXPECT_TRUE(nullptr!=particleDecoration.getInterferenceFunction());
 }
 
 #endif // PARTICLELAYOUTTEST_H

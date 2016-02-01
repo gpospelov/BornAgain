@@ -127,6 +127,15 @@ const std::string FTDistribution2DGateType = "FTDistribution2DGate";
 const std::string FTDistribution2DConeType = "FTDistribution2DCone";
 const std::string FTDistribution2DVoigtType = "FTDistribution2DVoigt";
 
+const std::string FTDecayFunction1DCauchyType = "FTDecayFunction1DCauchy";
+const std::string FTDecayFunction1DGaussType = "FTDecayFunction1DGauss";
+const std::string FTDecayFunction1DTriangleType = "FTDecayFunction1DTriangle";
+const std::string FTDecayFunction1DVoigtType = "FTDecayFunction1DVoigt";
+
+const std::string FTDecayFunction2DCauchyType = "FTDecayFunction2DCauchy";
+const std::string FTDecayFunction2DGaussType = "FTDecayFunction2DGauss";
+const std::string FTDecayFunction2DVoigtType = "FTDecayFunction2DVoigt";
+
 // Parameter names (dimensions, angles, ...)
 const std::string Abundance = "Abundance";
 const std::string PositionX = "PositionX";
@@ -162,6 +171,8 @@ const std::string ScaleParameter = "ScaleParameter";
 const std::string Sigma = "Sigma";
 const std::string Eta = "Eta";
 const std::string Omega = "Omega";
+const std::string OmegaX = "OmegaX";
+const std::string OmegaY = "OmegaY";
 const std::string CoherenceLengthX = "CoherenceLengthX";
 const std::string CoherenceLengthY = "CoherenceLengthY";
 const std::string SigmaX = "SigmaX";

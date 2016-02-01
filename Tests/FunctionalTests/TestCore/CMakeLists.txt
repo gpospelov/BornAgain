@@ -59,7 +59,6 @@ set(list_of_tests
     "CoreSuite/RectDetectorPerpToReflectedBeamDpos"
     "BatchSimulation"
     "PolDWBAMagCylinders2"
-    "CustomRotatedLattice"
 )
 
 

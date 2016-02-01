@@ -52,6 +52,7 @@ complex_t FormFactorDWBA::evaluate(const WavevectorInfo& wavevectors) const
 
 void FormFactorDWBA::calculateTerms(const WavevectorInfo& wavevectors) const
 {
+    double wavelength = wavevectors.getWavelength();
     // Retrieve the two different incoming wavevectors in the layer
     cvector_t k_i_T = wavevectors.getKi();
     k_i_T.setZ(-mp_in_coeffs->getScalarKz());
@@ -65,10 +66,10 @@ void FormFactorDWBA::calculateTerms(const WavevectorInfo& wavevectors) const
     k_f_R.setZ(-k_f_T.z());
 
     // Construct the four different scattering contributions wavevector infos
-    WavevectorInfo k_TT(k_i_T, k_f_T);
-    WavevectorInfo k_RT(k_i_R, k_f_T);
-    WavevectorInfo k_TR(k_i_T, k_f_R);
-    WavevectorInfo k_RR(k_i_R, k_f_R);
+    WavevectorInfo k_TT(k_i_T, k_f_T, wavelength);
+    WavevectorInfo k_RT(k_i_R, k_f_T, wavelength);
+    WavevectorInfo k_TR(k_i_T, k_f_R, wavelength);
+    WavevectorInfo k_RR(k_i_R, k_f_R, wavelength);
 
     // The four different scattering contributions; S stands for scattering
     // off the particle, R for reflection off the layer interface

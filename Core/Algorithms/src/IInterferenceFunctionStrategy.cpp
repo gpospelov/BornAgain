@@ -21,15 +21,16 @@
 #include <ScalarRTCoefficients.h>
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(SimulationParameters sim_params)
-    : m_sim_params(sim_params)
+    : mP_iff { nullptr }
+    , m_sim_params(sim_params)
 {
 }
 
 void IInterferenceFunctionStrategy::init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
-                                         const SafePointerVector<IInterferenceFunction> &ifs)
+                                         const IInterferenceFunction& iff)
 {
     m_ff_infos = form_factor_infos;
-    m_ifs = ifs;
+    mP_iff.reset(iff.clone());
 }
 
 void IInterferenceFunctionStrategy::setSpecularInfo(const LayerSpecularInfo &specular_info)
@@ -64,11 +65,12 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
     clearFormFactorLists();
 
     double wavelength = sim_element.getWavelength();
+    complex_t wavevector_scattering_factor = Units::PI/wavelength/wavelength;
     double alpha_i = sim_element.getAlphaI();
     double phi_i = sim_element.getPhiI();
     cvector_t k_i;
     k_i.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
-    WavevectorInfo wavevectors(k_i, Geometry::toComplexVector(sim_element.getMeanKF()));
+    WavevectorInfo wavevectors(k_i, Geometry::toComplexVector(sim_element.getMeanKF()), wavelength);
 
     boost::scoped_ptr<const ILayerRTCoefficients> P_in_coeffs(
         mP_specular_info->getInCoefficients(alpha_i, 0.0, wavelength));
@@ -78,7 +80,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
     while (it != m_ff_infos.end()) {
         (*it)->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
         complex_t ff_mat = (*it)->mp_ff->evaluate(wavevectors);
-        m_ff.push_back(ff_mat);
+        m_ff.push_back(wavevector_scattering_factor*ff_mat);
         ++it;
     }
 }
@@ -89,11 +91,12 @@ void IInterferenceFunctionStrategy::calculateFormFactorLists(
     clearFormFactorLists();
 
     double wavelength = sim_element.getWavelength();
+    complex_t wavevector_scattering_factor = Units::PI/wavelength/wavelength;
     double alpha_i = sim_element.getAlphaI();
     double phi_i = sim_element.getPhiI();
     cvector_t k_i;
     k_i.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
-    WavevectorInfo wavevectors(k_i, Geometry::toComplexVector(sim_element.getMeanKF()));
+    WavevectorInfo wavevectors(k_i, Geometry::toComplexVector(sim_element.getMeanKF()), wavelength);
 
     boost::scoped_ptr<const ILayerRTCoefficients> P_in_coeffs(
         mP_specular_info->getInCoefficients(alpha_i, phi_i, wavelength));
@@ -104,7 +107,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorLists(
     while (it != m_ff_infos.end()) {
         (*it)->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
         Eigen::Matrix2cd ff_mat = (*it)->mp_ff->evaluatePol(wavevectors);
-        m_ff_pol.push_back(ff_mat);
+        m_ff_pol.push_back(wavevector_scattering_factor*ff_mat);
         ++it;
     }
 }

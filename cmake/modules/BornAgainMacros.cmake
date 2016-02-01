@@ -28,7 +28,6 @@ endmacro()
 #   test_exe_name will be "CoreSuite",
 #   test_argument will be CylindersAndPrisms
 macro(GET_TEST_NAME_AND_ARGUMENT _test_string)
-
     unset(_test_exe_name)
     unset(_test_argument)
     string(REPLACE "/" ";"  test_info ${_test_string})
@@ -37,10 +36,8 @@ macro(GET_TEST_NAME_AND_ARGUMENT _test_string)
     if(len EQUAL 2)
         list(GET test_info 1 _test_argument)
     endif()
-
     set(test_exe_name ${_test_exe_name})
     set(test_argument ${_test_argument})
-
 endmacro()
 
 

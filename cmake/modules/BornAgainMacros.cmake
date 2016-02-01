@@ -1,14 +1,15 @@
-# --- Collection of scripts for BornAgain CMake infrastructure
+############################################################################
+#  Collection of macros/functions for BornAgain CMake infrastructure
+############################################################################
 
 
 # Returns the list of unique executables from the list of functional tests
 # Usage:
-# set(list_of_tests "exe1/arg1" "exe1/arg2" "exe1/arg3" "exe2" "exe4/arg1")
-# get_list_of_executables_from_list_of_tests("${list_of_tests}" ${list_of_executables})
-#
+#   set(list_of_tests "exe1/arg1" "exe1/arg2" "exe1/arg3" "exe2" "exe4/arg1")
+#   get_list_of_executables_from_list_of_tests("${list_of_tests}" ${list_of_executables})
 # Result:
-# list_of_executables will be "exe1;exe2;exe3;exe4"
-macro(get_list_of_executables_from_list_of_tests list_of_tests)
+#   list_of_executables will be "exe1;exe2;exe3;exe4"
+macro(GET_LIST_OF_EXECUTABLES_FROM_LIST_OF_TESTS list_of_tests)
     foreach(_test ${list_of_tests})
         string(REPLACE "/" ";"  test_info ${_test})
         list(GET test_info 0 test_exe_name)
@@ -21,11 +22,12 @@ endmacro()
 
 # Parse string containing test info into test name and test argument
 # Usage:
-# set(test_string "CoreSuite/CylindersAndPrisms")
-# get_test_name_and_argument(${test_string} ${test_exe_name} ${test_argument})
-#
-# Result: test_exe_name will be "CoreSuite", test_argument will be CylindersAndPrisms
-macro(get_test_name_and_argument _test_string)
+#   set(test_string "CoreSuite/CylindersAndPrisms")
+#   get_test_name_and_argument(${test_string} ${test_exe_name} ${test_argument})
+# Result:
+#   test_exe_name will be "CoreSuite",
+#   test_argument will be CylindersAndPrisms
+macro(GET_TEST_NAME_AND_ARGUMENT _test_string)
 
     unset(_test_exe_name)
     unset(_test_argument)
@@ -51,7 +53,7 @@ function(BORNAGAIN_EXECUTABLE executable)
     file(GLOB source_files ${ARG_LOCATIONS}/*.cpp)
 
     # making executable
-    if(${ARG_EXCLUDE_FROM_ALL}) 
+    if(${ARG_EXCLUDE_FROM_ALL})
         add_executable(${executable} EXCLUDE_FROM_ALL ${source_files} )
     else()
         add_executable(${executable} ${ARG_UNPARSED_ARGUMENTS} )
@@ -59,7 +61,7 @@ function(BORNAGAIN_EXECUTABLE executable)
     # linking libraries from the list
     foreach(_libname ${ARG_LIBRARIES})
         include_directories(${${_libname}_INCLUDE_DIRS})
-        target_link_libraries(${executable} ${_libname}) 
+        target_link_libraries(${executable} ${_libname})
     endforeach()
 endfunction()
 
@@ -78,7 +80,8 @@ function(BORNAGAIN_ADD_TEST test_name test_exe)
     add_dependencies(check ${test_exe})
 endfunction()
 
-
+# Reimplementation of native CMake function
+# (https://cmake.org/pipermail/cmake-developers/2011-June/013526.html)
 function (get_filename_component)
   _get_filename_component (${ARGN})
   list (GET ARGN 0 VAR)
@@ -211,10 +214,3 @@ print(s.get_config_var('LDVERSION') or s.get_config_var('VERSION'));
 #    set(ALT_PYTHON_VERSION_STRING ${ALT_PYTHON_VERSION_STRING} PARENT_SCOPE)
 #    set(ALT_PYTHON_INCLUDE_DIRS ${ALT_PYTHON_INCLUDE_DIRS} PARENT_SCOPE)
 endfunction()
-
-
-
-
-
-
-

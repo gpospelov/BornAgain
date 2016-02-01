@@ -25,8 +25,7 @@
 //! @ingroup interference
 //! @brief Interference function of radial paracrystal.
 
-class BA_CORE_API_ InterferenceFunctionRadialParaCrystal
-        : public IInterferenceFunction
+class BA_CORE_API_ InterferenceFunctionRadialParaCrystal : public IInterferenceFunction
 {
 public:
 

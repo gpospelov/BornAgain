@@ -27,11 +27,11 @@ as introduced in~(\ref{EFFhardshell}),
 \begin{equation}\label{EFF_SFF2}
   F(\q)=\int_V\!\d^3r\, \e^{i\q\r},
 \end{equation}
-where $V$ delimits the volume of the particle.
+where $V$ is the volume of the particle.
 Here we show for a few selected cases
 how to bring the analytical solution of this integral into a form
  suitable for speedy and stable computation.
-This background material probably is of interest only for
+This background material is of interest mostly for
 developers who want to add some more form factors to \BornAgain's collection
 (catalogued in App.~\ref{SFF}).
 
@@ -50,7 +50,7 @@ in order to prevent floating-point errors and ill conditioned computations.
 \index{Form factor!singularities}%
 It seems that \E{all} analytical form factors have a singularity at~$\q=0$.
 Furthermore, if the particle has \E{plane} surfaces,
-then there is a singularity for all $\q$ that lie in one of these planes.
+then there is a singularity for all $\q$ that are normal to one of these planes.
 A simple example is provided by the cuboid form factor (Sect.~\ref{SBox})
 \begin{equation}
 F= L W H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x \frac{L}{2}\right)

@@ -265,19 +265,3 @@ complex_t MathFunctions::crbond_bessel_J1(const complex_t &z)
         cj1 = -cj1;
     return cj1;
 }
-
-complex_t MathFunctions::geometricSum(complex_t z, int exponent)
-{
-    if (exponent < 1) {
-        throw LogicErrorException("MathFunctions::geometricSeries:"
-                                  " exponent should be > 0");
-    }
-    complex_t result(0.0, 0.0);
-    double nd = (double)exponent;
-    --exponent;
-    while (exponent > 0) {
-        result += std::pow(z, exponent) * (nd - exponent);
-        --exponent;
-    }
-    return result;
-}

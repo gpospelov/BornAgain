@@ -142,9 +142,6 @@ BA_CORE_API_ complex_t crbond_bessel_J0(const complex_t &value);
 //! complex bessel J1 function (modified version of C. Bond, see explanations in MathFunctions.cpp)
 BA_CORE_API_ complex_t crbond_bessel_J1(const complex_t &value);
 
-//! Calculates the geometric series of z to order N
-complex_t geometricSum(complex_t z, int exponent);
-
 } // Namespace MathFunctions
 
 inline double MathFunctions::GenerateNormalRandom(double average, double std_dev)

@@ -227,7 +227,7 @@ void register_InterferenceFunctionRadialParaCrystal_class(){
             InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "getDomainSize"
                 , getDomainSize_function_type( &::InterferenceFunctionRadialParaCrystal::getDomainSize )
-                , "Gets size of coherence domain.\n\n:Parameters:\n  - 'size:' - size in lattice direction\n" );
+                , "Gets size of coherence domain." );
         
         }
         { //::InterferenceFunctionRadialParaCrystal::getKappa

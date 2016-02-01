@@ -202,24 +202,25 @@ double InterferenceFunction2DParaCrystal::interference1D(double qx, double qy,
     if (n<1) {
         result = ((1.0 + fp)/(1.0 - fp)).real();
     } else {
-        if (std::abs(1.0-fp) < Numeric::double_epsilon ) {
+        if (std::norm(1.0-fp) < Numeric::double_epsilon ) {
             result = nd;
         }
+        // for (1-fp)*nd small, take the series expansion to second order in nd*(1-fp)
         else if (std::abs(1.0-fp)*nd < 2e-4) {
-            double intermediate = MathFunctions::geometricSum(fp, n).real()/nd;
-            result = 1.0 + 2.0*intermediate;
+            complex_t intermediate = (nd-1.0)/2.0 + (nd*nd-1.0)*(fp-1.0)/6.0
+                    + (nd*nd*nd-2.0*nd*nd-nd+2.0)*(fp-1.0)*(fp-1.0)/24.0;
+            result = 1.0 + 2.0*intermediate.real();
         }
         else {
             complex_t tmp;
-            double double_min = std::numeric_limits<double>::min();
-            if (std::log(std::abs(fp)+double_min)*nd < std::log(double_min)) {
-                tmp = complex_t(0.0, 0.0);
-            } else {
-            tmp = std::pow(fp,n-1);
-            }
-            double intermediate = ((1.0-1.0/nd)*fp/(1.0-fp)
-                    - fp*fp*(1.0-tmp)/nd/(1.0-fp)/(1.0-fp)).real();
-            result = 1.0 + 2.0*intermediate;
+            if (std::abs(fp)==0.0
+             || std::log(std::abs(fp))*nd < std::log(std::numeric_limits<double>::min())) {
+                            tmp = complex_t(0.0, 0.0);
+                        } else {
+                            tmp = std::pow(fp,n);
+                        }
+            complex_t intermediate = fp/(1.0-fp) - fp*(1.0-tmp)/nd/(1.0-fp)/(1.0-fp);
+            result = 1.0 + 2.0*intermediate.real();
         }
     }
     return result;

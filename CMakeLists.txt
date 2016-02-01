@@ -1,5 +1,5 @@
 ###########################################################################
-# CMakeLists.txt file for building BornAgain framework
+# top-level CMakeLists.txt for building BornAgain
 ############################################################################
 
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
@@ -58,4 +58,3 @@ add_subdirectory(cmake) # trick to print the message
 
 # packaging
 include(BornAgainCPack)
-

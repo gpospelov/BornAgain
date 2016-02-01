@@ -70,11 +70,13 @@ void ParticleLayoutItem::onChildPropertyChange()
     for (auto child_item : childItems()) {
         if (child_item->modelType() == Constants::InterferenceFunction2DParaCrystalType
             || child_item->modelType() == Constants::InterferenceFunction2DLatticeType) {
-            setPropertyAppearance(P_TOTAL_DENSITY, PropertyAttribute::DISABLED);
+            getPropertyAttribute(P_TOTAL_DENSITY).setDisabled();
+            emit propertyChanged(P_TOTAL_DENSITY);
             ParameterizedItem::onChildPropertyChange();
             return;
         }
     }
-    setPropertyAppearance(P_TOTAL_DENSITY, PropertyAttribute::VISIBLE);
+    getPropertyAttribute(P_TOTAL_DENSITY).setVisible();
+    emit propertyChanged(P_TOTAL_DENSITY);
     ParameterizedItem::onChildPropertyChange();
 }

@@ -21,7 +21,6 @@
 #include <stdexcept>
 #include <fftw3.h>
 #include <gsl/gsl_sf_erf.h>
-#include <gsl/gsl_randist.h>
 #include "gsl/gsl_sf_bessel.h"
 #include "gsl/gsl_sf_trig.h"
 #include "gsl/gsl_sf_expint.h"
@@ -56,14 +55,6 @@ double MathFunctions::Si(double x)  // int_0^x du Sin(u)/u
     return gsl_sf_Si(x);
 }
 
-double MathFunctions::GenerateStandardNormalRandom() // using c++11 standard library
-{
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::default_random_engine generator(seed);
-    std::normal_distribution<double> distribution(0.0, 1.0);
-    return distribution(generator);
-}
-
 double MathFunctions::sinc(double x)  // Sin(x)/x
 {
     return gsl_sf_sinc(x/Units::PI);
@@ -95,23 +86,6 @@ complex_t MathFunctions::Laue(const complex_t z, size_t N) // Exp(iNx/2)*Sin((N+
         return N+1.0;
     return std::exp(complex_t(0.0, 1.0)*z*(double)N/2.0)*std::sin(z*(N+1.0)/2.0)/std::sin(z/2.0);
 }
-
-complex_t MathFunctions::geometricSum(complex_t z, int exponent)
-{
-    if (exponent < 1) {
-        throw LogicErrorException("MathFunctions::geometricSeries:"
-                                  " exponent should be > 0");
-    }
-    complex_t result(0.0, 0.0);
-    double nd = (double)exponent;
-    --exponent;
-    while (exponent > 0) {
-        result += std::pow(z, exponent) * (nd - exponent);
-        --exponent;
-    }
-    return result;
-}
-
 
 // ************************************************************************** //
 //  Bessel functions
@@ -406,11 +380,10 @@ double MathFunctions::GenerateNormalRandom(double average, double std_dev)
     return GenerateStandardNormalRandom()*std_dev + average;
 }
 
-double MathFunctions::GenerateStandardNormalRandom() // using GSL
+double MathFunctions::GenerateStandardNormalRandom() // using c++11 standard library
 {
-    gsl_rng *r;
-    r = gsl_rng_alloc(gsl_rng_ranlxs2);
-    double result = gsl_ran_ugaussian(r);
-    gsl_rng_free(r);
-    return result;
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine generator(seed);
+    std::normal_distribution<double> distribution(0.0, 1.0);
+    return distribution(generator);
 }

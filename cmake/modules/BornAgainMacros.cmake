@@ -3,7 +3,7 @@
 ############################################################################
 
 
-# Returns the list of unique executables from the list of functional tests
+# Returns a list of unique executables from a list of functional tests
 # Usage:
 #   set(list_of_tests "exe1/arg1" "exe1/arg2" "exe1/arg3" "exe2" "exe4/arg1")
 #   get_list_of_executables_from_list_of_tests("${list_of_tests}" ${list_of_executables})
@@ -45,7 +45,7 @@ endmacro()
 # add executable (ARG, options, one_value_keyword, multi_value_keywoard arguments (aka ${ARG_UNPARSED_ARGUMENTS})
 # -----------------------------------------------------------------------------
 function(BORNAGAIN_EXECUTABLE executable)
-    CMAKE_PARSE_ARGUMENTS(ARG "EXCLUDE_FROM_ALL" "" "LIBRARIES;LOCATIONS" "" ${ARGN})
+    cmake_parse_arguments(ARG "EXCLUDE_FROM_ALL" "" "LIBRARIES;LOCATIONS" "" ${ARGN})
     # retrieving source list
     file(GLOB source_files ${ARG_LOCATIONS}/*.cpp)
 
@@ -73,12 +73,12 @@ endfunction()
 # -----------------------------------------------------------------------------
 function(BORNAGAIN_ADD_TEST test_name test_exe)
     cmake_parse_arguments(ARG "" "TEST_ARGUMENTS" "" "" ${ARGN})
-    add_test( ${test_name}  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test_exe} "${ARG_TEST_ARGUMENTS}") # TestName ExeName
+    add_test(${test_name} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test_exe} "${ARG_TEST_ARGUMENTS}")
     add_dependencies(check ${test_exe})
 endfunction()
 
 # Reimplementation of native CMake function
-# (https://cmake.org/pipermail/cmake-developers/2011-June/013526.html)
+# (correct handling of leading dot, https://cmake.org/pipermail/cmake-developers/2011-June/013526.html)
 function (get_filename_component)
     _get_filename_component (${ARGN})
     list (GET ARGN 0 VAR)
@@ -95,7 +95,7 @@ function (get_filename_component)
 endfunction ()
 
 
-function(ValidatePythonIntstallation)
+function(ValidatePythonInstallation)
     message(STATUS "--> Validating Python installation corresponding to the interpreter ${PYTHON_EXECUTABLE}")
 
     execute_process(COMMAND "${PYTHON_EXECUTABLE}" "-c"

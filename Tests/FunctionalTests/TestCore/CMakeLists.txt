@@ -15,6 +15,9 @@ if(MSVC)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHsc ")
 endif()
 
+# The entries in the following 'list_of_tests' are NOT path names.
+# They have a special semantics 'executable[/argument]' understood by the macros
+# GET_LIST_OF_EXECUTABLES_FROM_LIST_OF_TESTS and GET_TEST_NAME_AND_ARGUMENT.
 set(list_of_tests
     "CoreSuite/FormFactors"
     "CoreSuite/CylindersAndPrisms"

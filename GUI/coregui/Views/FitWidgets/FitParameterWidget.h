@@ -32,39 +32,61 @@ class FitModel;
 class ParameterizedItem;
 class FitParameterModel;
 class QItemSelection;
-
+class QSplitter;
+class KeyboardFilter;
 
 class BA_CORE_API_ FitParameterWidget : public QWidget
 {
     Q_OBJECT
 
 public:
+    static const QString MIME_TYPE;
     FitParameterWidget(SampleModel *sampleModel, InstrumentModel *instrumentModel,
                        FitModel *fitModel, QWidget *parent = 0);
-    void addParameter();
-    FitSelectorModel *buildSelectorModel();
-
 public slots:
-    void updateParameters();
-    void expandFitPara();
-    void onCustomContextMenu(const QPoint &point);
-    void removeParameter();
-    void onDataChanged(const QModelIndex &left, const QModelIndex &right);
-    void onSelectionChanged(const QItemSelection&se, const QItemSelection&);
+    void updateSelector();
+    void spanParameters();
+    void removeSelectedItem();
 
-    void onSelectionChanged2(const QItemSelection &se);
+    void onCustomContextMenu(const QPoint &point);
+    void onRemoveParameter();
+
+    void onParameterSelectionChanged(const QItemSelection&selection);
+    void onSelectorSelectionChanged(const QItemSelection &selection);
+
+    void onDoubleclick(const QModelIndex index);
+
 private:
-    QTreeView *m_treeview;
-    QTreeView *m_fitpara;
-    FitParameterModel *m_model;
-    QMenu *m_contextMenu;
-    QAction *m_remove;
-    QAction *m_add;
-    int m_parameter_count;
+    void buildSelectorModel();
+    void connectSelectorView(bool active = true);
+    void connectParameterView(bool active = true);
+
+    FitModel *m_fitModel;
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
-    FitModel *m_fitModel;
-    FitSelectorModel *m_selector;
+    QTreeView *m_selectorTreeView;
+    QTreeView *m_parameterTreeview;
+    FitSelectorModel *m_selectorModel;
+    FitParameterModel *m_parameterModel;
+    QMenu *m_contextMenu;
+    QAction *m_removeAction;
+    QAction *m_addAction;
+    QSplitter *m_splitter;
+    KeyboardFilter *m_keyboardFilter;
+};
+
+
+class KeyboardFilter : public QObject
+{
+    Q_OBJECT
+public:
+  KeyboardFilter( QObject *parent = 0 ) : QObject( parent ) {}
+
+protected:
+  bool eventFilter( QObject *dist, QEvent *event );
+
+signals:
+  void removeItem();
 };
 
 
@@ -77,6 +99,8 @@ class BA_CORE_API_ FitSelectorModel : public QStandardItemModel
 
 public:
     QMimeData *mimeData(const QModelIndexList &indexes) const;
+    QString getPathFromIndex(const QModelIndex &index) const;
+    QStandardItem *getItemFromPath(const QString &path);
 };
 
 
@@ -90,19 +114,23 @@ class BA_CORE_API_ FitParameterModel : public SessionModel
 public:
     explicit FitParameterModel(FitModel *fitmodel, QWidget *parent);
     ~FitParameterModel();
+    QModelIndex itemForLink(const QString &link) const;
+
     Qt::ItemFlags flags(const QModelIndex & index) const Q_DECL_OVERRIDE;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
-    bool setData(const QModelIndex &index, const QVariant &value, int role);
-    QStringList mimeTypes() const;
-    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+    bool setData(const QModelIndex &index, const QVariant &value, int role) Q_DECL_OVERRIDE;
+    QStringList mimeTypes() const Q_DECL_OVERRIDE;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const Q_DECL_OVERRIDE;
     bool canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column,
-                             const QModelIndex &parent) const;
+                             const QModelIndex &parent) const Q_DECL_OVERRIDE;
     bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent);
-    Qt::DropActions supportedDropActions() const;
+    Qt::DropActions supportedDropActions() const Q_DECL_OVERRIDE;
+
 public slots:
-    void addParameter();
+    ParameterizedItem *addParameter();
+
 private:
-    FitModel *m_fitmodel;
+    QMap<int, QString> *m_columnNames;
 };
 
 #endif

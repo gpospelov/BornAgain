@@ -47,12 +47,6 @@ FitView::FitView(MainWindow *mainWindow)
     // FitModel is constructed here, should be moved to mainwindow in sometime
     FitModel *fitmodel = new FitModel(this);
     auto fitsettings = fitmodel->insertNewItem(Constants::FitParameterContainerType, QModelIndex());
-    auto parameter = fitmodel->insertNewItem(Constants::FitParameterType,
-                                             fitmodel->indexOfItem(fitsettings));
-    auto parameter2 = fitmodel->insertNewItem(Constants::FitParameterType,
-                                             fitmodel->indexOfItem(fitsettings));
-    fitmodel->insertNewItem(Constants::FitParameterType,
-                                                 fitmodel->indexOfItem(fitsettings));
     FitParameterWidget *fitting = new FitParameterWidget(mainWindow->getSampleModel(),
                                                          mainWindow->getInstrumentModel(),
                                                          fitmodel, this);

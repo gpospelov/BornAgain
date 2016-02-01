@@ -22,18 +22,18 @@ FitParameterContainer::FitParameterContainer(ParameterizedItem *parent)
 }
 
 
-const QString FitParameterItem::P_USE = "use";
-const QString FitParameterItem::P_INIT = "init";
-const QString FitParameterItem::P_MIN = "min";
-const QString FitParameterItem::P_MAX = "max";
+const QString FitParameterItem::P_USE = "Use";
+const QString FitParameterItem::P_INIT = "Init";
+const QString FitParameterItem::P_MIN = "Min";
+const QString FitParameterItem::P_MAX = "Max";
 
 FitParameterItem::FitParameterItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::FitParameterType, parent)
 {
-    registerProperty(P_USE, false);
-    registerProperty(P_INIT, 5.0);
+    registerProperty(P_USE, true);
+    registerProperty(P_INIT, 0.0);
     registerProperty(P_MIN, 0.0);
-    registerProperty(P_MAX, 10.0);
+    registerProperty(P_MAX, 0.0);
     addToValidChildren(Constants::FitParameterLinkType);
 }
 

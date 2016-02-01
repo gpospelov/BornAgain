@@ -56,6 +56,11 @@ set(list_of_tests
     "GUISuite/BoxCompositionRotateZandY"
     "GUISuite/BoxStackComposition"
     "GUISuite/SimulationWithMasks"
+    "GUISuite/RectDetectorGeneric"
+    "GUISuite/RectDetectorPerpToSample"
+    "GUISuite/RectDetectorPerpToDirectBeam"
+    "GUISuite/RectDetectorPerpToReflectedBeam"
+    "GUISuite/RectDetectorPerpToReflectedBeamDpos"
 )
 
 # Adding executables.

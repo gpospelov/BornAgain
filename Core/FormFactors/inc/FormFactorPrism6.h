@@ -46,7 +46,6 @@ protected:
 private:
     double m_height;
     double m_radius;
-    double m_root3; // Cached value of square root of 3
 };
 
 inline double FormFactorPrism6::getHeight() const
@@ -60,5 +59,3 @@ inline double FormFactorPrism6::getRadius() const
 }
 
 #endif // FORMFACTORPRISM6_H
-
-

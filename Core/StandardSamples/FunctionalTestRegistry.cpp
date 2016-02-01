@@ -274,10 +274,49 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         1e-10);
 
+    // Masking
+
     add("SimulationWithMasks",
         "Various masks are added to the simulation",
         "GISASWithMasks",
         "CylindersAndPrismsBuilder",
+        "None",
+        1e-10);
+
+    // Various rectangular detector alignment
+
+    add("RectDetectorGeneric",
+        "Various masks are added to the simulation",
+        "RectDetectorGeneric",
+        "CylindersInBABuilder",
+        "None",
+        1e-10);
+
+    add("RectDetectorPerpToSample",
+        "Various masks are added to the simulation",
+        "RectDetectorPerpToSample",
+        "CylindersInBABuilder",
+        "None",
+        1e-10);
+
+    add("RectDetectorPerpToDirectBeam",
+        "Various masks are added to the simulation",
+        "RectDetectorPerpToDirectBeam",
+        "CylindersInBABuilder",
+        "None",
+        1e-10);
+
+    add("RectDetectorPerpToReflectedBeam",
+        "Various masks are added to the simulation",
+        "RectDetectorPerpToReflectedBeam",
+        "CylindersInBABuilder",
+        "None",
+        1e-10);
+
+    add("RectDetectorPerpToReflectedBeamDpos",
+        "Various masks are added to the simulation",
+        "RectDetectorPerpToReflectedBeamDpos",
+        "CylindersInBABuilder",
         "None",
         1e-10);
 

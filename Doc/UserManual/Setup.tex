@@ -7,7 +7,7 @@
 %%   copyright:  Forschungszentrum Jülich GmbH 2015
 %%
 %%   license:    Creative Commons CC-BY-SA
-%%   
+%%
 %%   authors:    Scientific Computing Group at MLZ Garching
 %%               C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 %%
@@ -53,12 +53,19 @@
 \usepackage{dingbat}
 \usepackage{amssymb}
 
-\usepackage[bold-style=ISO]{unicode-math} % must come after ams and symbols
+% BROKEN under texlive2015:
+% \usepackage[bold-style=ISO]{unicode-math} % must come after ams and symbols
+% WORKAROUND:
+\def\mathup#1{\text{#1}}
+
+
 % prevent unicode-math from overwriting
+
+
 \AtBeginDocument{\renewcommand{\Re}{\operatorname{Re}}}
 \AtBeginDocument{\renewcommand{\Im}{\operatorname{Im}}}
 
-% Math operators 
+% Math operators
 \DeclareMathOperator{\sinc}{sinc}
 
 %-------------------------------------------------------------------------------
@@ -136,7 +143,7 @@
 \makenomenclature
 \renewcommand{\nomname}{List of Symbols}
   % see nomencl.txt for how to force the ordering of symbols
-  
+
 %-------------------------------------------------------------------------------
 %  Improve LaTeX basics
 %-------------------------------------------------------------------------------
@@ -167,7 +174,7 @@
 %-------------------------------------------------------------------------------
 
 \usepackage{tikz}
-%\usepackage{tikz-uml} 
+%\usepackage{tikz-uml}
 \usetikzlibrary{trees,matrix,positioning,decorations.pathreplacing,calc}
 
 \newcommand{\ntikzmark}[2]
@@ -240,13 +247,13 @@
 \def\MissingSection{\begin{boxWork}\ldots\ to be written \ldots\end{boxWork}}
 
 % % OLD STYLE:
-%   
+%
 % \newcommand{\BareRemark}[1]%
 % {\noindent\smallpencil\colorbox{blue!10}%
 % {\parbox{\dimexpr\linewidth-8\fboxsep}{#1}}}
-% 
+%
 % \newcommand{\MakeRemark}[2]{\BareRemark{\underline{#1} #2 }}
-% 
+%
 % \newcommand{\ImportantPoint}[2]
 % {\noindent
 %   {\huge\danger}\colorbox{magenta!40}{\parbox{\dimexpr\linewidth-8\fboxsep}

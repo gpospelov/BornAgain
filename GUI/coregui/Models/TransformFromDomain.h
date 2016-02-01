@@ -39,6 +39,9 @@ class ParameterDistribution;
 class DistributionItem;
 class IDistribution1D;
 class DetectorItem;
+class RectangularDetectorItem;
+class SphericalDetector;
+class RectangularDetector;
 
 namespace TransformFromDomain
 {
@@ -71,12 +74,23 @@ BA_CORE_API_ bool isHexagonalLattice(double length1, double length2, double angl
 
 BA_CORE_API_ void setItemFromSample(BeamItem *beamItem, const GISASSimulation &simulation);
 
-BA_CORE_API_ void setItemFromSample(SphericalDetectorItem *detectorItem,
+BA_CORE_API_ void setItemFromSample(DetectorItem *detectorItem,
                                     const GISASSimulation &simulation);
+
+BA_CORE_API_ void setItemFromSample(SphericalDetectorItem *detectorItem,
+                                    const SphericalDetector &detector);
+
+BA_CORE_API_ void setItemFromSample(RectangularDetectorItem *detectorItem,
+                                    const RectangularDetector &detector);
+
 BA_CORE_API_ void setDetectorMasks(DetectorItem *detectorItem, const GISASSimulation &simulation);
 
 BA_CORE_API_ void setItemFromSample(BeamDistributionItem *beamDistributionItem,
                                     const ParameterDistribution &parameterDistribution);
+
+BA_CORE_API_ void setItemFromSample(BeamDistributionItem *beamDistributionItem,
+                                    const ParameterDistribution &parameterDistribution);
+
 
 BA_CORE_API_ QString translateParameterNameToGUI(ParameterizedItem *item, const QString &par_name);
 }

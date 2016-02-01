@@ -19,6 +19,7 @@
 #include "ComboProperty.h"
 #include "RectangularDetector.h"
 #include "ResolutionFunctionItems.h"
+#include "GUIHelpers.h"
 #include <QDebug>
 
 namespace {
@@ -185,6 +186,19 @@ std::unique_ptr<IResolutionFunction2D> RectangularDetectorItem::createResolution
     return std::move(result);
 }
 
+void RectangularDetectorItem::setDetectorAlignment(const QString &alignment)
+{
+    ComboProperty combo_property
+        = getRegisteredProperty(RectangularDetectorItem::P_ALIGNMENT).value<ComboProperty>();
+
+    if(!combo_property.getValues().contains(alignment)) {
+        throw GUIHelpers::Error("RectangularDetectorItem::setDetectorAlignment -> Unexpected alignment");
+    }
+    combo_property.setValue(alignment);
+    setRegisteredProperty(RectangularDetectorItem::P_ALIGNMENT, combo_property.getVariant());
+
+}
+
 //! updates property tooltips and visibility flags, depending from type of alignment selected
 void RectangularDetectorItem::update_properties_appearance()
 {
@@ -203,15 +217,15 @@ void RectangularDetectorItem::update_properties_appearance()
         getPropertyAttribute(P_U0).setVisible().setToolTip(tooltip_u0);
         getPropertyAttribute(P_V0).setVisible().setToolTip(tooltip_v0);
 
-    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_DIRECT_BEAM) {
-        getPropertyAttribute(P_DISTANCE).setVisible();
-        getPropertyAttribute(P_DBEAM_U0).setVisible();
-        getPropertyAttribute(P_DBEAM_V0).setVisible();
-
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_SAMPLE) {
         getPropertyAttribute(P_DISTANCE).setVisible();
         getPropertyAttribute(P_U0).setVisible().setToolTip(tooltip_samplex_u0);
         getPropertyAttribute(P_V0).setVisible().setToolTip(tooltip_samplex_v0);
+
+    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_DIRECT_BEAM) {
+        getPropertyAttribute(P_DISTANCE).setVisible();
+        getPropertyAttribute(P_DBEAM_U0).setVisible();
+        getPropertyAttribute(P_DBEAM_V0).setVisible();
 
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM) {
         getPropertyAttribute(P_DISTANCE).setVisible();

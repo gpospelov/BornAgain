@@ -13,13 +13,6 @@
 //
 // ************************************************************************** //
 
-#include <boost/scoped_ptr.hpp>
-#include <sstream>
-#include <fstream>
-#include <iostream>
-#include <iomanip>
-#include <cstdio>
-#include <Python.h>
 #include "Macros.h"
 GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_OFF(unused-parameter)
@@ -39,6 +32,13 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "Polygon.h"
 #include "InfinitePlane.h"
 #include "BAPython.h"
+#include <boost/scoped_ptr.hpp>
+#include <sstream>
+#include <fstream>
+#include <iostream>
+#include <iomanip>
+#include <cstdio>
+#include <Python.h>
 
 std::string PyGenTools::genPyScript(GISASSimulation *simulation)
 {
@@ -275,3 +275,22 @@ std::string PyGenTools::getRepresentation(const std::string &indent, const Geome
     return result.str();
 }
 
+
+
+std::string PyGenTools::printKvector(const kvector_t &value)
+{
+    std::ostringstream result;
+    result << "kvector_t(" << PyGenTools::printDouble(value.x()) << ", "
+           << PyGenTools::printDouble(value.y()) << ", "
+           << PyGenTools::printDouble(value.z()) << ")";
+    return result.str();
+}
+
+//! returns true if it is (0, -1, 0) vector
+bool PyGenTools::isDefaultDirection(const kvector_t &direction)
+{
+    if(Numeric::areAlmostEqual(0.0, direction.x()) &&
+       Numeric::areAlmostEqual(-1.0, direction.y()) &&
+       Numeric::areAlmostEqual(0.0, direction.z())) return true;
+    return false;
+}

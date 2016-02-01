@@ -46,6 +46,7 @@ class SampleModel;
 class FitView;
 class JobModel;
 class UpdateNotifier;
+class FitModel;
 
 class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
 {
@@ -61,6 +62,7 @@ public:
     InstrumentModel *getInstrumentModel() { return m_instrumentModel; }
     SampleModel *getSampleModel() { return m_sampleModel; }
     JobModel *getJobModel() { return m_jobModel; }
+    FitModel *getFitModel() { return m_fitModel; }
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
     ActionManager *getActionManager() { return m_actionManager; }
     ProjectManager *getProjectManager() { return m_projectManager; }
@@ -98,6 +100,7 @@ private:
     SampleModel *m_sampleModel; //!< model for all samples
     InstrumentModel *m_instrumentModel; //!< model for all instruments
     MaterialModel *m_materialModel; //!< model for all materials
+    FitModel *m_fitModel; //!< model for fitting
     MaterialEditor *m_materialEditor;
     ToolTipDataBase *m_toolTipDataBase;
     UpdateNotifier *m_updateNotifier;

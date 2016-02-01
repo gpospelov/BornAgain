@@ -118,6 +118,7 @@ const ModelType MagneticFieldType = "MagneticField";
 const ModelType FitParameterContainerType = "FitParameterContainer";
 const ModelType FitParameterType = "FitParameter";
 const ModelType FitParameterLinkType = "FitParameterLink";
+const ModelType FitSelectionType = "FitSelection";
 
 const ModelType JobItemType = "JobItem";
 const ModelType IntensityDataType = "IntensityData";

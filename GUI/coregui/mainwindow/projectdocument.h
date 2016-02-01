@@ -28,6 +28,7 @@ class InstrumentModel;
 class MaterialModel;
 class SampleModel;
 class JobModel;
+class FitModel;
 class QXmlStreamReader;
 class WarningMessageService;
 
@@ -76,6 +77,7 @@ public:
     void setInstrumentModel(InstrumentModel *instrumentModel);
     void setSampleModel(SampleModel *sampleModel);
     void setJobModel(JobModel *jobModel);
+    void setFitModel(FitModel *fitModel);
 
     bool save();
     bool load(const QString &project_file_name);
@@ -122,6 +124,7 @@ private:
     InstrumentModel *m_instrumentModel;
     SampleModel *m_sampleModel;
     JobModel *m_jobModel;
+    FitModel *m_fitModel;
     bool m_modified;
     EDocumentStatus m_documentStatus;
     WarningMessageService *m_messageService;

@@ -16,6 +16,10 @@
 #define FITMODEL_H
 
 #include "SessionModel.h"
+#include <QVector>
+
+class QModelIndex;
+
 
 class BA_CORE_API_ FitModel : public SessionModel
 {
@@ -24,6 +28,9 @@ class BA_CORE_API_ FitModel : public SessionModel
 public:
     explicit FitModel(QObject *parent = 0);
 
+public slots:
+    void dataChangedProxy(const QModelIndex &topLeft, const QModelIndex &bottomRight,
+                          const QVector<int> &roles = QVector<int> ());
 };
 
 #endif

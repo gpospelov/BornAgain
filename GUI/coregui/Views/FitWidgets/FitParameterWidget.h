@@ -43,6 +43,7 @@ public:
     static const QString MIME_TYPE;
     FitParameterWidget(SampleModel *sampleModel, InstrumentModel *instrumentModel,
                        FitModel *fitModel, QWidget *parent = 0);
+    void showEvent(QShowEvent *);
 public slots:
     void updateSelector();
     void spanParameters();

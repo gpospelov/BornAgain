@@ -39,11 +39,22 @@ FitParameterItem::FitParameterItem(ParameterizedItem *parent)
 
 
 
-const QString FitParameterLinkItem::P_LINK = "link";
+const QString FitParameterLinkItem::P_LINK = "Link";
 
 FitParameterLinkItem::FitParameterLinkItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::FitParameterLinkType, parent)
 {
     registerProperty(P_LINK, "");
+}
+
+
+const QString FitSelectionItem::P_SAMPLE_INDEX = "Sample Index";
+const QString FitSelectionItem::P_INSTRUMENT_INDEX = "Instrument Index";
+
+FitSelectionItem::FitSelectionItem(ParameterizedItem *parent)
+    : ParameterizedItem(Constants::FitSelectionType, parent)
+{
+    registerProperty(P_SAMPLE_INDEX, -1);
+    registerProperty(P_INSTRUMENT_INDEX, -1);
 }
 

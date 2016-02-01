@@ -44,4 +44,14 @@ public:
     explicit FitParameterLinkItem(ParameterizedItem *parent=0);
 };
 
+
+class BA_CORE_API_ FitSelectionItem : public ParameterizedItem
+{
+    Q_OBJECT
+public:
+    static const QString P_SAMPLE_INDEX;
+    static const QString P_INSTRUMENT_INDEX;
+    explicit FitSelectionItem(ParameterizedItem *parent=0);
+};
+
 #endif

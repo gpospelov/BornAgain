@@ -60,6 +60,7 @@
 #include "TestView.h"
 #include "GUIHelpers.h"
 #include "UpdateNotifier.h"
+#include "FitModel.h"
 
 #include <boost/scoped_ptr.hpp>
 
@@ -87,6 +88,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_sampleModel(0)
     , m_instrumentModel(0)
     , m_materialModel(0)
+    , m_fitModel(0)
     , m_materialEditor(0)
     , m_toolTipDataBase(new ToolTipDataBase(this))
     , m_updateNotifier(new UpdateNotifier(this))
@@ -250,6 +252,8 @@ void MainWindow::createModels()
 
     createJobModel();
 
+    createFitModel();
+
     resetModels();
 }
 
@@ -286,6 +290,12 @@ void MainWindow::createInstrumentModel()
     m_instrumentModel->setIconProvider(new IconProvider());
 }
 
+void MainWindow::createFitModel()
+{
+    delete m_fitModel;
+    m_fitModel = new FitModel(this);
+}
+
 //! reset all models to initial state
 void MainWindow::resetModels()
 {
@@ -304,6 +314,10 @@ void MainWindow::resetModels()
     instrument->setItemName("Default GISAS");
     m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
     m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
+
+    m_fitModel->clear();
+    m_fitModel->insertNewItem(Constants::FitParameterContainerType, QModelIndex());
+    m_fitModel->insertNewItem(Constants::FitSelectionType, QModelIndex());
 }
 
 void MainWindow::testGUIObjectBuilder()

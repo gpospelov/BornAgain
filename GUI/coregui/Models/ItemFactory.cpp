@@ -170,6 +170,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::FitParameterContainerType] = &createInstance<FitParameterContainer>;
     result[Constants::FitParameterType] = &createInstance<FitParameterItem>;
     result[Constants::FitParameterLinkType] = &createInstance<FitParameterLinkItem>;
+    result[Constants::FitSelectionType] = &createInstance<FitSelectionItem>;
 
     return result;
 }

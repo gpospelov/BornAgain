@@ -92,8 +92,11 @@ FitParameterWidget::FitParameterWidget(SampleModel *sampleModel, InstrumentModel
     updateSelector();
 
     // update selector when sample model changes - more jobs to be done here
-    connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
-            this, SLOT(updateSelector()));
+    //connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
+    //        this, SLOT(updateSelector()));
+
+    connect(m_parameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
+            m_fitModel, SLOT(dataChangedProxy(QModelIndex,QModelIndex,QVector<int>)));
 
     // setup firstcolumnspanning
     connect(m_parameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
@@ -113,6 +116,11 @@ FitParameterWidget::FitParameterWidget(SampleModel *sampleModel, InstrumentModel
     connectSelectorView();
     connectParameterView();
 
+}
+
+void FitParameterWidget::showEvent(QShowEvent *)
+{
+    updateSelector();
 }
 
 void FitParameterWidget::updateSelector()
@@ -278,11 +286,13 @@ void FitParameterWidget::removeSelectedItem() {
 
 void FitParameterWidget::onDoubleclick(const QModelIndex index) {
     QModelIndex entryIndex = index.sibling(index.row(), 0);
-    QMimeData *data = m_selectorModel->mimeData(QModelIndexList() << entryIndex);
-    if (m_parameterModel->canDropMimeData(data,Qt::CopyAction,0,0,QModelIndex())) {
-        m_parameterModel->dropMimeData(data,Qt::CopyAction,-1,-1,QModelIndex());
+    if (m_selectorModel->itemFromIndex(entryIndex)->isDragEnabled()) {
+        QMimeData *data = m_selectorModel->mimeData(QModelIndexList() << entryIndex);
+        if (m_parameterModel->canDropMimeData(data,Qt::CopyAction,0,0,QModelIndex())) {
+            m_parameterModel->dropMimeData(data,Qt::CopyAction,-1,-1,QModelIndex());
+        }
+        data->deleteLater();
     }
-    data->deleteLater();
 }
 
 // ---------------------------------------------------------

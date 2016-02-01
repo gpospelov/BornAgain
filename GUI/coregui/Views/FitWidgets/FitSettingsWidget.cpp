@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/NJobModel.cpp
-//! @brief     Implements class NJobModel
+//! @file      coregui/Views/FitWidgets/RunFitWidget.h
+//! @brief     Defines class RunFitWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,17 +13,10 @@
 //
 // ************************************************************************** //
 
-#include "FitModel.h"
+#include "FitSettingsWidget.h"
 
-
-FitModel::FitModel(QObject *parent)
-    : SessionModel(SessionXML::FitModelTag, parent)
+FitSettingsWidget::FitSettingsWidget(QWidget *parent)
+    : QWidget(parent)
 {
 
-}
-
-void FitModel::dataChangedProxy(const QModelIndex & topLeft, const QModelIndex & bottomRight,
-                           const QVector<int> & roles)
-{
-    emit dataChanged(topLeft, bottomRight, roles);
 }

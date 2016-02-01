@@ -46,6 +46,7 @@ public:
 
 signals:
     void modified();
+    void projectOpened();
 
 public slots:
     void clearRecentProjects();

@@ -19,6 +19,7 @@
 #include "FitSettingsWidget.h"
 #include "FitModel.h"
 #include "FitParameterItems.h"
+#include "projectmanager.h"
 #include <QVBoxLayout>
 #include <QTabWidget>
 
@@ -43,6 +44,9 @@ FitView::FitView(MainWindow *mainWindow)
     FitSettingsWidget *settings = new FitSettingsWidget(mainWindow->getFitModel(),
                                                         mainWindow->getSampleModel(),
                                                         mainWindow->getInstrumentModel(), this);
+
+    connect (mainWindow->getProjectManager(), SIGNAL(projectOpened()),
+             settings, SLOT(onUpdateGUI()));
     FitParameterWidget *fitting = new FitParameterWidget(mainWindow->getSampleModel(),
                                                          mainWindow->getInstrumentModel(),
                                                          fitmodel, this);

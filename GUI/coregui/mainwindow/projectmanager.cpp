@@ -209,6 +209,7 @@ void ProjectManager::openProject(QString fileName)
         addToRecentProjects();
     }
 
+    emit projectOpened();
     emit modified();
 }
 

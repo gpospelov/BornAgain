@@ -121,11 +121,11 @@ void FitSettingsWidget::setFitSelection(QComboBox *combo, int index, const QStri
     if (selectionItem) {
         if (selectionItem->getRegisteredProperty(prop) != data) {
             selectionItem->setRegisteredProperty(prop, data);
-            QModelIndex container = m_fitModel->indexOfItem(m_fitModel->itemForIndex(QModelIndex())
+            /*QModelIndex container = m_fitModel->indexOfItem(m_fitModel->itemForIndex(QModelIndex())
                                                 ->getChildOfType(Constants::FitParameterContainerType));
             while (m_fitModel->rowCount(container) > 0) {
                 m_fitModel->removeRow(0, container);
-            }
+            }*/
             m_fitParameter->updateSelector();
         }
     }

@@ -220,10 +220,10 @@ void FitParameterWidget::buildSelectorModel() {
                 auto item = m_selectorModel->getItemFromPath(value);
                 if (item == m_selectorModel->invisibleRootItem()) {
                     m_parameterModel->removeRow(j, child);
-                    if (rowcount == 1) {
+                    /*if (rowcount == 1) {
                         m_parameterModel->removeRow(i);
                         i--;
-                    }
+                    }*/
                     j--;
                     rowcount--;
                 }

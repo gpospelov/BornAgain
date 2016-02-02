@@ -43,7 +43,7 @@ protected:
     kvector_t m_position;
 
 private:
-    complex_t getPositionFactor(const cvector_t &q) const;
+    complex_t getPositionFactor(const cvector_t& q) const;
 };
 
 inline FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
@@ -79,7 +79,7 @@ inline Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(
     return pos_factor * mp_form_factor->evaluatePol(wavevectors);
 }
 
-inline complex_t FormFactorDecoratorPositionFactor::getPositionFactor(const cvector_t &q) const
+inline complex_t FormFactorDecoratorPositionFactor::getPositionFactor(const cvector_t& q) const
 {
     complex_t qr = q.x() * m_position.x() + q.y() * m_position.y() + q.z() * m_position.z();
     complex_t pos_factor = std::exp(complex_t(0.0, 1.0) * qr);

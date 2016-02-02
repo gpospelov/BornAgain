@@ -50,7 +50,7 @@ void FormFactorPrism6::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
-complex_t FormFactorPrism6::evaluate_for_q(const cvector_t &q) const
+complex_t FormFactorPrism6::evaluate_for_q(const cvector_t& q) const
 {
     static double root3 = std::sqrt(3.0);
     complex_t qz = q.z();

@@ -58,7 +58,7 @@ Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactor::evaluatePol(
     return getPositionsFactor(q) * ff;
 }
 
-complex_t FormFactorDecoratorMultiPositionFactor::getPositionsFactor(const cvector_t &q) const
+complex_t FormFactorDecoratorMultiPositionFactor::getPositionsFactor(const cvector_t& q) const
 {
     complex_t result;
     for (size_t i = 0; i < m_positions.size(); ++i) {

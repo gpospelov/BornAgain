@@ -16,7 +16,7 @@
 #include "FTDistributions.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "MemberFunctionIntegrator.h"
+#include "IntegratorReal.h"
 
 using namespace BornAgain;
 
@@ -267,18 +267,14 @@ double FTDistribution2DCone::evaluate(double qx, double qy) const
     if (scaled_q<Numeric::double_epsilon) {
         return 1.0 - 3.0*scaled_q*scaled_q/40.0;
     }
-    MemberFunctionIntegrator<FTDistribution2DCone>::mem_function
-        p_member_function = &FTDistribution2DCone::coneIntegrand2;
-    MemberFunctionIntegrator<FTDistribution2DCone>
-                integrator(p_member_function, this);
-    double integral = integrator.integrate(0.0, scaled_q, (void*)0);
+    auto integrator = make_integrator_real(this, &FTDistribution2DCone::coneIntegrand2);
+    double integral = integrator->integrate(0.0, scaled_q);
     return 6.0*(MathFunctions::Bessel_J1c(scaled_q)
                 - integral/scaled_q/scaled_q/scaled_q);
 }
 
-double FTDistribution2DCone::coneIntegrand2(double value, void *params) const
+double FTDistribution2DCone::coneIntegrand2(double value) const
 {
-    (void)params;
     return value*value*MathFunctions::Bessel_J0(value);
 }
 

@@ -17,7 +17,11 @@
 #define FORMFACTORTRUNCATEDSPHEROID_H
 
 #include "IFormFactorBorn.h"
-#include "MemberComplexFunctionIntegrator.h"
+
+#include <memory>
+
+// Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
+template <class T> class IntegratorComplex;
 
 //! @class FormFactorTruncatedSpheroid
 //! @ingroup formfactors
@@ -53,14 +57,16 @@ protected:
 
 private:
 
-    complex_t Integrand(double Z, void* params) const;
+    complex_t Integrand(double Z) const;
 
     double m_radius;
     double m_height;
     double m_height_flattening;
     mutable cvector_t m_q;
 
-    MemberComplexFunctionIntegrator<FormFactorTruncatedSpheroid> *m_integrator;
+#ifndef GCCXML_SKIP_THIS
+    std::unique_ptr<IntegratorComplex<FormFactorTruncatedSpheroid>> mP_integrator;
+#endif
 };
 
 inline double FormFactorTruncatedSpheroid::getHeight() const

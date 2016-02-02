@@ -17,7 +17,11 @@
 #define FORMFACTORHEMIELLIPSOID_H
 
 #include "IFormFactorBorn.h"
-#include "MemberComplexFunctionIntegrator.h"
+
+#include <memory>
+
+// Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
+template <class T> class IntegratorComplex;
 
 //! @class FormFactorHemiEllipsoid
 //! @ingroup formfactors
@@ -51,20 +55,17 @@ protected:
     virtual void init_parameters();
 
 private:
-    complex_t Integrand(double Z, void* params) const;
+    complex_t Integrand(double Z) const;
 
     double m_radius_x;
     double m_radius_y;
     double m_height;
     mutable cvector_t m_q;
 
-    MemberComplexFunctionIntegrator<FormFactorHemiEllipsoid> *m_integrator;
+#ifndef GCCXML_SKIP_THIS
+    std::unique_ptr<IntegratorComplex<FormFactorHemiEllipsoid>> mP_integrator;
+#endif
 };
-
-inline FormFactorHemiEllipsoid::~FormFactorHemiEllipsoid()
-{
-    delete m_integrator;
-}
 
 inline double FormFactorHemiEllipsoid::getHeight() const
 {

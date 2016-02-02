@@ -17,7 +17,11 @@
 #define FORMFACTORTRUNCATEDSPHERE_H
 
 #include "IFormFactorBorn.h"
-#include "MemberComplexFunctionIntegrator.h"
+
+#include <memory>
+
+// Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
+template <class T> class IntegratorComplex;
 
 //! @class FormFactorTruncatedSphere
 //! @ingroup formfactors
@@ -47,13 +51,15 @@ protected:
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
 private:
-    complex_t Integrand(double Z, void* params) const;
+    complex_t Integrand(double Z) const;
 
     double m_radius;
     double m_height;
     mutable cvector_t m_q;
 
-    MemberComplexFunctionIntegrator<FormFactorTruncatedSphere> *m_integrator;
+#ifndef GCCXML_SKIP_THIS
+    std::unique_ptr<IntegratorComplex<FormFactorTruncatedSphere>> mP_integrator;
+#endif
 };
 
 inline double FormFactorTruncatedSphere::getRadius() const

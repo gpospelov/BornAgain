@@ -17,8 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "Numeric.h"
 #include "MathFunctions.h"
-#include "MemberFunctionIntegrator.h"
-#include "MemberComplexFunctionIntegrator.h"
+#include "IntegratorComplex.h"
 
 #include <cmath>
 
@@ -34,15 +33,11 @@ FormFactorCone6::FormFactorCone6(double radius, double height, double alpha)
     check_initialization();
     init_parameters();
 
-    MemberComplexFunctionIntegrator<FormFactorCone6>::mem_function p_mf =
-       & FormFactorCone6::Integrand;
-    m_integrator =
-        new MemberComplexFunctionIntegrator<FormFactorCone6>(p_mf, this);
+    mP_integrator = make_integrator_complex(this, &FormFactorCone6::Integrand);
 }
 
 FormFactorCone6::~FormFactorCone6()
 {
-    delete m_integrator;
 }
 
 bool FormFactorCone6::check_initialization() const
@@ -79,7 +74,7 @@ void FormFactorCone6::accept(ISampleVisitor *visitor) const
 }
 
 //! Integrand for complex formfactor.
-complex_t FormFactorCone6::Integrand(double Z, void *) const
+complex_t FormFactorCone6::Integrand(double Z) const
 {
     double Rz = m_radius - 2. * Z / std::tan(m_alpha) / m_root3;
     complex_t qx = m_q.x();
@@ -113,7 +108,7 @@ complex_t FormFactorCone6::evaluate_for_q(const cvector_t& q) const
         return  3.0/4.0*tga*R*R*R*
                 (1.0 - (1.0 - HdivRtga)*(1.0 - HdivRtga)*(1.0 - HdivRtga));
     } else {
-        complex_t integral = m_integrator->integrate(0., m_height);
+        complex_t integral = mP_integrator->integrate(0., m_height);
 
         return 4.0*m_root3/(3.0*m_q.y()*m_q.y()-m_q.x()*m_q.x())*integral;
     }

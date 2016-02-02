@@ -19,12 +19,16 @@
 #include "IInterferenceFunction.h"
 #include "Lattice2DParameters.h"
 #include "FTDistributions.h"
+
 #include <iostream>
+#include <memory>
+
+// Forward declaration to prevent IntegratorReal.h to be parsed for Python API:
+template <class T> class IntegratorReal;
 
 //! @class InterferenceFunction2DParaCrystal
 //! @ingroup interference
 //! @brief Interference function of 2D paracrystal.
-
 class BA_CORE_API_ InterferenceFunction2DParaCrystal : public IInterferenceFunction
 {
 public:
@@ -99,13 +103,16 @@ protected:
 
 private:
     //! Returns interference function for fixed angle xi.
-    double interferenceForXi(double xi, void *params) const;
+    double interferenceForXi(double xi) const;
 
     //! Returns interference function for fixed xi in the dimension determined by the given index.
     double interference1D(double qx, double qy, double xi, size_t index) const;
 
     complex_t FTPDF(double qx, double qy, double xi, size_t index) const;
 
+#ifndef GCCXML_SKIP_THIS
+    std::unique_ptr<IntegratorReal<InterferenceFunction2DParaCrystal>> mP_integrator;
+#endif
     mutable double m_qx;
     mutable double m_qy;
 };

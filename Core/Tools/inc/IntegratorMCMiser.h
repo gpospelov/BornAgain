@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/MemberFunctionMCMiserIntegrator.h
-//! @brief     Defines and implements template class MemberFunctionMCMiserIntegrator.
+//! @file      Tools/inc/IntegratorMCMiser.h
+//! @brief     Defines and implements template class IntegratorMCMiser.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,34 +13,40 @@
 //
 // ************************************************************************** //
 
-#ifndef MEMBERFUNCTIONMCMISERINTEGRATOR_H
-#define MEMBERFUNCTIONMCMISERINTEGRATOR_H
+#ifndef INTEGRATORMCMISER_H
+#define INTEGRATORMCMISER_H
 
 #include "gsl/gsl_monte_miser.h"
 
-//! @class MemberFunctionMCMiserIntegrator
+#include <memory>
+
+//! Alias template for member function with signature double f(double)
+template <class T>
+using miser_integrand = double (T::*)(double *, size_t, void*) const;
+
+//! @class MCMiserIntegrator
 //! @ingroup tools_internal
 //! @brief Template class to use Monte Carlo MISER integration of class member functions
 //!
-//! Wrap integrator from GNU Scientific Library.
-
-template <class C> class MemberFunctionMCMiserIntegrator
+//! Wraps an integrator from GNU Scientific Library.
+//! Since this class holds a persistent workspace, we need at least one instance per thread.
+//! Standard usage for integration inside a class T:
+//! - Create a handle to an integrator:
+//!       'auto integrator = make_integrator_miser(this, mem_function, dimension)'
+//! - Call: 'integrator.integrate(lmin, lmax, data, nbr_points)'
+template <class T> class IntegratorMCMiser
 {
 public:
-    //! member function type
-    typedef double (C::*mem_function)(double *, size_t, void*) const;
-
     //! structure holding the object and possible extra parameters
     struct CallBackHolder {
-        const C *m_object_pointer;
-        mem_function m_member_function;
+        const T *m_object_pointer;
+        miser_integrand<T> m_member_function;
         void *m_data;
     };
 
     //! to integrate p_member_function, which must belong to p_object
-    MemberFunctionMCMiserIntegrator(
-        mem_function p_member_function, const C *const p_object, size_t dim);
-    ~MemberFunctionMCMiserIntegrator();
+    IntegratorMCMiser(const T *p_object, miser_integrand<T> p_member_function, size_t dim);
+    ~IntegratorMCMiser();
 
     //! perform the actual integration over the ranges [min_array, max_array]
     double integrate(double *min_array, double *max_array, void* params,
@@ -50,22 +56,36 @@ private:
     //! static function that can be passed to gsl integrator
     static double StaticCallBack(double *d_array, size_t dim, void *v) {
         CallBackHolder *p_cb = static_cast<CallBackHolder *>(v);
-        mem_function mf = p_cb->m_member_function;
+        auto mf = static_cast<miser_integrand<T>>(p_cb->m_member_function);
         return (p_cb->m_object_pointer->*mf)(d_array, dim, p_cb->m_data);
     }
-    mem_function m_member_function; //!< the member function to integrate
-    const C *mp_object; //!< the object whose member function to integrate
+    const T *mp_object;
+    miser_integrand<T> m_member_function;
     size_t m_dim; //!< dimension of the integration
     gsl_monte_miser_state *m_gsl_workspace;
     gsl_rng *m_random_gen;
 };
 
-template<class C> MemberFunctionMCMiserIntegrator<C>::MemberFunctionMCMiserIntegrator(
-        mem_function p_member_function, const C *const p_object, size_t dim)
-: m_member_function(p_member_function)
-, mp_object(p_object)
-, m_dim(dim)
-, m_gsl_workspace(0)
+//! Alias template for handle to a miser integrator
+template <class T>
+using P_integrator_miser = std::unique_ptr<IntegratorMCMiser<T>>;
+
+//! @fn make_integrator_miser
+//! @ingroup tools_internal
+//! @brief Template function to create an integrator object
+template <class T> P_integrator_miser<T>
+make_integrator_miser(const T *object, miser_integrand<T> mem_function, size_t dim)
+{
+    P_integrator_miser<T> P_integrator(new IntegratorMCMiser<T>(object, mem_function, dim));
+    return P_integrator;
+}
+
+template<class T> IntegratorMCMiser<T>::IntegratorMCMiser(
+        const T *p_object, miser_integrand<T> p_member_function, size_t dim)
+    : mp_object(p_object)
+    , m_member_function(p_member_function)
+    , m_dim(dim)
+    , m_gsl_workspace { nullptr }
 {
     m_gsl_workspace = gsl_monte_miser_alloc(m_dim);
 
@@ -75,24 +95,21 @@ template<class C> MemberFunctionMCMiserIntegrator<C>::MemberFunctionMCMiserInteg
     m_random_gen = gsl_rng_alloc(random_type);
 }
 
-template<class C> MemberFunctionMCMiserIntegrator<C>::~MemberFunctionMCMiserIntegrator()
+template<class T> IntegratorMCMiser<T>::~IntegratorMCMiser()
 {
     gsl_monte_miser_free(m_gsl_workspace);
     gsl_rng_free(m_random_gen);
 }
 
-template<class C> double MemberFunctionMCMiserIntegrator<C>::integrate(
+template<class T> double IntegratorMCMiser<T>::integrate(
         double *min_array, double *max_array, void* params, size_t nbr_points)
 {
-    assert(mp_object);
-    assert(m_member_function);
-
     CallBackHolder cb = { mp_object, m_member_function, params };
 
     gsl_monte_function f;
     f.f = StaticCallBack;
     f.dim = m_dim;
-    f.params =& cb;
+    f.params = &cb;
 
     double result, error;
     gsl_monte_miser_integrate(&f, min_array, max_array, m_dim, nbr_points,
@@ -100,4 +117,4 @@ template<class C> double MemberFunctionMCMiserIntegrator<C>::integrate(
     return result;
 }
 
-#endif // MEMBERFUNCTIONMCMISERINTEGRATOR_H
+#endif // INTEGRATORMCMISER_H

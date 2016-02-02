@@ -15,8 +15,8 @@
 
 #include "InterferenceFunction2DParaCrystal.h"
 #include "BornAgainNamespace.h"
+#include "IntegratorReal.h"
 #include "MathFunctions.h"
-#include "MemberFunctionIntegrator.h"
 #include "Exceptions.h"
 
 #include <functional>
@@ -43,6 +43,7 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
         m_use_damping_length = false;
     }
     init_parameters();
+    mP_integrator = make_integrator_real(this, &InterferenceFunction2DParaCrystal::interferenceForXi);
 }
 
 InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal()
@@ -82,15 +83,10 @@ double InterferenceFunction2DParaCrystal::evaluate(const kvector_t& q) const
     m_qy = q.y();
     double result;
     if (m_integrate_xi) {
-        MemberFunctionIntegrator<InterferenceFunction2DParaCrystal>::
-            mem_function p_member_function =
-                    &InterferenceFunction2DParaCrystal::interferenceForXi;
-        MemberFunctionIntegrator<InterferenceFunction2DParaCrystal>
-            integrator(p_member_function, this);
-        result = integrator.integrate(0.0, Units::PI2, nullptr)/Units::PI2;
+        result = mP_integrator->integrate(0.0, Units::PI2)/Units::PI2;
    }
     else {
-        result = interferenceForXi(m_lattice_params.m_xi, nullptr);
+        result = interferenceForXi(m_lattice_params.m_xi);
     }
     return result;
 }
@@ -175,7 +171,7 @@ void InterferenceFunction2DParaCrystal::init_parameters()
     registerParameter(DomainSize2, &m_domain_sizes[1]);
 }
 
-double InterferenceFunction2DParaCrystal::interferenceForXi(double xi, void *) const
+double InterferenceFunction2DParaCrystal::interferenceForXi(double xi) const
 {
     double result = interference1D(m_qx, m_qy, xi, 0)*interference1D(m_qx, m_qy,
             xi + m_lattice_params.m_angle, 1);

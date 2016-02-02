@@ -17,12 +17,15 @@
 #define FORMFACTORTETRAHEDRON_H
 
 #include "IFormFactorBorn.h"
-#include "MemberComplexFunctionIntegrator.h"
+
+#include <memory>
+
+// Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
+template <class T> class IntegratorComplex;
 
 //! @class FormFactorTetrahedron
 //! @ingroup formfactors
 //! @brief The formfactor of tetrahedron.
-
 class BA_CORE_API_ FormFactorTetrahedron : public IFormFactorBorn
 {
 public:
@@ -58,9 +61,11 @@ private:
 
     // addition integration
     mutable cvector_t m_q;
-    complex_t Integrand(double Z, void* params) const;
-    MemberComplexFunctionIntegrator<FormFactorTetrahedron> *m_integrator;
+    complex_t Integrand(double Z) const;
 
+#ifndef GCCXML_SKIP_THIS
+    std::unique_ptr<IntegratorComplex<FormFactorTetrahedron>> mP_integrator;
+#endif
 };
 
 inline double FormFactorTetrahedron::getHeight() const

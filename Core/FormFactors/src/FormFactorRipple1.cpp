@@ -17,8 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "Numeric.h"
 #include "MathFunctions.h"
-#include "MemberFunctionIntegrator.h"
-#include "MemberComplexFunctionIntegrator.h"
+#include "IntegratorComplex.h"
 
 #include <cmath>
 
@@ -33,15 +32,11 @@ FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
     check_initialization();
     init_parameters();
 
-    MemberComplexFunctionIntegrator<FormFactorRipple1>::mem_function p_mf =
-       & FormFactorRipple1::Integrand;
-    m_integrator =
-        new MemberComplexFunctionIntegrator<FormFactorRipple1>(p_mf, this);
+    mP_integrator = make_integrator_complex(this, &FormFactorRipple1::Integrand);
 }
 
 FormFactorRipple1::~FormFactorRipple1()
 {
-    delete m_integrator;
 }
 
 bool FormFactorRipple1::check_initialization() const
@@ -83,9 +78,8 @@ double FormFactorRipple1::getRadius() const
 }
 
 //! Integrand for complex formfactor.
-complex_t FormFactorRipple1::Integrand(double Z, void* params) const
+complex_t FormFactorRipple1::Integrand(double Z) const
 {
-    (void)params;  // to avoid unused-variable warning
     complex_t iqZ = complex_t(0.0, 1.0)*m_q.z()*Z;
     complex_t aa = std::acos(2.0*Z/m_height - 1.0);
     return std::exp(iqZ)*aa*MathFunctions::sinc(aa*m_q.y()*m_width/(Units::PI2));
@@ -108,6 +102,6 @@ complex_t FormFactorRipple1::evaluate_for_q(const cvector_t& q) const
         return factor*Units::PID2*m_height*MathFunctions::sinc(m_q.y()*m_width*0.5)/(1.0-aaa2);
 
     // numerical integration otherwise
-    complex_t integral = m_integrator->integrate(0, m_height);
+    complex_t integral = mP_integrator->integrate(0, m_height);
     return factor*integral;
 }

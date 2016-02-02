@@ -17,8 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
-#include "MemberFunctionIntegrator.h"
-#include "MemberComplexFunctionIntegrator.h"
+#include "IntegratorComplex.h"
 
 using namespace  BornAgain;
 
@@ -32,14 +31,11 @@ FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double h
     check_initialization();
     init_parameters();
 
-    MemberComplexFunctionIntegrator<FormFactorTruncatedSpheroid>::mem_function p_mf
-        = &FormFactorTruncatedSpheroid::Integrand;
-    m_integrator = new MemberComplexFunctionIntegrator<FormFactorTruncatedSpheroid>(p_mf, this);
+    mP_integrator = make_integrator_complex(this, &FormFactorTruncatedSpheroid::Integrand);
 }
 
 FormFactorTruncatedSpheroid::~FormFactorTruncatedSpheroid()
 {
-    delete m_integrator;
 }
 
 bool FormFactorTruncatedSpheroid::check_initialization() const
@@ -76,7 +72,7 @@ void FormFactorTruncatedSpheroid::accept(ISampleVisitor *visitor) const
 }
 
 //! Integrand for complex formfactor.
-complex_t FormFactorTruncatedSpheroid::Integrand(double Z, void*) const
+complex_t FormFactorTruncatedSpheroid::Integrand(double Z) const
 {
     double R = m_radius;
     double fp = m_height_flattening;
@@ -99,11 +95,6 @@ complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t& q) const
         return Units::PI*R*H*H/fp*(1.-H/(3.*fp*R));
     } else {
         complex_t z_part    =  std::exp(complex_t(0.0, 1.0)*m_q.z()*(H-fp*R));
-        return Units::PI2 * z_part *m_integrator->integrate(fp*R-H,fp*R );
+        return Units::PI2 * z_part *mP_integrator->integrate(fp*R-H,fp*R );
     }
 }
-
-
-
-
-

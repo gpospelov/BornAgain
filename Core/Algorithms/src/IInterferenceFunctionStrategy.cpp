@@ -14,15 +14,20 @@
 // ************************************************************************** //
 
 #include "IInterferenceFunctionStrategy.h"
-#include "MemberFunctionMCMiserIntegrator.h"
-
-#include <boost/scoped_ptr.hpp>
-
-#include <ScalarRTCoefficients.h>
+#include "IntegratorMCMiser.h"
+#include "ScalarRTCoefficients.h"
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(SimulationParameters sim_params)
     : mP_iff { nullptr }
     , m_sim_params(sim_params)
+{
+    mP_integrator = make_integrator_miser(
+                    this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2);
+    mP_integrator_pol = make_integrator_miser(
+                this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol, 2);
+}
+
+IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
 {
 }
 
@@ -120,26 +125,18 @@ void IInterferenceFunctionStrategy::clearFormFactorLists() const
 
 double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const SimulationElement& sim_element) const
 {
-    MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy>::mem_function p_function
-        = &IInterferenceFunctionStrategy::evaluate_for_fixed_angles;
-    MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy> mc_integrator(p_function, this,
-                                                                                 2);
     double min_array[] = {0.0, 0.0};
     double max_array[] = {1.0, 1.0};
-    return mc_integrator.integrate(min_array, max_array, (void *)&sim_element,
+    return mP_integrator->integrate(min_array, max_array, (void *)&sim_element,
                                             m_sim_params.m_mc_points);
 }
 
 double IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
         const SimulationElement& sim_element) const
 {
-    MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy>::mem_function p_function
-        = &IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol;
-    MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy>
-            mc_integrator(p_function, this, 2);
     double min_array[] = {0.0, 0.0};
     double max_array[] = {1.0, 1.0};
-    return mc_integrator.integrate(min_array, max_array, (void *)&sim_element,
+    return mP_integrator_pol->integrate(min_array, max_array, (void *)&sim_element,
                                             m_sim_params.m_mc_points);
 }
 

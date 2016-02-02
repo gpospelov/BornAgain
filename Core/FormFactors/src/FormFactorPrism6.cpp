@@ -52,7 +52,7 @@ void FormFactorPrism6::accept(ISampleVisitor *visitor) const
 
 complex_t FormFactorPrism6::evaluate_for_q(const cvector_t &q) const
 {
-    constexpr double root3 = std::sqrt(3.0);
+    static double root3 = std::sqrt(3.0);
     complex_t qz = q.z();
     double R = m_radius;
     double H = m_height;

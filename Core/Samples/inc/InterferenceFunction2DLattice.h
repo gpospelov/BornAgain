@@ -18,7 +18,7 @@
 
 #include "IInterferenceFunction.h"
 #include "Lattice2DParameters.h"
-#include "FTDistributions.h"
+#include "FTDecayFunctions.h"
 
 //! @class InterferenceFunction2DLattice
 //! @ingroup interference
@@ -43,9 +43,9 @@ public:
     static InterferenceFunction2DLattice *createSquare(double lattice_length, double xi = 0.0);
     static InterferenceFunction2DLattice *createHexagonal(double lattice_length, double xi = 0.0);
 
-    void setProbabilityDistribution(const IFTDistribution2D& pdf);
+    void setDecayFunction(const IFTDecayFunction2D& pdf);
 
-    const IFTDistribution2D *getProbabilityDistribution() const;
+    const IFTDecayFunction2D *getDecayFunction() const;
 
     virtual double evaluate(const kvector_t& q) const;
 
@@ -54,6 +54,9 @@ public:
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;
+
+    //! Returns the particle density associated with this 2d lattice
+    virtual double getParticleDensity() const;
 
 protected:
     //! Returns interference from a single reciprocal lattice vector
@@ -69,7 +72,7 @@ protected:
             double& qx_frac, double& qy_frac) const;
 
     Lattice2DParameters m_lattice_params;
-    IFTDistribution2D *mp_pdf;
+    IFTDecayFunction2D *mp_pdf;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
 
 private:
@@ -87,7 +90,6 @@ private:
 
     double m_asx, m_asy; //!< x,y coordinates of a*
     double m_bsx, m_bsy; //!< x,y coordinates of b*
-    double m_prefactor; //!< fixed prefactor for normalization
     int m_na, m_nb; //!< determines the number of reciprocal lattice points to use
 };
 

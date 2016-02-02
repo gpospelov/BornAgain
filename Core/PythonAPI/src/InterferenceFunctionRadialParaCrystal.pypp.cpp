@@ -107,6 +107,18 @@ struct InterferenceFunctionRadialParaCrystal_wrapper : InterferenceFunctionRadia
         return ISample::getChildren( );
     }
 
+    virtual double getParticleDensity(  ) const  {
+        if( bp::override func_getParticleDensity = this->get_override( "getParticleDensity" ) )
+            return func_getParticleDensity(  );
+        else{
+            return this->IInterferenceFunction::getParticleDensity(  );
+        }
+    }
+    
+    double default_getParticleDensity(  ) const  {
+        return IInterferenceFunction::getParticleDensity( );
+    }
+
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
@@ -163,7 +175,7 @@ void register_InterferenceFunctionRadialParaCrystal_class(){
 
     { //::InterferenceFunctionRadialParaCrystal
         typedef bp::class_< InterferenceFunctionRadialParaCrystal_wrapper, bp::bases< IInterferenceFunction >, std::auto_ptr< InterferenceFunctionRadialParaCrystal_wrapper >, boost::noncopyable > InterferenceFunctionRadialParaCrystal_exposer_t;
-        InterferenceFunctionRadialParaCrystal_exposer_t InterferenceFunctionRadialParaCrystal_exposer = InterferenceFunctionRadialParaCrystal_exposer_t( "InterferenceFunctionRadialParaCrystal", bp::init< double, bp::optional< double > >(( bp::arg("peak_distance"), bp::arg("damping_length")=0.0 ), "constructor of radial paracrystal interference function @param peak_distance  The distance to the first neighbor peak.\n\n:Parameters:\n  - 'peak_distance' - The distance to the first neighbor peak.\n  - 'width' - Width parameter in the pair correlation function.\n  - 'm_corr_length' - Correlation length of paracrystal.\n") );
+        InterferenceFunctionRadialParaCrystal_exposer_t InterferenceFunctionRadialParaCrystal_exposer = InterferenceFunctionRadialParaCrystal_exposer_t( "InterferenceFunctionRadialParaCrystal", "Interference function of radial paracrystal.", bp::init< double, bp::optional< double > >(( bp::arg("peak_distance"), bp::arg("damping_length")=0.0 ), "constructor of radial paracrystal interference function @param peak_distance  The distance to the first neighbor peak.\n\n:Parameters:\n  - 'peak_distance' - The distance to the first neighbor peak.\n  - 'width' - Width parameter in the pair correlation function.\n  - 'm_corr_length' - Correlation length of paracrystal.\n") );
         bp::scope InterferenceFunctionRadialParaCrystal_scope( InterferenceFunctionRadialParaCrystal_exposer );
         { //::InterferenceFunctionRadialParaCrystal::FTPDF
         
@@ -215,7 +227,7 @@ void register_InterferenceFunctionRadialParaCrystal_class(){
             InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "getDomainSize"
                 , getDomainSize_function_type( &::InterferenceFunctionRadialParaCrystal::getDomainSize )
-                , "Gets size of coherence domain.\n\n:Parameters:\n  - 'size:' - size in lattice direction\n" );
+                , "Gets size of coherence domain." );
         
         }
         { //::InterferenceFunctionRadialParaCrystal::getKappa
@@ -315,6 +327,17 @@ void register_InterferenceFunctionRadialParaCrystal_class(){
                 "getChildren"
                 , getChildren_function_type(&::ISample::getChildren)
                 , default_getChildren_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_getChildren) );
+        
+        }
+        { //::IInterferenceFunction::getParticleDensity
+        
+            typedef double ( ::IInterferenceFunction::*getParticleDensity_function_type)(  ) const;
+            typedef double ( InterferenceFunctionRadialParaCrystal_wrapper::*default_getParticleDensity_function_type)(  ) const;
+            
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
+                "getParticleDensity"
+                , getParticleDensity_function_type(&::IInterferenceFunction::getParticleDensity)
+                , default_getParticleDensity_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_getParticleDensity) );
         
         }
         { //::ISample::printSampleTree

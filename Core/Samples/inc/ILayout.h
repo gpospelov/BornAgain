@@ -35,8 +35,7 @@ class BA_CORE_API_ ILayout : public ICompositeSample
 public:
     enum EInterferenceApproximation { DA, SSCA };
 
-    ILayout() : m_total_particle_surface_density(1.0)
-              , me_approx(DA) {}
+    ILayout() : me_approx(DA) {}
     virtual ~ILayout() {}
 
     virtual ILayout *clone() const=0;
@@ -63,17 +62,14 @@ public:
     /// Get total abundance of all particles
     double getTotalAbundance() const;
 
-    //! Returns number of interference functions
-    virtual size_t getNumberOfInterferenceFunctions() const;
-
-    //! Returns interference functions
-    virtual SafePointerVector<IInterferenceFunction> getInterferenceFunctions() const=0;
+    //! Returns interference function
+    virtual const IInterferenceFunction* getInterferenceFunction() const=0;
 
     //! Returns surface density of all particles
-    double getTotalParticleSurfaceDensity() const;
+    virtual double getTotalParticleSurfaceDensity() const=0;
 
     //! Sets surface density of all particles
-    void setTotalParticleSurfaceDensity(double surface_density);
+    virtual void setTotalParticleSurfaceDensity(double particle_density)=0;
 
     //! Gets the used approximation for particles and interference functions
     EInterferenceApproximation getApproximation() const;
@@ -82,8 +78,6 @@ public:
     void setApproximation(EInterferenceApproximation approximation);
 
 private:
-    ///< To guarantee that fractions sum up to 1
-    double m_total_particle_surface_density;
     ///< Approximation used for combining particles and interference functions
     EInterferenceApproximation me_approx;
 };
@@ -96,21 +90,6 @@ inline double ILayout::getTotalAbundance() const
         total_abundance += getAbundanceOfParticle(i);
     }
     return total_abundance;
-}
-
-inline size_t ILayout::getNumberOfInterferenceFunctions() const
-{
-    return 0;
-}
-
-inline double ILayout::getTotalParticleSurfaceDensity() const
-{
-    return m_total_particle_surface_density;
-}
-
-inline void ILayout::setTotalParticleSurfaceDensity(double surface_density)
-{
-    m_total_particle_surface_density = surface_density;
 }
 
 inline ILayout::EInterferenceApproximation ILayout::getApproximation() const

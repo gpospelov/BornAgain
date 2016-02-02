@@ -76,8 +76,7 @@ const IMaterial *MesoCrystal::getAmbientMaterial() const
     return mp_particle_structure->getAmbientMaterial();
 }
 
-IFormFactor *MesoCrystal::createTransformedFormFactor(complex_t wavevector_scattering_factor,
-                                                      const IRotation *p_rotation,
+IFormFactor *MesoCrystal::createTransformedFormFactor(const IRotation *p_rotation,
                                                       kvector_t translation) const
 {
     if (!mp_particle_structure || !mp_meso_form_factor)
@@ -87,7 +86,7 @@ IFormFactor *MesoCrystal::createTransformedFormFactor(complex_t wavevector_scatt
     std::unique_ptr<IFormFactor> P_transformed_meso(createTransformationDecoratedFormFactor(
         *mp_meso_form_factor, P_total_rotation.get(), total_position));
     IFormFactor *p_result = mp_particle_structure->createTotalFormFactor(
-        *P_transformed_meso, wavevector_scattering_factor, P_total_rotation.get(), total_position);
+        *P_transformed_meso, P_total_rotation.get(), total_position);
     return p_result;
 }
 

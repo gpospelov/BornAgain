@@ -25,7 +25,7 @@ using namespace BornAgain;
 
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2,
                                                              double angle, double xi)
-    : mp_pdf(0), m_prefactor(1.0), m_na(0), m_nb(0)
+    : mp_pdf(0), m_na(0), m_nb(0)
 {
     m_lattice_params.m_length_1 = length_1;
     m_lattice_params.m_length_2 = length_2;
@@ -45,7 +45,7 @@ InterferenceFunction2DLattice *InterferenceFunction2DLattice::clone() const
 {
     InterferenceFunction2DLattice *result = new InterferenceFunction2DLattice(m_lattice_params);
     if (mp_pdf)
-        result->setProbabilityDistribution(*mp_pdf);
+        result->setDecayFunction(*mp_pdf);
     return result;
 }
 
@@ -76,17 +76,17 @@ InterferenceFunction2DLattice *InterferenceFunction2DLattice::createHexagonal(do
     return new InterferenceFunction2DLattice(lattice_params);
 }
 
-void InterferenceFunction2DLattice::setProbabilityDistribution(const IFTDistribution2D &pdf)
+void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &pdf)
 {
     if (mp_pdf != &pdf)
         delete mp_pdf;
     mp_pdf = pdf.clone();
-    double coherence_length_x = mp_pdf->getCoherenceLengthX();
-    double coherence_length_y = mp_pdf->getCoherenceLengthY();
-    initialize_calc_factors(coherence_length_x, coherence_length_y);
+    double omega_x = mp_pdf->getDecayLengthX();
+    double omega_y = mp_pdf->getDecayLengthY();
+    initialize_calc_factors(omega_x, omega_y);
 }
 
-const IFTDistribution2D *InterferenceFunction2DLattice::getProbabilityDistribution() const
+const IFTDecayFunction2D *InterferenceFunction2DLattice::getDecayFunction() const
 {
     return mp_pdf;
 }
@@ -110,7 +110,7 @@ double InterferenceFunction2DLattice::evaluate(const kvector_t &q) const
             result += interferenceAtOneRecLatticePoint(qx, qy);
         }
     }
-    return m_prefactor * result;
+    return result;
 }
 
 Lattice2DParameters InterferenceFunction2DLattice::getLatticeParameters() const
@@ -132,6 +132,15 @@ std::string InterferenceFunction2DLattice::addParametersToExternalPool(
     return new_path;
 }
 
+double InterferenceFunction2DLattice::getParticleDensity() const
+{
+    double area = getUnitCellArea(m_lattice_params);
+    if (area == 0.0) {
+        return 0.0;
+    }
+    return 1.0/area;
+}
+
 double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx, double qy) const
 {
     if (!mp_pdf) {
@@ -142,7 +151,7 @@ double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx
     double gamma = m_lattice_params.m_xi + mp_pdf->getGamma();
     double delta = mp_pdf->getDelta();
     transformToPrincipalAxes(qx, qy, gamma, delta, qp1, qp2);
-    return mp_pdf->evaluateLattice(qp1, qp2);
+    return mp_pdf->evaluate(qp1, qp2);
 }
 
 void InterferenceFunction2DLattice::transformToPrincipalAxes(double qx, double qy, double gamma,
@@ -170,7 +179,7 @@ void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(double qx,
 
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(
     const Lattice2DParameters &lattice_params)
-    : m_lattice_params(lattice_params), mp_pdf(0), m_prefactor(1.0), m_na(0), m_nb(0)
+    : m_lattice_params(lattice_params), mp_pdf(0), m_na(0), m_nb(0)
 {
     setName(InterferenceFunction2DLatticeType);
     init_parameters();
@@ -211,11 +220,6 @@ void InterferenceFunction2DLattice::initialize_calc_factors(double coherence_len
         throw NullPointerException("InterferenceFunction2DLattice::initialize_calc_factors"
                                    " -> Error! No probability distribution function defined.");
     }
-
-    // constant prefactor
-    // TODO: for non 2D distributions: check if this still applies
-    m_prefactor = Units::PI2 * coherence_length_x * coherence_length_y;
-
     // number of reciprocal lattice points to use
     double qa_max, qb_max;
     mp_pdf->transformToStarBasis(nmax / coherence_length_x, nmax / coherence_length_y,

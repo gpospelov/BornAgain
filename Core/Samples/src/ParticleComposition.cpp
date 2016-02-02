@@ -130,8 +130,7 @@ const IMaterial *ParticleComposition::getAmbientMaterial() const
 }
 
 IFormFactor *
-ParticleComposition::createTransformedFormFactor(complex_t wavevector_scattering_factor,
-                                                 const IRotation *p_rotation,
+ParticleComposition::createTransformedFormFactor(const IRotation *p_rotation,
                                                  kvector_t translation) const
 {
     if (m_particles.size() == 0)
@@ -141,8 +140,8 @@ ParticleComposition::createTransformedFormFactor(complex_t wavevector_scattering
     FormFactorWeighted *p_result = new FormFactorWeighted();
     for (size_t index = 0; index < m_particles.size(); ++index) {
         boost::scoped_ptr<IFormFactor> P_particle_ff(
-            m_particles[index]->createTransformedFormFactor(
-                wavevector_scattering_factor, P_total_rotation.get(), total_position));
+            m_particles[index]->createTransformedFormFactor(P_total_rotation.get(),
+                                                            total_position));
         p_result->addFormFactor(*P_particle_ff);
     }
     return p_result;

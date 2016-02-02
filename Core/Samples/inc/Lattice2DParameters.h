@@ -32,4 +32,11 @@ public:
     double m_xi;
 };
 
+inline double getUnitCellArea(const Lattice2DParameters& lattice_params) {
+    double length_1 = lattice_params.m_length_1;
+    double length_2 = lattice_params.m_length_2;
+    double angle = lattice_params.m_angle;
+    return std::abs(length_1*length_2*std::sin(angle));
+}
+
 #endif /* LATTICE2DPARAMETERS_H_ */

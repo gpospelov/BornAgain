@@ -46,8 +46,8 @@ ISample *Lattice1DBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
 
     InterferenceFunction1DLattice interference_function(m_length, m_xi);
-    FTDistribution1DCauchy pdf(1000.0*Units::nanometer);
-    interference_function.setProbabilityDistribution(pdf);
+    FTDecayFunction1DCauchy pdf(1000.0*Units::nanometer);
+    interference_function.setDecayFunction(pdf);
 
     FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
     Particle cylinder(particle_material,ff_cylinder);

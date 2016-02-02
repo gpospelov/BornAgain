@@ -32,7 +32,7 @@ void register_WavevectorInfo_class(){
         typedef bp::class_< WavevectorInfo > WavevectorInfo_exposer_t;
         WavevectorInfo_exposer_t WavevectorInfo_exposer = WavevectorInfo_exposer_t( "WavevectorInfo", "Holds all wavevector information relevant for calculating form factors.", bp::init< >() );
         bp::scope WavevectorInfo_scope( WavevectorInfo_exposer );
-        WavevectorInfo_exposer.def( bp::init< cvector_t, cvector_t >(( bp::arg("ki"), bp::arg("kf") )) );
+        WavevectorInfo_exposer.def( bp::init< cvector_t, cvector_t, double >(( bp::arg("ki"), bp::arg("kf"), bp::arg("wavelength") )) );
         { //::WavevectorInfo::getKf
         
             typedef ::cvector_t ( ::WavevectorInfo::*getKf_function_type)(  ) const;
@@ -58,6 +58,15 @@ void register_WavevectorInfo_class(){
             WavevectorInfo_exposer.def( 
                 "getQ"
                 , getQ_function_type( &::WavevectorInfo::getQ ) );
+        
+        }
+        { //::WavevectorInfo::getWavelength
+        
+            typedef double ( ::WavevectorInfo::*getWavelength_function_type)(  ) const;
+            
+            WavevectorInfo_exposer.def( 
+                "getWavelength"
+                , getWavelength_function_type( &::WavevectorInfo::getWavelength ) );
         
         }
     }

@@ -42,6 +42,7 @@
 #include "FormFactorTruncatedSpheroid.h"
 #include "FormFactorWeighted.h"
 #include "FTDistributions.h"
+#include "FTDecayFunctions.h"
 #include "GISASSimulation.h"
 #include "Histogram1D.h"
 #include "Histogram2D.h"

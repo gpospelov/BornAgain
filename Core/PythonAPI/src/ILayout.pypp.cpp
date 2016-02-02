@@ -55,21 +55,9 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
         return func_getAbundanceOfParticle( index );
     }
 
-    virtual ::SafePointerVector< IInterferenceFunction > getInterferenceFunctions(  ) const {
-        bp::override func_getInterferenceFunctions = this->get_override( "getInterferenceFunctions" );
-        return func_getInterferenceFunctions(  );
-    }
-
-    virtual ::std::size_t getNumberOfInterferenceFunctions(  ) const  {
-        if( bp::override func_getNumberOfInterferenceFunctions = this->get_override( "getNumberOfInterferenceFunctions" ) )
-            return func_getNumberOfInterferenceFunctions(  );
-        else{
-            return this->ILayout::getNumberOfInterferenceFunctions(  );
-        }
-    }
-    
-    ::std::size_t default_getNumberOfInterferenceFunctions(  ) const  {
-        return ILayout::getNumberOfInterferenceFunctions( );
+    virtual ::IInterferenceFunction const * getInterferenceFunction(  ) const {
+        bp::override func_getInterferenceFunction = this->get_override( "getInterferenceFunction" );
+        return func_getInterferenceFunction(  );
     }
 
     virtual ::std::size_t getNumberOfParticles(  ) const {
@@ -85,6 +73,16 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
     virtual ::SafePointerVector< const IParticle > getParticles(  ) const {
         bp::override func_getParticles = this->get_override( "getParticles" );
         return func_getParticles(  );
+    }
+
+    virtual double getTotalParticleSurfaceDensity(  ) const {
+        bp::override func_getTotalParticleSurfaceDensity = this->get_override( "getTotalParticleSurfaceDensity" );
+        return func_getTotalParticleSurfaceDensity(  );
+    }
+
+    virtual void setTotalParticleSurfaceDensity( double particle_density ){
+        bp::override func_setTotalParticleSurfaceDensity = this->get_override( "setTotalParticleSurfaceDensity" );
+        func_setTotalParticleSurfaceDensity( particle_density );
     }
 
     virtual bool containsMagneticMaterial(  ) const  {
@@ -225,25 +223,15 @@ void register_ILayout_class(){
                 , getApproximation_function_type( &::ILayout::getApproximation ) );
         
         }
-        { //::ILayout::getInterferenceFunctions
+        { //::ILayout::getInterferenceFunction
         
-            typedef ::SafePointerVector<IInterferenceFunction> ( ::ILayout::*getInterferenceFunctions_function_type)(  ) const;
+            typedef ::IInterferenceFunction const * ( ::ILayout::*getInterferenceFunction_function_type)(  ) const;
             
             ILayout_exposer.def( 
-                "getInterferenceFunctions"
-                , bp::pure_virtual( getInterferenceFunctions_function_type(&::ILayout::getInterferenceFunctions) )
-                , "Returns interference functions." );
-        
-        }
-        { //::ILayout::getNumberOfInterferenceFunctions
-        
-            typedef ::std::size_t ( ::ILayout::*getNumberOfInterferenceFunctions_function_type)(  ) const;
-            typedef ::std::size_t ( ILayout_wrapper::*default_getNumberOfInterferenceFunctions_function_type)(  ) const;
-            
-            ILayout_exposer.def( 
-                "getNumberOfInterferenceFunctions"
-                , getNumberOfInterferenceFunctions_function_type(&::ILayout::getNumberOfInterferenceFunctions)
-                , default_getNumberOfInterferenceFunctions_function_type(&ILayout_wrapper::default_getNumberOfInterferenceFunctions) );
+                "getInterferenceFunction"
+                , bp::pure_virtual( getInterferenceFunction_function_type(&::ILayout::getInterferenceFunction) )
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns interference function." );
         
         }
         { //::ILayout::getNumberOfParticles
@@ -293,7 +281,8 @@ void register_ILayout_class(){
             
             ILayout_exposer.def( 
                 "getTotalParticleSurfaceDensity"
-                , getTotalParticleSurfaceDensity_function_type( &::ILayout::getTotalParticleSurfaceDensity ) );
+                , bp::pure_virtual( getTotalParticleSurfaceDensity_function_type(&::ILayout::getTotalParticleSurfaceDensity) )
+                , "Returns surface density of all particles." );
         
         }
         { //::ILayout::setApproximation
@@ -312,8 +301,9 @@ void register_ILayout_class(){
             
             ILayout_exposer.def( 
                 "setTotalParticleSurfaceDensity"
-                , setTotalParticleSurfaceDensity_function_type( &::ILayout::setTotalParticleSurfaceDensity )
-                , ( bp::arg("surface_density") ) );
+                , bp::pure_virtual( setTotalParticleSurfaceDensity_function_type(&::ILayout::setTotalParticleSurfaceDensity) )
+                , ( bp::arg("particle_density") )
+                , "Sets surface density of all particles." );
         
         }
         { //::ISample::containsMagneticMaterial

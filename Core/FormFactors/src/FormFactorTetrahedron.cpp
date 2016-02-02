@@ -83,7 +83,7 @@ double FormFactorTetrahedron::getRadius() const
 complex_t FormFactorTetrahedron::Integrand(double Z, void* params) const
 {
     (void)params;
-    constexpr double root3 = std::sqrt(3.);
+    static double root3 = std::sqrt(3.);
     double Rz = m_length/2 -root3*Z/std::tan(m_alpha);
 
     complex_t xy_part = 0;
@@ -112,7 +112,7 @@ complex_t FormFactorTetrahedron::Integrand(double Z, void* params) const
 
 complex_t FormFactorTetrahedron::evaluate_for_q(const cvector_t& q) const
 {
-    constexpr double root3 = std::sqrt(3.);
+    static double root3 = std::sqrt(3.);
     const complex_t im(0.0,1.0);
     double H = m_height;
     double R = m_length/2;

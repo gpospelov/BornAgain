@@ -44,7 +44,7 @@ public:
 
     //! Initializes the object with form factors and interference functions
     virtual void init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
-                      const SafePointerVector<IInterferenceFunction> &ifs);
+                      const IInterferenceFunction& iff);
 
     //! Provides the R,T coefficients information
     void setSpecularInfo(const LayerSpecularInfo &specular_info);
@@ -69,7 +69,7 @@ protected:
     cvector_t getQ(const cvector_t &k_i, const Bin1DCVector &k_f_bin) const;
 
     SafePointerVector<FormFactorInfo> m_ff_infos;          //!< form factor info
-    SafePointerVector<IInterferenceFunction> m_ifs;        //!< interference functions
+    boost::scoped_ptr<IInterferenceFunction> mP_iff;       //!< interference function
     SimulationParameters m_sim_params;                     //!< simulation parameters
     boost::scoped_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
 

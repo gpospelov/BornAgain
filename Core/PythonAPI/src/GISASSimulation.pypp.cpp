@@ -71,18 +71,6 @@ struct GISASSimulation_wrapper : GISASSimulation, bp::wrapper< GISASSimulation >
         return GISASSimulation::getNumberOfSimulationElements( );
     }
 
-    virtual double getWavelength(  ) const  {
-        if( bp::override func_getWavelength = this->get_override( "getWavelength" ) )
-            return func_getWavelength(  );
-        else{
-            return this->GISASSimulation::getWavelength(  );
-        }
-    }
-    
-    double default_getWavelength(  ) const  {
-        return GISASSimulation::getWavelength( );
-    }
-
     virtual void prepareSimulation(  ) {
         if( bp::override func_prepareSimulation = this->get_override( "prepareSimulation" ) )
             func_prepareSimulation(  );
@@ -204,17 +192,6 @@ void register_GISASSimulation_class(){
                 "getNumberOfSimulationElements"
                 , getNumberOfSimulationElements_function_type(&::GISASSimulation::getNumberOfSimulationElements)
                 , default_getNumberOfSimulationElements_function_type(&GISASSimulation_wrapper::default_getNumberOfSimulationElements) );
-        
-        }
-        { //::GISASSimulation::getWavelength
-        
-            typedef double ( ::GISASSimulation::*getWavelength_function_type)(  ) const;
-            typedef double ( GISASSimulation_wrapper::*default_getWavelength_function_type)(  ) const;
-            
-            GISASSimulation_exposer.def( 
-                "getWavelength"
-                , getWavelength_function_type(&::GISASSimulation::getWavelength)
-                , default_getWavelength_function_type(&GISASSimulation_wrapper::default_getWavelength) );
         
         }
         { //::GISASSimulation::maskAll

@@ -58,12 +58,11 @@ ISample *CosineRippleBuilder::buildSample() const
 
     ParticleLayout particle_layout;
     particle_layout.addParticle(ripple,1.0);
-    InterferenceFunctionRadialParaCrystal *p_interference_function =
-            new InterferenceFunctionRadialParaCrystal(m_interf_distance,
-                    1e7*Units::nanometer); // peak_distance, corr_length
+    InterferenceFunctionRadialParaCrystal interference_function(m_interf_distance,
+                                                                1e7 * Units::nanometer);
     FTDistribution1DGauss pdf(m_interf_width);
-    p_interference_function->setProbabilityDistribution(pdf);
-    particle_layout.addInterferenceFunction(p_interference_function);
+    interference_function.setProbabilityDistribution(pdf);
+    particle_layout.addInterferenceFunction(interference_function);
 
     air_layer.addLayout(particle_layout);
 
@@ -115,12 +114,11 @@ ISample *TriangularRippleBuilder::buildSample() const
 
     ParticleLayout particle_layout;
     particle_layout.addParticle(ripple,1.0);
-    InterferenceFunctionRadialParaCrystal *p_interference_function =
-            new InterferenceFunctionRadialParaCrystal(m_interf_distance,
-                    1e7*Units::nanometer); // peak_distance, corr_length
+    InterferenceFunctionRadialParaCrystal interference_function(m_interf_distance,
+                                                                1e7 * Units::nanometer);
     FTDistribution1DGauss pdf(m_interf_width);
-    p_interference_function->setProbabilityDistribution(pdf);
-    particle_layout.addInterferenceFunction(p_interference_function);
+    interference_function.setProbabilityDistribution(pdf);
+    particle_layout.addInterferenceFunction(interference_function);
 
     air_layer.addLayout(particle_layout);
 

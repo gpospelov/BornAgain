@@ -33,6 +33,7 @@
 #include "FormFactorItems.h"
 #include "LayerRoughnessItems.h"
 #include "FTDistributionItems.h"
+#include "FTDecayFunctionItems.h"
 #include "LatticeTypeItems.h"
 #include "MaterialItem.h"
 #include "RefractiveIndexItem.h"
@@ -122,6 +123,15 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::FTDistribution2DGateType] = &createInstance<FTDistribution2DGateItem>;
     result[Constants::FTDistribution2DConeType] = &createInstance<FTDistribution2DConeItem>;
     result[Constants::FTDistribution2DVoigtType] = &createInstance<FTDistribution2DVoigtItem>;
+
+    result[Constants::FTDecayFunction1DCauchyType] = &createInstance<FTDecayFunction1DCauchyItem>;
+    result[Constants::FTDecayFunction1DGaussType] = &createInstance<FTDecayFunction1DGaussItem>;
+    result[Constants::FTDecayFunction1DTriangleType] = &createInstance<FTDecayFunction1DTriangleItem>;
+    result[Constants::FTDecayFunction1DVoigtType] = &createInstance<FTDecayFunction1DVoigtItem>;
+
+    result[Constants::FTDecayFunction2DCauchyType] = &createInstance<FTDecayFunction2DCauchyItem>;
+    result[Constants::FTDecayFunction2DGaussType] = &createInstance<FTDecayFunction2DGaussItem>;
+    result[Constants::FTDecayFunction2DVoigtType] = &createInstance<FTDecayFunction2DVoigtItem>;
 
     result[Constants::BasicLatticeType] = &createInstance<BasicLatticeTypeItem>;
     result[Constants::SquareLatticeType] = &createInstance<SquareLatticeTypeItem>;

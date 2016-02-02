@@ -164,12 +164,6 @@ const DistributionHandler &Simulation::getDistributionHandler() const
     return m_distribution_handler;
 }
 
-double Simulation::getWavelength() const
-{
-    throw RuntimeErrorException(
-        "Simulation::getWavelength: not uniquely defined for this type of Simulation");
-}
-
 void Simulation::updateSample()
 {
     if (mp_sample_builder.get()) {

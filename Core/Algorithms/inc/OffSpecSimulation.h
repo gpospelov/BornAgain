@@ -82,9 +82,6 @@ public:
     void setAnalyzerProperties(const kvector_t &direction, double efficiency,
                                double total_transmission = 1.0);
 
-    //! returns wavelength
-    virtual double getWavelength() const;
-
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;

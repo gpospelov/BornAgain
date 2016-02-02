@@ -101,8 +101,8 @@ const IMaterial *Particle::getAmbientMaterial() const
     return mP_ambient_material.get();
 }
 
-IFormFactor *Particle::createTransformedFormFactor(complex_t wavevector_scattering_factor,
-                                                   const IRotation *p_rotation, kvector_t translation) const
+IFormFactor *Particle::createTransformedFormFactor(const IRotation *p_rotation,
+                                                   kvector_t translation) const
 {
     if (!mP_form_factor.get()) return 0;
     boost::scoped_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
@@ -120,7 +120,7 @@ IFormFactor *Particle::createTransformedFormFactor(complex_t wavevector_scatteri
         P_temp_ff2.swap(P_temp_ff1);
     }
     FormFactorDecoratorMaterial *p_ff
-        = new FormFactorDecoratorMaterial(*P_temp_ff2, wavevector_scattering_factor);
+        = new FormFactorDecoratorMaterial(*P_temp_ff2);
     if (mP_material.get()) {
         if (mP_rotation.get()) {
             boost::scoped_ptr<const IMaterial> P_transformed_material(

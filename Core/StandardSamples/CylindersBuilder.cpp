@@ -59,7 +59,6 @@ ISample *CylindersInDWBABuilder::buildSample() const
 
     Particle particle(particle_material, ff_cylinder);
     ParticleLayout particle_layout(particle);
-    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);
 
@@ -102,7 +101,6 @@ ISample *CylindersInBABuilder::buildSample() const
     Particle cylinder(particle_material,ff_cylinder);
 
     ParticleLayout particle_layout(cylinder);
-    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);
     multi_layer->addLayer(air_layer);

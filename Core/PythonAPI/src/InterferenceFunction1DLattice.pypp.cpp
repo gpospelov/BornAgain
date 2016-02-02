@@ -107,6 +107,18 @@ struct InterferenceFunction1DLattice_wrapper : InterferenceFunction1DLattice, bp
         return IInterferenceFunction::getKappa( );
     }
 
+    virtual double getParticleDensity(  ) const  {
+        if( bp::override func_getParticleDensity = this->get_override( "getParticleDensity" ) )
+            return func_getParticleDensity(  );
+        else{
+            return this->IInterferenceFunction::getParticleDensity(  );
+        }
+    }
+    
+    double default_getParticleDensity(  ) const  {
+        return IInterferenceFunction::getParticleDensity( );
+    }
+
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
@@ -189,6 +201,16 @@ void register_InterferenceFunction1DLattice_class(){
                 , ( bp::arg("q") ) );
         
         }
+        { //::InterferenceFunction1DLattice::getDecayFunction
+        
+            typedef ::IFTDecayFunction1D const * ( ::InterferenceFunction1DLattice::*getDecayFunction_function_type)(  ) const;
+            
+            InterferenceFunction1DLattice_exposer.def( 
+                "getDecayFunction"
+                , getDecayFunction_function_type( &::InterferenceFunction1DLattice::getDecayFunction )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::InterferenceFunction1DLattice::getLatticeParameters
         
             typedef ::Lattice1DParameters ( ::InterferenceFunction1DLattice::*getLatticeParameters_function_type)(  ) const;
@@ -198,23 +220,13 @@ void register_InterferenceFunction1DLattice_class(){
                 , getLatticeParameters_function_type( &::InterferenceFunction1DLattice::getLatticeParameters ) );
         
         }
-        { //::InterferenceFunction1DLattice::getProbabilityDistribution
+        { //::InterferenceFunction1DLattice::setDecayFunction
         
-            typedef ::IFTDistribution1D const * ( ::InterferenceFunction1DLattice::*getProbabilityDistribution_function_type)(  ) const;
+            typedef void ( ::InterferenceFunction1DLattice::*setDecayFunction_function_type)( ::IFTDecayFunction1D const & ) ;
             
             InterferenceFunction1DLattice_exposer.def( 
-                "getProbabilityDistribution"
-                , getProbabilityDistribution_function_type( &::InterferenceFunction1DLattice::getProbabilityDistribution )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::InterferenceFunction1DLattice::setProbabilityDistribution
-        
-            typedef void ( ::InterferenceFunction1DLattice::*setProbabilityDistribution_function_type)( ::IFTDistribution1D const & ) ;
-            
-            InterferenceFunction1DLattice_exposer.def( 
-                "setProbabilityDistribution"
-                , setProbabilityDistribution_function_type( &::InterferenceFunction1DLattice::setProbabilityDistribution )
+                "setDecayFunction"
+                , setDecayFunction_function_type( &::InterferenceFunction1DLattice::setDecayFunction )
                 , ( bp::arg("pdf") ) );
         
         }
@@ -261,6 +273,17 @@ void register_InterferenceFunction1DLattice_class(){
                 "getKappa"
                 , getKappa_function_type(&::IInterferenceFunction::getKappa)
                 , default_getKappa_function_type(&InterferenceFunction1DLattice_wrapper::default_getKappa) );
+        
+        }
+        { //::IInterferenceFunction::getParticleDensity
+        
+            typedef double ( ::IInterferenceFunction::*getParticleDensity_function_type)(  ) const;
+            typedef double ( InterferenceFunction1DLattice_wrapper::*default_getParticleDensity_function_type)(  ) const;
+            
+            InterferenceFunction1DLattice_exposer.def( 
+                "getParticleDensity"
+                , getParticleDensity_function_type(&::IInterferenceFunction::getParticleDensity)
+                , default_getParticleDensity_function_type(&InterferenceFunction1DLattice_wrapper::default_getParticleDensity) );
         
         }
         { //::ISample::printSampleTree

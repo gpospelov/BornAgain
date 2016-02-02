@@ -59,6 +59,18 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
         return InterferenceFunction2DLattice::evaluate( boost::ref(q) );
     }
 
+    virtual double getParticleDensity(  ) const  {
+        if( bp::override func_getParticleDensity = this->get_override( "getParticleDensity" ) )
+            return func_getParticleDensity(  );
+        else{
+            return this->InterferenceFunction2DLattice::getParticleDensity(  );
+        }
+    }
+    
+    double default_getParticleDensity(  ) const  {
+        return InterferenceFunction2DLattice::getParticleDensity( );
+    }
+
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
@@ -211,6 +223,16 @@ void register_InterferenceFunction2DLattice_class(){
                 , ( bp::arg("q") ) );
         
         }
+        { //::InterferenceFunction2DLattice::getDecayFunction
+        
+            typedef ::IFTDecayFunction2D const * ( ::InterferenceFunction2DLattice::*getDecayFunction_function_type)(  ) const;
+            
+            InterferenceFunction2DLattice_exposer.def( 
+                "getDecayFunction"
+                , getDecayFunction_function_type( &::InterferenceFunction2DLattice::getDecayFunction )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::InterferenceFunction2DLattice::getLatticeParameters
         
             typedef ::Lattice2DParameters ( ::InterferenceFunction2DLattice::*getLatticeParameters_function_type)(  ) const;
@@ -220,23 +242,24 @@ void register_InterferenceFunction2DLattice_class(){
                 , getLatticeParameters_function_type( &::InterferenceFunction2DLattice::getLatticeParameters ) );
         
         }
-        { //::InterferenceFunction2DLattice::getProbabilityDistribution
+        { //::InterferenceFunction2DLattice::getParticleDensity
         
-            typedef ::IFTDistribution2D const * ( ::InterferenceFunction2DLattice::*getProbabilityDistribution_function_type)(  ) const;
+            typedef double ( ::InterferenceFunction2DLattice::*getParticleDensity_function_type)(  ) const;
+            typedef double ( InterferenceFunction2DLattice_wrapper::*default_getParticleDensity_function_type)(  ) const;
             
             InterferenceFunction2DLattice_exposer.def( 
-                "getProbabilityDistribution"
-                , getProbabilityDistribution_function_type( &::InterferenceFunction2DLattice::getProbabilityDistribution )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                "getParticleDensity"
+                , getParticleDensity_function_type(&::InterferenceFunction2DLattice::getParticleDensity)
+                , default_getParticleDensity_function_type(&InterferenceFunction2DLattice_wrapper::default_getParticleDensity) );
         
         }
-        { //::InterferenceFunction2DLattice::setProbabilityDistribution
+        { //::InterferenceFunction2DLattice::setDecayFunction
         
-            typedef void ( ::InterferenceFunction2DLattice::*setProbabilityDistribution_function_type)( ::IFTDistribution2D const & ) ;
+            typedef void ( ::InterferenceFunction2DLattice::*setDecayFunction_function_type)( ::IFTDecayFunction2D const & ) ;
             
             InterferenceFunction2DLattice_exposer.def( 
-                "setProbabilityDistribution"
-                , setProbabilityDistribution_function_type( &::InterferenceFunction2DLattice::setProbabilityDistribution )
+                "setDecayFunction"
+                , setDecayFunction_function_type( &::InterferenceFunction2DLattice::setDecayFunction )
                 , ( bp::arg("pdf") ) );
         
         }

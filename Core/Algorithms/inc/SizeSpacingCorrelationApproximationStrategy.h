@@ -32,7 +32,7 @@ public:
     }
 
     virtual void init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
-                      const SafePointerVector<IInterferenceFunction> &ifs);
+                      const IInterferenceFunction& iff);
 
 protected:
     //! Evaluates the intensity for given list of evaluated form factors

@@ -19,7 +19,7 @@
 using namespace BornAgain;
 
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
-    : mp_pdf(0), m_prefactor(1.0), m_na(0)
+    : mp_pdf(0), m_na(0)
 {
     m_lattice_params.m_length = length;
     m_lattice_params.m_xi = xi;
@@ -36,7 +36,7 @@ InterferenceFunction1DLattice *InterferenceFunction1DLattice::clone() const
 {
     InterferenceFunction1DLattice *result = new InterferenceFunction1DLattice(m_lattice_params);
     if (mp_pdf)
-        result->setProbabilityDistribution(*mp_pdf);
+        result->setDecayFunction(*mp_pdf);
     return result;
 }
 
@@ -45,14 +45,12 @@ void InterferenceFunction1DLattice::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
-void InterferenceFunction1DLattice::setProbabilityDistribution(const IFTDistribution1D &pdf)
+void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D &pdf)
 {
     if (mp_pdf != &pdf)
         delete mp_pdf;
     mp_pdf = pdf.clone();
     double omega = mp_pdf->getOmega();
-    //     initialize_calc_factors(omega):
-    m_prefactor = Units::PI * omega;
     double qa_max = (m_lattice_params.m_length / Units::PI2) * nmax / omega;
     m_na = (int)(std::abs(qa_max) + 0.5);
 }
@@ -83,12 +81,12 @@ double InterferenceFunction1DLattice::evaluate(const kvector_t &q) const
         double qx = qx_frac + i * a_rec;
         result += mp_pdf->evaluate(qx);
     }
-    return m_prefactor * result;
+    return result/a;
 }
 
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(
     const Lattice1DParameters &lattice_params)
-    : m_lattice_params(lattice_params), mp_pdf(0), m_prefactor(1.0), m_na(0)
+    : m_lattice_params(lattice_params), mp_pdf(0), m_na(0)
 {
     setName(InterferenceFunction1DLatticeType);
     init_parameters();

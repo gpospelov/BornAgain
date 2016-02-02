@@ -51,9 +51,6 @@ namespace MathFunctions
 
     BA_CORE_API_ complex_t Laue(const complex_t z, size_t N);
 
-//! Calculates the geometric series of z to order N
-    complex_t geometricSum(complex_t z, int exponent);
-
 
 // ************************************************************************** //
 //  Bessel functions

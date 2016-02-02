@@ -51,12 +51,10 @@ public:
     //! The bulk content of the mesocrystal is encapsulated by the
     //! IClusteredParticles object itself
     virtual IFormFactor *createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
-                                               complex_t wavevector_scattering_factor,
                                                const IRotation *p_rotation,
                                                kvector_t translation) const
     {
         (void)meso_crystal_form_factor;
-        (void)wavevector_scattering_factor;
         (void)p_rotation;
         (void)translation;
         throw NotImplementedException(

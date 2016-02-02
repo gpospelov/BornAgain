@@ -72,12 +72,11 @@ public:
     //! calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const;
 
-    //! Create a form factor for this particle with an extra scattering factor
-    IFormFactor *createFormFactor(complex_t wavevector_scattering_factor) const;
+    //! Create a form factor for this particle
+    IFormFactor *createFormFactor() const;
 
     //! Create a form factor for this particle with an extra scattering factor
-    virtual IFormFactor *createTransformedFormFactor(complex_t wavevector_scattering_factor,
-                                                     const IRotation *p_rotation,
+    virtual IFormFactor *createTransformedFormFactor(const IRotation *p_rotation,
                                                      kvector_t translation) const = 0;
 
     //! Returns particle position.

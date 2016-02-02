@@ -25,8 +25,7 @@
 //! @ingroup interference
 //! @brief Interference function of radial paracrystal.
 
-class BA_CORE_API_ InterferenceFunctionRadialParaCrystal
-        : public IInterferenceFunction
+class BA_CORE_API_ InterferenceFunctionRadialParaCrystal : public IInterferenceFunction
 {
 public:
 
@@ -47,7 +46,7 @@ public:
     void setDomainSize(double size);
 
     //! @brief Gets size of coherence domain
-    //! @param size: size in lattice direction
+    //! @return Size in lattice direction
     double getDomainSize() const;
 
     //! @brief Sets size-spacing coupling parameter
@@ -55,7 +54,7 @@ public:
     void setKappa(double kappa);
 
     //! @brief Gets size-spacing coupling parameter
-    //! @param kappa: size-spacing coupling parameter
+    //! @return Size-spacing coupling parameter
     virtual double getKappa() const;
 
     virtual double evaluate(const kvector_t& q) const;

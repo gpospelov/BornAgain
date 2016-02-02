@@ -20,9 +20,9 @@
 
 using namespace BornAgain;
 
-IFormFactor *IParticle::createFormFactor(complex_t wavevector_scattering_factor) const
+IFormFactor *IParticle::createFormFactor() const
 {
-    return createTransformedFormFactor(wavevector_scattering_factor, 0, kvector_t());
+    return createTransformedFormFactor(nullptr, kvector_t());
 }
 
 void IParticle::setRotation(const IRotation &rotation)

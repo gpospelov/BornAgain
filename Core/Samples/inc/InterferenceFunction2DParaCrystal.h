@@ -80,6 +80,9 @@ public:
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;
 
+    //! Returns the particle density associated with this 2d paracrystal lattice
+    virtual double getParticleDensity() const;
+
 protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();

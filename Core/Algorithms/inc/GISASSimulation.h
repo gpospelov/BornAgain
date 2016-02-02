@@ -112,9 +112,6 @@ public:
     void setAnalyzerProperties(const kvector_t &direction, double efficiency,
                                double total_transmission=1.0);
 
-    //! returns wavelength
-    virtual double getWavelength() const;
-
     //! removes all masks from the detector
     void removeMasks();
 

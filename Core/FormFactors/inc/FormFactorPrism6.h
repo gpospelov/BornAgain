@@ -46,6 +46,8 @@ protected:
 private:
     double m_height;
     double m_radius;
+    complex_t ff_term(
+        complex_t qRx, complex_t qRy, double xi, double yi, double xf, double yf ) const;
 };
 
 inline double FormFactorPrism6::getHeight() const

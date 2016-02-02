@@ -48,7 +48,7 @@ double FormFactorCrystal::getRadius() const
     return mp_meso_form_factor->getRadius();
 }
 
-complex_t FormFactorCrystal::evaluate_for_q(const cvector_t &q) const
+complex_t FormFactorCrystal::evaluate_for_q(const cvector_t& q) const
 {
     (void)q;
     throw LogicErrorException("evaluate_for_q() should never be called"

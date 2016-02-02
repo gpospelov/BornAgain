@@ -37,6 +37,11 @@ IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
     , m_data(0)
 {
     registerProperty(P_NAME, Constants::IntensityDataType);
+
+    ComboProperty units;
+    units << Constants::UnitsNbins << Constants::UnitsRadians << Constants::UnitsDegrees
+          << Constants::UnitsMm << Constants::UnitsQyQz;
+
     registerProperty(P_PROJECTIONS_FLAG, false);
     registerProperty(P_IS_INTERPOLATED, true);
 

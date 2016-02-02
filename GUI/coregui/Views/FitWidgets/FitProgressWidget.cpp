@@ -83,13 +83,9 @@ FitProgressWidget::FitProgressWidget(QWidget *parent)
 
 void FitProgressWidget::startFitting(OutputData<double> *real)
 {
-    m_realdata = new IntensityDataItem();
     m_realdata->setOutputData(real);
-    m_simulated = new IntensityDataItem();
     m_simulated->setOutputData(real->clone());
     m_simulated->setZAxisLocked(true);
-    m_realdataplot->setItem(m_realdata);
-    m_simulatedplot->setItem(m_simulated);
     disableInteractions();
     m_log->clear();
 }
@@ -114,6 +110,7 @@ void FitProgressWidget::updateLog(const QString &msg)
 void FitProgressWidget::updatePlots(OutputData<double> *sim, OutputData<double> *chi)
 {
     m_simulated->setOutputData(sim);
+    m_simulated->setLowerAndUpperZ(m_realdata->getLowerZ(), m_realdata->getUpperZ());
     m_chi2->setOutputData(chi);
     disableInteractions();
 }

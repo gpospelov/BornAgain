@@ -39,8 +39,6 @@ ParameterizedItem::ParameterizedItem(QString model_type, ParameterizedItem *pare
     }
 
     registerProperty(P_PORT, -1).setHidden();
-
-    registerProperty(P_PORT, -1, PropertyAttribute(PropertyAttribute::HIDDEN));
     setItemName(m_model_type);
 }
 

@@ -20,9 +20,14 @@
 #include "FitModel.h"
 #include "FitParameterItems.h"
 #include "projectmanager.h"
+#include "ColorMapPlot.h"
+#include "IntensityDataIOFactory.h"
+#include "IntensityDataItem.h"
+#include "IHistogram.h"
 #include <QVBoxLayout>
 #include <QTabWidget>
 #include <QLineEdit>
+#include <QFileInfo>
 
 
 
@@ -46,8 +51,8 @@ FitView::FitView(MainWindow *mainWindow)
                                                         mainWindow->getSampleModel(),
                                                         mainWindow->getInstrumentModel(), this);
 
-    connect (mainWindow->getProjectManager(), SIGNAL(projectOpened()),
-             settings, SLOT(onUpdateGUI()));
+    //connect (mainWindow->getProjectManager(), SIGNAL(projectOpened()),
+    //         settings, SLOT(onUpdateGUI()));
     FitParameterWidget *fitting = new FitParameterWidget(mainWindow->getSampleModel(),
                                                          mainWindow->getInstrumentModel(),
                                                          fitmodel, this);
@@ -59,7 +64,7 @@ FitView::FitView(MainWindow *mainWindow)
     QTabWidget *tabs = new QTabWidget;
 
     QTreeView *view = new QTreeView;
-
+    testplot = new ColorMapPlot(this);
 
     view->setModel(fitmodel);
 
@@ -72,6 +77,7 @@ FitView::FitView(MainWindow *mainWindow)
     tabs->addTab(runFitWidget, "Run Fit");
     tabs->addTab(view, "SessionModel test");
     tabs->addTab(fitting, "Parameters only");
+    tabs->addTab(testplot, "test plot");
     layout->setMargin(0);
     layout->setSpacing(0);
     layout->addWidget(tabs);
@@ -82,4 +88,11 @@ FitView::FitView(MainWindow *mainWindow)
 
 void FitView::onUpdatePath() {
     runFitWidget->path = line->text();
+    QFileInfo chk(line->text());
+    if (chk.exists()) {
+        IHistogram *data = IntensityDataIOFactory::readIntensityData(line->text().toStdString());
+        IntensityDataItem *item = new IntensityDataItem();
+        item->setOutputData(data->createOutputData());
+        testplot->setItem(item);
+    }
 }

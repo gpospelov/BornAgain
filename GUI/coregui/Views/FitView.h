@@ -22,6 +22,7 @@
 class MainWindow;
 class RunFitWidget;
 class QLineEdit;
+class ColorMapPlot;
 
 class BA_CORE_API_ FitView : public QWidget
 {
@@ -34,6 +35,7 @@ public slots:
 private:
     RunFitWidget *runFitWidget;
     QLineEdit *line;
+    ColorMapPlot *testplot;
 };
 
 #endif

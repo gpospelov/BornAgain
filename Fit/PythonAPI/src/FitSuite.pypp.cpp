@@ -218,7 +218,7 @@ void register_FitSuite_class(){
                 , "Returns current number of minimization function calls." );
         
         }
-        { //::FitSuite::getOptions
+        /*{ //::FitSuite::getOptions
         
             typedef ::FitOptions & ( ::FitSuite::*getOptions_function_type)(  ) ;
             
@@ -228,7 +228,7 @@ void register_FitSuite_class(){
                 , bp::return_value_policy< bp::reference_existing_object >()
                 , "Returns general setting of fit kernel." );
         
-        }
+        }*/
         { //::FitSuite::getRealData
         
             typedef ::IHistogram * ( ::FitSuite::*getRealData_function_type)( ::std::size_t ) const;
@@ -326,7 +326,7 @@ void register_FitSuite_class(){
                 , "Sets minimizer with given name and algorithm type @param minimizer The name of the minimizer @param algorithm Optional name of the minimizer's algorithm @param options Optional string with additional minimizer settings \n\n:Parameters:\n  - 'minimizer' - The name of the minimizer\n  - 'algorithm' - Optional name of the minimizer's algorithm\n  - 'options' - Optional string with additional minimizer settings\n" );
         
         }
-        { //::FitSuite::setOptions
+        /*{ //::FitSuite::setOptions
         
             typedef void ( ::FitSuite::*setOptions_function_type)( ::FitOptions const & ) ;
             
@@ -336,7 +336,7 @@ void register_FitSuite_class(){
                 , ( bp::arg("fit_options") )
                 , "Sets general setting of fit kernel." );
         
-        }
+        }*/
         { //::FitSuite::setParametersFixed
         
             typedef void ( ::FitSuite::*setParametersFixed_function_type)( ::std::vector< std::string > const &,bool ) ;

@@ -175,6 +175,8 @@ boost::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
             value = value.replace("Position Offset/Z", "PositionZ");
             value = value.replace("Rotation/ZRotation", "ZRotation");
             value = value.replace("Wavelength/DistributionNone/Value", "Wavelength");
+            value = value.replace("Hurst parameter", "Hurst");
+            value = value.replace("Lateral corr length", "CorrelationLength");
             value = value.replace(" ", "");
             std::string translated = "*" + value.toStdString();
             std::cout << translated;
@@ -188,7 +190,7 @@ boost::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
             } else if (min==max && max > init) {
                 limits = AttLimits::upperLimited(max);
             } else if (min < init && max > init) {
-                limits = AttLimits::limitless();
+                limits = AttLimits::limited(min, max);
             } else {
                 limits = AttLimits::limitless();
             }

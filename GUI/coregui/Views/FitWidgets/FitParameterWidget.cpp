@@ -112,7 +112,7 @@ FitParameterWidget::FitParameterWidget(SampleModel *sampleModel, InstrumentModel
     connect(m_selectorTreeView, SIGNAL(doubleClicked(QModelIndex)),
             this, SLOT(onDoubleclick(QModelIndex)));
 
-    connectSelectorView();
+
     connectParameterView();
 
 }
@@ -126,8 +126,7 @@ void FitParameterWidget::updateSelector()
     m_selectorTreeView->resizeColumnToContents(0);
     m_selectorTreeView->setColumnWidth(0, m_selectorTreeView->columnWidth(0) * 1.2);
 
-    connect(m_selectorTreeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-               this, SLOT(onSelectorSelectionChanged(QItemSelection)));
+    connectSelectorView();
 }
 
 ParameterizedItem *FitParameterWidget::getTopItemFromSelection(SessionModel *model,

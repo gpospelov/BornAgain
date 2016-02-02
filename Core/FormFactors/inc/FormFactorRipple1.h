@@ -17,7 +17,11 @@
 #define FORMFACTORRIPPLE1_H
 
 #include "IFormFactorBorn.h"
-#include "MemberComplexFunctionIntegrator.h"
+
+#include <memory>
+
+// Forward declaration to prevent IntegratorReal.h to be parsed for Python API:
+template <class T> class IntegratorComplex;
 
 //! @class FormFactorRipple1
 //! @ingroup formfactors
@@ -53,14 +57,16 @@ protected:
     virtual void init_parameters();
 
 private:
-    complex_t Integrand(double Z, void* params) const;
+    complex_t Integrand(double Z) const;
 
     double m_width;
     double m_height;
     double m_length;
     mutable cvector_t m_q;
 
-    MemberComplexFunctionIntegrator<FormFactorRipple1> *m_integrator;
+#ifndef GCCXML_SKIP_THIS
+    std::unique_ptr<IntegratorComplex<FormFactorRipple1>> mP_integrator;
+#endif
 };
 
 inline double FormFactorRipple1::getHeight() const

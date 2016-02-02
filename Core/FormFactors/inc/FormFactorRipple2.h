@@ -17,7 +17,6 @@
 #define FORMFACTORRIPPLE2_H
 
 #include "IFormFactorBorn.h"
-#include "MemberComplexFunctionIntegrator.h"
 
 //! @class FormFactorRipple2
 //! @ingroup formfactors

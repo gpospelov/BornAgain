@@ -17,8 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
-#include "MemberFunctionIntegrator.h"
-#include "MemberComplexFunctionIntegrator.h"
+#include "IntegratorComplex.h"
 
 using namespace  BornAgain;
 
@@ -30,15 +29,11 @@ FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height )
     check_initialization();
     init_parameters();
 
-    MemberComplexFunctionIntegrator<FormFactorFullSpheroid>::mem_function p_mf =
-       & FormFactorFullSpheroid::Integrand;
-    m_integrator =
-        new MemberComplexFunctionIntegrator<FormFactorFullSpheroid>(p_mf, this);
+    mP_integrator = make_integrator_complex(this, &FormFactorFullSpheroid::Integrand);
 }
 
 FormFactorFullSpheroid::~FormFactorFullSpheroid()
 {
-    delete m_integrator;
 }
 
 bool FormFactorFullSpheroid::check_initialization() const
@@ -64,9 +59,8 @@ void FormFactorFullSpheroid::accept(ISampleVisitor *visitor) const
 }
 
 //! Integrand for complex formfactor.
-complex_t FormFactorFullSpheroid::Integrand(double Z, void* params) const
+complex_t FormFactorFullSpheroid::Integrand(double Z) const
 {
-    (void)params;  // to avoid unused-variable warning
     double R = m_radius;
     double H = m_height;
 
@@ -90,7 +84,7 @@ complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t& q) const
         complex_t qzH_half  = m_q.z()*H/2.0;
         complex_t z_part    =  std::exp(complex_t(0.0, 1.0)*qzH_half);
 
-        return 4.0* Units::PI * z_part *m_integrator->integrate(0.0, H/2.0);
+        return 4.0* Units::PI * z_part *mP_integrator->integrate(0.0, H/2.0);
     }
 }
 

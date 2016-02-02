@@ -17,7 +17,11 @@
 #define FORMFACTORFULLSPHEROID_H
 
 #include "IFormFactorBorn.h"
-#include "MemberComplexFunctionIntegrator.h"
+
+#include <memory>
+
+// Forward declaration to prevent IntegratorReal.h to be parsed for Python API:
+template <class T> class IntegratorComplex;
 
 //! @class FormFactorFullSpheroid
 //! @ingroup formfactors
@@ -50,13 +54,15 @@ protected:
 
 private:
 
-    complex_t Integrand(double Z, void* params) const;
+    complex_t Integrand(double Z) const;
 
     double m_radius;
     double m_height;
     mutable cvector_t m_q;
 
-    MemberComplexFunctionIntegrator<FormFactorFullSpheroid> *m_integrator;
+#ifndef GCCXML_SKIP_THIS
+    std::unique_ptr<IntegratorComplex<FormFactorFullSpheroid>> mP_integrator;
+#endif
 };
 
 inline double FormFactorFullSpheroid::getHeight() const

@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "IFormFactorBorn.h"
-#include "MemberFunctionIntegrator.h"
 #include "MathFunctions.h"
 
 complex_t IFormFactorBorn::evaluate(const WavevectorInfo& wavevectors) const

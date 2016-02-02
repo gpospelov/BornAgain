@@ -29,6 +29,7 @@ GISASSimulation *PolarizedDWBAMagCylinders2();
 GISASSimulation *BasicGISAS();
 GISASSimulation *BasicGISAS00();
 GISASSimulation *MiniGISAS();
+GISASSimulation *MiniGISAS_v2();
 GISASSimulation *MiniGISASBeamDivergence();
 GISASSimulation *MiniGISASDetectorResolution();
 GISASSimulation *GISASWithMasks();

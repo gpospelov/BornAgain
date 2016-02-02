@@ -90,6 +90,18 @@ GISASSimulation *StandardSimulations::MiniGISAS()
     return result;
 }
 
+//! GISAS simulation with small detector and phi[-1,1], theta[0,1]
+GISASSimulation *StandardSimulations::MiniGISAS_v2()
+{
+    GISASSimulation *result = new GISASSimulation();
+    result->setDetectorParameters(25, -1.0*Units::degree, 1.0*Units::degree,
+                                     25, 0.0*Units::degree, 1.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
+    return result;
+}
+
+
 GISASSimulation *StandardSimulations::MiniGISASBeamDivergence()
 {
     GISASSimulation *result = MiniGISAS();

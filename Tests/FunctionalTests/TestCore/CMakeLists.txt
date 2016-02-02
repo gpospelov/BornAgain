@@ -17,6 +17,7 @@ endif()
 
 set(list_of_tests
     "CoreSuite/FormFactors"
+    "CoreSuite/FormFactorsAbs"
     "CoreSuite/CylindersAndPrisms"
     "CoreSuite/RadialParaCrystal"
     "CoreSuite/Basic2DParaCrystal"

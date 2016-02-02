@@ -33,6 +33,7 @@
 #include "SizeDistributionModelsBuilder.h"
 #include "TransformationsBuilder.h"
 #include "BoxCompositionBuilder.h"
+#include "LayersWithAbsorptionBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -214,6 +215,12 @@ SampleBuilderFactory::SampleBuilderFactory()
         "TransformBoxBuilder",
         IFactoryCreateFunction<TransformBoxBuilder, ISampleBuilder>,
         "Rotated and translated box in 3 layer system");
+
+    registerItem(
+        "LayersWithAbsorptionBuilder",
+        IFactoryCreateFunction<LayersWithAbsorptionBuilder, ISampleBuilder>,
+        "3 layer system with absorption");
+
 }
 
 ISample *SampleBuilderFactory::createSample(const std::string& name)

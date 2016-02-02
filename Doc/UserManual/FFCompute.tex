@@ -24,7 +24,7 @@
 
 The Form factor of a hard-shell particle is simply its \E{shape transform},
 as introduced in~(\ref{EFFhardshell}),
-\begin{equation}\label{EFF_SFF2}
+\begin{equation}\label{Eff3d}
   F(\q)=\int_V\!\d^3r\, \e^{i\q\r},
 \end{equation}
 where $V$ is the volume of the particle.
@@ -36,13 +36,13 @@ developers who want to add some more form factors to \BornAgain's collection
 (catalogued in App.~\ref{SFF}).
 
 \index{Form factor!bound for absolute value}%
-From~(\ref{EFF_SFF2}), it is immediately clear that~$F(\q)$ is bounded by
+From~(\ref{Eff3d}), it is immediately clear that~$F(\q)$ is bounded by
 \begin{equation}
   |F(\q)|\le V,
 \end{equation}
 with equality holding for~$\q=0$.
 This excludes the presence of nonremovable singularities.
-However, analytical solutions of~(\ref{EFF_SFF2}) do contain
+However, analytical solutions of~(\ref{Eff3d}) do contain
 removable singularities.
 These singularities must be investigated closely
 in order to prevent floating-point errors and ill conditioned computations.
@@ -71,7 +71,7 @@ While all this is clear and easy,
 computations become more involved
 if a particle has planes with normals that are not oriented along
 any of the axes of the Cartesian coordinate system.
-Typically then, the straightforward analytical solution of~(\ref{EFF_SFF2})
+Typically then, the straightforward analytical solution of~(\ref{Eff3d})
 results in messy expressions that obscure the symmetries of~$F(\q)$,
 and make it difficult to recognize the singularities and
 to remove them.
@@ -83,12 +83,14 @@ Therefore we shall consider a few such cases more closely.
 \section{Polygon}\label{SFFPolygon}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\index{Form factor!(polygon}%
+\index{Polygon!form factor(}
 \def\R{\v{R}}
 \def\E{\v{E}}
 
 To derive the form factor of prisms and pyramids with polygonal bases
 we start by computing the two-dimensional form factor
-\begin{equation}\label{EFF_SFF2}
+\begin{equation}\label{Eff2d}
   \Gamma(\q)=\int_A\!\d^2r\, \e^{i\q\r},
 \end{equation}
 of an arbitrary polygon of area~$A$.
@@ -97,7 +99,7 @@ later, we will equate the two-dimensional~$\q$ with the in-plane
 component~$\q_\parallel$ of the three-dimensional~$\q$.
 We use Green's theorem
 \begin{equation}
-  \iint\!\d r^2\,\v{\partial}\wedge\v{G} = \oint \d\v{r}\cdot\v{G}
+  \iint\!\d r^2\,\v{\Nabla}\wedge\v{G} = \oint \d\v{r}\cdot\v{G}
 \end{equation}
 with the wedge product
 \begin{equation}
@@ -162,8 +164,82 @@ and make use of $\r_{j+n}=-\r_j$ to transform~(\ref{Effpolygon}) into
               (\v{\hat q^*}\wedge\E_j) (\v{\hat q}\R_j) \sinc(\q\E_j) \sinc(\q\R_j),
 \end{equation}
 where even the point singularity at $q=0$ is absorbed in a sinc function.
+\index{Form factor!polygon)}%
+\index{Polygon!form factor)}%
 
-\Work{work in progress \ldots}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pyramids}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\index{Form factor!frustum(}%
+\index{Form factor!pyramid(}%
+\index{Pyramid!form factor(}%
+\index{Frustum!form factor(}%
+
+Quite generally, we describe particles
+as being based at $z=0$ and extending up to a height~$H$.
+Accordingly,
+the three-dimensional form factor~(\ref{Eff3d}) is
+\begin{equation}
+  F(\q) = \int_0^H\!\d z\,\e^{iq_z z} \Gamma(\q_\parallel,z)
+\end{equation}
+with a two-dimensional form factor~$\Gamma(\q_\parallel,z)$
+of the horizontal section at given~$z$.
+If this section has constant shape at variable size,
+so that it scales with some function~$\rho(z)$,
+then the two-dimensional form factor~(\ref{Eff2d})
+can be written as
+\begin{equation}
+  \Gamma(\q_\parallel,z)
+  = {\rho(z)}^2\, \Gamma\left(\rho(z)\q_\parallel,0\right).
+\end{equation}
+Depending on the geometry of the base,
+its form factor can be written as a finite or infinite series
+\begin{equation}
+  \Gamma(\q_\parallel,0)=\sum_j A_j \e^{i\q_\parallel \v{c}_j}.
+\end{equation}
+Accordingly, the three-dimensional form factor can be computed as
+\begin{equation}
+  F(\q) = \sum_j A_j \int_0^H\!\d z\,\rho(z)^2\e^{iq_z z} \e^{i\rho(z)\q_\parallel \v{c}_j}.
+\end{equation}
+We now specialize to pyramids,
+for which
+\begin{equation}
+  \rho(z) = 1-z/H_0
+\end{equation}
+with a parameter $H_0\le H$.
+Unless the equal sign holds,
+the pyramid is a truncated one (a frustum).
+The form factor becomes
+\begin{equation}
+  \begin{array}{@{}lcl}
+  F(\q)
+  &=& \displaystyle
+       \e^{iq_z H_0} \sum_j A_j \int_0^H\!\d z\,\rho(z)^2\e^{i(-q_zH_0 +\q_\parallel \v{c}_j)\rho(z)}
+\\[3ex]
+  &=& \displaystyle
+       H_0\, \e^{iq_z H_0} \sum_j A_j \int_{1-H/H_0}^1\!\d\rho\, \rho^2\e^{i(-q_zH_0 +\q_\parallel \v{c}_j)\rho}
+\\[3ex]
+  &=& \displaystyle
+       H_0\, \e^{iq_z H_0} \sum_j A_j \Delta(i(-q_zH_0 +\q_\parallel \v{c}_j),1-H/H_0)
+  \end{array}
+\end{equation}
+with a function
+\begin{equation}
+  \Delta(u,v) \coloneqq
+  \int_{v}^1\!\d\rho\,\rho^2\,\e^{u\rho}
+  = \frac{\e^u-v^2\e^{uv}}{u}
+  - 2\frac{\e^u-v\e^{uv}}{u^2}
+  + 2\frac{\e^u-\e^{uv}}{u^3}.
+\end{equation}
+Expansion in~$u$ shows that the apparent singularity at $u=0$ is removable.
+
+\index{Form factor!frustum)}%
+\index{Form factor!pyramid)}%
+\index{Pyramid!form factor)}%
+\index{Frustum!form factor)}%
+
+%\Work{work in progress \ldots}
 \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Special functions near the removable singularity}

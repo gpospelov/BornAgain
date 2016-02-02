@@ -85,8 +85,8 @@ public:
     double getDirectBeamV0() const;
     EDetectorArrangement getDetectorArrangment() const;
 
-    //! Returns detector map in given units
-//    virtual OutputData<double> *createDetectorMap(const Beam& beam, EAxesUnits units_type) const;
+    //! Returns detector map in given axes units
+    virtual OutputData<double> *createDetectorMap(const Beam& beam, EAxesUnits units_type) const;
 
 protected:
     //! Create an IPixelMap for the given OutputData object and index

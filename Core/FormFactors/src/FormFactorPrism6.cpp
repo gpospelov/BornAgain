@@ -52,7 +52,7 @@ void FormFactorPrism6::accept(ISampleVisitor *visitor) const
 
 complex_t FormFactorPrism6::evaluate_for_q(const cvector_t& q) const
 {
-    static double root3 = std::sqrt(3.0);
+    static double root3d2 = std::sqrt(3.0) / 2;
     complex_t qz = q.z();
     double R = m_radius;
     double H = m_height;
@@ -62,22 +62,29 @@ complex_t FormFactorPrism6::evaluate_for_q(const cvector_t& q) const
 
     complex_t xy_part = complex_t(0.0, 0.0);
     if (q.x() == 0.0 && q.y() == 0.0) {
-        xy_part = 3. * root3 / 2. * R * R;
+        xy_part = 3. * root3d2 * R * R;
     } else {
+        complex_t qRx = q.x() * R;
+        complex_t qRy = q.y() * R;
+        xy_part += ff_term( qRx, qRy, root3d2, -.5, root3d2, +.5 );
+        xy_part += ff_term( qRx, qRy, root3d2, +.5, 0., 1. );
+        xy_part += ff_term( qRx, qRy, 0., 1., -root3d2, +.5 );
+        /*
         if (std::abs(3.0 * q.y() * q.y() - q.x() * q.x()) == 0.0) {
-            complex_t qyRr3_half = q.y() * R * root3 / 2.;
-            xy_part = R * R * root3 / 2.0 * MathFunctions::sinc(qyRr3_half)
+            complex_t qyRr3_half = q.y() * R * root3d2;
+            xy_part = R * R * root3d2 * MathFunctions::sinc(qyRr3_half)
                       * (MathFunctions::sinc(qyRr3_half) + 2.0 * std::cos(qyRr3_half));
         } else {
             complex_t qxR_half = (q.x() * R) / 2.0;
-            complex_t qyRr3_half = q.y() * R * root3 / 2.;
+            complex_t qyRr3_half = q.y() * R * root3d2.;
 
-            xy_part = (4.0 * root3
+            xy_part = (8.0 * root3d2
                        * (3.0 / 4.0 * q.y() * R * q.y() * R * MathFunctions::sinc(qxR_half)
                           * MathFunctions::sinc(qyRr3_half) + std::cos(2.0 * qxR_half)
                           - std::cos(qyRr3_half) * std::cos(qxR_half)))
                       / (3.0 * q.y() * q.y() - q.x() * q.x());
         }
+        */
     }
     return xy_part*z_part;
 }

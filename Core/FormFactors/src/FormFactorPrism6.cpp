@@ -58,7 +58,7 @@ complex_t FormFactorPrism6::ff_term(
 {
     complex_t qRj = ( qRx*(xf+xi) + qRy*(yf+yi) ) / 2.;
     complex_t qEj = ( qRx*(xf-xi) + qRy*(yf-yi) ) / 2.;
-    complex_t qWj = ( qRx*(yf-yi) - qRy*(xf-xi) ) / 2.;
+    complex_t qWj = ( conj(qRx)*(yf-yi) - conj(qRy)*(xf-xi) ) / 2.;
     return qWj * qRj * MathFunctions::sinc(qEj) * MathFunctions::sinc(qRj);
 }
 
@@ -72,15 +72,15 @@ complex_t FormFactorPrism6::evaluate_for_q(const cvector_t& q) const
     complex_t qzH_half = qz * H / 2.0;
     complex_t z_part = H * MathFunctions::sinc(qzH_half) * std::exp(complex_t(0.0, 1.0) * qzH_half);
 
-    complex_t xy_part = complex_t(0.0, 0.0);
+    complex_t xy_part(0.0, 0.0);
     if (q.x() == 0.0 && q.y() == 0.0) {
         xy_part = 3. * root3d2 * R * R;
     } else {
         complex_t qRx = q.x() * R;
         complex_t qRy = q.y() * R;
-        xy_part += ff_term( qRx, qRy, root3d2, -.5, root3d2, +.5 );
-        xy_part += ff_term( qRx, qRy, root3d2, +.5, 0., 1. );
-        xy_part += ff_term( qRx, qRy, 0., 1., -root3d2, +.5 );
+        xy_part += ff_term( qRx, qRy, 1., 0., .5, root3d2 );
+        xy_part += ff_term( qRx, qRy, .5, root3d2, -.5, root3d2 );
+        xy_part += ff_term( qRx, qRy, -.5, root3d2, -1., 0. );
         xy_part *= 4. / ( q.x()*conj(q.x()) + q.y()*conj(q.y()) );
         /*
         if (std::abs(3.0 * q.y() * q.y() - q.x() * q.x()) == 0.0) {

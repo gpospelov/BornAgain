@@ -20,20 +20,36 @@
 #include "FitSuite.h"
 #include "GUIFitObserver.h"
 #include "FitProgressWidget.h"
+#include "SampleModel.h"
+#include "InstrumentModel.h"
+#include "FitModel.h"
+#include "DomainSimulationBuilder.h"
+#include "FitParameterItems.h"
+#include "ParameterizedItem.h"
+#include "MultiLayerItem.h"
+#include "InstrumentItem.h"
+#include "SessionModel.h"
+#include "IntensityDataIOFactory.h"
 #include <QWidget>
 #include <QPushButton>
 #include <QSlider>
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QFileInfo>
+#include <QDebug>
 
-RunFitWidget::RunFitWidget(QWidget *parent) : QWidget(parent)
+RunFitWidget::RunFitWidget(FitModel *fit, SampleModel *sample, InstrumentModel *inst, QWidget *parent)
+    : QWidget(parent)
   , m_start_button(0)
   , m_stop_button(0)
   , m_interval_label(0)
   , m_interval_slider(0)
   , m_runfitmanager(new RunFitManager(this))
   , m_fitprogress(new FitProgressWidget(this))
+    , m_fitModel(fit)
+    , m_sampleModel(sample)
+    , m_instrumentModel(inst)
 {
     // setup ui
     m_start_button  = new QPushButton();
@@ -112,34 +128,99 @@ void RunFitWidget::onFittingFinished()
 // test only
 boost::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
 {
-    SampleBuilderFactory builderFactory;
-    boost::scoped_ptr<ISample> sample(builderFactory.createSample("CylindersInBABuilder"));
+    ParameterizedItem *multilayer = getTopItemFromSelection(m_sampleModel, Constants::MultiLayerType,
+                                                            FitSelectionItem::P_SAMPLE_INDEX);
+    ParameterizedItem *instrument = getTopItemFromSelection(m_instrumentModel,
+                                                            Constants::InstrumentType,
+                                                            FitSelectionItem::P_INSTRUMENT_INDEX);
 
-    SimulationRegistry simRegistry;
-    boost::scoped_ptr<GISASSimulation> simulation(simRegistry.createSimulation("BasicGISAS"));
+    DomainSimulationBuilder builder;
 
-    simulation->setDetectorParameters(100,-2*Units::degree, 2*Units::degree,100,0,2*Units::degree);
-    simulation->setSample(*sample.get());
-    simulation->runSimulation();
+    boost::scoped_ptr<GISASSimulation> simulation(builder.getSimulation(dynamic_cast<MultiLayerItem*>
+                                                                          (multilayer),
+                                                                          dynamic_cast<InstrumentItem*>
+                                                                          (instrument)));
+    QFileInfo checkFile(path);
 
-    boost::scoped_ptr<OutputData<double> > real_data(simulation->getDetectorIntensity());
+    OutputData<double> *data = 0;
+
+    if (checkFile.exists()) {
+        data = IntensityDataIOFactory::readOutputData(path.toStdString());
+        qDebug() << data->totalSum();
+        //Q_ASSERT(0);
+    } else {
+
+        simulation->runSimulation();
+        data = simulation->getOutputData()->clone();
+    }
+
 
     boost::shared_ptr<FitSuite> m_fitsuite = boost::shared_ptr<FitSuite>(new FitSuite());
-    if (true)
-    {
-    m_fitsuite->setMinimizer("Genetic");
-    m_fitsuite->getMinimizer()->getOptions()->setValue("RandomSeed",1);
 
-    m_fitsuite->addFitParameter("*Height", 4.5 * Units::nanometer, AttLimits::limited(4.0, 6.0), 0.1);
-    m_fitsuite->addFitParameter("*Radius", 5.5 * Units::nanometer, AttLimits::limited(4.0, 6.0), 0.1);
+
+    m_fitsuite->addSimulationAndRealData(*simulation.get(), *data);
+
+
+    ParameterizedItem *container =m_fitModel->itemForIndex(QModelIndex())->getChildOfType(Constants::FitParameterContainerType);
+
+    QModelIndex c_index = m_fitModel->indexOfItem(container);
+    for (int i = 0; i < m_fitModel->rowCount(c_index); i++) {
+        QModelIndex child = m_fitModel->index(i,0,c_index);
+        ParameterizedItem *parameter = m_fitModel->itemForIndex(child);
+        for (int j = 0; j < m_fitModel->rowCount(child); j++) {
+            ParameterizedItem *link = m_fitModel->itemForIndex(m_fitModel->index(j,0,child));
+            QString value = link->getRegisteredProperty(FitParameterLinkItem::P_LINK).toString();
+            value = value.replace("Position Offset/X", "PositionX");
+            value = value.replace("Position Offset/Y", "PositionY");
+            value = value.replace("Position Offset/Z", "PositionZ");
+            value = value.replace("Rotation/ZRotation", "ZRotation");
+            value = value.replace("Wavelength/DistributionNone/Value", "Wavelength");
+            value = value.replace(" ", "");
+            std::string translated = "*" + value.toStdString();
+            std::cout << translated;
+            std::cout.flush();
+            double min = parameter->getRegisteredProperty(FitParameterItem::P_MIN).toDouble();
+            double max = parameter->getRegisteredProperty(FitParameterItem::P_MAX).toDouble();
+            double init = parameter->getRegisteredProperty(FitParameterItem::P_INIT).toDouble();
+            AttLimits limits;
+            if (min==max && min < init) {
+                limits = AttLimits::lowerLimited(min);
+            } else if (min==max && max > init) {
+                limits = AttLimits::upperLimited(max);
+            } else if (min < init && max > init) {
+                limits = AttLimits::limitless();
+            } else {
+                limits = AttLimits::limitless();
+            }
+            m_fitsuite->addFitParameter(translated, init, limits);
+        }
     }
-    else
-    {
 
-        m_fitsuite->addFitParameter("*Height", 3.5 * Units::nanometer, AttLimits::lowerLimited(0.01));
-        m_fitsuite->addFitParameter("*Radius", 4.5 * Units::nanometer, AttLimits::lowerLimited(0.01));
-    }
-
-    m_fitsuite->addSimulationAndRealData(*simulation.get(), *real_data.get());
     return m_fitsuite;
+}
+
+ParameterizedItem *RunFitWidget::getTopItemFromSelection(SessionModel *model,
+                                                               const QString &itemType,
+                                                               const QString &selectionType)
+{
+    QString selectedSample = m_fitModel->itemForIndex(QModelIndex())
+            ->getChildOfType(Constants::FitSelectionType)
+            ->getRegisteredProperty(selectionType).toString();
+
+    if (selectedSample.isEmpty())
+        return NULL;
+
+    ParameterizedItem *top = 0;
+
+    for (int i_row = 0; i_row < model->rowCount(QModelIndex()); ++i_row) {
+        QModelIndex itemIndex = model->index(i_row, 0, QModelIndex());
+        if (ParameterizedItem *item = model->itemForIndex(itemIndex)) {
+            if (item->modelType()  == itemType) {
+                if (item->displayName() == selectedSample)
+                    top = item;
+            }
+        }
+    }
+
+    return top;
 }

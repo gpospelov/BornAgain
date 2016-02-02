@@ -26,6 +26,11 @@ class QPushButton;
 class RunFitManager;
 class FitSuite;
 class FitProgressWidget;
+class FitModel;
+class SampleModel;
+class InstrumentModel;
+class ParameterizedItem;
+class SessionModel;
 
 class BA_CORE_API_ RunFitWidget : public QWidget
 {
@@ -33,10 +38,12 @@ class BA_CORE_API_ RunFitWidget : public QWidget
 
 public:
 
-    RunFitWidget(QWidget *parent = 0);
+    RunFitWidget(FitModel *fit, SampleModel *sample, InstrumentModel *inst, QWidget *parent = 0);
 
     // test only
     boost::shared_ptr<FitSuite> init_test_fitsuite();
+
+    QString path;
 
 public slots:
 
@@ -58,7 +65,11 @@ private:
     QSlider *m_interval_slider;
     RunFitManager *m_runfitmanager;
     FitProgressWidget *m_fitprogress;
+    FitModel *m_fitModel;
+    SampleModel *m_sampleModel;
+    InstrumentModel *m_instrumentModel;
 
+    ParameterizedItem *getTopItemFromSelection(SessionModel *model, const QString &itemType, const QString &selectionType);
 };
 
 #endif

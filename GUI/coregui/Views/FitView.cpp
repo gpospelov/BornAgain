@@ -22,6 +22,7 @@
 #include "projectmanager.h"
 #include <QVBoxLayout>
 #include <QTabWidget>
+#include <QLineEdit>
 
 
 
@@ -50,7 +51,9 @@ FitView::FitView(MainWindow *mainWindow)
     FitParameterWidget *fitting = new FitParameterWidget(mainWindow->getSampleModel(),
                                                          mainWindow->getInstrumentModel(),
                                                          fitmodel, this);
-    RunFitWidget *runFitWidget = new RunFitWidget();
+    runFitWidget = new RunFitWidget(mainWindow->getFitModel(),
+                                                  mainWindow->getSampleModel(),
+                                                  mainWindow->getInstrumentModel(), this);
 
     QVBoxLayout *layout = new QVBoxLayout;
     QTabWidget *tabs = new QTabWidget;
@@ -60,8 +63,11 @@ FitView::FitView(MainWindow *mainWindow)
 
     view->setModel(fitmodel);
 
+    line = new QLineEdit();
 
-    tabs->addTab(new QWidget(), "Import Experimental Data");
+    connect(line, SIGNAL(textChanged(QString)), this, SLOT(onUpdatePath()));
+
+    tabs->addTab(line , "Import Experimental Data");
     tabs->addTab(settings, "Fit Settings");
     tabs->addTab(runFitWidget, "Run Fit");
     tabs->addTab(view, "SessionModel test");
@@ -72,4 +78,8 @@ FitView::FitView(MainWindow *mainWindow)
     setLayout(layout);
 
     tabs->setCurrentIndex(1);
+}
+
+void FitView::onUpdatePath() {
+    runFitWidget->path = line->text();
 }

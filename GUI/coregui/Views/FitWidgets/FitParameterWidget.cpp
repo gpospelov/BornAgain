@@ -206,29 +206,47 @@ void FitParameterWidget::buildSelectorModel() {
                                                          Constants::InstrumentType,
                                                          FitSelectionItem::P_INSTRUMENT_INDEX);
     if (topSample && topInst) {
-        buildTree(root, topSample);
-        buildTree(root, topInst);
+        QStandardItem *multilayer = new QStandardItem("MultiLayer");
+        root->appendRow(multilayer);
+        buildTree(multilayer, topSample);
+        QStandardItem *instrument = new QStandardItem("Instrument");
+        root->appendRow(instrument);
+        buildTree(instrument, topInst);
+
+
 
         // check for consistency
         for (int i=0; i<m_parameterModel->rowCount(QModelIndex()); i++){
-            int rowcount = m_parameterModel->rowCount(m_parameterModel->index(i,0,QModelIndex()));
+
+            // remove invalid links on first pass
+
             QModelIndex child = m_parameterModel->index(i,0,QModelIndex());
-            for (int j = 0; j < rowcount; j++) {
-                QModelIndex curIndex = m_parameterModel->index(j,0, child);
-                QString value = m_parameterModel->itemForIndex(curIndex)
-                        ->getRegisteredProperty(FitParameterLinkItem::P_LINK).toString();
-                auto item = m_selectorModel->getItemFromPath(value);
-                if (item == m_selectorModel->invisibleRootItem()) {
-                    m_parameterModel->removeRow(j, child);
-                    /*if (rowcount == 1) {
-                        m_parameterModel->removeRow(i);
-                        i--;
-                    }*/
-                    j--;
-                    rowcount--;
+            while (child.isValid()) {
+
+                int rowcount = m_parameterModel->rowCount(child);
+                if (rowcount == 0)
+                    break;
+
+                for (int j = 0; j < rowcount; j++) {
+                    QModelIndex curIndex = m_parameterModel->index(j,0, child);
+                    if (curIndex.isValid()) {
+                        QString value = m_parameterModel->itemForIndex(curIndex)
+                                ->getRegisteredProperty(FitParameterLinkItem::P_LINK).toString();
+                        auto item = m_selectorModel->getItemFromPath(value);
+                        if (item == m_selectorModel->invisibleRootItem()) {
+                            m_parameterModel->removeRow(j, child);
+                            break;
+                        }
+                    }
+                    if (j + 1 == rowcount)
+                        child = QModelIndex();
                 }
+
             }
+
         }
+
+        removeEmptyParameter();
 
         spanParameters();
     }
@@ -240,6 +258,8 @@ void FitParameterWidget::spanParameters()
     m_parameterTreeview->expandAll();
     for (int i = 0; i < m_parameterModel->rowCount(QModelIndex()); i++){
         QModelIndex parameter = m_parameterModel->index(i,0,QModelIndex());
+        if (!parameter.isValid())
+            break;
         int childRowCount = m_parameterModel->rowCount(parameter);
         if (childRowCount > 0){
             for (int j = 0; j < childRowCount; j++) {
@@ -333,11 +353,31 @@ void FitParameterWidget::connectParameterView(bool active) {
     }
 }
 
+void FitParameterWidget::removeEmptyParameter() {
+    bool finished = false;
+    while (!finished) {
+        int rowCount = m_parameterModel->rowCount(QModelIndex());
+        if (rowCount == 0)
+            break;
+        for (int i=0; i<rowCount; i++){
+            QModelIndex child = m_parameterModel->index(i,0,QModelIndex());
+            if (child.isValid() && m_parameterModel->rowCount(child) == 0) {
+                m_parameterModel->removeRow(i, QModelIndex());
+                break;
+            }
+            if (i + 1 == rowCount) {
+                finished = true;
+            }
+        }
+    }
+}
+
 void FitParameterWidget::removeSelectedItem() {
     QModelIndex selection = m_parameterTreeview->currentIndex();
     if (selection.isValid()) {
         m_parameterModel->removeRow(selection.row(), selection.parent());
     }
+    removeEmptyParameter();
 }
 
 void FitParameterWidget::onDoubleclick(const QModelIndex index) {

@@ -24,6 +24,7 @@
 #include <QPlainTextEdit>
 #include <QSplitter>
 #include <QScrollBar>
+#include <QFont>
 
 FitProgressWidget::FitProgressWidget(QWidget *parent)
     : QWidget(parent)
@@ -73,15 +74,22 @@ FitProgressWidget::FitProgressWidget(QWidget *parent)
     layout->addWidget(m_splitter);
     m_log->setReadOnly(true);
     m_log->setMaximumBlockCount(100000);
+    QFont f("unexistent");
+    f.setStyleHint(QFont::Monospace);
+    m_log->setFont(f);
     m_status->setText("");
     setLayout(layout);
 }
 
 void FitProgressWidget::startFitting(OutputData<double> *real)
 {
+    m_realdata = new IntensityDataItem();
     m_realdata->setOutputData(real);
+    m_simulated = new IntensityDataItem();
     m_simulated->setOutputData(real->clone());
     m_simulated->setZAxisLocked(true);
+    m_realdataplot->setItem(m_realdata);
+    m_simulatedplot->setItem(m_simulated);
     disableInteractions();
     m_log->clear();
 }

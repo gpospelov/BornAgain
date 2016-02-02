@@ -25,9 +25,25 @@ void GUIFitObserver::update(FitSuite *subject)
         return;
 
     // update log every time
-    emit updateLog(QString("NCalls: %1 Chi: %2").
+    std::stringstream buffer;
+    std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
+    subject->getFitParameters()->printParameters();
+    std::string text = buffer.str();
+    std::cout.rdbuf(old);
+
+    emit updateLog(QString("NCalls: %1 Chi: %2\n%3").
                       arg(QString::number(subject->getNumberOfIterations()),
-                          QString::number(subject->getChi2())));
+                          QString::number(subject->getChi2()),
+                          QString::fromStdString(text)));
+
+    if (subject->isLastIteration()) {
+        std::stringstream buffer;
+        std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
+        subject->printResults();
+        std::string text = buffer.str();
+        emit updateLog(QString::fromStdString(text));
+        std::cout.rdbuf(old);
+    }
 
     int curIteration = subject->getNumberOfIterations();
 

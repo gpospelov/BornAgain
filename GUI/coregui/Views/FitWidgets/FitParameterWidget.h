@@ -64,6 +64,7 @@ private:
     ParameterizedItem *getTopItemFromSelection(SessionModel *model, const QString &itemType,
                                                const QString &selectionType);
     void buildTree(QStandardItem *root, ParameterizedItem *top);
+    void removeEmptyParameter();
 
     FitModel *m_fitModel;
     SampleModel *m_sampleModel;

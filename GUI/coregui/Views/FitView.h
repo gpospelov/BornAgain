@@ -20,12 +20,20 @@
 #include <QWidget>
 
 class MainWindow;
+class RunFitWidget;
+class QLineEdit;
 
 class BA_CORE_API_ FitView : public QWidget
 {
     Q_OBJECT
 public:
     FitView(MainWindow *window);
+
+public slots:
+    void onUpdatePath();
+private:
+    RunFitWidget *runFitWidget;
+    QLineEdit *line;
 };
 
 #endif

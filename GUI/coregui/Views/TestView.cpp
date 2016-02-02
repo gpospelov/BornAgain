@@ -140,13 +140,13 @@ void TestView::test_RunFitWidget()
 {
     // FIXME_DAVID Use consistent variable names: not 'maskEditor', but runFitWidget
 
-    RunFitWidget *maskEditor = new RunFitWidget();
+    //RunFitWidget *maskEditor = new RunFitWidget();
     //FitView *fw = new FitView(m_mainWindow->getSampleModel(), m_mainWindow->getInstrumentModel());
 
     //FitParameterWidget *fitting = new FitParameterWidget(m_mainWindow);
     QVBoxLayout *layout = new QVBoxLayout;
     QTabWidget *tabs = new QTabWidget;
-    tabs->addTab(maskEditor, "Run Fit");
+    //tabs->addTab(maskEditor, "Run Fit");
     //tabs->addTab(fw, "FitView by Ivonna");
     //tabs->addTab(fitting, "Test TreeView");
     layout->setMargin(0);

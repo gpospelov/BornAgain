@@ -20,7 +20,7 @@
 
 #include <memory>
 
-// Forward declaration to prevent IntegratorReal.h to be parsed for Python API:
+// Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
 template <class T> class IntegratorComplex;
 
 //! @class FormFactorTetrahedron

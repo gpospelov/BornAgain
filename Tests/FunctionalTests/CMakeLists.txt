@@ -4,8 +4,6 @@
 
 enable_testing()
 
-include(CTestCustom)
-
 add_custom_target(check ${CMAKE_CTEST_COMMAND})
 # export CTEST_OUTPUT_ON_FAILURE=ON will give some output on failure
 

@@ -200,7 +200,7 @@ def copy_python_framework():
 
 def copy_qt_libraries():
     print "--> Copying Qt libraries"
-    libs = ['QtCore', 'QtDBus', 'QtDesigner', 'QtGui', 'QtPrintSupport', 'QtWidgets', 'QtXml', 'QtSvg']
+    libs = ['QtCore', 'QtDBus', 'QtDesigner', 'QtGui', 'QtPrintSupport', 'QtWidgets', 'QtXml', 'QtSvg', 'QtNetwork']
     print "   ",
     for libname in libs:
         print libname,

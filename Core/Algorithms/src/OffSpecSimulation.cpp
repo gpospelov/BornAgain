@@ -80,7 +80,7 @@ int OffSpecSimulation::getNumberOfSimulationElements() const
     return phi_axis.getSize()*alpha_axis.getSize()*mp_alpha_i_axis->getSize();
 }
 
-OutputData<double> *OffSpecSimulation::getDetectorIntensity() const
+OutputData<double> *OffSpecSimulation::getDetectorIntensity(IDetector2D::EAxesUnits /* units_type */) const
 {
     OutputData<double> *result = m_intensity_map.clone();
     return result;

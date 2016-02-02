@@ -61,6 +61,18 @@ struct IsGISAXSDetector_wrapper : IsGISAXSDetector, bp::wrapper< IsGISAXSDetecto
         return IsGISAXSDetector::clone( );
     }
 
+    virtual ::OutputData< double > * createDetectorMap( ::Beam const & beam, ::IDetector2D::EAxesUnits units_type ) const  {
+        if( bp::override func_createDetectorMap = this->get_override( "createDetectorMap" ) )
+            return func_createDetectorMap( boost::ref(beam), units_type );
+        else{
+            return this->IDetector2D::createDetectorMap( boost::ref(beam), units_type );
+        }
+    }
+    
+    ::OutputData< double > * default_createDetectorMap( ::Beam const & beam, ::IDetector2D::EAxesUnits units_type ) const  {
+        return IDetector2D::createDetectorMap( boost::ref(beam), units_type );
+    }
+
     PyObject* m_pyobj;
 
 };
@@ -94,6 +106,19 @@ void register_IsGISAXSDetector_class(){
                 , assign_function_type( &::IsGISAXSDetector::operator= )
                 , ( bp::arg("other") )
                 , bp::return_self< >() );
+        
+        }
+        { //::IDetector2D::createDetectorMap
+        
+            typedef ::OutputData< double > * ( ::IDetector2D::*createDetectorMap_function_type)( ::Beam const &,::IDetector2D::EAxesUnits ) const;
+            typedef ::OutputData< double > * ( IsGISAXSDetector_wrapper::*default_createDetectorMap_function_type)( ::Beam const &,::IDetector2D::EAxesUnits ) const;
+            
+            IsGISAXSDetector_exposer.def( 
+                "createDetectorMap"
+                , createDetectorMap_function_type(&::IDetector2D::createDetectorMap)
+                , default_createDetectorMap_function_type(&IsGISAXSDetector_wrapper::default_createDetectorMap)
+                , ( bp::arg("beam"), bp::arg("units_type") )
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
     }

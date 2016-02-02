@@ -92,6 +92,18 @@ void register_Instrument_class(){
                 , getDetectorDimension_function_type( &::Instrument::getDetectorDimension ) );
         
         }
+        { //::Instrument::getDetectorIntensity
+        
+            typedef ::OutputData< double > * ( ::Instrument::*getDetectorIntensity_function_type)( ::OutputData< double > const &,::IDetector2D::EAxesUnits ) const;
+            
+            Instrument_exposer.def( 
+                "getDetectorIntensity"
+                , getDetectorIntensity_function_type( &::Instrument::getDetectorIntensity )
+                , ( bp::arg("data"), bp::arg("units_type")=::IDetector2D::DEFAULT )
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns clone of the intensity map with detector resolution applied, axes of map will be in requested units " );
+        
+        }
         { //::Instrument::matchDetectorAxes
         
             typedef void ( ::Instrument::*matchDetectorAxes_function_type)( ::OutputData< double > const & ) ;

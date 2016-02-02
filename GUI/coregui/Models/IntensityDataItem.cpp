@@ -89,7 +89,7 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
         setUpperX(getXmax());
     }
 
-    // set zoom range of z-axis to min, max values if it was not set already
+    // set zoom range of y-axis to min, max values if it was not set already
     if(getUpperY() < getLowerY()) {
         setLowerY(getYmin());
         setUpperY(getYmax());

@@ -47,16 +47,16 @@ struct OffSpecSimulation_wrapper : OffSpecSimulation, bp::wrapper< OffSpecSimula
         return OffSpecSimulation::clone( );
     }
 
-    virtual ::OutputData< double > * getDetectorIntensity(  ) const  {
+    virtual ::OutputData< double > * getDetectorIntensity( ::IDetector2D::EAxesUnits units_type=::IDetector2D::DEFAULT ) const  {
         if( bp::override func_getDetectorIntensity = this->get_override( "getDetectorIntensity" ) )
-            return func_getDetectorIntensity(  );
+            return func_getDetectorIntensity( units_type );
         else{
-            return this->OffSpecSimulation::getDetectorIntensity(  );
+            return this->OffSpecSimulation::getDetectorIntensity( units_type );
         }
     }
     
-    ::OutputData< double > * default_getDetectorIntensity(  ) const  {
-        return OffSpecSimulation::getDetectorIntensity( );
+    ::OutputData< double > * default_getDetectorIntensity( ::IDetector2D::EAxesUnits units_type=::IDetector2D::DEFAULT ) const  {
+        return OffSpecSimulation::getDetectorIntensity( units_type );
     }
 
     virtual int getNumberOfSimulationElements(  ) const  {
@@ -143,13 +143,14 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::getDetectorIntensity
         
-            typedef ::OutputData< double > * ( ::OffSpecSimulation::*getDetectorIntensity_function_type)(  ) const;
-            typedef ::OutputData< double > * ( OffSpecSimulation_wrapper::*default_getDetectorIntensity_function_type)(  ) const;
+            typedef ::OutputData< double > * ( ::OffSpecSimulation::*getDetectorIntensity_function_type)( ::IDetector2D::EAxesUnits ) const;
+            typedef ::OutputData< double > * ( OffSpecSimulation_wrapper::*default_getDetectorIntensity_function_type)( ::IDetector2D::EAxesUnits ) const;
             
             OffSpecSimulation_exposer.def( 
                 "getDetectorIntensity"
                 , getDetectorIntensity_function_type(&::OffSpecSimulation::getDetectorIntensity)
                 , default_getDetectorIntensity_function_type(&OffSpecSimulation_wrapper::default_getDetectorIntensity)
+                , ( bp::arg("units_type")=::IDetector2D::DEFAULT )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }

@@ -45,7 +45,7 @@ public:
     const OutputData<double> *getOutputData() const { return &m_intensity_map; }
 
     //! Returns clone of the detector intensity map
-    OutputData<double> *getDetectorIntensity() const;
+    OutputData<double> *getDetectorIntensity(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
 
     //! Returns clone of the detector intensity map in the form of 2D histogram.
     Histogram2D *getIntensityData() const;

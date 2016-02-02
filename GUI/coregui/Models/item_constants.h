@@ -148,6 +148,7 @@ const ModelType ResolutionFunctionGroup = "Resolution function group";
 // --- Units&Constants----------------------------------------------------------
 const ModelType UnitsDegrees = "Degrees";
 const ModelType UnitsRadians = "Radians";
+const ModelType UnitsMm = "mm";
 
 const ModelType STATUS_IDLE = "Idle";
 const ModelType STATUS_RUNNING = "Running";

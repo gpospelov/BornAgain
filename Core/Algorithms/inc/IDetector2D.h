@@ -36,6 +36,8 @@ class GISASSimulation;
 class BA_CORE_API_ IDetector2D : public IParameterized
 {
 public:
+    enum EAxesUnits {DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ};
+
     IDetector2D();
     IDetector2D(const IDetector2D& other);
 
@@ -107,11 +109,15 @@ public:
 #ifndef GCCXML_SKIP_THIS
     //! Create a vector of SimulationElement objects according to the detector and its mask
     std::vector<SimulationElement> createSimulationElements(const Beam& beam);
+    SimulationElement getSimulationElement(size_t index, const Beam& beam) const;
 #endif
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;
+
+    //! Returns detector map in given axes units
+    virtual OutputData<double> *createDetectorMap(const Beam& beam, EAxesUnits units_type) const;
 
 protected:
     //! Create an IPixelMap for the given OutputData object and index

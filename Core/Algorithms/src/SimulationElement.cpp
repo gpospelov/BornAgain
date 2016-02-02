@@ -70,6 +70,11 @@ kvector_t SimulationElement::getMeanQ() const
     return getKI() - getMeanKF();
 }
 
+kvector_t SimulationElement::getQ(double x, double y) const
+{
+    return getKI() - mP_pixel_map->getK(x, y, m_wavelength);
+}
+
 void SimulationElement::swapContent(SimulationElement &other)
 {
     std::swap(this->m_wavelength, other.m_wavelength);

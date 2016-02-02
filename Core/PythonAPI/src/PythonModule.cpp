@@ -236,6 +236,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorTruncatedSphere_class();
     register_FormFactorTruncatedSpheroid_class();
     register_FormFactorWeighted_class();
+    register_IDetector2D_class();
     register_Simulation_class();
     register_GISASSimulation_class();
     register_kvector_t_class();
@@ -254,7 +255,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_HomogeneousMaterial_class();
     register_HomogeneousMagneticMaterial_class();
     register_IAbstractParticle_class();
-    register_IDetector2D_class();
     register_IDetectorResolution_class();
     register_IInterferenceFunction_class();
     register_ILayout_class();

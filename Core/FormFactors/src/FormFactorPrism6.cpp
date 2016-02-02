@@ -50,6 +50,18 @@ void FormFactorPrism6::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
+//! Returns a contribution C_j to the form factor F(q)=sum_j^n 4 C_j/q^2 of a 2n-gon with
+//! twofold symmetry axis at 0.
+
+complex_t FormFactorPrism6::ff_term(
+    complex_t qRx, complex_t qRy, double xi, double yi, double xf, double yf ) const
+{
+    complex_t qRj = ( qRx*(xf+xi) + qRy*(yf+yi) ) / 2.;
+    complex_t qEj = ( qRx*(xf-xi) + qRy*(yf-yi) ) / 2.;
+    complex_t qWj = ( qRx*(yf-yi) - qRy*(xf-xi) ) / 2.;
+    return qWj * qRj * MathFunctions::sinc(qEj) * MathFunctions::sinc(qRj);
+}
+
 complex_t FormFactorPrism6::evaluate_for_q(const cvector_t& q) const
 {
     static double root3d2 = std::sqrt(3.0) / 2;
@@ -69,6 +81,7 @@ complex_t FormFactorPrism6::evaluate_for_q(const cvector_t& q) const
         xy_part += ff_term( qRx, qRy, root3d2, -.5, root3d2, +.5 );
         xy_part += ff_term( qRx, qRy, root3d2, +.5, 0., 1. );
         xy_part += ff_term( qRx, qRy, 0., 1., -root3d2, +.5 );
+        xy_part *= 4. / ( q.x()*conj(q.x()) + q.y()*conj(q.y()) );
         /*
         if (std::abs(3.0 * q.y() * q.y() - q.x() * q.x()) == 0.0) {
             complex_t qyRr3_half = q.y() * R * root3d2;

@@ -103,14 +103,14 @@ to obtain the form factor as a line integral
   F(\q)=\frac{\v{a}}{i \q\wedge\v{a}} \oint \d\v{r}\,\e^{i\q\r}.
 \end{equation}
 To avoid singularities as far as possible,
-we further choose $\v{a}=(-\hat q_y,\hat q_x)$.
+we further choose $\v{a}=(-\hat q_y^*,\hat q_x^*)$.
 With this special choice,
 the wedge product in the denominator becomes a scalar product
-$\q\wedge\v{a}=\q\v{\hat q}=q$, and
+$\q\wedge\v{a}=\q\v{\hat q^*}=q$, and
 the scalar product in the numerator becomes a wedge product,
-$\v{a}\r=\v{\hat q}\wedge\r$:
+$\v{a}\r=\v{\hat q^*}\wedge\r$:
 \begin{equation}
-  F(\q)=\frac{\v{\hat q}}{iq}\wedge \oint \d\v{r}\,\e^{i\q\r}.
+  F(\q)=\frac{\v{\hat q^*}}{iq}\wedge \oint \d\v{r}\,\e^{i\q\r}.
 \end{equation}
 
 The polygon shall be given by its $N$ edges $\r_0,\ldots,\r_{N-1}$.
@@ -123,9 +123,9 @@ The edges of the polygon shall parametrized by
 with $-1\le\lambda\le+1$.
 The line integral can then be carried out to yield
 \begin{equation}\label{Effpolygon}
-    F(\q) = \displaystyle \frac{\v{\hat q}}{iq}\wedge \sum_{j=0}^{N-1}
+    F(\q) = \displaystyle \frac{\v{\hat q^*}}{iq}\wedge \sum_{j=0}^{N-1}
               \int_{-1}^{+1}\!\d\lambda\, \frac{\d\r}{\d\lambda}\,\e^{i\q\r}
-          = \displaystyle \frac{2\v{\hat q}}{iq}\wedge \sum_{j=0}^{N-1}
+          = \displaystyle \frac{2\v{\hat q^*}}{iq}\wedge \sum_{j=0}^{N-1}
               \E_j \sinc(\q\E_j) \e^{i\q\R_j}.
 \end{equation}
 The line singularities for $\q\perp\E_j$ having gracefully disappeared in the
@@ -136,8 +136,14 @@ On expanding the term under the sum in~$\q$,
 the $\q^0$ term vanishes because $\sum\E_j=0$.
 The leading term is therefore
 \begin{equation}
-  F(\q\!\to\!0) \doteq 2\sum (\v{\hat q}\wedge\E_j) (\v{\hat q}\R_j)
-    = \frac{1}{2}\sum \r_j\wedge\r_{j+1},
+  \begin{array}{@{}lcl}
+  F(\q\!\to\!0) &\doteq& \displaystyle 2\sum (\v{\hat q^*}\wedge\E_j) (\v{\hat q}\R_j)\\[3ex]
+    &=&\displaystyle \frac{1}{2}\sum \left\{
+        (\v{\hat q^*}\wedge\r_{j+1})(\v{\hat q}\r_j) -
+        (\v{\hat q^*}\wedge\r_j)(\v{\hat q}\r_{j+1})
+      \right\}\\[3ex]
+    &=&\displaystyle \frac{1}{2}\sum \r_j\wedge\r_{j+1},
+  \end{array}
 \end{equation}
 which is the area of polygon
 as given by a trianglular tiling (with edges at $\v{0},\r_j,\r_{j+1}$).
@@ -146,7 +152,7 @@ If the polygon has a two-fold symmetry axis, we write $N\eqqcolon2n$
 and make use of $\r_{j+n}=-\r_j$ to transform~(\ref{Effpolygon}) into
 \begin{equation}\label{Effpolygon}
     F(\q) = \displaystyle 4 \sum_{j=0}^{n-1}
-              (\v{\hat q}\wedge\E_j) (\v{\hat q}\R_j) \sinc(\q\E_j) \sinc(\q\R_j),
+              (\v{\hat q^*}\wedge\E_j) (\v{\hat q}\R_j) \sinc(\q\E_j) \sinc(\q\R_j),
 \end{equation}
 where even the point singularity at $q=0$ is absorbed in a sinc function.
 

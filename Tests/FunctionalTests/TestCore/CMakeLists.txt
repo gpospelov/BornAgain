@@ -20,6 +20,7 @@ endif()
 # GET_LIST_OF_EXECUTABLES_FROM_LIST_OF_TESTS and GET_TEST_NAME_AND_ARGUMENT.
 set(list_of_tests
     "CoreSuite/FormFactors"
+    "CoreSuite/FormFactorsAbs"
     "CoreSuite/CylindersAndPrisms"
     "CoreSuite/RadialParaCrystal"
     "CoreSuite/Basic2DParaCrystal"

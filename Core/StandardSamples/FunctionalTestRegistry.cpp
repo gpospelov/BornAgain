@@ -28,6 +28,13 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "FormFactorsRegistry",
         2e-10);
 
+    add("FormFactorsAbs",
+        "Test of all form factors defined, absorption case",
+        "MiniGISAS_v2",
+        "LayersWithAbsorptionBuilder",
+        "FormFactorsRegistry",
+        2e-10);
+
     add("CylindersAndPrisms",
         "Mixture of cylinders and prisms without interference",
         "MiniGISAS",

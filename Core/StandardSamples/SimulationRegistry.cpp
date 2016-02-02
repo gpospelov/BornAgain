@@ -31,6 +31,10 @@ SimulationRegistry::SimulationRegistry()
                  StandardSimulations::MiniGISAS,
                  "GISAS simulation with small 25x25 detector and phi[-2,2], theta[0,2]");
 
+    registerItem("MiniGISAS_v2",
+                 StandardSimulations::MiniGISAS_v2,
+                 "GISAS simulation with small 25x25 detector and phi[-1,1], theta[0,]");
+
     registerItem("MiniGISASBeamDivergence",
                  StandardSimulations::MiniGISASBeamDivergence,
                  "GISAS simulation with small detector and beam divergence");

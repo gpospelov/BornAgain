@@ -60,7 +60,7 @@ TEST_F(SpecialFunctionsTest, BesselJ1)
 
 TEST_F(SpecialFunctionsTest, csinc)
 {
-    const double eps = 4.7-16; // more than twice the machine precision
+    const double eps = 4.7e-16; // more than twice the machine precision
 
     for( int i=0; i<24; ++i ) {
         double ph = 2*M_PI*i/24;

@@ -46,7 +46,7 @@ double MathFunctions::Gaussian(double x, double average, double std_dev)
 double MathFunctions::IntegratedGaussian(double x, double average, double std_dev)
 {
     double normalized_x = (x - average) / std_dev;
-    constexpr double root2 = std::sqrt(2.0);
+    static double root2 = std::sqrt(2.0);
     return (gsl_sf_erf(normalized_x / root2) + 1.0) / 2.0;
 }
 

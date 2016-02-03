@@ -151,7 +151,7 @@ The line integral takes the form
 and yields
 \begin{equation}\label{Effpolygon}
     F_\parallel(\qp)
-    = \frac{2\n\times\uqp^*}{ip} \sum_{j=0}^{N-1} \E_j \sinc(\qp\E_j) \e^{i\qp\R_j}.
+    = \frac{2}{ip} \sum_{j=0}^{N-1} \n(\uqp^*\times\E_j) \sinc(\qp\E_j) \e^{i\qp\R_j}.
 \end{equation}
 The line singularities for $\qp\perp\E_j$ having gracefully disappeared in the
 sinc function,
@@ -163,12 +163,12 @@ The leading term is therefore
 \begin{equation}
   \begin{array}{@{}lcl}
   F_\parallel(\qp\!\to\!0)
-    &\doteq& \displaystyle 2\n\sum (\uqp^*\times\E_j) (\uqp\R_j)\\[3ex]
-    &=&\displaystyle \frac{\n}{2}\sum \left\{
+    &\doteq& \displaystyle 2\sum \n(\uqp^*\times\E_j) (\uqp\R_j)\\[3ex]
+    &=&\displaystyle \frac{1}{2}\sum \n\left\{
         (\uqp^*\times\r_{j+1})(\uqp\r_j)
       - (\uqp^*\times\r_j)(\uqp\r_{j+1})
       \right\}\\[3ex]
-    &=&\displaystyle \frac{\n}{2}\sum \r_j\times\r_{j+1},
+    &=&\displaystyle \frac{1}{2}\sum \n(\r_j\times\r_{j+1}),
   \end{array}
 \end{equation}
 which is the area of the polygon
@@ -180,7 +180,7 @@ We write $N\eqqcolon2n$
 and make use of $\r_{j+n}=-\r_j$ to transform~(\ref{Effpolygon}) into
 \begin{equation}\label{Eff2ngon}
     F_\parallel(\qp) = \displaystyle 4 \sum_{j=0}^{n-1}
-              (\uqp^*\times\E_j) (\uqp\R_j) \sinc(\qp\E_j) \sinc(\qp\R_j),
+              \n(\uqp^*\times\E_j) (\uqp\R_j) \sinc(\qp\E_j) \sinc(\qp\R_j),
 \end{equation}
 where even the point singularity at $p=0$ is absorbed in a sinc function.
 \index{Form factor!polygon|)}%

@@ -25,22 +25,23 @@
 #include "SimulationElement.h"
 
 #include <vector>
+#include <memory>
 #include <boost/scoped_ptr.hpp>
 #include <Eigen/StdVector>
+
+// Forward declaration to prevent IntegratorMCMiser.h to be parsed for Python API:
+template <class T> class IntegratorMCMiser;
 
 //! @class IInterferenceFunctionStrategy
 //! @ingroup algorithms_internal
 //! @brief Algorithm to apply one of interference function strategies (LMA, SCCA etc)
-
 class BA_CORE_API_ IInterferenceFunctionStrategy
 {
 public:
     typedef std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd> >
         MatrixFFVector;
     IInterferenceFunctionStrategy(SimulationParameters sim_params);
-    virtual ~IInterferenceFunctionStrategy()
-    {
-    }
+    virtual ~IInterferenceFunctionStrategy();
 
     //! Initializes the object with form factors and interference functions
     virtual void init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
@@ -104,6 +105,11 @@ private:
 
     //! cached polarized form factors
     mutable MatrixFFVector m_ff_pol;
+
+#ifndef GCCXML_SKIP_THIS
+    std::unique_ptr<IntegratorMCMiser<IInterferenceFunctionStrategy>> mP_integrator;
+    std::unique_ptr<IntegratorMCMiser<IInterferenceFunctionStrategy>> mP_integrator_pol;
+#endif
 };
 
 inline cvector_t IInterferenceFunctionStrategy::getQ(const cvector_t &k_i,

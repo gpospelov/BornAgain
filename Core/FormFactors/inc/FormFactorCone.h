@@ -17,12 +17,15 @@
 #define FORMFACTORCONE_H
 
 #include "IFormFactorBorn.h"
-#include "MemberComplexFunctionIntegrator.h"
+
+#include <memory>
+
+// Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
+template <class T> class IntegratorComplex;
 
 //! @class FormFactorCone
 //! @ingroup formfactors
 //! @brief The formfactor of a cone.
-
 class BA_CORE_API_ FormFactorCone : public IFormFactorBorn
 {
 public:
@@ -50,15 +53,16 @@ protected:
     virtual void init_parameters();
 
 private:
-
-    complex_t Integrand(double Z, void* params) const;
+    complex_t Integrand(double Z) const;
 
     double m_radius;
     double m_height;
     double m_alpha;
     mutable cvector_t m_q;
 
-    MemberComplexFunctionIntegrator<FormFactorCone> *m_integrator;
+#ifndef GCCXML_SKIP_THIS
+    std::unique_ptr<IntegratorComplex<FormFactorCone>> mP_integrator;
+#endif
 };
 
 inline void FormFactorCone::accept(ISampleVisitor *visitor) const

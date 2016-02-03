@@ -16,8 +16,7 @@
 #include "FormFactorTetrahedron.h"
 #include "MathFunctions.h"
 #include "BornAgainNamespace.h"
-#include "MemberFunctionIntegrator.h"
-#include "MemberComplexFunctionIntegrator.h"
+#include "IntegratorComplex.h"
 
 using namespace  BornAgain;
 
@@ -31,15 +30,11 @@ FormFactorTetrahedron::FormFactorTetrahedron(
     check_initialization();
     init_parameters();
 
-    MemberComplexFunctionIntegrator<FormFactorTetrahedron>::mem_function p_mf =
-       & FormFactorTetrahedron::Integrand;
-    m_integrator =
-        new MemberComplexFunctionIntegrator<FormFactorTetrahedron>(p_mf, this);
+    mP_integrator = make_integrator_complex(this, &FormFactorTetrahedron::Integrand);
 }
 
 FormFactorTetrahedron::~FormFactorTetrahedron()
 {
-    delete m_integrator;
 }
 
 bool FormFactorTetrahedron::check_initialization() const
@@ -80,9 +75,8 @@ double FormFactorTetrahedron::getRadius() const
     return m_length / 2;
 }
 
-complex_t FormFactorTetrahedron::Integrand(double Z, void* params) const
+complex_t FormFactorTetrahedron::Integrand(double Z) const
 {
-    (void)params;
     static double root3 = std::sqrt(3.);
     double Rz = m_length/2 -root3*Z/std::tan(m_alpha);
 
@@ -132,7 +126,7 @@ complex_t FormFactorTetrahedron::evaluate_for_q(const cvector_t& q) const
                                  *(1-sqrt3HdivRtga));
         } else {
             m_q = q;
-            complex_t integral = m_integrator->integrate(0., m_height);
+            complex_t integral = mP_integrator->integrate(0., m_height);
             return integral;
         }
     } else {

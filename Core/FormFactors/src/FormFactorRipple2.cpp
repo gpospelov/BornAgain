@@ -17,8 +17,6 @@
 #include "BornAgainNamespace.h"
 #include "Numeric.h"
 #include "MathFunctions.h"
-#include "MemberFunctionIntegrator.h"
-#include "MemberComplexFunctionIntegrator.h"
 
 #include <cmath>
 

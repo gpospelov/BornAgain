@@ -256,7 +256,7 @@ public:
 private:
     //! second part of the integrand:
     //! \f$u^2\cdot J_0(u)\f$
-    double coneIntegrand2(double value, void *params) const;
+    double coneIntegrand2(double value) const;
 };
 
 //! @class FTDistribution2DVoigt

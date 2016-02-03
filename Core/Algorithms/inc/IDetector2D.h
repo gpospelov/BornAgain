@@ -119,6 +119,9 @@ public:
     //! Returns detector map in given axes units
     virtual OutputData<double> *createDetectorMap(const Beam& beam, EAxesUnits units_type) const;
 
+    //! returns vector of valid axes units
+    virtual std::vector<EAxesUnits> getValidAxesUnits() const;
+
 protected:
     //! Create an IPixelMap for the given OutputData object and index
     virtual IPixelMap* createPixelMap(size_t index) const=0;
@@ -152,7 +155,6 @@ protected:
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 #endif
     DetectorMask m_detector_mask;
-
 private:
     //! Verify if the given analyzer properties are physical
     bool checkAnalyzerProperties(const kvector_t &direction, double efficiency,

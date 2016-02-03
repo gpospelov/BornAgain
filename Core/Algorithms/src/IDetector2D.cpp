@@ -125,6 +125,12 @@ OutputData<double> *IDetector2D::createDetectorMap(const Beam& /* beam */, EAxes
     return 0;
 }
 
+std::vector<IDetector2D::EAxesUnits> IDetector2D::getValidAxesUnits() const
+{
+    std::vector<EAxesUnits> result = {DEFAULT, NBINS};
+    return result;
+}
+
 void IDetector2D::removeMasks()
 {
     m_detector_mask.removeMasks();

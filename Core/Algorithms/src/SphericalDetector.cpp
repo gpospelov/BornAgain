@@ -159,6 +159,14 @@ OutputData<double> *SphericalDetector::createDetectorMap(const Beam &beam, IDete
 
 }
 
+std::vector<IDetector2D::EAxesUnits> SphericalDetector::getValidAxesUnits() const
+{
+    std::vector<IDetector2D::EAxesUnits> result = IDetector2D::getValidAxesUnits();
+    std::vector<IDetector2D::EAxesUnits> addon = {RADIANS, DEGREES, QYQZ};
+    result.insert(result.end(), addon.begin(), addon.end());
+    return result;
+}
+
 IPixelMap *SphericalDetector::createPixelMap(size_t index) const
 {
     const IAxis &phi_axis = getAxis(BornAgain::X_AXIS_INDEX);

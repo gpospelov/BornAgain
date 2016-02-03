@@ -17,8 +17,7 @@
 #include "SphericalDetector.h"
 #include "ConvolutionDetectorResolution.h"
 #include "BornAgainNamespace.h"
-#include "CustomBinAxis.h"
-#include "ConstKBinAxis.h"
+#include <memory>
 
 Instrument::Instrument()
     : IParameterized("Instrument")
@@ -110,11 +109,11 @@ void Instrument::applyDetectorResolution(OutputData<double> *p_intensity_map) co
 OutputData<double> *Instrument::getDetectorIntensity(const OutputData<double> &data,
                                                      IDetector2D::EAxesUnits units_type) const
 {
-    OutputData<double> *result = data.clone();
-    applyDetectorResolution(result);
+    std::unique_ptr<OutputData<double> > result (data.clone());
+    applyDetectorResolution(result.get());
 
     if(units_type == IDetector2D::DEFAULT) {
-        return result;
+        return result.release();
     } else {
         OutputData<double> *detectorMap = mP_detector->createDetectorMap(m_beam, units_type);
         if(!detectorMap) {
@@ -122,7 +121,6 @@ OutputData<double> *Instrument::getDetectorIntensity(const OutputData<double> &d
                                         "Can't create detector map.");
         }
         detectorMap->setRawDataVector(result->getRawDataVector());
-        delete result;
         return detectorMap;
     }
 }

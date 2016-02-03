@@ -53,7 +53,7 @@ QMap<QString, IDetector2D::EAxesUnits> IntensityDataItem::m_description_to_units
 IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::IntensityDataType, parent)
 {
-    registerProperty(P_NAME, Constants::IntensityDataType);
+    registerProperty(P_NAME, Constants::IntensityDataType).setHidden();
 
     ComboProperty units;
     units << Constants::UnitsNbins << Constants::UnitsRadians << Constants::UnitsDegrees
@@ -61,7 +61,7 @@ IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
 
     registerProperty(P_AXES_UNITS, units.getVariant()).setHidden();
 
-    registerProperty(P_PROJECTIONS_FLAG, false);
+    registerProperty(P_PROJECTIONS_FLAG, false).setHidden();
     registerProperty(P_IS_INTERPOLATED, true);
 
     ComboProperty gradient;

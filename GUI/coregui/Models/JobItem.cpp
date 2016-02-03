@@ -239,7 +239,7 @@ MultiLayerItem *JobItem::getMultiLayerItem(bool from_backup)
 }
 
 //! Returns InstrumentItem of this JobItem, if from_backup=true, then backup'ed version of
-//! the instruyment will be used
+//! the instrument will be used
 InstrumentItem *JobItem::getInstrumentItem(bool from_backup)
 {
     foreach(ParameterizedItem *item, childItems()) {

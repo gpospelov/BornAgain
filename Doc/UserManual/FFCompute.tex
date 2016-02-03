@@ -142,12 +142,16 @@ The edges of the polygon shall parametrized by
   \eqqcolon \R_j + \E_j\lambda.
 \end{equation}
 with $-1\le\lambda\le+1$.
-The line integral can then be carried out to yield
+The line integral takes the form
+\begin{equation}
+    F_\parallel(\qp)
+   = \frac{\n\times\uqp^*}{ip} \sum_{j=0}^{N-1}
+              \int_{-1}^{+1}\!\d\lambda\, \frac{\d\r}{\d\lambda}\,\e^{i\qp\r},
+\end{equation}
+and yields
 \begin{equation}\label{Effpolygon}
-    F_\parallel(\qp) = \displaystyle \frac{\n\times\uqp^*}{ip} \sum_{j=0}^{N-1}
-              \int_{-1}^{+1}\!\d\lambda\, \frac{\d\r}{\d\lambda}\,\e^{i\qp\r}
-          = \displaystyle \frac{2\n\times\uqp^*}{ip} \sum_{j=0}^{N-1}
-              \E_j \sinc(\qp\E_j) \e^{i\qp\R_j}.
+    F_\parallel(\qp)
+    = \frac{2\n\times\uqp^*}{ip} \sum_{j=0}^{N-1} \E_j \sinc(\qp\E_j) \e^{i\qp\R_j}.
 \end{equation}
 The line singularities for $\qp\perp\E_j$ having gracefully disappeared in the
 sinc function,
@@ -158,18 +162,21 @@ the $\qp^0$ term vanishes because $\sum\E_j=0$.
 The leading term is therefore
 \begin{equation}
   \begin{array}{@{}lcl}
-  F_\parallel(\qp\!\to\!0) &\doteq& \displaystyle 2\sum (\uqp^*\times\E_j) (\uqp\R_j)\\[3ex]
-    &=&\displaystyle \frac{1}{2}\sum \left\{
-        (\uqp^*\times\r_{j+1})(\uqp\r_j) -
-        (\uqp^*\times\r_j)(\uqp\r_{j+1})
+  F_\parallel(\qp\!\to\!0)
+    &\doteq& \displaystyle 2\n\sum (\uqp^*\times\E_j) (\uqp\R_j)\\[3ex]
+    &=&\displaystyle \frac{\n}{2}\sum \left\{
+        (\uqp^*\times\r_{j+1})(\uqp\r_j)
+      - (\uqp^*\times\r_j)(\uqp\r_{j+1})
       \right\}\\[3ex]
-    &=&\displaystyle \frac{1}{2}\sum \r_j\times\r_{j+1},
+    &=&\displaystyle \frac{\n}{2}\sum \r_j\times\r_{j+1},
   \end{array}
 \end{equation}
-which is the area of polygon
+which is the area of the polygon
 as given by a trianglular tiling (with vertices at $\v{0},\r_j,\r_{j+1}$).
 
-If the polygon has a two-fold symmetry axis, we write $N\eqqcolon2n$
+If the polygon has a two-fold symmetry axis,
+the form factor can be further simplified.
+We write $N\eqqcolon2n$
 and make use of $\r_{j+n}=-\r_j$ to transform~(\ref{Effpolygon}) into
 \begin{equation}\label{Eff2ngon}
     F_\parallel(\qp) = \displaystyle 4 \sum_{j=0}^{n-1}
@@ -193,22 +200,22 @@ as being based at $z=0$ and extending up to a height~$H$.
 Accordingly,
 the three-dimensional form factor~(\ref{Eff3d}) is
 \begin{equation}
-  F(\q) = \int_0^H\!\d z\,\e^{iq_z z} F(\q_\parallel,z)
+  F(\q) = \int_0^H\!\d z\,\e^{iq_z z} F_\parallel(\q_\parallel,z)
 \end{equation}
-with a two-dimensional form factor~$F(\q_\parallel,z)$
+with a two-dimensional form factor~$F_\parallel(\q_\parallel,z)$
 of the horizontal section at given~$z$.
 If this section has constant shape at variable size,
 so that it scales with some dimensionless function~$\rho(z)$,
 then the two-dimensional form factor~(\ref{Eff2d})
 can be written as
 \begin{equation}
-  F(\q_\parallel,z)
-  = {\rho(z)}^2\, F\left(\rho(z)\q_\parallel,0\right).
+  F_\parallel(\q_\parallel,z)
+  = {\rho(z)}^2\, F_\parallel\left(\rho(z)\q_\parallel,0\right).
 \end{equation}
 Depending on the geometry of the base,
 its form factor can be written as a finite or infinite series
 \begin{equation}
-  F(\q_\parallel,0)=\sum_j A_j \e^{i\q_\parallel \v{c}_j}.
+  F_\parallel(\q_\parallel,0)=\sum_j A_j \e^{i\q_\parallel \v{c}_j}.
 \end{equation}
 Accordingly, the three-dimensional form factor can be computed as
 \begin{equation}

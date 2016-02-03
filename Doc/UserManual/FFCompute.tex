@@ -122,7 +122,7 @@ $\v{a}\r=\v{\hat q^*}\wedge\r$:
   \Gamma(\q)=\frac{\v{\hat q^*}}{iq}\wedge \oint \d\v{r}\,\e^{i\q\r}.
 \end{equation}
 
-The polygon shall be given by its $N$ edges $\r_0,\ldots,\r_{N-1}$.
+The polygon shall be given by its $N$ corners $\r_0,\ldots,\r_{N-1}$.
 It is convenient to abbreviate $\r_N\coloneqq\r_0$.
 The edges of the polygon shall parametrized by
 \begin{equation}
@@ -155,7 +155,7 @@ The leading term is therefore
   \end{array}
 \end{equation}
 which is the area of polygon
-as given by a trianglular tiling (with edges at $\v{0},\r_j,\r_{j+1}$).
+as given by a trianglular tiling (with vertices at $\v{0},\r_j,\r_{j+1}$).
 
 If the polygon has a two-fold symmetry axis, we write $N\eqqcolon2n$
 and make use of $\r_{j+n}=-\r_j$ to transform~(\ref{Effpolygon}) into
@@ -186,7 +186,7 @@ the three-dimensional form factor~(\ref{Eff3d}) is
 with a two-dimensional form factor~$\Gamma(\q_\parallel,z)$
 of the horizontal section at given~$z$.
 If this section has constant shape at variable size,
-so that it scales with some function~$\rho(z)$,
+so that it scales with some dimensionless function~$\rho(z)$,
 then the two-dimensional form factor~(\ref{Eff2d})
 can be written as
 \begin{equation}
@@ -225,14 +225,24 @@ The form factor becomes
   \end{array}
 \end{equation}
 with a function
+\begin{equation}\label{EDdef}
+  \Delta(u,v)
+  \coloneqq \int_{v}^1\!\d\rho\,\rho^2\,\e^{u\rho}.
+\end{equation}
+The solution
 \begin{equation}
-  \Delta(u,v) \coloneqq
-  \int_{v}^1\!\d\rho\,\rho^2\,\e^{u\rho}
+  \Delta(u,v)
   = \frac{\e^u-v^2\e^{uv}}{u}
   - 2\frac{\e^u-v\e^{uv}}{u^2}
-  + 2\frac{\e^u-\e^{uv}}{u^3}.
+  + 2\frac{\e^u-\e^{uv}}{u^3}
 \end{equation}
-Expansion in~$u$ shows that the apparent singularity at $u=0$ is removable.
+has a removable singularity at $u=0$.
+For small~$u$, it is therefore preferable to compute~$\Delta$
+through an expansion of the exponential function in~(\ref{EDdef}),
+\begin{equation}
+  \Delta(u,v)
+  = \sum_{k=0} \frac{u^k}{k!}\,\frac{1-v^{k+3}}{k+3}.
+\end{equation}
 
 \index{Form factor!frustum)}%
 \index{Form factor!pyramid)}%

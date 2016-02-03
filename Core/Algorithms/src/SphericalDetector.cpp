@@ -149,8 +149,8 @@ OutputData<double> *SphericalDetector::createDetectorMap(const Beam &beam, IDete
     else if(units_type == QYQZ) {
         double xmin = el_left_bottom.getQ(0.0, 0.0).y();
         double xmax = el_right_bottom.getQ(1.0, 0.0).y();
-        double ymin = el_center_bottom.getQ(0.5, 0.0).z();
-        double ymax = el_center_top.getQ(0.5, 1.0).z();
+        double ymin = -el_center_bottom.getQ(0.5, 0.0).z();
+        double ymax = -el_center_top.getQ(0.5, 1.0).z();
         result->addAxis(FixedBinAxis("Q_y", aX.getSize(), xmin, xmax));
         result->addAxis(FixedBinAxis("Q_z", aY.getSize(), ymin, ymax));
     }
@@ -222,8 +222,8 @@ AngularPixelMap *AngularPixelMap::clone() const
 
 AngularPixelMap *AngularPixelMap::createZeroSizeMap(double x, double y) const
 {
-    double alpha = m_alpha + x*m_dalpha;
-    double phi = m_phi + y*m_dphi;
+    double phi = m_phi + x*m_dphi;
+    double alpha = m_alpha + y*m_dalpha;
     Bin1D alpha_bin(alpha, alpha);
     Bin1D phi_bin(phi, phi);
     return new AngularPixelMap(alpha_bin, phi_bin);
@@ -232,17 +232,17 @@ AngularPixelMap *AngularPixelMap::createZeroSizeMap(double x, double y) const
 kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const
 {
     kvector_t result;
-    double alpha = m_alpha + x*m_dalpha;
-    double phi = m_phi + y*m_dphi;
+    double phi = m_phi + x*m_dphi;
+    double alpha = m_alpha + y*m_dalpha;
     result.setLambdaAlphaPhi(wavelength, alpha, phi);
     return result;
 }
 
 double AngularPixelMap::getIntegrationFactor(double x, double y) const
 {
-    (void)y;
+    (void)x;
     if (m_dalpha==0.0) return 1.0;
-    double alpha = m_alpha + x*m_dalpha;
+    double alpha = m_alpha + y*m_dalpha;
     return std::cos(alpha)*m_dalpha/(std::sin(m_alpha+m_dalpha)-std::sin(m_alpha));
 }
 

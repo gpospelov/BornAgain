@@ -262,10 +262,11 @@ OutputData<double> *RectangularDetector::createDetectorMap(const Beam &beam,
     else if(units_type == QYQZ) {
         double xmin = el_left_bottom.getQ(0.0, 0.0).y();
         double xmax = el_right_bottom.getQ(1.0, 0.0).y();
-        double ymin = el_center_bottom.getQ(0.5, 0.0).z();
-        double ymax = el_center_top.getQ(0.5, 1.0).z();
+        double ymin = -el_center_bottom.getQ(0.5, 0.0).z();
+        double ymax = -el_center_top.getQ(0.5, 1.0).z();
         result->addAxis(FixedBinAxis("Q_y", aX.getSize(), xmin, xmax));
         result->addAxis(FixedBinAxis("Q_z", aY.getSize(), ymin, ymax));
+        std::cout << "XXX" << xmin << " " << xmax << " " << ymin << " " << ymax << std::endl;
     }
 
     return result;

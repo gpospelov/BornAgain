@@ -87,39 +87,36 @@ Therefore we shall consider a few such cases more closely.
 \index{Polygon!form factor|(}
 \def\R{\v{R}}
 \def\E{\v{E}}
+\def\n{\v{\hat n}}
+\def\uq{\v{\hat q}}
 
 To derive the form factor of prisms and pyramids with polygonal bases
 we start by computing the two-dimensional form factor
 \begin{equation}\label{Eff2d}
   \Gamma(\q)=\int_A\!\d^2r\, \e^{i\q\r},
 \end{equation}
-of an arbitrary polygon of area~$A$ in the $xy$~plane.
-In this section, all vectors are two-dimensional;
-later, we will equate the two-dimensional~$\q$ with the in-plane
-component~$\q_\parallel$ of the three-dimensional~$\q$.
-We use Green's theorem
+of an arbitrary planar polygon of area~$A$.
+Using Stokes's theorem
 \begin{equation}
-  \iint\!\d r^2\,\v{\Nabla}\wedge\v{G} = \oint \d\v{r}\cdot\v{G}
+  \iint_A\!\d r^2\,\n\cdot\Nabla\times\v{G} = \oint_{\partial A} \d\v{r}\cdot\v{G},
 \end{equation}
-with the wedge product
+with $\v{G}\coloneqq\v{a}\, \e^{i\q\r}$,
+we obtain the form factor as a line integral
 \begin{equation}
-  \v{a}\wedge\v{b} \coloneqq
-  a_xb_y - a_yb_x.
+  \Gamma(\q)=\frac{\v{a}}{i\, \n(\q\times\v{a})} \oint \d\v{r}\,\e^{i\q\r}.
 \end{equation}
-We choose $\v{G}\coloneqq\v{a}\, \e^{i\q\r}$
-to obtain the form factor as a line integral
+We decompose the scattering vector~$\q$ into
+a component normal to the polygon's plane,
+$\q_\perp\coloneqq (\n\q)\n$, and
+an in-plane component, $\q_\parallel\coloneqq\q-\q_\perp$.
+Furthermore, we introduce the notations
+$q\coloneqq|\q|=(\q\q^*)^{1/2}$ and $\uq\coloneqq\q/q$,
+and similarly for $q_\perp$ and $q_\parallel$.
+After these preparations,
+we choose $\v{a}\coloneqq\n\times\uq_\parallel^*$.
+The form factor becomes
 \begin{equation}
-  \Gamma(\q)=\frac{\v{a}}{i \q\wedge\v{a}} \oint \d\v{r}\,\e^{i\q\r}.
-\end{equation}
-To avoid singularities as far as possible,
-we further choose $\v{a}=(-\hat q_y^*,\hat q_x^*)$.
-With this special choice,
-the wedge product in the denominator becomes a scalar product
-$\q\wedge\v{a}=\q\v{\hat q^*}=q$, and
-the scalar product in the numerator becomes a wedge product,
-$\v{a}\r=\v{\hat q^*}\wedge\r$:
-\begin{equation}
-  \Gamma(\q)=\frac{\v{\hat q^*}}{iq}\wedge \oint \d\v{r}\,\e^{i\q\r}.
+  \Gamma(\q)=\frac{\n\times\uq_\parallel^*}{i\,q_\parallel} \oint \d\v{r}\,\e^{i\q\r}.
 \end{equation}
 
 The polygon shall be given by its $N$ corners $\r_0,\ldots,\r_{N-1}$.
@@ -132,9 +129,9 @@ The edges of the polygon shall parametrized by
 with $-1\le\lambda\le+1$.
 The line integral can then be carried out to yield
 \begin{equation}\label{Effpolygon}
-    \Gamma(\q) = \displaystyle \frac{\v{\hat q^*}}{iq}\wedge \sum_{j=0}^{N-1}
+    \Gamma(\q) = \displaystyle \frac{\n\times\uq^*}{iq_\parallel} \sum_{j=0}^{N-1}
               \int_{-1}^{+1}\!\d\lambda\, \frac{\d\r}{\d\lambda}\,\e^{i\q\r}
-          = \displaystyle \frac{2\v{\hat q^*}}{iq}\wedge \sum_{j=0}^{N-1}
+          = \displaystyle \frac{2\n\times\uq^*}{iq_\parallel} \sum_{j=0}^{N-1}
               \E_j \sinc(\q\E_j) \e^{i\q\R_j}.
 \end{equation}
 The line singularities for $\q\perp\E_j$ having gracefully disappeared in the
@@ -146,12 +143,12 @@ the $\q^0$ term vanishes because $\sum\E_j=0$.
 The leading term is therefore
 \begin{equation}
   \begin{array}{@{}lcl}
-  \Gamma(\q\!\to\!0) &\doteq& \displaystyle 2\sum (\v{\hat q^*}\wedge\E_j) (\v{\hat q}\R_j)\\[3ex]
+  \Gamma(\q\!\to\!0) &\doteq& \displaystyle 2\sum (\v{\hat q^*}\times\E_j) (\v{\hat q}\R_j)\\[3ex]
     &=&\displaystyle \frac{1}{2}\sum \left\{
-        (\v{\hat q^*}\wedge\r_{j+1})(\v{\hat q}\r_j) -
-        (\v{\hat q^*}\wedge\r_j)(\v{\hat q}\r_{j+1})
+        (\v{\hat q^*}\times\r_{j+1})(\v{\hat q}\r_j) -
+        (\v{\hat q^*}\times\r_j)(\v{\hat q}\r_{j+1})
       \right\}\\[3ex]
-    &=&\displaystyle \frac{1}{2}\sum \r_j\wedge\r_{j+1},
+    &=&\displaystyle \frac{1}{2}\sum \r_j\times\r_{j+1},
   \end{array}
 \end{equation}
 which is the area of polygon
@@ -161,7 +158,7 @@ If the polygon has a two-fold symmetry axis, we write $N\eqqcolon2n$
 and make use of $\r_{j+n}=-\r_j$ to transform~(\ref{Effpolygon}) into
 \begin{equation}\label{Eff2ngon}
     \Gamma(\q) = \displaystyle 4 \sum_{j=0}^{n-1}
-              (\v{\hat q^*}\wedge\E_j) (\v{\hat q}\R_j) \sinc(\q\E_j) \sinc(\q\R_j),
+              (\v{\hat q^*}\times\E_j) (\v{\hat q}\R_j) \sinc(\q\E_j) \sinc(\q\R_j),
 \end{equation}
 where even the point singularity at $q=0$ is absorbed in a sinc function.
 \index{Form factor!polygon|)}%

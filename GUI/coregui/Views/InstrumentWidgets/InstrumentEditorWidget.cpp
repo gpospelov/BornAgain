@@ -74,23 +74,8 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     instrumentGroupLayout->setContentsMargins(0,0,0,0);
     instrumentGroup->setLayout(instrumentGroupLayout);
 
-    // top block with instrument name and type
-    m_typeComboBox->setMinimumWidth(300);
-    m_typeComboBox->addItem("Default GISAS Instrument");
-
-    QHBoxLayout *topLayout = new QHBoxLayout;
-    topLayout->addSpacing(16);
-
-    QGridLayout *nameAndTypeLayout = new QGridLayout;
-    nameAndTypeLayout->addWidget(new QLabel("Name"), 0, 0);
-    nameAndTypeLayout->addWidget(m_nameLineEdit, 0, 1);
-    nameAndTypeLayout->addWidget(new QLabel("Type"), 1, 0);
-    nameAndTypeLayout->addWidget(m_typeComboBox, 1, 1);
-    topLayout->addLayout(nameAndTypeLayout );
-    topLayout->addStretch(1);
-
     instrumentGroupLayout->addSpacing(10);
-    instrumentGroupLayout->addLayout(topLayout);
+    instrumentGroupLayout->addLayout(create_NameAndTypeLayout());
 
     // Scroling area with insturment components
     m_instrumentComponents->setStyleSheet("InstrumentComponentsWidget {background-color:transparent;}");
@@ -169,6 +154,25 @@ void InstrumentEditorWidget::onChangedEditor(const QString &)
 void InstrumentEditorWidget::onPropertyChanged(const QString &)
 {
     qDebug() << "InstrumentEditorWidget::onPropertyChanged() ->";
+}
+
+//! top block with instrument name and type
+QLayout *InstrumentEditorWidget::create_NameAndTypeLayout()
+{
+    QHBoxLayout *result = new QHBoxLayout;
+    m_nameLineEdit->setMinimumWidth(200);
+    m_typeComboBox->addItem("Default GISAS Instrument");
+
+    result->addSpacing(17);
+    result->addWidget(new QLabel("Name"));
+    result->addWidget(m_nameLineEdit);
+    result->addSpacing(5);
+    result->addWidget(new QLabel("Type"));
+    result->addWidget(m_typeComboBox);
+    result->addSpacing(18);
+    result->addStretch(1);
+
+    return result;
 }
 
 void InstrumentEditorWidget::updateWidgets()

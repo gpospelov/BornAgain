@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/TestView.h
-//! @brief     Defines class TestView
+//! @file      coregui/Views/FitView.h
+//! @brief     Defines class FitView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -32,10 +32,11 @@ public:
 
 public slots:
     void onUpdatePath();
+
 private:
-    RunFitWidget *runFitWidget;
-    QLineEdit *line;
-    ColorMapPlot *testplot;
+    RunFitWidget *m_runFitWidget;
+    QLineEdit *m_line;
+    ColorMapPlot *m_testplot;
 };
 
 #endif

@@ -211,66 +211,64 @@ RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrang
 OutputData<double> *RectangularDetector::createDetectorMap(const Beam &beam,
                                                            IDetector2D::EAxesUnits units_type) const
 {
-    if(getDimension() != 2) return 0;
+    if (getDimension() != 2)
+        return 0;
 
-    OutputData<double> *result = new OutputData<double>;
+    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
     const IAxis &aY = getAxis(BornAgain::Y_AXIS_INDEX);
 
     result->addAxis(aX);
     result->addAxis(aY);
 
-    if(units_type == DEFAULT) return result;
+    if (units_type == DEFAULT)
+        return result.release();
 
     std::vector<int> indices_left_bottom = {0, 0};
-    std::vector<int> indices_right_bottom = {(int)aX.getSize()-1, 0};
-    std::vector<int> indices_center_bottom = {(int)aX.getSize()/2, 0};
-    std::vector<int> indices_center_top = {(int)aX.getSize()/2, (int)aY.getSize()-1};
-    SimulationElement el_left_bottom = getSimulationElement(result->toGlobalIndex(indices_left_bottom), beam);
-    SimulationElement el_right_bottom = getSimulationElement(result->toGlobalIndex(indices_right_bottom), beam);
-    SimulationElement el_center_bottom = getSimulationElement(result->toGlobalIndex(indices_center_bottom), beam);
-    SimulationElement el_center_top = getSimulationElement(result->toGlobalIndex(indices_center_top), beam);
+    std::vector<int> indices_right_bottom = {(int)aX.getSize() - 1, 0};
+    std::vector<int> indices_center_bottom = {(int)aX.getSize() / 2, 0};
+    std::vector<int> indices_center_top = {(int)aX.getSize() / 2, (int)aY.getSize() - 1};
+    SimulationElement el_left_bottom
+        = getSimulationElement(result->toGlobalIndex(indices_left_bottom), beam);
+    SimulationElement el_right_bottom
+        = getSimulationElement(result->toGlobalIndex(indices_right_bottom), beam);
+    SimulationElement el_center_bottom
+        = getSimulationElement(result->toGlobalIndex(indices_center_bottom), beam);
+    SimulationElement el_center_top
+        = getSimulationElement(result->toGlobalIndex(indices_center_top), beam);
 
     result->clear();
 
-    if(units_type == MM) {
-        result->addAxis(FixedBinAxis("X [mm]", aX.getSize(), aX.getMin(), aX.getMax()));
-        result->addAxis(FixedBinAxis("Y [mm]", aY.getSize(), aY.getMin(), aY.getMax()));
+    double xmin(aX.getMin()), xmax(aX.getMax()), ymin(aY.getMin()), ymax(aY.getMax());
+
+    if (units_type == NBINS) {
+        xmin = 0.0;
+        ymin = 0.0;
+        xmax = double(aX.getSize());
+        ymax = double(aY.getSize());
     }
 
-    else if(units_type == NBINS) {
-        result->addAxis(FixedBinAxis("X [nbins]", aX.getSize(), 0.0, double(aX.getSize())));
-        result->addAxis(FixedBinAxis("Y [nbins]", aY.getSize(), 0.0, double(aY.getSize())));
-    }
-
-    else if(units_type == RADIANS || units_type == DEGREES) {
-
+    else if (units_type == RADIANS || units_type == DEGREES) {
         double scale(1.0);
-        std::string sunits("[rad]");
-        if(units_type == DEGREES) {
-            scale = 1./Units::degree;
-            sunits = std::string("[deg]");
-        }
-        double xmin = scale*el_left_bottom.getPhi(0.0, 0.0);
-        double xmax = scale*el_right_bottom.getPhi(1.0, 0.0);
-        double ymin = scale*el_center_bottom.getAlpha(0.5, 0.0);
-        double ymax = scale*el_center_top.getAlpha(0.5, 1.0);
-        result->addAxis(FixedBinAxis("phi_f "+ sunits, aX.getSize(), xmin, xmax));
-        result->addAxis(FixedBinAxis("alpha_f "+ sunits, aY.getSize(), ymin, ymax));
+        if (units_type == DEGREES)
+            scale = 1. / Units::degree;
+        xmin = scale * el_left_bottom.getPhi(0.0, 0.0);
+        xmax = scale * el_right_bottom.getPhi(1.0, 0.0);
+        ymin = scale * el_center_bottom.getAlpha(0.5, 0.0);
+        ymax = scale * el_center_top.getAlpha(0.5, 1.0);
     }
 
-    else if(units_type == QYQZ) {
-        double xmin = el_left_bottom.getQ(0.0, 0.0).y();
-        double xmax = el_right_bottom.getQ(1.0, 0.0).y();
-        double ymin = -el_center_bottom.getQ(0.5, 0.0).z();
-        double ymax = -el_center_top.getQ(0.5, 1.0).z();
-        result->addAxis(FixedBinAxis("Q_y", aX.getSize(), xmin, xmax));
-        result->addAxis(FixedBinAxis("Q_z", aY.getSize(), ymin, ymax));
-        std::cout << "XXX" << xmin << " " << xmax << " " << ymin << " " << ymax << std::endl;
+    else if (units_type == QYQZ) {
+        xmin = el_left_bottom.getQ(0.0, 0.0).y();
+        xmax = el_right_bottom.getQ(1.0, 0.0).y();
+        ymin = -el_center_bottom.getQ(0.5, 0.0).z();
+        ymax = -el_center_top.getQ(0.5, 1.0).z();
     }
 
-    return result;
+    result->addAxis(FixedBinAxis(BornAgain::U_AXIS_NAME, aX.getSize(), xmin, xmax));
+    result->addAxis(FixedBinAxis(BornAgain::V_AXIS_NAME, aY.getSize(), ymin, ymax));
 
+    return result.release();
 }
 
 std::vector<IDetector2D::EAxesUnits> RectangularDetector::getValidAxesUnits() const

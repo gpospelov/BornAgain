@@ -23,6 +23,7 @@
 class GISASSimulation;
 class IntensityDataItem;
 class InstrumentItem;
+class JobItem;
 
 //! The JobResultsPresenter is a mediator between GISASSimulation, JobItem and IntensityDataItem.
 //! Used to modify OutputData's axes units as requested by IntensityDataItem.
@@ -47,8 +48,14 @@ public:
     static void updateDataAxes(IntensityDataItem *intensityItem,
                                const InstrumentItem *instrumentItem);
 
+    //! saves intensity data into project directory
+    static void saveIntensityData(JobItem *jobItem, const QString &projectDir);
+
 private:
     static void initIntensityItemProperties(IntensityDataItem *intensityItem, const IDetector2D *detector);
+
+    static OutputData<double> *createDetectorMap(const InstrumentItem *instrumentItem,
+                                                 IDetector2D::EAxesUnits units = IDetector2D::DEFAULT);
 
     //!< correspondance of GUI axes units names to their domain counterpart
     static QMap<QString, IDetector2D::EAxesUnits> m_name_to_units;

@@ -44,7 +44,6 @@ public:
 
     const OutputData<double> *getOutputData() const { return m_data.get(); }
     void setOutputData(OutputData<double> *data);
-//    void setResults(const GISASSimulation *simulation);
 
     //! returns lower and upper zoom ranges of x-axis
     double getLowerX() const;

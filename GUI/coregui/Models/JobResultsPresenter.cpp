@@ -22,6 +22,9 @@
 #include "InstrumentItem.h"
 #include "Instrument.h"
 #include "OutputData.h"
+#include "GUIHelpers.h"
+#include "JobItem.h"
+#include "IntensityDataIOFactory.h"
 #include <QDebug>
 
 namespace {
@@ -100,21 +103,38 @@ void JobResultsPresenter::updateDataAxes(IntensityDataItem *intensityItem,
 
     if(!intensityItem->getOutputData()) return;
 
-    DomainObjectBuilder builder;
-    auto instrument = builder.buildInstrument(*instrumentItem);
-    instrument->initDetector();
-
     IDetector2D::EAxesUnits requested_units = getAxesUnitsFromName(intensityItem->getSelectedAxesUnits());
 
-    OutputData<double> *newData = instrument->getDetector()
-            ->createDetectorMap(instrument->getBeam(), requested_units);
-    Q_ASSERT(newData);
+//    DomainObjectBuilder builder;
+//    auto instrument = builder.buildInstrument(*instrumentItem);
+//    instrument->initDetector();
+
+//    OutputData<double> *newData = instrument->getDetector()
+//            ->createDetectorMap(instrument->getBeam(), requested_units);
+//    Q_ASSERT(newData);
+
+    OutputData<double> *newData = createDetectorMap(instrumentItem, requested_units);
+
     newData->setRawDataVector(intensityItem->getOutputData()->getRawDataVector());
 
     intensityItem->setOutputData(newData);
     intensityItem->setAxesRangeToData();
 }
 
+//! Saves intensityData in project directory
+//! Axes of data will be reset to default
+void JobResultsPresenter::saveIntensityData(JobItem *jobItem, const QString &projectDir)
+{
+    IntensityDataItem *dataItem = jobItem->getIntensityDataItem();
+    if (dataItem) {
+        QString filename = projectDir + QStringLiteral("/") + dataItem->itemName();
+
+        std::unique_ptr<OutputData<double>> dataToSave(
+            createDetectorMap(jobItem->getInstrumentItem()));
+        dataToSave->setRawDataVector(dataItem->getOutputData()->getRawDataVector());
+        IntensityDataIOFactory::writeOutputData(*dataToSave, filename.toStdString());
+    }
+}
 
 //! inits properties of IntensityDataItem for the case of selectable axes units
 //! If P_AXES_UNITS is empty, it will be initialized to match the detector
@@ -137,5 +157,27 @@ void JobResultsPresenter::initIntensityItemProperties(IntensityDataItem *intensi
         intensityItem->setRegisteredProperty(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
     }
 
+}
+
+//! creates detector map from instrument description with axes corresponding to given units
+OutputData<double> *JobResultsPresenter::createDetectorMap(const InstrumentItem *instrumentItem,
+                                                           IDetector2D::EAxesUnits units)
+{
+    DomainObjectBuilder builder;
+    auto instrument = builder.buildInstrument(*instrumentItem);
+    instrument->initDetector();
+
+    if(units == IDetector2D::DEFAULT)
+        units = instrument->getDetector()->getDefaultAxesUnits();
+
+    OutputData<double> *result = instrument->getDetector()
+            ->createDetectorMap(instrument->getBeam(), units);
+
+    if(!result) {
+        throw GUIHelpers::Error("JobResultsPresenter::createDetectorMap -> Error. "
+                                "Can't create detector map.");
+    }
+
+    return result;
 }
 

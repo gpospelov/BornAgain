@@ -65,23 +65,14 @@ IDetector2D::EAxesUnits JobResultsPresenter::getAxesUnitsFromName(const QString 
     return m_name_to_units[name];
 }
 
-void JobResultsPresenter::setResults(IntensityDataItem *dataItem, const GISASSimulation *simulation)
+void JobResultsPresenter::setResults(IntensityDataItem *intensityItem, const GISASSimulation *simulation)
 {
-    dataItem->getPropertyAttribute(IntensityDataItem::P_AXES_UNITS).setVisible();
-
     const IDetector2D *detector = simulation->getInstrument().getDetector();
 
-    ComboProperty combo;
-    foreach (auto units, detector->getValidAxesUnits()) {
-        combo << getNameFromAxesUnits(units);
-    }
-    IDetector2D::EAxesUnits preferrable_units
-        = preferableGUIAxesUnits(detector->getDefaultAxesUnits());
+    initIntensityItemProperties(intensityItem, detector);
 
-    combo.setValue(getNameFromAxesUnits(preferrable_units));
-
-    dataItem->setRegisteredProperty(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
-    dataItem->setOutputData(simulation->getDetectorIntensity(preferrable_units));
+    IDetector2D::EAxesUnits selected_units = getAxesUnitsFromName(intensityItem->getSelectedAxesUnits());
+    intensityItem->setOutputData(simulation->getDetectorIntensity(selected_units));
 }
 
 // Converts detector default axes units into units most suitable for GUI
@@ -113,9 +104,7 @@ void JobResultsPresenter::updateDataAxes(IntensityDataItem *intensityItem,
     auto instrument = builder.buildInstrument(*instrumentItem);
     instrument->initDetector();
 
-    ComboProperty combo= intensityItem->getRegisteredProperty(IntensityDataItem::P_AXES_UNITS)
-              .value<ComboProperty>();
-    IDetector2D::EAxesUnits requested_units = getAxesUnitsFromName(combo.getValue());
+    IDetector2D::EAxesUnits requested_units = getAxesUnitsFromName(intensityItem->getSelectedAxesUnits());
 
     OutputData<double> *newData = instrument->getDetector()
             ->createDetectorMap(instrument->getBeam(), requested_units);
@@ -124,5 +113,29 @@ void JobResultsPresenter::updateDataAxes(IntensityDataItem *intensityItem,
 
     intensityItem->setOutputData(newData);
     intensityItem->setAxesRangeToData();
+}
+
+
+//! inits properties of IntensityDataItem for the case of selectable axes units
+//! If P_AXES_UNITS is empty, it will be initialized to match the detector
+void JobResultsPresenter::initIntensityItemProperties(IntensityDataItem *intensityItem,
+                                                      const IDetector2D *detector)
+{
+    ComboProperty combo = intensityItem->getRegisteredProperty(IntensityDataItem::P_AXES_UNITS)
+            .value<ComboProperty>();
+
+    if(combo.getValues().isEmpty()) {
+        intensityItem->getPropertyAttribute(IntensityDataItem::P_AXES_UNITS).setVisible();
+
+        foreach (auto units, detector->getValidAxesUnits()) {
+            combo << getNameFromAxesUnits(units);
+        }
+        IDetector2D::EAxesUnits preferrable_units
+            = preferableGUIAxesUnits(detector->getDefaultAxesUnits());
+
+        combo.setValue(getNameFromAxesUnits(preferrable_units));
+        intensityItem->setRegisteredProperty(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
+    }
+
 }
 

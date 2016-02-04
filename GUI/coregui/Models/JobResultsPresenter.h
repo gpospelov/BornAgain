@@ -38,7 +38,7 @@ public:
     static IDetector2D::EAxesUnits getAxesUnitsFromName(const QString &name);
 
     //! Sets simulation results into the IntensityDataItem
-    static void setResults(IntensityDataItem *dataItem, const GISASSimulation *simulation);
+    static void setResults(IntensityDataItem *intensityItem, const GISASSimulation *simulation);
 
     //! converts detector default axes units into units most suitable for GUI
     static IDetector2D::EAxesUnits preferableGUIAxesUnits(IDetector2D::EAxesUnits default_units);
@@ -46,7 +46,9 @@ public:
     //! updates axes of OutputData in IntensityData item
     static void updateDataAxes(IntensityDataItem *intensityItem,
                                const InstrumentItem *instrumentItem);
+
 private:
+    static void initIntensityItemProperties(IntensityDataItem *intensityItem, const IDetector2D *detector);
 
     //!< correspondance of GUI axes units names to their domain counterpart
     static QMap<QString, IDetector2D::EAxesUnits> m_name_to_units;

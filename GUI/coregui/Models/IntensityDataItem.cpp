@@ -42,9 +42,6 @@ IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
     registerProperty(P_NAME, Constants::IntensityDataType).setHidden();
 
     ComboProperty units;
-    units << Constants::UnitsNbins << Constants::UnitsRadians << Constants::UnitsDegrees
-          << Constants::UnitsMm << Constants::UnitsQyQz;
-
     registerProperty(P_AXES_UNITS, units.getVariant()).setHidden();
 
     registerProperty(P_PROJECTIONS_FLAG, false).setHidden();
@@ -224,21 +221,11 @@ void IntensityDataItem::setNameFromProposed(const QString &proposed_name)
     setItemName(QString("data_%1_%2.int").arg(valid_name, QString::number(0)));
 }
 
-void IntensityDataItem::onPropertyChange(const QString &name)
+QString IntensityDataItem::getSelectedAxesUnits() const
 {
-//    if(name == P_AXES_UNITS && m_simulation) {
-//        ComboProperty combo = getRegisteredProperty(P_AXES_UNITS).value<ComboProperty>();
-//        setOutputData(m_simulation->getDetectorIntensity(m_description_to_units[combo.getValue()]));
-//        setAxesRangeToData();
-//    }
-    ParameterizedItem::onPropertyChange(name);
-}
-
-void IntensityDataItem::setValidAxesUnits(std::vector<IDetector2D::EAxesUnits> &units)
-{
-    for(size_t i=0; i<units.size(); ++i) {
-
-    }
+    ComboProperty combo= getRegisteredProperty(IntensityDataItem::P_AXES_UNITS)
+              .value<ComboProperty>();
+    return combo.getValue();
 }
 
 void IntensityDataItem::setLowerX(double xmin)

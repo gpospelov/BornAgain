@@ -78,9 +78,7 @@ public:
 
     void setNameFromProposed(const QString &proposed_name);
 
-    virtual void onPropertyChange(const QString &name);
-
-    virtual void setValidAxesUnits(std::vector<IDetector2D::EAxesUnits> &units);
+    virtual QString getSelectedAxesUnits() const;
 
 signals:
     void intensityModified();

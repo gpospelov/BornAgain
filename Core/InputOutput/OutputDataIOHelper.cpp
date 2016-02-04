@@ -148,14 +148,13 @@ IAxis *OutputDataIOHelper::createFixedBinAxis(std::string line)
     size_t nbins(0);
 
     std::istringstream iss(line);
+    iss.imbue(std::locale::classic());
     if( !(iss >> type >> name >> nbins) )
         throw Exceptions::FormatErrorException("OutputDataIOHelper::createFixedBinAxis() -> Error. Can't parse the string.");
 
     std::vector<double> boundaries;
-    std::string value;
-    while( iss >> value) {
-        boundaries.push_back(std::strtod(value.c_str(), nullptr));
-    }
+    std::copy(std::istream_iterator<double>(iss),
+              std::istream_iterator<double>(), back_inserter(boundaries));
 
     if(boundaries.size() != 2)
         throw Exceptions::FormatErrorException("OutputDataIOHelper::createFixedBinAxis() -> Error. Can't parse the string at p2.");
@@ -186,46 +185,37 @@ IAxis *OutputDataIOHelper::createVariableBinAxis(std::string line)
     size_t nbins(0);
 
     std::istringstream iss(line);
+    iss.imbue(std::locale::classic());
     if( !(iss >> type >> name >> nbins) )
         throw Exceptions::FormatErrorException("OutputDataIOHelper::createVariableBinAxis() -> Error. Can't parse the string.");
-
     std::vector<double> boundaries;
-    std::string value;
-    while( iss >> value) {
-        boundaries.push_back(std::strtod(value.c_str(), nullptr));
-    }
-
+    std::copy(std::istream_iterator<double>(iss),
+              std::istream_iterator<double>(), back_inserter(boundaries));
     if(boundaries.size() != nbins+1)
         throw Exceptions::FormatErrorException("OutputDataIOHelper::createVariableBinAxis() -> Error. Can't parse the string at p2.");
-
     return new VariableBinAxis(name, nbins, boundaries);
 }
-
-
 
 //! Fills output data raw buffer from input stream
 void OutputDataIOHelper::fillOutputData(OutputData<double> *data, std::istream &input_stream)
 {
     std::string line;
-
     data->setAllTo(0.0);
     OutputData<double>::iterator it = data->begin();
-
     while( std::getline(input_stream, line) )
     {
         if(line.empty() || line[0] == '#') break;
 
         std::istringstream iss(line);
-        std::string svalue;
-        while(iss >> svalue) {
-            *it = std::strtod(svalue.c_str(), nullptr);
+        iss.imbue(std::locale::classic());
+        std::vector<double> buffer;
+        std::copy(std::istream_iterator<double>(iss),
+                  std::istream_iterator<double>(), back_inserter(buffer));
+        for (auto value : buffer) {
+            *it = value;
             ++it;
         }
     }
-
     if(it!= data->end())
         throw Exceptions::FormatErrorException("OutputDataIOHelper::fillOutputData() -> Error while parsing data.");
 }
-
-
-

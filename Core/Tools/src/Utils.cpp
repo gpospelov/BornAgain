@@ -25,6 +25,7 @@
 #include <boost/date_time/c_local_time_adjustor.hpp>
 #include <string>
 #include <thread>
+#include <locale>
 
 #include "Macros.h"
 
@@ -44,13 +45,9 @@ vdouble1d_t Utils::String::parse_doubles(const std::string& str)
 {
     vdouble1d_t buff_1d;
     std::istringstream iss(str);
-    std::string svalue;
-    while(iss >> svalue) {
-        buff_1d.push_back(std::strtod(svalue.c_str(), nullptr));
-    }
-// approach below doesnt work under mac 10.6 for doubles like 4.3882628771e-313
-//    std::copy(std::istream_iterator<double>(iss),
-//              std::istream_iterator<double>(), back_inserter(buff_1d));
+    iss.imbue(std::locale::classic());
+    std::copy(std::istream_iterator<double>(iss),
+              std::istream_iterator<double>(), back_inserter(buff_1d));
     if( buff_1d.empty() ) {
         std::cout << "Utils::String::parse_doubles -> "
             "Warning! No parsed values in 1d vector of doubles." << std::endl;

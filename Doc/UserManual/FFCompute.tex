@@ -88,6 +88,7 @@ Therefore we shall consider a few such cases more closely.
 \def\R{\v{R}}
 \def\E{\v{E}}
 \def\x{\v{x}}
+\def\V{\v{V}}
 \def\qp{\v{p}}
 \def\n{\v{\hat n}}
 \def\uqp{\v{\hat p}}
@@ -131,19 +132,19 @@ we obtain the form factor as a line integral
 \end{equation}
 With the choice $\v{a}\coloneqq\n\times\uqp_\parallel^*$,
 the form factor becomes
-\begin{equation}
+\begin{equation}\label{Elastoint}
   F_\parallel(\qp)=\frac{\n\times\uqp^*}{i\,p} \oint \d\v{r}\,\e^{i\qp\r}.
 \end{equation}
 
-The polygon shall be given by its $N$ corners $\r_0,\ldots,\r_{N-1}$.
-It is convenient to abbreviate $\r_N\coloneqq\r_0$.
+The polygon shall be given by its $N$ vertices $\V_0,\ldots,\V_{N-1}$.
+It is convenient to abbreviate $\V_N\coloneqq\V_0$.
 The edges of the polygon shall parametrized by
 \begin{equation}
-  \r(\lambda) = \frac{\r_{j+1}+\r_j}{2} + \frac{\r_{j+1}-\r_j}{2} \lambda
-  \eqqcolon \R_j + \E_j\lambda.
+  \r(\lambda) = \frac{\V_{j+1}+\V_j}{2} + \frac{\V_{j+1}-\V_j}{2} \lambda
+  \eqqcolon \V_j + \E_j\lambda.
 \end{equation}
 with $-1\le\lambda\le+1$.
-The line integral takes the form
+The line integral~(\ref{Elastoint}) then takes the form
 \begin{equation}
     F_\parallel(\qp)
    = \frac{\n\times\uqp^*}{ip} \sum_{j=0}^{N-1}
@@ -152,7 +153,7 @@ The line integral takes the form
 and yields
 \begin{equation}\label{Effpolygon}
     F_\parallel(\qp)
-    = \frac{2}{ip} \sum_{j=0}^{N-1} \n(\uqp^*\times\E_j) \sinc(\qp\E_j) \e^{i\qp\R_j}.
+    = \frac{2}{ip} \sum_{j=0}^{N-1} \n(\uqp^*\times\E_j) \sinc(\qp\E_j) \e^{i\qp\V_j}.
 \end{equation}
 The line singularities for $\qp\perp\E_j$ having gracefully disappeared in the
 sinc function,
@@ -164,24 +165,24 @@ The leading term is therefore
 \begin{equation}
   \begin{array}{@{}lcl}
   F_\parallel(\qp\!\to\!0)
-    &\doteq& \displaystyle 2\sum \n(\uqp^*\times\E_j) (\uqp\R_j)\\[3ex]
+    &\doteq& \displaystyle 2\sum \n(\uqp^*\times\E_j) (\uqp\V_j)\\[3ex]
     &=&\displaystyle \frac{1}{2}\sum \n\left\{
-        (\uqp^*\times\r_{j+1})(\uqp\r_j)
-      - (\uqp^*\times\r_j)(\uqp\r_{j+1})
+        (\uqp^*\times\V_{j+1})(\uqp\V_j)
+      - (\uqp^*\times\V_j)(\uqp\V_{j+1})
       \right\}\\[3ex]
-    &=&\displaystyle \frac{1}{2}\sum \n(\r_j\times\r_{j+1}),
+    &=&\displaystyle \frac{1}{2}\sum \n(\V_j\times\V_{j+1}),
   \end{array}
 \end{equation}
 which is the area of the polygon
-as given by a triangular tiling (with vertices at $\v{0},\r_j,\r_{j+1}$).
+as given by a triangular tiling (with vertices at $\v{0},\V_j,\V_{j+1}$).
 
 If the polygon has a two-fold symmetry axis,
 the form factor can be further simplified.
 We write $N\eqqcolon2n$
-and make use of $\r_{j+n}=-\r_j$ to transform~(\ref{Effpolygon}) into
+and make use of $\V_{j+n}=-\V_j$ to transform~(\ref{Effpolygon}) into
 \begin{equation}\label{Eff2ngon}
     F_\parallel(\qp) = \displaystyle 4 \sum_{j=0}^{n-1}
-              \n(\uqp^*\times\E_j) (\uqp\R_j) \sinc(\qp\E_j) \sinc(\qp\R_j),
+              \n(\uqp^*\times\E_j) (\uqp\V_j) \sinc(\qp\E_j) \sinc(\qp\V_j),
 \end{equation}
 where even the point singularity at $p=0$ is absorbed in a sinc function.
 \index{Form factor!polygon|)}%
@@ -216,11 +217,11 @@ can be written as
 Depending on the geometry of the base,
 its form factor can be written as a finite or infinite series
 \begin{equation}
-  F_\parallel(\q_\parallel,0)=\sum_j A_j \e^{i\q_\parallel \v{c}_j}.
+  F_\parallel(\q_\parallel,0)=q_\parallel^{_2}\sum_j A_j \e^{i\q_\parallel \v{c}_j}.
 \end{equation}
 Accordingly, the three-dimensional form factor can be computed as
 \begin{equation}
-  F(\q) = \sum_j A_j \int_0^H\!\d z\,\rho(z)^2\e^{iq_z z} \e^{i\rho(z)\q_\parallel \v{c}_j}.
+  F(\q) = \sum_j A_j \int_0^H\!\d z\,\e^{iq_z z} \e^{i\rho(z)\q_\parallel \v{c}_j}.
 \end{equation}
 We now specialize to pyramids,
 for which
@@ -235,33 +236,12 @@ The form factor becomes
   \begin{array}{@{}lcl}
   F(\q)
   &=& \displaystyle
-       \e^{iq_z H_0} \sum_j A_j \int_0^H\!\d z\,\rho(z)^2\e^{i(-q_zH_0 +\q_\parallel \v{c}_j)\rho(z)}
+       \e^{iq_z H_0} \sum_j A_j \int_0^H\!\d z\,\e^{i(-q_zH_0 +\q_\parallel \v{c}_j)\rho(z)}
 \\[3ex]
   &=& \displaystyle
-       H_0\, \e^{iq_z H_0} \sum_j A_j \int_{1-H/H_0}^1\!\d\rho\, \rho^2\e^{i(-q_zH_0 +\q_\parallel \v{c}_j)\rho}
-\\[3ex]
-  &=& \displaystyle
-       H_0\, \e^{iq_z H_0} \sum_j A_j \Delta(i(-q_zH_0 +\q_\parallel \v{c}_j),1-H/H_0)
+       H\, \e^{iq_z H_0} \sum_j A_j \e^{i\q_\parallel\v{c}_jH/(2H_0)}
+          \sinc\left(\q_\parallel\v{c}_j\frac{H}{2H_0}\right).
   \end{array}
-\end{equation}
-with a function
-\begin{equation}\label{EDdef}
-  \Delta(u,v)
-  \coloneqq \int_{v}^1\!\d\rho\,\rho^2\,\e^{u\rho}.
-\end{equation}
-The solution
-\begin{equation}
-  \Delta(u,v)
-  = \frac{\e^u-v^2\e^{uv}}{u}
-  - 2\frac{\e^u-v\e^{uv}}{u^2}
-  + 2\frac{\e^u-\e^{uv}}{u^3}
-\end{equation}
-has a removable singularity at $u=0$.
-For small~$u$, it is therefore preferable to compute~$\Delta$
-through an expansion of the exponential function in~(\ref{EDdef}),
-\begin{equation}
-  \Delta(u,v)
-  = \sum_{k=0} \frac{u^k}{k!}\,\frac{1-v^{k+3}}{k+3}.
 \end{equation}
 
 \index{Form factor!frustum)}%

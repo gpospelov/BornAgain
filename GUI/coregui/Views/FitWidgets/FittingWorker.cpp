@@ -20,7 +20,11 @@ void FittingWorker::startFit()
 {
     m_fitsuite->resetInterrupt();
     emit started();
-    m_fitsuite->runFit();
+    try {
+        m_fitsuite->runFit();
+    } catch(const std::exception& ex) {
+        emit error(QString::fromLatin1(ex.what()));
+    }
     emit finished();
 }
 

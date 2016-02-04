@@ -13,44 +13,37 @@
 //
 // ************************************************************************** //
 
-#ifndef FITSETTINGSWIDGET_H
-#define FITSETTINGSWIDGET_H
+#ifndef IMPORTDATAWIDGET_H
+#define IMPORTDATAWIDGET_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
 
+class QLineEdit;
+class ColorMapPlot;
 class FitModel;
-class FitParameterWidget;
-class QComboBox;
 
-
-class BA_CORE_API_ FitSettingsWidget : public QWidget
+class BA_CORE_API_ ImportDataWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    FitSettingsWidget(FitModel *fitModel, QWidget *parent);
+    //! TOY: loads file from path and plot data
+    ImportDataWidget(FitModel *fitModel, QWidget *parent = 0);
 
-    //! we update GUI when widget is shown
     void showEvent(QShowEvent *);
 
-    //! connect and disconnect signals for comboboxes
-    void connectCombos();
-    void disconnectCombos();
 
 public slots:
-    //! call this slot to refresh comboboxes and fitparameters
+    //! when the text points to existing file, then plot file
+    void onTextUpdate();
+
     void onUpdateGUI();
 
-    //! slots for sample/instrument changes
-    void onSampleChanged(int index);
-    void onInstrumentChanged(int index);
-
 private:
+    QLineEdit *m_line;
+    ColorMapPlot *m_plot;
     FitModel *m_fitModel;
-    FitParameterWidget *m_fitParameter;
-    QComboBox *m_sampleCombo;
-    QComboBox *m_instrumentCombo;
 };
 
 #endif

@@ -20,23 +20,24 @@
 #include <QWidget>
 
 class MainWindow;
+class QTabWidget;
+class ImportDataWidget;
+class FitSettingsWidget;
 class RunFitWidget;
-class QLineEdit;
-class ColorMapPlot;
 
 class BA_CORE_API_ FitView : public QWidget
 {
     Q_OBJECT
+
 public:
+    //! View containing tabs for fitting
     FitView(MainWindow *window);
 
-public slots:
-    void onUpdatePath();
-
 private:
+    QTabWidget *m_tabs;
+    ImportDataWidget *m_importDataWidget;
+    FitSettingsWidget *m_fitSettingsWidget;
     RunFitWidget *m_runFitWidget;
-    QLineEdit *m_line;
-    ColorMapPlot *m_testplot;
 };
 
 #endif

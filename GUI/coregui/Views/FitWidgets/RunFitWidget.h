@@ -38,12 +38,10 @@ class BA_CORE_API_ RunFitWidget : public QWidget
 
 public:
 
-    RunFitWidget(FitModel *fit, SampleModel *sample, InstrumentModel *inst, QWidget *parent = 0);
+    RunFitWidget(FitModel *fitModel, QWidget *parent = 0);
 
     // test only
     boost::shared_ptr<FitSuite> init_test_fitsuite();
-
-    QString path;
 
 public slots:
 
@@ -66,8 +64,6 @@ private:
     RunFitManager *m_runfitmanager;
     FitProgressWidget *m_fitprogress;
     FitModel *m_fitModel;
-    SampleModel *m_sampleModel;
-    InstrumentModel *m_instrumentModel;
 
     ParameterizedItem *getTopItemFromSelection(SessionModel *model, const QString &itemType, const QString &selectionType);
 };

@@ -49,9 +49,25 @@ class BA_CORE_API_ FitSelectionItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    static const QString P_SAMPLE_INDEX;
-    static const QString P_INSTRUMENT_INDEX;
+    static const QString P_SAMPLE;
+    static const QString P_INSTRUMENT;
     explicit FitSelectionItem(ParameterizedItem *parent=0);
+};
+
+class BA_CORE_API_ MinimizerSettingsItem : public ParameterizedItem
+{
+    Q_OBJECT
+public:
+    static const QString P_ALGO;
+    explicit MinimizerSettingsItem(ParameterizedItem *parent=0);
+};
+
+class BA_CORE_API_ InputDataItem : public ParameterizedItem
+{
+    Q_OBJECT
+public:
+    static const QString P_PATH;
+    explicit InputDataItem(ParameterizedItem *parent=0);
 };
 
 #endif

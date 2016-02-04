@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/FittingWorker.h
-//! @brief     Implements class FittingWorker
+//! @file      coregui/Models/NJobModel.h
+//! @brief     Defines class NJobModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,42 +12,23 @@
 //! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
-
-#ifndef FITTINGWORKER_H
-#define FITTINGWORKER_H
+#ifndef FITSELECTORMODEL_H
+#define FITSELECTORMODEL_H
 
 #include "WinDllMacros.h"
-#include <QObject>
-#include <boost/shared_ptr.hpp>
+#include <QStandardItemModel>
 
-class FitSuite;
+class QMimeData;
+class QStandardItem;
 
-class BA_CORE_API_ FittingWorker : public QObject
+class BA_CORE_API_ FitSelectorModel : public QStandardItemModel
 {
     Q_OBJECT
 
 public:
-
-    FittingWorker(boost::shared_ptr<FitSuite> suite) {m_fitsuite = suite;}
-
-public slots:
-
-    void startFit();
-
-    void interruptFitting();
-
-signals:
-
-    void started();
-
-    void finished();
-
-    void error(const QString &message);
-
-private:
-
-    boost::shared_ptr<FitSuite> m_fitsuite;
-
+    QMimeData *mimeData(const QModelIndexList &indexes) const;
+    QString getPathFromIndex(const QModelIndex &index) const;
+    QStandardItem *getItemFromPath(const QString &path);
 };
 
 #endif

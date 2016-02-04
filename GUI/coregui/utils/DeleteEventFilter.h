@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/FittingWorker.h
-//! @brief     Implements class FittingWorker
+//! @file      coregui/utils/CustomEventFilters.h
+//! @brief     Defines classes releted to event filtering
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,41 +13,27 @@
 //
 // ************************************************************************** //
 
-#ifndef FITTINGWORKER_H
-#define FITTINGWORKER_H
+#ifndef DELETEEVENTFILTERS_H
+#define DELETEEVENTFILTERS_H
 
 #include "WinDllMacros.h"
 #include <QObject>
-#include <boost/shared_ptr.hpp>
 
-class FitSuite;
+class QEvent;
 
-class BA_CORE_API_ FittingWorker : public QObject
+//! Filter out space bar key events, which is special case for dialog windows
+
+class DeleteEventFilter : public QObject
 {
     Q_OBJECT
-
 public:
+  DeleteEventFilter( QObject *parent = 0 ) : QObject( parent ) {}
 
-    FittingWorker(boost::shared_ptr<FitSuite> suite) {m_fitsuite = suite;}
-
-public slots:
-
-    void startFit();
-
-    void interruptFitting();
+protected:
+  bool eventFilter( QObject *dist, QEvent *event );
 
 signals:
-
-    void started();
-
-    void finished();
-
-    void error(const QString &message);
-
-private:
-
-    boost::shared_ptr<FitSuite> m_fitsuite;
-
+  void removeItem();
 };
 
 #endif

@@ -294,7 +294,7 @@ void MainWindow::createInstrumentModel()
 void MainWindow::createFitModel()
 {
     delete m_fitModel;
-    m_fitModel = new FitModel(this);
+    m_fitModel = new FitModel(m_sampleModel, m_instrumentModel, this);
 }
 
 //! reset all models to initial state
@@ -319,8 +319,10 @@ void MainWindow::resetModels()
     m_fitModel->clear();
     m_fitModel->insertNewItem(Constants::FitParameterContainerType, QModelIndex());
     ParameterizedItem *selection = m_fitModel->insertNewItem(Constants::FitSelectionType, QModelIndex());
-    selection->setRegisteredProperty(FitSelectionItem::P_SAMPLE_INDEX, "MultiLayer");
-    selection->setRegisteredProperty(FitSelectionItem::P_INSTRUMENT_INDEX, "Instrument");
+    selection->setRegisteredProperty(FitSelectionItem::P_SAMPLE, "MultiLayer");
+    selection->setRegisteredProperty(FitSelectionItem::P_INSTRUMENT, "Instrument0");
+    m_fitModel->insertNewItem(Constants::MinimizerSettingsType, QModelIndex());
+    m_fitModel->insertNewItem(Constants::InputDataType, QModelIndex());
 
 }
 

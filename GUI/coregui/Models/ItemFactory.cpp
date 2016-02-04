@@ -171,6 +171,8 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::FitParameterType] = &createInstance<FitParameterItem>;
     result[Constants::FitParameterLinkType] = &createInstance<FitParameterLinkItem>;
     result[Constants::FitSelectionType] = &createInstance<FitSelectionItem>;
+    result[Constants::MinimizerSettingsType] = &createInstance<MinimizerSettingsItem>;
+    result[Constants::InputDataType] = &createInstance<InputDataItem>;
 
     return result;
 }

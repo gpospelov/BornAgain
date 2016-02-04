@@ -14,33 +14,27 @@
 // ************************************************************************** //
 
 #include "FitSettingsWidget.h"
-#include "FitModel.h"
-#include "SampleModel.h"
-#include "InstrumentModel.h"
 #include "FitParameterWidget.h"
-#include "FitParameterItems.h"
-#include "SessionModel.h"
+#include "FitModel.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QComboBox>
 #include <QLabel>
 
-FitSettingsWidget::FitSettingsWidget(FitModel *fitModel, SampleModel *sampleModel,
-                                     InstrumentModel *instrumentModel, QWidget *parent)
+
+FitSettingsWidget::FitSettingsWidget(FitModel *fitModel, QWidget *parent)
     : QWidget(parent)
     , m_fitModel(fitModel)
-    , m_sampleModel(sampleModel)
-    , m_instrumentModel(instrumentModel)
-    , m_fitParameter(0)
+    , m_fitParameter(new FitParameterWidget(m_fitModel, this))
     , m_sampleCombo(new QComboBox())
     , m_instrumentCombo(new QComboBox())
 {
-    m_fitParameter = new FitParameterWidget(m_sampleModel, m_instrumentModel, m_fitModel, this);
-    QVBoxLayout *mainLayout = new QVBoxLayout();
-    QHBoxLayout *topLayout = new QHBoxLayout();
     m_sampleCombo->setMinimumWidth(200);
     m_instrumentCombo->setMinimumWidth(200);
+
+    QVBoxLayout *mainLayout = new QVBoxLayout();
+    QHBoxLayout *topLayout = new QHBoxLayout();
     topLayout->addWidget(new QLabel("Select Sample:"));
     topLayout->addWidget(m_sampleCombo);
     topLayout->addSpacing(30);
@@ -50,15 +44,12 @@ FitSettingsWidget::FitSettingsWidget(FitModel *fitModel, SampleModel *sampleMode
     QWidget *topWidget = new QWidget();
     topWidget->setLayout(topLayout);
     topWidget->setContentsMargins(0,0,0,0);
-    topWidget->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+    topWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
     mainLayout->addWidget(topWidget);
     mainLayout->addWidget(m_fitParameter);
-    m_fitParameter->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-
-    connect(m_sampleCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(onSampleChanged(int)));
-    connect(m_instrumentCombo, SIGNAL(currentIndexChanged(int)),
-            this, SLOT(onInstrumentChanged(int)));
-
+    m_fitParameter->setSizePolicy(QSizePolicy::MinimumExpanding,
+                                  QSizePolicy::MinimumExpanding);
+    connectCombos();
     setLayout(mainLayout);
 }
 
@@ -69,64 +60,60 @@ void FitSettingsWidget::showEvent(QShowEvent *)
 
 void FitSettingsWidget::onUpdateGUI()
 {
-    // we update the whole ui
     m_fitParameter->updateSelector();
 
-    updateComboBox(m_sampleCombo, m_sampleModel, Constants::MultiLayerType,
-                   FitSelectionItem::P_SAMPLE_INDEX);
-    updateComboBox(m_instrumentCombo, m_instrumentModel, Constants::InstrumentType,
-                   FitSelectionItem::P_INSTRUMENT_INDEX);
-}
+    disconnectCombos();
+    m_sampleCombo->clear();
+    m_instrumentCombo->clear();
 
-void FitSettingsWidget::updateComboBox(QComboBox *combo, SessionModel *model, const QString &type,
-                                       const QString &selectionType)
-{
-    QString selectedSample = m_fitModel->itemForIndex(QModelIndex())
-            ->getChildOfType(Constants::FitSelectionType)
-            ->getRegisteredProperty(selectionType).toString();
-    int curIndex = -1;
-    combo->clear();
-    for (int i_row = 0; i_row < model->rowCount(QModelIndex()); ++i_row) {
-        QModelIndex itemIndex = model->index(i_row, 0, QModelIndex());
-        if (ParameterizedItem *item = model->itemForIndex(itemIndex)) {
-            if (item->modelType()  == type) {
-                combo->addItem(item->itemName(), item->displayName());
-                if (item->displayName() == selectedSample) {
-                    curIndex = combo->count() - 1;
-                }
-            }
-        }
+    foreach (QString v, m_fitModel->getSampleNames()) {
+        m_sampleCombo->addItem(m_fitModel->getSampleItemNameForDisplayName(v),
+                               v);
     }
-    if (curIndex >= 0)
-        combo->setCurrentIndex(curIndex);
+
+    foreach (QString v, m_fitModel->getInstrumentNames()) {
+        m_instrumentCombo->addItem(m_fitModel->getInstrumentItemNameForDisplayName(v),
+                                   v);
+    }
+    m_sampleCombo->setCurrentIndex(-1);
+    m_instrumentCombo->setCurrentIndex(-1);
+    connectCombos();
+
+    m_instrumentCombo->setCurrentIndex(m_instrumentCombo->findData
+                                      (m_fitModel->getSelectedInstrumentName()));
+    m_sampleCombo->setCurrentIndex(m_sampleCombo->findData(m_fitModel->getSelectedSampleName()));
 }
 
 void FitSettingsWidget::onSampleChanged(int index)
 {
-    setFitSelection(m_sampleCombo, index, FitSelectionItem::P_SAMPLE_INDEX);
+    QString data = m_sampleCombo->itemData(index).toString();
+    if (data != m_fitModel->getSelectedSampleName()) {
+        m_fitModel->setSelectedSample(data);
+        m_fitParameter->updateSelector();
+        // when sample changed, discard all fit parameters
+        m_fitParameter->clearParameter();
+    }
 }
 
 void FitSettingsWidget::onInstrumentChanged(int index)
 {
-    setFitSelection(m_instrumentCombo, index, FitSelectionItem::P_INSTRUMENT_INDEX);
+    QString data = m_instrumentCombo->itemData(index).toString();
+    if (data != m_fitModel->getSelectedInstrumentName()) {
+        m_fitModel->setSelectedInstrument(data);
+        m_fitParameter->updateSelector();
+        // when sample changed, discard all fit parameters
+        m_fitParameter->clearParameter();
+    }
 }
 
-void FitSettingsWidget::setFitSelection(QComboBox *combo, int index, const QString &prop)
-{
-    QVariant data = combo->itemData(index);
-    if (index < 0)
-        data = "";
-    ParameterizedItem *selectionItem = m_fitModel->itemForIndex(QModelIndex())
-            ->getChildOfType(Constants::FitSelectionType);
-    if (selectionItem) {
-        if (selectionItem->getRegisteredProperty(prop) != data) {
-            selectionItem->setRegisteredProperty(prop, data);
-            /*QModelIndex container = m_fitModel->indexOfItem(m_fitModel->itemForIndex(QModelIndex())
-                                                ->getChildOfType(Constants::FitParameterContainerType));
-            while (m_fitModel->rowCount(container) > 0) {
-                m_fitModel->removeRow(0, container);
-            }*/
-            m_fitParameter->updateSelector();
-        }
-    }
+void FitSettingsWidget::connectCombos() {
+    connect(m_sampleCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(onSampleChanged(int)));
+    connect(m_instrumentCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(onInstrumentChanged(int)));
+}
+
+void FitSettingsWidget::disconnectCombos() {
+    disconnect(m_sampleCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(onSampleChanged(int)));
+    disconnect(m_instrumentCombo, SIGNAL(currentIndexChanged(int)),
+               this, SLOT(onInstrumentChanged(int)));
 }

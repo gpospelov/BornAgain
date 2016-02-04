@@ -12,27 +12,16 @@
 //! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
+
 #include "FitView.h"
 #include "RunFitWidget.h"
 #include "mainwindow.h"
-#include "FitParameterWidget.h"
 #include "FitSettingsWidget.h"
 #include "FitModel.h"
-#include "FitParameterItems.h"
+#include "ImportDataWidget.h"
 #include "projectmanager.h"
-#include "ColorMapPlot.h"
-#include "IntensityDataIOFactory.h"
-#include "IntensityDataItem.h"
-#include "IHistogram.h"
-#include "SampleModel.h"
-#include "InstrumentModel.h"
-#include "ParameterizedItem.h"
 #include <QVBoxLayout>
 #include <QTabWidget>
-#include <QLineEdit>
-#include <QFileInfo>
-#include <QTreeView>
-#include <QModelIndex>
 
 
 // ------------------------------------------------------------------------------------------------
@@ -161,56 +150,24 @@
 
 FitView::FitView(MainWindow *mainWindow)
     : QWidget(mainWindow)
+    , m_tabs(new QTabWidget)
+    , m_importDataWidget(new ImportDataWidget(mainWindow->getFitModel(), this))
+    , m_fitSettingsWidget(new FitSettingsWidget(mainWindow->getFitModel(), this))
+    , m_runFitWidget(new RunFitWidget(mainWindow->getFitModel(), this))
 {
-    // FitModel is constructed here, should be moved to mainwindow in sometime
-    FitModel *fitmodel = mainWindow->getFitModel();
-
-    FitSettingsWidget *settings = new FitSettingsWidget(mainWindow->getFitModel(),
-                                                        mainWindow->getSampleModel(),
-                                                        mainWindow->getInstrumentModel(), this);
-
-    //connect (mainWindow->getProjectManager(), SIGNAL(projectOpened()),
-    //         settings, SLOT(onUpdateGUI()));
-    FitParameterWidget *fitting = new FitParameterWidget(mainWindow->getSampleModel(),
-                                                         mainWindow->getInstrumentModel(),
-                                                         fitmodel, this);
-    m_runFitWidget = new RunFitWidget(mainWindow->getFitModel(),
-                                                  mainWindow->getSampleModel(),
-                                                  mainWindow->getInstrumentModel(), this);
-
     QVBoxLayout *layout = new QVBoxLayout;
-    QTabWidget *tabs = new QTabWidget;
-
-    QTreeView *view = new QTreeView;
-    m_testplot = new ColorMapPlot(this);
-
-    view->setModel(fitmodel);
-
-    m_line = new QLineEdit();
-
-    connect(m_line, SIGNAL(textChanged(QString)), this, SLOT(onUpdatePath()));
-
-    tabs->addTab(m_line , "Import Experimental Data");
-    tabs->addTab(settings, "Fit Settings");
-    tabs->addTab(m_runFitWidget, "Run Fit");
-    tabs->addTab(view, "SessionModel test");
-    tabs->addTab(fitting, "Parameters only");
-    tabs->addTab(m_testplot, "test plot");
+    m_tabs->addTab(m_importDataWidget , "Import Experimental Data");
+    m_tabs->addTab(m_fitSettingsWidget, "Fit Settings");
+    m_tabs->addTab(m_runFitWidget, "Run Fit");
     layout->setMargin(0);
     layout->setSpacing(0);
-    layout->addWidget(tabs);
+    layout->addWidget(m_tabs);
     setLayout(layout);
 
-    tabs->setCurrentIndex(1);
-}
+    connect(mainWindow->getProjectManager(), SIGNAL(projectOpened()),
+            m_fitSettingsWidget, SLOT(onUpdateGUI()));
+    connect(mainWindow->getProjectManager(), SIGNAL(projectOpened()),
+            m_importDataWidget, SLOT(onUpdateGUI()));
 
-void FitView::onUpdatePath() {
-    m_runFitWidget->path = m_line->text();
-    QFileInfo chk(m_line->text());
-    if (chk.exists()) {
-        IHistogram *data = IntensityDataIOFactory::readIntensityData(m_line->text().toStdString());
-        IntensityDataItem *item = new IntensityDataItem();
-        item->setOutputData(data->createOutputData());
-        m_testplot->setItem(item);
-    }
+    m_tabs->setCurrentIndex(1);
 }

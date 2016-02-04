@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FitParameterItems.h"
+#include "ComboProperty.h"
 
 FitParameterContainer::FitParameterContainer(ParameterizedItem *parent)
     : ParameterizedItem(Constants::FitParameterContainerType, parent)
@@ -23,7 +24,7 @@ FitParameterContainer::FitParameterContainer(ParameterizedItem *parent)
 
 
 const QString FitParameterItem::P_USE = "Use";
-const QString FitParameterItem::P_INIT = "Init";
+const QString FitParameterItem::P_INIT = "Starting Value";
 const QString FitParameterItem::P_MIN = "Min";
 const QString FitParameterItem::P_MAX = "Max";
 
@@ -48,13 +49,32 @@ FitParameterLinkItem::FitParameterLinkItem(ParameterizedItem *parent)
 }
 
 
-const QString FitSelectionItem::P_SAMPLE_INDEX = "Sample Index";
-const QString FitSelectionItem::P_INSTRUMENT_INDEX = "Instrument Index";
+const QString FitSelectionItem::P_SAMPLE = "Sample";
+const QString FitSelectionItem::P_INSTRUMENT = "Instrument";
 
 FitSelectionItem::FitSelectionItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::FitSelectionType, parent)
 {
-    registerProperty(P_SAMPLE_INDEX, "");
-    registerProperty(P_INSTRUMENT_INDEX, "");
+    registerProperty(P_SAMPLE, "");
+    registerProperty(P_INSTRUMENT, "");
 }
+
+const QString MinimizerSettingsItem::P_ALGO = "Algorithm";
+
+MinimizerSettingsItem::MinimizerSettingsItem(ParameterizedItem *parent)
+    : ParameterizedItem(Constants::MinimizerSettingsType, parent)
+{
+    ComboProperty algo;
+    algo << "Migrad" << "Simplex" << "Combined" << "Scan" << "Fumili";
+    registerProperty(P_ALGO, algo.getVariant());
+}
+
+const QString InputDataItem::P_PATH = "Path";
+
+InputDataItem::InputDataItem(ParameterizedItem *parent)
+    : ParameterizedItem(Constants::InputDataType, parent)
+{
+    registerProperty(P_PATH, "");
+}
+
 

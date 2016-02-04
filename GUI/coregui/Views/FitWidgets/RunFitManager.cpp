@@ -47,6 +47,8 @@ void RunFitManager::runFitting()
     connect(this, SIGNAL(intern_interruptFittingWorker()), fw, SLOT(interruptFitting()),
             Qt::DirectConnection);
 
+    connect(fw, SIGNAL(error(QString)), this, SLOT(intern_error(QString)));
+
     connect(fw, SIGNAL(finished()), this, SLOT(intern_workerFinished()));
 
     // delete fitting worker and thread when done
@@ -74,4 +76,9 @@ void RunFitManager::intern_workerFinished()
 void RunFitManager::intern_workerStarted()
 {
     emit startedFitting();
+}
+
+void RunFitManager::intern_error(const QString &mesg)
+{
+    emit error(mesg);
 }

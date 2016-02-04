@@ -45,6 +45,8 @@ signals:
 
     void startedFitting();
 
+    void error(const QString &message);
+
 
 // only used by manager for communication with FittingWorker
 private slots:
@@ -52,6 +54,8 @@ private slots:
     void intern_workerFinished();
 
     void intern_workerStarted();
+
+    void intern_error(const QString &mesg);
 
 signals:
 

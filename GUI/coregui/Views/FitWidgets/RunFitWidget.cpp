@@ -39,17 +39,15 @@
 #include <QFileInfo>
 #include <QDebug>
 
-RunFitWidget::RunFitWidget(FitModel *fit, SampleModel *sample, InstrumentModel *inst, QWidget *parent)
+RunFitWidget::RunFitWidget(FitModel *fitModel, QWidget *parent)
     : QWidget(parent)
-  , m_start_button(0)
-  , m_stop_button(0)
-  , m_interval_label(0)
-  , m_interval_slider(0)
-  , m_runfitmanager(new RunFitManager(this))
-  , m_fitprogress(new FitProgressWidget(this))
-    , m_fitModel(fit)
-    , m_sampleModel(sample)
-    , m_instrumentModel(inst)
+    , m_start_button(0)
+    , m_stop_button(0)
+    , m_interval_label(0)
+    , m_interval_slider(0)
+    , m_runfitmanager(new RunFitManager(this))
+    , m_fitprogress(new FitProgressWidget(this))
+    , m_fitModel(fitModel)
 {
     // setup ui
     m_start_button  = new QPushButton();
@@ -82,6 +80,7 @@ RunFitWidget::RunFitWidget(FitModel *fit, SampleModel *sample, InstrumentModel *
     connect(m_stop_button, SIGNAL(clicked()), this, SLOT(onStopClicked()));
     connect(m_runfitmanager, SIGNAL(startedFitting()), this, SLOT(onFittingStarted()));
     connect(m_runfitmanager, SIGNAL(finishedFitting()), this, SLOT(onFittingFinished()));
+    connect(m_runfitmanager, SIGNAL(error(QString)), m_fitprogress, SLOT(updateLog(QString)));
 
     connect(m_interval_slider, SIGNAL(valueChanged(int)), this, SLOT(onIntervalChanged(int)));
     connect(m_interval_slider, SIGNAL(valueChanged(int)),
@@ -128,23 +127,27 @@ void RunFitWidget::onFittingFinished()
 // test only
 boost::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
 {
-    ParameterizedItem *multilayer = getTopItemFromSelection(m_sampleModel, Constants::MultiLayerType,
-                                                            FitSelectionItem::P_SAMPLE_INDEX);
-    ParameterizedItem *instrument = getTopItemFromSelection(m_instrumentModel,
-                                                            Constants::InstrumentType,
-                                                            FitSelectionItem::P_INSTRUMENT_INDEX);
+    ParameterizedItem *multilayer = m_fitModel->getSelectedMultiLayerItem();
+    ParameterizedItem *instrument = m_fitModel->getSelectedInstrumentItem();
 
     DomainSimulationBuilder builder;
+     boost::shared_ptr<FitSuite> m_fitsuite = boost::shared_ptr<FitSuite>(new FitSuite());
+
+    try {
 
     boost::scoped_ptr<GISASSimulation> simulation(builder.getSimulation(dynamic_cast<MultiLayerItem*>
                                                                           (multilayer),
                                                                           dynamic_cast<InstrumentItem*>
                                                                           (instrument)));
+
+
+
+        QString path = m_fitModel->getInputDataPath();
     QFileInfo checkFile(path);
 
     OutputData<double> *data = 0;
 
-    if (checkFile.exists()) {
+    if (checkFile.exists() && checkFile.isFile()) {
         data = IntensityDataIOFactory::readOutputData(path.toStdString());
         qDebug() << data->totalSum();
         //Q_ASSERT(0);
@@ -155,13 +158,15 @@ boost::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
     }
 
 
-    boost::shared_ptr<FitSuite> m_fitsuite = boost::shared_ptr<FitSuite>(new FitSuite());
+
 
 
     m_fitsuite->addSimulationAndRealData(*simulation.get(), *data);
 
 
-    ParameterizedItem *container =m_fitModel->itemForIndex(QModelIndex())->getChildOfType(Constants::FitParameterContainerType);
+    ParameterizedItem *container = m_fitModel->getFitParameterContainer();
+
+
 
     QModelIndex c_index = m_fitModel->indexOfItem(container);
     for (int i = 0; i < m_fitModel->rowCount(c_index); i++) {
@@ -198,31 +203,11 @@ boost::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
         }
     }
 
-    return m_fitsuite;
-}
+    m_fitsuite->setMinimizer("Minuit2", m_fitModel->getMinimizerAlgorithm().toStdString());
 
-ParameterizedItem *RunFitWidget::getTopItemFromSelection(SessionModel *model,
-                                                               const QString &itemType,
-                                                               const QString &selectionType)
-{
-    QString selectedSample = m_fitModel->itemForIndex(QModelIndex())
-            ->getChildOfType(Constants::FitSelectionType)
-            ->getRegisteredProperty(selectionType).toString();
-
-    if (selectedSample.isEmpty())
-        return NULL;
-
-    ParameterizedItem *top = 0;
-
-    for (int i_row = 0; i_row < model->rowCount(QModelIndex()); ++i_row) {
-        QModelIndex itemIndex = model->index(i_row, 0, QModelIndex());
-        if (ParameterizedItem *item = model->itemForIndex(itemIndex)) {
-            if (item->modelType()  == itemType) {
-                if (item->displayName() == selectedSample)
-                    top = item;
-            }
-        }
+} catch(const std::exception& ex) {
+        QString message = QString::fromLatin1(ex.what());
+            m_fitprogress->updateLog(message);
     }
-
-    return top;
+    return m_fitsuite;
 }

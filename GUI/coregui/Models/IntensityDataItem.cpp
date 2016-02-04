@@ -35,20 +35,6 @@ const QString IntensityDataItem::P_XAXIS = "x-axis";
 const QString IntensityDataItem::P_YAXIS = "y-axis";
 const QString IntensityDataItem::P_ZAXIS = "color-axis";
 
-namespace {
-QMap<QString, IDetector2D::EAxesUnits> init_units_to_description_map() {
-    QMap<QString, IDetector2D::EAxesUnits> result;
-    result[Constants::UnitsNbins] = IDetector2D::NBINS;
-    result[Constants::UnitsRadians] = IDetector2D::RADIANS;
-    result[Constants::UnitsDegrees] = IDetector2D::DEGREES;
-    result[Constants::UnitsMm] = IDetector2D::MM;
-    result[Constants::UnitsQyQz] = IDetector2D::QYQZ;
-    return result;
-}
-}
-
-QMap<QString, IDetector2D::EAxesUnits> IntensityDataItem::m_description_to_units
-= init_units_to_description_map();
 
 IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::IntensityDataType, parent)
@@ -75,7 +61,6 @@ IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
     gradient.setValue(Constants::GRADIENT_JET);
     registerProperty(P_GRADIENT, gradient.getVariant());
 
-//    registerProperty(P_AXES_UNITS, AngleProperty::Degrees()).setHidden();
     registerProperty(P_PROPERTY_PANEL_FLAG, false).setHidden();
 
     registerGroupProperty(P_XAXIS, Constants::BasicAxisType);
@@ -102,10 +87,6 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
 
     blockSignals(true);
 
-//    QString sunits(" [deg]");
-//    if(axesInRadians())
-//        sunits = QString(" [rad]");
-
     // set zoom range of x-axis to min, max values if it was not set already
     if(getUpperX() < getLowerX()) {
         setLowerX(getXmin());
@@ -118,12 +99,6 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
         setUpperY(getYmax());
     }
 
-//    if(getXaxisTitle().isEmpty()) {
-//        setXaxisTitle(QString::fromStdString(m_data->getAxis(0)->getName()) + sunits);
-//    }
-//    if(getYaxisTitle().isEmpty()) {
-//        setYaxisTitle(QString::fromStdString(m_data->getAxis(1)->getName()) + sunits);
-//    }
     setXaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::X_AXIS_INDEX)->getName()));
     setYaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getName()));
 
@@ -132,24 +107,24 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
     emit intensityModified();
 }
 
-void IntensityDataItem::setResults(const GISASSimulation *simulation)
-{
-    Q_ASSERT(simulation);
-    m_simulation.reset(simulation);
+//void IntensityDataItem::setResults(const GISASSimulation *simulation)
+//{
+//    Q_ASSERT(simulation);
+//    m_simulation.reset(simulation);
 
-    getPropertyAttribute(P_AXES_UNITS).setVisible();
-    if(auto detector = dynamic_cast<const SphericalDetector *>(simulation->getInstrument().getDetector())) {
-        updatePropertiesToDetector(Constants::SphericalDetectorType);
-        setOutputData(m_simulation->getDetectorIntensity(IDetector2D::DEGREES));
-    }
-    else if(auto detector = dynamic_cast<const RectangularDetector *>(simulation->getInstrument().getDetector())) {
-        updatePropertiesToDetector(Constants::RectangularDetectorType);
-        setOutputData(m_simulation->getDetectorIntensity(IDetector2D::MM));
-    } else {
-        throw GUIHelpers::Error("IntensityDataItem::setResults() -> Error. Unknown detector type");
-    }
+//    getPropertyAttribute(P_AXES_UNITS).setVisible();
+//    if(auto detector = dynamic_cast<const SphericalDetector *>(simulation->getInstrument().getDetector())) {
+//        updatePropertiesToDetector(Constants::SphericalDetectorType);
+//        setOutputData(m_simulation->getDetectorIntensity(IDetector2D::DEGREES));
+//    }
+//    else if(auto detector = dynamic_cast<const RectangularDetector *>(simulation->getInstrument().getDetector())) {
+//        updatePropertiesToDetector(Constants::RectangularDetectorType);
+//        setOutputData(m_simulation->getDetectorIntensity(IDetector2D::MM));
+//    } else {
+//        throw GUIHelpers::Error("IntensityDataItem::setResults() -> Error. Unknown detector type");
+//    }
 
-}
+//}
 
 double IntensityDataItem::getLowerX() const
 {
@@ -164,21 +139,13 @@ double IntensityDataItem::getUpperX() const
 double IntensityDataItem::getXmin() const
 {
     Q_ASSERT(m_data);
-//    if(axesInRadians()) {
-        return m_data->getAxis(BornAgain::X_AXIS_INDEX)->getMin();
-//    } else {
-//        return Units::rad2deg(m_data->getAxis(0)->getMin());
-//    }
+    return m_data->getAxis(BornAgain::X_AXIS_INDEX)->getMin();
 }
 
 double IntensityDataItem::getXmax() const
 {
     Q_ASSERT(m_data);
-//    if(axesInRadians()) {
-        return m_data->getAxis(BornAgain::X_AXIS_INDEX)->getMax();
-//    } else {
-//        return Units::rad2deg(m_data->getAxis(0)->getMax());
-//    }
+    return m_data->getAxis(BornAgain::X_AXIS_INDEX)->getMax();
 }
 
 double IntensityDataItem::getLowerY() const
@@ -194,21 +161,13 @@ double IntensityDataItem::getUpperY() const
 double IntensityDataItem::getYmin() const
 {
     Q_ASSERT(m_data);
-//    if(axesInRadians()) {
-        return m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getMin();
-//    } else {
-//        return Units::rad2deg(m_data->getAxis(1)->getMin());
-//    }
+    return m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getMin();
 }
 
 double IntensityDataItem::getYmax() const
 {
     Q_ASSERT(m_data);
-//    if(axesInRadians()) {
         return m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getMax();
-//    } else {
-//        return Units::rad2deg(m_data->getAxis(1)->getMax());
-//    }
 }
 
 double IntensityDataItem::getLowerZ() const
@@ -247,19 +206,6 @@ QString IntensityDataItem::getYaxisTitle() const
     return getSubItems()[P_YAXIS]->getRegisteredProperty(BasicAxisItem::P_TITLE).toString();
 }
 
-//QString IntensityDataItem::getAxesUnits() const
-//{
-//    qDebug() << "NIntensityDataItem::getAxesUnits()";
-//    Q_ASSERT(0);
-//    return QString();
-//}
-
-//bool IntensityDataItem::axesInRadians() const
-//{
-//    AngleProperty angle_property = getRegisteredProperty(P_AXES_UNITS).value<AngleProperty>();
-//    return angle_property.inRadians();
-//}
-
 bool IntensityDataItem::isZAxisLocked() const
 {
     return getSubItems()[P_ZAXIS]->getRegisteredProperty(AmplitudeAxisItem::P_LOCK_MIN_MAX).toBool();
@@ -280,42 +226,43 @@ void IntensityDataItem::setNameFromProposed(const QString &proposed_name)
 
 void IntensityDataItem::onPropertyChange(const QString &name)
 {
-    if(name == P_AXES_UNITS && m_simulation) {
-        ComboProperty combo = getRegisteredProperty(P_AXES_UNITS).value<ComboProperty>();
-        setOutputData(m_simulation->getDetectorIntensity(m_description_to_units[combo.getValue()]));
-        setAxesRangeToData();
-    }
+//    if(name == P_AXES_UNITS && m_simulation) {
+//        ComboProperty combo = getRegisteredProperty(P_AXES_UNITS).value<ComboProperty>();
+//        setOutputData(m_simulation->getDetectorIntensity(m_description_to_units[combo.getValue()]));
+//        setAxesRangeToData();
+//    }
     ParameterizedItem::onPropertyChange(name);
+}
 
+void IntensityDataItem::setValidAxesUnits(std::vector<IDetector2D::EAxesUnits> &units)
+{
+    for(size_t i=0; i<units.size(); ++i) {
+
+    }
 }
 
 void IntensityDataItem::setLowerX(double xmin)
 {
-    qDebug() << "IntensityDataItem::setXaxisMin(double xmin)" << xmin;
     getSubItems()[P_XAXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, xmin);
 }
 
 void IntensityDataItem::setUpperX(double xmax)
 {
-    qDebug() << "IntensityDataItem::setXaxisMax(double xmax)" << xmax;
     getSubItems()[P_XAXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, xmax);
 }
 
 void IntensityDataItem::setLowerY(double ymin)
 {
-    qDebug() << "IntensityDataItem::setYaxisMin(double ymin)" << ymin;
     getSubItems()[P_YAXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, ymin);
 }
 
 void IntensityDataItem::setUpperY(double ymax)
 {
-    qDebug() << "IntensityDataItem::setYaxisMax(double ymax)" << ymax;
     getSubItems()[P_YAXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, ymax);
 }
 
 void IntensityDataItem::setLowerAndUpperZ(double zmin, double zmax)
 {
-    qDebug() << "IntensityDataItem::setLowerAndUpperZ()";
     if(getLowerZ() != zmin) {
         getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, zmin);
     }
@@ -326,45 +273,32 @@ void IntensityDataItem::setLowerAndUpperZ(double zmin, double zmax)
 
 void IntensityDataItem::setLowerZ(double zmin)
 {
-    qDebug() << "IntensityDataItem::setZaxisMin(double zmin)";
     getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, zmin);
 }
 
 void IntensityDataItem::setUpperZ(double zmax)
 {
-    qDebug() << "IntensityDataItem::setZaxisMax(double zmax)";
     getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, zmax);
 }
 
 void IntensityDataItem::setLogz(bool logz)
 {
-    qDebug() << "IntensityDataItem::setLogz(bool logz)";
     getSubItems()[P_ZAXIS]->setRegisteredProperty(AmplitudeAxisItem::P_IS_LOGSCALE, logz);
 }
 
 void IntensityDataItem::setInterpolated(bool interp)
 {
-    qDebug() << "IntensityDataItem::setInterpolated(bool interp)";
     setRegisteredProperty(P_IS_INTERPOLATED, interp);
 }
 
 void IntensityDataItem::setXaxisTitle(QString xtitle)
 {
-    qDebug() << "IntensityDataItem::setXaxisTitle(QString xtitle)";
     getSubItems()[P_XAXIS]->setRegisteredProperty(BasicAxisItem::P_TITLE, xtitle);
 }
 
 void IntensityDataItem::setYaxisTitle(QString ytitle)
 {
-    qDebug() << "IntensityDataItem::setYaxisTitle(QString ytitle)";
     getSubItems()[P_YAXIS]->setRegisteredProperty(BasicAxisItem::P_TITLE, ytitle);
-}
-
-void IntensityDataItem::setAxesUnits(const QString &units)
-{
-    qDebug() << "IntensityDataItem::setAxesUnits(QString units)";
-    Q_UNUSED(units);
-    Q_ASSERT(0);
 }
 
 //! set zoom range of x,y axes to axes of input data
@@ -376,25 +310,25 @@ void IntensityDataItem::setAxesRangeToData()
     setUpperY(getYmax());
 }
 
-void IntensityDataItem::updatePropertiesToDetector(const QString &modelType)
-{
-    if(modelType == Constants::SphericalDetectorType) {
-        ComboProperty units;
-        units << Constants::UnitsNbins << Constants::UnitsRadians << Constants::UnitsDegrees
-              << Constants::UnitsQyQz;
-        units.setValue(Constants::UnitsDegrees);
+//void IntensityDataItem::updatePropertiesToDetector(const QString &modelType)
+//{
+//    if(modelType == Constants::SphericalDetectorType) {
+//        ComboProperty units;
+//        units << Constants::UnitsNbins << Constants::UnitsRadians << Constants::UnitsDegrees
+//              << Constants::UnitsQyQz;
+//        units.setValue(Constants::UnitsDegrees);
+//        setRegisteredProperty(P_AXES_UNITS, units.getVariant());
+//    }
 
-        setRegisteredProperty(P_AXES_UNITS, units.getVariant());
+//    else if(modelType == Constants::RectangularDetectorType) {
+//        ComboProperty units;
+//        units << Constants::UnitsNbins << Constants::UnitsRadians << Constants::UnitsDegrees
+//              <<  Constants::UnitsMm << Constants::UnitsQyQz;
+//        units.setValue(Constants::UnitsMm);
+//        setRegisteredProperty(P_AXES_UNITS, units.getVariant());
+//    }
 
-    }
-    else if(modelType == Constants::RectangularDetectorType) {
-        ComboProperty units;
-        units << Constants::UnitsNbins << Constants::UnitsRadians << Constants::UnitsDegrees
-              <<  Constants::UnitsMm << Constants::UnitsQyQz;
-        units.setValue(Constants::UnitsMm);
-
-        setRegisteredProperty(P_AXES_UNITS, units.getVariant());
-    } else {
-        throw GUIHelpers::Error("IntensityDataItem::updatePropertiesToDetector() -> Error. Unknown detector");
-    }
-}
+//    else {
+//        throw GUIHelpers::Error("IntensityDataItem::updatePropertiesToDetector() -> Error. Unknown detector");
+//    }
+//}

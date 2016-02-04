@@ -276,9 +276,14 @@ OutputData<double> *RectangularDetector::createDetectorMap(const Beam &beam,
 std::vector<IDetector2D::EAxesUnits> RectangularDetector::getValidAxesUnits() const
 {
     std::vector<IDetector2D::EAxesUnits> result = IDetector2D::getValidAxesUnits();
-    std::vector<IDetector2D::EAxesUnits> addon = {RADIANS, DEGREES, MM, QYQZ};
+    std::vector<IDetector2D::EAxesUnits> addon = {IDetector2D::RADIANS, IDetector2D::DEGREES, IDetector2D::MM, IDetector2D::QYQZ};
     result.insert(result.end(), addon.begin(), addon.end());
     return result;
+}
+
+IDetector2D::EAxesUnits RectangularDetector::getDefaultAxesUnits() const
+{
+    return IDetector2D::MM;
 }
 
 void RectangularDetector::print(std::ostream &ostr) const

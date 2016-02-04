@@ -131,6 +131,11 @@ std::vector<IDetector2D::EAxesUnits> IDetector2D::getValidAxesUnits() const
     return result;
 }
 
+IDetector2D::EAxesUnits IDetector2D::getDefaultAxesUnits() const
+{
+    return DEFAULT;
+}
+
 void IDetector2D::removeMasks()
 {
     m_detector_mask.removeMasks();

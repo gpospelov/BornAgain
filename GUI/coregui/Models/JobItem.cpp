@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/NJobItem.cpp
-//! @brief     Implements class NJobItem
+//! @file      coregui/Models/JobItem.cpp
+//! @brief     Implements class JobItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,6 +20,7 @@
 #include "InstrumentModel.h"
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
+#include "JobResultsPresenter.h"
 #include <QDebug>
 
 
@@ -257,11 +258,16 @@ InstrumentItem *JobItem::getInstrumentItem(bool from_backup)
 
 void JobItem::setResults(const GISASSimulation *simulation)
 {
-    Q_ASSERT(simulation);
     IntensityDataItem *intensityItem = getIntensityDataItem();
-    Q_ASSERT(intensityItem);
-    intensityItem->setNameFromProposed(this->itemName());
-    intensityItem->setResults(simulation);
+    JobResultsPresenter::setResults(intensityItem, simulation);
+
+
+
+//    Q_ASSERT(simulation);
+//    IntensityDataItem *intensityItem = getIntensityDataItem();
+//    Q_ASSERT(intensityItem);
+//    intensityItem->setNameFromProposed(this->itemName());
+//    intensityItem->setResults(simulation);
 }
 
 //void JobItem::onPropertyChange(const QString &name)

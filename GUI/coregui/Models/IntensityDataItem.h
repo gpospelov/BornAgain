@@ -44,7 +44,7 @@ public:
 
     const OutputData<double> *getOutputData() const { return m_data.get(); }
     void setOutputData(OutputData<double> *data);
-    void setResults(const GISASSimulation *simulation);
+//    void setResults(const GISASSimulation *simulation);
 
     //! returns lower and upper zoom ranges of x-axis
     double getLowerX() const;
@@ -71,8 +71,6 @@ public:
     bool isInterpolated() const;
     QString getXaxisTitle() const;
     QString getYaxisTitle() const;
-//    QString getAxesUnits() const;
-//    bool axesInRadians() const;
 
     //! return true if min, max range of Z-axis is locked (change not allowed)
     bool isZAxisLocked() const;
@@ -82,6 +80,7 @@ public:
 
     virtual void onPropertyChange(const QString &name);
 
+    virtual void setValidAxesUnits(std::vector<IDetector2D::EAxesUnits> &units);
 
 signals:
     void intensityModified();
@@ -98,15 +97,10 @@ public slots:
     void setInterpolated(bool interp);
     void setXaxisTitle(QString xtitle);
     void setYaxisTitle(QString ytitle);
-    void setAxesUnits(const QString &units);
     void setAxesRangeToData();
 
 private:
-    void updatePropertiesToDetector(const QString &modelType);
-
     std::unique_ptr<OutputData<double> > m_data; //!< simulation results
-    std::unique_ptr<const GISASSimulation> m_simulation; //!< simulation results
-    static QMap<QString, IDetector2D::EAxesUnits> m_description_to_units;
 };
 
 #endif // NINTENSITYDATAITEM_H

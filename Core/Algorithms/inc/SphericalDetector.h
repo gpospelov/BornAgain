@@ -63,6 +63,9 @@ public:
     //! returns vector of valid axes units
     virtual std::vector<EAxesUnits> getValidAxesUnits() const;
 
+    //! return default axes units
+    virtual EAxesUnits getDefaultAxesUnits() const;
+
 protected:
     //! Create an IPixelMap for the given OutputData object and index
     virtual IPixelMap* createPixelMap(size_t index) const;

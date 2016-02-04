@@ -167,7 +167,7 @@ QMap<QString, ParameterizedItem *> ParameterizedItem::getSubItems() const
     return m_sub_items;
 }
 
-void ParameterizedItem::addPropertyItem(QString name, ParameterizedItem *item)
+void ParameterizedItem::addSubItem(QString name, ParameterizedItem *item)
 {
     // if (!item) return;
     Q_ASSERT(item);

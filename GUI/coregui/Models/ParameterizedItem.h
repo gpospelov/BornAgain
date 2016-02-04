@@ -95,7 +95,7 @@ public:
 
     QMap<QString, ParameterizedItem *> getSubItems() const;
 
-    void addPropertyItem(QString name, ParameterizedItem *item);
+    void addSubItem(QString name, ParameterizedItem *item);
 
     bool isRegisteredProperty(const QString &name) const;
 

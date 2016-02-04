@@ -119,7 +119,7 @@ void ParameterizedItem::insertChildItem(int row, ParameterizedItem *item)
     item->mp_parent = this;
     m_children.insert(row, item);
     notifySiblings();
-    onChildPropertyChange();
+    onChildPropertyChange(item);
 }
 
 ParameterizedItem *ParameterizedItem::takeChildItem(int row)
@@ -127,7 +127,7 @@ ParameterizedItem *ParameterizedItem::takeChildItem(int row)
     ParameterizedItem *item = m_children.takeAt(row);
     item->mp_parent = 0;
     notifySiblings();
-    onChildPropertyChange();
+    onChildPropertyChange(item);
     return item;
 }
 
@@ -182,7 +182,7 @@ void ParameterizedItem::addSubItem(QString name, ParameterizedItem *item)
     m_sub_items[name] = item;
     item->mp_parent = this;
     onSubItemChanged(name);
-    onChildPropertyChange();
+    onChildPropertyChange(item);
     qDebug() << "ParameterizedItem::addPropertyItem() -> about to leave" << name;
 }
 
@@ -328,15 +328,15 @@ void ParameterizedItem::setPropertyAttribute(const QString &name,
 void ParameterizedItem::onPropertyChange(const QString &name)
 {
     if (mp_parent)
-        mp_parent->onChildPropertyChange();
+        mp_parent->onChildPropertyChange(this, name);
     emit propertyChanged(name);
 }
 
-void ParameterizedItem::onChildPropertyChange()
+void ParameterizedItem::onChildPropertyChange(ParameterizedItem *item, const QString &propertyName)
 {
     qDebug() << "ParameterizedItem::onChildPropertyChange()";
     if (mp_parent)
-        mp_parent->onChildPropertyChange();
+        mp_parent->onChildPropertyChange(item, propertyName);
 }
 
 void ParameterizedItem::print() const
@@ -453,7 +453,7 @@ void ParameterizedItem::onSubItemPropertyChanged(const QString &property_group,
 {
     emit subItemPropertyChanged(property_group, property_name);
     if (mp_parent)
-        mp_parent->onChildPropertyChange();
+        mp_parent->onChildPropertyChange(this, property_group);
 }
 
 void ParameterizedItem::onSiblingsChanged()

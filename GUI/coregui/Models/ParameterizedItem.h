@@ -117,7 +117,7 @@ public:
 
     virtual void onPropertyChange(const QString &name);
 
-    virtual void onChildPropertyChange();
+    virtual void onChildPropertyChange(ParameterizedItem *item, const QString &propertyName=QString());
 
     void print() const;
 

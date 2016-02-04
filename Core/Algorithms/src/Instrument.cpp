@@ -80,6 +80,11 @@ std::string Instrument::addParametersToExternalPool(std::string path, ParameterP
     return new_path;
 }
 
+void Instrument::initDetector()
+{
+    getDetector()->init(getBeam());
+}
+
 
 std::vector<SimulationElement> Instrument::createSimulationElements()
 {

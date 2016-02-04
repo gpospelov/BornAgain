@@ -57,7 +57,7 @@ public:
 
     virtual ~RectangularDetector() {}
 
-    void init(const GISASSimulation *simulation);
+    virtual void init(const Beam &beam);
 
     void setPosition(const kvector_t &normal_to_detector, double u0, double v0,
                      const kvector_t &direction = kvector_t(0.0, -1.0, 0.0));

@@ -22,6 +22,7 @@
 
 class GISASSimulation;
 class IntensityDataItem;
+class InstrumentItem;
 
 //! The JobResultsPresenter is a mediator between GISASSimulation, JobItem and IntensityDataItem.
 //! Used to modify OutputData's axes units as requested by IntensityDataItem.
@@ -40,8 +41,11 @@ public:
     static void setResults(IntensityDataItem *dataItem, const GISASSimulation *simulation);
 
     //! converts detector default axes units into units most suitable for GUI
-    static IDetector2D::EAxesUnits preferableAxesUnits(IDetector2D::EAxesUnits default_units);
+    static IDetector2D::EAxesUnits preferableGUIAxesUnits(IDetector2D::EAxesUnits default_units);
 
+    //! updates axes of OutputData in IntensityData item
+    static void updateDataAxes(IntensityDataItem *intensityItem,
+                               const InstrumentItem *instrumentItem);
 private:
 
     //!< correspondance of GUI axes units names to their domain counterpart

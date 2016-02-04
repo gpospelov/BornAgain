@@ -72,10 +72,10 @@ RectangularDetector *RectangularDetector::clone() const
     return new RectangularDetector(*this);
 }
 
-void RectangularDetector::init(const GISASSimulation *simulation)
+void RectangularDetector::init(const Beam &beam)
 {
-    double alpha_i = simulation->getInstrument().getBeam().getAlpha();
-    kvector_t central_k = simulation->getInstrument().getBeam().getCentralK();
+    double alpha_i = beam.getAlpha();
+    kvector_t central_k = beam.getCentralK();
     initNormalVector(central_k);
     initUandV(alpha_i);
 }

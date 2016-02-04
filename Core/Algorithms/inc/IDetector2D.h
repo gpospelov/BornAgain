@@ -45,8 +45,8 @@ public:
 
     virtual ~IDetector2D() {}
 
-    //! Inits detector using simulation settings (e.g. beam position) if necessary
-    virtual void init(const GISASSimulation *simulation);
+    //! Inits detector with the beam settings
+    virtual void init(const Beam &beam);
 
     void addAxis(const IAxis &axis);
 

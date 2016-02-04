@@ -101,6 +101,8 @@ public:
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;
 
+    //! init detector with beam settings
+    void initDetector();
 
 protected:
     virtual void print(std::ostream &ostr) const;

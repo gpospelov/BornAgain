@@ -39,9 +39,9 @@ IDetector2D::IDetector2D(const IDetector2D &other)
     init_parameters();
 }
 
-void IDetector2D::init(const GISASSimulation *simulation)
+void IDetector2D::init(const Beam &beam)
 {
-    (void)simulation;
+    (void)beam;
 }
 
 const IAxis &IDetector2D::getAxis(size_t index) const
@@ -127,7 +127,7 @@ OutputData<double> *IDetector2D::createDetectorMap(const Beam& /* beam */, EAxes
 
 std::vector<IDetector2D::EAxesUnits> IDetector2D::getValidAxesUnits() const
 {
-    std::vector<EAxesUnits> result = {DEFAULT, NBINS};
+    std::vector<EAxesUnits> result = {NBINS};
     return result;
 }
 

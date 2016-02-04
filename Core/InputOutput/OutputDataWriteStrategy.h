@@ -34,6 +34,7 @@ public:
 
     virtual void writeOutputData(const OutputData<double>& data, std::ostream& output_stream) = 0;
 protected:
+    double ignoreDenormalized(double value);
     int m_precision;
 };
 

@@ -20,6 +20,14 @@
 #include <iostream>
 #include <iomanip>
 
+double IOutputDataWriteStrategy::ignoreDenormalized(double value)
+{
+    if (std::abs(value)<std::numeric_limits<double>::min()) {
+        return 0.0;
+    }
+    return value;
+}
+
 
 void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double> &data,
                                                std::ostream &output_stream)
@@ -41,14 +49,14 @@ void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double> &data,
     while(it != data.end()) {
         ncol++;
         double z_value = *it++;
-        output_stream << std::scientific << std::setprecision(m_precision) << z_value << "    ";
+        output_stream << std::scientific << std::setprecision(m_precision)
+                      << ignoreDenormalized(z_value) << "    ";
         if(ncol == n_columns) {
             output_stream << std::endl;
             ncol = 0;
         }
     }
     output_stream << std::endl;
-
 }
 
 // ----------------------------------------------------------------------------
@@ -77,7 +85,7 @@ void OutputDataWriteNumpyTXTStrategy::writeOutputData(const OutputData<double> &
             axes_indices[1] = nrows - 1 - row;
             size_t global_index = data.toGlobalIndex(axes_indices);
             output_stream << std::scientific << std::setprecision(m_precision)
-                          << data[global_index] << "    ";
+                          << ignoreDenormalized(data[global_index]) << "    ";
         }
         output_stream << std::endl;
     }
@@ -107,6 +115,3 @@ void OutputDataWriteTiffStrategy::writeOutputData(const OutputData<double> &data
 }
 
 #endif
-
-
-

@@ -153,7 +153,7 @@ The line integral~(\ref{Elastoint}) then takes the form
 and yields
 \begin{equation}\label{Effpolygon}
     F_\parallel(\qp)
-    = \frac{2}{ip} \sum_{j=0}^{N-1} \n(\uqp^*\times\E_j) \sinc(\qp\E_j) \e^{i\qp\V_j}.
+    = \frac{2\n\times\uqp^*}{ip} \sum_{j=0}^{N-1} \E_j \sinc(\qp\E_j) \e^{i\qp\R_j}.
 \end{equation}
 The line singularities for $\qp\perp\E_j$ having gracefully disappeared in the
 sinc function,
@@ -175,6 +175,29 @@ The leading term is therefore
 \end{equation}
 which is the area of the polygon
 as given by a triangular tiling (with vertices at $\v{0},\V_j,\V_{j+1}$).
+
+Later, when computing the form factor of pyramids,
+we will need to express $F_\parallel$ as a straightforward sum
+of exponentials,
+\begin{equation}\label{Eff_as_sum}
+  F_\parallel(\qp)=p^{-2}\sum_j A_j \e^{i\qp \v{c}_j}.
+\end{equation}
+For this purpose,
+we spell out~(\ref{Effpolygon}) as
+\begin{equation}\label{Effpolygon}
+    F_\parallel(\qp)
+    = \frac{\n\times\uqp^*}{p} \sum_{j=0}^{N-1} \frac{\E_j}{\qp\E_j}
+       \left(\e^{i\qp\V_j}-\e^{i\qp\V_{j+1}}\right).
+\end{equation}
+Rearranging terms and permuting indices,
+we convert the sum over edges into a sum over vertices,
+\begin{equation}\label{Effpolygon_expsum}
+    F_\parallel(\qp)
+    = \frac{\n\times\uqp^*}{p^2} \sum_{j=0}^{N-1}
+       \left( \frac{\E_{j-1}}{\uqp\E_{j-1}} - \frac{\E_j}{\uqp\E_j} \right)
+       \e^{i\qp\V_j},
+\end{equation}
+which has the desired form~(\ref{Eff_as_sum}).
 
 If the polygon has a two-fold symmetry axis,
 the form factor can be further simplified.
@@ -217,8 +240,9 @@ can be written as
 Depending on the geometry of the base,
 its form factor can be written as a finite or infinite series
 \begin{equation}
-  F_\parallel(\q_\parallel,0)=q_\parallel^{_2}\sum_j A_j \e^{i\q_\parallel \v{c}_j}.
+  F_\parallel(\q_\parallel,0)=q_\parallel^{-2}\sum_j A_j \e^{i\q_\parallel \v{c}_j},
 \end{equation}
+as demonstrated for polygonal bases in~(\ref{Effpolygon_expsum}).
 Accordingly, the three-dimensional form factor can be computed as
 \begin{equation}
   F(\q) = \sum_j A_j \int_0^H\!\d z\,\e^{iq_z z} \e^{i\rho(z)\q_\parallel \v{c}_j}.

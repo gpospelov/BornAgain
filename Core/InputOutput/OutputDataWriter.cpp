@@ -23,7 +23,6 @@
 OutputDataWriter::OutputDataWriter(const std::string &file_name)
     : m_file_name(file_name)
 {
-
 }
 
 void OutputDataWriter::writeOutputData(const OutputData<double >& data)
@@ -32,14 +31,11 @@ void OutputDataWriter::writeOutputData(const OutputData<double >& data)
         throw NullPointerException("OutputDataWriter::getOutputData() ->"
                                    " Error! No read strategy defined");
     }
-
     std::ofstream fout;
-
     std::ios_base::openmode openmode = std::ios::out;
     if(OutputDataIOHelper::isBinaryFile(m_file_name)) openmode = std::ios::out | std::ios_base::binary;
 
     fout.open(m_file_name.c_str(), openmode );
-
     if(!fout.is_open()) {
         throw FileNotIsOpenException("OutputDataWriter::writeOutputData() -> Error. "
                                      "Can't open file '"+m_file_name+"' for writing.");
@@ -48,7 +44,6 @@ void OutputDataWriter::writeOutputData(const OutputData<double >& data)
         throw FileIsBadException("OutputDataReader::writeOutputData() -> Error! "
                                  "File is not good, probably it is a directory.");
     }
-
     std::stringstream ss;
     m_write_strategy->writeOutputData(data, ss);
 
@@ -63,7 +58,6 @@ void OutputDataWriter::writeOutputData(const OutputData<double >& data)
 
     boost::iostreams::copy(input_filtered, fout);
 
-
     fout.close();
 }
 
@@ -72,6 +66,3 @@ void OutputDataWriter::setStrategy(IOutputDataWriteStrategy *write_strategy)
 {
     m_write_strategy.reset(write_strategy);
 }
-
-
-

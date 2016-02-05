@@ -94,11 +94,14 @@ Therefore we shall consider a few such cases more closely.
 \def\uqp{\v{\hat p}}
 
 To derive the form factor of prisms and pyramids with polygonal bases
-we start by computing the form factor
+we need the form factor
 \begin{equation}\label{Eff2d}
   F(\q)=\int_A\!\d^2r\, \e^{i\q\r},
 \end{equation}
 of an arbitrary planar polygon of area~$A$.
+The solution is known from the literature~\cite{LeMi83},
+but shall be derived here by a different method.
+
 The plane of the polygon has a normal~$\n$.
 This induces a decomposition of any vector~$\x$ into normal
 and in-plane components
@@ -120,7 +123,6 @@ with the two-dimensional form factor
 In the following, we shall drop the subscript~$\parallel$
 from the integration variable~$\r_\parallel$,
 as we have done for the function argument $\qp\coloneqq\q_\parallel$.
-
 Using Stokes's theorem
 \begin{equation}
   \iint_A\!\d r^2\,\n\cdot\Nabla\times\v{G} = \oint_{\partial A} \d\v{r}\cdot\v{G},
@@ -135,7 +137,6 @@ the form factor becomes
 \begin{equation}\label{Elastoint}
   F_\parallel(\qp)=\frac{\n\times\uqp^*}{i\,p} \oint \d\v{r}\,\e^{i\qp\r}.
 \end{equation}
-
 The polygon shall be given by its $N$ vertices $\V_0,\ldots,\V_{N-1}$.
 It is convenient to abbreviate $\V_N\coloneqq\V_0$.
 The edges of the polygon shall parametrized by
@@ -198,6 +199,8 @@ we convert the sum over edges into a sum over vertices,
        \e^{i\qp\V_j},
 \end{equation}
 which has the desired form~(\ref{Eff_as_sum}).
+If the two fractions in the parenthesis are brought onto a common denominator,
+full accord with Eq.~6 of Ref.~\cite{LeMi83} is achieved.
 
 If the polygon has a two-fold symmetry axis,
 the form factor can be further simplified.

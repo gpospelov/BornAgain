@@ -7,7 +7,7 @@
 %%   copyright:  Forschungszentrum Jülich GmbH 2015
 %%
 %%   license:    Creative Commons CC-BY-SA
-%%   
+%%
 %%   authors:    Scientific Computing Group at MLZ Garching
 %%               C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 %%
@@ -28,7 +28,7 @@ A simulation of GISAS using \BornAgain\ consists of the following steps:
 \item define layers by specifying thickness, roughness, material,
 \item define embedded particles by specifying shape, size,
    constituting material, interference function,
-\item embed the particles in layers, specifying density, position, orientation, 
+\item embed the particles in layers, specifying density, position, orientation,
 \item assemble a multilayered sample,
 \item specify input beam and detector characteristics,
 \item run the simulation,
@@ -36,16 +36,16 @@ A simulation of GISAS using \BornAgain\ consists of the following steps:
 \end{itemize}
 
 \noindent
-All these steps can be organized in either a Graphical User Interface (GUI) or by providing a Python script with the simulation description. 
-In the following, we describe how to write a 
+All these steps can be organized in either a Graphical User Interface (GUI) or by providing a Python script with the simulation description.
+In the following, we describe how to write a
 \Code{Python} script which runs a \BornAgain\ simulation. For tutorials about this programming language, the users are referred to \cite{Lut09}.
 
 
-% More information about the general software architecture and \BornAgain\ internal design are given in Sect.~\ref{sec:SoftwareArchitecture}.
+% More information about the general software architecture and \BornAgain\ internal design are given in Sec.~\ref{sec:SoftwareArchitecture}.
 
 
 %===============================================================================
-\subsection{Units:} 
+\subsection{Units:}
 %===============================================================================
 \index{Units}
 
@@ -64,7 +64,7 @@ cylindrical and prismatic nanoparticles without any interference
 between them. These particles are placed in air, on top
 of a substrate.\\ We are going to go through each step of the
 simulation. The \Python\ code snippet specific to each stage will be given at
-the beginning of the description. 
+the beginning of the description.
 More examples can be found at our project web site \url{http://www.bornagainproject.org/documentation/python_examples}
 
 % But for the sake of completeness the full code is given
@@ -87,7 +87,7 @@ is a fundamental package for scientific computing with \Python\
 imports the features of \BornAgain\ software.
 
 %-------------------------------------------------------------------------------
-\subsubsection{Defining the materials} 
+\subsubsection{Defining the materials}
 %-------------------------------------------------------------------------------
 
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
@@ -103,7 +103,7 @@ def get_sample(): @\label{def_function}@
 \end{lstlisting}
 Line~\ref{def_function} marks the beginning of the
 function to define our sample. Lines~\ref{material2}, \ref{material3} and \ref{materialparticle} define different
-materials using class \Code{HomogeneousMaterial}. The general syntax is the following 
+materials using class \Code{HomogeneousMaterial}. The general syntax is the following
 \begin{lstlisting}[language=python, style=eclipse,numbers=none]
 <material_name> = HomogeneousMaterial("name", delta, beta)
 \end{lstlisting}
@@ -126,23 +126,23 @@ equal to $1-6\times 10^{-6} +i2\times 10^{-8} $, and the material of the particl
 \end{lstlisting}
 We implement two different shapes of particles: cylinders and
 prisms (\idest  elongated particles with a constant equilateral triangular cross section).
- 
+
 All particles implemented in \BornAgain\ are defined by their
 form factors (see Appendix~\ref{app:ff}), their sizes and the material
 they are made of. Here, for the
-cylindrical particle, we input its radius and height.  For the prism, 
+cylindrical particle, we input its radius and height.  For the prism,
 the possible inputs are the length of one side of its equilateral triangular
 base and its height.
 
 In order to define a particle, we proceed in two steps. For example for
-the cylindrical particle, we first specify the form factor of a cylinder with 
+the cylindrical particle, we first specify the form factor of a cylinder with
 its radius and height, both equal to 5 nanometers in this particular
 case (see line~\ref{particlescyl1}). Then we associate this shape with
 the constituting material as in line~\ref{particlescyl2}.
 The same procedure has been applied for the prism in lines~\ref{particlesprism1} and \ref{particlesprism2}, respectively.
 
 %-------------------------------------------------------------------------------
-\subsubsection{Characterizing particles assembly} 
+\subsubsection{Characterizing particles assembly}
 %-------------------------------------------------------------------------------
 \begin{lstlisting}[language=python, style=eclipseboxed, name=ex1,nolol]
     particle_layout = ParticleLayout()  @\label{particlesdecor1}@
@@ -154,14 +154,14 @@ The same procedure has been applied for the prism in lines~\ref{particlesprism1}
 The object which holds the information about the positions and densities of particles
 in our sample is called \Code{ParticleLayout}
 (line~\ref{particlesdecor1}). We use the associated function \Code{addParticle}
-for each particle shape (lines~\ref{particlesdecor2}, \ref{particlesdecor3}). Its general syntax is 
+for each particle shape (lines~\ref{particlesdecor2}, \ref{particlesdecor3}). Its general syntax is
 
 \begin{lstlisting}[language=python, style=eclipse,numbers=none]
-addParticle(<particle_name>, abundance) 
+addParticle(<particle_name>, abundance)
 \end{lstlisting}
 where \Code{<particle\_name>} is the name used to define the particles
 (lines~\ref{particlescyl2} and \ref{particlesprism2}) and
-\Code{abundance} is the proportion of this type of particles, 
+\Code{abundance} is the proportion of this type of particles,
 normalized to the total number of particles. Here we have 50\% of cylinders
 and 50\% of prisms.
 
@@ -173,7 +173,7 @@ where $F_j$ is the form factor associated with the particle of type $j$.  The wa
 interfere imposes the horizontal distribution of
 the particles as
 the interference reflects the long or short-range order of the
-particles distribution (see  Sect.~\ref{sec:sect:interf}). On the contrary, the vertical position is
+particles distribution (see  Sec.~\ref{sec:sect:interf}). On the contrary, the vertical position is
 imposed when we add the particles in a given layer by parameter \Code{depth}, as shown in lines~\ref{particlesdecor2} and \ref{particlesdecor3}.
 
 %-------------------------------------------------------------------------------
@@ -202,8 +202,8 @@ only contains the substrate material (line~\ref{substratelayer}).
 %Note that the
 %\Code{depth} is referenced to the bottom of the top layer (negative
 %values would correspond to particles floating above layer 1 as
-%the vertical axis is pointing upwards). 
- 
+%the vertical axis is pointing upwards).
+
 There are different possible syntaxes to define a layer. As shown in
 lines~\ref{airlayer} and \ref{substratelayer}, we can use
 \Code{Layer(<material\_name>,thickness)} or
@@ -234,7 +234,7 @@ def get_simulation():  @\label{run1}@
 The first stage is to create the \Code{Simulation()} object (line~\ref{run2}). Then we define the detector (line~\ref{rundetector}) and beam
 parameters (line~\ref{runbeam}). %, which are associated with the
 %sample previously defined (line~\ref{runsample}). Finally we run
-%the simulation (line~\ref{runsimul}). 
+%the simulation (line~\ref{runsimul}).
 Those functions are part of the Simulation
 class.  The different incident and exit angles are
 shown in Fig.~\ref{fig:multil3d}.
@@ -248,8 +248,8 @@ setDetectorParameters(n_phi, phi_f_min, phi_f_max, n_alpha, alpha_f_min, alpha_f
 
 
 \noindent where number of bins \Code{n\_phi}, low edge of first bin \Code{phi\_f\_min} and
-upper edge of last bin \Code{phi\_f\_max} all together define $\phi_f$ detector axis, 
-while \Code{n\_alpha}, \Code{alpha\_f\_min} and \Code{alpha\_f\_max} are related to 
+upper edge of last bin \Code{phi\_f\_max} all together define $\phi_f$ detector axis,
+while \Code{n\_alpha}, \Code{alpha\_f\_min} and \Code{alpha\_f\_max} are related to
 $\alpha_f$ detector axis.
 
 \ImportantPoint{Remark:}{Axis binning\\
@@ -260,7 +260,7 @@ axes with custom variable bin size are explained elsewhere.
 \vspace*{2mm}
 
 %are the minimum and maximum values of $\phi_f$, respectively, \Code{n\_alpha} is
-%the number of bins for $\alpha_f$ axis, \Code{alpha\_f\_min} and \Code{alpha\_f\_max} 
+%the number of bins for $\alpha_f$ axis, \Code{alpha\_f\_min} and \Code{alpha\_f\_max}
 %are the minimum and maximum values of
 %$\alpha_f$, respectively.
 
@@ -270,7 +270,7 @@ axes with custom variable bin size are explained elsewhere.
 %values of the sine of the output angles, $\alpha_f$ and $\phi_f$, otherwise it is binned
 %at constant values of these two angles.\\
 
-\noindent To characterize the beam we use function 
+\noindent To characterize the beam we use function
 \begin{lstlisting}[language=python, style=eclipse,numbers=none]
 setBeamParameters(lambda, alpha_i, phi_i),
 \end{lstlisting}
@@ -303,7 +303,7 @@ def run_simulation(): @\label{run_simulation}@
 %characterised by function \Code{get\_sample()} with the input beam and
 %output detector, defined in function \Code{get\_simulation()} (line~\ref{runsample}).
 The function, whose definition starts from line~\ref{run_simulation}, gathers all
-items. We create the sample and the simulation objects at the lines 
+items. We create the sample and the simulation objects at the lines
 ~\ref{get_sample} and \ref{get_simulation}, using calls to the previously defined functions. We assign the sample to the simulation at line ~\ref{setsample} and
 finally launch the simulation at line ~\ref{runsimul}.
 
@@ -313,7 +313,7 @@ uses (plots, fits,\ldots) as a \Code{NumPy} array containing
 \Code{n\_phi}$\times$\Code{n\_alpha}
 datapoints. Lines~\ref{plot1}-\ref{plot2} produces the two-dimensional
 contour plot of the intensity as a function of $\alpha_f$ and
-$\phi_f$ shown in Fig.~\ref{fig:output_ex1}. 
+$\phi_f$ shown in Fig.~\ref{fig:output_ex1}.
 
 \begin{figure}[htbp]
   \begin{center}
@@ -341,19 +341,19 @@ is associated with the output intensity in arbitrary units. }
 
 
 This section gives additional details about the manipulation of sample parameters
-during run time; that is after the sample has already been constructed. 
+during run time; that is after the sample has already been constructed.
 For a single simulation this is normally not necessary. However it might be useful
 during interactive work when the user tries to find optimal sample parameters by
 running a series of simulations.
 A similar task also arises when the theoretical model, composed of the
 description of the sample and of the simulation, is used for fitting real data.
 In this case, the fitting kernel requires a list of the existing sample parameters
-and a mechanism for changing the values of these parameters in order to find 
+and a mechanism for changing the values of these parameters in order to find
 their optima.
 
 In \BornAgain\ this is done using the so-called sample parameter pool
 mechanism. We are going to briefly explain this approach using the example
-of Sect.~\ref{sec:Example1Python}.
+of Sec.~\ref{sec:Example1Python}.
 
 In \BornAgain\ a sample is described by a hierarchical tree of objects.
 For the multilayer created in the previous section this tree can be graphically
@@ -372,88 +372,88 @@ session by running \Code{multi\_layer.printSampleTree()}
   edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
   \node {MultiLayer}
     child { node {Layer \#0}
-		child { node {ParticleLayout } 
-			child { node {Particle Info 0} 
-				child {node {Particle }  
-					child { node {FormFactorCylinder} 
-						child { node [optional] { radius:5.0} }					
-						child { node [optional] { height:5.0} }					
-					}				
+		child { node {ParticleLayout }
+			child { node {Particle Info 0}
+				child {node {Particle }
+					child { node {FormFactorCylinder}
+						child { node [optional] { radius:5.0} }
+						child { node [optional] { height:5.0} }
+					}
 				}
-    			child [missing] {}		
-    			child [missing] {}		
-			    child [missing] {}		
-				child {node [optional] { abundance:0.5} }			
-				child {node [optional] { depth:0.0} }			
+    			child [missing] {}
+    			child [missing] {}
+			    child [missing] {}
+				child {node [optional] { abundance:0.5} }
+				child {node [optional] { depth:0.0} }
 			}
-    		child [missing] {}		
-    		child [missing] {}		
-			child [missing] {}		
-    		child [missing] {}		
-    		child [missing] {}		
-			child [missing] {}		
-			child { node {Particle Info 1} 
-				child {node {Particle }  
-					child { node {FormFactorPrism3} 
-						child { node [optional] { length:10.0} }					
-						child { node [optional] { height:5.0} }					
-					}				
+    		child [missing] {}
+    		child [missing] {}
+			child [missing] {}
+    		child [missing] {}
+    		child [missing] {}
+			child [missing] {}
+			child { node {Particle Info 1}
+				child {node {Particle }
+					child { node {FormFactorPrism3}
+						child { node [optional] { length:10.0} }
+						child { node [optional] { height:5.0} }
+					}
 				}
-    			child [missing] {}		
-    			child [missing] {}		
-			    child [missing] {}		
-				child {node [optional] { abundance:0.5} }			
-				child {node [optional] { depth:0.0} }						
-			}					
+    			child [missing] {}
+    			child [missing] {}
+			    child [missing] {}
+				child {node [optional] { abundance:0.5} }
+				child {node [optional] { depth:0.0} }
+			}
 		}
-		child [missing] {}		
-   		child [missing] {}		
-	    child [missing] {}		
-		child [missing] {}		
-   		child [missing] {}		
-	    child [missing] {}		
-	    child [missing] {}		
-		child [missing] {}		
-   		child [missing] {}		
-	    child [missing] {}		
-		child [missing] {}		
-   		child [missing] {}		
-	    child [missing] {}		
-	    child [missing] {}		
-		child {node [optional] { thickness:0.0} }				
+		child [missing] {}
+   		child [missing] {}
+	    child [missing] {}
+		child [missing] {}
+   		child [missing] {}
+	    child [missing] {}
+	    child [missing] {}
+		child [missing] {}
+   		child [missing] {}
+	    child [missing] {}
+		child [missing] {}
+   		child [missing] {}
+	    child [missing] {}
+	    child [missing] {}
+		child {node [optional] { thickness:0.0} }
     }
-	child [missing] {}		
-   	child [missing] {}		
-	child [missing] {}		
-   	child [missing] {}		
-	child [missing] {}		
-	child [missing] {}		
-   	child [missing] {}		
-	child [missing] {}		
-   	child [missing] {}		
-	child [missing] {}		
-	child [missing] {}		
-   	child [missing] {}		
-	child [missing] {}		
-   	child [missing] {}		
-	child [missing] {}		
-	child [missing] {}		
-	child { node {Layer interface \#0} 
-    	child {node { roughness} 
-    		child {node [optional] { corrlength:0.0} }				    	
-    		child {node [optional] { hurst:0.0} }				    	
-    		child {node [optional] { sigma:0.0} }				    	
-    	}					
+	child [missing] {}
+   	child [missing] {}
+	child [missing] {}
+   	child [missing] {}
+	child [missing] {}
+	child [missing] {}
+   	child [missing] {}
+	child [missing] {}
+   	child [missing] {}
+	child [missing] {}
+	child [missing] {}
+   	child [missing] {}
+	child [missing] {}
+   	child [missing] {}
+	child [missing] {}
+	child [missing] {}
+	child { node {Layer interface \#0}
+    	child {node { roughness}
+    		child {node [optional] { corrlength:0.0} }
+    		child {node [optional] { hurst:0.0} }
+    		child {node [optional] { sigma:0.0} }
+    	}
 	}
-   	child [missing] {}		
-	child [missing] {}		
-	child [missing] {}		
+   	child [missing] {}
+	child [missing] {}
+	child [missing] {}
     child { node {Layer \#1}
-    	child {node [optional] { thickness:0.0} }				
+    	child {node [optional] { thickness:0.0} }
     }
-	child [missing] {}		
+	child [missing] {}
     child { node [optional] {CrossCorrLength:0.0} };
-    
+
 \end{tikzpicture}
 \caption{Tree representation of the sample structure.}
 \label{fig:sample_tree}
@@ -465,7 +465,7 @@ The top \Code{MultiLayer} object is composed of three children, namely
 children objects might themselves also be decomposed into tree-like structures. For example,
 \Code{Layer \#0} contains a \Code{ParticleLayout} object, which holds information
 related to the two types of particles populating the layer. All numerical values used
-during the sample construction (thickness of layers, size of particles, roughness parameters) are part of the same tree structure. 
+during the sample construction (thickness of layers, size of particles, roughness parameters) are part of the same tree structure.
 They are marked in the figure with shaded gray boxes.
 
 These values are registered in the sample parameter pool using the name
@@ -480,7 +480,7 @@ multi_layer.setParameterValue('/MultiLayer/Layer0/ParticleLayout/ParticleInfo0/P
 
 
 A list of the names and values of all registered sample's parameters
-can be displayed using the command 
+can be displayed using the command
 
 \begin{lstlisting}[language=shell, style=commandline]
 > multi_layer.printParameters()
@@ -509,7 +509,7 @@ multi_layer.setParameterValue('*FormFactorCylinder/height', 1.0)
 multi_layer.setParameterValue('*height', 1.0)
 \end{lstlisting}
 
-The complete example described in this section can be found at 
+The complete example described in this section can be found at
 \begin{lstlisting}[language=shell, style=commandline]
 ./Examples/python/fitting/ex001_SampleParametersIntro/SampleParametersIntro.py
 \end{lstlisting}
@@ -526,18 +526,18 @@ fit the numerical model to reference data by modifying a selection of
 sample parameters from the numerical model.  This aspect
 of the software is discussed in the current chapter.
 
-%Sect.~\ref{sec:FittingGentleIntroducion} gives a short introduction to the
+%Sec.~\ref{sec:FittingGentleIntroducion} gives a short introduction to the
 %basic concepts of data fitting. Users familiar with fitting can
-%directly proceed to Sect.~\ref{sec:FittingImplementation}, which details the
-%implementation of fittings in 
-%\BornAgain\ . 
-Sect.~\ref{sec:FittingImplementation} details the
-implementation of fittings in \BornAgain\ . 
+%directly proceed to Sec.~\ref{sec:FittingImplementation}, which details the
+%implementation of fittings in
+%\BornAgain\ .
+Sec.~\ref{sec:FittingImplementation} details the
+implementation of fittings in \BornAgain\ .
 \Python\ fitting examples with detailed
-explanations of every fitting step are given in Sect.~\ref{sec:FittingExamples}. Advanced fitting techniques, including fine tuning of minimization
+explanations of every fitting step are given in Sec.~\ref{sec:FittingExamples}. Advanced fitting techniques, including fine tuning of minimization
 algorithms, simultaneous fits of different data sets, parameters
 correlation, are covered in
-Sect.~\ref{sec:FittingAdvanced}. Sect.~\ref{sec:FittingRightAnswers} contains some practical advice, which might
+Sec.~\ref{sec:FittingAdvanced}. Sec.~\ref{sec:FittingRightAnswers} contains some practical advice, which might
 help the user to get right answers from \BornAgain\ fitting.
 
 
@@ -546,8 +546,8 @@ help the user to get right answers from \BornAgain\ fitting.
 Fitting in  \BornAgain\ deals with estimating the optimum parameters
 in the numerical model by minimizing the difference between
 numerical and reference data.
-%using $\chi^2$  or maximum likelihood methods. 
-The features include 
+%using $\chi^2$  or maximum likelihood methods.
+The features include
 
 \begin{itemize}
 \item a variety of multidimensional minimization algorithms and strategies.
@@ -578,7 +578,7 @@ configure the fitting kernel of \BornAgain\ . The required stages are
 \end{itemize}
 
 The class \Code{FitSuite} contains the main functionalities to be used for the fit
-and serves as the main interface between the user and the fitting work flow. 
+and serves as the main interface between the user and the fitting work flow.
 The later involves iterations during which
 
 \begin{itemize}
@@ -592,31 +592,31 @@ The later involves iterations during which
 
 The iteration process is going on under the control of the selected minimization
 algorithm, without any intervention from the
-user. It stops 
+user. It stops
 \begin{itemize}
 \item when the maximum number of iteration steps has been exceeded,
 \item when the function's minimum has been reached within the tolerance window,
-\item if the minimizer could not improve the values of the parameters. 
+\item if the minimizer could not improve the values of the parameters.
 \end{itemize}
 
 After the control is returned, fitting results can be retrieved.
 They consist in the best $\chi^2$ value found, the corresponding
 optimal sample parameters and the intensity map simulated with this set of parameters.
 
-%Details of \Code{FitSuite} class implementation and description of each interface are given in Sect.~\ref{sec:FitSuiteClass}. 
+%Details of \Code{FitSuite} class implementation and description of each interface are given in Sec.~\ref{sec:FitSuiteClass}.
 The following parts of this section will detail each of
 the main stages necessary to run a fitting procedure.
 
 
 \subsubsection{Preparing the sample and the simulation description}
 
-This step is similar for any simulation using \BornAgain\ (see Sect.~\ref{sec:Simulation}). It consists in first characterizing  the geometry of the system: the particles 
+This step is similar for any simulation using \BornAgain\ (see Sec.~\ref{sec:Simulation}). It consists in first characterizing  the geometry of the system: the particles
 (shapes, sizes, refractive
 indices), the different layers (thickness,
 order, refractive index, a possible roughness of the interface), the
 interference between the particles and the way they are distributed in
 the layers (buried particles or particles sitting on top of a
-layer). 
+layer).
 Then we specify the parameters of the input beam and of the
 output detector.
 
@@ -628,10 +628,10 @@ output detector.
 In principle, every parameter used in the construction of the sample
 can be used as a fitting parameter. For example, the particles'
 heights, radii or the layer's roughness or thickness could be selected
-using the 
-parameter pool mechanism. 
+using the
+parameter pool mechanism.
 This mechanism is explained in detail in
-Sect.~\ref{sec:WorkingWithSampleParameters} and it is therefore recommended
+Sec.~\ref{sec:WorkingWithSampleParameters} and it is therefore recommended
 to read it before proceeding any further.
 
 The user specifies selected sample parameters as fit parameters using \Code{FitSuite}
@@ -642,8 +642,8 @@ fit_suite.addFitParameter(<name>, <initial value>, <step>, <limits>)
 \end{lstlisting}
 where \Code{<name>} corresponds to the parameter name in the sample's parameter pool.
 By using wildcards in the parameter name, a group of sample parameters, corresponding to the given
-pattern, can be associated with a single fitting parameter and 
-fitted simultaneously to get a common optimal value (see Sect.~\ref{sec:WorkingWithSampleParameters}).
+pattern, can be associated with a single fitting parameter and
+fitted simultaneously to get a common optimal value (see Sec.~\ref{sec:WorkingWithSampleParameters}).
 
 The second parameter \Code <initial value> correspond to the initial value of
 the fitting parameter, while the third one
@@ -651,10 +651,10 @@ is responsible to the initial iteration steps size.
 The last parameter \Code{<AttLimits>} corresponds to
 the boundaries imposed on parameter value. It can be
 \begin{itemize}
-\item \Code{limitless()} by default, 
-\item \Code{fixed()}, 
-\item \Code{lowerLimited(<min\_value>)}, 
-\item \Code{upperLimited(<max\_value>)}, 
+\item \Code{limitless()} by default,
+\item \Code{fixed()},
+\item \Code{lowerLimited(<min\_value>)},
+\item \Code{upperLimited(<max\_value>)},
 \item \Code{limited(<min\_value>, <max\_value>)}.
 \end{itemize}
 where \Code{<min\_value>} and \Code{<max\_value>} are
@@ -668,12 +668,12 @@ double values corresponding to the lower and higher boundary, respectively.
 The minimization procedure deals with a pair of reference data (normally
 associated with experimental data) and the theoretical model (presented by the sample and the simulation descriptions).
 
-We assume that the experimental data are a two-dimensional intensity 
+We assume that the experimental data are a two-dimensional intensity
 matrix as function of the output scattering
 angles $\alpha_f$ and $\phi_f$ (see Fig.~\ref{fig:multil3d}).
 The user is required to provide the data in the form of an ASCII file
 containing an axes
-binning description and the intensity data itself. 
+binning description and the intensity data itself.
 \vspace*{2mm}
 
 \ImportantPoint{Remark:}{
@@ -691,7 +691,7 @@ fit_suite.addSimulationAndRealData(<simulation>, <reference>, <chi2_module>)
 
 Here \Code{<simulation>} corresponds to a \BornAgain\ simulation object
 with the  sample, beam and detector fully defined, \Code{<reference>}
-corresponds to the experimental data object obtained from the ASCII file and \Code{<chi2\_module>} is an optional parameter for advanced 
+corresponds to the experimental data object obtained from the ASCII file and \Code{<chi2\_module>} is an optional parameter for advanced
 control of $\chi^2$ calculations.
 
 It is possible to call this given method more than once to submit more than one pair of
@@ -701,7 +701,7 @@ some combined data sets are performed.
 
 By using the third parameter, \Code{<chi2\_module>}, different normalizations and weights
 can be applied to give user full control of the way $\chi^2$ is calculated.
-This feature will be explained in Sect.~\ref{sec:FittingAdvanced}.
+This feature will be explained in Sec.~\ref{sec:FittingAdvanced}.
 
 
 %===============================================================================
@@ -712,10 +712,10 @@ This feature will be explained in Sect.~\ref{sec:FittingAdvanced}.
 libraries. They are listed in Table~\ref{table:fit_minimizers}.
 By default \Code{Minuit2} minimizer with default settings will be used and no additional
 configuration needs to be done.
-The remainder of this section explains some of the expert settings, which can be applied to get better 
+The remainder of this section explains some of the expert settings, which can be applied to get better
 fit results.
 
-The default minimization algorithm can be changed using 
+The default minimization algorithm can be changed using
 \Code{MinimizerFactory} as shown below
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none]
 fit_suite = FitSuite()
@@ -724,7 +724,7 @@ fit_suite.setMinimizer(minimizer)
 \end{lstlisting}
 
 where \Code{<Minimizer name>} and \Code{<algorithm>} can be chosen from the first and
-second column of Table~\ref{table:fit_minimizers} respectively. 
+second column of Table~\ref{table:fit_minimizers} respectively.
 The list of minimization algorithms implemented in \BornAgain\
 can also be obtained using \Code{MinimizerFactory.printCatalogue()} command.
 
@@ -744,7 +744,7 @@ can also be obtained using \Code{MinimizerFactory.printCatalogue()} command.
  & &  and checks for positive-definiteness.\\
 \hline
                                        & \Code{Simplex} & simplex method of
-                                       Nelder and Mead\\ 
+                                       Nelder and Mead\\
  & & usually slower than \Code{Migrad}, \\
  &  & rather robust with respect to gross fluctuations in the\\ & &  function
  value, gives no reliable information about \\ & &  parameter errors, \\
@@ -768,18 +768,18 @@ can also be obtained using \Code{MinimizerFactory.printCatalogue()} command.
 \Code{GSLMultiMin} \cite{GSLMultiMinURL} & \Code{ConjugateFR} & Fletcher-Reeves conjugate gradient
   algorithm,\\
 \hline
-& \Code{ConjugatePR} & Polak-Ribiere conjugate gradient algorithm,\\ 
+& \Code{ConjugatePR} & Polak-Ribiere conjugate gradient algorithm,\\
 \hline
-& \Code{BFGS} & Broyden-Fletcher-Goldfarb-Shanno algorithm,\\ 
+& \Code{BFGS} & Broyden-Fletcher-Goldfarb-Shanno algorithm,\\
 \hline
-& \Code{BFGS2} & improved version of BFGS,\\ 
+& \Code{BFGS2} & improved version of BFGS,\\
 \hline
 & \Code{SteepestDescent} & follows the downhill gradient of the function at each step\\
 \hline
 \Code{GSLLMA} \cite{GSLMultiFitURL} & & Levenberg-Marquardt
 Algorithm\\
 \hline
-\Code{GSLSimAn} \cite{GSLSimAnURL}& & Simulated Annealing Algorithm\\ 
+\Code{GSLSimAn} \cite{GSLSimAnURL}& & Simulated Annealing Algorithm\\
 \hline
 \hline
 \end{tabular}
@@ -798,7 +798,7 @@ namely the maximum number of times the minimizer is allowed to call the simulati
 
 There are also expert-level options common for all minimizers as well
 as a number of options to tune individual minimization algorithms.
-They will be explained in Sect.~\ref{sec:FittingAdvanced}.
+They will be explained in Sec.~\ref{sec:FittingAdvanced}.
 
 
 %===============================================================================
@@ -817,7 +817,7 @@ be printed on the screen using the command
 \begin{lstlisting}[language=python, style=eclipseboxed, numbers = none]
 fit_suite.printResults()
 \end{lstlisting}
-Sect.~\ref{sec:FittingExamples} gives more details about how to access the fitting results.
+Sec.~\ref{sec:FittingExamples} gives more details about how to access the fitting results.
 
 
 %===============================================================================
@@ -826,7 +826,7 @@ Sect.~\ref{sec:FittingExamples} gives more details about how to access the fitti
 
 In this section we are going to go through a complete example of
 fitting using \BornAgain. Each  step will be associated with a
-detailed piece of code written in \Python. 
+detailed piece of code written in \Python.
 The complete listing of
 the script is given in Appendix (see Listing~\ref{PythonFittingExampleScript}).
 The script can also be found at
@@ -835,7 +835,7 @@ The script can also be found at
 \end{lstlisting}
 
 \noindent
-This example uses the same sample geometry as in Sect.~\ref{sec:Example1Python}.
+This example uses the same sample geometry as in Sec.~\ref{sec:Example1Python}.
 Cylindrical and
 prismatic particles in equal proportion are deposited on a substrate layer, with no interference
 between the particles. We consider the following parameters to be unkown
@@ -849,10 +849,10 @@ between the particles. We consider the following parameters to be unkown
 Our reference data are a ``noisy'' two-dimensional intensity
 map obtained from the simulation of the same geometry with a fixed
 value of $5\,{\rm nm}$ for the height and radius of cylinders and for the
-height of prisms which have a 10-nanometer-long side length. 
+height of prisms which have a 10-nanometer-long side length.
 Then we run our fitting using default minimizer settings
 starting with a cylinder's height
-of $4\,{\rm nm}$, a cylinder's radius of $6\,{\rm nm}$, 
+of $4\,{\rm nm}$, a cylinder's radius of $6\,{\rm nm}$,
 a prism's half side of $6\,{\rm nm}$ and a height equal to $4\,{\rm nm}$.
 As a result, the fitting procedure is able to find the correct value of $5\,{\rm nm}$
 for all four parameters.
@@ -906,7 +906,7 @@ def get_sample(): @\label{script2::get_sample}@
 \end{lstlisting}
 The function starting at line~\ref{script2::get_sample} creates a multilayered sample
 with cylinders and prisms using arbitrary $1\,{\rm nm}$ value for all size's of particles.
-The details about the generation of this multilayered sample are given in Sect.~\ref{sec:Example1Python}.
+The details about the generation of this multilayered sample are given in Sec.~\ref{sec:Example1Python}.
 
 %-------------------------------------------------------------------------------
 \subsubsection*{Creating the simulation}
@@ -940,7 +940,7 @@ def run_fitting(): @\label{script2::run_fitting}@
 \end{lstlisting}
 Lines
 ~\ref{script2::setup_simulation1}-~\ref{script2::setup_simulation2}
-generate the 
+generate the
 sample and simulation description and assign the sample to the simulation.
 Our reference data are contained in the file \Code{'refdata\_fitcylinderprisms.int.gz'}.
  This reference had been generated by adding noise
@@ -958,8 +958,8 @@ the ASCII data from the input file.
     fit_suite.initPrint(10) @\label{script2::fitsuite3}@
 \end{lstlisting}
 Line ~\ref{script2::fitsuite1} creates a \Code{FitSuite} object which provides
-the main interface to the minimization kernel of \BornAgain\ . 
-Line ~\ref{script2::fitsuite2} submits simulation description and real data pair to the 
+the main interface to the minimization kernel of \BornAgain\ .
+Line ~\ref{script2::fitsuite2} submits simulation description and real data pair to the
 subsequent fitting. Line ~\ref{script2::fitsuite3} sets up \Code{FitSuite} to print on
 the screen the information about fit progress once per 10 iterations.
 \begin{lstlisting}[language=python, style=eclipseboxed, firstnumber=60]
@@ -970,7 +970,7 @@ the screen the information about fit progress once per 10 iterations.
 \end{lstlisting}
 Lines ~\ref{script2::fitpars1}--~\ref{script2::fitpars2} enter the
 list of fitting parameters. Here we use the cylinders' height and
-radius and the prisms' height and side length. 
+radius and the prisms' height and side length.
 The cylinder's length and prism half side are initially equal to $4\,{\rm nm}$,
 whereas the cylinder's radius and the prism half side length are equal to $6\,{\rm nm}$ before the minimization. The
 iteration step is equal to $0.01\,{\rm nm}$ and only the lower
@@ -984,7 +984,7 @@ boundary is imposed to be equal to $0.01\,{\rm nm}$.
 
     print "Fitting completed."
     fit_suite.printResults()@\label{script2::fitresults2}@
-    print "chi2:", fit_suite.getMinimizer().getMinValue() 
+    print "chi2:", fit_suite.getMinimizer().getMinValue()
     fitpars = fit_suite.getFitParameters()
     for i in range(0, fitpars.size()):
         print fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError() @\label{script2::fitresults3}@
@@ -1026,8 +1026,8 @@ following detailed example
   \label{sec:FittingRightAnswers}
 %===============================================================================
 
-%As it has already been mentioned in Sect.~\ref{sec:FittingGentleIntroducion}, 
-One of the main difficulties in fitting the data with the model 
+%As it has already been mentioned in Sec.~\ref{sec:FittingGentleIntroducion},
+One of the main difficulties in fitting the data with the model
 is the presence of multiple
 local minima in the objective function. Many problems can cause the
 fit to fail, for example:
@@ -1080,8 +1080,8 @@ fitting. It remains applicable to any fitting program and any kind of theoretica
 \subsection{IntensityData}
 %===============================================================================
 
-The \Code{IntensityData} object stores the 
-simulated or real intensity data together with the axes definition of the detector in BornAgain's internal format. 
+The \Code{IntensityData} object stores the
+simulated or real intensity data together with the axes definition of the detector in BornAgain's internal format.
 During the simulation setup
 it is created automatically when the user specifies the detector characteristics and is filled with the simulated intensities after the simulation is completed.
 
@@ -1103,19 +1103,19 @@ the two dimensional detector pixel array as shown in Fig.~\ref{fig:UserApi:Inten
   \label{fig:UserApi:IntensityData}
 \end{figure}
 
-The x-axis and y-axis of the figure correspond to the $\phi_f$ and $\alpha_f$ axes of the detector. 
+The x-axis and y-axis of the figure correspond to the $\phi_f$ and $\alpha_f$ axes of the detector.
 The x-axis is divided into 10 bins,
 with low edge of the first bin set to $-5.0\,{\rm deg}$ and upper edge of the last bin set to $+5.0\,{\rm deg}$.
 The y-axis is divided into 5 bins,
 with low edge of the first bin set to $0.0\,{\rm deg}$ and upper edge of the last bin set to $1.0\,{\rm deg}$.
 There are 50 bins in total (they are marked on the plot with indexes from 0 to 49), each bin will contain one intensity value.
 
-During a standard simulation (i.e. no Monte-Carlo integration involved) intensities are calculated for $\phi_f, \alpha_f$ values corresponding to the bin centers, e.g. the intensity stored in bin\#42 will correspond to $\phi_f=3.5\,{\rm deg}, \alpha_f=0.5\,{\rm deg}$. 
+During a standard simulation (i.e. no Monte-Carlo integration involved) intensities are calculated for $\phi_f, \alpha_f$ values corresponding to the bin centers, e.g. the intensity stored in bin\#42 will correspond to $\phi_f=3.5\,{\rm deg}, \alpha_f=0.5\,{\rm deg}$.
 \vspace*{2mm}
 
 
 \MakeRemark{}{
-The \Code{IntensityData} object is not intended for direct usage from Python API. The idea is 
+The \Code{IntensityData} object is not intended for direct usage from Python API. The idea is
 that the API provides the user with the possibility to export the data from BornAgain internal format to the format of his choice as well as import user's data into BornAgain.
 For the moment this functionality is limited to a few options explained below.
 We encourage users feedback to implement the support of most requested formats.
@@ -1133,7 +1133,7 @@ For the moment we provide following options:
 
 \paragraph{Export to numpy array}
 
-To export intensity data into  \Code{numpy} array the method \Code{getArray()} should be used 
+To export intensity data into  \Code{numpy} array the method \Code{getArray()} should be used
 on \Code{IntensityData} object as shown in line \ref{py:UserApi:getArray} of
 following code snippet.
 
@@ -1147,10 +1147,10 @@ pylab.show()
 
 For the detector settings defined in the previous paragraph the dimensions of the resulting array will be (10,5). By using \Code{numpy} indexes the user can get access to the intensity values, e.g.
 \Code{array[0][0]} corresponds to the intensity in bin\#0 of Fig.~\ref{fig:UserApi:IntensityData},
-\Code{array[0][4]} to bin\#4, 
-\Code{array[1][0]} to bin\#5, 
-\Code{array[8][2]} to bin\#42, 
-\Code{array[9][4]} to bin\#49. 
+\Code{array[0][4]} to bin\#4,
+\Code{array[1][0]} to bin\#5,
+\Code{array[8][2]} to bin\#42,
+\Code{array[9][4]} to bin\#49.
 
 
 To plot this resulting numpy array with \Code{matplotlib} it has to be rotated counter-clockwise
@@ -1189,7 +1189,7 @@ fitSuite.addSimulationAndRealData(simulation, data) @\label{py:UserApi:add_real_
 \end{lstlisting}
 
 In lines~\ref{py:UserApi:phi_f}, \ref{py:UserApi:alpha_f} two axes with fixed bin sizes
-are defined to represent the detector layout as shown in Fig.~\ref{fig:UserApi:IntensityData}. 
+are defined to represent the detector layout as shown in Fig.~\ref{fig:UserApi:IntensityData}.
 The constructor of \Code{FixedBinAxis} object has the following signature
 
 \begin{lstlisting}[language=python, style=eclipse,numbers=none]
@@ -1197,7 +1197,7 @@ FixedBinAxis(title, nbins, min_angle, max_angle)
 \end{lstlisting}
 
 The created \Code{IntensityData} object has to be filled with experimental intensities
-using \Code{numpy} array prepared by the user (lines ~\ref{py:UserApi:create_array}-~\ref{py:UserApi:set_raw}). In lines \ref{py:UserApi:fit_suite},\ref{py:UserApi:add_real_data} the fitting kernel is created and initialized with \Code{Simulation} object and 
+using \Code{numpy} array prepared by the user (lines ~\ref{py:UserApi:create_array}-~\ref{py:UserApi:set_raw}). In lines \ref{py:UserApi:fit_suite},\ref{py:UserApi:add_real_data} the fitting kernel is created and initialized with \Code{Simulation} object and
 \Code{IntensityData} object representing the experimental data.
 
 
@@ -1214,7 +1214,7 @@ IntensityDataIOFactory.writeIntensityData(intensity, 'file_name.int')
 \subsubsection{Reading intensity data from a text file.}
 The same class is also intended for reading intensity data
 from files with different formats. For the moment, it only supports reading the data from text files of special BornAgain's format (the file extention \Code{*.int}).
- 
+
 \begin{lstlisting}[language=python, style=eclipseboxed]
 intensity = IntensityDataIOFactory.readIntensityData('file_name.int')
 \end{lstlisting}

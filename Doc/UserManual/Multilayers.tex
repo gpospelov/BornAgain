@@ -7,7 +7,7 @@
 %%   copyright:  Forschungszentrum Jülich GmbH 2015
 %%
 %%   license:    Creative Commons CC-BY-SA
-%%   
+%%
 %%   authors:    Scientific Computing Group at MLZ Garching
 %%               C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 %%
@@ -20,7 +20,7 @@
 \index{Multilayer|(}%
 \index{Layer structures|see {Multilayer}}
 
-In Sect.~\ref{Swave21},
+In Sec.~\ref{Swave21},
 we have discussed wave propagation and scattering in 2$+$1 dimensional systems
 that are translationally invariant in the horizontal $xy$ plane,
 and have a vertical refractive index profile $\nz(z)$.
@@ -37,7 +37,7 @@ The top vacuum (or air) layer (which extends to $z\to+\infty$) has number~0,
 the substrate (extending to $z\to-\infty$) is layer~$N$.}
 
 All layer interfaces are assumed to be perfectly smooth.
-% TODO RESTORE TEMPORARILY REMOVED XREF: 
+% TODO RESTORE TEMPORARILY REMOVED XREF:
 Support for rough interfaces is already implemented in \BornAgain,
 but documentation is adjourned to a later edition of this manual.
 % For rough interfaces, see Chapter~\ref{sec:Roughness}.
@@ -88,7 +88,7 @@ The vertical wavenumber is obtained from (\ref{Ewavez}),
 \begin{equation}\label{Ekperpwj}
   k_{\perp w\il} = \sqrt{K^2 \nzj - k_{\plll w}^2}.
 \end{equation}
-In Sect.~\ref{Smulayabs} we will discuss how to interpret this expression
+In Sec.~\ref{Smulayabs} we will discuss how to interpret this expression
 in the case of a negative or complex radicand.
 All of the following, unless explicitly restricted to real wavenumbers,
 allows for complex values of~$k_\perp$.
@@ -119,11 +119,11 @@ In the absence of absorption,
 wavevectors are real
 so that we can describe the beam in terms of a glancing angle
 \begin{equation}\label{Edef_alpha}
-  \alpha_{w\il}\coloneqq \arctan(k_{\perp w\il}/k_{\plll w}).  
+  \alpha_{w\il}\coloneqq \arctan(k_{\perp w\il}/k_{\plll w}).
 \end{equation}
 Equivalently,
 \begin{equation}
-  k_{\plll w}=K n_\il \cos\alpha_{w\il}. 
+  k_{\plll w}=K n_\il \cos\alpha_{w\il}.
 \end{equation}
 Since $k_{\plll w}$ is constant across layers,
 we have
@@ -138,9 +138,9 @@ In general, however, the vertical wavenumber $k_{\perp}$,
 given by (\ref{Ekperpwj}),
 can become imaginary or complex.
 This makes the above geometric interpretation untenable.
-Yet the algebraic formalism developed in Sect.~\ref{Slayerprop}
+Yet the algebraic formalism developed in Sec.~\ref{Slayerprop}
 remains applicable.
-The horizontal wavevector $\k_\plll$ remains constant and real 
+The horizontal wavevector $\k_\plll$ remains constant and real
 as initialized somewhere above the sample.
 However, the radicand in (\ref{Ekperpwj}) can become
 negative (total reflection conditions) or complex
@@ -203,7 +203,7 @@ we can at once write down the DWBA transition matrix element~(\ref{Edwba})
 \begin{equation}\label{Edwba_ml0}
   \bra \psi_\ti|\chi|\psi_\tf\ket
   = \sum_{\il} \sum_{\pm_\ti} \sum_{\pm_\tf}
-    A^{\pm *}_{\ti \il} A^\pm_{\tf \il} 
+    A^{\pm *}_{\ti \il} A^\pm_{\tf \il}
      \chi_\il(\k^\pm_{\tf \il}-\k^\pm_{\ti \il}),
 \end{equation}
 where
@@ -271,7 +271,7 @@ $\Nabla\phi(\r)$ evolve continuously.
 \begin{center}
 \includegraphics[width=0.46\textwidth]{fig/drawing/multilayer_boundary.ps}
 \end{center}
-\caption{The transfer matrix $M_l$ connects the wavefunctions 
+\caption{The transfer matrix $M_l$ connects the wavefunctions
 \index{Multilayer!transfer matrix}%
 \index{Layer!transfer matrix}%
 \index{Transfer matrix}%
@@ -355,7 +355,7 @@ These two unknowns are  connected by a system of two linear equations,
 \end{equation}
 While it is possible in principle
 to solve this as a matrix equation,
-the actual implementation in \BornAgain\ 
+the actual implementation in \BornAgain\
 %\footnote{SpectralMatrix.cpp: SpectralMatrix::execute()}
 starts with a unit vector in the substrate,
 and then carries out the propagation step (\ref{EcMc})

@@ -41,7 +41,7 @@ In the following, all such inhomogeneities will be described as
 Therefore, for the moment we refer to the \IsGISAXS\ manual \cite{Laz08}.}
 
 \iffalse
-Our derivation of the DWBA (Sect.~\ref{Sdwba}) has shown
+Our derivation of the DWBA (Sec.~\ref{Sdwba}) has shown
 that the distinction between refraction and reflection on the one hand
 and scattering on the other hand is not a fundamental one,
 but to a certain degree arbitrary:
@@ -191,7 +191,7 @@ Motivated by the $\q$ decomposition (\ref{Eqpp}),
 we absorb the vertical particle coordinate~$\R_{i\perp}$
 into the parameter vector~$\v{T}_i$.
 We then collect several terms into the \E{DWBA form factor}\footnote
-{This generalizes the definition in \IsGISAXS\ \cite[Sect.~2.4.1]{Laz08}
+{This generalizes the definition in \IsGISAXS\ \cite[Sec.~2.4.1]{Laz08}
   \index{IsGISAXS@\string\IsGISAXS!DWBA form factor}%
   and in the literature \cite[p.~292]{ReLL09},
 which does not include a depth factor.}
@@ -241,7 +241,7 @@ for a given set of particle coordinates $\{\R_i,\v{T}_i\}$.
   have not yet been implemented in \BornAgain,
   and are not on our agenda.
   Please contact us if you have a use case.}
-\footnotetext[\value{footnote}]{Known from \IsGISAXS\ \cite[Sect.~3.3]{Laz08}.
+\footnotetext[\value{footnote}]{Known from \IsGISAXS\ \cite[Sec.~3.3]{Laz08}.
 \index{IsGISAXS@\string\IsGISAXS!morphology data}}
 
 Instead, \BornAgain\ provides various physical models
@@ -363,7 +363,7 @@ R-T decoupling)
 make up the \E{decoupling approximation}
 \index{IsGISAXS@\IsGISAXS!decoupling approximation}
 of \IsGISAXS.\footnote
-{In the \IsGISAXS\ manual \cite[Sect.~2.2]{Laz08},
+{In the \IsGISAXS\ manual \cite[Sec.~2.2]{Laz08},
 the \E{decoupling approximation} (DA),
 \index{Decoupling approximation}%
 \index{DA|see {Decoupling approximation}}%
@@ -381,14 +381,14 @@ it describes the incoherent average of
 scattering from different coherence domains.
 In \BornAgain,
 it can be emulated by averaging over different simulated GISAS images
-(as described in Sect.~\ref{Scoherlen}),
+(as described in Sec.~\ref{Scoherlen}),
 or by attaching different \texttt{ParticleLayout}s to a \texttt{Layer}.
 The SSCA is an alternative to the R-T decoupling approximation.
 In \IsGISAXS, and similarly in \BornAgain,
 it is only available for paracrystals
 % TODO RESTORE TEMPORARILY REMOVED XREF
 (to be documented later).
-% and will therefore be discussed later (Sect.~\ref{}).
+% and will therefore be discussed later (Sec.~\ref{}).
 }
 \fi
 
@@ -945,7 +945,9 @@ def get_sample():
 \section{Implementation in \BornAgain}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-This section describes the implementation of the interference functions in \BornAgain. For an implementation of all the components of a simulation, the use is referred, for example, to Sect.~\ref{sec:Example1Python}.\\
+This section describes the implementation of the interference functions in \BornAgain.
+For an implementation of all the components of a simulation,
+the use is referred, for example, to Sec.~\ref{sec:Example1Python}.\\
 
 
 \ImportantPoint{Remark:}{In \BornAgain\ the particles are positioned in the same vertical layer.}
@@ -1203,7 +1205,7 @@ where ($L_1$, $L_2$, $\alpha$, $\xi$) are shown in figure~\ref{fig:2dlattice} wi
 \label{fig:2dlattice}
 \end{figure}
 
-Like for the one-dimensional case, a probability distribution function \Code{pdf} has to be defined. One can choose between those listed in Section~\ref{baftd} and implements it using \Code{setProbabilityDistribution(pdf)}.
+Like for the one-dimensional case, a probability distribution function \Code{pdf} has to be defined. One can choose between those listed in Sec.~\ref{baftd} and implements it using \Code{setProbabilityDistribution(pdf)}.
 
 \paragraph{Example} The sample used to run the simulation is made of half-spheres deposited on a substrate. The interference function is "2Dlattice" and the particles are located at the nodes of a square lattice with $L_1=L_2=20$~nm, $\mathbf{a}\equiv \mathbf{b}$ and the probability distribution function is Gaussian. We also use the Decoupling Approximation.
 

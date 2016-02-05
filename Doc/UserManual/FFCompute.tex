@@ -51,7 +51,7 @@ in order to prevent floating-point errors and ill conditioned computations.
 It seems that \E{all} analytical form factors have a singularity at~$\q=0$.
 Furthermore, if the particle has \E{plane} surfaces,
 then there is a singularity for all $\q$ that are normal to one of these planes.
-A simple example is provided by the cuboid form factor (Sect.~\ref{SBox})
+A simple example is provided by the cuboid form factor (Sec.~\ref{SBox})
 \begin{equation}
 F= L W H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x \frac{L}{2}\right)
 \sinc\left(q_y \frac{W}{2}\right) \sinc\left(q_z \frac{H}{2}\right).
@@ -145,12 +145,14 @@ The line integral~(\ref{Elastoint}) then takes the form
               \int_{-1}^{+1}\!\d\lambda\, \frac{\d\r}{\d\lambda}\,\e^{i\qp\r},
 \end{equation}
 and yields
+\Emph{
 \begin{equation}\label{Effpolygon}
     F_\parallel(\qp)
     = \frac{2\n\times\uqp^*}{ip} \sum_{j=0}^{N-1} \E_j \sinc(\qp\E_j) \e^{i\qp\R_j}.
 \end{equation}
+}
 The removable singularity for $\q_\parallel\E_j=0$
-is handled by the sinc function, as discussed in Sect.~\ref{SShapeTrafIntro}.
+is handled by the sinc function, as discussed in Sec.~\ref{SShapeTrafIntro}.
 Furthermore, there is a singularity at $q_\parallel=0$.
 To see that it is removable,
 expand the term under the sum in~$\qp$,
@@ -185,12 +187,14 @@ we spell out~(\ref{Effpolygon}) as
 \end{equation}
 Rearranging terms and permuting indices,
 we convert the sum over edges into a sum over vertices,
+\Emph{
 \begin{equation}\label{Effpolygon_expsum}
     F_\parallel(\qp)
     = \frac{\n\times\uqp^*}{p^2} \sum_{j=0}^{N-1}
        \left( \frac{\E_{j-1}}{\uqp\E_{j-1}} - \frac{\E_j}{\uqp\E_j} \right)
        \e^{i\qp\V_j},
 \end{equation}
+}
 which has the desired form~(\ref{Eff_as_sum}).
 If the two fractions in the parenthesis are brought onto a common denominator,
 full accord with Eq.~6 of Ref.~\cite{LeMi83} is achieved.
@@ -199,11 +203,17 @@ If the polygon has a two-fold symmetry axis,
 the form factor can be further simplified.
 We write $N\eqqcolon2n$
 and make use of $\V_{j+n}=-\V_j$ to transform~(\ref{Effpolygon}) into
+\Emph{
 \begin{equation}\label{Eff2ngon}
     F_\parallel(\qp) = \displaystyle 4 \sum_{j=0}^{n-1}
               \n(\uqp^*\times\E_j) (\uqp\R_j) \sinc(\qp\E_j) \sinc(\qp\R_j),
 \end{equation}
+}
 where the singularity at $p=0$ is absorbed in a second sinc function.
+This result is used in our implementation of \texttt{FormFactorPrism6}
+(Sec.~\ref{SPrism6}).
+\index{FormFactorPrism6@\Code{FormFactorPrism6}}%
+
 \index{Form factor!polygon|)}%
 \index{Polygon!form factor|)}%
 

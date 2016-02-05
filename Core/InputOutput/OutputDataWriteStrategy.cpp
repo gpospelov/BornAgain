@@ -20,7 +20,9 @@
 #include <iostream>
 #include <iomanip>
 
-double IOutputDataWriteStrategy::ignoreDenormalized(double value)
+static const int precision { 12 };
+
+double IgnoreDenormalized(double value)
 {
     if (std::abs(value)<std::numeric_limits<double>::min()) {
         return 0.0;
@@ -28,6 +30,23 @@ double IOutputDataWriteStrategy::ignoreDenormalized(double value)
     return value;
 }
 
+void WriteOutputDataDoubles(const OutputData<double> &data, std::ostream &output_stream,
+                            size_t n_columns)
+{
+    OutputData<double>::const_iterator it = data.begin();
+    output_stream.imbue(std::locale::classic());
+    output_stream << std::scientific << std::setprecision(precision);
+    size_t ncol(0);
+    while(it != data.end()) {
+        ncol++;
+        double z_value = *it++;
+        output_stream << IgnoreDenormalized(z_value) << "    ";
+        if(ncol == n_columns) {
+            output_stream << std::endl;
+            ncol = 0;
+        }
+    }
+}
 
 void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double> &data,
                                                std::ostream &output_stream)
@@ -44,18 +63,7 @@ void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double> &data,
 
     output_stream << std::endl;
     output_stream << "# data" << std::endl;
-    OutputData<double>::const_iterator it = data.begin();
-    size_t ncol(0);
-    while(it != data.end()) {
-        ncol++;
-        double z_value = *it++;
-        output_stream << std::scientific << std::setprecision(m_precision)
-                      << ignoreDenormalized(z_value) << "    ";
-        if(ncol == n_columns) {
-            output_stream << std::endl;
-            ncol = 0;
-        }
-    }
+    WriteOutputDataDoubles(data, output_stream, n_columns);
     output_stream << std::endl;
 }
 
@@ -78,18 +86,7 @@ void OutputDataWriteNumpyTXTStrategy::writeOutputData(const OutputData<double> &
     output_stream << "# [nrows=" << nrows
                   << ", ncols=" << ncols << "]" << std::endl;
 
-    std::vector<int> axes_indices(2);
-    for(size_t row=0; row<nrows; ++row) {
-        for(size_t col=0; col<ncols; ++col) {
-            axes_indices[0] = col;
-            axes_indices[1] = nrows - 1 - row;
-            size_t global_index = data.toGlobalIndex(axes_indices);
-            output_stream << std::scientific << std::setprecision(m_precision)
-                          << ignoreDenormalized(data[global_index]) << "    ";
-        }
-        output_stream << std::endl;
-    }
-
+    WriteOutputDataDoubles(data,output_stream, ncols);
 }
 
 // ----------------------------------------------------------------------------

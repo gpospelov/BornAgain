@@ -15,6 +15,8 @@
 
 #include "Utils.h"
 #include "Exceptions.h"
+#include "OutputDataIOHelper.h"
+
 #include <iostream>
 #include <iomanip>
 #include <boost/regex.hpp>
@@ -45,9 +47,7 @@ vdouble1d_t Utils::String::parse_doubles(const std::string& str)
 {
     vdouble1d_t buff_1d;
     std::istringstream iss(str);
-    iss.imbue(std::locale::classic());
-    std::copy(std::istream_iterator<double>(iss),
-              std::istream_iterator<double>(), back_inserter(buff_1d));
+    OutputDataIOHelper::readLineOfDoubles(buff_1d, iss);
     if( buff_1d.empty() ) {
         std::cout << "Utils::String::parse_doubles -> "
             "Warning! No parsed values in 1d vector of doubles." << std::endl;

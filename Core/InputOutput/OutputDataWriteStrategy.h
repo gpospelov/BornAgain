@@ -29,13 +29,10 @@ template <class T> class OutputData;
 class BA_CORE_API_ IOutputDataWriteStrategy
 {
 public:
-    IOutputDataWriteStrategy() : m_precision(12) {}
+    IOutputDataWriteStrategy() {}
     virtual ~IOutputDataWriteStrategy(){}
 
     virtual void writeOutputData(const OutputData<double>& data, std::ostream& output_stream) = 0;
-protected:
-    double ignoreDenormalized(double value);
-    int m_precision;
 };
 
 //! @class OutputDataWriteINTStrategy

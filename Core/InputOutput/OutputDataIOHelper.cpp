@@ -22,6 +22,7 @@
 #include "Utils.h"
 #include "OutputData.h"
 #include "FileSystem.h"
+
 #include <iostream>
 #include <algorithm>
 #include <boost/algorithm/string.hpp>
@@ -148,13 +149,11 @@ IAxis *OutputDataIOHelper::createFixedBinAxis(std::string line)
     size_t nbins(0);
 
     std::istringstream iss(line);
-    iss.imbue(std::locale::classic());
     if( !(iss >> type >> name >> nbins) )
         throw Exceptions::FormatErrorException("OutputDataIOHelper::createFixedBinAxis() -> Error. Can't parse the string.");
 
     std::vector<double> boundaries;
-    std::copy(std::istream_iterator<double>(iss),
-              std::istream_iterator<double>(), back_inserter(boundaries));
+    readLineOfDoubles(boundaries, iss);
 
     if(boundaries.size() != 2)
         throw Exceptions::FormatErrorException("OutputDataIOHelper::createFixedBinAxis() -> Error. Can't parse the string at p2.");
@@ -185,12 +184,10 @@ IAxis *OutputDataIOHelper::createVariableBinAxis(std::string line)
     size_t nbins(0);
 
     std::istringstream iss(line);
-    iss.imbue(std::locale::classic());
     if( !(iss >> type >> name >> nbins) )
         throw Exceptions::FormatErrorException("OutputDataIOHelper::createVariableBinAxis() -> Error. Can't parse the string.");
     std::vector<double> boundaries;
-    std::copy(std::istream_iterator<double>(iss),
-              std::istream_iterator<double>(), back_inserter(boundaries));
+    readLineOfDoubles(boundaries, iss);
     if(boundaries.size() != nbins+1)
         throw Exceptions::FormatErrorException("OutputDataIOHelper::createVariableBinAxis() -> Error. Can't parse the string at p2.");
     return new VariableBinAxis(name, nbins, boundaries);
@@ -207,10 +204,8 @@ void OutputDataIOHelper::fillOutputData(OutputData<double> *data, std::istream &
         if(line.empty() || line[0] == '#') break;
 
         std::istringstream iss(line);
-        iss.imbue(std::locale::classic());
         std::vector<double> buffer;
-        std::copy(std::istream_iterator<double>(iss),
-                  std::istream_iterator<double>(), back_inserter(buffer));
+        readLineOfDoubles(buffer, iss);
         for (auto value : buffer) {
             *it = value;
             ++it;
@@ -218,4 +213,11 @@ void OutputDataIOHelper::fillOutputData(OutputData<double> *data, std::istream &
     }
     if(it!= data->end())
         throw Exceptions::FormatErrorException("OutputDataIOHelper::fillOutputData() -> Error while parsing data.");
+}
+
+void OutputDataIOHelper::readLineOfDoubles(std::vector<double> &buffer, std::istringstream &iss)
+{
+    iss.imbue(std::locale::classic());
+    std::copy(std::istream_iterator<double>(iss),
+              std::istream_iterator<double>(), back_inserter(buffer));
 }

@@ -51,22 +51,14 @@ QMap<IDetector2D::EAxesUnits, QString> init_description_to_units_map() {
 
 }
 
+
+// -------------------------------------------------------------------------------------------------
+
 QMap<QString, IDetector2D::EAxesUnits> JobResultsPresenter::m_name_to_units
 = init_units_to_description_map();
 
 QMap<IDetector2D::EAxesUnits, QString> JobResultsPresenter::m_units_to_name
 = init_description_to_units_map();
-
-
-QString JobResultsPresenter::getNameFromAxesUnits(IDetector2D::EAxesUnits units)
-{
-    return m_units_to_name[units];
-}
-
-IDetector2D::EAxesUnits JobResultsPresenter::getAxesUnitsFromName(const QString &name)
-{
-    return m_name_to_units[name];
-}
 
 void JobResultsPresenter::setResults(IntensityDataItem *intensityItem, const GISASSimulation *simulation)
 {
@@ -76,20 +68,6 @@ void JobResultsPresenter::setResults(IntensityDataItem *intensityItem, const GIS
 
     IDetector2D::EAxesUnits selected_units = getAxesUnitsFromName(intensityItem->getSelectedAxesUnits());
     intensityItem->setOutputData(simulation->getDetectorIntensity(selected_units));
-}
-
-// Converts detector default axes units into units most suitable for GUI
-// SphericalDetector's default units (RADIANS) will be converted to DEGREES
-// RectangularDetector's default units (MM) will remain the same
-IDetector2D::EAxesUnits
-JobResultsPresenter::preferableGUIAxesUnits(IDetector2D::EAxesUnits default_units)
-{
-    if (default_units == IDetector2D::RADIANS)
-        return IDetector2D::DEGREES;
-    if (default_units == IDetector2D::MM)
-        return IDetector2D::DEGREES;
-
-    return default_units;
 }
 
 //! Updates axes of OutputData in IntensityData item to correspond
@@ -105,20 +83,12 @@ void JobResultsPresenter::updateDataAxes(IntensityDataItem *intensityItem,
 
     IDetector2D::EAxesUnits requested_units = getAxesUnitsFromName(intensityItem->getSelectedAxesUnits());
 
-//    DomainObjectBuilder builder;
-//    auto instrument = builder.buildInstrument(*instrumentItem);
-//    instrument->initDetector();
-
-//    OutputData<double> *newData = instrument->getDetector()
-//            ->createDetectorMap(instrument->getBeam(), requested_units);
-//    Q_ASSERT(newData);
-
     OutputData<double> *newData = createDetectorMap(instrumentItem, requested_units);
-
     newData->setRawDataVector(intensityItem->getOutputData()->getRawDataVector());
 
     intensityItem->setOutputData(newData);
     intensityItem->setAxesRangeToData();
+    updateAxesTitle(intensityItem);
 }
 
 //! Saves intensityData in project directory
@@ -136,11 +106,37 @@ void JobResultsPresenter::saveIntensityData(JobItem *jobItem, const QString &pro
     }
 }
 
+QString JobResultsPresenter::getNameFromAxesUnits(IDetector2D::EAxesUnits units)
+{
+    return m_units_to_name[units];
+}
+
+IDetector2D::EAxesUnits JobResultsPresenter::getAxesUnitsFromName(const QString &name)
+{
+    return m_name_to_units[name];
+}
+
+
+// Converts detector default axes units into units most suitable for GUI
+// SphericalDetector's default units (RADIANS) will be converted to DEGREES
+// RectangularDetector's default units (MM) will remain the same
+IDetector2D::EAxesUnits
+JobResultsPresenter::preferableGUIAxesUnits(IDetector2D::EAxesUnits default_units)
+{
+    if (default_units == IDetector2D::RADIANS)
+        return IDetector2D::DEGREES;
+    if (default_units == IDetector2D::MM)
+        return IDetector2D::DEGREES;
+
+    return default_units;
+}
+
 //! inits properties of IntensityDataItem for the case of selectable axes units
 //! If P_AXES_UNITS is empty, it will be initialized to match the detector
 void JobResultsPresenter::initIntensityItemProperties(IntensityDataItem *intensityItem,
                                                       const IDetector2D *detector)
 {
+    // selectable units
     ComboProperty combo = intensityItem->getRegisteredProperty(IntensityDataItem::P_AXES_UNITS)
             .value<ComboProperty>();
 
@@ -157,6 +153,31 @@ void JobResultsPresenter::initIntensityItemProperties(IntensityDataItem *intensi
         intensityItem->setRegisteredProperty(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
     }
 
+}
+
+void JobResultsPresenter::updateAxesTitle(IntensityDataItem *intensityItem)
+{
+    // axes labels
+    if(intensityItem->getSelectedAxesUnits() == Constants::UnitsRadians) {
+        intensityItem->setXaxisTitle("phi_f [rad]");
+        intensityItem->setYaxisTitle("alpha_f [rad]");
+    }
+    else if(intensityItem->getSelectedAxesUnits() == Constants::UnitsDegrees) {
+        intensityItem->setXaxisTitle("phi_f [deg]");
+        intensityItem->setYaxisTitle("alpha_f [deg]");
+    }
+    else if(intensityItem->getSelectedAxesUnits() == Constants::UnitsQyQz) {
+        intensityItem->setXaxisTitle("Qy");
+        intensityItem->setYaxisTitle("Qz");
+    }
+    else if(intensityItem->getSelectedAxesUnits() == Constants::UnitsMm) {
+        intensityItem->setXaxisTitle("X [mm]");
+        intensityItem->setYaxisTitle("Y [mm]");
+    }
+    else if(intensityItem->getSelectedAxesUnits() == Constants::UnitsNbins) {
+        intensityItem->setXaxisTitle("X [nbins]");
+        intensityItem->setYaxisTitle("Y [nbins]");
+    }
 }
 
 //! creates detector map from instrument description with axes corresponding to given units

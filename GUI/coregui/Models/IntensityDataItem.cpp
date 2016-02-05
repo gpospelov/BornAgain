@@ -96,8 +96,11 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
         setUpperY(getYmax());
     }
 
-    setXaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::X_AXIS_INDEX)->getName()));
-    setYaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getName()));
+    if(getXaxisTitle().isEmpty())
+        setXaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::X_AXIS_INDEX)->getName()));
+
+    if(getYaxisTitle().isEmpty())
+        setYaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getName()));
 
     blockSignals(false);
     qDebug() << "Emmitting intensityModified();";

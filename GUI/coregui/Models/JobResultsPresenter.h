@@ -31,18 +31,9 @@ class JobItem;
 class BA_CORE_API_ JobResultsPresenter
 {
 public:
-
-    //! returns axes units names from their domain counterpart
-    static QString getNameFromAxesUnits(IDetector2D::EAxesUnits units);
-
-    //! returns domain axes units type from their GUI name
-    static IDetector2D::EAxesUnits getAxesUnitsFromName(const QString &name);
-
     //! Sets simulation results into the IntensityDataItem
     static void setResults(IntensityDataItem *intensityItem, const GISASSimulation *simulation);
 
-    //! converts detector default axes units into units most suitable for GUI
-    static IDetector2D::EAxesUnits preferableGUIAxesUnits(IDetector2D::EAxesUnits default_units);
 
     //! updates axes of OutputData in IntensityData item
     static void updateDataAxes(IntensityDataItem *intensityItem,
@@ -52,7 +43,18 @@ public:
     static void saveIntensityData(JobItem *jobItem, const QString &projectDir);
 
 private:
+    //! returns axes units names from their domain counterpart
+    static QString getNameFromAxesUnits(IDetector2D::EAxesUnits units);
+
+    //! returns domain axes units type from their GUI name
+    static IDetector2D::EAxesUnits getAxesUnitsFromName(const QString &name);
+
+    //! converts detector default axes units into units most suitable for GUI
+    static IDetector2D::EAxesUnits preferableGUIAxesUnits(IDetector2D::EAxesUnits default_units);
+
     static void initIntensityItemProperties(IntensityDataItem *intensityItem, const IDetector2D *detector);
+
+    static void updateAxesTitle(IntensityDataItem *intensityItem);
 
     static OutputData<double> *createDetectorMap(const InstrumentItem *instrumentItem,
                                                  IDetector2D::EAxesUnits units = IDetector2D::DEFAULT);
@@ -62,6 +64,7 @@ private:
 
     //!< correspondance of domain detector axes types to their gui counterpart
     static QMap<IDetector2D::EAxesUnits, QString> m_units_to_name;
+
 };
 
 

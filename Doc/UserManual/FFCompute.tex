@@ -19,7 +19,7 @@
 \index{Form factor!computation|(}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introduction}
+\section{Introduction}\label{SShapeTrafIntro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The Form factor of a hard-shell particle is simply its \E{shape transform},
@@ -94,55 +94,48 @@ Therefore we shall consider a few such cases more closely.
 \def\uqp{\v{\hat p}}
 
 To derive the form factor of prisms and pyramids with polygonal bases
-we need the form factor
-\begin{equation}\label{Eff2d}
-  F(\q)=\int_A\!\d^2r\, \e^{i\q\r},
-\end{equation}
-of an arbitrary planar polygon of area~$A$.
+we need the form factor of an arbitrary planar polygon~$\Pi$.
 The solution is known from the literature~\cite{LeMi83},
 but shall be derived here by a different method.
-
-The plane of the polygon has a normal~$\n$.
-This induces a decomposition of any vector~$\x$ into normal
+The plane of the polygon has a normal~$\n$,
+which induces a decomposition of any vector~$\x$ into normal
 and in-plane components
 \begin{equation}
   \x_\perp\coloneqq (\n\x)\x,\quad
-  \x_\parallel\coloneqq\x-\x_\perp,
+  \x_\parallel\coloneqq\x-\x_\perp.
 \end{equation}
-% $\n\times\x_\perp=0$, $\n\x_\parallel=0$, $\x_\parallel\x_\perp=0$.
-which allows us to rewrite~(\ref{Eff2d}) as
+Position vectors~$\r$ in the polygon's plane obey~$\r\n=r_\perp$.
+Accordingly, the form factor of the affine polygon~$\r_\perp+\Pi$
+can be written as
 \nomenclature[2f134 2q040]{$F_\parallel(\q)$}{Two-dimensional form factor of planar figure}%
-\begin{equation}
-  F(\q)=\e^{iq_\perp r_\perp}F_\parallel(\q_\parallel)
+\begin{equation}\label{Eff2d}
+  F(\q)
+  = \int_{\r_\perp+\Pi}\!\d^2r\, \e^{i\q\r}
+  =\e^{iq_\perp r_\perp} \int_{\Pi}\!\d^2r\, \e^{i\q_\parallel\r}
+  \eqqcolon \e^{iq_\perp r_\perp} F_\parallel(\q_\parallel).
 \end{equation}
-with the two-dimensional form factor
+The two-dimensional form factor~$F_\parallel$
+can be transformed with the help of Stokes's theorem
 \begin{equation}
-  F_\parallel(\qp)
-  \coloneqq \int_A\!\d^2r_\parallel\, \e^{i\qp\r_\parallel}.
+  \iint\!\d r^2\,\n\cdot\Nabla\times\v{G} = \oint \d\v{r}\cdot\v{G},
 \end{equation}
-In the following, we shall drop the subscript~$\parallel$
-from the integration variable~$\r_\parallel$,
-as we have done for the function argument $\qp\coloneqq\q_\parallel$.
-Using Stokes's theorem
+and with the choice $\v{G}\coloneqq\v{a}\, \e^{i\qp\r}$, $\qp\coloneqq\q_\parallel$,
+into a line integral
 \begin{equation}
-  \iint_A\!\d r^2\,\n\cdot\Nabla\times\v{G} = \oint_{\partial A} \d\v{r}\cdot\v{G},
+  F_\parallel(\qp)=\frac{\v{a}}{i\, \n(\qp\times\v{a})} \oint_{\partial\Pi} \d\v{r}\,\e^{i\qp\r}.
 \end{equation}
-with $\v{G}\coloneqq\v{a}\, \e^{i\qp\r}$,
-we obtain the form factor as a line integral
-\begin{equation}
-  F_\parallel(\qp)=\frac{\v{a}}{i\, \n(\qp\times\v{a})} \oint \d\v{r}\,\e^{i\qp\r}.
-\end{equation}
-With the choice $\v{a}\coloneqq\n\times\uqp_\parallel^*$,
-the form factor becomes
+With the further choice $\v{a}\coloneqq\n\times\uqp^*$
+and the notations $p\coloneqq|\qp|=(\qp\qp^*)^{1/2}$, $\uqp\coloneqq\qp/p$,
+this becomes
 \begin{equation}\label{Elastoint}
   F_\parallel(\qp)=\frac{\n\times\uqp^*}{i\,p} \oint \d\v{r}\,\e^{i\qp\r}.
 \end{equation}
-The polygon shall be given by its $N$ vertices $\V_0,\ldots,\V_{N-1}$.
-It is convenient to abbreviate $\V_N\coloneqq\V_0$.
+Let the polygon have $N$ vertices $\V_0,\ldots,\V_{N-1}$,
+and put $\V_N\coloneqq\V_0$.
 The edges of the polygon shall parametrized by
 \begin{equation}
   \r(\lambda) = \frac{\V_{j+1}+\V_j}{2} + \frac{\V_{j+1}-\V_j}{2} \lambda
-  \eqqcolon \V_j + \E_j\lambda.
+  \eqqcolon \R_j + \E_j\lambda.
 \end{equation}
 with $-1\le\lambda\le+1$.
 The line integral~(\ref{Elastoint}) then takes the form
@@ -156,17 +149,17 @@ and yields
     F_\parallel(\qp)
     = \frac{2\n\times\uqp^*}{ip} \sum_{j=0}^{N-1} \E_j \sinc(\qp\E_j) \e^{i\qp\R_j}.
 \end{equation}
-The line singularities for $\qp\perp\E_j$ having gracefully disappeared in the
-sinc function,
-we are left with a point singularity at $p=0$.
-It is easily seen that this singularity is removable:
-On expanding the term under the sum in~$\qp$,
-the $\qp^0$ term vanishes because $\sum\E_j=0$.
-The leading term is therefore
+The removable singularity for $\q_\parallel\E_j=0$
+is handled by the sinc function, as discussed in Sect.~\ref{SShapeTrafIntro}.
+Furthermore, there is a singularity at $q_\parallel=0$.
+To see that it is removable,
+expand the term under the sum in~$\qp$,
+and use $\sum\E_j=0$.
+The leading nonvanishing term is
 \begin{equation}
   \begin{array}{@{}lcl}
   F_\parallel(\qp\!\to\!0)
-    &\doteq& \displaystyle 2\sum \n(\uqp^*\times\E_j) (\uqp\V_j)\\[3ex]
+    &\doteq& \displaystyle 2\sum \n(\uqp^*\times\E_j) (\uqp\R_j)\\[3ex]
     &=&\displaystyle \frac{1}{2}\sum \n\left\{
         (\uqp^*\times\V_{j+1})(\uqp\V_j)
       - (\uqp^*\times\V_j)(\uqp\V_{j+1})
@@ -185,7 +178,7 @@ of exponentials,
 \end{equation}
 For this purpose,
 we spell out~(\ref{Effpolygon}) as
-\begin{equation}\label{Effpolygon}
+\begin{equation}
     F_\parallel(\qp)
     = \frac{\n\times\uqp^*}{p} \sum_{j=0}^{N-1} \frac{\E_j}{\qp\E_j}
        \left(\e^{i\qp\V_j}-\e^{i\qp\V_{j+1}}\right).
@@ -208,9 +201,9 @@ We write $N\eqqcolon2n$
 and make use of $\V_{j+n}=-\V_j$ to transform~(\ref{Effpolygon}) into
 \begin{equation}\label{Eff2ngon}
     F_\parallel(\qp) = \displaystyle 4 \sum_{j=0}^{n-1}
-              \n(\uqp^*\times\E_j) (\uqp\V_j) \sinc(\qp\E_j) \sinc(\qp\V_j),
+              \n(\uqp^*\times\E_j) (\uqp\R_j) \sinc(\qp\E_j) \sinc(\qp\R_j),
 \end{equation}
-where even the point singularity at $p=0$ is absorbed in a sinc function.
+where the singularity at $p=0$ is absorbed in a second sinc function.
 \index{Form factor!polygon|)}%
 \index{Polygon!form factor|)}%
 

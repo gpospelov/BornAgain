@@ -42,6 +42,7 @@ public:
     explicit IntensityDataItem(ParameterizedItem *parent=0);
     virtual ~IntensityDataItem();
 
+    OutputData<double> *getOutputData() { return m_data.get(); }
     const OutputData<double> *getOutputData() const { return m_data.get(); }
     void setOutputData(OutputData<double> *data);
 

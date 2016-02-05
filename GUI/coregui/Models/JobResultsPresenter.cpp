@@ -25,10 +25,13 @@
 #include "GUIHelpers.h"
 #include "JobItem.h"
 #include "IntensityDataIOFactory.h"
+#include <QFileInfo>
 #include <QDebug>
 
-namespace {
-QMap<QString, IDetector2D::EAxesUnits> init_units_to_description_map() {
+namespace
+{
+QMap<QString, IDetector2D::EAxesUnits> init_units_to_description_map()
+{
     QMap<QString, IDetector2D::EAxesUnits> result;
     result[Constants::UnitsNbins] = IDetector2D::NBINS;
     result[Constants::UnitsRadians] = IDetector2D::RADIANS;
@@ -38,7 +41,8 @@ QMap<QString, IDetector2D::EAxesUnits> init_units_to_description_map() {
     return result;
 }
 
-QMap<IDetector2D::EAxesUnits, QString> init_description_to_units_map() {
+QMap<IDetector2D::EAxesUnits, QString> init_description_to_units_map()
+{
     QMap<IDetector2D::EAxesUnits, QString> result;
     result[IDetector2D::NBINS] = Constants::UnitsNbins;
     result[IDetector2D::RADIANS] = Constants::UnitsRadians;
@@ -47,27 +51,27 @@ QMap<IDetector2D::EAxesUnits, QString> init_description_to_units_map() {
     result[IDetector2D::QYQZ] = Constants::UnitsQyQz;
     return result;
 }
-
-
 }
-
 
 // -------------------------------------------------------------------------------------------------
 
 QMap<QString, IDetector2D::EAxesUnits> JobResultsPresenter::m_name_to_units
-= init_units_to_description_map();
+    = init_units_to_description_map();
 
 QMap<IDetector2D::EAxesUnits, QString> JobResultsPresenter::m_units_to_name
-= init_description_to_units_map();
+    = init_description_to_units_map();
 
-void JobResultsPresenter::setResults(IntensityDataItem *intensityItem, const GISASSimulation *simulation)
+void JobResultsPresenter::setResults(IntensityDataItem *intensityItem,
+                                     const GISASSimulation *simulation)
 {
     const IDetector2D *detector = simulation->getInstrument().getDetector();
 
     initIntensityItemProperties(intensityItem, detector);
 
-    IDetector2D::EAxesUnits selected_units = getAxesUnitsFromName(intensityItem->getSelectedAxesUnits());
+    IDetector2D::EAxesUnits selected_units
+        = getAxesUnitsFromName(intensityItem->getSelectedAxesUnits());
     intensityItem->setOutputData(simulation->getDetectorIntensity(selected_units));
+    updateAxesTitle(intensityItem);
 }
 
 //! Updates axes of OutputData in IntensityData item to correspond
@@ -79,9 +83,11 @@ void JobResultsPresenter::updateDataAxes(IntensityDataItem *intensityItem,
     Q_ASSERT(intensityItem);
     Q_ASSERT(instrumentItem);
 
-    if(!intensityItem->getOutputData()) return;
+    if (!intensityItem->getOutputData())
+        return;
 
-    IDetector2D::EAxesUnits requested_units = getAxesUnitsFromName(intensityItem->getSelectedAxesUnits());
+    IDetector2D::EAxesUnits requested_units
+        = getAxesUnitsFromName(intensityItem->getSelectedAxesUnits());
 
     OutputData<double> *newData = createDetectorMap(instrumentItem, requested_units);
     newData->setRawDataVector(intensityItem->getOutputData()->getRawDataVector());
@@ -100,9 +106,48 @@ void JobResultsPresenter::saveIntensityData(JobItem *jobItem, const QString &pro
         QString filename = projectDir + QStringLiteral("/") + dataItem->itemName();
 
         std::unique_ptr<OutputData<double>> dataToSave(
-            createDetectorMap(jobItem->getInstrumentItem()));
+            createDetectorMap(jobItem->getInstrumentItem(), IDetector2D::DEFAULT));
         dataToSave->setRawDataVector(dataItem->getOutputData()->getRawDataVector());
         IntensityDataIOFactory::writeOutputData(*dataToSave, filename.toStdString());
+    }
+}
+
+//! Loads intensityData from project directory
+//! IntensityDataItem will be initialized to match last selected axes
+void JobResultsPresenter::loadIntensityData(JobItem *jobItem, const QString &projectDir)
+{
+    IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();
+    if (intensityItem) {
+        QString filename = projectDir + "/" + intensityItem->itemName();
+        QFileInfo info(filename);
+        if (info.exists()) {
+            IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();
+
+            if (intensityItem) {
+                DomainObjectBuilder builder;
+                auto instrument = builder.buildInstrument(*jobItem->getInstrumentItem());
+                instrument->initDetector();
+                initIntensityItemProperties(intensityItem, instrument->getDetector());
+
+                std::unique_ptr<OutputData<double>> rawData(
+                    IntensityDataIOFactory::readOutputData(filename.toStdString()));
+
+                IDetector2D::EAxesUnits requested_units
+                    = getAxesUnitsFromName(intensityItem->getSelectedAxesUnits());
+
+                OutputData<double> *result = instrument->getDetector()->createDetectorMap(
+                    instrument->getBeam(), requested_units);
+
+                result->setRawDataVector(rawData->getRawDataVector());
+                intensityItem->setOutputData(result);
+            }
+        } else {
+            jobItem->setStatus(Constants::STATUS_FAILED);
+            QString warning("Error while loading job from file, intensity data file '");
+            warning.append(filename);
+            warning.append("' was not found");
+            jobItem->setComments(warning);
+        }
     }
 }
 
@@ -115,7 +160,6 @@ IDetector2D::EAxesUnits JobResultsPresenter::getAxesUnitsFromName(const QString 
 {
     return m_name_to_units[name];
 }
-
 
 // Converts detector default axes units into units most suitable for GUI
 // SphericalDetector's default units (RADIANS) will be converted to DEGREES
@@ -132,49 +176,47 @@ JobResultsPresenter::preferableGUIAxesUnits(IDetector2D::EAxesUnits default_unit
 }
 
 //! inits properties of IntensityDataItem for the case of selectable axes units
-//! If P_AXES_UNITS is empty, it will be initialized to match the detector
 void JobResultsPresenter::initIntensityItemProperties(IntensityDataItem *intensityItem,
                                                       const IDetector2D *detector)
 {
-    // selectable units
     ComboProperty combo = intensityItem->getRegisteredProperty(IntensityDataItem::P_AXES_UNITS)
-            .value<ComboProperty>();
+                              .value<ComboProperty>();
 
-    if(combo.getValues().isEmpty()) {
-        intensityItem->getPropertyAttribute(IntensityDataItem::P_AXES_UNITS).setVisible();
+    QString cachedUnits = combo.getCachedValue();
 
-        foreach (auto units, detector->getValidAxesUnits()) {
-            combo << getNameFromAxesUnits(units);
-        }
-        IDetector2D::EAxesUnits preferrable_units
-            = preferableGUIAxesUnits(detector->getDefaultAxesUnits());
+    intensityItem->getPropertyAttribute(IntensityDataItem::P_AXES_UNITS).setVisible();
 
-        combo.setValue(getNameFromAxesUnits(preferrable_units));
-        intensityItem->setRegisteredProperty(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
+    foreach (auto units, detector->getValidAxesUnits()) {
+        combo << getNameFromAxesUnits(units);
     }
 
+    if (cachedUnits.isEmpty()) {
+        IDetector2D::EAxesUnits preferrable_units
+            = preferableGUIAxesUnits(detector->getDefaultAxesUnits());
+        combo.setValue(getNameFromAxesUnits(preferrable_units));
+    } else {
+        combo.setValue(cachedUnits);
+    }
+
+    intensityItem->setRegisteredProperty(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
 }
 
 void JobResultsPresenter::updateAxesTitle(IntensityDataItem *intensityItem)
 {
     // axes labels
-    if(intensityItem->getSelectedAxesUnits() == Constants::UnitsRadians) {
+    if (intensityItem->getSelectedAxesUnits() == Constants::UnitsRadians) {
         intensityItem->setXaxisTitle("phi_f [rad]");
         intensityItem->setYaxisTitle("alpha_f [rad]");
-    }
-    else if(intensityItem->getSelectedAxesUnits() == Constants::UnitsDegrees) {
+    } else if (intensityItem->getSelectedAxesUnits() == Constants::UnitsDegrees) {
         intensityItem->setXaxisTitle("phi_f [deg]");
         intensityItem->setYaxisTitle("alpha_f [deg]");
-    }
-    else if(intensityItem->getSelectedAxesUnits() == Constants::UnitsQyQz) {
+    } else if (intensityItem->getSelectedAxesUnits() == Constants::UnitsQyQz) {
         intensityItem->setXaxisTitle("Qy");
         intensityItem->setYaxisTitle("Qz");
-    }
-    else if(intensityItem->getSelectedAxesUnits() == Constants::UnitsMm) {
+    } else if (intensityItem->getSelectedAxesUnits() == Constants::UnitsMm) {
         intensityItem->setXaxisTitle("X [mm]");
         intensityItem->setYaxisTitle("Y [mm]");
-    }
-    else if(intensityItem->getSelectedAxesUnits() == Constants::UnitsNbins) {
+    } else if (intensityItem->getSelectedAxesUnits() == Constants::UnitsNbins) {
         intensityItem->setXaxisTitle("X [nbins]");
         intensityItem->setYaxisTitle("Y [nbins]");
     }
@@ -188,17 +230,16 @@ OutputData<double> *JobResultsPresenter::createDetectorMap(const InstrumentItem 
     auto instrument = builder.buildInstrument(*instrumentItem);
     instrument->initDetector();
 
-    if(units == IDetector2D::DEFAULT)
+    if (units == IDetector2D::DEFAULT)
         units = instrument->getDetector()->getDefaultAxesUnits();
 
-    OutputData<double> *result = instrument->getDetector()
-            ->createDetectorMap(instrument->getBeam(), units);
+    OutputData<double> *result
+        = instrument->getDetector()->createDetectorMap(instrument->getBeam(), units);
 
-    if(!result) {
+    if (!result) {
         throw GUIHelpers::Error("JobResultsPresenter::createDetectorMap -> Error. "
                                 "Can't create detector map.");
     }
 
     return result;
 }
-

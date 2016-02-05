@@ -124,12 +124,11 @@ void JobItem::setStatus(const QString &status)
     combo_property.setValue(status);
     setRegisteredProperty(P_STATUS, combo_property.getVariant());
     if(status == Constants::STATUS_FAILED) {
-        Q_ASSERT(0);
-//        if(IntensityDataItem *intensityItem = getIntensityDataItem()) {
-//            if(intensityItem->getOutputData())
-//                intensityItem->getOutputData()->setAllTo(0.0);
-//                emit intensityItem->intensityModified();
-//        }
+        if(IntensityDataItem *intensityItem = getIntensityDataItem()) {
+            if(intensityItem->getOutputData())
+                intensityItem->getOutputData()->setAllTo(0.0);
+                emit intensityItem->intensityModified();
+        }
     }
 }
 
@@ -259,6 +258,8 @@ InstrumentItem *JobItem::getInstrumentItem(bool from_backup)
 void JobItem::setResults(const GISASSimulation *simulation)
 {
     IntensityDataItem *intensityItem = getIntensityDataItem();
+    Q_ASSERT(intensityItem);
+
     JobResultsPresenter::setResults(intensityItem, simulation);
 
 

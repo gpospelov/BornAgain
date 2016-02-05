@@ -212,11 +212,9 @@ void JobQueueData::onFinishedJob()
     jobItem->setStatus(runner->getStatus());
     if(jobItem->isFailed()) {
         jobItem->setComments(runner->getFailureMessage());
-        delete getSimulation(runner->getIdentifier());
     } else {
         // propagating simulation results
         GISASSimulation *simulation = getSimulation(runner->getIdentifier());
-//        setResults(jobItem, simulation);
         jobItem->setResults(simulation);
     }
 
@@ -317,7 +315,7 @@ void JobQueueData::assignForDeletion(JobRunner *runner)
 
 void JobQueueData::clearSimulation(const QString &identifier)
 {
-//    GISASSimulation *simulation = getSimulation(identifier);
+    GISASSimulation *simulation = getSimulation(identifier);
     m_simulations.remove(identifier);
-    // delete simulation; now owned by IntensityDataItem
+    delete simulation;
 }

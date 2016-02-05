@@ -226,54 +226,72 @@ This result is used in our implementation of \texttt{FormFactorPrism6}
 \index{Pyramid!form factor|(}%
 \index{Frustum!form factor|(}%
 
-Quite generally, we describe particles
-as being based at $z=0$ and extending up to a height~$H$.
+Pyramids, cones, and several other simple particle geometries
+ have cross sections~$\rho(r_\perp)\Sigma$ that scale
+with a function~$\rho$ of the perpendicular coordinate~$r_\perp$.
 Accordingly,
-the three-dimensional form factor~(\ref{Eff3d}) is
-\begin{equation}
-  F(\q) = \int_0^H\!\d z\,\e^{iq_z z} F_\parallel(\q_\parallel,z)
+the three-dimensional form factor is
+\begin{equation}\label{Epyr1}
+  F(\q)
+  = \int\!\d r_\perp\,\e^{iq_\perp r_\perp} F_\parallel(\q_\parallel,\rho(r_\perp)\Sigma_0).
 \end{equation}
-with a two-dimensional form factor~$F_\parallel(\q_\parallel,z)$
-of the horizontal section at given~$z$.
-If this section has constant shape at variable size,
-so that it scales with some dimensionless function~$\rho(z)$,
-then the two-dimensional form factor~(\ref{Eff2d})
-can be written as
+The two-dimensional form factor
 \begin{equation}
-  F_\parallel(\q_\parallel,z)
-  = {\rho(z)}^2\, F_\parallel\left(\rho(z)\q_\parallel,0\right).
+  F_\parallel(\qp,\Sigma) \coloneqq \int_\Sigma\!\d^2r\,\e^{i\qp\r}
 \end{equation}
-Depending on the geometry of the base,
-its form factor can be written as a finite or infinite series
+scales as
 \begin{equation}
-  F_\parallel(\q_\parallel,0)=q_\parallel^{-2}\sum_j A_j \e^{i\q_\parallel \v{c}_j},
+  F_\parallel(\qp,\rho\Sigma) = \rho^2 F_\parallel(\rho\qp,\Sigma).
 \end{equation}
-as demonstrated for polygonal bases in~(\ref{Effpolygon_expsum}).
-Accordingly, the three-dimensional form factor can be computed as
+For fixed shape~$\Sigma$,
+it can be written as a finite or infinite series
 \begin{equation}
-  F(\q) = \sum_j A_j \int_0^H\!\d z\,\e^{iq_z z} \e^{i\rho(z)\q_\parallel \v{c}_j}.
+  F_\parallel(\qp,\Sigma)=p^{-2}\sum_j A_j\, \e^{i\qp \v{c}_j},
 \end{equation}
-We now specialize to pyramids,
-for which
+as demonstrated for polygonal cross sections in~(\ref{Effpolygon_expsum}).
+Accordingly, the three-dimen\-sional form factor~(\ref{Epyr1})~is
+\begin{equation}
+  \begin{array}{@{}lcl}
+  F(\q)
+  &=& \displaystyle
+       \int\!\d r_\perp\,\e^{iq_\perp r_\perp}\,\rho(r_\perp)^2 F_\parallel(\rho(r_\perp)\q_\parallel,\Sigma)
+\\[3ex]
+  &=& \displaystyle
+      q_\parallel^{-2}  \sum_j A_j
+      \int\!\d r_\perp\,\e^{i(q_\perp r_\perp+\q_\parallel \v{c}_j\rho(r_\perp))}.
+  \end{array}
+\end{equation}
+We now specialize to pyramids and cones,
+for which $\rho$ is an affine-linear function of~$r_\perp$.
+To alleviate notation,
+we assume that $\r_\perp$ points into $z$~direction,
+that the pyramid is based at $z=0$, and that it extends up to a height~$H$.
+The function~$\rho$ is then
 \begin{equation}
   \rho(z) = 1-z/H_0
 \end{equation}
 with a parameter $H_0\le H$.
 Unless the equal sign holds,
 the pyramid is a truncated one (a frustum).
-The form factor becomes
+The form factor
 \begin{equation}
   \begin{array}{@{}lcl}
   F(\q)
   &=& \displaystyle
-       \e^{iq_z H_0} \sum_j A_j \int_0^H\!\d z\,\e^{i(-q_zH_0 +\q_\parallel \v{c}_j)\rho(z)}
+      q_\parallel^{-2}  \sum_j A_j \e^{i\q_\parallel \v{c}_j}
+      \int_0^H\!\d z\,\e^{i(q_z-\q_\parallel \v{c}_j/H_0)z}
 \\[3ex]
   &=& \displaystyle
-       H\, \e^{iq_z H_0} \sum_j A_j \e^{i(q_z ?????? + \q_\parallel\v{c}_jH/(2H_0))}
-          \sinc\left(\q_\parallel\v{c}_j\frac{H}{2H_0}\right).
+       q_\parallel^{-2} H_0\, \sum_j A_j  \e^{i\q_\parallel \v{c}_j}
+          \frac{\e^{i\left(q_z-\q_\parallel\v{c}_j/H_0\right)H}-1}
+               {i\left(q_z H_0 - \q_\parallel\v{c}_j\right)}
   \end{array}
 \end{equation}
-
+can be brought into the numerically stable form
+\begin{equation}
+         H_0\, \e^{iq_z H_0} \sum_j A_j \e^{i(q_z ?????? + \q_\parallel\v{c}_jH/(2H_0))}
+          \sinc\left(\q_\parallel\v{c}_j\frac{H}{2H_0}\right).
+\end{equation}
 \index{Form factor!frustum)}%
 \index{Form factor!pyramid)}%
 \index{Pyramid!form factor|)}%

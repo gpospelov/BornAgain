@@ -263,7 +263,7 @@ We now assume that the pyramid is based at $r_\perp=0$,
 and extends up to a height~$H$.
 The function~$\rho$ is then
 \begin{equation}
-  \rho(z) = 1-z/H_0
+  \rho(r_\perp) = 1-r_\perp/H_0
 \end{equation}
 with a parameter $H_0\le H$.
 Unless the equal sign holds,
@@ -276,22 +276,22 @@ The form factor thence becomes
   F(\q)
   &=& \displaystyle
       q_\parallel^{-2}  \sum_j b_j \e^{i\q_\parallel \V_j}
-      \int_0^{H_0\eta}\!\d z\,\e^{i(q_z-\q_\parallel \V_j/H_0)z}
+      \int_0^{H_0\eta}\!\d r_\perp\,\e^{i(q_\perp-\q_\parallel \V_j/H_0)r_\perp}
 \\[3ex]
   &=& \displaystyle
        q_\parallel^{-2} H_0\, \sum_j b_j  
-          \frac{\e^{i\left(q_zH_0-\q_\parallel\V_j\right)\eta}-1}
-               {i\left(q_z H_0 - \q_\parallel\V_j\right)}
+          \frac{\e^{i\left(q_\perp H_0-\q_\parallel\V_j\right)\eta}-1}
+               {i\left(q_\perp H_0 - \q_\parallel\V_j\right)}
                \e^{i\q_\parallel \V_j}.
   \end{array}
 \end{equation}
-Delegating the handling of the removable singularity at~$q_zH_0=\q_\parallel\V_j$
+Delegating the handling of the removable singularity at~$q_\perp H_0=\q_\parallel\V_j$
 to the sinc function,
 we write it as
 \Emph{
 \begin{equation}
   F(\q)
-  = q_\parallel^{-2} H_0\, \e^{iq_z H_0/2} \sum_{j=0}^{N-1} b_j
+  = q_\parallel^{-2} H_0\, \e^{iq_\perp H_0/2} \sum_{j=0}^{N-1} b_j
     \sinc\left((q_\perp H_0 - \q_\parallel\V_j)\frac{\eta}{2}\right)
      \e^{i\q_\parallel\V_j(1-\eta/2)}.
 \end{equation}
@@ -301,7 +301,7 @@ to obtain
 \Emph{
 \begin{equation}
   F(\q)
-  = \frac{2i}{q_\parallel}H_0(1-\frac{\eta}{2})\, \e^{iq_z H_0/2}
+  = \frac{2i}{q_\parallel}H_0(1-\frac{\eta}{2})\, \e^{iq_\perp H_0/2}
     \sum_{j=0}^{n-1} b_j \v{\hat q}_\parallel\V_j
     \sinc\left((q_\perp H_0 - \q_\parallel\V_j)\frac{\eta}{2}\right)
      \sinc\left(\q_\parallel\V_j\left(1-\frac{\eta}{2}\right)\right).

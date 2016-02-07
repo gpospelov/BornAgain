@@ -52,13 +52,13 @@ It seems that \E{all} analytical form factors have a singularity at~$\q=0$.
 Furthermore, if the particle has \E{plane} surfaces,
 then there is a singularity for all $\q$ that are normal to one of these planes.
 A simple example is provided by the cuboid form factor (Sec.~\ref{SBox})
-\begin{equation}
+\begin{equation}\label{Eboxff}
 F= L W H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x \frac{L}{2}\right)
 \sinc\left(q_y \frac{W}{2}\right) \sinc\left(q_z \frac{H}{2}\right).
 \end{equation}
 If the \E{sinus cardinalis} is written as
 \index{Sinus cardinalis@Sinus cardinalis (sinc)!removable singularity}
-\begin{equation}
+\begin{equation}\label{Esinc}
   \sinc(u) = \frac{\sin(u)}{u},
 \end{equation}
 then there appears to be a singularity at $u=0$.
@@ -67,15 +67,40 @@ that this singularity can be removed by the interpolated value
 $\sinc(0)=1$,
 as is done in the generally agreed definition of the special function~$\sinc$.
 
-While all this is clear and easy,
-computations become more involved
+Unfortunately, other form factors are not as simple as~(\ref{Eboxff}).
+Computations become more involved
 if a particle has planes with normals that are not oriented along
 any of the axes of the Cartesian coordinate system.
 Typically then, the straightforward analytical solution of~(\ref{Eff3d})
 results in messy expressions that obscure the symmetries of~$F(\q)$,
 and make it difficult to recognize the singularities and
 to remove them.
-Therefore we shall consider a few such cases more closely.
+In the remaining sections of this appendix
+we shall consider a few such cases more closely.
+
+As a final preparation,
+let us anticipate that we will encounter terms like
+\begin{equation}\label{Eexpcancel}
+  \frac{\e^u-1}{u},\text{~or~}\frac{\e^u-1-u}{u^2}.
+\end{equation}
+Like in~(\ref{Esinc}), the singularity at~$u=0$ is removable.
+Close to the singularity, however, we must expect a loss of numeric
+precision because of cancellation with the numerator.
+To deal with the first of these cases, the POSIX standard
+for portable computer operating system interfaces foresees a function
+\begin{equation}\label{Eexpm1}
+  \expmone(u)\coloneqq \e^u-1
+\end{equation}
+that ought to be computed to standard floating-point accuracy
+even for $u\to0$.
+However, POSIX does not mandate implementation for complex arguments,
+so that we need to provide our own implementation.
+Furthermore,
+we implement
+\begin{equation}\label{Eexpm1}
+  \expmtwo(u)\coloneqq \e^u-1-u
+\end{equation}
+to deal with the second case in~(\ref{Eexpcancel}).
 
 % TODO? another concern: integrals without numeric solution
 
@@ -145,18 +170,17 @@ The line integral~(\ref{Elastoint}) then takes the form
               \int_{-1}^{+1}\!\d\lambda\, \frac{\d\r_j}{\d\lambda}\,\e^{i\qp\r},
 \end{equation}
 and yields
-\Emph{
 \begin{equation}\label{Effpolygon}
     F_\parallel(\qp)
     = \frac{2\n\times\uqp^*}{ip} \sum_{j=0}^{N-1} \E_j \sinc(\qp\E_j) \e^{i\qp\R_j}.
 \end{equation}
-}
 The removable singularity for $\q_\parallel\E_j=0$
 is handled by the sinc function, as discussed in Sec.~\ref{SShapeTrafIntro}.
 Furthermore, there is a singularity at $q_\parallel=0$.
 To see that it is removable,
 expand the term under the sum in~$\qp$,
 and use $\sum\E_j=0$.
+\iffalse
 The leading nonvanishing term is
 \begin{equation}
   \begin{array}{@{}lcl}
@@ -171,6 +195,7 @@ The leading nonvanishing term is
 \end{equation}
 which is the area of the polygon
 as given by a triangular tiling (with vertices at $\v{0},\V_j,\V_{j+1}$).
+\fi
 
 Later, when computing the form factor of pyramids,
 we will need to express $F_\parallel$ as a straightforward sum

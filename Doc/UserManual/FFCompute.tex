@@ -226,46 +226,41 @@ This result is used in our implementation of \texttt{FormFactorPrism6}
 \index{Pyramid!form factor|(}%
 \index{Frustum!form factor|(}%
 
-Pyramids, cones, and several other simple particle geometries
- have cross sections~$\rho(r_\perp)\Sigma$ that scale
-with a function~$\rho$ of the perpendicular coordinate~$r_\perp$.
-Accordingly,
-the three-dimensional form factor is
+We now consider pyramids with a polygonal base~$\Pi$.
+The cross section at perpendicular coordinate~$r_\perp$
+shall be written~$\rho(r_\perp)\Pi$,
+with a function~$\rho$ to be specified below.
+The three-dimensional form factor can be decomposed as
 \begin{equation}\label{Epyr1}
   F(\q)
-  = \int\!\d r_\perp\,\e^{iq_\perp r_\perp} F_\parallel(\q_\parallel,\rho(r_\perp)\Sigma_0).
+  = \int\!\d r_\perp\,\e^{iq_\perp r_\perp} F_\parallel(\q_\parallel,\rho(r_\perp)\Pi),
 \end{equation}
-The two-dimensional form factor
+with a two-dimensional form factor
 \begin{equation}
-  F_\parallel(\qp,\Sigma) \coloneqq \int_\Sigma\!\d^2r\,\e^{i\qp\r}
+  F_\parallel(\qp,\Pi) \coloneqq \int_\Pi\!\d^2r\,\e^{i\qp\r}
 \end{equation}
-scales as
+that scales as
 \begin{equation}
-  F_\parallel(\qp,\rho\Sigma) = \rho^2 F_\parallel(\rho\qp,\Sigma).
+  F_\parallel(\qp,\rho\Pi) = \rho^2 F_\parallel(\rho\qp,\Pi).
 \end{equation}
-For fixed shape~$\Sigma$,
-it can be written as a finite or infinite series
+From~(\ref{Effpolygon_expsum}) we know that~$F_\parallel$ can be written as
 \begin{equation}
-  F_\parallel(\qp,\Sigma)=p^{-2}\sum_j A_j\, \e^{i\qp \v{c}_j},
+  F_\parallel(\qp,\Pi)=p^{-2}\sum_j b_j\, \e^{i\qp \V_j}.
 \end{equation}
-as demonstrated for polygonal cross sections in~(\ref{Effpolygon_expsum}).
 Accordingly, the three-dimen\-sional form factor~(\ref{Epyr1})~is
 \begin{equation}
   \begin{array}{@{}lcl}
   F(\q)
   &=& \displaystyle
-       \int\!\d r_\perp\,\e^{iq_\perp r_\perp}\,\rho(r_\perp)^2 F_\parallel(\rho(r_\perp)\q_\parallel,\Sigma)
+       \int\!\d r_\perp\,\e^{iq_\perp r_\perp}\,\rho(r_\perp)^2 F_\parallel(\rho(r_\perp)\q_\parallel,\Pi)
 \\[3ex]
   &=& \displaystyle
-      q_\parallel^{-2}  \sum_j A_j
-      \int\!\d r_\perp\,\e^{i(q_\perp r_\perp+\q_\parallel \v{c}_j\rho(r_\perp))}.
+      q_\parallel^{-2}  \sum_j b_j
+      \int\!\d r_\perp\,\e^{i(q_\perp r_\perp+\q_\parallel \V_j\rho(r_\perp))}.
   \end{array}
 \end{equation}
-We now specialize to pyramids and cones,
-for which $\rho$ is an affine-linear function of~$r_\perp$.
-To alleviate notation,
-we assume that $\r_\perp$ points into $z$~direction,
-that the pyramid is based at $z=0$, and that it extends up to a height~$H$.
+We now assume that the pyramid is based at $r_\perp=0$,
+and extends up to a height~$H$.
 The function~$\rho$ is then
 \begin{equation}
   \rho(z) = 1-z/H_0
@@ -273,25 +268,46 @@ The function~$\rho$ is then
 with a parameter $H_0\le H$.
 Unless the equal sign holds,
 the pyramid is a truncated one (a frustum).
-The form factor
+It is convenient to express~$H$ through
+a dimensionless truncation parameter~$\eta\coloneqq H/H_0$.
+The form factor thence becomes 
 \begin{equation}
   \begin{array}{@{}lcl}
   F(\q)
   &=& \displaystyle
-      q_\parallel^{-2}  \sum_j A_j \e^{i\q_\parallel \v{c}_j}
-      \int_0^H\!\d z\,\e^{i(q_z-\q_\parallel \v{c}_j/H_0)z}
+      q_\parallel^{-2}  \sum_j b_j \e^{i\q_\parallel \V_j}
+      \int_0^{H_0\eta}\!\d z\,\e^{i(q_z-\q_\parallel \V_j/H_0)z}
 \\[3ex]
   &=& \displaystyle
-       q_\parallel^{-2} H_0\, \sum_j A_j  \e^{i\q_\parallel \v{c}_j}
-          \frac{\e^{i\left(q_z-\q_\parallel\v{c}_j/H_0\right)H}-1}
-               {i\left(q_z H_0 - \q_\parallel\v{c}_j\right)}
+       q_\parallel^{-2} H_0\, \sum_j b_j  
+          \frac{\e^{i\left(q_zH_0-\q_\parallel\V_j\right)\eta}-1}
+               {i\left(q_z H_0 - \q_\parallel\V_j\right)}
+               \e^{i\q_\parallel \V_j}.
   \end{array}
 \end{equation}
-can be brought into the numerically stable form
+Delegating the handling of the removable singularity at~$q_zH_0=\q_\parallel\V_j$
+to the sinc function,
+we write it as
+\Emph{
 \begin{equation}
-         H_0\, \e^{iq_z H_0} \sum_j A_j \e^{i(q_z ?????? + \q_\parallel\v{c}_jH/(2H_0))}
-          \sinc\left(\q_\parallel\v{c}_j\frac{H}{2H_0}\right).
+  F(\q)
+  = q_\parallel^{-2} H_0\, \e^{iq_z H_0/2} \sum_{j=0}^{N-1} b_j
+    \sinc\left((q_\perp H_0 - \q_\parallel\V_j)\frac{\eta}{2}\right)
+     \e^{i\q_\parallel\V_j(1-\eta/2)}.
 \end{equation}
+}
+If the polygonal base has two-fold symmetry, we proceed as for~(\ref{Eff2ngon})
+to obtain
+\Emph{
+\begin{equation}
+  F(\q)
+  = \frac{2i}{q_\parallel}H_0(1-\frac{\eta}{2})\, \e^{iq_z H_0/2}
+    \sum_{j=0}^{n-1} b_j \v{\hat q}_\parallel\V_j
+    \sinc\left((q_\perp H_0 - \q_\parallel\V_j)\frac{\eta}{2}\right)
+     \sinc\left(\q_\parallel\V_j\left(1-\frac{\eta}{2}\right)\right).
+\end{equation}
+}
+
 \index{Form factor!frustum)}%
 \index{Form factor!pyramid)}%
 \index{Pyramid!form factor|)}%

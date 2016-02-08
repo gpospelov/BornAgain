@@ -216,8 +216,8 @@ void JobResultsPresenter::updateAxesTitle(IntensityDataItem *intensityItem)
         intensityItem->setXaxisTitle("phi_f [deg]");
         intensityItem->setYaxisTitle("alpha_f [deg]");
     } else if (intensityItem->getSelectedAxesUnits() == Constants::UnitsQyQz) {
-        intensityItem->setXaxisTitle("Qy");
-        intensityItem->setYaxisTitle("Qz");
+        intensityItem->setXaxisTitle("Qy [1/nm]");
+        intensityItem->setYaxisTitle("Qz [1/nm]");
     } else if (intensityItem->getSelectedAxesUnits() == Constants::UnitsMm) {
         intensityItem->setXaxisTitle("X [mm]");
         intensityItem->setYaxisTitle("Y [mm]");

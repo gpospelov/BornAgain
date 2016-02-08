@@ -179,7 +179,7 @@ The removable singularity for $\qp\E_j=0$
 can be handled by a sinc function, as discussed in Sec.~\ref{SShapeTrafIntro}:
 \begin{equation}\label{Effpolygon2}
     F_\parallel(\qp)
-    = \frac{2\n\times\uqp^*}{ip}
+    = \frac{2\,\n\times\uqp^*}{ip}
       \sum_{j=0}^{N-1} \E_j \sinc(\qp\E_j) \e^{i\qp\R_j}.
 \end{equation}
 Furthermore, there is a singularity at $p=0$.
@@ -190,7 +190,7 @@ To avoid cancellation near this singularity, we subtract $\E_j$ from each summan
 \Emph{
 \begin{equation}\label{Effpolygon3}
   F_\parallel(\qp)
-  = 2\n\times\uqp^*
+  = 2\,\n\times\uqp^*
     \sum_{j=0}^{N-1} \E_j \frac{\sinc(\qp\E_j) \e^{i\qp\R_j} - 1}{ip}.
 \end{equation}
 }
@@ -205,8 +205,8 @@ We write $N\eqqcolon2n$
 and make use of $\V_{j+n}=-\V_j$ to transform~(\ref{Effpolygon2}) into
 \Emph{
 \begin{equation}\label{Eff2ngon}
-    F_\parallel(\qp) = \displaystyle 4 \sum_{j=0}^{n-1}
-              \n(\uqp^*\times\E_j) (\uqp\R_j) \sinc(\qp\E_j) \sinc(\qp\R_j),
+    F_\parallel(\qp) = \displaystyle 4\, \n\times\uqp^*\sum_{j=0}^{n-1}
+              \E_j (\uqp\R_j) \sinc(\qp\E_j) \sinc(\qp\R_j),
 \end{equation}
 }
 where the singularity at $p=0$ is absorbed in a second sinc function.

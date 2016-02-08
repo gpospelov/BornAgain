@@ -20,8 +20,8 @@
 
 RunFitManager::RunFitManager(QObject *parent)
     : QObject(parent)
-    , m_fitSuite(0)
-    , m_is_fit_running(0)
+    , m_fitSuite(nullptr)
+    , m_is_fit_running{false}
 {
 }
 

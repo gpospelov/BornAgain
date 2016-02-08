@@ -20,6 +20,7 @@
 #include "FitSelectorModel.h"
 #include "DeleteEventFilter.h"
 #include "MinimizerSettingsWidget.h"
+#include "minisplitter.h"
 #include <QVBoxLayout>
 #include <QTreeView>
 #include <QSplitter>
@@ -42,10 +43,10 @@ FitParameterWidget::FitParameterWidget(FitModel *fitModel, QWidget *parent)
     , m_fitModel(fitModel)
     , m_selectorTreeView(new QTreeView())
     , m_parameterTreeview(new QTreeView())
-    , m_selectorModel(0)
-    , m_parameterModel(0)
+    , m_selectorModel(nullptr)
+    , m_parameterModel(nullptr)
     , m_contextMenu(new QMenu())
-    , m_splitter(new QSplitter())
+    , m_splitter(new Manhattan::MiniSplitter(this))
     , m_keyboardFilter(new DeleteEventFilter(this))
 {
 
@@ -78,19 +79,17 @@ FitParameterWidget::FitParameterWidget(FitModel *fitModel, QWidget *parent)
     m_removeAction =  m_contextMenu->addAction("Remove", this, SLOT(onRemoveParameter()));
     m_addAction = m_contextMenu->addAction("Add Parameter", m_parameterModel, SLOT(addParameter()));
 
-    QSplitter *rightWindow = new QSplitter;
+    /*QSplitter *rightWindow = new QSplitter;
     rightWindow->setOrientation(Qt::Vertical);
     rightWindow->addWidget(m_parameterTreeview);
     m_parameterTreeview->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     auto *minimizersettings = new MinimizerSettingsWidget(m_fitModel, this);
     rightWindow->addWidget(minimizersettings);
-    rightWindow->setSizes(QList<int>() << 3000 << 1000);
+    rightWindow->setSizes(QList<int>() << 3000 << 1000);*/
 
     m_splitter->addWidget(m_selectorTreeView);
-    m_splitter->addWidget(rightWindow);
-    int width = m_splitter->width();
-    int left = width / 3;
-    m_splitter->setSizes(QList<int>() << left << ( width - left));
+    m_splitter->addWidget(m_parameterTreeview);
+    m_splitter->setSizes(QList<int>() << 10000 << 20000);
 
     QVBoxLayout *vlayout = new QVBoxLayout(this);
     vlayout->setMargin(0);
@@ -205,13 +204,8 @@ void FitParameterWidget::buildSelectorModel() {
         QStandardItem *instrument = new QStandardItem("Instrument");
         root->appendRow(instrument);
         buildTree(instrument, topInst);
-
-
-
-
         spanParameters();
     }
-
 }
 
 void FitParameterWidget::spanParameters()
@@ -231,13 +225,13 @@ void FitParameterWidget::spanParameters()
 }
 
 void FitParameterWidget::onCustomContextMenu(const QPoint &point) {
-    m_removeAction->setVisible(false);
+    m_removeAction->setEnabled(false);
     QModelIndex index = m_parameterTreeview->indexAt(point);
     if (index.isValid()) {
         ParameterizedItem *cur = m_parameterModel->itemForIndex(index);
         if (cur->itemName().startsWith("FitParameter")) {
             m_parameterTreeview->setCurrentIndex(index);
-            m_removeAction->setVisible(true);
+            m_removeAction->setEnabled(true);
         }
     }
     m_contextMenu->exec(m_parameterTreeview->mapToGlobal(point + QPoint(2, 22)));
@@ -320,7 +314,7 @@ void FitParameterWidget::removeEmptyParameter() {
         int rowCount = m_parameterModel->rowCount(QModelIndex());
         if (rowCount == 0)
             break;
-        for (int i=0; i<rowCount; i++){
+        for (int i=0; i<rowCount; i++) {
             QModelIndex child = m_parameterModel->index(i,0,QModelIndex());
             if (child.isValid() && m_parameterModel->rowCount(child) == 0) {
                 m_parameterModel->removeRow(i, QModelIndex());

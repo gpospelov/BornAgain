@@ -41,22 +41,18 @@
 
 RunFitWidget::RunFitWidget(FitModel *fitModel, QWidget *parent)
     : QWidget(parent)
-    , m_start_button(0)
-    , m_stop_button(0)
-    , m_interval_label(0)
-    , m_interval_slider(0)
+    , m_start_button(new QPushButton())
+    , m_stop_button(new QPushButton())
+    , m_interval_label(new QLabel())
+    , m_interval_slider(new QSlider())
     , m_runfitmanager(new RunFitManager(this))
     , m_fitprogress(new FitProgressWidget(this))
     , m_fitModel(fitModel)
 {
     // setup ui
-    m_start_button  = new QPushButton();
     m_start_button->setText(tr("Start"));
-    m_stop_button = new QPushButton();
     m_stop_button->setText(tr("Stop"));
     m_stop_button->setEnabled(false);
-    m_interval_label = new QLabel();
-    m_interval_slider = new QSlider();
     m_interval_slider->setOrientation(Qt::Horizontal);
     m_interval_slider->setRange(1,20);
     m_interval_slider->setMaximumWidth(150);
@@ -83,8 +79,7 @@ RunFitWidget::RunFitWidget(FitModel *fitModel, QWidget *parent)
     connect(m_runfitmanager, SIGNAL(error(QString)), m_fitprogress, SLOT(updateLog(QString)));
 
     connect(m_interval_slider, SIGNAL(valueChanged(int)), this, SLOT(onIntervalChanged(int)));
-    connect(m_interval_slider, SIGNAL(valueChanged(int)),
-                m_fitprogress->getObserver().get(), SLOT(setInterval(int)));
+    m_fitprogress->connectSlider(m_interval_slider);
 
     setLayout(mainLayout);
     m_interval_slider->setValue(10);
@@ -99,7 +94,7 @@ void RunFitWidget::onStartClicked()
 {
     // used for test purposes
     boost::shared_ptr<FitSuite> suite = init_test_fitsuite();
-    suite->attachObserver(m_fitprogress->getObserver());
+    m_fitprogress->setObserverToSuite(suite.get());
 
     m_runfitmanager->setFitSuite(suite);
     m_runfitmanager->runFitting();

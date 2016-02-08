@@ -35,28 +35,3 @@ void FittingWorker::interruptFitting()
     }
 }
 
-
-/*void FittingWorker::update(FitSuite *subject)
-{
-    QString msg = QString("Iteration: %1\nChi: %2").arg(QString::number(subject->getNumberOfIterations()));
-    msg = msg.arg(subject->getChi2(), 10, 'f', 1, QChar(' '));
-
-    std::stringstream ss;
-    FitSuite *m_fit_suite = subject;
-
-    ss << "FitPrintObserver::update() -> Info."
-              << " NCall:" << m_fit_suite->getNumberOfIterations()
-              << " NStrategy:" << m_fit_suite->getCurrentStrategyIndex()
-              << " Chi2:" << std::scientific << std::setprecision(8)
-              << m_fit_suite->getChi2() << std::endl;
-
-    emit addLog(QString::fromStdString(ss.str()));
-
-    if (!isdrawing)
-    {
-        isdrawing = true;
-        emit statusUpdate(msg, subject->getSimulationData(), subject->getChiSquaredMap());
-    }
-
-
-}*/

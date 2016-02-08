@@ -27,6 +27,8 @@ class IntensityDataItem;
 class QPlainTextEdit;
 class QSplitter;
 class GUIFitObserver;
+class QSlider;
+class FitSuite;
 
 class BA_CORE_API_ FitProgressWidget : public QWidget
 {
@@ -36,7 +38,9 @@ public:
 
     FitProgressWidget(QWidget *parent = 0);
 
-    boost::shared_ptr<GUIFitObserver> getObserver();
+    void connectSlider(QSlider *slider);
+
+    void setObserverToSuite(FitSuite *suite);
 
 public slots:
 

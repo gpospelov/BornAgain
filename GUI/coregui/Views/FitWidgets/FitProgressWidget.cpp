@@ -17,6 +17,7 @@
 #include "ColorMapPlot.h"
 #include "IntensityDataItem.h"
 #include "GUIFitObserver.h"
+#include "FitSuite.h"
 #include "qcustomplot.h"
 #include <QLabel>
 #include <QVBoxLayout>
@@ -25,6 +26,7 @@
 #include <QSplitter>
 #include <QScrollBar>
 #include <QFont>
+#include <QSlider>
 
 FitProgressWidget::FitProgressWidget(QWidget *parent)
     : QWidget(parent)
@@ -90,6 +92,17 @@ void FitProgressWidget::startFitting(OutputData<double> *real)
     m_log->clear();
 }
 
+void FitProgressWidget::connectSlider(QSlider *slider)
+{
+    connect(slider, SIGNAL(valueChanged(int)),
+                m_guifitobserver.get(), SLOT(setInterval(int)));
+}
+
+void FitProgressWidget::setObserverToSuite(FitSuite *suite)
+{
+    suite->attachObserver(m_guifitobserver);
+}
+
 void FitProgressWidget::updateStatus(const QString &text)
 {
     m_status->setText(text);
@@ -113,11 +126,6 @@ void FitProgressWidget::updatePlots(OutputData<double> *sim, OutputData<double> 
     m_simulated->setLowerAndUpperZ(m_realdata->getLowerZ(), m_realdata->getUpperZ());
     m_chi2->setOutputData(chi);
     disableInteractions();
-}
-
-boost::shared_ptr<GUIFitObserver> FitProgressWidget::getObserver()
-{
-    return m_guifitobserver;
 }
 
 void FitProgressWidget::afterReplot()

@@ -23,30 +23,21 @@
 #include <QVBoxLayout>
 #include <QTabWidget>
 
+// REMARKS:
+
+// minimizer settings will come later
+
+// no narrow toolbar
+
+
+
+
 
 // ------------------------------------------------------------------------------------------------
 // FIXME_DAVID
 // ------------------------------------------------------------------------------------------------
 
-// FitView --> Add narrow toolbar (QToolBar) on top of whole widget as in InstrumentView
 
-
-// FitParameterWidget --> Move KeyboardFilter to GUI/coregui/utils/CustomEventFilters,
-// rename it to know what it is doing
-
-
-// FitParameterWidget --> Replace splitter with Manhattan::MiniSplitter(this) as in JobView
-
-
-// FitParameterWidget or FitSettingsWidget --> Where to add second horizontal splitter to have minimizer settings?
-// From layout point of view it should be FitParameterWidget, from responsibility point of view, it should be FitSettingsWidget
-// Lets discuss it
-
-
-// FitParameterWidget --> Move SelectorModel into corresponding *.h and *.cpp in GUI/coregui/Models
-
-
-// FitParameterWidget --> Move FitParameterModel into corresponding *.h and *.cpp in GUI/coregui/Models
 
 
 // FitParameterWidget --> Refactor ContextMenu part. m_contextMenu should not be member variable.
@@ -67,22 +58,6 @@
 // > add to existing parameter --> and then dynamic menu of existing fit parameters
 
 
-// FitParameterWidget --> Refactor a bit getTopItemFromSelection
-// The call  QString selectedSample = m_fitModel->itemForIndex(QModelIndex())->getChildOfType(Constants::FitSelectionType)->getRegisteredProperty(selectionType).toString();
-// could be implemented as method in FitModel
-
-
-// General --> Remove all fitting related Obsolete*, if you do not need them
-
-
-// General --> Try to provide comments for major functions in cpp files, explaining in general what they are doing, e.g.
-// //! reports to FitObserver current status of something
-// int MyClass::MyFunction() {
-// ...
-// }
-// >
-// > No need to have lots of comments inside the function (i.e. it is ok, like you are doing now), just before function
-// > implementation a short line with comment, what will be going on inside
 
 
 

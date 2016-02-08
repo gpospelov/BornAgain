@@ -10,7 +10,7 @@ import bornagain as ba
 from SampleBuilder import MySampleBuilder
 
 wavelength = 1.34*ba.angstrom
-alpha_i = 0.46*ba.degree
+alpha_i = 0.463*ba.degree
 
 
 
@@ -58,7 +58,7 @@ def create_simulation():
     simulation = ba.GISASSimulation()
     simulation.setDetector(create_detector())
     simulation.setBeamParameters(wavelength, alpha_i, 0.0)
-    simulation.setBeamIntensity(1e9)
+    simulation.setBeamIntensity(1.2e7)
     return simulation
 
 
@@ -89,9 +89,9 @@ def run_fitting():
     fit_suite.addSimulationAndRealData(simulation, real_data)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*radius", 5.5*ba.nanometer, ba.AttLimits.limited(4.0, 12.0), 0.1*ba.nanometer)
-    fit_suite.addFitParameter("*sigma", 0.28, ba.AttLimits.limited(0.1, 1.5), 0.01*ba.nanometer)
-    fit_suite.addFitParameter("*distance", 30.*ba.nanometer, ba.AttLimits.limited(20, 70), 0.1*ba.nanometer)
+    fit_suite.addFitParameter("*radius", 5.5*ba.nanometer, ba.AttLimits.limited(4.0, 10.0), 0.1*ba.nanometer)
+    fit_suite.addFitParameter("*sigma", 0.4, ba.AttLimits.limited(0.1, 0.7), 0.01*ba.nanometer)
+    fit_suite.addFitParameter("*distance", 53.*ba.nanometer, ba.AttLimits.limited(20, 70), 0.1*ba.nanometer)
 
     # strategy1 = ba.FitStrategyAdjustMinimizer("Genetic")
     # strategy1.getMinimizerOptions().setMaxIterations(10)
@@ -107,7 +107,7 @@ def run_fitting():
 
 
 
-    plot_as_colormap(real_data)
+    plot_as_colormap(real_data, zmax=5e3)
     plt.show()
 
 if __name__ == '__main__':

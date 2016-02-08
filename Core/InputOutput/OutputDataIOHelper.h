@@ -20,6 +20,7 @@
 #include "WinDllMacros.h"
 #include <string>
 #include <iostream>
+#include <vector>
 
 class IAxis;
 template <class T> class OutputData;
@@ -69,7 +70,7 @@ BA_CORE_API_ IAxis *createVariableBinAxis(std::string line);
 
 BA_CORE_API_ void fillOutputData(OutputData<double> *data, std::istream &input_stream);
 
+void readLineOfDoubles(std::vector<double> &buffer, std::istringstream &iss);
 }
-
 
 #endif

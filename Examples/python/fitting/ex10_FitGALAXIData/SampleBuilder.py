@@ -13,13 +13,15 @@ class MySampleBuilder(ba.ISampleBuilder):
         ba.ISampleBuilder.__init__(self)
         self.sample = None
         # parameters describing the sample
-        self.radius = ctypes.c_double(5.5*ba.nanometer)
-        self.sigma = ctypes.c_double(0.15)
-        self.distance = ctypes.c_double(63.1*ba.nanometer)
-        self.disorder = ctypes.c_double(2.4*ba.nanometer)
-        self.kappa = ctypes.c_double(8.5)
-        self.tptfe = ctypes.c_double(29.0*ba.nanometer)
-        self.thmdso = ctypes.c_double(23.9*ba.nanometer)
+        self.radius = ctypes.c_double(5.75*ba.nanometer)
+        self.sigma = ctypes.c_double(0.4)
+        self.distance = ctypes.c_double(53.6*ba.nanometer)
+        self.disorder = ctypes.c_double(8.5*ba.nanometer)
+        self.kappa = ctypes.c_double(17.5)
+        #self.tptfe = ctypes.c_double(29.0*ba.nanometer)
+        self.tptfe = ctypes.c_double(22.1*ba.nanometer)
+        #self.thmdso = ctypes.c_double(23.9*ba.nanometer)
+        self.thmdso = ctypes.c_double(18.5*ba.nanometer)
         # register parameters
         self.registerParameter("radius", ctypes.addressof(self.radius))
         self.registerParameter("sigma", ctypes.addressof(self.sigma))
@@ -39,15 +41,15 @@ class MySampleBuilder(ba.ISampleBuilder):
         m_HMDSO = ba.HomogeneousMaterial("HMDSO", 2.0888308E-6, 1.32605651E-8)
 
         # collection of particles
-        nparticles = 3
+        nparticles = 10
         nfwhm = 2.0
         sphere_ff = ba.FormFactorFullSphere(self.radius.value)
         sphere = ba.Particle(m_Ag, sphere_ff)
         position = ba.kvector_t(0*ba.nanometer, 0*ba.nanometer, -1.0*self.thmdso.value)
         sphere.setPosition(position)
 
-        gauss_distr = ba.DistributionLogNormal(self.radius.value, self.sigma.value)
-        par_distr = ba.ParameterDistribution("/Particle/FullSphere/Radius", gauss_distr, nparticles, nfwhm)
+        ln_distr = ba.DistributionLogNormal(self.radius.value, self.sigma.value)
+        par_distr = ba.ParameterDistribution("/Particle/FullSphere/Radius", ln_distr, nparticles, nfwhm)
 
         part_coll = ba.ParticleDistribution(sphere, par_distr)
 
@@ -66,15 +68,15 @@ class MySampleBuilder(ba.ISampleBuilder):
         particle_layout.setTotalParticleSurfaceDensity(1)
 
         # roughness
-        r_ptfe = ba.LayerRoughness()
-        r_ptfe.setSigma(2.3*ba.nanometer)
-        r_ptfe.setHurstParameter(0.3)
-        r_ptfe.setLatteralCorrLength(5.0*ba.nanometer)
+        #r_ptfe = ba.LayerRoughness()
+        #r_ptfe.setSigma(2.3*ba.nanometer)
+        #r_ptfe.setHurstParameter(0.3)
+        #r_ptfe.setLatteralCorrLength(5.0*ba.nanometer)
 
-        r_hmdso = ba.LayerRoughness()
-        r_hmdso.setSigma(1.1*ba.nanometer)
-        r_hmdso.setHurstParameter(0.3)
-        r_hmdso.setLatteralCorrLength(5.0*ba.nanometer)
+        #r_hmdso = ba.LayerRoughness()
+        #r_hmdso.setSigma(1.1*ba.nanometer)
+        #r_hmdso.setHurstParameter(0.3)
+        #r_hmdso.setLatteralCorrLength(5.0*ba.nanometer)
 
         # sample configuratuion
         # air layer with particles and substrate forms multilayer
@@ -88,8 +90,10 @@ class MySampleBuilder(ba.ISampleBuilder):
         # it is importamt to start from the top layer down to the bottom one
         multi_layer = ba.MultiLayer()
         multi_layer.addLayer(air_layer)
-        multi_layer.addLayerWithTopRoughness(hmdso_layer, r_hmdso)
-        multi_layer.addLayerWithTopRoughness(ptfe_layer, r_ptfe)
+        #multi_layer.addLayerWithTopRoughness(hmdso_layer, r_hmdso)
+        multi_layer.addLayer(hmdso_layer)
+        #multi_layer.addLayerWithTopRoughness(ptfe_layer, r_ptfe)
+        multi_layer.addLayer(ptfe_layer)
         multi_layer.addLayer(substrate_layer)
 
         self.sample = multi_layer

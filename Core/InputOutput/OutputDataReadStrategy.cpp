@@ -26,7 +26,6 @@
 OutputData<double > *OutputDataReadINTStrategy::readOutputData(std::istream &input_stream)
 {
     OutputData<double > *result = new OutputData<double>;
-
     std::string line;
 
     while( std::getline(input_stream, line) )
@@ -41,7 +40,6 @@ OutputData<double > *OutputDataReadINTStrategy::readOutputData(std::istream &inp
             OutputDataIOHelper::fillOutputData(result, input_stream);
         }
     }
-
     return result;
 }
 
@@ -50,7 +48,6 @@ OutputData<double > *OutputDataReadINTStrategy::readOutputData(std::istream &inp
 OutputData<double> *OutputDataReadNumpyTXTStrategy::readOutputData(std::istream &input_stream)
 {
     std::string line;
-
     std::vector<std::vector<double> > data;
 
     while( std::getline(input_stream, line) )
@@ -60,7 +57,6 @@ OutputData<double> *OutputDataReadNumpyTXTStrategy::readOutputData(std::istream 
         vdouble1d_t data_in_row = Utils::String::parse_doubles(line);
         data.push_back(data_in_row);
     }
-
     // validating
     size_t nrows = data.size();
     size_t ncols(0);
@@ -71,7 +67,6 @@ OutputData<double> *OutputDataReadNumpyTXTStrategy::readOutputData(std::istream 
                                       "Number of elements is different from row to row.");
         }
     }
-
     OutputData<double > *result = new OutputData<double>;
     result->addAxis("x", ncols, 0.0, double(ncols));
     result->addAxis("y", nrows, 0.0, double(nrows));
@@ -84,7 +79,6 @@ OutputData<double> *OutputDataReadNumpyTXTStrategy::readOutputData(std::istream 
             (*result)[global_index] = data[row][col];
         }
     }
-
     return result;
 }
 
@@ -95,7 +89,6 @@ OutputData<double> *OutputDataReadNumpyTXTStrategy::readOutputData(std::istream 
 OutputDataReadTiffStrategy::OutputDataReadTiffStrategy()
     : m_d(new TiffHandler)
 {
-
 }
 
 OutputDataReadTiffStrategy::~OutputDataReadTiffStrategy()

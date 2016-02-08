@@ -85,7 +85,7 @@ def plot_results(result_sph, result_rect):
                     norm=matplotlib.colors.LogNorm(1.0, result_sph.getMaximum()),
                     extent=[result_sph.getXmin()/deg, result_sph.getXmax()/deg, result_sph.getYmin()/deg, result_sph.getYmax()/deg],
                     aspect='auto')
-    cb = plt.colorbar(im, pad = 0.025)
+    cb = plt.colorbar(im, pad=0.025)
     plt.xlabel(r'$\phi_f ^{\circ}$', fontsize=16)
     plt.ylabel(r'$\alpha_f ^{\circ}$', fontsize=16)
     plt.title("Spherical detector")

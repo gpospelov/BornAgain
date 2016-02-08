@@ -34,7 +34,7 @@ ColorMapPlot::ColorMapPlot(QWidget *parent)
     setMouseTracking(false);
     m_customPlot->setMouseTracking(false);
 
-    setFixedColorMapMargins();
+//    setFixedColorMapMargins();
 }
 
 //! initializes everything with new IntensityDataItem or plot it, if it was already the case
@@ -409,18 +409,18 @@ void ColorMapPlot::initColorMap()
     m_customPlot->addPlottable(m_colorMap);
     m_colorScale = new QCPColorScale(m_customPlot);
 
-    QFontMetrics fontMetric(font());
-    auto em = fontMetric.width('M'), fontAscent = fontMetric.ascent();
-    auto *axisRectangle = m_colorScale->axis()->axisRect();
-    axisRectangle->setMargins(QMargins(0.0*em, fontAscent*1.0, em*5.0, em));
-//    axisRectangle->setAutoMargins(QCP::msNone);
-    axisRectangle->setAutoMargins(QCP::msTop | QCP::msBottom);
-//    axisRectangle->setMargins(QMargins(1.0*em, fontAscent, em, 1.0*fontAscent));
+//    QFontMetrics fontMetric(font());
+//    auto em = fontMetric.width('M'), fontAscent = fontMetric.ascent();
+//    auto *axisRectangle = m_colorScale->axis()->axisRect();
+//    axisRectangle->setMargins(QMargins(0.0*em, fontAscent*1.0, em*5.0, em));
+////    axisRectangle->setAutoMargins(QCP::msNone);
+//    axisRectangle->setAutoMargins(QCP::msTop | QCP::msBottom);
+////    axisRectangle->setMargins(QMargins(1.0*em, fontAscent, em, 1.0*fontAscent));
 
 
-    QCPMarginGroup *marginGroup = new QCPMarginGroup(m_customPlot);
-    m_colorScale->setMarginGroup(QCP::msBottom | QCP::msTop, marginGroup);
-    m_customPlot->axisRect()->setMarginGroup(QCP::msBottom | QCP::msTop, marginGroup);
+//    QCPMarginGroup *marginGroup = new QCPMarginGroup(m_customPlot);
+//    m_colorScale->setMarginGroup(QCP::msBottom | QCP::msTop, marginGroup);
+//    m_customPlot->axisRect()->setMarginGroup(QCP::msBottom | QCP::msTop, marginGroup);
 
 
     m_customPlot->plotLayout()->addElement(
@@ -521,9 +521,9 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
 
     // make sure the axis rect and color scale synchronize their bottom and top margins (so they
     // line up):
-//    QCPMarginGroup *marginGroup = new QCPMarginGroup(m_customPlot);
-//    m_customPlot->axisRect()->setMarginGroup(QCP::msBottom | QCP::msTop, marginGroup);
-//    m_colorScale->setMarginGroup(QCP::msBottom | QCP::msTop, marginGroup);
+    QCPMarginGroup *marginGroup = new QCPMarginGroup(m_customPlot);
+    m_customPlot->axisRect()->setMarginGroup(QCP::msBottom | QCP::msTop, marginGroup);
+    m_colorScale->setMarginGroup(QCP::msBottom | QCP::msTop, marginGroup);
 
     // rescale the key (x) and value (y) axes so the whole color map is visible:
     //    m_customPlot->rescaleAxes();

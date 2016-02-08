@@ -38,4 +38,17 @@ MaskContainerItem *DetectorItem::getMaskContainerItem() const
     return 0;
 }
 
+void DetectorItem::onSubItemChanged(const QString &propertyName)
+{
+    if(propertyName == P_DETECTOR) {
+        if(ParameterizedItem *maskContainer = getMaskContainerItem()) {
+            ParameterizedItem *item = takeChildItem(rowOfChild(maskContainer));
+            Q_ASSERT(item == maskContainer);
+            delete item;
+        }
+
+    }
+    ParameterizedItem::onSubItemChanged(propertyName);
+}
+
 

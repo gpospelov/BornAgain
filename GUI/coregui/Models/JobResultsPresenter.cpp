@@ -170,7 +170,7 @@ JobResultsPresenter::preferableGUIAxesUnits(IDetector2D::EAxesUnits default_unit
     if (default_units == IDetector2D::RADIANS)
         return IDetector2D::DEGREES;
     if (default_units == IDetector2D::MM)
-        return IDetector2D::DEGREES;
+        return IDetector2D::MM;
 
     return default_units;
 }
@@ -181,6 +181,8 @@ void JobResultsPresenter::initIntensityItemProperties(IntensityDataItem *intensi
 {
     ComboProperty combo = intensityItem->getRegisteredProperty(IntensityDataItem::P_AXES_UNITS)
                               .value<ComboProperty>();
+
+    if(!combo.getValues().isEmpty()) return;
 
     QString cachedUnits = combo.getCachedValue();
 
@@ -199,6 +201,9 @@ void JobResultsPresenter::initIntensityItemProperties(IntensityDataItem *intensi
     }
 
     intensityItem->setRegisteredProperty(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
+
+
+
 }
 
 void JobResultsPresenter::updateAxesTitle(IntensityDataItem *intensityItem)

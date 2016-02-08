@@ -144,16 +144,16 @@ can be transformed with the help of Stokes's theorem
 \begin{equation}
   \iint\!\d r^2\,\n\cdot\Nabla\times\v{G} = \oint \d\v{r}\cdot\v{G},
 \end{equation}
-and with the choice $\v{G}\coloneqq\v{a}\, \e^{i\qp\r}$, $\qp\coloneqq\q_\parallel$,
+and with the choice $\v{G}\coloneqq\v{a}\, (\e^{i\qp\r}-1)$, $\qp\coloneqq\q_\parallel$,
 into a line integral
 \begin{equation}
-  F_\parallel(\qp)=\frac{\v{a}}{i\, \n(\qp\times\v{a})} \oint_{\partial\Pi} \d\v{r}\,\e^{i\qp\r}.
+  F_\parallel(\qp)=\frac{\v{a}}{i\, \n(\qp\times\v{a})} \oint_{\partial\Pi} \d\v{r}\,(\e^{i\qp\r}-1).
 \end{equation}
 With the further choice $\v{a}\coloneqq\n\times\uqp^*$
 and the notations $p\coloneqq|\qp|=(\qp\qp^*)^{1/2}$, $\uqp\coloneqq\qp/p$,
 this becomes
 \begin{equation}\label{Elastoint}
-  F_\parallel(\qp)=\frac{\n\times\uqp^*}{i\,p} \oint \d\v{r}\,\e^{i\qp\r}.
+  F_\parallel(\qp)=\frac{\n\times\uqp^*}{i\,p} \oint \d\v{r}\,(\e^{i\qp\r}-1).
 \end{equation}
 Let the polygon have $N$ vertices $\V_0,\ldots,\V_{N-1}$,
 and put $\V_N\coloneqq\V_0$.
@@ -167,26 +167,17 @@ The line integral~(\ref{Elastoint}) then takes the form
 \begin{equation}
     F_\parallel(\qp)
    = \frac{\n\times\uqp^*}{ip} \sum_{j=0}^{N-1}
-              \int_{-1}^{+1}\!\d\lambda\, \frac{\d\r_j}{\d\lambda}\,\e^{i\qp\r},
+              \int_{-1}^{+1}\!\d\lambda\, \frac{\d\r_j}{\d\lambda}\,(\e^{i\qp\r}-1),
 \end{equation}
 and yields
 \begin{equation}\label{Effpolygon1}
     F_\parallel(\qp)
     = \frac{\n\times\uqp^*}{ip}
-      \sum_{j=0}^{N-1} \E_j \frac{\e^{i\qp(\R_j+\E_j)}-\e^{i\qp(\R_j-\E_j)}}{i\qp\E_j}.
+      \sum_{j=0}^{N-1} \E_j
+      \left( \frac{\e^{i\qp(\R_j+\E_j)}-\e^{i\qp(\R_j-\E_j)}}{i\qp\E_j} - 2 \right).
 \end{equation}
 The removable singularity for $\qp\E_j=0$
-can be handled by a sinc function, as discussed in Sec.~\ref{SShapeTrafIntro}:
-\begin{equation}\label{Effpolygon2}
-    F_\parallel(\qp)
-    = \frac{2\,\n\times\uqp^*}{ip}
-      \sum_{j=0}^{N-1} \E_j \sinc(\qp\E_j) \e^{i\qp\R_j}.
-\end{equation}
-Furthermore, there is a singularity at $p=0$.
-To see that it is removable,
-expand the term under the sum in~$\qp$,
-and use $\sum\E_j=0$.
-To avoid cancellation near this singularity, we subtract $\E_j$ from each summand,
+can be handled by a sinc function, as discussed in Sec.~\ref{SShapeTrafIntro}.
 \Emph{
 \begin{equation}\label{Effpolygon3}
   F_\parallel(\qp)
@@ -196,13 +187,16 @@ To avoid cancellation near this singularity, we subtract $\E_j$ from each summan
 }
 This expression is used in our implementation of \texttt{FormFactorPrism3}
 (Sec.~\ref{SPrism3}).
-For small~$p$, the fraction is not computed term by term,
+Near the removable singularity at~$p=0$,
+the scalar function of $p$, $\qp\E_j$ and $\qp\R_j$,
+written as a fraction,
+ is not computed term by term,
 but from its series expansion.
 
 If the polygon has a two-fold symmetry axis,
 then the form factor can be further simplified.
 We write $N\eqqcolon2n$
-and make use of $\V_{j+n}=-\V_j$ to transform~(\ref{Effpolygon2}) into
+and make use of $\E_{j+n}=-\E_j$ to transform~(\ref{Effpolygon3}) into
 \Emph{
 \begin{equation}\label{Eff2ngon}
     F_\parallel(\qp) = \displaystyle 4\, \n\times\uqp^*\sum_{j=0}^{n-1}
@@ -214,7 +208,8 @@ This result is used in our implementation of \texttt{FormFactorPrism6}
 (Sec.~\ref{SPrism6}).
 \index{FormFactorPrism6@\Code{FormFactorPrism6}}%
 
-\iffalse
+TODO .....
+
 The leading nonvanishing term is
 \begin{equation}
   \begin{array}{@{}lcl}
@@ -229,7 +224,6 @@ The leading nonvanishing term is
 \end{equation}
 which is the area of the polygon
 as given by a triangular tiling (with vertices at $\v{0},\V_j,\V_{j+1}$).
-\fi
 
 \iffalse
 Later, when computing the form factor of pyramids,
@@ -326,7 +320,7 @@ Unless the equal sign holds,
 the pyramid is a truncated one (a frustum).
 It is convenient to express~$H$ through
 a dimensionless truncation parameter~$\eta\coloneqq H/H_0$.
-The form factor thence becomes 
+The form factor thence becomes
 \begin{equation}
   \begin{array}{@{}lcl}
   F(\q)
@@ -335,7 +329,7 @@ The form factor thence becomes
       \int_0^{H_0\eta}\!\d r_\perp\,\e^{i(q_\perp-\q_\parallel \V_j/H_0)r_\perp}
 \\[3ex]
   &=& \displaystyle
-       q_\parallel^{-2} H_0\, \sum_j b_j  
+       q_\parallel^{-2} H_0\, \sum_j b_j
           \frac{\e^{i\left(q_\perp H_0-\q_\parallel\V_j\right)\eta}-1}
                {i\left(q_\perp H_0 - \q_\parallel\V_j\right)}
                \e^{i\q_\parallel \V_j}.

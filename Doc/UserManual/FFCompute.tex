@@ -142,7 +142,7 @@ can be written as
 \end{equation}
 The two-dimensional form factor~$F_\parallel$
 can be transformed with the help of Stokes's theorem
-\begin{equation}
+\begin{equation}\label{EStokes}
   \iint\!\d r^2\,\n\cdot\Nabla\times\v{G} = \oint \d\v{r}\cdot\v{G},
 \end{equation}
 and with the choice $\v{G}\coloneqq\v{a}\, (\e^{i\qp\r}-1)$, $\qp\coloneqq\q_\parallel$,
@@ -267,6 +267,40 @@ expansion of $\e^{i\qp\V_j}$ contribute nothing:
 
 \index{Form factor!polygon|)}%
 \index{Polygon!form factor|)}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Polyhedron}\label{SFFPolyhedron}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+To derive the form factor of a polyhedron,
+we start from the divergence theorem
+\begin{equation}
+  \iiint\!\d^3r\,\Nabla\v{H} = \iint\!\d^2r\, \n\v{H}.
+\end{equation}
+With the choice $\v{H}\coloneqq\q^*(\e^{i\q\r}-1)$,
+we obtain
+\begin{equation}
+  F(\q) = \frac{\q^*}{iq^2} \iint\!\d^2r\, \n \left(\e^{i\q\r}-1\right).
+\end{equation}
+For a polygon, the surface integral can be written
+as a sum over integrals over planar faces,
+\begin{equation}
+  F(\q) = \frac{\q^*}{iq^2} \sum_k \n_k \iint\!\d^2r\, \left(\e^{i\q\r}-1\right).
+\end{equation}
+To proceed, we use Stokes' theorem~(\ref{EStokes})
+with the choices
+\begin{equation}
+  \begin{array}{@{}lcl}
+\qp&\coloneqq& \q_{\parallel k}\coloneqq\q-(\q\n_k)\n_k,\\
+\v{a}&\coloneqq&\n\times\uqp^*,\\
+\v{G}&\coloneqq&\v{a}\e^{i\qp\r}-i(\qp\times\v{a})\times\r/2.
+  \end{array}
+\end{equation}
+We obtain
+\begin{equation}
+  \iint\!\d^2r\, \left(\e^{i\q\r}-1\right)
+  = i\n \oint\!\d\r\times\left( \uqp \e^{i\qp\r} - \r/2 \right).
+\end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pyramids}

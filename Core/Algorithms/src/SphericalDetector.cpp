@@ -73,6 +73,84 @@ std::string SphericalDetector::addParametersToExternalPool(std::string path, Par
     return new_path;
 }
 
+OutputData<double> *SphericalDetector::createDetectorMap(const Beam &beam,
+                                                         IDetector2D::EAxesUnits units_type) const
+{
+    if (getDimension() != 2)
+        return 0;
+
+    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
+
+    const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis &aY = getAxis(BornAgain::Y_AXIS_INDEX);
+
+    result->addAxis(aX);
+    result->addAxis(aY);
+
+    if (units_type == DEFAULT)
+        return result.release();
+
+    std::vector<int> indices_left_bottom = {0, 0};
+    std::vector<int> indices_right_bottom = {(int)aX.getSize() - 1, 0};
+    std::vector<int> indices_center_bottom = {(int)aX.getSize() / 2, 0};
+    std::vector<int> indices_center_top = {(int)aX.getSize() / 2, (int)aY.getSize() - 1};
+    SimulationElement el_left_bottom
+        = getSimulationElement(result->toGlobalIndex(indices_left_bottom), beam);
+    SimulationElement el_right_bottom
+        = getSimulationElement(result->toGlobalIndex(indices_right_bottom), beam);
+    SimulationElement el_center_bottom
+        = getSimulationElement(result->toGlobalIndex(indices_center_bottom), beam);
+    SimulationElement el_center_top
+        = getSimulationElement(result->toGlobalIndex(indices_center_top), beam);
+
+    result->clear();
+
+    double xmin(aX.getMin()), xmax(aX.getMax()), ymin(aY.getMin()), ymax(aY.getMax());
+
+    if (units_type == MM) {
+        return 0;
+    }
+
+    else if (units_type == NBINS) {
+        xmin = 0.0;
+        ymin = 0.0;
+        xmax = double(aX.getSize());
+        ymax = double(aY.getSize());
+    }
+
+    else if (units_type == DEGREES) {
+        xmin = aX.getMin() / Units::degree;
+        xmax = aX.getMax() / Units::degree;
+        ymin = aY.getMin() / Units::degree;
+        ymax = aY.getMax() / Units::degree;
+    }
+
+    else if (units_type == QYQZ) {
+        xmin = el_left_bottom.getQ(0.0, 0.0).y();
+        xmax = el_right_bottom.getQ(1.0, 0.0).y();
+        ymin = -el_center_bottom.getQ(0.5, 0.0).z();
+        ymax = -el_center_top.getQ(0.5, 1.0).z();
+    }
+
+    result->addAxis(FixedBinAxis(BornAgain::PHI_AXIS_NAME, aX.getSize(), xmin, xmax));
+    result->addAxis(FixedBinAxis(BornAgain::ALPHA_AXIS_NAME, aY.getSize(), ymin, ymax));
+
+    return result.release();
+}
+
+std::vector<IDetector2D::EAxesUnits> SphericalDetector::getValidAxesUnits() const
+{
+    std::vector<IDetector2D::EAxesUnits> result = IDetector2D::getValidAxesUnits();
+    std::vector<IDetector2D::EAxesUnits> addon = {IDetector2D::RADIANS, IDetector2D::DEGREES, IDetector2D::QYQZ};
+    result.insert(result.end(), addon.begin(), addon.end());
+    return result;
+}
+
+IDetector2D::EAxesUnits SphericalDetector::getDefaultAxesUnits() const
+{
+    return IDetector2D::RADIANS;
+}
+
 IPixelMap *SphericalDetector::createPixelMap(size_t index) const
 {
     const IAxis &phi_axis = getAxis(BornAgain::X_AXIS_INDEX);
@@ -136,8 +214,8 @@ AngularPixelMap *AngularPixelMap::clone() const
 
 AngularPixelMap *AngularPixelMap::createZeroSizeMap(double x, double y) const
 {
-    double alpha = m_alpha + x*m_dalpha;
-    double phi = m_phi + y*m_dphi;
+    double phi = m_phi + x*m_dphi;
+    double alpha = m_alpha + y*m_dalpha;
     Bin1D alpha_bin(alpha, alpha);
     Bin1D phi_bin(phi, phi);
     return new AngularPixelMap(alpha_bin, phi_bin);
@@ -146,17 +224,17 @@ AngularPixelMap *AngularPixelMap::createZeroSizeMap(double x, double y) const
 kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const
 {
     kvector_t result;
-    double alpha = m_alpha + x*m_dalpha;
-    double phi = m_phi + y*m_dphi;
+    double phi = m_phi + x*m_dphi;
+    double alpha = m_alpha + y*m_dalpha;
     result.setLambdaAlphaPhi(wavelength, alpha, phi);
     return result;
 }
 
 double AngularPixelMap::getIntegrationFactor(double x, double y) const
 {
-    (void)y;
+    (void)x;
     if (m_dalpha==0.0) return 1.0;
-    double alpha = m_alpha + x*m_dalpha;
+    double alpha = m_alpha + y*m_dalpha;
     return std::cos(alpha)*m_dalpha/(std::sin(m_alpha+m_dalpha)-std::sin(m_alpha));
 }
 

@@ -34,7 +34,7 @@ void GroupProperty::setParent(ParameterizedItem *parent)
 {
     Q_ASSERT(parent);
     m_parent = parent;
-    m_parent->addPropertyItem(getGroupName(), createCorrespondingItem());
+    m_parent->addSubItem(getGroupName(), createCorrespondingItem());
 }
 
 ParameterizedItem *GroupProperty::createCorrespondingItem()
@@ -63,7 +63,7 @@ void GroupProperty::setCurrentType(const QString &type)
     m_current_type = type;
 
     if(m_parent) {
-        m_parent->addPropertyItem(getGroupName(), createCorrespondingItem());
+        m_parent->addSubItem(getGroupName(), createCorrespondingItem());
         //emit m_parent->subItemChanged(getGroupName());
     }
 }

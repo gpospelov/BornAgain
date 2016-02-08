@@ -65,11 +65,11 @@ void ParticleDistributionItem::insertChildItem(int row, ParameterizedItem *item)
     }
 }
 
-void ParticleDistributionItem::onChildPropertyChange()
+void ParticleDistributionItem::onChildPropertyChange(ParameterizedItem *item, const QString &propertyName)
 {
     updateParameterList();
 
-    ParameterizedItem::onChildPropertyChange();
+    ParameterizedItem::onChildPropertyChange(item, propertyName);
 }
 
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const

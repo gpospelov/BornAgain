@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/NJobItem.h
-//! @brief     Defines class NJobItem
+//! @file      coregui/Models/JobItem.h
+//! @brief     Defines class JobItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -78,6 +78,10 @@ public:
     MultiLayerItem *getMultiLayerItem(bool from_backup = false);
 
     InstrumentItem *getInstrumentItem(bool from_backup = false);
+
+    void setResults(const GISASSimulation *simulation);
+
+    virtual void onChildPropertyChange(ParameterizedItem *item, const QString &propertyName=QString());
 
 private:
     static QMap<QString, QString> m_run_policies; // run policy, policy description

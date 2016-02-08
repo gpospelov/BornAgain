@@ -66,6 +66,7 @@ public:
     kvector_t getKI() const;
     kvector_t getMeanKF() const;
     kvector_t getMeanQ() const;
+    kvector_t getQ(double x, double y) const;
 
     kvector_t getK(double x, double y) const;
 
@@ -73,18 +74,18 @@ public:
 
     double getSolidAngle() const;
 
+    //! get alpha for given detector pixel coordinates
+    double getAlpha(double x, double y) const;
+
+    //! get phi for given detector pixel coordinates
+    double getPhi(double x, double y) const;
+
 private:
     //! swap function
     void swapContent(SimulationElement &other);
 
     //! initialize polarization matrices
     void initPolarization();
-
-    //! get alpha for given detector pixel coordinates
-    double getAlpha(double x, double y) const;
-
-    //! get phi for given detector pixel coordinates
-    double getPhi(double x, double y) const;
 
     double m_wavelength, m_alpha_i, m_phi_i;             //!< wavelength and angles of beam
     double m_intensity;  //!< simulated intensity for detector cell

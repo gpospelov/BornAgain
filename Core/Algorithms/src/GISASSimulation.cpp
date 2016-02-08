@@ -73,7 +73,8 @@ void GISASSimulation::prepareSimulation()
         throw LogicErrorException("GISASSimulation::prepareSimulation() "
                 "-> Error. The detector was not properly configured.");
     }
-    getInstrument().getDetector()->init(this);
+
+    getInstrument().initDetector();
 
     Simulation::prepareSimulation();
 }
@@ -90,16 +91,14 @@ int GISASSimulation::getNumberOfSimulationElements() const
     return x_axis.getSize()*y_axis.getSize() - nmasked;
 }
 
-OutputData<double> *GISASSimulation::getDetectorIntensity() const
+OutputData<double> *GISASSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type) const
 {
-    OutputData<double> *result = m_intensity_map.clone();
-    m_instrument.applyDetectorResolution(result);
-    return result;
+    return m_instrument.getDetectorIntensity(m_intensity_map, units_type);
 }
 
-Histogram2D *GISASSimulation::getIntensityData() const
+Histogram2D *GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type) const
 {
-    boost::scoped_ptr<OutputData<double> > data(getDetectorIntensity());
+    boost::scoped_ptr<OutputData<double> > data(getDetectorIntensity(units_type));
     return new Histogram2D(*data);
 }
 

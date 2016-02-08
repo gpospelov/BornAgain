@@ -81,6 +81,8 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem, const Instrument
     setSampleForJobItem(jobItem, multiLayerItem);
     setInstrumentForJobItem(jobItem, instrumentItem);
 
+    insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem));
+
     if (jobItem->runImmediately() || jobItem->runInBackground())
         m_queue_data->runJob(jobItem);
 

@@ -25,12 +25,13 @@
 #include "BAVersion.h"
 #include "WarningMessageService.h"
 #include "MessageContainer.h"
+#include "GUIHelpers.h"
+#include "JobResultsPresenter.h"
 #include <QFile>
 #include <QTextStream>
 #include <QFileInfo>
 #include <QDir>
 #include <QModelIndex>
-#include "GUIHelpers.h"
 #include <QXmlStreamWriter>
 #include <QXmlStreamReader>
 #include <QDebug>
@@ -352,14 +353,7 @@ void ProjectDocument::saveOutputData()
     Q_ASSERT(m_jobModel);
     for (int i = 0; i < m_jobModel->rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = m_jobModel->getJobItemForIndex(m_jobModel->index(i, 0, QModelIndex()));
-        IntensityDataItem *dataItem = jobItem->getIntensityDataItem();
-        if (dataItem) {
-            QString filename = getProjectDir() + "/" + dataItem->itemName();
-            const OutputData<double> *data = dataItem->getOutputData();
-            if (data) {
-                IntensityDataIOFactory::writeOutputData(*data, filename.toStdString());
-            }
-        }
+        JobResultsPresenter::saveIntensityData(jobItem, getProjectDir());
     }
 }
 
@@ -368,24 +362,7 @@ void ProjectDocument::loadOutputData()
 {
     for (int i = 0; i < m_jobModel->rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = m_jobModel->getJobItemForIndex(m_jobModel->index(i, 0, QModelIndex()));
-        IntensityDataItem *dataItem = jobItem->getIntensityDataItem();
-        if (dataItem) {
-            QString filename = getProjectDir() + "/" + dataItem->itemName();
-            QFileInfo info(filename);
-            if (info.exists()) {
-                IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();
-                if(intensityItem) {
-                    intensityItem->setOutputData(
-                        IntensityDataIOFactory::readOutputData(filename.toStdString()));
-                }
-            } else {
-                jobItem->setStatus(Constants::STATUS_FAILED);
-                QString warning("Error while loading job from file, intensity data file '");
-                warning.append(filename);
-                warning.append("' was not found");
-                jobItem->setComments(warning);
-            }
-        }
+        JobResultsPresenter::loadIntensityData(jobItem, getProjectDir());
     }
 }
 

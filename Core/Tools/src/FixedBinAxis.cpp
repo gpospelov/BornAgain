@@ -19,14 +19,9 @@
 
 
 FixedBinAxis::FixedBinAxis(const std::string &name, size_t nbins, double start, double end)
-    : IAxis(name)
-    , m_nbins(nbins)
-    , m_start(start)
-    , m_end(end)
+    : IAxis(name), m_nbins(nbins), m_start(start), m_end(end)
 {
-
 }
-
 
 FixedBinAxis *FixedBinAxis::clone() const
 {
@@ -34,12 +29,10 @@ FixedBinAxis *FixedBinAxis::clone() const
     return result;
 }
 
-
 size_t FixedBinAxis::getSize() const
 {
     return m_nbins;
 }
-
 
 double FixedBinAxis::operator[](size_t index) const
 {
@@ -49,7 +42,6 @@ double FixedBinAxis::operator[](size_t index) const
     double step = (m_end - m_start)/m_nbins;
     return m_start + (index + 0.5)*step;
 }
-
 
 Bin1D FixedBinAxis::getBin(size_t index) const
 {
@@ -61,12 +53,10 @@ Bin1D FixedBinAxis::getBin(size_t index) const
     return result;
 }
 
-
 double FixedBinAxis::getMin() const
 {
     return m_start;
 }
-
 
 double FixedBinAxis::getMax() const
 {
@@ -78,15 +68,8 @@ double FixedBinAxis::getBinCenter(size_t index) const
     return (*this)[index];
 }
 
-
 size_t FixedBinAxis::findClosestIndex(double value) const
 {
-//    if (value < getMin() || value >= getMax()) {
-//        std::ostringstream ostr;
-//        ostr << "FixedBinAxis::findClosestIndex() -> Error! Given value not in any bin. ";
-//        ostr << "value:" << value << " name:" << getName() << " min:" << getMin() << " max:" << getMax();
-//        throw OutOfBoundsException(ostr.str());
-//    }
     if( value < getMin()) {
         return 0;
     } else if(value >= getMax()) {
@@ -132,12 +115,12 @@ FixedBinAxis *FixedBinAxis::createClippedAxis(double left, double right) const
     return new FixedBinAxis(getName(), nbin2-nbin1+1, getBin(nbin1).m_lower, getBin(nbin2).m_upper );
 }
 
-
 void FixedBinAxis::print(std::ostream& ostr) const
 {
-    ostr << "FixedBinAxis(\"" << m_name << "\", " << getSize() << ", " << std::setprecision(std::numeric_limits<double>::digits10+2) << getMin() << ", " << getMax() << ")";
+    ostr << "FixedBinAxis(\"" << m_name << "\", " << getSize() << ", "
+         << std::setprecision(std::numeric_limits<double>::digits10+2) << getMin() << ", "
+         << getMax() << ")";
 }
-
 
 bool FixedBinAxis::equals(const IAxis& other) const
 {
@@ -150,6 +133,3 @@ bool FixedBinAxis::equals(const IAxis& other) const
     }
     return false;
 }
-
-
-

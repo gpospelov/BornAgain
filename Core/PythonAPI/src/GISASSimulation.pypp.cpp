@@ -47,16 +47,16 @@ struct GISASSimulation_wrapper : GISASSimulation, bp::wrapper< GISASSimulation >
         return GISASSimulation::clone( );
     }
 
-    virtual ::OutputData< double > * getDetectorIntensity(  ) const  {
+    virtual ::OutputData< double > * getDetectorIntensity( ::IDetector2D::EAxesUnits units_type=::IDetector2D::DEFAULT ) const  {
         if( bp::override func_getDetectorIntensity = this->get_override( "getDetectorIntensity" ) )
-            return func_getDetectorIntensity(  );
+            return func_getDetectorIntensity( units_type );
         else{
-            return this->GISASSimulation::getDetectorIntensity(  );
+            return this->GISASSimulation::getDetectorIntensity( units_type );
         }
     }
     
-    ::OutputData< double > * default_getDetectorIntensity(  ) const  {
-        return GISASSimulation::getDetectorIntensity( );
+    ::OutputData< double > * default_getDetectorIntensity( ::IDetector2D::EAxesUnits units_type=::IDetector2D::DEFAULT ) const  {
+        return GISASSimulation::getDetectorIntensity( units_type );
     }
 
     virtual int getNumberOfSimulationElements(  ) const  {
@@ -142,13 +142,14 @@ void register_GISASSimulation_class(){
         }
         { //::GISASSimulation::getDetectorIntensity
         
-            typedef ::OutputData< double > * ( ::GISASSimulation::*getDetectorIntensity_function_type)(  ) const;
-            typedef ::OutputData< double > * ( GISASSimulation_wrapper::*default_getDetectorIntensity_function_type)(  ) const;
+            typedef ::OutputData< double > * ( ::GISASSimulation::*getDetectorIntensity_function_type)( ::IDetector2D::EAxesUnits ) const;
+            typedef ::OutputData< double > * ( GISASSimulation_wrapper::*default_getDetectorIntensity_function_type)( ::IDetector2D::EAxesUnits ) const;
             
             GISASSimulation_exposer.def( 
                 "getDetectorIntensity"
                 , getDetectorIntensity_function_type(&::GISASSimulation::getDetectorIntensity)
                 , default_getDetectorIntensity_function_type(&GISASSimulation_wrapper::default_getDetectorIntensity)
+                , ( bp::arg("units_type")=::IDetector2D::DEFAULT )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
@@ -174,11 +175,12 @@ void register_GISASSimulation_class(){
         }
         { //::GISASSimulation::getIntensityData
         
-            typedef ::Histogram2D * ( ::GISASSimulation::*getIntensityData_function_type)(  ) const;
+            typedef ::Histogram2D * ( ::GISASSimulation::*getIntensityData_function_type)( ::IDetector2D::EAxesUnits ) const;
             
             GISASSimulation_exposer.def( 
                 "getIntensityData"
                 , getIntensityData_function_type( &::GISASSimulation::getIntensityData )
+                , ( bp::arg("units_type")=::IDetector2D::DEFAULT )
                 , bp::return_value_policy< bp::manage_new_object >()
                 , "Returns clone of the detector intensity map with detector resolution applied in the form of 2D histogram. " );
         

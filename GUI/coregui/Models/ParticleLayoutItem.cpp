@@ -65,18 +65,18 @@ void ParticleLayoutItem::insertChildItem(int row, ParameterizedItem *item)
     }
 }
 
-void ParticleLayoutItem::onChildPropertyChange()
+void ParticleLayoutItem::onChildPropertyChange(ParameterizedItem *item, const QString &propertyName)
 {
     for (auto child_item : childItems()) {
         if (child_item->modelType() == Constants::InterferenceFunction2DParaCrystalType
             || child_item->modelType() == Constants::InterferenceFunction2DLatticeType) {
             getPropertyAttribute(P_TOTAL_DENSITY).setDisabled();
             emit propertyChanged(P_TOTAL_DENSITY);
-            ParameterizedItem::onChildPropertyChange();
+            ParameterizedItem::onChildPropertyChange(item, propertyName);
             return;
         }
     }
     getPropertyAttribute(P_TOTAL_DENSITY).setVisible();
     emit propertyChanged(P_TOTAL_DENSITY);
-    ParameterizedItem::onChildPropertyChange();
+    ParameterizedItem::onChildPropertyChange(item, propertyName);
 }

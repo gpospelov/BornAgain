@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/NJobItem.cpp
-//! @brief     Implements class NJobItem
+//! @file      coregui/Models/JobItem.cpp
+//! @brief     Implements class JobItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,6 +20,7 @@
 #include "InstrumentModel.h"
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
+#include "JobResultsPresenter.h"
 #include <QDebug>
 
 
@@ -238,7 +239,7 @@ MultiLayerItem *JobItem::getMultiLayerItem(bool from_backup)
 }
 
 //! Returns InstrumentItem of this JobItem, if from_backup=true, then backup'ed version of
-//! the instruyment will be used
+//! the instrument will be used
 InstrumentItem *JobItem::getInstrumentItem(bool from_backup)
 {
     foreach(ParameterizedItem *item, childItems()) {
@@ -252,6 +253,34 @@ InstrumentItem *JobItem::getInstrumentItem(bool from_backup)
         }
     }
     return 0;
+}
+
+void JobItem::setResults(const GISASSimulation *simulation)
+{
+    IntensityDataItem *intensityItem = getIntensityDataItem();
+    Q_ASSERT(intensityItem);
+
+    JobResultsPresenter::setResults(intensityItem, simulation);
+
+
+
+//    Q_ASSERT(simulation);
+//    IntensityDataItem *intensityItem = getIntensityDataItem();
+//    Q_ASSERT(intensityItem);
+//    intensityItem->setNameFromProposed(this->itemName());
+    //    intensityItem->setResults(simulation);
+}
+
+void JobItem::onChildPropertyChange(ParameterizedItem *item, const QString &propertyName)
+{
+    if (item->modelType() == Constants::IntensityDataType
+        && propertyName == IntensityDataItem::P_AXES_UNITS) {
+        auto intensityItem = dynamic_cast<IntensityDataItem *>(item);
+        JobResultsPresenter::updateDataAxes(intensityItem, getInstrumentItem());
+        qDebug() << "QQQQ" << item->modelType() << propertyName;
+
+    }
+
 }
 
 //void JobItem::onPropertyChange(const QString &name)

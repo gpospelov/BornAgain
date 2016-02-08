@@ -52,6 +52,18 @@ struct IDetector2D_wrapper : IDetector2D, bp::wrapper< IDetector2D > {
         return func_createAxis( index, n_bins, min, max );
     }
 
+    virtual ::OutputData< double > * createDetectorMap( ::Beam const & beam, ::IDetector2D::EAxesUnits units_type ) const  {
+        if( bp::override func_createDetectorMap = this->get_override( "createDetectorMap" ) )
+            return func_createDetectorMap( boost::ref(beam), units_type );
+        else{
+            return this->IDetector2D::createDetectorMap( boost::ref(beam), units_type );
+        }
+    }
+    
+    ::OutputData< double > * default_createDetectorMap( ::Beam const & beam, ::IDetector2D::EAxesUnits units_type ) const  {
+        return IDetector2D::createDetectorMap( boost::ref(beam), units_type );
+    }
+
     virtual ::IPixelMap * createPixelMap( ::std::size_t index ) const {
         bp::override func_createPixelMap = this->get_override( "createPixelMap" );
         return func_createPixelMap( index );
@@ -60,6 +72,42 @@ struct IDetector2D_wrapper : IDetector2D, bp::wrapper< IDetector2D > {
     virtual ::std::string getAxisName( ::std::size_t index ) const {
         bp::override func_getAxisName = this->get_override( "getAxisName" );
         return func_getAxisName( index );
+    }
+
+    virtual ::IDetector2D::EAxesUnits getDefaultAxesUnits(  ) const  {
+        if( bp::override func_getDefaultAxesUnits = this->get_override( "getDefaultAxesUnits" ) )
+            return func_getDefaultAxesUnits(  );
+        else{
+            return this->IDetector2D::getDefaultAxesUnits(  );
+        }
+    }
+    
+    ::IDetector2D::EAxesUnits default_getDefaultAxesUnits(  ) const  {
+        return IDetector2D::getDefaultAxesUnits( );
+    }
+
+    virtual ::std::vector< IDetector2D::EAxesUnits > getValidAxesUnits(  ) const  {
+        if( bp::override func_getValidAxesUnits = this->get_override( "getValidAxesUnits" ) )
+            return func_getValidAxesUnits(  );
+        else{
+            return this->IDetector2D::getValidAxesUnits(  );
+        }
+    }
+    
+    ::std::vector< IDetector2D::EAxesUnits > default_getValidAxesUnits(  ) const  {
+        return IDetector2D::getValidAxesUnits( );
+    }
+
+    virtual void init( ::Beam const & beam ) {
+        if( bp::override func_init = this->get_override( "init" ) )
+            func_init( boost::ref(beam) );
+        else{
+            this->IDetector2D::init( boost::ref(beam) );
+        }
+    }
+    
+    void default_init( ::Beam const & beam ) {
+        IDetector2D::init( boost::ref(beam) );
     }
 
     PyObject* m_pyobj;
@@ -72,6 +120,15 @@ void register_IDetector2D_class(){
         typedef bp::class_< IDetector2D_wrapper, bp::bases< IParameterized >, std::auto_ptr< IDetector2D_wrapper >, boost::noncopyable > IDetector2D_exposer_t;
         IDetector2D_exposer_t IDetector2D_exposer = IDetector2D_exposer_t( "IDetector2D", "The detector interface.", bp::no_init );
         bp::scope IDetector2D_scope( IDetector2D_exposer );
+        bp::enum_< IDetector2D::EAxesUnits>("EAxesUnits")
+            .value("DEFAULT", IDetector2D::DEFAULT)
+            .value("NBINS", IDetector2D::NBINS)
+            .value("RADIANS", IDetector2D::RADIANS)
+            .value("DEGREES", IDetector2D::DEGREES)
+            .value("MM", IDetector2D::MM)
+            .value("QYQZ", IDetector2D::QYQZ)
+            .export_values()
+            ;
         IDetector2D_exposer.def( bp::init< >() );
         IDetector2D_exposer.def( bp::init< IDetector2D const & >(( bp::arg("other") )) );
         { //::IDetector2D::addMask
@@ -116,6 +173,19 @@ void register_IDetector2D_class(){
                 , "Generates an axis with correct name and default binning for given index." );
         
         }
+        { //::IDetector2D::createDetectorMap
+        
+            typedef ::OutputData< double > * ( ::IDetector2D::*createDetectorMap_function_type)( ::Beam const &,::IDetector2D::EAxesUnits ) const;
+            typedef ::OutputData< double > * ( IDetector2D_wrapper::*default_createDetectorMap_function_type)( ::Beam const &,::IDetector2D::EAxesUnits ) const;
+            
+            IDetector2D_exposer.def( 
+                "createDetectorMap"
+                , createDetectorMap_function_type(&::IDetector2D::createDetectorMap)
+                , default_createDetectorMap_function_type(&IDetector2D_wrapper::default_createDetectorMap)
+                , ( bp::arg("beam"), bp::arg("units_type") )
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::IDetector2D::createPixelMap
         
             typedef ::IPixelMap * ( IDetector2D_wrapper::*createPixelMap_function_type)( ::std::size_t ) const;
@@ -148,6 +218,17 @@ void register_IDetector2D_class(){
                 , getAxisName_function_type( &IDetector2D_wrapper::getAxisName )
                 , ( bp::arg("index") )
                 , "Returns the name for the axis with given index." );
+        
+        }
+        { //::IDetector2D::getDefaultAxesUnits
+        
+            typedef ::IDetector2D::EAxesUnits ( ::IDetector2D::*getDefaultAxesUnits_function_type)(  ) const;
+            typedef ::IDetector2D::EAxesUnits ( IDetector2D_wrapper::*default_getDefaultAxesUnits_function_type)(  ) const;
+            
+            IDetector2D_exposer.def( 
+                "getDefaultAxesUnits"
+                , getDefaultAxesUnits_function_type(&::IDetector2D::getDefaultAxesUnits)
+                , default_getDefaultAxesUnits_function_type(&IDetector2D_wrapper::default_getDefaultAxesUnits) );
         
         }
         { //::IDetector2D::getDetectorMask
@@ -189,6 +270,17 @@ void register_IDetector2D_class(){
                 , getNumberOfMaskedChannels_function_type( &::IDetector2D::getNumberOfMaskedChannels ) );
         
         }
+        { //::IDetector2D::getValidAxesUnits
+        
+            typedef ::std::vector< IDetector2D::EAxesUnits > ( ::IDetector2D::*getValidAxesUnits_function_type)(  ) const;
+            typedef ::std::vector< IDetector2D::EAxesUnits > ( IDetector2D_wrapper::*default_getValidAxesUnits_function_type)(  ) const;
+            
+            IDetector2D_exposer.def( 
+                "getValidAxesUnits"
+                , getValidAxesUnits_function_type(&::IDetector2D::getValidAxesUnits)
+                , default_getValidAxesUnits_function_type(&IDetector2D_wrapper::default_getValidAxesUnits) );
+        
+        }
         { //::IDetector2D::hasMasks
         
             typedef bool ( ::IDetector2D::*hasMasks_function_type)(  ) const;
@@ -197,6 +289,18 @@ void register_IDetector2D_class(){
                 "hasMasks"
                 , hasMasks_function_type( &::IDetector2D::hasMasks )
                 , "return true if has masks." );
+        
+        }
+        { //::IDetector2D::init
+        
+            typedef void ( ::IDetector2D::*init_function_type)( ::Beam const & ) ;
+            typedef void ( IDetector2D_wrapper::*default_init_function_type)( ::Beam const & ) ;
+            
+            IDetector2D_exposer.def( 
+                "init"
+                , init_function_type(&::IDetector2D::init)
+                , default_init_function_type(&IDetector2D_wrapper::default_init)
+                , ( bp::arg("beam") ) );
         
         }
         { //::IDetector2D::isMasked

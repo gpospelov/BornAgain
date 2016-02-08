@@ -36,6 +36,8 @@ class GISASSimulation;
 class BA_CORE_API_ IDetector2D : public IParameterized
 {
 public:
+    enum EAxesUnits {DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ};
+
     IDetector2D();
     IDetector2D(const IDetector2D& other);
 
@@ -43,8 +45,8 @@ public:
 
     virtual ~IDetector2D() {}
 
-    //! Inits detector using simulation settings (e.g. beam position) if necessary
-    virtual void init(const GISASSimulation *simulation);
+    //! Inits detector with the beam settings
+    virtual void init(const Beam &beam);
 
     void addAxis(const IAxis &axis);
 
@@ -107,11 +109,21 @@ public:
 #ifndef GCCXML_SKIP_THIS
     //! Create a vector of SimulationElement objects according to the detector and its mask
     std::vector<SimulationElement> createSimulationElements(const Beam& beam);
+    SimulationElement getSimulationElement(size_t index, const Beam& beam) const;
 #endif
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;
+
+    //! Returns detector map in given axes units
+    virtual OutputData<double> *createDetectorMap(const Beam& beam, EAxesUnits units_type) const;
+
+    //! returns vector of valid axes units
+    virtual std::vector<EAxesUnits> getValidAxesUnits() const;
+
+    //! return default axes units
+    virtual EAxesUnits getDefaultAxesUnits() const;
 
 protected:
     //! Create an IPixelMap for the given OutputData object and index
@@ -146,7 +158,6 @@ protected:
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 #endif
     DetectorMask m_detector_mask;
-
 private:
     //! Verify if the given analyzer properties are physical
     bool checkAnalyzerProperties(const kvector_t &direction, double efficiency,

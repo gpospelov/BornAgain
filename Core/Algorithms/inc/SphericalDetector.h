@@ -57,6 +57,15 @@ public:
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;
 
+    //! Returns detector map in given axes units
+    virtual OutputData<double> *createDetectorMap(const Beam& beam, EAxesUnits units_type) const;
+
+    //! returns vector of valid axes units
+    virtual std::vector<EAxesUnits> getValidAxesUnits() const;
+
+    //! return default axes units
+    virtual EAxesUnits getDefaultAxesUnits() const;
+
 protected:
     //! Create an IPixelMap for the given OutputData object and index
     virtual IPixelMap* createPixelMap(size_t index) const;

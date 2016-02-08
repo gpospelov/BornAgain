@@ -35,7 +35,7 @@ public:
 
     virtual void insertChildItem(int row, ParameterizedItem *item);
 
-    virtual void onChildPropertyChange();
+    virtual void onChildPropertyChange(ParameterizedItem *item, const QString &propertyName=QString());
 
     std::unique_ptr<ParticleDistribution> createParticleDistribution() const;
 

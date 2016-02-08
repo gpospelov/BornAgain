@@ -72,10 +72,10 @@ RectangularDetector *RectangularDetector::clone() const
     return new RectangularDetector(*this);
 }
 
-void RectangularDetector::init(const GISASSimulation *simulation)
+void RectangularDetector::init(const Beam &beam)
 {
-    double alpha_i = simulation->getInstrument().getBeam().getAlpha();
-    kvector_t central_k = simulation->getInstrument().getBeam().getCentralK();
+    double alpha_i = beam.getAlpha();
+    kvector_t central_k = beam.getCentralK();
     initNormalVector(central_k);
     initUandV(alpha_i);
 }
@@ -206,6 +206,82 @@ double RectangularDetector::getDirectBeamV0() const
 RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const
 {
     return m_detector_arrangement;
+}
+
+OutputData<double> *RectangularDetector::createDetectorMap(const Beam &beam,
+                                                           IDetector2D::EAxesUnits units_type) const
+{
+    if (getDimension() != 2)
+        return 0;
+
+    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
+    const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis &aY = getAxis(BornAgain::Y_AXIS_INDEX);
+
+    result->addAxis(aX);
+    result->addAxis(aY);
+
+    if (units_type == DEFAULT)
+        return result.release();
+
+    std::vector<int> indices_left_bottom = {0, 0};
+    std::vector<int> indices_right_bottom = {(int)aX.getSize() - 1, 0};
+    std::vector<int> indices_center_bottom = {(int)aX.getSize() / 2, 0};
+    std::vector<int> indices_center_top = {(int)aX.getSize() / 2, (int)aY.getSize() - 1};
+    SimulationElement el_left_bottom
+        = getSimulationElement(result->toGlobalIndex(indices_left_bottom), beam);
+    SimulationElement el_right_bottom
+        = getSimulationElement(result->toGlobalIndex(indices_right_bottom), beam);
+    SimulationElement el_center_bottom
+        = getSimulationElement(result->toGlobalIndex(indices_center_bottom), beam);
+    SimulationElement el_center_top
+        = getSimulationElement(result->toGlobalIndex(indices_center_top), beam);
+
+    result->clear();
+
+    double xmin(aX.getMin()), xmax(aX.getMax()), ymin(aY.getMin()), ymax(aY.getMax());
+
+    if (units_type == NBINS) {
+        xmin = 0.0;
+        ymin = 0.0;
+        xmax = double(aX.getSize());
+        ymax = double(aY.getSize());
+    }
+
+    else if (units_type == RADIANS || units_type == DEGREES) {
+        double scale(1.0);
+        if (units_type == DEGREES)
+            scale = 1. / Units::degree;
+        xmin = scale * el_left_bottom.getPhi(0.0, 0.0);
+        xmax = scale * el_right_bottom.getPhi(1.0, 0.0);
+        ymin = scale * el_center_bottom.getAlpha(0.5, 0.0);
+        ymax = scale * el_center_top.getAlpha(0.5, 1.0);
+    }
+
+    else if (units_type == QYQZ) {
+        xmin = el_left_bottom.getQ(0.0, 0.0).y();
+        xmax = el_right_bottom.getQ(1.0, 0.0).y();
+        ymin = -el_center_bottom.getQ(0.5, 0.0).z();
+        ymax = -el_center_top.getQ(0.5, 1.0).z();
+    }
+
+    result->addAxis(FixedBinAxis(BornAgain::U_AXIS_NAME, aX.getSize(), xmin, xmax));
+    result->addAxis(FixedBinAxis(BornAgain::V_AXIS_NAME, aY.getSize(), ymin, ymax));
+
+    return result.release();
+}
+
+std::vector<IDetector2D::EAxesUnits> RectangularDetector::getValidAxesUnits() const
+{
+    std::vector<IDetector2D::EAxesUnits> result = IDetector2D::getValidAxesUnits();
+    std::vector<IDetector2D::EAxesUnits> addon = {IDetector2D::RADIANS, IDetector2D::DEGREES, IDetector2D::MM, IDetector2D::QYQZ};
+    result.insert(result.end(), addon.begin(), addon.end());
+    return result;
+}
+
+IDetector2D::EAxesUnits RectangularDetector::getDefaultAxesUnits() const
+{
+    return IDetector2D::MM;
 }
 
 void RectangularDetector::print(std::ostream &ostr) const

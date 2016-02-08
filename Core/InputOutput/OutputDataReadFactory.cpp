@@ -35,22 +35,17 @@ IOutputDataReadStrategy *OutputDataReadFactory::getReadStrategy(const std::strin
     if(OutputDataIOHelper::isIntFile(file_name)) {
         result = new OutputDataReadINTStrategy();
     }
-
     else if(OutputDataIOHelper::isTxtFile(file_name)) {
         result = new OutputDataReadNumpyTXTStrategy();
     }
-
 #ifdef BORNAGAIN_TIFF_SUPPORT
     else if(OutputDataIOHelper::isTiffFile(file_name)) {
        result = new OutputDataReadTiffStrategy();
     }
 #endif // BORNAGAIN_TIFF_SUPPORT
-
     else {
         throw LogicErrorException("OutputDataReadFactory::getReader() -> Error. "
                 "Don't know how to read file '" + file_name+std::string("'"));
     }
-
     return result;
 }
-

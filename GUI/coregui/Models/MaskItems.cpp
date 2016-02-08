@@ -59,13 +59,13 @@ RectangleItem::RectangleItem(ParameterizedItem *parent)
     registerProperty(P_YUP, 0.0).limitless();
 }
 
-Geometry::IShape2D *RectangleItem::createShape() const
+Geometry::IShape2D *RectangleItem::createShape(double scale) const
 {
-    double xlow = getRegisteredProperty(P_XLOW).toDouble();
-    double ylow = getRegisteredProperty(P_YLOW).toDouble();
-    double xup = getRegisteredProperty(P_XUP).toDouble();
-    double yup = getRegisteredProperty(P_YUP).toDouble();
-    return new Geometry::Rectangle(Units::deg2rad(xlow), Units::deg2rad(ylow), Units::deg2rad(xup), Units::deg2rad(yup));
+    double xlow = scale*getRegisteredProperty(P_XLOW).toDouble();
+    double ylow = scale*getRegisteredProperty(P_YLOW).toDouble();
+    double xup = scale*getRegisteredProperty(P_XUP).toDouble();
+    double yup = scale*getRegisteredProperty(P_YUP).toDouble();
+    return new Geometry::Rectangle(xlow, ylow, xup, yup);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -90,12 +90,12 @@ PolygonItem::PolygonItem(ParameterizedItem *parent)
     registerProperty(P_ISCLOSED, false).setHidden();
 }
 
-Geometry::IShape2D *PolygonItem::createShape() const
+Geometry::IShape2D *PolygonItem::createShape(double scale) const
 {
     std::vector<double> x,y;
     foreach(ParameterizedItem *item, this->childItems()) {
-        x.push_back(Units::deg2rad(item->getRegisteredProperty(PolygonPointItem::P_POSX).toDouble()));
-        y.push_back(Units::deg2rad(item->getRegisteredProperty(PolygonPointItem::P_POSY).toDouble()));
+        x.push_back(scale*item->getRegisteredProperty(PolygonPointItem::P_POSX).toDouble());
+        y.push_back(scale*item->getRegisteredProperty(PolygonPointItem::P_POSY).toDouble());
     }
     return new Geometry::Polygon(x, y);
 }
@@ -109,10 +109,10 @@ VerticalLineItem::VerticalLineItem(ParameterizedItem *parent)
     registerProperty(P_POSX, 0.0).limitless();
 }
 
-Geometry::IShape2D *VerticalLineItem::createShape() const
+Geometry::IShape2D *VerticalLineItem::createShape(double scale) const
 {
     return new Geometry::VerticalLine(
-                Units::deg2rad(getRegisteredProperty(VerticalLineItem::P_POSX).toDouble()));
+                scale*getRegisteredProperty(VerticalLineItem::P_POSX).toDouble());
 }
 
 /* ------------------------------------------------------------------------- */
@@ -124,10 +124,10 @@ HorizontalLineItem::HorizontalLineItem(ParameterizedItem *parent)
     registerProperty(P_POSY, 0.0).limitless();
 }
 
-Geometry::IShape2D *HorizontalLineItem::createShape() const
+Geometry::IShape2D *HorizontalLineItem::createShape(double scale) const
 {
     return new Geometry::HorizontalLine(
-                Units::deg2rad(getRegisteredProperty(HorizontalLineItem::P_POSY).toDouble()));
+                scale*getRegisteredProperty(HorizontalLineItem::P_POSY).toDouble());
 }
 
 /* ------------------------------------------------------------------------- */
@@ -148,13 +148,13 @@ EllipseItem::EllipseItem(ParameterizedItem *parent)
     registerProperty(P_ANGLE, 0.0).limitless();
 }
 
-Geometry::IShape2D *EllipseItem::createShape() const
+Geometry::IShape2D *EllipseItem::createShape(double scale) const
 {
-    double xcenter = Units::deg2rad(getRegisteredProperty(EllipseItem::P_XCENTER).toDouble());
-    double ycenter = Units::deg2rad(getRegisteredProperty(EllipseItem::P_YCENTER).toDouble());
-    double xradius = Units::deg2rad(getRegisteredProperty(EllipseItem::P_XRADIUS).toDouble());
-    double yradius = Units::deg2rad(getRegisteredProperty(EllipseItem::P_YRADIUS).toDouble());
-    double angle = Units::deg2rad(getRegisteredProperty(EllipseItem::P_ANGLE).toDouble());
+    double xcenter = scale*getRegisteredProperty(EllipseItem::P_XCENTER).toDouble();
+    double ycenter = scale*getRegisteredProperty(EllipseItem::P_YCENTER).toDouble();
+    double xradius = scale*getRegisteredProperty(EllipseItem::P_XRADIUS).toDouble();
+    double yradius = scale*getRegisteredProperty(EllipseItem::P_YRADIUS).toDouble();
+    double angle = scale*getRegisteredProperty(EllipseItem::P_ANGLE).toDouble();
 
     return new Geometry::Ellipse(xcenter, ycenter, xradius, yradius, angle);
 }
@@ -167,7 +167,8 @@ MaskAllItem::MaskAllItem(ParameterizedItem *parent)
     getPropertyAttribute(MaskItem::P_MASK_VALUE).setDisabled();
 }
 
-Geometry::IShape2D *MaskAllItem::createShape() const
+Geometry::IShape2D *MaskAllItem::createShape(double scale) const
 {
+    Q_UNUSED(scale);
     return new Geometry::InfinitePlane();
 }

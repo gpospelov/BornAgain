@@ -170,7 +170,7 @@ JobResultsPresenter::preferableGUIAxesUnits(IDetector2D::EAxesUnits default_unit
     if (default_units == IDetector2D::RADIANS)
         return IDetector2D::DEGREES;
     if (default_units == IDetector2D::MM)
-        return IDetector2D::DEGREES;
+        return IDetector2D::MM;
 
     return default_units;
 }

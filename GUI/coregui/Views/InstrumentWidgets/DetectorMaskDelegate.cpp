@@ -22,6 +22,7 @@
 #include "AxesItems.h"
 #include "MaskEditor.h"
 #include "MaskItems.h"
+#include "GUIHelpers.h"
 #include <QDebug>
 
 DetectorMaskDelegate::DetectorMaskDelegate(QObject *parent)
@@ -98,29 +99,49 @@ OutputData<double> *DetectorMaskDelegate::createOutputData(DetectorItem *detecto
     Q_ASSERT(subDetector);
 
 
-    Q_ASSERT(subDetector->modelType() == Constants::SphericalDetectorType);
+    if(subDetector->modelType() == Constants::SphericalDetectorType) {
 
-    auto x_axis = dynamic_cast<BasicAxisItem *>(
-         subDetector->getSubItems()[SphericalDetectorItem::P_PHI_AXIS]);
-    Q_ASSERT(x_axis);
-    int n_x = x_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
-    double x_min
-        = Units::deg2rad(x_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble());
-    double x_max
-        = Units::deg2rad(x_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
+        auto x_axis = dynamic_cast<BasicAxisItem *>(
+            subDetector->getSubItems()[SphericalDetectorItem::P_PHI_AXIS]);
+        Q_ASSERT(x_axis);
+        int n_x = x_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
+        double x_min = x_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
+        double x_max = x_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
 
-    auto y_axis = dynamic_cast<BasicAxisItem *>(
-        subDetector->getSubItems()[SphericalDetectorItem::P_ALPHA_AXIS]);
-    Q_ASSERT(y_axis);
-    int n_y = y_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
-    double y_min
-        = Units::deg2rad(y_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble());
-    double y_max
-        = Units::deg2rad(y_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
+        auto y_axis = dynamic_cast<BasicAxisItem *>(
+            subDetector->getSubItems()[SphericalDetectorItem::P_ALPHA_AXIS]);
+        Q_ASSERT(y_axis);
+        int n_y = y_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
+        double y_min = y_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
+        double y_max = y_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
 
+        result->addAxis("x", n_x, x_min, x_max);
+        result->addAxis("y", n_y, y_min, y_max);
 
-    result->addAxis("x", n_x, x_min, x_max);
-    result->addAxis("y", n_y, y_min, y_max);
+    } else if(subDetector->modelType() == Constants::RectangularDetectorType) {
+        auto x_axis = dynamic_cast<BasicAxisItem *>(
+            subDetector->getSubItems()[RectangularDetectorItem::P_X_AXIS]);
+        Q_ASSERT(x_axis);
+        int n_x = x_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
+        double x_min = x_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
+        double x_max = x_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
+
+        auto y_axis = dynamic_cast<BasicAxisItem *>(
+            subDetector->getSubItems()[RectangularDetectorItem::P_Y_AXIS]);
+        Q_ASSERT(y_axis);
+        int n_y = y_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
+        double y_min = y_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
+        double y_max = y_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
+
+        result->addAxis("x", n_x, x_min, x_max);
+        result->addAxis("y", n_y, y_min, y_max);
+
+    }
+
+    else {
+        throw GUIHelpers::Error("DetectorMaskDelegate::createOutputData() -> Error. "
+                                " Unknown detector type");
+    }
 
     result->setAllTo(1.0);
 

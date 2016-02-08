@@ -182,6 +182,8 @@ void JobResultsPresenter::initIntensityItemProperties(IntensityDataItem *intensi
     ComboProperty combo = intensityItem->getRegisteredProperty(IntensityDataItem::P_AXES_UNITS)
                               .value<ComboProperty>();
 
+    if(!combo.getValues().isEmpty()) return;
+
     QString cachedUnits = combo.getCachedValue();
 
     intensityItem->getPropertyAttribute(IntensityDataItem::P_AXES_UNITS).setVisible();
@@ -199,6 +201,9 @@ void JobResultsPresenter::initIntensityItemProperties(IntensityDataItem *intensi
     }
 
     intensityItem->setRegisteredProperty(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
+
+
+
 }
 
 void JobResultsPresenter::updateAxesTitle(IntensityDataItem *intensityItem)

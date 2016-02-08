@@ -26,27 +26,26 @@ namespace {
 const double default_detector_width = 20.0;
 const double default_detector_height = 20.0;
 const double default_detector_distance = 1000.0;
-const QString tooltip_u0="x-coordinate of point of intersection of normal vector "
+const QString tooltip_u0="u-coordinate of point of intersection of normal vector "
                          "and detector plane, \n in local detector coordinates";
-const QString tooltip_v0="y-coordinate of point of intersection of normal vector "
+const QString tooltip_v0="v-coordinate of point of intersection of normal vector "
                          "and detector plane, \n in local detector coordinates";
 
-const QString tooltip_dbeam_u0="x-coordinate of point where direct beam hit the detector, \n"
+const QString tooltip_dbeam_u0="u-coordinate of point where direct beam hits the detector, \n"
                                "in local detector coordinates [mm]";
-const QString tooltip_dbeam_v0="y-coordinate of point where direct beam hit the detector, \n"
-                               "in local detector coordinates [mm]";
-
-const QString tooltip_refbeam_u0="x-coordinate of point where reflected beam hit the detector, \n"
-                               "in local detector coordinates [mm]";
-const QString tooltip_refbeam_v0="y-coordinate of point where reflected beam hit the detector, \n"
+const QString tooltip_dbeam_v0="v-coordinate of point where direct beam hits the detector, \n"
                                "in local detector coordinates [mm]";
 
-
-const QString tooltip_samplex_u0="x-coordinate of point where sample x-axis crosses the detector, \n"
+const QString tooltip_refbeam_u0="u-coordinate of point where reflected beam hits the detector, \n"
                                "in local detector coordinates [mm]";
-const QString tooltip_samplex_v0="y-coordinate of point where sample x-axis crosses the detector, \n"
+const QString tooltip_refbeam_v0="v-coordinate of point where reflected beam hits the detector, \n"
                                "in local detector coordinates [mm]";
 
+
+const QString tooltip_samplex_u0="u-coordinate of point where sample x-axis crosses the detector, \n"
+                               "in local detector coordinates [mm]";
+const QString tooltip_samplex_v0="v-coordinate of point where sample x-axis crosses the detector, \n"
+                               "in local detector coordinates [mm]";
 }
 
 const QString RectangularDetectorItem::P_X_AXIS = "X axis";
@@ -109,7 +108,7 @@ RectangularDetectorItem::RectangularDetectorItem(ParameterizedItem *parent)
     registerProperty(P_DBEAM_V0, 0.0).setToolTip(tooltip_dbeam_v0);
 
     registerProperty(P_DISTANCE, default_detector_distance)
-        .setToolTip(QStringLiteral("Distance in [mm] from sample origin to the detector plane"));
+        .setToolTip(QStringLiteral("Distance in [mm] from the sample origin to the detector plane"));
 
     update_properties_appearance();
     m_is_constructed=true;

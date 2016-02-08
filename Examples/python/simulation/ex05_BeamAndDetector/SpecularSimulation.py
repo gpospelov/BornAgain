@@ -46,7 +46,7 @@ def get_sample():
 
 def get_simulation():
     """
-    Create and return off-specular simulation with beam and detector defined
+    Create and return specular simulation with beam and detector defined
     """
     simulation = SpecularSimulation()
     simulation.setBeamParameters(1.54*angstrom, 1000, alpha_i_min*degree, alpha_i_max*degree)

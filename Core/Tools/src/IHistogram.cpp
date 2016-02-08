@@ -255,6 +255,11 @@ IHistogram *IHistogram::createHistogram(const OutputData<double> &source)
     }
 }
 
+IHistogram *IHistogram::createFrom(const std::string &filename)
+{
+    return IntensityDataIOFactory::readIntensityData(filename);
+}
+
 void IHistogram::check_x_axis() const
 {
     if(getRank() <1) {

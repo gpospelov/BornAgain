@@ -27,7 +27,7 @@ public:
     explicit ParticleLayoutItem(ParameterizedItem *parent=0);
     virtual ~ParticleLayoutItem();
     virtual void insertChildItem(int row, ParameterizedItem *item);
-    virtual void onChildPropertyChange();
+    virtual void onChildPropertyChange(ParameterizedItem *item, const QString &propertyName=QString());
 };
 
 #endif // PARTICLELAYOUTITEM_H

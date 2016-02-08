@@ -104,6 +104,16 @@ void register_Instrument_class(){
                 , "Returns clone of the intensity map with detector resolution applied, axes of map will be in requested units " );
         
         }
+        { //::Instrument::initDetector
+        
+            typedef void ( ::Instrument::*initDetector_function_type)(  ) ;
+            
+            Instrument_exposer.def( 
+                "initDetector"
+                , initDetector_function_type( &::Instrument::initDetector )
+                , "init detector with beam settings." );
+        
+        }
         { //::Instrument::matchDetectorAxes
         
             typedef void ( ::Instrument::*matchDetectorAxes_function_type)( ::OutputData< double > const & ) ;

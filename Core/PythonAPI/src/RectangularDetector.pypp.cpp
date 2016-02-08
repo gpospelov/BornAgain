@@ -58,12 +58,48 @@ struct RectangularDetector_wrapper : RectangularDetector, bp::wrapper< Rectangul
         if( bp::override func_createDetectorMap = this->get_override( "createDetectorMap" ) )
             return func_createDetectorMap( boost::ref(beam), units_type );
         else{
-            return this->IDetector2D::createDetectorMap( boost::ref(beam), units_type );
+            return this->RectangularDetector::createDetectorMap( boost::ref(beam), units_type );
         }
     }
     
     ::OutputData< double > * default_createDetectorMap( ::Beam const & beam, ::IDetector2D::EAxesUnits units_type ) const  {
-        return IDetector2D::createDetectorMap( boost::ref(beam), units_type );
+        return RectangularDetector::createDetectorMap( boost::ref(beam), units_type );
+    }
+
+    virtual ::IDetector2D::EAxesUnits getDefaultAxesUnits(  ) const  {
+        if( bp::override func_getDefaultAxesUnits = this->get_override( "getDefaultAxesUnits" ) )
+            return func_getDefaultAxesUnits(  );
+        else{
+            return this->RectangularDetector::getDefaultAxesUnits(  );
+        }
+    }
+    
+    ::IDetector2D::EAxesUnits default_getDefaultAxesUnits(  ) const  {
+        return RectangularDetector::getDefaultAxesUnits( );
+    }
+
+    virtual ::std::vector< IDetector2D::EAxesUnits > getValidAxesUnits(  ) const  {
+        if( bp::override func_getValidAxesUnits = this->get_override( "getValidAxesUnits" ) )
+            return func_getValidAxesUnits(  );
+        else{
+            return this->RectangularDetector::getValidAxesUnits(  );
+        }
+    }
+    
+    ::std::vector< IDetector2D::EAxesUnits > default_getValidAxesUnits(  ) const  {
+        return RectangularDetector::getValidAxesUnits( );
+    }
+
+    virtual void init( ::Beam const & beam ) {
+        if( bp::override func_init = this->get_override( "init" ) )
+            func_init( boost::ref(beam) );
+        else{
+            this->RectangularDetector::init( boost::ref(beam) );
+        }
+    }
+    
+    void default_init( ::Beam const & beam ) {
+        RectangularDetector::init( boost::ref(beam) );
     }
 
     PyObject* m_pyobj;
@@ -95,6 +131,30 @@ void register_RectangularDetector_class(){
                 , clone_function_type(&::RectangularDetector::clone)
                 , default_clone_function_type(&RectangularDetector_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::RectangularDetector::createDetectorMap
+        
+            typedef ::OutputData< double > * ( ::RectangularDetector::*createDetectorMap_function_type)( ::Beam const &,::IDetector2D::EAxesUnits ) const;
+            typedef ::OutputData< double > * ( RectangularDetector_wrapper::*default_createDetectorMap_function_type)( ::Beam const &,::IDetector2D::EAxesUnits ) const;
+            
+            RectangularDetector_exposer.def( 
+                "createDetectorMap"
+                , createDetectorMap_function_type(&::RectangularDetector::createDetectorMap)
+                , default_createDetectorMap_function_type(&RectangularDetector_wrapper::default_createDetectorMap)
+                , ( bp::arg("beam"), bp::arg("units_type") )
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::RectangularDetector::getDefaultAxesUnits
+        
+            typedef ::IDetector2D::EAxesUnits ( ::RectangularDetector::*getDefaultAxesUnits_function_type)(  ) const;
+            typedef ::IDetector2D::EAxesUnits ( RectangularDetector_wrapper::*default_getDefaultAxesUnits_function_type)(  ) const;
+            
+            RectangularDetector_exposer.def( 
+                "getDefaultAxesUnits"
+                , getDefaultAxesUnits_function_type(&::RectangularDetector::getDefaultAxesUnits)
+                , default_getDefaultAxesUnits_function_type(&RectangularDetector_wrapper::default_getDefaultAxesUnits) );
         
         }
         { //::RectangularDetector::getDetectorArrangment
@@ -196,6 +256,17 @@ void register_RectangularDetector_class(){
                 , getV0_function_type( &::RectangularDetector::getV0 ) );
         
         }
+        { //::RectangularDetector::getValidAxesUnits
+        
+            typedef ::std::vector< IDetector2D::EAxesUnits > ( ::RectangularDetector::*getValidAxesUnits_function_type)(  ) const;
+            typedef ::std::vector< IDetector2D::EAxesUnits > ( RectangularDetector_wrapper::*default_getValidAxesUnits_function_type)(  ) const;
+            
+            RectangularDetector_exposer.def( 
+                "getValidAxesUnits"
+                , getValidAxesUnits_function_type(&::RectangularDetector::getValidAxesUnits)
+                , default_getValidAxesUnits_function_type(&RectangularDetector_wrapper::default_getValidAxesUnits) );
+        
+        }
         { //::RectangularDetector::getWidth
         
             typedef double ( ::RectangularDetector::*getWidth_function_type)(  ) const;
@@ -203,6 +274,18 @@ void register_RectangularDetector_class(){
             RectangularDetector_exposer.def( 
                 "getWidth"
                 , getWidth_function_type( &::RectangularDetector::getWidth ) );
+        
+        }
+        { //::RectangularDetector::init
+        
+            typedef void ( ::RectangularDetector::*init_function_type)( ::Beam const & ) ;
+            typedef void ( RectangularDetector_wrapper::*default_init_function_type)( ::Beam const & ) ;
+            
+            RectangularDetector_exposer.def( 
+                "init"
+                , init_function_type(&::RectangularDetector::init)
+                , default_init_function_type(&RectangularDetector_wrapper::default_init)
+                , ( bp::arg("beam") ) );
         
         }
         { //::RectangularDetector::operator=
@@ -264,19 +347,6 @@ void register_RectangularDetector_class(){
                 "setPosition"
                 , setPosition_function_type( &::RectangularDetector::setPosition )
                 , ( bp::arg("normal_to_detector"), bp::arg("u0"), bp::arg("v0"), bp::arg("direction")=Geometry::BasicVector3D<double>(0.0, -1.0e+0, 0.0) ) );
-        
-        }
-        { //::IDetector2D::createDetectorMap
-        
-            typedef ::OutputData< double > * ( ::IDetector2D::*createDetectorMap_function_type)( ::Beam const &,::IDetector2D::EAxesUnits ) const;
-            typedef ::OutputData< double > * ( RectangularDetector_wrapper::*default_createDetectorMap_function_type)( ::Beam const &,::IDetector2D::EAxesUnits ) const;
-            
-            RectangularDetector_exposer.def( 
-                "createDetectorMap"
-                , createDetectorMap_function_type(&::IDetector2D::createDetectorMap)
-                , default_createDetectorMap_function_type(&RectangularDetector_wrapper::default_createDetectorMap)
-                , ( bp::arg("beam"), bp::arg("units_type") )
-                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
     }

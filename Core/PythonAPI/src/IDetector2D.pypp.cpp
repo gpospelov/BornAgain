@@ -74,6 +74,42 @@ struct IDetector2D_wrapper : IDetector2D, bp::wrapper< IDetector2D > {
         return func_getAxisName( index );
     }
 
+    virtual ::IDetector2D::EAxesUnits getDefaultAxesUnits(  ) const  {
+        if( bp::override func_getDefaultAxesUnits = this->get_override( "getDefaultAxesUnits" ) )
+            return func_getDefaultAxesUnits(  );
+        else{
+            return this->IDetector2D::getDefaultAxesUnits(  );
+        }
+    }
+    
+    ::IDetector2D::EAxesUnits default_getDefaultAxesUnits(  ) const  {
+        return IDetector2D::getDefaultAxesUnits( );
+    }
+
+    virtual ::std::vector< IDetector2D::EAxesUnits > getValidAxesUnits(  ) const  {
+        if( bp::override func_getValidAxesUnits = this->get_override( "getValidAxesUnits" ) )
+            return func_getValidAxesUnits(  );
+        else{
+            return this->IDetector2D::getValidAxesUnits(  );
+        }
+    }
+    
+    ::std::vector< IDetector2D::EAxesUnits > default_getValidAxesUnits(  ) const  {
+        return IDetector2D::getValidAxesUnits( );
+    }
+
+    virtual void init( ::Beam const & beam ) {
+        if( bp::override func_init = this->get_override( "init" ) )
+            func_init( boost::ref(beam) );
+        else{
+            this->IDetector2D::init( boost::ref(beam) );
+        }
+    }
+    
+    void default_init( ::Beam const & beam ) {
+        IDetector2D::init( boost::ref(beam) );
+    }
+
     PyObject* m_pyobj;
 
 };
@@ -184,6 +220,17 @@ void register_IDetector2D_class(){
                 , "Returns the name for the axis with given index." );
         
         }
+        { //::IDetector2D::getDefaultAxesUnits
+        
+            typedef ::IDetector2D::EAxesUnits ( ::IDetector2D::*getDefaultAxesUnits_function_type)(  ) const;
+            typedef ::IDetector2D::EAxesUnits ( IDetector2D_wrapper::*default_getDefaultAxesUnits_function_type)(  ) const;
+            
+            IDetector2D_exposer.def( 
+                "getDefaultAxesUnits"
+                , getDefaultAxesUnits_function_type(&::IDetector2D::getDefaultAxesUnits)
+                , default_getDefaultAxesUnits_function_type(&IDetector2D_wrapper::default_getDefaultAxesUnits) );
+        
+        }
         { //::IDetector2D::getDetectorMask
         
             typedef ::DetectorMask const * ( ::IDetector2D::*getDetectorMask_function_type)(  ) const;
@@ -223,6 +270,17 @@ void register_IDetector2D_class(){
                 , getNumberOfMaskedChannels_function_type( &::IDetector2D::getNumberOfMaskedChannels ) );
         
         }
+        { //::IDetector2D::getValidAxesUnits
+        
+            typedef ::std::vector< IDetector2D::EAxesUnits > ( ::IDetector2D::*getValidAxesUnits_function_type)(  ) const;
+            typedef ::std::vector< IDetector2D::EAxesUnits > ( IDetector2D_wrapper::*default_getValidAxesUnits_function_type)(  ) const;
+            
+            IDetector2D_exposer.def( 
+                "getValidAxesUnits"
+                , getValidAxesUnits_function_type(&::IDetector2D::getValidAxesUnits)
+                , default_getValidAxesUnits_function_type(&IDetector2D_wrapper::default_getValidAxesUnits) );
+        
+        }
         { //::IDetector2D::hasMasks
         
             typedef bool ( ::IDetector2D::*hasMasks_function_type)(  ) const;
@@ -231,6 +289,18 @@ void register_IDetector2D_class(){
                 "hasMasks"
                 , hasMasks_function_type( &::IDetector2D::hasMasks )
                 , "return true if has masks." );
+        
+        }
+        { //::IDetector2D::init
+        
+            typedef void ( ::IDetector2D::*init_function_type)( ::Beam const & ) ;
+            typedef void ( IDetector2D_wrapper::*default_init_function_type)( ::Beam const & ) ;
+            
+            IDetector2D_exposer.def( 
+                "init"
+                , init_function_type(&::IDetector2D::init)
+                , default_init_function_type(&IDetector2D_wrapper::default_init)
+                , ( bp::arg("beam") ) );
         
         }
         { //::IDetector2D::isMasked

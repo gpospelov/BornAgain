@@ -74,12 +74,6 @@ void GISASSimulation::prepareSimulation()
                 "-> Error. The detector was not properly configured.");
     }
 
-    if (getWavelength() <= 0.0) {
-        throw ClassInitializationException(
-                "GISASSimulation::prepareSimulation() "
-                "-> Error. Incoming wavelength <= 0.");
-    }
-
     getInstrument().initDetector();
 
     Simulation::prepareSimulation();

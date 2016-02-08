@@ -57,7 +57,7 @@ public:
 
     virtual ~RectangularDetector() {}
 
-    void init(const GISASSimulation *simulation);
+    virtual void init(const Beam &beam);
 
     void setPosition(const kvector_t &normal_to_detector, double u0, double v0,
                      const kvector_t &direction = kvector_t(0.0, -1.0, 0.0));
@@ -84,6 +84,15 @@ public:
     double getDirectBeamU0() const;
     double getDirectBeamV0() const;
     EDetectorArrangement getDetectorArrangment() const;
+
+    //! Returns detector map in given axes units
+    virtual OutputData<double> *createDetectorMap(const Beam& beam, EAxesUnits units_type) const;
+
+    //! returns vector of valid axes units
+    virtual std::vector<EAxesUnits> getValidAxesUnits() const;
+
+    //! return default axes units
+    virtual EAxesUnits getDefaultAxesUnits() const;
 
 protected:
     //! Create an IPixelMap for the given OutputData object and index

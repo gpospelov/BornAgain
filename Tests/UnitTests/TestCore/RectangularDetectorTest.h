@@ -88,7 +88,7 @@ TEST_F(RectangularDetectorTest, PerpToSample)
     // initializing with the simulation
     GISASSimulation simulation;
     simulation.setBeamParameters(1.0, 10.0*Units::degree, 0.0);
-    det.init(&simulation);
+    det.init(simulation.getInstrument().getBeam());
     EXPECT_TRUE(kvector_t(distance, 0, 0) == det.getNormalVector());
     EXPECT_TRUE(kvector_t(0.0, -1.0, 0.0) == det.getDirectionVector());
 
@@ -144,7 +144,7 @@ TEST_F(RectangularDetectorTest, PerpToDirectBeam)
     // initializing with the simulation
     GISASSimulation simulation;
     simulation.setBeamParameters(1.0, alpha_i, 0.0);
-    det.init(&simulation);
+    det.init(simulation.getInstrument().getBeam());
     kvector_t normal(distance*cos(alpha_i), 0.0, -1.0*distance*sin(alpha_i));
     EXPECT_TRUE(isEqual(normal, det.getNormalVector()));
     EXPECT_TRUE(kvector_t(0.0, -1.0, 0.0) == det.getDirectionVector());
@@ -187,7 +187,7 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeam)
     // initializing with the simulation
     GISASSimulation simulation;
     simulation.setBeamParameters(1.0, alpha_i, 0.0);
-    det.init(&simulation);
+    det.init(simulation.getInstrument().getBeam());
     kvector_t normal(distance*cos(alpha_i), 0.0, 1.0*distance*sin(alpha_i));
     EXPECT_TRUE(isEqual(normal, det.getNormalVector()));
     EXPECT_TRUE(kvector_t(0.0, -1.0, 0.0) == det.getDirectionVector());
@@ -241,7 +241,7 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos)
     // initializing with the simulation
     GISASSimulation simulation;
     simulation.setBeamParameters(1.0, alpha_i, 0.0);
-    det.init(&simulation);
+    det.init(simulation.getInstrument().getBeam());
 
     kvector_t normal(distance*cos(alpha_i), 0.0, 1.0*distance*sin(alpha_i));
     EXPECT_TRUE(isEqual(normal, det.getNormalVector()));

@@ -17,8 +17,7 @@
 #include "SphericalDetector.h"
 #include "ConvolutionDetectorResolution.h"
 #include "BornAgainNamespace.h"
-#include "CustomBinAxis.h"
-#include "ConstKBinAxis.h"
+#include <memory>
 
 Instrument::Instrument()
     : IParameterized("Instrument")
@@ -81,6 +80,12 @@ std::string Instrument::addParametersToExternalPool(std::string path, ParameterP
     return new_path;
 }
 
+void Instrument::initDetector()
+{
+    getDetector()->init(getBeam());
+}
+
+
 std::vector<SimulationElement> Instrument::createSimulationElements()
 {
     return mP_detector->createSimulationElements(m_beam);
@@ -104,6 +109,25 @@ void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D &p_re
 void Instrument::applyDetectorResolution(OutputData<double> *p_intensity_map) const
 {
     mP_detector->applyDetectorResolution(p_intensity_map);
+}
+
+OutputData<double> *Instrument::getDetectorIntensity(const OutputData<double> &data,
+                                                     IDetector2D::EAxesUnits units_type) const
+{
+    std::unique_ptr<OutputData<double> > result (data.clone());
+    applyDetectorResolution(result.get());
+
+    if(units_type == IDetector2D::DEFAULT) {
+        return result.release();
+    } else {
+        OutputData<double> *detectorMap = mP_detector->createDetectorMap(m_beam, units_type);
+        if(!detectorMap) {
+            throw RuntimeErrorException("Instrument::getDetectorIntensity() -> Error."
+                                        "Can't create detector map.");
+        }
+        detectorMap->setRawDataVector(result->getRawDataVector());
+        return detectorMap;
+    }
 }
 
 void Instrument::init_parameters()

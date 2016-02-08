@@ -63,11 +63,11 @@ public:
     const OutputData<double>* getOutputData() const;
 
     //! Returns clone of the detector intensity map with detector resolution applied
-    OutputData<double>* getDetectorIntensity() const;
+    OutputData<double>* getDetectorIntensity(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
 
     //! Returns clone of the detector intensity map with detector resolution applied in the form
     //! of 2D histogram.
-    Histogram2D *getIntensityData() const;
+    Histogram2D *getIntensityData(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
 
     //! Sets the instrument containing beam and detector information
     void setInstrument(const Instrument& instrument);

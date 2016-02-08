@@ -48,6 +48,8 @@ public slots:
     void onPropertyChanged(const QString &);
 
 private:
+    QLayout *create_NameAndTypeLayout();
+
     void updateWidgets();
 
     QLineEdit *m_nameLineEdit;

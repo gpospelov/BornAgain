@@ -157,8 +157,11 @@ const ModelType MaterialGroup = "Material group";
 const ModelType ResolutionFunctionGroup = "Resolution function group";
 
 // --- Units&Constants----------------------------------------------------------
-const ModelType UnitsDegrees = "Degrees";
+const ModelType UnitsNbins = "nbins";
 const ModelType UnitsRadians = "Radians";
+const ModelType UnitsDegrees = "Degrees";
+const ModelType UnitsMm = "mm";
+const ModelType UnitsQyQz = "Qy,Qz";
 
 const ModelType STATUS_IDLE = "Idle";
 const ModelType STATUS_RUNNING = "Running";

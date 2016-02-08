@@ -39,9 +39,9 @@ IDetector2D::IDetector2D(const IDetector2D &other)
     init_parameters();
 }
 
-void IDetector2D::init(const GISASSimulation *simulation)
+void IDetector2D::init(const Beam &beam)
 {
-    (void)simulation;
+    (void)beam;
 }
 
 const IAxis &IDetector2D::getAxis(size_t index) const
@@ -120,6 +120,22 @@ std::string IDetector2D::addParametersToExternalPool(std::string path, Parameter
     return new_path;
 }
 
+OutputData<double> *IDetector2D::createDetectorMap(const Beam& /* beam */, EAxesUnits /* units_type */) const
+{
+    return 0;
+}
+
+std::vector<IDetector2D::EAxesUnits> IDetector2D::getValidAxesUnits() const
+{
+    std::vector<EAxesUnits> result = {NBINS};
+    return result;
+}
+
+IDetector2D::EAxesUnits IDetector2D::getDefaultAxesUnits() const
+{
+    return DEFAULT;
+}
+
 void IDetector2D::removeMasks()
 {
     m_detector_mask.removeMasks();
@@ -190,6 +206,16 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
         result.push_back(sim_element);
     }
     return result;
+}
+
+//! create single simulation element
+SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &beam) const
+{
+    double wavelength = beam.getWavelength();
+    double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
+    double phi_i = beam.getPhi();
+    boost::scoped_ptr<IPixelMap> P_pixel_map(createPixelMap(index));
+    return SimulationElement(wavelength, alpha_i, phi_i, P_pixel_map.get());
 }
 
 bool IDetector2D::dataShapeMatches(const OutputData<double> *p_data) const

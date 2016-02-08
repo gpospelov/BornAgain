@@ -87,6 +87,11 @@ public:
     //! apply the detector resolution to the given intensity map
     void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
 
+    //! Returns clone of the intensity map with detector resolution applied,
+    //! axes of map will be in requested units
+    OutputData<double> *getDetectorIntensity(const OutputData<double> &data,
+                                             IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
+
 #ifndef GCCXML_SKIP_THIS
     //! Create a vector of SimulationElement objects according to the beam, detector and its mask
     std::vector<SimulationElement> createSimulationElements();
@@ -95,6 +100,9 @@ public:
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;
+
+    //! init detector with beam settings
+    void initDetector();
 
 protected:
     virtual void print(std::ostream &ostr) const;

@@ -45,9 +45,9 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
         return func_getBeamIntensity(  );
     }
 
-    virtual ::OutputData< double > * getDetectorIntensity(  ) const {
+    virtual ::OutputData< double > * getDetectorIntensity( ::IDetector2D::EAxesUnits units_type=::IDetector2D::DEFAULT ) const {
         bp::override func_getDetectorIntensity = this->get_override( "getDetectorIntensity" );
-        return func_getDetectorIntensity(  );
+        return func_getDetectorIntensity( units_type );
     }
 
     virtual int getNumberOfSimulationElements(  ) const {
@@ -154,11 +154,12 @@ void register_Simulation_class(){
         }
         { //::Simulation::getDetectorIntensity
         
-            typedef ::OutputData<double> * ( ::Simulation::*getDetectorIntensity_function_type)(  ) const;
+            typedef ::OutputData<double> * ( ::Simulation::*getDetectorIntensity_function_type)( ::IDetector2D::EAxesUnits ) const;
             
             Simulation_exposer.def( 
                 "getDetectorIntensity"
                 , bp::pure_virtual( getDetectorIntensity_function_type(&::Simulation::getDetectorIntensity) )
+                , ( bp::arg("units_type")=::IDetector2D::DEFAULT )
                 , bp::return_value_policy< bp::reference_existing_object >()
                 , "Clone simulated intensity map." );
         

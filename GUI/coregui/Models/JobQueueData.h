@@ -42,7 +42,7 @@ public:
 
     bool hasUnfinishedJobs();
 
-    void setResults(JobItem *jobItem, const GISASSimulation *simulation);
+//    void setResults(JobItem *jobItem, const GISASSimulation *simulation);
 
 signals:
     void globalProgress(int);

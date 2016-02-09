@@ -30,7 +30,7 @@ class DefaultFitObserver(IFitObserver):
         plt.subplots_adjust(wspace=0.2, hspace=0.2)
         im = plt.imshow(data.getArray(),
                         norm=matplotlib.colors.LogNorm(min, max),
-                        extent=[data.getXmin()/deg, data.getXmax()/deg, data.getYmin()/deg, data.getYmax()/deg],
+                        extent=[data.getXmin(), data.getXmax(), data.getYmin(), data.getYmax()],
                         aspect='auto')
         plt.colorbar(im)
         plt.title(title)

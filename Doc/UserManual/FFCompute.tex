@@ -80,31 +80,6 @@ It turns out that these generic solutions
 are easier to implement
 than lengthy arithmetic expressions for specific geometries.
 
-\iffalse
-As a final preparation,
-let us anticipate that we will encounter terms like
-\begin{equation}\label{Eexpcancel}
-  \frac{\e^u-1}{u},\text{~or~}\frac{\e^u-1-u}{u^2}.
-\end{equation}
-Like in~(\ref{Esinc}), the singularity at~$u=0$ is removable.
-Close to the singularity, however, we must expect a loss of numeric
-precision because of cancellation with the numerator.
-To deal with the first of these cases, the POSIX standard
-for portable computer operating system interfaces foresees a function
-\begin{equation}\label{Eexpm1}
-  \expmone(u)\coloneqq \e^u-1
-\end{equation}
-that ought to be computed to standard floating-point accuracy
-even for $u\to0$.
-However, POSIX does not mandate implementation for complex arguments,
-so that we need to provide our own implementation.
-Furthermore,
-we implement
-\begin{equation}\label{Eexpm1}
-  \expmtwo(u)\coloneqq \e^u-1-u
-\end{equation}
-to deal with the second case in~(\ref{Eexpcancel}).
-\fi
 
 % TODO? another concern: integrals without numeric solution
 
@@ -115,6 +90,7 @@ to deal with the second case in~(\ref{Eexpcancel}).
 \index{Form factor!polygon|(}%
 \index{Polygon!form factor|(}
 \def\R{\v{R}}
+\let\textE=\E
 \def\E{\v{E}}
 \def\Gp{\Gamma_\parallel}
 \def\x{\v{x}}
@@ -128,7 +104,7 @@ To derive the form factor of prisms and pyramids with polygonal bases
 we will need the two-dimensional form factor
 %\nomenclature[2f134 2q040]{$F(\q)$}{Two-dimensional form factor of planar figure}%
 \begin{equation}\label{Eff2d}
-  F(\q,\Gamma)
+  F_2(\q,\Gamma)
   \coloneqq \int_{\Gamma}\!\d^2r\, \e^{i\q\r}
 \end{equation}
 of an arbitrary planar polygon~$\Gamma$,
@@ -147,9 +123,9 @@ whereas~$\r_\perp$ is constant for all $\r\in\Gamma$.
 The corresponding translation in affine space
 shall be denoted as $\Gamma=\r_\perp+\Gamma_\parallel$.
 This allows us to draw the $\r_\perp$~dependence in front of the integral,
-\begin{equation}
-  F(\q,\Gamma)
-  = \e^{i\q_\perp\r_\perp}\,F(\q_\parallel,\Gp).
+\begin{equation}\label{EF2F2}
+  F_2(\q,\Gamma)
+  = \e^{i\q_\perp\r_\perp}\,F_2(\q_\parallel,\Gp).
 \end{equation}
 To keep notation light,
 in the following we shall substitute $\qp$ for the dummy variable~$\q_\parallel$.
@@ -160,7 +136,7 @@ With the help of Stokes's theorem
 and with the choice $\v{G}\coloneqq\v{a}\, (\e^{i\qp\r}-1)$,
 we find
 \begin{equation}
-  F(\qp,\Gp)=\frac{\v{a}}{i\, \n(\qp\times\v{a})} \oint_{\partial\Gp} \d\v{r}\,(\e^{i\qp\r}-1).
+  F_2(\qp,\Gp)=\frac{\v{a}}{i\, \n(\qp\times\v{a})} \oint_{\partial\Gp} \d\v{r}\,(\e^{i\qp\r}-1).
 \end{equation}
 We define the absolute value
 $p\coloneqq|\v{p}|=(\v{p}\v{p}^*)^{1/2}$,
@@ -168,7 +144,7 @@ and the unit vector $\v{\hat p}\coloneqq\v{p}/p$.
 With the choice $\v{a}\coloneqq\n\times\qp^*$,
 the form factor becomes
 \begin{equation}\label{Elastoint}
-  F(\qp,\Gp)=\frac{\n\times\uqp^*}{ip} \oint_{\partial\Gp} \d\v{r}\,(\e^{i\qp\r}-1).
+  F_2(\qp,\Gp)=\frac{\n\times\uqp^*}{ip} \oint_{\partial\Gp} \d\v{r}\,(\e^{i\qp\r}-1).
 \end{equation}
 Let the polygon have $N$ vertices $\V_0,\ldots,\V_{N-1}$,
 and put $\V_N\coloneqq\V_0$.
@@ -180,13 +156,13 @@ The edges of the polygon shall parametrized by
 with $-1\le\lambda\le+1$.
 The line integral~(\ref{Elastoint}) then takes the form
 \begin{equation}
-    F(\qp,\Gp)
+    F_2(\qp,\Gp)
    = \frac{\n\times\uqp^*}{ip} \sum_{j=0}^{N-1}
               \int_{-1}^{+1}\!\d\lambda\, \frac{\d\r_j}{\d\lambda}\,(\e^{i\qp\r}-1),
 \end{equation}
 and yields
 \begin{equation}\label{Effpolygon1}
-    F(\qp,\Gp)
+    F_2(\qp,\Gp)
     = \frac{\n\times\uqp^*}{ip}
       \sum_{j=0}^{N-1} \E_j
       \left( \frac{\e^{i\qp(\R_j+\E_j)}-\e^{i\qp(\R_j-\E_j)}}{i\qp\E_j} - 2 \right).
@@ -195,7 +171,7 @@ The removable singularity for $\qp\E_j=0$
 can be handled by a sinc function, as discussed in Sec.~\ref{SShapeTrafIntro}.
 \Emph{
 \begin{equation}\label{Effpolygon3}
-  F(\qp,\Gp)
+  F_2(\qp,\Gp)
   = 2\,\n\times\uqp^*
     \sum_{j=0}^{N-1} \E_j \frac{\sinc(\qp\E_j) \e^{i\qp\R_j} - 1}{ip}.
 \end{equation}
@@ -214,7 +190,7 @@ We write $N\eqqcolon2n$
 and make use of $\E_{j+n}=-\E_j$ to transform~(\ref{Effpolygon3}) into
 \Emph{
 \begin{equation}\label{Eff2ngon}
-    F(\qp,\Gamma_{2\parallel}) = \displaystyle 4\, \n\times\uqp^*\sum_{j=0}^{n-1}
+    F_2(\qp,\Gamma_{2\parallel}) = \displaystyle 4\, \n\times\uqp^*\sum_{j=0}^{n-1}
               \E_j (\uqp\R_j) \sinc(\qp\E_j) \sinc(\qp\R_j),
 \end{equation}
 }
@@ -222,6 +198,25 @@ where the singularity at $p=0$ is absorbed in a second sinc function.
 This result is used in our implementation of \texttt{FormFactorPrism6}
 (Sec.~\ref{SPrism6}).
 \index{FormFactorPrism6@\Code{FormFactorPrism6}}%
+
+From the definition~(\ref{Eff2d}) it is immediately clear
+that $F_2(0,\Gamma)$ is the \textE{area} of polygon~$\Gamma$.
+To confirm this from our result~(\ref{Effpolygon3}),
+we expand the numerator in~$\qp$ and retain the leading nonvanishing term.
+We find
+\begin{equation}\label{Effarea}
+  \begin{array}{@{}lcl}
+  F_2(\qp\!\to\!0,\Gp)
+    &\doteq& \displaystyle 2\sum \n(\uqp^*\times\E_j) (\uqp\R_j)\\[1.8ex]
+    &=&\displaystyle \frac{1}{2}\sum \n\left\{
+        (\uqp^*\times\V_{j+1})(\uqp\V_j)
+      - (\uqp^*\times\V_j)(\uqp\V_{j+1})
+      \right\}\\[1.8ex]
+    &=&\displaystyle \frac{1}{2}\sum \n(\V_j\times\V_{j+1}),
+  \end{array}
+\end{equation}
+which is the area of the polygon
+as given by a tesselation by triangles with vertices at $\v{0},\V_j,\V_{j+1}$.
 
 
 \index{Form factor!polygon|)}%
@@ -240,15 +235,15 @@ extending in $r_\perp$ from~0 up to a height~$H$,
 the form factor is
 \begin{equation}
   F(\q,\Pi)
-  = \int_0^H\!\d r_\perp\,\e^{i q_\perp r_\perp}\,F(\q_\parallel,\Gp).
+  = \int_0^H\!\d r_\perp\,\e^{i q_\perp r_\perp}\,F_2(\q_\parallel,\Gp)
 \end{equation}
+with the two-dimensional form factor $F_2(\q_\parallel,\Gp)$ as determined in the preceding section.
 The solution shall be written as
 \Emph{%
 \begin{equation}
   F(\q,\Pi)
-  = H\, \text{\texttt{expm1}}(iq_\perp H)\,F(\q_\parallel,\Gp),
+  = H\, \text{\texttt{expm1}}(iq_\perp H)\,F_2(\q_\parallel,\Gp).
 \end{equation}}
-with $F(\q_\parallel,\Gp)$ as determined in the preceding section.
 The function
 \begin{equation}
   \text{\texttt{expm1}}(z) \coloneqq
@@ -283,144 +278,39 @@ we start from the divergence theorem
 \end{equation}
 With the choice $\v{H}\coloneqq\q^*(\e^{i\q\r}-1)$,
 we obtain
+\begin{equation}\label{Eff3d1}
+  F(\q,\Pi) = \frac{\q^*}{iq^2} \iint_{\partial\Pi}\!\d^2r\, \n \left(\e^{i\q\r}-1\right).
+\end{equation}
+The surface of a polyhedron consists of polygonal planar faces,
 \begin{equation}
-  F(\q) = \frac{\q^*}{iq^2} \iint_{\partial\Pi}\!\d^2r\, \n \left(\e^{i\q\r}-1\right).
+  \partial\Pi = \bigcup_k \Gamma_k.
 \end{equation}
-For a polygon, the surface integral can be written
-as a sum over contributions from planar faces~$\Gamma_k$.
-\begin{equation}
-  F(\q) = \frac{\q^*}{iq^2} \sum_k \n_k [F(\q,\Gamma_k)-F(0,\Gamma_k)],
-\end{equation}
-Each face has a normal vector~$\n_k$, 
-and a polygonal form factor~$F(q,\Gamma_k)$ as determined in Sec.~\ref{SFFPolygon}.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Pyramids}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\index{Form factor!frustum|(}%
-\index{Form factor!pyramid|(}%
-\index{Pyramid!form factor|(}%
-\index{Frustum!form factor|(}%
-
-We now consider pyramids with a polygonal base~$\Pi$.
-The cross section at perpendicular coordinate~$r_\perp$
-shall be written~$\rho(r_\perp)\Pi$,
-with a function~$\rho$ to be specified below.
-The three-dimensional form factor can be decomposed as
-\begin{equation}\label{Epyr1}
-  F(\q)
-  = \int\!\d r_\perp\,\e^{iq_\perp r_\perp} F_\parallel(\q_\parallel,\rho(r_\perp)\Pi),
-\end{equation}
-with a two-dimensional form factor
-\begin{equation}
-  F_\parallel(\qp,\Pi) \coloneqq \int_\Pi\!\d^2r\,\e^{i\qp\r}
-\end{equation}
-that scales as
-\begin{equation}
-  F_\parallel(\qp,\rho\Pi) = \rho^2 F_\parallel(\rho\qp,\Pi).
-\end{equation}
-From~(\ref{Effpolygon_expsum}) we know that~$F_\parallel$ can be written as
-\begin{equation}
-  F_\parallel(\qp,\Pi)=p^{-2}\sum_j b_j\, \e^{i\qp \V_j}.
-\end{equation}
-Accordingly, the three-dimen\-sional form factor~(\ref{Epyr1})~is
-\begin{equation}
-  \begin{array}{@{}lcl}
-  F(\q)
-  &=& \displaystyle
-       \int\!\d r_\perp\,\e^{iq_\perp r_\perp}\,\rho(r_\perp)^2 F_\parallel(\rho(r_\perp)\q_\parallel,\Pi)
-\\[3ex]
-  &=& \displaystyle
-      q_\parallel^{-2}  \sum_j b_j
-      \int\!\d r_\perp\,\e^{i(q_\perp r_\perp+\q_\parallel \V_j\rho(r_\perp))}.
-  \end{array}
-\end{equation}
-We now assume that the pyramid is based at $r_\perp=0$,
-and extends up to a height~$H$.
-The function~$\rho$ is then
-\begin{equation}
-  \rho(r_\perp) = 1-r_\perp/H_0
-\end{equation}
-with a parameter $H_0\le H$.
-Unless the equal sign holds,
-the pyramid is a truncated one (a frustum).
-It is convenient to express~$H$ through
-a dimensionless truncation parameter~$\eta\coloneqq H/H_0$.
-The form factor thence becomes
-\begin{equation}
-  \begin{array}{@{}lcl}
-  F(\q)
-  &=& \displaystyle
-      q_\parallel^{-2}  \sum_j b_j \e^{i\q_\parallel \V_j}
-      \int_0^{H_0\eta}\!\d r_\perp\,\e^{i(q_\perp-\q_\parallel \V_j/H_0)r_\perp}
-\\[3ex]
-  &=& \displaystyle
-       q_\parallel^{-2} H_0\, \sum_j b_j
-          \frac{\e^{i\left(q_\perp H_0-\q_\parallel\V_j\right)\eta}-1}
-               {i\left(q_\perp H_0 - \q_\parallel\V_j\right)}
-               \e^{i\q_\parallel \V_j}.
-  \end{array}
-\end{equation}
-Delegating the handling of the removable singularity at~$q_\perp H_0=\q_\parallel\V_j$
-to the sinc function,
-we write it as
+Accordingly, (\ref{Eff3d1}) can be written as a sum
 \Emph{
-\begin{equation}
-  F(\q)
-  = q_\parallel^{-2} H_0\, \e^{iq_\perp H_0/2} \sum_{j=0}^{N-1} b_j
-    \sinc\left((q_\perp H_0 - \q_\parallel\V_j)\frac{\eta}{2}\right)
-     \e^{i\q_\parallel\V_j(1-\eta/2)}.
+\begin{equation}\label{Eff3d2}
+  F(\q,\Pi) = \frac{\q^*}{iq^2} \sum_k \n_k [F_2(\q,\Gamma_k)-F_2(0,\Gamma_k)],
 \end{equation}
 }
-If the polygonal base has two-fold symmetry, we proceed as for~(\ref{Eff2ngon})
-to obtain
-\Emph{
+Each polygonal face~$\Gamma_k$ has a normal vector~$\n_k$, 
+and a two-dimensional form factor~$F_2(q,\Gamma_k)$ as determined in Sec.~\ref{SFFPolygon}.
+From (\ref{Effpolygon3}) and~(\ref{Effarea})
+we know that
 \begin{equation}
-  F(\q)
-  = \frac{2i}{q_\parallel}H_0(1-\frac{\eta}{2})\, \e^{iq_\perp H_0/2}
-    \sum_{j=0}^{n-1} b_j \v{\hat q}_\parallel\V_j
-    \sinc\left((q_\perp H_0 - \q_\parallel\V_j)\frac{\eta}{2}\right)
-     \sinc\left(\q_\parallel\V_j\left(1-\frac{\eta}{2}\right)\right).
+  F_2(\q_\parallel,\Gp)=F_2(0,\Gp)+\mathcal{O}(\q_\parallel).
 \end{equation}
-}
-
-\index{Form factor!frustum)}%
-\index{Form factor!pyramid)}%
-\index{Pyramid!form factor|)}%
-\index{Frustum!form factor|)}%
-
-%\Work{work in progress \ldots}
-\iffalse
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Special functions near the removable singularity}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\index{Machine epsilon}
-We assume a double-precision machine epsilon
-of $\epsilon=2^{-52}\simeq2.2\cdot10^{-16}$.
-
-\fi
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{TODO: remove UNUSED}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-The leading nonvanishing term is
+Combining this with~(\ref{EF2F2}),
 \begin{equation}
-  \begin{array}{@{}lcl}
-  F_\parallel(\qp\!\to\!0)
-    &\doteq& \displaystyle 2\sum \n(\uqp^*\times\E_j) (\uqp\R_j)\\[3ex]
-    &=&\displaystyle \frac{1}{2}\sum \n\left\{
-        (\uqp^*\times\V_{j+1})(\uqp\V_j)
-      - (\uqp^*\times\V_j)(\uqp\V_{j+1})
-      \right\}\\[3ex]
-    &=&\displaystyle \frac{1}{2}\sum \n(\V_j\times\V_{j+1}),
-  \end{array}
+  F_2(\q,\Gamma)=F_2(0,\Gamma)+\mathcal{O}(\q).
 \end{equation}
-which is the area of the polygon
-as given by a triangular tiling (with vertices at $\v{0},\V_j,\V_{j+1}$).
+Therefore, in lowest non-vanishing order,
+\begin{equation}
+  F(\q\!\to\!0,\Pi)=\frac{\q^*\mathcal{O}(\q)}{q^2}=\text{const}.
+\end{equation}
+From the definition~(\ref{Eff3d}),
+we know of course that this constant, the limiting value~$F(0)$,
+is just the volume of
+our shape~$\Pi$.
+
 
 
 \index{Shape transform!computation|)}

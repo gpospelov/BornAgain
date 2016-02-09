@@ -116,15 +116,16 @@ to deal with the second case in~(\ref{Eexpcancel}).
 \index{Polygon!form factor|(}
 \def\R{\v{R}}
 \def\E{\v{E}}
+\def\Gp{\Gamma_\parallel}
 \def\x{\v{x}}
 \def\V{\v{V}}
-\def\qp{\v{q}_\parallel}
+\def\qp{\v{p}}
 \def\n{\v{\hat n}}
 \def\uq{\v{\hat q}}
-\def\uqp{\v{\hat q}_\parallel}
+\def\uqp{\v{\hat p}}
 
 To derive the form factor of prisms and pyramids with polygonal bases
-we need the form factor
+we will need the two-dimensional form factor
 %\nomenclature[2f134 2q040]{$F(\q)$}{Two-dimensional form factor of planar figure}%
 \begin{equation}\label{Eff2d}
   F(\q,\Gamma)
@@ -136,26 +137,38 @@ The solution available from the literature~\cite{LeMi83}
 contains singularities and does not provide an obvious way how handle them.
 Here, a different expression shall be derived by a different method.
 
+The normal vector~$\n$ of~$\Gamma$ induces a decomposition
+\begin{equation}
+  \q_\perp\coloneqq(\n\q)\n,\text{~and~}\q_\parallel\coloneqq\q-\q_\perp,
+\end{equation}
+and similarly for~$\r$.
+The integration variable in~(\ref{Eff2d}) influences only~$\r_\parallel$,
+whereas~$\r_\perp$ is constant for all $\r\in\Gamma$.
+The corresponding translation in affine space
+shall be denoted as $\Gamma=\r_\perp+\Gamma_\parallel$.
+This allows us to draw the $\r_\perp$~dependence in front of the integral,
+\begin{equation}
+  F(\q,\Gamma)
+  = \e^{i\q_\perp\r_\perp}\,F(\q_\parallel,\Gp).
+\end{equation}
+To keep notation light,
+in the following we shall substitute $\qp$ for the dummy variable~$\q_\parallel$.
 With the help of Stokes's theorem
 \begin{equation}\label{EStokes}
   \iint\!\d r^2\,\n\cdot\Nabla\times\v{G} = \oint \d\v{r}\cdot\v{G},
 \end{equation}
-and with the choice $\v{G}\coloneqq\v{a}\, (\e^{i\q\r}-1)$,
-we transform~(\ref{Eff2d}) into a line integral
+and with the choice $\v{G}\coloneqq\v{a}\, (\e^{i\qp\r}-1)$,
+we find
 \begin{equation}
-  F(\q,\Gamma)=\frac{\v{a}}{i\, \n(\q\times\v{a})} \oint_{\partial\Gamma} \d\v{r}\,(\e^{i\q\r}-1).
+  F(\qp,\Gp)=\frac{\v{a}}{i\, \n(\qp\times\v{a})} \oint_{\partial\Gp} \d\v{r}\,(\e^{i\qp\r}-1).
 \end{equation}
-The normal vector~$\n$ of~$\Gamma$ induces a decomposition
-\begin{equation}
-  \q_\perp\coloneqq\n\q,\text{~and~}\qp\coloneqq\q-\q_\perp.
-\end{equation}
-For any vector~$\v{p}$, we define the absolute value
+We define the absolute value
 $p\coloneqq|\v{p}|=(\v{p}\v{p}^*)^{1/2}$,
 and the unit vector $\v{\hat p}\coloneqq\v{p}/p$.
-With the choice $\v{a}\coloneqq\n\times\qp^*$
+With the choice $\v{a}\coloneqq\n\times\qp^*$,
 the form factor becomes
 \begin{equation}\label{Elastoint}
-  F(\q,\Gamma)=\frac{\n\times\uqp^*}{i\,q_\parallel} \oint_{\partial\Gamma} \d\v{r}\,(\e^{i\q\r}-1).
+  F(\qp,\Gp)=\frac{\n\times\uqp^*}{ip} \oint_{\partial\Gp} \d\v{r}\,(\e^{i\qp\r}-1).
 \end{equation}
 Let the polygon have $N$ vertices $\V_0,\ldots,\V_{N-1}$,
 and put $\V_N\coloneqq\V_0$.
@@ -167,24 +180,24 @@ The edges of the polygon shall parametrized by
 with $-1\le\lambda\le+1$.
 The line integral~(\ref{Elastoint}) then takes the form
 \begin{equation}
-    F(\q,\Gamma)
-   = \frac{\n\times\uqp^*}{iq_\parallel} \sum_{j=0}^{N-1}
-              \int_{-1}^{+1}\!\d\lambda\, \frac{\d\r_j}{\d\lambda}\,(\e^{i\q\r}-1),
+    F(\qp,\Gp)
+   = \frac{\n\times\uqp^*}{ip} \sum_{j=0}^{N-1}
+              \int_{-1}^{+1}\!\d\lambda\, \frac{\d\r_j}{\d\lambda}\,(\e^{i\qp\r}-1),
 \end{equation}
 and yields
 \begin{equation}\label{Effpolygon1}
-    F(\q,\Gamma)
-    = \frac{\n\times\uqp^*}{iq_\parallel}
+    F(\qp,\Gp)
+    = \frac{\n\times\uqp^*}{ip}
       \sum_{j=0}^{N-1} \E_j
-      \left( \frac{\e^{i\q(\R_j+\E_j)}-\e^{i\q(\R_j-\E_j)}}{i\q\E_j} - 2 \right).
+      \left( \frac{\e^{i\qp(\R_j+\E_j)}-\e^{i\qp(\R_j-\E_j)}}{i\qp\E_j} - 2 \right).
 \end{equation}
-The removable singularity for $\q\E_j=0$
+The removable singularity for $\qp\E_j=0$
 can be handled by a sinc function, as discussed in Sec.~\ref{SShapeTrafIntro}.
 \Emph{
 \begin{equation}\label{Effpolygon3}
-  F(\q,\Gamma)
+  F(\qp,\Gp)
   = 2\,\n\times\uqp^*
-    \sum_{j=0}^{N-1} \E_j \frac{\sinc(\q\E_j) \e^{i\q\R_j} - 1}{iq_\parallel}.
+    \sum_{j=0}^{N-1} \E_j \frac{\sinc(\qp\E_j) \e^{i\qp\R_j} - 1}{ip}.
 \end{equation}
 }
 This expression is used in our implementation of \texttt{FormFactorPrism3}
@@ -195,14 +208,14 @@ written as a fraction,
  is not computed term by term,
 but from its series expansion.
 
-If the polygon~$\Gamma_2$ has a two-fold symmetry axis,
+If a polygon~$\Gamma_2$ has a two-fold symmetry axis,
 then the form factor can be further simplified.
 We write $N\eqqcolon2n$
 and make use of $\E_{j+n}=-\E_j$ to transform~(\ref{Effpolygon3}) into
 \Emph{
 \begin{equation}\label{Eff2ngon}
-    F(\q,\Gamma_2) = \displaystyle 4\, \n\times\uqp^*\sum_{j=0}^{n-1}
-              \E_j (\uqp\R_j) \sinc(\q\E_j) \sinc(\q\R_j),
+    F(\qp,\Gamma_{2\parallel}) = \displaystyle 4\, \n\times\uqp^*\sum_{j=0}^{n-1}
+              \E_j (\uqp\R_j) \sinc(\qp\E_j) \sinc(\qp\R_j),
 \end{equation}
 }
 where the singularity at $p=0$ is absorbed in a second sinc function.
@@ -213,6 +226,51 @@ This result is used in our implementation of \texttt{FormFactorPrism6}
 
 \index{Form factor!polygon|)}%
 \index{Polygon!form factor|)}%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Prism}\label{SFFPrism}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\index{Form factor!prism|(}%
+\index{Prism!form factor|(}%
+
+For a prism~$\Pi$ with polygonal base~$\Gamma$,
+extending in $r_\perp$ from~0 up to a height~$H$,
+the form factor is
+\begin{equation}
+  F(\q,\Pi)
+  = \int_0^H\!\d r_\perp\,\e^{i q_\perp r_\perp}\,F(\q_\parallel,\Gp).
+\end{equation}
+The solution shall be written as
+\Emph{%
+\begin{equation}
+  F(\q,\Pi)
+  = H\, \text{\texttt{expm1}}(iq_\perp H)\,F(\q_\parallel,\Gp),
+\end{equation}}
+with $F(\q_\parallel,\Gp)$ as determined in the preceding section.
+The function
+\begin{equation}
+  \text{\texttt{expm1}}(z) \coloneqq
+  \left\{ \begin{array}{ll}
+    1&\text{~for~}z=0,\\[1.8ex]
+    \displaystyle \frac{\e^{z}-1}{z}&\text{~else.}
+    \end{array}\right.
+\end{equation}
+is defined by the POSIX standard for portable computer operating system interfaces,
+but an implementation is mandatory only for real arguments.
+To support complex arguments~$z$,
+\BornAgain\ comes with its own implementation of~\texttt{expm1}.
+To avoid cancellation in the numerator,
+function values in a neighborhood of the removable singularity~$z=0$
+are computed not term by term,
+but from the analytical series
+\begin{equation}
+  \text{\texttt{expm1}}(z) = 1 + \frac{z}{2} + \ldots
+\end{equation}
+
+\index{Form factor!prism|)}%
+\index{Prism!form factor|)}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Polyhedron}\label{SFFPolyhedron}
@@ -231,22 +289,11 @@ we obtain
 For a polygon, the surface integral can be written
 as a sum over contributions from planar faces~$\Gamma_k$.
 \begin{equation}
-  F(\q) = \frac{\q^*}{iq^2} \sum_k \n_k (F_k(\q)-A_k),
+  F(\q) = \frac{\q^*}{iq^2} \sum_k \n_k [F(\q,\Gamma_k)-F(0,\Gamma_k)],
 \end{equation}
-Each face has a normal vector~$\n_k$, an area~$A_k$,
-and a two-dimensional form factor
-\begin{equation}
-  F_k(\q) \coloneqq \iint_{\Gamma_k}\!\d^2r\, \e^{i\q\r}.
-\end{equation}
-To compute~$F_k$, we use Stokes' theorem~(\ref{EStokes}) with
-\begin{equation}
-  \v{G}\coloneqq\n\times\uq^*(\e^{i\qp\r}-1).
-\end{equation}
-We obtain
-\begin{equation}
-  F(\q)
-  = i\n \oint\!\d\r\times\left( \uqp \e^{i\qp\r} - \r/2 \right).
-\end{equation}
+Each face has a normal vector~$\n_k$, 
+and a polygonal form factor~$F(q,\Gamma_k)$ as determined in Sec.~\ref{SFFPolygon}.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pyramids}

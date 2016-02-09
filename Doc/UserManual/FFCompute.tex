@@ -73,11 +73,14 @@ if a particle has planes with normals that are not oriented along
 any of the axes of the Cartesian coordinate system.
 Typically then, the straightforward analytical solution of~(\ref{Eff3d})
 results in messy expressions that obscure the symmetries of~$F(\q)$,
-and make it difficult to recognize the singularities and
-to remove them.
-In the remaining sections of this appendix
-we shall consider a few such cases more closely.
+and make it difficult handle the singularities.
+Instead of addressing particular geometric shapes,
+we consider arbitrary polygons and polyhedra.
+It turns out that these generic solutions
+are easier to implement
+than lengthy arithmetic expressions for specific geometries.
 
+\iffalse
 As a final preparation,
 let us anticipate that we will encounter terms like
 \begin{equation}\label{Eexpcancel}
@@ -101,6 +104,7 @@ we implement
   \expmtwo(u)\coloneqq \e^u-1-u
 \end{equation}
 to deal with the second case in~(\ref{Eexpcancel}).
+\fi
 
 % TODO? another concern: integrals without numeric solution
 
@@ -114,47 +118,44 @@ to deal with the second case in~(\ref{Eexpcancel}).
 \def\E{\v{E}}
 \def\x{\v{x}}
 \def\V{\v{V}}
-\def\qp{\v{p}}
+\def\qp{\v{q}_\parallel}
 \def\n{\v{\hat n}}
-\def\uqp{\v{\hat p}}
+\def\uq{\v{\hat q}}
+\def\uqp{\v{\hat q}_\parallel}
 
 To derive the form factor of prisms and pyramids with polygonal bases
-we need the form factor of an arbitrary planar polygon~$\Pi$.
-The solution avalaible from the literature~\cite{LeMi83}
+we need the form factor
+%\nomenclature[2f134 2q040]{$F(\q)$}{Two-dimensional form factor of planar figure}%
+\begin{equation}\label{Eff2d}
+  F(\q,\Gamma)
+  \coloneqq \int_{\Gamma}\!\d^2r\, \e^{i\q\r}
+\end{equation}
+of an arbitrary planar polygon~$\Gamma$,
+located somewhere in affine three-dimensional Euclidean space.
+The solution available from the literature~\cite{LeMi83}
 contains singularities and does not provide an obvious way how handle them.
 Here, a different expression shall be derived by a different method.
-The plane of the polygon has a normal~$\n$,
-which induces a decomposition of any vector~$\x$ into normal
-and in-plane components
-\begin{equation}
-  \x_\perp\coloneqq (\n\x)\x,\quad
-  \x_\parallel\coloneqq\x-\x_\perp.
-\end{equation}
-Position vectors~$\r$ in the polygon's plane obey~$\r\n=r_\perp$.
-Accordingly, the form factor of the affine polygon~$\r_\perp+\Pi$
-can be written as
-\nomenclature[2f134 2q040]{$F_\parallel(\q)$}{Two-dimensional form factor of planar figure}%
-\begin{equation}\label{Eff2d}
-  F(\q)
-  = \int_{\r_\perp+\Pi}\!\d^2r\, \e^{i\q\r}
-  =\e^{iq_\perp r_\perp} \int_{\Pi}\!\d^2r\, \e^{i\q_\parallel\r}
-  \eqqcolon \e^{iq_\perp r_\perp} F_\parallel(\q_\parallel).
-\end{equation}
-The two-dimensional form factor~$F_\parallel$
-can be transformed with the help of Stokes's theorem
+
+With the help of Stokes's theorem
 \begin{equation}\label{EStokes}
   \iint\!\d r^2\,\n\cdot\Nabla\times\v{G} = \oint \d\v{r}\cdot\v{G},
 \end{equation}
-and with the choice $\v{G}\coloneqq\v{a}\, (\e^{i\qp\r}-1)$, $\qp\coloneqq\q_\parallel$,
-into a line integral
+and with the choice $\v{G}\coloneqq\v{a}\, (\e^{i\q\r}-1)$,
+we transform~(\ref{Eff2d}) into a line integral
 \begin{equation}
-  F_\parallel(\qp)=\frac{\v{a}}{i\, \n(\qp\times\v{a})} \oint_{\partial\Pi} \d\v{r}\,(\e^{i\qp\r}-1).
+  F(\q,\Gamma)=\frac{\v{a}}{i\, \n(\q\times\v{a})} \oint_{\partial\Gamma} \d\v{r}\,(\e^{i\q\r}-1).
 \end{equation}
-With the further choice $\v{a}\coloneqq\n\times\uqp^*$
-and the notations $p\coloneqq|\qp|=(\qp\qp^*)^{1/2}$, $\uqp\coloneqq\qp/p$,
-this becomes
+The normal vector~$\n$ of~$\Gamma$ induces a decomposition
+\begin{equation}
+  \q_\perp\coloneqq\n\q,\text{~and~}\qp\coloneqq\q-\q_\perp.
+\end{equation}
+For any vector~$\v{p}$, we define the absolute value
+$p\coloneqq|\v{p}|=(\v{p}\v{p}^*)^{1/2}$,
+and the unit vector $\v{\hat p}\coloneqq\v{p}/p$.
+With the choice $\v{a}\coloneqq\n\times\qp^*$
+the form factor becomes
 \begin{equation}\label{Elastoint}
-  F_\parallel(\qp)=\frac{\n\times\uqp^*}{i\,p} \oint \d\v{r}\,(\e^{i\qp\r}-1).
+  F(\q,\Gamma)=\frac{\n\times\uqp^*}{i\,q_\parallel} \oint_{\partial\Gamma} \d\v{r}\,(\e^{i\q\r}-1).
 \end{equation}
 Let the polygon have $N$ vertices $\V_0,\ldots,\V_{N-1}$,
 and put $\V_N\coloneqq\V_0$.
@@ -166,24 +167,24 @@ The edges of the polygon shall parametrized by
 with $-1\le\lambda\le+1$.
 The line integral~(\ref{Elastoint}) then takes the form
 \begin{equation}
-    F_\parallel(\qp)
-   = \frac{\n\times\uqp^*}{ip} \sum_{j=0}^{N-1}
-              \int_{-1}^{+1}\!\d\lambda\, \frac{\d\r_j}{\d\lambda}\,(\e^{i\qp\r}-1),
+    F(\q,\Gamma)
+   = \frac{\n\times\uqp^*}{iq_\parallel} \sum_{j=0}^{N-1}
+              \int_{-1}^{+1}\!\d\lambda\, \frac{\d\r_j}{\d\lambda}\,(\e^{i\q\r}-1),
 \end{equation}
 and yields
 \begin{equation}\label{Effpolygon1}
-    F_\parallel(\qp)
-    = \frac{\n\times\uqp^*}{ip}
+    F(\q,\Gamma)
+    = \frac{\n\times\uqp^*}{iq_\parallel}
       \sum_{j=0}^{N-1} \E_j
-      \left( \frac{\e^{i\qp(\R_j+\E_j)}-\e^{i\qp(\R_j-\E_j)}}{i\qp\E_j} - 2 \right).
+      \left( \frac{\e^{i\q(\R_j+\E_j)}-\e^{i\q(\R_j-\E_j)}}{i\q\E_j} - 2 \right).
 \end{equation}
-The removable singularity for $\qp\E_j=0$
+The removable singularity for $\q\E_j=0$
 can be handled by a sinc function, as discussed in Sec.~\ref{SShapeTrafIntro}.
 \Emph{
 \begin{equation}\label{Effpolygon3}
-  F_\parallel(\qp)
+  F(\q,\Gamma)
   = 2\,\n\times\uqp^*
-    \sum_{j=0}^{N-1} \E_j \frac{\sinc(\qp\E_j) \e^{i\qp\R_j} - 1}{ip}.
+    \sum_{j=0}^{N-1} \E_j \frac{\sinc(\q\E_j) \e^{i\q\R_j} - 1}{iq_\parallel}.
 \end{equation}
 }
 This expression is used in our implementation of \texttt{FormFactorPrism3}
@@ -194,14 +195,14 @@ written as a fraction,
  is not computed term by term,
 but from its series expansion.
 
-If the polygon has a two-fold symmetry axis,
+If the polygon~$\Gamma_2$ has a two-fold symmetry axis,
 then the form factor can be further simplified.
 We write $N\eqqcolon2n$
 and make use of $\E_{j+n}=-\E_j$ to transform~(\ref{Effpolygon3}) into
 \Emph{
 \begin{equation}\label{Eff2ngon}
-    F_\parallel(\qp) = \displaystyle 4\, \n\times\uqp^*\sum_{j=0}^{n-1}
-              \E_j (\uqp\R_j) \sinc(\qp\E_j) \sinc(\qp\R_j),
+    F(\q,\Gamma_2) = \displaystyle 4\, \n\times\uqp^*\sum_{j=0}^{n-1}
+              \E_j (\uqp\R_j) \sinc(\q\E_j) \sinc(\q\R_j),
 \end{equation}
 }
 where the singularity at $p=0$ is absorbed in a second sinc function.
@@ -217,33 +218,33 @@ This result is used in our implementation of \texttt{FormFactorPrism6}
 \section{Polyhedron}\label{SFFPolyhedron}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-To derive the form factor of a polyhedron,
+To derive the form factor of a polyhedron~$\Pi$,
 we start from the divergence theorem
 \begin{equation}
-  \iiint\!\d^3r\,\Nabla\v{H} = \iint\!\d^2r\, \n\v{H}.
+  \iiint_\Pi\!\d^3r\,\Nabla\v{H} = \iint_{\partial\Pi}\!\d^2r\, \n\v{H}.
 \end{equation}
 With the choice $\v{H}\coloneqq\q^*(\e^{i\q\r}-1)$,
 we obtain
 \begin{equation}
-  F(\q) = \frac{\q^*}{iq^2} \iint\!\d^2r\, \n \left(\e^{i\q\r}-1\right).
+  F(\q) = \frac{\q^*}{iq^2} \iint_{\partial\Pi}\!\d^2r\, \n \left(\e^{i\q\r}-1\right).
 \end{equation}
 For a polygon, the surface integral can be written
-as a sum over integrals over planar faces,
+as a sum over contributions from planar faces~$\Gamma_k$.
 \begin{equation}
-  F(\q) = \frac{\q^*}{iq^2} \sum_k \n_k \iint\!\d^2r\, \left(\e^{i\q\r}-1\right).
+  F(\q) = \frac{\q^*}{iq^2} \sum_k \n_k (F_k(\q)-A_k),
 \end{equation}
-To proceed, we use Stokes' theorem~(\ref{EStokes})
-with the choices
+Each face has a normal vector~$\n_k$, an area~$A_k$,
+and a two-dimensional form factor
 \begin{equation}
-  \begin{array}{@{}lcl}
-\qp&\coloneqq& \q_{\parallel k}\coloneqq\q-(\q\n_k)\n_k,\\
-\v{a}&\coloneqq&\n\times\uqp^*,\\
-\v{G}&\coloneqq&\v{a}\e^{i\qp\r}-i(\qp\times\v{a})\times\r/2.
-  \end{array}
+  F_k(\q) \coloneqq \iint_{\Gamma_k}\!\d^2r\, \e^{i\q\r}.
+\end{equation}
+To compute~$F_k$, we use Stokes' theorem~(\ref{EStokes}) with
+\begin{equation}
+  \v{G}\coloneqq\n\times\uq^*(\e^{i\qp\r}-1).
 \end{equation}
 We obtain
 \begin{equation}
-  \iint\!\d^2r\, \left(\e^{i\q\r}-1\right)
+  F(\q)
   = i\n \oint\!\d\r\times\left( \uqp \e^{i\qp\r} - \r/2 \right).
 \end{equation}
 

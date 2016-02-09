@@ -209,61 +209,6 @@ This result is used in our implementation of \texttt{FormFactorPrism6}
 (Sec.~\ref{SPrism6}).
 \index{FormFactorPrism6@\Code{FormFactorPrism6}}%
 
-TODO .....
-
-The leading nonvanishing term is
-\begin{equation}
-  \begin{array}{@{}lcl}
-  F_\parallel(\qp\!\to\!0)
-    &\doteq& \displaystyle 2\sum \n(\uqp^*\times\E_j) (\uqp\R_j)\\[3ex]
-    &=&\displaystyle \frac{1}{2}\sum \n\left\{
-        (\uqp^*\times\V_{j+1})(\uqp\V_j)
-      - (\uqp^*\times\V_j)(\uqp\V_{j+1})
-      \right\}\\[3ex]
-    &=&\displaystyle \frac{1}{2}\sum \n(\V_j\times\V_{j+1}),
-  \end{array}
-\end{equation}
-which is the area of the polygon
-as given by a triangular tiling (with vertices at $\v{0},\V_j,\V_{j+1}$).
-
-\iffalse
-Later, when computing the form factor of pyramids,
-we will need to express $F_\parallel$ as a straightforward sum
-of exponentials,
-\begin{equation}\label{Eff_as_sum}
-  F_\parallel(\qp)=p^{-2}\sum_j b_j \e^{i\qp \V_j}.
-\end{equation}
-For this purpose,
-we spell out~(\ref{Effpolygon}) as
-\begin{equation}
-    F_\parallel(\qp)
-    = \frac{\n\times\uqp^*}{p} \sum_{j} \frac{\E_j}{\qp\E_j}
-       \left(\e^{i\qp\V_j}-\e^{i\qp\V_{j+1}}\right).
-\end{equation}
-Rearranging terms and permuting indices,
-we convert the sum over edges into a sum over vertices,
-\Emph{
-\begin{equation}\label{Effpolygon_expsum}
-    F_\parallel(\qp)
-    = \frac{\n\times\uqp^*}{p^2} \sum_{j=0}^{N-1}
-       \left( \frac{\E_{j-1}}{\uqp\E_{j-1}} - \frac{\E_j}{\uqp\E_j} \right)
-       \e^{i\qp\V_j},
-\end{equation}
-}
-which has the desired form~(\ref{Eff_as_sum}).
-If the two fractions in the parenthesis are brought onto a common denominator,
-full accord with Eq.~6 of Ref.~\cite{LeMi83} is achieved.
-Comparison with~(\ref{Eff_as_sum}) yields the coefficient
-\begin{equation}
-  b_j = (\n\times\uqp^*)\left( \frac{\E_{j-1}}{\uqp\E_{j-1}} - \frac{\E_j}{\uqp\E_j} \right).
-\end{equation}
-We know from above, or verify directly, that the first two terms in the
-expansion of $\e^{i\qp\V_j}$ contribute nothing:
-\begin{equation}
-  \sum_j b_j = 0,\quad
-  \sum b_j (\qp \V_j) = 0.
-\end{equation}
-\fi
 
 \index{Form factor!polygon|)}%
 \index{Polygon!form factor|)}%
@@ -409,6 +354,26 @@ We assume a double-precision machine epsilon
 of $\epsilon=2^{-52}\simeq2.2\cdot10^{-16}$.
 
 \fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{TODO: remove UNUSED}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The leading nonvanishing term is
+\begin{equation}
+  \begin{array}{@{}lcl}
+  F_\parallel(\qp\!\to\!0)
+    &\doteq& \displaystyle 2\sum \n(\uqp^*\times\E_j) (\uqp\R_j)\\[3ex]
+    &=&\displaystyle \frac{1}{2}\sum \n\left\{
+        (\uqp^*\times\V_{j+1})(\uqp\V_j)
+      - (\uqp^*\times\V_j)(\uqp\V_{j+1})
+      \right\}\\[3ex]
+    &=&\displaystyle \frac{1}{2}\sum \n(\V_j\times\V_{j+1}),
+  \end{array}
+\end{equation}
+which is the area of the polygon
+as given by a triangular tiling (with vertices at $\v{0},\V_j,\V_{j+1}$).
+
 
 \index{Shape transform!computation|)}
 \index{Form factor!computation|)}

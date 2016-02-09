@@ -45,21 +45,18 @@ IMinimizerFunctionalTest::IMinimizerFunctionalTest(const std::string &minimizer_
 
 void IMinimizerFunctionalTest::runTest()
 {
-    SampleBuilderFactory builderFactory;
-    boost::scoped_ptr<ISample> sample(builderFactory.createSample(m_sample_builder_name));
+    std::unique_ptr<ISample> sample(createSample());
     for (size_t i = 0; i < m_parameters.size(); ++i) {
         sample->setParameterValue(m_parameters[i].m_name, m_parameters[i].m_real_value);
     }
 
-    SimulationRegistry simRegistry;
-    boost::scoped_ptr<GISASSimulation> simulation(simRegistry.createSimulation(m_simulation_name));
-
+    std::unique_ptr<GISASSimulation> simulation(createSimulation());
     simulation->setSample(*sample.get());
     simulation->runSimulation();
 
-    boost::scoped_ptr<OutputData<double> > real_data(simulation->getDetectorIntensity());
+    std::unique_ptr<OutputData<double> > real_data(createOutputData(simulation.get()));
 
-    boost::scoped_ptr<FitSuite> fitSuite(createFitSuite());
+    std::unique_ptr<FitSuite> fitSuite(createFitSuite());
     fitSuite->addSimulationAndRealData(*simulation.get(), *real_data.get());
 
     // run fit
@@ -92,9 +89,9 @@ void IMinimizerFunctionalTest::setParameterTolerance(double value)
 }
 
 
-FitSuite *IMinimizerFunctionalTest::createFitSuite()
+std::unique_ptr<FitSuite> IMinimizerFunctionalTest::createFitSuite()
 {
-    FitSuite *result = new FitSuite();
+    std::unique_ptr<FitSuite> result(new FitSuite());
     result->initPrint(10);
     IMinimizer *minimizer = MinimizerFactory::createMinimizer(m_minimizer_name, m_minimizer_algorithm);
     minimizer->getOptions()->setMaxIterations(200);
@@ -104,5 +101,25 @@ FitSuite *IMinimizerFunctionalTest::createFitSuite()
                                     AttLimits::lowerLimited(0.01), m_parameters[i].m_start_value / 100.);
     }
 
-    return result;
+    return std::move(result);
+}
+
+std::unique_ptr<ISample> IMinimizerFunctionalTest::createSample()
+{
+    SampleBuilderFactory builderFactory;
+    std::unique_ptr<ISample> result(builderFactory.createSample(m_sample_builder_name));
+    return std::move(result);
+}
+
+std::unique_ptr<GISASSimulation> IMinimizerFunctionalTest::createSimulation()
+{
+    SimulationRegistry simRegistry;
+    std::unique_ptr<GISASSimulation> result(simRegistry.createSimulation(m_simulation_name));
+    return std::move(result);
+}
+
+std::unique_ptr<OutputData<double> > IMinimizerFunctionalTest::createOutputData(const GISASSimulation *simulation)
+{
+    std::unique_ptr<OutputData<double> > result(simulation->getDetectorIntensity());
+    return std::move(result);
 }

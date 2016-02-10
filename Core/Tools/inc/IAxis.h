@@ -17,6 +17,7 @@
 #define IAXIS_H_
 
 #include "Bin.h"
+#include "Exceptions.h"
 
 //! @class IAxis
 //! @ingroup tools_internal
@@ -135,5 +136,3 @@ inline bool HaveSameNameAndShape(const IAxis& left, const IAxis& right)
 }
 
 #endif /* IAXIS_H_ */
-
-

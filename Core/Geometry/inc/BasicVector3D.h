@@ -23,7 +23,6 @@
 
 #include "Numeric.h"
 #include "Units.h"
-#include "Exceptions.h"
 #include "WinDllMacros.h"
 #include <complex>
 
@@ -337,5 +336,3 @@ BA_CORE_API_ BasicVector3D<std::complex<double> > toComplexVector(
 }  // namespace Geometry
 
 #endif /* GEOMETRY_BASICVECTOR3D_H */
-
-

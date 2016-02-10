@@ -18,7 +18,7 @@
 
 #include "Types.h"
 #include "EigenCore.h"
-
+#include "Exceptions.h"
 
 //! @class ILayerRTCoefficients
 //! @ingroup algorithms_internal

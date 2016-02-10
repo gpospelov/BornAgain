@@ -17,6 +17,7 @@
 #ifndef CLICKABLEFRAME_H
 #define CLICKABLEFRAME_H
 
+#include "WinDllMacros.h"
 #include <QFrame>
 #include <QMouseEvent>
 #include <QString>
@@ -44,7 +45,7 @@ const char *const CARRET_ICON_OPENED = ":/qAccordionIcons/caret-bottom.png"; /**
  * This class represents a clickable QFrame. It is used by a ContentPane. The class
  * is used internally.
  */
-class __attribute__((visibility("default"))) ClickableFrame : public QFrame
+class BA_CORE_API_ ClickableFrame : public QFrame
 {
 
     Q_OBJECT

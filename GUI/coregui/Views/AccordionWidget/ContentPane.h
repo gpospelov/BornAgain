@@ -28,6 +28,7 @@
 
 #include <memory>
 
+#include "WinDllMacros.h"
 #include "ClickableFrame.h"
 #include "AccordionWidget.h"
 
@@ -61,7 +62,7 @@
  * @details
  * The animation speed is influenceable setAnimationDuration().
  */
-class __attribute__((visibility("default"))) ContentPane : public QWidget
+class BA_CORE_API_ ContentPane : public QWidget
 {
     Q_OBJECT
 public:

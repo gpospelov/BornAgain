@@ -18,6 +18,20 @@
 \index{Shape transform!computation|(}
 \index{Form factor!computation|(}
 
+\def\FFP{F_\parallel}
+\def\FFPm{\Delta_\parallel}
+\def\expm{\text{exp}_{-1}}
+\def\R{\v{R}}
+\let\textE=\E
+\def\E{\v{E}}
+\def\Gp{\Gamma_\parallel}
+\def\x{\v{x}}
+\def\V{\v{V}}
+\def\qp{\v{p}}
+\def\n{\v{\hat n}}
+\def\uq{\v{\hat q}}
+\def\uqp{\v{\hat p}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{It's all about removable singularities}\label{SShapeTrafIntro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -35,7 +49,7 @@ This background material is of interest mostly for
 developers who want to add some more form factors to \BornAgain's collection
 (catalogued in App.~\ref{SFF}).
 
-\index{Form factor!bound for absolute value}%
+\index{Form factor!maximal absolute value}%
 From~(\ref{Eff3d}), it is immediately clear that~$F(\q)$ is bounded by
 \begin{equation}
   |F(\q)|\le V,
@@ -80,7 +94,6 @@ It turns out that these generic solutions
 are easier to implement
 than lengthy arithmetic expressions for specific geometries.
 
-
 % TODO? another concern: integrals without numeric solution
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -89,22 +102,12 @@ than lengthy arithmetic expressions for specific geometries.
 
 \index{Form factor!polygon|(}%
 \index{Polygon!form factor|(}
-\def\R{\v{R}}
-\let\textE=\E
-\def\E{\v{E}}
-\def\Gp{\Gamma_\parallel}
-\def\x{\v{x}}
-\def\V{\v{V}}
-\def\qp{\v{p}}
-\def\n{\v{\hat n}}
-\def\uq{\v{\hat q}}
-\def\uqp{\v{\hat p}}
 
 To derive the form factor of prisms and pyramids with polygonal bases
 we will need the two-dimensional form factor
-%\nomenclature[2f134 2q040]{$F(\q)$}{Two-dimensional form factor of planar figure}%
+%\nomenclature[2f134 2q040]{$\FFP(\q,\Gamma)$}{Two-dimensional form factor of planar shape~$\Gamma$}%
 \begin{equation}\label{Eff2d}
-  F_2(\q,\Gamma)
+  \FFP(\q,\Gamma)
   \coloneqq \int_{\Gamma}\!\d^2r\, \e^{i\q\r}
 \end{equation}
 of an arbitrary planar polygon~$\Gamma$,
@@ -124,8 +127,8 @@ The corresponding translation in affine space
 shall be denoted as $\Gamma=\r_\perp+\Gamma_\parallel$.
 This allows us to draw the $\r_\perp$~dependence in front of the integral,
 \begin{equation}\label{EF2F2}
-  F_2(\q,\Gamma)
-  = \e^{i\q_\perp\r_\perp}\,F_2(\q_\parallel,\Gp).
+  \FFP(\q,\Gamma)
+  = \e^{i\q_\perp\r_\perp}\,\FFP(\q_\parallel,\Gp).
 \end{equation}
 To keep notation light,
 in the following we shall substitute $\qp$ for the dummy variable~$\q_\parallel$.
@@ -136,7 +139,7 @@ With the help of Stokes's theorem
 and with the choice $\v{G}\coloneqq\v{a}\, (\e^{i\qp\r}-1)$,
 we find
 \begin{equation}
-  F_2(\qp,\Gp)=\frac{\v{a}}{i\, \n(\qp\times\v{a})} \oint_{\partial\Gp} \d\v{r}\,(\e^{i\qp\r}-1).
+  \FFP(\qp,\Gp)=\frac{\v{a}}{i\, \n(\qp\times\v{a})} \oint_{\partial\Gp} \d\v{r}\,(\e^{i\qp\r}-1).
 \end{equation}
 We define the absolute value
 $p\coloneqq|\v{p}|=(\v{p}\v{p}^*)^{1/2}$,
@@ -144,7 +147,7 @@ and the unit vector $\v{\hat p}\coloneqq\v{p}/p$.
 With the choice $\v{a}\coloneqq\n\times\qp^*$,
 the form factor becomes
 \begin{equation}\label{Elastoint}
-  F_2(\qp,\Gp)=\frac{\n\times\uqp^*}{ip} \oint_{\partial\Gp} \d\v{r}\,(\e^{i\qp\r}-1).
+  \FFP(\qp,\Gp)=\frac{\n\times\uqp^*}{ip} \oint_{\partial\Gp} \d\v{r}\,(\e^{i\qp\r}-1).
 \end{equation}
 Let the polygon have $N$ vertices $\V_0,\ldots,\V_{N-1}$,
 and put $\V_N\coloneqq\V_0$.
@@ -156,13 +159,13 @@ The edges of the polygon shall parametrized by
 with $-1\le\lambda\le+1$.
 The line integral~(\ref{Elastoint}) then takes the form
 \begin{equation}
-    F_2(\qp,\Gp)
+    \FFP(\qp,\Gp)
    = \frac{\n\times\uqp^*}{ip} \sum_{j=0}^{N-1}
               \int_{-1}^{+1}\!\d\lambda\, \frac{\d\r_j}{\d\lambda}\,(\e^{i\qp\r}-1),
 \end{equation}
 and yields
 \begin{equation}\label{Effpolygon1}
-    F_2(\qp,\Gp)
+    \FFP(\qp,\Gp)
     = \frac{\n\times\uqp^*}{ip}
       \sum_{j=0}^{N-1} \E_j
       \left( \frac{\e^{i\qp(\R_j+\E_j)}-\e^{i\qp(\R_j-\E_j)}}{i\qp\E_j} - 2 \right).
@@ -171,7 +174,7 @@ The removable singularity for $\qp\E_j=0$
 can be handled by a sinc function, as discussed in Sec.~\ref{SShapeTrafIntro}.
 \Emph{
 \begin{equation}\label{Effpolygon3}
-  F_2(\qp,\Gp)
+  \FFP(\qp,\Gp)
   = 2\,\n\times\uqp^*
     \sum_{j=0}^{N-1} \E_j \frac{\sinc(\qp\E_j) \e^{i\qp\R_j} - 1}{ip}.
 \end{equation}
@@ -190,7 +193,7 @@ We write $N\eqqcolon2n$
 and make use of $\E_{j+n}=-\E_j$ to transform~(\ref{Effpolygon3}) into
 \Emph{
 \begin{equation}\label{Eff2ngon}
-    F_2(\qp,\Gamma_{2\parallel}) = \displaystyle 4\, \n\times\uqp^*\sum_{j=0}^{n-1}
+    \FFP(\qp,\Gamma_{2\parallel}) = \displaystyle 4\, \n\times\uqp^*\sum_{j=0}^{n-1}
               \E_j (\uqp\R_j) \sinc(\qp\E_j) \sinc(\qp\R_j),
 \end{equation}
 }
@@ -200,13 +203,13 @@ This result is used in our implementation of \texttt{FormFactorPrism6}
 \index{FormFactorPrism6@\Code{FormFactorPrism6}}%
 
 From the definition~(\ref{Eff2d}) it is immediately clear
-that $F_2(0,\Gamma)$ is the \textE{area} of polygon~$\Gamma$.
+that $\FFP(0,\Gamma)$ is the \textE{area} of polygon~$\Gamma$.
 To confirm this from our result~(\ref{Effpolygon3}),
 we expand the numerator in~$\qp$ and retain the leading nonvanishing term.
 We find
 \begin{equation}\label{Effarea}
   \begin{array}{@{}lcl}
-  F_2(\qp\!\to\!0,\Gp)
+  \FFP(\qp\!\to\!0,\Gp)
     &\doteq& \displaystyle 2\sum \n(\uqp^*\times\E_j) (\uqp\R_j)\\[1.8ex]
     &=&\displaystyle \frac{1}{2}\sum \n\left\{
         (\uqp^*\times\V_{j+1})(\uqp\V_j)
@@ -228,44 +231,40 @@ as given by a tesselation by triangles with vertices at $\v{0},\V_j,\V_{j+1}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \index{Form factor!prism|(}%
-\index{Prism!form factor|(}%
+\index{Prism (form factor)!generic polygonal|(}%
 
 For a prism~$\Pi$ with polygonal base~$\Gamma$,
 extending in $r_\perp$ from~0 up to a height~$H$,
 the form factor is
 \begin{equation}
   F(\q,\Pi)
-  = \int_0^H\!\d r_\perp\,\e^{i q_\perp r_\perp}\,F_2(\q_\parallel,\Gp)
+  = \int_0^H\!\d r_\perp\,\e^{i q_\perp r_\perp}\,\FFP(\q_\parallel,\Gp)
 \end{equation}
-with the two-dimensional form factor $F_2(\q_\parallel,\Gp)$ as determined in the preceding section.
+with the two-dimensional form factor $\FFP(\q_\parallel,\Gp)$ as determined in the preceding section.
 The solution shall be written as
 \Emph{%
 \begin{equation}
   F(\q,\Pi)
-  = H\, \text{\texttt{expm1}}(iq_\perp H)\,F_2(\q_\parallel,\Gp).
+  = H\, \expm(iq_\perp H)\,\FFP(\q_\parallel,\Gp)
 \end{equation}}
-The function
+with the function
 \begin{equation}
-  \text{\texttt{expm1}}(z) \coloneqq
+  \expm(z) \coloneqq
   \left\{ \begin{array}{ll}
-    1&\text{~for~}z=0,\\[1.8ex]
-    \displaystyle \frac{\e^{z}-1}{z}&\text{~else.}
+    \displaystyle \frac{\exp(z)-1}{z}&\text{~for~}z\ne0,\\[1.8ex]
+    1&\text{~for~}z=0.
     \end{array}\right.
 \end{equation}
-is defined by the POSIX standard for portable computer operating system interfaces,
-but an implementation is mandatory only for real arguments.
-To support complex arguments~$z$,
-\BornAgain\ comes with its own implementation of~\texttt{expm1}.
 To avoid cancellation in the numerator,
 function values in a neighborhood of the removable singularity~$z=0$
 are computed not term by term,
-but from the analytical series
+but from the series expansion
 \begin{equation}
-  \text{\texttt{expm1}}(z) = 1 + \frac{z}{2} + \ldots
+  \expm(z) = 1 + \frac{z}{2} + \ldots
 \end{equation}
 
 \index{Form factor!prism|)}%
-\index{Prism!form factor|)}%
+\index{Prism (form factor)!generic polygonal|)}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Polyhedron}\label{SFFPolyhedron}
@@ -285,22 +284,30 @@ The surface of a polyhedron consists of polygonal planar faces,
 \begin{equation}
   \partial\Pi = \bigcup_k \Gamma_k.
 \end{equation}
-Accordingly, (\ref{Eff3d1}) can be written as a sum
+Each polygonal face~$\Gamma_k$ has a normal vector~$\n_k$,
+and a two-dimensional form factor~$\FFP(q,\Gamma_k)$ as determined in Sec.~\ref{SFFPolygon}.
+Using these, (\ref{Eff3d1}) can be written as
 \Emph{
 \begin{equation}\label{Eff3d2}
-  F(\q,\Pi) = \frac{\q^*}{iq^2} \sum_k \n_k [F_2(\q,\Gamma_k)-F_2(0,\Gamma_k)],
+  F(\q,\Pi) = \uq^* \sum_k \n_k \FFPm(\q,\Gamma_k)
 \end{equation}
 }
-Each polygonal face~$\Gamma_k$ has a normal vector~$\n_k$, 
-and a two-dimensional form factor~$F_2(q,\Gamma_k)$ as determined in Sec.~\ref{SFFPolygon}.
+with a function defined by
+\begin{equation}
+  \FFPm(\q,\Gamma)
+  \coloneqq \frac{\FFP(\q,\Gamma)-\FFP(0,\Gamma)}{iq}
+\end{equation}
+except for $q=0$ where the analytic continuation shall be
+used to remove the apparent singularity.
+
 From (\ref{Effpolygon3}) and~(\ref{Effarea})
 we know that
 \begin{equation}
-  F_2(\q_\parallel,\Gp)=F_2(0,\Gp)+\mathcal{O}(\q_\parallel).
+  \FFP(\q_\parallel,\Gp)=\FFP(0,\Gp)+\mathcal{O}(\q_\parallel).
 \end{equation}
 Combining this with~(\ref{EF2F2}),
 \begin{equation}
-  F_2(\q,\Gamma)=F_2(0,\Gamma)+\mathcal{O}(\q).
+  \FFP(\q,\Gamma)=\FFP(0,\Gamma)+\mathcal{O}(\q).
 \end{equation}
 Therefore, in lowest non-vanishing order,
 \begin{equation}

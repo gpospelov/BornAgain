@@ -128,7 +128,7 @@ shall be denoted as $\Gamma=\r_\perp+\Gamma_\parallel$.
 This allows us to draw the $\r_\perp$~dependence in front of the integral,
 \begin{equation}\label{EF2F2}
   \FFP(\q,\Gamma)
-  = \e^{i\q_\perp\r_\perp}\,\FFP(\q_\parallel,\Gp).
+  = \e^{iq_\perp r_\perp}\,\FFP(\q_\parallel,\Gp).
 \end{equation}
 To keep notation light,
 in the following we shall substitute $\qp$ for the dummy variable~$\q_\parallel$.
@@ -242,7 +242,7 @@ the form factor is
 \end{equation}
 with the two-dimensional form factor $\FFP(\q_\parallel,\Gp)$ as determined in the preceding section.
 The solution shall be written as
-\Emph{%
+\Emphc{%
 \begin{equation}
   F(\q,\Pi)
   = H\, \expm(iq_\perp H)\,\FFP(\q_\parallel,\Gp)
@@ -286,39 +286,49 @@ The surface of a polyhedron consists of polygonal planar faces,
 \end{equation}
 Each polygonal face~$\Gamma_k$ has a normal vector~$\n_k$,
 and a two-dimensional form factor~$\FFP(q,\Gamma_k)$ as determined in Sec.~\ref{SFFPolygon}.
-Using these, (\ref{Eff3d1}) can be written as
-\Emph{
+Using these, (\ref{Eff3d1}) becomes
 \begin{equation}\label{Eff3d2}
-  F(\q,\Pi) = \uq^* \sum_k \n_k \FFPm(\q,\Gamma_k)
+  F(\q,\Pi) = \uq^* \sum_k \n_k  \frac{\FFP(\q,\Gamma_k)-\FFP(0,\Gamma_k)}{iq}.
+\end{equation}
+Inserting~$\FFP$ as determined in~(\ref{Effpolygon3}),
+we obtain
+\Emphc{
+\begin{equation}\label{Eff3d3}
+  F(\q,\Pi) = 2  \sum_k^{\text{faces of~$\Pi$}} \uq^*\n_k \sum_j^{\text{edges of $\Gamma_k$}}
+           (\n_k\times\uq_{\parallel k}^*)\,\E_j\;
+           \Delta(q,\frac{q_{\parallel k}}{q},
+                 \uq_{\parallel k}\E_j,\uq_{\parallel k}\R_j,\frac{q_{\perp k}}{q}\r_{\perp k})
+\end{equation}
+with
+\begin{equation}
+  \Delta(q,v,a,b,c)
+  \coloneqq
+  \frac{\e^{iqc}\Phi(qv,a,b)-\Phi(0,a,b)} {iq}
+\end{equation}
+and
+\begin{equation}
+  \Phi(p,a,b)
+  \coloneqq
+  \frac{\sinc(pa)\e^{ipb}-1}{ip}.
 \end{equation}
 }
-with a function defined by
+Near the singularities $q=0$, $p=0$, the functions $\Delta$ and $\Phi$
+must be computed by series expansion.
+The lowest non-vanishing terms are
 \begin{equation}
-  \FFPm(\q,\Gamma)
-  \coloneqq \frac{\FFP(\q,\Gamma)-\FFP(0,\Gamma)}{iq}
+  \Phi(p\to0,a,b)
+  = b
+    + ip\left(\frac{a^2}{6}+\frac{b^2}{2}\right)
+    - p^2 \frac{a^2b}{6}
+    + \ldots
 \end{equation}
-except for $q=0$ where the analytic continuation shall be
-used to remove the apparent singularity.
-
-From (\ref{Effpolygon3}) and~(\ref{Effarea})
-we know that
+and
 \begin{equation}
-  \FFP(\q_\parallel,\Gp)=\FFP(0,\Gp)+\mathcal{O}(\q_\parallel).
+  \Delta(q,v,a,b,c)
+  = \left(cb + \frac{a^2}{6} + \frac{b^2}{2}\right)
+   + iq\left(\frac{bc^2}{2}+\frac{a^2c}{6}+\frac{b^2c}{2}+v^2\frac{a^2b}{6}\right)
+   + \ldots
 \end{equation}
-Combining this with~(\ref{EF2F2}),
-\begin{equation}
-  \FFP(\q,\Gamma)=\FFP(0,\Gamma)+\mathcal{O}(\q).
-\end{equation}
-Therefore, in lowest non-vanishing order,
-\begin{equation}
-  F(\q\!\to\!0,\Pi)=\frac{\q^*\mathcal{O}(\q)}{q^2}=\text{const}.
-\end{equation}
-From the definition~(\ref{Eff3d}),
-we know of course that this constant, the limiting value~$F(0)$,
-is just the volume of
-our shape~$\Pi$.
-
-
 
 \index{Shape transform!computation|)}
 \index{Form factor!computation|)}

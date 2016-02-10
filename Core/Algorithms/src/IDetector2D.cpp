@@ -62,6 +62,7 @@ void IDetector2D::matchDetectorAxes(const OutputData<double> &output_data)
     for (size_t i_axis = 0; i_axis < output_data.getRank(); ++i_axis) {
         addAxis(*output_data.getAxis(i_axis));
     }
+    m_detector_mask.initMaskData(*this);
 }
 
 void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max,

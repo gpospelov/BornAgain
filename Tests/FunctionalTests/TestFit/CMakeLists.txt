@@ -10,6 +10,7 @@ set(list_of_tests
     "FitSuite/GSLMultiMinSteepestDescent"
     "FitSuite/GSLSimulatedAnnealing"
     "FitSuite/GeneticMinimizer"
+    "FitSuite/RectDetectorFit"
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

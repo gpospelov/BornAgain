@@ -62,7 +62,7 @@ def plot_as_colormap(hist, zmin=None, zmax=None):
                     norm=matplotlib.colors.LogNorm(zmin, zmax),
                     extent=[hist.getXmin()/deg, hist.getXmax()/deg, hist.getYmin()/deg, hist.getYmax()/deg],
                     aspect='auto')
-    cb = plt.colorbar(im, pad = 0.025)
+    cb = plt.colorbar(im, pad=0.025)
     plt.xlabel(r'$\phi_f ^{\circ}$', fontsize=16)
     plt.ylabel(r'$\alpha_f ^{\circ}$', fontsize=16)
 
@@ -91,7 +91,7 @@ def get_noisy_image(hist):
 
 def plot_relative_difference(hist):
     """
-    Creates noisy histogram made of original histogram,,
+    Creates noisy histogram made of original histogram,
     then creates and plots a relative difference histogram: (noisy-hist)/hist
     """
     noisy = get_noisy_image(hist)

@@ -114,6 +114,18 @@ void register_IHistogram_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::IHistogram::createFrom
+        
+            typedef ::IHistogram * ( *createFrom_function_type )( ::std::string const & );
+            
+            IHistogram_exposer.def( 
+                "createFrom"
+                , createFrom_function_type( &::IHistogram::createFrom )
+                , ( bp::arg("filename") )
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "create new histogram from file content." );
+        
+        }
         { //::IHistogram::createHistogram
         
             typedef ::IHistogram * ( *createHistogram_function_type )( ::OutputData< double > const & );
@@ -545,6 +557,7 @@ void register_IHistogram_class(){
                 , "Sets content of the bin corresponding to the globalbin number." );
         
         }
+        IHistogram_exposer.staticmethod( "createFrom" );
         IHistogram_exposer.staticmethod( "createHistogram" );
     }
 

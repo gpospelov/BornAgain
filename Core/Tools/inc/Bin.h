@@ -17,7 +17,7 @@
 #define BIN_H_
 
 #include "Numeric.h"
-#include "Types.h"
+#include "Vectors3D.h"
 #include "WinDllMacros.h"
 
 //! @class Bin1D

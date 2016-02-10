@@ -1,5 +1,4 @@
-This directory contains the auxiliary program
-  codegenerator.py
+This directory contains the auxiliary program codegenerator.py
 that generates wrapper code
 that makes libBornAgainCore and libBornAgainFit accessible from Python.
 

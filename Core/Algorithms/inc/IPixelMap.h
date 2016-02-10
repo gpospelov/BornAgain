@@ -16,7 +16,7 @@
 #ifndef IPIXELMAP_H_
 #define IPIXELMAP_H_
 
-#include "Types.h"
+#include "Vectors3D.h"
 
 //! @class IPixelMap
 //! @ingroup simulation

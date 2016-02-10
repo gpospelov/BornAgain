@@ -241,7 +241,4 @@ BA_CORE_API_ void EnableFloatingPointExceptions();
 
 }
 
-
 #endif // UTILS_H
-
-

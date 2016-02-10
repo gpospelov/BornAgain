@@ -175,6 +175,9 @@ public:
 
     static IHistogram *createHistogram(const OutputData<double> &source);
 
+    //! create new histogram from file content
+    static IHistogram *createFrom(const std::string &filename);
+
     //! creates new OutputData with histogram's shape and put there values corresponding to DataType
     OutputData<double> *createOutputData(DataType dataType = INTEGRAL) const;
 

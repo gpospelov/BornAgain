@@ -29,16 +29,6 @@ FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double 
     , m_adjust_detector_to_data(adjust_detector_to_data)
 {
     setName("FitObject");
-//    if( !m_real_data->hasSameShape(*m_simulation->getOutputData()) ) {
-//        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. "
-//            "Real data and output data in the simulation have different shape. "
-//            "Adjusting simulation's detector.";
-//    } else {
-//        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. "
-//            "Real data and output data in the simulation have same shape.";
-//    }    
-//    m_simulation->setDetectorParameters(*m_real_data);
-
     init_dataset();
 }
 
@@ -155,6 +145,15 @@ void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double
     const OutputData<bool> *masks(0);
     if(m_simulation->getInstrument().getDetector()->hasMasks()) {
         masks = m_simulation->getInstrument().getDetector()->getDetectorMask()->getMaskData();
+    }
+
+    if(masks && m_simulation_data->getAllocatedSize() != masks->getAllocatedSize()) {
+        std::ostringstream message;
+        message << "FitObject::prepareFitElements() -> Error. Size mismatch. "
+                << "m_simulation_data->getAllocatedSize():" << m_simulation_data->getAllocatedSize()
+                << " " << "masks->getAllocatedSize()" << masks->getAllocatedSize()
+                << std::endl;
+        throw RuntimeErrorException(message.str());
     }
 
     for(size_t index=0; index<m_simulation_data->getAllocatedSize(); ++index) {

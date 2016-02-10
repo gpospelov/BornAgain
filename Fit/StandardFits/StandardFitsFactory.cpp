@@ -1,5 +1,6 @@
 #include "StandardFitsFactory.h"
 #include "MinimizerFunctionalTests.h"
+#include "RectDetectorFitTest.h"
 #include <boost/format.hpp>
 
 
@@ -39,6 +40,11 @@ StandardFitsFactory::StandardFitsFactory()
         "GeneticMinimizer",
         IFactoryCreateFunction<GeneticTest, IFunctionalTest>,
         "Functional test of TMVA's Genetic minimizer");
+
+    registerItem(
+        "RectDetectorFit",
+        IFactoryCreateFunction<RectDetectorFitTest, IFunctionalTest>,
+        "Fit of rectangular detector, with crop and masks applied");
 
 }
 

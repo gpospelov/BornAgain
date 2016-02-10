@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      StandardFits/MinimizerFunctionalTests.cpp
+//! @brief     Implements classes MinimizerFunctionalTests.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "MinimizerFunctionalTests.h"
 #include "FitSuite.h"
 #include "MinimizerFactory.h"
@@ -29,10 +44,10 @@ GSLSimulatedAnnealingTest::GSLSimulatedAnnealingTest()
     : IMinimizerFunctionalTest("GSLSimAn")
 {}
 
-FitSuite *GSLSimulatedAnnealingTest::createFitSuite()
+std::unique_ptr<FitSuite> GSLSimulatedAnnealingTest::createFitSuite()
 {
     setParameterTolerance(0.1);
-    FitSuite *result = new FitSuite();
+    std::unique_ptr<FitSuite> result(new FitSuite());
     result->initPrint(200);
     IMinimizer *minimizer = MinimizerFactory::createMinimizer(m_minimizer_name, m_minimizer_algorithm);
 //    minimizer->getOptions().setValue("ntries", 10);
@@ -45,7 +60,7 @@ FitSuite *GSLSimulatedAnnealingTest::createFitSuite()
                                     AttLimits::limited(4.0, 6.0), m_parameters[i].m_start_value / 100.);
     }
 
-    return result;
+    return std::move(result);
 }
 
 
@@ -53,10 +68,10 @@ GeneticTest::GeneticTest()
     : IMinimizerFunctionalTest("Genetic")
 {}
 
-FitSuite *GeneticTest::createFitSuite()
+std::unique_ptr<FitSuite> GeneticTest::createFitSuite()
 {
     setParameterTolerance(0.1);
-    FitSuite *result = new FitSuite();
+    std::unique_ptr<FitSuite> result(new FitSuite());
     result->initPrint(200);
     IMinimizer *minimizer = MinimizerFactory::createMinimizer(m_minimizer_name, m_minimizer_algorithm);
     minimizer->getOptions()->setMaxIterations(1);
@@ -67,5 +82,5 @@ FitSuite *GeneticTest::createFitSuite()
                                     AttLimits::limited(4.0, 6.0), m_parameters[i].m_start_value / 100.);
     }
 
-    return result;
+    return std::move(result);
 }

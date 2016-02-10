@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "Units.h"
 #include "IMinimizerFunctionalTest.h"
 #include "SampleBuilderFactory.h"
 #include "SimulationRegistry.h"

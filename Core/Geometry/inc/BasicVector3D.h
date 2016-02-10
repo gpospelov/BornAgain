@@ -21,8 +21,7 @@
 #ifndef GEOMETRY_BASICVECTOR3D_H
 #define GEOMETRY_BASICVECTOR3D_H
 
-#include "Numeric.h"
-#include "Units.h"
+static const double PI2 = 6.28318530717958647692528676655900577;
 #include "WinDllMacros.h"
 #include <complex>
 
@@ -199,7 +198,7 @@ public:
     inline void setLambdaAlphaPhi(
         const T& _lambda, const T& _alpha, const T& _phi)
         {
-            T k = Units::PI2/_lambda;
+            T k = PI2/_lambda;
             v_[0] = k*std::cos(_alpha) * std::cos(_phi);
             v_[1] = -k*std::cos(_alpha) * std::sin(_phi);
             v_[2] = k*std::sin(_alpha);

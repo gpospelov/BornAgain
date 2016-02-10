@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "Units.h"
 #include "SphericalDetectorItem.h"
 #include "AxesItems.h"
 #include "VectorItem.h"
@@ -82,10 +83,3 @@ std::unique_ptr<IResolutionFunction2D> SphericalDetectorItem::createResolutionFu
 
     return std::move(result);
 }
-
-
-
-
-
-
-

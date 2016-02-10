@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "Units.h"
 #include "RectangularDetector.h"
 #include "MessageService.h"
 #include "BornAgainNamespace.h"
@@ -443,4 +444,3 @@ double RectPixelMap::calculateSolidAngle() const
     double length = position.mag();
     return std::abs(position.dot(m_normal))/std::pow(length, 3);
 }
-

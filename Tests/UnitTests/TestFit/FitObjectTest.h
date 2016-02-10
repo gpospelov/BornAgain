@@ -1,6 +1,7 @@
 #ifndef FITOBJECTTEST_H
 #define FITOBJECTTEST_H
 
+#include "Units.h"
 #include "FitObject.h"
 #include "GISASSimulation.h"
 #include "BornAgainNamespace.h"

@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "Units.h"
 #include "SphericalDetector.h"
 #include "MessageService.h"
 #include "BornAgainNamespace.h"
@@ -243,4 +244,3 @@ double AngularPixelMap::getSolidAngle() const
     if (m_solid_angle<=0.0) return 1.0;
     return m_solid_angle;
 }
-

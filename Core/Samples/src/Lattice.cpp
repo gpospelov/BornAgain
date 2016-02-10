@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "Units.h"
 #include "Lattice.h"
 #include "Exceptions.h"
 
@@ -91,9 +92,9 @@ void Lattice::getReciprocalLatticeBasis(kvector_t& b1, kvector_t& b2,
 
 IndexVector3D Lattice::getNearestLatticeVectorCoordinates(const kvector_t& vector_in) const
 {
-    double a1_coord = vector_in.dot(m_b1)/2.0/Units::PI;
-    double a2_coord = vector_in.dot(m_b2)/2.0/Units::PI;
-    double a3_coord = vector_in.dot(m_b3)/2.0/Units::PI;
+    double a1_coord = vector_in.dot(m_b1)/Units::PI2;
+    double a2_coord = vector_in.dot(m_b2)/Units::PI2;
+    double a3_coord = vector_in.dot(m_b3)/Units::PI2;
     int c1 = (int)std::floor(a1_coord + 0.5);
     int c2 = (int)std::floor(a2_coord + 0.5);
     int c3 = (int)std::floor(a3_coord + 0.5);
@@ -103,9 +104,9 @@ IndexVector3D Lattice::getNearestLatticeVectorCoordinates(const kvector_t& vecto
 IndexVector3D Lattice::getNearestReciprocalLatticeVectorCoordinates(
         const kvector_t& vector_in) const
 {
-    double b1_coord = vector_in.dot(m_a1)/2.0/Units::PI;
-    double b2_coord = vector_in.dot(m_a2)/2.0/Units::PI;
-    double b3_coord = vector_in.dot(m_a3)/2.0/Units::PI;
+    double b1_coord = vector_in.dot(m_a1)/Units::PI2;
+    double b2_coord = vector_in.dot(m_a2)/Units::PI2;
+    double b3_coord = vector_in.dot(m_a3)/Units::PI2;
     int c1 = (int)std::floor(b1_coord + 0.5);
     int c2 = (int)std::floor(b2_coord + 0.5);
     int c3 = (int)std::floor(b3_coord + 0.5);
@@ -219,4 +220,3 @@ void Lattice::computeInverseVectors(const kvector_t& v1, const kvector_t& v2,
     gsl_matrix_free(p_basisMatrix);
     gsl_matrix_free(p_inverseMatrix);
 }
-

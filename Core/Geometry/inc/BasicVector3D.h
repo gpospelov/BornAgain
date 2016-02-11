@@ -133,7 +133,7 @@ public:
     }
 
     //! Returns this, trivially converted to complex type.
-    BasicVector3D<std::complex<double>> complex() const;
+    BasicVector3D<std::complex<double> > complex() const;
 
     // -------------------------------------------------------------------------
     // Functions of this and another vector

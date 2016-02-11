@@ -27,6 +27,9 @@ IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(SimulationParameter
                 this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol, 2);
 }
 
+// destructor should be defined and it should be in *.cpp, otherwise forward declaration of IntegratorMCMiser doesn't work
+IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy(){}
+
 void IInterferenceFunctionStrategy::init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
                                          const IInterferenceFunction& iff)
 {

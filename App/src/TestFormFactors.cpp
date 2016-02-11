@@ -128,126 +128,130 @@ void TestFormFactors::execute()
 
 void TestFormFactors::run_isgisaxs_simulation(IFormFactor *p_form_factor)
 {
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+//    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+//    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
-    //building sample
-    MultiLayer multi_layer;
-    Layer air_layer;
-    air_layer.setMaterial(air_material);
+//    //building sample
+//    MultiLayer multi_layer;
+//    Layer air_layer;
+//    air_layer.setMaterial(air_material);
 
-    mp_form_factor=p_form_factor;
-    Particle particle(particle_material, *mp_form_factor);
-    ParticleLayout particle_layout(particle);
-    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
-    air_layer.addLayout(particle_layout);
-    multi_layer.addLayer(air_layer);
+//    mp_form_factor=p_form_factor;
+//    Particle particle(particle_material, *mp_form_factor);
+//    ParticleLayout particle_layout(particle);
+//    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
+//    air_layer.addLayout(particle_layout);
+//    multi_layer.addLayer(air_layer);
 
-    // building simulation
-    GISASSimulation simulation(mp_options);
-    IsGISAXSDetector detector;
-    detector.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                                     100, 0.0*Units::degree, 2.0*Units::degree);
-    simulation.setDetector(detector);
+//    // building simulation
+//    GISASSimulation simulation(mp_options);
+//    IsGISAXSDetector detector;
+//    detector.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+//                                     100, 0.0*Units::degree, 2.0*Units::degree);
+//    simulation.setDetector(detector);
 
-    simulation.setSample(multi_layer);
-    simulation.runSimulation();
-    std::cout << mp_form_factor->getName().substr(10) <<std::endl;
-    IntensityDataIOFactory::writeOutputData(*simulation.getOutputData(),
-                       "this_"+mp_form_factor->getName().substr(10)+"_BA.ima");
+//    simulation.setSample(multi_layer);
+//    simulation.runSimulation();
+//    std::cout << mp_form_factor->getName().substr(10) <<std::endl;
+//    IntensityDataIOFactory::writeOutputData(*simulation.getOutputData(),
+//                       "this_"+mp_form_factor->getName().substr(10)+"_BA.ima");
+    throw Exceptions::NotImplementedException("Cleanup the code!");
+
 }
 
 void TestFormFactors::finalise()
 {
-   std::vector< CompareStruct > tocompare;
-   tocompare.push_back( CompareStruct(getOutputPath()+"isgi_cylinder_BA.ima",
-            "this_Cylinder_BA.ima",
-            "Cylinder BA Formfactor"));
+//   std::vector< CompareStruct > tocompare;
+//   tocompare.push_back( CompareStruct(getOutputPath()+"isgi_cylinder_BA.ima",
+//            "this_Cylinder_BA.ima",
+//            "Cylinder BA Formfactor"));
 
-    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_box_BA.ima",
-            "this_Box_BA.ima", "Box BA Formfactor"));
+//    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_box_BA.ima",
+//            "this_Box_BA.ima", "Box BA Formfactor"));
 
-    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_cone_BA.ima",
-            "this_Cone_BA.ima", "Cone BA Formfactor"));
+//    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_cone_BA.ima",
+//            "this_Cone_BA.ima", "Cone BA Formfactor"));
 
-    tocompare.push_back( CompareStruct( getOutputPath()+"isgi_cone6_BA.ima",
-            "this_Cone6_BA.ima", "Cone6 BA Formfactor"));
+//    tocompare.push_back( CompareStruct( getOutputPath()+"isgi_cone6_BA.ima",
+//            "this_Cone6_BA.ima", "Cone6 BA Formfactor"));
 
-    tocompare.push_back( CompareStruct(getOutputPath()+
-                                       "isgi_full_sphere_BA.ima",
-            "this_FullSphere_BA.ima","Full Sphere BA Formfactor"));
+//    tocompare.push_back( CompareStruct(getOutputPath()+
+//                                       "isgi_full_sphere_BA.ima",
+//            "this_FullSphere_BA.ima","Full Sphere BA Formfactor"));
 
-    tocompare.push_back( CompareStruct(getOutputPath()+
-                                      "isgi_parallelepiped_BA.ima",
-            "this_Parallelepiped_BA.ima","Parallelepiped BA Formfactor"));
+//    tocompare.push_back( CompareStruct(getOutputPath()+
+//                                      "isgi_parallelepiped_BA.ima",
+//            "this_Parallelepiped_BA.ima","Parallelepiped BA Formfactor"));
 
-    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_prism3_BA.ima",
-            "this_Prism3_BA.ima", "Prism3 BA Formfactor"));
+//    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_prism3_BA.ima",
+//            "this_Prism3_BA.ima", "Prism3 BA Formfactor"));
 
-    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_prism6_BA.ima",
-            "this_Prism6_BA.ima", "Prism6 BA Formfactor"));
+//    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_prism6_BA.ima",
+//            "this_Prism6_BA.ima", "Prism6 BA Formfactor"));
 
-    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_pyramid_BA.ima",
-            "this_Pyramid_BA.ima","Pyramid BA Formfactor"));
+//    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_pyramid_BA.ima",
+//            "this_Pyramid_BA.ima","Pyramid BA Formfactor"));
 
-    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_sphere_BA.ima",
-            "this_Sphere_BA.ima","Sphere BA Formfactor"));
+//    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_sphere_BA.ima",
+//            "this_Sphere_BA.ima","Sphere BA Formfactor"));
 
-    tocompare.push_back( CompareStruct(getOutputPath()+
-                                       "isgi_tetrahedron_BA.ima",
-            "this_Tetrahedron_BA.ima","Tetrahedron BA Formfactor"));
+//    tocompare.push_back( CompareStruct(getOutputPath()+
+//                                       "isgi_tetrahedron_BA.ima",
+//            "this_Tetrahedron_BA.ima","Tetrahedron BA Formfactor"));
 
-    tocompare.push_back( CompareStruct(getOutputPath()+
-                                        "isgi_cuboctahedron_BA.ima",
-         "this_Cuboctahedron_BA.ima","Cuboctahedron BA Formfactor"));
+//    tocompare.push_back( CompareStruct(getOutputPath()+
+//                                        "isgi_cuboctahedron_BA.ima",
+//         "this_Cuboctahedron_BA.ima","Cuboctahedron BA Formfactor"));
 
-    tocompare.push_back( CompareStruct(getOutputPath()+
-                                          "isgi_aniso_pyramid_BA.ima",
-          "this_AnisoPyramid_BA.ima", "AnisoPyramid BA Formfactor"));
+//    tocompare.push_back( CompareStruct(getOutputPath()+
+//                                          "isgi_aniso_pyramid_BA.ima",
+//          "this_AnisoPyramid_BA.ima", "AnisoPyramid BA Formfactor"));
 
-    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_ellipsoid_BA.ima",
-        "this_EllipsoidalCylinder_BA.ima","EllipsoidalCylinder BA Formfactor"));
+//    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_ellipsoid_BA.ima",
+//        "this_EllipsoidalCylinder_BA.ima","EllipsoidalCylinder BA Formfactor"));
 
-    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_full_spheroid_BA.ima",
-         "this_FullSpheroid_BA.ima", "FullSpheroid BA Formfactor"));
+//    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_full_spheroid_BA.ima",
+//         "this_FullSpheroid_BA.ima", "FullSpheroid BA Formfactor"));
 
-    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_spheroid_BA.ima",
-         "this_Spheroid_BA.ima", "Spheroid BA Formfactor"));
+//    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_spheroid_BA.ima",
+//         "this_Spheroid_BA.ima", "Spheroid BA Formfactor"));
 
-    tocompare.push_back( CompareStruct(getOutputPath()+
-                                       "isgi_hemi_ellipsoid_BA.ima","this_HemiEllipsoid_BA.ima",
-          "HemiEllipsoid BA Formfactor"));
+//    tocompare.push_back( CompareStruct(getOutputPath()+
+//                                       "isgi_hemi_ellipsoid_BA.ima","this_HemiEllipsoid_BA.ima",
+//          "HemiEllipsoid BA Formfactor"));
 
 
-    const double threshold(2e-10);
+//    const double threshold(2e-10);
 
-    for(size_t i=0; i<tocompare.size(); ++i) {
-        OutputData<double> *isgi_data = IntensityDataIOFactory::readOutputData(
-                tocompare[i].isginame);
-        OutputData<double> *our_data = IntensityDataIOFactory::readOutputData(
-                tocompare[i].thisname);
+//    for(size_t i=0; i<tocompare.size(); ++i) {
+//        OutputData<double> *isgi_data = IntensityDataIOFactory::readOutputData(
+//                tocompare[i].isginame);
+//        OutputData<double> *our_data = IntensityDataIOFactory::readOutputData(
+//                tocompare[i].thisname);
 
-        IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data,
-                tocompare[i].descr, tocompare[i].descr);
+//        IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data,
+//                tocompare[i].descr, tocompare[i].descr);
 
-        *our_data -= *isgi_data;
-        *our_data /= *isgi_data;
+//        *our_data -= *isgi_data;
+//        *our_data /= *isgi_data;
 
-        double diff(0);
-        for(OutputData<double>::const_iterator it =
-            our_data->begin(); it!=our_data->end(); ++it) {
-            diff+= std::abs(*it);
-        }
-        diff /= our_data->getAllocatedSize();
+//        double diff(0);
+//        for(OutputData<double>::const_iterator it =
+//            our_data->begin(); it!=our_data->end(); ++it) {
+//            diff+= std::abs(*it);
+//        }
+//        diff /= our_data->getAllocatedSize();
 
-        bool status_ok(true);
-        if( diff > threshold || MathFunctions::isnan(diff) ) status_ok=false;
-        std::cout << m_name  << tocompare[i].descr<<" " << diff << " " <<
-            (status_ok ? "[OK]" : "[FAILED]") << std::endl;
+//        bool status_ok(true);
+//        if( diff > threshold || MathFunctions::isnan(diff) ) status_ok=false;
+//        std::cout << m_name  << tocompare[i].descr<<" " << diff << " " <<
+//            (status_ok ? "[OK]" : "[FAILED]") << std::endl;
 
-        delete isgi_data;
-        delete our_data;
-    }
+//        delete isgi_data;
+//        delete our_data;
+//    }
+
+    throw Exceptions::NotImplementedException("Cleanup the code!");
 
 }
 

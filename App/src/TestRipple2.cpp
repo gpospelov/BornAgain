@@ -175,37 +175,38 @@ void TestRipple2::TestSampleBuilder::init_parameters()
 
 ISample *TestRipple2::TestSampleBuilder::buildSample() const
 {
-    MultiLayer *p_multi_layer = new MultiLayer();
+//    MultiLayer *p_multi_layer = new MultiLayer();
 
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
-    HomogeneousMaterial particle_material("Particle", n_particle);
+//    complex_t n_particle(1.0-6e-4, 2e-8);
+//    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+//    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+//    HomogeneousMaterial particle_material("Particle", n_particle);
 
-    Layer air_layer(air_material);
-    FormFactorRipple2 ff_ripple2(m_l, m_w, m_h, m_d);
-    Particle ripple(particle_material, ff_ripple2 );
+//    Layer air_layer(air_material);
+//    FormFactorRipple2 ff_ripple2(m_l, m_w, m_h, m_d);
+//    Particle ripple(particle_material, ff_ripple2 );
 
 
-    ParticleLayout particle_layout;
-    particle_layout.addParticle(ripple, 1.0);
-    InterferenceFunctionRadialParaCrystal *p_interference_function =
-            new InterferenceFunctionRadialParaCrystal(m_interf_distance,
-                    1e7*Units::nanometer); // peak_distance, corr_length
-    FTDistribution1DGauss pdf(m_interf_width);
-    p_interference_function->setProbabilityDistribution(pdf);
-    particle_layout.addInterferenceFunction(p_interference_function);
+//    ParticleLayout particle_layout;
+//    particle_layout.addParticle(ripple, 1.0);
+//    InterferenceFunctionRadialParaCrystal *p_interference_function =
+//            new InterferenceFunctionRadialParaCrystal(m_interf_distance,
+//                    1e7*Units::nanometer); // peak_distance, corr_length
+//    FTDistribution1DGauss pdf(m_interf_width);
+//    p_interference_function->setProbabilityDistribution(pdf);
+//    particle_layout.addInterferenceFunction(p_interference_function);
 
-    // making layer holding all whose nano particles
-    air_layer.addLayout(particle_layout);
+//    // making layer holding all whose nano particles
+//    air_layer.addLayout(particle_layout);
 
-    p_multi_layer->addLayer(air_layer);
+//    p_multi_layer->addLayer(air_layer);
 
-    Layer substrate_layer;
-    substrate_layer.setMaterial(substrate_material);
-    p_multi_layer->addLayer(substrate_layer);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(substrate_material);
+//    p_multi_layer->addLayer(substrate_layer);
 
-    return p_multi_layer;
+//    return p_multi_layer;
+    throw Exceptions::NotImplementedException("Cleanup the code!");
 }
 
 void TestRipple2::plot_results()

@@ -475,63 +475,65 @@ void TestIsGISAXS12::TestSampleBuilder::init_parameters()
 
 ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
 {
-    MultiLayer *p_multi_layer = new MultiLayer();
+//    MultiLayer *p_multi_layer = new MultiLayer();
 
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
-    HomogeneousMaterial particle_material("Particle", n_particle);
+//    complex_t n_particle(1.0-6e-4, 2e-8);
+//    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+//    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+//    HomogeneousMaterial particle_material("Particle", n_particle);
 
-    Layer air_layer(air_material);
+//    Layer air_layer(air_material);
 
-    // preparing nano particles prototypes for seeding layer's particle_layout
-    double particle_probability1 = m_particle_probability1;
-//    double particle_probability2 = 1. - m_particle_probability1;
-    double particle_probability2 = m_particle_probability2;
+//    // preparing nano particles prototypes for seeding layer's particle_layout
+//    double particle_probability1 = m_particle_probability1;
+////    double particle_probability2 = 1. - m_particle_probability1;
+//    double particle_probability2 = m_particle_probability2;
 
-    double radius1 = m_particle_radius1;
-    double radius2 = m_particle_radius2;
-    double height1 = m_height_aspect_ratio1*radius1;
-    double height2 = m_height_aspect_ratio2*radius2;
-    FormFactorCylinder p_ff_cylinder1(radius1, height1);
-    Particle cylinder1(particle_material, p_ff_cylinder1 );
+//    double radius1 = m_particle_radius1;
+//    double radius2 = m_particle_radius2;
+//    double height1 = m_height_aspect_ratio1*radius1;
+//    double height2 = m_height_aspect_ratio2*radius2;
+//    FormFactorCylinder p_ff_cylinder1(radius1, height1);
+//    Particle cylinder1(particle_material, p_ff_cylinder1 );
 
-    FormFactorCylinder p_ff_cylinder2(radius2, height2);
-    Particle cylinder2(particle_material, p_ff_cylinder2 );
+//    FormFactorCylinder p_ff_cylinder2(radius2, height2);
+//    Particle cylinder2(particle_material, p_ff_cylinder2 );
 
-    // radius of nanoparticles will be sampled with gaussian probability
-    int nbins=20;
-    double sigma1 = radius1*m_dispersion_radius1;
-    double sigma2 = radius2*m_dispersion_radius2;
-    int nfwhm(2); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where xR is what is defined in isgisaxs *.inp file)
-    DistributionGaussian gauss1(radius1, sigma1);
-    DistributionGaussian gauss2(radius2, sigma2);
+//    // radius of nanoparticles will be sampled with gaussian probability
+//    int nbins=20;
+//    double sigma1 = radius1*m_dispersion_radius1;
+//    double sigma2 = radius2*m_dispersion_radius2;
+//    int nfwhm(2); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where xR is what is defined in isgisaxs *.inp file)
+//    DistributionGaussian gauss1(radius1, sigma1);
+//    DistributionGaussian gauss2(radius2, sigma2);
 
-    ParticleLayout particle_layout;
-    InterferenceFunctionRadialParaCrystal *p_interference_function =
-            new InterferenceFunctionRadialParaCrystal(m_interf_distance,
-                    1e7*Units::nanometer); // peak_distance, corr_length
-    FTDistribution1DGauss pdf(m_interf_width);
-    p_interference_function->setProbabilityDistribution(pdf);
-    particle_layout.addInterferenceFunction(p_interference_function);
+//    ParticleLayout particle_layout;
+//    InterferenceFunctionRadialParaCrystal *p_interference_function =
+//            new InterferenceFunctionRadialParaCrystal(m_interf_distance,
+//                    1e7*Units::nanometer); // peak_distance, corr_length
+//    FTDistribution1DGauss pdf(m_interf_width);
+//    p_interference_function->setProbabilityDistribution(pdf);
+//    particle_layout.addInterferenceFunction(p_interference_function);
 
-    // building nano particles
-    ParameterDistribution par_distr1("*/radius", gauss1, nbins, nfwhm);
-    ParticleDistribution particle_collection1(cylinder1, par_distr1);
-    particle_layout.addParticle(particle_collection1, particle_probability1);
-    ParameterDistribution par_distr2("*/radius", gauss2, nbins, nfwhm);
-    ParticleDistribution particle_collection2(cylinder2, par_distr2);
-    particle_layout.addParticle(particle_collection2, particle_probability2);
+//    // building nano particles
+//    ParameterDistribution par_distr1("*/radius", gauss1, nbins, nfwhm);
+//    ParticleDistribution particle_collection1(cylinder1, par_distr1);
+//    particle_layout.addParticle(particle_collection1, particle_probability1);
+//    ParameterDistribution par_distr2("*/radius", gauss2, nbins, nfwhm);
+//    ParticleDistribution particle_collection2(cylinder2, par_distr2);
+//    particle_layout.addParticle(particle_collection2, particle_probability2);
 
-    air_layer.addLayout(particle_layout);
+//    air_layer.addLayout(particle_layout);
 
-    p_multi_layer->addLayer(air_layer);
+//    p_multi_layer->addLayer(air_layer);
 
-    Layer substrate_layer;
-    substrate_layer.setMaterial(substrate_material);
-    p_multi_layer->addLayer(substrate_layer);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(substrate_material);
+//    p_multi_layer->addLayer(substrate_layer);
 
-    return p_multi_layer;
+//    return p_multi_layer;
+    throw Exceptions::NotImplementedException("Cleanup the code!");
+
 }
 
 

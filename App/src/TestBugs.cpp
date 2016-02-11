@@ -38,28 +38,30 @@ void TestBugs::execute()
 
 void TestBugs::test_item339()
 {
-    std::cout << "TestBugs::test_item339() -> " << std::endl;
+//    std::cout << "TestBugs::test_item339() -> " << std::endl;
 
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    HomogeneousMaterial mParticle("Particle", n_particle );
-
-
-    FormFactorTruncatedSphere sphere_ff(8.0*Units::nanometer, 8.0*Units::nanometer);
-
-    Particle particle(mParticle, sphere_ff);
-
-    InterferenceFunction2DParaCrystal *interf =
-            InterferenceFunction2DParaCrystal::createHexagonal(20.0*Units::nanometer,
-                                                              0.0,20.0*Units::micrometer, 20.0*Units::micrometer);
+//    complex_t n_particle(1.0-6e-4, 2e-8);
+//    HomogeneousMaterial mParticle("Particle", n_particle );
 
 
-    ParticleLayout *decoration = new ParticleLayout();
+//    FormFactorTruncatedSphere sphere_ff(8.0*Units::nanometer, 8.0*Units::nanometer);
 
-    decoration->addParticle(particle, 1.0);
+//    Particle particle(mParticle, sphere_ff);
+
+//    InterferenceFunction2DParaCrystal *interf =
+//            InterferenceFunction2DParaCrystal::createHexagonal(20.0*Units::nanometer,
+//                                                              0.0,20.0*Units::micrometer, 20.0*Units::micrometer);
+
+
+//    ParticleLayout *decoration = new ParticleLayout();
+
+//    decoration->addParticle(particle, 1.0);
 
 
 
-    decoration->addInterferenceFunction(interf);
+//    decoration->addInterferenceFunction(interf);
+    throw Exceptions::NotImplementedException("Cleanup the code!");
+
 }
 
 

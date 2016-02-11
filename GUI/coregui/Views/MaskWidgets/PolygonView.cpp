@@ -84,6 +84,7 @@ bool PolygonView::closePolygonIfNecessary()
             childItem->setCursor(Qt::SizeAllCursor);
         }
         m_item->setRegisteredProperty(PolygonItem::P_ISCLOSED, true);
+        update();
     }
     return isClosedPolygon();
 }

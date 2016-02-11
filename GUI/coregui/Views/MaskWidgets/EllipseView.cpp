@@ -176,7 +176,7 @@ void EllipseView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void EllipseView::update_view()
 {
-    prepareGeometryChange();
+//    prepareGeometryChange();
     update_bounding_rect();
     update_position();
     update();

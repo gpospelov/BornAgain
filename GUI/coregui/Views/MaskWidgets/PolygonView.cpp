@@ -138,7 +138,7 @@ void PolygonView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void PolygonView::update_view()
 {
-    prepareGeometryChange();
+//    prepareGeometryChange();
     update_polygon();
     update();
 }

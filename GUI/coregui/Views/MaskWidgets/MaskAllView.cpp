@@ -30,7 +30,7 @@ MaskAllView::MaskAllView()
 
 void MaskAllView::update_view()
 {
-    prepareGeometryChange();
+//    prepareGeometryChange();
     m_bounding_rect = m_adaptor->getViewportRectangle();
     update();
 }

@@ -325,7 +325,11 @@ void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     }
 
     QGraphicsScene::mouseMoveEvent(event);
-    m_currentMousePosition = event->scenePos();
+
+    if( (isDrawingInProgress() && m_context.isPolygonMode()) || m_context.isLineMode()) {
+        m_currentMousePosition = event->scenePos();
+        invalidate();
+    }
 }
 
 //! Finalizes item drawing or pass events to other items
@@ -354,32 +358,29 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF &)
+void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF &rect)
 {
-//    if(PolygonView *polygon = getCurrentPolygon()) {
-//        painter->setPen(QPen(Qt::black, 1, Qt::DashLine));
-//        painter->drawLine(QLineF(polygon->getLastAddedPoint(), m_currentMousePosition));
-//        invalidate();
-//    } else {
-//        if(m_context.isLineMode()) {
-//            const QRectF &plot_scene_rectangle = m_adaptor->getViewportRectangle();
-//            if(!plot_scene_rectangle.contains(m_currentMousePosition)) return;
+    if(PolygonView *polygon = getCurrentPolygon()) {
+        painter->setPen(QPen(Qt::black, 1, Qt::DashLine));
+        painter->drawLine(QLineF(polygon->getLastAddedPoint(), m_currentMousePosition));
+    } else {
+        if(m_context.isLineMode()) {
+            const QRectF &plot_scene_rectangle = m_adaptor->getViewportRectangle();
+            if(!plot_scene_rectangle.contains(m_currentMousePosition)) return;
 
-//            painter->setPen(QPen(Qt::black, 1, Qt::DashLine));
-//            if(m_context.isVerticalLineMode()) {
-//                QPointF p1(m_currentMousePosition.x(), plot_scene_rectangle.bottom());
-//                QPointF p2(m_currentMousePosition.x(), plot_scene_rectangle.top());
-//                painter->drawLine(QLineF(p1, p2));
-//            }
-//            if(m_context.isHorizontalLineMode()) {
-//                QPointF p1(plot_scene_rectangle.left(), m_currentMousePosition.y());
-//                QPointF p2(plot_scene_rectangle.right(), m_currentMousePosition.y());
-//                painter->drawLine(QLineF(p1, p2));
-//            }
-//            invalidate();
-
-//        }
-//    }
+            painter->setPen(QPen(Qt::black, 1, Qt::DashLine));
+            if(m_context.isVerticalLineMode()) {
+                QPointF p1(m_currentMousePosition.x(), plot_scene_rectangle.bottom());
+                QPointF p2(m_currentMousePosition.x(), plot_scene_rectangle.top());
+                painter->drawLine(QLineF(p1, p2));
+            }
+            if(m_context.isHorizontalLineMode()) {
+                QPointF p1(plot_scene_rectangle.left(), m_currentMousePosition.y());
+                QPointF p2(plot_scene_rectangle.right(), m_currentMousePosition.y());
+                painter->drawLine(QLineF(p1, p2));
+            }
+        }
+    }
 }
 
 //! creates item context menu if there is IMaskView beneath the mouse right click
@@ -735,10 +736,11 @@ PolygonView *MaskGraphicsScene::getCurrentPolygon() const
     PolygonView *result(0);
     if(isDrawingInProgress() && m_context.isPolygonMode()) {
         if(m_currentItem) {
-            if(IMaskView *view = m_ItemToView[m_currentItem]) {
-                if(view->type() == MaskEditorHelper::POLYGON)
-                    result = dynamic_cast<PolygonView *>(view);
-            }
+//            if(IMaskView *view = m_ItemToView[m_currentItem]) {
+//                if(view->type() == MaskEditorHelper::POLYGON)
+//                    result = dynamic_cast<PolygonView *>(view);
+//            }
+              result = dynamic_cast<PolygonView *>(m_ItemToView[m_currentItem]);
         }
     }
     return result;

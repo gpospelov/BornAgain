@@ -82,6 +82,7 @@ public slots:
 protected:
     void drawForeground(QPainter* painter, const QRectF& rect);
     const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
 private:
 
@@ -93,6 +94,7 @@ private:
     bool isMultiLayerNearby(QGraphicsSceneDragDropEvent *event);
     void adjustSceneRect();
     bool isAcceptedByMultiLayer(const DesignerMimeData *mimeData, QGraphicsSceneDragDropEvent *event);
+    bool isLayerDragged() const;
 
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;

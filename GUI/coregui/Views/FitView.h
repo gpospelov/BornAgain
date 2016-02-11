@@ -38,6 +38,7 @@ private:
     ImportDataWidget *m_importDataWidget;
     FitSettingsWidget *m_fitSettingsWidget;
     RunFitWidget *m_runFitWidget;
+
 };
 
 #endif

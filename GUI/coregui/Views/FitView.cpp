@@ -22,6 +22,8 @@
 #include "projectmanager.h"
 #include <QVBoxLayout>
 #include <QTabWidget>
+#include <QToolBar>
+#include <QListWidget>
 
 // REMARKS:
 
@@ -131,12 +133,27 @@ FitView::FitView(MainWindow *mainWindow)
     , m_runFitWidget(new RunFitWidget(mainWindow->getFitModel(), this))
 {
     QVBoxLayout *layout = new QVBoxLayout;
-    m_tabs->addTab(m_importDataWidget , "Import Experimental Data");
+    m_tabs->setStyleSheet("QTabBar::tab { height: 40px; }");
+    m_tabs->addTab(m_importDataWidget ,QIcon(":/images/main_home.png"), "Import Experimental Data");
     m_tabs->addTab(m_fitSettingsWidget, "Fit Settings");
     m_tabs->addTab(m_runFitWidget, "Run Fit");
     layout->setMargin(0);
     layout->setSpacing(0);
-    layout->addWidget(m_tabs);
+    QToolBar *toolBar = new QToolBar();
+    toolBar->addAction("Add Fit Workspace");
+    toolBar->addSeparator();
+    toolBar->addAction("Fit Selection");
+    toolBar->addSeparator();
+    QListWidget *list = new QListWidget();
+    list->setMinimumSize(100, 400);
+    list->setMaximumWidth(128);
+    list->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    m_tabs->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    QHBoxLayout *horizontalLayout = new QHBoxLayout;
+    horizontalLayout->addWidget(list);
+    horizontalLayout->addWidget(m_tabs);
+    layout->addWidget(toolBar);
+    layout->addLayout(horizontalLayout);
     setLayout(layout);
 
     connect(mainWindow->getProjectManager(), SIGNAL(projectOpened()),

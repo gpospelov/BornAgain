@@ -34,6 +34,7 @@
 
 
 #include "ContentPane.h"
+#include "WinDllMacros.h"
 
 class ContentPane;
 
@@ -64,7 +65,7 @@ class ContentPane;
  * Currently Headers have to be unique
  *
  */
-class __attribute__((visibility("default"))) AccordionWidget : public QWidget
+class BA_CORE_API_ AccordionWidget : public QWidget
 {
     Q_OBJECT
 public:

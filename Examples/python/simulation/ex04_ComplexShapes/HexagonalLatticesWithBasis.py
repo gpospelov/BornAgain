@@ -30,8 +30,8 @@ def get_sample():
     particle_layout.addParticle(basis)
 
     interference = InterferenceFunction2DLattice.createHexagonal(radius*2.0)
-    pdf = FTDistribution2DCauchy(10*nanometer, 10*nanometer)
-    interference.setProbabilityDistribution(pdf)
+    pdf = FTDecayFunction2DCauchy(10*nanometer, 10*nanometer)
+    interference.setDecayFunction(pdf)
 
     particle_layout.addInterferenceFunction(interference)
 

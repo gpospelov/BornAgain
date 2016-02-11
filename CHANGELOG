@@ -1,7 +1,7 @@
 BornAgain-1.5.0, released 2016.02.15
   > API changes
-    1) FTDecayFunctions introduced to use together with lattices, FTDistributions are used
-       with paracrystals.
+    1) FTDecayFunctions introduced to use together with lattices (setDecayFunction)
+       FTDistributions are used, as before, with paracrystals.
   > Summary:
     1) Core: interference function calculates particle densities automatically
     2) GUI: 1D interference function, Rectangular detector, Mask editor

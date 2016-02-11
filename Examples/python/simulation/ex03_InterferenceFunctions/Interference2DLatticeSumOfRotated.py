@@ -21,8 +21,8 @@ def get_sample(xi_value):
     substrate_layer = Layer(m_substrate)
 
     p_interference_function = InterferenceFunction2DLattice.createSquare(25.0*nanometer, xi_value)
-    pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/numpy.pi, 100.0*nanometer/2.0/numpy.pi)
-    p_interference_function.setProbabilityDistribution(pdf)
+    pdf = FTDecayFunction2DCauchy(300.0*nanometer/2.0/numpy.pi, 100.0*nanometer/2.0/numpy.pi)
+    p_interference_function.setDecayFunction(pdf)
 
     particle_layout = ParticleLayout()
     ff_cyl = FormFactorCylinder(3.0*nanometer, 3.0*nanometer)

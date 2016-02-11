@@ -1,3 +1,52 @@
+BornAgain-1.5.0, released 2016.02.15
+  > API changes
+    1) FTDecayFunctions introduced to use together with lattices, FTDistributions are used
+       with paracrystals.
+  > Summary:
+    1) Core: interference function calculates particle densities automatically
+    2) GUI: 1D interference function, Rectangular detector, Mask editor
+    3) GUI: Selection of axes (degrees, radians,number of bins, Q-space) for intensity data
+    3) Documentation: new tutorials on web site (rectangular detector, fitting, data treatment, rectangular grating)
+    4) Various bugfixes
+  * Bug #1276: Fix thread concurrency while repoorting progress update in DWBASimulattion
+  * Bug #1297: Reading ASCII intensity files not culture invariant
+  * Bug #1298: Mac os x: BornAgain.app crashes (cannot load the QtNetwork library)
+  * Bug #1302: Script updates following API change
+  * Bug #1303: Functional test montecarlo_integration.py fails
+  * Feature #1035: Revise IFormFactor::getRadius and IFormFactor::getHeight
+  * Feature #1045: Use interference funtion's properties to set total particle surface density
+  * Feature #1148: MacOS: provide generation of dmg installer using Qt5.5
+  * Feature #1149: MacOS: provide Maverick compilation using MacMini and vagrant
+  * Feature #1184: Implement transformation to q-space for intensity image
+  * Feature #1211: Switch to C++-11 for the whole project
+  * Feature #1213: Implement choice of detector in GUI
+  * Feature #1230: GUI mask editor: implement mask editor basic functionality
+  * Feature #1231: GUI mask editor: integrate mask editor into InstrumentView
+  * Feature #1232: GUI mask editor: provide transform from C++ domain to GUI domain
+  * Feature #1233: GUI mask editor: provide transform from C++ domain to python domain
+  * Feature #1234: GUI mask editor: provide functional tests for all 3 domains
+  * Feature #1235: GUI mask editor: integrate IntensityData widget into GraphicsScene
+  * Feature #1246: Investigate refactoring of ParameterizedItem structure
+  * Feature #1259: Add 1D lattice interference function to GUI
+  * Feature #1260: Windows: installer should create PYTHONPATH environment variable in system scope and not in user scope
+  * Feature #1266: GUI: Implement collapsable Accordion widget
+  * Feature #1267: GUI: implement update online notification widget
+  * Feature #1272: GUI: provide run of the fitting in GUI thread
+  * Feature #1275: Provide rectangle detector examples and functional tests
+  * Feature #1283: Provide functional test for all formfactors, when they are rotated and in the presence of absorption
+  * Documentation #1261: Drupal: update installation instructions, tutorials for coming release 1.5
+  * Documentation #1262: Fix IsGISAXS references in form factor section
+  * Documentation #1269: Update documentation for new phi angle definition
+  * Refactoring #1061: describe or remove morphology mode
+  * Refactoring #1236: Clean up remote git branches
+  * Refactoring #1237: GUI: generate distributed parameter names from GUI sample model instead of core model
+  * Refactoring #1264: Refactor ParameterizedItem's different naming schemes
+  * Refactoring #1265: Refactor RectangularDetector API to correspond with the tutorial
+  * Refactoring #1268: Change phi angle convention
+  * Refactoring #1270: Clarify and refactor different naming properties of ParameterizedItem
+  * Refactoring #1271: Investigate necessity of having a separate list for subitems and refactor accordingly
+  * Refactoring #1278: Deprecated declarations by compiling on new systems
+
 BornAgain-1.4.0, released 2015.10.30
   > No API changes
   > Summary:

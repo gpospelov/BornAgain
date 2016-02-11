@@ -73,13 +73,15 @@ def run_fitting():
     fit_suite.addFitParameter("*sigma", 0.55, ba.AttLimits.limited(0.2, 0.8), 0.01*ba.nanometer)
     fit_suite.addFitParameter("*distance", 27.*ba.nanometer, ba.AttLimits.limited(20, 70), 0.1*ba.nanometer)
 
-    strategy1 = ba.FitStrategyAdjustMinimizer("Genetic")
-    strategy1.getMinimizerOptions().setMaxIterations(3)
-    fit_suite.addFitStrategy(strategy1)
+    use_two_minimizers_strategy = False
+    if use_two_minimizers_strategy:
+        strategy1 = ba.FitStrategyAdjustMinimizer("Genetic")
+        strategy1.getMinimizerOptions().setMaxIterations(3)
+        fit_suite.addFitStrategy(strategy1)
 
-    # Second fit strategy will use another algorithm. It will use best parameters found from previous minimization round.
-    strategy2 = ba.FitStrategyAdjustMinimizer("Minuit2", "Migrad")
-    fit_suite.addFitStrategy(strategy2)
+        # Second fit strategy will use another algorithm. It will use best parameters found from previous minimization round.
+        strategy2 = ba.FitStrategyAdjustMinimizer("Minuit2", "Migrad")
+        fit_suite.addFitStrategy(strategy2)
 
     # running fit
     fit_suite.runFit()

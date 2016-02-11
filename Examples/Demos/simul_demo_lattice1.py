@@ -28,8 +28,8 @@ def RunSimulation():
 
     # interference function
     interference = InterferenceFunction2DLattice.createSquare(10.0*nanometer)
-    pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
-    interference.setProbabilityDistribution(pdf)
+    pdf = FTDecayFunction2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
+    interference.setDecayFunction(pdf)
     particle_layout.addInterferenceFunction(interference)
 
     # top air layer

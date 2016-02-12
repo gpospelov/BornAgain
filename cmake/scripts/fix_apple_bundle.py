@@ -34,8 +34,8 @@ def bundle_plugins_path():
     return os.path.join(bundle_dir(), "Contents", "PlugIns")
 
 
-def bundle_main_executable():
-    return os.path.join(bundle_dir(), "Contents", "MacOS", "BornAgain")
+def bundle_main_executables():
+    return [os.path.join(bundle_dir(), "Contents", "MacOS", "BornAgain")]
 
 
 def bundle_python_library():
@@ -50,10 +50,16 @@ def qtplugins_path():
     return os.path.join(os.environ['QTDIR'], "plugins")
 
 
+def bundle_libraries():
+    return glob.glob(os.path.join(bundle_dir(), "Contents", "lib", "BornAgain-*", "*"))
+
+
+def bundle_plugins():
+    return glob.glob(os.path.join(bundle_plugins_path(), "*", "*"))
+
+
 def bornagain_binaries():
-    result = glob.glob(os.path.join(bundle_dir(), "Contents", "lib", "BornAgain-*", "*"))
-    result.append(bundle_main_executable())
-    return result
+    return bundle_main_executables() + bundle_libraries() + bundle_plugins()
 
 
 def get_list_of_files(dirname):
@@ -170,8 +176,6 @@ def is_to_bundle_dependency(dependency):
     Returns True if this dependency should be moved to the bundle.
     Qt libraries and Python framework are special case and will be treated separately.
     """
-    # if not os.path.exists(dependency):
-    #     return False
 
     if is_system_dependency(dependency):
         return False
@@ -179,16 +183,6 @@ def is_to_bundle_dependency(dependency):
     if "libBornAgain" in dependency:
         # our own libraries are already in place and have right libId's
         return False
-
-
-    # if is_rpath_dependency(dependency):
-    #     return False
-    #
-    # if is_python_framework_dependency(dependency):
-    #     return False
-    #
-    # if is_qt_framework_dependency(dependency):
-    #     return False
 
     return True
 
@@ -233,7 +227,7 @@ def get_dependency_orig_location(dependency):
 
 def get_dependency_dest_location(dependency):
     """
-    Return new location of the dependency
+    Return new location of the dependency in the bundle
     """
     libname = os.path.basename(dependency)
 
@@ -311,14 +305,8 @@ def copy_qt_libraries():
         srcfile = os.path.join(qtlibs_path(), libpath, libname)
         if os.path.exists(srcfile):
             dstdir = os.path.join(bundle_frameworks_path(), libpath)
-            dstfile = copy_file_to_dir(srcfile, dstdir)
-            # fixing dependencies
-#            print "XXX>>>", dstfile
-#            for dependency in otool(dstfile):
-#                libId = get_special_dependency_id(dependency)
-#                print "XXX>>>", dstfile, dependency, libId
-#                if libId:
-#                    fixDependency(dstfile, dependency, libId)
+            copy_file_to_dir(srcfile, dstdir)
+
 
 def copy_qt_plugins():
     print "--> Copying Qt plugins"
@@ -328,8 +316,8 @@ def copy_qt_plugins():
         print name,
         srcfile = os.path.join(qtplugins_path(), name)
         dstdir = os.path.join(bundle_plugins_path(), os.path.dirname(name))
-        copy_file_to_dir(srcfile, dstdir)
-    print
+        dstfile = copy_file_to_dir(srcfile, dstdir)
+        setId(dstfile, os.path.basename(dstfile))
 
 
 def process_dependency(dependency):
@@ -376,6 +364,7 @@ def walk_through_dependencies(file_name):
                 if new_location:
                     walk_through_dependencies(new_location)
 
+
 def copy_dependencies():
     print "--> Copying third party dependencies"
     for binfile in iter(bornagain_binaries()):
@@ -393,10 +382,13 @@ def validate_dependencies():
     for file_name in file_list:
         for dependency in otool(file_name):
             if is_system_dependency(dependency) or is_rpath_dependency(dependency):
-                pass
-            else:
-                files_with_missed_dependencies.append(file_name)
-                break
+                continue
+            if os.path.basename(file_name) in dependency:
+                # self dependency (libId)
+                continue
+            files_with_missed_dependencies.append(file_name)
+            break
+
     if len(files_with_missed_dependencies):
         print "Error! Still unresolved dependencies."
         print files_with_missed_dependencies

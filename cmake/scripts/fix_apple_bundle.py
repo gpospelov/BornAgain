@@ -87,6 +87,14 @@ def copy_file_to_dir(file_name, dest_dir):
     return dest_file
 
 
+def copy_file_to_file(source, destination):
+    """
+    Copies file to another. If destination directory doesn't exists, it will be created.
+    """
+    make_dir(os.path.dirname(destination))
+    shutil.copyfile(source, destination)
+
+
 def otool(filename):
     """
     Parses dependencies of given binary file
@@ -162,20 +170,25 @@ def is_to_bundle_dependency(dependency):
     Returns True if this dependency should be moved to the bundle.
     Qt libraries and Python framework are special case and will be treated separately.
     """
-    if not os.path.exists(dependency):
-        return False
+    # if not os.path.exists(dependency):
+    #     return False
 
     if is_system_dependency(dependency):
         return False
 
-    if is_rpath_dependency(dependency):
+    if "libBornAgain" in dependency:
+        # our own libraries are already in place and have right libId's
         return False
 
-    if is_python_framework_dependency(dependency):
-        return False
 
-    if is_qt_framework_dependency(dependency):
-        return False
+    # if is_rpath_dependency(dependency):
+    #     return False
+    #
+    # if is_python_framework_dependency(dependency):
+    #     return False
+    #
+    # if is_qt_framework_dependency(dependency):
+    #     return False
 
     return True
 
@@ -196,7 +209,42 @@ def get_dependency_libId(dependency):
     return "@rpath/" + libname
 
 
-#def get_dependency_new_location(dependency):
+def get_dependency_orig_location(dependency):
+    """
+    Returns dependency original location. In most cases it is just "dependency" itself (i.e. path to file).
+    If dependency contains @rpath, then we are trying to guess where original files might be
+    """
+
+    if os.path.exists(dependency):
+        return dependency
+
+    result = None
+
+    if is_python_framework_dependency(dependency):
+        result = get_python_library_location()
+
+    elif is_qt_framework_dependency(dependency):
+        libname = os.path.basename(dependency)
+        libpath = os.path.join(libname+".framework", "Versions", "5")
+        result = os.path.join(qtlibs_path(), libpath, libname)
+
+    return result
+
+
+def get_dependency_dest_location(dependency):
+    """
+    Return new location of the dependency
+    """
+    libname = os.path.basename(dependency)
+
+    if is_python_framework_dependency(dependency):
+        return os.path.join(bundle_frameworks_path(), bundle_python_library())
+
+    if is_qt_framework_dependency(dependency):
+        libpath = os.path.join(libname+".framework", "Versions", "5")
+        return os.path.join(bundle_frameworks_path(), libpath, libname)
+
+    return os.path.join(bundle_frameworks_path(), libname)
 
 
 def get_special_dependency_id(dependency):
@@ -265,12 +313,12 @@ def copy_qt_libraries():
             dstdir = os.path.join(bundle_frameworks_path(), libpath)
             dstfile = copy_file_to_dir(srcfile, dstdir)
             # fixing dependencies
-            print "XXX>>>", dstfile
-            for dependency in otool(dstfile):
-                libId = get_special_dependency_id(dependency)
-                print "XXX>>>", dstfile, dependency, libId
-                if libId:
-                    fixDependency(dstfile, dependency, libId)
+#            print "XXX>>>", dstfile
+#            for dependency in otool(dstfile):
+#                libId = get_special_dependency_id(dependency)
+#                print "XXX>>>", dstfile, dependency, libId
+#                if libId:
+#                    fixDependency(dstfile, dependency, libId)
 
 def copy_qt_plugins():
     print "--> Copying Qt plugins"
@@ -289,32 +337,44 @@ def process_dependency(dependency):
     Copies external dependency library into Frameworks directory (if it is not already there)
     and sets corresponding library Id for it. Returns library Id and new location to the user.
     """
-    libname = os.path.basename(dependency)
-    libId = "@rpath/" + libname
-    new_location = os.path.join(bundle_frameworks_path(), libname)
-    if os.path.exists(new_location):
+
+    libId = get_dependency_libId(dependency)
+    origLocation  = get_dependency_orig_location(dependency)
+    destLocation = get_dependency_dest_location(dependency)
+
+    print "     ------"
+    if libId == dependency:
+        print "     selfDependency"
+        return None, None
+
+    if origLocation == None:
+        print "     origLocation >", origLocation
         return libId, None
-    print "copying dependency", dependency
-    copy_file_to_dir(dependency, bundle_frameworks_path())
-    setId(new_location, libId)
-    return libId, new_location
+
+    print "     origLocation >", origLocation
+    print "     destLocation >", destLocation
+    print "            libId >", libId
+
+    if os.path.exists(destLocation):
+        return libId, None
+    print "       copying to >", destLocation
+    copy_file_to_file(origLocation, destLocation)
+    setId(destLocation, libId)
+    return libId, destLocation
 
 
 def walk_through_dependencies(file_name):
+    print "============================"
+    print "walk_through ", file_name
     for dependency in otool(file_name):
-        print "---> ", dependency, file_name
+        print "---> ", file_name, dependency
         if is_to_bundle_dependency(dependency):
             libId, new_location = process_dependency(dependency)
             print "to Bundle", libId, new_location
-            fixDependency(file_name, dependency, libId)
-            if new_location:
-                walk_through_dependencies(new_location)
-        else:
-            libId = get_special_dependency_id(dependency)
-            print "not Bundle", libId
             if libId:
                 fixDependency(file_name, dependency, libId)
-
+                if new_location:
+                    walk_through_dependencies(new_location)
 
 def copy_dependencies():
     print "--> Copying third party dependencies"
@@ -347,8 +407,8 @@ def fix_apple_bundle():
     print '-'*80
     print "Fixing OS X bundle at '{0}'".format(bundle_dir())
     print '-'*80
-    copy_python_framework()
-    copy_qt_libraries()
+    # copy_python_framework()
+    # copy_qt_libraries()
     copy_qt_plugins()
     copy_dependencies()
     validate_dependencies()

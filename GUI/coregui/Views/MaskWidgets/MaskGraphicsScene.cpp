@@ -358,7 +358,7 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF &rect)
+void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF &)
 {
     if(PolygonView *polygon = getCurrentPolygon()) {
         painter->setPen(QPen(Qt::black, 1, Qt::DashLine));

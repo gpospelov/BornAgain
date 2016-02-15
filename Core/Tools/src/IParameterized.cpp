@@ -91,7 +91,7 @@ ParameterPattern::ParameterPattern()
 }
 
 ParameterPattern::ParameterPattern(std::string root_object)
-    : m_pattern { "/" + root_object }
+    : m_pattern ( "/" + root_object )
 {
 }
 

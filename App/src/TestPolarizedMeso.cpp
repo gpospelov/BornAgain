@@ -78,52 +78,55 @@ void TestPolarizedMeso::execute()
 
 MultiLayer* TestPolarizedMeso::createSample() const
 {
-    // create mesocrystal
-    double surface_density =
-        m_surface_filling_ratio/m_meso_width/m_meso_width;
-    kvector_t magnetic_field(3.4, 3.4, 3.4);
-    HomogeneousMagneticMaterial particle_material("nanoparticle",2.84e-5, 4.7e-7, magnetic_field);
+    throw Exceptions::NotImplementedException("Cleanup the code!");
 
-    // Create multilayer
-    MultiLayer *p_multi_layer = new MultiLayer();
+//    // create mesocrystal
+//    double surface_density =
+//        m_surface_filling_ratio/m_meso_width/m_meso_width;
+//    kvector_t magnetic_field(3.4, 3.4, 3.4);
+//    HomogeneousMagneticMaterial particle_material("nanoparticle",2.84e-5, 4.7e-7, magnetic_field);
 
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial substrate_material("Substrate", 7.57e-6, 1.73e-7);
-    Layer air_layer;
-    air_layer.setMaterial(air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(substrate_material);
-    IInterferenceFunction *p_interference_funtion =
-        new InterferenceFunctionNone();
-    ParticleLayout particle_layout;
-    size_t n_max_phi_rotation_steps = 1;
-    size_t n_sizes = 2;
+//    // Create multilayer
+//    MultiLayer *p_multi_layer = new MultiLayer();
 
-    double phi_step = Units::PI/4.0/n_max_phi_rotation_steps;
-    double phi_start = 0.0;
-    for (size_t i=0; i<n_max_phi_rotation_steps; ++i) {
-        for (size_t j=0; j<n_sizes; ++j) {
-            RotationZ transform(phi_start + i*phi_step);
-            double meso_size = m_meso_width + j*m_meso_size_steps;
-            FormFactorBox ff_box(meso_size, meso_size, meso_size);
-            boost::scoped_ptr<MesoCrystal> meso(createMeso(
-                             m_lattice_length_a, m_lattice_length_c,
-                             particle_material, m_nanoparticle_size, &ff_box) );
-            particle_layout.addParticle(*meso, 1.0, kvector_t(0,0,0), transform);
-        }
-    }
+//    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+//    HomogeneousMaterial substrate_material("Substrate", 7.57e-6, 1.73e-7);
+//    Layer air_layer;
+//    air_layer.setMaterial(air_material);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(substrate_material);
+//    IInterferenceFunction *p_interference_funtion =
+//        new InterferenceFunctionNone();
+//    ParticleLayout particle_layout;
+//    size_t n_max_phi_rotation_steps = 1;
+//    size_t n_sizes = 2;
 
-    particle_layout.setTotalParticleSurfaceDensity(surface_density);
-    particle_layout.addInterferenceFunction(p_interference_funtion);
+//    double phi_step = Units::PI/4.0/n_max_phi_rotation_steps;
+//    double phi_start = 0.0;
+//    for (size_t i=0; i<n_max_phi_rotation_steps; ++i) {
+//        for (size_t j=0; j<n_sizes; ++j) {
+//            RotationZ transform(phi_start + i*phi_step);
+//            double meso_size = m_meso_width + j*m_meso_size_steps;
+//            FormFactorBox ff_box(meso_size, meso_size, meso_size);
+//            boost::scoped_ptr<MesoCrystal> meso(createMeso(
+//                             m_lattice_length_a, m_lattice_length_c,
+//                             particle_material, m_nanoparticle_size, &ff_box) );
+//            particle_layout.addParticle(*meso, 1.0, kvector_t(0,0,0), transform);
+//        }
+//    }
 
-    air_layer.addLayout(particle_layout);
+//    particle_layout.setTotalParticleSurfaceDensity(surface_density);
+//    particle_layout.addInterferenceFunction(p_interference_funtion);
 
-    LayerRoughness roughness(m_roughness, 0.3, 500.0*Units::nanometer);
+//    air_layer.addLayout(particle_layout);
 
-    p_multi_layer->addLayer(air_layer);
-    p_multi_layer->addLayerWithTopRoughness(substrate_layer, roughness);
+//    LayerRoughness roughness(m_roughness, 0.3, 500.0*Units::nanometer);
 
-    return p_multi_layer;
+//    p_multi_layer->addLayer(air_layer);
+//    p_multi_layer->addLayerWithTopRoughness(substrate_layer, roughness);
+
+//    return p_multi_layer;
+    return 0;
 }
 
 MesoCrystal* TestPolarizedMeso::createMeso(double a, double c,

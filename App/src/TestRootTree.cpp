@@ -377,54 +377,55 @@ void TestRootTree::simple_read()
 
 //!
 
-void TestRootTree::initializeMesoCrystal(
-    double meso_alpha, double meso_phi, double nanopart_radius)
+void TestRootTree::initializeMesoCrystal(double /* meso_alpha */, double /* meso_phi*/, double /*nanopart_radius*/)
 {
-    (void)nanopart_radius;
-    delete mp_sample;
-    // create mesocrystal
-    double meso_radius = 300*Units::nanometer;
-    double surface_filling_ratio = 0.25;
-    double surface_density = surface_filling_ratio/Units::PI/meso_radius/meso_radius;
-    complex_t n_particle(1.0-1.55e-5, 1.37e-6);
-    complex_t avg_n_squared_meso = 0.7886*n_particle*n_particle + 0.2114;
-    complex_t n_avg = std::sqrt(surface_filling_ratio*avg_n_squared_meso +
-                                1.0 - surface_filling_ratio);
-//    complex_t n_particle_adapted = std::sqrt(n_avg*n_avg + n_particle*n_particle - 1.0);
-//    FormFactorCylinder ff_meso(meso_radius, 0.2*Units::micrometer);
+//    (void)nanopart_radius;
+//    delete mp_sample;
+//    // create mesocrystal
+//    double meso_radius = 300*Units::nanometer;
+//    double surface_filling_ratio = 0.25;
+//    double surface_density = surface_filling_ratio/Units::PI/meso_radius/meso_radius;
+//    complex_t n_particle(1.0-1.55e-5, 1.37e-6);
+//    complex_t avg_n_squared_meso = 0.7886*n_particle*n_particle + 0.2114;
+//    complex_t n_avg = std::sqrt(surface_filling_ratio*avg_n_squared_meso +
+//                                1.0 - surface_filling_ratio);
+////    complex_t n_particle_adapted = std::sqrt(n_avg*n_avg + n_particle*n_particle - 1.0);
+////    FormFactorCylinder ff_meso(meso_radius, 0.2*Units::micrometer);
 
-    // Create multilayer
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_substrate(1.0-7.57e-6, 1.73e-7);
+//    // Create multilayer
+//    MultiLayer *p_multi_layer = new MultiLayer();
+//    complex_t n_air(1.0, 0.0);
+//    complex_t n_substrate(1.0-7.57e-6, 1.73e-7);
 
-    HomogeneousMaterial air_material("Air", n_air);
-    HomogeneousMaterial average_layer_material("Averagelayer", n_avg);
-    HomogeneousMaterial substrate_material("Substrate", n_substrate);
-    Layer air_layer;
-    air_layer.setMaterial(air_material);
-    Layer avg_layer;
-    avg_layer.setMaterial(average_layer_material);
-    avg_layer.setThickness(0.2*Units::micrometer);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(substrate_material);
-    IInterferenceFunction *p_interference_funtion =
-        new InterferenceFunctionNone();
-    ParticleLayout particle_layout;
+//    HomogeneousMaterial air_material("Air", n_air);
+//    HomogeneousMaterial average_layer_material("Averagelayer", n_avg);
+//    HomogeneousMaterial substrate_material("Substrate", n_substrate);
+//    Layer air_layer;
+//    air_layer.setMaterial(air_material);
+//    Layer avg_layer;
+//    avg_layer.setMaterial(average_layer_material);
+//    avg_layer.setThickness(0.2*Units::micrometer);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(substrate_material);
+//    IInterferenceFunction *p_interference_funtion =
+//        new InterferenceFunctionNone();
+//    ParticleLayout particle_layout;
 
-    //double R = nanopart_radius;
-    RotationZ transform1(meso_phi);
-    RotationY transform2(meso_alpha);
+//    //double R = nanopart_radius;
+//    RotationZ transform1(meso_phi);
+//    RotationY transform2(meso_alpha);
 
-    particle_layout.setTotalParticleSurfaceDensity(surface_density);
-    particle_layout.addInterferenceFunction(p_interference_funtion);
+//    particle_layout.setTotalParticleSurfaceDensity(surface_density);
+//    particle_layout.addInterferenceFunction(p_interference_funtion);
 
-    avg_layer.addLayout(particle_layout);
+//    avg_layer.addLayout(particle_layout);
 
-    p_multi_layer->addLayer(air_layer);
-    p_multi_layer->addLayer(avg_layer);
-    p_multi_layer->addLayer(substrate_layer);
-    mp_sample = p_multi_layer;
+//    p_multi_layer->addLayer(air_layer);
+//    p_multi_layer->addLayer(avg_layer);
+//    p_multi_layer->addLayer(substrate_layer);
+//    mp_sample = p_multi_layer;
+
+    throw Exceptions::NotImplementedException("Cleanup the code!");
 }
 
 

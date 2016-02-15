@@ -111,36 +111,38 @@ void TestFittingModule3::initializeSimulation()
 /* ************************************************************************* */
 void TestFittingModule3::initializeSample()
 {
-    delete m_sample;
-    double cylinder_height = 5.0*Units::nanometer;
-    double cylinder_radius = 5.0*Units::nanometer;
-    double prism3_length = 10.0*Units::nanometer;
-    double prism3_height = 5.0*Units::nanometer;
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_substrate(1.0-6e-6, 2e-8);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    HomogeneousMaterial air_material("Air", n_air);
-    HomogeneousMaterial substrate_material("Substrate", n_substrate);
-    HomogeneousMaterial particle_material("Particle", n_particle);
-    Layer air_layer;
-    air_layer.setMaterial(air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(substrate_material);
-    Particle particle1(particle_material, FormFactorCylinder(
-                           cylinder_radius, cylinder_height) );
-    Particle particle2(particle_material, FormFactorPrism3(
-                           prism3_length, prism3_height) );
-    ParticleLayout particle_layout;
-    particle_layout.addParticle(particle1, 0.2);
-    particle_layout.addParticle(particle2, 0.8);
-    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
+//    delete m_sample;
+//    double cylinder_height = 5.0*Units::nanometer;
+//    double cylinder_radius = 5.0*Units::nanometer;
+//    double prism3_length = 10.0*Units::nanometer;
+//    double prism3_height = 5.0*Units::nanometer;
+//    MultiLayer *p_multi_layer = new MultiLayer();
+//    complex_t n_air(1.0, 0.0);
+//    complex_t n_substrate(1.0-6e-6, 2e-8);
+//    complex_t n_particle(1.0-6e-4, 2e-8);
+//    HomogeneousMaterial air_material("Air", n_air);
+//    HomogeneousMaterial substrate_material("Substrate", n_substrate);
+//    HomogeneousMaterial particle_material("Particle", n_particle);
+//    Layer air_layer;
+//    air_layer.setMaterial(air_material);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(substrate_material);
+//    Particle particle1(particle_material, FormFactorCylinder(
+//                           cylinder_radius, cylinder_height) );
+//    Particle particle2(particle_material, FormFactorPrism3(
+//                           prism3_length, prism3_height) );
+//    ParticleLayout particle_layout;
+//    particle_layout.addParticle(particle1, 0.2);
+//    particle_layout.addParticle(particle2, 0.8);
+//    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.addLayout(particle_layout);
+//    air_layer.addLayout(particle_layout);
 
-    p_multi_layer->addLayer(air_layer);
-    p_multi_layer->addLayer(substrate_layer);
-    m_sample = p_multi_layer;
+//    p_multi_layer->addLayer(air_layer);
+//    p_multi_layer->addLayer(substrate_layer);
+//    m_sample = p_multi_layer;
+
+    throw Exceptions::NotImplementedException("Cleanup the code!");
 }
 
 

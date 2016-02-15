@@ -495,4 +495,6 @@
 # PreRelease. If I try to backup mP_specular_info->getInCoefficients(alpha_i, 0.0, wavelength)); in InterferenceFunctionStrategy
 | 2015-10-29 09:41:25 | jcnsopc126 | linuxx8664gcc | 0  | 19.921   | 2.416        | 0.984        | 1.654        | 0.778        | 3.333        | 1.027        | 2.923        | 1.505        | 2.359        | 2.942        |
 
-
+# PreRelease-1.5.0
+| date                | hostname   | sysinfo       | tr | total    | MultiLayer   | CylindersInD | RotatedPyram | CoreShell    | SquareLattic | RadialParaCr | HexParaCryst | SSCA         | Mesocrystal  | PolMagCyl    |
+| 2016-02-11 14:10:57 | jcnsopc126 | linuxx8664gcc | 0  | 18.247   | 1.981        | 0.920        | 1.418        | 0.696        | 2.578        | 0.950        | 3.899        | 1.381        | 2.008        | 2.417        |

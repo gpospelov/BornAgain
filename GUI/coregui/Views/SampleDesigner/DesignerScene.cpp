@@ -338,11 +338,9 @@ void DesignerScene::deleteSelectedItems()
 //! shows appropriate layer interface to drop while moving ILayerView
 void DesignerScene::drawForeground(QPainter *painter, const QRectF & /* rect */)
 {
-    ILayerView *layer = dynamic_cast<ILayerView *>(mouseGrabberItem());
-    if (layer && !m_layer_interface_line.isNull()) {
+    if (isLayerDragged()) {
         painter->setPen(QPen(Qt::darkBlue, 2, Qt::DashLine));
         painter->drawLine(m_layer_interface_line);
-        invalidate();
     }
 }
 
@@ -452,6 +450,14 @@ const DesignerMimeData *DesignerScene::checkDragEvent(QGraphicsSceneDragDropEven
     return mimeData;
 }
 
+void DesignerScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    if(isLayerDragged()) {
+        invalidate(); // to redraw vertical dashed line which denotes where to drag the layer
+    }
+    QGraphicsScene::mouseMoveEvent(event);
+}
+
 //! Returns true if there is MultiLayerView nearby during drag event.
 bool DesignerScene::isMultiLayerNearby(QGraphicsSceneDragDropEvent *event)
 {
@@ -485,6 +491,15 @@ bool DesignerScene::isAcceptedByMultiLayer(const DesignerMimeData *mimeData, QGr
 
     // layer can be inserted in MultiLayer
     if (mimeData->getClassName() == Constants::LayerType && isMultiLayerNearby(event)) {
+        return true;
+    }
+    return false;
+}
+
+bool DesignerScene::isLayerDragged() const
+{
+    ILayerView *layer = dynamic_cast<ILayerView *>(mouseGrabberItem());
+    if (layer && !m_layer_interface_line.isNull()) {
         return true;
     }
     return false;

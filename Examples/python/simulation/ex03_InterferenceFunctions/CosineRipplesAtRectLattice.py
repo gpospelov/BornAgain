@@ -27,8 +27,8 @@ def get_sample():
     particle_layout.addParticle(ripple, 1.0)
 
     interference = InterferenceFunction2DLattice(200.0*nanometer, 50.0*nanometer, 90.0*degree, 0.0*degree)
-    pdf = FTDistribution2DCauchy(1000.*nanometer/2./numpy.pi, 100.*nanometer/2./numpy.pi)
-    interference.setProbabilityDistribution(pdf)
+    pdf = FTDecayFunction2DCauchy(1000.*nanometer/2./numpy.pi, 100.*nanometer/2./numpy.pi)
+    interference.setDecayFunction(pdf)
     particle_layout.addInterferenceFunction(interference)
 
     # assemble the sample

@@ -29,7 +29,7 @@ IntensityDataView::IntensityDataView()
 
 void IntensityDataView::update_view()
 {
-    prepareGeometryChange();
+//    prepareGeometryChange();
     m_bounding_rect = m_adaptor->getViewportRectangle();
     update();
 }

@@ -71,7 +71,7 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    void drawForeground(QPainter *painter, const QRectF &);
+    void drawForeground(QPainter *painter, const QRectF &rect);
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
 private:

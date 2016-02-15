@@ -29,7 +29,7 @@ MaskContainerView::MaskContainerView()
 
 void MaskContainerView::update_view()
 {
-    prepareGeometryChange();
+//    prepareGeometryChange();
     m_bounding_rect = m_adaptor->getViewportRectangle();
     update();
 }

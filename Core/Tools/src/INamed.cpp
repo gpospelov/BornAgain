@@ -23,7 +23,7 @@ INamed::INamed()
 }
 
 INamed::INamed(std::string name)
-    : m_name { std::move(name) }
+    : m_name ( std::move(name) )
 {
 }
 

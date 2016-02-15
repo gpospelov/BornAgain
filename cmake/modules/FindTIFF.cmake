@@ -32,12 +32,12 @@
 #  License text for the above reference.)
 
 if(WIN32)
-    find_path(TIFF_INCLUDE_DIR tiff.h PATHS ${CMAKE_INCLUDE_PATH}/libtiff)
+    find_path(TIFF_INCLUDE_DIR tiff.h PATHS ${CMAKE_INCLUDE_PATH}/libtiff NO_SYSTEM_ENVIRONMENT_PATH)
 else()
     find_path(TIFF_INCLUDE_DIR tiff.h)
 endif()
 
-set(TIFF_NAMES ${TIFF_NAMES} tiff libtiff tiff3 libtiff3)
+set(TIFF_NAMES ${TIFF_NAMES} libtiff tiff libtiff3 tiff3)
 find_library(TIFF_LIBRARY NAMES ${TIFF_NAMES})
 
 if(TIFF_INCLUDE_DIR AND EXISTS "${TIFF_INCLUDE_DIR}/tiffvers.h")

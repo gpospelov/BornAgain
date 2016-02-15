@@ -73,7 +73,7 @@ def run_simulations():
     # simulation #2
     # one sample parameter (height of the cylinder) is changed using exact parameter name
     sample.setParameterValue(
-        "/MultiLayer/Layer0/ParticleLayout/ParticleInfo0/Particle/FormFactorCylinder/height", 10.0*nanometer)
+        "/MultiLayer/Layer0/ParticleLayout/Particle0/Cylinder/Height", 10.0*nanometer)
 
     simulation.setSample(sample)
     simulation.runSimulation()
@@ -81,16 +81,16 @@ def run_simulations():
 
     # simulation #3
     # all parameters matching criteria will be changed (height of the cylinder in this case)
-    sample.setParameterValue("*/FormFactorCylinder/height", 100.0*nanometer)
+    sample.setParameterValue("*/Cylinder/Height", 100.0*nanometer)
     simulation.setSample(sample)
     simulation.runSimulation()
     results.append(simulation.getIntensityData())
 
     # simulation #4
     # all parameters which are matching criteria will be changed
-    sample.setParameterValue("*/FormFactorCylinder/height", 10.0*nanometer)
+    sample.setParameterValue("*/Cylinder/Height", 10.0*nanometer)
     # both FormFactorPrism3/half_side and FormFactorPrism3/height will be set to 10 nanometer
-    sample.setParameterValue("*/FormFactorPrism3/*", 10.0*nanometer)
+    sample.setParameterValue("*/Prism3/*", 10.0*nanometer)
     simulation.setSample(sample)
     simulation.runSimulation()
     results.append(simulation.getIntensityData())

@@ -99,7 +99,7 @@ MainWindow::MainWindow(QWidget *parent)
     QCoreApplication::setOrganizationName(QLatin1String(Constants::APPLICATION_NAME));
 
     createModels();
-    testGUIObjectBuilder();
+//    testGUIObjectBuilder();
 
 
     if (!Utils::HostOsInfo::isMacHost())

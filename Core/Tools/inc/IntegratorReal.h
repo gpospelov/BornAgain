@@ -75,9 +75,9 @@ P_integrator_real<T> make_integrator_real(const T *object, real_integrand<T> mem
 
 template<class T> IntegratorReal<T>::IntegratorReal(
         const T *p_object, real_integrand<T> p_member_function)
-    : m_cb { p_object, p_member_function }
-    , mp_gsl_workspace { nullptr }
+    : mp_gsl_workspace { nullptr }
 {
+	m_cb = CallBackHolder{ p_object, p_member_function };
     mp_gsl_workspace = gsl_integration_workspace_alloc(200);
 }
 

@@ -30,9 +30,9 @@ def get_sample():
     sigma = 0.2*radius
 
     gauss_distr = DistributionGaussian(radius, sigma)
-    par_distr = ParameterDistribution("*/radius", gauss_distr, nparticles, nfwhm)
+    par_distr = ParameterDistribution("/Particle/Cylinder/Radius", gauss_distr, nparticles, nfwhm)
     # by uncommenting the line below the height of cylinders can be scaled proportionally to the radius
-    #par_distr.linkParameter("*/height")
+    #par_distr.linkParameter("/Particle/Cylinder/Height")
     part_coll = ParticleDistribution(cylinder, par_distr)
 
     # assembling the sample

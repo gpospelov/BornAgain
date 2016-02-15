@@ -25,8 +25,8 @@ def get_sample(lattice_rotation_angle=45.0*deg):
 
     # collection of particles
     interference = InterferenceFunction1DLattice(lattice_length, lattice_rotation_angle)
-    pdf = FTDistribution1DCauchy(1000.0)
-    interference.setProbabilityDistribution(pdf)
+    pdf = FTDecayFunction1DCauchy(1000.0)
+    interference.setDecayFunction(pdf)
 
     box_ff = FormFactorBox(box_length, box_width, box_height)
     box = Particle(m_particle, box_ff)

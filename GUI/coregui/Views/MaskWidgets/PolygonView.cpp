@@ -84,6 +84,7 @@ bool PolygonView::closePolygonIfNecessary()
             childItem->setCursor(Qt::SizeAllCursor);
         }
         m_item->setRegisteredProperty(PolygonItem::P_ISCLOSED, true);
+        update();
     }
     return isClosedPolygon();
 }
@@ -138,7 +139,7 @@ void PolygonView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void PolygonView::update_view()
 {
-    prepareGeometryChange();
+//    prepareGeometryChange();
     update_polygon();
     update();
 }

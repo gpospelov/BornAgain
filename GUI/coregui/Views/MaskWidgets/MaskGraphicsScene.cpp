@@ -284,6 +284,11 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         return;
     }
 
+    if(isValidForPolygonDrawing(event)) {
+        processPolygonItem(event);
+        return;
+    }
+
     if(isValidForLineDrawing(event)) {
         processLineItem(event);
         return;
@@ -291,11 +296,6 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     if(isValidForMaskAllDrawing(event)) {
         processMaskAllItem(event);
-        return;
-    }
-
-    if(isValidForPolygonDrawing(event)) {
-        processPolygonItem(event);
         return;
     }
 
@@ -325,7 +325,11 @@ void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     }
 
     QGraphicsScene::mouseMoveEvent(event);
-    m_currentMousePosition = event->scenePos();
+
+    if( (isDrawingInProgress() && m_context.isPolygonMode()) || m_context.isLineMode()) {
+        m_currentMousePosition = event->scenePos();
+        invalidate();
+    }
 }
 
 //! Finalizes item drawing or pass events to other items
@@ -359,7 +363,6 @@ void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF &)
     if(PolygonView *polygon = getCurrentPolygon()) {
         painter->setPen(QPen(Qt::black, 1, Qt::DashLine));
         painter->drawLine(QLineF(polygon->getLastAddedPoint(), m_currentMousePosition));
-        invalidate();
     } else {
         if(m_context.isLineMode()) {
             const QRectF &plot_scene_rectangle = m_adaptor->getViewportRectangle();
@@ -376,8 +379,6 @@ void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF &)
                 QPointF p2(plot_scene_rectangle.right(), m_currentMousePosition.y());
                 painter->drawLine(QLineF(p1, p2));
             }
-            invalidate();
-
         }
     }
 }
@@ -735,10 +736,11 @@ PolygonView *MaskGraphicsScene::getCurrentPolygon() const
     PolygonView *result(0);
     if(isDrawingInProgress() && m_context.isPolygonMode()) {
         if(m_currentItem) {
-            if(IMaskView *view = m_ItemToView[m_currentItem]) {
-                if(view->type() == MaskEditorHelper::POLYGON)
-                    result = dynamic_cast<PolygonView *>(view);
-            }
+//            if(IMaskView *view = m_ItemToView[m_currentItem]) {
+//                if(view->type() == MaskEditorHelper::POLYGON)
+//                    result = dynamic_cast<PolygonView *>(view);
+//            }
+              result = dynamic_cast<PolygonView *>(m_ItemToView[m_currentItem]);
         }
     }
     return result;

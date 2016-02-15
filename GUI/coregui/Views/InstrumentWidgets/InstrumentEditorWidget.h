@@ -28,6 +28,7 @@ class BeamEditorWidget;
 class QLineEdit;
 class QComboBox;
 class InstrumentComponentsWidget;
+class DetectorItem;
 
 class BA_CORE_API_ InstrumentEditorWidget : public QWidget
 {
@@ -39,11 +40,16 @@ public:
 
     void setInstrumentItem(ParameterizedItem *instrument);
 
+signals:
+    void extendedDetectorEditorRequest(DetectorItem *);
+
 public slots:
     void onChangedEditor(const QString &);
     void onPropertyChanged(const QString &);
 
 private:
+    QLayout *create_NameAndTypeLayout();
+
     void updateWidgets();
 
     QLineEdit *m_nameLineEdit;

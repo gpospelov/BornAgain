@@ -35,7 +35,7 @@
 //#include "MsgLogger.h"
 
 #if __cplusplus > 199711L
-std::atomic<TMVA::Types*> TMVA::Types::fgTypesPtr{0};
+std::atomic<BA_TMVA::Types*> BA_TMVA::Types::fgTypesPtr{0};
 static std::mutex gTypesMutex;
 #else
 BA_TMVA::Types* BA_TMVA::Types::fgTypesPtr = 0;
@@ -76,11 +76,11 @@ BA_TMVA::Types& BA_TMVA::Types::Instance()
 void   BA_TMVA::Types::DestroyInstance()
 {
    // "destructor" of the single instance
-//#if __cplusplus > 199711L
-//   if (fgTypesPtr != 0) { delete fgTypesPtr.load(); fgTypesPtr = 0; }
-//#else
+#if __cplusplus > 199711L
+   if (fgTypesPtr != 0) { delete fgTypesPtr.load(); fgTypesPtr = 0; }
+#else
    if (fgTypesPtr != 0) { delete fgTypesPtr; fgTypesPtr = 0; }
-//#endif
+#endif
 }
 
 

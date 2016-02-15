@@ -78,6 +78,13 @@ include_classes = [
     "FTDistribution2DGate",
     "FTDistribution2DCone",
     "FTDistribution2DVoigt",
+    "FTDecayFunction1DCauchy",
+    "FTDecayFunction1DGauss",
+    "FTDecayFunction1DTriangle",
+    "FTDecayFunction1DVoigt",
+    "FTDecayFunction2DCauchy",
+    "FTDecayFunction2DGauss",
+    "FTDecayFunction2DVoigt",
     "FormFactorAnisoPyramid",
     "FormFactorBox",
     "FormFactorCone",
@@ -118,6 +125,8 @@ include_classes = [
     "ILayout",
     "IDetectorResolution",
     "IDistribution1D",
+    "IFTDecayFunction1D",
+    "IFTDecayFunction2D",
     "IFTDistribution1D",
     "IFTDistribution2D",
     "IFormFactor",
@@ -146,8 +155,8 @@ include_classes = [
     "InterferenceFunction2DParaCrystal",
     "InterferenceFunctionNone",
     "Lattice",
-    "Lattice1DIFParameters",
-    "Lattice2DIFParameters",
+    "Lattice1DParameters",
+    "Lattice2DParameters",
     "Layer",
     "LayerInterface",
     "LayerRoughness",
@@ -226,7 +235,7 @@ def ManualClassTunings(mb):
     methods_to_exclude=[
         "phi", "theta", "cosTheta", "sin2Theta", "getPhi", "getTheta", "setPhi", "setTheta", "setR",
         "setMag", "perp", "perp2", "setPerp", "angle", "unit", "orthogonal", "rotated", "rotatedX",
-        "rotatedY", "rotatedZ", "cross", "dot"
+        "rotatedY", "rotatedZ", "cross", "dot", "normalize"
     ]
     classes_to_exclude = ["BasicVector3D<std::complex<double> >", "BasicVector3D<double>", "BasicVector3D<int>"]
     utils_build.ExcludeMemberFunctionsForClasses(mb, methods_to_exclude, classes_to_exclude)
@@ -316,7 +325,7 @@ def ManualClassTunings(mb):
 
     #
     cl = mb.class_("ParticleDistribution")
-    cl.member_function("generateParticleInfos").exclude()
+    cl.member_function("generateParticles").exclude()
     #
     cl = mb.class_("ParticleLayout")
     #cl.constructors(lambda decl: bool(decl.arguments)).exclude()  # exclude non-default constructors
@@ -385,8 +394,7 @@ def ManualClassTunings(mb):
     cl.member_function("getXaxis").call_policies = call_policies.return_internal_reference()
     cl.member_function("getYaxis").call_policies = call_policies.return_internal_reference()
     cl.member_function("createOutputData").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
-    cl.member_function("createRelativeDifferenceHistogram").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
-
+    cl.member_function("relativeDifferenceHistogram").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
 
     cl = mb.class_("Histogram1D")
     cl.member_function("getBinCenters").exclude()
@@ -398,7 +406,6 @@ def ManualClassTunings(mb):
     cl.member_function("getBinCentersNumpy").alias = "getBinCenters"
     cl.member_function("getBinValuesNumpy").alias = "getBinValues"
     cl.member_function("getBinErrorsNumpy").alias = "getBinErrors"
-
 
     #
     cl = mb.class_("Histogram2D")
@@ -413,6 +420,9 @@ def ManualClassTunings(mb):
     # cl.member_function("readHistogram").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
     cl.member_function("readIntensityData").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
 
+    cl = mb.class_("IDetector2D")
+    cl.member_function("setDetectorParameters").exclude()
+
 
 # excluding specific member functions
 def ManualExcludeMemberFunctions(mb):
@@ -420,7 +430,7 @@ def ManualExcludeMemberFunctions(mb):
     to_exclude=['Iterator', 'iterator', 'DWBASimulation']
     to_exclude_exact=['inverse', 'transformed',
         'getNearestLatticeVectorCoordinates',
-        'getNearestReciprocalLatticeVectorCoordinates', 'collectBraggAngles',
+        'getNearestReciprocalLatticeVectorCoordinates',
         'getKVectorContainer', 'begin', 'end'
     ]
     for f in mb.member_functions():

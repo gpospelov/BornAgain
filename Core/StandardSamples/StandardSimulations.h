@@ -29,13 +29,19 @@ GISASSimulation *PolarizedDWBAMagCylinders2();
 GISASSimulation *BasicGISAS();
 GISASSimulation *BasicGISAS00();
 GISASSimulation *MiniGISAS();
+GISASSimulation *MiniGISAS_v2();
 GISASSimulation *MiniGISASBeamDivergence();
 GISASSimulation *MiniGISASDetectorResolution();
+GISASSimulation *GISASWithMasks();
 GISASSimulation *MaxiGISAS();
 GISASSimulation *MaxiGISAS00();
 GISASSimulation *IsGISAXSSimulation1();
 GISASSimulation *IsGISAXSSimulation2();
-
+GISASSimulation *RectDetectorGeneric();
+GISASSimulation *RectDetectorPerpToSample();
+GISASSimulation *RectDetectorPerpToDirectBeam();
+GISASSimulation *RectDetectorPerpToReflectedBeam();
+GISASSimulation *RectDetectorPerpToReflectedBeamDpos();
 
 }
 

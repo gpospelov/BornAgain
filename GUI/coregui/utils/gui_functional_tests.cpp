@@ -17,7 +17,7 @@
 #include "FunctionalTestRegistry.h"
 #include "GUIFunctionalTestComponentService.h"
 #include "FunctionalMultiTest.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 #include <iostream>
 
 int GUI_FUNCTIONAL_TEST(const std::string &test_name)
@@ -33,7 +33,7 @@ int GUI_FUNCTIONAL_TEST(const std::string &test_name)
     FunctionalTestInfo info = catalogue.getTestInfo(test_name);
 
     GUIFunctionalTestComponentService *service = new GUIFunctionalTestComponentService(info);
-    boost::scoped_ptr<IFunctionalTest> test(
+    std::unique_ptr<IFunctionalTest> test(
         new FunctionalMultiTest(test_name, service));
 
     test->runTest();

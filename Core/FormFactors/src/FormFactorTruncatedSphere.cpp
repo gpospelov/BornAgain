@@ -14,24 +14,28 @@
 // ************************************************************************** //
 
 #include "FormFactorTruncatedSphere.h"
+#include "BornAgainNamespace.h"
 #include "Numeric.h"
 #include "MathFunctions.h"
+#include "IntegratorComplex.h"
+
 #include <cmath>
-#include "MemberFunctionIntegrator.h"
-#include "MemberComplexFunctionIntegrator.h"
+
+using namespace  BornAgain;
 
 FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height)
     : m_radius(radius)
     , m_height(height)
 {
-    setName("FormFactorTruncatedSphere");
+    setName(FFTruncatedSphereType);
     check_initialization();
     init_parameters();
 
-    MemberComplexFunctionIntegrator<FormFactorTruncatedSphere>::mem_function p_mf =
-       & FormFactorTruncatedSphere::Integrand;
-    m_integrator =
-        new MemberComplexFunctionIntegrator<FormFactorTruncatedSphere>(p_mf, this);
+    mP_integrator = make_integrator_complex(this, &FormFactorTruncatedSphere::Integrand);
+}
+
+FormFactorTruncatedSphere::~FormFactorTruncatedSphere()
+{
 }
 
 bool FormFactorTruncatedSphere::check_initialization() const
@@ -50,27 +54,28 @@ bool FormFactorTruncatedSphere::check_initialization() const
 void FormFactorTruncatedSphere::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius, AttLimits::n_positive());
-    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter(Radius, &m_radius, AttLimits::n_positive());
+    registerParameter(Height, &m_height, AttLimits::n_positive());
 }
 
 FormFactorTruncatedSphere *FormFactorTruncatedSphere::clone() const
 {
-    FormFactorTruncatedSphere *result = new FormFactorTruncatedSphere(m_radius, m_height);
-    result->setName(getName());
-    return result;
+    return new FormFactorTruncatedSphere(m_radius, m_height);
+}
+
+void FormFactorTruncatedSphere::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 //! Integrand for complex formfactor.
-
-complex_t FormFactorTruncatedSphere::Integrand(double Z, void* params) const
+complex_t FormFactorTruncatedSphere::Integrand(double Z) const
 {
-    (void)params;  // to avoid unused-variable warning
     double Rz = std::sqrt(m_radius*m_radius-Z*Z );
     complex_t qx = m_q.x();
     complex_t qy = m_q.y();
     complex_t q_p = std::sqrt(qx*qx + qy*qy); // NOT the modulus!
-    return Rz*Rz*MathFunctions::Bessel_C1(q_p*Rz) *
+    return Rz*Rz*MathFunctions::Bessel_J1c(q_p*Rz) *
         std::exp(complex_t(0.0, 1.0)*m_q.z()*Z);
 }
 
@@ -86,9 +91,7 @@ complex_t FormFactorTruncatedSphere::evaluate_for_q(const cvector_t& q) const
     }
     else {
         complex_t iqzR = complex_t(0.0, 1.0)*m_q.z()*(m_height-m_radius);
-        complex_t integral = m_integrator->integrate(m_radius-m_height, m_radius);
+        complex_t integral = mP_integrator->integrate(m_radius-m_height, m_radius);
         return Units::PI2*integral*std::exp(iqzR);
     }
 }
-
-

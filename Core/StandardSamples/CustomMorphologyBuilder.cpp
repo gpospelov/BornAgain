@@ -121,7 +121,6 @@ ISample *CustomMorphologyBuilder::buildSample() const
     Particle p10(particle_material, ff10, m10);
     p10.setPosition(pos10);
     particle_layout.addParticle(p10, 0.5);
-    particle_layout.setApproximation(ILayout::ISGISAXSMOR);
 
     air_layer.addLayout(particle_layout);
     multi_layer->addLayer(air_layer);

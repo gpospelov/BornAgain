@@ -17,6 +17,7 @@
 #define FORMFACTORDECORATORFACTOR_H_
 
 #include "IFormFactorDecorator.h"
+#include "BornAgainNamespace.h"
 
 //! @class FormFactorDecoratorFactor
 //! @ingroup formfactors_internal
@@ -26,19 +27,15 @@ class BA_CORE_API_ FormFactorDecoratorFactor : public IFormFactorDecorator
 {
 public:
     FormFactorDecoratorFactor(const IFormFactor &form_factor, const complex_t &factor);
-    virtual ~FormFactorDecoratorFactor()
-    {
-    }
+
+    virtual ~FormFactorDecoratorFactor() {}
+
     virtual FormFactorDecoratorFactor *clone() const;
-    virtual void accept(ISampleVisitor *visitor) const
-    {
-        visitor->visit(this);
-    }
+
+    virtual void accept(ISampleVisitor *visitor) const;
 
     //! Evaluate the form factor for scalar calculations
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
-
-    virtual int getNumberOfStochasticParameters() const;
 
 protected:
     complex_t m_factor;
@@ -48,24 +45,22 @@ inline FormFactorDecoratorFactor::FormFactorDecoratorFactor(const IFormFactor &f
                                                             const complex_t &factor)
     : IFormFactorDecorator(form_factor), m_factor(factor)
 {
-    setName("FormFactorDecoratorFactor");
+    setName(BornAgain::FormFactorDecoratorFactorType);
 }
 
 inline FormFactorDecoratorFactor *FormFactorDecoratorFactor::clone() const
 {
-    FormFactorDecoratorFactor *result = new FormFactorDecoratorFactor(*mp_form_factor, m_factor);
-    result->setName(getName());
-    return result;
+    return new FormFactorDecoratorFactor(*mp_form_factor, m_factor);
+}
+
+inline void FormFactorDecoratorFactor::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 inline complex_t FormFactorDecoratorFactor::evaluate(const WavevectorInfo& wavevectors) const
 {
     return m_factor * mp_form_factor->evaluate(wavevectors);
-}
-
-inline int FormFactorDecoratorFactor::getNumberOfStochasticParameters() const
-{
-    return mp_form_factor->getNumberOfStochasticParameters();
 }
 
 #endif /* FORMFACTORDECORATORFACTOR_H_ */

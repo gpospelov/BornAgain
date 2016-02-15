@@ -17,8 +17,8 @@
 #define INTERFERENCEFUNCTION1DLATTICE_H_
 
 #include "IInterferenceFunction.h"
-#include "Lattice1DIFParameters.h"
-#include "FTDistributions.h"
+#include "Lattice1DParameters.h"
+#include "FTDecayFunctions.h"
 
 //! @class InterferenceFunction1DLattice
 //! @ingroup interference
@@ -27,7 +27,6 @@
 class BA_CORE_API_ InterferenceFunction1DLattice : public IInterferenceFunction
 {
 public:
-
     //! @brief constructor
     //! @param lattice_params Lattice parameters
     //! @param length Lattice length
@@ -37,31 +36,37 @@ public:
 
     virtual InterferenceFunction1DLattice *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    void setProbabilityDistribution(const IFTDistribution1D& pdf);
+    void setDecayFunction(const IFTDecayFunction1D& pdf);
 
-    Lattice1DIFParameters getLatticeParameters() const {return m_lattice_params; }
+    Lattice1DParameters getLatticeParameters() const;
 
-    const IFTDistribution1D *getProbabilityDistribution() const { return mp_pdf; }
+    const IFTDecayFunction1D *getDecayFunction() const;
 
     virtual double evaluate(const kvector_t& q) const;
 
 protected:
-
-    Lattice1DIFParameters m_lattice_params;
-    IFTDistribution1D *mp_pdf;
+    Lattice1DParameters m_lattice_params;
+    IFTDecayFunction1D *mp_pdf;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
+
 private:
-    InterferenceFunction1DLattice(const Lattice1DIFParameters& lattice_params);
+    InterferenceFunction1DLattice(const Lattice1DParameters& lattice_params);
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
-//    double m_asx; //!< x coordinates of a*
-    double m_prefactor; //!< fixed prefactor for normalization
     int m_na; //!< determines the number of reciprocal lattice points to use
 };
 
+inline Lattice1DParameters InterferenceFunction1DLattice::getLatticeParameters() const
+{
+    return m_lattice_params;
+}
+
+inline const IFTDecayFunction1D *InterferenceFunction1DLattice::getDecayFunction() const
+{
+    return mp_pdf;
+}
+
 #endif /* INTERFERENCEFUNCTION1DLATTICE_H_ */
-
-

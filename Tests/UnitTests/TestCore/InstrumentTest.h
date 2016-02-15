@@ -37,15 +37,12 @@ TEST_F(InstrumentTest, BeamManipulation)
     double lambda(1), alpha(-1), phi(1);
     double k = 2.*Units::PI/lambda;
     double x = k*std::cos(alpha) * std::cos(phi);
-    double y = k*std::cos(alpha) * std::sin(phi);
+    double y = -k*std::cos(alpha) * std::sin(phi);
     double z = k*std::sin(alpha);
     m_instrument.setBeamParameters(lambda, -1.0*alpha, phi);
-    EXPECT_DOUBLE_EQ(x, m_instrument.getBeam().getCentralK().x().real() );
-    EXPECT_DOUBLE_EQ(0, m_instrument.getBeam().getCentralK().x().imag() );
-    EXPECT_DOUBLE_EQ(y, m_instrument.getBeam().getCentralK().y().real() );
-    EXPECT_DOUBLE_EQ(0, m_instrument.getBeam().getCentralK().y().imag() );
-    EXPECT_DOUBLE_EQ(z, m_instrument.getBeam().getCentralK().z().real() );
-    EXPECT_DOUBLE_EQ(0, m_instrument.getBeam().getCentralK().z().imag() );
+    EXPECT_DOUBLE_EQ(x, m_instrument.getBeam().getCentralK().x() );
+    EXPECT_DOUBLE_EQ(y, m_instrument.getBeam().getCentralK().y() );
+    EXPECT_DOUBLE_EQ(z, m_instrument.getBeam().getCentralK().z() );
 
     EXPECT_FALSE( m_instrument.getDetectorDimension()==2 );
     m_instrument.matchDetectorAxes(m_data);

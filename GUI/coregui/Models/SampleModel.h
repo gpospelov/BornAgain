@@ -27,9 +27,9 @@ class BA_CORE_API_ SampleModel : public SessionModel
 
 public:
     explicit SampleModel(QObject *parent = 0);
-    ~SampleModel(){}
+    virtual ~SampleModel(){}
 
-    SampleModel *createCopy(ParameterizedItem *parent = 0);
+    virtual SampleModel *createCopy(ParameterizedItem *parent = 0);
 
     QMap<QString, ParameterizedItem *> getSampleMap() const;
 
@@ -42,6 +42,5 @@ private:
     void exploreForMaterials(const QModelIndex &parentIndex = QModelIndex());
     QString m_material_identifier;
 };
-
 
 #endif

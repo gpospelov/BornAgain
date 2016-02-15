@@ -1,8 +1,8 @@
-# Functional test: Monte-Carlo integration functional test for very large cylinders
+# Functional test: Monte-Carlo integration functional test
+# The reference file should be generated without integration
 import sys
 import os
 import numpy
-import cmath
 from utils import get_reference_data
 
 sys.path.append(os.path.abspath(
@@ -12,11 +12,11 @@ sys.path.append(os.path.abspath(
 
 from libBornAgainCore import *
 
-phi_min, phi_max = -2.0, 2.0
-alpha_min, alpha_max = 0.0, 2.0
-default_cylinder_radius = 10*nanometer
-default_cylinder_height = 20*nanometer
-scale = 100
+phi_min, phi_max = -0.5, 0.5
+alpha_min, alpha_max = 0.0, 0.5
+default_cylinder_radius = 5*nanometer
+default_cylinder_height = 5*nanometer
+scale = 1
 
 
 def get_sample(cylinder_radius, cylinder_height):
@@ -50,7 +50,7 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined.
     """
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(50, phi_min*degree, phi_max*degree, 100, alpha_min*degree, alpha_max*degree)
+    simulation.setDetectorParameters(50, phi_min*degree, phi_max*degree, 50, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     sim_pars = SimulationParameters()
     sim_pars.m_mc_integration = True
@@ -69,6 +69,7 @@ def run_simulation():
     simulation.setSample(sample)
     simulation.runSimulation()
     result = simulation.getIntensityData()
+    # plot_intensity_data(simulation.getDetectorIntensity())
     return result
 
 
@@ -81,7 +82,7 @@ def run_test():
     reference = get_reference_data('montecarlo_integration.int.gz')
     diff = IntensityDataFunctions.getRelativeDifference(result, reference)
     status = "OK"
-    if diff > 2e-10 or numpy.isnan(diff):
+    if diff > 2e-2 or numpy.isnan(diff):
         status = "FAILED"
     return "MonteCarloIntegration", "Test of Monte-Carlo integration", diff, status
 

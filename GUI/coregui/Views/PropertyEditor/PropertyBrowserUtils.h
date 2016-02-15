@@ -20,7 +20,7 @@
 #include "MaterialProperty.h"
 #include "ColorProperty.h"
 #include "ScientificDoubleProperty.h"
-#include "FancyGroupProperty.h"
+#include "GroupProperty.h"
 #include "ComboProperty.h"
 
 class QLabel;
@@ -50,23 +50,21 @@ private:
 };
 
 
-class BA_CORE_API_ FancyGroupPropertyEdit : public QWidget
+class BA_CORE_API_ GroupPropertyEdit : public QWidget
 {
     Q_OBJECT
 public:
-    FancyGroupPropertyEdit(QWidget *parent = 0);
-    ~FancyGroupPropertyEdit();
+    GroupPropertyEdit(QWidget *parent = 0);
+    virtual ~GroupPropertyEdit();
 
-    void setFancyGroupProperty(FancyGroupProperty_t groupProperty);
-    FancyGroupProperty_t getFancyGroupProperty() const {
-        return m_groupProperty;
-    }
+    void setGroupProperty(GroupProperty_t groupProperty);
+    GroupProperty_t getGroupProperty() const;
 
-    QSize sizeHint() const;
-    QSize minimumSizeHint() const;
+    virtual QSize sizeHint() const;
+    virtual QSize minimumSizeHint() const;
 
 signals:
-    void fancyGroupPropertyChanged(const FancyGroupProperty_t &group_property);
+    void groupPropertyChanged(const GroupProperty_t &group_property);
 private slots:
     void indexChanged(int index);
 private:
@@ -74,8 +72,13 @@ private:
     void processSelectableGroup();
     QComboBox *m_box;
     QLabel *m_label;
-    FancyGroupProperty_t m_groupProperty;
+    GroupProperty_t m_groupProperty;
 };
+
+inline GroupProperty_t GroupPropertyEdit::getGroupProperty() const
+{
+    return m_groupProperty;
+}
 
 
 //! The ColorPropertyEdit class provides PropertyVariantFactory with editing
@@ -130,24 +133,19 @@ private:
 };
 
 #include <QComboBox>
+
 //! The ComboPropertyEdit class provides PropertyVariantFactory with editing
 //! widget for ComboProperty
-//class BA_CORE_API_ ComboPropertyEdit : public QWidget
 class BA_CORE_API_ ComboPropertyEdit : public QComboBox
 {
     Q_OBJECT
 public:
     ComboPropertyEdit(QWidget *parent = 0);
-//    ~ComboPropertyEdit();
 
     void setComboProperty(const ComboProperty &combo_property);
     ComboProperty getComboProperty() const {return m_combo_property; }
 
     QString comboValueText();
-
-//    QSize sizeHint() const;
-//    QSize minimumSizeHint() const;
-
 
 signals:
     void comboPropertyChanged(const ComboProperty &combo_property);
@@ -155,9 +153,7 @@ private slots:
     void onCurrentIndexChanged(QString current_value);
 
 private:
-//    QComboBox *m_comboBox;
     ComboProperty m_combo_property;
 };
-
 
 #endif // PROPERTYBROWSERUTILS_H

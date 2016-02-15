@@ -141,6 +141,52 @@ void register_Ellipse_class(){
                 , ( bp::arg("binx"), bp::arg("biny") ) );
         
         }
+        { //::Geometry::Ellipse::getCenterX
+        
+            typedef double ( ::Geometry::Ellipse::*getCenterX_function_type)(  ) const;
+            
+            Ellipse_exposer.def( 
+                "getCenterX"
+                , getCenterX_function_type( &::Geometry::Ellipse::getCenterX )
+                , "Returns true if area defined by two bins is inside or on border of ellipse. More precisely, if mid point of two bins satisfy this condition. " );
+        
+        }
+        { //::Geometry::Ellipse::getCenterY
+        
+            typedef double ( ::Geometry::Ellipse::*getCenterY_function_type)(  ) const;
+            
+            Ellipse_exposer.def( 
+                "getCenterY"
+                , getCenterY_function_type( &::Geometry::Ellipse::getCenterY ) );
+        
+        }
+        { //::Geometry::Ellipse::getRadiusX
+        
+            typedef double ( ::Geometry::Ellipse::*getRadiusX_function_type)(  ) const;
+            
+            Ellipse_exposer.def( 
+                "getRadiusX"
+                , getRadiusX_function_type( &::Geometry::Ellipse::getRadiusX ) );
+        
+        }
+        { //::Geometry::Ellipse::getRadiusY
+        
+            typedef double ( ::Geometry::Ellipse::*getRadiusY_function_type)(  ) const;
+            
+            Ellipse_exposer.def( 
+                "getRadiusY"
+                , getRadiusY_function_type( &::Geometry::Ellipse::getRadiusY ) );
+        
+        }
+        { //::Geometry::Ellipse::getTheta
+        
+            typedef double ( ::Geometry::Ellipse::*getTheta_function_type)(  ) const;
+            
+            Ellipse_exposer.def( 
+                "getTheta"
+                , getTheta_function_type( &::Geometry::Ellipse::getTheta ) );
+        
+        }
         { //::ICloneable::transferToCPP
         
             typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;

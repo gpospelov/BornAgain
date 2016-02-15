@@ -22,12 +22,13 @@
 #include "Types.h"
 #include "IMaterial.h"
 
+#include <boost/scoped_ptr.hpp>
+
 class FormFactorInfo;
 class IInterferenceFunction;
 class IInterferenceFunctionStrategy;
 class Layer;
 class Simulation;
-class ParticleInfo;
 class IFormFactor;
 class LayerSpecularInfo;
 
@@ -55,10 +56,10 @@ public:
     virtual IInterferenceFunctionStrategy *createStrategy();
 
 protected:
-    Layer *mp_layer;                            //!< decorated layer
-    Simulation *mp_simulation;                  //!< simulation
+    boost::scoped_ptr<Layer> mP_layer;                            //!< decorated layer
+    boost::scoped_ptr<Simulation> mP_simulation;                  //!< simulation
     SimulationParameters m_sim_params;          //!< simulation parameters
-    LayerSpecularInfo *mp_specular_info; //!< R and T coefficients for DWBA
+    boost::scoped_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
     size_t m_layout_index; //!< index for the layout to be used in the layer
 
 private:
@@ -67,17 +68,17 @@ private:
     //! collect the formfactor info of all particles in the decoration and decorate
     //! these for DWBA when needed
     void collectFormFactorInfos();
-    //! collect the interference functions
-    void collectInterferenceFunctions();
-    //! retrieve wavelength from simulation
-    double getWavelength();
+    //! collect the interference function
+    void collectInterferenceFunction();
     //! Creates formfactor info for single particle
-    FormFactorInfo *createFormFactorInfo(const IParticle *particle, double abundance,
-                                         const IMaterial *p_ambient_material,
-                                         complex_t factor) const;
+    FormFactorInfo *createFormFactorInfo(const IParticle *particle,
+                                         const IMaterial *p_ambient_material) const;
 
+    //! Info about form factors
     SafePointerVector<FormFactorInfo> m_ff_infos;
-    SafePointerVector<IInterferenceFunction> m_ifs;
+
+    //! Interference function
+    boost::scoped_ptr<IInterferenceFunction> mP_interference_function;
 };
 
 //! @class FormFactorInfo
@@ -89,7 +90,7 @@ class BA_CORE_API_ FormFactorInfo : public ICloneable
 public:
     FormFactorInfo()
         : mp_ff(0), m_pos_x(0.0), m_pos_y(0.0), m_abundance(0.0) {}
-    ~FormFactorInfo();
+    virtual ~FormFactorInfo();
     /* out-of-place implementation required due to IFormFactor */
     virtual FormFactorInfo *clone() const;
     IFormFactor *mp_ff;

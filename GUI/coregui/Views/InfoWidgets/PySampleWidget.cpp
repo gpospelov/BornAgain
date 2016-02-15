@@ -236,7 +236,7 @@ QString PySampleWidget::generateCodeSnippet()
         ParameterizedItem *sampleItem = it.value();
 
         try {
-            boost::scoped_ptr<MultiLayer> P_multilayer(builder.buildMultiLayer(*sampleItem));
+            auto P_multilayer = builder.buildMultiLayer(*sampleItem);
             VisitSampleTreePostorder(*P_multilayer, visitor);
             std::ostringstream ostr;
             ostr << visitor.defineGetSample();

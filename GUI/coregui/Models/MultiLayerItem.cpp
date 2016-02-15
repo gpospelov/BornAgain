@@ -24,12 +24,8 @@ MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::MultiLayerType, parent)
 {
     registerProperty(P_CROSS_CORR_LENGTH, 0.0);
-
     addToValidChildren(Constants::LayerType);
-    //addToValidChildren(Constants::MultiLayerType);
-
-    setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VISIBLE);
-
+    registerProperty(P_NAME, Constants::MultiLayerType);
 }
 
 ParameterizedItem *MultiLayerItem::takeChildItem(int row)
@@ -38,7 +34,6 @@ ParameterizedItem *MultiLayerItem::takeChildItem(int row)
     updateLayers();
     return item;
 }
-
 
 void MultiLayerItem::insertChildItem(int row, ParameterizedItem *item)
 {
@@ -50,16 +45,14 @@ void MultiLayerItem::updateLayers()
 {
     for(int i = 0; i<childItemCount(); ++i) {
         if(i == 0) {
-            childAt(i)->setPropertyAppearance(LayerItem::P_ROUGHNESS, PropertyAttribute::DISABLED);
+            childAt(i)->getPropertyAttribute(LayerItem::P_ROUGHNESS).setDisabled();
         } else {
-            childAt(i)->setPropertyAppearance(LayerItem::P_ROUGHNESS, PropertyAttribute::VISIBLE);
+            childAt(i)->getPropertyAttribute(LayerItem::P_ROUGHNESS).setVisible();
         }
-
         if(i==0 || i==childItemCount()-1) {
-            childAt(i)->setPropertyAppearance(LayerItem::P_THICKNESS, PropertyAttribute::DISABLED);
+            childAt(i)->getPropertyAttribute(LayerItem::P_THICKNESS).setDisabled();
         } else {
-            childAt(i)->setPropertyAppearance(LayerItem::P_THICKNESS, PropertyAttribute::VISIBLE);
+            childAt(i)->getPropertyAttribute(LayerItem::P_THICKNESS).setVisible();
         }
     }
 }
-

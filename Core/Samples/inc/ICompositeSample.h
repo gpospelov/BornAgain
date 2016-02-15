@@ -32,11 +32,7 @@ public:
     ICompositeSample *clone() const = 0;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
-
-    //! to confirm compound nature of given class
-    virtual ICompositeSample *getCompositeSample() { return this; }
-    virtual const ICompositeSample *getCompositeSample() const { return this; }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     //! Registers child in the container.
     virtual void registerChild(ISample *sample);
@@ -50,11 +46,15 @@ public:
     //! Returns child pointer by index (with range checking)
     const ISample *operator[](size_t index) const;
 
-    //! Returns a vector of children (const)
-    std::vector<const ISample*> getChildren() const;
+    //! Returns a vector of children (const).
+    virtual std::vector<const ISample*> getChildren() const;
 
     //! Returns number of children.
-    virtual size_t size() const { return m_samples.size(); }
+    virtual size_t size() const;
+
+    //! Adds parameters from local pool to external pool and recursively calls its direct children.
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                                    int copy_number = -1) const;
 
 private:
     //! Check child index
@@ -63,6 +63,16 @@ private:
     //! List of registered children.
     std::vector<ISample*> m_samples;
 };
+
+inline void ICompositeSample::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+inline size_t ICompositeSample::size() const
+{
+    return m_samples.size();
+}
 
 #endif // ICOMPOSITESAMPLE_H
 

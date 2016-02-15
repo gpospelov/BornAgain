@@ -28,7 +28,7 @@ class BA_CORE_API_ FitSuitePrintObserver : public IFitObserver
 {
 public:
     FitSuitePrintObserver(int print_every_nth = 1);
-    virtual ~FitSuitePrintObserver(){}
+    virtual ~FitSuitePrintObserver() {}
 
     void update(FitSuite *fit_suite);
 

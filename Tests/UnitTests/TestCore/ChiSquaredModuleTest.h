@@ -42,12 +42,12 @@ ChiSquaredModuleTest::~ChiSquaredModuleTest()
 
 TEST_F(ChiSquaredModuleTest, InitialState)
 {
-//    EXPECT_EQ( NULL, m_chi_empty.getRealData());
-//    EXPECT_EQ( NULL, m_chi_empty.getSimulationData());
+//    EXPECT_EQ( nullptr, m_chi_empty.getRealData());
+//    EXPECT_EQ( nullptr, m_chi_empty.getSimulationData());
     EXPECT_TRUE( dynamic_cast<const SquaredFunctionDefault*>(m_chi_empty.getSquaredFunction()));
 //    EXPECT_TRUE( dynamic_cast<const DefaultAllDataSelector*>(m_chi_empty.getFittingDataSelector()));
-    EXPECT_EQ( NULL, m_chi_empty.getIntensityNormalizer());
-    EXPECT_EQ( NULL, m_chi_empty.getIntensityFunction());
+    EXPECT_EQ( nullptr, m_chi_empty.getIntensityNormalizer());
+    EXPECT_EQ( nullptr, m_chi_empty.getIntensityFunction());
 //    ASSERT_THROW(m_chi_empty.calculateChiSquared(), NullPointerException);
 //    ASSERT_THROW(m_chi_empty.createChi2DifferenceMap(), NullPointerException);
 }
@@ -55,12 +55,12 @@ TEST_F(ChiSquaredModuleTest, InitialState)
 TEST_F(ChiSquaredModuleTest, CloneOfEmpty)
 {
     ChiSquaredModule *clone_of_empty = m_chi_empty.clone();
-//    EXPECT_EQ( NULL, clone_of_empty->getRealData());
-//    EXPECT_EQ( NULL, clone_of_empty->getSimulationData());
+//    EXPECT_EQ( nullptr, clone_of_empty->getRealData());
+//    EXPECT_EQ( nullptr, clone_of_empty->getSimulationData());
     EXPECT_TRUE( dynamic_cast<const SquaredFunctionDefault*>(clone_of_empty->getSquaredFunction()));
 //    EXPECT_TRUE( dynamic_cast<const DefaultAllDataSelector*>(clone_of_empty->getFittingDataSelector()));
-    EXPECT_EQ( NULL, clone_of_empty->getIntensityNormalizer());
-    EXPECT_EQ( NULL, clone_of_empty->getIntensityFunction());
+    EXPECT_EQ( nullptr, clone_of_empty->getIntensityNormalizer());
+    EXPECT_EQ( nullptr, clone_of_empty->getIntensityFunction());
 //    ASSERT_THROW(clone_of_empty->calculateChiSquared(), NullPointerException);
 //    ASSERT_THROW(clone_of_empty->createChi2DifferenceMap(), NullPointerException);
     delete clone_of_empty;

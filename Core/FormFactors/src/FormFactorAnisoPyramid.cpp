@@ -14,12 +14,15 @@
 // ************************************************************************** //
 
 #include "FormFactorAnisoPyramid.h"
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
+
+using namespace  BornAgain;
 
 FormFactorAnisoPyramid::FormFactorAnisoPyramid(
     double length, double width, double height, double alpha)
 {
-    setName("FormFactorAnisoPyramid");
+    setName(FFAnisoPyramidType);
     m_length = length;
     m_width = width;
     m_height = height;
@@ -67,18 +70,25 @@ bool FormFactorAnisoPyramid::check_initialization() const
 void FormFactorAnisoPyramid::init_parameters()
 {
     clearParameterPool();
-    registerParameter("length", &m_length, AttLimits::n_positive());
-    registerParameter("width", &m_width, AttLimits::n_positive());
-    registerParameter("height", &m_height, AttLimits::n_positive());
-    registerParameter("alpha", &m_alpha, AttLimits::n_positive());
+    registerParameter(Length, &m_length, AttLimits::n_positive());
+    registerParameter(Width, &m_width, AttLimits::n_positive());
+    registerParameter(Height, &m_height, AttLimits::n_positive());
+    registerParameter(Alpha, &m_alpha, AttLimits::n_positive());
 }
 
 FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const
 {
-    FormFactorAnisoPyramid *result =
-        new FormFactorAnisoPyramid(m_length, m_width, m_height, m_alpha);
-    result->setName(getName());
-    return result;
+    return new FormFactorAnisoPyramid(m_length, m_width, m_height, m_alpha);
+}
+
+void FormFactorAnisoPyramid::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+double FormFactorAnisoPyramid::getRadius() const
+{
+    return m_length / 2.0;
 }
 
 complex_t FormFactorAnisoPyramid::evaluate_for_q(const cvector_t& q) const
@@ -172,6 +182,3 @@ complex_t FormFactorAnisoPyramid::k(complex_t x, double d, double z) const
         return im*(z/2.0 - d)*z;
     }
 }
-
-
-

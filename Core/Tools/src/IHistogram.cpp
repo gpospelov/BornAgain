@@ -19,8 +19,8 @@
 #include "Exceptions.h"
 #include "Histogram1D.h"
 #include "Histogram2D.h"
+#include "IntensityDataIOFactory.h"
 #include <sstream>
-#include <boost/assign/list_of.hpp>
 #include <boost/scoped_ptr.hpp>
 
 IHistogram::IHistogram()
@@ -255,6 +255,11 @@ IHistogram *IHistogram::createHistogram(const OutputData<double> &source)
     }
 }
 
+IHistogram *IHistogram::createFrom(const std::string &filename)
+{
+    return IntensityDataIOFactory::readIntensityData(filename);
+}
+
 void IHistogram::check_x_axis() const
 {
     if(getRank() <1) {
@@ -320,6 +325,20 @@ std::vector<double> IHistogram::getDataVector(IHistogram::DataType dataType) con
     return result;
 }
 
+//! Copy content (but not the axes) from other histogram. Dimensions should be the same.
+void IHistogram::copyContentFrom(const IHistogram &other)
+{
+    if(!hasSameDimensions(other)) {
+        throw LogicErrorException("IHistogram::copyContentFrom() -> Error. "
+                                  "Can't copy the data of different shape.");
+    }
+    reset();
+    for(size_t i=0; i<getTotalNumberOfBins(); ++i) {
+        m_data[i] = other.m_data[i];
+    }
+
+}
+
 //! creates new OutputData with histogram's shape and put there values corresponding to DataType
 OutputData<double> *IHistogram::createOutputData(IHistogram::DataType dataType) const
 {
@@ -354,21 +373,30 @@ const IHistogram &IHistogram::operator+=(const IHistogram &right)
     return *this;
 }
 
-IHistogram *IHistogram::createRelativeDifferenceHistogram(const IHistogram &lhs,
-                                                          const IHistogram &rhs)
+IHistogram *IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
 {
-    if(!rhs.hasSameDimensions(rhs)) {
-        throw LogicErrorException("IHistogram::createRelativeDifferenceHistogram() -> Error. "
-                                  "Histograms have different dimension");
+    if(!hasSameDimensions(rhs)) {
+        throw LogicErrorException("IHistogram::relativeDifferenceHistogram() -> Error. "
+                                  "Histograms have different dimensions");
     }
 
-    IHistogram *result = rhs.clone();
+    IHistogram *result = this->clone();
     result->reset();
 
-    for(size_t i=0; i<rhs.getTotalNumberOfBins(); ++i) {
-        double diff = Numeric::get_relative_difference(lhs.getBinContent(i), rhs.getBinContent(i));
+    for(size_t i=0; i<getTotalNumberOfBins(); ++i) {
+        double diff = Numeric::get_relative_difference(getBinContent(i), rhs.getBinContent(i));
         result->setBinContent(i, diff);
     }
     return result;
 }
 
+void IHistogram::save(const std::string &filename)
+{
+    IntensityDataIOFactory::writeIntensityData(*this, filename);
+}
+
+void IHistogram::load(const std::string &filename)
+{
+    boost::scoped_ptr<IHistogram> hist(IntensityDataIOFactory::readIntensityData(filename));
+    copyContentFrom(*hist);
+}

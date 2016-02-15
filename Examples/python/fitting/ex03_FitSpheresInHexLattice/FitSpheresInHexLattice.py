@@ -4,6 +4,7 @@ Two parameter fit of spheres in a hex lattice.
 
 from matplotlib import pyplot as plt
 import math
+import random
 from bornagain import *
 
 
@@ -22,8 +23,8 @@ def get_sample(radius=5*nanometer, lattice_constant=10*nanometer):
     particle_layout.addParticle(sphere)
 
     interference = InterferenceFunction2DLattice.createHexagonal(lattice_constant)
-    pdf = FTDistribution2DCauchy(10*nanometer, 10*nanometer)
-    interference.setProbabilityDistribution(pdf)
+    pdf = FTDecayFunction2DCauchy(10*nanometer, 10*nanometer)
+    interference.setDecayFunction(pdf)
 
     particle_layout.addInterferenceFunction(interference)
 
@@ -63,9 +64,9 @@ def create_real_data():
     for i in range(0, real_data.getTotalNumberOfBins()):
         amplitude = real_data.getBinContent(i)
         sigma = noise_factor*math.sqrt(amplitude)
-        noisy_amplitude = GenerateNormalRandom(amplitude, sigma)
-        if noisy_amplitude < 0.0:
-            noisy_amplitude = 0.0
+        noisy_amplitude = random.gauss(amplitude, sigma)
+        if noisy_amplitude < 0.1:
+            noisy_amplitude = 0.1
         real_data.setBinContent(i, noisy_amplitude)
     return real_data
 
@@ -90,8 +91,8 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # this fit parameter will change both length_1 and length_2 simultaneously
-    fit_suite.addFitParameter("*2DLattice/length_*", 8.*nanometer, AttLimits.limited(4., 12.))
-    fit_suite.addFitParameter("*/FormFactorFullSphere/radius", 8.*nanometer, AttLimits.limited(4., 12.))
+    fit_suite.addFitParameter("*2DLattice/LatticeLength*", 8.*nanometer, AttLimits.limited(4., 12.))
+    fit_suite.addFitParameter("*/FullSphere/Radius", 8.*nanometer, AttLimits.limited(4., 12.))
 
     # running fit
     fit_suite.runFit()

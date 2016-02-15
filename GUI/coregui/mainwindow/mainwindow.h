@@ -16,9 +16,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
 #include "WinDllMacros.h"
 #include "fancymainwindow.h"
+#include <QMainWindow>
 
 namespace Manhattan {
     class FancyTabWidget;
@@ -46,6 +46,7 @@ class SampleModel;
 class FitProxyModel;
 class FitView;
 class JobModel;
+class UpdateNotifier;
 
 
 class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
@@ -56,16 +57,16 @@ public:
     enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, TEST_VIEW};
 
     explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    virtual ~MainWindow();
 
     MaterialModel *getMaterialModel() { return m_materialModel; }
     InstrumentModel *getInstrumentModel() { return m_instrumentModel; }
     SampleModel *getSampleModel() { return m_sampleModel; }
     JobModel *getJobModel() { return m_jobModel; }
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
-    QSettings *getSettings() const { return m_settings; }
     ActionManager *getActionManager() { return m_actionManager; }
     ProjectManager *getProjectManager() { return m_projectManager; }
+    UpdateNotifier *getUpdateNotifier() { return m_updateNotifier; }
 
 public slots:
     void onChangeTabWidget(int index);
@@ -94,7 +95,6 @@ private:
 
     ActionManager *m_actionManager; //!< responsible for menus and actions
     ProjectManager *m_projectManager; //!< handles activity related to opening/saving projects
-    QSettings *m_settings; //!< application wide settings
 
     JobModel *m_jobModel;  //!< model for all jobs
     SampleModel *m_sampleModel; //!< model for all samples
@@ -103,6 +103,7 @@ private:
     MaterialEditor *m_materialEditor;
     ToolTipDataBase *m_toolTipDataBase;
     FitProxyModel *m_fitProxyModel;
+    UpdateNotifier *m_updateNotifier;
 
     void createModels();
     void createMaterialModel();
@@ -112,6 +113,7 @@ private:
     void createFitModel();
 
     void testGUIObjectBuilder();
+    virtual void showEvent(QShowEvent *event);
 };
 
 #endif // MAINWINDOW_H

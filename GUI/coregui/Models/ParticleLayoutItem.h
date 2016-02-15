@@ -25,9 +25,9 @@ public:
     static const QString P_APPROX;
     static const QString P_TOTAL_DENSITY;
     explicit ParticleLayoutItem(ParameterizedItem *parent=0);
-    ~ParticleLayoutItem();
-    void insertChildItem(int row, ParameterizedItem *item);
+    virtual ~ParticleLayoutItem();
+    virtual void insertChildItem(int row, ParameterizedItem *item);
+    virtual void onChildPropertyChange(ParameterizedItem *item, const QString &propertyName=QString());
 };
 
 #endif // PARTICLELAYOUTITEM_H
-

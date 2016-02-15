@@ -7,8 +7,7 @@ endif()
 
 
 # --- Eigen3 ---
-set(EIGEN3_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/ThirdParty/eigen3)
-message(STATUS "Build in version of Eigen3 will be used")
+find_package(Eigen3 REQUIRED)
 
 # --- FFTW3 ---
 find_package(FFTW REQUIRED)
@@ -58,7 +57,7 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     find_package(PythonLibs 2.7)
     message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS} PYTHONLIBS_VERSION_STRING:${PYTHONLIBS_VERSION_STRING}")
 
-    ValidatePythonIntstallation()
+    ValidatePythonInstallation()
 
     message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS} PYTHONLIBS_VERSION_STRING:${PYTHONLIBS_VERSION_STRING}")
 

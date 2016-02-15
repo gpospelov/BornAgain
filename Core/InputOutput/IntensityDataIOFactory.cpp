@@ -19,7 +19,8 @@
 #include "Exceptions.h"
 #include "Utils.h"
 #include "IHistogram.h"
-#include <boost/scoped_ptr.hpp>
+
+#include <memory>
 
 /* ************************************************************************* */
 // reading output data
@@ -27,16 +28,15 @@
 OutputData<double > *IntensityDataIOFactory::readOutputData(
         const std::string& file_name)
 {
-    boost::scoped_ptr<OutputDataReader> P_reader(OutputDataReadFactory::getReader(file_name));
+    std::unique_ptr<OutputDataReader> P_reader(OutputDataReadFactory::getReader(file_name));
     return P_reader->getOutputData();
 }
 
 IHistogram *IntensityDataIOFactory::readIntensityData(const std::string &file_name)
 {
-    boost::scoped_ptr<OutputData<double> > data(readOutputData(file_name));
+    std::unique_ptr<OutputData<double> > data(readOutputData(file_name));
     return IHistogram::createHistogram(*data);
 }
-
 
 
 /* ************************************************************************* */
@@ -45,13 +45,13 @@ IHistogram *IntensityDataIOFactory::readIntensityData(const std::string &file_na
 void IntensityDataIOFactory::writeOutputData(const OutputData<double>& data,
         const std::string& file_name)
 {
-    boost::scoped_ptr<OutputDataWriter> P_writer(OutputDataWriteFactory::getWriter(file_name));
+    std::unique_ptr<OutputDataWriter> P_writer(OutputDataWriteFactory::getWriter(file_name));
     return P_writer->writeOutputData(data);
 }
 
-void IntensityDataIOFactory::writeIntensityData(const IHistogram &histogram, const std::string &file_name)
+void IntensityDataIOFactory::writeIntensityData(const IHistogram &histogram,
+                                                const std::string &file_name)
 {
-    boost::scoped_ptr<OutputData<double> > data(histogram.createOutputData());
+    std::unique_ptr<OutputData<double> > data(histogram.createOutputData());
     writeOutputData(*data, file_name);
 }
-

@@ -34,17 +34,14 @@ class ParameterizedItem;
 class SessionModelAssistant
 {
 public:
-
     enum EOnErrorBehavior {
         THROW_EXCEPTION,
         RECORD_ERROR
     };
-
     enum EErrorType {
         XML_FORMAT_ERROR = 0x0001,
         SET_ITEM_PROPERTY_ERROR = 0x0002
     };
-
     class Error {
     public:
         Error(EErrorType error_type, const QString &description)
@@ -54,7 +51,6 @@ public:
     };
 
     SessionModelAssistant();
-//    ~SessionModelAssistant();
 
     void start_error_recording();
 

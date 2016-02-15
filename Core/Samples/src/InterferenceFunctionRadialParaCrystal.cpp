@@ -14,7 +14,10 @@
 // ************************************************************************** //
 
 #include "InterferenceFunctionRadialParaCrystal.h"
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
+
+using namespace BornAgain;
 
 InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
         double peak_distance, double damping_length)
@@ -24,7 +27,7 @@ InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
     , m_kappa(0.0)
     , m_domain_size(0.0)
 {
-    setName("InterferenceFunctionRadialParaCrystal");
+    setName(InterferenceFunctionRadialParaCrystalType);
     if (m_damping_length==0.0) {
         m_use_damping_length = false;
     }
@@ -34,18 +37,16 @@ InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
 void InterferenceFunctionRadialParaCrystal::init_parameters()
 {
     clearParameterPool();
-    registerParameter("peak_distance", &m_peak_distance);
-    registerParameter("damping_length", &m_damping_length);
-    registerParameter("size_spacing_coupling", &m_kappa);
-    registerParameter("domain_size", &m_domain_size);
+    registerParameter(PeakDistance, &m_peak_distance);
+    registerParameter(DampingLength, &m_damping_length);
+    registerParameter(SizeSpaceCoupling, &m_kappa);
+    registerParameter(DomainSize, &m_domain_size);
 }
-
 
 InterferenceFunctionRadialParaCrystal *InterferenceFunctionRadialParaCrystal::clone() const {
     InterferenceFunctionRadialParaCrystal *result =
         new InterferenceFunctionRadialParaCrystal(
             m_peak_distance, m_damping_length);
-    result->setName(getName());
     result->setDomainSize(getDomainSize());
     result->setKappa(m_kappa);
     if (mP_pdf.get()) {
@@ -54,6 +55,30 @@ InterferenceFunctionRadialParaCrystal *InterferenceFunctionRadialParaCrystal::cl
     return result;
 }
 
+void InterferenceFunctionRadialParaCrystal::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
+{
+    m_domain_size = size;
+}
+
+double InterferenceFunctionRadialParaCrystal::getDomainSize() const
+{
+    return m_domain_size;
+}
+
+void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
+{
+    m_kappa = kappa;
+}
+
+double InterferenceFunctionRadialParaCrystal::getKappa() const
+{
+    return m_kappa;
+}
 
 double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t& q) const
 {
@@ -72,24 +97,25 @@ double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t& q) const
     if (n<1) {
         result = ((1.0 + fp)/(1.0 - fp)).real();
     } else {
-        if (std::abs(1.0-fp) < Numeric::double_epsilon ) {
+        if (std::norm(1.0-fp) < Numeric::double_epsilon ) {
             result = nd;
         }
+        // for (1-fp)*nd small, take the series expansion to second order in nd*(1-fp)
         else if (std::abs(1.0-fp)*nd < 2e-4) {
-            double intermediate = MathFunctions::geometricSum(fp, n).real()/nd;
-            result = 1.0 + 2.0*intermediate;
+            complex_t intermediate = (nd-1.0)/2.0 + (nd*nd-1.0)*(fp-1.0)/6.0
+                    + (nd*nd*nd-2.0*nd*nd-nd+2.0)*(fp-1.0)*(fp-1.0)/24.0;
+            result = 1.0 + 2.0*intermediate.real();
         }
         else {
             complex_t tmp;
-            double double_min = std::numeric_limits<double>::min();
-            if (std::log(std::abs(fp)+double_min)*nd < std::log(double_min)) {
-                tmp = complex_t(0.0, 0.0);
-            } else {
-            tmp = std::pow(fp,n-1);
-            }
-            double intermediate = ((1.0-1.0/nd)*fp/(1.0-fp)
-                    - fp*fp*(1.0-tmp)/nd/(1.0-fp)/(1.0-fp)).real();
-            result = 1.0 + 2.0*intermediate;
+            if (std::abs(fp)==0.0
+             || std::log(std::abs(fp))*nd < std::log(std::numeric_limits<double>::min())) {
+                            tmp = complex_t(0.0, 0.0);
+                        } else {
+                            tmp = std::pow(fp,n);
+                        }
+            complex_t intermediate = fp/(1.0-fp) - fp*(1.0-tmp)/nd/(1.0-fp)/(1.0-fp);
+            result = 1.0 + 2.0*intermediate.real();
         }
     }
     return result;
@@ -116,9 +142,17 @@ void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(
 }
 
 const IFTDistribution1D
-    *InterferenceFunctionRadialParaCrystal::getPropabilityDistribution() const
+    *InterferenceFunctionRadialParaCrystal::getProbabilityDistribution() const
 {
     return mP_pdf.get();
 }
 
+double InterferenceFunctionRadialParaCrystal::getPeakDistance() const
+{
+    return m_peak_distance;
+}
 
+double InterferenceFunctionRadialParaCrystal::getDampingLength() const
+{
+    return m_damping_length;
+}

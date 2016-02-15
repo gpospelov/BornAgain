@@ -37,7 +37,7 @@ target_link_libraries(TestGUI
     ${BornAgainGUI_LIBRARY}
 )
 
-qt5_use_modules(TestGUI Widgets Core Gui Script Designer PrintSupport Test)
+qt5_use_modules(TestGUI Widgets Core Gui Designer PrintSupport Network Test)
 
 add_test( TestGUI TestGUI) # TestName ExeName
 

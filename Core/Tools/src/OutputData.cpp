@@ -46,7 +46,7 @@ PyObject *OutputData<double>::getArray() const
     // creating standalone numpy array
     PyObject *pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy, NPY_DOUBLE);
     delete [] ndimsizes_numpy;
-    if(pyarray == NULL ) {
+    if(pyarray == nullptr ) {
         throw RuntimeErrorException(
                 "ExportOutputData() -> Panic in PyArray_SimpleNew");
     }

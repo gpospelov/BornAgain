@@ -17,7 +17,11 @@
 #define FORMFACTORTRUNCATEDSPHEROID_H
 
 #include "IFormFactorBorn.h"
-#include "MemberComplexFunctionIntegrator.h"
+
+#include <memory>
+
+// Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
+template <class T> class IntegratorComplex;
 
 //! @class FormFactorTruncatedSpheroid
 //! @ingroup formfactors
@@ -33,22 +37,17 @@ public:
 
     FormFactorTruncatedSpheroid(double radius, double height, double height_flattening);
 
-    ~FormFactorTruncatedSpheroid() {delete m_integrator;}
+    virtual ~FormFactorTruncatedSpheroid();
 
     virtual FormFactorTruncatedSpheroid *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual int getNumberOfStochasticParameters() const { return 3; }
+    double getHeight() const;
 
-    virtual double getHeight() const { return m_height; }
+    double getHeightFlattening() const;
 
-    virtual double getHeightFlattening() const { return m_height_flattening; }
-
-    virtual double getRadius() const { return m_radius; }
-
-    virtual double getHeightFullSpheroid() const
-    { return 2.*m_height_flattening*m_radius; }
+    virtual double getRadius() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -58,15 +57,32 @@ protected:
 
 private:
 
-    complex_t Integrand(double Z, void* params) const;
+    complex_t Integrand(double Z) const;
 
     double m_radius;
     double m_height;
     double m_height_flattening;
     mutable cvector_t m_q;
 
-    MemberComplexFunctionIntegrator<FormFactorTruncatedSpheroid> *m_integrator;
+#ifndef GCCXML_SKIP_THIS
+    std::unique_ptr<IntegratorComplex<FormFactorTruncatedSpheroid>> mP_integrator;
+#endif
 };
+
+inline double FormFactorTruncatedSpheroid::getHeight() const
+{
+    return m_height;
+}
+
+inline double FormFactorTruncatedSpheroid::getHeightFlattening() const
+{
+    return m_height_flattening;
+}
+
+inline double FormFactorTruncatedSpheroid::getRadius() const
+{
+    return m_radius;
+}
 
 
 #endif // FORMFACTORTRUNCATEDSPHEROID_H

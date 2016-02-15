@@ -303,46 +303,49 @@ void TestIsGISAXS5::SampleBuilder::init_parameters()
 
 ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
 {
-    MultiLayer *p_multi_layer = new MultiLayer();
+//    MultiLayer *p_multi_layer = new MultiLayer();
 
-    complex_t n_particle(1.0 - 6e-4, 2e-8);
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
-    HomogeneousMaterial particle_material("Particle", n_particle);
+//    complex_t n_particle(1.0 - 6e-4, 2e-8);
+//    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+//    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+//    HomogeneousMaterial particle_material("Particle", n_particle);
 
-    Layer air_layer(air_material);
-    double height = m_height_aspect_ratio * m_particle_radius;
-    FormFactorCylinder ff_cylinder(m_particle_radius, height);
-    Particle cylinder(particle_material, ff_cylinder);
+//    Layer air_layer(air_material);
+//    double height = m_height_aspect_ratio * m_particle_radius;
+//    FormFactorCylinder ff_cylinder(m_particle_radius, height);
+//    Particle cylinder(particle_material, ff_cylinder);
 
-    // radius of nanoparticles will be sampled with gaussian probability
-    int nbins = 20;
-    double sigma = m_particle_radius * m_dispersion_radius;
-    int nfwhm(2); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where
-                  // xR is what is defined in isgisaxs *.inp file)
-    DistributionGaussian gauss(m_particle_radius, sigma);
+//    // radius of nanoparticles will be sampled with gaussian probability
+//    int nbins = 20;
+//    double sigma = m_particle_radius * m_dispersion_radius;
+//    int nfwhm(2); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where
+//                  // xR is what is defined in isgisaxs *.inp file)
+//    DistributionGaussian gauss(m_particle_radius, sigma);
 
-    ParticleLayout particle_layout;
-    InterferenceFunctionRadialParaCrystal *p_interference_function
-        = new InterferenceFunctionRadialParaCrystal(
-            m_interf_distance, 1e7 * Units::nanometer); // peak_distance, corr_length
-    FTDistribution1DGauss pdf(m_interf_width);
-    p_interference_function->setProbabilityDistribution(pdf);
-    particle_layout.addInterferenceFunction(p_interference_function);
+//    ParticleLayout particle_layout;
+//    InterferenceFunctionRadialParaCrystal *p_interference_function
+//        = new InterferenceFunctionRadialParaCrystal(
+//            m_interf_distance, 1e7 * Units::nanometer); // peak_distance, corr_length
+//    FTDistribution1DGauss pdf(m_interf_width);
+//    p_interference_function->setProbabilityDistribution(pdf);
+//    particle_layout.addInterferenceFunction(p_interference_function);
 
-    // building nano particles
-    ParameterDistribution par_distr("*/radius", gauss, nbins, nfwhm);
-    ParticleDistribution particle_collection(cylinder, par_distr);
-    particle_layout.addParticle(particle_collection);
+//    // building nano particles
+//    ParameterDistribution par_distr("*/radius", gauss, nbins, nfwhm);
+//    ParticleDistribution particle_collection(cylinder, par_distr);
+//    particle_layout.addParticle(particle_collection);
 
-    // add layout to layer
-    air_layer.addLayout(particle_layout);
+//    // add layout to layer
+//    air_layer.addLayout(particle_layout);
 
-    p_multi_layer->addLayer(air_layer);
+//    p_multi_layer->addLayer(air_layer);
 
-    Layer substrate_layer;
-    substrate_layer.setMaterial(substrate_material);
-    p_multi_layer->addLayer(substrate_layer);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(substrate_material);
+//    p_multi_layer->addLayer(substrate_layer);
 
-    return p_multi_layer;
+//    return p_multi_layer;
+
+    throw Exceptions::NotImplementedException("Cleanup the code!");
+
 }

@@ -180,7 +180,7 @@ void TiffHandler::write_data()
             axes_indices[0] = col;
             axes_indices[1] = m_height - 1 - row;
             size_t global_index = m_data->toGlobalIndex(axes_indices);
-            line_buf[col] = (*m_data)[global_index];
+            line_buf[col] = static_cast<int>((*m_data)[global_index]);
         }
         memcpy(buf, &line_buf[0], buf_size);
 

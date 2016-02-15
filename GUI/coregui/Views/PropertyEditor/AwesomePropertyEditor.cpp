@@ -41,13 +41,13 @@ public:
             : m_item(item), m_name(property_name) {}
         ParameterizedItem *m_item;
         QString m_name;
-        friend bool operator <(const ItemPropertyPair& left, const ItemPropertyPair& right)
+        friend bool operator<(const ItemPropertyPair& left, const ItemPropertyPair& right)
         {
             if(left.m_item == right.m_item)
                 return left.m_name < right.m_name;
             return left.m_item < right.m_item;
         }
-        friend bool operator == (const ItemPropertyPair& left, const ItemPropertyPair& right)
+        friend bool operator==(const ItemPropertyPair& left, const ItemPropertyPair& right)
         {
             return (left.m_item == right.m_item) && (left.m_name < right.m_name);
         }
@@ -55,10 +55,13 @@ public:
     };
 
     AwesomePropertyEditorPrivate(QWidget *parent, AwesomePropertyEditor::EBrowserType browser_type);
+    ~AwesomePropertyEditorPrivate();
+
     QtAbstractPropertyBrowser *m_browser;
     QtVariantPropertyManager  *m_manager;
     QtVariantPropertyManager  *m_read_only_manager;
     AwesomePropertyEditor::EBrowserType m_browser_type;
+    PropertyVariantFactory *m_propertyFactory;
     QMap<QtProperty *, ItemPropertyPair> m_qtproperty_to_itempropertypair;
     QMap<ParameterizedItem *, QMap<QString, QtVariantProperty *> > m_item_to_property_to_qtvariant;
     QMap<QString, QtVariantProperty *> m_groupname_to_qtvariant;
@@ -72,6 +75,7 @@ AwesomePropertyEditorPrivate::AwesomePropertyEditorPrivate(QWidget *parent, Awes
     , m_manager(0)
     , m_read_only_manager(0)
     , m_browser_type(browser_type)
+    , m_propertyFactory(new PropertyVariantFactory())
 {
     if(m_browser_type == AwesomePropertyEditor::BROWSER_TREE_TYPE) {
         QtTreePropertyBrowser *browser = new QtTreePropertyBrowser(parent);
@@ -91,9 +95,14 @@ AwesomePropertyEditorPrivate::AwesomePropertyEditorPrivate(QWidget *parent, Awes
     m_read_only_manager = new PropertyVariantManager(parent);
 
     m_manager = new PropertyVariantManager(parent);
-    QtVariantEditorFactory *factory = new PropertyVariantFactory();
-    m_browser->setFactoryForManager(m_manager, factory);
+//    QtVariantEditorFactory *factory = new PropertyVariantFactory();
+    m_browser->setFactoryForManager(m_manager, m_propertyFactory);
 
+}
+
+inline AwesomePropertyEditorPrivate::~AwesomePropertyEditorPrivate()
+{
+    delete m_propertyFactory;
 }
 
 
@@ -238,8 +247,8 @@ void AwesomePropertyEditor::onPropertyChanged(const QString &property_name)
 
         qDebug() << "       AwesomePropertyEditor::onPropertyChanged(const QString &property_name) -> Setting variant_property";
         variant_property->setValue(property_value);
-        PropertyAttribute prop_attribute = item->getPropertyAttribute(property_name);
-        if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
+        const PropertyAttribute &prop_attribute = item->getPropertyAttribute(property_name);
+        if(prop_attribute.isDisabled()) {
             variant_property->setEnabled(false);
         } else {
             variant_property->setEnabled(true);
@@ -273,8 +282,8 @@ void AwesomePropertyEditor::onSubItemChanged(const QString &property_name)
                 this, SLOT(onSubItemChanged(QString)));
 
         variant_property->setValue(property_value);
-        PropertyAttribute prop_attribute = item->getPropertyAttribute(property_name);
-        if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
+        const PropertyAttribute &prop_attribute = item->getPropertyAttribute(property_name);
+        if(prop_attribute.isDisabled()) {
             variant_property->setEnabled(false);
         } else {
             variant_property->setEnabled(true);
@@ -347,15 +356,15 @@ QtVariantProperty *AwesomePropertyEditor::createQtVariantProperty(ParameterizedI
     qDebug() << "QtVariantProperty *AwesomePropertyEditor::createQtVariantProperty(ParameterizedItem *item, const QString &property_name) item" << item << property_name;
     QtVariantProperty *result(0);
 
-    PropertyAttribute prop_attribute = item->getPropertyAttribute(property_name);
-    if(prop_attribute.getAppearance() & PropertyAttribute::HIDDEN) return 0;
+    const PropertyAttribute &prop_attribute = item->getPropertyAttribute(property_name);
+    if(prop_attribute.isHidden()) return 0;
 
     QVariant prop_value = item->property(property_name.toUtf8().data());
     Q_ASSERT(prop_value.isValid());
     int type = GUIHelpers::getVariantType(prop_value);
 
     QtVariantPropertyManager *manager = m_d->m_manager;
-    if(prop_attribute.getAppearance() & PropertyAttribute::READONLY) manager = m_d->m_read_only_manager;
+    if(prop_attribute.isReadOnly()) manager = m_d->m_read_only_manager;
 
     if(!manager->isPropertyTypeSupported(type)) {
         throw GUIHelpers::Error("AwesomePropertyEditor::createQtVariantProperty() -> Error. Not supported property type "+property_name);
@@ -381,10 +390,13 @@ QtVariantProperty *AwesomePropertyEditor::createQtVariantProperty(ParameterizedI
         if(limits.hasUpperLimit()) result->setAttribute(QLatin1String("maximum"), int(limits.getUpperLimit()));
     }
 
-    QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), property_name);
+    QString toolTip = prop_attribute.getToolTip();
+    if(toolTip.isEmpty()) {
+        toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), property_name);
+    }
     if(!toolTip.isEmpty()) result->setToolTip(toolTip);
 
-    if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
+    if(prop_attribute.isDisabled()) {
         result->setEnabled(false);
     }
 

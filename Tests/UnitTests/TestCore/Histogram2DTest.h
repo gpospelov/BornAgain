@@ -2,7 +2,6 @@
 #define HISTOGRAM2DTEST_H
 
 #include "Histogram2D.h"
-#include <boost/assign/list_of.hpp>
 #include <boost/scoped_ptr.hpp>
 #include "gtest/gtest.h"
 
@@ -29,8 +28,8 @@ class Histogram2DTest : public ::testing::Test
 
 Histogram2DTest::Histogram2DTest()
 {
-    std::vector<double> xbin_edges = boost::assign::list_of(-1.0)(-0.5)(0.5)(1.0)(2.0);
-    std::vector<double> ybin_edges = boost::assign::list_of(0.0)(1.0)(2.0)(4.0);
+    std::vector<double> xbin_edges = {-1.0, -0.5, 0.5, 1.0, 2.0};
+    std::vector<double> ybin_edges = {0.0, 1.0, 2.0, 4.0};
     hist = new Histogram2D(4, xbin_edges, 3, ybin_edges);
 }
 
@@ -118,8 +117,10 @@ TEST_F(Histogram2DTest, VariableHistFill)
     hist->reset();
 
     // values to fill all histogram
-    std::vector<double> xvalues = boost::assign::list_of(-0.75)(-0.75)(-0.75)(0.0)(0.0)(0.0)(0.75)(0.75)(0.75)(1.5)(1.5)(1.5);
-    std::vector<double> yvalues = boost::assign::list_of(0.5)(1.5)(3.0)(0.5)(1.5)(3.0)(0.5)(1.5)(3.0)(0.5)(1.5)(3.0);
+    std::vector<double> xvalues = {-0.75, -0.75, -0.75, 0.0, 0.0, 0.0,
+                                   0.75, 0.75, 0.75, 1.5, 1.5, 1.5};
+    std::vector<double> yvalues = {0.5, 1.5, 3.0, 0.5, 1.5, 3.0,
+                                   0.5, 1.5, 3.0, 0.5, 1.5, 3.0};
 
     // put in every histogram bin one double value proportional to globalbin (globalbin*10.0)
     for(size_t i=0; i<xvalues.size(); ++i) {
@@ -160,9 +161,12 @@ TEST_F(Histogram2DTest, projectionX)
     hist->reset();
 
     // values to fill all histogram
-    std::vector<double> xvalues = boost::assign::list_of(-0.75)(-0.75)(-0.75)(0.0)(0.0)(0.0)(0.75)(0.75)(0.75)(1.5)(1.5)(1.5);
-    std::vector<double> yvalues = boost::assign::list_of(0.5)(1.5)(3.0)(0.5)(1.5)(3.0)(0.5)(1.5)(3.0)(0.5)(1.5)(3.0);
-    std::vector<double> content = boost::assign::list_of(1.0)(2.0)(3.0)(1.0)(2.0)(3.0)(1.0)(2.0)(3.0)(1.0)(2.0)(3.0);
+    std::vector<double> xvalues = {-0.75, -0.75, -0.75, 0.0, 0.0, 0.0,
+                                   0.75, 0.75, 0.75, 1.5, 1.5, 1.5};
+    std::vector<double> yvalues = {0.5, 1.5, 3.0, 0.5, 1.5, 3.0,
+                                   0.5, 1.5, 3.0, 0.5, 1.5, 3.0};
+    std::vector<double> content = {1.0, 2.0, 3.0, 1.0, 2.0, 3.0,
+                                   1.0, 2.0, 3.0, 1.0, 2.0, 3.0};
 
     // put in every histogram bin the value from 'content' vector
     for(size_t i=0; i<xvalues.size(); ++i) {
@@ -240,9 +244,12 @@ TEST_F(Histogram2DTest, projectionY)
     hist->reset();
 
     // values to fill all histogram
-    std::vector<double> xvalues = boost::assign::list_of(-0.75)(-0.75)(-0.75)(0.0)(0.0)(0.0)(0.75)(0.75)(0.75)(1.5)(1.5)(1.5);
-    std::vector<double> yvalues = boost::assign::list_of(0.5)(1.5)(3.0)(0.5)(1.5)(3.0)(0.5)(1.5)(3.0)(0.5)(1.5)(3.0);
-    std::vector<double> content = boost::assign::list_of(1.0)(2.0)(3.0)(1.0)(2.0)(3.0)(1.0)(2.0)(3.0)(1.0)(2.0)(3.0);
+    std::vector<double> xvalues = {-0.75, -0.75, -0.75, 0.0, 0.0, 0.0,
+                                   0.75, 0.75, 0.75, 1.5, 1.5, 1.5};
+    std::vector<double> yvalues = {0.5, 1.5, 3.0, 0.5, 1.5, 3.0,
+                                   0.5, 1.5, 3.0, 0.5, 1.5, 3.0};
+    std::vector<double> content = {1.0, 2.0, 3.0, 1.0, 2.0, 3.0,
+                                   1.0, 2.0, 3.0, 1.0, 2.0, 3.0};
 
     // put in every histogram bin the value from 'content' vector
     for(size_t i=0; i<xvalues.size(); ++i) {
@@ -327,9 +334,12 @@ TEST_F(Histogram2DTest, crop)
     hist->reset();
 
     // values to fill all histogram
-    std::vector<double> xvalues = boost::assign::list_of(-0.75)(-0.75)(-0.75)(0.0)(0.0)(0.0)(0.75)(0.75)(0.75)(1.5)(1.5)(1.5);
-    std::vector<double> yvalues = boost::assign::list_of(0.5)(1.5)(3.0)(0.5)(1.5)(3.0)(0.5)(1.5)(3.0)(0.5)(1.5)(3.0);
-    std::vector<double> content = boost::assign::list_of(1.0)(2.0)(3.0)(1.0)(2.0)(3.0)(1.0)(2.0)(3.0)(1.0)(2.0)(3.0);
+    std::vector<double> xvalues = {-0.75, -0.75, -0.75, 0.0, 0.0, 0.0,
+                                   0.75, 0.75, 0.75, 1.5, 1.5, 1.5};
+    std::vector<double> yvalues = {0.5, 1.5, 3.0, 0.5, 1.5, 3.0,
+                                   0.5, 1.5, 3.0, 0.5, 1.5, 3.0};
+    std::vector<double> content = {1.0, 2.0, 3.0, 1.0, 2.0, 3.0,
+                                   1.0, 2.0, 3.0, 1.0, 2.0, 3.0};
 
     // put in every histogram bin the value from 'content' vector
     for(size_t i=0; i<xvalues.size(); ++i) {

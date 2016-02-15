@@ -44,6 +44,12 @@ public:
     //! More precisely, if mid point of two bins satisfy this condition.
     bool contains(const Bin1D &binx, const Bin1D &biny) const;
 
+    double getCenterX() const;
+    double getCenterY() const;
+    double getRadiusX() const;
+    double getRadiusY() const;
+    double getTheta() const;
+
 private:
     Ellipse(const Ellipse& other);
     double m_xc, m_yc, m_xr, m_yr, m_theta;

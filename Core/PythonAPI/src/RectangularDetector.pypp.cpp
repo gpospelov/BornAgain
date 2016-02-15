@@ -21,8 +21,6 @@ GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
-#include "__call_policies.pypp.hpp"
-#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "RectangularDetector.pypp.h"
 
@@ -30,8 +28,8 @@ namespace bp = boost::python;
 
 struct RectangularDetector_wrapper : RectangularDetector, bp::wrapper< RectangularDetector > {
 
-    RectangularDetector_wrapper(::kvector_t normal_to_detector, ::kvector_t u_direction )
-    : RectangularDetector( normal_to_detector, u_direction )
+    RectangularDetector_wrapper(int nxbins, double width, int nybins, double height )
+    : RectangularDetector( nxbins, width, nybins, height )
       , bp::wrapper< RectangularDetector >(){
         // constructor
     m_pyobj = 0;
@@ -56,95 +54,52 @@ struct RectangularDetector_wrapper : RectangularDetector, bp::wrapper< Rectangul
         return RectangularDetector::clone( );
     }
 
-    virtual bool areParametersChanged(  ) {
-        if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
-            return func_areParametersChanged(  );
+    virtual ::OutputData< double > * createDetectorMap( ::Beam const & beam, ::IDetector2D::EAxesUnits units_type ) const  {
+        if( bp::override func_createDetectorMap = this->get_override( "createDetectorMap" ) )
+            return func_createDetectorMap( boost::ref(beam), units_type );
         else{
-            return this->IParameterized::areParametersChanged(  );
+            return this->RectangularDetector::createDetectorMap( boost::ref(beam), units_type );
         }
     }
     
-    bool default_areParametersChanged(  ) {
-        return IParameterized::areParametersChanged( );
+    ::OutputData< double > * default_createDetectorMap( ::Beam const & beam, ::IDetector2D::EAxesUnits units_type ) const  {
+        return RectangularDetector::createDetectorMap( boost::ref(beam), units_type );
     }
 
-    virtual void clearParameterPool(  ) {
-        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
-            func_clearParameterPool(  );
+    virtual ::IDetector2D::EAxesUnits getDefaultAxesUnits(  ) const  {
+        if( bp::override func_getDefaultAxesUnits = this->get_override( "getDefaultAxesUnits" ) )
+            return func_getDefaultAxesUnits(  );
         else{
-            this->IParameterized::clearParameterPool(  );
+            return this->RectangularDetector::getDefaultAxesUnits(  );
         }
     }
     
-    void default_clearParameterPool(  ) {
-        IParameterized::clearParameterPool( );
+    ::IDetector2D::EAxesUnits default_getDefaultAxesUnits(  ) const  {
+        return RectangularDetector::getDefaultAxesUnits( );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) const  {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
+    virtual ::std::vector< IDetector2D::EAxesUnits > getValidAxesUnits(  ) const  {
+        if( bp::override func_getValidAxesUnits = this->get_override( "getValidAxesUnits" ) )
+            return func_getValidAxesUnits(  );
         else{
-            return this->IParameterized::createParameterTree(  );
+            return this->RectangularDetector::getValidAxesUnits(  );
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) const  {
-        return IParameterized::createParameterTree( );
+    ::std::vector< IDetector2D::EAxesUnits > default_getValidAxesUnits(  ) const  {
+        return RectangularDetector::getValidAxesUnits( );
     }
 
-    virtual void printParameters(  ) const  {
-        if( bp::override func_printParameters = this->get_override( "printParameters" ) )
-            func_printParameters(  );
+    virtual void init( ::Beam const & beam ) {
+        if( bp::override func_init = this->get_override( "init" ) )
+            func_init( boost::ref(beam) );
         else{
-            this->IParameterized::printParameters(  );
+            this->RectangularDetector::init( boost::ref(beam) );
         }
     }
     
-    void default_printParameters(  ) const  {
-        IParameterized::printParameters( );
-    }
-
-    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
-        namespace bpl = boost::python;
-        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
-        }
-        else{
-            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
-        }
-    }
-    
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
-        if( dynamic_cast< RectangularDetector_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-        else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-    }
-
-    virtual bool setParameterValue( ::std::string const & name, double value ) {
-        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
-            return func_setParameterValue( name, value );
-        else{
-            return this->IParameterized::setParameterValue( name, value );
-        }
-    }
-    
-    bool default_setParameterValue( ::std::string const & name, double value ) {
-        return IParameterized::setParameterValue( name, value );
-    }
-
-    virtual void setParametersAreChanged(  ) {
-        if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
-            func_setParametersAreChanged(  );
-        else{
-            this->IParameterized::setParametersAreChanged(  );
-        }
-    }
-    
-    void default_setParametersAreChanged(  ) {
-        IParameterized::setParametersAreChanged( );
+    void default_init( ::Beam const & beam ) {
+        RectangularDetector::init( boost::ref(beam) );
     }
 
     PyObject* m_pyobj;
@@ -155,9 +110,17 @@ void register_RectangularDetector_class(){
 
     { //::RectangularDetector
         typedef bp::class_< RectangularDetector_wrapper, bp::bases< IDetector2D >, std::auto_ptr< RectangularDetector_wrapper > > RectangularDetector_exposer_t;
-        RectangularDetector_exposer_t RectangularDetector_exposer = RectangularDetector_exposer_t( "RectangularDetector", "A rectangular plane detector with axes and resolution function.", bp::init< kvector_t, kvector_t >(( bp::arg("normal_to_detector"), bp::arg("u_direction") )) );
+        RectangularDetector_exposer_t RectangularDetector_exposer = RectangularDetector_exposer_t( "RectangularDetector", "A rectangular plane detector with axes and resolution function.", bp::init< int, double, int, double >(( bp::arg("nxbins"), bp::arg("width"), bp::arg("nybins"), bp::arg("height") ), "Rectangular detector constructor @param nxbins Number of bins (pixels) in x-direction @param width Width of the detector in mm along x-direction @param nybins Number of bins (pixels) in y-direction @param height Height of the detector in mm along y-direction \n\n:Parameters:\n  - 'nxbins' - Number of bins (pixels) in x-direction\n  - 'width' - Width of the detector in mm along x-direction\n  - 'nybins' - Number of bins (pixels) in y-direction\n  - 'height' - Height of the detector in mm along y-direction\n") );
         bp::scope RectangularDetector_scope( RectangularDetector_exposer );
-        RectangularDetector_exposer.def( bp::init< RectangularDetector const & >(( bp::arg("other") )) );
+        bp::enum_< RectangularDetector::EDetectorArrangement>("EDetectorArrangement")
+            .value("GENERIC", RectangularDetector::GENERIC)
+            .value("PERPENDICULAR_TO_SAMPLE", RectangularDetector::PERPENDICULAR_TO_SAMPLE)
+            .value("PERPENDICULAR_TO_DIRECT_BEAM", RectangularDetector::PERPENDICULAR_TO_DIRECT_BEAM)
+            .value("PERPENDICULAR_TO_REFLECTED_BEAM", RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM)
+            .value("PERPENDICULAR_TO_REFLECTED_BEAM_DPOS", RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM_DPOS)
+            .export_values()
+            ;
+        RectangularDetector_exposer.def( bp::init< RectangularDetector const & >(( bp::arg("other") ), "Rectangular detector constructor @param nxbins Number of bins (pixels) in x-direction @param width Width of the detector in mm along x-direction @param nybins Number of bins (pixels) in y-direction @param height Height of the detector in mm along y-direction \n\n:Parameters:\n  - 'nxbins' - Number of bins (pixels) in x-direction\n  - 'width' - Width of the detector in mm along x-direction\n  - 'nybins' - Number of bins (pixels) in y-direction\n  - 'height' - Height of the detector in mm along y-direction\n") );
         { //::RectangularDetector::clone
         
             typedef ::RectangularDetector * ( ::RectangularDetector::*clone_function_type)(  ) const;
@@ -168,6 +131,161 @@ void register_RectangularDetector_class(){
                 , clone_function_type(&::RectangularDetector::clone)
                 , default_clone_function_type(&RectangularDetector_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::RectangularDetector::createDetectorMap
+        
+            typedef ::OutputData< double > * ( ::RectangularDetector::*createDetectorMap_function_type)( ::Beam const &,::IDetector2D::EAxesUnits ) const;
+            typedef ::OutputData< double > * ( RectangularDetector_wrapper::*default_createDetectorMap_function_type)( ::Beam const &,::IDetector2D::EAxesUnits ) const;
+            
+            RectangularDetector_exposer.def( 
+                "createDetectorMap"
+                , createDetectorMap_function_type(&::RectangularDetector::createDetectorMap)
+                , default_createDetectorMap_function_type(&RectangularDetector_wrapper::default_createDetectorMap)
+                , ( bp::arg("beam"), bp::arg("units_type") )
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::RectangularDetector::getDefaultAxesUnits
+        
+            typedef ::IDetector2D::EAxesUnits ( ::RectangularDetector::*getDefaultAxesUnits_function_type)(  ) const;
+            typedef ::IDetector2D::EAxesUnits ( RectangularDetector_wrapper::*default_getDefaultAxesUnits_function_type)(  ) const;
+            
+            RectangularDetector_exposer.def( 
+                "getDefaultAxesUnits"
+                , getDefaultAxesUnits_function_type(&::RectangularDetector::getDefaultAxesUnits)
+                , default_getDefaultAxesUnits_function_type(&RectangularDetector_wrapper::default_getDefaultAxesUnits) );
+        
+        }
+        { //::RectangularDetector::getDetectorArrangment
+        
+            typedef ::RectangularDetector::EDetectorArrangement ( ::RectangularDetector::*getDetectorArrangment_function_type)(  ) const;
+            
+            RectangularDetector_exposer.def( 
+                "getDetectorArrangment"
+                , getDetectorArrangment_function_type( &::RectangularDetector::getDetectorArrangment ) );
+        
+        }
+        { //::RectangularDetector::getDirectBeamU0
+        
+            typedef double ( ::RectangularDetector::*getDirectBeamU0_function_type)(  ) const;
+            
+            RectangularDetector_exposer.def( 
+                "getDirectBeamU0"
+                , getDirectBeamU0_function_type( &::RectangularDetector::getDirectBeamU0 ) );
+        
+        }
+        { //::RectangularDetector::getDirectBeamV0
+        
+            typedef double ( ::RectangularDetector::*getDirectBeamV0_function_type)(  ) const;
+            
+            RectangularDetector_exposer.def( 
+                "getDirectBeamV0"
+                , getDirectBeamV0_function_type( &::RectangularDetector::getDirectBeamV0 ) );
+        
+        }
+        { //::RectangularDetector::getDirectionVector
+        
+            typedef ::kvector_t ( ::RectangularDetector::*getDirectionVector_function_type)(  ) const;
+            
+            RectangularDetector_exposer.def( 
+                "getDirectionVector"
+                , getDirectionVector_function_type( &::RectangularDetector::getDirectionVector ) );
+        
+        }
+        { //::RectangularDetector::getDistance
+        
+            typedef double ( ::RectangularDetector::*getDistance_function_type)(  ) const;
+            
+            RectangularDetector_exposer.def( 
+                "getDistance"
+                , getDistance_function_type( &::RectangularDetector::getDistance ) );
+        
+        }
+        { //::RectangularDetector::getHeight
+        
+            typedef double ( ::RectangularDetector::*getHeight_function_type)(  ) const;
+            
+            RectangularDetector_exposer.def( 
+                "getHeight"
+                , getHeight_function_type( &::RectangularDetector::getHeight ) );
+        
+        }
+        { //::RectangularDetector::getNbinsX
+        
+            typedef ::std::size_t ( ::RectangularDetector::*getNbinsX_function_type)(  ) const;
+            
+            RectangularDetector_exposer.def( 
+                "getNbinsX"
+                , getNbinsX_function_type( &::RectangularDetector::getNbinsX ) );
+        
+        }
+        { //::RectangularDetector::getNbinsY
+        
+            typedef ::std::size_t ( ::RectangularDetector::*getNbinsY_function_type)(  ) const;
+            
+            RectangularDetector_exposer.def( 
+                "getNbinsY"
+                , getNbinsY_function_type( &::RectangularDetector::getNbinsY ) );
+        
+        }
+        { //::RectangularDetector::getNormalVector
+        
+            typedef ::kvector_t ( ::RectangularDetector::*getNormalVector_function_type)(  ) const;
+            
+            RectangularDetector_exposer.def( 
+                "getNormalVector"
+                , getNormalVector_function_type( &::RectangularDetector::getNormalVector ) );
+        
+        }
+        { //::RectangularDetector::getU0
+        
+            typedef double ( ::RectangularDetector::*getU0_function_type)(  ) const;
+            
+            RectangularDetector_exposer.def( 
+                "getU0"
+                , getU0_function_type( &::RectangularDetector::getU0 ) );
+        
+        }
+        { //::RectangularDetector::getV0
+        
+            typedef double ( ::RectangularDetector::*getV0_function_type)(  ) const;
+            
+            RectangularDetector_exposer.def( 
+                "getV0"
+                , getV0_function_type( &::RectangularDetector::getV0 ) );
+        
+        }
+        { //::RectangularDetector::getValidAxesUnits
+        
+            typedef ::std::vector< IDetector2D::EAxesUnits > ( ::RectangularDetector::*getValidAxesUnits_function_type)(  ) const;
+            typedef ::std::vector< IDetector2D::EAxesUnits > ( RectangularDetector_wrapper::*default_getValidAxesUnits_function_type)(  ) const;
+            
+            RectangularDetector_exposer.def( 
+                "getValidAxesUnits"
+                , getValidAxesUnits_function_type(&::RectangularDetector::getValidAxesUnits)
+                , default_getValidAxesUnits_function_type(&RectangularDetector_wrapper::default_getValidAxesUnits) );
+        
+        }
+        { //::RectangularDetector::getWidth
+        
+            typedef double ( ::RectangularDetector::*getWidth_function_type)(  ) const;
+            
+            RectangularDetector_exposer.def( 
+                "getWidth"
+                , getWidth_function_type( &::RectangularDetector::getWidth ) );
+        
+        }
+        { //::RectangularDetector::init
+        
+            typedef void ( ::RectangularDetector::*init_function_type)( ::Beam const & ) ;
+            typedef void ( RectangularDetector_wrapper::*default_init_function_type)( ::Beam const & ) ;
+            
+            RectangularDetector_exposer.def( 
+                "init"
+                , init_function_type(&::RectangularDetector::init)
+                , default_init_function_type(&RectangularDetector_wrapper::default_init)
+                , ( bp::arg("beam") ) );
         
         }
         { //::RectangularDetector::operator=
@@ -181,83 +299,54 @@ void register_RectangularDetector_class(){
                 , bp::return_self< >() );
         
         }
-        { //::IParameterized::areParametersChanged
+        { //::RectangularDetector::setDirectBeamPosition
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( RectangularDetector_wrapper::*default_areParametersChanged_function_type)(  ) ;
+            typedef void ( ::RectangularDetector::*setDirectBeamPosition_function_type)( double,double ) ;
             
             RectangularDetector_exposer.def( 
-                "areParametersChanged"
-                , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&RectangularDetector_wrapper::default_areParametersChanged) );
+                "setDirectBeamPosition"
+                , setDirectBeamPosition_function_type( &::RectangularDetector::setDirectBeamPosition )
+                , ( bp::arg("u0"), bp::arg("v0") ) );
         
         }
-        { //::IParameterized::clearParameterPool
+        { //::RectangularDetector::setPerpendicularToDirectBeam
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( RectangularDetector_wrapper::*default_clearParameterPool_function_type)(  ) ;
+            typedef void ( ::RectangularDetector::*setPerpendicularToDirectBeam_function_type)( double,double,double ) ;
             
             RectangularDetector_exposer.def( 
-                "clearParameterPool"
-                , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&RectangularDetector_wrapper::default_clearParameterPool) );
+                "setPerpendicularToDirectBeam"
+                , setPerpendicularToDirectBeam_function_type( &::RectangularDetector::setPerpendicularToDirectBeam )
+                , ( bp::arg("distance"), bp::arg("u0"), bp::arg("v0") ) );
         
         }
-        { //::IParameterized::createParameterTree
+        { //::RectangularDetector::setPerpendicularToReflectedBeam
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( RectangularDetector_wrapper::*default_createParameterTree_function_type)(  ) const;
+            typedef void ( ::RectangularDetector::*setPerpendicularToReflectedBeam_function_type)( double,double,double ) ;
             
             RectangularDetector_exposer.def( 
-                "createParameterTree"
-                , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&RectangularDetector_wrapper::default_createParameterTree)
-                , bp::return_value_policy< bp::manage_new_object >() );
+                "setPerpendicularToReflectedBeam"
+                , setPerpendicularToReflectedBeam_function_type( &::RectangularDetector::setPerpendicularToReflectedBeam )
+                , ( bp::arg("distance"), bp::arg("u0")=0.0, bp::arg("v0")=0.0 ) );
         
         }
-        { //::IParameterized::printParameters
+        { //::RectangularDetector::setPerpendicularToSampleX
         
-            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( RectangularDetector_wrapper::*default_printParameters_function_type)(  ) const;
+            typedef void ( ::RectangularDetector::*setPerpendicularToSampleX_function_type)( double,double,double ) ;
             
             RectangularDetector_exposer.def( 
-                "printParameters"
-                , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&RectangularDetector_wrapper::default_printParameters) );
+                "setPerpendicularToSampleX"
+                , setPerpendicularToSampleX_function_type( &::RectangularDetector::setPerpendicularToSampleX )
+                , ( bp::arg("distance"), bp::arg("u0"), bp::arg("v0") ) );
         
         }
-        { //::IParameterized::registerParameter
+        { //::RectangularDetector::setPosition
         
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
+            typedef void ( ::RectangularDetector::*setPosition_function_type)( ::kvector_t const &,double,double,::kvector_t const & ) ;
             
             RectangularDetector_exposer.def( 
-                "registerParameter"
-                , default_registerParameter_function_type( &RectangularDetector_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "main method to register data address in the pool." );
-        
-        }
-        { //::IParameterized::setParameterValue
-        
-            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( RectangularDetector_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
-            
-            RectangularDetector_exposer.def( 
-                "setParameterValue"
-                , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&RectangularDetector_wrapper::default_setParameterValue)
-                , ( bp::arg("name"), bp::arg("value") ) );
-        
-        }
-        { //::IParameterized::setParametersAreChanged
-        
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( RectangularDetector_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
-            
-            RectangularDetector_exposer.def( 
-                "setParametersAreChanged"
-                , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&RectangularDetector_wrapper::default_setParametersAreChanged) );
+                "setPosition"
+                , setPosition_function_type( &::RectangularDetector::setPosition )
+                , ( bp::arg("normal_to_detector"), bp::arg("u0"), bp::arg("v0"), bp::arg("direction")=Geometry::BasicVector3D<double>(0.0, -1.0e+0, 0.0) ) );
         
         }
     }

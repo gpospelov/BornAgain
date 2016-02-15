@@ -28,9 +28,7 @@
 class BA_CORE_API_ FormFactorDecoratorMaterial : public FormFactorDecoratorFactor
 {
 public:
-    FormFactorDecoratorMaterial(const IFormFactor &form_factor,
-                                complex_t wavevector_scattering_factor = 1.0);
-    virtual ~FormFactorDecoratorMaterial();
+    FormFactorDecoratorMaterial(const IFormFactor &form_factor);
 
     virtual FormFactorDecoratorMaterial *clone() const;
 
@@ -56,7 +54,6 @@ public:
 private:
     complex_t getRefractiveIndexFactor() const;
 
-    complex_t m_wavevector_scattering_factor;
     boost::scoped_ptr<IMaterial> mP_material;
     boost::scoped_ptr<IMaterial> mP_ambient_material;
 };

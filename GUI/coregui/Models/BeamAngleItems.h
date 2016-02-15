@@ -24,9 +24,9 @@ class BA_CORE_API_ BeamAzimuthalAngleItem : public BeamDistributionItem
     Q_OBJECT
 public:
     explicit BeamAzimuthalAngleItem(ParameterizedItem *parent=0);
-    ~BeamAzimuthalAngleItem(){}
+    virtual ~BeamAzimuthalAngleItem(){}
 protected:
-    virtual IDistribution1D *createDistribution1D();
+    virtual std::unique_ptr<IDistribution1D> createDistribution1D();
 };
 
 class BA_CORE_API_ BeamInclinationAngleItem : public BeamDistributionItem
@@ -34,14 +34,15 @@ class BA_CORE_API_ BeamInclinationAngleItem : public BeamDistributionItem
     Q_OBJECT
 public:
     explicit BeamInclinationAngleItem(ParameterizedItem *parent=0);
-    ~BeamInclinationAngleItem(){}
-    virtual IDistribution1D *createDistribution1D();
+    virtual ~BeamInclinationAngleItem(){}
+    virtual std::unique_ptr<IDistribution1D> createDistribution1D();
 };
 
 class BA_CORE_API_ BeamAngleHelper
 {
 public:
-    static IDistribution1D *creatAngleDistribution(DistributionItem *distributionItem);
+    static std::unique_ptr<IDistribution1D> creatAngleDistribution(
+            DistributionItem *distributionItem);
 };
 
 

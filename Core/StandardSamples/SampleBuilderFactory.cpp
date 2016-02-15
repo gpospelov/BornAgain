@@ -17,6 +17,7 @@
 #include "CylindersAndPrismsBuilder.h"
 #include "CylindersBuilder.h"
 #include "ParaCrystalBuilder.h"
+#include "LatticeBuilder.h"
 #include "TwoDimLatticeBuilder.h"
 #include "CustomMorphologyBuilder.h"
 #include "RotatedPyramidsBuilder.h"
@@ -32,6 +33,7 @@
 #include "SizeDistributionModelsBuilder.h"
 #include "TransformationsBuilder.h"
 #include "BoxCompositionBuilder.h"
+#include "LayersWithAbsorptionBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -75,6 +77,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Interference function of 2D hexagonal paracrystal");
 
     registerItem(
+        "Lattice1DBuilder",
+        IFactoryCreateFunction<Lattice1DBuilder, ISampleBuilder>,
+        "Interference function of 1D lattice");
+
+    registerItem(
         "RectParaCrystalBuilder",
         IFactoryCreateFunction<RectParaCrystalBuilder, ISampleBuilder>,
         "Interference function of 2D rectangular paracrystal");
@@ -95,11 +102,6 @@ SampleBuilderFactory::SampleBuilderFactory()
         "2D lattice rotated");
 
     registerItem(
-        "CustomRotatedLatticeBuilder",
-        IFactoryCreateFunction<CustomRotatedLatticeBuilder, ISampleBuilder>,
-        "2D lattice variants");
-
-    registerItem(
         "CustomMorphologyBuilder",
         IFactoryCreateFunction<CustomMorphologyBuilder, ISampleBuilder>,
         "Mixture of different particles a la IsGISAXS morphology file");
@@ -108,8 +110,6 @@ SampleBuilderFactory::SampleBuilderFactory()
         "RotatedPyramidsBuilder",
         IFactoryCreateFunction<RotatedPyramidsBuilder, ISampleBuilder>,
         "Rotated pyramids on top of substrate");
-
-    // --- CoreShell ---
 
     registerItem(
         "CoreShellParticleBuilder",
@@ -120,8 +120,6 @@ SampleBuilderFactory::SampleBuilderFactory()
         "CoreShellBoxRotateZandYBuilder",
         IFactoryCreateFunction<CoreShellBoxRotateZandYBuilder, ISampleBuilder>,
         "Rotation and translation of core shell box particle in 3 layers system.");
-
-    // ---
 
     registerItem(
         "SizeDistributionDAModelBuilder",
@@ -178,8 +176,6 @@ SampleBuilderFactory::SampleBuilderFactory()
         IFactoryCreateFunction<CosineRippleBuilder, ISampleBuilder>,
         "cosine ripple within the 1D-paracrystal model");
 
-    // --- compositions ---
-
     registerItem(
         "ParticleCompositionBuilder",
         IFactoryCreateFunction<ParticleCompositionBuilder, ISampleBuilder>,
@@ -210,8 +206,6 @@ SampleBuilderFactory::SampleBuilderFactory()
         IFactoryCreateFunction<BoxStackCompositionBuilder, ISampleBuilder>,
         "Two different boxes are first rotated and then composed, composition is then rotated.");
 
-    // ---
-
     registerItem(
         "ParticleInTheAirBuilder",
         IFactoryCreateFunction<ParticleInTheAirBuilder, ISampleBuilder>,
@@ -222,21 +216,24 @@ SampleBuilderFactory::SampleBuilderFactory()
         IFactoryCreateFunction<TransformBoxBuilder, ISampleBuilder>,
         "Rotated and translated box in 3 layer system");
 
-}
+    registerItem(
+        "LayersWithAbsorptionBuilder",
+        IFactoryCreateFunction<LayersWithAbsorptionBuilder, ISampleBuilder>,
+        "3 layer system with absorption");
 
+}
 
 ISample *SampleBuilderFactory::createSample(const std::string& name)
 {
     SampleBuilder_t builder(createItem(name));
     ISample *result = builder->buildSample();
-    result->setName(name);
+//    result->setName(name);
     return result;
 }
-
 
 SampleBuilder_t SampleBuilderFactory::createBuilder(const std::string& name)
 {
     SampleBuilder_t result(createItem(name));
-    result->setName(name);
+//    result->setName(name);
     return result;
 }

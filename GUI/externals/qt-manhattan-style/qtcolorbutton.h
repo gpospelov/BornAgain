@@ -44,7 +44,7 @@ class QTMANHATTANSTYLESHARED_EXPORT QtColorButton : public QToolButton
     Q_PROPERTY(QColor color READ color WRITE setColor)
 public:
     QtColorButton(QWidget *parent = 0);
-    ~QtColorButton();
+    virtual ~QtColorButton();
 
     bool isBackgroundCheckered() const;
     void setBackgroundCheckered(bool checkered);
@@ -60,13 +60,13 @@ public slots:
 signals:
     void colorChanged(const QColor &color);
 protected:
-    void paintEvent(QPaintEvent *event);
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
+    virtual void paintEvent(QPaintEvent *event);
+    virtual void mousePressEvent(QMouseEvent *event);
+    virtual void mouseMoveEvent(QMouseEvent *event);
 #ifndef QT_NO_DRAGANDDROP
-    void dragEnterEvent(QDragEnterEvent *event);
-    void dragLeaveEvent(QDragLeaveEvent *event);
-    void dropEvent(QDropEvent *event);
+    virtual void dragEnterEvent(QDragEnterEvent *event);
+    virtual void dragLeaveEvent(QDragLeaveEvent *event);
+    virtual void dropEvent(QDropEvent *event);
 #endif
 private:
     class QtColorButtonPrivate *d_ptr;

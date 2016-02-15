@@ -14,25 +14,29 @@
 // ************************************************************************** //
 
 #include "FormFactorRipple1.h"
+#include "BornAgainNamespace.h"
 #include "Numeric.h"
 #include "MathFunctions.h"
+#include "IntegratorComplex.h"
+
 #include <cmath>
-#include "MemberFunctionIntegrator.h"
-#include "MemberComplexFunctionIntegrator.h"
+
+using namespace  BornAgain;
 
 FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
     : m_width(width)
     , m_height(height)
     , m_length(length)
 {
-    setName("FormFactorRipple1");
+    setName(FFRipple1Type);
     check_initialization();
     init_parameters();
 
-    MemberComplexFunctionIntegrator<FormFactorRipple1>::mem_function p_mf =
-       & FormFactorRipple1::Integrand;
-    m_integrator =
-        new MemberComplexFunctionIntegrator<FormFactorRipple1>(p_mf, this);
+    mP_integrator = make_integrator_complex(this, &FormFactorRipple1::Integrand);
+}
+
+FormFactorRipple1::~FormFactorRipple1()
+{
 }
 
 bool FormFactorRipple1::check_initialization() const
@@ -53,35 +57,39 @@ bool FormFactorRipple1::check_initialization() const
 void FormFactorRipple1::init_parameters()
 {
     clearParameterPool();
-    registerParameter("width", &m_width, AttLimits::n_positive());
-    registerParameter("height", &m_height, AttLimits::n_positive());
-    registerParameter("length", &m_length, AttLimits::n_positive());
+    registerParameter(Width, &m_width, AttLimits::n_positive());
+    registerParameter(Height, &m_height, AttLimits::n_positive());
+    registerParameter(Length, &m_length, AttLimits::n_positive());
 }
 
 FormFactorRipple1 *FormFactorRipple1::clone() const
 {
-    FormFactorRipple1 *result = new FormFactorRipple1(m_length, m_width, m_height);
-    result->setName(getName());
-    return result;
+    return new FormFactorRipple1(m_length, m_width, m_height);
 }
 
+void FormFactorRipple1::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+double FormFactorRipple1::getRadius() const
+{
+    return ( m_width + m_length ) / 4.0;
+}
 
 //! Integrand for complex formfactor.
-
-complex_t FormFactorRipple1::Integrand(double Z, void* params) const
+complex_t FormFactorRipple1::Integrand(double Z) const
 {
-    (void)params;  // to avoid unused-variable warning
     complex_t iqZ = complex_t(0.0, 1.0)*m_q.z()*Z;
     complex_t aa = std::acos(2.0*Z/m_height - 1.0);
-    return std::exp(iqZ)*aa*MathFunctions::Sinc(aa*m_q.y()*m_width/(Units::PI2));
+    return std::exp(iqZ)*aa*MathFunctions::sinc(aa*m_q.y()*m_width/(Units::PI2));
 }
 
 //! Complex formfactor.
-
 complex_t FormFactorRipple1::evaluate_for_q(const cvector_t& q) const
 {
     m_q = q;
-    complex_t factor = m_length*MathFunctions::Sinc(m_q.x()*m_length*0.5)*m_width/Units::PI;
+    complex_t factor = m_length*MathFunctions::sinc(m_q.x()*m_length*0.5)*m_width/Units::PI;
     complex_t aaa = m_q.y()*m_width/(Units::PI2);
     complex_t aaa2 = aaa*aaa;
 
@@ -91,11 +99,9 @@ complex_t FormFactorRipple1::evaluate_for_q(const cvector_t& q) const
     else if (0.0==m_q.z() && 1.0 == aaa2)
         return factor*Units::PID4*m_height;
     else if (0.0==m_q.z())
-        return factor*Units::PID2*m_height*MathFunctions::Sinc(m_q.y()*m_width*0.5)/(1.0-aaa2);
+        return factor*Units::PID2*m_height*MathFunctions::sinc(m_q.y()*m_width*0.5)/(1.0-aaa2);
 
     // numerical integration otherwise
-    complex_t integral = m_integrator->integrate(0, m_height);
+    complex_t integral = mP_integrator->integrate(0, m_height);
     return factor*integral;
 }
-
-

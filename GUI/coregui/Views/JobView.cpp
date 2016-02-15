@@ -45,6 +45,7 @@ JobViewPrivate::JobViewPrivate(JobModel *jobModel, ProjectManager *projectManage
     : m_jobModel(jobModel)
     , m_jobSelector(0)
     , m_jobOutputDataWidget(0)
+    , m_jobRealTimeWidget(0)
     , m_progressBar(0)
     , m_projectManager(projectManager)
 {

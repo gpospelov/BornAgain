@@ -88,9 +88,9 @@ void register_Histogram1D_class(){
 
     { //::Histogram1D
         typedef bp::class_< Histogram1D_wrapper, bp::bases< IHistogram >, std::auto_ptr< Histogram1D_wrapper >, boost::noncopyable > Histogram1D_exposer_t;
-        Histogram1D_exposer_t Histogram1D_exposer = Histogram1D_exposer_t( "Histogram1D", bp::init< int, double, double >(( bp::arg("nbinsx"), bp::arg("xlow"), bp::arg("xup") ), "Constructor for fix bin size histograms. @param nbinsx number of bins @param xlow low edge of the first bin @param xup upper edge of the last bin \n\n:Parameters:\n  - 'nbinsx' - number of bins\n  - 'xlow' - low edge of the first bin\n  - 'xup' - upper edge of the last bin\n") );
+        Histogram1D_exposer_t Histogram1D_exposer = Histogram1D_exposer_t( "Histogram1D", bp::init< int, double, double >(( bp::arg("nbinsx"), bp::arg("xlow"), bp::arg("xup") ), "Constructor for fix bin size histograms.\n\n:Parameters:\n  - 'nbinsx' - number of bins\n  - 'xlow' - low edge of the first bin\n  - 'xup' - upper edge of the last bin\n") );
         bp::scope Histogram1D_scope( Histogram1D_exposer );
-        Histogram1D_exposer.def( bp::init< int, std::vector< double > const & >(( bp::arg("nbinsx"), bp::arg("xbins") ), "Constructor for variable bin size histograms. @param nbinsx number of bins @param xbins Array of size nbins+1 containing low-edges for each bin and upper edge of last bin. \n\n:Parameters:\n  - 'nbinsx' - number of bins\n  - 'xbins' - Array of size nbins+1 containing low-edges for each\n") );
+        Histogram1D_exposer.def( bp::init< int, std::vector< double > const & >(( bp::arg("nbinsx"), bp::arg("xbins") ), "Constructor for variable bin size histograms.\n\n:Parameters:\n  - 'nbinsx' - number of bins\n  - 'xbins' - Array of size nbins+1 containing low-edges for each\n") );
         Histogram1D_exposer.def( bp::init< IAxis const & >(( bp::arg("axis") ), "Constructor for 1D histogram with custom axis.") );
         Histogram1D_exposer.def( bp::init< OutputData< double > const & >(( bp::arg("data") ), "Constructor for 1D histograms from basic OutputData object.") );
         { //::Histogram1D::clone

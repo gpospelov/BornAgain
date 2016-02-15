@@ -14,28 +14,24 @@
 // ************************************************************************** //
 
 #include "Layer.h"
+#include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "DecoratedLayerDWBASimulation.h"
 #include "MultiLayer.h"
 
 #include <iomanip>
 
+using namespace BornAgain;
 
-Layer::Layer()
-    : m_thickness(0)
-    , mp_material(0)
+Layer::Layer() : m_thickness(0), mp_material(0)
 {
-    setName("Layer");
-    init_parameters();
+    initialize();
 }
 
-Layer::Layer(const IMaterial &material, double thickness)
-    : m_thickness(thickness)
-    , mp_material(0)
+Layer::Layer(const IMaterial &material, double thickness) : m_thickness(thickness), mp_material(0)
 {
-    setName("Layer");
     setMaterial(material);
-    init_parameters();
+    initialize();
 }
 
 Layer::Layer(const Layer& other) : ICompositeSample()
@@ -46,14 +42,18 @@ Layer::Layer(const Layer& other) : ICompositeSample()
     for (size_t i=0; i<other.getNumberOfLayouts();++i) {
         addLayoutPtr(other.getLayout(i)->clone());
     }
-    setName(other.getName());
     setNumberOfLayers(other.getNumberOfLayers());
-    init_parameters();
+    initialize();
 }
 
 Layer::~Layer()
 {
     delete mp_material;
+}
+
+Layer *Layer::clone() const
+{
+    return new Layer(*this);
 }
 
 Layer* Layer::cloneInvertB() const
@@ -64,17 +64,14 @@ Layer* Layer::cloneInvertB() const
         p_clone->addLayoutPtr(getLayout(i)->cloneInvertB());
     }
     p_clone->m_thickness = this->m_thickness;
-    std::string clone_name = this->getName() + "_inv";
-    p_clone->setName(clone_name);
     p_clone->setNumberOfLayers(getNumberOfLayers());
     p_clone->init_parameters();
     return p_clone;
 }
 
-void Layer::init_parameters()
+void Layer::accept(ISampleVisitor *visitor) const
 {
-    clearParameterPool();
-    registerParameter("thickness", &m_thickness);
+    visitor->visit(this);
 }
 
 //! Sets layer thickness in nanometers.
@@ -83,6 +80,11 @@ void Layer::setThickness(double thickness)
     if (thickness < 0.)
         throw DomainErrorException("Layer thickness cannot be negative");
     m_thickness = thickness;
+}
+
+double Layer::getThickness() const
+{
+    return m_thickness;
 }
 
 //! Sets _material_ of the layer.
@@ -98,12 +100,20 @@ void Layer::setMaterialAndThickness(const IMaterial &material, double thickness)
     setThickness(thickness);
 }
 
-void Layer::addLayoutPtr(ILayout *layout)
+const IMaterial *Layer::getMaterial() const
 {
-    if( !layout ) return;
+    return mp_material;
+}
 
-    m_layouts.push_back(layout);
-    registerChild(layout);
+complex_t Layer::getRefractiveIndex() const
+{
+    return (mp_material ? mp_material->getRefractiveIndex()
+                        : complex_t(1.0,0.0));
+}
+
+complex_t Layer::getRefractiveIndex2() const
+{
+    return getRefractiveIndex()*getRefractiveIndex();
 }
 
 void Layer::addLayout(const ILayout &decoration)
@@ -111,11 +121,17 @@ void Layer::addLayout(const ILayout &decoration)
     addLayoutPtr(decoration.clone());
 }
 
-//! Prints description.
-void Layer::print(std::ostream& ostr) const
+const ILayout *Layer::getLayout(size_t i) const
 {
-    ICompositeSample::print(ostr);
-    ostr << "-->Layer{" <<  *getMaterial() << "}";
+    if (i>=m_layouts.size()) {
+        return 0;
+    }
+    return m_layouts[i];
+}
+
+bool Layer::hasDWBASimulation() const
+{
+    return (m_layouts.size()>0);
 }
 
 LayerDWBASimulation *Layer::createLayoutSimulation(size_t layout_index) const
@@ -124,6 +140,14 @@ LayerDWBASimulation *Layer::createLayoutSimulation(size_t layout_index) const
         return 0;
     }
     return new DecoratedLayerDWBASimulation(this, layout_index);
+}
+
+double Layer::getTotalParticleSurfaceDensity(size_t layout_index) const
+{
+    if (getNumberOfLayouts()==0 || layout_index>=getNumberOfLayouts()) {
+        return 0.0;
+    }
+    return getLayout(layout_index)->getTotalParticleSurfaceDensity();
 }
 
 double Layer::getTotalAbundance() const
@@ -135,3 +159,39 @@ double Layer::getTotalAbundance() const
     return total_abundance;
 }
 
+void Layer::setNumberOfLayers(size_t n_layers)
+{
+    mn_layers = n_layers;
+}
+
+size_t Layer::getNumberOfLayers() const
+{
+    return mn_layers;
+}
+
+void Layer::init_parameters()
+{
+    clearParameterPool();
+    registerParameter(Thickness, &m_thickness);
+}
+
+//! Prints description.
+void Layer::print(std::ostream& ostr) const
+{
+    ICompositeSample::print(ostr);
+    ostr << "-->Layer{" <<  *getMaterial() << "}";
+}
+
+void Layer::addLayoutPtr(ILayout *layout)
+{
+    if( !layout ) return;
+
+    m_layouts.push_back(layout);
+    registerChild(layout);
+}
+
+void Layer::initialize()
+{
+    setName(LayerType);
+    init_parameters();
+}

@@ -88,15 +88,18 @@ public:
 class SincXSincYFunctionObject : public IFunctionObject
 {
 public:
-    double operator()(const double *xx, const double *pars )
+    double operator()(const double *, const double * )
     {
-        const double x = xx[0];
-        const double y = xx[1];
-        const double p0=pars[0];
-        const double p1=pars[1];
-        const double p2=pars[2];
-        double value = p0 * MathFunctions::Sinc(x-p1) * MathFunctions::Sinc(y-p2);
-        return value;
+//        throw Exceptions::NotImplementedException("Cleanup the code!");
+//        const double x = xx[0];
+//        const double y = xx[1];
+//        const double p0=pars[0];
+//        const double p1=pars[1];
+//        const double p2=pars[2];
+////        double value = p0 * MathFunctions::Sinc(x-p1) * MathFunctions::Sinc(y-p2);
+//        return value;
+        throw Exceptions::NotImplementedException("Cleanup the code!");
+
     }
 };
 

@@ -59,6 +59,26 @@ double Rectangle::getArea() const
     return (m_xup-m_xlow)*(m_yup-m_ylow);
 }
 
+double Rectangle::getXlow() const
+{
+    return m_xlow;
+}
+
+double Rectangle::getYlow() const
+{
+    return m_ylow;
+}
+
+double Rectangle::getXup() const
+{
+    return m_xup;
+}
+
+double Rectangle::getYup() const
+{
+    return m_yup;
+}
+
 Rectangle::Rectangle(const Rectangle &other)
     : m_xlow(other.m_xlow)
     , m_ylow(other.m_ylow)

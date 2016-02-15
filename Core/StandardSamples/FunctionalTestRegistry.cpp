@@ -28,6 +28,13 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "FormFactorsRegistry",
         2e-10);
 
+    add("FormFactorsAbs",
+        "Test of all form factors defined, absorption case",
+        "MiniGISAS_v2",
+        "LayersWithAbsorptionBuilder",
+        "FormFactorsRegistry",
+        2e-10);
+
     add("CylindersAndPrisms",
         "Mixture of cylinders and prisms without interference",
         "MiniGISAS",
@@ -53,6 +60,13 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "Interference function of 2D hexagonal paracrystal",
         "MiniGISAS",
         "HexParaCrystalBuilder",
+        "None",
+        2e-10);
+
+    add("Lattice1D",
+        "Interference function of 21D lattice",
+        "MiniGISAS",
+        "Lattice1DBuilder",
         "None",
         2e-10);
 
@@ -266,6 +280,53 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "TransformBoxBuilder",
         "None",
         1e-10);
+
+    // Masking
+
+    add("SimulationWithMasks",
+        "Various masks are added to the simulation",
+        "GISASWithMasks",
+        "CylindersAndPrismsBuilder",
+        "None",
+        1e-10);
+
+    // Various rectangular detector alignment
+
+    add("RectDetectorGeneric",
+        "Various masks are added to the simulation",
+        "RectDetectorGeneric",
+        "CylindersInBABuilder",
+        "None",
+        1e-10);
+
+    add("RectDetectorPerpToSample",
+        "Various masks are added to the simulation",
+        "RectDetectorPerpToSample",
+        "CylindersInBABuilder",
+        "None",
+        1e-10);
+
+    add("RectDetectorPerpToDirectBeam",
+        "Various masks are added to the simulation",
+        "RectDetectorPerpToDirectBeam",
+        "CylindersInBABuilder",
+        "None",
+        1e-10);
+
+    add("RectDetectorPerpToReflectedBeam",
+        "Various masks are added to the simulation",
+        "RectDetectorPerpToReflectedBeam",
+        "CylindersInBABuilder",
+        "None",
+        1e-10);
+
+    add("RectDetectorPerpToReflectedBeamDpos",
+        "Various masks are added to the simulation",
+        "RectDetectorPerpToReflectedBeamDpos",
+        "CylindersInBABuilder",
+        "None",
+        1e-10);
+
 
 }
 

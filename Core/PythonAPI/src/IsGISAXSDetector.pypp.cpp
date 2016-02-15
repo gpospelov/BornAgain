@@ -21,8 +21,6 @@ GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
-#include "__call_policies.pypp.hpp"
-#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "IsGISAXSDetector.pypp.h"
 
@@ -34,6 +32,13 @@ struct IsGISAXSDetector_wrapper : IsGISAXSDetector, bp::wrapper< IsGISAXSDetecto
     : IsGISAXSDetector( )
       , bp::wrapper< IsGISAXSDetector >(){
         // null constructor
+    m_pyobj = 0;
+    }
+
+    IsGISAXSDetector_wrapper(::std::size_t n_phi, double phi_min, double phi_max, ::std::size_t n_alpha, double alpha_min, double alpha_max )
+    : IsGISAXSDetector( n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max )
+      , bp::wrapper< IsGISAXSDetector >(){
+        // constructor
     m_pyobj = 0;
     }
 
@@ -56,95 +61,52 @@ struct IsGISAXSDetector_wrapper : IsGISAXSDetector, bp::wrapper< IsGISAXSDetecto
         return IsGISAXSDetector::clone( );
     }
 
-    virtual bool areParametersChanged(  ) {
-        if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
-            return func_areParametersChanged(  );
+    virtual ::OutputData< double > * createDetectorMap( ::Beam const & beam, ::IDetector2D::EAxesUnits units_type ) const  {
+        if( bp::override func_createDetectorMap = this->get_override( "createDetectorMap" ) )
+            return func_createDetectorMap( boost::ref(beam), units_type );
         else{
-            return this->IParameterized::areParametersChanged(  );
+            return this->SphericalDetector::createDetectorMap( boost::ref(beam), units_type );
         }
     }
     
-    bool default_areParametersChanged(  ) {
-        return IParameterized::areParametersChanged( );
+    ::OutputData< double > * default_createDetectorMap( ::Beam const & beam, ::IDetector2D::EAxesUnits units_type ) const  {
+        return SphericalDetector::createDetectorMap( boost::ref(beam), units_type );
     }
 
-    virtual void clearParameterPool(  ) {
-        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
-            func_clearParameterPool(  );
+    virtual ::IDetector2D::EAxesUnits getDefaultAxesUnits(  ) const  {
+        if( bp::override func_getDefaultAxesUnits = this->get_override( "getDefaultAxesUnits" ) )
+            return func_getDefaultAxesUnits(  );
         else{
-            this->IParameterized::clearParameterPool(  );
+            return this->SphericalDetector::getDefaultAxesUnits(  );
         }
     }
     
-    void default_clearParameterPool(  ) {
-        IParameterized::clearParameterPool( );
+    ::IDetector2D::EAxesUnits default_getDefaultAxesUnits(  ) const  {
+        return SphericalDetector::getDefaultAxesUnits( );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) const  {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
+    virtual ::std::vector< IDetector2D::EAxesUnits > getValidAxesUnits(  ) const  {
+        if( bp::override func_getValidAxesUnits = this->get_override( "getValidAxesUnits" ) )
+            return func_getValidAxesUnits(  );
         else{
-            return this->IParameterized::createParameterTree(  );
+            return this->SphericalDetector::getValidAxesUnits(  );
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) const  {
-        return IParameterized::createParameterTree( );
+    ::std::vector< IDetector2D::EAxesUnits > default_getValidAxesUnits(  ) const  {
+        return SphericalDetector::getValidAxesUnits( );
     }
 
-    virtual void printParameters(  ) const  {
-        if( bp::override func_printParameters = this->get_override( "printParameters" ) )
-            func_printParameters(  );
+    virtual void init( ::Beam const & beam ) {
+        if( bp::override func_init = this->get_override( "init" ) )
+            func_init( boost::ref(beam) );
         else{
-            this->IParameterized::printParameters(  );
+            this->IDetector2D::init( boost::ref(beam) );
         }
     }
     
-    void default_printParameters(  ) const  {
-        IParameterized::printParameters( );
-    }
-
-    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
-        namespace bpl = boost::python;
-        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
-        }
-        else{
-            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
-        }
-    }
-    
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
-        if( dynamic_cast< IsGISAXSDetector_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-        else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-    }
-
-    virtual bool setParameterValue( ::std::string const & name, double value ) {
-        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
-            return func_setParameterValue( name, value );
-        else{
-            return this->IParameterized::setParameterValue( name, value );
-        }
-    }
-    
-    bool default_setParameterValue( ::std::string const & name, double value ) {
-        return IParameterized::setParameterValue( name, value );
-    }
-
-    virtual void setParametersAreChanged(  ) {
-        if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
-            func_setParametersAreChanged(  );
-        else{
-            this->IParameterized::setParametersAreChanged(  );
-        }
-    }
-    
-    void default_setParametersAreChanged(  ) {
-        IParameterized::setParametersAreChanged( );
+    void default_init( ::Beam const & beam ) {
+        IDetector2D::init( boost::ref(beam) );
     }
 
     PyObject* m_pyobj;
@@ -157,6 +119,7 @@ void register_IsGISAXSDetector_class(){
         typedef bp::class_< IsGISAXSDetector_wrapper, bp::bases< SphericalDetector >, std::auto_ptr< IsGISAXSDetector_wrapper > > IsGISAXSDetector_exposer_t;
         IsGISAXSDetector_exposer_t IsGISAXSDetector_exposer = IsGISAXSDetector_exposer_t( "IsGISAXSDetector", "A spherical detector used for validation with IsGISAXS results.", bp::init< >() );
         bp::scope IsGISAXSDetector_scope( IsGISAXSDetector_exposer );
+        IsGISAXSDetector_exposer.def( bp::init< std::size_t, double, double, std::size_t, double, double >(( bp::arg("n_phi"), bp::arg("phi_min"), bp::arg("phi_max"), bp::arg("n_alpha"), bp::arg("alpha_min"), bp::arg("alpha_max") )) );
         IsGISAXSDetector_exposer.def( bp::init< IsGISAXSDetector const & >(( bp::arg("other") )) );
         { //::IsGISAXSDetector::clone
         
@@ -181,83 +144,51 @@ void register_IsGISAXSDetector_class(){
                 , bp::return_self< >() );
         
         }
-        { //::IParameterized::areParametersChanged
+        { //::SphericalDetector::createDetectorMap
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( IsGISAXSDetector_wrapper::*default_areParametersChanged_function_type)(  ) ;
+            typedef ::OutputData< double > * ( ::SphericalDetector::*createDetectorMap_function_type)( ::Beam const &,::IDetector2D::EAxesUnits ) const;
+            typedef ::OutputData< double > * ( IsGISAXSDetector_wrapper::*default_createDetectorMap_function_type)( ::Beam const &,::IDetector2D::EAxesUnits ) const;
             
             IsGISAXSDetector_exposer.def( 
-                "areParametersChanged"
-                , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&IsGISAXSDetector_wrapper::default_areParametersChanged) );
-        
-        }
-        { //::IParameterized::clearParameterPool
-        
-            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( IsGISAXSDetector_wrapper::*default_clearParameterPool_function_type)(  ) ;
-            
-            IsGISAXSDetector_exposer.def( 
-                "clearParameterPool"
-                , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&IsGISAXSDetector_wrapper::default_clearParameterPool) );
-        
-        }
-        { //::IParameterized::createParameterTree
-        
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( IsGISAXSDetector_wrapper::*default_createParameterTree_function_type)(  ) const;
-            
-            IsGISAXSDetector_exposer.def( 
-                "createParameterTree"
-                , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&IsGISAXSDetector_wrapper::default_createParameterTree)
+                "createDetectorMap"
+                , createDetectorMap_function_type(&::SphericalDetector::createDetectorMap)
+                , default_createDetectorMap_function_type(&IsGISAXSDetector_wrapper::default_createDetectorMap)
+                , ( bp::arg("beam"), bp::arg("units_type") )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::IParameterized::printParameters
+        { //::SphericalDetector::getDefaultAxesUnits
         
-            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( IsGISAXSDetector_wrapper::*default_printParameters_function_type)(  ) const;
+            typedef ::IDetector2D::EAxesUnits ( ::SphericalDetector::*getDefaultAxesUnits_function_type)(  ) const;
+            typedef ::IDetector2D::EAxesUnits ( IsGISAXSDetector_wrapper::*default_getDefaultAxesUnits_function_type)(  ) const;
             
             IsGISAXSDetector_exposer.def( 
-                "printParameters"
-                , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&IsGISAXSDetector_wrapper::default_printParameters) );
+                "getDefaultAxesUnits"
+                , getDefaultAxesUnits_function_type(&::SphericalDetector::getDefaultAxesUnits)
+                , default_getDefaultAxesUnits_function_type(&IsGISAXSDetector_wrapper::default_getDefaultAxesUnits) );
         
         }
-        { //::IParameterized::registerParameter
+        { //::SphericalDetector::getValidAxesUnits
         
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
+            typedef ::std::vector< IDetector2D::EAxesUnits > ( ::SphericalDetector::*getValidAxesUnits_function_type)(  ) const;
+            typedef ::std::vector< IDetector2D::EAxesUnits > ( IsGISAXSDetector_wrapper::*default_getValidAxesUnits_function_type)(  ) const;
             
             IsGISAXSDetector_exposer.def( 
-                "registerParameter"
-                , default_registerParameter_function_type( &IsGISAXSDetector_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "main method to register data address in the pool." );
+                "getValidAxesUnits"
+                , getValidAxesUnits_function_type(&::SphericalDetector::getValidAxesUnits)
+                , default_getValidAxesUnits_function_type(&IsGISAXSDetector_wrapper::default_getValidAxesUnits) );
         
         }
-        { //::IParameterized::setParameterValue
+        { //::IDetector2D::init
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( IsGISAXSDetector_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef void ( ::IDetector2D::*init_function_type)( ::Beam const & ) ;
+            typedef void ( IsGISAXSDetector_wrapper::*default_init_function_type)( ::Beam const & ) ;
             
             IsGISAXSDetector_exposer.def( 
-                "setParameterValue"
-                , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&IsGISAXSDetector_wrapper::default_setParameterValue)
-                , ( bp::arg("name"), bp::arg("value") ) );
-        
-        }
-        { //::IParameterized::setParametersAreChanged
-        
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( IsGISAXSDetector_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
-            
-            IsGISAXSDetector_exposer.def( 
-                "setParametersAreChanged"
-                , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&IsGISAXSDetector_wrapper::default_setParametersAreChanged) );
+                "init"
+                , init_function_type(&::IDetector2D::init)
+                , default_init_function_type(&IsGISAXSDetector_wrapper::default_init)
+                , ( bp::arg("beam") ) );
         
         }
     }

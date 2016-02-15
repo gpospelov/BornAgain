@@ -6,6 +6,7 @@ import matplotlib
 from matplotlib import pyplot as plt
 import matplotlib.gridspec as gridspec
 import math
+import random
 from bornagain import *
 
 
@@ -61,7 +62,7 @@ def create_real_data(incident_alpha):
     for i in range(0, real_data.getTotalNumberOfBins()):
         amplitude = real_data.getBinContent(i)
         sigma = noise_factor*math.sqrt(amplitude)
-        noisy_amplitude = GenerateNormalRandom(amplitude, sigma)
+        noisy_amplitude = random.gauss(amplitude, sigma)
         if noisy_amplitude < 0.0:
             noisy_amplitude = 0.0
         real_data.setBinContent(i, noisy_amplitude)
@@ -147,9 +148,9 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*/FormFactorHemiEllipsoid/radius_a", 4.*nanometer, AttLimits.limited(2., 10.))
-    fit_suite.addFitParameter("*/FormFactorHemiEllipsoid/radius_b", 6.*nanometer, AttLimits.fixed())
-    fit_suite.addFitParameter("*/FormFactorHemiEllipsoid/height", 4.*nanometer, AttLimits.limited(2., 10.))
+    fit_suite.addFitParameter("*/HemiEllipsoid/RadiusX", 4.*nanometer, AttLimits.limited(2., 10.))
+    fit_suite.addFitParameter("*/HemiEllipsoid/RadiusY", 6.*nanometer, AttLimits.fixed())
+    fit_suite.addFitParameter("*/HemiEllipsoid/Height", 4.*nanometer, AttLimits.limited(2., 10.))
 
     # running fit
     fit_suite.runFit()

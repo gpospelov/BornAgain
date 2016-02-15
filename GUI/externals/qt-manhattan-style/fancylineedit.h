@@ -71,7 +71,7 @@ public:
     enum Side {Left = 0, Right = 1};
 
     explicit FancyLineEdit(QWidget *parent = 0);
-    ~FancyLineEdit();
+    virtual ~FancyLineEdit();
 
     QPixmap buttonPixmap(Side side) const;
     void setButtonPixmap(Side side, const QPixmap &pixmap);

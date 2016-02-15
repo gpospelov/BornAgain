@@ -30,7 +30,7 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetFixed)
     }
 
     OutputData<double> *clip = IntensityDataFunctions::createClippedDataSet(data, -5.0, 0.0, -1.5, 1.5);
-    std::vector<double> vref = boost::assign::list_of(0.0)(1.0)(3.0)(4.0)(6.0)(7.0)(9.0)(10.0);
+    std::vector<double> vref = {0.0, 1.0, 3.0, 4.0, 6.0, 7.0, 9.0, 10.0};
     EXPECT_EQ(clip->getAllocatedSize(), size_t(8));
     int index(0);
     for(size_t i=0; i<clip->getAllocatedSize(); ++i) {
@@ -56,7 +56,7 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetVariable)
     }
 
     OutputData<double> *clip = IntensityDataFunctions::createClippedDataSet(data, -0.5, 0.5, 0.99, 2.0);
-    std::vector<double> vref = boost::assign::list_of(6.0)(7.0)(10.0)(11.0);
+    std::vector<double> vref = {6.0, 7.0, 10.0, 11.0};
     EXPECT_EQ(clip->getAllocatedSize(), size_t(4));
     int index(0);
     for(size_t i=0; i<clip->getAllocatedSize(); ++i) {
@@ -93,9 +93,9 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetVariable)
 
 //    int index(0);
 
-//    std::vector<double> xref = boost::assign::list_of(-4.0)(-4.0)(-4.0)(-3.0)(-2.0)(-1.0)(0.0)(1.0)(2.0)(3.0);
-//    std::vector<double> yref = boost::assign::list_of(0.0)(1.0)(2.0)(2.0)(2.0)(2.0)(2.0)(2.0)(0.0)(0.0);
-//    std::vector<double> vref = boost::assign::list_of(0)(1)(2)(5)(8)(11)(14)(17)(18)(21);
+//    std::vector<double> xref = {-4.0, -4.0, -4.0, -3.0, -2.0, -1.0, 0.0, 1.0, 2.0, 3.0);
+//    std::vector<double> yref = {0.0, 1.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 0.0, 0.0);
+//    std::vector<double> vref = {0, 1, 2, 5, 8, 11, 14, 17, 18, 21);
 //    for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
 //        double x = data.getAxisValue(it.getIndex(), "x");
 //        double y = data.getAxisValue(it.getIndex(), "y");
@@ -127,9 +127,9 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetVariable)
 
 //    int index(0);
 
-//    std::vector<double> xref = boost::assign::list_of(-4.0)(-4.0)(-4.0)(-3.0)(-2.0)(-1.0)(0.0)(1.0)(2.0)(3.0);
-//    std::vector<double> yref = boost::assign::list_of(0.0)(1.0)(2.0)(2.0)(2.0)(2.0)(2.0)(2.0)(0.0)(0.0);
-//    std::vector<double> vref = boost::assign::list_of(0)(1)(2)(5)(8)(11)(14)(17)(18)(21);
+//    std::vector<double> xref = {-4.0, -4.0, -4.0, -3.0, -2.0, -1.0, 0.0, 1.0, 2.0, 3.0);
+//    std::vector<double> yref = {0.0, 1.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 0.0, 0.0);
+//    std::vector<double> vref = {0, 1, 2, 5, 8, 11, 14, 17, 18, 21);
 //    for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
 //        double x = data.getValueOfAxis("x", it.getIndex());
 //        double y = data.getValueOfAxis("y", it.getIndex());

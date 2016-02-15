@@ -44,34 +44,22 @@ public:
     NodeEditorPort(QGraphicsItem *parent = 0, const QString &name = QString("unnamed"),
                    EPortDirection direction = INPUT, EPortType port_type = DEFAULT);
 
-    ~NodeEditorPort();
+    virtual ~NodeEditorPort();
 
     bool isOutput();
     bool isInput();
 
     QVector<NodeEditorConnection *> &connections();
 
-    const QString &portName() const
-    {
-        return m_name;
-    }
+    const QString &portName() const;
 
-    int type() const
-    {
-        return TYPE;
-    }
+    virtual int type() const;
 
     bool isConnected(NodeEditorPort *);
 
-    bool isConnected()
-    {
-        return m_connections.size();
-    }
+    bool isConnected();
 
-    EPortType getPortType() const
-    {
-        return m_port_type;
-    }
+    EPortType getPortType() const;
 
     static QColor getPortTypeColor(NodeEditorPort::EPortType port_type);
 
@@ -87,5 +75,25 @@ private:
     int m_margin;
     QVector<NodeEditorConnection *> m_connections;
 };
+
+inline const QString &NodeEditorPort::portName() const
+{
+    return m_name;
+}
+
+inline int NodeEditorPort::type() const
+{
+    return TYPE;
+}
+
+inline bool NodeEditorPort::isConnected()
+{
+    return m_connections.size();
+}
+
+inline NodeEditorPort::EPortType NodeEditorPort::getPortType() const
+{
+    return m_port_type;
+}
 
 #endif // NODEEDITORPORT_H

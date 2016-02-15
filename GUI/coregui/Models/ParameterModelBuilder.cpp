@@ -74,12 +74,9 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SessionModel *sampleMo
                 //                qDebug() << "       Items: i"<< i << propertyName <<
                 //                "subItems.size" << item->getSubItems().size();
 
-                PropertyAttribute prop_attribute = item->getPropertyAttribute(propertyName);
+                const PropertyAttribute &prop_attribute = item->getPropertyAttribute(propertyName);
 
-                if (prop_attribute.getAppearance() & PropertyAttribute::HIDDEN)
-                    continue;
-                if (prop_attribute.getAppearance() & PropertyAttribute::DISABLED)
-                    continue;
+                if (prop_attribute.isHidden() || prop_attribute.isDisabled()) continue;
 
                 // if(item->getPropertyAttribute(propertyName) & ParameterizedItem::HiddenProperty)
                 // continue;
@@ -109,11 +106,9 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SessionModel *sampleMo
                     for (int j = 0; j < childPropertyList.length(); ++j) {
                         QString childPropertyName = QString(childPropertyList[j]);
 
-                        PropertyAttribute prop_attribute
+                        const PropertyAttribute &prop_attribute
                             = subItem->getPropertyAttribute(childPropertyName);
-                        if (prop_attribute.getAppearance() & PropertyAttribute::HIDDEN)
-                            continue;
-                        if (prop_attribute.getAppearance() & PropertyAttribute::DISABLED)
+                        if (prop_attribute.isHidden() || prop_attribute.isDisabled())
                             continue;
 
                         QVariant childPropertyValue
@@ -133,7 +128,7 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SessionModel *sampleMo
                 }
             }
 
-            if (parentItem == NULL) {
+            if (parentItem == nullptr) {
                 parentItem = standardItem;
             } else {
                 InsertRowIntoItem(parentItem, standardItem);
@@ -217,7 +212,7 @@ void ParameterModelBuilder::InsertRowIntoItem(QStandardItem *parentItem,
                                               QStandardItem *childTitleItem,
                                               QStandardItem *childValueItem)
 {
-    if (childValueItem == NULL) {
+    if (childValueItem == nullptr) {
         childValueItem = new QStandardItem();
         childValueItem->setEditable(false);
         childTitleItem->setEditable(false);

@@ -90,7 +90,7 @@ complex_t BasicVector3D<complex_t>::magxy() const
 template<>
 double BasicVector3D<double>::phi() const
 {
-    return x() == 0.0 && y() == 0.0 ? 0.0 : std::atan2(y(),x());
+    return x() == 0.0 && y() == 0.0 ? 0.0 : std::atan2(-y(),x());
 }
 
 //! Returns polar angle.

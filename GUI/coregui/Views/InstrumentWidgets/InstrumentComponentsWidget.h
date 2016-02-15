@@ -34,12 +34,15 @@ public:
     void setBeamItem(BeamItem *beamItem);
     void setDetectorItem(DetectorItem *detectorItem);
 
+signals:
+    void extendedDetectorEditorRequest(DetectorItem *);
+
 private:
+    ColumnResizer *m_columnResizer;
     BeamEditorWidget *m_beamEditor;
     DetectorEditorWidget *m_detectorEditor;
     BeamItem *m_beamItem;
     DetectorItem *m_detectorItem;
-    ColumnResizer *m_columnResizer;
 };
 
 #endif

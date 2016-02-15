@@ -20,7 +20,7 @@
 #include "IParameterized.h"
 #include "AttLimits.h"
 
-#include <memory>
+#include <boost/scoped_ptr.hpp>
 #include <string>
 #include <vector>
 
@@ -39,7 +39,7 @@ public:
                           size_t nbr_samples, double xmin, double xmax);
 
     ParameterDistribution(const ParameterDistribution &other);
-    ~ParameterDistribution();
+    virtual ~ParameterDistribution();
 
     //! Overload assignment operator
     ParameterDistribution& operator=(const ParameterDistribution &other);
@@ -47,43 +47,33 @@ public:
     ParameterDistribution& linkParameter(std::string par_name);
 
     //! get the main parameter's name
-    std::string getMainParameterName() const {
-        return m_name;
-    }
+    std::string getMainParameterName() const;
 
     //! get number of samples for this distribution
-    size_t getNbrSamples() const {
-        return m_nbr_samples;
-    }
+    size_t getNbrSamples() const;
 
     //! get the sigma factor
-    double getSigmaFactor() const {
-        return m_sigma_factor;
-    }
+    double getSigmaFactor() const;
 
-    const IDistribution1D *getDistribution() const {
-        return mP_distribution.get();
-    }
+    const IDistribution1D *getDistribution() const;
 
     //! generate list of sampled values with their weight
     std::vector<ParameterSample> generateSamples() const;
 
     //! get list of linked parameter names
-    std::vector<std::string> getLinkedParameterNames() const {
-        return m_linked_par_names;
-    }
+    std::vector<std::string> getLinkedParameterNames() const;
 
-    AttLimits getLimits() const {return m_limits;}
+    AttLimits getLimits() const;
 
-    double getMinValue() const { return m_xmin; }
-    double getMaxValue() const { return m_xmax; }
+    double getMinValue() const;
+    double getMaxValue() const;
 
 protected:
     //! Registers some class members for later access via parameter pool
-    void init_parameters();
+    virtual void init_parameters();
 private:
     std::string m_name;
-    std::auto_ptr<IDistribution1D> mP_distribution;
+    boost::scoped_ptr<IDistribution1D> mP_distribution;
     size_t m_nbr_samples;
     double m_sigma_factor;
     std::vector<std::string> m_linked_par_names;
@@ -92,5 +82,44 @@ private:
     double m_xmax;
 };
 
+inline std::string ParameterDistribution::getMainParameterName() const
+{
+    return m_name;
+}
+
+inline size_t ParameterDistribution::getNbrSamples() const
+{
+    return m_nbr_samples;
+}
+
+inline double ParameterDistribution::getSigmaFactor() const
+{
+    return m_sigma_factor;
+}
+
+inline const IDistribution1D *ParameterDistribution::getDistribution() const
+{
+    return mP_distribution.get();
+}
+
+inline std::vector<std::string> ParameterDistribution::getLinkedParameterNames() const
+{
+    return m_linked_par_names;
+}
+
+inline AttLimits ParameterDistribution::getLimits() const
+{
+    return m_limits;
+}
+
+inline double ParameterDistribution::getMinValue() const
+{
+    return m_xmin;
+}
+
+inline double ParameterDistribution::getMaxValue() const
+{
+    return m_xmax;
+}
 
 #endif /* PARAMETERDISTRIBUTION_H_ */

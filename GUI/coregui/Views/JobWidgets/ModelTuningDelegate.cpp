@@ -88,6 +88,10 @@ double ModelTuningDelegate::SliderData::slider_to_value(int slider)
 ModelTuningDelegate::ModelTuningDelegate(QObject *parent)
     : QItemDelegate(parent)
     , m_valueColumn(1)
+    , m_slider(0)
+    , m_valueBox(0)
+    , m_contentWidget(0)
+    , m_contentLayout(0)
 {
 
 }
@@ -125,14 +129,14 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
                                            const QModelIndex &index) const
 {
     if (index.column() == m_valueColumn) {
-        if(index.parent().isValid() == false) return NULL;
+        if(index.parent().isValid() == false) return nullptr;
 
         double value = index.model()->data(index, Qt::EditRole).toDouble();
 
         m_current_link = index.model()->data(index, Qt::UserRole).value<ItemLink>();
 
         ParameterizedItem *item = m_current_link.getItem();
-        PropertyAttribute attribute = item->getPropertyAttribute(m_current_link.getPropertyName());
+        const PropertyAttribute &attribute = item->getPropertyAttribute(m_current_link.getPropertyName());
         AttLimits limits = attribute.getLimits();
 
         // initializing value box
@@ -238,7 +242,7 @@ void ModelTuningDelegate::setModelData(QWidget *editor,
         model->setData(index, m_valueBox->value());
         ItemLink link = model->data(index, Qt::UserRole).value<ItemLink>();
 
-        if(link.getItem() != NULL)
+        if(link.getItem() != nullptr)
         {
             qDebug() << "SampleTuningDelegate::setModelData() -> setting property " << link.getPropertyName();
             //link.getItem()->setRegisteredProperty(link.getPropertyName(), m_valueBox->value());

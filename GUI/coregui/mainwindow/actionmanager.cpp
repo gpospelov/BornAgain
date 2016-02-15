@@ -19,7 +19,9 @@
 #include "mainwindow_constants.h"
 #include "projectmanager.h"
 #include "stringutils.h"
+#include "UpdateNotifier.h"
 #include <QMenuBar>
+#include <QMenu>
 #include <QShortcut>
 #include <QSettings>
 #include <QFileInfo>
@@ -37,6 +39,7 @@ ActionManager::ActionManager(MainWindow *parent)
     , m_saveAsAction(0)
     , m_menuBar(0)
     , m_fileMenu(0)
+    , m_settingsMenu(0)
     , m_helpMenu(0)
     , m_runSimulationShortcut(0)
 {
@@ -54,44 +57,44 @@ void ActionManager::createActions()
     Q_ASSERT(projectManager);
 
     // new project action
-    QIcon icon = QIcon::fromTheme(QLatin1String("document-new"), QIcon(QLatin1String(Constants::ICON_NEWFILE)));
-    m_newAction = new QAction(icon, tr("&New Project"), m_mainWindow);
+//    QIcon icon = QIcon::fromTheme(QLatin1String("document-new"), QIcon(QLatin1String(Constants::ICON_NEWFILE)));
+    m_newAction = new QAction(tr("&New Project"), m_mainWindow);
     m_newAction->setShortcuts(QKeySequence::New);
     m_newAction->setStatusTip(tr("Create a new project"));
     connect(m_newAction, SIGNAL(triggered()), projectManager, SLOT(newProject()) );
 
     // open project action
-    icon = QIcon::fromTheme(QLatin1String("document-open"), QIcon(QLatin1String(Constants::ICON_OPENFILE)));
-    m_openAction = new QAction(icon, tr("&Open Project"), m_mainWindow);
+//    icon = QIcon::fromTheme(QLatin1String("document-open"), QIcon(QLatin1String(Constants::ICON_OPENFILE)));
+    m_openAction = new QAction(tr("&Open Project"), m_mainWindow);
     m_openAction->setShortcuts(QKeySequence::Open);
     m_openAction->setStatusTip(tr("Open an existing project"));
     connect(m_openAction, SIGNAL(triggered()), projectManager, SLOT(openProject()) );
 
     // save project action
-    icon = QIcon::fromTheme(QLatin1String("document-save"), QIcon(QLatin1String(Constants::ICON_SAVEFILE)));
-    m_saveAction = new QAction(icon, tr("&Save Project"), m_mainWindow);
+//    icon = QIcon::fromTheme(QLatin1String("document-save"), QIcon(QLatin1String(Constants::ICON_SAVEFILE)));
+    m_saveAction = new QAction(tr("&Save Project"), m_mainWindow);
     m_saveAction->setShortcuts(QKeySequence::Save);
     m_saveAction->setStatusTip(tr("Save project"));
     m_saveAction->setShortcutContext(Qt::ApplicationShortcut);
     connect(m_saveAction, SIGNAL(triggered()), projectManager, SLOT(saveProject()) );
 
     // save-as project action
-    icon = QIcon::fromTheme(QLatin1String("document-save-as"));
-    m_saveAsAction = new QAction(icon, tr("Save &As..."), m_mainWindow);
+//    icon = QIcon::fromTheme(QLatin1String("document-save-as"));
+    m_saveAsAction = new QAction(tr("Save &As..."), m_mainWindow);
     m_saveAsAction->setShortcuts(QKeySequence::SaveAs);
     m_saveAsAction->setStatusTip(tr("Save project under different name"));
     connect(m_saveAsAction, SIGNAL(triggered()), projectManager, SLOT(saveProjectAs()) );
 
     // exit application action
-    icon = QIcon::fromTheme(QLatin1String("application-exit"));
-    m_exitAction = new QAction(icon, tr("E&xit Application"), this);
+//    icon = QIcon::fromTheme(QLatin1String("application-exit"));
+    m_exitAction = new QAction(tr("E&xit Application"), this);
     m_exitAction->setShortcuts(QKeySequence::Quit);
     m_exitAction->setStatusTip(tr("Exit the application"));
     connect(m_exitAction, SIGNAL(triggered()), m_mainWindow, SLOT(close()));
 
     // about application action
-    icon = QIcon::fromTheme(QLatin1String("help-about"));
-    m_aboutAction = new QAction(icon, tr("About &BornAgain"), this);
+//    icon = QIcon::fromTheme(QLatin1String("help-about"));
+    m_aboutAction = new QAction(tr("About &BornAgain"), this);
     //m_aboutAction->setShortcuts(QKeySequence::HelpContents);
     m_aboutAction->setStatusTip(tr("About the application"));
     connect(m_aboutAction, SIGNAL(triggered()), m_mainWindow, SLOT(onAboutApplication()));
@@ -101,7 +104,7 @@ void ActionManager::createActions()
 
 void ActionManager::createMenus()
 {
-    m_menuBar = new QMenuBar; // No parent (System menu bar on Mac OS X)
+    m_menuBar = new QMenuBar(0); // No parent (System menu bar on Mac OS X)
 
     if (!Utils::HostOsInfo::isMacHost())
         m_mainWindow->setMenuBar(m_menuBar);
@@ -120,6 +123,12 @@ void ActionManager::createMenus()
 
     m_fileMenu->addSeparator();
     m_fileMenu->addAction(m_exitAction);
+
+    // Settings Menu
+    m_settingsMenu = new QMenu("Settings", m_mainWindow);
+    aboutToShowSettings(); // MacOS feature: action should exist already, otherwise menuBar will not add menu
+    connect(m_settingsMenu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowSettings()));
+    m_menuBar->addMenu(m_settingsMenu);
 
     // Help Menu
     m_helpMenu = m_menuBar->addMenu(tr("&Help"));
@@ -160,6 +169,25 @@ void ActionManager::aboutToShowRecentProjects()
 
 }
 
+void ActionManager::aboutToShowSettings()
+{
+    m_settingsMenu->clear();
+    QSettings settings;
+    settings.beginGroup(Constants::S_UPDATES);
+    QAction *action = m_settingsMenu->addAction(tr("Check for Updates"));
+    action->setCheckable(true);
+    action->setChecked(settings.value(Constants::S_CHECKFORUPDATES, false).toBool());
+    connect(action, SIGNAL(toggled(bool)), this, SLOT(toggleCheckForUpdates(bool)));
+    settings.endGroup();
+}
 
+void ActionManager::toggleCheckForUpdates(bool status)
+{
+    QSettings settings;
+    settings.beginGroup(Constants::S_UPDATES);
+    settings.setValue(Constants::S_CHECKFORUPDATES, status);
+    settings.endGroup();
+    m_mainWindow->getUpdateNotifier()->checkForUpdates();
+}
 
 

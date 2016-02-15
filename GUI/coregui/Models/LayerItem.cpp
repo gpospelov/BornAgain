@@ -24,7 +24,6 @@ const QString LayerItem::P_MATERIAL = "Material";
 LayerItem::LayerItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::LayerType, parent)
 {
-    setItemName(Constants::LayerType);
     registerProperty(P_THICKNESS, 0.0);
     registerProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
 

@@ -25,18 +25,24 @@ class ColumnResizer : public QObject
     Q_OBJECT
 public:
     ColumnResizer(QObject* parent = 0);
-    ~ColumnResizer();
+    virtual ~ColumnResizer();
 
     void addWidget(QWidget* widget);
     void addWidgetsFromLayout(QLayout*, int column);
     void addWidgetsFromGridLayout(QGridLayout*, int column);
     void addWidgetsFromFormLayout(QFormLayout*, QFormLayout::ItemRole role);
 
+    void dropWidgetsFromGridLayout(QGridLayout *layout);
+
+//public slots:
+//    void onObjectDestroyed(QObject *object);
+
 private slots:
     void updateWidth();
 
 protected:
-    bool eventFilter(QObject*, QEvent* event);
+    void removeWidget(QWidget* widget);
+    virtual bool eventFilter(QObject*, QEvent* event);
 
 private:
     ColumnResizerPrivate* const d;

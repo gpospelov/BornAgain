@@ -235,7 +235,7 @@ void DesignerScene::updateViews(const QModelIndex &parentIndex, IView *parentVie
     }
 }
 
-//! adds view for item, if it dosn't exists
+//! adds view for item, if it doesn't exists
 IView *DesignerScene::addViewForItem(ParameterizedItem *item)
 {
     qDebug() << "DesignerScene::addViewForItem() ->" << item->modelType();
@@ -316,7 +316,7 @@ void DesignerScene::deleteSelectedItems()
     }
 
     // deleting selected items on model side, corresponding views will be deleted automatically
-    // Since we don't know the order of items, we need this
+    // Since we don't know the order of items and their parent/child relationship, we need this
     while (indexes.size()) {
         m_sampleModel->removeRows(indexes.back().row(), 1, indexes.back().parent());
         indexes = m_selectionModel->selectedIndexes();
@@ -338,11 +338,9 @@ void DesignerScene::deleteSelectedItems()
 //! shows appropriate layer interface to drop while moving ILayerView
 void DesignerScene::drawForeground(QPainter *painter, const QRectF & /* rect */)
 {
-    ILayerView *layer = dynamic_cast<ILayerView *>(mouseGrabberItem());
-    if (layer && !m_layer_interface_line.isNull()) {
+    if (isLayerDragged()) {
         painter->setPen(QPen(Qt::darkBlue, 2, Qt::DashLine));
         painter->drawLine(m_layer_interface_line);
-        invalidate();
     }
 }
 
@@ -401,11 +399,11 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
         // * remove method MultiLayerView::itemChange
 
         if(isAcceptedByMultiLayer(mimeData, event)) {
-            // certain views can be droped on MultiLayer and so will be processed there
+            // certain views can be dropped on MultiLayer and so will be processed there
             QGraphicsScene::dropEvent(event);
 
         } else {
-            // other views can be droped on canvas anywhere
+            // other views can be dropped on canvas anywhere
             qDebug() << "DesignerScene::dropEvent() -> about to drop";
             if (SampleViewFactory::isValidItemName(mimeData->getClassName())) {
 
@@ -452,6 +450,14 @@ const DesignerMimeData *DesignerScene::checkDragEvent(QGraphicsSceneDragDropEven
     return mimeData;
 }
 
+void DesignerScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    if(isLayerDragged()) {
+        invalidate(); // to redraw vertical dashed line which denotes where to drag the layer
+    }
+    QGraphicsScene::mouseMoveEvent(event);
+}
+
 //! Returns true if there is MultiLayerView nearby during drag event.
 bool DesignerScene::isMultiLayerNearby(QGraphicsSceneDragDropEvent *event)
 {
@@ -485,6 +491,15 @@ bool DesignerScene::isAcceptedByMultiLayer(const DesignerMimeData *mimeData, QGr
 
     // layer can be inserted in MultiLayer
     if (mimeData->getClassName() == Constants::LayerType && isMultiLayerNearby(event)) {
+        return true;
+    }
+    return false;
+}
+
+bool DesignerScene::isLayerDragged() const
+{
+    ILayerView *layer = dynamic_cast<ILayerView *>(mouseGrabberItem());
+    if (layer && !m_layer_interface_line.isNull()) {
         return true;
     }
     return false;

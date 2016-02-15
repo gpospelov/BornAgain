@@ -95,7 +95,7 @@ if(BORNAGAIN_PYTHON)
 endif()
 
 if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
-    set(link_flags "-Wl,-rpath,@loader_path/../..")
+    set(link_flags "-Wl,-rpath,@loader_path/../../Frameworks")
     set_target_properties(${library_name}
         PROPERTIES
         LINK_FLAGS ${link_flags}
@@ -137,8 +137,7 @@ if(WIN32)
     endif()
 
     # system libraries
-    #set(boost_suffix "-vc110-mt-1_55.dll")
-    set(boost_suffix "-vc120-mt-1_58.dll")
+    set(boost_suffix "-vc120-mt-1_59.dll")
     
     install(FILES
     ${CMAKE_LIBRARY_PATH}/boost_date_time${boost_suffix}

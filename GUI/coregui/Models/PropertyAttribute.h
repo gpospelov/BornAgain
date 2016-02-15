@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/Models/PropertyAttribute.h
-//! @brief     Defines class ParticleLayoutItem
+//! @brief     Defines class PropertyAttribute
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,8 +20,6 @@
 #include <QString>
 #include "AttLimits.h"
 
-class QGraphicsItem;
-
 
 //! Class to handle visual appearance of ParameterizedItem's property in
 //! different kind of property editors.
@@ -34,39 +32,52 @@ public:
         READONLY = 0x0004
     };
 
-    explicit PropertyAttribute(EAppearance appearance=VISIBLE, const AttLimits &limits=AttLimits::lowerLimited(0.0), int decimals=2, const QString &label = QString())
-        : m_appearance(appearance)
-        , m_label(label)
-        , m_limits(limits)
-        , m_decimals(decimals){ }
+    explicit PropertyAttribute(EAppearance appearance = VISIBLE,
+                               const AttLimits &limits = AttLimits::lowerLimited(0.0),
+                               int decimals = 2, const QString &label = QString(),
+                               const QString &tooltip = QString());
 
-    explicit PropertyAttribute(const AttLimits &limits, int decimals=2)
-        : m_appearance(VISIBLE)
-        , m_label(QString())
-        , m_limits(limits)
-        , m_decimals(decimals){ }
+    explicit PropertyAttribute(const AttLimits &limits, int decimals=2);
 
-    static PropertyAttribute visibleProperty() { return PropertyAttribute(VISIBLE); }
-    static PropertyAttribute hiddenProperty() { return PropertyAttribute(HIDDEN); }
-    static PropertyAttribute disabledProperty() { return PropertyAttribute(DISABLED); }
+    static PropertyAttribute labeled(const QString &label);
 
-    EAppearance getAppearance() const { return m_appearance; }
-    void setAppearance(EAppearance appearance) { m_appearance = appearance; }
+    EAppearance getAppearance() const;
+    void setAppearance(EAppearance appearance);
 
-    QString getLabel() const { return m_label; }
-    void setLabel(const QString &label) { m_label = label; }
+    AttLimits getLimits() const;
+    PropertyAttribute& setLimits(const AttLimits &limits);
+    PropertyAttribute& lowerLimited(double value);
+    PropertyAttribute& upperLimited(double value);
+    PropertyAttribute& limited(double left_bound_value, double right_bound_value);
+    PropertyAttribute& limitless();
 
-    AttLimits getLimits() const {return m_limits;}
-    void setLimits(AttLimits limits) {m_limits = limits;}
+    int getDecimals() const;
+    PropertyAttribute& setDecimals(int decimals);
 
-    int getDecimals() const { return m_decimals; }
-    void setDecimals(int decimals) { m_decimals = decimals; }
+    QString getLabel() const;
+    PropertyAttribute& setLabel(const QString &label);
+
+    QString getToolTip() const;
+    PropertyAttribute& setToolTip(const QString &tooltip);
+
+    bool isVisible() const;
+    PropertyAttribute& setVisible();
+
+    bool isHidden() const;
+    PropertyAttribute& setHidden();
+
+    bool isDisabled() const;
+    PropertyAttribute& setDisabled();
+
+    bool isReadOnly() const;
+    PropertyAttribute& setReadOnly();
 
 private:
     EAppearance m_appearance;
-    QString m_label;
     AttLimits m_limits;
     int m_decimals; // number of digits
+    QString m_label;
+    QString m_tooltip;
 };
 
 

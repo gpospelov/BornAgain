@@ -34,40 +34,41 @@ public:
     virtual ~Beam() {}
 
     //! Get the value of the wavevector
-    cvector_t getCentralK() const;
+    kvector_t getCentralK() const;
 
     //! Sets the value of the incoming wavevector in terms of wavelength
     //! and incoming angles
     void setCentralK(double wavelength, double alpha_i, double phi_i);
 
     //! Gets the beam intensity in neutrons/sec
-    double getIntensity() const { return m_intensity; }
+    double getIntensity() const;
 
     //! Sets the beam intensity in neutrons/sec
-    void setIntensity(double intensity) { m_intensity = intensity; }
+    void setIntensity(double intensity);
 
     //! Sets the polarization density matrix according to the given Bloch vector
     void setPolarization(const kvector_t &bloch_vector);
 
 #ifndef GCCXML_SKIP_THIS
     //! Gets the polarization density matrix (in spin basis along z-axis)
-    Eigen::Matrix2cd getPolarization() const { return m_polarization; }
+    Eigen::Matrix2cd getPolarization() const;
 #endif
 
-    double getWavelength() const { return m_wavelength; }
-    double getAlpha() const { return m_alpha; }
-    double getPhi() const { return m_phi;}
+    double getWavelength() const;
+    double getAlpha() const;
+    double getPhi() const;
 
 protected:
     virtual void print(std::ostream& ostr) const;
+
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
 private:
-    //! swap function
+    //! Swap method.
     void swapContent(Beam& other);
 
-    //! Initialize polarization (for constructors)
+    //! Initialize polarization (for constructors).
     void initPolarization();
 
 #ifndef GCCXML_SKIP_THIS
@@ -80,5 +81,37 @@ private:
     Eigen::Matrix2cd m_polarization;     //!< polarization density matrix
 #endif
 };
+
+inline double Beam::getIntensity() const
+{
+    return m_intensity;
+}
+
+inline void Beam::setIntensity(double intensity)
+{
+    m_intensity = intensity;
+}
+
+#ifndef GCCXML_SKIP_THIS
+inline Eigen::Matrix2cd Beam::getPolarization() const
+{
+    return m_polarization;
+}
+#endif
+
+inline double Beam::getWavelength() const
+{
+    return m_wavelength;
+}
+
+inline double Beam::getAlpha() const
+{
+    return m_alpha;
+}
+
+inline double Beam::getPhi() const
+{
+    return m_phi;
+}
 
 #endif /* BEAM_H_ */

@@ -21,8 +21,6 @@ GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
-#include "__call_policies.pypp.hpp"
-#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "FormFactorSphereUniformRadius.pypp.h"
 
@@ -61,52 +59,16 @@ struct FormFactorSphereUniformRadius_wrapper : FormFactorSphereUniformRadius, bp
         return FormFactorSphereUniformRadius::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
         else{
-            return this->FormFactorSphereUniformRadius::getHeight(  );
+            return this->FormFactorSphereUniformRadius::getRadius(  );
         }
     }
     
-    double default_getHeight(  ) const  {
-        return FormFactorSphereUniformRadius::getHeight( );
-    }
-
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorSphereUniformRadius::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorSphereUniformRadius::getNumberOfStochasticParameters( );
-    }
-
-    virtual bool areParametersChanged(  ) {
-        if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
-            return func_areParametersChanged(  );
-        else{
-            return this->IParameterized::areParametersChanged(  );
-        }
-    }
-    
-    bool default_areParametersChanged(  ) {
-        return IParameterized::areParametersChanged( );
-    }
-
-    virtual void clearParameterPool(  ) {
-        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
-            func_clearParameterPool(  );
-        else{
-            this->IParameterized::clearParameterPool(  );
-        }
-    }
-    
-    void default_clearParameterPool(  ) {
-        IParameterized::clearParameterPool( );
+    double default_getRadius(  ) const  {
+        return FormFactorSphereUniformRadius::getRadius( );
     }
 
     virtual ::ISample * cloneInvertB(  ) const  {
@@ -133,18 +95,6 @@ struct FormFactorSphereUniformRadius_wrapper : FormFactorSphereUniformRadius, bp
         return ISample::containsMagneticMaterial( );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) const  {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
-        else{
-            return this->IParameterized::createParameterTree(  );
-        }
-    }
-    
-    ::ParameterPool * default_createParameterTree(  ) const  {
-        return IParameterized::createParameterTree( );
-    }
-
     virtual ::complex_t evaluate( ::WavevectorInfo const & wavevectors ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(wavevectors) );
@@ -157,64 +107,28 @@ struct FormFactorSphereUniformRadius_wrapper : FormFactorSphereUniformRadius, bp
         return IFormFactorBorn::evaluate( boost::ref(wavevectors) );
     }
 
-    virtual ::ICompositeSample * getCompositeSample(  ) {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
+    virtual ::std::vector< const ISample* > getChildren(  ) const  {
+        if( bp::override func_getChildren = this->get_override( "getChildren" ) )
+            return func_getChildren(  );
         else{
-            return this->ISample::getCompositeSample(  );
+            return this->ISample::getChildren(  );
         }
     }
     
-    ::ICompositeSample * default_getCompositeSample(  ) {
-        return ISample::getCompositeSample( );
-    }
-
-    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ISample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample const * default_getCompositeSample(  ) const  {
-        return ISample::getCompositeSample( );
-    }
-
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else{
-            return this->IFormFactor::getRadius(  );
-        }
-    }
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
+    ::std::vector< const ISample* > default_getChildren(  ) const  {
+        return ISample::getChildren( );
     }
 
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
         else{
-            return this->IFormFactorBorn::getVolume(  );
+            return this->IFormFactor::getVolume(  );
         }
     }
     
     double default_getVolume(  ) const  {
-        return IFormFactorBorn::getVolume( );
-    }
-
-    virtual void printParameters(  ) const  {
-        if( bp::override func_printParameters = this->get_override( "printParameters" ) )
-            func_printParameters(  );
-        else{
-            this->IParameterized::printParameters(  );
-        }
-    }
-    
-    void default_printParameters(  ) const  {
-        IParameterized::printParameters( );
+        return IFormFactor::getVolume( );
     }
 
     virtual void printSampleTree(  ) {
@@ -229,59 +143,28 @@ struct FormFactorSphereUniformRadius_wrapper : FormFactorSphereUniformRadius, bp
         ISample::printSampleTree( );
     }
 
-    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
-        namespace bpl = boost::python;
-        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
-        }
-        else{
-            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
-        }
-    }
-    
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
-        if( dynamic_cast< FormFactorSphereUniformRadius_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-        else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-    }
-
-    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+    virtual void setAmbientMaterial( ::IMaterial const & arg0 ) {
         if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
-            func_setAmbientMaterial( boost::ref(material) );
+            func_setAmbientMaterial( boost::ref(arg0) );
         else{
-            this->IFormFactor::setAmbientMaterial( boost::ref(material) );
+            this->IFormFactor::setAmbientMaterial( boost::ref(arg0) );
         }
     }
     
-    void default_setAmbientMaterial( ::IMaterial const & material ) {
-        IFormFactor::setAmbientMaterial( boost::ref(material) );
+    void default_setAmbientMaterial( ::IMaterial const & arg0 ) {
+        IFormFactor::setAmbientMaterial( boost::ref(arg0) );
     }
 
-    virtual bool setParameterValue( ::std::string const & name, double value ) {
-        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
-            return func_setParameterValue( name, value );
+    virtual ::std::size_t size(  ) const  {
+        if( bp::override func_size = this->get_override( "size" ) )
+            return func_size(  );
         else{
-            return this->IParameterized::setParameterValue( name, value );
+            return this->ISample::size(  );
         }
     }
     
-    bool default_setParameterValue( ::std::string const & name, double value ) {
-        return IParameterized::setParameterValue( name, value );
-    }
-
-    virtual void setParametersAreChanged(  ) {
-        if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
-            func_setParametersAreChanged(  );
-        else{
-            this->IParameterized::setParametersAreChanged(  );
-        }
-    }
-    
-    void default_setParametersAreChanged(  ) {
-        IParameterized::setParametersAreChanged( );
+    ::std::size_t default_size(  ) const  {
+        return ISample::size( );
     }
 
     virtual void transferToCPP(  ) {
@@ -342,48 +225,15 @@ void register_FormFactorSphereUniformRadius_class(){
                 , ( bp::arg("q") ) );
         
         }
-        { //::FormFactorSphereUniformRadius::getHeight
+        { //::FormFactorSphereUniformRadius::getRadius
         
-            typedef double ( ::FormFactorSphereUniformRadius::*getHeight_function_type)(  ) const;
-            typedef double ( FormFactorSphereUniformRadius_wrapper::*default_getHeight_function_type)(  ) const;
+            typedef double ( ::FormFactorSphereUniformRadius::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorSphereUniformRadius_wrapper::*default_getRadius_function_type)(  ) const;
             
             FormFactorSphereUniformRadius_exposer.def( 
-                "getHeight"
-                , getHeight_function_type(&::FormFactorSphereUniformRadius::getHeight)
-                , default_getHeight_function_type(&FormFactorSphereUniformRadius_wrapper::default_getHeight) );
-        
-        }
-        { //::FormFactorSphereUniformRadius::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorSphereUniformRadius::*getNumberOfStochasticParameters_function_type)(  ) const;
-            typedef int ( FormFactorSphereUniformRadius_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
-            
-            FormFactorSphereUniformRadius_exposer.def( 
-                "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorSphereUniformRadius::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorSphereUniformRadius_wrapper::default_getNumberOfStochasticParameters) );
-        
-        }
-        { //::IParameterized::areParametersChanged
-        
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( FormFactorSphereUniformRadius_wrapper::*default_areParametersChanged_function_type)(  ) ;
-            
-            FormFactorSphereUniformRadius_exposer.def( 
-                "areParametersChanged"
-                , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&FormFactorSphereUniformRadius_wrapper::default_areParametersChanged) );
-        
-        }
-        { //::IParameterized::clearParameterPool
-        
-            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( FormFactorSphereUniformRadius_wrapper::*default_clearParameterPool_function_type)(  ) ;
-            
-            FormFactorSphereUniformRadius_exposer.def( 
-                "clearParameterPool"
-                , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&FormFactorSphereUniformRadius_wrapper::default_clearParameterPool) );
+                "getRadius"
+                , getRadius_function_type(&::FormFactorSphereUniformRadius::getRadius)
+                , default_getRadius_function_type(&FormFactorSphereUniformRadius_wrapper::default_getRadius) );
         
         }
         { //::ISample::cloneInvertB
@@ -409,18 +259,6 @@ void register_FormFactorSphereUniformRadius_class(){
                 , default_containsMagneticMaterial_function_type(&FormFactorSphereUniformRadius_wrapper::default_containsMagneticMaterial) );
         
         }
-        { //::IParameterized::createParameterTree
-        
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( FormFactorSphereUniformRadius_wrapper::*default_createParameterTree_function_type)(  ) const;
-            
-            FormFactorSphereUniformRadius_exposer.def( 
-                "createParameterTree"
-                , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&FormFactorSphereUniformRadius_wrapper::default_createParameterTree)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
         { //::IFormFactorBorn::evaluate
         
             typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type)( ::WavevectorInfo const & ) const;
@@ -433,61 +271,26 @@ void register_FormFactorSphereUniformRadius_class(){
                 , ( bp::arg("wavevectors") ) );
         
         }
-        { //::ISample::getCompositeSample
+        { //::ISample::getChildren
         
-            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type)(  ) ;
-            typedef ::ICompositeSample * ( FormFactorSphereUniformRadius_wrapper::*default_getCompositeSample_function_type)(  ) ;
+            typedef ::std::vector< const ISample* > ( ::ISample::*getChildren_function_type)(  ) const;
+            typedef ::std::vector< const ISample* > ( FormFactorSphereUniformRadius_wrapper::*default_getChildren_function_type)(  ) const;
             
             FormFactorSphereUniformRadius_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorSphereUniformRadius_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                "getChildren"
+                , getChildren_function_type(&::ISample::getChildren)
+                , default_getChildren_function_type(&FormFactorSphereUniformRadius_wrapper::default_getChildren) );
         
         }
-        { //::ISample::getCompositeSample
+        { //::IFormFactor::getVolume
         
-            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type)(  ) const;
-            typedef ::ICompositeSample const * ( FormFactorSphereUniformRadius_wrapper::*default_getCompositeSample_function_type)(  ) const;
-            
-            FormFactorSphereUniformRadius_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorSphereUniformRadius_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IFormFactor::getRadius
-        
-            typedef double ( ::IFormFactor::*getRadius_function_type)(  ) const;
-            typedef double ( FormFactorSphereUniformRadius_wrapper::*default_getRadius_function_type)(  ) const;
-            
-            FormFactorSphereUniformRadius_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorSphereUniformRadius_wrapper::default_getRadius) );
-        
-        }
-        { //::IFormFactorBorn::getVolume
-        
-            typedef double ( ::IFormFactorBorn::*getVolume_function_type)(  ) const;
+            typedef double ( ::IFormFactor::*getVolume_function_type)(  ) const;
             typedef double ( FormFactorSphereUniformRadius_wrapper::*default_getVolume_function_type)(  ) const;
             
             FormFactorSphereUniformRadius_exposer.def( 
                 "getVolume"
-                , getVolume_function_type(&::IFormFactorBorn::getVolume)
+                , getVolume_function_type(&::IFormFactor::getVolume)
                 , default_getVolume_function_type(&FormFactorSphereUniformRadius_wrapper::default_getVolume) );
-        
-        }
-        { //::IParameterized::printParameters
-        
-            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( FormFactorSphereUniformRadius_wrapper::*default_printParameters_function_type)(  ) const;
-            
-            FormFactorSphereUniformRadius_exposer.def( 
-                "printParameters"
-                , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&FormFactorSphereUniformRadius_wrapper::default_printParameters) );
         
         }
         { //::ISample::printSampleTree
@@ -501,17 +304,6 @@ void register_FormFactorSphereUniformRadius_class(){
                 , default_printSampleTree_function_type(&FormFactorSphereUniformRadius_wrapper::default_printSampleTree) );
         
         }
-        { //::IParameterized::registerParameter
-        
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
-            
-            FormFactorSphereUniformRadius_exposer.def( 
-                "registerParameter"
-                , default_registerParameter_function_type( &FormFactorSphereUniformRadius_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "main method to register data address in the pool." );
-        
-        }
         { //::IFormFactor::setAmbientMaterial
         
             typedef void ( ::IFormFactor::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
@@ -521,30 +313,18 @@ void register_FormFactorSphereUniformRadius_class(){
                 "setAmbientMaterial"
                 , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
                 , default_setAmbientMaterial_function_type(&FormFactorSphereUniformRadius_wrapper::default_setAmbientMaterial)
-                , ( bp::arg("material") ) );
+                , ( bp::arg("arg0") ) );
         
         }
-        { //::IParameterized::setParameterValue
+        { //::ISample::size
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( FormFactorSphereUniformRadius_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef ::std::size_t ( ::ISample::*size_function_type)(  ) const;
+            typedef ::std::size_t ( FormFactorSphereUniformRadius_wrapper::*default_size_function_type)(  ) const;
             
             FormFactorSphereUniformRadius_exposer.def( 
-                "setParameterValue"
-                , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&FormFactorSphereUniformRadius_wrapper::default_setParameterValue)
-                , ( bp::arg("name"), bp::arg("value") ) );
-        
-        }
-        { //::IParameterized::setParametersAreChanged
-        
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( FormFactorSphereUniformRadius_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
-            
-            FormFactorSphereUniformRadius_exposer.def( 
-                "setParametersAreChanged"
-                , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&FormFactorSphereUniformRadius_wrapper::default_setParametersAreChanged) );
+                "size"
+                , size_function_type(&::ISample::size)
+                , default_size_function_type(&FormFactorSphereUniformRadius_wrapper::default_size) );
         
         }
         { //::ICloneable::transferToCPP

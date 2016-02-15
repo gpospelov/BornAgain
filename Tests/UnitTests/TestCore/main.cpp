@@ -27,7 +27,6 @@
 #include "ThreadInfoTest.h"
 #include "ParticleCompositionTest.h"
 #include "LayerRoughnessTest.h"
-#include "ParticleInfoTest.h"
 #include "LLDataTest.h"
 #include "TRangeTest.h"
 #include "FTDistributionsTest.h"
@@ -40,7 +39,6 @@
 #include "MatrixRTCoefficientsTest.h"
 #include "ScalarSpecularInfoMapTest.h"
 #include "MatrixSpecularInfoMapTest.h"
-#include "MathFunctionsTest.h"
 #include "FixedBinAxisTest.h"
 #include "VariableBinAxisTest.h"
 #include "ConstKBinAxisTest.h"
@@ -56,7 +54,8 @@
 #include "PolygonTest.h"
 #include "DetectorMaskTest.h"
 #include "Shape2DTest.h"
-
+#include "RectangularDetectorTest.h"
+#include "SpecialFunctionsTest.h"
 
 
 struct ErrorStreamRedirect {
@@ -84,4 +83,3 @@ int main(int argc, char** argv)
     // run all google tests
     return RUN_ALL_TESTS();
 }
-

@@ -22,7 +22,7 @@ namespace Constants {
 
 // --- Items -------------------------------------------------------------------
 
-typedef QString ModelType;
+using ModelType = QString;
 
 const ModelType LayerType = "Layer";
 const ModelType MultiLayerType = "MultiLayer";
@@ -32,9 +32,10 @@ const ModelType ParticleCoreShellType = "ParticleCoreShell";
 const ModelType ParticleDistributionType = "ParticleDistribution";
 const ModelType ParticleCompositionType = "ParticleComposition";
 const ModelType TransformationType = "Rotation";
-const ModelType InterferenceFunctionRadialParaCrystalType = "InterferenceFunctionRadialParaCrystal";
-const ModelType InterferenceFunction2DParaCrystalType = "InterferenceFunction2DParaCrystal";
-const ModelType InterferenceFunction2DLatticeType = "InterferenceFunction2DLattice";
+const ModelType InterferenceFunctionRadialParaCrystalType = "InterferenceRadialParaCrystal";
+const ModelType InterferenceFunction2DParaCrystalType = "Interference2DParaCrystal";
+const ModelType InterferenceFunction1DLatticeType = "Interference1DLattice";
+const ModelType InterferenceFunction2DLatticeType = "Interference2DLattice";
 const ModelType InstrumentType = "Instrument";
 const ModelType DetectorType = "Detector";
 const ModelType BeamType = "Beam";
@@ -70,7 +71,8 @@ const ModelType VectorType = "Vector";
 const ModelType LayerBasicRoughnessType = "LayerBasicRoughness";
 const ModelType LayerZeroRoughnessType = "LayerZeroRoughness";
 
-const ModelType PhiAlphaDetectorType = "PhiAlphaDetector";
+const ModelType SphericalDetectorType = "SphericalDetector";
+const ModelType RectangularDetectorType = "RectangularDetector";
 
 const ModelType DistributionNoneType = "DistributionNone";
 const ModelType DistributionGateType = "DistributionGate";
@@ -91,6 +93,15 @@ const ModelType FTDistribution2DGaussType = "FTDistribution2DGauss";
 const ModelType FTDistribution2DGateType = "FTDistribution2DGate";
 const ModelType FTDistribution2DConeType = "FTDistribution2DCone";
 const ModelType FTDistribution2DVoigtType = "FTDistribution2DVoigt";
+
+const ModelType FTDecayFunction1DCauchyType = "FTDecayFunction1DCauchy";
+const ModelType FTDecayFunction1DGaussType = "FTDecayFunction1DGauss";
+const ModelType FTDecayFunction1DTriangleType = "FTDecayFunction1DTriangle";
+const ModelType FTDecayFunction1DVoigtType = "FTDecayFunction1DVoigt";
+
+const ModelType FTDecayFunction2DCauchyType = "FTDecayFunction2DCauchy";
+const ModelType FTDecayFunction2DGaussType = "FTDecayFunction2DGauss";
+const ModelType FTDecayFunction2DVoigtType = "FTDecayFunction2DVoigt";
 
 const ModelType BasicLatticeType = "BasicLatticeType";
 const ModelType SquareLatticeType = "SquareLatticeType";
@@ -120,10 +131,14 @@ const ModelType BeamInclinationAngleType = "BeamInclinationAngle";
 const ModelType ResolutionFunctionNoneType = "ResolutionFunctionNone";
 const ModelType ResolutionFunction2DGaussianType = "ResolutionFunction2DGaussian";
 
-const ModelType RectangleType = "Rectangle";
-const ModelType EllipseType = "Ellipse";
-const ModelType PolygonType = "Polygon";
-const ModelType PointType = "Point";
+const ModelType MaskContainerType = "MaskContainer";
+const ModelType RectangleMaskType = "RectangleMask";
+const ModelType PolygonMaskType = "PolygonMask";
+const ModelType PolygonPointType = "PolygonPoint";
+const ModelType EllipseMaskType = "EllipseMask";
+const ModelType VerticalLineMaskType = "VerticalLineMask";
+const ModelType HorizontalLineMaskType = "HorizontalLineMask";
+const ModelType MaskAllType = "MaskAllMask";
 
 // --- Groups ------------------------------------------------------------------
 
@@ -135,13 +150,18 @@ const ModelType DistributionGroup = "Distribution group";
 const ModelType DistributionExtendedGroup = "Distribution extended group";
 const ModelType FTDistribution1DGroup = "PDF 1D";
 const ModelType FTDistribution2DGroup = "PDF 2D";
+const ModelType FTDecayFunction1DGroup = "Decay function 1D";
+const ModelType FTDecayFunction2DGroup = "Decay function 1D";
 const ModelType LatticeGroup = "Lattice group";
 const ModelType MaterialGroup = "Material group";
 const ModelType ResolutionFunctionGroup = "Resolution function group";
 
 // --- Units&Constants----------------------------------------------------------
-const ModelType UnitsDegrees = "Degrees";
+const ModelType UnitsNbins = "nbins";
 const ModelType UnitsRadians = "Radians";
+const ModelType UnitsDegrees = "Degrees";
+const ModelType UnitsMm = "mm";
+const ModelType UnitsQyQz = "Qy,Qz";
 
 const ModelType STATUS_IDLE = "Idle";
 const ModelType STATUS_RUNNING = "Running";
@@ -167,7 +187,12 @@ const ModelType JOB_RUN_IN_BACKGROUND = "In background";
 const ModelType JOB_RUN_SUBMIT_ONLY = "Submit only";
 const ModelType JOB_BACKUP = "_backup";
 
-}
+const ModelType ALIGNMENT_GENERIC = "Generic";
+const ModelType ALIGNMENT_TO_SAMPLE = "Perpendicular to sample x-axis";
+const ModelType ALIGNMENT_TO_DIRECT_BEAM = "Perpendicular to direct beam";
+const ModelType ALIGNMENT_TO_REFLECTED_BEAM = "Perpendicular to reflected beam";
+const ModelType ALIGNMENT_TO_REFLECTED_BEAM_DPOS = "Perpendicular to reflected beam (dpos)";
 
+}
 
 #endif

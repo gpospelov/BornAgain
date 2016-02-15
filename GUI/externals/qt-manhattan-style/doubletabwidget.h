@@ -45,7 +45,7 @@ class DoubleTabWidget : public QWidget
     Q_OBJECT
 public:
     DoubleTabWidget(QWidget *parent = 0);
-    ~DoubleTabWidget();
+    virtual ~DoubleTabWidget();
 
     void setTitle(const QString &title);
     QString title() const { return m_title; }
@@ -64,11 +64,11 @@ signals:
     void currentIndexChanged(int index, int subIndex);
 
 protected:
-    void paintEvent(QPaintEvent *event);
-    void mousePressEvent(QMouseEvent *event);
-    void changeEvent(QEvent *e);
-    bool event(QEvent *event);
-    QSize minimumSizeHint() const;
+    virtual void paintEvent(QPaintEvent *event);
+    virtual void mousePressEvent(QMouseEvent *event);
+    virtual void changeEvent(QEvent *e);
+    virtual bool event(QEvent *event);
+    virtual QSize minimumSizeHint() const;
 
 private:
     struct Tab {

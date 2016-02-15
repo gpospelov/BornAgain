@@ -1,147 +1,122 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/MaskWidgets/MaskGraphicsScene.h
+//! @brief     Defines class MaskGraphicsScene
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef MASKGRAPHICSSCENE_H
 #define MASKGRAPHICSSCENE_H
 
+#include "MaskDrawingContext.h"
+#include "MaskEditorHelper.h"
 #include <QGraphicsScene>
-#include <QItemSelection>
 #include <QModelIndex>
+#include <QMap>
+#include <QSharedPointer>
 
-class RectangleItem;
-class MaskModel;
+class SessionModel;
 class ParameterizedItem;
-class QListView;
-class QTreeView;
+class IMaskView;
+class ISceneAdaptor;
+class MaskGraphicsProxy;
 class QItemSelectionModel;
-class IView;
-class QSelectionModel;
-class QGraphicsItem;
-class QGraphicsSceneMouseEvent;
+class QItemSelection;
+class PolygonView;
+class MaskEditorAction;
+class IntensityDataItem;
 
-class MaskGraphicsScene : public QGraphicsScene
+//! Graphics scene for MaskEditorCanvas to draw masks on top of intensity data widgets.
+
+class BA_CORE_API_ MaskGraphicsScene : public QGraphicsScene
 {
     Q_OBJECT
-
 public:
     MaskGraphicsScene(QObject *parent = 0);
 
-    //! describes items that are currently being drawn
-    enum DrawingMode { NONE, RECTANGLE, ELLIPSE, POLYGON };
+    void setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
+                        IntensityDataItem *intensityItem);
 
-    //! set drawing mode
-    //! @param drawingMode item that shoulb be drawn
-    void setDrawing(DrawingMode drawingMode);
-
-    //! set selection Model
-    //! @param selectionModel includes the selected item from the list view
-    void setSelectionModel(QItemSelectionModel *selectionModel);
-
-    //! set mask model
-    //! @param maskModel contains all models for masking
-    void setModel(MaskModel *maskModel);
-
-    //! takes current selected item and put it one row upwards
-    void onBringToFront();
-
-    //! takes current selected item and put it one row below
-    void onSendToBack();
-
-public slots:
-    //! delete current selected items
-    void deleteSelectedItems();
-
-    //! removes all items and views
-    //! @param parent
-    //! @param first child item
-    //! @param last child item
-    void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
-
-    //! selects selected items from list view on the graphics view
-    void onSessionSelectionChanged(const QItemSelection &, const QItemSelection &);
-
-    //! updates scene
-    void onRowsRemoved(const QModelIndex &, int, int);
-
-    //! updates scene
-    void onRowsInserted(const QModelIndex &, int, int);
-
-    //! selects selected items from graphics view on the list view
-    void onSceneSelectionChanged();
-
-    //! resets scene by clearing scene
-    void resetScene();
-
-    //! updates views, sets z-values and adds color map
-    void updateScene();
+    void setSelectionModel(QItemSelectionModel *model);
 
 signals:
-    //! emits signal that current item is drawn (only working if it is uncommented)
-    void itemIsDrawn();
+    void itemContextMenuRequest(const QPoint &point);
+
+public slots:
+    void onActivityModeChanged(MaskEditorFlags::Activity value);
+    void onMaskValueChanged(MaskEditorFlags::MaskValue value);
+    void onResetViewRequest();
+    void onRowsInserted(const QModelIndex &parent, int first, int last);
+    void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
+    void onRowsRemoved(const QModelIndex &, int, int);
+    void cancelCurrentDrawing();
+    void resetScene();
+    void updateScene();
+    void onPresentationTypeRequest(MaskEditorFlags::PresentationType presentationType);
+
+private slots:
+    void onSessionSelectionChanged(const QItemSelection & /* selected */,
+                                   const QItemSelection & /* deselected */);
+    void onSceneSelectionChanged();
 
 protected:
-    //! manages mouse press events
-    //! @param event contains current mouse press
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
-
-    //! manages mouse move events
-    //! @param event contains current mouse move
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-
-    //! manages mouse release events
-    //! @param event contains current mouse release
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-
-    //! draws dashed line when polygon is drawn
-    //! @param painter to draw dashed line
-    void drawForeground(QPainter *painter, const QRectF &);
+    void drawForeground(QPainter *painter, const QRectF &rect);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
 private:
-    MaskModel *m_maskModel;                //!< model that contains all mask items
-    QItemSelectionModel *m_selectionModel; //!< model that contains all selected items
-    QMap<ParameterizedItem *, IView *>
-        m_ItemToView;                 //!< map that contains all items as key and all views as value
-    DrawingMode m_drawingMode;        //!< current drawing mode
-    ParameterizedItem *m_currentItem; //!<current item being drawn
-    QPointF m_currentMousePosition;   //!< current mouse position
-    QPointF m_lastAddedPoint;         //!< last added point to a polygon
-    bool m_block_selection;           //!< blocks selection of items
-    QPointF m_currentPoint;           //!< describes the current point of polygon
-    QGraphicsItem *m_colorMap;        //!< color map (detector)
-    int m_numberOfRectangles;         //!< number of rectangles were ever drawn
-    int m_numberOfEllipses;           //!< number of ellipses were ever drawn
-    int m_numberOfPolygons;           //!< number of polygon were ever drawn
-
-    //! number of points from polygon
-    //! @returns the number of points in polygon else 0
-    int numberOfPoints();
-
-    //! sets name to current item
-    //! @param item currently drawn item
-    void setItemName(ParameterizedItem *item);
-
-    //! delete views
-    //! @param parentIndex parameter for parent idex
-    void deleteViews(const QModelIndex &parentIndex);
-
-    //! removes item view from scene
-    //! @param item to remove
+    void updateProxyWidget();
+    void updateViews(const QModelIndex &parentIndex = QModelIndex(), IMaskView *parentView = 0);
+    IMaskView* addViewForItem(ParameterizedItem *item);
+    void deleteViews(const QModelIndex & itemIndex);
     void removeItemViewFromScene(ParameterizedItem *item);
 
-    //! updating views
-    void updateViews(const QModelIndex &parentIndex = QModelIndex());
+    bool isValidMouseClick(QGraphicsSceneMouseEvent *event);
+    bool isValidForRectangleDrawing(QGraphicsSceneMouseEvent *event);
+    bool isValidForEllipseDrawing(QGraphicsSceneMouseEvent *event);
+    bool isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event);
+    bool isValidForLineDrawing(QGraphicsSceneMouseEvent *event);
+    bool isValidForMaskAllDrawing(QGraphicsSceneMouseEvent *event);
+    bool isAreaContains(QGraphicsSceneMouseEvent *event, MaskEditorHelper::EViewTypes viewType);
+    bool isDrawingInProgress() const;
+    void setDrawingInProgress(bool value);
 
-    //! adds view for item
-    //! @param item parameter that gets a view
-    IView *addViewForItem(ParameterizedItem *item);
+    void makeViewAtMousePosSelected(QGraphicsSceneMouseEvent *event);
 
-    //! verifies if first point contains the current mouse press
-    //! @param current mouse event
-    //! @returns true if first point contains mouse click else false
-    bool firstPointContainsMouseClick(QGraphicsSceneMouseEvent *event);
+    void processRectangleItem(QGraphicsSceneMouseEvent *event);
+    void processEllipseItem(QGraphicsSceneMouseEvent *event);
+    void processPolygonItem(QGraphicsSceneMouseEvent *event);
+    void processLineItem(QGraphicsSceneMouseEvent *event);
+    void processVerticalLineItem(const QPointF &pos);
+    void processHorizontalLineItem(const QPointF &pos);
+    void processMaskAllItem(QGraphicsSceneMouseEvent *event);
 
-    //! sets z-values from views
     void setZValues();
+    PolygonView *getCurrentPolygon() const;
+    void setItemName(ParameterizedItem *itemToChange);
 
-    //! verifies drawing direction
-    //! @param event to get current direction
-    void drawingDirection(QGraphicsSceneMouseEvent *event);
+    SessionModel *m_maskModel;
+    QItemSelectionModel *m_selectionModel;
+    QSharedPointer<ISceneAdaptor> m_adaptor;
+    QMap<ParameterizedItem *, IMaskView *> m_ItemToView;
+    MaskGraphicsProxy *m_proxy;
+    bool m_block_selection;
+    QModelIndex m_maskContainerIndex;
+    IntensityDataItem *m_intensityItem;
+    ParameterizedItem *m_currentItem;
+    QPointF m_currentMousePosition;
+    MaskDrawingContext m_context;
 };
+
+
 #endif

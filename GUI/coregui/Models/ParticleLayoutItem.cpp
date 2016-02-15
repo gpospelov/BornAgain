@@ -24,8 +24,6 @@ const QString ParticleLayoutItem::P_TOTAL_DENSITY = "Total particle density";
 ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleLayoutType, parent)
 {
-    setItemName(Constants::ParticleLayoutType);
-
     ComboProperty approx;
     approx << "Decoupling Approximation" << "Size Space Coupling Approximation";
     registerProperty(P_APPROX, approx.getVariant());
@@ -37,6 +35,7 @@ ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     addToValidChildren(Constants::ParticleDistributionType, PortInfo::PORT_0);
     addToValidChildren(Constants::InterferenceFunctionRadialParaCrystalType, PortInfo::PORT_1, 1);
     addToValidChildren(Constants::InterferenceFunction2DParaCrystalType, PortInfo::PORT_1, 1);
+    addToValidChildren(Constants::InterferenceFunction1DLatticeType, PortInfo::PORT_1, 1);
     addToValidChildren(Constants::InterferenceFunction2DLatticeType, PortInfo::PORT_1, 1);
 }
 
@@ -57,6 +56,7 @@ void ParticleLayoutItem::insertChildItem(int row, ParameterizedItem *item)
         }
     } else if (item->modelType() == Constants::InterferenceFunctionRadialParaCrystalType
                || item->modelType() == Constants::InterferenceFunction2DParaCrystalType
+               || item->modelType() == Constants::InterferenceFunction1DLatticeType
                || item->modelType() == Constants::InterferenceFunction2DLatticeType) {
         int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
         if (port == PortInfo::DEFAULT) {
@@ -65,3 +65,18 @@ void ParticleLayoutItem::insertChildItem(int row, ParameterizedItem *item)
     }
 }
 
+void ParticleLayoutItem::onChildPropertyChange(ParameterizedItem *item, const QString &propertyName)
+{
+    for (auto child_item : childItems()) {
+        if (child_item->modelType() == Constants::InterferenceFunction2DParaCrystalType
+            || child_item->modelType() == Constants::InterferenceFunction2DLatticeType) {
+            getPropertyAttribute(P_TOTAL_DENSITY).setDisabled();
+            emit propertyChanged(P_TOTAL_DENSITY);
+            ParameterizedItem::onChildPropertyChange(item, propertyName);
+            return;
+        }
+    }
+    getPropertyAttribute(P_TOTAL_DENSITY).setVisible();
+    emit propertyChanged(P_TOTAL_DENSITY);
+    ParameterizedItem::onChildPropertyChange(item, propertyName);
+}

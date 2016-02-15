@@ -52,11 +52,11 @@ public:
     HistoryCompleter(QLineEdit *lineEdit, const QString &historyKey, QObject *parent = 0);
 
 private:
-    ~HistoryCompleter();
+    virtual ~HistoryCompleter();
     int historySize() const;
     int maximalHistorySize() const;
     void setMaximalHistorySize(int numberOfEntries);
-    bool eventFilter(QObject *obj, QEvent *event);
+    virtual bool eventFilter(QObject *obj, QEvent *event);
 
 public Q_SLOTS:
     void clearHistory();

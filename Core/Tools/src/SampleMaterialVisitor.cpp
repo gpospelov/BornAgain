@@ -112,10 +112,6 @@ void SampleMaterialVisitor::visit(const ParticleCoreShell *)
 {
 }
 
-void SampleMaterialVisitor::visit(const ParticleInfo *)
-{
-}
-
 void SampleMaterialVisitor::visit(const IFormFactor *)
 {
 }

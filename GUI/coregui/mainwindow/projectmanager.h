@@ -32,13 +32,13 @@ class BA_CORE_API_ ProjectManager : public QObject
     Q_OBJECT
 public:
     ProjectManager(MainWindow *parent);
-    ~ProjectManager();
+    virtual ~ProjectManager();
 
     void createNewProject();
     bool closeCurrentProject();
 
-    void readSettings(QSettings *settings);
-    void writeSettings(QSettings *settings);
+    void readSettings();
+    void writeSettings();
 
     QStringList getRecentProjects();
 
@@ -75,6 +75,5 @@ private:
     QStringList m_recentProjects;
     WarningMessageService *m_messageService;
 };
-
 
 #endif

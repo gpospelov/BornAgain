@@ -29,7 +29,7 @@ public:
     static const QString P_KAPPA;
     static const QString P_PDF;
     explicit InterferenceFunctionRadialParaCrystalItem(ParameterizedItem *parent=0);
-    ~InterferenceFunctionRadialParaCrystalItem(){}
+    virtual ~InterferenceFunctionRadialParaCrystalItem(){}
 };
 
 
@@ -37,7 +37,6 @@ class BA_CORE_API_ InterferenceFunction2DParaCrystalItem : public ParameterizedG
 {
     Q_OBJECT
 public:
-    static const QString P_LATTICE_TYPE;
     static const QString P_ROTATION_ANGLE;
     static const QString P_DAMPING_LENGTH;
     static const QString P_DOMAIN_SIZE1;
@@ -46,8 +45,20 @@ public:
     static const QString P_PDF1;
     static const QString P_PDF2;
     explicit InterferenceFunction2DParaCrystalItem(ParameterizedItem *parent=0);
-    ~InterferenceFunction2DParaCrystalItem(){}
-    void onPropertyChange(const QString &name);
+    virtual ~InterferenceFunction2DParaCrystalItem(){}
+    virtual void onPropertyChange(const QString &name);
+};
+
+
+class BA_CORE_API_ InterferenceFunction1DLatticeItem : public ParameterizedGraphicsItem
+{
+    Q_OBJECT
+public:
+    static const QString P_LENGTH;
+    static const QString P_ROTATION_ANGLE;
+    static const QString P_DECAY_FUNCTION;
+    explicit InterferenceFunction1DLatticeItem(ParameterizedItem *parent=0);
+    virtual ~InterferenceFunction1DLatticeItem(){}
 };
 
 
@@ -57,9 +68,9 @@ class BA_CORE_API_ InterferenceFunction2DLatticeItem : public ParameterizedGraph
 public:
     static const QString P_LATTICE_TYPE;
     static const QString P_ROTATION_ANGLE;
-    static const QString P_PDF;
+    static const QString P_DECAY_FUNCTION;
     explicit InterferenceFunction2DLatticeItem(ParameterizedItem *parent=0);
-    ~InterferenceFunction2DLatticeItem(){}
+    virtual ~InterferenceFunction2DLatticeItem(){}
 };
 
 #endif

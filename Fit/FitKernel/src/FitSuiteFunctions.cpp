@@ -21,7 +21,7 @@
 //! evaluate chi squared value
 double FitSuiteChiSquaredFunction::evaluate(const double *pars)
 {
-    assert(m_fit_kernel != NULL);
+    assert(m_fit_kernel != nullptr);
 
     m_fit_kernel->getFitParameters()->setValues(pars);
     m_fit_kernel->getFitObjects()->runSimulations();
@@ -36,7 +36,7 @@ double FitSuiteChiSquaredFunction::evaluate(const double *pars)
 // calculated data just returned
 double FitSuiteGradientFunction::evaluate(const double *pars, unsigned int index, double *gradients)
 {
-    assert(m_fit_kernel != NULL);
+    assert(m_fit_kernel != nullptr);
 
     bool parameters_changed(true);
     if(m_ncalls_total != 0) parameters_changed = m_fit_kernel->getFitParameters()->valuesAreDifferrent(pars, 2);

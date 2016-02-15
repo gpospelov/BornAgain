@@ -1,5 +1,5 @@
 ############################################################################
-# CMakeLists.txt file for building TestPyFit functional tests
+# FunctionalTests/TestPyFi/CMakeLists.txt
 ############################################################################
 
 set(list_of_tests

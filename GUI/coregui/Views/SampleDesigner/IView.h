@@ -29,13 +29,13 @@ public:
     enum { TYPE = DesignerHelper::IVIEW };
 
     IView(QGraphicsItem *parent = 0);
-    virtual ~IView(){}
+    virtual ~IView() {}
 
-    int type() const { return TYPE; }
+    int type() const;
 
     virtual void setParameterizedItem(ParameterizedItem *item);
 
-    virtual ParameterizedItem *getParameterizedItem() { return m_item; }
+    virtual ParameterizedItem *getParameterizedItem();
 
     virtual void addView(IView *childView, int row = 0);
 
@@ -50,6 +50,16 @@ public slots:
 protected:
     ParameterizedItem *m_item;
 };
+
+inline int IView::type() const
+{
+    return TYPE;
+}
+
+inline ParameterizedItem *IView::getParameterizedItem()
+{
+    return m_item;
+}
 
 
 

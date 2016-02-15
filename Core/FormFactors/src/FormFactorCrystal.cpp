@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorCrystal.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorDecoratorPositionFactor.h"
 
 FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor,
@@ -22,7 +23,7 @@ FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &
       mp_basis_form_factor(basis_form_factor.clone()),
       mp_meso_form_factor(meso_form_factor.clone())
 {
-    setName("FormFactorCrystal");
+    setName(BornAgain::FormFactorCrystalType);
     calculateLargestReciprocalDistance();
 }
 
@@ -34,13 +35,20 @@ FormFactorCrystal::~FormFactorCrystal()
 
 FormFactorCrystal *FormFactorCrystal::clone() const
 {
-    FormFactorCrystal *result = new FormFactorCrystal(m_lattice, *mp_basis_form_factor,
-                                                      *mp_meso_form_factor);
-    result->setName(getName());
-    return result;
+    return new FormFactorCrystal(m_lattice, *mp_basis_form_factor, *mp_meso_form_factor);
 }
 
-complex_t FormFactorCrystal::evaluate_for_q(const cvector_t &q) const
+double FormFactorCrystal::getVolume() const
+{
+    return mp_meso_form_factor->getVolume();
+}
+
+double FormFactorCrystal::getRadius() const
+{
+    return mp_meso_form_factor->getRadius();
+}
+
+complex_t FormFactorCrystal::evaluate_for_q(const cvector_t& q) const
 {
     (void)q;
     throw LogicErrorException("evaluate_for_q() should never be called"
@@ -66,10 +74,10 @@ complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
         cvector_t q_i((*it).x(), (*it).y(), (*it).z());
         cvector_t min_q_i= -q_i;
         cvector_t q_i_min_q = q_i - q;
-        WavevectorInfo basis_wavevectors(k_zero, min_q_i);
+        WavevectorInfo basis_wavevectors(k_zero, min_q_i, wavevectors.getWavelength());
         complex_t basis_factor
             = mp_basis_form_factor->evaluate(basis_wavevectors);
-        WavevectorInfo meso_wavevectors(k_zero, q_i_min_q);
+        WavevectorInfo meso_wavevectors(k_zero, q_i_min_q, wavevectors.getWavelength());
         complex_t meso_factor = mp_meso_form_factor->evaluate(meso_wavevectors);
         result += basis_factor * meso_factor;
     }
@@ -98,10 +106,10 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevector
         cvector_t q_i((*it).x(), (*it).y(), (*it).z());
         cvector_t min_q_i= -q_i;
         cvector_t q_i_min_q = q_i - q;
-        WavevectorInfo basis_wavevectors(k_zero, min_q_i);
+        WavevectorInfo basis_wavevectors(k_zero, min_q_i, wavevectors.getWavelength());
         Eigen::Matrix2cd basis_factor
             = mp_basis_form_factor->evaluatePol(basis_wavevectors);
-        WavevectorInfo meso_wavevectors(k_zero, q_i_min_q);
+        WavevectorInfo meso_wavevectors(k_zero, q_i_min_q, wavevectors.getWavelength());
         complex_t meso_factor = mp_meso_form_factor->evaluate(meso_wavevectors);
         result += basis_factor * meso_factor;
     }
@@ -109,11 +117,6 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevector
     // is canceled by the convolution of Fourier transforms :
     double volume = m_lattice.getVolume();
     return result / volume;
-}
-
-double FormFactorCrystal::getVolume() const
-{
-    return mp_meso_form_factor->getVolume();
 }
 
 void FormFactorCrystal::calculateLargestReciprocalDistance()

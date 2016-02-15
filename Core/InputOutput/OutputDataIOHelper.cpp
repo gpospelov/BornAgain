@@ -22,10 +22,10 @@
 #include "Utils.h"
 #include "OutputData.h"
 #include "FileSystem.h"
+
 #include <iostream>
 #include <algorithm>
 #include <boost/algorithm/string.hpp>
-#include <boost/assign/list_of.hpp>
 
 
 bool OutputDataIOHelper::isCompressed(const std::string& name)
@@ -142,7 +142,7 @@ IAxis *OutputDataIOHelper::createAxis(std::istream &input_stream)
 //! CustomBinAxis("axis0", 10, -1, 1)
 IAxis *OutputDataIOHelper::createFixedBinAxis(std::string line)
 {
-    std::vector<std::string> to_replace = boost::assign::list_of(",")("\"")("(")(")");
+    std::vector<std::string> to_replace = {",", "\"", "(", ")"};
     Utils::String::replaceItemsFromString(line, to_replace, " ");
 
     std::string type, name;
@@ -153,10 +153,7 @@ IAxis *OutputDataIOHelper::createFixedBinAxis(std::string line)
         throw Exceptions::FormatErrorException("OutputDataIOHelper::createFixedBinAxis() -> Error. Can't parse the string.");
 
     std::vector<double> boundaries;
-    std::string value;
-    while( iss >> value) {
-        boundaries.push_back(std::strtod(value.c_str(), NULL));
-    }
+    readLineOfDoubles(boundaries, iss);
 
     if(boundaries.size() != 2)
         throw Exceptions::FormatErrorException("OutputDataIOHelper::createFixedBinAxis() -> Error. Can't parse the string at p2.");
@@ -180,7 +177,7 @@ IAxis *OutputDataIOHelper::createFixedBinAxis(std::string line)
 //! VariableBinAxis("axis0", 4, [-1, -0.5, 0.5, 1, 2])
 IAxis *OutputDataIOHelper::createVariableBinAxis(std::string line)
 {
-    std::vector<std::string> to_replace = boost::assign::list_of(",")("\"")("(")(")")("[")("]");
+    std::vector<std::string> to_replace = {",", "\"", "(", ")", "[", "]"};
     Utils::String::replaceItemsFromString(line, to_replace, " ");
 
     std::string type, name;
@@ -189,44 +186,38 @@ IAxis *OutputDataIOHelper::createVariableBinAxis(std::string line)
     std::istringstream iss(line);
     if( !(iss >> type >> name >> nbins) )
         throw Exceptions::FormatErrorException("OutputDataIOHelper::createVariableBinAxis() -> Error. Can't parse the string.");
-
     std::vector<double> boundaries;
-    std::string value;
-    while( iss >> value) {
-        boundaries.push_back(std::strtod(value.c_str(), NULL));
-    }
-
+    readLineOfDoubles(boundaries, iss);
     if(boundaries.size() != nbins+1)
         throw Exceptions::FormatErrorException("OutputDataIOHelper::createVariableBinAxis() -> Error. Can't parse the string at p2.");
-
     return new VariableBinAxis(name, nbins, boundaries);
 }
-
-
 
 //! Fills output data raw buffer from input stream
 void OutputDataIOHelper::fillOutputData(OutputData<double> *data, std::istream &input_stream)
 {
     std::string line;
-
     data->setAllTo(0.0);
     OutputData<double>::iterator it = data->begin();
-
     while( std::getline(input_stream, line) )
     {
         if(line.empty() || line[0] == '#') break;
 
         std::istringstream iss(line);
-        std::string svalue;
-        while(iss >> svalue) {
-            *it = std::strtod(svalue.c_str(), NULL);
+        std::vector<double> buffer;
+        readLineOfDoubles(buffer, iss);
+        for (auto value : buffer) {
+            *it = value;
             ++it;
         }
     }
-
     if(it!= data->end())
         throw Exceptions::FormatErrorException("OutputDataIOHelper::fillOutputData() -> Error while parsing data.");
 }
 
-
-
+void OutputDataIOHelper::readLineOfDoubles(std::vector<double> &buffer, std::istringstream &iss)
+{
+    iss.imbue(std::locale::classic());
+    std::copy(std::istream_iterator<double>(iss),
+              std::istream_iterator<double>(), back_inserter(buffer));
+}

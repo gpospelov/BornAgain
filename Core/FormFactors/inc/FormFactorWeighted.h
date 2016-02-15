@@ -28,10 +28,12 @@ class BA_CORE_API_ FormFactorWeighted : public IFormFactor
 public:
     FormFactorWeighted();
     virtual ~FormFactorWeighted();
+
     virtual FormFactorWeighted *clone() const;
 
-    //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
+
+    virtual double getRadius() const;
 
     void addFormFactor(const IFormFactor& form_factor, double weight=1.0);
 
@@ -43,8 +45,6 @@ public:
     //! Calculates and returns a polarized form factor calculation in DWBA
     virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif
-
-    virtual int getNumberOfStochasticParameters() const;
 
 protected:
     std::vector<IFormFactor *> m_form_factors;

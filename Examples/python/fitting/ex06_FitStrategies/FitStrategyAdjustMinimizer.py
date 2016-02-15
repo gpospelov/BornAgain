@@ -10,6 +10,7 @@ found on previous step.
 import numpy
 import matplotlib
 import math
+import random
 from bornagain import *
 
 
@@ -66,9 +67,9 @@ def create_real_data():
     for i in range(0, real_data.getTotalNumberOfBins()):
         amplitude = real_data.getBinContent(i)
         sigma = noise_factor*math.sqrt(amplitude)
-        noisy_amplitude = GenerateNormalRandom(amplitude, sigma)
-        if noisy_amplitude < 0.0:
-            noisy_amplitude = 0.0
+        noisy_amplitude = random.gauss(amplitude, sigma)
+        if noisy_amplitude < 0.1:
+            noisy_amplitude = 0.1
         real_data.setBinContent(i, noisy_amplitude)
     return real_data
 
@@ -92,8 +93,8 @@ def run_fitting():
 
     # setting fitting parameters with starting values
     # Here we select starting values being quite far from true values to puzzle our minimizer's as much as possible
-    fit_suite.addFitParameter("*height", 1.*nanometer, AttLimits.limited(0.01, 30.), 0.04*nanometer)
-    fit_suite.addFitParameter("*radius", 20.*nanometer, AttLimits.limited(0.01, 30.), 0.06*nanometer)
+    fit_suite.addFitParameter("*Height", 1.*nanometer, AttLimits.limited(0.01, 30.), 0.04*nanometer)
+    fit_suite.addFitParameter("*Radius", 20.*nanometer, AttLimits.limited(0.01, 30.), 0.06*nanometer)
 
     # Now we create first fig strategy which will run first minimization round using Genetic minimizer.
     # Genetic minimizer is able to explore large parameter space without being trapped by some local minima.

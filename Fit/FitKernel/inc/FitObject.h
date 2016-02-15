@@ -30,32 +30,30 @@ class IIntensityNormalizer;
 
 class BA_CORE_API_ FitObject : public IParameterized
 {
- public:
-
+public:
     //! FitObject constructor
     //! @param simulaiton The simulation to eun
     //! @param real_data The real data
     //! @param weight Weight of dataset in chi2 calculations
-    FitObject(const GISASSimulation& simulation,
-              const OutputData<double >& real_data,
-              double weight = 1);
+    //! @param adjust_detector_to_data Detector axes will be adjusted to real data axes, if true
+    FitObject(const GISASSimulation &simulation, const OutputData<double> &real_data,
+              double weight = 1, bool adjust_detector_to_data = true);
 
-    ~FitObject();
+    virtual ~FitObject();
 
-    //! Returns real data
+    //! Returns real (experimental) data.
     const OutputData<double> *getRealData() const;
 
-    //! Returns simulated data
+    //! Returns simulated data.
     const OutputData<double> *getSimulationData() const;
 
-    //! Adds parameters from local pool to external pool and call recursion over direct children
-    std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
-                                            int copy_number = -1) const;
+    //! Returns simulation
+    const GISASSimulation *getSimulation() const;
 
-    //! Returns weight of data set in chi2 calculations
+    //! Returns weight of data set in chi2 calculations.
     double getWeight() const;
 
-    //! Returns size of data. It is equal to the number of non-masked detector channels
+    //! Returns the size of the data. It is equal to the number of non-masked detector channels
     //! which will participate in chi2 calculations.
     size_t getSizeOfData() const;
 
@@ -65,11 +63,20 @@ class BA_CORE_API_ FitObject : public IParameterized
     OutputData<double> *getChiSquaredMap(std::vector<FitElement>::const_iterator first,
                                          std::vector<FitElement>::const_iterator last) const;
 
- protected:
+    //! Adds parameters from local pool to external pool and recursively calls its direct children.
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                                    int copy_number = -1) const;
+
+protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters() {}
 
- private:
+private:
+    void init_dataset();
+    bool same_dimensions_dataset() const;
+    bool is_possible_to_adjust_simulation() const;
+    std::string get_error_message() const;
+
     FitObject(const FitObject& );
     FitObject& operator=(const FitObject& );
 
@@ -77,6 +84,7 @@ class BA_CORE_API_ FitObject : public IParameterized
     boost::scoped_ptr<OutputData<double> > m_real_data;
     boost::scoped_ptr<OutputData<double> > m_simulation_data;
     double m_weight;
+    bool m_adjust_detector_to_data;
 };
 
 #endif // FITOBJECT_H

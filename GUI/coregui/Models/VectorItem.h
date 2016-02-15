@@ -16,8 +16,8 @@
 #ifndef VECTORITEM_H
 #define VECTORITEM_H
 
-
 #include "ParameterizedItem.h"
+#include "Types.h"
 
 class BA_CORE_API_  VectorItem : public ParameterizedItem
 {
@@ -27,8 +27,10 @@ public:
     static const QString P_Y;
     static const QString P_Z;
     explicit VectorItem(ParameterizedItem *parent=0);
-    ~VectorItem(){}
-    QString getItemLabel() const;
+    virtual ~VectorItem(){}
+    virtual QString itemLabel() const;
+
+    kvector_t getVector() const;
 };
 
 #endif

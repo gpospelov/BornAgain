@@ -14,22 +14,25 @@
 // ************************************************************************** //
 
 #include "ParticleCompositionItem.h"
+#include "ParticleCoreShellItem.h"
 #include "ParticleItem.h"
+#include "TransformToDomain.h"
+#include "GUIHelpers.h"
 
 ParticleCompositionItem::ParticleCompositionItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleCompositionType, parent)
 {
-    setItemName(Constants::ParticleCompositionType);
-
-    registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
-                     PropertyAttribute(AttLimits::limited(0.0, 1.0), 3));
+    registerProperty(ParticleItem::P_ABUNDANCE, 1.0).limited(0.0, 1.0).setDecimals(3);
     registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
+    PositionTranslator position_translator;
+    addParameterTranslator(position_translator);
 
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_0);
     addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0);
     addToValidChildren(Constants::ParticleCompositionType, PortInfo::PORT_0);
     addToValidChildren(Constants::TransformationType, PortInfo::PORT_1, 1);
-
+    RotationTranslator rotation_translator;
+    addParameterTranslator(rotation_translator);
 }
 
 void ParticleCompositionItem::insertChildItem(int row, ParameterizedItem *item)
@@ -55,7 +58,44 @@ void ParticleCompositionItem::onPropertyChange(const QString &name)
         if (parent()->modelType() == Constants::ParticleCompositionType
             || parent()->modelType() == Constants::ParticleDistributionType) {
             setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-            setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
+            getPropertyAttribute(ParticleItem::P_ABUNDANCE).setDisabled();
         }
     }
+}
+
+std::unique_ptr<ParticleComposition> ParticleCompositionItem::createParticleComposition() const
+{
+    double abundance = getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+    auto P_composition = GUIHelpers::make_unique<ParticleComposition>();
+    P_composition->setAbundance(abundance);
+    QList<ParameterizedItem *> children = childItems();
+    for (int i = 0; i < children.size(); ++i) {
+        if (children[i]->modelType() == Constants::ParticleType) {
+            auto *particle_item = static_cast<ParticleItem*>(children[i]);
+            auto P_particle = particle_item->createParticle();
+            if (P_particle) {
+                P_composition->addParticle(*P_particle);
+            }
+        } else if (children[i]->modelType() == Constants::ParticleCoreShellType) {
+            auto *particle_coreshell_item = static_cast<ParticleCoreShellItem*>(children[i]);
+            auto P_particle_coreshell = particle_coreshell_item->createParticleCoreShell();
+            if (P_particle_coreshell) {
+                P_composition->addParticle(*P_particle_coreshell);
+            }
+        } else if (children[i]->modelType() == Constants::ParticleCompositionType) {
+            auto *particlecomposition_item = static_cast<ParticleCompositionItem*>(children[i]);
+            auto P_child_composition = particlecomposition_item->createParticleComposition();
+            if (P_child_composition) {
+                P_composition->addParticle(*P_child_composition);
+            }
+        } else if (children[i]->modelType() == Constants::TransformationType) {
+            continue;
+        } else {
+            throw GUIHelpers::Error("ParticleCompositionItem::createParticleComposition()"
+                                    " -> Error! Not implemented");
+        }
+    }
+    TransformToDomain::setTransformationInfo(P_composition.get(), *this);
+
+    return P_composition;
 }

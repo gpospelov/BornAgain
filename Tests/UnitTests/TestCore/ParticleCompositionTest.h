@@ -6,7 +6,6 @@
 #include "Materials.h"
 #include "Units.h"
 #include "HomogeneousMaterial.h"
-#include "ParticleInfo.h"
 #include "FormFactorFullSphere.h"
 #include <iostream>
 

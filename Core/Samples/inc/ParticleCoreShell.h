@@ -34,7 +34,7 @@ public:
     virtual ParticleCoreShell *cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     //! Sets the refractive index of the ambient material (which influences
     //! its scattering power)
@@ -42,15 +42,14 @@ public:
     virtual const IMaterial* getAmbientMaterial() const;
 
     //! Create a form factor for this particle with an extra scattering factor
-    virtual IFormFactor *createTransformedFormFactor(complex_t wavevector_scattering_factor,
-                                                     const IRotation* p_rotation,
+    virtual IFormFactor *createTransformedFormFactor(const IRotation* p_rotation,
                                                      kvector_t translation) const;
 
     //! Returns the core particle
-    const Particle *getCoreParticle() const { return mp_core; }
+    const Particle *getCoreParticle() const;
 
     //! Returns the shell particle
-    const Particle *getShellParticle() const { return mp_shell; }
+    const Particle *getShellParticle() const;
 
 protected:
     void addAndRegisterCore(const Particle &core, kvector_t relative_core_position);

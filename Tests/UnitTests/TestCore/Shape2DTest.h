@@ -7,7 +7,6 @@
 #include "Units.h"
 #include "gtest/gtest.h"
 #include <boost/scoped_ptr.hpp>
-#include <boost/assign/list_of.hpp>
 
 class Shape2DTest : public ::testing::Test
 {

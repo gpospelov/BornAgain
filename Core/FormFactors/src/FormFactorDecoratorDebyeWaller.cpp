@@ -14,14 +14,15 @@
 // ************************************************************************** //
 
 #include "FormFactorDecoratorDebyeWaller.h"
+#include "BornAgainNamespace.h"
+
+using namespace  BornAgain;
 
 FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor,
                                                                double dw_factor)
     : IFormFactorDecorator(form_factor), m_h_dw_factor(dw_factor), m_r_dw_factor(dw_factor)
 {
-    setName("FormFactorDecoratorDebyeWaller");
-    check_initialization();
-    init_parameters();
+    initialize();
 }
 
 FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor,
@@ -29,17 +30,12 @@ FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor
                                                                double dw_r_factor)
     : IFormFactorDecorator(form_factor), m_h_dw_factor(dw_h_factor), m_r_dw_factor(dw_r_factor)
 {
-    setName("FormFactorDecoratorDebyeWaller");
-    check_initialization();
-    init_parameters();
+    initialize();
 }
 
 FormFactorDecoratorDebyeWaller *FormFactorDecoratorDebyeWaller::clone() const
 {
-    FormFactorDecoratorDebyeWaller *result
-        = new FormFactorDecoratorDebyeWaller(*mp_form_factor, m_h_dw_factor, m_r_dw_factor);
-    result->setName(getName());
-    return result;
+    return new FormFactorDecoratorDebyeWaller(*mp_form_factor, m_h_dw_factor, m_r_dw_factor);
 }
 
 complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo& wavevectors) const
@@ -59,6 +55,13 @@ bool FormFactorDecoratorDebyeWaller::check_initialization() const
 void FormFactorDecoratorDebyeWaller::init_parameters()
 {
     clearParameterPool();
-    registerParameter("hfactor", &m_h_dw_factor, AttLimits::n_positive());
-    registerParameter("rfactor", &m_r_dw_factor, AttLimits::n_positive());
+    registerParameter(HeightDWFactor, &m_h_dw_factor, AttLimits::n_positive());
+    registerParameter(RadiusDWFactor, &m_r_dw_factor, AttLimits::n_positive());
+}
+
+void FormFactorDecoratorDebyeWaller::initialize()
+{
+    setName(FormFactorDecoratorDebyeWallerType);
+    check_initialization();
+    init_parameters();
 }

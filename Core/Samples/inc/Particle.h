@@ -36,61 +36,46 @@ public:
     Particle(const IMaterial &p_material, const IFormFactor &form_factor,
             const IRotation &rotation);
 
-    virtual ~Particle();
     virtual Particle *clone() const;
 
     //! Returns a clone with inverted magnetic fields
     virtual Particle *cloneInvertB() const;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     //! Sets the refractive index of the ambient material (which influences its
     //! scattering power)
-    virtual void setAmbientMaterial(const IMaterial& material)
-    {
-        if(mP_ambient_material.get() != &material) {
-            mP_ambient_material.reset(material.clone());
-        }
-    }
+    virtual void setAmbientMaterial(const IMaterial& material);
 
     //! Returns particle's material.
-    virtual const IMaterial* getAmbientMaterial() const { return mP_ambient_material.get(); }
+    virtual const IMaterial* getAmbientMaterial() const;
 
     //! Create a form factor for this particle with an extra scattering factor
-    virtual IFormFactor *createTransformedFormFactor(complex_t wavevector_scattering_factor,
-                                                     const IRotation* p_rotation,
+    virtual IFormFactor *createTransformedFormFactor(const IRotation* p_rotation,
                                                      kvector_t translation) const;
 
     //! Sets _material_.
-    virtual void setMaterial(const IMaterial& material) {
-        if(mP_material.get() != &material) {
-            mP_material.reset(material.clone());
-        }
-    }
+    virtual void setMaterial(const IMaterial& material);
 
     //! Returns particle's material.
-    virtual const IMaterial* getMaterial() const { return mP_material.get(); }
+    virtual const IMaterial* getMaterial() const;
 
     //! Returns refractive index of the particle
-    virtual complex_t getRefractiveIndex() const
-    {
-        return (mP_material.get() ? mP_material->getRefractiveIndex()
-                            : complex_t(0,0));
-    }
+    virtual complex_t getRefractiveIndex() const;
 
     //! Sets the form factor
     void setFormFactor(const IFormFactor& form_factor);
 
     //! Returns the form factor
-    const IFormFactor* getFormFactor() const {
-        return mP_form_factor.get();
-    }
+    const IFormFactor* getFormFactor() const;
 
 protected:
     boost::scoped_ptr<IMaterial> mP_material;
     boost::scoped_ptr<IMaterial> mP_ambient_material;
     boost::scoped_ptr<IFormFactor> mP_form_factor;
+private:
+    void initialize();
 };
 
 #endif // PARTICLE_H

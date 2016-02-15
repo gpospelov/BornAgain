@@ -23,7 +23,7 @@ const QString FitParameterItem::P_USE = "Use";
 FitParameterItem::FitParameterItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::FitParameterType, parent)
 {
-    setItemName(Constants::FitParameterType);
+    registerProperty(P_NAME, Constants::FitParameterType);
     registerProperty(P_MIN, 0.0);
     registerProperty(P_MAX, 10.0);
     registerProperty(P_VALUE, 5.0);

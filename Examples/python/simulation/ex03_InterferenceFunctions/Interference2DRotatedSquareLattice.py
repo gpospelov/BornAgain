@@ -21,9 +21,9 @@ def get_sample():
 
     # collection of particles
     interference = InterferenceFunction2DLattice.createSquare(25.0*nanometer, 30.0*degree)
-    pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/numpy.pi, 100.0*nanometer/2.0/numpy.pi)
+    pdf = FTDecayFunction2DCauchy(300.0*nanometer/2.0/numpy.pi, 100.0*nanometer/2.0/numpy.pi)
     pdf.setGamma(30.0*degree)
-    interference.setProbabilityDistribution(pdf)
+    interference.setDecayFunction(pdf)
 
     cylinder_ff = FormFactorCylinder(3.*nanometer, 3.*nanometer)
     cylinder = Particle(m_particle, cylinder_ff)

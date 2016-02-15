@@ -16,8 +16,9 @@
 #ifndef FORMFACTORDECORATORPOSITIONFACTOR_H_
 #define FORMFACTORDECORATORPOSITIONFACTOR_H_
 
-#include "Types.h"
 #include "IFormFactorDecorator.h"
+#include "BornAgainNamespace.h"
+#include "Types.h"
 
 //! @class FormFactorDecoratorPositionFactor
 //! @ingroup formfactors_internal
@@ -27,14 +28,10 @@ class BA_CORE_API_ FormFactorDecoratorPositionFactor : public IFormFactorDecorat
 {
 public:
     FormFactorDecoratorPositionFactor(const IFormFactor &form_factor, kvector_t position);
-    virtual ~FormFactorDecoratorPositionFactor()
-    {
-    }
+    virtual ~FormFactorDecoratorPositionFactor() {}
+
     virtual FormFactorDecoratorPositionFactor *clone() const;
-    virtual void accept(ISampleVisitor *visitor) const
-    {
-        visitor->visit(this);
-    }
+    virtual void accept(ISampleVisitor *visitor) const;
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
@@ -42,28 +39,28 @@ public:
     virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif
 
-    virtual int getNumberOfStochasticParameters() const
-    {
-        return mp_form_factor->getNumberOfStochasticParameters();
-    }
-
 protected:
     kvector_t m_position;
 
 private:
-    complex_t getPositionFactor(const cvector_t &q) const;
+    complex_t getPositionFactor(const cvector_t& q) const;
 };
 
 inline FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
     const IFormFactor &form_factor, kvector_t position)
     : IFormFactorDecorator(form_factor), m_position(position)
 {
-    setName("FormFactorDecoratorPositionFactor");
+    setName(BornAgain::FormFactorDecoratorPositionFactorType);
 }
 
 inline FormFactorDecoratorPositionFactor *FormFactorDecoratorPositionFactor::clone() const
 {
     return new FormFactorDecoratorPositionFactor(*mp_form_factor, m_position);
+}
+
+inline void FormFactorDecoratorPositionFactor::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 inline complex_t FormFactorDecoratorPositionFactor::evaluate(
@@ -82,7 +79,7 @@ inline Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(
     return pos_factor * mp_form_factor->evaluatePol(wavevectors);
 }
 
-inline complex_t FormFactorDecoratorPositionFactor::getPositionFactor(const cvector_t &q) const
+inline complex_t FormFactorDecoratorPositionFactor::getPositionFactor(const cvector_t& q) const
 {
     complex_t qr = q.x() * m_position.x() + q.y() * m_position.y() + q.z() * m_position.z();
     complex_t pos_factor = std::exp(complex_t(0.0, 1.0) * qr);

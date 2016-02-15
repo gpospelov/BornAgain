@@ -21,8 +21,6 @@ GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
-#include "__call_policies.pypp.hpp"
-#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "GISASSimulation.pypp.h"
 
@@ -49,16 +47,16 @@ struct GISASSimulation_wrapper : GISASSimulation, bp::wrapper< GISASSimulation >
         return GISASSimulation::clone( );
     }
 
-    virtual ::OutputData< double > * getDetectorIntensity(  ) const  {
+    virtual ::OutputData< double > * getDetectorIntensity( ::IDetector2D::EAxesUnits units_type=::IDetector2D::DEFAULT ) const  {
         if( bp::override func_getDetectorIntensity = this->get_override( "getDetectorIntensity" ) )
-            return func_getDetectorIntensity(  );
+            return func_getDetectorIntensity( units_type );
         else{
-            return this->GISASSimulation::getDetectorIntensity(  );
+            return this->GISASSimulation::getDetectorIntensity( units_type );
         }
     }
     
-    ::OutputData< double > * default_getDetectorIntensity(  ) const  {
-        return GISASSimulation::getDetectorIntensity( );
+    ::OutputData< double > * default_getDetectorIntensity( ::IDetector2D::EAxesUnits units_type=::IDetector2D::DEFAULT ) const  {
+        return GISASSimulation::getDetectorIntensity( units_type );
     }
 
     virtual int getNumberOfSimulationElements(  ) const  {
@@ -73,18 +71,6 @@ struct GISASSimulation_wrapper : GISASSimulation, bp::wrapper< GISASSimulation >
         return GISASSimulation::getNumberOfSimulationElements( );
     }
 
-    virtual double getWavelength(  ) const  {
-        if( bp::override func_getWavelength = this->get_override( "getWavelength" ) )
-            return func_getWavelength(  );
-        else{
-            return this->GISASSimulation::getWavelength(  );
-        }
-    }
-    
-    double default_getWavelength(  ) const  {
-        return GISASSimulation::getWavelength( );
-    }
-
     virtual void prepareSimulation(  ) {
         if( bp::override func_prepareSimulation = this->get_override( "prepareSimulation" ) )
             func_prepareSimulation(  );
@@ -95,97 +81,6 @@ struct GISASSimulation_wrapper : GISASSimulation, bp::wrapper< GISASSimulation >
     
     void default_prepareSimulation(  ) {
         GISASSimulation::prepareSimulation( );
-    }
-
-    virtual bool areParametersChanged(  ) {
-        if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
-            return func_areParametersChanged(  );
-        else{
-            return this->IParameterized::areParametersChanged(  );
-        }
-    }
-    
-    bool default_areParametersChanged(  ) {
-        return IParameterized::areParametersChanged( );
-    }
-
-    virtual void clearParameterPool(  ) {
-        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
-            func_clearParameterPool(  );
-        else{
-            this->IParameterized::clearParameterPool(  );
-        }
-    }
-    
-    void default_clearParameterPool(  ) {
-        IParameterized::clearParameterPool( );
-    }
-
-    virtual ::ParameterPool * createParameterTree(  ) const  {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
-        else{
-            return this->IParameterized::createParameterTree(  );
-        }
-    }
-    
-    ::ParameterPool * default_createParameterTree(  ) const  {
-        return IParameterized::createParameterTree( );
-    }
-
-    virtual void printParameters(  ) const  {
-        if( bp::override func_printParameters = this->get_override( "printParameters" ) )
-            func_printParameters(  );
-        else{
-            this->IParameterized::printParameters(  );
-        }
-    }
-    
-    void default_printParameters(  ) const  {
-        IParameterized::printParameters( );
-    }
-
-    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
-        namespace bpl = boost::python;
-        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
-        }
-        else{
-            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
-        }
-    }
-    
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
-        if( dynamic_cast< GISASSimulation_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-        else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-    }
-
-    virtual bool setParameterValue( ::std::string const & name, double value ) {
-        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
-            return func_setParameterValue( name, value );
-        else{
-            return this->IParameterized::setParameterValue( name, value );
-        }
-    }
-    
-    bool default_setParameterValue( ::std::string const & name, double value ) {
-        return IParameterized::setParameterValue( name, value );
-    }
-
-    virtual void setParametersAreChanged(  ) {
-        if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
-            func_setParametersAreChanged(  );
-        else{
-            this->IParameterized::setParametersAreChanged(  );
-        }
-    }
-    
-    void default_setParametersAreChanged(  ) {
-        IParameterized::setParametersAreChanged( );
     }
 
     virtual void transferToCPP(  ) {
@@ -230,7 +125,7 @@ void register_GISASSimulation_class(){
                 "addMask"
                 , addMask_function_type( &::GISASSimulation::addMask )
                 , ( bp::arg("shape"), bp::arg("mask_value")=(bool)(true) )
-                , "Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority. @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse) @mask_value The value of mask \n\n:Parameters:\n  - 'shape' - The shape of mask (Rectangle, Polygon, Line, Ellipse)\n" );
+                , "Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority. @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse) @param mask_value The value of mask \n\n:Parameters:\n  - 'shape' - The shape of mask (Rectangle, Polygon, Line, Ellipse)\n  - 'mask_value' - The value of mask\n" );
         
         }
         { //::GISASSimulation::clone
@@ -247,13 +142,14 @@ void register_GISASSimulation_class(){
         }
         { //::GISASSimulation::getDetectorIntensity
         
-            typedef ::OutputData< double > * ( ::GISASSimulation::*getDetectorIntensity_function_type)(  ) const;
-            typedef ::OutputData< double > * ( GISASSimulation_wrapper::*default_getDetectorIntensity_function_type)(  ) const;
+            typedef ::OutputData< double > * ( ::GISASSimulation::*getDetectorIntensity_function_type)( ::IDetector2D::EAxesUnits ) const;
+            typedef ::OutputData< double > * ( GISASSimulation_wrapper::*default_getDetectorIntensity_function_type)( ::IDetector2D::EAxesUnits ) const;
             
             GISASSimulation_exposer.def( 
                 "getDetectorIntensity"
                 , getDetectorIntensity_function_type(&::GISASSimulation::getDetectorIntensity)
                 , default_getDetectorIntensity_function_type(&GISASSimulation_wrapper::default_getDetectorIntensity)
+                , ( bp::arg("units_type")=::IDetector2D::DEFAULT )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
@@ -264,17 +160,27 @@ void register_GISASSimulation_class(){
             GISASSimulation_exposer.def( 
                 "getInstrument"
                 , getInstrument_function_type( &::GISASSimulation::getInstrument )
-                , bp::return_value_policy< bp::copy_const_reference >()
-                , "Returns the instrument containing beam and detector information." );
+                , bp::return_value_policy< bp::copy_const_reference >() );
+        
+        }
+        { //::GISASSimulation::getInstrument
+        
+            typedef ::Instrument & ( ::GISASSimulation::*getInstrument_function_type)(  ) ;
+            
+            GISASSimulation_exposer.def( 
+                "getInstrument"
+                , getInstrument_function_type( &::GISASSimulation::getInstrument )
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::GISASSimulation::getIntensityData
         
-            typedef ::Histogram2D * ( ::GISASSimulation::*getIntensityData_function_type)(  ) const;
+            typedef ::Histogram2D * ( ::GISASSimulation::*getIntensityData_function_type)( ::IDetector2D::EAxesUnits ) const;
             
             GISASSimulation_exposer.def( 
                 "getIntensityData"
                 , getIntensityData_function_type( &::GISASSimulation::getIntensityData )
+                , ( bp::arg("units_type")=::IDetector2D::DEFAULT )
                 , bp::return_value_policy< bp::manage_new_object >()
                 , "Returns clone of the detector intensity map with detector resolution applied in the form of 2D histogram. " );
         
@@ -288,17 +194,6 @@ void register_GISASSimulation_class(){
                 "getNumberOfSimulationElements"
                 , getNumberOfSimulationElements_function_type(&::GISASSimulation::getNumberOfSimulationElements)
                 , default_getNumberOfSimulationElements_function_type(&GISASSimulation_wrapper::default_getNumberOfSimulationElements) );
-        
-        }
-        { //::GISASSimulation::getWavelength
-        
-            typedef double ( ::GISASSimulation::*getWavelength_function_type)(  ) const;
-            typedef double ( GISASSimulation_wrapper::*default_getWavelength_function_type)(  ) const;
-            
-            GISASSimulation_exposer.def( 
-                "getWavelength"
-                , getWavelength_function_type(&::GISASSimulation::getWavelength)
-                , default_getWavelength_function_type(&GISASSimulation_wrapper::default_getWavelength) );
         
         }
         { //::GISASSimulation::maskAll
@@ -426,8 +321,8 @@ void register_GISASSimulation_class(){
             GISASSimulation_exposer.def( 
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::GISASSimulation::setDetectorParameters )
-                , ( bp::arg("n_x"), bp::arg("x_min"), bp::arg("x_max"), bp::arg("n_y"), bp::arg("y_min"), bp::arg("y_max") )
-                , "Sets detector parameters using angle ranges." );
+                , ( bp::arg("n_phi"), bp::arg("phi_min"), bp::arg("phi_max"), bp::arg("n_alpha"), bp::arg("alpha_min"), bp::arg("alpha_max") )
+                , "Sets spherical detector parameters using angle ranges @param n_phi number of phi-axis bins @param phi_min low edge of first phi-bin @param phi_max upper edge of last phi-bin @param n_alpha number of alpha-axis bins @param alpha_min low edge of first alpha-bin @param alpha_max upper edge of last alpha-bin \n\n:Parameters:\n  - 'n_phi' - number of phi-axis bins\n  - 'phi_min' - low edge of first phi-bin\n  - 'phi_max' - upper edge of last phi-bin\n  - 'n_alpha' - number of alpha-axis bins\n  - 'alpha_min' - low edge of first alpha-bin\n  - 'alpha_max' - upper edge of last alpha-bin\n" );
         
         }
         { //::GISASSimulation::setDetectorResolutionFunction
@@ -450,85 +345,6 @@ void register_GISASSimulation_class(){
                 , setInstrument_function_type( &::GISASSimulation::setInstrument )
                 , ( bp::arg("instrument") )
                 , "Sets the instrument containing beam and detector information." );
-        
-        }
-        { //::IParameterized::areParametersChanged
-        
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( GISASSimulation_wrapper::*default_areParametersChanged_function_type)(  ) ;
-            
-            GISASSimulation_exposer.def( 
-                "areParametersChanged"
-                , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&GISASSimulation_wrapper::default_areParametersChanged) );
-        
-        }
-        { //::IParameterized::clearParameterPool
-        
-            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( GISASSimulation_wrapper::*default_clearParameterPool_function_type)(  ) ;
-            
-            GISASSimulation_exposer.def( 
-                "clearParameterPool"
-                , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&GISASSimulation_wrapper::default_clearParameterPool) );
-        
-        }
-        { //::IParameterized::createParameterTree
-        
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( GISASSimulation_wrapper::*default_createParameterTree_function_type)(  ) const;
-            
-            GISASSimulation_exposer.def( 
-                "createParameterTree"
-                , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&GISASSimulation_wrapper::default_createParameterTree)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::IParameterized::printParameters
-        
-            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( GISASSimulation_wrapper::*default_printParameters_function_type)(  ) const;
-            
-            GISASSimulation_exposer.def( 
-                "printParameters"
-                , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&GISASSimulation_wrapper::default_printParameters) );
-        
-        }
-        { //::IParameterized::registerParameter
-        
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
-            
-            GISASSimulation_exposer.def( 
-                "registerParameter"
-                , default_registerParameter_function_type( &GISASSimulation_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "main method to register data address in the pool." );
-        
-        }
-        { //::IParameterized::setParameterValue
-        
-            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( GISASSimulation_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
-            
-            GISASSimulation_exposer.def( 
-                "setParameterValue"
-                , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&GISASSimulation_wrapper::default_setParameterValue)
-                , ( bp::arg("name"), bp::arg("value") ) );
-        
-        }
-        { //::IParameterized::setParametersAreChanged
-        
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( GISASSimulation_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
-            
-            GISASSimulation_exposer.def( 
-                "setParametersAreChanged"
-                , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&GISASSimulation_wrapper::default_setParametersAreChanged) );
         
         }
         { //::ICloneable::transferToCPP

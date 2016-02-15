@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/NJobItem.cpp
-//! @brief     Implements class NJobItem
+//! @file      coregui/Models/JobItem.cpp
+//! @brief     Implements class JobItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,6 +20,7 @@
 #include "InstrumentModel.h"
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
+#include "JobResultsPresenter.h"
 #include <QDebug>
 
 
@@ -59,32 +60,30 @@ const QString JobItem::P_RUN_POLICY = "Run Policy";
 JobItem::JobItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::JobItemType, parent)
 {
-    setItemName(Constants::JobItemType);
-    registerProperty(P_IDENTIFIER, QString(), PropertyAttribute(PropertyAttribute::HIDDEN));
-    registerProperty(P_SAMPLE_NAME, QString(), PropertyAttribute(PropertyAttribute::READONLY));
-    registerProperty(P_INSTRUMENT_NAME, QString(), PropertyAttribute(PropertyAttribute::READONLY));
+    registerProperty(P_NAME, Constants::JobItemType);
+    registerProperty(P_IDENTIFIER, QString()).setHidden();
+    registerProperty(P_SAMPLE_NAME, QString()).setReadOnly();
+    registerProperty(P_INSTRUMENT_NAME, QString()).setReadOnly();
 
     ComboProperty status;
     status << Constants::STATUS_IDLE << Constants::STATUS_RUNNING << Constants::STATUS_COMPLETED
            << Constants::STATUS_CANCELED << Constants::STATUS_FAILED;
-    registerProperty(P_STATUS, status.getVariant(), PropertyAttribute(PropertyAttribute::READONLY));
+    registerProperty(P_STATUS, status.getVariant()).setReadOnly();
 
-    registerProperty(P_BEGIN_TIME, QString(), PropertyAttribute(PropertyAttribute::READONLY));
-    registerProperty(P_END_TIME, QString(), PropertyAttribute(PropertyAttribute::READONLY));
-    registerProperty(P_COMMENTS, QString(), PropertyAttribute(PropertyAttribute::HIDDEN));
+    registerProperty(P_BEGIN_TIME, QString()).setReadOnly();
+    registerProperty(P_END_TIME, QString()).setReadOnly();
+    registerProperty(P_COMMENTS, QString()).setHidden();
 
-    registerProperty(P_PROGRESS, 0, PropertyAttribute(PropertyAttribute::HIDDEN));
-    registerProperty(P_NTHREADS, -1, PropertyAttribute(PropertyAttribute::HIDDEN));
+    registerProperty(P_PROGRESS, 0).setHidden();
+    registerProperty(P_NTHREADS, -1).setHidden();
 
     ComboProperty policy;
     policy << Constants::JOB_RUN_IMMEDIATELY
            << Constants::JOB_RUN_IN_BACKGROUND
            << Constants::JOB_RUN_SUBMIT_ONLY;
-    registerProperty(P_RUN_POLICY, policy.getVariant(), PropertyAttribute(PropertyAttribute::HIDDEN));
+    registerProperty(P_RUN_POLICY, policy.getVariant()).setHidden();
 
     addToValidChildren(Constants::IntensityDataType);
-
-    setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VISIBLE);
 
     addToValidChildren(Constants::MultiLayerType);
     addToValidChildren(Constants::InstrumentType);
@@ -240,7 +239,7 @@ MultiLayerItem *JobItem::getMultiLayerItem(bool from_backup)
 }
 
 //! Returns InstrumentItem of this JobItem, if from_backup=true, then backup'ed version of
-//! the instruyment will be used
+//! the instrument will be used
 InstrumentItem *JobItem::getInstrumentItem(bool from_backup)
 {
     foreach(ParameterizedItem *item, childItems()) {
@@ -254,6 +253,34 @@ InstrumentItem *JobItem::getInstrumentItem(bool from_backup)
         }
     }
     return 0;
+}
+
+void JobItem::setResults(const GISASSimulation *simulation)
+{
+    IntensityDataItem *intensityItem = getIntensityDataItem();
+    Q_ASSERT(intensityItem);
+
+    JobResultsPresenter::setResults(intensityItem, simulation);
+
+
+
+//    Q_ASSERT(simulation);
+//    IntensityDataItem *intensityItem = getIntensityDataItem();
+//    Q_ASSERT(intensityItem);
+//    intensityItem->setNameFromProposed(this->itemName());
+    //    intensityItem->setResults(simulation);
+}
+
+void JobItem::onChildPropertyChange(ParameterizedItem *item, const QString &propertyName)
+{
+    if (item->modelType() == Constants::IntensityDataType
+        && propertyName == IntensityDataItem::P_AXES_UNITS) {
+        auto intensityItem = dynamic_cast<IntensityDataItem *>(item);
+        JobResultsPresenter::updateDataAxes(intensityItem, getInstrumentItem());
+        qDebug() << "QQQQ" << item->modelType() << propertyName;
+
+    }
+
 }
 
 //void JobItem::onPropertyChange(const QString &name)

@@ -42,18 +42,20 @@ public:
     //! @param points Two dimensional vector of (x,y) coordinates of polygon points.
     Polygon(std::vector<std::vector<double> > points);
 
-    ~Polygon();
+    virtual ~Polygon();
 
-    Polygon *clone() const;
+    virtual Polygon *clone() const;
 
     //! Returns true if given point is inside or on border of polygon
-    bool contains(double x, double y) const;
+    virtual bool contains(double x, double y) const;
 
     //! Returns true if area defined by two bins is inside or on border of polygon.
     //! More precisely, if mid point of two bins satisfy this condition.
-    bool contains(const Bin1D &binx, const Bin1D &biny) const;
+    virtual bool contains(const Bin1D &binx, const Bin1D &biny) const;
 
     double getArea() const;
+
+    void getPoints(std::vector<double> &xpos, std::vector<double> &ypos) const;
 
 protected:
     virtual void print(std::ostream &ostr) const;

@@ -26,7 +26,6 @@ class BA_CORE_API_ ResolutionFunction2DGaussian : public IResolutionFunction2D
 {
 public:
     ResolutionFunction2DGaussian(double sigma_x, double sigma_y);
-    virtual ~ResolutionFunction2DGaussian();
 
     virtual double evaluateCDF(double x, double y) const;
 

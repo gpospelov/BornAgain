@@ -92,23 +92,23 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::addSimulationAndRealData
         
-            typedef void ( ::FitSuite::*addSimulationAndRealData_function_type)( ::GISASSimulation const &,::OutputData< double > const & ) ;
+            typedef void ( ::FitSuite::*addSimulationAndRealData_function_type)( ::GISASSimulation const &,::OutputData< double > const &,double ) ;
             
             FitSuite_exposer.def( 
                 "addSimulationAndRealData"
                 , addSimulationAndRealData_function_type( &::FitSuite::addSimulationAndRealData )
-                , ( bp::arg("simulation"), bp::arg("real_data") )
+                , ( bp::arg("simulation"), bp::arg("real_data"), bp::arg("weight")=1 )
                 , "Assigns pair of (simulation, real data) for fitting. More than one pair can be added." );
         
         }
         { //::FitSuite::addSimulationAndRealData
         
-            typedef void ( ::FitSuite::*addSimulationAndRealData_function_type)( ::GISASSimulation const &,::IHistogram const & ) ;
+            typedef void ( ::FitSuite::*addSimulationAndRealData_function_type)( ::GISASSimulation const &,::IHistogram const &,double ) ;
             
             FitSuite_exposer.def( 
                 "addSimulationAndRealData"
                 , addSimulationAndRealData_function_type( &::FitSuite::addSimulationAndRealData )
-                , ( bp::arg("simulation"), bp::arg("real_data") )
+                , ( bp::arg("simulation"), bp::arg("real_data"), bp::arg("weight")=1 )
                 , "Assigns pair of (simulation, real data) for fitting. More than one pair can be added." );
         
         }
@@ -218,6 +218,17 @@ void register_FitSuite_class(){
                 , "Returns current number of minimization function calls." );
         
         }
+        { //::FitSuite::getOptions
+        
+            typedef ::FitOptions & ( ::FitSuite::*getOptions_function_type)(  ) ;
+            
+            FitSuite_exposer.def( 
+                "getOptions"
+                , getOptions_function_type( &::FitSuite::getOptions )
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns general setting of fit kernel." );
+        
+        }
         { //::FitSuite::getRealData
         
             typedef ::IHistogram * ( ::FitSuite::*getRealData_function_type)( ::std::size_t ) const;
@@ -313,6 +324,17 @@ void register_FitSuite_class(){
                 , setMinimizer_function_type( &::FitSuite::setMinimizer )
                 , ( bp::arg("minimizer_name"), bp::arg("algorithm_name")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >(), bp::arg("minimizer_options")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >() )
                 , "Sets minimizer with given name and algorithm type @param minimizer The name of the minimizer @param algorithm Optional name of the minimizer's algorithm @param options Optional string with additional minimizer settings \n\n:Parameters:\n  - 'minimizer' - The name of the minimizer\n  - 'algorithm' - Optional name of the minimizer's algorithm\n  - 'options' - Optional string with additional minimizer settings\n" );
+        
+        }
+        { //::FitSuite::setOptions
+        
+            typedef void ( ::FitSuite::*setOptions_function_type)( ::FitOptions const & ) ;
+            
+            FitSuite_exposer.def( 
+                "setOptions"
+                , setOptions_function_type( &::FitSuite::setOptions )
+                , ( bp::arg("fit_options") )
+                , "Sets general setting of fit kernel." );
         
         }
         { //::FitSuite::setParametersFixed

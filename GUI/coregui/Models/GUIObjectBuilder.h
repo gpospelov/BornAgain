@@ -61,8 +61,6 @@ public:
     void visit(const ParticleCoreShell *);
     void visit(const ParticleComposition *);
 
-    void visit(const ParticleInfo *);
-
     void visit(const FormFactorAnisoPyramid *);
     void visit(const FormFactorBox *);
     void visit(const FormFactorCone *);
@@ -85,6 +83,7 @@ public:
 
     void visit(const InterferenceFunctionRadialParaCrystal *);
     void visit(const InterferenceFunction2DParaCrystal *);
+    void visit(const InterferenceFunction1DLattice *);
     void visit(const InterferenceFunction2DLattice *);
     void visit(const InterferenceFunctionNone *);
 

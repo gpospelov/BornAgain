@@ -18,7 +18,7 @@
 #include "NodeEditorPort.h"
 #include "NodeEditorConnection.h"
 #include "GUIHelpers.h"
-
+#include "ParameterizedItem.h"
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QObject>
@@ -31,6 +31,15 @@ ConnectableView::ConnectableView(QGraphicsItem *parent, QRect rect)
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
+}
+
+void ConnectableView::setParameterizedItem(ParameterizedItem *item)
+{
+    IView::setParameterizedItem(item);
+    if (m_item) {
+        setLabel( hyphenate(m_item->itemName()) );
+        connect(m_item, SIGNAL(siblingsChanged()), this, SLOT(onSiblingsChanged()));
+    }
 }
 
 void ConnectableView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
@@ -76,6 +85,46 @@ NodeEditorPort *ConnectableView::addPort(const QString &name,
     return port;
 }
 
+void ConnectableView::setLabel(const QString &name)
+{
+    m_label = name;
+    setPortCoordinates();
+}
+
+void ConnectableView::connectInputPort(ConnectableView *other, int port_number)
+{
+    Q_ASSERT(other);
+
+    if (port_number >= m_input_ports.size())
+        throw GUIHelpers::Error("ConnectableView::connectInputPort() -> Wrong input port number");
+
+    if (other->getOutputPorts().size() != 1)
+        throw GUIHelpers::Error("ConnectableView::connectInputPort() -> Wrong output port number");
+
+    NodeEditorPort *input = m_input_ports.at(port_number);
+    NodeEditorPort *output = other->getOutputPorts().at(0);
+
+    if (!input->isConnected(output)) {
+        NodeEditorConnection *conn = new NodeEditorConnection(0, scene());
+        conn->setPort2(input);
+        conn->setPort1(output);
+        conn->updatePath();
+    }
+}
+
+int ConnectableView::getInputPortIndex(NodeEditorPort *port)
+{
+    return m_input_ports.indexOf(port);
+}
+
+void ConnectableView::onSiblingsChanged()
+{
+    if (m_item) {
+        setLabel( hyphenate(m_item->itemName()) );
+        update();
+    }
+}
+
 // calculation of y-pos for ports
 void ConnectableView::setPortCoordinates()
 {
@@ -116,12 +165,6 @@ void ConnectableView::setPortCoordinates()
     }
 }
 
-void ConnectableView::setLabel(const QString &name)
-{
-    m_label = name;
-    setPortCoordinates();
-}
-
 int ConnectableView::getNumberOfPorts()
 {
     return m_input_ports.size() + m_output_ports.size();
@@ -137,28 +180,19 @@ int ConnectableView::getNumberOfInputPorts()
     return m_input_ports.size();
 }
 
-void ConnectableView::connectInputPort(ConnectableView *other, int port_number)
+QString ConnectableView::hyphenate(const QString &name) const
 {
-    Q_ASSERT(other);
-
-    if (port_number >= m_input_ports.size())
-        throw GUIHelpers::Error("ConnectableView::connectInputPort() -> Wrong input port number");
-
-    if (other->getOutputPorts().size() != 1)
-        throw GUIHelpers::Error("ConnectableView::connectInputPort() -> Wrong output port number");
-
-    NodeEditorPort *input = m_input_ports.at(port_number);
-    NodeEditorPort *output = other->getOutputPorts().at(0);
-
-    if (!input->isConnected(output)) {
-        NodeEditorConnection *conn = new NodeEditorConnection(0, scene());
-        conn->setPort2(input);
-        conn->setPort1(output);
-        conn->updatePath();
+    QRegExp capital_letter("[A-Z]");
+    QRegExp number("[0-9]");
+    int next_capital = capital_letter.indexIn(name, 1);
+    int next_number = number.indexIn(name, 1);
+    if (next_capital > 0 && next_capital < name.size() - 2) {
+        int first_split_index = (next_number > 0 && next_number < next_capital)
+                ? next_number
+                : next_capital;
+        QString result = name.left(first_split_index) + QString("\n")
+                + name.right(name.size()-first_split_index);
+        return result;
     }
-}
-
-int ConnectableView::getInputPortIndex(NodeEditorPort *port)
-{
-    return m_input_ports.indexOf(port);
+    return name;
 }

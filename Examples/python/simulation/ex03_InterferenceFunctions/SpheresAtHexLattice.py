@@ -24,8 +24,8 @@ def get_sample():
     particle_layout.addParticle(sphere)
 
     interference = InterferenceFunction2DLattice.createHexagonal(20.0*nanometer)
-    pdf = FTDistribution2DCauchy(10*nanometer, 10*nanometer)
-    interference.setProbabilityDistribution(pdf)
+    pdf = FTDecayFunction2DCauchy(10*nanometer, 10*nanometer)
+    interference.setDecayFunction(pdf)
 
     particle_layout.addInterferenceFunction(interference)
 

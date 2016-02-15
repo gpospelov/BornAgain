@@ -13,13 +13,6 @@
 //
 // ************************************************************************** //
 
-#include <boost/scoped_ptr.hpp>
-#include <sstream>
-#include <fstream>
-#include <iostream>
-#include <iomanip>
-#include <cstdio>
-#include <Python.h>
 #include "Macros.h"
 GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_OFF(unused-parameter)
@@ -33,7 +26,19 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "PyGenTools.h"
 #include "GISASSimulation.h"
 #include "Distributions.h"
+#include "Rectangle.h"
+#include "Ellipse.h"
+#include "Line.h"
+#include "Polygon.h"
+#include "InfinitePlane.h"
 #include "BAPython.h"
+#include <boost/scoped_ptr.hpp>
+#include <sstream>
+#include <fstream>
+#include <iostream>
+#include <iomanip>
+#include <cstdio>
+#include <Python.h>
 
 std::string PyGenTools::genPyScript(GISASSimulation *simulation)
 {
@@ -52,6 +57,17 @@ std::string PyGenTools::genPyScript(GISASSimulation *simulation)
     return result.str();
 }
 
+std::string PyGenTools::printBool(double value)
+{
+    std::ostringstream inter;
+    if(value) {
+        inter << "True";
+    } else {
+        inter << "False";
+    }
+    return inter.str();
+}
+
 std::string PyGenTools::printDouble(double input)
 {
     std::ostringstream inter;
@@ -66,6 +82,26 @@ std::string PyGenTools::printDouble(double input)
         inter << ".0";
     }
     return inter.str();
+}
+
+#include <cmath>
+// 1.000000e+07 -> 1.0e+07
+std::string PyGenTools::printScientificDouble(double input)
+{
+    std::ostringstream inter;
+    inter << std::scientific;
+    inter << input;
+
+    std::string::size_type pos = inter.str().find('e');
+    if(pos == std::string::npos) return inter.str();
+
+    std::string part1 = inter.str().substr(0, pos);
+    std::string part2 = inter.str().substr(pos, std::string::npos);
+
+    part1.erase(part1.find_last_not_of('0') + 1, std::string::npos);
+    if(part1.back() == '.') part1 += "0";
+
+    return part1+part2;
 }
 
 std::string PyGenTools::printDegrees(double input)
@@ -177,3 +213,84 @@ std::string PyGenTools::getRepresentation(const IDistribution1D *distribution)
      return result.str();
 }
 
+
+
+std::string PyGenTools::getRepresentation(const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value)
+{     std::ostringstream result;
+      result << std::setprecision(12);
+
+    if(const Geometry::Ellipse *shape = dynamic_cast<const Geometry::Ellipse *>(ishape)) {
+        result << indent << "simulation.addMask(";
+        result << "Ellipse("
+               << PyGenTools::printDegrees(shape->getCenterX()) << ", "
+               << PyGenTools::printDegrees(shape->getCenterY()) << ", "
+               << PyGenTools::printDegrees(shape->getRadiusX()) << ", "
+               << PyGenTools::printDegrees(shape->getRadiusY());
+        if(shape->getTheta() != 0.0) result << ", " << PyGenTools::printDegrees(shape->getTheta());
+        result << "), " << PyGenTools::printBool(mask_value) << ")\n";
+    }
+
+    else if(const Geometry::Rectangle *shape = dynamic_cast<const Geometry::Rectangle *>(ishape)) {
+        result << indent << "simulation.addMask(";
+        result << "Rectangle("
+               << PyGenTools::printDegrees(shape->getXlow()) << ", "
+               << PyGenTools::printDegrees(shape->getYlow()) << ", "
+               << PyGenTools::printDegrees(shape->getXup()) << ", "
+               << PyGenTools::printDegrees(shape->getYup()) << "), "
+               << PyGenTools::printBool(mask_value) << ")\n";
+    }
+
+    else if(const Geometry::Polygon *shape = dynamic_cast<const Geometry::Polygon *>(ishape)) {
+        std::vector<double> xpos, ypos;
+        shape->getPoints(xpos, ypos);
+        result << indent << "points = [";
+        for(size_t i=0; i<xpos.size(); ++i) {
+            result << "[" << PyGenTools::printDegrees(xpos[i]) << ", " << PyGenTools::printDegrees(ypos[i]) << "]";
+            if(i!= xpos.size()-1) result << ", ";
+        }
+        result << "]\n";
+
+        result << indent << "simulation.addMask(";
+        result << "Polygon(points), " << PyGenTools::printBool(mask_value) << ")\n";
+    }
+
+    else if(const Geometry::VerticalLine *shape = dynamic_cast<const Geometry::VerticalLine *>(ishape)) {
+        result << indent << "simulation.addMask(";
+        result << "VerticalLine("
+               << PyGenTools::printDegrees(shape->getXpos()) << "), "
+               << PyGenTools::printBool(mask_value) << ")\n";
+    }
+
+    else if(const Geometry::HorizontalLine *shape = dynamic_cast<const Geometry::HorizontalLine *>(ishape)) {
+        result << indent << "simulation.addMask(";
+        result << "HorizontalLine("
+               << PyGenTools::printDegrees(shape->getYpos()) << "), "
+               << PyGenTools::printBool(mask_value) << ")\n";
+    }
+
+    else if(const Geometry::InfinitePlane *shape = dynamic_cast<const Geometry::InfinitePlane *>(ishape)) {
+        (void)shape;
+        result << indent << "simulation.maskAll()\n";
+    }
+    return result.str();
+}
+
+
+
+std::string PyGenTools::printKvector(const kvector_t &value)
+{
+    std::ostringstream result;
+    result << "kvector_t(" << PyGenTools::printDouble(value.x()) << ", "
+           << PyGenTools::printDouble(value.y()) << ", "
+           << PyGenTools::printDouble(value.z()) << ")";
+    return result.str();
+}
+
+//! returns true if it is (0, -1, 0) vector
+bool PyGenTools::isDefaultDirection(const kvector_t &direction)
+{
+    if(Numeric::areAlmostEqual(0.0, direction.x()) &&
+       Numeric::areAlmostEqual(-1.0, direction.y()) &&
+       Numeric::areAlmostEqual(0.0, direction.z())) return true;
+    return false;
+}

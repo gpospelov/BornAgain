@@ -61,7 +61,7 @@ ColorProperty MaterialUtils::suggestMaterialColorProperty(const QString &name)
 }
 
 
-IMaterial *MaterialUtils::createDomainMaterial(const MaterialProperty &material_property)
+std::unique_ptr<IMaterial> MaterialUtils::createDomainMaterial(const MaterialProperty &material_property)
 {
     MaterialModel *model = MaterialEditor::getMaterialModel();
     Q_ASSERT(model);
@@ -73,9 +73,9 @@ IMaterial *MaterialUtils::createDomainMaterial(const MaterialProperty &material_
     double delta = refractiveIndexItem->getDelta();
     double beta = refractiveIndexItem->getBeta();
 
-    IMaterial *result(0);
     if(materialItem->isHomogeneousMaterial()) {
-        result = new HomogeneousMaterial(materialItem->itemName().toStdString(), delta, beta);
+        return GUIHelpers::make_unique<HomogeneousMaterial>(
+                    materialItem->itemName().toStdString(), delta, beta);
     }
     else if(materialItem->isHomogeneousMagneticMaterial()) {
         const MagneticFieldItem *magneticField = dynamic_cast<const MagneticFieldItem *>(materialItem->getSubItems()[MaterialItem::P_MAGNETIC_FIELD]);
@@ -83,13 +83,15 @@ IMaterial *MaterialUtils::createDomainMaterial(const MaterialProperty &material_
         double Bx = magneticField->getRegisteredProperty(MagneticFieldItem::P_BX).toDouble();
         double By = magneticField->getRegisteredProperty(MagneticFieldItem::P_BY).toDouble();
         double Bz = magneticField->getRegisteredProperty(MagneticFieldItem::P_BZ).toDouble();
-        result = new HomogeneousMagneticMaterial(materialItem->itemName().toStdString(), delta, beta, kvector_t(Bx, By, Bz));
+        return GUIHelpers::make_unique<HomogeneousMagneticMaterial>(
+                    materialItem->itemName().toStdString(),
+                    delta, beta, kvector_t(Bx, By, Bz));
     }
     else {
         throw GUIHelpers::Error("MaterialUtils::createDomainMaterial() -> Error. Unknown material type.");
     }
 
-    return result;
+    return nullptr;
 }
 
 

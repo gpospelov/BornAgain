@@ -43,7 +43,7 @@ TEST_F(MatrixSpecularInfoMapTest, getCoefficients)
     (void)R0;
     (void)lambda0;
 
-    EXPECT_TRUE(NULL != P_rt_coeffs.get());
+    EXPECT_TRUE(nullptr != P_rt_coeffs.get());
 
     EXPECT_EQ(0.0, P_rt_coeffs->T1plus()(0));
     EXPECT_EQ(0.0, P_rt_coeffs->T1plus()(1));

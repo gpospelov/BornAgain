@@ -9,6 +9,7 @@
 #include "TestLayerRoughnessItems.h"
 #include "TestParaCrystalItems.h"
 #include "TestSessionModel.h"
+#include "TestGUICoreObjectCorrespondence.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);
@@ -21,6 +22,7 @@ int main(int argc, char** argv) {
     TestLayerRoughnessItems testLayerRoughnessItems;
     TestParaCrystalItems testParaCrystalItems;
     TestSessionModel testSessionModel;
+    TestGUICoreObjectCorrespondence testGUICoreObjectCorrespondence;
 
     return QTest::qExec(&testFormFactorItems, argc, argv) |
            QTest::qExec(&testFTDistributionItems, argc, argv) |
@@ -28,5 +30,6 @@ int main(int argc, char** argv) {
            QTest::qExec(&testParticleItems, argc, argv) |
            QTest::qExec(&testLayerRoughnessItems, argc, argv) |
            QTest::qExec(&testParaCrystalItems, argc, argv) |
-           QTest::qExec(&testSessionModel, argc, argv);
+           QTest::qExec(&testSessionModel, argc, argv) |
+           QTest::qExec(&testGUICoreObjectCorrespondence, argc, argv);
 }

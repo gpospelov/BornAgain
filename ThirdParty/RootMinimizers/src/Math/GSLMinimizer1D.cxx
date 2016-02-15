@@ -83,7 +83,8 @@ GSLMinimizer1D::~GSLMinimizer1D()
    if (fFunction)  delete  fFunction;
 }
 
-GSLMinimizer1D::GSLMinimizer1D(const GSLMinimizer1D &): IMinimizer1D()
+GSLMinimizer1D::GSLMinimizer1D(const GSLMinimizer1D &)
+    : IMinimizer1D()
 {
    // dummy copy ctr
 }

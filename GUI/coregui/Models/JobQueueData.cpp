@@ -77,24 +77,21 @@ bool JobQueueData::hasUnfinishedJobs()
     return m_simulations.size();
 }
 
-void JobQueueData::setResults(JobItem *jobItem, const GISASSimulation *simulation)
-{
-    //qDebug() << "JobQueueData::setResults(NJobItem *jobItem, const Simulation *simulation)";
-    if(!simulation)
-        throw GUIHelpers::Error("NJobItem::setResults() -> Error. Null simulation.");
+//void JobQueueData::setResults(JobItem *jobItem, const GISASSimulation *simulation)
+//{
+//    if(!simulation)
+//        throw GUIHelpers::Error("NJobItem::setResults() -> Error. Null simulation.");
 
-    IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();
+//    jobItem->setResults(simulation);
+////    IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();
 
-    if(!intensityItem) {
-        intensityItem = static_cast<IntensityDataItem *>(m_jobModel->insertNewItem(Constants::IntensityDataType, m_jobModel->indexOfItem(jobItem)));
-    }
-
-    intensityItem->setNameFromProposed(jobItem->itemName());
-    intensityItem->setOutputData(simulation->getDetectorIntensity());
-}
-
-
-
+////    if(!intensityItem) {
+////        intensityItem = static_cast<IntensityDataItem *>(m_jobModel->insertNewItem(Constants::IntensityDataType, m_jobModel->indexOfItem(jobItem)));
+////    }
+////    intensityItem->setNameFromProposed(jobItem->itemName());
+//////    intensityItem->setOutputData(simulation->getDetectorIntensity());
+////    intensityItem->setResults(simulation);
+//}
 
 void JobQueueData::runJob(const QString &identifier)
 {
@@ -102,7 +99,6 @@ void JobQueueData::runJob(const QString &identifier)
     JobItem *jobItem = m_jobModel->getJobItemForIdentifier(identifier);
     runJob(jobItem);
 }
-
 
 //! submit job and run it in a thread
 void JobQueueData::runJob(JobItem *jobItem)
@@ -118,8 +114,6 @@ void JobQueueData::runJob(JobItem *jobItem)
 
     GISASSimulation *simulation(0);
     try{
-//        simulation = DomainSimulationBuilder::getSimulation(jobItem->getSampleModel(),
-//                                                            jobItem->getInstrumentModel());
         simulation = DomainSimulationBuilder::getSimulation(jobItem->getMultiLayerItem(),
                                                             jobItem->getInstrumentItem());
     } catch(const std::exception &ex) {
@@ -221,7 +215,7 @@ void JobQueueData::onFinishedJob()
     } else {
         // propagating simulation results
         GISASSimulation *simulation = getSimulation(runner->getIdentifier());
-        setResults(jobItem, simulation);
+        jobItem->setResults(simulation);
     }
 
     // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)

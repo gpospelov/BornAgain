@@ -1,405 +1,266 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/MaskWidgets/RectangleView.cpp
+//! @brief     Implements RectangleView class
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "RectangleView.h"
-#include "RectangleItem.h"
-#include "ParameterizedItem.h"
-#include "DesignerHelper.h"
-#include "RotationArrow.h"
-#include "ResizeArrow.h"
-#include <QPainterPath>
+#include "MaskItems.h"
+#include "MaskEditorHelper.h"
+#include "SizeHandleElement.h"
+#include "ISceneAdaptor.h"
 #include <QPainter>
+#include <QMarginsF>
 #include <QGraphicsSceneMouseEvent>
+#include <QRegion>
 #include <QDebug>
-#include <cmath>
-#include <QCursor>
 
-static const qreal widthAndHeight = 5;
-static const qreal OffsetPosition = 2.5;
+namespace {
+const double bbox_margins = 5; // additional margins around rectangle to form bounding box
+}
 
 
-RectangleView::RectangleView() :
-    m_diagonalOpposedPoint(new QPointF)
+RectangleView::RectangleView()
+    : m_block_on_property_change(false)
+    , m_activeHandleElement(0)
 {
     setFlag(QGraphicsItem::ItemIsSelectable);
-    setFlag(QGraphicsItem::ItemIsMovable);
+    setFlag(QGraphicsItem::ItemIsMovable );
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptHoverEvents(true);
-    connect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
-    connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
-}
-
-void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
-{
-    // paint rectangle
-    painter->setRenderHints(QPainter::Antialiasing);
-    prepareGeometryChange();
-
-    QRectF rectangle(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal(),
-                m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal(),
-                m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal(),
-                m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal());
-    QBrush brush;
-    brush.setStyle(Qt::SolidPattern);
-
-    // change color
-    if (m_item->getRegisteredProperty(RectangleItem::P_COLOR).toInt() == 0) {
-        brush.setColor(DesignerHelper::getDefaultColor("Transparant red"));
-        painter->setPen(brush.color().darker());
-        painter->setBrush(brush);
-        painter->drawRect(rectangle);
-
-    } else {
-        brush.setColor(DesignerHelper::getDefaultColor("Transparant blue"));
-        painter->setPen(brush.color().darker());
-        painter->setBrush(brush);
-        painter->drawRect(rectangle);
-    }
-
-    // paint rectangles on corners if this item is selected
-    if (this->isSelected()) {
-        painter->setBrush(painter->pen().color());
-        painter->drawRect(getTopLeftCorner());
-        painter->drawRect(getBottomLeftCorner());
-        painter->drawRect(getTopRightCorner());
-        painter->drawRect(getBottomRightCorner());
-    }
-
-        updateArrows();
-}
-
-QRectF RectangleView::boundingRect() const
-{
-        return QRectF(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal() -5,
-                      m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal() -5,
-                      m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal() + 10,
-                      m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal() + 10);
-}
-
-void RectangleView::setDiagonalOpposedPoint()
-{
-    if (m_corner == TOPLEFT) {
-        m_diagonalOpposedPoint->setX(getBottomRightCorner().x());
-        m_diagonalOpposedPoint->setY(getBottomRightCorner().x());
-    } else if (m_corner == TOPRIGHT) {
-        m_diagonalOpposedPoint->setX(getBottomLeftCorner().x());
-        m_diagonalOpposedPoint->setY(getBottomLeftCorner().y());
-    } else if (m_corner == BOTTOMLEFT) {
-        m_diagonalOpposedPoint->setX(getTopRightCorner().x());
-        m_diagonalOpposedPoint->setY(getTopRightCorner().y());
-    } else if (m_corner == BOTTOMRIGHT) {
-        m_diagonalOpposedPoint->setX(getTopLeftCorner().x());
-        m_diagonalOpposedPoint->setY(getTopLeftCorner().y());
-    }
-}
-
-void RectangleView::calculateResize(QGraphicsSceneMouseEvent *event)
-{
-        qreal xmin = std::min(event->pos().x(),m_diagonalOpposedPoint->x());
-        qreal xmax = std::max(event->pos().x(),m_diagonalOpposedPoint->x());
-        qreal ymin = std::min(event->pos().y(),m_diagonalOpposedPoint->y());
-        qreal ymax = std::max(event->pos().y(),m_diagonalOpposedPoint->y());
-
-        m_item->setRegisteredProperty(RectangleItem::P_WIDTH, xmax - xmin);
-        m_item->setRegisteredProperty(RectangleItem::P_HEIGHT, ymax - ymin);
-
-        m_item->setRegisteredProperty(RectangleItem::P_POSX, xmin);
-        m_item->setRegisteredProperty(RectangleItem::P_POSY, ymin);
-}
-
-qreal RectangleView::getRotationAngle(QGraphicsSceneMouseEvent *event)
-{
-    QPointF middlePoint
-        = mapToScene(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal()
-                     + m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal() / 2,
-                     m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal()
-                     + m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal() / 2);
-    qreal lengthOfHypotenuse
-        = sqrt(pow(m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal() / 2, 2)
-               + pow(m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal() / 2, 2));
-    qreal offsetAngle = acos((m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal() / 2)
-                             / lengthOfHypotenuse) * 180 / M_PI;
-    qreal radians = atan((event->scenePos().y() - middlePoint.y())
-                         / (event->scenePos().x() - middlePoint.x()));
-
-    if (m_corner == TOPLEFT) {
-        m_item->setRegisteredProperty(RectangleItem::P_ANGLE, radians * 180 / M_PI - offsetAngle);
-        return radians * 180 / M_PI - offsetAngle;
-
-    } else if (m_corner == TOPRIGHT) {
-        m_item->setRegisteredProperty(RectangleItem::P_ANGLE, radians * 180 / M_PI + offsetAngle - 180);
-        return radians * 180 / M_PI + offsetAngle - 180;
-
-    } else if (m_corner == BOTTOMLEFT) {
-        m_item->setRegisteredProperty(RectangleItem::P_ANGLE, radians * 180 / M_PI + offsetAngle - 180);
-        return  radians * 180 / M_PI + offsetAngle - 180;
-
-    } else if (m_corner == BOTTOMRIGHT) {
-        m_item->setRegisteredProperty(RectangleItem::P_ANGLE, radians * 180 / M_PI - offsetAngle);
-        return radians * 180 / M_PI - offsetAngle;
-    }
-    return 0.0;
-}
-
-void RectangleView::mousePressEvent(QGraphicsSceneMouseEvent *event)
-{
-    this->setFlag(QGraphicsItem::ItemIsMovable, false);
-
-    if (event->button() == Qt::LeftButton) {
-        setSelectedCorner(event->pos());
-
-        if (m_corner == NONE) {
-            this->setFlag(QGraphicsItem::ItemIsMovable, true);
-            m_block_mode = false;
-            QGraphicsItem::mousePressEvent(event);
-        }
-        else {
-            setDiagonalOpposedPoint();
-        }
-    }
-
-}
-
-void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
-{
-    // check which mode is active and process with the active mode
-    if (m_mode == RESIZE && m_corner != NONE) {
-        calculateResize(event);
-        m_block_mode = true;
-    } else if (m_corner != NONE && m_mode == ROTATION) {
-        QTransform transform;
-        transform.translate(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal()
-                            + m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal() * 0.5,
-                            m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal()
-                            + m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal() * 0.5);
-        transform.rotate(getRotationAngle(event));
-        transform.translate(-(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal()
-                              + m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal() * 0.5),
-                            -(m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal()
-                              + m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal() * 0.5));
-        setTransform(transform);
-        m_block_mode = true;
-
-//         process as usual
-    } else {
-        this->setFlag(QGraphicsItem::ItemIsMovable, true);
-        m_block_mode = false;
-        QGraphicsItem::mouseMoveEvent(event);
-    }
-}
-
-void RectangleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
-{
-    if(!m_block_mode && m_corner == NONE) {
-        if ((m_mode == RESIZE)) {
-            m_mode = ROTATION;
-        } else if ((m_mode == ROTATION)) {
-            m_mode = RESIZE;
-        }
-    }
-    m_block_mode = false;
-    m_corner = NONE;
-    setCursor(Qt::ArrowCursor);
-    QGraphicsItem::mouseReleaseEvent(event);
-}
-
-void RectangleView::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
-{
-    setSelectedCorner(event->pos());
-    m_corner = NONE;
-}
-
-void RectangleView::setInclude()
-{
-    m_item->setRegisteredProperty(RectangleItem::P_COLOR, 0);
-}
-
-void RectangleView::setExclude()
-{
-    m_item->setRegisteredProperty(RectangleItem::P_COLOR, 1);
-}
-
-
-QRectF RectangleView::getTopLeftCorner()
-{
-    return QRectF(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal() - OffsetPosition,
-                  m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal() - OffsetPosition,
-                  widthAndHeight, widthAndHeight);
-}
-
-QRectF RectangleView::getTopRightCorner()
-{
-    return QRectF(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal()
-                  + m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal() - OffsetPosition,
-                  m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal() - OffsetPosition,
-                  widthAndHeight, widthAndHeight);
-}
-
-QRectF RectangleView::getBottomLeftCorner()
-{
-    return QRectF(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal() - OffsetPosition,
-                  m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal()
-                  + m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal() - OffsetPosition,
-                  widthAndHeight, widthAndHeight);
-}
-
-QRectF RectangleView::getBottomRightCorner()
-{
-    return QRectF(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal()
-                  + m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal() - OffsetPosition,
-                  m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal()
-                  + m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal() - OffsetPosition,
-                  widthAndHeight, widthAndHeight);
-}
-
-void RectangleView::setParameterizedItem(ParameterizedItem *item)
-{
-    m_item = item;
-    setRotation(m_item->getRegisteredProperty(RectangleItem::P_ANGLE).toReal());
-    connect(m_item, SIGNAL(propertyChanged(const QString &)), this,
-            SLOT(onPropertyChange(const QString &)));
-    initializeArrows();
+    create_size_handle_elements();
 }
 
 void RectangleView::onChangedX()
 {
-    m_block_mode = true;
+    m_block_on_property_change = true;
+//    m_item->setRegisteredProperty(RectangleItem::P_POSX, fromSceneX(this->x()));
+    m_item->setRegisteredProperty(RectangleItem::P_XLOW, fromSceneX(this->x()));
+    m_item->setRegisteredProperty(RectangleItem::P_XUP, fromSceneX(this->x() + m_mask_rect.width()));
+    m_block_on_property_change = false;
 }
 
 void RectangleView::onChangedY()
 {
-    m_block_mode = true;
+    m_block_on_property_change = true;
+//    m_item->setRegisteredProperty(RectangleItem::P_POSY, fromSceneY(this->y()));
+    m_item->setRegisteredProperty(RectangleItem::P_YLOW, fromSceneY(this->y() + m_mask_rect.height()));
+    m_item->setRegisteredProperty(RectangleItem::P_YUP, fromSceneY(this->y()));
+    m_block_on_property_change = false;
 }
 
 void RectangleView::onPropertyChange(const QString &propertyName)
 {
-    if(propertyName == RectangleItem::P_POSX) {
-         m_block_mode = true;
-    }
-    else if(propertyName == RectangleItem::P_POSY) {
-         m_block_mode = true;
-    }
-    else if(propertyName == RectangleItem::P_ANGLE) {
-    QTransform transform;
-    transform.translate(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal()
-                        + m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal() * 0.5,
-                        m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal()
-                        + m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal() * 0.5);
-    transform.rotate(m_item->getRegisteredProperty(RectangleItem::P_ANGLE).toReal());
-    transform.translate(-(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal()
-                          + m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal() * 0.5),
-                        -(m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal()
-                          + m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal() * 0.5));
-    setTransform(transform);
-    }
-}
+    if(m_block_on_property_change) return;
 
-ParameterizedItem *RectangleView::getParameterizedItem()
-{
-    return m_item;
-}
+//    if(propertyName == RectangleItem::P_WIDTH || propertyName == RectangleItem::P_HEIGHT) {
+////        update_bounding_rect();
+//        update_view();
+//    }
+//    else if(propertyName == RectangleItem::P_POSX) {
+//        setX(toSceneX(RectangleItem::P_POSX));
+//    }
+//    else if(propertyName == RectangleItem::P_POSY) {
+//        setY(toSceneY(RectangleItem::P_POSY));
+//    }
+//    else if(propertyName == MaskItem::P_MASK_VALUE) {
+//        update();
+//    }
 
-void RectangleView::setSelectedCorner(QPointF currentMousePosition)
-{
-    if (getTopLeftCorner().contains(currentMousePosition)) {
-        qDebug() << "TOPLEFT";
-        m_corner = TOPLEFT;
-        if(m_mode == RESIZE)
-            setCursor(Qt::SizeFDiagCursor);
-    } else if (getTopRightCorner().contains(currentMousePosition)) {
-        qDebug() << "TOPRIGHT";
-        m_corner = TOPRIGHT;
-        if(m_mode == RESIZE)
-            setCursor(Qt::SizeBDiagCursor);
-    } else if (getBottomLeftCorner().contains(currentMousePosition)) {
-        qDebug() << "BOTTOMLEFT";
-        m_corner = BOTTOMLEFT;
-        if(m_mode == RESIZE)
-            setCursor(Qt::SizeBDiagCursor);
-    } else if (getBottomRightCorner().contains(currentMousePosition)) {
-        qDebug() << "BOTTOMRIGHT";
-        m_corner = BOTTOMRIGHT;
-        if(m_mode == RESIZE)
-            setCursor(Qt::SizeFDiagCursor);
+    if(propertyName == MaskItem::P_MASK_VALUE) {
+        update();
     } else {
-        m_corner = NONE;
-        setCursor(QCursor());
-    }
-
-    if (m_mode == ROTATION && m_corner != NONE) {
-        setCursor(QCursor(QPixmap(":/images/rotationArrow.png")));
+        update_view();
     }
 }
 
-void RectangleView::updateArrows()
+//! triggered by SizeHandleElement
+void RectangleView::onSizeHandleElementRequest(bool going_to_resize)
 {
-    // 0 - 3 are rotation arrows
-    childItems()[0]->setPos(getTopLeftCorner().x(), getTopLeftCorner().y());
-    childItems()[1]->setPos(getTopRightCorner().x(), getTopRightCorner().y());
-    childItems()[2]->setPos(getBottomLeftCorner().x(), getBottomLeftCorner().y());
-    childItems()[3]->setPos(getBottomRightCorner().x(), getBottomRightCorner().y());
-
-    // 4 - 7 are resize arrows
-    childItems()[4]->setPos(getTopLeftCorner().x(), getTopLeftCorner().y());
-    childItems()[5]->setPos(getTopRightCorner().x(), getTopRightCorner().y());
-    childItems()[6]->setPos(getBottomLeftCorner().x(), getBottomLeftCorner().y());
-    childItems()[7]->setPos(getBottomRightCorner().x(), getBottomRightCorner().y());
-
-
-    if(isSelected() == false) {
-        for(int i = 0; i < childItems().length(); ++i) {
-            childItems()[i]->setVisible(false);
-        }
-
-    }
-    else if(m_mode == RESIZE) {
-        for(int i = 0; i < childItems().length(); ++i) {
-            if(i < 4) {
-                childItems()[i]->setVisible(false);
-            }
-            else {
-                childItems()[i]->setVisible(true);
-            }
-        }
-    }    else if(m_mode == ROTATION) {
-        for(int i = 0; i < childItems().length(); ++i) {
-            if(i < 4) {
-                childItems()[i]->setVisible(true);
-            }
-            else {
-                childItems()[i]->setVisible(false);
-            }
-        }
+    qDebug() << "RectangleView::onSizeHandleElementRequest()";
+    if(going_to_resize) {
+        setFlag(QGraphicsItem::ItemIsMovable, false);
+        m_activeHandleElement = qobject_cast<SizeHandleElement *>(sender());
+        Q_ASSERT(m_activeHandleElement);
+        SizeHandleElement::EHandleLocation oposite_corner
+                = m_activeHandleElement->getOppositeHandleLocation();
+        m_resize_opposite_origin = m_resize_handles[oposite_corner]->scenePos();
+    } else {
+        setFlag(QGraphicsItem::ItemIsMovable, true);
+        m_activeHandleElement = 0;
     }
 }
 
-void RectangleView::initializeArrows()
+void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    RotationArrow *topLeftRotationArrow = new RotationArrow(this);
-    RotationArrow *topRightRotationArrow = new RotationArrow(this);
-    RotationArrow *bottomLeftRotationArrow = new RotationArrow(this);
-    RotationArrow *bottomRightRotationArrow = new RotationArrow(this);
-
-    ResizeArrow *topLeftResizeArrow = new ResizeArrow(this);
-    ResizeArrow *topRightResizeArrow = new ResizeArrow(this);
-    ResizeArrow *bottomLeftResizeArrow = new ResizeArrow(this);
-    ResizeArrow *bottomRightResizeArrow = new ResizeArrow(this);
-
-
-    topRightRotationArrow->setRotation(90);
-    bottomLeftRotationArrow->setRotation(270);
-    bottomRightRotationArrow->setRotation(180);
-
-    topRightResizeArrow->setRotation(90);
-    bottomLeftResizeArrow->setRotation(270);
-    bottomRightResizeArrow->setRotation(180);
-
-    topRightRotationArrow->setVisible(false);
-    topLeftRotationArrow->setVisible(false);
-    bottomLeftRotationArrow->setVisible(false);
-    bottomRightRotationArrow->setVisible(false);
-
-    topRightResizeArrow->setVisible(false);
-    topLeftResizeArrow->setVisible(false);
-    bottomLeftResizeArrow->setVisible(false);
-    bottomRightResizeArrow->setVisible(false);
+//    painter->setRenderHints(QPainter::Antialiasing);
+    bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
+    painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
+    painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
+    painter->drawRect(m_mask_rect);
 }
 
+//! Track if item selected/deselected and show/hide size handles
+QVariant RectangleView::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
+{
+    if(change == QGraphicsItem::ItemSelectedChange) {
+        for(QMap<SizeHandleElement::EHandleLocation, SizeHandleElement *>::iterator
+            it = m_resize_handles.begin(); it!= m_resize_handles.end(); ++it) {
+            it.value()->setVisible(!this->isSelected());
+        }
+    }
+    return value;
+}
 
+void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    if(m_activeHandleElement) {
+
+//        m_block_on_property_change = true;
+
+        qreal xmin = std::min(event->scenePos().x(),m_resize_opposite_origin.x());
+        qreal xmax = std::max(event->scenePos().x(),m_resize_opposite_origin.x());
+        qreal ymin = std::min(event->scenePos().y(),m_resize_opposite_origin.y());
+        qreal ymax = std::max(event->scenePos().y(),m_resize_opposite_origin.y());
+
+        if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE) {
+//            m_item->setRegisteredProperty(RectangleItem::P_POSX, fromSceneX(xmin));
+//            m_item->setRegisteredProperty(RectangleItem::P_POSY, fromSceneY(ymin));
+//            m_item->setRegisteredProperty(RectangleItem::P_WIDTH,
+//                                          fromSceneX(xmax) - fromSceneX(xmin));
+//            m_item->setRegisteredProperty(RectangleItem::P_HEIGHT,
+//                                          fromSceneY(ymin) - fromSceneY(ymax));
+            m_item->setRegisteredProperty(RectangleItem::P_XLOW, fromSceneX(xmin));
+            m_item->setRegisteredProperty(RectangleItem::P_YLOW, fromSceneY(ymax));
+            m_item->setRegisteredProperty(RectangleItem::P_XUP, fromSceneX(xmax));
+            m_item->setRegisteredProperty(RectangleItem::P_YUP, fromSceneY(ymin));
+
+
+
+        } else if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_HEIGHT) {
+//            m_item->setRegisteredProperty(RectangleItem::P_POSY, fromSceneY(ymin));
+//            m_item->setRegisteredProperty(RectangleItem::P_HEIGHT,
+//                                          fromSceneY(ymin) - fromSceneY(ymax));
+
+            m_item->setRegisteredProperty(RectangleItem::P_YLOW, fromSceneY(ymax));
+            m_item->setRegisteredProperty(RectangleItem::P_YUP, fromSceneY(ymin));
+
+
+        } else if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_WIDTH) {
+//            m_item->setRegisteredProperty(RectangleItem::P_POSX, fromSceneX(xmin));
+//            m_item->setRegisteredProperty(RectangleItem::P_WIDTH,
+//                                          fromSceneX(xmax) - fromSceneX(xmin));
+
+            m_item->setRegisteredProperty(RectangleItem::P_XLOW, fromSceneX(xmin));
+            m_item->setRegisteredProperty(RectangleItem::P_XUP, fromSceneX(xmax));
+
+        }
+        update_view();
+//        m_block_on_property_change = false;
+    } else {
+        IMaskView::mouseMoveEvent(event);
+    }
+}
+void RectangleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    onSizeHandleElementRequest(false);
+    IMaskView::mouseReleaseEvent(event);
+}
+
+void RectangleView::update_view()
+{
+//    prepareGeometryChange();
+    update_bounding_rect();
+    update_position();
+    update();
+}
+
+//! updates view's bounding rectangle using item properties
+void RectangleView::update_bounding_rect()
+{
+    if(m_item) {
+        m_mask_rect = QRectF(0.0, 0.0, width(), height());
+        m_bounding_rect = m_mask_rect.marginsAdded(QMarginsF(bbox_margins, bbox_margins,
+                                                      bbox_margins, bbox_margins));
+    }
+    for(QMap<SizeHandleElement::EHandleLocation, SizeHandleElement *>::iterator
+            it = m_resize_handles.begin(); it!= m_resize_handles.end(); ++it) {
+        it.value()->updateHandleElementPosition(m_mask_rect);
+    }
+}
+
+//! updates position of view using item properties
+void RectangleView::update_position()
+{
+//    setX(toSceneX(RectangleItem::P_POSX));
+//    setY(toSceneY(RectangleItem::P_POSY));
+    setX(toSceneX(RectangleItem::P_XLOW));
+    setY(toSceneY(RectangleItem::P_YUP));
+
+}
+
+//! returns the x-coordinate of the rectangle's left edge
+qreal RectangleView::left() const
+{
+//    return toSceneX(par(RectangleItem::P_POSX));
+    return toSceneX(par(RectangleItem::P_XLOW));
+}
+
+//! returns the x-coordinate of the rectangle's right edge
+qreal RectangleView::right() const
+{
+//    return toSceneX(par(RectangleItem::P_POSX)+par(RectangleItem::P_WIDTH));
+    return toSceneX(par(RectangleItem::P_XUP));
+}
+
+//! returns width of the rectangle
+qreal RectangleView::width() const
+{
+    return right() - left();
+}
+
+//! Returns the y-coordinate of the rectangle's top edge.
+qreal RectangleView::top() const
+{
+//    return toSceneY(par(RectangleItem::P_POSY));
+    return toSceneY(par(RectangleItem::P_YUP));
+}
+
+//! Returns the y-coordinate of the rectangle's bottom edge.
+qreal RectangleView::bottom() const
+{
+//    return toSceneY(par(RectangleItem::P_POSY)-par(RectangleItem::P_HEIGHT));
+    return toSceneY(par(RectangleItem::P_YLOW));
+}
+
+qreal RectangleView::height() const
+{
+    return bottom() - top();
+}
+
+void RectangleView::create_size_handle_elements()
+{
+    QList<SizeHandleElement::EHandleLocation> points;
+    points << SizeHandleElement::TOPLEFT << SizeHandleElement::TOPMIDDLE
+           << SizeHandleElement::TOPRIGHT
+           << SizeHandleElement::MIDDLERIGHT << SizeHandleElement::BOTTOMRIGHT
+           << SizeHandleElement::BOTTOMMIDLE << SizeHandleElement::BOTTOMLEFT
+           << SizeHandleElement::MIDDLELEFT;
+
+    foreach(SizeHandleElement::EHandleLocation point_type, points) {
+        SizeHandleElement *el = new SizeHandleElement(point_type, this);
+        connect(el, SIGNAL(resize_request(bool)), this, SLOT(onSizeHandleElementRequest(bool)));
+        el->setVisible(false);
+        m_resize_handles[point_type] = el;
+    }
+}
 

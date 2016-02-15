@@ -6,7 +6,6 @@
 #include "MultiLayer.h"
 #include "OutputDataFunctions.h"
 #include "gtest/gtest.h"
-#include <boost/assign/list_of.hpp>
 
 
 class DWBASimulationTest : public ::testing::Test

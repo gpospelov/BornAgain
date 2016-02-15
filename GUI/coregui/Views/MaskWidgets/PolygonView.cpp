@@ -1,212 +1,207 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/MaskWidgets/PolygonView.cpp
+//! @brief     Implements PolygonView class
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "PolygonView.h"
-#include "ParameterizedItem.h"
-#include "PolygonItem.h"
-#include "PointItem.h"
-#include <cmath>
-#include <QDebug>
+#include "MaskEditorHelper.h"
+#include "MaskItems.h"
+#include "PolygonPointView.h"
+#include "ISceneAdaptor.h"
 #include <QPainter>
 #include <QCursor>
+#include <QRectF>
+#include <QGraphicsItem>
+#include <QGraphicsPolygonItem>
 #include <QGraphicsSceneMouseEvent>
+#include <QDebug>
+
+namespace {
+const double bbox_margins = 5; // additional margins around points to form bounding box
+}
 
 PolygonView::PolygonView()
-    : m_changeCornerMode(false), m_indexOfCurrentSelectedPoint(0), m_mouseIsOverFirstPoint(false)
-
+    : m_block_on_point_update(false)
+    , m_close_polygon_request(false)
 {
-    this->setFlag(QGraphicsItem::ItemIsSelectable);
-    this->cursor().setShape(Qt::ClosedHandCursor);
-    this->setAcceptHoverEvents(true);
+    setFlag(QGraphicsItem::ItemIsSelectable);
+    setFlag(QGraphicsItem::ItemIsMovable );
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges);
+}
+
+void PolygonView::addView(IMaskView *childView, int row)
+{
+    Q_UNUSED(row);
+
+    if(childItems().contains(childView)) return;
+
+    PolygonPointView *pointView = dynamic_cast<PolygonPointView *>(childView);
+    Q_ASSERT(pointView);
+    pointView->setParentItem(this);
+
+    // polygon consisting from more than 2 points can be closed via hover event by clicking
+    // on first polygon point
+    if(!isClosedPolygon() && childItems().size() > 2) {
+        childItems()[0]->setAcceptHoverEvents(true);
+    }
+
+    pointView->setVisible(true);
+    update_polygon();
+
+    connect(pointView, SIGNAL(propertyChanged()), this, SLOT(update_view()));
+    connect(pointView, SIGNAL(closePolygonRequest(bool)), this, SLOT(onClosePolygonRequest(bool)));
+}
+
+//! returns last added poligon point in scene coordinates
+QPointF PolygonView::getLastAddedPoint() const
+{
+    QPointF result;
+    if(childItems().size()) {
+        result = childItems().back()->scenePos();
+    }
+    return result;
+}
+
+//! checks if there was a request to close polygon (emitted by its start point),
+//! and then closes a polygon. Return true if polygon was closed.
+bool PolygonView::closePolygonIfNecessary()
+{
+    if(m_close_polygon_request) {
+        foreach(QGraphicsItem *childItem, childItems()) {
+            childItem->setFlag(QGraphicsItem::ItemIsMovable );
+            childItem->setFlag(QGraphicsItem::ItemSendsGeometryChanges);
+            childItem->setAcceptHoverEvents(false);
+            childItem->setCursor(Qt::SizeAllCursor);
+        }
+        m_item->setRegisteredProperty(PolygonItem::P_ISCLOSED, true);
+        update();
+    }
+    return isClosedPolygon();
+}
+
+void PolygonView::onClosePolygonRequest(bool value)
+{
+    m_close_polygon_request = value;
+}
+
+bool PolygonView::isClosedPolygon()
+{
+    return m_item->getRegisteredProperty(PolygonItem::P_ISCLOSED).toBool();
 }
 
 void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    QPen pen;
-    prepareGeometryChange();
+    Q_ASSERT(m_item);
     painter->setRenderHints(QPainter::Antialiasing);
-    QList<ParameterizedItem *> points = m_item->childItems();
-    QPolygon polygon;
 
-    // draws polygon
-    for (int i = 0; i < points.length(); ++i) {
-        polygon << QPoint(points[i]->getRegisteredProperty(PointItem::P_POSX).toReal(),
-                          points[i]->getRegisteredProperty(PointItem::P_POSY).toReal());
+    bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
+    painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
+    painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
+
+    // painter->drawRect(m_bounding_rect);
+
+    painter->drawPolyline(m_polygon.toPolygon());
+
+    if(isClosedPolygon()) {
+        painter->drawPolygon(m_polygon.toPolygon());
     }
-    painter->drawPolyline(polygon);
 
-    // fills polygon with a color
-    if (getFirstPoint().center().x() == polygon[polygon.length() - 1].x()
-        && getFirstPoint().center().y() == polygon[polygon.length() - 1].y()
-        && points.length() >= 2) {
+}
 
-        QPainterPath path;
-        QBrush transRed(DesignerHelper::getDefaultColor("Transparant red"));
-        QBrush transBlue(DesignerHelper::getDefaultColor("Transparant blue"));
-        path.moveTo(polygon[0].x(),polygon[0].y());
-        for (int i = 1; i < polygon.length(); ++i) {
-            path.lineTo(polygon[i].x(), polygon[i].y());
-        }
-        painter->setPen(Qt::NoPen);
-        if (m_item->getRegisteredProperty(PolygonItem::P_COLOR).toInt() == 0) {
-            painter->fillPath(path, transRed);
+QVariant PolygonView::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
+{
+    qDebug() << "PolygonView::itemChange" << change << value << this->isSelected();
+    if(change == QGraphicsItem::ItemSelectedHasChanged) {
+        if(this->isSelected()) {
+            setChildrenVisible(true);
         } else {
-            painter->fillPath(path, transBlue);
+            setChildrenVisible(false);
         }
     }
-
-    if (points.length() >= 1
-        && m_item->getRegisteredProperty(PolygonItem::P_DRAWINGMODE).toBool()) {
-        pen.setWidth(1);
-        if (m_mouseIsOverFirstPoint) {
-            painter->fillRect(getFirstPoint(), Qt::red);
-        } else {
-            painter->drawRect(getFirstPoint());
-        }
-    }
-    // draw all points if item is finised with drawing and is selected
-    if (!m_item->getRegisteredProperty(PolygonItem::P_DRAWINGMODE).toBool() && isSelected()) {
-        pen.setWidth(5);
-        painter->setPen(pen);
-        for (int i = 0; i < points.length() - 1; ++i) {
-            painter->drawPoint(
-                QPointF(polygon[i].x(), polygon[i].y()));
-        }
-        painter->setPen(QPen());
-    }
-}
-
-QRectF PolygonView::boundingRect() const
-{
-    if (m_item->childItems().length() >= 1) {
-        return calculateBoundingRectangle();
-    } else {
-        return QRectF(0, 0, 20, 20);
-    }
-}
-
-bool PolygonView::isCornerClicked(QGraphicsSceneMouseEvent *event)
-{
-    QList<ParameterizedItem *> points = m_item->childItems();
-    for (int i = 0; i < points.length() - 1; ++i) {
-        QRectF rectangle(
-            points[i]->getRegisteredProperty(PointItem::P_POSX).toReal() - 2.5,
-            points[i]->getRegisteredProperty(PointItem::P_POSY).toReal() - 2.5, 5, 5);
-        if (rectangle.contains(event->pos())) {
-            if (i != points.length() - 1 && i != 0) {
-                m_indexOfCurrentSelectedPoint = i;
-            } else {
-                m_indexOfCurrentSelectedPoint = 0;
-            }
-            m_changeCornerMode = true;
-            this->setFlag(QGraphicsItem::ItemIsMovable, false);
-            return true;
-        }
-    }
-    return false;
-}
-
-QRectF PolygonView::calculateBoundingRectangle() const
-{
-    QList<ParameterizedItem *> points = m_item->childItems();
-    qreal smallestXValue = points[0]->getRegisteredProperty(PointItem::P_POSX).toReal();
-    qreal biggestXValue = points[0]->getRegisteredProperty(PointItem::P_POSX).toReal();
-    qreal smallestYValue = points[0]->getRegisteredProperty(PointItem::P_POSY).toReal();
-    qreal biggestYValue = points[0]->getRegisteredProperty(PointItem::P_POSY).toReal();
-
-
-    for (int i = 1; i < points.length(); ++i) {
-        smallestXValue = std::min(smallestXValue, points[i]->getRegisteredProperty(PointItem::P_POSX).toReal());
-        biggestXValue = std::max(biggestXValue, points[i]->getRegisteredProperty(PointItem::P_POSX).toReal());
-        smallestYValue = std::min(smallestYValue, points[i]->getRegisteredProperty(PointItem::P_POSY).toReal());
-        biggestYValue = std::max(biggestYValue, points[i]->getRegisteredProperty(PointItem::P_POSY).toReal());
-    }
-    return QRectF(QPointF(smallestXValue - 20, smallestYValue - 20),
-                  QPointF(biggestXValue + 20, biggestYValue + 20));
-}
-
-void PolygonView::mousePressEvent(QGraphicsSceneMouseEvent *event)
-{
-    if (isCornerClicked(event)) {
-        m_changeCornerMode = true;
-    } else if (event->button() == Qt::RightButton) {
-        m_item->setRegisteredProperty(PolygonItem::P_DRAWINGMODE, false);
-    } else {
-        this->setFlag(QGraphicsItem::ItemIsMovable, true);
-        QGraphicsItem::mousePressEvent(event);
-    }
+    return value;
 }
 
 void PolygonView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    if (m_changeCornerMode) {
-        QList<ParameterizedItem *> points = m_item->childItems();
-        setCursor(Qt::CrossCursor);
-        if (m_indexOfCurrentSelectedPoint == 0) {
-            points[m_indexOfCurrentSelectedPoint]->setRegisteredProperty(PointItem::P_POSX, event->pos().x());
-            points[m_indexOfCurrentSelectedPoint]->setRegisteredProperty(PointItem::P_POSY, event->pos().y());
-            points[points.length() - 1]->setRegisteredProperty(PointItem::P_POSX, event->pos().x());
-            points[points.length() - 1]->setRegisteredProperty(PointItem::P_POSY, event->pos().y());
-        } else {
-            points[m_indexOfCurrentSelectedPoint]->setRegisteredProperty(PointItem::P_POSX, event->pos().x());
-            points[m_indexOfCurrentSelectedPoint]->setRegisteredProperty(PointItem::P_POSY, event->pos().y());
+    IMaskView::mouseMoveEvent(event);
+    update_points();
+}
+
+void PolygonView::update_view()
+{
+//    prepareGeometryChange();
+    update_polygon();
+    update();
+}
+
+//! Runs through all PolygonPointItem and calculate bounding rectangle.
+//! Determines position of the rectangle in scene.
+//! Calculates position of PolygonPointView in local polygon coordinates
+void PolygonView::update_polygon()
+{
+    if(m_block_on_point_update) return;
+
+    m_block_on_point_update = true;
+
+    if (m_item->childItemCount()) {
+
+        m_polygon.clear();
+
+        foreach (ParameterizedItem *item, m_item->childItems()) {
+            qreal px = toSceneX(item->getRegisteredProperty(PolygonPointItem::P_POSX).toReal());
+            qreal py = toSceneY(item->getRegisteredProperty(PolygonPointItem::P_POSY).toReal());
+            m_polygon << QPointF(px, py);
         }
-    } else if (!m_item->getRegisteredProperty(PolygonItem::P_DRAWINGMODE).toBool()) {
-        this->setFlag(QGraphicsItem::ItemIsMovable, true);
-        QGraphicsItem::mouseMoveEvent(event);
+
+        QRectF scene_rect = m_polygon.boundingRect().marginsAdded(
+            QMarginsF(bbox_margins, bbox_margins, bbox_margins, bbox_margins));
+
+        m_bounding_rect = QRectF(0.0, 0.0, scene_rect.width(), scene_rect.height());
+
+        setPos(scene_rect.x(), scene_rect.y());
+        update(); // to propagate changes to scene
+
+        m_polygon = mapFromScene(m_polygon);
+
+        for (int i = 0; i < childItems().size(); ++i) {
+            QGraphicsItem *childView = childItems()[i];
+            childView->setPos(m_polygon[i]);
+        }
+
+        setPos(scene_rect.x(), scene_rect.y());
     }
+
+    m_block_on_point_update = false;
 }
 
-void PolygonView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+//! When polygon moves as a whole thing accross the scene, given method updates coordinates
+//! of PolygonPointItem's
+void PolygonView::update_points()
 {
-    this->setFlag(QGraphicsItem::ItemIsMovable, true);
-    m_changeCornerMode = false;
-    setCursor(Qt::ArrowCursor);
-    QGraphicsItem::mouseReleaseEvent(event);
+    if(m_block_on_point_update) return;
+
+    foreach(QGraphicsItem *childItem, childItems()) {
+        PolygonPointView *view = dynamic_cast<PolygonPointView *>(childItem);
+        QPointF pos = view->scenePos();
+        disconnect(view, SIGNAL(propertyChanged()), this, SLOT(update_view()));
+        view->updateParameterizedItem(pos);
+        connect(view, SIGNAL(propertyChanged()), this, SLOT(update_view()));
+   }
 }
 
-void PolygonView::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+void PolygonView::setChildrenVisible(bool value)
 {
-    if(getFirstPoint().contains(event->pos())) {
-        m_mouseIsOverFirstPoint =  true;
+    foreach(QGraphicsItem *childItem, childItems()) {
+        childItem->setVisible(value);
     }
-    else {
-         m_mouseIsOverFirstPoint =  false;
-    }
-    QGraphicsItem::hoverMoveEvent(event);
-}
-
-void PolygonView::setInclude()
-{
-    m_item->setRegisteredProperty(PolygonItem::P_COLOR, 0);
-}
-
-QRectF PolygonView::getFirstPoint() const
-{
-    QList<ParameterizedItem *> points = m_item->childItems();
-    return QRectF(points[0]->getRegisteredProperty(PointItem::P_POSX).toReal() - 2.5,
-                  points[0]->getRegisteredProperty(PointItem::P_POSY).toReal() - 2.5, 5, 5);
-}
-
-QPointF PolygonView::getLastPoint() const
-{
-    QList<ParameterizedItem *> points = m_item->childItems();
-    int indexOfLastPoint = points.length() - 1;
-    return QPointF(points[indexOfLastPoint]->getRegisteredProperty(PointItem::P_POSX).toReal(),
-                   points[indexOfLastPoint]->getRegisteredProperty(PointItem::P_POSY).toReal());
-}
-
-ParameterizedItem *PolygonView::getParameterizedItem()
-{
-    return m_item;
-}
-
-void PolygonView::setParameterizedItem(ParameterizedItem *item)
-{
-    m_item = item;
-    disconnect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
-    disconnect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
-    connect(m_item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChange(QString)));
-}
-
-void PolygonView::setExclude()
-{
-    m_item->setRegisteredProperty(PolygonItem::P_COLOR, 1);
 }

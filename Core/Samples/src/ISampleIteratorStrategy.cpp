@@ -44,16 +44,12 @@ void SampleIteratorPreorderStrategy::next(IteratorMemento &iterator_stack) const
         throw NullPointerException("CompositeIteratorPreorderStrategy::next(): "
                                    "Error! Null object in the tree of objects");
     }
-    if ( p_sample->getCompositeSample() ) {
-        const ICompositeSample* p_composite = dynamic_cast<const ICompositeSample*>(p_sample);
-        if(p_composite->size()>0 ) {
-            iterator_stack.push_state( IteratorState(p_composite->getChildren()) );
-            return;
-        }
+    std::vector<const ISample *> children = p_sample->getChildren();
+    if (children.size()>0) {
+        iterator_stack.push_state( IteratorState(children) );
+        return;
     }
-
     iterator_stack.next();
-
     while ( !iterator_stack.empty() && iterator_stack.get_state().isEnd() )
     {
         iterator_stack.pop_state();
@@ -84,15 +80,10 @@ IteratorMemento SampleIteratorPostorderStrategy::first(const ISample *p_root)
 {
     IteratorMemento iterator_stack;
     iterator_stack.push_state( IteratorState(p_root) );
-    const ISample *p_sample = p_root;
-    while ( p_sample->getCompositeSample() ) {
-        const ICompositeSample* p_composite = dynamic_cast<const ICompositeSample*>(p_sample);
-        if(p_composite->size()>0 ) {
-            iterator_stack.push_state( IteratorState(p_composite->getChildren()) );
-            p_sample = iterator_stack.getCurrent();
-        } else {
-            break;
-        }
+    std::vector<const ISample *> children = p_root->getChildren();
+    while (children.size()>0) {
+        iterator_stack.push_state( IteratorState(children) );
+        children = iterator_stack.getCurrent()->getChildren();
     }
     return iterator_stack;
 }
@@ -100,22 +91,15 @@ IteratorMemento SampleIteratorPostorderStrategy::first(const ISample *p_root)
 void SampleIteratorPostorderStrategy::next(IteratorMemento &iterator_stack) const
 {
     iterator_stack.next();
-
     if ( iterator_stack.get_state().isEnd() )
     {
         iterator_stack.pop_state();
         return;
     }
-
-    const ISample *p_sample = iterator_stack.getCurrent();
-    while ( p_sample->getCompositeSample() ) {
-        const ICompositeSample* p_composite = dynamic_cast<const ICompositeSample*>(p_sample);
-        if(p_composite->size()>0 ) {
-            iterator_stack.push_state( IteratorState(p_composite->getChildren()) );
-            p_sample = iterator_stack.getCurrent();
-        } else {
-            break;
-        }
+    std::vector<const ISample *> children = iterator_stack.getCurrent()->getChildren();
+    while (children.size()>0) {
+        iterator_stack.push_state( IteratorState(children) );
+        children = iterator_stack.getCurrent()->getChildren();
     }
 }
 

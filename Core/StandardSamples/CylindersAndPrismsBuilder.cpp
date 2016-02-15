@@ -32,7 +32,6 @@ CylindersAndPrismsBuilder::CylindersAndPrismsBuilder()
     init_parameters();
 }
 
-
 void CylindersAndPrismsBuilder::init_parameters()
 {
     clearParameterPool();
@@ -42,7 +41,6 @@ void CylindersAndPrismsBuilder::init_parameters()
     registerParameter("prism_length", &m_prism_length);
     registerParameter("cylinder_weight", &m_cylinder_weight);
 }
-
 
 ISample *CylindersAndPrismsBuilder::buildSample() const
 {
@@ -66,12 +64,9 @@ ISample *CylindersAndPrismsBuilder::buildSample() const
     particle_layout.addParticle(cylinder, m_cylinder_weight);
     particle_layout.addParticle(prism3, 1.0-m_cylinder_weight);
 
-    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
-
     air_layer.addLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
-

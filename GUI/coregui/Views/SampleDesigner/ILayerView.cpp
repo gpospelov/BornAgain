@@ -72,7 +72,7 @@ void ILayerView::setParameterizedItem(ParameterizedItem *item)
         MaterialProperty mp = v.value<MaterialProperty>();
         setColor(mp.getColor());
     }
-    ConnectableView::setParameterizedItem(item);
+    IView::setParameterizedItem(item);
 }
 
 //! Detects movement of the ILayerView and sends possible drop areas to GraphicsScene

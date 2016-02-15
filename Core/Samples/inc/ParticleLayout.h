@@ -18,11 +18,10 @@
 
 #include "ILayout.h"
 #include "Particle.h"
-#include "ParticleInfo.h"
 #include "IInterferenceFunction.h"
 #include "Rotations.h"
 
-#include <boost/shared_ptr.hpp>
+#include <boost/scoped_ptr.hpp>
 
 //! @class ParticleLayout
 //! @ingroup samples
@@ -32,7 +31,8 @@ class BA_CORE_API_ ParticleLayout : public ILayout
 {
 public:
     ParticleLayout();
-    ParticleLayout(const IAbstractParticle &particle, double abundance = 1.);
+    ParticleLayout(const IAbstractParticle &particle);
+    ParticleLayout(const IAbstractParticle &particle, double abundance);
 
     virtual ~ParticleLayout();
 
@@ -42,14 +42,14 @@ public:
     virtual ParticleLayout *cloneInvertB() const;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const
-    {
-        visitor->visit(this);
-    }
+    virtual void accept(ISampleVisitor *visitor) const;
+
+    //! @brief Adds generic particle to the layout
+    virtual void addParticle(const IAbstractParticle &particle);
 
     //! @brief Adds generic particle to the layout with only abundance defined
     //! @param abundance Particle abundance
-    virtual void addParticle(const IAbstractParticle &particle, double abundance = 1.0);
+    virtual void addParticle(const IAbstractParticle &particle, double abundance);
 
     //! @brief Adds particle to the layout with abundance and position defined
     //! @param abundance Particle abundance
@@ -65,56 +65,47 @@ public:
                              const kvector_t &position, const IRotation& rotation);
 
     //! Returns number of particles
-    virtual size_t getNumberOfParticles() const
-    {
-        return m_particles.size();
-    }
+    virtual size_t getNumberOfParticles() const;
 
     //! get information about particle with index
     virtual const IAbstractParticle *getParticle(size_t index) const;
 
     //! Returns information on all particles (type and abundance)
     //! and generates new particles if an IAbstractParticle denotes a collection
-    virtual void getParticleInfos(SafePointerVector<const IParticle>& particle_vector,
-                                  std::vector<double>& abundance_vector) const;
+    virtual SafePointerVector<const IParticle> getParticles() const;
 
     //! Get abundance fraction of particle with index
     double getAbundanceOfParticle(size_t index) const;
 
-    //! Returns number of interference functions
-    virtual size_t getNumberOfInterferenceFunctions() const
-    {
-        return m_interference_functions.size();
-    }
-
     //! Returns interference functions
-    virtual SafePointerVector<IInterferenceFunction> getInterferenceFunctions() const
-    {
-        return m_interference_functions;
-    }
+    virtual const IInterferenceFunction* getInterferenceFunction() const;
 
-    //! Adds interference function
-    void addInterferenceFunction(IInterferenceFunction *p_interference_function);
-
+    //! Sets interference function
     void addInterferenceFunction(const IInterferenceFunction &interference_function);
 
-    //! Returns interference function with index
-    const IInterferenceFunction *getInterferenceFunction(size_t index) const;
+    //! Returns surface density of all particles
+    virtual double getTotalParticleSurfaceDensity() const;
+
+    //! Sets surface density of all particles
+    virtual void setTotalParticleSurfaceDensity(double particle_density);
 
 private:
     //! Adds particle information with simultaneous registration in parent class.
-    void addAndRegisterParticleInfo(ParticleInfo *child);
+    void addAndRegisterAbstractParticle(IAbstractParticle *child);
 
-    //! Adds interference function with simultaneous registration in parent class
-    void addAndRegisterInterferenceFunction(IInterferenceFunction *child);
+    //! Sets interference function with simultaneous registration in parent class
+    void setAndRegisterInterferenceFunction(IInterferenceFunction *child);
 
     void print(std::ostream &ostr) const;
 
     //! Vector of the types of particles
-    SafePointerVector<ParticleInfo> m_particles;
+    SafePointerVector<IAbstractParticle> m_particles;
 
-    //! Vector of interference functions
-    SafePointerVector<IInterferenceFunction> m_interference_functions;
+    //! Interference function
+    boost::scoped_ptr<IInterferenceFunction> mP_interference_function;
+
+    //! Total particle surface density
+    double m_total_particle_density;
 };
 
 #endif // PARTICLEDECORATION_H

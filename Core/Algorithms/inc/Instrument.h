@@ -33,7 +33,7 @@ public:
     Instrument(const Instrument &other);
     Instrument& operator=(const Instrument& other);
 
-    ~Instrument(){}
+    virtual ~Instrument() {}
 
     //! Returns the beam data
     Beam getBeam() const;
@@ -45,22 +45,13 @@ public:
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);
 
     //! Sets the beam's intensity
-    void setBeamIntensity(double intensity)
-    {
-        m_beam.setIntensity(intensity);
-    }
+    void setBeamIntensity(double intensity);
 
     //! Sets the beam's polarization according to the given Bloch vector
-    void setBeamPolarization(const kvector_t &bloch_vector)
-    {
-        m_beam.setPolarization(bloch_vector);
-    }
+    void setBeamPolarization(const kvector_t &bloch_vector);
 
     //! Returns the beam's intensity
-    double getBeamIntensity() const
-    {
-        return m_beam.getIntensity();
-    }
+    double getBeamIntensity() const;
 
     //! Returns the detector data
     const IDetector2D *getDetector() const;
@@ -70,10 +61,7 @@ public:
     const IAxis &getDetectorAxis(size_t index) const;
 
     //! Returns the detector's dimension
-    size_t getDetectorDimension() const
-    {
-        return mP_detector->getDimension();
-    }
+    size_t getDetectorDimension() const;
 
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector2D& detector);
@@ -94,21 +82,27 @@ public:
 
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t &direction, double efficiency,
-                               double total_transmission=1.0) {
-        mP_detector->setAnalyzerProperties(direction, efficiency, total_transmission);
-    }
+                               double total_transmission=1.0);
 
     //! apply the detector resolution to the given intensity map
     void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
 
-    //! Adds parameters from local pool to external pool and call recursion over direct children
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
-                                                    int copy_number = -1) const;
+    //! Returns clone of the intensity map with detector resolution applied,
+    //! axes of map will be in requested units
+    OutputData<double> *getDetectorIntensity(const OutputData<double> &data,
+                                             IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
 
 #ifndef GCCXML_SKIP_THIS
     //! Create a vector of SimulationElement objects according to the beam, detector and its mask
     std::vector<SimulationElement> createSimulationElements();
 #endif
+
+    //! Adds parameters from local pool to external pool and recursively calls its direct children.
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                                    int copy_number = -1) const;
+
+    //! init detector with beam settings
+    void initDetector();
 
 protected:
     virtual void print(std::ostream &ostr) const;
@@ -135,6 +129,21 @@ inline void Instrument::setBeamParameters(double wavelength, double alpha_i, dou
     m_beam.setCentralK(wavelength, alpha_i, phi_i);
 }
 
+inline void Instrument::setBeamIntensity(double intensity)
+{
+    m_beam.setIntensity(intensity);
+}
+
+inline void Instrument::setBeamPolarization(const kvector_t &bloch_vector)
+{
+    m_beam.setPolarization(bloch_vector);
+}
+
+inline double Instrument::getBeamIntensity() const
+{
+    return m_beam.getIntensity();
+}
+
 inline const IDetector2D *Instrument::getDetector() const
 {
     return mP_detector.get();
@@ -148,6 +157,17 @@ inline IDetector2D *Instrument::getDetector()
 inline const IAxis &Instrument::getDetectorAxis(size_t index) const
 {
     return mP_detector->getAxis(index);
+}
+
+inline size_t Instrument::getDetectorDimension() const
+{
+    return mP_detector->getDimension();
+}
+
+inline void Instrument::setAnalyzerProperties(const kvector_t &direction, double efficiency,
+                                              double total_transmission)
+{
+    mP_detector->setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
 #endif /* INSTRUMENT_H_ */

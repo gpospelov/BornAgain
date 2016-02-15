@@ -5,3 +5,6 @@ that makes libBornAgainCore and libBornAgainFit accessible from Python.
 
 For more info, run
   codegenerator.py help
+
+See also
+  http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/wiki/Python_bindings

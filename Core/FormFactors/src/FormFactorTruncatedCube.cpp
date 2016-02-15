@@ -14,15 +14,18 @@
 // ************************************************************************** //
 
 #include "FormFactorTruncatedCube.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorBox.h"
 #include "MathFunctions.h"
+
+using namespace  BornAgain;
 
 FormFactorTruncatedCube::FormFactorTruncatedCube(
    double length, double removed_length)
     : m_length(length)
     , m_removed_length(removed_length)
 {
-    setName("FormFactorTruncatedCube");
+    setName(FFTruncatedCubeType);
     check_initialization();
     init_parameters();
 }
@@ -30,16 +33,23 @@ FormFactorTruncatedCube::FormFactorTruncatedCube(
 void FormFactorTruncatedCube::init_parameters()
 {
     clearParameterPool();
-    registerParameter("length", &m_length);
-    registerParameter("removed_length", &m_removed_length);
+    registerParameter(Length, &m_length);
+    registerParameter(RemovedLength, &m_removed_length);
 }
 
 FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const
 {
-    FormFactorTruncatedCube *result =
-        new FormFactorTruncatedCube(m_length, m_removed_length);
-    result->setName(getName());
-    return result;
+    return new FormFactorTruncatedCube(m_length, m_removed_length);
+}
+
+void FormFactorTruncatedCube::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+double FormFactorTruncatedCube::getRadius() const
+{
+    return m_length/2.0;
 }
 
 bool FormFactorTruncatedCube::check_initialization() const
@@ -112,6 +122,8 @@ complex_t FormFactorTruncatedCube::ffVertex(const cvector_t& q) const
     return prefactor*ffVertexSymmetric(t, qvector[0], qvector[1], qvector[2]);
 }
 
+// Version of the vertex form factor which is symmetric in a,b,c
+// Expects the arguments (a,b,c) to be ordered by their absolute value: |a|<=|b|<=|c|
 complex_t FormFactorTruncatedCube::ffVertexSymmetric(double t, complex_t a, complex_t b,
                                                      complex_t c) const
 {
@@ -147,6 +159,8 @@ complex_t FormFactorTruncatedCube::ffVertexSymmetric(double t, complex_t a, comp
     return im*(t1+t2+t3+t4)/(a*b*c);
 }
 
+// Version of the vertex form factor that treats the case where two q components are
+// equal; they will be passed as the 'a' parameter
 complex_t FormFactorTruncatedCube::ffVertexDiagonal(double t, complex_t a, complex_t b) const
 {
     const complex_t im(0.,1.);

@@ -34,6 +34,8 @@ public:
     typedef model::polygon<point_t> polygon_t;
     polygon_t polygon;
     void init_from(const std::vector<double> &x, const std::vector<double> &y);
+    void get_points(std::vector<double> &xpos, std::vector<double> &ypos);
+
 };
 
 
@@ -52,6 +54,19 @@ void PolygonPrivate::init_from(const std::vector<double> &x, const std::vector<d
     assign_points(polygon, points);
     correct(polygon);
 }
+
+void PolygonPrivate::get_points(std::vector<double> &xpos, std::vector<double> &ypos)
+{
+    xpos.clear();
+    ypos.clear();
+    for(auto it = polygon.outer().begin(); it != polygon.outer().end(); ++it )
+    {
+         // for vectors of x and y, extract the x/y from the point
+         xpos.push_back( boost::geometry::get<0>( *it ) );
+         ypos.push_back( boost::geometry::get<1>( *it ) );
+    }
+}
+
 
 
 // IMPORTANT Input parameters are not "const reference" to be able to work from python
@@ -108,6 +123,11 @@ bool Polygon::contains(const Bin1D &binx, const Bin1D &biny) const
 double Polygon::getArea() const
 {
     return area(m_d->polygon);
+}
+
+void Polygon::getPoints(std::vector<double> &xpos, std::vector<double> &ypos) const
+{
+    m_d->get_points(xpos, ypos);
 }
 
 void Polygon::print(std::ostream &ostr) const

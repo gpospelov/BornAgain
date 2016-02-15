@@ -59,33 +59,25 @@ void DetectorMask::addMask(const Geometry::IShape2D &shape, bool mask_value)
 void DetectorMask::initMaskData(const IDetector2D &detector)
 {
     assert(m_shapes.size() == m_mask_of_shape.size());
-
     m_mask_data.clear();
 
     for (size_t dim=0; dim<detector.getDimension(); ++dim) {
         m_mask_data.addAxis(detector.getAxis(dim));
     }
-    m_mask_data.setAllTo(false);
 
-    if(!m_shapes.size()) return;
+    process_masks();
+}
 
-    m_number_of_masked_channels = 0;
-    for(size_t index=0; index<m_mask_data.getAllocatedSize(); ++index) {
-        Bin1D binx = m_mask_data.getAxisBin(index, BornAgain::X_AXIS_INDEX);
-        Bin1D biny = m_mask_data.getAxisBin(index, BornAgain::Y_AXIS_INDEX);
-        // setting mask to the data starting from last shape added
-        bool is_masked(false);
-        for(size_t i_shape=m_shapes.size(); i_shape>0; --i_shape) {
-            const Geometry::IShape2D *shape = m_shapes[i_shape-1];
-            if(shape->contains(binx, biny)) {
-                if(m_mask_of_shape[i_shape-1]) is_masked = true;
-                m_mask_data[index] = m_mask_of_shape[i_shape-1];
-                // if given index is covered by the shape, stop looking further
-                break;
-            }
-        }
-        if(is_masked) ++m_number_of_masked_channels;
+void DetectorMask::initMaskData(const OutputData<double> &data)
+{
+    assert(m_shapes.size() == m_mask_of_shape.size());
+    m_mask_data.clear();
+
+    for (size_t dim=0; dim<data.getRank(); ++dim) {
+        m_mask_data.addAxis(*data.getAxis(dim));
     }
+
+    process_masks();
 }
 
 bool DetectorMask::getMask(size_t index) const
@@ -116,4 +108,42 @@ bool DetectorMask::hasMasks() const
 int DetectorMask::getNumberOfMaskedChannels() const
 {
     return m_number_of_masked_channels;
+}
+
+size_t DetectorMask::getNumberOfMasks() const
+{
+    return m_shapes.size();
+}
+
+const Geometry::IShape2D *DetectorMask::getMaskShape(size_t mask_index, bool &mask_value) const
+{
+    if(mask_index < getNumberOfMasks()) {
+        mask_value = m_mask_of_shape[mask_index];
+        return m_shapes[mask_index];
+    }
+    return 0;
+}
+
+void DetectorMask::process_masks()
+{
+    m_mask_data.setAllTo(false);
+    if(!m_shapes.size()) return;
+
+    m_number_of_masked_channels = 0;
+    for(size_t index=0; index<m_mask_data.getAllocatedSize(); ++index) {
+        Bin1D binx = m_mask_data.getAxisBin(index, BornAgain::X_AXIS_INDEX);
+        Bin1D biny = m_mask_data.getAxisBin(index, BornAgain::Y_AXIS_INDEX);
+        // setting mask to the data starting from last shape added
+        bool is_masked(false);
+        for(size_t i_shape=m_shapes.size(); i_shape>0; --i_shape) {
+            const Geometry::IShape2D *shape = m_shapes[i_shape-1];
+            if(shape->contains(binx, biny)) {
+                if(m_mask_of_shape[i_shape-1]) is_masked = true;
+                m_mask_data[index] = m_mask_of_shape[i_shape-1];
+                // if given index is covered by the shape, stop looking further
+                break;
+            }
+        }
+        if(is_masked) ++m_number_of_masked_channels;
+    }
 }

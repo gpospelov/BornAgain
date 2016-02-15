@@ -33,15 +33,14 @@ public:
     CoreFunctionalTest(const std::string &name, const std::string &description,
                        GISASSimulation *simulation, OutputData<double> *reference,
                        double threshold);
-    ~CoreFunctionalTest();
+    virtual ~CoreFunctionalTest();
 
-    void runTest();
-    int analyseResults();
+    virtual void runTest();
+    virtual int analyseResults();
 
-    void printResults(std::ostream &ostr) const;
+    virtual void printResults(std::ostream &ostr) const;
 
     void setSimulationResultsFileName(const std::string &file_name);
-
 
 private:
     void saveSimulationResults() const;

@@ -1,129 +1,73 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/MaskWidgets/RectangleView.h
+//! @brief     Defines RectangleView class
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef RECTANGLEVIEW_H
 #define RECTANGLEVIEW_H
 
-#include "IView.h"
+#include "IMaskView.h"
+#include "SizeHandleElement.h"
+#include <QMap>
 
-class QPainter;
-class ParameterizedItem;
-class QGraphicsSceneMouseEvent;
-class QPointF;
+//! This is a View of rectangular mask ( represented by RectangleItem) on GraphicsScene.
+//! Given view follows standard QGraphicsScene notations: (x,y) is top left corner.
+//!
+//! FIXME Refactor RectangleView and EllipseView to rely on common base class
 
-class RectangleView : public IView
+class BA_CORE_API_ RectangleView : public IMaskView
 {
     Q_OBJECT
 
 public:
+    int type() const { return MaskEditorHelper::RECTANGLE; }
+
     RectangleView();
 
-    //! describes the corners
-    enum Corner { NONE, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
-
-    //! current active mode
-    enum Mode { ROTATION, RESIZE };
-
-    //! Type of this item
-    enum { Type = UserType + 1 };
-
-    //! boundingbox of this item
-    QRectF boundingRect() const;
-
-    //! returns the type of this item
-    //! @return number of type
-    int type() const
-    {
-        return Type;
-    }
-
-    //! rectangle is including an area and it's color is changing to red
-    void setInclude();
-
-    //! rectangle is excluding an area and it's color is changing to  blue
-    void setExclude();
-
-    //! get current rectangle item
-    //! @return rectangle item as parameterized item
-    ParameterizedItem *getParameterizedItem();
-
-    //! set rectangle item
-    //! @param rectangle item to be drawn
-    void setParameterizedItem(ParameterizedItem *item);
-
 public slots:
-    //! called when x-value changed
-    void onChangedX();
+    virtual void onChangedX();
+    virtual void onChangedY();
+    virtual void onPropertyChange(const QString &propertyName);
 
-    //! called when x-value changed
-    void onChangedY();
-
-    //! called when property of rectangle changed
-    void onPropertyChange(const QString &propertyName);
+private slots:
+    void onSizeHandleElementRequest(bool going_to_resize);
 
 protected:
-    //! paintEvent paints Rectangle and corners
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
-    //! manages mouse press events
-    //! @param event from scene
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-
-    //! manages mouse move events
-    //! @param event from scene
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-
-    //! manages mouse release events
-    //! @param event from scene
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
-    //! manages hover events
-    //! @param event from scene
-    void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
-
 private:
-    ParameterizedItem *m_item;       //!< rectangle item
-    Corner m_corner;                 //!< enum with all corners
-    Mode m_mode;                     //!< current active mode
-    bool m_block_mode;               //!< blocking modes from changing
-    QPointF *m_diagonalOpposedPoint; //!< diagonally opposite point from current selected corner
-
-    //! set diagonally opposite point from current selected corner
-    void setDiagonalOpposedPoint();
-
-    //! @return diagonally opposite point from current selected corner
-    QPointF getDiagonalOpposedPoint();
-
-    //! calculates resized rectangle
-    //! @param event to receive current mouse position
-    void calculateResize(QGraphicsSceneMouseEvent *event);
-
-    //! calculates angle for rotation
-    //! @return angle between selected corner and mouse
-    //! @param event to receive current mouse position
-    qreal getRotationAngle(QGraphicsSceneMouseEvent *event);
-
-    //! verfies clicked corner
-    //! @param current mouse position
-    void setSelectedCorner(QPointF currentMousePosition);
-
-    //! updates all arrows;
-    void updateArrows();
-
-    //! initialize all arrows
-    void initializeArrows();
-
-    //! returns corner of rectangle
-    //! @return top left corner
-    QRectF getTopLeftCorner();
-
-    //! returns corner of rectangle
-    //! @return top right corner
-    QRectF getTopRightCorner();
-
-    //! returns corner of rectangle
-    //! @return bottom left corner
-    QRectF getBottomLeftCorner();
-
-    //! returns corner of rectangle
-    //! @return bottom right corner
-    QRectF getBottomRightCorner();
+    void update_view();
+    void update_bounding_rect();
+    void update_position();    
+    qreal left() const;
+    qreal right() const;
+    qreal width() const;
+    qreal top() const;
+    qreal bottom() const;
+    qreal height() const;
+    void create_size_handle_elements();
+    bool m_block_on_property_change;
+    QRectF m_mask_rect; // mask rectangle in scene coordinates
+    QMap<SizeHandleElement::EHandleLocation, SizeHandleElement *> m_resize_handles;
+     //!< coordinates of corner opposite to the grip corner at the moment it first clicked
+     //!< in scene coordinates
+    QPointF m_resize_opposite_origin;
+    SizeHandleElement *m_activeHandleElement;
 };
+
+
 #endif

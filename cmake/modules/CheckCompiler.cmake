@@ -12,7 +12,7 @@ else()
   set(CLANG_MINOR 0)
 endif()
 
-#---Obtain the major and minor version of the GNU compiler-------------------------------------------
+#---Obtain the major and minor version of the GNU compiler------------------------------------------
 if (CMAKE_COMPILER_IS_GNUCXX)
   exec_program(${CMAKE_C_COMPILER} ARGS "-dumpversion" OUTPUT_VARIABLE _gcc_version_info)
   string(REGEX REPLACE "^([0-9]+).*$"                   "\\1" GCC_MAJOR ${_gcc_version_info})
@@ -42,20 +42,10 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 
-#---Check for c++11 option------------------------------------------------------------
-if(c++11)
-  include(CheckCXXCompilerFlag)
-  CHECK_CXX_COMPILER_FLAG("-std=c++11" HAS_CXX11)
-  if(NOT HAS_CXX11)
-    message(STATUS "Current compiler does not suppport -std=c++11 option. Switching OFF c++11 option")
-    set(c++11 OFF CACHE BOOL "" FORCE)
-  endif()
-endif()
-
-#---Need to locate thead libraries and options to set properly some compilation flags---------------- 
+#---Need to locate thead libraries and options to set properly some compilation flags---------------
 find_package(Threads)
 
-#---Setup details depending opn the major platform type----------------------------------------------
+#---Setup details depending on the major platform type----------------------------------------------
 if(CMAKE_SYSTEM_NAME MATCHES Linux)
   include(SetUpLinux)
 elseif(APPLE)
@@ -64,12 +54,16 @@ elseif(WIN32)
   include(SetUpWindows)
 endif()
 
-if(c++11)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wno-deprecated-declaration")
+#---Setup details depending on the compiler type----------------------------------------------------
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR
+   "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+else()
+  message(FATAL_ERROR "No known c++ compiler found")
 endif()
 
-
-#---Print the final compiler flags--------------------------------------------------------------------
+#---Print the final compiler flags------------------------------------------------------------------
 message(STATUS "BornAgain Platform: ${BORNAGAIN_PLATFORM}")
 message(STATUS "BornAgain Architecture: ${BORNAGAIN_ARCHITECTURE}")
 message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")

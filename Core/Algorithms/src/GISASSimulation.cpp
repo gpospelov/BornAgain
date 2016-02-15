@@ -26,11 +26,6 @@
 #include "Histogram2D.h"
 
 #include "Macros.h"
-GCC_DIAG_OFF(unused-parameter)
-GCC_DIAG_OFF(strict-aliasing)
-#include <boost/thread.hpp>
-GCC_DIAG_ON(strict-aliasing)
-GCC_DIAG_ON(unused-parameter)
 #include <gsl/gsl_errno.h>
 #include <boost/scoped_ptr.hpp>
 
@@ -38,8 +33,7 @@ GISASSimulation::GISASSimulation()
 : m_instrument()
 , m_intensity_map()
 {
-    setName("GISASSimulation");
-    init_parameters();
+    initialize();
 }
 
 GISASSimulation::GISASSimulation(const ProgramOptions *p_options)
@@ -47,8 +41,7 @@ GISASSimulation::GISASSimulation(const ProgramOptions *p_options)
 , m_instrument()
 , m_intensity_map()
 {
-    setName("GISASSimulation");
-    init_parameters();
+    initialize();
 }
 
 GISASSimulation::GISASSimulation(
@@ -57,8 +50,7 @@ GISASSimulation::GISASSimulation(
 , m_instrument()
 , m_intensity_map()
 {
-    setName("GISASSimulation");
-    init_parameters();
+    initialize();
 }
 
 GISASSimulation::GISASSimulation(
@@ -67,8 +59,7 @@ GISASSimulation::GISASSimulation(
 , m_instrument()
 , m_intensity_map()
 {
-    setName("GISASSimulation");
-    init_parameters();
+    initialize();
 }
 
 GISASSimulation *GISASSimulation::clone() const
@@ -82,11 +73,9 @@ void GISASSimulation::prepareSimulation()
         throw LogicErrorException("GISASSimulation::prepareSimulation() "
                 "-> Error. The detector was not properly configured.");
     }
-    if (getWavelength() <= 0.0) {
-        throw ClassInitializationException(
-                "GISASSimulation::prepareSimulation() "
-                "-> Error. Incoming wavelength <= 0.");
-    }
+
+    getInstrument().initDetector();
+
     Simulation::prepareSimulation();
 }
 
@@ -98,19 +87,18 @@ int GISASSimulation::getNumberOfSimulationElements() const
     }
     const IAxis &x_axis = m_instrument.getDetectorAxis(BornAgain::X_AXIS_INDEX);
     const IAxis &y_axis = m_instrument.getDetectorAxis(BornAgain::X_AXIS_INDEX);
-    return x_axis.getSize()*y_axis.getSize();
+    int nmasked = getInstrument().getDetector()->getNumberOfMaskedChannels();
+    return x_axis.getSize()*y_axis.getSize() - nmasked;
 }
 
-OutputData<double> *GISASSimulation::getDetectorIntensity() const
+OutputData<double> *GISASSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type) const
 {
-    OutputData<double> *result = m_intensity_map.clone();
-    m_instrument.applyDetectorResolution(result);
-    return result;
+    return m_instrument.getDetectorIntensity(m_intensity_map, units_type);
 }
 
-Histogram2D *GISASSimulation::getIntensityData() const
+Histogram2D *GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type) const
 {
-    boost::scoped_ptr<OutputData<double> > data(getDetectorIntensity());
+    boost::scoped_ptr<OutputData<double> > data(getDetectorIntensity(units_type));
     return new Histogram2D(*data);
 }
 
@@ -162,10 +150,10 @@ void GISASSimulation::setDetectorParameters(const IHistogram &hisotgram)
     setDetectorParameters(*data);
 }
 
-void GISASSimulation::setDetectorParameters(size_t n_x, double x_min, double x_max,
-                                            size_t n_y, double y_min, double y_max)
+void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
+                                            size_t n_alpha, double alpha_min, double alpha_max)
 {
-    m_instrument.setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
+    m_instrument.setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
     updateIntensityMap();
 }
 
@@ -209,11 +197,6 @@ std::string GISASSimulation::addParametersToExternalPool(
     return new_path;
 }
 
-double GISASSimulation::getWavelength() const
-{
-    return m_instrument.getBeam().getWavelength();
-}
-
 void GISASSimulation::removeMasks()
 {
     m_instrument.getDetector()->removeMasks();
@@ -237,8 +220,7 @@ GISASSimulation::GISASSimulation(const GISASSimulation& other)
 {
     m_intensity_map.copyFrom(other.m_intensity_map);
 
-    setName("GISASSimulation");
-    init_parameters();
+    initialize();
 }
 
 void GISASSimulation::init_parameters()
@@ -279,4 +261,10 @@ void GISASSimulation::updateIntensityMap()
         m_intensity_map.addAxis(m_instrument.getDetectorAxis(dim));
     }
     m_intensity_map.setAllTo(0.);
+}
+
+void GISASSimulation::initialize()
+{
+    setName(BornAgain::GISASSimulationType);
+    init_parameters();
 }

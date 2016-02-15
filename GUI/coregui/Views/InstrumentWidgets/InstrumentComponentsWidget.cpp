@@ -22,11 +22,11 @@
 
 InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget *parent)
     : QWidget(parent)
+    , m_columnResizer(new ColumnResizer(this))
     , m_beamEditor(new BeamEditorWidget)
-    , m_detectorEditor(new DetectorEditorWidget)
+    , m_detectorEditor(new DetectorEditorWidget(m_columnResizer))
     , m_beamItem(0)
     , m_detectorItem(0)
-    , m_columnResizer(new ColumnResizer(this))
 {
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->addWidget(m_beamEditor);
@@ -36,9 +36,13 @@ InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget *parent)
     m_columnResizer->addWidgetsFromGridLayout(m_beamEditor->getGridLayout(), 0);
     m_columnResizer->addWidgetsFromGridLayout(m_beamEditor->getGridLayout(), 1);
     m_columnResizer->addWidgetsFromGridLayout(m_beamEditor->getGridLayout(), 2);
-    m_columnResizer->addWidgetsFromGridLayout(m_detectorEditor->getGridLayout(), 0);
-    m_columnResizer->addWidgetsFromGridLayout(m_detectorEditor->getGridLayout(), 1);
-    m_columnResizer->addWidgetsFromGridLayout(m_detectorEditor->getGridLayout(), 2);
+
+    connect(m_detectorEditor,
+            SIGNAL(extendedDetectorEditorRequest(DetectorItem *)),
+            this,
+            SIGNAL(extendedDetectorEditorRequest(DetectorItem *))
+            );
+
 }
 
 void InstrumentComponentsWidget::setBeamItem(BeamItem *beamItem)

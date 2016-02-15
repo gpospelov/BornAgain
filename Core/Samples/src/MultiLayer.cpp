@@ -14,14 +14,18 @@
 // ************************************************************************** //
 
 #include "MultiLayer.h"
+#include "BornAgainNamespace.h"
 #include "MessageService.h"
+
 #include <algorithm>
 #include <stdexcept>
 #include <iomanip>
 
+using namespace BornAgain;
+
 MultiLayer::MultiLayer() : m_crossCorrLength(0)
 {
-    setName("MultiLayer");
+    setName(MultiLayerType);
     init_parameters();
 }
 
@@ -30,20 +34,17 @@ MultiLayer::~MultiLayer()
     clear();
 }
 
+void MultiLayer::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
 
-/* ************************************************************************* */
-// initialize pool parameters, i.e. register some of class members for later
-// access via parameter pool
-/* ************************************************************************* */
 void MultiLayer::init_parameters()
 {
     clearParameterPool();
-    registerParameter("crossCorrLength", &m_crossCorrLength);
+    registerParameter(CrossCorrelationLength, &m_crossCorrLength);
 }
 
-/* ************************************************************************* */
-// clear MultiLayer contents including interfaces
-/* ************************************************************************* */
 void MultiLayer::clear()
 {
     for(size_t i=0; i<m_layers.size(); i++) delete m_layers[i];
@@ -57,12 +58,9 @@ void MultiLayer::clear()
     clearParameterPool();
 }
 
-//! clone MultiLayer contents including interfaces
-
 MultiLayer *MultiLayer::clone() const
 {
     MultiLayer *newMultiLayer = new MultiLayer();
-    newMultiLayer->setName(getName());
 
     newMultiLayer->m_layers_z = m_layers_z;
 
@@ -72,8 +70,6 @@ MultiLayer *MultiLayer::clone() const
     }
 
     for(size_t i=0; i<m_interfaces.size(); i++) {
-//        const Layer *topLayer = newMultiLayer->m_layers[i];
-//        const Layer *bottomLayer = newMultiLayer->m_layers[i+1];
         const Layer *topLayer = layer_buffer[i];
         const Layer *bottomLayer = layer_buffer[i+1];
 
@@ -85,7 +81,6 @@ MultiLayer *MultiLayer::clone() const
             newInterface = LayerInterface::createSmoothInterface(topLayer,
                     bottomLayer );
         }
-
         newMultiLayer->addAndRegisterLayer( layer_buffer[i] );
         newMultiLayer->addAndRegisterInterface( newInterface );
     }
@@ -101,21 +96,15 @@ MultiLayer *MultiLayer::clone() const
 MultiLayer* MultiLayer::cloneInvertB() const
 {
     MultiLayer *newMultiLayer = new MultiLayer();
-    newMultiLayer->setName(getName());
 
     newMultiLayer->m_layers_z = m_layers_z;
 
-//    for(size_t i=0; i<m_layers.size(); i++) {
-//        newMultiLayer->addAndRegisterLayer( m_layers[i]->cloneInvertB() );
-//    }
     std::vector<Layer *> layer_buffer;
     for(size_t i=0; i<m_layers.size(); i++) {
         layer_buffer.push_back(m_layers[i]->cloneInvertB() );
     }
 
     for(size_t i=0; i<m_interfaces.size(); i++) {
-//        const Layer *topLayer = newMultiLayer->m_layers[i];
-//        const Layer *bottomLayer = newMultiLayer->m_layers[i+1];
         const Layer *topLayer = layer_buffer[i];
         const Layer *bottomLayer = layer_buffer[i+1];
 
@@ -196,7 +185,6 @@ void MultiLayer::addLayer(const Layer& layer)
 
 //! Fourier transform of the correlation function of roughnesses between the interfaces
 //! j,k - indexes of layers in multilayer whose bottom interfaces we are considering
-
 double MultiLayer::getCrossCorrSpectralFun(const kvector_t& kvec, size_t j, size_t k) const
 {
     if(m_crossCorrLength == 0) return 0.0;
@@ -214,8 +202,6 @@ double MultiLayer::getCrossCorrSpectralFun(const kvector_t& kvec, size_t j, size
     return corr;
 }
 
-//! Changes layer thickness.
-
 void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
 {
     if (thickness < 0.)
@@ -231,7 +217,6 @@ void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
             m_layers[ check_layer_index(il) ]->getThickness() );
     }
 }
-
 
 MultiLayerDWBASimulation* MultiLayer::createDWBASimulation() const
 {
@@ -262,12 +247,39 @@ void MultiLayer::print(std::ostream& ostr) const
     ostr << "}";
 }
 
+void MultiLayer::addAndRegisterLayer(Layer *child)
+{
+    m_layers.push_back(child);
+    setNLayersInLayers();
+    registerChild(child);
+}
+
+void MultiLayer::addAndRegisterInterface(LayerInterface *child)
+{
+    m_interfaces.push_back(child);
+    registerChild(child);
+}
+
 void MultiLayer::setNLayersInLayers() const
 {
     size_t n_layers = getNumberOfLayers();
     for (size_t i=0; i<getNumberOfLayers(); ++i) {
         m_layers[i]->setNumberOfLayers(n_layers);
     }
+}
+
+size_t MultiLayer::check_layer_index(size_t i_layer) const
+{
+    if( i_layer >= m_layers.size() )
+        throw OutOfBoundsException("Layer index is out of bounds");
+    return i_layer;
+}
+
+size_t MultiLayer::check_interface_index(size_t i_interface) const
+{
+    if( i_interface >= m_interfaces.size() )
+        throw OutOfBoundsException("Interface index is out of bounds");
+    return i_interface;
 }
 
 

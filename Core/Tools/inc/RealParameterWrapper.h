@@ -32,7 +32,7 @@ public:
     explicit RealParameterWrapper(double *par, const AttLimits &limits = AttLimits::limitless());
     RealParameterWrapper(const RealParameterWrapper& other );
     RealParameterWrapper& operator=(const RealParameterWrapper& other);
-    ~RealParameterWrapper(){}
+    ~RealParameterWrapper() {}
 
     //! Sets value of wrapped parameter and emmit signal
     bool setValue(double value);
@@ -47,10 +47,7 @@ public:
     void checkNull() const;
 
     //! Prints the parameter's address to an output stream
-    friend std::ostream& operator<<(std::ostream& ostr, const RealParameterWrapper& p)
-    {
-        ostr << p.m_data; return ostr;
-    }
+    friend std::ostream& operator<<(std::ostream& ostr, const RealParameterWrapper& p);
 
     AttLimits getAttLimits() const { return m_limits; }
 
@@ -81,6 +78,11 @@ inline void RealParameterWrapper::checkNull() const
     if(isNull())
         throw NullPointerException(
                 "RealParameterWrapper::getValue() -> Attempt to access uninitialised pointer.");
+}
+
+inline std::ostream &operator<<(std::ostream &ostr, const RealParameterWrapper &p)
+{
+    ostr << p.m_data; return ostr;
 }
 
 inline bool RealParameterWrapper::operator==(const RealParameterWrapper &other) const

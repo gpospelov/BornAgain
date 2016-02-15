@@ -21,8 +21,6 @@ GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
-#include "__call_policies.pypp.hpp"
-#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "ParticleLayout.pypp.h"
 
@@ -37,14 +35,33 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     m_pyobj = 0;
     }
 
-    ParticleLayout_wrapper(::IAbstractParticle const & particle, double abundance=1.0e+0 )
+    ParticleLayout_wrapper(::IAbstractParticle const & particle )
+    : ParticleLayout( boost::ref(particle) )
+      , bp::wrapper< ParticleLayout >(){
+        // constructor
+    m_pyobj = 0;
+    }
+
+    ParticleLayout_wrapper(::IAbstractParticle const & particle, double abundance )
     : ParticleLayout( boost::ref(particle), abundance )
       , bp::wrapper< ParticleLayout >(){
         // constructor
     m_pyobj = 0;
     }
 
-    virtual void addParticle( ::IAbstractParticle const & particle, double abundance=1.0e+0 ) {
+    virtual void addParticle( ::IAbstractParticle const & particle ) {
+        if( bp::override func_addParticle = this->get_override( "addParticle" ) )
+            func_addParticle( boost::ref(particle) );
+        else{
+            this->ParticleLayout::addParticle( boost::ref(particle) );
+        }
+    }
+    
+    void default_addParticle( ::IAbstractParticle const & particle ) {
+        ParticleLayout::addParticle( boost::ref(particle) );
+    }
+
+    virtual void addParticle( ::IAbstractParticle const & particle, double abundance ) {
         if( bp::override func_addParticle = this->get_override( "addParticle" ) )
             func_addParticle( boost::ref(particle), abundance );
         else{
@@ -52,7 +69,7 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         }
     }
     
-    void default_addParticle( ::IAbstractParticle const & particle, double abundance=1.0e+0 ) {
+    void default_addParticle( ::IAbstractParticle const & particle, double abundance ) {
         ParticleLayout::addParticle( boost::ref(particle), abundance );
     }
 
@@ -116,28 +133,16 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         return ParticleLayout::getAbundanceOfParticle( index );
     }
 
-    virtual ::SafePointerVector< IInterferenceFunction > getInterferenceFunctions(  ) const  {
-        if( bp::override func_getInterferenceFunctions = this->get_override( "getInterferenceFunctions" ) )
-            return func_getInterferenceFunctions(  );
+    virtual ::IInterferenceFunction const * getInterferenceFunction(  ) const  {
+        if( bp::override func_getInterferenceFunction = this->get_override( "getInterferenceFunction" ) )
+            return func_getInterferenceFunction(  );
         else{
-            return this->ParticleLayout::getInterferenceFunctions(  );
+            return this->ParticleLayout::getInterferenceFunction(  );
         }
     }
     
-    ::SafePointerVector< IInterferenceFunction > default_getInterferenceFunctions(  ) const  {
-        return ParticleLayout::getInterferenceFunctions( );
-    }
-
-    virtual ::std::size_t getNumberOfInterferenceFunctions(  ) const  {
-        if( bp::override func_getNumberOfInterferenceFunctions = this->get_override( "getNumberOfInterferenceFunctions" ) )
-            return func_getNumberOfInterferenceFunctions(  );
-        else{
-            return this->ParticleLayout::getNumberOfInterferenceFunctions(  );
-        }
-    }
-    
-    ::std::size_t default_getNumberOfInterferenceFunctions(  ) const  {
-        return ParticleLayout::getNumberOfInterferenceFunctions( );
+    ::IInterferenceFunction const * default_getInterferenceFunction(  ) const  {
+        return ParticleLayout::getInterferenceFunction( );
     }
 
     virtual ::std::size_t getNumberOfParticles(  ) const  {
@@ -164,40 +169,40 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         return ParticleLayout::getParticle( index );
     }
 
-    virtual void getParticleInfos( ::SafePointerVector< const IParticle > & particle_vector, ::std::vector< double > & abundance_vector ) const  {
-        if( bp::override func_getParticleInfos = this->get_override( "getParticleInfos" ) )
-            func_getParticleInfos( boost::ref(particle_vector), boost::ref(abundance_vector) );
+    virtual ::SafePointerVector< const IParticle > getParticles(  ) const  {
+        if( bp::override func_getParticles = this->get_override( "getParticles" ) )
+            return func_getParticles(  );
         else{
-            this->ParticleLayout::getParticleInfos( boost::ref(particle_vector), boost::ref(abundance_vector) );
+            return this->ParticleLayout::getParticles(  );
         }
     }
     
-    void default_getParticleInfos( ::SafePointerVector< const IParticle > & particle_vector, ::std::vector< double > & abundance_vector ) const  {
-        ParticleLayout::getParticleInfos( boost::ref(particle_vector), boost::ref(abundance_vector) );
+    ::SafePointerVector< const IParticle > default_getParticles(  ) const  {
+        return ParticleLayout::getParticles( );
     }
 
-    virtual bool areParametersChanged(  ) {
-        if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
-            return func_areParametersChanged(  );
+    virtual double getTotalParticleSurfaceDensity(  ) const  {
+        if( bp::override func_getTotalParticleSurfaceDensity = this->get_override( "getTotalParticleSurfaceDensity" ) )
+            return func_getTotalParticleSurfaceDensity(  );
         else{
-            return this->IParameterized::areParametersChanged(  );
+            return this->ParticleLayout::getTotalParticleSurfaceDensity(  );
         }
     }
     
-    bool default_areParametersChanged(  ) {
-        return IParameterized::areParametersChanged( );
+    double default_getTotalParticleSurfaceDensity(  ) const  {
+        return ParticleLayout::getTotalParticleSurfaceDensity( );
     }
 
-    virtual void clearParameterPool(  ) {
-        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
-            func_clearParameterPool(  );
+    virtual void setTotalParticleSurfaceDensity( double particle_density ) {
+        if( bp::override func_setTotalParticleSurfaceDensity = this->get_override( "setTotalParticleSurfaceDensity" ) )
+            func_setTotalParticleSurfaceDensity( particle_density );
         else{
-            this->IParameterized::clearParameterPool(  );
+            this->ParticleLayout::setTotalParticleSurfaceDensity( particle_density );
         }
     }
     
-    void default_clearParameterPool(  ) {
-        IParameterized::clearParameterPool( );
+    void default_setTotalParticleSurfaceDensity( double particle_density ) {
+        ParticleLayout::setTotalParticleSurfaceDensity( particle_density );
     }
 
     virtual bool containsMagneticMaterial(  ) const  {
@@ -212,52 +217,16 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         return ISample::containsMagneticMaterial( );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) const  {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
+    virtual ::std::vector< const ISample* > getChildren(  ) const  {
+        if( bp::override func_getChildren = this->get_override( "getChildren" ) )
+            return func_getChildren(  );
         else{
-            return this->IParameterized::createParameterTree(  );
+            return this->ICompositeSample::getChildren(  );
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) const  {
-        return IParameterized::createParameterTree( );
-    }
-
-    virtual ::ICompositeSample * getCompositeSample(  ) {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ICompositeSample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample * default_getCompositeSample(  ) {
-        return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ICompositeSample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample const * default_getCompositeSample(  ) const  {
-        return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual void printParameters(  ) const  {
-        if( bp::override func_printParameters = this->get_override( "printParameters" ) )
-            func_printParameters(  );
-        else{
-            this->IParameterized::printParameters(  );
-        }
-    }
-    
-    void default_printParameters(  ) const  {
-        IParameterized::printParameters( );
+    ::std::vector< const ISample* > default_getChildren(  ) const  {
+        return ICompositeSample::getChildren( );
     }
 
     virtual void printSampleTree(  ) {
@@ -270,49 +239,6 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
-    }
-
-    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
-        namespace bpl = boost::python;
-        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
-        }
-        else{
-            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
-        }
-    }
-    
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
-        if( dynamic_cast< ParticleLayout_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-        else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-    }
-
-    virtual bool setParameterValue( ::std::string const & name, double value ) {
-        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
-            return func_setParameterValue( name, value );
-        else{
-            return this->IParameterized::setParameterValue( name, value );
-        }
-    }
-    
-    bool default_setParameterValue( ::std::string const & name, double value ) {
-        return IParameterized::setParameterValue( name, value );
-    }
-
-    virtual void setParametersAreChanged(  ) {
-        if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
-            func_setParametersAreChanged(  );
-        else{
-            this->IParameterized::setParametersAreChanged(  );
-        }
-    }
-    
-    void default_setParametersAreChanged(  ) {
-        IParameterized::setParametersAreChanged( );
     }
 
     virtual ::std::size_t size(  ) const  {
@@ -361,7 +287,8 @@ void register_ParticleLayout_class(){
         typedef bp::class_< ParticleLayout_wrapper, bp::bases< ILayout >, std::auto_ptr< ParticleLayout_wrapper >, boost::noncopyable > ParticleLayout_exposer_t;
         ParticleLayout_exposer_t ParticleLayout_exposer = ParticleLayout_exposer_t( "ParticleLayout", "Decorator class that adds particles to ISample object.", bp::init< >() );
         bp::scope ParticleLayout_scope( ParticleLayout_exposer );
-        ParticleLayout_exposer.def( bp::init< IAbstractParticle const &, bp::optional< double > >(( bp::arg("particle"), bp::arg("abundance")=1.0e+0 )) );
+        ParticleLayout_exposer.def( bp::init< IAbstractParticle const & >(( bp::arg("particle") )) );
+        ParticleLayout_exposer.def( bp::init< IAbstractParticle const &, double >(( bp::arg("particle"), bp::arg("abundance") )) );
         { //::ParticleLayout::addInterferenceFunction
         
             typedef void ( ::ParticleLayout::*addInterferenceFunction_function_type)( ::IInterferenceFunction const & ) ;
@@ -370,7 +297,19 @@ void register_ParticleLayout_class(){
                 "addInterferenceFunction"
                 , addInterferenceFunction_function_type( &::ParticleLayout::addInterferenceFunction )
                 , ( bp::arg("interference_function") )
-                , "Adds interference function." );
+                , "Sets interference function." );
+        
+        }
+        { //::ParticleLayout::addParticle
+        
+            typedef void ( ::ParticleLayout::*addParticle_function_type)( ::IAbstractParticle const & ) ;
+            typedef void ( ParticleLayout_wrapper::*default_addParticle_function_type)( ::IAbstractParticle const & ) ;
+            
+            ParticleLayout_exposer.def( 
+                "addParticle"
+                , addParticle_function_type(&::ParticleLayout::addParticle)
+                , default_addParticle_function_type(&ParticleLayout_wrapper::default_addParticle)
+                , ( bp::arg("particle") ) );
         
         }
         { //::ParticleLayout::addParticle
@@ -382,7 +321,7 @@ void register_ParticleLayout_class(){
                 "addParticle"
                 , addParticle_function_type(&::ParticleLayout::addParticle)
                 , default_addParticle_function_type(&ParticleLayout_wrapper::default_addParticle)
-                , ( bp::arg("particle"), bp::arg("abundance")=1.0e+0 ) );
+                , ( bp::arg("particle"), bp::arg("abundance") ) );
         
         }
         { //::ParticleLayout::addParticle
@@ -447,36 +386,14 @@ void register_ParticleLayout_class(){
         }
         { //::ParticleLayout::getInterferenceFunction
         
-            typedef ::IInterferenceFunction const * ( ::ParticleLayout::*getInterferenceFunction_function_type)( ::std::size_t ) const;
+            typedef ::IInterferenceFunction const * ( ::ParticleLayout::*getInterferenceFunction_function_type)(  ) const;
+            typedef ::IInterferenceFunction const * ( ParticleLayout_wrapper::*default_getInterferenceFunction_function_type)(  ) const;
             
             ParticleLayout_exposer.def( 
                 "getInterferenceFunction"
-                , getInterferenceFunction_function_type( &::ParticleLayout::getInterferenceFunction )
-                , ( bp::arg("index") )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns interference function with index." );
-        
-        }
-        { //::ParticleLayout::getInterferenceFunctions
-        
-            typedef ::SafePointerVector< IInterferenceFunction > ( ::ParticleLayout::*getInterferenceFunctions_function_type)(  ) const;
-            typedef ::SafePointerVector< IInterferenceFunction > ( ParticleLayout_wrapper::*default_getInterferenceFunctions_function_type)(  ) const;
-            
-            ParticleLayout_exposer.def( 
-                "getInterferenceFunctions"
-                , getInterferenceFunctions_function_type(&::ParticleLayout::getInterferenceFunctions)
-                , default_getInterferenceFunctions_function_type(&ParticleLayout_wrapper::default_getInterferenceFunctions) );
-        
-        }
-        { //::ParticleLayout::getNumberOfInterferenceFunctions
-        
-            typedef ::std::size_t ( ::ParticleLayout::*getNumberOfInterferenceFunctions_function_type)(  ) const;
-            typedef ::std::size_t ( ParticleLayout_wrapper::*default_getNumberOfInterferenceFunctions_function_type)(  ) const;
-            
-            ParticleLayout_exposer.def( 
-                "getNumberOfInterferenceFunctions"
-                , getNumberOfInterferenceFunctions_function_type(&::ParticleLayout::getNumberOfInterferenceFunctions)
-                , default_getNumberOfInterferenceFunctions_function_type(&ParticleLayout_wrapper::default_getNumberOfInterferenceFunctions) );
+                , getInterferenceFunction_function_type(&::ParticleLayout::getInterferenceFunction)
+                , default_getInterferenceFunction_function_type(&ParticleLayout_wrapper::default_getInterferenceFunction)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ParticleLayout::getNumberOfParticles
@@ -503,38 +420,38 @@ void register_ParticleLayout_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::ParticleLayout::getParticleInfos
+        { //::ParticleLayout::getParticles
         
-            typedef void ( ::ParticleLayout::*getParticleInfos_function_type)( ::SafePointerVector< const IParticle > &,::std::vector< double > & ) const;
-            typedef void ( ParticleLayout_wrapper::*default_getParticleInfos_function_type)( ::SafePointerVector< const IParticle > &,::std::vector< double > & ) const;
+            typedef ::SafePointerVector< const IParticle > ( ::ParticleLayout::*getParticles_function_type)(  ) const;
+            typedef ::SafePointerVector< const IParticle > ( ParticleLayout_wrapper::*default_getParticles_function_type)(  ) const;
             
             ParticleLayout_exposer.def( 
-                "getParticleInfos"
-                , getParticleInfos_function_type(&::ParticleLayout::getParticleInfos)
-                , default_getParticleInfos_function_type(&ParticleLayout_wrapper::default_getParticleInfos)
-                , ( bp::arg("particle_vector"), bp::arg("abundance_vector") ) );
+                "getParticles"
+                , getParticles_function_type(&::ParticleLayout::getParticles)
+                , default_getParticles_function_type(&ParticleLayout_wrapper::default_getParticles) );
         
         }
-        { //::IParameterized::areParametersChanged
+        { //::ParticleLayout::getTotalParticleSurfaceDensity
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( ParticleLayout_wrapper::*default_areParametersChanged_function_type)(  ) ;
+            typedef double ( ::ParticleLayout::*getTotalParticleSurfaceDensity_function_type)(  ) const;
+            typedef double ( ParticleLayout_wrapper::*default_getTotalParticleSurfaceDensity_function_type)(  ) const;
             
             ParticleLayout_exposer.def( 
-                "areParametersChanged"
-                , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&ParticleLayout_wrapper::default_areParametersChanged) );
+                "getTotalParticleSurfaceDensity"
+                , getTotalParticleSurfaceDensity_function_type(&::ParticleLayout::getTotalParticleSurfaceDensity)
+                , default_getTotalParticleSurfaceDensity_function_type(&ParticleLayout_wrapper::default_getTotalParticleSurfaceDensity) );
         
         }
-        { //::IParameterized::clearParameterPool
+        { //::ParticleLayout::setTotalParticleSurfaceDensity
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( ParticleLayout_wrapper::*default_clearParameterPool_function_type)(  ) ;
+            typedef void ( ::ParticleLayout::*setTotalParticleSurfaceDensity_function_type)( double ) ;
+            typedef void ( ParticleLayout_wrapper::*default_setTotalParticleSurfaceDensity_function_type)( double ) ;
             
             ParticleLayout_exposer.def( 
-                "clearParameterPool"
-                , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&ParticleLayout_wrapper::default_clearParameterPool) );
+                "setTotalParticleSurfaceDensity"
+                , setTotalParticleSurfaceDensity_function_type(&::ParticleLayout::setTotalParticleSurfaceDensity)
+                , default_setTotalParticleSurfaceDensity_function_type(&ParticleLayout_wrapper::default_setTotalParticleSurfaceDensity)
+                , ( bp::arg("particle_density") ) );
         
         }
         { //::ISample::containsMagneticMaterial
@@ -548,51 +465,15 @@ void register_ParticleLayout_class(){
                 , default_containsMagneticMaterial_function_type(&ParticleLayout_wrapper::default_containsMagneticMaterial) );
         
         }
-        { //::IParameterized::createParameterTree
+        { //::ICompositeSample::getChildren
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( ParticleLayout_wrapper::*default_createParameterTree_function_type)(  ) const;
+            typedef ::std::vector< const ISample* > ( ::ICompositeSample::*getChildren_function_type)(  ) const;
+            typedef ::std::vector< const ISample* > ( ParticleLayout_wrapper::*default_getChildren_function_type)(  ) const;
             
             ParticleLayout_exposer.def( 
-                "createParameterTree"
-                , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&ParticleLayout_wrapper::default_createParameterTree)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::ICompositeSample::getCompositeSample
-        
-            typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) ;
-            typedef ::ICompositeSample * ( ParticleLayout_wrapper::*default_getCompositeSample_function_type)(  ) ;
-            
-            ParticleLayout_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&ParticleLayout_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ICompositeSample::getCompositeSample
-        
-            typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) const;
-            typedef ::ICompositeSample const * ( ParticleLayout_wrapper::*default_getCompositeSample_function_type)(  ) const;
-            
-            ParticleLayout_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&ParticleLayout_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IParameterized::printParameters
-        
-            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( ParticleLayout_wrapper::*default_printParameters_function_type)(  ) const;
-            
-            ParticleLayout_exposer.def( 
-                "printParameters"
-                , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&ParticleLayout_wrapper::default_printParameters) );
+                "getChildren"
+                , getChildren_function_type(&::ICompositeSample::getChildren)
+                , default_getChildren_function_type(&ParticleLayout_wrapper::default_getChildren) );
         
         }
         { //::ISample::printSampleTree
@@ -604,40 +485,6 @@ void register_ParticleLayout_class(){
                 "printSampleTree"
                 , printSampleTree_function_type(&::ISample::printSampleTree)
                 , default_printSampleTree_function_type(&ParticleLayout_wrapper::default_printSampleTree) );
-        
-        }
-        { //::IParameterized::registerParameter
-        
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
-            
-            ParticleLayout_exposer.def( 
-                "registerParameter"
-                , default_registerParameter_function_type( &ParticleLayout_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "main method to register data address in the pool." );
-        
-        }
-        { //::IParameterized::setParameterValue
-        
-            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( ParticleLayout_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
-            
-            ParticleLayout_exposer.def( 
-                "setParameterValue"
-                , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&ParticleLayout_wrapper::default_setParameterValue)
-                , ( bp::arg("name"), bp::arg("value") ) );
-        
-        }
-        { //::IParameterized::setParametersAreChanged
-        
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( ParticleLayout_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
-            
-            ParticleLayout_exposer.def( 
-                "setParametersAreChanged"
-                , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&ParticleLayout_wrapper::default_setParametersAreChanged) );
         
         }
         { //::ICompositeSample::size

@@ -9,8 +9,7 @@ class BA_CORE_API_ MaskModel : public SessionModel
 
 public:
     explicit MaskModel(QObject *parent = 0);
-    ~MaskModel(){}
-
+    virtual ~MaskModel() {}
 };
 
 #endif

@@ -22,6 +22,20 @@
 #include "IntensityDataIOFactory.h"
 #include "Distributions.h"
 #include "IsGISAXSDetector.h"
+#include "Rectangle.h"
+#include "Ellipse.h"
+#include "Polygon.h"
+#include "Line.h"
+#include "InfinitePlane.h"
+#include "BornAgainNamespace.h"
+#include "RectangularDetector.h"
+
+using namespace BornAgain;
+
+namespace {
+const int rdet_nbinsx(40), rdet_nbinsy(30);
+const double rdet_width(20.0), rdet_height(18.0), rdet_distance(1000.0);
+}
 
 GISASSimulation *StandardSimulations::PolarizedDWBAMagCylinders2()
 {
@@ -76,21 +90,72 @@ GISASSimulation *StandardSimulations::MiniGISAS()
     return result;
 }
 
+//! GISAS simulation with small detector and phi[-1,1], theta[0,1]
+GISASSimulation *StandardSimulations::MiniGISAS_v2()
+{
+    GISASSimulation *result = new GISASSimulation();
+    result->setDetectorParameters(25, -1.0*Units::degree, 1.0*Units::degree,
+                                     25, 0.0*Units::degree, 1.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
+    return result;
+}
+
+
 GISASSimulation *StandardSimulations::MiniGISASBeamDivergence()
 {
     GISASSimulation *result = MiniGISAS();
 
     DistributionLogNormal wavelength_distr(1.0*Units::angstrom, 0.1);
     DistributionGaussian alpha_distr(0.2*Units::degree, 0.1*Units::degree);
-    //DistributionGaussian phi_distr(0.0*Units::degree, 0.1*Units::degree);
     DistributionGate phi_distr(-0.1*Units::degree, 0.1*Units::degree);
 
-    result->addParameterDistribution("*/Beam/wavelength", wavelength_distr, 5);
-    result->addParameterDistribution("*/Beam/alpha", alpha_distr, 4);
-    result->addParameterDistribution("*/Beam/phi", phi_distr, 3);
+    ParameterPattern pattern1;
+    pattern1.beginsWith("*").add(BeamType).add(Wavelength);
+    result->addParameterDistribution(pattern1.toStdString(), wavelength_distr, 5);
+    ParameterPattern pattern2;
+    pattern2.beginsWith("*").add(BeamType).add(Alpha);
+    result->addParameterDistribution(pattern2.toStdString(), alpha_distr, 4);
+    ParameterPattern pattern3;
+    pattern3.beginsWith("*").add(BeamType).add(Phi);
+    result->addParameterDistribution(pattern3.toStdString(), phi_distr, 3);
 
     return result;
 }
+
+GISASSimulation *StandardSimulations::GISASWithMasks()
+{
+    GISASSimulation *result = new GISASSimulation();
+    result->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
+                                     100, 0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
+    result->setBeamIntensity(1e+7);
+
+    result->maskAll();
+    // pacman
+    const double deg = Units::degree;
+    result->addMask(Geometry::Ellipse(0.0*deg, 1.0*deg, 0.5*deg, 0.5*deg), false);
+    result->addMask(Geometry::Ellipse(0.11*deg, 1.25*deg, 0.05*deg, 0.05*deg), true);
+
+    std::vector<std::vector<double> >  points = {
+        {0.0*deg, 1.0*deg}, {0.5*deg, 1.2*deg}, {0.5*deg, 0.8*deg}, {0.0*deg, 1.0*deg}
+    };
+    result->addMask(Geometry::Polygon(points), true);
+
+    result->addMask(Geometry::Rectangle(0.45*deg, 0.95*deg, 0.55*deg, 1.05*deg), false);
+    result->addMask(Geometry::Rectangle(0.61*deg, 0.95*deg, 0.71*deg, 1.05*deg), false);
+    result->addMask(Geometry::Rectangle(0.75*deg, 0.95*deg, 0.85*deg, 1.05*deg), false);
+
+    // more masks
+    result->addMask(Geometry::Ellipse(-0.5*deg, 1.5*deg, 0.3*deg, 0.1*deg, 45.*deg), false);
+    result->addMask(Geometry::VerticalLine(-0.6*deg), true);
+    result->addMask(Geometry::HorizontalLine(0.3*deg), false);
+
+
+    return result;
+}
+
 
 GISASSimulation *StandardSimulations::MiniGISASDetectorResolution()
 {
@@ -148,3 +213,69 @@ GISASSimulation *StandardSimulations::IsGISAXSSimulation2()
                 0.0*Units::degree);
     return result;
 }
+
+GISASSimulation *StandardSimulations::RectDetectorGeneric()
+{
+    GISASSimulation *result = new GISASSimulation();
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+
+    RectangularDetector detector(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
+    detector.setPosition(kvector_t(rdet_distance, 10.0, 5.0), rdet_width/2.,
+                         1.0, kvector_t(0.1, -1.0, 0.2));
+
+    result->setDetector(detector);
+    return result;
+}
+
+GISASSimulation *StandardSimulations::RectDetectorPerpToSample()
+{
+    GISASSimulation *result = new GISASSimulation();
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+
+    RectangularDetector detector(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
+    detector.setPerpendicularToSampleX(rdet_distance, rdet_width/2., 1.0);
+
+    result->setDetector(detector);
+    return result;
+}
+
+
+GISASSimulation *StandardSimulations::RectDetectorPerpToDirectBeam()
+{
+    GISASSimulation *result = new GISASSimulation();
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+
+    RectangularDetector detector(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
+    detector.setPerpendicularToDirectBeam(rdet_distance, rdet_width/2., 1.0);
+
+    result->setDetector(detector);
+    return result;
+}
+
+
+GISASSimulation *StandardSimulations::RectDetectorPerpToReflectedBeam()
+{
+    GISASSimulation *result = new GISASSimulation();
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+
+    RectangularDetector detector(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
+    detector.setPerpendicularToReflectedBeam(rdet_distance, rdet_width/2., 1.0);
+
+    result->setDetector(detector);
+    return result;
+}
+
+
+GISASSimulation *StandardSimulations::RectDetectorPerpToReflectedBeamDpos()
+{
+    GISASSimulation *result = new GISASSimulation();
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+
+    RectangularDetector detector(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
+    detector.setPerpendicularToReflectedBeam(rdet_distance);
+    detector.setDirectBeamPosition(rdet_width/2., 1.0);
+
+    result->setDetector(detector);
+    return result;
+}
+

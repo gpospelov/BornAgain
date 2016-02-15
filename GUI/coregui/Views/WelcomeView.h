@@ -18,6 +18,7 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <QLabel>
 
 class QPushButton;
 class MainWindow;
@@ -36,6 +37,7 @@ public slots:
     void onWebLinkClicked(const QUrl &url);
     void onNewUser();
     void updateRecentProjectPanel();
+    void setNotificationText(const QString &text);
 
 private:
     void clearLayout(QLayout* layout, bool deleteWidgets = true);
@@ -51,6 +53,7 @@ private:
     QSignalMapper *m_signalMapper;
     QVBoxLayout *m_recentProjectLayout;
     FancyLabel *m_currentProName;
+    QLabel *m_updateNotification;
 };
 
 #endif // WELCOMEVIEW_H

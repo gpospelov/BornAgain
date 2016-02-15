@@ -27,15 +27,14 @@ class BA_CORE_API_ FormFactorDecoratorMultiPositionFactor : public IFormFactorDe
 public:
     FormFactorDecoratorMultiPositionFactor(const IFormFactor &form_factor,
                                            std::vector<kvector_t> positions);
-    virtual ~FormFactorDecoratorMultiPositionFactor()
-    {
-    }
+
     virtual FormFactorDecoratorMultiPositionFactor *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const
-    {
-        visitor->visit(this);
-    }
+    virtual void accept(ISampleVisitor *visitor) const;
+
+    virtual double getVolume() const;
+
+    virtual double getRadius() const;
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
@@ -43,13 +42,8 @@ public:
     virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif
 
-    virtual int getNumberOfStochasticParameters() const
-    {
-        return mp_form_factor->getNumberOfStochasticParameters();
-    }
-
 private:
-    complex_t getPositionsFactor(const cvector_t &q) const;
+    complex_t getPositionsFactor(const cvector_t& q) const;
     std::vector<kvector_t> m_positions;
 };
 

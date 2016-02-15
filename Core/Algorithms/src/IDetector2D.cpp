@@ -17,6 +17,7 @@
 #include "MessageService.h"
 #include "BornAgainNamespace.h"
 #include "Rectangle.h"
+#include "InfinitePlane.h"
 
 #include <Eigen/LU>
 #include <boost/scoped_ptr.hpp>
@@ -38,6 +39,11 @@ IDetector2D::IDetector2D(const IDetector2D &other)
     init_parameters();
 }
 
+void IDetector2D::init(const Beam &beam)
+{
+    (void)beam;
+}
+
 const IAxis &IDetector2D::getAxis(size_t index) const
 {
     if (isCorrectAxisIndex(index)) {
@@ -54,9 +60,9 @@ void IDetector2D::matchDetectorAxes(const OutputData<double> &output_data)
     }
     clear();
     for (size_t i_axis = 0; i_axis < output_data.getRank(); ++i_axis) {
-        const IAxis* p_axis = output_data.getAxis(i_axis)->clone();
-        addAxis(*p_axis);
+        addAxis(*output_data.getAxis(i_axis));
     }
+    m_detector_mask.initMaskData(*this);
 }
 
 void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
@@ -115,6 +121,22 @@ std::string IDetector2D::addParametersToExternalPool(std::string path, Parameter
     return new_path;
 }
 
+OutputData<double> *IDetector2D::createDetectorMap(const Beam& /* beam */, EAxesUnits /* units_type */) const
+{
+    return 0;
+}
+
+std::vector<IDetector2D::EAxesUnits> IDetector2D::getValidAxesUnits() const
+{
+    std::vector<EAxesUnits> result = {NBINS};
+    return result;
+}
+
+IDetector2D::EAxesUnits IDetector2D::getDefaultAxesUnits() const
+{
+    return DEFAULT;
+}
+
 void IDetector2D::removeMasks()
 {
     m_detector_mask.removeMasks();
@@ -132,13 +154,22 @@ void IDetector2D::maskAll()
 
     m_detector_mask.removeMasks();
 
-    Geometry::Rectangle rect(m_axes[0]->getMin(), m_axes[1]->getMin(), m_axes[0]->getMax(), m_axes[1]->getMax());
-    addMask(rect, true);
+//    Geometry::Rectangle rect(m_axes[0]->getMin(), m_axes[1]->getMin(), m_axes[0]->getMax(), m_axes[1]->getMax());
+    addMask(Geometry::InfinitePlane(), true);
 }
 
 const DetectorMask *IDetector2D::getDetectorMask() const
 {
     return &m_detector_mask;
+}
+
+int IDetector2D::getNumberOfMaskedChannels() const
+{
+    if(getDetectorMask()) {
+        return getDetectorMask()->getNumberOfMaskedChannels();
+    } else {
+        return 0;
+    }
 }
 
 bool IDetector2D::isMasked(size_t index) const
@@ -176,6 +207,16 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
         result.push_back(sim_element);
     }
     return result;
+}
+
+//! create single simulation element
+SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &beam) const
+{
+    double wavelength = beam.getWavelength();
+    double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
+    double phi_i = beam.getPhi();
+    boost::scoped_ptr<IPixelMap> P_pixel_map(createPixelMap(index));
+    return SimulationElement(wavelength, alpha_i, phi_i, P_pixel_map.get());
 }
 
 bool IDetector2D::dataShapeMatches(const OutputData<double> *p_data) const

@@ -21,9 +21,7 @@
 #ifndef GEOMETRY_BASICVECTOR3D_H
 #define GEOMETRY_BASICVECTOR3D_H
 
-#include "Numeric.h"
-#include "Units.h"
-#include "Exceptions.h"
+static const double PI2 = 6.28318530717958647692528676655900577;
 #include "WinDllMacros.h"
 #include <complex>
 
@@ -154,6 +152,9 @@ public:
     //! Returns cross product of vectors.
     BasicVector3D<T> cross(const BasicVector3D<T>& v ) const;
 
+    //! Returns normalized vector
+    BasicVector3D<T> normalize() const;
+
     //! Returns square of transverse component with respect to given axis.
     double perp2(const BasicVector3D<T>& v) const;
 
@@ -183,7 +184,7 @@ public:
 
     //! Returns unit vector in direction of this (or null vector).
     inline BasicVector3D<T> unit() const {
-        double len = std::abs(mag());
+        double len = mag();
         return (len > 0.0) ?
             BasicVector3D<T>(x()/len, y()/len, z()/len) :
             BasicVector3D<T>();
@@ -197,9 +198,9 @@ public:
     inline void setLambdaAlphaPhi(
         const T& _lambda, const T& _alpha, const T& _phi)
         {
-            T k = Units::PI2/_lambda;
+            T k = PI2/_lambda;
             v_[0] = k*std::cos(_alpha) * std::cos(_phi);
-            v_[1] = k*std::cos(_alpha) * std::sin(_phi);
+            v_[1] = -k*std::cos(_alpha) * std::sin(_phi);
             v_[2] = k*std::sin(_alpha);
         }
 };
@@ -324,7 +325,6 @@ template<> BA_CORE_API_ double BasicVector3D<double>::dot(
 template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::cross(
         const BasicVector3D<double>& v) const;
 
-
 template<> BA_CORE_API_ double BasicVector3D<double>::phi() const;
 
 template<> BA_CORE_API_ double BasicVector3D<double>::theta() const;
@@ -335,5 +335,3 @@ BA_CORE_API_ BasicVector3D<std::complex<double> > toComplexVector(
 }  // namespace Geometry
 
 #endif /* GEOMETRY_BASICVECTOR3D_H */
-
-

@@ -17,12 +17,15 @@
 #define FORMFACTORCONE_H
 
 #include "IFormFactorBorn.h"
-#include "MemberComplexFunctionIntegrator.h"
+
+#include <memory>
+
+// Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
+template <class T> class IntegratorComplex;
 
 //! @class FormFactorCone
 //! @ingroup formfactors
 //! @brief The formfactor of a cone.
-
 class BA_CORE_API_ FormFactorCone : public IFormFactorBorn
 {
 public:
@@ -31,22 +34,17 @@ public:
     //! @param height of Cone
     //! @param angle in radians between base and facet
     FormFactorCone(double radius, double height,  double alpha);
-    ~FormFactorCone() {delete m_integrator;}
+    virtual ~FormFactorCone();
 
     virtual FormFactorCone* clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual int getNumberOfStochasticParameters() const { return 3; }
+    double getHeight() const;
 
-    virtual double getHeight() const { return m_height; }
-    virtual void setHeight(double height) { m_height = height; }
+    virtual double getRadius() const;
 
-    virtual double getRadius() const { return m_radius; }
-    virtual void setRadius(double radius) { m_radius = radius; }
-
-    virtual double getAlpha() const { return m_alpha; }
-    virtual void setAlpha(double alpha) { m_alpha = alpha; }
+    double getAlpha() const;
 
     virtual complex_t evaluate_for_q (const cvector_t& q) const;
 
@@ -55,16 +53,37 @@ protected:
     virtual void init_parameters();
 
 private:
-
-    complex_t Integrand(double Z, void* params) const;
+    complex_t Integrand(double Z) const;
 
     double m_radius;
     double m_height;
     double m_alpha;
     mutable cvector_t m_q;
 
-    MemberComplexFunctionIntegrator<FormFactorCone> *m_integrator;
+#ifndef GCCXML_SKIP_THIS
+    std::unique_ptr<IntegratorComplex<FormFactorCone>> mP_integrator;
+#endif
 };
+
+inline void FormFactorCone::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+inline double FormFactorCone::getHeight() const
+{
+    return m_height;
+}
+
+inline double FormFactorCone::getRadius() const
+{
+    return m_radius;
+}
+
+inline double FormFactorCone::getAlpha() const
+{
+    return m_alpha;
+}
 
 #endif // FORMFACTORCONE_H
 

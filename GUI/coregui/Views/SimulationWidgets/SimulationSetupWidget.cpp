@@ -16,7 +16,6 @@
 #include "SimulationSetupWidget.h"
 #include "GISASSimulation.h"
 #include "mainwindow.h"
-#include "PythonScriptSampleBuilder.h"
 #include "JobModel.h"
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"

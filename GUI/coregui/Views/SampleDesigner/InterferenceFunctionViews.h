@@ -44,6 +44,18 @@ public:
     int type() const { return TYPE; }
 };
 
+class BA_CORE_API_ InterferenceFunction1DLatticeView : public ConnectableView
+{
+    Q_OBJECT
+
+public:
+    enum { TYPE = DesignerHelper::INTERFERENCE_FUNCTION_1D_LATTICE };
+
+    InterferenceFunction1DLatticeView(QGraphicsItem *parent = 0);
+
+    int type() const { return TYPE; }
+};
+
 class BA_CORE_API_ InterferenceFunction2DLatticeView : public ConnectableView
 {
     Q_OBJECT

@@ -14,8 +14,10 @@
 // ************************************************************************** //
 
 #include "FormFactorSphereLogNormalRadius.h"
-
+#include "BornAgainNamespace.h"
 #include "Distributions.h"
+
+using namespace  BornAgain;
 
 FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
         double mean, double scale_param, size_t n_samples)
@@ -24,7 +26,7 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
 , m_n_samples(n_samples)
 , mp_distribution(0)
 {
-    setName("FormFactorSphereLogNormalRadius");
+    setName(FormFactorSphereLogNormalRadiusType);
     mp_distribution = new DistributionLogNormal(mean, scale_param);
     check_initialization();
     init_parameters();
@@ -33,10 +35,7 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
 
 FormFactorSphereLogNormalRadius* FormFactorSphereLogNormalRadius::clone() const
 {
-    FormFactorSphereLogNormalRadius *result =
-        new FormFactorSphereLogNormalRadius(m_mean, m_scale_param, m_n_samples);
-    result->setName(getName());
-    return result;
+    return new FormFactorSphereLogNormalRadius(m_mean, m_scale_param, m_n_samples);
 }
 
 FormFactorSphereLogNormalRadius::~FormFactorSphereLogNormalRadius()
@@ -44,9 +43,14 @@ FormFactorSphereLogNormalRadius::~FormFactorSphereLogNormalRadius()
     delete mp_distribution;
 }
 
-int FormFactorSphereLogNormalRadius::getNumberOfStochasticParameters() const
+void FormFactorSphereLogNormalRadius::accept(ISampleVisitor *visitor) const
 {
-    return 2;
+    visitor->visit(this);
+}
+
+double FormFactorSphereLogNormalRadius::getRadius() const
+{
+    return m_mean;
 }
 
 complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(
@@ -61,17 +65,6 @@ complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(
     return result;
 }
 
-double FormFactorSphereLogNormalRadius::getHeight() const
-{
-    if (m_form_factors.size()<1) return 0.0;
-    double result = 0.0;
-    for (size_t i=0; i<m_form_factors.size(); ++i) {
-        double height = m_form_factors[i]->getHeight();
-        result = std::max(result, height);
-    }
-    return result;
-}
-
 bool FormFactorSphereLogNormalRadius::check_initialization() const
 {
     return true;
@@ -80,8 +73,8 @@ bool FormFactorSphereLogNormalRadius::check_initialization() const
 void FormFactorSphereLogNormalRadius::init_parameters()
 {
     clearParameterPool();
-    registerParameter("mean_radius", &m_mean, AttLimits::n_positive());
-    registerParameter("scale_parameter", &m_scale_param, AttLimits::n_positive());
+    registerParameter(MeanRadius, &m_mean, AttLimits::n_positive());
+    registerParameter(ScaleParameter, &m_scale_param, AttLimits::n_positive());
 }
 
 void FormFactorSphereLogNormalRadius::init_vectors()

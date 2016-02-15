@@ -1,0 +1,334 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%   BornAgain User Manual
+%%
+%%   homepage:   http://www.bornagainproject.org
+%%
+%%   copyright:  Forschungszentrum Jülich GmbH 2015
+%%
+%%   license:    Creative Commons CC-BY-SA
+%%
+%%   authors:    Scientific Computing Group at MLZ Garching
+%%               C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Shape transform computations}  \label{SFFcomp}
+
+\index{Shape transform!computation|(}
+\index{Form factor!computation|(}
+
+\def\FFP{F_\parallel}
+\def\FFPm{\Delta_\parallel}
+\def\expm{\text{exp}_{-1}}
+\def\R{\v{R}}
+\let\textE=\E
+\def\E{\v{E}}
+\def\Gp{\Gamma_\parallel}
+\def\x{\v{x}}
+\def\V{\v{V}}
+\def\qp{\v{p}}
+\def\n{\v{\hat n}}
+\def\uq{\v{\hat q}}
+\def\uqp{\v{\hat p}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{It's all about removable singularities}\label{SShapeTrafIntro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The Form factor of a hard-shell particle is simply its \textE{shape transform},
+as introduced in~(\ref{EFFhardshell}),
+\begin{equation}\label{Eff3d}
+  F(\q)=\int_V\!\d^3r\, \e^{i\q\r},
+\end{equation}
+where $V$ is the volume of the particle.
+Here we show for a few selected cases
+how to bring the analytical solution of this integral into a form
+ suitable for speedy and stable computation.
+This background material is of interest mostly for
+developers who want to add some more form factors to \BornAgain's collection
+(catalogued in App.~\ref{SFF}).
+
+\index{Form factor!maximal absolute value}%
+From~(\ref{Eff3d}), it is immediately clear that~$F(\q)$ is bounded by
+\begin{equation}
+  |F(\q)|\le V,
+\end{equation}
+with equality holding for~$\q=0$.
+This excludes the presence of nonremovable singularities.
+However, analytical solutions of~(\ref{Eff3d}) do contain
+removable singularities.
+These singularities must be investigated closely
+in order to prevent floating-point errors and ill conditioned computations.
+
+\index{Form factor!singularities}%
+It seems that \textE{all} analytical form factors have a singularity at~$\q=0$.
+Furthermore, if the particle has \textE{plane} surfaces,
+then there is a singularity for all $\q$ that are normal to one of these planes.
+A simple example is provided by the cuboid form factor (Sec.~\ref{SBox})
+\begin{equation}\label{Eboxff}
+F= L W H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x \frac{L}{2}\right)
+\sinc\left(q_y \frac{W}{2}\right) \sinc\left(q_z \frac{H}{2}\right).
+\end{equation}
+If the \textE{sinus cardinalis} is written as
+\index{Sinus cardinalis@Sinus cardinalis (sinc)!removable singularity}
+\begin{equation}\label{Esinc}
+  \sinc(u) = \frac{\sin(u)}{u},
+\end{equation}
+then there appears to be a singularity at $u=0$.
+Applying L'H\^opital's rule, it is obvious
+that this singularity can be removed by the interpolated value
+$\sinc(0)=1$,
+as is done in the generally agreed definition of the special function~$\sinc$.
+
+Unfortunately, other form factors are not as simple as~(\ref{Eboxff}).
+Computations become more involved
+if a particle has planes with normals that are not oriented along
+any of the axes of the Cartesian coordinate system.
+Typically then, the straightforward analytical solution of~(\ref{Eff3d})
+results in messy expressions that obscure the symmetries of~$F(\q)$,
+and make it difficult handle the singularities.
+Instead of addressing particular geometric shapes,
+we consider arbitrary polygons and polyhedra.
+It turns out that these generic solutions
+are easier to implement
+than lengthy arithmetic expressions for specific geometries.
+
+% TODO? another concern: integrals without numeric solution
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Polygon}\label{SFFPolygon}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\index{Form factor!polygon|(}%
+\index{Polygon!form factor|(}
+
+To derive the form factor of prisms and pyramids with polygonal bases
+we will need the two-dimensional form factor
+%\nomenclature[2f134 2q040]{$\FFP(\q,\Gamma)$}{Two-dimensional form factor of planar shape~$\Gamma$}%
+\begin{equation}\label{Eff2d}
+  \FFP(\q,\Gamma)
+  \coloneqq \int_{\Gamma}\!\d^2r\, \e^{i\q\r}
+\end{equation}
+of an arbitrary planar polygon~$\Gamma$,
+located somewhere in affine three-dimensional Euclidean space.
+The solution available from the literature~\cite{LeMi83}
+contains singularities and does not provide an obvious way how handle them.
+Here, a different expression shall be derived by a different method.
+
+The normal vector~$\n$ of~$\Gamma$ induces a decomposition
+\begin{equation}
+  \q_\perp\coloneqq(\n\q)\n,\text{~and~}\q_\parallel\coloneqq\q-\q_\perp,
+\end{equation}
+and similarly for~$\r$.
+The integration variable in~(\ref{Eff2d}) influences only~$\r_\parallel$,
+whereas~$\r_\perp$ is constant for all $\r\in\Gamma$.
+The corresponding translation in affine space
+shall be denoted as $\Gamma=\r_\perp+\Gamma_\parallel$.
+This allows us to draw the $\r_\perp$~dependence in front of the integral,
+\begin{equation}\label{EF2F2}
+  \FFP(\q,\Gamma)
+  = \e^{iq_\perp r_\perp}\,\FFP(\q_\parallel,\Gp).
+\end{equation}
+To keep notation light,
+in the following we shall substitute $\qp$ for the dummy variable~$\q_\parallel$.
+With the help of Stokes's theorem
+\begin{equation}\label{EStokes}
+  \iint\!\d r^2\,\n\cdot\Nabla\times\v{G} = \oint \d\v{r}\cdot\v{G},
+\end{equation}
+and with the choice $\v{G}\coloneqq\v{a}\, (\e^{i\qp\r}-1)$,
+we find
+\begin{equation}
+  \FFP(\qp,\Gp)=\frac{\v{a}}{i\, \n(\qp\times\v{a})} \oint_{\partial\Gp} \d\v{r}\,(\e^{i\qp\r}-1).
+\end{equation}
+We define the absolute value
+$p\coloneqq|\v{p}|=(\v{p}\v{p}^*)^{1/2}$,
+and the unit vector $\v{\hat p}\coloneqq\v{p}/p$.
+With the choice $\v{a}\coloneqq\n\times\qp^*$,
+the form factor becomes
+\begin{equation}\label{Elastoint}
+  \FFP(\qp,\Gp)=\frac{\n\times\uqp^*}{ip} \oint_{\partial\Gp} \d\v{r}\,(\e^{i\qp\r}-1).
+\end{equation}
+Let the polygon have $N$ vertices $\V_0,\ldots,\V_{N-1}$,
+and put $\V_N\coloneqq\V_0$.
+The edges of the polygon shall parametrized by
+\begin{equation}
+  \r_j(\lambda) = \frac{\V_{j+1}+\V_j}{2} + \frac{\V_{j+1}-\V_j}{2} \lambda
+  \eqqcolon \R_j + \E_j\lambda.
+\end{equation}
+with $-1\le\lambda\le+1$.
+The line integral~(\ref{Elastoint}) then takes the form
+\begin{equation}
+    \FFP(\qp,\Gp)
+   = \frac{\n\times\uqp^*}{ip} \sum_{j=0}^{N-1}
+              \int_{-1}^{+1}\!\d\lambda\, \frac{\d\r_j}{\d\lambda}\,(\e^{i\qp\r}-1),
+\end{equation}
+and yields
+\begin{equation}\label{Effpolygon1}
+    \FFP(\qp,\Gp)
+    = \frac{\n\times\uqp^*}{ip}
+      \sum_{j=0}^{N-1} \E_j
+      \left( \frac{\e^{i\qp(\R_j+\E_j)}-\e^{i\qp(\R_j-\E_j)}}{i\qp\E_j} - 2 \right).
+\end{equation}
+The removable singularity for $\qp\E_j=0$
+can be handled by a sinc function, as discussed in Sec.~\ref{SShapeTrafIntro}.
+\Emph{
+\begin{equation}\label{Effpolygon3}
+  \FFP(\qp,\Gp)
+  = 2\,\n\times\uqp^*
+    \sum_{j=0}^{N-1} \E_j \frac{\sinc(\qp\E_j) \e^{i\qp\R_j} - 1}{ip}.
+\end{equation}
+}
+This expression is used in our implementation of \texttt{FormFactorPrism3}
+(Sec.~\ref{SPrism3}).
+Near the removable singularity at~$p=0$,
+the scalar function of $p$, $\qp\E_j$ and $\qp\R_j$,
+written as a fraction,
+ is not computed term by term,
+but from its series expansion.
+
+If a polygon~$\Gamma_2$ has a two-fold symmetry axis,
+then the form factor can be further simplified.
+We write $N\eqqcolon2n$
+and make use of $\E_{j+n}=-\E_j$ to transform~(\ref{Effpolygon3}) into
+\Emph{
+\begin{equation}\label{Eff2ngon}
+    \FFP(\qp,\Gamma_{2\parallel}) = \displaystyle 4\, \n\times\uqp^*\sum_{j=0}^{n-1}
+              \E_j (\uqp\R_j) \sinc(\qp\E_j) \sinc(\qp\R_j),
+\end{equation}
+}
+where the singularity at $p=0$ is absorbed in a second sinc function.
+This result is used in our implementation of \texttt{FormFactorPrism6}
+(Sec.~\ref{SPrism6}).
+\index{FormFactorPrism6@\Code{FormFactorPrism6}}%
+
+From the definition~(\ref{Eff2d}) it is immediately clear
+that $\FFP(0,\Gamma)$ is the \textE{area} of polygon~$\Gamma$.
+To confirm this from our result~(\ref{Effpolygon3}),
+we expand the numerator in~$\qp$ and retain the leading nonvanishing term.
+We find
+\begin{equation}\label{Effarea}
+  \begin{array}{@{}lcl}
+  \FFP(\qp\!\to\!0,\Gp)
+    &\doteq& \displaystyle 2\sum \n(\uqp^*\times\E_j) (\uqp\R_j)\\[1.8ex]
+    &=&\displaystyle \frac{1}{2}\sum \n\left\{
+        (\uqp^*\times\V_{j+1})(\uqp\V_j)
+      - (\uqp^*\times\V_j)(\uqp\V_{j+1})
+      \right\}\\[1.8ex]
+    &=&\displaystyle \frac{1}{2}\sum \n(\V_j\times\V_{j+1}),
+  \end{array}
+\end{equation}
+which is the area of the polygon
+as given by a tesselation by triangles with vertices at $\v{0},\V_j,\V_{j+1}$.
+
+
+\index{Form factor!polygon|)}%
+\index{Polygon!form factor|)}%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Prism}\label{SFFPrism}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\index{Form factor!prism|(}%
+\index{Prism (form factor)!generic polygonal|(}%
+
+For a prism~$\Pi$ with polygonal base~$\Gamma$,
+extending in $r_\perp$ from~0 up to a height~$H$,
+the form factor is
+\begin{equation}
+  F(\q,\Pi)
+  = \int_0^H\!\d r_\perp\,\e^{i q_\perp r_\perp}\,\FFP(\q_\parallel,\Gp)
+\end{equation}
+with the two-dimensional form factor $\FFP(\q_\parallel,\Gp)$ as determined in the preceding section.
+The solution shall be written as
+\Emphc{%
+\begin{equation}
+  F(\q,\Pi)
+  = H\, \expm(iq_\perp H)\,\FFP(\q_\parallel,\Gp)
+\end{equation}}
+with the function
+\begin{equation}
+  \expm(z) \coloneqq
+  \left\{ \begin{array}{ll}
+    \displaystyle \frac{\exp(z)-1}{z}&\text{~for~}z\ne0,\\[1.8ex]
+    1&\text{~for~}z=0.
+    \end{array}\right.
+\end{equation}
+To avoid cancellation in the numerator,
+function values in a neighborhood of the removable singularity~$z=0$
+are computed not term by term,
+but from the series expansion
+\begin{equation}
+  \expm(z) = 1 + \frac{z}{2} + \ldots
+\end{equation}
+
+\index{Form factor!prism|)}%
+\index{Prism (form factor)!generic polygonal|)}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Polyhedron}\label{SFFPolyhedron}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+To derive the form factor of a polyhedron~$\Pi$,
+we start from the divergence theorem
+\begin{equation}
+  \iiint_\Pi\!\d^3r\,\Nabla\v{H} = \iint_{\partial\Pi}\!\d^2r\, \n\v{H}.
+\end{equation}
+With the choice $\v{H}\coloneqq\q^*(\e^{i\q\r}-1)$,
+we obtain
+\begin{equation}\label{Eff3d1}
+  F(\q,\Pi) = \frac{\q^*}{iq^2} \iint_{\partial\Pi}\!\d^2r\, \n \left(\e^{i\q\r}-1\right).
+\end{equation}
+The surface of a polyhedron consists of polygonal planar faces,
+\begin{equation}
+  \partial\Pi = \bigcup_k \Gamma_k.
+\end{equation}
+Each polygonal face~$\Gamma_k$ has a normal vector~$\n_k$,
+and a two-dimensional form factor~$\FFP(q,\Gamma_k)$ as determined in Sec.~\ref{SFFPolygon}.
+Using these, (\ref{Eff3d1}) becomes
+\begin{equation}\label{Eff3d2}
+  F(\q,\Pi) = \uq^* \sum_k \n_k  \frac{\FFP(\q,\Gamma_k)-\FFP(0,\Gamma_k)}{iq}.
+\end{equation}
+Inserting~$\FFP$ as determined in~(\ref{Effpolygon3}),
+we obtain
+\Emphc{
+\begin{equation}\label{Eff3d3}
+  F(\q,\Pi) = 2  \sum_k^{\text{faces of~$\Pi$}} \uq^*\n_k \sum_j^{\text{edges of $\Gamma_k$}}
+           (\n_k\times\uq_{\parallel k}^*)\,\E_j\;
+           \Delta(q,\frac{q_{\parallel k}}{q},
+                 \uq_{\parallel k}\E_j,\uq_{\parallel k}\R_j,\frac{q_{\perp k}}{q}\r_{\perp k})
+\end{equation}
+with
+\begin{equation}
+  \Delta(q,v,a,b,c)
+  \coloneqq
+  \frac{\e^{iqc}\Phi(qv,a,b)-\Phi(0,a,b)} {iq}
+\end{equation}
+and
+\begin{equation}
+  \Phi(p,a,b)
+  \coloneqq
+  \frac{\sinc(pa)\e^{ipb}-1}{ip}.
+\end{equation}
+}
+Near the singularities $q=0$, $p=0$, the functions $\Delta$ and $\Phi$
+must be computed by series expansion.
+The lowest non-vanishing terms are
+\begin{equation}
+  \Phi(p\to0,a,b)
+  = b
+    + ip\left(\frac{a^2}{6}+\frac{b^2}{2}\right)
+    - p^2 \frac{a^2b}{6}
+    + \ldots
+\end{equation}
+and
+\begin{equation}
+  \Delta(q,v,a,b,c)
+  = \left(cb + \frac{a^2}{6} + \frac{b^2}{2}\right)
+   + iq\left(\frac{bc^2}{2}+\frac{a^2c}{6}+\frac{b^2c}{2}+v^2\frac{a^2b}{6}\right)
+   + \ldots
+\end{equation}
+
+\index{Shape transform!computation|)}
+\index{Form factor!computation|)}

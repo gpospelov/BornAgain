@@ -27,6 +27,8 @@
 
 #include <boost/scoped_ptr.hpp>
 
+class GISASSimulation;
+
 //! @class IDetector
 //! @ingroup simulation
 //! @brief The detector interface.
@@ -34,6 +36,8 @@
 class BA_CORE_API_ IDetector2D : public IParameterized
 {
 public:
+    enum EAxesUnits {DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ};
+
     IDetector2D();
     IDetector2D(const IDetector2D& other);
 
@@ -41,22 +45,16 @@ public:
 
     virtual ~IDetector2D() {}
 
-    void addAxis(const IAxis &axis)
-    {
-        m_axes.push_back(axis.clone());
-    }
+    //! Inits detector with the beam settings
+    virtual void init(const Beam &beam);
+
+    void addAxis(const IAxis &axis);
 
     const IAxis &getAxis(size_t index) const;
 
-    size_t getDimension() const
-    {
-        return m_axes.size();
-    }
+    size_t getDimension() const;
 
-    void clear()
-    {
-        m_axes.clear();
-    }
+    void clear();
 
     //! Sets detector parameters using axes of output data
     void matchDetectorAxes(const OutputData<double> &output_data);
@@ -69,20 +67,12 @@ public:
     void setDetectorAxes(const IAxis &axis0, const IAxis &axis1);
 
     //! Sets the detector resolution
-    void setDetectorResolution(IDetectorResolution *p_detector_resolution)
-    {
-        if (mP_detector_resolution.get()!=p_detector_resolution) {
-            mP_detector_resolution.reset(p_detector_resolution);
-        }
-    }
+    void setDetectorResolution(IDetectorResolution *p_detector_resolution);
 
     //! Applies the detector resolution to the given intensity maps
     void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
 
-    const IDetectorResolution *getDetectorResolutionFunction() const
-    {
-        return mP_detector_resolution.get();
-    }
+    const IDetectorResolution *getDetectorResolutionFunction() const;
 
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t &direction, double efficiency,
@@ -90,15 +80,8 @@ public:
 
 #ifndef GCCXML_SKIP_THIS
     //! Gets the polarization density matrix (in spin basis along z-axis)
-    Eigen::Matrix2cd getAnalyzerOperator() const
-    {
-        return m_analyzer_operator;
-    }
+    Eigen::Matrix2cd getAnalyzerOperator() const;
 #endif
-
-    //! Adds parameters from local pool to external pool and call recursion over direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
-                                                    int copy_number = -1) const;
 
     //! removes all masks from the detector
     void removeMasks();
@@ -115,6 +98,9 @@ public:
 
     const DetectorMask *getDetectorMask() const;
 
+    int getNumberOfMaskedChannels() const;
+
+
     bool isMasked(size_t index) const;
 
     //! return true if has masks
@@ -123,7 +109,21 @@ public:
 #ifndef GCCXML_SKIP_THIS
     //! Create a vector of SimulationElement objects according to the detector and its mask
     std::vector<SimulationElement> createSimulationElements(const Beam& beam);
+    SimulationElement getSimulationElement(size_t index, const Beam& beam) const;
 #endif
+
+    //! Adds parameters from local pool to external pool and recursively calls its direct children.
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                                    int copy_number = -1) const;
+
+    //! Returns detector map in given axes units
+    virtual OutputData<double> *createDetectorMap(const Beam& beam, EAxesUnits units_type) const;
+
+    //! returns vector of valid axes units
+    virtual std::vector<EAxesUnits> getValidAxesUnits() const;
+
+    //! return default axes units
+    virtual EAxesUnits getDefaultAxesUnits() const;
 
 protected:
     //! Create an IPixelMap for the given OutputData object and index
@@ -138,10 +138,7 @@ protected:
     //! Returns the name for the axis with given index
     virtual std::string getAxisName(size_t index) const=0;
 
-    bool isCorrectAxisIndex(size_t index) const
-    {
-        return index < getDimension();
-    }
+    bool isCorrectAxisIndex(size_t index) const;
 
     //! Checks if data has a compatible format with the detector.
     bool dataShapeMatches(const OutputData<double> *p_data) const;
@@ -161,7 +158,6 @@ protected:
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 #endif
     DetectorMask m_detector_mask;
-
 private:
     //! Verify if the given analyzer properties are physical
     bool checkAnalyzerProperties(const kvector_t &direction, double efficiency,
@@ -172,5 +168,44 @@ private:
                                                double total_transmission = 1.0) const;
 #endif
 };
+
+inline void IDetector2D::addAxis(const IAxis &axis)
+{
+    m_axes.push_back(axis.clone());
+}
+
+inline size_t IDetector2D::getDimension() const
+{
+    return m_axes.size();
+}
+
+inline void IDetector2D::clear()
+{
+    m_axes.clear();
+}
+
+inline void IDetector2D::setDetectorResolution(IDetectorResolution *p_detector_resolution)
+{
+    if (mP_detector_resolution.get()!=p_detector_resolution) {
+        mP_detector_resolution.reset(p_detector_resolution);
+    }
+}
+
+inline const IDetectorResolution *IDetector2D::getDetectorResolutionFunction() const
+{
+    return mP_detector_resolution.get();
+}
+
+#ifndef GCCXML_SKIP_THIS
+inline Eigen::Matrix2cd IDetector2D::getAnalyzerOperator() const
+{
+    return m_analyzer_operator;
+}
+#endif
+
+inline bool IDetector2D::isCorrectAxisIndex(size_t index) const
+{
+    return index < getDimension();
+}
 
 #endif /* IDETECTOR2D_H_ */

@@ -14,27 +14,25 @@
 // ************************************************************************** //
 
 #include "FormFactorLorentz.h"
-
+#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
 
+using namespace  BornAgain;
+
 FormFactorLorentz::FormFactorLorentz(double volume)
 {
-    setName("FormFactorLorentz");
     double R = std::pow(volume, 1.0/3.0);
     m_height = R;
     m_width = R;
-    check_initialization();
-    init_parameters();
+    initialize();
 }
 
 FormFactorLorentz::FormFactorLorentz(double width, double height)
 {
-    setName("FormFactorLorentz");
     m_width = width;
     m_height = height;
-    check_initialization();
-    init_parameters();
+    initialize();
 }
 
 bool FormFactorLorentz::check_initialization() const
@@ -45,15 +43,23 @@ bool FormFactorLorentz::check_initialization() const
 void FormFactorLorentz::init_parameters()
 {
     clearParameterPool();
-    registerParameter("width", &m_width, AttLimits::n_positive());
-    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter(Width, &m_width, AttLimits::n_positive());
+    registerParameter(Height, &m_height, AttLimits::n_positive());
 }
 
 FormFactorLorentz* FormFactorLorentz::clone() const
 {
-    FormFactorLorentz *result = new FormFactorLorentz(m_width, m_height);
-    result->setName(getName());
-    return result;
+    return new FormFactorLorentz(m_width, m_height);
+}
+
+void FormFactorLorentz::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+double FormFactorLorentz::getRadius() const
+{
+    return m_width / 2.0;
 }
 
 complex_t FormFactorLorentz::evaluate_for_q(const cvector_t& q) const
@@ -71,4 +77,9 @@ complex_t FormFactorLorentz::evaluate_for_q(const cvector_t& q) const
     return result;
 }
 
-
+void FormFactorLorentz::initialize()
+{
+    setName(FFLorentzType);
+    check_initialization();
+    init_parameters();
+}

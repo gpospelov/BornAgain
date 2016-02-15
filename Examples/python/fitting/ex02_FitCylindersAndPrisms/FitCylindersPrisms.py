@@ -60,10 +60,10 @@ def run_fitting():
     fit_suite.initPrint(10)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*FormFactorCylinder/height", 4.*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*FormFactorCylinder/radius", 6.*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*FormFactorPrism3/height", 4.*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*FormFactorPrism3/length", 12.*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Cylinder/Height", 4.*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Cylinder/Radius", 6.*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Prism3/Height", 4.*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Prism3/Length", 12.*nanometer, AttLimits.lowerLimited(0.01))
 
     # running fit
     fit_suite.runFit()

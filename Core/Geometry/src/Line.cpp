@@ -22,7 +22,6 @@ GCC_DIAG_OFF(unused-parameter)
 #include <boost/geometry/geometries/point_xy.hpp>
 #include <boost/geometry/geometries/polygon.hpp>
 #include <boost/geometry/geometries/linestring.hpp>
-#include <boost/assign/list_of.hpp>
 GCC_DIAG_ON(unused-parameter)
 #include <iostream>
 
@@ -105,6 +104,11 @@ bool VerticalLine::contains(const Bin1D &binx, const Bin1D &biny) const
     return false;
 }
 
+double VerticalLine::getXpos() const
+{
+    return m_x;
+}
+
 VerticalLine::VerticalLine(const VerticalLine &other)
     : m_x(other.m_x)
 {
@@ -133,6 +137,11 @@ bool HorizontalLine::contains(const Bin1D &binx, const Bin1D &biny) const
     (void)binx;
     if(m_y>=biny.m_lower && m_y <= biny.m_upper) return true;
     return false;
+}
+
+double HorizontalLine::getYpos() const
+{
+    return m_y;
 }
 
 HorizontalLine::HorizontalLine(const HorizontalLine &other)

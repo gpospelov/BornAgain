@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "IFormFactorBorn.h"
-#include "MemberFunctionIntegrator.h"
 #include "MathFunctions.h"
 
 complex_t IFormFactorBorn::evaluate(const WavevectorInfo& wavevectors) const
@@ -26,12 +25,6 @@ Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo& wavevectors)
 {
     Eigen::Matrix2cd unit_matrix = Eigen::Matrix2cd::Identity();
     return evaluate(wavevectors) * unit_matrix;
-}
-
-double IFormFactorBorn::getVolume() const
-{
-    cvector_t zero;
-    return std::abs(evaluate_for_q(zero));
 }
 
 bool IFormFactorBorn::check_initialization() const

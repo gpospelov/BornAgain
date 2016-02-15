@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleLayout.h"
+#include "BornAgainNamespace.h"
 #include "InterferenceFunctionNone.h"
 #include "DecouplingApproximationStrategy.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
@@ -25,13 +26,25 @@
 
 
 ParticleLayout::ParticleLayout()
+    : mP_interference_function {0}
+    , m_total_particle_density {1.0}
 {
-    setName("ParticleLayout");
+    setName(BornAgain::ParticleLayoutType);
+}
+
+ParticleLayout::ParticleLayout(const IAbstractParticle &particle)
+    : mP_interference_function {0}
+    , m_total_particle_density {1.0}
+{
+    setName(BornAgain::ParticleLayoutType);
+    addParticle(particle);
 }
 
 ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundance)
+    : mP_interference_function {0}
+    , m_total_particle_density {1.0}
 {
-    setName("ParticleLayout");
+    setName(BornAgain::ParticleLayoutType);
     addParticle(particle, abundance);
 }
 
@@ -39,17 +52,16 @@ ParticleLayout::~ParticleLayout()
 {
 }
 
-ParticleLayout* ParticleLayout::clone() const
+ParticleLayout *ParticleLayout::clone() const
 {
     ParticleLayout *p_new = new ParticleLayout();
-    p_new->setName(getName());
 
-    for (size_t i=0; i<m_particles.size(); ++i)
-        p_new->addAndRegisterParticleInfo(m_particles[i]->clone());
+    for (size_t i = 0; i < m_particles.size(); ++i)
+        p_new->addAndRegisterAbstractParticle(m_particles[i]->clone());
 
-    for (size_t i=0; i<m_interference_functions.size(); ++i)
-        p_new->addAndRegisterInterferenceFunction(
-            m_interference_functions[i]->clone());
+    if (mP_interference_function){
+        p_new->setAndRegisterInterferenceFunction(mP_interference_function->clone());
+    }
 
     p_new->setTotalParticleSurfaceDensity(getTotalParticleSurfaceDensity());
     p_new->setApproximation(getApproximation());
@@ -57,87 +69,98 @@ ParticleLayout* ParticleLayout::clone() const
     return p_new;
 }
 
-ParticleLayout* ParticleLayout::cloneInvertB() const
+ParticleLayout *ParticleLayout::cloneInvertB() const
 {
     ParticleLayout *p_new = new ParticleLayout();
-    p_new->setName(getName() + "_inv");
 
-    for (size_t i=0; i<m_particles.size(); ++i)
-        p_new->addAndRegisterParticleInfo(m_particles[i]->cloneInvertB());
+    for (size_t i = 0; i < m_particles.size(); ++i)
+        p_new->addAndRegisterAbstractParticle(m_particles[i]->cloneInvertB());
 
-    for (size_t i=0; i<m_interference_functions.size(); ++i)
-        p_new->addAndRegisterInterferenceFunction(
-            m_interference_functions[i]->clone());
+    if (mP_interference_function){
+        p_new->setAndRegisterInterferenceFunction(mP_interference_function->clone());
+    }
 
     p_new->setTotalParticleSurfaceDensity(getTotalParticleSurfaceDensity());
     p_new->setApproximation(getApproximation());
 
     return p_new;
+}
+
+void ParticleLayout::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+void ParticleLayout::addParticle(const IAbstractParticle &particle)
+{
+    addAndRegisterAbstractParticle(particle.clone());
 }
 
 void ParticleLayout::addParticle(const IAbstractParticle& particle, double abundance)
 {
-    addAndRegisterParticleInfo(new ParticleInfo(particle, abundance));
+    std::unique_ptr<IAbstractParticle> P_particle_clone { particle.clone() };
+    P_particle_clone->setAbundance(abundance);
+    addAndRegisterAbstractParticle(P_particle_clone.release());
 }
 
 void ParticleLayout::addParticle(const IParticle &particle, double abundance,
                                  const kvector_t &position)
 {
-    boost::scoped_ptr<IParticle> P_particle_clone(particle.clone());
+    std::unique_ptr<IParticle> P_particle_clone { particle.clone() };
+    P_particle_clone->setAbundance(abundance);
     if(position != kvector_t(0,0,0)) {
         P_particle_clone->applyTranslation(position);
     }
-    addAndRegisterParticleInfo(new ParticleInfo(*P_particle_clone, abundance));
+    addAndRegisterAbstractParticle(P_particle_clone.release());
 }
 
 void ParticleLayout::addParticle(const IParticle &particle, double abundance,
                                  const kvector_t &position, const IRotation& rotation)
 {
-    boost::scoped_ptr<IParticle> P_particle_clone(particle.clone());
+    std::unique_ptr<IParticle> P_particle_clone { particle.clone() };
+    P_particle_clone->setAbundance(abundance);
     if(!rotation.isIdentity()) {
         P_particle_clone->applyRotation(rotation);
     }
     if(position != kvector_t(0,0,0)) {
         P_particle_clone->applyTranslation(position);
     }
-    addAndRegisterParticleInfo(new ParticleInfo(*P_particle_clone, abundance));
+    addAndRegisterAbstractParticle(P_particle_clone.release());
+}
+
+size_t ParticleLayout::getNumberOfParticles() const
+{
+    return m_particles.size();
 }
 
 //! Returns particle info
 const IAbstractParticle* ParticleLayout::getParticle(size_t index) const
 {
-    if (index<m_particles.size())
-        return m_particles[index]->getParticle();
+    if (index<m_particles.size()) return m_particles[index];
     throw OutOfBoundsException(
         "ParticleLayout::getParticle() -> "
         "Error! Not so many particles in this decoration.");
 }
-
-void ParticleLayout::getParticleInfos(SafePointerVector<const IParticle>& particle_vector,
-                                      std::vector<double>& abundance_vector) const
+SafePointerVector<const IParticle> ParticleLayout::getParticles() const
 {
-    particle_vector.clear();
-    abundance_vector.clear();
-    for (SafePointerVector<ParticleInfo>::const_iterator it = m_particles.begin();
+    SafePointerVector<const IParticle> particle_vector;
+    for (SafePointerVector<IAbstractParticle>::const_iterator it = m_particles.begin();
          it != m_particles.end(); ++it) {
-        const ParticleInfo *p_info = (*it);
+        const IAbstractParticle *p_particle = (*it);
         const ParticleDistribution *p_part_distr
-            = dynamic_cast<const ParticleDistribution *>(p_info->getParticle());
-        const IParticle *p_iparticle = dynamic_cast<const IParticle *>(p_info->getParticle());
+                = dynamic_cast<const ParticleDistribution *>(p_particle);
+        const IParticle *p_iparticle = dynamic_cast<const IParticle *>(p_particle);
         if (p_part_distr) {
-            std::vector<const IParticle*> generated_particles;
-            std::vector<double> abundances;
-            p_part_distr->generateParticleInfos(generated_particles, abundances, p_info->getAbundance());
+            std::vector<const IParticle *> generated_particles;
+            p_part_distr->generateParticles(generated_particles);
             for (size_t i = 0; i < generated_particles.size(); ++i) {
                 particle_vector.push_back(generated_particles[i]);
-                abundance_vector.push_back(abundances[i]);
             }
         } else if (p_iparticle) {
             particle_vector.push_back(p_iparticle->clone());
-            abundance_vector.push_back(p_info->getAbundance());
         }
     }
-    return;
+    return particle_vector;
 }
 
 double ParticleLayout::getAbundanceOfParticle(size_t index) const
@@ -145,42 +168,46 @@ double ParticleLayout::getAbundanceOfParticle(size_t index) const
     return m_particles[index]->getAbundance();
 }
 
-//! Adds interference functions
-void ParticleLayout::addInterferenceFunction(
-    IInterferenceFunction* p_interference_function)
+const IInterferenceFunction*  ParticleLayout::getInterferenceFunction() const
 {
-    addAndRegisterInterferenceFunction(p_interference_function);
+    return mP_interference_function.get();
 }
 
+//! Adds interference functions
 void ParticleLayout::addInterferenceFunction(
     const IInterferenceFunction& interference_function)
 {
-    addAndRegisterInterferenceFunction(interference_function.clone());
+    setAndRegisterInterferenceFunction(interference_function.clone());
 }
 
-const IInterferenceFunction* ParticleLayout::getInterferenceFunction(
-    size_t index) const
+double ParticleLayout::getTotalParticleSurfaceDensity() const
 {
-    if (index<m_interference_functions.size())
-        return m_interference_functions[index];
-    throw OutOfBoundsException(
-        "ParticleLayout::getInterferenceFunction() ->"
-                "Not so many interference functions in this decoration.");
+    double iff_density = mP_interference_function ? mP_interference_function->getParticleDensity()
+                                                  : 0.0;
+    return iff_density > 0.0 ? iff_density
+                             : m_total_particle_density;
+}
+
+void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)
+{
+    m_total_particle_density = particle_density;
 }
 
 //! Adds particle information with simultaneous registration in parent class.
-void ParticleLayout::addAndRegisterParticleInfo(
-    ParticleInfo *child)
+void ParticleLayout::addAndRegisterAbstractParticle(IAbstractParticle *child)
 {
     m_particles.push_back(child);
     registerChild(child);
 }
 
 //! Adds interference function with simultaneous registration in parent class.
-void ParticleLayout::addAndRegisterInterferenceFunction(
+void ParticleLayout::setAndRegisterInterferenceFunction(
     IInterferenceFunction *child)
 {
-    m_interference_functions.push_back(child);
+    if (mP_interference_function.get()) {
+        deregisterChild(mP_interference_function.get());
+    }
+    mP_interference_function.reset(child);
     registerChild(child);
 }
 

@@ -28,6 +28,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.path import Path
 import math
+import random
 from bornagain import *
 
 fig = plt.figure(1)
@@ -86,9 +87,9 @@ def create_real_data():
     for i in range(0, real_data.getAllocatedSize()):
         amplitude = real_data[i]
         sigma = noise_factor*math.sqrt(amplitude)
-        noisy_amplitude = GenerateNormalRandom(amplitude, sigma)
-        if noisy_amplitude < 0.0:
-            noisy_amplitude = 0.0
+        noisy_amplitude = random.gauss(amplitude, sigma)
+        if noisy_amplitude < 0.1:
+            noisy_amplitude = 0.1
         real_data[i] = noisy_amplitude
     IntensityDataIOFactory.writeIntensityData(real_data, 'refdata_fitcylinderprisms.int')
 
@@ -198,10 +199,10 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*FormFactorCylinder/height", 2.*nanometer, AttLimits.limited(0.01, 10.0))
-    fit_suite.addFitParameter("*FormFactorCylinder/radius", 2.*nanometer, AttLimits.limited(0.01, 10.0))
-    fit_suite.addFitParameter("*FormFactorPrism3/height", 2.*nanometer, AttLimits.limited(0.01, 10.0))
-    fit_suite.addFitParameter("*FormFactorPrism3/length", 2.*nanometer, AttLimits.limited(0.01, 10.0))
+    fit_suite.addFitParameter("*Cylinder/Height", 2.*nanometer, AttLimits.limited(0.01, 10.0))
+    fit_suite.addFitParameter("*Cylinder/Radius", 2.*nanometer, AttLimits.limited(0.01, 10.0))
+    fit_suite.addFitParameter("*Prism3/Height", 2.*nanometer, AttLimits.limited(0.01, 10.0))
+    fit_suite.addFitParameter("*Prism3/Length", 2.*nanometer, AttLimits.limited(0.01, 10.0))
 
     # # Now we create first fig strategy which will run first minimization round using Genetic minimizer.
     # # Genetic minimizer is able to explore large parameter space without being trapped by some local minima.

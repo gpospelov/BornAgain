@@ -25,13 +25,13 @@
 class BA_CORE_API_ Histogram1D : public IHistogram
 {
 public:
-    //! Constructor for fix bin size histograms.
+    //! @brief Constructor for fix bin size histograms.
     //! @param nbinsx number of bins
     //! @param xlow low edge of the first bin
     //! @param xup upper edge of the last bin
     Histogram1D(int nbinsx, double xlow, double xup);
 
-    //! Constructor for variable bin size histograms.
+    //! @brief Constructor for variable bin size histograms.
     //! @param nbinsx number of bins
     //! @param xbins Array of size nbins+1 containing low-edges for each
     //! bin and upper edge of last bin.

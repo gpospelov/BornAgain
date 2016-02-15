@@ -34,7 +34,6 @@
 class AdjustingScrollArea : public QScrollArea {
     bool eventFilter(QObject * obj, QEvent * ev) {
         if (obj == widget() && ev->type() != QEvent::Resize) {
-//            setMaximumWidth(width() - viewport()->width() + widget()->width());
             widget()->setMaximumWidth(viewport()->width());
             setMaximumHeight(height() - viewport()->height() + widget()->height());
         }
@@ -58,7 +57,6 @@ public:
     }
 };
 
-
 InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     : QWidget(parent)
     , m_nameLineEdit(new QLineEdit())
@@ -76,23 +74,8 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     instrumentGroupLayout->setContentsMargins(0,0,0,0);
     instrumentGroup->setLayout(instrumentGroupLayout);
 
-    // top block with instrument name and type
-    m_typeComboBox->setMinimumWidth(300);
-    m_typeComboBox->addItem("Default GISAS Instrument");
-
-    QHBoxLayout *topLayout = new QHBoxLayout;
-    topLayout->addSpacing(16);
-
-    QGridLayout *nameAndTypeLayout = new QGridLayout;
-    nameAndTypeLayout->addWidget(new QLabel("Name"), 0, 0);
-    nameAndTypeLayout->addWidget(m_nameLineEdit, 0, 1);
-    nameAndTypeLayout->addWidget(new QLabel("Type"), 1, 0);
-    nameAndTypeLayout->addWidget(m_typeComboBox, 1, 1);
-    topLayout->addLayout(nameAndTypeLayout );
-    topLayout->addStretch(1);
-
     instrumentGroupLayout->addSpacing(10);
-    instrumentGroupLayout->addLayout(topLayout);
+    instrumentGroupLayout->addLayout(create_NameAndTypeLayout());
 
     // Scroling area with insturment components
     m_instrumentComponents->setStyleSheet("InstrumentComponentsWidget {background-color:transparent;}");
@@ -111,27 +94,48 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     mainLayout->addWidget(instrumentGroup);
     setLayout(mainLayout);
 
-    connect(m_nameLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onChangedEditor(const QString &)));
+    connect(m_nameLineEdit,
+            SIGNAL(textChanged(const QString &)),
+            this,
+            SLOT(onChangedEditor(const QString &))
+            );
+
+    connect(m_instrumentComponents,
+            SIGNAL(extendedDetectorEditorRequest(DetectorItem *)),
+            this,
+            SIGNAL(extendedDetectorEditorRequest(DetectorItem *))
+            );
 }
 
 void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
 {
     Q_ASSERT(instrument);
-
     if(instrument != m_currentItem) {
         if(m_currentItem) {
-            disconnect(m_currentItem, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChanged(QString)));
-            disconnect(m_currentItem, SIGNAL(subItemChanged(QString)), this, SLOT(onPropertyChanged(QString)));
+            disconnect(m_currentItem,
+                       SIGNAL(propertyChanged(QString)),
+                       this,
+                       SLOT(onPropertyChanged(QString))
+                       );
+            disconnect(m_currentItem,
+                       SIGNAL(subItemChanged(QString)),
+                       this,
+                       SLOT(onPropertyChanged(QString))
+                       );
         }
-
         m_currentItem = instrument;
-
-        connect(m_currentItem, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChanged(QString)));
-        connect(m_currentItem, SIGNAL(subItemChanged(QString)), this, SLOT(onPropertyChanged(QString)));
-
+        connect(m_currentItem,
+                   SIGNAL(propertyChanged(QString)),
+                   this,
+                   SLOT(onPropertyChanged(QString))
+                   );
+        connect(m_currentItem,
+                   SIGNAL(subItemChanged(QString)),
+                   this,
+                   SLOT(onPropertyChanged(QString))
+                   );
         updateWidgets();
     }
-
     InstrumentItem *instrumentItem = dynamic_cast<InstrumentItem *>(instrument);
 
     m_instrumentComponents->setBeamItem(instrumentItem->getBeamItem());
@@ -147,13 +151,29 @@ void InstrumentEditorWidget::onChangedEditor(const QString &)
     m_currentItem->setItemName(m_nameLineEdit->text());
 }
 
-
 void InstrumentEditorWidget::onPropertyChanged(const QString &)
 {
     qDebug() << "InstrumentEditorWidget::onPropertyChanged() ->";
-//    updateWidgets();
 }
 
+//! top block with instrument name and type
+QLayout *InstrumentEditorWidget::create_NameAndTypeLayout()
+{
+    QHBoxLayout *result = new QHBoxLayout;
+    m_nameLineEdit->setMinimumWidth(200);
+    m_typeComboBox->addItem("Default GISAS Instrument");
+
+    result->addSpacing(17);
+    result->addWidget(new QLabel("Name"));
+    result->addWidget(m_nameLineEdit);
+    result->addSpacing(5);
+    result->addWidget(new QLabel("Type"));
+    result->addWidget(m_typeComboBox);
+    result->addSpacing(18);
+    result->addStretch(1);
+
+    return result;
+}
 
 void InstrumentEditorWidget::updateWidgets()
 {
@@ -163,8 +183,3 @@ void InstrumentEditorWidget::updateWidgets()
     m_nameLineEdit->setText(m_currentItem->itemName());
     m_block_signals = false;
 }
-
-
-
-
-

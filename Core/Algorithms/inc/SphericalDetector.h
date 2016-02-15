@@ -35,6 +35,17 @@ class BA_CORE_API_ SphericalDetector : public IDetector2D
 {
 public:
     SphericalDetector();
+
+    //! Spherical detector constructor using angle ranges
+    //! @param n_phi number of phi-axis bins
+    //! @param phi_min low edge of first phi-bin
+    //! @param phi_max upper edge of last phi-bin
+    //! @param n_alpha number of alpha-axis bins
+    //! @param alpha_min low edge of first alpha-bin
+    //! @param alpha_max upper edge of last alpha-bin
+    SphericalDetector(size_t n_phi, double phi_min, double phi_max,
+                      size_t n_alpha, double alpha_min, double alpha_max);
+
     SphericalDetector(const SphericalDetector &other);
     SphericalDetector &operator=(const SphericalDetector &other);
 
@@ -42,9 +53,18 @@ public:
 
     virtual ~SphericalDetector() {}
 
-    //! Adds parameters from local pool to external pool and call recursion over direct children.
+    //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;
+
+    //! Returns detector map in given axes units
+    virtual OutputData<double> *createDetectorMap(const Beam& beam, EAxesUnits units_type) const;
+
+    //! returns vector of valid axes units
+    virtual std::vector<EAxesUnits> getValidAxesUnits() const;
+
+    //! return default axes units
+    virtual EAxesUnits getDefaultAxesUnits() const;
 
 protected:
     //! Create an IPixelMap for the given OutputData object and index

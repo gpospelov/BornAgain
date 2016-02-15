@@ -21,8 +21,6 @@ GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
-#include "__call_policies.pypp.hpp"
-#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "IDetector2D.pypp.h"
 
@@ -54,6 +52,18 @@ struct IDetector2D_wrapper : IDetector2D, bp::wrapper< IDetector2D > {
         return func_createAxis( index, n_bins, min, max );
     }
 
+    virtual ::OutputData< double > * createDetectorMap( ::Beam const & beam, ::IDetector2D::EAxesUnits units_type ) const  {
+        if( bp::override func_createDetectorMap = this->get_override( "createDetectorMap" ) )
+            return func_createDetectorMap( boost::ref(beam), units_type );
+        else{
+            return this->IDetector2D::createDetectorMap( boost::ref(beam), units_type );
+        }
+    }
+    
+    ::OutputData< double > * default_createDetectorMap( ::Beam const & beam, ::IDetector2D::EAxesUnits units_type ) const  {
+        return IDetector2D::createDetectorMap( boost::ref(beam), units_type );
+    }
+
     virtual ::IPixelMap * createPixelMap( ::std::size_t index ) const {
         bp::override func_createPixelMap = this->get_override( "createPixelMap" );
         return func_createPixelMap( index );
@@ -64,95 +74,40 @@ struct IDetector2D_wrapper : IDetector2D, bp::wrapper< IDetector2D > {
         return func_getAxisName( index );
     }
 
-    virtual bool areParametersChanged(  ) {
-        if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
-            return func_areParametersChanged(  );
+    virtual ::IDetector2D::EAxesUnits getDefaultAxesUnits(  ) const  {
+        if( bp::override func_getDefaultAxesUnits = this->get_override( "getDefaultAxesUnits" ) )
+            return func_getDefaultAxesUnits(  );
         else{
-            return this->IParameterized::areParametersChanged(  );
+            return this->IDetector2D::getDefaultAxesUnits(  );
         }
     }
     
-    bool default_areParametersChanged(  ) {
-        return IParameterized::areParametersChanged( );
+    ::IDetector2D::EAxesUnits default_getDefaultAxesUnits(  ) const  {
+        return IDetector2D::getDefaultAxesUnits( );
     }
 
-    virtual void clearParameterPool(  ) {
-        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
-            func_clearParameterPool(  );
+    virtual ::std::vector< IDetector2D::EAxesUnits > getValidAxesUnits(  ) const  {
+        if( bp::override func_getValidAxesUnits = this->get_override( "getValidAxesUnits" ) )
+            return func_getValidAxesUnits(  );
         else{
-            this->IParameterized::clearParameterPool(  );
+            return this->IDetector2D::getValidAxesUnits(  );
         }
     }
     
-    void default_clearParameterPool(  ) {
-        IParameterized::clearParameterPool( );
+    ::std::vector< IDetector2D::EAxesUnits > default_getValidAxesUnits(  ) const  {
+        return IDetector2D::getValidAxesUnits( );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) const  {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
+    virtual void init( ::Beam const & beam ) {
+        if( bp::override func_init = this->get_override( "init" ) )
+            func_init( boost::ref(beam) );
         else{
-            return this->IParameterized::createParameterTree(  );
+            this->IDetector2D::init( boost::ref(beam) );
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) const  {
-        return IParameterized::createParameterTree( );
-    }
-
-    virtual void printParameters(  ) const  {
-        if( bp::override func_printParameters = this->get_override( "printParameters" ) )
-            func_printParameters(  );
-        else{
-            this->IParameterized::printParameters(  );
-        }
-    }
-    
-    void default_printParameters(  ) const  {
-        IParameterized::printParameters( );
-    }
-
-    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
-        namespace bpl = boost::python;
-        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
-        }
-        else{
-            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
-        }
-    }
-    
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
-        if( dynamic_cast< IDetector2D_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-        else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
-        }
-    }
-
-    virtual bool setParameterValue( ::std::string const & name, double value ) {
-        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
-            return func_setParameterValue( name, value );
-        else{
-            return this->IParameterized::setParameterValue( name, value );
-        }
-    }
-    
-    bool default_setParameterValue( ::std::string const & name, double value ) {
-        return IParameterized::setParameterValue( name, value );
-    }
-
-    virtual void setParametersAreChanged(  ) {
-        if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
-            func_setParametersAreChanged(  );
-        else{
-            this->IParameterized::setParametersAreChanged(  );
-        }
-    }
-    
-    void default_setParametersAreChanged(  ) {
-        IParameterized::setParametersAreChanged( );
+    void default_init( ::Beam const & beam ) {
+        IDetector2D::init( boost::ref(beam) );
     }
 
     PyObject* m_pyobj;
@@ -165,6 +120,15 @@ void register_IDetector2D_class(){
         typedef bp::class_< IDetector2D_wrapper, bp::bases< IParameterized >, std::auto_ptr< IDetector2D_wrapper >, boost::noncopyable > IDetector2D_exposer_t;
         IDetector2D_exposer_t IDetector2D_exposer = IDetector2D_exposer_t( "IDetector2D", "The detector interface.", bp::no_init );
         bp::scope IDetector2D_scope( IDetector2D_exposer );
+        bp::enum_< IDetector2D::EAxesUnits>("EAxesUnits")
+            .value("DEFAULT", IDetector2D::DEFAULT)
+            .value("NBINS", IDetector2D::NBINS)
+            .value("RADIANS", IDetector2D::RADIANS)
+            .value("DEGREES", IDetector2D::DEGREES)
+            .value("MM", IDetector2D::MM)
+            .value("QYQZ", IDetector2D::QYQZ)
+            .export_values()
+            ;
         IDetector2D_exposer.def( bp::init< >() );
         IDetector2D_exposer.def( bp::init< IDetector2D const & >(( bp::arg("other") )) );
         { //::IDetector2D::addMask
@@ -209,6 +173,19 @@ void register_IDetector2D_class(){
                 , "Generates an axis with correct name and default binning for given index." );
         
         }
+        { //::IDetector2D::createDetectorMap
+        
+            typedef ::OutputData< double > * ( ::IDetector2D::*createDetectorMap_function_type)( ::Beam const &,::IDetector2D::EAxesUnits ) const;
+            typedef ::OutputData< double > * ( IDetector2D_wrapper::*default_createDetectorMap_function_type)( ::Beam const &,::IDetector2D::EAxesUnits ) const;
+            
+            IDetector2D_exposer.def( 
+                "createDetectorMap"
+                , createDetectorMap_function_type(&::IDetector2D::createDetectorMap)
+                , default_createDetectorMap_function_type(&IDetector2D_wrapper::default_createDetectorMap)
+                , ( bp::arg("beam"), bp::arg("units_type") )
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::IDetector2D::createPixelMap
         
             typedef ::IPixelMap * ( IDetector2D_wrapper::*createPixelMap_function_type)( ::std::size_t ) const;
@@ -243,6 +220,17 @@ void register_IDetector2D_class(){
                 , "Returns the name for the axis with given index." );
         
         }
+        { //::IDetector2D::getDefaultAxesUnits
+        
+            typedef ::IDetector2D::EAxesUnits ( ::IDetector2D::*getDefaultAxesUnits_function_type)(  ) const;
+            typedef ::IDetector2D::EAxesUnits ( IDetector2D_wrapper::*default_getDefaultAxesUnits_function_type)(  ) const;
+            
+            IDetector2D_exposer.def( 
+                "getDefaultAxesUnits"
+                , getDefaultAxesUnits_function_type(&::IDetector2D::getDefaultAxesUnits)
+                , default_getDefaultAxesUnits_function_type(&IDetector2D_wrapper::default_getDefaultAxesUnits) );
+        
+        }
         { //::IDetector2D::getDetectorMask
         
             typedef ::DetectorMask const * ( ::IDetector2D::*getDetectorMask_function_type)(  ) const;
@@ -261,8 +249,7 @@ void register_IDetector2D_class(){
             IDetector2D_exposer.def( 
                 "getDetectorResolutionFunction"
                 , getDetectorResolutionFunction_function_type( &::IDetector2D::getDetectorResolutionFunction )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Applies the detector resolution to the given intensity maps." );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IDetector2D::getDimension
@@ -274,6 +261,26 @@ void register_IDetector2D_class(){
                 , getDimension_function_type( &::IDetector2D::getDimension ) );
         
         }
+        { //::IDetector2D::getNumberOfMaskedChannels
+        
+            typedef int ( ::IDetector2D::*getNumberOfMaskedChannels_function_type)(  ) const;
+            
+            IDetector2D_exposer.def( 
+                "getNumberOfMaskedChannels"
+                , getNumberOfMaskedChannels_function_type( &::IDetector2D::getNumberOfMaskedChannels ) );
+        
+        }
+        { //::IDetector2D::getValidAxesUnits
+        
+            typedef ::std::vector< IDetector2D::EAxesUnits > ( ::IDetector2D::*getValidAxesUnits_function_type)(  ) const;
+            typedef ::std::vector< IDetector2D::EAxesUnits > ( IDetector2D_wrapper::*default_getValidAxesUnits_function_type)(  ) const;
+            
+            IDetector2D_exposer.def( 
+                "getValidAxesUnits"
+                , getValidAxesUnits_function_type(&::IDetector2D::getValidAxesUnits)
+                , default_getValidAxesUnits_function_type(&IDetector2D_wrapper::default_getValidAxesUnits) );
+        
+        }
         { //::IDetector2D::hasMasks
         
             typedef bool ( ::IDetector2D::*hasMasks_function_type)(  ) const;
@@ -282,6 +289,18 @@ void register_IDetector2D_class(){
                 "hasMasks"
                 , hasMasks_function_type( &::IDetector2D::hasMasks )
                 , "return true if has masks." );
+        
+        }
+        { //::IDetector2D::init
+        
+            typedef void ( ::IDetector2D::*init_function_type)( ::Beam const & ) ;
+            typedef void ( IDetector2D_wrapper::*default_init_function_type)( ::Beam const & ) ;
+            
+            IDetector2D_exposer.def( 
+                "init"
+                , init_function_type(&::IDetector2D::init)
+                , default_init_function_type(&IDetector2D_wrapper::default_init)
+                , ( bp::arg("beam") ) );
         
         }
         { //::IDetector2D::isMasked
@@ -345,96 +364,6 @@ void register_IDetector2D_class(){
                 , setDetectorAxes_function_type( &::IDetector2D::setDetectorAxes )
                 , ( bp::arg("axis0"), bp::arg("axis1") )
                 , "Sets detector parameters using axes." );
-        
-        }
-        { //::IDetector2D::setDetectorParameters
-        
-            typedef void ( ::IDetector2D::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double ) ;
-            
-            IDetector2D_exposer.def( 
-                "setDetectorParameters"
-                , setDetectorParameters_function_type( &::IDetector2D::setDetectorParameters )
-                , ( bp::arg("n_x"), bp::arg("x_min"), bp::arg("x_max"), bp::arg("n_y"), bp::arg("y_min"), bp::arg("y_max") )
-                , "Sets detector parameters using angle ranges." );
-        
-        }
-        { //::IParameterized::areParametersChanged
-        
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( IDetector2D_wrapper::*default_areParametersChanged_function_type)(  ) ;
-            
-            IDetector2D_exposer.def( 
-                "areParametersChanged"
-                , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&IDetector2D_wrapper::default_areParametersChanged) );
-        
-        }
-        { //::IParameterized::clearParameterPool
-        
-            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( IDetector2D_wrapper::*default_clearParameterPool_function_type)(  ) ;
-            
-            IDetector2D_exposer.def( 
-                "clearParameterPool"
-                , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&IDetector2D_wrapper::default_clearParameterPool) );
-        
-        }
-        { //::IParameterized::createParameterTree
-        
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( IDetector2D_wrapper::*default_createParameterTree_function_type)(  ) const;
-            
-            IDetector2D_exposer.def( 
-                "createParameterTree"
-                , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&IDetector2D_wrapper::default_createParameterTree)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::IParameterized::printParameters
-        
-            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( IDetector2D_wrapper::*default_printParameters_function_type)(  ) const;
-            
-            IDetector2D_exposer.def( 
-                "printParameters"
-                , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&IDetector2D_wrapper::default_printParameters) );
-        
-        }
-        { //::IParameterized::registerParameter
-        
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
-            
-            IDetector2D_exposer.def( 
-                "registerParameter"
-                , default_registerParameter_function_type( &IDetector2D_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "main method to register data address in the pool." );
-        
-        }
-        { //::IParameterized::setParameterValue
-        
-            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( IDetector2D_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
-            
-            IDetector2D_exposer.def( 
-                "setParameterValue"
-                , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&IDetector2D_wrapper::default_setParameterValue)
-                , ( bp::arg("name"), bp::arg("value") ) );
-        
-        }
-        { //::IParameterized::setParametersAreChanged
-        
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( IDetector2D_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
-            
-            IDetector2D_exposer.def( 
-                "setParametersAreChanged"
-                , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&IDetector2D_wrapper::default_setParametersAreChanged) );
         
         }
     }

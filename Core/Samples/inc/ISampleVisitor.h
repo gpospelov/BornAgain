@@ -42,8 +42,6 @@ class ParticleComposition;
 class MesoCrystal;
 class ParticleCoreShell;
 // -
-class ParticleInfo;
-// -
 class IFormFactor;
 // -
 class FormFactorDWBAPol;
@@ -142,15 +140,9 @@ public:
     virtual void visit(const MesoCrystal *);
     virtual void visit(const ParticleCoreShell *);
 
-    virtual void visit(const ParticleInfo *);
-
     virtual void visit(const IFormFactor *);
-
-    virtual void visit(const FormFactorDWBAPol *);
-
-    virtual void visit(const FormFactorWeighted *);
-
     virtual void visit(const IFormFactorBorn *);
+    virtual void visit(const IFormFactorDecorator *);
 
     virtual void visit(const FormFactorAnisoPyramid *);
     virtual void visit(const FormFactorBox *);
@@ -178,9 +170,9 @@ public:
     virtual void visit(const FormFactorTruncatedSphere *);
     virtual void visit(const FormFactorTruncatedSpheroid *);
 
-    virtual void visit(const IFormFactorDecorator *);
-
     virtual void visit(const FormFactorDWBA *);
+    virtual void visit(const FormFactorDWBAPol *);
+    virtual void visit(const FormFactorWeighted *);
     virtual void visit(const FormFactorDecoratorDebyeWaller *);
     virtual void visit(const FormFactorDecoratorFactor *);
     virtual void visit(const FormFactorDecoratorMaterial *);

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "SizeDistributionModelsBuilder.h"
+#include "BornAgainNamespace.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Materials.h"
@@ -23,6 +24,7 @@
 #include "Distributions.h"
 #include "ParticleDistribution.h"
 
+using namespace BornAgain;
 
 ISample *SizeDistributionDAModelBuilder::buildSample() const
 {
@@ -45,7 +47,8 @@ ISample *SizeDistributionDAModelBuilder::buildSample() const
         Particle cylinder2(m_particle, cylinder_ff2);
 
         // interference function
-        InterferenceFunctionRadialParaCrystal interference(18.0*Units::nanometer, 1e3*Units::nanometer);
+        InterferenceFunctionRadialParaCrystal interference(18.0 * Units::nanometer,
+                                                           1e3 * Units::nanometer);
         FTDistribution1DGauss pdf(3*Units::nanometer);
         interference.setProbabilityDistribution(pdf);
 
@@ -171,24 +174,27 @@ ISample *CylindersInSSCABuilder::buildSample() const
 
     Layer air_layer(air_material);
 
-    InterferenceFunctionRadialParaCrystal *p_interference_function =
-            new InterferenceFunctionRadialParaCrystal(15.0*Units::nanometer,
-                    1e3*Units::nanometer);
+    InterferenceFunctionRadialParaCrystal interference_function(15.0 * Units::nanometer,
+                                                                1e3 * Units::nanometer);
     FTDistribution1DGauss pdf(5*Units::nanometer);
-    p_interference_function->setProbabilityDistribution(pdf);
-    p_interference_function->setKappa(4.02698);
+    interference_function.setProbabilityDistribution(pdf);
+    interference_function.setKappa(4.02698);
     ParticleLayout particle_layout;
 
     FormFactorCylinder ff_cylinder(5.0*Units::nanometer, 5.0*Units::nanometer);
     Particle particle_prototype(particle_material, ff_cylinder);
 
     DistributionGaussian gauss(5.0*Units::nanometer, 1.25*Units::nanometer);
-    ParameterDistribution par_distr("/Particle/FormFactorCylinder/radius", gauss, 30, 3.0);
-    par_distr.linkParameter("/Particle/FormFactorCylinder/height");
+    ParameterPattern pattern_radius;
+    pattern_radius.add(ParticleType).add(FFCylinderType).add(Radius);
+    ParameterDistribution par_distr(pattern_radius.toStdString(), gauss, 30, 3.0);
+    ParameterPattern pattern_height;
+    pattern_height.add(ParticleType).add(FFCylinderType).add(Height);
+    par_distr.linkParameter(pattern_height.toStdString());
     ParticleDistribution particle_collection(particle_prototype, par_distr);
     particle_layout.addParticle(particle_collection);
 
-    particle_layout.addInterferenceFunction(p_interference_function);
+    particle_layout.addInterferenceFunction(interference_function);
     particle_layout.setApproximation(ILayout::SSCA);
 
     air_layer.addLayout(particle_layout);

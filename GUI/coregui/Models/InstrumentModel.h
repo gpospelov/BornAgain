@@ -27,17 +27,13 @@ class BA_CORE_API_ InstrumentModel : public SessionModel
 
 public:
     explicit InstrumentModel(QObject *parent = 0);
-    ~InstrumentModel(){}
+    virtual ~InstrumentModel(){}
 
     virtual InstrumentModel *createCopy(ParameterizedItem *parent=0);
 
     QMap<QString, ParameterizedItem *> getInstrumentMap() const;
 
     InstrumentItem *getInstrumentItem(const QString &instrument_name = QString());
-
 };
-
-
-
 
 #endif

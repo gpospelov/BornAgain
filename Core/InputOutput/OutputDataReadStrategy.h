@@ -64,8 +64,8 @@ class BA_CORE_API_ OutputDataReadTiffStrategy : public IOutputDataReadStrategy
 {
 public:
     OutputDataReadTiffStrategy();
-    ~OutputDataReadTiffStrategy();
-    OutputData<double > *readOutputData(std::istream& input_stream);
+    virtual ~OutputDataReadTiffStrategy();
+    virtual OutputData<double > *readOutputData(std::istream& input_stream);
 private:
     TiffHandler *m_d;
 };

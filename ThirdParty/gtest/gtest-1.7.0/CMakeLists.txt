@@ -40,7 +40,6 @@ endif()
 # ${gtest_BINARY_DIR}.
 # Language "C" is required for find_package(Threads).
 project(gtest CXX C)
-cmake_minimum_required(VERSION 2.8.11)
 if(POLICY CMP0042)
 cmake_policy(SET CMP0042 NEW)
 endif()

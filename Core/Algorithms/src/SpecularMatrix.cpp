@@ -68,7 +68,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         if (sample.getLayerInterface(i)->getRoughness()) {
             double sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
             if(sigma > 0.0) {
-                // Since there is a roughness, compute one diagonal matrix element p00;
+                // since there is a roughness, compute one diagonal matrix element p00;
                 // the other element is p11 = 1/p00.
                 double sigeff = std::pow(Units::PID2, 1.5)*sigma*k.mag();
                 roughness_factor = sqrt(

@@ -14,7 +14,9 @@
 // ************************************************************************** //
 
 #include "Rotations.h"
+#include "BornAgainNamespace.h"
 
+using namespace BornAgain;
 
 IRotation *IRotation::createRotation(const Geometry::Transform3D &transform)
 {
@@ -35,6 +37,16 @@ IRotation *IRotation::createRotation(const Geometry::Transform3D &transform)
     }
 }
 
+void IRotation::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
+bool IRotation::isIdentity() const
+{
+    return getTransform3D().isIdentity();
+}
+
 IRotation *CreateProduct(const IRotation &left, const IRotation &right)
 {
     Geometry::Transform3D tr_left = left.getTransform3D();
@@ -48,7 +60,7 @@ IRotation *CreateProduct(const IRotation &left, const IRotation &right)
 RotationX::RotationX(double angle)
     : m_angle(angle)
 {
-    setName("RotationX");
+    setName(XRotationType);
     init_parameters();
 }
 
@@ -67,6 +79,16 @@ RotationX *RotationX::createInverse() const
     return new RotationX(-m_angle);
 }
 
+double RotationX::getAngle() const
+{
+    return m_angle;
+}
+
+void RotationX::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
 Geometry::Transform3D RotationX::getTransform3D() const
 {
     return Geometry::Transform3D::createRotateX(m_angle);
@@ -75,7 +97,7 @@ Geometry::Transform3D RotationX::getTransform3D() const
 void RotationX::init_parameters()
 {
     clearParameterPool();
-    registerParameter("angle", &m_angle);
+    registerParameter(Angle, &m_angle);
 }
 
 // --- RotationY --------------------------------------------------------------
@@ -83,7 +105,7 @@ void RotationX::init_parameters()
 RotationY::RotationY(double angle)
     : m_angle(angle)
 {
-    setName("RotationY");
+    setName(YRotationType);
     init_parameters();
 }
 
@@ -102,6 +124,16 @@ RotationY *RotationY::createInverse() const
     return new RotationY(-m_angle);
 }
 
+double RotationY::getAngle() const
+{
+    return m_angle;
+}
+
+void RotationY::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
 Geometry::Transform3D RotationY::getTransform3D() const
 {
     return Geometry::Transform3D::createRotateY(m_angle);
@@ -110,7 +142,7 @@ Geometry::Transform3D RotationY::getTransform3D() const
 void RotationY::init_parameters()
 {
     clearParameterPool();
-    registerParameter("angle", &m_angle);
+    registerParameter(Angle, &m_angle);
 }
 
 // --- RotationZ --------------------------------------------------------------
@@ -118,7 +150,7 @@ void RotationY::init_parameters()
 RotationZ::RotationZ(double angle)
     : m_angle(angle)
 {
-    setName("RotationZ");
+    setName(ZRotationType);
     init_parameters();
 }
 
@@ -137,6 +169,16 @@ RotationZ *RotationZ::createInverse() const
     return new RotationZ(-m_angle);
 }
 
+double RotationZ::getAngle() const
+{
+    return m_angle;
+}
+
+void RotationZ::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
 Geometry::Transform3D RotationZ::getTransform3D() const
 {
     return Geometry::Transform3D::createRotateZ(m_angle);
@@ -145,7 +187,7 @@ Geometry::Transform3D RotationZ::getTransform3D() const
 void RotationZ::init_parameters()
 {
     clearParameterPool();
-    registerParameter("angle", &m_angle);
+    registerParameter(Angle, &m_angle);
 }
 
 // --- RotationEuler ----------------------------------------------------------
@@ -155,7 +197,7 @@ RotationEuler::RotationEuler(double alpha, double beta, double gamma)
     , m_beta(beta)
     , m_gamma(gamma)
 {
-    setName("RotationEuler");
+    setName(EulerRotationType);
     init_parameters();
 }
 
@@ -175,6 +217,26 @@ IRotation *RotationEuler::createInverse() const
     return createRotation(inverse_transform);
 }
 
+double RotationEuler::getAlpha() const
+{
+    return m_alpha;
+}
+
+double RotationEuler::getBeta() const
+{
+    return m_beta;
+}
+
+double RotationEuler::getGamma() const
+{
+    return m_gamma;
+}
+
+void RotationEuler::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
+}
+
 Geometry::Transform3D RotationEuler::getTransform3D() const
 {
     return Geometry::Transform3D::createRotateEuler(m_alpha, m_beta, m_gamma);
@@ -183,7 +245,7 @@ Geometry::Transform3D RotationEuler::getTransform3D() const
 void RotationEuler::init_parameters()
 {
     clearParameterPool();
-    registerParameter("alpha", &m_alpha);
-    registerParameter("beta", &m_beta);
-    registerParameter("gamma", &m_gamma);
+    registerParameter(Alpha, &m_alpha);
+    registerParameter(Beta, &m_beta);
+    registerParameter(Gamma, &m_gamma);
 }

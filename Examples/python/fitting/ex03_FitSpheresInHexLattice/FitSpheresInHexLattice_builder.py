@@ -4,6 +4,7 @@ Sample builder approach is used.
 """
 
 import math
+import random
 import ctypes
 from bornagain import *
 
@@ -37,8 +38,8 @@ class MySampleBuilder(ISampleBuilder):
         particle_layout.addParticle(sphere)
 
         interference = InterferenceFunction2DLattice.createHexagonal(self.lattice_constant.value)
-        pdf = FTDistribution2DCauchy(10*nanometer, 10*nanometer)
-        interference.setProbabilityDistribution(pdf)
+        pdf = FTDecayFunction2DCauchy(10*nanometer, 10*nanometer)
+        interference.setDecayFunction(pdf)
 
         particle_layout.addInterferenceFunction(interference)
 
@@ -82,9 +83,9 @@ def create_real_data():
     for i in range(0, real_data.getTotalNumberOfBins()):
         amplitude = real_data.getBinContent(i)
         sigma = noise_factor*math.sqrt(amplitude)
-        noisy_amplitude = GenerateNormalRandom(amplitude, sigma)
-        if noisy_amplitude < 0.0:
-            noisy_amplitude = 0.0
+        noisy_amplitude = random.gauss(amplitude, sigma)
+        if noisy_amplitude < 0.1:
+            noisy_amplitude = 0.1
         real_data.setBinContent(i, noisy_amplitude)
     return real_data
 

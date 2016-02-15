@@ -87,7 +87,7 @@ public:
     virtual int getNumberOfSimulationElements() const=0;
 
     //! Clone simulated intensity map
-    virtual OutputData<double>* getDetectorIntensity() const=0;
+    virtual OutputData<double>* getDetectorIntensity(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const=0;
 
     //! Adds parameters from local to external pool, and call recursion over direct children
     std::string addParametersToExternalPool(
@@ -105,9 +105,6 @@ public:
     void addParameterDistribution(const ParameterDistribution &par_distr);
 
     const DistributionHandler& getDistributionHandler() const;
-
-    //! returns wavelength if this is uniquely defined for the current simulation
-    virtual double getWavelength() const;
 
 #ifndef GCCXML_SKIP_THIS
     //! sets progress handler (used by GUI)

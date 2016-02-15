@@ -29,12 +29,10 @@ template <class T> class OutputData;
 class BA_CORE_API_ IOutputDataWriteStrategy
 {
 public:
-    IOutputDataWriteStrategy() : m_precision(12) {}
+    IOutputDataWriteStrategy() {}
     virtual ~IOutputDataWriteStrategy(){}
 
     virtual void writeOutputData(const OutputData<double>& data, std::ostream& output_stream) = 0;
-protected:
-    int m_precision;
 };
 
 //! @class OutputDataWriteINTStrategy
@@ -67,7 +65,7 @@ class OutputDataWriteTiffStrategy : public IOutputDataWriteStrategy
 {
 public:
     OutputDataWriteTiffStrategy();
-    ~OutputDataWriteTiffStrategy();
+    virtual ~OutputDataWriteTiffStrategy();
     virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
 private:
     TiffHandler *m_d;

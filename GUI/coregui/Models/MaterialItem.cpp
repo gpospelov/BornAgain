@@ -34,20 +34,18 @@ const QString MaterialItem::P_IDENTIFIER = "Identifier";
 MaterialItem::MaterialItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::MaterialType, parent)
 {
-    setItemName(Constants::MaterialType);
-    setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VISIBLE);
+    registerProperty(P_NAME, Constants::MaterialType);
 
     ComboProperty types;
     types << Constants::HomogeneousMaterialType << Constants::HomogeneousMagneticMaterialType;
-    registerProperty(P_MATERIAL_TYPE, types.getVariant(), PropertyAttribute(PropertyAttribute::HIDDEN));
+    registerProperty(P_MATERIAL_TYPE, types.getVariant()).setHidden();
 
     ColorProperty color;
     registerProperty(P_COLOR, color.getVariant());
 
     registerGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
 
-    registerProperty(P_IDENTIFIER, QUuid::createUuid().toString(), PropertyAttribute(PropertyAttribute::HIDDEN));
-
+    registerProperty(P_IDENTIFIER, QUuid::createUuid().toString()).setHidden();
 }
 
 void MaterialItem::setMaterialType(int index)

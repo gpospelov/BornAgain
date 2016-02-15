@@ -17,8 +17,8 @@
 #define INTERFERENCEFUNCTION2DLATTICE_H_
 
 #include "IInterferenceFunction.h"
-#include "Lattice2DIFParameters.h"
-#include "FTDistributions.h"
+#include "Lattice2DParameters.h"
+#include "FTDecayFunctions.h"
 
 //! @class InterferenceFunction2DLattice
 //! @ingroup interference
@@ -27,7 +27,6 @@
 class BA_CORE_API_ InterferenceFunction2DLattice : public IInterferenceFunction
 {
 public:
-
     //! @brief contructor
     //! @param length_1 Lattice length 1
     //! @param length_2 Lattice length 2
@@ -39,24 +38,26 @@ public:
 
     virtual InterferenceFunction2DLattice *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 
-    static InterferenceFunction2DLattice *createSquare(double lattice_length,
-                                                       double xi = 0.0);
-    static InterferenceFunction2DLattice *createHexagonal(double lattice_length,
-                                                       double xi = 0.0);
+    static InterferenceFunction2DLattice *createSquare(double lattice_length, double xi = 0.0);
+    static InterferenceFunction2DLattice *createHexagonal(double lattice_length, double xi = 0.0);
 
-    void setProbabilityDistribution(const IFTDistribution2D& pdf);
+    void setDecayFunction(const IFTDecayFunction2D& pdf);
 
-    const IFTDistribution2D *getProbabilityDistribution() const {
-        return mp_pdf;
-    }
+    const IFTDecayFunction2D *getDecayFunction() const;
 
     virtual double evaluate(const kvector_t& q) const;
 
-    Lattice2DIFParameters getLatticeParameters() const {
-        return m_lattice_params;
-    }
+    Lattice2DParameters getLatticeParameters() const;
+
+    //! Adds parameters from local pool to external pool and recursively calls its direct children.
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                                    int copy_number = -1) const;
+
+    //! Returns the particle density associated with this 2d lattice
+    virtual double getParticleDensity() const;
+
 protected:
     //! Returns interference from a single reciprocal lattice vector
     double interferenceAtOneRecLatticePoint(double qx, double qy) const;
@@ -70,11 +71,12 @@ protected:
     void calculateReciprocalVectorFraction(double qx, double qy,
             double& qx_frac, double& qy_frac) const;
 
-    Lattice2DIFParameters m_lattice_params;
-    IFTDistribution2D *mp_pdf;
+    Lattice2DParameters m_lattice_params;
+    IFTDecayFunction2D *mp_pdf;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
+
 private:
-    InterferenceFunction2DLattice(const Lattice2DIFParameters& lattice_params);
+    InterferenceFunction2DLattice(const Lattice2DParameters& lattice_params);
 
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
@@ -88,10 +90,7 @@ private:
 
     double m_asx, m_asy; //!< x,y coordinates of a*
     double m_bsx, m_bsy; //!< x,y coordinates of b*
-    double m_prefactor; //!< fixed prefactor for normalization
     int m_na, m_nb; //!< determines the number of reciprocal lattice points to use
 };
 
 #endif /* INTERFERENCEFUNCTION2DLATTICE_H_ */
-
-

@@ -43,77 +43,42 @@ public:
 
 #ifndef GCCXML_SKIP_THIS
     //! Sets the polarization density matrix (in spin basis along z-axis)
-    void setPolarization(const Eigen::Matrix2cd& polarization)
-    {
-        m_polarization = polarization;
-    }
+    void setPolarization(const Eigen::Matrix2cd& polarization);
 
     //! Gets the polarization density matrix (in spin basis along z-axis)
-    Eigen::Matrix2cd getPolarization() const
-    {
-        return m_polarization;
-    }
+    Eigen::Matrix2cd getPolarization() const;
 
     //! Sets the polarization analyzer operator (in spin basis along z-axis)
-    void setAnalyzerOperator(const Eigen::Matrix2cd& polarization_operator)
-    {
-        m_analyzer_operator = polarization_operator;
-    }
+    void setAnalyzerOperator(const Eigen::Matrix2cd& polarization_operator);
 
     //! Gets the polarization analyzer operator (in spin basis along z-axis)
-    Eigen::Matrix2cd getAnalyzerOperator() const
-    {
-        return m_analyzer_operator;
-    }
+    Eigen::Matrix2cd getAnalyzerOperator() const;
 #endif
 
-    double getWavelength() const
-    {
-        return m_wavelength;
-    }
-    double getAlphaI() const
-    {
-        return m_alpha_i;
-    }
-    double getPhiI() const
-    {
-        return m_phi_i;
-    }
-    double getAlphaMean() const
-    {
-        return getAlpha(0.5, 0.5);
-    }
-    double getPhiMean() const
-    {
-        return getPhi(0.5, 0.5);
-    }
-    void setIntensity(double intensity)
-    {
-        m_intensity = intensity;
-    }
-    void addIntensity(double intensity)
-    {
-        m_intensity += intensity;
-    }
-    double getIntensity() const
-    {
-        return m_intensity;
-    }
+    double getWavelength() const;
+    double getAlphaI() const;
+    double getPhiI() const;
+    double getAlphaMean() const;
+    double getPhiMean() const;
+    void setIntensity(double intensity);
+    void addIntensity(double intensity);
+    double getIntensity() const;
     kvector_t getKI() const;
     kvector_t getMeanKF() const;
     kvector_t getMeanQ() const;
+    kvector_t getQ(double x, double y) const;
 
-    kvector_t getK(double x, double y) const {
-        return mP_pixel_map->getK(x, y, m_wavelength);
-    }
+    kvector_t getK(double x, double y) const;
 
-    double getIntegrationFactor(double x, double y) const {
-        return mP_pixel_map->getIntegrationFactor(x, y);
-    }
+    double getIntegrationFactor(double x, double y) const;
 
-    double getSolidAngle() const {
-        return mP_pixel_map->getSolidAngle();
-    }
+    double getSolidAngle() const;
+
+    //! get alpha for given detector pixel coordinates
+    double getAlpha(double x, double y) const;
+
+    //! get phi for given detector pixel coordinates
+    double getPhi(double x, double y) const;
 
 private:
     //! swap function
@@ -121,12 +86,6 @@ private:
 
     //! initialize polarization matrices
     void initPolarization();
-
-    //! get alpha for given detector pixel coordinates
-    double getAlpha(double x, double y) const;
-
-    //! get phi for given detector pixel coordinates
-    double getPhi(double x, double y) const;
 
     double m_wavelength, m_alpha_i, m_phi_i;             //!< wavelength and angles of beam
     double m_intensity;  //!< simulated intensity for detector cell
@@ -136,6 +95,80 @@ private:
 #endif
     boost::scoped_ptr<IPixelMap> mP_pixel_map;
 };
+
+#ifndef GCCXML_SKIP_THIS
+inline void SimulationElement::setPolarization(const Eigen::Matrix2cd &polarization)
+{
+    m_polarization = polarization;
+}
+
+inline Eigen::Matrix2cd SimulationElement::getPolarization() const
+{
+    return m_polarization;
+}
+
+inline void SimulationElement::setAnalyzerOperator(const Eigen::Matrix2cd &polarization_operator)
+{
+    m_analyzer_operator = polarization_operator;
+}
+
+inline Eigen::Matrix2cd SimulationElement::getAnalyzerOperator() const
+{
+    return m_analyzer_operator;
+}
+#endif
+
+inline double SimulationElement::getWavelength() const
+{
+    return m_wavelength;
+}
+
+inline double SimulationElement::getAlphaI() const
+{
+    return m_alpha_i;
+}
+
+inline double SimulationElement::getPhiI() const
+{
+    return m_phi_i;
+}
+
+inline double SimulationElement::getAlphaMean() const
+{
+    return getAlpha(0.5, 0.5);
+}
+
+inline double SimulationElement::getPhiMean() const
+{
+    return getPhi(0.5, 0.5);
+}
+
+inline void SimulationElement::setIntensity(double intensity)
+{
+    m_intensity = intensity;
+}
+
+inline void SimulationElement::addIntensity(double intensity)
+{
+    m_intensity += intensity;
+}
+
+inline double SimulationElement::getIntensity() const
+{
+    return m_intensity;
+}
+
+inline kvector_t SimulationElement::getK(double x, double y) const {
+    return mP_pixel_map->getK(x, y, m_wavelength);
+}
+
+inline double SimulationElement::getIntegrationFactor(double x, double y) const {
+    return mP_pixel_map->getIntegrationFactor(x, y);
+}
+
+inline double SimulationElement::getSolidAngle() const {
+    return mP_pixel_map->getSolidAngle();
+}
 
 //! Add element vector to element vector with weight
 void AddElementsWithWeight(std::vector<SimulationElement>::const_iterator first,

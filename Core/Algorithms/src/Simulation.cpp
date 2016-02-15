@@ -23,13 +23,11 @@
 #include "BornAgainNamespace.h"
 #include "ProgressHandlerDWBA.h"
 #include "OMPISimulation.h"
-
 #include "Macros.h"
-GCC_DIAG_OFF(strict-aliasing);
-#include <boost/thread.hpp>
-GCC_DIAG_ON(strict-aliasing);
+
+#include <memory>
+#include <thread>
 #include <gsl/gsl_errno.h>
-#include <boost/scoped_ptr.hpp>
 
 Simulation::Simulation()
     : IParameterized("Simulation"), mp_options(0)
@@ -87,7 +85,7 @@ void Simulation::runSimulation()
 
     // no averaging needed:
     if (param_combinations == 1) {
-        boost::scoped_ptr<ParameterPool> P_param_pool(createParameterTree());
+        std::unique_ptr<ParameterPool> P_param_pool(createParameterTree());
         m_distribution_handler.setParameterValues(P_param_pool.get(), 0);
         runSingleSimulation();
         transferResultsToIntensityMap();
@@ -97,7 +95,7 @@ void Simulation::runSimulation()
     // average over parameter distributions:
     initSimulationElementVector();
     std::vector<SimulationElement> total_intensity = m_sim_elements;
-    boost::scoped_ptr<ParameterPool> P_param_pool(createParameterTree());
+    std::unique_ptr<ParameterPool> P_param_pool(createParameterTree());
     for (size_t index = 0; index < param_combinations; ++index) {
         double weight = m_distribution_handler.setParameterValues(P_param_pool.get(), index);
         runSingleSimulation();
@@ -166,12 +164,6 @@ const DistributionHandler &Simulation::getDistributionHandler() const
     return m_distribution_handler;
 }
 
-double Simulation::getWavelength() const
-{
-    throw RuntimeErrorException(
-        "Simulation::getWavelength: not uniquely defined for this type of Simulation");
-}
-
 void Simulation::updateSample()
 {
     if (mp_sample_builder.get()) {
@@ -217,7 +209,7 @@ void Simulation::runSingleSimulation()
         m_thread_info.n_threads = 1;
     if (m_thread_info.n_threads == 1) {
         // Single thread.
-        boost::scoped_ptr<DWBASimulation> P_dwba_simulation(mP_sample->createDWBASimulation());
+        std::unique_ptr<DWBASimulation> P_dwba_simulation(mP_sample->createDWBASimulation());
         verifyDWBASimulation(P_dwba_simulation.get());
         P_dwba_simulation->init(*this, batch_start, batch_end);
         P_dwba_simulation->run(); // the work is done here
@@ -231,7 +223,7 @@ void Simulation::runSingleSimulation()
         // Multithreading.
         if (m_thread_info.n_threads == 0) {
             // Take optimal number of threads from the hardware.
-            m_thread_info.n_threads = (int)boost::thread::hardware_concurrency();
+            m_thread_info.n_threads = (int)std::thread::hardware_concurrency();
             msglog(MSG::DEBUG) << "Simulation::runSimulation() -> Info. Number of threads "
                                << m_thread_info.n_threads << " (taken from hardware concurrency)"
                                << ", n_batches = " << m_thread_info.n_batches
@@ -242,7 +234,7 @@ void Simulation::runSingleSimulation()
                                << ", n_batches = " << m_thread_info.n_batches
                                << ", current_batch = " << m_thread_info.current_batch;
         }
-        std::vector<boost::thread *> threads;
+        std::vector<std::thread *> threads;
         std::vector<DWBASimulation *> simulations;
 
         // Initialize n simulations.
@@ -269,7 +261,7 @@ void Simulation::runSingleSimulation()
         // Run simulations in n threads.
         for (std::vector<DWBASimulation *>::iterator it = simulations.begin();
              it != simulations.end(); ++it) {
-            threads.push_back(new boost::thread(boost::bind(&DWBASimulation::run, *it)));
+            threads.push_back(new std::thread(boost::bind(&DWBASimulation::run, *it)));
         }
 
         // Wait for threads to complete.

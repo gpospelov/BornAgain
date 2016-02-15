@@ -4,6 +4,7 @@ Fitting example: fit with masks
 
 from matplotlib import pyplot as plt
 import math
+import random
 from bornagain import *
 
 
@@ -55,13 +56,13 @@ def create_real_data():
     real_data = simulation.getIntensityData()
 
     # spoiling simulated data with the noise to produce "real" data
-    noise_factor = 0.1
+    noise_factor = 0.5
     for i in range(0, real_data.getTotalNumberOfBins()):
         amplitude = real_data.getBinContent(i)
         sigma = noise_factor*math.sqrt(amplitude)
-        noisy_amplitude = GenerateNormalRandom(amplitude, sigma)
-        if noisy_amplitude < 0.0:
-            noisy_amplitude = 0.0
+        noisy_amplitude = random.gauss(amplitude, sigma)
+        if noisy_amplitude < 1.0:
+            noisy_amplitude = 1.0
         real_data.setBinContent(i, noisy_amplitude)
     return real_data
 
@@ -125,8 +126,8 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*/FormFactorCylinder/radius", 6.*nanometer, AttLimits.limited(4., 8.))
-    fit_suite.addFitParameter("*/FormFactorCylinder/height", 9.*nanometer, AttLimits.limited(8., 12.))
+    fit_suite.addFitParameter("*/Cylinder/Radius", 6.*nanometer, AttLimits.limited(4., 8.))
+    fit_suite.addFitParameter("*/Cylinder/Height", 9.*nanometer, AttLimits.limited(8., 12.))
 
     # running fit
     fit_suite.runFit()

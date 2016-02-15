@@ -17,7 +17,6 @@ private slots:
     void test_AnisoPyramidItem();
 };
 
-
 inline void TestFormFactorItems::test_AnisoPyramidItem()
 {
     // to domain
@@ -26,15 +25,13 @@ inline void TestFormFactorItems::test_AnisoPyramidItem()
     item.setRegisteredProperty(AnisoPyramidItem::P_WIDTH, 16.0);
     item.setRegisteredProperty(AnisoPyramidItem::P_HEIGHT, 13.0);
     item.setRegisteredProperty(AnisoPyramidItem::P_ALPHA, 60.0);
-    FormFactorAnisoPyramid *ff = dynamic_cast<FormFactorAnisoPyramid *>(TransformToDomain::createFormFactor(item));
-    QVERIFY(ff);
-    QVERIFY(ff->getLength() == 20.0);
-    QVERIFY(ff->getWidth() == 16.0);
-    QVERIFY(ff->getHeight() == 13.0);
-    QVERIFY( Numeric::areAlmostEqual(ff->getAlpha(), Units::deg2rad(60.0)));
-    delete ff;
+    auto P_ff = item.createFormFactor();
+    FormFactorAnisoPyramid *p_ff = dynamic_cast<FormFactorAnisoPyramid *>(P_ff.get());
+    QVERIFY(p_ff);
+    QVERIFY(p_ff->getLength() == 20.0);
+    QVERIFY(p_ff->getWidth() == 16.0);
+    QVERIFY(p_ff->getHeight() == 13.0);
+    QVERIFY( Numeric::areAlmostEqual(p_ff->getAlpha(), Units::deg2rad(60.0)));
 }
 
-
 #endif
-

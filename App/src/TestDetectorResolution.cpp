@@ -50,33 +50,35 @@ void TestDetectorResolution::execute()
 
 void TestDetectorResolution::initializeSample()
 {
-    delete mp_sample;
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_substrate(1.0-5e-6, 2e-8);
-    HomogeneousMaterial air_material("Air", n_air);
-    HomogeneousMaterial substrate_material("Substrate", n_substrate);
-    HomogeneousMaterial particle_material("Particle", 5e-5, 2e-8);
+//    delete mp_sample;
+//    MultiLayer *p_multi_layer = new MultiLayer();
+//    complex_t n_air(1.0, 0.0);
+//    complex_t n_substrate(1.0-5e-6, 2e-8);
+//    HomogeneousMaterial air_material("Air", n_air);
+//    HomogeneousMaterial substrate_material("Substrate", n_substrate);
+//    HomogeneousMaterial particle_material("Particle", 5e-5, 2e-8);
 
-    Layer air_layer;
-    air_layer.setMaterial(air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(substrate_material);
-    InterferenceFunctionRadialParaCrystal *p_interference_function =
-        new InterferenceFunctionRadialParaCrystal(20.0*Units::nanometer,
-            1e7*Units::nanometer);
-    FTDistribution1DGauss pdf(7*Units::nanometer);
-    p_interference_function->setProbabilityDistribution(pdf);
-    Particle particle(particle_material, FormFactorCylinder(5*Units::nanometer,
-                                                            5*Units::nanometer));
-    ParticleLayout particle_layout(particle);
-    particle_layout.addInterferenceFunction(p_interference_function);
+//    Layer air_layer;
+//    air_layer.setMaterial(air_material);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(substrate_material);
+//    InterferenceFunctionRadialParaCrystal *p_interference_function =
+//        new InterferenceFunctionRadialParaCrystal(20.0*Units::nanometer,
+//            1e7*Units::nanometer);
+//    FTDistribution1DGauss pdf(7*Units::nanometer);
+//    p_interference_function->setProbabilityDistribution(pdf);
+//    Particle particle(particle_material, FormFactorCylinder(5*Units::nanometer,
+//                                                            5*Units::nanometer));
+//    ParticleLayout particle_layout(particle);
+//    particle_layout.addInterferenceFunction(p_interference_function);
 
-    air_layer.addLayout(particle_layout);
+//    air_layer.addLayout(particle_layout);
 
-    p_multi_layer->addLayer(air_layer);
-    p_multi_layer->addLayer(substrate_layer);
-    mp_sample = p_multi_layer;
+//    p_multi_layer->addLayer(air_layer);
+//    p_multi_layer->addLayer(substrate_layer);
+//    mp_sample = p_multi_layer;
+    throw Exceptions::NotImplementedException("Cleanup the code!");
+
 }
 
 

@@ -2,15 +2,13 @@
 #define LAYERROUGHNESSTEST_H
 
 #include "LayerRoughness.h"
+#include "BornAgainNamespace.h"
 
 class LayerRoughnessTest : public ::testing::Test
 {
  protected:
     LayerRoughnessTest(){}
-    virtual ~LayerRoughnessTest(){}
-
 };
-
 
 TEST_F(LayerRoughnessTest , LayerRoughnessInitial)
 {
@@ -19,8 +17,7 @@ TEST_F(LayerRoughnessTest , LayerRoughnessInitial)
     EXPECT_EQ(0.0, roughness.getSigma());
     EXPECT_EQ(0.0, roughness.getHurstParameter());
     EXPECT_EQ(0.0, roughness.getLatteralCorrLength());
-    EXPECT_EQ("LayerRoughness", roughness.getName());
-
+    EXPECT_EQ(BornAgain::LayerBasicRoughnessType, roughness.getName());
 
     //set new parameter
     roughness.setSigma(1.1);
@@ -32,23 +29,18 @@ TEST_F(LayerRoughnessTest , LayerRoughnessInitial)
     roughness.setLatteralCorrLength(1.3);
     EXPECT_EQ(1.3, roughness.getLatteralCorrLength());
 
-
-
     //test with given parameter
     LayerRoughness roughness2(2.1, 2.2, 2.3);
     EXPECT_EQ(2.1, roughness2.getSigma());
     EXPECT_EQ(2.2, roughness2.getHurstParameter());
     EXPECT_EQ(2.3, roughness2.getLatteralCorrLength());
-    EXPECT_EQ("LayerRoughness", roughness.getName());
-
-
+    EXPECT_EQ(BornAgain::LayerBasicRoughnessType, roughness.getName());
 }
 
 //test clone LayerRoughness
 TEST_F(LayerRoughnessTest , LayerRoughnessClone)
 {
-
-    LayerRoughness original(3.1,3.2,3.3);
+    LayerRoughness original(3.1, 3.2, 3.3);
 
     LayerRoughness *clone = original.clone();
     EXPECT_EQ(clone->getSigma(), original.getSigma());
@@ -66,19 +58,18 @@ TEST_F(LayerRoughnessTest , LayerRoughnessPool)
     EXPECT_EQ(0.0, roughnessPool.getHurstParameter());
     EXPECT_EQ(0.0, roughnessPool.getLatteralCorrLength());
 
-    roughnessPool.setParameterValue("/LayerRoughness/sigma",4.1);
-    roughnessPool.setParameterValue("/LayerRoughness/hurst",4.2);
-    roughnessPool.setParameterValue("/LayerRoughness/corrlength",4.3);
+    ParameterPattern pattern_sigma, pattern_hurst, pattern_corrlength;
+    pattern_sigma.add(BornAgain::LayerBasicRoughnessType).add(BornAgain::Sigma);
+    pattern_hurst.add(BornAgain::LayerBasicRoughnessType).add(BornAgain::Hurst);
+    pattern_corrlength.add(BornAgain::LayerBasicRoughnessType).add(BornAgain::CorrelationLength);
+    roughnessPool.setParameterValue(pattern_sigma.toStdString(), 4.1);
+    roughnessPool.setParameterValue(pattern_hurst.toStdString(), 4.2);
+    roughnessPool.setParameterValue(pattern_corrlength.toStdString(), 4.3);
 
     EXPECT_EQ(4.1, roughnessPool.getSigma());
     EXPECT_EQ(4.2, roughnessPool.getHurstParameter());
     EXPECT_EQ(4.3, roughnessPool.getLatteralCorrLength());
-    EXPECT_EQ("LayerRoughness", roughnessPool.getName());
+    EXPECT_EQ(BornAgain::LayerBasicRoughnessType, roughnessPool.getName());
 }
 
-
-
-
-
 #endif // LAYERROUGHNESSTEST_H
-

@@ -14,33 +14,20 @@
 // ************************************************************************** //
 
 #include "MesoCrystal.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorDecoratorPositionFactor.h"
 #include "FormFactorDecoratorRotation.h"
 
-MesoCrystal::MesoCrystal(IClusteredParticles* p_particle_structure,
-        IFormFactor* p_form_factor)
-    : mp_particle_structure(p_particle_structure)
-    , mp_meso_form_factor(p_form_factor)
+MesoCrystal::MesoCrystal(IClusteredParticles *p_particle_structure, IFormFactor *p_form_factor)
+    : mp_particle_structure(p_particle_structure), mp_meso_form_factor(p_form_factor)
 {
-    setName("MesoCrystal");
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
-    registerChild(mp_particle_structure);
-    registerChild(mp_meso_form_factor);
+    initialize();
 }
 
-MesoCrystal::MesoCrystal(const IClusteredParticles& particle_structure,
-        IFormFactor& form_factor)
-    : mp_particle_structure(particle_structure.clone())
-    , mp_meso_form_factor(form_factor.clone())
+MesoCrystal::MesoCrystal(const IClusteredParticles &particle_structure, IFormFactor &form_factor)
+    : mp_particle_structure(particle_structure.clone()), mp_meso_form_factor(form_factor.clone())
 {
-    setName("MesoCrystal");
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
-    registerChild(mp_particle_structure);
-    registerChild(mp_meso_form_factor);
+    initialize();
 }
 
 MesoCrystal::~MesoCrystal()
@@ -49,10 +36,11 @@ MesoCrystal::~MesoCrystal()
     delete mp_particle_structure;
 }
 
-MesoCrystal* MesoCrystal::clone() const
+MesoCrystal *MesoCrystal::clone() const
 {
-    MesoCrystal *p_result = new MesoCrystal(mp_particle_structure->clone(),
-            mp_meso_form_factor->clone());
+    MesoCrystal *p_result
+        = new MesoCrystal(mp_particle_structure->clone(), mp_meso_form_factor->clone());
+    p_result->setAbundance(m_abundance);
     if (mP_rotation.get()) {
         p_result->setRotation(*mP_rotation);
     }
@@ -60,15 +48,21 @@ MesoCrystal* MesoCrystal::clone() const
     return p_result;
 }
 
-MesoCrystal* MesoCrystal::cloneInvertB() const
+MesoCrystal *MesoCrystal::cloneInvertB() const
 {
-    MesoCrystal *p_result = new MesoCrystal(mp_particle_structure->cloneInvertB(),
-            mp_meso_form_factor->clone());
+    MesoCrystal *p_result
+        = new MesoCrystal(mp_particle_structure->cloneInvertB(), mp_meso_form_factor->clone());
+    p_result->setAbundance(m_abundance);
     if (mP_rotation.get()) {
         p_result->setRotation(*mP_rotation);
     }
     p_result->setPosition(m_position);
     return p_result;
+}
+
+void MesoCrystal::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 void MesoCrystal::setAmbientMaterial(const IMaterial& material)
@@ -82,19 +76,23 @@ const IMaterial *MesoCrystal::getAmbientMaterial() const
     return mp_particle_structure->getAmbientMaterial();
 }
 
-IFormFactor *MesoCrystal::createTransformedFormFactor(complex_t wavevector_scattering_factor,
-                                                      const IRotation *p_rotation,
+IFormFactor *MesoCrystal::createTransformedFormFactor(const IRotation *p_rotation,
                                                       kvector_t translation) const
 {
     if (!mp_particle_structure || !mp_meso_form_factor)
         return 0;
-    boost::scoped_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
+    std::unique_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
     kvector_t total_position = getComposedTranslation(p_rotation, translation);
-    boost::scoped_ptr<IFormFactor> P_transformed_meso(createTransformationDecoratedFormFactor(
+    std::unique_ptr<IFormFactor> P_transformed_meso(createTransformationDecoratedFormFactor(
         *mp_meso_form_factor, P_total_rotation.get(), total_position));
     IFormFactor *p_result = mp_particle_structure->createTotalFormFactor(
-        *P_transformed_meso, wavevector_scattering_factor, P_total_rotation.get(), total_position);
+        *P_transformed_meso, P_total_rotation.get(), total_position);
     return p_result;
+}
+
+const IClusteredParticles *MesoCrystal::getClusteredParticles() const
+{
+    return mp_particle_structure;
 }
 
 IFormFactor *MesoCrystal::createTransformationDecoratedFormFactor(const IFormFactor &bare_ff,
@@ -115,4 +113,12 @@ IFormFactor *MesoCrystal::createTransformationDecoratedFormFactor(const IFormFac
         p_result = p_intermediate;
     }
     return p_result;
+}
+
+void MesoCrystal::initialize()
+{
+    setName(BornAgain::MesoCrystalType);
+    registerPosition();
+    registerChild(mp_particle_structure);
+    registerChild(mp_meso_form_factor);
 }

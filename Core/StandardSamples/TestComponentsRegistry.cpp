@@ -32,60 +32,60 @@ TestFTDistribution2DRegistry::TestFTDistribution2DRegistry()
 
 TestFormFactorsRegistry::TestFormFactorsRegistry()
 {
-    add(BornAgain::AnisoPyramidType,
+    add(BornAgain::FFAnisoPyramidType,
         new FormFactorAnisoPyramid(10.0, 20.0, 5.0, Units::deg2rad(54.73 )));
 
-    add(BornAgain::BoxType,
+    add(BornAgain::FFBoxType,
         new FormFactorBox(10.0, 20.0, 5.0));
 
-    add(BornAgain::ConeType,
+    add(BornAgain::FFConeType,
         new FormFactorCone(5.0, 6.0, Units::deg2rad(54.73 )));
 
-    add(BornAgain::Cone6Type,
+    add(BornAgain::FFCone6Type,
         new FormFactorCone6(2./sqrt(3.)*5.0, 5.0, Units::deg2rad(54.73)));
 
-    add(BornAgain::CuboctahedronType,
+    add(BornAgain::FFCuboctahedronType,
         new FormFactorCuboctahedron(10.0, 5.0, 1.0, Units::deg2rad(54.73 )));
 
-    add(BornAgain::CylinderType,
+    add(BornAgain::FFCylinderType,
         new FormFactorCylinder(5.0, 10.0));
 
-    add(BornAgain::EllipsoidalCylinderType,
+    add(BornAgain::FFEllipsoidalCylinderType,
         new FormFactorEllipsoidalCylinder(5.0, 10.0, 15.0));
 
-    add(BornAgain::FullSphereType,
+    add(BornAgain::FFFullSphereType,
         new FormFactorFullSphere(5.0));
 
-    add(BornAgain::FullSpheroidType,
+    add(BornAgain::FFFullSpheroidType,
         new FormFactorFullSpheroid(5.0, 10.0));
 
-    add(BornAgain::HemiEllipsoidType,
+    add(BornAgain::FFHemiEllipsoidType,
         new FormFactorHemiEllipsoid(5.0, 10.0, 15.0));
 
-    add(BornAgain::Prism3Type,
+    add(BornAgain::FFPrism3Type,
         new FormFactorPrism3(10.0, 5.0));
 
-    add(BornAgain::Prism6Type,
+    add(BornAgain::FFPrism6Type,
         new FormFactorPrism6(2./sqrt(3.)*5.0, 5.0));
 
-    add(BornAgain::PyramidType,
+    add(BornAgain::FFPyramidType,
         new FormFactorPyramid(10.0, 5.0, Units::deg2rad(54.73 )));
 
-    add(BornAgain::Ripple1Type,
+    add(BornAgain::FFRipple1Type,
         new FormFactorRipple1(100.0, 20.0, 4.0));
 
-    add(BornAgain::Ripple2Type,
+    add(BornAgain::FFRipple2Type,
         new FormFactorRipple2(100.0, 20.0, 4.0, 0.0));
 
-    add(BornAgain::TetrahedronType,
+    add(BornAgain::FFTetrahedronType,
         new FormFactorTetrahedron(10.0, 4.0, Units::deg2rad(54.73 )));
 
-    add(BornAgain::TruncatedCubeType,
+    add(BornAgain::FFTruncatedCubeType,
         new FormFactorTruncatedCube(15.0, 6.0));
 
-    add(BornAgain::TruncatedSphereType,
+    add(BornAgain::FFTruncatedSphereType,
         new FormFactorTruncatedSphere(5.0, 7.0));
 
-    add(BornAgain::TruncatedSpheroidType,
+    add(BornAgain::FFTruncatedSpheroidType,
         new FormFactorTruncatedSpheroid(5.0, 7.0, 1.0));
 }

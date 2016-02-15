@@ -20,7 +20,6 @@
 ParticleCompositionView::ParticleCompositionView(QGraphicsItem *parent) : ConnectableView(parent)
 {
     setName(Constants::ParticleCompositionType);
-    setLabel("Particle\ncomposition");
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleCoreShellType));
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR);

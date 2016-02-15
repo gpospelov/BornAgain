@@ -19,6 +19,7 @@
 
 FitSuitePrintObserver::FitSuitePrintObserver(int print_every_nth)
     : IFitObserver(print_every_nth)
+    , m_fit_suite(0)
 {
 	m_last_call_time = boost::posix_time::second_clock::local_time();
 }

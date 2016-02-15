@@ -14,9 +14,8 @@
 // ************************************************************************** //
 
 #include "DetectorItems.h"
-#include "ComboProperty.h"
 #include "AngleProperty.h"
-#include "AxesItems.h"
+#include "MaskItems.h"
 #include <QDebug>
 
 const QString DetectorItem::P_DETECTOR = "Detector";
@@ -24,34 +23,32 @@ const QString DetectorItem::P_DETECTOR = "Detector";
 DetectorItem::DetectorItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::DetectorType, parent)
 {
-    setItemName(Constants::DetectorType);
     registerGroupProperty(P_DETECTOR, Constants::DetectorGroup);
+    addToValidChildren(Constants::MaskContainerType);
+    setGroupProperty(P_DETECTOR, Constants::SphericalDetectorType);
 }
 
-// -------------------------------------------------------------------------- //
-
-const QString PhiAlphaDetectorItem::P_PHI_AXIS = "Phi axis";
-const QString PhiAlphaDetectorItem::P_ALPHA_AXIS = "Alpha axis";
-const QString PhiAlphaDetectorItem::P_RESOLUTION_FUNCTION = "Type";
-
-PhiAlphaDetectorItem::PhiAlphaDetectorItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::PhiAlphaDetectorType, parent)
+MaskContainerItem *DetectorItem::getMaskContainerItem() const
 {
-    setItemName(Constants::PhiAlphaDetectorType);
-
-    registerGroupProperty(P_PHI_AXIS, Constants::BasicAxisType);
-    getSubItems()[P_PHI_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
-    getSubItems()[P_PHI_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, -1.0);
-    getSubItems()[P_PHI_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 1.0);
-
-    registerGroupProperty(P_ALPHA_AXIS, Constants::BasicAxisType);
-    getSubItems()[P_ALPHA_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
-    getSubItems()[P_ALPHA_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, 0.0);
-    getSubItems()[P_ALPHA_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 2.0);
-
-    registerGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
-    setGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionNoneType);
+    foreach(ParameterizedItem *item, childItems()) {
+        if(MaskContainerItem *container = dynamic_cast<MaskContainerItem *>(item)) {
+            return container;
+        }
+    }
+    return 0;
 }
 
+void DetectorItem::onSubItemChanged(const QString &propertyName)
+{
+    if(propertyName == P_DETECTOR) {
+        if(ParameterizedItem *maskContainer = getMaskContainerItem()) {
+            ParameterizedItem *item = takeChildItem(rowOfChild(maskContainer));
+            Q_ASSERT(item == maskContainer);
+            delete item;
+        }
+
+    }
+    ParameterizedItem::onSubItemChanged(propertyName);
+}
 
 

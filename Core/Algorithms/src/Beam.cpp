@@ -14,13 +14,16 @@
 // ************************************************************************** //
 
 #include "Beam.h"
+#include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "Numeric.h"
 #include <Eigen/LU>
 
+using namespace BornAgain;
+
 Beam::Beam() : m_wavelength(1.0), m_alpha(0.0), m_phi(0.0), m_intensity(0.0)
 {
-    setName("Beam");
+    setName(BeamType);
     init_parameters();
     initPolarization();
 }
@@ -42,9 +45,9 @@ Beam &Beam::operator=(const Beam &other)
     return *this;
 }
 
-cvector_t Beam::getCentralK() const
+kvector_t Beam::getCentralK() const
 {
-    cvector_t k;
+    kvector_t k;
     k.setLambdaAlphaPhi(m_wavelength, -1.0 * m_alpha, m_phi);
     return k;
 }
@@ -91,10 +94,10 @@ Eigen::Matrix2cd Beam::calculatePolarization(const kvector_t &bloch_vector) cons
 void Beam::init_parameters()
 {
     clearParameterPool();
-    registerParameter("intensity", &m_intensity);
-    registerParameter("wavelength", &m_wavelength, AttLimits::positive());
-    registerParameter("alpha", &m_alpha, AttLimits::lowerLimited(0.0));
-    registerParameter("phi", &m_phi);
+    registerParameter(Intensity, &m_intensity);
+    registerParameter(Wavelength, &m_wavelength, AttLimits::positive());
+    registerParameter(Alpha, &m_alpha, AttLimits::lowerLimited(0.0));
+    registerParameter(Phi, &m_phi);
 }
 
 void Beam::swapContent(Beam &other)

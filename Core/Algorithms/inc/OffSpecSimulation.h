@@ -31,7 +31,7 @@ public:
     OffSpecSimulation(const ProgramOptions *p_options);
     OffSpecSimulation(const ISample &p_sample, const ProgramOptions *p_options = 0);
     OffSpecSimulation(SampleBuilder_t p_sample_builder, const ProgramOptions *p_options = 0);
-    ~OffSpecSimulation() {}
+    virtual ~OffSpecSimulation() {}
 
     OffSpecSimulation *clone() const;
 
@@ -45,7 +45,7 @@ public:
     const OutputData<double> *getOutputData() const { return &m_intensity_map; }
 
     //! Returns clone of the detector intensity map
-    OutputData<double> *getDetectorIntensity() const;
+    OutputData<double> *getDetectorIntensity(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
 
     //! Returns clone of the detector intensity map in the form of 2D histogram.
     Histogram2D *getIntensityData() const;
@@ -82,12 +82,9 @@ public:
     void setAnalyzerProperties(const kvector_t &direction, double efficiency,
                                double total_transmission = 1.0);
 
-    //! Adds parameters from local to external pool, and call recursion over direct children
-    std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
-                                            int copy_number = -1) const;
-
-    //! returns wavelength
-    virtual double getWavelength() const;
+    //! Adds parameters from local pool to external pool and recursively calls its direct children.
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                                    int copy_number = -1) const;
 
 protected:
     OffSpecSimulation(const OffSpecSimulation &other);
@@ -119,6 +116,8 @@ private:
 
     //! Check correct number of axes
     void checkInitialization() const;
+
+    void initialize();
 };
 
 #endif /* OFFSPECSIMULATION_H_ */

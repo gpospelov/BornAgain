@@ -139,12 +139,6 @@ void ISampleVisitor::visit(const ParticleCoreShell *)
         "ISampleVisitor::visit(const ParticleCoreShell *) -> Error. Not implemented.");
 }
 
-void ISampleVisitor::visit(const ParticleInfo *)
-{
-    throw NotImplementedException(
-        "ISampleVisitor::visit(const ParticleInfo *) -> Error. Not implemented.");
-}
-
 void ISampleVisitor::visit(const IFormFactor *)
 {
     throw NotImplementedException(

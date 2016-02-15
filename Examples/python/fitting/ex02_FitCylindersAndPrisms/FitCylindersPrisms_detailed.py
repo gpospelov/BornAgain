@@ -7,6 +7,7 @@ Please take a note, that performance here is determined by poor performance of m
 import matplotlib
 from matplotlib import pyplot as plt
 import math
+import random
 from bornagain import *
 
 
@@ -56,13 +57,13 @@ def create_real_data():
     real_data = simulation.getIntensityData()
 
     # spoiling simulated data with the noise to produce "real" data
-    noise_factor = 0.1
+    noise_factor = 1.0
     for i in range(0, real_data.getTotalNumberOfBins()):
         amplitude = real_data.getBinContent(i)
         sigma = noise_factor*math.sqrt(amplitude)
-        noisy_amplitude = GenerateNormalRandom(amplitude, sigma)
-        if noisy_amplitude < 0.0:
-            noisy_amplitude = 0.0
+        noisy_amplitude = random.gauss(amplitude, sigma)
+        if noisy_amplitude < 0.1:
+            noisy_amplitude = 0.1
         real_data.setBinContent(i, noisy_amplitude)
 
     # ucomment line to save generated data on disk
@@ -150,10 +151,10 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*FormFactorCylinder/height", 4.*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*FormFactorCylinder/radius", 6.*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*FormFactorPrism3/height", 4.*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*FormFactorPrism3/length", 12.*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Cylinder/Height", 4.*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Cylinder/Radius", 6.*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Prism3/Height", 4.*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Prism3/Length", 12.*nanometer, AttLimits.lowerLimited(0.01))
 
     # running fit
     fit_suite.runFit()

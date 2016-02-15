@@ -18,32 +18,25 @@
 
 #include "WinDllMacros.h"
 #include "item_constants.h"
-#include "FancyGroupProperty.h"
-#include <QMap>
+#include "GroupProperty.h"
+
+#include <map>
 #include <QString>
 
-//class FancyGroupProperty_t;
-class SelectableGroupProperty;
-class FixedGroupProperty;
 class ParameterizedItem;
 
-//! The GroupPropertyRegistry constructs FancyGroupProperty or SelectableGroupProperty
+//! The GroupPropertyRegistry is responsible for constructing GroupProperty objects
 //! according to the given name of the group.
 class BA_CORE_API_ GroupPropertyRegistry
 {
 public:
-    //! correspondance of group name to ParameterizedItem's types to labels
-    typedef QMap<QString, QMap<QString, QString> > SelectableGroupMap_t;
+    using SelectableGroupMap_t = std::map<QString, std::map<QString, QString>>;
 
-    static FancyGroupProperty_t createGroupProperty(const QString &group_name, const Constants::ModelType &group_model = Constants::ModelType());
-
+    static GroupProperty_t createGroupProperty(const QString &group_name, const Constants::ModelType &group_model = Constants::ModelType());
 private:
-//    static SelectableGroupProperty *createSelectableGroupProperty(const QString &group_name, ParameterizedItem *parent = 0);
-//    static FixedGroupProperty *createFixedGroupProperty(const QString &group_name, ParameterizedItem *parent = 0);
-
     static SelectableGroupMap_t m_selectable_group_map;
-    //!< Contains correspondance of selectable group names to they content,
-    //!< namely item type and item label
+    //!< Contains correspondance of selectable group names to their content,
+    //!< which is a map between item types and item labels
 };
 
 

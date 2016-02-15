@@ -21,6 +21,7 @@
 #include "stringutils.h"
 #include "UpdateNotifier.h"
 #include <QMenuBar>
+#include <QMenu>
 #include <QShortcut>
 #include <QSettings>
 #include <QFileInfo>
@@ -103,7 +104,7 @@ void ActionManager::createActions()
 
 void ActionManager::createMenus()
 {
-    m_menuBar = new QMenuBar; // No parent (System menu bar on Mac OS X)
+    m_menuBar = new QMenuBar(0); // No parent (System menu bar on Mac OS X)
 
     if (!Utils::HostOsInfo::isMacHost())
         m_mainWindow->setMenuBar(m_menuBar);
@@ -124,9 +125,10 @@ void ActionManager::createMenus()
     m_fileMenu->addAction(m_exitAction);
 
     // Settings Menu
-    m_settingsMenu = m_menuBar->addMenu(tr("&Preferences"));
+    m_settingsMenu = new QMenu("Settings", m_mainWindow);
+    aboutToShowSettings(); // MacOS feature: action should exist already, otherwise menuBar will not add menu
     connect(m_settingsMenu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowSettings()));
-
+    m_menuBar->addMenu(m_settingsMenu);
 
     // Help Menu
     m_helpMenu = m_menuBar->addMenu(tr("&Help"));

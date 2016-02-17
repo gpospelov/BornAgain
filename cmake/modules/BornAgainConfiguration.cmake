@@ -58,7 +58,7 @@ elseif(APPLE)
   set(libprefix lib)
   set(libsuffix .so)
 else()
-  set(libprefix lib)
+  set(libprefix _lib)
   set(libsuffix .so)
 endif()
 

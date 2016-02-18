@@ -4,7 +4,7 @@
 
 #pragma SWIG nowarn=314 // print
 #pragma SWIG nowarn=315 // nothing known about std::size_t // fixed by #ifndef in Types.h
-#pragma SWIG nowarn=362 // operator=
+ //#pragma SWIG nowarn=362 // operator=
  //#pragma SWIG nowarn=389 // operator[]
 #pragma SWIG nowarn=473 // returning pointer in a director method (object ownership problem)
 #pragma SWIG nowarn=503 // operator<<
@@ -51,16 +51,147 @@
 %include "std_string.i"
 %include "std_vector.i"
 
- //%include "boost_shared_ptr.i"
- %include <boost/shared_ptr.hpp>
- //%shared_ptr(ISampleBuilder)
- %template(SampleBuilder_t) boost::shared_ptr<ISampleBuilder>;
+ %include "boost_shared_ptr.i"
+ //%include <boost/shared_ptr.hpp>
+ %shared_ptr(ISampleBuilder)
+%shared_ptr(ParameterPool)
+%shared_ptr(IParameterized)
+%shared_ptr(INamed)
+%shared_ptr(ISample)
+%shared_ptr(ICompositeSample)
+%shared_ptr(IClusteredParticles)
+%shared_ptr(Crystal)
+%shared_ptr(IDistribution1D)
+%shared_ptr(DistributionGate)
+%shared_ptr(DistributionLorentz)
+%shared_ptr(DistributionGaussian)
+%shared_ptr(DistributionLogNormal)
+%shared_ptr(DistributionCosine)
+%shared_ptr(IFormFactor)
+%shared_ptr(IFormFactorBorn)
+%shared_ptr(IFormFactorDecorator)
+%shared_ptr(FormFactorAnisoPyramid)
+%shared_ptr(FormFactorBox)
+%shared_ptr(FormFactorCone)
+%shared_ptr(FormFactorCone6)
+%shared_ptr(FormFactorCrystal)
+%shared_ptr(FormFactorCuboctahedron)
+%shared_ptr(FormFactorCylinder)
+%shared_ptr(FormFactorDecoratorDebyeWaller)
+%shared_ptr(FormFactorEllipsoidalCylinder)
+%shared_ptr(FormFactorFullSphere)
+%shared_ptr(FormFactorFullSpheroid)
+%shared_ptr(FormFactorGauss)
+%shared_ptr(FormFactorHemiEllipsoid)
+%shared_ptr(FormFactorLorentz)
+%shared_ptr(FormFactorPrism3)
+%shared_ptr(FormFactorPrism6)
+%shared_ptr(FormFactorPyramid)
+%shared_ptr(FormFactorRipple1)
+%shared_ptr(FormFactorRipple2)
+%shared_ptr(FormFactorSphereGaussianRadius)
+%shared_ptr(FormFactorSphereLogNormalRadius)
+%shared_ptr(FormFactorSphereUniformRadius)
+%shared_ptr(FormFactorTetrahedron)
+%shared_ptr(FormFactorTrivial)
+%shared_ptr(FormFactorTruncatedCube)
+%shared_ptr(FormFactorTruncatedSphere)
+%shared_ptr(FormFactorTruncatedSpheroid)
+%shared_ptr(FormFactorWeighted)
+%shared_ptr(IFTDistribution1D)
+%shared_ptr(FTDistribution1DCauchy)
+%shared_ptr(FTDistribution1DGauss)
+%shared_ptr(FTDistribution1DGate)
+%shared_ptr(FTDistribution1DTriangle)
+%shared_ptr(FTDistribution1DCosine)
+%shared_ptr(FTDistribution1DVoigt)
+%shared_ptr(IFTDistribution2D)
+%shared_ptr(FTDistribution2DCauchy)
+%shared_ptr(FTDistribution2DGauss)
+%shared_ptr(FTDistribution2DGate)
+%shared_ptr(FTDistribution2DTriangle)
+%shared_ptr(FTDistribution2DCosine)
+%shared_ptr(FTDistribution2DVoigt)
+%shared_ptr(FTDistribution2DCone)
+%shared_ptr(IFTDecayFunction1D)
+%shared_ptr(FTDecayFunction1DCauchy)
+%shared_ptr(FTDecayFunction1DGauss)
+%shared_ptr(FTDecayFunction1DVoigt)
+%shared_ptr(FTDecayFunction1DTriangle)
+%shared_ptr(IFTDecayFunction2D)
+%shared_ptr(FTDecayFunction2DCauchy)
+%shared_ptr(FTDecayFunction2DGauss)
+%shared_ptr(FTDecayFunction2DVoigt)
+%shared_ptr(IMaterial)
+%shared_ptr(Simulation)
+%shared_ptr(GISASSimulation)
+%shared_ptr(HomogeneousMaterial)
+%shared_ptr(HomogeneousMagneticMaterial)
+%shared_ptr(IDetector2D)
+%shared_ptr(ILayout)
+%shared_ptr(IInterferenceFunction)
+%shared_ptr(Instrument)
+%shared_ptr(InterferenceFunction1DLattice)
+%shared_ptr(InterferenceFunctionRadialParaCrystal)
+%shared_ptr(InterferenceFunction2DLattice)
+%shared_ptr(InterferenceFunction2DParaCrystal)
+%shared_ptr(InterferenceFunctionNone)
+%shared_ptr(IAbstractParticle)
+%shared_ptr(IParticle)
+%shared_ptr(IResolutionFunction2D)
+%shared_ptr(SphericalDetector)
+%shared_ptr(IsGISAXSDetector)
+%shared_ptr(IRoughness)
+%shared_ptr(Layer)
+%shared_ptr(LayerRoughness)
+%shared_ptr(MesoCrystal)
+ %shared_ptr(MultiLayer)
+ %shared_ptr(OffSpecSimulation)
+ %shared_ptr(ParameterDistribution)
+ %shared_ptr(Particle)
+ %shared_ptr(ParticleComposition)
+ %shared_ptr(ParticleCoreShell)
+ %shared_ptr(ParticleDistribution)
+ %shared_ptr(ParticleLayout)
+ %shared_ptr(RectangularDetector)
+ %shared_ptr(ResolutionFunction2DGaussian)
+ %shared_ptr(IRotation)
+ %shared_ptr(RotationX)
+ %shared_ptr(RotationY)
+ %shared_ptr(RotationZ)
+ %shared_ptr(RotationEuler)
+ %shared_ptr(SpecularSimulation)
+
+
+
+
+
+
+
+
+
+
+ // to fix SWIG director method error created by mixing shared pointer directors and raw pointers
+%ignore IParameterized::addParametersToExternalPool(std::string, ParameterPool *, int) const;
+%ignore IParameterized::addParametersToExternalPool(std::string, ParameterPool *) const;
+%ignore ICompositeSample::registerChild(ISample*);
+%ignore ICompositeSample::deregisterChild(ISample*);
+%ignore ISampleVisitor::visit(const ISample*);
+
+
+
+
+
+
+
+
+ //%template(SampleBuilder_t) boost::shared_ptr<ISampleBuilder>;
 
 //%shared_ptr(IParameterized)
 //%shared_ptr(INamed)
 
  //%shared_ptr(IShape2D)
-/*
+
 %shared_ptr(Geometry::IShape2D)
 %shared_ptr(Crystal)
 %shared_ptr(DistributionCosine)
@@ -231,6 +362,23 @@ namespace Geometry {
 
   %ignore BasicVector3D<double>::normalize() const;
   %ignore BasicVector3D<std::complex<double> >::normalize() const;
+
+  %extend BasicVector3D<double> {
+    BasicVector3D<double> __add__(const BasicVector3D<double>& rhs) const
+    {
+      return *($self)+rhs;
+    }
+
+    BasicVector3D<double> __mul__(double c) const
+    {
+      return *($self)*c;
+    }
+
+    BasicVector3D<double> __rmul__(double c) const
+    {
+      return *($self)*c;
+    }
+  };
 }
 
 
@@ -655,6 +803,12 @@ import_array();
   {
     return (*($self)).registerParameter(name, (double*)parpointer, limits);
     }*/
+
+  virtual std::string addParametersToExternalPool(std::string path, boost::shared_ptr<ParameterPool> external_pool,
+						  int copy_number = -1) const
+  {
+    return ($self)->addParametersToExternalPool(path, external_pool.get(), copy_number);
+  }
 };
 
 %extend ISampleBuilder {
@@ -680,6 +834,22 @@ import_array();
 };
 */
 
+%extend ICompositeSample {
+  virtual void registerChild(boost::shared_ptr<ISample> sample)
+  {
+    ($self)->registerChild(sample.get());
+  }
+  
+  virtual void deregisterChild(boost::shared_ptr<ISample> sample)
+  {
+    ($self)->deregisterChild(sample.get());
+  }
+};
 
-
-
+%extend ISampleVisitor {
+  virtual void visit(boost::shared_ptr<ISample> sample)
+  {
+    ($self)->visit(sample.get());
+  }
+};
+		       

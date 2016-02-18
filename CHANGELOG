@@ -1,3 +1,8 @@
+BornAgain-1.5.1, released 2016.02.18
+Hotfix:
+  * Bug #1341: GUI crashes if simulating with 1D lattice interference function
+  * Bug #1338: Crash while saving certain project file
+
 BornAgain-1.5.0, released 2016.02.15
   > API changes
     1) FTDecayFunctions introduced to use together with lattices (setDecayFunction)

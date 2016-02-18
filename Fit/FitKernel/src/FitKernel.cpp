@@ -26,6 +26,7 @@
 FitKernel::FitKernel(FitSuite *fit_suite)
     : m_minimizer(MinimizerFactory::createMinimizer("Minuit2", "Migrad"))
     , m_is_last_iteration(false)
+    , m_is_interrupted(false)
     , m_fit_suite(fit_suite)
 {
     m_function_chi2.init(this);
@@ -45,6 +46,7 @@ void FitKernel::clear()
     m_fit_parameters.clear();
     m_fit_strategies.clear();
     m_is_last_iteration = false;
+    m_is_interrupted = false;
 }
 
 //! Adds pair of (simulation, real data) for consecutive simulation
@@ -119,7 +121,9 @@ void FitKernel::minimize()
     m_fit_objects.setNfreeParameters((int)m_fit_parameters.getNfreeParameters());
 
     // minimizing
-    m_minimizer->minimize();
+    try {
+        m_minimizer->minimize();
+    } catch (int) {}
 
     // setting found values to the parameters
     m_fit_parameters.setValues(m_minimizer->getValueOfVariablesAtMinimum());
@@ -165,6 +169,20 @@ size_t FitKernel::getCurrentStrategyIndex() const
     return m_fit_strategies.getCurrentStrategyIndex();
 }
 
+bool FitKernel::isInterrupted() const
+{
+    return m_is_interrupted;
+}
+
+void FitKernel::interruptFitting()
+{
+    m_is_interrupted = true;
+}
+
+void FitKernel::resetInterrupt()
+{
+    m_is_interrupted = false;
+}
 
 // results to stdout
 void FitKernel::printResults() const

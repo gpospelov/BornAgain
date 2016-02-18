@@ -19,6 +19,7 @@
 #include "IObserver.h"
 #include "FitKernel.h"
 #include "IHistogram.h"
+#include "OutputData.h"
 
 
 //! @class FitSuite
@@ -134,6 +135,18 @@ public:
 
     //! Sets general setting of fit kernel
     void setOptions(const FitOptions &fit_options);
+
+    void interruptFitting();
+
+    void resetInterrupt();
+
+    bool isInterrupted();
+
+    const OutputData<double> *getRealOutputData(size_t i_item = 0) const;
+
+    const OutputData<double> *getSimulationOutputData(size_t i_item = 0) const;
+
+    const OutputData<double> *getChiSquaredOutputData(size_t i_item = 0) const;
 
 private:
     FitSuite& operator=(const FitSuite& );

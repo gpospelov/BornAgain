@@ -16,38 +16,67 @@
 #ifndef FITPARAMETERWIDGET_H
 #define FITPARAMETERWIDGET_H
 
+#include "WinDllMacros.h"
+#include "SessionModel.h"
 #include <QWidget>
-#include <QTreeView>
-#include <QAction>
-#include <QTableWidget>
+#include <QStandardItemModel>
+#include <QAbstractItemModel>
 
-#include "FitProxyModel.h"
-#include "FitModel.h"
-
+class QTreeView;
+class MainWindow;
+class FitSelectorModel;
+class QMenu;
+class SampleModel;
+class InstrumentModel;
 class FitModel;
-
-
+class ParameterizedItem;
+class FitParameterModel;
+class QItemSelection;
+class QSplitter;
+class DeleteEventFilter;
 
 class BA_CORE_API_ FitParameterWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    FitParameterWidget(FitProxyModel *fitProxyModel, QWidget *parent = 0);
+    static const QString MIME_TYPE;
+    FitParameterWidget(FitModel *fitModel, QWidget *parent = 0);
+
+    void clearParameter();
+public slots:
+    void updateSelector();
+    void spanParameters();
+    void removeSelectedItem();
+
+    void onCustomContextMenu(const QPoint &point);
+    void onRemoveParameter();
+
+    void onParameterSelectionChanged(const QItemSelection&selection);
+    void onSelectorSelectionChanged(const QItemSelection &selection);
+
+    void onDoubleclick(const QModelIndex index);
 
 private:
+    void buildSelectorModel();
+    void connectSelectorView(bool active = true);
+    void connectParameterView(bool active = true);
+    void buildTree(QStandardItem *root, ParameterizedItem *top);
+    void removeEmptyParameter();
+
     FitModel *m_fitModel;
-    QStandardItemModel *m_parameterModel;
-    QTreeView *m_treeView;
-    FitProxyModel *m_fitProxyModel;
-
-
-    QStandardItemModel *createParameterModel(FitModel *fitModel);
-    QStandardItemModel *iterateSessionModel(FitModel *fitModel, const QModelIndex &parentIndex = QModelIndex(), QStandardItemModel *parentItem = 0);
-    void insertRowIntoItem(QStandardItemModel *parentItem, QString title, QVariant value, QVariant min, QVariant max, QVariant isUse);
-
-
-    void initFitModel();
+    QTreeView *m_selectorTreeView;
+    QTreeView *m_parameterTreeview;
+    FitSelectorModel *m_selectorModel;
+    FitParameterModel *m_parameterModel;
+    QMenu *m_contextMenu;
+    QAction *m_removeAction;
+    QAction *m_addAction;
+    QSplitter *m_splitter;
+    DeleteEventFilter *m_keyboardFilter;
 };
+
+
+
 
 #endif

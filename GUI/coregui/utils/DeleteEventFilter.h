@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitView.h
-//! @brief     Defines class FitView
+//! @file      coregui/utils/CustomEventFilters.h
+//! @brief     Defines classes releted to event filtering
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,32 +13,27 @@
 //
 // ************************************************************************** //
 
-#ifndef FITVIEW_H
-#define FITVIEW_H
+#ifndef DELETEEVENTFILTERS_H
+#define DELETEEVENTFILTERS_H
 
-#include <WinDllMacros.h>
-#include <QWidget>
+#include "WinDllMacros.h"
+#include <QObject>
 
-class MainWindow;
-class QTabWidget;
-class ImportDataWidget;
-class FitSettingsWidget;
-class RunFitWidget;
+class QEvent;
 
-class BA_CORE_API_ FitView : public QWidget
+//! Filter out space bar key events, which is special case for dialog windows
+
+class DeleteEventFilter : public QObject
 {
     Q_OBJECT
-
 public:
-    //! View containing tabs for fitting
-    FitView(MainWindow *window);
+  DeleteEventFilter( QObject *parent = 0 ) : QObject( parent ) {}
 
-private:
-    QTabWidget *m_tabs;
-    ImportDataWidget *m_importDataWidget;
-    FitSettingsWidget *m_fitSettingsWidget;
-    RunFitWidget *m_runFitWidget;
+protected:
+  bool eventFilter( QObject *dist, QEvent *event );
 
+signals:
+  void removeItem();
 };
 
 #endif

@@ -38,7 +38,6 @@
 #include "MaterialItem.h"
 #include "RefractiveIndexItem.h"
 #include "MagneticFieldItem.h"
-#include "FitParameterItem.h"
 #include "JobItem.h"
 #include "IntensityDataItem.h"
 #include "AxesItems.h"
@@ -47,6 +46,7 @@
 #include "BeamWavelengthItem.h"
 #include "BeamAngleItems.h"
 #include "MaskItems.h"
+#include "FitParameterItems.h"
 #include <QDebug>
 
 namespace {
@@ -143,8 +143,6 @@ ItemFactory::ItemMap_t initializeItemMap() {
 
     result[Constants::MagneticFieldType] = &createInstance<MagneticFieldItem>;
 
-    result[Constants::FitParameterType] = &createInstance<FitParameterItem>;
-
     result[Constants::JobItemType] = &createInstance<JobItem>;
 
     result[Constants::IntensityDataType] = &createInstance<IntensityDataItem>;
@@ -168,6 +166,13 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::HorizontalLineMaskType] = &createInstance<HorizontalLineItem>;
     result[Constants::EllipseMaskType] = &createInstance<EllipseItem>;
     result[Constants::MaskAllType] = &createInstance<MaskAllItem>;
+
+    result[Constants::FitParameterContainerType] = &createInstance<FitParameterContainer>;
+    result[Constants::FitParameterType] = &createInstance<FitParameterItem>;
+    result[Constants::FitParameterLinkType] = &createInstance<FitParameterLinkItem>;
+    result[Constants::FitSelectionType] = &createInstance<FitSelectionItem>;
+    result[Constants::MinimizerSettingsType] = &createInstance<MinimizerSettingsItem>;
+    result[Constants::InputDataType] = &createInstance<InputDataItem>;
 
     return result;
 }

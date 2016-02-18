@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/FitToolBar.h
-//! @brief     Defines class FitToolBar
+//! @file      coregui/Views/FitWidgets/FittingWorker.cpp
+//! @brief     Implements class FittingWorker
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,25 +13,25 @@
 //
 // ************************************************************************** //
 
-#ifndef FITTOOLBAR_H
-#define FITTOOLBAR_H
+#include "FittingWorker.h"
+#include "FitSuite.h"
 
-#include "WinDllMacros.h"
-#include <QToolBar>
-
-class QAction;
-class QToolButton;
-class QToolBar;
-
-
-class BA_CORE_API_ FitToolBar : public QToolBar
+void FittingWorker::startFit()
 {
-    Q_OBJECT
+    m_fitsuite->resetInterrupt();
+    emit started();
+    try {
+        m_fitsuite->runFit();
+    } catch(const std::exception& ex) {
+        emit error(QString::fromLatin1(ex.what()));
+    }
+    emit finished();
+}
 
-public:
-    explicit FitToolBar(QWidget *parent = 0);
+void FittingWorker::interruptFitting()
+{
+    if (m_fitsuite) {
+        m_fitsuite->interruptFitting();
+    }
+}
 
-};
-
-
-#endif // SIMULATIONTOOLBAR_H

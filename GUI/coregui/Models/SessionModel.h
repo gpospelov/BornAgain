@@ -84,7 +84,7 @@ public:
                          const QModelIndex &parent) const;
     virtual bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column,
                       const QModelIndex &parent);
-    // End overriden methods from QAbstractItemModel
+    // End overridden methods from QAbstractItemModel
 
     QModelIndex indexOfItem(ParameterizedItem *item) const;
     ParameterizedItem *insertNewItem(QString model_type, const QModelIndex &parent = QModelIndex(),
@@ -104,6 +104,7 @@ public:
     // Sets mimedata pointer of item being dragged
     void setDraggedItemType(const QString &type);
 
+    // Returns root item if index is not valid
     ParameterizedItem *itemForIndex(const QModelIndex &index) const;
 
     void readFrom(QXmlStreamReader *reader);
@@ -127,12 +128,19 @@ public:
 
     virtual void initFrom(SessionModel *model, ParameterizedItem *parent);
 
+
+
 public slots:
     void onItemPropertyChange(const QString &property_name, const QString &name = QString());
 
 protected:
+    // subclasses my wish to change the column count or the root item itself
+    void setMaxColumns(int maxColumns) {m_maxColumns = maxColumns;}
+    void setRootItem(ParameterizedItem *root) {m_root_item = root;}
 
 private:
+    ParameterizedItem* rootItem() const;
+
     ParameterizedItem *insertNewItem(QString model_type, ParameterizedItem *parent, int row = -1,
                                      ParameterizedItem::PortInfo::EPorts port
                                      = ParameterizedItem::PortInfo::DEFAULT);
@@ -151,6 +159,7 @@ private:
     QString m_dragged_item_type;
     QString m_name;      //!< model name
     QString m_model_tag; //!< model tag (SampleModel, InstrumentModel)
+    int m_maxColumns;
     IconProvider *m_iconProvider;
     WarningMessageService *m_messageService;
 };

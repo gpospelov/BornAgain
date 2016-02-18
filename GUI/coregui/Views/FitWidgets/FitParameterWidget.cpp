@@ -14,201 +14,334 @@
 // ************************************************************************** //
 
 #include "FitParameterWidget.h"
-#include "FitParameterItem.h"
-#include <QDebug>
+#include "FitModel.h"
+#include "FitParameterItems.h"
+#include "FitParameterModel.h"
+#include "FitSelectorModel.h"
+#include "DeleteEventFilter.h"
+#include "MinimizerSettingsWidget.h"
+#include "minisplitter.h"
 #include <QVBoxLayout>
+#include <QTreeView>
+#include <QSplitter>
+#include <QStringList>
+#include <QStandardItemModel>
+#include <QStandardItem>
+#include <QModelIndex>
+#include <QMenu>
+#include <QAction>
+#include <QItemSelection>
+#include <QItemSelectionModel>
 
+#include <QMimeData>
+#include <QDragEnterEvent>
 
+const QString FitParameterWidget::MIME_TYPE = "application/org.bornagainproject.fittinglink";
 
-FitParameterWidget::FitParameterWidget(FitProxyModel *fitProxyModel, QWidget *parent)
+FitParameterWidget::FitParameterWidget(FitModel *fitModel, QWidget *parent)
     : QWidget(parent)
-    , m_treeView(0)
-    , m_fitProxyModel(fitProxyModel)
+    , m_fitModel(fitModel)
+    , m_selectorTreeView(new QTreeView())
+    , m_parameterTreeview(new QTreeView())
+    , m_selectorModel(nullptr)
+    , m_parameterModel(nullptr)
+    , m_contextMenu(new QMenu())
+    , m_splitter(new Manhattan::MiniSplitter(this))
+    , m_keyboardFilter(new DeleteEventFilter(this))
 {
 
-    QColor bgColor(255,255,255,255);
-    QPalette palette;
-    palette.setColor(QPalette::Background, bgColor);
-    setAutoFillBackground(true);
-    setPalette(palette);
+    m_parameterModel = new FitParameterModel(m_fitModel, this);
 
+    QString style(
+    "QTreeView::branch {background: palette(base);}QTreeView::branch:has-siblings:!adjoins-item "
+    "{border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:"
+    "adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:"
+    "!has-children:!has-siblings:adjoins-item {border-image: "
+    "url(:/images/treeview-branch-end.png) 0;}QTreeView::branch:has-children:!has-siblings:closed"
+    ",QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: "
+    "url(:/images/treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,"
+    "QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: "
+    "url(:/images/treeview-branch-open.png);}");
 
-    initFitModel();
+    m_selectorTreeView->setStyleSheet(style);
+    m_selectorTreeView->setDragEnabled(true);
+    m_selectorTreeView->setDragDropMode(QAbstractItemView::DragOnly);
 
-    m_fitProxyModel->setFitModel(m_fitModel);
-    m_fitProxyModel->setHeaderData(0, Qt::Horizontal,"Title");
+    m_parameterTreeview->setStyleSheet(style);
+    m_parameterTreeview->setAcceptDrops(true);
+    m_parameterTreeview->setDragDropMode(QAbstractItemView::DropOnly);
+    m_parameterTreeview->setModel(m_parameterModel);
+    m_parameterTreeview->setColumnWidth(0, 300);
+    m_parameterTreeview->setColumnWidth(2, 120);
+    m_parameterTreeview->setContextMenuPolicy(Qt::CustomContextMenu);
+    m_parameterTreeview->installEventFilter(m_keyboardFilter);
 
-    /*if(m_fitModel)
-    {
-        ParameterizedItem *item1 = m_fitModel->insertNewItem(Constants::FitParameterType);
-        item1->setItemName("par1");
-        item1->setRegisteredProperty(FitParameterItem::P_MIN, 1.0);
+    m_removeAction =  m_contextMenu->addAction("Remove", this, SLOT(onRemoveParameter()));
+    m_addAction = m_contextMenu->addAction("Add Parameter", m_parameterModel, SLOT(addParameter()));
 
-        FitParameterItem *item2 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
-        item2->setItemName("par2");
+    /*QSplitter *rightWindow = new QSplitter;
+    rightWindow->setOrientation(Qt::Vertical);
+    rightWindow->addWidget(m_parameterTreeview);
+    m_parameterTreeview->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    auto *minimizersettings = new MinimizerSettingsWidget(m_fitModel, this);
+    rightWindow->addWidget(minimizersettings);
+    rightWindow->setSizes(QList<int>() << 3000 << 1000);*/
 
-//        ParameterizedItem *old_item = m_fitModel->itemForIndex(m_fitModel->index(0,0, QModelIndex()));
-//        qDebug() << "FitModel: " << old_item->getRegisteredProperty(FitParameterItem::P_MIN);
-
-//        FitParameterItem *fit_item = dynamic_cast<FitParameterItem *>(m_fitModel->itemForIndex(m_fitModel->index(1,0, QModelIndex())));
-//        qDebug() << "FitModel: " << fit_item->getRegisteredProperty(FitParameterItem::P_MAX);
-
-
-
-    }*/
-
-
-    m_treeView = new QTreeView();
-    m_treeView->setStyleSheet("QTreeView::branch {background: palette(base);}QTreeView::branch:has-siblings:!adjoins-item {border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:!has-children:!has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-end.png) 0;}QTreeView::branch:has-children:!has-siblings:closed,QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: url(:/images/treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: url(:/images/treeview-branch-open.png);}");
-
-
-    //m_parameterModel = createParameterModel(m_fitModel);
-    //connect(m_parameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
-
-
-
-//    FitProxyModel *fitProxyModel = new FitProxyModel;
-//    qDebug() << fitProxyModel;
-
-
-    int height = this->height();
-    m_treeView->setModel(m_fitProxyModel);
-    m_treeView->setFixedHeight(height);
-    m_treeView->setColumnWidth(0,170);
-    m_treeView->expandAll();
-
+    m_splitter->addWidget(m_selectorTreeView);
+    m_splitter->addWidget(m_parameterTreeview);
+    m_splitter->setSizes(QList<int>() << 10000 << 20000);
 
     QVBoxLayout *vlayout = new QVBoxLayout(this);
     vlayout->setMargin(0);
     vlayout->setSpacing(0);
-    vlayout->addWidget(m_treeView);
-    vlayout->addStretch();
+    vlayout->addWidget(m_splitter);
     this->setLayout(vlayout);
 
+    // update selector when sample model changes - more jobs to be done here
+    //connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
+    //        this, SLOT(updateSelector()));
 
-//    QModelIndex idx = m_parameterModel->invisibleRootItem()->index();
-//    for (int i=0; i<m_parameterModel->rowCount(); i++){
-//    if (m_parameterModel->item(i,0)->hasChildren()){
+    connect(m_parameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
+            m_fitModel, SLOT(dataChangedProxy(QModelIndex,QModelIndex,QVector<int>)));
 
-//            m_treeView->setFirstColumnSpanned(0, m_parameterModel->item(i,0)->index(), true);
-//            m_treeView->setFirstColumnSpanned(1, m_parameterModel->item(i,0)->index(), true);
-//        }
-//    }
+    // setup firstcolumnspanning
+    connect(m_parameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
+            this, SLOT(spanParameters()));
 
+    // make context menu availabe
+    connect(m_parameterTreeview, SIGNAL(customContextMenuRequested(const QPoint &)),
+            this, SLOT(onCustomContextMenu(const QPoint &)));
+
+    // event from keyeventfilter
+    connect(m_keyboardFilter, SIGNAL(removeItem()), this, SLOT(removeSelectedItem()));
+
+    // select by doubleclick
+    connect(m_selectorTreeView, SIGNAL(doubleClicked(QModelIndex)),
+            this, SLOT(onDoubleclick(QModelIndex)));
+
+
+    connectParameterView();
 
 }
 
-QStandardItemModel *FitParameterWidget::createParameterModel(FitModel *fitModel)
+void FitParameterWidget::updateSelector()
 {
-    QStandardItemModel *result(0);
-    result = new QStandardItemModel();
-    result->setHorizontalHeaderItem( 0, new QStandardItem( "Property" ) );
-    result->setHorizontalHeaderItem( 1, new QStandardItem( "Use" ) );
-    result->setHorizontalHeaderItem( 2, new QStandardItem( "Value" ) );
-    result->setHorizontalHeaderItem( 3, new QStandardItem( "Min" ) );
-    result->setHorizontalHeaderItem( 4, new QStandardItem( "Max" ) );
+    m_parameterModel = new FitParameterModel(m_fitModel, this);
+    m_parameterTreeview->setModel(m_parameterModel);
+    connect(m_parameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
+            m_fitModel, SLOT(dataChangedProxy(QModelIndex,QModelIndex,QVector<int>)));
 
+    // setup firstcolumnspanning
+    connect(m_parameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
+            this, SLOT(spanParameters()));
+    spanParameters();
+    buildSelectorModel();
 
-    iterateSessionModel(fitModel, QModelIndex(), result);
-//    if(standardItem)
-//    {
-//        result->appendRow(standardItem);
-//    }
+    m_selectorTreeView->setModel(m_selectorModel);
+    m_selectorTreeView->expandAll();
+    m_selectorTreeView->resizeColumnToContents(0);
+    m_selectorTreeView->setColumnWidth(0, m_selectorTreeView->columnWidth(0) * 1.2);
 
-    return result;
+    connectSelectorView();
 }
 
-QStandardItemModel *FitParameterWidget::iterateSessionModel(FitModel *fitModel, const QModelIndex &parentIndex, QStandardItemModel *parentItem)
-{
-    Q_ASSERT(fitModel);
-
-    if(!parentIndex.isValid()) {
-        qDebug() << "Dumping model";
+void FitParameterWidget::clearParameter() {
+    while (m_parameterModel->rowCount(QModelIndex())) {
+        m_parameterModel->removeRow(0, QModelIndex());
     }
+}
 
+void FitParameterWidget::buildTree(QStandardItem *root, ParameterizedItem *top)
+{
+    QStringList parameterTree = top->getParameterTreeList();
 
-    for( int i_row = 0; i_row < fitModel->rowCount( parentIndex ); ++i_row) {
-        QModelIndex itemIndex = fitModel->index( i_row, 0, parentIndex );
+    foreach (const QString &str, parameterTree) {
+        QStringList parts = str.split("/");
+        QStandardItem *cur = root;
+        for (int partIndex = 0; partIndex < parts.size(); partIndex++) {
+            bool insertItem = true;
 
-
-
-        if (ParameterizedItem *item = fitModel->itemForIndex(itemIndex)){
-
-
-            qDebug() << "FitParameterWidget::iterateSessionModel: " << item->itemName() << item->getRegisteredProperty(FitParameterItem::P_MIN)<<  item->getRegisteredProperty(FitParameterItem::P_MAX);
-
-            insertRowIntoItem(parentItem, item->itemName(), item->getRegisteredProperty(FitParameterItem::P_VALUE), item->getRegisteredProperty(FitParameterItem::P_MIN), item->getRegisteredProperty(FitParameterItem::P_MAX), item->getRegisteredProperty(FitParameterItem::P_USE));
-
+            // search for existing child
+            for (int childIndex = 0; childIndex < cur->rowCount(); childIndex++) {
+                if (cur->child(childIndex, 0)->text() == parts[partIndex]) {
+                    cur = cur->child(childIndex, 0);
+                    insertItem = false;
+                    break;
+                }
+            }
+            if (insertItem) {
+                QStandardItem *item = new QStandardItem(parts[partIndex]);
+                QStandardItem *data = new QStandardItem();
+                item->setEditable(false);
+                data->setEditable(false);
+                if (partIndex == parts.size() - 1) { // arrived at the end
+                    double value = top->getParameterValue(str);
+                    data->setData(QVariant(value), Qt::EditRole);
+                } else {
+                    item->setDragEnabled(false);
+                    data->setDragEnabled(false);
+                }
+                cur->appendRow(QList<QStandardItem *>() << item << data);
+                cur = item;
+            }
         }
-
     }
-
-    return parentItem;
 }
 
-void FitParameterWidget::insertRowIntoItem(QStandardItemModel *parentItem, QString title, QVariant value, QVariant min, QVariant max, QVariant isUse)
-{
+void FitParameterWidget::buildSelectorModel() {
 
-    QStandardItem *titleItem = new QStandardItem(title);
+    m_selectorModel = new FitSelectorModel();
+    m_selectorModel->setHorizontalHeaderItem(0, new QStandardItem("Property"));
+    m_selectorModel->setHorizontalHeaderItem(1, new QStandardItem("Value"));
+    QStandardItem *root = m_selectorModel->invisibleRootItem();
 
-    QStandardItem *useItem = new QStandardItem();
-    useItem->setData(isUse, Qt::EditRole);
-    useItem->setEditable(true);
-
-    QStandardItem *valueItem = new QStandardItem();
-    valueItem->setData(value, Qt::EditRole);
-    valueItem->setEditable(true);
-
-    QStandardItem *minItem = new QStandardItem();
-    minItem->setData(min, Qt::EditRole);
-    minItem->setEditable(true);
-
-    QStandardItem *maxItem = new QStandardItem();
-    maxItem->setData(max, Qt::EditRole);
-    maxItem->setEditable(true);
-
-
-    QStandardItem *subItem1 = new QStandardItem("this is the description 1 this is the description 1 this is the description 1");
-    QStandardItem *subItem2 = new QStandardItem("this is the description 2 this is the description 2 this is the description 2");
-    titleItem->appendRow(QList<QStandardItem *>() << subItem1 << new QStandardItem << new QStandardItem <<new QStandardItem <<new QStandardItem);
-    titleItem->appendRow(subItem2);
-
-    parentItem->appendRow(QList<QStandardItem *>()  << titleItem << useItem << valueItem << minItem << maxItem);
-
+    ParameterizedItem *topSample = m_fitModel->getSelectedMultiLayerItem();
+    ParameterizedItem *topInst = m_fitModel->getSelectedInstrumentItem();
+    if (topSample && topInst) {
+        QStandardItem *multilayer = new QStandardItem("MultiLayer");
+        root->appendRow(multilayer);
+        buildTree(multilayer, topSample);
+        QStandardItem *instrument = new QStandardItem("Instrument");
+        root->appendRow(instrument);
+        buildTree(instrument, topInst);
+        spanParameters();
+    }
 }
 
-void FitParameterWidget::initFitModel()
+void FitParameterWidget::spanParameters()
 {
-    m_fitModel = new FitModel;
+    m_parameterTreeview->expandAll();
+    for (int i = 0; i < m_parameterModel->rowCount(QModelIndex()); i++){
+        QModelIndex parameter = m_parameterModel->index(i,0,QModelIndex());
+        if (!parameter.isValid())
+            break;
+        int childRowCount = m_parameterModel->rowCount(parameter);
+        if (childRowCount > 0){
+            for (int j = 0; j < childRowCount; j++) {
+                m_parameterTreeview->setFirstColumnSpanned(j, parameter, true);
+            }
+        }
+    }
+}
 
-//    ParameterizedItem *item1 = m_fitModel->insertNewItem(Constants::FitParameterType);
-//    item1->setItemName("Par1");
-//    item1->setRegisteredProperty(FitParameterItem::P_USE, true);
-//    item1->setRegisteredProperty(FitParameterItem::P_VALUE, 3.0);
-//    item1->setRegisteredProperty(FitParameterItem::P_MIN, 1.0);
-//    item1->setRegisteredProperty(FitParameterItem::P_MAX, 5.0);
-//    //item1->setRegisteredProperty(FitParameterItem::P_NAME, tr("Par1"));
+void FitParameterWidget::onCustomContextMenu(const QPoint &point) {
+    m_removeAction->setEnabled(false);
+    QModelIndex index = m_parameterTreeview->indexAt(point);
+    if (index.isValid()) {
+        ParameterizedItem *cur = m_parameterModel->itemForIndex(index);
+        if (cur->itemName().startsWith("FitParameter")) {
+            m_parameterTreeview->setCurrentIndex(index);
+            m_removeAction->setEnabled(true);
+        }
+    }
+    m_contextMenu->exec(m_parameterTreeview->mapToGlobal(point + QPoint(2, 22)));
+}
 
-    FitParameterItem *item1 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
-    item1->setItemName("Par1");
-    QStringList descList1;
-    descList1 << "This is description 1" << "This is description 2" << "This is description 3";
-    item1->setParNames(descList1);
+void FitParameterWidget::onRemoveParameter() {
+    QModelIndex index = m_parameterTreeview->currentIndex();
+    if (index.isValid()) {
+        m_parameterModel->removeRow(index.row(), index.parent());
+    }
+}
 
-    FitParameterItem *item2 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
-    item2->setItemName("Par2");
-    QStringList descList2;
-    descList2 << "This is description 1" << "This is description 2" << "This is description 3";
-    item2->setParNames(descList2);
+void FitParameterWidget::onParameterSelectionChanged(const QItemSelection &selection)
+{
+    if (selection.indexes().isEmpty())
+        return;
+    QModelIndex index = selection.indexes().first();
+    QModelIndex newSelection = QModelIndex();
+    if (index.isValid() && index.parent().isValid()) {
+        ParameterizedItem *val = m_fitModel->itemForIndex(index);
+        QString link = val->getRegisteredProperty(FitParameterLinkItem::P_LINK).toString();
+        QStandardItem *t = m_selectorModel->getItemFromPath(link);
+        newSelection = m_selectorModel->indexFromItem(t);
+    }
+    connectSelectorView(false);
+    m_selectorTreeView->selectionModel()
+            ->select(newSelection, QItemSelectionModel::ClearAndSelect);
+    if (newSelection.isValid()) {
+        newSelection = newSelection.sibling(newSelection.row(), 1);
+        m_selectorTreeView->selectionModel()
+                ->select(newSelection, QItemSelectionModel::Select);
+    }
+    connectSelectorView();
+}
 
-    FitParameterItem *item3 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
-    item3->setItemName("Par3");
-    QStringList descList3;
-    descList3 << "This is description 1" << "This is description 2" << "This is description 3";
-    item3->setParNames(descList3);
+void FitParameterWidget::onSelectorSelectionChanged(const QItemSelection &selection)
+{
+    if (selection.indexes().isEmpty())
+        return;
+    QModelIndex index = selection.indexes().first();
+    index = index.sibling(index.row(), 0);
+    QModelIndex newSelection = QModelIndex();
+    if (index.isValid()) {
+        QString link = m_selectorModel->getPathFromIndex(index);
+        newSelection = m_parameterModel->itemForLink(link);
+    }
+    connectParameterView(false);
+    m_parameterTreeview->selectionModel()->
+            select(newSelection, QItemSelectionModel::ClearAndSelect);
+    connectParameterView();
+}
 
+void FitParameterWidget::connectSelectorView(bool active) {
+    if (active) {
+        connect(m_selectorTreeView->selectionModel(),
+                SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+                this, SLOT(onSelectorSelectionChanged(QItemSelection)));
+    } else {
+        disconnect(m_selectorTreeView->selectionModel(),
+                   SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+                   this, SLOT(onSelectorSelectionChanged(QItemSelection)));
+    }
+}
 
-    m_fitModel->save("fitmodel.xml");
+void FitParameterWidget::connectParameterView(bool active) {
+    if (active) {
+        connect(m_parameterTreeview->selectionModel(),
+                SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+                this, SLOT(onParameterSelectionChanged(QItemSelection)));
+    } else {
+        disconnect(m_parameterTreeview->selectionModel(),
+                   SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+                   this, SLOT(onParameterSelectionChanged(QItemSelection)));
+    }
+}
 
-    //ParameterizedItem *old_item = m_fitModel->itemForIndex(m_fitModel->index(0,0, QModelIndex()));
+void FitParameterWidget::removeEmptyParameter() {
+    bool finished = false;
+    while (!finished) {
+        int rowCount = m_parameterModel->rowCount(QModelIndex());
+        if (rowCount == 0)
+            break;
+        for (int i=0; i<rowCount; i++) {
+            QModelIndex child = m_parameterModel->index(i,0,QModelIndex());
+            if (child.isValid() && m_parameterModel->rowCount(child) == 0) {
+                m_parameterModel->removeRow(i, QModelIndex());
+                break;
+            }
+            if (i + 1 == rowCount) {
+                finished = true;
+            }
+        }
+    }
+}
+
+void FitParameterWidget::removeSelectedItem() {
+    QModelIndex selection = m_parameterTreeview->currentIndex();
+    if (selection.isValid()) {
+        m_parameterModel->removeRow(selection.row(), selection.parent());
+    }
+    removeEmptyParameter();
+}
+
+void FitParameterWidget::onDoubleclick(const QModelIndex index) {
+    QModelIndex entryIndex = index.sibling(index.row(), 0);
+    if (m_selectorModel->itemFromIndex(entryIndex)->isDragEnabled()) {
+        QMimeData *data = m_selectorModel->mimeData(QModelIndexList() << entryIndex);
+        if (m_parameterModel->canDropMimeData(data,Qt::CopyAction,0,0,QModelIndex())) {
+            m_parameterModel->dropMimeData(data,Qt::CopyAction,-1,-1,QModelIndex());
+        }
+        data->deleteLater();
+    }
 }

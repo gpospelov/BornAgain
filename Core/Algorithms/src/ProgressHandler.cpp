@@ -58,10 +58,11 @@ bool ProgressHandler::update(int n)
     //std::cout << "ProgressHandler::update n:" << n << " m_nitems:" << m_nitems << " m_nitems_max:" << m_nitems_max << " progress:" << progress << std::endl;
     if(progress != m_current_progress) {
         m_current_progress = progress;
-        if(m_callback) {
-            continue_calculations = m_callback(m_current_progress); // report to gui
-        }
     }
+    if(m_callback) {
+        continue_calculations = m_callback(m_current_progress); // report to gui
+    }
+
     return continue_calculations;
 }
 

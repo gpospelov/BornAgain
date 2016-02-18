@@ -85,6 +85,8 @@ public:
     //! Returns a pointer to the first child of the given type
     ParameterizedItem *getChildOfType(QString type) const;
 
+    ParameterizedItem* getChildByDisplayName(const QString &name) const;
+
     //! indicates if the passed item can be set as a child item
     bool acceptsAsChild(const QString &child_name) const;
 
@@ -141,6 +143,9 @@ public:
     //! with this node and prefixes them
     QStringList getParameterTreeList(QString prefix = "") const;
 
+    //! retrieve value of given parameter name
+    double getParameterValue(const QString &name) const;
+
     //! translates the given parameter name to a domain parameter name
     //! name should start with a child/subitem name or be a direct parameter name
     std::string translateParameterName(const QString &par_name) const;
@@ -180,8 +185,6 @@ protected:
     virtual std::string translateSingleName(const QString &name) const;
 
     void addParameterTranslator(const IParameterTranslator &translator);
-
-    ParameterizedItem* getChildByDisplayName(const QString &name) const;
 
     QStringList m_registered_properties;
 

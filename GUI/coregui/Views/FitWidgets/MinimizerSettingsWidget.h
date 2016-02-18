@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/RealDataWidget.h
-//! @brief     Defines class RealDataWidget
+//! @file      coregui/Views/FitWidgets/FitParameterWidget.h
+//! @brief     Defines class FitParameterWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,18 +13,23 @@
 //
 // ************************************************************************** //
 
-#ifndef REALDATAWIDGET_H
-#define REALDATAWIDGET_H
+#ifndef MINIMIZERSETTTINGSWIDGET_H
+#define MINIMIZERSETTTINGSWIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 
+class FitModel;
 
-class BA_CORE_API_ RealDataWidget : public QWidget
+class BA_CORE_API_ MinimizerSettingsWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    RealDataWidget(QWidget *parent = 0);
+    MinimizerSettingsWidget(FitModel *fitModel, QWidget *parent = 0);
 };
+
+
+
 
 #endif

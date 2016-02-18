@@ -39,9 +39,10 @@ class ParameterModelBuilder
 public:
 
     static QStandardItemModel *createParameterModel(JobModel *jobModel, JobItem *jobItem);
+    static QStandardItem *iterateSessionModel(SessionModel *sampleModel, const QModelIndex &parentIndex = QModelIndex(), QStandardItem *parentItem = 0);
 
 private:
-    static QStandardItem *iterateSessionModel(SessionModel *sampleModel, const QModelIndex &parentIndex = QModelIndex(), QStandardItem *parentItem = 0);
+
     static QStandardItem *iterateInstrumentModel(InstrumentModel *instrumentModel);
     static QStandardItem *iterateInstrumentItem(InstrumentItem *instrument);
 

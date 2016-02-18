@@ -37,7 +37,9 @@ ParameterizedItem::ParameterizedItem(QString model_type, ParameterizedItem *pare
     if (mp_parent) {
         mp_parent->insertChildItem(-1, this);
     }
+
     registerProperty(P_PORT, -1).setHidden();
+    setItemName(m_model_type);
 }
 
 ParameterizedItem::~ParameterizedItem()
@@ -419,6 +421,20 @@ QStringList ParameterizedItem::getParameterTreeList(QString prefix) const
     // add own parameters:
     result << getParameterList(prefix);
     return result;
+}
+
+double ParameterizedItem::getParameterValue(const QString &name) const
+{
+    QString head = getFirstField(name);
+    auto p_child = getChildByDisplayName(head);
+    if (p_child) {
+        return p_child->getParameterValue(stripFirstField(name));
+    }
+    if (isRegisteredProperty(head)) {
+        return getRegisteredProperty(head).toDouble();
+    } else {
+        return 0.0;
+    }
 }
 
 std::string ParameterizedItem::translateParameterName(const QString &par_name) const

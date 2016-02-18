@@ -119,6 +119,22 @@ IHistogram *FitSuite::getChiSquaredMap(size_t i_item) const
     return IHistogram::createHistogram(*data);
 }
 
+const OutputData<double> *FitSuite::getRealOutputData(size_t i_item) const
+{
+    return m_kernel->getFitObjects()->getRealData(i_item);
+}
+
+const OutputData<double> *FitSuite::getSimulationOutputData(size_t i_item) const
+{
+    return m_kernel->getFitObjects()->getSimulationData(i_item);
+}
+
+const OutputData<double> *FitSuite::getChiSquaredOutputData(size_t i_item) const
+{
+    return m_kernel->getFitObjects()->getChiSquaredMap(i_item);
+}
+
+
 FitSuiteObjects *FitSuite::getFitObjects()
 {
     return m_kernel->getFitObjects();
@@ -159,14 +175,17 @@ double FitSuite::getChi2() const
     return m_kernel->getFitObjects()->getChiSquaredValue();
 }
 
-FitOptions &FitSuite::getOptions()
+void FitSuite::interruptFitting()
 {
-    return m_kernel->getOptions();
+    m_kernel->interruptFitting();
 }
 
-void FitSuite::setOptions(const FitOptions &fit_options)
+void FitSuite::resetInterrupt()
 {
-   m_kernel->setOptions(fit_options);
+    m_kernel->resetInterrupt();
 }
 
-
+bool FitSuite::isInterrupted()
+{
+    return m_kernel->isInterrupted();
+}

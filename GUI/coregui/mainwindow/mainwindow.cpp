@@ -56,12 +56,12 @@
 #include "SampleModel.h"
 #include "JobView.h"
 #include "aboutapplicationdialog.h"
-#include "FitModel.h"
-#include "FitProxyModel.h"
 #include "FitView.h"
 #include "TestView.h"
 #include "GUIHelpers.h"
 #include "UpdateNotifier.h"
+#include "FitModel.h"
+#include "FitParameterItems.h"
 
 #include <boost/scoped_ptr.hpp>
 
@@ -89,9 +89,9 @@ MainWindow::MainWindow(QWidget *parent)
     , m_sampleModel(0)
     , m_instrumentModel(0)
     , m_materialModel(0)
+    , m_fitModel(0)
     , m_materialEditor(0)
     , m_toolTipDataBase(new ToolTipDataBase(this))
-    , m_fitProxyModel(0)
     , m_updateNotifier(new UpdateNotifier(this))
 {
     QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
@@ -124,21 +124,15 @@ MainWindow::MainWindow(QWidget *parent)
     m_sampleView = new SampleView(m_sampleModel, m_instrumentModel);
     m_simulationView = new SimulationView(this);
 
-//    TestView *testView = new TestView(this);
-    //m_fitView = new FitView(m_fitProxyModel, this);
-
     m_jobView = new JobView(m_jobModel, m_projectManager);
-
+    //m_fitView = new FitView(this);
 
     m_tabWidget->insertTab(WELCOME, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
     m_tabWidget->insertTab(INSTRUMENT, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
     m_tabWidget->insertTab(SAMPLE, m_sampleView, QIcon(":/images/main_sample.png"), "Sample");
-    //m_tabWidget->insertTab(3, m_scriptView, QIcon(":/images/mode_script.png"), "Python scripts");
     m_tabWidget->insertTab(SIMULATION, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
     m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
-//    m_tabWidget->insertTab(TEST_VIEW, testView, QIcon(":/images/main_simulation.png"), "Test");
-    //m_tabWidget->insertTab(FitViewTab, m_fitView, QIcon(":/images/main_simulation.png"), "Fit");
-    //m_tabWidget->insertTab(FIT_VIEW, new TestView(this), QIcon(":/images/main_simulation.png"), "Test");
+    //m_tabWidget->insertTab(FIT, m_fitView, QIcon(":/images/main_jobqueue.png"), "Fit");
 
     m_tabWidget->setCurrentIndex(WELCOME);
 
@@ -158,9 +152,6 @@ MainWindow::MainWindow(QWidget *parent)
             m_welcomeView, SLOT(setNotificationText(const QString &)));
 
     m_projectManager->createNewProject();
-
-//    testGUIObjectBuilder();
-
 }
 
 MainWindow::~MainWindow()
@@ -302,7 +293,8 @@ void MainWindow::createInstrumentModel()
 
 void MainWindow::createFitModel()
 {
-    m_fitProxyModel = new FitProxyModel;
+    delete m_fitModel;
+    m_fitModel = new FitModel(m_sampleModel, m_instrumentModel, this);
 }
 
 //! reset all models to initial state
@@ -323,6 +315,15 @@ void MainWindow::resetModels()
     instrument->setItemName("Default GISAS");
     m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
     m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
+
+    /*m_fitModel->clear();
+    m_fitModel->insertNewItem(Constants::FitParameterContainerType, QModelIndex());
+    ParameterizedItem *selection = m_fitModel->insertNewItem(Constants::FitSelectionType, QModelIndex());
+    selection->setRegisteredProperty(FitSelectionItem::P_SAMPLE, "MultiLayer");
+    selection->setRegisteredProperty(FitSelectionItem::P_INSTRUMENT, "Instrument0");
+    m_fitModel->insertNewItem(Constants::MinimizerSettingsType, QModelIndex());
+    m_fitModel->insertNewItem(Constants::InputDataType, QModelIndex());*/
+
 }
 
 void MainWindow::testGUIObjectBuilder()

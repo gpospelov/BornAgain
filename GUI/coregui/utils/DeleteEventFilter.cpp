@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/TestView.h
-//! @brief     Defines class TestView
+//! @file      coregui/utils/CustomEventFilters.cpp
+//! @brief     Defines classes releted to event filtering
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,24 +13,19 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTVIEW_H
-#define TESTVIEW_H
+#include "DeleteEventFilter.h"
+#include <QEvent>
+#include <QKeyEvent>
 
-#include <QWidget>
-
-class MainWindow;
-
-class TestView : public QWidget
+bool DeleteEventFilter::eventFilter( QObject *dist, QEvent *event )
 {
-    Q_OBJECT
-public:
-    TestView(MainWindow *window, QWidget *parent = 0);
-
-private:
-    void test_MaskEditor();
-    void test_AccordionWidget();
-    void test_RunFitWidget();
-    MainWindow *m_mainWindow;
-};
-
-#endif
+    Q_UNUSED(dist);
+    if( event->type() == QEvent::KeyPress )
+    {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent*>( event );
+        if( keyEvent->key() == Qt::Key_Delete ) {
+            emit removeItem();
+        }
+    }
+    return QObject::eventFilter(dist, event);
+}

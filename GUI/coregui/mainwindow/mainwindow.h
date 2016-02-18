@@ -43,18 +43,17 @@ class MaterialEditor;
 class ToolTipDataBase;
 class MaterialModel;
 class SampleModel;
-class FitProxyModel;
 class FitView;
 class JobModel;
 class UpdateNotifier;
-
+class FitModel;
 
 class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
 {
     Q_OBJECT
 
 public:
-    enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, TEST_VIEW};
+    enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, FIT};
 
     explicit MainWindow(QWidget *parent = 0);
     virtual ~MainWindow();
@@ -63,6 +62,7 @@ public:
     InstrumentModel *getInstrumentModel() { return m_instrumentModel; }
     SampleModel *getSampleModel() { return m_sampleModel; }
     JobModel *getJobModel() { return m_jobModel; }
+    FitModel *getFitModel() { return m_fitModel; }
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
     ActionManager *getActionManager() { return m_actionManager; }
     ProjectManager *getProjectManager() { return m_projectManager; }
@@ -100,9 +100,9 @@ private:
     SampleModel *m_sampleModel; //!< model for all samples
     InstrumentModel *m_instrumentModel; //!< model for all instruments
     MaterialModel *m_materialModel; //!< model for all materials
+    FitModel *m_fitModel; //!< model for fitting
     MaterialEditor *m_materialEditor;
     ToolTipDataBase *m_toolTipDataBase;
-    FitProxyModel *m_fitProxyModel;
     UpdateNotifier *m_updateNotifier;
 
     void createModels();

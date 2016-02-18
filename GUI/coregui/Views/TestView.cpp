@@ -14,23 +14,56 @@
 // ************************************************************************** //
 #include "TestView.h"
 #include "MaskEditor.h"
+#include "RunFitWidget.h"
+#include "FitView.h"
+#include "mainwindow.h"
+#include "FitParameterWidget.h"
+#include "JobModel.h"
+#include <QMimeData>
 #include <QVBoxLayout>
 #include <AccordionWidget.h>
 #include <QLineEdit>
 #include <QCheckBox>
+#include <QTabWidget>
 
-TestView::TestView(QWidget *parent)
+
+
+// FIXME_DAVID Rename Ivona's FitView into ObsoleteFitView. And use nice name FitView for own purpose.
+//  -- suggestion: for consistency use prefix Obsolete for all classes you are goind to throw soon
+//  -- you may want to add to all Ivona's classes prefix Obsolete. Don't forget about 'ifndef' header guards
+
+// FIXME_DAVID Move your activity from TestView to FitView.
+// - FitView should contain QTabWidget with 3 tabs:
+// - 1) ImportDataWidget (empty for the moment) 2) FitSettingsWidget 3) RunFitWidget
+
+// FIXME_DAVID FitSettingsWidget should contain
+// - FitParametersWidget (for the moment), and later sample/instrument selector + MinimizerSettingsWidgert
+
+
+TestView::TestView(MainWindow *window, QWidget *parent)
     : QWidget(parent)
+    , m_mainWindow(window)
 {
-//    MaskEditor *maskEditor = new MaskEditor();
-//    QVBoxLayout *layout = new QVBoxLayout;
-//    layout->setMargin(0);
-//    layout->setSpacing(0);
-//    layout->addWidget(maskEditor);
-//    setLayout(layout);
+//    test_MaskEditor();
+//    test_AccordionWidget();
+    test_RunFitWidget();
 
-//    maskEditor->init_test_model();
+}
 
+void TestView::test_MaskEditor()
+{
+    MaskEditor *maskEditor = new MaskEditor();
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    layout->addWidget(maskEditor);
+    setLayout(layout);
+
+    maskEditor->init_test_model();
+}
+
+void TestView::test_AccordionWidget()
+{
     AccordionWidget *myAccordion = new AccordionWidget();
     myAccordion->setMultiActive(true);
     // add the Accordion to your layout
@@ -101,5 +134,24 @@ TestView::TestView(QWidget *parent)
         contentFrame->layout()->addWidget(cb7);
 
     }
+}
+
+void TestView::test_RunFitWidget()
+{
+    // FIXME_DAVID Use consistent variable names: not 'maskEditor', but runFitWidget
+
+    //RunFitWidget *maskEditor = new RunFitWidget();
+    //FitView *fw = new FitView(m_mainWindow->getSampleModel(), m_mainWindow->getInstrumentModel());
+
+    //FitParameterWidget *fitting = new FitParameterWidget(m_mainWindow);
+    QVBoxLayout *layout = new QVBoxLayout;
+    QTabWidget *tabs = new QTabWidget;
+    //tabs->addTab(maskEditor, "Run Fit");
+    //tabs->addTab(fw, "FitView by Ivonna");
+    //tabs->addTab(fitting, "Test TreeView");
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    layout->addWidget(tabs);
+    setLayout(layout);
 
 }

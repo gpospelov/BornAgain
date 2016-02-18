@@ -16,15 +16,56 @@
 #ifndef RUNFITWIDGET_H
 #define RUNFITWIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
+#include <boost/shared_ptr.hpp>
 
+class QSlider;
+class QLabel;
+class QPushButton;
+class RunFitManager;
+class FitSuite;
+class FitProgressWidget;
+class FitModel;
+class SampleModel;
+class InstrumentModel;
+class ParameterizedItem;
+class SessionModel;
 
 class BA_CORE_API_ RunFitWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    RunFitWidget(QWidget *parent = 0);
+
+    RunFitWidget(FitModel *fitModel, QWidget *parent = 0);
+
+    // test only
+    boost::shared_ptr<FitSuite> init_test_fitsuite();
+
+public slots:
+
+    void onIntervalChanged(int value);
+
+    void onStartClicked();
+
+    void onStopClicked();
+
+    void onFittingStarted();
+
+    void onFittingFinished();
+
+private:
+
+    QPushButton *m_start_button;
+    QPushButton *m_stop_button;
+    QLabel *m_interval_label;
+    QSlider *m_interval_slider;
+    RunFitManager *m_runfitmanager;
+    FitProgressWidget *m_fitprogress;
+    FitModel *m_fitModel;
+
+    ParameterizedItem *getTopItemFromSelection(SessionModel *model, const QString &itemType, const QString &selectionType);
 };
 
 #endif

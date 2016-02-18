@@ -29,6 +29,7 @@
 #include "BeamItem.h"
 #include "DetectorItems.h"
 #include "VectorItem.h"
+#include "PropertyItem.h"
 #include "GUIHelpers.h"
 #include "FormFactorItems.h"
 #include "LayerRoughnessItems.h"
@@ -71,6 +72,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::DetectorType] = &createInstance<DetectorItem>;
     result[Constants::BeamType] = &createInstance<BeamItem>;
     result[Constants::VectorType] = &createInstance<VectorItem>;
+    result[Constants::PropertyType] = &createInstance<PropertyItem>;
 
     result[Constants::AnisoPyramidType] = &createInstance<AnisoPyramidItem>;
     result[Constants::BoxType] = &createInstance<BoxItem>;
@@ -173,6 +175,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::FitSelectionType] = &createInstance<FitSelectionItem>;
     result[Constants::MinimizerSettingsType] = &createInstance<MinimizerSettingsItem>;
     result[Constants::InputDataType] = &createInstance<InputDataItem>;
+    result["Parameter"] = &createInstance<ParameterizedItem>;
 
     return result;
 }
@@ -203,7 +206,7 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
 
     ParameterizedItem *result = m_item_map[model_name]();
     if(parent) {
-        parent->insertChildItem(-1, result);
+        parent->insertChild(-1, result);
     }
     qDebug() << "       result:" << result;
     return result;

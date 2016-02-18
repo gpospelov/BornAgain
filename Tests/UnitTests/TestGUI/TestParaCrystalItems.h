@@ -18,7 +18,7 @@ inline void TestParaCrystalItems::test_Para1D_InitialState()
 {
     InterferenceFunctionRadialParaCrystalItem item;
     QCOMPARE(item.modelType(), Constants::InterferenceFunctionRadialParaCrystalType);
-    QCOMPARE(item.itemName(), Constants::InterferenceFunctionRadialParaCrystalType);
+    QCOMPARE(item.name(), Constants::InterferenceFunctionRadialParaCrystalType);
     QCOMPARE(item.getSubItems().size(), 1);
 
     QCOMPARE(item.getRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE).toDouble(), 20.0*Units::nanometer);

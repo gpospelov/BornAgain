@@ -27,9 +27,9 @@ class BA_CORE_API_ ParticleCoreShellItem : public ParameterizedGraphicsItem
     Q_OBJECT
 public:
     enum ECoreShell { CORE, SHELL};
-    explicit ParticleCoreShellItem(ParameterizedItem *parent=0);
+    explicit ParticleCoreShellItem();
     virtual ~ParticleCoreShellItem() {}
-    virtual void insertChildItem(int row, ParameterizedItem *item);
+    virtual void insertChild(int row, ParameterizedItem *item);
     virtual void onPropertyChange(const QString &name);
     std::unique_ptr<ParticleCoreShell> createParticleCoreShell() const;
 

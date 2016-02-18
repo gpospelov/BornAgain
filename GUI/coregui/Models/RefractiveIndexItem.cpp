@@ -21,8 +21,8 @@ const QString RefractiveIndexItem::P_DELTA = "delta";
 const QString RefractiveIndexItem::P_BETA = "beta";
 
 
-RefractiveIndexItem::RefractiveIndexItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::RefractiveIndexType, parent)
+RefractiveIndexItem::RefractiveIndexItem()
+    : ParameterizedItem(Constants::RefractiveIndexType)
 {
     ScientificDoubleProperty delta(0.0);
     registerProperty(P_DELTA, delta.getVariant());
@@ -31,7 +31,7 @@ RefractiveIndexItem::RefractiveIndexItem(ParameterizedItem *parent)
     registerProperty(P_BETA, beta.getVariant());
 }
 
-QString RefractiveIndexItem::itemLabel() const
+QString RefractiveIndexItem::label() const
 {
     return QString("(1 - %1, %2)").arg(getDelta()).arg(getBeta());
 }

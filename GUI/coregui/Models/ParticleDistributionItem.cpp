@@ -32,10 +32,10 @@ const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER = "Distributed p
 const QString ParticleDistributionItem::P_DISTRIBUTION = "Distribution";
 const QString ParticleDistributionItem::NO_SELECTION = "None";
 
-ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(Constants::ParticleDistributionType, parent)
+ParticleDistributionItem::ParticleDistributionItem()
+    : ParameterizedGraphicsItem(Constants::ParticleDistributionType)
 {
-    registerProperty(ParticleItem::P_ABUNDANCE, 1.0).limited(0.0, 1.0).setDecimals(3);
+    registerProperty(ParticleItem::P_ABUNDANCE, 1.0);//.limited(0.0, 1.0).setDecimals(3);
 
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
 
@@ -52,15 +52,15 @@ ParticleDistributionItem::~ParticleDistributionItem()
 {
 }
 
-void ParticleDistributionItem::insertChildItem(int row, ParameterizedItem *item)
+void ParticleDistributionItem::insertChild(int row, ParameterizedItem *item)
 {
-    ParameterizedItem::insertChildItem(row, item);
+    ParameterizedItem::insertChild(row, item);
     if (item->modelType() == Constants::ParticleType
         || item->modelType() == Constants::ParticleCoreShellType
         || item->modelType() == Constants::ParticleCompositionType) {
-        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+        int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
         if (port == PortInfo::DEFAULT) {
-            item->setItemPort(PortInfo::PORT_0);
+            item->setPort(PortInfo::PORT_0);
         }
     }
 }
@@ -74,7 +74,7 @@ void ParticleDistributionItem::onChildPropertyChange(ParameterizedItem *item, co
 
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const
 {
-    auto children = childItems();
+    auto children = getChildren();
     if (children.size() == 0) {
         return nullptr;
     }
@@ -137,7 +137,7 @@ void ParticleDistributionItem::updateParameterList()
 QStringList ParticleDistributionItem::getChildParameterNames() const
 {
     QStringList result;
-    QList<ParameterizedItem *> children = childItems();
+    QList<ParameterizedItem *> children = getChildren();
     if (children.size() > 1) {
         qDebug() << "ParticleDistributionItem::getChildParameterNames(): "
                  << "More than one child item";

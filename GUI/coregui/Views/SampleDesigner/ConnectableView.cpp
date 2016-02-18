@@ -37,7 +37,7 @@ void ConnectableView::setParameterizedItem(ParameterizedItem *item)
 {
     IView::setParameterizedItem(item);
     if (m_item) {
-        setLabel( hyphenate(m_item->itemName()) );
+        setLabel( hyphenate(m_item->name()) );
         connect(m_item, SIGNAL(siblingsChanged()), this, SLOT(onSiblingsChanged()));
     }
 }
@@ -120,7 +120,7 @@ int ConnectableView::getInputPortIndex(NodeEditorPort *port)
 void ConnectableView::onSiblingsChanged()
 {
     if (m_item) {
-        setLabel( hyphenate(m_item->itemName()) );
+        setLabel( hyphenate(m_item->name()) );
         update();
     }
 }

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/BeamWavelengthItem.cpp
-//! @brief     Implements class BeamWavelengthItem
+//! @file      coregui/Models/BeamItem.h
+//! @brief     Defines class BeamItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,11 +13,17 @@
 //
 // ************************************************************************** //
 
-#include "BeamWavelengthItem.h"
+#ifndef PROPERTYITEM_H
+#define PROPERTYITEM_H
 
-BeamWavelengthItem::BeamWavelengthItem()
-    : BeamDistributionItem(Constants::BeamWavelengthType)
+#include "ParameterizedItem.h"
+
+class BA_CORE_API_ PropertyItem : public ParameterizedItem
 {
-    getPropertyAttribute(BeamDistributionItem::P_CACHED_VALUE);//.setHidden().lowerLimited(1e-4).setDecimals(4);
-    setRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE, 0.1);
-}
+    Q_OBJECT
+public:
+    PropertyItem();
+};
+
+#endif
+

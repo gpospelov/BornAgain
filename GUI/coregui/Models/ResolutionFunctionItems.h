@@ -24,7 +24,7 @@ class BA_CORE_API_ ResolutionFunctionItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    explicit ResolutionFunctionItem(const QString name, ParameterizedItem *parent=0);
+    explicit ResolutionFunctionItem(const QString name);
     virtual ~ResolutionFunctionItem() {}
 
     virtual IResolutionFunction2D *createResolutionFunction(double scale = 1.0) const=0;
@@ -34,7 +34,7 @@ class BA_CORE_API_ ResolutionFunctionNoneItem : public ResolutionFunctionItem
 {
     Q_OBJECT
 public:
-    explicit ResolutionFunctionNoneItem(ParameterizedItem *parent=0);
+    explicit ResolutionFunctionNoneItem();
     virtual IResolutionFunction2D *createResolutionFunction(double scale) const;
 };
 
@@ -44,7 +44,7 @@ class BA_CORE_API_ ResolutionFunction2DGaussianItem : public ResolutionFunctionI
 public:
     static const QString P_SIGMA_X;
     static const QString P_SIGMA_Y;
-    explicit ResolutionFunction2DGaussianItem(ParameterizedItem *parent=0);
+    explicit ResolutionFunction2DGaussianItem();
     virtual IResolutionFunction2D *createResolutionFunction(double scale) const;
 };
 

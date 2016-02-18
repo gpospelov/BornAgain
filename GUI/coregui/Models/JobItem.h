@@ -38,7 +38,7 @@ public:
     static const QString P_PROGRESS;
     static const QString P_NTHREADS;
     static const QString P_RUN_POLICY;
-    explicit JobItem(ParameterizedItem *parent=0);
+    explicit JobItem();
     virtual ~JobItem();
 
     QString getIdentifier() const;

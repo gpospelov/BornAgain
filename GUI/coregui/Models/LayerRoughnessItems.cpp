@@ -17,8 +17,8 @@
 #include "ScientificDoubleProperty.h"
 
 
-LayerZeroRoughnessItem::LayerZeroRoughnessItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::LayerZeroRoughnessType, parent)
+LayerZeroRoughnessItem::LayerZeroRoughnessItem()
+    : ParameterizedItem(Constants::LayerZeroRoughnessType)
 {
 }
 
@@ -26,10 +26,10 @@ const QString LayerBasicRoughnessItem::P_SIGMA = "Sigma";
 const QString LayerBasicRoughnessItem::P_HURST = "Hurst parameter";
 const QString LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH = "Lateral corr length";
 
-LayerBasicRoughnessItem::LayerBasicRoughnessItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::LayerBasicRoughnessType, parent)
+LayerBasicRoughnessItem::LayerBasicRoughnessItem()
+    : ParameterizedItem(Constants::LayerBasicRoughnessType)
 {
     registerProperty(P_SIGMA, 1.0);
-    registerProperty(P_HURST, 0.3).limited(0.0, 1.0).setDecimals(3);
+    registerProperty(P_HURST, 0.3);//.limited(0.0, 1.0).setDecimals(3);
     registerProperty(P_LATERAL_CORR_LENGTH, 5.0);
 }

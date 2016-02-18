@@ -30,10 +30,10 @@ public:
     static const QString P_DISTRIBUTED_PARAMETER;
     static const QString P_DISTRIBUTION;
     static const QString NO_SELECTION;
-    explicit ParticleDistributionItem(ParameterizedItem *parent=0);
+    explicit ParticleDistributionItem();
     virtual ~ParticleDistributionItem();
 
-    virtual void insertChildItem(int row, ParameterizedItem *item);
+    virtual void insertChild(int row, ParameterizedItem *item);
 
     virtual void onChildPropertyChange(ParameterizedItem *item, const QString &propertyName=QString());
 

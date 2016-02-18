@@ -125,6 +125,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_simulationView = new SimulationView(this);
 
     m_jobView = new JobView(m_jobModel, m_projectManager);
+    TestView *testView = new TestView(this);
     //m_fitView = new FitView(this);
 
     m_tabWidget->insertTab(WELCOME, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
@@ -133,8 +134,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(SIMULATION, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
     m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(FIT, m_fitView, QIcon(":/images/main_jobqueue.png"), "Fit");
+    m_tabWidget->insertTab(FIT, testView, QIcon(":/images/main_jobqueue.png"), "Test");
 
-    m_tabWidget->setCurrentIndex(WELCOME);
+    m_tabWidget->setCurrentIndex(FIT);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
@@ -307,12 +309,13 @@ void MainWindow::resetModels()
     m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
 
     m_sampleModel->clear();
+    testGUIObjectBuilder();
 
     m_jobModel->clear();
 
     m_instrumentModel->clear();
     ParameterizedItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
-    instrument->setItemName("Default GISAS");
+    instrument->setName("Default GISAS");
     m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
     m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
 

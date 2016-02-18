@@ -73,7 +73,7 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem, const Instrument
                           const QString &run_policy, int numberOfThreads)
 {
     JobItem *jobItem = dynamic_cast<JobItem *>(insertNewItem(Constants::JobItemType));
-    jobItem->setItemName(generateJobName());
+    jobItem->setName(generateJobName());
     jobItem->setIdentifier(generateJobIdentifier());
     jobItem->setNumberOfThreads(numberOfThreads);
     jobItem->setRunPolicy(run_policy);
@@ -105,7 +105,7 @@ void JobModel::setSampleForJobItem(JobItem *jobItem, const MultiLayerItem *multi
     ParameterizedItem *new_item = copyParameterizedItem(multiLayerItem, jobItem);
 
     // our original multiLayerItem might come from backup itself, lets clean up its specific name
-    QString name = new_item->itemName();
+    QString name = new_item->name();
     name.remove(Constants::JOB_BACKUP);
     jobItem->setRegisteredProperty(JobItem::P_SAMPLE_NAME, name);
 
@@ -114,7 +114,7 @@ void JobModel::setSampleForJobItem(JobItem *jobItem, const MultiLayerItem *multi
         name.append(Constants::JOB_BACKUP);
     }
 
-    new_item->setItemName(name);
+    new_item->setName(name);
 }
 
 //! Adds an instrument to children of given JobItem.
@@ -133,7 +133,7 @@ void JobModel::setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *i
     ParameterizedItem *new_item = copyParameterizedItem(instrumentItem, jobItem);
 
     // our original instrumentItem might itself come from backup, lets clean up its specific name
-    QString name = new_item->itemName();
+    QString name = new_item->name();
     name.remove(Constants::JOB_BACKUP);
     jobItem->setRegisteredProperty(JobItem::P_INSTRUMENT_NAME, name);
 
@@ -142,7 +142,7 @@ void JobModel::setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *i
         name.append(Constants::JOB_BACKUP);
     }
 
-    new_item->setItemName(name);
+    new_item->setName(name);
 }
 
 //! Backup instrument and sample model for given JobItem. If backup already exists, do nothing.
@@ -236,7 +236,7 @@ QString JobModel::generateJobName()
 
          if (ParameterizedItem *item = itemForIndex(itemIndex)){
              if(item->modelType() == Constants::JobItemType) {
-                 QString jobName = item->itemName();
+                 QString jobName = item->name();
                  if(jobName.startsWith("job")) {
                      int job_index = jobName.remove(0,3).toInt();
                      if(job_index > glob_index) glob_index = job_index;

@@ -28,7 +28,7 @@ class BA_CORE_API_ MaskContainerItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    explicit MaskContainerItem(ParameterizedItem *parent = 0);
+    explicit MaskContainerItem();
 };
 
 
@@ -39,7 +39,7 @@ class BA_CORE_API_ MaskItem : public ParameterizedItem
     Q_OBJECT
 public:
     static const QString P_MASK_VALUE;
-    explicit MaskItem(const QString &name, ParameterizedItem *parent);
+    explicit MaskItem(const QString &name);
     virtual Geometry::IShape2D *createShape(double scale = 1.0) const { Q_UNUSED(scale); return 0;}
 };
 
@@ -51,7 +51,7 @@ public:
     static const QString P_YLOW;
     static const QString P_XUP;
     static const QString P_YUP;
-    explicit RectangleItem(ParameterizedItem *parent=0);
+    explicit RectangleItem();
     virtual Geometry::IShape2D *createShape(double scale = 1.0) const;
 };
 
@@ -62,7 +62,7 @@ public:
     static const QString P_POSX;
     static const QString P_POSY;
 
-    explicit PolygonPointItem(ParameterizedItem *parent=0);
+    explicit PolygonPointItem();
 
 };
 
@@ -71,7 +71,7 @@ class BA_CORE_API_ PolygonItem : public MaskItem
     Q_OBJECT
 public:
     static const QString P_ISCLOSED;
-    explicit PolygonItem(ParameterizedItem *parent=0);
+    explicit PolygonItem();
     virtual Geometry::IShape2D *createShape(double scale = 1.0) const;
 };
 
@@ -80,7 +80,7 @@ class BA_CORE_API_ VerticalLineItem : public MaskItem
     Q_OBJECT
 public:
     static const QString P_POSX;
-    explicit VerticalLineItem(ParameterizedItem *parent=0);
+    explicit VerticalLineItem();
     virtual Geometry::IShape2D *createShape(double scale = 1.0) const;
 };
 
@@ -89,7 +89,7 @@ class BA_CORE_API_ HorizontalLineItem : public MaskItem
     Q_OBJECT
 public:
     static const QString P_POSY;
-    explicit HorizontalLineItem(ParameterizedItem *parent=0);
+    explicit HorizontalLineItem();
     virtual Geometry::IShape2D *createShape(double scale = 1.0) const;
 };
 
@@ -102,7 +102,7 @@ public:
     static const QString P_XRADIUS;
     static const QString P_YRADIUS;
     static const QString P_ANGLE;
-    explicit EllipseItem(ParameterizedItem *parent=0);
+    explicit EllipseItem();
     virtual Geometry::IShape2D *createShape(double scale = 1.0) const;
 };
 
@@ -110,7 +110,7 @@ class BA_CORE_API_ MaskAllItem : public MaskItem
 {
     Q_OBJECT
 public:
-    explicit MaskAllItem(ParameterizedItem *parent=0);
+    explicit MaskAllItem();
     virtual Geometry::IShape2D *createShape(double scale = 1.0) const;
 };
 

@@ -63,10 +63,10 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SessionModel *sampleMo
         QModelIndex itemIndex = sampleModel->index(i_row, 0, parentIndex);
 
         if (ParameterizedItem *item = sampleModel->itemForIndex(itemIndex)) {
-            qDebug() << " item" << item->modelType() << item->itemName();
+            qDebug() << " item" << item->modelType() << item->name();
             item->print();
 
-            QStandardItem *standardItem = new QStandardItem(item->itemName());
+            QStandardItem *standardItem = new QStandardItem(item->name());
 
             QList<QByteArray> propertyNameList = item->dynamicPropertyNames();
             for (int i = 0; i < propertyNameList.length(); ++i) {
@@ -97,7 +97,7 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SessionModel *sampleMo
                     //                        qDebug() << "           Item: " << item->itemName() <<
                     //                        "SubItem:" << subItem->itemName();
 
-                    QStandardItem *childStandardItem = new QStandardItem(subItem->itemName());
+                    QStandardItem *childStandardItem = new QStandardItem(subItem->name());
 
                     QList<QByteArray> childPropertyList = subItem->dynamicPropertyNames();
 
@@ -153,7 +153,7 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentItem(InstrumentItem *inst
     QStandardItem *standardItem(0);
     BeamItem *beamItem = instrument->getBeamItem();
     if (beamItem) {
-        standardItem = new QStandardItem(instrument->itemName());
+        standardItem = new QStandardItem(instrument->name());
 
         // intensity
         addPropertyToParameterModel(standardItem, BeamItem::P_INTENSITY, BeamItem::P_INTENSITY,

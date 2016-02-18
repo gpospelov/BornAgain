@@ -19,6 +19,7 @@
 
 #include <QString>
 #include "AttLimits.h"
+#include <QMetaType>
 
 
 //! Class to handle visual appearance of ParameterizedItem's property in
@@ -80,7 +81,6 @@ private:
     QString m_tooltip;
 };
 
-
-
+Q_DECLARE_METATYPE(PropertyAttribute);
 #endif
 

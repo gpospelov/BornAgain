@@ -227,7 +227,7 @@ void JobListWidget::showContextMenu(const QPoint &pnt)
     menu.addSeparator();
 
     QMenu menu_equalize("Equalize selected plots");
-    menu_equalize.setToolTip("All plots from the list of selected jobs will be equalized to this one.");
+    menu_equalize;//.setTooltip("All plots from the list of selected jobs will be equalized to this one.");
 
     QModelIndexList selected = m_listView->selectionModel()->selectedIndexes();
     if(selected.size() <= 1)
@@ -235,7 +235,7 @@ void JobListWidget::showContextMenu(const QPoint &pnt)
 
     for(int i =0; i<selected.count(); ++i) {
         JobItem *jobItem = m_jobModel->getJobItemForIndex(selected.at(i));
-        QAction *action = new QAction(QString("to ").append(jobItem->itemName()), this);
+        QAction *action = new QAction(QString("to ").append(jobItem->name()), this);
         connect(action, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
         m_signalMapper->setMapping(action, i);
         menu_equalize.addAction(action);

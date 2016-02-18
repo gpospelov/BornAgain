@@ -23,7 +23,7 @@ class BA_CORE_API_ BeamWavelengthItem : public BeamDistributionItem
 {
     Q_OBJECT
 public:
-    explicit BeamWavelengthItem(ParameterizedItem *parent=0);
+    explicit BeamWavelengthItem();
     virtual ~BeamWavelengthItem(){}
 };
 

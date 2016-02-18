@@ -60,27 +60,27 @@ const QString RectangularDetectorItem::P_DBEAM_U0 = "u0 (dbeam)";
 const QString RectangularDetectorItem::P_DBEAM_V0 = "v0 (dbeam)";
 const QString RectangularDetectorItem::P_DISTANCE = "Distance";
 
-RectangularDetectorItem::RectangularDetectorItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::RectangularDetectorType, parent)
+RectangularDetectorItem::RectangularDetectorItem()
+    : ParameterizedItem(Constants::RectangularDetectorType)
     , m_is_constructed(false)
 {
     // axes parameters
     registerGroupProperty(P_X_AXIS, Constants::BasicAxisType);
-    getSubItems()[P_X_AXIS]->getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
-    getSubItems()[P_X_AXIS]->getPropertyAttribute(BasicAxisItem::P_MIN).setHidden();
+    getSubItems()[P_X_AXIS]->getPropertyAttribute(BasicAxisItem::P_TITLE);//.setHidden();
+    getSubItems()[P_X_AXIS]->getPropertyAttribute(BasicAxisItem::P_MIN);//.setHidden();
 
     getSubItems()[P_X_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, default_detector_width);
     getSubItems()[P_X_AXIS]->getPropertyAttribute(BasicAxisItem::P_MAX)
         .setLabel(QStringLiteral("Width"))
-        .setToolTip(QStringLiteral("Width of the detector in mm"));
+        ;//.setTooltip(QStringLiteral("Width of the detector in mm"));
 
     registerGroupProperty(P_Y_AXIS, Constants::BasicAxisType);
-    getSubItems()[P_Y_AXIS]->getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
-    getSubItems()[P_Y_AXIS]->getPropertyAttribute(BasicAxisItem::P_MIN).setHidden();
+    getSubItems()[P_Y_AXIS]->getPropertyAttribute(BasicAxisItem::P_TITLE);//.setHidden();
+    getSubItems()[P_Y_AXIS]->getPropertyAttribute(BasicAxisItem::P_MIN);//.setHidden();
     getSubItems()[P_Y_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, default_detector_height);
     getSubItems()[P_Y_AXIS]->getPropertyAttribute(BasicAxisItem::P_MAX)
         .setLabel(QStringLiteral("Height"))
-        .setToolTip(QStringLiteral("Height of the detector in mm"));
+        ;//.setTooltip(QStringLiteral("Height of the detector in mm"));
 
     // resolution function
     registerGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
@@ -102,13 +102,13 @@ RectangularDetectorItem::RectangularDetectorItem(ParameterizedItem *parent)
     registerGroupProperty(P_DIRECTION, Constants::VectorType);
     getSubItems()[P_DIRECTION]->setRegisteredProperty(VectorItem::P_Y, -1.0);
 
-    registerProperty(P_U0, default_detector_width/2.).setToolTip(tooltip_u0);
-    registerProperty(P_V0, 0.0).setToolTip(tooltip_v0);
-    registerProperty(P_DBEAM_U0, default_detector_width/2.).setToolTip(tooltip_dbeam_u0);
-    registerProperty(P_DBEAM_V0, 0.0).setToolTip(tooltip_dbeam_v0);
+    registerProperty(P_U0, default_detector_width/2.);//.setTooltip(tooltip_u0);
+    registerProperty(P_V0, 0.0);//.setTooltip(tooltip_v0);
+    registerProperty(P_DBEAM_U0, default_detector_width/2.);//.setTooltip(tooltip_dbeam_u0);
+    registerProperty(P_DBEAM_V0, 0.0);//.setTooltip(tooltip_dbeam_v0);
 
     registerProperty(P_DISTANCE, default_detector_distance)
-        .setToolTip(QStringLiteral("Distance in [mm] from the sample origin to the detector plane"));
+        ;//.setTooltip(QStringLiteral("Distance in [mm] from the sample origin to the detector plane"));
 
     update_properties_appearance();
     m_is_constructed=true;
@@ -206,20 +206,20 @@ void RectangularDetectorItem::update_properties_appearance()
     QStringList prop_list;
     prop_list << P_NORMAL << P_DIRECTION << P_U0 << P_V0 << P_DBEAM_U0 << P_DBEAM_V0 << P_DISTANCE;
     foreach(auto prop, prop_list) {
-        getPropertyAttribute(prop).setHidden();
+        getPropertyAttribute(prop);//.setHidden();
     }
 
     // enabling some properties back, depending from detector alignment mode
     if (alignment.getValue() == Constants::ALIGNMENT_GENERIC) {
         getPropertyAttribute(P_NORMAL).setVisible();
         getPropertyAttribute(P_DIRECTION).setVisible();
-        getPropertyAttribute(P_U0).setVisible().setToolTip(tooltip_u0);
-        getPropertyAttribute(P_V0).setVisible().setToolTip(tooltip_v0);
+        getPropertyAttribute(P_U0).setVisible();//.setTooltip(tooltip_u0);
+        getPropertyAttribute(P_V0).setVisible();//.setTooltip(tooltip_v0);
 
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_SAMPLE) {
         getPropertyAttribute(P_DISTANCE).setVisible();
-        getPropertyAttribute(P_U0).setVisible().setToolTip(tooltip_samplex_u0);
-        getPropertyAttribute(P_V0).setVisible().setToolTip(tooltip_samplex_v0);
+        getPropertyAttribute(P_U0).setVisible();//.setTooltip(tooltip_samplex_u0);
+        getPropertyAttribute(P_V0).setVisible();//.setTooltip(tooltip_samplex_v0);
 
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_DIRECT_BEAM) {
         getPropertyAttribute(P_DISTANCE).setVisible();
@@ -228,8 +228,8 @@ void RectangularDetectorItem::update_properties_appearance()
 
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM) {
         getPropertyAttribute(P_DISTANCE).setVisible();
-        getPropertyAttribute(P_U0).setVisible().setToolTip(tooltip_refbeam_u0);
-        getPropertyAttribute(P_V0).setVisible().setToolTip(tooltip_refbeam_v0);
+        getPropertyAttribute(P_U0).setVisible();//.setTooltip(tooltip_refbeam_u0);
+        getPropertyAttribute(P_V0).setVisible();//.setTooltip(tooltip_refbeam_v0);
 
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS) {
         getPropertyAttribute(P_DISTANCE).setVisible();

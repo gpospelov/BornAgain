@@ -28,13 +28,13 @@ const QString ParticleItem::P_ABUNDANCE = "Abundance";
 const QString ParticleItem::P_MATERIAL = "Material";
 const QString ParticleItem::P_POSITION = "Position Offset";
 
-ParticleItem::ParticleItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(Constants::ParticleType, parent)
+ParticleItem::ParticleItem()
+    : ParameterizedGraphicsItem(Constants::ParticleType)
 {
     registerGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
     registerProperty(P_MATERIAL,
                      MaterialUtils::getDefaultMaterialProperty().getVariant());
-    registerProperty(P_ABUNDANCE, 1.0).limited(0.0, 1.0).setDecimals(3);
+    registerProperty(P_ABUNDANCE, 1.0);//.limited(0.0, 1.0).setDecimals(3);
     registerGroupProperty(P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;
     addParameterTranslator(position_translator);
@@ -44,13 +44,13 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     addParameterTranslator(rotation_translator);
 }
 
-void ParticleItem::insertChildItem(int row, ParameterizedItem *item)
+void ParticleItem::insertChild(int row, ParameterizedItem *item)
 {
-    ParameterizedItem::insertChildItem(row, item);
+    ParameterizedItem::insertChild(row, item);
     if (item->modelType() == Constants::TransformationType) {
-        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+        int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
         if (port == PortInfo::DEFAULT) {
-            item->setItemPort(PortInfo::PORT_0);
+            item->setPort(PortInfo::PORT_0);
         }
     }
 }
@@ -58,13 +58,13 @@ void ParticleItem::insertChildItem(int row, ParameterizedItem *item)
 void ParticleItem::onPropertyChange(const QString &name)
 {
     ParameterizedItem::onPropertyChange(name);
-    if (name == P_PORT && parent()) {
+    if (name == OBSOLETE_P_PORT && parent()) {
         if (parent()->modelType() == Constants::ParticleCoreShellType
             || parent()->modelType() == Constants::ParticleCompositionType
             || parent()->modelType() == Constants::ParticleDistributionType) {
             setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-            getPropertyAttribute(ParticleItem::P_ABUNDANCE).setDisabled();
-            int port = getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+            getPropertyAttribute(ParticleItem::P_ABUNDANCE);//.setDisabled();
+            int port = getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
             if (parent()->modelType() == Constants::ParticleCoreShellType) {
                 auto p_coreshell = static_cast<ParticleCoreShellItem*>(parent());
                 p_coreshell->notifyChildParticlePortChanged();
@@ -73,7 +73,7 @@ void ParticleItem::onPropertyChange(const QString &name)
                     p_position_item->setRegisteredProperty(VectorItem::P_X, 0.0);
                     p_position_item->setRegisteredProperty(VectorItem::P_Y, 0.0);
                     p_position_item->setRegisteredProperty(VectorItem::P_Z, 0.0);
-                    getPropertyAttribute(ParticleItem::P_POSITION).setDisabled();
+                    getPropertyAttribute(ParticleItem::P_POSITION);//.setDisabled();
                 }
             }
         }

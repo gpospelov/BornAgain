@@ -26,9 +26,9 @@ class BA_CORE_API_ ParticleCompositionItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:
-    explicit ParticleCompositionItem(ParameterizedItem *parent=0);
+    explicit ParticleCompositionItem();
     virtual ~ParticleCompositionItem() {}
-    virtual void insertChildItem(int row, ParameterizedItem *item);
+    virtual void insertChild(int row, ParameterizedItem *item);
     virtual void onPropertyChange(const QString &name);
     std::unique_ptr<ParticleComposition> createParticleComposition() const;
 };

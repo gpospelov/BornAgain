@@ -27,7 +27,7 @@ public:
     static const QString P_VALUE;
     static const QString P_COMBO;
     static const QString P_VECTOR;
-    explicit TestItem(ParameterizedItem *parent=0);
+    explicit TestItem();
     virtual ~TestItem(){}
 };
 

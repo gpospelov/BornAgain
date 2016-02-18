@@ -32,7 +32,7 @@ class BA_CORE_API_ BeamDistributionItem : public ParameterizedItem
 public:
     static const QString P_DISTRIBUTION;
     static const QString P_CACHED_VALUE;
-    explicit BeamDistributionItem(const QString name = QString(), ParameterizedItem *parent=0);
+    explicit BeamDistributionItem(const QString name = QString());
     virtual ~BeamDistributionItem(){}
     virtual void onPropertyChange(const QString &name);
 

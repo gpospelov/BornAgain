@@ -222,7 +222,8 @@ void AwesomePropertyEditor::slotValueChanged(QtProperty *property,
 
     // FIXME Find more elegant solution
     m_d->m_current_item_property_pair = itemPropertyPair;
-    itemPropertyPair.m_item->setProperty(itemPropertyPair.m_name.toUtf8().data(), value);
+    itemPropertyPair.m_item->setRegisteredProperty(itemPropertyPair.m_name, value);
+//    itemPropertyPair.m_item->setProperty(itemPropertyPair.m_name.toUtf8().data(), value);
     m_d->m_current_item_property_pair.clear();
 
 //    connect(itemPropertyPair.m_item, SIGNAL(propertyChanged(QString)),
@@ -359,7 +360,7 @@ QtVariantProperty *AwesomePropertyEditor::createQtVariantProperty(ParameterizedI
     const PropertyAttribute &prop_attribute = item->getPropertyAttribute(property_name);
     if(prop_attribute.isHidden()) return 0;
 
-    QVariant prop_value = item->property(property_name.toUtf8().data());
+    QVariant prop_value = item->getRegisteredProperty(property_name);//item->property(property_name.toUtf8().data());
     Q_ASSERT(prop_value.isValid());
     int type = GUIHelpers::getVariantType(prop_value);
 

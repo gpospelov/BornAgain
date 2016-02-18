@@ -26,7 +26,7 @@ class BA_CORE_API_ InstrumentItem : public ParameterizedItem
     Q_OBJECT
 
 public:
-    explicit InstrumentItem(ParameterizedItem *parent=0);
+    explicit InstrumentItem();
     virtual ~InstrumentItem() {}
 
     BeamItem *getBeamItem();

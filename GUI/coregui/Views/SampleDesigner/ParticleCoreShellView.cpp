@@ -36,7 +36,7 @@ ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem *parent)
 void ParticleCoreShellView::addView(IView *childView, int /* row */)
 {
     int index = childView->getParameterizedItem()
-                    ->getRegisteredProperty(ParameterizedItem::P_PORT)
+                    ->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT)
                     .toInt();
     qDebug() << "ParticleCoreShellView::addView()" << index;
     connectInputPort(dynamic_cast<ConnectableView *>(childView), index);

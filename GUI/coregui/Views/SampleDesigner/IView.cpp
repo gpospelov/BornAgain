@@ -39,8 +39,8 @@ void IView::setParameterizedItem(ParameterizedItem *item)
 
 void IView::addView(IView *childView, int row)
 {
-    qDebug() << "IView::addView() " << m_item->itemName()
-             << childView->getParameterizedItem()->itemName() << " row:" << row;
+    qDebug() << "IView::addView() " << m_item->name()
+             << childView->getParameterizedItem()->name() << " row:" << row;
 }
 
 void IView::onChangedX()

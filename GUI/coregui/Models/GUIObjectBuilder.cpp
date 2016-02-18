@@ -83,7 +83,7 @@ ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleMode
     VisitSampleTreePreorder(sample, *this);
     ParameterizedItem *result = m_levelToParentItem[1];
 
-    result->setItemName(m_topSampleName);
+    result->setName(m_topSampleName);
     return result;
 }
 
@@ -96,9 +96,9 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *in
             instrumentModel->insertNewItem(Constants::InstrumentType);
 
     if(instrumentName.isEmpty()) {
-        instrumentItem->setItemName(simulation.getInstrument().getName().c_str());
+        instrumentItem->setName(simulation.getInstrument().getName().c_str());
     } else {
-        instrumentItem->setItemName(instrumentName);
+        instrumentItem->setName(instrumentName);
     }
 
     // beam
@@ -192,7 +192,7 @@ void GUIObjectBuilder::visit(const MultiLayer *sample)
 
     ParameterizedItem *item =
             m_sampleModel->insertNewItem(Constants::MultiLayerType);
-    item->setItemName(sample->getName().c_str());
+    item->setName(sample->getName().c_str());
     item->setRegisteredProperty(MultiLayerItem::P_CROSS_CORR_LENGTH,
                                 sample->getCrossCorrLength());
     m_levelToParentItem[getLevel()] = item;

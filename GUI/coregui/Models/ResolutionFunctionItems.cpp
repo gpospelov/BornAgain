@@ -18,15 +18,15 @@
 #include "Units.h"
 #include <QDebug>
 
-ResolutionFunctionItem::ResolutionFunctionItem(const QString name, ParameterizedItem *parent)
-    : ParameterizedItem(name, parent)
+ResolutionFunctionItem::ResolutionFunctionItem(const QString name)
+    : ParameterizedItem(name)
 {
 }
 
 /* ------------------------------------------------ */
 
-ResolutionFunctionNoneItem::ResolutionFunctionNoneItem(ParameterizedItem *parent)
-    : ResolutionFunctionItem(Constants::ResolutionFunctionNoneType, parent)
+ResolutionFunctionNoneItem::ResolutionFunctionNoneItem()
+    : ResolutionFunctionItem(Constants::ResolutionFunctionNoneType)
 {
 }
 
@@ -41,11 +41,11 @@ IResolutionFunction2D *ResolutionFunctionNoneItem::createResolutionFunction(doub
 const QString ResolutionFunction2DGaussianItem::P_SIGMA_X = "Sigma X";
 const QString ResolutionFunction2DGaussianItem::P_SIGMA_Y = "Sigma Y";
 
-ResolutionFunction2DGaussianItem::ResolutionFunction2DGaussianItem(ParameterizedItem *parent)
-    : ResolutionFunctionItem(Constants::ResolutionFunction2DGaussianType, parent)
+ResolutionFunction2DGaussianItem::ResolutionFunction2DGaussianItem()
+    : ResolutionFunctionItem(Constants::ResolutionFunction2DGaussianType)
 {
-    registerProperty(P_SIGMA_X, 0.02).lowerLimited(0.0).setDecimals(3);
-    registerProperty(P_SIGMA_Y, 0.02).lowerLimited(0.0).setDecimals(3);
+    registerProperty(P_SIGMA_X, 0.02);//.lowerLimited(0.0).setDecimals(3);
+    registerProperty(P_SIGMA_Y, 0.02);//.lowerLimited(0.0).setDecimals(3);
 }
 
 IResolutionFunction2D *ResolutionFunction2DGaussianItem::createResolutionFunction(double scale) const

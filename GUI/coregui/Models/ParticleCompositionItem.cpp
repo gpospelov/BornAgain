@@ -19,10 +19,10 @@
 #include "TransformToDomain.h"
 #include "GUIHelpers.h"
 
-ParticleCompositionItem::ParticleCompositionItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(Constants::ParticleCompositionType, parent)
+ParticleCompositionItem::ParticleCompositionItem()
+    : ParameterizedGraphicsItem(Constants::ParticleCompositionType)
 {
-    registerProperty(ParticleItem::P_ABUNDANCE, 1.0).limited(0.0, 1.0).setDecimals(3);
+    registerProperty(ParticleItem::P_ABUNDANCE, 1.0);//.limited(0.0, 1.0).setDecimals(3);
     registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;
     addParameterTranslator(position_translator);
@@ -35,18 +35,18 @@ ParticleCompositionItem::ParticleCompositionItem(ParameterizedItem *parent)
     addParameterTranslator(rotation_translator);
 }
 
-void ParticleCompositionItem::insertChildItem(int row, ParameterizedItem *item)
+void ParticleCompositionItem::insertChild(int row, ParameterizedItem *item)
 {
-    int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
-    ParameterizedItem::insertChildItem(row, item);
+    int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
+    ParameterizedItem::insertChild(row, item);
     if (item->modelType() == Constants::ParticleType
         || item->modelType() == Constants::ParticleCoreShellType
         || item->modelType() == Constants::ParticleCompositionType) {
         if (port == PortInfo::DEFAULT) {
-            item->setItemPort(PortInfo::PORT_0);
+            item->setPort(PortInfo::PORT_0);
         }
     } else if (item->modelType() == Constants::TransformationType && port == PortInfo::DEFAULT) {
-        item->setItemPort(PortInfo::PORT_1);
+        item->setPort(PortInfo::PORT_1);
     }
 
 }
@@ -54,11 +54,11 @@ void ParticleCompositionItem::insertChildItem(int row, ParameterizedItem *item)
 void ParticleCompositionItem::onPropertyChange(const QString &name)
 {
     ParameterizedItem::onPropertyChange(name);
-    if (name == P_PORT && parent()) {
+    if (name == OBSOLETE_P_PORT && parent()) {
         if (parent()->modelType() == Constants::ParticleCompositionType
             || parent()->modelType() == Constants::ParticleDistributionType) {
             setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-            getPropertyAttribute(ParticleItem::P_ABUNDANCE).setDisabled();
+            getPropertyAttribute(ParticleItem::P_ABUNDANCE);//.setDisabled();
         }
     }
 }
@@ -68,7 +68,7 @@ std::unique_ptr<ParticleComposition> ParticleCompositionItem::createParticleComp
     double abundance = getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
     auto P_composition = GUIHelpers::make_unique<ParticleComposition>();
     P_composition->setAbundance(abundance);
-    QList<ParameterizedItem *> children = childItems();
+    QList<ParameterizedItem *> children = getChildren();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::ParticleType) {
             auto *particle_item = static_cast<ParticleItem*>(children[i]);

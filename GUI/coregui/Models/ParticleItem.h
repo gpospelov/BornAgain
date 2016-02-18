@@ -29,9 +29,9 @@ public:
     static const QString P_ABUNDANCE;
     static const QString P_MATERIAL;
     static const QString P_POSITION;
-    explicit ParticleItem(ParameterizedItem *parent=0);
+    explicit ParticleItem();
     virtual ~ParticleItem() {}
-    virtual void insertChildItem(int row, ParameterizedItem *item);
+    virtual void insertChild(int row, ParameterizedItem *item);
     virtual void onPropertyChange(const QString &name);
     std::unique_ptr<Particle> createParticle() const;
 };

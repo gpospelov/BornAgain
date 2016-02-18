@@ -23,8 +23,8 @@
 const QString DistributionItem::P_NUMBER_OF_SAMPLES = "Number of samples";
 const QString DistributionItem::P_SIGMA_FACTOR = "Sigma factor";
 
-DistributionItem::DistributionItem(const QString name, ParameterizedItem *parent)
-    : ParameterizedItem(name, parent)
+DistributionItem::DistributionItem(const QString name)
+    : ParameterizedItem(name)
 {
 }
 
@@ -42,10 +42,10 @@ void DistributionItem::register_sigma_factor()
 
 const QString DistributionNoneItem::P_VALUE = "Value";
 
-DistributionNoneItem::DistributionNoneItem(ParameterizedItem *parent)
-    : DistributionItem(Constants::DistributionNoneType, parent)
+DistributionNoneItem::DistributionNoneItem()
+    : DistributionItem(Constants::DistributionNoneType)
 {
-    registerProperty(P_VALUE, 0.1).limitless();
+    registerProperty(P_VALUE, 0.1);//.limitless();
 }
 
 std::unique_ptr<IDistribution1D> DistributionNoneItem::createDistribution() const
@@ -64,11 +64,11 @@ void DistributionNoneItem::init_parameters(double value, PropertyAttribute attri
 const QString DistributionGateItem::P_MIN = "Minimum";
 const QString DistributionGateItem::P_MAX = "Maximum";
 
-DistributionGateItem::DistributionGateItem(ParameterizedItem *parent)
-    : DistributionItem(Constants::DistributionGateType, parent)
+DistributionGateItem::DistributionGateItem()
+    : DistributionItem(Constants::DistributionGateType)
 {
-    registerProperty(P_MIN, 0.0).limitless();
-    registerProperty(P_MAX, 1.0).limitless();
+    registerProperty(P_MIN, 0.0);//.limitless();
+    registerProperty(P_MAX, 1.0);//.limitless();
     register_number_of_samples();
     register_sigma_factor();
 }
@@ -95,10 +95,10 @@ void DistributionGateItem::init_parameters(double value, PropertyAttribute attri
 const QString DistributionLorentzItem::P_MEAN = "Mean";
 const QString DistributionLorentzItem::P_HWHM = "HWHM";
 
-DistributionLorentzItem::DistributionLorentzItem(ParameterizedItem *parent)
-    : DistributionItem(Constants::DistributionLorentzType, parent)
+DistributionLorentzItem::DistributionLorentzItem()
+    : DistributionItem(Constants::DistributionLorentzType)
 {
-    registerProperty(P_MEAN, 0.0).limitless();
+    registerProperty(P_MEAN, 0.0);//.limitless();
     registerProperty(P_HWHM, 1.0);
     register_number_of_samples();
     register_sigma_factor();
@@ -127,10 +127,10 @@ void DistributionLorentzItem::init_parameters(double value, PropertyAttribute at
 const QString DistributionGaussianItem::P_MEAN = "Mean";
 const QString DistributionGaussianItem::P_STD_DEV = "Standard deviation";
 
-DistributionGaussianItem::DistributionGaussianItem(ParameterizedItem *parent)
-    : DistributionItem(Constants::DistributionGaussianType, parent)
+DistributionGaussianItem::DistributionGaussianItem()
+    : DistributionItem(Constants::DistributionGaussianType)
 {
-    registerProperty(P_MEAN, 0.0).limitless();
+    registerProperty(P_MEAN, 0.0);//.limitless();
     registerProperty(P_STD_DEV, 1.0);
     register_number_of_samples();
     register_sigma_factor();
@@ -159,8 +159,8 @@ void DistributionGaussianItem::init_parameters(double value, PropertyAttribute a
 const QString DistributionLogNormalItem::P_MEDIAN = "Median";
 const QString DistributionLogNormalItem::P_SCALE_PAR = "Scale parameter";
 
-DistributionLogNormalItem::DistributionLogNormalItem(ParameterizedItem *parent)
-    : DistributionItem(Constants::DistributionLogNormalType, parent)
+DistributionLogNormalItem::DistributionLogNormalItem()
+    : DistributionItem(Constants::DistributionLogNormalType)
 {
     registerProperty(P_MEDIAN, 1.0);
     registerProperty(P_SCALE_PAR, 1.0);
@@ -191,10 +191,10 @@ void DistributionLogNormalItem::init_parameters(double value, PropertyAttribute 
 const QString DistributionCosineItem::P_MEAN = "Mean";
 const QString DistributionCosineItem::P_SIGMA = "Sigma";
 
-DistributionCosineItem::DistributionCosineItem(ParameterizedItem *parent)
-    : DistributionItem(Constants::DistributionCosineType, parent)
+DistributionCosineItem::DistributionCosineItem()
+    : DistributionItem(Constants::DistributionCosineType)
 {
-    registerProperty(P_MEAN, 0.0).limitless();
+    registerProperty(P_MEAN, 0.0);//.limitless();
     registerProperty(P_SIGMA, 1.0);
     register_number_of_samples();
     register_sigma_factor();

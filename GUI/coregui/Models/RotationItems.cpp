@@ -21,8 +21,8 @@
 
 const QString XRotationItem::P_ANGLE = "Angle";
 
-XRotationItem::XRotationItem(ParameterizedItem *parent)
-    : RotationItem(Constants::XRotationType, parent)
+XRotationItem::XRotationItem()
+    : RotationItem(Constants::XRotationType)
 {
     registerProperty(P_ANGLE, 0.0);
 }
@@ -37,8 +37,8 @@ IRotation *XRotationItem::createRotation() const
 
 const QString YRotationItem::P_ANGLE = "Angle";
 
-YRotationItem::YRotationItem(ParameterizedItem *parent)
-    : RotationItem(Constants::YRotationType, parent)
+YRotationItem::YRotationItem()
+    : RotationItem(Constants::YRotationType)
 {
     registerProperty(P_ANGLE, 0.0);
 }
@@ -53,8 +53,8 @@ IRotation *YRotationItem::createRotation() const
 
 const QString ZRotationItem::P_ANGLE = "Angle";
 
-ZRotationItem::ZRotationItem(ParameterizedItem *parent)
-    : RotationItem(Constants::ZRotationType, parent)
+ZRotationItem::ZRotationItem()
+    : RotationItem(Constants::ZRotationType)
 {
     registerProperty(P_ANGLE, 0.0);
 }
@@ -71,8 +71,8 @@ const QString EulerRotationItem::P_ALPHA = "Alpha";
 const QString EulerRotationItem::P_BETA = "Beta";
 const QString EulerRotationItem::P_GAMMA = "Gamma";
 
-EulerRotationItem::EulerRotationItem(ParameterizedItem *parent)
-    : RotationItem(Constants::EulerRotationType, parent)
+EulerRotationItem::EulerRotationItem()
+    : RotationItem(Constants::EulerRotationType)
 {
     registerProperty(P_ALPHA, 0.0);
     registerProperty(P_BETA, 0.0);

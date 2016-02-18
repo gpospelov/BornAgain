@@ -23,10 +23,10 @@ class BA_CORE_API_ MultiLayerItem : public ParameterizedGraphicsItem
     Q_OBJECT
 public:
     static const QString P_CROSS_CORR_LENGTH;
-    explicit MultiLayerItem(ParameterizedItem *parent=0);
+    explicit MultiLayerItem();
     virtual ~MultiLayerItem() {}
     virtual ParameterizedItem *takeChildItem(int row);
-    virtual void insertChildItem(int row, ParameterizedItem *item);
+    virtual void insertChild(int row, ParameterizedItem *item);
 
 private:
     void updateLayers();

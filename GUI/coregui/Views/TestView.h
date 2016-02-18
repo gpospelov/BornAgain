@@ -19,18 +19,22 @@
 #include <QWidget>
 
 class MainWindow;
+class QTabWidget;
+class SessionModel;
 
 class TestView : public QWidget
 {
     Q_OBJECT
 public:
-    TestView(MainWindow *window, QWidget *parent = 0);
+    TestView(MainWindow *mainWindow = 0);
 
 private:
     void test_MaskEditor();
     void test_AccordionWidget();
     void test_RunFitWidget();
     MainWindow *m_mainWindow;
+    void addModelToTabs(QTabWidget *tabs, SessionModel *model);
+    void test_sessionModel();
 };
 
 #endif

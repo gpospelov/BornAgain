@@ -75,7 +75,7 @@ std::unique_ptr<IMaterial> MaterialUtils::createDomainMaterial(const MaterialPro
 
     if(materialItem->isHomogeneousMaterial()) {
         return GUIHelpers::make_unique<HomogeneousMaterial>(
-                    materialItem->itemName().toStdString(), delta, beta);
+                    materialItem->name().toStdString(), delta, beta);
     }
     else if(materialItem->isHomogeneousMagneticMaterial()) {
         const MagneticFieldItem *magneticField = dynamic_cast<const MagneticFieldItem *>(materialItem->getSubItems()[MaterialItem::P_MAGNETIC_FIELD]);
@@ -84,7 +84,7 @@ std::unique_ptr<IMaterial> MaterialUtils::createDomainMaterial(const MaterialPro
         double By = magneticField->getRegisteredProperty(MagneticFieldItem::P_BY).toDouble();
         double Bz = magneticField->getRegisteredProperty(MagneticFieldItem::P_BZ).toDouble();
         return GUIHelpers::make_unique<HomogeneousMagneticMaterial>(
-                    materialItem->itemName().toStdString(),
+                    materialItem->name().toStdString(),
                     delta, beta, kvector_t(Bx, By, Bz));
     }
     else {

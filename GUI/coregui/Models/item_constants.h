@@ -66,6 +66,7 @@ const ModelType YRotationType = "YRotation";
 const ModelType ZRotationType = "ZRotation";
 const ModelType EulerRotationType = "EulerRotation";
 
+const ModelType PropertyType = "Property";
 const ModelType VectorType = "Vector";
 
 const ModelType LayerBasicRoughnessType = "LayerBasicRoughness";

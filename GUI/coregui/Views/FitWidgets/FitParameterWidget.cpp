@@ -229,7 +229,7 @@ void FitParameterWidget::onCustomContextMenu(const QPoint &point) {
     QModelIndex index = m_parameterTreeview->indexAt(point);
     if (index.isValid()) {
         ParameterizedItem *cur = m_parameterModel->itemForIndex(index);
-        if (cur->itemName().startsWith("FitParameter")) {
+        if (cur->name().startsWith("FitParameter")) {
             m_parameterTreeview->setCurrentIndex(index);
             m_removeAction->setEnabled(true);
         }

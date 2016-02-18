@@ -26,6 +26,13 @@
 #include <QCheckBox>
 #include <QTabWidget>
 
+#include "SessionModel.h"
+#include <QTreeView>
+#include <SampleModel.h>
+#include <InstrumentModel.h>
+#include <JobModel.h>
+#include <MaterialModel.h>
+
 
 
 // FIXME_DAVID Rename Ivona's FitView into ObsoleteFitView. And use nice name FitView for own purpose.
@@ -40,14 +47,40 @@
 // - FitParametersWidget (for the moment), and later sample/instrument selector + MinimizerSettingsWidgert
 
 
-TestView::TestView(MainWindow *window, QWidget *parent)
-    : QWidget(parent)
-    , m_mainWindow(window)
+TestView::TestView(MainWindow *mainWindow)
+    : QWidget(mainWindow)
+    , m_mainWindow(mainWindow)
 {
 //    test_MaskEditor();
 //    test_AccordionWidget();
-    test_RunFitWidget();
+//    test_RunFitWidget();
+    test_sessionModel();
+}
 
+void TestView::test_sessionModel()
+{
+    QVBoxLayout *layout = new QVBoxLayout;
+    QTabWidget *tabs = new QTabWidget;
+
+    addModelToTabs(tabs, m_mainWindow->getInstrumentModel());
+    addModelToTabs(tabs, m_mainWindow->getSampleModel());
+    addModelToTabs(tabs, m_mainWindow->getMaterialModel());
+    addModelToTabs(tabs, m_mainWindow->getJobModel());
+
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    layout->addWidget(tabs);
+    setLayout(layout);
+}
+
+void TestView::addModelToTabs(QTabWidget *tabs, SessionModel *model)
+{
+    QTreeView *view = new QTreeView;
+    view->setModel(model);
+    view->expandAll();
+    view->resizeColumnToContents(0);
+    view->resizeColumnToContents(1);
+    tabs->addTab(view, model->getModelTag());
 }
 
 void TestView::test_MaskEditor()

@@ -57,10 +57,10 @@ void SampleValidator::iterateSampleModel(SampleModel *sampleModel, const QModelI
 QString SampleValidator::validateMultiLayerItem(ParameterizedItem *item)
 {
     QString result;
-    if(!item->childItems().size()) {
+    if(!item->getChildren().size()) {
         result = QString("MultiLayer should contain at least one layer.");
-    }else if(item->childItems().size() == 1) {
-        if(item->childAt(0)->childItems().size() == 0) {
+    }else if(item->getChildren().size() == 1) {
+        if(item->childAt(0)->getChildren().size() == 0) {
             result = QString("The single layer in your MultiLayer should contain ParticleLayout.");
         }
     }
@@ -72,7 +72,7 @@ QString SampleValidator::validateParticleLayoutItem(ParameterizedItem *item)
 {
     QString result;
     bool particles_found(false);
-    QList<ParameterizedItem *> children = item->childItems();
+    QList<ParameterizedItem *> children = item->getChildren();
     for (int i=0; i<children.size(); ++i) {
         if (children[i]->modelType() == Constants::ParticleType
             || children[i]->modelType() == Constants::ParticleCoreShellType
@@ -91,7 +91,7 @@ QString SampleValidator::validateParticleCoreShellItem(ParameterizedItem *item)
 {
     QString result;
     int number_of_subparticles = 0;
-    QList<ParameterizedItem*> children = item->childItems();
+    QList<ParameterizedItem*> children = item->getChildren();
     for (int i=0; i<children.size(); ++i) {
         if (children[i]->modelType()==Constants::ParticleType) {
             number_of_subparticles++;

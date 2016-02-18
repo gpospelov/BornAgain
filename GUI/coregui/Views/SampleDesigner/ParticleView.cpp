@@ -88,7 +88,7 @@ void ParticleView::onPropertyChange(const QString &propertyName)
 
 void ParticleView::addView(IView *childView, int /*row*/)
 {
-    qDebug() << "ParticleView::addView() xxx " << m_item->itemName() << childView->getParameterizedItem()->itemName() << childView->type() << DesignerHelper::PARTICLE;
+    qDebug() << "ParticleView::addView() xxx " << m_item->name() << childView->getParameterizedItem()->name() << childView->type() << DesignerHelper::PARTICLE;
     if(childView->type() == DesignerHelper::TRANSFORMATION) {
         connectInputPort(dynamic_cast<ConnectableView *>(childView), 0);
     }

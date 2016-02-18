@@ -390,8 +390,8 @@ void TransformToDomain::addMasksToSimulation(const ParameterizedItem &detector_i
                 == Constants::SphericalDetectorType) scale = Units::degree;
 
         if(auto maskContainerItem = detectorItem->getMaskContainerItem()) {
-            for(int i_row = maskContainerItem->childItems().size(); i_row>0; --i_row) {
-                if(auto maskItem = dynamic_cast<MaskItem *>(maskContainerItem->childItems().at(i_row-1))) {
+            for(int i_row = maskContainerItem->getChildren().size(); i_row>0; --i_row) {
+                if(auto maskItem = dynamic_cast<MaskItem *>(maskContainerItem->getChildren().at(i_row-1))) {
                     std::unique_ptr<Geometry::IShape2D > shape(maskItem->createShape(scale));
                     bool mask_value = maskItem->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
                     simulation->addMask(*shape, mask_value);
@@ -434,7 +434,7 @@ void TransformToDomain::setPositionInfo(IParticle *result, const ParameterizedIt
 
 void TransformToDomain::setRotationInfo(IParticle *result, const ParameterizedItem &item)
 {
-    QList<ParameterizedItem *> children = item.childItems();
+    QList<ParameterizedItem *> children = item.getChildren();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::TransformationType) {
             RotationItem *rot_item = dynamic_cast<RotationItem *>(

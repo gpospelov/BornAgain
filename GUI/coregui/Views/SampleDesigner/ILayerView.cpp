@@ -103,7 +103,7 @@ void ILayerView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "ILayerView::mouseReleaseEvent()  this:" << this
-             << getParameterizedItem()->itemName() << " parentItem: " << parentItem();
+             << getParameterizedItem()->name() << " parentItem: " << parentItem();
 
     DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
     Q_ASSERT(designerScene);

@@ -39,7 +39,7 @@ public:
     static const QString P_DBEAM_V0;
     static const QString P_DISTANCE;
 
-    explicit RectangularDetectorItem(ParameterizedItem *parent=0);
+    explicit RectangularDetectorItem();
 
     virtual void onPropertyChange(const QString &name);
 

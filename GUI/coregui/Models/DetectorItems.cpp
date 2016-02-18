@@ -20,8 +20,8 @@
 
 const QString DetectorItem::P_DETECTOR = "Detector";
 
-DetectorItem::DetectorItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::DetectorType, parent)
+DetectorItem::DetectorItem()
+    : ParameterizedItem(Constants::DetectorType)
 {
     registerGroupProperty(P_DETECTOR, Constants::DetectorGroup);
     addToValidChildren(Constants::MaskContainerType);
@@ -30,7 +30,7 @@ DetectorItem::DetectorItem(ParameterizedItem *parent)
 
 MaskContainerItem *DetectorItem::getMaskContainerItem() const
 {
-    foreach(ParameterizedItem *item, childItems()) {
+    foreach(ParameterizedItem *item, getChildren()) {
         if(MaskContainerItem *container = dynamic_cast<MaskContainerItem *>(item)) {
             return container;
         }

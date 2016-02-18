@@ -28,7 +28,7 @@ public:
     static const QString P_DOMAIN_SIZE;
     static const QString P_KAPPA;
     static const QString P_PDF;
-    explicit InterferenceFunctionRadialParaCrystalItem(ParameterizedItem *parent=0);
+    explicit InterferenceFunctionRadialParaCrystalItem();
     virtual ~InterferenceFunctionRadialParaCrystalItem(){}
 };
 
@@ -44,7 +44,7 @@ public:
     static const QString P_XI_INTEGRATION;
     static const QString P_PDF1;
     static const QString P_PDF2;
-    explicit InterferenceFunction2DParaCrystalItem(ParameterizedItem *parent=0);
+    explicit InterferenceFunction2DParaCrystalItem();
     virtual ~InterferenceFunction2DParaCrystalItem(){}
     virtual void onPropertyChange(const QString &name);
 };
@@ -57,7 +57,7 @@ public:
     static const QString P_LENGTH;
     static const QString P_ROTATION_ANGLE;
     static const QString P_DECAY_FUNCTION;
-    explicit InterferenceFunction1DLatticeItem(ParameterizedItem *parent=0);
+    explicit InterferenceFunction1DLatticeItem();
     virtual ~InterferenceFunction1DLatticeItem(){}
 };
 
@@ -69,7 +69,7 @@ public:
     static const QString P_LATTICE_TYPE;
     static const QString P_ROTATION_ANGLE;
     static const QString P_DECAY_FUNCTION;
-    explicit InterferenceFunction2DLatticeItem(ParameterizedItem *parent=0);
+    explicit InterferenceFunction2DLatticeItem();
     virtual ~InterferenceFunction2DLatticeItem(){}
 };
 

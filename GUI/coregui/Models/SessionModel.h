@@ -55,15 +55,18 @@ const QString AngleUnitsAttribute("Units");
 class IconProvider;
 class WarningMessageService;
 
-class BA_CORE_API_ SessionModel : public QAbstractItemModel
+class /*BA_CORE_API_*/ SessionModel : public QAbstractItemModel
 {
     Q_OBJECT
-
+    friend class ParameterizedItem; // NEW
 public:
     explicit SessionModel(QString model_tag, QObject *parent = 0);
     virtual ~SessionModel();
+    void createRootItem(); //NEW
 
-    // Begin overriden methods from QAbstractItemModel
+    enum EColumn {ITEM_NAME, ITEM_VALUE, ITEM_ATTR, MAX_COLUMNS}; // NEW column usage
+
+//    // Begin overriden methods from QAbstractItemModel
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const;
@@ -88,6 +91,11 @@ public:
 
     QModelIndex indexOfItem(ParameterizedItem *item) const;
     ParameterizedItem *insertNewItem(QString model_type, const QModelIndex &parent = QModelIndex(),
+                                     int row = -1, ParameterizedItem::PortInfo::EPorts port
+                                                   = ParameterizedItem::PortInfo::DEFAULT);
+
+    // NEW
+    QModelIndex insertNewItemIndex(QString model_type, const QModelIndex &parent = QModelIndex(),
                                      int row = -1, ParameterizedItem::PortInfo::EPorts port
                                                    = ParameterizedItem::PortInfo::DEFAULT);
 

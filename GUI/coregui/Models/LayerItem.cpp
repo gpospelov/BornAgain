@@ -21,8 +21,8 @@ const QString LayerItem::P_THICKNESS = "Thickness";
 const QString LayerItem::P_ROUGHNESS = "Top roughness";
 const QString LayerItem::P_MATERIAL = "Material";
 
-LayerItem::LayerItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(Constants::LayerType, parent)
+LayerItem::LayerItem()
+    : ParameterizedGraphicsItem(Constants::LayerType)
 {
     registerProperty(P_THICKNESS, 0.0);
     registerProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
@@ -32,13 +32,13 @@ LayerItem::LayerItem(ParameterizedItem *parent)
     addToValidChildren(Constants::ParticleLayoutType, PortInfo::PORT_0);
 }
 
-void LayerItem::insertChildItem(int row, ParameterizedItem *item)
+void LayerItem::insertChild(int row, ParameterizedItem *item)
 {
-    ParameterizedItem::insertChildItem(row, item);
+    ParameterizedItem::insertChild(row, item);
     if (item->modelType() == Constants::ParticleLayoutType) {
-        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+        int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
         if (port == PortInfo::DEFAULT) {
-            item->setItemPort(PortInfo::PORT_0);
+            item->setPort(PortInfo::PORT_0);
         }
     }
 }

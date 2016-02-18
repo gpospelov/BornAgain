@@ -26,9 +26,9 @@ public:
     static const QString P_X;
     static const QString P_Y;
     static const QString P_Z;
-    explicit VectorItem(ParameterizedItem *parent=0);
+    explicit VectorItem();
     virtual ~VectorItem(){}
-    virtual QString itemLabel() const;
+    virtual QString label() const;
 
     kvector_t getVector() const;
 };

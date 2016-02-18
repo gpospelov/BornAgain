@@ -29,10 +29,10 @@ inline void TestSessionModel::test_SampleModel_CreateCopy()
 
     SampleModel *model1 = new SampleModel();
     ParameterizedItem *multilayer = model1->insertNewItem(Constants::MultiLayerType);
-    multilayer->setItemName("multilayer");
+    multilayer->setName("multilayer");
     model1->insertNewItem(Constants::LayerType, model1->indexOfItem(multilayer));
     ParameterizedItem *multilayer2 = model1->insertNewItem(Constants::MultiLayerType);
-    multilayer2->setItemName("multilayer2");
+    multilayer2->setName("multilayer2");
 
     QString buffer1;
     QXmlStreamWriter writer1(&buffer1);
@@ -56,16 +56,16 @@ inline void TestSessionModel::test_SampleModel_CreatePartialCopy()
 
     SampleModel *model1 = new SampleModel();
     ParameterizedItem *multilayer1 = model1->insertNewItem(Constants::MultiLayerType);
-    multilayer1->setItemName("multilayer1");
+    multilayer1->setName("multilayer1");
     model1->insertNewItem(Constants::LayerType, model1->indexOfItem(multilayer1));
 
     ParameterizedItem *multilayer2 = model1->insertNewItem(Constants::MultiLayerType);
-    multilayer2->setItemName("multilayer2");
+    multilayer2->setName("multilayer2");
 
     SampleModel *model2 = model1->createCopy(multilayer1);
     ParameterizedItem *result = model2->itemForIndex(model2->index(0,0,QModelIndex()));
 
-    QCOMPARE(result->itemName(), multilayer1->itemName());
+    QCOMPARE(result->name(), multilayer1->name());
     QCOMPARE(result->modelType(), multilayer1->modelType());
 
     delete model1;
@@ -76,12 +76,12 @@ inline void TestSessionModel::test_InstrumentModel_CreateCopy()
 {
     InstrumentModel *model1 = new InstrumentModel();
     ParameterizedItem *instrument1 = model1->insertNewItem(Constants::InstrumentType);
-    instrument1->setItemName("instrument1");
+    instrument1->setName("instrument1");
     model1->insertNewItem(Constants::DetectorType, model1->indexOfItem(instrument1));
     model1->insertNewItem(Constants::BeamType, model1->indexOfItem(instrument1));
 
     ParameterizedItem *instrument2 = model1->insertNewItem(Constants::InstrumentType);
-    instrument2->setItemName("instrument2");
+    instrument2->setName("instrument2");
     model1->insertNewItem(Constants::DetectorType, model1->indexOfItem(instrument2));
     model1->insertNewItem(Constants::BeamType, model1->indexOfItem(instrument2));
 
@@ -104,12 +104,12 @@ inline void TestSessionModel::test_InstrumentModel_CreatePartialCopy()
 {
     InstrumentModel *model1 = new InstrumentModel();
     ParameterizedItem *instrument1 = model1->insertNewItem(Constants::InstrumentType);
-    instrument1->setItemName("instrument1");
+    instrument1->setName("instrument1");
     model1->insertNewItem(Constants::DetectorType, model1->indexOfItem(instrument1));
     model1->insertNewItem(Constants::BeamType, model1->indexOfItem(instrument1));
 
     ParameterizedItem *instrument2 = model1->insertNewItem(Constants::InstrumentType);
-    instrument2->setItemName("instrument2");
+    instrument2->setName("instrument2");
     model1->insertNewItem(Constants::DetectorType, model1->indexOfItem(instrument2));
     model1->insertNewItem(Constants::BeamType, model1->indexOfItem(instrument2));
 
@@ -117,7 +117,7 @@ inline void TestSessionModel::test_InstrumentModel_CreatePartialCopy()
 
     ParameterizedItem *result = model2->itemForIndex(model2->index(0,0,QModelIndex()));
 
-    QCOMPARE(result->itemName(), instrument2->itemName());
+    QCOMPARE(result->name(), instrument2->name());
     QCOMPARE(result->modelType(), instrument2->modelType());
 
     delete model1;
@@ -133,24 +133,24 @@ inline void TestSessionModel::test_copyParameterizedItem()
 
     SampleModel *sampleModel = new SampleModel();
     ParameterizedItem *multilayer1 = sampleModel->insertNewItem(Constants::MultiLayerType);
-    multilayer1->setItemName("multilayer1");
+    multilayer1->setName("multilayer1");
     sampleModel->insertNewItem(Constants::LayerType, sampleModel->indexOfItem(multilayer1));
 
     InstrumentModel *instrumentModel = new InstrumentModel();
     ParameterizedItem *instrument1 = instrumentModel->insertNewItem(Constants::InstrumentType);
-    instrument1->setItemName("instrument1");
+    instrument1->setName("instrument1");
     instrumentModel->insertNewItem(Constants::DetectorType, instrumentModel->indexOfItem(instrument1));
     instrumentModel->insertNewItem(Constants::BeamType, instrumentModel->indexOfItem(instrument1));
 
     JobModel *jobModel = new JobModel();
     ParameterizedItem *jobItem = jobModel->insertNewItem(Constants::JobItemType);
-    QCOMPARE(jobItem->childItemCount(), 0);
+    QCOMPARE(jobItem->rowCount(), 0);
 
     jobModel->copyParameterizedItem(multilayer1, jobItem);
-    QCOMPARE(jobItem->childItemCount(), 1);
+    QCOMPARE(jobItem->rowCount(), 1);
 
     jobModel->copyParameterizedItem(instrument1, jobItem);
-    QCOMPARE(jobItem->childItemCount(), 2);
+    QCOMPARE(jobItem->rowCount(), 2);
 
     delete sampleModel;
     delete instrumentModel;

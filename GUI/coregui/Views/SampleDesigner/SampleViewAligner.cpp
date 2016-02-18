@@ -132,11 +132,11 @@ QList<IView *> SampleViewAligner::getConnectedViews(IView *view)
 
     if(itemOfView->modelType() == Constants::MultiLayerType) {
         // MultiLayer will not interact with its Layers, but with they children, e.g. with ParticleLayouts
-        foreach(ParameterizedItem *child,  itemOfView->childItems()) {
-            connected_items.append(child->childItems());
+        foreach(ParameterizedItem *child,  itemOfView->getChildren()) {
+            connected_items.append(child->getChildren());
         }
     } else {
-        connected_items.append(itemOfView->childItems());
+        connected_items.append(itemOfView->getChildren());
 
     }
 

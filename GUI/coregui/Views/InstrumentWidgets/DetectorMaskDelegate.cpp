@@ -64,7 +64,7 @@ void DetectorMaskDelegate::createIntensityDataItem()
 {
     delete m_intensityItem;
     m_intensityItem = new IntensityDataItem();
-    m_intensityItem->getPropertyAttribute(IntensityDataItem::P_PROJECTIONS_FLAG).setDisabled();
+    m_intensityItem->getPropertyAttribute(IntensityDataItem::P_PROJECTIONS_FLAG);//.setDisabled();
 
     AmplitudeAxisItem *zAxisItem = dynamic_cast<AmplitudeAxisItem *>(
         m_intensityItem->getSubItems()[IntensityDataItem::P_ZAXIS]);

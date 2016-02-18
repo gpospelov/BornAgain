@@ -31,21 +31,21 @@ const QString MaterialItem::P_MAGNETIC_FIELD = "Magnetic field";
 const QString MaterialItem::P_IDENTIFIER = "Identifier";
 
 
-MaterialItem::MaterialItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::MaterialType, parent)
+MaterialItem::MaterialItem()
+    : ParameterizedItem(Constants::MaterialType)
 {
-    registerProperty(P_NAME, Constants::MaterialType);
+    registerProperty(OBSOLETE_P_NAME, Constants::MaterialType);
 
     ComboProperty types;
     types << Constants::HomogeneousMaterialType << Constants::HomogeneousMagneticMaterialType;
-    registerProperty(P_MATERIAL_TYPE, types.getVariant()).setHidden();
+    registerProperty(P_MATERIAL_TYPE, types.getVariant());//.setHidden();
 
     ColorProperty color;
     registerProperty(P_COLOR, color.getVariant());
 
     registerGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
 
-    registerProperty(P_IDENTIFIER, QUuid::createUuid().toString()).setHidden();
+    registerProperty(P_IDENTIFIER, QUuid::createUuid().toString());//.setHidden();
 }
 
 void MaterialItem::setMaterialType(int index)

@@ -57,31 +57,31 @@ const QString JobItem::P_NTHREADS = "Number of Threads";
 const QString JobItem::P_RUN_POLICY = "Run Policy";
 
 
-JobItem::JobItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::JobItemType, parent)
+JobItem::JobItem()
+    : ParameterizedItem(Constants::JobItemType)
 {
-    registerProperty(P_NAME, Constants::JobItemType);
-    registerProperty(P_IDENTIFIER, QString()).setHidden();
-    registerProperty(P_SAMPLE_NAME, QString()).setReadOnly();
-    registerProperty(P_INSTRUMENT_NAME, QString()).setReadOnly();
+    registerProperty(OBSOLETE_P_NAME, Constants::JobItemType);
+    registerProperty(P_IDENTIFIER, QString());//.setHidden();
+    registerProperty(P_SAMPLE_NAME, QString());//.setReadOnly();
+    registerProperty(P_INSTRUMENT_NAME, QString());//.setReadOnly();
 
     ComboProperty status;
     status << Constants::STATUS_IDLE << Constants::STATUS_RUNNING << Constants::STATUS_COMPLETED
            << Constants::STATUS_CANCELED << Constants::STATUS_FAILED;
-    registerProperty(P_STATUS, status.getVariant()).setReadOnly();
+    registerProperty(P_STATUS, status.getVariant());//.setReadOnly();
 
-    registerProperty(P_BEGIN_TIME, QString()).setReadOnly();
-    registerProperty(P_END_TIME, QString()).setReadOnly();
-    registerProperty(P_COMMENTS, QString()).setHidden();
+    registerProperty(P_BEGIN_TIME, QString());//.setReadOnly();
+    registerProperty(P_END_TIME, QString());//.setReadOnly();
+    registerProperty(P_COMMENTS, QString());//.setHidden();
 
-    registerProperty(P_PROGRESS, 0).setHidden();
-    registerProperty(P_NTHREADS, -1).setHidden();
+    registerProperty(P_PROGRESS, 0);//.setHidden();
+    registerProperty(P_NTHREADS, -1);//.setHidden();
 
     ComboProperty policy;
     policy << Constants::JOB_RUN_IMMEDIATELY
            << Constants::JOB_RUN_IN_BACKGROUND
            << Constants::JOB_RUN_SUBMIT_ONLY;
-    registerProperty(P_RUN_POLICY, policy.getVariant()).setHidden();
+    registerProperty(P_RUN_POLICY, policy.getVariant());//.setHidden();
 
     addToValidChildren(Constants::IntensityDataType);
 
@@ -105,7 +105,7 @@ void JobItem::setIdentifier(const QString &identifier)
 
 IntensityDataItem *JobItem::getIntensityDataItem()
 {
-    foreach(ParameterizedItem *item, childItems()) {
+    foreach(ParameterizedItem *item, getChildren()) {
         IntensityDataItem *data = dynamic_cast<IntensityDataItem *>(item);
         if(data) return data;
     }
@@ -225,12 +225,12 @@ bool JobItem::runInBackground() const
 //! multilayer will be used
 MultiLayerItem *JobItem::getMultiLayerItem(bool from_backup)
 {
-    foreach(ParameterizedItem *item, childItems()) {
+    foreach(ParameterizedItem *item, getChildren()) {
         if(MultiLayerItem *multilayer = dynamic_cast<MultiLayerItem *>(item)) {
-            if(from_backup && multilayer->itemName().endsWith(Constants::JOB_BACKUP)) {
+            if(from_backup && multilayer->name().endsWith(Constants::JOB_BACKUP)) {
                 return multilayer;
             }
-            if(!from_backup && !multilayer->itemName().endsWith(Constants::JOB_BACKUP)) {
+            if(!from_backup && !multilayer->name().endsWith(Constants::JOB_BACKUP)) {
                 return multilayer;
             }
         }
@@ -242,12 +242,12 @@ MultiLayerItem *JobItem::getMultiLayerItem(bool from_backup)
 //! the instrument will be used
 InstrumentItem *JobItem::getInstrumentItem(bool from_backup)
 {
-    foreach(ParameterizedItem *item, childItems()) {
+    foreach(ParameterizedItem *item, getChildren()) {
         if(InstrumentItem *instrument = dynamic_cast<InstrumentItem *>(item)) {
-            if(from_backup && instrument->itemName().endsWith(Constants::JOB_BACKUP)) {
+            if(from_backup && instrument->name().endsWith(Constants::JOB_BACKUP)) {
                 return instrument;
             }
-            if(!from_backup && !instrument->itemName().endsWith(Constants::JOB_BACKUP)) {
+            if(!from_backup && !instrument->name().endsWith(Constants::JOB_BACKUP)) {
                 return instrument;
             }
         }

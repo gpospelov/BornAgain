@@ -149,7 +149,7 @@ void MaskEditor::init_test_model()
     ellipse->setRegisteredProperty(EllipseItem::P_XRADIUS, 0.15);
     ellipse->setRegisteredProperty(EllipseItem::P_YRADIUS, 0.1);
     ellipse->setRegisteredProperty(EllipseItem::P_ANGLE, 45.);
-    container->insertChildItem(-1, ellipse);
+    container->insertChild(-1, ellipse);
 
 
 //    MaskAllItem *rect = dynamic_cast<MaskAllItem *>(m_maskModel->insertNewItem(Constants::MaskAllType, m_maskModel->indexOfItem(item)));

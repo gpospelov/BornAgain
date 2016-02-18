@@ -30,7 +30,7 @@ FitParameterModel::FitParameterModel(FitModel *fitmodel, QWidget *parent)
     setRootItem(fitmodel->itemForIndex(QModelIndex())->
             getChildOfType(Constants::FitParameterContainerType));
     setMaxColumns(5);
-    m_columnNames->insert(0, FitParameterItem::P_NAME);
+    m_columnNames->insert(0, FitParameterItem::OBSOLETE_P_NAME);
     m_columnNames->insert(1, FitParameterItem::P_USE);
     m_columnNames->insert(3, FitParameterItem::P_MIN);
     m_columnNames->insert(2, FitParameterItem::P_INIT);
@@ -138,7 +138,7 @@ QVariant FitParameterModel::data(const QModelIndex & index, int role) const
                     return QVariant();
             }
             if (index.column() == 0)
-                return item->itemName();
+                return item->name();
             else
                 return item->getRegisteredProperty(m_columnNames->value(index.column()));
         }

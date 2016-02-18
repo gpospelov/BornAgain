@@ -123,7 +123,7 @@ void DistributionWidget::plotItem()
         m_warningSign->show();
     }
 
-    if (m_item->itemName() != Constants::DistributionNoneType && !exceptionThrown) {
+    if (m_item->name() != Constants::DistributionNoneType && !exceptionThrown) {
         int numberOfSamples
             = m_item->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
         double sigmafactor

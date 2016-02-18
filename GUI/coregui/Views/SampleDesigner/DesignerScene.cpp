@@ -165,9 +165,9 @@ void DesignerScene::onSessionSelectionChanged(const QItemSelection & /* selected
         QModelIndex index = m_sampleModel->indexOfItem(it.key());
         if (index.isValid()) {
             if (m_selectionModel->isSelected(index)) {
-                it.value()->setSelected(true);
+//                it.value()->setSelected(true);
             } else {
-                it.value()->setSelected(false);
+//                it.value()->setSelected(false);
             }
         }
     }
@@ -355,7 +355,7 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
         = (ParameterizedItem::PortInfo::EPorts)parentView->getInputPortIndex(
             connection->getInputPort());
 
-    childView->getParameterizedItem()->setItemPort(input_port_index);
+    childView->getParameterizedItem()->setPort(input_port_index);
     qDebug() << parentView->getInputPortIndex(connection->getInputPort());
     delete connection; // deleting just created connection because it will be recreated from the
                        // model

@@ -28,7 +28,7 @@ class BA_CORE_API_ DetectorItem : public ParameterizedItem
     Q_OBJECT
 public:
     static const QString P_DETECTOR;
-    explicit DetectorItem(ParameterizedItem *parent=0);
+    explicit DetectorItem();
     virtual ~DetectorItem(){}
 
     MaskContainerItem *getMaskContainerItem() const;

@@ -31,10 +31,10 @@ const QString BeamItem::P_WAVELENGTH = QString::fromStdString(BornAgain::Wavelen
 const QString BeamItem::P_INCLINATION_ANGLE = "Inclination Angle";
 const QString BeamItem::P_AZIMUTHAL_ANGLE = "Azimuthal Angle";
 
-BeamItem::BeamItem(ParameterizedItem *parent) : ParameterizedItem(Constants::BeamType, parent)
+BeamItem::BeamItem() : ParameterizedItem(Constants::BeamType)
 {
     ScientificDoubleProperty intensity(1e+08);
-    registerProperty(P_INTENSITY, intensity.getVariant()).limited(0.0, 1e+32);
+    registerProperty(P_INTENSITY, intensity.getVariant());//.limited(0.0, 1e+32);
     registerGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
     registerGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
     registerGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);

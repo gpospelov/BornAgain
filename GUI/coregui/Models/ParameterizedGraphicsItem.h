@@ -28,8 +28,7 @@ public:
     static const QString P_YPOS;
 
 protected:
-    explicit ParameterizedGraphicsItem(const QString &model_type=QString(),
-                               ParameterizedItem *parent=0);
+    explicit ParameterizedGraphicsItem(const QString &model_type=QString());
 };
 
 #endif

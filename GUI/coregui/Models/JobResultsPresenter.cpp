@@ -118,7 +118,7 @@ void JobResultsPresenter::loadIntensityData(JobItem *jobItem, const QString &pro
 {
     IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();
     if (intensityItem) {
-        QString filename = projectDir + "/" + intensityItem->itemName();
+        QString filename = projectDir + "/" + intensityItem->name();
         QFileInfo info(filename);
         if (info.exists()) {
             IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();

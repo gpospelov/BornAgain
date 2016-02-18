@@ -77,14 +77,14 @@ QStringList FitModel::retrieveDisplayNames(SessionModel *model, const QString &t
 
 QString FitModel::getSampleItemNameForDisplayName(const QString &displayName) {
     if (auto *item = m_sampleModel->itemForIndex(QModelIndex())->getChildByDisplayName(displayName)) {
-        return item->itemName();
+        return item->name();
     }
     return "";
 }
 
 QString FitModel::getInstrumentItemNameForDisplayName(const QString &displayName) {
     if (auto *item = m_instrumentModel->itemForIndex(QModelIndex())->getChildByDisplayName(displayName)) {
-        return item->itemName();
+        return item->name();
     }
     return "";
 }

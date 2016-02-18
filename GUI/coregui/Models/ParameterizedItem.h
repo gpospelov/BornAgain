@@ -19,73 +19,137 @@
 #include "WinDllMacros.h"
 #include "item_constants.h"
 #include "PropertyAttribute.h"
-#include "MaterialProperty.h"
 #include "ParameterTranslators.h"
 
 #include <memory>
-#include <QStandardItem>
-#include <QStringList>
-#include <QList>
-#include <QMap>
+#include <QObject> // NEW
+#include <QVector> // NEW
+#include <QVariant> // NEW
 
-class QEvent;
+class SessionModel; // NEW
 
 class BA_CORE_API_ ParameterizedItem : public QObject
 {
+    // TODO make parameterized item independant of qobject
     Q_OBJECT
-public:
-    static const QString P_NAME;
-    static const QString P_PORT;
-    explicit ParameterizedItem(QString model_type = QString(),
-                               ParameterizedItem *parent = 0);
 
+public:
+    //! create new parameterized item and set model type
+    explicit ParameterizedItem(QString model_type = QString());
+
+    //! delete me and children
     virtual ~ParameterizedItem();
 
-    //! retrieves the model type
-    QString modelType() const;
 
-    //! returns a user definable name, if present, or returns displayName() otherwise
-    QString itemName() const;
+    // data manipulation
 
-    //! sets the item's name
-    void setItemName(const QString &item_name);
+    //! retrieve data of given column, return invalid qvariant when out of range
+    QVariant data(int column) const;
 
-    //! retrieves a unique name based on the type and an index (if needed to distinguish siblings)
+    //! set data in the given column, return true when successful, notify model if present
+    //! we only support one role
+    bool setData(int column, const QVariant &data);
+
+    //! return variant stored in data column
+    QVariant value() const;
+
+    //! set data column
+    bool setValue(QVariant value);
+
+
+    // labels
+
+    //! return a user definable name, if present, or returs displayName() otherwise
+    QString name() const;
+
+    //! set the item's name through the model, use this instead of P_NAME
+    void setName(const QString &name);
+
+    //! retrieve a unique name based on the type and an index (if needed to distinguish siblings)
     //! This name is primarely used for generating long parameter names (ParticleDistributionItem
     //! and fitting).
     QString displayName() const;
 
-    //! returns a nice string representation of the data contained in this item
-    virtual QString itemLabel() const;
+    //! retrieves the model type
+    QString modelType() const;
+
+    //! return a nice string representation of the data contained in this item
+    virtual QString label() const;
+
+
+    // members
+
+    //! set model of item and children
+    void setModel(SessionModel *model);
+
+    class PortInfo
+    {
+    public:
+        enum EPorts { DEFAULT = -1, PORT_0 = 0, PORT_1 = 1, PORT_2 = 2 };
+
+        PortInfo(const QString &name = QString(), int nmax_items = 0)
+            : m_item_names(name), m_item_max_number(nmax_items) {}
+
+        QStringList m_item_names;
+        int m_item_max_number;
+    };
+
+    //! gets the item port, should be used instead of P_PORT
+    PortInfo::EPorts port() const;
+
+    //! not quite sure how this works, leave it as it is
+    void setPort(PortInfo::EPorts nport);
+
+    //! return copy of attribute object
+    PropertyAttribute attribute() const;
+
+    //! set attribute and through model
+    void setAttribute(const PropertyAttribute &attribute);
+
+
+    // navigation functions
 
     //! retrieve parent item
     ParameterizedItem *parent() const;
 
-    //! retrieve child item in given row
+    //! get number of child items
+    int rowCount() const;
+
+    //! column count is equal for all items and is derived from session model
+    int columnCount() const;
+
+    //! retrieve child item in given row - take care of null pointer
     ParameterizedItem *childAt(int row) const;
 
     //! get row number of child
     int rowOfChild(ParameterizedItem *child) const;
 
-    //! get number of child items
-    int childItemCount() const;
+    //! the index of this item from his parent
+    int childNumber() const;
+
+
+    // accessing children
 
     //! indicates if item has child items
-    bool hasChildItems() const;
+    bool hasChildren() const;
 
     //! returns the a list of child items
-    QList<ParameterizedItem *> childItems() const;
+    QList<ParameterizedItem *> getChildren() const;
 
-    //! inserts a child item at specified row
-    virtual void insertChildItem(int row, ParameterizedItem *item);
+    //! Returns a pointer to the first child of the given type
+    ParameterizedItem *getChildOfType(const QString &type) const;
+
+    //! get pointer to irst child with given display name (take care of appended index number)
+    ParameterizedItem* getChildByDisplayName(const QString &name) const;
+
+    //! returns a list of children of a certain type
+    QList<ParameterizedItem *> getChildrenOfType(const QString &model_type) const;
+
+    //! insert a child item at specified row
+    virtual void insertChild(int row, ParameterizedItem *item);
 
     //! take child item (this removes it from the current item)
     virtual ParameterizedItem *takeChildItem(int row);
-
-    //! Returns a pointer to the first child of the given type
-    ParameterizedItem *getChildOfType(QString type) const;
-
-    ParameterizedItem* getChildByDisplayName(const QString &name) const;
 
     //! indicates if the passed item can be set as a child item
     bool acceptsAsChild(const QString &child_name) const;
@@ -93,7 +157,48 @@ public:
     //! get list of acceptable child object names
     QList<QString> acceptableChildItems() const;
 
-    bool event(QEvent *e);
+
+    // properties
+
+    //! insert child item and make it known to it, populate with default value
+    //! TODO propertyattributes should now be set on the item itself
+    ParameterizedItem *registerProperty(const QString &name, const QVariant &variant,
+                          const PropertyAttribute &attribute = PropertyAttribute());
+
+    void setRegisteredProperty(const QString &name, const QVariant &variant);
+    QVariant getRegisteredProperty(const QString &name) const;
+    void removeRegisteredProperty(const QString &name);
+
+
+    // OBSOLETE there are dedicated function for item name
+    static const QString OBSOLETE_P_NAME;
+
+    // OBSOLETE port should not be accessed through registeredProperty
+    static const QString OBSOLETE_P_PORT;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ParameterizedItem *getParameterByName(const QString &name) const; // NEW
+
+
+
+
+
+//    bool event(QEvent *e);
 
     QMap<QString, ParameterizedItem *> getSubItems() const;
 
@@ -105,12 +210,7 @@ public:
                                              const Constants::ModelType &group_model);
     ParameterizedItem *setGroupProperty(const QString &name, const QString &value);
 
-    PropertyAttribute& registerProperty(const QString &name, const QVariant &variant,
-                          const PropertyAttribute &attribute = PropertyAttribute());
 
-    void setRegisteredProperty(const QString &name, const QVariant &variant);
-    QVariant getRegisteredProperty(const QString &name) const;
-    void removeRegisteredProperty(const QString &name);
 
     const PropertyAttribute& getPropertyAttribute(const QString &name) const;
     PropertyAttribute& getPropertyAttribute(const QString &name);
@@ -125,19 +225,7 @@ public:
 
     virtual ParameterizedItem *getCandidateForRemoval(ParameterizedItem *new_comer);
 
-    class PortInfo
-    {
-    public:
-        enum EPorts { DEFAULT = -1, PORT_0 = 0, PORT_1 = 1, PORT_2 = 2 };
 
-        PortInfo(const QString &name = QString(), int nmax_items = 0)
-            : m_item_names(name), m_item_max_number(nmax_items) {}
-
-        QStringList m_item_names;
-        int m_item_max_number;
-    };
-
-    void setItemPort(PortInfo::EPorts nport);
 
     //! retrieves a list of all parameter names in the ParameterizedItem tree starting
     //! with this node and prefixes them
@@ -186,11 +274,15 @@ protected:
 
     void addParameterTranslator(const IParameterTranslator &translator);
 
+
+
     QStringList m_registered_properties;
 
     QMap<QString, PropertyAttribute> m_property_attribute;
 
     void notifySiblings();
+
+    SessionModel *m_model;  // NEW
 
 private:
     QStringList getParameterList(QString prefix = "") const;
@@ -199,11 +291,15 @@ private:
     QMap<int, PortInfo> m_port_info;
 
     QString m_model_type;
+    QVector<QVariant> m_data; // NEW
     QString m_display_name;
     ParameterizedItem *mp_parent;
     QList<ParameterizedItem *> m_children;
     QMap<QString, ParameterizedItem *> m_sub_items;
     std::vector<std::unique_ptr<IParameterTranslator>> m_special_translators;
+    QMap<QString, ParameterizedItem *> m_properties;
+
+    PortInfo::EPorts m_port; // NEW, no item for ports, they do not change
 };
 
 #endif /* PARAMETERIZEDITEM_H_ */

@@ -29,7 +29,7 @@ public:
     static const QString P_REFRACTIVE_INDEX;
     static const QString P_MAGNETIC_FIELD;
     static const QString P_IDENTIFIER;
-    explicit MaterialItem(ParameterizedItem *parent=0);
+    explicit MaterialItem();
     virtual ~MaterialItem() {}
     void setMaterialType(int index);
 

@@ -26,7 +26,7 @@ public:
     static const QString P_WAVELENGTH;
     static const QString P_INCLINATION_ANGLE;
     static const QString P_AZIMUTHAL_ANGLE;
-    explicit BeamItem(ParameterizedItem *parent=0);
+    explicit BeamItem();
     virtual ~BeamItem(){}
 
     double getIntensity() const;

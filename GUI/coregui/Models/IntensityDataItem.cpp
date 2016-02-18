@@ -36,15 +36,15 @@ const QString IntensityDataItem::P_YAXIS = "y-axis";
 const QString IntensityDataItem::P_ZAXIS = "color-axis";
 
 
-IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::IntensityDataType, parent)
+IntensityDataItem::IntensityDataItem()
+    : ParameterizedItem(Constants::IntensityDataType)
 {
-    registerProperty(P_NAME, Constants::IntensityDataType).setHidden();
+    registerProperty(OBSOLETE_P_NAME, Constants::IntensityDataType);//.setHidden();
 
     ComboProperty units;
-    registerProperty(P_AXES_UNITS, units.getVariant()).setHidden();
+    registerProperty(P_AXES_UNITS, units.getVariant());//.setHidden();
 
-    registerProperty(P_PROJECTIONS_FLAG, false).setHidden();
+    registerProperty(P_PROJECTIONS_FLAG, false);//.setHidden();
     registerProperty(P_IS_INTERPOLATED, true);
 
     ComboProperty gradient;
@@ -58,16 +58,16 @@ IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
     gradient.setValue(Constants::GRADIENT_JET);
     registerProperty(P_GRADIENT, gradient.getVariant());
 
-    registerProperty(P_PROPERTY_PANEL_FLAG, false).setHidden();
+    registerProperty(P_PROPERTY_PANEL_FLAG, false);//.setHidden();
 
     registerGroupProperty(P_XAXIS, Constants::BasicAxisType);
-    getSubItems()[P_XAXIS]->getPropertyAttribute(BasicAxisItem::P_NBINS).setHidden();
+    getSubItems()[P_XAXIS]->getPropertyAttribute(BasicAxisItem::P_NBINS);//.setHidden();
 
     registerGroupProperty(P_YAXIS, Constants::BasicAxisType);
-    getSubItems()[P_YAXIS]->getPropertyAttribute(BasicAxisItem::P_NBINS).setHidden();
+    getSubItems()[P_YAXIS]->getPropertyAttribute(BasicAxisItem::P_NBINS);//.setHidden();
 
     registerGroupProperty(P_ZAXIS, Constants::AmplitudeAxisType);
-    getSubItems()[P_ZAXIS]->getPropertyAttribute(BasicAxisItem::P_NBINS).setHidden();
+    getSubItems()[P_ZAXIS]->getPropertyAttribute(BasicAxisItem::P_NBINS);//.setHidden();
 
     addToValidChildren(Constants::MaskContainerType);
 }
@@ -221,7 +221,7 @@ void IntensityDataItem::setZAxisLocked(bool state)
 void IntensityDataItem::setNameFromProposed(const QString &proposed_name)
 {
     QString valid_name = GUIHelpers::getValidFileName(proposed_name);
-    setItemName(QString("data_%1_%2.int").arg(valid_name, QString::number(0)));
+    setName(QString("data_%1_%2.int").arg(valid_name, QString::number(0)));
 }
 
 QString IntensityDataItem::getSelectedAxesUnits() const

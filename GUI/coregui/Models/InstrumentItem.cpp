@@ -17,17 +17,17 @@
 #include "DetectorItems.h"
 #include "BeamItem.h"
 
-InstrumentItem::InstrumentItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::InstrumentType, parent)
+InstrumentItem::InstrumentItem()
+    : ParameterizedItem(Constants::InstrumentType)
 {
-    registerProperty(P_NAME, Constants::InstrumentType);
+    registerProperty(OBSOLETE_P_NAME, Constants::InstrumentType);
     addToValidChildren(Constants::BeamType);
     addToValidChildren(Constants::DetectorType);
 }
 
 BeamItem *InstrumentItem::getBeamItem()
 {
-    for(ParameterizedItem *item : childItems()) {
+    for(ParameterizedItem *item : getChildren()) {
         if(item->modelType() == Constants::BeamType) {
             return dynamic_cast<BeamItem *>(item);
         }
@@ -37,7 +37,7 @@ BeamItem *InstrumentItem::getBeamItem()
 
 DetectorItem *InstrumentItem::getDetectorItem()
 {
-    for(ParameterizedItem *item : childItems()) {
+    for(ParameterizedItem *item : getChildren()) {
         if(item->modelType() == Constants::DetectorType) {
             return dynamic_cast<DetectorItem *>(item);
         }

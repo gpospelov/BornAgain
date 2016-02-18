@@ -39,7 +39,7 @@ public:
     static const QString P_YAXIS;
     static const QString P_ZAXIS;
 
-    explicit IntensityDataItem(ParameterizedItem *parent=0);
+    explicit IntensityDataItem();
     virtual ~IntensityDataItem();
 
     OutputData<double> *getOutputData() { return m_data.get(); }

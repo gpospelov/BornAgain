@@ -102,7 +102,7 @@ void JobResultsPresenter::updateDataAxes(IntensityDataItem *intensityItem,
 void JobResultsPresenter::saveIntensityData(JobItem *jobItem, const QString &projectDir)
 {
     IntensityDataItem *dataItem = jobItem->getIntensityDataItem();
-    if (dataItem) {
+    if (dataItem && dataItem->getOutputData()) {
         QString filename = projectDir + QStringLiteral("/") + dataItem->itemName();
 
         std::unique_ptr<OutputData<double>> dataToSave(

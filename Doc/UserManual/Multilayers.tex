@@ -154,8 +154,8 @@ We write
   k_\perp \eqqcolon k_\perp' + i k_\perp''
 \end{equation}
 for its decomposition into a real and an imaginary part.
-With (\ref{Endb1}) and $\beta\ge0$,
-we have always $k_\perp'\ge0$ and $k_\perp''\ge0$.
+With (\ref{Endb1}), $\beta\ge0$ and $\delta<1$,
+we always have $k_\perp'\cdot k_\perp''\ge0$.
 In analogy with (\ref{decompkperp}),
 full wavevectors have the decomposition
 \begin{equation}
@@ -179,20 +179,22 @@ associated with the plane-wave solution (\ref{Eplawafa},\ref{Ephizwj}):
   \end{array}
 \end{equation}
 The first two terms describe the exponential intensity decrease
-due to absorption.
-The oscillatory term in square brackets
-is a wave-mechanical subtlety
-of no interest for us.
-In the special case of a pure imaginary~$k_{\perp \il}$,
-the flux direction is $\k'=\k_\plll$.
-Then $\psi_\il(\r)$ is an \E{evanescent wave},
+due to absorption, while
+the oscillatory term in square brackets
+is responsible for waveguide effects in layers with finite thickness.
+In the special case of a purely imaginary~$k_{\perp \il}$,
+the flux becomes:
+\begin{equation}
+  \v{J}(\r) = \left| \psi \right|^2 \k_\plll + 2 \Im (A^-{A^+}^*) k_\perp''\v{\hat z}.
+\end{equation}
+This flux consists of two clearly distinct parts: an \E{evanescent wave},
 \index{Evanescent wave}%
-travelling horizontally.
-Since a stationary evanescent wave implies that there is
-no vertical energy transport,
-all incoming radiation undergoes \E{total reflection}.
+travelling horizontally
+ and a vertical component that is independent of the $z$ position. The vertical component is a necessary
+ degree of freedom to fulfill the boundary conditions at the layer's top and bottom interfaces.
+In the case of a semi-infinite layer, the vertical component becomes zero and
+ all incoming radiation at the top of the layer undergoes \E{total reflection}.
 \index{Total reflection}%
-
 %===============================================================================
 \section{DWBA matrix element}
 %===============================================================================

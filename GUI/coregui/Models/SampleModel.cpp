@@ -50,6 +50,8 @@ void SampleModel::onMaterialModelChanged(const QModelIndex &first, const QModelI
     qDebug() << "SampleModel::onMaterialModelChanged()" << first;
     Q_ASSERT(materialModel);
     MaterialItem *material = dynamic_cast<MaterialItem *>(materialModel->itemForIndex(first));
+    if (!material)
+        return;
     Q_ASSERT(material);
     m_material_identifier = material->getIdentifier();
 

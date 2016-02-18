@@ -165,8 +165,16 @@ public:
     ParameterizedItem *registerProperty(const QString &name, const QVariant &variant,
                           const PropertyAttribute &attribute = PropertyAttribute());
 
-    void setRegisteredProperty(const QString &name, const QVariant &variant);
+    //! self explaining
+    bool isRegisteredProperty(const QString &name) const;
+
+    //! retrieve property
     QVariant getRegisteredProperty(const QString &name) const;
+
+    //! update the property through the model
+    void setRegisteredProperty(const QString &name, const QVariant &variant);
+
+    //! unset property from this item
     void removeRegisteredProperty(const QString &name);
 
 
@@ -203,8 +211,6 @@ public:
     QMap<QString, ParameterizedItem *> getSubItems() const;
 
     void addSubItem(QString name, ParameterizedItem *item);
-
-    bool isRegisteredProperty(const QString &name) const;
 
     ParameterizedItem *registerGroupProperty(const QString &group_name,
                                              const Constants::ModelType &group_model);
@@ -275,8 +281,6 @@ protected:
     void addParameterTranslator(const IParameterTranslator &translator);
 
 
-
-    QStringList m_registered_properties;
 
     QMap<QString, PropertyAttribute> m_property_attribute;
 

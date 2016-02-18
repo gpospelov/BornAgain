@@ -22,6 +22,7 @@
 //#include "PropertyVariantManager.h"
 
 #include <sstream>
+#include <QDebug>
 
 ParameterizedItem::ParameterizedItem(QString model_type)
     : m_model_type(QString())
@@ -224,7 +225,7 @@ void ParameterizedItem::insertChild(int row, ParameterizedItem *item)
     if (m_model)
         m_model->endInsertRows();
 
-    // OBSOLETE watch for changes on the model
+    // OBSOLETE dont connect to items
 //    notifySiblings();
 //    onChildPropertyChange(item);
 }
@@ -236,7 +237,7 @@ ParameterizedItem *ParameterizedItem::takeChildItem(int row)
     item->setModel(nullptr);
     return item;
 
-    // OBSOLETE watch for changes on the model
+    // OBSOLETE dont connect to items
 //    notifySiblings();
 //    onChildPropertyChange(item);
 }
@@ -254,19 +255,23 @@ QList<QString> ParameterizedItem::acceptableChildItems() const
 ParameterizedItem *ParameterizedItem::registerProperty(const QString &name, const QVariant &variant,
                                          const PropertyAttribute &attribute)
 {
-    if (m_properties.contains(name))
+    if (isRegisteredProperty(name))
         throw GUIHelpers::Error(
             "ParameterizedItem::registerProperty() -> Error. Already existing property " + name);
+
 
     // OBSOLETE here for compatibility reasons
     if (name == ParameterizedItem::OBSOLETE_P_PORT) {
         m_port = ParameterizedItem::PortInfo::EPorts(variant.toInt());
+        m_properties[name] = nullptr;
         return nullptr;
     } else if (name == ParameterizedItem::OBSOLETE_P_NAME) {
         setName(variant.toString());
         return nullptr;
     }
+    m_property_attribute[name] = attribute;
     // END of obsolete
+
 
     ParameterizedItem *property = ItemFactory::createItem(Constants::PropertyType);
     property->setName(name);
@@ -276,6 +281,82 @@ ParameterizedItem *ParameterizedItem::registerProperty(const QString &name, cons
     m_properties.insert(name, property);
 
     return property;
+}
+
+bool ParameterizedItem::isRegisteredProperty(const QString &name) const
+{
+    return m_properties.contains(name);
+}
+
+QVariant ParameterizedItem::getRegisteredProperty(const QString &name) const
+{
+    if (!isRegisteredProperty(name))
+        throw GUIHelpers::Error(
+            "ParameterizedItem::getRegisteredProperty() -> Error. Unknown property '" + name
+            + "', item '" + modelType() + "'");
+
+    // for debugging purpose
+//    PropertyAttribute attribute = getPropertyAttribute(name);
+//    if(attribute.getAppearance() == PropertyAttribute::DISABLED) {
+//        throw GUIHelpers::Error("ParameterizedItem::getRegisteredProperty() -> Logic Error? "
+//            "You are trying to get DISABLED property with name '" +name +"', model " + modelType());
+//    }
+
+    // OBSOLETE
+    if (name == ParameterizedItem::OBSOLETE_P_PORT)
+        return QVariant::fromValue(int(m_port));
+    if (name == ParameterizedItem::OBSOLETE_P_NAME)
+        return this->name();
+    // OBSOLETE
+
+    return m_properties[name]->value();
+}
+
+void ParameterizedItem::setRegisteredProperty(const QString &name, const QVariant &variant)
+{
+    // check if variant of previous property coincides with new one
+    QVariant previous_variant = getRegisteredProperty(name);
+    if (GUIHelpers::getVariantType(previous_variant) != GUIHelpers::getVariantType(variant)) {
+        qDebug() << "ParameterizedItem::setRegisteredProperty() -> Error. Type of previous and new "
+                    "variant does not coincide.";
+        qDebug() << "New variant" << variant << ", previous " << previous_variant;
+        throw GUIHelpers::Error("ParameterizedItem::setRegisteredProperty() -> Error. Type of "
+                                "previous and new variant does not coincide.");
+    }
+
+    // START OBSOLETE
+    if (name == ParameterizedItem::OBSOLETE_P_NAME) {
+        setName(name);
+        onPropertyChange(name);
+        return;
+    }
+    if (name == ParameterizedItem::OBSOLETE_P_PORT) {
+        m_port = ParameterizedItem::PortInfo::EPorts(variant.toInt());
+        return;
+    }
+    // END OBSOLETE
+
+    m_properties[name]->setValue(variant);
+}
+
+void ParameterizedItem::removeRegisteredProperty(const QString &name)
+{
+    if(isRegisteredProperty(name)) {
+        qDebug() << "ParameterizedItem::removeRegisteredProperty()" << name;
+        m_property_attribute.remove(name);
+        if (ParameterizedItem *para = getParameterByName(name)) {
+            QModelIndex index = m_model->indexOfItem(para);
+            m_model->removeRows(index.row(), 1, index.parent());
+        }
+
+        // TODO get rid of subitems
+        if (m_sub_items.contains(name)) {
+            qDebug()
+                << "       ParameterizedItem::removeRegisteredProperty() -> Removing property iteme";
+            m_sub_items.remove(name);
+        }
+        // END TODO
+    }
 }
 
 
@@ -337,11 +418,6 @@ void ParameterizedItem::addSubItem(QString name, ParameterizedItem *item)
 //    qDebug() << "ParameterizedItem::addPropertyItem() -> about to leave" << name;
 }
 
-bool ParameterizedItem::isRegisteredProperty(const QString &name) const
-{
-    return m_registered_properties.contains(name);
-}
-
 ParameterizedItem *ParameterizedItem::registerGroupProperty(const QString &group_name,
                                                             const Constants::ModelType &group_model)
 {
@@ -371,87 +447,6 @@ ParameterizedItem *ParameterizedItem::setGroupProperty(const QString &name, cons
 }
 
 
-
-void ParameterizedItem::setRegisteredProperty(const QString &name, const QVariant &variant)
-{
-//    // check if variant of previous property coincides with new one
-//    QVariant previous_variant = getRegisteredProperty(name);
-//    if (GUIHelpers::getVariantType(previous_variant) != GUIHelpers::getVariantType(variant)) {
-//        qDebug() << "ParameterizedItem::setRegisteredProperty() -> Error. Type of previous and new "
-//                    "variant does not coincide.";
-//        qDebug() << "New variant" << variant << ", previous " << previous_variant;
-//        throw GUIHelpers::Error("ParameterizedItem::setRegisteredProperty() -> Error. Type of "
-//                                "previous and new variant does not coincide.");
-//    }
-
-//    setProperty(name.toUtf8().constData(), variant);
-    if (name == ParameterizedItem::OBSOLETE_P_NAME) {
-        if (m_model) {
-            m_model->setData(m_model->indexOfItem(this), variant, Qt::DisplayRole);
-        } else {
-            this->setData(0, variant);
-        }
-        onPropertyChange(name);
-    }
-    if (ParameterizedItem *para = getParameterByName(name)) {
-        if (0 && m_model) {
-            m_model->setData(m_model->indexOfItem(para), variant, Qt::UserRole);
-        } else {
-            para->setData(1, variant);
-        }
-        onPropertyChange(name);
-    }
-}
-
-QVariant ParameterizedItem::getRegisteredProperty(const QString &name) const
-{
-    if (!m_registered_properties.contains(name))
-//        throw GUIHelpers::Error(
-//            "ParameterizedItem::getRegisteredProperty() -> Error. Unknown property '" + name
-//            + "', item '" + modelType() + "'");
-        throw -1; // NEW
-
-    // for debugging purpose
-//    PropertyAttribute attribute = getPropertyAttribute(name);
-//    if(attribute.getAppearance() == PropertyAttribute::DISABLED) {
-//        throw GUIHelpers::Error("ParameterizedItem::getRegisteredProperty() -> Logic Error? "
-//            "You are trying to get DISABLED property with name '" +name +"', model " + modelType());
-//    }
-
-//    return property(name.toUtf8().constData());
-    if (name == ParameterizedItem::OBSOLETE_P_PORT) // NEW
-        return m_port; // NEW
-    if (name == ParameterizedItem::OBSOLETE_P_NAME) // NEW
-        return data(0);
-    if (ParameterizedItem *parameter = getParameterByName(name)) { // NEW
-        QVariant data = parameter->data(1); // NEW
-        return data;
-    }
-    return QVariant(); // NEW
-}
-
-void ParameterizedItem::removeRegisteredProperty(const QString &name)
-{
-    if(isRegisteredProperty(name)) {
-//        qDebug() << "ParameterizedItem::removeRegisteredProperty()" << name;
-        m_registered_properties.removeOne(name);
-        m_property_attribute.remove(name);
-        if (ParameterizedItem *para = getParameterByName(name)) {
-            QModelIndex index = m_model->indexOfItem(para);
-            m_model->removeRows(index.row(), 1, index.parent());
-        }
-//        setProperty(name.toUtf8().constData(), QVariant());
-
-        if (m_sub_items.contains(name)) {
-//            qDebug()
-//                << "       ParameterizedItem::removeRegisteredProperty() -> Removing property iteme";
-//            delete m_sub_items[name];
-            m_sub_items.remove(name);
-        }
-    }
-}
-
-
 const PropertyAttribute &ParameterizedItem::getPropertyAttribute(const QString &name) const
 {
     QMap<QString, PropertyAttribute>::const_iterator it = m_property_attribute.find(name);
@@ -478,7 +473,7 @@ PropertyAttribute &ParameterizedItem::getPropertyAttribute(const QString &name)
 void ParameterizedItem::setPropertyAttribute(const QString &name,
                                              const PropertyAttribute &attribute)
 {
-    if (!m_registered_properties.contains(name))
+    if (!isRegisteredProperty(name))
 //        throw GUIHelpers::Error(
 //            "ParameterizedItem::setPropertyAttribute() -> Error. Unknown property " + name);
         throw -1; // NEW

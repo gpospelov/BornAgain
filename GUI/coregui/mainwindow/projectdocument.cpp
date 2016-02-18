@@ -261,7 +261,7 @@ void ProjectDocument::readFrom(QIODevice *device)
     disconnectModel(m_instrumentModel);
     disconnectModel(m_sampleModel);
     disconnectModel(m_jobModel);
-    disconnectModel(m_fitModel);
+    //disconnectModel(m_fitModel);
 
     QXmlStreamReader reader(device);
 
@@ -285,9 +285,9 @@ void ProjectDocument::readFrom(QIODevice *device)
 
             } else if (reader.name() == SessionXML::JobModelTag) {
                 readModel(m_jobModel, &reader);
-            } else if (reader.name() == SessionXML::FitModelTag) {
+            } /*else if (reader.name() == SessionXML::FitModelTag) {
                 readModel(m_fitModel, &reader);
-            }
+            }*/
         }
     }
 
@@ -301,7 +301,7 @@ void ProjectDocument::readFrom(QIODevice *device)
     connectModel(m_instrumentModel);
     connectModel(m_sampleModel);
     connectModel(m_jobModel);
-    connectModel(m_fitModel);
+    //connectModel(m_fitModel);
 }
 
 void ProjectDocument::writeTo(QIODevice *device)
@@ -321,7 +321,7 @@ void ProjectDocument::writeTo(QIODevice *device)
     m_instrumentModel->writeTo(&writer);
     m_sampleModel->writeTo(&writer);
     m_jobModel->writeTo(&writer);
-    m_fitModel->writeTo(&writer);
+    //m_fitModel->writeTo(&writer);
 
     writer.writeEndElement(); // BornAgain tag
     writer.writeEndDocument();

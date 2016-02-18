@@ -125,16 +125,16 @@ MainWindow::MainWindow(QWidget *parent)
     m_simulationView = new SimulationView(this);
 
     m_jobView = new JobView(m_jobModel, m_projectManager);
-    m_fitView = new FitView(this);
+    //m_fitView = new FitView(this);
 
     m_tabWidget->insertTab(WELCOME, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
     m_tabWidget->insertTab(INSTRUMENT, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
     m_tabWidget->insertTab(SAMPLE, m_sampleView, QIcon(":/images/main_sample.png"), "Sample");
     m_tabWidget->insertTab(SIMULATION, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
     m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
-    m_tabWidget->insertTab(FIT, m_fitView, QIcon(":/images/main_jobqueue.png"), "Fit");
+    //m_tabWidget->insertTab(FIT, m_fitView, QIcon(":/images/main_jobqueue.png"), "Fit");
 
-    m_tabWidget->setCurrentIndex(FIT);
+    m_tabWidget->setCurrentIndex(WELCOME);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
@@ -253,7 +253,7 @@ void MainWindow::createModels()
 
     createJobModel();
 
-    createFitModel();
+    //createFitModel();
 
     resetModels();
 }
@@ -316,13 +316,13 @@ void MainWindow::resetModels()
     m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
     m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
 
-    m_fitModel->clear();
+    /*m_fitModel->clear();
     m_fitModel->insertNewItem(Constants::FitParameterContainerType, QModelIndex());
     ParameterizedItem *selection = m_fitModel->insertNewItem(Constants::FitSelectionType, QModelIndex());
     selection->setRegisteredProperty(FitSelectionItem::P_SAMPLE, "MultiLayer");
     selection->setRegisteredProperty(FitSelectionItem::P_INSTRUMENT, "Instrument0");
     m_fitModel->insertNewItem(Constants::MinimizerSettingsType, QModelIndex());
-    m_fitModel->insertNewItem(Constants::InputDataType, QModelIndex());
+    m_fitModel->insertNewItem(Constants::InputDataType, QModelIndex());*/
 
 }
 

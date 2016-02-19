@@ -11,7 +11,7 @@
  //#pragma SWIG nowarn=509 // overload ignored since reference=pointer
 
 
-%feature("director");
+ %feature("director");
 
  /*
 %feature("director") IAbstractParticle;
@@ -51,9 +51,11 @@
 %include "std_string.i"
 %include "std_vector.i"
 
- %include "boost_shared_ptr.i"
+ //%include "boost_shared_ptr.i"
  //%include <boost/shared_ptr.hpp>
- %shared_ptr(ISampleBuilder)
+ // %shared_ptr(ISampleBuilder)
+
+ /*
 %shared_ptr(ParameterPool)
 %shared_ptr(IParameterized)
 %shared_ptr(INamed)
@@ -162,7 +164,7 @@
  %shared_ptr(RotationEuler)
  %shared_ptr(SpecularSimulation)
 
-
+ /**/
 
 
 
@@ -172,17 +174,20 @@
 
 
  // to fix SWIG director method error created by mixing shared pointer directors and raw pointers
+ /*
 %ignore IParameterized::addParametersToExternalPool(std::string, ParameterPool *, int) const;
 %ignore IParameterized::addParametersToExternalPool(std::string, ParameterPool *) const;
 %ignore ICompositeSample::registerChild(ISample*);
 %ignore ICompositeSample::deregisterChild(ISample*);
 %ignore ISampleVisitor::visit(const ISample*);
 
+%ignore ISampleIteratorStrategy::first(const ISample*);
+%ignore SampleIteratorPreorderStrategy::first(const ISample*);
+%ignore SampleIteratorPostOrderStrategy::first(const ISample*);
 
 
-
-
-
+%ignore ISampleBuilder::buildSample();
+ */
 
 
  //%template(SampleBuilder_t) boost::shared_ptr<ISampleBuilder>;
@@ -191,7 +196,7 @@
 //%shared_ptr(INamed)
 
  //%shared_ptr(IShape2D)
-
+/*
 %shared_ptr(Geometry::IShape2D)
 %shared_ptr(Crystal)
 %shared_ptr(DistributionCosine)
@@ -804,11 +809,11 @@ import_array();
     return (*($self)).registerParameter(name, (double*)parpointer, limits);
     }*/
 
-  virtual std::string addParametersToExternalPool(std::string path, boost::shared_ptr<ParameterPool> external_pool,
+  /*virtual std::string addParametersToExternalPool(std::string path, boost::shared_ptr<ParameterPool> external_pool,
 						  int copy_number = -1) const
   {
     return ($self)->addParametersToExternalPool(path, external_pool.get(), copy_number);
-  }
+    }*/
 };
 
 %extend ISampleBuilder {
@@ -834,6 +839,8 @@ import_array();
 };
 */
 
+/*
+
 %extend ICompositeSample {
   virtual void registerChild(boost::shared_ptr<ISample> sample)
   {
@@ -853,3 +860,25 @@ import_array();
   }
 };
 		       
+
+%extend ISampleIterator {
+  virtual IteratorMemento first(boost::shared_ptr<ISample> p_root)
+  {
+    return ($self)->first(p_root.get());
+  }
+};
+
+%extend SampleIteratorPreorderStrategy {
+  virtual IteratorMemento first(boost::shared_ptr<ISample> p_root)
+  {
+    return ($self)->first(p_root.get());
+  }
+};
+
+%extend SampleIteratorPostOrderStrategy {
+  virtual IteratorMemento first(boost::shared_ptr<ISample> p_root)
+  {
+    return ($self)->first(p_root.get());
+  }
+};
+*/

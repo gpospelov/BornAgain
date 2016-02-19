@@ -39,12 +39,13 @@ const QString IntensityDataItem::P_ZAXIS = "color-axis";
 IntensityDataItem::IntensityDataItem()
     : ParameterizedItem(Constants::IntensityDataType)
 {
-    registerProperty(OBSOLETE_P_NAME, Constants::IntensityDataType);//.setHidden();
+//    registerProperty(OBSOLETE_P_NAME, Constants::IntensityDataType).setHidden();
+    setName(Constants::IntensityDataType);
 
     ComboProperty units;
-    registerProperty(P_AXES_UNITS, units.getVariant());//.setHidden();
+    registerProperty(P_AXES_UNITS, units.getVariant()).setHidden();
 
-    registerProperty(P_PROJECTIONS_FLAG, false);//.setHidden();
+    registerProperty(P_PROJECTIONS_FLAG, false).setHidden();
     registerProperty(P_IS_INTERPOLATED, true);
 
     ComboProperty gradient;
@@ -58,16 +59,16 @@ IntensityDataItem::IntensityDataItem()
     gradient.setValue(Constants::GRADIENT_JET);
     registerProperty(P_GRADIENT, gradient.getVariant());
 
-    registerProperty(P_PROPERTY_PANEL_FLAG, false);//.setHidden();
+    registerProperty(P_PROPERTY_PANEL_FLAG, false).setHidden();
 
     registerGroupProperty(P_XAXIS, Constants::BasicAxisType);
-    getSubItems()[P_XAXIS]->getPropertyAttribute(BasicAxisItem::P_NBINS);//.setHidden();
+    getSubItems()[P_XAXIS]->getPropertyAttribute(BasicAxisItem::P_NBINS).setHidden();
 
     registerGroupProperty(P_YAXIS, Constants::BasicAxisType);
-    getSubItems()[P_YAXIS]->getPropertyAttribute(BasicAxisItem::P_NBINS);//.setHidden();
+    getSubItems()[P_YAXIS]->getPropertyAttribute(BasicAxisItem::P_NBINS).setHidden();
 
     registerGroupProperty(P_ZAXIS, Constants::AmplitudeAxisType);
-    getSubItems()[P_ZAXIS]->getPropertyAttribute(BasicAxisItem::P_NBINS);//.setHidden();
+    getSubItems()[P_ZAXIS]->getPropertyAttribute(BasicAxisItem::P_NBINS).setHidden();
 
     addToValidChildren(Constants::MaskContainerType);
 }

@@ -28,7 +28,7 @@ const QString BeamDistributionItem::P_CACHED_VALUE = "Cached value";
 BeamDistributionItem::BeamDistributionItem(const QString name)
     : ParameterizedItem(name)
 {
-    registerProperty(P_CACHED_VALUE, 0.0);//.setHidden();
+    registerProperty(P_CACHED_VALUE, 0.0).setHidden();
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
     setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
 }

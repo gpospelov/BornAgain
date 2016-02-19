@@ -20,7 +20,7 @@
 InstrumentItem::InstrumentItem()
     : ParameterizedItem(Constants::InstrumentType)
 {
-    registerProperty(OBSOLETE_P_NAME, Constants::InstrumentType);
+    setName(Constants::InstrumentType);
     addToValidChildren(Constants::BeamType);
     addToValidChildren(Constants::DetectorType);
 }

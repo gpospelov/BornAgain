@@ -35,7 +35,7 @@ const QString ParticleDistributionItem::NO_SELECTION = "None";
 ParticleDistributionItem::ParticleDistributionItem()
     : ParameterizedGraphicsItem(Constants::ParticleDistributionType)
 {
-    registerProperty(ParticleItem::P_ABUNDANCE, 1.0);//.limited(0.0, 1.0).setDecimals(3);
+    registerProperty(ParticleItem::P_ABUNDANCE, 1.0).limited(0.0, 1.0).setDecimals(3);
 
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
 
@@ -58,7 +58,8 @@ void ParticleDistributionItem::insertChild(int row, ParameterizedItem *item)
     if (item->modelType() == Constants::ParticleType
         || item->modelType() == Constants::ParticleCoreShellType
         || item->modelType() == Constants::ParticleCompositionType) {
-        int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
+        int port = int(item->port());
+//        int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
         if (port == PortInfo::DEFAULT) {
             item->setPort(PortInfo::PORT_0);
         }

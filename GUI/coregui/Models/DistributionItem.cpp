@@ -45,7 +45,7 @@ const QString DistributionNoneItem::P_VALUE = "Value";
 DistributionNoneItem::DistributionNoneItem()
     : DistributionItem(Constants::DistributionNoneType)
 {
-    registerProperty(P_VALUE, 0.1);//.limitless();
+    registerProperty(P_VALUE, 0.1).limitless();
 }
 
 std::unique_ptr<IDistribution1D> DistributionNoneItem::createDistribution() const
@@ -67,8 +67,8 @@ const QString DistributionGateItem::P_MAX = "Maximum";
 DistributionGateItem::DistributionGateItem()
     : DistributionItem(Constants::DistributionGateType)
 {
-    registerProperty(P_MIN, 0.0);//.limitless();
-    registerProperty(P_MAX, 1.0);//.limitless();
+    registerProperty(P_MIN, 0.0).limitless();
+    registerProperty(P_MAX, 1.0).limitless();
     register_number_of_samples();
     register_sigma_factor();
 }
@@ -98,7 +98,7 @@ const QString DistributionLorentzItem::P_HWHM = "HWHM";
 DistributionLorentzItem::DistributionLorentzItem()
     : DistributionItem(Constants::DistributionLorentzType)
 {
-    registerProperty(P_MEAN, 0.0);//.limitless();
+    registerProperty(P_MEAN, 0.0).limitless();
     registerProperty(P_HWHM, 1.0);
     register_number_of_samples();
     register_sigma_factor();
@@ -130,7 +130,7 @@ const QString DistributionGaussianItem::P_STD_DEV = "Standard deviation";
 DistributionGaussianItem::DistributionGaussianItem()
     : DistributionItem(Constants::DistributionGaussianType)
 {
-    registerProperty(P_MEAN, 0.0);//.limitless();
+    registerProperty(P_MEAN, 0.0).limitless();
     registerProperty(P_STD_DEV, 1.0);
     register_number_of_samples();
     register_sigma_factor();
@@ -194,7 +194,7 @@ const QString DistributionCosineItem::P_SIGMA = "Sigma";
 DistributionCosineItem::DistributionCosineItem()
     : DistributionItem(Constants::DistributionCosineType)
 {
-    registerProperty(P_MEAN, 0.0);//.limitless();
+    registerProperty(P_MEAN, 0.0).limitless();
     registerProperty(P_SIGMA, 1.0);
     register_number_of_samples();
     register_sigma_factor();

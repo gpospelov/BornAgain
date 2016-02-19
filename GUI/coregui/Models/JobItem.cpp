@@ -60,28 +60,29 @@ const QString JobItem::P_RUN_POLICY = "Run Policy";
 JobItem::JobItem()
     : ParameterizedItem(Constants::JobItemType)
 {
-    registerProperty(OBSOLETE_P_NAME, Constants::JobItemType);
-    registerProperty(P_IDENTIFIER, QString());//.setHidden();
-    registerProperty(P_SAMPLE_NAME, QString());//.setReadOnly();
-    registerProperty(P_INSTRUMENT_NAME, QString());//.setReadOnly();
+//    registerProperty(OBSOLETE_P_NAME, Constants::JobItemType);
+    setName(Constants::JobItemType);
+    registerProperty(P_IDENTIFIER, QString()).setHidden();
+    registerProperty(P_SAMPLE_NAME, QString()).setReadOnly();
+    registerProperty(P_INSTRUMENT_NAME, QString()).setReadOnly();
 
     ComboProperty status;
     status << Constants::STATUS_IDLE << Constants::STATUS_RUNNING << Constants::STATUS_COMPLETED
            << Constants::STATUS_CANCELED << Constants::STATUS_FAILED;
-    registerProperty(P_STATUS, status.getVariant());//.setReadOnly();
+    registerProperty(P_STATUS, status.getVariant()).setReadOnly();
 
-    registerProperty(P_BEGIN_TIME, QString());//.setReadOnly();
-    registerProperty(P_END_TIME, QString());//.setReadOnly();
-    registerProperty(P_COMMENTS, QString());//.setHidden();
+    registerProperty(P_BEGIN_TIME, QString()).setReadOnly();
+    registerProperty(P_END_TIME, QString()).setReadOnly();
+    registerProperty(P_COMMENTS, QString()).setHidden();
 
-    registerProperty(P_PROGRESS, 0);//.setHidden();
-    registerProperty(P_NTHREADS, -1);//.setHidden();
+    registerProperty(P_PROGRESS, 0).setHidden();
+    registerProperty(P_NTHREADS, -1).setHidden();
 
     ComboProperty policy;
     policy << Constants::JOB_RUN_IMMEDIATELY
            << Constants::JOB_RUN_IN_BACKGROUND
            << Constants::JOB_RUN_SUBMIT_ONLY;
-    registerProperty(P_RUN_POLICY, policy.getVariant());//.setHidden();
+    registerProperty(P_RUN_POLICY, policy.getVariant()).setHidden();
 
     addToValidChildren(Constants::IntensityDataType);
 

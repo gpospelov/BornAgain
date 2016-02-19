@@ -22,11 +22,11 @@
 #include "ParameterTranslators.h"
 
 #include <memory>
-#include <QObject> // NEW
-#include <QVector> // NEW
-#include <QVariant> // NEW
+#include <QObject>
+#include <QVector>
+#include <QVariant>
 
-class SessionModel; // NEW
+class SessionModel;
 
 class BA_CORE_API_ ParameterizedItem : public QObject
 {
@@ -56,6 +56,9 @@ public:
     //! set data column
     bool setValue(QVariant value);
 
+    //! check if data is set
+    bool hasData(int column);
+
 
     // labels
 
@@ -82,6 +85,8 @@ public:
     //! set model of item and children
     void setModel(SessionModel *model);
 
+    SessionModel *model() const;
+
     class PortInfo
     {
     public:
@@ -99,12 +104,6 @@ public:
 
     //! not quite sure how this works, leave it as it is
     void setPort(PortInfo::EPorts nport);
-
-    //! return copy of attribute object
-    PropertyAttribute attribute() const;
-
-    //! set attribute and through model
-    void setAttribute(const PropertyAttribute &attribute);
 
 
     // navigation functions
@@ -140,7 +139,7 @@ public:
     ParameterizedItem *getChildOfType(const QString &type) const;
 
     //! get pointer to irst child with given display name (take care of appended index number)
-    ParameterizedItem* getChildByDisplayName(const QString &name) const;
+    ParameterizedItem* getChildByName(const QString &name) const;
 
     //! returns a list of children of a certain type
     QList<ParameterizedItem *> getChildrenOfType(const QString &model_type) const;
@@ -162,10 +161,14 @@ public:
 
     //! insert child item and make it known to it, populate with default value
     //! TODO propertyattributes should now be set on the item itself
-    ParameterizedItem *registerProperty(const QString &name, const QVariant &variant,
+    PropertyAttribute &registerProperty(const QString &name, const QVariant &variant,
                           const PropertyAttribute &attribute = PropertyAttribute());
 
-    //! self explaining
+    //! adds a child which is accessible as property
+    void appendPropertyItem(ParameterizedItem *item,
+                            const PropertyAttribute &attribute = PropertyAttribute());
+
+    //! check in its property map
     bool isRegisteredProperty(const QString &name) const;
 
     //! retrieve property
@@ -178,11 +181,6 @@ public:
     void removeRegisteredProperty(const QString &name);
 
 
-    // OBSOLETE there are dedicated function for item name
-    static const QString OBSOLETE_P_NAME;
-
-    // OBSOLETE port should not be accessed through registeredProperty
-    static const QString OBSOLETE_P_PORT;
 
 
 
@@ -191,26 +189,10 @@ public:
 
 
 
-
-
-
-
-
-
-
-
-
-    ParameterizedItem *getParameterByName(const QString &name) const; // NEW
-
-
-
-
-
-//    bool event(QEvent *e);
 
     QMap<QString, ParameterizedItem *> getSubItems() const;
 
-    void addSubItem(QString name, ParameterizedItem *item);
+//    void addSubItem(QString name, ParameterizedItem *item);
 
     ParameterizedItem *registerGroupProperty(const QString &group_name,
                                              const Constants::ModelType &group_model);
@@ -301,7 +283,7 @@ private:
     QList<ParameterizedItem *> m_children;
     QMap<QString, ParameterizedItem *> m_sub_items;
     std::vector<std::unique_ptr<IParameterTranslator>> m_special_translators;
-    QMap<QString, ParameterizedItem *> m_properties;
+    QMap<QString, ParameterizedItem *> m_propertyItems;
 
     PortInfo::EPorts m_port; // NEW, no item for ports, they do not change
 };

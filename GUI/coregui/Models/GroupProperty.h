@@ -38,6 +38,8 @@ public:
 
     void setParent(ParameterizedItem *parent);
 
+    ParameterizedItem *getCurrentItem();
+
     ParameterizedItem *createCorrespondingItem();
 
     QString getGroupName() const;

@@ -31,9 +31,9 @@ ParticleCompositionView::ParticleCompositionView(QGraphicsItem *parent) : Connec
 
 void ParticleCompositionView::addView(IView *childView, int /* row */)
 {
-    int index = childView->getParameterizedItem()
-                    ->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT)
-                    .toInt();
+    int index = int(childView->getParameterizedItem()->port());
+//                    ->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT)
+//                    .toInt();
     qDebug() << "ParticleCompositionView::addView()" << index;
     connectInputPort(dynamic_cast<ConnectableView *>(childView), index);
 }

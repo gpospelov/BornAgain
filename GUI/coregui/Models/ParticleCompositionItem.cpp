@@ -22,7 +22,7 @@
 ParticleCompositionItem::ParticleCompositionItem()
     : ParameterizedGraphicsItem(Constants::ParticleCompositionType)
 {
-    registerProperty(ParticleItem::P_ABUNDANCE, 1.0);//.limited(0.0, 1.0).setDecimals(3);
+    registerProperty(ParticleItem::P_ABUNDANCE, 1.0).limited(0.0, 1.0).setDecimals(3);
     registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;
     addParameterTranslator(position_translator);
@@ -37,7 +37,8 @@ ParticleCompositionItem::ParticleCompositionItem()
 
 void ParticleCompositionItem::insertChild(int row, ParameterizedItem *item)
 {
-    int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
+//    int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
+    int port = int(item->port());
     ParameterizedItem::insertChild(row, item);
     if (item->modelType() == Constants::ParticleType
         || item->modelType() == Constants::ParticleCoreShellType
@@ -54,11 +55,11 @@ void ParticleCompositionItem::insertChild(int row, ParameterizedItem *item)
 void ParticleCompositionItem::onPropertyChange(const QString &name)
 {
     ParameterizedItem::onPropertyChange(name);
-    if (name == OBSOLETE_P_PORT && parent()) {
+    if (name == "OBSOLETE_P_PORT" && parent()) {
         if (parent()->modelType() == Constants::ParticleCompositionType
             || parent()->modelType() == Constants::ParticleDistributionType) {
             setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-            getPropertyAttribute(ParticleItem::P_ABUNDANCE);//.setDisabled();
+            getPropertyAttribute(ParticleItem::P_ABUNDANCE).setDisabled();
         }
     }
 }

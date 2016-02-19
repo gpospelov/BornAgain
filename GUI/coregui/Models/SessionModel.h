@@ -64,7 +64,7 @@ public:
     virtual ~SessionModel();
     void createRootItem(); //NEW
 
-    enum EColumn {ITEM_NAME, ITEM_VALUE, ITEM_ATTR, MAX_COLUMNS}; // NEW column usage
+    enum EColumn {ITEM_NAME, ITEM_VALUE, MAX_COLUMNS}; // NEW column usage
 
 //    // Begin overriden methods from QAbstractItemModel
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;

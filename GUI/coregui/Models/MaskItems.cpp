@@ -53,10 +53,10 @@ const QString RectangleItem::P_YUP = "yup";
 RectangleItem::RectangleItem()
     : MaskItem(Constants::RectangleMaskType)
 {
-    registerProperty(P_XLOW, 0.0);//.limitless();
-    registerProperty(P_YLOW, 0.0);//.limitless();
-    registerProperty(P_XUP, 0.0);//.limitless();
-    registerProperty(P_YUP, 0.0);//.limitless();
+    registerProperty(P_XLOW, 0.0).limitless();
+    registerProperty(P_YLOW, 0.0).limitless();
+    registerProperty(P_XUP, 0.0).limitless();
+    registerProperty(P_YUP, 0.0).limitless();
 }
 
 Geometry::IShape2D *RectangleItem::createShape(double scale) const
@@ -75,8 +75,8 @@ const QString PolygonPointItem::P_POSY = "Y position";
 PolygonPointItem::PolygonPointItem()
     : ParameterizedItem(Constants::PolygonPointType)
 {
-    registerProperty(P_POSX, 0.0);//.limitless();
-    registerProperty(P_POSY, 0.0);//.limitless();
+    registerProperty(P_POSX, 0.0).limitless();
+    registerProperty(P_POSY, 0.0).limitless();
 }
 
 /* ------------------------------------------------------------------------- */
@@ -87,7 +87,7 @@ PolygonItem::PolygonItem()
     : MaskItem(Constants::PolygonMaskType)
 {
     addToValidChildren(Constants::PolygonPointType);
-    registerProperty(P_ISCLOSED, false);//.setHidden();
+    registerProperty(P_ISCLOSED, false).setHidden();
 }
 
 Geometry::IShape2D *PolygonItem::createShape(double scale) const
@@ -106,7 +106,7 @@ const QString VerticalLineItem::P_POSX = "X position";
 VerticalLineItem::VerticalLineItem()
     : MaskItem(Constants::VerticalLineMaskType)
 {
-    registerProperty(P_POSX, 0.0);//.limitless();
+    registerProperty(P_POSX, 0.0).limitless();
 }
 
 Geometry::IShape2D *VerticalLineItem::createShape(double scale) const
@@ -121,7 +121,7 @@ const QString HorizontalLineItem::P_POSY = "Y position";
 HorizontalLineItem::HorizontalLineItem()
     : MaskItem(Constants::HorizontalLineMaskType)
 {
-    registerProperty(P_POSY, 0.0);//.limitless();
+    registerProperty(P_POSY, 0.0).limitless();
 }
 
 Geometry::IShape2D *HorizontalLineItem::createShape(double scale) const
@@ -141,11 +141,11 @@ const QString EllipseItem::P_ANGLE = "Angle";
 EllipseItem::EllipseItem()
     : MaskItem(Constants::EllipseMaskType)
 {
-    registerProperty(P_XCENTER, 0.0);//.limitless();
-    registerProperty(P_YCENTER, 0.0);//.limitless();
+    registerProperty(P_XCENTER, 0.0).limitless();
+    registerProperty(P_YCENTER, 0.0).limitless();
     registerProperty(P_XRADIUS, 0.0);
     registerProperty(P_YRADIUS, 0.0);
-    registerProperty(P_ANGLE, 0.0);//.limitless();
+    registerProperty(P_ANGLE, 0.0).limitless();
 }
 
 Geometry::IShape2D *EllipseItem::createShape(double scale) const
@@ -164,7 +164,7 @@ Geometry::IShape2D *EllipseItem::createShape(double scale) const
 MaskAllItem::MaskAllItem()
     : MaskItem(Constants::MaskAllType)
 {
-    getPropertyAttribute(MaskItem::P_MASK_VALUE);//.setDisabled();
+    getPropertyAttribute(MaskItem::P_MASK_VALUE).setDisabled();
 }
 
 Geometry::IShape2D *MaskAllItem::createShape(double scale) const

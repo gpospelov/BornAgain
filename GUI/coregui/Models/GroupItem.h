@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ParameterizedGraphicsItem.cpp
-//! @brief     Implements class ParameterizedGraphicsItem
+//! @file      coregui/Models/BeamItem.h
+//! @brief     Defines class BeamItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,17 +13,22 @@
 //
 // ************************************************************************** //
 
-#include "ParameterizedGraphicsItem.h"
+#ifndef GROUPITEM_H
+#define GROUPITEM_H
 
+#include "ParameterizedItem.h"
+#include "GroupProperty.h"
 
-const QString ParameterizedGraphicsItem::P_XPOS = "xpos";
-const QString ParameterizedGraphicsItem::P_YPOS = "ypos";
-
-
-ParameterizedGraphicsItem::ParameterizedGraphicsItem(const QString &model_type)
-    : ParameterizedItem(model_type)
+class BA_CORE_API_ GroupItem : public ParameterizedItem
 {
-    registerProperty(P_XPOS, qreal(0.0)).setHidden();
-    registerProperty(P_YPOS, qreal(0.0)).setHidden();
-}
+    Q_OBJECT
+public:
+    GroupItem();
+    void setGroup(GroupProperty_t group);
+    GroupProperty_t group();
+private:
+    GroupProperty_t m_group;
+};
+
+#endif
 

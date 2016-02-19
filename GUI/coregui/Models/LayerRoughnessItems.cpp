@@ -30,6 +30,6 @@ LayerBasicRoughnessItem::LayerBasicRoughnessItem()
     : ParameterizedItem(Constants::LayerBasicRoughnessType)
 {
     registerProperty(P_SIGMA, 1.0);
-    registerProperty(P_HURST, 0.3);//.limited(0.0, 1.0).setDecimals(3);
+    registerProperty(P_HURST, 0.3).limited(0.0, 1.0).setDecimals(3);
     registerProperty(P_LATERAL_CORR_LENGTH, 5.0);
 }

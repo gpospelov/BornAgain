@@ -26,7 +26,8 @@ MultiLayerItem::MultiLayerItem()
 {
     registerProperty(P_CROSS_CORR_LENGTH, 0.0);
     addToValidChildren(Constants::LayerType);
-    registerProperty(OBSOLETE_P_NAME, Constants::MultiLayerType);
+//    registerProperty(OBSOLETE_P_NAME, Constants::MultiLayerType);
+    setName(Constants::MultiLayerType);
 }
 
 ParameterizedItem *MultiLayerItem::takeChildItem(int row)
@@ -47,12 +48,12 @@ void MultiLayerItem::updateLayers()
     QList<ParameterizedItem*> list = getChildrenOfType(Constants::LayerType);
     for(auto it = list.begin(); it != list.end(); ++it) {
         if(it == list.begin()) {
-            (*it)->getPropertyAttribute(LayerItem::P_ROUGHNESS);//.setDisabled();
+            (*it)->getPropertyAttribute(LayerItem::P_ROUGHNESS).setDisabled();
         } else {
             (*it)->getPropertyAttribute(LayerItem::P_ROUGHNESS).setVisible();
         }
         if(it == list.begin() || it == list.end()) {
-            (*it)->getPropertyAttribute(LayerItem::P_THICKNESS);//.setDisabled();
+            (*it)->getPropertyAttribute(LayerItem::P_THICKNESS).setDisabled();
         } else {
             (*it)->getPropertyAttribute(LayerItem::P_THICKNESS).setVisible();
         }

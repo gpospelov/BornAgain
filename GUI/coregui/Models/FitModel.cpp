@@ -76,14 +76,14 @@ QStringList FitModel::retrieveDisplayNames(SessionModel *model, const QString &t
 }
 
 QString FitModel::getSampleItemNameForDisplayName(const QString &displayName) {
-    if (auto *item = m_sampleModel->itemForIndex(QModelIndex())->getChildByDisplayName(displayName)) {
+    if (auto *item = m_sampleModel->itemForIndex(QModelIndex())->getChildByName(displayName)) {
         return item->name();
     }
     return "";
 }
 
 QString FitModel::getInstrumentItemNameForDisplayName(const QString &displayName) {
-    if (auto *item = m_instrumentModel->itemForIndex(QModelIndex())->getChildByDisplayName(displayName)) {
+    if (auto *item = m_instrumentModel->itemForIndex(QModelIndex())->getChildByName(displayName)) {
         return item->name();
     }
     return "";
@@ -91,12 +91,12 @@ QString FitModel::getInstrumentItemNameForDisplayName(const QString &displayName
 
 ParameterizedItem *FitModel::getSelectedMultiLayerItem() {
     ParameterizedItem *samplesRoot = m_sampleModel->itemForIndex(QModelIndex());
-    return samplesRoot->getChildByDisplayName(getSelectedSampleName());
+    return samplesRoot->getChildByName(getSelectedSampleName());
 }
 
 ParameterizedItem *FitModel::getSelectedInstrumentItem() {
     ParameterizedItem *instrumentRoot = m_instrumentModel->itemForIndex(QModelIndex());
-    return instrumentRoot->getChildByDisplayName(getSelectedInstrumentName());
+    return instrumentRoot->getChildByName(getSelectedInstrumentName());
 }
 
 void FitModel::setSelectedSample(const QString &displayName) {

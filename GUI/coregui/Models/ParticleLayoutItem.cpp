@@ -50,7 +50,8 @@ void ParticleLayoutItem::insertChild(int row, ParameterizedItem *item)
         || item->modelType() == Constants::ParticleCoreShellType
         || item->modelType() == Constants::ParticleCompositionType
         || item->modelType() == Constants::ParticleDistributionType) {
-        int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
+//        int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
+        int port = int(item->port());
         if (port == PortInfo::DEFAULT) {
             item->setPort(PortInfo::PORT_0);
         }
@@ -58,7 +59,8 @@ void ParticleLayoutItem::insertChild(int row, ParameterizedItem *item)
                || item->modelType() == Constants::InterferenceFunction2DParaCrystalType
                || item->modelType() == Constants::InterferenceFunction1DLatticeType
                || item->modelType() == Constants::InterferenceFunction2DLatticeType) {
-        int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
+//        int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
+        int port = int(item->port());
         if (port == PortInfo::DEFAULT) {
             item->setPort(PortInfo::PORT_1);
         }
@@ -70,7 +72,7 @@ void ParticleLayoutItem::onChildPropertyChange(ParameterizedItem *item, const QS
     for (auto child_item : getChildren()) {
         if (child_item->modelType() == Constants::InterferenceFunction2DParaCrystalType
             || child_item->modelType() == Constants::InterferenceFunction2DLatticeType) {
-            getPropertyAttribute(P_TOTAL_DENSITY);//.setDisabled();
+            getPropertyAttribute(P_TOTAL_DENSITY).setDisabled();
             emit propertyChanged(P_TOTAL_DENSITY);
             ParameterizedItem::onChildPropertyChange(item, propertyName);
             return;

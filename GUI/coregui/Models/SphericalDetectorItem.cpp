@@ -29,12 +29,12 @@ SphericalDetectorItem::SphericalDetectorItem()
     : ParameterizedItem(Constants::SphericalDetectorType)
 {
     registerGroupProperty(P_PHI_AXIS, Constants::BasicAxisType);
-    getSubItems()[P_PHI_AXIS]->getPropertyAttribute(BasicAxisItem::P_TITLE);//.setHidden();
+    getSubItems()[P_PHI_AXIS]->getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
     getSubItems()[P_PHI_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, -1.0);
     getSubItems()[P_PHI_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 1.0);
 
     registerGroupProperty(P_ALPHA_AXIS, Constants::BasicAxisType);
-    getSubItems()[P_ALPHA_AXIS]->getPropertyAttribute(BasicAxisItem::P_TITLE);//.setHidden();
+    getSubItems()[P_ALPHA_AXIS]->getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
     getSubItems()[P_ALPHA_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, 0.0);
     getSubItems()[P_ALPHA_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 2.0);
 

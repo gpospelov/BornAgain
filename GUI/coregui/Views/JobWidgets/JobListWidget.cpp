@@ -227,7 +227,7 @@ void JobListWidget::showContextMenu(const QPoint &pnt)
     menu.addSeparator();
 
     QMenu menu_equalize("Equalize selected plots");
-    menu_equalize;//.setTooltip("All plots from the list of selected jobs will be equalized to this one.");
+    menu_equalize.setToolTip("All plots from the list of selected jobs will be equalized to this one.");
 
     QModelIndexList selected = m_listView->selectionModel()->selectedIndexes();
     if(selected.size() <= 1)

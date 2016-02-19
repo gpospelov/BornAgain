@@ -100,7 +100,7 @@ FTDistribution1DVoigtItem::FTDistribution1DVoigtItem()
     : FTDistribution1DItem(FTDistribution1DVoigtType)
 {
     registerProperty(P_CORR_LENGTH, 1.0);
-    registerProperty(P_ETA, 0.5);//.limited(0.0, 1.0);
+    registerProperty(P_ETA, 0.5).limited(0.0, 1.0);
 }
 
 IFTDistribution1D *FTDistribution1DVoigtItem::createFTDistribution() const
@@ -195,7 +195,7 @@ FTDistribution2DVoigtItem::FTDistribution2DVoigtItem()
 {
     registerProperty(P_CORR_LENGTH_X, 1.0);
     registerProperty(P_CORR_LENGTH_Y, 1.0);
-    registerProperty(P_ETA, 0.5);//.limited(0.0, 1.0);
+    registerProperty(P_ETA, 0.5).limited(0.0, 1.0);
 }
 
 IFTDistribution2D *FTDistribution2DVoigtItem::createFTDistribution() const

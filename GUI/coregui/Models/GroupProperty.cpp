@@ -30,11 +30,25 @@ GroupProperty::EGroupType GroupProperty::type() const
     return m_group_type;
 }
 
+ParameterizedItem *GroupProperty::getCurrentItem()
+{
+    return m_parent->getChildByName(this->getCurrentType());
+    if (m_parent->getChildByName(this->getCurrentType())) {
+    } else {
+        ParameterizedItem *item = createCorrespondingItem();
+        item->setName(getGroupName());
+        m_parent->appendPropertyItem(item);
+        return getCurrentItem();
+    }
+}
+
 void GroupProperty::setParent(ParameterizedItem *parent)
 {
     Q_ASSERT(parent);
     m_parent = parent;
-    m_parent->addSubItem(getGroupName(), createCorrespondingItem());
+    ParameterizedItem *item = createCorrespondingItem();
+    item->setName(getGroupName());
+    m_parent->insertChild(-1, item);
 }
 
 ParameterizedItem *GroupProperty::createCorrespondingItem()
@@ -63,7 +77,9 @@ void GroupProperty::setCurrentType(const QString &type)
     m_current_type = type;
 
     if(m_parent) {
-        m_parent->addSubItem(getGroupName(), createCorrespondingItem());
+        ParameterizedItem *item = createCorrespondingItem();
+        item->setName(getGroupName());
+        m_parent->appendPropertyItem(item);
         //emit m_parent->subItemChanged(getGroupName());
     }
 }

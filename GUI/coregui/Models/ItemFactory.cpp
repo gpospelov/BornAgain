@@ -30,6 +30,7 @@
 #include "DetectorItems.h"
 #include "VectorItem.h"
 #include "PropertyItem.h"
+#include "GroupItem.h"
 #include "GUIHelpers.h"
 #include "FormFactorItems.h"
 #include "LayerRoughnessItems.h"
@@ -175,7 +176,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::FitSelectionType] = &createInstance<FitSelectionItem>;
     result[Constants::MinimizerSettingsType] = &createInstance<MinimizerSettingsItem>;
     result[Constants::InputDataType] = &createInstance<InputDataItem>;
-    result["Parameter"] = &createInstance<ParameterizedItem>;
+    result[Constants::GroupItemType] = &createInstance<GroupItem>;
 
     return result;
 }

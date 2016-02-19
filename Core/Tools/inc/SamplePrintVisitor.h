@@ -72,6 +72,7 @@ public:
     void visit(const FormFactorFullSpheroid *sample);
     void visit(const FormFactorGauss *sample);
     void visit(const FormFactorHemiEllipsoid *sample);
+    void visit(const FormFactorLongBox *sample);
     void visit(const FormFactorLorentz *sample);
     void visit(const FormFactorPrism3 *sample);
     void visit(const FormFactorPrism6 *sample);

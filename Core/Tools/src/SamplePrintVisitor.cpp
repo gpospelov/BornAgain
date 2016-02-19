@@ -194,10 +194,14 @@ void SamplePrintVisitor::visit(const FormFactorHemiEllipsoid *sample)
     print_default(sample);
 }
 
-void SamplePrintVisitor::visit(const FormFactorLorentz *)
+void SamplePrintVisitor::visit(const FormFactorLongBox *sample)
 {
-    throw NotImplementedException("SamplePrintVisitor::"
-                                  "visit(const FormFactorLorentz *) -> Error. Not implemented.");
+    print_default(sample);
+}
+
+void SamplePrintVisitor::visit(const FormFactorLorentz *sample)
+{
+    print_default(sample);
 }
 
 void SamplePrintVisitor::visit(const FormFactorPrism3 *sample)

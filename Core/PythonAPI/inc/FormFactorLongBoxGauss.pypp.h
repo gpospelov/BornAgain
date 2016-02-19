@@ -15,9 +15,9 @@
 //
 // ************************************************************************** //
 
-#ifndef FormFactorLongBox_hpp__pyplusplus_wrapper
-#define FormFactorLongBox_hpp__pyplusplus_wrapper
+#ifndef FormFactorLongBoxGauss_hpp__pyplusplus_wrapper
+#define FormFactorLongBoxGauss_hpp__pyplusplus_wrapper
 
-void register_FormFactorLongBox_class();
+void register_FormFactorLongBoxGauss_class();
 
-#endif//FormFactorLongBox_hpp__pyplusplus_wrapper
+#endif//FormFactorLongBoxGauss_hpp__pyplusplus_wrapper

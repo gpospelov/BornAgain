@@ -22,53 +22,53 @@ GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
 #include "PythonCoreList.h"
-#include "FormFactorLongBox.pypp.h"
+#include "FormFactorLongBoxLorentz.pypp.h"
 
 namespace bp = boost::python;
 
-struct FormFactorLongBox_wrapper : FormFactorLongBox, bp::wrapper< FormFactorLongBox > {
+struct FormFactorLongBoxLorentz_wrapper : FormFactorLongBoxLorentz, bp::wrapper< FormFactorLongBoxLorentz > {
 
-    FormFactorLongBox_wrapper(double length, double width, double height )
-    : FormFactorLongBox( length, width, height )
-      , bp::wrapper< FormFactorLongBox >(){
+    FormFactorLongBoxLorentz_wrapper(double length, double width, double height )
+    : FormFactorLongBoxLorentz( length, width, height )
+      , bp::wrapper< FormFactorLongBoxLorentz >(){
         // constructor
     m_pyobj = 0;
     }
 
-    virtual ::FormFactorLongBox * clone(  ) const  {
+    virtual ::FormFactorLongBoxLorentz * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
         else{
-            return this->FormFactorLongBox::clone(  );
+            return this->FormFactorLongBoxLorentz::clone(  );
         }
     }
     
-    ::FormFactorLongBox * default_clone(  ) const  {
-        return FormFactorLongBox::clone( );
+    ::FormFactorLongBoxLorentz * default_clone(  ) const  {
+        return FormFactorLongBoxLorentz::clone( );
     }
 
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
             return func_evaluate_for_q( boost::ref(q) );
         else{
-            return this->FormFactorLongBox::evaluate_for_q( boost::ref(q) );
+            return this->FormFactorLongBoxLorentz::evaluate_for_q( boost::ref(q) );
         }
     }
     
     ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
-        return FormFactorLongBox::evaluate_for_q( boost::ref(q) );
+        return FormFactorLongBoxLorentz::evaluate_for_q( boost::ref(q) );
     }
 
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
         else{
-            return this->FormFactorLongBox::getRadius(  );
+            return this->FormFactorLongBoxLorentz::getRadius(  );
         }
     }
     
     double default_getRadius(  ) const  {
-        return FormFactorLongBox::getRadius( );
+        return FormFactorLongBoxLorentz::getRadius( );
     }
 
     virtual ::ISample * cloneInvertB(  ) const  {
@@ -195,174 +195,174 @@ struct FormFactorLongBox_wrapper : FormFactorLongBox, bp::wrapper< FormFactorLon
 
 };
 
-void register_FormFactorLongBox_class(){
+void register_FormFactorLongBoxLorentz_class(){
 
-    { //::FormFactorLongBox
-        typedef bp::class_< FormFactorLongBox_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorLongBox_wrapper >, boost::noncopyable > FormFactorLongBox_exposer_t;
-        FormFactorLongBox_exposer_t FormFactorLongBox_exposer = FormFactorLongBox_exposer_t( "FormFactorLongBox", "The formfactor for a long rectangular box.", bp::init< double, double, double >(( bp::arg("length"), bp::arg("width"), bp::arg("height") ), "Box constructor.\n\n:Parameters:\n  - 'length' - of Box's base\n  - 'width' - of Box's base\n  - 'height' - of Box\n") );
-        bp::scope FormFactorLongBox_scope( FormFactorLongBox_exposer );
-        { //::FormFactorLongBox::clone
+    { //::FormFactorLongBoxLorentz
+        typedef bp::class_< FormFactorLongBoxLorentz_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorLongBoxLorentz_wrapper >, boost::noncopyable > FormFactorLongBoxLorentz_exposer_t;
+        FormFactorLongBoxLorentz_exposer_t FormFactorLongBoxLorentz_exposer = FormFactorLongBoxLorentz_exposer_t( "FormFactorLongBoxLorentz", "The formfactor for a long rectangular box.", bp::init< double, double, double >(( bp::arg("length"), bp::arg("width"), bp::arg("height") ), "Box constructor.\n\n:Parameters:\n  - 'length' - of Box's base\n  - 'width' - of Box's base\n  - 'height' - of Box\n") );
+        bp::scope FormFactorLongBoxLorentz_scope( FormFactorLongBoxLorentz_exposer );
+        { //::FormFactorLongBoxLorentz::clone
         
-            typedef ::FormFactorLongBox * ( ::FormFactorLongBox::*clone_function_type)(  ) const;
-            typedef ::FormFactorLongBox * ( FormFactorLongBox_wrapper::*default_clone_function_type)(  ) const;
+            typedef ::FormFactorLongBoxLorentz * ( ::FormFactorLongBoxLorentz::*clone_function_type)(  ) const;
+            typedef ::FormFactorLongBoxLorentz * ( FormFactorLongBoxLorentz_wrapper::*default_clone_function_type)(  ) const;
             
-            FormFactorLongBox_exposer.def( 
+            FormFactorLongBoxLorentz_exposer.def( 
                 "clone"
-                , clone_function_type(&::FormFactorLongBox::clone)
-                , default_clone_function_type(&FormFactorLongBox_wrapper::default_clone)
+                , clone_function_type(&::FormFactorLongBoxLorentz::clone)
+                , default_clone_function_type(&FormFactorLongBoxLorentz_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::FormFactorLongBox::evaluate_for_q
+        { //::FormFactorLongBoxLorentz::evaluate_for_q
         
-            typedef ::complex_t ( ::FormFactorLongBox::*evaluate_for_q_function_type)( ::cvector_t const & ) const;
-            typedef ::complex_t ( FormFactorLongBox_wrapper::*default_evaluate_for_q_function_type)( ::cvector_t const & ) const;
+            typedef ::complex_t ( ::FormFactorLongBoxLorentz::*evaluate_for_q_function_type)( ::cvector_t const & ) const;
+            typedef ::complex_t ( FormFactorLongBoxLorentz_wrapper::*default_evaluate_for_q_function_type)( ::cvector_t const & ) const;
             
-            FormFactorLongBox_exposer.def( 
+            FormFactorLongBoxLorentz_exposer.def( 
                 "evaluate_for_q"
-                , evaluate_for_q_function_type(&::FormFactorLongBox::evaluate_for_q)
-                , default_evaluate_for_q_function_type(&FormFactorLongBox_wrapper::default_evaluate_for_q)
+                , evaluate_for_q_function_type(&::FormFactorLongBoxLorentz::evaluate_for_q)
+                , default_evaluate_for_q_function_type(&FormFactorLongBoxLorentz_wrapper::default_evaluate_for_q)
                 , ( bp::arg("q") ) );
         
         }
-        { //::FormFactorLongBox::getHeight
+        { //::FormFactorLongBoxLorentz::getHeight
         
-            typedef double ( ::FormFactorLongBox::*getHeight_function_type)(  ) const;
+            typedef double ( ::FormFactorLongBoxLorentz::*getHeight_function_type)(  ) const;
             
-            FormFactorLongBox_exposer.def( 
+            FormFactorLongBoxLorentz_exposer.def( 
                 "getHeight"
-                , getHeight_function_type( &::FormFactorLongBox::getHeight ) );
+                , getHeight_function_type( &::FormFactorLongBoxLorentz::getHeight ) );
         
         }
-        { //::FormFactorLongBox::getLength
+        { //::FormFactorLongBoxLorentz::getLength
         
-            typedef double ( ::FormFactorLongBox::*getLength_function_type)(  ) const;
+            typedef double ( ::FormFactorLongBoxLorentz::*getLength_function_type)(  ) const;
             
-            FormFactorLongBox_exposer.def( 
+            FormFactorLongBoxLorentz_exposer.def( 
                 "getLength"
-                , getLength_function_type( &::FormFactorLongBox::getLength ) );
+                , getLength_function_type( &::FormFactorLongBoxLorentz::getLength ) );
         
         }
-        { //::FormFactorLongBox::getRadius
+        { //::FormFactorLongBoxLorentz::getRadius
         
-            typedef double ( ::FormFactorLongBox::*getRadius_function_type)(  ) const;
-            typedef double ( FormFactorLongBox_wrapper::*default_getRadius_function_type)(  ) const;
+            typedef double ( ::FormFactorLongBoxLorentz::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorLongBoxLorentz_wrapper::*default_getRadius_function_type)(  ) const;
             
-            FormFactorLongBox_exposer.def( 
+            FormFactorLongBoxLorentz_exposer.def( 
                 "getRadius"
-                , getRadius_function_type(&::FormFactorLongBox::getRadius)
-                , default_getRadius_function_type(&FormFactorLongBox_wrapper::default_getRadius) );
+                , getRadius_function_type(&::FormFactorLongBoxLorentz::getRadius)
+                , default_getRadius_function_type(&FormFactorLongBoxLorentz_wrapper::default_getRadius) );
         
         }
-        { //::FormFactorLongBox::getWidth
+        { //::FormFactorLongBoxLorentz::getWidth
         
-            typedef double ( ::FormFactorLongBox::*getWidth_function_type)(  ) const;
+            typedef double ( ::FormFactorLongBoxLorentz::*getWidth_function_type)(  ) const;
             
-            FormFactorLongBox_exposer.def( 
+            FormFactorLongBoxLorentz_exposer.def( 
                 "getWidth"
-                , getWidth_function_type( &::FormFactorLongBox::getWidth ) );
+                , getWidth_function_type( &::FormFactorLongBoxLorentz::getWidth ) );
         
         }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;
-            typedef ::ISample * ( FormFactorLongBox_wrapper::*default_cloneInvertB_function_type)(  ) const;
+            typedef ::ISample * ( FormFactorLongBoxLorentz_wrapper::*default_cloneInvertB_function_type)(  ) const;
             
-            FormFactorLongBox_exposer.def( 
+            FormFactorLongBoxLorentz_exposer.def( 
                 "cloneInvertB"
                 , cloneInvertB_function_type(&::ISample::cloneInvertB)
-                , default_cloneInvertB_function_type(&FormFactorLongBox_wrapper::default_cloneInvertB)
+                , default_cloneInvertB_function_type(&FormFactorLongBoxLorentz_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::containsMagneticMaterial
         
             typedef bool ( ::ISample::*containsMagneticMaterial_function_type)(  ) const;
-            typedef bool ( FormFactorLongBox_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
+            typedef bool ( FormFactorLongBoxLorentz_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
             
-            FormFactorLongBox_exposer.def( 
+            FormFactorLongBoxLorentz_exposer.def( 
                 "containsMagneticMaterial"
                 , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
-                , default_containsMagneticMaterial_function_type(&FormFactorLongBox_wrapper::default_containsMagneticMaterial) );
+                , default_containsMagneticMaterial_function_type(&FormFactorLongBoxLorentz_wrapper::default_containsMagneticMaterial) );
         
         }
         { //::IFormFactorBorn::evaluate
         
             typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type)( ::WavevectorInfo const & ) const;
-            typedef ::complex_t ( FormFactorLongBox_wrapper::*default_evaluate_function_type)( ::WavevectorInfo const & ) const;
+            typedef ::complex_t ( FormFactorLongBoxLorentz_wrapper::*default_evaluate_function_type)( ::WavevectorInfo const & ) const;
             
-            FormFactorLongBox_exposer.def( 
+            FormFactorLongBoxLorentz_exposer.def( 
                 "evaluate"
                 , evaluate_function_type(&::IFormFactorBorn::evaluate)
-                , default_evaluate_function_type(&FormFactorLongBox_wrapper::default_evaluate)
+                , default_evaluate_function_type(&FormFactorLongBoxLorentz_wrapper::default_evaluate)
                 , ( bp::arg("wavevectors") ) );
         
         }
         { //::ISample::getChildren
         
             typedef ::std::vector< const ISample* > ( ::ISample::*getChildren_function_type)(  ) const;
-            typedef ::std::vector< const ISample* > ( FormFactorLongBox_wrapper::*default_getChildren_function_type)(  ) const;
+            typedef ::std::vector< const ISample* > ( FormFactorLongBoxLorentz_wrapper::*default_getChildren_function_type)(  ) const;
             
-            FormFactorLongBox_exposer.def( 
+            FormFactorLongBoxLorentz_exposer.def( 
                 "getChildren"
                 , getChildren_function_type(&::ISample::getChildren)
-                , default_getChildren_function_type(&FormFactorLongBox_wrapper::default_getChildren) );
+                , default_getChildren_function_type(&FormFactorLongBoxLorentz_wrapper::default_getChildren) );
         
         }
         { //::IFormFactor::getVolume
         
             typedef double ( ::IFormFactor::*getVolume_function_type)(  ) const;
-            typedef double ( FormFactorLongBox_wrapper::*default_getVolume_function_type)(  ) const;
+            typedef double ( FormFactorLongBoxLorentz_wrapper::*default_getVolume_function_type)(  ) const;
             
-            FormFactorLongBox_exposer.def( 
+            FormFactorLongBoxLorentz_exposer.def( 
                 "getVolume"
                 , getVolume_function_type(&::IFormFactor::getVolume)
-                , default_getVolume_function_type(&FormFactorLongBox_wrapper::default_getVolume) );
+                , default_getVolume_function_type(&FormFactorLongBoxLorentz_wrapper::default_getVolume) );
         
         }
         { //::ISample::printSampleTree
         
             typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
-            typedef void ( FormFactorLongBox_wrapper::*default_printSampleTree_function_type)(  ) ;
+            typedef void ( FormFactorLongBoxLorentz_wrapper::*default_printSampleTree_function_type)(  ) ;
             
-            FormFactorLongBox_exposer.def( 
+            FormFactorLongBoxLorentz_exposer.def( 
                 "printSampleTree"
                 , printSampleTree_function_type(&::ISample::printSampleTree)
-                , default_printSampleTree_function_type(&FormFactorLongBox_wrapper::default_printSampleTree) );
+                , default_printSampleTree_function_type(&FormFactorLongBoxLorentz_wrapper::default_printSampleTree) );
         
         }
         { //::IFormFactor::setAmbientMaterial
         
             typedef void ( ::IFormFactor::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
-            typedef void ( FormFactorLongBox_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( FormFactorLongBoxLorentz_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
             
-            FormFactorLongBox_exposer.def( 
+            FormFactorLongBoxLorentz_exposer.def( 
                 "setAmbientMaterial"
                 , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
-                , default_setAmbientMaterial_function_type(&FormFactorLongBox_wrapper::default_setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&FormFactorLongBoxLorentz_wrapper::default_setAmbientMaterial)
                 , ( bp::arg("arg0") ) );
         
         }
         { //::ISample::size
         
             typedef ::std::size_t ( ::ISample::*size_function_type)(  ) const;
-            typedef ::std::size_t ( FormFactorLongBox_wrapper::*default_size_function_type)(  ) const;
+            typedef ::std::size_t ( FormFactorLongBoxLorentz_wrapper::*default_size_function_type)(  ) const;
             
-            FormFactorLongBox_exposer.def( 
+            FormFactorLongBoxLorentz_exposer.def( 
                 "size"
                 , size_function_type(&::ISample::size)
-                , default_size_function_type(&FormFactorLongBox_wrapper::default_size) );
+                , default_size_function_type(&FormFactorLongBoxLorentz_wrapper::default_size) );
         
         }
         { //::ICloneable::transferToCPP
         
             typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
-            typedef void ( FormFactorLongBox_wrapper::*default_transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorLongBoxLorentz_wrapper::*default_transferToCPP_function_type)(  ) ;
             
-            FormFactorLongBox_exposer.def( 
+            FormFactorLongBoxLorentz_exposer.def( 
                 "transferToCPP"
                 , transferToCPP_function_type(&::ICloneable::transferToCPP)
-                , default_transferToCPP_function_type(&FormFactorLongBox_wrapper::default_transferToCPP) );
+                , default_transferToCPP_function_type(&FormFactorLongBoxLorentz_wrapper::default_transferToCPP) );
         
         }
     }

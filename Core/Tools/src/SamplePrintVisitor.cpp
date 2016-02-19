@@ -194,7 +194,12 @@ void SamplePrintVisitor::visit(const FormFactorHemiEllipsoid *sample)
     print_default(sample);
 }
 
-void SamplePrintVisitor::visit(const FormFactorLongBox *sample)
+void SamplePrintVisitor::visit(const FormFactorLongBoxGauss *sample)
+{
+    print_default(sample);
+}
+
+void SamplePrintVisitor::visit(const FormFactorLongBoxLorentz *sample)
 {
     print_default(sample);
 }

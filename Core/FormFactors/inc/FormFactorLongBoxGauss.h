@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/inc/FormFactorLongBox.h
-//! @brief     Defines class FormFactorLongBox.
+//! @file      FormFactors/inc/FormFactorLongBoxGauss.h
+//! @brief     Defines class FormFactorLongBoxGauss.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORLONGBOX_H
-#define FORMFACTORLONGBOX_H
+#ifndef FORMFACTORLONGBOXGAUSS_H
+#define FORMFACTORLONGBOXGAUSS_H
 
 #include "IFormFactorBorn.h"
 
@@ -22,16 +22,16 @@
 //! @ingroup formfactors
 //! @brief The formfactor for a long rectangular box.
 
-class BA_CORE_API_ FormFactorLongBox : public IFormFactorBorn
+class BA_CORE_API_ FormFactorLongBoxGauss : public IFormFactorBorn
 {
 public:
     //! @brief Box constructor
     //! @param length of Box's base
     //! @param width of Box's base
     //! @param height of Box
-    FormFactorLongBox( double length, double width, double height);
+    FormFactorLongBoxGauss( double length, double width, double height);
 
-    FormFactorLongBox *clone() const;
+    FormFactorLongBoxGauss *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const;
 
@@ -59,26 +59,26 @@ private:
     double m_height;
 };
 
-inline double FormFactorLongBox::getLength() const
+inline double FormFactorLongBoxGauss::getLength() const
 {
     return m_length;
 }
 
-inline double FormFactorLongBox::getHeight() const
+inline double FormFactorLongBoxGauss::getHeight() const
 {
     return m_height;
 }
 
-inline double FormFactorLongBox::getRadius() const
+inline double FormFactorLongBoxGauss::getRadius() const
 {
     return m_length/2.0;
 }
 
-inline double FormFactorLongBox::getWidth() const
+inline double FormFactorLongBoxGauss::getWidth() const
 {
     return m_width;
 }
 
-#endif // FORMFACTORLONGBOX_H
+#endif // FORMFACTORLONGBOXGAUSS_H
 
 

@@ -176,7 +176,11 @@ void SampleMaterialVisitor::visit(const FormFactorHemiEllipsoid *)
 {
 }
 
-void SampleMaterialVisitor::visit(const FormFactorLongBox *)
+void SampleMaterialVisitor::visit(const FormFactorLongBoxGauss *)
+{
+}
+
+void SampleMaterialVisitor::visit(const FormFactorLongBoxLorentz *)
 {
 }
 

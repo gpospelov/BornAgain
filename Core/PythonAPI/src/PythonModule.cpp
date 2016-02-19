@@ -21,6 +21,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "InterferenceFunction2DLattice.pypp.h"
 #include "LayerInterface.pypp.h"
 #include "ILayout.pypp.h"
+#include "FormFactorLongBoxLorentz.pypp.h"
 #include "FormFactorCone6.pypp.h"
 #include "FormFactorTetrahedron.pypp.h"
 #include "FTDistribution1DCosine.pypp.h"
@@ -109,7 +110,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FTDecayFunction1DCauchy.pypp.h"
 #include "Lattice2DParameters.pypp.h"
 #include "vdouble2d_t.pypp.h"
-#include "FormFactorLongBox.pypp.h"
 #include "Line.pypp.h"
 #include "HomogeneousMagneticMaterial.pypp.h"
 #include "vector_realparameter_t.pypp.h"
@@ -126,6 +126,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "ParticleLayout.pypp.h"
 #include "FormFactorBox.pypp.h"
 #include "IParameterized.pypp.h"
+#include "FormFactorLongBoxGauss.pypp.h"
 #include "IFormFactorDecorator.pypp.h"
 #include "InterferenceFunction1DLattice.pypp.h"
 #include "RotationEuler.pypp.h"
@@ -242,7 +243,8 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorFullSpheroid_class();
     register_FormFactorGauss_class();
     register_FormFactorHemiEllipsoid_class();
-    register_FormFactorLongBox_class();
+    register_FormFactorLongBoxGauss_class();
+    register_FormFactorLongBoxLorentz_class();
     register_FormFactorLorentz_class();
     register_FormFactorPrism3_class();
     register_FormFactorPrism6_class();

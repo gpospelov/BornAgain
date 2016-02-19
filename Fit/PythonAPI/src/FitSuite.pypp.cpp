@@ -144,6 +144,17 @@ void register_FitSuite_class(){
                 , "returns chi2 histogram calculated for (real, simulated) data pair @param i_item The index of fit object \n\n:Parameters:\n  - 'i_item' - The index of fit object\n" );
         
         }
+        { //::FitSuite::getChiSquaredOutputData
+        
+            typedef ::OutputData< double > const * ( ::FitSuite::*getChiSquaredOutputData_function_type)( ::std::size_t ) const;
+            
+            FitSuite_exposer.def( 
+                "getChiSquaredOutputData"
+                , getChiSquaredOutputData_function_type( &::FitSuite::getChiSquaredOutputData )
+                , ( bp::arg("i_item")=(::std::size_t)(0) )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::FitSuite::getCurrentStrategyIndex
         
             typedef ::std::size_t ( ::FitSuite::*getCurrentStrategyIndex_function_type)(  ) const;
@@ -218,17 +229,6 @@ void register_FitSuite_class(){
                 , "Returns current number of minimization function calls." );
         
         }
-        /*{ //::FitSuite::getOptions
-        
-            typedef ::FitOptions & ( ::FitSuite::*getOptions_function_type)(  ) ;
-            
-            FitSuite_exposer.def( 
-                "getOptions"
-                , getOptions_function_type( &::FitSuite::getOptions )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns general setting of fit kernel." );
-        
-        }*/
         { //::FitSuite::getRealData
         
             typedef ::IHistogram * ( ::FitSuite::*getRealData_function_type)( ::std::size_t ) const;
@@ -239,6 +239,17 @@ void register_FitSuite_class(){
                 , ( bp::arg("i_item")=(::std::size_t)(0) )
                 , bp::return_value_policy< bp::manage_new_object >()
                 , "returns real data histogram @param i_item The index of fit object \n\n:Parameters:\n  - 'i_item' - The index of fit object\n" );
+        
+        }
+        { //::FitSuite::getRealOutputData
+        
+            typedef ::OutputData< double > const * ( ::FitSuite::*getRealOutputData_function_type)( ::std::size_t ) const;
+            
+            FitSuite_exposer.def( 
+                "getRealOutputData"
+                , getRealOutputData_function_type( &::FitSuite::getRealOutputData )
+                , ( bp::arg("i_item")=(::std::size_t)(0) )
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::FitSuite::getSimulationData
@@ -253,6 +264,17 @@ void register_FitSuite_class(){
                 , "returns simulated data  histogram @param i_item The index of fit object \n\n:Parameters:\n  - 'i_item' - The index of fit object\n" );
         
         }
+        { //::FitSuite::getSimulationOutputData
+        
+            typedef ::OutputData< double > const * ( ::FitSuite::*getSimulationOutputData_function_type)( ::std::size_t ) const;
+            
+            FitSuite_exposer.def( 
+                "getSimulationOutputData"
+                , getSimulationOutputData_function_type( &::FitSuite::getSimulationOutputData )
+                , ( bp::arg("i_item")=(::std::size_t)(0) )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::FitSuite::initPrint
         
             typedef void ( ::FitSuite::*initPrint_function_type)( int ) ;
@@ -262,6 +284,25 @@ void register_FitSuite_class(){
                 , initPrint_function_type( &::FitSuite::initPrint )
                 , ( bp::arg("print_every_nth") )
                 , "Initializes printing to standard output during the fitting. Prints also the summary when completed. @param print_every_nth Print every n'th iteration \n\n:Parameters:\n  - 'print_every_nth' - Print every n'th iteration\n" );
+        
+        }
+        { //::FitSuite::interruptFitting
+        
+            typedef void ( ::FitSuite::*interruptFitting_function_type)(  ) ;
+            
+            FitSuite_exposer.def( 
+                "interruptFitting"
+                , interruptFitting_function_type( &::FitSuite::interruptFitting )
+                , "Sets general setting of fit kernel." );
+        
+        }
+        { //::FitSuite::isInterrupted
+        
+            typedef bool ( ::FitSuite::*isInterrupted_function_type)(  ) ;
+            
+            FitSuite_exposer.def( 
+                "isInterrupted"
+                , isInterrupted_function_type( &::FitSuite::isInterrupted ) );
         
         }
         { //::FitSuite::isLastIteration
@@ -292,6 +333,15 @@ void register_FitSuite_class(){
                 "releaseAllParameters"
                 , releaseAllParameters_function_type( &::FitSuite::releaseAllParameters )
                 , "Set all parameters to released." );
+        
+        }
+        { //::FitSuite::resetInterrupt
+        
+            typedef void ( ::FitSuite::*resetInterrupt_function_type)(  ) ;
+            
+            FitSuite_exposer.def( 
+                "resetInterrupt"
+                , resetInterrupt_function_type( &::FitSuite::resetInterrupt ) );
         
         }
         { //::FitSuite::runFit
@@ -326,17 +376,6 @@ void register_FitSuite_class(){
                 , "Sets minimizer with given name and algorithm type @param minimizer The name of the minimizer @param algorithm Optional name of the minimizer's algorithm @param options Optional string with additional minimizer settings \n\n:Parameters:\n  - 'minimizer' - The name of the minimizer\n  - 'algorithm' - Optional name of the minimizer's algorithm\n  - 'options' - Optional string with additional minimizer settings\n" );
         
         }
-        /*{ //::FitSuite::setOptions
-        
-            typedef void ( ::FitSuite::*setOptions_function_type)( ::FitOptions const & ) ;
-            
-            FitSuite_exposer.def( 
-                "setOptions"
-                , setOptions_function_type( &::FitSuite::setOptions )
-                , ( bp::arg("fit_options") )
-                , "Sets general setting of fit kernel." );
-        
-        }*/
         { //::FitSuite::setParametersFixed
         
             typedef void ( ::FitSuite::*setParametersFixed_function_type)( ::std::vector< std::string > const &,bool ) ;

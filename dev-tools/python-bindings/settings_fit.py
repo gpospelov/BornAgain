@@ -115,6 +115,8 @@ def ManualClassTunings(mb):
 
     #
     cl = mb.class_("FitSuite")
+    cl.member_function( "getOptions" ).exclude()
+    cl.member_function( "setOptions" ).exclude()
     cl.member_function( "getMinimizer" ).call_policies= call_policies.return_internal_reference() # which one is correct ?
     cl.member_function("getRealData").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
     cl.member_function("getSimulationData").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)

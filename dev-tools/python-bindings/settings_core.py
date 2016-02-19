@@ -98,6 +98,8 @@ include_classes = [
     "FormFactorFullSpheroid",
     "FormFactorGauss",
     "FormFactorHemiEllipsoid",
+    "FormFactorLongBoxGauss",
+    "FormFactorLongBoxLorentz",
     "FormFactorLorentz",
     "FormFactorPrism3",
     "FormFactorPrism6",

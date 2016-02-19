@@ -232,7 +232,19 @@ void ISampleVisitor::visit(const FormFactorGauss *)
 void ISampleVisitor::visit(const FormFactorHemiEllipsoid *)
 {
     throw NotImplementedException(
-        "ISampleVisitor::visit const FormFactorHemiEllipsoid *) -> Error. Not implemented.");
+                "ISampleVisitor::visit const FormFactorHemiEllipsoid *) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const FormFactorLongBoxGauss *)
+{
+    throw NotImplementedException(
+        "ISampleVisitor::visit(const FormFactorLongBoxGauss *) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const FormFactorLongBoxLorentz *)
+{
+    throw NotImplementedException(
+        "ISampleVisitor::visit(const FormFactorLongBoxLorentz *) -> Error. Not implemented.");
 }
 
 void ISampleVisitor::visit(const FormFactorLorentz *)
@@ -240,12 +252,6 @@ void ISampleVisitor::visit(const FormFactorLorentz *)
     throw NotImplementedException(
         "ISampleVisitor::visit(const FormFactorLorentz *) -> Error. Not implemented.");
 }
-
-// void ISampleVisitor::visit(const FormFactorParallelepiped *)
-//{
-//    throw NotImplementedException("ISampleVisitor::visit(const FormFactorParallelepiped *) ->
-//    Error. Not implemented.");
-//}
 
 void ISampleVisitor::visit(const FormFactorPrism3 *)
 {

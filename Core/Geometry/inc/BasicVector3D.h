@@ -43,7 +43,6 @@ protected:
 
 public:
     //! Default constructor.
-    //! It is protected - this class should not be instantiated directly.
     BasicVector3D()
     { v_[0] = 0.0; v_[1] = 0.0; v_[2] = 0.0; }
 
@@ -51,46 +50,15 @@ public:
     BasicVector3D(const T x1, const T y1, const T z1)
     { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
 
-    //! Destructor.
-    ~BasicVector3D() {}
-
-    // -----------------------------
-    // General arithmetic operations
-    // -----------------------------
-
-    //! Assignment.
-    inline BasicVector3D<T>& operator= (const BasicVector3D<T>& v)
-    { v_[0] = v.v_[0]; v_[1] = v.v_[1]; v_[2] = v.v_[2]; return *this; }
-
-    //! Addition.
-    inline BasicVector3D<T>& operator+=(const BasicVector3D<T>& v)
-    { v_[0] += v.v_[0]; v_[1] += v.v_[1]; v_[2] += v.v_[2]; return *this; }
-
-    //! Subtraction.
-    inline BasicVector3D<T>& operator-=(const BasicVector3D<T>& v)
-    { v_[0] -= v.v_[0]; v_[1] -= v.v_[1]; v_[2] -= v.v_[2]; return *this; }
-
-    //! Multiplication by scalar.
-    inline BasicVector3D<T>& operator*=(double a)
-    { v_[0] *= a; v_[1] *= a; v_[2] *= a; return *this; }
-
-    //! Division by scalar.
-    inline BasicVector3D<T>& operator/=(double a)
-    { v_[0] /= a; v_[1] /= a; v_[2] /= a; return *this; }
-
-    // ------------
-    // Subscripting
-    // ------------
+    // -------------------------------------------------------------------------
+    // Read and set components
+    // -------------------------------------------------------------------------
 
     //! Returns components by index.
     inline T operator[](int i) const { return v_[i]; }
 
     //! Sets components by index.
     inline T& operator[](int i) { return v_[i]; }
-
-    // ------------------------------------
-    // Cartesian coordinate system: x, y, z
-    // ------------------------------------
 
     //! Returns x-component in cartesian coordinate system.
     inline T x() const { return v_[0]; }
@@ -110,9 +78,29 @@ public:
     inline void setXYZ(const T&x1, const T&y1, const T&z1)
     { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
 
-    // ----
+    // -------------------------------------------------------------------------
+    // In-place operations
+    // -------------------------------------------------------------------------
+
+    //! Adds other vector to this, and returns result.
+    inline BasicVector3D<T>& operator+=(const BasicVector3D<T>& v)
+    { v_[0] += v.v_[0]; v_[1] += v.v_[1]; v_[2] += v.v_[2]; return *this; }
+
+    //! Subtracts other vector from this, and returns result.
+    inline BasicVector3D<T>& operator-=(const BasicVector3D<T>& v)
+    { v_[0] -= v.v_[0]; v_[1] -= v.v_[1]; v_[2] -= v.v_[2]; return *this; }
+
+    //! Multiplies this with a scalar, and returns result.
+    inline BasicVector3D<T>& operator*=(double a)
+    { v_[0] *= a; v_[1] *= a; v_[2] *= a; return *this; }
+
+    //! Divides this by a scalar, and returns result.
+    inline BasicVector3D<T>& operator/=(double a)
+    { v_[0] /= a; v_[1] /= a; v_[2] /= a; return *this; }
+
+    // -------------------------------------------------------------------------
     // Norm
-    // ----
+    // -------------------------------------------------------------------------
 
     //! Returns squared magnitude squared of the vector.
     T mag2() const;
@@ -120,9 +108,9 @@ public:
     //! Returns magnitude of the vector.
     T mag() const;
 
-    // --------------------------------------------
+    // -------------------------------------------------------------------------
     // Cylindrical and spherical coordinate systems
-    // --------------------------------------------
+    // -------------------------------------------------------------------------
 
     //! Returns squared distance from z axis.
     T magxy2() const;
@@ -142,9 +130,9 @@ public:
     //! Returns squared sine of polar angle.
     double sin2Theta() const;
 
-    // -------------------
+    // -------------------------------------------------------------------------
     // Combine two vectors
-    // -------------------
+    // -------------------------------------------------------------------------
 
     //! Returns dot product of vectors (antilinear in the first [=self] argument).
     T dot(const BasicVector3D<T>& v) const;
@@ -165,9 +153,9 @@ public:
     //! Returns angle with respect to another vector.
     double angle(const BasicVector3D<T>& v) const;
 
-    // ---------
+    // -------------------------------------------------------------------------
     // Rotations
-    // ---------
+    // -------------------------------------------------------------------------
 
     //! Returns result of rotation around x-axis.
     BasicVector3D<T> rotatedX(double a) const;
@@ -178,9 +166,9 @@ public:
     //! Returns result of rotation around the axis specified by another vector.
     BasicVector3D<T> rotated(double a, const BasicVector3D<T>& v) const;
 
-    // ---------------
+    // -------------------------------------------------------------------------
     // Related vectors
-    // ---------------
+    // -------------------------------------------------------------------------
 
     //! Returns unit vector in direction of this (or null vector).
     inline BasicVector3D<T> unit() const {
@@ -190,9 +178,9 @@ public:
             BasicVector3D<T>();
     }
 
-    // ---------------------------------------------
+    // -------------------------------------------------------------------------
     // Specifically for grazing-incidence scattering
-    // ---------------------------------------------
+    // -------------------------------------------------------------------------
 
     //! Sets wave vector for given wavelength and angles/
     inline void setLambdaAlphaPhi(
@@ -205,9 +193,9 @@ public:
         }
 };
 
-// =========================================================================
+// =============================================================================
 // Non-member functions for BasicVector3D<T>
-// =========================================================================
+// =============================================================================
 
 //! Output to stream.
 //! @relates BasicVector3D
@@ -216,9 +204,9 @@ std::ostream&
 operator<<(std::ostream& os, const BasicVector3D<T>& a)
 { return os << "(" << a.x() << "," << a.y() << "," << a.z() << ")"; }
 
-// -----------------
+// -----------------------------------------------------------------------------
 // Scalar operations
-// -----------------
+// -----------------------------------------------------------------------------
 
 //! Unary plus.
 //! @relates BasicVector3D
@@ -263,14 +251,14 @@ operator/(const BasicVector3D<T>& v, U a)
 //! @relates BasicVector3D
 template <class T>
 inline BasicVector3D<T>
-operator+(const BasicVector3D<T>& a,const BasicVector3D<T>& b)
+operator+(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
 { return BasicVector3D<T>(a.x()+b.x(), a.y()+b.y(), a.z()+b.z()); }
 
 //! Subtraction of two vectors.
 //! @relates BasicVector3D
 template <class T>
 inline BasicVector3D<T>
-operator-(const BasicVector3D<T>& a,const BasicVector3D<T>& b)
+operator-(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
 { return BasicVector3D<T>(a.x()-b.x(), a.y()-b.y(), a.z()-b.z()); }
 
 //! Scalar product of two vectors.

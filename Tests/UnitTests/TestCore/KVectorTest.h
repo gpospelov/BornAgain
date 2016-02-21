@@ -89,9 +89,9 @@ TEST_F(KVectorTest, BasicArithmetics)
     // scalar product of two vectors
     a.setXYZ(1., 2., 3.);
     b.setXYZ(10., 10., 10.);
-    EXPECT_EQ( double(60), dotProduct(a,b) );
+    EXPECT_EQ( double(60), a.dot(b) );
     // crossproduct
-    c = crossProduct(a, b);
+    c = a.cross(b);
     EXPECT_EQ(c.x(), a.y()*b.z() - a.z()*b.y());
     EXPECT_EQ(c.y(), a.z()*b.x() - a.x()*b.z());
     EXPECT_EQ(c.z(), a.x()*b.y() - a.y()*b.x());

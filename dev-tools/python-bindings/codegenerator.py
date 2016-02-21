@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 def help_short():
-    print('Usage: codegenerator.py make|install|clean|help')
+    print('Usage: ./codegenerator.py make|install|clean|help')
 
 def help_long():
     print('''
@@ -18,9 +18,13 @@ Options:
 Dependencies:
    - boost-python
    - Python2.7
-   - gccxml (deb: libgccxml-dev; rpm: gccxml-devel)
-   - pygccxml (https://bitbucket.org/ompl/pygccxml)
+   - gccxml (github.com/gccxml)
+   - pygccxml (github.com/gccxml/pygccxml)
    - Py++ (https://bitbucket.org/ompl/pyplusplus)
+
+Notes:
+   - Run codegenerator.py in the directory where it resides.
+   - More info at http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/wiki/Python_bindings
 ''')
 
 

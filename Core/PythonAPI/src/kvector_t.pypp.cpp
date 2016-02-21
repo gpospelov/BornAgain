@@ -30,9 +30,9 @@ void register_kvector_t_class(){
 
     { //::Geometry::BasicVector3D< double >
         typedef bp::class_< Geometry::BasicVector3D< double > > kvector_t_exposer_t;
-        kvector_t_exposer_t kvector_t_exposer = kvector_t_exposer_t( "kvector_t", "Base class for Point3D<T>, Vector3D<T> and Normal3D<T>.", bp::init< >("Default constructor. It is protected - this class should not be instantiated directly. ") );
+        kvector_t_exposer_t kvector_t_exposer = kvector_t_exposer_t( "kvector_t", "Three-dimensional vector template, for use with integer, double, or complex components.", bp::init< >("Default constructor.") );
         bp::scope kvector_t_scope( kvector_t_exposer );
-        kvector_t_exposer.def( bp::init< double, double, double >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") ), "Constructor from three numbers.") );
+        kvector_t_exposer.def( bp::init< double, double, double >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") ), "Constructor from cartesian components.") );
         { //::Geometry::BasicVector3D< double >::mag
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
@@ -77,19 +77,6 @@ void register_kvector_t_class(){
         kvector_t_exposer.def( bp::self += bp::self );
         kvector_t_exposer.def( bp::self -= bp::self );
         kvector_t_exposer.def( bp::self /= bp::other< double >() );
-        { //::Geometry::BasicVector3D< double >::operator=
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef ::Geometry::BasicVector3D< double > & ( exported_class_t::*assign_function_type)( ::Geometry::BasicVector3D< double > const & ) ;
-            
-            kvector_t_exposer.def( 
-                "assign"
-                , assign_function_type( &::Geometry::BasicVector3D< double >::operator= )
-                , ( bp::arg("v") )
-                , bp::return_self< >()
-                , "Assignment." );
-        
-        }
         { //::Geometry::BasicVector3D< double >::operator[]
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
@@ -115,16 +102,16 @@ void register_kvector_t_class(){
                 , "Sets components by index." );
         
         }
-        { //::Geometry::BasicVector3D< double >::setLambdaAlphaPhi
+        { //::Geometry::BasicVector3D< double >::project
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setLambdaAlphaPhi_function_type)( double const &,double const &,double const & ) ;
+            typedef ::Geometry::BasicVector3D< double > ( exported_class_t::*project_function_type)( ::Geometry::BasicVector3D< double > const & ) const;
             
             kvector_t_exposer.def( 
-                "setLambdaAlphaPhi"
-                , setLambdaAlphaPhi_function_type( &::Geometry::BasicVector3D< double >::setLambdaAlphaPhi )
-                , ( bp::arg("_lambda"), bp::arg("_alpha"), bp::arg("_phi") )
-                , "Sets wave vector for given wavelength and angles/." );
+                "project"
+                , project_function_type( &::Geometry::BasicVector3D< double >::project )
+                , ( bp::arg("v") )
+                , "Returns projection of this onto other vector: (this*v)*v/|v|^2." );
         
         }
         { //::Geometry::BasicVector3D< double >::setX

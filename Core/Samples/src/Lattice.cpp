@@ -75,7 +75,7 @@ void Lattice::initialize() const
 
 double Lattice::getVolume() const
 {
-    return std::abs(dotProduct(m_a1, crossProduct(m_a2, m_a3)));
+    return std::abs(m_a1.dot( m_a2.cross(m_a3)));
 }
 
 void Lattice::getReciprocalLatticeBasis(kvector_t& b1, kvector_t& b2,
@@ -144,12 +144,12 @@ Lattice Lattice::createTrigonalLattice(double a, double c)
 
 void Lattice::computeReciprocalVectors() const
 {
-    kvector_t a23 = crossProduct(m_a2, m_a3);
-    kvector_t a31 = crossProduct(m_a3, m_a1);
-    kvector_t a12 = crossProduct(m_a1, m_a2);
-    m_b1 = Units::PI2/dotProduct(m_a1, a23)*a23;
-    m_b2 = Units::PI2/dotProduct(m_a2, a31)*a31;
-    m_b3 = Units::PI2/dotProduct(m_a3, a12)*a12;
+    kvector_t a23 = m_a2.cross(m_a3);
+    kvector_t a31 = m_a3.cross(m_a1);
+    kvector_t a12 = m_a1.cross(m_a2);
+    m_b1 = Units::PI2/m_a1.dot(a23)*a23;
+    m_b2 = Units::PI2/m_a2.dot(a31)*a31;
+    m_b3 = Units::PI2/m_a3.dot(a12)*a12;
 }
 
 void Lattice::computeVectorsWithinRadius(const kvector_t& input_vector,

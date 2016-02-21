@@ -224,11 +224,9 @@ AngularPixelMap *AngularPixelMap::createZeroSizeMap(double x, double y) const
 
 kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const
 {
-    kvector_t result;
     double phi = m_phi + x*m_dphi;
     double alpha = m_alpha + y*m_dalpha;
-    result.setLambdaAlphaPhi(wavelength, alpha, phi);
-    return result;
+    return Geometry::vecOfLambdaAlphaPhi(wavelength, alpha, phi);
 }
 
 double AngularPixelMap::getIntegrationFactor(double x, double y) const

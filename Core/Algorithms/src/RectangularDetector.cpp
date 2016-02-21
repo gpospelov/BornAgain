@@ -132,9 +132,8 @@ IPixelMap *RectangularDetector::createPixelMap(size_t index) const
     return new RectPixelMap(corner_position, width, height);
 }
 
-std::string RectangularDetector::addParametersToExternalPool(std::string path,
-                                                             ParameterPool *external_pool,
-                                                             int copy_number) const
+std::string RectangularDetector::addParametersToExternalPool(
+    std::string path, ParameterPool *external_pool, int copy_number) const
 {
     // add own parameters
     std::string new_path
@@ -275,7 +274,8 @@ OutputData<double> *RectangularDetector::createDetectorMap(const Beam &beam,
 std::vector<IDetector2D::EAxesUnits> RectangularDetector::getValidAxesUnits() const
 {
     std::vector<IDetector2D::EAxesUnits> result = IDetector2D::getValidAxesUnits();
-    std::vector<IDetector2D::EAxesUnits> addon = {IDetector2D::RADIANS, IDetector2D::DEGREES, IDetector2D::MM, IDetector2D::QYQZ};
+    std::vector<IDetector2D::EAxesUnits> addon =
+        { IDetector2D::RADIANS, IDetector2D::DEGREES, IDetector2D::MM, IDetector2D::QYQZ };
     result.insert(result.end(), addon.begin(), addon.end());
     return result;
 }
@@ -365,13 +365,11 @@ void RectangularDetector::initNormalVector(const kvector_t &central_k)
     else if(m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
         m_normal_to_detector = m_distance*central_k_unit;
         m_normal_to_detector.setZ(-m_normal_to_detector.z());
-
     }
 
     else {
         throw LogicErrorException("RectangularDetector::init() -> Unknown detector arrangement");
     }
-
 }
 
 void RectangularDetector::initUandV(double alpha_i)

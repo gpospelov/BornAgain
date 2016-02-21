@@ -55,9 +55,7 @@ SimulationElement::SimulationElement(const SimulationElement &other, double x, d
 
 kvector_t SimulationElement::getKI() const
 {
-    kvector_t k_i;
-    k_i.setLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
-    return k_i;
+    return Geometry::vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
 }
 
 kvector_t SimulationElement::getMeanKF() const

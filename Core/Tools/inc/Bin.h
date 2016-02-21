@@ -46,8 +46,8 @@ struct BA_CORE_API_ Bin1DKVector
     Bin1DKVector() : m_q_lower(), m_q_upper() {}
     Bin1DKVector(const kvector_t& lower, const kvector_t& upper)
         : m_q_lower(lower), m_q_upper(upper) {}
-    Bin1DKVector(double wavelength, const Bin1D& alpha_bin,
-                 const Bin1D& phi_bin);
+    Bin1DKVector(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin);
+
     kvector_t getMidPoint() const { return (m_q_lower + m_q_upper)/2.0; }
     kvector_t getDelta() const { return m_q_upper - m_q_lower; }
     kvector_t m_q_lower;  //!< lower bound of the bin
@@ -58,8 +58,8 @@ struct BA_CORE_API_ Bin1DKVector
 inline Bin1DKVector::Bin1DKVector(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin)
     : m_q_lower(), m_q_upper()
 {
-    m_q_lower.setLambdaAlphaPhi(wavelength, alpha_bin.m_lower, phi_bin.m_lower);
-    m_q_upper.setLambdaAlphaPhi(wavelength, alpha_bin.m_upper, phi_bin.m_upper);
+    m_q_lower = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_bin.m_lower, phi_bin.m_lower);
+    m_q_upper = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_bin.m_upper, phi_bin.m_upper);
 }
 
 //! @class Bin1DCVector
@@ -82,8 +82,8 @@ struct BA_CORE_API_ Bin1DCVector
 inline Bin1DCVector::Bin1DCVector(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin)
     : m_q_lower(), m_q_upper()
 {
-    m_q_lower.setLambdaAlphaPhi(wavelength, alpha_bin.m_lower, phi_bin.m_lower);
-    m_q_upper.setLambdaAlphaPhi(wavelength, alpha_bin.m_upper, phi_bin.m_upper);
+    m_q_lower = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_bin.m_lower, phi_bin.m_lower).complex();
+    m_q_upper = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_bin.m_upper, phi_bin.m_upper).complex();
 }
 
 #endif /* BIN_H_ */

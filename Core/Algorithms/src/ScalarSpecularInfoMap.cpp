@@ -28,14 +28,15 @@ ScalarSpecularInfoMap *ScalarSpecularInfoMap::clone() const
     return new ScalarSpecularInfoMap(mp_multilayer, m_layer);
 }
 
+//! \todo Can we avoid the code duplication in the two following functions ?
+
 const ScalarRTCoefficients *ScalarSpecularInfoMap::getOutCoefficients(
         double alpha_f, double phi_f, double wavelength) const
 {
     (void)phi_f;
     SpecularMatrix::MultiLayerCoeff_t coeffs;
-    kvector_t kvec;
     // phi has no effect on R,T, so just pass zero:
-    kvec.setLambdaAlphaPhi(wavelength, -alpha_f, 0.0);
+    kvector_t kvec = Geometry::vecOfLambdaAlphaPhi(wavelength, -alpha_f, 0.0);
     SpecularMatrix::execute(*mp_multilayer, kvec, coeffs);
     return new ScalarRTCoefficients(coeffs[m_layer]);
 }
@@ -45,9 +46,8 @@ const ScalarRTCoefficients *ScalarSpecularInfoMap::getInCoefficients(
 {
     (void)phi_i;
     SpecularMatrix::MultiLayerCoeff_t coeffs;
-    kvector_t kvec;
     // phi has no effect on R,T, so just pass zero:
-    kvec.setLambdaAlphaPhi(wavelength, alpha_i, 0.0);
+    kvector_t kvec = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_i, 0.0);
     SpecularMatrix::execute(*mp_multilayer, kvec, coeffs);
     return new ScalarRTCoefficients(coeffs[m_layer]);
 }

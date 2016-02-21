@@ -27,10 +27,6 @@ IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(SimulationParameter
                 this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol, 2);
 }
 
-IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
-{
-}
-
 void IInterferenceFunctionStrategy::init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
                                          const IInterferenceFunction& iff)
 {
@@ -70,23 +66,20 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
     clearFormFactorLists();
 
     double wavelength = sim_element.getWavelength();
-    complex_t wavevector_scattering_factor = Units::PI/wavelength/wavelength;
+    double wavevector_scattering_factor = Units::PI/wavelength/wavelength;
     double alpha_i = sim_element.getAlphaI();
     double phi_i = sim_element.getPhiI();
-    cvector_t k_i;
-    k_i.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
+    cvector_t k_i = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_i, phi_i).complex();
     WavevectorInfo wavevectors(k_i, Geometry::toComplexVector(sim_element.getMeanKF()), wavelength);
 
     boost::scoped_ptr<const ILayerRTCoefficients> P_in_coeffs(
         mP_specular_info->getInCoefficients(alpha_i, 0.0, wavelength));
     boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
         mP_specular_info->getOutCoefficients(sim_element.getAlphaMean(), 0.0, wavelength));
-    SafePointerVector<FormFactorInfo>::const_iterator it = m_ff_infos.begin();
-    while (it != m_ff_infos.end()) {
-        (*it)->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
-        complex_t ff_mat = (*it)->mp_ff->evaluate(wavevectors);
+    for( auto it: m_ff_infos ) {
+        it->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
+        complex_t ff_mat = it->mp_ff->evaluate(wavevectors);
         m_ff.push_back(wavevector_scattering_factor*ff_mat);
-        ++it;
     }
 }
 
@@ -96,11 +89,10 @@ void IInterferenceFunctionStrategy::calculateFormFactorLists(
     clearFormFactorLists();
 
     double wavelength = sim_element.getWavelength();
-    complex_t wavevector_scattering_factor = Units::PI/wavelength/wavelength;
+    double wavevector_scattering_factor = Units::PI/wavelength/wavelength;
     double alpha_i = sim_element.getAlphaI();
     double phi_i = sim_element.getPhiI();
-    cvector_t k_i;
-    k_i.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
+    cvector_t k_i = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_i, phi_i).complex();
     WavevectorInfo wavevectors(k_i, Geometry::toComplexVector(sim_element.getMeanKF()), wavelength);
 
     boost::scoped_ptr<const ILayerRTCoefficients> P_in_coeffs(
@@ -108,12 +100,10 @@ void IInterferenceFunctionStrategy::calculateFormFactorLists(
     boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
         mP_specular_info->getOutCoefficients(sim_element.getAlphaMean(), sim_element.getPhiMean(),
                                              wavelength));
-    SafePointerVector<FormFactorInfo>::const_iterator it = m_ff_infos.begin();
-    while (it != m_ff_infos.end()) {
-        (*it)->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
-        Eigen::Matrix2cd ff_mat = (*it)->mp_ff->evaluatePol(wavevectors);
+    for ( auto it: m_ff_infos ) {
+        it->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
+        Eigen::Matrix2cd ff_mat = it->mp_ff->evaluatePol(wavevectors);
         m_ff_pol.push_back(wavevector_scattering_factor*ff_mat);
-        ++it;
     }
 }
 
@@ -127,8 +117,8 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const SimulationEleme
 {
     double min_array[] = {0.0, 0.0};
     double max_array[] = {1.0, 1.0};
-    return mP_integrator->integrate(min_array, max_array, (void *)&sim_element,
-                                            m_sim_params.m_mc_points);
+    return mP_integrator->integrate(
+        min_array, max_array, (void *)&sim_element, m_sim_params.m_mc_points);
 }
 
 double IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
@@ -136,8 +126,8 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
 {
     double min_array[] = {0.0, 0.0};
     double max_array[] = {1.0, 1.0};
-    return mP_integrator_pol->integrate(min_array, max_array, (void *)&sim_element,
-                                            m_sim_params.m_mc_points);
+    return mP_integrator_pol->integrate(
+        min_array, max_array, (void *)&sim_element, m_sim_params.m_mc_points);
 }
 
 double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double *fractions, size_t dim,

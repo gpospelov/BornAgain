@@ -6,9 +6,8 @@
 //! @brief      Defines template class BasicVector3D.
 //!
 //! Forked from CLHEP/Geometry by E. Chernyaev <Evgueni.Tcherniaev@cern.ch>,
-//! then reduced to rotations and mostly rewritten; point and vector semantics
-//! is no longer represented by class type; transforms are no longer methods of
-//! BasicVector3D; there is a new class Transform3D.
+//! then reworked beyond recongnition. Removed split of point and vector semantics.
+//! Transforms are relegated to a separate class Transform3D.
 //!
 //! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -29,12 +28,7 @@ namespace Geometry {
 
 //! @class BasicVector3D
 //! @ingroup tools_internal
-//! @brief Base class for Point3D<T>, Vector3D<T> and Normal3D<T>.
-//!
-//! It defines only common functionality for those classes and
-//! should not be used as separate class.
-//!
-//! @author Evgeni Chernyaev 1996-2003
+//! @brief Three-dimensional vector template, for use with integer, double, or complex components.
 
 template<class T>
 class BasicVector3D {
@@ -42,16 +36,20 @@ protected:
     T v_[3];
 
 public:
+    // -------------------------------------------------------------------------
+    // Constructors and other set functions
+    // -------------------------------------------------------------------------
+
     //! Default constructor.
     BasicVector3D()
     { v_[0] = 0.0; v_[1] = 0.0; v_[2] = 0.0; }
 
-    //! Constructor from three numbers.
+    //! Constructor from cartesian components.
     BasicVector3D(const T x1, const T y1, const T z1)
     { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
 
     // -------------------------------------------------------------------------
-    // Read and set components
+    // Component access
     // -------------------------------------------------------------------------
 
     //! Returns components by index.
@@ -99,7 +97,7 @@ public:
     { v_[0] /= a; v_[1] /= a; v_[2] /= a; return *this; }
 
     // -------------------------------------------------------------------------
-    // Norm
+    // Functions of this (with no further argument)
     // -------------------------------------------------------------------------
 
     //! Returns squared magnitude squared of the vector.
@@ -107,10 +105,6 @@ public:
 
     //! Returns magnitude of the vector.
     T mag() const;
-
-    // -------------------------------------------------------------------------
-    // Cylindrical and spherical coordinate systems
-    // -------------------------------------------------------------------------
 
     //! Returns squared distance from z axis.
     T magxy2() const;
@@ -130,8 +124,19 @@ public:
     //! Returns squared sine of polar angle.
     double sin2Theta() const;
 
+    //! Returns unit vector in direction of this (or null vector).
+    inline BasicVector3D<T> unit() const {
+        double len = mag();
+        return (len > 0.0) ?
+            BasicVector3D<T>(x()/len, y()/len, z()/len) :
+            BasicVector3D<T>();
+    }
+
+    //! Returns this, trivially converted to complex type.
+    BasicVector3D<std::complex<double>> complex() const;
+
     // -------------------------------------------------------------------------
-    // Combine two vectors
+    // Functions of this and another vector
     // -------------------------------------------------------------------------
 
     //! Returns dot product of vectors (antilinear in the first [=self] argument).
@@ -140,18 +145,21 @@ public:
     //! Returns cross product of vectors.
     BasicVector3D<T> cross(const BasicVector3D<T>& v ) const;
 
-    //! Returns normalized vector
-    BasicVector3D<T> normalize() const;
-
     //! Returns square of transverse component with respect to given axis.
-    double perp2(const BasicVector3D<T>& v) const;
+    //! Only for T=double.
+    double perp2(const BasicVector3D<double>& v) const;
 
     //! Returns transverse component with respect to given axis.
-    inline T perp(const BasicVector3D<T>& v) const
+    //! Only for T=double.
+    inline double perp(const BasicVector3D<double>& v) const
     { return std::sqrt(perp2(v)); }
 
     //! Returns angle with respect to another vector.
     double angle(const BasicVector3D<T>& v) const;
+
+    //! Returns projection of this onto other vector: (this*v)*v/|v|^2.
+    inline BasicVector3D<T> project(const BasicVector3D<T>& v) const
+    { return dot(v)*v/v.mag2(); }
 
     // -------------------------------------------------------------------------
     // Rotations
@@ -165,36 +173,11 @@ public:
     BasicVector3D<T> rotatedZ(double a) const;
     //! Returns result of rotation around the axis specified by another vector.
     BasicVector3D<T> rotated(double a, const BasicVector3D<T>& v) const;
-
-    // -------------------------------------------------------------------------
-    // Related vectors
-    // -------------------------------------------------------------------------
-
-    //! Returns unit vector in direction of this (or null vector).
-    inline BasicVector3D<T> unit() const {
-        double len = mag();
-        return (len > 0.0) ?
-            BasicVector3D<T>(x()/len, y()/len, z()/len) :
-            BasicVector3D<T>();
-    }
-
-    // -------------------------------------------------------------------------
-    // Specifically for grazing-incidence scattering
-    // -------------------------------------------------------------------------
-
-    //! Sets wave vector for given wavelength and angles/
-    inline void setLambdaAlphaPhi(
-        const T& _lambda, const T& _alpha, const T& _phi)
-        {
-            T k = PI2/_lambda;
-            v_[0] = k*std::cos(_alpha) * std::cos(_phi);
-            v_[1] = -k*std::cos(_alpha) * std::sin(_phi);
-            v_[2] = k*std::sin(_alpha);
-        }
 };
 
+
 // =============================================================================
-// Non-member functions for BasicVector3D<T>
+// Non-member functions
 // =============================================================================
 
 //! Output to stream.
@@ -205,93 +188,84 @@ operator<<(std::ostream& os, const BasicVector3D<T>& a)
 { return os << "(" << a.x() << "," << a.y() << "," << a.z() << ")"; }
 
 // -----------------------------------------------------------------------------
-// Scalar operations
+// Unary operators
 // -----------------------------------------------------------------------------
 
 //! Unary plus.
 //! @relates BasicVector3D
 template <class T>
-inline BasicVector3D<T>
-operator+(const BasicVector3D<T>& v)
+inline BasicVector3D<T> operator+ (const BasicVector3D<T>& v)
 { return v; }
 
 //! Unary minus.
 //! @relates BasicVector3D
 template <class T>
-inline BasicVector3D<T>
-operator-(const BasicVector3D<T>& v)
+inline BasicVector3D<T> operator- (const BasicVector3D<T>& v)
 { return BasicVector3D<T>(-v.x(), -v.y(), -v.z()); }
 
-//! Multiplication vector by scalar.
-//! @relates BasicVector3D
-template <class T, class U>
-inline BasicVector3D<T>
-operator*(const BasicVector3D<T>& v, U a)
-{ return BasicVector3D<T>(v.x()*a, v.y()*a, v.z()*a); }
-
-//! Multiplication scalar by vector.
-//! @relates BasicVector3D
-template <class T, class U>
-inline BasicVector3D<T>
-operator*(U a, const BasicVector3D<T>& v)
-{ return BasicVector3D<T>(a*v.x(), a*v.y(), a*v.z()); }
-
-//! Division vector by scalar.
-//! @relates BasicVector3D
-template <class T, class U>
-inline BasicVector3D<T>
-operator/(const BasicVector3D<T>& v, U a)
-{ return BasicVector3D<T>(v.x()/a, v.y()/a, v.z()/a); }
-
-// -----------------------------------
-// Operations involving another vector
-// -----------------------------------
+// -----------------------------------------------------------------------------
+// Binary operators
+// -----------------------------------------------------------------------------
 
 //! Addition of two vectors.
 //! @relates BasicVector3D
 template <class T>
-inline BasicVector3D<T>
-operator+(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
+inline BasicVector3D<T> operator+(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
 { return BasicVector3D<T>(a.x()+b.x(), a.y()+b.y(), a.z()+b.z()); }
 
 //! Subtraction of two vectors.
 //! @relates BasicVector3D
 template <class T>
-inline BasicVector3D<T>
-operator-(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
+inline BasicVector3D<T> operator-(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
 { return BasicVector3D<T>(a.x()-b.x(), a.y()-b.y(), a.z()-b.z()); }
 
-//! Scalar product of two vectors.
-
+//! Multiplication vector by scalar.
 //! @relates BasicVector3D
-//! We do not provide the operator form a*b:
-//! Though nice to write, and in some cases perfectly justified,
-//! in general it tends to make expressions more difficult to read.
-template <class T>
-inline T
-dotProduct(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
-{ return a.dot(b); }
+template <class T, class U>
+inline BasicVector3D<T> operator* (const BasicVector3D<T>& v, U a)
+{ return BasicVector3D<T>(v.x()*a, v.y()*a, v.z()*a); }
 
-//! Cross product.
+//! Multiplication scalar by vector.
 //! @relates BasicVector3D
-template <class T>
-inline BasicVector3D<T>
-crossProduct(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
-{ return a.cross(b); }
+template <class T, class U>
+inline BasicVector3D<T> operator* (U a, const BasicVector3D<T>& v)
+{ return BasicVector3D<T>(a*v.x(), a*v.y(), a*v.z()); }
+
+// vector*vector not supported
+//    (We do not provide the operator form a*b of the dot product:
+//     Though nice to write, and in some cases perfectly justified,
+//     in general it tends to make expressions more difficult to read.)
+
+//! Division vector by scalar.
+//! @relates BasicVector3D
+template <class T, class U>
+inline BasicVector3D<T> operator/ (const BasicVector3D<T>& v, U a)
+{ return BasicVector3D<T>(v.x()/a, v.y()/a, v.z()/a); }
 
 //! Comparison of two vectors for equality.
 //! @relates BasicVector3D
 template <class T>
-inline bool
-operator==(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
+inline bool operator==(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
 { return (a.x()==b.x()&& a.y()==b.y()&& a.z()==b.z()); }
 
 //! Comparison of two vectors for inequality.
 //! @relates BasicVector3D
 template <class T>
-inline bool
-operator!=(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
+inline bool operator!=(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
 { return (a.x()!=b.x() || a.y()!=b.y() || a.z()!=b.z()); }
+
+// -----------------------------------------------------------------------------
+// Quasi constructor
+// -----------------------------------------------------------------------------
+
+//! Creates a vector<double> as a wavevector with given wavelength and angles.
+//! Specifically needed for grazing-incidence scattering.
+BasicVector3D<double> vecOfLambdaAlphaPhi(const double _lambda, const double _alpha, const double _phi);
+
+
+// =============================================================================
+// ?? for API generation ??
+// =============================================================================
 
 template<> BA_CORE_API_ double BasicVector3D<double>::mag2() const;
 
@@ -317,6 +291,7 @@ template<> BA_CORE_API_ double BasicVector3D<double>::phi() const;
 
 template<> BA_CORE_API_ double BasicVector3D<double>::theta() const;
 
+//! \todo Replace by member function complex()
 BA_CORE_API_ BasicVector3D<std::complex<double> > toComplexVector(
         const BasicVector3D<double>& real_vector);
 

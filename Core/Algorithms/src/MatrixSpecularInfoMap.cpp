@@ -39,8 +39,7 @@ const MatrixRTCoefficients *MatrixSpecularInfoMap::getOutCoefficients(
         double alpha_f, double phi_f, double wavelength) const
 {
     SpecularMagnetic::MultiLayerCoeff_t coeffs;
-    kvector_t kvec;
-    kvec.setLambdaAlphaPhi(wavelength, alpha_f, phi_f);
+    kvector_t kvec = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_f, phi_f);
     SpecularMagnetic::execute(*mP_inverted_multilayer, -kvec, coeffs);
     return new MatrixRTCoefficients(coeffs[m_layer]);
 }
@@ -49,8 +48,7 @@ const MatrixRTCoefficients *MatrixSpecularInfoMap::getInCoefficients(
         double alpha_i, double phi_i, double wavelength) const
 {
     SpecularMagnetic::MultiLayerCoeff_t coeffs;
-    kvector_t kvec;
-    kvec.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
+    kvector_t kvec = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_i, phi_i);
     SpecularMagnetic::execute(*mP_multilayer, kvec, coeffs);
     return new MatrixRTCoefficients(coeffs[m_layer]);
 }

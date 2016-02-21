@@ -115,6 +115,14 @@ double BasicVector3D<double>::sin2Theta() const
     return mag2() == 0 ? 0 : magxy2()/mag2();
 }
 
+//! Returns this, trivially converted to complex type.
+template<>
+BasicVector3D<std::complex<double>> BasicVector3D<double>::complex() const
+{
+    return BasicVector3D<std::complex<double>>( v_[0], v_[1], v_[2] );
+}
+
+
 // -----------------------------------------------------------------------------
 // Combine two vectors
 // -----------------------------------------------------------------------------
@@ -169,6 +177,19 @@ BasicVector3D<std::complex<double> > toComplexVector(const BasicVector3D<double>
     return BasicVector3D<std::complex<double> >(complex_t(real_vector.x()),
                                                 complex_t(real_vector.y()),
                                                 complex_t(real_vector.z()));
+}
+
+// -----------------------------------------------------------------------------
+// Quasi constructor
+// -----------------------------------------------------------------------------
+
+BasicVector3D<double> vecOfLambdaAlphaPhi(const double _lambda, const double _alpha, const double _phi)
+{
+    double k = PI2/_lambda;
+    return BasicVector3D<double>(
+        k*std::cos(_alpha) * std::cos(_phi),
+        -k*std::cos(_alpha) * std::sin(_phi),
+        k*std::sin(_alpha) );
 }
 
 }  // namespace Geometry

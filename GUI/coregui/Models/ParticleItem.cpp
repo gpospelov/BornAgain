@@ -20,6 +20,7 @@
 #include "VectorItem.h"
 #include "TransformToDomain.h"
 #include "GUIHelpers.h"
+#include "ModelPath.h"
 
 #include <QDebug>
 
@@ -37,11 +38,11 @@ ParticleItem::ParticleItem()
     registerProperty(P_ABUNDANCE, 1.0).limited(0.0, 1.0).setDecimals(3);
     registerGroupProperty(P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;
-    addParameterTranslator(position_translator);
+    ModelPath::addParameterTranslator(position_translator);
 
     addToValidChildren(Constants::TransformationType, PortInfo::PORT_0, 1);
     RotationTranslator rotation_translator;
-    addParameterTranslator(rotation_translator);
+    ModelPath::addParameterTranslator(rotation_translator);
 }
 
 void ParticleItem::insertChildItem(int row, ParameterizedItem *item)

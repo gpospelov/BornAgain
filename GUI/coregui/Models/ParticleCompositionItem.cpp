@@ -18,6 +18,7 @@
 #include "ParticleItem.h"
 #include "TransformToDomain.h"
 #include "GUIHelpers.h"
+#include "ModelPath.h"
 
 ParticleCompositionItem::ParticleCompositionItem()
     : ParameterizedGraphicsItem(Constants::ParticleCompositionType)
@@ -25,14 +26,14 @@ ParticleCompositionItem::ParticleCompositionItem()
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0).limited(0.0, 1.0).setDecimals(3);
     registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;
-    addParameterTranslator(position_translator);
+    ModelPath::addParameterTranslator(position_translator);
 
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_0);
     addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0);
     addToValidChildren(Constants::ParticleCompositionType, PortInfo::PORT_0);
     addToValidChildren(Constants::TransformationType, PortInfo::PORT_1, 1);
     RotationTranslator rotation_translator;
-    addParameterTranslator(rotation_translator);
+    ModelPath::addParameterTranslator(rotation_translator);
 }
 
 void ParticleCompositionItem::insertChildItem(int row, ParameterizedItem *item)

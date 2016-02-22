@@ -35,7 +35,7 @@ BeamInclinationAngleItem::BeamInclinationAngleItem()
 std::unique_ptr<IDistribution1D> BeamInclinationAngleItem::createDistribution1D()
 {
     std::unique_ptr<IDistribution1D> P_distribution {};
-    if(DistributionItem *distributionItem = dynamic_cast<DistributionItem *>(getSubItems()[P_DISTRIBUTION])) {
+    if(DistributionItem *distributionItem = dynamic_cast<DistributionItem *>(getGroupProperty(P_DISTRIBUTION))) {
         P_distribution = BeamAngleHelper::creatAngleDistribution(distributionItem);
     }
     return P_distribution;
@@ -48,7 +48,7 @@ BeamAzimuthalAngleItem::BeamAzimuthalAngleItem()
 {
     setRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE, 0.0);
     getPropertyAttribute(BeamDistributionItem::P_CACHED_VALUE).setHidden().limited(-90.0, 90.0).setDecimals(3);
-    ParameterizedItem *distribution = dynamic_cast<DistributionNoneItem *>(getSubItems()[P_DISTRIBUTION]);
+    ParameterizedItem *distribution = dynamic_cast<DistributionNoneItem *>(getGroupProperty(P_DISTRIBUTION));
     Q_ASSERT(distribution);
     distribution->getPropertyAttribute(DistributionNoneItem::P_VALUE).limited(-90.0, 90.0).setDecimals(3);
 }

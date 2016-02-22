@@ -187,6 +187,9 @@ public:
     //! call without second parameter to get current item directly
     ParameterizedItem *setGroupProperty(const QString &name, const QString &value = QString());
 
+    //! returns current item of group property
+    ParameterizedItem *getGroupProperty(const QString &name);
+
 
     // attributes
 
@@ -248,8 +251,8 @@ private:
 
 
     // the following function will be moved out of parameterized item
+
     // signals and slots -> use signals of session model
-    // paths and translators -> probably separate class (e.g. ModelPath)
 
 
 public:
@@ -268,17 +271,6 @@ public:
 
 
 
-    //! retrieves a list of all parameter names in the ParameterizedItem tree starting
-    //! with this node and prefixes them
-    QStringList getParameterTreeList(QString prefix = "") const;
-
-    //! retrieve value of given parameter name
-    double getParameterValue(const QString &name) const;
-
-    //! translates the given parameter name to a domain parameter name
-    //! name should start with a child/subitem name or be a direct parameter name
-    std::string translateParameterName(const QString &par_name) const;
-
 signals:
     void propertyChanged(const QString &propertyName);
     void subItemChanged(const QString &propertyName);
@@ -296,25 +288,12 @@ private slots:
 
 protected:
 
-    QStringList splitParameterName(const QString& par_name) const;
 
-    QString getFirstField(const QString &par_name) const;
-
-    QString stripFirstField(const QString &par_name) const;
-
-    virtual std::string translateSingleName(const QString &name) const;
-
-    void addParameterTranslator(const IParameterTranslator &translator);
 
 
 
 
     void notifySiblings();
-
-private:
-    QStringList getParameterList(QString prefix = "") const;
-
-    std::vector<std::unique_ptr<IParameterTranslator>> m_special_translators;
 
 };
 

@@ -21,6 +21,7 @@
 #include "DeleteEventFilter.h"
 #include "MinimizerSettingsWidget.h"
 #include "minisplitter.h"
+#include "ModelPath.h"
 #include <QVBoxLayout>
 #include <QTreeView>
 #include <QSplitter>
@@ -153,7 +154,7 @@ void FitParameterWidget::clearParameter() {
 
 void FitParameterWidget::buildTree(QStandardItem *root, ParameterizedItem *top)
 {
-    QStringList parameterTree = top->getParameterTreeList();
+    QStringList parameterTree = ModelPath::getParameterTreeList(top);
 
     foreach (const QString &str, parameterTree) {
         QStringList parts = str.split("/");
@@ -175,7 +176,7 @@ void FitParameterWidget::buildTree(QStandardItem *root, ParameterizedItem *top)
                 item->setEditable(false);
                 data->setEditable(false);
                 if (partIndex == parts.size() - 1) { // arrived at the end
-                    double value = top->getParameterValue(str);
+                    double value = ModelPath::getParameterValue(top, str);
                     data->setData(QVariant(value), Qt::EditRole);
                 } else {
                     item->setDragEnabled(false);

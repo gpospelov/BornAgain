@@ -25,6 +25,7 @@
 #include "Distributions.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
+#include "ModelPath.h"
 #include <QDebug>
 #include <memory>
 
@@ -92,7 +93,7 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
     auto prop = getRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                     .value<ComboProperty>();
     QString par_name = prop.getValue();
-    std::string domain_par = translateParameterName(par_name);
+    std::string domain_par = ModelPath::translateParameterName(this, par_name);
     int nbr_samples
         = distr_item->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
     double sigma_factor
@@ -149,7 +150,7 @@ QStringList ParticleDistributionItem::getChildParameterNames() const
         return result;
     }
     QString prefix = children.front()->displayName() + QString("/");
-    result = children.front()->getParameterTreeList(prefix);
+    result = ModelPath::getParameterTreeList(children.front(), prefix);
     result.prepend(NO_SELECTION);
     return result;
 }

@@ -341,7 +341,7 @@ ParameterizedItem *ParameterizedItem::registerGroupProperty(const QString &group
 
 ParameterizedItem *ParameterizedItem::setGroupProperty(const QString &name, const QString &value)
 {
-//    qDebug() << "ParameterizedItem::setGroupProperty()" << name << value;
+    qDebug() << "ParameterizedItem::setGroupProperty()" << name << value;
     if (GroupItem *item = dynamic_cast<GroupItem *>(m_propertyItems[name])) {
         GroupProperty_t group_property = item->group();
         if (!value.isEmpty()) {
@@ -350,6 +350,11 @@ ParameterizedItem *ParameterizedItem::setGroupProperty(const QString &name, cons
         return group_property->getCurrentItem();
     }
     return nullptr;
+}
+
+ParameterizedItem *ParameterizedItem::getGroupProperty(const QString &name)
+{
+    return setGroupProperty(name);
 }
 
 const PropertyAttribute &ParameterizedItem::getPropertyAttribute(const QString &name) const
@@ -529,12 +534,6 @@ QMap<QString, ParameterizedItem *> ParameterizedItem::getSubItems() const
 
 
 
-
-
-
-
-
-
 void ParameterizedItem::onPropertyChange(const QString &name)
 {
     if (mp_parent)
@@ -567,66 +566,6 @@ void ParameterizedItem::print() const
 //    qDebug() << " ";
 }
 
-QStringList ParameterizedItem::getParameterTreeList(QString prefix) const
-{
-    QStringList result;
-    // add child parameters:
-    if (hasChildItems()) {
-        for (auto p_child : m_children) {
-            QString child_name = p_child->displayName();
-            QString child_prefix = prefix + child_name + QString("/");
-            result << p_child->getParameterTreeList(child_prefix);
-        }
-    }
-    // add subitem parameters:
-    /*if (m_sub_items.size() > 0) {
-        for (QMap<QString, ParameterizedItem *>::const_iterator it = m_sub_items.begin();
-             it != m_sub_items.end(); ++it) {
-            const PropertyAttribute &prop_attribute = getPropertyAttribute(it.key());
-            if (prop_attribute.isHidden() || prop_attribute.isDisabled()) continue;
-            ParameterizedItem *p_subitem = it.value();
-            QString subitem_name = p_subitem->displayName();
-            QString subitem_prefix = prefix + subitem_name + QString("/");
-            result << p_subitem->getParameterTreeList(subitem_prefix);
-        }
-    }*/
-    // add own parameters:
-    result << getParameterList(prefix);
-    return result;
-}
-
-double ParameterizedItem::getParameterValue(const QString &name) const
-{
-    QString head = getFirstField(name);
-    auto p_child = getChildByName(head);
-    if (p_child) {
-        return p_child->getParameterValue(stripFirstField(name));
-    }
-    if (isRegisteredProperty(head)) {
-        return getRegisteredProperty(head).toDouble();
-    } else {
-        return 0.0;
-    }
-}
-
-std::string ParameterizedItem::translateParameterName(const QString &par_name) const
-{
-    std::ostringstream result;
-    auto list = splitParameterName(par_name);
-    if (list.isEmpty()) {
-        return std::string();
-    }
-    auto first_field = list[0];
-    result << "/" << translateSingleName(first_field);
-    if (list.size() > 1) {
-        auto remainder = list[1];
-        auto p_child = getChildByName(first_field);
-        if (p_child) {
-            result << p_child->translateParameterName(remainder);
-        }
-    }
-    return result.str();
-}
 
 ////! called when new SubItem appeared
 void ParameterizedItem::onSubItemChanged(const QString &propertyName)
@@ -668,79 +607,4 @@ void ParameterizedItem::processSubItemPropertyChanged(const QString &propertyNam
     throw -1; // NEW
 //    throw GUIHelpers::Error("ParameterizedItem::onSubItemPropertyChanged() ->"
 //                            " Error. No such propertyItem found");
-}
-
-QStringList ParameterizedItem::splitParameterName(const QString &par_name) const
-{
-    QStringList result;
-    for (auto& translator : m_special_translators) {
-        result = translator->split(par_name);
-        if (result.size() > 0) {
-            return result;
-        }
-    }
-    result << getFirstField(par_name);
-    QString remainder = stripFirstField(par_name);
-    if (!remainder.isEmpty()) {
-        result << remainder;
-    }
-    return result;
-}
-
-QString ParameterizedItem::getFirstField(const QString &par_name) const
-{
-    QStringList par_list = par_name.split("/");
-    if (par_list.size()==0) return QString();
-    return par_list.front();
-}
-
-QString ParameterizedItem::stripFirstField(const QString &par_name) const
-{
-    QStringList par_list = par_name.split("/");
-    if (par_list.size()<2) return QString();
-    par_list.removeFirst();
-    return par_list.join("/");
-}
-
-std::string ParameterizedItem::translateSingleName(const QString &name) const
-{
-    for (auto& translator : m_special_translators) {
-        auto result = translator->translate(name);
-        if (!result.empty()) {
-            return result;
-        }
-    }
-    return name.toStdString();
-}
-
-void ParameterizedItem::addParameterTranslator(const IParameterTranslator &translator)
-{
-    m_special_translators.emplace_back(translator.clone());
-}
-
-void ParameterizedItem::notifySiblings()
-{
-    for (auto child : m_children) {
-        child->onSiblingsChanged();
-    }
-}
-
-QStringList ParameterizedItem::getParameterList(QString prefix) const
-{
-    QStringList result;
-    QList<QByteArray> property_names = dynamicPropertyNames();
-    for (int i = 0; i < property_names.length(); ++i) {
-        QString prop_name = QString(property_names[i]);
-        const PropertyAttribute &prop_attribute = getPropertyAttribute(prop_name);
-        if (prop_attribute.isHidden() || prop_attribute.isDisabled() ) continue;
-        QVariant variant = property(prop_name.toUtf8().constData());
-        int type = variant.type(); // NEW
-        if (type == QVariant::UserType) { // NEW
-            type = variant.userType(); // NEW
-        }
-        if (type == QVariant::Double) {
-            result << prefix + prop_name;
-        }
-    }
-    return result;
 }

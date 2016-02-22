@@ -75,7 +75,7 @@ void DistributionEditor::setItem(ParameterizedItem *item)
     connect(m_item, SIGNAL(subItemChanged(QString)), this, SLOT(onSubItemChanged(QString)));
 
     DistributionItem *distrItem = dynamic_cast<DistributionItem *>(
-        m_item->getSubItems()[BeamWavelengthItem::P_DISTRIBUTION]);
+        m_item->getGroupItem(BeamWavelengthItem::P_DISTRIBUTION));
     Q_ASSERT(distrItem);
     m_plotwidget->setItem(distrItem);
 }
@@ -84,7 +84,7 @@ void DistributionEditor::onSubItemChanged(const QString &property_name)
 {
     if (property_name == BeamDistributionItem::P_DISTRIBUTION) {
         DistributionItem *distrItem
-            = dynamic_cast<DistributionItem *>(m_item->getSubItems()[property_name]);
+            = dynamic_cast<DistributionItem *>(m_item->getGroupItem(property_name));
         Q_ASSERT(distrItem);
         m_plotwidget->setItem(distrItem);
     }

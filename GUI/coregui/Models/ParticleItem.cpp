@@ -72,7 +72,7 @@ void ParticleItem::onPropertyChange(const QString &name)
                 auto p_coreshell = static_cast<ParticleCoreShellItem*>(parent());
                 p_coreshell->notifyChildParticlePortChanged();
                 if (port == PortInfo::PORT_1) {
-                    ParameterizedItem *p_position_item = getSubItems()[ParticleItem::P_POSITION];
+                    ParameterizedItem *p_position_item = getGroupItem(ParticleItem::P_POSITION);
                     p_position_item->setRegisteredProperty(VectorItem::P_X, 0.0);
                     p_position_item->setRegisteredProperty(VectorItem::P_Y, 0.0);
                     p_position_item->setRegisteredProperty(VectorItem::P_Z, 0.0);
@@ -91,7 +91,7 @@ std::unique_ptr<Particle> ParticleItem::createParticle() const
     double abundance = getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
     P_particle->setAbundance(abundance);
 
-    auto ffItem = static_cast<FormFactorItem*>(getSubItems()[ParticleItem::P_FORM_FACTOR]);
+    auto ffItem = static_cast<FormFactorItem*>(getGroupItem(ParticleItem::P_FORM_FACTOR));
     Q_ASSERT(ffItem);
     auto P_ff = ffItem->createFormFactor();
     P_particle->setFormFactor(*P_ff);

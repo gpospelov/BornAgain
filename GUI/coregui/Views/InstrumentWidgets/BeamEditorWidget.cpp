@@ -91,14 +91,14 @@ void BeamEditorWidget::setBeamItem(BeamItem *beamItem)
 
     m_intensityEditor->addItemProperty(m_beamItem, BeamItem::P_INTENSITY);
 
-    ParameterizedItem *wavelengthItem = m_beamItem->getSubItems()[BeamItem::P_WAVELENGTH];
+    ParameterizedItem *wavelengthItem = m_beamItem->getGroupItem(BeamItem::P_WAVELENGTH);
     m_wavelengthPresenter->setItem(wavelengthItem);
 
     ParameterizedItem *inclinationAngleItem
-            = m_beamItem->getSubItems()[BeamItem::P_INCLINATION_ANGLE];
+            = m_beamItem->getGroupItem(BeamItem::P_INCLINATION_ANGLE);
     m_inclinationAnglePresenter->setItem(inclinationAngleItem);
 
-    ParameterizedItem *azimuthalAngleItem = m_beamItem->getSubItems()[BeamItem::P_AZIMUTHAL_ANGLE];
+    ParameterizedItem *azimuthalAngleItem = m_beamItem->getGroupItem(BeamItem::P_AZIMUTHAL_ANGLE);
     m_azimuthalAnglePresenter->setItem(azimuthalAngleItem);
 }
 

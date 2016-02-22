@@ -69,7 +69,7 @@ std::unique_ptr<IMaterial> MaterialUtils::createDomainMaterial(const MaterialPro
     const MaterialItem *materialItem = model->getMaterial(material_property);
     Q_ASSERT(materialItem);
 
-    const RefractiveIndexItem *refractiveIndexItem = dynamic_cast<const RefractiveIndexItem *>(materialItem->getSubItems()[MaterialItem::P_REFRACTIVE_INDEX]);
+    const RefractiveIndexItem *refractiveIndexItem = dynamic_cast<const RefractiveIndexItem *>(materialItem->getGroupItem(MaterialItem::P_REFRACTIVE_INDEX));
     double delta = refractiveIndexItem->getDelta();
     double beta = refractiveIndexItem->getBeta();
 
@@ -78,7 +78,7 @@ std::unique_ptr<IMaterial> MaterialUtils::createDomainMaterial(const MaterialPro
                     materialItem->itemName().toStdString(), delta, beta);
     }
     else if(materialItem->isHomogeneousMagneticMaterial()) {
-        const MagneticFieldItem *magneticField = dynamic_cast<const MagneticFieldItem *>(materialItem->getSubItems()[MaterialItem::P_MAGNETIC_FIELD]);
+        const MagneticFieldItem *magneticField = dynamic_cast<const MagneticFieldItem *>(materialItem->getGroupItem(MaterialItem::P_MAGNETIC_FIELD));
         Q_ASSERT(magneticField);
         double Bx = magneticField->getRegisteredProperty(MagneticFieldItem::P_BX).toDouble();
         double By = magneticField->getRegisteredProperty(MagneticFieldItem::P_BY).toDouble();

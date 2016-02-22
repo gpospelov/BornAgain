@@ -149,13 +149,13 @@ void RectangularDetectorWidget::create_editors()
 void RectangularDetectorWidget::init_editors()
 {
     m_xAxisEditor->clearEditor();
-    ParameterizedItem *xAxisItem = m_detectorItem->getSubItems()[RectangularDetectorItem::P_X_AXIS];
+    ParameterizedItem *xAxisItem = m_detectorItem->getGroupItem(RectangularDetectorItem::P_X_AXIS);
     m_xAxisEditor->addItemProperties(xAxisItem, QString("X axis"),
                                        AwesomePropertyEditor::INSERT_AFTER);
 
     m_yAxisEditor->clearEditor();
     ParameterizedItem *yAxisItem
-        = m_detectorItem->getSubItems()[RectangularDetectorItem::P_Y_AXIS];
+        = m_detectorItem->getGroupItem(RectangularDetectorItem::P_Y_AXIS);
     m_yAxisEditor->addItemProperties(yAxisItem, QString("Y axis"),
                                          AwesomePropertyEditor::INSERT_AFTER);
 
@@ -201,12 +201,12 @@ void RectangularDetectorWidget::init_alignment_editors()
                     AwesomePropertyEditor::INSERT_AFTER);
 
         ParameterizedItem *normalVectorItem
-            = m_detectorItem->getSubItems()[RectangularDetectorItem::P_NORMAL];
+            = m_detectorItem->getGroupItem(RectangularDetectorItem::P_NORMAL);
         m_normalEditor->addItemProperties(normalVectorItem, "Normal vector",
                     AwesomePropertyEditor::INSERT_AFTER);
 
         ParameterizedItem *directionVectorItem
-            = m_detectorItem->getSubItems()[RectangularDetectorItem::P_DIRECTION];
+            = m_detectorItem->getGroupItem(RectangularDetectorItem::P_DIRECTION);
         m_directionEditor->addItemProperties(directionVectorItem, "Direction vector",
                     AwesomePropertyEditor::INSERT_AFTER);
 

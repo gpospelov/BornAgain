@@ -653,7 +653,7 @@ void GUIObjectBuilder::visit(const RotationEuler *sample)
 void GUIObjectBuilder::buildPositionInfo(ParameterizedItem *particleItem, const IParticle *sample)
 {
     kvector_t position = sample->getPosition();
-    ParameterizedItem *p_position_item = particleItem->getSubItems()[ParticleItem::P_POSITION];
+    ParameterizedItem *p_position_item = particleItem->getGroupItem(ParticleItem::P_POSITION);
     p_position_item->setRegisteredProperty(VectorItem::P_X, position.x());
     p_position_item->setRegisteredProperty(VectorItem::P_Y, position.y());
     p_position_item->setRegisteredProperty(VectorItem::P_Z, position.z());

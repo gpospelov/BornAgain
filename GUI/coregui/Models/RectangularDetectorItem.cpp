@@ -66,19 +66,19 @@ RectangularDetectorItem::RectangularDetectorItem()
 {
     // axes parameters
     registerGroupProperty(P_X_AXIS, Constants::BasicAxisType);
-    getSubItems()[P_X_AXIS]->getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
-    getSubItems()[P_X_AXIS]->getPropertyAttribute(BasicAxisItem::P_MIN).setHidden();
+    getGroupItem(P_X_AXIS)->getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
+    getGroupItem(P_X_AXIS)->getPropertyAttribute(BasicAxisItem::P_MIN).setHidden();
 
-    getSubItems()[P_X_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, default_detector_width);
-    getSubItems()[P_X_AXIS]->getPropertyAttribute(BasicAxisItem::P_MAX)
+    getGroupItem(P_X_AXIS)->setRegisteredProperty(BasicAxisItem::P_MAX, default_detector_width);
+    getGroupItem(P_X_AXIS)->getPropertyAttribute(BasicAxisItem::P_MAX)
         .setLabel(QStringLiteral("Width"))
         .setToolTip(QStringLiteral("Width of the detector in mm"));
 
     registerGroupProperty(P_Y_AXIS, Constants::BasicAxisType);
-    getSubItems()[P_Y_AXIS]->getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
-    getSubItems()[P_Y_AXIS]->getPropertyAttribute(BasicAxisItem::P_MIN).setHidden();
-    getSubItems()[P_Y_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, default_detector_height);
-    getSubItems()[P_Y_AXIS]->getPropertyAttribute(BasicAxisItem::P_MAX)
+    getGroupItem(P_Y_AXIS)->getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
+    getGroupItem(P_Y_AXIS)->getPropertyAttribute(BasicAxisItem::P_MIN).setHidden();
+    getGroupItem(P_Y_AXIS)->setRegisteredProperty(BasicAxisItem::P_MAX, default_detector_height);
+    getGroupItem(P_Y_AXIS)->getPropertyAttribute(BasicAxisItem::P_MAX)
         .setLabel(QStringLiteral("Height"))
         .setToolTip(QStringLiteral("Height of the detector in mm"));
 
@@ -97,10 +97,10 @@ RectangularDetectorItem::RectangularDetectorItem()
 
     // alignment parameters
     registerGroupProperty(P_NORMAL, Constants::VectorType);
-    getSubItems()[P_NORMAL]->setRegisteredProperty(VectorItem::P_X, default_detector_distance);
+    getGroupItem(P_NORMAL)->setRegisteredProperty(VectorItem::P_X, default_detector_distance);
 
     registerGroupProperty(P_DIRECTION, Constants::VectorType);
-    getSubItems()[P_DIRECTION]->setRegisteredProperty(VectorItem::P_Y, -1.0);
+    getGroupItem(P_DIRECTION)->setRegisteredProperty(VectorItem::P_Y, -1.0);
 
     registerProperty(P_U0, default_detector_width/2.).setToolTip(tooltip_u0);
     registerProperty(P_V0, 0.0).setToolTip(tooltip_v0);
@@ -124,13 +124,13 @@ std::unique_ptr<IDetector2D> RectangularDetectorItem::createDetector() const
 {
     // basic axes parameters
     auto x_axis = dynamic_cast<BasicAxisItem *>(
-        getSubItems()[RectangularDetectorItem::P_X_AXIS]);
+        getGroupItem(RectangularDetectorItem::P_X_AXIS));
     Q_ASSERT(x_axis);
     int n_x = x_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
     double width = x_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
 
     auto y_axis = dynamic_cast<BasicAxisItem *>(
-        getSubItems()[RectangularDetectorItem::P_Y_AXIS]);
+        getGroupItem(RectangularDetectorItem::P_Y_AXIS));
     Q_ASSERT(y_axis);
     int n_y = y_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
     double height = y_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
@@ -179,7 +179,7 @@ std::unique_ptr<IDetector2D> RectangularDetectorItem::createDetector() const
 std::unique_ptr<IResolutionFunction2D> RectangularDetectorItem::createResolutionFunction()
 {
     auto resfuncItem = dynamic_cast<ResolutionFunctionItem *>(
-        getSubItems()[P_RESOLUTION_FUNCTION]);
+        getGroupItem(P_RESOLUTION_FUNCTION));
     Q_ASSERT(resfuncItem);
     std::unique_ptr<IResolutionFunction2D> result(resfuncItem->createResolutionFunction());
     return std::move(result);
@@ -241,7 +241,7 @@ void RectangularDetectorItem::update_properties_appearance()
 kvector_t RectangularDetectorItem::getNormalVector() const
 {
     auto item = dynamic_cast<VectorItem *>(
-        getSubItems()[RectangularDetectorItem::P_NORMAL]);
+        getGroupItem(RectangularDetectorItem::P_NORMAL));
     Q_ASSERT(item);
     return item->getVector();
 }
@@ -249,7 +249,7 @@ kvector_t RectangularDetectorItem::getNormalVector() const
 kvector_t RectangularDetectorItem::getDirectionVector() const
 {
     auto item = dynamic_cast<VectorItem *>(
-        getSubItems()[RectangularDetectorItem::P_DIRECTION]);
+        getGroupItem(RectangularDetectorItem::P_DIRECTION));
     Q_ASSERT(item);
     return item->getVector();
 }

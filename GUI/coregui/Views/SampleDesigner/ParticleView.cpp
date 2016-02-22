@@ -76,7 +76,7 @@ void ParticleView::setParameterizedItem(ParameterizedItem *item)
 void ParticleView::onPropertyChange(const QString &propertyName)
 {
     if(propertyName == ParticleItem::P_FORM_FACTOR) {
-//        GroupProperty_t group_property = dynamic_cast<GroupItem*>(getParameterizedItem()->getSubItems()[ParticleItem::P_FORM_FACTOR])->group();
+//        GroupProperty_t group_property = dynamic_cast<GroupItem*>(getParameterizedItem()->getGroupItem(ParticleItem::P_FORM_FACTOR))->group();
 //        GroupProperty_t group_property = getParameterizedItem()->getRegisteredProperty(ParticleItem::P_FORM_FACTOR).value<GroupProperty_t>();
 
 //        QString current_ff_type = group_property->getCurrentType();

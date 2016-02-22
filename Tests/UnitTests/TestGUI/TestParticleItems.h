@@ -81,7 +81,7 @@ inline void TestParticleItems::test_FormFactorGroupProperty()
 //        ParameterizedItem *ffItem = item.setFancyGroupProperty(ParticleItem::P_FORM_FACTOR, ff_name);
 //        QVERIFY(ffItem);
 //        QCOMPARE(item.getSubItems().size(), 1);
-//        QCOMPARE(ffItem, item.getSubItems()[ParticleItem::P_FORM_FACTOR]);
+//        QCOMPARE(ffItem, item.getGroupItem(ParticleItem::P_FORM_FACTOR));
 
 //        QCOMPARE(spyItem.count(), 0);
 //        if(ff_name == Constants::AnisoPyramidType) { // default ff

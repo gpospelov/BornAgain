@@ -207,7 +207,7 @@ void UniversalPropertyEditor::onPropertyChanged(const QString &property_name)
 void UniversalPropertyEditor::onSubItemPropertyChanged(const QString &property_group, const QString &property_name)
 {
     qDebug() << "UniversalPropertyEditor::onSubItemPropertyChanged" << property_group << property_name;
-    ParameterizedItem *subItem = m_item->getSubItems()[property_group];
+    ParameterizedItem *subItem = m_item->getGroupItem(property_group);
     if(subItem){
         QtVariantProperty *variant_property = m_item_to_propertyname_to_qtvariantproperty[subItem][property_name];
         if(variant_property) {
@@ -342,8 +342,8 @@ void UniversalPropertyEditor::addSubProperties(QtProperty *item_property,
                 subProperty->setEnabled(false);
             }
 
-            if (item->getSubItems().contains(prop_name)) {
-                ParameterizedItem *subitem = item->getSubItems()[prop_name];
+            if (item->isGroupProperty(prop_name)) {
+                ParameterizedItem *subitem = item->getGroupItem(prop_name);
                 if (subitem) {
                     addSubProperties(subProperty, subitem);
                 }

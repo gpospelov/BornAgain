@@ -67,7 +67,7 @@ void DetectorMaskDelegate::createIntensityDataItem()
     m_intensityItem->getPropertyAttribute(IntensityDataItem::P_PROJECTIONS_FLAG).setDisabled();
 
     AmplitudeAxisItem *zAxisItem = dynamic_cast<AmplitudeAxisItem *>(
-        m_intensityItem->getSubItems()[IntensityDataItem::P_ZAXIS]);
+        m_intensityItem->getGroupItem(IntensityDataItem::P_ZAXIS));
 
     zAxisItem->setRegisteredProperty(BasicAxisItem::P_IS_VISIBLE, false);
     zAxisItem->setRegisteredProperty(BasicAxisItem::P_MIN, 0.0);
@@ -95,21 +95,21 @@ OutputData<double> *DetectorMaskDelegate::createOutputData(DetectorItem *detecto
     OutputData<double> *result = new OutputData<double>;
 
 
-    auto subDetector = detectorItem->getSubItems()[DetectorItem::P_DETECTOR];
+    auto subDetector = detectorItem->getGroupItem(DetectorItem::P_DETECTOR);
     Q_ASSERT(subDetector);
 
 
     if(subDetector->modelType() == Constants::SphericalDetectorType) {
 
         auto x_axis = dynamic_cast<BasicAxisItem *>(
-            subDetector->getSubItems()[SphericalDetectorItem::P_PHI_AXIS]);
+            subDetector->getGroupItem(SphericalDetectorItem::P_PHI_AXIS));
         Q_ASSERT(x_axis);
         int n_x = x_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
         double x_min = x_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
         double x_max = x_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
 
         auto y_axis = dynamic_cast<BasicAxisItem *>(
-            subDetector->getSubItems()[SphericalDetectorItem::P_ALPHA_AXIS]);
+            subDetector->getGroupItem(SphericalDetectorItem::P_ALPHA_AXIS));
         Q_ASSERT(y_axis);
         int n_y = y_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
         double y_min = y_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
@@ -120,14 +120,14 @@ OutputData<double> *DetectorMaskDelegate::createOutputData(DetectorItem *detecto
 
     } else if(subDetector->modelType() == Constants::RectangularDetectorType) {
         auto x_axis = dynamic_cast<BasicAxisItem *>(
-            subDetector->getSubItems()[RectangularDetectorItem::P_X_AXIS]);
+            subDetector->getGroupItem(RectangularDetectorItem::P_X_AXIS));
         Q_ASSERT(x_axis);
         int n_x = x_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
         double x_min = x_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
         double x_max = x_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
 
         auto y_axis = dynamic_cast<BasicAxisItem *>(
-            subDetector->getSubItems()[RectangularDetectorItem::P_Y_AXIS]);
+            subDetector->getGroupItem(RectangularDetectorItem::P_Y_AXIS));
         Q_ASSERT(y_axis);
         int n_y = y_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
         double y_min = y_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
@@ -153,7 +153,7 @@ OutputData<double> *DetectorMaskDelegate::createOutputData(DetectorItem *detecto
 void DetectorMaskDelegate::copyMasksFromDetector()
 {
 //    Q_ASSERT(m_detectorItem);
-//    auto subDetector = m_detectorItem->getSubItems()[DetectorItem::P_DETECTOR];
+//    auto subDetector = m_detectorItem->getGroupItem(DetectorItem::P_DETECTOR);
 //    Q_ASSERT(subDetector);
 
 //    foreach(ParameterizedItem *item, )

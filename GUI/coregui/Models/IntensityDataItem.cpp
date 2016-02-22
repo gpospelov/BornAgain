@@ -62,13 +62,13 @@ IntensityDataItem::IntensityDataItem()
     registerProperty(P_PROPERTY_PANEL_FLAG, false).setHidden();
 
     registerGroupProperty(P_XAXIS, Constants::BasicAxisType);
-    getSubItems()[P_XAXIS]->getPropertyAttribute(BasicAxisItem::P_NBINS).setHidden();
+    getGroupItem(P_XAXIS)->getPropertyAttribute(BasicAxisItem::P_NBINS).setHidden();
 
     registerGroupProperty(P_YAXIS, Constants::BasicAxisType);
-    getSubItems()[P_YAXIS]->getPropertyAttribute(BasicAxisItem::P_NBINS).setHidden();
+    getGroupItem(P_YAXIS)->getPropertyAttribute(BasicAxisItem::P_NBINS).setHidden();
 
     registerGroupProperty(P_ZAXIS, Constants::AmplitudeAxisType);
-    getSubItems()[P_ZAXIS]->getPropertyAttribute(BasicAxisItem::P_NBINS).setHidden();
+    getGroupItem(P_ZAXIS)->getPropertyAttribute(BasicAxisItem::P_NBINS).setHidden();
 
     addToValidChildren(Constants::MaskContainerType);
 }
@@ -129,12 +129,12 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
 
 double IntensityDataItem::getLowerX() const
 {
-    return getSubItems()[P_XAXIS]->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
+    return getGroupItem(P_XAXIS)->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
 }
 
 double IntensityDataItem::getUpperX() const
 {
-    return getSubItems()[P_XAXIS]->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
+    return getGroupItem(P_XAXIS)->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
 }
 
 double IntensityDataItem::getXmin() const
@@ -151,12 +151,12 @@ double IntensityDataItem::getXmax() const
 
 double IntensityDataItem::getLowerY() const
 {
-    return getSubItems()[P_YAXIS]->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
+    return getGroupItem(P_YAXIS)->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
 }
 
 double IntensityDataItem::getUpperY() const
 {
-    return getSubItems()[P_YAXIS]->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
+    return getGroupItem(P_YAXIS)->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
 }
 
 double IntensityDataItem::getYmin() const
@@ -173,12 +173,12 @@ double IntensityDataItem::getYmax() const
 
 double IntensityDataItem::getLowerZ() const
 {
-    return getSubItems()[P_ZAXIS]->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
+    return getGroupItem(P_ZAXIS)->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
 }
 
 double IntensityDataItem::getUpperZ() const
 {
-    return getSubItems()[P_ZAXIS]->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
+    return getGroupItem(P_ZAXIS)->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
 }
 
 QString IntensityDataItem::getGradient() const
@@ -189,7 +189,7 @@ QString IntensityDataItem::getGradient() const
 
 bool IntensityDataItem::isLogz() const
 {
-    return getSubItems()[P_ZAXIS]->getRegisteredProperty(AmplitudeAxisItem::P_IS_LOGSCALE).toBool();
+    return getGroupItem(P_ZAXIS)->getRegisteredProperty(AmplitudeAxisItem::P_IS_LOGSCALE).toBool();
 }
 
 bool IntensityDataItem::isInterpolated() const
@@ -199,22 +199,22 @@ bool IntensityDataItem::isInterpolated() const
 
 QString IntensityDataItem::getXaxisTitle() const
 {
-    return getSubItems()[P_XAXIS]->getRegisteredProperty(BasicAxisItem::P_TITLE).toString();
+    return getGroupItem(P_XAXIS)->getRegisteredProperty(BasicAxisItem::P_TITLE).toString();
 }
 
 QString IntensityDataItem::getYaxisTitle() const
 {
-    return getSubItems()[P_YAXIS]->getRegisteredProperty(BasicAxisItem::P_TITLE).toString();
+    return getGroupItem(P_YAXIS)->getRegisteredProperty(BasicAxisItem::P_TITLE).toString();
 }
 
 bool IntensityDataItem::isZAxisLocked() const
 {
-    return getSubItems()[P_ZAXIS]->getRegisteredProperty(AmplitudeAxisItem::P_LOCK_MIN_MAX).toBool();
+    return getGroupItem(P_ZAXIS)->getRegisteredProperty(AmplitudeAxisItem::P_LOCK_MIN_MAX).toBool();
 }
 
 void IntensityDataItem::setZAxisLocked(bool state)
 {
-    return getSubItems()[P_ZAXIS]->setRegisteredProperty(AmplitudeAxisItem::P_LOCK_MIN_MAX, state);
+    return getGroupItem(P_ZAXIS)->setRegisteredProperty(AmplitudeAxisItem::P_LOCK_MIN_MAX, state);
 }
 
 //! Sets the name of intensity data item from proposed name. This name will be used to save file
@@ -234,47 +234,47 @@ QString IntensityDataItem::getSelectedAxesUnits() const
 
 void IntensityDataItem::setLowerX(double xmin)
 {
-    getSubItems()[P_XAXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, xmin);
+    getGroupItem(P_XAXIS)->setRegisteredProperty(BasicAxisItem::P_MIN, xmin);
 }
 
 void IntensityDataItem::setUpperX(double xmax)
 {
-    getSubItems()[P_XAXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, xmax);
+    getGroupItem(P_XAXIS)->setRegisteredProperty(BasicAxisItem::P_MAX, xmax);
 }
 
 void IntensityDataItem::setLowerY(double ymin)
 {
-    getSubItems()[P_YAXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, ymin);
+    getGroupItem(P_YAXIS)->setRegisteredProperty(BasicAxisItem::P_MIN, ymin);
 }
 
 void IntensityDataItem::setUpperY(double ymax)
 {
-    getSubItems()[P_YAXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, ymax);
+    getGroupItem(P_YAXIS)->setRegisteredProperty(BasicAxisItem::P_MAX, ymax);
 }
 
 void IntensityDataItem::setLowerAndUpperZ(double zmin, double zmax)
 {
     if(getLowerZ() != zmin) {
-        getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, zmin);
+        getGroupItem(P_ZAXIS)->setRegisteredProperty(BasicAxisItem::P_MIN, zmin);
     }
     if(getUpperZ() != zmax) {
-        getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, zmax);
+        getGroupItem(P_ZAXIS)->setRegisteredProperty(BasicAxisItem::P_MAX, zmax);
     }
 }
 
 void IntensityDataItem::setLowerZ(double zmin)
 {
-    getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, zmin);
+    getGroupItem(P_ZAXIS)->setRegisteredProperty(BasicAxisItem::P_MIN, zmin);
 }
 
 void IntensityDataItem::setUpperZ(double zmax)
 {
-    getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, zmax);
+    getGroupItem(P_ZAXIS)->setRegisteredProperty(BasicAxisItem::P_MAX, zmax);
 }
 
 void IntensityDataItem::setLogz(bool logz)
 {
-    getSubItems()[P_ZAXIS]->setRegisteredProperty(AmplitudeAxisItem::P_IS_LOGSCALE, logz);
+    getGroupItem(P_ZAXIS)->setRegisteredProperty(AmplitudeAxisItem::P_IS_LOGSCALE, logz);
 }
 
 void IntensityDataItem::setInterpolated(bool interp)
@@ -284,12 +284,12 @@ void IntensityDataItem::setInterpolated(bool interp)
 
 void IntensityDataItem::setXaxisTitle(QString xtitle)
 {
-    getSubItems()[P_XAXIS]->setRegisteredProperty(BasicAxisItem::P_TITLE, xtitle);
+    getGroupItem(P_XAXIS)->setRegisteredProperty(BasicAxisItem::P_TITLE, xtitle);
 }
 
 void IntensityDataItem::setYaxisTitle(QString ytitle)
 {
-    getSubItems()[P_YAXIS]->setRegisteredProperty(BasicAxisItem::P_TITLE, ytitle);
+    getGroupItem(P_YAXIS)->setRegisteredProperty(BasicAxisItem::P_TITLE, ytitle);
 }
 
 //! set zoom range of x,y axes to axes of input data

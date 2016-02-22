@@ -183,12 +183,15 @@ public:
     ParameterizedItem *registerGroupProperty(const QString &group_name,
                                              const Constants::ModelType &group_model);
 
+    //! check if this group property exists
+    bool isGroupProperty(const QString &name) const;
+
     //! set the group of the property, returns current item
     //! call without second parameter to get current item directly
-    ParameterizedItem *setGroupProperty(const QString &name, const QString &value = QString());
+    ParameterizedItem *setGroupProperty(const QString &name, const QString &value = QString()) const;
 
     //! returns current item of group property
-    ParameterizedItem *getGroupProperty(const QString &name);
+    ParameterizedItem *getGroupItem(const QString &name) const;
 
 
     // attributes

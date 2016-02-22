@@ -364,7 +364,7 @@ void ColorMapPlot::onSubItemPropertyChanged(const QString &property_group,
             setLogz(m_item->isLogz());
 
         } else if (property_name == BasicAxisItem::P_IS_VISIBLE) {
-            setColorScaleVisible(m_item->getSubItems()[IntensityDataItem::P_ZAXIS]
+            setColorScaleVisible(m_item->getGroupItem(IntensityDataItem::P_ZAXIS)
                 ->getRegisteredProperty(BasicAxisItem::P_IS_VISIBLE).toBool());
         }
         m_customPlot->replot();
@@ -504,7 +504,7 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
         ++it;
     }
 
-    setColorScaleVisible(intensityItem->getSubItems()[IntensityDataItem::P_ZAXIS]
+    setColorScaleVisible(intensityItem->getGroupItem(IntensityDataItem::P_ZAXIS)
         ->getRegisteredProperty(BasicAxisItem::P_IS_VISIBLE).toBool());
 
     m_colorMap->setGradient(m_gradient_map[intensityItem->getGradient()]);

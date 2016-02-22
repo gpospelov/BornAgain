@@ -29,14 +29,14 @@ SphericalDetectorItem::SphericalDetectorItem()
     : ParameterizedItem(Constants::SphericalDetectorType)
 {
     registerGroupProperty(P_PHI_AXIS, Constants::BasicAxisType);
-    getSubItems()[P_PHI_AXIS]->getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
-    getSubItems()[P_PHI_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, -1.0);
-    getSubItems()[P_PHI_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 1.0);
+    getGroupItem(P_PHI_AXIS)->getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
+    getGroupItem(P_PHI_AXIS)->setRegisteredProperty(BasicAxisItem::P_MIN, -1.0);
+    getGroupItem(P_PHI_AXIS)->setRegisteredProperty(BasicAxisItem::P_MAX, 1.0);
 
     registerGroupProperty(P_ALPHA_AXIS, Constants::BasicAxisType);
-    getSubItems()[P_ALPHA_AXIS]->getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
-    getSubItems()[P_ALPHA_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, 0.0);
-    getSubItems()[P_ALPHA_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 2.0);
+    getGroupItem(P_ALPHA_AXIS)->getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
+    getGroupItem(P_ALPHA_AXIS)->setRegisteredProperty(BasicAxisItem::P_MIN, 0.0);
+    getGroupItem(P_ALPHA_AXIS)->setRegisteredProperty(BasicAxisItem::P_MAX, 2.0);
 
     registerGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
     setGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionNoneType);
@@ -50,7 +50,7 @@ std::unique_ptr<IDetector2D> SphericalDetectorItem::createDetector() const
     std::unique_ptr<SphericalDetector> result(new SphericalDetector());
 
     auto x_axis = dynamic_cast<BasicAxisItem *>(
-        getSubItems()[SphericalDetectorItem::P_PHI_AXIS]);
+        getGroupItem(SphericalDetectorItem::P_PHI_AXIS));
     Q_ASSERT(x_axis);
     int n_x = x_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
     double x_min
@@ -59,7 +59,7 @@ std::unique_ptr<IDetector2D> SphericalDetectorItem::createDetector() const
         = Units::deg2rad(x_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
 
     auto y_axis = dynamic_cast<BasicAxisItem *>(
-        getSubItems()[SphericalDetectorItem::P_ALPHA_AXIS]);
+        getGroupItem(SphericalDetectorItem::P_ALPHA_AXIS));
     Q_ASSERT(y_axis);
     int n_y = y_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
     double y_min
@@ -76,7 +76,7 @@ std::unique_ptr<IResolutionFunction2D> SphericalDetectorItem::createResolutionFu
 {
     // setting up resolution function
     auto resfuncItem = dynamic_cast<ResolutionFunctionItem *>(
-        getSubItems()[P_RESOLUTION_FUNCTION]);
+        getGroupItem(P_RESOLUTION_FUNCTION));
     Q_ASSERT(resfuncItem);
 
     std::unique_ptr<IResolutionFunction2D> result(resfuncItem->createResolutionFunction(Units::degree));

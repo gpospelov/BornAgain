@@ -281,8 +281,8 @@ void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, Pa
                 subProperty->setEnabled(false);
             }
 
-            if (item->getSubItems().contains(prop_name)) {
-                ParameterizedItem *subitem = item->getSubItems()[prop_name];
+            if (item->isGroupProperty(prop_name)) {
+                ParameterizedItem *subitem = item->getGroupItem(prop_name);
                 if (subitem) {
                     addSubProperties(subProperty, subitem);
                 }

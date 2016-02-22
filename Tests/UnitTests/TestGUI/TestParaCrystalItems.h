@@ -19,14 +19,14 @@ inline void TestParaCrystalItems::test_Para1D_InitialState()
     InterferenceFunctionRadialParaCrystalItem item;
     QCOMPARE(item.modelType(), Constants::InterferenceFunctionRadialParaCrystalType);
     QCOMPARE(item.itemName(), Constants::InterferenceFunctionRadialParaCrystalType);
-    QCOMPARE(item.getSubItems().size(), 1);
+    QCOMPARE(item.getChildrenOfType(Constants::GroupItemType).size(), 1);
 
     QCOMPARE(item.getRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE).toDouble(), 20.0*Units::nanometer);
     QCOMPARE(item.getRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_DAMPING_LENGTH).toDouble(), 1000.0*Units::micrometer);
     QCOMPARE(item.getRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_DOMAIN_SIZE).toDouble(), 20.0*Units::micrometer);
     QCOMPARE(item.getRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_KAPPA).toDouble(), 0.0);
 
-    QCOMPARE(item.getSubItems()[InterferenceFunctionRadialParaCrystalItem::P_PDF]->modelType(), Constants::FTDistribution1DCauchyType);
+    QCOMPARE(item.getGroupItem(InterferenceFunctionRadialParaCrystalItem::P_PDF)->modelType(), Constants::FTDistribution1DCauchyType);
 
     GroupProperty_t group_property = item.getRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_PDF).value<GroupProperty_t>();
     QCOMPARE(group_property->type(), GroupProperty::SELECTABLE);
@@ -52,8 +52,8 @@ inline void TestParaCrystalItems::test_Para1D_PDFGroupProperty()
         QSignalSpy spyPropertyItem(&item, SIGNAL(subItemChanged(QString)));
         ParameterizedItem *pdfItem = item.setGroupProperty(InterferenceFunctionRadialParaCrystalItem::P_PDF, pdf_name);
         QVERIFY(pdfItem);
-        QCOMPARE(item.getSubItems().size(), 1);
-        QCOMPARE(pdfItem, item.getSubItems()[InterferenceFunctionRadialParaCrystalItem::P_PDF]);
+        QCOMPARE(item.getChildrenOfType(Constants::GroupItemType).size(), 1);
+        QCOMPARE(pdfItem, item.getGroupItem(InterferenceFunctionRadialParaCrystalItem::P_PDF));
 
         QCOMPARE(spyItem.count(), 0);
         if(pdf_name == Constants::FTDistribution1DCauchyType) { // default ff

@@ -45,7 +45,7 @@ std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(const Parameter
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::LayerType) {
             auto P_layer = buildLayer(*children[i]);
-            auto roughnessItem = children[i]->getSubItems()[LayerItem::P_ROUGHNESS];
+            auto roughnessItem = children[i]->getGroupItem(LayerItem::P_ROUGHNESS);
             Q_ASSERT(roughnessItem);
             auto P_roughness = TransformToDomain::createLayerRoughness(*roughnessItem);
             if (P_layer) {

@@ -561,7 +561,7 @@ void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item, 
                 if (inside_parameter_tag) {
                     Q_ASSERT(item);
                     ParameterizedItem *parent = item;
-                    item = parent->getSubItems()[parent_parameter_name];
+                    item = parent->getGroupItem(parent_parameter_name);
                     if(!item) {
                         // to provide partial loading of obsolete project files
                         QString message = QString("Non existing SubItem '%1' of '%2'")
@@ -724,7 +724,7 @@ void SessionModel::writeItemAndChildItems(QXmlStreamWriter *writer, const Parame
 void SessionModel::writeProperty(QXmlStreamWriter *writer, const ParameterizedItem *item,
                                  const char *property_name) const
 {
-    QMap<QString, ParameterizedItem *> sub_items = item->getSubItems();
+    QMap<QString, ParameterizedItem *> sub_items;// = item->getSubItems();
     QVariant variant = item->property(property_name);
     if (variant.isValid()) {
         writer->writeStartElement(SessionXML::ParameterTag);

@@ -65,8 +65,8 @@ inline void TestParameterizedItem::test_registerProperty()
 
 inline void TestParameterizedItem::test_SelectableGroupProperty()
 {
-    ParameterizedItem item;
-    QCOMPARE(item.getSubItems().size(), 0);
+//    ParameterizedItem item;
+//    QCOMPARE(item.getSubItems().size(), 0);
 }
 
 

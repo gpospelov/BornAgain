@@ -292,7 +292,7 @@ void AwesomePropertyEditor::onSubItemChanged(const QString &property_name)
 
         removeQtVariantProperties(m_d->m_qtvariant_to_dependend[variant_property]);
 
-        insertItemProperties( item->getSubItems()[property_name], variant_property, m_d->m_item_subitem_insert_mode[item][property_name]);
+        insertItemProperties( item->getGroupItem(property_name), variant_property, m_d->m_item_subitem_insert_mode[item][property_name]);
 
 
         connect(item, SIGNAL(propertyChanged(QString)),
@@ -329,8 +329,8 @@ void AwesomePropertyEditor::insertItemProperty(ParameterizedItem *item, const QS
     insertQtVariantProperty(qtVariantItem, parent_qtproperty, insert_mode);
 
     // Processing SubProperty
-    if(subitem_insert_mode != SKIP && item->getSubItems().contains(property_name)) {
-        ParameterizedItem *subitem = item->getSubItems()[property_name];
+    if(subitem_insert_mode != SKIP && item->isGroupProperty(property_name)) {
+        ParameterizedItem *subitem = item->getGroupItem(property_name);
         if (subitem) {
             insertItemProperties(subitem, qtVariantItem, subitem_insert_mode, subitem_insert_mode);
         }

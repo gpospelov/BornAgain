@@ -86,15 +86,15 @@ void SphericalDetectorWidget::setDetectorItem(DetectorItem *detectorItem)
 //                                     AwesomePropertyEditor::SKIP);
 
     SphericalDetectorItem *sphericalDetector = dynamic_cast<SphericalDetectorItem *>(
-                detectorItem->getSubItems()[DetectorItem::P_DETECTOR]);
+                detectorItem->getGroupItem(DetectorItem::P_DETECTOR));
     Q_ASSERT(sphericalDetector);
 
-    ParameterizedItem *phiAxisItem = sphericalDetector->getSubItems()[SphericalDetectorItem::P_PHI_AXIS];
+    ParameterizedItem *phiAxisItem = sphericalDetector->getGroupItem(SphericalDetectorItem::P_PHI_AXIS);
     m_phiAxisEditor->addItemProperties(phiAxisItem, QString("Phi axis"),
                                        AwesomePropertyEditor::INSERT_AFTER);
 
     ParameterizedItem *alphaAxisItem
-        = sphericalDetector->getSubItems()[SphericalDetectorItem::P_ALPHA_AXIS];
+        = sphericalDetector->getGroupItem(SphericalDetectorItem::P_ALPHA_AXIS);
     m_alphaAxisEditor->addItemProperties(alphaAxisItem, QString("Alpha axis"),
                                          AwesomePropertyEditor::INSERT_AFTER);
 

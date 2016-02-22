@@ -339,7 +339,15 @@ ParameterizedItem *ParameterizedItem::registerGroupProperty(const QString &group
     return groupItem;
 }
 
-ParameterizedItem *ParameterizedItem::setGroupProperty(const QString &name, const QString &value)
+bool ParameterizedItem::isGroupProperty(const QString &name) const
+{
+    if (m_propertyItems.contains(name)) {
+        return m_propertyItems[name]->modelType() == Constants::GroupItemType;
+    }
+    return false;
+}
+
+ParameterizedItem *ParameterizedItem::setGroupProperty(const QString &name, const QString &value) const
 {
     qDebug() << "ParameterizedItem::setGroupProperty()" << name << value;
     if (GroupItem *item = dynamic_cast<GroupItem *>(m_propertyItems[name])) {
@@ -352,7 +360,7 @@ ParameterizedItem *ParameterizedItem::setGroupProperty(const QString &name, cons
     return nullptr;
 }
 
-ParameterizedItem *ParameterizedItem::getGroupProperty(const QString &name)
+ParameterizedItem *ParameterizedItem::getGroupItem(const QString &name) const
 {
     return setGroupProperty(name);
 }

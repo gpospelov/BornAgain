@@ -16,7 +16,7 @@
 #ifndef LATTICE_H_
 #define LATTICE_H_
 
-#include "Types.h"
+#include "Vectors3D.h"
 #include "ISelectionRule.h"
 #include "TRange.h"
 #include "FastVector.h"
@@ -97,5 +97,3 @@ private:
 };
 
 #endif /* LATTICE_H_ */
-
-

@@ -16,8 +16,9 @@
 #ifndef FASTVECTOR_H
 #define FASTVECTOR_H
 
-#include "Types.h"
+#include "Vectors3D.h"
 #include <iostream>
+#include <vector>
 
 
 //! @class KVectorContainer
@@ -26,7 +27,7 @@
 
 class KVectorContainer {
 public:
-    typedef std::vector<kvector_t > container_t;
+    typedef std::vector<kvector_t> container_t;
     typedef container_t::const_iterator const_iterator;
     KVectorContainer(int buff_size = 3)
         : m_current_position(0), m_max_buff_size(buff_size), m_buffer()
@@ -71,5 +72,3 @@ private:
 };
 
 #endif // FASTVECTOR_H
-
-

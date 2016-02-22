@@ -18,6 +18,7 @@
 
 #include "Bin.h"
 #include "Exceptions.h"
+#include <vector>
 
 //! @class IAxis
 //! @ingroup tools_internal

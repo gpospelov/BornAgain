@@ -17,7 +17,7 @@
 #define IMATERIAL_H
 
 #include "INamed.h"
-#include "Types.h"
+#include "Vectors3D.h"
 #include "EigenCore.h"
 #include "Rotations.h"
 #include <string>

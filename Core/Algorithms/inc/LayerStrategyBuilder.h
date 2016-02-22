@@ -19,7 +19,6 @@
 #include "SimulationParameters.h"
 #include "SafePointerVector.h"
 #include "ICloneable.h"
-#include "Types.h"
 #include "IMaterial.h"
 
 #include <boost/scoped_ptr.hpp>
@@ -31,7 +30,6 @@ class Layer;
 class Simulation;
 class IFormFactor;
 class LayerSpecularInfo;
-
 
 
 //! @class LayerStrategyBuilder

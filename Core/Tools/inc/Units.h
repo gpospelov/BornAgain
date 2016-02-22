@@ -16,8 +16,6 @@
 #ifndef UNITS_H
 #define UNITS_H
 
-//#include "Types.h"
-
 namespace Units {  // BornAgain namespace
 
 // Definitions of Pi and company
@@ -59,5 +57,3 @@ static const double gauss       = 1e-4;
 }
 
 #endif // UNITS_H
-
-

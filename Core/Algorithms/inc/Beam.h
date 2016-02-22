@@ -16,7 +16,7 @@
 #ifndef BEAM_H_
 #define BEAM_H_
 
-#include "Types.h"
+#include "Vectors3D.h"
 #include "IParameterized.h"
 #include "EigenCore.h"
 

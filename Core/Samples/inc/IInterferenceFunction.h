@@ -16,7 +16,7 @@
 #ifndef IINTERFERENCEFUNCTION_H_
 #define IINTERFERENCEFUNCTION_H_
 
-#include "Types.h"
+#include "Vectors3D.h"
 #include "ISample.h"
 
 //! @class IInterferenceFunction
@@ -46,5 +46,3 @@ public:
 };
 
 #endif /* IINTERFERENCEFUNCTION_H_ */
-
-

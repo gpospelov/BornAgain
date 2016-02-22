@@ -17,6 +17,7 @@
 #include "ParticleItem.h"
 #include "GroupProperty.h"
 #include "GUIHelpers.h"
+#include "GroupItem.h"
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QObject>
@@ -75,11 +76,12 @@ void ParticleView::setParameterizedItem(ParameterizedItem *item)
 void ParticleView::onPropertyChange(const QString &propertyName)
 {
     if(propertyName == ParticleItem::P_FORM_FACTOR) {
-        GroupProperty_t group_property = getParameterizedItem()->getRegisteredProperty(ParticleItem::P_FORM_FACTOR).value<GroupProperty_t>();
+//        GroupProperty_t group_property = dynamic_cast<GroupItem*>(getParameterizedItem()->getSubItems()[ParticleItem::P_FORM_FACTOR])->group();
+//        GroupProperty_t group_property = getParameterizedItem()->getRegisteredProperty(ParticleItem::P_FORM_FACTOR).value<GroupProperty_t>();
 
-        QString current_ff_type = group_property->getCurrentType();
-        QString filename = QString(":/SampleDesigner/images/ff_%1_32.png").arg(current_ff_type);
-        m_pixmap = QPixmap(filename);
+//        QString current_ff_type = group_property->getCurrentType();
+//        QString filename = QString(":/SampleDesigner/images/ff_%1_32.png").arg(current_ff_type);
+//        m_pixmap = QPixmap(filename);
         update();
     } else {
         IView::onPropertyChange(propertyName);
@@ -88,7 +90,7 @@ void ParticleView::onPropertyChange(const QString &propertyName)
 
 void ParticleView::addView(IView *childView, int /*row*/)
 {
-    qDebug() << "ParticleView::addView() xxx " << m_item->name() << childView->getParameterizedItem()->name() << childView->type() << DesignerHelper::PARTICLE;
+    qDebug() << "ParticleView::addView() xxx " << m_item->itemName() << childView->getParameterizedItem()->itemName() << childView->type() << DesignerHelper::PARTICLE;
     if(childView->type() == DesignerHelper::TRANSFORMATION) {
         connectInputPort(dynamic_cast<ConnectableView *>(childView), 0);
     }

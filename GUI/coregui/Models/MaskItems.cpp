@@ -93,7 +93,7 @@ PolygonItem::PolygonItem()
 Geometry::IShape2D *PolygonItem::createShape(double scale) const
 {
     std::vector<double> x,y;
-    foreach(ParameterizedItem *item, this->getChildren()) {
+    foreach(ParameterizedItem *item, this->childItems()) {
         x.push_back(scale*item->getRegisteredProperty(PolygonPointItem::P_POSX).toDouble());
         y.push_back(scale*item->getRegisteredProperty(PolygonPointItem::P_POSY).toDouble());
     }

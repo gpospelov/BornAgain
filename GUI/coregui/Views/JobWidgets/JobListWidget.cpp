@@ -235,7 +235,7 @@ void JobListWidget::showContextMenu(const QPoint &pnt)
 
     for(int i =0; i<selected.count(); ++i) {
         JobItem *jobItem = m_jobModel->getJobItemForIndex(selected.at(i));
-        QAction *action = new QAction(QString("to ").append(jobItem->name()), this);
+        QAction *action = new QAction(QString("to ").append(jobItem->itemName()), this);
         connect(action, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
         m_signalMapper->setMapping(action, i);
         menu_equalize.addAction(action);

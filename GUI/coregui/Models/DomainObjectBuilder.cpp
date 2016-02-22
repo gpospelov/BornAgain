@@ -41,7 +41,7 @@
 std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(const ParameterizedItem &multilayer_item) const
 {
     auto P_multilayer = TransformToDomain::createMultiLayer(multilayer_item);
-    QList<ParameterizedItem *> children = multilayer_item.getChildren();
+    QList<ParameterizedItem *> children = multilayer_item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::LayerType) {
             auto P_layer = buildLayer(*children[i]);
@@ -63,7 +63,7 @@ std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(const Parameter
 std::unique_ptr<Layer> DomainObjectBuilder::buildLayer(const ParameterizedItem &item) const
 {
     auto P_layer = TransformToDomain::createLayer(item);
-    QList<ParameterizedItem *> children = item.getChildren();
+    QList<ParameterizedItem *> children = item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::ParticleLayoutType) {
             auto P_layout = buildParticleLayout(*children[i]);
@@ -79,7 +79,7 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
         const ParameterizedItem &item) const
 {
     auto P_layout = TransformToDomain::createParticleLayout(item);
-    QList<ParameterizedItem *> children = item.getChildren();
+    QList<ParameterizedItem *> children = item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         auto P_particle = TransformToDomain::createIParticle(*children[i]);
         if (P_particle) {
@@ -93,7 +93,7 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
                       .value<ComboProperty>();
             QString par_name = prop.getValue();
             if (par_name == ParticleDistributionItem::NO_SELECTION) {
-                auto grandchildren = children[i]->getChildren();
+                auto grandchildren = children[i]->childItems();
                 if (grandchildren.size() == 0) {
                     continue;
                 }
@@ -136,7 +136,7 @@ DomainObjectBuilder::buildInterferenceFunction(const ParameterizedItem &item) co
 std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(const ParameterizedItem &instrument_item) const
 {
     auto P_instrument = TransformToDomain::createInstrument(instrument_item);
-    QList<ParameterizedItem *> children = instrument_item.getChildren();
+    QList<ParameterizedItem *> children = instrument_item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::BeamType) {
             auto P_beam = buildBeam(*children[i]);

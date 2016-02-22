@@ -349,14 +349,14 @@ void ProjectDocument::reviseOutputData()
         if (dataItem) {
             // handling case when user has renamed jobItem and we have to clean previous
             // *.int file
-            QString filename = getProjectDir() + "/" + dataItem->name();
+            QString filename = getProjectDir() + "/" + dataItem->itemName();
             QFile fin(filename);
             if (fin.exists()) {
                 fin.remove();
             }
 
             // making new name of *.int file from jobItem name
-            dataItem->setNameFromProposed(jobItem->name());
+            dataItem->setNameFromProposed(jobItem->itemName());
         }
     }
 }

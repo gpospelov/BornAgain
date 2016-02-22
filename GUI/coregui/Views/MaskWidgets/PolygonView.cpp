@@ -153,11 +153,11 @@ void PolygonView::update_polygon()
 
     m_block_on_point_update = true;
 
-    if (m_item->rowCount()) {
+    if (m_item->childItemCount()) {
 
         m_polygon.clear();
 
-        foreach (ParameterizedItem *item, m_item->getChildren()) {
+        foreach (ParameterizedItem *item, m_item->childItems()) {
             qreal px = toSceneX(item->getRegisteredProperty(PolygonPointItem::P_POSX).toReal());
             qreal py = toSceneY(item->getRegisteredProperty(PolygonPointItem::P_POSY).toReal());
             m_polygon << QPointF(px, py);

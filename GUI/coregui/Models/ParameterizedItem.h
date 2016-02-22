@@ -63,10 +63,10 @@ public:
     // labels
 
     //! return a user definable name, if present, or returs displayName() otherwise
-    QString name() const;
+    QString itemName() const;
 
     //! set the item's name through the model, use this instead of P_NAME
-    void setName(const QString &name);
+    void setItemName(const QString &name);
 
     //! retrieve a unique name based on the type and an index (if needed to distinguish siblings)
     //! This name is primarely used for generating long parameter names (ParticleDistributionItem
@@ -77,7 +77,7 @@ public:
     QString modelType() const;
 
     //! return a nice string representation of the data contained in this item
-    virtual QString label() const;
+    virtual QString itemLabel() const;
 
 
     // members
@@ -112,7 +112,7 @@ public:
     ParameterizedItem *parent() const;
 
     //! get number of child items
-    int rowCount() const;
+    int childItemCount() const;
 
     //! column count is equal for all items and is derived from session model
     int columnCount() const;
@@ -130,10 +130,10 @@ public:
     // accessing children
 
     //! indicates if item has child items
-    bool hasChildren() const;
+    bool hasChildItems() const;
 
     //! returns the a list of child items
-    QList<ParameterizedItem *> getChildren() const;
+    QList<ParameterizedItem *> childItems() const;
 
     //! Returns a pointer to the first child of the given type
     ParameterizedItem *getChildOfType(const QString &type) const;
@@ -145,7 +145,7 @@ public:
     QList<ParameterizedItem *> getChildrenOfType(const QString &model_type) const;
 
     //! insert a child item at specified row
-    virtual void insertChild(int row, ParameterizedItem *item);
+    virtual void insertChildItem(int row, ParameterizedItem *item);
 
     //! take child item (this removes it from the current item)
     virtual ParameterizedItem *takeChildItem(int row);

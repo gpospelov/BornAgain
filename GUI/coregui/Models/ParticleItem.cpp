@@ -44,9 +44,9 @@ ParticleItem::ParticleItem()
     addParameterTranslator(rotation_translator);
 }
 
-void ParticleItem::insertChild(int row, ParameterizedItem *item)
+void ParticleItem::insertChildItem(int row, ParameterizedItem *item)
 {
-    ParameterizedItem::insertChild(row, item);
+    ParameterizedItem::insertChildItem(row, item);
     if (item->modelType() == Constants::TransformationType) {
         int port = int(item->port());
 //        int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();

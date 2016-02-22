@@ -53,7 +53,7 @@ void JobListViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
 
     painter->setRenderHint(QPainter::Antialiasing, true);
 
-    QString text = item->name();
+    QString text = item->itemName();
     QRect textRect = getTextRect(option.rect);
     painter->drawText(textRect,text);
 

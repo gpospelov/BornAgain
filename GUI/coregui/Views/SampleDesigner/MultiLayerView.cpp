@@ -56,7 +56,7 @@ void MultiLayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 
 void MultiLayerView::addView(IView *childView, int row)
 {
-    qDebug() << "MultiLayerView::addView() " << m_item->name() << childView->getParameterizedItem()->name() << "row" << row;
+    qDebug() << "MultiLayerView::addView() " << m_item->itemName() << childView->getParameterizedItem()->itemName() << "row" << row;
     ILayerView *layer = dynamic_cast<ILayerView *>(childView);
     Q_ASSERT(layer);
 
@@ -64,7 +64,7 @@ void MultiLayerView::addView(IView *childView, int row)
         addNewLayer(layer, row);
     } else {
         int previous_row = m_layers.indexOf(layer);
-        if(previous_row != row) m_layers.swap(previous_row, row);
+//        if(previous_row != row) m_layers.swap(previous_row, row);
     }
     updateGeometry();
 }

@@ -148,7 +148,7 @@ void InstrumentEditorWidget::onChangedEditor(const QString &)
     Q_ASSERT(m_currentItem);
     if(m_block_signals) return;
     qDebug() << "          InstrumentEditorWidget::onChangedEditor(): " << m_nameLineEdit->text();
-    m_currentItem->setName(m_nameLineEdit->text());
+    m_currentItem->setItemName(m_nameLineEdit->text());
 }
 
 void InstrumentEditorWidget::onPropertyChanged(const QString &)
@@ -180,6 +180,6 @@ void InstrumentEditorWidget::updateWidgets()
     qDebug() << "InstrumentEditorWidget::updateWidgets() ->";
     Q_ASSERT(m_currentItem);
     m_block_signals = true;
-    m_nameLineEdit->setText(m_currentItem->name());
+    m_nameLineEdit->setText(m_currentItem->itemName());
     m_block_signals = false;
 }

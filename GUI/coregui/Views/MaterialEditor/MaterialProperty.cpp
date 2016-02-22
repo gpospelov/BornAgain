@@ -23,7 +23,7 @@ QString MaterialProperty::getName() const
     MaterialProperty property(getIdentifier());
     MaterialItem *materialItem = MaterialEditor::getMaterialModel()->getMaterial(property);
     if(materialItem) {
-        return materialItem->name();
+        return materialItem->itemName();
     } else {
         return QString("Undefined");
     }

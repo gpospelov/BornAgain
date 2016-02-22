@@ -26,7 +26,8 @@ BeamInclinationAngleItem::BeamInclinationAngleItem()
     getPropertyAttribute(BeamDistributionItem::P_CACHED_VALUE).setHidden().limited(0.0, 90.0).setDecimals(3);
     setRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE, 0.2);
 
-    ParameterizedItem *distribution = dynamic_cast<DistributionNoneItem *>(getSubItems()[P_DISTRIBUTION]);
+    auto x = getSubItems();
+    ParameterizedItem *distribution = dynamic_cast<DistributionNoneItem *>(x[P_DISTRIBUTION]);
     Q_ASSERT(distribution);
     distribution->getPropertyAttribute(DistributionNoneItem::P_VALUE).limited(0.0, 90.0).setDecimals(3);
 }

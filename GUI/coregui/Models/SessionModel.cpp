@@ -121,7 +121,7 @@ int SessionModel::rowCount(const QModelIndex &parent) const
     if (parent.isValid() && parent.column() != 0)
         return 0;
     ParameterizedItem *parent_item = itemForIndex(parent);
-    return parent_item ? parent_item->rowCount() : 0;
+    return parent_item ? parent_item->childItemCount() : 0;
 }
 
 int SessionModel::columnCount(const QModelIndex &parent) const
@@ -255,7 +255,7 @@ bool SessionModel::dropMimeData(const QMimeData *data, Qt::DropAction action, in
         QByteArray xml_data = qUncompress(data->data(SessionXML::MimeType));
         QXmlStreamReader reader(xml_data);
         if (row == -1)
-            row = item->rowCount();
+            row = item->childItemCount();
         beginInsertRows(parent, row, row);
         readItems(&reader, item, row);
         endInsertRows();
@@ -281,7 +281,7 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type, const QModelI
 //    }
     ParameterizedItem *parent_item = itemForIndex(parent);
     if (row == -1)
-        row = parent_item->rowCount();
+        row = parent_item->childItemCount();
     beginInsertRows(parent, row, row);
     ParameterizedItem *new_item = insertNewItem(model_type, parent_item, row, port);
     endInsertRows();
@@ -299,7 +299,7 @@ QModelIndex SessionModel::insertNewItemIndex(QString model_type, const QModelInd
 //    }
     ParameterizedItem *parent_item = itemForIndex(parent);
     if (row == -1)
-        row = parent_item->rowCount();
+        row = parent_item->childItemCount();
     beginInsertRows(parent, row, row);
     insertNewItem(model_type, parent_item, row, port);
     endInsertRows();
@@ -430,7 +430,7 @@ ParameterizedItem *SessionModel::moveParameterizedItem(ParameterizedItem *item, 
 
     QXmlStreamReader reader(xml_data);
     if (row == -1)
-        row = new_parent->rowCount();
+        row = new_parent->childItemCount();
 
     qDebug() << "   SessionModel::moveParameterizedItem()  >>> Beginning to insert "
                 "indexOfItem(new_parent)" << indexOfItem(new_parent);
@@ -469,7 +469,7 @@ ParameterizedItem *SessionModel::copyParameterizedItem(const ParameterizedItem *
 
     QXmlStreamReader reader(xml_data);
     if (row == -1)
-        row = new_parent->rowCount();
+        row = new_parent->childItemCount();
 
     beginInsertRows(indexOfItem(new_parent), row, row);
     readItems(&reader, new_parent, row);
@@ -493,10 +493,10 @@ QMap<QString, ParameterizedItem *> SessionModel::getTopItemMap(const QString &mo
         QModelIndex itemIndex = index(i_row, 0, parentIndex);
         if (ParameterizedItem *item = itemForIndex(itemIndex)) {
             if (model_type.isEmpty()) {
-                result.insertMulti(item->name(), item);
+                result.insertMulti(item->itemName(), item);
             } else {
                 if (item->modelType() == model_type) {
-                    result.insertMulti(item->name(), item);
+                    result.insertMulti(item->itemName(), item);
                 }
             }
         }
@@ -534,8 +534,8 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type, Parameterized
     if (!parent)
         parent = m_root_item;
     if (row == -1)
-        row = parent->rowCount();
-    if (row < 0 || row > parent->rowCount())
+        row = parent->childItemCount();
+    if (row < 0 || row > parent->childItemCount())
         return 0;
     if (parent != m_root_item) {
         if (!parent->acceptsAsChild(model_type))
@@ -557,7 +557,7 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type, Parameterized
     connect(new_item, SIGNAL(subItemPropertyChanged(QString,QString)),
             this, SLOT(onItemPropertyChange(const QString &, const QString &)));
 
-    parent->insertChild(row, new_item);
+    parent->insertChildItem(row, new_item);
 
     return new_item;
 }
@@ -591,7 +591,7 @@ void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item, 
                 } else {
                     item = insertNewItem(model_type, item, row);
                 }
-                if(item) item->setName(item_name);
+                if(item) item->setItemName(item_name);
                 row = -1; // all but the first item should be appended
             } else if (reader->name() == SessionXML::ParameterTag) {
                 parent_parameter_name = readProperty(reader, item);
@@ -725,14 +725,14 @@ void SessionModel::writeItemAndChildItems(QXmlStreamWriter *writer, const Parame
     if (item != m_root_item) {
         writer->writeStartElement(SessionXML::ItemTag);
         writer->writeAttribute(SessionXML::ModelTypeAttribute, item->modelType());
-        writer->writeAttribute(SessionXML::ItemNameAttribute, item->name());
+        writer->writeAttribute(SessionXML::ItemNameAttribute, item->itemName());
         QListIterator<QByteArray> it(item->dynamicPropertyNames());
         while (it.hasNext()) {
             const char *name = it.next().constData();
             writeProperty(writer, item, name);
         }
     }
-    foreach (ParameterizedItem *child_item, item->getChildren()) {
+    foreach (ParameterizedItem *child_item, item->childItems()) {
         writeItemAndChildItems(writer, child_item);
     }
     if (item != m_root_item) {
@@ -807,13 +807,13 @@ void SessionModel::writePropertyItem(QXmlStreamWriter *writer, ParameterizedItem
 {
     writer->writeStartElement(SessionXML::ItemTag);
     writer->writeAttribute(SessionXML::ModelTypeAttribute, item->modelType());
-    writer->writeAttribute(SessionXML::ItemNameAttribute, item->name());
+    writer->writeAttribute(SessionXML::ItemNameAttribute, item->itemName());
     QListIterator<QByteArray> it(item->dynamicPropertyNames());
     while (it.hasNext()) {
         const char *name = it.next().constData();
         writeProperty(writer, item, name);
     }
-    foreach (ParameterizedItem *child_item, item->getChildren()) {
+    foreach (ParameterizedItem *child_item, item->childItems()) {
         writeItemAndChildItems(writer, child_item);
     }
     writer->writeEndElement(); // ItemTag

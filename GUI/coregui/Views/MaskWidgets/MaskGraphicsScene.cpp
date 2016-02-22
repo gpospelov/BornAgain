@@ -755,13 +755,13 @@ void MaskGraphicsScene::setItemName(ParameterizedItem *itemToChange)
          QModelIndex itemIndex = m_maskModel->index( i_row, 0, m_maskContainerIndex );
          if (ParameterizedItem *currentItem = m_maskModel->itemForIndex(itemIndex)){
              if(currentItem->modelType() == itemToChange->modelType()) {
-                 QString itemName = currentItem->name();
-                 if(itemName.startsWith(itemToChange->name())) {
-                     int item_index = itemName.remove(0, itemToChange->name().size()).toInt();
+                 QString itemName = currentItem->itemName();
+                 if(itemName.startsWith(itemToChange->itemName())) {
+                     int item_index = itemName.remove(0, itemToChange->itemName().size()).toInt();
                      if(item_index > glob_index) glob_index = item_index;
                  }
              }
          }
     }
-    itemToChange->setName(itemToChange->name()+QString::number(++glob_index));
+    itemToChange->setItemName(itemToChange->itemName()+QString::number(++glob_index));
 }

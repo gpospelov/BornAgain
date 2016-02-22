@@ -52,9 +52,9 @@ ParticleDistributionItem::~ParticleDistributionItem()
 {
 }
 
-void ParticleDistributionItem::insertChild(int row, ParameterizedItem *item)
+void ParticleDistributionItem::insertChildItem(int row, ParameterizedItem *item)
 {
-    ParameterizedItem::insertChild(row, item);
+    ParameterizedItem::insertChildItem(row, item);
     if (item->modelType() == Constants::ParticleType
         || item->modelType() == Constants::ParticleCoreShellType
         || item->modelType() == Constants::ParticleCompositionType) {
@@ -75,7 +75,7 @@ void ParticleDistributionItem::onChildPropertyChange(ParameterizedItem *item, co
 
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const
 {
-    auto children = getChildren();
+    auto children = childItems();
     if (children.size() == 0) {
         return nullptr;
     }
@@ -138,7 +138,7 @@ void ParticleDistributionItem::updateParameterList()
 QStringList ParticleDistributionItem::getChildParameterNames() const
 {
     QStringList result;
-    QList<ParameterizedItem *> children = getChildren();
+    QList<ParameterizedItem *> children = childItems();
     if (children.size() > 1) {
         qDebug() << "ParticleDistributionItem::getChildParameterNames(): "
                  << "More than one child item";

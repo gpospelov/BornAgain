@@ -458,7 +458,7 @@ void TransformFromDomain::setDetectorMasks(DetectorItem *detectorItem, const GIS
     const DetectorMask *detectorMask = detector->getDetectorMask();
     if(detectorMask && detectorMask->getNumberOfMasks()) {
         MaskContainerItem *containerItem = new MaskContainerItem();
-        detectorItem->insertChild(-1, containerItem);
+        detectorItem->insertChildItem(-1, containerItem);
         for(size_t i_mask=0; i_mask<detectorMask->getNumberOfMasks(); ++i_mask) {
             bool mask_value(false);
             const Geometry::IShape2D *shape = detectorMask->getMaskShape(i_mask, mask_value);
@@ -470,7 +470,7 @@ void TransformFromDomain::setDetectorMasks(DetectorItem *detectorItem, const GIS
                 ellipseItem->setRegisteredProperty(EllipseItem::P_YRADIUS, Units::rad2deg(ellipse->getRadiusY()));
                 ellipseItem->setRegisteredProperty(EllipseItem::P_ANGLE, Units::rad2deg(ellipse->getTheta()));
                 ellipseItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
-                containerItem->insertChild(0, ellipseItem);
+                containerItem->insertChildItem(0, ellipseItem);
 
             }
             else if(const Geometry::Rectangle *rectangle = dynamic_cast<const Geometry::Rectangle *>(shape)) {
@@ -480,7 +480,7 @@ void TransformFromDomain::setDetectorMasks(DetectorItem *detectorItem, const GIS
                 rectangleItem->setRegisteredProperty(RectangleItem::P_XUP, Units::rad2deg(rectangle->getXup()));
                 rectangleItem->setRegisteredProperty(RectangleItem::P_YUP, Units::rad2deg(rectangle->getYup()));
                 rectangleItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
-                containerItem->insertChild(0, rectangleItem);
+                containerItem->insertChildItem(0, rectangleItem);
 
             }
             else if(const Geometry::Polygon *polygon = dynamic_cast<const Geometry::Polygon *>(shape)) {
@@ -491,31 +491,31 @@ void TransformFromDomain::setDetectorMasks(DetectorItem *detectorItem, const GIS
                     PolygonPointItem *pointItem = new PolygonPointItem();
                     pointItem->setRegisteredProperty(PolygonPointItem::P_POSX, Units::rad2deg(xpos[i_point]));
                     pointItem->setRegisteredProperty(PolygonPointItem::P_POSY, Units::rad2deg(ypos[i_point]));
-                    polygonItem->insertChild(-1, pointItem);
+                    polygonItem->insertChildItem(-1, pointItem);
                 }
 
                 polygonItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
                 polygonItem->setRegisteredProperty(PolygonItem::P_ISCLOSED, true);
 
-                containerItem->insertChild(0, polygonItem);
+                containerItem->insertChildItem(0, polygonItem);
             }
             else if(const Geometry::VerticalLine *vline = dynamic_cast<const Geometry::VerticalLine *>(shape)) {
                 VerticalLineItem *lineItem = new VerticalLineItem();
                 lineItem->setRegisteredProperty(VerticalLineItem::P_POSX, Units::rad2deg(vline->getXpos()));
                 lineItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
-                containerItem->insertChild(0, lineItem);
+                containerItem->insertChildItem(0, lineItem);
             }
             else if(const Geometry::HorizontalLine *hline = dynamic_cast<const Geometry::HorizontalLine *>(shape)) {
                 HorizontalLineItem *lineItem = new HorizontalLineItem();
                 lineItem->setRegisteredProperty(HorizontalLineItem::P_POSY, Units::rad2deg(hline->getYpos()));
                 lineItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
-                containerItem->insertChild(0, lineItem);
+                containerItem->insertChildItem(0, lineItem);
             }
             else if(const Geometry::InfinitePlane *plane = dynamic_cast<const Geometry::InfinitePlane *>(shape)) {
                 Q_UNUSED(plane);
                 MaskAllItem *planeItem = new MaskAllItem();
                 planeItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
-                containerItem->insertChild(-1, planeItem);
+                containerItem->insertChildItem(-1, planeItem);
             }
             else {
                 throw GUIHelpers::Error("TransformFromDomain::setDetectorMasks() -> Error. "

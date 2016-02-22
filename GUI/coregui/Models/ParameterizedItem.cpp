@@ -92,12 +92,12 @@ bool ParameterizedItem::setValue(QVariant value)
     return setData(SessionModel::ITEM_VALUE, value);
 }
 
-QString ParameterizedItem::name() const
+QString ParameterizedItem::itemName() const
 {
     return data(SessionModel::ITEM_NAME).toString();
 }
 
-void ParameterizedItem::setName(const QString &name)
+void ParameterizedItem::setItemName(const QString &name)
 {
     setData(SessionModel::ITEM_NAME, name);
 }
@@ -118,7 +118,7 @@ QString ParameterizedItem::modelType() const
     return m_model_type;
 }
 
-QString ParameterizedItem::label() const
+QString ParameterizedItem::itemLabel() const
 {
     return QString("");
 }
@@ -152,7 +152,7 @@ ParameterizedItem *ParameterizedItem::parent() const
     return mp_parent;
 }
 
-int ParameterizedItem::rowCount() const
+int ParameterizedItem::childItemCount() const
 {
     return m_children.count();
 }
@@ -180,12 +180,12 @@ int ParameterizedItem::childNumber() const
     return -1;
 }
 
-bool ParameterizedItem::hasChildren() const
+bool ParameterizedItem::hasChildItems() const
 {
     return !m_children.isEmpty();
 }
 
-QList<ParameterizedItem *> ParameterizedItem::getChildren() const
+QList<ParameterizedItem *> ParameterizedItem::childItems() const
 {
     return m_children;
 }
@@ -201,7 +201,7 @@ ParameterizedItem *ParameterizedItem::getChildOfType(const QString &type) const
 ParameterizedItem *ParameterizedItem::getChildByName(const QString &name) const
 {
     for (auto child : m_children) {
-        if (child->name() == name) return child;
+        if (child->itemName() == name) return child;
     }
     return nullptr;
 }
@@ -216,7 +216,7 @@ QList<ParameterizedItem *> ParameterizedItem::getChildrenOfType(const QString &m
     return result;
 }
 
-void ParameterizedItem::insertChild(int row, ParameterizedItem *item)
+void ParameterizedItem::insertChildItem(int row, ParameterizedItem *item)
 {
     if (row == -1)
         row = m_children.size();
@@ -259,7 +259,7 @@ PropertyAttribute &ParameterizedItem::registerProperty(const QString &name, cons
             "ParameterizedItem::registerProperty() -> Error. Already existing property " + name);
 
     ParameterizedItem *property = ItemFactory::createItem(Constants::PropertyType);
-    property->setName(name);
+    property->setItemName(name);
     property->setValue(variant);
     appendPropertyItem(property);
     return m_property_attribute[name];
@@ -267,9 +267,9 @@ PropertyAttribute &ParameterizedItem::registerProperty(const QString &name, cons
 
 void ParameterizedItem::appendPropertyItem(ParameterizedItem *item, const PropertyAttribute &attribute)
 {
-    m_property_attribute[item->name()] = attribute;
-    m_propertyItems.insert(item->name(), item);
-    insertChild(-1, item);
+    m_property_attribute[item->itemName()] = attribute;
+    m_propertyItems.insert(item->itemName(), item);
+    insertChildItem(-1, item);
 }
 
 bool ParameterizedItem::isRegisteredProperty(const QString &name) const
@@ -345,10 +345,7 @@ QMap<QString, ParameterizedItem *> ParameterizedItem::getSubItems() const
     QMap<QString, ParameterizedItem *> result;
     auto groups = getChildrenOfType(Constants::GroupItemType);
     for (auto child : groups) {
-        auto children = child->getChildren();
-        for (auto subchild : children) {
-            result.insert(subchild->name(), subchild);
-        }
+        result.insert(child->itemName(), dynamic_cast<GroupItem*>(child)->group()->getCurrentItem());
     }
     return result;
 }
@@ -384,7 +381,7 @@ ParameterizedItem *ParameterizedItem::registerGroupProperty(const QString &group
         = GroupPropertyRegistry::createGroupProperty(group_name, group_model);
     GroupItem *groupItem = dynamic_cast<GroupItem *>(ItemFactory::createItem(Constants::GroupItemType));
     groupItem->setGroup(group_property);
-    groupItem->setName(group_name);
+    groupItem->setItemName(group_name);
     appendPropertyItem(groupItem);
 //    ParameterizedItem *p_result = m_sub_items[group_name];
 //    if (group_property->type() == GroupProperty::FIXED) {
@@ -518,7 +515,7 @@ QStringList ParameterizedItem::getParameterTreeList(QString prefix) const
 {
     QStringList result;
     // add child parameters:
-    if (hasChildren()) {
+    if (hasChildItems()) {
         for (auto p_child : m_children) {
             QString child_name = p_child->displayName();
             QString child_prefix = prefix + child_name + QString("/");
@@ -606,7 +603,7 @@ void ParameterizedItem::processSubItemPropertyChanged(const QString &propertyNam
         if (it.value() == propertyItem) {
             GroupProperty_t group_property
                 = getRegisteredProperty(it.key()).value<GroupProperty_t>();
-            group_property->setCurrentLabel(propertyItem->label());
+            group_property->setCurrentLabel(propertyItem->itemLabel());
             onSubItemPropertyChanged(it.key(), propertyName);
             return;
         }
@@ -721,7 +718,7 @@ int ParameterizedItem::getCopyNumberOfChild(const ParameterizedItem *p_item) con
     int count = 0;
     QString model_type = p_item->modelType();
     // check child items:
-    if (hasChildren()) {
+    if (hasChildItems()) {
         for (auto p_child_item : m_children) {
             QString child_type = p_child_item->modelType();
             if (p_child_item == p_item) {

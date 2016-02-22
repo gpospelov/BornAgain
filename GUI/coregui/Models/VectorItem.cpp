@@ -27,7 +27,7 @@ VectorItem::VectorItem()
     registerProperty(P_Z, 0.0).limitless();
 }
 
-QString VectorItem::label() const
+QString VectorItem::itemLabel() const
 {
     return QString("(%1, %2, %3)").arg(getRegisteredProperty(P_X).toDouble())
                                   .arg(getRegisteredProperty(P_Y).toDouble())

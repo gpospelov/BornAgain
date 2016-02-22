@@ -27,7 +27,7 @@ MultiLayerItem::MultiLayerItem()
     registerProperty(P_CROSS_CORR_LENGTH, 0.0);
     addToValidChildren(Constants::LayerType);
 //    registerProperty(OBSOLETE_P_NAME, Constants::MultiLayerType);
-    setName(Constants::MultiLayerType);
+    setItemName(Constants::MultiLayerType);
 }
 
 ParameterizedItem *MultiLayerItem::takeChildItem(int row)
@@ -37,9 +37,9 @@ ParameterizedItem *MultiLayerItem::takeChildItem(int row)
     return item;
 }
 
-void MultiLayerItem::insertChild(int row, ParameterizedItem *item)
+void MultiLayerItem::insertChildItem(int row, ParameterizedItem *item)
 {
-    ParameterizedItem::insertChild(row, item);
+    ParameterizedItem::insertChildItem(row, item);
     updateLayers();
 }
 

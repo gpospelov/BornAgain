@@ -30,7 +30,7 @@ DetectorItem::DetectorItem()
 
 MaskContainerItem *DetectorItem::getMaskContainerItem() const
 {
-    foreach(ParameterizedItem *item, getChildren()) {
+    foreach(ParameterizedItem *item, childItems()) {
         if(MaskContainerItem *container = dynamic_cast<MaskContainerItem *>(item)) {
             return container;
         }

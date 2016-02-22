@@ -61,7 +61,7 @@ JobItem::JobItem()
     : ParameterizedItem(Constants::JobItemType)
 {
 //    registerProperty(OBSOLETE_P_NAME, Constants::JobItemType);
-    setName(Constants::JobItemType);
+    setItemName(Constants::JobItemType);
     registerProperty(P_IDENTIFIER, QString()).setHidden();
     registerProperty(P_SAMPLE_NAME, QString()).setReadOnly();
     registerProperty(P_INSTRUMENT_NAME, QString()).setReadOnly();
@@ -106,7 +106,7 @@ void JobItem::setIdentifier(const QString &identifier)
 
 IntensityDataItem *JobItem::getIntensityDataItem()
 {
-    foreach(ParameterizedItem *item, getChildren()) {
+    foreach(ParameterizedItem *item, childItems()) {
         IntensityDataItem *data = dynamic_cast<IntensityDataItem *>(item);
         if(data) return data;
     }
@@ -226,12 +226,12 @@ bool JobItem::runInBackground() const
 //! multilayer will be used
 MultiLayerItem *JobItem::getMultiLayerItem(bool from_backup)
 {
-    foreach(ParameterizedItem *item, getChildren()) {
+    foreach(ParameterizedItem *item, childItems()) {
         if(MultiLayerItem *multilayer = dynamic_cast<MultiLayerItem *>(item)) {
-            if(from_backup && multilayer->name().endsWith(Constants::JOB_BACKUP)) {
+            if(from_backup && multilayer->itemName().endsWith(Constants::JOB_BACKUP)) {
                 return multilayer;
             }
-            if(!from_backup && !multilayer->name().endsWith(Constants::JOB_BACKUP)) {
+            if(!from_backup && !multilayer->itemName().endsWith(Constants::JOB_BACKUP)) {
                 return multilayer;
             }
         }
@@ -243,12 +243,12 @@ MultiLayerItem *JobItem::getMultiLayerItem(bool from_backup)
 //! the instrument will be used
 InstrumentItem *JobItem::getInstrumentItem(bool from_backup)
 {
-    foreach(ParameterizedItem *item, getChildren()) {
+    foreach(ParameterizedItem *item, childItems()) {
         if(InstrumentItem *instrument = dynamic_cast<InstrumentItem *>(item)) {
-            if(from_backup && instrument->name().endsWith(Constants::JOB_BACKUP)) {
+            if(from_backup && instrument->itemName().endsWith(Constants::JOB_BACKUP)) {
                 return instrument;
             }
-            if(!from_backup && !instrument->name().endsWith(Constants::JOB_BACKUP)) {
+            if(!from_backup && !instrument->itemName().endsWith(Constants::JOB_BACKUP)) {
                 return instrument;
             }
         }

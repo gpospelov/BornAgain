@@ -315,7 +315,7 @@ void MainWindow::resetModels()
 
     m_instrumentModel->clear();
     ParameterizedItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
-    instrument->setName("Default GISAS");
+    instrument->setItemName("Default GISAS");
     m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
     m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
 

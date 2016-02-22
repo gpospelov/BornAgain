@@ -32,9 +32,9 @@ LayerItem::LayerItem()
     addToValidChildren(Constants::ParticleLayoutType, PortInfo::PORT_0);
 }
 
-void LayerItem::insertChild(int row, ParameterizedItem *item)
+void LayerItem::insertChildItem(int row, ParameterizedItem *item)
 {
-    ParameterizedItem::insertChild(row, item);
+    ParameterizedItem::insertChildItem(row, item);
     if (item->modelType() == Constants::ParticleLayoutType) {
 //        int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
         int port = int(item->port());

@@ -361,6 +361,7 @@ QtVariantProperty *AwesomePropertyEditor::createQtVariantProperty(ParameterizedI
     if(prop_attribute.isHidden()) return 0;
 
     QVariant prop_value = item->getRegisteredProperty(property_name);//item->property(property_name.toUtf8().data());
+    if (!prop_value.isValid()) return nullptr;
     Q_ASSERT(prop_value.isValid());
     int type = GUIHelpers::getVariantType(prop_value);
 

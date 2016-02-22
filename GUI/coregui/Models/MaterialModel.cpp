@@ -29,9 +29,10 @@ MaterialModel::MaterialModel(QObject *parent)
 MaterialItem *MaterialModel::addMaterial(const QString &name, double delta, double beta)
 {
     MaterialItem *materialItem = dynamic_cast<MaterialItem *>(insertNewItem(Constants::MaterialType));
-    materialItem->setName(name);
+    materialItem->setItemName(name);
 
-    RefractiveIndexItem *refractiveIndexItem = dynamic_cast<RefractiveIndexItem *>(materialItem->getSubItems()[MaterialItem::P_REFRACTIVE_INDEX]);
+    auto x = materialItem->getSubItems();
+    RefractiveIndexItem *refractiveIndexItem = dynamic_cast<RefractiveIndexItem *>(x[MaterialItem::P_REFRACTIVE_INDEX]);
     Q_ASSERT(refractiveIndexItem);
 
     refractiveIndexItem->setDelta(delta);
@@ -70,7 +71,7 @@ MaterialItem *MaterialModel::getMaterial(const QString &material_name)
          QModelIndex itemIndex = index( i_row, 0, parentIndex );
 
          if (MaterialItem *material = dynamic_cast<MaterialItem *>(itemForIndex(itemIndex))){
-             if(material->name() == material_name) return material;
+             if(material->itemName() == material_name) return material;
          }
     }
     return 0;

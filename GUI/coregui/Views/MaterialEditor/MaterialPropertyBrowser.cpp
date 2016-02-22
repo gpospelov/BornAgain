@@ -146,7 +146,7 @@ void MaterialPropertyBrowser::onPropertyChanged(const QString &property_name)
 
 
     if(m_top_material_to_property.contains(parentItem)) {
-        m_top_material_to_property[parentItem]->setPropertyName(parentItem->name());
+        m_top_material_to_property[parentItem]->setPropertyName(parentItem->itemName());
     }
 
 
@@ -220,7 +220,7 @@ void MaterialPropertyBrowser::clearBrowser()
 void MaterialPropertyBrowser::addMaterialProperties(ParameterizedItem *material)
 {
     QtVariantProperty *item_property = m_variantManager->addProperty(
-                QtVariantPropertyManager::enumTypeId(), material->name());
+                QtVariantPropertyManager::enumTypeId(), material->itemName());
 
     ComboProperty combo_property = material->getRegisteredProperty(MaterialItem::P_MATERIAL_TYPE).value<ComboProperty>();
 

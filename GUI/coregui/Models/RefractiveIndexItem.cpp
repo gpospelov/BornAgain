@@ -31,7 +31,7 @@ RefractiveIndexItem::RefractiveIndexItem()
     registerProperty(P_BETA, beta.getVariant());
 }
 
-QString RefractiveIndexItem::label() const
+QString RefractiveIndexItem::itemLabel() const
 {
     return QString("(1 - %1, %2)").arg(getDelta()).arg(getBeta());
 }

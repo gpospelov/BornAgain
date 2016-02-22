@@ -99,7 +99,7 @@ void InstrumentView::onSelectionChanged(const QItemSelection &selected, const QI
     }
 
     ParameterizedItem *instrument = m_instrumentModel->itemForIndex(selected.indexes().back());
-    qDebug() << "InstrumentView::onSelectionChanged()" << instrument->name();
+    qDebug() << "InstrumentView::onSelectionChanged()" << instrument->itemName();
 
     InstrumentEditorWidget *widget = m_instrumentToEditor[instrument];
 
@@ -124,7 +124,7 @@ void InstrumentView::onAddInstrument()
 {
     qDebug() << "InstrumentView::onAddInstrument()";
     ParameterizedItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
-    instrument->setName(getNewInstrumentName("Default GISAS"));
+    instrument->setItemName(getNewInstrumentName("Default GISAS"));
     m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
     m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
     QModelIndex itemIndex = m_instrumentModel->indexOfItem(instrument);
@@ -266,7 +266,7 @@ void InstrumentView::updateMapOfNames()
     QModelIndex parentIndex;
     for( int i_row = 0; i_row < m_instrumentModel->rowCount( parentIndex ); ++i_row) {
         QModelIndex itemIndex = m_instrumentModel->index( i_row, 0, parentIndex );
-        QString name =  m_instrumentModel->itemForIndex(itemIndex)->name();
+        QString name =  m_instrumentModel->itemForIndex(itemIndex)->itemName();
         int ncopy(1);
         QRegExp regexp("\\((.*)\\)");
         if(regexp.indexIn(name) >= 0) {

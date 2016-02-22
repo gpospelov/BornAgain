@@ -138,7 +138,7 @@ QVariant FitParameterModel::data(const QModelIndex & index, int role) const
                     return QVariant();
             }
             if (index.column() == 0)
-                return item->name();
+                return item->itemName();
             else
                 return item->getRegisteredProperty(m_columnNames->value(index.column()));
         }

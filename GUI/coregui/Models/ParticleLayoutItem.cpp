@@ -43,9 +43,9 @@ ParticleLayoutItem::~ParticleLayoutItem()
 {
 }
 
-void ParticleLayoutItem::insertChild(int row, ParameterizedItem *item)
+void ParticleLayoutItem::insertChildItem(int row, ParameterizedItem *item)
 {
-    ParameterizedItem::insertChild(row, item);
+    ParameterizedItem::insertChildItem(row, item);
     if (item->modelType() == Constants::ParticleType
         || item->modelType() == Constants::ParticleCoreShellType
         || item->modelType() == Constants::ParticleCompositionType
@@ -69,7 +69,7 @@ void ParticleLayoutItem::insertChild(int row, ParameterizedItem *item)
 
 void ParticleLayoutItem::onChildPropertyChange(ParameterizedItem *item, const QString &propertyName)
 {
-    for (auto child_item : getChildren()) {
+    for (auto child_item : childItems()) {
         if (child_item->modelType() == Constants::InterferenceFunction2DParaCrystalType
             || child_item->modelType() == Constants::InterferenceFunction2DLatticeType) {
             getPropertyAttribute(P_TOTAL_DENSITY).setDisabled();

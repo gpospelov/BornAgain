@@ -28,7 +28,7 @@ public:
     static const QString P_BZ;
     explicit MagneticFieldItem();
     virtual ~MagneticFieldItem() {}
-    virtual QString label() const;
+    virtual QString itemLabel() const;
 };
 
 

@@ -35,11 +35,11 @@ ParticleCompositionItem::ParticleCompositionItem()
     addParameterTranslator(rotation_translator);
 }
 
-void ParticleCompositionItem::insertChild(int row, ParameterizedItem *item)
+void ParticleCompositionItem::insertChildItem(int row, ParameterizedItem *item)
 {
 //    int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
     int port = int(item->port());
-    ParameterizedItem::insertChild(row, item);
+    ParameterizedItem::insertChildItem(row, item);
     if (item->modelType() == Constants::ParticleType
         || item->modelType() == Constants::ParticleCoreShellType
         || item->modelType() == Constants::ParticleCompositionType) {
@@ -69,7 +69,7 @@ std::unique_ptr<ParticleComposition> ParticleCompositionItem::createParticleComp
     double abundance = getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
     auto P_composition = GUIHelpers::make_unique<ParticleComposition>();
     P_composition->setAbundance(abundance);
-    QList<ParameterizedItem *> children = getChildren();
+    QList<ParameterizedItem *> children = childItems();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::ParticleType) {
             auto *particle_item = static_cast<ParticleItem*>(children[i]);

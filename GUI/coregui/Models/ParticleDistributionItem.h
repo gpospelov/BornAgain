@@ -33,7 +33,7 @@ public:
     explicit ParticleDistributionItem();
     virtual ~ParticleDistributionItem();
 
-    virtual void insertChild(int row, ParameterizedItem *item);
+    virtual void insertChildItem(int row, ParameterizedItem *item);
 
     virtual void onChildPropertyChange(ParameterizedItem *item, const QString &propertyName=QString());
 

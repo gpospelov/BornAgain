@@ -119,15 +119,9 @@ inline Beam Instrument::getBeam() const
     return m_beam;
 }
 
-inline void Instrument::setBeam(const Beam &beam)
-{
-    m_beam = beam;
-}
 
-inline void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i)
-{
-    m_beam.setCentralK(wavelength, alpha_i, phi_i);
-}
+
+
 
 inline void Instrument::setBeamIntensity(double intensity)
 {

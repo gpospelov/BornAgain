@@ -46,6 +46,7 @@ Instrument &Instrument::operator=(const Instrument &other)
 void Instrument::setDetector(const IDetector2D& detector)
 {
     mP_detector.reset(detector.clone());
+    initDetector();
 }
 
 void Instrument::matchDetectorAxes(const OutputData<double> &output_data)
@@ -82,6 +83,9 @@ std::string Instrument::addParametersToExternalPool(std::string path, ParameterP
 
 void Instrument::initDetector()
 {
+    if(!mP_detector) {
+        throw RuntimeErrorException("Instrument::initDetector() -> Error. Detector is not initialized.");
+    }
     getDetector()->init(getBeam());
 }
 
@@ -139,4 +143,16 @@ void Instrument::print(std::ostream &ostr) const
     ostr << "Instrument: '" << getName() << "' " << m_parameters << std::endl;
     ostr << "    " << m_beam << std::endl;
     ostr << "    " << *mP_detector << std::endl;
+}
+
+void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i)
+{
+    m_beam.setCentralK(wavelength, alpha_i, phi_i);
+    if(mP_detector) initDetector();
+}
+
+void Instrument::setBeam(const Beam &beam)
+{
+    m_beam = beam;
+    if(mP_detector) initDetector();
 }

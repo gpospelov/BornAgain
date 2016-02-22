@@ -23,11 +23,11 @@ GroupItem::GroupItem()
 
 void GroupItem::setGroup(GroupProperty_t group)
 {
-    m_group = group;
-    m_group->setParent(this);
+    group->setParent(this);
+    setValue(QVariant::fromValue(group));
 }
 
 GroupProperty_t GroupItem::group()
 {
-    return m_group;
+    return value().value<GroupProperty_t>();
 }

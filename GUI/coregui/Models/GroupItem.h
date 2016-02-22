@@ -26,8 +26,6 @@ public:
     GroupItem();
     void setGroup(GroupProperty_t group);
     GroupProperty_t group();
-private:
-    GroupProperty_t m_group;
 };
 
 #endif

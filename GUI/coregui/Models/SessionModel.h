@@ -94,11 +94,6 @@ public:
                                      int row = -1, ParameterizedItem::PortInfo::EPorts port
                                                    = ParameterizedItem::PortInfo::DEFAULT);
 
-    // NEW
-    QModelIndex insertNewItemIndex(QString model_type, const QModelIndex &parent = QModelIndex(),
-                                     int row = -1, ParameterizedItem::PortInfo::EPorts port
-                                                   = ParameterizedItem::PortInfo::DEFAULT);
-
     QString getModelTag() const;
     QString getModelName() const;
     void setModelName(const QString &name);
@@ -142,8 +137,6 @@ public slots:
     void onItemPropertyChange(const QString &property_name, const QString &name = QString());
 
 protected:
-    // subclasses my wish to change the column count or the root item itself
-    void setMaxColumns(int maxColumns) {m_maxColumns = maxColumns;}
     void setRootItem(ParameterizedItem *root) {m_root_item = root;}
 
 private:
@@ -167,7 +160,6 @@ private:
     QString m_dragged_item_type;
     QString m_name;      //!< model name
     QString m_model_tag; //!< model tag (SampleModel, InstrumentModel)
-    int m_maxColumns;
     IconProvider *m_iconProvider;
     WarningMessageService *m_messageService;
 };

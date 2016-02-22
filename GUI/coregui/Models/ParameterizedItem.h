@@ -19,6 +19,7 @@
 #include "WinDllMacros.h"
 #include "item_constants.h"
 #include "PropertyAttribute.h"
+
 #include "ParameterTranslators.h"
 
 #include <memory>
@@ -30,7 +31,6 @@ class SessionModel;
 
 class BA_CORE_API_ ParameterizedItem : public QObject
 {
-    // TODO make parameterized item independant of qobject
     Q_OBJECT
 
 public:
@@ -157,16 +157,12 @@ public:
     QList<QString> acceptableChildItems() const;
 
 
-    // properties
+    // registered properties
 
     //! insert child item and make it known to it, populate with default value
     //! TODO propertyattributes should now be set on the item itself
     PropertyAttribute &registerProperty(const QString &name, const QVariant &variant,
                           const PropertyAttribute &attribute = PropertyAttribute());
-
-    //! adds a child which is accessible as property
-    void appendPropertyItem(ParameterizedItem *item,
-                            const PropertyAttribute &attribute = PropertyAttribute());
 
     //! check in its property map
     bool isRegisteredProperty(const QString &name) const;
@@ -181,6 +177,68 @@ public:
     void removeRegisteredProperty(const QString &name);
 
 
+    // group properties
+
+    //! register a new group property according to group name
+    ParameterizedItem *registerGroupProperty(const QString &group_name,
+                                             const Constants::ModelType &group_model);
+
+    //! set the group of the property, returns current item
+    //! call without second parameter to get current item directly
+    ParameterizedItem *setGroupProperty(const QString &name, const QString &value = QString());
+
+
+    // attributes
+
+    //! get the reference to the attribute of a registered property
+    const PropertyAttribute& getPropertyAttribute(const QString &name) const;
+    PropertyAttribute& getPropertyAttribute(const QString &name);
+
+    //! set the attribute
+    void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
+
+
+    // helper
+
+    //! checking constrains of ports
+    virtual ParameterizedItem *getCandidateForRemoval(ParameterizedItem *new_comer);
+
+
+protected:
+    //! sets the display name
+    void setDisplayName(QString display_name);
+
+    //! make this type insertable as child
+    void addToValidChildren(const QString &name, PortInfo::EPorts nport = PortInfo::PORT_0,
+                            int nmax_children = 0);
+
+    //! swap two children in member list
+    //! use this to enforce a specific order when this matters
+    void swapChildren(int first, int second);
+
+
+private:
+    //! used for display name to get the index of the item
+    int getCopyNumberOfChild(const ParameterizedItem *p_item) const;
+
+
+    ParameterizedItem *mp_parent;
+    SessionModel *m_model;
+    QVector<QVariant> m_data;
+    QString m_model_type;
+    QString m_display_name;
+    PortInfo::EPorts m_port;
+    QList<ParameterizedItem *> m_children;
+    QMap<QString, ParameterizedItem *> m_propertyItems;
+    QMap<QString, PropertyAttribute> m_property_attribute;
+    QList<QString> m_valid_children;
+    QMap<int, PortInfo> m_port_info;
+
+
+
+
+
+    // end of refactored parameterized item
 
 
 
@@ -188,30 +246,25 @@ public:
 
 
 
+
+    // the following function will be moved out of parameterized item
+    // signals and slots -> use signals of session model
+    // paths and translators -> probably separate class (e.g. ModelPath)
+
+
+public:
 
 
     QMap<QString, ParameterizedItem *> getSubItems() const;
 
-//    void addSubItem(QString name, ParameterizedItem *item);
-
-    ParameterizedItem *registerGroupProperty(const QString &group_name,
-                                             const Constants::ModelType &group_model);
-    ParameterizedItem *setGroupProperty(const QString &name, const QString &value);
 
 
-
-    const PropertyAttribute& getPropertyAttribute(const QString &name) const;
-    PropertyAttribute& getPropertyAttribute(const QString &name);
-
-    void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
 
     virtual void onPropertyChange(const QString &name);
 
     virtual void onChildPropertyChange(ParameterizedItem *item, const QString &propertyName=QString());
 
     void print() const;
-
-    virtual ParameterizedItem *getCandidateForRemoval(ParameterizedItem *new_comer);
 
 
 
@@ -242,15 +295,6 @@ private slots:
     virtual void processSubItemPropertyChanged(const QString &propertyName);
 
 protected:
-    //! sets the display name
-    void setDisplayName(QString display_name);
-
-    void addToValidChildren(const QString &name, PortInfo::EPorts nport = PortInfo::PORT_0,
-                            int nmax_children = 0);
-
-    //! swap two children in member list
-    //! use this to enforce a specific order when this matters
-    void swapChildren(int first, int second);
 
     QStringList splitParameterName(const QString& par_name) const;
 
@@ -264,28 +308,14 @@ protected:
 
 
 
-    QMap<QString, PropertyAttribute> m_property_attribute;
 
     void notifySiblings();
 
-    SessionModel *m_model;  // NEW
-
 private:
     QStringList getParameterList(QString prefix = "") const;
-    int getCopyNumberOfChild(const ParameterizedItem *p_item) const;
-    QList<QString> m_valid_children;
-    QMap<int, PortInfo> m_port_info;
 
-    QString m_model_type;
-    QVector<QVariant> m_data; // NEW
-    QString m_display_name;
-    ParameterizedItem *mp_parent;
-    QList<ParameterizedItem *> m_children;
-    QMap<QString, ParameterizedItem *> m_sub_items;
     std::vector<std::unique_ptr<IParameterTranslator>> m_special_translators;
-    QMap<QString, ParameterizedItem *> m_propertyItems;
 
-    PortInfo::EPorts m_port; // NEW, no item for ports, they do not change
 };
 
 #endif /* PARAMETERIZEDITEM_H_ */

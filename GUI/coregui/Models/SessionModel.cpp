@@ -45,7 +45,6 @@ SessionModel::SessionModel(QString model_tag, QObject *parent)
     , m_root_item(0)
     , m_name("DefaultName")
     , m_model_tag(model_tag)
-    , m_maxColumns(MAX_COLUMNS)
     , m_iconProvider(0)
     , m_messageService(0)
 {
@@ -64,7 +63,7 @@ void SessionModel::createRootItem()
 SessionModel::~SessionModel()
 {
     delete m_root_item;
-//    delete m_iconProvider;
+    delete m_iconProvider;
 }
 
 Qt::ItemFlags SessionModel::flags(const QModelIndex &index) const
@@ -88,7 +87,7 @@ Qt::ItemFlags SessionModel::flags(const QModelIndex &index) const
 
 QVariant SessionModel::data(const QModelIndex &index, int role) const
 {
-    if (!m_root_item || !index.isValid() || index.column() < 0 || index.column() >= m_maxColumns) {
+    if (!m_root_item || !index.isValid() || index.column() < 0 || index.column() >= columnCount(QModelIndex())) {
         return QVariant();
     }
     if (ParameterizedItem *item = itemForIndex(index)) {
@@ -104,7 +103,7 @@ QVariant SessionModel::data(const QModelIndex &index, int role) const
 QVariant SessionModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
-        if (section >= 0 && section < m_maxColumns) // NEW header data is storedin root item
+        if (section >= 0 && section < columnCount(QModelIndex())) // NEW header data is storedin root item
             return m_root_item->data(section);      // NEW
 //        switch (section) {
 //        case ITEM_NAME:
@@ -128,12 +127,12 @@ int SessionModel::columnCount(const QModelIndex &parent) const
 {
     if (parent.isValid() && parent.column() != 0)
         return 0;
-    return m_maxColumns;
+    return MAX_COLUMNS;
 }
 
 QModelIndex SessionModel::index(int row, int column, const QModelIndex &parent) const
 {
-    if (!m_root_item || row < 0 || column < 0 || column >= m_maxColumns
+    if (!m_root_item || row < 0 || column < 0 || column >= columnCount(QModelIndex())
         || (parent.isValid() && parent.column() != 0))
         return QModelIndex();
     ParameterizedItem *parent_item = itemForIndex(parent);
@@ -288,24 +287,6 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type, const QModelI
 
     cleanItem(indexOfItem(parent_item), row, row);
     return new_item;
-}
-
-// NEW
-QModelIndex SessionModel::insertNewItemIndex(QString model_type, const QModelIndex &parent,
-                                               int row, ParameterizedItem::PortInfo::EPorts port)
-{
-//    if (!m_root_item) {
-//        m_root_item = ItemFactory::createEmptyItem();
-//    }
-    ParameterizedItem *parent_item = itemForIndex(parent);
-    if (row == -1)
-        row = parent_item->childItemCount();
-    beginInsertRows(parent, row, row);
-    insertNewItem(model_type, parent_item, row, port);
-    endInsertRows();
-
-    cleanItem(indexOfItem(parent_item), row, row);
-    return index(row, 0, parent);
 }
 
 QList<QString> SessionModel::getAcceptableChildItems(const QModelIndex &parent) const

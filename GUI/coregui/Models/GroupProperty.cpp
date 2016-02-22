@@ -41,7 +41,7 @@ void GroupProperty::setParent(ParameterizedItem *parent)
     m_parent = parent;
     ParameterizedItem *item = createCorrespondingItem();
 //    item->setName(getGroupName());
-    m_parent->appendPropertyItem(item);
+    m_parent->insertChildItem(-1, item);
 }
 
 ParameterizedItem *GroupProperty::createCorrespondingItem()
@@ -74,7 +74,7 @@ void GroupProperty::setCurrentType(const QString &type)
         }
         ParameterizedItem *item = createCorrespondingItem();
 //        item->setName(getCurrentType());
-        m_parent->appendPropertyItem(item);
+        m_parent->insertChildItem(-1, item);
         //emit m_parent->subItemChanged(getGroupName());
     }
 }

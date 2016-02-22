@@ -29,7 +29,6 @@ FitParameterModel::FitParameterModel(FitModel *fitmodel, QWidget *parent)
 {
     setRootItem(fitmodel->itemForIndex(QModelIndex())->
             getChildOfType(Constants::FitParameterContainerType));
-    setMaxColumns(5);
     m_columnNames->insert(0, "FitParameterItem::OBSOLETE_P_NAME");
     m_columnNames->insert(1, FitParameterItem::P_USE);
     m_columnNames->insert(3, FitParameterItem::P_MIN);

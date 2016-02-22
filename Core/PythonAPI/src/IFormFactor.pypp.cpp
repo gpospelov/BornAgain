@@ -122,7 +122,7 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         ISample::printSampleTree( );
     }
 
-    virtual ::std::size_t size(  ) const  {
+    virtual ::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
         else{
@@ -130,7 +130,7 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         }
     }
     
-    ::std::size_t default_size(  ) const  {
+    ::size_t default_size(  ) const  {
         return ISample::size( );
     }
 
@@ -269,8 +269,8 @@ void register_IFormFactor_class(){
         }
         { //::ISample::size
         
-            typedef ::std::size_t ( ::ISample::*size_function_type)(  ) const;
-            typedef ::std::size_t ( IFormFactor_wrapper::*default_size_function_type)(  ) const;
+            typedef ::size_t ( ::ISample::*size_function_type)(  ) const;
+            typedef ::size_t ( IFormFactor_wrapper::*default_size_function_type)(  ) const;
             
             IFormFactor_exposer.def( 
                 "size"

@@ -119,6 +119,7 @@ QString FitModel::getMinimizerAlgorithm() {
         return item->getRegisteredProperty(MinimizerSettingsItem::P_ALGO).value<ComboProperty>()
                 .getValue();
     }
+    return QString();
 }
 
 QString FitModel::getInputDataPath() {

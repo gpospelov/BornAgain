@@ -182,7 +182,7 @@ void register_ParameterPool_class(){
         }
         { //::ParameterPool::size
         
-            typedef ::std::size_t ( ::ParameterPool::*size_function_type)(  ) const;
+            typedef ::size_t ( ::ParameterPool::*size_function_type)(  ) const;
             
             ParameterPool_exposer.def( 
                 "size"

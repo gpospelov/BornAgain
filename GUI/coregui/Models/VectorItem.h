@@ -17,7 +17,7 @@
 #define VECTORITEM_H
 
 #include "ParameterizedItem.h"
-#include "Types.h"
+#include "Vectors3D.h"
 
 class BA_CORE_API_  VectorItem : public ParameterizedItem
 {

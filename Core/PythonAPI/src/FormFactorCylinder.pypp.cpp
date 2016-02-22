@@ -155,7 +155,7 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
         IFormFactor::setAmbientMaterial( boost::ref(arg0) );
     }
 
-    virtual ::std::size_t size(  ) const  {
+    virtual ::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
         else{
@@ -163,7 +163,7 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
         }
     }
     
-    ::std::size_t default_size(  ) const  {
+    ::size_t default_size(  ) const  {
         return ISample::size( );
     }
 
@@ -327,8 +327,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::ISample::size
         
-            typedef ::std::size_t ( ::ISample::*size_function_type)(  ) const;
-            typedef ::std::size_t ( FormFactorCylinder_wrapper::*default_size_function_type)(  ) const;
+            typedef ::size_t ( ::ISample::*size_function_type)(  ) const;
+            typedef ::size_t ( FormFactorCylinder_wrapper::*default_size_function_type)(  ) const;
             
             FormFactorCylinder_exposer.def( 
                 "size"

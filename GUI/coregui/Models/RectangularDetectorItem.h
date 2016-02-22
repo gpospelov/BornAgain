@@ -17,7 +17,7 @@
 #define RECTANGULARDETECTORITEM_H
 
 #include "ParameterizedItem.h"
-#include "Types.h"
+#include "Vectors3D.h"
 #include <memory>
 
 class IDetector2D;

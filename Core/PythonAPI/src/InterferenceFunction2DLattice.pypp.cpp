@@ -131,7 +131,7 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
         ISample::printSampleTree( );
     }
 
-    virtual ::std::size_t size(  ) const  {
+    virtual ::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
         else{
@@ -139,7 +139,7 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
         }
     }
     
-    ::std::size_t default_size(  ) const  {
+    ::size_t default_size(  ) const  {
         return ISample::size( );
     }
 
@@ -321,8 +321,8 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::ISample::size
         
-            typedef ::std::size_t ( ::ISample::*size_function_type)(  ) const;
-            typedef ::std::size_t ( InterferenceFunction2DLattice_wrapper::*default_size_function_type)(  ) const;
+            typedef ::size_t ( ::ISample::*size_function_type)(  ) const;
+            typedef ::size_t ( InterferenceFunction2DLattice_wrapper::*default_size_function_type)(  ) const;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "size"

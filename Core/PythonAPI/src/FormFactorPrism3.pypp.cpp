@@ -155,7 +155,7 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
         IFormFactor::setAmbientMaterial( boost::ref(arg0) );
     }
 
-    virtual ::std::size_t size(  ) const  {
+    virtual ::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
         else{
@@ -163,7 +163,7 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
         }
     }
     
-    ::std::size_t default_size(  ) const  {
+    ::size_t default_size(  ) const  {
         return ISample::size( );
     }
 
@@ -336,8 +336,8 @@ void register_FormFactorPrism3_class(){
         }
         { //::ISample::size
         
-            typedef ::std::size_t ( ::ISample::*size_function_type)(  ) const;
-            typedef ::std::size_t ( FormFactorPrism3_wrapper::*default_size_function_type)(  ) const;
+            typedef ::size_t ( ::ISample::*size_function_type)(  ) const;
+            typedef ::size_t ( FormFactorPrism3_wrapper::*default_size_function_type)(  ) const;
             
             FormFactorPrism3_exposer.def( 
                 "size"

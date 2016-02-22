@@ -117,7 +117,7 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
         ISample::printSampleTree( );
     }
 
-    virtual ::std::size_t size(  ) const  {
+    virtual ::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
         else{
@@ -125,7 +125,7 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
         }
     }
     
-    ::std::size_t default_size(  ) const  {
+    ::size_t default_size(  ) const  {
         return ISample::size( );
     }
 
@@ -254,8 +254,8 @@ void register_IInterferenceFunction_class(){
         }
         { //::ISample::size
         
-            typedef ::std::size_t ( ::ISample::*size_function_type)(  ) const;
-            typedef ::std::size_t ( IInterferenceFunction_wrapper::*default_size_function_type)(  ) const;
+            typedef ::size_t ( ::ISample::*size_function_type)(  ) const;
+            typedef ::size_t ( IInterferenceFunction_wrapper::*default_size_function_type)(  ) const;
             
             IInterferenceFunction_exposer.def( 
                 "size"

@@ -14,39 +14,73 @@
 // ************************************************************************** //
 #include "TestComponentView.h"
 #include "mainwindow.h"
-#include "SessionModel.h"
+#include "SampleModel.h"
 #include "ComponentEditor.h"
 #include "item_constants.h"
 #include "MultiLayerItem.h"
+#include "SampleBuilderFactory.h"
+#include "GUIObjectBuilder.h"
+#include <QItemSelectionModel>
 #include <QHBoxLayout>
 #include <QTreeView>
+#include <QDebug>
 
 TestComponentView::TestComponentView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_mainWindow(mainWindow)
+    , m_model(new SampleModel(this))
+    , m_treeView(new QTreeView)
+    , m_editor1(new ComponentEditor)
+    , m_editor2(new ComponentEditor)
 {
-    test_ComponentEditor();
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+
+    QHBoxLayout *hlayout = new QHBoxLayout;
+    hlayout->addWidget(m_treeView);
+    hlayout->addWidget(m_editor1);
+    hlayout->addWidget(m_editor2);
+
+    mainLayout->addLayout(hlayout);
+    setLayout(mainLayout);
+
+    init_editors();
 }
 
-void TestComponentView::test_ComponentEditor()
+void TestComponentView::onSelectionChanged(const QItemSelection &selected, const QItemSelection &)
 {
-    QHBoxLayout *layout = new QHBoxLayout;
+    qDebug() << "TestComponentView::onSelectionChanged" << selected;
 
-    QTreeView *treeView = new QTreeView();
-    ComponentEditor *componentEditor = new ComponentEditor();
+    QModelIndexList indices = selected.indexes();
 
-    layout->addWidget(treeView);
-    layout->addWidget(componentEditor);
+    if(indices.isEmpty()) {
+        m_editor2->setItem(0);
+    } else {
+        if(ParameterizedItem *item = m_model->itemForIndex(indices.at(0))) {
+            m_editor2->setItem(item);
+        }
+    }
 
-    setLayout(layout);
-
-    // ---
-
-    SessionModel *model = new SessionModel("XXX");
-    ParameterizedItem *item = model->insertNewItem(Constants::MultiLayerType);
-
-    componentEditor->addItem(item->getChildByName(MultiLayerItem::P_CROSS_CORR_LENGTH));
-
-
-    treeView->setModel(model);
 }
+
+void TestComponentView::init_editors()
+{
+    // sample model
+    SampleBuilderFactory factory;
+    boost::scoped_ptr<ISample> P_sample(factory.createSample("CylindersInDWBABuilder"));
+
+    GUIObjectBuilder guiBuilder;
+    guiBuilder.populateSampleModel(m_model, *P_sample);
+
+    // tree view
+    m_treeView->setModel(m_model);
+    m_treeView->expandAll();
+    connect(m_treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this,
+            SLOT(onSelectionChanged(QItemSelection, QItemSelection)));
+
+
+    // editors
+    m_editor1->setItem(m_model->getMultiLayerItem());
+}
+
+
+

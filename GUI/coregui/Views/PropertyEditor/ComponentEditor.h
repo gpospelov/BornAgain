@@ -35,17 +35,25 @@ public:
 
     ComponentEditor(QWidget *parent = 0);
 
-    void addItem(ParameterizedItem *item);
+//    void addItem(ParameterizedItem *item);
+
+    void setItem(ParameterizedItem *item);
+
+    void updateEditor(ParameterizedItem *item, QtVariantProperty *parentProperty = 0);
+
+    void clearEditor();
 
 public slots:
     void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
+    void onRowsInserted(const QModelIndex &parent, int first, int last);
 
 
 private slots:
     void onQtPropertyChanged(QtProperty *, const QVariant &value);
 
 private:
-    QtVariantProperty *createQtVariantProperty(ParameterizedItem *item);
+    QList<ParameterizedItem *> componentItems(ParameterizedItem *item) const;
+
     void disconnectModel(SessionModel *model);
     void connectModel(SessionModel *model);
     void disconnectManager();
@@ -54,6 +62,7 @@ private:
 
 
     std::unique_ptr<ComponentEditorPrivate> m_d;
+    ParameterizedItem *m_item;
 
 };
 

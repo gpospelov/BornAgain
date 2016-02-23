@@ -19,6 +19,10 @@
 #include <QWidget>
 
 class MainWindow;
+class SampleModel;
+class ComponentEditor;
+class QTreeView;
+class QItemSelection;
 
 class TestComponentView : public QWidget
 {
@@ -26,9 +30,17 @@ class TestComponentView : public QWidget
 public:
     TestComponentView(MainWindow *mainWindow = 0);
 
+private slots:
+    void onSelectionChanged(const QItemSelection &, const QItemSelection &);
+
 private:
-    void test_ComponentEditor();
+    void init_editors();
+
     MainWindow *m_mainWindow;
+    SampleModel *m_model;
+    QTreeView *m_treeView;
+    ComponentEditor *m_editor1;
+    ComponentEditor *m_editor2;
 };
 
 #endif

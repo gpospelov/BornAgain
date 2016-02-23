@@ -34,6 +34,10 @@ class BA_CORE_API_ ComponentEditorPrivate
 {
 public:
     ComponentEditorPrivate(QWidget *parent);
+    void clear();
+    QtVariantProperty *getPropertyForItem(ParameterizedItem *item);
+    QtVariantProperty *createQtVariantProperty(ParameterizedItem *item);
+
 
     QtAbstractPropertyBrowser *m_browser;
     QtVariantPropertyManager  *m_manager;
@@ -43,6 +47,7 @@ public:
     QMap<QtProperty *, ParameterizedItem *> m_qtproperty_to_item;
 //    QMap<QModelIndex, QtVariantProperty *> m_index_to_qtvariantproperty;
     QMap<ParameterizedItem *, QtVariantProperty *> m_item_to_qtvariantproperty;
+
 
 };
 

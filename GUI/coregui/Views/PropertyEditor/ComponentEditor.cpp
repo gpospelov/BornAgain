@@ -41,28 +41,72 @@ ComponentEditor::ComponentEditor(QWidget *parent)
     connectManager();
 }
 
-void ComponentEditor::addItem(ParameterizedItem *item)
+//void ComponentEditor::addItem(ParameterizedItem *item)
+//{
+//    qDebug() << "ComponentEditor::addItem(ParameterizedItem *item)" << item->modelType();
+//    Q_ASSERT(item);
+
+//    connectModel(item->model());
+
+//    QtVariantProperty *qtVariantProperty = createQtVariantProperty(item);
+
+//    if(qtVariantProperty) {
+//        m_d->m_browser->addProperty(qtVariantProperty);
+//        m_d->m_qtproperty_to_item[qtVariantProperty] = item;
+////        m_d->m_index_to_qtvariantproperty[item->model()->indexOfItem(item)] = qtVariantProperty;
+//        m_d->m_item_to_qtvariantproperty[item] = qtVariantProperty;
+
+//    }
+
+
+//}
+
+void ComponentEditor::setItem(ParameterizedItem *item)
 {
-    qDebug() << "ComponentEditor::addItem(ParameterizedItem *item)" << item->modelType();
+    clearEditor();
+    m_item = item;
+    updateEditor(m_item);
+}
+
+void ComponentEditor::updateEditor(ParameterizedItem *item, QtVariantProperty *parentProperty)
+{
     Q_ASSERT(item);
+    qDebug() << "  ";
+    qDebug() << "  ";
+    qDebug() << "ComponentEditor::updateEditor" << item->modelType() << item->itemName() << item->model()->indexOfItem(item);
 
-    connectModel(item->model());
+    QtVariantProperty *childProperty(0);
+    foreach(ParameterizedItem *childItem, componentItems(item)) {
+        Q_ASSERT(childItem);
+        qDebug() << "       ComponentEditor::updateEditor -> childItem" << childItem->modelType() << childItem->model()->indexOfItem(childItem);
+        childProperty = m_d->getPropertyForItem(childItem);
+        if(childProperty) {
+            connectModel(item->model());
 
-    QtVariantProperty *qtVariantProperty = createQtVariantProperty(item);
-
-    if(qtVariantProperty) {
-        m_d->m_browser->addProperty(qtVariantProperty);
-        m_d->m_qtproperty_to_item[qtVariantProperty] = item;
-//        m_d->m_index_to_qtvariantproperty[item->model()->indexOfItem(item)] = qtVariantProperty;
-        m_d->m_item_to_qtvariantproperty[item] = qtVariantProperty;
-
+            if(parentProperty) {
+                parentProperty->addSubProperty(childProperty);
+            } else {
+                m_d->m_browser->addProperty(childProperty);
+            }
+            updateEditor(childItem, childProperty);
+        }
     }
+}
 
+void ComponentEditor::clearEditor()
+{
+    disconnect();
+    disconnectManager();
 
+    m_d->clear();
+
+    connectManager();
 }
 
 void ComponentEditor::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
 {
+    qDebug() << "ComponentEditor::onDataChanged" << topLeft << bottomRight << roles;
+
     if(topLeft != bottomRight) return;
 
     SessionModel *model = qobject_cast<SessionModel *>(sender());
@@ -71,7 +115,6 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft, const QModelInde
 //    const SessionModel *model = dynamic_cast<const SessionModel*>(topLeft.model());
 //    qDebug() << "OOO" << model->itemForIndex(topLeft) << model->itemForIndex(bottomRight);
 
-    qDebug() << "ComponentEditor::onDataChanged" << topLeft << bottomRight << roles;
 //    QMap<QModelIndex, QtVariantProperty *>::iterator it = m_d->m_index_to_qtvariantproperty.begin();
 //    while(it!=m_d->m_index_to_qtvariantproperty.end()) {
 //        qDebug() << it.key() << it.value();
@@ -83,12 +126,26 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft, const QModelInde
 
     if(m_d->m_item_to_qtvariantproperty.contains(item)) {
         QtVariantProperty *variant_property = m_d->m_item_to_qtvariantproperty[item];
+        qDebug() << "   ComponentEditor::onDataChanged -> set value for variant_property" << variant_property;
 
         disconnectManager();
         variant_property->setValue(item->value());
         connectManager();
 
     }
+
+}
+
+void ComponentEditor::onRowsInserted(const QModelIndex &parent, int first, int last)
+{
+    qDebug() << "ComponentEditor::onRowsInserted" << parent << first << last;
+    SessionModel *model = qobject_cast<SessionModel *>(sender());
+
+    ParameterizedItem *item = model->itemForIndex(parent);
+    qDebug() << "model " << item << item->modelType() << item->itemName();
+
+
+    updateEditor(m_item);
 
 }
 
@@ -105,26 +162,16 @@ void ComponentEditor::onQtPropertyChanged(QtProperty *property, const QVariant &
 }
 
 
-//! creates QtVariantProperty for given ParameterizedItem's property
-QtVariantProperty *ComponentEditor::createQtVariantProperty(ParameterizedItem *item)
+
+
+//! Returns list of children suitable for displaying in ComponentEditor
+QList<ParameterizedItem *> ComponentEditor::componentItems(ParameterizedItem *item) const
 {
-    QtVariantProperty *result(0);
+    QList<ParameterizedItem *> result;
 
-    QString property_name = item->itemName();
-    QVariant prop_value = item->value();
-    qDebug() << "QtVariantProperty *ComponentEditor::createQtVariantProperty(ParameterizedItem) item" << item << property_name << prop_value;
+    result = item->childItems();
 
-    if (!prop_value.isValid()) return nullptr;
-    int type = GUIHelpers::getVariantType(prop_value);
 
-    QtVariantPropertyManager *manager = m_d->m_manager;
-
-    if(!manager->isPropertyTypeSupported(type)) {
-        throw GUIHelpers::Error("ComponentEditor::createQtVariantProperty() -> Error. Not supported property type "+property_name);
-    }
-
-    result = manager->addProperty(type, property_name);
-    result->setValue(prop_value);
 
     return result;
 }
@@ -136,6 +183,11 @@ void ComponentEditor::disconnectModel(SessionModel *model)
             this,
             SLOT(onDataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)));
 
+    disconnect(model,
+            SIGNAL(rowsInserted(const QModelIndex &, int, int)),
+            this,
+            SLOT(onRowsInserted(const QModelIndex &, int, int)));
+
 }
 
 void ComponentEditor::connectModel(SessionModel *model)
@@ -144,6 +196,12 @@ void ComponentEditor::connectModel(SessionModel *model)
             SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
             this,
             SLOT(onDataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
+            Qt::UniqueConnection);
+
+    connect(model,
+            SIGNAL(rowsInserted(const QModelIndex &, int, int)),
+            this,
+            SLOT(onRowsInserted(const QModelIndex &, int, int)),
             Qt::UniqueConnection);
 
 }

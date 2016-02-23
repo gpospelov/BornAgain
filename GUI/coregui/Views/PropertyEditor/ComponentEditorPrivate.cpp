@@ -19,6 +19,9 @@
 #include "qttreepropertybrowser.h"
 #include "qtgroupboxpropertybrowser.h"
 #include "qtbuttonpropertybrowser.h"
+#include "ParameterizedItem.h"
+#include "GUIHelpers.h"
+#include <QDebug>
 
 
 ComponentEditorPrivate::ComponentEditorPrivate(QWidget *parent)
@@ -37,4 +40,65 @@ ComponentEditorPrivate::ComponentEditorPrivate(QWidget *parent)
     m_manager = new PropertyVariantManager(parent);
     m_browser->setFactoryForManager(m_manager, m_propertyFactory);
 }
+
+void ComponentEditorPrivate::clear()
+{
+    m_browser->clear();
+
+    QMap<QtProperty *, ParameterizedItem *>::iterator it = m_qtproperty_to_item.begin();
+    while(it!=m_qtproperty_to_item.end()) {
+        delete it.key();
+        it++;
+    }
+
+    m_qtproperty_to_item.clear();
+    m_item_to_qtvariantproperty.clear();
+
+}
+
+//! Returns QtVariantProperty representing given item in ComponentEditor.
+//! If QtVariantProperty doesn't exist yet, it will be created.
+QtVariantProperty *ComponentEditorPrivate::getPropertyForItem(ParameterizedItem *item)
+{
+    if(m_item_to_qtvariantproperty.contains(item)) {
+        return m_item_to_qtvariantproperty[item];
+    }
+
+    QtVariantProperty *result = createQtVariantProperty(item);
+    if(result) {
+        m_qtproperty_to_item[result] = item;
+        m_item_to_qtvariantproperty[item] = result;
+    }
+
+    return result;
+}
+
+
+//! creates QtVariantProperty for given ParameterizedItem's property
+QtVariantProperty *ComponentEditorPrivate::createQtVariantProperty(ParameterizedItem *item)
+{
+    QtVariantProperty *result(0);
+
+    QString property_name = item->itemName();
+    QVariant prop_value = item->value();
+    qDebug() << "QtVariantProperty *ComponentEditor::createQtVariantProperty(ParameterizedItem) item" << item << property_name << prop_value;
+
+    if (!prop_value.isValid()) {
+        return m_manager->addProperty(QtVariantPropertyManager::groupTypeId(), property_name);
+//        return nullptr;
+    }
+    int type = GUIHelpers::getVariantType(prop_value);
+
+    QtVariantPropertyManager *manager = m_manager;
+
+    if(!manager->isPropertyTypeSupported(type)) {
+        throw GUIHelpers::Error("ComponentEditor::createQtVariantProperty() -> Error. Not supported property type "+property_name);
+    }
+
+    result = manager->addProperty(type, property_name);
+    result->setValue(prop_value);
+
+    return result;
+}
+
 

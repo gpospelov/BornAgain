@@ -40,7 +40,7 @@ In the following, all such inhomogeneities will be described as
 \BornAgain\ currently offers the same choice of models as \IsGISAXS.
 Therefore, for the moment we refer to the \IsGISAXS\ manual \cite{Laz08}.}
 
-\iffalse
+%\iffalse
 Our derivation of the DWBA (Sec.~\ref{Sdwba}) has shown
 that the distinction between refraction and reflection on the one hand
 and scattering on the other hand is not a fundamental one,
@@ -390,7 +390,7 @@ it is only available for paracrystals
 (to be documented later).
 % and will therefore be discussed later (Sec.~\ref{}).
 }
-\fi
+%\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Form factors}
@@ -521,7 +521,7 @@ as for other numeric parameters.
 
 \index{Form factor|)}
 
-\iffalse
+%\iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{OLD STUFF}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -763,7 +763,7 @@ This expression has a well-defined limit for $\Omega_\kappa(\q ) \rightarrow 1$ 
 \section{Vertical location of particles}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \ImportantPoint{Remark:}{The particles cannot sit in between layers. At most they can be sitting on any inner interfaces.}
+ \Note{The particles cannot sit in between layers. At most they can be sitting on any inner interfaces.}
 
 %===============================================================================
 \subsection{Particles deposited on a substrate}
@@ -776,7 +776,7 @@ F_{\rm{DWBA}}(q_{\plll}, k_{i,z}, k_{f,z}) &= F_{\rm{BA}}(q_{\plll}, k_{i,z}-k_{
 \end{align}
 where $q_{\plll}$ is the component of the scattering beam in the plane of the interface ($\q=\k_i-\k_\text{f}$), $k_{i,z}$ and $k_{f,z}$ are the z-component of the incident and scattered beam, respectively. $R_i$, $R_f$ are the reflection coefficients in incidence and reflection. They are defined as\\ $R=\dfrac{k_z+\sqrt{n_s^2k_0^2-|k_{\plll}|^2}}{k_z-\sqrt{n_s^2 k_0^2-|k_{\plll}|^2}}$, where $n_s=1-\delta_s +i \beta_s$ is the refractive index of the substrate, $k_0$ is the wavelength in vacuum ($2\pi /\lambda$), $k_z$ and $k_{\plll}$ are the $z$-component and the in-plane component of $\k_\text{i}$ or $\k_\text{f}$. \\
 
-\ImportantPoint{Remark:}{If the particles are sitting on a multilayered system, the expression of the form factor in the DWBA is obtained by replacing the Fresnel coefficient by the corresponding coefficients of the underlying layers \cite{Par54,BoWo99}.}
+\Note{If the particles are sitting on a multilayered system, the expression of the form factor in the DWBA is obtained by replacing the Fresnel coefficient by the corresponding coefficients of the underlying layers \cite{Par54,BoWo99}.}
 
 \vspace{18pt}
 
@@ -849,7 +849,7 @@ def get_sample():
 
 \FloatBarrier
 
-\ImportantPoint{Remark:}{In \BornAgain, the DWBA is implemented automatically when assembling the sample with more layers than only the air layer (for example, for particles are sitting on a substrate).}
+\Note{In \BornAgain, the DWBA is implemented automatically when assembling the sample with more layers than only the air layer (for example, for particles are sitting on a substrate).}
 
 %===============================================================================
 \subsection{Buried particles}
@@ -930,7 +930,7 @@ def get_sample():
 
 \newpage
 
-\ImportantPoint{Remark:}{For layers different from the air layer, the top interface is considered as the reference level to position the encapsulated particles. For example, spheres positioned at depth $d$ (positive) are located at a distance $d$ from the top of the layer up to the bottom of these particles. This convention is different for the top air layer, where particles sitting at the interface with an underlying layer (\idest the bottom of the air layer) are located at depth 0 (see fig.~\ref{fig:depthpartBA}).}
+\Note{For layers different from the air layer, the top interface is considered as the reference level to position the encapsulated particles. For example, spheres positioned at depth $d$ (positive) are located at a distance $d$ from the top of the layer up to the bottom of these particles. This convention is different for the top air layer, where particles sitting at the interface with an underlying layer (\idest the bottom of the air layer) are located at depth 0 (see fig.~\ref{fig:depthpartBA}).}
 
 
 \begin{figure}[tb]
@@ -950,7 +950,7 @@ For an implementation of all the components of a simulation,
 the use is referred, for example, to Sec.~\ref{sec:Example1Python}.\\
 
 
-\ImportantPoint{Remark:}{In \BornAgain\ the particles are positioned in the same vertical layer.}
+\Note{In \BornAgain\ the particles are positioned in the same vertical layer.}
 
 \subsection{Size-distribution models}
 \index{Size-distribution models}
@@ -1038,7 +1038,7 @@ The interference function is specified when building the sample. It is linked wi
 \item \Code{InterferenceFunction2DParaCrystal(length\_1, length\_2, $\alpha$\_lattice, $\xi$, \\ damping\_length)}
 \end{itemize}
 
-\ImportantPoint{Remark:}{\Code{InterferenceFunction1DLattice} can only be used for particles which are infinitely long in one direction of the sample's surface like for example a rectangular grating.}
+\Note{\Code{InterferenceFunction1DLattice} can only be used for particles which are infinitely long in one direction of the sample's surface like for example a rectangular grating.}
 
 \newpage
 %-------------------------------------------------------------------------------
@@ -1102,7 +1102,7 @@ where lattice\_length is the lattice constant and $\xi$ the angle in radian betw
 \label{fig:1dgrating}
 \end{figure}
 
-\ImportantPoint{Remark:}{By default the long axis of the particles in this 1D lattice is along the beam axis. That is the reason why in the example below the particles are rotated by  $90^{\circ}$ in the $(x,y)$ plane: the main axis of the lattice is therefore parallel to the y-axis, perpendicular to the long axis of the particles.}
+\Note{By default the long axis of the particles in this 1D lattice is along the beam axis. That is the reason why in the example below the particles are rotated by  $90^{\circ}$ in the $(x,y)$ plane: the main axis of the lattice is therefore parallel to the y-axis, perpendicular to the long axis of the particles.}
 
 \vspace{12pt}
 A probability distribution function \Code{pdf} has to be chosen from the list in section~\ref{baftd} in order to apply some modifications to the scattering peaks. This function is implemented using \Code{setProbabilityDistribution(pdf)}.
@@ -1332,4 +1332,4 @@ Function  & Parameters & Comments\\
 \end{table}
 
 \index{Particle assemblies)}%
-\fi
+%\fi

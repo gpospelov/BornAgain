@@ -32,10 +32,10 @@ class BA_CORE_API_ ComponentEditor : public QWidget
 {
     Q_OBJECT
 public:
+    enum class PresentationType {DETAILED, CONDENSED};
 
     ComponentEditor(QWidget *parent = 0);
 
-//    void addItem(ParameterizedItem *item);
 
     void setItem(ParameterizedItem *item);
 
@@ -63,6 +63,7 @@ private:
 
     std::unique_ptr<ComponentEditorPrivate> m_d;
     ParameterizedItem *m_item;
+    PresentationType m_presentationType;
 
 };
 

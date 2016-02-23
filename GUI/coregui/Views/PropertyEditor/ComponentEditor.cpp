@@ -19,6 +19,8 @@
 #include "GUIHelpers.h"
 #include "ParameterizedItem.h"
 #include "SessionModel.h"
+#include "GroupItem.h"
+#include "GroupProperty.h"
 
 #include <QVBoxLayout>
 #include <QVariant>
@@ -28,6 +30,7 @@
 ComponentEditor::ComponentEditor(QWidget *parent)
     : QWidget(parent)
     , m_d(new ComponentEditorPrivate(this))
+    , m_presentationType(PresentationType::CONDENSED)
 {
     setWindowTitle(QLatin1String("Property Editor"));
     setObjectName(QLatin1String("ComponentEditor"));
@@ -40,26 +43,6 @@ ComponentEditor::ComponentEditor(QWidget *parent)
 
     connectManager();
 }
-
-//void ComponentEditor::addItem(ParameterizedItem *item)
-//{
-//    qDebug() << "ComponentEditor::addItem(ParameterizedItem *item)" << item->modelType();
-//    Q_ASSERT(item);
-
-//    connectModel(item->model());
-
-//    QtVariantProperty *qtVariantProperty = createQtVariantProperty(item);
-
-//    if(qtVariantProperty) {
-//        m_d->m_browser->addProperty(qtVariantProperty);
-//        m_d->m_qtproperty_to_item[qtVariantProperty] = item;
-////        m_d->m_index_to_qtvariantproperty[item->model()->indexOfItem(item)] = qtVariantProperty;
-//        m_d->m_item_to_qtvariantproperty[item] = qtVariantProperty;
-
-//    }
-
-
-//}
 
 void ComponentEditor::setItem(ParameterizedItem *item)
 {
@@ -141,8 +124,9 @@ void ComponentEditor::onRowsInserted(const QModelIndex &parent, int first, int l
     ParameterizedItem *item = model->itemForIndex(parent);
     qDebug() << "model " << item << item->modelType() << item->itemName();
 
+    Q_ASSERT(m_d->m_item_to_qtvariantproperty.contains(item));
 
-//    updateEditor(m_item);
+    updateEditor(item, m_d->m_item_to_qtvariantproperty[item]);
 
 }
 
@@ -166,8 +150,32 @@ QList<ParameterizedItem *> ComponentEditor::componentItems(ParameterizedItem *it
 {
     QList<ParameterizedItem *> result;
 
-    result = item->childItems();
+//    if(m_presentationType == PresentationType::DETAILED) {
+//        result = item->childItems();
 
+//    } else {
+
+//        if(item->modelType() == Constants::GroupItemType) {
+//            GroupItem *groupItem = dynamic_cast<GroupItem *>(item);
+//            ParameterizedItem *currentItemInGroup = groupItem->group()->getCurrentItem();
+//            Q_ASSERT(currentItemInGroup);
+//            result.append(currentItemInGroup);
+//            return result;
+//        }
+
+
+//        foreach(ParameterizedItem *child, item->childItems()) {
+//            if(child->modelType() == Constants::PropertyType) {
+//                result.append(child);
+//            }
+//            if(child->modelType() == Constants::GroupItemType) {
+//                result.append(child);
+//            }
+//        }
+
+//    }
+
+    result = item->childItems();
 
 
     return result;

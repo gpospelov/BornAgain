@@ -65,48 +65,11 @@ void ComponentEditor::setItem(ParameterizedItem *item)
 {
     clearEditor();
     m_item = item;
-    updateEditor2(m_item);
+    updateEditor(m_item);
 }
+
 
 void ComponentEditor::updateEditor(ParameterizedItem *item, QtVariantProperty *parentProperty)
-{
-    Q_ASSERT(item);
-    qDebug() << "  ";
-    qDebug() << "  ";
-    qDebug() << "ComponentEditor::updateEditor" << item->modelType() << item->itemName() << item->model()->indexOfItem(item);
-
-//    QtVariantProperty *childProperty(0);
-//    foreach(ParameterizedItem *childItem, componentItems(item)) {
-//        Q_ASSERT(childItem);
-//        qDebug() << "       ComponentEditor::updateEditor -> childItem" << childItem->modelType() << childItem->model()->indexOfItem(childItem);
-//        childProperty = m_d->getPropertyForItem(childItem);
-//        if(childProperty) {
-//            connectModel(item->model());
-
-//            if(parentProperty) {
-//                parentProperty->addSubProperty(childProperty);
-//            } else {
-//                m_d->m_browser->addProperty(childProperty);
-//            }
-//            updateEditor(childItem, childProperty);
-//        }
-//    }
-
-    QtVariantProperty *childProperty(0);
-    foreach(ParameterizedItem *childItem, componentItems(item)) {
-        Q_ASSERT(childItem);
-        qDebug() << "       ComponentEditor::updateEditor -> childItem" << childItem->modelType() << childItem->itemName();
-        childProperty = m_d->processPropertyForItem(childItem, parentProperty);
-        if(childProperty) {
-            connectModel(item->model());
-            updateEditor(childItem, childProperty);
-        }
-    }
-
-
-}
-
-void ComponentEditor::updateEditor2(ParameterizedItem *item, QtVariantProperty *parentProperty)
 {
     Q_ASSERT(item);
     connectModel(item->model());
@@ -120,8 +83,8 @@ void ComponentEditor::updateEditor2(ParameterizedItem *item, QtVariantProperty *
     }
 //    QtVariantProperty *newParentProperty = childProperty ? childProperty : parentProperty;
     foreach(ParameterizedItem *childItem, componentItems(item)) {
-        qDebug() << "       ComponentEditor::updateEditor -> childItem" << childItem->modelType() << childItem->itemName();
-        updateEditor2(childItem, parentProperty);
+        qDebug() << "       ComponentEditor::updateEditor -> childItem" << childItem->modelType() << childItem->itemName() << childItem->model()->indexOfItem(childItem);
+        updateEditor(childItem, parentProperty);
     }
 }
 
@@ -179,7 +142,7 @@ void ComponentEditor::onRowsInserted(const QModelIndex &parent, int first, int l
     qDebug() << "model " << item << item->modelType() << item->itemName();
 
 
-    updateEditor2(m_item);
+//    updateEditor(m_item);
 
 }
 

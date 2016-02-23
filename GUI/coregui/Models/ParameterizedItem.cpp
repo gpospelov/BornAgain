@@ -226,8 +226,12 @@ void ParameterizedItem::insertChildItem(int row, ParameterizedItem *item)
     item->mp_parent = this;
     item->setModel(m_model);
 
-    if (m_model)
-        m_model->beginInsertRows(m_model->indexOfItem(item), row, row);
+    qDebug() << "IIIII ParameterizedItem::insertChildItem this" << this << this->modelType() << this->itemName() << "itemToInsert" << item << item->modelType() << item->itemName();
+
+    if (m_model) {
+        qDebug() << "AAA beginInsertRows" << m_model->indexOfItem(this);
+        m_model->beginInsertRows(m_model->indexOfItem(this), row, row);
+    }
 
     m_children.insert(row, item);
 
@@ -237,9 +241,12 @@ void ParameterizedItem::insertChildItem(int row, ParameterizedItem *item)
         m_propertyItems.insert(item->itemName(), item);
     }
 
-    if (m_model)
+    if (m_model) {
+        qDebug() << "AAA endInsertRows";
         m_model->endInsertRows();
+    }
 }
+
 
 ParameterizedItem *ParameterizedItem::takeChildItem(int row)
 {

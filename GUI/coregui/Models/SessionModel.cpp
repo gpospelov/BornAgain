@@ -268,7 +268,9 @@ QModelIndex SessionModel::indexOfItem(ParameterizedItem *item) const
     if (!item || item == m_root_item)
         return QModelIndex();
     ParameterizedItem *parent_item = item->parent();
+    qDebug() << "OOO indexOfItem:" << item << " parent_item" <<  parent_item << "m_root_item:" << m_root_item;
     int row = parent_item->rowOfChild(item);
+    Q_ASSERT(row>=0);
     return createIndex(row, 0, item);
 }
 

@@ -120,7 +120,16 @@ QString ParameterizedItem::displayName() const
         int index = mp_parent->getCopyNumberOfChild(this);
         if (index >= 0 && modelType() != Constants::PropertyType &&
                 modelType() != Constants::GroupItemType) {
-            return m_display_name + QString::number(index);
+            QString new_name = m_display_name + QString::number(index);
+            for (auto other : parent()->childItems()) {
+                if (other != this) {
+                    if (isRegisteredProperty(P_NAME) && other->itemName() == new_name) {
+                        ++ index;
+                        new_name = m_display_name + QString::number(index);
+                    }
+                }
+            }
+            return new_name;
         }
     }
     return m_display_name;
@@ -278,9 +287,9 @@ PropertyAttribute &ParameterizedItem::registerProperty(const QString &name, cons
             "ParameterizedItem::registerProperty() -> Error. Already existing property " + name);
 
     ParameterizedItem *property = ItemFactory::createItem(Constants::PropertyType);
-    property->setValue(variant);
     property->setDisplayName(name);
     insertChildItem(-1, property);
+    property->setValue(variant);
     m_property_attribute[name] = attribute;
     return m_property_attribute[name];
 }

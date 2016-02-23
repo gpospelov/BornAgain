@@ -20,3 +20,20 @@ PropertyItem::PropertyItem()
 {
 
 }
+
+bool PropertyItem::setData(int column, const QVariant &data)
+{
+    if (displayName() == ParameterizedItem::P_NAME) {
+        if (data.toString().isEmpty())
+            return false;
+        if (ParameterizedItem *item = parent()) {
+            if (ParameterizedItem *item_parent = item->parent()) {
+                // forbid setting duplicate name
+                if (item_parent->getChildByName(data.toString())) {
+                    return false;
+                }
+            }
+        }
+    }
+    return ParameterizedItem::setData(column, data);
+}

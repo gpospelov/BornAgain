@@ -23,6 +23,8 @@ class BA_CORE_API_ PropertyItem : public ParameterizedItem
     Q_OBJECT
 public:
     PropertyItem();
+
+    bool setData(int column, const QVariant &data);
 };
 
 #endif

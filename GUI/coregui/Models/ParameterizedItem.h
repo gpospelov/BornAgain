@@ -47,7 +47,7 @@ public:
 
     //! set data in the given column, return true when successful, notify model if present
     //! we only support one role
-    bool setData(int column, const QVariant &data);
+    virtual bool setData(int column, const QVariant &data);
 
     //! return variant stored in data column
     QVariant value() const;

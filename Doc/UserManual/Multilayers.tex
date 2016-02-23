@@ -313,11 +313,11 @@ the continuity conditions~(\ref{Econtcond}) take the form
   \begin{array}{@{}l@{}lcl@{}l}
   +A^-_{\il} &+A^+_{\il}
   &=&
-  +A^-_{\il-1}\delta_{\il-1} &+A^+_{\il-1}\delta_{\il-1}^*,
+  +A^-_{\il-1}\delta_{\il-1} &+A^+_{\il-1}\delta_{\il-1}^{-1},
   \\
   -A^-_{\il} f_{\il}  &+A^+_{\il} f_{\il}
   &=&
-  -A^-_{\il-1}\delta_{\il-1} f_{\il-1} &+A^+_{\il-1}\delta_{\il-1}^* f_{\il-1}.
+  -A^-_{\il-1}\delta_{\il-1} f_{\il-1} &+A^+_{\il-1}\delta_{\il-1}^{-1} f_{\il-1}.
   \end{array}
 \end{equation}
 After some lines of linear algebra,
@@ -331,7 +331,7 @@ with the transfer matrix
   M_\il
    \coloneqq
    \left(\begin{array}{cc}
-       \delta_{\il-1}^*&0\\
+     \delta_{\il-1}^{-1}&0\\
        0 & \delta_{\il-1}
    \end{array}\right)
    \frac{1}{2f_{\il-1}}
@@ -388,7 +388,8 @@ it may be an interesting exercise to make
  a connection with a well known textbook result.
 Consider a system
 with a single interface between two semi-infinite,
-non-absorbing media.
+non-absorbing media. The incoming wave is assumed to be above the 
+critical angle, ensuring all $f_l$ are real.
 The reflected flux,
 normalized to the incident vertical flux $J_{0\perp}^-=-Kf_0$,
 is
@@ -403,7 +404,7 @@ and the transmitted flux
   \frac{J_{1\perp}^-}{J_{0\perp}^-}
   = \frac{4f_0 f_1}{(f_0+f_1)^2}.
 \end{equation}
-This satisfies mass conservation, $J_{0\perp}^-+J_{0\perp}^+=J_{1\perp}^-$,
+This satisfies particle number conservation, $J_{0\perp}^-+J_{0\perp}^+=J_{1\perp}^-$,
 and agrees with Fresnel's result for $s$-polarized light.\footnote
 {See any optics textbook, e.g.\ Born~\&~Wolf \cite[ch.~1.5.2]{BoWo99}
   or Hecht \cite[ch.~4.6.2]{Hec02}.}

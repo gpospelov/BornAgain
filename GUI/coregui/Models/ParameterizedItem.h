@@ -62,10 +62,13 @@ public:
 
     // labels
 
+    //! user can set a name to item, which is stored in P_NAME property
+    static const QString P_NAME;
+
     //! return a user definable name, if present, or returs displayName() otherwise
     QString itemName() const;
 
-    //! set the item's name through the model, use this instead of P_NAME
+    //! set the item's name in the registered property P_NAME
     void setItemName(const QString &name);
 
     //! retrieve a unique name based on the type and an index (if needed to distinguish siblings)
@@ -166,6 +169,9 @@ public:
 
     //! check in its property map
     bool isRegisteredProperty(const QString &name) const;
+
+    //! get the item of corresponding registered property
+    ParameterizedItem * getPropertyItem(const QString &name) const;
 
     //! retrieve property
     QVariant getRegisteredProperty(const QString &name) const;

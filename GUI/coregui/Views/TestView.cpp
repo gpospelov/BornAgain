@@ -32,6 +32,8 @@
 #include <InstrumentModel.h>
 #include <JobModel.h>
 #include <MaterialModel.h>
+#include "ModelMapper.h"
+#include "DetectorItems.h"
 
 
 
@@ -66,6 +68,15 @@ void TestView::test_sessionModel()
     addModelToTabs(tabs, m_mainWindow->getSampleModel());
     addModelToTabs(tabs, m_mainWindow->getMaterialModel());
     addModelToTabs(tabs, m_mainWindow->getJobModel());
+
+    // do some testing here
+    ModelMapper *mapper = new ModelMapper(this);
+    mapper->setItem(m_mainWindow->getInstrumentModel()->rootItem()->getChildOfType(Constants::InstrumentType));
+    mapper->setOnChildPropertyChange(
+                [](ParameterizedItem* item, const QString &name) {
+        qDebug() << "Property Changed from " << item->itemName() << " (" << item->modelType() << " )"
+                 << "with name " << name;
+    });
 
     layout->setMargin(0);
     layout->setSpacing(0);

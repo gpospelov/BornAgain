@@ -25,6 +25,8 @@
 #include <sstream>
 #include <QDebug>
 
+const QString ParameterizedItem::P_NAME = "Name";
+
 ParameterizedItem::ParameterizedItem(QString model_type)
     : mp_parent(0)
     , m_model(0)
@@ -44,8 +46,12 @@ ParameterizedItem::~ParameterizedItem()
 
 QVariant ParameterizedItem::data(int column) const
 {
-    if (column == SessionModel::ITEM_NAME && !m_data[column].isValid()) {
-        return displayName();
+    if (column == SessionModel::ITEM_NAME) {
+        if (isRegisteredProperty(P_NAME)) {
+            return getRegisteredProperty(P_NAME);
+        } else {
+            return displayName();
+        }
     }
     if (column >= 0 && column < m_data.size()) {
         return m_data[column];
@@ -59,11 +65,7 @@ bool ParameterizedItem::setData(int column, const QVariant &data)
         return false;
 
     if (column == SessionModel::ITEM_NAME) {
-        // only unique names allowed
-        if (parent() && parent()->getChildByName(data.toString()))
-            return false;
-        if (data.toString().isEmpty())
-            return false;
+        return false; // names can not be changed, use setItemName instead
     }
 
     m_data[column] = data;
@@ -99,17 +101,20 @@ QString ParameterizedItem::itemName() const
 
 void ParameterizedItem::setItemName(const QString &name)
 {
-    setData(SessionModel::ITEM_NAME, name);
+    if (isRegisteredProperty(P_NAME)) {
+        setRegisteredProperty(P_NAME, name);
+    } else {
+        registerProperty(P_NAME, name);
+    }
 }
 
 QString ParameterizedItem::displayName() const
 {
     if (mp_parent) {
         int index = mp_parent->getCopyNumberOfChild(this);
-        if (index >= 0) {
-            // in special cases we fail to create unique name
-            QString new_name = m_display_name + QString::number(index);
-            return new_name;
+        if (index >= 0 && modelType() != Constants::PropertyType &&
+                modelType() != Constants::GroupItemType) {
+            return m_display_name + QString::number(index);
         }
     }
     return m_display_name;
@@ -267,8 +272,8 @@ PropertyAttribute &ParameterizedItem::registerProperty(const QString &name, cons
             "ParameterizedItem::registerProperty() -> Error. Already existing property " + name);
 
     ParameterizedItem *property = ItemFactory::createItem(Constants::PropertyType);
-    property->setItemName(name);
     property->setValue(variant);
+    property->setDisplayName(name);
     insertChildItem(-1, property);
     m_property_attribute[name] = attribute;
     return m_property_attribute[name];
@@ -277,6 +282,13 @@ PropertyAttribute &ParameterizedItem::registerProperty(const QString &name, cons
 bool ParameterizedItem::isRegisteredProperty(const QString &name) const
 {
     return m_propertyItems.contains(name);
+}
+
+ParameterizedItem *ParameterizedItem::getPropertyItem(const QString &name) const
+{
+    if (isRegisteredProperty(name)) {
+        return m_propertyItems[name];
+    }
 }
 
 QVariant ParameterizedItem::getRegisteredProperty(const QString &name) const
@@ -330,7 +342,7 @@ ParameterizedItem *ParameterizedItem::registerGroupProperty(const QString &group
         = GroupPropertyRegistry::createGroupProperty(group_name, group_model);
     GroupItem *groupItem = dynamic_cast<GroupItem *>(ItemFactory::createItem(Constants::GroupItemType));
     groupItem->setGroup(group_property);
-    groupItem->setItemName(group_name);
+    groupItem->setDisplayName(group_name);
     insertChildItem(-1, groupItem);
 //    ParameterizedItem *p_result = m_sub_items[group_name];
 //    if (group_property->type() == GroupProperty::FIXED) {

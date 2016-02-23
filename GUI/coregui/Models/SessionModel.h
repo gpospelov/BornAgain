@@ -130,6 +130,7 @@ public:
     void setMessageService(WarningMessageService *messageService);
 
     virtual void initFrom(SessionModel *model, ParameterizedItem *parent);
+    ParameterizedItem* rootItem() const;
 
 
 
@@ -140,7 +141,6 @@ protected:
     void setRootItem(ParameterizedItem *root) {m_root_item = root;}
 
 private:
-    ParameterizedItem* rootItem() const;
 
     ParameterizedItem *insertNewItem(QString model_type, ParameterizedItem *parent, int row = -1,
                                      ParameterizedItem::PortInfo::EPorts port

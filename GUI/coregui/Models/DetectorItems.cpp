@@ -18,7 +18,7 @@
 #include "MaskItems.h"
 #include <QDebug>
 
-const QString DetectorItem::P_DETECTOR = "Detector";
+const QString DetectorItem::P_DETECTOR = "DetectorType";
 
 DetectorItem::DetectorItem()
     : ParameterizedItem(Constants::DetectorType)

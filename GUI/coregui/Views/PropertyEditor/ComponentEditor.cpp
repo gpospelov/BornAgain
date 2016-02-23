@@ -38,9 +38,7 @@ ComponentEditor::ComponentEditor(QWidget *parent)
     layout->setMargin(0);
     layout->addWidget(m_d->m_browser);
 
-    connect(m_d->m_manager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
-                this, SLOT(onQtPropertyChanged(QtProperty *, const QVariant &)));
-
+    connectManager();
 }
 
 void ComponentEditor::addItem(ParameterizedItem *item)
@@ -55,7 +53,8 @@ void ComponentEditor::addItem(ParameterizedItem *item)
     if(qtVariantProperty) {
         m_d->m_browser->addProperty(qtVariantProperty);
         m_d->m_qtproperty_to_item[qtVariantProperty] = item;
-        m_d->m_index_to_qtvariantproperty[item->model()->indexOfItem(item)] = qtVariantProperty;
+//        m_d->m_index_to_qtvariantproperty[item->model()->indexOfItem(item)] = qtVariantProperty;
+        m_d->m_item_to_qtvariantproperty[item] = qtVariantProperty;
 
     }
 
@@ -66,13 +65,30 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft, const QModelInde
 {
     if(topLeft != bottomRight) return;
 
-    qDebug() << "ComponentEditor::onDataChanged" << topLeft << bottomRight << roles;
-    QMap<QModelIndex, QtVariantProperty *>::iterator it = m_d->m_index_to_qtvariantproperty.begin();
-    while(it!=m_d->m_index_to_qtvariantproperty.end()) {
-        qDebug() << it.key() << it.value();
-        ++it;
-    }
+    SessionModel *model = qobject_cast<SessionModel *>(sender());
 
+
+//    const SessionModel *model = dynamic_cast<const SessionModel*>(topLeft.model());
+//    qDebug() << "OOO" << model->itemForIndex(topLeft) << model->itemForIndex(bottomRight);
+
+    qDebug() << "ComponentEditor::onDataChanged" << topLeft << bottomRight << roles;
+//    QMap<QModelIndex, QtVariantProperty *>::iterator it = m_d->m_index_to_qtvariantproperty.begin();
+//    while(it!=m_d->m_index_to_qtvariantproperty.end()) {
+//        qDebug() << it.key() << it.value();
+//        ++it;
+//    }
+
+    ParameterizedItem *item = model->itemForIndex(topLeft);
+    Q_ASSERT(item);
+
+    if(m_d->m_item_to_qtvariantproperty.contains(item)) {
+        QtVariantProperty *variant_property = m_d->m_item_to_qtvariantproperty[item];
+
+        disconnectManager();
+        variant_property->setValue(item->value());
+        connectManager();
+
+    }
 
 }
 
@@ -81,7 +97,10 @@ void ComponentEditor::onQtPropertyChanged(QtProperty *property, const QVariant &
     qDebug() << "ComponentEditor::onQtPropertyChanged" << property << value;
 
     if(m_d->m_qtproperty_to_item.contains(property)) {
-        m_d->m_qtproperty_to_item[property]->setValue(value);
+        ParameterizedItem *item = m_d->m_qtproperty_to_item[property];
+        disconnectModel(item->model());
+        item->setValue(value);
+        connectModel(item->model());
     }
 }
 
@@ -110,6 +129,15 @@ QtVariantProperty *ComponentEditor::createQtVariantProperty(ParameterizedItem *i
     return result;
 }
 
+void ComponentEditor::disconnectModel(SessionModel *model)
+{
+    disconnect(model,
+            SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
+            this,
+            SLOT(onDataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)));
+
+}
+
 void ComponentEditor::connectModel(SessionModel *model)
 {
     connect(model,
@@ -118,4 +146,21 @@ void ComponentEditor::connectModel(SessionModel *model)
             SLOT(onDataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
             Qt::UniqueConnection);
 
+}
+
+void ComponentEditor::disconnectManager()
+{
+    disconnect(m_d->m_manager,
+               SIGNAL(valueChanged(QtProperty *, const QVariant &)),
+               this,
+               SLOT(onQtPropertyChanged(QtProperty *, const QVariant &)));
+}
+
+void ComponentEditor::connectManager()
+{
+    connect(m_d->m_manager,
+            SIGNAL(valueChanged(QtProperty *, const QVariant &)),
+            this,
+            SLOT(onQtPropertyChanged(QtProperty *, const QVariant &)),
+            Qt::UniqueConnection);
 }

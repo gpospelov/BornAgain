@@ -41,7 +41,8 @@ public:
     PropertyVariantFactory *m_propertyFactory;
 
     QMap<QtProperty *, ParameterizedItem *> m_qtproperty_to_item;
-    QMap<QModelIndex, QtVariantProperty *> m_index_to_qtvariantproperty;
+//    QMap<QModelIndex, QtVariantProperty *> m_index_to_qtvariantproperty;
+    QMap<ParameterizedItem *, QtVariantProperty *> m_item_to_qtvariantproperty;
 
 };
 

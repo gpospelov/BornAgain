@@ -46,7 +46,11 @@ private slots:
 
 private:
     QtVariantProperty *createQtVariantProperty(ParameterizedItem *item);
+    void disconnectModel(SessionModel *model);
     void connectModel(SessionModel *model);
+    void disconnectManager();
+    void connectManager();
+
 
 
     std::unique_ptr<ComponentEditorPrivate> m_d;

@@ -53,14 +53,11 @@
 \usepackage{dingbat}
 \usepackage{amssymb}
 
+% BROKEN under texlive2015:
 \usepackage[bold-style=ISO]{unicode-math} % must come after ams and symbols
-% from unicode-0.8, use \symbf instead of \mathbf
-% see https://github.com/wspr/unicode-math/issues/340
-%     http://apps.jcns.fz-juelich.de/redmine/issues/1293
-\newif\ifolducm
-\makeatletter
-\@ifpackagelater{unicode-math}{2014/07/01}{\olducmfalse}{\olducmtrue}
-\makeatother
+% WORKAROUND:
+\def\mathup#1{\text{#1}}
+
 
 % prevent unicode-math from overwriting
 
@@ -236,9 +233,9 @@
 {\includegraphics[width=3em]{#1}\hspace{10pt}}}}
 
 \defineBox{boxWork}{boxxWork}{magenta!40}{magenta}
-  {\marginSymbolLarge{fig/icons/Arbeiten.png}{TODO}}
+  {\marginSymbolLarge{fig/fancymanual/Arbeiten.png}{TODO}}
 \defineBox{boxWarn}{boxxWarn}{magenta!40}{magenta}
-  {\marginSymbolLarge{fig/icons/Achtung.png}{WARN}}
+  {\marginSymbolLarge{fig/fancymanual/Achtung.png}{WARN}}
 \defineBox{boxNote}{boxxNote}{yellow!33}{yellow}{{}}
 \defineBox{boxTuto}{boxxTuto}{blue!20}{blue}{{}}
 \defineBox{boxEmph}{boxxEmph}{green!20}{green}{{}}

@@ -41,8 +41,6 @@ public:
 
     explicit RectangularDetectorItem();
 
-    virtual void onPropertyChange(const QString &name);
-
     std::unique_ptr<IDetector2D> createDetector() const;
     std::unique_ptr<IResolutionFunction2D> createResolutionFunction();
 

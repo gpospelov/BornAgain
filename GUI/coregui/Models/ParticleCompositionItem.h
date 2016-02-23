@@ -29,7 +29,6 @@ public:
     explicit ParticleCompositionItem();
     virtual ~ParticleCompositionItem() {}
     virtual void insertChildItem(int row, ParameterizedItem *item);
-    virtual void onPropertyChange(const QString &name);
     std::unique_ptr<ParticleComposition> createParticleComposition() const;
 };
 

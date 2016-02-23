@@ -70,9 +70,8 @@ void TestView::test_sessionModel()
     addModelToTabs(tabs, m_mainWindow->getJobModel());
 
     // do some testing here
-    ModelMapper *mapper = new ModelMapper(this);
-    mapper->setItem(m_mainWindow->getInstrumentModel()->rootItem()->getChildOfType(Constants::InstrumentType));
-    mapper->setOnChildPropertyChange(
+    m_mainWindow->getInstrumentModel()->rootItem()->getChildOfType(Constants::InstrumentType)->mapper()
+            ->setOnChildPropertyChange(
                 [](ParameterizedItem* item, const QString &name) {
         qDebug() << "Property Changed from " << item->itemName() << " (" << item->modelType() << " )"
                  << "with name " << name;

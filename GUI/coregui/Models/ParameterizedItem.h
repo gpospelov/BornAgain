@@ -19,8 +19,7 @@
 #include "WinDllMacros.h"
 #include "item_constants.h"
 #include "PropertyAttribute.h"
-
-#include "ParameterTranslators.h"
+#include "ModelMapper.h"
 
 #include <memory>
 #include <QObject>
@@ -58,6 +57,9 @@ public:
 
     //! check if data is set
     bool hasData(int column);
+
+    //! inform the model that something changed
+    void emitValueChanged(QVector<int> roles = QVector<int>() << Qt::DisplayRole << Qt::EditRole);
 
 
     // labels
@@ -179,6 +181,9 @@ public:
     //! update the property through the model
     void setRegisteredProperty(const QString &name, const QVariant &variant);
 
+    //! emit signal that property is changed
+    void emitPropertyChanged(const QString &name, QVector<int> roles = QVector<int>());
+
     //! unset property from this item
     void removeRegisteredProperty(const QString &name);
 
@@ -215,6 +220,9 @@ public:
     //! checking constrains of ports
     virtual ParameterizedItem *getCandidateForRemoval(ParameterizedItem *new_comer);
 
+    //! returns mapper of this item
+    ModelMapper *mapper();
+
 
 protected:
     //! sets the display name
@@ -245,7 +253,7 @@ private:
     QMap<QString, PropertyAttribute> m_property_attribute;
     QList<QString> m_valid_children;
     QMap<int, PortInfo> m_port_info;
-
+    std::unique_ptr<ModelMapper> m_mapper;
 
 
 

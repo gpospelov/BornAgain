@@ -112,12 +112,11 @@ RectangularDetectorItem::RectangularDetectorItem()
 
     update_properties_appearance();
     m_is_constructed=true;
-}
 
-void RectangularDetectorItem::onPropertyChange(const QString &name)
-{
-    if(name == P_ALIGNMENT && m_is_constructed) update_properties_appearance();
-    ParameterizedItem::onPropertyChange(name);
+    mapper()->setOnPropertyChange(
+                [this](const QString &name) {
+        if(name == P_ALIGNMENT && m_is_constructed) update_properties_appearance();
+    });
 }
 
 std::unique_ptr<IDetector2D> RectangularDetectorItem::createDetector() const

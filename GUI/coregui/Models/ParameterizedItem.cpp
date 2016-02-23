@@ -20,7 +20,6 @@
 #include "GroupItem.h"
 #include "ItemFactory.h"
 #include "GUIHelpers.h"
-//#include "PropertyVariantManager.h"
 
 #include <sstream>
 #include <QDebug>
@@ -72,9 +71,7 @@ bool ParameterizedItem::setData(int column, const QVariant &data)
 
     // inform model about the change
     if (m_model) {
-        QModelIndex index = m_model->indexOfItem(this);
-        index = index.sibling(index.row(), column);
-        m_model->dataChanged(index, index, QVector<int>() << Qt::DisplayRole << Qt::EditRole);
+        emitValueChanged();
     }
     return true;
 }
@@ -82,6 +79,15 @@ bool ParameterizedItem::setData(int column, const QVariant &data)
 bool ParameterizedItem::hasData(int column)
 {
     return data(column).isValid();
+}
+
+void ParameterizedItem::emitValueChanged(QVector<int> roles)
+{
+    if (m_model) {
+        QModelIndex index = m_model->indexOfItem(this);
+        index = index.sibling(index.row(), SessionModel::ITEM_VALUE);
+        m_model->dataChanged(index, index, roles);
+    }
 }
 
 QVariant ParameterizedItem::value() const
@@ -318,6 +324,16 @@ void ParameterizedItem::setRegisteredProperty(const QString &name, const QVarian
     m_propertyItems[name]->setValue(variant);
 }
 
+void ParameterizedItem::emitPropertyChanged(const QString &name, QVector<int> roles)
+{
+    if (isRegisteredProperty(name)) {
+        if (roles.isEmpty())
+            getPropertyItem(name)->emitValueChanged();
+        else
+            getPropertyItem(name)->emitValueChanged(roles);
+    }
+}
+
 void ParameterizedItem::removeRegisteredProperty(const QString &name)
 {
     if(isRegisteredProperty(name)) {
@@ -442,6 +458,15 @@ ParameterizedItem *ParameterizedItem::getCandidateForRemoval(ParameterizedItem *
     }
 
     return 0;
+}
+
+ModelMapper *ParameterizedItem::mapper()
+{
+    if (!m_mapper) {
+        m_mapper = std::unique_ptr<ModelMapper>(new ModelMapper);
+        m_mapper->setItem(this);
+    }
+    return m_mapper.get();
 }
 
 void ParameterizedItem::setDisplayName(QString display_name)

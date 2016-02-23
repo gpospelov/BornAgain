@@ -35,10 +35,11 @@ public:
 
     void setItem(ParameterizedItem* item);
 
-    void setOnPropertyChange(std::function<void(QString)> f) {m_onPropertyChange = f;}
+    void setOnPropertyChange(std::function<void(QString)> f);
 
-    void setOnChildPropertyChange(std::function<void(ParameterizedItem*,QString)> f)
-    {m_onChildPropertyChange = f;}
+    void setOnChildPropertyChange(std::function<void(ParameterizedItem*,QString)> f);
+
+    void setActive(bool state) {m_active = state;}
 
 public slots:
     void onDataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight,
@@ -50,10 +51,11 @@ private:
     void setModel(SessionModel *model);
     int nestlingDepth(ParameterizedItem* item, int level = 0);
 
+    bool m_active;
     SessionModel *m_model;
     ParameterizedItem *m_item;
-    std::function<void(QString)> m_onPropertyChange;
-    std::function<void(ParameterizedItem*,QString)> m_onChildPropertyChange;
+    std::vector<std::function<void(QString)>> m_onPropertyChange;
+    std::vector<std::function<void(ParameterizedItem*,QString)>> m_onChildPropertyChange;
 };
 
 #endif

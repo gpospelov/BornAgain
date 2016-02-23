@@ -21,12 +21,10 @@
 
 ModelMapper::ModelMapper(QObject *parent)
     : QObject(parent)
+    , m_active {true}
     , m_model(0)
     , m_item(0)
 {
-    if (ParameterizedItem *item = dynamic_cast<ParameterizedItem *>(parent)) {
-        setItem(item);
-    }
 }
 
 void ModelMapper::setItem(ParameterizedItem *item)
@@ -35,6 +33,16 @@ void ModelMapper::setItem(ParameterizedItem *item)
         m_item = item;
         setModel(item->model());
     }
+}
+
+void ModelMapper::setOnPropertyChange(std::function<void (QString)> f)
+{
+    m_onPropertyChange.push_back(f);
+}
+
+void ModelMapper::setOnChildPropertyChange(std::function<void (ParameterizedItem *, QString)> f)
+{
+    m_onChildPropertyChange.push_back(f);
 }
 
 void ModelMapper::setModel(SessionModel *model)
@@ -76,16 +84,22 @@ void ModelMapper::onDataChanged(const QModelIndex &topLeft, const QModelIndex &b
         if (ParameterizedItem *item = m_model->itemForIndex(topLeft)) {
             if (m_item->isRegisteredProperty(item->itemName())) {
                 // some property changed
-                if (m_onPropertyChange)
-                    m_onPropertyChange(item->itemName());
+                if (m_active && m_onPropertyChange.size() > 0) {
+                    for (auto f : m_onPropertyChange) {
+                        f(item->itemName());
+                    }
+                }
             }
         }
     }
     if (nestling > 0) {
         if (ParameterizedItem *parent = item->parent()) {
             if (parent->isRegisteredProperty(item->itemName())) {
-                if (m_onChildPropertyChange)
-                    m_onChildPropertyChange(parent, item->itemName());
+                if (m_active && m_onChildPropertyChange.size() > 0) {
+                    for (auto f : m_onChildPropertyChange) {
+                        f(parent, item->itemName());
+                    }
+                }
             }
         }
     }

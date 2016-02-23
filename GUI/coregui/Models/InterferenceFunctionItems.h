@@ -46,7 +46,6 @@ public:
     static const QString P_PDF2;
     explicit InterferenceFunction2DParaCrystalItem();
     virtual ~InterferenceFunction2DParaCrystalItem(){}
-    virtual void onPropertyChange(const QString &name);
 };
 
 

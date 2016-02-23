@@ -34,6 +34,17 @@ ParticleCompositionItem::ParticleCompositionItem()
     addToValidChildren(Constants::TransformationType, PortInfo::PORT_1, 1);
     RotationTranslator rotation_translator;
     ModelPath::addParameterTranslator(rotation_translator);
+
+    mapper()->setOnPropertyChange(
+                [this](const QString &name) {
+        if (name != ParticleItem::P_ABUNDANCE && parent()) {
+            if (parent()->modelType() == Constants::ParticleCompositionType
+                || parent()->modelType() == Constants::ParticleDistributionType) {
+                setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
+                getPropertyAttribute(ParticleItem::P_ABUNDANCE).setDisabled();
+            }
+        }
+    });
 }
 
 void ParticleCompositionItem::insertChildItem(int row, ParameterizedItem *item)
@@ -51,18 +62,6 @@ void ParticleCompositionItem::insertChildItem(int row, ParameterizedItem *item)
         item->setPort(PortInfo::PORT_1);
     }
 
-}
-
-void ParticleCompositionItem::onPropertyChange(const QString &name)
-{
-    ParameterizedItem::onPropertyChange(name);
-    if (name == "OBSOLETE_P_PORT" && parent()) {
-        if (parent()->modelType() == Constants::ParticleCompositionType
-            || parent()->modelType() == Constants::ParticleDistributionType) {
-            setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-            getPropertyAttribute(ParticleItem::P_ABUNDANCE).setDisabled();
-        }
-    }
 }
 
 std::unique_ptr<ParticleComposition> ParticleCompositionItem::createParticleComposition() const

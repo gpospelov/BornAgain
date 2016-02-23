@@ -40,6 +40,7 @@ public:
     void setItem(ParameterizedItem *item);
 
     void updateEditor(ParameterizedItem *item, QtVariantProperty *parentProperty = 0);
+    void updateEditor2(ParameterizedItem *item, QtVariantProperty *parentProperty = 0);
 
     void clearEditor();
 

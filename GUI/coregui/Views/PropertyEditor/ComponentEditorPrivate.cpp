@@ -56,6 +56,19 @@ void ComponentEditorPrivate::clear()
 
 }
 
+QtVariantProperty *ComponentEditorPrivate::processPropertyForItem(ParameterizedItem *item, QtVariantProperty *parentProperty)
+{
+    QtVariantProperty *childProperty = getPropertyForItem(item);
+    if(childProperty) {
+        if(parentProperty) {
+            parentProperty->addSubProperty(childProperty);
+        } else {
+            m_browser->addProperty(childProperty);
+        }
+    }
+    return childProperty;
+}
+
 //! Returns QtVariantProperty representing given item in ComponentEditor.
 //! If QtVariantProperty doesn't exist yet, it will be created.
 QtVariantProperty *ComponentEditorPrivate::getPropertyForItem(ParameterizedItem *item)

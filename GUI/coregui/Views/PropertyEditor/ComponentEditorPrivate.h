@@ -35,6 +35,7 @@ class BA_CORE_API_ ComponentEditorPrivate
 public:
     ComponentEditorPrivate(QWidget *parent);
     void clear();
+    QtVariantProperty *processPropertyForItem(ParameterizedItem *item, QtVariantProperty *parentProperty);
     QtVariantProperty *getPropertyForItem(ParameterizedItem *item);
     QtVariantProperty *createQtVariantProperty(ParameterizedItem *item);
 

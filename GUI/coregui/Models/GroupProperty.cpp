@@ -16,6 +16,7 @@
 #include "GroupProperty.h"
 #include "GUIHelpers.h"
 #include "ItemFactory.h"
+#include <QDebug>
 
 
 GroupProperty::GroupProperty(QString group_name)
@@ -46,6 +47,7 @@ void GroupProperty::setParent(ParameterizedItem *parent)
 
 ParameterizedItem *GroupProperty::createCorrespondingItem()
 {
+    qDebug() << "GroupProperty::createCorrespondingItem()" << getCurrentType();
     ParameterizedItem *result = ItemFactory::createItem(getCurrentType());
     if(type() == FIXED) {
         setCurrentLabel(result->itemLabel());

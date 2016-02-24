@@ -215,7 +215,9 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
 
 ParameterizedItem *ItemFactory::createEmptyItem()
 {
-    return new ParameterizedItem();
+    ParameterizedItem *result = new ParameterizedItem();
+    result->setItemName("ROOT_ITEM");
+    return result;
 }
 
 QList<QString> ItemFactory::getValidTopItemNames() {

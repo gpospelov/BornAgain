@@ -16,6 +16,7 @@
 #include "IFormFactorBorn.h"
 #include "MathFunctions.h"
 
+
 complex_t IFormFactorBorn::evaluate(const WavevectorInfo& wavevectors) const
 {
     return evaluate_for_q(wavevectors.getQ());

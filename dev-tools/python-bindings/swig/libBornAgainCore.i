@@ -50,10 +50,13 @@
 %include "std_complex.i"
 %include "std_string.i"
 %include "std_vector.i"
+%include "std_shared_ptr.i"
 
  //%include "boost_shared_ptr.i"
  //%include <boost/shared_ptr.hpp>
- // %shared_ptr(ISampleBuilder)
+%shared_ptr(ISampleBuilder)
+%shared_ptr(IParameterizedShared)
+%shared_ptr(INamedShared)
 
  /*
 %shared_ptr(ParameterPool)
@@ -326,6 +329,7 @@
 
 
 
+
 // fix SWIG warning 509, certain C++ overloads create ambiguities in Python
 %ignore ParticleLayout::addInterferenceFunction(IInterferenceFunction *);
 %ignore ParticleLayout::addInterferenceFunction(const IInterferenceFunction *);
@@ -361,7 +365,7 @@ namespace Geometry {
 %ignore BasicVector3D<double>::rotatedY(double) const;
 %ignore BasicVector3D<double>::rotatedZ(double) const;
 
-  %ignore BasicVector3D<std::complex<double> >::mag() const;
+  ignore BasicVector3D<std::complex<double> >::mag() const;
   %ignore BasicVector3D<std::complex<double> >::mag2() const;
     %ignore BasicVector3D<std::complex<double> >::unit() const;
 
@@ -519,6 +523,7 @@ import_array();
 #include "InterferenceFunctionNone.h"
 #include "IObserver.h"
 #include "IParameterized.h"
+#include "IParameterizedShared.h"
 #include "IParticle.h"
 #include "IResolutionFunction2D.h"
 #include "ISample.h"
@@ -566,8 +571,8 @@ import_array();
 
 
 // need this to play nicely with ctypes
-%ignore IParameterized::registerParameter(const std::string &, double*, const AttLimits&);
-%ignore IParameterized::registerParameter(const std::string &, double*);
+%ignore IParameterizedShared::registerParameter(const std::string &, double*, const AttLimits&);
+%ignore IParameterizedShared::registerParameter(const std::string &, double*);
 %ignore ISampleBuilder::registerParameter(const std::string &, double*, const AttLimits&);
 %ignore ISampleBuilder::registerParameter(const std::string &, double*);
 //%ignore ISampleBuilder::addParametersToExternalPool(std::string, ParameterPool*, int) const;
@@ -583,7 +588,9 @@ import_array();
 %include "ConstKBinAxis.h"
 %include "ICloneable.h"
 %include "INamed.h"
+%include "INamedShared.h"
 %include "IParameterized.h"
+%include "IParameterizedShared.h"
 %include "ISample.h"
 %include "ICompositeSample.h"
 %include "IClusteredParticles.h"
@@ -653,6 +660,7 @@ import_array();
 %include "InterferenceFunctionNone.h"
 %include "IObserver.h"
 %include "IParameterized.h"
+%include "IParameterizedShared.h"
 %include "IParticle.h"
 %include "IResolutionFunction2D.h"
 %include "ISample.h"
@@ -700,7 +708,7 @@ import_array();
 %template(IntensityData) OutputData<double >;
 
 
-
+%include "WavevectorInfo.h"
 
 
 %include "ParticleComposition.h"
@@ -733,7 +741,8 @@ import_array();
 
 
 
-
+%template(jmf_debug_isample_vector) std::vector<ISample*>;
+%template(jmf_debug_const_isample_vector) std::vector<const ISample*>;
 
 
 
@@ -798,7 +807,7 @@ import_array();
 
 
 
-%extend IParameterized {
+%extend IParameterizedShared {
   virtual void registerParameter(const std::string &name, long int parpointer, const AttLimits& limits = AttLimits::limitless())
   {
     return (*($self)).registerParameter(name, (double*)parpointer, limits);

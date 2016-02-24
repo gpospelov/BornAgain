@@ -49,7 +49,9 @@ if(BORNAGAIN_PYTHON)
     list(APPEND include_files ${pythonapi_include})
     include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/inc
-    )
+	)
+
+    configure_file(../dev-tools/python-bindings/swig/libBornAgainCore.py ../lib/libBornAgainCore.py COPYONLY)
 endif()
 
 

@@ -18,7 +18,7 @@
 
 #include "Exceptions.h"
 #include <list>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 
 class IObservable;
@@ -42,7 +42,7 @@ public:
 class BA_CORE_API_ IObservable {
 public:
     // Shared pointer is used when passing these objects from python to c++
-    typedef boost::shared_ptr<IObserver > observer_t;
+    typedef std::shared_ptr<IObserver > observer_t;
     typedef std::list<observer_t > observerlist_t;
 
     virtual ~IObservable() {}

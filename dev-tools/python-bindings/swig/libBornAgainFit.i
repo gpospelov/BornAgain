@@ -18,7 +18,7 @@
 %include "std_complex.i"
 %include "std_string.i"
 %include "std_vector.i"
-%include "boost_shared_ptr.i"
+%include "std_shared_ptr.i"
 
  //%shared_ptr(ISampleBuilder)
  //%shared_ptr(IParametrized)

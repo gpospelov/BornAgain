@@ -51,13 +51,19 @@ endif()
 # --- Python ---
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
 
+    #set(Python_ADDITIONAL_VERSIONS 3.5m)
+
+    # testing Python 3
     find_package(PythonInterp 2.7 REQUIRED)
+    #find_package(PythonInterp REQUIRED)
     message(STATUS "--> PYTHON_VERSION_STRING: ${PYTHON_VERSION_STRING}, PYTHON_EXECUTABLE:${PYTHON_EXECUTABLE}")
 
+    # testing Python 3
     find_package(PythonLibs 2.7)
+    #find_package(PythonLibs REQUIRED)
     message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS} PYTHONLIBS_VERSION_STRING:${PYTHONLIBS_VERSION_STRING}")
 
-    ValidatePythonInstallation()
+    #ValidatePythonInstallation()
 
     message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS} PYTHONLIBS_VERSION_STRING:${PYTHONLIBS_VERSION_STRING}")
 

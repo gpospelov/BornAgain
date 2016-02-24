@@ -1,8 +1,10 @@
 #!/bin/bash
 
+PYTHON_INCLUDE_DIR=/usr/include/python3.5m
+
 INCLUDE_PREFIX=../../../
 
-swig3.0 -c++ -python -I/usr/include/python2.7\
+swig3.0 -c++ -python -I$PYTHON_INCLUDE_DIR\
 	-I$INCLUDE_PREFIX/Core/Algorithms/inc\
 	-I$INCLUDE_PREFIX/Core/Tools/inc\
 	-I$INCLUDE_PREFIX/Core/FormFactors/inc\

@@ -41,6 +41,7 @@ private:
     QTreeView *m_treeView;
     ComponentEditor *m_editor1;
     ComponentEditor *m_editor2;
+    ComponentEditor *m_editor3;
 };
 
 #endif

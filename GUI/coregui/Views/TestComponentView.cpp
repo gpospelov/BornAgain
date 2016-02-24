@@ -32,13 +32,20 @@ TestComponentView::TestComponentView(MainWindow *mainWindow)
     , m_treeView(new QTreeView)
     , m_editor1(new ComponentEditor)
     , m_editor2(new ComponentEditor)
+    , m_editor3(0)
+//    , m_editor3(new ComponentEditor)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
     QHBoxLayout *hlayout = new QHBoxLayout;
     hlayout->addWidget(m_treeView);
     hlayout->addWidget(m_editor1);
-    hlayout->addWidget(m_editor2);
+
+    QVBoxLayout *rightPanel = new QVBoxLayout;
+    rightPanel->addWidget(m_editor2);
+//    rightPanel->addWidget(m_editor3);
+
+    hlayout->addLayout(rightPanel);
 
     mainLayout->addLayout(hlayout);
     setLayout(mainLayout);
@@ -54,9 +61,11 @@ void TestComponentView::onSelectionChanged(const QItemSelection &selected, const
 
     if(indices.isEmpty()) {
         m_editor2->setItem(0);
+//        m_editor3->setItem(0);
     } else {
         if(ParameterizedItem *item = m_model->itemForIndex(indices.at(0))) {
             m_editor2->setItem(item);
+//            m_editor3->setItem(item);
         }
     }
 
@@ -65,13 +74,13 @@ void TestComponentView::onSelectionChanged(const QItemSelection &selected, const
 void TestComponentView::init_editors()
 {
     // sample model
-    SampleBuilderFactory factory;
-    boost::scoped_ptr<ISample> P_sample(factory.createSample("CylindersInDWBABuilder"));
+//    SampleBuilderFactory factory;
+//    boost::scoped_ptr<ISample> P_sample(factory.createSample("CylindersInDWBABuilder"));
 
-    GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(m_model, *P_sample);
+//    GUIObjectBuilder guiBuilder;
+//    guiBuilder.populateSampleModel(m_model, *P_sample);
 
-//    m_model->insertNewItem(Constants::ParticleType);
+    m_model->insertNewItem(Constants::ParticleType);
 
     // tree view
     m_treeView->setModel(m_model);
@@ -82,7 +91,8 @@ void TestComponentView::init_editors()
 
     // editors
     m_editor1->setPresentationType(ComponentEditorFlags::SHOW_DETAILED | ComponentEditorFlags::BROWSER_TABLE);
-//    m_editor2->setPresentationType(ComponentEditor::SHOW_CONDENSED);
+    m_editor2->setPresentationType(ComponentEditorFlags::SHOW_DETAILED | ComponentEditorFlags::BROWSER_TABLE);
+//    m_editor3->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_GROUPBOX);
 
 //    m_editor1->setItem(m_model->getMultiLayerItem());
     m_editor1->setItem(m_model->getTopItem());

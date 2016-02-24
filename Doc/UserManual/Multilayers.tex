@@ -428,12 +428,13 @@ The general solution of (\ref{Ewavez}) will be a linear function of $z$:
   \phi_{\il}(z) = A^0_{\il} + A^1_{\il}z.
 \end{equation}
 In \BornAgain, such a linear wavefunction amplitude can not be handled by the form factors,
-which are only defined in terms of plain waves with complex wavevector components.
+which are only defined in terms of plane waves with complex wavevector components.
 The following cases are treated seperately:
 \begin{itemize}
-  \item The top layer has $f_0=0$: regardless of whether or not the top layer is the only layer present,
-    the solution will consist of a simple constant wavefunction amplitude ($\phi_0(z) = A^0_0$).
-    Since this does not cause any problem with form factor calculations, nothing needs to be done.
+  \item There is only one layer: this is a trivial case whithout any need to calculate wave coefficients.
+    The solution in the single layer is just the incoming/outgoing plane wave.
+  \item The top layer of a multilayer has $f_0=0$: the limit $f_0\to0$ is well-defined and the
+    solution is given by $A^+_0 = -A^-_0$ and $A^{\pm}_{\il}=0$ for $\il>0$.
   \item $f_{\il}=0$ for a layer with $\il>0$: In this case $f_{\il}$ will be given a very small imaginary value,
     representing a slight absorption. However, this should be inconsequential because the index of refraction
     of non-vacuum layer always contains an absorptive component.

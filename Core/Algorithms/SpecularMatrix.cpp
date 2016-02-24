@@ -42,12 +42,12 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k,
     double sign_kz_out = k.z() > 0.0 ? -1.0 : 1.0;
     complex_t r2ref = sample.getLayer(0)->getRefractiveIndex2() * k.sin2Theta();
     for(size_t i=0; i<N; ++i) {
-        coeff[i].lambda = sqrt(sample.getLayer(i)->getRefractiveIndex2() - r2ref);
-        if( std::abs(coeff[i].lambda)<1e-20) // UNTESTED FEATURE
-            coeff[i].lambda = 0; // ensure uniform treatment of limiting case lambda->0
+        complex_t rad = sample.getLayer(i)->getRefractiveIndex2() - r2ref;
+        // use small absorptive component for layers with i>0 if radicand becomes very small:
+        if (i>0 && std::abs(rad)<1e-40) rad = imag_unit*1e-40;
+        coeff[i].lambda = sqrt(rad);
         coeff[i].kz = sign_kz_out * k.mag()*coeff[i].lambda;
     }
-
     // In the bottom layer, there is no upward travelling wave.
     coeff[N-1].t_r(0) = 1.0;
     coeff[N-1].t_r(1) = 0.0;
@@ -55,15 +55,18 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k,
     // If only one layer present, there's nothing left to calculate
     if( N==1) return;
 
+    // If lambda in layer 0 is zero, R0 = -T0 and all other R, T coefficients become zero
+    if (coeff[0].lambda == 0.0) {
+        coeff[0].t_r(0) = 1.0;
+        coeff[0].t_r(1) = -1.0;
+        for (size_t i=1; i<N; ++i) {
+            coeff[i].t_r.setZero();
+        }
+        return;
+    }
     // Calculate transmission/refraction coefficients t_r for each layer,
     // from bottom to top.
     for (int i=N-2; i>=0; --i) {
-        if( coeff[i+1].lambda == 0.0 ) {
-            // total reflection by layer with k_perp=0
-            coeff[i].t_r(0) = +1;
-            coeff[i].t_r(1) = -1;
-            continue;
-        }
         complex_t roughness_factor = 1;
         if (sample.getLayerInterface(i)->getRoughness()) {
             double sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
@@ -76,24 +79,8 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k,
                             MathFunctions::tanhc(sigeff*coeff[i  ].lambda) );
             }
         }
-
         complex_t lambda = coeff[i].lambda;
-        if (lambda == 0.0) {
-            if (i==0) {
-                // standing vertical wave in top layer with k_perp=0
-                coeff[i].t_r(0) = +1;
-                coeff[i].t_r(1) = -1;
-            }
-            else {
-                // no intensity in inner layer with k_perp=0
-                coeff[i].t_r.setZero();
-            }
-            // no intensity in layers below
-            for (size_t ii=i+1; ii<N; ++ii) {
-                coeff[ii].t_r.setZero();
-            }
-            continue;
-        }
+
         complex_t lambda_rough = coeff[i  ].lambda / roughness_factor;
         complex_t lambda_below = coeff[i+1].lambda * roughness_factor;
         complex_t ikd = imag_unit * k.mag() * sample.getLayer(i)->getThickness();
@@ -106,7 +93,6 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k,
                     (lambda_rough+lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda *
                     std::exp( ikd*lambda);
     }
-
     // Normalize to incoming downward travelling amplitude = 1.
     complex_t T0 = coeff[0].getScalarT();
     for (size_t i=0; i<N; ++i) {

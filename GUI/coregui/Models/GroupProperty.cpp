@@ -67,17 +67,20 @@ QString GroupProperty::getCurrentType() const
 
 void GroupProperty::setCurrentType(const QString &type)
 {
+    qDebug() << "GroupProperty::setCurrentType(const QString &type)" << type;
     if(type == getCurrentType()) return;
 
     m_current_type = type;
 
     if(m_parent) {
         if (auto item = m_parent->getChildByName(m_current_type)) {
-        }
-        ParameterizedItem *item = createCorrespondingItem();
+            //m_parent->emitValueChanged();
+        } else {
+            ParameterizedItem *new_item = createCorrespondingItem();
 //        item->setName(getCurrentType());
-        m_parent->insertChildItem(-1, item);
+            m_parent->insertChildItem(-1, new_item);
         //emit m_parent->subItemChanged(getGroupName());
+        }
     }
 }
 

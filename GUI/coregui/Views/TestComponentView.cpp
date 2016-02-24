@@ -31,7 +31,8 @@ TestComponentView::TestComponentView(MainWindow *mainWindow)
     , m_model(new SampleModel(this))
     , m_treeView(new QTreeView)
     , m_editor1(new ComponentEditor)
-    , m_editor2(new ComponentEditor)
+//    , m_editor2(new ComponentEditor)
+    , m_editor2(0)
     , m_editor3(0)
 //    , m_editor3(new ComponentEditor)
 {
@@ -42,7 +43,7 @@ TestComponentView::TestComponentView(MainWindow *mainWindow)
     hlayout->addWidget(m_editor1);
 
     QVBoxLayout *rightPanel = new QVBoxLayout;
-    rightPanel->addWidget(m_editor2);
+//    rightPanel->addWidget(m_editor2);
 //    rightPanel->addWidget(m_editor3);
 
     hlayout->addLayout(rightPanel);
@@ -56,6 +57,7 @@ TestComponentView::TestComponentView(MainWindow *mainWindow)
 void TestComponentView::onSelectionChanged(const QItemSelection &selected, const QItemSelection &)
 {
     qDebug() << "TestComponentView::onSelectionChanged" << selected;
+    return;
 
     QModelIndexList indices = selected.indexes();
 
@@ -91,7 +93,7 @@ void TestComponentView::init_editors()
 
     // editors
     m_editor1->setPresentationType(ComponentEditorFlags::SHOW_DETAILED | ComponentEditorFlags::BROWSER_TABLE);
-    m_editor2->setPresentationType(ComponentEditorFlags::SHOW_DETAILED | ComponentEditorFlags::BROWSER_TABLE);
+//    m_editor2->setPresentationType(ComponentEditorFlags::SHOW_DETAILED | ComponentEditorFlags::BROWSER_TABLE);
 //    m_editor3->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_GROUPBOX);
 
 //    m_editor1->setItem(m_model->getMultiLayerItem());

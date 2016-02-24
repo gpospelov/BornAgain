@@ -427,14 +427,17 @@ The general solution of (\ref{Ewavez}) will be a linear function of $z$:
 \begin{equation}
   \phi_{\il}(z) = A^0_{\il} + A^1_{\il}z.
 \end{equation}
-In \BornAgain,
-such total reflection is imposed if $|f_{\il}|$ falls below a very small value
-(currently $10^{-20}$).
-However, except for the top vacuum layer
-this ought to be inconsequential
-because the index of refraction should always
-have an absorptive component that prevents $f_{\il}$ from becoming zero.
-
+In \BornAgain, such a linear wavefunction amplitude can not be handled by the form factors,
+which are only defined in terms of plain waves with complex wavevector components.
+The following cases are treated seperately:
+\begin{itemize}
+  \item The top layer has $f_0=0$: regardless of whether or not the top layer is the only layer present,
+    the solution will consist of a simple constant wavefunction amplitude ($\phi_0(z) = A^0_0$).
+    Since this does not cause any problem with form factor calculations, nothing needs to be done.
+  \item $f_{\il}=0$ for a layer with $\il>0$: In this case $f_{\il}$ will be given a very small imaginary value,
+    representing a slight absorption. However, this should be inconsequential because the index of refraction
+    of non-vacuum layer always contains an absorptive component.
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \newpage % TEMPORARY

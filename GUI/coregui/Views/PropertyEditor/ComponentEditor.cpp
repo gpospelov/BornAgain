@@ -30,18 +30,20 @@
 ComponentEditor::ComponentEditor(QWidget *parent)
     : QWidget(parent)
     , m_d(new ComponentEditorPrivate(this))
-    , m_presentationType(PresentationType::CONDENSED)
 {
     setWindowTitle(QLatin1String("Property Editor"));
     setObjectName(QLatin1String("ComponentEditor"));
-
-    m_d->m_browser->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setMargin(0);
     layout->addWidget(m_d->m_browser);
 
     connectManager();
+}
+
+ComponentEditor::~ComponentEditor()
+{
+
 }
 
 void ComponentEditor::setItem(ParameterizedItem *item)
@@ -81,6 +83,12 @@ void ComponentEditor::clearEditor()
     m_d->clear();
 
     connectManager();
+}
+
+void ComponentEditor::setPresentationType(ComponentEditorFlags::PresentationType presentationType)
+{
+    m_d->setPresentationType(presentationType);
+    layout()->addWidget(m_d->m_browser);
 }
 
 void ComponentEditor::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
@@ -150,33 +158,30 @@ QList<ParameterizedItem *> ComponentEditor::componentItems(ParameterizedItem *it
 {
     QList<ParameterizedItem *> result;
 
-//    if(m_presentationType == PresentationType::DETAILED) {
-//        result = item->childItems();
+    if(m_d->isShowDetailed()) {
+        result = item->childItems();
+    }
 
-//    } else {
+    else if (m_d->isShowCondensed()) {
 
-//        if(item->modelType() == Constants::GroupItemType) {
-//            GroupItem *groupItem = dynamic_cast<GroupItem *>(item);
-//            ParameterizedItem *currentItemInGroup = groupItem->group()->getCurrentItem();
-//            Q_ASSERT(currentItemInGroup);
-//            result.append(currentItemInGroup);
-//            return result;
-//        }
+        if(item->modelType() == Constants::GroupItemType) {
+            GroupItem *groupItem = dynamic_cast<GroupItem *>(item);
+            ParameterizedItem *currentItemInGroup = groupItem->group()->getCurrentItem();
+            Q_ASSERT(currentItemInGroup);
+            result.append(currentItemInGroup);
+        } else {
 
+            foreach(ParameterizedItem *child, item->childItems()) {
+                if(child->modelType() == Constants::PropertyType) {
+                    result.append(child);
+                }
+                if(child->modelType() == Constants::GroupItemType) {
+                    result.append(child);
+                }
+            }
+        }
 
-//        foreach(ParameterizedItem *child, item->childItems()) {
-//            if(child->modelType() == Constants::PropertyType) {
-//                result.append(child);
-//            }
-//            if(child->modelType() == Constants::GroupItemType) {
-//                result.append(child);
-//            }
-//        }
-
-//    }
-
-    result = item->childItems();
-
+    }
 
     return result;
 }

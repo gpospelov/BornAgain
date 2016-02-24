@@ -29,16 +29,11 @@ ComponentEditorPrivate::ComponentEditorPrivate(QWidget *parent)
     , m_manager(0)
     , m_read_only_manager(0)
     , m_propertyFactory(new PropertyVariantFactory(parent))
+    , m_presentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_TABLE)
 {
-    QtTreePropertyBrowser *browser = new QtTreePropertyBrowser(parent);
-    browser->setResizeMode(QtTreePropertyBrowser::Interactive);
-    browser->setRootIsDecorated(false);
-    m_browser = browser;
-
     m_read_only_manager = new PropertyVariantManager(parent);
-
     m_manager = new PropertyVariantManager(parent);
-    m_browser->setFactoryForManager(m_manager, m_propertyFactory);
+    init_browser();
 }
 
 void ComponentEditorPrivate::clear()
@@ -54,6 +49,49 @@ void ComponentEditorPrivate::clear()
     m_qtproperty_to_item.clear();
     m_item_to_qtvariantproperty.clear();
 
+}
+
+void ComponentEditorPrivate::setPresentationType(ComponentEditorFlags::PresentationType presentationType)
+{
+    clear();
+    m_presentationType = presentationType;
+    init_browser();
+}
+
+void ComponentEditorPrivate::init_browser()
+{
+    delete m_browser;
+    m_browser = 0;
+
+    if(m_presentationType & ComponentEditorFlags::BROWSER_TABLE) {
+        QtTreePropertyBrowser *browser = new QtTreePropertyBrowser;
+        browser->setResizeMode(QtTreePropertyBrowser::Interactive);
+        browser->setRootIsDecorated(false);
+        m_browser = browser;
+    }
+
+    else if(m_presentationType & ComponentEditorFlags::BROWSER_GROUPBOX) {
+        m_browser = new QtGroupBoxPropertyBrowser;
+    }
+
+    else if(m_presentationType & ComponentEditorFlags::BROWSER_BUTTON) {
+        m_browser = new QtButtonPropertyBrowser;
+    }
+    else {
+        throw GUIHelpers::Error("ComponentEditorPrivate::init_browser() -> Error. Unknown browser type.");
+    }
+    m_browser->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+    m_browser->setFactoryForManager(m_manager, m_propertyFactory);
+}
+
+bool ComponentEditorPrivate::isShowDetailed() const
+{
+    return m_presentationType & ComponentEditorFlags::SHOW_DETAILED;
+}
+
+bool ComponentEditorPrivate::isShowCondensed() const
+{
+    return m_presentationType & ComponentEditorFlags::SHOW_CONDENSED;
 }
 
 QtVariantProperty *ComponentEditorPrivate::processPropertyForItem(ParameterizedItem *item, QtVariantProperty *parentProperty)

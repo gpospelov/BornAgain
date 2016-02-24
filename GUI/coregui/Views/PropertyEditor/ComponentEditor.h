@@ -17,31 +17,30 @@
 #define COMPONENTEDITOR_H
 
 #include "WinDllMacros.h"
-#include "ComponentEditorPrivate.h"
+#include "ComponentEditorFlags.h"
 #include <QWidget>
 #include <memory>
 
 class ComponentEditorPrivate;
-class QtProperty;
 class ParameterizedItem;
-class QtVariantProperty;
-class QModelIndex;
 class SessionModel;
+class QtVariantProperty;
+class QtProperty;
 
 class BA_CORE_API_ ComponentEditor : public QWidget
 {
     Q_OBJECT
 public:
-    enum class PresentationType {DETAILED, CONDENSED};
-
     ComponentEditor(QWidget *parent = 0);
-
+    ~ComponentEditor();
 
     void setItem(ParameterizedItem *item);
 
     void updateEditor(ParameterizedItem *item, QtVariantProperty *parentProperty = 0);
 
     void clearEditor();
+
+    void setPresentationType(ComponentEditorFlags::PresentationType presentationType);
 
 public slots:
     void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
@@ -59,12 +58,9 @@ private:
     void disconnectManager();
     void connectManager();
 
-
-
     std::unique_ptr<ComponentEditorPrivate> m_d;
     ParameterizedItem *m_item;
-    PresentationType m_presentationType;
-
 };
+
 
 #endif

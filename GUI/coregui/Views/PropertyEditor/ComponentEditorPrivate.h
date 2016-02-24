@@ -17,8 +17,8 @@
 #define COMPONENTEDITORPRIVATE_H
 
 #include "WinDllMacros.h"
+#include "ComponentEditorFlags.h"
 #include <QMap>
-#include <QModelIndex>
 #include <memory>
 
 class ComponentEditorPrivate;
@@ -35,10 +35,16 @@ class BA_CORE_API_ ComponentEditorPrivate
 public:
     ComponentEditorPrivate(QWidget *parent);
     void clear();
+    void setPresentationType(ComponentEditorFlags::PresentationType presentationType);
+    void init_browser();
+
+    bool isShowDetailed() const;
+    bool isShowCondensed() const;
+
     QtVariantProperty *processPropertyForItem(ParameterizedItem *item, QtVariantProperty *parentProperty);
+
     QtVariantProperty *getPropertyForItem(ParameterizedItem *item);
     QtVariantProperty *createQtVariantProperty(ParameterizedItem *item);
-
 
     QtAbstractPropertyBrowser *m_browser;
     QtVariantPropertyManager  *m_manager;
@@ -46,10 +52,9 @@ public:
     PropertyVariantFactory *m_propertyFactory;
 
     QMap<QtProperty *, ParameterizedItem *> m_qtproperty_to_item;
-//    QMap<QModelIndex, QtVariantProperty *> m_index_to_qtvariantproperty;
     QMap<ParameterizedItem *, QtVariantProperty *> m_item_to_qtvariantproperty;
 
-
+    ComponentEditorFlags::PresentationType m_presentationType;
 };
 
 

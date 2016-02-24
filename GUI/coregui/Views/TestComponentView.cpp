@@ -65,13 +65,13 @@ void TestComponentView::onSelectionChanged(const QItemSelection &selected, const
 void TestComponentView::init_editors()
 {
     // sample model
-//    SampleBuilderFactory factory;
-//    boost::scoped_ptr<ISample> P_sample(factory.createSample("CylindersInDWBABuilder"));
+    SampleBuilderFactory factory;
+    boost::scoped_ptr<ISample> P_sample(factory.createSample("CylindersInDWBABuilder"));
 
-//    GUIObjectBuilder guiBuilder;
-//    guiBuilder.populateSampleModel(m_model, *P_sample);
+    GUIObjectBuilder guiBuilder;
+    guiBuilder.populateSampleModel(m_model, *P_sample);
 
-    m_model->insertNewItem(Constants::ParticleType);
+//    m_model->insertNewItem(Constants::ParticleType);
 
     // tree view
     m_treeView->setModel(m_model);
@@ -81,6 +81,9 @@ void TestComponentView::init_editors()
 
 
     // editors
+    m_editor1->setPresentationType(ComponentEditorFlags::SHOW_DETAILED | ComponentEditorFlags::BROWSER_TABLE);
+//    m_editor2->setPresentationType(ComponentEditor::SHOW_CONDENSED);
+
 //    m_editor1->setItem(m_model->getMultiLayerItem());
     m_editor1->setItem(m_model->getTopItem());
 }

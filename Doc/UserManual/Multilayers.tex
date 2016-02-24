@@ -182,6 +182,18 @@ The first two terms describe the exponential intensity decrease
 due to absorption, while
 the oscillatory term in square brackets
 is responsible for waveguide effects in layers with finite thickness.
+
+The flux can also be written in terms of the one-dimensional wavefunctions $\phi^{\pm}(z)$:
+\begin{equation}
+  \begin{array}{@{}l@{\;}l}
+  \v{J}(\r) =& \left|\phi^+(z)+\phi^-(z)\right|^2\cdot\k_\plll \\
+  &+ \left[ \left|\phi^+(z)\right|^2 k_\perp' - \left|\phi^-(z)\right|^2 k_\perp' +
+  2\Im(\phi^-(z){\phi^+}^*(z))k_\perp'' \right]\cdot \v{\hat z}.
+  \end{array}
+\end{equation}
+The first term denotes the horizontal component of the flux and can be seen to consist of the product 
+of the particle density at position $z$ and the wavector $\k_\plll$. The $z$-component consists of the difference between the up- and downward travelling wave components and an extra term that encodes the interference between them.
+
 In the special case of a purely imaginary~$k_{\perp \il}$,
 the flux becomes:
 \begin{equation}
@@ -411,8 +423,10 @@ and agrees with Fresnel's result for $s$-polarized light.\footnote
 
 The above algorithm fails if $f_{\il}\to0$
 because $M_{\il+1}$ becomes singular.
-A layer with $f_{\il}=0$ only sustains horizontal wave propagation;
-radiation from below or above is totally reflected at its boundaries.
+The general solution of (\ref{Ewavez}) will be a linear function of $z$:
+\begin{equation}
+  \phi_{\il}(z) = A^0_{\il} + A^1_{\il}z.
+\end{equation}
 In \BornAgain,
 such total reflection is imposed if $|f_{\il}|$ falls below a very small value
 (currently $10^{-20}$).

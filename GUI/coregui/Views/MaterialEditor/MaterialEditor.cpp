@@ -92,6 +92,7 @@ MaterialProperty MaterialEditor::this_getDefaultMaterialProperty()
     if((m_materialModel->rowCount( QModelIndex() ) ) ) {
         QModelIndex firstIndex = m_materialModel->index(0, 0, QModelIndex());
         MaterialItem *material = dynamic_cast<MaterialItem *>(m_materialModel->itemForIndex(firstIndex));
+        Q_ASSERT(material);
         return MaterialProperty(material->getIdentifier());
     } else {
         return MaterialProperty();

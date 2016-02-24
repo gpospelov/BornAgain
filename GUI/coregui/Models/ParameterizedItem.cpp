@@ -311,6 +311,7 @@ ParameterizedItem *ParameterizedItem::getPropertyItem(const QString &name) const
     if (isRegisteredProperty(name)) {
         return m_propertyItems[name];
     }
+    return 0;
 }
 
 QVariant ParameterizedItem::getRegisteredProperty(const QString &name) const
@@ -503,7 +504,7 @@ void ParameterizedItem::addToValidChildren(const QString &name, PortInfo::EPorts
     }
 }
 
-void ParameterizedItem::swapChildren(int first, int second)
+void ParameterizedItem::swapChildren(int /* first */, int /* second */)
 {
 //    m_children.swap(first, second);
 }
@@ -631,6 +632,7 @@ void ParameterizedItem::print() const
 ////! called when new SubItem appeared
 void ParameterizedItem::onSubItemChanged(const QString &propertyName)
 {
+    Q_UNUSED(propertyName);
 //    connect(m_sub_items[propertyName], SIGNAL(propertyChanged(QString)), this,
 //            SLOT(processSubItemPropertyChanged(QString)), Qt::UniqueConnection);
 //    emit subItemChanged(propertyName);
@@ -654,7 +656,7 @@ void ParameterizedItem::processSubItemPropertyChanged(const QString &propertyNam
 {
     Q_UNUSED(propertyName);
     return;
-    ParameterizedItem *propertyItem = qobject_cast<ParameterizedItem *>(sender());
+//    ParameterizedItem *propertyItem = qobject_cast<ParameterizedItem *>(sender());
     /*for (QMap<QString, ParameterizedItem *>::iterator it = m_sub_items.begin();
          it != m_sub_items.end(); ++it) {
         if (it.value() == propertyItem) {
@@ -665,7 +667,7 @@ void ParameterizedItem::processSubItemPropertyChanged(const QString &propertyNam
             return;
         }
     }*/
-    throw -1; // NEW
+//    throw -1; // NEW
 //    throw GUIHelpers::Error("ParameterizedItem::onSubItemPropertyChanged() ->"
 //                            " Error. No such propertyItem found");
 }

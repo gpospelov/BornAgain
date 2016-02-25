@@ -123,9 +123,10 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft, const QModelInde
 
 
         if(roles.contains(Qt::UserRole)) {
-            qDebug() << "AAAA UserRole";
-            m_d->updateQtVariantPropertyAppearance(property, item->getAttribute());
-        } else {
+            m_d->updatePropertyAppearance(property, item->getAttribute());
+        }
+
+        if(roles.contains(Qt::DisplayRole) || roles.contains(Qt::EditRole)) {
             disconnectManager();
             property->setValue(item->value());
             connectManager();

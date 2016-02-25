@@ -143,24 +143,27 @@ QtVariantProperty *ComponentEditorPrivate::createQtVariantProperty(Parameterized
 
     QString property_name = item->itemName();
     QVariant prop_value = item->value();
+    PropertyAttribute prop_attribute = item->getAttribute();
     qDebug() << "QtVariantProperty *ComponentEditor::createQtVariantProperty(ParameterizedItem) item" << item << property_name << prop_value;
 
     if (!prop_value.isValid()) {
-        return m_manager->addProperty(QtVariantPropertyManager::groupTypeId(), property_name);
-//        return nullptr;
+        result = m_manager->addProperty(QtVariantPropertyManager::groupTypeId(), property_name);
+
+    } else {
+        int type = GUIHelpers::getVariantType(prop_value);
+
+        QtVariantPropertyManager *manager = m_manager;
+        if(prop_attribute.isReadOnly()) manager = m_read_only_manager;
+
+        if(!manager->isPropertyTypeSupported(type)) {
+            throw GUIHelpers::Error("ComponentEditor::createQtVariantProperty() -> Error. Not supported property type "+property_name);
+        }
+
+        result = manager->addProperty(type, property_name);
+        result->setValue(prop_value);
     }
-    int type = GUIHelpers::getVariantType(prop_value);
 
-    QtVariantPropertyManager *manager = m_manager;
-
-    if(!manager->isPropertyTypeSupported(type)) {
-        throw GUIHelpers::Error("ComponentEditor::createQtVariantProperty() -> Error. Not supported property type "+property_name);
-    }
-
-    result = manager->addProperty(type, property_name);
-    result->setValue(prop_value);
-
-    updateQtVariantPropertyAppearance(result, item->getAttribute());
+    updatePropertyAppearance(result, item->getAttribute());
     return result;
 }
 
@@ -178,8 +181,10 @@ void ComponentEditorPrivate::removeQtVariantProperty(QtVariantProperty *property
 }
 
 //! update visual apperance of qtVariantProperty using ParameterizedItem's attribute
-void ComponentEditorPrivate::updateQtVariantPropertyAppearance(QtVariantProperty *property, const PropertyAttribute &attribute)
+void ComponentEditorPrivate::updatePropertyAppearance(QtVariantProperty *property, const PropertyAttribute &attribute)
 {
+    Q_ASSERT(property);
+
     QString toolTip = attribute.getToolTip();
     if(!toolTip.isEmpty()) property->setToolTip(toolTip);
 

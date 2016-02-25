@@ -35,6 +35,7 @@ class BA_CORE_API_ ComponentEditorPrivate
 {
 public:
     ComponentEditorPrivate(QWidget *parent);
+
     void clear();
     void setPresentationType(ComponentEditorFlags::PresentationType presentationType);
     void init_browser();
@@ -43,10 +44,8 @@ public:
     bool isShowCondensed() const;
 
     QtVariantProperty *processPropertyForItem(ParameterizedItem *item, QtVariantProperty *parentProperty);
-
     QtVariantProperty *getPropertyForItem(ParameterizedItem *item);
     ParameterizedItem *getItemForProperty(QtProperty *property);
-
     QtVariantProperty *createQtVariantProperty(ParameterizedItem *item);
     void removeQtVariantProperty(QtVariantProperty *property);
     void updatePropertyAppearance(QtVariantProperty *property, const PropertyAttribute &attribute);

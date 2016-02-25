@@ -46,7 +46,6 @@ public slots:
     void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
     void onRowsInserted(const QModelIndex &parent, int first, int last);
 
-
 private slots:
     void onQtPropertyChanged(QtProperty *, const QVariant &value);
 
@@ -59,7 +58,6 @@ private:
     void connectManager();
 
     std::unique_ptr<ComponentEditorPrivate> m_d;
-    ParameterizedItem *m_item;
 };
 
 

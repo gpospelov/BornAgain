@@ -15,6 +15,7 @@
 
 #include "SamplePropertyWidget.h"
 #include "AwesomePropertyEditor.h"
+#include "ComponentEditor.h"
 #include "ParameterizedItem.h"
 #include <QVBoxLayout>
 #include <QItemSelection>
@@ -35,7 +36,8 @@ SamplePropertyWidget::SamplePropertyWidget(QItemSelectionModel *selection_model,
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    m_propertyEditor = new AwesomePropertyEditor(this);
+//    m_propertyEditor = new AwesomePropertyEditor(this);
+    m_propertyEditor = new ComponentEditor(this);
 
     mainLayout->addWidget(m_propertyEditor);
     setLayout(mainLayout);
@@ -71,7 +73,8 @@ void SamplePropertyWidget::selectionChanged(const QItemSelection & selected,
     if(indices.size()) {
         ParameterizedItem *item = static_cast<ParameterizedItem *>(
                 indices.back().internalPointer());
-        m_propertyEditor->setItem(item, item->modelType());
+//        m_propertyEditor->setItem(item, item->modelType());
+        m_propertyEditor->setItem(item);
     } else {
         m_propertyEditor->setItem(0);
     }

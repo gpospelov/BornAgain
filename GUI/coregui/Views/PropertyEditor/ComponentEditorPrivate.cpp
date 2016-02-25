@@ -194,6 +194,10 @@ void ComponentEditorPrivate::updatePropertyAppearance(QtVariantProperty *propert
         property->setEnabled(true);
     }
 
+    if(attribute.isHidden()) {
+
+    }
+
     QVariant prop_value = property->value();
     if (!prop_value.isValid()) return;
     int type = GUIHelpers::getVariantType(prop_value);

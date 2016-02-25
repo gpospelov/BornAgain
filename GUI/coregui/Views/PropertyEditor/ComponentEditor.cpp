@@ -123,6 +123,10 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft, const QModelInde
 
 
         if(roles.contains(Qt::UserRole)) {
+            if(m_d->isShowCondensed() && item->getAttribute().isHidden()) {
+                m_d->removeQtVariantProperty(property);
+                return;
+            }
             m_d->updatePropertyAppearance(property, item->getAttribute());
         }
 
@@ -132,17 +136,18 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft, const QModelInde
             connectManager();
         }
 
-//       if(item->modelType() == Constants::GroupItemType && m_d->isShowCondensed()) {
-//            foreach(ParameterizedItem *child, item->childItems()) {
-//                if(child->getAttribute().isVisible()) continue;
-//                if(QtVariantProperty *childProperty = m_d->getPropertyForItem(child)) {
-//                    m_d->removeQtVariantProperty(childProperty);
-//                }
-//            }
-//        }
-
+    } else {
+        if(roles.contains(Qt::UserRole)) {
+            ParameterizedItem *parentItem = item->parent();
+            if(QtVariantProperty *parentProperty = m_d->getPropertyForItem(parentItem)) {
+                updateEditor(item, parentProperty);
+            }
+        }
 
     }
+
+
+
 
 }
 
@@ -152,9 +157,13 @@ void ComponentEditor::onRowsInserted(const QModelIndex &parent, int first, int l
     SessionModel *model = qobject_cast<SessionModel *>(sender());
 
     ParameterizedItem *item = model->itemForIndex(parent);
+    Q_ASSERT(item);
     qDebug() << "model " << item << item->modelType() << item->itemName();
 
-    Q_ASSERT(m_d->m_item_to_qtvariantproperty.contains(item));
+//    Q_ASSERT(m_d->m_item_to_qtvariantproperty.contains(item));
+    if(QtVariantProperty *property = m_d->getPropertyForItem(item)) {
+        updateEditor(item, property);
+    }
 
     // special case for "condensed" editor
     qDebug() << "AAAA onRowsInserted() -> special case";
@@ -166,7 +175,6 @@ void ComponentEditor::onRowsInserted(const QModelIndex &parent, int first, int l
 //        }
 //    }
 
-    updateEditor(item, m_d->m_item_to_qtvariantproperty[item]);
 
 }
 
@@ -193,35 +201,18 @@ QList<ParameterizedItem *> ComponentEditor::componentItems(ParameterizedItem *it
 
     else if (m_d->isShowCondensed()) {
 
-        if(item->modelType() == Constants::GroupItemType) {
-            GroupItem *groupItem = dynamic_cast<GroupItem *>(item);
-            ParameterizedItem *currentItemInGroup = groupItem->group()->getCurrentItem();
-            Q_ASSERT(currentItemInGroup);
-            result.append(currentItemInGroup);
-
-//            foreach(ParameterizedItem *child, item->childItems()) {
-//                if(child != currentItemInGroup) {
-//                    if(m_d->m_item_to_qtvariantproperty.contains(child)) {
-//                        m_d->m_item_to_qtvariantproperty[child]->setEnabled(false);
-//                    }
-//                } else {
-//                    if(m_d->m_item_to_qtvariantproperty.contains(child)) {
-//                        m_d->m_item_to_qtvariantproperty[child]->setEnabled(true);
-//                    }
-//                }
-//            }
-
-        } else {
-
             foreach(ParameterizedItem *child, item->childItems()) {
+                if(child->getAttribute().isHidden()) continue;
                 if(child->modelType() == Constants::PropertyType) {
                     result.append(child);
                 }
                 if(child->modelType() == Constants::GroupItemType) {
                     result.append(child);
                 }
+                if(item->modelType() == Constants::GroupItemType) {
+                    result.append(child);
+                }
             }
-        }
 
     }
 

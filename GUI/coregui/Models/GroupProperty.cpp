@@ -82,8 +82,9 @@ void GroupProperty::setCurrentType(const QString &type)
 
         if (auto item = m_parent->getChildByName(m_current_type)) {
             qDebug() << "GGG GroupProperty::setCurrentType 1.1 picking existing new item" << item << item->displayName();
-//            item->getAttribute().setVisible();
+            item->getAttribute().setVisible();
             item->getAttribute().setEnabled();
+//            prevItem->getAttribute().setAppearance(PropertyAttribute::VISIBLE | PropertyAttribute::ENABLED);
             item->emitValueChanged(QVector<int>() << Qt::UserRole);
         } else {
             ParameterizedItem *new_item = createCorrespondingItem();
@@ -93,8 +94,9 @@ void GroupProperty::setCurrentType(const QString &type)
 
         if(prevItem) {
             qDebug() << "GGG GroupProperty::setCurrentType 1.3 disabline previous item" << prevItem << prevItem->displayName();
-//            prevItem->getAttribute().setHidden();
+            prevItem->getAttribute().setHidden();
             prevItem->getAttribute().setDisabled();
+//            prevItem->getAttribute().setAppearance(PropertyAttribute::HIDDEN | PropertyAttribute::DISABLED);
             prevItem->emitValueChanged(QVector<int>() << Qt::UserRole);
         }
 

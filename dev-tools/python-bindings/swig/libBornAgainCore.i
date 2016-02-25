@@ -11,9 +11,10 @@
  //#pragma SWIG nowarn=509 // overload ignored since reference=pointer
 
 
- %feature("director");
+ //%feature("director");
 
- /*
+ // manually declare which classes can be derived in Python and passed back to C++
+ // this can be used to reduce the bloat in the swig-generated code
 %feature("director") IAbstractParticle;
 %feature("director") IAxis;
 %feature("director") ICloneable;
@@ -29,6 +30,8 @@
 %feature("director") IntensityDataFunctions;
 %feature("director") IntensityDataIOFactory;
 %feature("director") IMaterial;
+%feature("director") INamed;
+%feature("director") INamedShared;
 %feature("director") Instrument;
 %feature("director") InterferenceFunction1DLattice;
 %feature("director") InterferenceFunctionRadialParaCrystal;
@@ -37,6 +40,7 @@
 %feature("director") InterferenceFunctionNone;
 %feature("director") IObserver;
 %feature("director") IParameterized;
+%feature("director") IParameterizedShared;
 %feature("director") IParticle;
 %feature("director") IResolutionFunction2D;
 %feature("director") IRotation;
@@ -46,6 +50,7 @@
 %feature("director") IsGISAXSDetector;
 %feature("director") IShape2D;
 %feature("director") ISingleton;
+
 /**/
 %include "std_complex.i"
 %include "std_string.i"

@@ -1176,6 +1176,13 @@ class VariableBinAxis(IAxis):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, VariableBinAxis, name)
     __repr__ = _swig_repr
+
+    def __init__(self, name, nbins, bin_boundaries):
+        this = _libBornAgainCore.new_VariableBinAxis(name, nbins, bin_boundaries)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_VariableBinAxis
     __del__ = lambda self: None
 
@@ -1209,29 +1216,8 @@ class VariableBinAxis(IAxis):
     def createClippedAxis(self, left, right):
         return _libBornAgainCore.VariableBinAxis_createClippedAxis(self, left, right)
 
-    def __init__(self, *args):
-        if self.__class__ == VariableBinAxis:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_VariableBinAxis(_self, *args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-
-    def _print(self, ostr):
-        return _libBornAgainCore.VariableBinAxis__print(self, ostr)
-
-    def equals(self, other):
-        return _libBornAgainCore.VariableBinAxis_equals(self, other)
-
     def __getitem__(self, i):
         return _libBornAgainCore.VariableBinAxis___getitem__(self, i)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_VariableBinAxis(self)
-        return weakref_proxy(self)
 VariableBinAxis_swigregister = _libBornAgainCore.VariableBinAxis_swigregister
 VariableBinAxis_swigregister(VariableBinAxis)
 
@@ -1245,6 +1231,13 @@ class ConstKBinAxis(VariableBinAxis):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, ConstKBinAxis, name)
     __repr__ = _swig_repr
+
+    def __init__(self, name, nbins, start, end):
+        this = _libBornAgainCore.new_ConstKBinAxis(name, nbins, start, end)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_ConstKBinAxis
     __del__ = lambda self: None
 
@@ -1253,27 +1246,6 @@ class ConstKBinAxis(VariableBinAxis):
 
     def createClippedAxis(self, left, right):
         return _libBornAgainCore.ConstKBinAxis_createClippedAxis(self, left, right)
-
-    def __init__(self, *args):
-        if self.__class__ == ConstKBinAxis:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_ConstKBinAxis(_self, *args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-
-    def _print(self, ostr):
-        return _libBornAgainCore.ConstKBinAxis__print(self, ostr)
-
-    def equals(self, other):
-        return _libBornAgainCore.ConstKBinAxis_equals(self, other)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_ConstKBinAxis(self)
-        return weakref_proxy(self)
 ConstKBinAxis_swigregister = _libBornAgainCore.ConstKBinAxis_swigregister
 ConstKBinAxis_swigregister(ConstKBinAxis)
 
@@ -1733,11 +1705,7 @@ class Crystal(IClusteredParticles):
     __repr__ = _swig_repr
 
     def __init__(self, lattice_basis, lattice):
-        if self.__class__ == Crystal:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_Crystal(_self, lattice_basis, lattice)
+        this = _libBornAgainCore.new_Crystal(lattice_basis, lattice)
         try:
             self.this.append(this)
         except Exception:
@@ -1771,16 +1739,6 @@ class Crystal(IClusteredParticles):
 
     def setDWFactor(self, dw_factor):
         return _libBornAgainCore.Crystal_setDWFactor(self, dw_factor)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_Crystal(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.Crystal__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.Crystal_init_parameters(self)
 Crystal_swigregister = _libBornAgainCore.Crystal_swigregister
 Crystal_swigregister(Crystal)
 
@@ -1796,11 +1754,7 @@ class CustomBinAxis(VariableBinAxis):
     __repr__ = _swig_repr
 
     def __init__(self, name, nbins, start, end):
-        if self.__class__ == CustomBinAxis:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_CustomBinAxis(_self, name, nbins, start, end)
+        this = _libBornAgainCore.new_CustomBinAxis(name, nbins, start, end)
         try:
             self.this.append(this)
         except Exception:
@@ -1819,16 +1773,6 @@ class CustomBinAxis(VariableBinAxis):
 
     def createClippedAxis(self, left, right):
         return _libBornAgainCore.CustomBinAxis_createClippedAxis(self, left, right)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.CustomBinAxis__print(self, ostr)
-
-    def equals(self, other):
-        return _libBornAgainCore.CustomBinAxis_equals(self, other)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_CustomBinAxis(self)
-        return weakref_proxy(self)
 CustomBinAxis_swigregister = _libBornAgainCore.CustomBinAxis_swigregister
 CustomBinAxis_swigregister(CustomBinAxis)
 
@@ -1841,18 +1785,10 @@ class IDistribution1D(IParameterized):
     for _s in [IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IDistribution1D, name)
-    __repr__ = _swig_repr
 
-    def __init__(self):
-        if self.__class__ == IDistribution1D:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_IDistribution1D(_self, )
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
     __swig_destroy__ = _libBornAgainCore.delete_IDistribution1D
     __del__ = lambda self: None
 
@@ -1873,16 +1809,6 @@ class IDistribution1D(IParameterized):
 
     def generateValues(self, nbr_samples, xmin, xmax):
         return _libBornAgainCore.IDistribution1D_generateValues(self, nbr_samples, xmin, xmax)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IDistribution1D(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.IDistribution1D__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.IDistribution1D_init_parameters(self)
 IDistribution1D_swigregister = _libBornAgainCore.IDistribution1D_swigregister
 IDistribution1D_swigregister(IDistribution1D)
 
@@ -1898,11 +1824,7 @@ class DistributionGate(IDistribution1D):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == DistributionGate:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_DistributionGate(_self, *args)
+        this = _libBornAgainCore.new_DistributionGate(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -1927,16 +1849,6 @@ class DistributionGate(IDistribution1D):
 
     def generateValueList(self, *args):
         return _libBornAgainCore.DistributionGate_generateValueList(self, *args)
-
-    def init_parameters(self):
-        return _libBornAgainCore.DistributionGate_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_DistributionGate(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.DistributionGate__print(self, ostr)
 DistributionGate_swigregister = _libBornAgainCore.DistributionGate_swigregister
 DistributionGate_swigregister(DistributionGate)
 
@@ -1952,11 +1864,7 @@ class DistributionLorentz(IDistribution1D):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == DistributionLorentz:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_DistributionLorentz(_self, *args)
+        this = _libBornAgainCore.new_DistributionLorentz(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -1978,16 +1886,6 @@ class DistributionLorentz(IDistribution1D):
 
     def generateValueList(self, *args):
         return _libBornAgainCore.DistributionLorentz_generateValueList(self, *args)
-
-    def init_parameters(self):
-        return _libBornAgainCore.DistributionLorentz_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_DistributionLorentz(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.DistributionLorentz__print(self, ostr)
 DistributionLorentz_swigregister = _libBornAgainCore.DistributionLorentz_swigregister
 DistributionLorentz_swigregister(DistributionLorentz)
 
@@ -2003,11 +1901,7 @@ class DistributionGaussian(IDistribution1D):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == DistributionGaussian:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_DistributionGaussian(_self, *args)
+        this = _libBornAgainCore.new_DistributionGaussian(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -2029,16 +1923,6 @@ class DistributionGaussian(IDistribution1D):
 
     def generateValueList(self, *args):
         return _libBornAgainCore.DistributionGaussian_generateValueList(self, *args)
-
-    def init_parameters(self):
-        return _libBornAgainCore.DistributionGaussian_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_DistributionGaussian(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.DistributionGaussian__print(self, ostr)
 DistributionGaussian_swigregister = _libBornAgainCore.DistributionGaussian_swigregister
 DistributionGaussian_swigregister(DistributionGaussian)
 
@@ -2054,11 +1938,7 @@ class DistributionLogNormal(IDistribution1D):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == DistributionLogNormal:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_DistributionLogNormal(_self, *args)
+        this = _libBornAgainCore.new_DistributionLogNormal(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -2083,16 +1963,6 @@ class DistributionLogNormal(IDistribution1D):
 
     def generateValueList(self, *args):
         return _libBornAgainCore.DistributionLogNormal_generateValueList(self, *args)
-
-    def init_parameters(self):
-        return _libBornAgainCore.DistributionLogNormal_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_DistributionLogNormal(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.DistributionLogNormal__print(self, ostr)
 DistributionLogNormal_swigregister = _libBornAgainCore.DistributionLogNormal_swigregister
 DistributionLogNormal_swigregister(DistributionLogNormal)
 
@@ -2108,11 +1978,7 @@ class DistributionCosine(IDistribution1D):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == DistributionCosine:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_DistributionCosine(_self, *args)
+        this = _libBornAgainCore.new_DistributionCosine(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -2134,16 +2000,6 @@ class DistributionCosine(IDistribution1D):
 
     def generateValueList(self, *args):
         return _libBornAgainCore.DistributionCosine_generateValueList(self, *args)
-
-    def init_parameters(self):
-        return _libBornAgainCore.DistributionCosine_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_DistributionCosine(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.DistributionCosine__print(self, ostr)
 DistributionCosine_swigregister = _libBornAgainCore.DistributionCosine_swigregister
 DistributionCosine_swigregister(DistributionCosine)
 
@@ -2159,11 +2015,7 @@ class Ellipse(IShape2D):
     __repr__ = _swig_repr
 
     def __init__(self, xcenter, ycenter, xradius, yradius, theta=0.0):
-        if self.__class__ == Ellipse:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_Ellipse(_self, xcenter, ycenter, xradius, yradius, theta)
+        this = _libBornAgainCore.new_Ellipse(xcenter, ycenter, xradius, yradius, theta)
         try:
             self.this.append(this)
         except Exception:
@@ -2191,13 +2043,6 @@ class Ellipse(IShape2D):
         return _libBornAgainCore.Ellipse_getTheta(self)
     __swig_destroy__ = _libBornAgainCore.delete_Ellipse
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_Ellipse(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.Ellipse__print(self, ostr)
 Ellipse_swigregister = _libBornAgainCore.Ellipse_swigregister
 Ellipse_swigregister(Ellipse)
 
@@ -2213,11 +2058,7 @@ class FixedBinAxis(IAxis):
     __repr__ = _swig_repr
 
     def __init__(self, name, nbins, start, end):
-        if self.__class__ == FixedBinAxis:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FixedBinAxis(_self, name, nbins, start, end)
+        this = _libBornAgainCore.new_FixedBinAxis(name, nbins, start, end)
         try:
             self.this.append(this)
         except Exception:
@@ -2255,18 +2096,8 @@ class FixedBinAxis(IAxis):
     def createClippedAxis(self, left, right):
         return _libBornAgainCore.FixedBinAxis_createClippedAxis(self, left, right)
 
-    def _print(self, ostr):
-        return _libBornAgainCore.FixedBinAxis__print(self, ostr)
-
-    def equals(self, other):
-        return _libBornAgainCore.FixedBinAxis_equals(self, other)
-
     def __getitem__(self, i):
         return _libBornAgainCore.FixedBinAxis___getitem__(self, i)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FixedBinAxis(self)
-        return weakref_proxy(self)
 FixedBinAxis_swigregister = _libBornAgainCore.FixedBinAxis_swigregister
 FixedBinAxis_swigregister(FixedBinAxis)
 
@@ -2441,11 +2272,7 @@ class FormFactorAnisoPyramid(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, length, width, height, alpha):
-        if self.__class__ == FormFactorAnisoPyramid:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorAnisoPyramid(_self, length, width, height, alpha)
+        this = _libBornAgainCore.new_FormFactorAnisoPyramid(length, width, height, alpha)
         try:
             self.this.append(this)
         except Exception:
@@ -2476,19 +2303,6 @@ class FormFactorAnisoPyramid(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorAnisoPyramid_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorAnisoPyramid_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorAnisoPyramid_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorAnisoPyramid(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorAnisoPyramid__print(self, ostr)
 FormFactorAnisoPyramid_swigregister = _libBornAgainCore.FormFactorAnisoPyramid_swigregister
 FormFactorAnisoPyramid_swigregister(FormFactorAnisoPyramid)
 
@@ -2504,11 +2318,7 @@ class FormFactorBox(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, length, width, height):
-        if self.__class__ == FormFactorBox:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorBox(_self, length, width, height)
+        this = _libBornAgainCore.new_FormFactorBox(length, width, height)
         try:
             self.this.append(this)
         except Exception:
@@ -2534,21 +2344,8 @@ class FormFactorBox(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorBox_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorBox_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorBox_init_parameters(self)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorBox
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorBox(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorBox__print(self, ostr)
 FormFactorBox_swigregister = _libBornAgainCore.FormFactorBox_swigregister
 FormFactorBox_swigregister(FormFactorBox)
 
@@ -2564,11 +2361,7 @@ class FormFactorCone(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, radius, height, alpha):
-        if self.__class__ == FormFactorCone:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorCone(_self, radius, height, alpha)
+        this = _libBornAgainCore.new_FormFactorCone(radius, height, alpha)
         try:
             self.this.append(this)
         except Exception:
@@ -2593,19 +2386,6 @@ class FormFactorCone(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorCone_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorCone_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorCone_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorCone(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorCone__print(self, ostr)
 FormFactorCone_swigregister = _libBornAgainCore.FormFactorCone_swigregister
 FormFactorCone_swigregister(FormFactorCone)
 
@@ -2621,11 +2401,7 @@ class FormFactorCone6(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, radius, height, alpha):
-        if self.__class__ == FormFactorCone6:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorCone6(_self, radius, height, alpha)
+        this = _libBornAgainCore.new_FormFactorCone6(radius, height, alpha)
         try:
             self.this.append(this)
         except Exception:
@@ -2650,19 +2426,6 @@ class FormFactorCone6(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorCone6_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorCone6_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorCone6_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorCone6(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorCone6__print(self, ostr)
 FormFactorCone6_swigregister = _libBornAgainCore.FormFactorCone6_swigregister
 FormFactorCone6_swigregister(FormFactorCone6)
 
@@ -2678,11 +2441,7 @@ class FormFactorCrystal(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, lattice, basis_form_factor, meso_form_factor):
-        if self.__class__ == FormFactorCrystal:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorCrystal(_self, lattice, basis_form_factor, meso_form_factor)
+        this = _libBornAgainCore.new_FormFactorCrystal(lattice, basis_form_factor, meso_form_factor)
         try:
             self.this.append(this)
         except Exception:
@@ -2707,19 +2466,6 @@ class FormFactorCrystal(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorCrystal_evaluate_for_q(self, q)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorCrystal(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorCrystal__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorCrystal_init_parameters(self)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorCrystal_check_initialization(self)
 FormFactorCrystal_swigregister = _libBornAgainCore.FormFactorCrystal_swigregister
 FormFactorCrystal_swigregister(FormFactorCrystal)
 
@@ -2735,11 +2481,7 @@ class FormFactorCuboctahedron(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, length, height, height_ratio, alpha):
-        if self.__class__ == FormFactorCuboctahedron:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorCuboctahedron(_self, length, height, height_ratio, alpha)
+        this = _libBornAgainCore.new_FormFactorCuboctahedron(length, height, height_ratio, alpha)
         try:
             self.this.append(this)
         except Exception:
@@ -2770,19 +2512,6 @@ class FormFactorCuboctahedron(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorCuboctahedron_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorCuboctahedron_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorCuboctahedron_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorCuboctahedron(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorCuboctahedron__print(self, ostr)
 FormFactorCuboctahedron_swigregister = _libBornAgainCore.FormFactorCuboctahedron_swigregister
 FormFactorCuboctahedron_swigregister(FormFactorCuboctahedron)
 
@@ -2798,11 +2527,7 @@ class FormFactorCylinder(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, radius, height):
-        if self.__class__ == FormFactorCylinder:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorCylinder(_self, radius, height)
+        this = _libBornAgainCore.new_FormFactorCylinder(radius, height)
         try:
             self.this.append(this)
         except Exception:
@@ -2824,19 +2549,6 @@ class FormFactorCylinder(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorCylinder_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorCylinder_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorCylinder_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorCylinder(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorCylinder__print(self, ostr)
 FormFactorCylinder_swigregister = _libBornAgainCore.FormFactorCylinder_swigregister
 FormFactorCylinder_swigregister(FormFactorCylinder)
 
@@ -2852,11 +2564,7 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == FormFactorDecoratorDebyeWaller:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorDecoratorDebyeWaller(_self, *args)
+        this = _libBornAgainCore.new_FormFactorDecoratorDebyeWaller(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -2872,19 +2580,6 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
 
     def evaluate(self, wavevectors):
         return _libBornAgainCore.FormFactorDecoratorDebyeWaller_evaluate(self, wavevectors)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorDecoratorDebyeWaller_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorDecoratorDebyeWaller_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorDecoratorDebyeWaller(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorDecoratorDebyeWaller__print(self, ostr)
 FormFactorDecoratorDebyeWaller_swigregister = _libBornAgainCore.FormFactorDecoratorDebyeWaller_swigregister
 FormFactorDecoratorDebyeWaller_swigregister(FormFactorDecoratorDebyeWaller)
 
@@ -2900,11 +2595,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, radius_x, radius_y, height):
-        if self.__class__ == FormFactorEllipsoidalCylinder:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorEllipsoidalCylinder(_self, radius_x, radius_y, height)
+        this = _libBornAgainCore.new_FormFactorEllipsoidalCylinder(radius_x, radius_y, height)
         try:
             self.this.append(this)
         except Exception:
@@ -2930,21 +2621,8 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorEllipsoidalCylinder_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorEllipsoidalCylinder_init_parameters(self)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorEllipsoidalCylinder
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorEllipsoidalCylinder(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorEllipsoidalCylinder__print(self, ostr)
 FormFactorEllipsoidalCylinder_swigregister = _libBornAgainCore.FormFactorEllipsoidalCylinder_swigregister
 FormFactorEllipsoidalCylinder_swigregister(FormFactorEllipsoidalCylinder)
 
@@ -2960,11 +2638,7 @@ class FormFactorFullSphere(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, radius):
-        if self.__class__ == FormFactorFullSphere:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorFullSphere(_self, radius)
+        this = _libBornAgainCore.new_FormFactorFullSphere(radius)
         try:
             self.this.append(this)
         except Exception:
@@ -2981,21 +2655,8 @@ class FormFactorFullSphere(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorFullSphere_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorFullSphere_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorFullSphere_init_parameters(self)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorFullSphere
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorFullSphere(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorFullSphere__print(self, ostr)
 FormFactorFullSphere_swigregister = _libBornAgainCore.FormFactorFullSphere_swigregister
 FormFactorFullSphere_swigregister(FormFactorFullSphere)
 
@@ -3011,11 +2672,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, radius, height):
-        if self.__class__ == FormFactorFullSpheroid:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorFullSpheroid(_self, radius, height)
+        this = _libBornAgainCore.new_FormFactorFullSpheroid(radius, height)
         try:
             self.this.append(this)
         except Exception:
@@ -3037,19 +2694,6 @@ class FormFactorFullSpheroid(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorFullSpheroid_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorFullSpheroid_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorFullSpheroid_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorFullSpheroid(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorFullSpheroid__print(self, ostr)
 FormFactorFullSpheroid_swigregister = _libBornAgainCore.FormFactorFullSpheroid_swigregister
 FormFactorFullSpheroid_swigregister(FormFactorFullSpheroid)
 
@@ -3065,11 +2709,7 @@ class FormFactorGauss(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == FormFactorGauss:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorGauss(_self, *args)
+        this = _libBornAgainCore.new_FormFactorGauss(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -3091,19 +2731,6 @@ class FormFactorGauss(IFormFactorBorn):
 
     def getRadius(self):
         return _libBornAgainCore.FormFactorGauss_getRadius(self)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorGauss_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorGauss_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorGauss(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorGauss__print(self, ostr)
 FormFactorGauss_swigregister = _libBornAgainCore.FormFactorGauss_swigregister
 FormFactorGauss_swigregister(FormFactorGauss)
 
@@ -3119,11 +2746,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, radius_x, radius_y, height):
-        if self.__class__ == FormFactorHemiEllipsoid:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorHemiEllipsoid(_self, radius_x, radius_y, height)
+        this = _libBornAgainCore.new_FormFactorHemiEllipsoid(radius_x, radius_y, height)
         try:
             self.this.append(this)
         except Exception:
@@ -3151,19 +2774,6 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorHemiEllipsoid_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorHemiEllipsoid_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorHemiEllipsoid_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorHemiEllipsoid(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorHemiEllipsoid__print(self, ostr)
 FormFactorHemiEllipsoid_swigregister = _libBornAgainCore.FormFactorHemiEllipsoid_swigregister
 FormFactorHemiEllipsoid_swigregister(FormFactorHemiEllipsoid)
 
@@ -3179,11 +2789,7 @@ class FormFactorLorentz(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == FormFactorLorentz:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorLorentz(_self, *args)
+        this = _libBornAgainCore.new_FormFactorLorentz(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -3206,21 +2812,8 @@ class FormFactorLorentz(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorLorentz_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorLorentz_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorLorentz_init_parameters(self)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorLorentz
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorLorentz(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorLorentz__print(self, ostr)
 FormFactorLorentz_swigregister = _libBornAgainCore.FormFactorLorentz_swigregister
 FormFactorLorentz_swigregister(FormFactorLorentz)
 
@@ -3236,11 +2829,7 @@ class FormFactorPrism3(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, length, height):
-        if self.__class__ == FormFactorPrism3:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorPrism3(_self, length, height)
+        this = _libBornAgainCore.new_FormFactorPrism3(length, height)
         try:
             self.this.append(this)
         except Exception:
@@ -3263,21 +2852,8 @@ class FormFactorPrism3(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorPrism3_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorPrism3_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorPrism3_init_parameters(self)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPrism3
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorPrism3(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorPrism3__print(self, ostr)
 FormFactorPrism3_swigregister = _libBornAgainCore.FormFactorPrism3_swigregister
 FormFactorPrism3_swigregister(FormFactorPrism3)
 
@@ -3293,11 +2869,7 @@ class FormFactorPrism6(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, radius, height):
-        if self.__class__ == FormFactorPrism6:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorPrism6(_self, radius, height)
+        this = _libBornAgainCore.new_FormFactorPrism6(radius, height)
         try:
             self.this.append(this)
         except Exception:
@@ -3317,21 +2889,8 @@ class FormFactorPrism6(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorPrism6_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorPrism6_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorPrism6_init_parameters(self)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPrism6
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorPrism6(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorPrism6__print(self, ostr)
 FormFactorPrism6_swigregister = _libBornAgainCore.FormFactorPrism6_swigregister
 FormFactorPrism6_swigregister(FormFactorPrism6)
 
@@ -3347,11 +2906,7 @@ class FormFactorPyramid(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, length, height, alpha):
-        if self.__class__ == FormFactorPyramid:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorPyramid(_self, length, height, alpha)
+        this = _libBornAgainCore.new_FormFactorPyramid(length, height, alpha)
         try:
             self.this.append(this)
         except Exception:
@@ -3379,19 +2934,6 @@ class FormFactorPyramid(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorPyramid_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorPyramid_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorPyramid_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorPyramid(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorPyramid__print(self, ostr)
 FormFactorPyramid_swigregister = _libBornAgainCore.FormFactorPyramid_swigregister
 FormFactorPyramid_swigregister(FormFactorPyramid)
 
@@ -3407,11 +2949,7 @@ class FormFactorRipple1(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, length, width, height):
-        if self.__class__ == FormFactorRipple1:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorRipple1(_self, length, width, height)
+        this = _libBornAgainCore.new_FormFactorRipple1(length, width, height)
         try:
             self.this.append(this)
         except Exception:
@@ -3439,19 +2977,6 @@ class FormFactorRipple1(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorRipple1_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorRipple1_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorRipple1_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorRipple1(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorRipple1__print(self, ostr)
 FormFactorRipple1_swigregister = _libBornAgainCore.FormFactorRipple1_swigregister
 FormFactorRipple1_swigregister(FormFactorRipple1)
 
@@ -3467,11 +2992,7 @@ class FormFactorRipple2(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, length, width, height, asymetry):
-        if self.__class__ == FormFactorRipple2:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorRipple2(_self, length, width, height, asymetry)
+        this = _libBornAgainCore.new_FormFactorRipple2(length, width, height, asymetry)
         try:
             self.this.append(this)
         except Exception:
@@ -3502,19 +3023,6 @@ class FormFactorRipple2(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorRipple2_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorRipple2_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorRipple2_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorRipple2(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorRipple2__print(self, ostr)
 FormFactorRipple2_swigregister = _libBornAgainCore.FormFactorRipple2_swigregister
 FormFactorRipple2_swigregister(FormFactorRipple2)
 
@@ -3530,11 +3038,7 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, mean, sigma):
-        if self.__class__ == FormFactorSphereGaussianRadius:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorSphereGaussianRadius(_self, mean, sigma)
+        this = _libBornAgainCore.new_FormFactorSphereGaussianRadius(mean, sigma)
         try:
             self.this.append(this)
         except Exception:
@@ -3553,19 +3057,6 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorSphereGaussianRadius_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorSphereGaussianRadius_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorSphereGaussianRadius_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorSphereGaussianRadius(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorSphereGaussianRadius__print(self, ostr)
 FormFactorSphereGaussianRadius_swigregister = _libBornAgainCore.FormFactorSphereGaussianRadius_swigregister
 FormFactorSphereGaussianRadius_swigregister(FormFactorSphereGaussianRadius)
 
@@ -3581,11 +3072,7 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, mean, scale_param, n_samples):
-        if self.__class__ == FormFactorSphereLogNormalRadius:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorSphereLogNormalRadius(_self, mean, scale_param, n_samples)
+        this = _libBornAgainCore.new_FormFactorSphereLogNormalRadius(mean, scale_param, n_samples)
         try:
             self.this.append(this)
         except Exception:
@@ -3604,19 +3091,6 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorSphereLogNormalRadius_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorSphereLogNormalRadius_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorSphereLogNormalRadius_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorSphereLogNormalRadius(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorSphereLogNormalRadius__print(self, ostr)
 FormFactorSphereLogNormalRadius_swigregister = _libBornAgainCore.FormFactorSphereLogNormalRadius_swigregister
 FormFactorSphereLogNormalRadius_swigregister(FormFactorSphereLogNormalRadius)
 
@@ -3632,11 +3106,7 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, mean, full_width):
-        if self.__class__ == FormFactorSphereUniformRadius:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorSphereUniformRadius(_self, mean, full_width)
+        this = _libBornAgainCore.new_FormFactorSphereUniformRadius(mean, full_width)
         try:
             self.this.append(this)
         except Exception:
@@ -3655,19 +3125,6 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorSphereUniformRadius_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorSphereUniformRadius_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorSphereUniformRadius_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorSphereUniformRadius(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorSphereUniformRadius__print(self, ostr)
 FormFactorSphereUniformRadius_swigregister = _libBornAgainCore.FormFactorSphereUniformRadius_swigregister
 FormFactorSphereUniformRadius_swigregister(FormFactorSphereUniformRadius)
 
@@ -3683,11 +3140,7 @@ class FormFactorTetrahedron(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, length, height, alpha):
-        if self.__class__ == FormFactorTetrahedron:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorTetrahedron(_self, length, height, alpha)
+        this = _libBornAgainCore.new_FormFactorTetrahedron(length, height, alpha)
         try:
             self.this.append(this)
         except Exception:
@@ -3715,19 +3168,6 @@ class FormFactorTetrahedron(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorTetrahedron_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorTetrahedron_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorTetrahedron_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorTetrahedron(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorTetrahedron__print(self, ostr)
 FormFactorTetrahedron_swigregister = _libBornAgainCore.FormFactorTetrahedron_swigregister
 FormFactorTetrahedron_swigregister(FormFactorTetrahedron)
 
@@ -3743,11 +3183,7 @@ class FormFactorTrivial(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self):
-        if self.__class__ == FormFactorTrivial:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorTrivial(_self, )
+        this = _libBornAgainCore.new_FormFactorTrivial()
         try:
             self.this.append(this)
         except Exception:
@@ -3764,21 +3200,8 @@ class FormFactorTrivial(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorTrivial_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorTrivial_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorTrivial_init_parameters(self)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorTrivial
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorTrivial(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorTrivial__print(self, ostr)
 FormFactorTrivial_swigregister = _libBornAgainCore.FormFactorTrivial_swigregister
 FormFactorTrivial_swigregister(FormFactorTrivial)
 
@@ -3794,11 +3217,7 @@ class FormFactorTruncatedCube(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, length, removed_length):
-        if self.__class__ == FormFactorTruncatedCube:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorTruncatedCube(_self, length, removed_length)
+        this = _libBornAgainCore.new_FormFactorTruncatedCube(length, removed_length)
         try:
             self.this.append(this)
         except Exception:
@@ -3818,24 +3237,8 @@ class FormFactorTruncatedCube(IFormFactorBorn):
 
     def getRemovedLength(self):
         return _libBornAgainCore.FormFactorTruncatedCube_getRemovedLength(self)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorTruncatedCube_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorTruncatedCube_init_parameters(self)
-
-    def evaluate_for_q(self, q):
-        return _libBornAgainCore.FormFactorTruncatedCube_evaluate_for_q(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorTruncatedCube
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorTruncatedCube(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorTruncatedCube__print(self, ostr)
 FormFactorTruncatedCube_swigregister = _libBornAgainCore.FormFactorTruncatedCube_swigregister
 FormFactorTruncatedCube_swigregister(FormFactorTruncatedCube)
 
@@ -3851,11 +3254,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, radius, height):
-        if self.__class__ == FormFactorTruncatedSphere:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorTruncatedSphere(_self, radius, height)
+        this = _libBornAgainCore.new_FormFactorTruncatedSphere(radius, height)
         try:
             self.this.append(this)
         except Exception:
@@ -3874,22 +3273,6 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
 
     def getHeight(self):
         return _libBornAgainCore.FormFactorTruncatedSphere_getHeight(self)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorTruncatedSphere_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorTruncatedSphere_init_parameters(self)
-
-    def evaluate_for_q(self, q):
-        return _libBornAgainCore.FormFactorTruncatedSphere_evaluate_for_q(self, q)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorTruncatedSphere(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorTruncatedSphere__print(self, ostr)
 FormFactorTruncatedSphere_swigregister = _libBornAgainCore.FormFactorTruncatedSphere_swigregister
 FormFactorTruncatedSphere_swigregister(FormFactorTruncatedSphere)
 
@@ -3905,11 +3288,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, radius, height, height_flattening):
-        if self.__class__ == FormFactorTruncatedSpheroid:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorTruncatedSpheroid(_self, radius, height, height_flattening)
+        this = _libBornAgainCore.new_FormFactorTruncatedSpheroid(radius, height, height_flattening)
         try:
             self.this.append(this)
         except Exception:
@@ -3934,19 +3313,6 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
 
     def evaluate_for_q(self, q):
         return _libBornAgainCore.FormFactorTruncatedSpheroid_evaluate_for_q(self, q)
-
-    def check_initialization(self):
-        return _libBornAgainCore.FormFactorTruncatedSpheroid_check_initialization(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorTruncatedSpheroid_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorTruncatedSpheroid(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorTruncatedSpheroid__print(self, ostr)
 FormFactorTruncatedSpheroid_swigregister = _libBornAgainCore.FormFactorTruncatedSpheroid_swigregister
 FormFactorTruncatedSpheroid_swigregister(FormFactorTruncatedSpheroid)
 
@@ -3962,11 +3328,7 @@ class FormFactorWeighted(IFormFactor):
     __repr__ = _swig_repr
 
     def __init__(self):
-        if self.__class__ == FormFactorWeighted:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FormFactorWeighted(_self, )
+        this = _libBornAgainCore.new_FormFactorWeighted()
         try:
             self.this.append(this)
         except Exception:
@@ -3991,16 +3353,6 @@ class FormFactorWeighted(IFormFactor):
 
     def evaluate(self, wavevectors):
         return _libBornAgainCore.FormFactorWeighted_evaluate(self, wavevectors)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FormFactorWeighted(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FormFactorWeighted__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FormFactorWeighted_init_parameters(self)
 FormFactorWeighted_swigregister = _libBornAgainCore.FormFactorWeighted_swigregister
 FormFactorWeighted_swigregister(FormFactorWeighted)
 
@@ -4013,18 +3365,10 @@ class IFTDistribution1D(IParameterized):
     for _s in [IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IFTDistribution1D, name)
-    __repr__ = _swig_repr
 
-    def __init__(self, omega):
-        if self.__class__ == IFTDistribution1D:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_IFTDistribution1D(_self, omega)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
     __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution1D
     __del__ = lambda self: None
 
@@ -4039,16 +3383,6 @@ class IFTDistribution1D(IParameterized):
 
     def getOmega(self):
         return _libBornAgainCore.IFTDistribution1D_getOmega(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.IFTDistribution1D__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.IFTDistribution1D_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IFTDistribution1D(self)
-        return weakref_proxy(self)
 IFTDistribution1D_swigregister = _libBornAgainCore.IFTDistribution1D_swigregister
 IFTDistribution1D_swigregister(IFTDistribution1D)
 
@@ -4064,11 +3398,7 @@ class FTDistribution1DCauchy(IFTDistribution1D):
     __repr__ = _swig_repr
 
     def __init__(self, omega):
-        if self.__class__ == FTDistribution1DCauchy:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FTDistribution1DCauchy(_self, omega)
+        this = _libBornAgainCore.new_FTDistribution1DCauchy(omega)
         try:
             self.this.append(this)
         except Exception:
@@ -4081,16 +3411,6 @@ class FTDistribution1DCauchy(IFTDistribution1D):
 
     def evaluate(self, q):
         return _libBornAgainCore.FTDistribution1DCauchy_evaluate(self, q)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FTDistribution1DCauchy(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FTDistribution1DCauchy__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FTDistribution1DCauchy_init_parameters(self)
 FTDistribution1DCauchy_swigregister = _libBornAgainCore.FTDistribution1DCauchy_swigregister
 FTDistribution1DCauchy_swigregister(FTDistribution1DCauchy)
 
@@ -4106,11 +3426,7 @@ class FTDistribution1DGauss(IFTDistribution1D):
     __repr__ = _swig_repr
 
     def __init__(self, omega):
-        if self.__class__ == FTDistribution1DGauss:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FTDistribution1DGauss(_self, omega)
+        this = _libBornAgainCore.new_FTDistribution1DGauss(omega)
         try:
             self.this.append(this)
         except Exception:
@@ -4123,16 +3439,6 @@ class FTDistribution1DGauss(IFTDistribution1D):
 
     def evaluate(self, q):
         return _libBornAgainCore.FTDistribution1DGauss_evaluate(self, q)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FTDistribution1DGauss(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FTDistribution1DGauss__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FTDistribution1DGauss_init_parameters(self)
 FTDistribution1DGauss_swigregister = _libBornAgainCore.FTDistribution1DGauss_swigregister
 FTDistribution1DGauss_swigregister(FTDistribution1DGauss)
 
@@ -4148,11 +3454,7 @@ class FTDistribution1DGate(IFTDistribution1D):
     __repr__ = _swig_repr
 
     def __init__(self, omega):
-        if self.__class__ == FTDistribution1DGate:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FTDistribution1DGate(_self, omega)
+        this = _libBornAgainCore.new_FTDistribution1DGate(omega)
         try:
             self.this.append(this)
         except Exception:
@@ -4165,16 +3467,6 @@ class FTDistribution1DGate(IFTDistribution1D):
 
     def evaluate(self, q):
         return _libBornAgainCore.FTDistribution1DGate_evaluate(self, q)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FTDistribution1DGate(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FTDistribution1DGate__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FTDistribution1DGate_init_parameters(self)
 FTDistribution1DGate_swigregister = _libBornAgainCore.FTDistribution1DGate_swigregister
 FTDistribution1DGate_swigregister(FTDistribution1DGate)
 
@@ -4190,11 +3482,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
     __repr__ = _swig_repr
 
     def __init__(self, omega):
-        if self.__class__ == FTDistribution1DTriangle:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FTDistribution1DTriangle(_self, omega)
+        this = _libBornAgainCore.new_FTDistribution1DTriangle(omega)
         try:
             self.this.append(this)
         except Exception:
@@ -4207,16 +3495,6 @@ class FTDistribution1DTriangle(IFTDistribution1D):
 
     def evaluate(self, q):
         return _libBornAgainCore.FTDistribution1DTriangle_evaluate(self, q)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FTDistribution1DTriangle(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FTDistribution1DTriangle__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FTDistribution1DTriangle_init_parameters(self)
 FTDistribution1DTriangle_swigregister = _libBornAgainCore.FTDistribution1DTriangle_swigregister
 FTDistribution1DTriangle_swigregister(FTDistribution1DTriangle)
 
@@ -4232,11 +3510,7 @@ class FTDistribution1DCosine(IFTDistribution1D):
     __repr__ = _swig_repr
 
     def __init__(self, omega):
-        if self.__class__ == FTDistribution1DCosine:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FTDistribution1DCosine(_self, omega)
+        this = _libBornAgainCore.new_FTDistribution1DCosine(omega)
         try:
             self.this.append(this)
         except Exception:
@@ -4249,16 +3523,6 @@ class FTDistribution1DCosine(IFTDistribution1D):
 
     def evaluate(self, q):
         return _libBornAgainCore.FTDistribution1DCosine_evaluate(self, q)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FTDistribution1DCosine(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FTDistribution1DCosine__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FTDistribution1DCosine_init_parameters(self)
 FTDistribution1DCosine_swigregister = _libBornAgainCore.FTDistribution1DCosine_swigregister
 FTDistribution1DCosine_swigregister(FTDistribution1DCosine)
 
@@ -4274,11 +3538,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
     __repr__ = _swig_repr
 
     def __init__(self, omega, eta):
-        if self.__class__ == FTDistribution1DVoigt:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FTDistribution1DVoigt(_self, omega, eta)
+        this = _libBornAgainCore.new_FTDistribution1DVoigt(omega, eta)
         try:
             self.this.append(this)
         except Exception:
@@ -4294,16 +3554,6 @@ class FTDistribution1DVoigt(IFTDistribution1D):
 
     def getEta(self):
         return _libBornAgainCore.FTDistribution1DVoigt_getEta(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FTDistribution1DVoigt_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FTDistribution1DVoigt(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FTDistribution1DVoigt__print(self, ostr)
 FTDistribution1DVoigt_swigregister = _libBornAgainCore.FTDistribution1DVoigt_swigregister
 FTDistribution1DVoigt_swigregister(FTDistribution1DVoigt)
 
@@ -4316,18 +3566,10 @@ class IFTDistribution2D(IParameterized):
     for _s in [IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IFTDistribution2D, name)
-    __repr__ = _swig_repr
 
-    def __init__(self, coherence_length_x, coherence_length_y):
-        if self.__class__ == IFTDistribution2D:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_IFTDistribution2D(_self, coherence_length_x, coherence_length_y)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
     __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution2D
     __del__ = lambda self: None
 
@@ -4351,16 +3593,6 @@ class IFTDistribution2D(IParameterized):
 
     def evaluate(self, qx, qy):
         return _libBornAgainCore.IFTDistribution2D_evaluate(self, qx, qy)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.IFTDistribution2D__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.IFTDistribution2D_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IFTDistribution2D(self)
-        return weakref_proxy(self)
 IFTDistribution2D_swigregister = _libBornAgainCore.IFTDistribution2D_swigregister
 IFTDistribution2D_swigregister(IFTDistribution2D)
 
@@ -4376,11 +3608,7 @@ class FTDistribution2DCauchy(IFTDistribution2D):
     __repr__ = _swig_repr
 
     def __init__(self, coherence_length_x, coherence_length_y):
-        if self.__class__ == FTDistribution2DCauchy:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FTDistribution2DCauchy(_self, coherence_length_x, coherence_length_y)
+        this = _libBornAgainCore.new_FTDistribution2DCauchy(coherence_length_x, coherence_length_y)
         try:
             self.this.append(this)
         except Exception:
@@ -4393,16 +3621,6 @@ class FTDistribution2DCauchy(IFTDistribution2D):
 
     def evaluate(self, qx, qy):
         return _libBornAgainCore.FTDistribution2DCauchy_evaluate(self, qx, qy)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FTDistribution2DCauchy(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FTDistribution2DCauchy__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FTDistribution2DCauchy_init_parameters(self)
 FTDistribution2DCauchy_swigregister = _libBornAgainCore.FTDistribution2DCauchy_swigregister
 FTDistribution2DCauchy_swigregister(FTDistribution2DCauchy)
 
@@ -4418,11 +3636,7 @@ class FTDistribution2DGauss(IFTDistribution2D):
     __repr__ = _swig_repr
 
     def __init__(self, coherence_length_x, coherence_length_y):
-        if self.__class__ == FTDistribution2DGauss:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FTDistribution2DGauss(_self, coherence_length_x, coherence_length_y)
+        this = _libBornAgainCore.new_FTDistribution2DGauss(coherence_length_x, coherence_length_y)
         try:
             self.this.append(this)
         except Exception:
@@ -4435,16 +3649,6 @@ class FTDistribution2DGauss(IFTDistribution2D):
 
     def evaluate(self, qx, qy):
         return _libBornAgainCore.FTDistribution2DGauss_evaluate(self, qx, qy)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FTDistribution2DGauss(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FTDistribution2DGauss__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FTDistribution2DGauss_init_parameters(self)
 FTDistribution2DGauss_swigregister = _libBornAgainCore.FTDistribution2DGauss_swigregister
 FTDistribution2DGauss_swigregister(FTDistribution2DGauss)
 
@@ -4460,11 +3664,7 @@ class FTDistribution2DGate(IFTDistribution2D):
     __repr__ = _swig_repr
 
     def __init__(self, coherence_length_x, coherence_length_y):
-        if self.__class__ == FTDistribution2DGate:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FTDistribution2DGate(_self, coherence_length_x, coherence_length_y)
+        this = _libBornAgainCore.new_FTDistribution2DGate(coherence_length_x, coherence_length_y)
         try:
             self.this.append(this)
         except Exception:
@@ -4477,16 +3677,6 @@ class FTDistribution2DGate(IFTDistribution2D):
 
     def evaluate(self, qx, qy):
         return _libBornAgainCore.FTDistribution2DGate_evaluate(self, qx, qy)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FTDistribution2DGate(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FTDistribution2DGate__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FTDistribution2DGate_init_parameters(self)
 FTDistribution2DGate_swigregister = _libBornAgainCore.FTDistribution2DGate_swigregister
 FTDistribution2DGate_swigregister(FTDistribution2DGate)
 
@@ -4502,11 +3692,7 @@ class FTDistribution2DCone(IFTDistribution2D):
     __repr__ = _swig_repr
 
     def __init__(self, coherence_length_x, coherence_length_y):
-        if self.__class__ == FTDistribution2DCone:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FTDistribution2DCone(_self, coherence_length_x, coherence_length_y)
+        this = _libBornAgainCore.new_FTDistribution2DCone(coherence_length_x, coherence_length_y)
         try:
             self.this.append(this)
         except Exception:
@@ -4519,16 +3705,6 @@ class FTDistribution2DCone(IFTDistribution2D):
 
     def evaluate(self, qx, qy):
         return _libBornAgainCore.FTDistribution2DCone_evaluate(self, qx, qy)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FTDistribution2DCone(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FTDistribution2DCone__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FTDistribution2DCone_init_parameters(self)
 FTDistribution2DCone_swigregister = _libBornAgainCore.FTDistribution2DCone_swigregister
 FTDistribution2DCone_swigregister(FTDistribution2DCone)
 
@@ -4544,11 +3720,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
     __repr__ = _swig_repr
 
     def __init__(self, coherence_length_x, coherence_length_y, eta):
-        if self.__class__ == FTDistribution2DVoigt:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FTDistribution2DVoigt(_self, coherence_length_x, coherence_length_y, eta)
+        this = _libBornAgainCore.new_FTDistribution2DVoigt(coherence_length_x, coherence_length_y, eta)
         try:
             self.this.append(this)
         except Exception:
@@ -4564,16 +3736,6 @@ class FTDistribution2DVoigt(IFTDistribution2D):
 
     def getEta(self):
         return _libBornAgainCore.FTDistribution2DVoigt_getEta(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FTDistribution2DVoigt_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FTDistribution2DVoigt(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FTDistribution2DVoigt__print(self, ostr)
 FTDistribution2DVoigt_swigregister = _libBornAgainCore.FTDistribution2DVoigt_swigregister
 FTDistribution2DVoigt_swigregister(FTDistribution2DVoigt)
 
@@ -4586,18 +3748,10 @@ class IFTDecayFunction1D(IParameterized):
     for _s in [IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IFTDecayFunction1D, name)
-    __repr__ = _swig_repr
 
-    def __init__(self, omega):
-        if self.__class__ == IFTDecayFunction1D:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_IFTDecayFunction1D(_self, omega)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
     __swig_destroy__ = _libBornAgainCore.delete_IFTDecayFunction1D
     __del__ = lambda self: None
 
@@ -4612,16 +3766,6 @@ class IFTDecayFunction1D(IParameterized):
 
     def getOmega(self):
         return _libBornAgainCore.IFTDecayFunction1D_getOmega(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.IFTDecayFunction1D__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.IFTDecayFunction1D_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IFTDecayFunction1D(self)
-        return weakref_proxy(self)
 IFTDecayFunction1D_swigregister = _libBornAgainCore.IFTDecayFunction1D_swigregister
 IFTDecayFunction1D_swigregister(IFTDecayFunction1D)
 
@@ -4637,11 +3781,7 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
     __repr__ = _swig_repr
 
     def __init__(self, omega):
-        if self.__class__ == FTDecayFunction1DCauchy:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FTDecayFunction1DCauchy(_self, omega)
+        this = _libBornAgainCore.new_FTDecayFunction1DCauchy(omega)
         try:
             self.this.append(this)
         except Exception:
@@ -4654,16 +3794,6 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
 
     def evaluate(self, q):
         return _libBornAgainCore.FTDecayFunction1DCauchy_evaluate(self, q)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FTDecayFunction1DCauchy(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FTDecayFunction1DCauchy__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FTDecayFunction1DCauchy_init_parameters(self)
 FTDecayFunction1DCauchy_swigregister = _libBornAgainCore.FTDecayFunction1DCauchy_swigregister
 FTDecayFunction1DCauchy_swigregister(FTDecayFunction1DCauchy)
 
@@ -4679,11 +3809,7 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
     __repr__ = _swig_repr
 
     def __init__(self, omega):
-        if self.__class__ == FTDecayFunction1DGauss:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FTDecayFunction1DGauss(_self, omega)
+        this = _libBornAgainCore.new_FTDecayFunction1DGauss(omega)
         try:
             self.this.append(this)
         except Exception:
@@ -4696,16 +3822,6 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
 
     def evaluate(self, q):
         return _libBornAgainCore.FTDecayFunction1DGauss_evaluate(self, q)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FTDecayFunction1DGauss(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FTDecayFunction1DGauss__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FTDecayFunction1DGauss_init_parameters(self)
 FTDecayFunction1DGauss_swigregister = _libBornAgainCore.FTDecayFunction1DGauss_swigregister
 FTDecayFunction1DGauss_swigregister(FTDecayFunction1DGauss)
 
@@ -4721,11 +3837,7 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
     __repr__ = _swig_repr
 
     def __init__(self, omega):
-        if self.__class__ == FTDecayFunction1DTriangle:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FTDecayFunction1DTriangle(_self, omega)
+        this = _libBornAgainCore.new_FTDecayFunction1DTriangle(omega)
         try:
             self.this.append(this)
         except Exception:
@@ -4738,16 +3850,6 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
 
     def evaluate(self, q):
         return _libBornAgainCore.FTDecayFunction1DTriangle_evaluate(self, q)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FTDecayFunction1DTriangle(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FTDecayFunction1DTriangle__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FTDecayFunction1DTriangle_init_parameters(self)
 FTDecayFunction1DTriangle_swigregister = _libBornAgainCore.FTDecayFunction1DTriangle_swigregister
 FTDecayFunction1DTriangle_swigregister(FTDecayFunction1DTriangle)
 
@@ -4763,11 +3865,7 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
     __repr__ = _swig_repr
 
     def __init__(self, omega, eta):
-        if self.__class__ == FTDecayFunction1DVoigt:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FTDecayFunction1DVoigt(_self, omega, eta)
+        this = _libBornAgainCore.new_FTDecayFunction1DVoigt(omega, eta)
         try:
             self.this.append(this)
         except Exception:
@@ -4783,16 +3881,6 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
 
     def getEta(self):
         return _libBornAgainCore.FTDecayFunction1DVoigt_getEta(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FTDecayFunction1DVoigt_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FTDecayFunction1DVoigt(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FTDecayFunction1DVoigt__print(self, ostr)
 FTDecayFunction1DVoigt_swigregister = _libBornAgainCore.FTDecayFunction1DVoigt_swigregister
 FTDecayFunction1DVoigt_swigregister(FTDecayFunction1DVoigt)
 
@@ -4805,18 +3893,10 @@ class IFTDecayFunction2D(IParameterized):
     for _s in [IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IFTDecayFunction2D, name)
-    __repr__ = _swig_repr
 
-    def __init__(self, decay_length_x, decay_length_y):
-        if self.__class__ == IFTDecayFunction2D:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_IFTDecayFunction2D(_self, decay_length_x, decay_length_y)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
     __swig_destroy__ = _libBornAgainCore.delete_IFTDecayFunction2D
     __del__ = lambda self: None
 
@@ -4843,16 +3923,6 @@ class IFTDecayFunction2D(IParameterized):
 
     def transformToStarBasis(self, qX, qY, alpha, a, b, qa, qb):
         return _libBornAgainCore.IFTDecayFunction2D_transformToStarBasis(self, qX, qY, alpha, a, b, qa, qb)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.IFTDecayFunction2D__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.IFTDecayFunction2D_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IFTDecayFunction2D(self)
-        return weakref_proxy(self)
 IFTDecayFunction2D_swigregister = _libBornAgainCore.IFTDecayFunction2D_swigregister
 IFTDecayFunction2D_swigregister(IFTDecayFunction2D)
 
@@ -4868,11 +3938,7 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
     __repr__ = _swig_repr
 
     def __init__(self, decay_length_x, decay_length_y):
-        if self.__class__ == FTDecayFunction2DCauchy:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FTDecayFunction2DCauchy(_self, decay_length_x, decay_length_y)
+        this = _libBornAgainCore.new_FTDecayFunction2DCauchy(decay_length_x, decay_length_y)
         try:
             self.this.append(this)
         except Exception:
@@ -4885,16 +3951,6 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
 
     def evaluate(self, qx, qy):
         return _libBornAgainCore.FTDecayFunction2DCauchy_evaluate(self, qx, qy)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FTDecayFunction2DCauchy(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FTDecayFunction2DCauchy__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FTDecayFunction2DCauchy_init_parameters(self)
 FTDecayFunction2DCauchy_swigregister = _libBornAgainCore.FTDecayFunction2DCauchy_swigregister
 FTDecayFunction2DCauchy_swigregister(FTDecayFunction2DCauchy)
 
@@ -4910,11 +3966,7 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
     __repr__ = _swig_repr
 
     def __init__(self, decay_length_x, decay_length_y):
-        if self.__class__ == FTDecayFunction2DGauss:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FTDecayFunction2DGauss(_self, decay_length_x, decay_length_y)
+        this = _libBornAgainCore.new_FTDecayFunction2DGauss(decay_length_x, decay_length_y)
         try:
             self.this.append(this)
         except Exception:
@@ -4927,16 +3979,6 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
 
     def evaluate(self, qx, qy):
         return _libBornAgainCore.FTDecayFunction2DGauss_evaluate(self, qx, qy)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FTDecayFunction2DGauss(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FTDecayFunction2DGauss__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FTDecayFunction2DGauss_init_parameters(self)
 FTDecayFunction2DGauss_swigregister = _libBornAgainCore.FTDecayFunction2DGauss_swigregister
 FTDecayFunction2DGauss_swigregister(FTDecayFunction2DGauss)
 
@@ -4952,11 +3994,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
     __repr__ = _swig_repr
 
     def __init__(self, decay_length_x, decay_length_y, eta):
-        if self.__class__ == FTDecayFunction2DVoigt:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_FTDecayFunction2DVoigt(_self, decay_length_x, decay_length_y, eta)
+        this = _libBornAgainCore.new_FTDecayFunction2DVoigt(decay_length_x, decay_length_y, eta)
         try:
             self.this.append(this)
         except Exception:
@@ -4972,16 +4010,6 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
 
     def getEta(self):
         return _libBornAgainCore.FTDecayFunction2DVoigt_getEta(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.FTDecayFunction2DVoigt_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FTDecayFunction2DVoigt(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.FTDecayFunction2DVoigt__print(self, ostr)
 FTDecayFunction2DVoigt_swigregister = _libBornAgainCore.FTDecayFunction2DVoigt_swigregister
 FTDecayFunction2DVoigt_swigregister(FTDecayFunction2DVoigt)
 
@@ -5039,6 +4067,9 @@ class Simulation(ICloneable, IParameterized):
     for _s in [ICloneable, IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, Simulation, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
     __swig_destroy__ = _libBornAgainCore.delete_Simulation
     __del__ = lambda self: None
@@ -5093,36 +4124,6 @@ class Simulation(ICloneable, IParameterized):
 
     def getDistributionHandler(self):
         return _libBornAgainCore.Simulation_getDistributionHandler(self)
-
-    def __init__(self, *args):
-        if self.__class__ == Simulation:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_Simulation(_self, *args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-
-    def init_parameters(self):
-        return _libBornAgainCore.Simulation_init_parameters(self)
-
-    def initSimulationElementVector(self):
-        return _libBornAgainCore.Simulation_initSimulationElementVector(self)
-
-    def transferResultsToIntensityMap(self):
-        return _libBornAgainCore.Simulation_transferResultsToIntensityMap(self)
-
-    def getBeamIntensity(self):
-        return _libBornAgainCore.Simulation_getBeamIntensity(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_Simulation(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.Simulation__print(self, ostr)
 Simulation_swigregister = _libBornAgainCore.Simulation_swigregister
 Simulation_swigregister(Simulation)
 
@@ -5136,6 +4137,13 @@ class GISASSimulation(Simulation):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, GISASSimulation, name)
     __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        this = _libBornAgainCore.new_GISASSimulation(*args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_GISASSimulation
     __del__ = lambda self: None
 
@@ -5198,36 +4206,6 @@ class GISASSimulation(Simulation):
 
     def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
         return _libBornAgainCore.GISASSimulation_addParametersToExternalPool(self, path, external_pool, copy_number)
-
-    def __init__(self, *args):
-        if self.__class__ == GISASSimulation:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_GISASSimulation(_self, *args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-
-    def init_parameters(self):
-        return _libBornAgainCore.GISASSimulation_init_parameters(self)
-
-    def initSimulationElementVector(self):
-        return _libBornAgainCore.GISASSimulation_initSimulationElementVector(self)
-
-    def transferResultsToIntensityMap(self):
-        return _libBornAgainCore.GISASSimulation_transferResultsToIntensityMap(self)
-
-    def getBeamIntensity(self):
-        return _libBornAgainCore.GISASSimulation_getBeamIntensity(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_GISASSimulation(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.GISASSimulation__print(self, ostr)
 GISASSimulation_swigregister = _libBornAgainCore.GISASSimulation_swigregister
 GISASSimulation_swigregister(GISASSimulation)
 
@@ -5401,11 +4379,7 @@ class Histogram1D(IHistogram):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == Histogram1D:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_Histogram1D(_self, *args)
+        this = _libBornAgainCore.new_Histogram1D(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -5442,10 +4416,6 @@ class Histogram1D(IHistogram):
         return _libBornAgainCore.Histogram1D_crop(self, xmin, xmax)
     __swig_destroy__ = _libBornAgainCore.delete_Histogram1D
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_Histogram1D(self)
-        return weakref_proxy(self)
 Histogram1D_swigregister = _libBornAgainCore.Histogram1D_swigregister
 Histogram1D_swigregister(Histogram1D)
 
@@ -5461,11 +4431,7 @@ class Histogram2D(IHistogram):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == Histogram2D:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_Histogram2D(_self, *args)
+        this = _libBornAgainCore.new_Histogram2D(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -5490,10 +4456,6 @@ class Histogram2D(IHistogram):
         return _libBornAgainCore.Histogram2D_crop(self, xmin, ymin, xmax, ymax)
     __swig_destroy__ = _libBornAgainCore.delete_Histogram2D
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_Histogram2D(self)
-        return weakref_proxy(self)
 Histogram2D_swigregister = _libBornAgainCore.Histogram2D_swigregister
 Histogram2D_swigregister(Histogram2D)
 
@@ -5509,11 +4471,7 @@ class HomogeneousMaterial(IMaterial):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == HomogeneousMaterial:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_HomogeneousMaterial(_self, *args)
+        this = _libBornAgainCore.new_HomogeneousMaterial(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -5532,13 +4490,6 @@ class HomogeneousMaterial(IMaterial):
 
     def createTransformedMaterial(self, rotation):
         return _libBornAgainCore.HomogeneousMaterial_createTransformedMaterial(self, rotation)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.HomogeneousMaterial__print(self, ostr)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_HomogeneousMaterial(self)
-        return weakref_proxy(self)
 HomogeneousMaterial_swigregister = _libBornAgainCore.HomogeneousMaterial_swigregister
 HomogeneousMaterial_swigregister(HomogeneousMaterial)
 
@@ -5554,11 +4505,7 @@ class HomogeneousMagneticMaterial(HomogeneousMaterial):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == HomogeneousMagneticMaterial:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_HomogeneousMagneticMaterial(_self, *args)
+        this = _libBornAgainCore.new_HomogeneousMagneticMaterial(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -5578,15 +4525,8 @@ class HomogeneousMagneticMaterial(HomogeneousMaterial):
 
     def createTransformedMaterial(self, rotation):
         return _libBornAgainCore.HomogeneousMagneticMaterial_createTransformedMaterial(self, rotation)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.HomogeneousMagneticMaterial__print(self, ostr)
     __swig_destroy__ = _libBornAgainCore.delete_HomogeneousMagneticMaterial
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_HomogeneousMagneticMaterial(self)
-        return weakref_proxy(self)
 HomogeneousMagneticMaterial_swigregister = _libBornAgainCore.HomogeneousMagneticMaterial_swigregister
 HomogeneousMagneticMaterial_swigregister(HomogeneousMagneticMaterial)
 
@@ -6398,19 +5338,11 @@ class IObservable(_object):
         return _libBornAgainCore.IObservable_notifyObservers(self)
 
     def __init__(self):
-        if self.__class__ == IObservable:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_IObservable(_self, )
+        this = _libBornAgainCore.new_IObservable()
         try:
             self.this.append(this)
         except Exception:
             self.this = this
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IObservable(self)
-        return weakref_proxy(self)
 IObservable_swigregister = _libBornAgainCore.IObservable_swigregister
 IObservable_swigregister(IObservable)
 
@@ -6635,11 +5567,7 @@ class ISampleVisitor(_object):
     __repr__ = _swig_repr
 
     def __init__(self):
-        if self.__class__ == ISampleVisitor:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_ISampleVisitor(_self, )
+        this = _libBornAgainCore.new_ISampleVisitor()
         try:
             self.this.append(this)
         except Exception:
@@ -6661,10 +5589,6 @@ class ISampleVisitor(_object):
 
     def setLevel(self, level):
         return _libBornAgainCore.ISampleVisitor_setLevel(self, level)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_ISampleVisitor(self)
-        return weakref_proxy(self)
 ISampleVisitor_swigregister = _libBornAgainCore.ISampleVisitor_swigregister
 ISampleVisitor_swigregister(ISampleVisitor)
 
@@ -6720,11 +5644,7 @@ class SimpleSelectionRule(ISelectionRule):
     __repr__ = _swig_repr
 
     def __init__(self, a, b, c, modulus):
-        if self.__class__ == SimpleSelectionRule:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_SimpleSelectionRule(_self, a, b, c, modulus)
+        this = _libBornAgainCore.new_SimpleSelectionRule(a, b, c, modulus)
         try:
             self.this.append(this)
         except Exception:
@@ -6737,10 +5657,6 @@ class SimpleSelectionRule(ISelectionRule):
 
     def coordinateSelected(self, coordinate):
         return _libBornAgainCore.SimpleSelectionRule_coordinateSelected(self, coordinate)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_SimpleSelectionRule(self)
-        return weakref_proxy(self)
 SimpleSelectionRule_swigregister = _libBornAgainCore.SimpleSelectionRule_swigregister
 SimpleSelectionRule_swigregister(SimpleSelectionRule)
 
@@ -6749,6 +5665,9 @@ class IPixelMap(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, IPixelMap, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, IPixelMap, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
     __swig_destroy__ = _libBornAgainCore.delete_IPixelMap
     __del__ = lambda self: None
@@ -6767,21 +5686,6 @@ class IPixelMap(_object):
 
     def getSolidAngle(self):
         return _libBornAgainCore.IPixelMap_getSolidAngle(self)
-
-    def __init__(self):
-        if self.__class__ == IPixelMap:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_IPixelMap(_self, )
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IPixelMap(self)
-        return weakref_proxy(self)
 IPixelMap_swigregister = _libBornAgainCore.IPixelMap_swigregister
 IPixelMap_swigregister(IPixelMap)
 
@@ -6797,11 +5701,7 @@ class SphericalDetector(IDetector2D):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == SphericalDetector:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_SphericalDetector(_self, *args)
+        this = _libBornAgainCore.new_SphericalDetector(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -6823,25 +5723,6 @@ class SphericalDetector(IDetector2D):
 
     def getDefaultAxesUnits(self):
         return _libBornAgainCore.SphericalDetector_getDefaultAxesUnits(self)
-
-    def createPixelMap(self, index):
-        return _libBornAgainCore.SphericalDetector_createPixelMap(self, index)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.SphericalDetector__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.SphericalDetector_init_parameters(self)
-
-    def createAxis(self, index, n_bins, min, max):
-        return _libBornAgainCore.SphericalDetector_createAxis(self, index, n_bins, min, max)
-
-    def getAxisName(self, index):
-        return _libBornAgainCore.SphericalDetector_getAxisName(self, index)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_SphericalDetector(self)
-        return weakref_proxy(self)
 SphericalDetector_swigregister = _libBornAgainCore.SphericalDetector_swigregister
 SphericalDetector_swigregister(SphericalDetector)
 
@@ -6857,11 +5738,7 @@ class AngularPixelMap(IPixelMap):
     __repr__ = _swig_repr
 
     def __init__(self, alpha_bin, phi_bin):
-        if self.__class__ == AngularPixelMap:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_AngularPixelMap(_self, alpha_bin, phi_bin)
+        this = _libBornAgainCore.new_AngularPixelMap(alpha_bin, phi_bin)
         try:
             self.this.append(this)
         except Exception:
@@ -6883,10 +5760,6 @@ class AngularPixelMap(IPixelMap):
 
     def getSolidAngle(self):
         return _libBornAgainCore.AngularPixelMap_getSolidAngle(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_AngularPixelMap(self)
-        return weakref_proxy(self)
 AngularPixelMap_swigregister = _libBornAgainCore.AngularPixelMap_swigregister
 AngularPixelMap_swigregister(AngularPixelMap)
 
@@ -7079,33 +5952,15 @@ class IRoughness(ISample):
     for _s in [ISample]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IRoughness, name)
-    __repr__ = _swig_repr
 
-    def __init__(self):
-        if self.__class__ == IRoughness:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_IRoughness(_self, )
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
     __swig_destroy__ = _libBornAgainCore.delete_IRoughness
     __del__ = lambda self: None
 
     def accept(self, visitor):
         return _libBornAgainCore.IRoughness_accept(self, visitor)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IRoughness(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.IRoughness__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.IRoughness_init_parameters(self)
 IRoughness_swigregister = _libBornAgainCore.IRoughness_swigregister
 IRoughness_swigregister(IRoughness)
 
@@ -7119,6 +5974,13 @@ class Layer(ICompositeSample):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, Layer, name)
     __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        this = _libBornAgainCore.new_Layer(*args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_Layer
     __del__ = lambda self: None
 
@@ -7178,30 +6040,6 @@ class Layer(ICompositeSample):
 
     def getNumberOfLayers(self):
         return _libBornAgainCore.Layer_getNumberOfLayers(self)
-
-    def __init__(self, *args):
-        if self.__class__ == Layer:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_Layer(_self, *args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-
-    def init_parameters(self):
-        return _libBornAgainCore.Layer_init_parameters(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.Layer__print(self, ostr)
-
-    def addLayoutPtr(self, layout):
-        return _libBornAgainCore.Layer_addLayoutPtr(self, layout)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_Layer(self)
-        return weakref_proxy(self)
 Layer_swigregister = _libBornAgainCore.Layer_swigregister
 Layer_swigregister(Layer)
 
@@ -7256,11 +6094,7 @@ class LayerRoughness(IRoughness):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == LayerRoughness:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_LayerRoughness(_self, *args)
+        this = _libBornAgainCore.new_LayerRoughness(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -7295,18 +6129,8 @@ class LayerRoughness(IRoughness):
 
     def getLatteralCorrLength(self):
         return _libBornAgainCore.LayerRoughness_getLatteralCorrLength(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.LayerRoughness_init_parameters(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.LayerRoughness__print(self, ostr)
     __swig_destroy__ = _libBornAgainCore.delete_LayerRoughness
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_LayerRoughness(self)
-        return weakref_proxy(self)
 LayerRoughness_swigregister = _libBornAgainCore.LayerRoughness_swigregister
 LayerRoughness_swigregister(LayerRoughness)
 
@@ -7322,11 +6146,7 @@ class Line(IShape2D):
     __repr__ = _swig_repr
 
     def __init__(self, x1, y1, x2, y2):
-        if self.__class__ == Line:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_Line(_self, x1, y1, x2, y2)
+        this = _libBornAgainCore.new_Line(x1, y1, x2, y2)
         try:
             self.this.append(this)
         except Exception:
@@ -7339,13 +6159,6 @@ class Line(IShape2D):
         return _libBornAgainCore.Line_contains(self, *args)
     __swig_destroy__ = _libBornAgainCore.delete_Line
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_Line(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.Line__print(self, ostr)
 Line_swigregister = _libBornAgainCore.Line_swigregister
 Line_swigregister(Line)
 
@@ -7361,11 +6174,7 @@ class VerticalLine(IShape2D):
     __repr__ = _swig_repr
 
     def __init__(self, x):
-        if self.__class__ == VerticalLine:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_VerticalLine(_self, x)
+        this = _libBornAgainCore.new_VerticalLine(x)
         try:
             self.this.append(this)
         except Exception:
@@ -7381,13 +6190,6 @@ class VerticalLine(IShape2D):
         return _libBornAgainCore.VerticalLine_getXpos(self)
     __swig_destroy__ = _libBornAgainCore.delete_VerticalLine
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_VerticalLine(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.VerticalLine__print(self, ostr)
 VerticalLine_swigregister = _libBornAgainCore.VerticalLine_swigregister
 VerticalLine_swigregister(VerticalLine)
 
@@ -7403,11 +6205,7 @@ class HorizontalLine(IShape2D):
     __repr__ = _swig_repr
 
     def __init__(self, y):
-        if self.__class__ == HorizontalLine:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_HorizontalLine(_self, y)
+        this = _libBornAgainCore.new_HorizontalLine(y)
         try:
             self.this.append(this)
         except Exception:
@@ -7423,13 +6221,6 @@ class HorizontalLine(IShape2D):
         return _libBornAgainCore.HorizontalLine_getYpos(self)
     __swig_destroy__ = _libBornAgainCore.delete_HorizontalLine
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_HorizontalLine(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.HorizontalLine__print(self, ostr)
 HorizontalLine_swigregister = _libBornAgainCore.HorizontalLine_swigregister
 HorizontalLine_swigregister(HorizontalLine)
 
@@ -7519,11 +6310,7 @@ class MesoCrystal(IParticle):
     __repr__ = _swig_repr
 
     def __init__(self, particle_structure, form_factor):
-        if self.__class__ == MesoCrystal:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_MesoCrystal(_self, particle_structure, form_factor)
+        this = _libBornAgainCore.new_MesoCrystal(particle_structure, form_factor)
         try:
             self.this.append(this)
         except Exception:
@@ -7551,16 +6338,6 @@ class MesoCrystal(IParticle):
 
     def getClusteredParticles(self):
         return _libBornAgainCore.MesoCrystal_getClusteredParticles(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_MesoCrystal(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.MesoCrystal__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.MesoCrystal_init_parameters(self)
 MesoCrystal_swigregister = _libBornAgainCore.MesoCrystal_swigregister
 MesoCrystal_swigregister(MesoCrystal)
 
@@ -7639,11 +6416,7 @@ class MultiLayer(ICompositeSample):
     __repr__ = _swig_repr
 
     def __init__(self):
-        if self.__class__ == MultiLayer:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_MultiLayer(_self, )
+        this = _libBornAgainCore.new_MultiLayer()
         try:
             self.this.append(this)
         except Exception:
@@ -7716,16 +6489,6 @@ class MultiLayer(ICompositeSample):
 
     def zToLayerIndex(self, z_value):
         return _libBornAgainCore.MultiLayer_zToLayerIndex(self, z_value)
-
-    def init_parameters(self):
-        return _libBornAgainCore.MultiLayer_init_parameters(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.MultiLayer__print(self, ostr)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_MultiLayer(self)
-        return weakref_proxy(self)
 MultiLayer_swigregister = _libBornAgainCore.MultiLayer_swigregister
 MultiLayer_swigregister(MultiLayer)
 
@@ -7739,6 +6502,13 @@ class OffSpecSimulation(Simulation):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, OffSpecSimulation, name)
     __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        this = _libBornAgainCore.new_OffSpecSimulation(*args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_OffSpecSimulation
     __del__ = lambda self: None
 
@@ -7789,36 +6559,6 @@ class OffSpecSimulation(Simulation):
 
     def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
         return _libBornAgainCore.OffSpecSimulation_addParametersToExternalPool(self, path, external_pool, copy_number)
-
-    def __init__(self, *args):
-        if self.__class__ == OffSpecSimulation:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_OffSpecSimulation(_self, *args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-
-    def init_parameters(self):
-        return _libBornAgainCore.OffSpecSimulation_init_parameters(self)
-
-    def initSimulationElementVector(self):
-        return _libBornAgainCore.OffSpecSimulation_initSimulationElementVector(self)
-
-    def transferResultsToIntensityMap(self):
-        return _libBornAgainCore.OffSpecSimulation_transferResultsToIntensityMap(self)
-
-    def getBeamIntensity(self):
-        return _libBornAgainCore.OffSpecSimulation_getBeamIntensity(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_OffSpecSimulation(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.OffSpecSimulation__print(self, ostr)
 OffSpecSimulation_swigregister = _libBornAgainCore.OffSpecSimulation_swigregister
 OffSpecSimulation_swigregister(OffSpecSimulation)
 
@@ -7870,11 +6610,7 @@ class ParameterDistribution(IParameterized):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == ParameterDistribution:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_ParameterDistribution(_self, *args)
+        this = _libBornAgainCore.new_ParameterDistribution(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -7911,16 +6647,6 @@ class ParameterDistribution(IParameterized):
 
     def getMaxValue(self):
         return _libBornAgainCore.ParameterDistribution_getMaxValue(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.ParameterDistribution_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_ParameterDistribution(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.ParameterDistribution__print(self, ostr)
 ParameterDistribution_swigregister = _libBornAgainCore.ParameterDistribution_swigregister
 ParameterDistribution_swigregister(ParameterDistribution)
 
@@ -7936,11 +6662,7 @@ class ParameterPool(ICloneable):
     __repr__ = _swig_repr
 
     def __init__(self):
-        if self.__class__ == ParameterPool:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_ParameterPool(_self, )
+        this = _libBornAgainCore.new_ParameterPool()
         try:
             self.this.append(this)
         except Exception:
@@ -7983,13 +6705,6 @@ class ParameterPool(ICloneable):
 
     def getParameterNames(self):
         return _libBornAgainCore.ParameterPool_getParameterNames(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.ParameterPool__print(self, ostr)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_ParameterPool(self)
-        return weakref_proxy(self)
 ParameterPool_swigregister = _libBornAgainCore.ParameterPool_swigregister
 ParameterPool_swigregister(ParameterPool)
 
@@ -8005,11 +6720,7 @@ class Particle(IParticle):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == Particle:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_Particle(_self, *args)
+        this = _libBornAgainCore.new_Particle(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -8049,16 +6760,6 @@ class Particle(IParticle):
         return _libBornAgainCore.Particle_getFormFactor(self)
     __swig_destroy__ = _libBornAgainCore.delete_Particle
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_Particle(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.Particle__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.Particle_init_parameters(self)
 Particle_swigregister = _libBornAgainCore.Particle_swigregister
 Particle_swigregister(Particle)
 
@@ -8746,11 +7447,7 @@ class ParticleComposition(IParticle):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == ParticleComposition:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_ParticleComposition(_self, *args)
+        this = _libBornAgainCore.new_ParticleComposition(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -8790,16 +7487,6 @@ class ParticleComposition(IParticle):
 
     def getParticlePosition(self, index):
         return _libBornAgainCore.ParticleComposition_getParticlePosition(self, index)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_ParticleComposition(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.ParticleComposition__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.ParticleComposition_init_parameters(self)
 ParticleComposition_swigregister = _libBornAgainCore.ParticleComposition_swigregister
 ParticleComposition_swigregister(ParticleComposition)
 
@@ -8813,6 +7500,13 @@ class ParticleCoreShell(IParticle):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, ParticleCoreShell, name)
     __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        this = _libBornAgainCore.new_ParticleCoreShell(*args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_ParticleCoreShell
     __del__ = lambda self: None
 
@@ -8839,27 +7533,6 @@ class ParticleCoreShell(IParticle):
 
     def getShellParticle(self):
         return _libBornAgainCore.ParticleCoreShell_getShellParticle(self)
-
-    def __init__(self, *args):
-        if self.__class__ == ParticleCoreShell:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_ParticleCoreShell(_self, *args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_ParticleCoreShell(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.ParticleCoreShell__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.ParticleCoreShell_init_parameters(self)
 ParticleCoreShell_swigregister = _libBornAgainCore.ParticleCoreShell_swigregister
 ParticleCoreShell_swigregister(ParticleCoreShell)
 
@@ -8875,11 +7548,7 @@ class ParticleDistribution(IAbstractParticle):
     __repr__ = _swig_repr
 
     def __init__(self, prototype, par_distr):
-        if self.__class__ == ParticleDistribution:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_ParticleDistribution(_self, prototype, par_distr)
+        this = _libBornAgainCore.new_ParticleDistribution(prototype, par_distr)
         try:
             self.this.append(this)
         except Exception:
@@ -8913,16 +7582,6 @@ class ParticleDistribution(IAbstractParticle):
         return _libBornAgainCore.ParticleDistribution_getParticle(self)
     __swig_destroy__ = _libBornAgainCore.delete_ParticleDistribution
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_ParticleDistribution(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.ParticleDistribution__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.ParticleDistribution_init_parameters(self)
 ParticleDistribution_swigregister = _libBornAgainCore.ParticleDistribution_swigregister
 ParticleDistribution_swigregister(ParticleDistribution)
 
@@ -8938,11 +7597,7 @@ class ParticleLayout(ILayout):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == ParticleLayout:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_ParticleLayout(_self, *args)
+        this = _libBornAgainCore.new_ParticleLayout(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -8985,16 +7640,6 @@ class ParticleLayout(ILayout):
 
     def setTotalParticleSurfaceDensity(self, particle_density):
         return _libBornAgainCore.ParticleLayout_setTotalParticleSurfaceDensity(self, particle_density)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_ParticleLayout(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.ParticleLayout__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.ParticleLayout_init_parameters(self)
 ParticleLayout_swigregister = _libBornAgainCore.ParticleLayout_swigregister
 ParticleLayout_swigregister(ParticleLayout)
 
@@ -9010,11 +7655,7 @@ class Polygon(IShape2D):
     __repr__ = _swig_repr
 
     def __init__(self, *args):
-        if self.__class__ == Polygon:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_Polygon(_self, *args)
+        this = _libBornAgainCore.new_Polygon(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -9033,13 +7674,6 @@ class Polygon(IShape2D):
 
     def getPoints(self, xpos, ypos):
         return _libBornAgainCore.Polygon_getPoints(self, xpos, ypos)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.Polygon__print(self, ostr)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_Polygon(self)
-        return weakref_proxy(self)
 Polygon_swigregister = _libBornAgainCore.Polygon_swigregister
 Polygon_swigregister(Polygon)
 
@@ -9055,11 +7689,7 @@ class Rectangle(IShape2D):
     __repr__ = _swig_repr
 
     def __init__(self, xlow, ylow, xup, yup):
-        if self.__class__ == Rectangle:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_Rectangle(_self, xlow, ylow, xup, yup)
+        this = _libBornAgainCore.new_Rectangle(xlow, ylow, xup, yup)
         try:
             self.this.append(this)
         except Exception:
@@ -9087,13 +7717,6 @@ class Rectangle(IShape2D):
         return _libBornAgainCore.Rectangle_getYup(self)
     __swig_destroy__ = _libBornAgainCore.delete_Rectangle
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_Rectangle(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.Rectangle__print(self, ostr)
 Rectangle_swigregister = _libBornAgainCore.Rectangle_swigregister
 Rectangle_swigregister(Rectangle)
 
@@ -9114,11 +7737,7 @@ class RectangularDetector(IDetector2D):
     PERPENDICULAR_TO_REFLECTED_BEAM_DPOS = _libBornAgainCore.RectangularDetector_PERPENDICULAR_TO_REFLECTED_BEAM_DPOS
 
     def __init__(self, *args):
-        if self.__class__ == RectangularDetector:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_RectangularDetector(_self, *args)
+        this = _libBornAgainCore.new_RectangularDetector(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -9194,25 +7813,6 @@ class RectangularDetector(IDetector2D):
 
     def getDefaultAxesUnits(self):
         return _libBornAgainCore.RectangularDetector_getDefaultAxesUnits(self)
-
-    def createPixelMap(self, index):
-        return _libBornAgainCore.RectangularDetector_createPixelMap(self, index)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.RectangularDetector__print(self, ostr)
-
-    def init_parameters(self):
-        return _libBornAgainCore.RectangularDetector_init_parameters(self)
-
-    def createAxis(self, index, n_bins, min, max):
-        return _libBornAgainCore.RectangularDetector_createAxis(self, index, n_bins, min, max)
-
-    def getAxisName(self, index):
-        return _libBornAgainCore.RectangularDetector_getAxisName(self, index)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_RectangularDetector(self)
-        return weakref_proxy(self)
 RectangularDetector_swigregister = _libBornAgainCore.RectangularDetector_swigregister
 RectangularDetector_swigregister(RectangularDetector)
 
@@ -9228,11 +7828,7 @@ class RectPixelMap(IPixelMap):
     __repr__ = _swig_repr
 
     def __init__(self, corner_pos, width, height):
-        if self.__class__ == RectPixelMap:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_RectPixelMap(_self, corner_pos, width, height)
+        this = _libBornAgainCore.new_RectPixelMap(corner_pos, width, height)
         try:
             self.this.append(this)
         except Exception:
@@ -9254,10 +7850,6 @@ class RectPixelMap(IPixelMap):
 
     def getSolidAngle(self):
         return _libBornAgainCore.RectPixelMap_getSolidAngle(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_RectPixelMap(self)
-        return weakref_proxy(self)
 RectPixelMap_swigregister = _libBornAgainCore.RectPixelMap_swigregister
 RectPixelMap_swigregister(RectPixelMap)
 
@@ -9273,11 +7865,7 @@ class ResolutionFunction2DGaussian(IResolutionFunction2D):
     __repr__ = _swig_repr
 
     def __init__(self, sigma_x, sigma_y):
-        if self.__class__ == ResolutionFunction2DGaussian:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_ResolutionFunction2DGaussian(_self, sigma_x, sigma_y)
+        this = _libBornAgainCore.new_ResolutionFunction2DGaussian(sigma_x, sigma_y)
         try:
             self.this.append(this)
         except Exception:
@@ -9294,18 +7882,8 @@ class ResolutionFunction2DGaussian(IResolutionFunction2D):
 
     def getSigmaY(self):
         return _libBornAgainCore.ResolutionFunction2DGaussian_getSigmaY(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.ResolutionFunction2DGaussian_init_parameters(self)
     __swig_destroy__ = _libBornAgainCore.delete_ResolutionFunction2DGaussian
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_ResolutionFunction2DGaussian(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.ResolutionFunction2DGaussian__print(self, ostr)
 ResolutionFunction2DGaussian_swigregister = _libBornAgainCore.ResolutionFunction2DGaussian_swigregister
 ResolutionFunction2DGaussian_swigregister(ResolutionFunction2DGaussian)
 
@@ -9386,11 +7964,7 @@ class RotationX(IRotation):
     __repr__ = _swig_repr
 
     def __init__(self, angle):
-        if self.__class__ == RotationX:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_RotationX(_self, angle)
+        this = _libBornAgainCore.new_RotationX(angle)
         try:
             self.this.append(this)
         except Exception:
@@ -9413,18 +7987,8 @@ class RotationX(IRotation):
 
     def getTransform3D(self):
         return _libBornAgainCore.RotationX_getTransform3D(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.RotationX_init_parameters(self)
     __swig_destroy__ = _libBornAgainCore.delete_RotationX
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_RotationX(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.RotationX__print(self, ostr)
 RotationX_swigregister = _libBornAgainCore.RotationX_swigregister
 RotationX_swigregister(RotationX)
 
@@ -9440,11 +8004,7 @@ class RotationY(IRotation):
     __repr__ = _swig_repr
 
     def __init__(self, angle):
-        if self.__class__ == RotationY:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_RotationY(_self, angle)
+        this = _libBornAgainCore.new_RotationY(angle)
         try:
             self.this.append(this)
         except Exception:
@@ -9467,18 +8027,8 @@ class RotationY(IRotation):
 
     def getTransform3D(self):
         return _libBornAgainCore.RotationY_getTransform3D(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.RotationY_init_parameters(self)
     __swig_destroy__ = _libBornAgainCore.delete_RotationY
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_RotationY(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.RotationY__print(self, ostr)
 RotationY_swigregister = _libBornAgainCore.RotationY_swigregister
 RotationY_swigregister(RotationY)
 
@@ -9494,11 +8044,7 @@ class RotationZ(IRotation):
     __repr__ = _swig_repr
 
     def __init__(self, angle=0.0):
-        if self.__class__ == RotationZ:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_RotationZ(_self, angle)
+        this = _libBornAgainCore.new_RotationZ(angle)
         try:
             self.this.append(this)
         except Exception:
@@ -9521,18 +8067,8 @@ class RotationZ(IRotation):
 
     def getTransform3D(self):
         return _libBornAgainCore.RotationZ_getTransform3D(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.RotationZ_init_parameters(self)
     __swig_destroy__ = _libBornAgainCore.delete_RotationZ
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_RotationZ(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.RotationZ__print(self, ostr)
 RotationZ_swigregister = _libBornAgainCore.RotationZ_swigregister
 RotationZ_swigregister(RotationZ)
 
@@ -9548,11 +8084,7 @@ class RotationEuler(IRotation):
     __repr__ = _swig_repr
 
     def __init__(self, alpha, beta, gamma):
-        if self.__class__ == RotationEuler:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_RotationEuler(_self, alpha, beta, gamma)
+        this = _libBornAgainCore.new_RotationEuler(alpha, beta, gamma)
         try:
             self.this.append(this)
         except Exception:
@@ -9581,18 +8113,8 @@ class RotationEuler(IRotation):
 
     def getTransform3D(self):
         return _libBornAgainCore.RotationEuler_getTransform3D(self)
-
-    def init_parameters(self):
-        return _libBornAgainCore.RotationEuler_init_parameters(self)
     __swig_destroy__ = _libBornAgainCore.delete_RotationEuler
     __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_RotationEuler(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.RotationEuler__print(self, ostr)
 RotationEuler_swigregister = _libBornAgainCore.RotationEuler_swigregister
 RotationEuler_swigregister(RotationEuler)
 
@@ -9606,6 +8128,13 @@ class SpecularSimulation(ICloneable, IParameterized):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, SpecularSimulation, name)
     __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        this = _libBornAgainCore.new_SpecularSimulation(*args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_SpecularSimulation
     __del__ = lambda self: None
 
@@ -9650,27 +8179,6 @@ class SpecularSimulation(ICloneable, IParameterized):
 
     def prepareSimulation(self):
         return _libBornAgainCore.SpecularSimulation_prepareSimulation(self)
-
-    def __init__(self, *args):
-        if self.__class__ == SpecularSimulation:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_SpecularSimulation(_self, *args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-
-    def init_parameters(self):
-        return _libBornAgainCore.SpecularSimulation_init_parameters(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_SpecularSimulation(self)
-        return weakref_proxy(self)
-
-    def _print(self, ostr):
-        return _libBornAgainCore.SpecularSimulation__print(self, ostr)
 SpecularSimulation_swigregister = _libBornAgainCore.SpecularSimulation_swigregister
 SpecularSimulation_swigregister(SpecularSimulation)
 

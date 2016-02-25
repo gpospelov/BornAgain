@@ -2,6 +2,7 @@
 BornAgain functional test.
 Test of rotation/translation of particle composition made of truncated spheres.
 """
+from __future__ import print_function
 import unittest
 import utils
 import sys
@@ -66,7 +67,7 @@ class TransformTruncatedSphereCompositionTest(unittest.TestCase):
         # utils.plot_intensity_data(data)
 
         diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
-        print "test_TruncatedSphere:", diff
+        print("test_TruncatedSphere:", diff)
         self.assertLess(diff, 1e-10)
         # utils.plot_intensity_data(reference_data)
 

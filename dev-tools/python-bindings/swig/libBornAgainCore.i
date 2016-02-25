@@ -528,6 +528,7 @@ import_array();
 #include "IResolutionFunction2D.h"
 #include "ISample.h"
 #include "ISampleBuilder.h"
+#include "ISampleVisitor.h"
 #include "ISelectionRule.h"
 #include "IsGISAXSDetector.h"
 #include "IShape2D.h"
@@ -668,7 +669,7 @@ import_array();
 
 
 %include "ISampleBuilder.h"
-
+%include "ISampleVisitor.h"
 
 
 %include "ISelectionRule.h"

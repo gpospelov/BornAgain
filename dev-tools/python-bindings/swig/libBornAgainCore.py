@@ -6627,6 +6627,55 @@ class ISampleBuilder(IParameterizedShared):
 ISampleBuilder_swigregister = _libBornAgainCore.ISampleBuilder_swigregister
 ISampleBuilder_swigregister(ISampleBuilder)
 
+class ISampleVisitor(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ISampleVisitor, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, ISampleVisitor, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        if self.__class__ == ISampleVisitor:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_ISampleVisitor(_self, )
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_ISampleVisitor
+    __del__ = lambda self: None
+
+    def visit(self, *args):
+        return _libBornAgainCore.ISampleVisitor_visit(self, *args)
+
+    def visitEnter(self, arg2):
+        return _libBornAgainCore.ISampleVisitor_visitEnter(self, arg2)
+
+    def visitLeave(self, arg2):
+        return _libBornAgainCore.ISampleVisitor_visitLeave(self, arg2)
+
+    def getLevel(self):
+        return _libBornAgainCore.ISampleVisitor_getLevel(self)
+
+    def setLevel(self, level):
+        return _libBornAgainCore.ISampleVisitor_setLevel(self, level)
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_ISampleVisitor(self)
+        return weakref_proxy(self)
+ISampleVisitor_swigregister = _libBornAgainCore.ISampleVisitor_swigregister
+ISampleVisitor_swigregister(ISampleVisitor)
+
+
+def VisitSampleTreePreorder(sample, visitor):
+    return _libBornAgainCore.VisitSampleTreePreorder(sample, visitor)
+VisitSampleTreePreorder = _libBornAgainCore.VisitSampleTreePreorder
+
+def VisitSampleTreePostorder(sample, visitor):
+    return _libBornAgainCore.VisitSampleTreePostorder(sample, visitor)
+VisitSampleTreePostorder = _libBornAgainCore.VisitSampleTreePostorder
 class ISelectionRule(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, ISelectionRule, name, value)

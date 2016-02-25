@@ -3,7 +3,7 @@
 # This test shows how to use SampleBuilder class for constructing the sample
 # and running fitting.
 
-
+from __future__ import print_function
 import sys
 import os
 import numpy
@@ -106,7 +106,7 @@ def createRealData(simulation):
 class MySampleBuilder(ISampleBuilder):
     def __init__(self):
         ISampleBuilder.__init__(self)
-        print "MySampleBuilder ctor"
+        print("MySampleBuilder ctor")
         self.sample = None
         # parameters describing the sample
         self.cylinder_height  = ctypes.c_double(5.0*nanometer)
@@ -152,6 +152,6 @@ class MySampleBuilder(ISampleBuilder):
 #-------------------------------------------------------------
 if __name__ == '__main__':
     name,description,status = runTest()
-    print name,description,status
+    print(name,description,status)
     if("FAILED" in status) : exit(1)
 

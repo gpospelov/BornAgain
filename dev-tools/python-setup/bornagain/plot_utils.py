@@ -2,11 +2,13 @@
 BornAgain plot utils
 '''
 
+from __future__ import print_function
+
 try:
     import matplotlib
     from matplotlib import pyplot as plt
 except ImportError:
-    print "bornagain/__init__.py -> Error. Can't import matplotlib."
+    print("bornagain/__init__.py -> Error. Can't import matplotlib.")
 
 from bornagain import deg as deg
 from bornagain import IFitObserver as IFitObserver

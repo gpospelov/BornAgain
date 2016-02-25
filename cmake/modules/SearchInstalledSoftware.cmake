@@ -1,5 +1,7 @@
 # Search for installed software required by BornAgain
 
+set(Python_ADDITIONAL_VERSIONS 3.5)
+
 if(BORNAGAIN_OPENMPI)
     message(STATUS "Configuring with OpenMPI support")
     find_package(MPI REQUIRED)
@@ -24,7 +26,7 @@ else()
     set(boost_libraries_required date_time chrono program_options iostreams system filesystem regex thread)
 endif()
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
-    list(APPEND boost_libraries_required python)
+    list(APPEND boost_libraries_required python-py35)
 endif()
 find_package(Boost 1.48.0 COMPONENTS ${boost_libraries_required} REQUIRED)
 message(STATUS "Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
@@ -51,16 +53,16 @@ endif()
 # --- Python ---
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
 
-    #set(Python_ADDITIONAL_VERSIONS 3.5m)
+
 
     # testing Python 3
-    find_package(PythonInterp 2.7 REQUIRED)
-    #find_package(PythonInterp REQUIRED)
+    #find_package(PythonInterp 2.7 REQUIRED)
+    find_package(PythonInterp REQUIRED)
     message(STATUS "--> PYTHON_VERSION_STRING: ${PYTHON_VERSION_STRING}, PYTHON_EXECUTABLE:${PYTHON_EXECUTABLE}")
 
     # testing Python 3
-    find_package(PythonLibs 2.7)
-    #find_package(PythonLibs REQUIRED)
+    #find_package(PythonLibs 2.7)
+    find_package(PythonLibs REQUIRED)
     message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS} PYTHONLIBS_VERSION_STRING:${PYTHONLIBS_VERSION_STRING}")
 
     #ValidatePythonInstallation()

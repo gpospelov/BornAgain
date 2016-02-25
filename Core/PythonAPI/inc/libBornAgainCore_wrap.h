@@ -5762,6 +5762,113 @@ private:
 };
 
 
+class SwigDirector_ISampleVisitor : public ISampleVisitor, public Swig::Director {
+
+public:
+    SwigDirector_ISampleVisitor(PyObject *self);
+    virtual ~SwigDirector_ISampleVisitor();
+    virtual void visit(ISample const *arg0);
+    virtual void visit(ICompositeSample const *arg0);
+    virtual void visit(IClusteredParticles const *arg0);
+    virtual void visit(Crystal const *arg0);
+    virtual void visit(ILayout const *arg0);
+    virtual void visit(ParticleLayout const *arg0);
+    virtual void visit(Layer const *arg0);
+    virtual void visit(LayerInterface const *arg0);
+    virtual void visit(MultiLayer const *arg0);
+    virtual void visit(IAbstractParticle const *arg0);
+    virtual void visit(IParticle const *arg0);
+    virtual void visit(Particle const *arg0);
+    virtual void visit(ParticleDistribution const *arg0);
+    virtual void visit(ParticleComposition const *arg0);
+    virtual void visit(MesoCrystal const *arg0);
+    virtual void visit(ParticleCoreShell const *arg0);
+    virtual void visit(IFormFactor const *arg0);
+    virtual void visit(IFormFactorBorn const *arg0);
+    virtual void visit(IFormFactorDecorator const *arg0);
+    virtual void visit(FormFactorAnisoPyramid const *arg0);
+    virtual void visit(FormFactorBox const *arg0);
+    virtual void visit(FormFactorCone const *arg0);
+    virtual void visit(FormFactorCone6 const *arg0);
+    virtual void visit(FormFactorCuboctahedron const *arg0);
+    virtual void visit(FormFactorCrystal const *arg0);
+    virtual void visit(FormFactorCylinder const *arg0);
+    virtual void visit(FormFactorEllipsoidalCylinder const *arg0);
+    virtual void visit(FormFactorFullSphere const *arg0);
+    virtual void visit(FormFactorFullSpheroid const *arg0);
+    virtual void visit(FormFactorGauss const *arg0);
+    virtual void visit(FormFactorHemiEllipsoid const *arg0);
+    virtual void visit(FormFactorLorentz const *arg0);
+    virtual void visit(FormFactorPrism3 const *arg0);
+    virtual void visit(FormFactorPrism6 const *arg0);
+    virtual void visit(FormFactorPyramid const *arg0);
+    virtual void visit(FormFactorRipple1 const *arg0);
+    virtual void visit(FormFactorRipple2 const *arg0);
+    virtual void visit(FormFactorSphereGaussianRadius const *arg0);
+    virtual void visit(FormFactorSphereLogNormalRadius const *arg0);
+    virtual void visit(FormFactorTetrahedron const *arg0);
+    virtual void visit(FormFactorTrivial const *arg0);
+    virtual void visit(FormFactorTruncatedCube const *arg0);
+    virtual void visit(FormFactorTruncatedSphere const *arg0);
+    virtual void visit(FormFactorTruncatedSpheroid const *arg0);
+    virtual void visit(FormFactorDWBA const *arg0);
+    virtual void visit(FormFactorDWBAPol const *arg0);
+    virtual void visit(FormFactorWeighted const *arg0);
+    virtual void visit(FormFactorDecoratorDebyeWaller const *arg0);
+    virtual void visit(FormFactorDecoratorFactor const *arg0);
+    virtual void visit(FormFactorDecoratorMaterial const *arg0);
+    virtual void visit(FormFactorDecoratorMultiPositionFactor const *arg0);
+    virtual void visit(FormFactorDecoratorPositionFactor const *arg0);
+    virtual void visit(FormFactorDecoratorRotation const *arg0);
+    virtual void visit(IInterferenceFunction const *arg0);
+    virtual void visit(InterferenceFunction1DLattice const *arg0);
+    virtual void visit(InterferenceFunctionRadialParaCrystal const *arg0);
+    virtual void visit(InterferenceFunction2DLattice const *arg0);
+    virtual void visit(InterferenceFunction2DParaCrystal const *arg0);
+    virtual void visit(InterferenceFunctionNone const *arg0);
+    virtual void visit(IRoughness const *arg0);
+    virtual void visit(LayerRoughness const *arg0);
+    virtual void visit(IRotation const *arg0);
+    virtual void visit(RotationX const *arg0);
+    virtual void visit(RotationY const *arg0);
+    virtual void visit(RotationZ const *arg0);
+    virtual void visit(RotationEuler const *arg0);
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class ISampleVisitor doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[66];
+#endif
+
+};
+
+
 class SwigDirector_ISelectionRule : public ISelectionRule, public Swig::Director {
 
 public:

@@ -51,7 +51,10 @@ if(BORNAGAIN_PYTHON)
         ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/inc
 	)
 
-    configure_file(../dev-tools/python-bindings/swig/libBornAgainCore.py ../lib/libBornAgainCore.py COPYONLY)
+      # JMF: this should be done more carefully in the future
+      configure_file(../dev-tools/python-bindings/swig/libBornAgainCore.py ../lib/libBornAgainCore.py COPYONLY)
+      configure_file(../dev-tools/python-setup/bornagain/plot_utils.py ../lib/plot_utils/__init__.py COPYONLY)
+
 endif()
 
 

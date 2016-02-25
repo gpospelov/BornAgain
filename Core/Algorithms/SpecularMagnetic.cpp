@@ -38,12 +38,19 @@ void SpecularMagnetic::calculateEigenvalues(const MultiLayer& sample,
                 getSpecularScatteringMatrix(k);
         coeff[i].m_kt = mag_k*sample.getLayer(i)->getThickness();
         coeff[i].m_a = coeff[i].m_scatt_matrix.trace()/2.0;
-        coeff[i].m_b_mag = std::sqrt(coeff[i].m_a*coeff[i].m_a -
+        coeff[i].m_b_mag = sqrt(coeff[i].m_a*coeff[i].m_a -
                 (complex_t)coeff[i].m_scatt_matrix.determinant());
         coeff[i].m_bz = ( coeff[i].m_scatt_matrix(0,0) -
                 coeff[i].m_scatt_matrix(1,1) )/2.0;
-        coeff[i].lambda(0) = std::sqrt(coeff[i].m_a - coeff[i].m_b_mag);
-        coeff[i].lambda(1) = std::sqrt(coeff[i].m_a + coeff[i].m_b_mag);
+        complex_t rad0 = coeff[i].m_a - coeff[i].m_b_mag;
+        complex_t rad1 = coeff[i].m_a + coeff[i].m_b_mag;
+        // use small absorptive component for layers with i>0 if radicand becomes very small:
+        if (i>0) {
+            if (std::abs(rad0)<1e-40) rad0 = imag_unit*1e-40;
+            if (std::abs(rad1)<1e-40) rad1 = imag_unit*1e-40;
+        }
+        coeff[i].lambda(0) = sqrt(rad0);
+        coeff[i].lambda(1) = sqrt(rad1);
         coeff[i].kz = mag_k * coeff[i].lambda * sign_kz;
     }
 }

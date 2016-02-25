@@ -29,6 +29,7 @@ class PropertyVariantFactory;
 class QtProperty;
 class ParameterizedItem;
 class QtVariantProperty;
+class PropertyAttribute;
 
 class BA_CORE_API_ ComponentEditorPrivate
 {
@@ -44,9 +45,11 @@ public:
     QtVariantProperty *processPropertyForItem(ParameterizedItem *item, QtVariantProperty *parentProperty);
 
     QtVariantProperty *getPropertyForItem(ParameterizedItem *item);
+    ParameterizedItem *getItemForProperty(QtProperty *property);
+
     QtVariantProperty *createQtVariantProperty(ParameterizedItem *item);
     void removeQtVariantProperty(QtVariantProperty *property);
-
+    void updateQtVariantPropertyAppearance(QtVariantProperty *property, const PropertyAttribute &attribute);
 
     QtAbstractPropertyBrowser *m_browser;
     QtVariantPropertyManager  *m_manager;

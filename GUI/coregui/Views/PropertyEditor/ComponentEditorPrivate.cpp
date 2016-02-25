@@ -21,6 +21,7 @@
 #include "qtbuttonpropertybrowser.h"
 #include "ParameterizedItem.h"
 #include "GUIHelpers.h"
+#include <QString>
 #include <QDebug>
 
 
@@ -94,36 +95,46 @@ bool ComponentEditorPrivate::isShowCondensed() const
     return m_presentationType & ComponentEditorFlags::SHOW_CONDENSED;
 }
 
+//! Creates, if necessary, qtVariantProperty for given item and place it in the editor
 QtVariantProperty *ComponentEditorPrivate::processPropertyForItem(ParameterizedItem *item, QtVariantProperty *parentProperty)
 {
-    QtVariantProperty *childProperty = getPropertyForItem(item);
-    if(childProperty) {
+    QtVariantProperty *itemProperty = getPropertyForItem(item);
+    if(!itemProperty) {
+        itemProperty = createQtVariantProperty(item);
+        if(itemProperty) {
+            m_qtproperty_to_item[itemProperty] = item;
+            m_item_to_qtvariantproperty[item] = itemProperty;
+        }
+
+    }
+
+    if(itemProperty) {
         if(parentProperty) {
-            parentProperty->addSubProperty(childProperty);
+            parentProperty->addSubProperty(itemProperty);
         } else {
-            m_browser->addProperty(childProperty);
+            m_browser->addProperty(itemProperty);
         }
     }
-    return childProperty;
+    return itemProperty;
 }
 
 //! Returns QtVariantProperty representing given item in ComponentEditor.
-//! If QtVariantProperty doesn't exist yet, it will be created.
 QtVariantProperty *ComponentEditorPrivate::getPropertyForItem(ParameterizedItem *item)
 {
     if(m_item_to_qtvariantproperty.contains(item)) {
         return m_item_to_qtvariantproperty[item];
     }
-
-    QtVariantProperty *result = createQtVariantProperty(item);
-    if(result) {
-        m_qtproperty_to_item[result] = item;
-        m_item_to_qtvariantproperty[item] = result;
-    }
-
-    return result;
+    return nullptr;
 }
 
+//! Returns ParameterizedItem corresponding to QtVariantProperty representation
+ParameterizedItem *ComponentEditorPrivate::getItemForProperty(QtProperty *property)
+{
+    if(m_qtproperty_to_item.contains(property)) {
+        return m_qtproperty_to_item[property];
+    }
+    return nullptr;
+}
 
 //! creates QtVariantProperty for given ParameterizedItem's property
 QtVariantProperty *ComponentEditorPrivate::createQtVariantProperty(ParameterizedItem *item)
@@ -149,6 +160,7 @@ QtVariantProperty *ComponentEditorPrivate::createQtVariantProperty(Parameterized
     result = manager->addProperty(type, property_name);
     result->setValue(prop_value);
 
+    updateQtVariantPropertyAppearance(result, item->getAttribute());
     return result;
 }
 
@@ -157,11 +169,41 @@ void ComponentEditorPrivate::removeQtVariantProperty(QtVariantProperty *property
 {
     m_browser->removeProperty(property);
     delete property;
-    QMap<QtProperty *, ParameterizedItem *>::iterator it = m_qtproperty_to_item.find(property);
+    auto it = m_qtproperty_to_item.find(property);
     if(it != m_qtproperty_to_item.end()) {
         ParameterizedItem *item = it.value();
         m_item_to_qtvariantproperty.remove(item);
         m_qtproperty_to_item.erase(it);
+    }
+}
+
+//! update visual apperance of qtVariantProperty using ParameterizedItem's attribute
+void ComponentEditorPrivate::updateQtVariantPropertyAppearance(QtVariantProperty *property, const PropertyAttribute &attribute)
+{
+    QString toolTip = attribute.getToolTip();
+    if(!toolTip.isEmpty()) property->setToolTip(toolTip);
+
+    if(attribute.isDisabled()) {
+        property->setEnabled(false);
+    } else {
+        property->setEnabled(true);
+    }
+
+    QVariant prop_value = property->value();
+    if (!prop_value.isValid()) return;
+    int type = GUIHelpers::getVariantType(prop_value);
+
+    if(type == QVariant::Double) {
+        AttLimits limits = attribute.getLimits();
+        if(limits.hasLowerLimit()) property->setAttribute(QStringLiteral("minimum"), limits.getLowerLimit());
+        if(limits.hasUpperLimit()) property->setAttribute(QStringLiteral("maximum"), limits.getUpperLimit());
+        property->setAttribute(QStringLiteral("decimals"), attribute.getDecimals());
+        property->setAttribute(QStringLiteral("singleStep"), 1./std::pow(10.,attribute.getDecimals()-1));
+    }
+    else if(type == QVariant::Int) {
+        AttLimits limits = attribute.getLimits();
+        if(limits.hasLowerLimit()) property->setAttribute(QStringLiteral("minimum"), int(limits.getLowerLimit()));
+        if(limits.hasUpperLimit()) property->setAttribute(QStringLiteral("maximum"), int(limits.getUpperLimit()));
     }
 }
 

@@ -36,6 +36,7 @@ ParameterizedItem::ParameterizedItem(QString model_type)
     // provide useful name in case of empty constructor
     m_model_type = model_type.isEmpty() ? "ParameterizedItem" : model_type;
     setDisplayName(m_model_type);
+    m_attribute.setVisible();
 }
 
 ParameterizedItem::~ParameterizedItem()
@@ -428,6 +429,16 @@ PropertyAttribute &ParameterizedItem::getPropertyAttribute(const QString &name)
                                 "Unknown property attribute " + name);
     }
     return it.value();
+}
+
+const PropertyAttribute &ParameterizedItem::getAttribute() const
+{
+    return m_attribute;
+}
+
+PropertyAttribute &ParameterizedItem::getAttribute()
+{
+    return m_attribute;
 }
 
 void ParameterizedItem::setPropertyAttribute(const QString &name,

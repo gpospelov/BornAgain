@@ -91,9 +91,14 @@ void ComponentEditor::setPresentationType(ComponentEditorFlags::PresentationType
     layout()->addWidget(m_d->m_browser);
 }
 
+//! Propagates data from ParameterizedItem to editor
 void ComponentEditor::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
 {
-    qDebug() << "ComponentEditor::onDataChanged" << topLeft << bottomRight << roles;
+//    qDebug() << "ComponentEditor::onDataChanged" << topLeft << bottomRight << roles;
+    qDebug() << " ComponentEditor::onDataChanged";
+    qDebug() << " ComponentEditor::onDataChanged";
+    qDebug() << " ComponentEditor::onDataChanged";
+    qDebug() << " ComponentEditor::onDataChanged" << m_d->m_presentationType << topLeft << roles;
 
     if(topLeft != bottomRight) return;
 
@@ -112,13 +117,29 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft, const QModelInde
     ParameterizedItem *item = model->itemForIndex(topLeft);
     Q_ASSERT(item);
 
-    if(m_d->m_item_to_qtvariantproperty.contains(item)) {
-        QtVariantProperty *variant_property = m_d->m_item_to_qtvariantproperty[item];
-        qDebug() << "   ComponentEditor::onDataChanged -> set value for variant_property" << variant_property;
+    if(QtVariantProperty *property = m_d->getPropertyForItem(item)) {
+        qDebug() << "   ComponentEditor::onDataChanged -> set value for variant_property" << property << roles;
+        qDebug() << "   ComponentEditor::onDataChanged -> " << item->value() << property->value();
 
-        disconnectManager();
-        variant_property->setValue(item->value());
-        connectManager();
+
+        if(roles.contains(Qt::UserRole)) {
+            qDebug() << "AAAA UserRole";
+            m_d->updateQtVariantPropertyAppearance(property, item->getAttribute());
+        } else {
+            disconnectManager();
+            property->setValue(item->value());
+            connectManager();
+        }
+
+//       if(item->modelType() == Constants::GroupItemType && m_d->isShowCondensed()) {
+//            foreach(ParameterizedItem *child, item->childItems()) {
+//                if(child->getAttribute().isVisible()) continue;
+//                if(QtVariantProperty *childProperty = m_d->getPropertyForItem(child)) {
+//                    m_d->removeQtVariantProperty(childProperty);
+//                }
+//            }
+//        }
+
 
     }
 
@@ -136,31 +157,28 @@ void ComponentEditor::onRowsInserted(const QModelIndex &parent, int first, int l
 
     // special case for "condensed" editor
     qDebug() << "AAAA onRowsInserted() -> special case";
-    if(item->modelType() == Constants::GroupItemType) {
-        foreach(ParameterizedItem *child, item->childItems()) {
-            if(m_d->m_item_to_qtvariantproperty.contains(child)) {
-                m_d->removeQtVariantProperty(m_d->m_item_to_qtvariantproperty[child]);
-            }
-        }
-    }
+//    if(item->modelType() == Constants::GroupItemType) {
+//        foreach(ParameterizedItem *child, item->childItems()) {
+//            if(m_d->m_item_to_qtvariantproperty.contains(child)) {
+//                m_d->removeQtVariantProperty(m_d->m_item_to_qtvariantproperty[child]);
+//            }
+//        }
+//    }
 
     updateEditor(item, m_d->m_item_to_qtvariantproperty[item]);
 
 }
 
+//! Propagates value from the editor to ParameterizedItem
 void ComponentEditor::onQtPropertyChanged(QtProperty *property, const QVariant &value)
 {
     qDebug() << "ComponentEditor::onQtPropertyChanged" << property << value;
-
-    if(m_d->m_qtproperty_to_item.contains(property)) {
-        ParameterizedItem *item = m_d->m_qtproperty_to_item[property];
+    if(ParameterizedItem *item = m_d->getItemForProperty(property)) {
         disconnectModel(item->model());
         item->setValue(value);
         connectModel(item->model());
     }
 }
-
-
 
 
 //! Returns list of children suitable for displaying in ComponentEditor
@@ -180,17 +198,17 @@ QList<ParameterizedItem *> ComponentEditor::componentItems(ParameterizedItem *it
             Q_ASSERT(currentItemInGroup);
             result.append(currentItemInGroup);
 
-            foreach(ParameterizedItem *child, item->childItems()) {
-                if(child != currentItemInGroup) {
-                    if(m_d->m_item_to_qtvariantproperty.contains(child)) {
-                        m_d->m_item_to_qtvariantproperty[child]->setEnabled(false);
-                    }
-                } else {
-                    if(m_d->m_item_to_qtvariantproperty.contains(child)) {
-                        m_d->m_item_to_qtvariantproperty[child]->setEnabled(true);
-                    }
-                }
-            }
+//            foreach(ParameterizedItem *child, item->childItems()) {
+//                if(child != currentItemInGroup) {
+//                    if(m_d->m_item_to_qtvariantproperty.contains(child)) {
+//                        m_d->m_item_to_qtvariantproperty[child]->setEnabled(false);
+//                    }
+//                } else {
+//                    if(m_d->m_item_to_qtvariantproperty.contains(child)) {
+//                        m_d->m_item_to_qtvariantproperty[child]->setEnabled(true);
+//                    }
+//                }
+//            }
 
         } else {
 

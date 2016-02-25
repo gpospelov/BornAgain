@@ -210,6 +210,8 @@ public:
     //! get the reference to the attribute of a registered property
     const PropertyAttribute& getPropertyAttribute(const QString &name) const;
     PropertyAttribute& getPropertyAttribute(const QString &name);
+    const PropertyAttribute& getAttribute() const;
+    PropertyAttribute& getAttribute();
 
     //! set the attribute
     void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
@@ -255,6 +257,7 @@ private:
     QMap<int, PortInfo> m_port_info;
     std::unique_ptr<ModelMapper> m_mapper;
 
+    PropertyAttribute m_attribute;
 
 
 

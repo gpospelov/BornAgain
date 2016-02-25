@@ -152,4 +152,17 @@ QtVariantProperty *ComponentEditorPrivate::createQtVariantProperty(Parameterized
     return result;
 }
 
+//! removes given qtVariantProperty from browser and all maps
+void ComponentEditorPrivate::removeQtVariantProperty(QtVariantProperty *property)
+{
+    m_browser->removeProperty(property);
+    delete property;
+    QMap<QtProperty *, ParameterizedItem *>::iterator it = m_qtproperty_to_item.find(property);
+    if(it != m_qtproperty_to_item.end()) {
+        ParameterizedItem *item = it.value();
+        m_item_to_qtvariantproperty.remove(item);
+        m_qtproperty_to_item.erase(it);
+    }
+}
+
 

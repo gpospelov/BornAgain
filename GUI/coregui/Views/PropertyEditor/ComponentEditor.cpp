@@ -134,6 +134,16 @@ void ComponentEditor::onRowsInserted(const QModelIndex &parent, int first, int l
 
     Q_ASSERT(m_d->m_item_to_qtvariantproperty.contains(item));
 
+    // special case for "condensed" editor
+    qDebug() << "AAAA onRowsInserted() -> special case";
+    if(item->modelType() == Constants::GroupItemType) {
+        foreach(ParameterizedItem *child, item->childItems()) {
+            if(m_d->m_item_to_qtvariantproperty.contains(child)) {
+                m_d->removeQtVariantProperty(m_d->m_item_to_qtvariantproperty[child]);
+            }
+        }
+    }
+
     updateEditor(item, m_d->m_item_to_qtvariantproperty[item]);
 
 }
@@ -169,6 +179,19 @@ QList<ParameterizedItem *> ComponentEditor::componentItems(ParameterizedItem *it
             ParameterizedItem *currentItemInGroup = groupItem->group()->getCurrentItem();
             Q_ASSERT(currentItemInGroup);
             result.append(currentItemInGroup);
+
+            foreach(ParameterizedItem *child, item->childItems()) {
+                if(child != currentItemInGroup) {
+                    if(m_d->m_item_to_qtvariantproperty.contains(child)) {
+                        m_d->m_item_to_qtvariantproperty[child]->setEnabled(false);
+                    }
+                } else {
+                    if(m_d->m_item_to_qtvariantproperty.contains(child)) {
+                        m_d->m_item_to_qtvariantproperty[child]->setEnabled(true);
+                    }
+                }
+            }
+
         } else {
 
             foreach(ParameterizedItem *child, item->childItems()) {

@@ -35,7 +35,7 @@ MaterialItem::MaterialItem()
     : ParameterizedItem(Constants::MaterialType)
 {
 //    registerProperty(OBSOLETE_P_NAME, Constants::MaterialType);
-    setItemName(Constants::MaterialType);
+//    setItemName(Constants::MaterialType);
 
     ComboProperty types;
     types << Constants::HomogeneousMaterialType << Constants::HomogeneousMagneticMaterialType;

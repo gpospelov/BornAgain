@@ -279,7 +279,6 @@ void ParameterizedItem::insertChildItem(int row, ParameterizedItem *item)
 
     if (item->modelType() == Constants::PropertyType ||
             item->modelType() == Constants::GroupItemType) {
-//        m_property_attribute[item->itemName()] = PropertyAttribute();
         m_propertyItems.insert(item->itemName(), item);
     }
 
@@ -308,6 +307,8 @@ QList<QString> ParameterizedItem::acceptableChildItems() const
     return m_valid_children;
 }
 
+//! Registers new property. If variant represents some valid modelType, appropriate
+//! item will be created. I
 PropertyAttribute &ParameterizedItem::registerProperty(const QString &name, const QVariant &variant,
                                          const PropertyAttribute &attribute)
 {
@@ -315,11 +316,26 @@ PropertyAttribute &ParameterizedItem::registerProperty(const QString &name, cons
         throw GUIHelpers::Error(
             "ParameterizedItem::registerProperty() -> Error. Already existing property " + name);
 
-    ParameterizedItem *property = ItemFactory::createItem(Constants::PropertyType);
+    QString property_type = Constants::PropertyType;
+
+    // normal item as child
+//    if(variant.type() == QVariant::String &&
+//            ItemFactory::isValidItemType(variant.toString())) {
+//        property_type = variant.toString();
+//        qDebug() << "AAAA" << property_type;
+//        Q_ASSERT(0);
+//    }
+
+    ParameterizedItem *property = ItemFactory::createItem(property_type);
     property->setDisplayName(name);
     property->setAttribute(attribute);
     insertChildItem(-1, property);
-    property->setValue(variant);
+
+//    if(property_type==Constants::PropertyType) {
+        property->setValue(variant);
+//    } else {
+//        m_propertyItems.insert(property->itemName(), property);
+//    }
     return property->getAttribute();
 }
 

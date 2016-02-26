@@ -36,6 +36,9 @@ public:
     //! retrieve list of all possible item names
     static QList<QString> getValidTopItemNames();
 
+    //! returns true of factory supports given item type
+    static bool isValidItemType(const QString &name);
+
 private:
     static QStringList m_valid_top_item_names;
     static ItemMap_t m_item_map;

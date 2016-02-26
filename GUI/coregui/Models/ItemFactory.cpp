@@ -223,3 +223,8 @@ ParameterizedItem *ItemFactory::createEmptyItem()
 QList<QString> ItemFactory::getValidTopItemNames() {
     return m_valid_top_item_names;
 }
+
+bool ItemFactory::isValidItemType(const QString &name)
+{
+    return m_item_map.contains(name);
+}

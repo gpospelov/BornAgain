@@ -32,8 +32,8 @@ public:
     explicit ParticleItem();
     virtual ~ParticleItem() {}
     virtual void insertChildItem(int row, ParameterizedItem *item);
-    virtual void onPropertyChange(const QString &name);
     std::unique_ptr<Particle> createParticle() const;
+    virtual void setPort(PortInfo::EPorts nport);
 };
 
 #endif // PARTICLEITEM_H

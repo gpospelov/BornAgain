@@ -16,6 +16,7 @@
 #include "DetectorItems.h"
 #include "AngleProperty.h"
 #include "MaskItems.h"
+#include "ModelMapper.h"
 #include <QDebug>
 
 const QString DetectorItem::P_DETECTOR = "DetectorType";
@@ -26,6 +27,18 @@ DetectorItem::DetectorItem()
     registerGroupProperty(P_DETECTOR, Constants::DetectorGroup);
     addToValidChildren(Constants::MaskContainerType);
     setGroupProperty(P_DETECTOR, Constants::SphericalDetectorType);
+    mapper()->setOnPropertyChange(
+                [this] (const QString &name)
+    {
+        if(name == P_DETECTOR) {
+            if(ParameterizedItem *maskContainer = getMaskContainerItem()) {
+                ParameterizedItem *item = takeChildItem(rowOfChild(maskContainer));
+                Q_ASSERT(item == maskContainer);
+                delete item;
+            }
+
+        }
+    });
 }
 
 MaskContainerItem *DetectorItem::getMaskContainerItem() const
@@ -37,18 +50,4 @@ MaskContainerItem *DetectorItem::getMaskContainerItem() const
     }
     return 0;
 }
-
-void DetectorItem::onSubItemChanged(const QString &propertyName)
-{
-    if(propertyName == P_DETECTOR) {
-        if(ParameterizedItem *maskContainer = getMaskContainerItem()) {
-            ParameterizedItem *item = takeChildItem(rowOfChild(maskContainer));
-            Q_ASSERT(item == maskContainer);
-            delete item;
-        }
-
-    }
-    ParameterizedItem::onSubItemChanged(propertyName);
-}
-
 

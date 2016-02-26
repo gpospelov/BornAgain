@@ -49,7 +49,6 @@ ParticleCompositionItem::ParticleCompositionItem()
 
 void ParticleCompositionItem::insertChildItem(int row, ParameterizedItem *item)
 {
-//    int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
     int port = int(item->port());
     ParameterizedItem::insertChildItem(row, item);
     if (item->modelType() == Constants::ParticleType

@@ -50,35 +50,8 @@ void ParticleItem::insertChildItem(int row, ParameterizedItem *item)
     ParameterizedItem::insertChildItem(row, item);
     if (item->modelType() == Constants::TransformationType) {
         int port = int(item->port());
-//        int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
         if (port == PortInfo::DEFAULT) {
             item->setPort(PortInfo::PORT_0);
-        }
-    }
-}
-
-void ParticleItem::onPropertyChange(const QString &name)
-{
-    ParameterizedItem::onPropertyChange(name);
-    if (name == "OBSOLETE_P_PORT" && parent()) {
-        if (parent()->modelType() == Constants::ParticleCoreShellType
-            || parent()->modelType() == Constants::ParticleCompositionType
-            || parent()->modelType() == Constants::ParticleDistributionType) {
-            setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-            getPropertyAttribute(ParticleItem::P_ABUNDANCE).setDisabled();
-//            int port = getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
-            int port = int(this->port());
-            if (parent()->modelType() == Constants::ParticleCoreShellType) {
-                auto p_coreshell = static_cast<ParticleCoreShellItem*>(parent());
-                p_coreshell->notifyChildParticlePortChanged();
-                if (port == PortInfo::PORT_1) {
-                    ParameterizedItem *p_position_item = getGroupItem(ParticleItem::P_POSITION);
-                    p_position_item->setRegisteredProperty(VectorItem::P_X, 0.0);
-                    p_position_item->setRegisteredProperty(VectorItem::P_Y, 0.0);
-                    p_position_item->setRegisteredProperty(VectorItem::P_Z, 0.0);
-                    getPropertyAttribute(ParticleItem::P_POSITION).setDisabled();
-                }
-            }
         }
     }
 }
@@ -99,4 +72,28 @@ std::unique_ptr<Particle> ParticleItem::createParticle() const
     TransformToDomain::setTransformationInfo(P_particle.get(), *this);
 
     return P_particle;
+}
+
+void ParticleItem::setPort(ParameterizedItem::PortInfo::EPorts nport)
+{
+    if (parent()) {
+        if (parent()->modelType() == Constants::ParticleCoreShellType
+            || parent()->modelType() == Constants::ParticleCompositionType
+            || parent()->modelType() == Constants::ParticleDistributionType) {
+            setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
+            getPropertyAttribute(ParticleItem::P_ABUNDANCE).setDisabled();
+            int port = int(this->port());
+            if (parent()->modelType() == Constants::ParticleCoreShellType) {
+                auto p_coreshell = static_cast<ParticleCoreShellItem*>(parent());
+                p_coreshell->notifyChildParticlePortChanged();
+                if (port == PortInfo::PORT_1) {
+                    ParameterizedItem *p_position_item = getGroupItem(ParticleItem::P_POSITION);
+                    p_position_item->setRegisteredProperty(VectorItem::P_X, 0.0);
+                    p_position_item->setRegisteredProperty(VectorItem::P_Y, 0.0);
+                    p_position_item->setRegisteredProperty(VectorItem::P_Z, 0.0);
+                    getPropertyAttribute(ParticleItem::P_POSITION).setDisabled();
+                }
+            }
+        }
+    }
 }

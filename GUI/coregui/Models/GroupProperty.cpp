@@ -104,7 +104,7 @@ void GroupProperty::setCurrentLabel(const QString &label)
 {
     if(type() == FIXED) {
         m_type_label_map[m_current_type] = label;
-        if(m_parent) emit m_parent->propertyChanged(getGroupName());
+        if(m_parent) m_parent->emitPropertyChanged(getGroupName());
     }
 }
 

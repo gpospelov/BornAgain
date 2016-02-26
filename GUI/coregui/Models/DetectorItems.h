@@ -33,8 +33,6 @@ public:
 
     MaskContainerItem *getMaskContainerItem() const;
 
-protected slots:
-    virtual void onSubItemChanged(const QString &propertyName);
 
 };
 

@@ -84,7 +84,7 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
                 if(getRegisteredProperty(P_XI_INTEGRATION).toBool()) {
                     getPropertyAttribute(P_ROTATION_ANGLE).setDisabled();
                 } else {
-                    getPropertyAttribute(P_ROTATION_ANGLE).setVisible();
+                    getPropertyAttribute(P_ROTATION_ANGLE).setEnabled();
                 }
                 getPropertyItem(P_ROTATION_ANGLE)->emitValueChanged();
             }

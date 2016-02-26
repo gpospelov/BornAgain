@@ -25,6 +25,7 @@
 #include <QObject>
 #include <QVector>
 #include <QVariant>
+#include <QMetaType>
 
 class SessionModel;
 
@@ -108,7 +109,7 @@ public:
     PortInfo::EPorts port() const;
 
     //! not quite sure how this works, leave it as it is
-    void setPort(PortInfo::EPorts nport);
+    virtual void setPort(PortInfo::EPorts nport);
 
 
     // navigation functions
@@ -303,24 +304,6 @@ signals:
     void subItemChanged(const QString &propertyName);
     void subItemPropertyChanged(const QString &property_group, const QString &property_name);
     void siblingsChanged();
-
-protected slots:
-    virtual void onSubItemChanged(const QString &propertyName);
-    virtual void onSubItemPropertyChanged(const QString &property_group,
-                                          const QString &property_name);
-    virtual void onSiblingsChanged();
-
-private slots:
-    virtual void processSubItemPropertyChanged(const QString &propertyName);
-
-protected:
-
-
-
-
-
-
-    void notifySiblings();
 
 };
 

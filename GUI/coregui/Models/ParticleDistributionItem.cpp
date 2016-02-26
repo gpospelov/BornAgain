@@ -139,7 +139,7 @@ void ParticleDistributionItem::updateParameterList()
 QStringList ParticleDistributionItem::getChildParameterNames() const
 {
     QStringList result;
-    QList<ParameterizedItem *> children = childItems();
+    QList<ParameterizedItem *> children = getUnregisteredChildren();
     if (children.size() > 1) {
         qDebug() << "ParticleDistributionItem::getChildParameterNames(): "
                  << "More than one child item";

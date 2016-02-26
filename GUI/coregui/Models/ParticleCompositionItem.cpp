@@ -35,14 +35,14 @@ ParticleCompositionItem::ParticleCompositionItem()
     RotationTranslator rotation_translator;
     ModelPath::addParameterTranslator(rotation_translator);
 
-    mapper()->setOnPropertyChange(
-                [this](const QString &name) {
-        if (name != ParticleItem::P_ABUNDANCE && parent()) {
-            if (parent()->modelType() == Constants::ParticleCompositionType
-                || parent()->modelType() == Constants::ParticleDistributionType) {
-                setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-                getPropertyAttribute(ParticleItem::P_ABUNDANCE).setDisabled();
-            }
+    mapper()->setOnParentChange(
+                [this](ParameterizedItem *parent) {
+        if (parent && (parent->modelType() == Constants::ParticleCompositionType
+            || parent->modelType() == Constants::ParticleDistributionType)) {
+            setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
+            getPropertyAttribute(ParticleItem::P_ABUNDANCE).setDisabled();
+        } else {
+            getPropertyAttribute(ParticleItem::P_ABUNDANCE).setEnabled();
         }
     });
 }

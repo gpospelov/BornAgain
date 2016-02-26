@@ -220,21 +220,6 @@ void TestProxyModel::setSourceModel(QAbstractItemModel *source)
             this, SIGNAL(layoutChanged()));
 }
 
-QModelIndex TestProxyModel::mapFromSource(const QModelIndex &sourceIndex) const
-{
-    return createIndex(sourceIndex.row(), sourceIndex.column(), sourceIndex.internalPointer());
-}
-
-QModelIndex TestProxyModel::mapToSource(const QModelIndex &proxyIndex) const
-{
-    ParameterizedItem *item = static_cast<ParameterizedItem*>(proxyIndex.internalPointer());
-    if (!item) {
-        return QModelIndex();
-    }
-    return m_source->index(proxyIndex.row(), proxyIndex.column(),
-                           item->parent()->index());
-}
-
 QModelIndex TestProxyModel::index(int row, int column, const QModelIndex &parent) const
 {
     const QModelIndex sourceParent = mapToSource(parent);

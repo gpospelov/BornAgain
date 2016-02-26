@@ -49,8 +49,6 @@ class TestProxyModel : public QIdentityProxyModel
 public:
     TestProxyModel(QObject *parent = 0);
     void setSourceModel(QAbstractItemModel *source);
-    QModelIndex mapFromSource(const QModelIndex& sourceIndex) const;
-    QModelIndex mapToSource(const QModelIndex& proxyIndex) const;
     QModelIndex index(int row, int column, const QModelIndex& parent) const;
     QModelIndex parent(const QModelIndex& child) const;
     int rowCount(const QModelIndex& parent) const;

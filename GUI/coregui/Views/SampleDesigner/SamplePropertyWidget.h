@@ -22,6 +22,7 @@
 class QItemSelectionModel;
 class QItemSelection;
 class AwesomePropertyEditor;
+class ComponentEditor;
 
 //! Property editor to modify property of the objectcurrently selected on the
 //! graphics scene, located in the bottom right corner of SampleView.
@@ -44,7 +45,8 @@ public slots:
 
 private:
     QItemSelectionModel *m_selection_model;
-    AwesomePropertyEditor *m_propertyEditor;
+//    AwesomePropertyEditor *m_propertyEditor;
+    ComponentEditor *m_propertyEditor;
 };
 
 #endif

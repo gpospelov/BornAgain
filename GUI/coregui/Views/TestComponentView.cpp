@@ -32,6 +32,7 @@ TestComponentView::TestComponentView(MainWindow *mainWindow)
     , m_treeView(new QTreeView)
     , m_editor1(new ComponentEditor)
     , m_editor2(new ComponentEditor)
+//    , m_editor2(0)
     , m_editor3(0)
 //    , m_editor3(new ComponentEditor)
 {
@@ -91,7 +92,7 @@ void TestComponentView::init_editors()
 
     // editors
     m_editor1->setPresentationType(ComponentEditorFlags::SHOW_DETAILED | ComponentEditorFlags::BROWSER_TABLE);
-    m_editor2->setPresentationType(ComponentEditorFlags::SHOW_DETAILED | ComponentEditorFlags::BROWSER_TABLE);
+    m_editor2->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_TABLE);
 //    m_editor3->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_GROUPBOX);
 
 //    m_editor1->setItem(m_model->getMultiLayerItem());

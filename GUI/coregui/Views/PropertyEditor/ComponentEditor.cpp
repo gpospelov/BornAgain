@@ -49,101 +49,110 @@ ComponentEditor::~ComponentEditor()
 void ComponentEditor::setItem(ParameterizedItem *item)
 {
     clearEditor();
-    m_item = item;
-    updateEditor(m_item);
+    if(item) updateEditor(item);
 }
 
-
+//! Main function to run through ParameterizedItem tree and fill editor with properties
 void ComponentEditor::updateEditor(ParameterizedItem *item, QtVariantProperty *parentProperty)
 {
-    Q_ASSERT(item);
     connectModel(item->model());
-
-    qDebug() << "  ";
-    qDebug() << "  ";
-    qDebug() << "ComponentEditor::updateEditor" << item->modelType() << item->itemName() << item->model()->indexOfItem(item);
 
     if(QtVariantProperty *childProperty = m_d->processPropertyForItem(item, parentProperty)) {
         parentProperty = childProperty;
     }
-//    QtVariantProperty *newParentProperty = childProperty ? childProperty : parentProperty;
     foreach(ParameterizedItem *childItem, componentItems(item)) {
-        qDebug() << "       ComponentEditor::updateEditor -> childItem" << childItem->modelType() << childItem->itemName() << childItem->model()->indexOfItem(childItem);
         updateEditor(childItem, parentProperty);
     }
 }
 
 
-
+//! Clear editor from all properties, ready to accept new items
 void ComponentEditor::clearEditor()
 {
     disconnect();
     disconnectManager();
-
     m_d->clear();
-
     connectManager();
 }
 
+//! Sets presentation type (full/condensed editor, table/groupbox like)
 void ComponentEditor::setPresentationType(ComponentEditorFlags::PresentationType presentationType)
 {
     m_d->setPresentationType(presentationType);
     layout()->addWidget(m_d->m_browser);
 }
 
+//! Propagates data from ParameterizedItem to editor
 void ComponentEditor::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
 {
-    qDebug() << "ComponentEditor::onDataChanged" << topLeft << bottomRight << roles;
+    qDebug() << " ComponentEditor::onDataChanged" << m_d->m_presentationType << topLeft << roles;
 
     if(topLeft != bottomRight) return;
 
     SessionModel *model = qobject_cast<SessionModel *>(sender());
-
-
-//    const SessionModel *model = dynamic_cast<const SessionModel*>(topLeft.model());
-//    qDebug() << "OOO" << model->itemForIndex(topLeft) << model->itemForIndex(bottomRight);
-
-//    QMap<QModelIndex, QtVariantProperty *>::iterator it = m_d->m_index_to_qtvariantproperty.begin();
-//    while(it!=m_d->m_index_to_qtvariantproperty.end()) {
-//        qDebug() << it.key() << it.value();
-//        ++it;
-//    }
-
+    Q_ASSERT(model);
     ParameterizedItem *item = model->itemForIndex(topLeft);
     Q_ASSERT(item);
 
-    if(m_d->m_item_to_qtvariantproperty.contains(item)) {
-        QtVariantProperty *variant_property = m_d->m_item_to_qtvariantproperty[item];
-        qDebug() << "   ComponentEditor::onDataChanged -> set value for variant_property" << variant_property;
+    if(QtVariantProperty *property = m_d->getPropertyForItem(item)) {
+        // updating editor's property appearance (tooltips, limits)
+        if(roles.contains(Qt::UserRole)) {
+            m_d->updatePropertyAppearance(property, item->getAttribute());
+        }
 
-        disconnectManager();
-        variant_property->setValue(item->value());
-        connectManager();
+        // updating editor's property values
+        if(roles.contains(Qt::DisplayRole) || roles.contains(Qt::EditRole)) {
+            disconnectManager();
+            property->setValue(item->value());
+            connectManager();
+        }
 
     }
 
+    // Special case for condensed editor and GroupItem.
+    // If child of GroupItem is marked as hidden we should remove it from the editor,
+    // if item is marked as visible but doesn't exist yet, we have to recreate
+    // corresponding property
+    if(m_d->isShowCondensed() && roles.contains(Qt::UserRole)) {
+
+        if(QtVariantProperty *property = m_d->getPropertyForItem(item)) {
+            if(item->getAttribute().isHidden()) {
+                m_d->removeQtVariantProperty(property);
+            }
+        } else {
+            ParameterizedItem *parentItem = item->parent();
+            if(QtVariantProperty *parentProperty = m_d->getPropertyForItem(parentItem)) {
+                updateEditor(item, parentProperty);
+            }
+        }
+
+    }
+
+
+
 }
 
+//! Updates the editor starting from given ParameterizedItem's parent.
+//! Editor should know already about given item (i.e. corresponding
+//! QtVariantProperty should exist.
 void ComponentEditor::onRowsInserted(const QModelIndex &parent, int first, int last)
 {
     qDebug() << "ComponentEditor::onRowsInserted" << parent << first << last;
     SessionModel *model = qobject_cast<SessionModel *>(sender());
 
     ParameterizedItem *item = model->itemForIndex(parent);
-    qDebug() << "model " << item << item->modelType() << item->itemName();
+    Q_ASSERT(item);
 
-    Q_ASSERT(m_d->m_item_to_qtvariantproperty.contains(item));
-
-    updateEditor(item, m_d->m_item_to_qtvariantproperty[item]);
-
+    if(QtVariantProperty *property = m_d->getPropertyForItem(item)) {
+        updateEditor(item, property);
+    }
 }
 
+//! Propagates value from the editor to ParameterizedItem
 void ComponentEditor::onQtPropertyChanged(QtProperty *property, const QVariant &value)
 {
     qDebug() << "ComponentEditor::onQtPropertyChanged" << property << value;
-
-    if(m_d->m_qtproperty_to_item.contains(property)) {
-        ParameterizedItem *item = m_d->m_qtproperty_to_item[property];
+    if(ParameterizedItem *item = m_d->getItemForProperty(property)) {
         disconnectModel(item->model());
         item->setValue(value);
         connectModel(item->model());
@@ -151,36 +160,31 @@ void ComponentEditor::onQtPropertyChanged(QtProperty *property, const QVariant &
 }
 
 
-
-
-//! Returns list of children suitable for displaying in ComponentEditor
+//! Returns list of children suitable for displaying in ComponentEditor.
+//! In condensed mode, editor will analyse only nearest visible properties.
 QList<ParameterizedItem *> ComponentEditor::componentItems(ParameterizedItem *item) const
 {
     QList<ParameterizedItem *> result;
 
-    if(m_d->isShowDetailed()) {
+    if (m_d->isShowDetailed()) {
         result = item->childItems();
     }
 
     else if (m_d->isShowCondensed()) {
 
-        if(item->modelType() == Constants::GroupItemType) {
-            GroupItem *groupItem = dynamic_cast<GroupItem *>(item);
-            ParameterizedItem *currentItemInGroup = groupItem->group()->getCurrentItem();
-            Q_ASSERT(currentItemInGroup);
-            result.append(currentItemInGroup);
-        } else {
-
-            foreach(ParameterizedItem *child, item->childItems()) {
-                if(child->modelType() == Constants::PropertyType) {
-                    result.append(child);
-                }
-                if(child->modelType() == Constants::GroupItemType) {
-                    result.append(child);
-                }
+        foreach (ParameterizedItem *child, item->childItems()) {
+            if (child->getAttribute().isHidden())
+                continue;
+            if (child->modelType() == Constants::PropertyType) {
+                result.append(child);
+            }
+            if (child->modelType() == Constants::GroupItemType) {
+                result.append(child);
+            }
+            if (item->modelType() == Constants::GroupItemType) {
+                result.append(child);
             }
         }
-
     }
 
     return result;

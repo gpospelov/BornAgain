@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InfoWidgets/GroupBox.cpp
-//! @brief     Implements class GroupBox
+//! @file      coregui/Views/InfoWidgets/GroupInfoBox.cpp
+//! @brief     Implements class GroupInfoBox
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "GroupBox.h"
+#include "GroupInfoBox.h"
 #include "hostosinfo.h"
 #include <QMouseEvent>
 #include <QStyleOptionGroupBox>
@@ -34,7 +34,7 @@ namespace
     int offset_of_icon_position = 24;
 }
 
-GroupBox::GroupBox( QWidget *parent )
+GroupInfoBox::GroupInfoBox( QWidget *parent )
     : QGroupBox( parent )
     , m_xImage(0)
     , m_yImage(0)
@@ -42,18 +42,18 @@ GroupBox::GroupBox( QWidget *parent )
     init_box();
 }
 
-GroupBox::GroupBox( const QString &title, QWidget *parent )
+GroupInfoBox::GroupInfoBox( const QString &title, QWidget *parent )
     : QGroupBox( title, parent ), m_title(title)
 {
     init_box();
 }
 
-void GroupBox::setButtonToolTip(const QString &text)
+void GroupInfoBox::setButtonToolTip(const QString &text)
 {
     m_toolTipText = text;
 }
 
-void GroupBox::mousePressEvent( QMouseEvent *e )
+void GroupInfoBox::mousePressEvent( QMouseEvent *e )
 {
     if( e->button() == Qt::LeftButton )
     {
@@ -66,7 +66,7 @@ void GroupBox::mousePressEvent( QMouseEvent *e )
     }
 }
 
-void GroupBox::mouseMoveEvent(QMouseEvent *event)
+void GroupInfoBox::mouseMoveEvent(QMouseEvent *event)
 {
     QRect buttonArea(m_xImage, m_yImage, imageWidth, imageheigth);
 
@@ -77,13 +77,13 @@ void GroupBox::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
-void GroupBox::init_box()
+void GroupInfoBox::init_box()
 {
     setMouseTracking(true);
     m_toolTipText = QStringLiteral("Gives access to the extended distribution viewer.");
 }
 
-void GroupBox::paintEvent(QPaintEvent *)
+void GroupInfoBox::paintEvent(QPaintEvent *)
 {
     QStylePainter paint(this);
     QStyleOptionGroupBox option;

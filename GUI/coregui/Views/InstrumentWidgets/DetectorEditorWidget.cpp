@@ -16,7 +16,7 @@
 #include "DetectorEditorWidget.h"
 #include "AwesomePropertyEditor.h"
 #include "DetectorItems.h"
-#include "GroupBox.h"
+#include "GroupInfoBox.h"
 #include "ExtendedDetectorDialog.h"
 #include "SphericalDetectorWidget.h"
 #include "RectangularDetectorWidget.h"
@@ -31,7 +31,7 @@
 DetectorEditorWidget::DetectorEditorWidget(ColumnResizer *columnResizer, QWidget *parent)
     : QWidget(parent)
     , m_columnResizer(columnResizer)
-    , m_groupBox(new GroupBox("Detector Parameters"))
+    , m_groupBox(new GroupInfoBox("Detector Parameters"))
     , m_detectorItem(0)
     , m_subDetectorWidget(0)
 {

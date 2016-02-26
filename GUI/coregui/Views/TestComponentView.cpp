@@ -15,18 +15,18 @@
 #include "TestComponentView.h"
 #include "mainwindow.h"
 #include "SampleModel.h"
+#include "BeamItem.h"
+#include "InstrumentItem.h"
 #include "ComponentEditor.h"
 #include "item_constants.h"
 #include "MultiLayerItem.h"
 #include "SampleBuilderFactory.h"
 #include "GUIObjectBuilder.h"
-#include "TestView.h"
-#include "PropertyBrowserUtils.h"
+#include "InstrumentModel.h"
 #include <QItemSelectionModel>
 #include <QHBoxLayout>
 #include <QTreeView>
 #include <QDebug>
-#include <QItemEditorFactory>
 
 TestComponentView::TestComponentView(MainWindow *mainWindow)
     : QWidget(mainWindow)
@@ -36,20 +36,9 @@ TestComponentView::TestComponentView(MainWindow *mainWindow)
     , m_editor1(new ComponentEditor)
     , m_editor2(new ComponentEditor)
 //    , m_editor2(0)
-    , m_editor3(0)
-//    , m_editor3(new ComponentEditor)
+//    , m_editor3(0)
+    , m_editor3(new ComponentEditor)
 {
-    QItemEditorFactory *factory = new QItemEditorFactory;
-
-       QItemEditorCreatorBase *groupEditorCreator =
-           new QStandardItemEditorCreator<GroupPropertyEdit>();
-   int type = qRegisterMetaType<GroupProperty_t>();
-
-       factory->registerEditor(type , groupEditorCreator);
-
-       QItemEditorFactory::setDefaultFactory(factory);
-
-
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
     QHBoxLayout *hlayout = new QHBoxLayout;
@@ -58,7 +47,7 @@ TestComponentView::TestComponentView(MainWindow *mainWindow)
 
     QVBoxLayout *rightPanel = new QVBoxLayout;
     rightPanel->addWidget(m_editor2);
-//    rightPanel->addWidget(m_editor3);
+    rightPanel->addWidget(m_editor3);
 
     hlayout->addLayout(rightPanel);
 
@@ -75,11 +64,11 @@ void TestComponentView::onSelectionChanged(const QItemSelection &selected, const
     QModelIndexList indices = selected.indexes();
 
     if(indices.isEmpty()) {
-        m_editor2->setItem(0);
+//        m_editor2->setItem(0);
 //        m_editor3->setItem(0);
     } else {
         if(ParameterizedItem *item = m_model->itemForIndex(indices.at(0))) {
-            m_editor2->setItem(item);
+//            m_editor2->setItem(item);
 //            m_editor3->setItem(item);
         }
     }
@@ -98,12 +87,8 @@ void TestComponentView::init_editors()
     m_model->insertNewItem(Constants::ParticleType);
 
     // tree view
-    auto x = new TestProxyModel(this);
-    x->setSourceModel(m_model);
-    m_treeView->setModel( x);
+    m_treeView->setModel(m_model);
     m_treeView->expandAll();
-    m_treeView->resizeColumnToContents(0);
-    m_treeView->setAlternatingRowColors(true);
     connect(m_treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this,
             SLOT(onSelectionChanged(QItemSelection, QItemSelection)));
 
@@ -111,10 +96,22 @@ void TestComponentView::init_editors()
     // editors
     m_editor1->setPresentationType(ComponentEditorFlags::SHOW_DETAILED | ComponentEditorFlags::BROWSER_TABLE);
     m_editor2->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_TABLE);
-//    m_editor3->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_GROUPBOX);
+    m_editor3->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_GROUPBOX);
 
 //    m_editor1->setItem(m_model->getMultiLayerItem());
-    m_editor1->setItem(m_model->getTopItem());
+//    m_editor1->setItem(m_model->getTopItem());
+
+    InstrumentModel *model = m_mainWindow->getInstrumentModel();
+    InstrumentItem *instrument = model->getInstrumentItem();
+    Q_ASSERT(instrument);
+
+    m_editor1->setItem(instrument);
+
+    BeamItem *beamItem = instrument->getBeamItem();
+    Q_ASSERT(beamItem);
+
+    m_editor2->setItem(beamItem->getGroupItem(BeamItem::P_WAVELENGTH));
+    m_editor3->setItem(beamItem->getGroupItem(BeamItem::P_WAVELENGTH));
 }
 
 

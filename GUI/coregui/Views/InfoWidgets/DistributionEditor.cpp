@@ -21,7 +21,7 @@
 #include "Distributions.h"
 #include "qcustomplot.h"
 #include "DistributionDialog.h"
-#include "GroupBox.h"
+#include "GroupInfoBox.h"
 #include <QVBoxLayout>
 #include <QDebug>
 

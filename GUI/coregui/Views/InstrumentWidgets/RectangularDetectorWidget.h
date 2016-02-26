@@ -20,7 +20,7 @@
 #include <QWidget>
 
 class ColumnResizer;
-class GroupBox;
+class GroupInfoBox;
 class RectangularDetectorItem;
 class AwesomePropertyEditor;
 class QGridLayout;

@@ -16,7 +16,7 @@
 #include "RectangularDetectorWidget.h"
 #include "AwesomePropertyEditor.h"
 #include "DetectorItems.h"
-#include "GroupBox.h"
+#include "GroupInfoBox.h"
 #include "ExtendedDetectorDialog.h"
 #include "ComboProperty.h"
 #include "columnresizer.h"

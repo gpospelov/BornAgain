@@ -16,7 +16,7 @@
 #include "SphericalDetectorWidget.h"
 #include "AwesomePropertyEditor.h"
 #include "DetectorItems.h"
-#include "GroupBox.h"
+#include "GroupInfoBox.h"
 #include "ExtendedDetectorDialog.h"
 #include "columnresizer.h"
 #include <QGroupBox>

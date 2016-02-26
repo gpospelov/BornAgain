@@ -35,6 +35,7 @@ public:
     ~ComponentEditor();
 
     void setItem(ParameterizedItem *item);
+//    void addItemProperty(ParameterizedItem *item, const QString &name);
 
     void updateEditor(ParameterizedItem *item, QtVariantProperty *parentProperty = 0);
 

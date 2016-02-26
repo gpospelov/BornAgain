@@ -21,7 +21,7 @@
 
 AwesomePropertyPresenter::AwesomePropertyPresenter(const QString &title, QWidget *parent)
     : QWidget(parent)
-    , m_groupBox(new GroupBox(title))
+    , m_groupBox(new GroupInfoBox(title))
     , m_editor(new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE))
     , m_item(0)
     , m_title(title)

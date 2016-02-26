@@ -18,7 +18,7 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
-#include "GroupBox.h"
+#include "GroupInfoBox.h"
 #include "ParameterizedItem.h"
 
 class AwesomePropertyEditor;
@@ -45,7 +45,7 @@ private slots:
     void dialogRequest();
 
 private:
-    GroupBox *m_groupBox;
+    GroupInfoBox *m_groupBox;
     AwesomePropertyEditor *m_editor;
     ParameterizedItem *m_item;
     QString m_title;

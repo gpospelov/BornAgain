@@ -26,10 +26,8 @@
 #include <QVariant>
 #include <QDebug>
 
-
 ComponentEditor::ComponentEditor(QWidget *parent)
-    : QWidget(parent)
-    , m_d(new ComponentEditorPrivate(this))
+    : QWidget(parent), m_d(new ComponentEditorPrivate(this))
 {
     setWindowTitle(QLatin1String("Property Editor"));
     setObjectName(QLatin1String("ComponentEditor"));
@@ -43,28 +41,36 @@ ComponentEditor::ComponentEditor(QWidget *parent)
 
 ComponentEditor::~ComponentEditor()
 {
-
 }
 
+//! Sets editor to display all recursive properties of given item
 void ComponentEditor::setItem(ParameterizedItem *item)
 {
     clearEditor();
-    if(item) updateEditor(item);
+    if (item)
+        updateEditor(item);
 }
 
-//! Main function to run through ParameterizedItem tree and fill editor with properties
-void ComponentEditor::updateEditor(ParameterizedItem *item, QtVariantProperty *parentProperty)
+//void ComponentEditor::addItemProperty(ParameterizedItem *item, const QString &name)
+//{
+
+//}
+
+//! Main function to run through ParameterizedItem tree and fill editor with
+//! properties
+void ComponentEditor::updateEditor(ParameterizedItem *item,
+                                   QtVariantProperty *parentProperty)
 {
     connectModel(item->model());
 
-    if(QtVariantProperty *childProperty = m_d->processPropertyForItem(item, parentProperty)) {
+    if (QtVariantProperty *childProperty
+        = m_d->processPropertyForItem(item, parentProperty)) {
         parentProperty = childProperty;
     }
-    foreach(ParameterizedItem *childItem, componentItems(item)) {
+    foreach (ParameterizedItem *childItem, componentItems(item)) {
         updateEditor(childItem, parentProperty);
     }
 }
-
 
 //! Clear editor from all properties, ready to accept new items
 void ComponentEditor::clearEditor()
@@ -76,66 +82,69 @@ void ComponentEditor::clearEditor()
 }
 
 //! Sets presentation type (full/condensed editor, table/groupbox like)
-void ComponentEditor::setPresentationType(ComponentEditorFlags::PresentationType presentationType)
+void ComponentEditor::setPresentationType(
+    ComponentEditorFlags::PresentationType presentationType)
 {
     m_d->setPresentationType(presentationType);
     layout()->addWidget(m_d->m_browser);
 }
 
 //! Propagates data from ParameterizedItem to editor
-void ComponentEditor::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
+void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
+                                    const QModelIndex &bottomRight,
+                                    const QVector<int> &roles)
 {
-    qDebug() << " ComponentEditor::onDataChanged" << m_d->m_presentationType << topLeft << roles;
+    qDebug() << " ComponentEditor::onDataChanged" << m_d->m_presentationType
+             << topLeft << roles;
 
-    if(topLeft != bottomRight) return;
+    if (topLeft != bottomRight)
+        return;
 
     SessionModel *model = qobject_cast<SessionModel *>(sender());
     Q_ASSERT(model);
     ParameterizedItem *item = model->itemForIndex(topLeft);
     Q_ASSERT(item);
 
-    if(QtVariantProperty *property = m_d->getPropertyForItem(item)) {
+    if (QtVariantProperty *property = m_d->getPropertyForItem(item)) {
         // updating editor's property appearance (tooltips, limits)
-        if(roles.contains(Qt::UserRole)) {
+        if (roles.contains(Qt::UserRole)) {
             m_d->updatePropertyAppearance(property, item->getAttribute());
         }
 
         // updating editor's property values
-        if(roles.contains(Qt::DisplayRole) || roles.contains(Qt::EditRole)) {
+        if (roles.contains(Qt::DisplayRole) || roles.contains(Qt::EditRole)) {
             disconnectManager();
             property->setValue(item->value());
             connectManager();
         }
-
     }
 
     // Special case for condensed editor and GroupItem.
-    // If child of GroupItem is marked as hidden we should remove it from the editor,
+    // If child of GroupItem is marked as hidden we should remove it from the
+    // editor,
     // if item is marked as visible but doesn't exist yet, we have to recreate
     // corresponding property
-    if(m_d->isShowCondensed() && roles.contains(Qt::UserRole)) {
+    if (m_d->isShowCondensed() && roles.contains(Qt::UserRole)) {
 
-        if(QtVariantProperty *property = m_d->getPropertyForItem(item)) {
-            if(item->getAttribute().isHidden()) {
+        if (QtVariantProperty *property = m_d->getPropertyForItem(item)) {
+            if (item->getAttribute().isHidden()) {
                 m_d->removeQtVariantProperty(property);
             }
         } else {
             ParameterizedItem *parentItem = item->parent();
-            if(QtVariantProperty *parentProperty = m_d->getPropertyForItem(parentItem)) {
+            if (QtVariantProperty *parentProperty
+                = m_d->getPropertyForItem(parentItem)) {
                 updateEditor(item, parentProperty);
             }
         }
-
     }
-
-
-
 }
 
 //! Updates the editor starting from given ParameterizedItem's parent.
 //! Editor should know already about given item (i.e. corresponding
 //! QtVariantProperty should exist.
-void ComponentEditor::onRowsInserted(const QModelIndex &parent, int first, int last)
+void ComponentEditor::onRowsInserted(const QModelIndex &parent, int first,
+                                     int last)
 {
     qDebug() << "ComponentEditor::onRowsInserted" << parent << first << last;
     SessionModel *model = qobject_cast<SessionModel *>(sender());
@@ -143,26 +152,27 @@ void ComponentEditor::onRowsInserted(const QModelIndex &parent, int first, int l
     ParameterizedItem *item = model->itemForIndex(parent);
     Q_ASSERT(item);
 
-    if(QtVariantProperty *property = m_d->getPropertyForItem(item)) {
+    if (QtVariantProperty *property = m_d->getPropertyForItem(item)) {
         updateEditor(item, property);
     }
 }
 
 //! Propagates value from the editor to ParameterizedItem
-void ComponentEditor::onQtPropertyChanged(QtProperty *property, const QVariant &value)
+void ComponentEditor::onQtPropertyChanged(QtProperty *property,
+                                          const QVariant &value)
 {
     qDebug() << "ComponentEditor::onQtPropertyChanged" << property << value;
-    if(ParameterizedItem *item = m_d->getItemForProperty(property)) {
+    if (ParameterizedItem *item = m_d->getItemForProperty(property)) {
         disconnectModel(item->model());
         item->setValue(value);
         connectModel(item->model());
     }
 }
 
-
 //! Returns list of children suitable for displaying in ComponentEditor.
 //! In condensed mode, editor will analyse only nearest visible properties.
-QList<ParameterizedItem *> ComponentEditor::componentItems(ParameterizedItem *item) const
+QList<ParameterizedItem *>
+ComponentEditor::componentItems(ParameterizedItem *item) const
 {
     QList<ParameterizedItem *> result;
 
@@ -192,47 +202,40 @@ QList<ParameterizedItem *> ComponentEditor::componentItems(ParameterizedItem *it
 
 void ComponentEditor::disconnectModel(SessionModel *model)
 {
-    disconnect(model,
-            SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
-            this,
-            SLOT(onDataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)));
+    disconnect(
+        model, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &,
+                                  const QVector<int> &)),
+        this, SLOT(onDataChanged(const QModelIndex &, const QModelIndex &,
+                                 const QVector<int> &)));
 
-    disconnect(model,
-            SIGNAL(rowsInserted(const QModelIndex &, int, int)),
-            this,
-            SLOT(onRowsInserted(const QModelIndex &, int, int)));
-
+    disconnect(model, SIGNAL(rowsInserted(const QModelIndex &, int, int)), this,
+               SLOT(onRowsInserted(const QModelIndex &, int, int)));
 }
 
 void ComponentEditor::connectModel(SessionModel *model)
 {
-    connect(model,
-            SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
-            this,
-            SLOT(onDataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
+    connect(model, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &,
+                                      const QVector<int> &)),
+            this, SLOT(onDataChanged(const QModelIndex &, const QModelIndex &,
+                                     const QVector<int> &)),
             Qt::UniqueConnection);
 
-    connect(model,
-            SIGNAL(rowsInserted(const QModelIndex &, int, int)),
-            this,
+    connect(model, SIGNAL(rowsInserted(const QModelIndex &, int, int)), this,
             SLOT(onRowsInserted(const QModelIndex &, int, int)),
             Qt::UniqueConnection);
-
 }
 
 void ComponentEditor::disconnectManager()
 {
     disconnect(m_d->m_manager,
-               SIGNAL(valueChanged(QtProperty *, const QVariant &)),
-               this,
+               SIGNAL(valueChanged(QtProperty *, const QVariant &)), this,
                SLOT(onQtPropertyChanged(QtProperty *, const QVariant &)));
 }
 
 void ComponentEditor::connectManager()
 {
     connect(m_d->m_manager,
-            SIGNAL(valueChanged(QtProperty *, const QVariant &)),
-            this,
+            SIGNAL(valueChanged(QtProperty *, const QVariant &)), this,
             SLOT(onQtPropertyChanged(QtProperty *, const QVariant &)),
             Qt::UniqueConnection);
 }

@@ -21,6 +21,8 @@
 #include "ParameterizedItem.h"
 
 class BeamItem;
+class ComponentEditor;
+class ComponentEditorBox;
 class AwesomePropertyEditor;
 class AwesomePropertyPresenter;
 class QGridLayout;
@@ -39,8 +41,8 @@ private slots:
     void onDialogRequest(ParameterizedItem *item, QString name);
 
 private:
-    AwesomePropertyEditor *m_intensityEditor;
-    AwesomePropertyPresenter *m_wavelengthPresenter;
+    ComponentEditor *m_intensityEditor;
+    ComponentEditorBox *m_wavelengthPresenter;
     AwesomePropertyPresenter *m_inclinationAnglePresenter;
     AwesomePropertyPresenter *m_azimuthalAnglePresenter;
     QGridLayout *m_gridLayout;

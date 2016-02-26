@@ -171,20 +171,20 @@ We further introduce the \E{form factor}
 \index{Form factor}%
 of a particle,
 made of a material
-with average normalized perturbation potential~$\tilde\chi$,
+with average normalized perturbation potential~$\tilde\chi(\v{T}_i)$,
 \begin{equation}\label{EFFdef}
-  F(\q,\v{T}_i) \coloneqq  \int\!\d^3r\,\e^{i\q\r}\chi(\r,\v{T}_i)/\tilde\chi,
+  F(\q,\v{T}_i) \coloneqq  \int\!\d^3r\,\e^{i\q\r}\chi(\r,\v{T}_i)/\tilde\chi(\v{T}_i),
 \end{equation}
 and obtain
 \begin{equation}
-  \chi_\text{p}(\q) = \sum_i \e^{i\q\R_i} \tilde\chi F(\q,\v{T}_i).
+  \chi_\text{p}(\q) = \sum_i \e^{i\q\R_i} \tilde\chi(\v{T}_i) F(\q,\v{T}_i).
 \end{equation}
 With (\ref{Exsection}) and (\ref{Edwba_ml}),
 the differential cross section due to scattering from embedded particles is
 given by double sums over layers, DWBA terms, and particles:
 \begin{equation}\label{Eass6}
   \frac{\partial\sigma}{\partial\Omega}
-  = \sum_{lm} \sum_{uv} C^{u*}_l C^v_m \sum_{ij} \tilde\chi^2
+  = \sum_{lm} \sum_{uv} C^{u*}_l C^v_m \sum_{ij} \tilde\chi^*(\v{T}_i) \tilde\chi(\v{T}_j)
     \e^{-i\q^u \R_i +i \q^v \R_j} F^*(\q^u,\v{T}_i) F(\q^v,\v{T}_j).
 \end{equation}
 Motivated by the $\q$ decomposition (\ref{Eqpp}),
@@ -197,7 +197,7 @@ We then collect several terms into the \E{DWBA form factor}\footnote
 which does not include a depth factor.}
 \begin{equation}
   \FD_l(\k_\ti,\k_\tf;\v{T}_i)
-  \coloneqq  \sum_u C^u_l\tilde\chi \e^{iq^u_\perp R_{i\perp}} F(\q^u,\v{T}_i).
+  \coloneqq  \sum_u C^u_l\tilde\chi(\v{T}_i) \e^{iq^u_\perp R_{i\perp}} F(\q^u,\v{T}_i).
 \end{equation}
 In the following, the dependence on the external parameters
 $\k_\ti$ and $\k_\tf$ shall be understood implicitly.
@@ -248,8 +248,8 @@ Instead, \BornAgain\ provides various physical models
 for the distribution of $\R_i$ and $\v{T}_i$.
 Except if uniform particles form a perfect two-dimensional crystal,
 some degrees of freedom will be more or less disordered.
-Therefore models need to be formulated in statistical language.
-That formalism is versatile enough to also cover any degree of order.
+Therefore the models need to be formulated in a statistical language.
+That formalism is then versatile enough to also cover any degree of order.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Decoupling approximations}\label{Spartidis}
@@ -262,7 +262,7 @@ we encode the particle coordinates in a distribution function
 \index{Statistics!particle distribution}%
 \begin{equation}\label{EPDdeltas}
   \PD_{l}(\r,\v\tau,\v\tau')
-  = \sum_{ij} \delta(\r-(\R_{i\plll}-\R_{j\plll}))
+  = \sum_{ij} \delta(\r-(\R_{j\plll}-\R_{i\plll}))
   \delta(\v\tau-\v{T}_i)\delta(\v\tau'-\v{T}_j).
 \end{equation}
 Since in the following we are concerned with only one layer,

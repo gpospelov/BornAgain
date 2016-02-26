@@ -33,7 +33,7 @@ inline void TestMapper::test_ParticeleCompositionUpdate()
     ParameterizedItem *composition = model.insertNewItem(Constants::ParticleCompositionType, distribution->index());
     QVERIFY(composition->getPropertyAttribute(ParticleItem::P_ABUNDANCE).isDisabled() == true);
 
-    model.removeRows(composition->index().row, 1, composition->parent()->index());
+    model.removeRows(composition->index().row(), 1, composition->parent()->index());
     QVERIFY(composition->getPropertyAttribute(ParticleItem::P_ABUNDANCE).isDisabled() == false);
 
 }

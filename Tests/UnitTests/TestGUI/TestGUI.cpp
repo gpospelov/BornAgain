@@ -2,7 +2,6 @@
 #include <QString>
 #include <QDebug>
 #include <QCoreApplication>
-#include "TestMapper.h"
 #include "TestPropertyAttributes.h"
 #include "TestFormFactorItems.h"
 #include "TestFTDistributionItems.h"
@@ -18,7 +17,6 @@ int main(int argc, char** argv) {
     Q_UNUSED(app);
 
     TestPropertyAttributes testPropertyAttributes;
-    TestMapper testMapper;
 //    TestFormFactorItems testFormFactorItems;
 //    TestFTDistributionItems testFTDistributionItems;
 //    TestParameterizedItem testParameterizedItem;
@@ -42,7 +40,6 @@ int main(int argc, char** argv) {
 
 
 
-    return QTest::qExec(&testPropertyAttributes, argc, argv) |
-            QTest::qExec(&testMapper, argc, argv);
+    return QTest::qExec(&testPropertyAttributes, argc, argv);
 
 }

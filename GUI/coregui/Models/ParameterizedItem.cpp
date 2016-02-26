@@ -149,9 +149,6 @@ QString ParameterizedItem::itemLabel() const
 void ParameterizedItem::setModel(SessionModel *model)
 {
     m_model = model;
-    if (m_mapper) {
-        m_mapper->setItem(this);
-    }
     // process children as well
     for (auto &child : m_children) {
         child->setModel(model);
@@ -171,14 +168,6 @@ ParameterizedItem::PortInfo::EPorts ParameterizedItem::port() const
 void ParameterizedItem::setPort(ParameterizedItem::PortInfo::EPorts nport)
 {
     m_port = nport;
-}
-
-QModelIndex ParameterizedItem::index() const
-{
-    if (m_model) {
-        return m_model->indexOfItem(const_cast<ParameterizedItem*>(this));
-    }
-    return QModelIndex();
 }
 
 ParameterizedItem *ParameterizedItem::parent() const
@@ -245,16 +234,6 @@ QList<ParameterizedItem *> ParameterizedItem::getChildrenOfType(const QString &m
     QList<ParameterizedItem *> result;
     for (auto child : m_children) {
         if (child->modelType() == model_type)
-            result.append(child);
-    }
-    return result;
-}
-
-QList<ParameterizedItem *> ParameterizedItem::getUnregisteredChildren() const
-{
-    QList<ParameterizedItem *> result;
-    for (auto child : m_children) {
-        if (!isRegisteredProperty(child->itemName()))
             result.append(child);
     }
     return result;

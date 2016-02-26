@@ -45,11 +45,6 @@ void ModelMapper::setOnChildPropertyChange(std::function<void (ParameterizedItem
     m_onChildPropertyChange.push_back(f);
 }
 
-void ModelMapper::setOnParentChange(std::function<void (ParameterizedItem *)> f)
-{
-    m_onParentChange.push_back(f);
-}
-
 void ModelMapper::setModel(SessionModel *model)
 {
     if (m_model) {
@@ -57,8 +52,6 @@ void ModelMapper::setModel(SessionModel *model)
                    this, SLOT(onDataChanged(QModelIndex,QModelIndex,QVector<int>)));
         disconnect(m_model, SIGNAL(rowsInserted(QModelIndex,int,int)),
                    this, SLOT(onRowsInserted(QModelIndex,int,int)));
-        disconnect(m_model, SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)),
-                this, SLOT(onBeginRemoveRows(QModelIndex,int,int)));
     }
     if (model) {
         m_model = model;
@@ -66,8 +59,6 @@ void ModelMapper::setModel(SessionModel *model)
                    this, SLOT(onDataChanged(QModelIndex,QModelIndex,QVector<int>)));
         connect(m_model, SIGNAL(rowsInserted(QModelIndex,int,int)),
                    this, SLOT(onRowsInserted(QModelIndex,int,int)));
-        connect(m_model, SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)),
-                this, SLOT(onBeginRemoveRows(QModelIndex,int,int)));
     }
 }
 
@@ -116,30 +107,5 @@ void ModelMapper::onDataChanged(const QModelIndex &topLeft, const QModelIndex &b
 
 void ModelMapper::onRowsInserted(const QModelIndex &parent, int first, int last)
 {
-    if (parent.isValid()) {
-        if (ParameterizedItem *newChild = m_model->itemForIndex(parent.child(first, 0))) {
-            if (m_item == newChild) {
-                if (m_active && m_onParentChange.size() > 0) {
-                    for (auto f : m_onParentChange) {
-                        f(m_model->itemForIndex(parent));
-                    }
-                }
-            }
-        }
-    }
-}
 
-void ModelMapper::onBeginRemoveRows(const QModelIndex &parent, int first, int last)
-{
-    if (parent.isValid()) {
-        if (ParameterizedItem *newChild = m_model->itemForIndex(parent.child(first, 0))) {
-            if (m_item == newChild) {
-                if (m_active && m_onParentChange.size() > 0) {
-                    for (auto f : m_onParentChange) {
-                        f(nullptr);
-                    }
-                }
-            }
-        }
-    }
 }

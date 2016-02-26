@@ -521,10 +521,8 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type, Parameterized
     if (row < 0 || row > parent->childItemCount())
         return 0;
     if (parent != m_root_item) {
-        if (!parent->acceptsAsChild(model_type)) {
-            qDebug() << "Child of type " << model_type << " not acceptable!\n";
+        if (!parent->acceptsAsChild(model_type))
             return 0;
-        }
     }
 
 //    ParameterizedItem *new_item = new ParameterizedItem(model_type); // NEW -> item factory!

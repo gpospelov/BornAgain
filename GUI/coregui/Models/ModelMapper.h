@@ -39,8 +39,6 @@ public:
 
     void setOnChildPropertyChange(std::function<void(ParameterizedItem*,QString)> f);
 
-    void setOnParentChange(std::function<void(ParameterizedItem*)> f);
-
     void setActive(bool state) {m_active = state;}
 
 public slots:
@@ -48,8 +46,6 @@ public slots:
                        const QVector<int> & roles = QVector<int> ());
 
     void onRowsInserted(const QModelIndex & parent, int first, int last);
-
-    void onBeginRemoveRows(const QModelIndex & parent, int first, int last);
 
 private:
     void setModel(SessionModel *model);
@@ -60,7 +56,6 @@ private:
     ParameterizedItem *m_item;
     std::vector<std::function<void(QString)>> m_onPropertyChange;
     std::vector<std::function<void(ParameterizedItem*,QString)>> m_onChildPropertyChange;
-    std::vector<std::function<void(ParameterizedItem*)>> m_onParentChange;
 };
 
 #endif

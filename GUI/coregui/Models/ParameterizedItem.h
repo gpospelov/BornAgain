@@ -113,9 +113,6 @@ public:
 
     // navigation functions
 
-    //! return index of this item
-    QModelIndex index() const;
-
     //! retrieve parent item
     ParameterizedItem *parent() const;
 
@@ -151,9 +148,6 @@ public:
 
     //! returns a list of children of a certain type
     QList<ParameterizedItem *> getChildrenOfType(const QString &model_type) const;
-
-    //! returns a list of children of a certain type
-    QList<ParameterizedItem *> getUnregisteredChildren() const;
 
     //! insert a child item at specified row
     virtual void insertChildItem(int row, ParameterizedItem *item);

@@ -20,7 +20,7 @@
 
 class MainWindow;
 class QTabWidget;
-class SessionModel;
+class QAbstractItemModel;
 
 class TestView : public QWidget
 {
@@ -33,8 +33,29 @@ private:
     void test_AccordionWidget();
     void test_RunFitWidget();
     MainWindow *m_mainWindow;
-    void addModelToTabs(QTabWidget *tabs, SessionModel *model);
+    void addModelToTabs(QTabWidget *tabs, QAbstractItemModel *model);
     void test_sessionModel();
+};
+
+
+#include "SessionModel.h"
+#include <QObject>
+#include <QIdentityProxyModel>
+#include <QModelIndex>
+
+class TestProxyModel : public QIdentityProxyModel
+{
+    Q_OBJECT
+public:
+    TestProxyModel(QObject *parent = 0);
+    void setSourceModel(QAbstractItemModel *source);
+    QModelIndex mapFromSource(const QModelIndex& sourceIndex) const;
+    QModelIndex mapToSource(const QModelIndex& proxyIndex) const;
+    QModelIndex index(int row, int column, const QModelIndex& parent) const;
+    QModelIndex parent(const QModelIndex& child) const;
+    int rowCount(const QModelIndex& parent) const;
+private:
+    SessionModel *m_source;
 };
 
 #endif

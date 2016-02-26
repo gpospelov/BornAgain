@@ -20,6 +20,7 @@
 #include "MultiLayerItem.h"
 #include "SampleBuilderFactory.h"
 #include "GUIObjectBuilder.h"
+#include "TestView.h"
 #include <QItemSelectionModel>
 #include <QHBoxLayout>
 #include <QTreeView>
@@ -84,8 +85,12 @@ void TestComponentView::init_editors()
     m_model->insertNewItem(Constants::ParticleType);
 
     // tree view
-    m_treeView->setModel(m_model);
+    auto x = new TestProxyModel(this);
+    x->setSourceModel(m_model);
+    m_treeView->setModel( x);
     m_treeView->expandAll();
+    m_treeView->resizeColumnToContents(0);
+    m_treeView->setAlternatingRowColors(true);
     connect(m_treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this,
             SLOT(onSelectionChanged(QItemSelection, QItemSelection)));
 

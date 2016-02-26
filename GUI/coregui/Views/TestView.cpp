@@ -32,6 +32,7 @@
 #include <InstrumentModel.h>
 #include <JobModel.h>
 #include <MaterialModel.h>
+#include <QPersistentModelIndex>
 #include "ModelMapper.h"
 #include "DetectorItems.h"
 
@@ -69,6 +70,10 @@ void TestView::test_sessionModel()
     addModelToTabs(tabs, m_mainWindow->getMaterialModel());
     addModelToTabs(tabs, m_mainWindow->getJobModel());
 
+    TestProxyModel *testModel = new TestProxyModel(this);
+    testModel->setSourceModel(m_mainWindow->getSampleModel());
+    addModelToTabs(tabs, testModel);
+
     // do some testing here
     m_mainWindow->getInstrumentModel()->rootItem()->getChildOfType(Constants::InstrumentType)->mapper()
             ->setOnChildPropertyChange(
@@ -83,14 +88,17 @@ void TestView::test_sessionModel()
     setLayout(layout);
 }
 
-void TestView::addModelToTabs(QTabWidget *tabs, SessionModel *model)
+void TestView::addModelToTabs(QTabWidget *tabs, QAbstractItemModel *model)
 {
     QTreeView *view = new QTreeView;
     view->setModel(model);
     view->expandAll();
     view->resizeColumnToContents(0);
     view->resizeColumnToContents(1);
-    tabs->addTab(view, model->getModelTag());
+    if (SessionModel *sm = dynamic_cast<SessionModel*>(model))
+        tabs->addTab(view, sm->getModelTag());
+    else
+        tabs->addTab(view, "Some Model");
 }
 
 void TestView::test_MaskEditor()
@@ -197,4 +205,71 @@ void TestView::test_RunFitWidget()
     layout->addWidget(tabs);
     setLayout(layout);
 
+}
+
+TestProxyModel::TestProxyModel(QObject *parent)
+    : QIdentityProxyModel(parent)
+{
+}
+
+void TestProxyModel::setSourceModel(QAbstractItemModel *source)
+{
+    QIdentityProxyModel::setSourceModel(source);
+    m_source = dynamic_cast<SessionModel*>(source);
+    connect(m_source, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
+            this, SIGNAL(layoutChanged()));
+}
+
+QModelIndex TestProxyModel::mapFromSource(const QModelIndex &sourceIndex) const
+{
+    return createIndex(sourceIndex.row(), sourceIndex.column(), sourceIndex.internalPointer());
+}
+
+QModelIndex TestProxyModel::mapToSource(const QModelIndex &proxyIndex) const
+{
+    ParameterizedItem *item = static_cast<ParameterizedItem*>(proxyIndex.internalPointer());
+    if (!item) {
+        return QModelIndex();
+    }
+    return m_source->index(proxyIndex.row(), proxyIndex.column(),
+                           item->parent()->index());
+}
+
+QModelIndex TestProxyModel::index(int row, int column, const QModelIndex &parent) const
+{
+    const QModelIndex sourceParent = mapToSource(parent);
+    ParameterizedItem *parentt = m_source->itemForIndex(sourceParent);
+    if (parentt->modelType() == Constants::GroupItemType) {
+        ParameterizedItem *cur = parentt->parent()->getGroupItem(parentt->itemName());
+        const QModelIndex sourceIndex = m_source->index(row, column, cur->index());
+        return mapFromSource(sourceIndex);
+    }
+    const QModelIndex sourceIndex = m_source->index(row, column, sourceParent);
+    return mapFromSource(sourceIndex);
+}
+
+QModelIndex TestProxyModel::parent(const QModelIndex &child) const
+{
+    const QModelIndex sourceIndex = mapToSource(child);
+    ParameterizedItem *head = m_source->itemForIndex(sourceIndex.parent());
+    if (head && head->parent() && head->parent()->modelType() == Constants::GroupItemType) {
+        // skip immediate layer
+        return mapFromSource(head->parent()->index());
+    }
+    const QModelIndex sourceParent = sourceIndex.parent();
+    return mapFromSource(sourceParent);
+}
+
+int TestProxyModel::rowCount(const QModelIndex &parent) const
+{
+    QModelIndex sourceParent = mapToSource(parent);
+    ParameterizedItem *item = m_source->itemForIndex(sourceParent);
+    if (item && item->modelType() == Constants::GroupItemType) {
+        ParameterizedItem *cur = item->parent()->getGroupItem(item->itemName());
+        if (cur)
+            return m_source->rowCount(cur->index());
+        else
+            qDebug() << "proxy::rowCount: null pointer";
+    }
+    return m_source->rowCount(sourceParent);
 }

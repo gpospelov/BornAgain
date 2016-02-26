@@ -258,7 +258,7 @@ void ParameterizedItem::insertChildItem(int row, ParameterizedItem *item)
 
     if (item->modelType() == Constants::PropertyType ||
             item->modelType() == Constants::GroupItemType) {
-        m_property_attribute[item->itemName()] = PropertyAttribute();
+//        m_property_attribute[item->itemName()] = PropertyAttribute();
         m_propertyItems.insert(item->itemName(), item);
     }
 
@@ -296,10 +296,10 @@ PropertyAttribute &ParameterizedItem::registerProperty(const QString &name, cons
 
     ParameterizedItem *property = ItemFactory::createItem(Constants::PropertyType);
     property->setDisplayName(name);
+    property->setAttribute(attribute);
     insertChildItem(-1, property);
     property->setValue(variant);
-    m_property_attribute[name] = attribute;
-    return m_property_attribute[name];
+    return property->getAttribute();
 }
 
 bool ParameterizedItem::isRegisteredProperty(const QString &name) const
@@ -356,7 +356,6 @@ void ParameterizedItem::removeRegisteredProperty(const QString &name)
 {
     if(isRegisteredProperty(name)) {
         qDebug() << "ParameterizedItem::removeRegisteredProperty()" << name;
-        m_property_attribute.remove(name);
         if (ParameterizedItem *para = m_propertyItems[name]) {
             QModelIndex index = m_model->indexOfItem(para);
             m_model->removeRows(index.row(), 1, index.parent());
@@ -413,22 +412,20 @@ ParameterizedItem *ParameterizedItem::getGroupItem(const QString &name) const
 
 const PropertyAttribute &ParameterizedItem::getPropertyAttribute(const QString &name) const
 {
-    QMap<QString, PropertyAttribute>::const_iterator it = m_property_attribute.find(name);
-    if(it == m_property_attribute.end()) {
-        throw GUIHelpers::Error("ParameterizedItem::getPropertyAttribute() -> Error. "
-                                "Unknown property attribute " + name);
+    if(name.isEmpty()) return m_attribute;
+
+    if(ParameterizedItem *propertyItem = getPropertyItem(name)) {
+        return propertyItem->getAttribute();
+    } else {
+        throw GUIHelpers::Error("ParameterizedItem::getPropertyAttribute() -> "
+                                "Error. Unknown property item " + name);
     }
-    return it.value();
 }
 
 PropertyAttribute &ParameterizedItem::getPropertyAttribute(const QString &name)
 {
-    QMap<QString, PropertyAttribute>::iterator it = m_property_attribute.find(name);
-    if(it == m_property_attribute.end()) {
-        throw GUIHelpers::Error("ParameterizedItem::getPropertyAttribute() -> Error. "
-                                "Unknown property attribute " + name);
-    }
-    return it.value();
+    return const_cast<PropertyAttribute &>(
+        static_cast<const ParameterizedItem *>(this)->getPropertyAttribute(name));
 }
 
 const PropertyAttribute &ParameterizedItem::getAttribute() const
@@ -438,22 +435,25 @@ const PropertyAttribute &ParameterizedItem::getAttribute() const
 
 PropertyAttribute &ParameterizedItem::getAttribute()
 {
-    return m_attribute;
+    return const_cast<PropertyAttribute &>(
+        static_cast<const ParameterizedItem *>(this)->getAttribute());
 }
 
 void ParameterizedItem::setPropertyAttribute(const QString &name,
                                              const PropertyAttribute &attribute)
 {
-    if (!isRegisteredProperty(name))
+    if(ParameterizedItem *propertyItem = getPropertyItem(name)) {
+        propertyItem->setAttribute(attribute);
+    } else {
         throw GUIHelpers::Error(
-            "ParameterizedItem::setPropertyAttribute() -> Error. Unknown property " + name);
+            "ParameterizedItem::setPropertyAttribute() -> Error. Unknown property item " + name);
 
-    if (!m_property_attribute.contains(name))
-        throw GUIHelpers::Error(
-            "ParameterizedItem::setPropertyAttribute() -> Error. Unknown property attribute "
-            + name);
+    }
+}
 
-    m_property_attribute[name] = attribute;
+void ParameterizedItem::setAttribute(const PropertyAttribute &attribute)
+{
+    m_attribute = attribute;
 }
 
 // returns child which should be removed by the model due to overpopulation of children of given

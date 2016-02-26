@@ -215,6 +215,7 @@ public:
 
     //! set the attribute
     void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
+    void setAttribute(const PropertyAttribute &attribute);
 
 
     // helper
@@ -252,7 +253,7 @@ private:
     PortInfo::EPorts m_port;
     QList<ParameterizedItem *> m_children;
     QMap<QString, ParameterizedItem *> m_propertyItems;
-    QMap<QString, PropertyAttribute> m_property_attribute;
+//    QMap<QString, PropertyAttribute> m_property_attribute;
     QList<QString> m_valid_children;
     QMap<int, PortInfo> m_port_info;
     std::unique_ptr<ModelMapper> m_mapper;

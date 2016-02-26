@@ -45,13 +45,11 @@ void GroupProperty::setParent(ParameterizedItem *parent)
     Q_ASSERT(parent);
     m_parent = parent;
     ParameterizedItem *item = createCorrespondingItem();
-//    item->setName(getGroupName());
     m_parent->insertChildItem(-1, item);
 }
 
 ParameterizedItem *GroupProperty::createCorrespondingItem()
 {
-    qDebug() << "GroupProperty::createCorrespondingItem()" << getCurrentType();
     ParameterizedItem *result = ItemFactory::createItem(getCurrentType());
     if(type() == FIXED) {
         setCurrentLabel(result->itemLabel());
@@ -75,28 +73,21 @@ void GroupProperty::setCurrentType(const QString &type)
     if(type == getCurrentType()) return;
 
     ParameterizedItem *prevItem = getCurrentItem();
-
     m_current_type = type;
 
     if(m_parent) {
-
         if (auto item = m_parent->getChildByName(m_current_type)) {
-            qDebug() << "GGG GroupProperty::setCurrentType 1.1 picking existing new item" << item << item->displayName();
             item->getAttribute().setVisible();
             item->getAttribute().setEnabled();
-//            prevItem->getAttribute().setAppearance(PropertyAttribute::VISIBLE | PropertyAttribute::ENABLED);
             item->emitValueChanged(QVector<int>() << Qt::UserRole);
         } else {
             ParameterizedItem *new_item = createCorrespondingItem();
-            qDebug() << "GGG GroupProperty::setCurrentType 1.2 creating new item" << new_item << new_item->displayName();
             m_parent->insertChildItem(-1, new_item);
         }
 
         if(prevItem) {
-            qDebug() << "GGG GroupProperty::setCurrentType 1.3 disabline previous item" << prevItem << prevItem->displayName();
             prevItem->getAttribute().setHidden();
             prevItem->getAttribute().setDisabled();
-//            prevItem->getAttribute().setAppearance(PropertyAttribute::HIDDEN | PropertyAttribute::DISABLED);
             prevItem->emitValueChanged(QVector<int>() << Qt::UserRole);
         }
 

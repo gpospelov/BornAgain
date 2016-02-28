@@ -53,14 +53,13 @@
 \usepackage{dingbat}
 \usepackage{amssymb}
 
-% BROKEN under texlive2015:
-% \usepackage[bold-style=ISO]{unicode-math} % must come after ams and symbols
-% WORKAROUND:
-\def\mathup#1{\text{#1}}
-
+\usepackage[bold-style=ISO]{unicode-math} % must come after ams and symbols
+\newif\ifolducm
+\makeatletter
+\@ifpackagelater{unicode-math}{2014/07/01}{\olducmfalse}{\olducmtrue}
+\makeatother
 
 % prevent unicode-math from overwriting
-
 
 \AtBeginDocument{\renewcommand{\Re}{\operatorname{Re}}}
 \AtBeginDocument{\renewcommand{\Im}{\operatorname{Im}}}

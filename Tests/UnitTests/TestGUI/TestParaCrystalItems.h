@@ -48,20 +48,20 @@ inline void TestParaCrystalItems::test_Para1D_PDFGroupProperty()
          << Constants::FTDistribution1DVoigtType;
 
     foreach(QString pdf_name, pdfs) {
-        QSignalSpy spyItem(&item, SIGNAL(propertyChanged(QString)));
-        QSignalSpy spyPropertyItem(&item, SIGNAL(subItemChanged(QString)));
+//        QSignalSpy spyItem(&item, SIGNAL(propertyChanged(QString)));
+//        QSignalSpy spyPropertyItem(&item, SIGNAL(subItemChanged(QString)));
         ParameterizedItem *pdfItem = item.setGroupProperty(InterferenceFunctionRadialParaCrystalItem::P_PDF, pdf_name);
         QVERIFY(pdfItem);
         QCOMPARE(item.getChildrenOfType(Constants::GroupItemType).size(), 1);
         QCOMPARE(pdfItem, item.getGroupItem(InterferenceFunctionRadialParaCrystalItem::P_PDF));
 
-        QCOMPARE(spyItem.count(), 0);
+//        QCOMPARE(spyItem.count(), 0);
         if(pdf_name == Constants::FTDistribution1DCauchyType) { // default ff
-            QCOMPARE(spyPropertyItem.count(), 0);
+//            QCOMPARE(spyPropertyItem.count(), 0);
         } else {
-            QCOMPARE(spyPropertyItem.count(), 1);
-            QList<QVariant> arguments = spyPropertyItem.takeFirst(); // take the first signal
-            QCOMPARE(arguments.at(0).toString(), InterferenceFunctionRadialParaCrystalItem::P_PDF);
+//            QCOMPARE(spyPropertyItem.count(), 1);
+//            QList<QVariant> arguments = spyPropertyItem.takeFirst(); // take the first signal
+//            QCOMPARE(arguments.at(0).toString(), InterferenceFunctionRadialParaCrystalItem::P_PDF);
         }
 
         QCOMPARE(pdfItem->modelType(), pdf_name);

@@ -209,7 +209,7 @@ public:
     ParameterizedItem *setGroupProperty(const QString &name, const QString &value = QString()) const;
 
     //! returns current item of group property
-    ParameterizedItem *getGroupItem(const QString &name) const;
+    ParameterizedItem *getGroupItem(const QString &name, const QString &type = QString()) const;
 
 
     // attributes

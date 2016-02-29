@@ -22,40 +22,12 @@
 
 #include "ParameterizedItem.h"
 
-namespace SessionXML
-{
-const QString MimeType = "application/org.bornagainproject.xml.item.z";
-const QString ModelTag("SessionModel");
-const QString InstrumentModelTag("InstrumentModel");
-const QString SampleModelTag("SampleModel");
-const QString MaterialModelTag("MaterialModel");
-const QString FitModelTag("FitModel");
-const QString JobModelTag("JobModel");
-const QString MaskModelTag("MaskModel");
-
-const QString ModelNameAttribute("Name");
-const QString ItemTag("Item");
-const QString ModelTypeAttribute("ModelType");
-const QString ItemNameAttribute("ItemName");
-const QString ParameterTag("Parameter");
-const QString ParameterNameAttribute("ParName");
-const QString ParameterTypeAttribute("ParType");
-const QString ParameterValueAttribute("ParValue");
-
-const QString IdentifierAttribute("Identifier");
-
-const QString ColorRedAttribute("Red");
-const QString ColorGreenAttribute("Green");
-const QString ColorBlueAttribute("Blue");
-const QString ColorAlphaAttribute("Alpha");
-
-const QString AngleUnitsAttribute("Units");
-}
+#include "SessionXML.h"
 
 class IconProvider;
 class WarningMessageService;
 
-class /*BA_CORE_API_*/ SessionModel : public QAbstractItemModel
+class BA_CORE_API_ SessionModel : public QAbstractItemModel
 {
     Q_OBJECT
     friend class ParameterizedItem; // NEW
@@ -145,12 +117,6 @@ private:
     ParameterizedItem *insertNewItem(QString model_type, ParameterizedItem *parent, int row = -1,
                                      ParameterizedItem::PortInfo::EPorts port
                                      = ParameterizedItem::PortInfo::DEFAULT);
-    void readItems(QXmlStreamReader *reader, ParameterizedItem *item, int row = -1);
-    QString readProperty(QXmlStreamReader *reader, ParameterizedItem *item);
-    void writeItemAndChildItems(QXmlStreamWriter *writer, const ParameterizedItem *item) const;
-    void writeProperty(QXmlStreamWriter *writer, const ParameterizedItem *item,
-                       const char *property_name) const;
-    void writePropertyItem(QXmlStreamWriter *writer, ParameterizedItem *item) const;
 
     void cleanItem(const QModelIndex &parent, int first, int last);
 

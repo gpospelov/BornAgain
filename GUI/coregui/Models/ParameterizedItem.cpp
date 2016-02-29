@@ -350,7 +350,7 @@ void ParameterizedItem::setRegisteredProperty(const QString &name, const QVarian
 {
     // check if variant of previous property coincides with new one
     if (!isRegisteredProperty(name))
-        return;
+        throw GUIHelpers::Error("Property not existing!");
     QVariant previous_variant = getRegisteredProperty(name);
     if (GUIHelpers::getVariantType(previous_variant) != GUIHelpers::getVariantType(variant)) {
         qDebug() << "ParameterizedItem::setRegisteredProperty() -> Error. Type of previous and new "
@@ -378,9 +378,14 @@ void ParameterizedItem::removeRegisteredProperty(const QString &name)
     if(isRegisteredProperty(name)) {
         qDebug() << "ParameterizedItem::removeRegisteredProperty()" << name;
         if (ParameterizedItem *para = m_propertyItems[name]) {
-            QModelIndex index = m_model->indexOfItem(para);
-            m_model->removeRows(index.row(), 1, index.parent());
-            m_propertyItems.remove(name);
+            if (m_model) {
+                QModelIndex index = m_model->indexOfItem(para);
+                m_model->removeRows(index.row(), 1, index.parent());
+                m_propertyItems.remove(name);
+            } else {
+                m_children.removeAll(m_propertyItems[name]);
+                m_propertyItems.remove(name);
+            }
         }
     }
 }
@@ -426,9 +431,20 @@ ParameterizedItem *ParameterizedItem::setGroupProperty(const QString &name, cons
     return nullptr;
 }
 
-ParameterizedItem *ParameterizedItem::getGroupItem(const QString &name) const
+ParameterizedItem *ParameterizedItem::getGroupItem(const QString &name, const QString &type) const
 {
-    return setGroupProperty(name);
+    if (GroupItem *item = dynamic_cast<GroupItem *>(m_propertyItems[name])) {
+        GroupProperty_t group_property = item->group();
+        if (type.isEmpty()) {
+            return group_property->getCurrentItem();
+        }
+        QString backup = group_property->getCurrentType();
+        group_property->setCurrentType(type);
+        ParameterizedItem *value = group_property->getCurrentItem();
+        group_property->setCurrentType(backup);
+        return value;
+    }
+    return nullptr;
 }
 
 const PropertyAttribute &ParameterizedItem::getPropertyAttribute(const QString &name) const

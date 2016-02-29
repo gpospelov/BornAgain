@@ -165,9 +165,9 @@ void DesignerScene::onSessionSelectionChanged(const QItemSelection & /* selected
         QModelIndex index = m_sampleModel->indexOfItem(it.key());
         if (index.isValid()) {
             if (m_selectionModel->isSelected(index)) {
-//                it.value()->setSelected(true);
+                it.value()->setSelected(true);
             } else {
-//                it.value()->setSelected(false);
+                it.value()->setSelected(false);
             }
         }
     }
@@ -216,6 +216,11 @@ void DesignerScene::updateViews(const QModelIndex &parentIndex, IView *parentVie
         QModelIndex itemIndex = m_sampleModel->index(i_row, 0, parentIndex);
 
         if (ParameterizedItem *item = m_sampleModel->itemForIndex(itemIndex)) {
+
+
+            if (item && (item->modelType() == Constants::GroupItemType || item->modelType() == Constants::PropertyType)) {
+                continue;
+            }
 
             childView = addViewForItem(item);
             if (childView) {

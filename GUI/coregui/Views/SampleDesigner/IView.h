@@ -45,7 +45,6 @@ signals:
 public slots:
     virtual void onChangedX();
     virtual void onChangedY();
-    virtual void onPropertyChange(const QString &propertyName);
 
 protected:
     ParameterizedItem *m_item;

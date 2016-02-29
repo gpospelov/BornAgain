@@ -41,13 +41,13 @@ void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
 //    int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
     int port = int(item->port());
     PortInfo::EPorts first_available_particle_port = getFirstAvailableParticlePort();
-    ParameterizedItem::insertChildItem(row, item);
     if (item->modelType() == Constants::ParticleType && port == PortInfo::DEFAULT
         && first_available_particle_port != PortInfo::DEFAULT) {
         item->setPort(first_available_particle_port);
     } else if (item->modelType() == Constants::TransformationType && port == PortInfo::DEFAULT) {
         item->setPort(PortInfo::PORT_2);
     }
+    ParameterizedItem::insertChildItem(row, item);
 }
 
 void ParticleCoreShellItem::onPropertyChange(const QString &name)

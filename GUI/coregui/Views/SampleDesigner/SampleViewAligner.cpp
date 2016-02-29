@@ -186,9 +186,14 @@ void SampleViewAligner::alignSample(const QModelIndex & parentIndex, QPointF ref
 
 //    qDebug() << "   new_pos:" << reference;
 
+    int child_counter = 0;
     for( int i_row = 0; i_row < sampleModel->rowCount( parentIndex ); ++i_row) {
          QModelIndex itemIndex = sampleModel->index( i_row, 0, parentIndex );
-         QPointF child_reference = reference + QPointF(-150, 150*i_row);
+         ParameterizedItem *item = sampleModel->itemForIndex(itemIndex);
+         if (item && (item->modelType() == Constants::GroupItemType || item->modelType() == Constants::PropertyType)) {
+             continue;
+         }
+         QPointF child_reference = reference + QPointF(-150, 150*child_counter++);
 //         qDebug() << "   child_reference:" << child_reference;
          alignSample(itemIndex, child_reference, force_alignment);
     }

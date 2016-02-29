@@ -76,15 +76,15 @@ void ParticleView::setParameterizedItem(ParameterizedItem *item)
 void ParticleView::onPropertyChange(const QString &propertyName)
 {
     if(propertyName == ParticleItem::P_FORM_FACTOR) {
-//        GroupProperty_t group_property = dynamic_cast<GroupItem*>(getParameterizedItem()->getGroupItem(ParticleItem::P_FORM_FACTOR))->group();
+        GroupProperty_t group_property = dynamic_cast<GroupItem*>(getParameterizedItem()->getPropertyItem(ParticleItem::P_FORM_FACTOR))->group();
 //        GroupProperty_t group_property = getParameterizedItem()->getRegisteredProperty(ParticleItem::P_FORM_FACTOR).value<GroupProperty_t>();
 
-//        QString current_ff_type = group_property->getCurrentType();
-//        QString filename = QString(":/SampleDesigner/images/ff_%1_32.png").arg(current_ff_type);
-//        m_pixmap = QPixmap(filename);
+        QString current_ff_type = group_property->getCurrentType();
+        QString filename = QString(":/SampleDesigner/images/ff_%1_32.png").arg(current_ff_type);
+        m_pixmap = QPixmap(filename);
         update();
     } else {
-        IView::onPropertyChange(propertyName);
+//        IView::onPropertyChange(propertyName);
     }
 }
 

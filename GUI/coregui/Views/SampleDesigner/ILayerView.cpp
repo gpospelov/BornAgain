@@ -61,7 +61,7 @@ void ILayerView::onPropertyChange(const QString &propertyName)
         setColor(mp.getColor());
         update();
     } else {
-        IView::onPropertyChange(propertyName);
+//        IView::onPropertyChange(propertyName);
     }
 }
 

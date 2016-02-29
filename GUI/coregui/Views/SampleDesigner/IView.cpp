@@ -15,6 +15,7 @@
 
 #include "IView.h"
 #include "ParameterizedGraphicsItem.h"
+#include "ModelMapper.h"
 #include <QString>
 #include <QDebug>
 
@@ -30,6 +31,17 @@ void IView::setParameterizedItem(ParameterizedItem *item)
         m_item = item;
         setX(m_item->getRegisteredProperty(ParameterizedGraphicsItem::P_XPOS).toReal());
         setY(m_item->getRegisteredProperty(ParameterizedGraphicsItem::P_YPOS).toReal());
+        ModelMapper *mapper = new ModelMapper(this);
+        mapper->setItem(item);
+        mapper->setOnPropertyChange(
+                    [this] (const QString &name)
+        {
+            if (name == ParameterizedGraphicsItem::P_XPOS) {
+                setX(m_item->getRegisteredProperty(ParameterizedGraphicsItem::P_XPOS).toReal());
+            } else if (name == ParameterizedGraphicsItem::P_YPOS) {
+                setY(m_item->getRegisteredProperty(ParameterizedGraphicsItem::P_YPOS).toReal());
+            }
+        });
         connect(m_item, SIGNAL(propertyChanged(const QString &)), this,
                 SLOT(onPropertyChange(const QString &)));
         connect(m_item, SIGNAL(subItemChanged(const QString &)), this,
@@ -53,13 +65,4 @@ void IView::onChangedY()
 {
     Q_ASSERT(m_item);
     m_item->setRegisteredProperty(ParameterizedGraphicsItem::P_YPOS, y());
-}
-
-void IView::onPropertyChange(const QString &propertyName)
-{
-    if (propertyName == ParameterizedGraphicsItem::P_XPOS) {
-        setX(m_item->getRegisteredProperty(ParameterizedGraphicsItem::P_XPOS).toReal());
-    } else if (propertyName == ParameterizedGraphicsItem::P_YPOS) {
-        setY(m_item->getRegisteredProperty(ParameterizedGraphicsItem::P_YPOS).toReal());
-    }
 }

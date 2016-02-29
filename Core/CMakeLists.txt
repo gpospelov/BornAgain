@@ -153,7 +153,7 @@ if(WIN32)
     ${CMAKE_LIBRARY_PATH}/boost_iostreams${boost_suffix}
     ${CMAKE_LIBRARY_PATH}/boost_system${boost_suffix}
     ${CMAKE_LIBRARY_PATH}/boost_filesystem${boost_suffix}
-    ${CMAKE_LIBRARY_PATH}/boost_python${boost_suffix}
+    #${CMAKE_LIBRARY_PATH}/boost_python${boost_suffix}
     ${CMAKE_LIBRARY_PATH}/boost_regex${boost_suffix}
     ${CMAKE_LIBRARY_PATH}/boost_thread${boost_suffix}
     ${CMAKE_LIBRARY_PATH}/libfftw3-3.dll

@@ -18,6 +18,7 @@
 
 #include "INamedShared.h"
 #include "ParameterPool.h"
+#include "IParameterized.h"
 
 class AttLimits;
 

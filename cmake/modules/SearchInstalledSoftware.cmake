@@ -1,6 +1,10 @@
 # Search for installed software required by BornAgain
 
-set(Python_ADDITIONAL_VERSIONS 3.5)
+if (BORNAGAIN_USE_PYTHON3)
+  set(Python_ADDITIONAL_VERSIONS 3.5)
+else()
+  set(Python_ADDITIONAL_VERSIONS 2.7)
+endif()
 
 if(BORNAGAIN_OPENMPI)
     message(STATUS "Configuring with OpenMPI support")
@@ -26,12 +30,17 @@ else()
     set(boost_libraries_required date_time chrono program_options iostreams system filesystem regex thread)
 endif()
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
+  if(BORNAGAIN_USE_PYTHON3)
     list(APPEND boost_libraries_required python-py35)
+  else()
+    list(APPEND boost_libraries_required python-py27)
+  endif()
 endif()
 find_package(Boost 1.48.0 COMPONENTS ${boost_libraries_required} REQUIRED)
 message(STATUS "Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
 message(STATUS "Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}")
 message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
+
 
 
 # --- GSL ---

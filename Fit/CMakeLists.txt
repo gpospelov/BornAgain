@@ -29,17 +29,59 @@ set(source_files ${fitkernel_source_files})
 set(include_files ${fitkernel_include_files})
 
 if(BORNAGAIN_PYTHON)
-    file(GLOB source_pythonapi "PythonAPI/src/*.cpp")
+    file(GLOB source_pythonapi "PythonAPI/*.cpp")
     list(APPEND source_files ${source_pythonapi})
-    file(GLOB include_pythonapi "PythonAPI/inc/*.h")
+    file(GLOB include_pythonapi "PythonAPI/*.h")
     list(APPEND include_files ${include_pythonapi})
 
-    include_directories(
-        ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/inc
-        ${CMAKE_SOURCE_DIR}/Core/PythonAPI/inc
-	)
+    set(include_dirs
+      ${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/inc
+      ${CMAKE_CURRENT_SOURCE_DIR}/StandardFits
+      ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/
+      ${CMAKE_SOURCE_DIR}/Core/PythonAPI/
+      ${CMAKE_SOURCE_DIR}/Core/Algorithms/inc
+      ${CMAKE_SOURCE_DIR}/Core/FormFactors/inc
+      ${CMAKE_SOURCE_DIR}/Core/Geometry/inc
+      ${CMAKE_SOURCE_DIR}/Core/Samples/inc
+      ${CMAKE_SOURCE_DIR}/Core/StandardSamples
+      ${CMAKE_SOURCE_DIR}/Core/Tools/inc
+      ${CMAKE_SOURCE_DIR}/Core/InputOutput
+      )
+    include_directories(${include_dirs})
 
-    configure_file(../dev-tools/python-bindings/swig/libBornAgainFit.py ../lib/libBornAgainFit.py COPYONLY)
+
+    if(BORNAGAIN_GENERATE_BINDINGS)
+      #set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.i PROPERTIES CPLUSPLUS ON)
+      #set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.i PROPERTIES SWIG_FLAGS "-includeall")
+      set(SWIG_FLAGS "")
+      list(APPEND SWIG_FLAGS "-c++")
+      list(APPEND SWIG_FLAGS "-python")
+
+      foreach(dir ${include_dirs})
+        list(APPEND SWIG_FLAGS "-I${dir}")
+      endforeach(dir)
+
+    
+      add_custom_command (
+        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.cxx ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
+        COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.i
+        COMMAND sed -i "'s/_libBornAgainFit.ICloneable_transferToCPP(self)/self.__disown__()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
+        DEPENDS PythonAPI/libBornAgainFit.i ${include_files}
+        )
+    
+
+    endif()
+
+  add_custom_target (
+    ${library_name}_python
+    COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py ${CMAKE_BINARY_DIR}/lib/libBornAgainFit.py
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
+    )
+  
+  list(APPEND source_files "PythonAPI/libBornAgainFit_wrap.cxx")
+  list(APPEND include_files "PythonAPI/libBornAgainFit_wrap.h")
+      
+   # configure_file(../dev-tools/python-bindings/swig/libBornAgainFit.py ../lib/libBornAgainFit.py COPYONLY)
 endif()
 
 # --- definitions ---------
@@ -56,6 +98,11 @@ add_library(
 )
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
+
+if(BORNAGAIN_PYTHON)
+  add_dependencies(${library_name} ${library_name}_python)
+endif()
+
 # exposing library name and list of include directories outside
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)

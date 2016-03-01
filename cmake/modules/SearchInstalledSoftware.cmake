@@ -1,5 +1,8 @@
 # Search for installed software required by BornAgain
 
+
+
+
 if (BORNAGAIN_USE_PYTHON3)
   set(Python_ADDITIONAL_VERSIONS 3.5)
 else()
@@ -31,9 +34,9 @@ else()
 endif()
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
   if(BORNAGAIN_USE_PYTHON3)
-    list(APPEND boost_libraries_required python-py35)
+    list(APPEND boost_libraries_required)
   else()
-    list(APPEND boost_libraries_required python-py27)
+    list(APPEND boost_libraries_required)
   endif()
 endif()
 find_package(Boost 1.48.0 COMPONENTS ${boost_libraries_required} REQUIRED)
@@ -86,6 +89,13 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
 
 endif()
 
+
+# --- SWIG ---
+if(BORNAGAIN_PYTHON AND BORNAGAIN_GENERATE_BINDINGS)
+  find_package(SWIG 3.0 REQUIRED)
+  include(${SWIG_USE_FILE})
+  message(STATUS "--> SWIG EXECUTABLE: ${SWIG_EXECUTABLE}, SWIG_VERSION: ${SWIG_VERSION}")
+endif()
 
 # --- ROOT ---
 if(BORNAGAIN_APP)

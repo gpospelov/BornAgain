@@ -1,20 +1,34 @@
-%module(directors="1") "libBornAgainCore"
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      PythonAPI/libBornAgainCore.i
+//! @brief     SWIG interface file for libBornAgainCore
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
 
+%module(directors="1") "libBornAgainCore"
 
 
 #pragma SWIG nowarn=314 // print
 #pragma SWIG nowarn=315 // nothing known about std::size_t // fixed by #ifndef in Types.h
- //#pragma SWIG nowarn=362 // operator=
- //#pragma SWIG nowarn=389 // operator[]
+//#pragma SWIG nowarn=362 // operator=
+//#pragma SWIG nowarn=389 // operator[]
 #pragma SWIG nowarn=473 // returning pointer in a director method (object ownership problem)
 #pragma SWIG nowarn=503 // operator<<
- //#pragma SWIG nowarn=509 // overload ignored since reference=pointer
+//#pragma SWIG nowarn=509 // overload ignored since reference=pointer
 
 
- //%feature("director");
+//%feature("director");
 
- // manually declare which classes can be derived in Python and passed back to C++
- // this can be used to reduce the bloat in the swig-generated code
+// manually declare which classes can be derived in Python and passed back to C++
+// this can be used to reduce the bloat in the swig-generated code
 %feature("director") IAbstractParticle;
 %feature("director") IAxis;
 %feature("director") ICloneable;
@@ -57,8 +71,6 @@
 %include "std_vector.i"
 %include "std_shared_ptr.i"
 
- //%include "boost_shared_ptr.i"
- //%include <boost/shared_ptr.hpp>
 %shared_ptr(ISampleBuilder)
 %shared_ptr(IParameterizedShared)
 %shared_ptr(INamedShared)

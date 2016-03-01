@@ -100,17 +100,20 @@ public:
     // Functions of this (with no further argument)
     // -------------------------------------------------------------------------
 
+    //! Returns complex conjugate vector
+    BasicVector3D<T> conj() const;
+
     //! Returns squared magnitude squared of the vector.
-    double mag2() const { return std::norm(v_[0]) + std::norm(v_[1]) + std::norm(v_[2]); }
+    inline double mag2() const { return std::norm(v_[0]) + std::norm(v_[1]) + std::norm(v_[2]); }
 
     //! Returns magnitude of the vector.
-    double mag() const { return sqrt(mag2()); }
+    inline double mag() const { return sqrt(mag2()); }
 
     //! Returns squared distance from z axis.
-    double magxy2() const { return std::norm(v_[0]) + std::norm(v_[1]); }
+    inline double magxy2() const { return std::norm(v_[0]) + std::norm(v_[1]); }
 
     //! Returns distance from z axis.
-    double magxy() const { return sqrt(magxy2()); }
+    inline double magxy() const { return sqrt(magxy2()); }
 
     //! Returns azimuth angle.
     double phi() const;
@@ -144,15 +147,6 @@ public:
 
     //! Returns cross product of vectors.
     BasicVector3D<T> cross(const BasicVector3D<T>& v ) const;
-
-    //! Returns square of transverse component with respect to given axis.
-    //! Only for T=double.
-    double perp2(const BasicVector3D<double>& v) const;
-
-    //! Returns transverse component with respect to given axis.
-    //! Only for T=double.
-    inline double perp(const BasicVector3D<double>& v) const
-    { return std::sqrt(perp2(v)); }
 
     //! Returns angle with respect to another vector.
     double angle(const BasicVector3D<T>& v) const;

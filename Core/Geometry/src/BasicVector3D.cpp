@@ -16,15 +16,27 @@
 #include <iostream>
 #include "BasicVector3D.h"
 
-using std::conj;
-using std::sqrt;
 typedef std::complex<double> complex_t;
 
 namespace Geometry {
 
 // -----------------------------------------------------------------------------
-// Cylindrical and spherical coordinate systems
+// Functions of this (with no further argument)
 // -----------------------------------------------------------------------------
+
+//! Returns complex conjugate vector
+template<>
+BasicVector3D<double> BasicVector3D<double>::conj() const
+{
+    return *this;
+}
+
+//! Returns complex conjugate vector
+template<>
+BasicVector3D<complex_t > BasicVector3D<complex_t >::conj() const
+{
+    return BasicVector3D<complex_t >(std::conj(v_[0]), std::conj(v_[1]), std::conj(v_[2]));
+}
 
 //! Returns azimuth angle.
 template<>
@@ -71,7 +83,7 @@ BasicVector3D<std::complex<double>> BasicVector3D<double>::complex() const
 template<>
 complex_t BasicVector3D<complex_t>::dot(const BasicVector3D<complex_t>& v) const
 {
-     return conj(x())*v.x()+conj(y())*v.y()+conj(z())*v.z();
+     return std::conj(x())*v.x()+std::conj(y())*v.y()+std::conj(z())*v.z();
 }
 
 template<>
@@ -88,14 +100,6 @@ BasicVector3D<double> BasicVector3D<double>::cross(
     return BasicVector3D<double>(y()*v.z()-v.y()*z(),
                                  z()*v.x()-v.z()*x(),
                                  x()*v.y()-v.x()*y());
-}
-
-//! Returns square of transverse component with respect to given axis.
-template<>
-double BasicVector3D<double>::perp2(const BasicVector3D<double>& v) const
-{
-    double tot = v.mag2(), s = dot(v);
-    return tot > 0.0 ? mag2()-s*s/tot : mag2();
 }
 
 //! Returns angle with respect to another vector.

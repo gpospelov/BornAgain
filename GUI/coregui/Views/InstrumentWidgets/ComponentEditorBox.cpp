@@ -28,7 +28,8 @@ ComponentEditorBox::ComponentEditorBox(const QString &title, QWidget *parent)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
-    m_editor->setPresentationType(ComponentEditorFlags::BROWSER_GROUPBOX | ComponentEditorFlags::SHOW_CONDENSED);
+    m_editor->setFlat();
+//    m_editor->setPresentationType(ComponentEditorFlags::BROWSER_GROUPBOX | ComponentEditorFlags::SHOW_CONDENSED);
 
     QVBoxLayout *groupBoxLayout = new QVBoxLayout;
     groupBoxLayout->setContentsMargins( 0, 0, 0, 0 );

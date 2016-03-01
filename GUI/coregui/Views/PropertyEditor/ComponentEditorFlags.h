@@ -26,9 +26,10 @@ public:
         DEFAULT = 0x000,
         SHOW_DETAILED = 0x001,    // show whole item tree
         SHOW_CONDENSED = 0x002,   // show only items related to properties
-        BROWSER_TABLE = 0x004,    // table-like browser
-        BROWSER_GROUPBOX = 0x008, // groupbox-like browser
-        BROWSER_BUTTON = 0x010    // button-like browser
+        SHOW_FLAT = 0x004,   // insert items after
+        BROWSER_TABLE = 0x010,    // table-like browser
+        BROWSER_GROUPBOX = 0x020, // groupbox-like browser
+        BROWSER_BUTTON = 0x040    // button-like browser
     };
     Q_DECLARE_FLAGS(PresentationType, EPresentationType)
 

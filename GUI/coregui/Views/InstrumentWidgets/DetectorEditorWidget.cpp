@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "DetectorEditorWidget.h"
-#include "AwesomePropertyEditor.h"
+#include "ComponentEditor.h"
 #include "DetectorItems.h"
 #include "GroupInfoBox.h"
 #include "ExtendedDetectorDialog.h"
@@ -40,7 +40,10 @@ DetectorEditorWidget::DetectorEditorWidget(ColumnResizer *columnResizer, QWidget
     m_groupBox->setLayout(groupLayout);
     connect(m_groupBox, SIGNAL(clicked()), this, SLOT(onGroupBoxExtendedButton()));
 
-    m_detectorTypeEditor = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+//    m_detectorTypeEditor = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+    m_detectorTypeEditor = new ComponentEditor(this);
+//    m_phiAxisEditor->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_GROUPBOX);
+
     groupLayout->addWidget(m_detectorTypeEditor);
 
     // main layout
@@ -92,8 +95,9 @@ void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
                SLOT(onSubItemPropertyChanged(const QString &, const QString &)));
 
     m_detectorTypeEditor->clearEditor();
-    m_detectorTypeEditor->addItemProperty(m_detectorItem, DetectorItem::P_DETECTOR, QString(),
-                                     AwesomePropertyEditor::SKIP);
+    m_detectorTypeEditor->setItem(m_detectorItem);
+//    m_detectorTypeEditor->addItemProperty(m_detectorItem, DetectorItem::P_DETECTOR, QString(),
+//                                     AwesomePropertyEditor::SKIP);
 
     init_SubDetector_Widget();
 }

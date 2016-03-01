@@ -34,7 +34,7 @@ public:
     ComponentEditor(QWidget *parent = 0);
     ~ComponentEditor();
 
-    void setItem(ParameterizedItem *item);
+    void setItem(ParameterizedItem *item, const QString &group_name=QString());
 //    void addItemProperty(ParameterizedItem *item, const QString &name);
 
     void updateEditor(ParameterizedItem *item, QtVariantProperty *parentProperty = 0);
@@ -42,6 +42,7 @@ public:
     void clearEditor();
 
     void setPresentationType(ComponentEditorFlags::PresentationType presentationType);
+    void setFlat();
 
 public slots:
     void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);

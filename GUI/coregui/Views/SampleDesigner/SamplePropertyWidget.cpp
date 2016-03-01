@@ -74,7 +74,7 @@ void SamplePropertyWidget::selectionChanged(const QItemSelection & selected,
         ParameterizedItem *item = static_cast<ParameterizedItem *>(
                 indices.back().internalPointer());
 //        m_propertyEditor->setItem(item, item->modelType());
-        m_propertyEditor->setItem(item);
+        m_propertyEditor->setItem(item, item->modelType());
     } else {
         m_propertyEditor->setItem(0);
     }

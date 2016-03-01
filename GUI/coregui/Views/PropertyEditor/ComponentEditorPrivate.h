@@ -42,6 +42,7 @@ public:
 
     bool isShowDetailed() const;
     bool isShowCondensed() const;
+    bool isFlat() const;
 
     QtVariantProperty *processPropertyForItem(ParameterizedItem *item, QtVariantProperty *parentProperty);
     QtVariantProperty *getPropertyForItem(ParameterizedItem *item);

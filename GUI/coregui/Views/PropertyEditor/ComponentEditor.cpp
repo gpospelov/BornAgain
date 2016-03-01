@@ -44,17 +44,26 @@ ComponentEditor::~ComponentEditor()
 }
 
 //! Sets editor to display all recursive properties of given item
-void ComponentEditor::setItem(ParameterizedItem *item)
+void ComponentEditor::setItem(ParameterizedItem *item, const QString &group_name)
 {
     clearEditor();
     if(!item) return;
 
 //    updateEditor(item);
 
-    foreach (ParameterizedItem *childItem, componentItems(item)) {
-        updateEditor(childItem);
+    QtVariantProperty *groupVariantProperty(0);
+    if(!group_name.isEmpty()) {
+        groupVariantProperty = m_d->m_manager->addProperty(QtVariantPropertyManager::groupTypeId(), group_name);
+        m_d->m_browser->addProperty(groupVariantProperty);
     }
 
+//    if(m_d->isFlat()) {
+        foreach (ParameterizedItem *childItem, componentItems(item)) {
+            updateEditor(childItem, groupVariantProperty);
+        }
+//    } else {
+//        updateEditor(item);
+//    }
 
 }
 
@@ -99,6 +108,11 @@ void ComponentEditor::setPresentationType(
     layout()->addWidget(m_d->m_browser);
 }
 
+void ComponentEditor::setFlat()
+{
+    setPresentationType(ComponentEditorFlags::BROWSER_GROUPBOX | ComponentEditorFlags::SHOW_CONDENSED|  ComponentEditorFlags::SHOW_FLAT);
+}
+
 //! Propagates data from ParameterizedItem to editor
 void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
                                     const QModelIndex &bottomRight,
@@ -127,50 +141,13 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
             property->setValue(item->value());
             connectManager();
 
-//            if(item->modelType() == Constants::GroupItemType) {
-//                foreach(QtVariantProperty *qtProperty, m_d->m_qtvariant_to_dependend[property]) {
-//                    qDebug() << "AAAA" << qtProperty << m_d->getItemForProperty(qtProperty);
-//                    m_d->removeQtVariantProperty(qtProperty);
-//                }
-////                m_d->m_qtvariant_to_dependend[property].clear();
-
-////                updateEditor(topLeft, m_d->getPropertyForItem(item->parent()));
-////                return;
-//            }
-
             if(item->modelType() == Constants::GroupItemType) {
                 cleanChildren(item);
                 updateEditor(item, m_d->getPropertyForItem(item->parent()));
-////                updateEditor(item->parent());
-//                foreach (ParameterizedItem *childItem, componentItems(item->parent())) {
-//                    updateEditor(childItem);
-//                }
-
             }
-
 
         }
     }
-
-    // Special case for condensed editor and GroupItem.
-    // If child of GroupItem is marked as hidden we should remove it from the
-    // editor,
-    // if item is marked as visible but doesn't exist yet, we have to recreate
-    // corresponding property
-//    if (m_d->isShowCondensed() && roles.contains(Qt::UserRole)) {
-
-//        if (QtVariantProperty *property = m_d->getPropertyForItem(item)) {
-//            if (item->getAttribute().isHidden()) {
-//                m_d->removeQtVariantProperty(property);
-//            }
-//        } else {
-//            ParameterizedItem *parentItem = item->parent();
-//            if (QtVariantProperty *parentProperty
-//                = m_d->getPropertyForItem(parentItem)) {
-//                updateEditor(item, parentProperty);
-//            }
-//        }
-//    }
 }
 
 //! Updates the editor starting from given ParameterizedItem's parent.
@@ -223,43 +200,13 @@ ComponentEditor::componentItems(ParameterizedItem *item) const
             }
             if (child->modelType() == Constants::GroupItemType) {
                 result.append(child);
-//                foreach(ParameterizedItem *childOfChild, child->childItems()) {
-//                    result.append(childOfChild);
-//                }
             }
             if (item->modelType() == Constants::GroupItemType) {
-//                result.append(child);
                 foreach(ParameterizedItem *childOfChild, child->childItems()) {
                     result.append(childOfChild);
                 }
-//                result.append(componentItems(item));
             }
         }
-
-
-//        foreach (ParameterizedItem *child, item->childItems()) {
-//            if (child->getAttribute().isHidden())
-//                continue;
-//            if (child->modelType() == Constants::PropertyType) {
-//                result.append(child);
-//            }
-//            if (child->modelType() == Constants::GroupItemType) {
-//                result.append(child);
-//                foreach(ParameterizedItem *childOfChild, child->childItems()) {
-//                    qDebug() << "QQQQQQQQQQQ" << childOfChild->displayName();
-
-//                    result.append(componentItems(childOfChild));
-//                }
-//            }
-//            if (item->modelType() == Constants::GroupItemType) {
-////                result.append(child);
-//                foreach(ParameterizedItem *childOfChild, child->childItems()) {
-//                    result.append(childOfChild);
-//                }
-//            }
-//        }
-
-
 
     }
 

@@ -57,31 +57,23 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     // whole content is represented as grid layout
     m_gridLayout = new QGridLayout;
 
-//    m_intensityEditor
-//        = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
     m_intensityEditor = new ComponentEditor();
     m_intensityEditor->setPresentationType(ComponentEditorFlags::BROWSER_GROUPBOX);
 
 
     m_gridLayout->addWidget(m_intensityEditor, 0, 0);
 
-//    m_wavelengthPresenter = new AwesomePropertyPresenter(name_of_groupbox_wavenlength, this);
-//    m_gridLayout->addWidget(m_wavelengthPresenter, 1, 0);
-//    connect(m_wavelengthPresenter, SIGNAL(onDialogRequest(ParameterizedItem*, QString)), this,
-//            SLOT(onDialogRequest(ParameterizedItem*, QString)));
-
     m_wavelengthPresenter = new ComponentEditorBox(name_of_groupbox_wavenlength);
     m_gridLayout->addWidget(m_wavelengthPresenter, 1, 0);
     connect(m_wavelengthPresenter, SIGNAL(onDialogRequest(ParameterizedItem*, QString)), this,
             SLOT(onDialogRequest(ParameterizedItem*, QString)));
 
-
-    m_inclinationAnglePresenter = new AwesomePropertyPresenter(name_of_groupbox_inclination, this);
+    m_inclinationAnglePresenter = new ComponentEditorBox(name_of_groupbox_inclination, this);
     m_gridLayout->addWidget(m_inclinationAnglePresenter, 1, 1);
     connect(m_inclinationAnglePresenter, SIGNAL(onDialogRequest(ParameterizedItem*, QString)),
             this, SLOT(onDialogRequest(ParameterizedItem*, QString)));
 
-    m_azimuthalAnglePresenter = new AwesomePropertyPresenter(name_of_groupbox_azimuthal, this);
+    m_azimuthalAnglePresenter = new ComponentEditorBox(name_of_groupbox_azimuthal, this);
     m_gridLayout->addWidget(m_azimuthalAnglePresenter, 1, 2);
     connect(m_azimuthalAnglePresenter, SIGNAL(onDialogRequest(ParameterizedItem*, QString)),
             this, SLOT(onDialogRequest(ParameterizedItem*, QString)));

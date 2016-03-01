@@ -23,8 +23,6 @@
 class BeamItem;
 class ComponentEditor;
 class ComponentEditorBox;
-class AwesomePropertyEditor;
-class AwesomePropertyPresenter;
 class QGridLayout;
 
 class BA_CORE_API_ BeamEditorWidget : public QWidget
@@ -43,8 +41,8 @@ private slots:
 private:
     ComponentEditor *m_intensityEditor;
     ComponentEditorBox *m_wavelengthPresenter;
-    AwesomePropertyPresenter *m_inclinationAnglePresenter;
-    AwesomePropertyPresenter *m_azimuthalAnglePresenter;
+    ComponentEditorBox *m_inclinationAnglePresenter;
+    ComponentEditorBox *m_azimuthalAnglePresenter;
     QGridLayout *m_gridLayout;
     BeamItem *m_beamItem;
 };

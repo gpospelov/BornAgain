@@ -14,7 +14,8 @@
 // ************************************************************************** //
 
 #include "JobPropertiesWidget.h"
-#include "AwesomePropertyEditor.h"
+//#include "AwesomePropertyEditor.h"
+#include "ComponentEditor.h"
 #include "JobModel.h"
 #include "JobItem.h"
 #include <QVBoxLayout>
@@ -31,6 +32,7 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     , m_propertyEditor(0)
     , m_commentsEditor(0)
     , m_block_update(false)
+    , m_mapper(0)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     setWindowTitle(QLatin1String("Job Properties"));
@@ -40,7 +42,7 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    m_propertyEditor = new AwesomePropertyEditor(this);
+    m_propertyEditor = new ComponentEditor(this);//new AwesomePropertyEditor(this);
 
     m_commentsEditor = new QTextEdit();
     connect(m_commentsEditor, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
@@ -86,26 +88,23 @@ void JobPropertiesWidget::setItem(JobItem *jobItem)
 
     if (m_currentItem == jobItem) return;
 
-    if (m_currentItem) {
-        disconnect(m_currentItem, SIGNAL(propertyChanged(QString)),
-                this, SLOT(onPropertyChanged(QString)));
-    }
-
     m_currentItem = jobItem;
 
     if (!m_currentItem) return;
 
     updateItem(m_currentItem);
+    if (m_mapper)
+        m_mapper->deleteLater();
+    m_mapper = new ModelMapper(this);
+    m_mapper->setItem(jobItem);
+    m_mapper->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        if(name == JobItem::P_COMMENTS) {
+            updateItem(m_currentItem);
+        }
+    });
 
-    connect(m_currentItem, SIGNAL(propertyChanged(QString)),
-            this, SLOT(onPropertyChanged(QString)));
-}
-
-void JobPropertiesWidget::onPropertyChanged(const QString &property_name)
-{
-    if(property_name == JobItem::P_COMMENTS) {
-        updateItem(m_currentItem);
-    }
 }
 
 void JobPropertiesWidget::onTextChanged()

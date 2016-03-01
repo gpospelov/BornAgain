@@ -532,36 +532,17 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type, Parameterized
     if (!new_item)
         throw GUIHelpers::Error("SessionModel::insertNewItem() -> Wrong model type " + model_type);
 
-    connect(new_item, SIGNAL(propertyChanged(const QString &)),
-            this, SLOT(onItemPropertyChange(const QString &)));
-    connect(new_item, SIGNAL(subItemChanged(const QString &)),
-            this, SLOT(onItemPropertyChange(const QString &)));
-    connect(new_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-            this, SLOT(onItemPropertyChange(const QString &, const QString &)));
+    //note: now done by items themselves
+//    connect(new_item, SIGNAL(propertyChanged(const QString &)),
+//            this, SLOT(onItemPropertyChange(const QString &)));
+//    connect(new_item, SIGNAL(subItemChanged(const QString &)),
+//            this, SLOT(onItemPropertyChange(const QString &)));
+//    connect(new_item, SIGNAL(subItemPropertyChanged(QString,QString)),
+//            this, SLOT(onItemPropertyChange(const QString &, const QString &)));
 
     parent->insertChildItem(row, new_item);
 
     return new_item;
-}
-
-
-
-
-
-void SessionModel::onItemPropertyChange(const QString & property_name , const QString &name)
-{
-    Q_UNUSED(name);
-
-    if(property_name == ParameterizedGraphicsItem::P_XPOS
-            || property_name == ParameterizedGraphicsItem::P_YPOS)
-        return;
-
-    qDebug() << "SessionModel::onItemPropertyChange()" << property_name << name;
-    ParameterizedItem *item = qobject_cast<ParameterizedItem *>(sender());
-    Q_ASSERT(item);
-    QModelIndex itemIndex = indexOfItem(item);
-    Q_ASSERT(itemIndex.isValid());
-    emit dataChanged(itemIndex, itemIndex);
 }
 
 void SessionModel::initFrom(SessionModel *model, ParameterizedItem *parent)

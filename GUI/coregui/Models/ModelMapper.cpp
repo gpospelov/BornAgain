@@ -101,7 +101,7 @@ void ModelMapper::onDataChanged(const QModelIndex &topLeft, const QModelIndex &b
             }
         }
     }
-    if (nestling > 0) {
+    if (nestling > 1) {
         if (ParameterizedItem *parent = item->parent()) {
             if (parent->isRegisteredProperty(item->itemName())) {
                 if (m_active && m_onChildPropertyChange.size() > 0) {

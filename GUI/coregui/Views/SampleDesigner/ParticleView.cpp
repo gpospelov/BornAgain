@@ -26,6 +26,7 @@
 
 ParticleView::ParticleView(QGraphicsItem *parent)
     : ConnectableView(parent)
+    , m_mapper(0)
 {
     setName(Constants::ParticleType);
     setColor(DesignerHelper::getDefaultParticleColor());
@@ -70,6 +71,16 @@ void ParticleView::setParameterizedItem(ParameterizedItem *item)
 {
     ConnectableView::setParameterizedItem(item);
     onPropertyChange(ParticleItem::P_FORM_FACTOR);
+    if (m_mapper)
+        m_mapper->deleteLater();
+
+    m_mapper = new ModelMapper(this);
+    m_mapper->setItem(item);
+    m_mapper->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        onPropertyChange(name);
+    });
 }
 
 

@@ -88,6 +88,17 @@ JobItem::JobItem()
 
     addToValidChildren(Constants::MultiLayerType);
     addToValidChildren(Constants::InstrumentType);
+    mapper()->setOnChildPropertyChange(
+                [this](ParameterizedItem* item, const QString &name)
+    {
+        if (item->modelType() == Constants::IntensityDataType
+            && name == IntensityDataItem::P_AXES_UNITS) {
+            auto intensityItem = dynamic_cast<IntensityDataItem *>(item);
+            JobResultsPresenter::updateDataAxes(intensityItem, getInstrumentItem());
+            qDebug() << "QQQQ" << item->modelType() << name;
+
+        }
+    });
 }
 
 JobItem::~JobItem()
@@ -270,18 +281,6 @@ void JobItem::setResults(const GISASSimulation *simulation)
 //    Q_ASSERT(intensityItem);
 //    intensityItem->setNameFromProposed(this->itemName());
     //    intensityItem->setResults(simulation);
-}
-
-void JobItem::onChildPropertyChange(ParameterizedItem *item, const QString &propertyName)
-{
-    if (item->modelType() == Constants::IntensityDataType
-        && propertyName == IntensityDataItem::P_AXES_UNITS) {
-        auto intensityItem = dynamic_cast<IntensityDataItem *>(item);
-        JobResultsPresenter::updateDataAxes(intensityItem, getInstrumentItem());
-        qDebug() << "QQQQ" << item->modelType() << propertyName;
-
-    }
-
 }
 
 //void JobItem::onPropertyChange(const QString &name)

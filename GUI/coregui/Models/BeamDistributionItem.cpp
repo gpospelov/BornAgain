@@ -33,6 +33,7 @@ BeamDistributionItem::BeamDistributionItem(const QString name)
     setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
 }
 
+//FIXME cached values not supported now
 //void BeamDistributionItem::onPropertyChange(const QString &name)
 //{
 //    if(name == P_CACHED_VALUE) {

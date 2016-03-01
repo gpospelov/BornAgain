@@ -42,6 +42,7 @@ IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
     , m_leftHistogramArea(150)
     , m_bottomHistogramArea(150)
     , m_item(0)
+    , m_mapper(0)
 {
     setObjectName(QStringLiteral("IntensityDataPlotWidget"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -96,8 +97,8 @@ void IntensityDataPlotWidget::setItem(IntensityDataItem *item)
     if (m_item == item) return;
 
     if (m_item) {
-        disconnect(m_item, SIGNAL(propertyChanged(QString)),
-                this, SLOT(onPropertyChanged(QString)));
+//        disconnect(m_item, SIGNAL(propertyChanged(QString)),
+//                this, SLOT(onPropertyChanged(QString)));
         disconnect(m_item, SIGNAL(intensityModified()), this, SLOT(onIntensityModified()));
     }
 
@@ -106,9 +107,19 @@ void IntensityDataPlotWidget::setItem(IntensityDataItem *item)
     if (!m_item) return;
 
     updateItem(m_item);
-
-    connect(m_item, SIGNAL(propertyChanged(QString)),
-            this, SLOT(onPropertyChanged(QString)));
+    if (m_mapper)
+        m_mapper->deleteLater();
+    m_mapper = new ModelMapper(this);
+    m_mapper->setItem(item);
+    m_mapper->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        if(name == IntensityDataItem::P_PROJECTIONS_FLAG) {
+            showProjections(m_item->getRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
+        }
+    });
+//    connect(m_item, SIGNAL(propertyChanged(QString)),
+//            this, SLOT(onPropertyChanged(QString)));
     connect(m_item, SIGNAL(intensityModified()), this, SLOT(onIntensityModified()));
 }
 
@@ -176,15 +187,6 @@ void IntensityDataPlotWidget::savePlot(const QString &dirname)
     saveAssistant.savePlot(dirname, m_centralPlot, m_item);
 
     m_centralPlot->showLinesOverTheMap(projections_flag);
-}
-
-//! updates itself if item properties changed
-void IntensityDataPlotWidget::onPropertyChanged(const QString &property_name)
-{
-    //qDebug() << "IntensityDataPlotWidget::onPropertyChanged(const QString &property_name)" << property_name;
-    if(property_name == IntensityDataItem::P_PROJECTIONS_FLAG) {
-        showProjections(m_item->getRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
-    }
 }
 
 //! switches projections On and Off

@@ -181,6 +181,16 @@ QSize GroupPropertyEdit::minimumSizeHint() const
     return QSize(100,10);
 }
 
+GroupProperty_t GroupPropertyEdit::group() const
+{
+    return m_groupProperty;
+}
+
+void GroupPropertyEdit::setGroup(GroupProperty_t group)
+{
+    setGroupProperty(group);
+}
+
 
 // -----------------------------------------------------------------------------
 // ColorPropertyEdit

@@ -30,7 +30,6 @@ public:
     explicit ParticleCoreShellItem();
     virtual ~ParticleCoreShellItem() {}
     virtual void insertChildItem(int row, ParameterizedItem *item);
-    virtual void onPropertyChange(const QString &name);
     std::unique_ptr<ParticleCoreShell> createParticleCoreShell() const;
 
     void notifyChildParticlePortChanged();

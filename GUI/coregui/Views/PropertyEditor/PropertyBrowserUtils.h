@@ -53,6 +53,9 @@ private:
 class BA_CORE_API_ GroupPropertyEdit : public QWidget
 {
     Q_OBJECT
+
+    Q_PROPERTY(GroupProperty_t group READ group WRITE setGroup USER true)
+
 public:
     GroupPropertyEdit(QWidget *parent = 0);
     virtual ~GroupPropertyEdit();
@@ -62,6 +65,10 @@ public:
 
     virtual QSize sizeHint() const;
     virtual QSize minimumSizeHint() const;
+
+    GroupProperty_t group() const;
+    void setGroup(GroupProperty_t group);
+
 
 signals:
     void groupPropertyChanged(const GroupProperty_t &group_property);

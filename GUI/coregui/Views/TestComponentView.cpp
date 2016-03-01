@@ -21,10 +21,12 @@
 #include "SampleBuilderFactory.h"
 #include "GUIObjectBuilder.h"
 #include "TestView.h"
+#include "PropertyBrowserUtils.h"
 #include <QItemSelectionModel>
 #include <QHBoxLayout>
 #include <QTreeView>
 #include <QDebug>
+#include <QItemEditorFactory>
 
 TestComponentView::TestComponentView(MainWindow *mainWindow)
     : QWidget(mainWindow)
@@ -37,6 +39,17 @@ TestComponentView::TestComponentView(MainWindow *mainWindow)
     , m_editor3(0)
 //    , m_editor3(new ComponentEditor)
 {
+    QItemEditorFactory *factory = new QItemEditorFactory;
+
+       QItemEditorCreatorBase *groupEditorCreator =
+           new QStandardItemEditorCreator<GroupPropertyEdit>();
+   int type = qRegisterMetaType<GroupProperty_t>();
+
+       factory->registerEditor(type , groupEditorCreator);
+
+       QItemEditorFactory::setDefaultFactory(factory);
+
+
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
     QHBoxLayout *hlayout = new QHBoxLayout;

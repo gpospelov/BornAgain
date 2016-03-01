@@ -77,7 +77,8 @@ void SampleModel::exploreForMaterials(const QModelIndex &parentIndex)
 //                                                material_property.getVariant());
                     // MaterialProperty of the layer corresponds to the material which just has been changed
                     // To trigger color change in ILayerView we have to trigger propertyChanged
-                    emit item->propertyChanged(LayerItem::P_MATERIAL);
+                    //emit item->propertyChanged();
+                    item->getPropertyItem(LayerItem::P_MATERIAL)->emitValueChanged();
                 }
             }
         } else {

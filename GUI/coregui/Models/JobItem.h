@@ -81,8 +81,6 @@ public:
 
     void setResults(const GISASSimulation *simulation);
 
-    virtual void onChildPropertyChange(ParameterizedItem *item, const QString &propertyName=QString());
-
 private:
     static QMap<QString, QString> m_run_policies; // run policy, policy description
 };

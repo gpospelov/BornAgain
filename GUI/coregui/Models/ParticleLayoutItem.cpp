@@ -37,6 +37,22 @@ ParticleLayoutItem::ParticleLayoutItem()
     addToValidChildren(Constants::InterferenceFunction2DParaCrystalType, PortInfo::PORT_1, 1);
     addToValidChildren(Constants::InterferenceFunction1DLatticeType, PortInfo::PORT_1, 1);
     addToValidChildren(Constants::InterferenceFunction2DLatticeType, PortInfo::PORT_1, 1);
+
+    // FIXME: not updated when child get removed
+    mapper()->setOnChildPropertyChange(
+                [this](ParameterizedItem *, const QString &)
+    {
+        for (auto child_item : childItems()) {
+            if (child_item->modelType() == Constants::InterferenceFunction2DParaCrystalType
+                || child_item->modelType() == Constants::InterferenceFunction2DLatticeType) {
+                getPropertyAttribute(P_TOTAL_DENSITY).setDisabled();
+                getPropertyItem(P_TOTAL_DENSITY)->emitValueChanged();
+                return;
+            }
+        }
+        getPropertyAttribute(P_TOTAL_DENSITY).setVisible();
+        getPropertyItem(P_TOTAL_DENSITY)->emitValueChanged();
+    });
 }
 
 ParticleLayoutItem::~ParticleLayoutItem()
@@ -65,20 +81,4 @@ void ParticleLayoutItem::insertChildItem(int row, ParameterizedItem *item)
             item->setPort(PortInfo::PORT_1);
         }
     }
-}
-
-void ParticleLayoutItem::onChildPropertyChange(ParameterizedItem *item, const QString &propertyName)
-{
-    for (auto child_item : childItems()) {
-        if (child_item->modelType() == Constants::InterferenceFunction2DParaCrystalType
-            || child_item->modelType() == Constants::InterferenceFunction2DLatticeType) {
-            getPropertyAttribute(P_TOTAL_DENSITY).setDisabled();
-            emit propertyChanged(P_TOTAL_DENSITY);
-            ParameterizedItem::onChildPropertyChange(item, propertyName);
-            return;
-        }
-    }
-    getPropertyAttribute(P_TOTAL_DENSITY).setVisible();
-    emit propertyChanged(P_TOTAL_DENSITY);
-    ParameterizedItem::onChildPropertyChange(item, propertyName);
 }

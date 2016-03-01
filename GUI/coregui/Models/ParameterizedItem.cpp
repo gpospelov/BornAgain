@@ -554,6 +554,7 @@ void ParameterizedItem::addToValidChildren(const QString &name, PortInfo::EPorts
 
 void ParameterizedItem::swapChildren(int /* first */, int /* second */)
 {
+    // FIXME
 //    m_children.swap(first, second);
 }
 
@@ -575,103 +576,6 @@ int ParameterizedItem::getCopyNumberOfChild(const ParameterizedItem *p_item) con
             }
         }
     }
-    // check subitems:
-//    if (m_sub_items.size() > 0) {
-//        for (QMap<QString, ParameterizedItem *>::const_iterator it = m_sub_items.begin();
-//             it != m_sub_items.end(); ++it) {
-//            ParameterizedItem *p_sub_item = it.value();
-//            QString subitem_type = p_sub_item->modelType();
-//            if (p_sub_item == p_item) {
-//                result = count;
-//            }
-//            if (subitem_type == model_type) {
-//                ++count;
-//            }
-//        }
-//    }
     if (count > 1) return result;
     return -1;
-}
-
-
-
-
-
-
-
-
-
-//  END OF REFACTORED PARAMETERIZED ITEM
-
-
-
-// START OBSOLETE - please replace this function with setGroupProperty without second parameter
-QMap<QString, ParameterizedItem *> ParameterizedItem::getSubItems() const
-{
-    QMap<QString, ParameterizedItem *> result;
-    auto groups = getChildrenOfType(Constants::GroupItemType);
-    for (auto child : groups) {
-        result.insert(child->itemName(), dynamic_cast<GroupItem*>(child)->group()->getCurrentItem());
-    }
-    return result;
-}
-// END OBSOLETE
-
-
-
-//void ParameterizedItem::addSubItem(QString name, ParameterizedItem *item)
-//{
-////    // if (!item) return;
-////    Q_ASSERT(item);
-////    qDebug() << "ParameterizedItem::addPropertyItem()" << name;
-
-//    if (m_sub_items.contains(name)) {
-////        qDebug() << "       ParameterizedItem::addPropertyItem() -> item is already there" << name
-////                 << "replacing with " << item->modelType();
-////        delete m_sub_items[name];
-//        m_sub_items.remove(name);
-//    }
-//    m_sub_items[name] = item;
-//    item->mp_parent = this;
-//    insertChild(-1, item); // NEW
-//    onSubItemChanged(name);
-//    onChildPropertyChange(item);
-////    qDebug() << "ParameterizedItem::addPropertyItem() -> about to leave" << name;
-//}
-
-
-
-
-
-
-void ParameterizedItem::onPropertyChange(const QString &name)
-{
-    if (mp_parent)
-        mp_parent->onChildPropertyChange(this, name);
-    emit propertyChanged(name);
-}
-
-void ParameterizedItem::onChildPropertyChange(ParameterizedItem *item, const QString &propertyName)
-{
-//    qDebug() << "ParameterizedItem::onChildPropertyChange()";
-    if (mp_parent)
-        mp_parent->onChildPropertyChange(item, propertyName);
-}
-
-void ParameterizedItem::print() const
-{
-//    qDebug() << "--- ParameterizedItem::print() ------------------------------------";
-//    qDebug() << modelType() << displayName();
-//    qDebug() << "--- SubItems ---";
-//    for (QMap<QString, ParameterizedItem *>::const_iterator it = m_sub_items.begin();
-//         it != m_sub_items.end(); ++it) {
-//        qDebug() << "   key:" << it.key() << " value->modelType:" << it.value()->modelType();
-//    }
-//    qDebug() << "--- Properties ---";
-//    QList<QByteArray> property_names = dynamicPropertyNames();
-//    for (int i = 0; i < property_names.length(); ++i) {
-//        QString name(property_names[i]);
-//        qDebug() << name << property(name.toUtf8().constData());
-//    }
-//    qDebug() << " ";
 }

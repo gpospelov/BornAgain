@@ -49,10 +49,6 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
     if (m_item) {
         disconnect(m_item, SIGNAL(intensityModified()), this,
                    SLOT(onIntensityModified()));
-        disconnect(m_item, SIGNAL(propertyChanged(QString)), this,
-                   SLOT(onPropertyChanged(QString)));
-        disconnect(m_item, SIGNAL(subItemPropertyChanged(QString, QString)), this,
-                   SLOT(onSubItemPropertyChanged(QString, QString)));
     }
 
     m_item = item;
@@ -64,10 +60,19 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
 
     connect(m_item, SIGNAL(intensityModified()), this,
                SLOT(onIntensityModified()));
-    connect(m_item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChanged(QString)));
-
-    connect(m_item, SIGNAL(subItemPropertyChanged(QString, QString)), this,
-            SLOT(onSubItemPropertyChanged(QString, QString)));
+    ModelMapper *mapper = new ModelMapper(this);
+    mapper->setItem(item);
+    mapper->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        onPropertyChanged(name);
+    });
+    mapper->setOnChildPropertyChange(
+                [this](ParameterizedItem* item, const QString name)
+    {
+        if (item->parent() && item->parent()->modelType() == Constants::GroupItemType)
+            onSubItemPropertyChanged(item->itemName(), name);
+    });
 }
 
 //! returns string containing bin content information

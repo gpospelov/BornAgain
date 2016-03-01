@@ -34,6 +34,18 @@ ParticleCoreShellItem::ParticleCoreShellItem()
     addToValidChildren(Constants::TransformationType, PortInfo::PORT_2, 1);
     RotationTranslator rotation_translator;
     ModelPath::addParameterTranslator(rotation_translator);
+    mapper()->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        // FIXME not working now because port is not a property anymore
+        if (name == "OBSOLETE_P_PORT" && parent()) {
+            if (parent()->modelType() == Constants::ParticleCompositionType
+                || parent()->modelType() == Constants::ParticleDistributionType) {
+                setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
+                getPropertyAttribute(ParticleItem::P_ABUNDANCE).setDisabled();
+            }
+        }
+    });
 }
 
 void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
@@ -48,18 +60,6 @@ void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
         item->setPort(PortInfo::PORT_2);
     }
     ParameterizedItem::insertChildItem(row, item);
-}
-
-void ParticleCoreShellItem::onPropertyChange(const QString &name)
-{
-    ParameterizedItem::onPropertyChange(name);
-    if (name == "OBSOLETE_P_PORT" && parent()) {
-        if (parent()->modelType() == Constants::ParticleCompositionType
-            || parent()->modelType() == Constants::ParticleDistributionType) {
-            setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-            getPropertyAttribute(ParticleItem::P_ABUNDANCE).setDisabled();
-        }
-    }
 }
 
 std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShell() const

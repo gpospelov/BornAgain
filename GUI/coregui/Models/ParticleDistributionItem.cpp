@@ -47,6 +47,11 @@ ParticleDistributionItem::ParticleDistributionItem()
     ComboProperty par_prop;
     registerProperty(P_DISTRIBUTED_PARAMETER, par_prop.getVariant());
     updateParameterList();
+    mapper()->setOnChildPropertyChange(
+                [this](ParameterizedItem*,QString)
+    {
+        updateParameterList();
+    });
 }
 
 ParticleDistributionItem::~ParticleDistributionItem()
@@ -65,13 +70,6 @@ void ParticleDistributionItem::insertChildItem(int row, ParameterizedItem *item)
             item->setPort(PortInfo::PORT_0);
         }
     }
-}
-
-void ParticleDistributionItem::onChildPropertyChange(ParameterizedItem *item, const QString &propertyName)
-{
-    updateParameterList();
-
-    ParameterizedItem::onChildPropertyChange(item, propertyName);
 }
 
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const

@@ -271,40 +271,6 @@ private:
 
     // end of refactored parameterized item
 
-
-
-
-
-
-
-
-    // the following function will be moved out of parameterized item
-
-    // signals and slots -> use signals of session model
-
-
-public:
-
-
-    QMap<QString, ParameterizedItem *> getSubItems() const;
-
-
-
-
-    virtual void onPropertyChange(const QString &name);
-
-    virtual void onChildPropertyChange(ParameterizedItem *item, const QString &propertyName=QString());
-
-    void print() const;
-
-
-
-signals:
-    void propertyChanged(const QString &propertyName);
-    void subItemChanged(const QString &propertyName);
-    void subItemPropertyChanged(const QString &property_group, const QString &property_name);
-    void siblingsChanged();
-
 };
 
 #endif /* PARAMETERIZEDITEM_H_ */

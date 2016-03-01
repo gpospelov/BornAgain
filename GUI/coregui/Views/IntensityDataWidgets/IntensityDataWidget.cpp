@@ -94,13 +94,6 @@ void IntensityDataWidget::setPropertyPanelVisible(bool visible)
     m_propertyWidget->setVisible(visible);
 }
 
-void IntensityDataWidget::onPropertyChanged(const QString &property_name)
-{
-    if(property_name == IntensityDataItem::P_PROPERTY_PANEL_FLAG) {
-        setPropertyPanelVisible(m_currentItem->getRegisteredProperty(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
-    }
-}
-
 void IntensityDataWidget::updateItem(IntensityDataItem *item)
 {
     setPropertyPanelVisible(item->getRegisteredProperty(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());

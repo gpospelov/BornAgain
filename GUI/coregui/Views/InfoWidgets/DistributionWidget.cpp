@@ -80,7 +80,14 @@ void DistributionWidget::setItem(DistributionItem *item)
         return;
 
     plotItem();
-    connect(m_item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChanged()));
+
+    ModelMapper *mapper = new ModelMapper(this);
+    mapper->setItem(item);
+    mapper->setOnPropertyChange(
+                [this](QString)
+    {
+        plotItem();
+    });
 }
 
 void DistributionWidget::plotItem()
@@ -180,11 +187,6 @@ void DistributionWidget::plotItem()
     }
     m_plot->replot();
     connect(m_plot, SIGNAL(mouseMove(QMouseEvent *)), this, SLOT(onMouseMove(QMouseEvent *)));
-}
-
-void DistributionWidget::onPropertyChanged()
-{
-    plotItem();
 }
 
 double DistributionWidget::getWidthOfBars(double min, double max, int samples)

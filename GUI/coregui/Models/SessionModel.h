@@ -106,8 +106,6 @@ public:
 
 
 
-public slots:
-    void onItemPropertyChange(const QString &property_name, const QString &name = QString());
 
 protected:
     void setRootItem(ParameterizedItem *root) {m_root_item = root;}

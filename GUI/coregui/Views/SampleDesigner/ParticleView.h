@@ -20,6 +20,8 @@
 #include "ConnectableView.h"
 #include <QPixmap>
 
+class ModelMapper;
+
 //! Class representing view of Particle item
 class BA_CORE_API_ ParticleView : public ConnectableView
 {
@@ -42,6 +44,7 @@ public:
 
 private:
     QPixmap m_pixmap;
+    ModelMapper *m_mapper;
 
 };
 

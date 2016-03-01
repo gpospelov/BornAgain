@@ -53,7 +53,6 @@ public slots:
 protected:
     void resizeEvent(QResizeEvent *event);
 private slots:
-    void onPropertyChanged();
     void resetView();
 
 private:

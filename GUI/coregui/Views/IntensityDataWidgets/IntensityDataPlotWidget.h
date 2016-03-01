@@ -25,6 +25,7 @@ class VerticalSlicePlot;
 class ColorMapPlot;
 class QLabel;
 class IntensityDataItem;
+class ModelMapper;
 
 //! The widget contains IntensityDataItem color map, two projections and all
 //! logic. Belongs to IntensityDataWidget.
@@ -50,7 +51,6 @@ public slots:
     void savePlot(const QString &dirname);
 
 private slots:
-    void onPropertyChanged(const QString &property_name);
     void showProjections(bool flag);
     void onPropertyPanelAction(bool flag);
     void onProjectionsAction(bool flag);
@@ -79,6 +79,7 @@ private:
     int m_leftHistogramArea;
     int m_bottomHistogramArea;
     IntensityDataItem *m_item;
+    ModelMapper *m_mapper;
 };
 
 #endif

@@ -101,16 +101,16 @@ public:
     // -------------------------------------------------------------------------
 
     //! Returns squared magnitude squared of the vector.
-    T mag2() const;
+    double mag2() const { return std::norm(v_[0]) + std::norm(v_[1]) + std::norm(v_[2]); }
 
     //! Returns magnitude of the vector.
-    T mag() const;
+    double mag() const { return sqrt(mag2()); }
 
     //! Returns squared distance from z axis.
-    T magxy2() const;
+    double magxy2() const { return std::norm(v_[0]) + std::norm(v_[1]); }
 
     //! Returns distance from z axis.
-    T magxy() const;
+    double magxy() const { return sqrt(magxy2()); }
 
     //! Returns azimuth angle.
     double phi() const;
@@ -266,17 +266,6 @@ BasicVector3D<double> vecOfLambdaAlphaPhi(const double _lambda, const double _al
 // =============================================================================
 // ?? for API generation ??
 // =============================================================================
-
-template<> BA_CORE_API_ double BasicVector3D<double>::mag2() const;
-
-template<> BA_CORE_API_ double BasicVector3D<double>::mag() const;
-
-template<> BA_CORE_API_ double BasicVector3D<double>::magxy2() const;
-
-template<> BA_CORE_API_ double BasicVector3D<double>::magxy() const;
-
-template<> BA_CORE_API_ std::complex<double>
-        BasicVector3D<std::complex<double> >::magxy() const;
 
 template<> BA_CORE_API_ std::complex<double> BasicVector3D<std::complex<double> >::dot(
         const BasicVector3D<std::complex<double> >& v) const;

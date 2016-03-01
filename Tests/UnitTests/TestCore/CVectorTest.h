@@ -24,6 +24,15 @@ CVectorTest::~CVectorTest()
 {
 }
 
+TEST_F(CVectorTest, TrivialOperations)
+{
+    kvector_t vec_k(1.,2.,3.);
+    EXPECT_TRUE( vec_k.complex().z()==complex_t(3.,0.) );
+
+    cvector_t vec_c(complex_t(1.,1.), complex_t(2.,-5.), complex_t(-3.,-4.));
+    EXPECT_TRUE( -vec_c.z()==complex_t(3.,4.) );
+}
+
 TEST_F(CVectorTest, BasicArithmetics)
 {
 

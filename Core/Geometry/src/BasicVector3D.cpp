@@ -23,68 +23,8 @@ typedef std::complex<double> complex_t;
 namespace Geometry {
 
 // -----------------------------------------------------------------------------
-// Norm
-// -----------------------------------------------------------------------------
-
-//! Returns squared magnitude of the vector.
-template<>
-double BasicVector3D<double>::mag2() const
-{
-    return x()*x()+y()*y()+z()*z();
-}
-
-//! Returns squared magnitude of the vector.
-template<>
-complex_t BasicVector3D<complex_t>::mag2() const
-{
-    return conj(x())*x()+conj(y())*y()+conj(z())*z();
-}
-
-//! Returns magnitude of the vector.
-template<>
-double BasicVector3D<double>::mag() const
-{
-    return sqrt(mag2());
-}
-
-//! Returns magnitude of the vector.
-template<>
-complex_t BasicVector3D<complex_t>::mag() const
-{
-    return sqrt(mag2());
-}
-
-// -----------------------------------------------------------------------------
 // Cylindrical and spherical coordinate systems
 // -----------------------------------------------------------------------------
-
-//! Returns squared distance from z axis.
-template<>
-double BasicVector3D<double>::magxy2() const
-{
-    return x()*x()+y()*y();
-}
-
-//! Returns squared distance from z axis.
-template<>
-complex_t BasicVector3D<complex_t>::magxy2() const
-{
-    return conj(x())*x()+conj(y())*y();
-}
-
-//! Returns distance from z axis.
-template<>
-double BasicVector3D<double>::magxy() const
-{
-    return sqrt(magxy2());
-}
-
-//! Returns distance from z axis.
-template<>
-complex_t BasicVector3D<complex_t>::magxy() const
-{
-    return sqrt(magxy2());
-}
 
 //! Returns azimuth angle.
 template<>

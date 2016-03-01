@@ -40,10 +40,7 @@ DetectorEditorWidget::DetectorEditorWidget(ColumnResizer *columnResizer, QWidget
     m_groupBox->setLayout(groupLayout);
     connect(m_groupBox, SIGNAL(clicked()), this, SLOT(onGroupBoxExtendedButton()));
 
-//    m_detectorTypeEditor = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    m_detectorTypeEditor = new ComponentEditor(this);
-//    m_phiAxisEditor->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_GROUPBOX);
-
+    m_detectorTypeEditor = new ComponentEditor(ComponentEditorFlags::BROWSER_GROUPBOX);
     groupLayout->addWidget(m_detectorTypeEditor);
 
     // main layout
@@ -62,69 +59,28 @@ void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
 {
     qDebug() << "DetectorEditorWidget::setDetectorItem() -> XXX";
 
-    if(m_detectorItem) {
-        disconnect(m_detectorItem,
-                   SIGNAL(propertyChanged(const QString &)),
-                   this,
-                   SLOT(onPropertyChanged(const QString &)));
-        disconnect(m_detectorItem,
-                   SIGNAL(subItemChanged(const QString &)),
-                   this,
-                   SLOT(onSubItemChanged(const QString &)));
-        disconnect(m_detectorItem,
-                   SIGNAL(subItemPropertyChanged(const QString &, const QString &)),
-                   this,
-                   SLOT(onSubItemPropertyChanged(const QString &, const QString &)));
-    }
-
     m_detectorItem = detectorItem;
-
     if(!m_detectorItem) return;
 
-    connect(m_detectorItem,
-               SIGNAL(propertyChanged(const QString &)),
-               this,
-               SLOT(onPropertyChanged(const QString &)));
-    connect(m_detectorItem,
-               SIGNAL(subItemChanged(const QString &)),
-               this,
-               SLOT(onSubItemChanged(const QString &)));
-    connect(m_detectorItem,
-               SIGNAL(subItemPropertyChanged(const QString &, const QString &)),
-               this,
-               SLOT(onSubItemPropertyChanged(const QString &, const QString &)));
+    ModelMapper *mapper = new ModelMapper(this);
+    mapper->setItem(m_detectorItem);
+    mapper->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        onPropertyChanged(name);
+    });
 
     m_detectorTypeEditor->clearEditor();
-    m_detectorTypeEditor->setItem(m_detectorItem);
-//    m_detectorTypeEditor->addItemProperty(m_detectorItem, DetectorItem::P_DETECTOR, QString(),
-//                                     AwesomePropertyEditor::SKIP);
+    m_detectorTypeEditor->addItem(m_detectorItem->getPropertyItem(DetectorItem::P_DETECTOR));
 
     init_SubDetector_Widget();
 }
 
 void DetectorEditorWidget::onPropertyChanged(const QString &propertyName)
 {
-    Q_UNUSED(propertyName);
-}
-
-void DetectorEditorWidget::onSubItemChanged(const QString &propertyName)
-{
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << "DetectorEditorWidget::onSubItemChanged" << propertyName;
     if(propertyName == DetectorItem::P_DETECTOR) {
         init_SubDetector_Widget();
     }
-}
-
-void DetectorEditorWidget::onSubItemPropertyChanged(const QString &property_group, const QString &property_name)
-{
-    qDebug() << "DetectorEditorWidget::onSubItemPropertyChanged" << property_group << property_name;
-
 }
 
 void DetectorEditorWidget::onGroupBoxExtendedButton()

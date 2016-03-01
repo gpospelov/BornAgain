@@ -32,15 +32,13 @@ SphericalDetectorWidget::SphericalDetectorWidget(ColumnResizer *columnResizer,
     , m_resolutionFunctionEditor(0)
     , m_gridLayout(new QGridLayout)
 {
-    m_phiAxisEditor = new ComponentEditor(this);
-    m_phiAxisEditor->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_GROUPBOX);
+    m_phiAxisEditor = new ComponentEditor(ComponentEditorFlags::BROWSER_GROUPBOX);
     m_gridLayout->addWidget(m_phiAxisEditor, 1, 0);
 
-    m_alphaAxisEditor = new ComponentEditor(this);
-    m_alphaAxisEditor->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_GROUPBOX);
+    m_alphaAxisEditor = new ComponentEditor(ComponentEditorFlags::BROWSER_GROUPBOX);
     m_gridLayout->addWidget(m_alphaAxisEditor, 1, 1);
 
-    m_resolutionFunctionEditor = new ComponentEditor(this);
+    m_resolutionFunctionEditor = new ComponentEditor;
     m_resolutionFunctionEditor->setFlat();
 //    m_resolutionFunctionEditor->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_GROUPBOX);
 
@@ -90,15 +88,13 @@ void SphericalDetectorWidget::setDetectorItem(DetectorItem *detectorItem)
     Q_ASSERT(sphericalDetector);
 
     ParameterizedItem *phiAxisItem = sphericalDetector->getGroupItem(SphericalDetectorItem::P_PHI_AXIS);
-    m_phiAxisEditor->setItem(phiAxisItem, QString("Phi axis"));
+    m_phiAxisEditor->addPropertyItems(phiAxisItem, QString("Phi axis"));
 
     ParameterizedItem *alphaAxisItem
         = sphericalDetector->getGroupItem(SphericalDetectorItem::P_ALPHA_AXIS);
-    m_alphaAxisEditor->setItem(alphaAxisItem, QString("Alpha axis"));
+    m_alphaAxisEditor->addPropertyItems(alphaAxisItem, QString("Alpha axis"));
 
     ParameterizedItem *resFunc = sphericalDetector->getGroupItem(SphericalDetectorItem::P_RESOLUTION_FUNCTION);
-    qDebug() << "AAAA " << resFunc->displayName() << resFunc->modelType();
-//    Q_ASSERT(0);
     Q_ASSERT(resFunc);
     m_resolutionFunctionEditor->setItem(resFunc);
 }

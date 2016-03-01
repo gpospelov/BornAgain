@@ -40,8 +40,6 @@ signals:
 
 public slots:
     void onPropertyChanged(const QString &propertyName);
-    void onSubItemChanged(const QString &propertyName);
-    void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
 
 private slots:
     void onGroupBoxExtendedButton();

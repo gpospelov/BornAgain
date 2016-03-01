@@ -37,7 +37,7 @@ SamplePropertyWidget::SamplePropertyWidget(QItemSelectionModel *selection_model,
     mainLayout->setSpacing(0);
 
 //    m_propertyEditor = new AwesomePropertyEditor(this);
-    m_propertyEditor = new ComponentEditor(this);
+    m_propertyEditor = new ComponentEditor;
 
     mainLayout->addWidget(m_propertyEditor);
     setLayout(mainLayout);

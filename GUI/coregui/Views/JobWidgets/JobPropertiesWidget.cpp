@@ -42,7 +42,7 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    m_propertyEditor = new ComponentEditor(this);//new AwesomePropertyEditor(this);
+    m_propertyEditor = new ComponentEditor();
 
     m_commentsEditor = new QTextEdit();
     connect(m_commentsEditor, SIGNAL(textChanged()), this, SLOT(onTextChanged()));

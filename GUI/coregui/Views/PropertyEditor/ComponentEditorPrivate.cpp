@@ -24,11 +24,10 @@
 #include <QString>
 #include <QDebug>
 
-ComponentEditorPrivate::ComponentEditorPrivate(QWidget *parent)
+ComponentEditorPrivate::ComponentEditorPrivate(ComponentEditorFlags::PresentationType flags, QWidget *parent)
     : m_browser(0), m_manager(0), m_read_only_manager(0),
       m_propertyFactory(new PropertyVariantFactory(parent)),
-      m_presentationType(ComponentEditorFlags::SHOW_CONDENSED |
-                         ComponentEditorFlags::BROWSER_TABLE)
+      m_presentationType(flags)
 {
     m_read_only_manager = new PropertyVariantManager(parent);
     m_manager = new PropertyVariantManager(parent);
@@ -48,6 +47,7 @@ void ComponentEditorPrivate::clear()
     m_qtproperty_to_item.clear();
     m_item_to_qtvariantproperty.clear();
     m_qtvariant_to_dependend.clear();
+    m_groupname_to_qtvariant.clear();
 
 }
 
@@ -113,9 +113,9 @@ QtVariantProperty *ComponentEditorPrivate::
         }
 
         if (itemProperty) {
-            if(!parentProperty) {
-                parentProperty = getPropertyForItem(item->parent());
-            }
+//            if(!parentProperty) {
+//                parentProperty = getPropertyForItem(item->parent());
+//            }
 
             if (parentProperty) {
                 insertQtVariantProperty(itemProperty, parentProperty);
@@ -223,6 +223,25 @@ QtVariantProperty *ComponentEditorPrivate::createQtVariantProperty(Parameterized
 
     updatePropertyAppearance(result, item->getAttribute());
     return result;
+}
+
+QtVariantProperty *ComponentEditorPrivate::processPropertyGroupForName(const QString &name)
+{
+    QtVariantProperty *result = getPropertyForGroupName(name);
+    if(result == nullptr && name.size()) {
+        result = m_manager->addProperty(QtVariantPropertyManager::groupTypeId(), name);
+        m_groupname_to_qtvariant[name] = result;
+        m_browser->addProperty(result);
+    }
+    return result;
+}
+
+QtVariantProperty *ComponentEditorPrivate::getPropertyForGroupName(const QString &name)
+{
+    if (m_groupname_to_qtvariant.contains(name)) {
+        return m_groupname_to_qtvariant[name];
+    }
+    return nullptr;
 }
 
 //! removes given qtVariantProperty from browser and all maps

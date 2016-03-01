@@ -72,7 +72,8 @@ void TestComponentView::onSelectionChanged(const QItemSelection &selected, const
 //        m_editor3->setItem(0);
     } else {
         if(ParameterizedItem *item = m_model->itemForIndex(indices.at(0))) {
-            m_editor2->setItem(item);
+//            m_editor2->setItem(item);
+            m_editor2->addItem(item);
 //            m_editor3->setItem(item);
         }
     }
@@ -112,7 +113,7 @@ void TestComponentView::init_editors()
 //    m_editor2->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_TABLE);
 //    m_editor3->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_GROUPBOX);
 
-//    m_editor1->setItem(m_model->getTopItem());
+    m_editor1->setItem(m_model->getTopItem());
 
 //    InstrumentModel *model = m_mainWindow->getInstrumentModel();
 //    InstrumentItem *instrument = model->getInstrumentItem();

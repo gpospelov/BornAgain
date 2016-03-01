@@ -34,7 +34,9 @@ class PropertyAttribute;
 class BA_CORE_API_ ComponentEditorPrivate
 {
 public:
-    ComponentEditorPrivate(QWidget *parent);
+    ComponentEditorPrivate(ComponentEditorFlags::PresentationType flags =
+            ComponentEditorFlags::SHOW_CONDENSED |
+            ComponentEditorFlags::BROWSER_TABLE, QWidget *parent = 0);
 
     void clear();
     void setPresentationType(ComponentEditorFlags::PresentationType presentationType);
@@ -48,6 +50,10 @@ public:
     QtVariantProperty *getPropertyForItem(ParameterizedItem *item);
     ParameterizedItem *getItemForProperty(QtProperty *property);
     QtVariantProperty *createQtVariantProperty(ParameterizedItem *item);
+
+    QtVariantProperty *processPropertyGroupForName(const QString &name);
+    QtVariantProperty *getPropertyForGroupName(const QString &name);
+
     void removeQtVariantProperty(QtVariantProperty *property);
     void updatePropertyAppearance(QtVariantProperty *property, const PropertyAttribute &attribute);
     void insertQtVariantProperty(QtVariantProperty *itemProperty, QtVariantProperty *parentProperty);
@@ -60,6 +66,8 @@ public:
     QMap<QtProperty *, ParameterizedItem *> m_qtproperty_to_item;
     QMap<ParameterizedItem *, QtVariantProperty *> m_item_to_qtvariantproperty;
     QMap<QtVariantProperty *, QList<QtVariantProperty *> > m_qtvariant_to_dependend;
+    QMap<QString, QtVariantProperty *> m_groupname_to_qtvariant;
+
 
 
     ComponentEditorFlags::PresentationType m_presentationType;

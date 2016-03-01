@@ -31,11 +31,15 @@ class BA_CORE_API_ ComponentEditor : public QWidget
 {
     Q_OBJECT
 public:
-    ComponentEditor(QWidget *parent = 0);
+    ComponentEditor(ComponentEditorFlags::PresentationType flags = ComponentEditorFlags::SHOW_CONDENSED |
+            ComponentEditorFlags::BROWSER_TABLE, QWidget *parent = 0);
+
     ~ComponentEditor();
 
     void setItem(ParameterizedItem *item, const QString &group_name=QString());
-//    void addItemProperty(ParameterizedItem *item, const QString &name);
+
+    void addPropertyItems(ParameterizedItem *item, const QString &group_name=QString());
+    void addItem(ParameterizedItem *item, const QString &group_name=QString());
 
     void updateEditor(ParameterizedItem *item, QtVariantProperty *parentProperty = 0);
 

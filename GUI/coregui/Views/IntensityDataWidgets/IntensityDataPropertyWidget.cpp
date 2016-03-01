@@ -37,7 +37,7 @@ IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget *parent)
     mainLayout->setSpacing(0);
 
     m_propertyEditor = new AwesomePropertyEditor(this);
-    m_componentEditor = new ComponentEditor(this);
+    m_componentEditor = new ComponentEditor();
     //m_propertyEditor->setCreateGroupProperty(false);
 
     mainLayout->addWidget(m_componentEditor);

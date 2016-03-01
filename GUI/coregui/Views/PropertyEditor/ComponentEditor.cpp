@@ -26,8 +26,8 @@
 #include <QVariant>
 #include <QDebug>
 
-ComponentEditor::ComponentEditor(QWidget *parent)
-    : QWidget(parent), m_d(new ComponentEditorPrivate(this))
+ComponentEditor::ComponentEditor(ComponentEditorFlags::PresentationType flags, QWidget *parent)
+    : QWidget(parent), m_d(new ComponentEditorPrivate(flags | ComponentEditorFlags::SHOW_CONDENSED, this))
 {
     setWindowTitle(QLatin1String("Property Editor"));
     setObjectName(QLatin1String("ComponentEditor"));
@@ -65,6 +65,26 @@ void ComponentEditor::setItem(ParameterizedItem *item, const QString &group_name
 //        updateEditor(item);
 //    }
 
+}
+
+
+//! adds all property items to thr PropertyGroup with given name
+void ComponentEditor::addPropertyItems(ParameterizedItem *item, const QString &group_name)
+{
+    if(item->modelType() == Constants::PropertyType) {
+        addItem(item, group_name);
+    } else {
+        foreach (ParameterizedItem *childItem, componentItems(item)) {
+            addItem(childItem, group_name);
+        }
+    }
+}
+
+//! add single item to property group with given name
+void ComponentEditor::addItem(ParameterizedItem *item, const QString &group_name)
+{
+    QtVariantProperty *groupProperty = m_d->processPropertyGroupForName(group_name);
+    m_d->processPropertyForItem(item, groupProperty);
 }
 
 //void ComponentEditor::addItemProperty(ParameterizedItem *item, const QString &name)
@@ -190,7 +210,7 @@ ComponentEditor::componentItems(ParameterizedItem *item) const
         result = item->childItems();
     }
 
-    else if (m_d->isShowCondensed()) {
+    else if (m_d->isShowCondensed() || m_d->isFlat()) {
 
         foreach (ParameterizedItem *child, item->childItems()) {
             if (child->getAttribute().isHidden())
@@ -208,6 +228,9 @@ ComponentEditor::componentItems(ParameterizedItem *item) const
             }
         }
 
+    } else {
+        qDebug() << "m_d->displayAttributes" << m_d->m_presentationType;
+        Q_ASSERT(0);
     }
 
     return result;

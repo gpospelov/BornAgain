@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/PropertyEditor/ComponentEditorPrivate.cpp
-//! @brief     Implements class ComponentEditorPrivate
+//! @file      coregui/Views/PropertyEditor/ComponentProxyEditorPrivate.cpp
+//! @brief     Implements class ComponentProxyEditorPrivate
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "ComponentEditorPrivate.h"
+#include "ComponentProxyEditorPrivate.h"
 #include "PropertyVariantManager.h"
 #include "PropertyVariantFactory.h"
 #include "qttreepropertybrowser.h"
@@ -24,7 +24,7 @@
 #include <QString>
 #include <QDebug>
 
-ComponentEditorPrivate::ComponentEditorPrivate(QWidget *parent)
+ComponentProxyEditorPrivate::ComponentProxyEditorPrivate(QWidget *parent)
     : m_browser(0), m_manager(0), m_read_only_manager(0),
       m_propertyFactory(new PropertyVariantFactory(parent)),
       m_presentationType(ComponentEditorFlags::SHOW_CONDENSED |
@@ -35,7 +35,7 @@ ComponentEditorPrivate::ComponentEditorPrivate(QWidget *parent)
     init_browser();
 }
 
-void ComponentEditorPrivate::clear()
+void ComponentProxyEditorPrivate::clear()
 {
     m_browser->clear();
 
@@ -48,10 +48,9 @@ void ComponentEditorPrivate::clear()
     m_qtproperty_to_item.clear();
     m_item_to_qtvariantproperty.clear();
     m_qtvariant_to_dependend.clear();
-
 }
 
-void ComponentEditorPrivate::setPresentationType(
+void ComponentProxyEditorPrivate::setPresentationType(
     ComponentEditorFlags::PresentationType presentationType)
 {
     clear();
@@ -59,7 +58,7 @@ void ComponentEditorPrivate::setPresentationType(
     init_browser();
 }
 
-void ComponentEditorPrivate::init_browser()
+void ComponentProxyEditorPrivate::init_browser()
 {
     delete m_browser;
     m_browser = 0;
@@ -85,18 +84,18 @@ void ComponentEditorPrivate::init_browser()
     m_browser->setFactoryForManager(m_manager, m_propertyFactory);
 }
 
-bool ComponentEditorPrivate::isShowDetailed() const
+bool ComponentProxyEditorPrivate::isShowDetailed() const
 {
     return m_presentationType & ComponentEditorFlags::SHOW_DETAILED;
 }
 
-bool ComponentEditorPrivate::isShowCondensed() const
+bool ComponentProxyEditorPrivate::isShowCondensed() const
 {
     return m_presentationType & ComponentEditorFlags::SHOW_CONDENSED;
 }
 
 //! Creates, if necessary, qtVariantProperty for given item and place it in the editor
-QtVariantProperty *ComponentEditorPrivate::
+QtVariantProperty *ComponentProxyEditorPrivate::
     processPropertyForItem(ParameterizedItem *item, QtVariantProperty *parentProperty)
 {
     QtVariantProperty *itemProperty = getPropertyForItem(item);
@@ -112,6 +111,7 @@ QtVariantProperty *ComponentEditorPrivate::
         if (parentProperty) {
             parentProperty->addSubProperty(itemProperty);
             m_qtvariant_to_dependend[parentProperty].append(itemProperty);
+            Q_ASSERT(parentProperty != itemProperty);
         } else {
             m_browser->addProperty(itemProperty);
         }
@@ -120,7 +120,7 @@ QtVariantProperty *ComponentEditorPrivate::
 }
 
 //! Returns QtVariantProperty representing given item in ComponentEditor.
-QtVariantProperty *ComponentEditorPrivate::getPropertyForItem(ParameterizedItem *item)
+QtVariantProperty *ComponentProxyEditorPrivate::getPropertyForItem(ParameterizedItem *item)
 {
     if (m_item_to_qtvariantproperty.contains(item)) {
         return m_item_to_qtvariantproperty[item];
@@ -129,7 +129,7 @@ QtVariantProperty *ComponentEditorPrivate::getPropertyForItem(ParameterizedItem 
 }
 
 //! Returns ParameterizedItem corresponding to QtVariantProperty representation
-ParameterizedItem *ComponentEditorPrivate::getItemForProperty(QtProperty *property)
+ParameterizedItem *ComponentProxyEditorPrivate::getItemForProperty(QtProperty *property)
 {
     if (m_qtproperty_to_item.contains(property)) {
         return m_qtproperty_to_item[property];
@@ -138,7 +138,7 @@ ParameterizedItem *ComponentEditorPrivate::getItemForProperty(QtProperty *proper
 }
 
 //! creates QtVariantProperty for given ParameterizedItem's property
-QtVariantProperty *ComponentEditorPrivate::createQtVariantProperty(ParameterizedItem *item)
+QtVariantProperty *ComponentProxyEditorPrivate::createQtVariantProperty(ParameterizedItem *item)
 {
     QtVariantProperty *result(0);
 
@@ -171,7 +171,7 @@ QtVariantProperty *ComponentEditorPrivate::createQtVariantProperty(Parameterized
 }
 
 //! removes given qtVariantProperty from browser and all maps
-void ComponentEditorPrivate::removeQtVariantProperty(QtVariantProperty *property)
+void ComponentProxyEditorPrivate::removeQtVariantProperty(QtVariantProperty *property)
 {
     m_browser->removeProperty(property);
     delete property;
@@ -184,7 +184,7 @@ void ComponentEditorPrivate::removeQtVariantProperty(QtVariantProperty *property
 }
 
 //! update visual apperance of qtVariantProperty using ParameterizedItem's attribute
-void ComponentEditorPrivate::updatePropertyAppearance(QtVariantProperty *property,
+void ComponentProxyEditorPrivate::updatePropertyAppearance(QtVariantProperty *property,
                                                       const PropertyAttribute &attribute)
 {
     Q_ASSERT(property);

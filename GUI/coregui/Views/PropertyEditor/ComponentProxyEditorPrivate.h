@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/PropertyEditor/ComponentEditorPrivate.h
-//! @brief     Defines class ComponentEditorPrivate
+//! @file      coregui/Views/PropertyEditor/ComponentProxyEditorPrivate.h
+//! @brief     Defines class ComponentProxyEditorPrivate
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,15 +13,14 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPONENTEDITORPRIVATE_H
-#define COMPONENTEDITORPRIVATE_H
+#ifndef COMPONENTPROXYEDITORPRIVATE_H
+#define COMPONENTPROXYEDITORPRIVATE_H
 
 #include "WinDllMacros.h"
 #include "ComponentEditorFlags.h"
 #include <QMap>
 #include <memory>
 
-class ComponentEditorPrivate;
 class QWidget;
 class QtAbstractPropertyBrowser;
 class QtVariantPropertyManager;
@@ -31,10 +30,10 @@ class ParameterizedItem;
 class QtVariantProperty;
 class PropertyAttribute;
 
-class BA_CORE_API_ ComponentEditorPrivate
+class BA_CORE_API_ ComponentProxyEditorPrivate
 {
 public:
-    ComponentEditorPrivate(QWidget *parent);
+    ComponentProxyEditorPrivate(QWidget *parent);
 
     void clear();
     void setPresentationType(ComponentEditorFlags::PresentationType presentationType);
@@ -58,7 +57,6 @@ public:
     QMap<QtProperty *, ParameterizedItem *> m_qtproperty_to_item;
     QMap<ParameterizedItem *, QtVariantProperty *> m_item_to_qtvariantproperty;
     QMap<QtVariantProperty *, QList<QtVariantProperty *> > m_qtvariant_to_dependend;
-
 
     ComponentEditorFlags::PresentationType m_presentationType;
 };

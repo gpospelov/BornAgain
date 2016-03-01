@@ -23,6 +23,8 @@
 #include "SampleBuilderFactory.h"
 #include "GUIObjectBuilder.h"
 #include "InstrumentModel.h"
+#include "ComponentProxyEditor.h"
+#include "SessionProxyModels.h"
 #include <QItemSelectionModel>
 #include <QHBoxLayout>
 #include <QTreeView>
@@ -33,6 +35,7 @@ TestComponentView::TestComponentView(MainWindow *mainWindow)
     , m_mainWindow(mainWindow)
     , m_model(new SampleModel(this))
     , m_treeView(new QTreeView)
+    , m_treeView2(new QTreeView)
     , m_editor1(new ComponentEditor)
     , m_editor2(new ComponentEditor)
 //    , m_editor2(0)
@@ -48,6 +51,7 @@ TestComponentView::TestComponentView(MainWindow *mainWindow)
     QVBoxLayout *rightPanel = new QVBoxLayout;
     rightPanel->addWidget(m_editor2);
     rightPanel->addWidget(m_editor3);
+//    rightPanel->addWidget(m_treeView2);
 
     hlayout->addLayout(rightPanel);
 
@@ -64,11 +68,11 @@ void TestComponentView::onSelectionChanged(const QItemSelection &selected, const
     QModelIndexList indices = selected.indexes();
 
     if(indices.isEmpty()) {
-//        m_editor2->setItem(0);
+        m_editor2->setItem(0);
 //        m_editor3->setItem(0);
     } else {
         if(ParameterizedItem *item = m_model->itemForIndex(indices.at(0))) {
-//            m_editor2->setItem(item);
+            m_editor2->setItem(item);
 //            m_editor3->setItem(item);
         }
     }
@@ -89,29 +93,37 @@ void TestComponentView::init_editors()
     // tree view
     m_treeView->setModel(m_model);
     m_treeView->expandAll();
+
+
+//    SessionCompactModel *compactModel = new SessionCompactModel();
+//    SessionTestModel *compactModel = new SessionTestModel();
+//    compactModel->setSourceModel(m_model);
+
+//    m_treeView2->setModel(compactModel);
+//    m_treeView2->expandAll();
+
     connect(m_treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this,
             SLOT(onSelectionChanged(QItemSelection, QItemSelection)));
 
 
     // editors
     m_editor1->setPresentationType(ComponentEditorFlags::SHOW_DETAILED | ComponentEditorFlags::BROWSER_TABLE);
-    m_editor2->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_TABLE);
-    m_editor3->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_GROUPBOX);
+//    m_editor2->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_TABLE);
+//    m_editor3->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_GROUPBOX);
 
-//    m_editor1->setItem(m_model->getMultiLayerItem());
 //    m_editor1->setItem(m_model->getTopItem());
 
-    InstrumentModel *model = m_mainWindow->getInstrumentModel();
-    InstrumentItem *instrument = model->getInstrumentItem();
-    Q_ASSERT(instrument);
+//    InstrumentModel *model = m_mainWindow->getInstrumentModel();
+//    InstrumentItem *instrument = model->getInstrumentItem();
+//    Q_ASSERT(instrument);
 
-    m_editor1->setItem(instrument);
+//    m_editor1->setItem(instrument);
 
-    BeamItem *beamItem = instrument->getBeamItem();
-    Q_ASSERT(beamItem);
+//    BeamItem *beamItem = instrument->getBeamItem();
+//    Q_ASSERT(beamItem);
 
-    m_editor2->setItem(beamItem->getGroupItem(BeamItem::P_WAVELENGTH));
-    m_editor3->setItem(beamItem->getGroupItem(BeamItem::P_WAVELENGTH));
+//    m_editor2->setItem(beamItem->getGroupItem(BeamItem::P_WAVELENGTH));
+//    m_editor3->setItem(beamItem->getGroupItem(BeamItem::P_WAVELENGTH));
 }
 
 

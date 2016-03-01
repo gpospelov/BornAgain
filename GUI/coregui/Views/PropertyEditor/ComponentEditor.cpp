@@ -116,6 +116,24 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
             disconnectManager();
             property->setValue(item->value());
             connectManager();
+
+//            if(item->modelType() == Constants::GroupItemType) {
+//                foreach(QtVariantProperty *qtProperty, m_d->m_qtvariant_to_dependend[property]) {
+//                    qDebug() << "AAAA" << qtProperty << m_d->getItemForProperty(qtProperty);
+//                    m_d->removeQtVariantProperty(qtProperty);
+//                }
+////                m_d->m_qtvariant_to_dependend[property].clear();
+
+////                updateEditor(topLeft, m_d->getPropertyForItem(item->parent()));
+////                return;
+//            }
+
+            if(item->modelType() == Constants::GroupItemType) {
+                cleanChildren(item);
+                updateEditor(item, m_d->getPropertyForItem(item->parent()));
+            }
+
+
         }
     }
 
@@ -124,20 +142,20 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
     // editor,
     // if item is marked as visible but doesn't exist yet, we have to recreate
     // corresponding property
-    if (m_d->isShowCondensed() && roles.contains(Qt::UserRole)) {
+//    if (m_d->isShowCondensed() && roles.contains(Qt::UserRole)) {
 
-        if (QtVariantProperty *property = m_d->getPropertyForItem(item)) {
-            if (item->getAttribute().isHidden()) {
-                m_d->removeQtVariantProperty(property);
-            }
-        } else {
-            ParameterizedItem *parentItem = item->parent();
-            if (QtVariantProperty *parentProperty
-                = m_d->getPropertyForItem(parentItem)) {
-                updateEditor(item, parentProperty);
-            }
-        }
-    }
+//        if (QtVariantProperty *property = m_d->getPropertyForItem(item)) {
+//            if (item->getAttribute().isHidden()) {
+//                m_d->removeQtVariantProperty(property);
+//            }
+//        } else {
+//            ParameterizedItem *parentItem = item->parent();
+//            if (QtVariantProperty *parentProperty
+//                = m_d->getPropertyForItem(parentItem)) {
+//                updateEditor(item, parentProperty);
+//            }
+//        }
+//    }
 }
 
 //! Updates the editor starting from given ParameterizedItem's parent.
@@ -192,12 +210,25 @@ ComponentEditor::componentItems(ParameterizedItem *item) const
                 result.append(child);
             }
             if (item->modelType() == Constants::GroupItemType) {
-                result.append(child);
+//                result.append(child);
+                foreach(ParameterizedItem *childOfChild, child->childItems()) {
+                    result.append(childOfChild);
+                }
             }
         }
     }
 
     return result;
+}
+
+void ComponentEditor::cleanChildren(ParameterizedItem *item)
+{
+    foreach(ParameterizedItem *child, item->childItems()) {
+        if (QtVariantProperty *property = m_d->getPropertyForItem(child)) {
+            m_d->removeQtVariantProperty(property);
+        }
+        cleanChildren(child);
+    }
 }
 
 void ComponentEditor::disconnectModel(SessionModel *model)

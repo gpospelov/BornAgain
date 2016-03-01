@@ -21,6 +21,7 @@
 class MainWindow;
 class SampleModel;
 class ComponentEditor;
+class ComponentProxyEditor;
 class QTreeView;
 class QItemSelection;
 
@@ -39,6 +40,7 @@ private:
     MainWindow *m_mainWindow;
     SampleModel *m_model;
     QTreeView *m_treeView;
+    QTreeView *m_treeView2;
     ComponentEditor *m_editor1;
     ComponentEditor *m_editor2;
     ComponentEditor *m_editor3;

@@ -41,6 +41,8 @@ public:
 
     void setOnParentChange(std::function<void(ParameterizedItem*)> f);
 
+    void setOnChildrenChange(std::function<void(void)> f);
+
     void setActive(bool state) {m_active = state;}
 
 public slots:
@@ -61,6 +63,7 @@ private:
     std::vector<std::function<void(QString)>> m_onPropertyChange;
     std::vector<std::function<void(ParameterizedItem*,QString)>> m_onChildPropertyChange;
     std::vector<std::function<void(ParameterizedItem*)>> m_onParentChange;
+    std::vector<std::function<void(void)>> m_onChildrenChange;
 };
 
 #endif

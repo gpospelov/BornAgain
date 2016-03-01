@@ -50,6 +50,11 @@ void ModelMapper::setOnParentChange(std::function<void (ParameterizedItem *)> f)
     m_onParentChange.push_back(f);
 }
 
+void ModelMapper::setOnChildrenChange(std::function<void ()> f)
+{
+    m_onChildrenChange.push_back(f);
+}
+
 void ModelMapper::setModel(SessionModel *model)
 {
     if (m_model) {
@@ -124,6 +129,12 @@ void ModelMapper::onRowsInserted(const QModelIndex &parent, int first, int last)
                         f(m_model->itemForIndex(parent));
                     }
                 }
+
+                if (m_active && m_onChildrenChange.size() > 0) {
+                    for (auto f : m_onChildrenChange) {
+                        f();
+                    }
+                }
             }
         }
     }
@@ -137,6 +148,11 @@ void ModelMapper::onBeginRemoveRows(const QModelIndex &parent, int first, int la
                 if (m_active && m_onParentChange.size() > 0) {
                     for (auto f : m_onParentChange) {
                         f(nullptr);
+                    }
+                }
+                if (m_active && m_onChildrenChange.size() > 0) {
+                    for (auto f : m_onChildrenChange) {
+                        f();
                     }
                 }
             }

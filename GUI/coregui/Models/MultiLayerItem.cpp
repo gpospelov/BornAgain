@@ -28,6 +28,11 @@ MultiLayerItem::MultiLayerItem()
     addToValidChildren(Constants::LayerType);
 //    registerProperty(OBSOLETE_P_NAME, Constants::MultiLayerType);
     setItemName(Constants::MultiLayerType);
+    mapper()->setOnChildrenChange(
+                [this]()
+    {
+        updateLayers();
+    });
 }
 
 ParameterizedItem *MultiLayerItem::takeChildItem(int row)

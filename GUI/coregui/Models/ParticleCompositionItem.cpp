@@ -91,8 +91,8 @@ std::unique_ptr<ParticleComposition> ParticleCompositionItem::createParticleComp
         } else if (children[i]->modelType() == Constants::TransformationType) {
             continue;
         } else {
-            throw GUIHelpers::Error("ParticleCompositionItem::createParticleComposition()"
-                                    " -> Error! Not implemented");
+//            throw GUIHelpers::Error("ParticleCompositionItem::createParticleComposition()"
+//                                    " -> Error! Not implemented");
         }
     }
     TransformToDomain::setTransformationInfo(P_composition.get(), *this);

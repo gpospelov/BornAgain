@@ -118,8 +118,8 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
                 P_layout->addInterferenceFunction(*P_interference);
             }
         } else {
-            throw GUIHelpers::Error("DomainObjectBuilder::buildParticleLayout()"
-                                    " -> Error! Not implemented");
+//            throw GUIHelpers::Error("DomainObjectBuilder::buildParticleLayout()"
+//                                    " -> Error! Not implemented");
         }
     }
     return P_layout;

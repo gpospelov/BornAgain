@@ -17,6 +17,7 @@
 #include "IntensityDataPlotWidget.h"
 #include "IntensityDataPropertyWidget.h"
 #include "IntensityDataItem.h"
+#include "ModelMapper.h"
 #include <QVBoxLayout>
 #include <QDebug>
 
@@ -103,6 +104,15 @@ void IntensityDataWidget::onPropertyChanged(const QString &property_name)
 void IntensityDataWidget::updateItem(IntensityDataItem *item)
 {
     setPropertyPanelVisible(item->getRegisteredProperty(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+    ModelMapper *mapper = new ModelMapper(this);
+    mapper->setItem(item);
+    mapper->setOnPropertyChange(
+                 [this](const QString &name)
+    {
+        if(name == IntensityDataItem::P_PROPERTY_PANEL_FLAG) {
+            setPropertyPanelVisible(m_currentItem->getRegisteredProperty(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+        }
+    });
 }
 
 void IntensityDataWidget::toggleProjections()

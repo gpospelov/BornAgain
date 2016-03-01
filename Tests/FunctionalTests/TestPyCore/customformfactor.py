@@ -2,7 +2,7 @@
 import sys
 import os
 import numpy
-import cmath
+import math
 from utils import get_reference_data
 
 sys.path.append(os.path.abspath(
@@ -40,7 +40,7 @@ class CustomFormFactor(IFormFactorBorn):
         return cloned_ff
 
     def evaluate_for_q(self, q):
-        return self.V*1.0/cmath.cosh(q.mag()*self.L)
+        return self.V*1.0/math.cosh(q.mag()*self.L)
 
 
 def get_sample():
@@ -103,7 +103,8 @@ def run_test():
     reference = get_reference_data('customformfactor_reference.int.gz')
     diff = IntensityDataFunctions.getRelativeDifference(result, reference)
     status = "OK"
-    if diff > 2e-10 or numpy.isnan(diff):
+    if diff > 2e-3 or numpy.isnan(diff):
+        print( "difference: %g" % diff )
         status = "FAILED"
     return "CustomFormFactor", "Test of custom formfactor", diff, status
 

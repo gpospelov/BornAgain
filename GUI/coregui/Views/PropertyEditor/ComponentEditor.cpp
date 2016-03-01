@@ -47,8 +47,15 @@ ComponentEditor::~ComponentEditor()
 void ComponentEditor::setItem(ParameterizedItem *item)
 {
     clearEditor();
-    if (item)
-        updateEditor(item);
+    if(!item) return;
+
+//    updateEditor(item);
+
+    foreach (ParameterizedItem *childItem, componentItems(item)) {
+        updateEditor(childItem);
+    }
+
+
 }
 
 //void ComponentEditor::addItemProperty(ParameterizedItem *item, const QString &name)
@@ -63,10 +70,13 @@ void ComponentEditor::updateEditor(ParameterizedItem *item,
 {
     connectModel(item->model());
 
+//    if(parentProperty)
+
     if (QtVariantProperty *childProperty
         = m_d->processPropertyForItem(item, parentProperty)) {
         parentProperty = childProperty;
     }
+
     foreach (ParameterizedItem *childItem, componentItems(item)) {
         updateEditor(childItem, parentProperty);
     }
@@ -131,6 +141,11 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
             if(item->modelType() == Constants::GroupItemType) {
                 cleanChildren(item);
                 updateEditor(item, m_d->getPropertyForItem(item->parent()));
+////                updateEditor(item->parent());
+//                foreach (ParameterizedItem *childItem, componentItems(item->parent())) {
+//                    updateEditor(childItem);
+//                }
+
             }
 
 
@@ -208,14 +223,44 @@ ComponentEditor::componentItems(ParameterizedItem *item) const
             }
             if (child->modelType() == Constants::GroupItemType) {
                 result.append(child);
+//                foreach(ParameterizedItem *childOfChild, child->childItems()) {
+//                    result.append(childOfChild);
+//                }
             }
             if (item->modelType() == Constants::GroupItemType) {
 //                result.append(child);
                 foreach(ParameterizedItem *childOfChild, child->childItems()) {
                     result.append(childOfChild);
                 }
+//                result.append(componentItems(item));
             }
         }
+
+
+//        foreach (ParameterizedItem *child, item->childItems()) {
+//            if (child->getAttribute().isHidden())
+//                continue;
+//            if (child->modelType() == Constants::PropertyType) {
+//                result.append(child);
+//            }
+//            if (child->modelType() == Constants::GroupItemType) {
+//                result.append(child);
+//                foreach(ParameterizedItem *childOfChild, child->childItems()) {
+//                    qDebug() << "QQQQQQQQQQQ" << childOfChild->displayName();
+
+//                    result.append(componentItems(childOfChild));
+//                }
+//            }
+//            if (item->modelType() == Constants::GroupItemType) {
+////                result.append(child);
+//                foreach(ParameterizedItem *childOfChild, child->childItems()) {
+//                    result.append(childOfChild);
+//                }
+//            }
+//        }
+
+
+
     }
 
     return result;

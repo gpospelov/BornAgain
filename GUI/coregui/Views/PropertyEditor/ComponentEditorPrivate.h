@@ -49,6 +49,7 @@ public:
     QtVariantProperty *createQtVariantProperty(ParameterizedItem *item);
     void removeQtVariantProperty(QtVariantProperty *property);
     void updatePropertyAppearance(QtVariantProperty *property, const PropertyAttribute &attribute);
+    void insertQtVariantProperty(QtVariantProperty *itemProperty, QtVariantProperty *parentProperty);
 
     QtAbstractPropertyBrowser *m_browser;
     QtVariantPropertyManager  *m_manager;

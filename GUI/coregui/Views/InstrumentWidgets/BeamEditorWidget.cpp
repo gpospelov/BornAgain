@@ -86,7 +86,7 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
 void BeamEditorWidget::setBeamItem(BeamItem *beamItem)
 {
     m_beamItem = beamItem;
-//    m_intensityEditor->clearEditor();
+    m_intensityEditor->clearEditor();
     m_wavelengthPresenter->clearEditor();
     m_inclinationAnglePresenter->clearEditor();
     m_azimuthalAnglePresenter->clearEditor();
@@ -94,7 +94,6 @@ void BeamEditorWidget::setBeamItem(BeamItem *beamItem)
     if (!m_beamItem)
         return;
 
-//    m_intensityEditor->addItemProperty(m_beamItem, BeamItem::P_INTENSITY);
     m_intensityEditor->addItem(m_beamItem->getPropertyItem(BeamItem::P_INTENSITY));
 
     ParameterizedItem *wavelengthItem = m_beamItem->getGroupItem(BeamItem::P_WAVELENGTH);
@@ -110,17 +109,8 @@ void BeamEditorWidget::setBeamItem(BeamItem *beamItem)
 
 void BeamEditorWidget::onDialogRequest(ParameterizedItem *item, QString name)
 {
-    qDebug() << "AAAAAA 1.1";
     DistributionDialog *dialog = new DistributionDialog(this);
-    qDebug() << "AAAAAA 1.2";
-//    dialog->setItem(item);
-//    dialog->setNameOfEditor(name);
-    qDebug() << "AAAAAA 1.3";
+    dialog->setItem(item);
+    dialog->setNameOfEditor(name);
     dialog->show();
-//    if(dialog->exec()) {
-//        qDebug() << "AAAAAA 1.4.1";
-//    } else {
-//        qDebug() << "AAAAAA 1.4.2";
-//    }
-    qDebug() << "AAAAAA 1.5";
 }

@@ -21,13 +21,12 @@
 
 DistributionDialog::DistributionDialog(QWidget *parent)
     : QDialog(parent)
-//      , m_editor(new DistributionEditor)
+    , m_editor(new DistributionEditor)
 {
     setMinimumSize(256, 256);
     resize(700, 480);
     setWindowTitle("Select Distribution");
 //    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    setAttribute(Qt::WA_DeleteOnClose, true);
     setModal(true);
 
     QVBoxLayout *layout = new QVBoxLayout;
@@ -40,19 +39,21 @@ DistributionDialog::DistributionDialog(QWidget *parent)
     buttonLayout->setContentsMargins(4, 4, 4, 4);
     buttonLayout->addWidget(button);
 
-//    layout->addWidget(m_editor);
-//    layout->addLayout(buttonLayout);
+    layout->addWidget(m_editor);
+    layout->addLayout(buttonLayout);
 
     layout->setContentsMargins(0, 0, 0, 0);
     setLayout(layout);
+
+    setAttribute(Qt::WA_DeleteOnClose, true);
 }
 
 void DistributionDialog::setItem(ParameterizedItem *item)
 {
-//    m_editor->setItem(item);
+    m_editor->setItem(item);
 }
 
 void DistributionDialog::setNameOfEditor(const QString &name)
 {
-//    m_editor->setNameOfEditor(name);
+    m_editor->setNameOfEditor(name);
 }

@@ -35,9 +35,7 @@ class DistributionWidget : public QWidget
 
 public:
     DistributionWidget(QWidget *parent = 0);
-    virtual ~DistributionWidget()
-    {
-    }
+
     void setItem(DistributionItem *item);
     void plotItem();
     double getWidthOfBars(double min, double max, int samples);

@@ -15,7 +15,7 @@
 
 #include "BeamWavelengthItem.h"
 #include "ParameterizedItem.h"
-#include "ComponentEditor.h"
+#include "ComponentBoxEditor.h"
 #include "DistributionWidget.h"
 #include "DistributionEditor.h"
 #include "Distributions.h"
@@ -35,7 +35,7 @@ DistributionEditor::DistributionEditor(QWidget *parent)
 
 {
     m_plotwidget = new DistributionWidget(this);
-    m_propertyEditor = new ComponentEditor;
+    m_propertyEditor = new ComponentBoxEditor;
 
     QVBoxLayout *boxLayout = new QVBoxLayout;
     m_propertyEditor->setMaximumWidth(minimumWidth_of_AwesomePropertyEditor);
@@ -58,20 +58,24 @@ DistributionEditor::DistributionEditor(QWidget *parent)
 void DistributionEditor::setItem(ParameterizedItem *item)
 {
     m_propertyEditor->clearEditor();
-//    m_propertyEditor->addItemProperties(item, QString(), AwesomePropertyEditor::INSERT_AFTER);
+    m_propertyEditor->addPropertyItems(item);
 
     if (m_item == item)
         return;
 
-    if (m_item) {
-        disconnect(m_item, SIGNAL(subItemChanged(QString)), this, SLOT(onSubItemChanged(QString)));
-    }
     m_item = item;
 
     if (!m_item)
         return;
 
-    connect(m_item, SIGNAL(subItemChanged(QString)), this, SLOT(onSubItemChanged(QString)));
+    ModelMapper *mapper = new ModelMapper(this);
+    mapper->setItem(m_item);
+    mapper->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        onPropertyChanged(name);
+    });
+
 
     DistributionItem *distrItem = dynamic_cast<DistributionItem *>(
         m_item->getGroupItem(BeamWavelengthItem::P_DISTRIBUTION));
@@ -79,7 +83,7 @@ void DistributionEditor::setItem(ParameterizedItem *item)
     m_plotwidget->setItem(distrItem);
 }
 
-void DistributionEditor::onSubItemChanged(const QString &property_name)
+void DistributionEditor::onPropertyChanged(const QString &property_name)
 {
     if (property_name == BeamDistributionItem::P_DISTRIBUTION) {
         DistributionItem *distrItem

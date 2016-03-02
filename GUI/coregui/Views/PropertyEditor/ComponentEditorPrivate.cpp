@@ -15,17 +15,25 @@
 
 #include "ComponentEditorPrivate.h"
 #include "GUIHelpers.h"
+#include "CustomEventFilters.h"
 #include <QString>
+#include <QComboBox>
 #include <QDebug>
 
 ComponentEditorPrivate::ComponentEditorPrivate(ComponentEditorFlags::PresentationType flags, QWidget *parent)
-    : m_browser(0), m_manager(0), m_read_only_manager(0),
-      m_propertyFactory(new PropertyVariantFactory(parent)),
-      m_presentationType(flags)
+    : m_browser(0), m_manager(0), m_read_only_manager(0)
+    , m_propertyFactory(new PropertyVariantFactory(parent))
+    , m_presentationType(flags)
+    , m_wheel_event_filter(new WheelEventEater)
 {
     m_read_only_manager = new PropertyVariantManager(parent);
     m_manager = new PropertyVariantManager(parent);
     init_browser();
+}
+
+ComponentEditorPrivate::~ComponentEditorPrivate()
+{
+    clear();
 }
 
 void ComponentEditorPrivate::clear()
@@ -41,6 +49,8 @@ void ComponentEditorPrivate::clear()
     m_qtproperty_to_item.clear();
     m_item_to_qtvariantproperty.clear();
     m_groupname_to_qtvariant.clear();
+    m_item_to_qtparent.clear();
+    m_item_to_insert_mode.clear();
 }
 
 void ComponentEditorPrivate::init_browser()
@@ -93,6 +103,8 @@ QtVariantProperty *ComponentEditorPrivate::
             }
         }
     }
+
+    install_custom_filters();
 
     return itemProperty;
 }
@@ -176,6 +188,8 @@ void ComponentEditorPrivate::removeQtVariantProperty(QtVariantProperty *property
     if (it != m_qtproperty_to_item.end()) {
         ParameterizedItem *item = it.value();
         m_item_to_qtvariantproperty.remove(item);
+        m_item_to_qtparent.remove(item);
+        m_item_to_insert_mode.remove(item);
         m_qtproperty_to_item.erase(it);
     }
 }
@@ -227,5 +241,25 @@ void ComponentEditorPrivate::cleanChildren(ParameterizedItem *item)
             removeQtVariantProperty(property);
         }
         cleanChildren(child);
+    }
+}
+
+//! installs WheelEventEater on all comboxes
+// hack to change behaviour of ComboBoxes and SpinBoxes produced by QtGroupBoxPropertyBrowser
+// with the goal to react on mouse wheel event only when there is keyboard focus
+void ComponentEditorPrivate::install_custom_filters()
+{
+    if(m_presentationType & ComponentEditorFlags::BROWSER_GROUPBOX) {
+        QList<QAbstractSpinBox*> spinboxes = m_browser->findChildren<QAbstractSpinBox *>();
+        QList<QComboBox*> comboboxes = m_browser->findChildren<QComboBox *>();
+        foreach(QAbstractSpinBox *w, spinboxes) {
+            w->removeEventFilter(m_wheel_event_filter.get());
+            w->installEventFilter(m_wheel_event_filter.get());
+            w->setFocusPolicy(Qt::StrongFocus);
+        }
+        foreach(QComboBox *w, comboboxes) {
+            w->removeEventFilter(m_wheel_event_filter.get());
+            w->installEventFilter(m_wheel_event_filter.get());
+        }
     }
 }

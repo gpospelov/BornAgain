@@ -27,15 +27,7 @@
 #include <QMap>
 #include <memory>
 
-//class ComponentEditorPrivate;
-//class QWidget;
-//class QtAbstractPropertyBrowser;
-//class QtVariantPropertyManager;
-//class PropertyVariantFactory;
-//class QtProperty;
-//class ParameterizedItem;
-//class QtVariantProperty;
-//class PropertyAttribute;
+class WheelEventEater;
 
 //! Holds logic for ComponentEditor
 
@@ -45,6 +37,9 @@ public:
     ComponentEditorPrivate(ComponentEditorFlags::PresentationType flags
                            = ComponentEditorFlags::BROWSER_TABLE,
                            QWidget *parent = 0);
+
+
+    ~ComponentEditorPrivate();
 
     void clear();
     void init_browser();
@@ -64,6 +59,8 @@ public:
                                   const PropertyAttribute &attribute);
     void cleanChildren(ParameterizedItem *item);
 
+    void install_custom_filters();
+
     QtAbstractPropertyBrowser *m_browser;
     QtVariantPropertyManager *m_manager;
     QtVariantPropertyManager *m_read_only_manager;
@@ -76,6 +73,8 @@ public:
     QMap<ParameterizedItem *, ComponentEditorFlags::InsertMode> m_item_to_insert_mode;
 
     ComponentEditorFlags::PresentationType m_presentationType;
+    std::unique_ptr<WheelEventEater> m_wheel_event_filter;
+
 };
 
 #endif

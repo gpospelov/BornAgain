@@ -33,47 +33,10 @@ public:
     void addItem(ParameterizedItem *item, const QString &group_name=QString());
     void updateItem(ParameterizedItem *item, QtVariantProperty *parentProperty);
 
-//    void updateItem(ParameterizedItem *item, const QString &group_name=QString());
-
 public slots:
     void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
     void onRowsInserted(const QModelIndex &parent, int first, int last);
 
-//class BA_CORE_API_ ComponentBoxEditor : public QWidget
-//{
-//    Q_OBJECT
-//public:
-//    ComponentBoxEditor(ComponentEditorFlags::PresentationType flags = ComponentEditorFlags::BROWSER_TABLE, QWidget *parent = 0);
-
-//    ~ComponentBoxEditor();
-
-//    void setItem(ParameterizedItem *item, const QString &group_name=QString());
-
-//    void addPropertyItems(ParameterizedItem *item, const QString &group_name=QString());
-//    void addItem(ParameterizedItem *item, const QString &group_name=QString());
-
-//    void updateEditor(ParameterizedItem *item, QtVariantProperty *parentProperty = 0);
-
-//    void clearEditor();
-
-
-//public slots:
-//    void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
-//    void onRowsInserted(const QModelIndex &parent, int first, int last);
-
-//private slots:
-//    void onQtPropertyChanged(QtProperty *, const QVariant &value);
-
-//private:
-//    QList<ParameterizedItem *> componentItems(ParameterizedItem *item) const;
-//    void cleanChildren(ParameterizedItem *item);
-
-//    void disconnectModel(SessionModel *model);
-//    void connectModel(SessionModel *model);
-//    void disconnectManager();
-//    void connectManager();
-
-//    std::unique_ptr<ComponentEditorPrivate> m_d;
 };
 
 

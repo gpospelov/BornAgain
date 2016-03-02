@@ -15,17 +15,8 @@
 #include "ComponentBoxEditor.h"
 #include "ComponentEditorPrivate.h"
 #include "SessionModel.h"
+#include "CustomEventFilters.h"
 #include <QModelIndex>
-//#include "qtpropertybrowser.h"
-//#include "PropertyVariantManager.h"
-//#include "GUIHelpers.h"
-//#include "ParameterizedItem.h"
-//#include "SessionModel.h"
-//#include "GroupItem.h"
-//#include "GroupProperty.h"
-
-//#include <QVBoxLayout>
-//#include <QVariant>
 #include <QDebug>
 
 
@@ -72,6 +63,7 @@ void ComponentBoxEditor::updateItem(ParameterizedItem *item, QtVariantProperty *
 {
     connectModel(item->model());
     m_d->processPropertyForItem(item, parentProperty);
+
 }
 
 void ComponentBoxEditor::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)

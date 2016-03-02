@@ -15,6 +15,8 @@
 
 #include "CustomEventFilters.h"
 #include <QEvent>
+#include <QSpinBox>
+#include <QComboBox>
 #include <QKeyEvent>
 
 SpaceKeyEater::SpaceKeyEater(QObject *parent)
@@ -38,4 +40,42 @@ bool SpaceKeyEater::eventFilter(QObject *obj, QEvent *event)
         // standard event processing
         return QObject::eventFilter(obj, event);
     }
+}
+
+WheelEventEater::WheelEventEater(QObject *parent)
+    : QObject(parent)
+{
+
+}
+
+bool WheelEventEater::eventFilter(QObject *obj, QEvent *event)
+{
+    if(QAbstractSpinBox* spinBox = qobject_cast<QAbstractSpinBox*>(obj)) {
+
+        if(event->type() == QEvent::Wheel) {
+            if(spinBox->focusPolicy() == Qt::WheelFocus) {
+                event->accept();
+                return false;
+            } else {
+                event->ignore();
+                return true;
+            }
+        }
+        else if(event->type() == QEvent::FocusIn) {
+            spinBox->setFocusPolicy(Qt::WheelFocus);
+        }
+        else if(event->type() == QEvent::FocusOut) {
+            spinBox->setFocusPolicy(Qt::StrongFocus);
+        }
+    }
+    else if(qobject_cast<QComboBox*>(obj)) {
+        if(event->type() == QEvent::Wheel) {
+            event->ignore();
+            return true;
+        } else {
+            event->accept();
+            return false;
+        }
+    }
+    return QObject::eventFilter(obj, event);
 }

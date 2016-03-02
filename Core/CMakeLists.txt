@@ -65,11 +65,24 @@ if(BORNAGAIN_PYTHON)
 
     
     add_custom_command (
-      OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.cxx ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
+      OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.cxx
       COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.i
       COMMAND sed -i "'s/_libBornAgainCore.ICloneable_transferToCPP(self)/self.__disown__()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
-      DEPENDS PythonAPI/libBornAgainCore.i ${include_files}
+      DEPENDS PythonAPI/libBornAgainCore.i ${include_files} PythonAPI/doxygen.i
       )
+
+    # autogenerate doxygen.i from doxygen comments
+    if(BORNAGAIN_GENERATE_PYTHON_DOCS)
+      configure_file(${CMAKE_SOURCE_DIR}/Doc/Doxygen/DoxyfilePython.in ${CMAKE_CURRENT_BINARY_DIR}/PythonAPI/Doxyfile @ONLY)
+
+      add_custom_command(
+        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/doxygen.i
+        COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/PythonAPI/Doxyfile
+        COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/dev-tools/python-bindings/doxy2swig.py ${CMAKE_CURRENT_BINARY_DIR}/Doc/xml/index.xml ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/doxygen.i
+        DEPENDS ${include_files}
+        )
+      
+    endif()
 
 
   endif()
@@ -81,7 +94,7 @@ if(BORNAGAIN_PYTHON)
     )
   
   list(APPEND source_files "PythonAPI/libBornAgainCore_wrap.cxx")
-  list(APPEND include_files "PythonAPI/libBornAgainCore_wrap.h")
+  #list(APPEND include_files "PythonAPI/libBornAgainCore_wrap.h")
   
   # JMF: this should be done more carefully in the future
   #

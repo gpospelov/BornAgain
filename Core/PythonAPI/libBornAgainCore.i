@@ -15,6 +15,8 @@
 
 %module(directors="1") "libBornAgainCore"
 
+%feature("autodoc");
+%include "doxygen.i"
 
 #pragma SWIG nowarn=314 // print
 #pragma SWIG nowarn=315 // nothing known about std::size_t // fixed by #ifndef in Types.h

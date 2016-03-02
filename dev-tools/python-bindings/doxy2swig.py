@@ -110,7 +110,8 @@ class Doxy2SWIG:
         if m and len(m.group()) == len(txt):
             pass
         else:
-            self.add_text(textwrap.fill(txt))
+            #self.add_text(textwrap.fill(txt))
+            self.add_text(txt)
 
     def parse_Element(self, node):
         """Parse an `ELEMENT_NODE`.  This calls specific
@@ -359,7 +360,8 @@ class Doxy2SWIG:
             elif i.find('// File:') > -1: # leave comments alone.
                 ret.extend([i, '\n'])
             else:
-                _tmp = textwrap.fill(i.strip())
+                #_tmp = textwrap.fill(i.strip())
+                _tmp = i.strip()
                 _tmp = self.lead_spc.sub(r'\1"\2', _tmp)
                 ret.extend([_tmp, '\n\n'])
         return ret

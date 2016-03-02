@@ -1,7 +1,9 @@
 # Search for installed software required by BornAgain
 
 
-
+if (BORNAGAIN_GENERATE_BINDINGS AND BORNAGAIN_GENERATE_PYTHON_DOCS)
+  find_package(Doxygen REQUIRED)
+endif()
 
 if (BORNAGAIN_USE_PYTHON3)
   set(Python_ADDITIONAL_VERSIONS 3.5)

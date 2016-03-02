@@ -101,6 +101,7 @@ endif()
 # configure files
 # -----------------------------------------------------------------------------
 
+
 if(BORNAGAIN_RELEASE)
     # configure a header file to pass CMake settings to the source code
     configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAVersion.h.in"  "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h")

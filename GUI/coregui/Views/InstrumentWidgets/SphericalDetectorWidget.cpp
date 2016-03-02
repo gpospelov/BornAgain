@@ -38,8 +38,8 @@ SphericalDetectorWidget::SphericalDetectorWidget(ColumnResizer *columnResizer,
     m_alphaAxisEditor = new ComponentEditor(ComponentEditorFlags::BROWSER_GROUPBOX);
     m_gridLayout->addWidget(m_alphaAxisEditor, 1, 1);
 
-    m_resolutionFunctionEditor = new ComponentEditor;
-    m_resolutionFunctionEditor->setFlat();
+    m_resolutionFunctionEditor = new ComponentEditor(ComponentEditorFlags::BROWSER_GROUPBOX);
+//    m_resolutionFunctionEditor->setFlat();
 //    m_resolutionFunctionEditor->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_GROUPBOX);
 
     m_gridLayout->addWidget(m_resolutionFunctionEditor, 1, 2);
@@ -94,9 +94,9 @@ void SphericalDetectorWidget::setDetectorItem(DetectorItem *detectorItem)
         = sphericalDetector->getGroupItem(SphericalDetectorItem::P_ALPHA_AXIS);
     m_alphaAxisEditor->addPropertyItems(alphaAxisItem, QString("Alpha axis"));
 
-    ParameterizedItem *resFunc = sphericalDetector->getGroupItem(SphericalDetectorItem::P_RESOLUTION_FUNCTION);
-    Q_ASSERT(resFunc);
-    m_resolutionFunctionEditor->setItem(resFunc);
+    ParameterizedItem *resFuncGroup = sphericalDetector->getPropertyItem(SphericalDetectorItem::P_RESOLUTION_FUNCTION);
+    Q_ASSERT(resFuncGroup);
+    m_resolutionFunctionEditor->addPropertyItems(resFuncGroup, QString("Resolution function"));
 }
 
 void SphericalDetectorWidget::onColumnResizerDestroyed(QObject *object)

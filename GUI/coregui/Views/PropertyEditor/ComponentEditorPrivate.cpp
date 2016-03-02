@@ -118,7 +118,8 @@ QtVariantProperty *ComponentEditorPrivate::
 //            }
 
             if (parentProperty) {
-                insertQtVariantProperty(itemProperty, parentProperty);
+//                insertQtVariantProperty(itemProperty, parentProperty);
+                parentProperty->addSubProperty(itemProperty);
                 m_qtvariant_to_dependend[parentProperty].append(itemProperty);
             } else {
                 m_browser->addProperty(itemProperty);

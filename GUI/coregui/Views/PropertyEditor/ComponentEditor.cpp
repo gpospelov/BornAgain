@@ -73,7 +73,16 @@ void ComponentEditor::addPropertyItems(ParameterizedItem *item, const QString &g
 {
     if(item->modelType() == Constants::PropertyType) {
         addItem(item, group_name);
-    } else {
+    }
+
+    else if(item->modelType() == Constants::GroupItemType) {
+        addItem(item, group_name);
+        foreach (ParameterizedItem *childItem, componentItems(item)) {
+            addItem(childItem, group_name);
+        }
+    }
+
+    else {
         foreach (ParameterizedItem *childItem, componentItems(item)) {
             addItem(childItem, group_name);
         }
@@ -138,9 +147,6 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
                                     const QModelIndex &bottomRight,
                                     const QVector<int> &roles)
 {
-    qDebug() << " ComponentEditor::onDataChanged" << m_d->m_presentationType
-             << topLeft << roles;
-
     if (topLeft != bottomRight)
         return;
 
@@ -148,6 +154,9 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
     Q_ASSERT(model);
     ParameterizedItem *item = model->itemForIndex(topLeft);
     Q_ASSERT(item);
+
+    qDebug() << " ComponentEditor::onDataChanged" << m_d->m_presentationType
+             << roles << item->modelType() << item->displayName();
 
     if (QtVariantProperty *property = m_d->getPropertyForItem(item)) {
         // updating editor's property appearance (tooltips, limits)
@@ -163,7 +172,7 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
 
             if(item->modelType() == Constants::GroupItemType) {
                 cleanChildren(item);
-                updateEditor(item, m_d->getPropertyForItem(item->parent()));
+                //updateEditor(item, m_d->getPropertyForItem(item->parent()));
             }
 
         }

@@ -110,8 +110,17 @@ void BeamEditorWidget::setBeamItem(BeamItem *beamItem)
 
 void BeamEditorWidget::onDialogRequest(ParameterizedItem *item, QString name)
 {
+    qDebug() << "AAAAAA 1.1";
     DistributionDialog *dialog = new DistributionDialog(this);
-    dialog->setItem(item);
-    dialog->setNameOfEditor(name);
+    qDebug() << "AAAAAA 1.2";
+//    dialog->setItem(item);
+//    dialog->setNameOfEditor(name);
+    qDebug() << "AAAAAA 1.3";
     dialog->show();
+//    if(dialog->exec()) {
+//        qDebug() << "AAAAAA 1.4.1";
+//    } else {
+//        qDebug() << "AAAAAA 1.4.2";
+//    }
+    qDebug() << "AAAAAA 1.5";
 }

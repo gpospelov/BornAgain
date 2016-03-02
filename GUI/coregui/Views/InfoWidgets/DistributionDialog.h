@@ -33,7 +33,7 @@ public:
     void setNameOfEditor(const QString &name);
 
 private:
-    DistributionEditor *m_editor;
+//    DistributionEditor *m_editor;
 };
 
 #endif

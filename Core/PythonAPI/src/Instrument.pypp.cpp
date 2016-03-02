@@ -153,7 +153,8 @@ void register_Instrument_class(){
             Instrument_exposer.def( 
                 "setBeam"
                 , setBeam_function_type( &::Instrument::setBeam )
-                , ( bp::arg("beam") ) );
+                , ( bp::arg("beam") )
+                , "Sets the beam data." );
         
         }
         { //::Instrument::setBeamIntensity
@@ -173,7 +174,8 @@ void register_Instrument_class(){
             Instrument_exposer.def( 
                 "setBeamParameters"
                 , setBeamParameters_function_type( &::Instrument::setBeamParameters )
-                , ( bp::arg("wavelength"), bp::arg("alpha_i"), bp::arg("phi_i") ) );
+                , ( bp::arg("wavelength"), bp::arg("alpha_i"), bp::arg("phi_i") )
+                , "Sets the beam wavelength and incoming angles." );
         
         }
         { //::Instrument::setBeamPolarization

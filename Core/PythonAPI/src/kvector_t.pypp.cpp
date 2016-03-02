@@ -33,6 +33,17 @@ void register_kvector_t_class(){
         kvector_t_exposer_t kvector_t_exposer = kvector_t_exposer_t( "kvector_t", "Three-dimensional vector template, for use with integer, double, or complex components.", bp::init< >("Default constructor.") );
         bp::scope kvector_t_scope( kvector_t_exposer );
         kvector_t_exposer.def( bp::init< double, double, double >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") ), "Constructor from cartesian components.") );
+        { //::Geometry::BasicVector3D< double >::conj
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef ::Geometry::BasicVector3D< double > ( exported_class_t::*conj_function_type)(  ) const;
+            
+            kvector_t_exposer.def( 
+                "conj"
+                , conj_function_type( &::Geometry::BasicVector3D< double >::conj )
+                , "Returns complex conjugate vector." );
+        
+        }
         { //::Geometry::BasicVector3D< double >::mag
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
@@ -40,7 +51,8 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "mag"
-                , mag_function_type( &::Geometry::BasicVector3D< double >::mag ) );
+                , mag_function_type( &::Geometry::BasicVector3D< double >::mag )
+                , "Returns magnitude of the vector." );
         
         }
         { //::Geometry::BasicVector3D< double >::mag2
@@ -50,7 +62,8 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "mag2"
-                , mag2_function_type( &::Geometry::BasicVector3D< double >::mag2 ) );
+                , mag2_function_type( &::Geometry::BasicVector3D< double >::mag2 )
+                , "Returns squared magnitude squared of the vector." );
         
         }
         { //::Geometry::BasicVector3D< double >::magxy
@@ -60,7 +73,8 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "magxy"
-                , magxy_function_type( &::Geometry::BasicVector3D< double >::magxy ) );
+                , magxy_function_type( &::Geometry::BasicVector3D< double >::magxy )
+                , "Returns distance from z axis." );
         
         }
         { //::Geometry::BasicVector3D< double >::magxy2
@@ -70,7 +84,8 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "magxy2"
-                , magxy2_function_type( &::Geometry::BasicVector3D< double >::magxy2 ) );
+                , magxy2_function_type( &::Geometry::BasicVector3D< double >::magxy2 )
+                , "Returns squared distance from z axis." );
         
         }
         kvector_t_exposer.def( bp::self *= bp::other< double >() );

@@ -33,10 +33,21 @@ void register_cvector_t_class(){
         cvector_t_exposer_t cvector_t_exposer = cvector_t_exposer_t( "cvector_t", "Three-dimensional vector template, for use with integer, double, or complex components.", bp::init< >("Default constructor.") );
         bp::scope cvector_t_scope( cvector_t_exposer );
         cvector_t_exposer.def( bp::init< std::complex< double >, std::complex< double >, std::complex< double > >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") ), "Constructor from cartesian components.") );
+        { //::Geometry::BasicVector3D< std::complex< double > >::conj
+        
+            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
+            typedef ::Geometry::BasicVector3D< std::complex< double > > ( exported_class_t::*conj_function_type)(  ) const;
+            
+            cvector_t_exposer.def( 
+                "conj"
+                , conj_function_type( &::Geometry::BasicVector3D< std::complex< double > >::conj )
+                , "Returns complex conjugate vector." );
+        
+        }
         { //::Geometry::BasicVector3D< std::complex< double > >::mag
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*mag_function_type)(  ) const;
+            typedef double ( exported_class_t::*mag_function_type)(  ) const;
             
             cvector_t_exposer.def( 
                 "mag"
@@ -47,7 +58,7 @@ void register_cvector_t_class(){
         { //::Geometry::BasicVector3D< std::complex< double > >::mag2
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*mag2_function_type)(  ) const;
+            typedef double ( exported_class_t::*mag2_function_type)(  ) const;
             
             cvector_t_exposer.def( 
                 "mag2"
@@ -58,17 +69,18 @@ void register_cvector_t_class(){
         { //::Geometry::BasicVector3D< std::complex< double > >::magxy
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*magxy_function_type)(  ) const;
+            typedef double ( exported_class_t::*magxy_function_type)(  ) const;
             
             cvector_t_exposer.def( 
                 "magxy"
-                , magxy_function_type( &::Geometry::BasicVector3D< std::complex< double > >::magxy ) );
+                , magxy_function_type( &::Geometry::BasicVector3D< std::complex< double > >::magxy )
+                , "Returns distance from z axis." );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::magxy2
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*magxy2_function_type)(  ) const;
+            typedef double ( exported_class_t::*magxy2_function_type)(  ) const;
             
             cvector_t_exposer.def( 
                 "magxy2"

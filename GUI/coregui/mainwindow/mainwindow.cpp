@@ -139,7 +139,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(FIT, testView, QIcon(":/images/main_jobqueue.png"), "Test");
     m_tabWidget->insertTab(TESTVIEW, testComponentView, QIcon(":/images/main_jobqueue.png"), "TestView");
 
-    m_tabWidget->setCurrentIndex(INSTRUMENT);
+    m_tabWidget->setCurrentIndex(FIT);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);

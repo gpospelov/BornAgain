@@ -23,6 +23,7 @@
 class ParameterizedItem;
 class ISceneAdaptor;
 class QPainter;
+class ModelMapper;
 
 //! Main interface class for views representing MaskItems on graphics scene
 
@@ -70,6 +71,7 @@ protected:
     ParameterizedItem *m_item;
     const ISceneAdaptor *m_adaptor;
     QRectF m_bounding_rect;
+    ModelMapper *m_mapper;
 };
 
 

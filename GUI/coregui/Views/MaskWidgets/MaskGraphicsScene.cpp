@@ -412,6 +412,11 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex, IMaskView *p
     for (int i_row = 0; i_row < m_maskModel->rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = m_maskModel->index(i_row, 0, parentIndex);
         if (ParameterizedItem *item = m_maskModel->itemForIndex(itemIndex)) {
+
+            if (item && (item->modelType() == Constants::GroupItemType || item->modelType() == Constants::PropertyType)) {
+                continue;
+            }
+
             childView = addViewForItem(item);
             if (childView) {
                 if (parentView) {

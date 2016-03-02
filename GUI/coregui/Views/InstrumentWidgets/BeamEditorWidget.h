@@ -21,8 +21,8 @@
 #include "ParameterizedItem.h"
 
 class BeamItem;
-class ComponentEditor;
-class ComponentEditorBox;
+class ComponentBoxEditor;
+class ComponentInfoBox;
 class QGridLayout;
 
 class BA_CORE_API_ BeamEditorWidget : public QWidget
@@ -39,10 +39,10 @@ private slots:
     void onDialogRequest(ParameterizedItem *item, QString name);
 
 private:
-    ComponentEditor *m_intensityEditor;
-    ComponentEditorBox *m_wavelengthPresenter;
-    ComponentEditorBox *m_inclinationAnglePresenter;
-    ComponentEditorBox *m_azimuthalAnglePresenter;
+    ComponentBoxEditor *m_intensityEditor;
+    ComponentInfoBox *m_wavelengthPresenter;
+    ComponentInfoBox *m_inclinationAnglePresenter;
+    ComponentInfoBox *m_azimuthalAnglePresenter;
     QGridLayout *m_gridLayout;
     BeamItem *m_beamItem;
 };

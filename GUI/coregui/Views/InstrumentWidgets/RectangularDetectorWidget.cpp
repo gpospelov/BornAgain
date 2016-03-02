@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "RectangularDetectorWidget.h"
-#include "AwesomePropertyEditor.h"
+#include "ComponentBoxEditor.h"
 #include "DetectorItems.h"
 #include "GroupInfoBox.h"
 #include "ExtendedDetectorDialog.h"
@@ -115,30 +115,27 @@ void RectangularDetectorWidget::setColumnResizer(ColumnResizer *columnResizer)
 void RectangularDetectorWidget::create_editors()
 {
     // axes and resolution function editors
-    m_xAxisEditor = new ComponentEditor(ComponentEditorFlags::BROWSER_GROUPBOX);
+    m_xAxisEditor = new ComponentBoxEditor;
     m_gridLayout->addWidget(m_xAxisEditor, 1, 0);
 
-    m_yAxisEditor
-        = new ComponentEditor(ComponentEditorFlags::BROWSER_GROUPBOX);
+    m_yAxisEditor = new ComponentBoxEditor;
     m_gridLayout->addWidget(m_yAxisEditor, 1, 1);
 
-    m_resolutionFunctionEditor
-        = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+    m_resolutionFunctionEditor = new ComponentBoxEditor;
     m_gridLayout->addWidget(m_resolutionFunctionEditor, 1, 2);
 
     // alignment selector editors
-    m_alignmentEditor
-            = new ComponentEditor(ComponentEditorFlags::BROWSER_GROUPBOX);
+    m_alignmentEditor = new ComponentBoxEditor;
     m_gridLayout->addWidget(m_alignmentEditor, 2, 0);
 
     // editors for various positions
-    m_positionsEditor = new ComponentEditor(ComponentEditorFlags::BROWSER_GROUPBOX);
+    m_positionsEditor = new ComponentBoxEditor;
     m_gridLayout->addWidget(m_positionsEditor, 3, 0);
 
-    m_normalEditor = new ComponentEditor(ComponentEditorFlags::BROWSER_GROUPBOX);
+    m_normalEditor = new ComponentBoxEditor;
     m_gridLayout->addWidget(m_normalEditor, 3, 1);
 
-    m_directionEditor = new ComponentEditor(ComponentEditorFlags::BROWSER_GROUPBOX);
+    m_directionEditor = new ComponentBoxEditor;
     m_gridLayout->addWidget(m_directionEditor, 3, 2);
 
 }
@@ -155,9 +152,9 @@ void RectangularDetectorWidget::init_editors()
     m_yAxisEditor->addPropertyItems(yAxisItem, QString("Y axis"));
 
     m_resolutionFunctionEditor->clearEditor();
-    m_resolutionFunctionEditor->addItemProperty(
-        m_detectorItem, RectangularDetectorItem::P_RESOLUTION_FUNCTION, "Resolution function",
-                AwesomePropertyEditor::INSERT_AFTER);
+    ParameterizedItem *resFuncGroup = m_detectorItem->getPropertyItem(RectangularDetectorItem::P_RESOLUTION_FUNCTION);
+    m_resolutionFunctionEditor->addPropertyItems(resFuncGroup, QString("Resolution function"));
+
 
     m_alignmentEditor->clearEditor();
     m_alignmentEditor->addItem(m_detectorItem->getPropertyItem(RectangularDetectorItem::P_ALIGNMENT));

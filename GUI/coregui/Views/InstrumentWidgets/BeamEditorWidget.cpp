@@ -14,15 +14,12 @@
 // ************************************************************************** //
 
 #include "BeamEditorWidget.h"
-#include "UniversalPropertyEditor.h"
-#include "AwesomePropertyEditor.h"
-#include "AwesomePropertyPresenter.h"
-#include "ComponentEditor.h"
+#include "ComponentBoxEditor.h"
 #include "BeamItem.h"
 #include "LayerItem.h"
 #include "GroupInfoBox.h"
 #include "GUIHelpers.h"
-#include "ComponentEditorBox.h"
+#include "ComponentInfoBox.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
 #include <QLabel>
@@ -57,23 +54,22 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     // whole content is represented as grid layout
     m_gridLayout = new QGridLayout;
 
-    m_intensityEditor = new ComponentEditor();
-    m_intensityEditor->setPresentationType(ComponentEditorFlags::BROWSER_GROUPBOX);
+    m_intensityEditor = new ComponentBoxEditor;
 
 
     m_gridLayout->addWidget(m_intensityEditor, 0, 0);
 
-    m_wavelengthPresenter = new ComponentEditorBox(name_of_groupbox_wavenlength);
+    m_wavelengthPresenter = new ComponentInfoBox(name_of_groupbox_wavenlength);
     m_gridLayout->addWidget(m_wavelengthPresenter, 1, 0);
     connect(m_wavelengthPresenter, SIGNAL(onDialogRequest(ParameterizedItem*, QString)), this,
             SLOT(onDialogRequest(ParameterizedItem*, QString)));
 
-    m_inclinationAnglePresenter = new ComponentEditorBox(name_of_groupbox_inclination, this);
+    m_inclinationAnglePresenter = new ComponentInfoBox(name_of_groupbox_inclination, this);
     m_gridLayout->addWidget(m_inclinationAnglePresenter, 1, 1);
     connect(m_inclinationAnglePresenter, SIGNAL(onDialogRequest(ParameterizedItem*, QString)),
             this, SLOT(onDialogRequest(ParameterizedItem*, QString)));
 
-    m_azimuthalAnglePresenter = new ComponentEditorBox(name_of_groupbox_azimuthal, this);
+    m_azimuthalAnglePresenter = new ComponentInfoBox(name_of_groupbox_azimuthal, this);
     m_gridLayout->addWidget(m_azimuthalAnglePresenter, 1, 2);
     connect(m_azimuthalAnglePresenter, SIGNAL(onDialogRequest(ParameterizedItem*, QString)),
             this, SLOT(onDialogRequest(ParameterizedItem*, QString)));
@@ -99,17 +95,17 @@ void BeamEditorWidget::setBeamItem(BeamItem *beamItem)
         return;
 
 //    m_intensityEditor->addItemProperty(m_beamItem, BeamItem::P_INTENSITY);
-    //m_intensityEditor->setItem(m_beamItem->getPropertyItem(BeamItem::P_INTENSITY));
+    m_intensityEditor->addItem(m_beamItem->getPropertyItem(BeamItem::P_INTENSITY));
 
     ParameterizedItem *wavelengthItem = m_beamItem->getGroupItem(BeamItem::P_WAVELENGTH);
-    m_wavelengthPresenter->setItem(wavelengthItem);
+    m_wavelengthPresenter->addPropertyItems(wavelengthItem);
 
     ParameterizedItem *inclinationAngleItem
             = m_beamItem->getGroupItem(BeamItem::P_INCLINATION_ANGLE);
-    m_inclinationAnglePresenter->setItem(inclinationAngleItem);
+    m_inclinationAnglePresenter->addPropertyItems(inclinationAngleItem);
 
     ParameterizedItem *azimuthalAngleItem = m_beamItem->getGroupItem(BeamItem::P_AZIMUTHAL_ANGLE);
-    m_azimuthalAnglePresenter->setItem(azimuthalAngleItem);
+    m_azimuthalAnglePresenter->addPropertyItems(azimuthalAngleItem);
 }
 
 void BeamEditorWidget::onDialogRequest(ParameterizedItem *item, QString name)

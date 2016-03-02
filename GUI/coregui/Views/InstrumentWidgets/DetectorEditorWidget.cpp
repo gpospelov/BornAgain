@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "DetectorEditorWidget.h"
-#include "ComponentEditor.h"
+#include "ComponentBoxEditor.h"
 #include "DetectorItems.h"
 #include "GroupInfoBox.h"
 #include "ExtendedDetectorDialog.h"
@@ -40,7 +40,7 @@ DetectorEditorWidget::DetectorEditorWidget(ColumnResizer *columnResizer, QWidget
     m_groupBox->setLayout(groupLayout);
     connect(m_groupBox, SIGNAL(clicked()), this, SLOT(onGroupBoxExtendedButton()));
 
-    m_detectorTypeEditor = new ComponentEditor(ComponentEditorFlags::BROWSER_GROUPBOX);
+    m_detectorTypeEditor = new ComponentBoxEditor;
     groupLayout->addWidget(m_detectorTypeEditor);
 
     // main layout

@@ -31,31 +31,24 @@ class BA_CORE_API_ ComponentEditor : public QWidget
 {
     Q_OBJECT
 public:
-    ComponentEditor(ComponentEditorFlags::PresentationType flags = ComponentEditorFlags::SHOW_CONDENSED |
-            ComponentEditorFlags::BROWSER_TABLE, QWidget *parent = 0);
+    ComponentEditor(ComponentEditorFlags::PresentationType flags = ComponentEditorFlags::BROWSER_TABLE, QWidget *parent = 0);
 
-    ~ComponentEditor();
+    virtual ~ComponentEditor();
 
     void setItem(ParameterizedItem *item, const QString &group_name=QString());
-
-    void addPropertyItems(ParameterizedItem *item, const QString &group_name=QString());
-    void addItem(ParameterizedItem *item, const QString &group_name=QString());
 
     void updateEditor(ParameterizedItem *item, QtVariantProperty *parentProperty = 0);
 
     void clearEditor();
 
-    void setPresentationType(ComponentEditorFlags::PresentationType presentationType);
-    void setFlat();
-
 public slots:
-    void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
-    void onRowsInserted(const QModelIndex &parent, int first, int last);
+    virtual void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
+    virtual void onRowsInserted(const QModelIndex &parent, int first, int last);
 
 private slots:
     void onQtPropertyChanged(QtProperty *, const QVariant &value);
 
-private:
+protected:
     QList<ParameterizedItem *> componentItems(ParameterizedItem *item) const;
     void cleanChildren(ParameterizedItem *item);
 

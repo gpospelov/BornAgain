@@ -18,35 +18,40 @@
 
 #include "WinDllMacros.h"
 #include "ComponentEditorFlags.h"
+#include "PropertyVariantManager.h"
+#include "PropertyVariantFactory.h"
+#include "qttreepropertybrowser.h"
+#include "qtgroupboxpropertybrowser.h"
+#include "qtbuttonpropertybrowser.h"
+#include "ParameterizedItem.h"
 #include <QMap>
 #include <memory>
 
-class ComponentEditorPrivate;
-class QWidget;
-class QtAbstractPropertyBrowser;
-class QtVariantPropertyManager;
-class PropertyVariantFactory;
-class QtProperty;
-class ParameterizedItem;
-class QtVariantProperty;
-class PropertyAttribute;
+//class ComponentEditorPrivate;
+//class QWidget;
+//class QtAbstractPropertyBrowser;
+//class QtVariantPropertyManager;
+//class PropertyVariantFactory;
+//class QtProperty;
+//class ParameterizedItem;
+//class QtVariantProperty;
+//class PropertyAttribute;
+
+//! Holds logic for ComponentEditor
 
 class BA_CORE_API_ ComponentEditorPrivate
 {
 public:
-    ComponentEditorPrivate(ComponentEditorFlags::PresentationType flags =
-            ComponentEditorFlags::SHOW_CONDENSED |
-            ComponentEditorFlags::BROWSER_TABLE, QWidget *parent = 0);
+    ComponentEditorPrivate(ComponentEditorFlags::PresentationType flags
+                           = ComponentEditorFlags::BROWSER_TABLE,
+                           QWidget *parent = 0);
 
     void clear();
-    void setPresentationType(ComponentEditorFlags::PresentationType presentationType);
     void init_browser();
 
-    bool isShowDetailed() const;
-    bool isShowCondensed() const;
-    bool isFlat() const;
-
-    QtVariantProperty *processPropertyForItem(ParameterizedItem *item, QtVariantProperty *parentProperty);
+    QtVariantProperty *
+    processPropertyForItem(ParameterizedItem *item,
+                           QtVariantProperty *parentProperty);
     QtVariantProperty *getPropertyForItem(ParameterizedItem *item);
     ParameterizedItem *getItemForProperty(QtProperty *property);
     QtVariantProperty *createQtVariantProperty(ParameterizedItem *item);
@@ -55,23 +60,22 @@ public:
     QtVariantProperty *getPropertyForGroupName(const QString &name);
 
     void removeQtVariantProperty(QtVariantProperty *property);
-    void updatePropertyAppearance(QtVariantProperty *property, const PropertyAttribute &attribute);
-    void insertQtVariantProperty(QtVariantProperty *itemProperty, QtVariantProperty *parentProperty);
+    void updatePropertyAppearance(QtVariantProperty *property,
+                                  const PropertyAttribute &attribute);
+    void cleanChildren(ParameterizedItem *item);
 
     QtAbstractPropertyBrowser *m_browser;
-    QtVariantPropertyManager  *m_manager;
-    QtVariantPropertyManager  *m_read_only_manager;
+    QtVariantPropertyManager *m_manager;
+    QtVariantPropertyManager *m_read_only_manager;
     PropertyVariantFactory *m_propertyFactory;
 
     QMap<QtProperty *, ParameterizedItem *> m_qtproperty_to_item;
     QMap<ParameterizedItem *, QtVariantProperty *> m_item_to_qtvariantproperty;
-    QMap<QtVariantProperty *, QList<QtVariantProperty *> > m_qtvariant_to_dependend;
     QMap<QString, QtVariantProperty *> m_groupname_to_qtvariant;
-
-
+    QMap<ParameterizedItem *, QtVariantProperty *> m_item_to_qtparent;
+    QMap<ParameterizedItem *, ComponentEditorFlags::InsertMode> m_item_to_insert_mode;
 
     ComponentEditorFlags::PresentationType m_presentationType;
 };
-
 
 #endif

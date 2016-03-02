@@ -23,7 +23,7 @@ class ColumnResizer;
 class GroupInfoBox;
 class RectangularDetectorItem;
 class AwesomePropertyEditor;
-class ComponentEditor;
+class ComponentBoxEditor;
 class QGridLayout;
 class ColumnResizer;
 
@@ -48,14 +48,14 @@ private:
     void init_alignment_editors();
 
     ColumnResizer *m_columnResizer;
-    ComponentEditor *m_xAxisEditor;
-    ComponentEditor *m_yAxisEditor;
-    AwesomePropertyEditor *m_resolutionFunctionEditor;
-    ComponentEditor *m_alignmentEditor;
+    ComponentBoxEditor *m_xAxisEditor;
+    ComponentBoxEditor *m_yAxisEditor;
+    ComponentBoxEditor *m_resolutionFunctionEditor;
+    ComponentBoxEditor *m_alignmentEditor;
 
-    ComponentEditor *m_positionsEditor;
-    ComponentEditor *m_normalEditor;
-    ComponentEditor *m_directionEditor;
+    ComponentBoxEditor *m_positionsEditor;
+    ComponentBoxEditor *m_normalEditor;
+    ComponentBoxEditor *m_directionEditor;
 
     QGridLayout *m_gridLayout;
 

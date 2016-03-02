@@ -13,23 +13,20 @@
 //
 // ************************************************************************** //
 
-#include "ComponentEditorBox.h"
-#include "ComponentEditor.h"
+#include "ComponentInfoBox.h"
+#include "ComponentBoxEditor.h"
 #include <QVBoxLayout>
 #include <QGroupBox>
 #include <iostream>
 
-ComponentEditorBox::ComponentEditorBox(const QString &title, QWidget *parent)
+ComponentInfoBox::ComponentInfoBox(const QString &title, QWidget *parent)
     : QWidget(parent)
     , m_groupBox(new GroupInfoBox(title))
-    , m_editor(new ComponentEditor)
+    , m_editor(new ComponentBoxEditor)
     , m_item(0)
     , m_title(title)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
-
-    m_editor->setFlat();
-//    m_editor->setPresentationType(ComponentEditorFlags::BROWSER_GROUPBOX | ComponentEditorFlags::SHOW_CONDENSED);
 
     QVBoxLayout *groupBoxLayout = new QVBoxLayout;
     groupBoxLayout->setContentsMargins( 0, 0, 0, 0 );
@@ -44,23 +41,18 @@ ComponentEditorBox::ComponentEditorBox(const QString &title, QWidget *parent)
     setLayout(mainLayout);
 }
 
-ComponentEditor *ComponentEditorBox::getEditor()
+void ComponentInfoBox::addPropertyItems(ParameterizedItem *item)
 {
-    return m_editor;
-}
-
-void ComponentEditorBox::setItem(ParameterizedItem *item)
-{
-    m_editor->setItem(item);
+    m_editor->addPropertyItems(item);
     m_item = item;
 }
 
-void ComponentEditorBox::clearEditor()
+void ComponentInfoBox::clearEditor()
 {
     m_editor->clearEditor();
 }
 
-void ComponentEditorBox::dialogRequest()
+void ComponentInfoBox::dialogRequest()
 {
     emit onDialogRequest(m_item, m_title);
 }

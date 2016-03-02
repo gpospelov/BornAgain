@@ -21,7 +21,7 @@
 
 class GroupInfoBox;
 class DetectorItem;
-class ComponentEditor;
+class ComponentBoxEditor;
 class QGridLayout;
 class SphericalDetectorWidget;
 class ColumnResizer;
@@ -46,7 +46,7 @@ private slots:
 
 private:
     void init_SubDetector_Widget();
-    ComponentEditor *m_detectorTypeEditor;
+    ComponentBoxEditor *m_detectorTypeEditor;
     ColumnResizer *m_columnResizer;
     GroupInfoBox *m_groupBox;
     DetectorItem *m_detectorItem;

@@ -17,7 +17,7 @@
 #include "DetectorItems.h"
 #include "GroupInfoBox.h"
 #include "ExtendedDetectorDialog.h"
-#include "ComponentEditor.h"
+#include "ComponentBoxEditor.h"
 #include "columnresizer.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
@@ -32,16 +32,13 @@ SphericalDetectorWidget::SphericalDetectorWidget(ColumnResizer *columnResizer,
     , m_resolutionFunctionEditor(0)
     , m_gridLayout(new QGridLayout)
 {
-    m_phiAxisEditor = new ComponentEditor(ComponentEditorFlags::BROWSER_GROUPBOX);
+    m_phiAxisEditor = new ComponentBoxEditor;
     m_gridLayout->addWidget(m_phiAxisEditor, 1, 0);
 
-    m_alphaAxisEditor = new ComponentEditor(ComponentEditorFlags::BROWSER_GROUPBOX);
+    m_alphaAxisEditor = new ComponentBoxEditor;
     m_gridLayout->addWidget(m_alphaAxisEditor, 1, 1);
 
-    m_resolutionFunctionEditor = new ComponentEditor(ComponentEditorFlags::BROWSER_GROUPBOX);
-//    m_resolutionFunctionEditor->setFlat();
-//    m_resolutionFunctionEditor->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_GROUPBOX);
-
+    m_resolutionFunctionEditor = new ComponentBoxEditor;
     m_gridLayout->addWidget(m_resolutionFunctionEditor, 1, 2);
 
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
@@ -63,10 +60,9 @@ SphericalDetectorWidget::SphericalDetectorWidget(ColumnResizer *columnResizer,
 SphericalDetectorWidget::~SphericalDetectorWidget()
 {
     qDebug() << "SphericalDetectorWidget::~SphericalDetectorWidget()";
-//    m_detectorTypeEditor->clearEditor();
-//    m_phiAxisEditor->clearEditor();
-//    m_alphaAxisEditor->clearEditor();
-//    m_resolutionFunctionEditor->clearEditor();
+    m_phiAxisEditor->clearEditor();
+    m_alphaAxisEditor->clearEditor();
+    m_resolutionFunctionEditor->clearEditor();
     if(m_columnResizer) m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
 
 }
@@ -80,9 +76,6 @@ void SphericalDetectorWidget::setDetectorItem(DetectorItem *detectorItem)
     if (!detectorItem)
         return;
 
-//    m_detectorTypeEditor->addItemProperty(detectorItem, DetectorItem::P_DETECTOR, QString(),
-//                                     AwesomePropertyEditor::SKIP);
-
     SphericalDetectorItem *sphericalDetector = dynamic_cast<SphericalDetectorItem *>(
                 detectorItem->getGroupItem(DetectorItem::P_DETECTOR));
     Q_ASSERT(sphericalDetector);
@@ -95,7 +88,6 @@ void SphericalDetectorWidget::setDetectorItem(DetectorItem *detectorItem)
     m_alphaAxisEditor->addPropertyItems(alphaAxisItem, QString("Alpha axis"));
 
     ParameterizedItem *resFuncGroup = sphericalDetector->getPropertyItem(SphericalDetectorItem::P_RESOLUTION_FUNCTION);
-    Q_ASSERT(resFuncGroup);
     m_resolutionFunctionEditor->addPropertyItems(resFuncGroup, QString("Resolution function"));
 }
 

@@ -14,12 +14,6 @@
 // ************************************************************************** //
 
 #include "ComponentEditorPrivate.h"
-#include "PropertyVariantManager.h"
-#include "PropertyVariantFactory.h"
-#include "qttreepropertybrowser.h"
-#include "qtgroupboxpropertybrowser.h"
-#include "qtbuttonpropertybrowser.h"
-#include "ParameterizedItem.h"
 #include "GUIHelpers.h"
 #include <QString>
 #include <QDebug>
@@ -38,7 +32,7 @@ void ComponentEditorPrivate::clear()
 {
     m_browser->clear();
 
-    QMap<QtProperty *, ParameterizedItem *>::iterator it = m_qtproperty_to_item.begin();
+    auto it = m_qtproperty_to_item.begin();
     while (it != m_qtproperty_to_item.end()) {
         delete it.key();
         it++;
@@ -46,17 +40,7 @@ void ComponentEditorPrivate::clear()
 
     m_qtproperty_to_item.clear();
     m_item_to_qtvariantproperty.clear();
-    m_qtvariant_to_dependend.clear();
     m_groupname_to_qtvariant.clear();
-
-}
-
-void ComponentEditorPrivate::setPresentationType(
-    ComponentEditorFlags::PresentationType presentationType)
-{
-    clear();
-    m_presentationType = presentationType;
-    init_browser();
 }
 
 void ComponentEditorPrivate::init_browser()
@@ -77,27 +61,15 @@ void ComponentEditorPrivate::init_browser()
 
     else if (m_presentationType & ComponentEditorFlags::BROWSER_BUTTON) {
         m_browser = new QtButtonPropertyBrowser;
+
     } else {
         throw GUIHelpers::Error(
-            "ComponentEditorPrivate::init_browser() -> Error. Unknown browser type.");
+            "ComponentEditorPrivate::init_browser() -> Error. "
+            "Unknown browser type.");
     }
+
     m_browser->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     m_browser->setFactoryForManager(m_manager, m_propertyFactory);
-}
-
-bool ComponentEditorPrivate::isShowDetailed() const
-{
-    return m_presentationType & ComponentEditorFlags::SHOW_DETAILED;
-}
-
-bool ComponentEditorPrivate::isShowCondensed() const
-{
-    return m_presentationType & ComponentEditorFlags::SHOW_CONDENSED;
-}
-
-bool ComponentEditorPrivate::isFlat() const
-{
-    return m_presentationType & ComponentEditorFlags::SHOW_FLAT;
 }
 
 //! Creates, if necessary, qtVariantProperty for given item and place it in the editor
@@ -113,67 +85,17 @@ QtVariantProperty *ComponentEditorPrivate::
         }
 
         if (itemProperty) {
-//            if(!parentProperty) {
-//                parentProperty = getPropertyForItem(item->parent());
-//            }
-
             if (parentProperty) {
-//                insertQtVariantProperty(itemProperty, parentProperty);
                 parentProperty->addSubProperty(itemProperty);
-                m_qtvariant_to_dependend[parentProperty].append(itemProperty);
+                m_item_to_qtparent[item] = parentProperty;
             } else {
                 m_browser->addProperty(itemProperty);
             }
         }
-
-
     }
-
 
     return itemProperty;
 }
-
-void ComponentEditorPrivate::insertQtVariantProperty(QtVariantProperty *qtVariantItem, QtVariantProperty *parent_qtproperty)
-{
-    if(!isFlat()) {
-        parent_qtproperty->addSubProperty(qtVariantItem);
-        qDebug() << "      AwesomePropertyEditor::insertQtVariantProperty() -> adding " << qtVariantItem << " as subproperty of" << parent_qtproperty;
-    }
-    else {
-        if(m_browser->items(parent_qtproperty).size() == 1) {
-            // inserting qtVariantItem after parent property, so we need to know parent of parent
-            QList<QtBrowserItem *> associated = m_browser->items(parent_qtproperty);
-            if(associated.size()) {
-                QtBrowserItem *parent_browser_item = associated.at(0)->parent();
-                if(parent_browser_item) {
-                    QtProperty *new_parent = parent_browser_item->property();
-                    if(m_qtvariant_to_dependend[parent_qtproperty].size()) {
-                        if(!new_parent->subProperties().contains(m_qtvariant_to_dependend[parent_qtproperty].back())) throw 1;
-                        new_parent->insertSubProperty(qtVariantItem, m_qtvariant_to_dependend[parent_qtproperty].back());
-                    } else {
-                    new_parent->insertSubProperty(qtVariantItem, parent_qtproperty);
-                    }
-                } else {
-                    //QtBrowserItem *browserItem = m_d->m_browser->insertProperty(qtVariantItem, parent_qtproperty);
-                    QtBrowserItem *browserItem = m_browser->addProperty(qtVariantItem);
-                    if(!browserItem) {
-                        throw GUIHelpers::Error("AwesomePropertyEditor::insertQtVariantProperty() -> Failed while inserting property");
-                    }
-                }
-            } else {
-                throw GUIHelpers::Error("AwesomePropertyEditor::insertQtVariantProperty() -> Unexpected place");
-            }
-        } else {
-            // our parent property is already at the top, so need to add into the browser
-            QtBrowserItem *browserItem = m_browser->insertProperty(qtVariantItem, parent_qtproperty);
-            if(!browserItem) {
-                throw GUIHelpers::Error("AwesomePropertyEditor::insertQtVariantProperty() -> Failed while inserting property");
-            }
-        }
-    }
-}
-
-
 
 //! Returns QtVariantProperty representing given item in ComponentEditor.
 QtVariantProperty *ComponentEditorPrivate::getPropertyForItem(ParameterizedItem *item)
@@ -294,5 +216,16 @@ void ComponentEditorPrivate::updatePropertyAppearance(QtVariantProperty *propert
             property->setAttribute(QStringLiteral("minimum"), int(limits.getLowerLimit()));
         if (limits.hasUpperLimit())
             property->setAttribute(QStringLiteral("maximum"), int(limits.getUpperLimit()));
+    }
+}
+
+//! removes properties of all child items
+void ComponentEditorPrivate::cleanChildren(ParameterizedItem *item)
+{
+    foreach(ParameterizedItem *child, item->childItems()) {
+        if (QtVariantProperty *property = getPropertyForItem(child)) {
+            removeQtVariantProperty(property);
+        }
+        cleanChildren(child);
     }
 }

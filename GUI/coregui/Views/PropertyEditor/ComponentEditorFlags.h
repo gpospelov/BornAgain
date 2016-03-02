@@ -23,15 +23,18 @@ class BA_CORE_API_ ComponentEditorFlags
 {
 public:
     enum EPresentationType {
-        DEFAULT = 0x000,
-        SHOW_DETAILED = 0x001,    // show whole item tree
-        SHOW_CONDENSED = 0x002,   // show only items related to properties
-        SHOW_FLAT = 0x004,   // insert items after
-        BROWSER_TABLE = 0x010,    // table-like browser
-        BROWSER_GROUPBOX = 0x020, // groupbox-like browser
-        BROWSER_BUTTON = 0x040    // button-like browser
+        BROWSER_TABLE = 0x001,    // table-like browser
+        BROWSER_GROUPBOX = 0x002, // groupbox-like browser
+        BROWSER_BUTTON = 0x004    // button-like browser
     };
     Q_DECLARE_FLAGS(PresentationType, EPresentationType)
+
+    enum EInsertModeType {
+        RECURSIVE = 0x001,
+        SINGLE = 0x002,
+    };
+    Q_DECLARE_FLAGS(InsertMode, EInsertModeType)
+
 
 };
 

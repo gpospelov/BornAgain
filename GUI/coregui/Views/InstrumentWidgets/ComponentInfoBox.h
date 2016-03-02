@@ -13,28 +13,27 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPONENTEDITORBOX_H
-#define COMPONENTEDITORBOX_H
+#ifndef COMPONENTINFOBOX_H
+#define COMPONENTINFOBOX_H
 
 #include "WinDllMacros.h"
 #include "GroupInfoBox.h"
 #include <QWidget>
 
-class ComponentEditor;
+class ComponentBoxEditor;
 class ParameterizedItem;
 
 //! The ComponentEditorBox is a widget to display ComponentEditor inside
 //! custom group box equipped with help sign functionality
 //! (used to summon DistributionEditor)
-class BA_CORE_API_ ComponentEditorBox : public QWidget
+class BA_CORE_API_ ComponentInfoBox : public QWidget
 {
     Q_OBJECT
 public:
 
-    ComponentEditorBox(const QString &title, QWidget *parent = 0);
-    ComponentEditor *getEditor();
+    ComponentInfoBox(const QString &title, QWidget *parent = 0);
 
-    void setItem(ParameterizedItem *item);
+    void addPropertyItems(ParameterizedItem *item);
 
     void clearEditor();
 
@@ -46,7 +45,7 @@ private slots:
 
 private:
     GroupInfoBox *m_groupBox;
-    ComponentEditor *m_editor;
+    ComponentBoxEditor *m_editor;
     ParameterizedItem *m_item;
     QString m_title;
 };

@@ -23,7 +23,6 @@
 #include "SampleBuilderFactory.h"
 #include "GUIObjectBuilder.h"
 #include "InstrumentModel.h"
-#include "ComponentProxyEditor.h"
 #include "SessionProxyModels.h"
 #include <QItemSelectionModel>
 #include <QHBoxLayout>
@@ -68,12 +67,12 @@ void TestComponentView::onSelectionChanged(const QItemSelection &selected, const
     QModelIndexList indices = selected.indexes();
 
     if(indices.isEmpty()) {
-        m_editor2->setItem(0);
+//        m_editor2->setItem(0);
 //        m_editor3->setItem(0);
     } else {
         if(ParameterizedItem *item = m_model->itemForIndex(indices.at(0))) {
 //            m_editor2->setItem(item);
-            m_editor2->addItem(item);
+//            m_editor2->addItem(item);
 //            m_editor3->setItem(item);
         }
     }
@@ -109,7 +108,7 @@ void TestComponentView::init_editors()
 
     // editors
 //    m_editor1->setPresentationType(ComponentEditorFlags::SHOW_DETAILED | ComponentEditorFlags::BROWSER_TABLE);
-    m_editor2->setFlat();
+//    m_editor2->setFlat();
 //    m_editor2->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_TABLE);
 //    m_editor3->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_GROUPBOX);
 

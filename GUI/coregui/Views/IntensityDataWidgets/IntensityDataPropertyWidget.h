@@ -21,7 +21,6 @@
 
 class JobModel;
 class IntensityDataItem;
-class AwesomePropertyEditor;
 class ComponentEditor;
 
 //! Widget to show and change properties of currently selected JobItem
@@ -43,7 +42,6 @@ public slots:
 private:
     JobModel *m_jobModel;
     IntensityDataItem *m_currentItem;
-    AwesomePropertyEditor *m_propertyEditor;
     ComponentEditor *m_componentEditor;
 };
 

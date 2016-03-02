@@ -15,10 +15,10 @@
 
 #include "MaskEditorPropertyPanel.h"
 #include "SessionModel.h"
-#include "AwesomePropertyEditor.h"
 #include "MaskEditorFlags.h"
 #include "IntensityDataItem.h"
 #include "AccordionWidget.h"
+#include "ComponentEditor.h"
 #include "ContentPane.h"
 
 #include <QVBoxLayout>
@@ -35,8 +35,8 @@
 MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget *parent)
     : QWidget(parent)
     , m_listView(new QListView)
-    , m_maskPropertyEditor(new AwesomePropertyEditor)
-    , m_plotPropertyEditor(new AwesomePropertyEditor)
+    , m_maskPropertyEditor(new ComponentEditor)
+    , m_plotPropertyEditor(new ComponentEditor)
     , m_maskModel(0)
     , m_intensityDataItem(0)
 {

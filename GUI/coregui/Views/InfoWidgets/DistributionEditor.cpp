@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "AwesomePropertyEditor.h"
 #include "BeamWavelengthItem.h"
 #include "ParameterizedItem.h"
+#include "ComponentEditor.h"
 #include "DistributionWidget.h"
 #include "DistributionEditor.h"
 #include "Distributions.h"
@@ -35,8 +35,7 @@ DistributionEditor::DistributionEditor(QWidget *parent)
 
 {
     m_plotwidget = new DistributionWidget(this);
-    m_propertyEditor
-        = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+    m_propertyEditor = new ComponentEditor;
 
     QVBoxLayout *boxLayout = new QVBoxLayout;
     m_propertyEditor->setMaximumWidth(minimumWidth_of_AwesomePropertyEditor);
@@ -59,7 +58,7 @@ DistributionEditor::DistributionEditor(QWidget *parent)
 void DistributionEditor::setItem(ParameterizedItem *item)
 {
     m_propertyEditor->clearEditor();
-    m_propertyEditor->addItemProperties(item, QString(), AwesomePropertyEditor::INSERT_AFTER);
+//    m_propertyEditor->addItemProperties(item, QString(), AwesomePropertyEditor::INSERT_AFTER);
 
     if (m_item == item)
         return;

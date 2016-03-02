@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "JobPropertiesWidget.h"
-//#include "AwesomePropertyEditor.h"
 #include "ComponentEditor.h"
 #include "JobModel.h"
 #include "JobItem.h"

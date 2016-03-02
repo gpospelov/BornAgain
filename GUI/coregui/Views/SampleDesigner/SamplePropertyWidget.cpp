@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "SamplePropertyWidget.h"
-#include "AwesomePropertyEditor.h"
 #include "ComponentEditor.h"
 #include "ParameterizedItem.h"
 #include <QVBoxLayout>
@@ -36,7 +35,6 @@ SamplePropertyWidget::SamplePropertyWidget(QItemSelectionModel *selection_model,
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-//    m_propertyEditor = new AwesomePropertyEditor(this);
     m_propertyEditor = new ComponentEditor;
 
     mainLayout->addWidget(m_propertyEditor);

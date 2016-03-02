@@ -22,7 +22,7 @@
 class QGroupBox;
 class DistributionWidget;
 class ParameterizedItem;
-class AwesomePropertyEditor;
+class ComponentEditor;
 
 //! The DistributionEditor class, being a child of DistributionDialog, contains a widget
 //! to show Distribution1D and awesome property editor to change distribution parameters
@@ -40,7 +40,7 @@ private slots:
     void onSubItemChanged(const QString &property_name);
 
 private:
-    AwesomePropertyEditor *m_propertyEditor;
+    ComponentEditor *m_propertyEditor;
     ParameterizedItem *m_item;
     DistributionWidget *m_plotwidget;
     QString m_nameOfEditor;

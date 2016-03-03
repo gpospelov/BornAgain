@@ -1,4 +1,5 @@
 #  Functional test: Custom formfactor example
+from __future__ import print_function
 import sys
 import os
 import numpy
@@ -111,6 +112,6 @@ def run_test():
 
 if __name__ == '__main__':
     name, description, diff, status = run_test()
-    print name, description, diff, status
+    print(name, description, diff, status)
     if "FAILED" in status:
         exit(1)

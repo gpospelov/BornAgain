@@ -18,7 +18,7 @@
 
 #include "WinDllMacros.h"
 #include <atomic>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <QObject>
 
 class FitSuite;
@@ -31,7 +31,7 @@ public:
 
     RunFitManager(QObject *parent);
 
-    void setFitSuite(boost::shared_ptr<FitSuite> suite);
+    void setFitSuite(std::shared_ptr<FitSuite> suite);
 
     void runFitting();
 
@@ -64,7 +64,7 @@ signals:
 
 private:
 
-    boost::shared_ptr<FitSuite> m_fitSuite;
+    std::shared_ptr<FitSuite> m_fitSuite;
     std::atomic<bool> m_is_fit_running;
 
 };

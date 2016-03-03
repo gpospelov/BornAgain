@@ -19,16 +19,16 @@
 #include "FitSuitePrintObserver.h"
 #include "FitSuiteDrawObserver.h"
 #include "FitSuiteWriteTreeObserver.h"
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 //! factory to create observers for FitSuite
 class FitSuiteObserverFactory
 {
 public:
     // These shared pointers will be used as observer_t
-    typedef boost::shared_ptr<FitSuitePrintObserver> observer_print_t;
-    typedef boost::shared_ptr<FitSuiteDrawObserver> observer_draw_t;
-    typedef boost::shared_ptr<FitSuiteWriteTreeObserver> observer_tree_t;
+    typedef std::shared_ptr<FitSuitePrintObserver> observer_print_t;
+    typedef std::shared_ptr<FitSuiteDrawObserver> observer_draw_t;
+    typedef std::shared_ptr<FitSuiteWriteTreeObserver> observer_tree_t;
 
     static observer_print_t createPrintObserver(int run_every_nth=20) {
         return observer_print_t( new FitSuitePrintObserver(run_every_nth) );

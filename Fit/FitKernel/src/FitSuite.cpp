@@ -19,6 +19,8 @@
 #include "MinimizerFactory.h"
 #include "IHistogram.h"
 
+#include <memory>
+
 FitSuite::FitSuite()
     : m_kernel(new FitKernel(this))
 {
@@ -74,7 +76,7 @@ IMinimizer *FitSuite::getMinimizer()
 
 void FitSuite::initPrint(int print_every_nth)
 {
-    boost::shared_ptr<FitSuitePrintObserver > observer(new FitSuitePrintObserver(print_every_nth));
+    std::shared_ptr<FitSuitePrintObserver > observer(new FitSuitePrintObserver(print_every_nth));
     attachObserver(observer);
 }
 

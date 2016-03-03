@@ -16,7 +16,8 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/StandardSamples
     ${CMAKE_CURRENT_SOURCE_DIR}/Tools/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
-)
+    )
+
 include_directories(${include_dirs})
 
 file(GLOB core_source_files
@@ -43,13 +44,67 @@ set(source_files ${core_source_files})
 set(include_files ${core_include_files})
 
 if(BORNAGAIN_PYTHON)
-    file(GLOB pythonapi_source "PythonAPI/src/*.cpp" "PythonAPI/inc/__call_policies.pypp.hpp")
-    list(APPEND source_files ${pythonapi_source})
-    file(GLOB pythonapi_include "PythonAPI/inc/*.h" "PythonAPI/inc/*.hpp")
-    list(APPEND include_files ${pythonapi_include})
-    include_directories(
-        ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/inc
+
+  file(GLOB pythonapi_source "PythonAPI/*.cpp")
+  list(APPEND source_files ${pythonapi_source})
+  file(GLOB pythonapi_include "PythonAPI/*.hpp")
+  list(APPEND include_files ${pythonapi_include})
+  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/)
+
+  # generate SWIG bindings automatically during compile
+  if(BORNAGAIN_GENERATE_BINDINGS)
+    #set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.i PROPERTIES CPLUSPLUS ON)
+    #set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.i PROPERTIES SWIG_FLAGS "-includeall")
+    set(SWIG_FLAGS "")
+    list(APPEND SWIG_FLAGS "-c++")
+    list(APPEND SWIG_FLAGS "-python")
+
+    foreach(dir ${include_dirs})
+      list(APPEND SWIG_FLAGS "-I${dir}")
+    endforeach(dir)
+
+    
+    add_custom_command (
+      OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.cxx
+      COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.i
+      COMMAND sed -i "'s/_libBornAgainCore.ICloneable_transferToCPP(self)/self.__disown__()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
+      DEPENDS PythonAPI/libBornAgainCore.i ${include_files} PythonAPI/doxygen.i
+      )
+
+    # autogenerate doxygen.i from doxygen comments
+    if(BORNAGAIN_GENERATE_PYTHON_DOCS)
+      configure_file(${CMAKE_SOURCE_DIR}/Doc/Doxygen/DoxyfilePython.in ${CMAKE_CURRENT_BINARY_DIR}/PythonAPI/Doxyfile @ONLY)
+
+      add_custom_command(
+        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/doxygen.i
+        COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/PythonAPI/Doxyfile
+        COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/dev-tools/python-bindings/doxy2swig.py ${CMAKE_CURRENT_BINARY_DIR}/Doc/xml/index.xml ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/doxygen.i
+        DEPENDS ${include_files}
+        )
+      
+    endif()
+
+
+  endif()
+
+  add_custom_target (
+    ${library_name}_python
+    COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py ${CMAKE_BINARY_DIR}/lib/libBornAgainCore.py
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
     )
+  
+  list(APPEND source_files "PythonAPI/libBornAgainCore_wrap.cxx")
+  #list(APPEND include_files "PythonAPI/libBornAgainCore_wrap.h")
+  
+  # JMF: this should be done more carefully in the future
+  #
+
+  # add_custom_target(
+  #   ${library_name}_python
+  #   COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py ${CMAKE_BINARY_DIR}/lib/libBornAgainCore.py
+  #   )
+  configure_file(../dev-tools/python-setup/bornagain/plot_utils.py ${CMAKE_BINARY_DIR}/lib/plot_utils/__init__.py COPYONLY)
+  
 endif()
 
 
@@ -61,12 +116,19 @@ endif()
 
 # --- making library ---------
 add_library(
-    ${library_name}
-    SHARED
-    ${source_files} ${include_files}
-)
+  ${library_name}
+  SHARED
+  ${source_files} ${include_files}
+  )
+
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
+
+
+if(BORNAGAIN_PYTHON)
+  add_dependencies(${library_name} ${library_name}_python)
+endif()
+
 # exposing library name and list of include directories outside
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
@@ -148,7 +210,7 @@ if(WIN32)
     ${CMAKE_LIBRARY_PATH}/boost_iostreams${boost_suffix}
     ${CMAKE_LIBRARY_PATH}/boost_system${boost_suffix}
     ${CMAKE_LIBRARY_PATH}/boost_filesystem${boost_suffix}
-    ${CMAKE_LIBRARY_PATH}/boost_python${boost_suffix}
+    #${CMAKE_LIBRARY_PATH}/boost_python${boost_suffix}
     ${CMAKE_LIBRARY_PATH}/boost_regex${boost_suffix}
     ${CMAKE_LIBRARY_PATH}/boost_thread${boost_suffix}
     ${CMAKE_LIBRARY_PATH}/libfftw3-3.dll

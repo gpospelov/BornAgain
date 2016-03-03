@@ -17,7 +17,8 @@
 #define ISAMPLEBUILDER_H_
 
 #include "ISample.h"
-#include <boost/shared_ptr.hpp>
+#include <memory>
+#include "IParameterizedShared.h"
 
 class IComponentService;
 
@@ -26,7 +27,7 @@ class IComponentService;
 //! @brief Interface to the class capable to build samples to simulate
 
 
-class BA_CORE_API_ ISampleBuilder : public IParameterized
+class BA_CORE_API_ ISampleBuilder : public IParameterizedShared
 {
 public:
     ISampleBuilder() { setName("SampleBuilder"); }
@@ -41,6 +42,6 @@ protected:
 };
 
 // Shared pointer is used when passing these objects from python to c++
-typedef boost::shared_ptr<class ISampleBuilder > SampleBuilder_t;
+typedef std::shared_ptr<class ISampleBuilder > SampleBuilder_t;
 
 #endif /* ISAMPLEBUILDER_H_ */

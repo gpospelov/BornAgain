@@ -4,6 +4,7 @@ Test of rotation/position of box in the middle layer of 3 layers system.
 FormFactorBox(50, 20, 10), is rotated around Z, then around Y, then shifted up and then
 compared with FormFactorBox(10, 50, 20)
 """
+from __future__ import print_function
 import unittest
 import utils
 import sys
@@ -75,7 +76,7 @@ class BoxTransformationsTest(unittest.TestCase):
         data = self.get_intensity_data(box)
 
         diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
-        print diff
+        print(diff)
         self.assertLess(diff, 1e-10)
 
 

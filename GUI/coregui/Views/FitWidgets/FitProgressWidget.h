@@ -18,7 +18,7 @@
 
 #include "WinDllMacros.h"
 #include "OutputData.h"
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <QWidget>
 
 class QLabel;
@@ -65,7 +65,7 @@ private:
     IntensityDataItem *m_chi2;
     QPlainTextEdit *m_log;
     QSplitter *m_splitter;
-    boost::shared_ptr<GUIFitObserver> m_guifitobserver;
+    std::shared_ptr<GUIFitObserver> m_guifitobserver;
 
     void disableInteractions();
 };

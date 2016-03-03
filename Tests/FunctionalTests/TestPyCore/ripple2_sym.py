@@ -1,4 +1,5 @@
 # Functional test: triangular ripple formfactor within the 1D-paracrystal model
+from __future__ import print_function
 import sys
 import os
 import numpy
@@ -72,6 +73,6 @@ def runTest():
 #-------------------------------------------------------------
 if __name__ == '__main__':
     name, description, diff, status = runTest()
-    print name, description, diff, status
+    print(name, description, diff, status)
     if("FAILED" in status):
         exit(1)

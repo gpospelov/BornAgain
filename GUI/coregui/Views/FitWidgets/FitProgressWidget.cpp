@@ -40,7 +40,7 @@ FitProgressWidget::FitProgressWidget(QWidget *parent)
     , m_log(new QPlainTextEdit(this))
     , m_splitter(new QSplitter())
 {
-    m_guifitobserver = boost::shared_ptr<GUIFitObserver>(new GUIFitObserver(this));
+    m_guifitobserver = std::shared_ptr<GUIFitObserver>(new GUIFitObserver(this));
 
     connect(m_guifitobserver.get(), SIGNAL(updateStatus(const QString&)),
             this, SLOT(updateStatus(const QString&)));

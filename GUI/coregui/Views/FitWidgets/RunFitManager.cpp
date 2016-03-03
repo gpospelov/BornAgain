@@ -17,6 +17,7 @@
 #include "FittingWorker.h"
 #include "FitSuite.h"
 #include <QThread>
+#include <memory>
 
 RunFitManager::RunFitManager(QObject *parent)
     : QObject(parent)
@@ -25,7 +26,7 @@ RunFitManager::RunFitManager(QObject *parent)
 {
 }
 
-void RunFitManager::setFitSuite(boost::shared_ptr<FitSuite> suite)
+void RunFitManager::setFitSuite(std::shared_ptr<FitSuite> suite)
 {
     m_fitSuite = suite;
 }

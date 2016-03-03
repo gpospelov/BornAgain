@@ -24,6 +24,8 @@
 #endif
 #include <vector>
 
+#include <memory>
+
 
 //! @class SpecularSimulation
 //! @ingroup simulation
@@ -32,7 +34,7 @@
 class BA_CORE_API_ SpecularSimulation : public ICloneable, public IParameterized
 {
 public:
-    typedef boost::shared_ptr<const ILayerRTCoefficients> LayerRTCoefficients_t;
+  typedef std::shared_ptr<const ILayerRTCoefficients> LayerRTCoefficients_t;
     typedef std::vector<LayerRTCoefficients_t> MultiLayerRTCoefficients_t;
 
     SpecularSimulation();

@@ -93,7 +93,7 @@ void RunFitWidget::onIntervalChanged(int value)
 void RunFitWidget::onStartClicked()
 {
     // used for test purposes
-    boost::shared_ptr<FitSuite> suite = init_test_fitsuite();
+    std::shared_ptr<FitSuite> suite = init_test_fitsuite();
     m_fitprogress->setObserverToSuite(suite.get());
 
     m_runfitmanager->setFitSuite(suite);
@@ -120,13 +120,13 @@ void RunFitWidget::onFittingFinished()
 
 
 // test only
-boost::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
+std::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
 {
     ParameterizedItem *multilayer = m_fitModel->getSelectedMultiLayerItem();
     ParameterizedItem *instrument = m_fitModel->getSelectedInstrumentItem();
 
     DomainSimulationBuilder builder;
-     boost::shared_ptr<FitSuite> m_fitsuite = boost::shared_ptr<FitSuite>(new FitSuite());
+     std::shared_ptr<FitSuite> m_fitsuite = std::shared_ptr<FitSuite>(new FitSuite());
 
     try {
 

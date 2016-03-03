@@ -4,6 +4,7 @@ Test of rotation/position of particle composition. The composition consists of t
 material. It is compared against reference single box made of the same material. Composition might be rotated to
 get reference shape. Both, reference box and composition are placed in the center of middle layer of 3 layers system.
 """
+from __future__ import print_function
 import unittest
 import utils
 
@@ -76,7 +77,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
         data = self.get_intensity_data(composition)
 
         diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
-        print "test_BoxComposition:", diff
+        print("test_BoxComposition:", diff)
         self.assertLess(diff, 1e-10)
         # utils.plot_intensity_data(reference_data)
 
@@ -106,7 +107,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
         data = self.get_intensity_data(composition)
 
         diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
-        print "test_BoxCompositionRotateX:", diff
+        print("test_BoxCompositionRotateX:", diff)
         self.assertLess(diff, 1e-10)
 
     def test_BoxCompositionRotateY(self):
@@ -135,7 +136,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
         data = self.get_intensity_data(composition)
 
         diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
-        print "test_BoxCompositionRotateY:", diff
+        print("test_BoxCompositionRotateY:", diff)
         self.assertLess(diff, 1e-10)
 
     def test_BoxCompositionRotateZ(self):
@@ -164,7 +165,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
         data = self.get_intensity_data(composition)
 
         diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
-        print "test_BoxCompositionRotateZ:", diff
+        print("test_BoxCompositionRotateZ:", diff)
         self.assertLess(diff, 1e-10)
 
     def test_BoxCompositionRotateZandY(self):
@@ -194,7 +195,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
         data = self.get_intensity_data(composition)
 
         diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
-        print "test_BoxCompositionRotateZandY:", diff
+        print("test_BoxCompositionRotateZandY:", diff)
         self.assertLess(diff, 1e-10)
 
     def test_BoxStackComposition(self):
@@ -237,7 +238,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
         data = self.get_intensity_data(composition)
 
         diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
-        print "test_BoxStackComposition:", diff
+        print("test_BoxStackComposition:", diff)
         self.assertLess(diff, 1e-10)
 
 

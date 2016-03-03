@@ -18,7 +18,7 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 class QSlider;
 class QLabel;
@@ -41,7 +41,7 @@ public:
     RunFitWidget(FitModel *fitModel, QWidget *parent = 0);
 
     // test only
-    boost::shared_ptr<FitSuite> init_test_fitsuite();
+    std::shared_ptr<FitSuite> init_test_fitsuite();
 
 public slots:
 

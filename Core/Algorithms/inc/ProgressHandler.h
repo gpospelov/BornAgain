@@ -19,7 +19,7 @@
 #include "WinDllMacros.h"
 #include <boost/function.hpp>
 #include <boost/bind.hpp>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 class Simulation;
 
@@ -60,7 +60,7 @@ private:
 
 // Shared pointer is needed because multiple DWBASimulation threads will contain a
 // local clone of Simulation, which contains the original ProgressHandler
-typedef boost::shared_ptr<class ProgressHandler > ProgressHandler_t;
+typedef std::shared_ptr<class ProgressHandler > ProgressHandler_t;
 
 
 #endif

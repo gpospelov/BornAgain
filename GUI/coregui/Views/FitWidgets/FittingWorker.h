@@ -18,7 +18,7 @@
 
 #include "WinDllMacros.h"
 #include <QObject>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 class FitSuite;
 
@@ -28,7 +28,7 @@ class BA_CORE_API_ FittingWorker : public QObject
 
 public:
 
-    FittingWorker(boost::shared_ptr<FitSuite> suite) {m_fitsuite = suite;}
+    FittingWorker(std::shared_ptr<FitSuite> suite) {m_fitsuite = suite;}
 
 public slots:
 
@@ -46,7 +46,7 @@ signals:
 
 private:
 
-    boost::shared_ptr<FitSuite> m_fitsuite;
+    std::shared_ptr<FitSuite> m_fitsuite;
 
 };
 

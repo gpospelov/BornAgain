@@ -4,6 +4,7 @@ Test of rotation/position of core shell particle. Reference CoreShell particle i
 which has different dimensions but rotated/translated to be like the reference one.
 Particles are placed in the center of middle layer.
 """
+from __future__ import print_function
 import unittest
 import utils
 import sys
@@ -71,7 +72,7 @@ class TransformCoreShellBoxTest(unittest.TestCase):
         data = self.get_intensity_data(coreshell)
 
         diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
-        print "test_SameMaterialCoreShell:", diff
+        print("test_SameMaterialCoreShell:", diff)
         self.assertLess(diff, 1e-10)
 
     def test_CoreShellBoxRotateZ(self):
@@ -115,7 +116,7 @@ class TransformCoreShellBoxTest(unittest.TestCase):
         data = self.get_intensity_data(coreshell)
 
         diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
-        print "test_CoreShellBoxRotateZ:", diff
+        print("test_CoreShellBoxRotateZ:", diff)
         self.assertLess(diff, 1e-10)
 
 
@@ -162,7 +163,7 @@ class TransformCoreShellBoxTest(unittest.TestCase):
         # utils.plot_intensity_data(data)
 
         diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
-        print "test_CoreShellBoxRotateY:", diff
+        print("test_CoreShellBoxRotateY:", diff)
         self.assertLess(diff, 1e-10)
 
 
@@ -210,7 +211,7 @@ class TransformCoreShellBoxTest(unittest.TestCase):
         data = self.get_intensity_data(coreshell)
 
         diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
-        print "test_CoreShellBoxRotateZandY:", diff
+        print("test_CoreShellBoxRotateZandY:", diff)
         self.assertLess(diff, 1e-10)
 
 

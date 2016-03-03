@@ -102,12 +102,11 @@ OutputData<double> *MaskResultsPresenter::createMaskPresentation() const
                 continue;
             }
 
-            Geometry::IShape2D *shape = item->createShape();
+            std::unique_ptr<Geometry::IShape2D> shape = item->createShape();
             if (shape) {
-                detectorMask.addMask(*shape,
+                detectorMask.addMask(*shape.get(),
                                      item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool());
             }
-            delete shape;
         }
     }
 

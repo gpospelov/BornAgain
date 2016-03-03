@@ -20,6 +20,7 @@
 #include "Ellipse.h"
 #include "InfinitePlane.h"
 #include "Units.h"
+#include "GUIHelpers.h"
 
 
 MaskContainerItem::MaskContainerItem()
@@ -43,6 +44,12 @@ MaskItem::MaskItem(const QString &name)
     registerProperty(P_MASK_VALUE, true);
 }
 
+std::unique_ptr<Geometry::IShape2D> MaskItem::createShape(double scale) const
+{
+    Q_UNUSED(scale);
+    throw GUIHelpers::Error("MaskItem::createShape() -> Not implemented.");
+}
+
 
 /* ------------------------------------------------------------------------- */
 const QString RectangleItem::P_XLOW = "xlow";
@@ -59,13 +66,13 @@ RectangleItem::RectangleItem()
     registerProperty(P_YUP, 0.0).limitless();
 }
 
-Geometry::IShape2D *RectangleItem::createShape(double scale) const
+std::unique_ptr<Geometry::IShape2D> RectangleItem::createShape(double scale) const
 {
     double xlow = scale*getRegisteredProperty(P_XLOW).toDouble();
     double ylow = scale*getRegisteredProperty(P_YLOW).toDouble();
     double xup = scale*getRegisteredProperty(P_XUP).toDouble();
     double yup = scale*getRegisteredProperty(P_YUP).toDouble();
-    return new Geometry::Rectangle(xlow, ylow, xup, yup);
+    return GUIHelpers::make_unique<Geometry::Rectangle>(xlow, ylow, xup, yup);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -90,14 +97,14 @@ PolygonItem::PolygonItem()
     registerProperty(P_ISCLOSED, false).setHidden();
 }
 
-Geometry::IShape2D *PolygonItem::createShape(double scale) const
+std::unique_ptr<Geometry::IShape2D> PolygonItem::createShape(double scale) const
 {
     std::vector<double> x,y;
     foreach(ParameterizedItem *item, this->getChildrenOfType(Constants::PolygonPointType)) {
         x.push_back(scale*item->getRegisteredProperty(PolygonPointItem::P_POSX).toDouble());
         y.push_back(scale*item->getRegisteredProperty(PolygonPointItem::P_POSY).toDouble());
     }
-    return new Geometry::Polygon(x, y);
+    return GUIHelpers::make_unique<Geometry::Polygon>(x, y);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -109,9 +116,9 @@ VerticalLineItem::VerticalLineItem()
     registerProperty(P_POSX, 0.0).limitless();
 }
 
-Geometry::IShape2D *VerticalLineItem::createShape(double scale) const
+std::unique_ptr<Geometry::IShape2D> VerticalLineItem::createShape(double scale) const
 {
-    return new Geometry::VerticalLine(
+    return GUIHelpers::make_unique<Geometry::VerticalLine>(
                 scale*getRegisteredProperty(VerticalLineItem::P_POSX).toDouble());
 }
 
@@ -124,9 +131,9 @@ HorizontalLineItem::HorizontalLineItem()
     registerProperty(P_POSY, 0.0).limitless();
 }
 
-Geometry::IShape2D *HorizontalLineItem::createShape(double scale) const
+std::unique_ptr<Geometry::IShape2D> HorizontalLineItem::createShape(double scale) const
 {
-    return new Geometry::HorizontalLine(
+    return GUIHelpers::make_unique<Geometry::HorizontalLine>(
                 scale*getRegisteredProperty(HorizontalLineItem::P_POSY).toDouble());
 }
 
@@ -148,7 +155,7 @@ EllipseItem::EllipseItem()
     registerProperty(P_ANGLE, 0.0).limitless();
 }
 
-Geometry::IShape2D *EllipseItem::createShape(double scale) const
+std::unique_ptr<Geometry::IShape2D> EllipseItem::createShape(double scale) const
 {
     double xcenter = scale*getRegisteredProperty(EllipseItem::P_XCENTER).toDouble();
     double ycenter = scale*getRegisteredProperty(EllipseItem::P_YCENTER).toDouble();
@@ -156,7 +163,7 @@ Geometry::IShape2D *EllipseItem::createShape(double scale) const
     double yradius = scale*getRegisteredProperty(EllipseItem::P_YRADIUS).toDouble();
     double angle = scale*getRegisteredProperty(EllipseItem::P_ANGLE).toDouble();
 
-    return new Geometry::Ellipse(xcenter, ycenter, xradius, yradius, angle);
+    return GUIHelpers::make_unique<Geometry::Ellipse>(xcenter, ycenter, xradius, yradius, angle);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -167,8 +174,8 @@ MaskAllItem::MaskAllItem()
     getPropertyAttribute(MaskItem::P_MASK_VALUE).setDisabled();
 }
 
-Geometry::IShape2D *MaskAllItem::createShape(double scale) const
+std::unique_ptr<Geometry::IShape2D> MaskAllItem::createShape(double scale) const
 {
     Q_UNUSED(scale);
-    return new Geometry::InfinitePlane();
+    return GUIHelpers::make_unique<Geometry::InfinitePlane>();
 }

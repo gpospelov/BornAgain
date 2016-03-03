@@ -17,6 +17,7 @@
 #define MASKITEMS_H
 
 #include "ParameterizedItem.h"
+#include <memory>
 
 namespace Geometry {
 class IShape2D;
@@ -40,7 +41,7 @@ class BA_CORE_API_ MaskItem : public ParameterizedItem
 public:
     static const QString P_MASK_VALUE;
     explicit MaskItem(const QString &name);
-    virtual Geometry::IShape2D *createShape(double scale = 1.0) const { Q_UNUSED(scale); return 0;}
+    virtual std::unique_ptr<Geometry::IShape2D> createShape(double scale = 1.0) const;
 };
 
 class BA_CORE_API_ RectangleItem : public MaskItem
@@ -52,7 +53,7 @@ public:
     static const QString P_XUP;
     static const QString P_YUP;
     explicit RectangleItem();
-    virtual Geometry::IShape2D *createShape(double scale = 1.0) const;
+    virtual std::unique_ptr<Geometry::IShape2D> createShape(double scale) const;
 };
 
 class BA_CORE_API_ PolygonPointItem : public ParameterizedItem
@@ -61,9 +62,7 @@ class BA_CORE_API_ PolygonPointItem : public ParameterizedItem
 public:
     static const QString P_POSX;
     static const QString P_POSY;
-
     explicit PolygonPointItem();
-
 };
 
 class BA_CORE_API_ PolygonItem : public MaskItem
@@ -72,7 +71,7 @@ class BA_CORE_API_ PolygonItem : public MaskItem
 public:
     static const QString P_ISCLOSED;
     explicit PolygonItem();
-    virtual Geometry::IShape2D *createShape(double scale = 1.0) const;
+    virtual std::unique_ptr<Geometry::IShape2D> createShape(double scale) const;
 };
 
 class BA_CORE_API_ VerticalLineItem : public MaskItem
@@ -81,7 +80,7 @@ class BA_CORE_API_ VerticalLineItem : public MaskItem
 public:
     static const QString P_POSX;
     explicit VerticalLineItem();
-    virtual Geometry::IShape2D *createShape(double scale = 1.0) const;
+    virtual std::unique_ptr<Geometry::IShape2D> createShape(double scale) const;
 };
 
 class BA_CORE_API_ HorizontalLineItem : public MaskItem
@@ -90,7 +89,7 @@ class BA_CORE_API_ HorizontalLineItem : public MaskItem
 public:
     static const QString P_POSY;
     explicit HorizontalLineItem();
-    virtual Geometry::IShape2D *createShape(double scale = 1.0) const;
+    virtual std::unique_ptr<Geometry::IShape2D> createShape(double scale) const;
 };
 
 class BA_CORE_API_ EllipseItem : public MaskItem
@@ -103,7 +102,7 @@ public:
     static const QString P_YRADIUS;
     static const QString P_ANGLE;
     explicit EllipseItem();
-    virtual Geometry::IShape2D *createShape(double scale = 1.0) const;
+    virtual std::unique_ptr<Geometry::IShape2D> createShape(double scale) const;
 };
 
 class BA_CORE_API_ MaskAllItem : public MaskItem
@@ -111,7 +110,7 @@ class BA_CORE_API_ MaskAllItem : public MaskItem
     Q_OBJECT
 public:
     explicit MaskAllItem();
-    virtual Geometry::IShape2D *createShape(double scale = 1.0) const;
+    virtual std::unique_ptr<Geometry::IShape2D> createShape(double scale) const;
 };
 
 

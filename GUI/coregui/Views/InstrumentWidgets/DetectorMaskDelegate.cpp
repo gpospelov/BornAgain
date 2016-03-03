@@ -23,19 +23,19 @@
 #include "MaskEditor.h"
 #include "MaskItems.h"
 #include "GUIHelpers.h"
+#include "ComboProperty.h"
 #include <QDebug>
 
 DetectorMaskDelegate::DetectorMaskDelegate(QObject *parent)
-    : QObject(parent)
-    , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this))
-    , m_instrumentModel(0)
-    , m_detectorItem(0)
-    , m_intensityItem(0)
+    : QObject(parent), m_tempIntensityDataModel(
+                           new SessionModel("TempIntensityDataModel", this)),
+      m_instrumentModel(0), m_detectorItem(0), m_intensityItem(0)
 {
-
 }
 
-void DetectorMaskDelegate::initMaskEditorContext(MaskEditor *maskEditor, InstrumentModel *instrumentModel, DetectorItem *detectorItem)
+void DetectorMaskDelegate::initMaskEditorContext(
+    MaskEditor *maskEditor, InstrumentModel *instrumentModel,
+    DetectorItem *detectorItem)
 {
     m_instrumentModel = instrumentModel;
     m_detectorItem = detectorItem;
@@ -54,7 +54,6 @@ void DetectorMaskDelegate::initMaskEditorContext(MaskEditor *maskEditor, Instrum
         m_intensityItem);
 }
 
-
 //! Creates IntensityDataItem from DetectorItem for later usage in MaskEditor.
 //! As amplitude, value 1.0 is set for each bin.
 //! The object additionally tuned to appear nicely on ColorMap plot.
@@ -62,11 +61,21 @@ void DetectorMaskDelegate::createIntensityDataItem()
 {
     m_tempIntensityDataModel->clear();
 
-    m_intensityItem = dynamic_cast<IntensityDataItem *>(m_tempIntensityDataModel->insertNewItem(Constants::IntensityDataType));
+    m_intensityItem = dynamic_cast<IntensityDataItem *>(
+        m_tempIntensityDataModel->insertNewItem(Constants::IntensityDataType));
     Q_ASSERT(m_intensityItem);
 
-    m_intensityItem->getPropertyAttribute(IntensityDataItem::P_PROJECTIONS_FLAG).setDisabled();
-    m_intensityItem->setRegisteredProperty(IntensityDataItem::P_IS_INTERPOLATED, false);
+    m_intensityItem->getPropertyAttribute(IntensityDataItem::P_PROJECTIONS_FLAG)
+        .setDisabled();
+    m_intensityItem->setRegisteredProperty(IntensityDataItem::P_IS_INTERPOLATED,
+                                           false);
+
+//    ComboProperty gradient
+//        = m_intensityItem->getRegisteredProperty(IntensityDataItem::P_GRADIENT)
+//              .value<ComboProperty>();
+//    gradient.setValue(Constants::GRADIENT_GRAYSCALE);
+//    m_intensityItem->setRegisteredProperty(IntensityDataItem::P_GRADIENT,
+//                                           gradient.getVariant());
 
     AmplitudeAxisItem *zAxisItem = dynamic_cast<AmplitudeAxisItem *>(
         m_intensityItem->getGroupItem(IntensityDataItem::P_ZAXIS));
@@ -84,56 +93,65 @@ void DetectorMaskDelegate::createIntensityDataItem()
 void DetectorMaskDelegate::createMaskContainer()
 {
     Q_ASSERT(m_detectorItem);
-    if(!m_detectorItem->getMaskContainerItem()) {
-        m_instrumentModel->insertNewItem(Constants::MaskContainerType,
-                                         m_instrumentModel->indexOfItem(m_detectorItem));
+    if (!m_detectorItem->getMaskContainerItem()) {
+        m_instrumentModel->insertNewItem(
+            Constants::MaskContainerType,
+            m_instrumentModel->indexOfItem(m_detectorItem));
     }
 }
 
-//! Creates OutputData from DetectorItem's axes for later initialization of IntensityDataItem
-OutputData<double> *DetectorMaskDelegate::createOutputData(DetectorItem *detectorItem)
+//! Creates OutputData from DetectorItem's axes for later initialization of
+//! IntensityDataItem
+OutputData<double> *
+DetectorMaskDelegate::createOutputData(DetectorItem *detectorItem)
 {
     Q_ASSERT(detectorItem);
     OutputData<double> *result = new OutputData<double>;
 
-
     auto subDetector = detectorItem->getGroupItem(DetectorItem::P_DETECTOR);
     Q_ASSERT(subDetector);
 
-
-    if(subDetector->modelType() == Constants::SphericalDetectorType) {
+    if (subDetector->modelType() == Constants::SphericalDetectorType) {
 
         auto x_axis = dynamic_cast<BasicAxisItem *>(
             subDetector->getGroupItem(SphericalDetectorItem::P_PHI_AXIS));
         Q_ASSERT(x_axis);
         int n_x = x_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
-        double x_min = x_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
-        double x_max = x_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
+        double x_min
+            = x_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
+        double x_max
+            = x_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
 
         auto y_axis = dynamic_cast<BasicAxisItem *>(
             subDetector->getGroupItem(SphericalDetectorItem::P_ALPHA_AXIS));
         Q_ASSERT(y_axis);
         int n_y = y_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
-        double y_min = y_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
-        double y_max = y_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
+        double y_min
+            = y_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
+        double y_max
+            = y_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
 
         result->addAxis("x", n_x, x_min, x_max);
         result->addAxis("y", n_y, y_min, y_max);
 
-    } else if(subDetector->modelType() == Constants::RectangularDetectorType) {
+    } else if (subDetector->modelType() == Constants::RectangularDetectorType) {
         auto x_axis = dynamic_cast<BasicAxisItem *>(
             subDetector->getGroupItem(RectangularDetectorItem::P_X_AXIS));
         Q_ASSERT(x_axis);
         int n_x = x_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
-        double x_min = x_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
-        double x_max = x_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
+        double x_min
+            = x_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
+        double x_max
+            = x_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
 
         auto y_axis = dynamic_cast<BasicAxisItem *>(
             subDetector->getGroupItem(RectangularDetectorItem::P_Y_AXIS));
         Q_ASSERT(y_axis);
         int n_y = y_axis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
-        double y_min = y_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
-        double y_max = y_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
+        double y_min
+            = y_axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
+        double y_max
+            = y_axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
 
         result->addAxis("x", n_x, x_min, x_max);
         result->addAxis("y", n_y, y_min, y_max);
@@ -141,11 +159,24 @@ OutputData<double> *DetectorMaskDelegate::createOutputData(DetectorItem *detecto
     }
 
     else {
-        throw GUIHelpers::Error("DetectorMaskDelegate::createOutputData() -> Error. "
-                                " Unknown detector type");
+        throw GUIHelpers::Error(
+            "DetectorMaskDelegate::createOutputData() -> Error. "
+            " Unknown detector type");
     }
 
     result->setAllTo(1.0);
+//    (*result)[0] = 10;
+
+//    const IAxis *axis0 = result->getAxis(0);
+//    const IAxis *axis1 = result->getAxis(1);
+
+//    for(int ix=0; ix<(int)axis0->getSize(); ix+=2) {
+//        for(int iy=0; iy<(int)axis1->getSize(); iy+=2) {
+//            std::vector<int> indices = {ix, iy};
+//            int index = result->toGlobalIndex(indices);
+//            (*result)[index] = 10;
+//        }
+//    }
 
     return result;
 }

@@ -58,12 +58,9 @@ void MaskResultsPresenter::updatePresenter(MaskEditorFlags::PresentationType pre
 //! bins of OutputData will be put to zero.
 void MaskResultsPresenter::setShowMaskMode()
 {
-    qDebug() << "MaskResultsPresenter::setShowMaskMode()";
-
     if (OutputData<double> *maskedData = createMaskPresentation()) {
         backup_data();
         m_intensityDataItem->setOutputData(maskedData);
-        qDebug() << m_dataBackup->totalSum() << maskedData->totalSum();
         m_intensityDataItem->setRegisteredProperty(IntensityDataItem::P_IS_INTERPOLATED, false);
     } else {
         m_dataBackup.reset();

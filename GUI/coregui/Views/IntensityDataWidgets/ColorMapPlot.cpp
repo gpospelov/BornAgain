@@ -524,6 +524,8 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
     m_colorMap->setDataRange(newDataRange);
     setLogz(intensityItem->isLogz(), false);
 
+    m_colorMap->setInterpolate(m_item->isInterpolated());
+
     // make sure the axis rect and color scale synchronize their bottom and top margins (so they
     // line up):
     QCPMarginGroup *marginGroup = new QCPMarginGroup(m_customPlot);

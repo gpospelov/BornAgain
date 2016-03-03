@@ -108,25 +108,6 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
     emit intensityModified();
 }
 
-//void IntensityDataItem::setResults(const GISASSimulation *simulation)
-//{
-//    Q_ASSERT(simulation);
-//    m_simulation.reset(simulation);
-
-//    getPropertyAttribute(P_AXES_UNITS).setVisible();
-//    if(auto detector = dynamic_cast<const SphericalDetector *>(simulation->getInstrument().getDetector())) {
-//        updatePropertiesToDetector(Constants::SphericalDetectorType);
-//        setOutputData(m_simulation->getDetectorIntensity(IDetector2D::DEGREES));
-//    }
-//    else if(auto detector = dynamic_cast<const RectangularDetector *>(simulation->getInstrument().getDetector())) {
-//        updatePropertiesToDetector(Constants::RectangularDetectorType);
-//        setOutputData(m_simulation->getDetectorIntensity(IDetector2D::MM));
-//    } else {
-//        throw GUIHelpers::Error("IntensityDataItem::setResults() -> Error. Unknown detector type");
-//    }
-
-//}
-
 double IntensityDataItem::getLowerX() const
 {
     return getGroupItem(P_XAXIS)->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
@@ -300,26 +281,3 @@ void IntensityDataItem::setAxesRangeToData()
     setLowerY(getYmin());
     setUpperY(getYmax());
 }
-
-//void IntensityDataItem::updatePropertiesToDetector(const QString &modelType)
-//{
-//    if(modelType == Constants::SphericalDetectorType) {
-//        ComboProperty units;
-//        units << Constants::UnitsNbins << Constants::UnitsRadians << Constants::UnitsDegrees
-//              << Constants::UnitsQyQz;
-//        units.setValue(Constants::UnitsDegrees);
-//        setRegisteredProperty(P_AXES_UNITS, units.getVariant());
-//    }
-
-//    else if(modelType == Constants::RectangularDetectorType) {
-//        ComboProperty units;
-//        units << Constants::UnitsNbins << Constants::UnitsRadians << Constants::UnitsDegrees
-//              <<  Constants::UnitsMm << Constants::UnitsQyQz;
-//        units.setValue(Constants::UnitsMm);
-//        setRegisteredProperty(P_AXES_UNITS, units.getVariant());
-//    }
-
-//    else {
-//        throw GUIHelpers::Error("IntensityDataItem::updatePropertiesToDetector() -> Error. Unknown detector");
-//    }
-//}

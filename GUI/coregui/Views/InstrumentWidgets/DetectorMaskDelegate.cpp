@@ -27,6 +27,7 @@
 
 DetectorMaskDelegate::DetectorMaskDelegate(QObject *parent)
     : QObject(parent)
+    , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this))
     , m_instrumentModel(0)
     , m_detectorItem(0)
     , m_intensityItem(0)
@@ -34,26 +35,23 @@ DetectorMaskDelegate::DetectorMaskDelegate(QObject *parent)
 
 }
 
-void DetectorMaskDelegate::setDetectorContext(InstrumentModel *instrumentModel,
-                                              DetectorItem *detectorItem)
+void DetectorMaskDelegate::initMaskEditorContext(MaskEditor *maskEditor, InstrumentModel *instrumentModel, DetectorItem *detectorItem)
 {
     m_instrumentModel = instrumentModel;
     m_detectorItem = detectorItem;
-    createIntensityDataItem();
-    createMaskContainer();
-}
 
-void DetectorMaskDelegate::initMaskEditor(MaskEditor *maskEditor)
-{
     Q_ASSERT(m_instrumentModel);
     Q_ASSERT(m_detectorItem);
-    Q_ASSERT(m_intensityItem);
+
+    createIntensityDataItem();
+    createMaskContainer();
+
     Q_ASSERT(m_detectorItem->getMaskContainerItem());
+
     maskEditor->setMaskContext(
         m_instrumentModel,
         m_instrumentModel->indexOfItem(m_detectorItem->getMaskContainerItem()),
         m_intensityItem);
-
 }
 
 
@@ -62,9 +60,13 @@ void DetectorMaskDelegate::initMaskEditor(MaskEditor *maskEditor)
 //! The object additionally tuned to appear nicely on ColorMap plot.
 void DetectorMaskDelegate::createIntensityDataItem()
 {
-    delete m_intensityItem;
-    m_intensityItem = new IntensityDataItem();
+    m_tempIntensityDataModel->clear();
+
+    m_intensityItem = dynamic_cast<IntensityDataItem *>(m_tempIntensityDataModel->insertNewItem(Constants::IntensityDataType));
+    Q_ASSERT(m_intensityItem);
+
     m_intensityItem->getPropertyAttribute(IntensityDataItem::P_PROJECTIONS_FLAG).setDisabled();
+    m_intensityItem->setRegisteredProperty(IntensityDataItem::P_IS_INTERPOLATED, false);
 
     AmplitudeAxisItem *zAxisItem = dynamic_cast<AmplitudeAxisItem *>(
         m_intensityItem->getGroupItem(IntensityDataItem::P_ZAXIS));
@@ -146,16 +148,4 @@ OutputData<double> *DetectorMaskDelegate::createOutputData(DetectorItem *detecto
     result->setAllTo(1.0);
 
     return result;
-
-}
-
-//! Copies masks from the detector to IntensityData objects
-void DetectorMaskDelegate::copyMasksFromDetector()
-{
-//    Q_ASSERT(m_detectorItem);
-//    auto subDetector = m_detectorItem->getGroupItem(DetectorItem::P_DETECTOR);
-//    Q_ASSERT(subDetector);
-
-//    foreach(ParameterizedItem *item, )
-
 }

@@ -54,10 +54,10 @@ TestView::TestView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_mainWindow(mainWindow)
 {
-    test_MaskEditor();
+//    test_MaskEditor();
 //    test_AccordionWidget();
 //    test_RunFitWidget();
-//    test_sessionModel();
+    test_sessionModel();
 }
 
 void TestView::test_sessionModel()

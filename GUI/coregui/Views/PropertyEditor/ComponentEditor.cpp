@@ -143,6 +143,7 @@ void ComponentEditor::onQtPropertyChanged(QtProperty *property,
 {
     qDebug() << "ComponentEditor::onQtPropertyChanged" << property << value;
     if (ParameterizedItem *item = m_d->getItemForProperty(property)) {
+        Q_ASSERT(item);
         disconnectModel(item->model());
         item->setValue(value);
         connectModel(item->model());
@@ -176,6 +177,8 @@ ComponentEditor::componentItems(ParameterizedItem *item) const
 
 void ComponentEditor::disconnectModel(SessionModel *model)
 {
+    if(!model) return;
+
     disconnect(
         model, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &,
                                   const QVector<int> &)),
@@ -188,6 +191,8 @@ void ComponentEditor::disconnectModel(SessionModel *model)
 
 void ComponentEditor::connectModel(SessionModel *model)
 {
+    if(!model) return;
+
     connect(model, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &,
                                       const QVector<int> &)),
             this, SLOT(onDataChanged(const QModelIndex &, const QModelIndex &,

@@ -157,7 +157,7 @@ void PolygonView::update_polygon()
 
         m_polygon.clear();
 
-        foreach (ParameterizedItem *item, m_item->childItems()) {
+        foreach (ParameterizedItem *item, m_item->getChildrenOfType(Constants::PolygonPointType)) {
             qreal px = toSceneX(item->getRegisteredProperty(PolygonPointItem::P_POSX).toReal());
             qreal py = toSceneY(item->getRegisteredProperty(PolygonPointItem::P_POSY).toReal());
             m_polygon << QPointF(px, py);

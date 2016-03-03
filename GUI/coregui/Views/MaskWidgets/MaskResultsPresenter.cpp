@@ -98,6 +98,10 @@ OutputData<double> *MaskResultsPresenter::createMaskPresentation() const
     for (int i_row = m_maskModel->rowCount(m_maskContainerIndex); i_row > 0; --i_row) {
         QModelIndex itemIndex = m_maskModel->index(i_row - 1, 0, m_maskContainerIndex);
         if (MaskItem *item = dynamic_cast<MaskItem *>(m_maskModel->itemForIndex(itemIndex))) {
+            if (item && (item->modelType() == Constants::GroupItemType || item->modelType() == Constants::PropertyType)) {
+                continue;
+            }
+
             Geometry::IShape2D *shape = item->createShape();
             if (shape) {
                 detectorMask.addMask(*shape,

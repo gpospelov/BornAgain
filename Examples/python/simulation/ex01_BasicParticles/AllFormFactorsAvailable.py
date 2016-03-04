@@ -75,7 +75,7 @@ def run_simulation():
     for ff in formfactors:
         name = ff.__class__.__name__
         name = name.replace("FormFactor", "")
-        print "Generating intensity map in BA for '{0}'".format(name)
+        print("Generating intensity map in BA for '{0}'".format(name))
 
         sample = get_sample(ff)
         simulation = get_simulation()

@@ -34,13 +34,6 @@ if(WIN32)
 else()
     set(boost_libraries_required date_time chrono program_options iostreams system filesystem regex thread)
 endif()
-if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
-  if(BORNAGAIN_USE_PYTHON3)
-    list(APPEND boost_libraries_required)
-  else()
-    list(APPEND boost_libraries_required)
-  endif()
-endif()
 find_package(Boost 1.48.0 COMPONENTS ${boost_libraries_required} REQUIRED)
 message(STATUS "Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
 message(STATUS "Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}")
@@ -71,7 +64,7 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
 
     # testing Python 3
     #find_package(PythonInterp 2.7 REQUIRED)
-    find_package(PythonInterp REQUIRED)
+    find_package(PythonInterp 3.0 REQUIRED)
     message(STATUS "--> PYTHON_VERSION_STRING: ${PYTHON_VERSION_STRING}, PYTHON_EXECUTABLE:${PYTHON_EXECUTABLE}")
 
     # testing Python 3

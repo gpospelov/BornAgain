@@ -33,17 +33,17 @@ int main(int argc, char** argv) {
 
 
 
-//    return QTest::qExec(&testFormFactorItems, argc, argv) |
-//           QTest::qExec(&testFTDistributionItems, argc, argv) |
-//           QTest::qExec(&testParameterizedItem, argc, argv) |
-//           QTest::qExec(&testParticleItems, argc, argv) |
-//           QTest::qExec(&testLayerRoughnessItems, argc, argv) |
-//           QTest::qExec(&testParaCrystalItems, argc, argv) |
-//           QTest::qExec(&testSessionModel, argc, argv) |
-//           QTest::qExec(&testGUICoreObjectCorrespondence, argc, argv) |
-//            QTest::qExec(&testSessionItem) |
-//            QTest::qExec(&testPropertyAttributes, argc, argv) |
-//            QTest::qExec(&testMapper, argc, argv);
-    return QTest::qExec(&testSessionItem);
+    return QTest::qExec(&testFormFactorItems, argc, argv) |
+           QTest::qExec(&testFTDistributionItems, argc, argv) |
+           QTest::qExec(&testParameterizedItem, argc, argv) |
+           QTest::qExec(&testParticleItems, argc, argv) |
+           QTest::qExec(&testLayerRoughnessItems, argc, argv) |
+           QTest::qExec(&testParaCrystalItems, argc, argv) |
+           QTest::qExec(&testSessionModel, argc, argv) |
+           QTest::qExec(&testGUICoreObjectCorrespondence, argc, argv) |
+            QTest::qExec(&testSessionItem) |
+            QTest::qExec(&testPropertyAttributes, argc, argv) |
+            QTest::qExec(&testMapper, argc, argv);
+//    return QTest::qExec(&testSessionItem);
 
 }

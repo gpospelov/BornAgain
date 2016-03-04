@@ -36,22 +36,6 @@ public:
     }
 };
 
-class SessionTagInfo
-{
-public:
-    inline SessionTagInfo() : name(QString()), min(0), max(-1), childCount(0) {}
-    inline SessionTagInfo(QString n, int mi, int ma)
-        :name(n)
-        , min(mi)
-        , max(ma)
-        , childCount(0) {}
-    QString name;
-    int min;
-    int max;
-    int childCount;
-    inline bool isValid() { return !name.isEmpty(); }
-};
-
 const QString ParameterizedItem::P_NAME = "Name";
 
 ParameterizedItem::ParameterizedItem(QString modelType)
@@ -114,7 +98,7 @@ void ParameterizedItem::setModel(SessionModel *model)
 }
 
 // protected
-bool ParameterizedItem::registerTag(QString name, int min, int max)
+bool ParameterizedItem::registerTag(QString name, int min, int max, QStringList modelTypes)
 {
     // max: -1 -> no limits
     // min = max = 1 -> fixed
@@ -122,7 +106,7 @@ bool ParameterizedItem::registerTag(QString name, int min, int max)
         return false;
     if (name.isEmpty() || getTagInfo(name).isValid())
         return false;
-    m_tags.append(SessionTagInfo(name, min, max));
+    m_tags.append(SessionTagInfo(name, min, max, modelTypes));
     return true;
 }
 
@@ -141,7 +125,7 @@ SessionTagInfo ParameterizedItem::getTagInfo(const QString &name) const
 
 
 // internal
-bool ParameterizedItem::insertItemToTag(int row, ParameterizedItem *item, const QString &tag)
+bool ParameterizedItem::insertItem(int row, ParameterizedItem *item, const QString &tag)
 {
     SessionTagInfo tagInfo = getTagInfo(tag);
     if (!tagInfo.isValid())
@@ -150,6 +134,10 @@ bool ParameterizedItem::insertItemToTag(int row, ParameterizedItem *item, const 
         return false;
     if (tagInfo.max >= 0 && tagInfo.childCount == tagInfo.max)
         return false;
+    if (!tagInfo.modelTypes.isEmpty()) {
+        if (!tagInfo.modelTypes.contains(item->modelType()))
+            return false;
+    }
     int index = tagStartIndex(tag) + row;
     Q_ASSERT(index <= m_children.size());
     if (m_model)

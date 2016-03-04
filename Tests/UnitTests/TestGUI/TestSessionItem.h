@@ -5,6 +5,7 @@
 #include <QtTest>
 #include "ParameterizedItem.h"
 #include "GUIHelpers.h"
+#include "SessionModel.h"
 #include "verify_throw_macro.h"
 
 
@@ -16,6 +17,8 @@ private:
 private slots:
     void test_constructor();
     void test_tags();
+    void test_data_roles();
+    void test_model_types();
 };
 
 
@@ -67,20 +70,20 @@ inline void TestSessionItem::test_tags()
     QVERIFY(item->registerTag("") == false);
 
     // now we insert one element at the beginning
-    QVERIFY(item->insertItemToTag(0, items[0], tag1));
+    QVERIFY(item->insertItem(0, items[0], tag1));
 
     // insertion out of range is forbidden
-    QVERIFY(item->insertItemToTag(-1, items[0], tag1) == false);
-    QVERIFY(item->insertItemToTag(2, items[0], tag1) == false);
+    QVERIFY(item->insertItem(-1, items[0], tag1) == false);
+    QVERIFY(item->insertItem(2, items[0], tag1) == false);
 
     // double insertion is forbidden
-    QVERIFY(item->insertItemToTag(0, items[0], tag1) == false);
+    QVERIFY(item->insertItem(0, items[0], tag1) == false);
 
     // we try to access tagged items
     verify_get_item(item, tag1, items.mid(0, 1));
 
     // nullptr is allowed
-    QVERIFY(item->insertItemToTag(1, nullptr, tag1));
+    QVERIFY(item->insertItem(1, nullptr, tag1));
     auto vecWithNullptr = items.mid(0,1);
     vecWithNullptr.append(nullptr);
     verify_get_item(item, tag1, vecWithNullptr);
@@ -89,21 +92,21 @@ inline void TestSessionItem::test_tags()
     // register tag with limit 0 - 1
     QVERIFY(item->registerTag(tag2, 0, 1));
 
-    QVERIFY(item->insertItemToTag(0, items[1], tag2));
+    QVERIFY(item->insertItem(0, items[1], tag2));
     verify_get_item(item, tag2, items.mid(1,1));
-    QVERIFY(item->insertItemToTag(1, items[1], tag2) == false);
+    QVERIFY(item->insertItem(1, items[1], tag2) == false);
 
     // register tag with limit 0 - 3 (using item 2 - 5)
     QVERIFY(item->registerTag(tag3, 0, 4));
 
     // add four items
     for (int i = 0; i < 4; i++) {
-        QVERIFY(item->insertItemToTag(i, items[2 + i], tag3));
+        QVERIFY(item->insertItem(i, items[2 + i], tag3));
         verify_get_item(item, tag3, items.mid(2, i+1));
     }
 
     // the fifth should fail
-    QVERIFY(item->insertItemToTag(0, items[6], tag3) == false);
+    QVERIFY(item->insertItem(0, items[6], tag3) == false);
 
     // items should be unchanged
     verify_get_item(item, tag3, items.mid(2, 4));
@@ -113,10 +116,10 @@ inline void TestSessionItem::test_tags()
 
     // add four items
     for (int i = 0; i < 4; i++) {
-        QVERIFY(item->insertItemToTag(i, items[6 + i], tag4));
+        QVERIFY(item->insertItem(i, items[6 + i], tag4));
         verify_get_item(item, tag4, items.mid(6, i+1));
     }
-    QVERIFY(item->insertItemToTag(0, items[6], tag4) == false);
+    QVERIFY(item->insertItem(0, items[6], tag4) == false);
 
     // REMOVAL
 
@@ -132,6 +135,47 @@ inline void TestSessionItem::test_tags()
         verify_get_item(item, tag3, items.mid(2,3-i));
         verify_get_item(item, tag4, items.mid(6,4));
     }
+
+    delete item;
+}
+
+inline void TestSessionItem::test_data_roles()
+{
+    ParameterizedItem *item = new ParameterizedItem("Some model type");
+    item->setData(Qt::DisplayRole, 1234);
+    QVERIFY(item->data(Qt::DisplayRole) == 1234);
+    QVERIFY(item->data(Qt::EditRole) == 1234);
+    item->setData(Qt::EditRole, 5432);
+    QVERIFY(item->data(Qt::DisplayRole) == 5432);
+    QVERIFY(item->data(Qt::EditRole) == 5432);
+    for (int i = 0; i < 10; i++) {
+        QVERIFY(item->data(SessionModel::EndSessionRoles + i).isValid() == false);
+        item->setData(SessionModel::EndSessionRoles + i, i);
+        QVERIFY(item->data(SessionModel::EndSessionRoles + i) == i);
+    }
+}
+
+inline void TestSessionItem::test_model_types()
+{
+    const QString model1 = "modeltype 1";
+    const QString model2 = "modeltype 2";
+    const QString model3 = "modeltype 3";
+    const QString model4 = "modeltype 4";
+    const QString model5 = "modeltype 5";
+
+    ParameterizedItem *item = new ParameterizedItem("modeltype does not matter");
+    QVERIFY(item->registerTag("Tag1", 0, -1, QStringList() << model1 << model2));
+    QVERIFY(item->insertItem(0, new ParameterizedItem(model1), "Tag1"));
+    QVERIFY(item->insertItem(0, new ParameterizedItem(model2), "Tag1"));
+    QVERIFY(item->insertItem(0, new ParameterizedItem(model3), "Tag1") == false);
+    QVERIFY(item->insertItem(0, new ParameterizedItem(model4), "Tag1") == false);
+    QVERIFY(item->insertItem(0, new ParameterizedItem(model5), "Tag1") == false);
+    QVERIFY(item->registerTag("Tag2", 0, -1, QStringList() << model3 << model4 << model5));
+    QVERIFY(item->insertItem(0, new ParameterizedItem(model1), "Tag2") == false);
+    QVERIFY(item->insertItem(0, new ParameterizedItem(model2), "Tag2") == false);
+    QVERIFY(item->insertItem(0, new ParameterizedItem(model3), "Tag2"));
+    QVERIFY(item->insertItem(0, new ParameterizedItem(model4), "Tag2"));
+    QVERIFY(item->insertItem(0, new ParameterizedItem(model5), "Tag2"));
 }
 
 //inline void TestParameterizedItem::test_registerProperty()

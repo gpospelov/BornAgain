@@ -31,7 +31,25 @@ class SessionModel;
 
 
 class SessionItemData;
-class SessionTagInfo;
+
+
+class SessionTagInfo
+{
+public:
+    inline SessionTagInfo() : name(QString()), min(0), max(-1), childCount(0) {}
+    inline SessionTagInfo(QString n, int mi, int ma, QStringList mt = QStringList())
+        :name(n)
+        , min(mi)
+        , max(ma)
+        , childCount(0)
+        , modelTypes(mt) {}
+    QString name;
+    int min;
+    int max;
+    int childCount;
+    QStringList modelTypes;
+    inline bool isValid() { return !name.isEmpty(); }
+};
 
 
 class BA_CORE_API_ ParameterizedItem : public QObject
@@ -50,14 +68,13 @@ public:
 
     QVector<ParameterizedItem *> getItems(QString tag = QString()) const;
 
-    bool insertItemToTag(int row, ParameterizedItem *item, const QString &tag);
+    bool insertItem(int row, ParameterizedItem *item, const QString &tag);
 
     ParameterizedItem *takeItem(int row, const QString &tag);
 
-    bool registerTag(QString name, int min = 0, int max = -1);
+    bool registerTag(QString name, int min = 0, int max = -1, QStringList modelTypes = QStringList());
 
-
-    // data manipulation
+    SessionTagInfo getTagInfo(const QString &name) const;
 
     //! retrieve data of given column, return invalid qvariant when out of range
     QVariant data(int role) const;
@@ -65,6 +82,9 @@ public:
     //! set data in the given column, return true when successful, notify model if present
     //! we only support one role
     virtual bool setData(int role, const QVariant &value);
+
+
+    // data manipulation
 
     //! return variant stored in data column
     QVariant value() const;
@@ -258,8 +278,6 @@ protected:
     //! swap two children in member list
     //! use this to enforce a specific order when this matters
     void swapChildren(int first, int second);
-
-    SessionTagInfo getTagInfo(const QString &name) const;
 
 
 private:

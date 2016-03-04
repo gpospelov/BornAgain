@@ -60,6 +60,10 @@
 %ignore Instrument::setDetectorResolutionFunction(IResolutionFunction2D*);
 %ignore Instrument::setDetectorResolutionFunction(const IResolutionFunction2D*);
 
+// taken from dev-tools/python-bindings/settings_fit.py
+%ignore FitSuite::setOptions(const FitOptions&);
+%ignore FitSuite::getOptions();
+
 // // problems with BasicVector3D.h
 namespace Geometry {
 
@@ -157,7 +161,7 @@ import_array();
 #include "FitObject.h"
 #include "FitOptions.h"
 #include "FitParameter.h"
-    //#include "FitSuite.h"
+#include "FitSuite.h"
 #include "FitSuiteObjects.h"
 #include "FitSuiteParameters.h"
 #include "IChiSquaredModule.h"
@@ -207,7 +211,7 @@ import_array();
 %include "FitOptions.h"
 %include "FitParameter.h"
 
- //%include "FitSuite.h"
+%include "FitSuite.h"
 %include "FitSuiteObjects.h"
 %include "FitSuiteParameters.h"
 

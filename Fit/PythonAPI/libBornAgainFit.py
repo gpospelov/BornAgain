@@ -1554,7 +1554,7 @@ class IFitObserver(libBornAgainCore.IObserver):
 
     def update(self, fit_suite):
         """
-        update(IFitObserver self, FitSuite * fit_suite)
+        update(IFitObserver self, FitSuite fit_suite)
 
         void IFitObserver::update(FitSuite *fit_suite)
 
@@ -2766,6 +2766,430 @@ class FitParameter(libBornAgainCore.INamed, libBornAgainCore.AttLimits):
 
 FitParameter_swigregister = _libBornAgainFit.FitParameter_swigregister
 FitParameter_swigregister(FitParameter)
+
+class FitSuite(libBornAgainCore.IObservable):
+    """
+
+
+    Main class to setup and run GISAS fitting in BornAgain.
+
+    C++ includes: FitSuite.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [libBornAgainCore.IObservable]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FitSuite, name, value)
+    __swig_getmethods__ = {}
+    for _s in [libBornAgainCore.IObservable]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FitSuite, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """
+        __init__(FitSuite self) -> FitSuite
+
+        FitSuite::FitSuite()
+
+        """
+        this = _libBornAgainFit.new_FitSuite()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def addSimulationAndRealData(self, *args):
+        """
+        addSimulationAndRealData(FitSuite self, GISASSimulation const & simulation, OutputData< double > const & real_data, double weight=1)
+        addSimulationAndRealData(FitSuite self, GISASSimulation const & simulation, OutputData< double > const & real_data)
+        addSimulationAndRealData(FitSuite self, GISASSimulation const & simulation, IHistogram const & real_data, double weight=1)
+        addSimulationAndRealData(FitSuite self, GISASSimulation const & simulation, IHistogram const & real_data)
+
+        void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation, const IHistogram &real_data, double weight=1)
+
+        Assigns pair of (simulation, real data) for fitting. More than one pair can be added. 
+
+        """
+        return _libBornAgainFit.FitSuite_addSimulationAndRealData(self, *args)
+
+
+    def addFitParameter(self, *args):
+        """
+        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits attlim, double step=0.0)
+        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits attlim)
+        addFitParameter(FitSuite self, std::string const & name, double value)
+
+        void FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &attlim=AttLimits::limitless(), double step=0.0)
+
+        Adds fit parameter
+
+        Parameters:
+        -----------
+
+        name: 
+        The name of fit parameter
+
+        value: 
+        Parameter's starting value
+
+        attlim: 
+        Limits attribute
+
+        step: 
+        Initial parameter's step (some minimizers don't use it) 
+
+        """
+        return _libBornAgainFit.FitSuite_addFitParameter(self, *args)
+
+
+    def setChiSquaredModule(self, chi2_module):
+        """
+        setChiSquaredModule(FitSuite self, IChiSquaredModule chi2_module)
+
+        void FitSuite::setChiSquaredModule(const IChiSquaredModule &chi2_module)
+
+        Replaces default ChiSquaredModule with new one. 
+
+        """
+        return _libBornAgainFit.FitSuite_setChiSquaredModule(self, chi2_module)
+
+
+    def addFitStrategy(self, strategy):
+        """
+        addFitStrategy(FitSuite self, IFitStrategy strategy)
+
+        void FitSuite::addFitStrategy(const IFitStrategy &strategy)
+
+        Adds fit strategy. 
+
+        """
+        return _libBornAgainFit.FitSuite_addFitStrategy(self, strategy)
+
+
+    def setMinimizer(self, *args):
+        """
+        setMinimizer(FitSuite self, std::string const & minimizer_name, std::string const & algorithm_name, std::string const & minimizer_options)
+        setMinimizer(FitSuite self, std::string const & minimizer_name, std::string const & algorithm_name)
+        setMinimizer(FitSuite self, std::string const & minimizer_name)
+        setMinimizer(FitSuite self, IMinimizer minimizer)
+
+        void FitSuite::setMinimizer(IMinimizer *minimizer)
+
+        Sets minimizer. 
+
+        """
+        return _libBornAgainFit.FitSuite_setMinimizer(self, *args)
+
+
+    def getMinimizer(self):
+        """
+        getMinimizer(FitSuite self) -> IMinimizer
+
+        IMinimizer * FitSuite::getMinimizer()
+
+        Returns minimizer. 
+
+        """
+        return _libBornAgainFit.FitSuite_getMinimizer(self)
+
+
+    def initPrint(self, print_every_nth):
+        """
+        initPrint(FitSuite self, int print_every_nth)
+
+        void FitSuite::initPrint(int print_every_nth)
+
+        Initializes printing to standard output during the fitting. Prints also the summary when completed.
+
+        Parameters:
+        -----------
+
+        print_every_nth: 
+        Print every n'th iteration 
+
+        """
+        return _libBornAgainFit.FitSuite_initPrint(self, print_every_nth)
+
+
+    def fixAllParameters(self):
+        """
+        fixAllParameters(FitSuite self)
+
+        void FitSuite::fixAllParameters()
+
+        Set all parameters to fixed. 
+
+        """
+        return _libBornAgainFit.FitSuite_fixAllParameters(self)
+
+
+    def releaseAllParameters(self):
+        """
+        releaseAllParameters(FitSuite self)
+
+        void FitSuite::releaseAllParameters()
+
+        Set all parameters to released. 
+
+        """
+        return _libBornAgainFit.FitSuite_releaseAllParameters(self)
+
+
+    def setParametersFixed(self, pars, is_fixed):
+        """
+        setParametersFixed(FitSuite self, vector_string_t pars, bool is_fixed)
+
+        void FitSuite::setParametersFixed(const std::vector< std::string > &pars, bool is_fixed)
+
+        Set fixed flag for parameters from the list. 
+
+        """
+        return _libBornAgainFit.FitSuite_setParametersFixed(self, pars, is_fixed)
+
+
+    def runFit(self):
+        """
+        runFit(FitSuite self)
+
+        void FitSuite::runFit()
+
+        main method to run the fitting 
+
+        """
+        return _libBornAgainFit.FitSuite_runFit(self)
+
+
+    def getNumberOfFitObjects(self):
+        """
+        getNumberOfFitObjects(FitSuite self) -> int
+
+        int FitSuite::getNumberOfFitObjects() const
+
+        Returns number of fit objects, where fit object stands for (real, simulated) pair. 
+
+        """
+        return _libBornAgainFit.FitSuite_getNumberOfFitObjects(self)
+
+
+    def getRealData(self, i_item=0):
+        """
+        getRealData(FitSuite self, size_t i_item=0) -> IHistogram
+        getRealData(FitSuite self) -> IHistogram *
+
+        IHistogram * FitSuite::getRealData(size_t i_item=0) const
+
+        returns real data histogram
+
+        Parameters:
+        -----------
+
+        i_item: 
+        The index of fit object 
+
+        """
+        return _libBornAgainFit.FitSuite_getRealData(self, i_item)
+
+
+    def getSimulationData(self, i_item=0):
+        """
+        getSimulationData(FitSuite self, size_t i_item=0) -> IHistogram
+        getSimulationData(FitSuite self) -> IHistogram *
+
+        IHistogram * FitSuite::getSimulationData(size_t i_item=0) const
+
+        returns simulated data histogram
+
+        Parameters:
+        -----------
+
+        i_item: 
+        The index of fit object 
+
+        """
+        return _libBornAgainFit.FitSuite_getSimulationData(self, i_item)
+
+
+    def getChiSquaredMap(self, i_item=0):
+        """
+        getChiSquaredMap(FitSuite self, size_t i_item=0) -> IHistogram
+        getChiSquaredMap(FitSuite self) -> IHistogram *
+
+        IHistogram * FitSuite::getChiSquaredMap(size_t i_item=0) const
+
+        returns chi2 histogram calculated for (real, simulated) data pair
+
+        Parameters:
+        -----------
+
+        i_item: 
+        The index of fit object 
+
+        """
+        return _libBornAgainFit.FitSuite_getChiSquaredMap(self, i_item)
+
+
+    def getFitObjects(self):
+        """
+        getFitObjects(FitSuite self) -> FitSuiteObjects
+
+        FitSuiteObjects * FitSuite::getFitObjects()
+
+        returns  FitObject (pair of simulation/real data) 
+
+        """
+        return _libBornAgainFit.FitSuite_getFitObjects(self)
+
+
+    def getFitParameters(self):
+        """
+        getFitParameters(FitSuite self) -> FitSuiteParameters
+
+        FitSuiteParameters * FitSuite::getFitParameters()
+
+        Returns reference to fit parameters. 
+
+        """
+        return _libBornAgainFit.FitSuite_getFitParameters(self)
+
+
+    def getFitStrategies(self):
+        """
+        getFitStrategies(FitSuite self) -> FitSuiteStrategies *
+
+        FitSuiteStrategies * FitSuite::getFitStrategies()
+
+        Returns reference to fit parameters. 
+
+        """
+        return _libBornAgainFit.FitSuite_getFitStrategies(self)
+
+
+    def isLastIteration(self):
+        """
+        isLastIteration(FitSuite self) -> bool
+
+        bool FitSuite::isLastIteration() const
+
+        if the last iteration is done (used by observers to print summary) 
+
+        """
+        return _libBornAgainFit.FitSuite_isLastIteration(self)
+
+
+    def getNumberOfIterations(self):
+        """
+        getNumberOfIterations(FitSuite self) -> size_t
+
+        size_t FitSuite::getNumberOfIterations() const
+
+        Returns current number of minimization function calls. 
+
+        """
+        return _libBornAgainFit.FitSuite_getNumberOfIterations(self)
+
+
+    def getCurrentStrategyIndex(self):
+        """
+        getCurrentStrategyIndex(FitSuite self) -> size_t
+
+        size_t FitSuite::getCurrentStrategyIndex() const
+
+        Returns the number of current strategy. 
+
+        """
+        return _libBornAgainFit.FitSuite_getCurrentStrategyIndex(self)
+
+
+    def printResults(self):
+        """
+        printResults(FitSuite self)
+
+        void FitSuite::printResults() const 
+
+        """
+        return _libBornAgainFit.FitSuite_printResults(self)
+
+
+    def getChi2(self):
+        """
+        getChi2(FitSuite self) -> double
+
+        double FitSuite::getChi2() const
+
+        Returns minimum chi squared value found. 
+
+        """
+        return _libBornAgainFit.FitSuite_getChi2(self)
+
+
+    def interruptFitting(self):
+        """
+        interruptFitting(FitSuite self)
+
+        void FitSuite::interruptFitting()
+
+        """
+        return _libBornAgainFit.FitSuite_interruptFitting(self)
+
+
+    def resetInterrupt(self):
+        """
+        resetInterrupt(FitSuite self)
+
+        void FitSuite::resetInterrupt()
+
+        """
+        return _libBornAgainFit.FitSuite_resetInterrupt(self)
+
+
+    def isInterrupted(self):
+        """
+        isInterrupted(FitSuite self) -> bool
+
+        bool FitSuite::isInterrupted()
+
+        """
+        return _libBornAgainFit.FitSuite_isInterrupted(self)
+
+
+    def getRealOutputData(self, i_item=0):
+        """
+        getRealOutputData(FitSuite self, size_t i_item=0) -> OutputData< double > const
+        getRealOutputData(FitSuite self) -> OutputData< double > const *
+
+        const OutputData< double > * FitSuite::getRealOutputData(size_t i_item=0) const 
+
+        """
+        return _libBornAgainFit.FitSuite_getRealOutputData(self, i_item)
+
+
+    def getSimulationOutputData(self, i_item=0):
+        """
+        getSimulationOutputData(FitSuite self, size_t i_item=0) -> OutputData< double > const
+        getSimulationOutputData(FitSuite self) -> OutputData< double > const *
+
+        const OutputData< double > * FitSuite::getSimulationOutputData(size_t i_item=0) const 
+
+        """
+        return _libBornAgainFit.FitSuite_getSimulationOutputData(self, i_item)
+
+
+    def getChiSquaredOutputData(self, i_item=0):
+        """
+        getChiSquaredOutputData(FitSuite self, size_t i_item=0) -> OutputData< double > const
+        getChiSquaredOutputData(FitSuite self) -> OutputData< double > const *
+
+        const OutputData< double > * FitSuite::getChiSquaredOutputData(size_t i_item=0) const 
+
+        """
+        return _libBornAgainFit.FitSuite_getChiSquaredOutputData(self, i_item)
+
+    __swig_destroy__ = _libBornAgainFit.delete_FitSuite
+    __del__ = lambda self: None
+FitSuite_swigregister = _libBornAgainFit.FitSuite_swigregister
+FitSuite_swigregister(FitSuite)
 
 class FitSuiteObjects(libBornAgainCore.IParameterized):
     """

@@ -24,7 +24,7 @@ class BA_CORE_API_ PropertyItem : public ParameterizedItem
 public:
     PropertyItem();
 
-    bool setData(int column, const QVariant &data);
+//    bool setData(int column, const QVariant &data);
 };
 
 #endif

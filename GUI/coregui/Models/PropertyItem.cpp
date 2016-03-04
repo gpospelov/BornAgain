@@ -21,7 +21,7 @@ PropertyItem::PropertyItem()
 
 }
 
-bool PropertyItem::setData(int column, const QVariant &data)
+/*bool PropertyItem::setData(int column, const QVariant &data)
 {
     if (displayName() == ParameterizedItem::P_NAME) {
         if (data.toString().isEmpty())
@@ -36,4 +36,4 @@ bool PropertyItem::setData(int column, const QVariant &data)
         }
     }
     return ParameterizedItem::setData(column, data);
-}
+}*/

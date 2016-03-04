@@ -19,7 +19,6 @@
 #include "WinDllMacros.h"
 #include "OutputData.h"
 #include "ISampleBuilder.h"
-#include <boost/shared_ptr.hpp>
 
 class IFormFactor;
 class IFTDistribution2D;

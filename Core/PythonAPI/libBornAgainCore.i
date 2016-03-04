@@ -149,7 +149,6 @@ namespace Geometry {
 #define SWIG_FILE_WITH_INIT
 
 %{
-#include <boost/shared_ptr.hpp>
 #define SWIG_FILE_WITH_INIT
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 %}

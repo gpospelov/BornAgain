@@ -1534,7 +1534,11 @@ class IFitObserver(libBornAgainCore.IObserver):
         IFitObserver::IFitObserver(int update_every_nth)
 
         """
-        this = _libBornAgainFit.new_IFitObserver(update_every_nth)
+        if self.__class__ == IFitObserver:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_IFitObserver(_self, update_every_nth)
         try:
             self.this.append(this)
         except Exception:
@@ -1565,6 +1569,10 @@ class IFitObserver(libBornAgainCore.IObserver):
 
     __swig_destroy__ = _libBornAgainFit.delete_IFitObserver
     __del__ = lambda self: None
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_IFitObserver(self)
+        return weakref_proxy(self)
 IFitObserver_swigregister = _libBornAgainFit.IFitObserver_swigregister
 IFitObserver_swigregister(IFitObserver)
 

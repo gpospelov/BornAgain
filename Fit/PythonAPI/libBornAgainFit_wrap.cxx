@@ -3517,23 +3517,30 @@ namespace Swig {
 #define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[60]
 #define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[61]
 #define SWIGTYPE_p_std__invalid_argument swig_types[62]
-#define SWIGTYPE_p_std__string swig_types[63]
-#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t swig_types[64]
-#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator swig_types[65]
-#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__iterator swig_types[66]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[67]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[68]
-#define SWIGTYPE_p_std__vectorT_complex_t_std__allocatorT_complex_t_t_t swig_types[69]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[70]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[71]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[72]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[73]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[74]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[75]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[76]
-#define SWIGTYPE_p_value_type swig_types[77]
-static swig_type_info *swig_types[79];
-static swig_module_info swig_module = {swig_types, 78, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[63]
+#define SWIGTYPE_p_std__shared_ptrT_INamedShared_t swig_types[64]
+#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[65]
+#define SWIGTYPE_p_std__shared_ptrT_IParameterizedShared_t swig_types[66]
+#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[67]
+#define SWIGTYPE_p_std__shared_ptrT_LayerRTCoefficients_t_t swig_types[68]
+#define SWIGTYPE_p_std__shared_ptrT_ProgressHandler_t_t swig_types[69]
+#define SWIGTYPE_p_std__string swig_types[70]
+#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t swig_types[71]
+#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator swig_types[72]
+#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__iterator swig_types[73]
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[74]
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[75]
+#define SWIGTYPE_p_std__vectorT_complex_t_std__allocatorT_complex_t_t_t swig_types[76]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[77]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[78]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[79]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[80]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[81]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[82]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[83]
+#define SWIGTYPE_p_value_type swig_types[84]
+static swig_type_info *swig_types[86];
+static swig_module_info swig_module = {swig_types, 85, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -6146,6 +6153,19 @@ SWIGINTERN void std_vector_Sl_std_string_Sg__insert__SWIG_1(std::vector< std::st
 
 
 
+struct SWIG_null_deleter {
+  void operator() (void const *) const {
+  }
+};
+#define SWIG_NO_NULL_DELETER_0 , SWIG_null_deleter()
+#define SWIG_NO_NULL_DELETER_1
+#define SWIG_NO_NULL_DELETER_SWIG_POINTER_NEW
+#define SWIG_NO_NULL_DELETER_SWIG_POINTER_OWN
+
+
+#define SWIG_NO_NULL_DELETER_SWIG_BUILTIN_INIT
+
+
 SWIGINTERN int
 SWIG_AsVal_bool (PyObject *obj, bool *val)
 {
@@ -6166,6 +6186,62 @@ SWIG_AsVal_bool (PyObject *obj, bool *val)
  * --------------------------------------------------- */
 
 #include "libBornAgainFit_wrap.h"
+
+SwigDirector_IFitObserver::SwigDirector_IFitObserver(PyObject *self, int update_every_nth): IFitObserver(update_every_nth), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IFitObserver *)this, this); 
+}
+
+
+
+
+SwigDirector_IFitObserver::~SwigDirector_IFitObserver() {
+}
+
+void SwigDirector_IFitObserver::notify(IObservable *subject) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(subject), SWIGTYPE_p_IObservable,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFitObserver.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "notify";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"notify", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IFitObserver.notify'");
+    }
+  }
+}
+
+
+void SwigDirector_IFitObserver::update(FitSuite *fit_suite) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(fit_suite), SWIGTYPE_p_FitSuite,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFitObserver.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char * const swig_method_name = "update";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"update", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IFitObserver.update'");
+    }
+  }
+}
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -19023,20 +19099,32 @@ SWIGINTERN PyObject *IChiSquaredModule_swigregister(PyObject *SWIGUNUSEDPARM(sel
 
 SWIGINTERN PyObject *_wrap_new_IFitObserver(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  int arg1 ;
-  int val1 ;
-  int ecode1 = 0 ;
+  PyObject *arg1 = (PyObject *) 0 ;
+  int arg2 ;
+  int val2 ;
+  int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
   IFitObserver *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:new_IFitObserver",&obj0)) SWIG_fail;
-  ecode1 = SWIG_AsVal_int(obj0, &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_IFitObserver" "', argument " "1"" of type '" "int""'");
+  if (!PyArg_ParseTuple(args,(char *)"OO:new_IFitObserver",&obj0,&obj1)) SWIG_fail;
+  arg1 = obj0;
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_IFitObserver" "', argument " "2"" of type '" "int""'");
   } 
-  arg1 = static_cast< int >(val1);
-  result = (IFitObserver *)new IFitObserver(arg1);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFitObserver, SWIG_POINTER_NEW |  0 );
+  arg2 = static_cast< int >(val2);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IFitObserver *)new SwigDirector_IFitObserver(arg1,arg2); 
+  } else {
+    result = (IFitObserver *)new IFitObserver(arg2); 
+  }
+  
+  {
+    std::shared_ptr<  IFitObserver > *smartresult = result ? new std::shared_ptr<  IFitObserver >(result SWIG_NO_NULL_DELETER_SWIG_POINTER_NEW) : 0;
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(smartresult), SWIGTYPE_p_std__shared_ptrT_IFitObserver_t, SWIG_POINTER_NEW | SWIG_POINTER_OWN);
+  }
   return resultobj;
 fail:
   return NULL;
@@ -19049,23 +19137,47 @@ SWIGINTERN PyObject *_wrap_IFitObserver_notify(PyObject *SWIGUNUSEDPARM(self), P
   IObservable *arg2 = (IObservable *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  std::shared_ptr< IFitObserver > tempshared1 ;
+  std::shared_ptr< IFitObserver > *smartarg1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IFitObserver_notify",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IFitObserver, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFitObserver_notify" "', argument " "1"" of type '" "IFitObserver *""'"); 
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IFitObserver_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFitObserver_notify" "', argument " "1"" of type '" "IFitObserver *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr<  IFitObserver > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr<  IFitObserver > * >(argp1);
+      arg1 = const_cast< IFitObserver * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr<  IFitObserver > * >(argp1);
+      arg1 = const_cast< IFitObserver * >((smartarg1 ? smartarg1->get() : 0));
+    }
   }
-  arg1 = reinterpret_cast< IFitObserver * >(argp1);
   res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_IObservable, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IFitObserver_notify" "', argument " "2"" of type '" "IObservable *""'"); 
   }
   arg2 = reinterpret_cast< IObservable * >(argp2);
-  (arg1)->notify(arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->IFitObserver::notify(arg2);
+    } else {
+      (arg1)->notify(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -19079,23 +19191,47 @@ SWIGINTERN PyObject *_wrap_IFitObserver_update(PyObject *SWIGUNUSEDPARM(self), P
   FitSuite *arg2 = (FitSuite *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  std::shared_ptr< IFitObserver > tempshared1 ;
+  std::shared_ptr< IFitObserver > *smartarg1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IFitObserver_update",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IFitObserver, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFitObserver_update" "', argument " "1"" of type '" "IFitObserver *""'"); 
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IFitObserver_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFitObserver_update" "', argument " "1"" of type '" "IFitObserver *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr<  IFitObserver > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr<  IFitObserver > * >(argp1);
+      arg1 = const_cast< IFitObserver * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr<  IFitObserver > * >(argp1);
+      arg1 = const_cast< IFitObserver * >((smartarg1 ? smartarg1->get() : 0));
+    }
   }
-  arg1 = reinterpret_cast< IFitObserver * >(argp1);
   res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_FitSuite, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IFitObserver_update" "', argument " "2"" of type '" "FitSuite *""'"); 
   }
   arg2 = reinterpret_cast< FitSuite * >(argp2);
-  (arg1)->update(arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->IFitObserver::update(arg2);
+    } else {
+      (arg1)->update(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -19108,15 +19244,64 @@ SWIGINTERN PyObject *_wrap_delete_IFitObserver(PyObject *SWIGUNUSEDPARM(self), P
   IFitObserver *arg1 = (IFitObserver *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  std::shared_ptr< IFitObserver > tempshared1 ;
+  std::shared_ptr< IFitObserver > *smartarg1 = 0 ;
   PyObject * obj0 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:delete_IFitObserver",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IFitObserver, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IFitObserver" "', argument " "1"" of type '" "IFitObserver *""'"); 
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IFitObserver_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IFitObserver" "', argument " "1"" of type '" "IFitObserver *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr<  IFitObserver > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr<  IFitObserver > * >(argp1);
+      arg1 = const_cast< IFitObserver * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr<  IFitObserver > * >(argp1);
+      arg1 = const_cast< IFitObserver * >((smartarg1 ? smartarg1->get() : 0));
+    }
   }
-  arg1 = reinterpret_cast< IFitObserver * >(argp1);
-  delete arg1;
+  (void)arg1; delete smartarg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_IFitObserver(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IFitObserver *arg1 = (IFitObserver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::shared_ptr< IFitObserver > tempshared1 ;
+  std::shared_ptr< IFitObserver > *smartarg1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_IFitObserver",&obj0)) SWIG_fail;
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IFitObserver_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_IFitObserver" "', argument " "1"" of type '" "IFitObserver *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr<  IFitObserver > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr<  IFitObserver > * >(argp1);
+      arg1 = const_cast< IFitObserver * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr<  IFitObserver > * >(argp1);
+      arg1 = const_cast< IFitObserver * >((smartarg1 ? smartarg1->get() : 0));
+    }
+  }
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -19127,7 +19312,7 @@ fail:
 SWIGINTERN PyObject *IFitObserver_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_IFitObserver, SWIG_NewClientData(obj));
+  SWIG_TypeNewClientData(SWIGTYPE_p_std__shared_ptrT_IFitObserver_t, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
@@ -29992,7 +30177,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IChiSquaredModule_processFitElements", _wrap_IChiSquaredModule_processFitElements, METH_VARARGS, (char *)"IChiSquaredModule_processFitElements(IChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator arg3, std::vector< FitElement,std::allocator< FitElement > >::iterator arg4)"},
 	 { (char *)"IChiSquaredModule_swigregister", IChiSquaredModule_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_IFitObserver", _wrap_new_IFitObserver, METH_VARARGS, (char *)"\n"
-		"new_IFitObserver(int update_every_nth) -> IFitObserver\n"
+		"new_IFitObserver(PyObject * arg2, int update_every_nth) -> IFitObserver\n"
 		"\n"
 		"IFitObserver::IFitObserver(int update_every_nth)\n"
 		"\n"
@@ -30014,6 +30199,7 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { (char *)"delete_IFitObserver", _wrap_delete_IFitObserver, METH_VARARGS, (char *)"delete_IFitObserver(IFitObserver self)"},
+	 { (char *)"disown_IFitObserver", _wrap_disown_IFitObserver, METH_VARARGS, NULL},
 	 { (char *)"IFitObserver_swigregister", IFitObserver_swigregister, METH_VARARGS, NULL},
 	 { (char *)"IFitStrategy_clone", _wrap_IFitStrategy_clone, METH_VARARGS, (char *)"\n"
 		"IFitStrategy_clone(IFitStrategy self) -> IFitStrategy\n"
@@ -31305,6 +31491,10 @@ static void *_p_IntensityScaleAndShiftNormalizerTo_p_IntensityNormalizer(void *x
 static void *_p_ChiSquaredModuleTo_p_IChiSquaredModule(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IChiSquaredModule *)  ((ChiSquaredModule *) x));
 }
+static void *_p_std__shared_ptrT_IFitObserver_tTo_p_std__shared_ptrT_IObserver_t(void *x, int *newmemory) {
+    *newmemory = SWIG_CAST_NEW_MEMORY;
+    return (void *) new std::shared_ptr< IObserver >(*(std::shared_ptr< IFitObserver > *)x);
+}
 static void *_p_FitSuiteTo_p_IObservable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IObservable *)  ((FitSuite *) x));
 }
@@ -31449,6 +31639,13 @@ static swig_type_info _swigt__p_std__allocatorT_std__string_t = {"_p_std__alloca
 static swig_type_info _swigt__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t = {"_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t", "std::vector< std::vector< double > >::allocator_type *|std::allocator< std::vector< double,std::allocator< double > > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_unsigned_long_t = {"_p_std__allocatorT_unsigned_long_t", "std::vector< unsigned long >::allocator_type *|std::allocator< unsigned long > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argument", "std::invalid_argument *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__shared_ptrT_IFitObserver_t = {"_p_std__shared_ptrT_IFitObserver_t", "std::shared_ptr< IFitObserver > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__shared_ptrT_INamedShared_t = {"_p_std__shared_ptrT_INamedShared_t", "std::shared_ptr< INamedShared > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__shared_ptrT_IObserver_t = {"_p_std__shared_ptrT_IObserver_t", "std::shared_ptr< IObserver > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__shared_ptrT_IParameterizedShared_t = {"_p_std__shared_ptrT_IParameterizedShared_t", "std::shared_ptr< IParameterizedShared > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__shared_ptrT_ISampleBuilder_t = {"_p_std__shared_ptrT_ISampleBuilder_t", "std::shared_ptr< ISampleBuilder > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__shared_ptrT_LayerRTCoefficients_t_t = {"_p_std__shared_ptrT_LayerRTCoefficients_t_t", "std::shared_ptr< LayerRTCoefficients_t > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__shared_ptrT_ProgressHandler_t_t = {"_p_std__shared_ptrT_ProgressHandler_t_t", "std::shared_ptr< ProgressHandler_t > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__string = {"_p_std__string", "std::string *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t = {"_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t", "std::vector< FitElement,std::allocator< FitElement > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator = {"_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator", "std::vector< FitElement,std::allocator< FitElement > >::const_iterator *", 0, 0, (void*)0, 0};
@@ -31529,6 +31726,13 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t,
   &_swigt__p_std__allocatorT_unsigned_long_t,
   &_swigt__p_std__invalid_argument,
+  &_swigt__p_std__shared_ptrT_IFitObserver_t,
+  &_swigt__p_std__shared_ptrT_INamedShared_t,
+  &_swigt__p_std__shared_ptrT_IObserver_t,
+  &_swigt__p_std__shared_ptrT_IParameterizedShared_t,
+  &_swigt__p_std__shared_ptrT_ISampleBuilder_t,
+  &_swigt__p_std__shared_ptrT_LayerRTCoefficients_t_t,
+  &_swigt__p_std__shared_ptrT_ProgressHandler_t_t,
   &_swigt__p_std__string,
   &_swigt__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t,
   &_swigt__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator,
@@ -31609,6 +31813,13 @@ static swig_cast_info _swigc__p_std__allocatorT_std__string_t[] = {  {&_swigt__p
 static swig_cast_info _swigc__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t[] = {  {&_swigt__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_unsigned_long_t[] = {  {&_swigt__p_std__allocatorT_unsigned_long_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__invalid_argument, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__shared_ptrT_IFitObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IFitObserver_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__shared_ptrT_INamedShared_t[] = {  {&_swigt__p_std__shared_ptrT_INamedShared_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__shared_ptrT_IObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IObserver_t, 0, 0, 0},  {&_swigt__p_std__shared_ptrT_IFitObserver_t, _p_std__shared_ptrT_IFitObserver_tTo_p_std__shared_ptrT_IObserver_t, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__shared_ptrT_IParameterizedShared_t[] = {  {&_swigt__p_std__shared_ptrT_IParameterizedShared_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__shared_ptrT_ISampleBuilder_t[] = {  {&_swigt__p_std__shared_ptrT_ISampleBuilder_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__shared_ptrT_LayerRTCoefficients_t_t[] = {  {&_swigt__p_std__shared_ptrT_LayerRTCoefficients_t_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__shared_ptrT_ProgressHandler_t_t[] = {  {&_swigt__p_std__shared_ptrT_ProgressHandler_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__string[] = {  {&_swigt__p_std__string, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t[] = {  {&_swigt__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator[] = {  {&_swigt__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator, 0, 0, 0},{0, 0, 0, 0}};
@@ -31689,6 +31900,13 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t,
   _swigc__p_std__allocatorT_unsigned_long_t,
   _swigc__p_std__invalid_argument,
+  _swigc__p_std__shared_ptrT_IFitObserver_t,
+  _swigc__p_std__shared_ptrT_INamedShared_t,
+  _swigc__p_std__shared_ptrT_IObserver_t,
+  _swigc__p_std__shared_ptrT_IParameterizedShared_t,
+  _swigc__p_std__shared_ptrT_ISampleBuilder_t,
+  _swigc__p_std__shared_ptrT_LayerRTCoefficients_t_t,
+  _swigc__p_std__shared_ptrT_ProgressHandler_t_t,
   _swigc__p_std__string,
   _swigc__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t,
   _swigc__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator,

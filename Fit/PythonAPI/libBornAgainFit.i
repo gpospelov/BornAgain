@@ -41,6 +41,22 @@
  //%shared_ptr(INamed)
  //%template(SampleBuilder_t) boost::shared_ptr<ISampleBuilder>;
 
+
+%shared_ptr(ISampleBuilder)
+%shared_ptr(IParameterizedShared)
+%shared_ptr(INamedShared)
+%shared_ptr(LayerRTCoefficients_t)
+%shared_ptr(ProgressHandler_t)
+%shared_ptr(IObserver)
+%shared_ptr(IFitObserver)
+ //%shared_ptr(FitSuite)
+
+
+
+%feature("director") IObserver;
+%feature("director") IFitObserver;
+%feature("director") IObservable;
+
 // // from PythonCoreExposer.h
 %template(vdouble1d_t) std::vector<double>;
 %template(vdouble2d_t) std::vector< std::vector<double> >;
@@ -63,6 +79,11 @@
 // taken from dev-tools/python-bindings/settings_fit.py
 %ignore FitSuite::setOptions(const FitOptions&);
 %ignore FitSuite::getOptions();
+
+
+// fix smart pointer problem
+//%ignore IFitObserver::notify(IObservable*);
+//%ignore IFitObserver::update(FitSuite*);
 
 // // problems with BasicVector3D.h
 namespace Geometry {
@@ -223,4 +244,11 @@ import_array();
 %include "MinimizerOptions.h"
 
 
-
+ /*
+%extend IFitObserver {
+    void notify(std::shared_ptr<IObservable> subject)
+    {
+        ($self)->notify(subject.get());
+    }
+};
+/**/

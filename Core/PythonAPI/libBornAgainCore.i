@@ -77,6 +77,10 @@
 %shared_ptr(ISampleBuilder)
 %shared_ptr(IParameterizedShared)
 %shared_ptr(INamedShared)
+%shared_ptr(LayerRTCoefficients_t)
+%shared_ptr(ProgressHandler_t)
+%shared_ptr(IObserver)
+
 
 // from PythonCoreExposer.h
 %template(vdouble1d_t) std::vector<double>;

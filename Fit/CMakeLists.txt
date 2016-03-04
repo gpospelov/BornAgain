@@ -180,6 +180,7 @@ endif()
 # -----------------------------------------------
 install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
 install (FILES ${fitkernel_include_files} DESTINATION ${destination_include}  COMPONENT Headers)
+install (FILES ${CMAKE_BINARY_DIR}/lib/lib${library_name}.py DESTINATION ${destination_lib} COMPONENT Libraries) # required by SWIG
 
 if(WIN32)
     if(BORNAGAIN_PYTHON)

@@ -96,8 +96,6 @@ if(BORNAGAIN_PYTHON)
   list(APPEND source_files "PythonAPI/libBornAgainCore_wrap.cxx")
   #list(APPEND include_files "PythonAPI/libBornAgainCore_wrap.h")
   
-  # JMF: this should be done more carefully in the future
-  #
 
   # add_custom_target(
   #   ${library_name}_python
@@ -172,6 +170,7 @@ install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examp
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.png")
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/cpp DESTINATION ${destination_examples} COMPONENT Examples)
 install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
+install (FILES ${CMAKE_BINARY_DIR}/lib/lib${library_name}.py DESTINATION ${destination_lib} COMPONENT Libraries) # required by swig
 install (FILES ${core_include_files} DESTINATION ${destination_include} COMPONENT Headers)
 
 if(WIN32)

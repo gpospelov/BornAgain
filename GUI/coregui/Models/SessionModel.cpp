@@ -92,7 +92,10 @@ QVariant SessionModel::data(const QModelIndex &index, int role) const
     }
     if (ParameterizedItem *item = itemForIndex(index)) {
         if (role == Qt::DisplayRole || role == Qt::EditRole) {
-            return item->data(index.column());
+            if (index.column() == ITEM_VALUE)
+                return item->data(Qt::DisplayRole);
+            if (index.column() == ITEM_NAME)
+                return item->data(LabelRole);
         } else if (role == Qt::DecorationRole && m_iconProvider) {
             return m_iconProvider->icon(item->modelType());
         }

@@ -95,7 +95,7 @@ std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShel
 
 void ParticleCoreShellItem::notifyChildParticlePortChanged()
 {
-    QList<ParameterizedItem *> children = childItems();
+    QVector<ParameterizedItem *> children = childItems();
     int core_index = -1;
     int shell_index = -1;
     for (int i=0; i<children.size(); ++i) {
@@ -116,7 +116,7 @@ ParameterizedItem::PortInfo::EPorts ParticleCoreShellItem::getFirstAvailablePart
     // Also when no ports are available, return the first port (core particle will then be replaced)
     PortInfo::EPorts result = PortInfo::PORT_0;
     QList<PortInfo::EPorts> used_particle_ports;
-    QList<ParameterizedItem *> children = childItems();
+    QVector<ParameterizedItem *> children = childItems();
     for (auto item : children) {
         if (item->modelType() == Constants::ParticleType) {
             PortInfo::EPorts port = item->port();

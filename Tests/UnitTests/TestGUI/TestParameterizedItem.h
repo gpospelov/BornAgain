@@ -19,7 +19,7 @@ private slots:
 
 inline void TestParameterizedItem::test_registerProperty()
 {
-    ParameterizedItem item;
+    ParameterizedItem item("Modeltype");
     QString property_name("MyProperty");
     double value(1.0);
 //    QSignalSpy spy(&item, SIGNAL(propertyChanged(QString)));

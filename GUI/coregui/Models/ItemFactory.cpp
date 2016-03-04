@@ -215,7 +215,7 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
 
 ParameterizedItem *ItemFactory::createEmptyItem()
 {
-    ParameterizedItem *result = new ParameterizedItem();
+    ParameterizedItem *result = new ParameterizedItem("ROOT_ITEM");
     //result->setItemName("ROOT_ITEM");
     return result;
 }

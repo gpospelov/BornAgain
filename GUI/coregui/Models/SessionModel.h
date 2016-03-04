@@ -38,6 +38,8 @@ public:
 
     enum EColumn {ITEM_NAME, ITEM_VALUE, MAX_COLUMNS}; // NEW column usage
 
+    enum ERoles {ModelTypeRole = Qt::UserRole + 1, LabelRole}; // NEW roles
+
 //    // Begin overriden methods from QAbstractItemModel
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;
     virtual QVariant data(const QModelIndex &index, int role) const;

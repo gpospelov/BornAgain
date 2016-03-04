@@ -24,58 +24,303 @@
 #include <sstream>
 #include <QDebug>
 
+class SessionItemData
+{
+public:
+    inline SessionItemData() : role(-1) {}
+    inline SessionItemData(int r, const QVariant &v) : role(r), value(v) {}
+    int role;
+    QVariant value;
+    inline bool operator==(const SessionItemData &other) const {
+        return role == other.role && value == other.value;
+    }
+};
+
+class SessionTagInfo
+{
+public:
+    inline SessionTagInfo() : name(QString()), min(0), max(-1), childCount(0) {}
+    inline SessionTagInfo(QString n, int mi, int ma)
+        :name(n)
+        , min(mi)
+        , max(ma)
+        , childCount(0) {}
+    QString name;
+    int min;
+    int max;
+    int childCount;
+    inline bool isValid() { return !name.isEmpty(); }
+};
+
 const QString ParameterizedItem::P_NAME = "Name";
 
-ParameterizedItem::ParameterizedItem(QString model_type)
+ParameterizedItem::ParameterizedItem(QString modelType)
     : mp_parent(0)
     , m_model(0)
-    , m_data(QVector<QVariant>(SessionModel::MAX_COLUMNS))
-    , m_model_type(QString())
-    , m_port(PortInfo::DEFAULT)
+    , m_data(QVector<QVariant>(SessionModel::MAX_COLUMNS)) // TODO data vector ~> role vector
+    , m_model_type(modelType) // TODO model type ~ ModelTypeRole
+    , m_port(PortInfo::DEFAULT) // TODO ports ~> tags
+    , m_defaultTag(QString())
 {
-    // provide useful name in case of empty constructor
-    m_model_type = model_type.isEmpty() ? "ParameterizedItem" : model_type;
-    setDisplayName(m_model_type);
-    m_attribute.setVisible();
+    Q_ASSERT(!modelType.isEmpty());
+
+
+    setDisplayName(m_model_type); // TODO displayName ~> tag name
+
+    m_attribute.setVisible(); // TODO attributes ~> flags & roles
 }
 
+// internal
 ParameterizedItem::~ParameterizedItem()
 {
-    qDeleteAll(m_children);
+    QVector<ParameterizedItem*>::const_iterator it;
+    for (it = m_children.constBegin(); it != m_children.constEnd(); ++it) {
+        ParameterizedItem *child = *it;
+        if (child)
+            child->setModel(nullptr);
+        delete child;
+    }
+    m_children.clear();
+    if (mp_parent && m_model)
+        mp_parent->childDeleted(this);
 }
 
-QVariant ParameterizedItem::data(int column) const
+// internal
+void ParameterizedItem::childDeleted(ParameterizedItem *child)
 {
-    if (column == SessionModel::ITEM_NAME) {
+    int index = rowOfChild(child);
+    Q_ASSERT(index != -1);
+    m_children.replace(index, nullptr);
+}
+
+// internal
+void ParameterizedItem::setParentAndModel(ParameterizedItem *parent, SessionModel *model)
+{
+    setModel(model);
+    mp_parent = parent;
+}
+
+// internal
+void ParameterizedItem::setModel(SessionModel *model)
+{
+    m_model = model;
+    if (m_mapper) {
+        m_mapper->setItem(this);
+    }
+    // process children as well
+    for (auto &child : m_children) {
+        child->setModel(model);
+    }
+}
+
+// protected
+bool ParameterizedItem::registerTag(QString name, int min, int max)
+{
+    // max: -1 -> no limits
+    // min = max = 1 -> fixed
+    if (min < 0 || (min > max && max >= 0))
+        return false;
+    if (name.isEmpty() || getTagInfo(name).isValid())
+        return false;
+    m_tags.append(SessionTagInfo(name, min, max));
+    return true;
+}
+
+// protected
+SessionTagInfo ParameterizedItem::getTagInfo(const QString &name) const
+{
+    QVector<SessionTagInfo>::const_iterator it;
+    for (it = m_tags.constBegin(); it != m_tags.constEnd(); ++it) {
+        SessionTagInfo tagInfo = *it;
+        if (tagInfo.name == name)
+            return tagInfo;
+    }
+    return SessionTagInfo();
+}
+
+
+
+// internal
+bool ParameterizedItem::insertItemToTag(int row, ParameterizedItem *item, const QString &tag)
+{
+    SessionTagInfo tagInfo = getTagInfo(tag);
+    if (!tagInfo.isValid())
+        return false;
+    if (row < 0 || row > tagInfo.childCount)
+        return false;
+    if (tagInfo.max >= 0 && tagInfo.childCount == tagInfo.max)
+        return false;
+    int index = tagStartIndex(tag) + row;
+    Q_ASSERT(index <= m_children.size());
+    if (m_model)
+            m_model->beginInsertRows(this->index(),index, index+1);
+    if (item) {
+        if (item->parent() == nullptr) {
+            item->setParentAndModel(this, m_model);
+        } else {
+            qDebug() << "Double insertion of item";
+            return false;
+        }
+    }
+    m_children.insert(index, item);
+
+    QVector<SessionTagInfo>::iterator it;
+    for (it = m_tags.begin(); it != m_tags.end(); ++it) {
+        if (it->name == tag) {
+            it->childCount++;
+            break;
+        }
+    }
+
+    if (m_model)
+            m_model->endInsertRows();
+    return true;
+}
+
+ParameterizedItem *ParameterizedItem::takeItem(int row, const QString &tag)
+{
+    SessionTagInfo tagInfo = getTagInfo(tag);
+    if (!tagInfo.isValid())
+        return nullptr;
+    if (row < 0 || row >= tagInfo.childCount)
+        return nullptr;
+    if (tagInfo.childCount <= tagInfo.min)
+        return nullptr;
+    int index = tagStartIndex(tag) + row;
+    Q_ASSERT(index >= 0 && index <= m_children.size());
+    if (m_model)
+            m_model->beginRemoveRows(this->index(),index, index+1);
+    ParameterizedItem *result = m_children.takeAt(index);
+
+    QVector<SessionTagInfo>::iterator it;
+    for (it = m_tags.begin(); it != m_tags.end(); ++it) {
+        if (it->name == tag) {
+            it->childCount--;
+            break;
+        }
+    }
+
+    if (m_model)
+            m_model->endRemoveRows();
+    return result;
+}
+
+// internal
+int ParameterizedItem::tagStartIndex(const QString &name) const
+{
+    int index = 0;
+    QVector<SessionTagInfo>::const_iterator it;
+    for (it = m_tags.constBegin(); it != m_tags.constEnd(); ++it) {
+        SessionTagInfo tagInfo = *it;
+        if (tagInfo.name == name) {
+            return index;
+        } else {
+            index += tagInfo.childCount;
+        }
+    }
+    return -1;
+}
+
+ParameterizedItem *ParameterizedItem::getItem(QString tag, int index) const
+{
+    if (tag.isEmpty())
+        tag = m_defaultTag;
+    SessionTagInfo tagInfo = getTagInfo(tag);
+    if (!tagInfo.isValid())
+        return nullptr;
+    if (tagInfo.childCount == 0)
+        return nullptr;
+    if (index < 0 || index >= tagInfo.childCount)
+        return nullptr;
+    int acc_index = tagStartIndex(tag) + index;
+    Q_ASSERT(acc_index >= 0 && acc_index < m_children.size());
+    return m_children[acc_index];
+}
+
+QVector<ParameterizedItem *> ParameterizedItem::getItems(QString tag) const
+{
+    if (tag.isEmpty())
+        tag = m_defaultTag;
+    SessionTagInfo tagInfo = getTagInfo(tag);
+    if (!tagInfo.isValid())
+        return QVector<ParameterizedItem*>();
+    int index = tagStartIndex(tag);
+    Q_ASSERT(index >= 0 && index < m_children.size());
+    return m_children.mid(index, tagInfo.childCount);
+}
+
+
+
+QVariant ParameterizedItem::readUserRoles(int role) const
+{
+    if (role == SessionModel::ModelTypeRole)
+        return m_model_type;
+    else if (role == SessionModel::LabelRole) {
         if (isRegisteredProperty(P_NAME)) {
             return getRegisteredProperty(P_NAME);
         } else {
             return displayName();
         }
     }
-    if (column >= 0 && column < m_data.size()) {
-        return m_data[column];
-    }
+
     return QVariant();
 }
 
-bool ParameterizedItem::setData(int column, const QVariant &data)
+bool ParameterizedItem::canWriteUserRole(int role) const
 {
-    if (column < 0 || column >= m_data.size())
+    if (role == SessionModel::ModelTypeRole || role == SessionModel::LabelRole)
         return false;
 
-    if (column == SessionModel::ITEM_NAME) {
-        return false; // names can not be changed, use setItemName instead
-    }
-
-    m_data[column] = data;
-
-    // inform model about the change
-    if (m_model) {
-        emitValueChanged();
-    }
     return true;
 }
+
+
+
+QVariant ParameterizedItem::data(int role) const
+{
+    QVariant output = readUserRoles(role);
+    role = (role == Qt::EditRole) ? Qt::DisplayRole : role;
+    if (!output.isValid()) {
+        QVector<SessionItemData>::const_iterator it;
+        for (it = m_values.begin(); it != m_values.end(); ++it) {
+            if ((*it).role == role)
+                return (*it).value;
+        }
+    }
+    return output;
+}
+
+bool ParameterizedItem::setData(int role, const QVariant &value)
+{
+    if (!canWriteUserRole(role))
+        return false;
+    role = (role == Qt::EditRole) ? Qt::DisplayRole : role;
+    QVector<SessionItemData>::iterator it;
+    for (it = m_values.begin(); it != m_values.end(); ++it) {
+        if ((*it).role == role) {
+            if (value.isValid()) {
+                if ((*it).value.type() == value.type() && (*it).value == value)
+                    return true;
+                (*it).value = value;
+            } else {
+                m_values.erase(it);
+            }
+            if (m_model)
+                emitValueChanged(QVector<int>() << role);
+            return true;
+        }
+    }
+    m_values.append(SessionItemData(role, value));
+    if (m_model)
+        emitValueChanged(QVector<int>() << role);
+
+    return true;
+
+}
+
+
+
+// TODO : refactor following code
 
 bool ParameterizedItem::hasData(int column)
 {
@@ -93,17 +338,17 @@ void ParameterizedItem::emitValueChanged(QVector<int> roles)
 
 QVariant ParameterizedItem::value() const
 {
-    return data(SessionModel::ITEM_VALUE);
+    return data(Qt::DisplayRole);
 }
 
 bool ParameterizedItem::setValue(QVariant value)
 {
-    return setData(SessionModel::ITEM_VALUE, value);
+    return setData(Qt::DisplayRole, value);
 }
 
 QString ParameterizedItem::itemName() const
 {
-    return data(SessionModel::ITEM_NAME).toString();
+    return data(SessionModel::LabelRole).toString();
 }
 
 void ParameterizedItem::setItemName(const QString &name)
@@ -144,18 +389,6 @@ QString ParameterizedItem::modelType() const
 QString ParameterizedItem::itemLabel() const
 {
     return QString("");
-}
-
-void ParameterizedItem::setModel(SessionModel *model)
-{
-    m_model = model;
-    if (m_mapper) {
-        m_mapper->setItem(this);
-    }
-    // process children as well
-    for (auto &child : m_children) {
-        child->setModel(model);
-    }
 }
 
 SessionModel *ParameterizedItem::model() const
@@ -219,7 +452,7 @@ bool ParameterizedItem::hasChildItems() const
     return !m_children.isEmpty();
 }
 
-QList<ParameterizedItem *> ParameterizedItem::childItems() const
+QVector<ParameterizedItem *> ParameterizedItem::childItems() const
 {
     return m_children;
 }
@@ -571,7 +804,7 @@ void ParameterizedItem::addToValidChildren(const QString &name, PortInfo::EPorts
 void ParameterizedItem::swapChildren(int /* first */, int /* second */)
 {
     // FIXME
-//    m_children.swap(first, second);
+    //    m_children.swap(first, second);
 }
 
 int ParameterizedItem::getCopyNumberOfChild(const ParameterizedItem *p_item) const

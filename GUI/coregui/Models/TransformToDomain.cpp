@@ -434,7 +434,7 @@ void TransformToDomain::setPositionInfo(IParticle *result, const ParameterizedIt
 
 void TransformToDomain::setRotationInfo(IParticle *result, const ParameterizedItem &item)
 {
-    QList<ParameterizedItem *> children = item.childItems();
+    QVector<ParameterizedItem *> children = item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::TransformationType) {
             RotationItem *rot_item = dynamic_cast<RotationItem *>(

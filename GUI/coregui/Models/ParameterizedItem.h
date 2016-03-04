@@ -29,26 +29,42 @@
 
 class SessionModel;
 
+
+class SessionItemData;
+class SessionTagInfo;
+
+
 class BA_CORE_API_ ParameterizedItem : public QObject
 {
     Q_OBJECT
+    friend class SessionModel;
 
 public:
     //! create new parameterized item and set model type
-    explicit ParameterizedItem(QString model_type = QString());
+    explicit ParameterizedItem(QString modelType = QString());
 
     //! delete me and children
     virtual ~ParameterizedItem();
+
+    ParameterizedItem *getItem(QString tag = QString(), int index = 0) const;
+
+    QVector<ParameterizedItem *> getItems(QString tag = QString()) const;
+
+    bool insertItemToTag(int row, ParameterizedItem *item, const QString &tag);
+
+    ParameterizedItem *takeItem(int row, const QString &tag);
+
+    bool registerTag(QString name, int min = 0, int max = -1);
 
 
     // data manipulation
 
     //! retrieve data of given column, return invalid qvariant when out of range
-    QVariant data(int column) const;
+    QVariant data(int role) const;
 
     //! set data in the given column, return true when successful, notify model if present
     //! we only support one role
-    virtual bool setData(int column, const QVariant &data);
+    virtual bool setData(int role, const QVariant &value);
 
     //! return variant stored in data column
     QVariant value() const;
@@ -87,9 +103,6 @@ public:
 
 
     // members
-
-    //! set model of item and children
-    void setModel(SessionModel *model);
 
     SessionModel *model() const;
 
@@ -142,7 +155,7 @@ public:
     bool hasChildItems() const;
 
     //! returns the a list of child items
-    QList<ParameterizedItem *> childItems() const;
+    QVector<ParameterizedItem *> childItems() const;
 
     //! Returns a pointer to the first child of the given type
     ParameterizedItem *getChildOfType(const QString &type) const;
@@ -246,11 +259,31 @@ protected:
     //! use this to enforce a specific order when this matters
     void swapChildren(int first, int second);
 
+    SessionTagInfo getTagInfo(const QString &name) const;
+
 
 private:
     //! used for display name to get the index of the item
     int getCopyNumberOfChild(const ParameterizedItem *p_item) const;
 
+
+    //! called to set child to nullptr
+    void childDeleted(ParameterizedItem *child);
+
+
+    //! simple setter
+    void setParentAndModel(ParameterizedItem *parent, SessionModel *model);
+
+
+    //! set model of item and children
+    void setModel(SessionModel *model);
+
+
+    int tagStartIndex(const QString &name) const;
+
+    QVariant readUserRoles(int role) const;
+
+    bool canWriteUserRole(int role) const;
 
     ParameterizedItem *mp_parent;
     SessionModel *m_model;
@@ -258,14 +291,17 @@ private:
     QString m_model_type;
     QString m_display_name;
     PortInfo::EPorts m_port;
-    QList<ParameterizedItem *> m_children;
+    QVector<ParameterizedItem *> m_children;
     QMap<QString, ParameterizedItem *> m_propertyItems;
 //    QMap<QString, PropertyAttribute> m_property_attribute;
     QList<QString> m_valid_children;
     QMap<int, PortInfo> m_port_info;
     std::unique_ptr<ModelMapper> m_mapper;
+    QVector<SessionItemData> m_values;
+    QVector<SessionTagInfo> m_tags;
 
     PropertyAttribute m_attribute;
+    QString m_defaultTag;
 
 
 

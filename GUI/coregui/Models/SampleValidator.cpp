@@ -72,7 +72,7 @@ QString SampleValidator::validateParticleLayoutItem(ParameterizedItem *item)
 {
     QString result;
     bool particles_found(false);
-    QList<ParameterizedItem *> children = item->childItems();
+    QVector<ParameterizedItem *> children = item->childItems();
     for (int i=0; i<children.size(); ++i) {
         if (children[i]->modelType() == Constants::ParticleType
             || children[i]->modelType() == Constants::ParticleCoreShellType
@@ -91,7 +91,7 @@ QString SampleValidator::validateParticleCoreShellItem(ParameterizedItem *item)
 {
     QString result;
     int number_of_subparticles = 0;
-    QList<ParameterizedItem*> children = item->childItems();
+    QVector<ParameterizedItem*> children = item->childItems();
     for (int i=0; i<children.size(); ++i) {
         if (children[i]->modelType()==Constants::ParticleType) {
             number_of_subparticles++;

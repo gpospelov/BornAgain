@@ -68,7 +68,7 @@ std::unique_ptr<ParticleComposition> ParticleCompositionItem::createParticleComp
     double abundance = getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
     auto P_composition = GUIHelpers::make_unique<ParticleComposition>();
     P_composition->setAbundance(abundance);
-    QList<ParameterizedItem *> children = childItems();
+    QVector<ParameterizedItem *> children = childItems();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::ParticleType) {
             auto *particle_item = static_cast<ParticleItem*>(children[i]);

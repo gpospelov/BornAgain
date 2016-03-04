@@ -139,7 +139,7 @@ target_link_libraries(
 )
 
 if(BORNAGAIN_PYTHON)
-    include_directories(${PYTHON_INCLUDE_DIRS})
+    include_directories(${PYTHON_INCLUDE_DIRS} ${NUMPY_INCLUDE_DIR})
     target_link_libraries(${library_name} ${PYTHON_LIBRARIES})
 endif()
 

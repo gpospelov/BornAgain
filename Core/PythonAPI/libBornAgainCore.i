@@ -102,6 +102,12 @@
 %ignore Instrument::setDetectorResolutionFunction(const IResolutionFunction2D*);
 
 
+// used to return numpy array
+/*
+%ignore Histogram1D::getBinCenters() const;
+%ignore Histogram1D::getBinValues() const;
+%ignore Histogram1D::getBinErrors() const;
+*/
 // need to fix SWIG error, PI2 multiply defined
 %ignore Units::PI2;
 
@@ -641,3 +647,24 @@ namespace Geometry {
   }
   };
 */
+
+
+// used to return numpy array
+/*
+%extend Histogram1D {
+    PyObject* getBinCenters() const
+    {
+        return ($self)->getBinCentersNumpy();
+    }
+
+    PyObject* getBinValues() const
+    {
+        return ($self)->getBinValuesNumpy();
+    }
+    
+    PyObject* getBinErrors() const
+    {
+        return ($self)->getBinErrorsNumpy();
+    }
+}
+/**/

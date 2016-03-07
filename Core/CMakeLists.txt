@@ -68,6 +68,9 @@ if(BORNAGAIN_PYTHON)
       OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.cxx
       COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.i
       COMMAND sed -i "'s/_libBornAgainCore.ICloneable_transferToCPP(self)/self.__disown__()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
+      COMMAND sed -i "'s/_libBornAgainCore.Histogram1D_getBinCenters(self)/self.getBinCentersNumpy()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
+      COMMAND sed -i "'s/_libBornAgainCore.Histogram1D_getBinErrors(self)/self.getBinErrorsNumpy()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
+      COMMAND sed -i "'s/_libBornAgainCore.Histogram1D_getBinValues(self)/self.getBinValuesNumpy()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
       DEPENDS PythonAPI/libBornAgainCore.i ${include_files} PythonAPI/doxygen.i
       )
 

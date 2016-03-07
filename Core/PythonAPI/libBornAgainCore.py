@@ -14891,7 +14891,7 @@ class Histogram1D(IHistogram):
         returns vector of histogram bin centers 
 
         """
-        return _libBornAgainCore.Histogram1D_getBinCenters(self)
+        return self.getBinCentersNumpy()
 
 
     def getBinValues(self):
@@ -14903,7 +14903,7 @@ class Histogram1D(IHistogram):
         returns vector of bin content (the value accumulated by bins) 
 
         """
-        return _libBornAgainCore.Histogram1D_getBinValues(self)
+        return self.getBinValuesNumpy()
 
 
     def getBinErrors(self):
@@ -14915,7 +14915,7 @@ class Histogram1D(IHistogram):
         returns vector of bin errors 
 
         """
-        return _libBornAgainCore.Histogram1D_getBinErrors(self)
+        return self.getBinErrorsNumpy()
 
 
     def getBinCentersNumpy(self):

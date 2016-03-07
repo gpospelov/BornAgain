@@ -22,7 +22,7 @@
 #include "JobQueueData.h"
 #include "InstrumentView.h"
 #include "SimulationView.h"
-#include "MaterialEditorWidget.h"
+#include "MaterialEditorDialog.h"
 #include "stylehelper.h"
 #include "JobModel.h"
 #include "MaterialModel.h"

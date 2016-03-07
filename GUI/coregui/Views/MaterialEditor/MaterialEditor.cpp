@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "MaterialEditor.h"
-#include "MaterialEditorWidget.h"
+#include "MaterialEditorDialog.h"
 #include "MaterialModel.h"
 #include "MaterialItem.h"
 #include "MaterialUtils.h"
@@ -52,7 +52,7 @@ MaterialProperty MaterialEditor::selectMaterialProperty()
 MaterialProperty MaterialEditor::this_selectMaterialProperty()
 {
     qDebug() << "MaterialEditor::this_getMaterialProperty()";
-    MaterialEditorWidget widget(m_materialModel);
+    MaterialEditorDialog widget(m_materialModel);
     if(widget.exec() == QDialog::Accepted) {
         return widget.getSelectedMaterialProperty();
     }

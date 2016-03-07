@@ -35,6 +35,7 @@ private:
     MainWindow *m_mainWindow;
     void addModelToTabs(QTabWidget *tabs, QAbstractItemModel *model);
     void test_sessionModel();
+    void test_MaterialEditor();
 };
 
 

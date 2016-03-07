@@ -19,6 +19,7 @@
 #include "mainwindow.h"
 #include "FitParameterWidget.h"
 #include "JobModel.h"
+#include "MaterialEditorWidget.h"
 #include <QMimeData>
 #include <QVBoxLayout>
 #include <AccordionWidget.h>
@@ -57,7 +58,8 @@ TestView::TestView(MainWindow *mainWindow)
 //    test_MaskEditor();
 //    test_AccordionWidget();
 //    test_RunFitWidget();
-    test_sessionModel();
+//    test_sessionModel();
+    test_MaterialEditor();
 }
 
 void TestView::test_sessionModel()
@@ -86,6 +88,16 @@ void TestView::test_sessionModel()
     layout->setMargin(0);
     layout->setSpacing(0);
     layout->addWidget(tabs);
+    setLayout(layout);
+}
+
+void TestView::test_MaterialEditor()
+{
+    MaterialEditorWidget *materialEditor = new MaterialEditorWidget(m_mainWindow->getMaterialModel());
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    layout->addWidget(materialEditor);
     setLayout(layout);
 }
 

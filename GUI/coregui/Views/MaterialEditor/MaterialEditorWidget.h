@@ -16,48 +16,38 @@
 #ifndef MATERIALEDITORWIDGET_H
 #define MATERIALEDITORWIDGET_H
 
-#include <QDialog>
-
-#include "MaterialProperty.h"
 #include "WinDllMacros.h"
-
+#include <QWidget>
 
 class MaterialModel;
-class MaterialPropertyBrowser;
-class QStatusBar;
-class QToolBar;
+class MaterialEditorToolBar;
+class QSplitter;
+class QListView;
+class ComponentEditor;
+class QItemSelection;
 
 //! Main widget of MaterialEditor
-class BA_CORE_API_ MaterialEditorWidget : public QDialog
+class BA_CORE_API_ MaterialEditorWidget : public QWidget
 {
     Q_OBJECT
 
 public:
+    MaterialEditorWidget(MaterialModel *materialModel, QWidget *parent = 0);
 
-    explicit MaterialEditorWidget(MaterialModel *materialModel, QWidget *parent = 0);
-    virtual ~MaterialEditorWidget(){}
 
-    void setModel(MaterialModel *materialModel);
-
-    MaterialProperty getSelectedMaterialProperty();
-
-public slots:
-    void addMaterial();
-    void removeMaterial();
-    void showMessage(const QString &message);
-    void onSelectButton();
-    void onCancelButton();
+private slots:
+    void onSelectionChanged(const QItemSelection &selected, const QItemSelection&);
 
 private:
-    void setupActions();
+    void init_views();
 
     MaterialModel *m_materialModel;
-    MaterialPropertyBrowser *m_propertyBrowser;
-    QStatusBar *m_statusBar;
-    QToolBar *m_toolBar;
-    static int m_IndexOfUnnamed;
+    MaterialEditorToolBar *m_toolBar;
+    QSplitter *m_splitter;
+    QListView *m_listView;
+    ComponentEditor *m_componentEditor;
 };
 
 
-
 #endif
+

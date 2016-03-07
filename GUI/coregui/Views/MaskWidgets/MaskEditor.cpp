@@ -43,7 +43,7 @@ MaskEditor::MaskEditor(QWidget *parent)
     , m_editorCanvas(new MaskEditorCanvas(this))
     , m_splitter(new QSplitter(this))
 {
-    setObjectName(QStringLiteral("IntensityDataPlotWidget"));
+    setObjectName(QStringLiteral("MaskEditor"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     m_splitter->addWidget(m_editorCanvas);

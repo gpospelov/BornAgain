@@ -14,143 +14,71 @@
 // ************************************************************************** //
 
 #include "MaterialEditorWidget.h"
-#include "MaterialPropertyBrowser.h"
+#include "MaterialEditorToolBar.h"
+#include "ComponentEditor.h"
 #include "MaterialModel.h"
-#include "MaterialUtils.h"
-#include <QStyle>
-#include <QStatusBar>
-#include <QToolBar>
+#include <QListView>
+#include <QSplitter>
 #include <QVBoxLayout>
-#include <QPushButton>
-#include <QAction>
-#include <QDebug>
-#include <QtTreePropertyBrowser>
-
-
-int MaterialEditorWidget::m_IndexOfUnnamed = 0;
 
 MaterialEditorWidget::MaterialEditorWidget(MaterialModel *materialModel, QWidget *parent)
-    : QDialog(parent)
+    : QWidget(parent)
     , m_materialModel(materialModel)
-    , m_propertyBrowser(new MaterialPropertyBrowser(materialModel, this))
-    , m_statusBar(0)
-    , m_toolBar(0)
+    , m_toolBar(new MaterialEditorToolBar(this))
+    , m_splitter(new QSplitter)
+    , m_listView(new QListView)
+    , m_componentEditor(new ComponentEditor)
 {
-    setWindowTitle("Material Editor");
+    setWindowTitle("MaterialEditorWidget");
     setMinimumSize(128, 128);
     resize(512, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    m_toolBar = new QToolBar;
-    m_toolBar->setFixedHeight(28);
-    m_toolBar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
-    m_toolBar->setIconSize(QSize(size, size));
-    m_toolBar->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setContentsMargins(0,0,0,0);
 
-    m_statusBar = new QStatusBar;
+    m_splitter->addWidget(m_listView);
+    m_splitter->addWidget(m_componentEditor);
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->setMargin(0);
-    layout->setSpacing(0);
     layout->addWidget(m_toolBar);
-    layout->addWidget(m_propertyBrowser);
-
-    QPushButton *selectButton = new QPushButton(tr("Select"));
-    connect(selectButton, SIGNAL(clicked()), this, SLOT(onSelectButton()));
-    QPushButton *cancelButton = new QPushButton(tr("Cancel"));
-    connect(cancelButton, SIGNAL(clicked()), this, SLOT(onCancelButton()));
-
-    QHBoxLayout *buttonsLayout = new QHBoxLayout;
-    buttonsLayout->setMargin(10);
-    buttonsLayout->setSpacing(5);
-
-    buttonsLayout->addStretch(1);
-    buttonsLayout->addWidget(selectButton);
-    buttonsLayout->addWidget(cancelButton);
-
-    layout->addLayout(buttonsLayout);
-    layout->addWidget(m_statusBar);
+    layout->addWidget(m_splitter);
 
     setLayout(layout);
 
-    setupActions();
+    init_views();
 }
 
-
-void MaterialEditorWidget::setModel(MaterialModel *materialModel)
+void MaterialEditorWidget::onSelectionChanged(const QItemSelection &selected,
+                                              const QItemSelection &)
 {
-    Q_ASSERT(materialModel);
-    if(materialModel != m_materialModel) {
-        m_materialModel = materialModel;
-        m_propertyBrowser->setModel(materialModel);
-    }
+    QModelIndexList indices = selected.indexes();
 
-}
-
-
-void MaterialEditorWidget::showMessage(const QString &message)
-{
-    m_statusBar->showMessage(message, 4000);
-}
-
-
-void MaterialEditorWidget::onSelectButton()
-{
-    if(m_propertyBrowser->getSelectedMaterial()) {
-        accept();
+    if(indices.isEmpty()) {
+        m_componentEditor->setItem(0);
     } else {
-        showMessage("Please select material");
+        if(SessionItem *item = m_materialModel->itemForIndex(indices.at(0))) {
+            m_componentEditor->setItem(item);
+        }
     }
 }
 
 
-void MaterialEditorWidget::onCancelButton()
+void MaterialEditorWidget::init_views()
 {
-    reject();
+    m_listView->setModel(m_materialModel);
+    m_listView->setViewMode(QListView::IconMode);
+    m_listView->setIconSize(QSize(96, 84));
+    m_listView->setMovement(QListView::Static);
+    m_listView->setMaximumWidth(200);
+    m_listView->setSpacing(12);
+
+
+
+    connect(m_listView->selectionModel(),
+            SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&)),
+            this,
+            SLOT( onSelectionChanged(const QItemSelection&, const QItemSelection&)),
+            Qt::UniqueConnection
+    );
+
 }
-
-
-
-void MaterialEditorWidget::setupActions()
-{
-    QAction *addMaterialAction = new QAction(QIcon(":/SampleDesigner/images/card--plus.png"), tr("Add material"), this);
-    connect(addMaterialAction, SIGNAL(triggered()), this, SLOT(addMaterial()));
-    m_toolBar->addAction(addMaterialAction);
-
-    QAction *removeMaterialAction = new QAction(QIcon(":/SampleDesigner/images/card--minus.png"), tr("Remove selected material"), this);
-    connect(removeMaterialAction, SIGNAL(triggered()), this, SLOT(removeMaterial()));
-    m_toolBar->addAction(removeMaterialAction);
-}
-
-
-void MaterialEditorWidget::addMaterial()
-{
-    qDebug() << "MaterialEditorWidget::addMaterial() -> ";
-    QString name = QString("unnamed%1").arg(m_IndexOfUnnamed);
-    m_materialModel->addMaterial(name);
-    m_IndexOfUnnamed++;
-}
-
-
-void MaterialEditorWidget::removeMaterial()
-{
-    qDebug() << "MaterialEditorWidget::removeMaterial() -> ";
-    MaterialItem *material = m_propertyBrowser->getSelectedMaterial();
-    if(material) {
-        m_materialModel->removeMaterial(material);
-    } else {
-        showMessage("Select material to remove");
-    }
-}
-
-
-MaterialProperty MaterialEditorWidget::getSelectedMaterialProperty()
-{
-    MaterialItem *material = m_propertyBrowser->getSelectedMaterial();
-    if(material)
-        return MaterialProperty(material->getIdentifier());
-
-    return MaterialProperty();
-}
-

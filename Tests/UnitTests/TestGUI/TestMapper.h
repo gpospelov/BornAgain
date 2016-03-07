@@ -9,6 +9,7 @@
 #include "ParticleCompositionItem.h"
 #include "ParticleDistributionItem.h"
 #include "InterferenceFunctionItems.h"
+#include "ParticleLayoutItem.h"
 #include "DetectorItems.h"
 #include "ComboProperty.h"
 #include <memory>
@@ -40,8 +41,9 @@ inline void TestMapper::test_ParticeleCompositionUpdate()
     ParameterizedItem *composition = model.insertNewItem(Constants::ParticleCompositionType, distribution->index());
     QVERIFY(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == false);
 
-    model.removeRows(composition->index().row(), 1, composition->parent()->index());
+    composition = distribution->takeChildItem(composition->childNumber());
     QVERIFY(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
+    delete composition;
 
 }
 
@@ -52,7 +54,8 @@ inline void TestMapper::test_Inference2DRotationAngleToggle()
     ParameterizedItem *layer = model.insertNewItem(Constants::LayerType, multilayer->index());
     ParameterizedItem *layout = model.insertNewItem(Constants::ParticleLayoutType, layer->index());
 
-    ParameterizedItem *inference = model.insertNewItem(Constants::InterferenceFunction2DParaCrystalType, layout->index());
+    ParameterizedItem *inference = model.insertNewItem(Constants::InterferenceFunction2DParaCrystalType,
+                                                       layout->index(), -1, ParticleLayoutItem::T_INTERFERENCE);
 
     // rotation (xi) should be disabled if integration is on
     inference->setRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, true);

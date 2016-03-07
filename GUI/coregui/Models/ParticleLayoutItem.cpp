@@ -21,7 +21,7 @@
 const QString ParticleLayoutItem::P_APPROX = "Approximation";
 const QString ParticleLayoutItem::P_TOTAL_DENSITY = "Total particle density";
 const QString ParticleLayoutItem::T_PARTICLES = "Particle Tag";
-const QString ParticleLayoutItem::T_TRANSFORMATION = "Transformation Tag";
+const QString ParticleLayoutItem::T_INTERFERENCE = "Interference Tag";
 
 ParticleLayoutItem::ParticleLayoutItem()
     : ParameterizedGraphicsItem(Constants::ParticleLayoutType)
@@ -34,7 +34,7 @@ ParticleLayoutItem::ParticleLayoutItem()
     registerTag(T_PARTICLES, 0, -1, QStringList() << Constants::ParticleType << Constants::ParticleCoreShellType
                 << Constants::ParticleCompositionType << Constants::ParticleDistributionType);
     setDefaultTag(T_PARTICLES);
-    registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::InterferenceFunctionRadialParaCrystalType
+    registerTag(T_INTERFERENCE, 0, 1, QStringList() << Constants::InterferenceFunctionRadialParaCrystalType
                 << Constants::InterferenceFunction2DParaCrystalType << Constants::InterferenceFunction1DLatticeType
                 << Constants::InterferenceFunction2DLatticeType);
 

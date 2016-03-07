@@ -278,7 +278,7 @@ QModelIndex SessionModel::indexOfItem(ParameterizedItem *item) const
 }
 
 ParameterizedItem *SessionModel::insertNewItem(QString model_type, const QModelIndex &parent,
-                                               int row, const QString tag)
+                                               int row, QString tag)
 {
 //    if (!m_root_item) {
 //        m_root_item = ItemFactory::createEmptyItem();
@@ -292,7 +292,11 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type, const QModelI
     if (row > parent_item->childItemCount())
         return nullptr;
     if (parent_item != m_root_item) {
-        if (!parent_item->acceptsAsChild(model_type)) {
+        if (tag.isEmpty())
+            tag = parent_item->defaultTag();
+        SessionTagInfo tagInfo = parent_item->getTagInfo(tag);
+
+        if (!tagInfo.modelTypes.contains(model_type)) {
             qDebug() << "Child of type " << model_type << " not acceptable!\n";
             return nullptr;
         }

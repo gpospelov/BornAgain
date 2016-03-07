@@ -25,7 +25,7 @@ public:
     static const QString P_APPROX;
     static const QString P_TOTAL_DENSITY;
     static const QString T_PARTICLES;
-    static const QString T_TRANSFORMATION;
+    static const QString T_INTERFERENCE;
     explicit ParticleLayoutItem();
     virtual ~ParticleLayoutItem();
 };

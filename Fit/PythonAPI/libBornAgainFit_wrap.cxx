@@ -3517,30 +3517,31 @@ namespace Swig {
 #define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[60]
 #define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[61]
 #define SWIGTYPE_p_std__invalid_argument swig_types[62]
-#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[63]
-#define SWIGTYPE_p_std__shared_ptrT_INamedShared_t swig_types[64]
-#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[65]
-#define SWIGTYPE_p_std__shared_ptrT_IParameterizedShared_t swig_types[66]
-#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[67]
-#define SWIGTYPE_p_std__shared_ptrT_LayerRTCoefficients_t_t swig_types[68]
-#define SWIGTYPE_p_std__shared_ptrT_ProgressHandler_t_t swig_types[69]
-#define SWIGTYPE_p_std__string swig_types[70]
-#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t swig_types[71]
-#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator swig_types[72]
-#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__iterator swig_types[73]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[74]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[75]
-#define SWIGTYPE_p_std__vectorT_complex_t_std__allocatorT_complex_t_t_t swig_types[76]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[77]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[78]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[79]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[80]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[81]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[82]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[83]
-#define SWIGTYPE_p_value_type swig_types[84]
-static swig_type_info *swig_types[86];
-static swig_module_info swig_module = {swig_types, 85, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__ostream swig_types[63]
+#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[64]
+#define SWIGTYPE_p_std__shared_ptrT_INamedShared_t swig_types[65]
+#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[66]
+#define SWIGTYPE_p_std__shared_ptrT_IParameterizedShared_t swig_types[67]
+#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[68]
+#define SWIGTYPE_p_std__shared_ptrT_LayerRTCoefficients_t_t swig_types[69]
+#define SWIGTYPE_p_std__shared_ptrT_ProgressHandler_t_t swig_types[70]
+#define SWIGTYPE_p_std__string swig_types[71]
+#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t swig_types[72]
+#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator swig_types[73]
+#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__iterator swig_types[74]
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[75]
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[76]
+#define SWIGTYPE_p_std__vectorT_complex_t_std__allocatorT_complex_t_t_t swig_types[77]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[78]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[79]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[80]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[81]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[82]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[83]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[84]
+#define SWIGTYPE_p_value_type swig_types[85]
+static swig_type_info *swig_types[87];
+static swig_module_info swig_module = {swig_types, 86, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -6179,6 +6180,12 @@ SWIG_AsVal_bool (PyObject *obj, bool *val)
   return SWIG_OK;
 }
 
+SWIGINTERN FitParameter const *FitSuiteParameters___getitem____SWIG_0(FitSuiteParameters const *self,std::string name){
+        return (*(self))[name];
+    }
+SWIGINTERN FitParameter const *FitSuiteParameters___getitem____SWIG_1(FitSuiteParameters const *self,size_t index){
+        return (*(self))[index];
+    }
 
 
 /* ---------------------------------------------------
@@ -6186,6 +6193,247 @@ SWIG_AsVal_bool (PyObject *obj, bool *val)
  * --------------------------------------------------- */
 
 #include "libBornAgainFit_wrap.h"
+
+SwigDirector_IChiSquaredModule::SwigDirector_IChiSquaredModule(PyObject *self): IChiSquaredModule(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IChiSquaredModule *)this, this); 
+}
+
+
+
+
+SwigDirector_IChiSquaredModule::SwigDirector_IChiSquaredModule(PyObject *self, IChiSquaredModule const &other): IChiSquaredModule(other), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IChiSquaredModule *)this, this); 
+}
+
+
+
+
+SwigDirector_IChiSquaredModule::~SwigDirector_IChiSquaredModule() {
+}
+
+IChiSquaredModule *SwigDirector_IChiSquaredModule::clone() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  IChiSquaredModule *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IChiSquaredModule.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "clone";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "clone", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IChiSquaredModule.clone'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_IChiSquaredModule,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""IChiSquaredModule *""'");
+  }
+  c_result = reinterpret_cast< IChiSquaredModule * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (IChiSquaredModule *) c_result;
+}
+
+
+void SwigDirector_IChiSquaredModule::transferToCPP() {
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IChiSquaredModule.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char * const swig_method_name = "transferToCPP";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "transferToCPP", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IChiSquaredModule.transferToCPP'");
+    }
+  }
+}
+
+
+IIntensityNormalizer const *SwigDirector_IChiSquaredModule::getIntensityNormalizer() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  IIntensityNormalizer *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IChiSquaredModule.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "getIntensityNormalizer";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "getIntensityNormalizer", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IChiSquaredModule.getIntensityNormalizer'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_IIntensityNormalizer,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""IIntensityNormalizer const *""'");
+  }
+  c_result = reinterpret_cast< IIntensityNormalizer * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (IIntensityNormalizer const *) c_result;
+}
+
+
+IIntensityNormalizer *SwigDirector_IChiSquaredModule::getIntensityNormalizer() {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  IIntensityNormalizer *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IChiSquaredModule.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 3;
+  const char * const swig_method_name = "getIntensityNormalizer";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "getIntensityNormalizer", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IChiSquaredModule.getIntensityNormalizer'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_IIntensityNormalizer,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""IIntensityNormalizer *""'");
+  }
+  c_result = reinterpret_cast< IIntensityNormalizer * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (IIntensityNormalizer *) c_result;
+}
+
+
+void SwigDirector_IChiSquaredModule::setIntensityNormalizer(IIntensityNormalizer const &data_normalizer) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&data_normalizer), SWIGTYPE_p_IIntensityNormalizer,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IChiSquaredModule.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 4;
+  const char * const swig_method_name = "setIntensityNormalizer";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"setIntensityNormalizer", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IChiSquaredModule.setIntensityNormalizer'");
+    }
+  }
+}
+
+
+IIntensityFunction const *SwigDirector_IChiSquaredModule::getIntensityFunction() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  IIntensityFunction *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IChiSquaredModule.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 5;
+  const char * const swig_method_name = "getIntensityFunction";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "getIntensityFunction", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IChiSquaredModule.getIntensityFunction'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_IIntensityFunction,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""IIntensityFunction const *""'");
+  }
+  c_result = reinterpret_cast< IIntensityFunction * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (IIntensityFunction const *) c_result;
+}
+
+
+void SwigDirector_IChiSquaredModule::setIntensityFunction(IIntensityFunction const &intensity_function) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&intensity_function), SWIGTYPE_p_IIntensityFunction,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IChiSquaredModule.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 6;
+  const char * const swig_method_name = "setIntensityFunction";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"setIntensityFunction", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IChiSquaredModule.setIntensityFunction'");
+    }
+  }
+}
+
+
+void SwigDirector_IChiSquaredModule::processFitElements(std::vector< FitElement,std::allocator< FitElement > >::iterator arg0, std::vector< FitElement,std::allocator< FitElement > >::iterator arg1) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&arg0), SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__iterator,  0 );
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_NewPointerObj(SWIG_as_voidptr(&arg1), SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__iterator,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IChiSquaredModule.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 7;
+  const char * const swig_method_name = "processFitElements";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"processFitElements", (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IChiSquaredModule.processFitElements'");
+    }
+  }
+}
+
 
 SwigDirector_IFitObserver::SwigDirector_IFitObserver(PyObject *self, int update_every_nth): IFitObserver(update_every_nth), Swig::Director(self) {
   SWIG_DIRECTOR_RGTR((IFitObserver *)this, this); 
@@ -6242,6 +6490,2993 @@ void SwigDirector_IFitObserver::update(FitSuite *fit_suite) {
   }
 }
 
+
+SwigDirector_IFitStrategy::SwigDirector_IFitStrategy(PyObject *self): IFitStrategy(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IFitStrategy *)this, this); 
+}
+
+
+
+
+SwigDirector_IFitStrategy::SwigDirector_IFitStrategy(PyObject *self, std::string const &name): IFitStrategy(name), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IFitStrategy *)this, this); 
+}
+
+
+
+
+SwigDirector_IFitStrategy::SwigDirector_IFitStrategy(PyObject *self, IFitStrategy const &other): IFitStrategy(other), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IFitStrategy *)this, this); 
+}
+
+
+
+
+SwigDirector_IFitStrategy::~SwigDirector_IFitStrategy() {
+}
+
+IFitStrategy *SwigDirector_IFitStrategy::clone() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  IFitStrategy *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFitStrategy.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "clone";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "clone", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IFitStrategy.clone'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_IFitStrategy,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""IFitStrategy *""'");
+  }
+  c_result = reinterpret_cast< IFitStrategy * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (IFitStrategy *) c_result;
+}
+
+
+void SwigDirector_IFitStrategy::init(FitKernel *fit_suite) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(fit_suite), SWIGTYPE_p_FitKernel,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFitStrategy.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char * const swig_method_name = "init";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"init", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IFitStrategy.init'");
+    }
+  }
+}
+
+
+void SwigDirector_IFitStrategy::execute() {
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFitStrategy.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "execute";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "execute", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IFitStrategy.execute'");
+    }
+  }
+}
+
+
+void SwigDirector_IFitStrategy::print(std::ostream &ostr) const {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&ostr), SWIGTYPE_p_std__ostream,  0 );
+  swig_set_inner("print", true);
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFitStrategy.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 3;
+  const char * const swig_method_name = "_print";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"_print", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  swig_set_inner("print", false);
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IFitStrategy._print'");
+    }
+  }
+}
+
+
+SwigDirector_FitStrategyDefault::SwigDirector_FitStrategyDefault(PyObject *self): FitStrategyDefault(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((FitStrategyDefault *)this, this); 
+}
+
+
+
+
+SwigDirector_FitStrategyDefault::~SwigDirector_FitStrategyDefault() {
+}
+
+IFitStrategy *SwigDirector_FitStrategyDefault::clone() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  IFitStrategy *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitStrategyDefault.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "clone";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "clone", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'FitStrategyDefault.clone'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_IFitStrategy,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""IFitStrategy *""'");
+  }
+  c_result = reinterpret_cast< IFitStrategy * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (IFitStrategy *) c_result;
+}
+
+
+void SwigDirector_FitStrategyDefault::init(FitKernel *fit_suite) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(fit_suite), SWIGTYPE_p_FitKernel,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitStrategyDefault.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char * const swig_method_name = "init";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"init", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'FitStrategyDefault.init'");
+    }
+  }
+}
+
+
+void SwigDirector_FitStrategyDefault::execute() {
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitStrategyDefault.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "execute";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "execute", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'FitStrategyDefault.execute'");
+    }
+  }
+}
+
+
+void SwigDirector_FitStrategyDefault::print(std::ostream &ostr) const {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&ostr), SWIGTYPE_p_std__ostream,  0 );
+  swig_set_inner("print", true);
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitStrategyDefault.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 3;
+  const char * const swig_method_name = "_print";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"_print", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  swig_set_inner("print", false);
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'FitStrategyDefault._print'");
+    }
+  }
+}
+
+
+SwigDirector_IIntensityFunction::SwigDirector_IIntensityFunction(PyObject *self): IIntensityFunction(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IIntensityFunction *)this, this); 
+}
+
+
+
+
+SwigDirector_IIntensityFunction::~SwigDirector_IIntensityFunction() {
+}
+
+IIntensityFunction *SwigDirector_IIntensityFunction::clone() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  IIntensityFunction *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IIntensityFunction.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "clone";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "clone", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IIntensityFunction.clone'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_IIntensityFunction,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""IIntensityFunction *""'");
+  }
+  c_result = reinterpret_cast< IIntensityFunction * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (IIntensityFunction *) c_result;
+}
+
+
+double SwigDirector_IIntensityFunction::evaluate(double value) const {
+  double c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(value));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IIntensityFunction.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char * const swig_method_name = "evaluate";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"evaluate", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IIntensityFunction.evaluate'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+SwigDirector_IntensityFunctionLog::SwigDirector_IntensityFunctionLog(PyObject *self): IntensityFunctionLog(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IntensityFunctionLog *)this, this); 
+}
+
+
+
+
+SwigDirector_IntensityFunctionLog::~SwigDirector_IntensityFunctionLog() {
+}
+
+IntensityFunctionLog *SwigDirector_IntensityFunctionLog::clone() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  IntensityFunctionLog *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IntensityFunctionLog.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "clone";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "clone", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IntensityFunctionLog.clone'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_IntensityFunctionLog,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""IntensityFunctionLog *""'");
+  }
+  c_result = reinterpret_cast< IntensityFunctionLog * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (IntensityFunctionLog *) c_result;
+}
+
+
+double SwigDirector_IntensityFunctionLog::evaluate(double value) const {
+  double c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(value));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IntensityFunctionLog.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char * const swig_method_name = "evaluate";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"evaluate", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IntensityFunctionLog.evaluate'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+SwigDirector_IntensityFunctionSqrt::SwigDirector_IntensityFunctionSqrt(PyObject *self): IntensityFunctionSqrt(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IntensityFunctionSqrt *)this, this); 
+}
+
+
+
+
+SwigDirector_IntensityFunctionSqrt::~SwigDirector_IntensityFunctionSqrt() {
+}
+
+IntensityFunctionSqrt *SwigDirector_IntensityFunctionSqrt::clone() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  IntensityFunctionSqrt *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IntensityFunctionSqrt.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "clone";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "clone", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IntensityFunctionSqrt.clone'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_IntensityFunctionSqrt,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""IntensityFunctionSqrt *""'");
+  }
+  c_result = reinterpret_cast< IntensityFunctionSqrt * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (IntensityFunctionSqrt *) c_result;
+}
+
+
+double SwigDirector_IntensityFunctionSqrt::evaluate(double value) const {
+  double c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(value));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IntensityFunctionSqrt.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char * const swig_method_name = "evaluate";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"evaluate", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IntensityFunctionSqrt.evaluate'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+SwigDirector_IIntensityNormalizer::SwigDirector_IIntensityNormalizer(PyObject *self): IIntensityNormalizer(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IIntensityNormalizer *)this, this); 
+}
+
+
+
+
+SwigDirector_IIntensityNormalizer::~SwigDirector_IIntensityNormalizer() {
+}
+
+std::string SwigDirector_IIntensityNormalizer::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number) const {
+  std::string c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_std_string(static_cast< std::string >(path));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_NewPointerObj(SWIG_as_voidptr(external_pool), SWIGTYPE_p_ParameterPool,  0 );
+  swig::SwigVar_PyObject obj2;
+  obj2 = SWIG_From_int(static_cast< int >(copy_number));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IIntensityNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "addParametersToExternalPool";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OOO)" ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"addParametersToExternalPool", (char *)"(OOO)" ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IIntensityNormalizer.addParametersToExternalPool'");
+    }
+  }
+  std::string *swig_optr = 0;
+  int swig_ores = SWIG_AsPtr_std_string(result, &swig_optr);
+  if (!SWIG_IsOK(swig_ores) || !swig_optr) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError((swig_optr ? swig_ores : SWIG_TypeError))), "in output value of type '""std::string""'");
+  }
+  c_result = *swig_optr;
+  if (SWIG_IsNewObj(swig_ores)) delete swig_optr;
+  return (std::string) c_result;
+}
+
+
+void SwigDirector_IIntensityNormalizer::print(std::ostream &ostr) const {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&ostr), SWIGTYPE_p_std__ostream,  0 );
+  swig_set_inner("print", true);
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IIntensityNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "_print";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"_print", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  swig_set_inner("print", false);
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IIntensityNormalizer._print'");
+    }
+  }
+}
+
+
+void SwigDirector_IIntensityNormalizer::init_parameters() {
+  swig_set_inner("init_parameters", true);
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IIntensityNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 3;
+  const char * const swig_method_name = "init_parameters";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "init_parameters", NULL);
+#endif
+  swig_set_inner("init_parameters", false);
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IIntensityNormalizer.init_parameters'");
+    }
+  }
+}
+
+
+IIntensityNormalizer *SwigDirector_IIntensityNormalizer::clone() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  IIntensityNormalizer *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IIntensityNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 4;
+  const char * const swig_method_name = "clone";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "clone", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IIntensityNormalizer.clone'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_IIntensityNormalizer,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""IIntensityNormalizer *""'");
+  }
+  c_result = reinterpret_cast< IIntensityNormalizer * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (IIntensityNormalizer *) c_result;
+}
+
+
+OutputData< double > *SwigDirector_IIntensityNormalizer::createNormalizedData(OutputData< double > const &data) const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  OutputData< double > *c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&data), SWIGTYPE_p_OutputDataT_double_t,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IIntensityNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 5;
+  const char * const swig_method_name = "createNormalizedData";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"createNormalizedData", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IIntensityNormalizer.createNormalizedData'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_OutputDataT_double_t,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""OutputData< double > *""'");
+  }
+  c_result = reinterpret_cast< OutputData< double > * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (OutputData< double > *) c_result;
+}
+
+
+void SwigDirector_IIntensityNormalizer::apply(OutputData< double > &data) const {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&data), SWIGTYPE_p_OutputDataT_double_t,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IIntensityNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 6;
+  const char * const swig_method_name = "apply";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"apply", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IIntensityNormalizer.apply'");
+    }
+  }
+}
+
+
+void SwigDirector_IIntensityNormalizer::setMaximumIntensity(double arg0) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(arg0));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IIntensityNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 7;
+  const char * const swig_method_name = "setMaximumIntensity";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"setMaximumIntensity", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IIntensityNormalizer.setMaximumIntensity'");
+    }
+  }
+}
+
+
+SwigDirector_IntensityNormalizer::SwigDirector_IntensityNormalizer(PyObject *self, double scale, double shift): IntensityNormalizer(scale, shift), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IntensityNormalizer *)this, this); 
+}
+
+
+
+
+SwigDirector_IntensityNormalizer::~SwigDirector_IntensityNormalizer() {
+}
+
+std::string SwigDirector_IntensityNormalizer::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number) const {
+  std::string c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_std_string(static_cast< std::string >(path));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_NewPointerObj(SWIG_as_voidptr(external_pool), SWIGTYPE_p_ParameterPool,  0 );
+  swig::SwigVar_PyObject obj2;
+  obj2 = SWIG_From_int(static_cast< int >(copy_number));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IntensityNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "addParametersToExternalPool";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OOO)" ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"addParametersToExternalPool", (char *)"(OOO)" ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IntensityNormalizer.addParametersToExternalPool'");
+    }
+  }
+  std::string *swig_optr = 0;
+  int swig_ores = SWIG_AsPtr_std_string(result, &swig_optr);
+  if (!SWIG_IsOK(swig_ores) || !swig_optr) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError((swig_optr ? swig_ores : SWIG_TypeError))), "in output value of type '""std::string""'");
+  }
+  c_result = *swig_optr;
+  if (SWIG_IsNewObj(swig_ores)) delete swig_optr;
+  return (std::string) c_result;
+}
+
+
+void SwigDirector_IntensityNormalizer::print(std::ostream &ostr) const {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&ostr), SWIGTYPE_p_std__ostream,  0 );
+  swig_set_inner("print", true);
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IntensityNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "_print";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"_print", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  swig_set_inner("print", false);
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IntensityNormalizer._print'");
+    }
+  }
+}
+
+
+void SwigDirector_IntensityNormalizer::init_parameters() {
+  swig_set_inner("init_parameters", true);
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IntensityNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 3;
+  const char * const swig_method_name = "init_parameters";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "init_parameters", NULL);
+#endif
+  swig_set_inner("init_parameters", false);
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IntensityNormalizer.init_parameters'");
+    }
+  }
+}
+
+
+IntensityNormalizer *SwigDirector_IntensityNormalizer::clone() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  IntensityNormalizer *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IntensityNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 4;
+  const char * const swig_method_name = "clone";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "clone", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IntensityNormalizer.clone'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_IntensityNormalizer,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""IntensityNormalizer *""'");
+  }
+  c_result = reinterpret_cast< IntensityNormalizer * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (IntensityNormalizer *) c_result;
+}
+
+
+OutputData< double > *SwigDirector_IntensityNormalizer::createNormalizedData(OutputData< double > const &data) const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  OutputData< double > *c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&data), SWIGTYPE_p_OutputDataT_double_t,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IntensityNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 5;
+  const char * const swig_method_name = "createNormalizedData";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"createNormalizedData", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IntensityNormalizer.createNormalizedData'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_OutputDataT_double_t,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""OutputData< double > *""'");
+  }
+  c_result = reinterpret_cast< OutputData< double > * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (OutputData< double > *) c_result;
+}
+
+
+void SwigDirector_IntensityNormalizer::apply(OutputData< double > &data) const {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&data), SWIGTYPE_p_OutputDataT_double_t,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IntensityNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 6;
+  const char * const swig_method_name = "apply";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"apply", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IntensityNormalizer.apply'");
+    }
+  }
+}
+
+
+void SwigDirector_IntensityNormalizer::setMaximumIntensity(double max_intensity) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(max_intensity));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IntensityNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 7;
+  const char * const swig_method_name = "setMaximumIntensity";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"setMaximumIntensity", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IntensityNormalizer.setMaximumIntensity'");
+    }
+  }
+}
+
+
+SwigDirector_IntensityScaleAndShiftNormalizer::SwigDirector_IntensityScaleAndShiftNormalizer(PyObject *self, double scale, double shift): IntensityScaleAndShiftNormalizer(scale, shift), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IntensityScaleAndShiftNormalizer *)this, this); 
+}
+
+
+
+
+SwigDirector_IntensityScaleAndShiftNormalizer::~SwigDirector_IntensityScaleAndShiftNormalizer() {
+}
+
+std::string SwigDirector_IntensityScaleAndShiftNormalizer::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number) const {
+  std::string c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_std_string(static_cast< std::string >(path));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_NewPointerObj(SWIG_as_voidptr(external_pool), SWIGTYPE_p_ParameterPool,  0 );
+  swig::SwigVar_PyObject obj2;
+  obj2 = SWIG_From_int(static_cast< int >(copy_number));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IntensityScaleAndShiftNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "addParametersToExternalPool";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OOO)" ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"addParametersToExternalPool", (char *)"(OOO)" ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IntensityScaleAndShiftNormalizer.addParametersToExternalPool'");
+    }
+  }
+  std::string *swig_optr = 0;
+  int swig_ores = SWIG_AsPtr_std_string(result, &swig_optr);
+  if (!SWIG_IsOK(swig_ores) || !swig_optr) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError((swig_optr ? swig_ores : SWIG_TypeError))), "in output value of type '""std::string""'");
+  }
+  c_result = *swig_optr;
+  if (SWIG_IsNewObj(swig_ores)) delete swig_optr;
+  return (std::string) c_result;
+}
+
+
+void SwigDirector_IntensityScaleAndShiftNormalizer::print(std::ostream &ostr) const {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&ostr), SWIGTYPE_p_std__ostream,  0 );
+  swig_set_inner("print", true);
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IntensityScaleAndShiftNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "_print";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"_print", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  swig_set_inner("print", false);
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IntensityScaleAndShiftNormalizer._print'");
+    }
+  }
+}
+
+
+void SwigDirector_IntensityScaleAndShiftNormalizer::init_parameters() {
+  swig_set_inner("init_parameters", true);
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IntensityScaleAndShiftNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 3;
+  const char * const swig_method_name = "init_parameters";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "init_parameters", NULL);
+#endif
+  swig_set_inner("init_parameters", false);
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IntensityScaleAndShiftNormalizer.init_parameters'");
+    }
+  }
+}
+
+
+IntensityScaleAndShiftNormalizer *SwigDirector_IntensityScaleAndShiftNormalizer::clone() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  IntensityScaleAndShiftNormalizer *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IntensityScaleAndShiftNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 4;
+  const char * const swig_method_name = "clone";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "clone", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IntensityScaleAndShiftNormalizer.clone'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_IntensityScaleAndShiftNormalizer,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""IntensityScaleAndShiftNormalizer *""'");
+  }
+  c_result = reinterpret_cast< IntensityScaleAndShiftNormalizer * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (IntensityScaleAndShiftNormalizer *) c_result;
+}
+
+
+OutputData< double > *SwigDirector_IntensityScaleAndShiftNormalizer::createNormalizedData(OutputData< double > const &data) const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  OutputData< double > *c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&data), SWIGTYPE_p_OutputDataT_double_t,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IntensityScaleAndShiftNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 5;
+  const char * const swig_method_name = "createNormalizedData";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"createNormalizedData", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IntensityScaleAndShiftNormalizer.createNormalizedData'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_OutputDataT_double_t,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""OutputData< double > *""'");
+  }
+  c_result = reinterpret_cast< OutputData< double > * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (OutputData< double > *) c_result;
+}
+
+
+void SwigDirector_IntensityScaleAndShiftNormalizer::apply(OutputData< double > &data) const {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&data), SWIGTYPE_p_OutputDataT_double_t,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IntensityScaleAndShiftNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 6;
+  const char * const swig_method_name = "apply";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"apply", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IntensityScaleAndShiftNormalizer.apply'");
+    }
+  }
+}
+
+
+void SwigDirector_IntensityScaleAndShiftNormalizer::setMaximumIntensity(double max_intensity) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(max_intensity));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IntensityScaleAndShiftNormalizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 7;
+  const char * const swig_method_name = "setMaximumIntensity";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"setMaximumIntensity", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IntensityScaleAndShiftNormalizer.setMaximumIntensity'");
+    }
+  }
+}
+
+
+SwigDirector_ISquaredFunction::SwigDirector_ISquaredFunction(PyObject *self): ISquaredFunction(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((ISquaredFunction *)this, this); 
+}
+
+
+
+
+SwigDirector_ISquaredFunction::~SwigDirector_ISquaredFunction() {
+}
+
+ISquaredFunction *SwigDirector_ISquaredFunction::clone() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  ISquaredFunction *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call ISquaredFunction.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "clone";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "clone", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'ISquaredFunction.clone'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_ISquaredFunction,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""ISquaredFunction *""'");
+  }
+  c_result = reinterpret_cast< ISquaredFunction * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (ISquaredFunction *) c_result;
+}
+
+
+double SwigDirector_ISquaredFunction::calculateSquaredDifference(double real_value, double simulated_value) const {
+  double c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(real_value));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_From_double(static_cast< double >(simulated_value));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call ISquaredFunction.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char * const swig_method_name = "calculateSquaredDifference";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"calculateSquaredDifference", (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'ISquaredFunction.calculateSquaredDifference'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+double SwigDirector_ISquaredFunction::calculateSquaredError(double real_value, double simulated_value) const {
+  double c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(real_value));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_From_double(static_cast< double >(simulated_value));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call ISquaredFunction.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "calculateSquaredError";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"calculateSquaredError", (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'ISquaredFunction.calculateSquaredError'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+SwigDirector_SquaredFunctionDefault::SwigDirector_SquaredFunctionDefault(PyObject *self): SquaredFunctionDefault(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((SquaredFunctionDefault *)this, this); 
+}
+
+
+
+
+SwigDirector_SquaredFunctionDefault::~SwigDirector_SquaredFunctionDefault() {
+}
+
+SquaredFunctionDefault *SwigDirector_SquaredFunctionDefault::clone() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  SquaredFunctionDefault *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call SquaredFunctionDefault.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "clone";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "clone", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'SquaredFunctionDefault.clone'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_SquaredFunctionDefault,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""SquaredFunctionDefault *""'");
+  }
+  c_result = reinterpret_cast< SquaredFunctionDefault * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (SquaredFunctionDefault *) c_result;
+}
+
+
+double SwigDirector_SquaredFunctionDefault::calculateSquaredDifference(double real_value, double simulated_value) const {
+  double c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(real_value));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_From_double(static_cast< double >(simulated_value));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call SquaredFunctionDefault.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char * const swig_method_name = "calculateSquaredDifference";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"calculateSquaredDifference", (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'SquaredFunctionDefault.calculateSquaredDifference'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+double SwigDirector_SquaredFunctionDefault::calculateSquaredError(double real_value, double simulated_value) const {
+  double c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(real_value));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_From_double(static_cast< double >(simulated_value));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call SquaredFunctionDefault.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "calculateSquaredError";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"calculateSquaredError", (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'SquaredFunctionDefault.calculateSquaredError'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+SwigDirector_SquaredFunctionSimError::SwigDirector_SquaredFunctionSimError(PyObject *self): SquaredFunctionSimError(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((SquaredFunctionSimError *)this, this); 
+}
+
+
+
+
+SwigDirector_SquaredFunctionSimError::~SwigDirector_SquaredFunctionSimError() {
+}
+
+SquaredFunctionSimError *SwigDirector_SquaredFunctionSimError::clone() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  SquaredFunctionSimError *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call SquaredFunctionSimError.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "clone";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "clone", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'SquaredFunctionSimError.clone'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_SquaredFunctionSimError,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""SquaredFunctionSimError *""'");
+  }
+  c_result = reinterpret_cast< SquaredFunctionSimError * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (SquaredFunctionSimError *) c_result;
+}
+
+
+double SwigDirector_SquaredFunctionSimError::calculateSquaredDifference(double real_value, double simulated_value) const {
+  double c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(real_value));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_From_double(static_cast< double >(simulated_value));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call SquaredFunctionSimError.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char * const swig_method_name = "calculateSquaredDifference";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"calculateSquaredDifference", (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'SquaredFunctionSimError.calculateSquaredDifference'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+double SwigDirector_SquaredFunctionSimError::calculateSquaredError(double real_value, double simulated_value) const {
+  double c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(real_value));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_From_double(static_cast< double >(simulated_value));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call SquaredFunctionSimError.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "calculateSquaredError";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"calculateSquaredError", (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'SquaredFunctionSimError.calculateSquaredError'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+SwigDirector_SquaredFunctionMeanSquaredError::SwigDirector_SquaredFunctionMeanSquaredError(PyObject *self): SquaredFunctionMeanSquaredError(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((SquaredFunctionMeanSquaredError *)this, this); 
+}
+
+
+
+
+SwigDirector_SquaredFunctionMeanSquaredError::~SwigDirector_SquaredFunctionMeanSquaredError() {
+}
+
+SquaredFunctionMeanSquaredError *SwigDirector_SquaredFunctionMeanSquaredError::clone() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  SquaredFunctionMeanSquaredError *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call SquaredFunctionMeanSquaredError.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "clone";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "clone", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'SquaredFunctionMeanSquaredError.clone'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_SquaredFunctionMeanSquaredError,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""SquaredFunctionMeanSquaredError *""'");
+  }
+  c_result = reinterpret_cast< SquaredFunctionMeanSquaredError * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (SquaredFunctionMeanSquaredError *) c_result;
+}
+
+
+double SwigDirector_SquaredFunctionMeanSquaredError::calculateSquaredDifference(double real_value, double simulated_value) const {
+  double c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(real_value));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_From_double(static_cast< double >(simulated_value));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call SquaredFunctionMeanSquaredError.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char * const swig_method_name = "calculateSquaredDifference";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"calculateSquaredDifference", (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'SquaredFunctionMeanSquaredError.calculateSquaredDifference'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+double SwigDirector_SquaredFunctionMeanSquaredError::calculateSquaredError(double real_value, double simulated_value) const {
+  double c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(real_value));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_From_double(static_cast< double >(simulated_value));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call SquaredFunctionMeanSquaredError.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "calculateSquaredError";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"calculateSquaredError", (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'SquaredFunctionMeanSquaredError.calculateSquaredError'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+SwigDirector_SquaredFunctionSystematicError::SwigDirector_SquaredFunctionSystematicError(PyObject *self, double epsilon): SquaredFunctionSystematicError(epsilon), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((SquaredFunctionSystematicError *)this, this); 
+}
+
+
+
+
+SwigDirector_SquaredFunctionSystematicError::~SwigDirector_SquaredFunctionSystematicError() {
+}
+
+SquaredFunctionSystematicError *SwigDirector_SquaredFunctionSystematicError::clone() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  SquaredFunctionSystematicError *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call SquaredFunctionSystematicError.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "clone";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "clone", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'SquaredFunctionSystematicError.clone'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_SquaredFunctionSystematicError,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""SquaredFunctionSystematicError *""'");
+  }
+  c_result = reinterpret_cast< SquaredFunctionSystematicError * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (SquaredFunctionSystematicError *) c_result;
+}
+
+
+double SwigDirector_SquaredFunctionSystematicError::calculateSquaredDifference(double real_value, double simulated_value) const {
+  double c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(real_value));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_From_double(static_cast< double >(simulated_value));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call SquaredFunctionSystematicError.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char * const swig_method_name = "calculateSquaredDifference";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"calculateSquaredDifference", (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'SquaredFunctionSystematicError.calculateSquaredDifference'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+double SwigDirector_SquaredFunctionSystematicError::calculateSquaredError(double real_value, double simulated_value) const {
+  double c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(real_value));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_From_double(static_cast< double >(simulated_value));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call SquaredFunctionSystematicError.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "calculateSquaredError";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"calculateSquaredError", (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'SquaredFunctionSystematicError.calculateSquaredError'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+SwigDirector_SquaredFunctionGaussianError::SwigDirector_SquaredFunctionGaussianError(PyObject *self, double sigma): SquaredFunctionGaussianError(sigma), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((SquaredFunctionGaussianError *)this, this); 
+}
+
+
+
+
+SwigDirector_SquaredFunctionGaussianError::~SwigDirector_SquaredFunctionGaussianError() {
+}
+
+SquaredFunctionGaussianError *SwigDirector_SquaredFunctionGaussianError::clone() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  SquaredFunctionGaussianError *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call SquaredFunctionGaussianError.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "clone";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "clone", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'SquaredFunctionGaussianError.clone'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_SquaredFunctionGaussianError,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""SquaredFunctionGaussianError *""'");
+  }
+  c_result = reinterpret_cast< SquaredFunctionGaussianError * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (SquaredFunctionGaussianError *) c_result;
+}
+
+
+double SwigDirector_SquaredFunctionGaussianError::calculateSquaredDifference(double real_value, double simulated_value) const {
+  double c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(real_value));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_From_double(static_cast< double >(simulated_value));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call SquaredFunctionGaussianError.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char * const swig_method_name = "calculateSquaredDifference";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"calculateSquaredDifference", (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'SquaredFunctionGaussianError.calculateSquaredDifference'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+double SwigDirector_SquaredFunctionGaussianError::calculateSquaredError(double arg0, double arg1) const {
+  double c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(arg0));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_From_double(static_cast< double >(arg1));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call SquaredFunctionGaussianError.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "calculateSquaredError";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"calculateSquaredError", (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'SquaredFunctionGaussianError.calculateSquaredError'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+SwigDirector_IMinimizer::SwigDirector_IMinimizer(PyObject *self): IMinimizer(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IMinimizer *)this, this); 
+}
+
+
+
+
+SwigDirector_IMinimizer::~SwigDirector_IMinimizer() {
+}
+
+void SwigDirector_IMinimizer::minimize() {
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "minimize";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "minimize", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.minimize'");
+    }
+  }
+}
+
+
+void SwigDirector_IMinimizer::setParameter(size_t index, FitParameter const *par) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_size_t(static_cast< size_t >(index));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_NewPointerObj(SWIG_as_voidptr(par), SWIGTYPE_p_FitParameter,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char * const swig_method_name = "setParameter";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"setParameter", (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.setParameter'");
+    }
+  }
+}
+
+
+void SwigDirector_IMinimizer::setParameters(FitSuiteParameters const &parameters) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&parameters), SWIGTYPE_p_FitSuiteParameters,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "setParameters";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"setParameters", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.setParameters'");
+    }
+  }
+}
+
+
+void SwigDirector_IMinimizer::setChiSquaredFunction(IMinimizer::function_chi2_t fun_chi2, size_t nparameters) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&fun_chi2), SWIGTYPE_p_boost__functionT_double_fdouble_const_pF_t,  0 );
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_From_size_t(static_cast< size_t >(nparameters));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 3;
+  const char * const swig_method_name = "setChiSquaredFunction";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"setChiSquaredFunction", (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.setChiSquaredFunction'");
+    }
+  }
+}
+
+
+void SwigDirector_IMinimizer::setGradientFunction(IMinimizer::function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&fun_gradient), SWIGTYPE_p_boost__functionT_double_fdouble_const_p_unsigned_int_double_pF_t,  0 );
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_From_size_t(static_cast< size_t >(nparameters));
+  swig::SwigVar_PyObject obj2;
+  obj2 = SWIG_From_size_t(static_cast< size_t >(ndatasize));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 4;
+  const char * const swig_method_name = "setGradientFunction";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OOO)" ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"setGradientFunction", (char *)"(OOO)" ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.setGradientFunction'");
+    }
+  }
+}
+
+
+size_t SwigDirector_IMinimizer::getNumberOfVariables() const {
+  size_t c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 5;
+  const char * const swig_method_name = "getNumberOfVariables";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "getNumberOfVariables", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.getNumberOfVariables'");
+    }
+  }
+  size_t swig_val;
+  int swig_res = SWIG_AsVal_size_t(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""size_t""'");
+  }
+  c_result = static_cast< size_t >(swig_val);
+  return (size_t) c_result;
+}
+
+
+double SwigDirector_IMinimizer::getMinValue() const {
+  double c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 6;
+  const char * const swig_method_name = "getMinValue";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "getMinValue", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.getMinValue'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+double SwigDirector_IMinimizer::getValueOfVariableAtMinimum(size_t index) const {
+  double c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_size_t(static_cast< size_t >(index));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 7;
+  const char * const swig_method_name = "getValueOfVariableAtMinimum";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"getValueOfVariableAtMinimum", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.getValueOfVariableAtMinimum'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+std::vector< double,std::allocator< double > > SwigDirector_IMinimizer::getValueOfVariablesAtMinimum() const {
+  std::vector< double,std::allocator< double > > c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 8;
+  const char * const swig_method_name = "getValueOfVariablesAtMinimum";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "getValueOfVariablesAtMinimum", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.getValueOfVariablesAtMinimum'");
+    }
+  }
+  std::vector< double,std::allocator< double > > *swig_optr = 0;
+  int swig_ores = swig::asptr(result, &swig_optr);
+  if (!SWIG_IsOK(swig_ores) || !swig_optr) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError((swig_optr ? swig_ores : SWIG_TypeError))), "in output value of type '""std::vector< double,std::allocator< double > >""'");
+  }
+  c_result = *swig_optr;
+  if (SWIG_IsNewObj(swig_ores)) delete swig_optr;
+  return (std::vector< double,std::allocator< double > >) c_result;
+}
+
+
+double SwigDirector_IMinimizer::getErrorOfVariable(size_t index) const {
+  double c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_size_t(static_cast< size_t >(index));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 9;
+  const char * const swig_method_name = "getErrorOfVariable";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"getErrorOfVariable", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.getErrorOfVariable'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+std::vector< double,std::allocator< double > > SwigDirector_IMinimizer::getErrorOfVariables() const {
+  std::vector< double,std::allocator< double > > c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 10;
+  const char * const swig_method_name = "getErrorOfVariables";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "getErrorOfVariables", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.getErrorOfVariables'");
+    }
+  }
+  std::vector< double,std::allocator< double > > *swig_optr = 0;
+  int swig_ores = swig::asptr(result, &swig_optr);
+  if (!SWIG_IsOK(swig_ores) || !swig_optr) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError((swig_optr ? swig_ores : SWIG_TypeError))), "in output value of type '""std::vector< double,std::allocator< double > >""'");
+  }
+  c_result = *swig_optr;
+  if (SWIG_IsNewObj(swig_ores)) delete swig_optr;
+  return (std::vector< double,std::allocator< double > >) c_result;
+}
+
+
+void SwigDirector_IMinimizer::clear() {
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 11;
+  const char * const swig_method_name = "clear";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "clear", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.clear'");
+    }
+  }
+}
+
+
+void SwigDirector_IMinimizer::printResults() const {
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 12;
+  const char * const swig_method_name = "printResults";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "printResults", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.printResults'");
+    }
+  }
+}
+
+
+size_t SwigDirector_IMinimizer::getNCalls() const {
+  size_t c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 13;
+  const char * const swig_method_name = "getNCalls";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "getNCalls", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.getNCalls'");
+    }
+  }
+  size_t swig_val;
+  int swig_res = SWIG_AsVal_size_t(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""size_t""'");
+  }
+  c_result = static_cast< size_t >(swig_val);
+  return (size_t) c_result;
+}
+
+
+MinimizerOptions *SwigDirector_IMinimizer::getOptions() {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  MinimizerOptions *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 14;
+  const char * const swig_method_name = "getOptions";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "getOptions", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.getOptions'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_MinimizerOptions,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""MinimizerOptions *""'");
+  }
+  c_result = reinterpret_cast< MinimizerOptions * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (MinimizerOptions *) c_result;
+}
+
+
+MinimizerOptions const *SwigDirector_IMinimizer::getOptions() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  MinimizerOptions *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 15;
+  const char * const swig_method_name = "getOptions";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "getOptions", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.getOptions'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_MinimizerOptions,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""MinimizerOptions const *""'");
+  }
+  c_result = reinterpret_cast< MinimizerOptions * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (MinimizerOptions const *) c_result;
+}
+
+
+void SwigDirector_IMinimizer::setOptions(MinimizerOptions const &options) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&options), SWIGTYPE_p_MinimizerOptions,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 16;
+  const char * const swig_method_name = "setOptions";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"setOptions", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.setOptions'");
+    }
+  }
+}
+
+
+void SwigDirector_IMinimizer::setOptionString(std::string const &options) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_std_string(static_cast< std::string >(options));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 17;
+  const char * const swig_method_name = "setOptionString";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"setOptionString", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.setOptionString'");
+    }
+  }
+}
+
+
+bool SwigDirector_IMinimizer::isGradientBasedAgorithm() {
+  bool c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 18;
+  const char * const swig_method_name = "isGradientBasedAgorithm";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "isGradientBasedAgorithm", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.isGradientBasedAgorithm'");
+    }
+  }
+  bool swig_val;
+  int swig_res = SWIG_AsVal_bool(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""bool""'");
+  }
+  c_result = static_cast< bool >(swig_val);
+  return (bool) c_result;
+}
+
+
+std::string SwigDirector_IMinimizer::getMinimizerName() const {
+  std::string c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 19;
+  const char * const swig_method_name = "getMinimizerName";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "getMinimizerName", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.getMinimizerName'");
+    }
+  }
+  std::string *swig_optr = 0;
+  int swig_ores = SWIG_AsPtr_std_string(result, &swig_optr);
+  if (!SWIG_IsOK(swig_ores) || !swig_optr) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError((swig_optr ? swig_ores : SWIG_TypeError))), "in output value of type '""std::string""'");
+  }
+  c_result = *swig_optr;
+  if (SWIG_IsNewObj(swig_ores)) delete swig_optr;
+  return (std::string) c_result;
+}
+
+
+std::string SwigDirector_IMinimizer::getAlgorithmName() const {
+  std::string c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IMinimizer.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 20;
+  const char * const swig_method_name = "getAlgorithmName";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "getAlgorithmName", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IMinimizer.getAlgorithmName'");
+    }
+  }
+  std::string *swig_optr = 0;
+  int swig_ores = SWIG_AsPtr_std_string(result, &swig_optr);
+  if (!SWIG_IsOK(swig_ores) || !swig_optr) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError((swig_optr ? swig_ores : SWIG_TypeError))), "in output value of type '""std::string""'");
+  }
+  c_result = *swig_optr;
+  if (SWIG_IsNewObj(swig_ores)) delete swig_optr;
+  return (std::string) c_result;
+}
+
+
+SwigDirector_ChiSquaredModule::SwigDirector_ChiSquaredModule(PyObject *self): ChiSquaredModule(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((ChiSquaredModule *)this, this); 
+}
+
+
+
+
+SwigDirector_ChiSquaredModule::SwigDirector_ChiSquaredModule(PyObject *self, ChiSquaredModule const &other): ChiSquaredModule(other), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((ChiSquaredModule *)this, this); 
+}
+
+
+
+
+SwigDirector_ChiSquaredModule::~SwigDirector_ChiSquaredModule() {
+}
+
+ChiSquaredModule *SwigDirector_ChiSquaredModule::clone() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  ChiSquaredModule *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call ChiSquaredModule.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "clone";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "clone", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'ChiSquaredModule.clone'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_ChiSquaredModule,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""ChiSquaredModule *""'");
+  }
+  c_result = reinterpret_cast< ChiSquaredModule * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (ChiSquaredModule *) c_result;
+}
+
+
+void SwigDirector_ChiSquaredModule::transferToCPP() {
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call ChiSquaredModule.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char * const swig_method_name = "transferToCPP";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "transferToCPP", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'ChiSquaredModule.transferToCPP'");
+    }
+  }
+}
+
+
+IIntensityNormalizer const *SwigDirector_ChiSquaredModule::getIntensityNormalizer() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  IIntensityNormalizer *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call ChiSquaredModule.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "getIntensityNormalizer";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "getIntensityNormalizer", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'ChiSquaredModule.getIntensityNormalizer'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_IIntensityNormalizer,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""IIntensityNormalizer const *""'");
+  }
+  c_result = reinterpret_cast< IIntensityNormalizer * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (IIntensityNormalizer const *) c_result;
+}
+
+
+IIntensityNormalizer *SwigDirector_ChiSquaredModule::getIntensityNormalizer() {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  IIntensityNormalizer *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call ChiSquaredModule.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 3;
+  const char * const swig_method_name = "getIntensityNormalizer";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "getIntensityNormalizer", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'ChiSquaredModule.getIntensityNormalizer'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_IIntensityNormalizer,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""IIntensityNormalizer *""'");
+  }
+  c_result = reinterpret_cast< IIntensityNormalizer * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (IIntensityNormalizer *) c_result;
+}
+
+
+void SwigDirector_ChiSquaredModule::setIntensityNormalizer(IIntensityNormalizer const &data_normalizer) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&data_normalizer), SWIGTYPE_p_IIntensityNormalizer,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call ChiSquaredModule.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 4;
+  const char * const swig_method_name = "setIntensityNormalizer";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"setIntensityNormalizer", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'ChiSquaredModule.setIntensityNormalizer'");
+    }
+  }
+}
+
+
+IIntensityFunction const *SwigDirector_ChiSquaredModule::getIntensityFunction() const {
+  void *swig_argp ;
+  int swig_res ;
+  swig_owntype own ;
+  
+  IIntensityFunction *c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call ChiSquaredModule.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 5;
+  const char * const swig_method_name = "getIntensityFunction";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "getIntensityFunction", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'ChiSquaredModule.getIntensityFunction'");
+    }
+  }
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_IIntensityFunction,  0  | SWIG_POINTER_DISOWN, &own);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""IIntensityFunction const *""'");
+  }
+  c_result = reinterpret_cast< IIntensityFunction * >(swig_argp);
+  swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
+  return (IIntensityFunction const *) c_result;
+}
+
+
+void SwigDirector_ChiSquaredModule::setIntensityFunction(IIntensityFunction const &intensity_function) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&intensity_function), SWIGTYPE_p_IIntensityFunction,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call ChiSquaredModule.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 6;
+  const char * const swig_method_name = "setIntensityFunction";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"setIntensityFunction", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'ChiSquaredModule.setIntensityFunction'");
+    }
+  }
+}
+
+
+void SwigDirector_ChiSquaredModule::processFitElements(std::vector< FitElement,std::allocator< FitElement > >::iterator first, std::vector< FitElement,std::allocator< FitElement > >::iterator last) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&first), SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__iterator,  0 );
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_NewPointerObj(SWIG_as_voidptr(&last), SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__iterator,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call ChiSquaredModule.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 7;
+  const char * const swig_method_name = "processFitElements";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"processFitElements", (char *)"(OO)" ,(PyObject *)obj0,(PyObject *)obj1);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'ChiSquaredModule.processFitElements'");
+    }
+  }
+}
+
+
+SwigDirector_FitObject::SwigDirector_FitObject(PyObject *self, GISASSimulation const &simulation, OutputData< double > const &real_data, double weight, bool adjust_detector_to_data): FitObject(simulation, real_data, weight, adjust_detector_to_data), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((FitObject *)this, this); 
+}
+
+
+
+
+SwigDirector_FitObject::~SwigDirector_FitObject() {
+}
+
+std::string SwigDirector_FitObject::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number) const {
+  std::string c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_std_string(static_cast< std::string >(path));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_NewPointerObj(SWIG_as_voidptr(external_pool), SWIGTYPE_p_ParameterPool,  0 );
+  swig::SwigVar_PyObject obj2;
+  obj2 = SWIG_From_int(static_cast< int >(copy_number));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitObject.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "addParametersToExternalPool";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OOO)" ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"addParametersToExternalPool", (char *)"(OOO)" ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'FitObject.addParametersToExternalPool'");
+    }
+  }
+  std::string *swig_optr = 0;
+  int swig_ores = SWIG_AsPtr_std_string(result, &swig_optr);
+  if (!SWIG_IsOK(swig_ores) || !swig_optr) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError((swig_optr ? swig_ores : SWIG_TypeError))), "in output value of type '""std::string""'");
+  }
+  c_result = *swig_optr;
+  if (SWIG_IsNewObj(swig_ores)) delete swig_optr;
+  return (std::string) c_result;
+}
+
+
+void SwigDirector_FitObject::print(std::ostream &ostr) const {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&ostr), SWIGTYPE_p_std__ostream,  0 );
+  swig_set_inner("print", true);
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitObject.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "_print";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"_print", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  swig_set_inner("print", false);
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'FitObject._print'");
+    }
+  }
+}
+
+
+void SwigDirector_FitObject::init_parameters() {
+  swig_set_inner("init_parameters", true);
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitObject.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 3;
+  const char * const swig_method_name = "init_parameters";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "init_parameters", NULL);
+#endif
+  swig_set_inner("init_parameters", false);
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'FitObject.init_parameters'");
+    }
+  }
+}
+
+
+SwigDirector_FitParameter::SwigDirector_FitParameter(PyObject *self): FitParameter(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((FitParameter *)this, this); 
+}
+
+
+
+
+SwigDirector_FitParameter::SwigDirector_FitParameter(PyObject *self, std::string const &name, double value, double step, AttLimits const &limits, double error): FitParameter(name, value, step, limits, error), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((FitParameter *)this, this); 
+}
+
+
+
+
+SwigDirector_FitParameter::~SwigDirector_FitParameter() {
+}
+
+void SwigDirector_FitParameter::setValue(double value) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(value));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitParameter.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "setValue";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"setValue", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'FitParameter.setValue'");
+    }
+  }
+}
+
+
+double SwigDirector_FitParameter::getValue() const {
+  double c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitParameter.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char * const swig_method_name = "getValue";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "getValue", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'FitParameter.getValue'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+void SwigDirector_FitParameter::setStep(double value) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(value));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitParameter.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "setStep";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"setStep", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'FitParameter.setStep'");
+    }
+  }
+}
+
+
+double SwigDirector_FitParameter::getStep() const {
+  double c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitParameter.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 3;
+  const char * const swig_method_name = "getStep";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "getStep", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'FitParameter.getStep'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+void SwigDirector_FitParameter::setError(double value) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_double(static_cast< double >(value));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitParameter.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 4;
+  const char * const swig_method_name = "setError";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"setError", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'FitParameter.setError'");
+    }
+  }
+}
+
+
+double SwigDirector_FitParameter::getError() const {
+  double c_result;
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitParameter.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 5;
+  const char * const swig_method_name = "getError";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "getError", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'FitParameter.getError'");
+    }
+  }
+  double swig_val;
+  int swig_res = SWIG_AsVal_double(result, &swig_val);
+  if (!SWIG_IsOK(swig_res)) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""double""'");
+  }
+  c_result = static_cast< double >(swig_val);
+  return (double) c_result;
+}
+
+
+SwigDirector_FitSuite::SwigDirector_FitSuite(PyObject *self): FitSuite(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((FitSuite *)this, this); 
+}
+
+
+
+
+SwigDirector_FitSuite::~SwigDirector_FitSuite() {
+}
+
+void SwigDirector_FitSuite::attachObserver(IObservable::observer_t obj) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&obj), SWIGTYPE_p_std__shared_ptrT_IObserver_t,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitSuite.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "attachObserver";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"attachObserver", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'FitSuite.attachObserver'");
+    }
+  }
+}
+
+
+void SwigDirector_FitSuite::notifyObservers() {
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitSuite.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char * const swig_method_name = "notifyObservers";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "notifyObservers", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'FitSuite.notifyObservers'");
+    }
+  }
+}
+
+
+SwigDirector_FitSuiteObjects::SwigDirector_FitSuiteObjects(PyObject *self): FitSuiteObjects(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((FitSuiteObjects *)this, this); 
+}
+
+
+
+
+SwigDirector_FitSuiteObjects::~SwigDirector_FitSuiteObjects() {
+}
+
+std::string SwigDirector_FitSuiteObjects::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number) const {
+  std::string c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_std_string(static_cast< std::string >(path));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_NewPointerObj(SWIG_as_voidptr(external_pool), SWIGTYPE_p_ParameterPool,  0 );
+  swig::SwigVar_PyObject obj2;
+  obj2 = SWIG_From_int(static_cast< int >(copy_number));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitSuiteObjects.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "addParametersToExternalPool";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OOO)" ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"addParametersToExternalPool", (char *)"(OOO)" ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'FitSuiteObjects.addParametersToExternalPool'");
+    }
+  }
+  std::string *swig_optr = 0;
+  int swig_ores = SWIG_AsPtr_std_string(result, &swig_optr);
+  if (!SWIG_IsOK(swig_ores) || !swig_optr) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError((swig_optr ? swig_ores : SWIG_TypeError))), "in output value of type '""std::string""'");
+  }
+  c_result = *swig_optr;
+  if (SWIG_IsNewObj(swig_ores)) delete swig_optr;
+  return (std::string) c_result;
+}
+
+
+void SwigDirector_FitSuiteObjects::print(std::ostream &ostr) const {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&ostr), SWIGTYPE_p_std__ostream,  0 );
+  swig_set_inner("print", true);
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitSuiteObjects.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "_print";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"_print", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  swig_set_inner("print", false);
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'FitSuiteObjects._print'");
+    }
+  }
+}
+
+
+void SwigDirector_FitSuiteObjects::init_parameters() {
+  swig_set_inner("init_parameters", true);
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitSuiteObjects.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 3;
+  const char * const swig_method_name = "init_parameters";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "init_parameters", NULL);
+#endif
+  swig_set_inner("init_parameters", false);
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'FitSuiteObjects.init_parameters'");
+    }
+  }
+}
+
+
+SwigDirector_FitSuiteParameters::SwigDirector_FitSuiteParameters(PyObject *self): FitSuiteParameters(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((FitSuiteParameters *)this, this); 
+}
+
+
+
+
+SwigDirector_FitSuiteParameters::~SwigDirector_FitSuiteParameters() {
+}
 
 #ifdef __cplusplus
 extern "C" {
@@ -18686,6 +21921,29 @@ SWIGINTERN PyObject *GCCXML_SKIP_THIS_swigconstant(PyObject *SWIGUNUSEDPARM(self
 }
 
 
+SWIGINTERN PyObject *_wrap_new_IChiSquaredModule__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
+  IChiSquaredModule *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:new_IChiSquaredModule",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IChiSquaredModule *)new SwigDirector_IChiSquaredModule(arg1); 
+  } else {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing abstract class or protected constructor"); 
+    SWIG_fail;
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IChiSquaredModule, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_delete_IChiSquaredModule(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IChiSquaredModule *arg1 = (IChiSquaredModule *) 0 ;
@@ -18713,6 +21971,8 @@ SWIGINTERN PyObject *_wrap_IChiSquaredModule_clone(PyObject *SWIGUNUSEDPARM(self
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   IChiSquaredModule *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IChiSquaredModule_clone",&obj0)) SWIG_fail;
@@ -18721,8 +21981,27 @@ SWIGINTERN PyObject *_wrap_IChiSquaredModule_clone(PyObject *SWIGUNUSEDPARM(self
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IChiSquaredModule_clone" "', argument " "1"" of type '" "IChiSquaredModule const *""'"); 
   }
   arg1 = reinterpret_cast< IChiSquaredModule * >(argp1);
-  result = (IChiSquaredModule *)((IChiSquaredModule const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IChiSquaredModule, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      Swig::DirectorPureVirtualException::raise("IChiSquaredModule::clone");
+    } else {
+      result = (IChiSquaredModule *)((IChiSquaredModule const *)arg1)->clone();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IChiSquaredModule, 0 |  0 );
+  }
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -18869,6 +22148,8 @@ SWIGINTERN PyObject *_wrap_IChiSquaredModule_getIntensityNormalizer__SWIG_0(PyOb
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   IIntensityNormalizer *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IChiSquaredModule_getIntensityNormalizer",&obj0)) SWIG_fail;
@@ -18877,8 +22158,21 @@ SWIGINTERN PyObject *_wrap_IChiSquaredModule_getIntensityNormalizer__SWIG_0(PyOb
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IChiSquaredModule_getIntensityNormalizer" "', argument " "1"" of type '" "IChiSquaredModule const *""'"); 
   }
   arg1 = reinterpret_cast< IChiSquaredModule * >(argp1);
-  result = (IIntensityNormalizer *)((IChiSquaredModule const *)arg1)->getIntensityNormalizer();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (IIntensityNormalizer *)((IChiSquaredModule const *)arg1)->IChiSquaredModule::getIntensityNormalizer();
+    } else {
+      result = (IIntensityNormalizer *)((IChiSquaredModule const *)arg1)->getIntensityNormalizer();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IIntensityNormalizer, 0 |  0 );
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -18891,6 +22185,8 @@ SWIGINTERN PyObject *_wrap_IChiSquaredModule_getIntensityNormalizer__SWIG_1(PyOb
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   IIntensityNormalizer *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IChiSquaredModule_getIntensityNormalizer",&obj0)) SWIG_fail;
@@ -18899,8 +22195,21 @@ SWIGINTERN PyObject *_wrap_IChiSquaredModule_getIntensityNormalizer__SWIG_1(PyOb
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IChiSquaredModule_getIntensityNormalizer" "', argument " "1"" of type '" "IChiSquaredModule *""'"); 
   }
   arg1 = reinterpret_cast< IChiSquaredModule * >(argp1);
-  result = (IIntensityNormalizer *)(arg1)->getIntensityNormalizer();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (IIntensityNormalizer *)(arg1)->IChiSquaredModule::getIntensityNormalizer();
+    } else {
+      result = (IIntensityNormalizer *)(arg1)->getIntensityNormalizer();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IIntensityNormalizer, 0 |  0 );
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -18957,6 +22266,8 @@ SWIGINTERN PyObject *_wrap_IChiSquaredModule_setIntensityNormalizer(PyObject *SW
   int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IChiSquaredModule_setIntensityNormalizer",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IChiSquaredModule, 0 |  0 );
@@ -18972,7 +22283,17 @@ SWIGINTERN PyObject *_wrap_IChiSquaredModule_setIntensityNormalizer(PyObject *SW
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IChiSquaredModule_setIntensityNormalizer" "', argument " "2"" of type '" "IIntensityNormalizer const &""'"); 
   }
   arg2 = reinterpret_cast< IIntensityNormalizer * >(argp2);
-  (arg1)->setIntensityNormalizer((IIntensityNormalizer const &)*arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->IChiSquaredModule::setIntensityNormalizer((IIntensityNormalizer const &)*arg2);
+    } else {
+      (arg1)->setIntensityNormalizer((IIntensityNormalizer const &)*arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -18986,6 +22307,8 @@ SWIGINTERN PyObject *_wrap_IChiSquaredModule_getIntensityFunction(PyObject *SWIG
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   IIntensityFunction *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IChiSquaredModule_getIntensityFunction",&obj0)) SWIG_fail;
@@ -18994,8 +22317,21 @@ SWIGINTERN PyObject *_wrap_IChiSquaredModule_getIntensityFunction(PyObject *SWIG
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IChiSquaredModule_getIntensityFunction" "', argument " "1"" of type '" "IChiSquaredModule const *""'"); 
   }
   arg1 = reinterpret_cast< IChiSquaredModule * >(argp1);
-  result = (IIntensityFunction *)((IChiSquaredModule const *)arg1)->getIntensityFunction();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (IIntensityFunction *)((IChiSquaredModule const *)arg1)->IChiSquaredModule::getIntensityFunction();
+    } else {
+      result = (IIntensityFunction *)((IChiSquaredModule const *)arg1)->getIntensityFunction();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IIntensityFunction, 0 |  0 );
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -19012,6 +22348,8 @@ SWIGINTERN PyObject *_wrap_IChiSquaredModule_setIntensityFunction(PyObject *SWIG
   int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IChiSquaredModule_setIntensityFunction",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IChiSquaredModule, 0 |  0 );
@@ -19027,7 +22365,17 @@ SWIGINTERN PyObject *_wrap_IChiSquaredModule_setIntensityFunction(PyObject *SWIG
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IChiSquaredModule_setIntensityFunction" "', argument " "2"" of type '" "IIntensityFunction const &""'"); 
   }
   arg2 = reinterpret_cast< IIntensityFunction * >(argp2);
-  (arg1)->setIntensityFunction((IIntensityFunction const &)*arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->IChiSquaredModule::setIntensityFunction((IIntensityFunction const &)*arg2);
+    } else {
+      (arg1)->setIntensityFunction((IIntensityFunction const &)*arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -19049,6 +22397,8 @@ SWIGINTERN PyObject *_wrap_IChiSquaredModule_processFitElements(PyObject *SWIGUN
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:IChiSquaredModule_processFitElements",&obj0,&obj1,&obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IChiSquaredModule, 0 |  0 );
@@ -19082,7 +22432,117 @@ SWIGINTERN PyObject *_wrap_IChiSquaredModule_processFitElements(PyObject *SWIGUN
       if (SWIG_IsNewObj(res3)) delete temp;
     }
   }
-  (arg1)->processFitElements(arg2,arg3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->IChiSquaredModule::processFitElements(arg2,arg3);
+    } else {
+      (arg1)->processFitElements(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_IChiSquaredModule__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  IChiSquaredModule *arg2 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  IChiSquaredModule *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:new_IChiSquaredModule",&obj0,&obj1)) SWIG_fail;
+  arg1 = obj0;
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_IChiSquaredModule,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_IChiSquaredModule" "', argument " "2"" of type '" "IChiSquaredModule const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_IChiSquaredModule" "', argument " "2"" of type '" "IChiSquaredModule const &""'"); 
+  }
+  arg2 = reinterpret_cast< IChiSquaredModule * >(argp2);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IChiSquaredModule *)new SwigDirector_IChiSquaredModule(arg1,(IChiSquaredModule const &)*arg2); 
+  } else {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing abstract class or protected constructor"); 
+    SWIG_fail;
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IChiSquaredModule, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_IChiSquaredModule(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      return _wrap_new_IChiSquaredModule__SWIG_0(self, args);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IChiSquaredModule, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_new_IChiSquaredModule__SWIG_1(self, args);
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'new_IChiSquaredModule'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    IChiSquaredModule::IChiSquaredModule()\n"
+    "    IChiSquaredModule::IChiSquaredModule(PyObject *,IChiSquaredModule const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_IChiSquaredModule(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IChiSquaredModule *arg1 = (IChiSquaredModule *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_IChiSquaredModule",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IChiSquaredModule, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_IChiSquaredModule" "', argument " "1"" of type '" "IChiSquaredModule *""'"); 
+  }
+  arg1 = reinterpret_cast< IChiSquaredModule * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -19316,12 +22776,76 @@ SWIGINTERN PyObject *IFitObserver_swigregister(PyObject *SWIGUNUSEDPARM(self), P
   return SWIG_Py_Void();
 }
 
+SWIGINTERN PyObject *_wrap_new_IFitStrategy__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
+  IFitStrategy *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:new_IFitStrategy",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IFitStrategy *)new SwigDirector_IFitStrategy(arg1); 
+  } else {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing abstract class or protected constructor"); 
+    SWIG_fail;
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFitStrategy, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_IFitStrategy__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  std::string *arg2 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  IFitStrategy *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:new_IFitStrategy",&obj0,&obj1)) SWIG_fail;
+  arg1 = obj0;
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_IFitStrategy" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_IFitStrategy" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IFitStrategy *)new SwigDirector_IFitStrategy(arg1,(std::string const &)*arg2); 
+  } else {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing abstract class or protected constructor"); 
+    SWIG_fail;
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFitStrategy, SWIG_POINTER_NEW |  0 );
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_IFitStrategy_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IFitStrategy *arg1 = (IFitStrategy *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   IFitStrategy *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IFitStrategy_clone",&obj0)) SWIG_fail;
@@ -19330,8 +22854,27 @@ SWIGINTERN PyObject *_wrap_IFitStrategy_clone(PyObject *SWIGUNUSEDPARM(self), Py
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFitStrategy_clone" "', argument " "1"" of type '" "IFitStrategy const *""'"); 
   }
   arg1 = reinterpret_cast< IFitStrategy * >(argp1);
-  result = (IFitStrategy *)((IFitStrategy const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFitStrategy, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      Swig::DirectorPureVirtualException::raise("IFitStrategy::clone");
+    } else {
+      result = (IFitStrategy *)((IFitStrategy const *)arg1)->clone();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFitStrategy, 0 |  0 );
+  }
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -19369,6 +22912,8 @@ SWIGINTERN PyObject *_wrap_IFitStrategy_init(PyObject *SWIGUNUSEDPARM(self), PyO
   int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IFitStrategy_init",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IFitStrategy, 0 |  0 );
@@ -19381,7 +22926,17 @@ SWIGINTERN PyObject *_wrap_IFitStrategy_init(PyObject *SWIGUNUSEDPARM(self), PyO
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IFitStrategy_init" "', argument " "2"" of type '" "FitKernel *""'"); 
   }
   arg2 = reinterpret_cast< FitKernel * >(argp2);
-  (arg1)->init(arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->IFitStrategy::init(arg2);
+    } else {
+      (arg1)->init(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -19395,6 +22950,8 @@ SWIGINTERN PyObject *_wrap_IFitStrategy_execute(PyObject *SWIGUNUSEDPARM(self), 
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IFitStrategy_execute",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IFitStrategy, 0 |  0 );
@@ -19402,7 +22959,180 @@ SWIGINTERN PyObject *_wrap_IFitStrategy_execute(PyObject *SWIGUNUSEDPARM(self), 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFitStrategy_execute" "', argument " "1"" of type '" "IFitStrategy *""'"); 
   }
   arg1 = reinterpret_cast< IFitStrategy * >(argp1);
-  (arg1)->execute();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      Swig::DirectorPureVirtualException::raise("IFitStrategy::execute");
+    } else {
+      (arg1)->execute();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IFitStrategy__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IFitStrategy *arg1 = (IFitStrategy *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  SwigDirector_IFitStrategy *darg = 0;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:IFitStrategy__print",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IFitStrategy, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFitStrategy__print" "', argument " "1"" of type '" "IFitStrategy const *""'"); 
+  }
+  arg1 = reinterpret_cast< IFitStrategy * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__ostream,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IFitStrategy__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IFitStrategy__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  arg2 = reinterpret_cast< std::ostream * >(argp2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  if (!director || !(director->swig_get_inner("print"))) {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing protected member print");
+    SWIG_fail;
+  }
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    darg = dynamic_cast<SwigDirector_IFitStrategy *>(arg1);
+    if (upcall) {
+      ((SwigDirector_IFitStrategy const *)darg)->printSwigPublic(*arg2);
+    } else {
+      ((SwigDirector_IFitStrategy const *)darg)->print(*arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_IFitStrategy__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  IFitStrategy *arg2 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  IFitStrategy *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:new_IFitStrategy",&obj0,&obj1)) SWIG_fail;
+  arg1 = obj0;
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_IFitStrategy,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_IFitStrategy" "', argument " "2"" of type '" "IFitStrategy const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_IFitStrategy" "', argument " "2"" of type '" "IFitStrategy const &""'"); 
+  }
+  arg2 = reinterpret_cast< IFitStrategy * >(argp2);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IFitStrategy *)new SwigDirector_IFitStrategy(arg1,(IFitStrategy const &)*arg2); 
+  } else {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing abstract class or protected constructor"); 
+    SWIG_fail;
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFitStrategy, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_IFitStrategy(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      return _wrap_new_IFitStrategy__SWIG_0(self, args);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IFitStrategy, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_new_IFitStrategy__SWIG_2(self, args);
+      }
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_new_IFitStrategy__SWIG_1(self, args);
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'new_IFitStrategy'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    IFitStrategy::IFitStrategy()\n"
+    "    IFitStrategy::IFitStrategy(std::string const &)\n"
+    "    IFitStrategy::IFitStrategy(PyObject *,IFitStrategy const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_IFitStrategy(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IFitStrategy *arg1 = (IFitStrategy *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_IFitStrategy",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IFitStrategy, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_IFitStrategy" "', argument " "1"" of type '" "IFitStrategy *""'"); 
+  }
+  arg1 = reinterpret_cast< IFitStrategy * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -19419,10 +23149,19 @@ SWIGINTERN PyObject *IFitStrategy_swigregister(PyObject *SWIGUNUSEDPARM(self), P
 
 SWIGINTERN PyObject *_wrap_new_FitStrategyDefault(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
   FitStrategyDefault *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)":new_FitStrategyDefault")) SWIG_fail;
-  result = (FitStrategyDefault *)new FitStrategyDefault();
+  if (!PyArg_ParseTuple(args,(char *)"O:new_FitStrategyDefault",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (FitStrategyDefault *)new SwigDirector_FitStrategyDefault(arg1); 
+  } else {
+    result = (FitStrategyDefault *)new FitStrategyDefault(); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitStrategyDefault, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -19436,6 +23175,8 @@ SWIGINTERN PyObject *_wrap_FitStrategyDefault_clone(PyObject *SWIGUNUSEDPARM(sel
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   IFitStrategy *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:FitStrategyDefault_clone",&obj0)) SWIG_fail;
@@ -19444,8 +23185,27 @@ SWIGINTERN PyObject *_wrap_FitStrategyDefault_clone(PyObject *SWIGUNUSEDPARM(sel
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitStrategyDefault_clone" "', argument " "1"" of type '" "FitStrategyDefault const *""'"); 
   }
   arg1 = reinterpret_cast< FitStrategyDefault * >(argp1);
-  result = (IFitStrategy *)((FitStrategyDefault const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFitStrategy, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (IFitStrategy *)((FitStrategyDefault const *)arg1)->FitStrategyDefault::clone();
+    } else {
+      result = (IFitStrategy *)((FitStrategyDefault const *)arg1)->clone();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFitStrategy, 0 |  0 );
+  }
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -19458,6 +23218,8 @@ SWIGINTERN PyObject *_wrap_FitStrategyDefault_execute(PyObject *SWIGUNUSEDPARM(s
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"O:FitStrategyDefault_execute",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitStrategyDefault, 0 |  0 );
@@ -19465,7 +23227,17 @@ SWIGINTERN PyObject *_wrap_FitStrategyDefault_execute(PyObject *SWIGUNUSEDPARM(s
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitStrategyDefault_execute" "', argument " "1"" of type '" "FitStrategyDefault *""'"); 
   }
   arg1 = reinterpret_cast< FitStrategyDefault * >(argp1);
-  (arg1)->execute();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->FitStrategyDefault::execute();
+    } else {
+      (arg1)->execute();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -19487,6 +23259,82 @@ SWIGINTERN PyObject *_wrap_delete_FitStrategyDefault(PyObject *SWIGUNUSEDPARM(se
   }
   arg1 = reinterpret_cast< FitStrategyDefault * >(argp1);
   delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_FitStrategyDefault(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitStrategyDefault *arg1 = (FitStrategyDefault *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_FitStrategyDefault",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitStrategyDefault, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_FitStrategyDefault" "', argument " "1"" of type '" "FitStrategyDefault *""'"); 
+  }
+  arg1 = reinterpret_cast< FitStrategyDefault * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitStrategyDefault__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitStrategyDefault *arg1 = (FitStrategyDefault *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  SwigDirector_FitStrategyDefault *darg = 0;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:FitStrategyDefault__print",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitStrategyDefault, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitStrategyDefault__print" "', argument " "1"" of type '" "FitStrategyDefault const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitStrategyDefault * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__ostream,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitStrategyDefault__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitStrategyDefault__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  arg2 = reinterpret_cast< std::ostream * >(argp2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  if (!director || !(director->swig_get_inner("print"))) {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing protected member print");
+    SWIG_fail;
+  }
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    darg = dynamic_cast<SwigDirector_FitStrategyDefault *>(arg1);
+    if (upcall) {
+      ((SwigDirector_FitStrategyDefault const *)darg)->printSwigPublic(*arg2);
+    } else {
+      ((SwigDirector_FitStrategyDefault const *)darg)->print(*arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -19528,6 +23376,8 @@ SWIGINTERN PyObject *_wrap_IIntensityFunction_clone(PyObject *SWIGUNUSEDPARM(sel
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   IIntensityFunction *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IIntensityFunction_clone",&obj0)) SWIG_fail;
@@ -19536,8 +23386,27 @@ SWIGINTERN PyObject *_wrap_IIntensityFunction_clone(PyObject *SWIGUNUSEDPARM(sel
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IIntensityFunction_clone" "', argument " "1"" of type '" "IIntensityFunction const *""'"); 
   }
   arg1 = reinterpret_cast< IIntensityFunction * >(argp1);
-  result = (IIntensityFunction *)((IIntensityFunction const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IIntensityFunction, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      Swig::DirectorPureVirtualException::raise("IIntensityFunction::clone");
+    } else {
+      result = (IIntensityFunction *)((IIntensityFunction const *)arg1)->clone();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IIntensityFunction, 0 |  0 );
+  }
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -19554,6 +23423,8 @@ SWIGINTERN PyObject *_wrap_IIntensityFunction_evaluate(PyObject *SWIGUNUSEDPARM(
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IIntensityFunction_evaluate",&obj0,&obj1)) SWIG_fail;
@@ -19567,8 +23438,66 @@ SWIGINTERN PyObject *_wrap_IIntensityFunction_evaluate(PyObject *SWIGUNUSEDPARM(
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IIntensityFunction_evaluate" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  result = (double)((IIntensityFunction const *)arg1)->evaluate(arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      Swig::DirectorPureVirtualException::raise("IIntensityFunction::evaluate");
+    } else {
+      result = (double)((IIntensityFunction const *)arg1)->evaluate(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_IIntensityFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
+  IIntensityFunction *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:new_IIntensityFunction",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IIntensityFunction *)new SwigDirector_IIntensityFunction(arg1); 
+  } else {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing abstract class or protected constructor"); 
+    SWIG_fail;
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IIntensityFunction, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_IIntensityFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IIntensityFunction *arg1 = (IIntensityFunction *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_IIntensityFunction",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IIntensityFunction, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_IIntensityFunction" "', argument " "1"" of type '" "IIntensityFunction *""'"); 
+  }
+  arg1 = reinterpret_cast< IIntensityFunction * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -19609,6 +23538,8 @@ SWIGINTERN PyObject *_wrap_IntensityFunctionLog_clone(PyObject *SWIGUNUSEDPARM(s
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   IntensityFunctionLog *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IntensityFunctionLog_clone",&obj0)) SWIG_fail;
@@ -19617,8 +23548,27 @@ SWIGINTERN PyObject *_wrap_IntensityFunctionLog_clone(PyObject *SWIGUNUSEDPARM(s
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityFunctionLog_clone" "', argument " "1"" of type '" "IntensityFunctionLog const *""'"); 
   }
   arg1 = reinterpret_cast< IntensityFunctionLog * >(argp1);
-  result = (IntensityFunctionLog *)((IntensityFunctionLog const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityFunctionLog, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (IntensityFunctionLog *)((IntensityFunctionLog const *)arg1)->IntensityFunctionLog::clone();
+    } else {
+      result = (IntensityFunctionLog *)((IntensityFunctionLog const *)arg1)->clone();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityFunctionLog, 0 |  0 );
+  }
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -19635,6 +23585,8 @@ SWIGINTERN PyObject *_wrap_IntensityFunctionLog_evaluate(PyObject *SWIGUNUSEDPAR
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IntensityFunctionLog_evaluate",&obj0,&obj1)) SWIG_fail;
@@ -19648,7 +23600,17 @@ SWIGINTERN PyObject *_wrap_IntensityFunctionLog_evaluate(PyObject *SWIGUNUSEDPAR
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IntensityFunctionLog_evaluate" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  result = (double)((IntensityFunctionLog const *)arg1)->evaluate(arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((IntensityFunctionLog const *)arg1)->IntensityFunctionLog::evaluate(arg2);
+    } else {
+      result = (double)((IntensityFunctionLog const *)arg1)->evaluate(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -19658,11 +23620,45 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_IntensityFunctionLog(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
   IntensityFunctionLog *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)":new_IntensityFunctionLog")) SWIG_fail;
-  result = (IntensityFunctionLog *)new IntensityFunctionLog();
+  if (!PyArg_ParseTuple(args,(char *)"O:new_IntensityFunctionLog",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IntensityFunctionLog *)new SwigDirector_IntensityFunctionLog(arg1); 
+  } else {
+    result = (IntensityFunctionLog *)new IntensityFunctionLog(); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityFunctionLog, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_IntensityFunctionLog(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IntensityFunctionLog *arg1 = (IntensityFunctionLog *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_IntensityFunctionLog",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IntensityFunctionLog, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_IntensityFunctionLog" "', argument " "1"" of type '" "IntensityFunctionLog *""'"); 
+  }
+  arg1 = reinterpret_cast< IntensityFunctionLog * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -19703,6 +23699,8 @@ SWIGINTERN PyObject *_wrap_IntensityFunctionSqrt_clone(PyObject *SWIGUNUSEDPARM(
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   IntensityFunctionSqrt *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IntensityFunctionSqrt_clone",&obj0)) SWIG_fail;
@@ -19711,8 +23709,27 @@ SWIGINTERN PyObject *_wrap_IntensityFunctionSqrt_clone(PyObject *SWIGUNUSEDPARM(
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityFunctionSqrt_clone" "', argument " "1"" of type '" "IntensityFunctionSqrt const *""'"); 
   }
   arg1 = reinterpret_cast< IntensityFunctionSqrt * >(argp1);
-  result = (IntensityFunctionSqrt *)((IntensityFunctionSqrt const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityFunctionSqrt, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (IntensityFunctionSqrt *)((IntensityFunctionSqrt const *)arg1)->IntensityFunctionSqrt::clone();
+    } else {
+      result = (IntensityFunctionSqrt *)((IntensityFunctionSqrt const *)arg1)->clone();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityFunctionSqrt, 0 |  0 );
+  }
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -19729,6 +23746,8 @@ SWIGINTERN PyObject *_wrap_IntensityFunctionSqrt_evaluate(PyObject *SWIGUNUSEDPA
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IntensityFunctionSqrt_evaluate",&obj0,&obj1)) SWIG_fail;
@@ -19742,7 +23761,17 @@ SWIGINTERN PyObject *_wrap_IntensityFunctionSqrt_evaluate(PyObject *SWIGUNUSEDPA
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IntensityFunctionSqrt_evaluate" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  result = (double)((IntensityFunctionSqrt const *)arg1)->evaluate(arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((IntensityFunctionSqrt const *)arg1)->IntensityFunctionSqrt::evaluate(arg2);
+    } else {
+      result = (double)((IntensityFunctionSqrt const *)arg1)->evaluate(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -19752,11 +23781,45 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_IntensityFunctionSqrt(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
   IntensityFunctionSqrt *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)":new_IntensityFunctionSqrt")) SWIG_fail;
-  result = (IntensityFunctionSqrt *)new IntensityFunctionSqrt();
+  if (!PyArg_ParseTuple(args,(char *)"O:new_IntensityFunctionSqrt",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IntensityFunctionSqrt *)new SwigDirector_IntensityFunctionSqrt(arg1); 
+  } else {
+    result = (IntensityFunctionSqrt *)new IntensityFunctionSqrt(); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityFunctionSqrt, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_IntensityFunctionSqrt(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IntensityFunctionSqrt *arg1 = (IntensityFunctionSqrt *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_IntensityFunctionSqrt",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IntensityFunctionSqrt, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_IntensityFunctionSqrt" "', argument " "1"" of type '" "IntensityFunctionSqrt *""'"); 
+  }
+  arg1 = reinterpret_cast< IntensityFunctionSqrt * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -19797,6 +23860,8 @@ SWIGINTERN PyObject *_wrap_IIntensityNormalizer_clone(PyObject *SWIGUNUSEDPARM(s
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   IIntensityNormalizer *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IIntensityNormalizer_clone",&obj0)) SWIG_fail;
@@ -19805,8 +23870,27 @@ SWIGINTERN PyObject *_wrap_IIntensityNormalizer_clone(PyObject *SWIGUNUSEDPARM(s
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IIntensityNormalizer_clone" "', argument " "1"" of type '" "IIntensityNormalizer const *""'"); 
   }
   arg1 = reinterpret_cast< IIntensityNormalizer * >(argp1);
-  result = (IIntensityNormalizer *)((IIntensityNormalizer const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IIntensityNormalizer, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      Swig::DirectorPureVirtualException::raise("IIntensityNormalizer::clone");
+    } else {
+      result = (IIntensityNormalizer *)((IIntensityNormalizer const *)arg1)->clone();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IIntensityNormalizer, 0 |  0 );
+  }
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -19823,6 +23907,8 @@ SWIGINTERN PyObject *_wrap_IIntensityNormalizer_createNormalizedData(PyObject *S
   int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   OutputData< double > *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IIntensityNormalizer_createNormalizedData",&obj0,&obj1)) SWIG_fail;
@@ -19839,8 +23925,21 @@ SWIGINTERN PyObject *_wrap_IIntensityNormalizer_createNormalizedData(PyObject *S
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IIntensityNormalizer_createNormalizedData" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
   }
   arg2 = reinterpret_cast< OutputData< double > * >(argp2);
-  result = (OutputData< double > *)((IIntensityNormalizer const *)arg1)->createNormalizedData((OutputData< double > const &)*arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      Swig::DirectorPureVirtualException::raise("IIntensityNormalizer::createNormalizedData");
+    } else {
+      result = (OutputData< double > *)((IIntensityNormalizer const *)arg1)->createNormalizedData((OutputData< double > const &)*arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -19857,6 +23956,8 @@ SWIGINTERN PyObject *_wrap_IIntensityNormalizer_apply(PyObject *SWIGUNUSEDPARM(s
   int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IIntensityNormalizer_apply",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IIntensityNormalizer, 0 |  0 );
@@ -19872,7 +23973,17 @@ SWIGINTERN PyObject *_wrap_IIntensityNormalizer_apply(PyObject *SWIGUNUSEDPARM(s
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IIntensityNormalizer_apply" "', argument " "2"" of type '" "OutputData< double > &""'"); 
   }
   arg2 = reinterpret_cast< OutputData< double > * >(argp2);
-  ((IIntensityNormalizer const *)arg1)->apply(*arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      Swig::DirectorPureVirtualException::raise("IIntensityNormalizer::apply");
+    } else {
+      ((IIntensityNormalizer const *)arg1)->apply(*arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -19890,6 +24001,8 @@ SWIGINTERN PyObject *_wrap_IIntensityNormalizer_setMaximumIntensity(PyObject *SW
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IIntensityNormalizer_setMaximumIntensity",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IIntensityNormalizer, 0 |  0 );
@@ -19902,7 +24015,155 @@ SWIGINTERN PyObject *_wrap_IIntensityNormalizer_setMaximumIntensity(PyObject *SW
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IIntensityNormalizer_setMaximumIntensity" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  (arg1)->setMaximumIntensity(arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      Swig::DirectorPureVirtualException::raise("IIntensityNormalizer::setMaximumIntensity");
+    } else {
+      (arg1)->setMaximumIntensity(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_IIntensityNormalizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
+  IIntensityNormalizer *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:new_IIntensityNormalizer",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IIntensityNormalizer *)new SwigDirector_IIntensityNormalizer(arg1); 
+  } else {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing abstract class or protected constructor"); 
+    SWIG_fail;
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IIntensityNormalizer, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_IIntensityNormalizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IIntensityNormalizer *arg1 = (IIntensityNormalizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_IIntensityNormalizer",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IIntensityNormalizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_IIntensityNormalizer" "', argument " "1"" of type '" "IIntensityNormalizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IIntensityNormalizer * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IIntensityNormalizer__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IIntensityNormalizer *arg1 = (IIntensityNormalizer *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  SwigDirector_IIntensityNormalizer *darg = 0;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:IIntensityNormalizer__print",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IIntensityNormalizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IIntensityNormalizer__print" "', argument " "1"" of type '" "IIntensityNormalizer const *""'"); 
+  }
+  arg1 = reinterpret_cast< IIntensityNormalizer * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__ostream,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IIntensityNormalizer__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IIntensityNormalizer__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  arg2 = reinterpret_cast< std::ostream * >(argp2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  if (!director || !(director->swig_get_inner("print"))) {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing protected member print");
+    SWIG_fail;
+  }
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    darg = dynamic_cast<SwigDirector_IIntensityNormalizer *>(arg1);
+    if (upcall) {
+      ((SwigDirector_IIntensityNormalizer const *)darg)->printSwigPublic(*arg2);
+    } else {
+      ((SwigDirector_IIntensityNormalizer const *)darg)->print(*arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IIntensityNormalizer_init_parameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IIntensityNormalizer *arg1 = (IIntensityNormalizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  SwigDirector_IIntensityNormalizer *darg = 0;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IIntensityNormalizer_init_parameters",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IIntensityNormalizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IIntensityNormalizer_init_parameters" "', argument " "1"" of type '" "IIntensityNormalizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IIntensityNormalizer * >(argp1);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  if (!director || !(director->swig_get_inner("init_parameters"))) {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing protected member init_parameters");
+    SWIG_fail;
+  }
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    darg = dynamic_cast<SwigDirector_IIntensityNormalizer *>(arg1);
+    if (upcall) {
+      (darg)->init_parametersSwigPublic();
+    } else {
+      (darg)->init_parameters();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -19919,28 +24180,37 @@ SWIGINTERN PyObject *IIntensityNormalizer_swigregister(PyObject *SWIGUNUSEDPARM(
 
 SWIGINTERN PyObject *_wrap_new_IntensityNormalizer__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  double arg1 ;
+  PyObject *arg1 = (PyObject *) 0 ;
   double arg2 ;
-  double val1 ;
-  int ecode1 = 0 ;
+  double arg3 ;
   double val2 ;
   int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
   IntensityNormalizer *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:new_IntensityNormalizer",&obj0,&obj1)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(obj0, &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_IntensityNormalizer" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
+  if (!PyArg_ParseTuple(args,(char *)"OOO:new_IntensityNormalizer",&obj0,&obj1,&obj2)) SWIG_fail;
+  arg1 = obj0;
   ecode2 = SWIG_AsVal_double(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_IntensityNormalizer" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  result = (IntensityNormalizer *)new IntensityNormalizer(arg1,arg2);
+  ecode3 = SWIG_AsVal_double(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_IntensityNormalizer" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IntensityNormalizer *)new SwigDirector_IntensityNormalizer(arg1,arg2,arg3); 
+  } else {
+    result = (IntensityNormalizer *)new IntensityNormalizer(arg2,arg3); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityNormalizer, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -19950,19 +24220,28 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_IntensityNormalizer__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  double arg1 ;
-  double val1 ;
-  int ecode1 = 0 ;
+  PyObject *arg1 = (PyObject *) 0 ;
+  double arg2 ;
+  double val2 ;
+  int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
   IntensityNormalizer *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:new_IntensityNormalizer",&obj0)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(obj0, &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_IntensityNormalizer" "', argument " "1"" of type '" "double""'");
+  if (!PyArg_ParseTuple(args,(char *)"OO:new_IntensityNormalizer",&obj0,&obj1)) SWIG_fail;
+  arg1 = obj0;
+  ecode2 = SWIG_AsVal_double(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_IntensityNormalizer" "', argument " "2"" of type '" "double""'");
   } 
-  arg1 = static_cast< double >(val1);
-  result = (IntensityNormalizer *)new IntensityNormalizer(arg1);
+  arg2 = static_cast< double >(val2);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IntensityNormalizer *)new SwigDirector_IntensityNormalizer(arg1,arg2); 
+  } else {
+    result = (IntensityNormalizer *)new IntensityNormalizer(arg2); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityNormalizer, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -19972,10 +24251,19 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_IntensityNormalizer__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
   IntensityNormalizer *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)":new_IntensityNormalizer")) SWIG_fail;
-  result = (IntensityNormalizer *)new IntensityNormalizer();
+  if (!PyArg_ParseTuple(args,(char *)"O:new_IntensityNormalizer",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IntensityNormalizer *)new SwigDirector_IntensityNormalizer(arg1); 
+  } else {
+    result = (IntensityNormalizer *)new IntensityNormalizer(); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityNormalizer, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -19985,42 +24273,52 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_IntensityNormalizer(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[3] = {
+  PyObject *argv[4] = {
     0
   };
   Py_ssize_t ii;
   
   if (!PyTuple_Check(args)) SWIG_fail;
   argc = args ? PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
     argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 0) {
-    return _wrap_new_IntensityNormalizer__SWIG_2(self, args);
   }
   if (argc == 1) {
     int _v;
-    {
-      int res = SWIG_AsVal_double(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
+    _v = (argv[0] != 0);
     if (_v) {
-      return _wrap_new_IntensityNormalizer__SWIG_1(self, args);
+      return _wrap_new_IntensityNormalizer__SWIG_2(self, args);
     }
   }
   if (argc == 2) {
     int _v;
-    {
-      int res = SWIG_AsVal_double(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
+    _v = (argv[0] != 0);
     if (_v) {
       {
         int res = SWIG_AsVal_double(argv[1], NULL);
         _v = SWIG_CheckState(res);
       }
       if (_v) {
-        return _wrap_new_IntensityNormalizer__SWIG_0(self, args);
+        return _wrap_new_IntensityNormalizer__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_new_IntensityNormalizer__SWIG_0(self, args);
+        }
       }
     }
   }
@@ -20030,7 +24328,7 @@ fail:
     "  Possible C/C++ prototypes are:\n"
     "    IntensityNormalizer::IntensityNormalizer(double,double)\n"
     "    IntensityNormalizer::IntensityNormalizer(double)\n"
-    "    IntensityNormalizer::IntensityNormalizer()\n");
+    "    IntensityNormalizer::IntensityNormalizer(PyObject *)\n");
   return 0;
 }
 
@@ -20062,6 +24360,8 @@ SWIGINTERN PyObject *_wrap_IntensityNormalizer_clone(PyObject *SWIGUNUSEDPARM(se
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   IntensityNormalizer *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IntensityNormalizer_clone",&obj0)) SWIG_fail;
@@ -20070,8 +24370,27 @@ SWIGINTERN PyObject *_wrap_IntensityNormalizer_clone(PyObject *SWIGUNUSEDPARM(se
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityNormalizer_clone" "', argument " "1"" of type '" "IntensityNormalizer const *""'"); 
   }
   arg1 = reinterpret_cast< IntensityNormalizer * >(argp1);
-  result = (IntensityNormalizer *)((IntensityNormalizer const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityNormalizer, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (IntensityNormalizer *)((IntensityNormalizer const *)arg1)->IntensityNormalizer::clone();
+    } else {
+      result = (IntensityNormalizer *)((IntensityNormalizer const *)arg1)->clone();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityNormalizer, 0 |  0 );
+  }
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -20088,6 +24407,8 @@ SWIGINTERN PyObject *_wrap_IntensityNormalizer_createNormalizedData(PyObject *SW
   int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   OutputData< double > *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IntensityNormalizer_createNormalizedData",&obj0,&obj1)) SWIG_fail;
@@ -20104,8 +24425,21 @@ SWIGINTERN PyObject *_wrap_IntensityNormalizer_createNormalizedData(PyObject *SW
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IntensityNormalizer_createNormalizedData" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
   }
   arg2 = reinterpret_cast< OutputData< double > * >(argp2);
-  result = (OutputData< double > *)((IntensityNormalizer const *)arg1)->createNormalizedData((OutputData< double > const &)*arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (OutputData< double > *)((IntensityNormalizer const *)arg1)->IntensityNormalizer::createNormalizedData((OutputData< double > const &)*arg2);
+    } else {
+      result = (OutputData< double > *)((IntensityNormalizer const *)arg1)->createNormalizedData((OutputData< double > const &)*arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -20122,6 +24456,8 @@ SWIGINTERN PyObject *_wrap_IntensityNormalizer_apply(PyObject *SWIGUNUSEDPARM(se
   int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IntensityNormalizer_apply",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IntensityNormalizer, 0 |  0 );
@@ -20137,7 +24473,17 @@ SWIGINTERN PyObject *_wrap_IntensityNormalizer_apply(PyObject *SWIGUNUSEDPARM(se
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IntensityNormalizer_apply" "', argument " "2"" of type '" "OutputData< double > &""'"); 
   }
   arg2 = reinterpret_cast< OutputData< double > * >(argp2);
-  ((IntensityNormalizer const *)arg1)->apply(*arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      ((IntensityNormalizer const *)arg1)->IntensityNormalizer::apply(*arg2);
+    } else {
+      ((IntensityNormalizer const *)arg1)->apply(*arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -20155,6 +24501,8 @@ SWIGINTERN PyObject *_wrap_IntensityNormalizer_setMaximumIntensity(PyObject *SWI
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IntensityNormalizer_setMaximumIntensity",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IntensityNormalizer, 0 |  0 );
@@ -20167,7 +24515,132 @@ SWIGINTERN PyObject *_wrap_IntensityNormalizer_setMaximumIntensity(PyObject *SWI
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IntensityNormalizer_setMaximumIntensity" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  (arg1)->setMaximumIntensity(arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->IntensityNormalizer::setMaximumIntensity(arg2);
+    } else {
+      (arg1)->setMaximumIntensity(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IntensityNormalizer_init_parameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IntensityNormalizer *arg1 = (IntensityNormalizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  SwigDirector_IntensityNormalizer *darg = 0;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IntensityNormalizer_init_parameters",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IntensityNormalizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityNormalizer_init_parameters" "', argument " "1"" of type '" "IntensityNormalizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IntensityNormalizer * >(argp1);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  if (!director || !(director->swig_get_inner("init_parameters"))) {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing protected member init_parameters");
+    SWIG_fail;
+  }
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    darg = dynamic_cast<SwigDirector_IntensityNormalizer *>(arg1);
+    if (upcall) {
+      (darg)->init_parametersSwigPublic();
+    } else {
+      (darg)->init_parameters();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_IntensityNormalizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IntensityNormalizer *arg1 = (IntensityNormalizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_IntensityNormalizer",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IntensityNormalizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_IntensityNormalizer" "', argument " "1"" of type '" "IntensityNormalizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IntensityNormalizer * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IntensityNormalizer__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IntensityNormalizer *arg1 = (IntensityNormalizer *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  SwigDirector_IntensityNormalizer *darg = 0;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:IntensityNormalizer__print",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IntensityNormalizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityNormalizer__print" "', argument " "1"" of type '" "IntensityNormalizer const *""'"); 
+  }
+  arg1 = reinterpret_cast< IntensityNormalizer * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__ostream,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IntensityNormalizer__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IntensityNormalizer__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  arg2 = reinterpret_cast< std::ostream * >(argp2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  if (!director || !(director->swig_get_inner("print"))) {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing protected member print");
+    SWIG_fail;
+  }
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    darg = dynamic_cast<SwigDirector_IntensityNormalizer *>(arg1);
+    if (upcall) {
+      ((SwigDirector_IntensityNormalizer const *)darg)->printSwigPublic(*arg2);
+    } else {
+      ((SwigDirector_IntensityNormalizer const *)darg)->print(*arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -20184,28 +24657,37 @@ SWIGINTERN PyObject *IntensityNormalizer_swigregister(PyObject *SWIGUNUSEDPARM(s
 
 SWIGINTERN PyObject *_wrap_new_IntensityScaleAndShiftNormalizer__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  double arg1 ;
+  PyObject *arg1 = (PyObject *) 0 ;
   double arg2 ;
-  double val1 ;
-  int ecode1 = 0 ;
+  double arg3 ;
   double val2 ;
   int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
   IntensityScaleAndShiftNormalizer *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:new_IntensityScaleAndShiftNormalizer",&obj0,&obj1)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(obj0, &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_IntensityScaleAndShiftNormalizer" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
+  if (!PyArg_ParseTuple(args,(char *)"OOO:new_IntensityScaleAndShiftNormalizer",&obj0,&obj1,&obj2)) SWIG_fail;
+  arg1 = obj0;
   ecode2 = SWIG_AsVal_double(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_IntensityScaleAndShiftNormalizer" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  result = (IntensityScaleAndShiftNormalizer *)new IntensityScaleAndShiftNormalizer(arg1,arg2);
+  ecode3 = SWIG_AsVal_double(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_IntensityScaleAndShiftNormalizer" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IntensityScaleAndShiftNormalizer *)new SwigDirector_IntensityScaleAndShiftNormalizer(arg1,arg2,arg3); 
+  } else {
+    result = (IntensityScaleAndShiftNormalizer *)new IntensityScaleAndShiftNormalizer(arg2,arg3); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityScaleAndShiftNormalizer, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -20215,19 +24697,28 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_IntensityScaleAndShiftNormalizer__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  double arg1 ;
-  double val1 ;
-  int ecode1 = 0 ;
+  PyObject *arg1 = (PyObject *) 0 ;
+  double arg2 ;
+  double val2 ;
+  int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
   IntensityScaleAndShiftNormalizer *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:new_IntensityScaleAndShiftNormalizer",&obj0)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(obj0, &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_IntensityScaleAndShiftNormalizer" "', argument " "1"" of type '" "double""'");
+  if (!PyArg_ParseTuple(args,(char *)"OO:new_IntensityScaleAndShiftNormalizer",&obj0,&obj1)) SWIG_fail;
+  arg1 = obj0;
+  ecode2 = SWIG_AsVal_double(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_IntensityScaleAndShiftNormalizer" "', argument " "2"" of type '" "double""'");
   } 
-  arg1 = static_cast< double >(val1);
-  result = (IntensityScaleAndShiftNormalizer *)new IntensityScaleAndShiftNormalizer(arg1);
+  arg2 = static_cast< double >(val2);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IntensityScaleAndShiftNormalizer *)new SwigDirector_IntensityScaleAndShiftNormalizer(arg1,arg2); 
+  } else {
+    result = (IntensityScaleAndShiftNormalizer *)new IntensityScaleAndShiftNormalizer(arg2); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityScaleAndShiftNormalizer, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -20237,10 +24728,19 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_IntensityScaleAndShiftNormalizer__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
   IntensityScaleAndShiftNormalizer *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)":new_IntensityScaleAndShiftNormalizer")) SWIG_fail;
-  result = (IntensityScaleAndShiftNormalizer *)new IntensityScaleAndShiftNormalizer();
+  if (!PyArg_ParseTuple(args,(char *)"O:new_IntensityScaleAndShiftNormalizer",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IntensityScaleAndShiftNormalizer *)new SwigDirector_IntensityScaleAndShiftNormalizer(arg1); 
+  } else {
+    result = (IntensityScaleAndShiftNormalizer *)new IntensityScaleAndShiftNormalizer(); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityScaleAndShiftNormalizer, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -20250,42 +24750,52 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_IntensityScaleAndShiftNormalizer(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[3] = {
+  PyObject *argv[4] = {
     0
   };
   Py_ssize_t ii;
   
   if (!PyTuple_Check(args)) SWIG_fail;
   argc = args ? PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
     argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 0) {
-    return _wrap_new_IntensityScaleAndShiftNormalizer__SWIG_2(self, args);
   }
   if (argc == 1) {
     int _v;
-    {
-      int res = SWIG_AsVal_double(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
+    _v = (argv[0] != 0);
     if (_v) {
-      return _wrap_new_IntensityScaleAndShiftNormalizer__SWIG_1(self, args);
+      return _wrap_new_IntensityScaleAndShiftNormalizer__SWIG_2(self, args);
     }
   }
   if (argc == 2) {
     int _v;
-    {
-      int res = SWIG_AsVal_double(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
+    _v = (argv[0] != 0);
     if (_v) {
       {
         int res = SWIG_AsVal_double(argv[1], NULL);
         _v = SWIG_CheckState(res);
       }
       if (_v) {
-        return _wrap_new_IntensityScaleAndShiftNormalizer__SWIG_0(self, args);
+        return _wrap_new_IntensityScaleAndShiftNormalizer__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_new_IntensityScaleAndShiftNormalizer__SWIG_0(self, args);
+        }
       }
     }
   }
@@ -20295,7 +24805,7 @@ fail:
     "  Possible C/C++ prototypes are:\n"
     "    IntensityScaleAndShiftNormalizer::IntensityScaleAndShiftNormalizer(double,double)\n"
     "    IntensityScaleAndShiftNormalizer::IntensityScaleAndShiftNormalizer(double)\n"
-    "    IntensityScaleAndShiftNormalizer::IntensityScaleAndShiftNormalizer()\n");
+    "    IntensityScaleAndShiftNormalizer::IntensityScaleAndShiftNormalizer(PyObject *)\n");
   return 0;
 }
 
@@ -20331,6 +24841,8 @@ SWIGINTERN PyObject *_wrap_IntensityScaleAndShiftNormalizer_setMaximumIntensity(
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IntensityScaleAndShiftNormalizer_setMaximumIntensity",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IntensityScaleAndShiftNormalizer, 0 |  0 );
@@ -20343,7 +24855,17 @@ SWIGINTERN PyObject *_wrap_IntensityScaleAndShiftNormalizer_setMaximumIntensity(
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IntensityScaleAndShiftNormalizer_setMaximumIntensity" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  (arg1)->setMaximumIntensity(arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->IntensityScaleAndShiftNormalizer::setMaximumIntensity(arg2);
+    } else {
+      (arg1)->setMaximumIntensity(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -20357,6 +24879,8 @@ SWIGINTERN PyObject *_wrap_IntensityScaleAndShiftNormalizer_clone(PyObject *SWIG
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   IntensityScaleAndShiftNormalizer *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IntensityScaleAndShiftNormalizer_clone",&obj0)) SWIG_fail;
@@ -20365,8 +24889,142 @@ SWIGINTERN PyObject *_wrap_IntensityScaleAndShiftNormalizer_clone(PyObject *SWIG
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityScaleAndShiftNormalizer_clone" "', argument " "1"" of type '" "IntensityScaleAndShiftNormalizer const *""'"); 
   }
   arg1 = reinterpret_cast< IntensityScaleAndShiftNormalizer * >(argp1);
-  result = (IntensityScaleAndShiftNormalizer *)((IntensityScaleAndShiftNormalizer const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityScaleAndShiftNormalizer, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (IntensityScaleAndShiftNormalizer *)((IntensityScaleAndShiftNormalizer const *)arg1)->IntensityScaleAndShiftNormalizer::clone();
+    } else {
+      result = (IntensityScaleAndShiftNormalizer *)((IntensityScaleAndShiftNormalizer const *)arg1)->clone();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityScaleAndShiftNormalizer, 0 |  0 );
+  }
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_IntensityScaleAndShiftNormalizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IntensityScaleAndShiftNormalizer *arg1 = (IntensityScaleAndShiftNormalizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_IntensityScaleAndShiftNormalizer",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IntensityScaleAndShiftNormalizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_IntensityScaleAndShiftNormalizer" "', argument " "1"" of type '" "IntensityScaleAndShiftNormalizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IntensityScaleAndShiftNormalizer * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IntensityScaleAndShiftNormalizer__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IntensityScaleAndShiftNormalizer *arg1 = (IntensityScaleAndShiftNormalizer *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  SwigDirector_IntensityScaleAndShiftNormalizer *darg = 0;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:IntensityScaleAndShiftNormalizer__print",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IntensityScaleAndShiftNormalizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityScaleAndShiftNormalizer__print" "', argument " "1"" of type '" "IntensityScaleAndShiftNormalizer const *""'"); 
+  }
+  arg1 = reinterpret_cast< IntensityScaleAndShiftNormalizer * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__ostream,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IntensityScaleAndShiftNormalizer__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IntensityScaleAndShiftNormalizer__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  arg2 = reinterpret_cast< std::ostream * >(argp2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  if (!director || !(director->swig_get_inner("print"))) {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing protected member print");
+    SWIG_fail;
+  }
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    darg = dynamic_cast<SwigDirector_IntensityScaleAndShiftNormalizer *>(arg1);
+    if (upcall) {
+      ((SwigDirector_IntensityScaleAndShiftNormalizer const *)darg)->printSwigPublic(*arg2);
+    } else {
+      ((SwigDirector_IntensityScaleAndShiftNormalizer const *)darg)->print(*arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IntensityScaleAndShiftNormalizer_init_parameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IntensityScaleAndShiftNormalizer *arg1 = (IntensityScaleAndShiftNormalizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  SwigDirector_IntensityScaleAndShiftNormalizer *darg = 0;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IntensityScaleAndShiftNormalizer_init_parameters",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IntensityScaleAndShiftNormalizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityScaleAndShiftNormalizer_init_parameters" "', argument " "1"" of type '" "IntensityScaleAndShiftNormalizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IntensityScaleAndShiftNormalizer * >(argp1);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  if (!director || !(director->swig_get_inner("init_parameters"))) {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing protected member init_parameters");
+    SWIG_fail;
+  }
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    darg = dynamic_cast<SwigDirector_IntensityScaleAndShiftNormalizer *>(arg1);
+    if (upcall) {
+      (darg)->init_parametersSwigPublic();
+    } else {
+      (darg)->init_parameters();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -20379,6 +25037,29 @@ SWIGINTERN PyObject *IntensityScaleAndShiftNormalizer_swigregister(PyObject *SWI
   SWIG_TypeNewClientData(SWIGTYPE_p_IntensityScaleAndShiftNormalizer, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
+
+SWIGINTERN PyObject *_wrap_new_ISquaredFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
+  ISquaredFunction *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:new_ISquaredFunction",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (ISquaredFunction *)new SwigDirector_ISquaredFunction(arg1); 
+  } else {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing abstract class or protected constructor"); 
+    SWIG_fail;
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ISquaredFunction, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
 
 SWIGINTERN PyObject *_wrap_delete_ISquaredFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
@@ -20407,6 +25088,8 @@ SWIGINTERN PyObject *_wrap_ISquaredFunction_clone(PyObject *SWIGUNUSEDPARM(self)
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   ISquaredFunction *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:ISquaredFunction_clone",&obj0)) SWIG_fail;
@@ -20415,8 +25098,27 @@ SWIGINTERN PyObject *_wrap_ISquaredFunction_clone(PyObject *SWIGUNUSEDPARM(self)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISquaredFunction_clone" "', argument " "1"" of type '" "ISquaredFunction const *""'"); 
   }
   arg1 = reinterpret_cast< ISquaredFunction * >(argp1);
-  result = (ISquaredFunction *)((ISquaredFunction const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ISquaredFunction, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      Swig::DirectorPureVirtualException::raise("ISquaredFunction::clone");
+    } else {
+      result = (ISquaredFunction *)((ISquaredFunction const *)arg1)->clone();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ISquaredFunction, 0 |  0 );
+  }
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -20437,6 +25139,8 @@ SWIGINTERN PyObject *_wrap_ISquaredFunction_calculateSquaredDifference(PyObject 
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:ISquaredFunction_calculateSquaredDifference",&obj0,&obj1,&obj2)) SWIG_fail;
@@ -20455,7 +25159,17 @@ SWIGINTERN PyObject *_wrap_ISquaredFunction_calculateSquaredDifference(PyObject 
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ISquaredFunction_calculateSquaredDifference" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (double)((ISquaredFunction const *)arg1)->calculateSquaredDifference(arg2,arg3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      Swig::DirectorPureVirtualException::raise("ISquaredFunction::calculateSquaredDifference");
+    } else {
+      result = (double)((ISquaredFunction const *)arg1)->calculateSquaredDifference(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -20477,6 +25191,8 @@ SWIGINTERN PyObject *_wrap_ISquaredFunction_calculateSquaredError__SWIG_0(PyObje
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:ISquaredFunction_calculateSquaredError",&obj0,&obj1,&obj2)) SWIG_fail;
@@ -20495,7 +25211,17 @@ SWIGINTERN PyObject *_wrap_ISquaredFunction_calculateSquaredError__SWIG_0(PyObje
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ISquaredFunction_calculateSquaredError" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (double)((ISquaredFunction const *)arg1)->calculateSquaredError(arg2,arg3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      Swig::DirectorPureVirtualException::raise("ISquaredFunction::calculateSquaredError");
+    } else {
+      result = (double)((ISquaredFunction const *)arg1)->calculateSquaredError(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -20513,6 +25239,8 @@ SWIGINTERN PyObject *_wrap_ISquaredFunction_calculateSquaredError__SWIG_1(PyObje
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:ISquaredFunction_calculateSquaredError",&obj0,&obj1)) SWIG_fail;
@@ -20526,7 +25254,17 @@ SWIGINTERN PyObject *_wrap_ISquaredFunction_calculateSquaredError__SWIG_1(PyObje
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ISquaredFunction_calculateSquaredError" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  result = (double)((ISquaredFunction const *)arg1)->calculateSquaredError(arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      Swig::DirectorPureVirtualException::raise("ISquaredFunction::calculateSquaredError");
+    } else {
+      result = (double)((ISquaredFunction const *)arg1)->calculateSquaredError(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -20592,6 +25330,31 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_disown_ISquaredFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ISquaredFunction *arg1 = (ISquaredFunction *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_ISquaredFunction",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ISquaredFunction, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_ISquaredFunction" "', argument " "1"" of type '" "ISquaredFunction *""'"); 
+  }
+  arg1 = reinterpret_cast< ISquaredFunction * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *ISquaredFunction_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
@@ -20601,10 +25364,19 @@ SWIGINTERN PyObject *ISquaredFunction_swigregister(PyObject *SWIGUNUSEDPARM(self
 
 SWIGINTERN PyObject *_wrap_new_SquaredFunctionDefault(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
   SquaredFunctionDefault *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)":new_SquaredFunctionDefault")) SWIG_fail;
-  result = (SquaredFunctionDefault *)new SquaredFunctionDefault();
+  if (!PyArg_ParseTuple(args,(char *)"O:new_SquaredFunctionDefault",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (SquaredFunctionDefault *)new SwigDirector_SquaredFunctionDefault(arg1); 
+  } else {
+    result = (SquaredFunctionDefault *)new SquaredFunctionDefault(); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SquaredFunctionDefault, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -20639,6 +25411,8 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionDefault_clone(PyObject *SWIGUNUSEDPARM
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   SquaredFunctionDefault *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:SquaredFunctionDefault_clone",&obj0)) SWIG_fail;
@@ -20647,8 +25421,27 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionDefault_clone(PyObject *SWIGUNUSEDPARM
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SquaredFunctionDefault_clone" "', argument " "1"" of type '" "SquaredFunctionDefault const *""'"); 
   }
   arg1 = reinterpret_cast< SquaredFunctionDefault * >(argp1);
-  result = (SquaredFunctionDefault *)((SquaredFunctionDefault const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SquaredFunctionDefault, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (SquaredFunctionDefault *)((SquaredFunctionDefault const *)arg1)->SquaredFunctionDefault::clone();
+    } else {
+      result = (SquaredFunctionDefault *)((SquaredFunctionDefault const *)arg1)->clone();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SquaredFunctionDefault, 0 |  0 );
+  }
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -20669,6 +25462,8 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionDefault_calculateSquaredDifference(PyO
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:SquaredFunctionDefault_calculateSquaredDifference",&obj0,&obj1,&obj2)) SWIG_fail;
@@ -20687,7 +25482,17 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionDefault_calculateSquaredDifference(PyO
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "SquaredFunctionDefault_calculateSquaredDifference" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (double)((SquaredFunctionDefault const *)arg1)->calculateSquaredDifference(arg2,arg3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((SquaredFunctionDefault const *)arg1)->SquaredFunctionDefault::calculateSquaredDifference(arg2,arg3);
+    } else {
+      result = (double)((SquaredFunctionDefault const *)arg1)->calculateSquaredDifference(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -20709,6 +25514,8 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionDefault_calculateSquaredError__SWIG_0(
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:SquaredFunctionDefault_calculateSquaredError",&obj0,&obj1,&obj2)) SWIG_fail;
@@ -20727,7 +25534,17 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionDefault_calculateSquaredError__SWIG_0(
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "SquaredFunctionDefault_calculateSquaredError" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (double)((SquaredFunctionDefault const *)arg1)->calculateSquaredError(arg2,arg3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((SquaredFunctionDefault const *)arg1)->SquaredFunctionDefault::calculateSquaredError(arg2,arg3);
+    } else {
+      result = (double)((SquaredFunctionDefault const *)arg1)->calculateSquaredError(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -20745,6 +25562,8 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionDefault_calculateSquaredError__SWIG_1(
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:SquaredFunctionDefault_calculateSquaredError",&obj0,&obj1)) SWIG_fail;
@@ -20758,7 +25577,17 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionDefault_calculateSquaredError__SWIG_1(
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "SquaredFunctionDefault_calculateSquaredError" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  result = (double)((SquaredFunctionDefault const *)arg1)->calculateSquaredError(arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((SquaredFunctionDefault const *)arg1)->SquaredFunctionDefault::calculateSquaredError(arg2);
+    } else {
+      result = (double)((SquaredFunctionDefault const *)arg1)->calculateSquaredError(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -20824,12 +25653,60 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_disown_SquaredFunctionDefault(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SquaredFunctionDefault *arg1 = (SquaredFunctionDefault *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_SquaredFunctionDefault",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SquaredFunctionDefault, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_SquaredFunctionDefault" "', argument " "1"" of type '" "SquaredFunctionDefault *""'"); 
+  }
+  arg1 = reinterpret_cast< SquaredFunctionDefault * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *SquaredFunctionDefault_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
   SWIG_TypeNewClientData(SWIGTYPE_p_SquaredFunctionDefault, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
+
+SWIGINTERN PyObject *_wrap_new_SquaredFunctionSimError(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
+  SquaredFunctionSimError *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:new_SquaredFunctionSimError",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (SquaredFunctionSimError *)new SwigDirector_SquaredFunctionSimError(arg1); 
+  } else {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing abstract class or protected constructor"); 
+    SWIG_fail;
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SquaredFunctionSimError, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
 
 SWIGINTERN PyObject *_wrap_delete_SquaredFunctionSimError(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
@@ -20858,6 +25735,8 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionSimError_clone(PyObject *SWIGUNUSEDPAR
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   SquaredFunctionSimError *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:SquaredFunctionSimError_clone",&obj0)) SWIG_fail;
@@ -20866,8 +25745,27 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionSimError_clone(PyObject *SWIGUNUSEDPAR
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SquaredFunctionSimError_clone" "', argument " "1"" of type '" "SquaredFunctionSimError const *""'"); 
   }
   arg1 = reinterpret_cast< SquaredFunctionSimError * >(argp1);
-  result = (SquaredFunctionSimError *)((SquaredFunctionSimError const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SquaredFunctionSimError, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (SquaredFunctionSimError *)((SquaredFunctionSimError const *)arg1)->SquaredFunctionSimError::clone();
+    } else {
+      result = (SquaredFunctionSimError *)((SquaredFunctionSimError const *)arg1)->clone();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SquaredFunctionSimError, 0 |  0 );
+  }
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -20888,6 +25786,8 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionSimError_calculateSquaredDifference(Py
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:SquaredFunctionSimError_calculateSquaredDifference",&obj0,&obj1,&obj2)) SWIG_fail;
@@ -20906,7 +25806,17 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionSimError_calculateSquaredDifference(Py
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "SquaredFunctionSimError_calculateSquaredDifference" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (double)((SquaredFunctionSimError const *)arg1)->calculateSquaredDifference(arg2,arg3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((SquaredFunctionSimError const *)arg1)->SquaredFunctionSimError::calculateSquaredDifference(arg2,arg3);
+    } else {
+      result = (double)((SquaredFunctionSimError const *)arg1)->calculateSquaredDifference(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -20928,6 +25838,8 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionSimError_calculateSquaredError(PyObjec
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:SquaredFunctionSimError_calculateSquaredError",&obj0,&obj1,&obj2)) SWIG_fail;
@@ -20946,8 +25858,43 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionSimError_calculateSquaredError(PyObjec
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "SquaredFunctionSimError_calculateSquaredError" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (double)((SquaredFunctionSimError const *)arg1)->calculateSquaredError(arg2,arg3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((SquaredFunctionSimError const *)arg1)->SquaredFunctionSimError::calculateSquaredError(arg2,arg3);
+    } else {
+      result = (double)((SquaredFunctionSimError const *)arg1)->calculateSquaredError(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_SquaredFunctionSimError(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SquaredFunctionSimError *arg1 = (SquaredFunctionSimError *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_SquaredFunctionSimError",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SquaredFunctionSimError, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_SquaredFunctionSimError" "', argument " "1"" of type '" "SquaredFunctionSimError *""'"); 
+  }
+  arg1 = reinterpret_cast< SquaredFunctionSimError * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -20960,6 +25907,29 @@ SWIGINTERN PyObject *SquaredFunctionSimError_swigregister(PyObject *SWIGUNUSEDPA
   SWIG_TypeNewClientData(SWIGTYPE_p_SquaredFunctionSimError, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
+
+SWIGINTERN PyObject *_wrap_new_SquaredFunctionMeanSquaredError(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
+  SquaredFunctionMeanSquaredError *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:new_SquaredFunctionMeanSquaredError",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (SquaredFunctionMeanSquaredError *)new SwigDirector_SquaredFunctionMeanSquaredError(arg1); 
+  } else {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing abstract class or protected constructor"); 
+    SWIG_fail;
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SquaredFunctionMeanSquaredError, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
 
 SWIGINTERN PyObject *_wrap_delete_SquaredFunctionMeanSquaredError(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
@@ -20988,6 +25958,8 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionMeanSquaredError_clone(PyObject *SWIGU
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   SquaredFunctionMeanSquaredError *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:SquaredFunctionMeanSquaredError_clone",&obj0)) SWIG_fail;
@@ -20996,8 +25968,27 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionMeanSquaredError_clone(PyObject *SWIGU
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SquaredFunctionMeanSquaredError_clone" "', argument " "1"" of type '" "SquaredFunctionMeanSquaredError const *""'"); 
   }
   arg1 = reinterpret_cast< SquaredFunctionMeanSquaredError * >(argp1);
-  result = (SquaredFunctionMeanSquaredError *)((SquaredFunctionMeanSquaredError const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SquaredFunctionMeanSquaredError, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (SquaredFunctionMeanSquaredError *)((SquaredFunctionMeanSquaredError const *)arg1)->SquaredFunctionMeanSquaredError::clone();
+    } else {
+      result = (SquaredFunctionMeanSquaredError *)((SquaredFunctionMeanSquaredError const *)arg1)->clone();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SquaredFunctionMeanSquaredError, 0 |  0 );
+  }
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -21018,6 +26009,8 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionMeanSquaredError_calculateSquaredDiffe
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:SquaredFunctionMeanSquaredError_calculateSquaredDifference",&obj0,&obj1,&obj2)) SWIG_fail;
@@ -21036,7 +26029,17 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionMeanSquaredError_calculateSquaredDiffe
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "SquaredFunctionMeanSquaredError_calculateSquaredDifference" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (double)((SquaredFunctionMeanSquaredError const *)arg1)->calculateSquaredDifference(arg2,arg3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((SquaredFunctionMeanSquaredError const *)arg1)->SquaredFunctionMeanSquaredError::calculateSquaredDifference(arg2,arg3);
+    } else {
+      result = (double)((SquaredFunctionMeanSquaredError const *)arg1)->calculateSquaredDifference(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -21058,6 +26061,8 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionMeanSquaredError_calculateSquaredError
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:SquaredFunctionMeanSquaredError_calculateSquaredError",&obj0,&obj1,&obj2)) SWIG_fail;
@@ -21076,8 +26081,43 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionMeanSquaredError_calculateSquaredError
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "SquaredFunctionMeanSquaredError_calculateSquaredError" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (double)((SquaredFunctionMeanSquaredError const *)arg1)->calculateSquaredError(arg2,arg3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((SquaredFunctionMeanSquaredError const *)arg1)->SquaredFunctionMeanSquaredError::calculateSquaredError(arg2,arg3);
+    } else {
+      result = (double)((SquaredFunctionMeanSquaredError const *)arg1)->calculateSquaredError(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_SquaredFunctionMeanSquaredError(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SquaredFunctionMeanSquaredError *arg1 = (SquaredFunctionMeanSquaredError *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_SquaredFunctionMeanSquaredError",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SquaredFunctionMeanSquaredError, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_SquaredFunctionMeanSquaredError" "', argument " "1"" of type '" "SquaredFunctionMeanSquaredError *""'"); 
+  }
+  arg1 = reinterpret_cast< SquaredFunctionMeanSquaredError * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -21090,6 +26130,103 @@ SWIGINTERN PyObject *SquaredFunctionMeanSquaredError_swigregister(PyObject *SWIG
   SWIG_TypeNewClientData(SWIGTYPE_p_SquaredFunctionMeanSquaredError, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
+
+SWIGINTERN PyObject *_wrap_new_SquaredFunctionSystematicError__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  double arg2 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  SquaredFunctionSystematicError *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:new_SquaredFunctionSystematicError",&obj0,&obj1)) SWIG_fail;
+  arg1 = obj0;
+  ecode2 = SWIG_AsVal_double(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_SquaredFunctionSystematicError" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (SquaredFunctionSystematicError *)new SwigDirector_SquaredFunctionSystematicError(arg1,arg2); 
+  } else {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing abstract class or protected constructor"); 
+    SWIG_fail;
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SquaredFunctionSystematicError, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_SquaredFunctionSystematicError__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
+  SquaredFunctionSystematicError *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:new_SquaredFunctionSystematicError",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (SquaredFunctionSystematicError *)new SwigDirector_SquaredFunctionSystematicError(arg1); 
+  } else {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing abstract class or protected constructor"); 
+    SWIG_fail;
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SquaredFunctionSystematicError, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_SquaredFunctionSystematicError(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      return _wrap_new_SquaredFunctionSystematicError__SWIG_1(self, args);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_SquaredFunctionSystematicError__SWIG_0(self, args);
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'new_SquaredFunctionSystematicError'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    SquaredFunctionSystematicError::SquaredFunctionSystematicError(double)\n"
+    "    SquaredFunctionSystematicError::SquaredFunctionSystematicError(PyObject *)\n");
+  return 0;
+}
+
 
 SWIGINTERN PyObject *_wrap_delete_SquaredFunctionSystematicError(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
@@ -21118,6 +26255,8 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionSystematicError_clone(PyObject *SWIGUN
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   SquaredFunctionSystematicError *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:SquaredFunctionSystematicError_clone",&obj0)) SWIG_fail;
@@ -21126,8 +26265,27 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionSystematicError_clone(PyObject *SWIGUN
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SquaredFunctionSystematicError_clone" "', argument " "1"" of type '" "SquaredFunctionSystematicError const *""'"); 
   }
   arg1 = reinterpret_cast< SquaredFunctionSystematicError * >(argp1);
-  result = (SquaredFunctionSystematicError *)((SquaredFunctionSystematicError const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SquaredFunctionSystematicError, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (SquaredFunctionSystematicError *)((SquaredFunctionSystematicError const *)arg1)->SquaredFunctionSystematicError::clone();
+    } else {
+      result = (SquaredFunctionSystematicError *)((SquaredFunctionSystematicError const *)arg1)->clone();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SquaredFunctionSystematicError, 0 |  0 );
+  }
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -21148,6 +26306,8 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionSystematicError_calculateSquaredDiffer
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:SquaredFunctionSystematicError_calculateSquaredDifference",&obj0,&obj1,&obj2)) SWIG_fail;
@@ -21166,7 +26326,17 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionSystematicError_calculateSquaredDiffer
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "SquaredFunctionSystematicError_calculateSquaredDifference" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (double)((SquaredFunctionSystematicError const *)arg1)->calculateSquaredDifference(arg2,arg3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((SquaredFunctionSystematicError const *)arg1)->SquaredFunctionSystematicError::calculateSquaredDifference(arg2,arg3);
+    } else {
+      result = (double)((SquaredFunctionSystematicError const *)arg1)->calculateSquaredDifference(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -21188,6 +26358,8 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionSystematicError_calculateSquaredError(
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:SquaredFunctionSystematicError_calculateSquaredError",&obj0,&obj1,&obj2)) SWIG_fail;
@@ -21206,8 +26378,43 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionSystematicError_calculateSquaredError(
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "SquaredFunctionSystematicError_calculateSquaredError" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (double)((SquaredFunctionSystematicError const *)arg1)->calculateSquaredError(arg2,arg3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((SquaredFunctionSystematicError const *)arg1)->SquaredFunctionSystematicError::calculateSquaredError(arg2,arg3);
+    } else {
+      result = (double)((SquaredFunctionSystematicError const *)arg1)->calculateSquaredError(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_SquaredFunctionSystematicError(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SquaredFunctionSystematicError *arg1 = (SquaredFunctionSystematicError *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_SquaredFunctionSystematicError",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SquaredFunctionSystematicError, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_SquaredFunctionSystematicError" "', argument " "1"" of type '" "SquaredFunctionSystematicError *""'"); 
+  }
+  arg1 = reinterpret_cast< SquaredFunctionSystematicError * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -21220,6 +26427,103 @@ SWIGINTERN PyObject *SquaredFunctionSystematicError_swigregister(PyObject *SWIGU
   SWIG_TypeNewClientData(SWIGTYPE_p_SquaredFunctionSystematicError, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
+
+SWIGINTERN PyObject *_wrap_new_SquaredFunctionGaussianError__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  double arg2 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  SquaredFunctionGaussianError *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:new_SquaredFunctionGaussianError",&obj0,&obj1)) SWIG_fail;
+  arg1 = obj0;
+  ecode2 = SWIG_AsVal_double(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_SquaredFunctionGaussianError" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (SquaredFunctionGaussianError *)new SwigDirector_SquaredFunctionGaussianError(arg1,arg2); 
+  } else {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing abstract class or protected constructor"); 
+    SWIG_fail;
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SquaredFunctionGaussianError, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_SquaredFunctionGaussianError__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
+  SquaredFunctionGaussianError *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:new_SquaredFunctionGaussianError",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (SquaredFunctionGaussianError *)new SwigDirector_SquaredFunctionGaussianError(arg1); 
+  } else {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing abstract class or protected constructor"); 
+    SWIG_fail;
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SquaredFunctionGaussianError, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_SquaredFunctionGaussianError(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      return _wrap_new_SquaredFunctionGaussianError__SWIG_1(self, args);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_SquaredFunctionGaussianError__SWIG_0(self, args);
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'new_SquaredFunctionGaussianError'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    SquaredFunctionGaussianError::SquaredFunctionGaussianError(double)\n"
+    "    SquaredFunctionGaussianError::SquaredFunctionGaussianError(PyObject *)\n");
+  return 0;
+}
+
 
 SWIGINTERN PyObject *_wrap_delete_SquaredFunctionGaussianError(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
@@ -21248,6 +26552,8 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionGaussianError_clone(PyObject *SWIGUNUS
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   SquaredFunctionGaussianError *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:SquaredFunctionGaussianError_clone",&obj0)) SWIG_fail;
@@ -21256,8 +26562,27 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionGaussianError_clone(PyObject *SWIGUNUS
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SquaredFunctionGaussianError_clone" "', argument " "1"" of type '" "SquaredFunctionGaussianError const *""'"); 
   }
   arg1 = reinterpret_cast< SquaredFunctionGaussianError * >(argp1);
-  result = (SquaredFunctionGaussianError *)((SquaredFunctionGaussianError const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SquaredFunctionGaussianError, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (SquaredFunctionGaussianError *)((SquaredFunctionGaussianError const *)arg1)->SquaredFunctionGaussianError::clone();
+    } else {
+      result = (SquaredFunctionGaussianError *)((SquaredFunctionGaussianError const *)arg1)->clone();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SquaredFunctionGaussianError, 0 |  0 );
+  }
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -21278,6 +26603,8 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionGaussianError_calculateSquaredDifferen
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:SquaredFunctionGaussianError_calculateSquaredDifference",&obj0,&obj1,&obj2)) SWIG_fail;
@@ -21296,7 +26623,17 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionGaussianError_calculateSquaredDifferen
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "SquaredFunctionGaussianError_calculateSquaredDifference" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (double)((SquaredFunctionGaussianError const *)arg1)->calculateSquaredDifference(arg2,arg3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((SquaredFunctionGaussianError const *)arg1)->SquaredFunctionGaussianError::calculateSquaredDifference(arg2,arg3);
+    } else {
+      result = (double)((SquaredFunctionGaussianError const *)arg1)->calculateSquaredDifference(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -21318,6 +26655,8 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionGaussianError_calculateSquaredError(Py
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:SquaredFunctionGaussianError_calculateSquaredError",&obj0,&obj1,&obj2)) SWIG_fail;
@@ -21336,8 +26675,43 @@ SWIGINTERN PyObject *_wrap_SquaredFunctionGaussianError_calculateSquaredError(Py
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "SquaredFunctionGaussianError_calculateSquaredError" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (double)((SquaredFunctionGaussianError const *)arg1)->calculateSquaredError(arg2,arg3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((SquaredFunctionGaussianError const *)arg1)->SquaredFunctionGaussianError::calculateSquaredError(arg2,arg3);
+    } else {
+      result = (double)((SquaredFunctionGaussianError const *)arg1)->calculateSquaredError(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_SquaredFunctionGaussianError(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SquaredFunctionGaussianError *arg1 = (SquaredFunctionGaussianError *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_SquaredFunctionGaussianError",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SquaredFunctionGaussianError, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_SquaredFunctionGaussianError" "', argument " "1"" of type '" "SquaredFunctionGaussianError *""'"); 
+  }
+  arg1 = reinterpret_cast< SquaredFunctionGaussianError * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -21350,6 +26724,29 @@ SWIGINTERN PyObject *SquaredFunctionGaussianError_swigregister(PyObject *SWIGUNU
   SWIG_TypeNewClientData(SWIGTYPE_p_SquaredFunctionGaussianError, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
+
+SWIGINTERN PyObject *_wrap_new_IMinimizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
+  IMinimizer *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:new_IMinimizer",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IMinimizer *)new SwigDirector_IMinimizer(arg1); 
+  } else {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing abstract class or protected constructor"); 
+    SWIG_fail;
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
 
 SWIGINTERN PyObject *_wrap_delete_IMinimizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
@@ -21378,6 +26775,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_minimize(PyObject *SWIGUNUSEDPARM(self), P
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_minimize",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
@@ -21385,7 +26784,17 @@ SWIGINTERN PyObject *_wrap_IMinimizer_minimize(PyObject *SWIGUNUSEDPARM(self), P
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_minimize" "', argument " "1"" of type '" "IMinimizer *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  (arg1)->minimize();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      Swig::DirectorPureVirtualException::raise("IMinimizer::minimize");
+    } else {
+      (arg1)->minimize();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -21407,6 +26816,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_setParameter(PyObject *SWIGUNUSEDPARM(self
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:IMinimizer_setParameter",&obj0,&obj1,&obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
@@ -21424,7 +26835,17 @@ SWIGINTERN PyObject *_wrap_IMinimizer_setParameter(PyObject *SWIGUNUSEDPARM(self
     SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IMinimizer_setParameter" "', argument " "3"" of type '" "FitParameter const *""'"); 
   }
   arg3 = reinterpret_cast< FitParameter * >(argp3);
-  (arg1)->setParameter(arg2,(FitParameter const *)arg3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->IMinimizer::setParameter(arg2,(FitParameter const *)arg3);
+    } else {
+      (arg1)->setParameter(arg2,(FitParameter const *)arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -21442,6 +26863,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_setParameters(PyObject *SWIGUNUSEDPARM(sel
   int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_setParameters",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
@@ -21457,7 +26880,17 @@ SWIGINTERN PyObject *_wrap_IMinimizer_setParameters(PyObject *SWIGUNUSEDPARM(sel
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setParameters" "', argument " "2"" of type '" "FitSuiteParameters const &""'"); 
   }
   arg2 = reinterpret_cast< FitSuiteParameters * >(argp2);
-  (arg1)->setParameters((FitSuiteParameters const &)*arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->IMinimizer::setParameters((FitSuiteParameters const &)*arg2);
+    } else {
+      (arg1)->setParameters((FitSuiteParameters const &)*arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -21479,6 +26912,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_setChiSquaredFunction(PyObject *SWIGUNUSED
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:IMinimizer_setChiSquaredFunction",&obj0,&obj1,&obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
@@ -21504,7 +26939,17 @@ SWIGINTERN PyObject *_wrap_IMinimizer_setChiSquaredFunction(PyObject *SWIGUNUSED
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IMinimizer_setChiSquaredFunction" "', argument " "3"" of type '" "size_t""'");
   } 
   arg3 = static_cast< size_t >(val3);
-  (arg1)->setChiSquaredFunction(arg2,arg3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->IMinimizer::setChiSquaredFunction(arg2,arg3);
+    } else {
+      (arg1)->setChiSquaredFunction(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -21530,6 +26975,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_setGradientFunction(PyObject *SWIGUNUSEDPA
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   PyObject * obj3 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OOOO:IMinimizer_setGradientFunction",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
@@ -21560,7 +27007,17 @@ SWIGINTERN PyObject *_wrap_IMinimizer_setGradientFunction(PyObject *SWIGUNUSEDPA
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "IMinimizer_setGradientFunction" "', argument " "4"" of type '" "size_t""'");
   } 
   arg4 = static_cast< size_t >(val4);
-  (arg1)->setGradientFunction(arg2,arg3,arg4);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->IMinimizer::setGradientFunction(arg2,arg3,arg4);
+    } else {
+      (arg1)->setGradientFunction(arg2,arg3,arg4);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -21574,6 +27031,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getNumberOfVariables(PyObject *SWIGUNUSEDP
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   size_t result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getNumberOfVariables",&obj0)) SWIG_fail;
@@ -21582,7 +27041,17 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getNumberOfVariables(PyObject *SWIGUNUSEDP
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getNumberOfVariables" "', argument " "1"" of type '" "IMinimizer const *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = ((IMinimizer const *)arg1)->getNumberOfVariables();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = ((IMinimizer const *)arg1)->IMinimizer::getNumberOfVariables();
+    } else {
+      result = ((IMinimizer const *)arg1)->getNumberOfVariables();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -21596,6 +27065,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getMinValue(PyObject *SWIGUNUSEDPARM(self)
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getMinValue",&obj0)) SWIG_fail;
@@ -21604,7 +27075,17 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getMinValue(PyObject *SWIGUNUSEDPARM(self)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getMinValue" "', argument " "1"" of type '" "IMinimizer const *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = (double)((IMinimizer const *)arg1)->getMinValue();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((IMinimizer const *)arg1)->IMinimizer::getMinValue();
+    } else {
+      result = (double)((IMinimizer const *)arg1)->getMinValue();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -21622,6 +27103,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getValueOfVariableAtMinimum(PyObject *SWIG
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_getValueOfVariableAtMinimum",&obj0,&obj1)) SWIG_fail;
@@ -21635,7 +27118,17 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getValueOfVariableAtMinimum(PyObject *SWIG
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IMinimizer_getValueOfVariableAtMinimum" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (double)((IMinimizer const *)arg1)->getValueOfVariableAtMinimum(arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((IMinimizer const *)arg1)->IMinimizer::getValueOfVariableAtMinimum(arg2);
+    } else {
+      result = (double)((IMinimizer const *)arg1)->getValueOfVariableAtMinimum(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -21649,6 +27142,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getValueOfVariablesAtMinimum(PyObject *SWI
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   std::vector< double,std::allocator< double > > result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getValueOfVariablesAtMinimum",&obj0)) SWIG_fail;
@@ -21657,7 +27152,17 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getValueOfVariablesAtMinimum(PyObject *SWI
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getValueOfVariablesAtMinimum" "', argument " "1"" of type '" "IMinimizer const *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = ((IMinimizer const *)arg1)->getValueOfVariablesAtMinimum();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = ((IMinimizer const *)arg1)->IMinimizer::getValueOfVariablesAtMinimum();
+    } else {
+      result = ((IMinimizer const *)arg1)->getValueOfVariablesAtMinimum();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
   return resultobj;
 fail:
@@ -21675,6 +27180,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getErrorOfVariable(PyObject *SWIGUNUSEDPAR
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_getErrorOfVariable",&obj0,&obj1)) SWIG_fail;
@@ -21688,7 +27195,17 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getErrorOfVariable(PyObject *SWIGUNUSEDPAR
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IMinimizer_getErrorOfVariable" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (double)((IMinimizer const *)arg1)->getErrorOfVariable(arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((IMinimizer const *)arg1)->IMinimizer::getErrorOfVariable(arg2);
+    } else {
+      result = (double)((IMinimizer const *)arg1)->getErrorOfVariable(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -21702,6 +27219,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getErrorOfVariables(PyObject *SWIGUNUSEDPA
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   std::vector< double,std::allocator< double > > result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getErrorOfVariables",&obj0)) SWIG_fail;
@@ -21710,7 +27229,17 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getErrorOfVariables(PyObject *SWIGUNUSEDPA
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getErrorOfVariables" "', argument " "1"" of type '" "IMinimizer const *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = ((IMinimizer const *)arg1)->getErrorOfVariables();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = ((IMinimizer const *)arg1)->IMinimizer::getErrorOfVariables();
+    } else {
+      result = ((IMinimizer const *)arg1)->getErrorOfVariables();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
   return resultobj;
 fail:
@@ -21724,6 +27253,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_clear(PyObject *SWIGUNUSEDPARM(self), PyOb
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_clear",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
@@ -21731,7 +27262,17 @@ SWIGINTERN PyObject *_wrap_IMinimizer_clear(PyObject *SWIGUNUSEDPARM(self), PyOb
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_clear" "', argument " "1"" of type '" "IMinimizer *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  (arg1)->clear();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->IMinimizer::clear();
+    } else {
+      (arg1)->clear();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -21745,6 +27286,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_printResults(PyObject *SWIGUNUSEDPARM(self
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_printResults",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
@@ -21752,7 +27295,17 @@ SWIGINTERN PyObject *_wrap_IMinimizer_printResults(PyObject *SWIGUNUSEDPARM(self
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_printResults" "', argument " "1"" of type '" "IMinimizer const *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  ((IMinimizer const *)arg1)->printResults();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      ((IMinimizer const *)arg1)->IMinimizer::printResults();
+    } else {
+      ((IMinimizer const *)arg1)->printResults();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -21766,6 +27319,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getNCalls(PyObject *SWIGUNUSEDPARM(self), 
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   size_t result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getNCalls",&obj0)) SWIG_fail;
@@ -21774,7 +27329,17 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getNCalls(PyObject *SWIGUNUSEDPARM(self), 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getNCalls" "', argument " "1"" of type '" "IMinimizer const *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = ((IMinimizer const *)arg1)->getNCalls();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = ((IMinimizer const *)arg1)->IMinimizer::getNCalls();
+    } else {
+      result = ((IMinimizer const *)arg1)->getNCalls();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -21788,6 +27353,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getOptions__SWIG_0(PyObject *SWIGUNUSEDPAR
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   MinimizerOptions *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getOptions",&obj0)) SWIG_fail;
@@ -21796,8 +27363,21 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getOptions__SWIG_0(PyObject *SWIGUNUSEDPAR
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getOptions" "', argument " "1"" of type '" "IMinimizer *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = (MinimizerOptions *)(arg1)->getOptions();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (MinimizerOptions *)(arg1)->IMinimizer::getOptions();
+    } else {
+      result = (MinimizerOptions *)(arg1)->getOptions();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -21810,6 +27390,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getOptions__SWIG_1(PyObject *SWIGUNUSEDPAR
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   MinimizerOptions *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getOptions",&obj0)) SWIG_fail;
@@ -21818,8 +27400,21 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getOptions__SWIG_1(PyObject *SWIGUNUSEDPAR
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getOptions" "', argument " "1"" of type '" "IMinimizer const *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = (MinimizerOptions *)((IMinimizer const *)arg1)->getOptions();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (MinimizerOptions *)((IMinimizer const *)arg1)->IMinimizer::getOptions();
+    } else {
+      result = (MinimizerOptions *)((IMinimizer const *)arg1)->getOptions();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -21876,6 +27471,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_setOptions(PyObject *SWIGUNUSEDPARM(self),
   int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_setOptions",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
@@ -21891,7 +27488,17 @@ SWIGINTERN PyObject *_wrap_IMinimizer_setOptions(PyObject *SWIGUNUSEDPARM(self),
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setOptions" "', argument " "2"" of type '" "MinimizerOptions const &""'"); 
   }
   arg2 = reinterpret_cast< MinimizerOptions * >(argp2);
-  (arg1)->setOptions((MinimizerOptions const &)*arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->IMinimizer::setOptions((MinimizerOptions const &)*arg2);
+    } else {
+      (arg1)->setOptions((MinimizerOptions const &)*arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -21908,6 +27515,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_setOptionString(PyObject *SWIGUNUSEDPARM(s
   int res2 = SWIG_OLDOBJ ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_setOptionString",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
@@ -21926,7 +27535,17 @@ SWIGINTERN PyObject *_wrap_IMinimizer_setOptionString(PyObject *SWIGUNUSEDPARM(s
     }
     arg2 = ptr;
   }
-  (arg1)->setOptionString((std::string const &)*arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->IMinimizer::setOptionString((std::string const &)*arg2);
+    } else {
+      (arg1)->setOptionString((std::string const &)*arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
@@ -21942,6 +27561,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_isGradientBasedAgorithm(PyObject *SWIGUNUS
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   bool result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_isGradientBasedAgorithm",&obj0)) SWIG_fail;
@@ -21950,7 +27571,17 @@ SWIGINTERN PyObject *_wrap_IMinimizer_isGradientBasedAgorithm(PyObject *SWIGUNUS
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_isGradientBasedAgorithm" "', argument " "1"" of type '" "IMinimizer *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = (bool)(arg1)->isGradientBasedAgorithm();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (bool)(arg1)->IMinimizer::isGradientBasedAgorithm();
+    } else {
+      result = (bool)(arg1)->isGradientBasedAgorithm();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -21964,6 +27595,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getMinimizerName(PyObject *SWIGUNUSEDPARM(
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   std::string result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getMinimizerName",&obj0)) SWIG_fail;
@@ -21972,7 +27605,17 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getMinimizerName(PyObject *SWIGUNUSEDPARM(
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getMinimizerName" "', argument " "1"" of type '" "IMinimizer const *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = ((IMinimizer const *)arg1)->getMinimizerName();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = ((IMinimizer const *)arg1)->IMinimizer::getMinimizerName();
+    } else {
+      result = ((IMinimizer const *)arg1)->getMinimizerName();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -21986,6 +27629,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getAlgorithmName(PyObject *SWIGUNUSEDPARM(
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   std::string result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getAlgorithmName",&obj0)) SWIG_fail;
@@ -21994,8 +27639,43 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getAlgorithmName(PyObject *SWIGUNUSEDPARM(
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getAlgorithmName" "', argument " "1"" of type '" "IMinimizer const *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = ((IMinimizer const *)arg1)->getAlgorithmName();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = ((IMinimizer const *)arg1)->IMinimizer::getAlgorithmName();
+    } else {
+      result = ((IMinimizer const *)arg1)->getAlgorithmName();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_IMinimizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_IMinimizer",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_IMinimizer" "', argument " "1"" of type '" "IMinimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -22011,10 +27691,19 @@ SWIGINTERN PyObject *IMinimizer_swigregister(PyObject *SWIGUNUSEDPARM(self), PyO
 
 SWIGINTERN PyObject *_wrap_new_ChiSquaredModule__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
   ChiSquaredModule *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)":new_ChiSquaredModule")) SWIG_fail;
-  result = (ChiSquaredModule *)new ChiSquaredModule();
+  if (!PyArg_ParseTuple(args,(char *)"O:new_ChiSquaredModule",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (ChiSquaredModule *)new SwigDirector_ChiSquaredModule(arg1); 
+  } else {
+    result = (ChiSquaredModule *)new ChiSquaredModule(); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ChiSquaredModule, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -22024,22 +27713,31 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_ChiSquaredModule__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  ChiSquaredModule *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
+  PyObject *arg1 = (PyObject *) 0 ;
+  ChiSquaredModule *arg2 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
   PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
   ChiSquaredModule *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:new_ChiSquaredModule",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_ChiSquaredModule,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_ChiSquaredModule" "', argument " "1"" of type '" "ChiSquaredModule const &""'"); 
+  if (!PyArg_ParseTuple(args,(char *)"OO:new_ChiSquaredModule",&obj0,&obj1)) SWIG_fail;
+  arg1 = obj0;
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_ChiSquaredModule,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_ChiSquaredModule" "', argument " "2"" of type '" "ChiSquaredModule const &""'"); 
   }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ChiSquaredModule" "', argument " "1"" of type '" "ChiSquaredModule const &""'"); 
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ChiSquaredModule" "', argument " "2"" of type '" "ChiSquaredModule const &""'"); 
   }
-  arg1 = reinterpret_cast< ChiSquaredModule * >(argp1);
-  result = (ChiSquaredModule *)new ChiSquaredModule((ChiSquaredModule const &)*arg1);
+  arg2 = reinterpret_cast< ChiSquaredModule * >(argp2);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (ChiSquaredModule *)new SwigDirector_ChiSquaredModule(arg1,(ChiSquaredModule const &)*arg2); 
+  } else {
+    result = (ChiSquaredModule *)new ChiSquaredModule((ChiSquaredModule const &)*arg2); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ChiSquaredModule, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -22049,25 +27747,32 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_ChiSquaredModule(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[2] = {
+  PyObject *argv[3] = {
     0
   };
   Py_ssize_t ii;
   
   if (!PyTuple_Check(args)) SWIG_fail;
   argc = args ? PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
     argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 0) {
-    return _wrap_new_ChiSquaredModule__SWIG_0(self, args);
   }
   if (argc == 1) {
     int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_ChiSquaredModule, 0);
-    _v = SWIG_CheckState(res);
+    _v = (argv[0] != 0);
     if (_v) {
-      return _wrap_new_ChiSquaredModule__SWIG_1(self, args);
+      return _wrap_new_ChiSquaredModule__SWIG_0(self, args);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_ChiSquaredModule, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_new_ChiSquaredModule__SWIG_1(self, args);
+      }
     }
   }
   
@@ -22075,7 +27780,7 @@ fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'new_ChiSquaredModule'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    ChiSquaredModule::ChiSquaredModule()\n"
-    "    ChiSquaredModule::ChiSquaredModule(ChiSquaredModule const &)\n");
+    "    ChiSquaredModule::ChiSquaredModule(PyObject *,ChiSquaredModule const &)\n");
   return 0;
 }
 
@@ -22107,6 +27812,8 @@ SWIGINTERN PyObject *_wrap_ChiSquaredModule_clone(PyObject *SWIGUNUSEDPARM(self)
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   ChiSquaredModule *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:ChiSquaredModule_clone",&obj0)) SWIG_fail;
@@ -22115,8 +27822,27 @@ SWIGINTERN PyObject *_wrap_ChiSquaredModule_clone(PyObject *SWIGUNUSEDPARM(self)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ChiSquaredModule_clone" "', argument " "1"" of type '" "ChiSquaredModule const *""'"); 
   }
   arg1 = reinterpret_cast< ChiSquaredModule * >(argp1);
-  result = (ChiSquaredModule *)((ChiSquaredModule const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ChiSquaredModule, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (ChiSquaredModule *)((ChiSquaredModule const *)arg1)->ChiSquaredModule::clone();
+    } else {
+      result = (ChiSquaredModule *)((ChiSquaredModule const *)arg1)->clone();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ChiSquaredModule, 0 |  0 );
+  }
+  if (director) {
+    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
+  }
   return resultobj;
 fail:
   return NULL;
@@ -22137,6 +27863,8 @@ SWIGINTERN PyObject *_wrap_ChiSquaredModule_processFitElements(PyObject *SWIGUNU
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:ChiSquaredModule_processFitElements",&obj0,&obj1,&obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ChiSquaredModule, 0 |  0 );
@@ -22170,7 +27898,42 @@ SWIGINTERN PyObject *_wrap_ChiSquaredModule_processFitElements(PyObject *SWIGUNU
       if (SWIG_IsNewObj(res3)) delete temp;
     }
   }
-  (arg1)->processFitElements(arg2,arg3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->ChiSquaredModule::processFitElements(arg2,arg3);
+    } else {
+      (arg1)->processFitElements(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_ChiSquaredModule(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ChiSquaredModule *arg1 = (ChiSquaredModule *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_ChiSquaredModule",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ChiSquaredModule, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_ChiSquaredModule" "', argument " "1"" of type '" "ChiSquaredModule *""'"); 
+  }
+  arg1 = reinterpret_cast< ChiSquaredModule * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -22187,52 +27950,61 @@ SWIGINTERN PyObject *ChiSquaredModule_swigregister(PyObject *SWIGUNUSEDPARM(self
 
 SWIGINTERN PyObject *_wrap_new_FitObject__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  GISASSimulation *arg1 = 0 ;
-  OutputData< double > *arg2 = 0 ;
-  double arg3 ;
-  bool arg4 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
+  PyObject *arg1 = (PyObject *) 0 ;
+  GISASSimulation *arg2 = 0 ;
+  OutputData< double > *arg3 = 0 ;
+  double arg4 ;
+  bool arg5 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  bool val4 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  double val4 ;
   int ecode4 = 0 ;
+  bool val5 ;
+  int ecode5 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
   FitObject *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOOO:new_FitObject",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_GISASSimulation,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_FitObject" "', argument " "1"" of type '" "GISASSimulation const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitObject" "', argument " "1"" of type '" "GISASSimulation const &""'"); 
-  }
-  arg1 = reinterpret_cast< GISASSimulation * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!PyArg_ParseTuple(args,(char *)"OOOOO:new_FitObject",&obj0,&obj1,&obj2,&obj3,&obj4)) SWIG_fail;
+  arg1 = obj0;
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_GISASSimulation,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_FitObject" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_FitObject" "', argument " "2"" of type '" "GISASSimulation const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitObject" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitObject" "', argument " "2"" of type '" "GISASSimulation const &""'"); 
   }
-  arg2 = reinterpret_cast< OutputData< double > * >(argp2);
-  ecode3 = SWIG_AsVal_double(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_FitObject" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  ecode4 = SWIG_AsVal_bool(obj3, &val4);
+  arg2 = reinterpret_cast< GISASSimulation * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_FitObject" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitObject" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
+  }
+  arg3 = reinterpret_cast< OutputData< double > * >(argp3);
+  ecode4 = SWIG_AsVal_double(obj3, &val4);
   if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_FitObject" "', argument " "4"" of type '" "bool""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_FitObject" "', argument " "4"" of type '" "double""'");
   } 
-  arg4 = static_cast< bool >(val4);
-  result = (FitObject *)new FitObject((GISASSimulation const &)*arg1,(OutputData< double > const &)*arg2,arg3,arg4);
+  arg4 = static_cast< double >(val4);
+  ecode5 = SWIG_AsVal_bool(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "new_FitObject" "', argument " "5"" of type '" "bool""'");
+  } 
+  arg5 = static_cast< bool >(val5);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (FitObject *)new SwigDirector_FitObject(arg1,(GISASSimulation const &)*arg2,(OutputData< double > const &)*arg3,arg4,arg5); 
+  } else {
+    result = (FitObject *)new FitObject((GISASSimulation const &)*arg2,(OutputData< double > const &)*arg3,arg4,arg5); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitObject, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -22242,43 +28014,52 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_FitObject__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  GISASSimulation *arg1 = 0 ;
-  OutputData< double > *arg2 = 0 ;
-  double arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
+  PyObject *arg1 = (PyObject *) 0 ;
+  GISASSimulation *arg2 = 0 ;
+  OutputData< double > *arg3 = 0 ;
+  double arg4 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
   FitObject *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:new_FitObject",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_GISASSimulation,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_FitObject" "', argument " "1"" of type '" "GISASSimulation const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitObject" "', argument " "1"" of type '" "GISASSimulation const &""'"); 
-  }
-  arg1 = reinterpret_cast< GISASSimulation * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:new_FitObject",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  arg1 = obj0;
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_GISASSimulation,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_FitObject" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_FitObject" "', argument " "2"" of type '" "GISASSimulation const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitObject" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitObject" "', argument " "2"" of type '" "GISASSimulation const &""'"); 
   }
-  arg2 = reinterpret_cast< OutputData< double > * >(argp2);
-  ecode3 = SWIG_AsVal_double(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_FitObject" "', argument " "3"" of type '" "double""'");
+  arg2 = reinterpret_cast< GISASSimulation * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_FitObject" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitObject" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
+  }
+  arg3 = reinterpret_cast< OutputData< double > * >(argp3);
+  ecode4 = SWIG_AsVal_double(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_FitObject" "', argument " "4"" of type '" "double""'");
   } 
-  arg3 = static_cast< double >(val3);
-  result = (FitObject *)new FitObject((GISASSimulation const &)*arg1,(OutputData< double > const &)*arg2,arg3);
+  arg4 = static_cast< double >(val4);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (FitObject *)new SwigDirector_FitObject(arg1,(GISASSimulation const &)*arg2,(OutputData< double > const &)*arg3,arg4); 
+  } else {
+    result = (FitObject *)new FitObject((GISASSimulation const &)*arg2,(OutputData< double > const &)*arg3,arg4); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitObject, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -22288,34 +28069,43 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_FitObject__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  GISASSimulation *arg1 = 0 ;
-  OutputData< double > *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
+  PyObject *arg1 = (PyObject *) 0 ;
+  GISASSimulation *arg2 = 0 ;
+  OutputData< double > *arg3 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
   FitObject *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:new_FitObject",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_GISASSimulation,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_FitObject" "', argument " "1"" of type '" "GISASSimulation const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitObject" "', argument " "1"" of type '" "GISASSimulation const &""'"); 
-  }
-  arg1 = reinterpret_cast< GISASSimulation * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!PyArg_ParseTuple(args,(char *)"OOO:new_FitObject",&obj0,&obj1,&obj2)) SWIG_fail;
+  arg1 = obj0;
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_GISASSimulation,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_FitObject" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_FitObject" "', argument " "2"" of type '" "GISASSimulation const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitObject" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitObject" "', argument " "2"" of type '" "GISASSimulation const &""'"); 
   }
-  arg2 = reinterpret_cast< OutputData< double > * >(argp2);
-  result = (FitObject *)new FitObject((GISASSimulation const &)*arg1,(OutputData< double > const &)*arg2);
+  arg2 = reinterpret_cast< GISASSimulation * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_FitObject" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitObject" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
+  }
+  arg3 = reinterpret_cast< OutputData< double > * >(argp3);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (FitObject *)new SwigDirector_FitObject(arg1,(GISASSimulation const &)*arg2,(OutputData< double > const &)*arg3); 
+  } else {
+    result = (FitObject *)new FitObject((GISASSimulation const &)*arg2,(OutputData< double > const &)*arg3); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitObject, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -22325,65 +28115,74 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_FitObject(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[6] = {
     0
   };
   Py_ssize_t ii;
   
   if (!PyTuple_Check(args)) SWIG_fail;
   argc = args ? PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+  for (ii = 0; (ii < 5) && (ii < argc); ii++) {
     argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 2) {
-    int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_GISASSimulation, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_OutputDataT_double_t, 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_new_FitObject__SWIG_2(self, args);
-      }
-    }
   }
   if (argc == 3) {
     int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_GISASSimulation, 0);
-    _v = SWIG_CheckState(res);
+    _v = (argv[0] != 0);
     if (_v) {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_OutputDataT_double_t, 0);
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_GISASSimulation, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
-        {
-          int res = SWIG_AsVal_double(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_OutputDataT_double_t, 0);
+        _v = SWIG_CheckState(res);
         if (_v) {
-          return _wrap_new_FitObject__SWIG_1(self, args);
+          return _wrap_new_FitObject__SWIG_2(self, args);
         }
       }
     }
   }
   if (argc == 4) {
     int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_GISASSimulation, 0);
-    _v = SWIG_CheckState(res);
+    _v = (argv[0] != 0);
     if (_v) {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_OutputDataT_double_t, 0);
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_GISASSimulation, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
-        {
-          int res = SWIG_AsVal_double(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_OutputDataT_double_t, 0);
+        _v = SWIG_CheckState(res);
         if (_v) {
           {
-            int res = SWIG_AsVal_bool(argv[3], NULL);
+            int res = SWIG_AsVal_double(argv[3], NULL);
             _v = SWIG_CheckState(res);
           }
           if (_v) {
-            return _wrap_new_FitObject__SWIG_0(self, args);
+            return _wrap_new_FitObject__SWIG_1(self, args);
+          }
+        }
+      }
+    }
+  }
+  if (argc == 5) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_GISASSimulation, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_OutputDataT_double_t, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            {
+              int res = SWIG_AsVal_bool(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              return _wrap_new_FitObject__SWIG_0(self, args);
+            }
           }
         }
       }
@@ -22395,7 +28194,7 @@ fail:
     "  Possible C/C++ prototypes are:\n"
     "    FitObject::FitObject(GISASSimulation const &,OutputData< double > const &,double,bool)\n"
     "    FitObject::FitObject(GISASSimulation const &,OutputData< double > const &,double)\n"
-    "    FitObject::FitObject(GISASSimulation const &,OutputData< double > const &)\n");
+    "    FitObject::FitObject(PyObject *,GISASSimulation const &,OutputData< double > const &)\n");
   return 0;
 }
 
@@ -22763,6 +28562,8 @@ SWIGINTERN PyObject *_wrap_FitObject_addParametersToExternalPool__SWIG_0(PyObjec
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   PyObject * obj3 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   std::string result;
   
   if (!PyArg_ParseTuple(args,(char *)"OOOO:FitObject_addParametersToExternalPool",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
@@ -22790,7 +28591,17 @@ SWIGINTERN PyObject *_wrap_FitObject_addParametersToExternalPool__SWIG_0(PyObjec
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "FitObject_addParametersToExternalPool" "', argument " "4"" of type '" "int""'");
   } 
   arg4 = static_cast< int >(val4);
-  result = ((FitObject const *)arg1)->addParametersToExternalPool(arg2,arg3,arg4);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = ((FitObject const *)arg1)->FitObject::addParametersToExternalPool(arg2,arg3,arg4);
+    } else {
+      result = ((FitObject const *)arg1)->addParametersToExternalPool(arg2,arg3,arg4);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -22810,6 +28621,8 @@ SWIGINTERN PyObject *_wrap_FitObject_addParametersToExternalPool__SWIG_1(PyObjec
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   std::string result;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:FitObject_addParametersToExternalPool",&obj0,&obj1,&obj2)) SWIG_fail;
@@ -22832,7 +28645,17 @@ SWIGINTERN PyObject *_wrap_FitObject_addParametersToExternalPool__SWIG_1(PyObjec
     SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "FitObject_addParametersToExternalPool" "', argument " "3"" of type '" "ParameterPool *""'"); 
   }
   arg3 = reinterpret_cast< ParameterPool * >(argp3);
-  result = ((FitObject const *)arg1)->addParametersToExternalPool(arg2,arg3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = ((FitObject const *)arg1)->FitObject::addParametersToExternalPool(arg2,arg3);
+    } else {
+      result = ((FitObject const *)arg1)->addParametersToExternalPool(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -22901,6 +28724,121 @@ fail:
     "    FitObject::addParametersToExternalPool(std::string,ParameterPool *,int) const\n"
     "    FitObject::addParametersToExternalPool(std::string,ParameterPool *) const\n");
   return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitObject_init_parameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitObject *arg1 = (FitObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  SwigDirector_FitObject *darg = 0;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:FitObject_init_parameters",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitObject_init_parameters" "', argument " "1"" of type '" "FitObject *""'"); 
+  }
+  arg1 = reinterpret_cast< FitObject * >(argp1);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  if (!director || !(director->swig_get_inner("init_parameters"))) {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing protected member init_parameters");
+    SWIG_fail;
+  }
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    darg = dynamic_cast<SwigDirector_FitObject *>(arg1);
+    if (upcall) {
+      (darg)->init_parametersSwigPublic();
+    } else {
+      (darg)->init_parameters();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_FitObject(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitObject *arg1 = (FitObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_FitObject",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_FitObject" "', argument " "1"" of type '" "FitObject *""'"); 
+  }
+  arg1 = reinterpret_cast< FitObject * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitObject__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitObject *arg1 = (FitObject *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  SwigDirector_FitObject *darg = 0;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:FitObject__print",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitObject__print" "', argument " "1"" of type '" "FitObject const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitObject * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__ostream,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitObject__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitObject__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  arg2 = reinterpret_cast< std::ostream * >(argp2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  if (!director || !(director->swig_get_inner("print"))) {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing protected member print");
+    SWIG_fail;
+  }
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    darg = dynamic_cast<SwigDirector_FitObject *>(arg1);
+    if (upcall) {
+      ((SwigDirector_FitObject const *)darg)->printSwigPublic(*arg2);
+    } else {
+      ((SwigDirector_FitObject const *)darg)->print(*arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
 }
 
 
@@ -23058,10 +28996,19 @@ SWIGINTERN PyObject *FitOptions_swigregister(PyObject *SWIGUNUSEDPARM(self), PyO
 
 SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
   FitParameter *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)":new_FitParameter")) SWIG_fail;
-  result = (FitParameter *)new FitParameter();
+  if (!PyArg_ParseTuple(args,(char *)"O:new_FitParameter",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (FitParameter *)new SwigDirector_FitParameter(arg1); 
+  } else {
+    result = (FitParameter *)new FitParameter(); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -23071,20 +29018,95 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  double arg2 ;
+  PyObject *arg1 = (PyObject *) 0 ;
+  std::string *arg2 = 0 ;
   double arg3 ;
-  AttLimits *arg4 = 0 ;
-  double arg5 ;
-  int res1 = SWIG_OLDOBJ ;
-  double val2 ;
-  int ecode2 = 0 ;
+  double arg4 ;
+  AttLimits *arg5 = 0 ;
+  double arg6 ;
+  int res2 = SWIG_OLDOBJ ;
   double val3 ;
   int ecode3 = 0 ;
-  void *argp4 = 0 ;
-  int res4 = 0 ;
-  double val5 ;
-  int ecode5 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  void *argp5 = 0 ;
+  int res5 = 0 ;
+  double val6 ;
+  int ecode6 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  PyObject * obj5 = 0 ;
+  FitParameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOOO:new_FitParameter",&obj0,&obj1,&obj2,&obj3,&obj4,&obj5)) SWIG_fail;
+  arg1 = obj0;
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_FitParameter" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  ecode3 = SWIG_AsVal_double(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_FitParameter" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  ecode4 = SWIG_AsVal_double(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_FitParameter" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  res5 = SWIG_ConvertPtr(obj4, &argp5, SWIGTYPE_p_AttLimits,  0  | 0);
+  if (!SWIG_IsOK(res5)) {
+    SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "new_FitParameter" "', argument " "5"" of type '" "AttLimits const &""'"); 
+  }
+  if (!argp5) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "5"" of type '" "AttLimits const &""'"); 
+  }
+  arg5 = reinterpret_cast< AttLimits * >(argp5);
+  ecode6 = SWIG_AsVal_double(obj5, &val6);
+  if (!SWIG_IsOK(ecode6)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode6), "in method '" "new_FitParameter" "', argument " "6"" of type '" "double""'");
+  } 
+  arg6 = static_cast< double >(val6);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (FitParameter *)new SwigDirector_FitParameter(arg1,(std::string const &)*arg2,arg3,arg4,(AttLimits const &)*arg5,arg6); 
+  } else {
+    result = (FitParameter *)new FitParameter((std::string const &)*arg2,arg3,arg4,(AttLimits const &)*arg5,arg6); 
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, SWIG_POINTER_NEW |  0 );
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  std::string *arg2 = 0 ;
+  double arg3 ;
+  double arg4 ;
+  AttLimits *arg5 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  double val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  void *argp5 = 0 ;
+  int res5 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
@@ -23093,63 +29115,63 @@ SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_1(PyObject *SWIGUNUSEDPARM(sel
   FitParameter *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OOOOO:new_FitParameter",&obj0,&obj1,&obj2,&obj3,&obj4)) SWIG_fail;
+  arg1 = obj0;
   {
     std::string *ptr = (std::string *)0;
-    res1 = SWIG_AsPtr_std_string(obj0, &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_FitParameter" "', argument " "1"" of type '" "std::string const &""'"); 
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_FitParameter" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "1"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "2"" of type '" "std::string const &""'"); 
     }
-    arg1 = ptr;
+    arg2 = ptr;
   }
-  ecode2 = SWIG_AsVal_double(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_FitParameter" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
   ecode3 = SWIG_AsVal_double(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_FitParameter" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  res4 = SWIG_ConvertPtr(obj3, &argp4, SWIGTYPE_p_AttLimits,  0  | 0);
-  if (!SWIG_IsOK(res4)) {
-    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "new_FitParameter" "', argument " "4"" of type '" "AttLimits const &""'"); 
-  }
-  if (!argp4) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "4"" of type '" "AttLimits const &""'"); 
-  }
-  arg4 = reinterpret_cast< AttLimits * >(argp4);
-  ecode5 = SWIG_AsVal_double(obj4, &val5);
-  if (!SWIG_IsOK(ecode5)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "new_FitParameter" "', argument " "5"" of type '" "double""'");
+  ecode4 = SWIG_AsVal_double(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_FitParameter" "', argument " "4"" of type '" "double""'");
   } 
-  arg5 = static_cast< double >(val5);
-  result = (FitParameter *)new FitParameter((std::string const &)*arg1,arg2,arg3,(AttLimits const &)*arg4,arg5);
+  arg4 = static_cast< double >(val4);
+  res5 = SWIG_ConvertPtr(obj4, &argp5, SWIGTYPE_p_AttLimits,  0  | 0);
+  if (!SWIG_IsOK(res5)) {
+    SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "new_FitParameter" "', argument " "5"" of type '" "AttLimits const &""'"); 
+  }
+  if (!argp5) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "5"" of type '" "AttLimits const &""'"); 
+  }
+  arg5 = reinterpret_cast< AttLimits * >(argp5);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (FitParameter *)new SwigDirector_FitParameter(arg1,(std::string const &)*arg2,arg3,arg4,(AttLimits const &)*arg5); 
+  } else {
+    result = (FitParameter *)new FitParameter((std::string const &)*arg2,arg3,arg4,(AttLimits const &)*arg5); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, SWIG_POINTER_NEW |  0 );
-  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
 fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  double arg2 ;
+  PyObject *arg1 = (PyObject *) 0 ;
+  std::string *arg2 = 0 ;
   double arg3 ;
-  AttLimits *arg4 = 0 ;
-  int res1 = SWIG_OLDOBJ ;
-  double val2 ;
-  int ecode2 = 0 ;
+  double arg4 ;
+  int res2 = SWIG_OLDOBJ ;
   double val3 ;
   int ecode3 = 0 ;
-  void *argp4 = 0 ;
-  int res4 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
@@ -23157,53 +29179,50 @@ SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_2(PyObject *SWIGUNUSEDPARM(sel
   FitParameter *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OOOO:new_FitParameter",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  arg1 = obj0;
   {
     std::string *ptr = (std::string *)0;
-    res1 = SWIG_AsPtr_std_string(obj0, &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_FitParameter" "', argument " "1"" of type '" "std::string const &""'"); 
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_FitParameter" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "1"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "2"" of type '" "std::string const &""'"); 
     }
-    arg1 = ptr;
+    arg2 = ptr;
   }
-  ecode2 = SWIG_AsVal_double(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_FitParameter" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
   ecode3 = SWIG_AsVal_double(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_FitParameter" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  res4 = SWIG_ConvertPtr(obj3, &argp4, SWIGTYPE_p_AttLimits,  0  | 0);
-  if (!SWIG_IsOK(res4)) {
-    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "new_FitParameter" "', argument " "4"" of type '" "AttLimits const &""'"); 
+  ecode4 = SWIG_AsVal_double(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_FitParameter" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (FitParameter *)new SwigDirector_FitParameter(arg1,(std::string const &)*arg2,arg3,arg4); 
+  } else {
+    result = (FitParameter *)new FitParameter((std::string const &)*arg2,arg3,arg4); 
   }
-  if (!argp4) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "4"" of type '" "AttLimits const &""'"); 
-  }
-  arg4 = reinterpret_cast< AttLimits * >(argp4);
-  result = (FitParameter *)new FitParameter((std::string const &)*arg1,arg2,arg3,(AttLimits const &)*arg4);
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, SWIG_POINTER_NEW |  0 );
-  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
 fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_4(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  double arg2 ;
+  PyObject *arg1 = (PyObject *) 0 ;
+  std::string *arg2 = 0 ;
   double arg3 ;
-  int res1 = SWIG_OLDOBJ ;
-  double val2 ;
-  int ecode2 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
   double val3 ;
   int ecode3 = 0 ;
   PyObject * obj0 = 0 ;
@@ -23212,143 +29231,93 @@ SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_3(PyObject *SWIGUNUSEDPARM(sel
   FitParameter *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:new_FitParameter",&obj0,&obj1,&obj2)) SWIG_fail;
+  arg1 = obj0;
   {
     std::string *ptr = (std::string *)0;
-    res1 = SWIG_AsPtr_std_string(obj0, &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_FitParameter" "', argument " "1"" of type '" "std::string const &""'"); 
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_FitParameter" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "1"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "2"" of type '" "std::string const &""'"); 
     }
-    arg1 = ptr;
+    arg2 = ptr;
   }
-  ecode2 = SWIG_AsVal_double(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_FitParameter" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
   ecode3 = SWIG_AsVal_double(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_FitParameter" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (FitParameter *)new FitParameter((std::string const &)*arg1,arg2,arg3);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, SWIG_POINTER_NEW |  0 );
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_4(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  double arg2 ;
-  int res1 = SWIG_OLDOBJ ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  FitParameter *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:new_FitParameter",&obj0,&obj1)) SWIG_fail;
-  {
-    std::string *ptr = (std::string *)0;
-    res1 = SWIG_AsPtr_std_string(obj0, &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_FitParameter" "', argument " "1"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "1"" of type '" "std::string const &""'"); 
-    }
-    arg1 = ptr;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (FitParameter *)new SwigDirector_FitParameter(arg1,(std::string const &)*arg2,arg3); 
+  } else {
+    result = (FitParameter *)new FitParameter((std::string const &)*arg2,arg3); 
   }
-  ecode2 = SWIG_AsVal_double(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_FitParameter" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = (FitParameter *)new FitParameter((std::string const &)*arg1,arg2);
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, SWIG_POINTER_NEW |  0 );
-  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
 fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
   return NULL;
 }
 
 
 SWIGINTERN PyObject *_wrap_new_FitParameter(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[6] = {
+  PyObject *argv[7] = {
     0
   };
   Py_ssize_t ii;
   
   if (!PyTuple_Check(args)) SWIG_fail;
   argc = args ? PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 5) && (ii < argc); ii++) {
+  for (ii = 0; (ii < 6) && (ii < argc); ii++) {
     argv[ii] = PyTuple_GET_ITEM(args,ii);
   }
-  if (argc == 0) {
-    return _wrap_new_FitParameter__SWIG_0(self, args);
-  }
-  if (argc == 2) {
+  if (argc == 1) {
     int _v;
-    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
-    _v = SWIG_CheckState(res);
+    _v = (argv[0] != 0);
     if (_v) {
-      {
-        int res = SWIG_AsVal_double(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
-      if (_v) {
-        return _wrap_new_FitParameter__SWIG_4(self, args);
-      }
+      return _wrap_new_FitParameter__SWIG_0(self, args);
     }
   }
   if (argc == 3) {
     int _v;
-    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
-    _v = SWIG_CheckState(res);
+    _v = (argv[0] != 0);
     if (_v) {
-      {
-        int res = SWIG_AsVal_double(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
       if (_v) {
         {
           int res = SWIG_AsVal_double(argv[2], NULL);
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          return _wrap_new_FitParameter__SWIG_3(self, args);
+          return _wrap_new_FitParameter__SWIG_4(self, args);
         }
       }
     }
   }
   if (argc == 4) {
     int _v;
-    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
-    _v = SWIG_CheckState(res);
+    _v = (argv[0] != 0);
     if (_v) {
-      {
-        int res = SWIG_AsVal_double(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
       if (_v) {
         {
           int res = SWIG_AsVal_double(argv[2], NULL);
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_AttLimits, 0);
-          _v = SWIG_CheckState(res);
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
           if (_v) {
-            return _wrap_new_FitParameter__SWIG_2(self, args);
+            return _wrap_new_FitParameter__SWIG_3(self, args);
           }
         }
       }
@@ -23356,28 +29325,58 @@ SWIGINTERN PyObject *_wrap_new_FitParameter(PyObject *self, PyObject *args) {
   }
   if (argc == 5) {
     int _v;
-    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
-    _v = SWIG_CheckState(res);
+    _v = (argv[0] != 0);
     if (_v) {
-      {
-        int res = SWIG_AsVal_double(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
       if (_v) {
         {
           int res = SWIG_AsVal_double(argv[2], NULL);
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_AttLimits, 0);
-          _v = SWIG_CheckState(res);
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
           if (_v) {
-            {
-              int res = SWIG_AsVal_double(argv[4], NULL);
-              _v = SWIG_CheckState(res);
-            }
+            int res = SWIG_ConvertPtr(argv[4], 0, SWIGTYPE_p_AttLimits, 0);
+            _v = SWIG_CheckState(res);
             if (_v) {
-              return _wrap_new_FitParameter__SWIG_1(self, args);
+              return _wrap_new_FitParameter__SWIG_2(self, args);
+            }
+          }
+        }
+      }
+    }
+  }
+  if (argc == 6) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            int res = SWIG_ConvertPtr(argv[4], 0, SWIGTYPE_p_AttLimits, 0);
+            _v = SWIG_CheckState(res);
+            if (_v) {
+              {
+                int res = SWIG_AsVal_double(argv[5], NULL);
+                _v = SWIG_CheckState(res);
+              }
+              if (_v) {
+                return _wrap_new_FitParameter__SWIG_1(self, args);
+              }
             }
           }
         }
@@ -23392,7 +29391,7 @@ fail:
     "    FitParameter::FitParameter(std::string const &,double,double,AttLimits const &,double)\n"
     "    FitParameter::FitParameter(std::string const &,double,double,AttLimits const &)\n"
     "    FitParameter::FitParameter(std::string const &,double,double)\n"
-    "    FitParameter::FitParameter(std::string const &,double)\n");
+    "    FitParameter::FitParameter(PyObject *,std::string const &,double)\n");
   return 0;
 }
 
@@ -23428,6 +29427,8 @@ SWIGINTERN PyObject *_wrap_FitParameter_setValue(PyObject *SWIGUNUSEDPARM(self),
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:FitParameter_setValue",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
@@ -23440,7 +29441,17 @@ SWIGINTERN PyObject *_wrap_FitParameter_setValue(PyObject *SWIGUNUSEDPARM(self),
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FitParameter_setValue" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  (arg1)->setValue(arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->FitParameter::setValue(arg2);
+    } else {
+      (arg1)->setValue(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -23454,6 +29465,8 @@ SWIGINTERN PyObject *_wrap_FitParameter_getValue(PyObject *SWIGUNUSEDPARM(self),
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_getValue",&obj0)) SWIG_fail;
@@ -23462,7 +29475,17 @@ SWIGINTERN PyObject *_wrap_FitParameter_getValue(PyObject *SWIGUNUSEDPARM(self),
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_getValue" "', argument " "1"" of type '" "FitParameter const *""'"); 
   }
   arg1 = reinterpret_cast< FitParameter * >(argp1);
-  result = (double)((FitParameter const *)arg1)->getValue();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((FitParameter const *)arg1)->FitParameter::getValue();
+    } else {
+      result = (double)((FitParameter const *)arg1)->getValue();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -23480,6 +29503,8 @@ SWIGINTERN PyObject *_wrap_FitParameter_setStep(PyObject *SWIGUNUSEDPARM(self), 
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:FitParameter_setStep",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
@@ -23492,7 +29517,17 @@ SWIGINTERN PyObject *_wrap_FitParameter_setStep(PyObject *SWIGUNUSEDPARM(self), 
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FitParameter_setStep" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  (arg1)->setStep(arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->FitParameter::setStep(arg2);
+    } else {
+      (arg1)->setStep(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -23506,6 +29541,8 @@ SWIGINTERN PyObject *_wrap_FitParameter_getStep(PyObject *SWIGUNUSEDPARM(self), 
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_getStep",&obj0)) SWIG_fail;
@@ -23514,7 +29551,17 @@ SWIGINTERN PyObject *_wrap_FitParameter_getStep(PyObject *SWIGUNUSEDPARM(self), 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_getStep" "', argument " "1"" of type '" "FitParameter const *""'"); 
   }
   arg1 = reinterpret_cast< FitParameter * >(argp1);
-  result = (double)((FitParameter const *)arg1)->getStep();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((FitParameter const *)arg1)->FitParameter::getStep();
+    } else {
+      result = (double)((FitParameter const *)arg1)->getStep();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -23532,6 +29579,8 @@ SWIGINTERN PyObject *_wrap_FitParameter_setError(PyObject *SWIGUNUSEDPARM(self),
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:FitParameter_setError",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
@@ -23544,7 +29593,17 @@ SWIGINTERN PyObject *_wrap_FitParameter_setError(PyObject *SWIGUNUSEDPARM(self),
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FitParameter_setError" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  (arg1)->setError(arg2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->FitParameter::setError(arg2);
+    } else {
+      (arg1)->setError(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -23558,6 +29617,8 @@ SWIGINTERN PyObject *_wrap_FitParameter_getError(PyObject *SWIGUNUSEDPARM(self),
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   double result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_getError",&obj0)) SWIG_fail;
@@ -23566,8 +29627,43 @@ SWIGINTERN PyObject *_wrap_FitParameter_getError(PyObject *SWIGUNUSEDPARM(self),
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_getError" "', argument " "1"" of type '" "FitParameter const *""'"); 
   }
   arg1 = reinterpret_cast< FitParameter * >(argp1);
-  result = (double)((FitParameter const *)arg1)->getError();
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (double)((FitParameter const *)arg1)->FitParameter::getError();
+    } else {
+      result = (double)((FitParameter const *)arg1)->getError();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_FitParameter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameter *arg1 = (FitParameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_FitParameter",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_FitParameter" "', argument " "1"" of type '" "FitParameter *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameter * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -23583,10 +29679,19 @@ SWIGINTERN PyObject *FitParameter_swigregister(PyObject *SWIGUNUSEDPARM(self), P
 
 SWIGINTERN PyObject *_wrap_new_FitSuite(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
   FitSuite *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)":new_FitSuite")) SWIG_fail;
-  result = (FitSuite *)new FitSuite();
+  if (!PyArg_ParseTuple(args,(char *)"O:new_FitSuite",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (FitSuite *)new SwigDirector_FitSuite(arg1); 
+  } else {
+    result = (FitSuite *)new FitSuite(); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitSuite, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -24511,6 +30616,7 @@ SWIGINTERN PyObject *_wrap_FitSuite_getMinimizer(PyObject *SWIGUNUSEDPARM(self),
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
   IMinimizer *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:FitSuite_getMinimizer",&obj0)) SWIG_fail;
@@ -24520,7 +30626,13 @@ SWIGINTERN PyObject *_wrap_FitSuite_getMinimizer(PyObject *SWIGUNUSEDPARM(self),
   }
   arg1 = reinterpret_cast< FitSuite * >(argp1);
   result = (IMinimizer *)(arg1)->getMinimizer();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, 0 |  0 );
+  }
   return resultobj;
 fail:
   return NULL;
@@ -25542,6 +31654,31 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_disown_FitSuite(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitSuite *arg1 = (FitSuite *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_FitSuite",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuite, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_FitSuite" "', argument " "1"" of type '" "FitSuite *""'"); 
+  }
+  arg1 = reinterpret_cast< FitSuite * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *FitSuite_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
@@ -25551,10 +31688,19 @@ SWIGINTERN PyObject *FitSuite_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObj
 
 SWIGINTERN PyObject *_wrap_new_FitSuiteObjects(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
   FitSuiteObjects *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)":new_FitSuiteObjects")) SWIG_fail;
-  result = (FitSuiteObjects *)new FitSuiteObjects();
+  if (!PyArg_ParseTuple(args,(char *)"O:new_FitSuiteObjects",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (FitSuiteObjects *)new SwigDirector_FitSuiteObjects(arg1); 
+  } else {
+    result = (FitSuiteObjects *)new FitSuiteObjects(); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitSuiteObjects, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -26208,6 +32354,8 @@ SWIGINTERN PyObject *_wrap_FitSuiteObjects_addParametersToExternalPool__SWIG_0(P
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   PyObject * obj3 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   std::string result;
   
   if (!PyArg_ParseTuple(args,(char *)"OOOO:FitSuiteObjects_addParametersToExternalPool",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
@@ -26235,7 +32383,17 @@ SWIGINTERN PyObject *_wrap_FitSuiteObjects_addParametersToExternalPool__SWIG_0(P
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "FitSuiteObjects_addParametersToExternalPool" "', argument " "4"" of type '" "int""'");
   } 
   arg4 = static_cast< int >(val4);
-  result = ((FitSuiteObjects const *)arg1)->addParametersToExternalPool(arg2,arg3,arg4);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = ((FitSuiteObjects const *)arg1)->FitSuiteObjects::addParametersToExternalPool(arg2,arg3,arg4);
+    } else {
+      result = ((FitSuiteObjects const *)arg1)->addParametersToExternalPool(arg2,arg3,arg4);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -26255,6 +32413,8 @@ SWIGINTERN PyObject *_wrap_FitSuiteObjects_addParametersToExternalPool__SWIG_1(P
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
   std::string result;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:FitSuiteObjects_addParametersToExternalPool",&obj0,&obj1,&obj2)) SWIG_fail;
@@ -26277,7 +32437,17 @@ SWIGINTERN PyObject *_wrap_FitSuiteObjects_addParametersToExternalPool__SWIG_1(P
     SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "FitSuiteObjects_addParametersToExternalPool" "', argument " "3"" of type '" "ParameterPool *""'"); 
   }
   arg3 = reinterpret_cast< ParameterPool * >(argp3);
-  result = ((FitSuiteObjects const *)arg1)->addParametersToExternalPool(arg2,arg3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = ((FitSuiteObjects const *)arg1)->FitSuiteObjects::addParametersToExternalPool(arg2,arg3);
+    } else {
+      result = ((FitSuiteObjects const *)arg1)->addParametersToExternalPool(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -26400,6 +32570,121 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_FitSuiteObjects_init_parameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitSuiteObjects *arg1 = (FitSuiteObjects *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  SwigDirector_FitSuiteObjects *darg = 0;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteObjects_init_parameters",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteObjects, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteObjects_init_parameters" "', argument " "1"" of type '" "FitSuiteObjects *""'"); 
+  }
+  arg1 = reinterpret_cast< FitSuiteObjects * >(argp1);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  if (!director || !(director->swig_get_inner("init_parameters"))) {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing protected member init_parameters");
+    SWIG_fail;
+  }
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    darg = dynamic_cast<SwigDirector_FitSuiteObjects *>(arg1);
+    if (upcall) {
+      (darg)->init_parametersSwigPublic();
+    } else {
+      (darg)->init_parameters();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_FitSuiteObjects(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitSuiteObjects *arg1 = (FitSuiteObjects *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_FitSuiteObjects",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteObjects, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_FitSuiteObjects" "', argument " "1"" of type '" "FitSuiteObjects *""'"); 
+  }
+  arg1 = reinterpret_cast< FitSuiteObjects * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitSuiteObjects__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitSuiteObjects *arg1 = (FitSuiteObjects *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  SwigDirector_FitSuiteObjects *darg = 0;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:FitSuiteObjects__print",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteObjects, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteObjects__print" "', argument " "1"" of type '" "FitSuiteObjects const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitSuiteObjects * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__ostream,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitSuiteObjects__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitSuiteObjects__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  arg2 = reinterpret_cast< std::ostream * >(argp2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  if (!director || !(director->swig_get_inner("print"))) {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing protected member print");
+    SWIG_fail;
+  }
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    darg = dynamic_cast<SwigDirector_FitSuiteObjects *>(arg1);
+    if (upcall) {
+      ((SwigDirector_FitSuiteObjects const *)darg)->printSwigPublic(*arg2);
+    } else {
+      ((SwigDirector_FitSuiteObjects const *)darg)->print(*arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *FitSuiteObjects_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
@@ -26409,10 +32694,19 @@ SWIGINTERN PyObject *FitSuiteObjects_swigregister(PyObject *SWIGUNUSEDPARM(self)
 
 SWIGINTERN PyObject *_wrap_new_FitSuiteParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
   FitSuiteParameters *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)":new_FitSuiteParameters")) SWIG_fail;
-  result = (FitSuiteParameters *)new FitSuiteParameters();
+  if (!PyArg_ParseTuple(args,(char *)"O:new_FitSuiteParameters",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (FitSuiteParameters *)new SwigDirector_FitSuiteParameters(arg1); 
+  } else {
+    result = (FitSuiteParameters *)new FitSuiteParameters(); 
+  }
+  
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitSuiteParameters, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -26700,6 +32994,7 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_getParameter__SWIG_0(PyObject *SWI
   int res2 = SWIG_OLDOBJ ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
   FitParameter *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:FitSuiteParameters_getParameter",&obj0,&obj1)) SWIG_fail;
@@ -26720,7 +33015,13 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_getParameter__SWIG_0(PyObject *SWI
     arg2 = ptr;
   }
   result = (FitParameter *)((FitSuiteParameters const *)arg1)->getParameter((std::string const &)*arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
+  }
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
 fail:
@@ -26738,6 +33039,7 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_getParameter__SWIG_1(PyObject *SWI
   int res2 = SWIG_OLDOBJ ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
   FitParameter *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:FitSuiteParameters_getParameter",&obj0,&obj1)) SWIG_fail;
@@ -26758,7 +33060,13 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_getParameter__SWIG_1(PyObject *SWI
     arg2 = ptr;
   }
   result = (FitParameter *)(arg1)->getParameter((std::string const &)*arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
+  }
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
 fail:
@@ -27516,6 +33824,159 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_setParametersFixed(PyObject *SWIGU
   return resultobj;
 fail:
   if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitSuiteParameters___getitem____SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  std::string arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  FitParameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:FitSuiteParameters___getitem__",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters___getitem__" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "FitSuiteParameters___getitem__" "', argument " "2"" of type '" "std::string""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  result = (FitParameter *)FitSuiteParameters___getitem____SWIG_0((FitSuiteParameters const *)arg1,arg2);
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitSuiteParameters___getitem____SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  size_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  FitParameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:FitSuiteParameters___getitem__",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters___getitem__" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FitSuiteParameters___getitem__" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  result = (FitParameter *)FitSuiteParameters___getitem____SWIG_1((FitSuiteParameters const *)arg1,arg2);
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitSuiteParameters___getitem__(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteParameters, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_FitSuiteParameters___getitem____SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteParameters, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_FitSuiteParameters___getitem____SWIG_0(self, args);
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'FitSuiteParameters___getitem__'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    FitSuiteParameters::__getitem__(std::string) const\n"
+    "    FitSuiteParameters::__getitem__(size_t) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_FitSuiteParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_FitSuiteParameters",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_FitSuiteParameters" "', argument " "1"" of type '" "FitSuiteParameters *""'"); 
+  }
+  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
   return NULL;
 }
 
@@ -28389,6 +34850,7 @@ SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer__SWIG_0(PyObject *SW
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
   IMinimizer *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:MinimizerFactory_createMinimizer",&obj0,&obj1,&obj2)) SWIG_fail;
@@ -28426,7 +34888,13 @@ SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer__SWIG_0(PyObject *SW
     arg3 = ptr;
   }
   result = (IMinimizer *)MinimizerFactory::createMinimizer((std::string const &)*arg1,(std::string const &)*arg2,(std::string const &)*arg3);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, 0 |  0 );
+  }
   if (SWIG_IsNewObj(res1)) delete arg1;
   if (SWIG_IsNewObj(res2)) delete arg2;
   if (SWIG_IsNewObj(res3)) delete arg3;
@@ -28447,6 +34915,7 @@ SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer__SWIG_1(PyObject *SW
   int res2 = SWIG_OLDOBJ ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
   IMinimizer *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:MinimizerFactory_createMinimizer",&obj0,&obj1)) SWIG_fail;
@@ -28473,7 +34942,13 @@ SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer__SWIG_1(PyObject *SW
     arg2 = ptr;
   }
   result = (IMinimizer *)MinimizerFactory::createMinimizer((std::string const &)*arg1,(std::string const &)*arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, 0 |  0 );
+  }
   if (SWIG_IsNewObj(res1)) delete arg1;
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
@@ -28489,6 +34964,7 @@ SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer__SWIG_2(PyObject *SW
   std::string *arg1 = 0 ;
   int res1 = SWIG_OLDOBJ ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
   IMinimizer *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:MinimizerFactory_createMinimizer",&obj0)) SWIG_fail;
@@ -28504,7 +34980,13 @@ SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer__SWIG_2(PyObject *SW
     arg1 = ptr;
   }
   result = (IMinimizer *)MinimizerFactory::createMinimizer((std::string const &)*arg1);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, 0 |  0 );
+  }
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;
 fail:
@@ -28531,6 +35013,7 @@ SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer__SWIG_3(PyObject *SW
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
   IMinimizer *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:MinimizerFactory_createMinimizer",&obj0)) SWIG_fail;
@@ -28540,7 +35023,13 @@ SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer__SWIG_3(PyObject *SW
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
   result = (IMinimizer *)MinimizerFactory::createMinimizer((IMinimizer const *)arg1);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, 0 |  0 );
+  director = SWIG_DIRECTOR_CAST(result);
+  if (director) {
+    resultobj = director->swig_get_self();
+    Py_INCREF(resultobj);
+  } else {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, 0 |  0 );
+  }
   return resultobj;
 fail:
   return NULL;
@@ -30174,7 +36663,12 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IChiSquaredModule_setIntensityNormalizer", _wrap_IChiSquaredModule_setIntensityNormalizer, METH_VARARGS, (char *)"IChiSquaredModule_setIntensityNormalizer(IChiSquaredModule self, IIntensityNormalizer data_normalizer)"},
 	 { (char *)"IChiSquaredModule_getIntensityFunction", _wrap_IChiSquaredModule_getIntensityFunction, METH_VARARGS, (char *)"IChiSquaredModule_getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction"},
 	 { (char *)"IChiSquaredModule_setIntensityFunction", _wrap_IChiSquaredModule_setIntensityFunction, METH_VARARGS, (char *)"IChiSquaredModule_setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)"},
-	 { (char *)"IChiSquaredModule_processFitElements", _wrap_IChiSquaredModule_processFitElements, METH_VARARGS, (char *)"IChiSquaredModule_processFitElements(IChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator arg3, std::vector< FitElement,std::allocator< FitElement > >::iterator arg4)"},
+	 { (char *)"IChiSquaredModule_processFitElements", _wrap_IChiSquaredModule_processFitElements, METH_VARARGS, (char *)"IChiSquaredModule_processFitElements(IChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator arg0, std::vector< FitElement,std::allocator< FitElement > >::iterator arg1)"},
+	 { (char *)"new_IChiSquaredModule", _wrap_new_IChiSquaredModule, METH_VARARGS, (char *)"\n"
+		"IChiSquaredModule()\n"
+		"new_IChiSquaredModule(PyObject * arg2, IChiSquaredModule other) -> IChiSquaredModule\n"
+		""},
+	 { (char *)"disown_IChiSquaredModule", _wrap_disown_IChiSquaredModule, METH_VARARGS, NULL},
 	 { (char *)"IChiSquaredModule_swigregister", IChiSquaredModule_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_IFitObserver", _wrap_new_IFitObserver, METH_VARARGS, (char *)"\n"
 		"new_IFitObserver(PyObject * arg2, int update_every_nth) -> IFitObserver\n"
@@ -30225,9 +36719,19 @@ static PyMethodDef SwigMethods[] = {
 		"virtual void IFitStrategy::execute()=0\n"
 		"\n"
 		""},
+	 { (char *)"IFitStrategy__print", _wrap_IFitStrategy__print, METH_VARARGS, (char *)"IFitStrategy__print(IFitStrategy self, std::ostream & ostr)"},
+	 { (char *)"new_IFitStrategy", _wrap_new_IFitStrategy, METH_VARARGS, (char *)"\n"
+		"IFitStrategy()\n"
+		"IFitStrategy(std::string const & name)\n"
+		"new_IFitStrategy(PyObject * arg2, IFitStrategy other) -> IFitStrategy\n"
+		"\n"
+		"IFitStrategy::IFitStrategy(const std::string &name)\n"
+		"\n"
+		""},
+	 { (char *)"disown_IFitStrategy", _wrap_disown_IFitStrategy, METH_VARARGS, NULL},
 	 { (char *)"IFitStrategy_swigregister", IFitStrategy_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_FitStrategyDefault", _wrap_new_FitStrategyDefault, METH_VARARGS, (char *)"\n"
-		"new_FitStrategyDefault() -> FitStrategyDefault\n"
+		"new_FitStrategyDefault(PyObject * arg2) -> FitStrategyDefault\n"
 		"\n"
 		"FitStrategyDefault::FitStrategyDefault()\n"
 		"\n"
@@ -30245,47 +36749,64 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { (char *)"delete_FitStrategyDefault", _wrap_delete_FitStrategyDefault, METH_VARARGS, (char *)"delete_FitStrategyDefault(FitStrategyDefault self)"},
+	 { (char *)"disown_FitStrategyDefault", _wrap_disown_FitStrategyDefault, METH_VARARGS, NULL},
+	 { (char *)"FitStrategyDefault__print", _wrap_FitStrategyDefault__print, METH_VARARGS, (char *)"FitStrategyDefault__print(FitStrategyDefault self, std::ostream & ostr)"},
 	 { (char *)"FitStrategyDefault_swigregister", FitStrategyDefault_swigregister, METH_VARARGS, NULL},
 	 { (char *)"delete_IIntensityFunction", _wrap_delete_IIntensityFunction, METH_VARARGS, (char *)"delete_IIntensityFunction(IIntensityFunction self)"},
 	 { (char *)"IIntensityFunction_clone", _wrap_IIntensityFunction_clone, METH_VARARGS, (char *)"IIntensityFunction_clone(IIntensityFunction self) -> IIntensityFunction"},
 	 { (char *)"IIntensityFunction_evaluate", _wrap_IIntensityFunction_evaluate, METH_VARARGS, (char *)"IIntensityFunction_evaluate(IIntensityFunction self, double value) -> double"},
+	 { (char *)"new_IIntensityFunction", _wrap_new_IIntensityFunction, METH_VARARGS, (char *)"new_IIntensityFunction(PyObject * arg2) -> IIntensityFunction"},
+	 { (char *)"disown_IIntensityFunction", _wrap_disown_IIntensityFunction, METH_VARARGS, NULL},
 	 { (char *)"IIntensityFunction_swigregister", IIntensityFunction_swigregister, METH_VARARGS, NULL},
 	 { (char *)"delete_IntensityFunctionLog", _wrap_delete_IntensityFunctionLog, METH_VARARGS, (char *)"delete_IntensityFunctionLog(IntensityFunctionLog self)"},
 	 { (char *)"IntensityFunctionLog_clone", _wrap_IntensityFunctionLog_clone, METH_VARARGS, (char *)"IntensityFunctionLog_clone(IntensityFunctionLog self) -> IntensityFunctionLog"},
 	 { (char *)"IntensityFunctionLog_evaluate", _wrap_IntensityFunctionLog_evaluate, METH_VARARGS, (char *)"IntensityFunctionLog_evaluate(IntensityFunctionLog self, double value) -> double"},
-	 { (char *)"new_IntensityFunctionLog", _wrap_new_IntensityFunctionLog, METH_VARARGS, (char *)"new_IntensityFunctionLog() -> IntensityFunctionLog"},
+	 { (char *)"new_IntensityFunctionLog", _wrap_new_IntensityFunctionLog, METH_VARARGS, (char *)"new_IntensityFunctionLog(PyObject * arg2) -> IntensityFunctionLog"},
+	 { (char *)"disown_IntensityFunctionLog", _wrap_disown_IntensityFunctionLog, METH_VARARGS, NULL},
 	 { (char *)"IntensityFunctionLog_swigregister", IntensityFunctionLog_swigregister, METH_VARARGS, NULL},
 	 { (char *)"delete_IntensityFunctionSqrt", _wrap_delete_IntensityFunctionSqrt, METH_VARARGS, (char *)"delete_IntensityFunctionSqrt(IntensityFunctionSqrt self)"},
 	 { (char *)"IntensityFunctionSqrt_clone", _wrap_IntensityFunctionSqrt_clone, METH_VARARGS, (char *)"IntensityFunctionSqrt_clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt"},
 	 { (char *)"IntensityFunctionSqrt_evaluate", _wrap_IntensityFunctionSqrt_evaluate, METH_VARARGS, (char *)"IntensityFunctionSqrt_evaluate(IntensityFunctionSqrt self, double value) -> double"},
-	 { (char *)"new_IntensityFunctionSqrt", _wrap_new_IntensityFunctionSqrt, METH_VARARGS, (char *)"new_IntensityFunctionSqrt() -> IntensityFunctionSqrt"},
+	 { (char *)"new_IntensityFunctionSqrt", _wrap_new_IntensityFunctionSqrt, METH_VARARGS, (char *)"new_IntensityFunctionSqrt(PyObject * arg2) -> IntensityFunctionSqrt"},
+	 { (char *)"disown_IntensityFunctionSqrt", _wrap_disown_IntensityFunctionSqrt, METH_VARARGS, NULL},
 	 { (char *)"IntensityFunctionSqrt_swigregister", IntensityFunctionSqrt_swigregister, METH_VARARGS, NULL},
 	 { (char *)"delete_IIntensityNormalizer", _wrap_delete_IIntensityNormalizer, METH_VARARGS, (char *)"delete_IIntensityNormalizer(IIntensityNormalizer self)"},
 	 { (char *)"IIntensityNormalizer_clone", _wrap_IIntensityNormalizer_clone, METH_VARARGS, (char *)"IIntensityNormalizer_clone(IIntensityNormalizer self) -> IIntensityNormalizer"},
 	 { (char *)"IIntensityNormalizer_createNormalizedData", _wrap_IIntensityNormalizer_createNormalizedData, METH_VARARGS, (char *)"IIntensityNormalizer_createNormalizedData(IIntensityNormalizer self, OutputData< double > const & data) -> OutputData< double > *"},
 	 { (char *)"IIntensityNormalizer_apply", _wrap_IIntensityNormalizer_apply, METH_VARARGS, (char *)"IIntensityNormalizer_apply(IIntensityNormalizer self, OutputData< double > & data)"},
-	 { (char *)"IIntensityNormalizer_setMaximumIntensity", _wrap_IIntensityNormalizer_setMaximumIntensity, METH_VARARGS, (char *)"IIntensityNormalizer_setMaximumIntensity(IIntensityNormalizer self, double arg3)"},
+	 { (char *)"IIntensityNormalizer_setMaximumIntensity", _wrap_IIntensityNormalizer_setMaximumIntensity, METH_VARARGS, (char *)"IIntensityNormalizer_setMaximumIntensity(IIntensityNormalizer self, double arg0)"},
+	 { (char *)"new_IIntensityNormalizer", _wrap_new_IIntensityNormalizer, METH_VARARGS, (char *)"new_IIntensityNormalizer(PyObject * arg2) -> IIntensityNormalizer"},
+	 { (char *)"disown_IIntensityNormalizer", _wrap_disown_IIntensityNormalizer, METH_VARARGS, NULL},
+	 { (char *)"IIntensityNormalizer__print", _wrap_IIntensityNormalizer__print, METH_VARARGS, (char *)"IIntensityNormalizer__print(IIntensityNormalizer self, std::ostream & ostr)"},
+	 { (char *)"IIntensityNormalizer_init_parameters", _wrap_IIntensityNormalizer_init_parameters, METH_VARARGS, (char *)"IIntensityNormalizer_init_parameters(IIntensityNormalizer self)"},
 	 { (char *)"IIntensityNormalizer_swigregister", IIntensityNormalizer_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_IntensityNormalizer", _wrap_new_IntensityNormalizer, METH_VARARGS, (char *)"\n"
 		"IntensityNormalizer(double scale=1.0, double shift=0.0)\n"
 		"IntensityNormalizer(double scale=1.0)\n"
-		"new_IntensityNormalizer() -> IntensityNormalizer\n"
+		"new_IntensityNormalizer(PyObject * arg2) -> IntensityNormalizer\n"
 		""},
 	 { (char *)"delete_IntensityNormalizer", _wrap_delete_IntensityNormalizer, METH_VARARGS, (char *)"delete_IntensityNormalizer(IntensityNormalizer self)"},
 	 { (char *)"IntensityNormalizer_clone", _wrap_IntensityNormalizer_clone, METH_VARARGS, (char *)"IntensityNormalizer_clone(IntensityNormalizer self) -> IntensityNormalizer"},
 	 { (char *)"IntensityNormalizer_createNormalizedData", _wrap_IntensityNormalizer_createNormalizedData, METH_VARARGS, (char *)"IntensityNormalizer_createNormalizedData(IntensityNormalizer self, OutputData< double > const & data) -> OutputData< double > *"},
 	 { (char *)"IntensityNormalizer_apply", _wrap_IntensityNormalizer_apply, METH_VARARGS, (char *)"IntensityNormalizer_apply(IntensityNormalizer self, OutputData< double > & data)"},
 	 { (char *)"IntensityNormalizer_setMaximumIntensity", _wrap_IntensityNormalizer_setMaximumIntensity, METH_VARARGS, (char *)"IntensityNormalizer_setMaximumIntensity(IntensityNormalizer self, double max_intensity)"},
+	 { (char *)"IntensityNormalizer_init_parameters", _wrap_IntensityNormalizer_init_parameters, METH_VARARGS, (char *)"IntensityNormalizer_init_parameters(IntensityNormalizer self)"},
+	 { (char *)"disown_IntensityNormalizer", _wrap_disown_IntensityNormalizer, METH_VARARGS, NULL},
+	 { (char *)"IntensityNormalizer__print", _wrap_IntensityNormalizer__print, METH_VARARGS, (char *)"IntensityNormalizer__print(IntensityNormalizer self, std::ostream & ostr)"},
 	 { (char *)"IntensityNormalizer_swigregister", IntensityNormalizer_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_IntensityScaleAndShiftNormalizer", _wrap_new_IntensityScaleAndShiftNormalizer, METH_VARARGS, (char *)"\n"
 		"IntensityScaleAndShiftNormalizer(double scale=1.0, double shift=0.0)\n"
 		"IntensityScaleAndShiftNormalizer(double scale=1.0)\n"
-		"new_IntensityScaleAndShiftNormalizer() -> IntensityScaleAndShiftNormalizer\n"
+		"new_IntensityScaleAndShiftNormalizer(PyObject * arg2) -> IntensityScaleAndShiftNormalizer\n"
 		""},
 	 { (char *)"delete_IntensityScaleAndShiftNormalizer", _wrap_delete_IntensityScaleAndShiftNormalizer, METH_VARARGS, (char *)"delete_IntensityScaleAndShiftNormalizer(IntensityScaleAndShiftNormalizer self)"},
 	 { (char *)"IntensityScaleAndShiftNormalizer_setMaximumIntensity", _wrap_IntensityScaleAndShiftNormalizer_setMaximumIntensity, METH_VARARGS, (char *)"IntensityScaleAndShiftNormalizer_setMaximumIntensity(IntensityScaleAndShiftNormalizer self, double max_intensity)"},
 	 { (char *)"IntensityScaleAndShiftNormalizer_clone", _wrap_IntensityScaleAndShiftNormalizer_clone, METH_VARARGS, (char *)"IntensityScaleAndShiftNormalizer_clone(IntensityScaleAndShiftNormalizer self) -> IntensityScaleAndShiftNormalizer"},
+	 { (char *)"disown_IntensityScaleAndShiftNormalizer", _wrap_disown_IntensityScaleAndShiftNormalizer, METH_VARARGS, NULL},
+	 { (char *)"IntensityScaleAndShiftNormalizer__print", _wrap_IntensityScaleAndShiftNormalizer__print, METH_VARARGS, (char *)"IntensityScaleAndShiftNormalizer__print(IntensityScaleAndShiftNormalizer self, std::ostream & ostr)"},
+	 { (char *)"IntensityScaleAndShiftNormalizer_init_parameters", _wrap_IntensityScaleAndShiftNormalizer_init_parameters, METH_VARARGS, (char *)"IntensityScaleAndShiftNormalizer_init_parameters(IntensityScaleAndShiftNormalizer self)"},
 	 { (char *)"IntensityScaleAndShiftNormalizer_swigregister", IntensityScaleAndShiftNormalizer_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_ISquaredFunction", _wrap_new_ISquaredFunction, METH_VARARGS, (char *)"new_ISquaredFunction(PyObject * arg2) -> ISquaredFunction"},
 	 { (char *)"delete_ISquaredFunction", _wrap_delete_ISquaredFunction, METH_VARARGS, (char *)"delete_ISquaredFunction(ISquaredFunction self)"},
 	 { (char *)"ISquaredFunction_clone", _wrap_ISquaredFunction_clone, METH_VARARGS, (char *)"ISquaredFunction_clone(ISquaredFunction self) -> ISquaredFunction"},
 	 { (char *)"ISquaredFunction_calculateSquaredDifference", _wrap_ISquaredFunction_calculateSquaredDifference, METH_VARARGS, (char *)"ISquaredFunction_calculateSquaredDifference(ISquaredFunction self, double real_value, double simulated_value) -> double"},
@@ -30293,8 +36814,9 @@ static PyMethodDef SwigMethods[] = {
 		"calculateSquaredError(double real_value, double simulated_value=0.0) -> double\n"
 		"ISquaredFunction_calculateSquaredError(ISquaredFunction self, double real_value) -> double\n"
 		""},
+	 { (char *)"disown_ISquaredFunction", _wrap_disown_ISquaredFunction, METH_VARARGS, NULL},
 	 { (char *)"ISquaredFunction_swigregister", ISquaredFunction_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_SquaredFunctionDefault", _wrap_new_SquaredFunctionDefault, METH_VARARGS, (char *)"new_SquaredFunctionDefault() -> SquaredFunctionDefault"},
+	 { (char *)"new_SquaredFunctionDefault", _wrap_new_SquaredFunctionDefault, METH_VARARGS, (char *)"new_SquaredFunctionDefault(PyObject * arg2) -> SquaredFunctionDefault"},
 	 { (char *)"delete_SquaredFunctionDefault", _wrap_delete_SquaredFunctionDefault, METH_VARARGS, (char *)"delete_SquaredFunctionDefault(SquaredFunctionDefault self)"},
 	 { (char *)"SquaredFunctionDefault_clone", _wrap_SquaredFunctionDefault_clone, METH_VARARGS, (char *)"SquaredFunctionDefault_clone(SquaredFunctionDefault self) -> SquaredFunctionDefault"},
 	 { (char *)"SquaredFunctionDefault_calculateSquaredDifference", _wrap_SquaredFunctionDefault_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionDefault_calculateSquaredDifference(SquaredFunctionDefault self, double real_value, double simulated_value) -> double"},
@@ -30302,27 +36824,48 @@ static PyMethodDef SwigMethods[] = {
 		"calculateSquaredError(double real_value, double simulated_value=0) -> double\n"
 		"SquaredFunctionDefault_calculateSquaredError(SquaredFunctionDefault self, double real_value) -> double\n"
 		""},
+	 { (char *)"disown_SquaredFunctionDefault", _wrap_disown_SquaredFunctionDefault, METH_VARARGS, NULL},
 	 { (char *)"SquaredFunctionDefault_swigregister", SquaredFunctionDefault_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_SquaredFunctionSimError", _wrap_new_SquaredFunctionSimError, METH_VARARGS, (char *)"new_SquaredFunctionSimError(PyObject * arg2) -> SquaredFunctionSimError"},
 	 { (char *)"delete_SquaredFunctionSimError", _wrap_delete_SquaredFunctionSimError, METH_VARARGS, (char *)"delete_SquaredFunctionSimError(SquaredFunctionSimError self)"},
 	 { (char *)"SquaredFunctionSimError_clone", _wrap_SquaredFunctionSimError_clone, METH_VARARGS, (char *)"SquaredFunctionSimError_clone(SquaredFunctionSimError self) -> SquaredFunctionSimError"},
 	 { (char *)"SquaredFunctionSimError_calculateSquaredDifference", _wrap_SquaredFunctionSimError_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionSimError_calculateSquaredDifference(SquaredFunctionSimError self, double real_value, double simulated_value) -> double"},
 	 { (char *)"SquaredFunctionSimError_calculateSquaredError", _wrap_SquaredFunctionSimError_calculateSquaredError, METH_VARARGS, (char *)"SquaredFunctionSimError_calculateSquaredError(SquaredFunctionSimError self, double real_value, double simulated_value) -> double"},
+	 { (char *)"disown_SquaredFunctionSimError", _wrap_disown_SquaredFunctionSimError, METH_VARARGS, NULL},
 	 { (char *)"SquaredFunctionSimError_swigregister", SquaredFunctionSimError_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_SquaredFunctionMeanSquaredError", _wrap_new_SquaredFunctionMeanSquaredError, METH_VARARGS, (char *)"new_SquaredFunctionMeanSquaredError(PyObject * arg2) -> SquaredFunctionMeanSquaredError"},
 	 { (char *)"delete_SquaredFunctionMeanSquaredError", _wrap_delete_SquaredFunctionMeanSquaredError, METH_VARARGS, (char *)"delete_SquaredFunctionMeanSquaredError(SquaredFunctionMeanSquaredError self)"},
 	 { (char *)"SquaredFunctionMeanSquaredError_clone", _wrap_SquaredFunctionMeanSquaredError_clone, METH_VARARGS, (char *)"SquaredFunctionMeanSquaredError_clone(SquaredFunctionMeanSquaredError self) -> SquaredFunctionMeanSquaredError"},
 	 { (char *)"SquaredFunctionMeanSquaredError_calculateSquaredDifference", _wrap_SquaredFunctionMeanSquaredError_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionMeanSquaredError_calculateSquaredDifference(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double"},
 	 { (char *)"SquaredFunctionMeanSquaredError_calculateSquaredError", _wrap_SquaredFunctionMeanSquaredError_calculateSquaredError, METH_VARARGS, (char *)"SquaredFunctionMeanSquaredError_calculateSquaredError(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double"},
+	 { (char *)"disown_SquaredFunctionMeanSquaredError", _wrap_disown_SquaredFunctionMeanSquaredError, METH_VARARGS, NULL},
 	 { (char *)"SquaredFunctionMeanSquaredError_swigregister", SquaredFunctionMeanSquaredError_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_SquaredFunctionSystematicError", _wrap_new_SquaredFunctionSystematicError, METH_VARARGS, (char *)"\n"
+		"SquaredFunctionSystematicError(double epsilon=0.08)\n"
+		"new_SquaredFunctionSystematicError(PyObject * arg2) -> SquaredFunctionSystematicError\n"
+		""},
 	 { (char *)"delete_SquaredFunctionSystematicError", _wrap_delete_SquaredFunctionSystematicError, METH_VARARGS, (char *)"delete_SquaredFunctionSystematicError(SquaredFunctionSystematicError self)"},
 	 { (char *)"SquaredFunctionSystematicError_clone", _wrap_SquaredFunctionSystematicError_clone, METH_VARARGS, (char *)"SquaredFunctionSystematicError_clone(SquaredFunctionSystematicError self) -> SquaredFunctionSystematicError"},
 	 { (char *)"SquaredFunctionSystematicError_calculateSquaredDifference", _wrap_SquaredFunctionSystematicError_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionSystematicError_calculateSquaredDifference(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double"},
 	 { (char *)"SquaredFunctionSystematicError_calculateSquaredError", _wrap_SquaredFunctionSystematicError_calculateSquaredError, METH_VARARGS, (char *)"SquaredFunctionSystematicError_calculateSquaredError(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double"},
+	 { (char *)"disown_SquaredFunctionSystematicError", _wrap_disown_SquaredFunctionSystematicError, METH_VARARGS, NULL},
 	 { (char *)"SquaredFunctionSystematicError_swigregister", SquaredFunctionSystematicError_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_SquaredFunctionGaussianError", _wrap_new_SquaredFunctionGaussianError, METH_VARARGS, (char *)"\n"
+		"SquaredFunctionGaussianError(double sigma=0.01)\n"
+		"new_SquaredFunctionGaussianError(PyObject * arg2) -> SquaredFunctionGaussianError\n"
+		""},
 	 { (char *)"delete_SquaredFunctionGaussianError", _wrap_delete_SquaredFunctionGaussianError, METH_VARARGS, (char *)"delete_SquaredFunctionGaussianError(SquaredFunctionGaussianError self)"},
 	 { (char *)"SquaredFunctionGaussianError_clone", _wrap_SquaredFunctionGaussianError_clone, METH_VARARGS, (char *)"SquaredFunctionGaussianError_clone(SquaredFunctionGaussianError self) -> SquaredFunctionGaussianError"},
 	 { (char *)"SquaredFunctionGaussianError_calculateSquaredDifference", _wrap_SquaredFunctionGaussianError_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionGaussianError_calculateSquaredDifference(SquaredFunctionGaussianError self, double real_value, double simulated_value) -> double"},
-	 { (char *)"SquaredFunctionGaussianError_calculateSquaredError", _wrap_SquaredFunctionGaussianError_calculateSquaredError, METH_VARARGS, (char *)"SquaredFunctionGaussianError_calculateSquaredError(SquaredFunctionGaussianError self, double arg3, double arg4) -> double"},
+	 { (char *)"SquaredFunctionGaussianError_calculateSquaredError", _wrap_SquaredFunctionGaussianError_calculateSquaredError, METH_VARARGS, (char *)"SquaredFunctionGaussianError_calculateSquaredError(SquaredFunctionGaussianError self, double arg0, double arg1) -> double"},
+	 { (char *)"disown_SquaredFunctionGaussianError", _wrap_disown_SquaredFunctionGaussianError, METH_VARARGS, NULL},
 	 { (char *)"SquaredFunctionGaussianError_swigregister", SquaredFunctionGaussianError_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_IMinimizer", _wrap_new_IMinimizer, METH_VARARGS, (char *)"\n"
+		"new_IMinimizer(PyObject * arg2) -> IMinimizer\n"
+		"\n"
+		"IMinimizer::IMinimizer()\n"
+		"\n"
+		""},
 	 { (char *)"delete_IMinimizer", _wrap_delete_IMinimizer, METH_VARARGS, (char *)"\n"
 		"delete_IMinimizer(IMinimizer self)\n"
 		"\n"
@@ -30488,19 +37031,21 @@ static PyMethodDef SwigMethods[] = {
 		"return name of the minimization algorithm \n"
 		"\n"
 		""},
+	 { (char *)"disown_IMinimizer", _wrap_disown_IMinimizer, METH_VARARGS, NULL},
 	 { (char *)"IMinimizer_swigregister", IMinimizer_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_ChiSquaredModule", _wrap_new_ChiSquaredModule, METH_VARARGS, (char *)"\n"
 		"ChiSquaredModule()\n"
-		"new_ChiSquaredModule(ChiSquaredModule other) -> ChiSquaredModule\n"
+		"new_ChiSquaredModule(PyObject * arg2, ChiSquaredModule other) -> ChiSquaredModule\n"
 		""},
 	 { (char *)"delete_ChiSquaredModule", _wrap_delete_ChiSquaredModule, METH_VARARGS, (char *)"delete_ChiSquaredModule(ChiSquaredModule self)"},
 	 { (char *)"ChiSquaredModule_clone", _wrap_ChiSquaredModule_clone, METH_VARARGS, (char *)"ChiSquaredModule_clone(ChiSquaredModule self) -> ChiSquaredModule"},
 	 { (char *)"ChiSquaredModule_processFitElements", _wrap_ChiSquaredModule_processFitElements, METH_VARARGS, (char *)"ChiSquaredModule_processFitElements(ChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator first, std::vector< FitElement,std::allocator< FitElement > >::iterator last)"},
+	 { (char *)"disown_ChiSquaredModule", _wrap_disown_ChiSquaredModule, METH_VARARGS, NULL},
 	 { (char *)"ChiSquaredModule_swigregister", ChiSquaredModule_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_FitObject", _wrap_new_FitObject, METH_VARARGS, (char *)"\n"
 		"FitObject(GISASSimulation const & simulation, OutputData< double > const & real_data, double weight=1, bool adjust_detector_to_data=True)\n"
 		"FitObject(GISASSimulation const & simulation, OutputData< double > const & real_data, double weight=1)\n"
-		"new_FitObject(GISASSimulation const & simulation, OutputData< double > const & real_data) -> FitObject\n"
+		"new_FitObject(PyObject * arg2, GISASSimulation const & simulation, OutputData< double > const & real_data) -> FitObject\n"
 		"\n"
 		"FitObject::FitObject(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1, bool adjust_detector_to_data=true)\n"
 		"\n"
@@ -30596,6 +37141,9 @@ static PyMethodDef SwigMethods[] = {
 		"Adds parameters from local pool to external pool. \n"
 		"\n"
 		""},
+	 { (char *)"FitObject_init_parameters", _wrap_FitObject_init_parameters, METH_VARARGS, (char *)"FitObject_init_parameters(FitObject self)"},
+	 { (char *)"disown_FitObject", _wrap_disown_FitObject, METH_VARARGS, NULL},
+	 { (char *)"FitObject__print", _wrap_FitObject__print, METH_VARARGS, (char *)"FitObject__print(FitObject self, std::ostream & ostr)"},
 	 { (char *)"FitObject_swigregister", FitObject_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_FitOptions", _wrap_new_FitOptions, METH_VARARGS, (char *)"\n"
 		"new_FitOptions() -> FitOptions\n"
@@ -30639,7 +37187,7 @@ static PyMethodDef SwigMethods[] = {
 		"FitParameter(std::string const & name, double value, double step=0.0, AttLimits limits, double error=0.0)\n"
 		"FitParameter(std::string const & name, double value, double step=0.0, AttLimits limits)\n"
 		"FitParameter(std::string const & name, double value, double step=0.0)\n"
-		"new_FitParameter(std::string const & name, double value) -> FitParameter\n"
+		"new_FitParameter(PyObject * arg2, std::string const & name, double value) -> FitParameter\n"
 		"\n"
 		"FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const AttLimits &limits=AttLimits::limitless(), double error=0.0)\n"
 		"\n"
@@ -30698,9 +37246,10 @@ static PyMethodDef SwigMethods[] = {
 		"Returns parameter step for minimizer. \n"
 		"\n"
 		""},
+	 { (char *)"disown_FitParameter", _wrap_disown_FitParameter, METH_VARARGS, NULL},
 	 { (char *)"FitParameter_swigregister", FitParameter_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_FitSuite", _wrap_new_FitSuite, METH_VARARGS, (char *)"\n"
-		"new_FitSuite() -> FitSuite\n"
+		"new_FitSuite(PyObject * arg2) -> FitSuite\n"
 		"\n"
 		"FitSuite::FitSuite()\n"
 		"\n"
@@ -30977,9 +37526,10 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { (char *)"delete_FitSuite", _wrap_delete_FitSuite, METH_VARARGS, (char *)"delete_FitSuite(FitSuite self)"},
+	 { (char *)"disown_FitSuite", _wrap_disown_FitSuite, METH_VARARGS, NULL},
 	 { (char *)"FitSuite_swigregister", FitSuite_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_FitSuiteObjects", _wrap_new_FitSuiteObjects, METH_VARARGS, (char *)"\n"
-		"new_FitSuiteObjects() -> FitSuiteObjects\n"
+		"new_FitSuiteObjects(PyObject * arg2) -> FitSuiteObjects\n"
 		"\n"
 		"FitSuiteObjects::FitSuiteObjects()\n"
 		"\n"
@@ -31121,9 +37671,12 @@ static PyMethodDef SwigMethods[] = {
 		"clear all data \n"
 		"\n"
 		""},
+	 { (char *)"FitSuiteObjects_init_parameters", _wrap_FitSuiteObjects_init_parameters, METH_VARARGS, (char *)"FitSuiteObjects_init_parameters(FitSuiteObjects self)"},
+	 { (char *)"disown_FitSuiteObjects", _wrap_disown_FitSuiteObjects, METH_VARARGS, NULL},
+	 { (char *)"FitSuiteObjects__print", _wrap_FitSuiteObjects__print, METH_VARARGS, (char *)"FitSuiteObjects__print(FitSuiteObjects self, std::ostream & ostr)"},
 	 { (char *)"FitSuiteObjects_swigregister", FitSuiteObjects_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_FitSuiteParameters", _wrap_new_FitSuiteParameters, METH_VARARGS, (char *)"\n"
-		"new_FitSuiteParameters() -> FitSuiteParameters\n"
+		"new_FitSuiteParameters(PyObject * arg2) -> FitSuiteParameters\n"
 		"\n"
 		"FitSuiteParameters::FitSuiteParameters()\n"
 		"\n"
@@ -31278,6 +37831,11 @@ static PyMethodDef SwigMethods[] = {
 		"Set fixed flag for parameters from the list. \n"
 		"\n"
 		""},
+	 { (char *)"FitSuiteParameters___getitem__", _wrap_FitSuiteParameters___getitem__, METH_VARARGS, (char *)"\n"
+		"__getitem__(std::string name) -> FitParameter\n"
+		"FitSuiteParameters___getitem__(FitSuiteParameters self, size_t index) -> FitParameter\n"
+		""},
+	 { (char *)"disown_FitSuiteParameters", _wrap_disown_FitSuiteParameters, METH_VARARGS, NULL},
 	 { (char *)"FitSuiteParameters_swigregister", FitSuiteParameters_swigregister, METH_VARARGS, NULL},
 	 { (char *)"StandardNormal", _wrap_StandardNormal, METH_VARARGS, (char *)"StandardNormal(double x) -> double"},
 	 { (char *)"Gaussian", _wrap_Gaussian, METH_VARARGS, (char *)"Gaussian(double x, double average, double std_dev) -> double"},
@@ -31501,12 +38059,6 @@ static void *_p_FitSuiteTo_p_IObservable(void *x, int *SWIGUNUSEDPARM(newmemory)
 static void *_p_FitParameterTo_p_AttLimits(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((AttLimits *)  ((FitParameter *) x));
 }
-static void *_p_IntensityFunctionSqrtTo_p_IIntensityFunction(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IIntensityFunction *)  ((IntensityFunctionSqrt *) x));
-}
-static void *_p_IntensityFunctionLogTo_p_IIntensityFunction(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IIntensityFunction *)  ((IntensityFunctionLog *) x));
-}
 static void *_p_SquaredFunctionGaussianErrorTo_p_ISquaredFunction(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISquaredFunction *)  ((SquaredFunctionGaussianError *) x));
 }
@@ -31521,6 +38073,12 @@ static void *_p_SquaredFunctionSimErrorTo_p_ISquaredFunction(void *x, int *SWIGU
 }
 static void *_p_SquaredFunctionSystematicErrorTo_p_ISquaredFunction(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISquaredFunction *)  ((SquaredFunctionSystematicError *) x));
+}
+static void *_p_IntensityFunctionSqrtTo_p_IIntensityFunction(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IIntensityFunction *)  ((IntensityFunctionSqrt *) x));
+}
+static void *_p_IntensityFunctionLogTo_p_IIntensityFunction(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IIntensityFunction *)  ((IntensityFunctionLog *) x));
 }
 static void *_p_IFitObserverTo_p_IObserver(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IObserver *)  ((IFitObserver *) x));
@@ -31639,9 +38197,10 @@ static swig_type_info _swigt__p_std__allocatorT_std__string_t = {"_p_std__alloca
 static swig_type_info _swigt__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t = {"_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t", "std::vector< std::vector< double > >::allocator_type *|std::allocator< std::vector< double,std::allocator< double > > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_unsigned_long_t = {"_p_std__allocatorT_unsigned_long_t", "std::vector< unsigned long >::allocator_type *|std::allocator< unsigned long > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argument", "std::invalid_argument *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__ostream = {"_p_std__ostream", "std::ostream *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IFitObserver_t = {"_p_std__shared_ptrT_IFitObserver_t", "std::shared_ptr< IFitObserver > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_INamedShared_t = {"_p_std__shared_ptrT_INamedShared_t", "std::shared_ptr< INamedShared > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__shared_ptrT_IObserver_t = {"_p_std__shared_ptrT_IObserver_t", "std::shared_ptr< IObserver > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__shared_ptrT_IObserver_t = {"_p_std__shared_ptrT_IObserver_t", "std::shared_ptr< IObserver > *|IObservable::observer_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IParameterizedShared_t = {"_p_std__shared_ptrT_IParameterizedShared_t", "std::shared_ptr< IParameterizedShared > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_ISampleBuilder_t = {"_p_std__shared_ptrT_ISampleBuilder_t", "std::shared_ptr< ISampleBuilder > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_LayerRTCoefficients_t_t = {"_p_std__shared_ptrT_LayerRTCoefficients_t_t", "std::shared_ptr< LayerRTCoefficients_t > *", 0, 0, (void*)0, 0};
@@ -31726,6 +38285,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t,
   &_swigt__p_std__allocatorT_unsigned_long_t,
   &_swigt__p_std__invalid_argument,
+  &_swigt__p_std__ostream,
   &_swigt__p_std__shared_ptrT_IFitObserver_t,
   &_swigt__p_std__shared_ptrT_INamedShared_t,
   &_swigt__p_std__shared_ptrT_IObserver_t,
@@ -31813,6 +38373,7 @@ static swig_cast_info _swigc__p_std__allocatorT_std__string_t[] = {  {&_swigt__p
 static swig_cast_info _swigc__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t[] = {  {&_swigt__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_unsigned_long_t[] = {  {&_swigt__p_std__allocatorT_unsigned_long_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__invalid_argument, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__ostream[] = {  {&_swigt__p_std__ostream, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IFitObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IFitObserver_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_INamedShared_t[] = {  {&_swigt__p_std__shared_ptrT_INamedShared_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IObserver_t, 0, 0, 0},  {&_swigt__p_std__shared_ptrT_IFitObserver_t, _p_std__shared_ptrT_IFitObserver_tTo_p_std__shared_ptrT_IObserver_t, 0, 0},{0, 0, 0, 0}};
@@ -31900,6 +38461,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t,
   _swigc__p_std__allocatorT_unsigned_long_t,
   _swigc__p_std__invalid_argument,
+  _swigc__p_std__ostream,
   _swigc__p_std__shared_ptrT_IFitObserver_t,
   _swigc__p_std__shared_ptrT_INamedShared_t,
   _swigc__p_std__shared_ptrT_IObserver_t,

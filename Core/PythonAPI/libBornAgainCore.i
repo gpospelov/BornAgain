@@ -27,11 +27,11 @@
  //#pragma SWIG nowarn=509 // overload ignored since reference=pointer
 
 
- //%feature("director");
+%feature("director");
 
  // manually declare which classes can be derived in Python and passed back to C++
  // this can be used to reduce the bloat in the swig-generated code
-
+ /*
 %feature("director") IAbstractParticle;
 %feature("director") IAxis;
 %feature("director") ICloneable;
@@ -67,6 +67,7 @@
 %feature("director") IsGISAXSDetector;
 %feature("director") IShape2D;
 %feature("director") ISingleton;
+%feature("director") IObservable;
 
 /**/
 %include "std_complex.i"

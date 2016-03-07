@@ -52,10 +52,13 @@
  //%shared_ptr(FitSuite)
 
 
-
+%feature("director");
+/*
 %feature("director") IObserver;
-%feature("director") IFitObserver;
 %feature("director") IObservable;
+%feature("director") IFitObserver;
+%feature("director") IFitSuite;
+/**/
 
 // // from PythonCoreExposer.h
 %template(vdouble1d_t) std::vector<double>;
@@ -244,6 +247,7 @@ import_array();
 %include "MinimizerOptions.h"
 
 
+
  /*
 %extend IFitObserver {
     void notify(std::shared_ptr<IObservable> subject)
@@ -252,3 +256,26 @@ import_array();
     }
 };
 /**/
+
+ // introduced because of FitCylindersAndPrisms example
+%extend FitSuiteParameters {
+    const FitParameter* __getitem__(std::string name) const
+    {
+        return (*($self))[name];
+    }
+    
+    /* void __setitem__(std::string name, const FitParameter* val)
+    {
+        (*($self))[name] = *val_;
+        }*/
+
+    const FitParameter* __getitem__(size_t index) const
+    {
+        return (*($self))[index];
+    }
+    
+    /*    void __setitem__(size_t index, const FitParameter* val)
+    {
+        (*($self))[index] = *val;
+        }*/
+ };

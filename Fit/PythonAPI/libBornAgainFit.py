@@ -1452,9 +1452,6 @@ class IChiSquaredModule(libBornAgainCore.ICloneable):
     for _s in [libBornAgainCore.ICloneable]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IChiSquaredModule, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
     __swig_destroy__ = _libBornAgainFit.delete_IChiSquaredModule
     __del__ = lambda self: None
@@ -1500,10 +1497,29 @@ class IChiSquaredModule(libBornAgainCore.ICloneable):
         return _libBornAgainFit.IChiSquaredModule_setIntensityFunction(self, intensity_function)
 
 
-    def processFitElements(self, arg2, arg3):
-        """processFitElements(IChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator arg2, std::vector< FitElement,std::allocator< FitElement > >::iterator arg3)"""
-        return _libBornAgainFit.IChiSquaredModule_processFitElements(self, arg2, arg3)
+    def processFitElements(self, arg0, arg1):
+        """processFitElements(IChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator arg0, std::vector< FitElement,std::allocator< FitElement > >::iterator arg1)"""
+        return _libBornAgainFit.IChiSquaredModule_processFitElements(self, arg0, arg1)
 
+
+    def __init__(self, *args):
+        """
+        __init__(IChiSquaredModule self) -> IChiSquaredModule
+        __init__(IChiSquaredModule self, IChiSquaredModule other) -> IChiSquaredModule
+        """
+        if self.__class__ == IChiSquaredModule:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_IChiSquaredModule(_self, *args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_IChiSquaredModule(self)
+        return weakref_proxy(self)
 IChiSquaredModule_swigregister = _libBornAgainFit.IChiSquaredModule_swigregister
 IChiSquaredModule_swigregister(IChiSquaredModule)
 
@@ -1596,9 +1612,6 @@ class IFitStrategy(libBornAgainCore.INamed):
     for _s in [libBornAgainCore.INamed]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IFitStrategy, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
 
     def clone(self):
@@ -1632,6 +1645,34 @@ class IFitStrategy(libBornAgainCore.INamed):
         """
         return _libBornAgainFit.IFitStrategy_execute(self)
 
+
+    def _print(self, ostr):
+        """_print(IFitStrategy self, std::ostream & ostr)"""
+        return _libBornAgainFit.IFitStrategy__print(self, ostr)
+
+
+    def __init__(self, *args):
+        """
+        __init__(IFitStrategy self) -> IFitStrategy
+        __init__(IFitStrategy self, std::string const & name) -> IFitStrategy
+        __init__(IFitStrategy self, IFitStrategy other) -> IFitStrategy
+
+        IFitStrategy::IFitStrategy(const std::string &name)
+
+        """
+        if self.__class__ == IFitStrategy:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_IFitStrategy(_self, *args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_IFitStrategy(self)
+        return weakref_proxy(self)
 IFitStrategy_swigregister = _libBornAgainFit.IFitStrategy_swigregister
 IFitStrategy_swigregister(IFitStrategy)
 
@@ -1662,7 +1703,11 @@ class FitStrategyDefault(IFitStrategy):
         FitStrategyDefault::FitStrategyDefault()
 
         """
-        this = _libBornAgainFit.new_FitStrategyDefault()
+        if self.__class__ == FitStrategyDefault:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_FitStrategyDefault(_self, )
         try:
             self.this.append(this)
         except Exception:
@@ -1689,6 +1734,15 @@ class FitStrategyDefault(IFitStrategy):
 
     __swig_destroy__ = _libBornAgainFit.delete_FitStrategyDefault
     __del__ = lambda self: None
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_FitStrategyDefault(self)
+        return weakref_proxy(self)
+
+    def _print(self, ostr):
+        """_print(FitStrategyDefault self, std::ostream & ostr)"""
+        return _libBornAgainFit.FitStrategyDefault__print(self, ostr)
+
 FitStrategyDefault_swigregister = _libBornAgainFit.FitStrategyDefault_swigregister
 FitStrategyDefault_swigregister(FitStrategyDefault)
 
@@ -1699,9 +1753,6 @@ class IIntensityFunction(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, IIntensityFunction, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, IIntensityFunction, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
     __swig_destroy__ = _libBornAgainFit.delete_IIntensityFunction
     __del__ = lambda self: None
@@ -1715,6 +1766,22 @@ class IIntensityFunction(_object):
         """evaluate(IIntensityFunction self, double value) -> double"""
         return _libBornAgainFit.IIntensityFunction_evaluate(self, value)
 
+
+    def __init__(self):
+        """__init__(IIntensityFunction self) -> IIntensityFunction"""
+        if self.__class__ == IIntensityFunction:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_IIntensityFunction(_self, )
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_IIntensityFunction(self)
+        return weakref_proxy(self)
 IIntensityFunction_swigregister = _libBornAgainFit.IIntensityFunction_swigregister
 IIntensityFunction_swigregister(IIntensityFunction)
 
@@ -1745,11 +1812,19 @@ class IntensityFunctionLog(IIntensityFunction):
 
     def __init__(self):
         """__init__(IntensityFunctionLog self) -> IntensityFunctionLog"""
-        this = _libBornAgainFit.new_IntensityFunctionLog()
+        if self.__class__ == IntensityFunctionLog:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_IntensityFunctionLog(_self, )
         try:
             self.this.append(this)
         except Exception:
             self.this = this
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_IntensityFunctionLog(self)
+        return weakref_proxy(self)
 IntensityFunctionLog_swigregister = _libBornAgainFit.IntensityFunctionLog_swigregister
 IntensityFunctionLog_swigregister(IntensityFunctionLog)
 
@@ -1780,11 +1855,19 @@ class IntensityFunctionSqrt(IIntensityFunction):
 
     def __init__(self):
         """__init__(IntensityFunctionSqrt self) -> IntensityFunctionSqrt"""
-        this = _libBornAgainFit.new_IntensityFunctionSqrt()
+        if self.__class__ == IntensityFunctionSqrt:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_IntensityFunctionSqrt(_self, )
         try:
             self.this.append(this)
         except Exception:
             self.this = this
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_IntensityFunctionSqrt(self)
+        return weakref_proxy(self)
 IntensityFunctionSqrt_swigregister = _libBornAgainFit.IntensityFunctionSqrt_swigregister
 IntensityFunctionSqrt_swigregister(IntensityFunctionSqrt)
 
@@ -1799,9 +1882,6 @@ class IIntensityNormalizer(libBornAgainCore.IParameterized):
     for _s in [libBornAgainCore.IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IIntensityNormalizer, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
     __swig_destroy__ = _libBornAgainFit.delete_IIntensityNormalizer
     __del__ = lambda self: None
@@ -1821,9 +1901,35 @@ class IIntensityNormalizer(libBornAgainCore.IParameterized):
         return _libBornAgainFit.IIntensityNormalizer_apply(self, data)
 
 
-    def setMaximumIntensity(self, arg2):
-        """setMaximumIntensity(IIntensityNormalizer self, double arg2)"""
-        return _libBornAgainFit.IIntensityNormalizer_setMaximumIntensity(self, arg2)
+    def setMaximumIntensity(self, arg0):
+        """setMaximumIntensity(IIntensityNormalizer self, double arg0)"""
+        return _libBornAgainFit.IIntensityNormalizer_setMaximumIntensity(self, arg0)
+
+
+    def __init__(self):
+        """__init__(IIntensityNormalizer self) -> IIntensityNormalizer"""
+        if self.__class__ == IIntensityNormalizer:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_IIntensityNormalizer(_self, )
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_IIntensityNormalizer(self)
+        return weakref_proxy(self)
+
+    def _print(self, ostr):
+        """_print(IIntensityNormalizer self, std::ostream & ostr)"""
+        return _libBornAgainFit.IIntensityNormalizer__print(self, ostr)
+
+
+    def init_parameters(self):
+        """init_parameters(IIntensityNormalizer self)"""
+        return _libBornAgainFit.IIntensityNormalizer_init_parameters(self)
 
 IIntensityNormalizer_swigregister = _libBornAgainFit.IIntensityNormalizer_swigregister
 IIntensityNormalizer_swigregister(IIntensityNormalizer)
@@ -1847,7 +1953,11 @@ class IntensityNormalizer(IIntensityNormalizer):
         __init__(IntensityNormalizer self, double scale=1.0) -> IntensityNormalizer
         __init__(IntensityNormalizer self) -> IntensityNormalizer
         """
-        this = _libBornAgainFit.new_IntensityNormalizer(scale, shift)
+        if self.__class__ == IntensityNormalizer:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_IntensityNormalizer(_self, scale, shift)
         try:
             self.this.append(this)
         except Exception:
@@ -1874,6 +1984,20 @@ class IntensityNormalizer(IIntensityNormalizer):
         """setMaximumIntensity(IntensityNormalizer self, double max_intensity)"""
         return _libBornAgainFit.IntensityNormalizer_setMaximumIntensity(self, max_intensity)
 
+
+    def init_parameters(self):
+        """init_parameters(IntensityNormalizer self)"""
+        return _libBornAgainFit.IntensityNormalizer_init_parameters(self)
+
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_IntensityNormalizer(self)
+        return weakref_proxy(self)
+
+    def _print(self, ostr):
+        """_print(IntensityNormalizer self, std::ostream & ostr)"""
+        return _libBornAgainFit.IntensityNormalizer__print(self, ostr)
+
 IntensityNormalizer_swigregister = _libBornAgainFit.IntensityNormalizer_swigregister
 IntensityNormalizer_swigregister(IntensityNormalizer)
 
@@ -1896,7 +2020,11 @@ class IntensityScaleAndShiftNormalizer(IntensityNormalizer):
         __init__(IntensityScaleAndShiftNormalizer self, double scale=1.0) -> IntensityScaleAndShiftNormalizer
         __init__(IntensityScaleAndShiftNormalizer self) -> IntensityScaleAndShiftNormalizer
         """
-        this = _libBornAgainFit.new_IntensityScaleAndShiftNormalizer(scale, shift)
+        if self.__class__ == IntensityScaleAndShiftNormalizer:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_IntensityScaleAndShiftNormalizer(_self, scale, shift)
         try:
             self.this.append(this)
         except Exception:
@@ -1913,6 +2041,20 @@ class IntensityScaleAndShiftNormalizer(IntensityNormalizer):
         """clone(IntensityScaleAndShiftNormalizer self) -> IntensityScaleAndShiftNormalizer"""
         return _libBornAgainFit.IntensityScaleAndShiftNormalizer_clone(self)
 
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_IntensityScaleAndShiftNormalizer(self)
+        return weakref_proxy(self)
+
+    def _print(self, ostr):
+        """_print(IntensityScaleAndShiftNormalizer self, std::ostream & ostr)"""
+        return _libBornAgainFit.IntensityScaleAndShiftNormalizer__print(self, ostr)
+
+
+    def init_parameters(self):
+        """init_parameters(IntensityScaleAndShiftNormalizer self)"""
+        return _libBornAgainFit.IntensityScaleAndShiftNormalizer_init_parameters(self)
+
 IntensityScaleAndShiftNormalizer_swigregister = _libBornAgainFit.IntensityScaleAndShiftNormalizer_swigregister
 IntensityScaleAndShiftNormalizer_swigregister(IntensityScaleAndShiftNormalizer)
 
@@ -1923,10 +2065,19 @@ class ISquaredFunction(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, ISquaredFunction, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, ISquaredFunction, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(ISquaredFunction self) -> ISquaredFunction"""
+        if self.__class__ == ISquaredFunction:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_ISquaredFunction(_self, )
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
     __swig_destroy__ = _libBornAgainFit.delete_ISquaredFunction
     __del__ = lambda self: None
 
@@ -1947,6 +2098,10 @@ class ISquaredFunction(_object):
         """
         return _libBornAgainFit.ISquaredFunction_calculateSquaredError(self, real_value, simulated_value)
 
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_ISquaredFunction(self)
+        return weakref_proxy(self)
 ISquaredFunction_swigregister = _libBornAgainFit.ISquaredFunction_swigregister
 ISquaredFunction_swigregister(ISquaredFunction)
 
@@ -1965,7 +2120,11 @@ class SquaredFunctionDefault(ISquaredFunction):
 
     def __init__(self):
         """__init__(SquaredFunctionDefault self) -> SquaredFunctionDefault"""
-        this = _libBornAgainFit.new_SquaredFunctionDefault()
+        if self.__class__ == SquaredFunctionDefault:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_SquaredFunctionDefault(_self, )
         try:
             self.this.append(this)
         except Exception:
@@ -1990,6 +2149,10 @@ class SquaredFunctionDefault(ISquaredFunction):
         """
         return _libBornAgainFit.SquaredFunctionDefault_calculateSquaredError(self, real_value, simulated_value)
 
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_SquaredFunctionDefault(self)
+        return weakref_proxy(self)
 SquaredFunctionDefault_swigregister = _libBornAgainFit.SquaredFunctionDefault_swigregister
 SquaredFunctionDefault_swigregister(SquaredFunctionDefault)
 
@@ -2004,10 +2167,19 @@ class SquaredFunctionSimError(ISquaredFunction):
     for _s in [ISquaredFunction]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionSimError, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(SquaredFunctionSimError self) -> SquaredFunctionSimError"""
+        if self.__class__ == SquaredFunctionSimError:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_SquaredFunctionSimError(_self, )
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
     __swig_destroy__ = _libBornAgainFit.delete_SquaredFunctionSimError
     __del__ = lambda self: None
 
@@ -2025,6 +2197,10 @@ class SquaredFunctionSimError(ISquaredFunction):
         """calculateSquaredError(SquaredFunctionSimError self, double real_value, double simulated_value) -> double"""
         return _libBornAgainFit.SquaredFunctionSimError_calculateSquaredError(self, real_value, simulated_value)
 
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_SquaredFunctionSimError(self)
+        return weakref_proxy(self)
 SquaredFunctionSimError_swigregister = _libBornAgainFit.SquaredFunctionSimError_swigregister
 SquaredFunctionSimError_swigregister(SquaredFunctionSimError)
 
@@ -2039,10 +2215,19 @@ class SquaredFunctionMeanSquaredError(ISquaredFunction):
     for _s in [ISquaredFunction]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionMeanSquaredError, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(SquaredFunctionMeanSquaredError self) -> SquaredFunctionMeanSquaredError"""
+        if self.__class__ == SquaredFunctionMeanSquaredError:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_SquaredFunctionMeanSquaredError(_self, )
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
     __swig_destroy__ = _libBornAgainFit.delete_SquaredFunctionMeanSquaredError
     __del__ = lambda self: None
 
@@ -2060,6 +2245,10 @@ class SquaredFunctionMeanSquaredError(ISquaredFunction):
         """calculateSquaredError(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double"""
         return _libBornAgainFit.SquaredFunctionMeanSquaredError_calculateSquaredError(self, real_value, simulated_value)
 
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_SquaredFunctionMeanSquaredError(self)
+        return weakref_proxy(self)
 SquaredFunctionMeanSquaredError_swigregister = _libBornAgainFit.SquaredFunctionMeanSquaredError_swigregister
 SquaredFunctionMeanSquaredError_swigregister(SquaredFunctionMeanSquaredError)
 
@@ -2074,10 +2263,22 @@ class SquaredFunctionSystematicError(ISquaredFunction):
     for _s in [ISquaredFunction]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionSystematicError, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+
+    def __init__(self, epsilon=0.08):
+        """
+        __init__(SquaredFunctionSystematicError self, double epsilon=0.08) -> SquaredFunctionSystematicError
+        __init__(SquaredFunctionSystematicError self) -> SquaredFunctionSystematicError
+        """
+        if self.__class__ == SquaredFunctionSystematicError:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_SquaredFunctionSystematicError(_self, epsilon)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
     __swig_destroy__ = _libBornAgainFit.delete_SquaredFunctionSystematicError
     __del__ = lambda self: None
 
@@ -2095,6 +2296,10 @@ class SquaredFunctionSystematicError(ISquaredFunction):
         """calculateSquaredError(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double"""
         return _libBornAgainFit.SquaredFunctionSystematicError_calculateSquaredError(self, real_value, simulated_value)
 
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_SquaredFunctionSystematicError(self)
+        return weakref_proxy(self)
 SquaredFunctionSystematicError_swigregister = _libBornAgainFit.SquaredFunctionSystematicError_swigregister
 SquaredFunctionSystematicError_swigregister(SquaredFunctionSystematicError)
 
@@ -2109,10 +2314,22 @@ class SquaredFunctionGaussianError(ISquaredFunction):
     for _s in [ISquaredFunction]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionGaussianError, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+
+    def __init__(self, sigma=0.01):
+        """
+        __init__(SquaredFunctionGaussianError self, double sigma=0.01) -> SquaredFunctionGaussianError
+        __init__(SquaredFunctionGaussianError self) -> SquaredFunctionGaussianError
+        """
+        if self.__class__ == SquaredFunctionGaussianError:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_SquaredFunctionGaussianError(_self, sigma)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
     __swig_destroy__ = _libBornAgainFit.delete_SquaredFunctionGaussianError
     __del__ = lambda self: None
 
@@ -2126,10 +2343,14 @@ class SquaredFunctionGaussianError(ISquaredFunction):
         return _libBornAgainFit.SquaredFunctionGaussianError_calculateSquaredDifference(self, real_value, simulated_value)
 
 
-    def calculateSquaredError(self, arg2, arg3):
-        """calculateSquaredError(SquaredFunctionGaussianError self, double arg2, double arg3) -> double"""
-        return _libBornAgainFit.SquaredFunctionGaussianError_calculateSquaredError(self, arg2, arg3)
+    def calculateSquaredError(self, arg0, arg1):
+        """calculateSquaredError(SquaredFunctionGaussianError self, double arg0, double arg1) -> double"""
+        return _libBornAgainFit.SquaredFunctionGaussianError_calculateSquaredError(self, arg0, arg1)
 
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_SquaredFunctionGaussianError(self)
+        return weakref_proxy(self)
 SquaredFunctionGaussianError_swigregister = _libBornAgainFit.SquaredFunctionGaussianError_swigregister
 SquaredFunctionGaussianError_swigregister(SquaredFunctionGaussianError)
 
@@ -2147,10 +2368,24 @@ class IMinimizer(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, IMinimizer, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, IMinimizer, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+
+    def __init__(self):
+        """
+        __init__(IMinimizer self) -> IMinimizer
+
+        IMinimizer::IMinimizer()
+
+        """
+        if self.__class__ == IMinimizer:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_IMinimizer(_self, )
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
     __swig_destroy__ = _libBornAgainFit.delete_IMinimizer
     __del__ = lambda self: None
 
@@ -2392,6 +2627,10 @@ class IMinimizer(_object):
         """
         return _libBornAgainFit.IMinimizer_getAlgorithmName(self)
 
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_IMinimizer(self)
+        return weakref_proxy(self)
 IMinimizer_swigregister = _libBornAgainFit.IMinimizer_swigregister
 IMinimizer_swigregister(IMinimizer)
 
@@ -2413,7 +2652,11 @@ class ChiSquaredModule(IChiSquaredModule):
         __init__(ChiSquaredModule self) -> ChiSquaredModule
         __init__(ChiSquaredModule self, ChiSquaredModule other) -> ChiSquaredModule
         """
-        this = _libBornAgainFit.new_ChiSquaredModule(*args)
+        if self.__class__ == ChiSquaredModule:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_ChiSquaredModule(_self, *args)
         try:
             self.this.append(this)
         except Exception:
@@ -2430,6 +2673,10 @@ class ChiSquaredModule(IChiSquaredModule):
         """processFitElements(ChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator first, std::vector< FitElement,std::allocator< FitElement > >::iterator last)"""
         return _libBornAgainFit.ChiSquaredModule_processFitElements(self, first, last)
 
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_ChiSquaredModule(self)
+        return weakref_proxy(self)
 ChiSquaredModule_swigregister = _libBornAgainFit.ChiSquaredModule_swigregister
 ChiSquaredModule_swigregister(ChiSquaredModule)
 
@@ -2479,7 +2726,11 @@ class FitObject(libBornAgainCore.IParameterized):
         Detector axes will be adjusted to real data axes, if true 
 
         """
-        this = _libBornAgainFit.new_FitObject(simulation, real_data, weight, adjust_detector_to_data)
+        if self.__class__ == FitObject:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_FitObject(_self, simulation, real_data, weight, adjust_detector_to_data)
         try:
             self.this.append(this)
         except Exception:
@@ -2585,6 +2836,20 @@ class FitObject(libBornAgainCore.IParameterized):
 
         """
         return _libBornAgainFit.FitObject_addParametersToExternalPool(self, path, external_pool, copy_number)
+
+
+    def init_parameters(self):
+        """init_parameters(FitObject self)"""
+        return _libBornAgainFit.FitObject_init_parameters(self)
+
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_FitObject(self)
+        return weakref_proxy(self)
+
+    def _print(self, ostr):
+        """_print(FitObject self, std::ostream & ostr)"""
+        return _libBornAgainFit.FitObject__print(self, ostr)
 
 FitObject_swigregister = _libBornAgainFit.FitObject_swigregister
 FitObject_swigregister(FitObject)
@@ -2693,7 +2958,11 @@ class FitParameter(libBornAgainCore.INamed, libBornAgainCore.AttLimits):
         FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const AttLimits &limits=AttLimits::limitless(), double error=0.0)
 
         """
-        this = _libBornAgainFit.new_FitParameter(*args)
+        if self.__class__ == FitParameter:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_FitParameter(_self, *args)
         try:
             self.this.append(this)
         except Exception:
@@ -2772,6 +3041,10 @@ class FitParameter(libBornAgainCore.INamed, libBornAgainCore.AttLimits):
         """
         return _libBornAgainFit.FitParameter_getError(self)
 
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_FitParameter(self)
+        return weakref_proxy(self)
 FitParameter_swigregister = _libBornAgainFit.FitParameter_swigregister
 FitParameter_swigregister(FitParameter)
 
@@ -2802,7 +3075,11 @@ class FitSuite(libBornAgainCore.IObservable):
         FitSuite::FitSuite()
 
         """
-        this = _libBornAgainFit.new_FitSuite()
+        if self.__class__ == FitSuite:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_FitSuite(_self, )
         try:
             self.this.append(this)
         except Exception:
@@ -3196,6 +3473,10 @@ class FitSuite(libBornAgainCore.IObservable):
 
     __swig_destroy__ = _libBornAgainFit.delete_FitSuite
     __del__ = lambda self: None
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_FitSuite(self)
+        return weakref_proxy(self)
 FitSuite_swigregister = _libBornAgainFit.FitSuite_swigregister
 FitSuite_swigregister(FitSuite)
 
@@ -3226,7 +3507,11 @@ class FitSuiteObjects(libBornAgainCore.IParameterized):
         FitSuiteObjects::FitSuiteObjects()
 
         """
-        this = _libBornAgainFit.new_FitSuiteObjects()
+        if self.__class__ == FitSuiteObjects:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_FitSuiteObjects(_self, )
         try:
             self.this.append(this)
         except Exception:
@@ -3416,6 +3701,20 @@ class FitSuiteObjects(libBornAgainCore.IParameterized):
         """
         return _libBornAgainFit.FitSuiteObjects_clear(self)
 
+
+    def init_parameters(self):
+        """init_parameters(FitSuiteObjects self)"""
+        return _libBornAgainFit.FitSuiteObjects_init_parameters(self)
+
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_FitSuiteObjects(self)
+        return weakref_proxy(self)
+
+    def _print(self, ostr):
+        """_print(FitSuiteObjects self, std::ostream & ostr)"""
+        return _libBornAgainFit.FitSuiteObjects__print(self, ostr)
+
 FitSuiteObjects_swigregister = _libBornAgainFit.FitSuiteObjects_swigregister
 FitSuiteObjects_swigregister(FitSuiteObjects)
 
@@ -3442,7 +3741,11 @@ class FitSuiteParameters(_object):
         FitSuiteParameters::FitSuiteParameters()
 
         """
-        this = _libBornAgainFit.new_FitSuiteParameters()
+        if self.__class__ == FitSuiteParameters:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_FitSuiteParameters(_self, )
         try:
             self.this.append(this)
         except Exception:
@@ -3665,6 +3968,18 @@ class FitSuiteParameters(_object):
         """
         return _libBornAgainFit.FitSuiteParameters_setParametersFixed(self, pars, is_fixed)
 
+
+    def __getitem__(self, *args):
+        """
+        __getitem__(FitSuiteParameters self, std::string name) -> FitParameter
+        __getitem__(FitSuiteParameters self, size_t index) -> FitParameter
+        """
+        return _libBornAgainFit.FitSuiteParameters___getitem__(self, *args)
+
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_FitSuiteParameters(self)
+        return weakref_proxy(self)
 FitSuiteParameters_swigregister = _libBornAgainFit.FitSuiteParameters_swigregister
 FitSuiteParameters_swigregister(FitSuiteParameters)
 

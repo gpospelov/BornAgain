@@ -15,6 +15,56 @@
 #include <string>
 
 
+class SwigDirector_IChiSquaredModule : public IChiSquaredModule, public Swig::Director {
+
+public:
+    SwigDirector_IChiSquaredModule(PyObject *self);
+    SwigDirector_IChiSquaredModule(PyObject *self, IChiSquaredModule const &other);
+    virtual ~SwigDirector_IChiSquaredModule();
+    virtual IChiSquaredModule *clone() const;
+    virtual void transferToCPP();
+    virtual IIntensityNormalizer const *getIntensityNormalizer() const;
+    virtual IIntensityNormalizer *getIntensityNormalizer();
+    virtual void setIntensityNormalizer(IIntensityNormalizer const &data_normalizer);
+    virtual IIntensityFunction const *getIntensityFunction() const;
+    virtual void setIntensityFunction(IIntensityFunction const &intensity_function);
+    virtual void processFitElements(std::vector< FitElement,std::allocator< FitElement > >::iterator arg0, std::vector< FitElement,std::allocator< FitElement > >::iterator arg1);
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class IChiSquaredModule doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[8];
+#endif
+
+};
+
+
 class SwigDirector_IFitObserver : public IFitObserver, public Swig::Director {
 
 public:
@@ -55,6 +105,982 @@ private:
     mutable swig::SwigVar_PyObject vtable[2];
 #endif
 
+};
+
+
+class SwigDirector_IFitStrategy : public IFitStrategy, public Swig::Director {
+
+public:
+    SwigDirector_IFitStrategy(PyObject *self);
+    SwigDirector_IFitStrategy(PyObject *self, std::string const &name);
+    SwigDirector_IFitStrategy(PyObject *self, IFitStrategy const &other);
+    virtual ~SwigDirector_IFitStrategy();
+    virtual IFitStrategy *clone() const;
+    virtual void init(FitKernel *fit_suite);
+    virtual void execute();
+    virtual void print(std::ostream &ostr) const;
+    virtual void printSwigPublic(std::ostream &ostr) const {
+      IFitStrategy::print(ostr);
+    }
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class IFitStrategy doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[4];
+#endif
+
+};
+
+
+class SwigDirector_FitStrategyDefault : public FitStrategyDefault, public Swig::Director {
+
+public:
+    SwigDirector_FitStrategyDefault(PyObject *self);
+    virtual ~SwigDirector_FitStrategyDefault();
+    virtual IFitStrategy *clone() const;
+    virtual void init(FitKernel *fit_suite);
+    virtual void execute();
+    virtual void print(std::ostream &ostr) const;
+    virtual void printSwigPublic(std::ostream &ostr) const {
+      IFitStrategy::print(ostr);
+    }
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class FitStrategyDefault doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[4];
+#endif
+
+};
+
+
+class SwigDirector_IIntensityFunction : public IIntensityFunction, public Swig::Director {
+
+public:
+    SwigDirector_IIntensityFunction(PyObject *self);
+    virtual ~SwigDirector_IIntensityFunction();
+    virtual IIntensityFunction *clone() const;
+    virtual double evaluate(double value) const;
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class IIntensityFunction doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[2];
+#endif
+
+};
+
+
+class SwigDirector_IntensityFunctionLog : public IntensityFunctionLog, public Swig::Director {
+
+public:
+    SwigDirector_IntensityFunctionLog(PyObject *self);
+    virtual ~SwigDirector_IntensityFunctionLog();
+    virtual IntensityFunctionLog *clone() const;
+    virtual double evaluate(double value) const;
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class IntensityFunctionLog doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[2];
+#endif
+
+};
+
+
+class SwigDirector_IntensityFunctionSqrt : public IntensityFunctionSqrt, public Swig::Director {
+
+public:
+    SwigDirector_IntensityFunctionSqrt(PyObject *self);
+    virtual ~SwigDirector_IntensityFunctionSqrt();
+    virtual IntensityFunctionSqrt *clone() const;
+    virtual double evaluate(double value) const;
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class IntensityFunctionSqrt doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[2];
+#endif
+
+};
+
+
+class SwigDirector_IIntensityNormalizer : public IIntensityNormalizer, public Swig::Director {
+
+public:
+    SwigDirector_IIntensityNormalizer(PyObject *self);
+    virtual ~SwigDirector_IIntensityNormalizer();
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void print(std::ostream &ostr) const;
+    virtual void printSwigPublic(std::ostream &ostr) const {
+      IParameterized::print(ostr);
+    }
+    virtual void init_parameters();
+    virtual void init_parametersSwigPublic() {
+      IParameterized::init_parameters();
+    }
+    virtual IIntensityNormalizer *clone() const;
+    virtual OutputData< double > *createNormalizedData(OutputData< double > const &data) const;
+    virtual void apply(OutputData< double > &data) const;
+    virtual void setMaximumIntensity(double arg0);
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class IIntensityNormalizer doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[8];
+#endif
+
+};
+
+
+class SwigDirector_IntensityNormalizer : public IntensityNormalizer, public Swig::Director {
+
+public:
+    SwigDirector_IntensityNormalizer(PyObject *self, double scale = 1.0, double shift = 0.0);
+    virtual ~SwigDirector_IntensityNormalizer();
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void print(std::ostream &ostr) const;
+    virtual void printSwigPublic(std::ostream &ostr) const {
+      IParameterized::print(ostr);
+    }
+    virtual void init_parameters();
+    virtual void init_parametersSwigPublic() {
+      IntensityNormalizer::init_parameters();
+    }
+    virtual IntensityNormalizer *clone() const;
+    virtual OutputData< double > *createNormalizedData(OutputData< double > const &data) const;
+    virtual void apply(OutputData< double > &data) const;
+    virtual void setMaximumIntensity(double max_intensity);
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class IntensityNormalizer doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[8];
+#endif
+
+};
+
+
+class SwigDirector_IntensityScaleAndShiftNormalizer : public IntensityScaleAndShiftNormalizer, public Swig::Director {
+
+public:
+    SwigDirector_IntensityScaleAndShiftNormalizer(PyObject *self, double scale = 1.0, double shift = 0.0);
+    virtual ~SwigDirector_IntensityScaleAndShiftNormalizer();
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void print(std::ostream &ostr) const;
+    virtual void printSwigPublic(std::ostream &ostr) const {
+      IParameterized::print(ostr);
+    }
+    virtual void init_parameters();
+    virtual void init_parametersSwigPublic() {
+      IntensityNormalizer::init_parameters();
+    }
+    virtual IntensityScaleAndShiftNormalizer *clone() const;
+    virtual OutputData< double > *createNormalizedData(OutputData< double > const &data) const;
+    virtual void apply(OutputData< double > &data) const;
+    virtual void setMaximumIntensity(double max_intensity);
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class IntensityScaleAndShiftNormalizer doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[8];
+#endif
+
+};
+
+
+class SwigDirector_ISquaredFunction : public ISquaredFunction, public Swig::Director {
+
+public:
+    SwigDirector_ISquaredFunction(PyObject *self);
+    virtual ~SwigDirector_ISquaredFunction();
+    virtual ISquaredFunction *clone() const;
+    virtual double calculateSquaredDifference(double real_value, double simulated_value) const;
+    virtual double calculateSquaredError(double real_value, double simulated_value = 0.0) const;
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class ISquaredFunction doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[4];
+#endif
+
+};
+
+
+class SwigDirector_SquaredFunctionDefault : public SquaredFunctionDefault, public Swig::Director {
+
+public:
+    SwigDirector_SquaredFunctionDefault(PyObject *self);
+    virtual ~SwigDirector_SquaredFunctionDefault();
+    virtual SquaredFunctionDefault *clone() const;
+    virtual double calculateSquaredDifference(double real_value, double simulated_value) const;
+    virtual double calculateSquaredError(double real_value, double simulated_value = 0) const;
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class SquaredFunctionDefault doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[4];
+#endif
+
+};
+
+
+class SwigDirector_SquaredFunctionSimError : public SquaredFunctionSimError, public Swig::Director {
+
+public:
+    SwigDirector_SquaredFunctionSimError(PyObject *self);
+    virtual ~SwigDirector_SquaredFunctionSimError();
+    virtual SquaredFunctionSimError *clone() const;
+    virtual double calculateSquaredDifference(double real_value, double simulated_value) const;
+    virtual double calculateSquaredError(double real_value, double simulated_value) const;
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class SquaredFunctionSimError doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[4];
+#endif
+
+};
+
+
+class SwigDirector_SquaredFunctionMeanSquaredError : public SquaredFunctionMeanSquaredError, public Swig::Director {
+
+public:
+    SwigDirector_SquaredFunctionMeanSquaredError(PyObject *self);
+    virtual ~SwigDirector_SquaredFunctionMeanSquaredError();
+    virtual SquaredFunctionMeanSquaredError *clone() const;
+    virtual double calculateSquaredDifference(double real_value, double simulated_value) const;
+    virtual double calculateSquaredError(double real_value, double simulated_value) const;
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class SquaredFunctionMeanSquaredError doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[4];
+#endif
+
+};
+
+
+class SwigDirector_SquaredFunctionSystematicError : public SquaredFunctionSystematicError, public Swig::Director {
+
+public:
+    SwigDirector_SquaredFunctionSystematicError(PyObject *self, double epsilon = 0.08);
+    virtual ~SwigDirector_SquaredFunctionSystematicError();
+    virtual SquaredFunctionSystematicError *clone() const;
+    virtual double calculateSquaredDifference(double real_value, double simulated_value) const;
+    virtual double calculateSquaredError(double real_value, double simulated_value) const;
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class SquaredFunctionSystematicError doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[4];
+#endif
+
+};
+
+
+class SwigDirector_SquaredFunctionGaussianError : public SquaredFunctionGaussianError, public Swig::Director {
+
+public:
+    SwigDirector_SquaredFunctionGaussianError(PyObject *self, double sigma = 0.01);
+    virtual ~SwigDirector_SquaredFunctionGaussianError();
+    virtual SquaredFunctionGaussianError *clone() const;
+    virtual double calculateSquaredDifference(double real_value, double simulated_value) const;
+    virtual double calculateSquaredError(double arg0, double arg1) const;
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class SquaredFunctionGaussianError doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[4];
+#endif
+
+};
+
+
+class SwigDirector_IMinimizer : public IMinimizer, public Swig::Director {
+
+public:
+    SwigDirector_IMinimizer(PyObject *self);
+    virtual ~SwigDirector_IMinimizer();
+    virtual void minimize();
+    virtual void setParameter(size_t index, FitParameter const *par);
+    virtual void setParameters(FitSuiteParameters const &parameters);
+    virtual void setChiSquaredFunction(IMinimizer::function_chi2_t fun_chi2, size_t nparameters);
+    virtual void setGradientFunction(IMinimizer::function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize);
+    virtual size_t getNumberOfVariables() const;
+    virtual double getMinValue() const;
+    virtual double getValueOfVariableAtMinimum(size_t index) const;
+    virtual std::vector< double,std::allocator< double > > getValueOfVariablesAtMinimum() const;
+    virtual double getErrorOfVariable(size_t index) const;
+    virtual std::vector< double,std::allocator< double > > getErrorOfVariables() const;
+    virtual void clear();
+    virtual void printResults() const;
+    virtual size_t getNCalls() const;
+    virtual MinimizerOptions *getOptions();
+    virtual MinimizerOptions const *getOptions() const;
+    virtual void setOptions(MinimizerOptions const &options);
+    virtual void setOptionString(std::string const &options);
+    virtual bool isGradientBasedAgorithm();
+    virtual std::string getMinimizerName() const;
+    virtual std::string getAlgorithmName() const;
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class IMinimizer doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[21];
+#endif
+
+};
+
+
+class SwigDirector_ChiSquaredModule : public ChiSquaredModule, public Swig::Director {
+
+public:
+    SwigDirector_ChiSquaredModule(PyObject *self);
+    SwigDirector_ChiSquaredModule(PyObject *self, ChiSquaredModule const &other);
+    virtual ~SwigDirector_ChiSquaredModule();
+    virtual ChiSquaredModule *clone() const;
+    virtual void transferToCPP();
+    virtual IIntensityNormalizer const *getIntensityNormalizer() const;
+    virtual IIntensityNormalizer *getIntensityNormalizer();
+    virtual void setIntensityNormalizer(IIntensityNormalizer const &data_normalizer);
+    virtual IIntensityFunction const *getIntensityFunction() const;
+    virtual void setIntensityFunction(IIntensityFunction const &intensity_function);
+    virtual void processFitElements(std::vector< FitElement,std::allocator< FitElement > >::iterator first, std::vector< FitElement,std::allocator< FitElement > >::iterator last);
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class ChiSquaredModule doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[8];
+#endif
+
+};
+
+
+class SwigDirector_FitObject : public FitObject, public Swig::Director {
+
+public:
+    SwigDirector_FitObject(PyObject *self, GISASSimulation const &simulation, OutputData< double > const &real_data, double weight = 1, bool adjust_detector_to_data = true);
+    virtual ~SwigDirector_FitObject();
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void print(std::ostream &ostr) const;
+    virtual void printSwigPublic(std::ostream &ostr) const {
+      IParameterized::print(ostr);
+    }
+    virtual void init_parameters();
+    virtual void init_parametersSwigPublic() {
+      FitObject::init_parameters();
+    }
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class FitObject doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[4];
+#endif
+
+};
+
+
+class SwigDirector_FitParameter : public FitParameter, public Swig::Director {
+
+public:
+    SwigDirector_FitParameter(PyObject *self);
+    SwigDirector_FitParameter(PyObject *self, std::string const &name, double value, double step = 0.0, AttLimits const &limits = AttLimits::limitless(), double error = 0.0);
+    virtual ~SwigDirector_FitParameter();
+    virtual void setValue(double value);
+    virtual double getValue() const;
+    virtual void setStep(double value);
+    virtual double getStep() const;
+    virtual void setError(double value);
+    virtual double getError() const;
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class FitParameter doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[6];
+#endif
+
+};
+
+
+class SwigDirector_FitSuite : public FitSuite, public Swig::Director {
+
+public:
+    SwigDirector_FitSuite(PyObject *self);
+    virtual ~SwigDirector_FitSuite();
+    virtual void attachObserver(IObservable::observer_t obj);
+    virtual void notifyObservers();
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class FitSuite doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[2];
+#endif
+
+};
+
+
+class SwigDirector_FitSuiteObjects : public FitSuiteObjects, public Swig::Director {
+
+public:
+    SwigDirector_FitSuiteObjects(PyObject *self);
+    virtual ~SwigDirector_FitSuiteObjects();
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void print(std::ostream &ostr) const;
+    virtual void printSwigPublic(std::ostream &ostr) const {
+      IParameterized::print(ostr);
+    }
+    virtual void init_parameters();
+    virtual void init_parametersSwigPublic() {
+      FitSuiteObjects::init_parameters();
+    }
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class FitSuiteObjects doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[4];
+#endif
+
+};
+
+
+class SwigDirector_FitSuiteParameters : public FitSuiteParameters, public Swig::Director {
+
+public:
+    SwigDirector_FitSuiteParameters(PyObject *self);
+    virtual ~SwigDirector_FitSuiteParameters();
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
 };
 
 

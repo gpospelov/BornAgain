@@ -6,7 +6,7 @@ if (BORNAGAIN_GENERATE_BINDINGS AND BORNAGAIN_GENERATE_PYTHON_DOCS)
 endif()
 
 if (BORNAGAIN_USE_PYTHON3)
-  set(Python_ADDITIONAL_VERSIONS 3.5)
+  set(Python_ADDITIONAL_VERSIONS 3.5 3.4 3.3)
 else()
   set(Python_ADDITIONAL_VERSIONS 2.7)
 endif()
@@ -40,7 +40,6 @@ message(STATUS "Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}")
 message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
 
 
-
 # --- GSL ---
 find_package(GSL REQUIRED)
 
@@ -59,20 +58,13 @@ endif()
 
 # --- Python ---
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
-
-
-
-    # testing Python 3
-    #find_package(PythonInterp 2.7 REQUIRED)
-    find_package(PythonInterp 3.0 REQUIRED)
+    find_package(PythonInterp REQUIRED)
     message(STATUS "--> PYTHON_VERSION_STRING: ${PYTHON_VERSION_STRING}, PYTHON_EXECUTABLE:${PYTHON_EXECUTABLE}")
 
-    # testing Python 3
-    #find_package(PythonLibs 2.7)
     find_package(PythonLibs REQUIRED)
     message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS} PYTHONLIBS_VERSION_STRING:${PYTHONLIBS_VERSION_STRING}")
 
-    #ValidatePythonInstallation()
+#    ValidatePythonInstallation()
 
     message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS} PYTHONLIBS_VERSION_STRING:${PYTHONLIBS_VERSION_STRING}")
 
@@ -81,9 +73,7 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     endif()
 
     find_package(Numpy REQUIRED)
-
 endif()
-
 
 # --- SWIG ---
 if(BORNAGAIN_PYTHON AND BORNAGAIN_GENERATE_BINDINGS)

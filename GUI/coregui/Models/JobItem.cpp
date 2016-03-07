@@ -62,32 +62,32 @@ JobItem::JobItem()
 {
 //    registerProperty(OBSOLETE_P_NAME, Constants::JobItemType);
     setItemName(Constants::JobItemType);
-    registerProperty(P_IDENTIFIER, QString()).setHidden();
-    registerProperty(P_SAMPLE_NAME, QString()).setReadOnly();
-    registerProperty(P_INSTRUMENT_NAME, QString()).setReadOnly();
+    registerProperty(P_IDENTIFIER, QString())->setVisible(false);
+    registerProperty(P_SAMPLE_NAME, QString())->setEditable(false);
+    registerProperty(P_INSTRUMENT_NAME, QString())->setEditable(false);
 
     ComboProperty status;
     status << Constants::STATUS_IDLE << Constants::STATUS_RUNNING << Constants::STATUS_COMPLETED
            << Constants::STATUS_CANCELED << Constants::STATUS_FAILED;
-    registerProperty(P_STATUS, status.getVariant()).setReadOnly();
+    registerProperty(P_STATUS, status.getVariant())->setEditable(false);
 
-    registerProperty(P_BEGIN_TIME, QString()).setReadOnly();
-    registerProperty(P_END_TIME, QString()).setReadOnly();
-    registerProperty(P_COMMENTS, QString()).setHidden();
+    registerProperty(P_BEGIN_TIME, QString())->setEditable(false);
+    registerProperty(P_END_TIME, QString())->setEditable(false);
+    registerProperty(P_COMMENTS, QString())->setVisible(false);
 
-    registerProperty(P_PROGRESS, 0).setHidden();
-    registerProperty(P_NTHREADS, -1).setHidden();
+    registerProperty(P_PROGRESS, 0)->setVisible(false);
+    registerProperty(P_NTHREADS, -1)->setVisible(false);
 
     ComboProperty policy;
     policy << Constants::JOB_RUN_IMMEDIATELY
            << Constants::JOB_RUN_IN_BACKGROUND
            << Constants::JOB_RUN_SUBMIT_ONLY;
-    registerProperty(P_RUN_POLICY, policy.getVariant()).setHidden();
+    registerProperty(P_RUN_POLICY, policy.getVariant())->setVisible(false);
 
-    addToValidChildren(Constants::IntensityDataType);
-
-    addToValidChildren(Constants::MultiLayerType);
-    addToValidChildren(Constants::InstrumentType);
+    const QString T_DATA = "Data Tag";
+    registerTag("Data Tag", 0, -1, QStringList() << Constants::IntensityDataType
+                << Constants::MultiLayerType << Constants::InstrumentType);
+    setDefaultTag(T_DATA);
     mapper()->setOnChildPropertyChange(
                 [this](ParameterizedItem* item, const QString &name)
     {

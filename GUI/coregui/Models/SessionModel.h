@@ -38,7 +38,14 @@ public:
 
     enum EColumn {ITEM_NAME, ITEM_VALUE, MAX_COLUMNS}; // NEW column usage
 
-    enum ERoles {ModelTypeRole = Qt::UserRole + 1, LabelRole, EndSessionRoles}; // NEW roles
+    enum ERoles {ModelTypeRole = Qt::UserRole + 1, FlagRole, DisplayNameRole, LimitsRole,
+                 DecimalRole, DefaultTagRole, EndSessionRoles}; // NEW roles
+
+    enum EAppearance {
+        VISIBLE = 0x001,
+        ENABLED = 0x002,
+        EDITABLE = 0x004
+    };
 
 //    // Begin overriden methods from QAbstractItemModel
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;
@@ -65,8 +72,7 @@ public:
 
     QModelIndex indexOfItem(ParameterizedItem *item) const;
     ParameterizedItem *insertNewItem(QString model_type, const QModelIndex &parent = QModelIndex(),
-                                     int row = -1, ParameterizedItem::PortInfo::EPorts port
-                                                   = ParameterizedItem::PortInfo::DEFAULT);
+                                     int row = -1);
 
     QString getModelTag() const;
     QString getModelName() const;
@@ -114,9 +120,7 @@ protected:
 
 private:
 
-    ParameterizedItem *insertNewItem(QString model_type, ParameterizedItem *parent, int row = -1,
-                                     ParameterizedItem::PortInfo::EPorts port
-                                     = ParameterizedItem::PortInfo::DEFAULT);
+    ParameterizedItem *insertNewItem(QString model_type, ParameterizedItem *parent, int row = -1);
 
     void cleanItem(const QModelIndex &parent, int first, int last);
 

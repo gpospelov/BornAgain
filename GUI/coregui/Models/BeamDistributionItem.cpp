@@ -28,7 +28,8 @@ const QString BeamDistributionItem::P_CACHED_VALUE = "Cached value";
 BeamDistributionItem::BeamDistributionItem(const QString name)
     : ParameterizedItem(name)
 {
-    registerProperty(P_CACHED_VALUE, 0.0).setHidden();
+    registerProperty(P_CACHED_VALUE, 0.0);
+    getItem(P_CACHED_VALUE)->setVisible(false);
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
     setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
 }
@@ -71,12 +72,12 @@ BeamDistributionItem::getParameterDistributionForName(const std::string &paramet
                                                      DistributionItem::P_SIGMA_FACTOR).toInt();
             }
 
-            PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
+//            PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
             AttLimits limits;
             if (modelType() == Constants::BeamWavelengthType) {
-                limits = cached_attribute.getLimits();
+                limits = getItem(P_CACHED_VALUE)->limits();
             } else {
-                AttLimits orig = cached_attribute.getLimits();
+                AttLimits orig = getItem(P_CACHED_VALUE)->limits();
                 if (orig.hasLowerLimit())
                     limits.setLowerLimit(Units::deg2rad(orig.getLowerLimit()));
                 if (orig.hasUpperLimit())

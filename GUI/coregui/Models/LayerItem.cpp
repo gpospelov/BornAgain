@@ -20,6 +20,7 @@
 const QString LayerItem::P_THICKNESS = "Thickness";
 const QString LayerItem::P_ROUGHNESS = "Top roughness";
 const QString LayerItem::P_MATERIAL = "Material";
+const QString LayerItem::T_LAYOUTS = "Layout tag";
 
 LayerItem::LayerItem()
     : ParameterizedGraphicsItem(Constants::LayerType)
@@ -29,17 +30,6 @@ LayerItem::LayerItem()
 
     registerGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup);
     setGroupProperty(P_ROUGHNESS, Constants::LayerZeroRoughnessType);
-    addToValidChildren(Constants::ParticleLayoutType, PortInfo::PORT_0);
-}
-
-void LayerItem::insertChildItem(int row, ParameterizedItem *item)
-{
-    ParameterizedItem::insertChildItem(row, item);
-    if (item->modelType() == Constants::ParticleLayoutType) {
-//        int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
-        int port = int(item->port());
-        if (port == PortInfo::DEFAULT) {
-            item->setPort(PortInfo::PORT_0);
-        }
-    }
+    registerTag(T_LAYOUTS, 0, -1, QStringList() << Constants::ParticleLayoutType);
+    setDefaultTag(T_LAYOUTS);
 }

@@ -28,6 +28,7 @@ class BA_CORE_API_ DetectorItem : public ParameterizedItem
     Q_OBJECT
 public:
     static const QString P_DETECTOR;
+    static const QString T_MASKS;
     explicit DetectorItem();
     virtual ~DetectorItem(){}
 

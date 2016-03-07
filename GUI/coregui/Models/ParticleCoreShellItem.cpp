@@ -21,17 +21,23 @@
 #include "ModelPath.h"
 #include <QDebug>
 
+const QString ParticleCoreShellItem::T_CORE = "Core Tag";
+const QString ParticleCoreShellItem::T_SHELL = "Shell Tag";
+const QString ParticleCoreShellItem::T_TRANSFORMATION = "Transformation Tag";
+
 ParticleCoreShellItem::ParticleCoreShellItem()
     : ParameterizedGraphicsItem(Constants::ParticleCoreShellType)
 {
-    registerProperty(ParticleItem::P_ABUNDANCE, 1.0).limited(0.0, 1.0).setDecimals(3);
+    registerProperty(ParticleItem::P_ABUNDANCE, 1.0);
+    getItem(ParticleItem::P_ABUNDANCE)->setLimits(AttLimits::limited(0.0, 1.0));
+    getItem(ParticleItem::P_ABUNDANCE)->setDecimals(3);
     registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;
     ModelPath::addParameterTranslator(position_translator);
 
-    addToValidChildren(Constants::ParticleType, PortInfo::PORT_0, 1); // Core particle
-    addToValidChildren(Constants::ParticleType, PortInfo::PORT_1, 1); // Shell particle
-    addToValidChildren(Constants::TransformationType, PortInfo::PORT_2, 1);
+    registerTag(T_CORE, 0, 1, QStringList() << Constants::ParticleType);
+    registerTag(T_SHELL, 0, 1, QStringList() << Constants::ParticleType);
+    registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
     RotationTranslator rotation_translator;
     ModelPath::addParameterTranslator(rotation_translator);
     mapper()->setOnPropertyChange(
@@ -42,24 +48,10 @@ ParticleCoreShellItem::ParticleCoreShellItem()
             if (parent()->modelType() == Constants::ParticleCompositionType
                 || parent()->modelType() == Constants::ParticleDistributionType) {
                 setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-                getPropertyAttribute(ParticleItem::P_ABUNDANCE).setDisabled();
+                getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
             }
         }
     });
-}
-
-void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
-{
-//    int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
-    int port = int(item->port());
-    PortInfo::EPorts first_available_particle_port = getFirstAvailableParticlePort();
-    if (item->modelType() == Constants::ParticleType && port == PortInfo::DEFAULT
-        && first_available_particle_port != PortInfo::DEFAULT) {
-        item->setPort(first_available_particle_port);
-    } else if (item->modelType() == Constants::TransformationType && port == PortInfo::DEFAULT) {
-        item->setPort(PortInfo::PORT_2);
-    }
-    ParameterizedItem::insertChildItem(row, item);
 }
 
 std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShell() const
@@ -68,22 +60,24 @@ std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShel
     auto children = childItems();
     std::unique_ptr<Particle> P_core {};
     std::unique_ptr<Particle> P_shell {};
-    for (int i = 0; i < children.size(); ++i) {
-//        int port = children[i]->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
-        int port = children[i]->port();
-        if (port == ParameterizedItem::PortInfo::PORT_0) {
-            auto core_item = static_cast<ParticleItem*>(children[i]);
-            P_core = core_item->createParticle();
-        } else if (port == ParameterizedItem::PortInfo::PORT_1) {
-            auto shell_item = static_cast<ParticleItem*>(children[i]);
-            P_shell = shell_item->createParticle();
-        } else if (port == ParameterizedItem::PortInfo::PORT_2) {
-            continue;
-        } else {
-            throw GUIHelpers::Error(
-                "ParticleCoreShellItem::createParticleCoreShell -> Error. Logic error.");
-        }
-    }
+
+    // TODO restore logic
+//    for (int i = 0; i < children.size(); ++i) {
+////        int port = children[i]->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
+//        int port = children[i]->port();
+//        if (port == ParameterizedItem::PortInfo::PORT_0) {
+//            auto core_item = static_cast<ParticleItem*>(children[i]);
+//            P_core = core_item->createParticle();
+//        } else if (port == ParameterizedItem::PortInfo::PORT_1) {
+//            auto shell_item = static_cast<ParticleItem*>(children[i]);
+//            P_shell = shell_item->createParticle();
+//        } else if (port == ParameterizedItem::PortInfo::PORT_2) {
+//            continue;
+//        } else {
+//            throw GUIHelpers::Error(
+//                "ParticleCoreShellItem::createParticleCoreShell -> Error. Logic error.");
+//        }
+//    }
     if (!P_core || !P_shell)
         throw GUIHelpers::Error("ParticleCoreShellItem::createParticleCoreShell -> Error. Either "
                                 "core or shell particle is undefined.");
@@ -95,39 +89,41 @@ std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShel
 
 void ParticleCoreShellItem::notifyChildParticlePortChanged()
 {
-    QVector<ParameterizedItem *> children = childItems();
-    int core_index = -1;
-    int shell_index = -1;
-    for (int i=0; i<children.size(); ++i) {
-        if (children[i]->modelType() == Constants::ParticleType) {
-            PortInfo::EPorts port = children[i]->port();/*(PortInfo::EPorts)children[i]
-                                        ->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();*/
-            if (port == PortInfo::PORT_0) core_index = i;
-            if (port == PortInfo::PORT_1) shell_index = i;
-        }
-    }
-    if (shell_index >= 0 && core_index > shell_index) {
-        swapChildren(core_index, shell_index);
-    }
+    // TODO restore logic
+//    QVector<ParameterizedItem *> children = childItems();
+//    int core_index = -1;
+//    int shell_index = -1;
+//    for (int i=0; i<children.size(); ++i) {
+//        if (children[i]->modelType() == Constants::ParticleType) {
+//            PortInfo::EPorts port = children[i]->port();/*(PortInfo::EPorts)children[i]
+//                                        ->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();*/
+//            if (port == PortInfo::PORT_0) core_index = i;
+//            if (port == PortInfo::PORT_1) shell_index = i;
+//        }
+//    }
+//    if (shell_index >= 0 && core_index > shell_index) {
+//        swapChildren(core_index, shell_index);
+//    }
 }
 
-ParameterizedItem::PortInfo::EPorts ParticleCoreShellItem::getFirstAvailableParticlePort() const
-{
-    // Also when no ports are available, return the first port (core particle will then be replaced)
-    PortInfo::EPorts result = PortInfo::PORT_0;
-    QList<PortInfo::EPorts> used_particle_ports;
-    QVector<ParameterizedItem *> children = childItems();
-    for (auto item : children) {
-        if (item->modelType() == Constants::ParticleType) {
-            PortInfo::EPorts port = item->port();
-//                = (PortInfo::EPorts)item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
-            used_particle_ports.append(port);
-        }
-    }
-    if (used_particle_ports.size() < 2) {
-        if (used_particle_ports.contains(PortInfo::PORT_0)) {
-            result = PortInfo::PORT_1;
-        }
-    }
-    return result;
-}
+//! TODO where is it used? restore logic
+//ParameterizedItem::PortInfo::EPorts ParticleCoreShellItem::getFirstAvailableParticlePort() const
+//{
+//    // Also when no ports are available, return the first port (core particle will then be replaced)
+//    PortInfo::EPorts result = PortInfo::PORT_0;
+//    QList<PortInfo::EPorts> used_particle_ports;
+//    QVector<ParameterizedItem *> children = childItems();
+//    for (auto item : children) {
+//        if (item->modelType() == Constants::ParticleType) {
+//            PortInfo::EPorts port = item->port();
+////                = (PortInfo::EPorts)item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
+//            used_particle_ports.append(port);
+//        }
+//    }
+//    if (used_particle_ports.size() < 2) {
+//        if (used_particle_ports.contains(PortInfo::PORT_0)) {
+//            result = PortInfo::PORT_1;
+//        }
+//    }
+//    return result;
+//}

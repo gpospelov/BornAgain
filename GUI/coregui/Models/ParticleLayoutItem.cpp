@@ -20,6 +20,8 @@
 
 const QString ParticleLayoutItem::P_APPROX = "Approximation";
 const QString ParticleLayoutItem::P_TOTAL_DENSITY = "Total particle density";
+const QString ParticleLayoutItem::T_PARTICLES = "Particle Tag";
+const QString ParticleLayoutItem::T_TRANSFORMATION = "Transformation Tag";
 
 ParticleLayoutItem::ParticleLayoutItem()
     : ParameterizedGraphicsItem(Constants::ParticleLayoutType)
@@ -29,14 +31,12 @@ ParticleLayoutItem::ParticleLayoutItem()
     registerProperty(P_APPROX, approx.getVariant());
     registerProperty(P_TOTAL_DENSITY, 1.0);
 
-    addToValidChildren(Constants::ParticleType, PortInfo::PORT_0);
-    addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0);
-    addToValidChildren(Constants::ParticleCompositionType, PortInfo::PORT_0);
-    addToValidChildren(Constants::ParticleDistributionType, PortInfo::PORT_0);
-    addToValidChildren(Constants::InterferenceFunctionRadialParaCrystalType, PortInfo::PORT_1, 1);
-    addToValidChildren(Constants::InterferenceFunction2DParaCrystalType, PortInfo::PORT_1, 1);
-    addToValidChildren(Constants::InterferenceFunction1DLatticeType, PortInfo::PORT_1, 1);
-    addToValidChildren(Constants::InterferenceFunction2DLatticeType, PortInfo::PORT_1, 1);
+    registerTag(T_PARTICLES, 0, -1, QStringList() << Constants::ParticleType << Constants::ParticleCoreShellType
+                << Constants::ParticleCompositionType << Constants::ParticleDistributionType);
+    setDefaultTag(T_PARTICLES);
+    registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::InterferenceFunctionRadialParaCrystalType
+                << Constants::InterferenceFunction2DParaCrystalType << Constants::InterferenceFunction1DLatticeType
+                << Constants::InterferenceFunction2DLatticeType);
 
     // FIXME: not updated when child get removed
     mapper()->setOnChildPropertyChange(
@@ -45,40 +45,14 @@ ParticleLayoutItem::ParticleLayoutItem()
         for (auto child_item : childItems()) {
             if (child_item->modelType() == Constants::InterferenceFunction2DParaCrystalType
                 || child_item->modelType() == Constants::InterferenceFunction2DLatticeType) {
-                getPropertyAttribute(P_TOTAL_DENSITY).setDisabled();
-                getPropertyItem(P_TOTAL_DENSITY)->emitValueChanged();
+                getItem(P_TOTAL_DENSITY)->setEnabled(false);
                 return;
             }
         }
-        getPropertyAttribute(P_TOTAL_DENSITY).setVisible();
-        getPropertyItem(P_TOTAL_DENSITY)->emitValueChanged();
+        getItem(P_TOTAL_DENSITY)->setEnabled(true);
     });
 }
 
 ParticleLayoutItem::~ParticleLayoutItem()
 {
-}
-
-void ParticleLayoutItem::insertChildItem(int row, ParameterizedItem *item)
-{
-    ParameterizedItem::insertChildItem(row, item);
-    if (item->modelType() == Constants::ParticleType
-        || item->modelType() == Constants::ParticleCoreShellType
-        || item->modelType() == Constants::ParticleCompositionType
-        || item->modelType() == Constants::ParticleDistributionType) {
-//        int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
-        int port = int(item->port());
-        if (port == PortInfo::DEFAULT) {
-            item->setPort(PortInfo::PORT_0);
-        }
-    } else if (item->modelType() == Constants::InterferenceFunctionRadialParaCrystalType
-               || item->modelType() == Constants::InterferenceFunction2DParaCrystalType
-               || item->modelType() == Constants::InterferenceFunction1DLatticeType
-               || item->modelType() == Constants::InterferenceFunction2DLatticeType) {
-//        int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
-        int port = int(item->port());
-        if (port == PortInfo::DEFAULT) {
-            item->setPort(PortInfo::PORT_1);
-        }
-    }
 }

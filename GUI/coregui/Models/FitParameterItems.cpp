@@ -19,7 +19,9 @@
 FitParameterContainer::FitParameterContainer()
     : ParameterizedItem(Constants::FitParameterContainerType)
 {
-    addToValidChildren(Constants::FitParameterType);
+    const QString T_DATA = "Data tag";
+    registerTag(T_DATA, 0, -1, QStringList() << Constants::FitParameterType);
+    setDefaultTag(T_DATA);
 }
 
 
@@ -35,7 +37,9 @@ FitParameterItem::FitParameterItem()
     registerProperty(P_INIT, 0.0);
     registerProperty(P_MIN, 0.0);
     registerProperty(P_MAX, 0.0);
-    addToValidChildren(Constants::FitParameterLinkType);
+    const QString T_LINK = "Link tag";
+    registerTag(T_LINK, 0, -1, QStringList() << Constants::FitParameterLinkType);
+    setDefaultTag(T_LINK);
 }
 
 

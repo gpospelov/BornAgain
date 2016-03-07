@@ -33,15 +33,15 @@ inline void TestMapper::test_ParticeleCompositionUpdate()
 
     // composition added to layout should have abundance enabled
     ParameterizedItem *compositionFree = model.insertNewItem(Constants::ParticleCompositionType, layout->index());
-    QVERIFY(compositionFree->getPropertyAttribute(ParticleItem::P_ABUNDANCE).isDisabled() == false);
+    QVERIFY(compositionFree->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
 
     // composition added to distribution should have abundance disabled
     ParameterizedItem *distribution = model.insertNewItem(Constants::ParticleDistributionType, layout->index());
     ParameterizedItem *composition = model.insertNewItem(Constants::ParticleCompositionType, distribution->index());
-    QVERIFY(composition->getPropertyAttribute(ParticleItem::P_ABUNDANCE).isDisabled() == true);
+    QVERIFY(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == false);
 
     model.removeRows(composition->index().row(), 1, composition->parent()->index());
-    QVERIFY(composition->getPropertyAttribute(ParticleItem::P_ABUNDANCE).isDisabled() == false);
+    QVERIFY(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
 
 }
 
@@ -56,11 +56,11 @@ inline void TestMapper::test_Inference2DRotationAngleToggle()
 
     // rotation (xi) should be disabled if integration is on
     inference->setRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, true);
-    QVERIFY(inference->getPropertyAttribute(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE).isDisabled());
+    QVERIFY(inference->getItem(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE)->isEnabled() == false);
 
     // rotation (xi) should be enabled if integration is off
     inference->setRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, false);
-    QVERIFY(!inference->getPropertyAttribute(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE).isDisabled());
+    QVERIFY(!inference->getItem(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE)->isEnabled() == false);
 
 }
 
@@ -78,12 +78,12 @@ inline void TestMapper::test_instrumentAlignmentPropertyVisibility()
     // generic has some more items visible
     alignment.setValue(Constants::ALIGNMENT_GENERIC);
     rectangular->setRegisteredProperty(RectangularDetectorItem::P_ALIGNMENT, QVariant::fromValue<ComboProperty>(alignment));
-    QVERIFY(rectangular->getPropertyAttribute(RectangularDetectorItem::P_NORMAL).isHidden() == false);
+    QVERIFY(rectangular->getItem(RectangularDetectorItem::P_NORMAL)->isVisible());
 
     // should be disabled if we switch
     alignment.setValue(Constants::ALIGNMENT_TO_REFLECTED_BEAM);
     rectangular->setRegisteredProperty(RectangularDetectorItem::P_ALIGNMENT, QVariant::fromValue<ComboProperty>(alignment));
-    QVERIFY(rectangular->getPropertyAttribute(RectangularDetectorItem::P_NORMAL).isHidden() == true);
+    QVERIFY(rectangular->getItem(RectangularDetectorItem::P_NORMAL)->isVisible() == false);
 
 }
 

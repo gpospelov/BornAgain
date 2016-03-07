@@ -65,8 +65,7 @@ void DetectorMaskDelegate::createIntensityDataItem()
         m_tempIntensityDataModel->insertNewItem(Constants::IntensityDataType));
     Q_ASSERT(m_intensityItem);
 
-    m_intensityItem->getPropertyAttribute(IntensityDataItem::P_PROJECTIONS_FLAG)
-        .setDisabled();
+    m_intensityItem->getItem(IntensityDataItem::P_PROJECTIONS_FLAG)->setEnabled(false);
     m_intensityItem->setRegisteredProperty(IntensityDataItem::P_IS_INTERPOLATED,
                                            false);
 

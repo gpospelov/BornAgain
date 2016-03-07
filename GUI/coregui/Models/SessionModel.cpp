@@ -95,7 +95,7 @@ QVariant SessionModel::data(const QModelIndex &index, int role) const
             if (index.column() == ITEM_VALUE)
                 return item->data(Qt::DisplayRole);
             if (index.column() == ITEM_NAME)
-                return item->data(LabelRole);
+                return item->itemName();
         } else if (role == Qt::DecorationRole && m_iconProvider) {
             return m_iconProvider->icon(item->modelType());
         }
@@ -278,7 +278,7 @@ QModelIndex SessionModel::indexOfItem(ParameterizedItem *item) const
 }
 
 ParameterizedItem *SessionModel::insertNewItem(QString model_type, const QModelIndex &parent,
-                                               int row, ParameterizedItem::PortInfo::EPorts port)
+                                               int row)
 {
 //    if (!m_root_item) {
 //        m_root_item = ItemFactory::createEmptyItem();
@@ -287,7 +287,7 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type, const QModelI
     if (row == -1)
         row = parent_item->childItemCount();
     beginInsertRows(parent, row, row);
-    ParameterizedItem *new_item = insertNewItem(model_type, parent_item, row, port);
+    ParameterizedItem *new_item = insertNewItem(model_type, parent_item, row);
     endInsertRows();
 
     cleanItem(indexOfItem(parent_item), row, row);
@@ -509,7 +509,7 @@ void SessionModel::setMessageService(WarningMessageService *messageService)
 }
 
 ParameterizedItem *SessionModel::insertNewItem(QString model_type, ParameterizedItem *parent,
-                                               int row, ParameterizedItem::PortInfo::EPorts port)
+                                               int row)
 {
 //    if (!m_root_item) {
 //        m_root_item = ItemFactory::createEmptyItem();
@@ -529,8 +529,8 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type, Parameterized
 
 //    ParameterizedItem *new_item = new ParameterizedItem(model_type); // NEW -> item factory!
     ParameterizedItem *new_item = ItemFactory::createItem(model_type);
-    if (port != ParameterizedItem::PortInfo::DEFAULT)
-        new_item->setPort(port);
+//    if (port != ParameterizedItem::PortInfo::DEFAULT)
+//        new_item->setPort(port);
 
     if (!new_item)
         throw GUIHelpers::Error("SessionModel::insertNewItem() -> Wrong model type " + model_type);

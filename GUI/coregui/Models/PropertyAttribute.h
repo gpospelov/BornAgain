@@ -21,6 +21,8 @@
 #include "AttLimits.h"
 #include <QMetaType>
 
+class ParameterizedItem;
+
 
 //! Class to handle visual appearance of ParameterizedItem's property in
 //! different kind of property editors.
@@ -74,6 +76,8 @@ public:
 
     bool isReadOnly() const;
     PropertyAttribute& setReadOnly();
+
+    static PropertyAttribute fromItem(ParameterizedItem* item);
 
 private:
     Appearance m_appearance;

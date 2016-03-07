@@ -32,17 +32,20 @@
 const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER = "Distributed parameter";
 const QString ParticleDistributionItem::P_DISTRIBUTION = "Distribution";
 const QString ParticleDistributionItem::NO_SELECTION = "None";
+const QString ParticleDistributionItem::T_PARTICLES = "Particle Tag";
 
 ParticleDistributionItem::ParticleDistributionItem()
     : ParameterizedGraphicsItem(Constants::ParticleDistributionType)
 {
-    registerProperty(ParticleItem::P_ABUNDANCE, 1.0).limited(0.0, 1.0).setDecimals(3);
+    registerProperty(ParticleItem::P_ABUNDANCE, 1.0);
+    getItem(ParticleItem::P_ABUNDANCE)->setLimits(AttLimits::limited(0.0, 1.0));
+    getItem(ParticleItem::P_ABUNDANCE)->setDecimals(3);
 
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
 
-    addToValidChildren(Constants::ParticleType, PortInfo::PORT_0, 1);
-    addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0, 1);
-    addToValidChildren(Constants::ParticleCompositionType, PortInfo::PORT_0, 1);
+    registerTag(T_PARTICLES, 0, 1, QStringList() << Constants::ParticleType <<
+                Constants::ParticleCoreShellType << Constants::ParticleCompositionType);
+    setDefaultTag(T_PARTICLES);
 
     ComboProperty par_prop;
     registerProperty(P_DISTRIBUTED_PARAMETER, par_prop.getVariant());
@@ -56,20 +59,6 @@ ParticleDistributionItem::ParticleDistributionItem()
 
 ParticleDistributionItem::~ParticleDistributionItem()
 {
-}
-
-void ParticleDistributionItem::insertChildItem(int row, ParameterizedItem *item)
-{
-    ParameterizedItem::insertChildItem(row, item);
-    if (item->modelType() == Constants::ParticleType
-        || item->modelType() == Constants::ParticleCoreShellType
-        || item->modelType() == Constants::ParticleCompositionType) {
-        int port = int(item->port());
-//        int port = item->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
-        if (port == PortInfo::DEFAULT) {
-            item->setPort(PortInfo::PORT_0);
-        }
-    }
 }
 
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const

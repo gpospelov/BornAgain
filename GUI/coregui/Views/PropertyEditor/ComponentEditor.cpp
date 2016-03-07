@@ -102,7 +102,7 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
     if (QtVariantProperty *property = m_d->getPropertyForItem(item)) {
         // updating editor's property appearance (tooltips, limits)
         if (roles.contains(Qt::UserRole)) {
-            m_d->updatePropertyAppearance(property, item->getAttribute());
+            m_d->updatePropertyAppearance(property, PropertyAttribute::fromItem(item));
         }
 
         // updating editor's property values
@@ -156,7 +156,7 @@ ComponentEditor::componentItems(ParameterizedItem *item) const
 {
     QList<ParameterizedItem *> result;
     foreach (ParameterizedItem *child, item->childItems()) {
-        if (child->getAttribute().isHidden())
+        if (!child->isVisible())
             continue;
         if (child->modelType() == Constants::PropertyType) {
             result.append(child);

@@ -95,7 +95,7 @@ QModelIndex SessionTestModel::mapFromSource(const QModelIndex &sourceIndex) cons
     for(int i_row=0; i_row<m_source->rowCount(sourceIndex.parent()); ++i_row) {
         QModelIndex itemIndex = m_source->index(i_row, sourceIndex.column(), sourceIndex.parent());
         if(ParameterizedItem *item = m_source->itemForIndex(itemIndex)) {
-            if(item->getAttribute().isHidden()) continue;
+            if(!item->isVisible()) continue;
             if(i_row == sourceIndex.row()) {
                 return createIndex(nrow, sourceIndex.column(), item);
             }
@@ -167,7 +167,7 @@ int SessionTestModel::rowCount(const QModelIndex &parent) const
     ParameterizedItem *item = m_source->itemForIndex(sourceParent);
     int nrow(0);
     foreach(ParameterizedItem *child, item->childItems()) {
-        if(child->getAttribute().isHidden()) continue;
+        if(!child->isVisible()) continue;
         ++nrow;
     }
     return nrow;

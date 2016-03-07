@@ -136,15 +136,14 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
         m_current_link = index.model()->data(index, Qt::UserRole).value<ItemLink>();
 
         ParameterizedItem *item = m_current_link.getItem();
-        const PropertyAttribute &attribute = item->getPropertyAttribute(m_current_link.getPropertyName());
-        AttLimits limits = attribute.getLimits();
+        AttLimits limits = item->getItem(m_current_link.getPropertyName())->limits();
 
         // initializing value box
         m_valueBox = new QDoubleSpinBox();
         m_valueBox->setKeyboardTracking(false);
         m_valueBox->setFixedWidth(80);
-        m_valueBox->setDecimals(attribute.getDecimals());
-        m_valueBox->setSingleStep(1./std::pow(10.,attribute.getDecimals()-1));
+        m_valueBox->setDecimals(item->getItem(m_current_link.getPropertyName())->decimals());
+        m_valueBox->setSingleStep(1./std::pow(10.,item->getItem(m_current_link.getPropertyName())->decimals()-1));
 
         if(limits.hasLowerLimit()) {
             m_valueBox->setMinimum(limits.getLowerLimit());

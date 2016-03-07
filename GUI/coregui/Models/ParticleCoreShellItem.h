@@ -26,16 +26,18 @@ class BA_CORE_API_ ParticleCoreShellItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:
+    const static QString T_CORE;
+    const static QString T_SHELL;
+    const static QString T_TRANSFORMATION;
     enum ECoreShell { CORE, SHELL};
     explicit ParticleCoreShellItem();
     virtual ~ParticleCoreShellItem() {}
-    virtual void insertChildItem(int row, ParameterizedItem *item);
     std::unique_ptr<ParticleCoreShell> createParticleCoreShell() const;
 
     void notifyChildParticlePortChanged();
 
 private:
-    PortInfo::EPorts getFirstAvailableParticlePort() const;
+//    PortInfo::EPorts getFirstAvailableParticlePort() const;
 };
 
 #endif

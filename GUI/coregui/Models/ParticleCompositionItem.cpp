@@ -20,18 +20,23 @@
 #include "GUIHelpers.h"
 #include "ModelPath.h"
 
+const QString ParticleCompositionItem::T_PARTICLES = "Particle Tag";
+const QString ParticleCompositionItem::T_TRANSFORMATION = "Transformation Tag";
+
 ParticleCompositionItem::ParticleCompositionItem()
     : ParameterizedGraphicsItem(Constants::ParticleCompositionType)
 {
-    registerProperty(ParticleItem::P_ABUNDANCE, 1.0).limited(0.0, 1.0).setDecimals(3);
+    registerProperty(ParticleItem::P_ABUNDANCE, 1.0);
+    getItem(ParticleItem::P_ABUNDANCE)->setLimits(AttLimits::limited(0.0, 1.0));
+    getItem(ParticleItem::P_ABUNDANCE)->setDecimals(3);
     registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;
     ModelPath::addParameterTranslator(position_translator);
 
-    addToValidChildren(Constants::ParticleType, PortInfo::PORT_0);
-    addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0);
-    addToValidChildren(Constants::ParticleCompositionType, PortInfo::PORT_0);
-    addToValidChildren(Constants::TransformationType, PortInfo::PORT_1, 1);
+    registerTag(T_PARTICLES, 0, -1, QStringList() << Constants::ParticleType <<
+                Constants::ParticleCoreShellType << Constants::ParticleCompositionType);
+    setDefaultTag(T_PARTICLES);
+    registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
     RotationTranslator rotation_translator;
     ModelPath::addParameterTranslator(rotation_translator);
 
@@ -40,27 +45,11 @@ ParticleCompositionItem::ParticleCompositionItem()
         if (parent && (parent->modelType() == Constants::ParticleCompositionType
             || parent->modelType() == Constants::ParticleDistributionType)) {
             setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-            getPropertyAttribute(ParticleItem::P_ABUNDANCE).setDisabled();
+            getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         } else {
-            getPropertyAttribute(ParticleItem::P_ABUNDANCE).setEnabled();
+            getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);
         }
     });
-}
-
-void ParticleCompositionItem::insertChildItem(int row, ParameterizedItem *item)
-{
-    int port = int(item->port());
-    ParameterizedItem::insertChildItem(row, item);
-    if (item->modelType() == Constants::ParticleType
-        || item->modelType() == Constants::ParticleCoreShellType
-        || item->modelType() == Constants::ParticleCompositionType) {
-        if (port == PortInfo::DEFAULT) {
-            item->setPort(PortInfo::PORT_0);
-        }
-    } else if (item->modelType() == Constants::TransformationType && port == PortInfo::DEFAULT) {
-        item->setPort(PortInfo::PORT_1);
-    }
-
 }
 
 std::unique_ptr<ParticleComposition> ParticleCompositionItem::createParticleComposition() const

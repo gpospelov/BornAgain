@@ -20,13 +20,14 @@
 #include <QDebug>
 
 const QString MultiLayerItem::P_CROSS_CORR_LENGTH = "Cross Correlation Length";
+const QString MultiLayerItem::T_LAYERS = "Layer tag";
 
 MultiLayerItem::MultiLayerItem()
     : ParameterizedGraphicsItem(Constants::MultiLayerType)
 {
     registerProperty(P_CROSS_CORR_LENGTH, 0.0);
-    addToValidChildren(Constants::LayerType);
-//    registerProperty(OBSOLETE_P_NAME, Constants::MultiLayerType);
+    registerTag(T_LAYERS, 0, -1, QStringList() << Constants::LayerType);
+    setDefaultTag(T_LAYERS);
     setItemName(Constants::MultiLayerType);
     mapper()->setOnChildrenChange(
                 [this]()
@@ -53,14 +54,14 @@ void MultiLayerItem::updateLayers()
     QList<ParameterizedItem*> list = getChildrenOfType(Constants::LayerType);
     for(auto it = list.begin(); it != list.end(); ++it) {
         if(it == list.begin()) {
-            (*it)->getPropertyAttribute(LayerItem::P_ROUGHNESS).setDisabled();
+            (*it)->getItem(LayerItem::P_ROUGHNESS)->setEnabled(false);
         } else {
-            (*it)->getPropertyAttribute(LayerItem::P_ROUGHNESS).setVisible();
+            (*it)->getItem(LayerItem::P_ROUGHNESS)->setEnabled(true);
         }
         if(it == list.begin() || it == list.end()) {
-            (*it)->getPropertyAttribute(LayerItem::P_THICKNESS).setDisabled();
+            (*it)->getItem(LayerItem::P_THICKNESS)->setEnabled(false);
         } else {
-            (*it)->getPropertyAttribute(LayerItem::P_THICKNESS).setVisible();
+            (*it)->getItem(LayerItem::P_THICKNESS)->setEnabled(true);
         }
     }
 }

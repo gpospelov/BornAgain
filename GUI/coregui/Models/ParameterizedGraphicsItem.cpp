@@ -23,7 +23,7 @@ const QString ParameterizedGraphicsItem::P_YPOS = "ypos";
 ParameterizedGraphicsItem::ParameterizedGraphicsItem(const QString &model_type)
     : ParameterizedItem(model_type)
 {
-    registerProperty(P_XPOS, qreal(0.0)).setHidden();
-    registerProperty(P_YPOS, qreal(0.0)).setHidden();
+    registerProperty(P_XPOS, qreal(0.0))->setVisible(false);
+    registerProperty(P_YPOS, qreal(0.0))->setVisible(false);
 }
 

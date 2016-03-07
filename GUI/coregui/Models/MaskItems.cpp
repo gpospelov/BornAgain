@@ -26,12 +26,11 @@
 MaskContainerItem::MaskContainerItem()
     : ParameterizedItem(Constants::MaskContainerType)
 {
-    addToValidChildren(Constants::RectangleMaskType);
-    addToValidChildren(Constants::PolygonMaskType);
-    addToValidChildren(Constants::EllipseMaskType);
-    addToValidChildren(Constants::VerticalLineMaskType);
-    addToValidChildren(Constants::HorizontalLineMaskType);
-    addToValidChildren(Constants::MaskAllType);
+    const QString T_MASKS = "Mask Tag";
+    registerTag(T_MASKS, 0, -1, QStringList() << Constants::RectangleMaskType << Constants::PolygonMaskType
+                << Constants::EllipseMaskType << Constants::VerticalLineMaskType
+                << Constants::HorizontalLineMaskType << Constants::MaskAllType);
+    setDefaultTag(T_MASKS);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -61,10 +60,10 @@ RectangleItem::RectangleItem()
     : MaskItem(Constants::RectangleMaskType)
 {
     setItemName(Constants::RectangleMaskType);
-    registerProperty(P_XLOW, 0.0).limitless();
-    registerProperty(P_YLOW, 0.0).limitless();
-    registerProperty(P_XUP, 0.0).limitless();
-    registerProperty(P_YUP, 0.0).limitless();
+    registerProperty(P_XLOW, 0.0)->setLimits(AttLimits::limitless());
+    registerProperty(P_YLOW, 0.0)->setLimits(AttLimits::limitless());
+    registerProperty(P_XUP, 0.0)->setLimits(AttLimits::limitless());
+    registerProperty(P_YUP, 0.0)->setLimits(AttLimits::limitless());
 }
 
 std::unique_ptr<Geometry::IShape2D> RectangleItem::createShape(double scale) const
@@ -84,8 +83,8 @@ PolygonPointItem::PolygonPointItem()
     : ParameterizedItem(Constants::PolygonPointType)
 {
     setItemName(Constants::PolygonPointType);
-    registerProperty(P_POSX, 0.0).limitless();
-    registerProperty(P_POSY, 0.0).limitless();
+    registerProperty(P_POSX, 0.0)->setLimits(AttLimits::limitless());
+    registerProperty(P_POSY, 0.0)->setLimits(AttLimits::limitless());
 }
 
 /* ------------------------------------------------------------------------- */
@@ -96,8 +95,10 @@ PolygonItem::PolygonItem()
     : MaskItem(Constants::PolygonMaskType)
 {
     setItemName(Constants::PolygonMaskType);
-    addToValidChildren(Constants::PolygonPointType);
-    registerProperty(P_ISCLOSED, false).setHidden();
+    const QString T_POINTS = "Point tag";
+    registerTag(T_POINTS, 0, -1, QStringList() << Constants::PolygonPointType);
+    setDefaultTag(T_POINTS);
+    registerProperty(P_ISCLOSED, false)->setVisible(false);
 }
 
 std::unique_ptr<Geometry::IShape2D> PolygonItem::createShape(double scale) const
@@ -117,7 +118,7 @@ VerticalLineItem::VerticalLineItem()
     : MaskItem(Constants::VerticalLineMaskType)
 {
     setItemName(Constants::VerticalLineMaskType);
-    registerProperty(P_POSX, 0.0).limitless();
+    registerProperty(P_POSX, 0.0)->setLimits(AttLimits::limitless());
 }
 
 std::unique_ptr<Geometry::IShape2D> VerticalLineItem::createShape(double scale) const
@@ -133,7 +134,7 @@ HorizontalLineItem::HorizontalLineItem()
     : MaskItem(Constants::HorizontalLineMaskType)
 {
     setItemName(Constants::HorizontalLineMaskType);
-    registerProperty(P_POSY, 0.0).limitless();
+    registerProperty(P_POSY, 0.0)->setLimits(AttLimits::limitless());
 }
 
 std::unique_ptr<Geometry::IShape2D> HorizontalLineItem::createShape(double scale) const
@@ -154,11 +155,11 @@ EllipseItem::EllipseItem()
     : MaskItem(Constants::EllipseMaskType)
 {
     setItemName(Constants::EllipseMaskType);
-    registerProperty(P_XCENTER, 0.0).limitless();
-    registerProperty(P_YCENTER, 0.0).limitless();
+    registerProperty(P_XCENTER, 0.0)->setLimits(AttLimits::limitless());
+    registerProperty(P_YCENTER, 0.0)->setLimits(AttLimits::limitless());
     registerProperty(P_XRADIUS, 0.0);
     registerProperty(P_YRADIUS, 0.0);
-    registerProperty(P_ANGLE, 0.0).limitless();
+    registerProperty(P_ANGLE, 0.0)->setLimits(AttLimits::limitless());
 }
 
 std::unique_ptr<Geometry::IShape2D> EllipseItem::createShape(double scale) const
@@ -178,7 +179,7 @@ MaskAllItem::MaskAllItem()
     : MaskItem(Constants::MaskAllType)
 {
     setItemName(Constants::MaskAllType);
-    getPropertyAttribute(MaskItem::P_MASK_VALUE).setDisabled();
+    getItem(MaskItem::P_MASK_VALUE)->setEnabled(false);
 }
 
 std::unique_ptr<Geometry::IShape2D> MaskAllItem::createShape(double scale) const

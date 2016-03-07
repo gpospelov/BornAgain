@@ -24,9 +24,10 @@ class BA_CORE_API_ ParticleLayoutItem : public ParameterizedGraphicsItem
 public:
     static const QString P_APPROX;
     static const QString P_TOTAL_DENSITY;
+    static const QString T_PARTICLES;
+    static const QString T_TRANSFORMATION;
     explicit ParticleLayoutItem();
     virtual ~ParticleLayoutItem();
-    virtual void insertChildItem(int row, ParameterizedItem *item);
 };
 
 #endif // PARTICLELAYOUTITEM_H

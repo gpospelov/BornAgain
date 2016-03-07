@@ -34,6 +34,7 @@ const QString IntensityDataItem::P_PROPERTY_PANEL_FLAG = "Property Panel Flag";
 const QString IntensityDataItem::P_XAXIS = "x-axis";
 const QString IntensityDataItem::P_YAXIS = "y-axis";
 const QString IntensityDataItem::P_ZAXIS = "color-axis";
+const QString IntensityDataItem::T_MASKS = "Mask tag";
 
 
 IntensityDataItem::IntensityDataItem()
@@ -43,9 +44,9 @@ IntensityDataItem::IntensityDataItem()
     setItemName(Constants::IntensityDataType);
 
     ComboProperty units;
-    registerProperty(P_AXES_UNITS, units.getVariant()).setHidden();
+    registerProperty(P_AXES_UNITS, units.getVariant())->setVisible(false);
 
-    registerProperty(P_PROJECTIONS_FLAG, false).setHidden();
+    registerProperty(P_PROJECTIONS_FLAG, false)->setVisible(false);
     registerProperty(P_IS_INTERPOLATED, true);
 
     ComboProperty gradient;
@@ -59,18 +60,19 @@ IntensityDataItem::IntensityDataItem()
     gradient.setValue(Constants::GRADIENT_JET);
     registerProperty(P_GRADIENT, gradient.getVariant());
 
-    registerProperty(P_PROPERTY_PANEL_FLAG, false).setHidden();
+    registerProperty(P_PROPERTY_PANEL_FLAG, false)->setVisible(false);
 
     registerGroupProperty(P_XAXIS, Constants::BasicAxisType);
-    getGroupItem(P_XAXIS)->getPropertyAttribute(BasicAxisItem::P_NBINS).setHidden();
+    getGroupItem(P_XAXIS)->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
 
     registerGroupProperty(P_YAXIS, Constants::BasicAxisType);
-    getGroupItem(P_YAXIS)->getPropertyAttribute(BasicAxisItem::P_NBINS).setHidden();
+    getGroupItem(P_YAXIS)->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
 
     registerGroupProperty(P_ZAXIS, Constants::AmplitudeAxisType);
-    getGroupItem(P_ZAXIS)->getPropertyAttribute(BasicAxisItem::P_NBINS).setHidden();
+    getGroupItem(P_ZAXIS)->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
 
-    addToValidChildren(Constants::MaskContainerType);
+    registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
+    setDefaultTag(T_MASKS);
 }
 
 IntensityDataItem::~IntensityDataItem()

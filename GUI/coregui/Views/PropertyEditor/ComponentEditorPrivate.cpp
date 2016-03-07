@@ -134,7 +134,7 @@ QtVariantProperty *ComponentEditorPrivate::createQtVariantProperty(Parameterized
 
     QString property_name = item->itemName();
     QVariant prop_value = item->value();
-    PropertyAttribute prop_attribute = item->getAttribute();
+    PropertyAttribute prop_attribute = PropertyAttribute::fromItem(item);
 
     if (!prop_value.isValid()) {
         result = m_manager->addProperty(QtVariantPropertyManager::groupTypeId(), property_name);
@@ -156,7 +156,7 @@ QtVariantProperty *ComponentEditorPrivate::createQtVariantProperty(Parameterized
         result->setValue(prop_value);
     }
 
-    updatePropertyAppearance(result, item->getAttribute());
+    updatePropertyAppearance(result, PropertyAttribute::fromItem(item));
     return result;
 }
 

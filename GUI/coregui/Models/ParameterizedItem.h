@@ -18,14 +18,16 @@
 
 #include "WinDllMacros.h"
 #include "item_constants.h"
-#include "PropertyAttribute.h"
 #include "ModelMapper.h"
+#include "AttLimits.h"
 
 #include <memory>
 #include <QObject>
 #include <QVector>
 #include <QVariant>
 #include <QMetaType>
+
+Q_DECLARE_METATYPE(AttLimits)
 
 class SessionModel;
 
@@ -126,24 +128,6 @@ public:
 
     SessionModel *model() const;
 
-    class PortInfo
-    {
-    public:
-        enum EPorts { DEFAULT = -1, PORT_0 = 0, PORT_1 = 1, PORT_2 = 2 };
-
-        PortInfo(const QString &name = QString(), int nmax_items = 0)
-            : m_item_names(name), m_item_max_number(nmax_items) {}
-
-        QStringList m_item_names;
-        int m_item_max_number;
-    };
-
-    //! gets the item port, should be used instead of P_PORT
-    PortInfo::EPorts port() const;
-
-    //! not quite sure how this works, leave it as it is
-    virtual void setPort(PortInfo::EPorts nport);
-
 
     // navigation functions
 
@@ -206,8 +190,7 @@ public:
 
     //! insert child item and make it known to it, populate with default value
     //! TODO propertyattributes should now be set on the item itself
-    PropertyAttribute &registerProperty(const QString &name, const QVariant &variant,
-                          const PropertyAttribute &attribute = PropertyAttribute());
+    ParameterizedItem *registerProperty(const QString &name, const QVariant &variant);
 
     //! check in its property map
     bool isRegisteredProperty(const QString &name) const;
@@ -247,15 +230,26 @@ public:
 
     // attributes
 
-    //! get the reference to the attribute of a registered property
-    const PropertyAttribute& getPropertyAttribute(const QString &name) const;
-    PropertyAttribute& getPropertyAttribute(const QString &name);
-    const PropertyAttribute& getAttribute() const;
-    PropertyAttribute& getAttribute();
 
-    //! set the attribute
-    void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
-    void setAttribute(const PropertyAttribute &attribute);
+    void setVisible(bool enabled);
+    void setEnabled(bool enabled);
+    void setEditable(bool enabled);
+
+    bool isVisible() const;
+    bool isEnabled() const;
+    bool isEditable() const;
+
+    AttLimits limits() const;
+    void setLimits(AttLimits value);
+
+    int decimals() const;
+    void setDecimals(int n);
+
+    QString toolTip() const;
+    void setToolTip(QString tooltip);
+
+    QString defaultTag() const;
+    void setDefaultTag(QString tag);
 
 
     // helper
@@ -266,14 +260,12 @@ public:
     //! returns mapper of this item
     ModelMapper *mapper();
 
-
-protected:
     //! sets the display name
     void setDisplayName(QString display_name);
 
-    //! make this type insertable as child
-    void addToValidChildren(const QString &name, PortInfo::EPorts nport = PortInfo::PORT_0,
-                            int nmax_children = 0);
+
+protected:
+
 
     //! swap two children in member list
     //! use this to enforce a specific order when this matters
@@ -303,23 +295,22 @@ private:
 
     bool canWriteUserRole(int role) const;
 
+    void changeFlags(bool enabled, int flag);
+
+    int flags() const;
+
+
+
     ParameterizedItem *mp_parent;
     SessionModel *m_model;
-    QVector<QVariant> m_data;
-    QString m_model_type;
-    QString m_display_name;
-    PortInfo::EPorts m_port;
+
     QVector<ParameterizedItem *> m_children;
-    QMap<QString, ParameterizedItem *> m_propertyItems;
-//    QMap<QString, PropertyAttribute> m_property_attribute;
-    QList<QString> m_valid_children;
-    QMap<int, PortInfo> m_port_info;
-    std::unique_ptr<ModelMapper> m_mapper;
     QVector<SessionItemData> m_values;
     QVector<SessionTagInfo> m_tags;
 
-    PropertyAttribute m_attribute;
-    QString m_defaultTag;
+
+    std::unique_ptr<ModelMapper> m_mapper;
+
 
 
 

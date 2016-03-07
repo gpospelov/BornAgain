@@ -17,6 +17,7 @@
 #define DISTRIBUTIONITEM_H
 
 #include "ParameterizedItem.h"
+#include "PropertyAttribute.h"
 
 #include <memory>
 

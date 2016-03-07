@@ -186,7 +186,7 @@ void JobResultsPresenter::initIntensityItemProperties(IntensityDataItem *intensi
 
     QString cachedUnits = combo.getCachedValue();
 
-    intensityItem->getPropertyAttribute(IntensityDataItem::P_AXES_UNITS).setVisible();
+    intensityItem->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
 
     foreach (auto units, detector->getValidAxesUnits()) {
         combo << getNameFromAxesUnits(units);

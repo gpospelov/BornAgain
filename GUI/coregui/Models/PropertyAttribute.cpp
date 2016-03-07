@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "PropertyAttribute.h"
+#include "ParameterizedItem.h"
 #include <QDebug>
 
 PropertyAttribute::PropertyAttribute(PropertyAttribute::Appearance appearance,
@@ -167,6 +168,19 @@ PropertyAttribute& PropertyAttribute::setReadOnly()
 {
     m_appearance |= PropertyAttribute::READONLY;
     return *this;
+}
+
+PropertyAttribute PropertyAttribute::fromItem(ParameterizedItem *item)
+{
+    PropertyAttribute attribute = PropertyAttribute(PropertyAttribute::VISIBLE, item->limits(),
+                                                    item->decimals(), item->displayName(), item->toolTip());
+    if (!item->isVisible())
+        attribute.setHidden();
+    if (!item->isEditable())
+        attribute.setReadOnly();
+    if (!item->isEnabled())
+        attribute.setDisabled();
+    return attribute;
 }
 
 

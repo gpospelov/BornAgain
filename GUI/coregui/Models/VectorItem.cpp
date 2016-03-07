@@ -22,9 +22,9 @@ const QString VectorItem::P_Z = "Z";
 VectorItem::VectorItem()
     : ParameterizedItem(Constants::VectorType)
 {
-    registerProperty(P_X, 0.0).limitless();
-    registerProperty(P_Y, 0.0).limitless();
-    registerProperty(P_Z, 0.0).limitless();
+    registerProperty(P_X, 0.0)->setLimits(AttLimits::limitless());
+    registerProperty(P_Y, 0.0)->setLimits(AttLimits::limitless());
+    registerProperty(P_Z, 0.0)->setLimits(AttLimits::limitless());
 }
 
 QString VectorItem::itemLabel() const

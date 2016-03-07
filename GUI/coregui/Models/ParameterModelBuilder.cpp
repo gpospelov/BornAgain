@@ -66,7 +66,7 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SessionModel *sampleMo
         QModelIndex itemIndex = sampleModel->index(i_row, 0, parentIndex);
 
         if (ParameterizedItem *item = sampleModel->itemForIndex(itemIndex)) {
-            if (item->getAttribute().isDisabled() || item->getAttribute().isHidden())
+            if (!item->isEnabled() || !item->isVisible())
                 continue;
             if (item->modelType() == Constants::PropertyType) {
                 // insert property

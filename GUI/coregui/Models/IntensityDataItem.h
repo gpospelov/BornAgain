@@ -38,6 +38,7 @@ public:
     static const QString P_XAXIS;
     static const QString P_YAXIS;
     static const QString P_ZAXIS;
+    static const QString T_MASKS;
 
     explicit IntensityDataItem();
     virtual ~IntensityDataItem();

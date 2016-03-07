@@ -24,6 +24,7 @@
 #include "qtgroupboxpropertybrowser.h"
 #include "qtbuttonpropertybrowser.h"
 #include "ParameterizedItem.h"
+#include "PropertyAttribute.h"
 #include <QMap>
 #include <memory>
 

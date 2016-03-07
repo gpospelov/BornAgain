@@ -21,8 +21,9 @@ InstrumentItem::InstrumentItem()
     : ParameterizedItem(Constants::InstrumentType)
 {
     setItemName(Constants::InstrumentType);
-    addToValidChildren(Constants::BeamType);
-    addToValidChildren(Constants::DetectorType);
+    const QString T_DATA = "Data tag";
+    registerTag(T_DATA, 0, -1, QStringList() << Constants::BeamType << Constants::DetectorType);
+    setDefaultTag(T_DATA);
 }
 
 BeamItem *InstrumentItem::getBeamItem()

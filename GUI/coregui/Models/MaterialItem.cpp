@@ -39,14 +39,16 @@ MaterialItem::MaterialItem()
 
     ComboProperty types;
     types << Constants::HomogeneousMaterialType << Constants::HomogeneousMagneticMaterialType;
-    registerProperty(P_MATERIAL_TYPE, types.getVariant()).setHidden();
+    registerProperty(P_MATERIAL_TYPE, types.getVariant());
+    getItem(P_MATERIAL_TYPE)->setVisible(false);
 
     ColorProperty color;
     registerProperty(P_COLOR, color.getVariant());
 
     registerGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
 
-    registerProperty(P_IDENTIFIER, QUuid::createUuid().toString()).setHidden();
+    registerProperty(P_IDENTIFIER, QUuid::createUuid().toString());
+    getItem(P_IDENTIFIER)->setVisible(false);
 }
 
 void MaterialItem::setMaterialType(int index)

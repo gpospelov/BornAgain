@@ -30,10 +30,9 @@ public:
     static const QString P_DISTRIBUTED_PARAMETER;
     static const QString P_DISTRIBUTION;
     static const QString NO_SELECTION;
+    static const QString T_PARTICLES;
     explicit ParticleDistributionItem();
     virtual ~ParticleDistributionItem();
-
-    virtual void insertChildItem(int row, ParameterizedItem *item);
 
     std::unique_ptr<ParticleDistribution> createParticleDistribution() const;
 

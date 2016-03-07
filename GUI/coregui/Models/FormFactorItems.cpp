@@ -126,7 +126,7 @@ CuboctahedronItem::CuboctahedronItem()
 {
     registerProperty(P_LENGTH, 20.0);
     registerProperty(P_HEIGHT, 13.0);
-    registerProperty(P_HEIGHT_RATIO, 0.7).lowerLimited(0.0);
+    registerProperty(P_HEIGHT_RATIO, 0.7)->setLimits(AttLimits::lowerLimited(0.0));
     registerProperty(P_ALPHA, 60.0);
 }
 

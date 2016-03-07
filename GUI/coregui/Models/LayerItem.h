@@ -25,9 +25,9 @@ public:
     static const QString P_THICKNESS;
     static const QString P_ROUGHNESS;
     static const QString P_MATERIAL;
+    static const QString T_LAYOUTS;
     explicit LayerItem();
     virtual ~LayerItem(){}
-    virtual void insertChildItem(int row, ParameterizedItem *item);
 };
 
 #endif // LAYERITEM_H

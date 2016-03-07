@@ -20,12 +20,14 @@
 #include <QDebug>
 
 const QString DetectorItem::P_DETECTOR = "DetectorType";
+const QString DetectorItem::T_MASKS = "Mask tag";
 
 DetectorItem::DetectorItem()
     : ParameterizedItem(Constants::DetectorType)
 {
     registerGroupProperty(P_DETECTOR, Constants::DetectorGroup);
-    addToValidChildren(Constants::MaskContainerType);
+    registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
+    setDefaultTag(T_MASKS);
     setGroupProperty(P_DETECTOR, Constants::SphericalDetectorType);
     mapper()->setOnPropertyChange(
                 [this] (const QString &name)

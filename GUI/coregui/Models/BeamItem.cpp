@@ -34,7 +34,7 @@ const QString BeamItem::P_AZIMUTHAL_ANGLE = "Azimuthal Angle";
 BeamItem::BeamItem() : ParameterizedItem(Constants::BeamType)
 {
     ScientificDoubleProperty intensity(1e+08);
-    registerProperty(P_INTENSITY, intensity.getVariant()).limited(0.0, 1e+32);
+    registerProperty(P_INTENSITY, intensity.getVariant())->setLimits(AttLimits::limited(0.0, 1e+32));
     registerGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
     registerGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
     registerGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);

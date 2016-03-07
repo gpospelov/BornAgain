@@ -22,6 +22,7 @@
 #include "qttreepropertybrowser.h"
 #include "qtgroupboxpropertybrowser.h"
 #include "qtbuttonpropertybrowser.h"
+#include "PropertyAttribute.h"
 #include <QtProperty>
 #include <QItemSelectionModel>
 #include <QVBoxLayout>
@@ -188,8 +189,8 @@ void UniversalPropertyEditor::onPropertyChanged(const QString &property_name)
 
         variant_property->setValue(property_value);
 
-        const PropertyAttribute &prop_attribute = m_item->getPropertyAttribute(property_name);
-        if(prop_attribute.isDisabled()) {
+//        const PropertyAttribute &prop_attribute = m_item->getItem(property_name);
+        if(!m_item->getItem(property_name)->isEnabled()) {
             variant_property->setEnabled(false);
         } else {
             variant_property->setEnabled(true);
@@ -222,8 +223,8 @@ void UniversalPropertyEditor::onSubItemPropertyChanged(const QString &property_g
 
             variant_property->setValue(property_value);
 
-            const PropertyAttribute &prop_attribute = subItem->getPropertyAttribute(property_name);
-            if(prop_attribute.isDisabled()) {
+//            const PropertyAttribute &prop_attribute = ;
+            if(!subItem->getItem(property_name)->isEnabled()) {
                 variant_property->setEnabled(false);
             } else {
                 variant_property->setEnabled(true);
@@ -302,7 +303,7 @@ void UniversalPropertyEditor::addSubProperties(QtProperty *item_property,
     QList<QByteArray> property_names = item->dynamicPropertyNames();
     for (int i = 0; i < property_names.length(); ++i) {
         QString prop_name = QString(property_names[i]);
-        const PropertyAttribute &prop_attribute = item->getPropertyAttribute(prop_name);
+        const PropertyAttribute &prop_attribute = PropertyAttribute::fromItem(const_cast<ParameterizedItem*>(item));
 
         if(prop_attribute.isHidden()) continue;
 

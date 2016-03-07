@@ -77,18 +77,16 @@ void GroupProperty::setCurrentType(const QString &type, bool persistent)
 
     if(m_parent) {
         if (auto item = m_parent->getChildByName(m_current_type)) {
-            item->getAttribute().setVisible();
-            item->getAttribute().setEnabled();
-            item->emitValueChanged(QVector<int>() << Qt::UserRole);
+            item->setVisible(true);
+            item->setEnabled(true);
         } else {
             ParameterizedItem *new_item = createCorrespondingItem();
             m_parent->insertChildItem(-1, new_item);
         }
 
         if(prevItem) {
-            prevItem->getAttribute().setHidden();
-            prevItem->getAttribute().setDisabled();
-            prevItem->emitValueChanged(QVector<int>() << Qt::UserRole);
+            prevItem->setVisible(false);
+            prevItem->setEnabled(false);
         }
 
         m_parent->emitValueChanged();

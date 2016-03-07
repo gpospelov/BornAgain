@@ -213,12 +213,10 @@ void GUIObjectBuilder::visit(const Particle *sample)
         Q_ASSERT(coreshell);
         if (sample == coreshell->getCoreParticle()) {
             particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
-                                                        m_sampleModel->indexOfItem(parent), -1,
-                                                        ParameterizedItem::PortInfo::PORT_0);
+                                                        m_sampleModel->indexOfItem(parent), -1);
         } else if (sample == coreshell->getShellParticle()) {
             particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
-                                                        m_sampleModel->indexOfItem(parent), -1,
-                                                        ParameterizedItem::PortInfo::PORT_1);
+                                                        m_sampleModel->indexOfItem(parent), -1);
         } else {
             throw GUIHelpers::Error(
                 "GUIObjectBuilder::visit"

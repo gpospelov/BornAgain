@@ -23,6 +23,7 @@ class BA_CORE_API_ MultiLayerItem : public ParameterizedGraphicsItem
     Q_OBJECT
 public:
     static const QString P_CROSS_CORR_LENGTH;
+    static const QString T_LAYERS;
     explicit MultiLayerItem();
     virtual ~MultiLayerItem() {}
     virtual ParameterizedItem *takeChildItem(int row);

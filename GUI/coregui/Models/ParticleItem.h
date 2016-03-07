@@ -29,11 +29,10 @@ public:
     static const QString P_ABUNDANCE;
     static const QString P_MATERIAL;
     static const QString P_POSITION;
+    static const QString T_TRANSFORMATION;
     explicit ParticleItem();
     virtual ~ParticleItem() {}
-    virtual void insertChildItem(int row, ParameterizedItem *item);
     std::unique_ptr<Particle> createParticle() const;
-    virtual void setPort(PortInfo::EPorts nport);
 };
 
 #endif // PARTICLEITEM_H

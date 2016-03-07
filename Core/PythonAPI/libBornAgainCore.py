@@ -12304,6 +12304,248 @@ class FormFactorRipple2(IFormFactorBorn):
 FormFactorRipple2_swigregister = _libBornAgainCore.FormFactorRipple2_swigregister
 FormFactorRipple2_swigregister(FormFactorRipple2)
 
+class FormFactorLongRipple2Gauss(IFormFactorBorn):
+    """Proxy of C++ FormFactorLongRipple2Gauss class"""
+    __swig_setmethods__ = {}
+    for _s in [IFormFactorBorn]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorLongRipple2Gauss, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IFormFactorBorn]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FormFactorLongRipple2Gauss, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, length, width, height, asymetry):
+        """__init__(FormFactorLongRipple2Gauss self, double length, double width, double height, double asymetry) -> FormFactorLongRipple2Gauss"""
+        if self.__class__ == FormFactorLongRipple2Gauss:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_FormFactorLongRipple2Gauss(_self, length, width, height, asymetry)
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongRipple2Gauss
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(FormFactorLongRipple2Gauss self) -> FormFactorLongRipple2Gauss
+
+        virtual IFormFactorBorn* IFormFactorBorn::clone() const =0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.FormFactorLongRipple2Gauss_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(FormFactorLongRipple2Gauss self, ISampleVisitor visitor)
+
+        virtual void IFormFactorBorn::accept(ISampleVisitor *visitor) const
+
+        Calls the  ISampleVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.FormFactorLongRipple2Gauss_accept(self, visitor)
+
+
+    def getRadius(self):
+        """
+        getRadius(FormFactorLongRipple2Gauss self) -> double
+
+        virtual double IFormFactor::getRadius() const =0
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorLongRipple2Gauss_getRadius(self)
+
+
+    def getHeight(self):
+        """getHeight(FormFactorLongRipple2Gauss self) -> double"""
+        return _libBornAgainCore.FormFactorLongRipple2Gauss_getHeight(self)
+
+
+    def getWidth(self):
+        """getWidth(FormFactorLongRipple2Gauss self) -> double"""
+        return _libBornAgainCore.FormFactorLongRipple2Gauss_getWidth(self)
+
+
+    def getLength(self):
+        """getLength(FormFactorLongRipple2Gauss self) -> double"""
+        return _libBornAgainCore.FormFactorLongRipple2Gauss_getLength(self)
+
+
+    def getAsymmetry(self):
+        """getAsymmetry(FormFactorLongRipple2Gauss self) -> double"""
+        return _libBornAgainCore.FormFactorLongRipple2Gauss_getAsymmetry(self)
+
+
+    def evaluate_for_q(self, q):
+        """
+        evaluate_for_q(FormFactorLongRipple2Gauss self, cvector_t q) -> complex_t
+
+        virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t &q) const =0
+
+        evaluate scattering amplitude for complex wavevector
+
+        Parameters:
+        -----------
+
+        q: 
+        wavevector transfer q=k_i-k_f 
+
+        """
+        return _libBornAgainCore.FormFactorLongRipple2Gauss_evaluate_for_q(self, q)
+
+
+    def check_initialization(self):
+        """check_initialization(FormFactorLongRipple2Gauss self) -> bool"""
+        return _libBornAgainCore.FormFactorLongRipple2Gauss_check_initialization(self)
+
+
+    def init_parameters(self):
+        """init_parameters(FormFactorLongRipple2Gauss self)"""
+        return _libBornAgainCore.FormFactorLongRipple2Gauss_init_parameters(self)
+
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_FormFactorLongRipple2Gauss(self)
+        return weakref_proxy(self)
+
+    def _print(self, ostr):
+        """_print(FormFactorLongRipple2Gauss self, std::ostream & ostr)"""
+        return _libBornAgainCore.FormFactorLongRipple2Gauss__print(self, ostr)
+
+FormFactorLongRipple2Gauss_swigregister = _libBornAgainCore.FormFactorLongRipple2Gauss_swigregister
+FormFactorLongRipple2Gauss_swigregister(FormFactorLongRipple2Gauss)
+
+class FormFactorLongRipple2Lorentz(IFormFactorBorn):
+    """Proxy of C++ FormFactorLongRipple2Lorentz class"""
+    __swig_setmethods__ = {}
+    for _s in [IFormFactorBorn]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorLongRipple2Lorentz, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IFormFactorBorn]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FormFactorLongRipple2Lorentz, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, length, width, height, asymetry):
+        """__init__(FormFactorLongRipple2Lorentz self, double length, double width, double height, double asymetry) -> FormFactorLongRipple2Lorentz"""
+        if self.__class__ == FormFactorLongRipple2Lorentz:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_FormFactorLongRipple2Lorentz(_self, length, width, height, asymetry)
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongRipple2Lorentz
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(FormFactorLongRipple2Lorentz self) -> FormFactorLongRipple2Lorentz
+
+        virtual IFormFactorBorn* IFormFactorBorn::clone() const =0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.FormFactorLongRipple2Lorentz_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(FormFactorLongRipple2Lorentz self, ISampleVisitor visitor)
+
+        virtual void IFormFactorBorn::accept(ISampleVisitor *visitor) const
+
+        Calls the  ISampleVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.FormFactorLongRipple2Lorentz_accept(self, visitor)
+
+
+    def getRadius(self):
+        """
+        getRadius(FormFactorLongRipple2Lorentz self) -> double
+
+        virtual double IFormFactor::getRadius() const =0
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorLongRipple2Lorentz_getRadius(self)
+
+
+    def getHeight(self):
+        """getHeight(FormFactorLongRipple2Lorentz self) -> double"""
+        return _libBornAgainCore.FormFactorLongRipple2Lorentz_getHeight(self)
+
+
+    def getWidth(self):
+        """getWidth(FormFactorLongRipple2Lorentz self) -> double"""
+        return _libBornAgainCore.FormFactorLongRipple2Lorentz_getWidth(self)
+
+
+    def getLength(self):
+        """getLength(FormFactorLongRipple2Lorentz self) -> double"""
+        return _libBornAgainCore.FormFactorLongRipple2Lorentz_getLength(self)
+
+
+    def getAsymmetry(self):
+        """getAsymmetry(FormFactorLongRipple2Lorentz self) -> double"""
+        return _libBornAgainCore.FormFactorLongRipple2Lorentz_getAsymmetry(self)
+
+
+    def evaluate_for_q(self, q):
+        """
+        evaluate_for_q(FormFactorLongRipple2Lorentz self, cvector_t q) -> complex_t
+
+        virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t &q) const =0
+
+        evaluate scattering amplitude for complex wavevector
+
+        Parameters:
+        -----------
+
+        q: 
+        wavevector transfer q=k_i-k_f 
+
+        """
+        return _libBornAgainCore.FormFactorLongRipple2Lorentz_evaluate_for_q(self, q)
+
+
+    def check_initialization(self):
+        """check_initialization(FormFactorLongRipple2Lorentz self) -> bool"""
+        return _libBornAgainCore.FormFactorLongRipple2Lorentz_check_initialization(self)
+
+
+    def init_parameters(self):
+        """init_parameters(FormFactorLongRipple2Lorentz self)"""
+        return _libBornAgainCore.FormFactorLongRipple2Lorentz_init_parameters(self)
+
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_FormFactorLongRipple2Lorentz(self)
+        return weakref_proxy(self)
+
+    def _print(self, ostr):
+        """_print(FormFactorLongRipple2Lorentz self, std::ostream & ostr)"""
+        return _libBornAgainCore.FormFactorLongRipple2Lorentz__print(self, ostr)
+
+FormFactorLongRipple2Lorentz_swigregister = _libBornAgainCore.FormFactorLongRipple2Lorentz_swigregister
+FormFactorLongRipple2Lorentz_swigregister(FormFactorLongRipple2Lorentz)
+
 class FormFactorSphereGaussianRadius(IFormFactorBorn):
     """
 

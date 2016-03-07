@@ -67,7 +67,7 @@ BeamDistributionItem::getParameterDistributionForName(const std::string &paramet
             int nbr_samples = distributionItem->getRegisteredProperty(
                                                     DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
             double sigma_factor(0);
-            if (distributionItem->isRegisteredProperty(DistributionItem::P_SIGMA_FACTOR)) {
+            if (distributionItem->isRegisteredTag(DistributionItem::P_SIGMA_FACTOR)) {
                 sigma_factor = distributionItem->getRegisteredProperty(
                                                      DistributionItem::P_SIGMA_FACTOR).toInt();
             }

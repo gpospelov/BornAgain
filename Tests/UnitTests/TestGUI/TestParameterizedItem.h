@@ -25,13 +25,13 @@ inline void TestParameterizedItem::test_registerProperty()
 //    QSignalSpy spy(&item, SIGNAL(propertyChanged(QString)));
 
     // access non-existing property
-    QCOMPARE(false, item.isRegisteredProperty(property_name));
+    QCOMPARE(false, item.isRegisteredTag(property_name));
 //    QVERIFY_THROW(item.getRegisteredProperty(property_name), GUIHelpers::Error);
 //    QVERIFY_THROW(item.setRegisteredProperty(property_name, value), GUIHelpers::Error);
 
     // registering new property
     item.registerProperty(property_name, value);
-    QCOMPARE(true, item.isRegisteredProperty(property_name));
+    QCOMPARE(true, item.isRegisteredTag(property_name));
 //    QCOMPARE(spy.count(), 1);
 //    QList<QVariant> arguments = spy.takeFirst();
 //    QCOMPARE(arguments.size(), 1);

@@ -22,7 +22,7 @@ inline void GUICoreObjectCorrespondence(const SessionItem& gui_object,
     for (auto name : core_parameter_names) {
         QString gui_name = QString::fromStdString(name);
         std::string message = "Parameter not found: " + name;
-        QVERIFY2( gui_object.isRegisteredProperty(gui_name), message.c_str() );
+        QVERIFY2( gui_object.isRegisteredTag(gui_name), message.c_str() );
     }
 }
 

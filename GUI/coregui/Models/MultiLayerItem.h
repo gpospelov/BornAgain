@@ -26,8 +26,6 @@ public:
     static const QString T_LAYERS;
     explicit MultiLayerItem();
     virtual ~MultiLayerItem() {}
-    virtual SessionItem *takeChildItem(int row);
-    virtual void insertChildItem(int row, SessionItem *item, const QString tag = QString());
 
 private:
     void updateLayers();

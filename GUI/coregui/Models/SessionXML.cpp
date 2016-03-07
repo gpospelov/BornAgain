@@ -51,7 +51,7 @@ void SessionWriter::writeItemAndChildItems(QXmlStreamWriter *writer, const Sessi
         if (tag == item->parent()->defaultTag())
             tag = "";
         writer->writeAttribute(SessionXML::TagAttribute, tag);
-        /*if (item->isRegisteredProperty(ParameterizedItem::P_NAME)) {
+        /*if (item->isRegisteredTag(ParameterizedItem::P_NAME)) {
             writer->writeAttribute(SessionXML::ItemNameAttribute, item->itemName());
         } else {
             writer->writeAttribute(SessionXML::ParameterNameAttribute, item->itemName());
@@ -237,7 +237,7 @@ QString SessionReader::readProperty(QXmlStreamReader *reader, SessionItem *item)
         return parameter_name;
     }
 
-//    if(!item->isRegisteredProperty(parameter_name)) {
+//    if(!item->isRegisteredTag(parameter_name)) {
 //        QString message = QString("Unknown property '%1' for item type '%2'")
 //                          .arg(parameter_name).arg(item->modelType());
 ////        report_error(SET_ITEM_PROPERTY_ERROR, message);

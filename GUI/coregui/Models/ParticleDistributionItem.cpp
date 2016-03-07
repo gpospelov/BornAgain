@@ -94,7 +94,7 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
 
 void ParticleDistributionItem::updateParameterList()
 {
-    if (!isRegisteredProperty(P_DISTRIBUTED_PARAMETER))
+    if (!isRegisteredTag(P_DISTRIBUTED_PARAMETER))
         return;
     QVariant par_prop = getRegisteredProperty(P_DISTRIBUTED_PARAMETER);
     auto combo_prop = par_prop.value<ComboProperty>();

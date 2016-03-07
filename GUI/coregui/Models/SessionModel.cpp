@@ -123,7 +123,7 @@ int SessionModel::rowCount(const QModelIndex &parent) const
     if (parent.isValid() && parent.column() != 0)
         return 0;
     SessionItem *parent_item = itemForIndex(parent);
-    return parent_item ? parent_item->childItemCount() : 0;
+    return parent_item ? parent_item->rowCount() : 0;
 }
 
 int SessionModel::columnCount(const QModelIndex &parent) const
@@ -192,7 +192,7 @@ bool SessionModel::removeRows(int row, int count, const QModelIndex &parent)
     SessionItem *item = parent.isValid() ? itemForIndex(parent) : m_root_item;
 //    beginRemoveRows(parent, row, row + count - 1);
     for (int i = 0; i < count; ++i) {
-        delete item->takeChildItem(row);
+        delete item->takeRow(row);
     }
 //    endRemoveRows();
     return true;
@@ -257,7 +257,7 @@ bool SessionModel::dropMimeData(const QMimeData *data, Qt::DropAction action, in
         QByteArray xml_data = qUncompress(data->data(SessionXML::MimeType));
         QXmlStreamReader reader(xml_data);
         if (row == -1)
-            row = item->childItemCount();
+            row = item->rowCount();
         beginInsertRows(parent, row, row);
         SessionReader::readItems(&reader, item, row);
         endInsertRows();
@@ -289,7 +289,7 @@ SessionItem *SessionModel::insertNewItem(QString model_type, const QModelIndex &
 //    beginInsertRows(parent, row, row);
     if (!parent_item)
         parent_item = m_root_item;
-    if (row > parent_item->childItemCount())
+    if (row > parent_item->rowCount())
         return nullptr;
     if (parent_item != m_root_item) {
         if (tag.isEmpty())
@@ -318,7 +318,7 @@ SessionItem *SessionModel::insertNewItem(QString model_type, const QModelIndex &
 //    connect(new_item, SIGNAL(subItemPropertyChanged(QString,QString)),
 //            this, SLOT(onItemPropertyChange(const QString &, const QString &)));
 
-    parent_item->insertChildItem(row, new_item, tag);
+    parent_item->insertItem(row, new_item, tag);
 
 
 //    cleanItem(indexOfItem(parent_item), row, row);
@@ -444,7 +444,7 @@ SessionItem *SessionModel::moveParameterizedItem(SessionItem *item, SessionItem 
 
     QXmlStreamReader reader(xml_data);
     if (row == -1)
-        row = new_parent->childItemCount();
+        row = new_parent->rowCount();
 
     qDebug() << "   SessionModel::moveParameterizedItem()  >>> Beginning to insert "
                 "indexOfItem(new_parent)" << indexOfItem(new_parent);
@@ -483,7 +483,7 @@ SessionItem *SessionModel::copyParameterizedItem(const SessionItem *item_to_copy
 
     QXmlStreamReader reader(xml_data);
     if (row == -1)
-        row = new_parent->childItemCount();
+        row = new_parent->rowCount();
 
     beginInsertRows(indexOfItem(new_parent), row, row);
     SessionReader::readItems(&reader, new_parent, row);

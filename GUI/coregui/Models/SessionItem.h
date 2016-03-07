@@ -59,41 +59,38 @@ class BA_CORE_API_ SessionItem : public QObject
 
 public:
     static const QString P_NAME;
-    explicit SessionItem(QString modelType = QString());
+    explicit SessionItem(const QString &modelType = QString());
     virtual ~SessionItem();
-    QVariant data(int role) const;
+    virtual QVariant data(int role) const;
     virtual bool setData(int role, const QVariant &value);
     QModelIndex index() const;
     SessionItem *parent() const;
-    int childItemCount() const;
+    int rowCount() const;
     SessionItem *childAt(int row) const;
 
     SessionModel *model() const;
     ModelMapper *mapper();
 
-    // tags
+    SessionTagInfo getTagInfo(const QString &name = QString()) const;
+    bool registerTag(const QString &name, int min = 0, int max = -1, QStringList modelTypes = QStringList());
 
-    SessionTagInfo getTagInfo(const QString &name) const;
-    bool registerTag(QString name, int min = 0, int max = -1, QStringList modelTypes = QStringList());
-
-    SessionItem *getItem(QString tag = QString(), int index = 0) const;
-    QVector<SessionItem *> getItems(QString tag = QString()) const;
-    bool insertItem(int row, SessionItem *item, const QString &tag);
+    SessionItem *getItem(const QString &tag = QString(), int row = 0) const;
+    QVector<SessionItem *> getItems(const QString &tag = QString()) const;
+    bool insertItem(int row, SessionItem *item, const QString &tag = QString());
     SessionItem *takeItem(int row, const QString &tag);
     QString tagFromItem(const SessionItem *item) const;
 
     QVector<int> getRoles() const;
 
 
-    void emitValueChanged(int role = Qt::DisplayRole);
+    void emitDataChanged(int role = Qt::DisplayRole);
 
 
 
     SessionItem *registerProperty(const QString &name, const QVariant &variant);
-    SessionItem *registerGroupProperty(const QString &group_name,
-                                             const Constants::ModelType &group_model);
+    SessionItem *registerGroupProperty(const QString &groupName, const QString &groupModel);
 
-    bool isRegisteredProperty(const QString &name) const;
+    bool isRegisteredTag(const QString &name) const;
     QVariant getRegisteredProperty(const QString &name) const;
     void setRegisteredProperty(const QString &name, const QVariant &variant);
     void removeRegisteredProperty(const QString &name);
@@ -110,9 +107,7 @@ public:
     SessionItem* getChildByName(const QString &name) const;
     QList<SessionItem *> getChildrenOfType(const QString &model_type) const;
     QList<SessionItem *> getUnregisteredChildren() const;
-
-    virtual void insertChildItem(int row, SessionItem *item, const QString tag = QString());
-    virtual SessionItem *takeChildItem(int row);
+    SessionItem *takeRow(int row);
     bool acceptsAsChild(const QString &child_name) const;
     QList<QString> acceptableChildItems() const;
 
@@ -161,7 +156,7 @@ private:
     void changeFlags(bool enabled, int flag);
     int flags() const;
 
-    SessionItem *mp_parent;
+    SessionItem *m_parent;
     SessionModel *m_model;
     QVector<SessionItem *> m_children;
     QVector<SessionItemData> m_values;

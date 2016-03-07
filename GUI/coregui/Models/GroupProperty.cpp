@@ -45,7 +45,7 @@ void GroupProperty::setGroupItem(SessionItem *groupItem)
     Q_ASSERT(groupItem);
     m_groupItem = groupItem;
     SessionItem *item = createCorrespondingItem();
-    m_groupItem->insertChildItem(-1, item);
+    m_groupItem->insertItem(-1, item);
 }
 
 SessionItem *GroupProperty::createCorrespondingItem()
@@ -81,7 +81,7 @@ void GroupProperty::setCurrentType(const QString &type, bool persistent)
             item->setEnabled(true);
         } else {
             SessionItem *new_item = createCorrespondingItem();
-            m_groupItem->insertChildItem(-1, new_item);
+            m_groupItem->insertItem(-1, new_item);
         }
 
         if(prevItem) {
@@ -89,7 +89,7 @@ void GroupProperty::setCurrentType(const QString &type, bool persistent)
             prevItem->setEnabled(false);
         }
 
-        m_groupItem->emitValueChanged();
+        m_groupItem->emitDataChanged();
     }
 }
 

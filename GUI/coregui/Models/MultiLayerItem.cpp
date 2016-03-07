@@ -36,19 +36,6 @@ MultiLayerItem::MultiLayerItem()
     });
 }
 
-SessionItem *MultiLayerItem::takeChildItem(int row)
-{
-    SessionItem *item = SessionItem::takeChildItem(row);
-    updateLayers();
-    return item;
-}
-
-void MultiLayerItem::insertChildItem(int row, SessionItem *item, const QString tag)
-{
-    SessionItem::insertChildItem(row, item);
-    updateLayers();
-}
-
 void MultiLayerItem::updateLayers()
 {
     QList<SessionItem*> list = getChildrenOfType(Constants::LayerType);

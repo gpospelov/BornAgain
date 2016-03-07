@@ -153,7 +153,7 @@ void PolygonView::update_polygon()
 
     m_block_on_point_update = true;
 
-    if (m_item->childItemCount()) {
+    if (m_item->rowCount()) {
 
         m_polygon.clear();
 

@@ -34,7 +34,7 @@ DetectorItem::DetectorItem()
     {
         if(name == P_DETECTOR) {
             if(SessionItem *maskContainer = getMaskContainerItem()) {
-                SessionItem *item = takeChildItem(rowOfChild(maskContainer));
+                SessionItem *item = takeRow(rowOfChild(maskContainer));
                 Q_ASSERT(item == maskContainer);
                 delete item;
             }

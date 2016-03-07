@@ -38,8 +38,8 @@ public:
 
 const QString SessionItem::P_NAME = "Name";
 
-SessionItem::SessionItem(QString modelType)
-    : mp_parent(0)
+SessionItem::SessionItem(const QString &modelType)
+    : m_parent(0)
     , m_model(0)
 {
     Q_ASSERT(!modelType.isEmpty());
@@ -59,8 +59,8 @@ SessionItem::~SessionItem()
         delete child;
     }
     m_children.clear();
-    if (mp_parent && m_model)
-        mp_parent->childDeleted(this);
+    if (m_parent && m_model)
+        m_parent->childDeleted(this);
 }
 
 // internal
@@ -75,7 +75,7 @@ void SessionItem::childDeleted(SessionItem *child)
 void SessionItem::setParentAndModel(SessionItem *parent, SessionModel *model)
 {
     setModel(model);
-    mp_parent = parent;
+    m_parent = parent;
 }
 
 // internal
@@ -91,8 +91,7 @@ void SessionItem::setModel(SessionModel *model)
     }
 }
 
-// protected
-bool SessionItem::registerTag(QString name, int min, int max, QStringList modelTypes)
+bool SessionItem::registerTag(const QString &name, int min, int max, QStringList modelTypes)
 {
     // max: -1 -> no limits
     // min = max = 1 -> fixed
@@ -104,24 +103,25 @@ bool SessionItem::registerTag(QString name, int min, int max, QStringList modelT
     return true;
 }
 
-// protected
-SessionTagInfo SessionItem::getTagInfo(const QString &name) const
+SessionTagInfo SessionItem::getTagInfo(const QString &tag) const
 {
+    QString tagName = tag.isEmpty() ? defaultTag() : tag;
     QVector<SessionTagInfo>::const_iterator it;
     for (it = m_tags.constBegin(); it != m_tags.constEnd(); ++it) {
         SessionTagInfo tagInfo = *it;
-        if (tagInfo.name == name)
+        if (tagInfo.name == tagName)
             return tagInfo;
     }
     return SessionTagInfo();
 }
 
 
-
-// internal
 bool SessionItem::insertItem(int row, SessionItem *item, const QString &tag)
 {
-    SessionTagInfo tagInfo = getTagInfo(tag);
+    if (!item)
+        return false;
+    const QString tagName = tag.isEmpty() ? defaultTag() : tag;
+    SessionTagInfo tagInfo = getTagInfo(tagName);
     if (!tagInfo.isValid())
         return false;
     if (row == -1)
@@ -134,7 +134,7 @@ bool SessionItem::insertItem(int row, SessionItem *item, const QString &tag)
         if (!tagInfo.modelTypes.contains(item->modelType()))
             return false;
     }
-    int index = tagStartIndex(tag) + row;
+    int index = tagStartIndex(tagName) + row;
     Q_ASSERT(index <= m_children.size());
     if (m_model)
             m_model->beginInsertRows(this->index(),index, index+1);
@@ -150,7 +150,7 @@ bool SessionItem::insertItem(int row, SessionItem *item, const QString &tag)
 
     QVector<SessionTagInfo>::iterator it;
     for (it = m_tags.begin(); it != m_tags.end(); ++it) {
-        if (it->name == tag) {
+        if (it->name == tagName) {
             it->childCount++;
             break;
         }
@@ -163,14 +163,15 @@ bool SessionItem::insertItem(int row, SessionItem *item, const QString &tag)
 
 SessionItem *SessionItem::takeItem(int row, const QString &tag)
 {
-    SessionTagInfo tagInfo = getTagInfo(tag);
+    const QString tagName = tag.isEmpty() ? defaultTag() : tag;
+    SessionTagInfo tagInfo = getTagInfo(tagName);
     if (!tagInfo.isValid())
         return nullptr;
     if (row < 0 || row >= tagInfo.childCount)
         return nullptr;
     if (tagInfo.childCount <= tagInfo.min)
         return nullptr;
-    int index = tagStartIndex(tag) + row;
+    int index = tagStartIndex(tagName) + row;
     Q_ASSERT(index >= 0 && index <= m_children.size());
     if (m_model)
             m_model->beginRemoveRows(this->index(),index, index);
@@ -179,7 +180,7 @@ SessionItem *SessionItem::takeItem(int row, const QString &tag)
 
     QVector<SessionTagInfo>::iterator it;
     for (it = m_tags.begin(); it != m_tags.end(); ++it) {
-        if (it->name == tag) {
+        if (it->name == tagName) {
             it->childCount--;
             break;
         }
@@ -204,6 +205,7 @@ QString SessionItem::tagFromItem(const SessionItem *item) const
             index -= tagInfo.childCount;
         }
     }
+    return QString();
 }
 
 QVector<int> SessionItem::getRoles() const
@@ -232,30 +234,28 @@ int SessionItem::tagStartIndex(const QString &name) const
     return -1;
 }
 
-SessionItem *SessionItem::getItem(QString tag, int index) const
+SessionItem *SessionItem::getItem(const QString &tag, int row) const
 {
-    if (tag.isEmpty())
-        tag = defaultTag();
-    SessionTagInfo tagInfo = getTagInfo(tag);
+    const QString tagName = tag.isEmpty() ? defaultTag() : tag;
+    SessionTagInfo tagInfo = getTagInfo(tagName);
     if (!tagInfo.isValid())
         return nullptr;
     if (tagInfo.childCount == 0)
         return nullptr;
-    if (index < 0 || index >= tagInfo.childCount)
+    if (row < 0 || row >= tagInfo.childCount)
         return nullptr;
-    int acc_index = tagStartIndex(tag) + index;
-    Q_ASSERT(acc_index >= 0 && acc_index < m_children.size());
-    return m_children[acc_index];
+    int index = tagStartIndex(tagName) + row;
+    Q_ASSERT(index >= 0 && index < m_children.size());
+    return m_children[index];
 }
 
-QVector<SessionItem *> SessionItem::getItems(QString tag) const
+QVector<SessionItem *> SessionItem::getItems(const QString &tag) const
 {
-    if (tag.isEmpty())
-        tag = defaultTag();
-    SessionTagInfo tagInfo = getTagInfo(tag);
+    const QString tagName = tag.isEmpty() ? defaultTag() : tag;
+    SessionTagInfo tagInfo = getTagInfo(tagName);
     if (!tagInfo.isValid())
         return QVector<SessionItem*>();
-    int index = tagStartIndex(tag);
+    int index = tagStartIndex(tagName);
     Q_ASSERT(index >= 0 && index < m_children.size());
     return m_children.mid(index, tagInfo.childCount);
 }
@@ -306,22 +306,21 @@ bool SessionItem::setData(int role, const QVariant &value)
                 m_values.erase(it);
             }
             if (m_model)
-                emitValueChanged(role);
+                emitDataChanged(role);
             return true;
         }
     }
     m_values.append(SessionItemData(role, value));
     if (m_model)
-        emitValueChanged(role);
+        emitDataChanged(role);
 
     return true;
-
 }
 
 
 
 
-void SessionItem::emitValueChanged(int role)
+void SessionItem::emitDataChanged(int role)
 {
     if (m_model) {
         QModelIndex index = m_model->indexOfItem(this);
@@ -341,7 +340,7 @@ bool SessionItem::setValue(QVariant value)
 
 QString SessionItem::itemName() const
 {
-    if (isRegisteredProperty(P_NAME)) {
+    if (isRegisteredTag(P_NAME)) {
         return getRegisteredProperty(P_NAME).toString();
     } else {
         return displayName();
@@ -350,7 +349,7 @@ QString SessionItem::itemName() const
 
 void SessionItem::setItemName(const QString &name)
 {
-    if (isRegisteredProperty(P_NAME)) {
+    if (isRegisteredTag(P_NAME)) {
         setRegisteredProperty(P_NAME, name);
     } else {
         registerProperty(P_NAME, name);
@@ -359,8 +358,8 @@ void SessionItem::setItemName(const QString &name)
 
 QString SessionItem::displayName() const
 {
-    if (mp_parent) {
-        int index = mp_parent->getCopyNumberOfChild(this);
+    if (m_parent) {
+        int index = m_parent->getCopyNumberOfChild(this);
         if (index >= 0 && modelType() != Constants::PropertyType &&
                 modelType() != Constants::GroupItemType) {
             return data(SessionModel::DisplayNameRole).toString() + QString::number(index);
@@ -394,10 +393,10 @@ QModelIndex SessionItem::index() const
 
 SessionItem *SessionItem::parent() const
 {
-    return mp_parent;
+    return m_parent;
 }
 
-int SessionItem::childItemCount() const
+int SessionItem::rowCount() const
 {
     return m_children.count();
 }
@@ -414,8 +413,8 @@ int SessionItem::rowOfChild(SessionItem *child) const
 
 int SessionItem::childNumber() const
 {
-    if (mp_parent)
-        return mp_parent->rowOfChild(const_cast<SessionItem*>(this));
+    if (m_parent)
+        return m_parent->rowOfChild(const_cast<SessionItem*>(this));
 
     return -1;
 }
@@ -460,44 +459,14 @@ QList<SessionItem *> SessionItem::getUnregisteredChildren() const
 {
     QList<SessionItem *> result;
     for (auto child : m_children) {
-        if (!isRegisteredProperty(child->itemName()))
+        if (!isRegisteredTag(child->itemName()))
             result.append(child);
     }
     return result;
 }
 
-void SessionItem::insertChildItem(int row, SessionItem *item, const QString tag)
-{
-    SessionTagInfo tagInfo = getTagInfo(tag.isEmpty() ? defaultTag() : tag);
-    if (!tagInfo.isValid())
-        return;
-    Q_ASSERT(insertItem(row, item, tagInfo.name));
 
-//    item->mp_parent = this;
-//    item->setModel(m_model);
-
-//    qDebug() << "IIIII SessionItem::insertChildItem this" << this << this->modelType() << this->itemName() << "itemToInsert" << item << item->modelType() << item->itemName();
-
-//    if (m_model) {
-//        qDebug() << "AAA beginInsertRows" << m_model->indexOfItem(this);
-//        m_model->beginInsertRows(m_model->indexOfItem(this), row, row);
-//    }
-
-//    m_children.insert(row, item);
-
-//    if (item->modelType() == Constants::PropertyType ||
-//            item->modelType() == Constants::GroupItemType) {
-//        m_propertyItems.insert(item->itemName(), item);
-//    }
-
-//    if (m_model) {
-//        qDebug() << "AAA endInsertRows";
-//        m_model->endInsertRows();
-//    }
-}
-
-
-SessionItem *SessionItem::takeChildItem(int row)
+SessionItem *SessionItem::takeRow(int row)
 {
 //    return takeItem(row, defaultTag());
     SessionItem *item = childAt(row);
@@ -520,43 +489,27 @@ QList<QString> SessionItem::acceptableChildItems() const
 //! item will be created. I
 SessionItem *SessionItem::registerProperty(const QString &name, const QVariant &variant)
 {
-    if (isRegisteredProperty(name))
+    if (isRegisteredTag(name))
         throw GUIHelpers::Error(
             "ParameterizedItem::registerProperty() -> Error. Already existing property " + name);
 
-    QString property_type = Constants::PropertyType;
-
-    // normal item as child
-//    if(variant.type() == QVariant::String &&
-//            ItemFactory::isValidItemType(variant.toString())) {
-//        property_type = variant.toString();
-//        qDebug() << "AAAA" << property_type;
-//        Q_ASSERT(0);
-//    }
-
+    const QString property_type = Constants::PropertyType;
     SessionItem *property = ItemFactory::createItem(property_type);
     property->setDisplayName(name);
-//    property->setAttribute(attribute);
-    registerTag(name, 1, 1, QStringList() << property_type);
-    insertItem(0, property, name);
-//    insertChildItem(-1, property);
-
-//    if(property_type==Constants::PropertyType) {
-        property->setValue(variant);
-//    } else {
-//        m_propertyItems.insert(property->itemName(), property);
-//    }
-        return property;
+    Q_ASSERT(registerTag(name, 1, 1, QStringList() << property_type));
+    Q_ASSERT(insertItem(0, property, name));
+    property->setValue(variant);
+    return property;
 }
 
-bool SessionItem::isRegisteredProperty(const QString &name) const
+bool SessionItem::isRegisteredTag(const QString &name) const
 {
     return getTagInfo(name).isValid();
 }
 
 QVariant SessionItem::getRegisteredProperty(const QString &name) const
 {
-    if (!isRegisteredProperty(name))
+    if (!isRegisteredTag(name))
         throw GUIHelpers::Error(
             "ParameterizedItem::getRegisteredProperty() -> Error. Unknown property '" + name
             + "', item '" + modelType() + "'");
@@ -567,7 +520,7 @@ QVariant SessionItem::getRegisteredProperty(const QString &name) const
 void SessionItem::setRegisteredProperty(const QString &name, const QVariant &variant)
 {
     // check if variant of previous property coincides with new one
-    if (!isRegisteredProperty(name))
+    if (!isRegisteredTag(name))
         throw GUIHelpers::Error("Property not existing!");
     QVariant previous_variant = getRegisteredProperty(name);
     if (GUIHelpers::getVariantType(previous_variant) != GUIHelpers::getVariantType(variant)) {
@@ -583,7 +536,7 @@ void SessionItem::setRegisteredProperty(const QString &name, const QVariant &var
 
 void SessionItem::removeRegisteredProperty(const QString &name)
 {
-    if(isRegisteredProperty(name)) {
+    if(isRegisteredTag(name)) {
         qDebug() << "ParameterizedItem::removeRegisteredProperty()" << name;
         if (SessionItem *para =  takeItem(0, name)) {
             delete para;
@@ -599,25 +552,16 @@ void SessionItem::removeRegisteredProperty(const QString &name)
     }
 }
 
-SessionItem *SessionItem::registerGroupProperty(const QString &group_name,
-                                                            const Constants::ModelType &group_model)
+SessionItem *SessionItem::registerGroupProperty(const QString &groupName, const QString &groupModel)
 {
-//    qDebug() << "ParameterizedItem::registerGroupProperty() ->"
-//             << "this->modelType" << modelType() << "group_name" << group_name << " group_model"
-//             << group_model;
-
     GroupProperty_t group_property
-        = GroupPropertyRegistry::createGroupProperty(group_name, group_model);
+        = GroupPropertyRegistry::createGroupProperty(groupName, groupModel);
     GroupItem *groupItem = dynamic_cast<GroupItem *>(ItemFactory::createItem(Constants::GroupItemType));
+    Q_ASSERT(groupItem);
     groupItem->setGroup(group_property);
-    groupItem->setDisplayName(group_name);
-    registerTag(group_name, 1, 1, QStringList() << Constants::GroupItemType);
-    insertItem(0, groupItem, group_name);
-//    insertChildItem(-1, groupItem);
-//    SessionItem *p_result = m_sub_items[group_name];
-//    if (group_property->type() == GroupProperty::FIXED) {
-//        p_result->setDisplayName(group_name);
-//    }
+    groupItem->setDisplayName(groupName);
+    Q_ASSERT(registerTag(groupName, 1, 1, QStringList() << Constants::GroupItemType));
+    Q_ASSERT(insertItem(0, groupItem, groupName));
     return groupItem;
 }
 
@@ -756,7 +700,7 @@ int SessionItem::getCopyNumberOfChild(const SessionItem *p_item) const
             if (p_child_item == p_item) {
                 result = count;
             }
-            if (child_type == model_type && !p_child_item->isRegisteredProperty(P_NAME)) {
+            if (child_type == model_type && !p_child_item->isRegisteredTag(P_NAME)) {
                 ++count;
             }
         }

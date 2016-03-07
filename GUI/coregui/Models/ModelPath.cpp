@@ -46,7 +46,7 @@ double ModelPath::getParameterValue(const SessionItem *item, const QString &name
     if (p_child) {
         return getParameterValue(p_child, stripFirstField(name));
     }
-    if (item->isRegisteredProperty(head)) {
+    if (item->isRegisteredTag(head)) {
         return item->getRegisteredProperty(head).toDouble();
     } else {
         return 0.0;

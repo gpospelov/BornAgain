@@ -82,11 +82,9 @@ inline void TestSessionItem::test_tags()
     // we try to access tagged items
     verify_get_item(item, tag1, items.mid(0, 1));
 
-    // nullptr is allowed
-    QVERIFY(item->insertItem(1, nullptr, tag1));
-    auto vecWithNullptr = items.mid(0,1);
-    vecWithNullptr.append(nullptr);
-    verify_get_item(item, tag1, vecWithNullptr);
+    // nullptr is not allowed
+    QVERIFY(item->insertItem(1, nullptr, tag1) == false);
+    verify_get_item(item, tag1, items.mid(0, 1));
 
     // LIMITS
     // register tag with limit 0 - 1
@@ -186,13 +184,13 @@ inline void TestSessionItem::test_model_types()
 ////    QSignalSpy spy(&item, SIGNAL(propertyChanged(QString)));
 
 //    // access non-existing property
-//    QCOMPARE(false, item.isRegisteredProperty(property_name));
+//    QCOMPARE(false, item.isRegisteredTag(property_name));
 //    QVERIFY_THROW(item.getRegisteredProperty(property_name), GUIHelpers::Error);
 //    QVERIFY_THROW(item.setRegisteredProperty(property_name, value), GUIHelpers::Error);
 
 //    // registering new property
 //    item.registerProperty(property_name, value);
-//    QCOMPARE(true, item.isRegisteredProperty(property_name));
+//    QCOMPARE(true, item.isRegisteredTag(property_name));
 ////    QCOMPARE(spy.count(), 1);
 ////    QList<QVariant> arguments = spy.takeFirst();
 ////    QCOMPARE(arguments.size(), 1);

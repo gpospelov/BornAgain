@@ -207,7 +207,7 @@ SessionItem *ItemFactory::createItem(const QString &model_name,
 
     SessionItem *result = m_item_map[model_name]();
     if(parent) {
-        parent->insertChildItem(-1, result);
+        parent->insertItem(-1, result);
     }
     qDebug() << "       result:" << result;
     return result;

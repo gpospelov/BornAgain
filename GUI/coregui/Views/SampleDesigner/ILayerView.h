@@ -34,7 +34,7 @@ public:
 
     int type() const { return TYPE; }
 
-    void setParameterizedItem(ParameterizedItem *item);
+    void setParameterizedItem(SessionItem *item);
 
 protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);

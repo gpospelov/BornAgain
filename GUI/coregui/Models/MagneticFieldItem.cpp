@@ -20,7 +20,7 @@ const QString MagneticFieldItem::P_BY = "By";
 const QString MagneticFieldItem::P_BZ = "Bz";
 
 MagneticFieldItem::MagneticFieldItem()
-    : ParameterizedItem(Constants::MagneticFieldType)
+    : SessionItem(Constants::MagneticFieldType)
 {
     registerProperty(P_BX, 0.0);
     registerProperty(P_BY, 0.0);

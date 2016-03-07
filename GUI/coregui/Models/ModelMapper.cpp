@@ -15,7 +15,7 @@
 
 #include "ModelMapper.h"
 #include "SessionModel.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
 #include <QModelIndex>
 
@@ -27,7 +27,7 @@ ModelMapper::ModelMapper(QObject *parent)
 {
 }
 
-void ModelMapper::setItem(ParameterizedItem *item)
+void ModelMapper::setItem(SessionItem *item)
 {
     if (item) {
         m_item = item;
@@ -40,12 +40,12 @@ void ModelMapper::setOnPropertyChange(std::function<void (QString)> f)
     m_onPropertyChange.push_back(f);
 }
 
-void ModelMapper::setOnChildPropertyChange(std::function<void (ParameterizedItem *, QString)> f)
+void ModelMapper::setOnChildPropertyChange(std::function<void (SessionItem *, QString)> f)
 {
     m_onChildPropertyChange.push_back(f);
 }
 
-void ModelMapper::setOnParentChange(std::function<void (ParameterizedItem *)> f)
+void ModelMapper::setOnParentChange(std::function<void (SessionItem *)> f)
 {
     m_onParentChange.push_back(f);
 }
@@ -76,7 +76,7 @@ void ModelMapper::setModel(SessionModel *model)
     }
 }
 
-int ModelMapper::nestlingDepth(ParameterizedItem *item, int level)
+int ModelMapper::nestlingDepth(SessionItem *item, int level)
 {
     if (item == nullptr || item == m_model->rootItem())
         return -1;
@@ -91,11 +91,11 @@ void ModelMapper::onDataChanged(const QModelIndex &topLeft, const QModelIndex &b
 {
     if (topLeft.parent() != bottomRight.parent())
         return; // range must be from the same parent
-    ParameterizedItem *item = m_model->itemForIndex(topLeft);
+    SessionItem *item = m_model->itemForIndex(topLeft);
     int nestling = nestlingDepth(item);
     if (nestling > 0 && nestling < 2) {
         // something happened with our property or group item
-        if (ParameterizedItem *item = m_model->itemForIndex(topLeft)) {
+        if (SessionItem *item = m_model->itemForIndex(topLeft)) {
             if (m_item->isRegisteredProperty(item->itemName())) {
                 // some property changed
                 if (m_active && m_onPropertyChange.size() > 0) {
@@ -107,7 +107,7 @@ void ModelMapper::onDataChanged(const QModelIndex &topLeft, const QModelIndex &b
         }
     }
     if (nestling > 1) {
-        if (ParameterizedItem *parent = item->parent()) {
+        if (SessionItem *parent = item->parent()) {
             if (parent->isRegisteredProperty(item->itemName())) {
                 if (m_active && m_onChildPropertyChange.size() > 0) {
                     for (auto f : m_onChildPropertyChange) {
@@ -122,7 +122,7 @@ void ModelMapper::onDataChanged(const QModelIndex &topLeft, const QModelIndex &b
 void ModelMapper::onRowsInserted(const QModelIndex &parent, int first, int last)
 {
     if (parent.isValid()) {
-        if (ParameterizedItem *newChild = m_model->itemForIndex(parent.child(first, 0))) {
+        if (SessionItem *newChild = m_model->itemForIndex(parent.child(first, 0))) {
             if (m_item == newChild) {
                 if (m_active && m_onParentChange.size() > 0) {
                     for (auto f : m_onParentChange) {
@@ -143,7 +143,7 @@ void ModelMapper::onRowsInserted(const QModelIndex &parent, int first, int last)
 void ModelMapper::onBeginRemoveRows(const QModelIndex &parent, int first, int last)
 {
     if (parent.isValid()) {
-        if (ParameterizedItem *newChild = m_model->itemForIndex(parent.child(first, 0))) {
+        if (SessionItem *newChild = m_model->itemForIndex(parent.child(first, 0))) {
             if (m_item == newChild) {
                 if (m_active && m_onParentChange.size() > 0) {
                     for (auto f : m_onParentChange) {

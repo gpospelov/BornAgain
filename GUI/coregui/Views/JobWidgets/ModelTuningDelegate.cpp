@@ -135,7 +135,7 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
 
         m_current_link = index.model()->data(index, Qt::UserRole).value<ItemLink>();
 
-        ParameterizedItem *item = m_current_link.getItem();
+        SessionItem *item = m_current_link.getItem();
         AttLimits limits = item->getItem(m_current_link.getPropertyName())->limits();
 
         // initializing value box

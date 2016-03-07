@@ -24,7 +24,7 @@
 #include <QSharedPointer>
 
 class SessionModel;
-class ParameterizedItem;
+class SessionItem;
 class IMaskView;
 class ISceneAdaptor;
 class MaskGraphicsProxy;
@@ -77,9 +77,9 @@ protected:
 private:
     void updateProxyWidget();
     void updateViews(const QModelIndex &parentIndex = QModelIndex(), IMaskView *parentView = 0);
-    IMaskView* addViewForItem(ParameterizedItem *item);
+    IMaskView* addViewForItem(SessionItem *item);
     void deleteViews(const QModelIndex & itemIndex);
-    void removeItemViewFromScene(ParameterizedItem *item);
+    void removeItemViewFromScene(SessionItem *item);
 
     bool isValidMouseClick(QGraphicsSceneMouseEvent *event);
     bool isValidForRectangleDrawing(QGraphicsSceneMouseEvent *event);
@@ -103,17 +103,17 @@ private:
 
     void setZValues();
     PolygonView *getCurrentPolygon() const;
-    void setItemName(ParameterizedItem *itemToChange);
+    void setItemName(SessionItem *itemToChange);
 
     SessionModel *m_maskModel;
     QItemSelectionModel *m_selectionModel;
     QSharedPointer<ISceneAdaptor> m_adaptor;
-    QMap<ParameterizedItem *, IMaskView *> m_ItemToView;
+    QMap<SessionItem *, IMaskView *> m_ItemToView;
     MaskGraphicsProxy *m_proxy;
     bool m_block_selection;
     QModelIndex m_maskContainerIndex;
     IntensityDataItem *m_intensityItem;
-    ParameterizedItem *m_currentItem;
+    SessionItem *m_currentItem;
     QPointF m_currentMousePosition;
     MaskDrawingContext m_context;
 };

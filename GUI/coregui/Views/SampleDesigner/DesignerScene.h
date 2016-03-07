@@ -23,8 +23,8 @@
 
 class InstrumentModel;
 class SampleModel;
-class ParameterizedItem;
-class ParameterizedGraphicsItem;
+class SessionItem;
+class SessionGraphicsItem;
 class QItemSelectionModel;
 class IView;
 class QItemSelection;
@@ -49,7 +49,7 @@ public:
 
     SampleModel *getSampleModel() { return m_sampleModel; }
 
-    IView *getViewForItem(ParameterizedItem *item) { return m_ItemToView[item]; }
+    IView *getViewForItem(SessionItem *item) { return m_ItemToView[item]; }
 
     NodeEditor *getNodeEditor() { return m_nodeEditor;}
 
@@ -86,11 +86,11 @@ protected:
 
 private:
 
-    IView *addViewForItem(ParameterizedItem *item);
+    IView *addViewForItem(SessionItem *item);
     void updateViews(const QModelIndex &parentIndex = QModelIndex(), IView *parentView = 0);
     void deleteViews(const QModelIndex & parentIndex);
     void alignViews();
-    void removeItemViewFromScene(ParameterizedItem *item);
+    void removeItemViewFromScene(SessionItem *item);
     bool isMultiLayerNearby(QGraphicsSceneDragDropEvent *event);
     void adjustSceneRect();
     bool isAcceptedByMultiLayer(const DesignerMimeData *mimeData, QGraphicsSceneDragDropEvent *event);
@@ -101,7 +101,7 @@ private:
     QItemSelectionModel *m_selectionModel;
     bool m_block_selection;
 
-    QMap<ParameterizedItem *, IView *> m_ItemToView;
+    QMap<SessionItem *, IView *> m_ItemToView;
     //!< Correspondance of model's item and scene's view
 
     QLineF m_layer_interface_line;

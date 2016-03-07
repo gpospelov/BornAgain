@@ -26,7 +26,7 @@ const QString BeamDistributionItem::P_DISTRIBUTION = "Distribution";
 const QString BeamDistributionItem::P_CACHED_VALUE = "Cached value";
 
 BeamDistributionItem::BeamDistributionItem(const QString name)
-    : ParameterizedItem(name)
+    : SessionItem(name)
 {
     registerProperty(P_CACHED_VALUE, 0.0);
     getItem(P_CACHED_VALUE)->setVisible(false);
@@ -102,7 +102,7 @@ BeamDistributionItem::getParameterDistributionForName(const std::string &paramet
 //        cached_attribute.setVisible();
 //        distribution->init_parameters(cached_value, cached_attribute);
 //    }
-//    ParameterizedItem::onSubItemChanged(propertyName);
+//    SessionItem::onSubItemChanged(propertyName);
 //}
 
 //void BeamDistributionItem::onSubItemPropertyChanged(const QString &property_group, const QString &property_name)
@@ -113,7 +113,7 @@ BeamDistributionItem::getParameterDistributionForName(const std::string &paramet
 //                getRegisteredProperty(DistributionNoneItem::P_VALUE).toDouble();
 //        setRegisteredProperty(P_CACHED_VALUE, value_to_cache);
 //    }
-//    ParameterizedItem::onSubItemPropertyChanged(property_group, property_name);
+//    SessionItem::onSubItemPropertyChanged(property_group, property_name);
 //}
 
 std::unique_ptr<IDistribution1D> BeamDistributionItem::createDistribution1D()

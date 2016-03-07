@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleCompositionView.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include <QDebug>
 
 ParticleCompositionView::ParticleCompositionView(QGraphicsItem *parent) : ConnectableView(parent)

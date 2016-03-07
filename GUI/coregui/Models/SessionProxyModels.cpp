@@ -32,9 +32,9 @@ void SessionCompactModel::setSourceModel(QAbstractItemModel *source)
 QModelIndex SessionCompactModel::index(int row, int column, const QModelIndex &parent) const
 {
     const QModelIndex sourceParent = mapToSource(parent);
-    ParameterizedItem *parentt = m_source->itemForIndex(sourceParent);
+    SessionItem *parentt = m_source->itemForIndex(sourceParent);
     if (parentt->modelType() == Constants::GroupItemType) {
-        ParameterizedItem *cur = parentt->parent()->getGroupItem(parentt->itemName());
+        SessionItem *cur = parentt->parent()->getGroupItem(parentt->itemName());
         const QModelIndex sourceIndex = m_source->index(row, column, cur->index());
         return mapFromSource(sourceIndex);
     }
@@ -45,7 +45,7 @@ QModelIndex SessionCompactModel::index(int row, int column, const QModelIndex &p
 QModelIndex SessionCompactModel::parent(const QModelIndex &child) const
 {
     const QModelIndex sourceIndex = mapToSource(child);
-    ParameterizedItem *head = m_source->itemForIndex(sourceIndex.parent());
+    SessionItem *head = m_source->itemForIndex(sourceIndex.parent());
     if (head && head->parent() && head->parent()->modelType() == Constants::GroupItemType) {
         // skip immediate layer
         return mapFromSource(head->parent()->index());
@@ -57,9 +57,9 @@ QModelIndex SessionCompactModel::parent(const QModelIndex &child) const
 int SessionCompactModel::rowCount(const QModelIndex &parent) const
 {
     QModelIndex sourceParent = mapToSource(parent);
-    ParameterizedItem *item = m_source->itemForIndex(sourceParent);
+    SessionItem *item = m_source->itemForIndex(sourceParent);
     if (item && item->modelType() == Constants::GroupItemType) {
-        ParameterizedItem *cur = item->parent()->getGroupItem(item->itemName());
+        SessionItem *cur = item->parent()->getGroupItem(item->itemName());
         if (cur)
             return m_source->rowCount(cur->index());
         else
@@ -87,14 +87,14 @@ QModelIndex SessionTestModel::mapFromSource(const QModelIndex &sourceIndex) cons
 {
 
     // one to one
-//    ParameterizedItem *item = m_source->itemForIndex(sourceIndex);
+//    SessionItem *item = m_source->itemForIndex(sourceIndex);
 //    return createIndex(sourceIndex.row(), sourceIndex.column(), item);
 
 
     int nrow(0);
     for(int i_row=0; i_row<m_source->rowCount(sourceIndex.parent()); ++i_row) {
         QModelIndex itemIndex = m_source->index(i_row, sourceIndex.column(), sourceIndex.parent());
-        if(ParameterizedItem *item = m_source->itemForIndex(itemIndex)) {
+        if(SessionItem *item = m_source->itemForIndex(itemIndex)) {
             if(!item->isVisible()) continue;
             if(i_row == sourceIndex.row()) {
                 return createIndex(nrow, sourceIndex.column(), item);
@@ -112,7 +112,7 @@ QModelIndex SessionTestModel::mapFromSource(const QModelIndex &sourceIndex) cons
 QModelIndex SessionTestModel::mapToSource(const QModelIndex &proxyIndex) const
 {
     // ont-to-one
-//    ParameterizedItem *item = static_cast<ParameterizedItem *>(proxyIndex.internalPointer());
+//    SessionItem *item = static_cast<SessionItem *>(proxyIndex.internalPointer());
 //    if(item && item->parent()) {
 //        return m_source->index(proxyIndex.row(), proxyIndex.column(), m_source->indexOfItem(item->parent()));
 //    } else {
@@ -120,7 +120,7 @@ QModelIndex SessionTestModel::mapToSource(const QModelIndex &proxyIndex) const
 //    }
 
 
-    ParameterizedItem *item = static_cast<ParameterizedItem *>(proxyIndex.internalPointer());
+    SessionItem *item = static_cast<SessionItem *>(proxyIndex.internalPointer());
     if(item) {
         if(item->parent()) {
             return m_source->index(item->index().row(), proxyIndex.column(), item->parent()->index());
@@ -142,14 +142,14 @@ QModelIndex SessionTestModel::index(int row, int column, const QModelIndex &pare
     if(row <0 || row >=rowCount(parent) || column <0 || column >=columnCount(parent)) return QModelIndex();
 
     return createIndex(row, column, nullptr);
-//    ParameterizedItem *item = static_cast<ParameterizedItem *>(proxyIndex.internalPointer());
+//    SessionItem *item = static_cast<SessionItem *>(proxyIndex.internalPointer());
 
 }
 
 QModelIndex SessionTestModel::parent(const QModelIndex &child) const
 {
     const QModelIndex sourceIndex = mapToSource(child);
-//    ParameterizedItem *head = m_source->itemForIndex(sourceIndex.parent());
+//    SessionItem *head = m_source->itemForIndex(sourceIndex.parent());
 //    if (head && head->parent() && head->parent()->modelType() == Constants::GroupItemType) {
 //        // skip immediate layer
 //        return mapFromSource(head->parent()->index());
@@ -164,17 +164,17 @@ int SessionTestModel::rowCount(const QModelIndex &parent) const
     QModelIndex sourceParent = mapToSource(parent);
 //    return m_source->rowCount(sourceParent);
 
-    ParameterizedItem *item = m_source->itemForIndex(sourceParent);
+    SessionItem *item = m_source->itemForIndex(sourceParent);
     int nrow(0);
-    foreach(ParameterizedItem *child, item->childItems()) {
+    foreach(SessionItem *child, item->childItems()) {
         if(!child->isVisible()) continue;
         ++nrow;
     }
     return nrow;
 
-//    ParameterizedItem *item = m_source->itemForIndex(sourceParent);
+//    SessionItem *item = m_source->itemForIndex(sourceParent);
 //    if (item && item->modelType() == Constants::GroupItemType) {
-//        ParameterizedItem *cur = item->parent()->getGroupItem(item->itemName());
+//        SessionItem *cur = item->parent()->getGroupItem(item->itemName());
 //        if (cur)
 //            return m_source->rowCount(cur->index());
 //        else

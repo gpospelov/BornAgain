@@ -16,18 +16,18 @@
 #ifndef FORMFACTORITEMS_H
 #define FORMFACTORITEMS_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
 #include <memory>
 
 class IFormFactor;
 
-class BA_CORE_API_ FormFactorItem : public ParameterizedItem
+class BA_CORE_API_ FormFactorItem : public SessionItem
 {
     Q_OBJECT
 public:
     explicit FormFactorItem(const QString &model_type)
-        : ParameterizedItem(model_type) {}
+        : SessionItem(model_type) {}
     virtual std::unique_ptr<IFormFactor> createFormFactor() const=0;
 };
 

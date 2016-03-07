@@ -16,12 +16,12 @@
 #ifndef INSTRUMENT_ITEM_H
 #define INSTRUMENT_ITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
 class BeamItem;
 class DetectorItem;
 
-class BA_CORE_API_ InstrumentItem : public ParameterizedItem
+class BA_CORE_API_ InstrumentItem : public SessionItem
 {
     Q_OBJECT
 

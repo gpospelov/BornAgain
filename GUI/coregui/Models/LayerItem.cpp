@@ -23,7 +23,7 @@ const QString LayerItem::P_MATERIAL = "Material";
 const QString LayerItem::T_LAYOUTS = "Layout tag";
 
 LayerItem::LayerItem()
-    : ParameterizedGraphicsItem(Constants::LayerType)
+    : SessionGraphicsItem(Constants::LayerType)
 {
     registerProperty(P_THICKNESS, 0.0);
     registerProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());

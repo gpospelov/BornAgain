@@ -36,7 +36,7 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-    void setParameterizedItem(ParameterizedItem *item);
+    void setParameterizedItem(SessionItem *item);
 
     void onPropertyChange(const QString &propertyName);
 

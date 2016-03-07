@@ -19,7 +19,7 @@
 #include <QGraphicsObject>
 
 #include "DesignerHelper.h"
-class ParameterizedItem;
+class SessionItem;
 
 //! parent class for graphic representation of all ISample's
 class BA_CORE_API_ IView : public QGraphicsObject
@@ -33,9 +33,9 @@ public:
 
     int type() const;
 
-    virtual void setParameterizedItem(ParameterizedItem *item);
+    virtual void setParameterizedItem(SessionItem *item);
 
-    virtual ParameterizedItem *getParameterizedItem();
+    virtual SessionItem *getParameterizedItem();
 
     virtual void addView(IView *childView, int row = 0);
 
@@ -47,7 +47,7 @@ public slots:
     virtual void onChangedY();
 
 protected:
-    ParameterizedItem *m_item;
+    SessionItem *m_item;
 };
 
 inline int IView::type() const
@@ -55,7 +55,7 @@ inline int IView::type() const
     return TYPE;
 }
 
-inline ParameterizedItem *IView::getParameterizedItem()
+inline SessionItem *IView::getParameterizedItem()
 {
     return m_item;
 }

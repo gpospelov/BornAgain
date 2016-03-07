@@ -68,7 +68,7 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
         onPropertyChanged(name);
     });
     mapper->setOnChildPropertyChange(
-                [this](ParameterizedItem* item, const QString name)
+                [this](SessionItem* item, const QString name)
     {
         if (item->parent() && item->parent()->modelType() == Constants::GroupItemType)
             onSubItemPropertyChanged(item->itemName(), name);

@@ -20,7 +20,7 @@
 #include <QIcon>
 #include <QString>
 
-//! Class which returns icons for ParameterizedItems to use in SessionModel
+//! Class which returns icons for SessionItems to use in SessionModel
 class BA_CORE_API_ IconProvider
 {
 public:

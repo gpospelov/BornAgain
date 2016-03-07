@@ -16,10 +16,10 @@
 #ifndef MATERIALITEM_H
 #define MATERIALITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include <QColor>
 
-class BA_CORE_API_ MaterialItem : public ParameterizedItem
+class BA_CORE_API_ MaterialItem : public SessionItem
 {
     Q_OBJECT
 

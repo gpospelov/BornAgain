@@ -17,12 +17,12 @@
 #define PARTICLECOMPOSITIONITEM_H
 
 #include "ParticleComposition.h"
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 
 #include <QStringList>
 #include <memory>
 
-class BA_CORE_API_ ParticleCompositionItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ ParticleCompositionItem : public SessionGraphicsItem
 {
     Q_OBJECT
 public:

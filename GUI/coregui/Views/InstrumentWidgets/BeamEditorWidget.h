@@ -18,7 +18,7 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
 class BeamItem;
 class ComponentBoxEditor;
@@ -36,7 +36,7 @@ public:
     QGridLayout *getGridLayout() { return m_gridLayout;}
 
 private slots:
-    void onDialogRequest(ParameterizedItem *item, QString name);
+    void onDialogRequest(SessionItem *item, QString name);
 
 private:
     ComponentBoxEditor *m_intensityEditor;

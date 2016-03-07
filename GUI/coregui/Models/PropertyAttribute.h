@@ -21,10 +21,10 @@
 #include "AttLimits.h"
 #include <QMetaType>
 
-class ParameterizedItem;
+class SessionItem;
 
 
-//! Class to handle visual appearance of ParameterizedItem's property in
+//! Class to handle visual appearance of SessionItem's property in
 //! different kind of property editors.
 class BA_CORE_API_ PropertyAttribute {
 public:
@@ -77,7 +77,7 @@ public:
     bool isReadOnly() const;
     PropertyAttribute& setReadOnly();
 
-    static PropertyAttribute fromItem(ParameterizedItem* item);
+    static PropertyAttribute fromItem(SessionItem* item);
 
 private:
     Appearance m_appearance;

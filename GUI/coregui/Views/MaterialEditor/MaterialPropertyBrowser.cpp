@@ -132,7 +132,7 @@ void MaterialPropertyBrowser::slotValueChanged(QtProperty *property,
 
     qDebug() << "MaterialEditorWidget::slotValueChanged() -> 1.3";
     //MaterialItem *material = dynamic_cast<MaterialItem *>(m_property_to_subitem[property].m_owner);
-    ParameterizedItem *item = m_property_to_subitem[property].m_owner;
+    SessionItem *item = m_property_to_subitem[property].m_owner;
     Q_ASSERT(item);
     qDebug() << "MaterialEditorWidget::slotValueChanged() -> 1.4";
     item->setRegisteredProperty(property->propertyName(), value);
@@ -143,7 +143,7 @@ void MaterialPropertyBrowser::slotValueChanged(QtProperty *property,
 
 void MaterialPropertyBrowser::onPropertyChanged(const QString &property_name)
 {
-    ParameterizedItem *parentItem = qobject_cast<ParameterizedItem *>(sender());
+    SessionItem *parentItem = qobject_cast<SessionItem *>(sender());
 
 
     if(m_top_material_to_property.contains(parentItem)) {
@@ -204,13 +204,13 @@ void MaterialPropertyBrowser::clearBrowser()
 }
 
 
-//void MaterialPropertyBrowser::updateMaterialProperties(ParameterizedItem *material)
+//void MaterialPropertyBrowser::updateMaterialProperties(SessionItem *material)
 //{
 //    if(m_top_material_to_property.contains(material)) {
 //        m_top_material_to_property[material]->setPropertyName(material->itemName());
 //    }
 
-////    QMap<ParameterizedItem *, QtVariantProperty *>::iterator it = m_top_material_to_property.begin();
+////    QMap<SessionItem *, QtVariantProperty *>::iterator it = m_top_material_to_property.begin();
 ////    while(it!=m_top_material_to_property.end()) {
 ////        updateSubProperties(it.key());
 ////        ++it;
@@ -218,7 +218,7 @@ void MaterialPropertyBrowser::clearBrowser()
 //}
 
 
-void MaterialPropertyBrowser::addMaterialProperties(ParameterizedItem *material)
+void MaterialPropertyBrowser::addMaterialProperties(SessionItem *material)
 {
     QtVariantProperty *item_property = m_variantManager->addProperty(
                 QtVariantPropertyManager::enumTypeId(), material->itemName());
@@ -251,7 +251,7 @@ void MaterialPropertyBrowser::removeSubProperties(QtProperty *property)
 }
 
 
-void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, ParameterizedItem *item)
+void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, SessionItem *item)
 {
 
     QList<QByteArray> property_names = item->dynamicPropertyNames();
@@ -283,7 +283,7 @@ void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, Pa
             }
 
             if (item->isGroupProperty(prop_name)) {
-                ParameterizedItem *subitem = item->getGroupItem(prop_name);
+                SessionItem *subitem = item->getGroupItem(prop_name);
                 if (subitem) {
                     addSubProperties(subProperty, subitem);
                 }
@@ -305,7 +305,7 @@ void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, Pa
 
 
 
-//void MaterialPropertyBrowser::updateSubProperties(ParameterizedItem *material)
+//void MaterialPropertyBrowser::updateSubProperties(SessionItem *material)
 //{
 ////    if(m_material_to_property.contains(material)) {
 

@@ -22,7 +22,7 @@
 #include "MaterialModel.h"
 #include "Instrument.h"
 #include "DomainObjectBuilder.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "IntensityDataFunctions.h"
 #include "DomainSimulationBuilder.h"
 #include "Utils.h"

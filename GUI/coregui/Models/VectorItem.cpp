@@ -20,7 +20,7 @@ const QString VectorItem::P_Y = "Y";
 const QString VectorItem::P_Z = "Z";
 
 VectorItem::VectorItem()
-    : ParameterizedItem(Constants::VectorType)
+    : SessionItem(Constants::VectorType)
 {
     registerProperty(P_X, 0.0)->setLimits(AttLimits::limitless());
     registerProperty(P_Y, 0.0)->setLimits(AttLimits::limitless());

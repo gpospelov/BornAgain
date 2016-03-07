@@ -22,7 +22,7 @@
 #include <QLabel>
 #include <QMap>
 
-class ParameterizedItem;
+class SessionItem;
 class DetectorEditorWidget;
 class BeamEditorWidget;
 class QLineEdit;
@@ -38,7 +38,7 @@ public:
     InstrumentEditorWidget(QWidget *parent = 0);
     QSize sizeHint() const { return QSize(600, 600); }
 
-    void setInstrumentItem(ParameterizedItem *instrument);
+    void setInstrumentItem(SessionItem *instrument);
 
 signals:
     void extendedDetectorEditorRequest(DetectorItem *);
@@ -54,7 +54,7 @@ private:
 
     QLineEdit *m_nameLineEdit;
     QComboBox *m_typeComboBox;
-    ParameterizedItem *m_currentItem;
+    SessionItem *m_currentItem;
     bool m_block_signals;
     InstrumentComponentsWidget *m_instrumentComponents;
 };

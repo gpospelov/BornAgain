@@ -18,7 +18,7 @@
 #include <QUuid>
 #include <QMap>
 
-class ParameterizedItem;
+class SessionItem;
 
 class ItemIDFactory {
 public:
@@ -30,19 +30,19 @@ public:
 
     static ItemIDFactory& instance();
 
-    static QString createID(ParameterizedItem* toBeInsertedItem);
+    static QString createID(SessionItem* toBeInsertedItem);
 
-    static QString getID(ParameterizedItem* existingItem);
+    static QString getID(SessionItem* existingItem);
 
-    static ParameterizedItem* getItem(QString existingID);
+    static SessionItem* getItem(QString existingID);
 
     static int IDSize();
 
 private:
     ItemIDFactory() = default;
 
-    QMap<QString, ParameterizedItem*> IDtoItemMap;
-    QMap<ParameterizedItem*, QString> ItemtoIDMap;
+    QMap<QString, SessionItem*> IDtoItemMap;
+    QMap<SessionItem*, QString> ItemtoIDMap;
 };
 
 #endif

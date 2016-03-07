@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "IMaskView.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "ISceneAdaptor.h"
 #include "MaskItems.h"
 #include <QMenu>
@@ -37,7 +37,7 @@ QRectF IMaskView::boundingRect() const
     return m_bounding_rect;
 }
 
-void IMaskView::setParameterizedItem(ParameterizedItem *item)
+void IMaskView::setParameterizedItem(SessionItem *item)
 {
 //    if(m_item != item) {
 //        if(m_item) {
@@ -78,7 +78,7 @@ void IMaskView::setParameterizedItem(ParameterizedItem *item)
 
 }
 
-ParameterizedItem *IMaskView::getParameterizedItem()
+SessionItem *IMaskView::getParameterizedItem()
 {
     return m_item;
 }

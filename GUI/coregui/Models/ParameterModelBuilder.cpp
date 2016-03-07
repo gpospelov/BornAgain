@@ -65,7 +65,7 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SessionModel *sampleMo
     for (int i_row = 0; i_row < sampleModel->rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = sampleModel->index(i_row, 0, parentIndex);
 
-        if (ParameterizedItem *item = sampleModel->itemForIndex(itemIndex)) {
+        if (SessionItem *item = sampleModel->itemForIndex(itemIndex)) {
             if (!item->isEnabled() || !item->isVisible())
                 continue;
             if (item->modelType() == Constants::PropertyType) {
@@ -97,7 +97,7 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SessionModel *sampleMo
 
 //                if (prop_attribute.isHidden() || prop_attribute.isDisabled()) continue;
 
-//                // if(item->getPropertyAttribute(propertyName) & ParameterizedItem::HiddenProperty)
+//                // if(item->getPropertyAttribute(propertyName) & SessionItem::HiddenProperty)
 //                // continue;
 
 //                QVariant propertyValue = item->property(propertyName.toUtf8().data());
@@ -110,8 +110,8 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SessionModel *sampleMo
 //                                                propertyValue, item);
 
 //                } else if (item->isGroupProperty(propertyName)) {
-//                    QMap<QString, ParameterizedItem *> subItems = item->getSubItems();
-//                    ParameterizedItem *subItem = subItems[propertyName];
+//                    QMap<QString, SessionItem *> subItems = item->getSubItems();
+//                    SessionItem *subItem = subItems[propertyName];
 
 //                    //                        qDebug() << "           Item: " << item->itemName() <<
 //                    //                        "SubItem:" << subItem->itemName();
@@ -179,9 +179,9 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentItem(InstrumentItem *inst
 
         // wavelength, incident and azimuthal angle will be varied only if there is no distribution
         // assigned to them
-        ParameterizedItem *beamWavelength = beamItem->getGroupItem(BeamItem::P_WAVELENGTH);
+        SessionItem *beamWavelength = beamItem->getGroupItem(BeamItem::P_WAVELENGTH);
         Q_ASSERT(beamWavelength);
-        ParameterizedItem *wavelengthDistribution
+        SessionItem *wavelengthDistribution
             = beamWavelength->getGroupItem(BeamDistributionItem::P_DISTRIBUTION);
         Q_ASSERT(wavelengthDistribution);
         if (wavelengthDistribution->modelType() == Constants::DistributionNoneType) {
@@ -193,10 +193,10 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentItem(InstrumentItem *inst
             addDisabledProperty(standardItem, BeamItem::P_WAVELENGTH);
         }
 
-        ParameterizedItem *inclinationAngle
+        SessionItem *inclinationAngle
             = beamItem->getGroupItem(BeamItem::P_INCLINATION_ANGLE);
         Q_ASSERT(inclinationAngle);
-        ParameterizedItem *inclinationDistribution
+        SessionItem *inclinationDistribution
             = inclinationAngle->getGroupItem(BeamDistributionItem::P_DISTRIBUTION);
         Q_ASSERT(inclinationDistribution);
         if (inclinationDistribution->modelType() == Constants::DistributionNoneType) {
@@ -208,9 +208,9 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentItem(InstrumentItem *inst
             addDisabledProperty(standardItem, BeamItem::P_INCLINATION_ANGLE);
         }
 
-        ParameterizedItem *azimuthalAngle = beamItem->getGroupItem(BeamItem::P_AZIMUTHAL_ANGLE);
+        SessionItem *azimuthalAngle = beamItem->getGroupItem(BeamItem::P_AZIMUTHAL_ANGLE);
         Q_ASSERT(azimuthalAngle);
-        ParameterizedItem *azimuthalDistribution
+        SessionItem *azimuthalDistribution
             = azimuthalAngle->getGroupItem(BeamDistributionItem::P_DISTRIBUTION);
         Q_ASSERT(azimuthalDistribution);
         if (azimuthalDistribution->modelType() == Constants::DistributionNoneType) {
@@ -239,7 +239,7 @@ void ParameterModelBuilder::InsertRowIntoItem(QStandardItem *parentItem,
     parentItem->appendRow(QList<QStandardItem *>() << childTitleItem << childValueItem);
 }
 
-//! adds property of ParameterizedItem to the QStandardItem of ParameterTree
+//! adds property of SessionItem to the QStandardItem of ParameterTree
 //! title - the name of the property as it will be shown by QTreeView
 //! property_name - the name of the property to add (normally coincide with 'title')
 //! value - QVariant representing property_value
@@ -247,7 +247,7 @@ void ParameterModelBuilder::addPropertyToParameterModel(QStandardItem *parentIte
                                                         const QString &title,
                                                         const QString &property_name,
                                                         QVariant value,
-                                                        ParameterizedItem *parameterizedItem)
+                                                        SessionItem *parameterizedItem)
 {
     ItemLink itemLink(property_name, parameterizedItem->parent());
 

@@ -17,9 +17,9 @@
 #define MAGNETICFIELDITEM_H
 
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
-class BA_CORE_API_ MagneticFieldItem : public ParameterizedItem
+class BA_CORE_API_ MagneticFieldItem : public SessionItem
 {
     Q_OBJECT
 public:

@@ -16,7 +16,7 @@
 #ifndef BEAMDISTRIBUTIONITEM_H
 #define BEAMDISTRIBUTIONITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "DistributionItem.h"
 
 #include <memory>
@@ -26,7 +26,7 @@ class IDistribution1D;
 
 //! The BeamDistributionItem handles wavelength, inclination and azimuthal parameter
 //! distribution for BeamItem
-class BA_CORE_API_ BeamDistributionItem : public ParameterizedItem
+class BA_CORE_API_ BeamDistributionItem : public SessionItem
 {
     Q_OBJECT
 public:

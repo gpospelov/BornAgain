@@ -29,7 +29,7 @@ class QMenu;
 class SampleModel;
 class InstrumentModel;
 class FitModel;
-class ParameterizedItem;
+class SessionItem;
 class FitParameterModel;
 class QItemSelection;
 class QSplitter;
@@ -61,7 +61,7 @@ private:
     void buildSelectorModel();
     void connectSelectorView(bool active = true);
     void connectParameterView(bool active = true);
-    void buildTree(QStandardItem *root, ParameterizedItem *top);
+    void buildTree(QStandardItem *root, SessionItem *top);
     void removeEmptyParameter();
 
     FitModel *m_fitModel;

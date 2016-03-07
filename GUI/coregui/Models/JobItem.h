@@ -16,7 +16,7 @@
 #ifndef JOBITEM_H
 #define JOBITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 class IntensityDataItem;
 class SampleModel;
 class InstrumentModel;
@@ -24,7 +24,7 @@ class GISASSimulation;
 class MultiLayerItem;
 class InstrumentItem;
 
-class BA_CORE_API_ JobItem : public ParameterizedItem
+class BA_CORE_API_ JobItem : public SessionItem
 {
     Q_OBJECT
 public:

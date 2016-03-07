@@ -78,7 +78,7 @@ void TestView::test_sessionModel()
     // do some testing here
 //    m_mainWindow->getInstrumentModel()->rootItem()->getChildOfType(Constants::InstrumentType)->mapper()
 //            ->setOnChildPropertyChange(
-//                [](ParameterizedItem* item, const QString &name) {
+//                [](SessionItem* item, const QString &name) {
 //        qDebug() << "Property Changed from " << item->itemName() << " (" << item->modelType() << " )"
 //                 << "with name " << name;
 //    });
@@ -224,9 +224,9 @@ void TestProxyModel::setSourceModel(QAbstractItemModel *source)
 QModelIndex TestProxyModel::index(int row, int column, const QModelIndex &parent) const
 {
     const QModelIndex sourceParent = mapToSource(parent);
-    ParameterizedItem *parentt = m_source->itemForIndex(sourceParent);
+    SessionItem *parentt = m_source->itemForIndex(sourceParent);
     if (parentt->modelType() == Constants::GroupItemType) {
-        ParameterizedItem *cur = parentt->parent()->getGroupItem(parentt->itemName());
+        SessionItem *cur = parentt->parent()->getGroupItem(parentt->itemName());
         const QModelIndex sourceIndex = m_source->index(row, column, cur->index());
         return mapFromSource(sourceIndex);
     }
@@ -237,7 +237,7 @@ QModelIndex TestProxyModel::index(int row, int column, const QModelIndex &parent
 QModelIndex TestProxyModel::parent(const QModelIndex &child) const
 {
     const QModelIndex sourceIndex = mapToSource(child);
-    ParameterizedItem *head = m_source->itemForIndex(sourceIndex.parent());
+    SessionItem *head = m_source->itemForIndex(sourceIndex.parent());
     if (head && head->parent() && head->parent()->modelType() == Constants::GroupItemType) {
         // skip immediate layer
         return mapFromSource(head->parent()->index());
@@ -249,9 +249,9 @@ QModelIndex TestProxyModel::parent(const QModelIndex &child) const
 int TestProxyModel::rowCount(const QModelIndex &parent) const
 {
     QModelIndex sourceParent = mapToSource(parent);
-    ParameterizedItem *item = m_source->itemForIndex(sourceParent);
+    SessionItem *item = m_source->itemForIndex(sourceParent);
     if (item && item->modelType() == Constants::GroupItemType) {
-        ParameterizedItem *cur = item->parent()->getGroupItem(item->itemName());
+        SessionItem *cur = item->parent()->getGroupItem(item->itemName());
         if (cur)
             return m_source->rowCount(cur->index());
         else

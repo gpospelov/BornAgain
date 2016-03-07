@@ -17,7 +17,7 @@
 #include "ComboProperty.h"
 
 FitParameterContainer::FitParameterContainer()
-    : ParameterizedItem(Constants::FitParameterContainerType)
+    : SessionItem(Constants::FitParameterContainerType)
 {
     const QString T_DATA = "Data tag";
     registerTag(T_DATA, 0, -1, QStringList() << Constants::FitParameterType);
@@ -31,7 +31,7 @@ const QString FitParameterItem::P_MIN = "Min";
 const QString FitParameterItem::P_MAX = "Max";
 
 FitParameterItem::FitParameterItem()
-    : ParameterizedItem(Constants::FitParameterType)
+    : SessionItem(Constants::FitParameterType)
 {
     registerProperty(P_USE, true);
     registerProperty(P_INIT, 0.0);
@@ -47,7 +47,7 @@ FitParameterItem::FitParameterItem()
 const QString FitParameterLinkItem::P_LINK = "Link";
 
 FitParameterLinkItem::FitParameterLinkItem()
-    : ParameterizedItem(Constants::FitParameterLinkType)
+    : SessionItem(Constants::FitParameterLinkType)
 {
     registerProperty(P_LINK, "");
 }
@@ -57,7 +57,7 @@ const QString FitSelectionItem::P_SAMPLE = "Sample";
 const QString FitSelectionItem::P_INSTRUMENT = "Instrument";
 
 FitSelectionItem::FitSelectionItem()
-    : ParameterizedItem(Constants::FitSelectionType)
+    : SessionItem(Constants::FitSelectionType)
 {
     registerProperty(P_SAMPLE, "");
     registerProperty(P_INSTRUMENT, "");
@@ -66,7 +66,7 @@ FitSelectionItem::FitSelectionItem()
 const QString MinimizerSettingsItem::P_ALGO = "Algorithm";
 
 MinimizerSettingsItem::MinimizerSettingsItem()
-    : ParameterizedItem(Constants::MinimizerSettingsType)
+    : SessionItem(Constants::MinimizerSettingsType)
 {
     ComboProperty algo;
     algo << "Migrad" << "Simplex" << "Combined" << "Scan" << "Fumili";
@@ -76,7 +76,7 @@ MinimizerSettingsItem::MinimizerSettingsItem()
 const QString InputDataItem::P_PATH = "Path";
 
 InputDataItem::InputDataItem()
-    : ParameterizedItem(Constants::InputDataType)
+    : SessionItem(Constants::InputDataType)
 {
     registerProperty(P_PATH, "");
 }

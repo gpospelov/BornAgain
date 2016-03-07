@@ -55,7 +55,7 @@
 
 using namespace BornAgain;
 
-std::unique_ptr<IMaterial> TransformToDomain::createDomainMaterial(const ParameterizedItem &item)
+std::unique_ptr<IMaterial> TransformToDomain::createDomainMaterial(const SessionItem &item)
 {
     MaterialProperty material_property;
     if (item.modelType() == Constants::ParticleType) {
@@ -72,7 +72,7 @@ std::unique_ptr<IMaterial> TransformToDomain::createDomainMaterial(const Paramet
     return MaterialUtils::createDomainMaterial(material_property);
 }
 
-std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const ParameterizedItem &item)
+std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionItem &item)
 {
     auto P_multilayer = GUIHelpers::make_unique<MultiLayer>();
     auto cross_corr_length
@@ -82,7 +82,7 @@ std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const Parameteri
     return P_multilayer;
 }
 
-std::unique_ptr<Layer> TransformToDomain::createLayer(const ParameterizedItem &item)
+std::unique_ptr<Layer> TransformToDomain::createLayer(const SessionItem &item)
 {
     auto P_layer = GUIHelpers::make_unique<Layer>();
     auto thickness = item.getRegisteredProperty(LayerItem::P_THICKNESS).toDouble();
@@ -93,7 +93,7 @@ std::unique_ptr<Layer> TransformToDomain::createLayer(const ParameterizedItem &i
 }
 
 std::unique_ptr<LayerRoughness>
-TransformToDomain::createLayerRoughness(const ParameterizedItem &roughnessItem)
+TransformToDomain::createLayerRoughness(const SessionItem &roughnessItem)
 {
     if (roughnessItem.modelType() == Constants::LayerZeroRoughnessType) {
         return nullptr;
@@ -109,7 +109,7 @@ TransformToDomain::createLayerRoughness(const ParameterizedItem &roughnessItem)
 }
 
 std::unique_ptr<ParticleLayout>
-TransformToDomain::createParticleLayout(const ParameterizedItem &item)
+TransformToDomain::createParticleLayout(const SessionItem &item)
 {
     auto P_layout = GUIHelpers::make_unique<ParticleLayout>();
     auto prop = item.getRegisteredProperty(ParticleLayoutItem::P_APPROX).value<ComboProperty>();
@@ -125,7 +125,7 @@ TransformToDomain::createParticleLayout(const ParameterizedItem &item)
     return P_layout;
 }
 
-std::unique_ptr<IParticle> TransformToDomain::createIParticle(const ParameterizedItem &item)
+std::unique_ptr<IParticle> TransformToDomain::createIParticle(const SessionItem &item)
 {
     std::unique_ptr<IParticle> P_particle;
     if (item.modelType() == Constants::ParticleType) {
@@ -142,7 +142,7 @@ std::unique_ptr<IParticle> TransformToDomain::createIParticle(const Parameterize
 }
 
 std::unique_ptr<ParticleDistribution> TransformToDomain::createParticleDistribution(
-        const ParameterizedItem &item)
+        const SessionItem &item)
 {
     auto& particle_distribution = static_cast<const ParticleDistributionItem&>(item);
     auto P_part_distr = particle_distribution.createParticleDistribution();
@@ -150,7 +150,7 @@ std::unique_ptr<ParticleDistribution> TransformToDomain::createParticleDistribut
 }
 
 std::unique_ptr<IDistribution1D>
-TransformToDomain::createDistribution(const ParameterizedItem &item)
+TransformToDomain::createDistribution(const SessionItem &item)
 {
     auto distr_item = dynamic_cast<const DistributionItem *>(&item);
     Q_ASSERT(distr_item);
@@ -158,7 +158,7 @@ TransformToDomain::createDistribution(const ParameterizedItem &item)
 }
 
 std::unique_ptr<IInterferenceFunction>
-TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
+TransformToDomain::createInterferenceFunction(const SessionItem &item)
 {
     std::unique_ptr<IInterferenceFunction> P_result{};
     if (item.modelType() == Constants::InterferenceFunctionRadialParaCrystalType) {
@@ -297,13 +297,13 @@ TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
     return P_result;
 }
 
-std::unique_ptr<Instrument> TransformToDomain::createInstrument(const ParameterizedItem &item)
+std::unique_ptr<Instrument> TransformToDomain::createInstrument(const SessionItem &item)
 {
     Q_UNUSED(item);
     return GUIHelpers::make_unique<Instrument>();
 }
 
-std::unique_ptr<Beam> TransformToDomain::createBeam(const ParameterizedItem &item)
+std::unique_ptr<Beam> TransformToDomain::createBeam(const SessionItem &item)
 {
     auto P_beam = GUIHelpers::make_unique<Beam>();
 
@@ -317,7 +317,7 @@ std::unique_ptr<Beam> TransformToDomain::createBeam(const ParameterizedItem &ite
     return P_beam;
 }
 
-void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &item,
+void TransformToDomain::initInstrumentFromDetectorItem(const SessionItem &item,
                                                        Instrument *instrument)
 {
     auto subDetector = item.getGroupItem(DetectorItem::P_DETECTOR);
@@ -345,7 +345,7 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
 }
 
 //! adds DistributionParameters to the Simulation
-void TransformToDomain::addDistributionParametersToSimulation(const ParameterizedItem &beam_item,
+void TransformToDomain::addDistributionParametersToSimulation(const SessionItem &beam_item,
                                                               GISASSimulation *simulation)
 {
     ParameterPattern pattern_wavelength;
@@ -379,7 +379,7 @@ void TransformToDomain::addDistributionParametersToSimulation(const Parameterize
     }
 }
 
-void TransformToDomain::addMasksToSimulation(const ParameterizedItem &detector_item,
+void TransformToDomain::addMasksToSimulation(const SessionItem &detector_item,
                                              GISASSimulation *simulation)
 {
     Q_ASSERT(detector_item.modelType() == Constants::DetectorType);
@@ -417,24 +417,24 @@ void TransformToDomain::addMasksToSimulation(const ParameterizedItem &detector_i
 //}
 
 
-void TransformToDomain::setTransformationInfo(IParticle *result, const ParameterizedItem &item)
+void TransformToDomain::setTransformationInfo(IParticle *result, const SessionItem &item)
 {
     setPositionInfo(result, item);
     setRotationInfo(result, item);
 }
 
-void TransformToDomain::setPositionInfo(IParticle *result, const ParameterizedItem &item)
+void TransformToDomain::setPositionInfo(IParticle *result, const SessionItem &item)
 {
-    ParameterizedItem *pos_item = item.getGroupItem(ParticleItem::P_POSITION);
+    SessionItem *pos_item = item.getGroupItem(ParticleItem::P_POSITION);
     double pos_x = pos_item->getRegisteredProperty(VectorItem::P_X).toDouble();
     double pos_y = pos_item->getRegisteredProperty(VectorItem::P_Y).toDouble();
     double pos_z = pos_item->getRegisteredProperty(VectorItem::P_Z).toDouble();
     result->setPosition(pos_x, pos_y, pos_z);
 }
 
-void TransformToDomain::setRotationInfo(IParticle *result, const ParameterizedItem &item)
+void TransformToDomain::setRotationInfo(IParticle *result, const SessionItem &item)
 {
-    QVector<ParameterizedItem *> children = item.childItems();
+    QVector<SessionItem *> children = item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::TransformationType) {
             RotationItem *rot_item = dynamic_cast<RotationItem *>(

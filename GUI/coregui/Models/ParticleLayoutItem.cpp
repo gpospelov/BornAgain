@@ -24,7 +24,7 @@ const QString ParticleLayoutItem::T_PARTICLES = "Particle Tag";
 const QString ParticleLayoutItem::T_INTERFERENCE = "Interference Tag";
 
 ParticleLayoutItem::ParticleLayoutItem()
-    : ParameterizedGraphicsItem(Constants::ParticleLayoutType)
+    : SessionGraphicsItem(Constants::ParticleLayoutType)
 {
     ComboProperty approx;
     approx << "Decoupling Approximation" << "Size Space Coupling Approximation";
@@ -40,7 +40,7 @@ ParticleLayoutItem::ParticleLayoutItem()
 
     // FIXME: not updated when child get removed
     mapper()->setOnChildPropertyChange(
-                [this](ParameterizedItem *, const QString &)
+                [this](SessionItem *, const QString &)
     {
         for (auto child_item : childItems()) {
             if (child_item->modelType() == Constants::InterferenceFunction2DParaCrystalType

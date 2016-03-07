@@ -29,7 +29,7 @@ class FitProgressWidget;
 class FitModel;
 class SampleModel;
 class InstrumentModel;
-class ParameterizedItem;
+class SessionItem;
 class SessionModel;
 
 class BA_CORE_API_ RunFitWidget : public QWidget
@@ -65,7 +65,7 @@ private:
     FitProgressWidget *m_fitprogress;
     FitModel *m_fitModel;
 
-    ParameterizedItem *getTopItemFromSelection(SessionModel *model, const QString &itemType, const QString &selectionType);
+    SessionItem *getTopItemFromSelection(SessionModel *model, const QString &itemType, const QString &selectionType);
 };
 
 #endif

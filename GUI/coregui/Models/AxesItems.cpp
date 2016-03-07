@@ -22,7 +22,7 @@ const QString BasicAxisItem::P_MAX = "Max";
 const QString BasicAxisItem::P_TITLE = "title";
 
 BasicAxisItem::BasicAxisItem(const QString &type)
-    : ParameterizedItem(type)
+    : SessionItem(type)
 {
     register_basic_properties();
 }

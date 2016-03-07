@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "TransformFromDomain.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "InterferenceFunctions.h"
 #include "InterferenceFunctionItems.h"
 #include "FTDistributions.h"
@@ -70,17 +70,17 @@
 
 using namespace BornAgain;
 
-void SetPDF1D(ParameterizedItem *item, const IFTDistribution1D *pdf, QString group_name);
-void setPDF2D(ParameterizedItem *item, const IFTDistribution2D *pdf, QString group_name);
-void SetDecayFunction1D(ParameterizedItem *item, const IFTDecayFunction1D *pdf, QString group_name);
-void SetDecayFunction2D(ParameterizedItem *item, const IFTDecayFunction2D *pdf, QString group_name);
+void SetPDF1D(SessionItem *item, const IFTDistribution1D *pdf, QString group_name);
+void setPDF2D(SessionItem *item, const IFTDistribution2D *pdf, QString group_name);
+void SetDecayFunction1D(SessionItem *item, const IFTDecayFunction1D *pdf, QString group_name);
+void SetDecayFunction2D(SessionItem *item, const IFTDecayFunction2D *pdf, QString group_name);
 
-void set2DLatticeParameters(ParameterizedItem *item, Lattice2DParameters lattice_params,
-                            ParameterizedItem *lattice_item);
-void setDistribution(ParameterizedItem *item, ParameterDistribution par_distr,
+void set2DLatticeParameters(SessionItem *item, Lattice2DParameters lattice_params,
+                            SessionItem *lattice_item);
+void setDistribution(SessionItem *item, ParameterDistribution par_distr,
                      QString group_name, double factor = 1.0);
 
-void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
+void TransformFromDomain::setItemFromSample(SessionItem *item,
                                             const InterferenceFunctionRadialParaCrystal *sample)
 {
     item->setRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE,
@@ -98,10 +98,10 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     SetPDF1D(item, ipdf, group_name);
 }
 
-void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
+void TransformFromDomain::setItemFromSample(SessionItem *item,
                                             const InterferenceFunction2DParaCrystal *sample)
 {
-    ParameterizedItem *lattice_item(0);
+    SessionItem *lattice_item(0);
     Lattice2DParameters lattice_params = sample->getLatticeParameters();
     set2DLatticeParameters(item, lattice_params, lattice_item);
 
@@ -124,7 +124,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
 }
 
-void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
+void TransformFromDomain::setItemFromSample(SessionItem *item,
                                             const InterferenceFunction1DLattice *sample)
 {
     Lattice1DParameters lattice_params = sample->getLatticeParameters();
@@ -139,10 +139,10 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     SetDecayFunction1D(item, pdf, group_name);
 }
 
-void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
+void TransformFromDomain::setItemFromSample(SessionItem *item,
                                             const InterferenceFunction2DLattice *sample)
 {
-    ParameterizedItem *lattice_item(0);
+    SessionItem *lattice_item(0);
     Lattice2DParameters lattice_params = sample->getLatticeParameters();
     set2DLatticeParameters(item, lattice_params, lattice_item);
 
@@ -152,7 +152,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     SetDecayFunction2D(item, p_pdf, group_name);
 }
 
-void TransformFromDomain::setItemFromSample(ParameterizedItem *layerItem, const Layer *layer,
+void TransformFromDomain::setItemFromSample(SessionItem *layerItem, const Layer *layer,
                                             const LayerInterface *top_interface)
 {
     layerItem->setRegisteredProperty(LayerItem::P_THICKNESS, layer->getThickness());
@@ -161,14 +161,14 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *layerItem, const 
     if (top_interface) {
         const LayerRoughness *roughness = top_interface->getRoughness();
         if (TransformFromDomain::isValidRoughness(roughness)) {
-            ParameterizedItem *roughnessItem = layerItem->setGroupProperty(
+            SessionItem *roughnessItem = layerItem->setGroupProperty(
                 LayerItem::P_ROUGHNESS, Constants::LayerBasicRoughnessType);
             TransformFromDomain::setItemFromSample(roughnessItem, roughness);
         }
     }
 }
 
-void TransformFromDomain::setItemFromSample(ParameterizedItem *item, const LayerRoughness *sample)
+void TransformFromDomain::setItemFromSample(SessionItem *item, const LayerRoughness *sample)
 {
     item->setRegisteredProperty(LayerBasicRoughnessItem::P_SIGMA, sample->getSigma());
     item->setRegisteredProperty(LayerBasicRoughnessItem::P_HURST, sample->getHurstParameter());
@@ -177,7 +177,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item, const Layer
 }
 
 //! Initialization of ParticleDistributionItem
-void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
+void TransformFromDomain::setItemFromSample(SessionItem *item,
                                             const ParticleDistribution *sample)
 {
     item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, sample->getAbundance());
@@ -320,7 +320,7 @@ void TransformFromDomain::setItemFromSample(SphericalDetectorItem *detectorItem,
             if (const ResolutionFunction2DGaussian *resfunc
                 = dynamic_cast<const ResolutionFunction2DGaussian *>(
                     p_convfunc->getResolutionFunction2D())) {
-                ParameterizedItem *item
+                SessionItem *item
                     = detectorItem->setGroupProperty(SphericalDetectorItem::P_RESOLUTION_FUNCTION,
                                                      Constants::ResolutionFunction2DGaussianType);
                 item->setRegisteredProperty(ResolutionFunction2DGaussianItem::P_SIGMA_X,
@@ -428,7 +428,7 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem *detectorIte
             if (const ResolutionFunction2DGaussian *resfunc
                 = dynamic_cast<const ResolutionFunction2DGaussian *>(
                     p_convfunc->getResolutionFunction2D())) {
-                ParameterizedItem *item
+                SessionItem *item
                     = detectorItem->setGroupProperty(RectangularDetectorItem::P_RESOLUTION_FUNCTION,
                                                      Constants::ResolutionFunction2DGaussianType);
                 item->setRegisteredProperty(ResolutionFunction2DGaussianItem::P_SIGMA_X,
@@ -547,7 +547,7 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem *beamDistributi
     setDistribution(beamDistributionItem, parameterDistribution, group_name, unit_factor);
 }
 
-QString TransformFromDomain::translateParameterNameToGUI(ParameterizedItem *item,
+QString TransformFromDomain::translateParameterNameToGUI(SessionItem *item,
                                                          const QString &par_name)
 {
     auto gui_par_list = ModelPath::getParameterTreeList(item);
@@ -560,35 +560,35 @@ QString TransformFromDomain::translateParameterNameToGUI(ParameterizedItem *item
     return QString();
 }
 
-void SetPDF1D(ParameterizedItem *item, const IFTDistribution1D *ipdf, QString group_name)
+void SetPDF1D(SessionItem *item, const IFTDistribution1D *ipdf, QString group_name)
 {
     if (const FTDistribution1DCauchy *pdf = dynamic_cast<const FTDistribution1DCauchy *>(ipdf)) {
-        ParameterizedItem *pdfItem
+        SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DCauchyType);
         pdfItem->setRegisteredProperty(FTDistribution1DCauchyItem::P_CORR_LENGTH, pdf->getOmega());
     } else if (const FTDistribution1DGauss *pdf
                = dynamic_cast<const FTDistribution1DGauss *>(ipdf)) {
-        ParameterizedItem *pdfItem
+        SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DGaussType);
         pdfItem->setRegisteredProperty(FTDistribution1DGaussItem::P_CORR_LENGTH, pdf->getOmega());
     } else if (const FTDistribution1DGate *pdf = dynamic_cast<const FTDistribution1DGate *>(ipdf)) {
-        ParameterizedItem *pdfItem
+        SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DGateType);
         pdfItem->setRegisteredProperty(FTDistribution1DGateItem::P_CORR_LENGTH, pdf->getOmega());
     } else if (const FTDistribution1DTriangle *pdf
                = dynamic_cast<const FTDistribution1DTriangle *>(ipdf)) {
-        ParameterizedItem *pdfItem
+        SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DTriangleType);
         pdfItem->setRegisteredProperty(FTDistribution1DTriangleItem::P_CORR_LENGTH,
                                        pdf->getOmega());
     } else if (const FTDistribution1DCosine *pdf
                = dynamic_cast<const FTDistribution1DCosine *>(ipdf)) {
-        ParameterizedItem *pdfItem
+        SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DCosineType);
         pdfItem->setRegisteredProperty(FTDistribution1DCosineItem::P_CORR_LENGTH, pdf->getOmega());
     } else if (const FTDistribution1DVoigt *pdf
                = dynamic_cast<const FTDistribution1DVoigt *>(ipdf)) {
-        ParameterizedItem *pdfItem
+        SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DVoigtType);
         pdfItem->setRegisteredProperty(FTDistribution1DVoigtItem::P_CORR_LENGTH, pdf->getOmega());
         pdfItem->setRegisteredProperty(FTDistribution1DVoigtItem::P_ETA, pdf->getEta());
@@ -597,11 +597,11 @@ void SetPDF1D(ParameterizedItem *item, const IFTDistribution1D *ipdf, QString gr
     }
 }
 
-void setPDF2D(ParameterizedItem *item, const IFTDistribution2D *pdf, QString group_name)
+void setPDF2D(SessionItem *item, const IFTDistribution2D *pdf, QString group_name)
 {
     if (const FTDistribution2DCauchy *pdf_cauchy
         = dynamic_cast<const FTDistribution2DCauchy *>(pdf)) {
-        ParameterizedItem *pdfItem
+        SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DCauchyType);
         pdfItem->setRegisteredProperty(FTDistribution2DCauchyItem::P_CORR_LENGTH_X,
                                        pdf_cauchy->getCoherenceLengthX());
@@ -611,7 +611,7 @@ void setPDF2D(ParameterizedItem *item, const IFTDistribution2D *pdf, QString gro
                                        Units::rad2deg(pdf_cauchy->getGamma()));
     } else if (const FTDistribution2DGauss *pdf_gauss
                = dynamic_cast<const FTDistribution2DGauss *>(pdf)) {
-        ParameterizedItem *pdfItem
+        SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DGaussType);
         pdfItem->setRegisteredProperty(FTDistribution2DGaussItem::P_CORR_LENGTH_X,
                                        pdf_gauss->getCoherenceLengthX());
@@ -621,7 +621,7 @@ void setPDF2D(ParameterizedItem *item, const IFTDistribution2D *pdf, QString gro
                                        Units::rad2deg(pdf_gauss->getGamma()));
     } else if (const FTDistribution2DGate *pdf_gate
                = dynamic_cast<const FTDistribution2DGate *>(pdf)) {
-        ParameterizedItem *pdfItem
+        SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DGateType);
         pdfItem->setRegisteredProperty(FTDistribution2DGateItem::P_CORR_LENGTH_X,
                                        pdf_gate->getCoherenceLengthX());
@@ -631,7 +631,7 @@ void setPDF2D(ParameterizedItem *item, const IFTDistribution2D *pdf, QString gro
                                        Units::rad2deg(pdf_gate->getGamma()));
     } else if (const FTDistribution2DCone *pdf_cone
                = dynamic_cast<const FTDistribution2DCone *>(pdf)) {
-        ParameterizedItem *pdfItem
+        SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DConeType);
         pdfItem->setRegisteredProperty(FTDistribution2DConeItem::P_CORR_LENGTH_X,
                                        pdf_cone->getCoherenceLengthX());
@@ -641,7 +641,7 @@ void setPDF2D(ParameterizedItem *item, const IFTDistribution2D *pdf, QString gro
                                        Units::rad2deg(pdf_cone->getGamma()));
     } else if (const FTDistribution2DVoigt *pdf_voigt
                = dynamic_cast<const FTDistribution2DVoigt *>(pdf)) {
-        ParameterizedItem *pdfItem
+        SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DVoigtType);
         pdfItem->setRegisteredProperty(FTDistribution2DVoigtItem::P_CORR_LENGTH_X,
                                        pdf_voigt->getCoherenceLengthX());
@@ -655,26 +655,26 @@ void setPDF2D(ParameterizedItem *item, const IFTDistribution2D *pdf, QString gro
     }
 }
 
-void SetDecayFunction1D(ParameterizedItem *item, const IFTDecayFunction1D *ipdf, QString group_name)
+void SetDecayFunction1D(SessionItem *item, const IFTDecayFunction1D *ipdf, QString group_name)
 {
     if (const FTDecayFunction1DCauchy *pdf = dynamic_cast<const FTDecayFunction1DCauchy *>(ipdf)) {
-        ParameterizedItem *pdfItem
+        SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction1DCauchyType);
         pdfItem->setRegisteredProperty(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
     } else if (const FTDecayFunction1DGauss *pdf
                = dynamic_cast<const FTDecayFunction1DGauss *>(ipdf)) {
-        ParameterizedItem *pdfItem
+        SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction1DGaussType);
         pdfItem->setRegisteredProperty(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
     } else if (const FTDecayFunction1DTriangle *pdf
                = dynamic_cast<const FTDecayFunction1DTriangle *>(ipdf)) {
-        ParameterizedItem *pdfItem
+        SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction1DTriangleType);
         pdfItem->setRegisteredProperty(FTDecayFunction1DItem::P_DECAY_LENGTH,
                                        pdf->getOmega());
     } else if (const FTDecayFunction1DVoigt *pdf
                = dynamic_cast<const FTDecayFunction1DVoigt *>(ipdf)) {
-        ParameterizedItem *pdfItem
+        SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction1DVoigtType);
         pdfItem->setRegisteredProperty(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
         pdfItem->setRegisteredProperty(FTDecayFunction1DVoigtItem::P_ETA, pdf->getEta());
@@ -683,11 +683,11 @@ void SetDecayFunction1D(ParameterizedItem *item, const IFTDecayFunction1D *ipdf,
     }
 }
 
-void SetDecayFunction2D(ParameterizedItem *item, const IFTDecayFunction2D *pdf, QString group_name)
+void SetDecayFunction2D(SessionItem *item, const IFTDecayFunction2D *pdf, QString group_name)
 {
     if (const FTDecayFunction2DCauchy *pdf_cauchy
         = dynamic_cast<const FTDecayFunction2DCauchy *>(pdf)) {
-        ParameterizedItem *pdfItem
+        SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction2DCauchyType);
         pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_DECAY_LENGTH_X,
                                        pdf_cauchy->getDecayLengthX());
@@ -697,7 +697,7 @@ void SetDecayFunction2D(ParameterizedItem *item, const IFTDecayFunction2D *pdf, 
                                        Units::rad2deg(pdf_cauchy->getGamma()));
     } else if (const FTDecayFunction2DGauss *pdf_gauss
                = dynamic_cast<const FTDecayFunction2DGauss *>(pdf)) {
-        ParameterizedItem *pdfItem
+        SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction2DGaussType);
         pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_DECAY_LENGTH_X,
                                        pdf_gauss->getDecayLengthX());
@@ -707,7 +707,7 @@ void SetDecayFunction2D(ParameterizedItem *item, const IFTDecayFunction2D *pdf, 
                                        Units::rad2deg(pdf_gauss->getGamma()));
     } else if (const FTDecayFunction2DVoigt *pdf_voigt
                = dynamic_cast<const FTDecayFunction2DVoigt *>(pdf)) {
-        ParameterizedItem *pdfItem
+        SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction2DVoigtType);
         pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_DECAY_LENGTH_X,
                                        pdf_voigt->getDecayLengthX());
@@ -721,8 +721,8 @@ void SetDecayFunction2D(ParameterizedItem *item, const IFTDecayFunction2D *pdf, 
     }
 }
 
-void set2DLatticeParameters(ParameterizedItem *item, Lattice2DParameters lattice_params,
-                            ParameterizedItem *lattice_item)
+void set2DLatticeParameters(SessionItem *item, Lattice2DParameters lattice_params,
+                            SessionItem *lattice_item)
 {
     if (TransformFromDomain::isSquareLattice(lattice_params.m_length_1, lattice_params.m_length_2,
                                              lattice_params.m_angle)) {
@@ -750,11 +750,11 @@ void set2DLatticeParameters(ParameterizedItem *item, Lattice2DParameters lattice
                                 Units::rad2deg(lattice_params.m_xi));
 }
 
-void setDistribution(ParameterizedItem *item, ParameterDistribution par_distr,
+void setDistribution(SessionItem *item, ParameterDistribution par_distr,
                      QString group_name, double factor)
 {
     const IDistribution1D *p_distribution = par_distr.getDistribution();
-    ParameterizedItem *pdfItem = 0;
+    SessionItem *pdfItem = 0;
     if (const DistributionGate *distr = dynamic_cast<const DistributionGate *>(p_distribution)) {
         pdfItem = item->setGroupProperty(group_name, Constants::DistributionGateType);
         pdfItem->setRegisteredProperty(DistributionGateItem::P_MIN, factor*distr->getMin());

@@ -16,7 +16,7 @@
 #include "UniversalPropertyEditor.h"
 #include "PropertyVariantManager.h"
 #include "PropertyVariantFactory.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "tooltipdatabase.h"
 #include "GUIHelpers.h"
 #include "qttreepropertybrowser.h"
@@ -101,7 +101,7 @@ void UniversalPropertyEditor::selectionChanged(const QItemSelection & selected,
     (void)deselected;
     QModelIndexList indices = selected.indexes();
     if(indices.size()) {
-        ParameterizedItem *item = static_cast<ParameterizedItem *>(
+        SessionItem *item = static_cast<SessionItem *>(
                 indices.back().internalPointer());
         setItem(item);
     } else {
@@ -208,7 +208,7 @@ void UniversalPropertyEditor::onPropertyChanged(const QString &property_name)
 void UniversalPropertyEditor::onSubItemPropertyChanged(const QString &property_group, const QString &property_name)
 {
     qDebug() << "UniversalPropertyEditor::onSubItemPropertyChanged" << property_group << property_name;
-    ParameterizedItem *subItem = m_item->getGroupItem(property_group);
+    SessionItem *subItem = m_item->getGroupItem(property_group);
     if(subItem){
         QtVariantProperty *variant_property = m_item_to_propertyname_to_qtvariantproperty[subItem][property_name];
         if(variant_property) {
@@ -243,9 +243,9 @@ void UniversalPropertyEditor::onSubItemPropertyChanged(const QString &property_g
 }
 
 // assigns item to the property editor
-void UniversalPropertyEditor::setItem(ParameterizedItem *item)
+void UniversalPropertyEditor::setItem(SessionItem *item)
 {
-    qDebug() << "UniversalPropertyEditor::setItem(ParameterizedItem *item)" << item;
+    qDebug() << "UniversalPropertyEditor::setItem(SessionItem *item)" << item;
 
     if (m_item == item) return;
 
@@ -281,7 +281,7 @@ void UniversalPropertyEditor::setCreateGroupProperty(bool create_group_property)
 }
 
 
-void UniversalPropertyEditor::addItemProperties(const ParameterizedItem *item)
+void UniversalPropertyEditor::addItemProperties(const SessionItem *item)
 {
     QString item_type = item->modelType();
 
@@ -298,12 +298,12 @@ void UniversalPropertyEditor::addItemProperties(const ParameterizedItem *item)
 
 
 void UniversalPropertyEditor::addSubProperties(QtProperty *item_property,
-                                            const ParameterizedItem *item)
+                                            const SessionItem *item)
 {
     QList<QByteArray> property_names = item->dynamicPropertyNames();
     for (int i = 0; i < property_names.length(); ++i) {
         QString prop_name = QString(property_names[i]);
-        const PropertyAttribute &prop_attribute = PropertyAttribute::fromItem(const_cast<ParameterizedItem*>(item));
+        const PropertyAttribute &prop_attribute = PropertyAttribute::fromItem(const_cast<SessionItem*>(item));
 
         if(prop_attribute.isHidden()) continue;
 
@@ -344,7 +344,7 @@ void UniversalPropertyEditor::addSubProperties(QtProperty *item_property,
             }
 
             if (item->isGroupProperty(prop_name)) {
-                ParameterizedItem *subitem = item->getGroupItem(prop_name);
+                SessionItem *subitem = item->getGroupItem(prop_name);
                 if (subitem) {
                     addSubProperties(subProperty, subitem);
                 }
@@ -365,8 +365,8 @@ void UniversalPropertyEditor::addSubProperties(QtProperty *item_property,
             m_browser->addProperty(subProperty);
         }
 
-        ParameterizedItem *non_const_item =
-                const_cast<ParameterizedItem *>(item);
+        SessionItem *non_const_item =
+                const_cast<SessionItem *>(item);
         ItemIndexPair item_index_pair(non_const_item, i);
         m_property_to_item_index_pair[subProperty] = item_index_pair;
         m_item_to_index_to_property[item][i] = subProperty;

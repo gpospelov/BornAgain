@@ -29,7 +29,7 @@ class JobItem;
 class InstrumentItem;
 class QStandardItem;
 class QStandardItemModel;
-class ParameterizedItem;
+class SessionItem;
 
 //! The ParameterModelBuilder generates QStandardItemModel representing
 //! tunable parameters of instrument and sample models.
@@ -47,7 +47,7 @@ private:
     static QStandardItem *iterateInstrumentItem(InstrumentItem *instrument);
 
     static void InsertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem = 0);
-    static void addPropertyToParameterModel(QStandardItem *parentItem, const QString &title, const QString &property_name, QVariant value, ParameterizedItem *parameterizedItem);
+    static void addPropertyToParameterModel(QStandardItem *parentItem, const QString &title, const QString &property_name, QVariant value, SessionItem *parameterizedItem);
     static void addDisabledProperty(QStandardItem *parentItem, const QString &title);
 };
 

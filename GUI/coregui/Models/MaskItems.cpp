@@ -24,7 +24,7 @@
 
 
 MaskContainerItem::MaskContainerItem()
-    : ParameterizedItem(Constants::MaskContainerType)
+    : SessionItem(Constants::MaskContainerType)
 {
     const QString T_MASKS = "Mask Tag";
     registerTag(T_MASKS, 0, -1, QStringList() << Constants::RectangleMaskType << Constants::PolygonMaskType
@@ -38,7 +38,7 @@ MaskContainerItem::MaskContainerItem()
 const QString MaskItem::P_MASK_VALUE = "Mask value";
 
 MaskItem::MaskItem(const QString &name)
-    : ParameterizedItem(name)
+    : SessionItem(name)
 {
     registerProperty(P_MASK_VALUE, true);
 }
@@ -80,7 +80,7 @@ const QString PolygonPointItem::P_POSX = "X position";
 const QString PolygonPointItem::P_POSY = "Y position";
 
 PolygonPointItem::PolygonPointItem()
-    : ParameterizedItem(Constants::PolygonPointType)
+    : SessionItem(Constants::PolygonPointType)
 {
     setItemName(Constants::PolygonPointType);
     registerProperty(P_POSX, 0.0)->setLimits(AttLimits::limitless());
@@ -104,7 +104,7 @@ PolygonItem::PolygonItem()
 std::unique_ptr<Geometry::IShape2D> PolygonItem::createShape(double scale) const
 {
     std::vector<double> x,y;
-    foreach(ParameterizedItem *item, this->getChildrenOfType(Constants::PolygonPointType)) {
+    foreach(SessionItem *item, this->getChildrenOfType(Constants::PolygonPointType)) {
         x.push_back(scale*item->getRegisteredProperty(PolygonPointItem::P_POSX).toDouble());
         y.push_back(scale*item->getRegisteredProperty(PolygonPointItem::P_POSY).toDouble());
     }

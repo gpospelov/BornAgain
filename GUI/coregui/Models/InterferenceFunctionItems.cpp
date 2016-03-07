@@ -55,7 +55,7 @@ const QString InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION = "Decay Funct
 
 InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystalItem(
         )
-    : ParameterizedGraphicsItem(Constants::InterferenceFunctionRadialParaCrystalType)
+    : SessionGraphicsItem(Constants::InterferenceFunctionRadialParaCrystalType)
 {
     registerProperty(P_PEAK_DISTANCE, 20.0*Units::nanometer);
     registerProperty(P_DAMPING_LENGTH, 1000.0*Units::micrometer);
@@ -66,7 +66,7 @@ InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystal
 
 InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
         )
-    : ParameterizedGraphicsItem(Constants::InterferenceFunction2DParaCrystalType)
+    : SessionGraphicsItem(Constants::InterferenceFunction2DParaCrystalType)
 {
     registerGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
                           Constants::LatticeGroup);
@@ -92,7 +92,7 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
 }
 
 InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
-    : ParameterizedGraphicsItem(Constants::InterferenceFunction1DLatticeType)
+    : SessionGraphicsItem(Constants::InterferenceFunction1DLatticeType)
 {
     registerProperty(P_LENGTH, 20.0*Units::nanometer);
     registerProperty(P_ROTATION_ANGLE, 0.0);
@@ -101,7 +101,7 @@ InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
 
 InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem(
         )
-    : ParameterizedGraphicsItem(Constants::InterferenceFunction2DLatticeType)
+    : SessionGraphicsItem(Constants::InterferenceFunction2DLatticeType)
 {
     registerGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup);
     registerProperty(P_ROTATION_ANGLE, 0.0);

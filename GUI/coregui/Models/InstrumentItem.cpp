@@ -18,7 +18,7 @@
 #include "BeamItem.h"
 
 InstrumentItem::InstrumentItem()
-    : ParameterizedItem(Constants::InstrumentType)
+    : SessionItem(Constants::InstrumentType)
 {
     setItemName(Constants::InstrumentType);
     const QString T_DATA = "Data tag";
@@ -28,7 +28,7 @@ InstrumentItem::InstrumentItem()
 
 BeamItem *InstrumentItem::getBeamItem()
 {
-    for(ParameterizedItem *item : childItems()) {
+    for(SessionItem *item : childItems()) {
         if(item->modelType() == Constants::BeamType) {
             return dynamic_cast<BeamItem *>(item);
         }
@@ -38,7 +38,7 @@ BeamItem *InstrumentItem::getBeamItem()
 
 DetectorItem *InstrumentItem::getDetectorItem()
 {
-    for(ParameterizedItem *item : childItems()) {
+    for(SessionItem *item : childItems()) {
         if(item->modelType() == Constants::DetectorType) {
             return dynamic_cast<DetectorItem *>(item);
         }

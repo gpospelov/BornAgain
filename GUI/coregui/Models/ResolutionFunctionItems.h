@@ -16,11 +16,11 @@
 #ifndef RESOLUTIONFUNCTIONITEMS_H
 #define RESOLUTIONFUNCTIONITEMS_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "ResolutionFunction2DGaussian.h"
 
 
-class BA_CORE_API_ ResolutionFunctionItem : public ParameterizedItem
+class BA_CORE_API_ ResolutionFunctionItem : public SessionItem
 {
     Q_OBJECT
 public:

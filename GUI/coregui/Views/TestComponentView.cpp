@@ -70,7 +70,7 @@ void TestComponentView::onSelectionChanged(const QItemSelection &selected, const
 //        m_editor2->setItem(0);
 //        m_editor3->setItem(0);
     } else {
-        if(ParameterizedItem *item = m_model->itemForIndex(indices.at(0))) {
+        if(SessionItem *item = m_model->itemForIndex(indices.at(0))) {
 //            m_editor2->setItem(item);
 //            m_editor2->addItem(item);
 //            m_editor3->setItem(item);

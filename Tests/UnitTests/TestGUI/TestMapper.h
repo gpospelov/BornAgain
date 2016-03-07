@@ -1,7 +1,7 @@
 #ifndef TESTMAPPER_H
 #define TESTMAPPER_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
 #include "item_constants.h"
@@ -28,17 +28,17 @@ private slots:
 inline void TestMapper::test_ParticeleCompositionUpdate()
 {
     SampleModel model;
-    ParameterizedItem *multilayer = model.insertNewItem(Constants::MultiLayerType);
-    ParameterizedItem *layer = model.insertNewItem(Constants::LayerType, multilayer->index());
-    ParameterizedItem *layout = model.insertNewItem(Constants::ParticleLayoutType, layer->index());
+    SessionItem *multilayer = model.insertNewItem(Constants::MultiLayerType);
+    SessionItem *layer = model.insertNewItem(Constants::LayerType, multilayer->index());
+    SessionItem *layout = model.insertNewItem(Constants::ParticleLayoutType, layer->index());
 
     // composition added to layout should have abundance enabled
-    ParameterizedItem *compositionFree = model.insertNewItem(Constants::ParticleCompositionType, layout->index());
+    SessionItem *compositionFree = model.insertNewItem(Constants::ParticleCompositionType, layout->index());
     QVERIFY(compositionFree->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
 
     // composition added to distribution should have abundance disabled
-    ParameterizedItem *distribution = model.insertNewItem(Constants::ParticleDistributionType, layout->index());
-    ParameterizedItem *composition = model.insertNewItem(Constants::ParticleCompositionType, distribution->index());
+    SessionItem *distribution = model.insertNewItem(Constants::ParticleDistributionType, layout->index());
+    SessionItem *composition = model.insertNewItem(Constants::ParticleCompositionType, distribution->index());
     QVERIFY(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == false);
 
     composition = distribution->takeChildItem(composition->childNumber());
@@ -50,11 +50,11 @@ inline void TestMapper::test_ParticeleCompositionUpdate()
 inline void TestMapper::test_Inference2DRotationAngleToggle()
 {
     SampleModel model;
-    ParameterizedItem *multilayer = model.insertNewItem(Constants::MultiLayerType);
-    ParameterizedItem *layer = model.insertNewItem(Constants::LayerType, multilayer->index());
-    ParameterizedItem *layout = model.insertNewItem(Constants::ParticleLayoutType, layer->index());
+    SessionItem *multilayer = model.insertNewItem(Constants::MultiLayerType);
+    SessionItem *layer = model.insertNewItem(Constants::LayerType, multilayer->index());
+    SessionItem *layout = model.insertNewItem(Constants::ParticleLayoutType, layer->index());
 
-    ParameterizedItem *inference = model.insertNewItem(Constants::InterferenceFunction2DParaCrystalType,
+    SessionItem *inference = model.insertNewItem(Constants::InterferenceFunction2DParaCrystalType,
                                                        layout->index(), -1, ParticleLayoutItem::T_INTERFERENCE);
 
     // rotation (xi) should be disabled if integration is on
@@ -70,10 +70,10 @@ inline void TestMapper::test_Inference2DRotationAngleToggle()
 inline void TestMapper::test_instrumentAlignmentPropertyVisibility()
 {
     InstrumentModel model;
-    ParameterizedItem *instrument = model.insertNewItem(Constants::InstrumentType);
-    ParameterizedItem *detector = model.insertNewItem(Constants::DetectorType, instrument->index());
+    SessionItem *instrument = model.insertNewItem(Constants::InstrumentType);
+    SessionItem *detector = model.insertNewItem(Constants::DetectorType, instrument->index());
     detector->setGroupProperty(DetectorItem::P_DETECTOR, Constants::RectangularDetectorType);
-    ParameterizedItem *rectangular = detector->getGroupItem(DetectorItem::P_DETECTOR);
+    SessionItem *rectangular = detector->getGroupItem(DetectorItem::P_DETECTOR);
 
 
     ComboProperty alignment = rectangular->getRegisteredProperty(RectangularDetectorItem::P_ALIGNMENT)
@@ -93,8 +93,8 @@ inline void TestMapper::test_instrumentAlignmentPropertyVisibility()
 inline void TestMapper::test_removeMaskOnDetectorChange()
 {
     InstrumentModel model;
-    ParameterizedItem *instrument = model.insertNewItem(Constants::InstrumentType);
-    ParameterizedItem *detector = model.insertNewItem(Constants::DetectorType, instrument->index());
+    SessionItem *instrument = model.insertNewItem(Constants::InstrumentType);
+    SessionItem *detector = model.insertNewItem(Constants::DetectorType, instrument->index());
     detector->setGroupProperty(DetectorItem::P_DETECTOR, Constants::RectangularDetectorType);
     model.insertNewItem(Constants::MaskContainerType, detector->index());
     QVERIFY(detector->getUnregisteredChildren().size() == 1);

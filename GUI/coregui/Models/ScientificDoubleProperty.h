@@ -21,7 +21,7 @@
 #include <QString>
 #include <QVariant>
 
-//! The ScientificDoubleProperty for ParameterizedItem and PropertyEditor
+//! The ScientificDoubleProperty for SessionItem and PropertyEditor
 //!
 //! The reason is to have simple editor for doubles in scientific notation
 //! in PropertyEditor instead of inconvenient QDoubleSpinBox

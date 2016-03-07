@@ -16,10 +16,10 @@
 #ifndef GROUPITEM_H
 #define GROUPITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "GroupProperty.h"
 
-class BA_CORE_API_ GroupItem : public ParameterizedItem
+class BA_CORE_API_ GroupItem : public SessionItem
 {
     Q_OBJECT
 public:

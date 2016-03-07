@@ -18,7 +18,7 @@
 #include "NodeEditorPort.h"
 #include "NodeEditorConnection.h"
 #include "GUIHelpers.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QObject>
@@ -33,7 +33,7 @@ ConnectableView::ConnectableView(QGraphicsItem *parent, QRect rect)
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
 }
 
-void ConnectableView::setParameterizedItem(ParameterizedItem *item)
+void ConnectableView::setParameterizedItem(SessionItem *item)
 {
     IView::setParameterizedItem(item);
     if (m_item) {

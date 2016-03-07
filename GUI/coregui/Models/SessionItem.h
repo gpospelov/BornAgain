@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/Models/ParameterizedItem.h
-//! @brief     Defines class ParameterizedItem
+//! @brief     Defines class SessionItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERIZEDITEM_H_
-#define PARAMETERIZEDITEM_H_
+#ifndef SESSIONITEM_H_
+#define SESSIONITEM_H_
 
 #include "WinDllMacros.h"
 #include "item_constants.h"
@@ -51,7 +51,7 @@ public:
 };
 
 
-class BA_CORE_API_ ParameterizedItem : public QObject
+class BA_CORE_API_ SessionItem : public QObject
 {
     Q_OBJECT
 
@@ -59,14 +59,14 @@ class BA_CORE_API_ ParameterizedItem : public QObject
 
 public:
     static const QString P_NAME;
-    explicit ParameterizedItem(QString modelType = QString());
-    virtual ~ParameterizedItem();
+    explicit SessionItem(QString modelType = QString());
+    virtual ~SessionItem();
     QVariant data(int role) const;
     virtual bool setData(int role, const QVariant &value);
     QModelIndex index() const;
-    ParameterizedItem *parent() const;
+    SessionItem *parent() const;
     int childItemCount() const;
-    ParameterizedItem *childAt(int row) const;
+    SessionItem *childAt(int row) const;
 
     SessionModel *model() const;
     ModelMapper *mapper();
@@ -76,11 +76,11 @@ public:
     SessionTagInfo getTagInfo(const QString &name) const;
     bool registerTag(QString name, int min = 0, int max = -1, QStringList modelTypes = QStringList());
 
-    ParameterizedItem *getItem(QString tag = QString(), int index = 0) const;
-    QVector<ParameterizedItem *> getItems(QString tag = QString()) const;
-    bool insertItem(int row, ParameterizedItem *item, const QString &tag);
-    ParameterizedItem *takeItem(int row, const QString &tag);
-    QString tagFromItem(const ParameterizedItem *item) const;
+    SessionItem *getItem(QString tag = QString(), int index = 0) const;
+    QVector<SessionItem *> getItems(QString tag = QString()) const;
+    bool insertItem(int row, SessionItem *item, const QString &tag);
+    SessionItem *takeItem(int row, const QString &tag);
+    QString tagFromItem(const SessionItem *item) const;
 
     QVector<int> getRoles() const;
 
@@ -89,8 +89,8 @@ public:
 
 
 
-    ParameterizedItem *registerProperty(const QString &name, const QVariant &variant);
-    ParameterizedItem *registerGroupProperty(const QString &group_name,
+    SessionItem *registerProperty(const QString &name, const QVariant &variant);
+    SessionItem *registerGroupProperty(const QString &group_name,
                                              const Constants::ModelType &group_model);
 
     bool isRegisteredProperty(const QString &name) const;
@@ -98,21 +98,21 @@ public:
     void setRegisteredProperty(const QString &name, const QVariant &variant);
     void removeRegisteredProperty(const QString &name);
     bool isGroupProperty(const QString &name) const;
-    ParameterizedItem *setGroupProperty(const QString &name, const QString &value = QString()) const;
-    ParameterizedItem *getGroupItem(const QString &name, const QString &type = QString()) const;
+    SessionItem *setGroupProperty(const QString &name, const QString &value = QString()) const;
+    SessionItem *getGroupItem(const QString &name, const QString &type = QString()) const;
 
     virtual QString itemLabel() const;
-    int rowOfChild(ParameterizedItem *child) const;
+    int rowOfChild(SessionItem *child) const;
     int childNumber() const;
     bool hasChildItems() const;
-    QVector<ParameterizedItem *> childItems() const;
-    ParameterizedItem *getChildOfType(const QString &type) const;
-    ParameterizedItem* getChildByName(const QString &name) const;
-    QList<ParameterizedItem *> getChildrenOfType(const QString &model_type) const;
-    QList<ParameterizedItem *> getUnregisteredChildren() const;
+    QVector<SessionItem *> childItems() const;
+    SessionItem *getChildOfType(const QString &type) const;
+    SessionItem* getChildByName(const QString &name) const;
+    QList<SessionItem *> getChildrenOfType(const QString &model_type) const;
+    QList<SessionItem *> getUnregisteredChildren() const;
 
-    virtual void insertChildItem(int row, ParameterizedItem *item, const QString tag = QString());
-    virtual ParameterizedItem *takeChildItem(int row);
+    virtual void insertChildItem(int row, SessionItem *item, const QString tag = QString());
+    virtual SessionItem *takeChildItem(int row);
     bool acceptsAsChild(const QString &child_name) const;
     QList<QString> acceptableChildItems() const;
 
@@ -153,20 +153,20 @@ public:
 
 
 private:
-    int getCopyNumberOfChild(const ParameterizedItem *p_item) const;
-    void childDeleted(ParameterizedItem *child);
-    void setParentAndModel(ParameterizedItem *parent, SessionModel *model);
+    int getCopyNumberOfChild(const SessionItem *p_item) const;
+    void childDeleted(SessionItem *child);
+    void setParentAndModel(SessionItem *parent, SessionModel *model);
     void setModel(SessionModel *model);
     int tagStartIndex(const QString &name) const;
     void changeFlags(bool enabled, int flag);
     int flags() const;
 
-    ParameterizedItem *mp_parent;
+    SessionItem *mp_parent;
     SessionModel *m_model;
-    QVector<ParameterizedItem *> m_children;
+    QVector<SessionItem *> m_children;
     QVector<SessionItemData> m_values;
     QVector<SessionTagInfo> m_tags;
     std::unique_ptr<ModelMapper> m_mapper;
 };
 
-#endif /* PARAMETERIZEDITEM_H_ */
+#endif /* SessionItem_H_ */

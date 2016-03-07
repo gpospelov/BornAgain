@@ -16,10 +16,10 @@
 #ifndef VECTORITEM_H
 #define VECTORITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "Vectors3D.h"
 
-class BA_CORE_API_  VectorItem : public ParameterizedItem
+class BA_CORE_API_  VectorItem : public SessionItem
 {
     Q_OBJECT
 public:

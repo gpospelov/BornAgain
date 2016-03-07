@@ -41,7 +41,7 @@ ComponentInfoBox::ComponentInfoBox(const QString &title, QWidget *parent)
     setLayout(mainLayout);
 }
 
-void ComponentInfoBox::addPropertyItems(ParameterizedItem *item)
+void ComponentInfoBox::addPropertyItems(SessionItem *item)
 {
     m_editor->addPropertyItems(item);
     m_item = item;

@@ -22,7 +22,7 @@
 #include <memory>
 
 class ComponentEditorPrivate;
-class ParameterizedItem;
+class SessionItem;
 class SessionModel;
 class QtVariantProperty;
 class QtProperty;
@@ -35,9 +35,9 @@ public:
 
     virtual ~ComponentEditor();
 
-    void setItem(ParameterizedItem *item, const QString &group_name=QString());
+    void setItem(SessionItem *item, const QString &group_name=QString());
 
-    void updateEditor(ParameterizedItem *item, QtVariantProperty *parentProperty = 0);
+    void updateEditor(SessionItem *item, QtVariantProperty *parentProperty = 0);
 
     void clearEditor();
 
@@ -49,8 +49,8 @@ private slots:
     void onQtPropertyChanged(QtProperty *, const QVariant &value);
 
 protected:
-    QList<ParameterizedItem *> componentItems(ParameterizedItem *item) const;
-    void cleanChildren(ParameterizedItem *item);
+    QList<SessionItem *> componentItems(SessionItem *item) const;
+    void cleanChildren(SessionItem *item);
 
     void disconnectModel(SessionModel *model);
     void connectModel(SessionModel *model);

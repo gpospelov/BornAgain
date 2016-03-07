@@ -52,7 +52,7 @@
 #include <QDebug>
 
 namespace {
-template<typename T> ParameterizedItem *createInstance() { return new T; }
+template<typename T> SessionItem *createInstance() { return new T; }
 
 ItemFactory::ItemMap_t initializeItemMap() {
     ItemFactory::ItemMap_t result;
@@ -197,15 +197,15 @@ QStringList ItemFactory::m_valid_top_item_names = QStringList()
 
 ItemFactory::ItemMap_t ItemFactory::m_item_map = initializeItemMap();
 
-ParameterizedItem *ItemFactory::createItem(const QString &model_name,
-                                           ParameterizedItem *parent)
+SessionItem *ItemFactory::createItem(const QString &model_name,
+                                           SessionItem *parent)
 {
     qDebug() << "ItemFactory::createItem" << model_name;
 
     if(!m_item_map.contains(model_name))
         throw GUIHelpers::Error("ItemFactory::createItem() -> Error: Model name does not exist: "+model_name);
 
-    ParameterizedItem *result = m_item_map[model_name]();
+    SessionItem *result = m_item_map[model_name]();
     if(parent) {
         parent->insertChildItem(-1, result);
     }
@@ -213,9 +213,9 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
     return result;
 }
 
-ParameterizedItem *ItemFactory::createEmptyItem()
+SessionItem *ItemFactory::createEmptyItem()
 {
-    ParameterizedItem *result = new ParameterizedItem("ROOT_ITEM");
+    SessionItem *result = new SessionItem("ROOT_ITEM");
     //result->setItemName("ROOT_ITEM");
     return result;
 }

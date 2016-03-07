@@ -20,7 +20,7 @@
 #include "WarningSignWidget.h"
 #include "qcustomplot.h"
 
-class ParameterizedItem;
+class SessionItem;
 class AwesomePropertyEditor;
 class QLabel;
 class QCustomPlot;

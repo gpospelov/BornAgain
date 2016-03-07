@@ -43,7 +43,7 @@ inline void TestParticleItems::test_ParticleToDomain()
 
 inline void TestParticleItems::test_FormFactorGroupProperty()
 {
-//    // FIXME remove MaterialEditor and model from ParameterizedItem
+//    // FIXME remove MaterialEditor and model from SessionItem
 //    MaterialModel materialModel;
 //    MaterialEditor editor(&materialModel);
 //    Q_UNUSED(editor);
@@ -78,7 +78,7 @@ inline void TestParticleItems::test_FormFactorGroupProperty()
 //    foreach(QString ff_name, formfactors) {
 //        QSignalSpy spyItem(&item, SIGNAL(propertyChanged(QString)));
 //        QSignalSpy spyPropertyItem(&item, SIGNAL(propertyItemChanged(QString)));
-//        ParameterizedItem *ffItem = item.setFancyGroupProperty(ParticleItem::P_FORM_FACTOR, ff_name);
+//        SessionItem *ffItem = item.setFancyGroupProperty(ParticleItem::P_FORM_FACTOR, ff_name);
 //        QVERIFY(ffItem);
 //        QCOMPARE(item.getSubItems().size(), 1);
 //        QCOMPARE(ffItem, item.getGroupItem(ParticleItem::P_FORM_FACTOR));
@@ -96,7 +96,7 @@ inline void TestParticleItems::test_FormFactorGroupProperty()
 //    }
 
 //    // checks that change in subItem properties has no affect on signals of ParticleItem
-//    ParameterizedItem *cylinderItem = item.setFancyGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::CylinderType);
+//    SessionItem *cylinderItem = item.setFancyGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::CylinderType);
 //    QSignalSpy spyItem(&item, SIGNAL(propertyChanged(QString)));
 //    QSignalSpy spyPropertyItem(&item, SIGNAL(propertyItemChanged(QString)));
 //    cylinderItem->setRegisteredProperty(CylinderItem::P_RADIUS, 99.9);

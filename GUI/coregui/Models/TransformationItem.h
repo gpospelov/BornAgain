@@ -16,10 +16,10 @@
 #ifndef TRANSFORMATIONITEM_H
 #define TRANSFORMATIONITEM_H
 
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 #include <QVector>
 
-class TransformationItem : public ParameterizedGraphicsItem
+class TransformationItem : public SessionGraphicsItem
 {
     Q_OBJECT
 public:

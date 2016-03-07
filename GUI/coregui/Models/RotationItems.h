@@ -16,14 +16,14 @@
 #ifndef ROTATIONITEMS_H
 #define ROTATIONITEMS_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "Rotations.h"
 
-class RotationItem : public ParameterizedItem
+class RotationItem : public SessionItem
 {
     Q_OBJECT
 public:
-    explicit RotationItem(const QString name) : ParameterizedItem(name){}
+    explicit RotationItem(const QString name) : SessionItem(name){}
     virtual IRotation *createRotation() const{ return 0;}
     virtual ~RotationItem(){}
 };

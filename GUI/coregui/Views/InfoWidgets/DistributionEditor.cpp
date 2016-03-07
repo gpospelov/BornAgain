@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "BeamWavelengthItem.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "ComponentBoxEditor.h"
 #include "DistributionWidget.h"
 #include "DistributionEditor.h"
@@ -55,7 +55,7 @@ DistributionEditor::DistributionEditor(QWidget *parent)
     setLayout(mainLayout);
 }
 
-void DistributionEditor::setItem(ParameterizedItem *item)
+void DistributionEditor::setItem(SessionItem *item)
 {
     m_propertyEditor->clearEditor();
     m_propertyEditor->addPropertyItems(item);

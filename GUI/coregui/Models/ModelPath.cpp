@@ -14,14 +14,14 @@
 // ************************************************************************** //
 
 #include "ModelPath.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include <QStringList>
 #include <sstream>
 
 
 std::vector<std::unique_ptr<IParameterTranslator>> ModelPath::m_special_translators;
 
-QStringList ModelPath::getParameterTreeList(const ParameterizedItem *item, QString prefix)
+QStringList ModelPath::getParameterTreeList(const SessionItem *item, QString prefix)
 {
     QStringList result;
     if (item->modelType() ==  Constants::PropertyType
@@ -39,7 +39,7 @@ QStringList ModelPath::getParameterTreeList(const ParameterizedItem *item, QStri
     return result;
 }
 
-double ModelPath::getParameterValue(const ParameterizedItem *item, const QString &name)
+double ModelPath::getParameterValue(const SessionItem *item, const QString &name)
 {
     QString head = getFirstField(name);
     auto p_child = item->getChildByName(head);
@@ -53,7 +53,7 @@ double ModelPath::getParameterValue(const ParameterizedItem *item, const QString
     }
 }
 
-std::string ModelPath::translateParameterName(const ParameterizedItem *item, const QString &par_name)
+std::string ModelPath::translateParameterName(const SessionItem *item, const QString &par_name)
 {
     std::ostringstream result;
     auto list = splitParameterName(par_name);

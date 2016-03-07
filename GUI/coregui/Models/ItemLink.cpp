@@ -17,7 +17,7 @@
 #include "AngleProperty.h"
 #include "ScientificDoubleProperty.h"
 
-ItemLink::ItemLink(const QString property_name, ParameterizedItem *item)
+ItemLink::ItemLink(const QString property_name, SessionItem *item)
     : m_property_name(property_name)
     , m_item(item)
     , m_value(0)
@@ -25,7 +25,7 @@ ItemLink::ItemLink(const QString property_name, ParameterizedItem *item)
 
 }
 
-void ItemLink::setItem(QString property_name, ParameterizedItem *item)
+void ItemLink::setItem(QString property_name, SessionItem *item)
 {
     m_property_name = property_name;
     m_item = item;

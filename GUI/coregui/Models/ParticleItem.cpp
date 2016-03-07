@@ -31,7 +31,7 @@ const QString ParticleItem::P_POSITION = "Position Offset";
 const QString ParticleItem::T_TRANSFORMATION = "Transformation tag";
 
 ParticleItem::ParticleItem()
-    : ParameterizedGraphicsItem(Constants::ParticleType)
+    : SessionGraphicsItem(Constants::ParticleType)
 {
     registerGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
     registerProperty(P_MATERIAL,
@@ -80,7 +80,7 @@ std::unique_ptr<Particle> ParticleItem::createParticle() const
 //                auto p_coreshell = static_cast<ParticleCoreShellItem*>(parent());
 //                p_coreshell->notifyChildParticlePortChanged();
 //                if (port == PortInfo::PORT_1) {
-//                    ParameterizedItem *p_position_item = getGroupItem(ParticleItem::P_POSITION);
+//                    SessionItem *p_position_item = getGroupItem(ParticleItem::P_POSITION);
 //                    p_position_item->setRegisteredProperty(VectorItem::P_X, 0.0);
 //                    p_position_item->setRegisteredProperty(VectorItem::P_Y, 0.0);
 //                    p_position_item->setRegisteredProperty(VectorItem::P_Z, 0.0);

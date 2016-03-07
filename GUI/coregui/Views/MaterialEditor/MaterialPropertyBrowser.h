@@ -34,7 +34,7 @@ class QtVariantProperty;
 class QModelIndex;
 class QtBrowserItem;
 class QItemSelection;
-class ParameterizedItem;
+class SessionItem;
 
 
 //! Class which holds QtProperty tree browser to adjust material properties.
@@ -50,9 +50,9 @@ public:
     void setModel(MaterialModel *materialModel);
 
     struct SubItem {
-        SubItem(ParameterizedItem *owner=0, QString name = QString())
+        SubItem(SessionItem *owner=0, QString name = QString())
             : m_owner(owner), m_name(name) {}
-        ParameterizedItem *m_owner;
+        SessionItem *m_owner;
         QString m_name;
         friend bool operator <(const SubItem& left, const SubItem& right)
         {
@@ -64,9 +64,9 @@ public:
 
 
 //    struct ItemIndexPair {
-//        ItemIndexPair(ParameterizedItem *item=0, int index=0)
+//        ItemIndexPair(SessionItem *item=0, int index=0)
 //            : m_item(item), m_index(index) {}
-//        ParameterizedItem *m_item;
+//        SessionItem *m_item;
 //        int m_index;
 //    };
 
@@ -85,11 +85,11 @@ private slots:
 private:
     void updateBrowser();
     void clearBrowser();
-    void addMaterialProperties(ParameterizedItem *material);
-//    void updateMaterialProperties(ParameterizedItem *material);
-    void addSubProperties(QtProperty *property, ParameterizedItem *item);
+    void addMaterialProperties(SessionItem *material);
+//    void updateMaterialProperties(SessionItem *material);
+    void addSubProperties(QtProperty *property, SessionItem *item);
     void removeSubProperties(QtProperty *property);
-//    void updateSubProperties(ParameterizedItem *material);
+//    void updateSubProperties(SessionItem *material);
 
     enum EExpandAction { SAVE_EXPAND_STATE, RESTORE_EXPAND_STATE };
     void updateExpandState(EExpandAction action);
@@ -100,17 +100,17 @@ private:
     QtVariantPropertyManager *m_readOnlyManager;
     //QtVariantEditorFactory *m_variantFactory;
 
-    QMap<QtProperty *, ParameterizedItem *> m_top_property_to_material;
-    QMap<ParameterizedItem *, QtVariantProperty *> m_top_material_to_property;
+    QMap<QtProperty *, SessionItem *> m_top_property_to_material;
+    QMap<SessionItem *, QtVariantProperty *> m_top_material_to_property;
     QMap<QtProperty *, SubItem> m_property_to_subitem;
-    QMap<ParameterizedItem *, QMap<QString, QtVariantProperty *> > m_material_to_property;
+    QMap<SessionItem *, QMap<QString, QtVariantProperty *> > m_material_to_property;
 
 
 //    QMap<QtProperty *, ItemIndexPair>     m_property_to_item_index_pair;
-//    QMap<const ParameterizedItem *, QMap<int, QtVariantProperty *> >
+//    QMap<const SessionItem *, QMap<int, QtVariantProperty *> >
 //        m_item_to_index_to_property;
 
-//    QMap<const ParameterizedItem *, QMap<QString, QtVariantProperty *> >
+//    QMap<const SessionItem *, QMap<QString, QtVariantProperty *> >
 //        m_item_to_propertyname_to_qtvariantproperty;
 
 

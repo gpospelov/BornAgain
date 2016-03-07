@@ -34,7 +34,7 @@ public:
     ConnectableView(QGraphicsItem *parent = 0, QRect rect = QRect(0,0,50,50) );
     virtual ~ConnectableView(){}
     int type() const { return TYPE; }
-    virtual void setParameterizedItem(ParameterizedItem *item);
+    virtual void setParameterizedItem(SessionItem *item);
 
     virtual QRectF boundingRect() const { return getRectangle(); }
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

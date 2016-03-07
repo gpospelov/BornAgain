@@ -26,7 +26,7 @@ const QString ParticleCoreShellItem::T_SHELL = "Shell Tag";
 const QString ParticleCoreShellItem::T_TRANSFORMATION = "Transformation Tag";
 
 ParticleCoreShellItem::ParticleCoreShellItem()
-    : ParameterizedGraphicsItem(Constants::ParticleCoreShellType)
+    : SessionGraphicsItem(Constants::ParticleCoreShellType)
 {
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0);
     getItem(ParticleItem::P_ABUNDANCE)->setLimits(AttLimits::limited(0.0, 1.0));
@@ -65,13 +65,13 @@ std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShel
 //    for (int i = 0; i < children.size(); ++i) {
 ////        int port = children[i]->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
 //        int port = children[i]->port();
-//        if (port == ParameterizedItem::PortInfo::PORT_0) {
+//        if (port == SessionItem::PortInfo::PORT_0) {
 //            auto core_item = static_cast<ParticleItem*>(children[i]);
 //            P_core = core_item->createParticle();
-//        } else if (port == ParameterizedItem::PortInfo::PORT_1) {
+//        } else if (port == SessionItem::PortInfo::PORT_1) {
 //            auto shell_item = static_cast<ParticleItem*>(children[i]);
 //            P_shell = shell_item->createParticle();
-//        } else if (port == ParameterizedItem::PortInfo::PORT_2) {
+//        } else if (port == SessionItem::PortInfo::PORT_2) {
 //            continue;
 //        } else {
 //            throw GUIHelpers::Error(
@@ -90,7 +90,7 @@ std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShel
 void ParticleCoreShellItem::notifyChildParticlePortChanged()
 {
     // TODO restore logic
-//    QVector<ParameterizedItem *> children = childItems();
+//    QVector<SessionItem *> children = childItems();
 //    int core_index = -1;
 //    int shell_index = -1;
 //    for (int i=0; i<children.size(); ++i) {
@@ -112,7 +112,7 @@ void ParticleCoreShellItem::notifyChildParticlePortChanged()
 //    // Also when no ports are available, return the first port (core particle will then be replaced)
 //    PortInfo::EPorts result = PortInfo::PORT_0;
 //    QList<PortInfo::EPorts> used_particle_ports;
-//    QVector<ParameterizedItem *> children = childItems();
+//    QVector<SessionItem *> children = childItems();
 //    for (auto item : children) {
 //        if (item->modelType() == Constants::ParticleType) {
 //            PortInfo::EPorts port = item->port();

@@ -289,10 +289,10 @@ int SimulationSetupWidget::getNumberOfThreads()
 InstrumentModel *SimulationSetupWidget::getJobInstrumentModel()
 {
     InstrumentModel *result(0);
-    QMap<QString, ParameterizedItem *> instruments = m_instrumentModel->getInstrumentMap();
+    QMap<QString, SessionItem *> instruments = m_instrumentModel->getInstrumentMap();
     if(instruments[getSelectedInstrumentName()]) {
         int index = getSelectedInstrumentIndex();
-        QMap<QString, ParameterizedItem *>::iterator it = instruments.begin()+index;
+        QMap<QString, SessionItem *>::iterator it = instruments.begin()+index;
         result = m_instrumentModel->createCopy(it.value());
     }
 
@@ -303,10 +303,10 @@ InstrumentModel *SimulationSetupWidget::getJobInstrumentModel()
 SampleModel *SimulationSetupWidget::getJobSampleModel()
 {
     SampleModel *result(0);
-    QMap<QString, ParameterizedItem *> samples = m_sampleModel->getSampleMap();
+    QMap<QString, SessionItem *> samples = m_sampleModel->getSampleMap();
     if(samples[getSelectedSampleName()]) {
         int index = getSelectedSampleIndex();
-        QMap<QString, ParameterizedItem *>::iterator it = samples.begin()+index;
+        QMap<QString, SessionItem *>::iterator it = samples.begin()+index;
         result = m_sampleModel->createCopy(it.value());
     }
     return result;
@@ -317,10 +317,10 @@ SampleModel *SimulationSetupWidget::getJobSampleModel()
 const MultiLayerItem *SimulationSetupWidget::getSelectedMultiLayerItem() const
 {
     const MultiLayerItem *result(0);
-    QMap<QString, ParameterizedItem *> samples = m_sampleModel->getSampleMap();
+    QMap<QString, SessionItem *> samples = m_sampleModel->getSampleMap();
     if(samples[getSelectedSampleName()]) {
         int index = getSelectedSampleIndex();
-        QMap<QString, ParameterizedItem *>::const_iterator it = samples.begin()+index;
+        QMap<QString, SessionItem *>::const_iterator it = samples.begin()+index;
         result = dynamic_cast<MultiLayerItem *>(it.value());
     }
     return result;
@@ -331,10 +331,10 @@ const MultiLayerItem *SimulationSetupWidget::getSelectedMultiLayerItem() const
 const InstrumentItem *SimulationSetupWidget::getSelectedInstrumentItem() const
 {
     const InstrumentItem *result(0);
-    QMap<QString, ParameterizedItem *> instruments = m_instrumentModel->getInstrumentMap();
+    QMap<QString, SessionItem *> instruments = m_instrumentModel->getInstrumentMap();
     if(instruments[getSelectedInstrumentName()]) {
         int index = getSelectedInstrumentIndex();
-        QMap<QString, ParameterizedItem *>::const_iterator it = instruments.begin()+index;
+        QMap<QString, SessionItem *>::const_iterator it = instruments.begin()+index;
         result = dynamic_cast<InstrumentItem *>(it.value());
     }
     return result;

@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "PropertyAttribute.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include <QDebug>
 
 PropertyAttribute::PropertyAttribute(PropertyAttribute::Appearance appearance,
@@ -170,7 +170,7 @@ PropertyAttribute& PropertyAttribute::setReadOnly()
     return *this;
 }
 
-PropertyAttribute PropertyAttribute::fromItem(ParameterizedItem *item)
+PropertyAttribute PropertyAttribute::fromItem(SessionItem *item)
 {
     PropertyAttribute attribute = PropertyAttribute(PropertyAttribute::VISIBLE, item->limits(),
                                                     item->decimals(), item->displayName(), item->toolTip());

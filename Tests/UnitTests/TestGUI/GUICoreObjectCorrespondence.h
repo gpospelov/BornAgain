@@ -1,7 +1,7 @@
 #ifndef GUICOREOBJECTCORRESPONDENCE_H
 #define GUICOREOBJECTCORRESPONDENCE_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "IParameterized.h"
 
 #include <vector>
@@ -10,7 +10,7 @@
 
 #include <QtTest>
 
-inline void GUICoreObjectCorrespondence(const ParameterizedItem& gui_object,
+inline void GUICoreObjectCorrespondence(const SessionItem& gui_object,
                                  const IParameterized& core_object)
 {
     // First check if names correspond:

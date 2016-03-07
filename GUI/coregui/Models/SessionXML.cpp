@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "SessionXML.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "SessionModel.h"
 #include "MaterialProperty.h"
 #include "ComboProperty.h"
@@ -30,7 +30,7 @@
 #include <QDebug>
 
 
-void SessionWriter::writeTo(QXmlStreamWriter *writer, ParameterizedItem *parent)
+void SessionWriter::writeTo(QXmlStreamWriter *writer, SessionItem *parent)
 {
     writer->writeStartElement(parent->model()->getModelTag());
     writer->writeAttribute(SessionXML::ModelNameAttribute, parent->model()->getModelName());
@@ -40,7 +40,7 @@ void SessionWriter::writeTo(QXmlStreamWriter *writer, ParameterizedItem *parent)
     writer->writeEndElement(); // m_model_tag
 }
 
-void SessionWriter::writeItemAndChildItems(QXmlStreamWriter *writer, const ParameterizedItem *item)
+void SessionWriter::writeItemAndChildItems(QXmlStreamWriter *writer, const SessionItem *item)
 {
     qDebug() << "SessionModel::writeItemAndChildItems " << item;
     Q_ASSERT(item);
@@ -63,7 +63,7 @@ void SessionWriter::writeItemAndChildItems(QXmlStreamWriter *writer, const Param
         }
 
     }
-    foreach (ParameterizedItem *child_item, item->childItems()) {
+    foreach (SessionItem *child_item, item->childItems()) {
         writeItemAndChildItems(writer, child_item);
     }
     if (item->parent()) {
@@ -127,14 +127,14 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
     }
 }
 
-void SessionReader::readItems(QXmlStreamReader *reader, ParameterizedItem *item, int row)
+void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, int row)
 {
     qDebug() << "SessionModel::readItems() " << row;
     if(item) qDebug() << "  item" << item->modelType();
     const QString modelType = item->model()->getModelTag();
 //    bool inside_parameter_tag = false;
 //    QString parent_parameter_name;
-//    ParameterizedItem *parent_backup(0);
+//    SessionItem *parent_backup(0);
     while (!reader->atEnd()) {
         reader->readNext();
         if (reader->isStartElement()) {
@@ -150,7 +150,7 @@ void SessionReader::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                 } else {
                     item_name = reader->attributes().value(SessionXML::ParameterNameAttribute).toString();
                 }*/
-                if (tag == ParameterizedItem::P_NAME)
+                if (tag == SessionItem::P_NAME)
                     item->setItemName("");
                 if (model_type == Constants::PropertyType || model_type == Constants::GroupItemType) {
                     item = item->getItem(tag);
@@ -163,7 +163,7 @@ void SessionReader::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                         qDebug() << "!!";
                     }
                 } else {
-                    ParameterizedItem *new_item = ItemFactory::createItem(model_type);
+                    SessionItem *new_item = ItemFactory::createItem(model_type);
                     if (tag == "")
                         tag = item->defaultTag();
                     if (!item->insertItem(-1, new_item, tag)) {
@@ -179,7 +179,7 @@ void SessionReader::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
 
 //                if (inside_parameter_tag) {
 //                    Q_ASSERT(item);
-//                    ParameterizedItem *parent = item;
+//                    SessionItem *parent = item;
 //                    item = parent->getGroupItem(parent_parameter_name);
 //                    if(!item) {
 //                        // to provide partial loading of obsolete project files
@@ -216,7 +216,7 @@ void SessionReader::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
     }
 }
 
-QString SessionReader::readProperty(QXmlStreamReader *reader, ParameterizedItem *item)
+QString SessionReader::readProperty(QXmlStreamReader *reader, SessionItem *item)
 {
 //    qDebug() << "SessionModel::readProperty() for" << item;
     if (item)

@@ -146,7 +146,7 @@ void SampleView::addItem(const QString &item_name)
 {
     QModelIndex currentIndex = getTreeView()->currentIndex();
     QModelIndex currentIndexAtColumnZero = getIndexAtColumnZero(currentIndex);
-    ParameterizedItem *new_item
+    SessionItem *new_item
         = getSampleModel()->insertNewItem(item_name, currentIndexAtColumnZero);
     if (new_item) {
         QModelIndex new_index = getSampleModel()->indexOfItem(new_item);

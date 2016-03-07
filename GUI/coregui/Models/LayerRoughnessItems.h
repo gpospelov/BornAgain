@@ -17,9 +17,9 @@
 #define LAYERROUGHNESSITEMS_H
 
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
-class BA_CORE_API_ LayerZeroRoughnessItem : public ParameterizedItem
+class BA_CORE_API_ LayerZeroRoughnessItem : public SessionItem
 {
     Q_OBJECT
 public:
@@ -28,7 +28,7 @@ public:
 };
 
 
-class BA_CORE_API_ LayerBasicRoughnessItem : public ParameterizedItem
+class BA_CORE_API_ LayerBasicRoughnessItem : public SessionItem
 {
     Q_OBJECT
 public:

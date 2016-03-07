@@ -16,18 +16,18 @@
 #include "PropertyItem.h"
 
 PropertyItem::PropertyItem()
-    :ParameterizedItem(Constants::PropertyType)
+    : SessionItem(Constants::PropertyType)
 {
 
 }
 
 /*bool PropertyItem::setData(int column, const QVariant &data)
 {
-    if (displayName() == ParameterizedItem::P_NAME) {
+    if (displayName() == SessionItem::P_NAME) {
         if (data.toString().isEmpty())
             return false;
-        if (ParameterizedItem *item = parent()) {
-            if (ParameterizedItem *item_parent = item->parent()) {
+        if (SessionItem *item = parent()) {
+            if (SessionItem *item_parent = item->parent()) {
                 // forbid setting duplicate name
                 if (item_parent->getChildByName(data.toString())) {
                     return false;
@@ -35,5 +35,5 @@ PropertyItem::PropertyItem()
             }
         }
     }
-    return ParameterizedItem::setData(column, data);
+    return SessionItem::setData(column, data);
 }*/

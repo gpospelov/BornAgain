@@ -15,16 +15,16 @@
 #ifndef FITPARAMETERITEMS_H
 #define FITPARAMETERITEMS_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
-class BA_CORE_API_ FitParameterContainer : public ParameterizedItem
+class BA_CORE_API_ FitParameterContainer : public SessionItem
 {
     Q_OBJECT
 public:
     explicit FitParameterContainer();
 };
 
-class BA_CORE_API_ FitParameterItem : public ParameterizedItem
+class BA_CORE_API_ FitParameterItem : public SessionItem
 {
     Q_OBJECT
 public:
@@ -36,7 +36,7 @@ public:
 };
 
 
-class BA_CORE_API_ FitParameterLinkItem : public ParameterizedItem
+class BA_CORE_API_ FitParameterLinkItem : public SessionItem
 {
     Q_OBJECT
 public:
@@ -45,7 +45,7 @@ public:
 };
 
 
-class BA_CORE_API_ FitSelectionItem : public ParameterizedItem
+class BA_CORE_API_ FitSelectionItem : public SessionItem
 {
     Q_OBJECT
 public:
@@ -54,7 +54,7 @@ public:
     explicit FitSelectionItem();
 };
 
-class BA_CORE_API_ MinimizerSettingsItem : public ParameterizedItem
+class BA_CORE_API_ MinimizerSettingsItem : public SessionItem
 {
     Q_OBJECT
 public:
@@ -62,7 +62,7 @@ public:
     explicit MinimizerSettingsItem();
 };
 
-class BA_CORE_API_ InputDataItem : public ParameterizedItem
+class BA_CORE_API_ InputDataItem : public SessionItem
 {
     Q_OBJECT
 public:

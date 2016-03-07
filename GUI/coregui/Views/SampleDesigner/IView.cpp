@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "IView.h"
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 #include "ModelMapper.h"
 #include <QString>
 #include <QDebug>
@@ -25,21 +25,21 @@ IView::IView(QGraphicsItem *parent) : QGraphicsObject(parent), m_item(0)
     connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
 }
 
-void IView::setParameterizedItem(ParameterizedItem *item)
+void IView::setParameterizedItem(SessionItem *item)
 {
     if (item) {
         m_item = item;
-        setX(m_item->getRegisteredProperty(ParameterizedGraphicsItem::P_XPOS).toReal());
-        setY(m_item->getRegisteredProperty(ParameterizedGraphicsItem::P_YPOS).toReal());
+        setX(m_item->getRegisteredProperty(SessionGraphicsItem::P_XPOS).toReal());
+        setY(m_item->getRegisteredProperty(SessionGraphicsItem::P_YPOS).toReal());
         ModelMapper *mapper = new ModelMapper(this);
         mapper->setItem(item);
         mapper->setOnPropertyChange(
                     [this] (const QString &name)
         {
-            if (name == ParameterizedGraphicsItem::P_XPOS) {
-                setX(m_item->getRegisteredProperty(ParameterizedGraphicsItem::P_XPOS).toReal());
-            } else if (name == ParameterizedGraphicsItem::P_YPOS) {
-                setY(m_item->getRegisteredProperty(ParameterizedGraphicsItem::P_YPOS).toReal());
+            if (name == SessionGraphicsItem::P_XPOS) {
+                setX(m_item->getRegisteredProperty(SessionGraphicsItem::P_XPOS).toReal());
+            } else if (name == SessionGraphicsItem::P_YPOS) {
+                setY(m_item->getRegisteredProperty(SessionGraphicsItem::P_YPOS).toReal());
             }
         });
         connect(m_item, SIGNAL(propertyChanged(const QString &)), this,
@@ -58,11 +58,11 @@ void IView::addView(IView *childView, int row)
 void IView::onChangedX()
 {
     Q_ASSERT(m_item);
-    m_item->setRegisteredProperty(ParameterizedGraphicsItem::P_XPOS, x());
+    m_item->setRegisteredProperty(SessionGraphicsItem::P_XPOS, x());
 }
 
 void IView::onChangedY()
 {
     Q_ASSERT(m_item);
-    m_item->setRegisteredProperty(ParameterizedGraphicsItem::P_YPOS, y());
+    m_item->setRegisteredProperty(SessionGraphicsItem::P_YPOS, y());
 }

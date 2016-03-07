@@ -23,7 +23,7 @@ const QString DetectorItem::P_DETECTOR = "DetectorType";
 const QString DetectorItem::T_MASKS = "Mask tag";
 
 DetectorItem::DetectorItem()
-    : ParameterizedItem(Constants::DetectorType)
+    : SessionItem(Constants::DetectorType)
 {
     registerGroupProperty(P_DETECTOR, Constants::DetectorGroup);
     registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
@@ -33,8 +33,8 @@ DetectorItem::DetectorItem()
                 [this] (const QString &name)
     {
         if(name == P_DETECTOR) {
-            if(ParameterizedItem *maskContainer = getMaskContainerItem()) {
-                ParameterizedItem *item = takeChildItem(rowOfChild(maskContainer));
+            if(SessionItem *maskContainer = getMaskContainerItem()) {
+                SessionItem *item = takeChildItem(rowOfChild(maskContainer));
                 Q_ASSERT(item == maskContainer);
                 delete item;
             }
@@ -45,7 +45,7 @@ DetectorItem::DetectorItem()
 
 MaskContainerItem *DetectorItem::getMaskContainerItem() const
 {
-    foreach(ParameterizedItem *item, childItems()) {
+    foreach(SessionItem *item, childItems()) {
         if(MaskContainerItem *container = dynamic_cast<MaskContainerItem *>(item)) {
             return container;
         }

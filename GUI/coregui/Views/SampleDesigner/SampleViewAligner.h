@@ -22,7 +22,7 @@
 #include <QPointF>
 class DesignerScene;
 class IView;
-class ParameterizedItem;
+class SessionItem;
 
 
 //! Makes alignment of sample droped on graphics scene.
@@ -32,7 +32,7 @@ class BA_CORE_API_ SampleViewAligner
 public:
     SampleViewAligner(DesignerScene *scene);
 
-    void alignSample(ParameterizedItem *item, QPointF reference = QPointF(), bool force_alignment = false);
+    void alignSample(SessionItem *item, QPointF reference = QPointF(), bool force_alignment = false);
     void alignSample(const QModelIndex & parentIndex, QPointF reference = QPointF(), bool force_alignment = false);
 
     void smartAlign();

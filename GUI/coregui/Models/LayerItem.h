@@ -16,9 +16,9 @@
 #ifndef LAYERITEM_H
 #define LAYERITEM_H
 
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 
-class BA_CORE_API_ LayerItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ LayerItem : public SessionGraphicsItem
 {
     Q_OBJECT
 public:

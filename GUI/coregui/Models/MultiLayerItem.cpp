@@ -23,7 +23,7 @@ const QString MultiLayerItem::P_CROSS_CORR_LENGTH = "Cross Correlation Length";
 const QString MultiLayerItem::T_LAYERS = "Layer tag";
 
 MultiLayerItem::MultiLayerItem()
-    : ParameterizedGraphicsItem(Constants::MultiLayerType)
+    : SessionGraphicsItem(Constants::MultiLayerType)
 {
     registerProperty(P_CROSS_CORR_LENGTH, 0.0);
     registerTag(T_LAYERS, 0, -1, QStringList() << Constants::LayerType);
@@ -36,22 +36,22 @@ MultiLayerItem::MultiLayerItem()
     });
 }
 
-ParameterizedItem *MultiLayerItem::takeChildItem(int row)
+SessionItem *MultiLayerItem::takeChildItem(int row)
 {
-    ParameterizedItem *item = ParameterizedItem::takeChildItem(row);
+    SessionItem *item = SessionItem::takeChildItem(row);
     updateLayers();
     return item;
 }
 
-void MultiLayerItem::insertChildItem(int row, ParameterizedItem *item, const QString tag)
+void MultiLayerItem::insertChildItem(int row, SessionItem *item, const QString tag)
 {
-    ParameterizedItem::insertChildItem(row, item);
+    SessionItem::insertChildItem(row, item);
     updateLayers();
 }
 
 void MultiLayerItem::updateLayers()
 {
-    QList<ParameterizedItem*> list = getChildrenOfType(Constants::LayerType);
+    QList<SessionItem*> list = getChildrenOfType(Constants::LayerType);
     for(auto it = list.begin(); it != list.end(); ++it) {
         if(it == list.begin()) {
             (*it)->getItem(LayerItem::P_ROUGHNESS)->setEnabled(false);

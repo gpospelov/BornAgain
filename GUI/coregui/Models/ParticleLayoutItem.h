@@ -16,9 +16,9 @@
 #ifndef PARTICLELAYOUTITEM_H
 #define PARTICLELAYOUTITEM_H
 
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 
-class BA_CORE_API_ ParticleLayoutItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ ParticleLayoutItem : public SessionGraphicsItem
 {
     Q_OBJECT
 public:

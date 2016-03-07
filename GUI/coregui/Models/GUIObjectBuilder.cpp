@@ -52,7 +52,7 @@ GUIObjectBuilder::GUIObjectBuilder()
 }
 
 
-ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel,
+SessionItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel,
                                        const GISASSimulation &simulation, const QString &sampleName)
 {
     std::unique_ptr<ISample> P_sample;
@@ -67,7 +67,7 @@ ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleMode
     return populateSampleModel(sampleModel, *P_sample, sampleName);
 }
 
-ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel,
+SessionItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel,
                                                          const ISample &sample,
                                                          const QString &sampleName)
 {
@@ -81,18 +81,18 @@ ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleMode
     m_sampleModel = sampleModel;
 
     VisitSampleTreePreorder(sample, *this);
-    ParameterizedItem *result = m_levelToParentItem[1];
+    SessionItem *result = m_levelToParentItem[1];
 
     result->setItemName(m_topSampleName);
     return result;
 }
 
-ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *instrumentModel,
+SessionItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *instrumentModel,
                                                              const GISASSimulation &simulation,
                                                              const QString &instrumentName)
 {
     Q_ASSERT(instrumentModel);
-    ParameterizedItem *instrumentItem =
+    SessionItem *instrumentItem =
             instrumentModel->insertNewItem(Constants::InstrumentType);
 
     if(instrumentName.isEmpty()) {
@@ -124,8 +124,8 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *in
 void GUIObjectBuilder::visit(const ParticleLayout *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const ParticleLayout *)"  << getLevel();
-    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *item(0);
+    SessionItem *parent = m_levelToParentItem[getLevel()-1];
+    SessionItem *item(0);
     if (parent) {
         item = m_sampleModel->insertNewItem(Constants::ParticleLayoutType,
                                          m_sampleModel->indexOfItem(parent));
@@ -159,7 +159,7 @@ void GUIObjectBuilder::visit(const ParticleLayout *sample)
 void GUIObjectBuilder::visit(const Layer *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const Layer *)"  << getLevel();
-    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    SessionItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
 
     const MultiLayer *multilayer =
@@ -170,7 +170,7 @@ void GUIObjectBuilder::visit(const Layer *sample)
     const LayerInterface *interface =
             multilayer->getLayerTopInterface(layer_index);
 
-    ParameterizedItem *layerItem = m_sampleModel->insertNewItem(
+    SessionItem *layerItem = m_sampleModel->insertNewItem(
         Constants::LayerType, m_sampleModel->indexOfItem(parent));
     layerItem->setRegisteredProperty(LayerItem::P_MATERIAL,
         createMaterialFromDomain(sample->getMaterial()).getVariant());
@@ -190,7 +190,7 @@ void GUIObjectBuilder::visit(const MultiLayer *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const MultiLayer *)" << getLevel();
 
-    ParameterizedItem *item =
+    SessionItem *item =
             m_sampleModel->insertNewItem(Constants::MultiLayerType);
     item->setItemName(sample->getName().c_str());
     item->setRegisteredProperty(MultiLayerItem::P_CROSS_CORR_LENGTH,
@@ -203,10 +203,10 @@ void GUIObjectBuilder::visit(const Particle *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const Particle *)" << getLevel();
 
-    ParameterizedItem *parent = m_levelToParentItem[getLevel() - 1];
+    SessionItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *particleItem(0);
+    SessionItem *particleItem(0);
     if (parent->modelType() == Constants::ParticleCoreShellType) {
         const ParticleCoreShell *coreshell
             = dynamic_cast<const ParticleCoreShell *>(m_itemToSample[parent]);
@@ -244,9 +244,9 @@ void GUIObjectBuilder::visit(const ParticleDistribution *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const ParticleDistribution *)" << getLevel();
 
-    ParameterizedItem *layoutItem = m_levelToParentItem[getLevel() - 1];
+    SessionItem *layoutItem = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(layoutItem);
-    ParameterizedItem *particle_distribution_item = m_sampleModel->insertNewItem(
+    SessionItem *particle_distribution_item = m_sampleModel->insertNewItem(
         Constants::ParticleDistributionType, m_sampleModel->indexOfItem(layoutItem));
     Q_ASSERT(particle_distribution_item);
 
@@ -260,10 +260,10 @@ void GUIObjectBuilder::visit(const ParticleCoreShell *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const ParticleCoreShell *)" << getLevel();
 
-    ParameterizedItem *parent = m_levelToParentItem[getLevel() - 1];
+    SessionItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *coreshellItem = m_sampleModel->insertNewItem(
+    SessionItem *coreshellItem = m_sampleModel->insertNewItem(
         Constants::ParticleCoreShellType, m_sampleModel->indexOfItem(parent));
     coreshellItem->setRegisteredProperty(ParticleItem::P_ABUNDANCE, sample->getAbundance());
 
@@ -277,9 +277,9 @@ void GUIObjectBuilder::visit(const ParticleComposition *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const ParticleComposition *)" << getLevel();
 
-    ParameterizedItem *parent = m_levelToParentItem[getLevel() - 1];
+    SessionItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
-    ParameterizedItem *particle_composition_item = m_sampleModel->insertNewItem(
+    SessionItem *particle_composition_item = m_sampleModel->insertNewItem(
         Constants::ParticleCompositionType, m_sampleModel->indexOfItem(parent));
     particle_composition_item->setRegisteredProperty(ParticleItem::P_ABUNDANCE,
                                                      sample->getAbundance());
@@ -292,8 +292,8 @@ void GUIObjectBuilder::visit(const ParticleComposition *sample)
 
 void GUIObjectBuilder::visit(const FormFactorAnisoPyramid *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::AnisoPyramidType);
     ffItem->setRegisteredProperty(AnisoPyramidItem::P_LENGTH,
                                   sample->getLength());
@@ -308,8 +308,8 @@ void GUIObjectBuilder::visit(const FormFactorAnisoPyramid *sample)
 
 void GUIObjectBuilder::visit(const FormFactorBox *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::BoxType);
     ffItem->setRegisteredProperty(BoxItem::P_LENGTH, sample->getLength());
     ffItem->setRegisteredProperty(BoxItem::P_WIDTH, sample->getWidth());
@@ -319,8 +319,8 @@ void GUIObjectBuilder::visit(const FormFactorBox *sample)
 
 void GUIObjectBuilder::visit(const FormFactorCone *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::ConeType);
     ffItem->setRegisteredProperty(ConeItem::P_RADIUS, sample->getRadius());
     ffItem->setRegisteredProperty(ConeItem::P_HEIGHT, sample->getHeight());
@@ -331,8 +331,8 @@ void GUIObjectBuilder::visit(const FormFactorCone *sample)
 
 void GUIObjectBuilder::visit(const FormFactorCone6 *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::Cone6Type);
     ffItem->setRegisteredProperty(Cone6Item::P_RADIUS, sample->getRadius());
     ffItem->setRegisteredProperty(Cone6Item::P_HEIGHT, sample->getHeight());
@@ -343,8 +343,8 @@ void GUIObjectBuilder::visit(const FormFactorCone6 *sample)
 
 void GUIObjectBuilder::visit(const FormFactorCuboctahedron *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::CuboctahedronType);
     ffItem->setRegisteredProperty(CuboctahedronItem::P_LENGTH,
                                   sample->getLength());
@@ -359,8 +359,8 @@ void GUIObjectBuilder::visit(const FormFactorCuboctahedron *sample)
 
 void GUIObjectBuilder::visit(const FormFactorCylinder *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::CylinderType);
     ffItem->setRegisteredProperty(CylinderItem::P_RADIUS, sample->getRadius());
     ffItem->setRegisteredProperty(CylinderItem::P_HEIGHT, sample->getHeight());
@@ -369,8 +369,8 @@ void GUIObjectBuilder::visit(const FormFactorCylinder *sample)
 
 void GUIObjectBuilder::visit(const FormFactorEllipsoidalCylinder *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
        ParticleItem::P_FORM_FACTOR, Constants::EllipsoidalCylinderType);
     ffItem->setRegisteredProperty(EllipsoidalCylinderItem::P_RADIUS_X,
                                   sample->getRadiusX());
@@ -383,8 +383,8 @@ void GUIObjectBuilder::visit(const FormFactorEllipsoidalCylinder *sample)
 
 void GUIObjectBuilder::visit(const FormFactorFullSphere *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::FullSphereType);
     ffItem->setRegisteredProperty(FullSphereItem::P_RADIUS,
                                   sample->getRadius());
@@ -393,8 +393,8 @@ void GUIObjectBuilder::visit(const FormFactorFullSphere *sample)
 
 void GUIObjectBuilder::visit(const FormFactorFullSpheroid *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::FullSpheroidType);
     ffItem->setRegisteredProperty(FullSpheroidItem::P_RADIUS,
                                   sample->getRadius());
@@ -405,8 +405,8 @@ void GUIObjectBuilder::visit(const FormFactorFullSpheroid *sample)
 
 void GUIObjectBuilder::visit(const FormFactorHemiEllipsoid *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::HemiEllipsoidType);
     ffItem->setRegisteredProperty(HemiEllipsoidItem::P_RADIUS_X,
                                   sample->getRadiusX());
@@ -419,8 +419,8 @@ void GUIObjectBuilder::visit(const FormFactorHemiEllipsoid *sample)
 
 void GUIObjectBuilder::visit(const FormFactorPrism3 *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::Prism3Type);
     ffItem->setRegisteredProperty(Prism3Item::P_LENGTH, sample->getLength());
     ffItem->setRegisteredProperty(Prism3Item::P_HEIGHT, sample->getHeight());
@@ -429,8 +429,8 @@ void GUIObjectBuilder::visit(const FormFactorPrism3 *sample)
 
 void GUIObjectBuilder::visit(const FormFactorPrism6 *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::Prism6Type);
     ffItem->setRegisteredProperty(Prism6Item::P_RADIUS, sample->getRadius());
     ffItem->setRegisteredProperty(Prism6Item::P_HEIGHT, sample->getHeight());
@@ -439,8 +439,8 @@ void GUIObjectBuilder::visit(const FormFactorPrism6 *sample)
 
 void GUIObjectBuilder::visit(const FormFactorPyramid *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::PyramidType);
     ffItem->setRegisteredProperty(PyramidItem::P_LENGTH, sample->getLength());
     ffItem->setRegisteredProperty(PyramidItem::P_HEIGHT, sample->getHeight());
@@ -451,8 +451,8 @@ void GUIObjectBuilder::visit(const FormFactorPyramid *sample)
 
 void GUIObjectBuilder::visit(const FormFactorRipple1 *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::Ripple1Type);
     ffItem->setRegisteredProperty(Ripple1Item::P_LENGTH, sample->getLength());
     ffItem->setRegisteredProperty(Ripple1Item::P_WIDTH, sample->getWidth());
@@ -462,8 +462,8 @@ void GUIObjectBuilder::visit(const FormFactorRipple1 *sample)
 
 void GUIObjectBuilder::visit(const FormFactorRipple2 *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::Ripple2Type);
     ffItem->setRegisteredProperty(Ripple2Item::P_LENGTH, sample->getLength());
     ffItem->setRegisteredProperty(Ripple2Item::P_WIDTH, sample->getWidth());
@@ -475,8 +475,8 @@ void GUIObjectBuilder::visit(const FormFactorRipple2 *sample)
 
 void GUIObjectBuilder::visit(const FormFactorTetrahedron *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::TetrahedronType);
     ffItem->setRegisteredProperty(TetrahedronItem::P_LENGTH,
                                   sample->getLength());
@@ -489,8 +489,8 @@ void GUIObjectBuilder::visit(const FormFactorTetrahedron *sample)
 
 void GUIObjectBuilder::visit(const FormFactorTruncatedCube *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::TruncatedCubeType);
     ffItem->setRegisteredProperty(TruncatedCubeItem::P_LENGTH,
                                   sample->getLength());
@@ -501,8 +501,8 @@ void GUIObjectBuilder::visit(const FormFactorTruncatedCube *sample)
 
 void GUIObjectBuilder::visit(const FormFactorTruncatedSphere *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::TruncatedSphereType);
     ffItem->setRegisteredProperty(TruncatedSphereItem::P_RADIUS,
                                   sample->getRadius());
@@ -513,8 +513,8 @@ void GUIObjectBuilder::visit(const FormFactorTruncatedSphere *sample)
 
 void GUIObjectBuilder::visit(const FormFactorTruncatedSpheroid *sample)
 {
-    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
-    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
                 ParticleItem::P_FORM_FACTOR, Constants::TruncatedSpheroidType);
     ffItem->setRegisteredProperty(TruncatedSpheroidItem::P_RADIUS,
                                   sample->getRadius());
@@ -527,9 +527,9 @@ void GUIObjectBuilder::visit(const FormFactorTruncatedSpheroid *sample)
 
 void GUIObjectBuilder::visit(const InterferenceFunctionRadialParaCrystal *sample)
 {
-    ParameterizedItem *parent = m_levelToParentItem[getLevel() - 1];
+    SessionItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sampleModel->insertNewItem(
+    SessionItem *item = m_sampleModel->insertNewItem(
         Constants::InterferenceFunctionRadialParaCrystalType, m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);
     TransformFromDomain::setItemFromSample(item, sample);
@@ -538,9 +538,9 @@ void GUIObjectBuilder::visit(const InterferenceFunctionRadialParaCrystal *sample
 
 void GUIObjectBuilder::visit(const InterferenceFunction2DParaCrystal *sample)
 {
-    ParameterizedItem *parent = m_levelToParentItem[getLevel() - 1];
+    SessionItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sampleModel->insertNewItem(
+    SessionItem *item = m_sampleModel->insertNewItem(
         Constants::InterferenceFunction2DParaCrystalType, m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);
     TransformFromDomain::setItemFromSample(item, sample);
@@ -549,9 +549,9 @@ void GUIObjectBuilder::visit(const InterferenceFunction2DParaCrystal *sample)
 
 void GUIObjectBuilder::visit(const InterferenceFunction1DLattice *sample)
 {
-    ParameterizedItem *parent = m_levelToParentItem[getLevel() - 1];
+    SessionItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sampleModel->insertNewItem(
+    SessionItem *item = m_sampleModel->insertNewItem(
         Constants::InterferenceFunction1DLatticeType, m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);
     TransformFromDomain::setItemFromSample(item, sample);
@@ -560,9 +560,9 @@ void GUIObjectBuilder::visit(const InterferenceFunction1DLattice *sample)
 
 void GUIObjectBuilder::visit(const InterferenceFunction2DLattice *sample)
 {
-    ParameterizedItem *parent = m_levelToParentItem[getLevel() - 1];
+    SessionItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sampleModel->insertNewItem(
+    SessionItem *item = m_sampleModel->insertNewItem(
         Constants::InterferenceFunction2DLatticeType, m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);
     TransformFromDomain::setItemFromSample(item, sample);
@@ -584,12 +584,12 @@ void GUIObjectBuilder::visit(const RotationX *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const RotationX *)" << getLevel();
 
-    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    SessionItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *transformation_item = m_sampleModel->insertNewItem(
+    SessionItem *transformation_item = m_sampleModel->insertNewItem(
         Constants::TransformationType, m_sampleModel->indexOfItem(parent));
-    ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
+    SessionItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::XRotationType);
     p_rotationItem->setRegisteredProperty(XRotationItem::P_ANGLE,
                                           Units::rad2deg(sample->getAngle()) );
@@ -600,12 +600,12 @@ void GUIObjectBuilder::visit(const RotationY *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const RotationY *)" << getLevel();
 
-    ParameterizedItem *parent = m_levelToParentItem[getLevel() - 1];
+    SessionItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *transformation_item = m_sampleModel->insertNewItem(
+    SessionItem *transformation_item = m_sampleModel->insertNewItem(
         Constants::TransformationType, m_sampleModel->indexOfItem(parent));
-    ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
+    SessionItem *p_rotationItem = transformation_item->setGroupProperty(
         TransformationItem::P_ROT, Constants::YRotationType);
     p_rotationItem->setRegisteredProperty(YRotationItem::P_ANGLE,
                                           Units::rad2deg(sample->getAngle()));
@@ -616,12 +616,12 @@ void GUIObjectBuilder::visit(const RotationZ *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const RotationZ *)" << getLevel();
 
-    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    SessionItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *transformation_item = m_sampleModel->insertNewItem(
+    SessionItem *transformation_item = m_sampleModel->insertNewItem(
         Constants::TransformationType, m_sampleModel->indexOfItem(parent));
-    ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
+    SessionItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::ZRotationType);
     p_rotationItem->setRegisteredProperty(ZRotationItem::P_ANGLE,
                                           Units::rad2deg(sample->getAngle()) );
@@ -632,12 +632,12 @@ void GUIObjectBuilder::visit(const RotationEuler *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const RotationEuler *)" << getLevel();
 
-    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    SessionItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *transformation_item = m_sampleModel->insertNewItem(
+    SessionItem *transformation_item = m_sampleModel->insertNewItem(
         Constants::TransformationType, m_sampleModel->indexOfItem(parent));
-    ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
+    SessionItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::EulerRotationType);
     p_rotationItem->setRegisteredProperty(EulerRotationItem::P_ALPHA,
                                           Units::rad2deg(sample->getAlpha()) );
@@ -648,10 +648,10 @@ void GUIObjectBuilder::visit(const RotationEuler *sample)
     m_levelToParentItem[getLevel()] = transformation_item;
 }
 
-void GUIObjectBuilder::buildPositionInfo(ParameterizedItem *particleItem, const IParticle *sample)
+void GUIObjectBuilder::buildPositionInfo(SessionItem *particleItem, const IParticle *sample)
 {
     kvector_t position = sample->getPosition();
-    ParameterizedItem *p_position_item = particleItem->getGroupItem(ParticleItem::P_POSITION);
+    SessionItem *p_position_item = particleItem->getGroupItem(ParticleItem::P_POSITION);
     p_position_item->setRegisteredProperty(VectorItem::P_X, position.x());
     p_position_item->setRegisteredProperty(VectorItem::P_Y, position.y());
     p_position_item->setRegisteredProperty(VectorItem::P_Z, position.z());

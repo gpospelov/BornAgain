@@ -17,11 +17,11 @@
 #define PARTICLEITEM_H
 
 #include "Particle.h"
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 
 #include <memory>
 
-class BA_CORE_API_ ParticleItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ ParticleItem : public SessionGraphicsItem
 {
     Q_OBJECT
 public:

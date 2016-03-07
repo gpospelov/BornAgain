@@ -26,7 +26,7 @@ const QString SphericalDetectorItem::P_ALPHA_AXIS = "Alpha axis";
 const QString SphericalDetectorItem::P_RESOLUTION_FUNCTION = "Type";
 
 SphericalDetectorItem::SphericalDetectorItem()
-    : ParameterizedItem(Constants::SphericalDetectorType)
+    : SessionItem(Constants::SphericalDetectorType)
 {
     registerGroupProperty(P_PHI_AXIS, Constants::BasicAxisType);
     getGroupItem(P_PHI_AXIS)->getItem(BasicAxisItem::P_TITLE)->setVisible(false);

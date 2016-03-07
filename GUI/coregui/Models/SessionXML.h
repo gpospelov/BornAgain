@@ -22,7 +22,7 @@
 
 class QXmlStreamWriter;
 class QXmlStreamReader;
-class ParameterizedItem;
+class SessionItem;
 
 namespace SessionXML {
 const QString MimeType = "application/org.bornagainproject.xml.item.z";
@@ -60,8 +60,8 @@ const QString AngleUnitsAttribute("Units");
 class BA_CORE_API_ SessionWriter
 {
 public:
-    static void writeTo(QXmlStreamWriter *writer, ParameterizedItem *parent);
-    static void writeItemAndChildItems(QXmlStreamWriter *writer, const ParameterizedItem *item);
+    static void writeTo(QXmlStreamWriter *writer, SessionItem *parent);
+    static void writeItemAndChildItems(QXmlStreamWriter *writer, const SessionItem *item);
 private:
     static void writeVariant(QXmlStreamWriter *writer, QVariant variant, int role);
 };
@@ -69,9 +69,9 @@ private:
 class BA_CORE_API_ SessionReader
 {
 public:
-    static void readItems(QXmlStreamReader *reader, ParameterizedItem *item, int row = -1);
+    static void readItems(QXmlStreamReader *reader, SessionItem *item, int row = -1);
 private:
-    static QString readProperty(QXmlStreamReader *reader, ParameterizedItem *item);
+    static QString readProperty(QXmlStreamReader *reader, SessionItem *item);
 };
 
 #endif // SESSIONXML_H

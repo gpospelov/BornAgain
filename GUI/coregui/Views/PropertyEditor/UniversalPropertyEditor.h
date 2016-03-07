@@ -30,10 +30,10 @@ class QtProperty;
 class QtVariantProperty;
 class QVariant;
 class QtAbstractPropertyBrowser;
-class ParameterizedItem;
+class SessionItem;
 
 
-//! property editor to display and modify properties of currently selected ParameterizedItem
+//! property editor to display and modify properties of currently selected SessionItem
 class BA_CORE_API_ UniversalPropertyEditor : public QWidget
 {
     Q_OBJECT
@@ -47,16 +47,16 @@ public:
 
     QObject *getObject() const;
     struct ItemIndexPair {
-        ItemIndexPair(ParameterizedItem *item=0, int index=0)
+        ItemIndexPair(SessionItem *item=0, int index=0)
             : m_item(item), m_index(index) {}
-        ParameterizedItem *m_item;
+        SessionItem *m_item;
         int m_index;
     };
 
     void setSelectionModel(QItemSelectionModel *selection_model);
 
     //! assigns item to the property editor
-    void setItem(ParameterizedItem *item);
+    void setItem(SessionItem *item);
 
     void setCreateGroupProperty(bool create_group_property);
 
@@ -75,15 +75,15 @@ private:
     //! clear editor
     void clearEditor();
 
-    ParameterizedItem *m_item; //! object to modify
+    SessionItem *m_item; //! object to modify
 
     QItemSelectionModel *m_selection_model;
 
     QMap<QtProperty *, ItemIndexPair>     m_property_to_item_index_pair;
-    QMap<const ParameterizedItem *, QMap<int, QtVariantProperty *> >
+    QMap<const SessionItem *, QMap<int, QtVariantProperty *> >
         m_item_to_index_to_property;
 
-    QMap<const ParameterizedItem *, QMap<QString, QtVariantProperty *> >
+    QMap<const SessionItem *, QMap<QString, QtVariantProperty *> >
         m_item_to_propertyname_to_qtvariantproperty;
 
 
@@ -91,12 +91,12 @@ private:
     QtVariantPropertyManager *m_manager;
     QtVariantPropertyManager *m_read_only_manager;
 
-    void addItemProperties(const ParameterizedItem *item);
+    void addItemProperties(const SessionItem *item);
     void addSubProperties(QtProperty *item_property,
-                          const ParameterizedItem *item);
+                          const SessionItem *item);
 
     //! If true than group property will be created, i.e. all properties of
-    //! ParameterizedItem will be sub-properties of group with the name modelType
+    //! SessionItem will be sub-properties of group with the name modelType
     //! (as in PropertyEditor of SampleDesigner)
     bool m_create_group_property;
 

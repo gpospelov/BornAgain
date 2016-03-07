@@ -21,7 +21,7 @@
 #include <QMetaType>
 #include <QVariant>
 
-//! The ComboProperty defines ParameterizedItem's property with a value
+//! The ComboProperty defines SessionItem's property with a value
 //! from predefined list.
 //!
 //! This is a light version of GroupProperty without SubItem mechanism

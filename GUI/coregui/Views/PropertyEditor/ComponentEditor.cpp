@@ -16,7 +16,7 @@
 #include "ComponentEditorPrivate.h"
 #include "qtpropertybrowser.h"
 #include "GUIHelpers.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "SessionModel.h"
 #include "GroupItem.h"
 #include "GroupProperty.h"
@@ -44,7 +44,7 @@ ComponentEditor::~ComponentEditor()
 }
 
 //! Sets editor to display all recursive properties of given item
-void ComponentEditor::setItem(ParameterizedItem *item, const QString &group_name)
+void ComponentEditor::setItem(SessionItem *item, const QString &group_name)
 {
     clearEditor();
     if(!item) return;
@@ -53,15 +53,15 @@ void ComponentEditor::setItem(ParameterizedItem *item, const QString &group_name
 
     QtVariantProperty *groupVariantProperty = m_d->processPropertyGroupForName(group_name);
 
-    foreach (ParameterizedItem *childItem, componentItems(item)) {
+    foreach (SessionItem *childItem, componentItems(item)) {
         updateEditor(childItem, groupVariantProperty);
     }
 }
 
 
-//! Main function to run through ParameterizedItem tree and fill editor with
+//! Main function to run through SessionItem tree and fill editor with
 //! properties
-void ComponentEditor::updateEditor(ParameterizedItem *item,
+void ComponentEditor::updateEditor(SessionItem *item,
                                    QtVariantProperty *parentProperty)
 {
     if (QtVariantProperty *childProperty
@@ -69,7 +69,7 @@ void ComponentEditor::updateEditor(ParameterizedItem *item,
         parentProperty = childProperty;
     }
 
-    foreach (ParameterizedItem *childItem, componentItems(item)) {
+    foreach (SessionItem *childItem, componentItems(item)) {
         updateEditor(childItem, parentProperty);
     }
 }
@@ -83,7 +83,7 @@ void ComponentEditor::clearEditor()
     connectManager();
 }
 
-//! Propagates data from ParameterizedItem to editor
+//! Propagates data from SessionItem to editor
 void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
                                     const QModelIndex &bottomRight,
                                     const QVector<int> &roles)
@@ -93,7 +93,7 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
 
     SessionModel *model = qobject_cast<SessionModel *>(sender());
     Q_ASSERT(model);
-    ParameterizedItem *item = model->itemForIndex(topLeft);
+    SessionItem *item = model->itemForIndex(topLeft);
     Q_ASSERT(item);
 
     qDebug() << " ComponentEditor::onDataChanged" << m_d->m_presentationType
@@ -120,7 +120,7 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
     }
 }
 
-//! Updates the editor starting from given ParameterizedItem's parent.
+//! Updates the editor starting from given SessionItem's parent.
 //! Editor should know already about given item (i.e. corresponding
 //! QtVariantProperty should exist.
 void ComponentEditor::onRowsInserted(const QModelIndex &parent, int first,
@@ -129,7 +129,7 @@ void ComponentEditor::onRowsInserted(const QModelIndex &parent, int first,
     qDebug() << "ComponentEditor::onRowsInserted" << parent << first << last;
     SessionModel *model = qobject_cast<SessionModel *>(sender());
 
-    ParameterizedItem *item = model->itemForIndex(parent);
+    SessionItem *item = model->itemForIndex(parent);
     Q_ASSERT(item);
 
     if (QtVariantProperty *property = m_d->getPropertyForItem(item)) {
@@ -137,12 +137,12 @@ void ComponentEditor::onRowsInserted(const QModelIndex &parent, int first,
     }
 }
 
-//! Propagates value from the editor to ParameterizedItem
+//! Propagates value from the editor to SessionItem
 void ComponentEditor::onQtPropertyChanged(QtProperty *property,
                                           const QVariant &value)
 {
     qDebug() << "ComponentEditor::onQtPropertyChanged" << property << value;
-    if (ParameterizedItem *item = m_d->getItemForProperty(property)) {
+    if (SessionItem *item = m_d->getItemForProperty(property)) {
         Q_ASSERT(item);
         disconnectModel(item->model());
         item->setValue(value);
@@ -151,11 +151,11 @@ void ComponentEditor::onQtPropertyChanged(QtProperty *property,
 }
 
 //! Returns list of children suitable for displaying in ComponentEditor.
-QList<ParameterizedItem *>
-ComponentEditor::componentItems(ParameterizedItem *item) const
+QList<SessionItem *>
+ComponentEditor::componentItems(SessionItem *item) const
 {
-    QList<ParameterizedItem *> result;
-    foreach (ParameterizedItem *child, item->childItems()) {
+    QList<SessionItem *> result;
+    foreach (SessionItem *child, item->childItems()) {
         if (!child->isVisible())
             continue;
         if (child->modelType() == Constants::PropertyType) {
@@ -165,7 +165,7 @@ ComponentEditor::componentItems(ParameterizedItem *item) const
             result.append(child);
         }
         if (item->modelType() == Constants::GroupItemType) {
-            foreach (ParameterizedItem *childOfChild, child->childItems()) {
+            foreach (SessionItem *childOfChild, child->childItems()) {
                 result.append(childOfChild);
             }
         }

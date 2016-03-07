@@ -2,7 +2,7 @@
 #define TESTPROPERTYATTRIBUTES_H
 
 #include "PropertyAttribute.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include <memory>
 #include <QtTest>
 /*
@@ -79,7 +79,7 @@ inline void TestPropertyAttributes::test_LimitsAndDecimals()
 
 inline void TestPropertyAttributes::test_ItemAttribute()
 {
-    std::unique_ptr<ParameterizedItem> item(new ParameterizedItem("Test"));
+    std::unique_ptr<ParameterizedItem> item(new SessionItem("Test"));
     PropertyAttribute attr(PropertyAttribute::HIDDEN, AttLimits::limited(1.0, 2.0), 3, "label", "tooltip");
     item->setAttribute(attr);
     QVERIFY(item->getAttribute().isHidden());
@@ -95,7 +95,7 @@ inline void TestPropertyAttributes::test_ItemAttribute()
 
 inline void TestPropertyAttributes::test_ItemPropertyAttribute()
 {
-    std::unique_ptr<ParameterizedItem> item(new ParameterizedItem("Test"));
+    std::unique_ptr<ParameterizedItem> item(new SessionItem("Test"));
     PropertyAttribute attr(PropertyAttribute::HIDDEN, AttLimits::limited(1.0, 2.0), 3, "label", "tooltip");
     const QString thickness("Thickness");
     item->registerProperty(thickness, 3.0, attr);

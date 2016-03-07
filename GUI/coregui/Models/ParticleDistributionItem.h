@@ -17,13 +17,13 @@
 #define PARTICLEDISTRIBUTIONITEM_H
 
 #include "ParticleDistribution.h"
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 
 #include <QStringList>
 
 class ParameterPool;
 
-class BA_CORE_API_ ParticleDistributionItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ ParticleDistributionItem : public SessionGraphicsItem
 {
     Q_OBJECT
 public:

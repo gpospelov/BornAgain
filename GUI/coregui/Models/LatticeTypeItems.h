@@ -16,9 +16,9 @@
 #ifndef LATTICETYPEITEMS_H
 #define LATTICETYPEITEMS_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
-class BA_CORE_API_ BasicLatticeTypeItem : public ParameterizedItem
+class BA_CORE_API_ BasicLatticeTypeItem : public SessionItem
 {
     Q_OBJECT
 public:
@@ -29,7 +29,7 @@ public:
     virtual ~BasicLatticeTypeItem(){}
 };
 
-class BA_CORE_API_ SquareLatticeTypeItem : public ParameterizedItem
+class BA_CORE_API_ SquareLatticeTypeItem : public SessionItem
 {
     Q_OBJECT
 public:
@@ -38,7 +38,7 @@ public:
     virtual ~SquareLatticeTypeItem(){}
 };
 
-class BA_CORE_API_ HexagonalLatticeTypeItem : public ParameterizedItem
+class BA_CORE_API_ HexagonalLatticeTypeItem : public SessionItem
 {
     Q_OBJECT
 public:

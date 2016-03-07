@@ -24,7 +24,7 @@ const QString ParticleCompositionItem::T_PARTICLES = "Particle Tag";
 const QString ParticleCompositionItem::T_TRANSFORMATION = "Transformation Tag";
 
 ParticleCompositionItem::ParticleCompositionItem()
-    : ParameterizedGraphicsItem(Constants::ParticleCompositionType)
+    : SessionGraphicsItem(Constants::ParticleCompositionType)
 {
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0);
     getItem(ParticleItem::P_ABUNDANCE)->setLimits(AttLimits::limited(0.0, 1.0));
@@ -41,7 +41,7 @@ ParticleCompositionItem::ParticleCompositionItem()
     ModelPath::addParameterTranslator(rotation_translator);
 
     mapper()->setOnParentChange(
-                [this](ParameterizedItem *parent) {
+                [this](SessionItem *parent) {
         if (parent && (parent->modelType() == Constants::ParticleCompositionType
             || parent->modelType() == Constants::ParticleDistributionType)) {
             setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
@@ -57,7 +57,7 @@ std::unique_ptr<ParticleComposition> ParticleCompositionItem::createParticleComp
     double abundance = getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
     auto P_composition = GUIHelpers::make_unique<ParticleComposition>();
     P_composition->setAbundance(abundance);
-    QVector<ParameterizedItem *> children = childItems();
+    QVector<SessionItem *> children = childItems();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::ParticleType) {
             auto *particle_item = static_cast<ParticleItem*>(children[i]);

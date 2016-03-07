@@ -24,7 +24,7 @@
 
 class QModelIndex;
 class SessionModel;
-class ParameterizedItem;
+class SessionItem;
 
 
 class BA_CORE_API_ ModelMapper : public QObject
@@ -33,13 +33,13 @@ class BA_CORE_API_ ModelMapper : public QObject
 public:
     ModelMapper(QObject *parent = 0);
 
-    void setItem(ParameterizedItem* item);
+    void setItem(SessionItem* item);
 
     void setOnPropertyChange(std::function<void(QString)> f);
 
-    void setOnChildPropertyChange(std::function<void(ParameterizedItem*,QString)> f);
+    void setOnChildPropertyChange(std::function<void(SessionItem*,QString)> f);
 
-    void setOnParentChange(std::function<void(ParameterizedItem*)> f);
+    void setOnParentChange(std::function<void(SessionItem*)> f);
 
     void setOnChildrenChange(std::function<void(void)> f);
 
@@ -55,14 +55,14 @@ public slots:
 
 private:
     void setModel(SessionModel *model);
-    int nestlingDepth(ParameterizedItem* item, int level = 0);
+    int nestlingDepth(SessionItem* item, int level = 0);
 
     bool m_active;
     SessionModel *m_model;
-    ParameterizedItem *m_item;
+    SessionItem *m_item;
     std::vector<std::function<void(QString)>> m_onPropertyChange;
-    std::vector<std::function<void(ParameterizedItem*,QString)>> m_onChildPropertyChange;
-    std::vector<std::function<void(ParameterizedItem*)>> m_onParentChange;
+    std::vector<std::function<void(SessionItem*,QString)>> m_onChildPropertyChange;
+    std::vector<std::function<void(SessionItem*)>> m_onParentChange;
     std::vector<std::function<void(void)>> m_onChildrenChange;
 };
 

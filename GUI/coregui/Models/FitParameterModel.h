@@ -45,7 +45,7 @@ public:
     Qt::DropActions supportedDropActions() const Q_DECL_OVERRIDE;
 
 public slots:
-    ParameterizedItem *addParameter();
+    SessionItem *addParameter();
 
 private:
     QMap<int, QString> *m_columnNames;

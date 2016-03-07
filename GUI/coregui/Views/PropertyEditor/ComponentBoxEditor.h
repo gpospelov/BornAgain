@@ -27,11 +27,11 @@ class BA_CORE_API_ ComponentBoxEditor : public ComponentEditor
 public:
     ComponentBoxEditor(QWidget *parent = 0);
 
-    void addPropertyItems(ParameterizedItem *item, const QString &group_name=QString());
-    void updatePropertyItems(ParameterizedItem *item, QtVariantProperty *parentProperty=0);
+    void addPropertyItems(SessionItem *item, const QString &group_name=QString());
+    void updatePropertyItems(SessionItem *item, QtVariantProperty *parentProperty=0);
 
-    void addItem(ParameterizedItem *item, const QString &group_name=QString());
-    void updateItem(ParameterizedItem *item, QtVariantProperty *parentProperty);
+    void addItem(SessionItem *item, const QString &group_name=QString());
+    void updateItem(SessionItem *item, QtVariantProperty *parentProperty);
 
 public slots:
     void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);

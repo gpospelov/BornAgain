@@ -31,7 +31,7 @@ GroupProperty::EGroupType GroupProperty::type() const
     return m_group_type;
 }
 
-ParameterizedItem *GroupProperty::getCurrentItem()
+SessionItem *GroupProperty::getCurrentItem()
 {
     qDebug() << "GroupProperty::getCurrentItem()" << m_groupItem;
     if(m_groupItem) return m_groupItem->getChildByName(this->getCurrentType());
@@ -40,17 +40,17 @@ ParameterizedItem *GroupProperty::getCurrentItem()
 //    return m_parent->getChildByName(this->getCurrentType());
 }
 
-void GroupProperty::setGroupItem(ParameterizedItem *groupItem)
+void GroupProperty::setGroupItem(SessionItem *groupItem)
 {
     Q_ASSERT(groupItem);
     m_groupItem = groupItem;
-    ParameterizedItem *item = createCorrespondingItem();
+    SessionItem *item = createCorrespondingItem();
     m_groupItem->insertChildItem(-1, item);
 }
 
-ParameterizedItem *GroupProperty::createCorrespondingItem()
+SessionItem *GroupProperty::createCorrespondingItem()
 {
-    ParameterizedItem *result = ItemFactory::createItem(getCurrentType());
+    SessionItem *result = ItemFactory::createItem(getCurrentType());
     if(type() == FIXED) {
         setCurrentLabel(result->itemLabel());
     }
@@ -72,7 +72,7 @@ void GroupProperty::setCurrentType(const QString &type, bool persistent)
     qDebug() << "GGG GroupProperty::setCurrentType(const QString &type)" << type;
     if(type == getCurrentType()) return;
 
-    ParameterizedItem *prevItem = getCurrentItem();
+    SessionItem *prevItem = getCurrentItem();
     m_current_type = type;
 
     if(m_groupItem) {
@@ -80,7 +80,7 @@ void GroupProperty::setCurrentType(const QString &type, bool persistent)
             item->setVisible(true);
             item->setEnabled(true);
         } else {
-            ParameterizedItem *new_item = createCorrespondingItem();
+            SessionItem *new_item = createCorrespondingItem();
             m_groupItem->insertChildItem(-1, new_item);
         }
 

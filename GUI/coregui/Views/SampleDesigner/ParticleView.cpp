@@ -67,7 +67,7 @@ void ParticleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 }
 
 
-void ParticleView::setParameterizedItem(ParameterizedItem *item)
+void ParticleView::setParameterizedItem(SessionItem *item)
 {
     ConnectableView::setParameterizedItem(item);
     onPropertyChange(ParticleItem::P_FORM_FACTOR);

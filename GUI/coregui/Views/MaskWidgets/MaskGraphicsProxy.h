@@ -20,7 +20,7 @@
 #include "MaskEditorHelper.h"
 #include <QGraphicsProxyWidget>
 
-class ParameterizedItem;
+class SessionItem;
 class ISceneAdaptor;
 class ColorMapSceneAdaptor;
 

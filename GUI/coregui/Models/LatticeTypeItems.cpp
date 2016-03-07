@@ -24,7 +24,7 @@ const QString HexagonalLatticeTypeItem::P_LATTICE_LENGTH = "Lattice_length";
 
 
 BasicLatticeTypeItem::BasicLatticeTypeItem()
-    : ParameterizedItem(QString("BasicLatticeType"))
+    : SessionItem(QString("BasicLatticeType"))
 {
     registerProperty(P_LATTICE_LENGTH1, 20.0);
     registerProperty(P_LATTICE_LENGTH2, 20.0);
@@ -32,13 +32,13 @@ BasicLatticeTypeItem::BasicLatticeTypeItem()
 }
 
 SquareLatticeTypeItem::SquareLatticeTypeItem()
-    : ParameterizedItem(QString("SquareLatticeType"))
+    : SessionItem(QString("SquareLatticeType"))
 {
     registerProperty(P_LATTICE_LENGTH, 20.0);
 }
 
 HexagonalLatticeTypeItem::HexagonalLatticeTypeItem()
-    : ParameterizedItem(QString("HexagonalLatticeType"))
+    : SessionItem(QString("HexagonalLatticeType"))
 {
     registerProperty(P_LATTICE_LENGTH, 20.0);
 }

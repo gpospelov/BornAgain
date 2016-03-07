@@ -24,10 +24,10 @@
 #include <QMetaType>
 #include <QSharedPointer>
 
-class ParameterizedItem;
+class SessionItem;
 
 //! The GroupProperty class represents a composition of the basic properties
-//! corresponding to a ParameterizedItem object.
+//! corresponding to a SessionItem object.
 //! Its construction is handled by a GroupPropertyRegistry object.
 class BA_CORE_API_ GroupProperty
 {
@@ -36,11 +36,11 @@ public:
 
     EGroupType type() const;
 
-    void setGroupItem(ParameterizedItem *groupItem);
+    void setGroupItem(SessionItem *groupItem);
 
-    ParameterizedItem *getCurrentItem();
+    SessionItem *getCurrentItem();
 
-    ParameterizedItem *createCorrespondingItem();
+    SessionItem *createCorrespondingItem();
 
     QString getGroupName() const;
 
@@ -66,7 +66,7 @@ private:
 
     QString m_group_name;
     EGroupType m_group_type;
-    ParameterizedItem *m_groupItem;
+    SessionItem *m_groupItem;
     QString m_current_type;
 
     std::map<QString, QString > m_type_label_map;

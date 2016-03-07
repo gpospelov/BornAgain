@@ -19,7 +19,7 @@
 #include <QDebug>
 
 ResolutionFunctionItem::ResolutionFunctionItem(const QString name)
-    : ParameterizedItem(name)
+    : SessionItem(name)
 {
 }
 

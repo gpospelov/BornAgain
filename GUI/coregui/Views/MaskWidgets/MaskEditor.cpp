@@ -105,7 +105,7 @@ void MaskEditor::init_test_model()
 
     // Rectangle
 
-    ParameterizedItem *container = maskModel->insertNewItem(Constants::MaskContainerType, maskModel->indexOfItem(intensityItem));
+    SessionItem *container = maskModel->insertNewItem(Constants::MaskContainerType, maskModel->indexOfItem(intensityItem));
     Q_ASSERT(container);
 
 //    RectangleItem *rect = new RectangleItem();
@@ -117,15 +117,15 @@ void MaskEditor::init_test_model()
 
 
     // Polygon
-//    ParameterizedItem *poly = m_maskModel->insertNewItem(Constants::PolygonMaskType, m_maskModel->indexOfItem(item));
+//    SessionItem *poly = m_maskModel->insertNewItem(Constants::PolygonMaskType, m_maskModel->indexOfItem(item));
 
-//    ParameterizedItem *p1 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
+//    SessionItem *p1 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
 //    p1->setRegisteredProperty(PolygonPointItem::P_POSX, 0.6);
 //    p1->setRegisteredProperty(PolygonPointItem::P_POSY, 1.5);
-//    ParameterizedItem *p2 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
+//    SessionItem *p2 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
 //    p2->setRegisteredProperty(PolygonPointItem::P_POSX, 1.0);
 //    p2->setRegisteredProperty(PolygonPointItem::P_POSY, 1.5);
-//    ParameterizedItem *p3 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
+//    SessionItem *p3 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
 //    p3->setRegisteredProperty(PolygonPointItem::P_POSX, 1.0);
 //    p3->setRegisteredProperty(PolygonPointItem::P_POSY, 0.6);
 
@@ -139,7 +139,7 @@ void MaskEditor::init_test_model()
 //   container->insertChildItem(-1, hline);
 
 
-//   ParameterizedItem *line = m_maskModel->insertNewItem(Constants::HorizontalLineMaskType, m_maskModel->indexOfItem(item));
+//   SessionItem *line = m_maskModel->insertNewItem(Constants::HorizontalLineMaskType, m_maskModel->indexOfItem(item));
 //   line->setRegisteredProperty(HorizontalLineItem::P_POSY, 1.0);
 
     // Ellipse

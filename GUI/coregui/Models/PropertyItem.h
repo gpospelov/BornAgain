@@ -16,9 +16,9 @@
 #ifndef PROPERTYITEM_H
 #define PROPERTYITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
-class BA_CORE_API_ PropertyItem : public ParameterizedItem
+class BA_CORE_API_ PropertyItem : public SessionItem
 {
     Q_OBJECT
 public:

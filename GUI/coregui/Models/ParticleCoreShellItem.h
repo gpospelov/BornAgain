@@ -17,12 +17,12 @@
 #define PARTICLECORESHELLITEM_H
 
 #include "ParticleCoreShell.h"
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 
 #include <QVector>
 #include <memory>
 
-class BA_CORE_API_ ParticleCoreShellItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ ParticleCoreShellItem : public SessionGraphicsItem
 {
     Q_OBJECT
 public:

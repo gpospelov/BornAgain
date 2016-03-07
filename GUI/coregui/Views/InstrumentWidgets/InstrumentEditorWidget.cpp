@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "InstrumentEditorWidget.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "BeamItem.h"
 #include "DetectorItems.h"
 #include "DetectorEditorWidget.h"
@@ -107,7 +107,7 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
             );
 }
 
-void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
+void InstrumentEditorWidget::setInstrumentItem(SessionItem *instrument)
 {
     Q_ASSERT(instrument);
     if(instrument != m_currentItem) {

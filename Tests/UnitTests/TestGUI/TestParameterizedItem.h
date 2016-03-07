@@ -3,7 +3,7 @@
 
 
 #include <QtTest>
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "GUIHelpers.h"
 #include "verify_throw_macro.h"
 
@@ -19,7 +19,7 @@ private slots:
 
 inline void TestParameterizedItem::test_registerProperty()
 {
-    ParameterizedItem item("Modeltype");
+    SessionItem item("Modeltype");
     QString property_name("MyProperty");
     double value(1.0);
 //    QSignalSpy spy(&item, SIGNAL(propertyChanged(QString)));
@@ -65,7 +65,7 @@ inline void TestParameterizedItem::test_registerProperty()
 
 inline void TestParameterizedItem::test_SelectableGroupProperty()
 {
-//    ParameterizedItem item;
+//    SessionItem item;
 //    QCOMPARE(item.getSubItems().size(), 0);
 }
 

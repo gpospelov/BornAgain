@@ -16,7 +16,7 @@
 #ifndef MASKITEMS_H
 #define MASKITEMS_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include <memory>
 
 namespace Geometry {
@@ -25,7 +25,7 @@ class IShape2D;
 
 //! Container holding various masks as children
 
-class BA_CORE_API_ MaskContainerItem : public ParameterizedItem
+class BA_CORE_API_ MaskContainerItem : public SessionItem
 {
     Q_OBJECT
 public:
@@ -35,7 +35,7 @@ public:
 
 //! A base class for all mask items
 //!
-class BA_CORE_API_ MaskItem : public ParameterizedItem
+class BA_CORE_API_ MaskItem : public SessionItem
 {
     Q_OBJECT
 public:
@@ -56,7 +56,7 @@ public:
     virtual std::unique_ptr<Geometry::IShape2D> createShape(double scale) const;
 };
 
-class BA_CORE_API_ PolygonPointItem : public ParameterizedItem
+class BA_CORE_API_ PolygonPointItem : public SessionItem
 {
     Q_OBJECT
 public:

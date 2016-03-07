@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ParameterizedGraphicsItem.h
-//! @brief     Defines class ParameterizedGraphicsItem
+//! @file      coregui/Models/SessionGraphicsItem.h
+//! @brief     Defines class SessionGraphicsItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,14 +13,14 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERIZEDGRAPHICSITEM_h
-#define PARAMETERIZEDGRAPHICSITEM_h
+#ifndef SESSIONGRAPHICSITEM_h
+#define SESSIONGRAPHICSITEM_h
 
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
 
-class BA_CORE_API_ ParameterizedGraphicsItem : public ParameterizedItem
+class BA_CORE_API_ SessionGraphicsItem : public SessionItem
 {
     Q_OBJECT
 public:
@@ -28,7 +28,7 @@ public:
     static const QString P_YPOS;
 
 protected:
-    explicit ParameterizedGraphicsItem(const QString &model_type=QString());
+    explicit SessionGraphicsItem(const QString &model_type=QString());
 };
 
 #endif

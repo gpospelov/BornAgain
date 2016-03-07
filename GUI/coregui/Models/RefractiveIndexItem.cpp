@@ -22,7 +22,7 @@ const QString RefractiveIndexItem::P_BETA = "beta";
 
 
 RefractiveIndexItem::RefractiveIndexItem()
-    : ParameterizedItem(Constants::RefractiveIndexType)
+    : SessionItem(Constants::RefractiveIndexType)
 {
     ScientificDoubleProperty delta(0.0);
     registerProperty(P_DELTA, delta.getVariant());

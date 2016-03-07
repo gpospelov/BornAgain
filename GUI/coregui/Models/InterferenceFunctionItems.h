@@ -16,10 +16,10 @@
 #ifndef PARACRYSTALITEMS_H
 #define PARACRYSTALITEMS_H
 
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 
 
-class BA_CORE_API_ InterferenceFunctionRadialParaCrystalItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ InterferenceFunctionRadialParaCrystalItem : public SessionGraphicsItem
 {
     Q_OBJECT
 public:
@@ -33,7 +33,7 @@ public:
 };
 
 
-class BA_CORE_API_ InterferenceFunction2DParaCrystalItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ InterferenceFunction2DParaCrystalItem : public SessionGraphicsItem
 {
     Q_OBJECT
 public:
@@ -49,7 +49,7 @@ public:
 };
 
 
-class BA_CORE_API_ InterferenceFunction1DLatticeItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ InterferenceFunction1DLatticeItem : public SessionGraphicsItem
 {
     Q_OBJECT
 public:
@@ -61,7 +61,7 @@ public:
 };
 
 
-class BA_CORE_API_ InterferenceFunction2DLatticeItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ InterferenceFunction2DLatticeItem : public SessionGraphicsItem
 {
     Q_OBJECT
 public:

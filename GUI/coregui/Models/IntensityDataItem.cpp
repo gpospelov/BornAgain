@@ -38,7 +38,7 @@ const QString IntensityDataItem::T_MASKS = "Mask tag";
 
 
 IntensityDataItem::IntensityDataItem()
-    : ParameterizedItem(Constants::IntensityDataType)
+    : SessionItem(Constants::IntensityDataType)
 {
 //    registerProperty(OBSOLETE_P_NAME, Constants::IntensityDataType).setHidden();
     setItemName(Constants::IntensityDataType);

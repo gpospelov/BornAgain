@@ -16,13 +16,13 @@
 #ifndef SPHERICALDETECTORITEM_H
 #define SPHERICALDETECTORITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include <memory>
 
 class IDetector2D;
 class IResolutionFunction2D;
 
-class SphericalDetectorItem : public ParameterizedItem
+class SphericalDetectorItem : public SessionItem
 {
 public:
     static const QString P_PHI_AXIS;

@@ -17,7 +17,7 @@
 #include "DesignerScene.h"
 #include "DesignerHelper.h"
 #include "MultiLayerView.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "SampleModel.h"
 #include "LayerItem.h"
 #include "GUIHelpers.h"
@@ -65,7 +65,7 @@ void ILayerView::onPropertyChange(const QString &propertyName)
     }
 }
 
-void ILayerView::setParameterizedItem(ParameterizedItem *item)
+void ILayerView::setParameterizedItem(SessionItem *item)
 {
     QVariant v = item->property(LayerItem::P_MATERIAL.toUtf8().constData());
     if (v.isValid()) {

@@ -20,7 +20,7 @@
 #include "MaskEditorHelper.h"
 #include <QGraphicsObject>
 
-class ParameterizedItem;
+class SessionItem;
 class ISceneAdaptor;
 class QPainter;
 class ModelMapper;
@@ -38,8 +38,8 @@ public:
 
     QRectF boundingRect() const;
 
-    virtual void setParameterizedItem(ParameterizedItem *item);
-    virtual ParameterizedItem *getParameterizedItem();
+    virtual void setParameterizedItem(SessionItem *item);
+    virtual SessionItem *getParameterizedItem();
 
     const ISceneAdaptor *getAdaptor();
     virtual void setSceneAdaptor(const ISceneAdaptor *adaptor);
@@ -68,7 +68,7 @@ public slots:
     virtual void onPropertyChange(const QString &propertyName);
 
 protected:
-    ParameterizedItem *m_item;
+    SessionItem *m_item;
     const ISceneAdaptor *m_adaptor;
     QRectF m_bounding_rect;
     ModelMapper *m_mapper;

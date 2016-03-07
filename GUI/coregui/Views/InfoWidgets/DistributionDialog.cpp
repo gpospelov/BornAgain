@@ -15,7 +15,7 @@
 
 #include "DistributionDialog.h"
 #include "DistributionEditor.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include <QHBoxLayout>
 #include <QPushButton>
 
@@ -48,7 +48,7 @@ DistributionDialog::DistributionDialog(QWidget *parent)
     setAttribute(Qt::WA_DeleteOnClose, true);
 }
 
-void DistributionDialog::setItem(ParameterizedItem *item)
+void DistributionDialog::setItem(SessionItem *item)
 {
     m_editor->setItem(item);
 }

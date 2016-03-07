@@ -35,7 +35,7 @@ const QString ParticleDistributionItem::NO_SELECTION = "None";
 const QString ParticleDistributionItem::T_PARTICLES = "Particle Tag";
 
 ParticleDistributionItem::ParticleDistributionItem()
-    : ParameterizedGraphicsItem(Constants::ParticleDistributionType)
+    : SessionGraphicsItem(Constants::ParticleDistributionType)
 {
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0);
     getItem(ParticleItem::P_ABUNDANCE)->setLimits(AttLimits::limited(0.0, 1.0));
@@ -51,7 +51,7 @@ ParticleDistributionItem::ParticleDistributionItem()
     registerProperty(P_DISTRIBUTED_PARAMETER, par_prop.getVariant());
     updateParameterList();
     mapper()->setOnChildPropertyChange(
-                [this](ParameterizedItem*,QString)
+                [this](SessionItem*,QString)
     {
         updateParameterList();
     });
@@ -126,7 +126,7 @@ void ParticleDistributionItem::updateParameterList()
 QStringList ParticleDistributionItem::getChildParameterNames() const
 {
     QStringList result;
-    QList<ParameterizedItem *> children = getUnregisteredChildren();
+    QList<SessionItem *> children = getUnregisteredChildren();
     if (children.size() > 1) {
         qDebug() << "ParticleDistributionItem::getChildParameterNames(): "
                  << "More than one child item";

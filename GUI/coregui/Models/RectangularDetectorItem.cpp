@@ -61,7 +61,7 @@ const QString RectangularDetectorItem::P_DBEAM_V0 = "v0 (dbeam)";
 const QString RectangularDetectorItem::P_DISTANCE = "Distance";
 
 RectangularDetectorItem::RectangularDetectorItem()
-    : ParameterizedItem(Constants::RectangularDetectorType)
+    : SessionItem(Constants::RectangularDetectorType)
     , m_is_constructed(false)
 {
     // axes parameters

@@ -25,7 +25,7 @@
 #include "FitModel.h"
 #include "DomainSimulationBuilder.h"
 #include "FitParameterItems.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
 #include "SessionModel.h"
@@ -122,8 +122,8 @@ void RunFitWidget::onFittingFinished()
 // test only
 std::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
 {
-    ParameterizedItem *multilayer = m_fitModel->getSelectedMultiLayerItem();
-    ParameterizedItem *instrument = m_fitModel->getSelectedInstrumentItem();
+    SessionItem *multilayer = m_fitModel->getSelectedMultiLayerItem();
+    SessionItem *instrument = m_fitModel->getSelectedInstrumentItem();
 
     DomainSimulationBuilder builder;
      std::shared_ptr<FitSuite> m_fitsuite = std::shared_ptr<FitSuite>(new FitSuite());
@@ -159,16 +159,16 @@ std::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
     m_fitsuite->addSimulationAndRealData(*simulation.get(), *data);
 
 
-    ParameterizedItem *container = m_fitModel->getFitParameterContainer();
+    SessionItem *container = m_fitModel->getFitParameterContainer();
 
 
 
     QModelIndex c_index = m_fitModel->indexOfItem(container);
     for (int i = 0; i < m_fitModel->rowCount(c_index); i++) {
         QModelIndex child = m_fitModel->index(i,0,c_index);
-        ParameterizedItem *parameter = m_fitModel->itemForIndex(child);
+        SessionItem *parameter = m_fitModel->itemForIndex(child);
         for (int j = 0; j < m_fitModel->rowCount(child); j++) {
-            ParameterizedItem *link = m_fitModel->itemForIndex(m_fitModel->index(j,0,child));
+            SessionItem *link = m_fitModel->itemForIndex(m_fitModel->index(j,0,child));
             QString value = link->getRegisteredProperty(FitParameterLinkItem::P_LINK).toString();
             value = value.replace("Position Offset/X", "PositionX");
             value = value.replace("Position Offset/Y", "PositionY");

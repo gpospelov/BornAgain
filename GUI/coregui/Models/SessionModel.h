@@ -20,7 +20,7 @@
 #include <QtCore/QXmlStreamReader>
 #include <QtCore/QXmlStreamWriter>
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
 #include "SessionXML.h"
 
@@ -30,7 +30,7 @@ class WarningMessageService;
 class BA_CORE_API_ SessionModel : public QAbstractItemModel
 {
     Q_OBJECT
-    friend class ParameterizedItem; // NEW
+    friend class SessionItem; // NEW
 public:
     explicit SessionModel(QString model_tag, QObject *parent = 0);
     virtual ~SessionModel();
@@ -70,8 +70,8 @@ public:
                       const QModelIndex &parent);
     // End overridden methods from QAbstractItemModel
 
-    QModelIndex indexOfItem(ParameterizedItem *item) const;
-    ParameterizedItem *insertNewItem(QString model_type, const QModelIndex &parent = QModelIndex(),
+    QModelIndex indexOfItem(SessionItem *item) const;
+    SessionItem *insertNewItem(QString model_type, const QModelIndex &parent = QModelIndex(),
                                      int row = -1, QString tag = QString());
 
     QString getModelTag() const;
@@ -88,45 +88,45 @@ public:
     void setDraggedItemType(const QString &type);
 
     // Returns root item if index is not valid
-    ParameterizedItem *itemForIndex(const QModelIndex &index) const;
+    SessionItem *itemForIndex(const QModelIndex &index) const;
 
     void readFrom(QXmlStreamReader *reader);
-    void writeTo(QXmlStreamWriter *writer, ParameterizedItem *parent = 0);
+    void writeTo(QXmlStreamWriter *writer, SessionItem *parent = 0);
 
-    ParameterizedItem *moveParameterizedItem(ParameterizedItem *item,
-                                             ParameterizedItem *new_parent = 0, int row = -1);
+    SessionItem *moveParameterizedItem(SessionItem *item,
+                                             SessionItem *new_parent = 0, int row = -1);
 
-    ParameterizedItem *copyParameterizedItem(const ParameterizedItem *item_to_copy,
-                                             ParameterizedItem *new_parent = 0, int row = -1);
+    SessionItem *copyParameterizedItem(const SessionItem *item_to_copy,
+                                             SessionItem *new_parent = 0, int row = -1);
 
     void setIconProvider(IconProvider *icon_provider);
 
-    virtual SessionModel *createCopy(ParameterizedItem *parent = 0);
+    virtual SessionModel *createCopy(SessionItem *parent = 0);
 
-    QMap<QString, ParameterizedItem *> getTopItemMap(const QString &model_type = QString()) const;
-    ParameterizedItem *getTopItem(const QString &model_type = QString(),
+    QMap<QString, SessionItem *> getTopItemMap(const QString &model_type = QString()) const;
+    SessionItem *getTopItem(const QString &model_type = QString(),
                                   const QString &item_name = QString()) const;
 
     void setMessageService(WarningMessageService *messageService);
 
-    virtual void initFrom(SessionModel *model, ParameterizedItem *parent);
-    ParameterizedItem* rootItem() const;
+    virtual void initFrom(SessionModel *model, SessionItem *parent);
+    SessionItem* rootItem() const;
 
 
 
 
 protected:
-    void setRootItem(ParameterizedItem *root) {m_root_item = root;}
+    void setRootItem(SessionItem *root) {m_root_item = root;}
 
 private:
 
-    ParameterizedItem *insertNewItem(QString model_type, ParameterizedItem *parent, int row = -1);
+    SessionItem *insertNewItem(QString model_type, SessionItem *parent, int row = -1);
 
     void cleanItem(const QModelIndex &parent, int first, int last);
 
     void report_error(const QString &error_type, const QString &message);
 
-    ParameterizedItem *m_root_item;
+    SessionItem *m_root_item;
     QString m_dragged_item_type;
     QString m_name;      //!< model name
     QString m_model_tag; //!< model tag (SampleModel, InstrumentModel)

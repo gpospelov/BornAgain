@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "MultiLayerView.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "DesignerScene.h"
 #include "SampleModel.h"
 #include "LayerView.h"

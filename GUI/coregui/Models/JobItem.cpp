@@ -58,7 +58,7 @@ const QString JobItem::P_RUN_POLICY = "Run Policy";
 
 
 JobItem::JobItem()
-    : ParameterizedItem(Constants::JobItemType)
+    : SessionItem(Constants::JobItemType)
 {
 //    registerProperty(OBSOLETE_P_NAME, Constants::JobItemType);
     setItemName(Constants::JobItemType);
@@ -89,7 +89,7 @@ JobItem::JobItem()
                 << Constants::MultiLayerType << Constants::InstrumentType);
     setDefaultTag(T_DATA);
     mapper()->setOnChildPropertyChange(
-                [this](ParameterizedItem* item, const QString &name)
+                [this](SessionItem* item, const QString &name)
     {
         if (item->modelType() == Constants::IntensityDataType
             && name == IntensityDataItem::P_AXES_UNITS) {
@@ -117,7 +117,7 @@ void JobItem::setIdentifier(const QString &identifier)
 
 IntensityDataItem *JobItem::getIntensityDataItem()
 {
-    foreach(ParameterizedItem *item, childItems()) {
+    foreach(SessionItem *item, childItems()) {
         IntensityDataItem *data = dynamic_cast<IntensityDataItem *>(item);
         if(data) return data;
     }
@@ -237,7 +237,7 @@ bool JobItem::runInBackground() const
 //! multilayer will be used
 MultiLayerItem *JobItem::getMultiLayerItem(bool from_backup)
 {
-    foreach(ParameterizedItem *item, childItems()) {
+    foreach(SessionItem *item, childItems()) {
         if(MultiLayerItem *multilayer = dynamic_cast<MultiLayerItem *>(item)) {
             if(from_backup && multilayer->itemName().endsWith(Constants::JOB_BACKUP)) {
                 return multilayer;
@@ -254,7 +254,7 @@ MultiLayerItem *JobItem::getMultiLayerItem(bool from_backup)
 //! the instrument will be used
 InstrumentItem *JobItem::getInstrumentItem(bool from_backup)
 {
-    foreach(ParameterizedItem *item, childItems()) {
+    foreach(SessionItem *item, childItems()) {
         if(InstrumentItem *instrument = dynamic_cast<InstrumentItem *>(item)) {
             if(from_backup && instrument->itemName().endsWith(Constants::JOB_BACKUP)) {
                 return instrument;
@@ -285,7 +285,7 @@ void JobItem::setResults(const GISASSimulation *simulation)
 
 //void JobItem::onPropertyChange(const QString &name)
 //{
-//    if(name == ParameterizedItem::P_NAME) {
+//    if(name == SessionItem::P_NAME) {
 //        if(IntensityDataItem *intensityDataItem = getIntensityDataItem()) {
 //            intensityDataItem->setNameFromProposed(itemName());
 //        }

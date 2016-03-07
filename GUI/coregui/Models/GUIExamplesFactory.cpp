@@ -61,7 +61,7 @@ bool GUIExamplesFactory::isValidExampleName(const QString &name)
 }
 
 //! Populate sample model with
-ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, SampleModel *sampleModel)
+SessionItem *GUIExamplesFactory::createSampleItems(const QString &name, SampleModel *sampleModel)
 {
     QString exampleName = m_name_to_registry[name];
 
@@ -72,7 +72,7 @@ ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, Sa
     return guiBuilder.populateSampleModel(sampleModel, *sample.get(), name);
 }
 
-//ParameterizedItem *GUIExamplesFactory::createInstrumentItems(const QString &name, InstrumentModel *instrumentModel)
+//SessionItem *GUIExamplesFactory::createInstrumentItems(const QString &name, InstrumentModel *instrumentModel)
 //{
 //    QString exampleName = m_name_to_registry[name];
 //    SimulationRegistry registry;

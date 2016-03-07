@@ -15,7 +15,7 @@
 
 #include "SamplePropertyWidget.h"
 #include "ComponentEditor.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include <QVBoxLayout>
 #include <QItemSelection>
 #include <QModelIndexList>
@@ -69,7 +69,7 @@ void SamplePropertyWidget::selectionChanged(const QItemSelection & selected,
     (void)deselected;
     QModelIndexList indices = selected.indexes();
     if(indices.size()) {
-        ParameterizedItem *item = static_cast<ParameterizedItem *>(
+        SessionItem *item = static_cast<SessionItem *>(
                 indices.back().internalPointer());
 //        m_propertyEditor->setItem(item, item->modelType());
         m_propertyEditor->setItem(item, item->modelType());

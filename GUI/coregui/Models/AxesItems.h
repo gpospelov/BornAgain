@@ -16,10 +16,10 @@
 #ifndef AXESITEMS_H
 #define AXESITEMS_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "item_constants.h"
 
-class BA_CORE_API_  BasicAxisItem : public ParameterizedItem
+class BA_CORE_API_  BasicAxisItem : public SessionItem
 {
     Q_OBJECT
 public:

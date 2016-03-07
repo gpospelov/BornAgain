@@ -17,17 +17,17 @@
 #define FTDECAYFUNCTIONITEMS_H
 
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "FTDecayFunctions.h"
 
 
-class BA_CORE_API_ FTDecayFunction1DItem : public ParameterizedItem
+class BA_CORE_API_ FTDecayFunction1DItem : public SessionItem
 {
     Q_OBJECT
 public:
     static const QString P_DECAY_LENGTH;
     explicit FTDecayFunction1DItem(const QString name)
-        : ParameterizedItem(name){}
+        : SessionItem(name){}
     virtual IFTDecayFunction1D *createFTDecayFunction() const { return 0;}
     virtual ~FTDecayFunction1DItem(){}
 };
@@ -65,7 +65,7 @@ public:
     virtual IFTDecayFunction1D *createFTDecayFunction() const;
 };
 
-class BA_CORE_API_ FTDecayFunction2DItem : public ParameterizedItem
+class BA_CORE_API_ FTDecayFunction2DItem : public SessionItem
 {
     Q_OBJECT
 public:
@@ -73,7 +73,7 @@ public:
     static const QString P_DECAY_LENGTH_Y;
     static const QString P_GAMMA;
     explicit FTDecayFunction2DItem(const QString name)
-        : ParameterizedItem(name) {
+        : SessionItem(name) {
          registerProperty(P_GAMMA, 0.0);
     }
     virtual IFTDecayFunction2D *createFTDecayFunction() const { return 0;}

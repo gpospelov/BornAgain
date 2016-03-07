@@ -24,7 +24,7 @@ const QString TestItem::P_VALUE = "Value";
 const QString TestItem::P_COMBO = "Combo";
 const QString TestItem::P_VECTOR = "Vector";
 TestItem::TestItem()
-    : ParameterizedItem(QString("TestItem"))
+    : SessionItem(QString("TestItem"))
 {
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
     registerProperty(P_VALUE, 99.0);

@@ -18,7 +18,7 @@
 
 
 LayerZeroRoughnessItem::LayerZeroRoughnessItem()
-    : ParameterizedItem(Constants::LayerZeroRoughnessType)
+    : SessionItem(Constants::LayerZeroRoughnessType)
 {
 }
 
@@ -27,7 +27,7 @@ const QString LayerBasicRoughnessItem::P_HURST = "Hurst parameter";
 const QString LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH = "Lateral corr length";
 
 LayerBasicRoughnessItem::LayerBasicRoughnessItem()
-    : ParameterizedItem(Constants::LayerBasicRoughnessType)
+    : SessionItem(Constants::LayerBasicRoughnessType)
 {
     registerProperty(P_SIGMA, 1.0);
     registerProperty(P_HURST, 0.3)->setLimits(AttLimits::limited(0.0, 1.0));

@@ -32,7 +32,7 @@ const QString MaterialItem::P_IDENTIFIER = "Identifier";
 
 
 MaterialItem::MaterialItem()
-    : ParameterizedItem(Constants::MaterialType)
+    : SessionItem(Constants::MaterialType)
 {
 //    registerProperty(OBSOLETE_P_NAME, Constants::MaterialType);
 //    setItemName(Constants::MaterialType);

@@ -317,14 +317,14 @@ void MainWindow::resetModels()
     m_jobModel->clear();
 
     m_instrumentModel->clear();
-    ParameterizedItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
+    SessionItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument->setItemName("Default GISAS");
     m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
     m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
 
     /*m_fitModel->clear();
     m_fitModel->insertNewItem(Constants::FitParameterContainerType, QModelIndex());
-    ParameterizedItem *selection = m_fitModel->insertNewItem(Constants::FitSelectionType, QModelIndex());
+    SessionItem *selection = m_fitModel->insertNewItem(Constants::FitSelectionType, QModelIndex());
     selection->setRegisteredProperty(FitSelectionItem::P_SAMPLE, "MultiLayer");
     selection->setRegisteredProperty(FitSelectionItem::P_INSTRUMENT, "Instrument0");
     m_fitModel->insertNewItem(Constants::MinimizerSettingsType, QModelIndex());

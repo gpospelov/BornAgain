@@ -24,7 +24,7 @@ const QString DistributionItem::P_NUMBER_OF_SAMPLES = "Number of samples";
 const QString DistributionItem::P_SIGMA_FACTOR = "Sigma factor";
 
 DistributionItem::DistributionItem(const QString name)
-    : ParameterizedItem(name)
+    : SessionItem(name)
 {
 }
 

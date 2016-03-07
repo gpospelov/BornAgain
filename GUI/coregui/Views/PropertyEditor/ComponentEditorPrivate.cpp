@@ -84,7 +84,7 @@ void ComponentEditorPrivate::init_browser()
 
 //! Creates, if necessary, qtVariantProperty for given item and place it in the editor
 QtVariantProperty *ComponentEditorPrivate::
-    processPropertyForItem(ParameterizedItem *item, QtVariantProperty *parentProperty)
+    processPropertyForItem(SessionItem *item, QtVariantProperty *parentProperty)
 {
     QtVariantProperty *itemProperty = getPropertyForItem(item);
     if (!itemProperty) {
@@ -110,7 +110,7 @@ QtVariantProperty *ComponentEditorPrivate::
 }
 
 //! Returns QtVariantProperty representing given item in ComponentEditor.
-QtVariantProperty *ComponentEditorPrivate::getPropertyForItem(ParameterizedItem *item)
+QtVariantProperty *ComponentEditorPrivate::getPropertyForItem(SessionItem *item)
 {
     if (m_item_to_qtvariantproperty.contains(item)) {
         return m_item_to_qtvariantproperty[item];
@@ -118,8 +118,8 @@ QtVariantProperty *ComponentEditorPrivate::getPropertyForItem(ParameterizedItem 
     return nullptr;
 }
 
-//! Returns ParameterizedItem corresponding to QtVariantProperty representation
-ParameterizedItem *ComponentEditorPrivate::getItemForProperty(QtProperty *property)
+//! Returns SessionItem corresponding to QtVariantProperty representation
+SessionItem *ComponentEditorPrivate::getItemForProperty(QtProperty *property)
 {
     if (m_qtproperty_to_item.contains(property)) {
         return m_qtproperty_to_item[property];
@@ -127,8 +127,8 @@ ParameterizedItem *ComponentEditorPrivate::getItemForProperty(QtProperty *proper
     return nullptr;
 }
 
-//! creates QtVariantProperty for given ParameterizedItem's property
-QtVariantProperty *ComponentEditorPrivate::createQtVariantProperty(ParameterizedItem *item)
+//! creates QtVariantProperty for given SessionItem's property
+QtVariantProperty *ComponentEditorPrivate::createQtVariantProperty(SessionItem *item)
 {
     QtVariantProperty *result(0);
 
@@ -186,7 +186,7 @@ void ComponentEditorPrivate::removeQtVariantProperty(QtVariantProperty *property
     delete property;
     auto it = m_qtproperty_to_item.find(property);
     if (it != m_qtproperty_to_item.end()) {
-        ParameterizedItem *item = it.value();
+        SessionItem *item = it.value();
         m_item_to_qtvariantproperty.remove(item);
         m_item_to_qtparent.remove(item);
         m_item_to_insert_mode.remove(item);
@@ -194,7 +194,7 @@ void ComponentEditorPrivate::removeQtVariantProperty(QtVariantProperty *property
     }
 }
 
-//! update visual apperance of qtVariantProperty using ParameterizedItem's attribute
+//! update visual apperance of qtVariantProperty using SessionItem's attribute
 void ComponentEditorPrivate::updatePropertyAppearance(QtVariantProperty *property,
                                                       const PropertyAttribute &attribute)
 {
@@ -234,9 +234,9 @@ void ComponentEditorPrivate::updatePropertyAppearance(QtVariantProperty *propert
 }
 
 //! removes properties of all child items
-void ComponentEditorPrivate::cleanChildren(ParameterizedItem *item)
+void ComponentEditorPrivate::cleanChildren(SessionItem *item)
 {
-    foreach(ParameterizedItem *child, item->childItems()) {
+    foreach(SessionItem *child, item->childItems()) {
         if (QtVariantProperty *property = getPropertyForItem(child)) {
             removeQtVariantProperty(property);
         }

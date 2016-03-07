@@ -95,7 +95,7 @@ void DetectorEditorWidget::init_SubDetector_Widget()
     m_subDetectorWidget = 0;
 
 
-    ParameterizedItem *subItem = m_detectorItem->getGroupItem(DetectorItem::P_DETECTOR);
+    SessionItem *subItem = m_detectorItem->getGroupItem(DetectorItem::P_DETECTOR);
 //    if(SphericalDetectorItem *SphericalDetectorItem = dynamic_cast<)
 
 

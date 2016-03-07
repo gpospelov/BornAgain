@@ -16,7 +16,7 @@
 #ifndef RECTANGULARDETECTORITEM_H
 #define RECTANGULARDETECTORITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "Vectors3D.h"
 #include <memory>
 
@@ -24,7 +24,7 @@ class IDetector2D;
 class IResolutionFunction2D;
 
 
-class RectangularDetectorItem : public ParameterizedItem
+class RectangularDetectorItem : public SessionItem
 {
 public:
     static const QString P_X_AXIS;

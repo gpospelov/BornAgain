@@ -26,7 +26,7 @@ SampleModel::SampleModel(QObject *parent) : SessionModel(SessionXML::SampleModel
     setObjectName(SessionXML::SampleModelTag);
 }
 
-SampleModel *SampleModel::createCopy(ParameterizedItem *parent)
+SampleModel *SampleModel::createCopy(SessionItem *parent)
 {
     SampleModel *result = new SampleModel();
     result->initFrom(this, parent);
@@ -34,7 +34,7 @@ SampleModel *SampleModel::createCopy(ParameterizedItem *parent)
 }
 
 //! returns list of MultiLayers defined in the model
-QMap<QString, ParameterizedItem *> SampleModel::getSampleMap() const
+QMap<QString, SessionItem *> SampleModel::getSampleMap() const
 {
     return getTopItemMap(Constants::MultiLayerType);
 }
@@ -66,7 +66,7 @@ void SampleModel::exploreForMaterials(const QModelIndex &parentIndex)
 
     for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = index(i_row, 0, parentIndex);
-        if (ParameterizedItem *item = itemForIndex(itemIndex)) {
+        if (SessionItem *item = itemForIndex(itemIndex)) {
             if (item->modelType() == Constants::LayerType
                 || item->modelType() == Constants::ParticleType) {
                 qDebug() << " found item" << item->modelType();

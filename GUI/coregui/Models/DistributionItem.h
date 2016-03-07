@@ -16,14 +16,14 @@
 #ifndef DISTRIBUTIONITEM_H
 #define DISTRIBUTIONITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "PropertyAttribute.h"
 
 #include <memory>
 
 class IDistribution1D;
 
-class BA_CORE_API_ DistributionItem : public ParameterizedItem
+class BA_CORE_API_ DistributionItem : public SessionItem
 {
     Q_OBJECT
 public:

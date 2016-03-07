@@ -21,7 +21,7 @@
 #include <QWidget>
 
 class ComponentBoxEditor;
-class ParameterizedItem;
+class SessionItem;
 
 //! The ComponentEditorBox is a widget to display ComponentEditor inside
 //! custom group box equipped with help sign functionality
@@ -33,12 +33,12 @@ public:
 
     ComponentInfoBox(const QString &title, QWidget *parent = 0);
 
-    void addPropertyItems(ParameterizedItem *item);
+    void addPropertyItems(SessionItem *item);
 
     void clearEditor();
 
 signals:
-    void onDialogRequest(ParameterizedItem *item, QString names);
+    void onDialogRequest(SessionItem *item, QString names);
 
 private slots:
     void dialogRequest();
@@ -46,7 +46,7 @@ private slots:
 private:
     GroupInfoBox *m_groupBox;
     ComponentBoxEditor *m_editor;
-    ParameterizedItem *m_item;
+    SessionItem *m_item;
     QString m_title;
 };
 

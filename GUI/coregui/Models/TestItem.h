@@ -16,10 +16,10 @@
 #ifndef TESTITEM_H
 #define TESTITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
-//! The TestItem class for TestParameterizedItem unit tests and for checking AwesomePropertyEditor machinery
-class BA_CORE_API_ TestItem : public ParameterizedItem
+//! The TestItem class for TestSessionItem unit tests and for checking AwesomePropertyEditor machinery
+class BA_CORE_API_ TestItem : public SessionItem
 {
     Q_OBJECT
 public:

@@ -17,17 +17,17 @@
 #define FTDISTRIBUTIONITEMS_H
 
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "FTDistributions.h"
 
 
-class BA_CORE_API_ FTDistribution1DItem : public ParameterizedItem
+class BA_CORE_API_ FTDistribution1DItem : public SessionItem
 {
     Q_OBJECT
 public:
     static const QString P_CORR_LENGTH;
     explicit FTDistribution1DItem(const QString name)
-        : ParameterizedItem(name){}
+        : SessionItem(name){}
     virtual IFTDistribution1D *createFTDistribution() const { return 0;}
     virtual ~FTDistribution1DItem(){}
 };
@@ -81,7 +81,7 @@ public:
     virtual IFTDistribution1D *createFTDistribution() const;
 };
 
-class BA_CORE_API_ FTDistribution2DItem : public ParameterizedItem
+class BA_CORE_API_ FTDistribution2DItem : public SessionItem
 {
     Q_OBJECT
 public:
@@ -89,7 +89,7 @@ public:
     static const QString P_CORR_LENGTH_Y;
     static const QString P_GAMMA;
     explicit FTDistribution2DItem(const QString name)
-        : ParameterizedItem(name) {
+        : SessionItem(name) {
         registerProperty(P_GAMMA, 0.0);
     }
     virtual IFTDistribution2D *createFTDistribution() const { return 0;}

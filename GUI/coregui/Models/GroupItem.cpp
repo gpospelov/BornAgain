@@ -16,7 +16,7 @@
 #include "GroupItem.h"
 
 GroupItem::GroupItem()
-    :ParameterizedItem(Constants::GroupItemType)
+    :SessionItem(Constants::GroupItemType)
 {
     const QString T_ITEMS = "Item tag";
     registerTag(T_ITEMS);

@@ -23,7 +23,7 @@
 #include "qttreepropertybrowser.h"
 #include "qtgroupboxpropertybrowser.h"
 #include "qtbuttonpropertybrowser.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "PropertyAttribute.h"
 #include <QMap>
 #include <memory>
@@ -46,11 +46,11 @@ public:
     void init_browser();
 
     QtVariantProperty *
-    processPropertyForItem(ParameterizedItem *item,
+    processPropertyForItem(SessionItem *item,
                            QtVariantProperty *parentProperty);
-    QtVariantProperty *getPropertyForItem(ParameterizedItem *item);
-    ParameterizedItem *getItemForProperty(QtProperty *property);
-    QtVariantProperty *createQtVariantProperty(ParameterizedItem *item);
+    QtVariantProperty *getPropertyForItem(SessionItem *item);
+    SessionItem *getItemForProperty(QtProperty *property);
+    QtVariantProperty *createQtVariantProperty(SessionItem *item);
 
     QtVariantProperty *processPropertyGroupForName(const QString &name);
     QtVariantProperty *getPropertyForGroupName(const QString &name);
@@ -58,7 +58,7 @@ public:
     void removeQtVariantProperty(QtVariantProperty *property);
     void updatePropertyAppearance(QtVariantProperty *property,
                                   const PropertyAttribute &attribute);
-    void cleanChildren(ParameterizedItem *item);
+    void cleanChildren(SessionItem *item);
 
     void install_custom_filters();
 
@@ -67,11 +67,11 @@ public:
     QtVariantPropertyManager *m_read_only_manager;
     PropertyVariantFactory *m_propertyFactory;
 
-    QMap<QtProperty *, ParameterizedItem *> m_qtproperty_to_item;
-    QMap<ParameterizedItem *, QtVariantProperty *> m_item_to_qtvariantproperty;
+    QMap<QtProperty *, SessionItem *> m_qtproperty_to_item;
+    QMap<SessionItem *, QtVariantProperty *> m_item_to_qtvariantproperty;
     QMap<QString, QtVariantProperty *> m_groupname_to_qtvariant;
-    QMap<ParameterizedItem *, QtVariantProperty *> m_item_to_qtparent;
-    QMap<ParameterizedItem *, ComponentEditorFlags::InsertMode> m_item_to_insert_mode;
+    QMap<SessionItem *, QtVariantProperty *> m_item_to_qtparent;
+    QMap<SessionItem *, ComponentEditorFlags::InsertMode> m_item_to_insert_mode;
 
     ComponentEditorFlags::PresentationType m_presentationType;
     std::unique_ptr<WheelEventEater> m_wheel_event_filter;

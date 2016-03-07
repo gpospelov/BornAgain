@@ -119,9 +119,9 @@ QList<IView *> SampleViewAligner::getConnectedViews(IView *view)
 {
     QList<IView *> result;
 
-    ParameterizedItem *itemOfView = view->getParameterizedItem();
+    SessionItem *itemOfView = view->getParameterizedItem();
 
-    QList<ParameterizedItem *> connected_items;
+    QList<SessionItem *> connected_items;
 
     if(itemOfView->parent()->modelType() == Constants::LayerType) {
         // e.g. we are dealing here with ParticleLayout, so we will use directly MultiLayer to interact with
@@ -132,7 +132,7 @@ QList<IView *> SampleViewAligner::getConnectedViews(IView *view)
 
     if(itemOfView->modelType() == Constants::MultiLayerType) {
         // MultiLayer will not interact with its Layers, but with they children, e.g. with ParticleLayouts
-        foreach(ParameterizedItem *child,  itemOfView->childItems()) {
+        foreach(SessionItem *child,  itemOfView->childItems()) {
             connected_items.append(child->childItems().toList());
         }
     } else {
@@ -140,7 +140,7 @@ QList<IView *> SampleViewAligner::getConnectedViews(IView *view)
 
     }
 
-    foreach(ParameterizedItem *item, connected_items) {
+    foreach(SessionItem *item, connected_items) {
         IView *view = m_scene->getViewForItem(item);
         if(view) {
             result.append(view);
@@ -153,7 +153,7 @@ QList<IView *> SampleViewAligner::getConnectedViews(IView *view)
 
 
 //! Aligns sample starting from
-void SampleViewAligner::alignSample(ParameterizedItem *item, QPointF reference, bool force_alignment)
+void SampleViewAligner::alignSample(SessionItem *item, QPointF reference, bool force_alignment)
 {
     Q_ASSERT(item);
     alignSample(m_scene->getSampleModel()->indexOfItem(item), reference, force_alignment);
@@ -189,7 +189,7 @@ void SampleViewAligner::alignSample(const QModelIndex & parentIndex, QPointF ref
     int child_counter = 0;
     for( int i_row = 0; i_row < sampleModel->rowCount( parentIndex ); ++i_row) {
          QModelIndex itemIndex = sampleModel->index( i_row, 0, parentIndex );
-         ParameterizedItem *item = sampleModel->itemForIndex(itemIndex);
+         SessionItem *item = sampleModel->itemForIndex(itemIndex);
          if (item && (item->modelType() == Constants::GroupItemType || item->modelType() == Constants::PropertyType)) {
              continue;
          }
@@ -203,7 +203,7 @@ void SampleViewAligner::alignSample(const QModelIndex & parentIndex, QPointF ref
 IView *SampleViewAligner::getViewForIndex(const QModelIndex &index)
 {
     SampleModel *sampleModel = m_scene->getSampleModel();
-    ParameterizedItem *item = sampleModel->itemForIndex(index);
+    SessionItem *item = sampleModel->itemForIndex(index);
     if(IView *view = m_scene->getViewForItem(item)) {
         return view;
     }

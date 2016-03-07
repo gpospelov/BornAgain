@@ -20,7 +20,7 @@
 #include <QString>
 
 class IMaskView;
-class ParameterizedItem;
+class SessionItem;
 class ISceneAdaptor;
 
 //! Factory to construct views out of MaskItems for MaskGraphicsScene
@@ -28,7 +28,7 @@ class ISceneAdaptor;
 class BA_CORE_API_ MaskViewFactory
 {
 public:
-    static IMaskView *createMaskView(ParameterizedItem *item,
+    static IMaskView *createMaskView(SessionItem *item,
                                      ISceneAdaptor *adaptor = 0);
 };
 

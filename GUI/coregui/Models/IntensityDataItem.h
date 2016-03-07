@@ -16,7 +16,7 @@
 #ifndef INTENSITYDATAITEM_H
 #define INTENSITYDATAITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "OutputData.h"
 #include "IDetector2D.h"
 #include <QMap>
@@ -24,7 +24,7 @@
 class GISASSimulation;
 
 
-class BA_CORE_API_ IntensityDataItem : public ParameterizedItem
+class BA_CORE_API_ IntensityDataItem : public SessionItem
 {
     Q_OBJECT
 public:

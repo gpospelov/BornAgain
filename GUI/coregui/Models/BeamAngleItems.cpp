@@ -29,7 +29,7 @@ BeamInclinationAngleItem::BeamInclinationAngleItem()
     cache->setDecimals(3);
     setRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE, 0.2);
 
-    ParameterizedItem *distribution = dynamic_cast<DistributionNoneItem *>(getGroupItem(P_DISTRIBUTION));
+    SessionItem *distribution = dynamic_cast<DistributionNoneItem *>(getGroupItem(P_DISTRIBUTION));
     Q_ASSERT(distribution);
     auto value = distribution->getItem(DistributionNoneItem::P_VALUE);
     value->setLimits(AttLimits::limited(0.0, 90.0));
@@ -55,7 +55,7 @@ BeamAzimuthalAngleItem::BeamAzimuthalAngleItem()
     cache->setVisible(false);
     cache->setLimits(AttLimits::limited(-90.0, 90.0));
     cache->setDecimals(3);
-    ParameterizedItem *distribution = dynamic_cast<DistributionNoneItem *>(getGroupItem(P_DISTRIBUTION));
+    SessionItem *distribution = dynamic_cast<DistributionNoneItem *>(getGroupItem(P_DISTRIBUTION));
     Q_ASSERT(distribution);
     auto value = distribution->getItem(DistributionNoneItem::P_VALUE);
     value->setLimits(AttLimits::limited(-90.0, 90.0));

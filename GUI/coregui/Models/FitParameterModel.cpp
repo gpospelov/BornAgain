@@ -42,7 +42,7 @@ FitParameterModel::~FitParameterModel()
     delete m_columnNames;
 }
 
-ParameterizedItem *FitParameterModel::addParameter()
+SessionItem *FitParameterModel::addParameter()
 {
     return insertNewItem(Constants::FitParameterType, indexOfItem(itemForIndex(QModelIndex())));
 }
@@ -127,7 +127,7 @@ QVariant FitParameterModel::data(const QModelIndex & index, int role) const
     if ( !index.isValid() || index.column() < 0 || index.column() >= 5) {
         return QVariant();
     }
-    if (ParameterizedItem *item = itemForIndex(index)) {
+    if (SessionItem *item = itemForIndex(index)) {
         if (role == Qt::DisplayRole || role == Qt::EditRole) {
             if (item->parent() != itemForIndex(QModelIndex()))
             {
@@ -149,7 +149,7 @@ bool FitParameterModel::setData(const QModelIndex &index, const QVariant &value,
 {
     if (!index.isValid())
         return false;
-    if (ParameterizedItem *item = itemForIndex(index)) {
+    if (SessionItem *item = itemForIndex(index)) {
         if (role == Qt::EditRole && index.column() > 0 && index.column() < 5) {
             item->setRegisteredProperty(m_columnNames->value(index.column()), value);
             emit dataChanged(index, index);

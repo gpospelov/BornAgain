@@ -73,7 +73,7 @@ Qt::ItemFlags SessionModel::flags(const QModelIndex &index) const
         result_flags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled // | Qt::ItemIsEditable
                         | Qt::ItemIsDragEnabled;
         ParameterizedItem *item = itemForIndex(index); // NEW make data editable as default
-        if (item->data(index.column()).isValid())      // NEW
+        if (index.column() == ITEM_VALUE)      // NEW
             result_flags |= Qt::ItemIsEditable;        // NEW
         QList<QString> acceptable_child_items = getAcceptableChildItems(index);
         if (acceptable_child_items.contains(m_dragged_item_type)) {
@@ -190,11 +190,11 @@ bool SessionModel::removeRows(int row, int count, const QModelIndex &parent)
     if (!m_root_item)
         return false;
     ParameterizedItem *item = parent.isValid() ? itemForIndex(parent) : m_root_item;
-    beginRemoveRows(parent, row, row + count - 1);
+//    beginRemoveRows(parent, row, row + count - 1);
     for (int i = 0; i < count; ++i) {
         delete item->takeChildItem(row);
     }
-    endRemoveRows();
+//    endRemoveRows();
     return true;
 }
 
@@ -278,7 +278,7 @@ QModelIndex SessionModel::indexOfItem(ParameterizedItem *item) const
 }
 
 ParameterizedItem *SessionModel::insertNewItem(QString model_type, const QModelIndex &parent,
-                                               int row)
+                                               int row, const QString tag)
 {
 //    if (!m_root_item) {
 //        m_root_item = ItemFactory::createEmptyItem();
@@ -287,8 +287,35 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type, const QModelI
 //    if (row == -1)
 //        row = parent_item->childItemCount();
 //    beginInsertRows(parent, row, row);
-    ParameterizedItem *new_item = insertNewItem(model_type, parent_item, row);
-//    endInsertRows();
+    if (!parent_item)
+        parent_item = m_root_item;
+    if (row > parent_item->childItemCount())
+        return nullptr;
+    if (parent_item != m_root_item) {
+        if (!parent_item->acceptsAsChild(model_type)) {
+            qDebug() << "Child of type " << model_type << " not acceptable!\n";
+            return nullptr;
+        }
+    }
+
+//    ParameterizedItem *new_item = new ParameterizedItem(model_type); // NEW -> item factory!
+    ParameterizedItem *new_item = ItemFactory::createItem(model_type);
+//    if (port != ParameterizedItem::PortInfo::DEFAULT)
+//        new_item->setPort(port);
+
+    if (!new_item)
+        throw GUIHelpers::Error("SessionModel::insertNewItem() -> Wrong model type " + model_type);
+
+    //note: now done by items themselves
+//    connect(new_item, SIGNAL(propertyChanged(const QString &)),
+//            this, SLOT(onItemPropertyChange(const QString &)));
+//    connect(new_item, SIGNAL(subItemChanged(const QString &)),
+//            this, SLOT(onItemPropertyChange(const QString &)));
+//    connect(new_item, SIGNAL(subItemPropertyChanged(QString,QString)),
+//            this, SLOT(onItemPropertyChange(const QString &, const QString &)));
+
+    parent_item->insertChildItem(row, new_item, tag);
+
 
 //    cleanItem(indexOfItem(parent_item), row, row);
     return new_item;
@@ -514,38 +541,7 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type, Parameterized
 //    if (!m_root_item) {
 //        m_root_item = ItemFactory::createEmptyItem();
 //    }
-    if (!parent)
-        parent = m_root_item;
-    if (row == -1);
-//        row = parent->childItemCount();
-    if (row > parent->childItemCount())
-        return 0;
-    if (parent != m_root_item) {
-        if (!parent->acceptsAsChild(model_type)) {
-            qDebug() << "Child of type " << model_type << " not acceptable!\n";
-            return 0;
-        }
-    }
 
-//    ParameterizedItem *new_item = new ParameterizedItem(model_type); // NEW -> item factory!
-    ParameterizedItem *new_item = ItemFactory::createItem(model_type);
-//    if (port != ParameterizedItem::PortInfo::DEFAULT)
-//        new_item->setPort(port);
-
-    if (!new_item)
-        throw GUIHelpers::Error("SessionModel::insertNewItem() -> Wrong model type " + model_type);
-
-    //note: now done by items themselves
-//    connect(new_item, SIGNAL(propertyChanged(const QString &)),
-//            this, SLOT(onItemPropertyChange(const QString &)));
-//    connect(new_item, SIGNAL(subItemChanged(const QString &)),
-//            this, SLOT(onItemPropertyChange(const QString &)));
-//    connect(new_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-//            this, SLOT(onItemPropertyChange(const QString &, const QString &)));
-
-    parent->insertChildItem(row, new_item);
-
-    return new_item;
 }
 
 void SessionModel::initFrom(SessionModel *model, ParameterizedItem *parent)

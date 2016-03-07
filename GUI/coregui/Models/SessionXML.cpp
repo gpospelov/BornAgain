@@ -47,7 +47,10 @@ void SessionWriter::writeItemAndChildItems(QXmlStreamWriter *writer, const Param
     if (item->parent()) {
         writer->writeStartElement(SessionXML::ItemTag);
         writer->writeAttribute(SessionXML::ModelTypeAttribute, item->modelType());
-        writer->writeAttribute(SessionXML::TagAttribute, item->parent()->tagFromItem(item));
+        QString tag = item->parent()->tagFromItem(item);
+        if (tag == item->parent()->defaultTag())
+            tag = "";
+        writer->writeAttribute(SessionXML::TagAttribute, tag);
         /*if (item->isRegisteredProperty(ParameterizedItem::P_NAME)) {
             writer->writeAttribute(SessionXML::ItemNameAttribute, item->itemName());
         } else {
@@ -147,6 +150,8 @@ void SessionReader::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                 } else {
                     item_name = reader->attributes().value(SessionXML::ParameterNameAttribute).toString();
                 }*/
+                if (tag == ParameterizedItem::P_NAME)
+                    item->setItemName("");
                 if (model_type == Constants::PropertyType || model_type == Constants::GroupItemType) {
                     item = item->getItem(tag);
                     if (!item) {
@@ -159,7 +164,7 @@ void SessionReader::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                     }
                 } else {
                     ParameterizedItem *new_item = ItemFactory::createItem(model_type);
-                    if (tag == "rootTag")
+                    if (tag == "")
                         tag = item->defaultTag();
                     if (!item->insertItem(-1, new_item, tag)) {
                         qDebug() << "!!";

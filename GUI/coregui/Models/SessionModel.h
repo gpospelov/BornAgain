@@ -72,7 +72,7 @@ public:
 
     QModelIndex indexOfItem(ParameterizedItem *item) const;
     ParameterizedItem *insertNewItem(QString model_type, const QModelIndex &parent = QModelIndex(),
-                                     int row = -1);
+                                     int row = -1, const QString tag = QString());
 
     QString getModelTag() const;
     QString getModelName() const;

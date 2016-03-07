@@ -173,7 +173,7 @@ ParameterizedItem *ParameterizedItem::takeItem(int row, const QString &tag)
     int index = tagStartIndex(tag) + row;
     Q_ASSERT(index >= 0 && index <= m_children.size());
     if (m_model)
-            m_model->beginRemoveRows(this->index(),index, index+1);
+            m_model->beginRemoveRows(this->index(),index, index);
     ParameterizedItem *result = m_children.takeAt(index);
     result->setParentAndModel(nullptr, nullptr);
 
@@ -466,13 +466,11 @@ QList<ParameterizedItem *> ParameterizedItem::getUnregisteredChildren() const
     return result;
 }
 
-void ParameterizedItem::insertChildItem(int row, ParameterizedItem *item)
+void ParameterizedItem::insertChildItem(int row, ParameterizedItem *item, const QString tag)
 {
-    SessionTagInfo tagInfo = getTagInfo(defaultTag());
+    SessionTagInfo tagInfo = getTagInfo(tag.isEmpty() ? defaultTag() : tag);
     if (!tagInfo.isValid())
         return;
-    if (row == -1)
-        row = tagInfo.childCount;
     Q_ASSERT(insertItem(row, item, tagInfo.name));
 
 //    item->mp_parent = this;
@@ -501,11 +499,11 @@ void ParameterizedItem::insertChildItem(int row, ParameterizedItem *item)
 
 ParameterizedItem *ParameterizedItem::takeChildItem(int row)
 {
-    return takeItem(row, defaultTag());
-//    ParameterizedItem *item = m_children.takeAt(row);
-//    item->mp_parent = nullptr;
-//    item->setModel(nullptr);
-//    return item;
+//    return takeItem(row, defaultTag());
+    ParameterizedItem *item = childAt(row);
+    QString tag = tagFromItem(item);
+    auto items = getItems(tag);
+    return takeItem(items.indexOf(item), tag);
 }
 
 bool ParameterizedItem::acceptsAsChild(const QString &child_name) const

@@ -111,7 +111,7 @@ public:
     QList<ParameterizedItem *> getChildrenOfType(const QString &model_type) const;
     QList<ParameterizedItem *> getUnregisteredChildren() const;
 
-    virtual void insertChildItem(int row, ParameterizedItem *item);
+    virtual void insertChildItem(int row, ParameterizedItem *item, const QString tag = QString());
     virtual ParameterizedItem *takeChildItem(int row);
     bool acceptsAsChild(const QString &child_name) const;
     QList<QString> acceptableChildItems() const;

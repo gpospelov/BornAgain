@@ -43,7 +43,7 @@ ParameterizedItem *MultiLayerItem::takeChildItem(int row)
     return item;
 }
 
-void MultiLayerItem::insertChildItem(int row, ParameterizedItem *item)
+void MultiLayerItem::insertChildItem(int row, ParameterizedItem *item, const QString tag)
 {
     ParameterizedItem::insertChildItem(row, item);
     updateLayers();

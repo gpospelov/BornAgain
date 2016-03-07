@@ -27,7 +27,7 @@ public:
     explicit MultiLayerItem();
     virtual ~MultiLayerItem() {}
     virtual ParameterizedItem *takeChildItem(int row);
-    virtual void insertChildItem(int row, ParameterizedItem *item);
+    virtual void insertChildItem(int row, ParameterizedItem *item, const QString tag = QString());
 
 private:
     void updateLayers();

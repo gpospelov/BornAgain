@@ -152,12 +152,12 @@ void RectangularDetectorWidget::init_editors()
     m_yAxisEditor->addPropertyItems(yAxisItem, QString("Y axis"));
 
     m_resolutionFunctionEditor->clearEditor();
-    ParameterizedItem *resFuncGroup = m_detectorItem->getPropertyItem(RectangularDetectorItem::P_RESOLUTION_FUNCTION);
+    ParameterizedItem *resFuncGroup = m_detectorItem->getItem(RectangularDetectorItem::P_RESOLUTION_FUNCTION);
     m_resolutionFunctionEditor->addPropertyItems(resFuncGroup, QString("Resolution function"));
 
 
     m_alignmentEditor->clearEditor();
-    m_alignmentEditor->addItem(m_detectorItem->getPropertyItem(RectangularDetectorItem::P_ALIGNMENT));
+    m_alignmentEditor->addItem(m_detectorItem->getItem(RectangularDetectorItem::P_ALIGNMENT));
 
     init_alignment_editors();
 }
@@ -183,8 +183,8 @@ void RectangularDetectorWidget::init_alignment_editors()
         m_normalEditor->show();
         m_directionEditor->show();
 
-        m_positionsEditor->addPropertyItems(m_detectorItem->getPropertyItem(RectangularDetectorItem::P_U0), "Positions");
-        m_positionsEditor->addPropertyItems(m_detectorItem->getPropertyItem(RectangularDetectorItem::P_V0), "Positions");
+        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_U0), "Positions");
+        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_V0), "Positions");
 
         ParameterizedItem *normalVectorItem
             = m_detectorItem->getGroupItem(RectangularDetectorItem::P_NORMAL);
@@ -197,19 +197,19 @@ void RectangularDetectorWidget::init_alignment_editors()
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_DIRECT_BEAM ||
                alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS) {
         m_positionsEditor->show();
-        m_positionsEditor->addPropertyItems(m_detectorItem->getPropertyItem(RectangularDetectorItem::P_DBEAM_U0), "Positions");
-        m_positionsEditor->addPropertyItems(m_detectorItem->getPropertyItem(RectangularDetectorItem::P_DBEAM_V0), "Positions");
+        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_DBEAM_U0), "Positions");
+        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_DBEAM_V0), "Positions");
 
-        m_positionsEditor->addPropertyItems(m_detectorItem->getPropertyItem(RectangularDetectorItem::P_DISTANCE), "Positions");
+        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_DISTANCE), "Positions");
 
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_SAMPLE ||
                alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM) {
         m_positionsEditor->show();
 
-        m_positionsEditor->addPropertyItems(m_detectorItem->getPropertyItem(RectangularDetectorItem::P_U0), "Positions");
-        m_positionsEditor->addPropertyItems(m_detectorItem->getPropertyItem(RectangularDetectorItem::P_V0), "Positions");
+        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_U0), "Positions");
+        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_V0), "Positions");
 
-        m_positionsEditor->addPropertyItems(m_detectorItem->getPropertyItem(RectangularDetectorItem::P_DISTANCE), "Positions");
+        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_DISTANCE), "Positions");
 
     }
 

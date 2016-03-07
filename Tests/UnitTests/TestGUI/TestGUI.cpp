@@ -41,9 +41,9 @@ int main(int argc, char** argv) {
            QTest::qExec(&testParaCrystalItems, argc, argv) |
            QTest::qExec(&testSessionModel, argc, argv) |
            QTest::qExec(&testGUICoreObjectCorrespondence, argc, argv) |
-            QTest::qExec(&testSessionItem) |
-//            QTest::qExec(&testPropertyAttributes, argc, argv) |
-            QTest::qExec(&testMapper, argc, argv);
-//    return QTest::qExec(&testSessionItem);
+            QTest::qExec(&testSessionItem);// |
+            //QTest::qExec(&testPropertyAttributes, argc, argv) |
+//            QTest::qExec(&testMapper, argc, argv);
+//    return QTest::qExec(&testSessionModel, argc, argv);
 
 }

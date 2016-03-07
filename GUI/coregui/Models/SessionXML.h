@@ -34,6 +34,8 @@ const QString FitModelTag("FitModel");
 const QString JobModelTag("JobModel");
 const QString MaskModelTag("MaskModel");
 
+const QString TagAttribute("Tag");
+
 const QString ModelNameAttribute("Name");
 const QString ItemTag("Item");
 const QString ModelTypeAttribute("ModelType");
@@ -42,6 +44,7 @@ const QString ParameterTag("Parameter");
 const QString ParameterNameAttribute("ParName");
 const QString ParameterTypeAttribute("ParType");
 const QString ParameterValueAttribute("ParValue");
+const QString ParameterRoleAttribute("ParRole");
 
 const QString IdentifierAttribute("Identifier");
 
@@ -60,7 +63,7 @@ public:
     static void writeTo(QXmlStreamWriter *writer, ParameterizedItem *parent);
     static void writeItemAndChildItems(QXmlStreamWriter *writer, const ParameterizedItem *item);
 private:
-    static void writeVariant(QXmlStreamWriter *writer, QVariant variant);
+    static void writeVariant(QXmlStreamWriter *writer, QVariant variant, int role);
 };
 
 class BA_CORE_API_ SessionReader

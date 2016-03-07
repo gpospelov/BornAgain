@@ -55,9 +55,9 @@ SessionModel::SessionModel(QString model_tag, QObject *parent)
 void SessionModel::createRootItem()
 {
     m_root_item = ItemFactory::createEmptyItem();
-    m_root_item->setData(0, "Name");
-    m_root_item->setData(1, "Value");
     m_root_item->setModel(this);
+    m_root_item->registerTag("rootTag");
+    m_root_item->setDefaultTag("rootTag");
 }
 
 SessionModel::~SessionModel()
@@ -268,7 +268,7 @@ bool SessionModel::dropMimeData(const QMimeData *data, Qt::DropAction action, in
 
 QModelIndex SessionModel::indexOfItem(ParameterizedItem *item) const
 {
-    if (!item || item == m_root_item)
+    if (!item || item == m_root_item || !item->parent())
         return QModelIndex();
     ParameterizedItem *parent_item = item->parent();
 //    qDebug() << "OOO indexOfItem:" << item << " parent_item" <<  parent_item << "m_root_item:" << m_root_item;
@@ -284,13 +284,13 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type, const QModelI
 //        m_root_item = ItemFactory::createEmptyItem();
 //    }
     ParameterizedItem *parent_item = itemForIndex(parent);
-    if (row == -1)
-        row = parent_item->childItemCount();
-    beginInsertRows(parent, row, row);
+//    if (row == -1)
+//        row = parent_item->childItemCount();
+//    beginInsertRows(parent, row, row);
     ParameterizedItem *new_item = insertNewItem(model_type, parent_item, row);
-    endInsertRows();
+//    endInsertRows();
 
-    cleanItem(indexOfItem(parent_item), row, row);
+//    cleanItem(indexOfItem(parent_item), row, row);
     return new_item;
 }
 
@@ -516,9 +516,9 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type, Parameterized
 //    }
     if (!parent)
         parent = m_root_item;
-    if (row == -1)
-        row = parent->childItemCount();
-    if (row < 0 || row > parent->childItemCount())
+    if (row == -1);
+//        row = parent->childItemCount();
+    if (row > parent->childItemCount())
         return 0;
     if (parent != m_root_item) {
         if (!parent->acceptsAsChild(model_type)) {
@@ -575,7 +575,8 @@ void SessionModel::cleanItem(const QModelIndex &parent, int first, int /* last *
     ParameterizedItem *childItem = itemForIndex(childIndex);
     Q_ASSERT(childItem);
 
-    ParameterizedItem *candidate_for_removal = parentItem->getCandidateForRemoval(childItem);
+    // TODO restore logic
+    ParameterizedItem *candidate_for_removal = nullptr;//parentItem->getCandidateForRemoval(childItem);
     if (candidate_for_removal) {
         // qDebug() << " candidate_for_removal" << candidate_for_removal;
         moveParameterizedItem(candidate_for_removal, 0);

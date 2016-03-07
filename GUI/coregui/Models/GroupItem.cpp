@@ -18,12 +18,14 @@
 GroupItem::GroupItem()
     :ParameterizedItem(Constants::GroupItemType)
 {
-
+    const QString T_ITEMS = "Item tag";
+    registerTag(T_ITEMS);
+    setDefaultTag(T_ITEMS);
 }
 
 void GroupItem::setGroup(GroupProperty_t group)
 {
-    group->setParent(this);
+    group->setGroupItem(this);
     setValue(QVariant::fromValue(group));
 }
 

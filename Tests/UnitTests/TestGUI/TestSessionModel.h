@@ -37,13 +37,13 @@ inline void TestSessionModel::test_SampleModel_CreateCopy()
     QString buffer1;
     QXmlStreamWriter writer1(&buffer1);
     model1->writeTo(&writer1);
-//    qDebug() << buffer1;
+    qDebug() << buffer1;
 
     SampleModel *model2 = model1->createCopy();
     QString buffer2;
     QXmlStreamWriter writer2(&buffer2);
     model2->writeTo(&writer2);
-//    qDebug() << buffer2;
+    qDebug() << buffer2;
 
     QCOMPARE(buffer1, buffer2);
 
@@ -90,11 +90,13 @@ inline void TestSessionModel::test_InstrumentModel_CreateCopy()
     QString buffer1;
     QXmlStreamWriter writer1(&buffer1);
     model1->writeTo(&writer1);
+    qDebug() << buffer1;
 
     InstrumentModel *model2 = model1->createCopy();
     QString buffer2;
     QXmlStreamWriter writer2(&buffer2);
     model2->writeTo(&writer2);
+    qDebug() << buffer2;
 
     QCOMPARE(buffer1, buffer2);
 
@@ -157,13 +159,13 @@ inline void TestSessionModel::test_copyParameterizedItem()
 
     JobModel *jobModel = new JobModel();
     ParameterizedItem *jobItem = jobModel->insertNewItem(Constants::JobItemType);
-    QCOMPARE(jobItem->getUnregisteredChildren().size(), 0);
+    QCOMPARE(jobItem->getTagInfo(jobItem->defaultTag()).childCount, 0);
 
     jobModel->copyParameterizedItem(multilayer1, jobItem);
-    QCOMPARE(jobItem->getUnregisteredChildren().size(), 1);
+    QCOMPARE(jobItem->getTagInfo(jobItem->defaultTag()).childCount, 1);
 
     jobModel->copyParameterizedItem(instrument1, jobItem);
-    QCOMPARE(jobItem->getUnregisteredChildren().size(), 2);
+    QCOMPARE(jobItem->getTagInfo(jobItem->defaultTag()).childCount, 2);
 
     delete sampleModel;
     delete instrumentModel;

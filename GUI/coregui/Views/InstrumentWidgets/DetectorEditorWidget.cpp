@@ -71,7 +71,7 @@ void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
     });
 
     m_detectorTypeEditor->clearEditor();
-    m_detectorTypeEditor->addItem(m_detectorItem->getPropertyItem(DetectorItem::P_DETECTOR));
+    m_detectorTypeEditor->addItem(m_detectorItem->getItem(DetectorItem::P_DETECTOR));
 
     init_SubDetector_Widget();
 }

@@ -44,7 +44,7 @@ ParameterizedItem::ParameterizedItem(QString modelType)
 {
     Q_ASSERT(!modelType.isEmpty());
 
-
+    setData(SessionModel::ModelTypeRole, modelType);
     setDisplayName(modelType); // TODO displayName ~> tag name
 }
 
@@ -124,6 +124,8 @@ bool ParameterizedItem::insertItem(int row, ParameterizedItem *item, const QStri
     SessionTagInfo tagInfo = getTagInfo(tag);
     if (!tagInfo.isValid())
         return false;
+    if (row == -1)
+        row = tagInfo.childCount;
     if (row < 0 || row > tagInfo.childCount)
         return false;
     if (tagInfo.max >= 0 && tagInfo.childCount == tagInfo.max)
@@ -188,6 +190,32 @@ ParameterizedItem *ParameterizedItem::takeItem(int row, const QString &tag)
     return result;
 }
 
+QString ParameterizedItem::tagFromItem(const ParameterizedItem *item) const
+{
+    int index = m_children.indexOf(const_cast<ParameterizedItem*>(item));
+    if (index == -1)
+        return QString();
+    QVector<SessionTagInfo>::const_iterator it;
+    for (it = m_tags.constBegin(); it != m_tags.constEnd(); ++it) {
+        SessionTagInfo tagInfo = *it;
+        if (index < tagInfo.childCount) {
+            return tagInfo.name;
+        } else {
+            index -= tagInfo.childCount;
+        }
+    }
+}
+
+QVector<int> ParameterizedItem::getRoles() const
+{
+    QVector<int> result;
+    QVector<SessionItemData>::const_iterator it;
+    for (it = m_values.constBegin(); it != m_values.constEnd(); ++it) {
+        result.append(it->role);
+    }
+    return result;
+}
+
 // internal
 int ParameterizedItem::tagStartIndex(const QString &name) const
 {
@@ -231,20 +259,6 @@ QVector<ParameterizedItem *> ParameterizedItem::getItems(QString tag) const
     Q_ASSERT(index >= 0 && index < m_children.size());
     return m_children.mid(index, tagInfo.childCount);
 }
-
-
-
-QVariant ParameterizedItem::readUserRoles(int role) const
-{
-
-    return QVariant();
-}
-
-bool ParameterizedItem::canWriteUserRole(int role) const
-{
-    return true;
-}
-
 void ParameterizedItem::changeFlags(bool enabled, int flag)
 {
     int flags = this->flags();
@@ -269,22 +283,17 @@ int ParameterizedItem::flags() const
 
 QVariant ParameterizedItem::data(int role) const
 {
-    QVariant output = readUserRoles(role);
     role = (role == Qt::EditRole) ? Qt::DisplayRole : role;
-    if (!output.isValid()) {
-        QVector<SessionItemData>::const_iterator it;
-        for (it = m_values.begin(); it != m_values.end(); ++it) {
-            if ((*it).role == role)
-                return (*it).value;
-        }
+    QVector<SessionItemData>::const_iterator it;
+    for (it = m_values.begin(); it != m_values.end(); ++it) {
+        if ((*it).role == role)
+            return (*it).value;
     }
-    return output;
+    return QVariant();
 }
 
 bool ParameterizedItem::setData(int role, const QVariant &value)
 {
-    if (!canWriteUserRole(role))
-        return false;
     role = (role == Qt::EditRole) ? Qt::DisplayRole : role;
     QVector<SessionItemData>::iterator it;
     for (it = m_values.begin(); it != m_values.end(); ++it) {
@@ -297,13 +306,13 @@ bool ParameterizedItem::setData(int role, const QVariant &value)
                 m_values.erase(it);
             }
             if (m_model)
-                emitValueChanged(QVector<int>() << role);
+                emitValueChanged(role);
             return true;
         }
     }
     m_values.append(SessionItemData(role, value));
     if (m_model)
-        emitValueChanged(QVector<int>() << role);
+        emitValueChanged(role);
 
     return true;
 
@@ -311,19 +320,12 @@ bool ParameterizedItem::setData(int role, const QVariant &value)
 
 
 
-// TODO : refactor following code
 
-bool ParameterizedItem::hasData(int column)
-{
-    return data(column).isValid();
-}
-
-void ParameterizedItem::emitValueChanged(QVector<int> roles)
+void ParameterizedItem::emitValueChanged(int role)
 {
     if (m_model) {
         QModelIndex index = m_model->indexOfItem(this);
-        index = index.sibling(index.row(), SessionModel::ITEM_VALUE);
-        m_model->dataChanged(index, index, roles);
+        m_model->dataChanged(index, index, QVector<int>() << role);
     }
 }
 
@@ -361,16 +363,7 @@ QString ParameterizedItem::displayName() const
         int index = mp_parent->getCopyNumberOfChild(this);
         if (index >= 0 && modelType() != Constants::PropertyType &&
                 modelType() != Constants::GroupItemType) {
-            QString new_name = data(SessionModel::DisplayNameRole).toString() + QString::number(index);
-            for (auto other : parent()->childItems()) {
-                if (other != this) {
-                    if (isRegisteredProperty(P_NAME) && other->itemName() == new_name) {
-                        ++ index;
-                        new_name = data(SessionModel::DisplayNameRole).toString() + QString::number(index);
-                    }
-                }
-            }
-            return new_name;
+            return data(SessionModel::DisplayNameRole).toString() + QString::number(index);
         }
     }
     return data(SessionModel::DisplayNameRole).toString();
@@ -407,11 +400,6 @@ ParameterizedItem *ParameterizedItem::parent() const
 int ParameterizedItem::childItemCount() const
 {
     return m_children.count();
-}
-
-int ParameterizedItem::columnCount() const
-{
-    return SessionModel::MAX_COLUMNS;
 }
 
 ParameterizedItem *ParameterizedItem::childAt(int row) const
@@ -485,7 +473,7 @@ void ParameterizedItem::insertChildItem(int row, ParameterizedItem *item)
         return;
     if (row == -1)
         row = tagInfo.childCount;
-    insertItem(row, item, tagInfo.name);
+    Q_ASSERT(insertItem(row, item, tagInfo.name));
 
 //    item->mp_parent = this;
 //    item->setModel(m_model);
@@ -568,14 +556,6 @@ bool ParameterizedItem::isRegisteredProperty(const QString &name) const
     return getTagInfo(name).isValid();
 }
 
-ParameterizedItem *ParameterizedItem::getPropertyItem(const QString &name) const
-{
-    if (isRegisteredProperty(name)) {
-        return getItem(name);
-    }
-    return 0;
-}
-
 QVariant ParameterizedItem::getRegisteredProperty(const QString &name) const
 {
     if (!isRegisteredProperty(name))
@@ -601,16 +581,6 @@ void ParameterizedItem::setRegisteredProperty(const QString &name, const QVarian
     }
 
      getItem(name)->setValue(variant);
-}
-
-void ParameterizedItem::emitPropertyChanged(const QString &name, QVector<int> roles)
-{
-    if (isRegisteredProperty(name)) {
-        if (roles.isEmpty())
-            getPropertyItem(name)->emitValueChanged();
-        else
-            getPropertyItem(name)->emitValueChanged(roles);
-    }
 }
 
 void ParameterizedItem::removeRegisteredProperty(const QString &name)
@@ -643,7 +613,9 @@ ParameterizedItem *ParameterizedItem::registerGroupProperty(const QString &group
     GroupItem *groupItem = dynamic_cast<GroupItem *>(ItemFactory::createItem(Constants::GroupItemType));
     groupItem->setGroup(group_property);
     groupItem->setDisplayName(group_name);
-    insertChildItem(-1, groupItem);
+    registerTag(group_name, 1, 1, QStringList() << Constants::GroupItemType);
+    insertItem(0, groupItem, group_name);
+//    insertChildItem(-1, groupItem);
 //    ParameterizedItem *p_result = m_sub_items[group_name];
 //    if (group_property->type() == GroupProperty::FIXED) {
 //        p_result->setDisplayName(group_name);
@@ -759,84 +731,6 @@ void ParameterizedItem::setDefaultTag(QString tag)
     setData(SessionModel::DefaultTagRole, tag);
 }
 
-/*const PropertyAttribute &ParameterizedItem::getPropertyAttribute(const QString &name) const
-{
-    if(name.isEmpty()) return PropertyAttribute();
-
-    if(ParameterizedItem *propertyItem = getPropertyItem(name)) {
-        return propertyItem->getAttribute();
-    } else {
-        throw GUIHelpers::Error("ParameterizedItem::getPropertyAttribute() -> "
-                                "Error. Unknown property item " + name);
-    }
-}
-
-PropertyAttribute &ParameterizedItem::getPropertyAttribute(const QString &name)
-{
-    return const_cast<PropertyAttribute &>(
-        static_cast<const ParameterizedItem *>(this)->getPropertyAttribute(name));
-}
-
-const PropertyAttribute &ParameterizedItem::getAttribute() const
-{
-    return PropertyAttribute();
-}
-
-PropertyAttribute &ParameterizedItem::getAttribute()
-{
-    return const_cast<PropertyAttribute &>(
-        static_cast<const ParameterizedItem *>(this)->getAttribute());
-}
-
-void ParameterizedItem::setPropertyAttribute(const QString &name,
-                                             const PropertyAttribute &attribute)
-{
-    if(ParameterizedItem *propertyItem = getPropertyItem(name)) {
-        propertyItem->setAttribute(attribute);
-    } else {
-        throw GUIHelpers::Error(
-            "ParameterizedItem::setPropertyAttribute() -> Error. Unknown property item " + name);
-
-    }
-}
-
-void ParameterizedItem::setAttribute(const PropertyAttribute &attribute)
-{
-//    m_attribute = attribute;
-}*/
-
-// returns child which should be removed by the model due to overpopulation of children of given
-// type
-ParameterizedItem *ParameterizedItem::getCandidateForRemoval(ParameterizedItem *new_comer)
-{
-//    if (!new_comer)
-//        return 0;
-
-//    QMap<int, QVector<ParameterizedItem *> > nport_to_nitems;
-//    foreach (ParameterizedItem *child, m_children) {
-////        int nport = child->getRegisteredProperty(OBSOLETE_P_PORT).toInt();
-//        int nport = int(child->port());
-//        nport_to_nitems[nport].push_back(child);
-//    }
-
-//    QMap<int, QVector<ParameterizedItem *> >::iterator it = nport_to_nitems.begin();
-//    while (it != nport_to_nitems.end()) {
-//        int nport = it.key();
-//        if (m_port_info.contains(nport)) {
-//            if (m_port_info[nport].m_item_max_number != 0
-//                && it.value().size() > m_port_info[nport].m_item_max_number) {
-//                foreach (ParameterizedItem *item, it.value()) {
-//                    if (item != new_comer)
-//                        return item;
-//                }
-//            }
-//        }
-//        ++it;
-//    }
-
-//    return 0;
-}
-
 ModelMapper *ParameterizedItem::mapper()
 {
     if (!m_mapper) {
@@ -849,12 +743,6 @@ ModelMapper *ParameterizedItem::mapper()
 void ParameterizedItem::setDisplayName(QString display_name)
 {
     setData(SessionModel::DisplayNameRole, display_name);
-}
-
-void ParameterizedItem::swapChildren(int /* first */, int /* second */)
-{
-    // FIXME
-    //    m_children.swap(first, second);
 }
 
 int ParameterizedItem::getCopyNumberOfChild(const ParameterizedItem *p_item) const

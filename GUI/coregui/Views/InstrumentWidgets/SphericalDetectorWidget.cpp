@@ -87,7 +87,7 @@ void SphericalDetectorWidget::setDetectorItem(DetectorItem *detectorItem)
         = sphericalDetector->getGroupItem(SphericalDetectorItem::P_ALPHA_AXIS);
     m_alphaAxisEditor->addPropertyItems(alphaAxisItem, QString("Alpha axis"));
 
-    ParameterizedItem *resFuncGroup = sphericalDetector->getPropertyItem(SphericalDetectorItem::P_RESOLUTION_FUNCTION);
+    ParameterizedItem *resFuncGroup = sphericalDetector->getItem(SphericalDetectorItem::P_RESOLUTION_FUNCTION);
     m_resolutionFunctionEditor->addPropertyItems(resFuncGroup, QString("Resolution function"));
 }
 

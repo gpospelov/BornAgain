@@ -74,13 +74,14 @@ void TestView::test_sessionModel()
     testModel->setSourceModel(m_mainWindow->getSampleModel());
     addModelToTabs(tabs, testModel);
 
+    // TODO: why is instrument empty here?
     // do some testing here
-    m_mainWindow->getInstrumentModel()->rootItem()->getChildOfType(Constants::InstrumentType)->mapper()
-            ->setOnChildPropertyChange(
-                [](ParameterizedItem* item, const QString &name) {
-        qDebug() << "Property Changed from " << item->itemName() << " (" << item->modelType() << " )"
-                 << "with name " << name;
-    });
+//    m_mainWindow->getInstrumentModel()->rootItem()->getChildOfType(Constants::InstrumentType)->mapper()
+//            ->setOnChildPropertyChange(
+//                [](ParameterizedItem* item, const QString &name) {
+//        qDebug() << "Property Changed from " << item->itemName() << " (" << item->modelType() << " )"
+//                 << "with name " << name;
+//    });
 
     layout->setMargin(0);
     layout->setSpacing(0);

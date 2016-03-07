@@ -36,7 +36,7 @@ public:
 
     EGroupType type() const;
 
-    void setParent(ParameterizedItem *parent);
+    void setGroupItem(ParameterizedItem *groupItem);
 
     ParameterizedItem *getCurrentItem();
 
@@ -66,7 +66,7 @@ private:
 
     QString m_group_name;
     EGroupType m_group_type;
-    ParameterizedItem *m_parent;
+    ParameterizedItem *m_groupItem;
     QString m_current_type;
 
     std::map<QString, QString > m_type_label_map;

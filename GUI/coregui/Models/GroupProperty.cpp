@@ -22,7 +22,7 @@
 GroupProperty::GroupProperty(QString group_name)
     : m_group_name(std::move(group_name))
     , m_group_type(UNDEFINED)
-    , m_parent(0)
+    , m_groupItem(0)
 {
 }
 
@@ -33,19 +33,19 @@ GroupProperty::EGroupType GroupProperty::type() const
 
 ParameterizedItem *GroupProperty::getCurrentItem()
 {
-    qDebug() << "GroupProperty::getCurrentItem()" << m_parent;
-    if(m_parent) return m_parent->getChildByName(this->getCurrentType());
+    qDebug() << "GroupProperty::getCurrentItem()" << m_groupItem;
+    if(m_groupItem) return m_groupItem->getChildByName(this->getCurrentType());
     return 0;
 //    Q_ASSERT(m_parent);
 //    return m_parent->getChildByName(this->getCurrentType());
 }
 
-void GroupProperty::setParent(ParameterizedItem *parent)
+void GroupProperty::setGroupItem(ParameterizedItem *groupItem)
 {
-    Q_ASSERT(parent);
-    m_parent = parent;
+    Q_ASSERT(groupItem);
+    m_groupItem = groupItem;
     ParameterizedItem *item = createCorrespondingItem();
-    m_parent->insertChildItem(-1, item);
+    m_groupItem->insertChildItem(-1, item);
 }
 
 ParameterizedItem *GroupProperty::createCorrespondingItem()
@@ -75,13 +75,13 @@ void GroupProperty::setCurrentType(const QString &type, bool persistent)
     ParameterizedItem *prevItem = getCurrentItem();
     m_current_type = type;
 
-    if(m_parent) {
-        if (auto item = m_parent->getChildByName(m_current_type)) {
+    if(m_groupItem) {
+        if (auto item = m_groupItem->getChildByName(m_current_type)) {
             item->setVisible(true);
             item->setEnabled(true);
         } else {
             ParameterizedItem *new_item = createCorrespondingItem();
-            m_parent->insertChildItem(-1, new_item);
+            m_groupItem->insertChildItem(-1, new_item);
         }
 
         if(prevItem) {
@@ -89,7 +89,7 @@ void GroupProperty::setCurrentType(const QString &type, bool persistent)
             prevItem->setEnabled(false);
         }
 
-        m_parent->emitValueChanged();
+        m_groupItem->emitValueChanged();
     }
 }
 
@@ -102,7 +102,7 @@ void GroupProperty::setCurrentLabel(const QString &label)
 {
     if(type() == FIXED) {
         m_type_label_map[m_current_type] = label;
-        if(m_parent) m_parent->emitPropertyChanged(getGroupName());
+//        if(m_groupItem) m_groupItem->getItem(getGroupName())->emitValueChanged();
     }
 }
 

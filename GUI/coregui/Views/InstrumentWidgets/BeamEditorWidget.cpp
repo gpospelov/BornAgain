@@ -94,7 +94,7 @@ void BeamEditorWidget::setBeamItem(BeamItem *beamItem)
     if (!m_beamItem)
         return;
 
-    m_intensityEditor->addItem(m_beamItem->getPropertyItem(BeamItem::P_INTENSITY));
+    m_intensityEditor->addItem(m_beamItem->getItem(BeamItem::P_INTENSITY));
 
     ParameterizedItem *wavelengthItem = m_beamItem->getGroupItem(BeamItem::P_WAVELENGTH);
     m_wavelengthPresenter->addPropertyItems(wavelengthItem);

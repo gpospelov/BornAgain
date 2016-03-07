@@ -4204,6 +4204,144 @@ private:
 };
 
 
+class SwigDirector_FormFactorLongRipple2Gauss : public FormFactorLongRipple2Gauss, public Swig::Director {
+
+public:
+    SwigDirector_FormFactorLongRipple2Gauss(PyObject *self, double length, double width, double height, double asymetry);
+    virtual ~SwigDirector_FormFactorLongRipple2Gauss();
+    virtual FormFactorLongRipple2Gauss *clone() const;
+    virtual void transferToCPP();
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void print(std::ostream &ostr) const;
+    virtual void printSwigPublic(std::ostream &ostr) const {
+      IParameterized::print(ostr);
+    }
+    virtual void init_parameters();
+    virtual void init_parametersSwigPublic() {
+      FormFactorLongRipple2Gauss::init_parameters();
+    }
+    virtual ISample *cloneInvertB() const;
+    virtual void accept(ISampleVisitor *visitor) const;
+    virtual DWBASimulation *createDWBASimulation() const;
+    virtual void printSampleTree();
+    virtual bool containsMagneticMaterial() const;
+    virtual std::vector< ISample const *,std::allocator< ISample const * > > getChildren() const;
+    virtual size_t size() const;
+    virtual void setAmbientMaterial(IMaterial const &arg0);
+    virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
+    virtual double getVolume() const;
+    virtual double getRadius() const;
+    virtual void setSpecularInfo(ILayerRTCoefficients const *p_in_coeffs, ILayerRTCoefficients const *p_out_coeffs);
+    virtual complex_t evaluate_for_q(cvector_t const &q) const;
+    virtual bool check_initialization() const;
+    virtual bool check_initializationSwigPublic() const {
+      return FormFactorLongRipple2Gauss::check_initialization();
+    }
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class FormFactorLongRipple2Gauss doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[20];
+#endif
+
+};
+
+
+class SwigDirector_FormFactorLongRipple2Lorentz : public FormFactorLongRipple2Lorentz, public Swig::Director {
+
+public:
+    SwigDirector_FormFactorLongRipple2Lorentz(PyObject *self, double length, double width, double height, double asymetry);
+    virtual ~SwigDirector_FormFactorLongRipple2Lorentz();
+    virtual FormFactorLongRipple2Lorentz *clone() const;
+    virtual void transferToCPP();
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void print(std::ostream &ostr) const;
+    virtual void printSwigPublic(std::ostream &ostr) const {
+      IParameterized::print(ostr);
+    }
+    virtual void init_parameters();
+    virtual void init_parametersSwigPublic() {
+      FormFactorLongRipple2Lorentz::init_parameters();
+    }
+    virtual ISample *cloneInvertB() const;
+    virtual void accept(ISampleVisitor *visitor) const;
+    virtual DWBASimulation *createDWBASimulation() const;
+    virtual void printSampleTree();
+    virtual bool containsMagneticMaterial() const;
+    virtual std::vector< ISample const *,std::allocator< ISample const * > > getChildren() const;
+    virtual size_t size() const;
+    virtual void setAmbientMaterial(IMaterial const &arg0);
+    virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
+    virtual double getVolume() const;
+    virtual double getRadius() const;
+    virtual void setSpecularInfo(ILayerRTCoefficients const *p_in_coeffs, ILayerRTCoefficients const *p_out_coeffs);
+    virtual complex_t evaluate_for_q(cvector_t const &q) const;
+    virtual bool check_initialization() const;
+    virtual bool check_initializationSwigPublic() const {
+      return FormFactorLongRipple2Lorentz::check_initialization();
+    }
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class FormFactorLongRipple2Lorentz doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[20];
+#endif
+
+};
+
+
 class SwigDirector_FormFactorSphereGaussianRadius : public FormFactorSphereGaussianRadius, public Swig::Director {
 
 public:

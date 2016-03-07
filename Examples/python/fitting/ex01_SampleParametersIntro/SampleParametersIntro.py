@@ -54,10 +54,10 @@ def run_simulations():
     """
 
     sample = get_sample()
-    print "The tree structure of the sample"
+    print("The tree structure of the sample")
     sample.printSampleTree()
 
-    print "The sample contains following parameters ('name':value)"
+    print("The sample contains following parameters ('name':value)")
     sample.printParameters()
 
     simulation = get_simulation()

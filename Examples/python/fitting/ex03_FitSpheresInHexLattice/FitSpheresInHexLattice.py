@@ -97,11 +97,11 @@ def run_fitting():
     # running fit
     fit_suite.runFit()
 
-    print "Fitting completed."
-    print "chi2:", fit_suite.getChi2()
+    print("Fitting completed.")
+    print("chi2:", fit_suite.getChi2())
     fitpars = fit_suite.getFitParameters()
     for i in range(0, fitpars.size()):
-        print fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError()
+        print(fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError())
 
 
 if __name__ == '__main__':

@@ -200,6 +200,7 @@ import_array();
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
 #include "MinimizerOptions.h"
+#include "FitStrategyAdjustMinimizer.h"
 
 
 
@@ -246,6 +247,7 @@ import_array();
 %include "MinimizerFactory.h"
 %include "MinimizerOptions.h"
 
+%include "FitStrategyAdjustMinimizer.h"
 
 
  /*

@@ -22,6 +22,8 @@
 class QAction;
 class MaterialModel;
 class QItemSelectionModel;
+class QPoint;
+class QMenu;
 
 //! Main widget of MaterialEditor
 class BA_CORE_API_ MaterialEditorToolBar : public QToolBar
@@ -32,12 +34,17 @@ public:
 
     void setSelectionModel(QItemSelectionModel *selectionModel);
 
+public slots:
+    void onCustomContextMenuRequested(const QPoint &point);
+
 private slots:
     void onNewMaterialAction();
     void onCloneMaterialAction();
     void onRemoveMaterialAction();
 
 private:
+    void initItemContextMenu(QMenu &menu);
+
     MaterialModel *m_materialModel;
     QItemSelectionModel *m_selectionModel;
     QAction *m_newMaterialAction;

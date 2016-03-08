@@ -77,6 +77,7 @@ void MaterialEditorWidget::contextMenuEvent(QContextMenuEvent *event)
 
 void MaterialEditorWidget::init_views()
 {
+    m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
     m_listView->setModel(m_materialModel);
     m_listView->setMovement(QListView::Static);
     m_listView->setMinimumWidth(50);
@@ -99,5 +100,7 @@ void MaterialEditorWidget::init_views()
         getSelectionModel()->select(itemIndex, QItemSelectionModel::Select);
     }
 
+    connect(m_listView, SIGNAL(customContextMenuRequested(const QPoint &)),
+            m_toolBar, SLOT(onCustomContextMenuRequested(const QPoint &)));
 
 }

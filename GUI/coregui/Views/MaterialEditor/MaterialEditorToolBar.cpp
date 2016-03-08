@@ -14,16 +14,84 @@
 // ************************************************************************** //
 
 #include "MaterialEditorToolBar.h"
+#include "MaterialModel.h"
+#include "MaterialItem.h"
+#include <QItemSelectionModel>
 #include <QVariant>
+#include <QAction>
+#include <QUuid>
+#include <QDebug>
 
 namespace {
 const int toolbar_icon_size = 32;
 }
 
-MaterialEditorToolBar::MaterialEditorToolBar(QWidget *parent)
+MaterialEditorToolBar::MaterialEditorToolBar(MaterialModel *materialModel,
+                                             QWidget *parent)
     : QToolBar(parent)
+    , m_materialModel(materialModel)
+    , m_selectionModel(0)
+    , m_newMaterialAction(0)
+    , m_cloneMaterialAction(0)
+    , m_removeMaterialAction(0)
+
 {
     setIconSize(QSize(toolbar_icon_size, toolbar_icon_size));
     setProperty("_q_custom_style_disabled", QVariant(true));
 
+    m_newMaterialAction = new QAction(parent);
+    m_newMaterialAction->setIcon(QIcon(":/images/toolbar32dark_newitem.svg"));
+    m_newMaterialAction->setToolTip("Add new material");
+    connect(m_newMaterialAction, SIGNAL(triggered()), this,
+            SLOT(onNewMaterialAction()));
+    addAction(m_newMaterialAction);
+
+    m_cloneMaterialAction = new QAction(parent);
+    m_cloneMaterialAction->setIcon(
+        QIcon(":/images/toolbar32dark_cloneitem.svg"));
+    m_cloneMaterialAction->setToolTip("Clone selected material");
+    connect(m_cloneMaterialAction, SIGNAL(triggered()), this,
+            SLOT(onCloneMaterialAction()));
+    addAction(m_cloneMaterialAction);
+
+    m_removeMaterialAction = new QAction(parent);
+    m_removeMaterialAction->setIcon(QIcon(":/images/toolbar32dark_remove.svg"));
+    m_removeMaterialAction->setToolTip("Remove selected material");
+    connect(m_removeMaterialAction, SIGNAL(triggered()), this,
+            SLOT(onRemoveMaterialAction()));
+    addAction(m_removeMaterialAction);
+}
+
+void MaterialEditorToolBar::setSelectionModel(QItemSelectionModel *selectionModel)
+{
+    m_selectionModel = selectionModel;
+}
+
+void MaterialEditorToolBar::onNewMaterialAction()
+{
+    m_materialModel->addMaterial("unnamed");
+}
+
+void MaterialEditorToolBar::onCloneMaterialAction()
+{
+    QModelIndexList selected = m_selectionModel->selectedIndexes();
+    if(selected.size()) {
+        QModelIndex selectedIndex = selected.front();
+        const MaterialItem *origMaterial =m_materialModel->getMaterial(selectedIndex);
+        SessionItem *clonedMaterial = m_materialModel->copyParameterizedItem(origMaterial, 0);
+        clonedMaterial->setRegisteredProperty(MaterialItem::P_IDENTIFIER, QUuid::createUuid().toString());
+        clonedMaterial->setItemName(origMaterial->itemName()+" (clone)");
+    }
+
+}
+
+void MaterialEditorToolBar::onRemoveMaterialAction()
+{
+    Q_ASSERT(m_materialModel);
+    Q_ASSERT(m_selectionModel);
+
+    QModelIndexList selected = m_selectionModel->selectedIndexes();
+    if(selected.size()) {
+        m_materialModel->removeRows(selected.front().row(), 1, selected.back().parent());
+    }
 }

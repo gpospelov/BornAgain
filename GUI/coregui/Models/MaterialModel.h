@@ -32,6 +32,7 @@ public:
     MaterialItem *addMaterial(const QString &name, double delta = 0.0, double beta = 0.0);
     void removeMaterial(MaterialItem *);
 
+    MaterialItem *getMaterial(const QModelIndex &index);
     MaterialItem *getMaterial(const MaterialProperty &property);
     MaterialItem *getMaterial(const QString &material_name);
 };

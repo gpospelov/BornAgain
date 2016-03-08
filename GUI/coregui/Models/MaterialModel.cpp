@@ -49,6 +49,11 @@ void MaterialModel::removeMaterial(MaterialItem *item)
     removeRows(materialIndex.row(), 1, materialIndex.parent());
 }
 
+MaterialItem *MaterialModel::getMaterial(const QModelIndex &index)
+{
+    return dynamic_cast<MaterialItem *>(itemForIndex(index));
+}
+
 MaterialItem *MaterialModel::getMaterial(const MaterialProperty &property)
 {
     qDebug() << "MaterialModel::getMaterial()";

@@ -24,7 +24,7 @@
 MaterialEditorWidget::MaterialEditorWidget(MaterialModel *materialModel, QWidget *parent)
     : QWidget(parent)
     , m_materialModel(materialModel)
-    , m_toolBar(new MaterialEditorToolBar(this))
+    , m_toolBar(new MaterialEditorToolBar(materialModel, this))
     , m_splitter(new QSplitter)
     , m_listView(new QListView)
     , m_componentEditor(new ComponentEditor)
@@ -48,6 +48,12 @@ MaterialEditorWidget::MaterialEditorWidget(MaterialModel *materialModel, QWidget
     init_views();
 }
 
+QItemSelectionModel *MaterialEditorWidget::getSelectionModel()
+{
+    Q_ASSERT(m_listView);
+    return m_listView->selectionModel();
+}
+
 void MaterialEditorWidget::onSelectionChanged(const QItemSelection &selected,
                                               const QItemSelection &)
 {
@@ -62,23 +68,36 @@ void MaterialEditorWidget::onSelectionChanged(const QItemSelection &selected,
     }
 }
 
+//! Context menu reimplemented to supress default menu
+void MaterialEditorWidget::contextMenuEvent(QContextMenuEvent *event)
+{
+    Q_UNUSED(event);
+}
+
 
 void MaterialEditorWidget::init_views()
 {
     m_listView->setModel(m_materialModel);
-//    m_listView->setViewMode(QListView::IconMode);
-//    m_listView->setIconSize(QSize(96, 84));
     m_listView->setMovement(QListView::Static);
-    m_listView->setMaximumWidth(200);
+    m_listView->setMinimumWidth(50);
+    m_listView->setMaximumWidth(220);
     m_listView->setSpacing(5);
 
+    m_toolBar->setSelectionModel(getSelectionModel());
 
-
-    connect(m_listView->selectionModel(),
-            SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&)),
+    connect(getSelectionModel(),
+            SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)),
             this,
-            SLOT( onSelectionChanged(const QItemSelection&, const QItemSelection&)),
+            SLOT(onSelectionChanged(const QItemSelection&, const QItemSelection&)),
             Qt::UniqueConnection
     );
+
+
+    // making first material selected
+    if (!getSelectionModel()->hasSelection()) {
+        QModelIndex itemIndex = m_materialModel->index(0, 0, QModelIndex());
+        getSelectionModel()->select(itemIndex, QItemSelectionModel::Select);
+    }
+
 
 }

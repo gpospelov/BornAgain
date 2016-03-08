@@ -25,6 +25,7 @@ class QSplitter;
 class QListView;
 class ComponentEditor;
 class QItemSelection;
+class QItemSelectionModel;
 
 //! Main widget of MaterialEditor
 class BA_CORE_API_ MaterialEditorWidget : public QWidget
@@ -34,9 +35,13 @@ class BA_CORE_API_ MaterialEditorWidget : public QWidget
 public:
     MaterialEditorWidget(MaterialModel *materialModel, QWidget *parent = 0);
 
+    QItemSelectionModel *getSelectionModel();
 
 private slots:
     void onSelectionChanged(const QItemSelection &selected, const QItemSelection&);
+
+protected:
+    void contextMenuEvent(QContextMenuEvent *event);
 
 private:
     void init_views();

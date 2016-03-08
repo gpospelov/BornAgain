@@ -19,15 +19,30 @@
 #include "WinDllMacros.h"
 #include <QToolBar>
 
+class QAction;
+class MaterialModel;
+class QItemSelectionModel;
 
 //! Main widget of MaterialEditor
 class BA_CORE_API_ MaterialEditorToolBar : public QToolBar
 {
     Q_OBJECT
 public:
-    MaterialEditorToolBar(QWidget *parent = 0);
+    MaterialEditorToolBar(MaterialModel *materialModel, QWidget *parent = 0);
 
+    void setSelectionModel(QItemSelectionModel *selectionModel);
 
+private slots:
+    void onNewMaterialAction();
+    void onCloneMaterialAction();
+    void onRemoveMaterialAction();
+
+private:
+    MaterialModel *m_materialModel;
+    QItemSelectionModel *m_selectionModel;
+    QAction *m_newMaterialAction;
+    QAction *m_cloneMaterialAction;
+    QAction *m_removeMaterialAction;
 };
 
 #endif

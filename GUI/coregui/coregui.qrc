@@ -59,5 +59,8 @@
         <file>images/include.png</file>
         <file>images/exclude.png</file>
         <file>images/jTxpL5ELc.png</file>
+        <file>images/toolbar32dark_cloneitem.svg</file>
+        <file>images/toolbar32dark_newitem.svg</file>
+        <file>images/toolbar32dark_remove.svg</file>
     </qresource>
 </RCC>

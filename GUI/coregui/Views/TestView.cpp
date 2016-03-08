@@ -19,7 +19,7 @@
 #include "mainwindow.h"
 #include "FitParameterWidget.h"
 #include "JobModel.h"
-#include "MaterialEditorWidget.h"
+#include "MaterialEditor.h"
 #include <QMimeData>
 #include <QVBoxLayout>
 #include <AccordionWidget.h>
@@ -93,7 +93,7 @@ void TestView::test_sessionModel()
 
 void TestView::test_MaterialEditor()
 {
-    MaterialEditorWidget *materialEditor = new MaterialEditorWidget(m_mainWindow->getMaterialModel());
+    MaterialEditor *materialEditor = new MaterialEditor(m_mainWindow->getMaterialModel());
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);

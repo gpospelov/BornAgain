@@ -6,7 +6,7 @@
 #include "SampleModel.h"
 #include "MaterialModel.h"
 #include "InstrumentModel.h"
-#include "MaterialEditor.h"
+#include "MaterialSvc.h"
 #include "JobModel.h"
 #include <QXmlStreamWriter>
 #include <memory>

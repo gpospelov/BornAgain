@@ -18,7 +18,7 @@
 #include "GUIHelpers.h"
 #include "HomogeneousMaterial.h"
 #include "HomogeneousMagneticMaterial.h"
-#include "MaterialEditor.h"
+#include "MaterialSvc.h"
 #include "MaterialModel.h"
 #include "RefractiveIndexItem.h"
 #include "MagneticFieldItem.h"
@@ -48,8 +48,8 @@ QColor MaterialUtils::suggestMaterialColor(const QString &name)
 
 MaterialProperty MaterialUtils::getDefaultMaterialProperty()
 {
-    if(MaterialEditor::instance()) {
-        return MaterialEditor::getDefaultMaterialProperty();
+    if(MaterialSvc::instance()) {
+        return MaterialSvc::getDefaultMaterialProperty();
     }
     return MaterialProperty();
 }
@@ -64,7 +64,7 @@ std::unique_ptr<IMaterial>
 MaterialUtils::createDomainMaterial(const MaterialProperty &material_property)
 {
     MaterialItem *materialItem
-        = MaterialEditor::getMaterial(material_property);
+        = MaterialSvc::getMaterial(material_property);
     Q_ASSERT(materialItem);
     return materialItem->createMaterial();
 }

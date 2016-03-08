@@ -22,7 +22,7 @@
 #include "DetectorItems.h"
 #include "MultiLayerItem.h"
 #include "MaterialUtils.h"
-#include "MaterialEditor.h"
+#include "MaterialSvc.h"
 #include "MaterialModel.h"
 #include "ParticleItem.h"
 #include "TransformationItem.h"
@@ -664,10 +664,10 @@ MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
             + QString(material->getName().c_str());
 
     MaterialProperty materialProperty =
-            MaterialEditor::getMaterialProperty(materialName);
+            MaterialSvc::getMaterialProperty(materialName);
     if(materialProperty.isDefined()) return materialProperty;
 
-    MaterialModel *model = MaterialEditor::getMaterialModel();
+    MaterialModel *model = MaterialSvc::getMaterialModel();
 
     if(material->isScalarMaterial()) {
       complex_t rindex = material->getRefractiveIndex();

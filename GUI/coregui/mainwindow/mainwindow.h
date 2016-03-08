@@ -39,7 +39,7 @@ class ProjectManager;
 class QCloseEvent;
 class QSettings;
 class InstrumentModel;
-class MaterialEditor;
+class MaterialSvc;
 class ToolTipDataBase;
 class MaterialModel;
 class SampleModel;
@@ -101,7 +101,7 @@ private:
     InstrumentModel *m_instrumentModel; //!< model for all instruments
     MaterialModel *m_materialModel; //!< model for all materials
     FitModel *m_fitModel; //!< model for fitting
-    MaterialEditor *m_materialEditor;
+    MaterialSvc *m_materialEditor;
     ToolTipDataBase *m_toolTipDataBase;
     UpdateNotifier *m_updateNotifier;
 

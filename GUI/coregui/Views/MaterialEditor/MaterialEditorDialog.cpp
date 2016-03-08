@@ -15,23 +15,17 @@
 
 #include "MaterialEditorDialog.h"
 #include "MaterialModel.h"
-#include "MaterialEditorWidget.h"
+#include "MaterialEditor.h"
 #include "MaterialUtils.h"
-//#include <QStyle>
-//#include <QStatusBar>
-//#include <QToolBar>
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QAction>
 #include <QDebug>
-//#include <QtTreePropertyBrowser>
 
-
-//int MaterialEditorDialog::m_IndexOfUnnamed = 0;
 
 MaterialEditorDialog::MaterialEditorDialog(MaterialModel *materialModel, QWidget *parent)
     : QDialog(parent)
-    , m_materialEditor(new MaterialEditorWidget(materialModel, this))
+    , m_materialEditor(new MaterialEditor(materialModel, this))
 {
     setWindowTitle("Material Editor");
     setMinimumSize(128, 128);

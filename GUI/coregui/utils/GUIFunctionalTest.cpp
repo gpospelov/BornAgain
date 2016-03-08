@@ -18,7 +18,7 @@
 #include "GUIObjectBuilder.h"
 #include "InstrumentModel.h"
 #include "SampleModel.h"
-#include "MaterialEditor.h"
+#include "MaterialSvc.h"
 #include "MaterialModel.h"
 #include "Instrument.h"
 #include "DomainObjectBuilder.h"

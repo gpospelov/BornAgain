@@ -10,7 +10,7 @@
 #include "GUIObjectBuilder.h"
 #include "ParticleItem.h"
 #include "TransformToDomain.h"
-#include "MaterialEditor.h"
+#include "MaterialSvc.h"
 #include "MaterialModel.h"
 #include "GroupProperty.h"
 #include "FormFactorItems.h"

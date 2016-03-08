@@ -22,7 +22,7 @@
 #include "WinDllMacros.h"
 
 class MaterialModel;
-class MaterialEditorWidget;
+class MaterialEditor;
 
 //! Main widget of MaterialEditor
 class BA_CORE_API_ MaterialEditorDialog : public QDialog
@@ -39,7 +39,7 @@ public slots:
     void onCancelButton();
 
 private:
-    MaterialEditorWidget *m_materialEditor;
+    MaterialEditor *m_materialEditor;
 };
 
 #endif

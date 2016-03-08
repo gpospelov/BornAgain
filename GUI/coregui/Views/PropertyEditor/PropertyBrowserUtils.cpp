@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "PropertyBrowserUtils.h"
-#include "MaterialEditor.h"
+#include "MaterialSvc.h"
 #include "GUIHelpers.h"
 #include <QHBoxLayout>
 #include <QToolButton>
@@ -63,7 +63,7 @@ MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
 
 void MaterialPropertyEdit::buttonClicked()
 {
-    MaterialProperty mat = MaterialEditor::selectMaterialProperty();
+    MaterialProperty mat = MaterialSvc::selectMaterialProperty();
     if(mat.isDefined() ) {
         setMaterialProperty(mat);
         emit materialPropertyChanged(m_materialProperty);

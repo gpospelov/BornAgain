@@ -25,19 +25,22 @@
 
 MaterialEditorDialog::MaterialEditorDialog(MaterialModel *materialModel, QWidget *parent)
     : QDialog(parent)
-    , m_materialEditor(new MaterialEditor(materialModel, this))
+    , m_origMaterialModel(materialModel)
+    , m_materialEditor(0)
 {
     setWindowTitle("Material Editor");
     setMinimumSize(128, 128);
     resize(512, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
+    init_material_editor();
+
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0,0,0,0);
     layout->addWidget(m_materialEditor);
 
-    QPushButton *selectButton = new QPushButton(tr("Select"));
-    connect(selectButton, SIGNAL(clicked()), this, SLOT(onSelectButton()));
+    QPushButton *okButton = new QPushButton(tr("OK"));
+    connect(okButton, SIGNAL(clicked()), this, SLOT(onOKButton()));
     QPushButton *cancelButton = new QPushButton(tr("Cancel"));
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(onCancelButton()));
 
@@ -46,22 +49,34 @@ MaterialEditorDialog::MaterialEditorDialog(MaterialModel *materialModel, QWidget
     buttonsLayout->setSpacing(5);
 
     buttonsLayout->addStretch(1);
-    buttonsLayout->addWidget(selectButton);
+    buttonsLayout->addWidget(okButton);
     buttonsLayout->addWidget(cancelButton);
 
     layout->addLayout(buttonsLayout);
     setLayout(layout);
 }
 
-void MaterialEditorDialog::onSelectButton()
+//! replaces original material model with the model modified by MaterialEditor
+void MaterialEditorDialog::onOKButton()
 {
-   accept();
+//    m_origMaterialModel->clear();
+//    m_origMaterialModel->initFrom(m_tmpMaterialModel.get(), 0);
+
+    accept();
 }
 
 
 void MaterialEditorDialog::onCancelButton()
 {
     reject();
+}
+
+void MaterialEditorDialog::init_material_editor()
+{
+    Q_ASSERT(m_origMaterialModel);
+//    m_tmpMaterialModel.reset(m_origMaterialModel->createCopy());
+//    m_materialEditor = new MaterialEditor(m_tmpMaterialModel.get(), this);
+    m_materialEditor = new MaterialEditor(m_origMaterialModel, this);
 }
 
 MaterialProperty MaterialEditorDialog::getSelectedMaterialProperty()

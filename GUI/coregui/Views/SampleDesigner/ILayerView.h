@@ -45,6 +45,8 @@ public slots:
     void onPropertyChange(const QString &propertyName);
 
 private:
+    void updateColor();
+
     MultiLayerCandidate getMultiLayerCandidate();
     QPointF m_drag_start_position;
 };

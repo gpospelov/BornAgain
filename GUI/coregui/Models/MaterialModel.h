@@ -29,6 +29,8 @@ public:
     explicit MaterialModel(QObject *parent = 0);
     virtual ~MaterialModel(){}
 
+    virtual MaterialModel *createCopy(SessionItem *parent = 0);
+
     MaterialItem *addMaterial(const QString &name, double delta = 0.0, double beta = 0.0);
     void removeMaterial(MaterialItem *);
 

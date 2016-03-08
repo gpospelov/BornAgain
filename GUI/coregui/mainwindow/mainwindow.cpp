@@ -267,7 +267,6 @@ void MainWindow::createMaterialModel()
 {
     delete m_materialModel;
     m_materialModel = new MaterialModel(this);
-    m_materialModel->setIconProvider(new IconProvider());
 //    m_materialModel->addMaterial("Default", 1e-3, 1e-5);
 //    m_materialModel->addMaterial("Air", 0.0, 0.0);
 //    m_materialModel->addMaterial("Particle", 6e-4, 2e-8);

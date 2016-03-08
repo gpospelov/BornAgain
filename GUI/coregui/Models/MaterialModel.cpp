@@ -18,12 +18,21 @@
 #include "RefractiveIndexItem.h"
 #include "MaterialUtils.h"
 #include "MaterialProperty.h"
+#include "IconProvider.h"
 #include <QDebug>
 
 MaterialModel::MaterialModel(QObject *parent)
     : SessionModel(SessionXML::MaterialModelTag, parent)
 {
     setObjectName(SessionXML::MaterialModelTag);
+    setIconProvider(new IconProvider());
+}
+
+MaterialModel *MaterialModel::createCopy(SessionItem *parent)
+{
+    MaterialModel *result = new MaterialModel();
+    result->initFrom(this, parent);
+    return result;
 }
 
 MaterialItem *MaterialModel::addMaterial(const QString &name, double delta, double beta)

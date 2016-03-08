@@ -16,10 +16,10 @@
 #ifndef MATERIALEDITORDIALOG_H
 #define MATERIALEDITORDIALOG_H
 
-#include <QDialog>
-
 #include "MaterialProperty.h"
 #include "WinDllMacros.h"
+#include <QDialog>
+#include <memory>
 
 class MaterialModel;
 class MaterialEditor;
@@ -35,10 +35,13 @@ public:
     MaterialProperty getSelectedMaterialProperty();
 
 public slots:
-    void onSelectButton();
+    void onOKButton();
     void onCancelButton();
 
 private:
+    void init_material_editor();
+    MaterialModel *m_origMaterialModel;
+    std::unique_ptr<MaterialModel>  m_tmpMaterialModel;
     MaterialEditor *m_materialEditor;
 };
 

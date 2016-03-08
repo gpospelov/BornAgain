@@ -55,24 +55,35 @@ void ILayerView::onPropertyChange(const QString &propertyName)
         update();
         emit heightChanged();
     } else if (propertyName == LayerItem::P_MATERIAL) {
+        updateColor();
         //qDebug() << " ------------- > ILayerView::onPropertyChange Material";
-        MaterialProperty mp
-            = getParameterizedItem()->property("Material").value<MaterialProperty>();
-        setColor(mp.getColor());
-        update();
+//        MaterialProperty mp
+//            = getParameterizedItem()->property("Material").value<MaterialProperty>();
+//        setColor(mp.getColor());
+
+//        update();
     } else {
 //        IView::onPropertyChange(propertyName);
     }
 }
 
+void ILayerView::updateColor()
+{
+    if(m_item && m_item->isRegisteredTag(LayerItem::P_MATERIAL)) {
+        QVariant v = m_item->getRegisteredProperty(LayerItem::P_MATERIAL);
+        if (v.isValid()) {
+            MaterialProperty mp = v.value<MaterialProperty>();
+            setColor(mp.getColor());
+            update();
+        }
+    }
+
+}
+
 void ILayerView::setParameterizedItem(SessionItem *item)
 {
-    QVariant v = item->property(LayerItem::P_MATERIAL.toUtf8().constData());
-    if (v.isValid()) {
-        MaterialProperty mp = v.value<MaterialProperty>();
-        setColor(mp.getColor());
-    }
     IView::setParameterizedItem(item);
+    updateColor();
 }
 
 //! Detects movement of the ILayerView and sends possible drop areas to GraphicsScene

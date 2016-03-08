@@ -22,6 +22,7 @@
 
 class MaterialModel;
 class SessionModel;
+class MaterialItem;
 
 //! The MaterialEditor is the main class to access materials.
 class BA_CORE_API_ MaterialEditor : public QObject
@@ -39,11 +40,16 @@ public:
 
     static MaterialModel *getMaterialModel();
 
+    static MaterialItem *getMaterial(const MaterialProperty &property);
+//    MaterialItem *getMaterial(const QString &material_name);
+
 private:
     MaterialProperty this_selectMaterialProperty();
     MaterialProperty this_getMaterialProperty(const QString &name);
     MaterialProperty this_getDefaultMaterialProperty();
     MaterialModel *this_getMaterialModel();
+    MaterialItem *this_getMaterial(const MaterialProperty &property);
+//    MaterialItem *this_getMaterial(const QString &material_name);
 
     static MaterialEditor *m_instance;
     MaterialModel *m_materialModel;

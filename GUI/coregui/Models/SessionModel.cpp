@@ -45,7 +45,6 @@ SessionModel::SessionModel(QString model_tag, QObject *parent)
     , m_root_item(0)
     , m_name("DefaultName")
     , m_model_tag(model_tag)
-    , m_iconProvider(0)
     , m_messageService(0)
 {
     createRootItem();
@@ -63,7 +62,6 @@ void SessionModel::createRootItem()
 SessionModel::~SessionModel()
 {
     delete m_root_item;
-    delete m_iconProvider;
 }
 
 Qt::ItemFlags SessionModel::flags(const QModelIndex &index) const
@@ -97,7 +95,7 @@ QVariant SessionModel::data(const QModelIndex &index, int role) const
             if (index.column() == ITEM_NAME)
                 return item->itemName();
         } else if (role == Qt::DecorationRole && m_iconProvider) {
-            return m_iconProvider->icon(item->modelType());
+            return m_iconProvider->icon(item);
         }
     }
     return QVariant();
@@ -545,7 +543,11 @@ SessionItem *SessionModel::insertNewItem(QString model_type, SessionItem *parent
 //    if (!m_root_item) {
 //        m_root_item = ItemFactory::createEmptyItem();
 //    }
-
+    Q_ASSERT(0); // g.p. What to do here?
+    Q_UNUSED(model_type);
+    Q_UNUSED(parent);
+    Q_UNUSED(row);
+    return 0;
 }
 
 void SessionModel::initFrom(SessionModel *model, SessionItem *parent)
@@ -595,4 +597,9 @@ void SessionModel::report_error(const QString &error_type, const QString &messag
 
 SessionItem* SessionModel::rootItem() const{
     return m_root_item;
+}
+
+void SessionModel::setIconProvider(IconProvider *icon_provider)
+{
+    m_iconProvider.reset(icon_provider);
 }

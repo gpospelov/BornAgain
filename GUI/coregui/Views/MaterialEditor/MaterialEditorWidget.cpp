@@ -66,11 +66,11 @@ void MaterialEditorWidget::onSelectionChanged(const QItemSelection &selected,
 void MaterialEditorWidget::init_views()
 {
     m_listView->setModel(m_materialModel);
-    m_listView->setViewMode(QListView::IconMode);
-    m_listView->setIconSize(QSize(96, 84));
+//    m_listView->setViewMode(QListView::IconMode);
+//    m_listView->setIconSize(QSize(96, 84));
     m_listView->setMovement(QListView::Static);
     m_listView->setMaximumWidth(200);
-    m_listView->setSpacing(12);
+    m_listView->setSpacing(5);
 
 
 

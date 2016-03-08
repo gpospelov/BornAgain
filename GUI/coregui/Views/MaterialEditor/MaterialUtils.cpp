@@ -60,38 +60,11 @@ ColorProperty MaterialUtils::suggestMaterialColorProperty(const QString &name)
     return ColorProperty(MaterialUtils::suggestMaterialColor(name));
 }
 
-
-std::unique_ptr<IMaterial> MaterialUtils::createDomainMaterial(const MaterialProperty &material_property)
+std::unique_ptr<IMaterial>
+MaterialUtils::createDomainMaterial(const MaterialProperty &material_property)
 {
-    MaterialModel *model = MaterialEditor::getMaterialModel();
-    Q_ASSERT(model);
-
-    const MaterialItem *materialItem = model->getMaterial(material_property);
+    MaterialItem *materialItem
+        = MaterialEditor::getMaterial(material_property);
     Q_ASSERT(materialItem);
-
-    const RefractiveIndexItem *refractiveIndexItem = dynamic_cast<const RefractiveIndexItem *>(materialItem->getGroupItem(MaterialItem::P_REFRACTIVE_INDEX));
-    double delta = refractiveIndexItem->getDelta();
-    double beta = refractiveIndexItem->getBeta();
-
-    if(materialItem->isHomogeneousMaterial()) {
-        return GUIHelpers::make_unique<HomogeneousMaterial>(
-                    materialItem->itemName().toStdString(), delta, beta);
-    }
-    else if(materialItem->isHomogeneousMagneticMaterial()) {
-        const MagneticFieldItem *magneticField = dynamic_cast<const MagneticFieldItem *>(materialItem->getGroupItem(MaterialItem::P_MAGNETIC_FIELD));
-        Q_ASSERT(magneticField);
-        double Bx = magneticField->getRegisteredProperty(MagneticFieldItem::P_BX).toDouble();
-        double By = magneticField->getRegisteredProperty(MagneticFieldItem::P_BY).toDouble();
-        double Bz = magneticField->getRegisteredProperty(MagneticFieldItem::P_BZ).toDouble();
-        return GUIHelpers::make_unique<HomogeneousMagneticMaterial>(
-                    materialItem->itemName().toStdString(),
-                    delta, beta, kvector_t(Bx, By, Bz));
-    }
-    else {
-        throw GUIHelpers::Error("MaterialUtils::createDomainMaterial() -> Error. Unknown material type.");
-    }
-
-    return nullptr;
+    return materialItem->createMaterial();
 }
-
-

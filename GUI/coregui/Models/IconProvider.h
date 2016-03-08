@@ -20,6 +20,8 @@
 #include <QIcon>
 #include <QString>
 
+class SessionItem;
+
 //! Class which returns icons for SessionItems to use in SessionModel
 class BA_CORE_API_ IconProvider
 {
@@ -27,7 +29,7 @@ public:
     IconProvider(){}
     virtual ~IconProvider(){}
 
-    virtual QIcon icon(const QString &modelType);
+    virtual QIcon icon(const SessionItem *item);
 
 };
 

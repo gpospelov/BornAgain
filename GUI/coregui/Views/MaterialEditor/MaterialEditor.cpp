@@ -106,9 +106,31 @@ MaterialModel *MaterialEditor::getMaterialModel()
     return m_instance->this_getMaterialModel();
 }
 
+MaterialItem *MaterialEditor::getMaterial(const MaterialProperty &property)
+{
+    Q_ASSERT(m_instance);
+    return m_instance->this_getMaterial(property);
+}
+
+//MaterialItem *MaterialEditor::getMaterial(const QString &material_name)
+//{
+//    Q_ASSERT(m_instance);
+//    return m_instance->this_getMaterial(material_name);
+//}
+
 
 MaterialModel *MaterialEditor::this_getMaterialModel()
 {
     return m_materialModel;
 }
+
+MaterialItem *MaterialEditor::this_getMaterial(const MaterialProperty &property)
+{
+    return this_getMaterialModel()->getMaterial(property);
+}
+
+//MaterialItem *MaterialEditor::this_getMaterial(const QString &material_name)
+//{
+//    return this_getMaterialModel()->getMaterial(material_name);
+//}
 

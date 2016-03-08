@@ -21,7 +21,7 @@
 QString MaterialProperty::getName() const
 {
     MaterialProperty property(getIdentifier());
-    MaterialItem *materialItem = MaterialEditor::getMaterialModel()->getMaterial(property);
+    MaterialItem *materialItem = MaterialEditor::getMaterial(property);
     if(materialItem) {
         return materialItem->itemName();
     } else {
@@ -33,7 +33,7 @@ QString MaterialProperty::getName() const
 QColor MaterialProperty::getColor() const
 {
     MaterialProperty property(getIdentifier());
-    MaterialItem *materialItem = MaterialEditor::getMaterialModel()->getMaterial(property);
+    MaterialItem *materialItem = MaterialEditor::getMaterial(property);
     if(materialItem) {
         return materialItem->getColor();
     } else {

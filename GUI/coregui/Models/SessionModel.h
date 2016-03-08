@@ -130,7 +130,7 @@ private:
     QString m_dragged_item_type;
     QString m_name;      //!< model name
     QString m_model_tag; //!< model tag (SampleModel, InstrumentModel)
-    IconProvider *m_iconProvider;
+    std::unique_ptr<IconProvider> m_iconProvider;
     WarningMessageService *m_messageService;
 };
 
@@ -167,11 +167,6 @@ inline void SessionModel::setModelName(const QString &name)
 inline void SessionModel::setDraggedItemType(const QString &type)
 {
     m_dragged_item_type = type;
-}
-
-inline void SessionModel::setIconProvider(IconProvider *icon_provider)
-{
-    m_iconProvider = icon_provider;
 }
 
 #endif // SESSIONMODEL_H

@@ -21,11 +21,8 @@
 #include "MaterialProperty.h"
 #include "WinDllMacros.h"
 
-
 class MaterialModel;
-class MaterialPropertyBrowser;
-class QStatusBar;
-class QToolBar;
+class MaterialEditorWidget;
 
 //! Main widget of MaterialEditor
 class BA_CORE_API_ MaterialEditorDialog : public QDialog
@@ -33,29 +30,24 @@ class BA_CORE_API_ MaterialEditorDialog : public QDialog
     Q_OBJECT
 
 public:
+    MaterialEditorDialog(MaterialModel *materialModel, QWidget *parent = 0);
 
-    explicit MaterialEditorDialog(MaterialModel *materialModel, QWidget *parent = 0);
-    virtual ~MaterialEditorDialog(){}
-
-    void setModel(MaterialModel *materialModel);
+//    void setModel(MaterialModel *materialModel);
 
     MaterialProperty getSelectedMaterialProperty();
 
 public slots:
-    void addMaterial();
-    void removeMaterial();
-    void showMessage(const QString &message);
-    void onSelectButton();
-    void onCancelButton();
+//    void addMaterial();
+//    void removeMaterial();
+//    void showMessage(const QString &message);
+//    void onSelectButton();
+//    void onCancelButton();
 
 private:
-    void setupActions();
+//    void setupActions();
 
-    MaterialModel *m_materialModel;
-    MaterialPropertyBrowser *m_propertyBrowser;
-    QStatusBar *m_statusBar;
-    QToolBar *m_toolBar;
-    static int m_IndexOfUnnamed;
+//    MaterialModel *m_materialModel;
+    MaterialEditorWidget *m_materialEditor;
 };
 
 

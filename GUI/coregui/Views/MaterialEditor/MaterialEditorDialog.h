@@ -32,24 +32,14 @@ class BA_CORE_API_ MaterialEditorDialog : public QDialog
 public:
     MaterialEditorDialog(MaterialModel *materialModel, QWidget *parent = 0);
 
-//    void setModel(MaterialModel *materialModel);
-
     MaterialProperty getSelectedMaterialProperty();
 
 public slots:
-//    void addMaterial();
-//    void removeMaterial();
-//    void showMessage(const QString &message);
-//    void onSelectButton();
-//    void onCancelButton();
+    void onSelectButton();
+    void onCancelButton();
 
 private:
-//    void setupActions();
-
-//    MaterialModel *m_materialModel;
     MaterialEditorWidget *m_materialEditor;
 };
-
-
 
 #endif

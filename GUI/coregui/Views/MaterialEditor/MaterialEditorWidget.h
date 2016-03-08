@@ -26,6 +26,7 @@ class QListView;
 class ComponentEditor;
 class QItemSelection;
 class QItemSelectionModel;
+class MaterialItem;
 
 //! Main widget of MaterialEditor
 class BA_CORE_API_ MaterialEditorWidget : public QWidget
@@ -36,6 +37,8 @@ public:
     MaterialEditorWidget(MaterialModel *materialModel, QWidget *parent = 0);
 
     QItemSelectionModel *getSelectionModel();
+
+    MaterialItem *getSelectedMaterial();
 
 private slots:
     void onSelectionChanged(const QItemSelection &selected, const QItemSelection&);

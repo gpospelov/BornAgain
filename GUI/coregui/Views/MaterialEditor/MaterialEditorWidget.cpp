@@ -39,6 +39,8 @@ MaterialEditorWidget::MaterialEditorWidget(MaterialModel *materialModel, QWidget
 
     m_splitter->addWidget(m_listView);
     m_splitter->addWidget(m_componentEditor);
+    m_splitter->setCollapsible(0, false);
+    m_splitter->setCollapsible(1, false);
 
     layout->addWidget(m_toolBar);
     layout->addWidget(m_splitter);
@@ -52,6 +54,15 @@ QItemSelectionModel *MaterialEditorWidget::getSelectionModel()
 {
     Q_ASSERT(m_listView);
     return m_listView->selectionModel();
+}
+
+MaterialItem *MaterialEditorWidget::getSelectedMaterial()
+{
+    QModelIndexList selected = getSelectionModel()->selectedIndexes();
+    if(selected.size()) {
+        return m_materialModel->getMaterial(selected.front());
+    }
+    return nullptr;
 }
 
 void MaterialEditorWidget::onSelectionChanged(const QItemSelection &selected,

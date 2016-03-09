@@ -54,7 +54,7 @@ std::unique_ptr<Particle> ParticleItem::createParticle() const
     auto P_material = TransformToDomain::createDomainMaterial(*this);
     auto P_particle = GUIHelpers::make_unique<Particle>(*P_material);
 
-    double abundance = getChildValue(ParticleItem::P_ABUNDANCE).toDouble();
+    double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
     P_particle->setAbundance(abundance);
 
     auto ffItem = static_cast<FormFactorItem*>(getGroupItem(ParticleItem::P_FORM_FACTOR));

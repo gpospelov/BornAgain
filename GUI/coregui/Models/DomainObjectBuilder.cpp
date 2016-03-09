@@ -89,7 +89,7 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
         if (children[i]->modelType() == Constants::ParticleDistributionType) {
             auto prop
                 = children[i]
-                      ->getChildValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+                      ->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                       .value<ComboProperty>();
             QString par_name = prop.getValue();
             if (par_name == ParticleDistributionItem::NO_SELECTION) {

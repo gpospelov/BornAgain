@@ -43,14 +43,14 @@ EllipseView::EllipseView()
 void EllipseView::onChangedX()
 {
     m_block_on_property_change = true;
-    m_item->setChildValue(EllipseItem::P_XCENTER, fromSceneX(this->x()));
+    m_item->setItemValue(EllipseItem::P_XCENTER, fromSceneX(this->x()));
     m_block_on_property_change = false;
 }
 
 void EllipseView::onChangedY()
 {
     m_block_on_property_change = true;
-    m_item->setChildValue(EllipseItem::P_YCENTER, fromSceneY(this->y()));
+    m_item->setItemValue(EllipseItem::P_YCENTER, fromSceneY(this->y()));
     m_block_on_property_change = false;
 }
 
@@ -102,7 +102,7 @@ void EllipseView::onSizeHandleElementRequest(bool going_to_resize)
 void EllipseView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setRenderHints(QPainter::Antialiasing);
-    bool mask_value = m_item->getChildValue(MaskItem::P_MASK_VALUE).toBool();
+    bool mask_value = m_item->getItemValue(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
     painter->drawEllipse(m_mask_rect);
@@ -138,27 +138,27 @@ void EllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         QPointF centerInScene = mapToScene(center);
 
         if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE) {
-            m_item->setChildValue(EllipseItem::P_XCENTER, fromSceneX(centerInScene.x()));
-            m_item->setChildValue(EllipseItem::P_YCENTER, fromSceneY(centerInScene.y()));
+            m_item->setItemValue(EllipseItem::P_XCENTER, fromSceneX(centerInScene.x()));
+            m_item->setItemValue(EllipseItem::P_YCENTER, fromSceneY(centerInScene.y()));
 
-            m_item->setChildValue(EllipseItem::P_XRADIUS,
+            m_item->setItemValue(EllipseItem::P_XRADIUS,
                                           (fromSceneX(centerInScene.x()+width/2.) -
                                           fromSceneX(centerInScene.x()-width/2.))/2.);
-            m_item->setChildValue(EllipseItem::P_YRADIUS,
+            m_item->setItemValue(EllipseItem::P_YRADIUS,
                                           (fromSceneY(centerInScene.y()-height/2.) -
                                           fromSceneY(centerInScene.y()+height/2.))/2.);
 
 
 
         } else if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_HEIGHT) {
-            m_item->setChildValue(EllipseItem::P_YCENTER, fromSceneY(centerInScene.y()));
-            m_item->setChildValue(EllipseItem::P_YRADIUS,
+            m_item->setItemValue(EllipseItem::P_YCENTER, fromSceneY(centerInScene.y()));
+            m_item->setItemValue(EllipseItem::P_YRADIUS,
                                           (fromSceneY(centerInScene.y()-height/2.) -
                                           fromSceneY(centerInScene.y()+height/2.))/2.);
 
         } else if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_WIDTH) {
-            m_item->setChildValue(EllipseItem::P_XCENTER, fromSceneX(centerInScene.x()));
-            m_item->setChildValue(EllipseItem::P_XRADIUS,
+            m_item->setItemValue(EllipseItem::P_XCENTER, fromSceneX(centerInScene.x()));
+            m_item->setItemValue(EllipseItem::P_XRADIUS,
                                           (fromSceneX(centerInScene.x()+width/2.) -
                                           fromSceneX(centerInScene.x()-width/2.))/2.);
         }

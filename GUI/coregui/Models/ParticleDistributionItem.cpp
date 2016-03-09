@@ -77,17 +77,17 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
 
     auto P_distribution = TransformToDomain::createDistribution(*distr_item);
 
-    auto prop = getChildValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+    auto prop = getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                     .value<ComboProperty>();
     QString par_name = prop.getValue();
     std::string domain_par = ModelPath::translateParameterName(this, par_name);
     int nbr_samples
-        = distr_item->getChildValue(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
+        = distr_item->getItemValue(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
     double sigma_factor
-        = distr_item->getChildValue(DistributionItem::P_SIGMA_FACTOR).toDouble();
+        = distr_item->getItemValue(DistributionItem::P_SIGMA_FACTOR).toDouble();
     ParameterDistribution par_distr(domain_par, *P_distribution, nbr_samples, sigma_factor);
     auto result = GUIHelpers::make_unique<ParticleDistribution>(*P_particle, par_distr);
-    double abundance = getChildValue(ParticleItem::P_ABUNDANCE).toDouble();
+    double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
     result->setAbundance(abundance);
     return result;
 }
@@ -96,7 +96,7 @@ void ParticleDistributionItem::updateParameterList()
 {
     if (!isTag(P_DISTRIBUTED_PARAMETER))
         return;
-    QVariant par_prop = getChildValue(P_DISTRIBUTED_PARAMETER);
+    QVariant par_prop = getItemValue(P_DISTRIBUTED_PARAMETER);
     auto combo_prop = par_prop.value<ComboProperty>();
     QString cached_par = combo_prop.getCachedValue();
     if (!combo_prop.cacheContainsGUIValue()) {
@@ -120,7 +120,7 @@ void ParticleDistributionItem::updateParameterList()
     } else {
         updated_prop.setValue(NO_SELECTION);
     }
-    setChildValue(P_DISTRIBUTED_PARAMETER, updated_prop.getVariant());
+    setItemValue(P_DISTRIBUTED_PARAMETER, updated_prop.getVariant());
 }
 
 QStringList ParticleDistributionItem::getChildParameterNames() const

@@ -174,7 +174,7 @@ void RectangularDetectorWidget::init_alignment_editors()
     m_directionEditor->hide();
 
     ComboProperty alignment
-        = m_detectorItem->getChildValue(RectangularDetectorItem::P_ALIGNMENT)
+        = m_detectorItem->getItemValue(RectangularDetectorItem::P_ALIGNMENT)
               .value<ComboProperty>();
 
 

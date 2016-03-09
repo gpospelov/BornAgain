@@ -29,7 +29,7 @@ MagneticFieldItem::MagneticFieldItem()
 
 QString MagneticFieldItem::itemLabel() const
 {
-    return QString("(%1, %2, %3)").arg(getChildValue(P_BX).toDouble())
-                                  .arg(getChildValue(P_BY).toDouble())
-                                  .arg(getChildValue(P_BZ).toDouble());
+    return QString("(%1, %2, %3)").arg(getItemValue(P_BX).toDouble())
+                                  .arg(getItemValue(P_BY).toDouble())
+                                  .arg(getItemValue(P_BZ).toDouble());
 }

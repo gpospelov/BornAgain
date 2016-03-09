@@ -44,7 +44,7 @@ ParticleCompositionItem::ParticleCompositionItem()
                 [this](SessionItem *parent) {
         if (parent && (parent->modelType() == Constants::ParticleCompositionType
             || parent->modelType() == Constants::ParticleDistributionType)) {
-            setChildValue(ParticleItem::P_ABUNDANCE, 1.0);
+            setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
             getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         } else {
             getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);
@@ -54,7 +54,7 @@ ParticleCompositionItem::ParticleCompositionItem()
 
 std::unique_ptr<ParticleComposition> ParticleCompositionItem::createParticleComposition() const
 {
-    double abundance = getChildValue(ParticleItem::P_ABUNDANCE).toDouble();
+    double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
     auto P_composition = GUIHelpers::make_unique<ParticleComposition>();
     P_composition->setAbundance(abundance);
     QVector<SessionItem *> children = childItems();

@@ -39,7 +39,7 @@ FTDecayFunction1DCauchyItem::FTDecayFunction1DCauchyItem()
 IFTDecayFunction1D *FTDecayFunction1DCauchyItem::createFTDecayFunction() const
 {
     return new FTDecayFunction1DCauchy(
-                getChildValue(P_DECAY_LENGTH).toDouble() );
+                getItemValue(P_DECAY_LENGTH).toDouble() );
 }
 
 // Gauss
@@ -52,7 +52,7 @@ FTDecayFunction1DGaussItem::FTDecayFunction1DGaussItem()
 IFTDecayFunction1D *FTDecayFunction1DGaussItem::createFTDecayFunction() const
 {
     return new FTDecayFunction1DGauss(
-                getChildValue(P_DECAY_LENGTH).toDouble() );
+                getItemValue(P_DECAY_LENGTH).toDouble() );
 }
 
 // Triangle
@@ -65,7 +65,7 @@ FTDecayFunction1DTriangleItem::FTDecayFunction1DTriangleItem()
 IFTDecayFunction1D *FTDecayFunction1DTriangleItem::createFTDecayFunction() const
 {
     return new FTDecayFunction1DTriangle(
-                getChildValue(P_DECAY_LENGTH).toDouble() );
+                getItemValue(P_DECAY_LENGTH).toDouble() );
 }
 
 // Voigt
@@ -79,8 +79,8 @@ FTDecayFunction1DVoigtItem::FTDecayFunction1DVoigtItem()
 IFTDecayFunction1D *FTDecayFunction1DVoigtItem::createFTDecayFunction() const
 {
     return new FTDecayFunction1DVoigt(
-                getChildValue(P_DECAY_LENGTH).toDouble(),
-                getChildValue(P_ETA).toDouble() );
+                getItemValue(P_DECAY_LENGTH).toDouble(),
+                getItemValue(P_ETA).toDouble() );
 }
 
 FTDecayFunction2DCauchyItem::FTDecayFunction2DCauchyItem()
@@ -93,9 +93,9 @@ FTDecayFunction2DCauchyItem::FTDecayFunction2DCauchyItem()
 IFTDecayFunction2D *FTDecayFunction2DCauchyItem::createFTDecayFunction() const
 {
     auto *p_result
-        = new FTDecayFunction2DCauchy(getChildValue(P_DECAY_LENGTH_X).toDouble(),
-                                      getChildValue(P_DECAY_LENGTH_Y).toDouble());
-    double gamma = Units::deg2rad(getChildValue(P_GAMMA).toDouble());
+        = new FTDecayFunction2DCauchy(getItemValue(P_DECAY_LENGTH_X).toDouble(),
+                                      getItemValue(P_DECAY_LENGTH_Y).toDouble());
+    double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble());
     p_result->setGamma(gamma);
     return p_result;
 }
@@ -110,9 +110,9 @@ FTDecayFunction2DGaussItem::FTDecayFunction2DGaussItem()
 IFTDecayFunction2D *FTDecayFunction2DGaussItem::createFTDecayFunction() const
 {
     auto *p_result
-        = new FTDecayFunction2DGauss(getChildValue(P_DECAY_LENGTH_X).toDouble(),
-                                     getChildValue(P_DECAY_LENGTH_Y).toDouble());
-    double gamma = Units::deg2rad(getChildValue(P_GAMMA).toDouble());
+        = new FTDecayFunction2DGauss(getItemValue(P_DECAY_LENGTH_X).toDouble(),
+                                     getItemValue(P_DECAY_LENGTH_Y).toDouble());
+    double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble());
     p_result->setGamma(gamma);
     return p_result;
 }
@@ -128,10 +128,10 @@ FTDecayFunction2DVoigtItem::FTDecayFunction2DVoigtItem()
 IFTDecayFunction2D *FTDecayFunction2DVoigtItem::createFTDecayFunction() const
 {
     auto *p_result
-        = new FTDecayFunction2DVoigt(getChildValue(P_DECAY_LENGTH_X).toDouble(),
-                                     getChildValue(P_DECAY_LENGTH_Y).toDouble(),
-                                     getChildValue(P_ETA).toDouble());
-    double gamma = Units::deg2rad(getChildValue(P_GAMMA).toDouble());
+        = new FTDecayFunction2DVoigt(getItemValue(P_DECAY_LENGTH_X).toDouble(),
+                                     getItemValue(P_DECAY_LENGTH_Y).toDouble(),
+                                     getItemValue(P_ETA).toDouble());
+    double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble());
     p_result->setGamma(gamma);
     return p_result;
 }

@@ -66,7 +66,7 @@ void DetectorMaskDelegate::createIntensityDataItem()
     Q_ASSERT(m_intensityItem);
 
     m_intensityItem->getItem(IntensityDataItem::P_PROJECTIONS_FLAG)->setEnabled(false);
-    m_intensityItem->setChildValue(IntensityDataItem::P_IS_INTERPOLATED,
+    m_intensityItem->setItemValue(IntensityDataItem::P_IS_INTERPOLATED,
                                            false);
 
 //    ComboProperty gradient
@@ -79,11 +79,11 @@ void DetectorMaskDelegate::createIntensityDataItem()
     AmplitudeAxisItem *zAxisItem = dynamic_cast<AmplitudeAxisItem *>(
         m_intensityItem->getGroupItem(IntensityDataItem::P_ZAXIS));
 
-    zAxisItem->setChildValue(BasicAxisItem::P_IS_VISIBLE, false);
-    zAxisItem->setChildValue(BasicAxisItem::P_MIN, 0.0);
-    zAxisItem->setChildValue(BasicAxisItem::P_MAX, 2.0);
-    zAxisItem->setChildValue(AmplitudeAxisItem::P_IS_LOGSCALE, false);
-    zAxisItem->setChildValue(AmplitudeAxisItem::P_LOCK_MIN_MAX, true);
+    zAxisItem->setItemValue(BasicAxisItem::P_IS_VISIBLE, false);
+    zAxisItem->setItemValue(BasicAxisItem::P_MIN, 0.0);
+    zAxisItem->setItemValue(BasicAxisItem::P_MAX, 2.0);
+    zAxisItem->setItemValue(AmplitudeAxisItem::P_IS_LOGSCALE, false);
+    zAxisItem->setItemValue(AmplitudeAxisItem::P_LOCK_MIN_MAX, true);
 
     m_intensityItem->setOutputData(createOutputData(m_detectorItem));
 }
@@ -115,20 +115,20 @@ DetectorMaskDelegate::createOutputData(DetectorItem *detectorItem)
         auto x_axis = dynamic_cast<BasicAxisItem *>(
             subDetector->getGroupItem(SphericalDetectorItem::P_PHI_AXIS));
         Q_ASSERT(x_axis);
-        int n_x = x_axis->getChildValue(BasicAxisItem::P_NBINS).toInt();
+        int n_x = x_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
         double x_min
-            = x_axis->getChildValue(BasicAxisItem::P_MIN).toDouble();
+            = x_axis->getItemValue(BasicAxisItem::P_MIN).toDouble();
         double x_max
-            = x_axis->getChildValue(BasicAxisItem::P_MAX).toDouble();
+            = x_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
 
         auto y_axis = dynamic_cast<BasicAxisItem *>(
             subDetector->getGroupItem(SphericalDetectorItem::P_ALPHA_AXIS));
         Q_ASSERT(y_axis);
-        int n_y = y_axis->getChildValue(BasicAxisItem::P_NBINS).toInt();
+        int n_y = y_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
         double y_min
-            = y_axis->getChildValue(BasicAxisItem::P_MIN).toDouble();
+            = y_axis->getItemValue(BasicAxisItem::P_MIN).toDouble();
         double y_max
-            = y_axis->getChildValue(BasicAxisItem::P_MAX).toDouble();
+            = y_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
 
         result->addAxis("x", n_x, x_min, x_max);
         result->addAxis("y", n_y, y_min, y_max);
@@ -137,20 +137,20 @@ DetectorMaskDelegate::createOutputData(DetectorItem *detectorItem)
         auto x_axis = dynamic_cast<BasicAxisItem *>(
             subDetector->getGroupItem(RectangularDetectorItem::P_X_AXIS));
         Q_ASSERT(x_axis);
-        int n_x = x_axis->getChildValue(BasicAxisItem::P_NBINS).toInt();
+        int n_x = x_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
         double x_min
-            = x_axis->getChildValue(BasicAxisItem::P_MIN).toDouble();
+            = x_axis->getItemValue(BasicAxisItem::P_MIN).toDouble();
         double x_max
-            = x_axis->getChildValue(BasicAxisItem::P_MAX).toDouble();
+            = x_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
 
         auto y_axis = dynamic_cast<BasicAxisItem *>(
             subDetector->getGroupItem(RectangularDetectorItem::P_Y_AXIS));
         Q_ASSERT(y_axis);
-        int n_y = y_axis->getChildValue(BasicAxisItem::P_NBINS).toInt();
+        int n_y = y_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
         double y_min
-            = y_axis->getChildValue(BasicAxisItem::P_MIN).toDouble();
+            = y_axis->getItemValue(BasicAxisItem::P_MIN).toDouble();
         double y_max
-            = y_axis->getChildValue(BasicAxisItem::P_MAX).toDouble();
+            = y_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
 
         result->addAxis("x", n_x, x_min, x_max);
         result->addAxis("y", n_y, y_min, y_max);

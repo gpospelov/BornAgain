@@ -47,7 +47,7 @@ double ModelPath::getParameterValue(const SessionItem *item, const QString &name
         return getParameterValue(p_child, stripFirstField(name));
     }
     if (item->isTag(head)) {
-        return item->getChildValue(head).toDouble();
+        return item->getItemValue(head).toDouble();
     } else {
         return 0.0;
     }

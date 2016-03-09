@@ -58,11 +58,11 @@ inline void TestMapper::test_Inference2DRotationAngleToggle()
                                                        layout->index(), -1, ParticleLayoutItem::T_INTERFERENCE);
 
     // rotation (xi) should be disabled if integration is on
-    inference->setChildValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, true);
+    inference->setItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, true);
     QVERIFY(inference->getItem(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE)->isEnabled() == false);
 
     // rotation (xi) should be enabled if integration is off
-    inference->setChildValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, false);
+    inference->setItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, false);
     QVERIFY(!inference->getItem(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE)->isEnabled() == false);
 
 }
@@ -76,16 +76,16 @@ inline void TestMapper::test_instrumentAlignmentPropertyVisibility()
     SessionItem *rectangular = detector->getGroupItem(DetectorItem::P_DETECTOR);
 
 
-    ComboProperty alignment = rectangular->getChildValue(RectangularDetectorItem::P_ALIGNMENT)
+    ComboProperty alignment = rectangular->getItemValue(RectangularDetectorItem::P_ALIGNMENT)
             .value<ComboProperty>();
     // generic has some more items visible
     alignment.setValue(Constants::ALIGNMENT_GENERIC);
-    rectangular->setChildValue(RectangularDetectorItem::P_ALIGNMENT, QVariant::fromValue<ComboProperty>(alignment));
+    rectangular->setItemValue(RectangularDetectorItem::P_ALIGNMENT, QVariant::fromValue<ComboProperty>(alignment));
     QVERIFY(rectangular->getItem(RectangularDetectorItem::P_NORMAL)->isVisible());
 
     // should be disabled if we switch
     alignment.setValue(Constants::ALIGNMENT_TO_REFLECTED_BEAM);
-    rectangular->setChildValue(RectangularDetectorItem::P_ALIGNMENT, QVariant::fromValue<ComboProperty>(alignment));
+    rectangular->setItemValue(RectangularDetectorItem::P_ALIGNMENT, QVariant::fromValue<ComboProperty>(alignment));
     QVERIFY(rectangular->getItem(RectangularDetectorItem::P_NORMAL)->isVisible() == false);
 
 }

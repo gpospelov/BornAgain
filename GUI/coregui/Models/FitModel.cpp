@@ -47,11 +47,11 @@ InputDataItem *FitModel::getInputData() {
 }
 
 QString FitModel::getSelectedSampleName () {
-    return getFitSelection()->getChildValue(FitSelectionItem::P_SAMPLE).toString();
+    return getFitSelection()->getItemValue(FitSelectionItem::P_SAMPLE).toString();
 }
 
 QString FitModel::getSelectedInstrumentName(){
-    return getFitSelection()->getChildValue(FitSelectionItem::P_INSTRUMENT).toString();
+    return getFitSelection()->getItemValue(FitSelectionItem::P_INSTRUMENT).toString();
 }
 
 QStringList FitModel::getSampleNames() {
@@ -101,12 +101,12 @@ SessionItem *FitModel::getSelectedInstrumentItem() {
 
 void FitModel::setSelectedSample(const QString &displayName) {
     SessionItem *selection = getFitSelection();
-    selection->setChildValue(FitSelectionItem::P_SAMPLE, displayName);
+    selection->setItemValue(FitSelectionItem::P_SAMPLE, displayName);
 }
 
 void FitModel::setSelectedInstrument(const QString &displayName) {
     SessionItem *selection = getFitSelection();
-    selection->setChildValue(FitSelectionItem::P_INSTRUMENT, displayName);
+    selection->setItemValue(FitSelectionItem::P_INSTRUMENT, displayName);
 }
 
 MinimizerSettingsItem *FitModel::getMinimizerSettings() {
@@ -116,7 +116,7 @@ MinimizerSettingsItem *FitModel::getMinimizerSettings() {
 
 QString FitModel::getMinimizerAlgorithm() {
     if (auto *item = getMinimizerSettings()) {
-        return item->getChildValue(MinimizerSettingsItem::P_ALGO).value<ComboProperty>()
+        return item->getItemValue(MinimizerSettingsItem::P_ALGO).value<ComboProperty>()
                 .getValue();
     }
     return QString();
@@ -124,14 +124,14 @@ QString FitModel::getMinimizerAlgorithm() {
 
 QString FitModel::getInputDataPath() {
     if (auto *item = getInputData()) {
-        return item->getChildValue(InputDataItem::P_PATH).toString();
+        return item->getItemValue(InputDataItem::P_PATH).toString();
     }
     return "";
 }
 
 void FitModel::setInputDataPath(const QString &path) {
     if (auto *item = getInputData()) {
-        item->setChildValue(InputDataItem::P_PATH, path);
+        item->setItemValue(InputDataItem::P_PATH, path);
     }
 }
 

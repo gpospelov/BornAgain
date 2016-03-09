@@ -169,7 +169,7 @@ std::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
         SessionItem *parameter = m_fitModel->itemForIndex(child);
         for (int j = 0; j < m_fitModel->rowCount(child); j++) {
             SessionItem *link = m_fitModel->itemForIndex(m_fitModel->index(j,0,child));
-            QString value = link->getChildValue(FitParameterLinkItem::P_LINK).toString();
+            QString value = link->getItemValue(FitParameterLinkItem::P_LINK).toString();
             value = value.replace("Position Offset/X", "PositionX");
             value = value.replace("Position Offset/Y", "PositionY");
             value = value.replace("Position Offset/Z", "PositionZ");
@@ -181,9 +181,9 @@ std::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
             std::string translated = "*" + value.toStdString();
             std::cout << translated;
             std::cout.flush();
-            double min = parameter->getChildValue(FitParameterItem::P_MIN).toDouble();
-            double max = parameter->getChildValue(FitParameterItem::P_MAX).toDouble();
-            double init = parameter->getChildValue(FitParameterItem::P_INIT).toDouble();
+            double min = parameter->getItemValue(FitParameterItem::P_MIN).toDouble();
+            double max = parameter->getItemValue(FitParameterItem::P_MAX).toDouble();
+            double init = parameter->getItemValue(FitParameterItem::P_INIT).toDouble();
             AttLimits limits;
             if (min==max && min < init) {
                 limits = AttLimits::lowerLimited(min);

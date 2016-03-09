@@ -38,10 +38,10 @@ AnisoPyramidItem::AnisoPyramidItem()
 std::unique_ptr<IFormFactor> AnisoPyramidItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorAnisoPyramid>(
-                getChildValue(P_LENGTH).toDouble(),
-                getChildValue(P_WIDTH).toDouble(),
-                getChildValue(P_HEIGHT).toDouble(),
-                getChildValue(P_ALPHA).toDouble()*Units::degree
+                getItemValue(P_LENGTH).toDouble(),
+                getItemValue(P_WIDTH).toDouble(),
+                getItemValue(P_HEIGHT).toDouble(),
+                getItemValue(P_ALPHA).toDouble()*Units::degree
                 );
 }
 
@@ -62,9 +62,9 @@ BoxItem::BoxItem()
 std::unique_ptr<IFormFactor> BoxItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorBox>(
-                getChildValue(P_LENGTH).toDouble(),
-                getChildValue(P_WIDTH).toDouble(),
-                getChildValue(P_HEIGHT).toDouble()
+                getItemValue(P_LENGTH).toDouble(),
+                getItemValue(P_WIDTH).toDouble(),
+                getItemValue(P_HEIGHT).toDouble()
                 );
 }
 
@@ -85,9 +85,9 @@ ConeItem::ConeItem()
 std::unique_ptr<IFormFactor> ConeItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorCone>(
-                getChildValue(P_RADIUS).toDouble(),
-                getChildValue(P_HEIGHT).toDouble(),
-                getChildValue(P_ALPHA).toDouble()*Units::degree
+                getItemValue(P_RADIUS).toDouble(),
+                getItemValue(P_HEIGHT).toDouble(),
+                getItemValue(P_ALPHA).toDouble()*Units::degree
                 );
 }
 
@@ -108,9 +108,9 @@ Cone6Item::Cone6Item()
 std::unique_ptr<IFormFactor> Cone6Item::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorCone6>(
-                getChildValue(P_RADIUS).toDouble(),
-                getChildValue(P_HEIGHT).toDouble(),
-                getChildValue(P_ALPHA).toDouble()*Units::degree
+                getItemValue(P_RADIUS).toDouble(),
+                getItemValue(P_HEIGHT).toDouble(),
+                getItemValue(P_ALPHA).toDouble()*Units::degree
                 );
 }
 
@@ -133,10 +133,10 @@ CuboctahedronItem::CuboctahedronItem()
 std::unique_ptr<IFormFactor> CuboctahedronItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorCuboctahedron>(
-                getChildValue(P_LENGTH).toDouble(),
-                getChildValue(P_HEIGHT).toDouble(),
-                getChildValue(P_HEIGHT_RATIO).toDouble(),
-                getChildValue(P_ALPHA).toDouble()*Units::degree
+                getItemValue(P_LENGTH).toDouble(),
+                getItemValue(P_HEIGHT).toDouble(),
+                getItemValue(P_HEIGHT_RATIO).toDouble(),
+                getItemValue(P_ALPHA).toDouble()*Units::degree
                 );
 }
 
@@ -155,8 +155,8 @@ CylinderItem::CylinderItem()
 std::unique_ptr<IFormFactor> CylinderItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorCylinder>(
-                getChildValue(P_RADIUS).toDouble(),
-                getChildValue(P_HEIGHT).toDouble()
+                getItemValue(P_RADIUS).toDouble(),
+                getItemValue(P_HEIGHT).toDouble()
                 );
 }
 
@@ -177,9 +177,9 @@ EllipsoidalCylinderItem::EllipsoidalCylinderItem()
 std::unique_ptr<IFormFactor> EllipsoidalCylinderItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorEllipsoidalCylinder>(
-                getChildValue(P_RADIUS_X).toDouble(),
-                getChildValue(P_RADIUS_Y).toDouble(),
-                getChildValue(P_HEIGHT).toDouble()
+                getItemValue(P_RADIUS_X).toDouble(),
+                getItemValue(P_RADIUS_Y).toDouble(),
+                getItemValue(P_HEIGHT).toDouble()
                 );
 }
 
@@ -196,7 +196,7 @@ FullSphereItem::FullSphereItem()
 std::unique_ptr<IFormFactor> FullSphereItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorFullSphere>(
-                getChildValue(P_RADIUS).toDouble()
+                getItemValue(P_RADIUS).toDouble()
                 );
 }
 
@@ -215,8 +215,8 @@ FullSpheroidItem::FullSpheroidItem()
 std::unique_ptr<IFormFactor> FullSpheroidItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorFullSpheroid>(
-                getChildValue(P_RADIUS).toDouble(),
-                getChildValue(P_HEIGHT).toDouble()
+                getItemValue(P_RADIUS).toDouble(),
+                getItemValue(P_HEIGHT).toDouble()
                 );
 }
 
@@ -237,9 +237,9 @@ HemiEllipsoidItem::HemiEllipsoidItem()
 std::unique_ptr<IFormFactor> HemiEllipsoidItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorHemiEllipsoid>(
-                getChildValue(P_RADIUS_X).toDouble(),
-                getChildValue(P_RADIUS_Y).toDouble(),
-                getChildValue(P_HEIGHT).toDouble()
+                getItemValue(P_RADIUS_X).toDouble(),
+                getItemValue(P_RADIUS_Y).toDouble(),
+                getItemValue(P_HEIGHT).toDouble()
                 );
 }
 
@@ -258,8 +258,8 @@ Prism3Item::Prism3Item()
 std::unique_ptr<IFormFactor> Prism3Item::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorPrism3>(
-                getChildValue(P_LENGTH).toDouble(),
-                getChildValue(P_HEIGHT).toDouble()
+                getItemValue(P_LENGTH).toDouble(),
+                getItemValue(P_HEIGHT).toDouble()
                 );
 }
 
@@ -278,8 +278,8 @@ Prism6Item::Prism6Item()
 std::unique_ptr<IFormFactor> Prism6Item::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorPrism6>(
-                getChildValue(P_RADIUS).toDouble(),
-                getChildValue(P_HEIGHT).toDouble()
+                getItemValue(P_RADIUS).toDouble(),
+                getItemValue(P_HEIGHT).toDouble()
                 );
 }
 
@@ -300,9 +300,9 @@ PyramidItem::PyramidItem()
 std::unique_ptr<IFormFactor> PyramidItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorPyramid>(
-                getChildValue(P_LENGTH).toDouble(),
-                getChildValue(P_HEIGHT).toDouble(),
-                getChildValue(P_ALPHA).toDouble()*Units::degree
+                getItemValue(P_LENGTH).toDouble(),
+                getItemValue(P_HEIGHT).toDouble(),
+                getItemValue(P_ALPHA).toDouble()*Units::degree
                 );
 }
 
@@ -323,9 +323,9 @@ Ripple1Item::Ripple1Item()
 std::unique_ptr<IFormFactor> Ripple1Item::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorRipple1>(
-                getChildValue(P_LENGTH).toDouble(),
-                getChildValue(P_WIDTH).toDouble(),
-                getChildValue(P_HEIGHT).toDouble()
+                getItemValue(P_LENGTH).toDouble(),
+                getItemValue(P_WIDTH).toDouble(),
+                getItemValue(P_HEIGHT).toDouble()
                 );
 }
 
@@ -348,10 +348,10 @@ Ripple2Item::Ripple2Item()
 std::unique_ptr<IFormFactor> Ripple2Item::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorRipple2>(
-                getChildValue(P_LENGTH).toDouble(),
-                getChildValue(P_WIDTH).toDouble(),
-                getChildValue(P_HEIGHT).toDouble(),
-                getChildValue(P_ASYMMETRY).toDouble()
+                getItemValue(P_LENGTH).toDouble(),
+                getItemValue(P_WIDTH).toDouble(),
+                getItemValue(P_HEIGHT).toDouble(),
+                getItemValue(P_ASYMMETRY).toDouble()
                 );
 }
 
@@ -372,9 +372,9 @@ TetrahedronItem::TetrahedronItem()
 std::unique_ptr<IFormFactor> TetrahedronItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorTetrahedron>(
-                getChildValue(P_LENGTH).toDouble(),
-                getChildValue(P_HEIGHT).toDouble(),
-                getChildValue(P_ALPHA).toDouble()*Units::degree
+                getItemValue(P_LENGTH).toDouble(),
+                getItemValue(P_HEIGHT).toDouble(),
+                getItemValue(P_ALPHA).toDouble()*Units::degree
                 );
 }
 
@@ -394,8 +394,8 @@ TruncatedCubeItem::TruncatedCubeItem()
 std::unique_ptr<IFormFactor> TruncatedCubeItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorTruncatedCube>(
-                getChildValue(P_LENGTH).toDouble(),
-                getChildValue(P_REMOVED_LENGTH).toDouble()
+                getItemValue(P_LENGTH).toDouble(),
+                getItemValue(P_REMOVED_LENGTH).toDouble()
                 );
 }
 
@@ -414,8 +414,8 @@ TruncatedSphereItem::TruncatedSphereItem()
 std::unique_ptr<IFormFactor> TruncatedSphereItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorTruncatedSphere>(
-                getChildValue(P_RADIUS).toDouble(),
-                getChildValue(P_HEIGHT).toDouble()
+                getItemValue(P_RADIUS).toDouble(),
+                getItemValue(P_HEIGHT).toDouble()
                 );
 }
 
@@ -436,9 +436,9 @@ TruncatedSpheroidItem::TruncatedSpheroidItem()
 std::unique_ptr<IFormFactor> TruncatedSpheroidItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorTruncatedSpheroid>(
-                getChildValue(P_RADIUS).toDouble(),
-                getChildValue(P_HEIGHT).toDouble(),
-                getChildValue(P_HFC).toDouble()
+                getItemValue(P_RADIUS).toDouble(),
+                getItemValue(P_HEIGHT).toDouble(),
+                getItemValue(P_HFC).toDouble()
                 );
 }
 

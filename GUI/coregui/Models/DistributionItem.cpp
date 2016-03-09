@@ -55,7 +55,7 @@ std::unique_ptr<IDistribution1D> DistributionNoneItem::createDistribution() cons
 
 void DistributionNoneItem::init_parameters(double value, PropertyAttribute attribute)
 {
-    setChildValue(DistributionNoneItem::P_VALUE, value);
+    setItemValue(DistributionNoneItem::P_VALUE, value);
 //    setPropertyAttribute(DistributionNoneItem::P_VALUE, attribute);
 }
 
@@ -75,8 +75,8 @@ DistributionGateItem::DistributionGateItem()
 
 std::unique_ptr<IDistribution1D> DistributionGateItem::createDistribution() const
 {
-    double min = getChildValue(P_MIN).toDouble();
-    double max = getChildValue(P_MAX).toDouble();
+    double min = getItemValue(P_MIN).toDouble();
+    double max = getItemValue(P_MAX).toDouble();
     return GUIHelpers::make_unique<DistributionGate>(min, max);
 }
 
@@ -84,9 +84,9 @@ void DistributionGateItem::init_parameters(double value, PropertyAttribute attri
 {
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;
-    setChildValue(P_MIN, value - sigma);
+    setItemValue(P_MIN, value - sigma);
 //    setPropertyAttribute(P_MIN, attribute);
-    setChildValue(P_MAX, value + sigma);
+    setItemValue(P_MAX, value + sigma);
 //    setPropertyAttribute(P_MAX, attribute);
 }
 
@@ -106,8 +106,8 @@ DistributionLorentzItem::DistributionLorentzItem()
 
 std::unique_ptr<IDistribution1D> DistributionLorentzItem::createDistribution() const
 {
-    double mean = getChildValue(P_MEAN).toDouble();
-    double hwhm = getChildValue(P_HWHM).toDouble();
+    double mean = getItemValue(P_MEAN).toDouble();
+    double hwhm = getItemValue(P_HWHM).toDouble();
     return GUIHelpers::make_unique<DistributionLorentz>(mean, hwhm);
 }
 
@@ -116,9 +116,9 @@ void DistributionLorentzItem::init_parameters(double value, PropertyAttribute at
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;
 
-    setChildValue(P_MEAN, value);
+    setItemValue(P_MEAN, value);
 //    setPropertyAttribute(P_MEAN, attribute);
-    setChildValue(P_HWHM, sigma);
+    setItemValue(P_HWHM, sigma);
     getItem(P_HWHM)->setLimits(AttLimits::lowerLimited(0.0));
 }
 
@@ -138,8 +138,8 @@ DistributionGaussianItem::DistributionGaussianItem()
 
 std::unique_ptr<IDistribution1D> DistributionGaussianItem::createDistribution() const
 {
-    double mean = getChildValue(P_MEAN).toDouble();
-    double std_dev = getChildValue(P_STD_DEV).toDouble();
+    double mean = getItemValue(P_MEAN).toDouble();
+    double std_dev = getItemValue(P_STD_DEV).toDouble();
     return GUIHelpers::make_unique<DistributionGaussian>(mean, std_dev);
 }
 
@@ -148,9 +148,9 @@ void DistributionGaussianItem::init_parameters(double value, PropertyAttribute a
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;
 
-    setChildValue(P_MEAN, value);
+    setItemValue(P_MEAN, value);
 //    setPropertyAttribute(P_MEAN, attribute);
-    setChildValue(P_STD_DEV, sigma);
+    setItemValue(P_STD_DEV, sigma);
     getItem(P_STD_DEV)->setLimits(AttLimits::lowerLimited(0.0));
 }
 
@@ -170,8 +170,8 @@ DistributionLogNormalItem::DistributionLogNormalItem()
 
 std::unique_ptr<IDistribution1D> DistributionLogNormalItem::createDistribution() const
 {
-    double median = getChildValue(P_MEDIAN).toDouble();
-    double scale_par = getChildValue(P_SCALE_PAR).toDouble();
+    double median = getItemValue(P_MEDIAN).toDouble();
+    double scale_par = getItemValue(P_SCALE_PAR).toDouble();
     return GUIHelpers::make_unique<DistributionLogNormal>(median, scale_par);
 }
 
@@ -180,9 +180,9 @@ void DistributionLogNormalItem::init_parameters(double value, PropertyAttribute 
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;
 
-    setChildValue(P_MEDIAN, value);
+    setItemValue(P_MEDIAN, value);
 //    setPropertyAttribute(P_MEDIAN, attribute);
-    setChildValue(P_SCALE_PAR, sigma);
+    setItemValue(P_SCALE_PAR, sigma);
     getItem(P_SCALE_PAR)->setLimits(AttLimits::lowerLimited(0.0));
 }
 
@@ -202,8 +202,8 @@ DistributionCosineItem::DistributionCosineItem()
 
 std::unique_ptr<IDistribution1D> DistributionCosineItem::createDistribution() const
 {
-    double mean = getChildValue(P_MEAN).toDouble();
-    double sigma = getChildValue(P_SIGMA).toDouble();
+    double mean = getItemValue(P_MEAN).toDouble();
+    double sigma = getItemValue(P_SIGMA).toDouble();
     return GUIHelpers::make_unique<DistributionCosine>(mean, sigma);
 }
 
@@ -212,8 +212,8 @@ void DistributionCosineItem::init_parameters(double value, PropertyAttribute att
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;
 
-    setChildValue(P_MEAN, value);
+    setItemValue(P_MEAN, value);
 //    setPropertyAttribute(P_MEAN, attribute);
-    setChildValue(P_SIGMA, sigma);
+    setItemValue(P_SIGMA, sigma);
     getItem(P_SIGMA)->setLimits(AttLimits::lowerLimited(0.0));
 }

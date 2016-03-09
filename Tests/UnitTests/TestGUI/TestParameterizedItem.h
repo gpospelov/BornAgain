@@ -36,20 +36,20 @@ inline void TestParameterizedItem::test_registerProperty()
 //    QList<QVariant> arguments = spy.takeFirst();
 //    QCOMPARE(arguments.size(), 1);
 //    QCOMPARE(arguments.at(0).toString(), property_name);
-    QCOMPARE(item.getChildValue(property_name).toDouble(), value);
+    QCOMPARE(item.getItemValue(property_name).toDouble(), value);
 //    QCOMPARE(spy.count(), 0);
 
     // setting property value
     double new_value(2.0);
-    item.setChildValue(property_name, new_value);
+    item.setItemValue(property_name, new_value);
 //    QCOMPARE(spy.count(), 1);
 //    arguments = spy.takeFirst();
 //    QCOMPARE(arguments.size(), 1);
 //    QCOMPARE(arguments.at(0).toString(), property_name);
-    QCOMPARE(item.getChildValue(property_name).toDouble(), new_value);
+    QCOMPARE(item.getItemValue(property_name).toDouble(), new_value);
 
     // setting property value to wrong QVariant
-    QVERIFY_THROW(item.setChildValue(property_name, QString("aaa")), GUIHelpers::Error);
+    QVERIFY_THROW(item.setItemValue(property_name, QString("aaa")), GUIHelpers::Error);
 
     // attempt to register already existing property
 //    QVERIFY_THROW(item.registerProperty(property_name, 1.0), GUIHelpers::Error);

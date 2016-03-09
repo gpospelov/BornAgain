@@ -38,24 +38,24 @@ QString RefractiveIndexItem::itemLabel() const
 
 double RefractiveIndexItem::getDelta() const
 {
-    return getChildValue(P_DELTA).value<ScientificDoubleProperty>().getValue();
+    return getItemValue(P_DELTA).value<ScientificDoubleProperty>().getValue();
 }
 
 void RefractiveIndexItem::setDelta(double delta)
 {
-    ScientificDoubleProperty scd_property = getChildValue(P_DELTA).value<ScientificDoubleProperty>();
+    ScientificDoubleProperty scd_property = getItemValue(P_DELTA).value<ScientificDoubleProperty>();
     scd_property.setValue(delta);
-    setChildValue(P_DELTA, scd_property.getVariant());
+    setItemValue(P_DELTA, scd_property.getVariant());
 }
 
 double RefractiveIndexItem::getBeta() const
 {
-    return getChildValue(P_BETA).value<ScientificDoubleProperty>().getValue();
+    return getItemValue(P_BETA).value<ScientificDoubleProperty>().getValue();
 }
 
 void RefractiveIndexItem::setBeta(double beta)
 {
-    ScientificDoubleProperty scd_property = getChildValue(P_BETA).value<ScientificDoubleProperty>();
+    ScientificDoubleProperty scd_property = getItemValue(P_BETA).value<ScientificDoubleProperty>();
     scd_property.setValue(beta);
-    setChildValue(P_BETA, scd_property.getVariant());
+    setItemValue(P_BETA, scd_property.getVariant());
 }

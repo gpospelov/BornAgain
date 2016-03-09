@@ -78,8 +78,8 @@ void IntensityDataWidget::setItem(IntensityDataItem *item)
 void IntensityDataWidget::togglePropertyPanel()
 {
     if(m_currentItem) {
-        bool current_flag = m_currentItem->getChildValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool();
-        m_currentItem->setChildValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG, !current_flag);
+        bool current_flag = m_currentItem->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool();
+        m_currentItem->setItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG, !current_flag);
     }
 }
 
@@ -96,14 +96,14 @@ void IntensityDataWidget::setPropertyPanelVisible(bool visible)
 
 void IntensityDataWidget::updateItem(IntensityDataItem *item)
 {
-    setPropertyPanelVisible(item->getChildValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+    setPropertyPanelVisible(item->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
     ModelMapper *mapper = new ModelMapper(this);
     mapper->setItem(item);
     mapper->setOnPropertyChange(
                  [this](const QString &name)
     {
         if(name == IntensityDataItem::P_PROPERTY_PANEL_FLAG) {
-            setPropertyPanelVisible(m_currentItem->getChildValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+            setPropertyPanelVisible(m_currentItem->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
         }
     });
 }
@@ -111,8 +111,8 @@ void IntensityDataWidget::updateItem(IntensityDataItem *item)
 void IntensityDataWidget::toggleProjections()
 {
     if(m_currentItem) {
-        bool current_flag = m_currentItem->getChildValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool();
-        m_currentItem->setChildValue(IntensityDataItem::P_PROJECTIONS_FLAG, !current_flag);
+        bool current_flag = m_currentItem->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool();
+        m_currentItem->setItemValue(IntensityDataItem::P_PROJECTIONS_FLAG, !current_flag);
     }
 }
 

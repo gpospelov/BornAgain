@@ -29,7 +29,7 @@ XRotationItem::XRotationItem()
 
 IRotation *XRotationItem::createRotation() const
 {
-    double alpha = Units::deg2rad(getChildValue(P_ANGLE).toDouble() );
+    double alpha = Units::deg2rad(getItemValue(P_ANGLE).toDouble() );
     return new RotationX(alpha);
 }
 
@@ -45,7 +45,7 @@ YRotationItem::YRotationItem()
 
 IRotation *YRotationItem::createRotation() const
 {
-    double alpha = Units::deg2rad(getChildValue(P_ANGLE).toDouble() );
+    double alpha = Units::deg2rad(getItemValue(P_ANGLE).toDouble() );
     return new RotationY(alpha);
 }
 
@@ -61,7 +61,7 @@ ZRotationItem::ZRotationItem()
 
 IRotation *ZRotationItem::createRotation() const
 {
-    double alpha = Units::deg2rad(getChildValue(P_ANGLE).toDouble() );
+    double alpha = Units::deg2rad(getItemValue(P_ANGLE).toDouble() );
     return new RotationZ(alpha);
 }
 
@@ -81,8 +81,8 @@ EulerRotationItem::EulerRotationItem()
 
 IRotation *EulerRotationItem::createRotation() const
 {
-    double alpha = Units::deg2rad(getChildValue(P_ALPHA).toDouble() );
-    double beta = Units::deg2rad(getChildValue(P_BETA).toDouble() );
-    double gamma = Units::deg2rad(getChildValue(P_GAMMA).toDouble() );
+    double alpha = Units::deg2rad(getItemValue(P_ALPHA).toDouble() );
+    double beta = Units::deg2rad(getItemValue(P_BETA).toDouble() );
+    double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble() );
     return new RotationEuler(alpha, beta, gamma);
 }

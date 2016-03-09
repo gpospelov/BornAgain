@@ -179,7 +179,7 @@ JobResultsPresenter::preferableGUIAxesUnits(IDetector2D::EAxesUnits default_unit
 void JobResultsPresenter::initIntensityItemProperties(IntensityDataItem *intensityItem,
                                                       const IDetector2D *detector)
 {
-    ComboProperty combo = intensityItem->getChildValue(IntensityDataItem::P_AXES_UNITS)
+    ComboProperty combo = intensityItem->getItemValue(IntensityDataItem::P_AXES_UNITS)
                               .value<ComboProperty>();
 
     if(!combo.getValues().isEmpty()) return;
@@ -200,7 +200,7 @@ void JobResultsPresenter::initIntensityItemProperties(IntensityDataItem *intensi
         combo.setValue(cachedUnits);
     }
 
-    intensityItem->setChildValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
+    intensityItem->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
 
 
 

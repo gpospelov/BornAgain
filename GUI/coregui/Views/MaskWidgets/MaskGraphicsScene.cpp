@@ -583,7 +583,7 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
     if(!m_currentItem && line.length() > min_distance_to_create_rect) {
         m_currentItem = m_maskModel->insertNewItem(Constants::RectangleMaskType,
                                                    m_maskContainerIndex, 0);
-        m_currentItem->setChildValue(MaskItem::P_MASK_VALUE,
+        m_currentItem->setItemValue(MaskItem::P_MASK_VALUE,
                                              m_context.getMaskValue());
         setItemName(m_currentItem);
     }
@@ -601,10 +601,10 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
 //        m_currentItem->setRegisteredProperty(
 //            RectangleItem::P_HEIGHT, m_adaptor->fromSceneY(ymin) - m_adaptor->fromSceneY(ymax));
 
-        m_currentItem->setChildValue(RectangleItem::P_XLOW, m_adaptor->fromSceneX(xmin));
-        m_currentItem->setChildValue(RectangleItem::P_YLOW, m_adaptor->fromSceneY(ymax));
-        m_currentItem->setChildValue(RectangleItem::P_XUP, m_adaptor->fromSceneX(xmax));
-        m_currentItem->setChildValue(RectangleItem::P_YUP, m_adaptor->fromSceneY(ymin));
+        m_currentItem->setItemValue(RectangleItem::P_XLOW, m_adaptor->fromSceneX(xmin));
+        m_currentItem->setItemValue(RectangleItem::P_YLOW, m_adaptor->fromSceneY(ymax));
+        m_currentItem->setItemValue(RectangleItem::P_XUP, m_adaptor->fromSceneX(xmax));
+        m_currentItem->setItemValue(RectangleItem::P_YUP, m_adaptor->fromSceneY(ymin));
     }
 }
 
@@ -620,7 +620,7 @@ void MaskGraphicsScene::processEllipseItem(QGraphicsSceneMouseEvent *event)
     if(!m_currentItem && line.length() > min_distance_to_create_rect) {
         m_currentItem = m_maskModel->insertNewItem(Constants::EllipseMaskType,
                                                    m_maskContainerIndex, 0);
-        m_currentItem->setChildValue(MaskItem::P_MASK_VALUE,
+        m_currentItem->setItemValue(MaskItem::P_MASK_VALUE,
                                              m_context.getMaskValue());
         setItemName(m_currentItem);
     }
@@ -631,13 +631,13 @@ void MaskGraphicsScene::processEllipseItem(QGraphicsSceneMouseEvent *event)
         qreal ymin = std::min(click_pos.y(), mouse_pos.y());
         qreal ymax = std::max(click_pos.y(), mouse_pos.y());
 
-        m_currentItem->setChildValue(EllipseItem::P_XCENTER,
+        m_currentItem->setItemValue(EllipseItem::P_XCENTER,
                                              m_adaptor->fromSceneX(xmin + (xmax-xmin)/2.));
-        m_currentItem->setChildValue(EllipseItem::P_YCENTER,
+        m_currentItem->setItemValue(EllipseItem::P_YCENTER,
                                              m_adaptor->fromSceneY(ymin + (ymax-ymin)/2.));
-        m_currentItem->setChildValue(
+        m_currentItem->setItemValue(
             EllipseItem::P_XRADIUS, (m_adaptor->fromSceneX(xmax) - m_adaptor->fromSceneX(xmin))/2.);
-        m_currentItem->setChildValue(
+        m_currentItem->setItemValue(
             EllipseItem::P_YRADIUS, (m_adaptor->fromSceneY(ymin) - m_adaptor->fromSceneY(ymax))/2.);
     }
 
@@ -651,7 +651,7 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
         setDrawingInProgress(true);
         m_currentItem = m_maskModel->insertNewItem(Constants::PolygonMaskType,
                                                    m_maskContainerIndex, 0);
-        m_currentItem->setChildValue(MaskItem::P_MASK_VALUE, m_context.getMaskValue());
+        m_currentItem->setItemValue(MaskItem::P_MASK_VALUE, m_context.getMaskValue());
         m_selectionModel->clearSelection();
         m_selectionModel->select(m_maskModel->indexOfItem(m_currentItem), QItemSelectionModel::Select);
         setItemName(m_currentItem);
@@ -670,8 +670,8 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
                                                           m_maskModel->indexOfItem(m_currentItem));
     QPointF click_pos = event->buttonDownScenePos(Qt::LeftButton);
 
-    point->setChildValue(PolygonPointItem::P_POSX, m_adaptor->fromSceneX(click_pos.x()));
-    point->setChildValue(PolygonPointItem::P_POSY, m_adaptor->fromSceneY(click_pos.y()));
+    point->setItemValue(PolygonPointItem::P_POSX, m_adaptor->fromSceneX(click_pos.x()));
+    point->setItemValue(PolygonPointItem::P_POSY, m_adaptor->fromSceneY(click_pos.y()));
 }
 
 void MaskGraphicsScene::processLineItem(QGraphicsSceneMouseEvent *event)
@@ -688,7 +688,7 @@ void MaskGraphicsScene::processLineItem(QGraphicsSceneMouseEvent *event)
     m_selectionModel->clearSelection();
     m_selectionModel->select(m_maskModel->indexOfItem(m_currentItem), QItemSelectionModel::Select);
     setItemName(m_currentItem);
-    m_currentItem->setChildValue(MaskItem::P_MASK_VALUE,
+    m_currentItem->setItemValue(MaskItem::P_MASK_VALUE,
                                          m_context.getMaskValue());
 
     setDrawingInProgress(false);
@@ -698,7 +698,7 @@ void MaskGraphicsScene::processVerticalLineItem(const QPointF &pos)
 {
     m_currentItem = m_maskModel->insertNewItem(Constants::VerticalLineMaskType,
                                                m_maskContainerIndex, 0);
-    m_currentItem->setChildValue(VerticalLineItem::P_POSX,
+    m_currentItem->setItemValue(VerticalLineItem::P_POSX,
                                          m_adaptor->fromSceneX(pos.x()));
 }
 
@@ -706,7 +706,7 @@ void MaskGraphicsScene::processHorizontalLineItem(const QPointF &pos)
 {
     m_currentItem = m_maskModel->insertNewItem(Constants::HorizontalLineMaskType,
                                                m_maskContainerIndex, 0);
-    m_currentItem->setChildValue(HorizontalLineItem::P_POSY,
+    m_currentItem->setItemValue(HorizontalLineItem::P_POSY,
                                          m_adaptor->fromSceneY(pos.y()));
 }
 

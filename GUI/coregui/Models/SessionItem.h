@@ -92,8 +92,8 @@ public:
 
     bool isTag(const QString &name) const;
 
-    QVariant getChildValue(const QString &tag) const;
-    void setChildValue(const QString &tag, const QVariant &variant);
+    QVariant getItemValue(const QString &tag) const;
+    void setItemValue(const QString &tag, const QVariant &variant);
 
     SessionItem *setGroupProperty(const QString &name, const QString &value) const;
     SessionItem *getGroupItem(const QString &name, const QString &type = QString()) const;

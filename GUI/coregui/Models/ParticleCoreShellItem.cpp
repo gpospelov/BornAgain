@@ -47,7 +47,7 @@ ParticleCoreShellItem::ParticleCoreShellItem()
         if (name == "OBSOLETE_P_PORT" && parent()) {
             if (parent()->modelType() == Constants::ParticleCompositionType
                 || parent()->modelType() == Constants::ParticleDistributionType) {
-                setChildValue(ParticleItem::P_ABUNDANCE, 1.0);
+                setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
                 getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
             }
         }
@@ -56,7 +56,7 @@ ParticleCoreShellItem::ParticleCoreShellItem()
 
 std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShell() const
 {
-    double abundance = getChildValue(ParticleItem::P_ABUNDANCE).toDouble();
+    double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
     auto children = childItems();
     std::unique_ptr<Particle> P_core {};
     std::unique_ptr<Particle> P_shell {};

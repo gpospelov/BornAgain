@@ -43,12 +43,12 @@ MaterialItem::MaterialItem()
 
 QString MaterialItem::getIdentifier() const
 {
-    return getChildValue(P_IDENTIFIER).toString();
+    return getItemValue(P_IDENTIFIER).toString();
 }
 
 QColor MaterialItem::getColor() const
 {
-    ColorProperty color_property = getChildValue(P_COLOR).value<ColorProperty>();
+    ColorProperty color_property = getItemValue(P_COLOR).value<ColorProperty>();
     return color_property.getColor();
 }
 

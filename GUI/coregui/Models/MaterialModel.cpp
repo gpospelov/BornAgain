@@ -47,7 +47,7 @@ MaterialItem *MaterialModel::addMaterial(const QString &name, double delta, doub
     refractiveIndexItem->setDelta(delta);
     refractiveIndexItem->setBeta(beta);
 
-    materialItem->setChildValue(MaterialItem::P_COLOR, MaterialUtils::suggestMaterialColorProperty(name).getVariant());
+    materialItem->setItemValue(MaterialItem::P_COLOR, MaterialUtils::suggestMaterialColorProperty(name).getVariant());
 
     return materialItem;
 }

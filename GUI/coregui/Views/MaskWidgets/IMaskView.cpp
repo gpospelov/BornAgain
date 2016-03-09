@@ -106,12 +106,12 @@ void IMaskView::setSceneAdaptor(const ISceneAdaptor *adaptor)
 
 double IMaskView::par(const QString &property_name) const
 {
-    return m_item->getChildValue(property_name).toReal();
+    return m_item->getItemValue(property_name).toReal();
 }
 
 qreal IMaskView::toSceneX(const QString &property_name) const
 {
-    return toSceneX(m_item->getChildValue(property_name).toReal());
+    return toSceneX(m_item->getItemValue(property_name).toReal());
 }
 
 qreal IMaskView::toSceneX(qreal value) const
@@ -123,7 +123,7 @@ qreal IMaskView::toSceneX(qreal value) const
 
 qreal IMaskView::toSceneY(const QString &property_name) const
 {
-    return toSceneY(m_item->getChildValue(property_name).toReal());
+    return toSceneY(m_item->getItemValue(property_name).toReal());
 }
 
 qreal IMaskView::toSceneY(qreal value) const

@@ -68,10 +68,10 @@ RectangleItem::RectangleItem()
 
 std::unique_ptr<Geometry::IShape2D> RectangleItem::createShape(double scale) const
 {
-    double xlow = scale*getChildValue(P_XLOW).toDouble();
-    double ylow = scale*getChildValue(P_YLOW).toDouble();
-    double xup = scale*getChildValue(P_XUP).toDouble();
-    double yup = scale*getChildValue(P_YUP).toDouble();
+    double xlow = scale*getItemValue(P_XLOW).toDouble();
+    double ylow = scale*getItemValue(P_YLOW).toDouble();
+    double xup = scale*getItemValue(P_XUP).toDouble();
+    double yup = scale*getItemValue(P_YUP).toDouble();
     return GUIHelpers::make_unique<Geometry::Rectangle>(xlow, ylow, xup, yup);
 }
 
@@ -105,8 +105,8 @@ std::unique_ptr<Geometry::IShape2D> PolygonItem::createShape(double scale) const
 {
     std::vector<double> x,y;
     foreach(SessionItem *item, this->getChildrenOfType(Constants::PolygonPointType)) {
-        x.push_back(scale*item->getChildValue(PolygonPointItem::P_POSX).toDouble());
-        y.push_back(scale*item->getChildValue(PolygonPointItem::P_POSY).toDouble());
+        x.push_back(scale*item->getItemValue(PolygonPointItem::P_POSX).toDouble());
+        y.push_back(scale*item->getItemValue(PolygonPointItem::P_POSY).toDouble());
     }
     return GUIHelpers::make_unique<Geometry::Polygon>(x, y);
 }
@@ -124,7 +124,7 @@ VerticalLineItem::VerticalLineItem()
 std::unique_ptr<Geometry::IShape2D> VerticalLineItem::createShape(double scale) const
 {
     return GUIHelpers::make_unique<Geometry::VerticalLine>(
-                scale*getChildValue(VerticalLineItem::P_POSX).toDouble());
+                scale*getItemValue(VerticalLineItem::P_POSX).toDouble());
 }
 
 /* ------------------------------------------------------------------------- */
@@ -140,7 +140,7 @@ HorizontalLineItem::HorizontalLineItem()
 std::unique_ptr<Geometry::IShape2D> HorizontalLineItem::createShape(double scale) const
 {
     return GUIHelpers::make_unique<Geometry::HorizontalLine>(
-                scale*getChildValue(HorizontalLineItem::P_POSY).toDouble());
+                scale*getItemValue(HorizontalLineItem::P_POSY).toDouble());
 }
 
 /* ------------------------------------------------------------------------- */
@@ -164,11 +164,11 @@ EllipseItem::EllipseItem()
 
 std::unique_ptr<Geometry::IShape2D> EllipseItem::createShape(double scale) const
 {
-    double xcenter = scale*getChildValue(EllipseItem::P_XCENTER).toDouble();
-    double ycenter = scale*getChildValue(EllipseItem::P_YCENTER).toDouble();
-    double xradius = scale*getChildValue(EllipseItem::P_XRADIUS).toDouble();
-    double yradius = scale*getChildValue(EllipseItem::P_YRADIUS).toDouble();
-    double angle = scale*getChildValue(EllipseItem::P_ANGLE).toDouble();
+    double xcenter = scale*getItemValue(EllipseItem::P_XCENTER).toDouble();
+    double ycenter = scale*getItemValue(EllipseItem::P_YCENTER).toDouble();
+    double xradius = scale*getItemValue(EllipseItem::P_XRADIUS).toDouble();
+    double yradius = scale*getItemValue(EllipseItem::P_YRADIUS).toDouble();
+    double angle = scale*getItemValue(EllipseItem::P_ANGLE).toDouble();
 
     return GUIHelpers::make_unique<Geometry::Ellipse>(xcenter, ycenter, xradius, yradius, angle);
 }

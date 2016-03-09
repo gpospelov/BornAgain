@@ -19,7 +19,7 @@ inline void TestFTDistributionItems::test_FTDistribution1DCauchy()
 {
     // to domain
     FTDistribution1DCauchyItem item;
-    item.setChildValue(FTDistribution1DItem::P_CORR_LENGTH, 2.0);
+    item.setItemValue(FTDistribution1DItem::P_CORR_LENGTH, 2.0);
     FTDistribution1DCauchy *pdf = dynamic_cast<FTDistribution1DCauchy *>(item.createFTDistribution());
     QVERIFY(pdf->getOmega() == 2.0);
     delete pdf;
@@ -27,8 +27,8 @@ inline void TestFTDistributionItems::test_FTDistribution1DCauchy()
     // from domain
     FTDistribution1DCauchy pdf2(3.0);
     FTDistribution1DCauchyItem item2;
-    item2.setChildValue(FTDistribution1DGaussItem::P_CORR_LENGTH, pdf2.getOmega());
-    QVERIFY(item2.getChildValue(FTDistribution1DGaussItem::P_CORR_LENGTH) == 3.0);
+    item2.setItemValue(FTDistribution1DGaussItem::P_CORR_LENGTH, pdf2.getOmega());
+    QVERIFY(item2.getItemValue(FTDistribution1DGaussItem::P_CORR_LENGTH) == 3.0);
 }
 
 #endif

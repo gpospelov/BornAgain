@@ -115,7 +115,7 @@ void IntensityDataPlotWidget::setItem(IntensityDataItem *item)
                 [this](const QString &name)
     {
         if(name == IntensityDataItem::P_PROJECTIONS_FLAG) {
-            showProjections(m_item->getChildValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
+            showProjections(m_item->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
         }
     });
 //    connect(m_item, SIGNAL(propertyChanged(QString)),
@@ -179,7 +179,7 @@ void IntensityDataPlotWidget::savePlot(const QString &dirname)
 {
     Q_ASSERT(m_item);
 
-    bool projections_flag = m_item->getChildValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool();
+    bool projections_flag = m_item->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool();
     if(projections_flag)
         m_centralPlot->showLinesOverTheMap(false);
 
@@ -217,13 +217,13 @@ void IntensityDataPlotWidget::showProjections(bool flag)
 void IntensityDataPlotWidget::onPropertyPanelAction(bool flag)
 {
     Q_ASSERT(m_item);
-    m_item->setChildValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG, flag);
+    m_item->setItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG, flag);
 }
 
 void IntensityDataPlotWidget::onProjectionsAction(bool flag)
 {
     Q_ASSERT(m_item);
-    m_item->setChildValue(IntensityDataItem::P_PROJECTIONS_FLAG, flag);
+    m_item->setItemValue(IntensityDataItem::P_PROJECTIONS_FLAG, flag);
 }
 
 
@@ -232,8 +232,8 @@ void IntensityDataPlotWidget::showContextMenu(const QPoint &point)
     Q_ASSERT(m_item);
     QMenu menu;
 
-    m_propertyPanelAction->setChecked(m_item->getChildValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
-    m_projectionsAction->setChecked(m_item->getChildValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
+    m_propertyPanelAction->setChecked(m_item->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+    m_projectionsAction->setChecked(m_item->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
 
     menu.addAction(m_propertyPanelAction);
     menu.addAction(m_projectionsAction);
@@ -269,7 +269,7 @@ void IntensityDataPlotWidget::setupContextMenuActions()
 
 void IntensityDataPlotWidget::updateItem(IntensityDataItem *item)
 {
-    showProjections(item->getChildValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
+    showProjections(item->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
 }
 
 //! sets sizes of top and bottom splitters to have correct sizes of vertical histogram (on the left) and color map

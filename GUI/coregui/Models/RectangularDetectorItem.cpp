@@ -69,7 +69,7 @@ RectangularDetectorItem::RectangularDetectorItem()
     getGroupItem(P_X_AXIS)->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     getGroupItem(P_X_AXIS)->getItem(BasicAxisItem::P_MIN)->setVisible(false);
 
-    getGroupItem(P_X_AXIS)->setChildValue(BasicAxisItem::P_MAX, default_detector_width);
+    getGroupItem(P_X_AXIS)->setItemValue(BasicAxisItem::P_MAX, default_detector_width);
     getGroupItem(P_X_AXIS)->getItem(BasicAxisItem::P_MAX)->setDisplayName(QStringLiteral("Width"));
     getGroupItem(P_X_AXIS)->getItem(BasicAxisItem::P_MAX)
             ->setToolTip(QStringLiteral("Width of the detector in mm"));
@@ -77,7 +77,7 @@ RectangularDetectorItem::RectangularDetectorItem()
     addGroupProperty(P_Y_AXIS, Constants::BasicAxisType);
     getGroupItem(P_Y_AXIS)->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     getGroupItem(P_Y_AXIS)->getItem(BasicAxisItem::P_MIN)->setVisible(false);
-    getGroupItem(P_Y_AXIS)->setChildValue(BasicAxisItem::P_MAX, default_detector_height);
+    getGroupItem(P_Y_AXIS)->setItemValue(BasicAxisItem::P_MAX, default_detector_height);
     getGroupItem(P_Y_AXIS)->getItem(BasicAxisItem::P_MAX)->setDisplayName(QStringLiteral("Height"));
     getGroupItem(P_Y_AXIS)->getItem(BasicAxisItem::P_MAX)
         ->setToolTip(QStringLiteral("Height of the detector in mm"));
@@ -97,10 +97,10 @@ RectangularDetectorItem::RectangularDetectorItem()
 
     // alignment parameters
     addGroupProperty(P_NORMAL, Constants::VectorType);
-    getGroupItem(P_NORMAL)->setChildValue(VectorItem::P_X, default_detector_distance);
+    getGroupItem(P_NORMAL)->setItemValue(VectorItem::P_X, default_detector_distance);
 
     addGroupProperty(P_DIRECTION, Constants::VectorType);
-    getGroupItem(P_DIRECTION)->setChildValue(VectorItem::P_Y, -1.0);
+    getGroupItem(P_DIRECTION)->setItemValue(VectorItem::P_Y, -1.0);
 
     addProperty(P_U0, default_detector_width/2.)->setToolTip(tooltip_u0);
     addProperty(P_V0, 0.0)->setToolTip(tooltip_v0);
@@ -125,14 +125,14 @@ std::unique_ptr<IDetector2D> RectangularDetectorItem::createDetector() const
     auto x_axis = dynamic_cast<BasicAxisItem *>(
         getGroupItem(RectangularDetectorItem::P_X_AXIS));
     Q_ASSERT(x_axis);
-    int n_x = x_axis->getChildValue(BasicAxisItem::P_NBINS).toInt();
-    double width = x_axis->getChildValue(BasicAxisItem::P_MAX).toDouble();
+    int n_x = x_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
+    double width = x_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
 
     auto y_axis = dynamic_cast<BasicAxisItem *>(
         getGroupItem(RectangularDetectorItem::P_Y_AXIS));
     Q_ASSERT(y_axis);
-    int n_y = y_axis->getChildValue(BasicAxisItem::P_NBINS).toInt();
-    double height = y_axis->getChildValue(BasicAxisItem::P_MAX).toDouble();
+    int n_y = y_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
+    double height = y_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
 
 //    std::unique_ptr<RectangularDetector> result(new RectangularDetector(100, 20.0, 100, 20.0));
 //    result->setPerpendicularToSampleX(1000.0, 10.0, 0.0);
@@ -141,16 +141,16 @@ std::unique_ptr<IDetector2D> RectangularDetectorItem::createDetector() const
 
 
     // distance and alighnment
-    double u0 = getChildValue(P_U0).toDouble();
-    double v0 = getChildValue(P_V0).toDouble();
-    double dbeam_u0 = getChildValue(P_DBEAM_U0).toDouble();
-    double dbeam_v0 = getChildValue(P_DBEAM_V0).toDouble();
-    double distance = getChildValue(P_DISTANCE).toDouble();
+    double u0 = getItemValue(P_U0).toDouble();
+    double v0 = getItemValue(P_V0).toDouble();
+    double dbeam_u0 = getItemValue(P_DBEAM_U0).toDouble();
+    double dbeam_v0 = getItemValue(P_DBEAM_V0).toDouble();
+    double distance = getItemValue(P_DISTANCE).toDouble();
 
     kvector_t normal = getNormalVector();
     kvector_t direction = getDirectionVector();
 
-    ComboProperty alignment = getChildValue(P_ALIGNMENT).value<ComboProperty>();
+    ComboProperty alignment = getItemValue(P_ALIGNMENT).value<ComboProperty>();
 
     if (alignment.getValue() == Constants::ALIGNMENT_GENERIC) {
         result->setPosition(normal, u0, v0, direction);
@@ -187,13 +187,13 @@ std::unique_ptr<IResolutionFunction2D> RectangularDetectorItem::createResolution
 void RectangularDetectorItem::setDetectorAlignment(const QString &alignment)
 {
     ComboProperty combo_property
-        = getChildValue(RectangularDetectorItem::P_ALIGNMENT).value<ComboProperty>();
+        = getItemValue(RectangularDetectorItem::P_ALIGNMENT).value<ComboProperty>();
 
     if(!combo_property.getValues().contains(alignment)) {
         throw GUIHelpers::Error("RectangularDetectorItem::setDetectorAlignment -> Unexpected alignment");
     }
     combo_property.setValue(alignment);
-    setChildValue(RectangularDetectorItem::P_ALIGNMENT, combo_property.getVariant());
+    setItemValue(RectangularDetectorItem::P_ALIGNMENT, combo_property.getVariant());
 
 }
 
@@ -201,7 +201,7 @@ void RectangularDetectorItem::setDetectorAlignment(const QString &alignment)
 void RectangularDetectorItem::update_properties_appearance()
 {
     // hiding all alignment properties
-    ComboProperty alignment = getChildValue(P_ALIGNMENT).value<ComboProperty>();
+    ComboProperty alignment = getItemValue(P_ALIGNMENT).value<ComboProperty>();
     QStringList prop_list;
     prop_list << P_NORMAL << P_DIRECTION << P_U0 << P_V0 << P_DBEAM_U0 << P_DBEAM_V0 << P_DISTANCE;
     foreach(auto prop, prop_list) {

@@ -87,8 +87,8 @@ void MaskEditorActions::onToggleMaskValueAction()
     Q_ASSERT(m_selectionModel);
     foreach(QModelIndex itemIndex, m_selectionModel->selectedIndexes()) {
         if(SessionItem *item =  m_maskModel->itemForIndex(itemIndex)) {
-            bool old_value = item->getChildValue(MaskItem::P_MASK_VALUE).toBool();
-            item->setChildValue(MaskItem::P_MASK_VALUE, !old_value);
+            bool old_value = item->getItemValue(MaskItem::P_MASK_VALUE).toBool();
+            item->setItemValue(MaskItem::P_MASK_VALUE, !old_value);
         }
     }
 }

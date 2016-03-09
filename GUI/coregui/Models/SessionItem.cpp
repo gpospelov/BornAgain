@@ -349,7 +349,7 @@ bool SessionItem::setValue(QVariant value)
 QString SessionItem::itemName() const
 {
     if (isTag(P_NAME)) {
-        return getChildValue(P_NAME).toString();
+        return getItemValue(P_NAME).toString();
     } else {
         return displayName();
     }
@@ -358,7 +358,7 @@ QString SessionItem::itemName() const
 void SessionItem::setItemName(const QString &name)
 {
     if (isTag(P_NAME)) {
-        setChildValue(P_NAME, name);
+        setItemValue(P_NAME, name);
     } else {
         addProperty(P_NAME, name);
     }
@@ -505,7 +505,7 @@ bool SessionItem::isTag(const QString &name) const
     return getTagInfo(name).isValid();
 }
 
-QVariant SessionItem::getChildValue(const QString &tag) const
+QVariant SessionItem::getItemValue(const QString &tag) const
 {
     if (!isTag(tag))
         throw GUIHelpers::Error(
@@ -515,7 +515,7 @@ QVariant SessionItem::getChildValue(const QString &tag) const
     return getItem(tag)->value();
 }
 
-void SessionItem::setChildValue(const QString &tag, const QVariant &variant)
+void SessionItem::setItemValue(const QString &tag, const QVariant &variant)
 {
     // check if variant of previous property coincides with new one
     if (!isTag(tag))

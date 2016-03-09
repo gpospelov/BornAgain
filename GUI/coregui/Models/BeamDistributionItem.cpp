@@ -64,11 +64,11 @@ BeamDistributionItem::getParameterDistributionForName(const std::string &paramet
         auto P_distribution = createDistribution1D();
 
         if (P_distribution) {
-            int nbr_samples = distributionItem->getChildValue(
+            int nbr_samples = distributionItem->getItemValue(
                                                     DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
             double sigma_factor(0);
             if (distributionItem->isTag(DistributionItem::P_SIGMA_FACTOR)) {
-                sigma_factor = distributionItem->getChildValue(
+                sigma_factor = distributionItem->getItemValue(
                                                      DistributionItem::P_SIGMA_FACTOR).toInt();
             }
 

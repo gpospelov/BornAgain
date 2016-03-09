@@ -29,15 +29,15 @@ VectorItem::VectorItem()
 
 QString VectorItem::itemLabel() const
 {
-    return QString("(%1, %2, %3)").arg(getChildValue(P_X).toDouble())
-                                  .arg(getChildValue(P_Y).toDouble())
-            .arg(getChildValue(P_Z).toDouble());
+    return QString("(%1, %2, %3)").arg(getItemValue(P_X).toDouble())
+                                  .arg(getItemValue(P_Y).toDouble())
+            .arg(getItemValue(P_Z).toDouble());
 }
 
 kvector_t VectorItem::getVector() const
 {
-    return kvector_t(getChildValue(P_X).toDouble(),
-                     getChildValue(P_Y).toDouble(),
-                     getChildValue(P_Z).toDouble());
+    return kvector_t(getItemValue(P_X).toDouble(),
+                     getItemValue(P_Y).toDouble(),
+                     getItemValue(P_Z).toDouble());
 }
 

@@ -40,7 +40,7 @@ FTDistribution1DCauchyItem::FTDistribution1DCauchyItem()
 IFTDistribution1D *FTDistribution1DCauchyItem::createFTDistribution() const
 {
     return new FTDistribution1DCauchy(
-                getChildValue(P_CORR_LENGTH).toDouble() );
+                getItemValue(P_CORR_LENGTH).toDouble() );
 }
 
 // Gauss
@@ -53,7 +53,7 @@ FTDistribution1DGaussItem::FTDistribution1DGaussItem()
 IFTDistribution1D *FTDistribution1DGaussItem::createFTDistribution() const
 {
     return new FTDistribution1DGauss(
-                getChildValue(P_CORR_LENGTH).toDouble() );
+                getItemValue(P_CORR_LENGTH).toDouble() );
 }
 
 // Gate
@@ -66,7 +66,7 @@ FTDistribution1DGateItem::FTDistribution1DGateItem()
 IFTDistribution1D *FTDistribution1DGateItem::createFTDistribution() const
 {
     return new FTDistribution1DGate(
-                getChildValue(P_CORR_LENGTH).toDouble() );
+                getItemValue(P_CORR_LENGTH).toDouble() );
 }
 
 // Triangle
@@ -79,7 +79,7 @@ FTDistribution1DTriangleItem::FTDistribution1DTriangleItem()
 IFTDistribution1D *FTDistribution1DTriangleItem::createFTDistribution() const
 {
     return new FTDistribution1DTriangle(
-                getChildValue(P_CORR_LENGTH).toDouble() );
+                getItemValue(P_CORR_LENGTH).toDouble() );
 }
 
 // Cosine
@@ -92,7 +92,7 @@ FTDistribution1DCosineItem::FTDistribution1DCosineItem()
 IFTDistribution1D *FTDistribution1DCosineItem::createFTDistribution() const
 {
     return new FTDistribution1DCosine(
-                getChildValue(P_CORR_LENGTH).toDouble() );
+                getItemValue(P_CORR_LENGTH).toDouble() );
 }
 
 // Voigt
@@ -106,8 +106,8 @@ FTDistribution1DVoigtItem::FTDistribution1DVoigtItem()
 IFTDistribution1D *FTDistribution1DVoigtItem::createFTDistribution() const
 {
     return new FTDistribution1DVoigt(
-                getChildValue(P_CORR_LENGTH).toDouble(),
-                getChildValue(P_ETA).toDouble() );
+                getItemValue(P_CORR_LENGTH).toDouble(),
+                getItemValue(P_ETA).toDouble() );
 }
 
 
@@ -124,10 +124,10 @@ FTDistribution2DCauchyItem::FTDistribution2DCauchyItem()
 IFTDistribution2D *FTDistribution2DCauchyItem::createFTDistribution() const
 {
     auto *p_result = new FTDistribution2DCauchy(
-                getChildValue(P_CORR_LENGTH_X).toDouble(),
-                getChildValue(P_CORR_LENGTH_Y).toDouble()
+                getItemValue(P_CORR_LENGTH_X).toDouble(),
+                getItemValue(P_CORR_LENGTH_Y).toDouble()
                 );
-    double gamma = Units::deg2rad(getChildValue(P_GAMMA).toDouble() );
+    double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble() );
     p_result->setGamma(gamma);
     return p_result;
 }
@@ -143,10 +143,10 @@ FTDistribution2DGaussItem::FTDistribution2DGaussItem()
 IFTDistribution2D *FTDistribution2DGaussItem::createFTDistribution() const
 {
     auto *p_result =  new FTDistribution2DGauss(
-                getChildValue(P_CORR_LENGTH_X).toDouble(),
-                getChildValue(P_CORR_LENGTH_Y).toDouble()
+                getItemValue(P_CORR_LENGTH_X).toDouble(),
+                getItemValue(P_CORR_LENGTH_Y).toDouble()
                 );
-    double gamma = Units::deg2rad(getChildValue(P_GAMMA).toDouble() );
+    double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble() );
     p_result->setGamma(gamma);
     return p_result;
 }
@@ -162,10 +162,10 @@ FTDistribution2DGateItem::FTDistribution2DGateItem()
 IFTDistribution2D *FTDistribution2DGateItem::createFTDistribution() const
 {
     auto *p_result = new FTDistribution2DGate(
-                getChildValue(P_CORR_LENGTH_X).toDouble(),
-                getChildValue(P_CORR_LENGTH_Y).toDouble()
+                getItemValue(P_CORR_LENGTH_X).toDouble(),
+                getItemValue(P_CORR_LENGTH_Y).toDouble()
                 );
-    double gamma = Units::deg2rad(getChildValue(P_GAMMA).toDouble() );
+    double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble() );
     p_result->setGamma(gamma);
     return p_result;
 }
@@ -181,10 +181,10 @@ FTDistribution2DConeItem::FTDistribution2DConeItem()
 IFTDistribution2D *FTDistribution2DConeItem::createFTDistribution() const
 {
     auto *p_result = new FTDistribution2DCone(
-                getChildValue(P_CORR_LENGTH_X).toDouble(),
-                getChildValue(P_CORR_LENGTH_Y).toDouble()
+                getItemValue(P_CORR_LENGTH_X).toDouble(),
+                getItemValue(P_CORR_LENGTH_Y).toDouble()
                 );
-    double gamma = Units::deg2rad(getChildValue(P_GAMMA).toDouble() );
+    double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble() );
     p_result->setGamma(gamma);
     return p_result;
 }
@@ -201,11 +201,11 @@ FTDistribution2DVoigtItem::FTDistribution2DVoigtItem()
 IFTDistribution2D *FTDistribution2DVoigtItem::createFTDistribution() const
 {
     auto *p_result = new FTDistribution2DVoigt(
-                getChildValue(P_CORR_LENGTH_X).toDouble(),
-                getChildValue(P_CORR_LENGTH_Y).toDouble(),
-                getChildValue(P_ETA).toDouble()
+                getItemValue(P_CORR_LENGTH_X).toDouble(),
+                getItemValue(P_CORR_LENGTH_Y).toDouble(),
+                getItemValue(P_ETA).toDouble()
                 );
-    double gamma = Units::deg2rad(getChildValue(P_GAMMA).toDouble() );
+    double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble() );
     p_result->setGamma(gamma);
     return p_result;
 }

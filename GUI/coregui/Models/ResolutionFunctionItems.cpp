@@ -54,7 +54,7 @@ ResolutionFunction2DGaussianItem::ResolutionFunction2DGaussianItem()
 
 IResolutionFunction2D *ResolutionFunction2DGaussianItem::createResolutionFunction(double scale) const
 {
-    double sigma_x = getChildValue(P_SIGMA_X).toDouble();
-    double sigma_y = getChildValue(P_SIGMA_Y).toDouble();
+    double sigma_x = getItemValue(P_SIGMA_X).toDouble();
+    double sigma_y = getItemValue(P_SIGMA_Y).toDouble();
     return new ResolutionFunction2DGaussian(sigma_x*scale, sigma_y*scale);
 }

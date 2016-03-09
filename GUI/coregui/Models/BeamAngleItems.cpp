@@ -27,7 +27,7 @@ BeamInclinationAngleItem::BeamInclinationAngleItem()
     cache->setVisible(false);
     cache->setLimits(AttLimits::limited(0.0, 90.0));
     cache->setDecimals(3);
-    setChildValue(BeamDistributionItem::P_CACHED_VALUE, 0.2);
+    setItemValue(BeamDistributionItem::P_CACHED_VALUE, 0.2);
 
     SessionItem *distribution = dynamic_cast<DistributionNoneItem *>(getGroupItem(P_DISTRIBUTION));
     Q_ASSERT(distribution);
@@ -50,7 +50,7 @@ std::unique_ptr<IDistribution1D> BeamInclinationAngleItem::createDistribution1D(
 BeamAzimuthalAngleItem::BeamAzimuthalAngleItem()
     : BeamDistributionItem(Constants::BeamAzimuthalAngleType)
 {
-    setChildValue(BeamDistributionItem::P_CACHED_VALUE, 0.0);
+    setItemValue(BeamDistributionItem::P_CACHED_VALUE, 0.0);
     auto cache = getItem(BeamDistributionItem::P_CACHED_VALUE);
     cache->setVisible(false);
     cache->setLimits(AttLimits::limited(-90.0, 90.0));
@@ -80,37 +80,37 @@ BeamAngleHelper::creatAngleDistribution(DistributionItem *distributionItem)
     std::unique_ptr<IDistribution1D> P_distribution {};
     if (distributionItem->modelType() == Constants::DistributionGateType) {
         double min
-            = distributionItem->getChildValue(DistributionGateItem::P_MIN).toDouble();
+            = distributionItem->getItemValue(DistributionGateItem::P_MIN).toDouble();
         double max
-            = distributionItem->getChildValue(DistributionGateItem::P_MAX).toDouble();
+            = distributionItem->getItemValue(DistributionGateItem::P_MAX).toDouble();
         P_distribution = std::move(
             GUIHelpers::make_unique<DistributionGate>(Units::deg2rad(min), Units::deg2rad(max)));
     } else if (distributionItem->modelType() == Constants::DistributionLorentzType) {
         double mean
-            = distributionItem->getChildValue(DistributionLorentzItem::P_MEAN).toDouble();
+            = distributionItem->getItemValue(DistributionLorentzItem::P_MEAN).toDouble();
         double hwhm
-            = distributionItem->getChildValue(DistributionLorentzItem::P_HWHM).toDouble();
+            = distributionItem->getItemValue(DistributionLorentzItem::P_HWHM).toDouble();
         P_distribution = std::move(GUIHelpers::make_unique<DistributionLorentz>(
             Units::deg2rad(mean), Units::deg2rad(hwhm)));
     } else if (distributionItem->modelType() == Constants::DistributionGaussianType) {
         double mean
-            = distributionItem->getChildValue(DistributionGaussianItem::P_MEAN).toDouble();
-        double std_dev = distributionItem->getChildValue(
+            = distributionItem->getItemValue(DistributionGaussianItem::P_MEAN).toDouble();
+        double std_dev = distributionItem->getItemValue(
                                                DistributionGaussianItem::P_STD_DEV).toDouble();
         P_distribution = std::move(GUIHelpers::make_unique<DistributionGaussian>(
             Units::deg2rad(mean), Units::deg2rad(std_dev)));
     } else if (distributionItem->modelType() == Constants::DistributionLogNormalType) {
-        double median = distributionItem->getChildValue(DistributionLogNormalItem::P_MEDIAN)
+        double median = distributionItem->getItemValue(DistributionLogNormalItem::P_MEDIAN)
                             .toDouble();
-        double scale_par = distributionItem->getChildValue(
+        double scale_par = distributionItem->getItemValue(
                                                  DistributionLogNormalItem::P_SCALE_PAR).toDouble();
         P_distribution = std::move(
             GUIHelpers::make_unique<DistributionLogNormal>(Units::deg2rad(median), scale_par));
     } else if (distributionItem->modelType() == Constants::DistributionCosineType) {
         double mean
-            = distributionItem->getChildValue(DistributionCosineItem::P_MEAN).toDouble();
+            = distributionItem->getItemValue(DistributionCosineItem::P_MEAN).toDouble();
         double sigma
-            = distributionItem->getChildValue(DistributionCosineItem::P_SIGMA).toDouble();
+            = distributionItem->getItemValue(DistributionCosineItem::P_SIGMA).toDouble();
         P_distribution = std::move(GUIHelpers::make_unique<DistributionCosine>(
             Units::deg2rad(mean), Units::deg2rad(sigma)));
     }

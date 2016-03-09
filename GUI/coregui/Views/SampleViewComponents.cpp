@@ -16,6 +16,7 @@
 #include "SampleViewComponents.h"
 #include "widgetbox.h"
 #include "SampleDesigner.h"
+#include "SampleViewProxyModel.h"
 
 
 SampleWidgetBox *SampleViewComponents::createWidgetBox(
@@ -28,20 +29,11 @@ ItemTreeView *SampleViewComponents::createTreeView(
         SampleModel *sampleModel, QWidget *parent)
 {
     ItemTreeView *tree_view = new ItemTreeView(parent);
-    MySortFilterProxyModel *proxy = new MySortFilterProxyModel(parent);
+    SampleViewProxyModel *proxy = new SampleViewProxyModel(parent);
     proxy->setSourceModel(sampleModel);
     tree_view->setModel(proxy);
     return tree_view;
 }
 
 
-bool MySortFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
-{
-    QModelIndex index = sourceModel()->index(sourceRow, 1, sourceParent);
-    if (!sourceParent.isValid())
-        return true;
-    return !sourceModel()->data(index, Qt::DisplayRole).isValid();
-//    return (type == Constants::MultiLayerType || type == Constants::LayerType || type == Constants::ParticleType
-//            || type == Constants::ParticleCompositionType || type == Constants::ParticleCoreShellType
-//            || type == Constants::ParticleDistributionType);
-}
+

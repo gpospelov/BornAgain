@@ -37,16 +37,7 @@
 
 //    }
 //};
-class BA_CORE_API_ MySortFilterProxyModel : public QSortFilterProxyModel
-{
-    Q_OBJECT
 
-public:
-    MySortFilterProxyModel(QObject *parent = 0) : QSortFilterProxyModel(parent) {}
-
-protected:
-    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;
-};
 
 
 class BA_CORE_API_ SampleViewComponents

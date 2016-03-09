@@ -32,7 +32,6 @@
 namespace
 {
 const int MaxCompression = 9;
-//enum EColumn { ITEM_NAME, MODEL_TYPE, MAX_COLUMNS };
 
 const QString SET_ITEM_PROPERTY_ERROR = "SET_ITEM_PROPERTY_ERROR";
 const QString ITEM_IS_NOT_INITIALIZED = "ITEM_IS_NOT_INITIALIZED";
@@ -49,7 +48,6 @@ SessionModel::SessionModel(QString model_tag, QObject *parent)
     createRootItem();
 }
 
-//NEW
 void SessionModel::createRootItem()
 {
     m_root_item = ItemFactory::createEmptyItem();
@@ -67,11 +65,11 @@ Qt::ItemFlags SessionModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags result_flags = QAbstractItemModel::flags(index);
     if (index.isValid()) {
-        result_flags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled // | Qt::ItemIsEditable
+        result_flags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled
                         | Qt::ItemIsDragEnabled;
-        SessionItem *item = itemForIndex(index); // NEW make data editable as default
-        if (index.column() == ITEM_VALUE)      // NEW
-            result_flags |= Qt::ItemIsEditable;        // NEW
+        SessionItem *item = itemForIndex(index);
+        if (index.column() == ITEM_VALUE && item->value().isValid())
+            result_flags |= Qt::ItemIsEditable;
         QVector<QString> acceptable_child_items = getAcceptableDefaultItemTypes(index);
         if (acceptable_child_items.contains(m_dragged_item_type)) {
             result_flags |= Qt::ItemIsDropEnabled;
@@ -103,14 +101,12 @@ QVariant SessionModel::data(const QModelIndex &index, int role) const
 QVariant SessionModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
-        if (section >= 0 && section < columnCount(QModelIndex())) // NEW header data is storedin root item
-            return m_root_item->data(section);      // NEW
-//        switch (section) {
-//        case ITEM_NAME:
-//            return tr("Name");
-//        case MODEL_TYPE:
-//            return tr("Model Type");
-//        }
+        switch (section) {
+        case ITEM_NAME:
+            return tr("Name");
+        case ITEM_VALUE:
+            return tr("Value");
+        }
     }
     return QVariant();
 }
@@ -150,9 +146,7 @@ QModelIndex SessionModel::parent(const QModelIndex &child) const
         if (SessionItem *parent_item = child_item->parent()) {
             if (parent_item == m_root_item)
                 return QModelIndex();
-//            if (SessionItem *grandparent_item = parent_item->parent()) {
-//                int row = grandparent_item->rowOfChild(parent_item);
-                return createIndex(parent_item->parentRow(), 0, parent_item); // CHANGED use new method
+                return createIndex(parent_item->parentRow(), 0, parent_item);
 //            }
         }
     }
@@ -161,21 +155,11 @@ QModelIndex SessionModel::parent(const QModelIndex &child) const
 
 bool SessionModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-//    if (!index.isValid() || index.column() != ITEM_NAME)
-    if (!index.isValid()/* || !index.data(role).isValid()*/) // NEW
+    if (!index.isValid())
         return false;
-    QModelIndex dataIndex = index;                  // NEW
-    if (role == Qt::UserRole) {                     // NEW
-        dataIndex = index.sibling(index.row(), 1);  // NEW
-    }                                               // NEW
+    QModelIndex dataIndex = index;
     if (SessionItem *item = itemForIndex(dataIndex)) {
-//        if (role == Qt::EditRole) {
-//            qDebug() << "SessionModel::setData ";
-//            item->setItemName(value.toString());
-//        } else
-//            return false;
-        if (item->setData(dataIndex.column(), value)) { // NEW
-//            emit dataChanged(dataIndex, dataIndex);
+        if (item->setData(role, value)) {
             return true;
         }
     }
@@ -187,11 +171,9 @@ bool SessionModel::removeRows(int row, int count, const QModelIndex &parent)
     if (!m_root_item)
         return false;
     SessionItem *item = parent.isValid() ? itemForIndex(parent) : m_root_item;
-//    beginRemoveRows(parent, row, row + count - 1);
     for (int i = 0; i < count; ++i) {
         delete item->takeRow(row);
     }
-//    endRemoveRows();
     return true;
 }
 
@@ -277,13 +259,7 @@ QModelIndex SessionModel::indexOfItem(SessionItem *item) const
 SessionItem *SessionModel::insertNewItem(QString model_type, const QModelIndex &parent,
                                                int row, QString tag)
 {
-//    if (!m_root_item) {
-//        m_root_item = ItemFactory::createEmptyItem();
-//    }
     SessionItem *parent_item = itemForIndex(parent);
-//    if (row == -1)
-//        row = parent_item->childItemCount();
-//    beginInsertRows(parent, row, row);
     if (!parent_item)
         parent_item = m_root_item;
     if (row > parent_item->rowCount())
@@ -299,26 +275,13 @@ SessionItem *SessionModel::insertNewItem(QString model_type, const QModelIndex &
         }
     }
 
-//    SessionItem *new_item = new SessionItem(model_type); // NEW -> item factory!
     SessionItem *new_item = ItemFactory::createItem(model_type);
-//    if (port != SessionItem::PortInfo::DEFAULT)
-//        new_item->setPort(port);
 
     if (!new_item)
         throw GUIHelpers::Error("SessionModel::insertNewItem() -> Wrong model type " + model_type);
 
-    //note: now done by items themselves
-//    connect(new_item, SIGNAL(propertyChanged(const QString &)),
-//            this, SLOT(onItemPropertyChange(const QString &)));
-//    connect(new_item, SIGNAL(subItemChanged(const QString &)),
-//            this, SLOT(onItemPropertyChange(const QString &)));
-//    connect(new_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-//            this, SLOT(onItemPropertyChange(const QString &, const QString &)));
-
     parent_item->insertItem(row, new_item, tag);
 
-
-//    cleanItem(indexOfItem(parent_item), row, row);
     return new_item;
 }
 
@@ -429,8 +392,6 @@ SessionItem *SessionModel::moveParameterizedItem(SessionItem *item, SessionItem 
         if (!new_parent->getTagInfo(tagName).modelTypes.empty() &&
                 !new_parent->getTagInfo(tagName).modelTypes.contains(item->modelType()))
             return 0;
-//        if (!new_parent->acceptsAsChild(item->modelType()))
-//            return 0;
     }
 
     if (item->parent() == new_parent && indexOfItem(item).row() == row) {
@@ -438,14 +399,6 @@ SessionItem *SessionModel::moveParameterizedItem(SessionItem *item, SessionItem 
             << "SessionModel::moveParameterizedItem() -> no need to move, same parent, same row. ";
         return item;
     }
-
-//    QByteArray xml_data;
-//    QXmlStreamWriter writer(&xml_data);
-//    SessionWriter::writeItemAndChildItems(&writer, item);
-
-//    QXmlStreamReader reader(xml_data);
-//    if (row == -1)
-//        row = new_parent->rowCount();
     SessionItem *stuff = item->parent()->takeRow(item->parent()->rowOfChild(item));
     if(!new_parent->insertItem(row, stuff, tagName)) {
         SessionTagInfo info = new_parent->getTagInfo(tagName);
@@ -457,21 +410,6 @@ SessionItem *SessionModel::moveParameterizedItem(SessionItem *item, SessionItem 
         m_root_item->insertItem(-1, stuff);
     }
 
-//    qDebug() << "   SessionModel::moveParameterizedItem()  >>> Beginning to insert "
-//                "indexOfItem(new_parent)" << indexOfItem(new_parent);
-//    beginInsertRows(indexOfItem(new_parent), row, row);
-//    SessionReader::readItems(&reader, new_parent, row);
-//    endInsertRows();
-
-//    SessionItem *newItem = new_parent->childAt(row);
-
-//    qDebug() << " ";
-//    qDebug() << "    SessionModel::moveParameterizedItem() >>> Now deleting indexOfItem(item).row()"
-//             << indexOfItem(item).row();
-
-//    removeRows(indexOfItem(item).row(), 1, indexOfItem(item->parent()));
-
-//    cleanItem(indexOfItem(new_parent), row, row);
 
     return stuff;
 }

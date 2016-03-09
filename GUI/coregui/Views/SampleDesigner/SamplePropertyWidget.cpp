@@ -19,6 +19,8 @@
 #include <QVBoxLayout>
 #include <QItemSelection>
 #include <QModelIndexList>
+
+#include <QSortFilterProxyModel>
 #include <QDebug>
 
 SamplePropertyWidget::SamplePropertyWidget(QItemSelectionModel *selection_model, QWidget *parent)
@@ -68,11 +70,18 @@ void SamplePropertyWidget::selectionChanged(const QItemSelection & selected,
     qDebug() << "SamplePropertyWidget::selectionChanged" << selected << deselected;
     (void)deselected;
     QModelIndexList indices = selected.indexes();
+
     if(indices.size()) {
+        QSortFilterProxyModel *proxy = dynamic_cast<QSortFilterProxyModel*>(const_cast<QAbstractItemModel*>(indices[0].model()));
+        QModelIndex index = indices.back();
+        if (proxy) {
+            index = proxy->mapToSource(index);
+        }
         SessionItem *item = static_cast<SessionItem *>(
-                indices.back().internalPointer());
+                index.internalPointer());
 //        m_propertyEditor->setItem(item, item->modelType());
-        m_propertyEditor->setItem(item, item->modelType());
+        if (item)
+            m_propertyEditor->setItem(item, item->modelType());
     } else {
         m_propertyEditor->setItem(0);
     }

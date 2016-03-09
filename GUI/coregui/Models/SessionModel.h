@@ -94,7 +94,8 @@ public:
     void writeTo(QXmlStreamWriter *writer, SessionItem *parent = 0);
 
     SessionItem *moveParameterizedItem(SessionItem *item,
-                                             SessionItem *new_parent = 0, int row = -1);
+                                             SessionItem *new_parent = 0, int row = -1,
+                                       const QString &tag = QString());
 
     SessionItem *copyParameterizedItem(const SessionItem *item_to_copy,
                                              SessionItem *new_parent = 0, int row = -1);

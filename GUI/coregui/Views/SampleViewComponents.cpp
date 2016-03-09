@@ -28,7 +28,20 @@ ItemTreeView *SampleViewComponents::createTreeView(
         SampleModel *sampleModel, QWidget *parent)
 {
     ItemTreeView *tree_view = new ItemTreeView(parent);
-    tree_view->setModel(sampleModel);
+    MySortFilterProxyModel *proxy = new MySortFilterProxyModel(parent);
+    proxy->setSourceModel(sampleModel);
+    tree_view->setModel(proxy);
     return tree_view;
 }
 
+
+bool MySortFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
+{
+    QModelIndex index = sourceModel()->index(sourceRow, 1, sourceParent);
+    if (!sourceParent.isValid())
+        return true;
+    return !sourceModel()->data(index, Qt::DisplayRole).isValid();
+//    return (type == Constants::MultiLayerType || type == Constants::LayerType || type == Constants::ParticleType
+//            || type == Constants::ParticleCompositionType || type == Constants::ParticleCoreShellType
+//            || type == Constants::ParticleDistributionType);
+}

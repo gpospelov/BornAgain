@@ -416,17 +416,21 @@ void SessionModel::writeTo(QXmlStreamWriter *writer, SessionItem *parent)
 //! Move given parameterized item to the new_parent at given row. If new_parent is not defined,
 //! use root_item as a new parent.
 SessionItem *SessionModel::moveParameterizedItem(SessionItem *item, SessionItem *new_parent,
-                                         int row)
+                                         int row, const QString &tag)
 {
     qDebug() << "";
     qDebug() << "";
     qDebug() << "SessionModel::moveParameterizedItem() " << item << new_parent << row;
+    if (!new_parent)
+        new_parent = m_root_item;
+    const QString tagName = tag.isEmpty() ? new_parent->defaultTag() : tag;
 
     if (new_parent) {
-        if (!new_parent->acceptsAsChild(item->modelType()))
+        if (!new_parent->getTagInfo(tagName).modelTypes.empty() &&
+                !new_parent->getTagInfo(tagName).modelTypes.contains(item->modelType()))
             return 0;
-    } else {
-        new_parent = m_root_item;
+//        if (!new_parent->acceptsAsChild(item->modelType()))
+//            return 0;
     }
 
     if (item->parent() == new_parent && indexOfItem(item).row() == row) {
@@ -435,31 +439,41 @@ SessionItem *SessionModel::moveParameterizedItem(SessionItem *item, SessionItem 
         return item;
     }
 
-    QByteArray xml_data;
-    QXmlStreamWriter writer(&xml_data);
-    SessionWriter::writeItemAndChildItems(&writer, item);
+//    QByteArray xml_data;
+//    QXmlStreamWriter writer(&xml_data);
+//    SessionWriter::writeItemAndChildItems(&writer, item);
 
-    QXmlStreamReader reader(xml_data);
-    if (row == -1)
-        row = new_parent->rowCount();
+//    QXmlStreamReader reader(xml_data);
+//    if (row == -1)
+//        row = new_parent->rowCount();
+    SessionItem *stuff = item->parent()->takeRow(item->parent()->rowOfChild(item));
+    if(!new_parent->insertItem(row, stuff, tagName)) {
+        SessionTagInfo info = new_parent->getTagInfo(tagName);
+        if (info.max == info.childCount && info.childCount == 1) {
+            SessionItem *old = new_parent->takeItem(0, tagName);
+            new_parent->insertItem(row, stuff, tagName);
+            m_root_item->insertItem(-1, old);
+        }
+        m_root_item->insertItem(-1, stuff);
+    }
 
-    qDebug() << "   SessionModel::moveParameterizedItem()  >>> Beginning to insert "
-                "indexOfItem(new_parent)" << indexOfItem(new_parent);
-    beginInsertRows(indexOfItem(new_parent), row, row);
-    SessionReader::readItems(&reader, new_parent, row);
-    endInsertRows();
+//    qDebug() << "   SessionModel::moveParameterizedItem()  >>> Beginning to insert "
+//                "indexOfItem(new_parent)" << indexOfItem(new_parent);
+//    beginInsertRows(indexOfItem(new_parent), row, row);
+//    SessionReader::readItems(&reader, new_parent, row);
+//    endInsertRows();
 
-    SessionItem *newItem = new_parent->childAt(row);
+//    SessionItem *newItem = new_parent->childAt(row);
 
-    qDebug() << " ";
-    qDebug() << "    SessionModel::moveParameterizedItem() >>> Now deleting indexOfItem(item).row()"
-             << indexOfItem(item).row();
+//    qDebug() << " ";
+//    qDebug() << "    SessionModel::moveParameterizedItem() >>> Now deleting indexOfItem(item).row()"
+//             << indexOfItem(item).row();
 
-    removeRows(indexOfItem(item).row(), 1, indexOfItem(item->parent()));
+//    removeRows(indexOfItem(item).row(), 1, indexOfItem(item->parent()));
 
-    cleanItem(indexOfItem(new_parent), row, row);
+//    cleanItem(indexOfItem(new_parent), row, row);
 
-    return newItem;
+    return stuff;
 }
 
 //! Copy given item to the new_parent at given raw. Item indended for copying can belong to

@@ -30,6 +30,9 @@
 #include "SampleBuilderFactory.h"
 #include "GUIExamplesFactory.h"
 #include "ParticleItem.h"
+#include "ParticleLayoutItem.h"
+#include "ParticleCoreShellItem.h"
+#include "ParticleCompositionItem.h"
 
 #include <QItemSelection>
 #include <QDebug>
@@ -363,10 +366,27 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
 
 //    childView->getParameterizedItem()->setPort(input_port_index);
     qDebug() << parentView->getInputPortIndex(connection->getInputPort());
+    QString tag;
+    if (connection->getParentView()->getParameterizedItem()->modelType() == Constants::ParticleLayoutType) {
+        if (connection->getInputPort()->getPortType() == NodeEditorPort::INTERFERENCE)
+            tag = ParticleLayoutItem::T_INTERFERENCE;
+    }
+    else if (connection->getParentView()->getParameterizedItem()->modelType() == Constants::ParticleCoreShellType) {
+        if (parentView->getInputPortIndex(connection->getInputPort()) == 0)
+            tag = ParticleCoreShellItem::T_CORE;
+        else if (parentView->getInputPortIndex(connection->getInputPort()) == 1)
+            tag = ParticleCoreShellItem::T_SHELL;
+        else if (connection->getInputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
+            tag = ParticleCoreShellItem::T_TRANSFORMATION;
+
+    } else if (connection->getParentView()->getParameterizedItem()->modelType() == Constants::ParticleCompositionType) {
+        if (connection->getInputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
+            tag = ParticleCompositionItem::T_TRANSFORMATION;
+    }
     delete connection; // deleting just created connection because it will be recreated from the
                        // model
     m_sampleModel->moveParameterizedItem(childView->getParameterizedItem(),
-                                         parentView->getParameterizedItem());
+                                         parentView->getParameterizedItem(), -1, tag);
 }
 
 //! propagates break of connection between views on scene to the model

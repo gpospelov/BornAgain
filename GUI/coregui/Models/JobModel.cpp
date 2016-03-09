@@ -107,7 +107,7 @@ void JobModel::setSampleForJobItem(JobItem *jobItem, const MultiLayerItem *multi
     // our original multiLayerItem might come from backup itself, lets clean up its specific name
     QString name = new_item->itemName();
     name.remove(Constants::JOB_BACKUP);
-    jobItem->setRegisteredProperty(JobItem::P_SAMPLE_NAME, name);
+    jobItem->setChildValue(JobItem::P_SAMPLE_NAME, name);
 
     // if new_item is supposed to be the backup, then it's name should end up with '_backup'
     if(backup) {
@@ -135,7 +135,7 @@ void JobModel::setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *i
     // our original instrumentItem might itself come from backup, lets clean up its specific name
     QString name = new_item->itemName();
     name.remove(Constants::JOB_BACKUP);
-    jobItem->setRegisteredProperty(JobItem::P_INSTRUMENT_NAME, name);
+    jobItem->setChildValue(JobItem::P_INSTRUMENT_NAME, name);
 
     // if new_item is supposed to be the backup, then it's name should end up with '_backup'
     if(backup) {

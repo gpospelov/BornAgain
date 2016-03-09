@@ -256,7 +256,7 @@ QVector<SessionItem *> SessionItem::getItems(const QString &tag) const
     if (!tagInfo.isValid())
         return QVector<SessionItem*>();
     int index = tagStartIndex(tagName);
-    Q_ASSERT(index >= 0 && index < m_children.size());
+    Q_ASSERT(index >= 0 && index <= m_children.size());
     return m_children.mid(index, tagInfo.childCount);
 }
 void SessionItem::changeFlags(bool enabled, int flag)
@@ -335,13 +335,21 @@ QVariant SessionItem::value() const
 
 bool SessionItem::setValue(QVariant value)
 {
+    QVariant previous_variant = this->value();
+    if (previous_variant.isValid() && GUIHelpers::getVariantType(previous_variant) != GUIHelpers::getVariantType(value)) {
+        qDebug() << "ParameterizedItem::setRegisteredProperty() -> Error. Type of previous and new "
+                    "variant does not coincide.";
+        qDebug() << "New variant" << value << ", previous " << previous_variant;
+        throw GUIHelpers::Error("ParameterizedItem::setRegisteredProperty() -> Error. Type of "
+                                "previous and new variant does not coincide.");
+    }
     return setData(Qt::DisplayRole, value);
 }
 
 QString SessionItem::itemName() const
 {
-    if (isRegisteredTag(P_NAME)) {
-        return getRegisteredProperty(P_NAME).toString();
+    if (isTag(P_NAME)) {
+        return getChildValue(P_NAME).toString();
     } else {
         return displayName();
     }
@@ -349,10 +357,10 @@ QString SessionItem::itemName() const
 
 void SessionItem::setItemName(const QString &name)
 {
-    if (isRegisteredTag(P_NAME)) {
-        setRegisteredProperty(P_NAME, name);
+    if (isTag(P_NAME)) {
+        setChildValue(P_NAME, name);
     } else {
-        registerProperty(P_NAME, name);
+        addProperty(P_NAME, name);
     }
 }
 
@@ -419,7 +427,7 @@ int SessionItem::childNumber() const
     return -1;
 }
 
-bool SessionItem::hasChildItems() const
+bool SessionItem::hasChildren() const
 {
     return !m_children.isEmpty();
 }
@@ -445,21 +453,11 @@ SessionItem *SessionItem::getChildByName(const QString &name) const
     return nullptr;
 }
 
-QList<SessionItem *> SessionItem::getChildrenOfType(const QString &model_type) const
+QVector<SessionItem *> SessionItem::getChildrenOfType(const QString &model_type) const
 {
-    QList<SessionItem *> result;
+    QVector<SessionItem *> result;
     for (auto child : m_children) {
         if (child->modelType() == model_type)
-            result.append(child);
-    }
-    return result;
-}
-
-QList<SessionItem *> SessionItem::getUnregisteredChildren() const
-{
-    QList<SessionItem *> result;
-    for (auto child : m_children) {
-        if (!isRegisteredTag(child->itemName()))
             result.append(child);
     }
     return result;
@@ -475,21 +473,21 @@ SessionItem *SessionItem::takeRow(int row)
     return takeItem(items.indexOf(item), tag);
 }
 
-bool SessionItem::acceptsAsChild(const QString &child_name) const
+bool SessionItem::acceptsAsDefaultChild(const QString &child_name) const
 {
     return getTagInfo(defaultTag()).modelTypes.contains(child_name);
 }
 
-QList<QString> SessionItem::acceptableChildItems() const
+QVector<QString> SessionItem::acceptableDefaultChildTypes() const
 {
-    return getTagInfo(defaultTag()).modelTypes.toVector().toList();
+    return getTagInfo(defaultTag()).modelTypes.toVector();
 }
 
 //! Registers new property. If variant represents some valid modelType, appropriate
 //! item will be created. I
-SessionItem *SessionItem::registerProperty(const QString &name, const QVariant &variant)
+SessionItem *SessionItem::addProperty(const QString &name, const QVariant &variant)
 {
-    if (isRegisteredTag(name))
+    if (isTag(name))
         throw GUIHelpers::Error(
             "ParameterizedItem::registerProperty() -> Error. Already existing property " + name);
 
@@ -502,14 +500,14 @@ SessionItem *SessionItem::registerProperty(const QString &name, const QVariant &
     return property;
 }
 
-bool SessionItem::isRegisteredTag(const QString &name) const
+bool SessionItem::isTag(const QString &name) const
 {
     return getTagInfo(name).isValid();
 }
 
-QVariant SessionItem::getRegisteredProperty(const QString &name) const
+QVariant SessionItem::getChildValue(const QString &name) const
 {
-    if (!isRegisteredTag(name))
+    if (!isTag(name))
         throw GUIHelpers::Error(
             "ParameterizedItem::getRegisteredProperty() -> Error. Unknown property '" + name
             + "', item '" + modelType() + "'");
@@ -517,42 +515,17 @@ QVariant SessionItem::getRegisteredProperty(const QString &name) const
     return getItem(name)->value();
 }
 
-void SessionItem::setRegisteredProperty(const QString &name, const QVariant &variant)
+void SessionItem::setChildValue(const QString &name, const QVariant &variant)
 {
     // check if variant of previous property coincides with new one
-    if (!isRegisteredTag(name))
+    if (!isTag(name))
         throw GUIHelpers::Error("Property not existing!");
-    QVariant previous_variant = getRegisteredProperty(name);
-    if (GUIHelpers::getVariantType(previous_variant) != GUIHelpers::getVariantType(variant)) {
-        qDebug() << "ParameterizedItem::setRegisteredProperty() -> Error. Type of previous and new "
-                    "variant does not coincide.";
-        qDebug() << "New variant" << variant << ", previous " << previous_variant;
-        throw GUIHelpers::Error("ParameterizedItem::setRegisteredProperty() -> Error. Type of "
-                                "previous and new variant does not coincide.");
-    }
+
 
      getItem(name)->setValue(variant);
 }
 
-void SessionItem::removeRegisteredProperty(const QString &name)
-{
-    if(isRegisteredTag(name)) {
-        qDebug() << "ParameterizedItem::removeRegisteredProperty()" << name;
-        if (SessionItem *para =  takeItem(0, name)) {
-            delete para;
-//            if (m_model) {
-//                QModelIndex index = m_model->indexOfItem(para);
-//                m_model->removeRows(index.row(), 1, index.parent());
-//                m_propertyItems.remove(name);
-//            } else {
-//                m_children.removeAll(m_propertyItems[name]);
-//                m_propertyItems.remove(name);
-//            }
-        }
-    }
-}
-
-SessionItem *SessionItem::registerGroupProperty(const QString &groupName, const QString &groupModel)
+SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QString &groupModel)
 {
     GroupProperty_t group_property
         = GroupPropertyRegistry::createGroupProperty(groupName, groupModel);
@@ -563,15 +536,6 @@ SessionItem *SessionItem::registerGroupProperty(const QString &groupName, const 
     Q_ASSERT(registerTag(groupName, 1, 1, QStringList() << Constants::GroupItemType));
     Q_ASSERT(insertItem(0, groupItem, groupName));
     return groupItem;
-}
-
-bool SessionItem::isGroupProperty(const QString &name) const
-{
-    SessionTagInfo tagInfo = getTagInfo(name);
-    if (tagInfo.isValid()) {
-        return tagInfo.modelTypes.contains(Constants::GroupItemType);
-    }
-    return false;
 }
 
 SessionItem *SessionItem::setGroupProperty(const QString &name, const QString &value) const
@@ -694,13 +658,13 @@ int SessionItem::getCopyNumberOfChild(const SessionItem *p_item) const
     int count = 0;
     QString model_type = p_item->modelType();
     // check child items:
-    if (hasChildItems()) {
+    if (hasChildren()) {
         for (auto p_child_item : m_children) {
             QString child_type = p_child_item->modelType();
             if (p_child_item == p_item) {
                 result = count;
             }
-            if (child_type == model_type && !p_child_item->isRegisteredTag(P_NAME)) {
+            if (child_type == model_type && !p_child_item->isTag(P_NAME)) {
                 ++count;
             }
         }

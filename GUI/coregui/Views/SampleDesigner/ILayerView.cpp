@@ -50,7 +50,7 @@ void ILayerView::onPropertyChange(const QString &propertyName)
     Q_ASSERT(m_item);
     if (propertyName == LayerItem::P_THICKNESS) {
         m_rect.setHeight(DesignerHelper::nanometerToScreen(
-            m_item->getRegisteredProperty(LayerItem::P_THICKNESS).toDouble()));
+            m_item->getChildValue(LayerItem::P_THICKNESS).toDouble()));
         setPortCoordinates();
         update();
         emit heightChanged();
@@ -69,8 +69,8 @@ void ILayerView::onPropertyChange(const QString &propertyName)
 
 void ILayerView::updateColor()
 {
-    if(m_item && m_item->isRegisteredTag(LayerItem::P_MATERIAL)) {
-        QVariant v = m_item->getRegisteredProperty(LayerItem::P_MATERIAL);
+    if(m_item && m_item->isTag(LayerItem::P_MATERIAL)) {
+        QVariant v = m_item->getChildValue(LayerItem::P_MATERIAL);
         if (v.isValid()) {
             MaterialProperty mp = v.value<MaterialProperty>();
             setColor(mp.getColor());

@@ -44,17 +44,17 @@ const QString ResolutionFunction2DGaussianItem::P_SIGMA_Y = "Sigma Y";
 ResolutionFunction2DGaussianItem::ResolutionFunction2DGaussianItem()
     : ResolutionFunctionItem(Constants::ResolutionFunction2DGaussianType)
 {
-    registerProperty(P_SIGMA_X, 0.02);
+    addProperty(P_SIGMA_X, 0.02);
     getItem(P_SIGMA_X)->setLimits(AttLimits::lowerLimited(0.0));
     getItem(P_SIGMA_X)->setDecimals(3);
-    registerProperty(P_SIGMA_Y, 0.02);
+    addProperty(P_SIGMA_Y, 0.02);
     getItem(P_SIGMA_Y)->setLimits(AttLimits::lowerLimited(0.0));
     getItem(P_SIGMA_Y)->setDecimals(3);
 }
 
 IResolutionFunction2D *ResolutionFunction2DGaussianItem::createResolutionFunction(double scale) const
 {
-    double sigma_x = getRegisteredProperty(P_SIGMA_X).toDouble();
-    double sigma_y = getRegisteredProperty(P_SIGMA_Y).toDouble();
+    double sigma_x = getChildValue(P_SIGMA_X).toDouble();
+    double sigma_y = getChildValue(P_SIGMA_Y).toDouble();
     return new ResolutionFunction2DGaussian(sigma_x*scale, sigma_y*scale);
 }

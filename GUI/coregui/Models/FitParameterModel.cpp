@@ -54,7 +54,7 @@ QModelIndex FitParameterModel::itemForLink(const QString &link) const
         for (int j = 0; j < rowcount; j++) {
             QModelIndex curIndex = index(j,0,index(i,0,QModelIndex()));
             QString value = itemForIndex(curIndex)
-                    ->getRegisteredProperty(FitParameterLinkItem::P_LINK).toString();
+                    ->getChildValue(FitParameterLinkItem::P_LINK).toString();
             if (value == link)
                 return curIndex;
         }
@@ -113,11 +113,11 @@ bool FitParameterModel::dropMimeData(const QMimeData *data, Qt::DropAction actio
     if (!parent.isValid()) {
         auto newlink = addParameter();
         double value = parts[1].toDouble();
-        newlink->setRegisteredProperty(FitParameterItem::P_INIT, value);
+        newlink->setChildValue(FitParameterItem::P_INIT, value);
         cur = indexOfItem(newlink);
     }
     auto link = insertNewItem(Constants::FitParameterLinkType, cur, row);
-    if (link) link->setRegisteredProperty(FitParameterLinkItem::P_LINK, parts[0]);
+    if (link) link->setChildValue(FitParameterLinkItem::P_LINK, parts[0]);
     emit dataChanged(cur, cur);
     return true;
 }
@@ -132,14 +132,14 @@ QVariant FitParameterModel::data(const QModelIndex & index, int role) const
             if (item->parent() != itemForIndex(QModelIndex()))
             {
                 if (index.column() == 0)
-                    return item->getRegisteredProperty(FitParameterLinkItem::P_LINK);
+                    return item->getChildValue(FitParameterLinkItem::P_LINK);
                 else
                     return QVariant();
             }
             if (index.column() == 0)
                 return item->itemName();
             else
-                return item->getRegisteredProperty(m_columnNames->value(index.column()));
+                return item->getChildValue(m_columnNames->value(index.column()));
         }
     }
     return QVariant();
@@ -151,7 +151,7 @@ bool FitParameterModel::setData(const QModelIndex &index, const QVariant &value,
         return false;
     if (SessionItem *item = itemForIndex(index)) {
         if (role == Qt::EditRole && index.column() > 0 && index.column() < 5) {
-            item->setRegisteredProperty(m_columnNames->value(index.column()), value);
+            item->setChildValue(m_columnNames->value(index.column()), value);
             emit dataChanged(index, index);
             return true;
         }

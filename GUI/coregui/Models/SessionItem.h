@@ -87,29 +87,29 @@ public:
 
 
 
-    SessionItem *registerProperty(const QString &name, const QVariant &variant);
-    SessionItem *registerGroupProperty(const QString &groupName, const QString &groupModel);
+    SessionItem *addProperty(const QString &name, const QVariant &variant);
+    SessionItem *addGroupProperty(const QString &groupName, const QString &groupModel);
 
-    bool isRegisteredTag(const QString &name) const;
-    QVariant getRegisteredProperty(const QString &name) const;
-    void setRegisteredProperty(const QString &name, const QVariant &variant);
-    void removeRegisteredProperty(const QString &name);
-    bool isGroupProperty(const QString &name) const;
+    bool isTag(const QString &name) const;
+
+    QVariant getChildValue(const QString &name) const;
+    void setChildValue(const QString &name, const QVariant &variant);
+
     SessionItem *setGroupProperty(const QString &name, const QString &value = QString()) const;
     SessionItem *getGroupItem(const QString &name, const QString &type = QString()) const;
 
     virtual QString itemLabel() const;
     int rowOfChild(SessionItem *child) const;
     int childNumber() const;
-    bool hasChildItems() const;
+    bool hasChildren() const;
     QVector<SessionItem *> childItems() const;
     SessionItem *getChildOfType(const QString &type) const;
     SessionItem* getChildByName(const QString &name) const;
-    QList<SessionItem *> getChildrenOfType(const QString &model_type) const;
-    QList<SessionItem *> getUnregisteredChildren() const;
+    QVector<SessionItem *> getChildrenOfType(const QString &model_type) const;
     SessionItem *takeRow(int row);
-    bool acceptsAsChild(const QString &child_name) const;
-    QList<QString> acceptableChildItems() const;
+
+    bool acceptsAsDefaultChild(const QString &child_name) const;
+    QVector<QString> acceptableDefaultChildTypes() const;
 
 
 

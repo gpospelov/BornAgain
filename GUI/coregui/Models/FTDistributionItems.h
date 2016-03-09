@@ -90,7 +90,7 @@ public:
     static const QString P_GAMMA;
     explicit FTDistribution2DItem(const QString name)
         : SessionItem(name) {
-        registerProperty(P_GAMMA, 0.0);
+        addProperty(P_GAMMA, 0.0);
     }
     virtual IFTDistribution2D *createFTDistribution() const { return 0;}
     virtual ~FTDistribution2DItem(){}

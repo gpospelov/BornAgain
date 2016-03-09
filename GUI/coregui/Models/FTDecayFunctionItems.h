@@ -74,7 +74,7 @@ public:
     static const QString P_GAMMA;
     explicit FTDecayFunction2DItem(const QString name)
         : SessionItem(name) {
-         registerProperty(P_GAMMA, 0.0);
+         addProperty(P_GAMMA, 0.0);
     }
     virtual IFTDecayFunction2D *createFTDecayFunction() const { return 0;}
     virtual ~FTDecayFunction2DItem(){}

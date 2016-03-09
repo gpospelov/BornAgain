@@ -33,10 +33,10 @@ const QString FitParameterItem::P_MAX = "Max";
 FitParameterItem::FitParameterItem()
     : SessionItem(Constants::FitParameterType)
 {
-    registerProperty(P_USE, true);
-    registerProperty(P_INIT, 0.0);
-    registerProperty(P_MIN, 0.0);
-    registerProperty(P_MAX, 0.0);
+    addProperty(P_USE, true);
+    addProperty(P_INIT, 0.0);
+    addProperty(P_MIN, 0.0);
+    addProperty(P_MAX, 0.0);
     const QString T_LINK = "Link tag";
     registerTag(T_LINK, 0, -1, QStringList() << Constants::FitParameterLinkType);
     setDefaultTag(T_LINK);
@@ -49,7 +49,7 @@ const QString FitParameterLinkItem::P_LINK = "Link";
 FitParameterLinkItem::FitParameterLinkItem()
     : SessionItem(Constants::FitParameterLinkType)
 {
-    registerProperty(P_LINK, "");
+    addProperty(P_LINK, "");
 }
 
 
@@ -59,8 +59,8 @@ const QString FitSelectionItem::P_INSTRUMENT = "Instrument";
 FitSelectionItem::FitSelectionItem()
     : SessionItem(Constants::FitSelectionType)
 {
-    registerProperty(P_SAMPLE, "");
-    registerProperty(P_INSTRUMENT, "");
+    addProperty(P_SAMPLE, "");
+    addProperty(P_INSTRUMENT, "");
 }
 
 const QString MinimizerSettingsItem::P_ALGO = "Algorithm";
@@ -70,7 +70,7 @@ MinimizerSettingsItem::MinimizerSettingsItem()
 {
     ComboProperty algo;
     algo << "Migrad" << "Simplex" << "Combined" << "Scan" << "Fumili";
-    registerProperty(P_ALGO, algo.getVariant());
+    addProperty(P_ALGO, algo.getVariant());
 }
 
 const QString InputDataItem::P_PATH = "Path";
@@ -78,7 +78,7 @@ const QString InputDataItem::P_PATH = "Path";
 InputDataItem::InputDataItem()
     : SessionItem(Constants::InputDataType)
 {
-    registerProperty(P_PATH, "");
+    addProperty(P_PATH, "");
 }
 
 

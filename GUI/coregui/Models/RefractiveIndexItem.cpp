@@ -25,10 +25,10 @@ RefractiveIndexItem::RefractiveIndexItem()
     : SessionItem(Constants::RefractiveIndexType)
 {
     ScientificDoubleProperty delta(0.0);
-    registerProperty(P_DELTA, delta.getVariant());
+    addProperty(P_DELTA, delta.getVariant());
 
     ScientificDoubleProperty beta(0.0);
-    registerProperty(P_BETA, beta.getVariant());
+    addProperty(P_BETA, beta.getVariant());
 }
 
 QString RefractiveIndexItem::itemLabel() const
@@ -38,24 +38,24 @@ QString RefractiveIndexItem::itemLabel() const
 
 double RefractiveIndexItem::getDelta() const
 {
-    return getRegisteredProperty(P_DELTA).value<ScientificDoubleProperty>().getValue();
+    return getChildValue(P_DELTA).value<ScientificDoubleProperty>().getValue();
 }
 
 void RefractiveIndexItem::setDelta(double delta)
 {
-    ScientificDoubleProperty scd_property = getRegisteredProperty(P_DELTA).value<ScientificDoubleProperty>();
+    ScientificDoubleProperty scd_property = getChildValue(P_DELTA).value<ScientificDoubleProperty>();
     scd_property.setValue(delta);
-    setRegisteredProperty(P_DELTA, scd_property.getVariant());
+    setChildValue(P_DELTA, scd_property.getVariant());
 }
 
 double RefractiveIndexItem::getBeta() const
 {
-    return getRegisteredProperty(P_BETA).value<ScientificDoubleProperty>().getValue();
+    return getChildValue(P_BETA).value<ScientificDoubleProperty>().getValue();
 }
 
 void RefractiveIndexItem::setBeta(double beta)
 {
-    ScientificDoubleProperty scd_property = getRegisteredProperty(P_BETA).value<ScientificDoubleProperty>();
+    ScientificDoubleProperty scd_property = getChildValue(P_BETA).value<ScientificDoubleProperty>();
     scd_property.setValue(beta);
-    setRegisteredProperty(P_BETA, scd_property.getVariant());
+    setChildValue(P_BETA, scd_property.getVariant());
 }

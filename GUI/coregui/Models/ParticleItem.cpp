@@ -33,12 +33,12 @@ const QString ParticleItem::T_TRANSFORMATION = "Transformation tag";
 ParticleItem::ParticleItem()
     : SessionGraphicsItem(Constants::ParticleType)
 {
-    registerGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
-    registerProperty(P_MATERIAL,
+    addGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
+    addProperty(P_MATERIAL,
                      MaterialUtils::getDefaultMaterialProperty().getVariant());
-    registerProperty(P_ABUNDANCE, 1.0)->setLimits(AttLimits::limited(0.0, 1.0));
+    addProperty(P_ABUNDANCE, 1.0)->setLimits(AttLimits::limited(0.0, 1.0));
     getItem(P_ABUNDANCE)->setDecimals(3);
-    registerGroupProperty(P_POSITION, Constants::VectorType);
+    addGroupProperty(P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;
     ModelPath::addParameterTranslator(position_translator);
 
@@ -54,7 +54,7 @@ std::unique_ptr<Particle> ParticleItem::createParticle() const
     auto P_material = TransformToDomain::createDomainMaterial(*this);
     auto P_particle = GUIHelpers::make_unique<Particle>(*P_material);
 
-    double abundance = getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+    double abundance = getChildValue(ParticleItem::P_ABUNDANCE).toDouble();
     P_particle->setAbundance(abundance);
 
     auto ffItem = static_cast<FormFactorItem*>(getGroupItem(ParticleItem::P_FORM_FACTOR));

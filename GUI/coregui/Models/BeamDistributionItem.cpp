@@ -28,9 +28,9 @@ const QString BeamDistributionItem::P_CACHED_VALUE = "Cached value";
 BeamDistributionItem::BeamDistributionItem(const QString name)
     : SessionItem(name)
 {
-    registerProperty(P_CACHED_VALUE, 0.0);
+    addProperty(P_CACHED_VALUE, 0.0);
     getItem(P_CACHED_VALUE)->setVisible(false);
-    registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
+    addGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
     setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
 }
 
@@ -64,11 +64,11 @@ BeamDistributionItem::getParameterDistributionForName(const std::string &paramet
         auto P_distribution = createDistribution1D();
 
         if (P_distribution) {
-            int nbr_samples = distributionItem->getRegisteredProperty(
+            int nbr_samples = distributionItem->getChildValue(
                                                     DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
             double sigma_factor(0);
-            if (distributionItem->isRegisteredTag(DistributionItem::P_SIGMA_FACTOR)) {
-                sigma_factor = distributionItem->getRegisteredProperty(
+            if (distributionItem->isTag(DistributionItem::P_SIGMA_FACTOR)) {
+                sigma_factor = distributionItem->getChildValue(
                                                      DistributionItem::P_SIGMA_FACTOR).toInt();
             }
 

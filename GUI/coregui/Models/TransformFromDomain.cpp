@@ -83,13 +83,13 @@ void setDistribution(SessionItem *item, ParameterDistribution par_distr,
 void TransformFromDomain::setItemFromSample(SessionItem *item,
                                             const InterferenceFunctionRadialParaCrystal *sample)
 {
-    item->setRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE,
+    item->setChildValue(InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE,
                                 sample->getPeakDistance());
-    item->setRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_DAMPING_LENGTH,
+    item->setChildValue(InterferenceFunctionRadialParaCrystalItem::P_DAMPING_LENGTH,
                                 sample->getDampingLength());
-    item->setRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_DOMAIN_SIZE,
+    item->setChildValue(InterferenceFunctionRadialParaCrystalItem::P_DOMAIN_SIZE,
                                 sample->getDomainSize());
-    item->setRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_KAPPA,
+    item->setChildValue(InterferenceFunctionRadialParaCrystalItem::P_KAPPA,
                                 sample->getKappa());
 
     const IFTDistribution1D *ipdf = sample->getProbabilityDistribution();
@@ -105,13 +105,13 @@ void TransformFromDomain::setItemFromSample(SessionItem *item,
     Lattice2DParameters lattice_params = sample->getLatticeParameters();
     set2DLatticeParameters(item, lattice_params, lattice_item);
 
-    item->setRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH,
+    item->setChildValue(InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH,
                                 sample->getDampingLength());
-    item->setRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE1,
+    item->setChildValue(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE1,
                                 sample->getDomainSizes()[0]);
-    item->setRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE2,
+    item->setChildValue(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE2,
                                 sample->getDomainSizes()[1]);
-    item->setRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION,
+    item->setChildValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION,
                                 sample->getIntegrationOverXi());
 
     std::vector<const IFTDistribution2D *> pdfs = sample->getProbabilityDistributions();
@@ -128,9 +128,9 @@ void TransformFromDomain::setItemFromSample(SessionItem *item,
                                             const InterferenceFunction1DLattice *sample)
 {
     Lattice1DParameters lattice_params = sample->getLatticeParameters();
-    item->setRegisteredProperty(InterferenceFunction1DLatticeItem::P_LENGTH,
+    item->setChildValue(InterferenceFunction1DLatticeItem::P_LENGTH,
                                 lattice_params.m_length);
-    item->setRegisteredProperty(InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE,
+    item->setChildValue(InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE,
                                 Units::rad2deg(lattice_params.m_xi));
 
     const IFTDecayFunction1D *pdf = sample->getDecayFunction();
@@ -155,7 +155,7 @@ void TransformFromDomain::setItemFromSample(SessionItem *item,
 void TransformFromDomain::setItemFromSample(SessionItem *layerItem, const Layer *layer,
                                             const LayerInterface *top_interface)
 {
-    layerItem->setRegisteredProperty(LayerItem::P_THICKNESS, layer->getThickness());
+    layerItem->setChildValue(LayerItem::P_THICKNESS, layer->getThickness());
     layerItem->setGroupProperty(LayerItem::P_ROUGHNESS, Constants::LayerZeroRoughnessType);
 
     if (top_interface) {
@@ -170,9 +170,9 @@ void TransformFromDomain::setItemFromSample(SessionItem *layerItem, const Layer 
 
 void TransformFromDomain::setItemFromSample(SessionItem *item, const LayerRoughness *sample)
 {
-    item->setRegisteredProperty(LayerBasicRoughnessItem::P_SIGMA, sample->getSigma());
-    item->setRegisteredProperty(LayerBasicRoughnessItem::P_HURST, sample->getHurstParameter());
-    item->setRegisteredProperty(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH,
+    item->setChildValue(LayerBasicRoughnessItem::P_SIGMA, sample->getSigma());
+    item->setChildValue(LayerBasicRoughnessItem::P_HURST, sample->getHurstParameter());
+    item->setChildValue(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH,
                                 sample->getLatteralCorrLength());
 }
 
@@ -180,16 +180,16 @@ void TransformFromDomain::setItemFromSample(SessionItem *item, const LayerRoughn
 void TransformFromDomain::setItemFromSample(SessionItem *item,
                                             const ParticleDistribution *sample)
 {
-    item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, sample->getAbundance());
+    item->setChildValue(ParticleItem::P_ABUNDANCE, sample->getAbundance());
 
     ParameterDistribution par_distr = sample->getParameterDistribution();
     QString main_distr_par_name = QString::fromStdString(par_distr.getMainParameterName());
     ComboProperty combo_property
-        = item->getRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+        = item->getChildValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
               .value<ComboProperty>();
     combo_property.setCachedValue(main_distr_par_name);
     combo_property.setCacheContainsGUIFlag(false);
-    item->setRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER,
+    item->setChildValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER,
                                 combo_property.getVariant());
 
     QString group_name = ParticleDistributionItem::P_DISTRIBUTION;
@@ -302,16 +302,16 @@ void TransformFromDomain::setItemFromSample(SphericalDetectorItem *detectorItem,
     BasicAxisItem *phiAxisItem = dynamic_cast<BasicAxisItem *>(
         detectorItem->getGroupItem(SphericalDetectorItem::P_PHI_AXIS));
     Q_ASSERT(phiAxisItem);
-    phiAxisItem->setRegisteredProperty(BasicAxisItem::P_NBINS, (int)phi_axis.getSize());
-    phiAxisItem->setRegisteredProperty(BasicAxisItem::P_MIN, Units::rad2deg(phi_axis.getMin()));
-    phiAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, Units::rad2deg(phi_axis.getMax()));
+    phiAxisItem->setChildValue(BasicAxisItem::P_NBINS, (int)phi_axis.getSize());
+    phiAxisItem->setChildValue(BasicAxisItem::P_MIN, Units::rad2deg(phi_axis.getMin()));
+    phiAxisItem->setChildValue(BasicAxisItem::P_MAX, Units::rad2deg(phi_axis.getMax()));
 
     BasicAxisItem *alphaAxisItem = dynamic_cast<BasicAxisItem *>(
         detectorItem->getGroupItem(SphericalDetectorItem::P_ALPHA_AXIS));
     Q_ASSERT(alphaAxisItem);
-    alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_NBINS, (int)alpha_axis.getSize());
-    alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_MIN, Units::rad2deg(alpha_axis.getMin()));
-    alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
+    alphaAxisItem->setChildValue(BasicAxisItem::P_NBINS, (int)alpha_axis.getSize());
+    alphaAxisItem->setChildValue(BasicAxisItem::P_MIN, Units::rad2deg(alpha_axis.getMin()));
+    alphaAxisItem->setChildValue(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
 
     // detector resolution
     if (const IDetectorResolution *p_resfunc = detector.getDetectorResolutionFunction()) {
@@ -323,9 +323,9 @@ void TransformFromDomain::setItemFromSample(SphericalDetectorItem *detectorItem,
                 SessionItem *item
                     = detectorItem->setGroupProperty(SphericalDetectorItem::P_RESOLUTION_FUNCTION,
                                                      Constants::ResolutionFunction2DGaussianType);
-                item->setRegisteredProperty(ResolutionFunction2DGaussianItem::P_SIGMA_X,
+                item->setChildValue(ResolutionFunction2DGaussianItem::P_SIGMA_X,
                                             Units::rad2deg(resfunc->getSigmaX()));
-                item->setRegisteredProperty(ResolutionFunction2DGaussianItem::P_SIGMA_Y,
+                item->setChildValue(ResolutionFunction2DGaussianItem::P_SIGMA_Y,
                                             Units::rad2deg(resfunc->getSigmaY()));
             } else {
                 throw GUIHelpers::Error("TransformFromDomain::setItemFromSample("
@@ -350,69 +350,69 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem *detectorIte
     BasicAxisItem *xAxisItem = dynamic_cast<BasicAxisItem *>(
         detectorItem->getGroupItem(RectangularDetectorItem::P_X_AXIS));
     Q_ASSERT(xAxisItem);
-    xAxisItem->setRegisteredProperty(BasicAxisItem::P_NBINS, (int)detector.getNbinsX());
-    xAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, detector.getWidth());
+    xAxisItem->setChildValue(BasicAxisItem::P_NBINS, (int)detector.getNbinsX());
+    xAxisItem->setChildValue(BasicAxisItem::P_MAX, detector.getWidth());
 
     BasicAxisItem *yAxisItem = dynamic_cast<BasicAxisItem *>(
         detectorItem->getGroupItem(RectangularDetectorItem::P_Y_AXIS));
     Q_ASSERT(yAxisItem);
-    yAxisItem->setRegisteredProperty(BasicAxisItem::P_NBINS, (int)detector.getNbinsY());
-    yAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, detector.getHeight());
+    yAxisItem->setChildValue(BasicAxisItem::P_NBINS, (int)detector.getNbinsY());
+    yAxisItem->setChildValue(BasicAxisItem::P_MAX, detector.getHeight());
 
     if(detector.getDetectorArrangment() == RectangularDetector::GENERIC) {
         detectorItem->setDetectorAlignment(Constants::ALIGNMENT_GENERIC);
 
         kvector_t normal = detector.getNormalVector();
-        detectorItem->getGroupItem(RectangularDetectorItem::P_NORMAL)->setRegisteredProperty(
+        detectorItem->getGroupItem(RectangularDetectorItem::P_NORMAL)->setChildValue(
             VectorItem::P_X, normal.x());
-        detectorItem->getGroupItem(RectangularDetectorItem::P_NORMAL)->setRegisteredProperty(
+        detectorItem->getGroupItem(RectangularDetectorItem::P_NORMAL)->setChildValue(
             VectorItem::P_Y, normal.y());
-        detectorItem->getGroupItem(RectangularDetectorItem::P_NORMAL)->setRegisteredProperty(
+        detectorItem->getGroupItem(RectangularDetectorItem::P_NORMAL)->setChildValue(
             VectorItem::P_Z, normal.z());
 
         kvector_t direction = detector.getDirectionVector();
-        detectorItem->getGroupItem(RectangularDetectorItem::P_DIRECTION)->setRegisteredProperty(
+        detectorItem->getGroupItem(RectangularDetectorItem::P_DIRECTION)->setChildValue(
             VectorItem::P_X, direction.x());
-        detectorItem->getGroupItem(RectangularDetectorItem::P_DIRECTION)->setRegisteredProperty(
+        detectorItem->getGroupItem(RectangularDetectorItem::P_DIRECTION)->setChildValue(
             VectorItem::P_Y, direction.y());
-        detectorItem->getGroupItem(RectangularDetectorItem::P_DIRECTION)->setRegisteredProperty(
+        detectorItem->getGroupItem(RectangularDetectorItem::P_DIRECTION)->setChildValue(
             VectorItem::P_Z, direction.z());
 
-        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_U0, detector.getU0());
-        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_V0, detector.getV0());
+        detectorItem->setChildValue(RectangularDetectorItem::P_U0, detector.getU0());
+        detectorItem->setChildValue(RectangularDetectorItem::P_V0, detector.getV0());
     }
 
     else if (detector.getDetectorArrangment() == RectangularDetector::PERPENDICULAR_TO_SAMPLE) {
         detectorItem->setDetectorAlignment(Constants::ALIGNMENT_TO_SAMPLE);
-        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DISTANCE,
+        detectorItem->setChildValue(RectangularDetectorItem::P_DISTANCE,
                                             detector.getDistance());
-        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_U0, detector.getU0());
-        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_V0, detector.getV0());
+        detectorItem->setChildValue(RectangularDetectorItem::P_U0, detector.getU0());
+        detectorItem->setChildValue(RectangularDetectorItem::P_V0, detector.getV0());
 
     } else if (detector.getDetectorArrangment()
                == RectangularDetector::PERPENDICULAR_TO_DIRECT_BEAM) {
         detectorItem->setDetectorAlignment(Constants::ALIGNMENT_TO_DIRECT_BEAM);
-        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DISTANCE,
+        detectorItem->setChildValue(RectangularDetectorItem::P_DISTANCE,
                                             detector.getDistance());
-        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DBEAM_U0, detector.getU0());
-        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DBEAM_V0, detector.getV0());
+        detectorItem->setChildValue(RectangularDetectorItem::P_DBEAM_U0, detector.getU0());
+        detectorItem->setChildValue(RectangularDetectorItem::P_DBEAM_V0, detector.getV0());
 
     } else if (detector.getDetectorArrangment()
                == RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM) {
         detectorItem->setDetectorAlignment(Constants::ALIGNMENT_TO_REFLECTED_BEAM);
-        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DISTANCE,
+        detectorItem->setChildValue(RectangularDetectorItem::P_DISTANCE,
                                             detector.getDistance());
-        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_U0, detector.getU0());
-        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_V0, detector.getV0());
+        detectorItem->setChildValue(RectangularDetectorItem::P_U0, detector.getU0());
+        detectorItem->setChildValue(RectangularDetectorItem::P_V0, detector.getV0());
 
     } else if (detector.getDetectorArrangment()
                == RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
         detectorItem->setDetectorAlignment(Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS);
-        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DISTANCE,
+        detectorItem->setChildValue(RectangularDetectorItem::P_DISTANCE,
                                             detector.getDistance());
-        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DBEAM_U0,
+        detectorItem->setChildValue(RectangularDetectorItem::P_DBEAM_U0,
                                             detector.getDirectBeamU0());
-        detectorItem->setRegisteredProperty(RectangularDetectorItem::P_DBEAM_V0,
+        detectorItem->setChildValue(RectangularDetectorItem::P_DBEAM_V0,
                                             detector.getDirectBeamV0());
 
     } else {
@@ -431,9 +431,9 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem *detectorIte
                 SessionItem *item
                     = detectorItem->setGroupProperty(RectangularDetectorItem::P_RESOLUTION_FUNCTION,
                                                      Constants::ResolutionFunction2DGaussianType);
-                item->setRegisteredProperty(ResolutionFunction2DGaussianItem::P_SIGMA_X,
+                item->setChildValue(ResolutionFunction2DGaussianItem::P_SIGMA_X,
                                             resfunc->getSigmaX());
-                item->setRegisteredProperty(ResolutionFunction2DGaussianItem::P_SIGMA_Y,
+                item->setChildValue(ResolutionFunction2DGaussianItem::P_SIGMA_Y,
                                             resfunc->getSigmaY());
             } else {
                 throw GUIHelpers::Error("TransformFromDomain::setItemFromSample("
@@ -465,22 +465,22 @@ void TransformFromDomain::setDetectorMasks(DetectorItem *detectorItem, const GIS
             const Geometry::IShape2D *shape = detectorMask->getMaskShape(i_mask, mask_value);
             if(const Geometry::Ellipse *ellipse = dynamic_cast<const Geometry::Ellipse *>(shape)) {
                 EllipseItem *ellipseItem = new EllipseItem();
-                ellipseItem->setRegisteredProperty(EllipseItem::P_XCENTER, Units::rad2deg(ellipse->getCenterX()));
-                ellipseItem->setRegisteredProperty(EllipseItem::P_YCENTER, Units::rad2deg(ellipse->getCenterY()));
-                ellipseItem->setRegisteredProperty(EllipseItem::P_XRADIUS, Units::rad2deg(ellipse->getRadiusX()));
-                ellipseItem->setRegisteredProperty(EllipseItem::P_YRADIUS, Units::rad2deg(ellipse->getRadiusY()));
-                ellipseItem->setRegisteredProperty(EllipseItem::P_ANGLE, Units::rad2deg(ellipse->getTheta()));
-                ellipseItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
+                ellipseItem->setChildValue(EllipseItem::P_XCENTER, Units::rad2deg(ellipse->getCenterX()));
+                ellipseItem->setChildValue(EllipseItem::P_YCENTER, Units::rad2deg(ellipse->getCenterY()));
+                ellipseItem->setChildValue(EllipseItem::P_XRADIUS, Units::rad2deg(ellipse->getRadiusX()));
+                ellipseItem->setChildValue(EllipseItem::P_YRADIUS, Units::rad2deg(ellipse->getRadiusY()));
+                ellipseItem->setChildValue(EllipseItem::P_ANGLE, Units::rad2deg(ellipse->getTheta()));
+                ellipseItem->setChildValue(MaskItem::P_MASK_VALUE, mask_value);
                 containerItem->insertItem(0, ellipseItem);
 
             }
             else if(const Geometry::Rectangle *rectangle = dynamic_cast<const Geometry::Rectangle *>(shape)) {
                 RectangleItem *rectangleItem = new RectangleItem();
-                rectangleItem->setRegisteredProperty(RectangleItem::P_XLOW, Units::rad2deg(rectangle->getXlow()));
-                rectangleItem->setRegisteredProperty(RectangleItem::P_YLOW, Units::rad2deg(rectangle->getYlow()));
-                rectangleItem->setRegisteredProperty(RectangleItem::P_XUP, Units::rad2deg(rectangle->getXup()));
-                rectangleItem->setRegisteredProperty(RectangleItem::P_YUP, Units::rad2deg(rectangle->getYup()));
-                rectangleItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
+                rectangleItem->setChildValue(RectangleItem::P_XLOW, Units::rad2deg(rectangle->getXlow()));
+                rectangleItem->setChildValue(RectangleItem::P_YLOW, Units::rad2deg(rectangle->getYlow()));
+                rectangleItem->setChildValue(RectangleItem::P_XUP, Units::rad2deg(rectangle->getXup()));
+                rectangleItem->setChildValue(RectangleItem::P_YUP, Units::rad2deg(rectangle->getYup()));
+                rectangleItem->setChildValue(MaskItem::P_MASK_VALUE, mask_value);
                 containerItem->insertItem(0, rectangleItem);
 
             }
@@ -490,32 +490,32 @@ void TransformFromDomain::setDetectorMasks(DetectorItem *detectorItem, const GIS
                 polygon->getPoints(xpos, ypos);
                 for(size_t i_point=0; i_point<xpos.size(); ++i_point) {
                     PolygonPointItem *pointItem = new PolygonPointItem();
-                    pointItem->setRegisteredProperty(PolygonPointItem::P_POSX, Units::rad2deg(xpos[i_point]));
-                    pointItem->setRegisteredProperty(PolygonPointItem::P_POSY, Units::rad2deg(ypos[i_point]));
+                    pointItem->setChildValue(PolygonPointItem::P_POSX, Units::rad2deg(xpos[i_point]));
+                    pointItem->setChildValue(PolygonPointItem::P_POSY, Units::rad2deg(ypos[i_point]));
                     polygonItem->insertItem(-1, pointItem);
                 }
 
-                polygonItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
-                polygonItem->setRegisteredProperty(PolygonItem::P_ISCLOSED, true);
+                polygonItem->setChildValue(MaskItem::P_MASK_VALUE, mask_value);
+                polygonItem->setChildValue(PolygonItem::P_ISCLOSED, true);
 
                 containerItem->insertItem(0, polygonItem);
             }
             else if(const Geometry::VerticalLine *vline = dynamic_cast<const Geometry::VerticalLine *>(shape)) {
                 VerticalLineItem *lineItem = new VerticalLineItem();
-                lineItem->setRegisteredProperty(VerticalLineItem::P_POSX, Units::rad2deg(vline->getXpos()));
-                lineItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
+                lineItem->setChildValue(VerticalLineItem::P_POSX, Units::rad2deg(vline->getXpos()));
+                lineItem->setChildValue(MaskItem::P_MASK_VALUE, mask_value);
                 containerItem->insertItem(0, lineItem);
             }
             else if(const Geometry::HorizontalLine *hline = dynamic_cast<const Geometry::HorizontalLine *>(shape)) {
                 HorizontalLineItem *lineItem = new HorizontalLineItem();
-                lineItem->setRegisteredProperty(HorizontalLineItem::P_POSY, Units::rad2deg(hline->getYpos()));
-                lineItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
+                lineItem->setChildValue(HorizontalLineItem::P_POSY, Units::rad2deg(hline->getYpos()));
+                lineItem->setChildValue(MaskItem::P_MASK_VALUE, mask_value);
                 containerItem->insertItem(0, lineItem);
             }
             else if(const Geometry::InfinitePlane *plane = dynamic_cast<const Geometry::InfinitePlane *>(shape)) {
                 Q_UNUSED(plane);
                 MaskAllItem *planeItem = new MaskAllItem();
-                planeItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, mask_value);
+                planeItem->setChildValue(MaskItem::P_MASK_VALUE, mask_value);
                 containerItem->insertItem(-1, planeItem);
             }
             else {
@@ -565,33 +565,33 @@ void SetPDF1D(SessionItem *item, const IFTDistribution1D *ipdf, QString group_na
     if (const FTDistribution1DCauchy *pdf = dynamic_cast<const FTDistribution1DCauchy *>(ipdf)) {
         SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DCauchyType);
-        pdfItem->setRegisteredProperty(FTDistribution1DCauchyItem::P_CORR_LENGTH, pdf->getOmega());
+        pdfItem->setChildValue(FTDistribution1DCauchyItem::P_CORR_LENGTH, pdf->getOmega());
     } else if (const FTDistribution1DGauss *pdf
                = dynamic_cast<const FTDistribution1DGauss *>(ipdf)) {
         SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DGaussType);
-        pdfItem->setRegisteredProperty(FTDistribution1DGaussItem::P_CORR_LENGTH, pdf->getOmega());
+        pdfItem->setChildValue(FTDistribution1DGaussItem::P_CORR_LENGTH, pdf->getOmega());
     } else if (const FTDistribution1DGate *pdf = dynamic_cast<const FTDistribution1DGate *>(ipdf)) {
         SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DGateType);
-        pdfItem->setRegisteredProperty(FTDistribution1DGateItem::P_CORR_LENGTH, pdf->getOmega());
+        pdfItem->setChildValue(FTDistribution1DGateItem::P_CORR_LENGTH, pdf->getOmega());
     } else if (const FTDistribution1DTriangle *pdf
                = dynamic_cast<const FTDistribution1DTriangle *>(ipdf)) {
         SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DTriangleType);
-        pdfItem->setRegisteredProperty(FTDistribution1DTriangleItem::P_CORR_LENGTH,
+        pdfItem->setChildValue(FTDistribution1DTriangleItem::P_CORR_LENGTH,
                                        pdf->getOmega());
     } else if (const FTDistribution1DCosine *pdf
                = dynamic_cast<const FTDistribution1DCosine *>(ipdf)) {
         SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DCosineType);
-        pdfItem->setRegisteredProperty(FTDistribution1DCosineItem::P_CORR_LENGTH, pdf->getOmega());
+        pdfItem->setChildValue(FTDistribution1DCosineItem::P_CORR_LENGTH, pdf->getOmega());
     } else if (const FTDistribution1DVoigt *pdf
                = dynamic_cast<const FTDistribution1DVoigt *>(ipdf)) {
         SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DVoigtType);
-        pdfItem->setRegisteredProperty(FTDistribution1DVoigtItem::P_CORR_LENGTH, pdf->getOmega());
-        pdfItem->setRegisteredProperty(FTDistribution1DVoigtItem::P_ETA, pdf->getEta());
+        pdfItem->setChildValue(FTDistribution1DVoigtItem::P_CORR_LENGTH, pdf->getOmega());
+        pdfItem->setChildValue(FTDistribution1DVoigtItem::P_ETA, pdf->getEta());
     } else {
         throw GUIHelpers::Error("TransformFromDomain::setPDF1D: -> Error");
     }
@@ -603,53 +603,53 @@ void setPDF2D(SessionItem *item, const IFTDistribution2D *pdf, QString group_nam
         = dynamic_cast<const FTDistribution2DCauchy *>(pdf)) {
         SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DCauchyType);
-        pdfItem->setRegisteredProperty(FTDistribution2DCauchyItem::P_CORR_LENGTH_X,
+        pdfItem->setChildValue(FTDistribution2DCauchyItem::P_CORR_LENGTH_X,
                                        pdf_cauchy->getCoherenceLengthX());
-        pdfItem->setRegisteredProperty(FTDistribution2DCauchyItem::P_CORR_LENGTH_Y,
+        pdfItem->setChildValue(FTDistribution2DCauchyItem::P_CORR_LENGTH_Y,
                                        pdf_cauchy->getCoherenceLengthY());
-        pdfItem->setRegisteredProperty(FTDistribution2DCauchyItem::P_GAMMA,
+        pdfItem->setChildValue(FTDistribution2DCauchyItem::P_GAMMA,
                                        Units::rad2deg(pdf_cauchy->getGamma()));
     } else if (const FTDistribution2DGauss *pdf_gauss
                = dynamic_cast<const FTDistribution2DGauss *>(pdf)) {
         SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DGaussType);
-        pdfItem->setRegisteredProperty(FTDistribution2DGaussItem::P_CORR_LENGTH_X,
+        pdfItem->setChildValue(FTDistribution2DGaussItem::P_CORR_LENGTH_X,
                                        pdf_gauss->getCoherenceLengthX());
-        pdfItem->setRegisteredProperty(FTDistribution2DGaussItem::P_CORR_LENGTH_Y,
+        pdfItem->setChildValue(FTDistribution2DGaussItem::P_CORR_LENGTH_Y,
                                        pdf_gauss->getCoherenceLengthY());
-        pdfItem->setRegisteredProperty(FTDistribution2DGaussItem::P_GAMMA,
+        pdfItem->setChildValue(FTDistribution2DGaussItem::P_GAMMA,
                                        Units::rad2deg(pdf_gauss->getGamma()));
     } else if (const FTDistribution2DGate *pdf_gate
                = dynamic_cast<const FTDistribution2DGate *>(pdf)) {
         SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DGateType);
-        pdfItem->setRegisteredProperty(FTDistribution2DGateItem::P_CORR_LENGTH_X,
+        pdfItem->setChildValue(FTDistribution2DGateItem::P_CORR_LENGTH_X,
                                        pdf_gate->getCoherenceLengthX());
-        pdfItem->setRegisteredProperty(FTDistribution2DGateItem::P_CORR_LENGTH_Y,
+        pdfItem->setChildValue(FTDistribution2DGateItem::P_CORR_LENGTH_Y,
                                        pdf_gate->getCoherenceLengthY());
-        pdfItem->setRegisteredProperty(FTDistribution2DGateItem::P_GAMMA,
+        pdfItem->setChildValue(FTDistribution2DGateItem::P_GAMMA,
                                        Units::rad2deg(pdf_gate->getGamma()));
     } else if (const FTDistribution2DCone *pdf_cone
                = dynamic_cast<const FTDistribution2DCone *>(pdf)) {
         SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DConeType);
-        pdfItem->setRegisteredProperty(FTDistribution2DConeItem::P_CORR_LENGTH_X,
+        pdfItem->setChildValue(FTDistribution2DConeItem::P_CORR_LENGTH_X,
                                        pdf_cone->getCoherenceLengthX());
-        pdfItem->setRegisteredProperty(FTDistribution2DConeItem::P_CORR_LENGTH_Y,
+        pdfItem->setChildValue(FTDistribution2DConeItem::P_CORR_LENGTH_Y,
                                        pdf_cone->getCoherenceLengthY());
-        pdfItem->setRegisteredProperty(FTDistribution2DConeItem::P_GAMMA,
+        pdfItem->setChildValue(FTDistribution2DConeItem::P_GAMMA,
                                        Units::rad2deg(pdf_cone->getGamma()));
     } else if (const FTDistribution2DVoigt *pdf_voigt
                = dynamic_cast<const FTDistribution2DVoigt *>(pdf)) {
         SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DVoigtType);
-        pdfItem->setRegisteredProperty(FTDistribution2DVoigtItem::P_CORR_LENGTH_X,
+        pdfItem->setChildValue(FTDistribution2DVoigtItem::P_CORR_LENGTH_X,
                                        pdf_voigt->getCoherenceLengthX());
-        pdfItem->setRegisteredProperty(FTDistribution2DVoigtItem::P_CORR_LENGTH_Y,
+        pdfItem->setChildValue(FTDistribution2DVoigtItem::P_CORR_LENGTH_Y,
                                        pdf_voigt->getCoherenceLengthY());
-        pdfItem->setRegisteredProperty(FTDistribution2DVoigtItem::P_GAMMA,
+        pdfItem->setChildValue(FTDistribution2DVoigtItem::P_GAMMA,
                                        Units::rad2deg(pdf_voigt->getGamma()));
-        pdfItem->setRegisteredProperty(FTDistribution2DVoigtItem::P_ETA, pdf_voigt->getEta());
+        pdfItem->setChildValue(FTDistribution2DVoigtItem::P_ETA, pdf_voigt->getEta());
     } else {
         throw GUIHelpers::Error("TransformFromDomain::setPDF2D: -> Error");
     }
@@ -660,24 +660,24 @@ void SetDecayFunction1D(SessionItem *item, const IFTDecayFunction1D *ipdf, QStri
     if (const FTDecayFunction1DCauchy *pdf = dynamic_cast<const FTDecayFunction1DCauchy *>(ipdf)) {
         SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction1DCauchyType);
-        pdfItem->setRegisteredProperty(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
+        pdfItem->setChildValue(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
     } else if (const FTDecayFunction1DGauss *pdf
                = dynamic_cast<const FTDecayFunction1DGauss *>(ipdf)) {
         SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction1DGaussType);
-        pdfItem->setRegisteredProperty(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
+        pdfItem->setChildValue(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
     } else if (const FTDecayFunction1DTriangle *pdf
                = dynamic_cast<const FTDecayFunction1DTriangle *>(ipdf)) {
         SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction1DTriangleType);
-        pdfItem->setRegisteredProperty(FTDecayFunction1DItem::P_DECAY_LENGTH,
+        pdfItem->setChildValue(FTDecayFunction1DItem::P_DECAY_LENGTH,
                                        pdf->getOmega());
     } else if (const FTDecayFunction1DVoigt *pdf
                = dynamic_cast<const FTDecayFunction1DVoigt *>(ipdf)) {
         SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction1DVoigtType);
-        pdfItem->setRegisteredProperty(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
-        pdfItem->setRegisteredProperty(FTDecayFunction1DVoigtItem::P_ETA, pdf->getEta());
+        pdfItem->setChildValue(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
+        pdfItem->setChildValue(FTDecayFunction1DVoigtItem::P_ETA, pdf->getEta());
     } else {
         throw GUIHelpers::Error("TransformFromDomain::SetDecayFunction1D: -> Error");
     }
@@ -689,33 +689,33 @@ void SetDecayFunction2D(SessionItem *item, const IFTDecayFunction2D *pdf, QStrin
         = dynamic_cast<const FTDecayFunction2DCauchy *>(pdf)) {
         SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction2DCauchyType);
-        pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_DECAY_LENGTH_X,
+        pdfItem->setChildValue(FTDecayFunction2DItem::P_DECAY_LENGTH_X,
                                        pdf_cauchy->getDecayLengthX());
-        pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_DECAY_LENGTH_Y,
+        pdfItem->setChildValue(FTDecayFunction2DItem::P_DECAY_LENGTH_Y,
                                        pdf_cauchy->getDecayLengthY());
-        pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_GAMMA,
+        pdfItem->setChildValue(FTDecayFunction2DItem::P_GAMMA,
                                        Units::rad2deg(pdf_cauchy->getGamma()));
     } else if (const FTDecayFunction2DGauss *pdf_gauss
                = dynamic_cast<const FTDecayFunction2DGauss *>(pdf)) {
         SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction2DGaussType);
-        pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_DECAY_LENGTH_X,
+        pdfItem->setChildValue(FTDecayFunction2DItem::P_DECAY_LENGTH_X,
                                        pdf_gauss->getDecayLengthX());
-        pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_DECAY_LENGTH_Y,
+        pdfItem->setChildValue(FTDecayFunction2DItem::P_DECAY_LENGTH_Y,
                                        pdf_gauss->getDecayLengthY());
-        pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_GAMMA,
+        pdfItem->setChildValue(FTDecayFunction2DItem::P_GAMMA,
                                        Units::rad2deg(pdf_gauss->getGamma()));
     } else if (const FTDecayFunction2DVoigt *pdf_voigt
                = dynamic_cast<const FTDecayFunction2DVoigt *>(pdf)) {
         SessionItem *pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction2DVoigtType);
-        pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_DECAY_LENGTH_X,
+        pdfItem->setChildValue(FTDecayFunction2DItem::P_DECAY_LENGTH_X,
                                        pdf_voigt->getDecayLengthX());
-        pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_DECAY_LENGTH_Y,
+        pdfItem->setChildValue(FTDecayFunction2DItem::P_DECAY_LENGTH_Y,
                                        pdf_voigt->getDecayLengthY());
-        pdfItem->setRegisteredProperty(FTDecayFunction2DItem::P_GAMMA,
+        pdfItem->setChildValue(FTDecayFunction2DItem::P_GAMMA,
                                        Units::rad2deg(pdf_voigt->getGamma()));
-        pdfItem->setRegisteredProperty(FTDecayFunction2DVoigtItem::P_ETA, pdf_voigt->getEta());
+        pdfItem->setChildValue(FTDecayFunction2DVoigtItem::P_ETA, pdf_voigt->getEta());
     } else {
         throw GUIHelpers::Error("TransformFromDomain::SetDecayFunction2D: -> Error");
     }
@@ -728,25 +728,25 @@ void set2DLatticeParameters(SessionItem *item, Lattice2DParameters lattice_param
                                              lattice_params.m_angle)) {
         lattice_item = item->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
                                                  Constants::SquareLatticeType);
-        lattice_item->setRegisteredProperty(SquareLatticeTypeItem::P_LATTICE_LENGTH,
+        lattice_item->setChildValue(SquareLatticeTypeItem::P_LATTICE_LENGTH,
                                                lattice_params.m_length_1);
     } else if (TransformFromDomain::isHexagonalLattice(
                    lattice_params.m_length_1, lattice_params.m_length_2, lattice_params.m_angle)) {
         lattice_item = item->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
                                                  Constants::HexagonalLatticeType);
-        lattice_item->setRegisteredProperty(HexagonalLatticeTypeItem::P_LATTICE_LENGTH,
+        lattice_item->setChildValue(HexagonalLatticeTypeItem::P_LATTICE_LENGTH,
                                                lattice_params.m_length_1);
     } else {
         lattice_item = item->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
                                                  Constants::BasicLatticeType);
-        lattice_item->setRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH1,
+        lattice_item->setChildValue(BasicLatticeTypeItem::P_LATTICE_LENGTH1,
                                                lattice_params.m_length_1);
-        lattice_item->setRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH2,
+        lattice_item->setChildValue(BasicLatticeTypeItem::P_LATTICE_LENGTH2,
                                                lattice_params.m_length_2);
-        lattice_item->setRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_ANGLE,
+        lattice_item->setChildValue(BasicLatticeTypeItem::P_LATTICE_ANGLE,
                                                Units::rad2deg(lattice_params.m_angle));
     }
-    item->setRegisteredProperty(InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE,
+    item->setChildValue(InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE,
                                 Units::rad2deg(lattice_params.m_xi));
 }
 
@@ -757,36 +757,36 @@ void setDistribution(SessionItem *item, ParameterDistribution par_distr,
     SessionItem *pdfItem = 0;
     if (const DistributionGate *distr = dynamic_cast<const DistributionGate *>(p_distribution)) {
         pdfItem = item->setGroupProperty(group_name, Constants::DistributionGateType);
-        pdfItem->setRegisteredProperty(DistributionGateItem::P_MIN, factor*distr->getMin());
-        pdfItem->setRegisteredProperty(DistributionGateItem::P_MAX, factor*distr->getMax());
+        pdfItem->setChildValue(DistributionGateItem::P_MIN, factor*distr->getMin());
+        pdfItem->setChildValue(DistributionGateItem::P_MAX, factor*distr->getMax());
     } else if (const DistributionLorentz *distr
                = dynamic_cast<const DistributionLorentz *>(p_distribution)) {
         pdfItem = item->setGroupProperty(group_name, Constants::DistributionLorentzType);
-        pdfItem->setRegisteredProperty(DistributionLorentzItem::P_MEAN, factor*distr->getMean());
-        pdfItem->setRegisteredProperty(DistributionLorentzItem::P_HWHM, factor*distr->getHWHM());
+        pdfItem->setChildValue(DistributionLorentzItem::P_MEAN, factor*distr->getMean());
+        pdfItem->setChildValue(DistributionLorentzItem::P_HWHM, factor*distr->getHWHM());
     } else if (const DistributionGaussian *distr
                = dynamic_cast<const DistributionGaussian *>(p_distribution)) {
         pdfItem = item->setGroupProperty(group_name, Constants::DistributionGaussianType);
-        pdfItem->setRegisteredProperty(DistributionGaussianItem::P_MEAN, factor*distr->getMean());
-        pdfItem->setRegisteredProperty(DistributionGaussianItem::P_STD_DEV, factor*distr->getStdDev());
+        pdfItem->setChildValue(DistributionGaussianItem::P_MEAN, factor*distr->getMean());
+        pdfItem->setChildValue(DistributionGaussianItem::P_STD_DEV, factor*distr->getStdDev());
     } else if (const DistributionLogNormal *distr
                = dynamic_cast<const DistributionLogNormal *>(p_distribution)) {
         pdfItem = item->setGroupProperty(group_name, Constants::DistributionLogNormalType);
-        pdfItem->setRegisteredProperty(DistributionLogNormalItem::P_MEDIAN, factor*distr->getMedian());
-        pdfItem->setRegisteredProperty(DistributionLogNormalItem::P_SCALE_PAR,
+        pdfItem->setChildValue(DistributionLogNormalItem::P_MEDIAN, factor*distr->getMedian());
+        pdfItem->setChildValue(DistributionLogNormalItem::P_SCALE_PAR,
                                        distr->getScalePar());
     } else if (const DistributionCosine *distr
                = dynamic_cast<const DistributionCosine *>(p_distribution)) {
         pdfItem = item->setGroupProperty(group_name, Constants::DistributionCosineType);
-        pdfItem->setRegisteredProperty(DistributionCosineItem::P_MEAN, factor*distr->getMean());
-        pdfItem->setRegisteredProperty(DistributionCosineItem::P_SIGMA, factor*distr->getSigma());
+        pdfItem->setChildValue(DistributionCosineItem::P_MEAN, factor*distr->getMean());
+        pdfItem->setChildValue(DistributionCosineItem::P_SIGMA, factor*distr->getSigma());
     } else {
         throw GUIHelpers::Error("TransformFromDomain::setDistribution: -> unknown distribution");
     }
     if (pdfItem) {
-        pdfItem->setRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES,
+        pdfItem->setChildValue(DistributionItem::P_NUMBER_OF_SAMPLES,
                                        (int)par_distr.getNbrSamples());
-        pdfItem->setRegisteredProperty(DistributionItem::P_SIGMA_FACTOR,
+        pdfItem->setChildValue(DistributionItem::P_SIGMA_FACTOR,
                                        par_distr.getSigmaFactor());
     }
 }

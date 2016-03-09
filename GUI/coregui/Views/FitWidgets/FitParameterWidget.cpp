@@ -253,7 +253,7 @@ void FitParameterWidget::onParameterSelectionChanged(const QItemSelection &selec
     QModelIndex newSelection = QModelIndex();
     if (index.isValid() && index.parent().isValid()) {
         SessionItem *val = m_fitModel->itemForIndex(index);
-        QString link = val->getRegisteredProperty(FitParameterLinkItem::P_LINK).toString();
+        QString link = val->getChildValue(FitParameterLinkItem::P_LINK).toString();
         QStandardItem *t = m_selectorModel->getItemFromPath(link);
         newSelection = m_selectorModel->indexFromItem(t);
     }

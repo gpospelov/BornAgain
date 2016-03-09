@@ -61,7 +61,7 @@ void MaskResultsPresenter::setShowMaskMode()
     if (OutputData<double> *maskedData = createMaskPresentation()) {
         backup_data();
         m_intensityDataItem->setOutputData(maskedData);
-        m_intensityDataItem->setRegisteredProperty(IntensityDataItem::P_IS_INTERPOLATED, false);
+        m_intensityDataItem->setChildValue(IntensityDataItem::P_IS_INTERPOLATED, false);
     } else {
         m_dataBackup.reset();
     }
@@ -72,7 +72,7 @@ void MaskResultsPresenter::setOriginalMode()
 {
     if (m_dataBackup) {
         m_intensityDataItem->setOutputData(m_dataBackup->clone());
-        m_intensityDataItem->setRegisteredProperty(IntensityDataItem::P_IS_INTERPOLATED,
+        m_intensityDataItem->setChildValue(IntensityDataItem::P_IS_INTERPOLATED,
                                         m_interpolation_flag_backup);
     }
 }
@@ -80,7 +80,7 @@ void MaskResultsPresenter::setOriginalMode()
 void MaskResultsPresenter::backup_data()
 {
     m_interpolation_flag_backup
-        = m_intensityDataItem->getRegisteredProperty(IntensityDataItem::P_IS_INTERPOLATED).toBool();
+        = m_intensityDataItem->getChildValue(IntensityDataItem::P_IS_INTERPOLATED).toBool();
     m_dataBackup.reset(m_intensityDataItem->getOutputData()->clone());
 }
 
@@ -102,7 +102,7 @@ OutputData<double> *MaskResultsPresenter::createMaskPresentation() const
             std::unique_ptr<Geometry::IShape2D> shape = item->createShape();
             if (shape) {
                 detectorMask.addMask(*shape.get(),
-                                     item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool());
+                                     item->getChildValue(MaskItem::P_MASK_VALUE).toBool());
             }
         }
     }

@@ -132,9 +132,9 @@ void DistributionWidget::plotItem()
 
     if (m_item->itemName() != Constants::DistributionNoneType && !exceptionThrown) {
         int numberOfSamples
-            = m_item->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
+            = m_item->getChildValue(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
         double sigmafactor
-            = m_item->getRegisteredProperty(DistributionItem::P_SIGMA_FACTOR).toDouble();
+            = m_item->getChildValue(DistributionItem::P_SIGMA_FACTOR).toDouble();
 
         QVector<double> xBar;
         QVector<double> x;
@@ -173,7 +173,7 @@ void DistributionWidget::plotItem()
     } else if(!exceptionThrown) {
         QVector<double> xPos;
         QVector<double> yPos;
-        xPos.push_back(m_item->getRegisteredProperty(DistributionNoneItem::P_VALUE).toDouble());
+        xPos.push_back(m_item->getChildValue(DistributionNoneItem::P_VALUE).toDouble());
         yPos.push_back(1);
         QCPBars *bars = new QCPBars(m_plot->xAxis, m_plot->yAxis);
         bars->setWidth(gap_between_bars);

@@ -43,7 +43,7 @@ void ItemLink::setValue(double value)
 
 QVariant ItemLink::getVariant()
 {
-    QVariant variant = m_item->getRegisteredProperty(m_property_name);
+    QVariant variant = m_item->getChildValue(m_property_name);
     if(variant.typeName() == QString("double")) {
         variant.setValue(m_value);
         return variant;
@@ -64,6 +64,6 @@ QVariant ItemLink::getVariant()
 
 void ItemLink::updateItem()
 {
-    getItem()->setRegisteredProperty(getPropertyName(), getVariant());
+    getItem()->setChildValue(getPropertyName(), getVariant());
 }
 

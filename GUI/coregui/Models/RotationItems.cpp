@@ -24,12 +24,12 @@ const QString XRotationItem::P_ANGLE = "Angle";
 XRotationItem::XRotationItem()
     : RotationItem(Constants::XRotationType)
 {
-    registerProperty(P_ANGLE, 0.0);
+    addProperty(P_ANGLE, 0.0);
 }
 
 IRotation *XRotationItem::createRotation() const
 {
-    double alpha = Units::deg2rad(getRegisteredProperty(P_ANGLE).toDouble() );
+    double alpha = Units::deg2rad(getChildValue(P_ANGLE).toDouble() );
     return new RotationX(alpha);
 }
 
@@ -40,12 +40,12 @@ const QString YRotationItem::P_ANGLE = "Angle";
 YRotationItem::YRotationItem()
     : RotationItem(Constants::YRotationType)
 {
-    registerProperty(P_ANGLE, 0.0);
+    addProperty(P_ANGLE, 0.0);
 }
 
 IRotation *YRotationItem::createRotation() const
 {
-    double alpha = Units::deg2rad(getRegisteredProperty(P_ANGLE).toDouble() );
+    double alpha = Units::deg2rad(getChildValue(P_ANGLE).toDouble() );
     return new RotationY(alpha);
 }
 
@@ -56,12 +56,12 @@ const QString ZRotationItem::P_ANGLE = "Angle";
 ZRotationItem::ZRotationItem()
     : RotationItem(Constants::ZRotationType)
 {
-    registerProperty(P_ANGLE, 0.0);
+    addProperty(P_ANGLE, 0.0);
 }
 
 IRotation *ZRotationItem::createRotation() const
 {
-    double alpha = Units::deg2rad(getRegisteredProperty(P_ANGLE).toDouble() );
+    double alpha = Units::deg2rad(getChildValue(P_ANGLE).toDouble() );
     return new RotationZ(alpha);
 }
 
@@ -74,15 +74,15 @@ const QString EulerRotationItem::P_GAMMA = "Gamma";
 EulerRotationItem::EulerRotationItem()
     : RotationItem(Constants::EulerRotationType)
 {
-    registerProperty(P_ALPHA, 0.0);
-    registerProperty(P_BETA, 0.0);
-    registerProperty(P_GAMMA, 0.0);
+    addProperty(P_ALPHA, 0.0);
+    addProperty(P_BETA, 0.0);
+    addProperty(P_GAMMA, 0.0);
 }
 
 IRotation *EulerRotationItem::createRotation() const
 {
-    double alpha = Units::deg2rad(getRegisteredProperty(P_ALPHA).toDouble() );
-    double beta = Units::deg2rad(getRegisteredProperty(P_BETA).toDouble() );
-    double gamma = Units::deg2rad(getRegisteredProperty(P_GAMMA).toDouble() );
+    double alpha = Units::deg2rad(getChildValue(P_ALPHA).toDouble() );
+    double beta = Units::deg2rad(getChildValue(P_BETA).toDouble() );
+    double gamma = Units::deg2rad(getChildValue(P_GAMMA).toDouble() );
     return new RotationEuler(alpha, beta, gamma);
 }

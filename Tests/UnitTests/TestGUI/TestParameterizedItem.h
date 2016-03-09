@@ -25,37 +25,37 @@ inline void TestParameterizedItem::test_registerProperty()
 //    QSignalSpy spy(&item, SIGNAL(propertyChanged(QString)));
 
     // access non-existing property
-    QCOMPARE(false, item.isRegisteredTag(property_name));
+    QCOMPARE(false, item.isTag(property_name));
 //    QVERIFY_THROW(item.getRegisteredProperty(property_name), GUIHelpers::Error);
 //    QVERIFY_THROW(item.setRegisteredProperty(property_name, value), GUIHelpers::Error);
 
     // registering new property
-    item.registerProperty(property_name, value);
-    QCOMPARE(true, item.isRegisteredTag(property_name));
+    item.addProperty(property_name, value);
+    QCOMPARE(true, item.isTag(property_name));
 //    QCOMPARE(spy.count(), 1);
 //    QList<QVariant> arguments = spy.takeFirst();
 //    QCOMPARE(arguments.size(), 1);
 //    QCOMPARE(arguments.at(0).toString(), property_name);
-    QCOMPARE(item.getRegisteredProperty(property_name).toDouble(), value);
+    QCOMPARE(item.getChildValue(property_name).toDouble(), value);
 //    QCOMPARE(spy.count(), 0);
 
     // setting property value
     double new_value(2.0);
-    item.setRegisteredProperty(property_name, new_value);
+    item.setChildValue(property_name, new_value);
 //    QCOMPARE(spy.count(), 1);
 //    arguments = spy.takeFirst();
 //    QCOMPARE(arguments.size(), 1);
 //    QCOMPARE(arguments.at(0).toString(), property_name);
-    QCOMPARE(item.getRegisteredProperty(property_name).toDouble(), new_value);
+    QCOMPARE(item.getChildValue(property_name).toDouble(), new_value);
 
     // setting property value to wrong QVariant
-    QVERIFY_THROW(item.setRegisteredProperty(property_name, QString("aaa")), GUIHelpers::Error);
+    QVERIFY_THROW(item.setChildValue(property_name, QString("aaa")), GUIHelpers::Error);
 
     // attempt to register already existing property
 //    QVERIFY_THROW(item.registerProperty(property_name, 1.0), GUIHelpers::Error);
 
     // remove registered property
-    item.removeRegisteredProperty(property_name);
+//    item.removeRegisteredProperty(property_name);
 //    QCOMPARE(spy.count(), 1);
 //    arguments = spy.takeFirst();
 //    QCOMPARE(arguments.size(), 1);

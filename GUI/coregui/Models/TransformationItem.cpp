@@ -24,5 +24,5 @@ const QString TransformationItem::P_ROT = "Rotation type";
 TransformationItem::TransformationItem()
     : SessionGraphicsItem(Constants::TransformationType)
 {
-    registerGroupProperty(P_ROT, Constants::RotationGroup );
+    addGroupProperty(P_ROT, Constants::RotationGroup );
 }

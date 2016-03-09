@@ -78,7 +78,7 @@ public:
     QString getModelName() const;
     void setModelName(const QString &name);
 
-    QList<QString> getAcceptableChildItems(const QModelIndex &parent) const;
+    QVector<QString> getAcceptableChildItems(const QModelIndex &parent) const;
 
     void clear();
     void load(const QString &filename = QString());

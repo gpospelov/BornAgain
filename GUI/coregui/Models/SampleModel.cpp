@@ -71,7 +71,7 @@ void SampleModel::exploreForMaterials(const QModelIndex &parentIndex)
                 || item->modelType() == Constants::ParticleType) {
                 qDebug() << " found item" << item->modelType();
                 MaterialProperty material_property
-                    = item->getRegisteredProperty(LayerItem::P_MATERIAL).value<MaterialProperty>();
+                    = item->getChildValue(LayerItem::P_MATERIAL).value<MaterialProperty>();
                 if (material_property.getIdentifier() == m_material_identifier) {
 //                    item->setRegisteredProperty(LayerItem::P_MATERIAL,
 //                                                material_property.getVariant());

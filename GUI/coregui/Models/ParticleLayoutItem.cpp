@@ -28,8 +28,8 @@ ParticleLayoutItem::ParticleLayoutItem()
 {
     ComboProperty approx;
     approx << "Decoupling Approximation" << "Size Space Coupling Approximation";
-    registerProperty(P_APPROX, approx.getVariant());
-    registerProperty(P_TOTAL_DENSITY, 1.0);
+    addProperty(P_APPROX, approx.getVariant());
+    addProperty(P_TOTAL_DENSITY, 1.0);
 
     registerTag(T_PARTICLES, 0, -1, QStringList() << Constants::ParticleType << Constants::ParticleCoreShellType
                 << Constants::ParticleCompositionType << Constants::ParticleDistributionType);

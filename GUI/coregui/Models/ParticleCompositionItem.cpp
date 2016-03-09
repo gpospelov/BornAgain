@@ -26,10 +26,10 @@ const QString ParticleCompositionItem::T_TRANSFORMATION = "Transformation Tag";
 ParticleCompositionItem::ParticleCompositionItem()
     : SessionGraphicsItem(Constants::ParticleCompositionType)
 {
-    registerProperty(ParticleItem::P_ABUNDANCE, 1.0);
+    addProperty(ParticleItem::P_ABUNDANCE, 1.0);
     getItem(ParticleItem::P_ABUNDANCE)->setLimits(AttLimits::limited(0.0, 1.0));
     getItem(ParticleItem::P_ABUNDANCE)->setDecimals(3);
-    registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
+    addGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;
     ModelPath::addParameterTranslator(position_translator);
 
@@ -44,7 +44,7 @@ ParticleCompositionItem::ParticleCompositionItem()
                 [this](SessionItem *parent) {
         if (parent && (parent->modelType() == Constants::ParticleCompositionType
             || parent->modelType() == Constants::ParticleDistributionType)) {
-            setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
+            setChildValue(ParticleItem::P_ABUNDANCE, 1.0);
             getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         } else {
             getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);
@@ -54,7 +54,7 @@ ParticleCompositionItem::ParticleCompositionItem()
 
 std::unique_ptr<ParticleComposition> ParticleCompositionItem::createParticleComposition() const
 {
-    double abundance = getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+    double abundance = getChildValue(ParticleItem::P_ABUNDANCE).toDouble();
     auto P_composition = GUIHelpers::make_unique<ParticleComposition>();
     P_composition->setAbundance(abundance);
     QVector<SessionItem *> children = childItems();

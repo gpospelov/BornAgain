@@ -22,14 +22,14 @@ const QString MagneticFieldItem::P_BZ = "Bz";
 MagneticFieldItem::MagneticFieldItem()
     : SessionItem(Constants::MagneticFieldType)
 {
-    registerProperty(P_BX, 0.0);
-    registerProperty(P_BY, 0.0);
-    registerProperty(P_BZ, 0.0);
+    addProperty(P_BX, 0.0);
+    addProperty(P_BY, 0.0);
+    addProperty(P_BZ, 0.0);
 }
 
 QString MagneticFieldItem::itemLabel() const
 {
-    return QString("(%1, %2, %3)").arg(getRegisteredProperty(P_BX).toDouble())
-                                  .arg(getRegisteredProperty(P_BY).toDouble())
-                                  .arg(getRegisteredProperty(P_BZ).toDouble());
+    return QString("(%1, %2, %3)").arg(getChildValue(P_BX).toDouble())
+                                  .arg(getChildValue(P_BY).toDouble())
+                                  .arg(getChildValue(P_BZ).toDouble());
 }

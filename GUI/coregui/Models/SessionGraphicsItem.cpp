@@ -23,7 +23,7 @@ const QString SessionGraphicsItem::P_YPOS = "ypos";
 SessionGraphicsItem::SessionGraphicsItem(const QString &model_type)
     : SessionItem(model_type)
 {
-    registerProperty(P_XPOS, qreal(0.0))->setVisible(false);
-    registerProperty(P_YPOS, qreal(0.0))->setVisible(false);
+    addProperty(P_XPOS, qreal(0.0))->setVisible(false);
+    addProperty(P_YPOS, qreal(0.0))->setVisible(false);
 }
 

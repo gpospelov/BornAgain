@@ -22,5 +22,5 @@ BeamWavelengthItem::BeamWavelengthItem()
     cache->setVisible(false);
     cache->setLimits(AttLimits::lowerLimited(1e-4));
     cache->setDecimals(4);
-    setRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE, 0.1);
+    setChildValue(BeamDistributionItem::P_CACHED_VALUE, 0.1);
 }

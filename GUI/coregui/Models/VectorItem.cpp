@@ -22,22 +22,22 @@ const QString VectorItem::P_Z = "Z";
 VectorItem::VectorItem()
     : SessionItem(Constants::VectorType)
 {
-    registerProperty(P_X, 0.0)->setLimits(AttLimits::limitless());
-    registerProperty(P_Y, 0.0)->setLimits(AttLimits::limitless());
-    registerProperty(P_Z, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_X, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_Y, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_Z, 0.0)->setLimits(AttLimits::limitless());
 }
 
 QString VectorItem::itemLabel() const
 {
-    return QString("(%1, %2, %3)").arg(getRegisteredProperty(P_X).toDouble())
-                                  .arg(getRegisteredProperty(P_Y).toDouble())
-            .arg(getRegisteredProperty(P_Z).toDouble());
+    return QString("(%1, %2, %3)").arg(getChildValue(P_X).toDouble())
+                                  .arg(getChildValue(P_Y).toDouble())
+            .arg(getChildValue(P_Z).toDouble());
 }
 
 kvector_t VectorItem::getVector() const
 {
-    return kvector_t(getRegisteredProperty(P_X).toDouble(),
-                     getRegisteredProperty(P_Y).toDouble(),
-                     getRegisteredProperty(P_Z).toDouble());
+    return kvector_t(getChildValue(P_X).toDouble(),
+                     getChildValue(P_Y).toDouble(),
+                     getChildValue(P_Z).toDouble());
 }
 

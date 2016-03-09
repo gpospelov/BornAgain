@@ -25,10 +25,10 @@ const QString LayerItem::T_LAYOUTS = "Layout tag";
 LayerItem::LayerItem()
     : SessionGraphicsItem(Constants::LayerType)
 {
-    registerProperty(P_THICKNESS, 0.0);
-    registerProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
+    addProperty(P_THICKNESS, 0.0);
+    addProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
 
-    registerGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup);
+    addGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup);
     setGroupProperty(P_ROUGHNESS, Constants::LayerZeroRoughnessType);
     registerTag(T_LAYOUTS, 0, -1, QStringList() << Constants::ParticleLayoutType);
     setDefaultTag(T_LAYOUTS);

@@ -96,7 +96,7 @@ void ModelMapper::onDataChanged(const QModelIndex &topLeft, const QModelIndex &b
     if (nestling > 0 && nestling < 2) {
         // something happened with our property or group item
         if (SessionItem *item = m_model->itemForIndex(topLeft)) {
-            if (m_item->isRegisteredTag(item->itemName())) {
+            if (m_item->isTag(item->itemName())) {
                 // some property changed
                 if (m_active && m_onPropertyChange.size() > 0) {
                     for (auto f : m_onPropertyChange) {
@@ -108,7 +108,7 @@ void ModelMapper::onDataChanged(const QModelIndex &topLeft, const QModelIndex &b
     }
     if (nestling > 1) {
         if (SessionItem *parent = item->parent()) {
-            if (parent->isRegisteredTag(item->itemName())) {
+            if (parent->isTag(item->itemName())) {
                 if (m_active && m_onChildPropertyChange.size() > 0) {
                     for (auto f : m_onChildPropertyChange) {
                         f(parent, item->itemName());

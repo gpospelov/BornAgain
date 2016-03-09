@@ -187,7 +187,7 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentItem(InstrumentItem *inst
         if (wavelengthDistribution->modelType() == Constants::DistributionNoneType) {
             addPropertyToParameterModel(
                 standardItem, BeamItem::P_WAVELENGTH, BeamDistributionItem::P_CACHED_VALUE,
-                beamWavelength->getRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE),
+                beamWavelength->getChildValue(BeamDistributionItem::P_CACHED_VALUE),
                 beamWavelength);
         } else {
             addDisabledProperty(standardItem, BeamItem::P_WAVELENGTH);
@@ -202,7 +202,7 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentItem(InstrumentItem *inst
         if (inclinationDistribution->modelType() == Constants::DistributionNoneType) {
             addPropertyToParameterModel(
                 standardItem, BeamItem::P_INCLINATION_ANGLE, BeamDistributionItem::P_CACHED_VALUE,
-                inclinationAngle->getRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE),
+                inclinationAngle->getChildValue(BeamDistributionItem::P_CACHED_VALUE),
                 inclinationAngle);
         } else {
             addDisabledProperty(standardItem, BeamItem::P_INCLINATION_ANGLE);
@@ -216,7 +216,7 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentItem(InstrumentItem *inst
         if (azimuthalDistribution->modelType() == Constants::DistributionNoneType) {
             addPropertyToParameterModel(
                 standardItem, BeamItem::P_AZIMUTHAL_ANGLE, BeamDistributionItem::P_CACHED_VALUE,
-                azimuthalAngle->getRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE),
+                azimuthalAngle->getChildValue(BeamDistributionItem::P_CACHED_VALUE),
                 azimuthalAngle);
         } else {
             addDisabledProperty(standardItem, BeamItem::P_AZIMUTHAL_ANGLE);

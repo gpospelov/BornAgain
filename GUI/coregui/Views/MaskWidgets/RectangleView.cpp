@@ -44,8 +44,8 @@ void RectangleView::onChangedX()
 {
     m_block_on_property_change = true;
 //    m_item->setRegisteredProperty(RectangleItem::P_POSX, fromSceneX(this->x()));
-    m_item->setRegisteredProperty(RectangleItem::P_XLOW, fromSceneX(this->x()));
-    m_item->setRegisteredProperty(RectangleItem::P_XUP, fromSceneX(this->x() + m_mask_rect.width()));
+    m_item->setChildValue(RectangleItem::P_XLOW, fromSceneX(this->x()));
+    m_item->setChildValue(RectangleItem::P_XUP, fromSceneX(this->x() + m_mask_rect.width()));
     m_block_on_property_change = false;
 }
 
@@ -53,8 +53,8 @@ void RectangleView::onChangedY()
 {
     m_block_on_property_change = true;
 //    m_item->setRegisteredProperty(RectangleItem::P_POSY, fromSceneY(this->y()));
-    m_item->setRegisteredProperty(RectangleItem::P_YLOW, fromSceneY(this->y() + m_mask_rect.height()));
-    m_item->setRegisteredProperty(RectangleItem::P_YUP, fromSceneY(this->y()));
+    m_item->setChildValue(RectangleItem::P_YLOW, fromSceneY(this->y() + m_mask_rect.height()));
+    m_item->setChildValue(RectangleItem::P_YUP, fromSceneY(this->y()));
     m_block_on_property_change = false;
 }
 
@@ -103,7 +103,7 @@ void RectangleView::onSizeHandleElementRequest(bool going_to_resize)
 void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
 //    painter->setRenderHints(QPainter::Antialiasing);
-    bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
+    bool mask_value = m_item->getChildValue(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
     painter->drawRect(m_mask_rect);
@@ -139,10 +139,10 @@ void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 //                                          fromSceneX(xmax) - fromSceneX(xmin));
 //            m_item->setRegisteredProperty(RectangleItem::P_HEIGHT,
 //                                          fromSceneY(ymin) - fromSceneY(ymax));
-            m_item->setRegisteredProperty(RectangleItem::P_XLOW, fromSceneX(xmin));
-            m_item->setRegisteredProperty(RectangleItem::P_YLOW, fromSceneY(ymax));
-            m_item->setRegisteredProperty(RectangleItem::P_XUP, fromSceneX(xmax));
-            m_item->setRegisteredProperty(RectangleItem::P_YUP, fromSceneY(ymin));
+            m_item->setChildValue(RectangleItem::P_XLOW, fromSceneX(xmin));
+            m_item->setChildValue(RectangleItem::P_YLOW, fromSceneY(ymax));
+            m_item->setChildValue(RectangleItem::P_XUP, fromSceneX(xmax));
+            m_item->setChildValue(RectangleItem::P_YUP, fromSceneY(ymin));
 
 
 
@@ -151,8 +151,8 @@ void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 //            m_item->setRegisteredProperty(RectangleItem::P_HEIGHT,
 //                                          fromSceneY(ymin) - fromSceneY(ymax));
 
-            m_item->setRegisteredProperty(RectangleItem::P_YLOW, fromSceneY(ymax));
-            m_item->setRegisteredProperty(RectangleItem::P_YUP, fromSceneY(ymin));
+            m_item->setChildValue(RectangleItem::P_YLOW, fromSceneY(ymax));
+            m_item->setChildValue(RectangleItem::P_YUP, fromSceneY(ymin));
 
 
         } else if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_WIDTH) {
@@ -160,8 +160,8 @@ void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 //            m_item->setRegisteredProperty(RectangleItem::P_WIDTH,
 //                                          fromSceneX(xmax) - fromSceneX(xmin));
 
-            m_item->setRegisteredProperty(RectangleItem::P_XLOW, fromSceneX(xmin));
-            m_item->setRegisteredProperty(RectangleItem::P_XUP, fromSceneX(xmax));
+            m_item->setChildValue(RectangleItem::P_XLOW, fromSceneX(xmin));
+            m_item->setChildValue(RectangleItem::P_XUP, fromSceneX(xmax));
 
         }
         update_view();

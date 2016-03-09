@@ -29,13 +29,13 @@ BasicAxisItem::BasicAxisItem(const QString &type)
 
 void BasicAxisItem::register_basic_properties()
 {
-    registerProperty(P_IS_VISIBLE, true)->setVisible(false);
-    registerProperty(P_NBINS, 100)->setLimits(AttLimits::limited(1, 1024));
-    registerProperty(P_MIN, 0.0)->setDecimals(3);
+    addProperty(P_IS_VISIBLE, true)->setVisible(false);
+    addProperty(P_NBINS, 100)->setLimits(AttLimits::limited(1, 1024));
+    addProperty(P_MIN, 0.0)->setDecimals(3);
     getItem(P_MIN)->setLimits(AttLimits::limitless());
-    registerProperty(P_MAX, -1.0)->setDecimals(3);
+    addProperty(P_MAX, -1.0)->setDecimals(3);
     getItem(P_MAX)->setLimits(AttLimits::limitless());
-    registerProperty(P_TITLE, QString());
+    addProperty(P_TITLE, QString());
 }
 
 // ---------------------------------------------------------------------------------------------- //
@@ -46,8 +46,8 @@ const QString AmplitudeAxisItem::P_LOCK_MIN_MAX = "Lock (min, max)";
 AmplitudeAxisItem::AmplitudeAxisItem()
     : BasicAxisItem(Constants::AmplitudeAxisType)
 {
-    registerProperty(P_LOCK_MIN_MAX, false)->setVisible(false);
-    registerProperty(P_IS_LOGSCALE, true);
+    addProperty(P_LOCK_MIN_MAX, false)->setVisible(false);
+    addProperty(P_IS_LOGSCALE, true);
     getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     getItem(BasicAxisItem::P_IS_VISIBLE)->setVisible(true);
 }

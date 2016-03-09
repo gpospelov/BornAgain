@@ -29,17 +29,17 @@ void IView::setParameterizedItem(SessionItem *item)
 {
     if (item) {
         m_item = item;
-        setX(m_item->getRegisteredProperty(SessionGraphicsItem::P_XPOS).toReal());
-        setY(m_item->getRegisteredProperty(SessionGraphicsItem::P_YPOS).toReal());
+        setX(m_item->getChildValue(SessionGraphicsItem::P_XPOS).toReal());
+        setY(m_item->getChildValue(SessionGraphicsItem::P_YPOS).toReal());
         ModelMapper *mapper = new ModelMapper(this);
         mapper->setItem(item);
         mapper->setOnPropertyChange(
                     [this] (const QString &name)
         {
             if (name == SessionGraphicsItem::P_XPOS) {
-                setX(m_item->getRegisteredProperty(SessionGraphicsItem::P_XPOS).toReal());
+                setX(m_item->getChildValue(SessionGraphicsItem::P_XPOS).toReal());
             } else if (name == SessionGraphicsItem::P_YPOS) {
-                setY(m_item->getRegisteredProperty(SessionGraphicsItem::P_YPOS).toReal());
+                setY(m_item->getChildValue(SessionGraphicsItem::P_YPOS).toReal());
             }
         });
         connect(m_item, SIGNAL(propertyChanged(const QString &)), this,
@@ -58,11 +58,11 @@ void IView::addView(IView *childView, int row)
 void IView::onChangedX()
 {
     Q_ASSERT(m_item);
-    m_item->setRegisteredProperty(SessionGraphicsItem::P_XPOS, x());
+    m_item->setChildValue(SessionGraphicsItem::P_XPOS, x());
 }
 
 void IView::onChangedY()
 {
     Q_ASSERT(m_item);
-    m_item->setRegisteredProperty(SessionGraphicsItem::P_YPOS, y());
+    m_item->setChildValue(SessionGraphicsItem::P_YPOS, y());
 }

@@ -309,7 +309,7 @@ void ColorMapPlot::onPropertyChanged(const QString &property_name)
         m_customPlot->replot();
     } else if (property_name == IntensityDataItem::P_PROJECTIONS_FLAG) {
         showLinesOverTheMap(
-            m_item->getRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
+            m_item->getChildValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
     }
 }
 
@@ -370,7 +370,7 @@ void ColorMapPlot::onSubItemPropertyChanged(const QString &property_group,
 
         } else if (property_name == BasicAxisItem::P_IS_VISIBLE) {
             setColorScaleVisible(m_item->getGroupItem(IntensityDataItem::P_ZAXIS)
-                ->getRegisteredProperty(BasicAxisItem::P_IS_VISIBLE).toBool());
+                ->getChildValue(BasicAxisItem::P_IS_VISIBLE).toBool());
         }
         m_customPlot->replot();
     }
@@ -510,7 +510,7 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
     }
 
     setColorScaleVisible(intensityItem->getGroupItem(IntensityDataItem::P_ZAXIS)
-        ->getRegisteredProperty(BasicAxisItem::P_IS_VISIBLE).toBool());
+        ->getChildValue(BasicAxisItem::P_IS_VISIBLE).toBool());
 
     m_colorMap->setGradient(m_gradient_map[intensityItem->getGradient()]);
 

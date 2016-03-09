@@ -28,7 +28,7 @@ QStringList ModelPath::getParameterTreeList(const SessionItem *item, QString pre
             && item->value().type() == QVariant::Double) {
         result << prefix + item->itemName();
     } else {
-        if (item->hasChildItems()) {
+        if (item->hasChildren()) {
             for (auto p_child : item->childItems()) {
                 QString child_name = p_child->itemName();
                 QString child_prefix = prefix + child_name + QString("/");
@@ -46,8 +46,8 @@ double ModelPath::getParameterValue(const SessionItem *item, const QString &name
     if (p_child) {
         return getParameterValue(p_child, stripFirstField(name));
     }
-    if (item->isRegisteredTag(head)) {
-        return item->getRegisteredProperty(head).toDouble();
+    if (item->isTag(head)) {
+        return item->getChildValue(head).toDouble();
     } else {
         return 0.0;
     }

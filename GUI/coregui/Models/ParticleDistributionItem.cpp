@@ -37,18 +37,18 @@ const QString ParticleDistributionItem::T_PARTICLES = "Particle Tag";
 ParticleDistributionItem::ParticleDistributionItem()
     : SessionGraphicsItem(Constants::ParticleDistributionType)
 {
-    registerProperty(ParticleItem::P_ABUNDANCE, 1.0);
+    addProperty(ParticleItem::P_ABUNDANCE, 1.0);
     getItem(ParticleItem::P_ABUNDANCE)->setLimits(AttLimits::limited(0.0, 1.0));
     getItem(ParticleItem::P_ABUNDANCE)->setDecimals(3);
 
-    registerGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
+    addGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
 
     registerTag(T_PARTICLES, 0, 1, QStringList() << Constants::ParticleType <<
                 Constants::ParticleCoreShellType << Constants::ParticleCompositionType);
     setDefaultTag(T_PARTICLES);
 
     ComboProperty par_prop;
-    registerProperty(P_DISTRIBUTED_PARAMETER, par_prop.getVariant());
+    addProperty(P_DISTRIBUTED_PARAMETER, par_prop.getVariant());
     updateParameterList();
     mapper()->setOnChildPropertyChange(
                 [this](SessionItem*,QString)
@@ -77,26 +77,26 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
 
     auto P_distribution = TransformToDomain::createDistribution(*distr_item);
 
-    auto prop = getRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+    auto prop = getChildValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                     .value<ComboProperty>();
     QString par_name = prop.getValue();
     std::string domain_par = ModelPath::translateParameterName(this, par_name);
     int nbr_samples
-        = distr_item->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
+        = distr_item->getChildValue(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
     double sigma_factor
-        = distr_item->getRegisteredProperty(DistributionItem::P_SIGMA_FACTOR).toDouble();
+        = distr_item->getChildValue(DistributionItem::P_SIGMA_FACTOR).toDouble();
     ParameterDistribution par_distr(domain_par, *P_distribution, nbr_samples, sigma_factor);
     auto result = GUIHelpers::make_unique<ParticleDistribution>(*P_particle, par_distr);
-    double abundance = getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+    double abundance = getChildValue(ParticleItem::P_ABUNDANCE).toDouble();
     result->setAbundance(abundance);
     return result;
 }
 
 void ParticleDistributionItem::updateParameterList()
 {
-    if (!isRegisteredTag(P_DISTRIBUTED_PARAMETER))
+    if (!isTag(P_DISTRIBUTED_PARAMETER))
         return;
-    QVariant par_prop = getRegisteredProperty(P_DISTRIBUTED_PARAMETER);
+    QVariant par_prop = getChildValue(P_DISTRIBUTED_PARAMETER);
     auto combo_prop = par_prop.value<ComboProperty>();
     QString cached_par = combo_prop.getCachedValue();
     if (!combo_prop.cacheContainsGUIValue()) {
@@ -120,13 +120,13 @@ void ParticleDistributionItem::updateParameterList()
     } else {
         updated_prop.setValue(NO_SELECTION);
     }
-    setRegisteredProperty(P_DISTRIBUTED_PARAMETER, updated_prop.getVariant());
+    setChildValue(P_DISTRIBUTED_PARAMETER, updated_prop.getVariant());
 }
 
 QStringList ParticleDistributionItem::getChildParameterNames() const
 {
     QStringList result;
-    QList<SessionItem *> children = getUnregisteredChildren();
+    QVector<SessionItem *> children = getItems();
     if (children.size() > 1) {
         qDebug() << "ParticleDistributionItem::getChildParameterNames(): "
                  << "More than one child item";

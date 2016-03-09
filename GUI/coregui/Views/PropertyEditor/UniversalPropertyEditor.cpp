@@ -178,7 +178,7 @@ void UniversalPropertyEditor::onPropertyChanged(const QString &property_name)
 
     QtVariantProperty *variant_property = m_item_to_propertyname_to_qtvariantproperty[m_item][property_name];
     if(variant_property) {
-        QVariant property_value = m_item->getRegisteredProperty(property_name);
+        QVariant property_value = m_item->getChildValue(property_name);
 
         disconnect(m_item, SIGNAL(propertyChanged(QString)),
                this, SLOT(onPropertyChanged(QString)));
@@ -212,7 +212,7 @@ void UniversalPropertyEditor::onSubItemPropertyChanged(const QString &property_g
     if(subItem){
         QtVariantProperty *variant_property = m_item_to_propertyname_to_qtvariantproperty[subItem][property_name];
         if(variant_property) {
-            QVariant property_value = subItem->getRegisteredProperty(property_name);
+            QVariant property_value = subItem->getChildValue(property_name);
 
             disconnect(m_item, SIGNAL(propertyChanged(QString)),
                    this, SLOT(onPropertyChanged(QString)));
@@ -343,7 +343,8 @@ void UniversalPropertyEditor::addSubProperties(QtProperty *item_property,
                 subProperty->setEnabled(false);
             }
 
-            if (item->isGroupProperty(prop_name)) {
+            SessionTagInfo tagInfo = item->getTagInfo(prop_name);
+            if (tagInfo.modelTypes.contains(Constants::GroupItemType)) {
                 SessionItem *subitem = item->getGroupItem(prop_name);
                 if (subitem) {
                     addSubProperties(subProperty, subitem);

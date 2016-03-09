@@ -28,10 +28,10 @@ const QString ParticleCoreShellItem::T_TRANSFORMATION = "Transformation Tag";
 ParticleCoreShellItem::ParticleCoreShellItem()
     : SessionGraphicsItem(Constants::ParticleCoreShellType)
 {
-    registerProperty(ParticleItem::P_ABUNDANCE, 1.0);
+    addProperty(ParticleItem::P_ABUNDANCE, 1.0);
     getItem(ParticleItem::P_ABUNDANCE)->setLimits(AttLimits::limited(0.0, 1.0));
     getItem(ParticleItem::P_ABUNDANCE)->setDecimals(3);
-    registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
+    addGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;
     ModelPath::addParameterTranslator(position_translator);
 
@@ -47,7 +47,7 @@ ParticleCoreShellItem::ParticleCoreShellItem()
         if (name == "OBSOLETE_P_PORT" && parent()) {
             if (parent()->modelType() == Constants::ParticleCompositionType
                 || parent()->modelType() == Constants::ParticleDistributionType) {
-                setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
+                setChildValue(ParticleItem::P_ABUNDANCE, 1.0);
                 getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
             }
         }
@@ -56,7 +56,7 @@ ParticleCoreShellItem::ParticleCoreShellItem()
 
 std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShell() const
 {
-    double abundance = getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+    double abundance = getChildValue(ParticleItem::P_ABUNDANCE).toDouble();
     auto children = childItems();
     std::unique_ptr<Particle> P_core {};
     std::unique_ptr<Particle> P_shell {};

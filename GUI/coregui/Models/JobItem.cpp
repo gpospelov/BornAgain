@@ -62,27 +62,27 @@ JobItem::JobItem()
 {
 //    registerProperty(OBSOLETE_P_NAME, Constants::JobItemType);
     setItemName(Constants::JobItemType);
-    registerProperty(P_IDENTIFIER, QString())->setVisible(false);
-    registerProperty(P_SAMPLE_NAME, QString())->setEditable(false);
-    registerProperty(P_INSTRUMENT_NAME, QString())->setEditable(false);
+    addProperty(P_IDENTIFIER, QString())->setVisible(false);
+    addProperty(P_SAMPLE_NAME, QString())->setEditable(false);
+    addProperty(P_INSTRUMENT_NAME, QString())->setEditable(false);
 
     ComboProperty status;
     status << Constants::STATUS_IDLE << Constants::STATUS_RUNNING << Constants::STATUS_COMPLETED
            << Constants::STATUS_CANCELED << Constants::STATUS_FAILED;
-    registerProperty(P_STATUS, status.getVariant())->setEditable(false);
+    addProperty(P_STATUS, status.getVariant())->setEditable(false);
 
-    registerProperty(P_BEGIN_TIME, QString())->setEditable(false);
-    registerProperty(P_END_TIME, QString())->setEditable(false);
-    registerProperty(P_COMMENTS, QString())->setVisible(false);
+    addProperty(P_BEGIN_TIME, QString())->setEditable(false);
+    addProperty(P_END_TIME, QString())->setEditable(false);
+    addProperty(P_COMMENTS, QString())->setVisible(false);
 
-    registerProperty(P_PROGRESS, 0)->setVisible(false);
-    registerProperty(P_NTHREADS, -1)->setVisible(false);
+    addProperty(P_PROGRESS, 0)->setVisible(false);
+    addProperty(P_NTHREADS, -1)->setVisible(false);
 
     ComboProperty policy;
     policy << Constants::JOB_RUN_IMMEDIATELY
            << Constants::JOB_RUN_IN_BACKGROUND
            << Constants::JOB_RUN_SUBMIT_ONLY;
-    registerProperty(P_RUN_POLICY, policy.getVariant())->setVisible(false);
+    addProperty(P_RUN_POLICY, policy.getVariant())->setVisible(false);
 
     const QString T_DATA = "Data Tag";
     registerTag("Data Tag", 0, -1, QStringList() << Constants::IntensityDataType
@@ -107,12 +107,12 @@ JobItem::~JobItem()
 
 QString JobItem::getIdentifier() const
 {
-    return getRegisteredProperty(P_IDENTIFIER).toString();
+    return getChildValue(P_IDENTIFIER).toString();
 }
 
 void JobItem::setIdentifier(const QString &identifier)
 {
-    setRegisteredProperty(JobItem::P_IDENTIFIER, identifier);
+    setChildValue(JobItem::P_IDENTIFIER, identifier);
 }
 
 IntensityDataItem *JobItem::getIntensityDataItem()
@@ -126,15 +126,15 @@ IntensityDataItem *JobItem::getIntensityDataItem()
 
 QString JobItem::getStatus() const
 {
-    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    ComboProperty combo_property = getChildValue(P_STATUS).value<ComboProperty>();
     return combo_property.getValue();
 }
 
 void JobItem::setStatus(const QString &status)
 {
-    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    ComboProperty combo_property = getChildValue(P_STATUS).value<ComboProperty>();
     combo_property.setValue(status);
-    setRegisteredProperty(P_STATUS, combo_property.getVariant());
+    setChildValue(P_STATUS, combo_property.getVariant());
     if(status == Constants::STATUS_FAILED) {
         if(IntensityDataItem *intensityItem = getIntensityDataItem()) {
             if(intensityItem->getOutputData())
@@ -146,90 +146,90 @@ void JobItem::setStatus(const QString &status)
 
 bool JobItem::isIdle() const
 {
-    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    ComboProperty combo_property = getChildValue(P_STATUS).value<ComboProperty>();
     return combo_property.getValue() == Constants::STATUS_IDLE;
 }
 
 bool JobItem::isRunning() const
 {
-    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    ComboProperty combo_property = getChildValue(P_STATUS).value<ComboProperty>();
     return combo_property.getValue() == Constants::STATUS_RUNNING;
 }
 
 bool JobItem::isCompleted() const
 {
-    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    ComboProperty combo_property = getChildValue(P_STATUS).value<ComboProperty>();
     return combo_property.getValue() == Constants::STATUS_COMPLETED;
 }
 
 bool JobItem::isCanceled() const
 {
-    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    ComboProperty combo_property = getChildValue(P_STATUS).value<ComboProperty>();
     return combo_property.getValue() == Constants::STATUS_CANCELED;
 }
 
 bool JobItem::isFailed() const
 {
-    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    ComboProperty combo_property = getChildValue(P_STATUS).value<ComboProperty>();
     return combo_property.getValue() == Constants::STATUS_FAILED;
 }
 
 void JobItem::setBeginTime(const QString &begin_time)
 {
-    setRegisteredProperty(P_BEGIN_TIME, begin_time);
+    setChildValue(P_BEGIN_TIME, begin_time);
 }
 
 void JobItem::setEndTime(const QString &end_time)
 {
-    setRegisteredProperty(P_END_TIME, end_time);
+    setChildValue(P_END_TIME, end_time);
 }
 
 QString JobItem::getComments() const
 {
-    return getRegisteredProperty(P_COMMENTS).toString();
+    return getChildValue(P_COMMENTS).toString();
 }
 
 void JobItem::setComments(const QString &comments)
 {
-    setRegisteredProperty(P_COMMENTS, comments);
+    setChildValue(P_COMMENTS, comments);
 }
 
 int JobItem::getProgress() const
 {
-    return getRegisteredProperty(P_PROGRESS).toInt();
+    return getChildValue(P_PROGRESS).toInt();
 }
 
 void JobItem::setProgress(int progress)
 {
-    setRegisteredProperty(P_PROGRESS, progress);
+    setChildValue(P_PROGRESS, progress);
 }
 
 int JobItem::getNumberOfThreads() const
 {
-    return getRegisteredProperty(P_NTHREADS).toInt();
+    return getChildValue(P_NTHREADS).toInt();
 }
 
 void JobItem::setNumberOfThreads(int number_of_threads)
 {
-    setRegisteredProperty(P_NTHREADS, number_of_threads);
+    setChildValue(P_NTHREADS, number_of_threads);
 }
 
 void JobItem::setRunPolicy(const QString &run_policy)
 {
-    ComboProperty combo_property = getRegisteredProperty(JobItem::P_RUN_POLICY).value<ComboProperty>();
+    ComboProperty combo_property = getChildValue(JobItem::P_RUN_POLICY).value<ComboProperty>();
     combo_property.setValue(run_policy);
-    setRegisteredProperty(JobItem::P_RUN_POLICY, combo_property.getVariant());
+    setChildValue(JobItem::P_RUN_POLICY, combo_property.getVariant());
 }
 
 bool JobItem::runImmediately() const
 {
-    ComboProperty combo_property = getRegisteredProperty(P_RUN_POLICY).value<ComboProperty>();
+    ComboProperty combo_property = getChildValue(P_RUN_POLICY).value<ComboProperty>();
     return combo_property.getValue() == Constants::JOB_RUN_IMMEDIATELY;
 }
 
 bool JobItem::runInBackground() const
 {
-    ComboProperty combo_property = getRegisteredProperty(P_RUN_POLICY).value<ComboProperty>();
+    ComboProperty combo_property = getChildValue(P_RUN_POLICY).value<ComboProperty>();
     return combo_property.getValue() == Constants::JOB_RUN_IN_BACKGROUND;
 }
 

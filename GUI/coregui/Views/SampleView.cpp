@@ -211,11 +211,11 @@ void SampleView::showContextMenu(const QPoint &pnt)
 {
     QMenu menu;
     QMenu add_menu(QString("Add"));
-    QList<QString> addItemNames;
+    QVector<QString> addItemNames;
     QModelIndex parent_index = getTreeView()->indexAt(pnt);
     getTreeView()->setCurrentIndex(parent_index);
     if (!parent_index.isValid()) {
-        addItemNames = ItemFactory::getValidTopItemNames();
+        addItemNames = ItemFactory::getValidTopItemNames().toVector();
     } else {
         addItemNames = getSampleModel()->getAcceptableChildItems(parent_index);
     }

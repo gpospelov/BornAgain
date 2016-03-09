@@ -40,7 +40,7 @@ const QString MaskItem::P_MASK_VALUE = "Mask value";
 MaskItem::MaskItem(const QString &name)
     : SessionItem(name)
 {
-    registerProperty(P_MASK_VALUE, true);
+    addProperty(P_MASK_VALUE, true);
 }
 
 std::unique_ptr<Geometry::IShape2D> MaskItem::createShape(double scale) const
@@ -60,18 +60,18 @@ RectangleItem::RectangleItem()
     : MaskItem(Constants::RectangleMaskType)
 {
     setItemName(Constants::RectangleMaskType);
-    registerProperty(P_XLOW, 0.0)->setLimits(AttLimits::limitless());
-    registerProperty(P_YLOW, 0.0)->setLimits(AttLimits::limitless());
-    registerProperty(P_XUP, 0.0)->setLimits(AttLimits::limitless());
-    registerProperty(P_YUP, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_XLOW, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_YLOW, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_XUP, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_YUP, 0.0)->setLimits(AttLimits::limitless());
 }
 
 std::unique_ptr<Geometry::IShape2D> RectangleItem::createShape(double scale) const
 {
-    double xlow = scale*getRegisteredProperty(P_XLOW).toDouble();
-    double ylow = scale*getRegisteredProperty(P_YLOW).toDouble();
-    double xup = scale*getRegisteredProperty(P_XUP).toDouble();
-    double yup = scale*getRegisteredProperty(P_YUP).toDouble();
+    double xlow = scale*getChildValue(P_XLOW).toDouble();
+    double ylow = scale*getChildValue(P_YLOW).toDouble();
+    double xup = scale*getChildValue(P_XUP).toDouble();
+    double yup = scale*getChildValue(P_YUP).toDouble();
     return GUIHelpers::make_unique<Geometry::Rectangle>(xlow, ylow, xup, yup);
 }
 
@@ -83,8 +83,8 @@ PolygonPointItem::PolygonPointItem()
     : SessionItem(Constants::PolygonPointType)
 {
     setItemName(Constants::PolygonPointType);
-    registerProperty(P_POSX, 0.0)->setLimits(AttLimits::limitless());
-    registerProperty(P_POSY, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_POSX, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_POSY, 0.0)->setLimits(AttLimits::limitless());
 }
 
 /* ------------------------------------------------------------------------- */
@@ -98,15 +98,15 @@ PolygonItem::PolygonItem()
     const QString T_POINTS = "Point tag";
     registerTag(T_POINTS, 0, -1, QStringList() << Constants::PolygonPointType);
     setDefaultTag(T_POINTS);
-    registerProperty(P_ISCLOSED, false)->setVisible(false);
+    addProperty(P_ISCLOSED, false)->setVisible(false);
 }
 
 std::unique_ptr<Geometry::IShape2D> PolygonItem::createShape(double scale) const
 {
     std::vector<double> x,y;
     foreach(SessionItem *item, this->getChildrenOfType(Constants::PolygonPointType)) {
-        x.push_back(scale*item->getRegisteredProperty(PolygonPointItem::P_POSX).toDouble());
-        y.push_back(scale*item->getRegisteredProperty(PolygonPointItem::P_POSY).toDouble());
+        x.push_back(scale*item->getChildValue(PolygonPointItem::P_POSX).toDouble());
+        y.push_back(scale*item->getChildValue(PolygonPointItem::P_POSY).toDouble());
     }
     return GUIHelpers::make_unique<Geometry::Polygon>(x, y);
 }
@@ -118,13 +118,13 @@ VerticalLineItem::VerticalLineItem()
     : MaskItem(Constants::VerticalLineMaskType)
 {
     setItemName(Constants::VerticalLineMaskType);
-    registerProperty(P_POSX, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_POSX, 0.0)->setLimits(AttLimits::limitless());
 }
 
 std::unique_ptr<Geometry::IShape2D> VerticalLineItem::createShape(double scale) const
 {
     return GUIHelpers::make_unique<Geometry::VerticalLine>(
-                scale*getRegisteredProperty(VerticalLineItem::P_POSX).toDouble());
+                scale*getChildValue(VerticalLineItem::P_POSX).toDouble());
 }
 
 /* ------------------------------------------------------------------------- */
@@ -134,13 +134,13 @@ HorizontalLineItem::HorizontalLineItem()
     : MaskItem(Constants::HorizontalLineMaskType)
 {
     setItemName(Constants::HorizontalLineMaskType);
-    registerProperty(P_POSY, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_POSY, 0.0)->setLimits(AttLimits::limitless());
 }
 
 std::unique_ptr<Geometry::IShape2D> HorizontalLineItem::createShape(double scale) const
 {
     return GUIHelpers::make_unique<Geometry::HorizontalLine>(
-                scale*getRegisteredProperty(HorizontalLineItem::P_POSY).toDouble());
+                scale*getChildValue(HorizontalLineItem::P_POSY).toDouble());
 }
 
 /* ------------------------------------------------------------------------- */
@@ -155,20 +155,20 @@ EllipseItem::EllipseItem()
     : MaskItem(Constants::EllipseMaskType)
 {
     setItemName(Constants::EllipseMaskType);
-    registerProperty(P_XCENTER, 0.0)->setLimits(AttLimits::limitless());
-    registerProperty(P_YCENTER, 0.0)->setLimits(AttLimits::limitless());
-    registerProperty(P_XRADIUS, 0.0);
-    registerProperty(P_YRADIUS, 0.0);
-    registerProperty(P_ANGLE, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_XCENTER, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_YCENTER, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_XRADIUS, 0.0);
+    addProperty(P_YRADIUS, 0.0);
+    addProperty(P_ANGLE, 0.0)->setLimits(AttLimits::limitless());
 }
 
 std::unique_ptr<Geometry::IShape2D> EllipseItem::createShape(double scale) const
 {
-    double xcenter = scale*getRegisteredProperty(EllipseItem::P_XCENTER).toDouble();
-    double ycenter = scale*getRegisteredProperty(EllipseItem::P_YCENTER).toDouble();
-    double xradius = scale*getRegisteredProperty(EllipseItem::P_XRADIUS).toDouble();
-    double yradius = scale*getRegisteredProperty(EllipseItem::P_YRADIUS).toDouble();
-    double angle = scale*getRegisteredProperty(EllipseItem::P_ANGLE).toDouble();
+    double xcenter = scale*getChildValue(EllipseItem::P_XCENTER).toDouble();
+    double ycenter = scale*getChildValue(EllipseItem::P_YCENTER).toDouble();
+    double xradius = scale*getChildValue(EllipseItem::P_XRADIUS).toDouble();
+    double yradius = scale*getChildValue(EllipseItem::P_YRADIUS).toDouble();
+    double angle = scale*getChildValue(EllipseItem::P_ANGLE).toDouble();
 
     return GUIHelpers::make_unique<Geometry::Ellipse>(xcenter, ycenter, xradius, yradius, angle);
 }

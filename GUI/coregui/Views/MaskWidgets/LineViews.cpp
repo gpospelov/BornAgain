@@ -39,7 +39,7 @@ VerticalLineView::VerticalLineView()
 void VerticalLineView::onChangedX()
 {
     m_block_on_property_change = true;
-    m_item->setRegisteredProperty(VerticalLineItem::P_POSX, fromSceneX(this->x()));
+    m_item->setChildValue(VerticalLineItem::P_POSX, fromSceneX(this->x()));
     m_block_on_property_change = false;
 }
 
@@ -64,7 +64,7 @@ void VerticalLineView::update_view()
 
 void VerticalLineView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
+    bool mask_value = m_item->getChildValue(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
     painter->drawRect(QRectF(-mask_visible_width/2., 0.0, mask_visible_width,
@@ -105,7 +105,7 @@ HorizontalLineView::HorizontalLineView()
 void HorizontalLineView::onChangedY()
 {
     m_block_on_property_change = true;
-    m_item->setRegisteredProperty(HorizontalLineItem::P_POSY, fromSceneY(this->y()));
+    m_item->setChildValue(HorizontalLineItem::P_POSY, fromSceneY(this->y()));
     m_block_on_property_change = false;
 }
 
@@ -130,7 +130,7 @@ void HorizontalLineView::update_view()
 
 void HorizontalLineView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
+    bool mask_value = m_item->getChildValue(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
     painter->drawRect(QRectF( 0.0, -mask_visible_width/2., m_bounding_rect.width(),

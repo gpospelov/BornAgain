@@ -58,11 +58,11 @@ inline void TestMapper::test_Inference2DRotationAngleToggle()
                                                        layout->index(), -1, ParticleLayoutItem::T_INTERFERENCE);
 
     // rotation (xi) should be disabled if integration is on
-    inference->setRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, true);
+    inference->setChildValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, true);
     QVERIFY(inference->getItem(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE)->isEnabled() == false);
 
     // rotation (xi) should be enabled if integration is off
-    inference->setRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, false);
+    inference->setChildValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, false);
     QVERIFY(!inference->getItem(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE)->isEnabled() == false);
 
 }
@@ -76,16 +76,16 @@ inline void TestMapper::test_instrumentAlignmentPropertyVisibility()
     SessionItem *rectangular = detector->getGroupItem(DetectorItem::P_DETECTOR);
 
 
-    ComboProperty alignment = rectangular->getRegisteredProperty(RectangularDetectorItem::P_ALIGNMENT)
+    ComboProperty alignment = rectangular->getChildValue(RectangularDetectorItem::P_ALIGNMENT)
             .value<ComboProperty>();
     // generic has some more items visible
     alignment.setValue(Constants::ALIGNMENT_GENERIC);
-    rectangular->setRegisteredProperty(RectangularDetectorItem::P_ALIGNMENT, QVariant::fromValue<ComboProperty>(alignment));
+    rectangular->setChildValue(RectangularDetectorItem::P_ALIGNMENT, QVariant::fromValue<ComboProperty>(alignment));
     QVERIFY(rectangular->getItem(RectangularDetectorItem::P_NORMAL)->isVisible());
 
     // should be disabled if we switch
     alignment.setValue(Constants::ALIGNMENT_TO_REFLECTED_BEAM);
-    rectangular->setRegisteredProperty(RectangularDetectorItem::P_ALIGNMENT, QVariant::fromValue<ComboProperty>(alignment));
+    rectangular->setChildValue(RectangularDetectorItem::P_ALIGNMENT, QVariant::fromValue<ComboProperty>(alignment));
     QVERIFY(rectangular->getItem(RectangularDetectorItem::P_NORMAL)->isVisible() == false);
 
 }
@@ -97,10 +97,10 @@ inline void TestMapper::test_removeMaskOnDetectorChange()
     SessionItem *detector = model.insertNewItem(Constants::DetectorType, instrument->index());
     detector->setGroupProperty(DetectorItem::P_DETECTOR, Constants::RectangularDetectorType);
     model.insertNewItem(Constants::MaskContainerType, detector->index());
-    QVERIFY(detector->getUnregisteredChildren().size() == 1);
+    QVERIFY(detector->getItems(DetectorItem::T_MASKS).size() == 1);
     // after change the mask container should be removed
     detector->setGroupProperty(DetectorItem::P_DETECTOR, Constants::SphericalDetectorType);
-    QVERIFY(detector->getUnregisteredChildren().size() == 0);
+    QVERIFY(detector->getItems(DetectorItem::T_MASKS).size() == 0);
 
 }
 

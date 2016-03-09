@@ -35,20 +35,20 @@ MaterialItem::MaterialItem()
     setItemName(Constants::MaterialType);
 
     ColorProperty color;
-    registerProperty(P_COLOR, color.getVariant());
-    registerGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
-    registerProperty(P_IDENTIFIER, QUuid::createUuid().toString());
+    addProperty(P_COLOR, color.getVariant());
+    addGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
+    addProperty(P_IDENTIFIER, QUuid::createUuid().toString());
 //    getItem(P_IDENTIFIER)->setVisible(false);
 }
 
 QString MaterialItem::getIdentifier() const
 {
-    return getRegisteredProperty(P_IDENTIFIER).toString();
+    return getChildValue(P_IDENTIFIER).toString();
 }
 
 QColor MaterialItem::getColor() const
 {
-    ColorProperty color_property = getRegisteredProperty(P_COLOR).value<ColorProperty>();
+    ColorProperty color_property = getChildValue(P_COLOR).value<ColorProperty>();
     return color_property.getColor();
 }
 

@@ -72,7 +72,7 @@ Qt::ItemFlags SessionModel::flags(const QModelIndex &index) const
         SessionItem *item = itemForIndex(index); // NEW make data editable as default
         if (index.column() == ITEM_VALUE)      // NEW
             result_flags |= Qt::ItemIsEditable;        // NEW
-        QList<QString> acceptable_child_items = getAcceptableChildItems(index);
+        QVector<QString> acceptable_child_items = getAcceptableChildItems(index);
         if (acceptable_child_items.contains(m_dragged_item_type)) {
             result_flags |= Qt::ItemIsDropEnabled;
         }
@@ -225,7 +225,7 @@ bool SessionModel::canDropMimeData(const QMimeData *data, Qt::DropAction action,
         return false;
     if (!parent.isValid())
         return true;
-    QList<QString> acceptable_child_items = getAcceptableChildItems(parent);
+    QVector<QString> acceptable_child_items = getAcceptableChildItems(parent);
     QByteArray xml_data = qUncompress(data->data(SessionXML::MimeType));
     QXmlStreamReader reader(xml_data);
     while (!reader.atEnd()) {
@@ -322,11 +322,11 @@ SessionItem *SessionModel::insertNewItem(QString model_type, const QModelIndex &
     return new_item;
 }
 
-QList<QString> SessionModel::getAcceptableChildItems(const QModelIndex &parent) const
+QVector<QString> SessionModel::getAcceptableChildItems(const QModelIndex &parent) const
 {
-    QList<QString> result;
+    QVector<QString> result;
     if (SessionItem *parent_item = itemForIndex(parent)) {
-        result = parent_item->acceptableChildItems();
+        result = parent_item->acceptableDefaultChildTypes();
     }
     return result;
 }
@@ -482,7 +482,7 @@ SessionItem *SessionModel::copyParameterizedItem(const SessionItem *item_to_copy
                                                        SessionItem *new_parent, int row)
 {
     if (new_parent) {
-        if (!new_parent->acceptsAsChild(item_to_copy->modelType()))
+        if (!new_parent->acceptsAsDefaultChild(item_to_copy->modelType()))
             return 0;
     } else {
         new_parent = m_root_item;

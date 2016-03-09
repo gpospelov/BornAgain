@@ -25,7 +25,7 @@ const QString DetectorItem::T_MASKS = "Mask tag";
 DetectorItem::DetectorItem()
     : SessionItem(Constants::DetectorType)
 {
-    registerGroupProperty(P_DETECTOR, Constants::DetectorGroup);
+    addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
     registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
     setDefaultTag(T_MASKS);
     setGroupProperty(P_DETECTOR, Constants::SphericalDetectorType);

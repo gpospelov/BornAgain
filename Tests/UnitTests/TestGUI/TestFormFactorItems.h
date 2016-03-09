@@ -21,10 +21,10 @@ inline void TestFormFactorItems::test_AnisoPyramidItem()
 {
     // to domain
     AnisoPyramidItem item;
-    item.setRegisteredProperty(AnisoPyramidItem::P_LENGTH, 20.0);
-    item.setRegisteredProperty(AnisoPyramidItem::P_WIDTH, 16.0);
-    item.setRegisteredProperty(AnisoPyramidItem::P_HEIGHT, 13.0);
-    item.setRegisteredProperty(AnisoPyramidItem::P_ALPHA, 60.0);
+    item.setChildValue(AnisoPyramidItem::P_LENGTH, 20.0);
+    item.setChildValue(AnisoPyramidItem::P_WIDTH, 16.0);
+    item.setChildValue(AnisoPyramidItem::P_HEIGHT, 13.0);
+    item.setChildValue(AnisoPyramidItem::P_ALPHA, 60.0);
     auto P_ff = item.createFormFactor();
     FormFactorAnisoPyramid *p_ff = dynamic_cast<FormFactorAnisoPyramid *>(P_ff.get());
     QVERIFY(p_ff);

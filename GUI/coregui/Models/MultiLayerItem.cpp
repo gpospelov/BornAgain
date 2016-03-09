@@ -25,7 +25,7 @@ const QString MultiLayerItem::T_LAYERS = "Layer tag";
 MultiLayerItem::MultiLayerItem()
     : SessionGraphicsItem(Constants::MultiLayerType)
 {
-    registerProperty(P_CROSS_CORR_LENGTH, 0.0);
+    addProperty(P_CROSS_CORR_LENGTH, 0.0);
     registerTag(T_LAYERS, 0, -1, QStringList() << Constants::LayerType);
     setDefaultTag(T_LAYERS);
     setItemName(Constants::MultiLayerType);
@@ -38,7 +38,7 @@ MultiLayerItem::MultiLayerItem()
 
 void MultiLayerItem::updateLayers()
 {
-    QList<SessionItem*> list = getChildrenOfType(Constants::LayerType);
+    QVector<SessionItem*> list = getChildrenOfType(Constants::LayerType);
     for(auto it = list.begin(); it != list.end(); ++it) {
         if(it == list.begin()) {
             (*it)->getItem(LayerItem::P_ROUGHNESS)->setEnabled(false);

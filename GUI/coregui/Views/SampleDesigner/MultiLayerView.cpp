@@ -269,7 +269,7 @@ const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEve
 
     int row = getDropArea(event->pos());
     if(mimeData->hasFormat("bornagain/widget")
-            && getParameterizedItem()->acceptsAsChild(mimeData->getClassName())
+            && getParameterizedItem()->acceptsAsDefaultChild(mimeData->getClassName())
             && row!=-1 ) {
 
         qDebug() << "MultiLayerView::checkDragEvent -> yes"  << row << getDropAreaRectangle(row);

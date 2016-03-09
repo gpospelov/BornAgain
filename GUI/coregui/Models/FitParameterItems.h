@@ -19,14 +19,14 @@
 
 class BA_CORE_API_ FitParameterContainer : public SessionItem
 {
-    Q_OBJECT
+
 public:
     explicit FitParameterContainer();
 };
 
 class BA_CORE_API_ FitParameterItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_USE;
     static const QString P_INIT;
@@ -38,7 +38,7 @@ public:
 
 class BA_CORE_API_ FitParameterLinkItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_LINK;
     explicit FitParameterLinkItem();
@@ -47,7 +47,7 @@ public:
 
 class BA_CORE_API_ FitSelectionItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_SAMPLE;
     static const QString P_INSTRUMENT;
@@ -56,7 +56,7 @@ public:
 
 class BA_CORE_API_ MinimizerSettingsItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_ALGO;
     explicit MinimizerSettingsItem();
@@ -64,7 +64,7 @@ public:
 
 class BA_CORE_API_ InputDataItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_PATH;
     explicit InputDataItem();

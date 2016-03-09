@@ -22,7 +22,7 @@
 
 class BA_CORE_API_ ResolutionFunctionItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     explicit ResolutionFunctionItem(const QString name);
     virtual ~ResolutionFunctionItem() {}
@@ -32,7 +32,7 @@ public:
 
 class BA_CORE_API_ ResolutionFunctionNoneItem : public ResolutionFunctionItem
 {
-    Q_OBJECT
+
 public:
     explicit ResolutionFunctionNoneItem();
     virtual IResolutionFunction2D *createResolutionFunction(double scale) const;
@@ -40,7 +40,7 @@ public:
 
 class BA_CORE_API_ ResolutionFunction2DGaussianItem : public ResolutionFunctionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_SIGMA_X;
     static const QString P_SIGMA_Y;

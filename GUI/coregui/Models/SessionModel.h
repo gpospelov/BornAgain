@@ -78,7 +78,7 @@ public:
     QString getModelName() const;
     void setModelName(const QString &name);
 
-    QVector<QString> getAcceptableDefaultChildTypes(const QModelIndex &parent) const;
+    QVector<QString> getAcceptableDefaultItemTypes(const QModelIndex &parent) const;
 
     void clear();
     void load(const QString &filename = QString());
@@ -120,10 +120,6 @@ protected:
     void setRootItem(SessionItem *root) {m_root_item = root;}
 
 private:
-
-    SessionItem *insertNewItem(QString model_type, SessionItem *parent, int row = -1);
-
-    void cleanItem(const QModelIndex &parent, int first, int last);
 
     void report_error(const QString &error_type, const QString &message);
 

@@ -92,6 +92,13 @@ void ModelMapper::onDataChanged(const QModelIndex &topLeft, const QModelIndex &b
     if (topLeft.parent() != bottomRight.parent())
         return; // range must be from the same parent
     SessionItem *item = m_model->itemForIndex(topLeft);
+    if (item->modelType() == Constants::IntensityDataType) {
+        if (m_active && m_onPropertyChange.size() > 0) {
+            for (auto f : m_onPropertyChange) {
+                f(item->itemName());
+            }
+        }
+    }
     int nestling = nestlingDepth(item);
     if (nestling > 0 && nestling < 2) {
         // something happened with our property or group item

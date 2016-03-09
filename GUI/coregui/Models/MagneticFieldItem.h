@@ -21,7 +21,7 @@
 
 class BA_CORE_API_ MagneticFieldItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_BX;
     static const QString P_BY;

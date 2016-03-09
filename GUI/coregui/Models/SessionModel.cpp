@@ -72,7 +72,7 @@ Qt::ItemFlags SessionModel::flags(const QModelIndex &index) const
         SessionItem *item = itemForIndex(index); // NEW make data editable as default
         if (index.column() == ITEM_VALUE)      // NEW
             result_flags |= Qt::ItemIsEditable;        // NEW
-        QVector<QString> acceptable_child_items = getAcceptableDefaultChildTypes(index);
+        QVector<QString> acceptable_child_items = getAcceptableDefaultItemTypes(index);
         if (acceptable_child_items.contains(m_dragged_item_type)) {
             result_flags |= Qt::ItemIsDropEnabled;
         }
@@ -152,7 +152,7 @@ QModelIndex SessionModel::parent(const QModelIndex &child) const
                 return QModelIndex();
 //            if (SessionItem *grandparent_item = parent_item->parent()) {
 //                int row = grandparent_item->rowOfChild(parent_item);
-                return createIndex(parent_item->childNumber(), 0, parent_item); // CHANGED use new method
+                return createIndex(parent_item->parentRow(), 0, parent_item); // CHANGED use new method
 //            }
         }
     }
@@ -225,7 +225,7 @@ bool SessionModel::canDropMimeData(const QMimeData *data, Qt::DropAction action,
         return false;
     if (!parent.isValid())
         return true;
-    QVector<QString> acceptable_child_items = getAcceptableDefaultChildTypes(parent);
+    QVector<QString> acceptable_child_items = getAcceptableDefaultItemTypes(parent);
     QByteArray xml_data = qUncompress(data->data(SessionXML::MimeType));
     QXmlStreamReader reader(xml_data);
     while (!reader.atEnd()) {
@@ -322,11 +322,11 @@ SessionItem *SessionModel::insertNewItem(QString model_type, const QModelIndex &
     return new_item;
 }
 
-QVector<QString> SessionModel::getAcceptableDefaultChildTypes(const QModelIndex &parent) const
+QVector<QString> SessionModel::getAcceptableDefaultItemTypes(const QModelIndex &parent) const
 {
     QVector<QString> result;
     if (SessionItem *parent_item = itemForIndex(parent)) {
-        result = parent_item->acceptableDefaultChildTypes();
+        result = parent_item->acceptableDefaultItemTypes();
     }
     return result;
 }
@@ -482,7 +482,7 @@ SessionItem *SessionModel::copyParameterizedItem(const SessionItem *item_to_copy
                                                        SessionItem *new_parent, int row)
 {
     if (new_parent) {
-        if (!new_parent->acceptsAsDefaultChild(item_to_copy->modelType()))
+        if (!new_parent->acceptsAsDefaultItem(item_to_copy->modelType()))
             return 0;
     } else {
         new_parent = m_root_item;
@@ -550,19 +550,6 @@ void SessionModel::setMessageService(WarningMessageService *messageService)
     m_messageService = messageService;
 }
 
-SessionItem *SessionModel::insertNewItem(QString model_type, SessionItem *parent,
-                                               int row)
-{
-//    if (!m_root_item) {
-//        m_root_item = ItemFactory::createEmptyItem();
-//    }
-    Q_ASSERT(0); // g.p. What to do here?
-    Q_UNUSED(model_type);
-    Q_UNUSED(parent);
-    Q_UNUSED(row);
-    return 0;
-}
-
 void SessionModel::initFrom(SessionModel *model, SessionItem *parent)
 {
     qDebug() << "SessionModel::initFrom() -> " << model->getModelTag() << parent;
@@ -579,22 +566,6 @@ void SessionModel::initFrom(SessionModel *model, SessionItem *parent)
         if (reader.isStartElement()) {
             readFrom(&reader);
         }
-    }
-}
-
-void SessionModel::cleanItem(const QModelIndex &parent, int first, int /* last */)
-{
-    SessionItem *parentItem = itemForIndex(parent);
-    Q_ASSERT(parentItem);
-    QModelIndex childIndex = index(first, 0, parent);
-    SessionItem *childItem = itemForIndex(childIndex);
-    Q_ASSERT(childItem);
-
-    // TODO restore logic
-    SessionItem *candidate_for_removal = nullptr;//parentItem->getCandidateForRemoval(childItem);
-    if (candidate_for_removal) {
-        // qDebug() << " candidate_for_removal" << candidate_for_removal;
-        moveParameterizedItem(candidate_for_removal, 0);
     }
 }
 

@@ -21,7 +21,7 @@
 //! The TestItem class for TestSessionItem unit tests and for checking AwesomePropertyEditor machinery
 class BA_CORE_API_ TestItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_DISTRIBUTION;
     static const QString P_VALUE;

@@ -21,7 +21,6 @@
 
 class BA_CORE_API_ BeamAzimuthalAngleItem : public BeamDistributionItem
 {
-    Q_OBJECT
 public:
     explicit BeamAzimuthalAngleItem();
     virtual ~BeamAzimuthalAngleItem(){}
@@ -31,7 +30,6 @@ protected:
 
 class BA_CORE_API_ BeamInclinationAngleItem : public BeamDistributionItem
 {
-    Q_OBJECT
 public:
     explicit BeamInclinationAngleItem();
     virtual ~BeamInclinationAngleItem(){}

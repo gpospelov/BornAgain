@@ -38,7 +38,8 @@ void ConnectableView::setParameterizedItem(SessionItem *item)
     IView::setParameterizedItem(item);
     if (m_item) {
         setLabel( hyphenate(m_item->itemName()) );
-        connect(m_item, SIGNAL(siblingsChanged()), this, SLOT(onSiblingsChanged()));
+        // TODO restore logic
+//        connect(m_item, SIGNAL(siblingsChanged()), this, SLOT(onSiblingsChanged()));
     }
 }
 

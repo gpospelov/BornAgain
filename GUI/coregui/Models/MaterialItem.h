@@ -23,7 +23,7 @@ class IMaterial;
 
 class BA_CORE_API_ MaterialItem : public SessionItem
 {
-    Q_OBJECT
+
 
 public:
     static const QString P_COLOR;

@@ -24,7 +24,7 @@
 
 class BA_CORE_API_ ParticleCoreShellItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
     const static QString T_CORE;
     const static QString T_SHELL;
@@ -36,8 +36,6 @@ public:
 
     void notifyChildParticlePortChanged();
 
-private:
-//    PortInfo::EPorts getFirstAvailableParticlePort() const;
 };
 
 #endif

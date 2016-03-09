@@ -139,7 +139,7 @@ void JobItem::setStatus(const QString &status)
         if(IntensityDataItem *intensityItem = getIntensityDataItem()) {
             if(intensityItem->getOutputData())
                 intensityItem->getOutputData()->setAllTo(0.0);
-                emit intensityItem->intensityModified();
+                emit intensityItem->emitDataChanged();
         }
     }
 }

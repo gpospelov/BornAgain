@@ -24,7 +24,7 @@ class IFormFactor;
 
 class BA_CORE_API_ FormFactorItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     explicit FormFactorItem(const QString &model_type)
         : SessionItem(model_type) {}
@@ -34,7 +34,7 @@ public:
 
 class BA_CORE_API_ AnisoPyramidItem : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_LENGTH;
     static const QString P_WIDTH;
@@ -47,7 +47,7 @@ public:
 
 class BA_CORE_API_ BoxItem : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_LENGTH;
     static const QString P_WIDTH;
@@ -59,7 +59,7 @@ public:
 
 class BA_CORE_API_ ConeItem : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_RADIUS;
     static const QString P_HEIGHT;
@@ -71,7 +71,7 @@ public:
 
 class BA_CORE_API_ Cone6Item : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_RADIUS;
     static const QString P_HEIGHT;
@@ -83,7 +83,7 @@ public:
 
 class BA_CORE_API_ CuboctahedronItem : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_LENGTH;
     static const QString P_HEIGHT;
@@ -96,7 +96,7 @@ public:
 
 class BA_CORE_API_ CylinderItem : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_RADIUS;
     static const QString P_HEIGHT;
@@ -107,7 +107,7 @@ public:
 
 class BA_CORE_API_ EllipsoidalCylinderItem : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_RADIUS_X;
     static const QString P_RADIUS_Y;
@@ -119,7 +119,7 @@ public:
 
 class BA_CORE_API_ FullSphereItem : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_RADIUS;
     explicit FullSphereItem();
@@ -129,7 +129,7 @@ public:
 
 class BA_CORE_API_ FullSpheroidItem : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_RADIUS;
     static const QString P_HEIGHT;
@@ -140,7 +140,7 @@ public:
 
 class BA_CORE_API_ HemiEllipsoidItem : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_RADIUS_X;
     static const QString P_RADIUS_Y;
@@ -152,7 +152,7 @@ public:
 
 class BA_CORE_API_ Prism3Item : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_LENGTH;
     static const QString P_HEIGHT;
@@ -163,7 +163,7 @@ public:
 
 class BA_CORE_API_ Prism6Item : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_RADIUS;
     static const QString P_HEIGHT;
@@ -174,7 +174,7 @@ public:
 
 class BA_CORE_API_ PyramidItem : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_LENGTH;
     static const QString P_HEIGHT;
@@ -186,7 +186,7 @@ public:
 
 class BA_CORE_API_ Ripple1Item : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_LENGTH;
     static const QString P_WIDTH;
@@ -198,7 +198,7 @@ public:
 
 class BA_CORE_API_ Ripple2Item : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_LENGTH;
     static const QString P_WIDTH;
@@ -211,7 +211,7 @@ public:
 
 class BA_CORE_API_ TetrahedronItem : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_LENGTH;
     static const QString P_HEIGHT;
@@ -223,7 +223,7 @@ public:
 
 class BA_CORE_API_ TruncatedCubeItem : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_LENGTH;
     static const QString P_REMOVED_LENGTH;
@@ -234,7 +234,7 @@ public:
 
 class BA_CORE_API_ TruncatedSphereItem : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_RADIUS;
     static const QString P_HEIGHT;
@@ -245,7 +245,7 @@ public:
 
 class BA_CORE_API_ TruncatedSpheroidItem : public FormFactorItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_RADIUS;
     static const QString P_HEIGHT;

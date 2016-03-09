@@ -24,7 +24,7 @@
 
 class BA_CORE_API_ ParticleCompositionItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
     const static QString T_PARTICLES;
     const static QString T_TRANSFORMATION;

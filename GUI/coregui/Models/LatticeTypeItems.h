@@ -20,7 +20,7 @@
 
 class BA_CORE_API_ BasicLatticeTypeItem : public SessionItem
 {
-    Q_OBJECT
+    
 public:
     static const QString P_LATTICE_LENGTH1;
     static const QString P_LATTICE_LENGTH2;
@@ -31,7 +31,7 @@ public:
 
 class BA_CORE_API_ SquareLatticeTypeItem : public SessionItem
 {
-    Q_OBJECT
+    
 public:
     static const QString P_LATTICE_LENGTH;
     explicit SquareLatticeTypeItem();
@@ -40,7 +40,7 @@ public:
 
 class BA_CORE_API_ HexagonalLatticeTypeItem : public SessionItem
 {
-    Q_OBJECT
+    
 public:
     static const QString P_LATTICE_LENGTH;
     explicit HexagonalLatticeTypeItem();

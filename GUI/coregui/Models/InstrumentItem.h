@@ -23,7 +23,7 @@ class DetectorItem;
 
 class BA_CORE_API_ InstrumentItem : public SessionItem
 {
-    Q_OBJECT
+    
 
 public:
     explicit InstrumentItem();

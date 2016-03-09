@@ -42,10 +42,6 @@ void IView::setParameterizedItem(SessionItem *item)
                 setY(m_item->getItemValue(SessionGraphicsItem::P_YPOS).toReal());
             }
         });
-        connect(m_item, SIGNAL(propertyChanged(const QString &)), this,
-                SLOT(onPropertyChange(const QString &)));
-        connect(m_item, SIGNAL(subItemChanged(const QString &)), this,
-                SLOT(onPropertyChange(const QString &)));
     }
 }
 

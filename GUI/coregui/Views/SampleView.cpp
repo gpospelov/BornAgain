@@ -217,7 +217,7 @@ void SampleView::showContextMenu(const QPoint &pnt)
     if (!parent_index.isValid()) {
         addItemNames = ItemFactory::getValidTopItemNames().toVector();
     } else {
-        addItemNames = getSampleModel()->getAcceptableDefaultChildTypes(parent_index);
+        addItemNames = getSampleModel()->getAcceptableDefaultItemTypes(parent_index);
     }
     if (addItemNames.size() > 0) {
         foreach (QString item_name, addItemNames) {

@@ -20,7 +20,7 @@
 
 class BA_CORE_API_ LayerItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_THICKNESS;
     static const QString P_ROUGHNESS;

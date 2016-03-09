@@ -60,19 +60,12 @@ void IntensityDataWidget::setItem(IntensityDataItem *item)
 
     if (m_currentItem == item) return;
 
-    if (m_currentItem) {
-        disconnect(m_currentItem, SIGNAL(propertyChanged(QString)),
-                this, SLOT(onPropertyChanged(QString)));
-    }
 
     m_currentItem = item;
 
     if (!m_currentItem) return;
 
     updateItem(m_currentItem);
-
-    connect(m_currentItem, SIGNAL(propertyChanged(QString)),
-            this, SLOT(onPropertyChanged(QString)));
 }
 
 void IntensityDataWidget::togglePropertyPanel()

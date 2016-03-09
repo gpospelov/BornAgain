@@ -112,28 +112,29 @@ void InstrumentEditorWidget::setInstrumentItem(SessionItem *instrument)
     Q_ASSERT(instrument);
     if(instrument != m_currentItem) {
         if(m_currentItem) {
-            disconnect(m_currentItem,
-                       SIGNAL(propertyChanged(QString)),
-                       this,
-                       SLOT(onPropertyChanged(QString))
-                       );
-            disconnect(m_currentItem,
-                       SIGNAL(subItemChanged(QString)),
-                       this,
-                       SLOT(onPropertyChanged(QString))
-                       );
+            // TODO restore logic
+//            disconnect(m_currentItem,
+//                       SIGNAL(propertyChanged(QString)),
+//                       this,
+//                       SLOT(onPropertyChanged(QString))
+//                       );
+//            disconnect(m_currentItem,
+//                       SIGNAL(subItemChanged(QString)),
+//                       this,
+//                       SLOT(onPropertyChanged(QString))
+//                       );
         }
         m_currentItem = instrument;
-        connect(m_currentItem,
-                   SIGNAL(propertyChanged(QString)),
-                   this,
-                   SLOT(onPropertyChanged(QString))
-                   );
-        connect(m_currentItem,
-                   SIGNAL(subItemChanged(QString)),
-                   this,
-                   SLOT(onPropertyChanged(QString))
-                   );
+//        connect(m_currentItem,
+//                   SIGNAL(propertyChanged(QString)),
+//                   this,
+//                   SLOT(onPropertyChanged(QString))
+//                   );
+//        connect(m_currentItem,
+//                   SIGNAL(subItemChanged(QString)),
+//                   this,
+//                   SLOT(onPropertyChanged(QString))
+//                   );
         updateWidgets();
     }
     InstrumentItem *instrumentItem = dynamic_cast<InstrumentItem *>(instrument);

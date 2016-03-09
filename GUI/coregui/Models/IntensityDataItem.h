@@ -24,9 +24,8 @@
 class GISASSimulation;
 
 
-class BA_CORE_API_ IntensityDataItem : public SessionItem
+class BA_CORE_API_ IntensityDataItem : public QObject, public SessionItem
 {
-    Q_OBJECT
 public:
     static const QString P_PROJECTIONS_FLAG;
     static const QString P_IS_INTERPOLATED;
@@ -80,9 +79,6 @@ public:
     void setNameFromProposed(const QString &proposed_name);
 
     virtual QString getSelectedAxesUnits() const;
-
-signals:
-    void intensityModified();
 
 public slots:
     void setLowerX(double xmin);

@@ -41,7 +41,7 @@ inline void TestMapper::test_ParticeleCompositionUpdate()
     SessionItem *composition = model.insertNewItem(Constants::ParticleCompositionType, distribution->index());
     QVERIFY(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == false);
 
-    composition = distribution->takeRow(composition->childNumber());
+    composition = distribution->takeRow(composition->parentRow());
     QVERIFY(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
     delete composition;
 

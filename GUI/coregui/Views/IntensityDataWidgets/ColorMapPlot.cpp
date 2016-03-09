@@ -46,10 +46,10 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
         return;
     }
 
-    if (m_item) {
-        disconnect(m_item, SIGNAL(intensityModified()), this,
-                   SLOT(onIntensityModified()));
-    }
+//    if (m_item) {
+//        disconnect(m_item, SIGNAL(intensityModified()), this,
+//                   SLOT(onIntensityModified()));
+//    }
 
     m_item = item;
 
@@ -58,14 +58,15 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
 
     plotItem(m_item);
 
-    connect(m_item, SIGNAL(intensityModified()), this,
-               SLOT(onIntensityModified()));
+//    connect(m_item, SIGNAL(intensityModified()), this,
+//               SLOT(onIntensityModified()));
     ModelMapper *mapper = new ModelMapper(this);
     mapper->setItem(item);
     mapper->setOnPropertyChange(
                 [this](const QString &name)
     {
         onPropertyChanged(name);
+        onIntensityModified();
     });
     mapper->setOnChildPropertyChange(
                 [this](SessionItem* item, const QString name)

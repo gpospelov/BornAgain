@@ -22,7 +22,7 @@
 
 class BA_CORE_API_ SessionGraphicsItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_XPOS;
     static const QString P_YPOS;

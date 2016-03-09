@@ -20,7 +20,7 @@
 
 class BA_CORE_API_ RefractiveIndexItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_DELTA;
     static const QString P_BETA;

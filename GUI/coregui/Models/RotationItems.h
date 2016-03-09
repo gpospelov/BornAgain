@@ -21,7 +21,7 @@
 
 class RotationItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     explicit RotationItem(const QString name) : SessionItem(name){}
     virtual IRotation *createRotation() const{ return 0;}
@@ -31,7 +31,7 @@ public:
 
 class XRotationItem : public RotationItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_ANGLE;
     explicit XRotationItem();
@@ -40,7 +40,7 @@ public:
 
 class YRotationItem : public RotationItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_ANGLE;
     explicit YRotationItem();
@@ -49,7 +49,7 @@ public:
 
 class ZRotationItem : public RotationItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_ANGLE;
     explicit ZRotationItem();
@@ -58,7 +58,7 @@ public:
 
 class EulerRotationItem : public RotationItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_ALPHA, P_BETA, P_GAMMA;
     explicit EulerRotationItem();

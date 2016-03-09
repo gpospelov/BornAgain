@@ -20,7 +20,7 @@
 
 class BA_CORE_API_ PropertyItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     PropertyItem();
 

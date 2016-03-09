@@ -121,14 +121,14 @@ void UniversalPropertyEditor::slotValueChanged(QtProperty *property,
             m_property_to_item_index_pair.value(property);
 
     if (item_index_pair.m_item) {
-        QList<QByteArray> prop_list =
-                item_index_pair.m_item->dynamicPropertyNames();
+        QList<QByteArray> prop_list; // TODO restore logic if needed
+//                item_index_pair.m_item->dynamicPropertyNames();
         if (item_index_pair.m_index > prop_list.length()) {
             return;
         }
         qDebug() << "UniversalPropertyEditor::slotValueChanged() -> setting ..." << prop_list[item_index_pair.m_index].constData();
-        item_index_pair.m_item->setProperty(
-            prop_list[item_index_pair.m_index].constData(), value);
+//        item_index_pair.m_item->setProperty(
+//            prop_list[item_index_pair.m_index].constData(), value);
     }
 }
 
@@ -153,22 +153,23 @@ void UniversalPropertyEditor::updateSubItems(const QString &name)
 
     if (!m_item) return;
 
-    disconnect(m_item, SIGNAL(propertyChanged(QString)),
-            this, SLOT(onPropertyChanged(QString)));
-    disconnect(m_item, SIGNAL(subItemChanged(QString)),
-               this, SLOT(updateSubItems(QString)));
-    disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-            this, SLOT(onSubItemPropertyChanged(QString,QString)));
+    // TODO restore logic
+//    disconnect(m_item, SIGNAL(propertyChanged(QString)),
+//            this, SLOT(onPropertyChanged(QString)));
+//    disconnect(m_item, SIGNAL(subItemChanged(QString)),
+//               this, SLOT(updateSubItems(QString)));
+//    disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
+//            this, SLOT(onSubItemPropertyChanged(QString,QString)));
 
     clearEditor();
 
     addItemProperties(m_item);
-    connect(m_item, SIGNAL(subItemChanged(QString)),
-            this, SLOT(updateSubItems(QString)));
-    connect(m_item, SIGNAL(propertyChanged(QString)),
-            this, SLOT(onPropertyChanged(QString)));
-    connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-            this, SLOT(onSubItemPropertyChanged(QString,QString)));
+//    connect(m_item, SIGNAL(subItemChanged(QString)),
+//            this, SLOT(updateSubItems(QString)));
+//    connect(m_item, SIGNAL(propertyChanged(QString)),
+//            this, SLOT(onPropertyChanged(QString)));
+//    connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
+//            this, SLOT(onSubItemPropertyChanged(QString,QString)));
 }
 
 void UniversalPropertyEditor::onPropertyChanged(const QString &property_name)
@@ -180,12 +181,13 @@ void UniversalPropertyEditor::onPropertyChanged(const QString &property_name)
     if(variant_property) {
         QVariant property_value = m_item->getItemValue(property_name);
 
-        disconnect(m_item, SIGNAL(propertyChanged(QString)),
-               this, SLOT(onPropertyChanged(QString)));
-        disconnect(m_item, SIGNAL(subItemChanged(QString)),
-            this, SLOT(updateSubItems(QString)));
-        disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-                this, SLOT(onSubItemPropertyChanged(QString,QString)));
+        // TODO restore logic
+//        disconnect(m_item, SIGNAL(propertyChanged(QString)),
+//               this, SLOT(onPropertyChanged(QString)));
+//        disconnect(m_item, SIGNAL(subItemChanged(QString)),
+//            this, SLOT(updateSubItems(QString)));
+//        disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
+//                this, SLOT(onSubItemPropertyChanged(QString,QString)));
 
         variant_property->setValue(property_value);
 
@@ -196,12 +198,12 @@ void UniversalPropertyEditor::onPropertyChanged(const QString &property_name)
             variant_property->setEnabled(true);
         }
 
-        connect(m_item, SIGNAL(propertyChanged(QString)),
-               this, SLOT(onPropertyChanged(QString)));
-        connect(m_item, SIGNAL(subItemChanged(QString)),
-            this, SLOT(updateSubItems(QString)));
-        connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-                this, SLOT(onSubItemPropertyChanged(QString,QString)));
+//        connect(m_item, SIGNAL(propertyChanged(QString)),
+//               this, SLOT(onPropertyChanged(QString)));
+//        connect(m_item, SIGNAL(subItemChanged(QString)),
+//            this, SLOT(updateSubItems(QString)));
+//        connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
+//                this, SLOT(onSubItemPropertyChanged(QString,QString)));
     }
 }
 
@@ -214,12 +216,13 @@ void UniversalPropertyEditor::onSubItemPropertyChanged(const QString &property_g
         if(variant_property) {
             QVariant property_value = subItem->getItemValue(property_name);
 
-            disconnect(m_item, SIGNAL(propertyChanged(QString)),
-                   this, SLOT(onPropertyChanged(QString)));
-            disconnect(m_item, SIGNAL(subItemChanged(QString)),
-                this, SLOT(updateSubItems(QString)));
-            disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-                    this, SLOT(onSubItemPropertyChanged(QString,QString)));
+            // TODO restore logic
+//            disconnect(m_item, SIGNAL(propertyChanged(QString)),
+//                   this, SLOT(onPropertyChanged(QString)));
+//            disconnect(m_item, SIGNAL(subItemChanged(QString)),
+//                this, SLOT(updateSubItems(QString)));
+//            disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
+//                    this, SLOT(onSubItemPropertyChanged(QString,QString)));
 
             variant_property->setValue(property_value);
 
@@ -230,12 +233,12 @@ void UniversalPropertyEditor::onSubItemPropertyChanged(const QString &property_g
                 variant_property->setEnabled(true);
             }
 
-            connect(m_item, SIGNAL(propertyChanged(QString)),
-                   this, SLOT(onPropertyChanged(QString)));
-            connect(m_item, SIGNAL(subItemChanged(QString)),
-                this, SLOT(updateSubItems(QString)));
-            connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-                    this, SLOT(onSubItemPropertyChanged(QString,QString)));
+//            connect(m_item, SIGNAL(propertyChanged(QString)),
+//                   this, SLOT(onPropertyChanged(QString)));
+//            connect(m_item, SIGNAL(subItemChanged(QString)),
+//                this, SLOT(updateSubItems(QString)));
+//            connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
+//                    this, SLOT(onSubItemPropertyChanged(QString,QString)));
 
 
         }
@@ -250,12 +253,12 @@ void UniversalPropertyEditor::setItem(SessionItem *item)
     if (m_item == item) return;
 
     if (m_item) {
-        disconnect(m_item, SIGNAL(subItemChanged(QString)),
-                this, SLOT(updateSubItems(QString)));
-        disconnect(m_item, SIGNAL(propertyChanged(QString)),
-                this, SLOT(onPropertyChanged(QString)));
-        disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-                this, SLOT(onSubItemPropertyChanged(QString,QString)));
+//        disconnect(m_item, SIGNAL(subItemChanged(QString)),
+//                this, SLOT(updateSubItems(QString)));
+//        disconnect(m_item, SIGNAL(propertyChanged(QString)),
+//                this, SLOT(onPropertyChanged(QString)));
+//        disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
+//                this, SLOT(onSubItemPropertyChanged(QString,QString)));
 
         clearEditor();
 
@@ -266,12 +269,13 @@ void UniversalPropertyEditor::setItem(SessionItem *item)
     if (!m_item) return;
 
     addItemProperties(m_item);
-    connect(m_item, SIGNAL(subItemChanged(QString)),
-            this, SLOT(updateSubItems(QString)));
-    connect(m_item, SIGNAL(propertyChanged(QString)),
-            this, SLOT(onPropertyChanged(QString)));
-    connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-            this, SLOT(onSubItemPropertyChanged(QString,QString)));
+    // TODO restore logic
+//    connect(m_item, SIGNAL(subItemChanged(QString)),
+//            this, SLOT(updateSubItems(QString)));
+//    connect(m_item, SIGNAL(propertyChanged(QString)),
+//            this, SLOT(onPropertyChanged(QString)));
+//    connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
+//            this, SLOT(onSubItemPropertyChanged(QString,QString)));
 
 }
 
@@ -300,14 +304,14 @@ void UniversalPropertyEditor::addItemProperties(const SessionItem *item)
 void UniversalPropertyEditor::addSubProperties(QtProperty *item_property,
                                             const SessionItem *item)
 {
-    QList<QByteArray> property_names = item->dynamicPropertyNames();
+    QList<QByteArray> property_names; // TODO restore logic? = item->dynamicPropertyNames();
     for (int i = 0; i < property_names.length(); ++i) {
         QString prop_name = QString(property_names[i]);
         const PropertyAttribute &prop_attribute = PropertyAttribute::fromItem(const_cast<SessionItem*>(item));
 
         if(prop_attribute.isHidden()) continue;
 
-        QVariant prop_value = item->property(prop_name.toUtf8().data());
+        QVariant prop_value;// TODO = item->property(prop_name.toUtf8().data());
         int type = GUIHelpers::getVariantType(prop_value);
 
         QtVariantPropertyManager *manager = m_manager;

@@ -21,7 +21,7 @@
 
 class BA_CORE_API_ LayerZeroRoughnessItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     explicit LayerZeroRoughnessItem();
     virtual ~LayerZeroRoughnessItem(){}
@@ -30,7 +30,7 @@ public:
 
 class BA_CORE_API_ LayerBasicRoughnessItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_SIGMA;
     static const QString P_HURST;

@@ -25,7 +25,7 @@ class ParameterPool;
 
 class BA_CORE_API_ ParticleDistributionItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_DISTRIBUTED_PARAMETER;
     static const QString P_DISTRIBUTION;

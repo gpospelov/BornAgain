@@ -21,7 +21,6 @@
 
 class BA_CORE_API_  BasicAxisItem : public SessionItem
 {
-    Q_OBJECT
 public:
     static const QString P_IS_VISIBLE;
     static const QString P_NBINS;
@@ -37,7 +36,6 @@ protected:
 
 class BA_CORE_API_  AmplitudeAxisItem : public BasicAxisItem
 {
-    Q_OBJECT
 public:
     static const QString P_IS_LOGSCALE;
     static const QString P_LOCK_MIN_MAX;

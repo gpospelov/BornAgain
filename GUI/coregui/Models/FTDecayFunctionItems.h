@@ -23,7 +23,7 @@
 
 class BA_CORE_API_ FTDecayFunction1DItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_DECAY_LENGTH;
     explicit FTDecayFunction1DItem(const QString name)
@@ -34,7 +34,7 @@ public:
 
 class BA_CORE_API_ FTDecayFunction1DCauchyItem : public FTDecayFunction1DItem
 {
-    Q_OBJECT
+
 public:
     explicit FTDecayFunction1DCauchyItem();
     virtual IFTDecayFunction1D *createFTDecayFunction() const;
@@ -42,7 +42,7 @@ public:
 
 class BA_CORE_API_ FTDecayFunction1DGaussItem : public FTDecayFunction1DItem
 {
-    Q_OBJECT
+
 public:
     explicit FTDecayFunction1DGaussItem();
     virtual IFTDecayFunction1D *createFTDecayFunction() const;
@@ -50,7 +50,7 @@ public:
 
 class BA_CORE_API_ FTDecayFunction1DTriangleItem : public FTDecayFunction1DItem
 {
-    Q_OBJECT
+
 public:
     explicit FTDecayFunction1DTriangleItem();
     virtual IFTDecayFunction1D *createFTDecayFunction() const;
@@ -58,7 +58,7 @@ public:
 
 class BA_CORE_API_ FTDecayFunction1DVoigtItem : public FTDecayFunction1DItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_ETA;
     explicit FTDecayFunction1DVoigtItem();
@@ -67,7 +67,7 @@ public:
 
 class BA_CORE_API_ FTDecayFunction2DItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_DECAY_LENGTH_X;
     static const QString P_DECAY_LENGTH_Y;
@@ -82,7 +82,7 @@ public:
 
 class BA_CORE_API_ FTDecayFunction2DCauchyItem : public FTDecayFunction2DItem
 {
-    Q_OBJECT
+
 public:
     explicit FTDecayFunction2DCauchyItem();
     virtual IFTDecayFunction2D *createFTDecayFunction() const;
@@ -90,7 +90,7 @@ public:
 
 class BA_CORE_API_ FTDecayFunction2DGaussItem : public FTDecayFunction2DItem
 {
-    Q_OBJECT
+
 public:
     explicit FTDecayFunction2DGaussItem();
     virtual IFTDecayFunction2D *createFTDecayFunction() const;
@@ -98,7 +98,7 @@ public:
 
 class BA_CORE_API_ FTDecayFunction2DVoigtItem : public FTDecayFunction2DItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_ETA;
     explicit FTDecayFunction2DVoigtItem();

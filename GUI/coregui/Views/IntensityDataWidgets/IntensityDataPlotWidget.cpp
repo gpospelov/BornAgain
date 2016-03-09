@@ -99,7 +99,7 @@ void IntensityDataPlotWidget::setItem(IntensityDataItem *item)
     if (m_item) {
 //        disconnect(m_item, SIGNAL(propertyChanged(QString)),
 //                this, SLOT(onPropertyChanged(QString)));
-        disconnect(m_item, SIGNAL(intensityModified()), this, SLOT(onIntensityModified()));
+//        disconnect(m_item, SIGNAL(intensityModified()), this, SLOT(onIntensityModified()));
     }
 
     m_item = item;
@@ -117,10 +117,11 @@ void IntensityDataPlotWidget::setItem(IntensityDataItem *item)
         if(name == IntensityDataItem::P_PROJECTIONS_FLAG) {
             showProjections(m_item->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
         }
+        onIntensityModified();
     });
 //    connect(m_item, SIGNAL(propertyChanged(QString)),
 //            this, SLOT(onPropertyChanged(QString)));
-    connect(m_item, SIGNAL(intensityModified()), this, SLOT(onIntensityModified()));
+//    connect(m_item, SIGNAL(intensityModified()), this, SLOT(onIntensityModified()));
 }
 
 //! provide syncronious move of top and bottom splitters

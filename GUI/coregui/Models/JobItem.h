@@ -26,7 +26,7 @@ class InstrumentItem;
 
 class BA_CORE_API_ JobItem : public SessionItem
 {
-    Q_OBJECT
+    
 public:
     static const QString P_IDENTIFIER;
     static const QString P_SAMPLE_NAME;

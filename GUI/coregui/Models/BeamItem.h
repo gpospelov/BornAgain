@@ -20,7 +20,7 @@
 
 class BA_CORE_API_ BeamItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_INTENSITY;
     static const QString P_WAVELENGTH;

@@ -28,7 +28,6 @@ class IDistribution1D;
 //! distribution for BeamItem
 class BA_CORE_API_ BeamDistributionItem : public SessionItem
 {
-    Q_OBJECT
 public:
     static const QString P_DISTRIBUTION;
     static const QString P_CACHED_VALUE;

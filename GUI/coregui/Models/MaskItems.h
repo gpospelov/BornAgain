@@ -27,7 +27,7 @@ class IShape2D;
 
 class BA_CORE_API_ MaskContainerItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     explicit MaskContainerItem();
 };
@@ -37,7 +37,7 @@ public:
 //!
 class BA_CORE_API_ MaskItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_MASK_VALUE;
     explicit MaskItem(const QString &name);
@@ -46,7 +46,7 @@ public:
 
 class BA_CORE_API_ RectangleItem : public MaskItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_XLOW;
     static const QString P_YLOW;
@@ -58,7 +58,7 @@ public:
 
 class BA_CORE_API_ PolygonPointItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_POSX;
     static const QString P_POSY;
@@ -67,7 +67,7 @@ public:
 
 class BA_CORE_API_ PolygonItem : public MaskItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_ISCLOSED;
     explicit PolygonItem();
@@ -76,7 +76,7 @@ public:
 
 class BA_CORE_API_ VerticalLineItem : public MaskItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_POSX;
     explicit VerticalLineItem();
@@ -85,7 +85,7 @@ public:
 
 class BA_CORE_API_ HorizontalLineItem : public MaskItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_POSY;
     explicit HorizontalLineItem();
@@ -94,7 +94,7 @@ public:
 
 class BA_CORE_API_ EllipseItem : public MaskItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_XCENTER;
     static const QString P_YCENTER;
@@ -107,7 +107,7 @@ public:
 
 class BA_CORE_API_ MaskAllItem : public MaskItem
 {
-    Q_OBJECT
+
 public:
     explicit MaskAllItem();
     virtual std::unique_ptr<Geometry::IShape2D> createShape(double scale) const;

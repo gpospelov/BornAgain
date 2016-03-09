@@ -21,7 +21,7 @@
 
 class BA_CORE_API_  VectorItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_X;
     static const QString P_Y;

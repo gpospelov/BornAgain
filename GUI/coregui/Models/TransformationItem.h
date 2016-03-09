@@ -21,7 +21,7 @@
 
 class TransformationItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_ROT;
     explicit TransformationItem();

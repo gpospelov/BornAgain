@@ -25,7 +25,7 @@ class IDistribution1D;
 
 class BA_CORE_API_ DistributionItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_NUMBER_OF_SAMPLES;
     static const QString P_SIGMA_FACTOR;
@@ -40,7 +40,7 @@ protected:
 
 class BA_CORE_API_ DistributionNoneItem : public DistributionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_VALUE;
     explicit DistributionNoneItem();
@@ -51,7 +51,7 @@ public:
 
 class BA_CORE_API_ DistributionGateItem : public DistributionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_MIN;
     static const QString P_MAX;
@@ -64,7 +64,7 @@ public:
 
 class BA_CORE_API_ DistributionLorentzItem : public DistributionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_MEAN;
     static const QString P_HWHM;
@@ -77,7 +77,7 @@ public:
 
 class BA_CORE_API_ DistributionGaussianItem : public DistributionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_MEAN;
     static const QString P_STD_DEV;
@@ -90,7 +90,7 @@ public:
 
 class BA_CORE_API_ DistributionLogNormalItem : public DistributionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_MEDIAN;
     static const QString P_SCALE_PAR;
@@ -103,7 +103,7 @@ public:
 
 class BA_CORE_API_ DistributionCosineItem : public DistributionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_MEAN;
     static const QString P_SIGMA;

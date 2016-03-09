@@ -21,7 +21,7 @@
 
 class BA_CORE_API_ GroupItem : public SessionItem
 {
-    Q_OBJECT
+    
 public:
     GroupItem();
     void setGroup(GroupProperty_t group);

@@ -20,7 +20,7 @@
 
 class BA_CORE_API_ MultiLayerItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_CROSS_CORR_LENGTH;
     static const QString T_LAYERS;

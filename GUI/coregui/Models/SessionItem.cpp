@@ -505,24 +505,23 @@ bool SessionItem::isTag(const QString &name) const
     return getTagInfo(name).isValid();
 }
 
-QVariant SessionItem::getChildValue(const QString &name) const
+QVariant SessionItem::getChildValue(const QString &tag) const
 {
-    if (!isTag(name))
+    if (!isTag(tag))
         throw GUIHelpers::Error(
-            "ParameterizedItem::getRegisteredProperty() -> Error. Unknown property '" + name
+            "ParameterizedItem::getRegisteredProperty() -> Error. Unknown property '" + tag
             + "', item '" + modelType() + "'");
 
-    return getItem(name)->value();
+    return getItem(tag)->value();
 }
 
-void SessionItem::setChildValue(const QString &name, const QVariant &variant)
+void SessionItem::setChildValue(const QString &tag, const QVariant &variant)
 {
     // check if variant of previous property coincides with new one
-    if (!isTag(name))
+    if (!isTag(tag))
         throw GUIHelpers::Error("Property not existing!");
 
-
-     getItem(name)->setValue(variant);
+     getItem(tag)->setValue(variant);
 }
 
 SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QString &groupModel)
@@ -543,9 +542,7 @@ SessionItem *SessionItem::setGroupProperty(const QString &name, const QString &v
     qDebug() << "ParameterizedItem::setGroupProperty()" << name << value;
     if (GroupItem *item = dynamic_cast<GroupItem *>(getItem(name))) {
         GroupProperty_t group_property = item->group();
-        if (!value.isEmpty()) {
-            group_property->setCurrentType(value);
-        }
+        group_property->setCurrentType(value);
         return group_property->getCurrentItem();
     }
     return nullptr;
@@ -602,7 +599,7 @@ AttLimits SessionItem::limits() const
     return data(SessionModel::LimitsRole).value<AttLimits>();
 }
 
-void SessionItem::setLimits(AttLimits value)
+void SessionItem::setLimits(const AttLimits &value)
 {
     this->setData(SessionModel::LimitsRole, QVariant::fromValue<AttLimits>(value));
 }
@@ -622,7 +619,7 @@ QString SessionItem::toolTip() const
     return data(Qt::ToolTipRole).toString();
 }
 
-void SessionItem::setToolTip(QString tooltip)
+void SessionItem::setToolTip(const QString &tooltip)
 {
     setData(Qt::ToolTipRole, tooltip);
 }
@@ -632,7 +629,7 @@ QString SessionItem::defaultTag() const
     return data(SessionModel::DefaultTagRole).toString();
 }
 
-void SessionItem::setDefaultTag(QString tag)
+void SessionItem::setDefaultTag(const QString &tag)
 {
     setData(SessionModel::DefaultTagRole, tag);
 }
@@ -646,7 +643,7 @@ ModelMapper *SessionItem::mapper()
     return m_mapper.get();
 }
 
-void SessionItem::setDisplayName(QString display_name)
+void SessionItem::setDisplayName(const QString &display_name)
 {
     setData(SessionModel::DisplayNameRole, display_name);
 }

@@ -92,10 +92,10 @@ public:
 
     bool isTag(const QString &name) const;
 
-    QVariant getChildValue(const QString &name) const;
-    void setChildValue(const QString &name, const QVariant &variant);
+    QVariant getChildValue(const QString &tag) const;
+    void setChildValue(const QString &tag, const QVariant &variant);
 
-    SessionItem *setGroupProperty(const QString &name, const QString &value = QString()) const;
+    SessionItem *setGroupProperty(const QString &name, const QString &value) const;
     SessionItem *getGroupItem(const QString &name, const QString &type = QString()) const;
 
     virtual QString itemLabel() const;
@@ -120,13 +120,13 @@ public:
     bool setValue(QVariant value);
 
     QString defaultTag() const;
-    void setDefaultTag(QString tag);
+    void setDefaultTag(const QString &tag);
 
-    QString displayName() const; // append index takes some logic - ?
-    void setDisplayName(QString display_name);
+    QString displayName() const; // append index when more than one element
+    void setDisplayName(const QString &display_name);
 
-    QString itemName() const; // storing data in property item
-    void setItemName(const QString &name);
+    QString itemName() const;
+    void setItemName(const QString &name); // create property P_NAME
 
     void setVisible(bool enabled);
     void setEnabled(bool enabled);
@@ -137,13 +137,13 @@ public:
     bool isEditable() const;
 
     AttLimits limits() const;
-    void setLimits(AttLimits value);
+    void setLimits(const AttLimits &value);
 
     int decimals() const;
     void setDecimals(int n);
 
     QString toolTip() const;
-    void setToolTip(QString tooltip);
+    void setToolTip(const QString &tooltip);
 
 
 

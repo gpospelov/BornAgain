@@ -194,9 +194,6 @@ print(s.get_config_var('LDVERSION') or s.get_config_var('VERSION'));
                 set(PYTHON_LIBRARIES "${syslibs} ${PYTHON_LIBRARIES}" PARENT_SCOPE)
             endif()
         endif()
-        if(BUILD_DEBIAN)
-            set(PYTHON_SITE_PACKAGES ${ALT_PYTHON_SITE_PACKAGES} PARENT_SCOPE)
-        endif()
     endif()
 
     if(PYTHONLIBS_FOUND)

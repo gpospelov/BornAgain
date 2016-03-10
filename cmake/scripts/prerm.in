@@ -4,6 +4,8 @@
 
 
 rm -f @PYTHON_SITE_PACKAGES@/bornagain
-rm -f @PYTHON_SITE_PACKAGES@/libBornAgain*.so
+rm -f @PYTHON_SITE_PACKAGES@/*BornAgain*
 
 rm -f @CMAKE_INSTALL_PREFIX@/bin/bornagain
+
+rm -rf @CMAKE_INSTALL_PREFIX@/lib/@destination_suffix@

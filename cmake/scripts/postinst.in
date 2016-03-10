@@ -8,6 +8,4 @@ set -e
 ln -sf @CMAKE_INSTALL_PREFIX@/libexec/@destination_suffix@/BornAgain @CMAKE_INSTALL_PREFIX@/bin/bornagain
 
 # creating links for python
-ln -sf @CMAKE_INSTALL_PREFIX@/lib/@destination_suffix@/bornagain @PYTHON_SITE_PACKAGES@/
-ln -sf @CMAKE_INSTALL_PREFIX@/lib/@destination_suffix@/libBornAgainFit.so @PYTHON_SITE_PACKAGES@/
-ln -sf @CMAKE_INSTALL_PREFIX@/lib/@destination_suffix@/libBornAgainCore.so @PYTHON_SITE_PACKAGES@/
+ln -sf @CMAKE_INSTALL_PREFIX@/lib/@destination_suffix@/* @PYTHON_SITE_PACKAGES@/

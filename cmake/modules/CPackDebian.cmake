@@ -41,7 +41,8 @@ install(FILES "${CMAKE_BINARY_DIR}/copyright"
 
 
 # write changelog file
-file(GENERATE OUTPUT "${CMAKE_BINARY_DIR}/changelog" INPUT "${CMAKE_SOURCE_DIR}/CHANGELOG")
-execute_process(COMMAND gzip -9 "${CMAKE_BINARY_DIR}/changelog" OUTPUT_FILE "${CMAKE_BINARY_DIR}/changelog.gz")
+execute_process(COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/CHANGELOG" "${CMAKE_BINARY_DIR}/changelog")
+# execute_process(COMMAND gzip -9 "${CMAKE_BINARY_DIR}/changelog" OUTPUT_FILE "${CMAKE_BINARY_DIR}/changelog.gz")
+execute_process(COMMAND gzip -9 "${CMAKE_BINARY_DIR}/changelog")
 install(FILES "${CMAKE_BINARY_DIR}/changelog.gz" DESTINATION "share/${destination_suffix}")
  

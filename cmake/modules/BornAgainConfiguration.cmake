@@ -148,6 +148,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${destination_runtime_configs}")
 # -----------------------------------------------------------------------------
 if(BUILD_DEBIAN)
     set(CMAKE_INSTALL_PREFIX "/usr")
+    execute_process(COMMAND "${PYTHON_EXECUTABLE}" -c "from distutils import sysconfig; print sysconfig.get_python_lib(1,0,prefix=None)"
+        OUTPUT_VARIABLE PYTHON_SITE_PACKAGES
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
     configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/postinst.in" "${destination_runtime_configs}/postinst" @ONLY)
     configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/prerm.in" "${destination_runtime_configs}/prerm" @ONLY)
     set(CMAKE_INSTALL_RPATH "\$ORIGIN/../../lib/${destination_suffix}")

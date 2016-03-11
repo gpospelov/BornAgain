@@ -18,7 +18,7 @@
 
 #include "ISample.h"
 #include <memory>
-#include "IParameterizedShared.h"
+#include "IParameterized.h"
 
 class IComponentService;
 

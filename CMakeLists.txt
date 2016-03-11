@@ -40,11 +40,14 @@ if(BORNAGAIN_MANPAGE)
     add_subdirectory(man)
 endif()
 
+
 add_subdirectory(ThirdParty)
 add_subdirectory(Core)
 add_subdirectory(Tests/UnitTests/TestCore)
 add_subdirectory(Fit)
 add_subdirectory(Tests/UnitTests/TestFit)
+
+
 
 if(ROOT_FOUND AND BORNAGAIN_APP)
     add_subdirectory(App)

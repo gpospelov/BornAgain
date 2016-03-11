@@ -51,6 +51,9 @@ if(BORNAGAIN_PYTHON)
 
 
     if(BORNAGAIN_GENERATE_BINDINGS)
+
+      set(bornagain_swig_dir ${CMAKE_CURRENT_SOURCE_DIR}/../dev-tools/swig)
+      
       #set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.i PROPERTIES CPLUSPLUS ON)
       #set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.i PROPERTIES SWIG_FLAGS "-includeall")
       set(SWIG_FLAGS "")
@@ -61,12 +64,27 @@ if(BORNAGAIN_PYTHON)
         list(APPEND SWIG_FLAGS "-I${dir}")
       endforeach(dir)
 
+      set(swig_dependencies
+      ${bornagain_swig_dir}/libBornAgainFit.i
+      ${bornagain_swig_dir}/directors.i
+      ${bornagain_swig_dir}/doxygen.i
+      ${bornagain_swig_dir}/extends.i
+      ${bornagain_swig_dir}/ignores.i
+      ${bornagain_swig_dir}/shared_pointers.i
+      ${bornagain_swig_dir}/warnings.i
+      )
     
       add_custom_command (
         OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.cxx ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
-        COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.i
-        COMMAND sed -i "'s/_libBornAgainFit.ICloneable_transferToCPP(self)/self.__disown__()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
-        DEPENDS PythonAPI/libBornAgainFit.i ${include_files} PythonAPI/doxygen.i
+        COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${bornagain_swig_dir}/libBornAgainFit.i
+      COMMAND mv ${bornagain_swig_dir}/libBornAgainFit.py ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
+      COMMAND mv ${bornagain_swig_dir}/libBornAgainFit_wrap.cxx ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.cxx
+      COMMAND mv ${bornagain_swig_dir}/libBornAgainFit_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.h
+      COMMAND sed -i "'s/_libBornAgainCore.ICloneable_transferToCPP(self)/self.__disown__()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
+      COMMAND sed -i "'s/_libBornAgainCore.Histogram1D_getBinCenters(self)/self.getBinCentersNumpy()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
+      COMMAND sed -i "'s/_libBornAgainCore.Histogram1D_getBinErrors(self)/self.getBinErrorsNumpy()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
+      COMMAND sed -i "'s/_libBornAgainCore.Histogram1D_getBinValues(self)/self.getBinValuesNumpy()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
+        DEPENDS ${swig_dependencies}
         )
     
 

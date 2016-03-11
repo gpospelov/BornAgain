@@ -13,30 +13,40 @@
 //
 // ************************************************************************** //
 
+
 #include "INamed.h"
 
 #include <utility>
 
-INamed::INamed()
+template class INamedTemplate<ICloneable>;
+template class INamedTemplate<IShareable>;
+
+template <typename T>
+INamedTemplate<T>::INamedTemplate()
     : m_name {}
 {
 }
 
-INamed::INamed(std::string name)
+template <typename T>
+INamedTemplate<T>::INamedTemplate(std::string name)
     : m_name ( std::move(name) )
 {
 }
 
-INamed::~INamed()
+template <typename T>
+INamedTemplate<T>::~INamedTemplate()
 {
 }
 
-void INamed::setName(std::string name)
+template <typename T>
+void INamedTemplate<T>::setName(std::string name)
 {
     m_name = std::move(name);
 }
 
-std::string INamed::getName() const
+template <typename T>
+std::string INamedTemplate<T>::getName() const
 {
     return m_name;
 }
+

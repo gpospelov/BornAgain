@@ -17,23 +17,25 @@
 #define INAMED_H
 
 #include "WinDllMacros.h"
+#include "ICloneable.h"
+#include "IShareable.h"
 #include <string>
 
 //! @class INamed
 //! @ingroup tools_internal
 //! @brief Interface for named objects.
-
-class BA_CORE_API_ INamed
+template <typename T>
+class BA_CORE_API_ INamedTemplate
 {
 public:
     //! Default constructor, setting name="".
-    INamed();
+    INamedTemplate();
 
     //! Constructor that sets the _name_.
-    INamed(std::string name);
+    INamedTemplate(std::string name);
 
     //! Destructor.
-    virtual ~INamed();
+    virtual ~INamedTemplate();
 
     //! Returns the name.
     std::string getName() const;
@@ -46,6 +48,13 @@ private:
     //! The name of this object.
     std::string m_name;
 };
+
+
+// expose to C++
+typedef INamedTemplate<ICloneable> INamed;
+typedef INamedTemplate<IShareable> INamedShared;
+
+
 
 #endif // INAMED_H
 

@@ -18,6 +18,9 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
     )
 
+  set(bornagain_swig_dir  ${CMAKE_CURRENT_SOURCE_DIR}/../dev-tools/swig)
+
+
 include_directories(${include_dirs})
 
 file(GLOB core_source_files
@@ -51,51 +54,48 @@ if(BORNAGAIN_PYTHON)
   list(APPEND include_files ${pythonapi_include})
   include_directories(${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/)
 
-  # generate SWIG bindings automatically during compile
+
   if(BORNAGAIN_GENERATE_BINDINGS)
-    #set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.i PROPERTIES CPLUSPLUS ON)
-    #set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.i PROPERTIES SWIG_FLAGS "-includeall")
+
     set(SWIG_FLAGS "")
     list(APPEND SWIG_FLAGS "-c++")
     list(APPEND SWIG_FLAGS "-python")
-
+    
     foreach(dir ${include_dirs})
       list(APPEND SWIG_FLAGS "-I${dir}")
     endforeach(dir)
 
+    set(swig_dependencies
+      ${bornagain_swig_dir}/libBornAgainCore.i
+      ${bornagain_swig_dir}/directors.i
+      ${bornagain_swig_dir}/doxygen.i
+      ${bornagain_swig_dir}/extends.i
+      ${bornagain_swig_dir}/ignores.i
+      ${bornagain_swig_dir}/shared_pointers.i
+      ${bornagain_swig_dir}/warnings.i
+      )
     
     add_custom_command (
       OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.cxx
-      COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.i
+      COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${bornagain_swig_dir}/libBornAgainCore.i
+      COMMAND mv ${bornagain_swig_dir}/libBornAgainCore.py ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
+      COMMAND mv ${bornagain_swig_dir}/libBornAgainCore_wrap.cxx ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.cxx
+      COMMAND mv ${bornagain_swig_dir}/libBornAgainCore_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.h
       COMMAND sed -i "'s/_libBornAgainCore.ICloneable_transferToCPP(self)/self.__disown__()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
       COMMAND sed -i "'s/_libBornAgainCore.Histogram1D_getBinCenters(self)/self.getBinCentersNumpy()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
       COMMAND sed -i "'s/_libBornAgainCore.Histogram1D_getBinErrors(self)/self.getBinErrorsNumpy()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
       COMMAND sed -i "'s/_libBornAgainCore.Histogram1D_getBinValues(self)/self.getBinValuesNumpy()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
-      DEPENDS PythonAPI/libBornAgainCore.i ${include_files} PythonAPI/doxygen.i
+      DEPENDS ${swig_dependencies}
       )
-
-    # autogenerate doxygen.i from doxygen comments
-    if(BORNAGAIN_GENERATE_PYTHON_DOCS)
-      configure_file(${CMAKE_SOURCE_DIR}/Doc/Doxygen/DoxyfilePython.in ${CMAKE_CURRENT_BINARY_DIR}/PythonAPI/Doxyfile @ONLY)
-
-      add_custom_command(
-        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/doxygen.i
-        COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/PythonAPI/Doxyfile
-        COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/dev-tools/python-bindings/doxy2swig.py ${CMAKE_CURRENT_BINARY_DIR}/Doc/xml/index.xml ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/doxygen.i
-        DEPENDS ${include_files}
-        )
-      
-    endif()
-
-
-  endif()
+  endif(BORNAGAIN_GENERATE_BINDINGS)
 
   add_custom_target (
     ${library_name}_python
     COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py ${CMAKE_BINARY_DIR}/lib/libBornAgainCore.py
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
     )
-  
+
+  # manually add: if does not exist, will be created by swig
   list(APPEND source_files "PythonAPI/libBornAgainCore_wrap.cxx")
   #list(APPEND include_files "PythonAPI/libBornAgainCore_wrap.h")
   

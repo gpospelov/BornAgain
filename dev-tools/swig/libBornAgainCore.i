@@ -31,7 +31,7 @@
 %include "std_shared_ptr.i"
 
 
-%include "doxygen.i"
+%include "doxygen_core.i"
 
 %include "warnings.i"
 %include "ignores.i"

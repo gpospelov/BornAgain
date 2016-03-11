@@ -17,7 +17,7 @@
 
 %feature("autodoc");
 
-
+//%feature("director");
 
  // gives libBornAgainFit knowledge of the libBornAgainCore python module
  // %import "../../Core/PythonAPI/libBornAgainCore.i"
@@ -30,7 +30,7 @@
  // import list of shared pointers (common between Core and Fit)
 %include "shared_pointers.i"
 
-%include "doxygen.i"
+%include "doxygen_fit.i"
 %include "warnings.i"
 %include "ignores.i"
 
@@ -177,7 +177,11 @@ import_array();
 %import(module="libBornAgainCore") "IObserver.h"
 
 
+%template(INamed) INamedTemplate<ICloneable>;
+%template(INamedShared) INamedTemplate<IShareable>;
 
+%template(IParameterized) IParameterizedTemplate<ICloneable>;
+%template(IParameterizedShared) IParameterizedTemplate<IShareable>;
 
 %include "IChiSquaredModule.h"
 %include "IFitObserver.h"

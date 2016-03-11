@@ -68,7 +68,7 @@ if(BORNAGAIN_PYTHON)
     set(swig_dependencies
       ${bornagain_swig_dir}/libBornAgainCore.i
       ${bornagain_swig_dir}/directors.i
-      ${bornagain_swig_dir}/doxygen.i
+      ${bornagain_swig_dir}/doxygen_core.i
       ${bornagain_swig_dir}/extends.i
       ${bornagain_swig_dir}/ignores.i
       ${bornagain_swig_dir}/shared_pointers.i
@@ -87,6 +87,20 @@ if(BORNAGAIN_PYTHON)
       COMMAND sed -i "'s/_libBornAgainCore.Histogram1D_getBinValues(self)/self.getBinValuesNumpy()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
       DEPENDS ${swig_dependencies}
       )
+
+    # autogenerate doxygen.i from doxygen comments
+    if(BORNAGAIN_GENERATE_PYTHON_DOCS)
+      configure_file(${CMAKE_SOURCE_DIR}/Doc/Doxygen/DoxyfileSwig.in ${CMAKE_CURRENT_BINARY_DIR}/PythonAPI/Doxyfile @ONLY)
+      
+      add_custom_command(
+        OUTPUT ${bornagain_swig_dir}/doxygen_core.i
+        COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/PythonAPI/Doxyfile
+        COMMAND ${PYTHON_EXECUTABLE} ${bornagain_swig_dir}/doxy2swig.py ${CMAKE_CURRENT_BINARY_DIR}/Doc/xml/index.xml ${bornagain_swig_dir}/doxygen_core.i
+        DEPENDS ${include_files}
+        )
+      
+    endif(BORNAGAIN_GENERATE_PYTHON_DOCS)
+    
   endif(BORNAGAIN_GENERATE_BINDINGS)
 
   add_custom_target (

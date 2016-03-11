@@ -1795,6 +1795,11 @@ class INamed(_object):
         """
         __init__(INamedTemplate<(ICloneable)> self) -> INamed
         __init__(INamedTemplate<(ICloneable)> self, std::string name) -> INamed
+
+        INamedTemplate< T >::INamedTemplate(std::string name)
+
+        Constructor that sets the  name. 
+
         """
         this = _libBornAgainCore.new_INamed(*args)
         try:
@@ -1805,7 +1810,14 @@ class INamed(_object):
     __del__ = lambda self: None
 
     def getName(self):
-        """getName(INamed self) -> std::string"""
+        """
+        getName(INamed self) -> std::string
+
+        std::string INamedTemplate< T >::getName() const
+
+        Returns the name. 
+
+        """
         return _libBornAgainCore.INamed_getName(self)
 
 INamed_swigregister = _libBornAgainCore.INamed_swigregister
@@ -1824,6 +1836,11 @@ class INamedShared(_object):
         """
         __init__(INamedTemplate<(IShareable)> self) -> INamedShared
         __init__(INamedTemplate<(IShareable)> self, std::string name) -> INamedShared
+
+        INamedTemplate< T >::INamedTemplate(std::string name)
+
+        Constructor that sets the  name. 
+
         """
         this = _libBornAgainCore.new_INamedShared(*args)
         try:
@@ -1834,7 +1851,14 @@ class INamedShared(_object):
     __del__ = lambda self: None
 
     def getName(self):
-        """getName(INamedShared self) -> std::string"""
+        """
+        getName(INamedShared self) -> std::string
+
+        std::string INamedTemplate< T >::getName() const
+
+        Returns the name. 
+
+        """
         return _libBornAgainCore.INamedShared_getName(self)
 
 INamedShared_swigregister = _libBornAgainCore.INamedShared_swigregister
@@ -1922,6 +1946,9 @@ class IParameterized(INamed):
         __init__(IParameterizedTemplate<(ICloneable)> self) -> IParameterized
         __init__(IParameterizedTemplate<(ICloneable)> self, std::string const & name) -> IParameterized
         __init__(IParameterizedTemplate<(ICloneable)> self, IParameterized other) -> IParameterized
+
+        IParameterizedTemplate< T >::IParameterizedTemplate(const IParameterizedTemplate &other)
+
         """
         if self.__class__ == IParameterized:
             _self = None
@@ -1936,17 +1963,36 @@ class IParameterized(INamed):
     __del__ = lambda self: None
 
     def getParameterPool(self):
-        """getParameterPool(IParameterized self) -> ParameterPool"""
+        """
+        getParameterPool(IParameterized self) -> ParameterPool
+
+        const ParameterPool * IParameterizedTemplate< T >::getParameterPool() const
+
+        Returns pointer to the parameter pool. 
+
+        """
         return _libBornAgainCore.IParameterized_getParameterPool(self)
 
 
     def createParameterTree(self):
-        """createParameterTree(IParameterized self) -> ParameterPool"""
+        """
+        createParameterTree(IParameterized self) -> ParameterPool
+
+        ParameterPool * IParameterizedTemplate< T >::createParameterTree() const
+
+        Creates new parameter pool, with all local parameters and those of its children. 
+
+        """
         return _libBornAgainCore.IParameterized_createParameterTree(self)
 
 
     def printParameters(self):
-        """printParameters(IParameterized self)"""
+        """
+        printParameters(IParameterized self)
+
+        void IParameterizedTemplate< T >::printParameters() const 
+
+        """
         return _libBornAgainCore.IParameterized_printParameters(self)
 
 
@@ -1954,17 +2000,36 @@ class IParameterized(INamed):
         """
         registerParameter(IParameterized self, std::string const & name, double * parpointer, AttLimits limits)
         registerParameter(IParameterized self, std::string const & name, double * parpointer)
+
+        void IParameterizedTemplate< T >::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits=AttLimits::limitless())
+
+        Register parameter address in the parameter pool. 
+
         """
         return _libBornAgainCore.IParameterized_registerParameter(self, *args)
 
 
     def setParameterValue(self, name, value):
-        """setParameterValue(IParameterized self, std::string const & name, double value) -> bool"""
+        """
+        setParameterValue(IParameterized self, std::string const & name, double value) -> bool
+
+        bool IParameterizedTemplate< T >::setParameterValue(const std::string &name, double value)
+
+        Sets the value of the parameter with the given name; returns true in the case of success. 
+
+        """
         return _libBornAgainCore.IParameterized_setParameterValue(self, name, value)
 
 
     def clearParameterPool(self):
-        """clearParameterPool(IParameterized self)"""
+        """
+        clearParameterPool(IParameterized self)
+
+        void IParameterizedTemplate< T >::clearParameterPool()
+
+        Clears the parameter pool. 
+
+        """
         return _libBornAgainCore.IParameterized_clearParameterPool(self)
 
 
@@ -1972,6 +2037,11 @@ class IParameterized(INamed):
         """
         addParametersToExternalPool(IParameterized self, std::string path, ParameterPool external_pool, int copy_number=-1) -> std::string
         addParametersToExternalPool(IParameterized self, std::string path, ParameterPool external_pool) -> std::string
+
+        std::string IParameterizedTemplate< T >::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+
+        Adds parameters from local pool to external pool and recursively calls its direct children. 
+
         """
         return _libBornAgainCore.IParameterized_addParametersToExternalPool(self, path, external_pool, copy_number)
 
@@ -2010,6 +2080,9 @@ class IParameterizedShared(INamedShared):
         __init__(IParameterizedTemplate<(IShareable)> self) -> IParameterizedShared
         __init__(IParameterizedTemplate<(IShareable)> self, std::string const & name) -> IParameterizedShared
         __init__(IParameterizedTemplate<(IShareable)> self, IParameterizedShared other) -> IParameterizedShared
+
+        IParameterizedTemplate< T >::IParameterizedTemplate(const IParameterizedTemplate &other)
+
         """
         if self.__class__ == IParameterizedShared:
             _self = None
@@ -2024,17 +2097,36 @@ class IParameterizedShared(INamedShared):
     __del__ = lambda self: None
 
     def getParameterPool(self):
-        """getParameterPool(IParameterizedShared self) -> ParameterPool"""
+        """
+        getParameterPool(IParameterizedShared self) -> ParameterPool
+
+        const ParameterPool * IParameterizedTemplate< T >::getParameterPool() const
+
+        Returns pointer to the parameter pool. 
+
+        """
         return _libBornAgainCore.IParameterizedShared_getParameterPool(self)
 
 
     def createParameterTree(self):
-        """createParameterTree(IParameterizedShared self) -> ParameterPool"""
+        """
+        createParameterTree(IParameterizedShared self) -> ParameterPool
+
+        ParameterPool * IParameterizedTemplate< T >::createParameterTree() const
+
+        Creates new parameter pool, with all local parameters and those of its children. 
+
+        """
         return _libBornAgainCore.IParameterizedShared_createParameterTree(self)
 
 
     def printParameters(self):
-        """printParameters(IParameterizedShared self)"""
+        """
+        printParameters(IParameterizedShared self)
+
+        void IParameterizedTemplate< T >::printParameters() const 
+
+        """
         return _libBornAgainCore.IParameterizedShared_printParameters(self)
 
 
@@ -2042,17 +2134,36 @@ class IParameterizedShared(INamedShared):
         """
         registerParameter(IParameterizedShared self, std::string const & name, double * parpointer, AttLimits limits)
         registerParameter(IParameterizedShared self, std::string const & name, double * parpointer)
+
+        void IParameterizedTemplate< T >::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits=AttLimits::limitless())
+
+        Register parameter address in the parameter pool. 
+
         """
         return _libBornAgainCore.IParameterizedShared_registerParameter(self, *args)
 
 
     def setParameterValue(self, name, value):
-        """setParameterValue(IParameterizedShared self, std::string const & name, double value) -> bool"""
+        """
+        setParameterValue(IParameterizedShared self, std::string const & name, double value) -> bool
+
+        bool IParameterizedTemplate< T >::setParameterValue(const std::string &name, double value)
+
+        Sets the value of the parameter with the given name; returns true in the case of success. 
+
+        """
         return _libBornAgainCore.IParameterizedShared_setParameterValue(self, name, value)
 
 
     def clearParameterPool(self):
-        """clearParameterPool(IParameterizedShared self)"""
+        """
+        clearParameterPool(IParameterizedShared self)
+
+        void IParameterizedTemplate< T >::clearParameterPool()
+
+        Clears the parameter pool. 
+
+        """
         return _libBornAgainCore.IParameterizedShared_clearParameterPool(self)
 
 
@@ -2060,6 +2171,11 @@ class IParameterizedShared(INamedShared):
         """
         addParametersToExternalPool(IParameterizedShared self, std::string path, ParameterPool external_pool, int copy_number=-1) -> std::string
         addParametersToExternalPool(IParameterizedShared self, std::string path, ParameterPool external_pool) -> std::string
+
+        std::string IParameterizedTemplate< T >::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+
+        Adds parameters from local pool to external pool and recursively calls its direct children. 
+
         """
         return _libBornAgainCore.IParameterizedShared_addParametersToExternalPool(self, path, external_pool, copy_number)
 
@@ -10909,7 +11025,14 @@ FormFactorRipple2_swigregister = _libBornAgainCore.FormFactorRipple2_swigregiste
 FormFactorRipple2_swigregister(FormFactorRipple2)
 
 class FormFactorLongRipple2Gauss(IFormFactorBorn):
-    """Proxy of C++ FormFactorLongRipple2Gauss class."""
+    """
+
+
+    The formfactor for a triangular ripple.
+
+    C++ includes: FormFactorLongRipple2Gauss.h
+
+    """
 
     __swig_setmethods__ = {}
     for _s in [IFormFactorBorn]:
@@ -10922,7 +11045,29 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, length, width, height, asymetry):
-        """__init__(FormFactorLongRipple2Gauss self, double length, double width, double height, double asymetry) -> FormFactorLongRipple2Gauss"""
+        """
+        __init__(FormFactorLongRipple2Gauss self, double length, double width, double height, double asymetry) -> FormFactorLongRipple2Gauss
+
+        FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(double length, double width, double height, double asymetry)
+
+        FormFactorLongRipple2Gauss constructor.
+
+        Parameters:
+        -----------
+
+        length: 
+        of Ripple2
+
+        width: 
+        of triangular cross section
+
+        height: 
+        of triangular cross section
+
+        asymmetry: 
+        length of triangular cross section 
+
+        """
         this = _libBornAgainCore.new_FormFactorLongRipple2Gauss(length, width, height, asymetry)
         try:
             self.this.append(this)
@@ -10935,7 +11080,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         clone(FormFactorLongRipple2Gauss self) -> FormFactorLongRipple2Gauss
 
-        virtual IFormFactorBorn* IFormFactorBorn::clone() const =0
+        FormFactorLongRipple2Gauss * FormFactorLongRipple2Gauss::clone() const
 
         Returns a clone of this  ISample object. 
 
@@ -10947,7 +11092,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         accept(FormFactorLongRipple2Gauss self, ISampleVisitor visitor)
 
-        virtual void IFormFactorBorn::accept(ISampleVisitor *visitor) const
+        void FormFactorLongRipple2Gauss::accept(ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -10959,7 +11104,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         getRadius(FormFactorLongRipple2Gauss self) -> double
 
-        virtual double IFormFactor::getRadius() const =0
+        double FormFactorLongRipple2Gauss::getRadius() const
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -10968,22 +11113,42 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
 
 
     def getHeight(self):
-        """getHeight(FormFactorLongRipple2Gauss self) -> double"""
+        """
+        getHeight(FormFactorLongRipple2Gauss self) -> double
+
+        double FormFactorLongRipple2Gauss::getHeight() const 
+
+        """
         return _libBornAgainCore.FormFactorLongRipple2Gauss_getHeight(self)
 
 
     def getWidth(self):
-        """getWidth(FormFactorLongRipple2Gauss self) -> double"""
+        """
+        getWidth(FormFactorLongRipple2Gauss self) -> double
+
+        double FormFactorLongRipple2Gauss::getWidth() const 
+
+        """
         return _libBornAgainCore.FormFactorLongRipple2Gauss_getWidth(self)
 
 
     def getLength(self):
-        """getLength(FormFactorLongRipple2Gauss self) -> double"""
+        """
+        getLength(FormFactorLongRipple2Gauss self) -> double
+
+        double FormFactorLongRipple2Gauss::getLength() const 
+
+        """
         return _libBornAgainCore.FormFactorLongRipple2Gauss_getLength(self)
 
 
     def getAsymmetry(self):
-        """getAsymmetry(FormFactorLongRipple2Gauss self) -> double"""
+        """
+        getAsymmetry(FormFactorLongRipple2Gauss self) -> double
+
+        double FormFactorLongRipple2Gauss::getAsymmetry() const 
+
+        """
         return _libBornAgainCore.FormFactorLongRipple2Gauss_getAsymmetry(self)
 
 
@@ -10991,15 +11156,9 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple2Gauss self, cvector_t q) -> complex_t
 
-        virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t &q) const =0
+        complex_t FormFactorLongRipple2Gauss::evaluate_for_q(const cvector_t &q) const
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Complex formfactor. 
 
         """
         return _libBornAgainCore.FormFactorLongRipple2Gauss_evaluate_for_q(self, q)
@@ -11008,7 +11167,14 @@ FormFactorLongRipple2Gauss_swigregister = _libBornAgainCore.FormFactorLongRipple
 FormFactorLongRipple2Gauss_swigregister(FormFactorLongRipple2Gauss)
 
 class FormFactorLongRipple2Lorentz(IFormFactorBorn):
-    """Proxy of C++ FormFactorLongRipple2Lorentz class."""
+    """
+
+
+    The formfactor for a triangular ripple.
+
+    C++ includes: FormFactorLongRipple2Lorentz.h
+
+    """
 
     __swig_setmethods__ = {}
     for _s in [IFormFactorBorn]:
@@ -11021,7 +11187,29 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, length, width, height, asymetry):
-        """__init__(FormFactorLongRipple2Lorentz self, double length, double width, double height, double asymetry) -> FormFactorLongRipple2Lorentz"""
+        """
+        __init__(FormFactorLongRipple2Lorentz self, double length, double width, double height, double asymetry) -> FormFactorLongRipple2Lorentz
+
+        FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(double length, double width, double height, double asymetry)
+
+        FormFactorLongRipple2Lorentz constructor.
+
+        Parameters:
+        -----------
+
+        length: 
+        of Ripple2
+
+        width: 
+        of triangular cross section
+
+        height: 
+        of triangular cross section
+
+        asymmetry: 
+        length of triangular cross section 
+
+        """
         this = _libBornAgainCore.new_FormFactorLongRipple2Lorentz(length, width, height, asymetry)
         try:
             self.this.append(this)
@@ -11034,7 +11222,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         clone(FormFactorLongRipple2Lorentz self) -> FormFactorLongRipple2Lorentz
 
-        virtual IFormFactorBorn* IFormFactorBorn::clone() const =0
+        FormFactorLongRipple2Lorentz * FormFactorLongRipple2Lorentz::clone() const
 
         Returns a clone of this  ISample object. 
 
@@ -11046,7 +11234,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         accept(FormFactorLongRipple2Lorentz self, ISampleVisitor visitor)
 
-        virtual void IFormFactorBorn::accept(ISampleVisitor *visitor) const
+        void FormFactorLongRipple2Lorentz::accept(ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -11058,7 +11246,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         getRadius(FormFactorLongRipple2Lorentz self) -> double
 
-        virtual double IFormFactor::getRadius() const =0
+        double FormFactorLongRipple2Lorentz::getRadius() const
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -11067,22 +11255,42 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
 
 
     def getHeight(self):
-        """getHeight(FormFactorLongRipple2Lorentz self) -> double"""
+        """
+        getHeight(FormFactorLongRipple2Lorentz self) -> double
+
+        double FormFactorLongRipple2Lorentz::getHeight() const 
+
+        """
         return _libBornAgainCore.FormFactorLongRipple2Lorentz_getHeight(self)
 
 
     def getWidth(self):
-        """getWidth(FormFactorLongRipple2Lorentz self) -> double"""
+        """
+        getWidth(FormFactorLongRipple2Lorentz self) -> double
+
+        double FormFactorLongRipple2Lorentz::getWidth() const 
+
+        """
         return _libBornAgainCore.FormFactorLongRipple2Lorentz_getWidth(self)
 
 
     def getLength(self):
-        """getLength(FormFactorLongRipple2Lorentz self) -> double"""
+        """
+        getLength(FormFactorLongRipple2Lorentz self) -> double
+
+        double FormFactorLongRipple2Lorentz::getLength() const 
+
+        """
         return _libBornAgainCore.FormFactorLongRipple2Lorentz_getLength(self)
 
 
     def getAsymmetry(self):
-        """getAsymmetry(FormFactorLongRipple2Lorentz self) -> double"""
+        """
+        getAsymmetry(FormFactorLongRipple2Lorentz self) -> double
+
+        double FormFactorLongRipple2Lorentz::getAsymmetry() const 
+
+        """
         return _libBornAgainCore.FormFactorLongRipple2Lorentz_getAsymmetry(self)
 
 
@@ -11090,15 +11298,9 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple2Lorentz self, cvector_t q) -> complex_t
 
-        virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t &q) const =0
+        complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(const cvector_t &q) const
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Complex formfactor. 
 
         """
         return _libBornAgainCore.FormFactorLongRipple2Lorentz_evaluate_for_q(self, q)
@@ -13309,10 +13511,22 @@ class Histogram1D(IHistogram):
         """
         return _libBornAgainCore.Histogram1D_crop(self, xmin, xmax)
 
+
+    def dynamicCast(pHistogram):
+        """dynamicCast(IHistogram pHistogram) -> Histogram1D"""
+        return _libBornAgainCore.Histogram1D_dynamicCast(pHistogram)
+
+    if _newclass:
+        dynamicCast = staticmethod(dynamicCast)
+    __swig_getmethods__["dynamicCast"] = lambda x: dynamicCast
     __swig_destroy__ = _libBornAgainCore.delete_Histogram1D
     __del__ = lambda self: None
 Histogram1D_swigregister = _libBornAgainCore.Histogram1D_swigregister
 Histogram1D_swigregister(Histogram1D)
+
+def Histogram1D_dynamicCast(pHistogram):
+    """Histogram1D_dynamicCast(IHistogram pHistogram) -> Histogram1D"""
+    return _libBornAgainCore.Histogram1D_dynamicCast(pHistogram)
 
 class Histogram2D(IHistogram):
     """Proxy of C++ Histogram2D class."""
@@ -13439,10 +13653,22 @@ class Histogram2D(IHistogram):
         """
         return _libBornAgainCore.Histogram2D_crop(self, xmin, ymin, xmax, ymax)
 
+
+    def dynamicCast(pHistogram):
+        """dynamicCast(IHistogram pHistogram) -> Histogram2D"""
+        return _libBornAgainCore.Histogram2D_dynamicCast(pHistogram)
+
+    if _newclass:
+        dynamicCast = staticmethod(dynamicCast)
+    __swig_getmethods__["dynamicCast"] = lambda x: dynamicCast
     __swig_destroy__ = _libBornAgainCore.delete_Histogram2D
     __del__ = lambda self: None
 Histogram2D_swigregister = _libBornAgainCore.Histogram2D_swigregister
 Histogram2D_swigregister(Histogram2D)
+
+def Histogram2D_dynamicCast(pHistogram):
+    """Histogram2D_dynamicCast(IHistogram pHistogram) -> Histogram2D"""
+    return _libBornAgainCore.Histogram2D_dynamicCast(pHistogram)
 
 class IMaterial(INamed):
     """

@@ -3520,32 +3520,33 @@ namespace Swig {
 #define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[63]
 #define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[64]
 #define SWIGTYPE_p_std__invalid_argument swig_types[65]
-#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[66]
-#define SWIGTYPE_p_std__shared_ptrT_INamedShared_t swig_types[67]
-#define SWIGTYPE_p_std__shared_ptrT_INamedTemplateT_IShareable_t_t swig_types[68]
-#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[69]
-#define SWIGTYPE_p_std__shared_ptrT_IParameterizedShared_t swig_types[70]
-#define SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t swig_types[71]
-#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[72]
-#define SWIGTYPE_p_std__shared_ptrT_LayerRTCoefficients_t_t swig_types[73]
-#define SWIGTYPE_p_std__shared_ptrT_ProgressHandler_t_t swig_types[74]
-#define SWIGTYPE_p_std__string swig_types[75]
-#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t swig_types[76]
-#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator swig_types[77]
-#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__iterator swig_types[78]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[79]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[80]
-#define SWIGTYPE_p_std__vectorT_complex_t_std__allocatorT_complex_t_t_t swig_types[81]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[82]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[83]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[84]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[85]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[86]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[87]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[88]
-#define SWIGTYPE_p_value_type swig_types[89]
-static swig_type_info *swig_types[91];
-static swig_module_info swig_module = {swig_types, 90, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__ostream swig_types[66]
+#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[67]
+#define SWIGTYPE_p_std__shared_ptrT_INamedShared_t swig_types[68]
+#define SWIGTYPE_p_std__shared_ptrT_INamedTemplateT_IShareable_t_t swig_types[69]
+#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[70]
+#define SWIGTYPE_p_std__shared_ptrT_IParameterizedShared_t swig_types[71]
+#define SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t swig_types[72]
+#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[73]
+#define SWIGTYPE_p_std__shared_ptrT_LayerRTCoefficients_t_t swig_types[74]
+#define SWIGTYPE_p_std__shared_ptrT_ProgressHandler_t_t swig_types[75]
+#define SWIGTYPE_p_std__string swig_types[76]
+#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t swig_types[77]
+#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator swig_types[78]
+#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__iterator swig_types[79]
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[80]
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[81]
+#define SWIGTYPE_p_std__vectorT_complex_t_std__allocatorT_complex_t_t_t swig_types[82]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[83]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[84]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[85]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[86]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[87]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[88]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[89]
+#define SWIGTYPE_p_value_type swig_types[90]
+static swig_type_info *swig_types[92];
+static swig_module_info swig_module = {swig_types, 91, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -6198,6 +6199,222 @@ SWIGINTERN FitParameter const *FitSuiteParameters___getitem____SWIG_1(FitSuitePa
  * --------------------------------------------------- */
 
 #include "libBornAgainFit_wrap.h"
+
+SwigDirector_IParameterized::SwigDirector_IParameterized(PyObject *self): IParameterizedTemplate< ICloneable >(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IParameterizedTemplate< ICloneable > *)this, this); 
+}
+
+
+
+
+SwigDirector_IParameterized::SwigDirector_IParameterized(PyObject *self, std::string const &name): IParameterizedTemplate< ICloneable >(name), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IParameterizedTemplate< ICloneable > *)this, this); 
+}
+
+
+
+
+SwigDirector_IParameterized::SwigDirector_IParameterized(PyObject *self, IParameterizedTemplate< ICloneable > const &other): IParameterizedTemplate< ICloneable >(other), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IParameterizedTemplate< ICloneable > *)this, this); 
+}
+
+
+
+
+SwigDirector_IParameterized::~SwigDirector_IParameterized() {
+}
+
+std::string SwigDirector_IParameterized::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number) const {
+  std::string c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_std_string(static_cast< std::string >(path));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_NewPointerObj(SWIG_as_voidptr(external_pool), SWIGTYPE_p_ParameterPool,  0 );
+  swig::SwigVar_PyObject obj2;
+  obj2 = SWIG_From_int(static_cast< int >(copy_number));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IParameterized.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "addParametersToExternalPool";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OOO)" ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"addParametersToExternalPool", (char *)"(OOO)" ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IParameterized.addParametersToExternalPool'");
+    }
+  }
+  std::string *swig_optr = 0;
+  int swig_ores = SWIG_AsPtr_std_string(result, &swig_optr);
+  if (!SWIG_IsOK(swig_ores) || !swig_optr) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError((swig_optr ? swig_ores : SWIG_TypeError))), "in output value of type '""std::string""'");
+  }
+  c_result = *swig_optr;
+  if (SWIG_IsNewObj(swig_ores)) delete swig_optr;
+  return (std::string) c_result;
+}
+
+
+void SwigDirector_IParameterized::print(std::ostream &ostr) const {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&ostr), SWIGTYPE_p_std__ostream,  0 );
+  swig_set_inner("print", true);
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IParameterized.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "_print";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"_print", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  swig_set_inner("print", false);
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IParameterized._print'");
+    }
+  }
+}
+
+
+void SwigDirector_IParameterized::init_parameters() {
+  swig_set_inner("init_parameters", true);
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IParameterized.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 3;
+  const char * const swig_method_name = "init_parameters";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "init_parameters", NULL);
+#endif
+  swig_set_inner("init_parameters", false);
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IParameterized.init_parameters'");
+    }
+  }
+}
+
+
+SwigDirector_IParameterizedShared::SwigDirector_IParameterizedShared(PyObject *self): IParameterizedTemplate< IShareable >(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IParameterizedTemplate< IShareable > *)this, this); 
+}
+
+
+
+
+SwigDirector_IParameterizedShared::SwigDirector_IParameterizedShared(PyObject *self, std::string const &name): IParameterizedTemplate< IShareable >(name), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IParameterizedTemplate< IShareable > *)this, this); 
+}
+
+
+
+
+SwigDirector_IParameterizedShared::SwigDirector_IParameterizedShared(PyObject *self, IParameterizedTemplate< IShareable > const &other): IParameterizedTemplate< IShareable >(other), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IParameterizedTemplate< IShareable > *)this, this); 
+}
+
+
+
+
+SwigDirector_IParameterizedShared::~SwigDirector_IParameterizedShared() {
+}
+
+std::string SwigDirector_IParameterizedShared::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number) const {
+  std::string c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_From_std_string(static_cast< std::string >(path));
+  swig::SwigVar_PyObject obj1;
+  obj1 = SWIG_NewPointerObj(SWIG_as_voidptr(external_pool), SWIGTYPE_p_ParameterPool,  0 );
+  swig::SwigVar_PyObject obj2;
+  obj2 = SWIG_From_int(static_cast< int >(copy_number));
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IParameterizedShared.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "addParametersToExternalPool";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(OOO)" ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"addParametersToExternalPool", (char *)"(OOO)" ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IParameterizedShared.addParametersToExternalPool'");
+    }
+  }
+  std::string *swig_optr = 0;
+  int swig_ores = SWIG_AsPtr_std_string(result, &swig_optr);
+  if (!SWIG_IsOK(swig_ores) || !swig_optr) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError((swig_optr ? swig_ores : SWIG_TypeError))), "in output value of type '""std::string""'");
+  }
+  c_result = *swig_optr;
+  if (SWIG_IsNewObj(swig_ores)) delete swig_optr;
+  return (std::string) c_result;
+}
+
+
+void SwigDirector_IParameterizedShared::print(std::ostream &ostr) const {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&ostr), SWIGTYPE_p_std__ostream,  0 );
+  swig_set_inner("print", true);
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IParameterizedShared.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 2;
+  const char * const swig_method_name = "_print";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"_print", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  swig_set_inner("print", false);
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IParameterizedShared._print'");
+    }
+  }
+}
+
+
+void SwigDirector_IParameterizedShared::init_parameters() {
+  swig_set_inner("init_parameters", true);
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IParameterizedShared.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 3;
+  const char * const swig_method_name = "init_parameters";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "init_parameters", NULL);
+#endif
+  swig_set_inner("init_parameters", false);
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IParameterizedShared.init_parameters'");
+    }
+  }
+}
+
 
 SwigDirector_IFitObserver::SwigDirector_IFitObserver(PyObject *self, int update_every_nth): IFitObserver(update_every_nth), Swig::Director(self) {
   SWIG_DIRECTOR_RGTR((IFitObserver *)this, this); 
@@ -18698,6 +18915,1985 @@ SWIGINTERN PyObject *GCCXML_SKIP_THIS_swigconstant(PyObject *SWIGUNUSEDPARM(self
 }
 
 
+SWIGINTERN PyObject *_wrap_new_INamed__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  INamedTemplate< ICloneable > *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_INamed")) SWIG_fail;
+  result = (INamedTemplate< ICloneable > *)new INamedTemplate< ICloneable >();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_INamedTemplateT_ICloneable_t, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_INamed__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::string arg1 ;
+  PyObject * obj0 = 0 ;
+  INamedTemplate< ICloneable > *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:new_INamed",&obj0)) SWIG_fail;
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(obj0, &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_INamed" "', argument " "1"" of type '" "std::string""'"); 
+    }
+    arg1 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  result = (INamedTemplate< ICloneable > *)new INamedTemplate< ICloneable >(arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_INamedTemplateT_ICloneable_t, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_INamed(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 0) {
+    return _wrap_new_INamed__SWIG_0(self, args);
+  }
+  if (argc == 1) {
+    int _v;
+    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_INamed__SWIG_1(self, args);
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'new_INamed'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    INamedTemplate< ICloneable >::INamedTemplate()\n"
+    "    INamedTemplate< ICloneable >::INamedTemplate(std::string)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_INamed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  INamedTemplate< ICloneable > *arg1 = (INamedTemplate< ICloneable > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_INamed",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_INamedTemplateT_ICloneable_t, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_INamed" "', argument " "1"" of type '" "INamedTemplate< ICloneable > *""'"); 
+  }
+  arg1 = reinterpret_cast< INamedTemplate< ICloneable > * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_INamed_getName(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  INamedTemplate< ICloneable > *arg1 = (INamedTemplate< ICloneable > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::string result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:INamed_getName",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_INamedTemplateT_ICloneable_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "INamed_getName" "', argument " "1"" of type '" "INamedTemplate< ICloneable > const *""'"); 
+  }
+  arg1 = reinterpret_cast< INamedTemplate< ICloneable > * >(argp1);
+  result = ((INamedTemplate< ICloneable > const *)arg1)->getName();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *INamed_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_INamedTemplateT_ICloneable_t, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_new_INamedShared__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  INamedTemplate< IShareable > *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_INamedShared")) SWIG_fail;
+  result = (INamedTemplate< IShareable > *)new INamedTemplate< IShareable >();
+  {
+    std::shared_ptr<  INamedTemplate<IShareable> > *smartresult = result ? new std::shared_ptr<  INamedTemplate<IShareable> >(result SWIG_NO_NULL_DELETER_SWIG_POINTER_NEW) : 0;
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(smartresult), SWIGTYPE_p_std__shared_ptrT_INamedTemplateT_IShareable_t_t, SWIG_POINTER_NEW | SWIG_POINTER_OWN);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_INamedShared__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::string arg1 ;
+  PyObject * obj0 = 0 ;
+  INamedTemplate< IShareable > *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:new_INamedShared",&obj0)) SWIG_fail;
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(obj0, &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_INamedShared" "', argument " "1"" of type '" "std::string""'"); 
+    }
+    arg1 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  result = (INamedTemplate< IShareable > *)new INamedTemplate< IShareable >(arg1);
+  {
+    std::shared_ptr<  INamedTemplate<IShareable> > *smartresult = result ? new std::shared_ptr<  INamedTemplate<IShareable> >(result SWIG_NO_NULL_DELETER_SWIG_POINTER_NEW) : 0;
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(smartresult), SWIGTYPE_p_std__shared_ptrT_INamedTemplateT_IShareable_t_t, SWIG_POINTER_NEW | SWIG_POINTER_OWN);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_INamedShared(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 0) {
+    return _wrap_new_INamedShared__SWIG_0(self, args);
+  }
+  if (argc == 1) {
+    int _v;
+    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_INamedShared__SWIG_1(self, args);
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'new_INamedShared'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    INamedTemplate< IShareable >::INamedTemplate()\n"
+    "    INamedTemplate< IShareable >::INamedTemplate(std::string)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_INamedShared(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  INamedTemplate< IShareable > *arg1 = (INamedTemplate< IShareable > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::shared_ptr< INamedTemplate< IShareable > > tempshared1 ;
+  std::shared_ptr< INamedTemplate< IShareable > > *smartarg1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_INamedShared",&obj0)) SWIG_fail;
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_INamedTemplateT_IShareable_t_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_INamedShared" "', argument " "1"" of type '" "INamedTemplate< IShareable > *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr<  INamedTemplate<IShareable> > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr<  INamedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< INamedTemplate< IShareable > * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr<  INamedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< INamedTemplate< IShareable > * >((smartarg1 ? smartarg1->get() : 0));
+    }
+  }
+  (void)arg1; delete smartarg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_INamedShared_getName(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  INamedTemplate< IShareable > *arg1 = (INamedTemplate< IShareable > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::shared_ptr< INamedTemplate< IShareable > const > tempshared1 ;
+  std::shared_ptr< INamedTemplate< IShareable > const > *smartarg1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::string result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:INamedShared_getName",&obj0)) SWIG_fail;
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_INamedTemplateT_IShareable_t_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "INamedShared_getName" "', argument " "1"" of type '" "INamedTemplate< IShareable > const *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr< const INamedTemplate<IShareable> > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr< const INamedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< INamedTemplate< IShareable > * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr< const INamedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< INamedTemplate< IShareable > * >((smartarg1 ? smartarg1->get() : 0));
+    }
+  }
+  result = ((INamedTemplate< IShareable > const *)arg1)->getName();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *INamedShared_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_std__shared_ptrT_INamedTemplateT_IShareable_t_t, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_new_IParameterized__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
+  IParameterizedTemplate< ICloneable > *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:new_IParameterized",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IParameterizedTemplate< ICloneable > *)new SwigDirector_IParameterized(arg1); 
+  } else {
+    result = (IParameterizedTemplate< ICloneable > *)new IParameterizedTemplate< ICloneable >(); 
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_IParameterized__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  std::string *arg2 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  IParameterizedTemplate< ICloneable > *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:new_IParameterized",&obj0,&obj1)) SWIG_fail;
+  arg1 = obj0;
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_IParameterized" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_IParameterized" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IParameterizedTemplate< ICloneable > *)new SwigDirector_IParameterized(arg1,(std::string const &)*arg2); 
+  } else {
+    result = (IParameterizedTemplate< ICloneable > *)new IParameterizedTemplate< ICloneable >((std::string const &)*arg2); 
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, SWIG_POINTER_NEW |  0 );
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_IParameterized__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  IParameterizedTemplate< ICloneable > *arg2 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  IParameterizedTemplate< ICloneable > *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:new_IParameterized",&obj0,&obj1)) SWIG_fail;
+  arg1 = obj0;
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_IParameterized" "', argument " "2"" of type '" "IParameterizedTemplate< ICloneable > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_IParameterized" "', argument " "2"" of type '" "IParameterizedTemplate< ICloneable > const &""'"); 
+  }
+  arg2 = reinterpret_cast< IParameterizedTemplate< ICloneable > * >(argp2);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IParameterizedTemplate< ICloneable > *)new SwigDirector_IParameterized(arg1,(IParameterizedTemplate< ICloneable > const &)*arg2); 
+  } else {
+    result = (IParameterizedTemplate< ICloneable > *)new IParameterizedTemplate< ICloneable >((IParameterizedTemplate< ICloneable > const &)*arg2); 
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_IParameterized(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      return _wrap_new_IParameterized__SWIG_0(self, args);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_new_IParameterized__SWIG_2(self, args);
+      }
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_new_IParameterized__SWIG_1(self, args);
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'new_IParameterized'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    IParameterizedTemplate< ICloneable >::IParameterizedTemplate()\n"
+    "    IParameterizedTemplate< ICloneable >::IParameterizedTemplate(std::string const &)\n"
+    "    IParameterizedTemplate< ICloneable >::IParameterizedTemplate(PyObject *,IParameterizedTemplate< ICloneable > const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_IParameterized(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< ICloneable > *arg1 = (IParameterizedTemplate< ICloneable > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_IParameterized",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IParameterized" "', argument " "1"" of type '" "IParameterizedTemplate< ICloneable > *""'"); 
+  }
+  arg1 = reinterpret_cast< IParameterizedTemplate< ICloneable > * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterized_getParameterPool(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< ICloneable > *arg1 = (IParameterizedTemplate< ICloneable > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  ParameterPool *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IParameterized_getParameterPool",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_getParameterPool" "', argument " "1"" of type '" "IParameterizedTemplate< ICloneable > const *""'"); 
+  }
+  arg1 = reinterpret_cast< IParameterizedTemplate< ICloneable > * >(argp1);
+  result = (ParameterPool *)((IParameterizedTemplate< ICloneable > const *)arg1)->getParameterPool();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParameterPool, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterized_createParameterTree(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< ICloneable > *arg1 = (IParameterizedTemplate< ICloneable > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  ParameterPool *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IParameterized_createParameterTree",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_createParameterTree" "', argument " "1"" of type '" "IParameterizedTemplate< ICloneable > const *""'"); 
+  }
+  arg1 = reinterpret_cast< IParameterizedTemplate< ICloneable > * >(argp1);
+  result = (ParameterPool *)((IParameterizedTemplate< ICloneable > const *)arg1)->createParameterTree();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParameterPool, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterized_printParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< ICloneable > *arg1 = (IParameterizedTemplate< ICloneable > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IParameterized_printParameters",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_printParameters" "', argument " "1"" of type '" "IParameterizedTemplate< ICloneable > const *""'"); 
+  }
+  arg1 = reinterpret_cast< IParameterizedTemplate< ICloneable > * >(argp1);
+  ((IParameterizedTemplate< ICloneable > const *)arg1)->printParameters();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterized_registerParameter__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< ICloneable > *arg1 = (IParameterizedTemplate< ICloneable > *) 0 ;
+  std::string *arg2 = 0 ;
+  double *arg3 = (double *) 0 ;
+  AttLimits *arg4 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:IParameterized_registerParameter",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_registerParameter" "', argument " "1"" of type '" "IParameterizedTemplate< ICloneable > *""'"); 
+  }
+  arg1 = reinterpret_cast< IParameterizedTemplate< ICloneable > * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IParameterized_registerParameter" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterized_registerParameter" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IParameterized_registerParameter" "', argument " "3"" of type '" "double *""'"); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  res4 = SWIG_ConvertPtr(obj3, &argp4, SWIGTYPE_p_AttLimits,  0  | 0);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "IParameterized_registerParameter" "', argument " "4"" of type '" "AttLimits const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterized_registerParameter" "', argument " "4"" of type '" "AttLimits const &""'"); 
+  }
+  arg4 = reinterpret_cast< AttLimits * >(argp4);
+  (arg1)->registerParameter((std::string const &)*arg2,arg3,(AttLimits const &)*arg4);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterized_registerParameter__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< ICloneable > *arg1 = (IParameterizedTemplate< ICloneable > *) 0 ;
+  std::string *arg2 = 0 ;
+  double *arg3 = (double *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:IParameterized_registerParameter",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_registerParameter" "', argument " "1"" of type '" "IParameterizedTemplate< ICloneable > *""'"); 
+  }
+  arg1 = reinterpret_cast< IParameterizedTemplate< ICloneable > * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IParameterized_registerParameter" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterized_registerParameter" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IParameterized_registerParameter" "', argument " "3"" of type '" "double *""'"); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  (arg1)->registerParameter((std::string const &)*arg2,arg3);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterized_registerParameter(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_IParameterized_registerParameter__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_AttLimits, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_IParameterized_registerParameter__SWIG_0(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'IParameterized_registerParameter'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    IParameterizedTemplate< ICloneable >::registerParameter(std::string const &,double *,AttLimits const &)\n"
+    "    IParameterizedTemplate< ICloneable >::registerParameter(std::string const &,double *)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterized_setParameterValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< ICloneable > *arg1 = (IParameterizedTemplate< ICloneable > *) 0 ;
+  std::string *arg2 = 0 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  double val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:IParameterized_setParameterValue",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_setParameterValue" "', argument " "1"" of type '" "IParameterizedTemplate< ICloneable > *""'"); 
+  }
+  arg1 = reinterpret_cast< IParameterizedTemplate< ICloneable > * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IParameterized_setParameterValue" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterized_setParameterValue" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  ecode3 = SWIG_AsVal_double(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IParameterized_setParameterValue" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = (bool)(arg1)->setParameterValue((std::string const &)*arg2,arg3);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterized_clearParameterPool(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< ICloneable > *arg1 = (IParameterizedTemplate< ICloneable > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IParameterized_clearParameterPool",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_clearParameterPool" "', argument " "1"" of type '" "IParameterizedTemplate< ICloneable > *""'"); 
+  }
+  arg1 = reinterpret_cast< IParameterizedTemplate< ICloneable > * >(argp1);
+  (arg1)->clearParameterPool();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterized_addParametersToExternalPool__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< ICloneable > *arg1 = (IParameterizedTemplate< ICloneable > *) 0 ;
+  std::string arg2 ;
+  ParameterPool *arg3 = (ParameterPool *) 0 ;
+  int arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  std::string result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:IParameterized_addParametersToExternalPool",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_addParametersToExternalPool" "', argument " "1"" of type '" "IParameterizedTemplate< ICloneable > const *""'"); 
+  }
+  arg1 = reinterpret_cast< IParameterizedTemplate< ICloneable > * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "IParameterized_addParametersToExternalPool" "', argument " "2"" of type '" "std::string""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_ParameterPool, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IParameterized_addParametersToExternalPool" "', argument " "3"" of type '" "ParameterPool *""'"); 
+  }
+  arg3 = reinterpret_cast< ParameterPool * >(argp3);
+  ecode4 = SWIG_AsVal_int(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "IParameterized_addParametersToExternalPool" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = static_cast< int >(val4);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = ((IParameterizedTemplate< ICloneable > const *)arg1)->IParameterizedTemplate< ICloneable >::addParametersToExternalPool(arg2,arg3,arg4);
+    } else {
+      result = ((IParameterizedTemplate< ICloneable > const *)arg1)->addParametersToExternalPool(arg2,arg3,arg4);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterized_addParametersToExternalPool__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< ICloneable > *arg1 = (IParameterizedTemplate< ICloneable > *) 0 ;
+  std::string arg2 ;
+  ParameterPool *arg3 = (ParameterPool *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  std::string result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:IParameterized_addParametersToExternalPool",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_addParametersToExternalPool" "', argument " "1"" of type '" "IParameterizedTemplate< ICloneable > const *""'"); 
+  }
+  arg1 = reinterpret_cast< IParameterizedTemplate< ICloneable > * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "IParameterized_addParametersToExternalPool" "', argument " "2"" of type '" "std::string""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_ParameterPool, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IParameterized_addParametersToExternalPool" "', argument " "3"" of type '" "ParameterPool *""'"); 
+  }
+  arg3 = reinterpret_cast< ParameterPool * >(argp3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = ((IParameterizedTemplate< ICloneable > const *)arg1)->IParameterizedTemplate< ICloneable >::addParametersToExternalPool(arg2,arg3);
+    } else {
+      result = ((IParameterizedTemplate< ICloneable > const *)arg1)->addParametersToExternalPool(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterized_addParametersToExternalPool(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_ParameterPool, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_IParameterized_addParametersToExternalPool__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_ParameterPool, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          {
+            int res = SWIG_AsVal_int(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_IParameterized_addParametersToExternalPool__SWIG_0(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'IParameterized_addParametersToExternalPool'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    IParameterizedTemplate< ICloneable >::addParametersToExternalPool(std::string,ParameterPool *,int) const\n"
+    "    IParameterizedTemplate< ICloneable >::addParametersToExternalPool(std::string,ParameterPool *) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterized__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< ICloneable > *arg1 = (IParameterizedTemplate< ICloneable > *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  SwigDirector_IParameterized *darg = 0;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:IParameterized__print",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized__print" "', argument " "1"" of type '" "IParameterizedTemplate< ICloneable > const *""'"); 
+  }
+  arg1 = reinterpret_cast< IParameterizedTemplate< ICloneable > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__ostream,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IParameterized__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterized__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  arg2 = reinterpret_cast< std::ostream * >(argp2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  if (!director || !(director->swig_get_inner("print"))) {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing protected member print");
+    SWIG_fail;
+  }
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    darg = dynamic_cast<SwigDirector_IParameterized *>(arg1);
+    if (upcall) {
+      ((SwigDirector_IParameterized const *)darg)->printSwigPublic(*arg2);
+    } else {
+      ((SwigDirector_IParameterized const *)darg)->print(*arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterized_init_parameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< ICloneable > *arg1 = (IParameterizedTemplate< ICloneable > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  SwigDirector_IParameterized *darg = 0;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IParameterized_init_parameters",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_init_parameters" "', argument " "1"" of type '" "IParameterizedTemplate< ICloneable > *""'"); 
+  }
+  arg1 = reinterpret_cast< IParameterizedTemplate< ICloneable > * >(argp1);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  if (!director || !(director->swig_get_inner("init_parameters"))) {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing protected member init_parameters");
+    SWIG_fail;
+  }
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    darg = dynamic_cast<SwigDirector_IParameterized *>(arg1);
+    if (upcall) {
+      (darg)->init_parametersSwigPublic();
+    } else {
+      (darg)->init_parameters();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_IParameterized(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< ICloneable > *arg1 = (IParameterizedTemplate< ICloneable > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_IParameterized",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_IParameterized" "', argument " "1"" of type '" "IParameterizedTemplate< ICloneable > *""'"); 
+  }
+  arg1 = reinterpret_cast< IParameterizedTemplate< ICloneable > * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *IParameterized_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_IParameterizedTemplateT_ICloneable_t, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_new_IParameterizedShared__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
+  IParameterizedTemplate< IShareable > *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:new_IParameterizedShared",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IParameterizedTemplate< IShareable > *)new SwigDirector_IParameterizedShared(arg1); 
+  } else {
+    result = (IParameterizedTemplate< IShareable > *)new IParameterizedTemplate< IShareable >(); 
+  }
+  
+  {
+    std::shared_ptr<  IParameterizedTemplate<IShareable> > *smartresult = result ? new std::shared_ptr<  IParameterizedTemplate<IShareable> >(result SWIG_NO_NULL_DELETER_SWIG_POINTER_NEW) : 0;
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(smartresult), SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, SWIG_POINTER_NEW | SWIG_POINTER_OWN);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_IParameterizedShared__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  std::string *arg2 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  IParameterizedTemplate< IShareable > *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:new_IParameterizedShared",&obj0,&obj1)) SWIG_fail;
+  arg1 = obj0;
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_IParameterizedShared" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_IParameterizedShared" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IParameterizedTemplate< IShareable > *)new SwigDirector_IParameterizedShared(arg1,(std::string const &)*arg2); 
+  } else {
+    result = (IParameterizedTemplate< IShareable > *)new IParameterizedTemplate< IShareable >((std::string const &)*arg2); 
+  }
+  
+  {
+    std::shared_ptr<  IParameterizedTemplate<IShareable> > *smartresult = result ? new std::shared_ptr<  IParameterizedTemplate<IShareable> >(result SWIG_NO_NULL_DELETER_SWIG_POINTER_NEW) : 0;
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(smartresult), SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, SWIG_POINTER_NEW | SWIG_POINTER_OWN);
+  }
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_IParameterizedShared__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  IParameterizedTemplate< IShareable > *arg2 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > const > tempshared2 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  IParameterizedTemplate< IShareable > *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:new_IParameterizedShared",&obj0,&obj1)) SWIG_fail;
+  arg1 = obj0;
+  {
+    int newmem = 0;
+    res2 = SWIG_ConvertPtrAndOwn(obj1, &argp2, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t,  0 , &newmem);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_IParameterizedShared" "', argument " "2"" of type '" "IParameterizedTemplate< IShareable > const &""'"); 
+    }
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_IParameterizedShared" "', argument " "2"" of type '" "IParameterizedTemplate< IShareable > const &""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared2 = *reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp2);
+      delete reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp2);
+      arg2 = const_cast< IParameterizedTemplate< IShareable > * >(tempshared2.get());
+    } else {
+      arg2 = const_cast< IParameterizedTemplate< IShareable > * >(reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp2)->get());
+    }
+  }
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IParameterizedTemplate< IShareable > *)new SwigDirector_IParameterizedShared(arg1,(IParameterizedTemplate< IShareable > const &)*arg2); 
+  } else {
+    result = (IParameterizedTemplate< IShareable > *)new IParameterizedTemplate< IShareable >((IParameterizedTemplate< IShareable > const &)*arg2); 
+  }
+  
+  {
+    std::shared_ptr<  IParameterizedTemplate<IShareable> > *smartresult = result ? new std::shared_ptr<  IParameterizedTemplate<IShareable> >(result SWIG_NO_NULL_DELETER_SWIG_POINTER_NEW) : 0;
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(smartresult), SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, SWIG_POINTER_NEW | SWIG_POINTER_OWN);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_IParameterizedShared(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      return _wrap_new_IParameterizedShared__SWIG_0(self, args);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_new_IParameterizedShared__SWIG_2(self, args);
+      }
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_new_IParameterizedShared__SWIG_1(self, args);
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'new_IParameterizedShared'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    IParameterizedTemplate< IShareable >::IParameterizedTemplate()\n"
+    "    IParameterizedTemplate< IShareable >::IParameterizedTemplate(std::string const &)\n"
+    "    IParameterizedTemplate< IShareable >::IParameterizedTemplate(PyObject *,IParameterizedTemplate< IShareable > const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_IParameterizedShared(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< IShareable > *arg1 = (IParameterizedTemplate< IShareable > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > > tempshared1 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > > *smartarg1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_IParameterizedShared",&obj0)) SWIG_fail;
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IParameterizedShared" "', argument " "1"" of type '" "IParameterizedTemplate< IShareable > *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >((smartarg1 ? smartarg1->get() : 0));
+    }
+  }
+  (void)arg1; delete smartarg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterizedShared_getParameterPool(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< IShareable > *arg1 = (IParameterizedTemplate< IShareable > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > const > tempshared1 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > const > *smartarg1 = 0 ;
+  PyObject * obj0 = 0 ;
+  ParameterPool *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IParameterizedShared_getParameterPool",&obj0)) SWIG_fail;
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterizedShared_getParameterPool" "', argument " "1"" of type '" "IParameterizedTemplate< IShareable > const *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >((smartarg1 ? smartarg1->get() : 0));
+    }
+  }
+  result = (ParameterPool *)((IParameterizedTemplate< IShareable > const *)arg1)->getParameterPool();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParameterPool, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterizedShared_createParameterTree(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< IShareable > *arg1 = (IParameterizedTemplate< IShareable > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > const > tempshared1 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > const > *smartarg1 = 0 ;
+  PyObject * obj0 = 0 ;
+  ParameterPool *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IParameterizedShared_createParameterTree",&obj0)) SWIG_fail;
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterizedShared_createParameterTree" "', argument " "1"" of type '" "IParameterizedTemplate< IShareable > const *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >((smartarg1 ? smartarg1->get() : 0));
+    }
+  }
+  result = (ParameterPool *)((IParameterizedTemplate< IShareable > const *)arg1)->createParameterTree();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParameterPool, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterizedShared_printParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< IShareable > *arg1 = (IParameterizedTemplate< IShareable > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > const > tempshared1 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > const > *smartarg1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IParameterizedShared_printParameters",&obj0)) SWIG_fail;
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterizedShared_printParameters" "', argument " "1"" of type '" "IParameterizedTemplate< IShareable > const *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >((smartarg1 ? smartarg1->get() : 0));
+    }
+  }
+  ((IParameterizedTemplate< IShareable > const *)arg1)->printParameters();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterizedShared_registerParameter__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< IShareable > *arg1 = (IParameterizedTemplate< IShareable > *) 0 ;
+  std::string *arg2 = 0 ;
+  double *arg3 = (double *) 0 ;
+  AttLimits *arg4 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > > tempshared1 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > > *smartarg1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:IParameterizedShared_registerParameter",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterizedShared_registerParameter" "', argument " "1"" of type '" "IParameterizedTemplate< IShareable > *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >((smartarg1 ? smartarg1->get() : 0));
+    }
+  }
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IParameterizedShared_registerParameter" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterizedShared_registerParameter" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IParameterizedShared_registerParameter" "', argument " "3"" of type '" "double *""'"); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  res4 = SWIG_ConvertPtr(obj3, &argp4, SWIGTYPE_p_AttLimits,  0  | 0);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "IParameterizedShared_registerParameter" "', argument " "4"" of type '" "AttLimits const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterizedShared_registerParameter" "', argument " "4"" of type '" "AttLimits const &""'"); 
+  }
+  arg4 = reinterpret_cast< AttLimits * >(argp4);
+  (arg1)->registerParameter((std::string const &)*arg2,arg3,(AttLimits const &)*arg4);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterizedShared_registerParameter__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< IShareable > *arg1 = (IParameterizedTemplate< IShareable > *) 0 ;
+  std::string *arg2 = 0 ;
+  double *arg3 = (double *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > > tempshared1 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > > *smartarg1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:IParameterizedShared_registerParameter",&obj0,&obj1,&obj2)) SWIG_fail;
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterizedShared_registerParameter" "', argument " "1"" of type '" "IParameterizedTemplate< IShareable > *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >((smartarg1 ? smartarg1->get() : 0));
+    }
+  }
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IParameterizedShared_registerParameter" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterizedShared_registerParameter" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IParameterizedShared_registerParameter" "', argument " "3"" of type '" "double *""'"); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  (arg1)->registerParameter((std::string const &)*arg2,arg3);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterizedShared_registerParameter(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 3) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_IParameterizedShared_registerParameter__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_AttLimits, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_IParameterizedShared_registerParameter__SWIG_0(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'IParameterizedShared_registerParameter'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    IParameterizedTemplate< IShareable >::registerParameter(std::string const &,double *,AttLimits const &)\n"
+    "    IParameterizedTemplate< IShareable >::registerParameter(std::string const &,double *)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterizedShared_setParameterValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< IShareable > *arg1 = (IParameterizedTemplate< IShareable > *) 0 ;
+  std::string *arg2 = 0 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > > tempshared1 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > > *smartarg1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  double val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:IParameterizedShared_setParameterValue",&obj0,&obj1,&obj2)) SWIG_fail;
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterizedShared_setParameterValue" "', argument " "1"" of type '" "IParameterizedTemplate< IShareable > *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >((smartarg1 ? smartarg1->get() : 0));
+    }
+  }
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IParameterizedShared_setParameterValue" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterizedShared_setParameterValue" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  ecode3 = SWIG_AsVal_double(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IParameterizedShared_setParameterValue" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = (bool)(arg1)->setParameterValue((std::string const &)*arg2,arg3);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterizedShared_clearParameterPool(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< IShareable > *arg1 = (IParameterizedTemplate< IShareable > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > > tempshared1 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > > *smartarg1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IParameterizedShared_clearParameterPool",&obj0)) SWIG_fail;
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterizedShared_clearParameterPool" "', argument " "1"" of type '" "IParameterizedTemplate< IShareable > *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >((smartarg1 ? smartarg1->get() : 0));
+    }
+  }
+  (arg1)->clearParameterPool();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterizedShared_addParametersToExternalPool__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< IShareable > *arg1 = (IParameterizedTemplate< IShareable > *) 0 ;
+  std::string arg2 ;
+  ParameterPool *arg3 = (ParameterPool *) 0 ;
+  int arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > const > tempshared1 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > const > *smartarg1 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  std::string result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:IParameterizedShared_addParametersToExternalPool",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterizedShared_addParametersToExternalPool" "', argument " "1"" of type '" "IParameterizedTemplate< IShareable > const *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >((smartarg1 ? smartarg1->get() : 0));
+    }
+  }
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "IParameterizedShared_addParametersToExternalPool" "', argument " "2"" of type '" "std::string""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_ParameterPool, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IParameterizedShared_addParametersToExternalPool" "', argument " "3"" of type '" "ParameterPool *""'"); 
+  }
+  arg3 = reinterpret_cast< ParameterPool * >(argp3);
+  ecode4 = SWIG_AsVal_int(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "IParameterizedShared_addParametersToExternalPool" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = static_cast< int >(val4);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = ((IParameterizedTemplate< IShareable > const *)arg1)->IParameterizedTemplate< IShareable >::addParametersToExternalPool(arg2,arg3,arg4);
+    } else {
+      result = ((IParameterizedTemplate< IShareable > const *)arg1)->addParametersToExternalPool(arg2,arg3,arg4);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterizedShared_addParametersToExternalPool__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< IShareable > *arg1 = (IParameterizedTemplate< IShareable > *) 0 ;
+  std::string arg2 ;
+  ParameterPool *arg3 = (ParameterPool *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > const > tempshared1 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > const > *smartarg1 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  std::string result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:IParameterizedShared_addParametersToExternalPool",&obj0,&obj1,&obj2)) SWIG_fail;
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterizedShared_addParametersToExternalPool" "', argument " "1"" of type '" "IParameterizedTemplate< IShareable > const *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >((smartarg1 ? smartarg1->get() : 0));
+    }
+  }
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "IParameterizedShared_addParametersToExternalPool" "', argument " "2"" of type '" "std::string""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_ParameterPool, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IParameterizedShared_addParametersToExternalPool" "', argument " "3"" of type '" "ParameterPool *""'"); 
+  }
+  arg3 = reinterpret_cast< ParameterPool * >(argp3);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = ((IParameterizedTemplate< IShareable > const *)arg1)->IParameterizedTemplate< IShareable >::addParametersToExternalPool(arg2,arg3);
+    } else {
+      result = ((IParameterizedTemplate< IShareable > const *)arg1)->addParametersToExternalPool(arg2,arg3);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterizedShared_addParametersToExternalPool(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 3) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_ParameterPool, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_IParameterizedShared_addParametersToExternalPool__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_ParameterPool, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          {
+            int res = SWIG_AsVal_int(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_IParameterizedShared_addParametersToExternalPool__SWIG_0(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'IParameterizedShared_addParametersToExternalPool'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    IParameterizedTemplate< IShareable >::addParametersToExternalPool(std::string,ParameterPool *,int) const\n"
+    "    IParameterizedTemplate< IShareable >::addParametersToExternalPool(std::string,ParameterPool *) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterizedShared__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< IShareable > *arg1 = (IParameterizedTemplate< IShareable > *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > const > tempshared1 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > const > *smartarg1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  SwigDirector_IParameterizedShared *darg = 0;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:IParameterizedShared__print",&obj0,&obj1)) SWIG_fail;
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterizedShared__print" "', argument " "1"" of type '" "IParameterizedTemplate< IShareable > const *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr< const IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >((smartarg1 ? smartarg1->get() : 0));
+    }
+  }
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__ostream,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IParameterizedShared__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterizedShared__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  arg2 = reinterpret_cast< std::ostream * >(argp2);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  if (!director || !(director->swig_get_inner("print"))) {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing protected member print");
+    SWIG_fail;
+  }
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    darg = dynamic_cast<SwigDirector_IParameterizedShared *>(arg1);
+    if (upcall) {
+      ((SwigDirector_IParameterizedShared const *)darg)->printSwigPublic(*arg2);
+    } else {
+      ((SwigDirector_IParameterizedShared const *)darg)->print(*arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IParameterizedShared_init_parameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< IShareable > *arg1 = (IParameterizedTemplate< IShareable > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > > tempshared1 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > > *smartarg1 = 0 ;
+  PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  SwigDirector_IParameterizedShared *darg = 0;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IParameterizedShared_init_parameters",&obj0)) SWIG_fail;
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterizedShared_init_parameters" "', argument " "1"" of type '" "IParameterizedTemplate< IShareable > *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >((smartarg1 ? smartarg1->get() : 0));
+    }
+  }
+  director = SWIG_DIRECTOR_CAST(arg1);
+  if (!director || !(director->swig_get_inner("init_parameters"))) {
+    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing protected member init_parameters");
+    SWIG_fail;
+  }
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    darg = dynamic_cast<SwigDirector_IParameterizedShared *>(arg1);
+    if (upcall) {
+      (darg)->init_parametersSwigPublic();
+    } else {
+      (darg)->init_parameters();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_IParameterizedShared(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IParameterizedTemplate< IShareable > *arg1 = (IParameterizedTemplate< IShareable > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > > tempshared1 ;
+  std::shared_ptr< IParameterizedTemplate< IShareable > > *smartarg1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_IParameterizedShared",&obj0)) SWIG_fail;
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_IParameterizedShared" "', argument " "1"" of type '" "IParameterizedTemplate< IShareable > *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr<  IParameterizedTemplate<IShareable> > * >(argp1);
+      arg1 = const_cast< IParameterizedTemplate< IShareable > * >((smartarg1 ? smartarg1->get() : 0));
+    }
+  }
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *IParameterizedShared_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
 SWIGINTERN PyObject *_wrap_delete_IChiSquaredModule(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IChiSquaredModule *arg1 = (IChiSquaredModule *) 0 ;
@@ -22759,6 +24955,163 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_FitObject_addParametersToExternalPool__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitObject *arg1 = (FitObject *) 0 ;
+  std::string arg2 ;
+  ParameterPool *arg3 = (ParameterPool *) 0 ;
+  int arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  std::string result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:FitObject_addParametersToExternalPool",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitObject_addParametersToExternalPool" "', argument " "1"" of type '" "FitObject const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitObject * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "FitObject_addParametersToExternalPool" "', argument " "2"" of type '" "std::string""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_ParameterPool, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "FitObject_addParametersToExternalPool" "', argument " "3"" of type '" "ParameterPool *""'"); 
+  }
+  arg3 = reinterpret_cast< ParameterPool * >(argp3);
+  ecode4 = SWIG_AsVal_int(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "FitObject_addParametersToExternalPool" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = static_cast< int >(val4);
+  result = ((FitObject const *)arg1)->addParametersToExternalPool(arg2,arg3,arg4);
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitObject_addParametersToExternalPool__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitObject *arg1 = (FitObject *) 0 ;
+  std::string arg2 ;
+  ParameterPool *arg3 = (ParameterPool *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  std::string result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:FitObject_addParametersToExternalPool",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitObject_addParametersToExternalPool" "', argument " "1"" of type '" "FitObject const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitObject * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "FitObject_addParametersToExternalPool" "', argument " "2"" of type '" "std::string""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_ParameterPool, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "FitObject_addParametersToExternalPool" "', argument " "3"" of type '" "ParameterPool *""'"); 
+  }
+  arg3 = reinterpret_cast< ParameterPool * >(argp3);
+  result = ((FitObject const *)arg1)->addParametersToExternalPool(arg2,arg3);
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitObject_addParametersToExternalPool(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitObject, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_ParameterPool, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_FitObject_addParametersToExternalPool__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitObject, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_ParameterPool, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          {
+            int res = SWIG_AsVal_int(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_FitObject_addParametersToExternalPool__SWIG_0(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'FitObject_addParametersToExternalPool'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    FitObject::addParametersToExternalPool(std::string,ParameterPool *,int) const\n"
+    "    FitObject::addParametersToExternalPool(std::string,ParameterPool *) const\n");
+  return 0;
+}
+
+
 SWIGINTERN PyObject *FitObject_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
@@ -26044,6 +28397,163 @@ SWIGINTERN PyObject *_wrap_FitSuiteObjects_getResidualValue(PyObject *SWIGUNUSED
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitSuiteObjects_addParametersToExternalPool__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitSuiteObjects *arg1 = (FitSuiteObjects *) 0 ;
+  std::string arg2 ;
+  ParameterPool *arg3 = (ParameterPool *) 0 ;
+  int arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  std::string result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:FitSuiteObjects_addParametersToExternalPool",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteObjects, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteObjects_addParametersToExternalPool" "', argument " "1"" of type '" "FitSuiteObjects const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitSuiteObjects * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "FitSuiteObjects_addParametersToExternalPool" "', argument " "2"" of type '" "std::string""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_ParameterPool, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "FitSuiteObjects_addParametersToExternalPool" "', argument " "3"" of type '" "ParameterPool *""'"); 
+  }
+  arg3 = reinterpret_cast< ParameterPool * >(argp3);
+  ecode4 = SWIG_AsVal_int(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "FitSuiteObjects_addParametersToExternalPool" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = static_cast< int >(val4);
+  result = ((FitSuiteObjects const *)arg1)->addParametersToExternalPool(arg2,arg3,arg4);
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitSuiteObjects_addParametersToExternalPool__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitSuiteObjects *arg1 = (FitSuiteObjects *) 0 ;
+  std::string arg2 ;
+  ParameterPool *arg3 = (ParameterPool *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  std::string result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:FitSuiteObjects_addParametersToExternalPool",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteObjects, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteObjects_addParametersToExternalPool" "', argument " "1"" of type '" "FitSuiteObjects const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitSuiteObjects * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "FitSuiteObjects_addParametersToExternalPool" "', argument " "2"" of type '" "std::string""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_ParameterPool, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "FitSuiteObjects_addParametersToExternalPool" "', argument " "3"" of type '" "ParameterPool *""'"); 
+  }
+  arg3 = reinterpret_cast< ParameterPool * >(argp3);
+  result = ((FitSuiteObjects const *)arg1)->addParametersToExternalPool(arg2,arg3);
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitSuiteObjects_addParametersToExternalPool(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteObjects, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_ParameterPool, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_FitSuiteObjects_addParametersToExternalPool__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteObjects, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_ParameterPool, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          {
+            int res = SWIG_AsVal_int(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_FitSuiteObjects_addParametersToExternalPool__SWIG_0(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'FitSuiteObjects_addParametersToExternalPool'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    FitSuiteObjects::addParametersToExternalPool(std::string,ParameterPool *,int) const\n"
+    "    FitSuiteObjects::addParametersToExternalPool(std::string,ParameterPool *) const\n");
+  return 0;
 }
 
 
@@ -30576,508 +33086,539 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"delete_vector_string_t", _wrap_delete_vector_string_t, METH_VARARGS, (char *)"delete_vector_string_t(vector_string_t self)"},
 	 { (char *)"vector_string_t_swigregister", vector_string_t_swigregister, METH_VARARGS, NULL},
 	 { (char *)"GCCXML_SKIP_THIS_swigconstant", GCCXML_SKIP_THIS_swigconstant, METH_VARARGS, NULL},
-	 { (char *)"delete_IChiSquaredModule", _wrap_delete_IChiSquaredModule, METH_VARARGS, (char *)"\n"
-		"delete_IChiSquaredModule(IChiSquaredModule self)\n"
-		"\n"
-		"IChiSquaredModule::~IChiSquaredModule()\n"
-		"\n"
+	 { (char *)"new_INamed", _wrap_new_INamed, METH_VARARGS, (char *)"\n"
+		"INamed()\n"
+		"new_INamed(std::string name) -> INamed\n"
 		""},
-	 { (char *)"IChiSquaredModule_clone", _wrap_IChiSquaredModule_clone, METH_VARARGS, (char *)"\n"
-		"IChiSquaredModule_clone(IChiSquaredModule self) -> IChiSquaredModule\n"
-		"\n"
-		"virtual IChiSquaredModule* IChiSquaredModule::clone() const =0\n"
-		"\n"
-		"clone method \n"
-		"\n"
+	 { (char *)"delete_INamed", _wrap_delete_INamed, METH_VARARGS, (char *)"delete_INamed(INamed self)"},
+	 { (char *)"INamed_getName", _wrap_INamed_getName, METH_VARARGS, (char *)"INamed_getName(INamed self) -> std::string"},
+	 { (char *)"INamed_swigregister", INamed_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_INamedShared", _wrap_new_INamedShared, METH_VARARGS, (char *)"\n"
+		"INamedShared()\n"
+		"new_INamedShared(std::string name) -> INamedShared\n"
 		""},
-	 { (char *)"IChiSquaredModule_getSquaredFunction", _wrap_IChiSquaredModule_getSquaredFunction, METH_VARARGS, (char *)"\n"
-		"IChiSquaredModule_getSquaredFunction(IChiSquaredModule self) -> ISquaredFunction\n"
-		"\n"
-		"const ISquaredFunction* IChiSquaredModule::getSquaredFunction() const\n"
-		"\n"
-		"Returns squared function. \n"
-		"\n"
+	 { (char *)"delete_INamedShared", _wrap_delete_INamedShared, METH_VARARGS, (char *)"delete_INamedShared(INamedShared self)"},
+	 { (char *)"INamedShared_getName", _wrap_INamedShared_getName, METH_VARARGS, (char *)"INamedShared_getName(INamedShared self) -> std::string"},
+	 { (char *)"INamedShared_swigregister", INamedShared_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_IParameterized", _wrap_new_IParameterized, METH_VARARGS, (char *)"\n"
+		"IParameterized()\n"
+		"IParameterized(std::string const & name)\n"
+		"new_IParameterized(PyObject * arg2, IParameterized other) -> IParameterized\n"
 		""},
+	 { (char *)"delete_IParameterized", _wrap_delete_IParameterized, METH_VARARGS, (char *)"delete_IParameterized(IParameterized self)"},
+	 { (char *)"IParameterized_getParameterPool", _wrap_IParameterized_getParameterPool, METH_VARARGS, (char *)"IParameterized_getParameterPool(IParameterized self) -> ParameterPool const *"},
+	 { (char *)"IParameterized_createParameterTree", _wrap_IParameterized_createParameterTree, METH_VARARGS, (char *)"IParameterized_createParameterTree(IParameterized self) -> ParameterPool *"},
+	 { (char *)"IParameterized_printParameters", _wrap_IParameterized_printParameters, METH_VARARGS, (char *)"IParameterized_printParameters(IParameterized self)"},
+	 { (char *)"IParameterized_registerParameter", _wrap_IParameterized_registerParameter, METH_VARARGS, (char *)"\n"
+		"registerParameter(std::string const & name, double * parpointer, AttLimits limits)\n"
+		"IParameterized_registerParameter(IParameterized self, std::string const & name, double * parpointer)\n"
+		""},
+	 { (char *)"IParameterized_setParameterValue", _wrap_IParameterized_setParameterValue, METH_VARARGS, (char *)"IParameterized_setParameterValue(IParameterized self, std::string const & name, double value) -> bool"},
+	 { (char *)"IParameterized_clearParameterPool", _wrap_IParameterized_clearParameterPool, METH_VARARGS, (char *)"IParameterized_clearParameterPool(IParameterized self)"},
+	 { (char *)"IParameterized_addParametersToExternalPool", _wrap_IParameterized_addParametersToExternalPool, METH_VARARGS, (char *)"\n"
+		"addParametersToExternalPool(std::string path, ParameterPool * external_pool, int copy_number=-1) -> std::string\n"
+		"IParameterized_addParametersToExternalPool(IParameterized self, std::string path, ParameterPool * external_pool) -> std::string\n"
+		""},
+	 { (char *)"IParameterized__print", _wrap_IParameterized__print, METH_VARARGS, (char *)"IParameterized__print(IParameterized self, std::ostream & ostr)"},
+	 { (char *)"IParameterized_init_parameters", _wrap_IParameterized_init_parameters, METH_VARARGS, (char *)"IParameterized_init_parameters(IParameterized self)"},
+	 { (char *)"disown_IParameterized", _wrap_disown_IParameterized, METH_VARARGS, NULL},
+	 { (char *)"IParameterized_swigregister", IParameterized_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_IParameterizedShared", _wrap_new_IParameterizedShared, METH_VARARGS, (char *)"\n"
+		"IParameterizedShared()\n"
+		"IParameterizedShared(std::string const & name)\n"
+		"new_IParameterizedShared(PyObject * arg2, IParameterizedShared other) -> IParameterizedShared\n"
+		""},
+	 { (char *)"delete_IParameterizedShared", _wrap_delete_IParameterizedShared, METH_VARARGS, (char *)"delete_IParameterizedShared(IParameterizedShared self)"},
+	 { (char *)"IParameterizedShared_getParameterPool", _wrap_IParameterizedShared_getParameterPool, METH_VARARGS, (char *)"IParameterizedShared_getParameterPool(IParameterizedShared self) -> ParameterPool const *"},
+	 { (char *)"IParameterizedShared_createParameterTree", _wrap_IParameterizedShared_createParameterTree, METH_VARARGS, (char *)"IParameterizedShared_createParameterTree(IParameterizedShared self) -> ParameterPool *"},
+	 { (char *)"IParameterizedShared_printParameters", _wrap_IParameterizedShared_printParameters, METH_VARARGS, (char *)"IParameterizedShared_printParameters(IParameterizedShared self)"},
+	 { (char *)"IParameterizedShared_registerParameter", _wrap_IParameterizedShared_registerParameter, METH_VARARGS, (char *)"\n"
+		"registerParameter(std::string const & name, double * parpointer, AttLimits limits)\n"
+		"IParameterizedShared_registerParameter(IParameterizedShared self, std::string const & name, double * parpointer)\n"
+		""},
+	 { (char *)"IParameterizedShared_setParameterValue", _wrap_IParameterizedShared_setParameterValue, METH_VARARGS, (char *)"IParameterizedShared_setParameterValue(IParameterizedShared self, std::string const & name, double value) -> bool"},
+	 { (char *)"IParameterizedShared_clearParameterPool", _wrap_IParameterizedShared_clearParameterPool, METH_VARARGS, (char *)"IParameterizedShared_clearParameterPool(IParameterizedShared self)"},
+	 { (char *)"IParameterizedShared_addParametersToExternalPool", _wrap_IParameterizedShared_addParametersToExternalPool, METH_VARARGS, (char *)"\n"
+		"addParametersToExternalPool(std::string path, ParameterPool * external_pool, int copy_number=-1) -> std::string\n"
+		"IParameterizedShared_addParametersToExternalPool(IParameterizedShared self, std::string path, ParameterPool * external_pool) -> std::string\n"
+		""},
+	 { (char *)"IParameterizedShared__print", _wrap_IParameterizedShared__print, METH_VARARGS, (char *)"IParameterizedShared__print(IParameterizedShared self, std::ostream & ostr)"},
+	 { (char *)"IParameterizedShared_init_parameters", _wrap_IParameterizedShared_init_parameters, METH_VARARGS, (char *)"IParameterizedShared_init_parameters(IParameterizedShared self)"},
+	 { (char *)"disown_IParameterizedShared", _wrap_disown_IParameterizedShared, METH_VARARGS, NULL},
+	 { (char *)"IParameterizedShared_swigregister", IParameterizedShared_swigregister, METH_VARARGS, NULL},
+	 { (char *)"delete_IChiSquaredModule", _wrap_delete_IChiSquaredModule, METH_VARARGS, (char *)"delete_IChiSquaredModule(IChiSquaredModule self)"},
+	 { (char *)"IChiSquaredModule_clone", _wrap_IChiSquaredModule_clone, METH_VARARGS, (char *)"IChiSquaredModule_clone(IChiSquaredModule self) -> IChiSquaredModule"},
+	 { (char *)"IChiSquaredModule_getSquaredFunction", _wrap_IChiSquaredModule_getSquaredFunction, METH_VARARGS, (char *)"IChiSquaredModule_getSquaredFunction(IChiSquaredModule self) -> ISquaredFunction"},
 	 { (char *)"IChiSquaredModule_setChiSquaredFunction", _wrap_IChiSquaredModule_setChiSquaredFunction, METH_VARARGS, (char *)"\n"
 		"setChiSquaredFunction(ISquaredFunction squared_function)\n"
 		"IChiSquaredModule_setChiSquaredFunction(IChiSquaredModule self, ISquaredFunction squared_function)\n"
-		"\n"
-		"void IChiSquaredModule::setChiSquaredFunction(const ISquaredFunction &squared_function)\n"
-		"\n"
 		""},
 	 { (char *)"IChiSquaredModule_getIntensityNormalizer", _wrap_IChiSquaredModule_getIntensityNormalizer, METH_VARARGS, (char *)"\n"
 		"getIntensityNormalizer() -> IIntensityNormalizer\n"
 		"IChiSquaredModule_getIntensityNormalizer(IChiSquaredModule self) -> IIntensityNormalizer\n"
-		"\n"
-		"virtual IIntensityNormalizer* IChiSquaredModule::getIntensityNormalizer()\n"
-		"\n"
-		"Returns data normalizer, non-const version needed to set internals. \n"
-		"\n"
 		""},
-	 { (char *)"IChiSquaredModule_setIntensityNormalizer", _wrap_IChiSquaredModule_setIntensityNormalizer, METH_VARARGS, (char *)"\n"
-		"IChiSquaredModule_setIntensityNormalizer(IChiSquaredModule self, IIntensityNormalizer data_normalizer)\n"
-		"\n"
-		"void IChiSquaredModule::setIntensityNormalizer(const IIntensityNormalizer &data_normalizer)\n"
-		"\n"
-		"Sets data normalizer. \n"
-		"\n"
-		""},
-	 { (char *)"IChiSquaredModule_getIntensityFunction", _wrap_IChiSquaredModule_getIntensityFunction, METH_VARARGS, (char *)"\n"
-		"IChiSquaredModule_getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction\n"
-		"\n"
-		"virtual const IIntensityFunction* IChiSquaredModule::getIntensityFunction() const\n"
-		"\n"
-		"Returns data rescaler. \n"
-		"\n"
-		""},
-	 { (char *)"IChiSquaredModule_setIntensityFunction", _wrap_IChiSquaredModule_setIntensityFunction, METH_VARARGS, (char *)"\n"
-		"IChiSquaredModule_setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)\n"
-		"\n"
-		"void IChiSquaredModule::setIntensityFunction(const IIntensityFunction &intensity_function)\n"
-		"\n"
-		"Sets data rescaler. \n"
-		"\n"
-		""},
-	 { (char *)"IChiSquaredModule_processFitElements", _wrap_IChiSquaredModule_processFitElements, METH_VARARGS, (char *)"\n"
-		"IChiSquaredModule_processFitElements(IChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator arg3, std::vector< FitElement,std::allocator< FitElement > >::iterator arg4)\n"
-		"\n"
-		"virtual void IChiSquaredModule::processFitElements(std::vector< FitElement >::iterator, std::vector< FitElement >::iterator)\n"
-		"\n"
-		""},
+	 { (char *)"IChiSquaredModule_setIntensityNormalizer", _wrap_IChiSquaredModule_setIntensityNormalizer, METH_VARARGS, (char *)"IChiSquaredModule_setIntensityNormalizer(IChiSquaredModule self, IIntensityNormalizer data_normalizer)"},
+	 { (char *)"IChiSquaredModule_getIntensityFunction", _wrap_IChiSquaredModule_getIntensityFunction, METH_VARARGS, (char *)"IChiSquaredModule_getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction"},
+	 { (char *)"IChiSquaredModule_setIntensityFunction", _wrap_IChiSquaredModule_setIntensityFunction, METH_VARARGS, (char *)"IChiSquaredModule_setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)"},
+	 { (char *)"IChiSquaredModule_processFitElements", _wrap_IChiSquaredModule_processFitElements, METH_VARARGS, (char *)"IChiSquaredModule_processFitElements(IChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator arg3, std::vector< FitElement,std::allocator< FitElement > >::iterator arg4)"},
 	 { (char *)"IChiSquaredModule_swigregister", IChiSquaredModule_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_IFitObserver", _wrap_new_IFitObserver, METH_VARARGS, (char *)"new_IFitObserver(PyObject * arg2, int update_every_nth) -> IFitObserver"},
+	 { (char *)"new_IFitObserver", _wrap_new_IFitObserver, METH_VARARGS, (char *)"\n"
+		"new_IFitObserver(PyObject * arg2, int update_every_nth) -> IFitObserver\n"
+		"\n"
+		"IFitObserver::IFitObserver(int update_every_nth)\n"
+		"\n"
+		""},
 	 { (char *)"IFitObserver_notify", _wrap_IFitObserver_notify, METH_VARARGS, (char *)"\n"
 		"IFitObserver_notify(IFitObserver self, IObservable subject)\n"
 		"\n"
-		"void IObserver::notify(IObservable *subject)\n"
+		"void IFitObserver::notify(IObservable *subject)\n"
 		"\n"
-		"method which is used by observable subject to notify change in status \n"
+		"The method used by Ovservable when he wants to be observed by this. \n"
 		"\n"
 		""},
-	 { (char *)"IFitObserver_update", _wrap_IFitObserver_update, METH_VARARGS, (char *)"IFitObserver_update(IFitObserver self, FitSuite fit_suite)"},
+	 { (char *)"IFitObserver_update", _wrap_IFitObserver_update, METH_VARARGS, (char *)"\n"
+		"IFitObserver_update(IFitObserver self, FitSuite fit_suite)\n"
+		"\n"
+		"void IFitObserver::update(FitSuite *fit_suite)\n"
+		"\n"
+		"Here Onserver will do actuall job when he thinks that it is a right moment. \n"
+		"\n"
+		""},
 	 { (char *)"delete_IFitObserver", _wrap_delete_IFitObserver, METH_VARARGS, (char *)"delete_IFitObserver(IFitObserver self)"},
 	 { (char *)"disown_IFitObserver", _wrap_disown_IFitObserver, METH_VARARGS, NULL},
 	 { (char *)"IFitObserver_swigregister", IFitObserver_swigregister, METH_VARARGS, NULL},
-	 { (char *)"IFitStrategy_clone", _wrap_IFitStrategy_clone, METH_VARARGS, (char *)"IFitStrategy_clone(IFitStrategy self) -> IFitStrategy"},
-	 { (char *)"delete_IFitStrategy", _wrap_delete_IFitStrategy, METH_VARARGS, (char *)"delete_IFitStrategy(IFitStrategy self)"},
-	 { (char *)"IFitStrategy_init", _wrap_IFitStrategy_init, METH_VARARGS, (char *)"IFitStrategy_init(IFitStrategy self, FitKernel * fit_suite)"},
-	 { (char *)"IFitStrategy_execute", _wrap_IFitStrategy_execute, METH_VARARGS, (char *)"IFitStrategy_execute(IFitStrategy self)"},
+	 { (char *)"IFitStrategy_clone", _wrap_IFitStrategy_clone, METH_VARARGS, (char *)"\n"
+		"IFitStrategy_clone(IFitStrategy self) -> IFitStrategy\n"
+		"\n"
+		"virtual IFitStrategy* IFitStrategy::clone() const =0\n"
+		"\n"
+		""},
+	 { (char *)"delete_IFitStrategy", _wrap_delete_IFitStrategy, METH_VARARGS, (char *)"\n"
+		"delete_IFitStrategy(IFitStrategy self)\n"
+		"\n"
+		"IFitStrategy::~IFitStrategy()\n"
+		"\n"
+		""},
+	 { (char *)"IFitStrategy_init", _wrap_IFitStrategy_init, METH_VARARGS, (char *)"\n"
+		"IFitStrategy_init(IFitStrategy self, FitKernel * fit_suite)\n"
+		"\n"
+		"void IFitStrategy::init(FitKernel *fit_suite)\n"
+		"\n"
+		""},
+	 { (char *)"IFitStrategy_execute", _wrap_IFitStrategy_execute, METH_VARARGS, (char *)"\n"
+		"IFitStrategy_execute(IFitStrategy self)\n"
+		"\n"
+		"virtual void IFitStrategy::execute()=0\n"
+		"\n"
+		""},
 	 { (char *)"IFitStrategy_swigregister", IFitStrategy_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_FitStrategyDefault", _wrap_new_FitStrategyDefault, METH_VARARGS, (char *)"new_FitStrategyDefault() -> FitStrategyDefault"},
-	 { (char *)"FitStrategyDefault_clone", _wrap_FitStrategyDefault_clone, METH_VARARGS, (char *)"FitStrategyDefault_clone(FitStrategyDefault self) -> IFitStrategy"},
-	 { (char *)"FitStrategyDefault_execute", _wrap_FitStrategyDefault_execute, METH_VARARGS, (char *)"FitStrategyDefault_execute(FitStrategyDefault self)"},
+	 { (char *)"new_FitStrategyDefault", _wrap_new_FitStrategyDefault, METH_VARARGS, (char *)"\n"
+		"new_FitStrategyDefault() -> FitStrategyDefault\n"
+		"\n"
+		"FitStrategyDefault::FitStrategyDefault()\n"
+		"\n"
+		""},
+	 { (char *)"FitStrategyDefault_clone", _wrap_FitStrategyDefault_clone, METH_VARARGS, (char *)"\n"
+		"FitStrategyDefault_clone(FitStrategyDefault self) -> IFitStrategy\n"
+		"\n"
+		"IFitStrategy * FitStrategyDefault::clone() const \n"
+		"\n"
+		""},
+	 { (char *)"FitStrategyDefault_execute", _wrap_FitStrategyDefault_execute, METH_VARARGS, (char *)"\n"
+		"FitStrategyDefault_execute(FitStrategyDefault self)\n"
+		"\n"
+		"void FitStrategyDefault::execute()\n"
+		"\n"
+		""},
 	 { (char *)"delete_FitStrategyDefault", _wrap_delete_FitStrategyDefault, METH_VARARGS, (char *)"delete_FitStrategyDefault(FitStrategyDefault self)"},
 	 { (char *)"FitStrategyDefault_swigregister", FitStrategyDefault_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_IIntensityFunction", _wrap_delete_IIntensityFunction, METH_VARARGS, (char *)"\n"
-		"delete_IIntensityFunction(IIntensityFunction self)\n"
-		"\n"
-		"virtual IIntensityFunction::~IIntensityFunction()\n"
-		"\n"
-		""},
-	 { (char *)"IIntensityFunction_clone", _wrap_IIntensityFunction_clone, METH_VARARGS, (char *)"\n"
-		"IIntensityFunction_clone(IIntensityFunction self) -> IIntensityFunction\n"
-		"\n"
-		"virtual IIntensityFunction* IIntensityFunction::clone() const =0\n"
-		"\n"
-		""},
-	 { (char *)"IIntensityFunction_evaluate", _wrap_IIntensityFunction_evaluate, METH_VARARGS, (char *)"\n"
-		"IIntensityFunction_evaluate(IIntensityFunction self, double value) -> double\n"
-		"\n"
-		"virtual double IIntensityFunction::evaluate(double value) const =0\n"
-		"\n"
-		""},
+	 { (char *)"delete_IIntensityFunction", _wrap_delete_IIntensityFunction, METH_VARARGS, (char *)"delete_IIntensityFunction(IIntensityFunction self)"},
+	 { (char *)"IIntensityFunction_clone", _wrap_IIntensityFunction_clone, METH_VARARGS, (char *)"IIntensityFunction_clone(IIntensityFunction self) -> IIntensityFunction"},
+	 { (char *)"IIntensityFunction_evaluate", _wrap_IIntensityFunction_evaluate, METH_VARARGS, (char *)"IIntensityFunction_evaluate(IIntensityFunction self, double value) -> double"},
 	 { (char *)"IIntensityFunction_swigregister", IIntensityFunction_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_IntensityFunctionLog", _wrap_delete_IntensityFunctionLog, METH_VARARGS, (char *)"\n"
-		"delete_IntensityFunctionLog(IntensityFunctionLog self)\n"
-		"\n"
-		"virtual IntensityFunctionLog::~IntensityFunctionLog()\n"
-		"\n"
-		""},
-	 { (char *)"IntensityFunctionLog_clone", _wrap_IntensityFunctionLog_clone, METH_VARARGS, (char *)"\n"
-		"IntensityFunctionLog_clone(IntensityFunctionLog self) -> IntensityFunctionLog\n"
-		"\n"
-		"virtual IntensityFunctionLog* IntensityFunctionLog::clone() const \n"
-		"\n"
-		""},
-	 { (char *)"IntensityFunctionLog_evaluate", _wrap_IntensityFunctionLog_evaluate, METH_VARARGS, (char *)"\n"
-		"IntensityFunctionLog_evaluate(IntensityFunctionLog self, double value) -> double\n"
-		"\n"
-		"virtual double IntensityFunctionLog::evaluate(double value) const \n"
-		"\n"
-		""},
-	 { (char *)"new_IntensityFunctionLog", _wrap_new_IntensityFunctionLog, METH_VARARGS, (char *)"\n"
-		"new_IntensityFunctionLog() -> IntensityFunctionLog\n"
-		"\n"
-		"\n"
-		"\n"
-		"Algorithm for applying log function to the measured intensity.\n"
-		"\n"
-		"C++ includes: IIntensityFunction.h\n"
-		"\n"
-		""},
+	 { (char *)"delete_IntensityFunctionLog", _wrap_delete_IntensityFunctionLog, METH_VARARGS, (char *)"delete_IntensityFunctionLog(IntensityFunctionLog self)"},
+	 { (char *)"IntensityFunctionLog_clone", _wrap_IntensityFunctionLog_clone, METH_VARARGS, (char *)"IntensityFunctionLog_clone(IntensityFunctionLog self) -> IntensityFunctionLog"},
+	 { (char *)"IntensityFunctionLog_evaluate", _wrap_IntensityFunctionLog_evaluate, METH_VARARGS, (char *)"IntensityFunctionLog_evaluate(IntensityFunctionLog self, double value) -> double"},
+	 { (char *)"new_IntensityFunctionLog", _wrap_new_IntensityFunctionLog, METH_VARARGS, (char *)"new_IntensityFunctionLog() -> IntensityFunctionLog"},
 	 { (char *)"IntensityFunctionLog_swigregister", IntensityFunctionLog_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_IntensityFunctionSqrt", _wrap_delete_IntensityFunctionSqrt, METH_VARARGS, (char *)"\n"
-		"delete_IntensityFunctionSqrt(IntensityFunctionSqrt self)\n"
-		"\n"
-		"virtual IntensityFunctionSqrt::~IntensityFunctionSqrt()\n"
-		"\n"
-		""},
-	 { (char *)"IntensityFunctionSqrt_clone", _wrap_IntensityFunctionSqrt_clone, METH_VARARGS, (char *)"\n"
-		"IntensityFunctionSqrt_clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt\n"
-		"\n"
-		"virtual IntensityFunctionSqrt* IntensityFunctionSqrt::clone() const \n"
-		"\n"
-		""},
-	 { (char *)"IntensityFunctionSqrt_evaluate", _wrap_IntensityFunctionSqrt_evaluate, METH_VARARGS, (char *)"\n"
-		"IntensityFunctionSqrt_evaluate(IntensityFunctionSqrt self, double value) -> double\n"
-		"\n"
-		"virtual double IntensityFunctionSqrt::evaluate(double value) const \n"
-		"\n"
-		""},
-	 { (char *)"new_IntensityFunctionSqrt", _wrap_new_IntensityFunctionSqrt, METH_VARARGS, (char *)"\n"
-		"new_IntensityFunctionSqrt() -> IntensityFunctionSqrt\n"
-		"\n"
-		"\n"
-		"\n"
-		"Algorithm for applying sqrt function to the measured intensity.\n"
-		"\n"
-		"C++ includes: IIntensityFunction.h\n"
-		"\n"
-		""},
+	 { (char *)"delete_IntensityFunctionSqrt", _wrap_delete_IntensityFunctionSqrt, METH_VARARGS, (char *)"delete_IntensityFunctionSqrt(IntensityFunctionSqrt self)"},
+	 { (char *)"IntensityFunctionSqrt_clone", _wrap_IntensityFunctionSqrt_clone, METH_VARARGS, (char *)"IntensityFunctionSqrt_clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt"},
+	 { (char *)"IntensityFunctionSqrt_evaluate", _wrap_IntensityFunctionSqrt_evaluate, METH_VARARGS, (char *)"IntensityFunctionSqrt_evaluate(IntensityFunctionSqrt self, double value) -> double"},
+	 { (char *)"new_IntensityFunctionSqrt", _wrap_new_IntensityFunctionSqrt, METH_VARARGS, (char *)"new_IntensityFunctionSqrt() -> IntensityFunctionSqrt"},
 	 { (char *)"IntensityFunctionSqrt_swigregister", IntensityFunctionSqrt_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_IIntensityNormalizer", _wrap_delete_IIntensityNormalizer, METH_VARARGS, (char *)"\n"
-		"delete_IIntensityNormalizer(IIntensityNormalizer self)\n"
-		"\n"
-		"virtual IIntensityNormalizer::~IIntensityNormalizer()\n"
-		"\n"
-		""},
-	 { (char *)"IIntensityNormalizer_clone", _wrap_IIntensityNormalizer_clone, METH_VARARGS, (char *)"\n"
-		"IIntensityNormalizer_clone(IIntensityNormalizer self) -> IIntensityNormalizer\n"
-		"\n"
-		"virtual IIntensityNormalizer* IIntensityNormalizer::clone() const =0\n"
-		"\n"
-		""},
-	 { (char *)"IIntensityNormalizer_createNormalizedData", _wrap_IIntensityNormalizer_createNormalizedData, METH_VARARGS, (char *)"\n"
-		"IIntensityNormalizer_createNormalizedData(IIntensityNormalizer self, OutputData< double > const & data) -> OutputData< double > *\n"
-		"\n"
-		"virtual OutputData<double>* IIntensityNormalizer::createNormalizedData(const OutputData< double > &data) const =0\n"
-		"\n"
-		""},
-	 { (char *)"IIntensityNormalizer_apply", _wrap_IIntensityNormalizer_apply, METH_VARARGS, (char *)"\n"
-		"IIntensityNormalizer_apply(IIntensityNormalizer self, OutputData< double > & data)\n"
-		"\n"
-		"virtual void IIntensityNormalizer::apply(OutputData< double > &data) const =0\n"
-		"\n"
-		""},
-	 { (char *)"IIntensityNormalizer_setMaximumIntensity", _wrap_IIntensityNormalizer_setMaximumIntensity, METH_VARARGS, (char *)"\n"
-		"IIntensityNormalizer_setMaximumIntensity(IIntensityNormalizer self, double arg3)\n"
-		"\n"
-		"virtual void IIntensityNormalizer::setMaximumIntensity(double)=0\n"
-		"\n"
-		""},
+	 { (char *)"delete_IIntensityNormalizer", _wrap_delete_IIntensityNormalizer, METH_VARARGS, (char *)"delete_IIntensityNormalizer(IIntensityNormalizer self)"},
+	 { (char *)"IIntensityNormalizer_clone", _wrap_IIntensityNormalizer_clone, METH_VARARGS, (char *)"IIntensityNormalizer_clone(IIntensityNormalizer self) -> IIntensityNormalizer"},
+	 { (char *)"IIntensityNormalizer_createNormalizedData", _wrap_IIntensityNormalizer_createNormalizedData, METH_VARARGS, (char *)"IIntensityNormalizer_createNormalizedData(IIntensityNormalizer self, OutputData< double > const & data) -> OutputData< double > *"},
+	 { (char *)"IIntensityNormalizer_apply", _wrap_IIntensityNormalizer_apply, METH_VARARGS, (char *)"IIntensityNormalizer_apply(IIntensityNormalizer self, OutputData< double > & data)"},
+	 { (char *)"IIntensityNormalizer_setMaximumIntensity", _wrap_IIntensityNormalizer_setMaximumIntensity, METH_VARARGS, (char *)"IIntensityNormalizer_setMaximumIntensity(IIntensityNormalizer self, double arg3)"},
 	 { (char *)"IIntensityNormalizer_swigregister", IIntensityNormalizer_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_IntensityNormalizer", _wrap_new_IntensityNormalizer, METH_VARARGS, (char *)"\n"
 		"IntensityNormalizer(double scale=1.0, double shift=0.0)\n"
 		"IntensityNormalizer(double scale=1.0)\n"
 		"new_IntensityNormalizer() -> IntensityNormalizer\n"
-		"\n"
-		"IntensityNormalizer::IntensityNormalizer(double scale=1.0, double shift=0.0)\n"
-		"\n"
 		""},
-	 { (char *)"delete_IntensityNormalizer", _wrap_delete_IntensityNormalizer, METH_VARARGS, (char *)"\n"
-		"delete_IntensityNormalizer(IntensityNormalizer self)\n"
-		"\n"
-		"virtual IntensityNormalizer::~IntensityNormalizer()\n"
-		"\n"
-		""},
-	 { (char *)"IntensityNormalizer_clone", _wrap_IntensityNormalizer_clone, METH_VARARGS, (char *)"\n"
-		"IntensityNormalizer_clone(IntensityNormalizer self) -> IntensityNormalizer\n"
-		"\n"
-		"IntensityNormalizer * IntensityNormalizer::clone() const \n"
-		"\n"
-		""},
-	 { (char *)"IntensityNormalizer_createNormalizedData", _wrap_IntensityNormalizer_createNormalizedData, METH_VARARGS, (char *)"\n"
-		"IntensityNormalizer_createNormalizedData(IntensityNormalizer self, OutputData< double > const & data) -> OutputData< double > *\n"
-		"\n"
-		"OutputData< double > * IntensityNormalizer::createNormalizedData(const OutputData< double > &data) const \n"
-		"\n"
-		""},
-	 { (char *)"IntensityNormalizer_apply", _wrap_IntensityNormalizer_apply, METH_VARARGS, (char *)"\n"
-		"IntensityNormalizer_apply(IntensityNormalizer self, OutputData< double > & data)\n"
-		"\n"
-		"void IntensityNormalizer::apply(OutputData< double > &data) const \n"
-		"\n"
-		""},
-	 { (char *)"IntensityNormalizer_setMaximumIntensity", _wrap_IntensityNormalizer_setMaximumIntensity, METH_VARARGS, (char *)"\n"
-		"IntensityNormalizer_setMaximumIntensity(IntensityNormalizer self, double max_intensity)\n"
-		"\n"
-		"virtual void IntensityNormalizer::setMaximumIntensity(double max_intensity)\n"
-		"\n"
-		""},
+	 { (char *)"delete_IntensityNormalizer", _wrap_delete_IntensityNormalizer, METH_VARARGS, (char *)"delete_IntensityNormalizer(IntensityNormalizer self)"},
+	 { (char *)"IntensityNormalizer_clone", _wrap_IntensityNormalizer_clone, METH_VARARGS, (char *)"IntensityNormalizer_clone(IntensityNormalizer self) -> IntensityNormalizer"},
+	 { (char *)"IntensityNormalizer_createNormalizedData", _wrap_IntensityNormalizer_createNormalizedData, METH_VARARGS, (char *)"IntensityNormalizer_createNormalizedData(IntensityNormalizer self, OutputData< double > const & data) -> OutputData< double > *"},
+	 { (char *)"IntensityNormalizer_apply", _wrap_IntensityNormalizer_apply, METH_VARARGS, (char *)"IntensityNormalizer_apply(IntensityNormalizer self, OutputData< double > & data)"},
+	 { (char *)"IntensityNormalizer_setMaximumIntensity", _wrap_IntensityNormalizer_setMaximumIntensity, METH_VARARGS, (char *)"IntensityNormalizer_setMaximumIntensity(IntensityNormalizer self, double max_intensity)"},
 	 { (char *)"IntensityNormalizer_swigregister", IntensityNormalizer_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_IntensityScaleAndShiftNormalizer", _wrap_new_IntensityScaleAndShiftNormalizer, METH_VARARGS, (char *)"\n"
 		"IntensityScaleAndShiftNormalizer(double scale=1.0, double shift=0.0)\n"
 		"IntensityScaleAndShiftNormalizer(double scale=1.0)\n"
 		"new_IntensityScaleAndShiftNormalizer() -> IntensityScaleAndShiftNormalizer\n"
-		"\n"
-		"IntensityScaleAndShiftNormalizer::IntensityScaleAndShiftNormalizer(double scale=1.0, double shift=0.0)\n"
-		"\n"
 		""},
-	 { (char *)"delete_IntensityScaleAndShiftNormalizer", _wrap_delete_IntensityScaleAndShiftNormalizer, METH_VARARGS, (char *)"\n"
-		"delete_IntensityScaleAndShiftNormalizer(IntensityScaleAndShiftNormalizer self)\n"
-		"\n"
-		"virtual IntensityScaleAndShiftNormalizer::~IntensityScaleAndShiftNormalizer()\n"
-		"\n"
-		""},
-	 { (char *)"IntensityScaleAndShiftNormalizer_setMaximumIntensity", _wrap_IntensityScaleAndShiftNormalizer_setMaximumIntensity, METH_VARARGS, (char *)"\n"
-		"IntensityScaleAndShiftNormalizer_setMaximumIntensity(IntensityScaleAndShiftNormalizer self, double max_intensity)\n"
-		"\n"
-		"virtual void IntensityScaleAndShiftNormalizer::setMaximumIntensity(double max_intensity)\n"
-		"\n"
-		""},
-	 { (char *)"IntensityScaleAndShiftNormalizer_clone", _wrap_IntensityScaleAndShiftNormalizer_clone, METH_VARARGS, (char *)"\n"
-		"IntensityScaleAndShiftNormalizer_clone(IntensityScaleAndShiftNormalizer self) -> IntensityScaleAndShiftNormalizer\n"
-		"\n"
-		"virtual IntensityScaleAndShiftNormalizer* IntensityScaleAndShiftNormalizer::clone() const \n"
-		"\n"
-		""},
+	 { (char *)"delete_IntensityScaleAndShiftNormalizer", _wrap_delete_IntensityScaleAndShiftNormalizer, METH_VARARGS, (char *)"delete_IntensityScaleAndShiftNormalizer(IntensityScaleAndShiftNormalizer self)"},
+	 { (char *)"IntensityScaleAndShiftNormalizer_setMaximumIntensity", _wrap_IntensityScaleAndShiftNormalizer_setMaximumIntensity, METH_VARARGS, (char *)"IntensityScaleAndShiftNormalizer_setMaximumIntensity(IntensityScaleAndShiftNormalizer self, double max_intensity)"},
+	 { (char *)"IntensityScaleAndShiftNormalizer_clone", _wrap_IntensityScaleAndShiftNormalizer_clone, METH_VARARGS, (char *)"IntensityScaleAndShiftNormalizer_clone(IntensityScaleAndShiftNormalizer self) -> IntensityScaleAndShiftNormalizer"},
 	 { (char *)"IntensityScaleAndShiftNormalizer_swigregister", IntensityScaleAndShiftNormalizer_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_ISquaredFunction", _wrap_delete_ISquaredFunction, METH_VARARGS, (char *)"\n"
-		"delete_ISquaredFunction(ISquaredFunction self)\n"
-		"\n"
-		"virtual ISquaredFunction::~ISquaredFunction()\n"
-		"\n"
-		""},
-	 { (char *)"ISquaredFunction_clone", _wrap_ISquaredFunction_clone, METH_VARARGS, (char *)"\n"
-		"ISquaredFunction_clone(ISquaredFunction self) -> ISquaredFunction\n"
-		"\n"
-		"virtual ISquaredFunction* ISquaredFunction::clone() const =0\n"
-		"\n"
-		""},
-	 { (char *)"ISquaredFunction_calculateSquaredDifference", _wrap_ISquaredFunction_calculateSquaredDifference, METH_VARARGS, (char *)"\n"
-		"ISquaredFunction_calculateSquaredDifference(ISquaredFunction self, double real_value, double simulated_value) -> double\n"
-		"\n"
-		"virtual double ISquaredFunction::calculateSquaredDifference(double real_value, double simulated_value) const =0\n"
-		"\n"
-		""},
+	 { (char *)"delete_ISquaredFunction", _wrap_delete_ISquaredFunction, METH_VARARGS, (char *)"delete_ISquaredFunction(ISquaredFunction self)"},
+	 { (char *)"ISquaredFunction_clone", _wrap_ISquaredFunction_clone, METH_VARARGS, (char *)"ISquaredFunction_clone(ISquaredFunction self) -> ISquaredFunction"},
+	 { (char *)"ISquaredFunction_calculateSquaredDifference", _wrap_ISquaredFunction_calculateSquaredDifference, METH_VARARGS, (char *)"ISquaredFunction_calculateSquaredDifference(ISquaredFunction self, double real_value, double simulated_value) -> double"},
 	 { (char *)"ISquaredFunction_calculateSquaredError", _wrap_ISquaredFunction_calculateSquaredError, METH_VARARGS, (char *)"\n"
 		"calculateSquaredError(double real_value, double simulated_value=0.0) -> double\n"
 		"ISquaredFunction_calculateSquaredError(ISquaredFunction self, double real_value) -> double\n"
-		"\n"
-		"virtual double ISquaredFunction::calculateSquaredError(double real_value, double simulated_value=0.0) const =0\n"
-		"\n"
 		""},
 	 { (char *)"ISquaredFunction_swigregister", ISquaredFunction_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_SquaredFunctionDefault", _wrap_new_SquaredFunctionDefault, METH_VARARGS, (char *)"\n"
-		"new_SquaredFunctionDefault() -> SquaredFunctionDefault\n"
-		"\n"
-		"SquaredFunctionDefault::SquaredFunctionDefault()\n"
-		"\n"
-		""},
-	 { (char *)"delete_SquaredFunctionDefault", _wrap_delete_SquaredFunctionDefault, METH_VARARGS, (char *)"\n"
-		"delete_SquaredFunctionDefault(SquaredFunctionDefault self)\n"
-		"\n"
-		"virtual SquaredFunctionDefault::~SquaredFunctionDefault()\n"
-		"\n"
-		""},
-	 { (char *)"SquaredFunctionDefault_clone", _wrap_SquaredFunctionDefault_clone, METH_VARARGS, (char *)"\n"
-		"SquaredFunctionDefault_clone(SquaredFunctionDefault self) -> SquaredFunctionDefault\n"
-		"\n"
-		"virtual SquaredFunctionDefault* SquaredFunctionDefault::clone() const \n"
-		"\n"
-		""},
-	 { (char *)"SquaredFunctionDefault_calculateSquaredDifference", _wrap_SquaredFunctionDefault_calculateSquaredDifference, METH_VARARGS, (char *)"\n"
-		"SquaredFunctionDefault_calculateSquaredDifference(SquaredFunctionDefault self, double real_value, double simulated_value) -> double\n"
-		"\n"
-		"virtual double SquaredFunctionDefault::calculateSquaredDifference(double real_value, double simulated_value) const \n"
-		"\n"
-		""},
+	 { (char *)"new_SquaredFunctionDefault", _wrap_new_SquaredFunctionDefault, METH_VARARGS, (char *)"new_SquaredFunctionDefault() -> SquaredFunctionDefault"},
+	 { (char *)"delete_SquaredFunctionDefault", _wrap_delete_SquaredFunctionDefault, METH_VARARGS, (char *)"delete_SquaredFunctionDefault(SquaredFunctionDefault self)"},
+	 { (char *)"SquaredFunctionDefault_clone", _wrap_SquaredFunctionDefault_clone, METH_VARARGS, (char *)"SquaredFunctionDefault_clone(SquaredFunctionDefault self) -> SquaredFunctionDefault"},
+	 { (char *)"SquaredFunctionDefault_calculateSquaredDifference", _wrap_SquaredFunctionDefault_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionDefault_calculateSquaredDifference(SquaredFunctionDefault self, double real_value, double simulated_value) -> double"},
 	 { (char *)"SquaredFunctionDefault_calculateSquaredError", _wrap_SquaredFunctionDefault_calculateSquaredError, METH_VARARGS, (char *)"\n"
 		"calculateSquaredError(double real_value, double simulated_value=0) -> double\n"
 		"SquaredFunctionDefault_calculateSquaredError(SquaredFunctionDefault self, double real_value) -> double\n"
-		"\n"
-		"virtual double SquaredFunctionDefault::calculateSquaredError(double real_value, double simulated_value=0) const \n"
-		"\n"
 		""},
 	 { (char *)"SquaredFunctionDefault_swigregister", SquaredFunctionDefault_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_SquaredFunctionSimError", _wrap_delete_SquaredFunctionSimError, METH_VARARGS, (char *)"\n"
-		"delete_SquaredFunctionSimError(SquaredFunctionSimError self)\n"
-		"\n"
-		"virtual SquaredFunctionSimError::~SquaredFunctionSimError()\n"
-		"\n"
-		""},
-	 { (char *)"SquaredFunctionSimError_clone", _wrap_SquaredFunctionSimError_clone, METH_VARARGS, (char *)"\n"
-		"SquaredFunctionSimError_clone(SquaredFunctionSimError self) -> SquaredFunctionSimError\n"
-		"\n"
-		"virtual SquaredFunctionSimError* SquaredFunctionSimError::clone() const \n"
-		"\n"
-		""},
-	 { (char *)"SquaredFunctionSimError_calculateSquaredDifference", _wrap_SquaredFunctionSimError_calculateSquaredDifference, METH_VARARGS, (char *)"\n"
-		"SquaredFunctionSimError_calculateSquaredDifference(SquaredFunctionSimError self, double real_value, double simulated_value) -> double\n"
-		"\n"
-		"virtual double SquaredFunctionSimError::calculateSquaredDifference(double real_value, double simulated_value) const \n"
-		"\n"
-		""},
-	 { (char *)"SquaredFunctionSimError_calculateSquaredError", _wrap_SquaredFunctionSimError_calculateSquaredError, METH_VARARGS, (char *)"\n"
-		"SquaredFunctionSimError_calculateSquaredError(SquaredFunctionSimError self, double real_value, double simulated_value) -> double\n"
-		"\n"
-		"virtual double SquaredFunctionSimError::calculateSquaredError(double real_value, double simulated_value) const \n"
-		"\n"
-		""},
+	 { (char *)"delete_SquaredFunctionSimError", _wrap_delete_SquaredFunctionSimError, METH_VARARGS, (char *)"delete_SquaredFunctionSimError(SquaredFunctionSimError self)"},
+	 { (char *)"SquaredFunctionSimError_clone", _wrap_SquaredFunctionSimError_clone, METH_VARARGS, (char *)"SquaredFunctionSimError_clone(SquaredFunctionSimError self) -> SquaredFunctionSimError"},
+	 { (char *)"SquaredFunctionSimError_calculateSquaredDifference", _wrap_SquaredFunctionSimError_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionSimError_calculateSquaredDifference(SquaredFunctionSimError self, double real_value, double simulated_value) -> double"},
+	 { (char *)"SquaredFunctionSimError_calculateSquaredError", _wrap_SquaredFunctionSimError_calculateSquaredError, METH_VARARGS, (char *)"SquaredFunctionSimError_calculateSquaredError(SquaredFunctionSimError self, double real_value, double simulated_value) -> double"},
 	 { (char *)"SquaredFunctionSimError_swigregister", SquaredFunctionSimError_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_SquaredFunctionMeanSquaredError", _wrap_delete_SquaredFunctionMeanSquaredError, METH_VARARGS, (char *)"\n"
-		"delete_SquaredFunctionMeanSquaredError(SquaredFunctionMeanSquaredError self)\n"
-		"\n"
-		"virtual SquaredFunctionMeanSquaredError::~SquaredFunctionMeanSquaredError()\n"
-		"\n"
-		""},
-	 { (char *)"SquaredFunctionMeanSquaredError_clone", _wrap_SquaredFunctionMeanSquaredError_clone, METH_VARARGS, (char *)"\n"
-		"SquaredFunctionMeanSquaredError_clone(SquaredFunctionMeanSquaredError self) -> SquaredFunctionMeanSquaredError\n"
-		"\n"
-		"virtual SquaredFunctionMeanSquaredError* SquaredFunctionMeanSquaredError::clone() const \n"
-		"\n"
-		""},
-	 { (char *)"SquaredFunctionMeanSquaredError_calculateSquaredDifference", _wrap_SquaredFunctionMeanSquaredError_calculateSquaredDifference, METH_VARARGS, (char *)"\n"
-		"SquaredFunctionMeanSquaredError_calculateSquaredDifference(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double\n"
-		"\n"
-		"virtual double SquaredFunctionMeanSquaredError::calculateSquaredDifference(double real_value, double simulated_value) const \n"
-		"\n"
-		""},
-	 { (char *)"SquaredFunctionMeanSquaredError_calculateSquaredError", _wrap_SquaredFunctionMeanSquaredError_calculateSquaredError, METH_VARARGS, (char *)"\n"
-		"SquaredFunctionMeanSquaredError_calculateSquaredError(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double\n"
-		"\n"
-		"virtual double SquaredFunctionMeanSquaredError::calculateSquaredError(double real_value, double simulated_value) const \n"
-		"\n"
-		""},
+	 { (char *)"delete_SquaredFunctionMeanSquaredError", _wrap_delete_SquaredFunctionMeanSquaredError, METH_VARARGS, (char *)"delete_SquaredFunctionMeanSquaredError(SquaredFunctionMeanSquaredError self)"},
+	 { (char *)"SquaredFunctionMeanSquaredError_clone", _wrap_SquaredFunctionMeanSquaredError_clone, METH_VARARGS, (char *)"SquaredFunctionMeanSquaredError_clone(SquaredFunctionMeanSquaredError self) -> SquaredFunctionMeanSquaredError"},
+	 { (char *)"SquaredFunctionMeanSquaredError_calculateSquaredDifference", _wrap_SquaredFunctionMeanSquaredError_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionMeanSquaredError_calculateSquaredDifference(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double"},
+	 { (char *)"SquaredFunctionMeanSquaredError_calculateSquaredError", _wrap_SquaredFunctionMeanSquaredError_calculateSquaredError, METH_VARARGS, (char *)"SquaredFunctionMeanSquaredError_calculateSquaredError(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double"},
 	 { (char *)"SquaredFunctionMeanSquaredError_swigregister", SquaredFunctionMeanSquaredError_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_SquaredFunctionSystematicError", _wrap_delete_SquaredFunctionSystematicError, METH_VARARGS, (char *)"\n"
-		"delete_SquaredFunctionSystematicError(SquaredFunctionSystematicError self)\n"
-		"\n"
-		"virtual SquaredFunctionSystematicError::~SquaredFunctionSystematicError()\n"
-		"\n"
-		""},
-	 { (char *)"SquaredFunctionSystematicError_clone", _wrap_SquaredFunctionSystematicError_clone, METH_VARARGS, (char *)"\n"
-		"SquaredFunctionSystematicError_clone(SquaredFunctionSystematicError self) -> SquaredFunctionSystematicError\n"
-		"\n"
-		"virtual SquaredFunctionSystematicError* SquaredFunctionSystematicError::clone() const \n"
-		"\n"
-		""},
-	 { (char *)"SquaredFunctionSystematicError_calculateSquaredDifference", _wrap_SquaredFunctionSystematicError_calculateSquaredDifference, METH_VARARGS, (char *)"\n"
-		"SquaredFunctionSystematicError_calculateSquaredDifference(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double\n"
-		"\n"
-		"virtual double SquaredFunctionSystematicError::calculateSquaredDifference(double real_value, double simulated_value) const \n"
-		"\n"
-		""},
-	 { (char *)"SquaredFunctionSystematicError_calculateSquaredError", _wrap_SquaredFunctionSystematicError_calculateSquaredError, METH_VARARGS, (char *)"\n"
-		"SquaredFunctionSystematicError_calculateSquaredError(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double\n"
-		"\n"
-		"virtual double SquaredFunctionSystematicError::calculateSquaredError(double real_value, double simulated_value) const \n"
-		"\n"
-		""},
+	 { (char *)"delete_SquaredFunctionSystematicError", _wrap_delete_SquaredFunctionSystematicError, METH_VARARGS, (char *)"delete_SquaredFunctionSystematicError(SquaredFunctionSystematicError self)"},
+	 { (char *)"SquaredFunctionSystematicError_clone", _wrap_SquaredFunctionSystematicError_clone, METH_VARARGS, (char *)"SquaredFunctionSystematicError_clone(SquaredFunctionSystematicError self) -> SquaredFunctionSystematicError"},
+	 { (char *)"SquaredFunctionSystematicError_calculateSquaredDifference", _wrap_SquaredFunctionSystematicError_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionSystematicError_calculateSquaredDifference(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double"},
+	 { (char *)"SquaredFunctionSystematicError_calculateSquaredError", _wrap_SquaredFunctionSystematicError_calculateSquaredError, METH_VARARGS, (char *)"SquaredFunctionSystematicError_calculateSquaredError(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double"},
 	 { (char *)"SquaredFunctionSystematicError_swigregister", SquaredFunctionSystematicError_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_SquaredFunctionGaussianError", _wrap_delete_SquaredFunctionGaussianError, METH_VARARGS, (char *)"\n"
-		"delete_SquaredFunctionGaussianError(SquaredFunctionGaussianError self)\n"
-		"\n"
-		"virtual SquaredFunctionGaussianError::~SquaredFunctionGaussianError()\n"
-		"\n"
-		""},
-	 { (char *)"SquaredFunctionGaussianError_clone", _wrap_SquaredFunctionGaussianError_clone, METH_VARARGS, (char *)"\n"
-		"SquaredFunctionGaussianError_clone(SquaredFunctionGaussianError self) -> SquaredFunctionGaussianError\n"
-		"\n"
-		"virtual SquaredFunctionGaussianError* SquaredFunctionGaussianError::clone() const \n"
-		"\n"
-		""},
-	 { (char *)"SquaredFunctionGaussianError_calculateSquaredDifference", _wrap_SquaredFunctionGaussianError_calculateSquaredDifference, METH_VARARGS, (char *)"\n"
-		"SquaredFunctionGaussianError_calculateSquaredDifference(SquaredFunctionGaussianError self, double real_value, double simulated_value) -> double\n"
-		"\n"
-		"virtual double SquaredFunctionGaussianError::calculateSquaredDifference(double real_value, double simulated_value) const \n"
-		"\n"
-		""},
-	 { (char *)"SquaredFunctionGaussianError_calculateSquaredError", _wrap_SquaredFunctionGaussianError_calculateSquaredError, METH_VARARGS, (char *)"\n"
-		"SquaredFunctionGaussianError_calculateSquaredError(SquaredFunctionGaussianError self, double arg3, double arg4) -> double\n"
-		"\n"
-		"virtual double SquaredFunctionGaussianError::calculateSquaredError(double, double) const \n"
-		"\n"
-		""},
+	 { (char *)"delete_SquaredFunctionGaussianError", _wrap_delete_SquaredFunctionGaussianError, METH_VARARGS, (char *)"delete_SquaredFunctionGaussianError(SquaredFunctionGaussianError self)"},
+	 { (char *)"SquaredFunctionGaussianError_clone", _wrap_SquaredFunctionGaussianError_clone, METH_VARARGS, (char *)"SquaredFunctionGaussianError_clone(SquaredFunctionGaussianError self) -> SquaredFunctionGaussianError"},
+	 { (char *)"SquaredFunctionGaussianError_calculateSquaredDifference", _wrap_SquaredFunctionGaussianError_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionGaussianError_calculateSquaredDifference(SquaredFunctionGaussianError self, double real_value, double simulated_value) -> double"},
+	 { (char *)"SquaredFunctionGaussianError_calculateSquaredError", _wrap_SquaredFunctionGaussianError_calculateSquaredError, METH_VARARGS, (char *)"SquaredFunctionGaussianError_calculateSquaredError(SquaredFunctionGaussianError self, double arg3, double arg4) -> double"},
 	 { (char *)"SquaredFunctionGaussianError_swigregister", SquaredFunctionGaussianError_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_IMinimizer", _wrap_delete_IMinimizer, METH_VARARGS, (char *)"delete_IMinimizer(IMinimizer self)"},
-	 { (char *)"IMinimizer_minimize", _wrap_IMinimizer_minimize, METH_VARARGS, (char *)"IMinimizer_minimize(IMinimizer self)"},
-	 { (char *)"IMinimizer_setParameter", _wrap_IMinimizer_setParameter, METH_VARARGS, (char *)"IMinimizer_setParameter(IMinimizer self, size_t index, FitParameter par)"},
-	 { (char *)"IMinimizer_setParameters", _wrap_IMinimizer_setParameters, METH_VARARGS, (char *)"IMinimizer_setParameters(IMinimizer self, FitSuiteParameters parameters)"},
-	 { (char *)"IMinimizer_setChiSquaredFunction", _wrap_IMinimizer_setChiSquaredFunction, METH_VARARGS, (char *)"IMinimizer_setChiSquaredFunction(IMinimizer self, IMinimizer::function_chi2_t fun_chi2, size_t nparameters)"},
-	 { (char *)"IMinimizer_setGradientFunction", _wrap_IMinimizer_setGradientFunction, METH_VARARGS, (char *)"IMinimizer_setGradientFunction(IMinimizer self, IMinimizer::function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)"},
-	 { (char *)"IMinimizer_getNumberOfVariables", _wrap_IMinimizer_getNumberOfVariables, METH_VARARGS, (char *)"IMinimizer_getNumberOfVariables(IMinimizer self) -> size_t"},
-	 { (char *)"IMinimizer_getMinValue", _wrap_IMinimizer_getMinValue, METH_VARARGS, (char *)"IMinimizer_getMinValue(IMinimizer self) -> double"},
-	 { (char *)"IMinimizer_getValueOfVariableAtMinimum", _wrap_IMinimizer_getValueOfVariableAtMinimum, METH_VARARGS, (char *)"IMinimizer_getValueOfVariableAtMinimum(IMinimizer self, size_t index) -> double"},
-	 { (char *)"IMinimizer_getValueOfVariablesAtMinimum", _wrap_IMinimizer_getValueOfVariablesAtMinimum, METH_VARARGS, (char *)"IMinimizer_getValueOfVariablesAtMinimum(IMinimizer self) -> vdouble1d_t"},
-	 { (char *)"IMinimizer_getErrorOfVariable", _wrap_IMinimizer_getErrorOfVariable, METH_VARARGS, (char *)"IMinimizer_getErrorOfVariable(IMinimizer self, size_t index) -> double"},
-	 { (char *)"IMinimizer_getErrorOfVariables", _wrap_IMinimizer_getErrorOfVariables, METH_VARARGS, (char *)"IMinimizer_getErrorOfVariables(IMinimizer self) -> vdouble1d_t"},
-	 { (char *)"IMinimizer_clear", _wrap_IMinimizer_clear, METH_VARARGS, (char *)"IMinimizer_clear(IMinimizer self)"},
-	 { (char *)"IMinimizer_printResults", _wrap_IMinimizer_printResults, METH_VARARGS, (char *)"IMinimizer_printResults(IMinimizer self)"},
-	 { (char *)"IMinimizer_getNCalls", _wrap_IMinimizer_getNCalls, METH_VARARGS, (char *)"IMinimizer_getNCalls(IMinimizer self) -> size_t"},
+	 { (char *)"delete_IMinimizer", _wrap_delete_IMinimizer, METH_VARARGS, (char *)"\n"
+		"delete_IMinimizer(IMinimizer self)\n"
+		"\n"
+		"virtual IMinimizer::~IMinimizer()\n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_minimize", _wrap_IMinimizer_minimize, METH_VARARGS, (char *)"\n"
+		"IMinimizer_minimize(IMinimizer self)\n"
+		"\n"
+		"virtual void IMinimizer::minimize()=0\n"
+		"\n"
+		"run minimization \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_setParameter", _wrap_IMinimizer_setParameter, METH_VARARGS, (char *)"\n"
+		"IMinimizer_setParameter(IMinimizer self, size_t index, FitParameter par)\n"
+		"\n"
+		"void IMinimizer::setParameter(size_t index, const FitParameter *par)\n"
+		"\n"
+		"Sets internal minimizer parameter. \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_setParameters", _wrap_IMinimizer_setParameters, METH_VARARGS, (char *)"\n"
+		"IMinimizer_setParameters(IMinimizer self, FitSuiteParameters parameters)\n"
+		"\n"
+		"void IMinimizer::setParameters(const FitSuiteParameters &parameters)\n"
+		"\n"
+		"Sets internal minimizer parameters using external parameter list. \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_setChiSquaredFunction", _wrap_IMinimizer_setChiSquaredFunction, METH_VARARGS, (char *)"\n"
+		"IMinimizer_setChiSquaredFunction(IMinimizer self, IMinimizer::function_chi2_t fun_chi2, size_t nparameters)\n"
+		"\n"
+		"void IMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)\n"
+		"\n"
+		"Sets chi squared function to minimize. \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_setGradientFunction", _wrap_IMinimizer_setGradientFunction, METH_VARARGS, (char *)"\n"
+		"IMinimizer_setGradientFunction(IMinimizer self, IMinimizer::function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)\n"
+		"\n"
+		"void IMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)\n"
+		"\n"
+		"Sets gradient function to minimize. \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_getNumberOfVariables", _wrap_IMinimizer_getNumberOfVariables, METH_VARARGS, (char *)"\n"
+		"IMinimizer_getNumberOfVariables(IMinimizer self) -> size_t\n"
+		"\n"
+		"size_t IMinimizer::getNumberOfVariables() const\n"
+		"\n"
+		"Returns number of variables to fit. \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_getMinValue", _wrap_IMinimizer_getMinValue, METH_VARARGS, (char *)"\n"
+		"IMinimizer_getMinValue(IMinimizer self) -> double\n"
+		"\n"
+		"double IMinimizer::getMinValue() const\n"
+		"\n"
+		"Returns minimum function value. \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_getValueOfVariableAtMinimum", _wrap_IMinimizer_getValueOfVariableAtMinimum, METH_VARARGS, (char *)"\n"
+		"IMinimizer_getValueOfVariableAtMinimum(IMinimizer self, size_t index) -> double\n"
+		"\n"
+		"double IMinimizer::getValueOfVariableAtMinimum(size_t index) const\n"
+		"\n"
+		"Returns value of the parameter at the minimum. \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_getValueOfVariablesAtMinimum", _wrap_IMinimizer_getValueOfVariablesAtMinimum, METH_VARARGS, (char *)"\n"
+		"IMinimizer_getValueOfVariablesAtMinimum(IMinimizer self) -> vdouble1d_t\n"
+		"\n"
+		"std::vector< double > IMinimizer::getValueOfVariablesAtMinimum() const\n"
+		"\n"
+		"Returns values of parameters at the minimum. \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_getErrorOfVariable", _wrap_IMinimizer_getErrorOfVariable, METH_VARARGS, (char *)"\n"
+		"IMinimizer_getErrorOfVariable(IMinimizer self, size_t index) -> double\n"
+		"\n"
+		"double IMinimizer::getErrorOfVariable(size_t index) const\n"
+		"\n"
+		"Returns error of variable at minimum. \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_getErrorOfVariables", _wrap_IMinimizer_getErrorOfVariables, METH_VARARGS, (char *)"\n"
+		"IMinimizer_getErrorOfVariables(IMinimizer self) -> vdouble1d_t\n"
+		"\n"
+		"std::vector< double > IMinimizer::getErrorOfVariables() const\n"
+		"\n"
+		"Returns errors of variables at minimum. \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_clear", _wrap_IMinimizer_clear, METH_VARARGS, (char *)"\n"
+		"IMinimizer_clear(IMinimizer self)\n"
+		"\n"
+		"void IMinimizer::clear()\n"
+		"\n"
+		"clear resources (parameters) for consecutives minimizations \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_printResults", _wrap_IMinimizer_printResults, METH_VARARGS, (char *)"\n"
+		"IMinimizer_printResults(IMinimizer self)\n"
+		"\n"
+		"void IMinimizer::printResults() const\n"
+		"\n"
+		"Prints fit results. \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_getNCalls", _wrap_IMinimizer_getNCalls, METH_VARARGS, (char *)"\n"
+		"IMinimizer_getNCalls(IMinimizer self) -> size_t\n"
+		"\n"
+		"size_t IMinimizer::getNCalls() const\n"
+		"\n"
+		"Returns number of calls of minimized function. \n"
+		"\n"
+		""},
 	 { (char *)"IMinimizer_getOptions", _wrap_IMinimizer_getOptions, METH_VARARGS, (char *)"\n"
 		"getOptions() -> MinimizerOptions\n"
 		"IMinimizer_getOptions(IMinimizer self) -> MinimizerOptions\n"
+		"\n"
+		"const MinimizerOptions * IMinimizer::getOptions() const \n"
+		"\n"
 		""},
-	 { (char *)"IMinimizer_setOptions", _wrap_IMinimizer_setOptions, METH_VARARGS, (char *)"IMinimizer_setOptions(IMinimizer self, MinimizerOptions options)"},
-	 { (char *)"IMinimizer_setOptionString", _wrap_IMinimizer_setOptionString, METH_VARARGS, (char *)"IMinimizer_setOptionString(IMinimizer self, std::string const & options)"},
-	 { (char *)"IMinimizer_isGradientBasedAgorithm", _wrap_IMinimizer_isGradientBasedAgorithm, METH_VARARGS, (char *)"IMinimizer_isGradientBasedAgorithm(IMinimizer self) -> bool"},
-	 { (char *)"IMinimizer_getMinimizerName", _wrap_IMinimizer_getMinimizerName, METH_VARARGS, (char *)"IMinimizer_getMinimizerName(IMinimizer self) -> std::string"},
-	 { (char *)"IMinimizer_getAlgorithmName", _wrap_IMinimizer_getAlgorithmName, METH_VARARGS, (char *)"IMinimizer_getAlgorithmName(IMinimizer self) -> std::string"},
+	 { (char *)"IMinimizer_setOptions", _wrap_IMinimizer_setOptions, METH_VARARGS, (char *)"\n"
+		"IMinimizer_setOptions(IMinimizer self, MinimizerOptions options)\n"
+		"\n"
+		"void IMinimizer::setOptions(const MinimizerOptions &options)\n"
+		"\n"
+		"set minimizer options \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_setOptionString", _wrap_IMinimizer_setOptionString, METH_VARARGS, (char *)"\n"
+		"IMinimizer_setOptionString(IMinimizer self, std::string const & options)\n"
+		"\n"
+		"void IMinimizer::setOptionString(const std::string &options)\n"
+		"\n"
+		"set minimizer option string \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_isGradientBasedAgorithm", _wrap_IMinimizer_isGradientBasedAgorithm, METH_VARARGS, (char *)"\n"
+		"IMinimizer_isGradientBasedAgorithm(IMinimizer self) -> bool\n"
+		"\n"
+		"bool IMinimizer::isGradientBasedAgorithm()\n"
+		"\n"
+		"Checks if type of algorithm is Levenberg-Marquardt or similar. \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_getMinimizerName", _wrap_IMinimizer_getMinimizerName, METH_VARARGS, (char *)"\n"
+		"IMinimizer_getMinimizerName(IMinimizer self) -> std::string\n"
+		"\n"
+		"std::string IMinimizer::getMinimizerName() const\n"
+		"\n"
+		"return name of the minimizer \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_getAlgorithmName", _wrap_IMinimizer_getAlgorithmName, METH_VARARGS, (char *)"\n"
+		"IMinimizer_getAlgorithmName(IMinimizer self) -> std::string\n"
+		"\n"
+		"std::string IMinimizer::getAlgorithmName() const\n"
+		"\n"
+		"return name of the minimization algorithm \n"
+		"\n"
+		""},
 	 { (char *)"IMinimizer_swigregister", IMinimizer_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_ChiSquaredModule", _wrap_new_ChiSquaredModule, METH_VARARGS, (char *)"\n"
 		"ChiSquaredModule()\n"
 		"new_ChiSquaredModule(ChiSquaredModule other) -> ChiSquaredModule\n"
-		"\n"
-		"ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other)\n"
-		"\n"
 		""},
-	 { (char *)"delete_ChiSquaredModule", _wrap_delete_ChiSquaredModule, METH_VARARGS, (char *)"\n"
-		"delete_ChiSquaredModule(ChiSquaredModule self)\n"
-		"\n"
-		"virtual ChiSquaredModule::~ChiSquaredModule()\n"
-		"\n"
-		""},
-	 { (char *)"ChiSquaredModule_clone", _wrap_ChiSquaredModule_clone, METH_VARARGS, (char *)"\n"
-		"ChiSquaredModule_clone(ChiSquaredModule self) -> ChiSquaredModule\n"
-		"\n"
-		"virtual ChiSquaredModule* ChiSquaredModule::clone() const\n"
-		"\n"
-		"clone method \n"
-		"\n"
-		""},
-	 { (char *)"ChiSquaredModule_processFitElements", _wrap_ChiSquaredModule_processFitElements, METH_VARARGS, (char *)"\n"
-		"ChiSquaredModule_processFitElements(ChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator first, std::vector< FitElement,std::allocator< FitElement > >::iterator last)\n"
-		"\n"
-		"void ChiSquaredModule::processFitElements(std::vector< FitElement >::iterator first, std::vector< FitElement >::iterator last)\n"
-		"\n"
-		"Updates mp_simulation_data and mp_weights, returns chi^2. \n"
-		"\n"
-		""},
+	 { (char *)"delete_ChiSquaredModule", _wrap_delete_ChiSquaredModule, METH_VARARGS, (char *)"delete_ChiSquaredModule(ChiSquaredModule self)"},
+	 { (char *)"ChiSquaredModule_clone", _wrap_ChiSquaredModule_clone, METH_VARARGS, (char *)"ChiSquaredModule_clone(ChiSquaredModule self) -> ChiSquaredModule"},
+	 { (char *)"ChiSquaredModule_processFitElements", _wrap_ChiSquaredModule_processFitElements, METH_VARARGS, (char *)"ChiSquaredModule_processFitElements(ChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator first, std::vector< FitElement,std::allocator< FitElement > >::iterator last)"},
 	 { (char *)"ChiSquaredModule_swigregister", ChiSquaredModule_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_FitObject", _wrap_new_FitObject, METH_VARARGS, (char *)"\n"
 		"FitObject(GISASSimulation const & simulation, OutputData< double > const & real_data, double weight=1, bool adjust_detector_to_data=True)\n"
 		"FitObject(GISASSimulation const & simulation, OutputData< double > const & real_data, double weight=1)\n"
 		"new_FitObject(GISASSimulation const & simulation, OutputData< double > const & real_data) -> FitObject\n"
+		"\n"
+		"FitObject::FitObject(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1, bool adjust_detector_to_data=true)\n"
+		"\n"
+		"FitObject constructor\n"
+		"\n"
+		"Parameters:\n"
+		"-----------\n"
+		"\n"
+		"simulaiton: \n"
+		"The simulation to eun\n"
+		"\n"
+		"real_data: \n"
+		"The real data\n"
+		"\n"
+		"weight: \n"
+		"Weight of dataset in chi2 calculations\n"
+		"\n"
+		"adjust_detector_to_data: \n"
+		"Detector axes will be adjusted to real data axes, if true \n"
+		"\n"
 		""},
-	 { (char *)"delete_FitObject", _wrap_delete_FitObject, METH_VARARGS, (char *)"delete_FitObject(FitObject self)"},
-	 { (char *)"FitObject_getRealData", _wrap_FitObject_getRealData, METH_VARARGS, (char *)"FitObject_getRealData(FitObject self) -> OutputData< double > const *"},
-	 { (char *)"FitObject_getSimulationData", _wrap_FitObject_getSimulationData, METH_VARARGS, (char *)"FitObject_getSimulationData(FitObject self) -> OutputData< double > const *"},
-	 { (char *)"FitObject_getSimulation", _wrap_FitObject_getSimulation, METH_VARARGS, (char *)"FitObject_getSimulation(FitObject self) -> GISASSimulation const *"},
-	 { (char *)"FitObject_getWeight", _wrap_FitObject_getWeight, METH_VARARGS, (char *)"FitObject_getWeight(FitObject self) -> double"},
-	 { (char *)"FitObject_getSizeOfData", _wrap_FitObject_getSizeOfData, METH_VARARGS, (char *)"FitObject_getSizeOfData(FitObject self) -> size_t"},
+	 { (char *)"delete_FitObject", _wrap_delete_FitObject, METH_VARARGS, (char *)"\n"
+		"delete_FitObject(FitObject self)\n"
+		"\n"
+		"FitObject::~FitObject()\n"
+		"\n"
+		""},
+	 { (char *)"FitObject_getRealData", _wrap_FitObject_getRealData, METH_VARARGS, (char *)"\n"
+		"FitObject_getRealData(FitObject self) -> OutputData< double > const *\n"
+		"\n"
+		"const OutputData< double > * FitObject::getRealData() const\n"
+		"\n"
+		"Returns real (experimental) data. \n"
+		"\n"
+		""},
+	 { (char *)"FitObject_getSimulationData", _wrap_FitObject_getSimulationData, METH_VARARGS, (char *)"\n"
+		"FitObject_getSimulationData(FitObject self) -> OutputData< double > const *\n"
+		"\n"
+		"const OutputData< double > * FitObject::getSimulationData() const\n"
+		"\n"
+		"Returns simulated data. \n"
+		"\n"
+		""},
+	 { (char *)"FitObject_getSimulation", _wrap_FitObject_getSimulation, METH_VARARGS, (char *)"\n"
+		"FitObject_getSimulation(FitObject self) -> GISASSimulation const *\n"
+		"\n"
+		"const GISASSimulation * FitObject::getSimulation() const\n"
+		"\n"
+		"Returns simulation. \n"
+		"\n"
+		""},
+	 { (char *)"FitObject_getWeight", _wrap_FitObject_getWeight, METH_VARARGS, (char *)"\n"
+		"FitObject_getWeight(FitObject self) -> double\n"
+		"\n"
+		"double FitObject::getWeight() const\n"
+		"\n"
+		"Returns weight of data set in chi2 calculations. \n"
+		"\n"
+		""},
+	 { (char *)"FitObject_getSizeOfData", _wrap_FitObject_getSizeOfData, METH_VARARGS, (char *)"\n"
+		"FitObject_getSizeOfData(FitObject self) -> size_t\n"
+		"\n"
+		"size_t FitObject::getSizeOfData() const\n"
+		"\n"
+		"Returns the size of the data. It is equal to the number of non-masked detector channels which will participate in chi2 calculations. \n"
+		"\n"
+		""},
 	 { (char *)"FitObject_prepareFitElements", _wrap_FitObject_prepareFitElements, METH_VARARGS, (char *)"\n"
 		"prepareFitElements(std::vector< FitElement,std::allocator< FitElement > > & fit_elements, double weight, IIntensityNormalizer normalizer=None)\n"
 		"FitObject_prepareFitElements(FitObject self, std::vector< FitElement,std::allocator< FitElement > > & fit_elements, double weight)\n"
+		"\n"
+		"void FitObject::prepareFitElements(std::vector< FitElement > &fit_elements, double weight, IIntensityNormalizer *normalizer=0)\n"
+		"\n"
+		"Runs simulation and put results (the real and simulated intensities) into external vector. Masked channels will be excluded from the vector. \n"
+		"\n"
 		""},
-	 { (char *)"FitObject_getChiSquaredMap", _wrap_FitObject_getChiSquaredMap, METH_VARARGS, (char *)"FitObject_getChiSquaredMap(FitObject self, std::vector< FitElement,std::allocator< FitElement > >::const_iterator first, std::vector< FitElement,std::allocator< FitElement > >::const_iterator last) -> OutputData< double > *"},
+	 { (char *)"FitObject_getChiSquaredMap", _wrap_FitObject_getChiSquaredMap, METH_VARARGS, (char *)"\n"
+		"FitObject_getChiSquaredMap(FitObject self, std::vector< FitElement,std::allocator< FitElement > >::const_iterator first, std::vector< FitElement,std::allocator< FitElement > >::const_iterator last) -> OutputData< double > *\n"
+		"\n"
+		"OutputData< double > * FitObject::getChiSquaredMap(std::vector< FitElement >::const_iterator first, std::vector< FitElement >::const_iterator last) const\n"
+		"\n"
+		"Creates ChiSquared map from external vector. \n"
+		"\n"
+		""},
+	 { (char *)"FitObject_addParametersToExternalPool", _wrap_FitObject_addParametersToExternalPool, METH_VARARGS, (char *)"\n"
+		"addParametersToExternalPool(std::string path, ParameterPool * external_pool, int copy_number=-1) -> std::string\n"
+		"FitObject_addParametersToExternalPool(FitObject self, std::string path, ParameterPool * external_pool) -> std::string\n"
+		"\n"
+		"std::string FitObject::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const\n"
+		"\n"
+		"Adds parameters from local pool to external pool and recursively calls its direct children.\n"
+		"\n"
+		"Adds parameters from local pool to external pool. \n"
+		"\n"
+		""},
 	 { (char *)"FitObject_swigregister", FitObject_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_FitOptions", _wrap_new_FitOptions, METH_VARARGS, (char *)"new_FitOptions() -> FitOptions"},
-	 { (char *)"delete_FitOptions", _wrap_delete_FitOptions, METH_VARARGS, (char *)"delete_FitOptions(FitOptions self)"},
-	 { (char *)"FitOptions_getDerivEpsilon", _wrap_FitOptions_getDerivEpsilon, METH_VARARGS, (char *)"FitOptions_getDerivEpsilon(FitOptions self) -> double"},
-	 { (char *)"FitOptions_setDerivEpsilon", _wrap_FitOptions_setDerivEpsilon, METH_VARARGS, (char *)"FitOptions_setDerivEpsilon(FitOptions self, double deriv_epsilon)"},
-	 { (char *)"FitOptions_getStepFactor", _wrap_FitOptions_getStepFactor, METH_VARARGS, (char *)"FitOptions_getStepFactor(FitOptions self) -> double"},
-	 { (char *)"FitOptions_setStepFactor", _wrap_FitOptions_setStepFactor, METH_VARARGS, (char *)"FitOptions_setStepFactor(FitOptions self, double step_factor)"},
+	 { (char *)"new_FitOptions", _wrap_new_FitOptions, METH_VARARGS, (char *)"\n"
+		"new_FitOptions() -> FitOptions\n"
+		"\n"
+		"FitOptions::FitOptions()\n"
+		"\n"
+		""},
+	 { (char *)"delete_FitOptions", _wrap_delete_FitOptions, METH_VARARGS, (char *)"\n"
+		"delete_FitOptions(FitOptions self)\n"
+		"\n"
+		"FitOptions::~FitOptions()\n"
+		"\n"
+		""},
+	 { (char *)"FitOptions_getDerivEpsilon", _wrap_FitOptions_getDerivEpsilon, METH_VARARGS, (char *)"\n"
+		"FitOptions_getDerivEpsilon(FitOptions self) -> double\n"
+		"\n"
+		"double FitOptions::getDerivEpsilon() const \n"
+		"\n"
+		""},
+	 { (char *)"FitOptions_setDerivEpsilon", _wrap_FitOptions_setDerivEpsilon, METH_VARARGS, (char *)"\n"
+		"FitOptions_setDerivEpsilon(FitOptions self, double deriv_epsilon)\n"
+		"\n"
+		"void FitOptions::setDerivEpsilon(double deriv_epsilon)\n"
+		"\n"
+		""},
+	 { (char *)"FitOptions_getStepFactor", _wrap_FitOptions_getStepFactor, METH_VARARGS, (char *)"\n"
+		"FitOptions_getStepFactor(FitOptions self) -> double\n"
+		"\n"
+		"double FitOptions::getStepFactor() const \n"
+		"\n"
+		""},
+	 { (char *)"FitOptions_setStepFactor", _wrap_FitOptions_setStepFactor, METH_VARARGS, (char *)"\n"
+		"FitOptions_setStepFactor(FitOptions self, double step_factor)\n"
+		"\n"
+		"void FitOptions::setStepFactor(double step_factor)\n"
+		"\n"
+		""},
 	 { (char *)"FitOptions_swigregister", FitOptions_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_FitParameter", _wrap_new_FitParameter, METH_VARARGS, (char *)"\n"
 		"FitParameter()\n"
@@ -31085,274 +33626,683 @@ static PyMethodDef SwigMethods[] = {
 		"FitParameter(std::string const & name, double value, double step=0.0, AttLimits limits)\n"
 		"FitParameter(std::string const & name, double value, double step=0.0)\n"
 		"new_FitParameter(std::string const & name, double value) -> FitParameter\n"
+		"\n"
+		"FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const AttLimits &limits=AttLimits::limitless(), double error=0.0)\n"
+		"\n"
 		""},
-	 { (char *)"delete_FitParameter", _wrap_delete_FitParameter, METH_VARARGS, (char *)"delete_FitParameter(FitParameter self)"},
-	 { (char *)"FitParameter_setValue", _wrap_FitParameter_setValue, METH_VARARGS, (char *)"FitParameter_setValue(FitParameter self, double value)"},
-	 { (char *)"FitParameter_getValue", _wrap_FitParameter_getValue, METH_VARARGS, (char *)"FitParameter_getValue(FitParameter self) -> double"},
-	 { (char *)"FitParameter_setStep", _wrap_FitParameter_setStep, METH_VARARGS, (char *)"FitParameter_setStep(FitParameter self, double value)"},
-	 { (char *)"FitParameter_getStep", _wrap_FitParameter_getStep, METH_VARARGS, (char *)"FitParameter_getStep(FitParameter self) -> double"},
-	 { (char *)"FitParameter_setError", _wrap_FitParameter_setError, METH_VARARGS, (char *)"FitParameter_setError(FitParameter self, double value)"},
-	 { (char *)"FitParameter_getError", _wrap_FitParameter_getError, METH_VARARGS, (char *)"FitParameter_getError(FitParameter self) -> double"},
+	 { (char *)"delete_FitParameter", _wrap_delete_FitParameter, METH_VARARGS, (char *)"\n"
+		"delete_FitParameter(FitParameter self)\n"
+		"\n"
+		"virtual FitParameter::~FitParameter()\n"
+		"\n"
+		""},
+	 { (char *)"FitParameter_setValue", _wrap_FitParameter_setValue, METH_VARARGS, (char *)"\n"
+		"FitParameter_setValue(FitParameter self, double value)\n"
+		"\n"
+		"virtual void FitParameter::setValue(double value)\n"
+		"\n"
+		"Sets value of parameter. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameter_getValue", _wrap_FitParameter_getValue, METH_VARARGS, (char *)"\n"
+		"FitParameter_getValue(FitParameter self) -> double\n"
+		"\n"
+		"virtual double FitParameter::getValue() const\n"
+		"\n"
+		"Returns value of parameter. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameter_setStep", _wrap_FitParameter_setStep, METH_VARARGS, (char *)"\n"
+		"FitParameter_setStep(FitParameter self, double value)\n"
+		"\n"
+		"virtual void FitParameter::setStep(double value)\n"
+		"\n"
+		"Sets parameter step for minimizer. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameter_getStep", _wrap_FitParameter_getStep, METH_VARARGS, (char *)"\n"
+		"FitParameter_getStep(FitParameter self) -> double\n"
+		"\n"
+		"virtual double FitParameter::getStep() const\n"
+		"\n"
+		"Returns parameter step for minimizer. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameter_setError", _wrap_FitParameter_setError, METH_VARARGS, (char *)"\n"
+		"FitParameter_setError(FitParameter self, double value)\n"
+		"\n"
+		"virtual void FitParameter::setError(double value)\n"
+		"\n"
+		"Sets parameter error. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameter_getError", _wrap_FitParameter_getError, METH_VARARGS, (char *)"\n"
+		"FitParameter_getError(FitParameter self) -> double\n"
+		"\n"
+		"virtual double FitParameter::getError() const\n"
+		"\n"
+		"Returns parameter step for minimizer. \n"
+		"\n"
+		""},
 	 { (char *)"FitParameter_swigregister", FitParameter_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_FitSuite", _wrap_new_FitSuite, METH_VARARGS, (char *)"new_FitSuite() -> FitSuite"},
+	 { (char *)"new_FitSuite", _wrap_new_FitSuite, METH_VARARGS, (char *)"\n"
+		"new_FitSuite() -> FitSuite\n"
+		"\n"
+		"FitSuite::FitSuite()\n"
+		"\n"
+		""},
 	 { (char *)"FitSuite_addSimulationAndRealData", _wrap_FitSuite_addSimulationAndRealData, METH_VARARGS, (char *)"\n"
 		"addSimulationAndRealData(GISASSimulation const & simulation, OutputData< double > const & real_data, double weight=1)\n"
 		"addSimulationAndRealData(GISASSimulation const & simulation, OutputData< double > const & real_data)\n"
 		"addSimulationAndRealData(GISASSimulation const & simulation, IHistogram const & real_data, double weight=1)\n"
 		"FitSuite_addSimulationAndRealData(FitSuite self, GISASSimulation const & simulation, IHistogram const & real_data)\n"
+		"\n"
+		"void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation, const IHistogram &real_data, double weight=1)\n"
+		"\n"
+		"Assigns pair of (simulation, real data) for fitting. More than one pair can be added. \n"
+		"\n"
 		""},
 	 { (char *)"FitSuite_addFitParameter", _wrap_FitSuite_addFitParameter, METH_VARARGS, (char *)"\n"
 		"addFitParameter(std::string const & name, double value, AttLimits attlim, double step=0.0)\n"
 		"addFitParameter(std::string const & name, double value, AttLimits attlim)\n"
 		"FitSuite_addFitParameter(FitSuite self, std::string const & name, double value)\n"
+		"\n"
+		"void FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &attlim=AttLimits::limitless(), double step=0.0)\n"
+		"\n"
+		"Adds fit parameter\n"
+		"\n"
+		"Parameters:\n"
+		"-----------\n"
+		"\n"
+		"name: \n"
+		"The name of fit parameter\n"
+		"\n"
+		"value: \n"
+		"Parameter's starting value\n"
+		"\n"
+		"attlim: \n"
+		"Limits attribute\n"
+		"\n"
+		"step: \n"
+		"Initial parameter's step (some minimizers don't use it) \n"
+		"\n"
 		""},
-	 { (char *)"FitSuite_setChiSquaredModule", _wrap_FitSuite_setChiSquaredModule, METH_VARARGS, (char *)"FitSuite_setChiSquaredModule(FitSuite self, IChiSquaredModule chi2_module)"},
-	 { (char *)"FitSuite_addFitStrategy", _wrap_FitSuite_addFitStrategy, METH_VARARGS, (char *)"FitSuite_addFitStrategy(FitSuite self, IFitStrategy strategy)"},
+	 { (char *)"FitSuite_setChiSquaredModule", _wrap_FitSuite_setChiSquaredModule, METH_VARARGS, (char *)"\n"
+		"FitSuite_setChiSquaredModule(FitSuite self, IChiSquaredModule chi2_module)\n"
+		"\n"
+		"void FitSuite::setChiSquaredModule(const IChiSquaredModule &chi2_module)\n"
+		"\n"
+		"Replaces default ChiSquaredModule with new one. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuite_addFitStrategy", _wrap_FitSuite_addFitStrategy, METH_VARARGS, (char *)"\n"
+		"FitSuite_addFitStrategy(FitSuite self, IFitStrategy strategy)\n"
+		"\n"
+		"void FitSuite::addFitStrategy(const IFitStrategy &strategy)\n"
+		"\n"
+		"Adds fit strategy. \n"
+		"\n"
+		""},
 	 { (char *)"FitSuite_setMinimizer", _wrap_FitSuite_setMinimizer, METH_VARARGS, (char *)"\n"
 		"setMinimizer(std::string const & minimizer_name, std::string const & algorithm_name, std::string const & minimizer_options)\n"
 		"setMinimizer(std::string const & minimizer_name, std::string const & algorithm_name)\n"
 		"setMinimizer(std::string const & minimizer_name)\n"
 		"FitSuite_setMinimizer(FitSuite self, IMinimizer minimizer)\n"
+		"\n"
+		"void FitSuite::setMinimizer(IMinimizer *minimizer)\n"
+		"\n"
+		"Sets minimizer. \n"
+		"\n"
 		""},
-	 { (char *)"FitSuite_getMinimizer", _wrap_FitSuite_getMinimizer, METH_VARARGS, (char *)"FitSuite_getMinimizer(FitSuite self) -> IMinimizer"},
-	 { (char *)"FitSuite_initPrint", _wrap_FitSuite_initPrint, METH_VARARGS, (char *)"FitSuite_initPrint(FitSuite self, int print_every_nth)"},
-	 { (char *)"FitSuite_fixAllParameters", _wrap_FitSuite_fixAllParameters, METH_VARARGS, (char *)"FitSuite_fixAllParameters(FitSuite self)"},
-	 { (char *)"FitSuite_releaseAllParameters", _wrap_FitSuite_releaseAllParameters, METH_VARARGS, (char *)"FitSuite_releaseAllParameters(FitSuite self)"},
-	 { (char *)"FitSuite_setParametersFixed", _wrap_FitSuite_setParametersFixed, METH_VARARGS, (char *)"FitSuite_setParametersFixed(FitSuite self, vector_string_t pars, bool is_fixed)"},
-	 { (char *)"FitSuite_runFit", _wrap_FitSuite_runFit, METH_VARARGS, (char *)"FitSuite_runFit(FitSuite self)"},
-	 { (char *)"FitSuite_getNumberOfFitObjects", _wrap_FitSuite_getNumberOfFitObjects, METH_VARARGS, (char *)"FitSuite_getNumberOfFitObjects(FitSuite self) -> int"},
+	 { (char *)"FitSuite_getMinimizer", _wrap_FitSuite_getMinimizer, METH_VARARGS, (char *)"\n"
+		"FitSuite_getMinimizer(FitSuite self) -> IMinimizer\n"
+		"\n"
+		"IMinimizer * FitSuite::getMinimizer()\n"
+		"\n"
+		"Returns minimizer. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuite_initPrint", _wrap_FitSuite_initPrint, METH_VARARGS, (char *)"\n"
+		"FitSuite_initPrint(FitSuite self, int print_every_nth)\n"
+		"\n"
+		"void FitSuite::initPrint(int print_every_nth)\n"
+		"\n"
+		"Initializes printing to standard output during the fitting. Prints also the summary when completed.\n"
+		"\n"
+		"Parameters:\n"
+		"-----------\n"
+		"\n"
+		"print_every_nth: \n"
+		"Print every n'th iteration \n"
+		"\n"
+		""},
+	 { (char *)"FitSuite_fixAllParameters", _wrap_FitSuite_fixAllParameters, METH_VARARGS, (char *)"\n"
+		"FitSuite_fixAllParameters(FitSuite self)\n"
+		"\n"
+		"void FitSuite::fixAllParameters()\n"
+		"\n"
+		"Set all parameters to fixed. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuite_releaseAllParameters", _wrap_FitSuite_releaseAllParameters, METH_VARARGS, (char *)"\n"
+		"FitSuite_releaseAllParameters(FitSuite self)\n"
+		"\n"
+		"void FitSuite::releaseAllParameters()\n"
+		"\n"
+		"Set all parameters to released. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuite_setParametersFixed", _wrap_FitSuite_setParametersFixed, METH_VARARGS, (char *)"\n"
+		"FitSuite_setParametersFixed(FitSuite self, vector_string_t pars, bool is_fixed)\n"
+		"\n"
+		"void FitSuite::setParametersFixed(const std::vector< std::string > &pars, bool is_fixed)\n"
+		"\n"
+		"Set fixed flag for parameters from the list. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuite_runFit", _wrap_FitSuite_runFit, METH_VARARGS, (char *)"\n"
+		"FitSuite_runFit(FitSuite self)\n"
+		"\n"
+		"void FitSuite::runFit()\n"
+		"\n"
+		"main method to run the fitting \n"
+		"\n"
+		""},
+	 { (char *)"FitSuite_getNumberOfFitObjects", _wrap_FitSuite_getNumberOfFitObjects, METH_VARARGS, (char *)"\n"
+		"FitSuite_getNumberOfFitObjects(FitSuite self) -> int\n"
+		"\n"
+		"int FitSuite::getNumberOfFitObjects() const\n"
+		"\n"
+		"Returns number of fit objects, where fit object stands for (real, simulated) pair. \n"
+		"\n"
+		""},
 	 { (char *)"FitSuite_getRealData", _wrap_FitSuite_getRealData, METH_VARARGS, (char *)"\n"
 		"getRealData(size_t i_item=0) -> IHistogram\n"
 		"FitSuite_getRealData(FitSuite self) -> IHistogram *\n"
+		"\n"
+		"IHistogram * FitSuite::getRealData(size_t i_item=0) const\n"
+		"\n"
+		"returns real data histogram\n"
+		"\n"
+		"Parameters:\n"
+		"-----------\n"
+		"\n"
+		"i_item: \n"
+		"The index of fit object \n"
+		"\n"
 		""},
 	 { (char *)"FitSuite_getSimulationData", _wrap_FitSuite_getSimulationData, METH_VARARGS, (char *)"\n"
 		"getSimulationData(size_t i_item=0) -> IHistogram\n"
 		"FitSuite_getSimulationData(FitSuite self) -> IHistogram *\n"
+		"\n"
+		"IHistogram * FitSuite::getSimulationData(size_t i_item=0) const\n"
+		"\n"
+		"returns simulated data histogram\n"
+		"\n"
+		"Parameters:\n"
+		"-----------\n"
+		"\n"
+		"i_item: \n"
+		"The index of fit object \n"
+		"\n"
 		""},
 	 { (char *)"FitSuite_getChiSquaredMap", _wrap_FitSuite_getChiSquaredMap, METH_VARARGS, (char *)"\n"
 		"getChiSquaredMap(size_t i_item=0) -> IHistogram\n"
 		"FitSuite_getChiSquaredMap(FitSuite self) -> IHistogram *\n"
+		"\n"
+		"IHistogram * FitSuite::getChiSquaredMap(size_t i_item=0) const\n"
+		"\n"
+		"returns chi2 histogram calculated for (real, simulated) data pair\n"
+		"\n"
+		"Parameters:\n"
+		"-----------\n"
+		"\n"
+		"i_item: \n"
+		"The index of fit object \n"
+		"\n"
 		""},
-	 { (char *)"FitSuite_getFitObjects", _wrap_FitSuite_getFitObjects, METH_VARARGS, (char *)"FitSuite_getFitObjects(FitSuite self) -> FitSuiteObjects"},
-	 { (char *)"FitSuite_getFitParameters", _wrap_FitSuite_getFitParameters, METH_VARARGS, (char *)"FitSuite_getFitParameters(FitSuite self) -> FitSuiteParameters"},
-	 { (char *)"FitSuite_getFitStrategies", _wrap_FitSuite_getFitStrategies, METH_VARARGS, (char *)"FitSuite_getFitStrategies(FitSuite self) -> FitSuiteStrategies *"},
-	 { (char *)"FitSuite_isLastIteration", _wrap_FitSuite_isLastIteration, METH_VARARGS, (char *)"FitSuite_isLastIteration(FitSuite self) -> bool"},
-	 { (char *)"FitSuite_getNumberOfIterations", _wrap_FitSuite_getNumberOfIterations, METH_VARARGS, (char *)"FitSuite_getNumberOfIterations(FitSuite self) -> size_t"},
-	 { (char *)"FitSuite_getCurrentStrategyIndex", _wrap_FitSuite_getCurrentStrategyIndex, METH_VARARGS, (char *)"FitSuite_getCurrentStrategyIndex(FitSuite self) -> size_t"},
-	 { (char *)"FitSuite_printResults", _wrap_FitSuite_printResults, METH_VARARGS, (char *)"FitSuite_printResults(FitSuite self)"},
-	 { (char *)"FitSuite_getChi2", _wrap_FitSuite_getChi2, METH_VARARGS, (char *)"FitSuite_getChi2(FitSuite self) -> double"},
-	 { (char *)"FitSuite_interruptFitting", _wrap_FitSuite_interruptFitting, METH_VARARGS, (char *)"FitSuite_interruptFitting(FitSuite self)"},
-	 { (char *)"FitSuite_resetInterrupt", _wrap_FitSuite_resetInterrupt, METH_VARARGS, (char *)"FitSuite_resetInterrupt(FitSuite self)"},
-	 { (char *)"FitSuite_isInterrupted", _wrap_FitSuite_isInterrupted, METH_VARARGS, (char *)"FitSuite_isInterrupted(FitSuite self) -> bool"},
+	 { (char *)"FitSuite_getFitObjects", _wrap_FitSuite_getFitObjects, METH_VARARGS, (char *)"\n"
+		"FitSuite_getFitObjects(FitSuite self) -> FitSuiteObjects\n"
+		"\n"
+		"FitSuiteObjects * FitSuite::getFitObjects()\n"
+		"\n"
+		"returns  FitObject (pair of simulation/real data) \n"
+		"\n"
+		""},
+	 { (char *)"FitSuite_getFitParameters", _wrap_FitSuite_getFitParameters, METH_VARARGS, (char *)"\n"
+		"FitSuite_getFitParameters(FitSuite self) -> FitSuiteParameters\n"
+		"\n"
+		"FitSuiteParameters * FitSuite::getFitParameters()\n"
+		"\n"
+		"Returns reference to fit parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuite_getFitStrategies", _wrap_FitSuite_getFitStrategies, METH_VARARGS, (char *)"\n"
+		"FitSuite_getFitStrategies(FitSuite self) -> FitSuiteStrategies *\n"
+		"\n"
+		"FitSuiteStrategies * FitSuite::getFitStrategies()\n"
+		"\n"
+		"Returns reference to fit parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuite_isLastIteration", _wrap_FitSuite_isLastIteration, METH_VARARGS, (char *)"\n"
+		"FitSuite_isLastIteration(FitSuite self) -> bool\n"
+		"\n"
+		"bool FitSuite::isLastIteration() const\n"
+		"\n"
+		"if the last iteration is done (used by observers to print summary) \n"
+		"\n"
+		""},
+	 { (char *)"FitSuite_getNumberOfIterations", _wrap_FitSuite_getNumberOfIterations, METH_VARARGS, (char *)"\n"
+		"FitSuite_getNumberOfIterations(FitSuite self) -> size_t\n"
+		"\n"
+		"size_t FitSuite::getNumberOfIterations() const\n"
+		"\n"
+		"Returns current number of minimization function calls. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuite_getCurrentStrategyIndex", _wrap_FitSuite_getCurrentStrategyIndex, METH_VARARGS, (char *)"\n"
+		"FitSuite_getCurrentStrategyIndex(FitSuite self) -> size_t\n"
+		"\n"
+		"size_t FitSuite::getCurrentStrategyIndex() const\n"
+		"\n"
+		"Returns the number of current strategy. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuite_printResults", _wrap_FitSuite_printResults, METH_VARARGS, (char *)"\n"
+		"FitSuite_printResults(FitSuite self)\n"
+		"\n"
+		"void FitSuite::printResults() const \n"
+		"\n"
+		""},
+	 { (char *)"FitSuite_getChi2", _wrap_FitSuite_getChi2, METH_VARARGS, (char *)"\n"
+		"FitSuite_getChi2(FitSuite self) -> double\n"
+		"\n"
+		"double FitSuite::getChi2() const\n"
+		"\n"
+		"Returns minimum chi squared value found. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuite_interruptFitting", _wrap_FitSuite_interruptFitting, METH_VARARGS, (char *)"\n"
+		"FitSuite_interruptFitting(FitSuite self)\n"
+		"\n"
+		"void FitSuite::interruptFitting()\n"
+		"\n"
+		""},
+	 { (char *)"FitSuite_resetInterrupt", _wrap_FitSuite_resetInterrupt, METH_VARARGS, (char *)"\n"
+		"FitSuite_resetInterrupt(FitSuite self)\n"
+		"\n"
+		"void FitSuite::resetInterrupt()\n"
+		"\n"
+		""},
+	 { (char *)"FitSuite_isInterrupted", _wrap_FitSuite_isInterrupted, METH_VARARGS, (char *)"\n"
+		"FitSuite_isInterrupted(FitSuite self) -> bool\n"
+		"\n"
+		"bool FitSuite::isInterrupted()\n"
+		"\n"
+		""},
 	 { (char *)"FitSuite_getRealOutputData", _wrap_FitSuite_getRealOutputData, METH_VARARGS, (char *)"\n"
 		"getRealOutputData(size_t i_item=0) -> OutputData< double > const\n"
 		"FitSuite_getRealOutputData(FitSuite self) -> OutputData< double > const *\n"
+		"\n"
+		"const OutputData< double > * FitSuite::getRealOutputData(size_t i_item=0) const \n"
+		"\n"
 		""},
 	 { (char *)"FitSuite_getSimulationOutputData", _wrap_FitSuite_getSimulationOutputData, METH_VARARGS, (char *)"\n"
 		"getSimulationOutputData(size_t i_item=0) -> OutputData< double > const\n"
 		"FitSuite_getSimulationOutputData(FitSuite self) -> OutputData< double > const *\n"
+		"\n"
+		"const OutputData< double > * FitSuite::getSimulationOutputData(size_t i_item=0) const \n"
+		"\n"
 		""},
 	 { (char *)"FitSuite_getChiSquaredOutputData", _wrap_FitSuite_getChiSquaredOutputData, METH_VARARGS, (char *)"\n"
 		"getChiSquaredOutputData(size_t i_item=0) -> OutputData< double > const\n"
 		"FitSuite_getChiSquaredOutputData(FitSuite self) -> OutputData< double > const *\n"
+		"\n"
+		"const OutputData< double > * FitSuite::getChiSquaredOutputData(size_t i_item=0) const \n"
+		"\n"
 		""},
 	 { (char *)"delete_FitSuite", _wrap_delete_FitSuite, METH_VARARGS, (char *)"delete_FitSuite(FitSuite self)"},
 	 { (char *)"FitSuite_swigregister", FitSuite_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_FitSuiteObjects", _wrap_new_FitSuiteObjects, METH_VARARGS, (char *)"new_FitSuiteObjects() -> FitSuiteObjects"},
-	 { (char *)"delete_FitSuiteObjects", _wrap_delete_FitSuiteObjects, METH_VARARGS, (char *)"delete_FitSuiteObjects(FitSuiteObjects self)"},
+	 { (char *)"new_FitSuiteObjects", _wrap_new_FitSuiteObjects, METH_VARARGS, (char *)"\n"
+		"new_FitSuiteObjects() -> FitSuiteObjects\n"
+		"\n"
+		"FitSuiteObjects::FitSuiteObjects()\n"
+		"\n"
+		""},
+	 { (char *)"delete_FitSuiteObjects", _wrap_delete_FitSuiteObjects, METH_VARARGS, (char *)"\n"
+		"delete_FitSuiteObjects(FitSuiteObjects self)\n"
+		"\n"
+		"FitSuiteObjects::~FitSuiteObjects()\n"
+		"\n"
+		""},
 	 { (char *)"FitSuiteObjects_add", _wrap_FitSuiteObjects_add, METH_VARARGS, (char *)"\n"
 		"add(GISASSimulation const & simulation, OutputData< double > const & real_data, double weight=1.0)\n"
 		"FitSuiteObjects_add(FitSuiteObjects self, GISASSimulation const & simulation, OutputData< double > const & real_data)\n"
+		"\n"
+		"void FitSuiteObjects::add(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1.0)\n"
+		"\n"
+		"Adds to kit pair of (simulation, real data) for consecutive simulation. \n"
+		"\n"
 		""},
-	 { (char *)"FitSuiteObjects_getNumberOfFitObjects", _wrap_FitSuiteObjects_getNumberOfFitObjects, METH_VARARGS, (char *)"FitSuiteObjects_getNumberOfFitObjects(FitSuiteObjects self) -> size_t"},
-	 { (char *)"FitSuiteObjects_getSizeOfDataSet", _wrap_FitSuiteObjects_getSizeOfDataSet, METH_VARARGS, (char *)"FitSuiteObjects_getSizeOfDataSet(FitSuiteObjects self) -> size_t"},
-	 { (char *)"FitSuiteObjects_setChiSquaredModule", _wrap_FitSuiteObjects_setChiSquaredModule, METH_VARARGS, (char *)"FitSuiteObjects_setChiSquaredModule(FitSuiteObjects self, IChiSquaredModule chi2_module)"},
+	 { (char *)"FitSuiteObjects_getNumberOfFitObjects", _wrap_FitSuiteObjects_getNumberOfFitObjects, METH_VARARGS, (char *)"\n"
+		"FitSuiteObjects_getNumberOfFitObjects(FitSuiteObjects self) -> size_t\n"
+		"\n"
+		"size_t FitSuiteObjects::getNumberOfFitObjects() const\n"
+		"\n"
+		"Returns number of fit objects (simulation/real data pairs) \n"
+		"\n"
+		""},
+	 { (char *)"FitSuiteObjects_getSizeOfDataSet", _wrap_FitSuiteObjects_getSizeOfDataSet, METH_VARARGS, (char *)"\n"
+		"FitSuiteObjects_getSizeOfDataSet(FitSuiteObjects self) -> size_t\n"
+		"\n"
+		"size_t FitSuiteObjects::getSizeOfDataSet() const\n"
+		"\n"
+		"Returns total number of data points (number of all non-masked channels in all fit objects)\n"
+		"\n"
+		"Returns total number of data points. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuiteObjects_setChiSquaredModule", _wrap_FitSuiteObjects_setChiSquaredModule, METH_VARARGS, (char *)"\n"
+		"FitSuiteObjects_setChiSquaredModule(FitSuiteObjects self, IChiSquaredModule chi2_module)\n"
+		"\n"
+		"void FitSuiteObjects::setChiSquaredModule(const IChiSquaredModule &chi2_module)\n"
+		"\n"
+		"Replaces default ChiSquaredModule with new one. \n"
+		"\n"
+		""},
 	 { (char *)"FitSuiteObjects_getRealData", _wrap_FitSuiteObjects_getRealData, METH_VARARGS, (char *)"\n"
 		"getRealData(size_t i_item=0) -> OutputData< double > const\n"
 		"FitSuiteObjects_getRealData(FitSuiteObjects self) -> OutputData< double > const *\n"
+		"\n"
+		"const OutputData< double > * FitSuiteObjects::getRealData(size_t i_item=0) const\n"
+		"\n"
+		"Returns real data from corresponding  FitObject\n"
+		"\n"
+		"Parameters:\n"
+		"-----------\n"
+		"\n"
+		"i_item: \n"
+		"Index of  FitObject\n"
+		"\n"
 		""},
 	 { (char *)"FitSuiteObjects_getSimulationData", _wrap_FitSuiteObjects_getSimulationData, METH_VARARGS, (char *)"\n"
 		"getSimulationData(size_t i_item=0) -> OutputData< double > const\n"
 		"FitSuiteObjects_getSimulationData(FitSuiteObjects self) -> OutputData< double > const *\n"
+		"\n"
+		"const OutputData< double > * FitSuiteObjects::getSimulationData(size_t i_item=0) const\n"
+		"\n"
+		"Returns simulated data from corresponding  FitObject\n"
+		"\n"
+		"Parameters:\n"
+		"-----------\n"
+		"\n"
+		"i_item: \n"
+		"Index of  FitObject\n"
+		"\n"
 		""},
 	 { (char *)"FitSuiteObjects_getChiSquaredMap", _wrap_FitSuiteObjects_getChiSquaredMap, METH_VARARGS, (char *)"\n"
 		"getChiSquaredMap(size_t i_item=0) -> OutputData< double >\n"
 		"FitSuiteObjects_getChiSquaredMap(FitSuiteObjects self) -> OutputData< double > *\n"
+		"\n"
+		"OutputData< double > * FitSuiteObjects::getChiSquaredMap(size_t i_item=0) const\n"
+		"\n"
+		"Returns new chi-squared map from corresponding  FitObject\n"
+		"\n"
+		"Parameters:\n"
+		"-----------\n"
+		"\n"
+		"i_item: \n"
+		"Index of  FitObject\n"
+		"\n"
 		""},
-	 { (char *)"FitSuiteObjects_runSimulations", _wrap_FitSuiteObjects_runSimulations, METH_VARARGS, (char *)"FitSuiteObjects_runSimulations(FitSuiteObjects self)"},
-	 { (char *)"FitSuiteObjects_getChiSquaredValue", _wrap_FitSuiteObjects_getChiSquaredValue, METH_VARARGS, (char *)"FitSuiteObjects_getChiSquaredValue(FitSuiteObjects self) -> double"},
-	 { (char *)"FitSuiteObjects_getResidualValue", _wrap_FitSuiteObjects_getResidualValue, METH_VARARGS, (char *)"FitSuiteObjects_getResidualValue(FitSuiteObjects self, size_t global_index) -> double"},
-	 { (char *)"FitSuiteObjects_setNfreeParameters", _wrap_FitSuiteObjects_setNfreeParameters, METH_VARARGS, (char *)"FitSuiteObjects_setNfreeParameters(FitSuiteObjects self, int nfree_parameters)"},
-	 { (char *)"FitSuiteObjects_clear", _wrap_FitSuiteObjects_clear, METH_VARARGS, (char *)"FitSuiteObjects_clear(FitSuiteObjects self)"},
+	 { (char *)"FitSuiteObjects_runSimulations", _wrap_FitSuiteObjects_runSimulations, METH_VARARGS, (char *)"\n"
+		"FitSuiteObjects_runSimulations(FitSuiteObjects self)\n"
+		"\n"
+		"void FitSuiteObjects::runSimulations()\n"
+		"\n"
+		"run all simulation defined in fit pairs\n"
+		"\n"
+		"loop through all defined simulations and run them \n"
+		"\n"
+		""},
+	 { (char *)"FitSuiteObjects_getChiSquaredValue", _wrap_FitSuiteObjects_getChiSquaredValue, METH_VARARGS, (char *)"\n"
+		"FitSuiteObjects_getChiSquaredValue(FitSuiteObjects self) -> double\n"
+		"\n"
+		"double FitSuiteObjects::getChiSquaredValue() const\n"
+		"\n"
+		"Returns chi2 calculated over whole dataset. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuiteObjects_getResidualValue", _wrap_FitSuiteObjects_getResidualValue, METH_VARARGS, (char *)"\n"
+		"FitSuiteObjects_getResidualValue(FitSuiteObjects self, size_t global_index) -> double\n"
+		"\n"
+		"double FitSuiteObjects::getResidualValue(size_t global_index)\n"
+		"\n"
+		"Returns residuals for single data element  global_index index accross all element in FitElement vector \n"
+		"\n"
+		""},
+	 { (char *)"FitSuiteObjects_addParametersToExternalPool", _wrap_FitSuiteObjects_addParametersToExternalPool, METH_VARARGS, (char *)"\n"
+		"addParametersToExternalPool(std::string path, ParameterPool * external_pool, int copy_number=-1) -> std::string\n"
+		"FitSuiteObjects_addParametersToExternalPool(FitSuiteObjects self, std::string path, ParameterPool * external_pool) -> std::string\n"
+		"\n"
+		"std::string FitSuiteObjects::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const\n"
+		"\n"
+		"Adds parameters from local pool to external pool and call recursion over direct children.\n"
+		"\n"
+		"Adds parameters from local pool to external pool. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuiteObjects_setNfreeParameters", _wrap_FitSuiteObjects_setNfreeParameters, METH_VARARGS, (char *)"\n"
+		"FitSuiteObjects_setNfreeParameters(FitSuiteObjects self, int nfree_parameters)\n"
+		"\n"
+		"void FitSuiteObjects::setNfreeParameters(int nfree_parameters)\n"
+		"\n"
+		""},
+	 { (char *)"FitSuiteObjects_clear", _wrap_FitSuiteObjects_clear, METH_VARARGS, (char *)"\n"
+		"FitSuiteObjects_clear(FitSuiteObjects self)\n"
+		"\n"
+		"void FitSuiteObjects::clear()\n"
+		"\n"
+		"clear all data \n"
+		"\n"
+		""},
 	 { (char *)"FitSuiteObjects_swigregister", FitSuiteObjects_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_FitSuiteParameters", _wrap_new_FitSuiteParameters, METH_VARARGS, (char *)"new_FitSuiteParameters() -> FitSuiteParameters"},
-	 { (char *)"delete_FitSuiteParameters", _wrap_delete_FitSuiteParameters, METH_VARARGS, (char *)"delete_FitSuiteParameters(FitSuiteParameters self)"},
-	 { (char *)"FitSuiteParameters_clear", _wrap_FitSuiteParameters_clear, METH_VARARGS, (char *)"FitSuiteParameters_clear(FitSuiteParameters self)"},
+	 { (char *)"new_FitSuiteParameters", _wrap_new_FitSuiteParameters, METH_VARARGS, (char *)"\n"
+		"new_FitSuiteParameters() -> FitSuiteParameters\n"
+		"\n"
+		"FitSuiteParameters::FitSuiteParameters()\n"
+		"\n"
+		""},
+	 { (char *)"delete_FitSuiteParameters", _wrap_delete_FitSuiteParameters, METH_VARARGS, (char *)"\n"
+		"delete_FitSuiteParameters(FitSuiteParameters self)\n"
+		"\n"
+		"FitSuiteParameters::~FitSuiteParameters()\n"
+		"\n"
+		""},
+	 { (char *)"FitSuiteParameters_clear", _wrap_FitSuiteParameters_clear, METH_VARARGS, (char *)"\n"
+		"FitSuiteParameters_clear(FitSuiteParameters self)\n"
+		"\n"
+		"void FitSuiteParameters::clear()\n"
+		"\n"
+		"Clears all defined parameters. \n"
+		"\n"
+		""},
 	 { (char *)"FitSuiteParameters_addParameter", _wrap_FitSuiteParameters_addParameter, METH_VARARGS, (char *)"\n"
 		"addParameter(std::string const & name, double value, double step, AttLimits attlim, double error=0.0)\n"
 		"FitSuiteParameters_addParameter(FitSuiteParameters self, std::string const & name, double value, double step, AttLimits attlim)\n"
+		"\n"
+		"void FitSuiteParameters::addParameter(const std::string &name, double value, double step, const AttLimits &attlim, double error=0.0)\n"
+		"\n"
+		"Adds fit parameter. \n"
+		"\n"
 		""},
 	 { (char *)"FitSuiteParameters_getParameter", _wrap_FitSuiteParameters_getParameter, METH_VARARGS, (char *)"\n"
 		"getParameter(std::string const & name) -> FitParameter\n"
 		"FitSuiteParameters_getParameter(FitSuiteParameters self, std::string const & name) -> FitParameter\n"
+		"\n"
+		"FitParameter * FitSuiteParameters::getParameter(const std::string &name)\n"
+		"\n"
 		""},
 	 { (char *)"FitSuiteParameters_setValues", _wrap_FitSuiteParameters_setValues, METH_VARARGS, (char *)"\n"
 		"setValues(double const * pars_values)\n"
 		"FitSuiteParameters_setValues(FitSuiteParameters self, vdouble1d_t pars_values)\n"
+		"\n"
+		"void FitSuiteParameters::setValues(const std::vector< double > &pars_values)\n"
+		"\n"
 		""},
-	 { (char *)"FitSuiteParameters_getValues", _wrap_FitSuiteParameters_getValues, METH_VARARGS, (char *)"FitSuiteParameters_getValues(FitSuiteParameters self) -> vdouble1d_t"},
-	 { (char *)"FitSuiteParameters_setErrors", _wrap_FitSuiteParameters_setErrors, METH_VARARGS, (char *)"FitSuiteParameters_setErrors(FitSuiteParameters self, vdouble1d_t pars_errors)"},
-	 { (char *)"FitSuiteParameters_getErrors", _wrap_FitSuiteParameters_getErrors, METH_VARARGS, (char *)"FitSuiteParameters_getErrors(FitSuiteParameters self) -> vdouble1d_t"},
-	 { (char *)"FitSuiteParameters_size", _wrap_FitSuiteParameters_size, METH_VARARGS, (char *)"FitSuiteParameters_size(FitSuiteParameters self) -> size_t"},
-	 { (char *)"FitSuiteParameters_push_back", _wrap_FitSuiteParameters_push_back, METH_VARARGS, (char *)"FitSuiteParameters_push_back(FitSuiteParameters self, FitParameter par)"},
+	 { (char *)"FitSuiteParameters_getValues", _wrap_FitSuiteParameters_getValues, METH_VARARGS, (char *)"\n"
+		"FitSuiteParameters_getValues(FitSuiteParameters self) -> vdouble1d_t\n"
+		"\n"
+		"std::vector< double > FitSuiteParameters::getValues() const\n"
+		"\n"
+		"Returns values of all defined parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuiteParameters_setErrors", _wrap_FitSuiteParameters_setErrors, METH_VARARGS, (char *)"\n"
+		"FitSuiteParameters_setErrors(FitSuiteParameters self, vdouble1d_t pars_errors)\n"
+		"\n"
+		"void FitSuiteParameters::setErrors(const std::vector< double > &pars_errors)\n"
+		"\n"
+		"Sets errors to all parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuiteParameters_getErrors", _wrap_FitSuiteParameters_getErrors, METH_VARARGS, (char *)"\n"
+		"FitSuiteParameters_getErrors(FitSuiteParameters self) -> vdouble1d_t\n"
+		"\n"
+		"std::vector< double > FitSuiteParameters::getErrors() const\n"
+		"\n"
+		"Returns errors of all defined parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuiteParameters_size", _wrap_FitSuiteParameters_size, METH_VARARGS, (char *)"\n"
+		"FitSuiteParameters_size(FitSuiteParameters self) -> size_t\n"
+		"\n"
+		"size_t FitSuiteParameters::size() const\n"
+		"\n"
+		"Returns number of parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuiteParameters_push_back", _wrap_FitSuiteParameters_push_back, METH_VARARGS, (char *)"\n"
+		"FitSuiteParameters_push_back(FitSuiteParameters self, FitParameter par)\n"
+		"\n"
+		"void FitSuiteParameters::push_back(FitParameter *par)\n"
+		"\n"
+		"Adds given  FitParameter to container. \n"
+		"\n"
+		""},
 	 { (char *)"FitSuiteParameters_begin", _wrap_FitSuiteParameters_begin, METH_VARARGS, (char *)"\n"
 		"begin() -> FitSuiteParameters::iterator\n"
 		"FitSuiteParameters_begin(FitSuiteParameters self) -> FitSuiteParameters::const_iterator\n"
+		"\n"
+		"FitSuiteParameters::const_iterator FitSuiteParameters::begin() const \n"
+		"\n"
 		""},
 	 { (char *)"FitSuiteParameters_end", _wrap_FitSuiteParameters_end, METH_VARARGS, (char *)"\n"
 		"end() -> FitSuiteParameters::iterator\n"
 		"FitSuiteParameters_end(FitSuiteParameters self) -> FitSuiteParameters::const_iterator\n"
+		"\n"
+		"FitSuiteParameters::const_iterator FitSuiteParameters::end() const \n"
+		"\n"
 		""},
-	 { (char *)"FitSuiteParameters_link_to_pool", _wrap_FitSuiteParameters_link_to_pool, METH_VARARGS, (char *)"FitSuiteParameters_link_to_pool(FitSuiteParameters self, ParameterPool const * pool)"},
-	 { (char *)"FitSuiteParameters_getNfreeParameters", _wrap_FitSuiteParameters_getNfreeParameters, METH_VARARGS, (char *)"FitSuiteParameters_getNfreeParameters(FitSuiteParameters self) -> size_t"},
+	 { (char *)"FitSuiteParameters_link_to_pool", _wrap_FitSuiteParameters_link_to_pool, METH_VARARGS, (char *)"\n"
+		"FitSuiteParameters_link_to_pool(FitSuiteParameters self, ParameterPool const * pool)\n"
+		"\n"
+		"void FitSuiteParameters::link_to_pool(const ParameterPool *pool)\n"
+		"\n"
+		"Links fit parameters with pool parameters.\n"
+		"\n"
+		"linking fit parameters with pool parameters \n"
+		"\n"
+		""},
+	 { (char *)"FitSuiteParameters_getNfreeParameters", _wrap_FitSuiteParameters_getNfreeParameters, METH_VARARGS, (char *)"\n"
+		"FitSuiteParameters_getNfreeParameters(FitSuiteParameters self) -> size_t\n"
+		"\n"
+		"size_t FitSuiteParameters::getNfreeParameters() const\n"
+		"\n"
+		"Returns number of free parameters. \n"
+		"\n"
+		""},
 	 { (char *)"FitSuiteParameters_valuesAreDifferrent", _wrap_FitSuiteParameters_valuesAreDifferrent, METH_VARARGS, (char *)"\n"
 		"valuesAreDifferrent(double const * pars_valuers, double tolerance_factor=1.0) -> bool\n"
 		"FitSuiteParameters_valuesAreDifferrent(FitSuiteParameters self, double const * pars_valuers) -> bool\n"
+		"\n"
+		"bool FitSuiteParameters::valuesAreDifferrent(const double *pars_valuers, double tolerance_factor=1.0) const\n"
+		"\n"
+		"Returns true if parameters already have the given values. \n"
+		"\n"
 		""},
-	 { (char *)"FitSuiteParameters_printParameters", _wrap_FitSuiteParameters_printParameters, METH_VARARGS, (char *)"FitSuiteParameters_printParameters(FitSuiteParameters self)"},
-	 { (char *)"FitSuiteParameters_fixAll", _wrap_FitSuiteParameters_fixAll, METH_VARARGS, (char *)"FitSuiteParameters_fixAll(FitSuiteParameters self)"},
-	 { (char *)"FitSuiteParameters_releaseAll", _wrap_FitSuiteParameters_releaseAll, METH_VARARGS, (char *)"FitSuiteParameters_releaseAll(FitSuiteParameters self)"},
-	 { (char *)"FitSuiteParameters_setParametersFixed", _wrap_FitSuiteParameters_setParametersFixed, METH_VARARGS, (char *)"FitSuiteParameters_setParametersFixed(FitSuiteParameters self, vector_string_t pars, bool is_fixed)"},
+	 { (char *)"FitSuiteParameters_printParameters", _wrap_FitSuiteParameters_printParameters, METH_VARARGS, (char *)"\n"
+		"FitSuiteParameters_printParameters(FitSuiteParameters self)\n"
+		"\n"
+		"void FitSuiteParameters::printParameters() const\n"
+		"\n"
+		"Print defined parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuiteParameters_fixAll", _wrap_FitSuiteParameters_fixAll, METH_VARARGS, (char *)"\n"
+		"FitSuiteParameters_fixAll(FitSuiteParameters self)\n"
+		"\n"
+		"void FitSuiteParameters::fixAll()\n"
+		"\n"
+		"Fix all parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuiteParameters_releaseAll", _wrap_FitSuiteParameters_releaseAll, METH_VARARGS, (char *)"\n"
+		"FitSuiteParameters_releaseAll(FitSuiteParameters self)\n"
+		"\n"
+		"void FitSuiteParameters::releaseAll()\n"
+		"\n"
+		"Release all parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitSuiteParameters_setParametersFixed", _wrap_FitSuiteParameters_setParametersFixed, METH_VARARGS, (char *)"\n"
+		"FitSuiteParameters_setParametersFixed(FitSuiteParameters self, vector_string_t pars, bool is_fixed)\n"
+		"\n"
+		"void FitSuiteParameters::setParametersFixed(const std::vector< std::string > &pars, bool is_fixed)\n"
+		"\n"
+		"Set fixed flag for parameters from the list. \n"
+		"\n"
+		""},
 	 { (char *)"FitSuiteParameters___getitem__", _wrap_FitSuiteParameters___getitem__, METH_VARARGS, (char *)"\n"
 		"__getitem__(std::string name) -> FitParameter\n"
 		"FitSuiteParameters___getitem__(FitSuiteParameters self, size_t index) -> FitParameter\n"
 		""},
 	 { (char *)"FitSuiteParameters_swigregister", FitSuiteParameters_swigregister, METH_VARARGS, NULL},
-	 { (char *)"StandardNormal", _wrap_StandardNormal, METH_VARARGS, (char *)"\n"
-		"StandardNormal(double x) -> double\n"
-		"\n"
-		"double MathFunctions::StandardNormal(double x)\n"
-		"\n"
-		""},
-	 { (char *)"Gaussian", _wrap_Gaussian, METH_VARARGS, (char *)"\n"
-		"Gaussian(double x, double average, double std_dev) -> double\n"
-		"\n"
-		"double MathFunctions::Gaussian(double x, double average, double std_dev)\n"
-		"\n"
-		""},
-	 { (char *)"IntegratedGaussian", _wrap_IntegratedGaussian, METH_VARARGS, (char *)"\n"
-		"IntegratedGaussian(double x, double average, double std_dev) -> double\n"
-		"\n"
-		"double MathFunctions::IntegratedGaussian(double x, double average, double std_dev)\n"
-		"\n"
-		""},
-	 { (char *)"Si", _wrap_Si, METH_VARARGS, (char *)"\n"
-		"Si(double x) -> double\n"
-		"\n"
-		"double MathFunctions::Si(double x)\n"
-		"\n"
-		"Sine integral function:  $Si(x)\\\\equiv\\\\int_0^x du \\\\sin(u)/u$. \n"
-		"\n"
-		""},
+	 { (char *)"StandardNormal", _wrap_StandardNormal, METH_VARARGS, (char *)"StandardNormal(double x) -> double"},
+	 { (char *)"Gaussian", _wrap_Gaussian, METH_VARARGS, (char *)"Gaussian(double x, double average, double std_dev) -> double"},
+	 { (char *)"IntegratedGaussian", _wrap_IntegratedGaussian, METH_VARARGS, (char *)"IntegratedGaussian(double x, double average, double std_dev) -> double"},
+	 { (char *)"Si", _wrap_Si, METH_VARARGS, (char *)"Si(double x) -> double"},
 	 { (char *)"sinc", _wrap_sinc, METH_VARARGS, (char *)"\n"
 		"sinc(double x) -> double\n"
 		"sinc(complex_t const z) -> complex_t\n"
-		"\n"
-		"complex_t MathFunctions::sinc(const complex_t z)\n"
-		"\n"
-		"Complex sinc function:  $sinc(x)\\\\equiv\\\\sin(x)/x$. \n"
-		"\n"
 		""},
-	 { (char *)"tanhc", _wrap_tanhc, METH_VARARGS, (char *)"\n"
-		"tanhc(complex_t const z) -> complex_t\n"
-		"\n"
-		"complex_t MathFunctions::tanhc(const complex_t z)\n"
-		"\n"
-		"Complex tanhc function:  $tanhc(x)\\\\equiv\\\\tanh(x)/x$. \n"
-		"\n"
-		""},
-	 { (char *)"Laue", _wrap_Laue, METH_VARARGS, (char *)"\n"
-		"Laue(complex_t const z, size_t N) -> complex_t\n"
-		"\n"
-		"complex_t MathFunctions::Laue(const complex_t z, size_t N)\n"
-		"\n"
-		""},
+	 { (char *)"tanhc", _wrap_tanhc, METH_VARARGS, (char *)"tanhc(complex_t const z) -> complex_t"},
+	 { (char *)"Laue", _wrap_Laue, METH_VARARGS, (char *)"Laue(complex_t const z, size_t N) -> complex_t"},
 	 { (char *)"Bessel_J0", _wrap_Bessel_J0, METH_VARARGS, (char *)"\n"
 		"Bessel_J0(double x) -> double\n"
 		"Bessel_J0(complex_t const z) -> complex_t\n"
-		"\n"
-		"complex_t MathFunctions::Bessel_J0(const complex_t z)\n"
-		"\n"
-		"Complex Bessel function of the first kind and order 0. \n"
-		"\n"
 		""},
 	 { (char *)"Bessel_J1", _wrap_Bessel_J1, METH_VARARGS, (char *)"\n"
 		"Bessel_J1(double x) -> double\n"
 		"Bessel_J1(complex_t const z) -> complex_t\n"
-		"\n"
-		"complex_t MathFunctions::Bessel_J1(const complex_t z)\n"
-		"\n"
-		"Complex Bessel function of the first kind and order 1. \n"
-		"\n"
 		""},
 	 { (char *)"Bessel_J1c", _wrap_Bessel_J1c, METH_VARARGS, (char *)"\n"
 		"Bessel_J1c(double x) -> double\n"
 		"Bessel_J1c(complex_t const z) -> complex_t\n"
-		"\n"
-		"complex_t MathFunctions::Bessel_J1c(const complex_t z)\n"
-		"\n"
-		"Complex Bessel function Bessel_J1(x)/x. \n"
-		"\n"
 		""},
 	 { (char *)"FORWARD_FFT_swigconstant", FORWARD_FFT_swigconstant, METH_VARARGS, NULL},
 	 { (char *)"BACKWARD_FFT_swigconstant", BACKWARD_FFT_swigconstant, METH_VARARGS, NULL},
 	 { (char *)"FastFourierTransform", _wrap_FastFourierTransform, METH_VARARGS, (char *)"\n"
 		"FastFourierTransform(std::vector< complex_t,std::allocator< complex_t > > const & data, MathFunctions::EFFTDirection tcase) -> std::vector< complex_t,std::allocator< complex_t > >\n"
 		"FastFourierTransform(vdouble1d_t data, MathFunctions::EFFTDirection tcase) -> std::vector< complex_t,std::allocator< complex_t > >\n"
-		"\n"
-		"std::vector< complex_t > MathFunctions::FastFourierTransform(const std::vector< double > &data, EFFTDirection tcase)\n"
-		"\n"
-		"simple (and unoptimized) wrapper function for the discrete fast Fourier transformation library (fftw3); transforms real to complex \n"
-		"\n"
 		""},
-	 { (char *)"ConvolveFFT", _wrap_ConvolveFFT, METH_VARARGS, (char *)"\n"
-		"ConvolveFFT(vdouble1d_t signal, vdouble1d_t resfunc) -> std::vector< complex_t,std::allocator< complex_t > >\n"
-		"\n"
-		"std::vector< complex_t > MathFunctions::ConvolveFFT(const std::vector< double > &signal, const std::vector< double > &resfunc)\n"
-		"\n"
-		"convolution of two real vectors of equal size \n"
-		"\n"
-		""},
-	 { (char *)"GenerateUniformRandom", _wrap_GenerateUniformRandom, METH_VARARGS, (char *)"\n"
-		"GenerateUniformRandom() -> double\n"
-		"\n"
-		"double MathFunctions::GenerateUniformRandom()\n"
-		"\n"
-		""},
-	 { (char *)"GenerateStandardNormalRandom", _wrap_GenerateStandardNormalRandom, METH_VARARGS, (char *)"\n"
-		"GenerateStandardNormalRandom() -> double\n"
-		"\n"
-		"double MathFunctions::GenerateStandardNormalRandom()\n"
-		"\n"
-		""},
-	 { (char *)"GenerateNormalRandom", _wrap_GenerateNormalRandom, METH_VARARGS, (char *)"\n"
-		"GenerateNormalRandom(double average, double std_dev) -> double\n"
-		"\n"
-		"double MathFunctions::GenerateNormalRandom(double average, double std_dev)\n"
-		"\n"
-		""},
-	 { (char *)"isnan", _wrap_isnan, METH_VARARGS, (char *)"\n"
-		"isnan(double x) -> bool\n"
-		"\n"
-		"BA_CORE_API_ bool MathFunctions::isnan(double x)\n"
-		"\n"
-		""},
-	 { (char *)"isinf", _wrap_isinf, METH_VARARGS, (char *)"\n"
-		"isinf(double x) -> bool\n"
-		"\n"
-		"BA_CORE_API_ bool MathFunctions::isinf(double x)\n"
-		"\n"
-		""},
+	 { (char *)"ConvolveFFT", _wrap_ConvolveFFT, METH_VARARGS, (char *)"ConvolveFFT(vdouble1d_t signal, vdouble1d_t resfunc) -> std::vector< complex_t,std::allocator< complex_t > >"},
+	 { (char *)"GenerateUniformRandom", _wrap_GenerateUniformRandom, METH_VARARGS, (char *)"GenerateUniformRandom() -> double"},
+	 { (char *)"GenerateStandardNormalRandom", _wrap_GenerateStandardNormalRandom, METH_VARARGS, (char *)"GenerateStandardNormalRandom() -> double"},
+	 { (char *)"GenerateNormalRandom", _wrap_GenerateNormalRandom, METH_VARARGS, (char *)"GenerateNormalRandom(double average, double std_dev) -> double"},
+	 { (char *)"isnan", _wrap_isnan, METH_VARARGS, (char *)"isnan(double x) -> bool"},
+	 { (char *)"isinf", _wrap_isinf, METH_VARARGS, (char *)"isinf(double x) -> bool"},
 	 { (char *)"MinimizerFactory_printCatalogue", _wrap_MinimizerFactory_printCatalogue, METH_VARARGS, (char *)"MinimizerFactory_printCatalogue()"},
 	 { (char *)"MinimizerFactory_createMinimizer", _wrap_MinimizerFactory_createMinimizer, METH_VARARGS, (char *)"\n"
 		"createMinimizer(std::string const & minimizer, std::string const & algorithm, std::string const & options) -> IMinimizer\n"
@@ -31360,58 +34310,207 @@ static PyMethodDef SwigMethods[] = {
 		"createMinimizer(std::string const & minimizer) -> IMinimizer\n"
 		"MinimizerFactory_createMinimizer(IMinimizer minimizer) -> IMinimizer\n"
 		""},
-	 { (char *)"new_MinimizerFactory", _wrap_new_MinimizerFactory, METH_VARARGS, (char *)"new_MinimizerFactory() -> MinimizerFactory"},
+	 { (char *)"new_MinimizerFactory", _wrap_new_MinimizerFactory, METH_VARARGS, (char *)"\n"
+		"new_MinimizerFactory() -> MinimizerFactory\n"
+		"\n"
+		"\n"
+		"\n"
+		"Factory to create minimizers.\n"
+		"\n"
+		"C++ includes: MinimizerFactory.h\n"
+		"\n"
+		""},
 	 { (char *)"delete_MinimizerFactory", _wrap_delete_MinimizerFactory, METH_VARARGS, (char *)"delete_MinimizerFactory(MinimizerFactory self)"},
 	 { (char *)"MinimizerFactory_swigregister", MinimizerFactory_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_MinimizerOptions", _wrap_new_MinimizerOptions, METH_VARARGS, (char *)"new_MinimizerOptions() -> MinimizerOptions"},
-	 { (char *)"delete_MinimizerOptions", _wrap_delete_MinimizerOptions, METH_VARARGS, (char *)"delete_MinimizerOptions(MinimizerOptions self)"},
-	 { (char *)"MinimizerOptions_getTolerance", _wrap_MinimizerOptions_getTolerance, METH_VARARGS, (char *)"MinimizerOptions_getTolerance(MinimizerOptions self) -> double"},
-	 { (char *)"MinimizerOptions_setTolerance", _wrap_MinimizerOptions_setTolerance, METH_VARARGS, (char *)"MinimizerOptions_setTolerance(MinimizerOptions self, double tolerance)"},
-	 { (char *)"MinimizerOptions_getPrecision", _wrap_MinimizerOptions_getPrecision, METH_VARARGS, (char *)"MinimizerOptions_getPrecision(MinimizerOptions self) -> double"},
-	 { (char *)"MinimizerOptions_setPrecision", _wrap_MinimizerOptions_setPrecision, METH_VARARGS, (char *)"MinimizerOptions_setPrecision(MinimizerOptions self, double precision)"},
-	 { (char *)"MinimizerOptions_getMaxIterations", _wrap_MinimizerOptions_getMaxIterations, METH_VARARGS, (char *)"MinimizerOptions_getMaxIterations(MinimizerOptions self) -> int"},
-	 { (char *)"MinimizerOptions_setMaxIterations", _wrap_MinimizerOptions_setMaxIterations, METH_VARARGS, (char *)"MinimizerOptions_setMaxIterations(MinimizerOptions self, int max_iterations)"},
-	 { (char *)"MinimizerOptions_getMaxFunctionCalls", _wrap_MinimizerOptions_getMaxFunctionCalls, METH_VARARGS, (char *)"MinimizerOptions_getMaxFunctionCalls(MinimizerOptions self) -> int"},
-	 { (char *)"MinimizerOptions_setMaxFunctionCalls", _wrap_MinimizerOptions_setMaxFunctionCalls, METH_VARARGS, (char *)"MinimizerOptions_setMaxFunctionCalls(MinimizerOptions self, int max_function_calls)"},
-	 { (char *)"MinimizerOptions_getPrintLevel", _wrap_MinimizerOptions_getPrintLevel, METH_VARARGS, (char *)"MinimizerOptions_getPrintLevel(MinimizerOptions self) -> int"},
-	 { (char *)"MinimizerOptions_setPrintLevel", _wrap_MinimizerOptions_setPrintLevel, METH_VARARGS, (char *)"MinimizerOptions_setPrintLevel(MinimizerOptions self, int print_level)"},
+	 { (char *)"new_MinimizerOptions", _wrap_new_MinimizerOptions, METH_VARARGS, (char *)"\n"
+		"new_MinimizerOptions() -> MinimizerOptions\n"
+		"\n"
+		"MinimizerOptions::MinimizerOptions()\n"
+		"\n"
+		""},
+	 { (char *)"delete_MinimizerOptions", _wrap_delete_MinimizerOptions, METH_VARARGS, (char *)"\n"
+		"delete_MinimizerOptions(MinimizerOptions self)\n"
+		"\n"
+		"MinimizerOptions::~MinimizerOptions()\n"
+		"\n"
+		""},
+	 { (char *)"MinimizerOptions_getTolerance", _wrap_MinimizerOptions_getTolerance, METH_VARARGS, (char *)"\n"
+		"MinimizerOptions_getTolerance(MinimizerOptions self) -> double\n"
+		"\n"
+		"double MinimizerOptions::getTolerance() const\n"
+		"\n"
+		"return minimizer tolerance \n"
+		"\n"
+		""},
+	 { (char *)"MinimizerOptions_setTolerance", _wrap_MinimizerOptions_setTolerance, METH_VARARGS, (char *)"\n"
+		"MinimizerOptions_setTolerance(MinimizerOptions self, double tolerance)\n"
+		"\n"
+		"void MinimizerOptions::setTolerance(double tolerance)\n"
+		"\n"
+		"set minimizer tolerance \n"
+		"\n"
+		""},
+	 { (char *)"MinimizerOptions_getPrecision", _wrap_MinimizerOptions_getPrecision, METH_VARARGS, (char *)"\n"
+		"MinimizerOptions_getPrecision(MinimizerOptions self) -> double\n"
+		"\n"
+		"double MinimizerOptions::getPrecision() const\n"
+		"\n"
+		"return minimizer precision \n"
+		"\n"
+		""},
+	 { (char *)"MinimizerOptions_setPrecision", _wrap_MinimizerOptions_setPrecision, METH_VARARGS, (char *)"\n"
+		"MinimizerOptions_setPrecision(MinimizerOptions self, double precision)\n"
+		"\n"
+		"void MinimizerOptions::setPrecision(double precision)\n"
+		"\n"
+		"set minimizer precision \n"
+		"\n"
+		""},
+	 { (char *)"MinimizerOptions_getMaxIterations", _wrap_MinimizerOptions_getMaxIterations, METH_VARARGS, (char *)"\n"
+		"MinimizerOptions_getMaxIterations(MinimizerOptions self) -> int\n"
+		"\n"
+		"int MinimizerOptions::getMaxIterations() const\n"
+		"\n"
+		"return maximum number of allowed iterations \n"
+		"\n"
+		""},
+	 { (char *)"MinimizerOptions_setMaxIterations", _wrap_MinimizerOptions_setMaxIterations, METH_VARARGS, (char *)"\n"
+		"MinimizerOptions_setMaxIterations(MinimizerOptions self, int max_iterations)\n"
+		"\n"
+		"void MinimizerOptions::setMaxIterations(int max_iterations)\n"
+		"\n"
+		"set maximum number of allowed iterations \n"
+		"\n"
+		""},
+	 { (char *)"MinimizerOptions_getMaxFunctionCalls", _wrap_MinimizerOptions_getMaxFunctionCalls, METH_VARARGS, (char *)"\n"
+		"MinimizerOptions_getMaxFunctionCalls(MinimizerOptions self) -> int\n"
+		"\n"
+		"int MinimizerOptions::getMaxFunctionCalls() const\n"
+		"\n"
+		"return maximum number of allowed function calls \n"
+		"\n"
+		""},
+	 { (char *)"MinimizerOptions_setMaxFunctionCalls", _wrap_MinimizerOptions_setMaxFunctionCalls, METH_VARARGS, (char *)"\n"
+		"MinimizerOptions_setMaxFunctionCalls(MinimizerOptions self, int max_function_calls)\n"
+		"\n"
+		"void MinimizerOptions::setMaxFunctionCalls(int max_function_calls)\n"
+		"\n"
+		"set maximum number of allowed function calls \n"
+		"\n"
+		""},
+	 { (char *)"MinimizerOptions_getPrintLevel", _wrap_MinimizerOptions_getPrintLevel, METH_VARARGS, (char *)"\n"
+		"MinimizerOptions_getPrintLevel(MinimizerOptions self) -> int\n"
+		"\n"
+		"int MinimizerOptions::getPrintLevel() const\n"
+		"\n"
+		"return internal print level of the minimizer \n"
+		"\n"
+		""},
+	 { (char *)"MinimizerOptions_setPrintLevel", _wrap_MinimizerOptions_setPrintLevel, METH_VARARGS, (char *)"\n"
+		"MinimizerOptions_setPrintLevel(MinimizerOptions self, int print_level)\n"
+		"\n"
+		"void MinimizerOptions::setPrintLevel(int print_level)\n"
+		"\n"
+		"set internal print level of the minimizer \n"
+		"\n"
+		""},
 	 { (char *)"MinimizerOptions_setValue", _wrap_MinimizerOptions_setValue, METH_VARARGS, (char *)"\n"
 		"setValue(std::string const & name, double val)\n"
 		"setValue(std::string const & name, int val)\n"
 		"MinimizerOptions_setValue(MinimizerOptions self, std::string const & name, std::string const & val)\n"
+		"\n"
+		"void MinimizerOptions::setValue(const std::string &name, const std::string &val)\n"
+		"\n"
 		""},
 	 { (char *)"MinimizerOptions_getValue", _wrap_MinimizerOptions_getValue, METH_VARARGS, (char *)"\n"
 		"getValue(std::string const & name, int & val)\n"
 		"getValue(std::string const & name, double & val)\n"
 		"MinimizerOptions_getValue(MinimizerOptions self, std::string const & name, std::string & val)\n"
+		"\n"
+		"void MinimizerOptions::getValue(const std::string &name, std::string &val)\n"
+		"\n"
 		""},
 	 { (char *)"MinimizerOptions_addValue", _wrap_MinimizerOptions_addValue, METH_VARARGS, (char *)"\n"
 		"addValue(std::string const & name, double val)\n"
 		"addValue(std::string const & name, int val)\n"
 		"MinimizerOptions_addValue(MinimizerOptions self, std::string const & name, std::string const & val)\n"
+		"\n"
+		"void MinimizerOptions::addValue(const std::string &name, const std::string &val)\n"
+		"\n"
 		""},
-	 { (char *)"MinimizerOptions_getIntValue", _wrap_MinimizerOptions_getIntValue, METH_VARARGS, (char *)"MinimizerOptions_getIntValue(MinimizerOptions self, std::string const & name) -> int"},
-	 { (char *)"MinimizerOptions_getRealValue", _wrap_MinimizerOptions_getRealValue, METH_VARARGS, (char *)"MinimizerOptions_getRealValue(MinimizerOptions self, std::string const & name) -> double"},
-	 { (char *)"MinimizerOptions_getNamedValue", _wrap_MinimizerOptions_getNamedValue, METH_VARARGS, (char *)"MinimizerOptions_getNamedValue(MinimizerOptions self, std::string const & name) -> std::string"},
-	 { (char *)"MinimizerOptions__print", _wrap_MinimizerOptions__print, METH_VARARGS, (char *)"MinimizerOptions__print(MinimizerOptions self)"},
+	 { (char *)"MinimizerOptions_getIntValue", _wrap_MinimizerOptions_getIntValue, METH_VARARGS, (char *)"\n"
+		"MinimizerOptions_getIntValue(MinimizerOptions self, std::string const & name) -> int\n"
+		"\n"
+		"int MinimizerOptions::getIntValue(const std::string &name)\n"
+		"\n"
+		""},
+	 { (char *)"MinimizerOptions_getRealValue", _wrap_MinimizerOptions_getRealValue, METH_VARARGS, (char *)"\n"
+		"MinimizerOptions_getRealValue(MinimizerOptions self, std::string const & name) -> double\n"
+		"\n"
+		"double MinimizerOptions::getRealValue(const std::string &name)\n"
+		"\n"
+		""},
+	 { (char *)"MinimizerOptions_getNamedValue", _wrap_MinimizerOptions_getNamedValue, METH_VARARGS, (char *)"\n"
+		"MinimizerOptions_getNamedValue(MinimizerOptions self, std::string const & name) -> std::string\n"
+		"\n"
+		"std::string MinimizerOptions::getNamedValue(const std::string &name)\n"
+		"\n"
+		""},
+	 { (char *)"MinimizerOptions__print", _wrap_MinimizerOptions__print, METH_VARARGS, (char *)"\n"
+		"MinimizerOptions__print(MinimizerOptions self)\n"
+		"\n"
+		"void MinimizerOptions::print() const \n"
+		"\n"
+		""},
 	 { (char *)"MinimizerOptions_swigregister", MinimizerOptions_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_FitStrategyAdjustMinimizer", _wrap_new_FitStrategyAdjustMinimizer, METH_VARARGS, (char *)"\n"
 		"FitStrategyAdjustMinimizer()\n"
 		"FitStrategyAdjustMinimizer(std::string const & minimizer_name, std::string const & algorithm_name, std::string const & minimizer_options)\n"
 		"FitStrategyAdjustMinimizer(std::string const & minimizer_name, std::string const & algorithm_name)\n"
 		"new_FitStrategyAdjustMinimizer(std::string const & minimizer_name) -> FitStrategyAdjustMinimizer\n"
+		"\n"
+		"FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer(const std::string &minimizer_name, const std::string &algorithm_name=std::string(), const std::string &minimizer_options=std::string())\n"
+		"\n"
 		""},
-	 { (char *)"delete_FitStrategyAdjustMinimizer", _wrap_delete_FitStrategyAdjustMinimizer, METH_VARARGS, (char *)"delete_FitStrategyAdjustMinimizer(FitStrategyAdjustMinimizer self)"},
-	 { (char *)"FitStrategyAdjustMinimizer_clone", _wrap_FitStrategyAdjustMinimizer_clone, METH_VARARGS, (char *)"FitStrategyAdjustMinimizer_clone(FitStrategyAdjustMinimizer self) -> FitStrategyAdjustMinimizer"},
-	 { (char *)"FitStrategyAdjustMinimizer_getMinimizer", _wrap_FitStrategyAdjustMinimizer_getMinimizer, METH_VARARGS, (char *)"FitStrategyAdjustMinimizer_getMinimizer(FitStrategyAdjustMinimizer self) -> IMinimizer"},
+	 { (char *)"delete_FitStrategyAdjustMinimizer", _wrap_delete_FitStrategyAdjustMinimizer, METH_VARARGS, (char *)"\n"
+		"delete_FitStrategyAdjustMinimizer(FitStrategyAdjustMinimizer self)\n"
+		"\n"
+		"FitStrategyAdjustMinimizer::~FitStrategyAdjustMinimizer()\n"
+		"\n"
+		""},
+	 { (char *)"FitStrategyAdjustMinimizer_clone", _wrap_FitStrategyAdjustMinimizer_clone, METH_VARARGS, (char *)"\n"
+		"FitStrategyAdjustMinimizer_clone(FitStrategyAdjustMinimizer self) -> FitStrategyAdjustMinimizer\n"
+		"\n"
+		"FitStrategyAdjustMinimizer * FitStrategyAdjustMinimizer::clone() const \n"
+		"\n"
+		""},
+	 { (char *)"FitStrategyAdjustMinimizer_getMinimizer", _wrap_FitStrategyAdjustMinimizer_getMinimizer, METH_VARARGS, (char *)"\n"
+		"FitStrategyAdjustMinimizer_getMinimizer(FitStrategyAdjustMinimizer self) -> IMinimizer\n"
+		"\n"
+		"IMinimizer * FitStrategyAdjustMinimizer::getMinimizer()\n"
+		"\n"
+		""},
 	 { (char *)"FitStrategyAdjustMinimizer_setMinimizer", _wrap_FitStrategyAdjustMinimizer_setMinimizer, METH_VARARGS, (char *)"\n"
 		"setMinimizer(IMinimizer minimizer)\n"
 		"setMinimizer(std::string const & minimizer_name, std::string const & algorithm_name, std::string const & minimizer_options)\n"
 		"setMinimizer(std::string const & minimizer_name, std::string const & algorithm_name)\n"
 		"FitStrategyAdjustMinimizer_setMinimizer(FitStrategyAdjustMinimizer self, std::string const & minimizer_name)\n"
+		"\n"
+		"void FitStrategyAdjustMinimizer::setMinimizer(const std::string &minimizer_name, const std::string &algorithm_name=std::string(), const std::string &minimizer_options=std::string())\n"
+		"\n"
 		""},
-	 { (char *)"FitStrategyAdjustMinimizer_execute", _wrap_FitStrategyAdjustMinimizer_execute, METH_VARARGS, (char *)"FitStrategyAdjustMinimizer_execute(FitStrategyAdjustMinimizer self)"},
-	 { (char *)"FitStrategyAdjustMinimizer_getMinimizerOptions", _wrap_FitStrategyAdjustMinimizer_getMinimizerOptions, METH_VARARGS, (char *)"FitStrategyAdjustMinimizer_getMinimizerOptions(FitStrategyAdjustMinimizer self) -> MinimizerOptions"},
+	 { (char *)"FitStrategyAdjustMinimizer_execute", _wrap_FitStrategyAdjustMinimizer_execute, METH_VARARGS, (char *)"\n"
+		"FitStrategyAdjustMinimizer_execute(FitStrategyAdjustMinimizer self)\n"
+		"\n"
+		"void FitStrategyAdjustMinimizer::execute()\n"
+		"\n"
+		""},
+	 { (char *)"FitStrategyAdjustMinimizer_getMinimizerOptions", _wrap_FitStrategyAdjustMinimizer_getMinimizerOptions, METH_VARARGS, (char *)"\n"
+		"FitStrategyAdjustMinimizer_getMinimizerOptions(FitStrategyAdjustMinimizer self) -> MinimizerOptions\n"
+		"\n"
+		"MinimizerOptions * FitStrategyAdjustMinimizer::getMinimizerOptions()\n"
+		"\n"
+		""},
 	 { (char *)"FitStrategyAdjustMinimizer_swigregister", FitStrategyAdjustMinimizer_swigregister, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
@@ -31430,6 +34529,58 @@ static void *_p_IntensityScaleAndShiftNormalizerTo_p_IntensityNormalizer(void *x
 }
 static void *_p_ChiSquaredModuleTo_p_IChiSquaredModule(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IChiSquaredModule *)  ((ChiSquaredModule *) x));
+}
+static void *_p_FitObjectTo_p_IParameterizedTemplateT_ICloneable_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParameterizedTemplate< ICloneable > *)  ((FitObject *) x));
+}
+static void *_p_FitSuiteObjectsTo_p_IParameterizedTemplateT_ICloneable_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParameterizedTemplate< ICloneable > *)  ((FitSuiteObjects *) x));
+}
+static void *_p_IIntensityNormalizerTo_p_IParameterizedTemplateT_ICloneable_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParameterizedTemplate< ICloneable > *)  ((IIntensityNormalizer *) x));
+}
+static void *_p_IntensityNormalizerTo_p_IParameterizedTemplateT_ICloneable_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParameterizedTemplate< ICloneable > *) (IIntensityNormalizer *) ((IntensityNormalizer *) x));
+}
+static void *_p_IntensityScaleAndShiftNormalizerTo_p_IParameterizedTemplateT_ICloneable_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParameterizedTemplate< ICloneable > *) (IIntensityNormalizer *)(IntensityNormalizer *) ((IntensityScaleAndShiftNormalizer *) x));
+}
+static void *_p_IParameterizedTemplateT_IShareable_tTo_p_INamedTemplateT_IShareable_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INamedTemplate< IShareable > *)  ((IParameterizedTemplate< IShareable > *) x));
+}
+static void *_p_IFitStrategyTo_p_INamedTemplateT_ICloneable_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INamedTemplate< ICloneable > *)  ((IFitStrategy *) x));
+}
+static void *_p_FitParameterTo_p_INamedTemplateT_ICloneable_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INamedTemplate< ICloneable > *)  ((FitParameter *) x));
+}
+static void *_p_FitStrategyDefaultTo_p_INamedTemplateT_ICloneable_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INamedTemplate< ICloneable > *) (IFitStrategy *) ((FitStrategyDefault *) x));
+}
+static void *_p_FitObjectTo_p_INamedTemplateT_ICloneable_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INamedTemplate< ICloneable > *) (IParameterizedTemplate< ICloneable > *) ((FitObject *) x));
+}
+static void *_p_FitSuiteObjectsTo_p_INamedTemplateT_ICloneable_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INamedTemplate< ICloneable > *) (IParameterizedTemplate< ICloneable > *) ((FitSuiteObjects *) x));
+}
+static void *_p_IParameterizedTemplateT_ICloneable_tTo_p_INamedTemplateT_ICloneable_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INamedTemplate< ICloneable > *)  ((IParameterizedTemplate< ICloneable > *) x));
+}
+static void *_p_IIntensityNormalizerTo_p_INamedTemplateT_ICloneable_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INamedTemplate< ICloneable > *) (IParameterizedTemplate< ICloneable > *) ((IIntensityNormalizer *) x));
+}
+static void *_p_IntensityNormalizerTo_p_INamedTemplateT_ICloneable_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INamedTemplate< ICloneable > *) (IParameterizedTemplate< ICloneable > *)(IIntensityNormalizer *) ((IntensityNormalizer *) x));
+}
+static void *_p_IntensityScaleAndShiftNormalizerTo_p_INamedTemplateT_ICloneable_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INamedTemplate< ICloneable > *) (IParameterizedTemplate< ICloneable > *)(IIntensityNormalizer *)(IntensityNormalizer *) ((IntensityScaleAndShiftNormalizer *) x));
+}
+static void *_p_FitStrategyAdjustMinimizerTo_p_INamedTemplateT_ICloneable_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INamedTemplate< ICloneable > *) (IFitStrategy *) ((FitStrategyAdjustMinimizer *) x));
+}
+static void *_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_tTo_p_std__shared_ptrT_INamedTemplateT_IShareable_t_t(void *x, int *newmemory) {
+    *newmemory = SWIG_CAST_NEW_MEMORY;
+    return (void *) new std::shared_ptr< INamedTemplate< IShareable > >(*(std::shared_ptr< IParameterizedTemplate< IShareable > > *)x);
 }
 static void *_p_std__shared_ptrT_IFitObserver_tTo_p_std__shared_ptrT_IObserver_t(void *x, int *newmemory) {
     *newmemory = SWIG_CAST_NEW_MEMORY;
@@ -31543,6 +34694,7 @@ static swig_type_info _swigt__p_std__allocatorT_std__string_t = {"_p_std__alloca
 static swig_type_info _swigt__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t = {"_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t", "std::vector< std::vector< double > >::allocator_type *|std::allocator< std::vector< double,std::allocator< double > > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_unsigned_long_t = {"_p_std__allocatorT_unsigned_long_t", "std::vector< unsigned long >::allocator_type *|std::allocator< unsigned long > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argument", "std::invalid_argument *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__ostream = {"_p_std__ostream", "std::ostream *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IFitObserver_t = {"_p_std__shared_ptrT_IFitObserver_t", "std::shared_ptr< IFitObserver > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_INamedShared_t = {"_p_std__shared_ptrT_INamedShared_t", "std::shared_ptr< INamedShared > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_INamedTemplateT_IShareable_t_t = {"_p_std__shared_ptrT_INamedTemplateT_IShareable_t_t", "std::shared_ptr< INamedTemplate< IShareable > > *", 0, 0, (void*)0, 0};
@@ -31635,6 +34787,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t,
   &_swigt__p_std__allocatorT_unsigned_long_t,
   &_swigt__p_std__invalid_argument,
+  &_swigt__p_std__ostream,
   &_swigt__p_std__shared_ptrT_IFitObserver_t,
   &_swigt__p_std__shared_ptrT_INamedShared_t,
   &_swigt__p_std__shared_ptrT_INamedTemplateT_IShareable_t_t,
@@ -31683,11 +34836,11 @@ static swig_cast_info _swigc__p_IHistogram[] = {  {&_swigt__p_IHistogram, 0, 0, 
 static swig_cast_info _swigc__p_IIntensityFunction[] = {  {&_swigt__p_IntensityFunctionSqrt, _p_IntensityFunctionSqrtTo_p_IIntensityFunction, 0, 0},  {&_swigt__p_IIntensityFunction, 0, 0, 0},  {&_swigt__p_IntensityFunctionLog, _p_IntensityFunctionLogTo_p_IIntensityFunction, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IIntensityNormalizer[] = {  {&_swigt__p_IIntensityNormalizer, 0, 0, 0},  {&_swigt__p_IntensityNormalizer, _p_IntensityNormalizerTo_p_IIntensityNormalizer, 0, 0},  {&_swigt__p_IntensityScaleAndShiftNormalizer, _p_IntensityScaleAndShiftNormalizerTo_p_IIntensityNormalizer, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IMinimizer[] = {  {&_swigt__p_IMinimizer, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_INamedTemplateT_ICloneable_t[] = {  {&_swigt__p_INamedTemplateT_ICloneable_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_INamedTemplateT_IShareable_t[] = {  {&_swigt__p_INamedTemplateT_IShareable_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_INamedTemplateT_ICloneable_t[] = {  {&_swigt__p_IFitStrategy, _p_IFitStrategyTo_p_INamedTemplateT_ICloneable_t, 0, 0},  {&_swigt__p_FitParameter, _p_FitParameterTo_p_INamedTemplateT_ICloneable_t, 0, 0},  {&_swigt__p_INamedTemplateT_ICloneable_t, 0, 0, 0},  {&_swigt__p_FitStrategyDefault, _p_FitStrategyDefaultTo_p_INamedTemplateT_ICloneable_t, 0, 0},  {&_swigt__p_FitObject, _p_FitObjectTo_p_INamedTemplateT_ICloneable_t, 0, 0},  {&_swigt__p_IParameterizedTemplateT_ICloneable_t, _p_IParameterizedTemplateT_ICloneable_tTo_p_INamedTemplateT_ICloneable_t, 0, 0},  {&_swigt__p_FitSuiteObjects, _p_FitSuiteObjectsTo_p_INamedTemplateT_ICloneable_t, 0, 0},  {&_swigt__p_FitStrategyAdjustMinimizer, _p_FitStrategyAdjustMinimizerTo_p_INamedTemplateT_ICloneable_t, 0, 0},  {&_swigt__p_IIntensityNormalizer, _p_IIntensityNormalizerTo_p_INamedTemplateT_ICloneable_t, 0, 0},  {&_swigt__p_IntensityNormalizer, _p_IntensityNormalizerTo_p_INamedTemplateT_ICloneable_t, 0, 0},  {&_swigt__p_IntensityScaleAndShiftNormalizer, _p_IntensityScaleAndShiftNormalizerTo_p_INamedTemplateT_ICloneable_t, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_INamedTemplateT_IShareable_t[] = {  {&_swigt__p_INamedTemplateT_IShareable_t, 0, 0, 0},  {&_swigt__p_IParameterizedTemplateT_IShareable_t, _p_IParameterizedTemplateT_IShareable_tTo_p_INamedTemplateT_IShareable_t, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IObservable[] = {  {&_swigt__p_IObservable, 0, 0, 0},  {&_swigt__p_FitSuite, _p_FitSuiteTo_p_IObservable, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IObserver[] = {  {&_swigt__p_IObserver, 0, 0, 0},  {&_swigt__p_IFitObserver, _p_IFitObserverTo_p_IObserver, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IParameterizedTemplateT_ICloneable_t[] = {  {&_swigt__p_IParameterizedTemplateT_ICloneable_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IParameterizedTemplateT_ICloneable_t[] = {  {&_swigt__p_IParameterizedTemplateT_ICloneable_t, 0, 0, 0},  {&_swigt__p_FitObject, _p_FitObjectTo_p_IParameterizedTemplateT_ICloneable_t, 0, 0},  {&_swigt__p_FitSuiteObjects, _p_FitSuiteObjectsTo_p_IParameterizedTemplateT_ICloneable_t, 0, 0},  {&_swigt__p_IIntensityNormalizer, _p_IIntensityNormalizerTo_p_IParameterizedTemplateT_ICloneable_t, 0, 0},  {&_swigt__p_IntensityNormalizer, _p_IntensityNormalizerTo_p_IParameterizedTemplateT_ICloneable_t, 0, 0},  {&_swigt__p_IntensityScaleAndShiftNormalizer, _p_IntensityScaleAndShiftNormalizerTo_p_IParameterizedTemplateT_ICloneable_t, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IParameterizedTemplateT_IShareable_t[] = {  {&_swigt__p_IParameterizedTemplateT_IShareable_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ISquaredFunction[] = {  {&_swigt__p_SquaredFunctionGaussianError, _p_SquaredFunctionGaussianErrorTo_p_ISquaredFunction, 0, 0},  {&_swigt__p_SquaredFunctionMeanSquaredError, _p_SquaredFunctionMeanSquaredErrorTo_p_ISquaredFunction, 0, 0},  {&_swigt__p_ISquaredFunction, 0, 0, 0},  {&_swigt__p_SquaredFunctionDefault, _p_SquaredFunctionDefaultTo_p_ISquaredFunction, 0, 0},  {&_swigt__p_SquaredFunctionSimError, _p_SquaredFunctionSimErrorTo_p_ISquaredFunction, 0, 0},  {&_swigt__p_SquaredFunctionSystematicError, _p_SquaredFunctionSystematicErrorTo_p_ISquaredFunction, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IntensityFunctionLog[] = {  {&_swigt__p_IntensityFunctionLog, 0, 0, 0},{0, 0, 0, 0}};
@@ -31727,9 +34880,10 @@ static swig_cast_info _swigc__p_std__allocatorT_std__string_t[] = {  {&_swigt__p
 static swig_cast_info _swigc__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t[] = {  {&_swigt__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_unsigned_long_t[] = {  {&_swigt__p_std__allocatorT_unsigned_long_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__invalid_argument, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__ostream[] = {  {&_swigt__p_std__ostream, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IFitObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IFitObserver_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_INamedShared_t[] = {  {&_swigt__p_std__shared_ptrT_INamedShared_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__shared_ptrT_INamedTemplateT_IShareable_t_t[] = {  {&_swigt__p_std__shared_ptrT_INamedTemplateT_IShareable_t_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__shared_ptrT_INamedTemplateT_IShareable_t_t[] = {  {&_swigt__p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, _p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_tTo_p_std__shared_ptrT_INamedTemplateT_IShareable_t_t, 0, 0},  {&_swigt__p_std__shared_ptrT_INamedTemplateT_IShareable_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IObserver_t, 0, 0, 0},  {&_swigt__p_std__shared_ptrT_IFitObserver_t, _p_std__shared_ptrT_IFitObserver_tTo_p_std__shared_ptrT_IObserver_t, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IParameterizedShared_t[] = {  {&_swigt__p_std__shared_ptrT_IParameterizedShared_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t[] = {  {&_swigt__p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -31819,6 +34973,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t,
   _swigc__p_std__allocatorT_unsigned_long_t,
   _swigc__p_std__invalid_argument,
+  _swigc__p_std__ostream,
   _swigc__p_std__shared_ptrT_IFitObserver_t,
   _swigc__p_std__shared_ptrT_INamedShared_t,
   _swigc__p_std__shared_ptrT_INamedTemplateT_IShareable_t_t,

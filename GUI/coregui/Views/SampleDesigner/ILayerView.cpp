@@ -47,42 +47,49 @@ ILayerView::ILayerView(QGraphicsItem *parent) : ConnectableView(parent)
 //! Propagates change of 'Thickness' dynamic property to screen thickness of ILayerView.
 void ILayerView::onPropertyChange(const QString &propertyName)
 {
-    Q_ASSERT(m_item);
     if (propertyName == LayerItem::P_THICKNESS) {
+        updateHeight();
+    } else if (propertyName == LayerItem::P_MATERIAL) {
+        updateColor();
+    }
+
+    IView::onPropertyChange(propertyName);
+}
+
+void ILayerView::updateHeight()
+{
+    if(m_item->isTag(LayerItem::P_THICKNESS)) {
         m_rect.setHeight(DesignerHelper::nanometerToScreen(
             m_item->getItemValue(LayerItem::P_THICKNESS).toDouble()));
         setPortCoordinates();
         update();
         emit heightChanged();
-    } else if (propertyName == LayerItem::P_MATERIAL) {
-        updateColor();
-        //qDebug() << " ------------- > ILayerView::onPropertyChange Material";
-//        MaterialProperty mp
-//            = getParameterizedItem()->property("Material").value<MaterialProperty>();
-//        setColor(mp.getColor());
-
-//        update();
-    } else {
-//        IView::onPropertyChange(propertyName);
     }
 }
 
 void ILayerView::updateColor()
 {
-    if(m_item && m_item->isTag(LayerItem::P_MATERIAL)) {
+    if(m_item->isTag(LayerItem::P_MATERIAL)) {
         QVariant v = m_item->getItemValue(LayerItem::P_MATERIAL);
         if (v.isValid()) {
             MaterialProperty mp = v.value<MaterialProperty>();
             setColor(mp.getColor());
-            update();
         }
     }
-
 }
 
-void ILayerView::setParameterizedItem(SessionItem *item)
+//void ILayerView::setParameterizedItem(SessionItem *item)
+//{
+//    qDebug() << "  ZZZZ";
+//    qDebug() << "  ZZZZ";
+//    qDebug() << "  ZZZZ";
+//    ConnectableView::setParameterizedItem(item );
+////    updateColor();
+//}
+
+void ILayerView::update_appearance()
 {
-    IView::setParameterizedItem(item);
+    updateHeight();
     updateColor();
 }
 

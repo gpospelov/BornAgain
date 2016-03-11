@@ -26,7 +26,6 @@
 
 ParticleView::ParticleView(QGraphicsItem *parent)
     : ConnectableView(parent)
-    , m_mapper(0)
 {
     setName(Constants::ParticleType);
     setColor(DesignerHelper::getDefaultParticleColor());
@@ -66,37 +65,16 @@ void ParticleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     painter->drawPixmap(target, m_pixmap);
 }
 
-
-void ParticleView::setParameterizedItem(SessionItem *item)
-{
-    ConnectableView::setParameterizedItem(item);
-    onPropertyChange(ParticleItem::P_FORM_FACTOR);
-    if (m_mapper)
-        m_mapper->deleteLater();
-
-    m_mapper = new ModelMapper(this);
-    m_mapper->setItem(item);
-    m_mapper->setOnPropertyChange(
-                [this](const QString &name)
-    {
-        onPropertyChange(name);
-    });
-}
-
-
 void ParticleView::onPropertyChange(const QString &propertyName)
 {
     if(propertyName == ParticleItem::P_FORM_FACTOR) {
         GroupProperty_t group_property = dynamic_cast<GroupItem*>(getParameterizedItem()->getItem(ParticleItem::P_FORM_FACTOR))->group();
-//        GroupProperty_t group_property = getParameterizedItem()->getRegisteredProperty(ParticleItem::P_FORM_FACTOR).value<GroupProperty_t>();
-
         QString current_ff_type = group_property->getCurrentType();
         QString filename = QString(":/SampleDesigner/images/ff_%1_32.png").arg(current_ff_type);
         m_pixmap = QPixmap(filename);
-        update();
-    } else {
-//        IView::onPropertyChange(propertyName);
     }
+
+    IView::onPropertyChange(propertyName);
 }
 
 void ParticleView::addView(IView *childView, int /*row*/)

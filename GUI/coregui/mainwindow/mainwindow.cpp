@@ -100,8 +100,6 @@ MainWindow::MainWindow(QWidget *parent)
     QCoreApplication::setOrganizationName(QLatin1String(Constants::APPLICATION_NAME));
 
     createModels();
-//    testGUIObjectBuilder();
-
 
     if (!Utils::HostOsInfo::isMacHost())
         QApplication::setWindowIcon(QIcon(":/images/BornAgain.ico"));
@@ -139,7 +137,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(FIT, testView, QIcon(":/images/main_jobqueue.png"), "Test");
     m_tabWidget->insertTab(TESTVIEW, testComponentView, QIcon(":/images/main_jobqueue.png"), "TestView");
 
-    m_tabWidget->setCurrentIndex(FIT);
+    m_tabWidget->setCurrentIndex(SAMPLE);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
@@ -312,7 +310,7 @@ void MainWindow::resetModels()
     m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
 
     m_sampleModel->clear();
-    testGUIObjectBuilder();
+    //testGUIObjectBuilder();
 
     m_jobModel->clear();
 

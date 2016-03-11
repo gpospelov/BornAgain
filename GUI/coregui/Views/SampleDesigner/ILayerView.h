@@ -34,7 +34,10 @@ public:
 
     int type() const { return TYPE; }
 
-    void setParameterizedItem(SessionItem *item);
+//    void setParameterizedItem(SessionItem *item);
+    virtual QString getLabel() const { return QString(); }
+
+    virtual void update_appearance();
 
 protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
@@ -45,6 +48,7 @@ public slots:
     void onPropertyChange(const QString &propertyName);
 
 private:
+    void updateHeight();
     void updateColor();
 
     MultiLayerCandidate getMultiLayerCandidate();

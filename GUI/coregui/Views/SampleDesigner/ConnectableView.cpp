@@ -33,15 +33,15 @@ ConnectableView::ConnectableView(QGraphicsItem *parent, QRect rect)
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
 }
 
-void ConnectableView::setParameterizedItem(SessionItem *item)
-{
-    IView::setParameterizedItem(item);
-    if (m_item) {
-        setLabel( hyphenate(m_item->itemName()) );
-        // TODO restore logic
-//        connect(m_item, SIGNAL(siblingsChanged()), this, SLOT(onSiblingsChanged()));
-    }
-}
+//void ConnectableView::setParameterizedItem(SessionItem *item)
+//{
+//    IView::setParameterizedItem(item);
+//    if (m_item) {
+//        setLabel( hyphenate(m_item->itemName()) );
+//        // TODO restore logic
+////        connect(m_item, SIGNAL(siblingsChanged()), this, SLOT(onSiblingsChanged()));
+//    }
+//}
 
 void ConnectableView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                             QWidget *widget)
@@ -120,6 +120,11 @@ void ConnectableView::connectInputPort(ConnectableView *other, int port_number)
 int ConnectableView::getInputPortIndex(NodeEditorPort *port)
 {
     return m_input_ports.indexOf(port);
+}
+
+void ConnectableView::update_appearance()
+{
+    setLabel( hyphenate(m_item->itemName()) );
 }
 
 void ConnectableView::onSiblingsChanged()

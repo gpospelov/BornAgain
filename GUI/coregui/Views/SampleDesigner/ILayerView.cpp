@@ -78,15 +78,6 @@ void ILayerView::updateColor()
     }
 }
 
-//void ILayerView::setParameterizedItem(SessionItem *item)
-//{
-//    qDebug() << "  ZZZZ";
-//    qDebug() << "  ZZZZ";
-//    qDebug() << "  ZZZZ";
-//    ConnectableView::setParameterizedItem(item );
-////    updateColor();
-//}
-
 void ILayerView::update_appearance()
 {
     updateHeight();

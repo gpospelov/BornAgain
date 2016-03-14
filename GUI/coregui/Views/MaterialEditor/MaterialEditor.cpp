@@ -17,6 +17,7 @@
 #include "MaterialEditorToolBar.h"
 #include "ComponentEditor.h"
 #include "MaterialModel.h"
+#include "MaterialItem.h"
 #include <QListView>
 #include <QSplitter>
 #include <QVBoxLayout>
@@ -63,6 +64,15 @@ MaterialItem *MaterialEditor::getSelectedMaterial()
         return m_materialModel->getMaterial(selected.front());
     }
     return nullptr;
+}
+
+void MaterialEditor::setInitialMaterialProperty(const MaterialProperty &matProperty)
+{
+    if(MaterialItem *mat = m_materialModel->getMaterial(matProperty)) {
+        getSelectionModel()->clearSelection();
+        getSelectionModel()->select(m_materialModel->indexOfItem(mat),
+                                    QItemSelectionModel::Select);
+    }
 }
 
 void MaterialEditor::onSelectionChanged(const QItemSelection &selected,

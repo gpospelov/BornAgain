@@ -34,6 +34,8 @@ public:
 
     MaterialProperty getSelectedMaterialProperty();
 
+    void setInitialMaterialProperty(const MaterialProperty &matProperty);
+
 public slots:
     void onOKButton();
     void onCancelButton();

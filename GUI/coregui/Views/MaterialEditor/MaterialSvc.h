@@ -35,7 +35,7 @@ public:
     static MaterialSvc *instance();
 
     static MaterialProperty getMaterialProperty(const QString &name);
-    static MaterialProperty selectMaterialProperty();
+    static MaterialProperty selectMaterialProperty(const MaterialProperty &previousMaterial=MaterialProperty());
     static MaterialProperty getDefaultMaterialProperty();
 
     static MaterialModel *getMaterialModel();
@@ -43,7 +43,7 @@ public:
     static MaterialItem *getMaterial(const MaterialProperty &property);
 
 private:
-    MaterialProperty this_selectMaterialProperty();
+    MaterialProperty this_selectMaterialProperty(const MaterialProperty &previousMaterial);
     MaterialProperty this_getMaterialProperty(const QString &name);
     MaterialProperty this_getDefaultMaterialProperty();
     MaterialModel *this_getMaterialModel();

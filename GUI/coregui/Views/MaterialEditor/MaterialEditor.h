@@ -27,6 +27,7 @@ class ComponentEditor;
 class QItemSelection;
 class QItemSelectionModel;
 class MaterialItem;
+class MaterialProperty;
 
 //! Main widget of MaterialEditor
 class BA_CORE_API_ MaterialEditor : public QWidget
@@ -39,6 +40,8 @@ public:
     QItemSelectionModel *getSelectionModel();
 
     MaterialItem *getSelectedMaterial();
+
+    void setInitialMaterialProperty(const MaterialProperty &matProperty);
 
 private slots:
     void onSelectionChanged(const QItemSelection &selected, const QItemSelection&);

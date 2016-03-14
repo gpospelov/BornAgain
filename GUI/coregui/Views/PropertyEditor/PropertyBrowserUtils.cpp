@@ -63,7 +63,7 @@ MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
 
 void MaterialPropertyEdit::buttonClicked()
 {
-    MaterialProperty mat = MaterialSvc::selectMaterialProperty();
+    MaterialProperty mat = MaterialSvc::selectMaterialProperty(m_materialProperty);
     if(mat.isDefined() ) {
         setMaterialProperty(mat);
         emit materialPropertyChanged(m_materialProperty);

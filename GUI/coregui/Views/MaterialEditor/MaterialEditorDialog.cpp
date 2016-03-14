@@ -87,3 +87,12 @@ MaterialProperty MaterialEditorDialog::getSelectedMaterialProperty()
     return MaterialProperty();
 }
 
+//!
+void MaterialEditorDialog::setInitialMaterialProperty(const MaterialProperty &matProperty)
+{
+    Q_ASSERT(m_materialEditor);
+
+    m_materialEditor->setInitialMaterialProperty(matProperty);
+
+}
+

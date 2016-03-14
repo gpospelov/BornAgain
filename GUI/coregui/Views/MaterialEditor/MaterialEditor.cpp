@@ -67,6 +67,7 @@ MaterialItem *MaterialEditor::getSelectedMaterial()
     return nullptr;
 }
 
+//! Sets selection corresponding to initial material property
 void MaterialEditor::setInitialMaterialProperty(const MaterialProperty &matProperty)
 {
     if(MaterialItem *mat = m_materialModel->getMaterial(matProperty)) {

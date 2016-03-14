@@ -42,6 +42,9 @@ public slots:
 
 private:
     void init_material_editor();
+    void readSettings();
+    void writeSettings();
+
     MaterialModel *m_origMaterialModel;
     std::unique_ptr<MaterialModel>  m_tmpMaterialModel;
     MaterialEditor *m_materialEditor;

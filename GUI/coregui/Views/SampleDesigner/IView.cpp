@@ -25,23 +25,28 @@ IView::IView(QGraphicsItem *parent) : QGraphicsObject(parent), m_item(0)
     connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
 }
 
+IView::~IView()
+{
+
+}
+
 void IView::setParameterizedItem(SessionItem *item)
 {
+    Q_ASSERT(item);
+    Q_ASSERT(m_item == nullptr);
+
     if (item) {
         m_item = item;
         setX(m_item->getItemValue(SessionGraphicsItem::P_XPOS).toReal());
         setY(m_item->getItemValue(SessionGraphicsItem::P_YPOS).toReal());
-        ModelMapper *mapper = new ModelMapper(this);
-        mapper->setItem(item);
-        mapper->setOnPropertyChange(
+
+        mapper()->setItem(item);
+        mapper()->setOnPropertyChange(
                     [this] (const QString &name)
         {
-            if (name == SessionGraphicsItem::P_XPOS) {
-                setX(m_item->getItemValue(SessionGraphicsItem::P_XPOS).toReal());
-            } else if (name == SessionGraphicsItem::P_YPOS) {
-                setY(m_item->getItemValue(SessionGraphicsItem::P_YPOS).toReal());
-            }
+            onPropertyChange(name);
         });
+        update_appearance();
     }
 }
 
@@ -61,4 +66,27 @@ void IView::onChangedY()
 {
     Q_ASSERT(m_item);
     m_item->setItemValue(SessionGraphicsItem::P_YPOS, y());
+}
+
+ModelMapper *IView::mapper()
+{
+    if (!m_mapper) {
+        m_mapper = std::unique_ptr<ModelMapper>(new ModelMapper);
+    }
+    return m_mapper.get();
+}
+
+//! updates visual appearance of the item (color, icons, size etc)
+void IView::update_appearance()
+{
+    update();
+}
+
+void IView::onPropertyChange(const QString &propertyName)
+{
+    if (propertyName == SessionGraphicsItem::P_XPOS) {
+        setX(m_item->getItemValue(SessionGraphicsItem::P_XPOS).toReal());
+    } else if (propertyName == SessionGraphicsItem::P_YPOS) {
+        setY(m_item->getItemValue(SessionGraphicsItem::P_YPOS).toReal());
+    }
 }

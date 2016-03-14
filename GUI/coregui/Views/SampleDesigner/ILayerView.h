@@ -34,17 +34,19 @@ public:
 
     int type() const { return TYPE; }
 
-    void setParameterizedItem(SessionItem *item);
+    virtual QString getLabel() const { return QString(); }
 
 protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void update_appearance();
 
 public slots:
     void onPropertyChange(const QString &propertyName);
 
 private:
+    void updateHeight();
     void updateColor();
 
     MultiLayerCandidate getMultiLayerCandidate();

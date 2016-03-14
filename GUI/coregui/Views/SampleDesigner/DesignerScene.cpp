@@ -378,11 +378,11 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
         else if (parentView->getInputPortIndex(connection->getInputPort()) == 1)
             tag = ParticleCoreShellItem::T_SHELL;
         else if (connection->getInputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
-            tag = ParticleCoreShellItem::T_TRANSFORMATION;
+            tag = ParticleItem::T_TRANSFORMATION;
 
     } else if (connection->getParentView()->getParameterizedItem()->modelType() == Constants::ParticleCompositionType) {
         if (connection->getInputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
-            tag = ParticleCompositionItem::T_TRANSFORMATION;
+            tag = ParticleItem::T_TRANSFORMATION;
     }
     delete connection; // deleting just created connection because it will be recreated from the
                        // model

@@ -16,10 +16,12 @@
 #ifndef IVIEW_H
 #define IVIEW_H
 
-#include <QGraphicsObject>
-
 #include "DesignerHelper.h"
+#include <QGraphicsObject>
+#include <memory>
+
 class SessionItem;
+class ModelMapper;
 
 //! parent class for graphic representation of all ISample's
 class BA_CORE_API_ IView : public QGraphicsObject
@@ -29,7 +31,7 @@ public:
     enum { TYPE = DesignerHelper::IVIEW };
 
     IView(QGraphicsItem *parent = 0);
-    virtual ~IView() {}
+    virtual ~IView();
 
     int type() const;
 
@@ -47,7 +49,12 @@ public slots:
     virtual void onChangedY();
 
 protected:
+    ModelMapper *mapper();
+    virtual void update_appearance();
+    virtual void onPropertyChange(const QString &propertyName);
+
     SessionItem *m_item;
+    std::unique_ptr<ModelMapper> m_mapper;
 };
 
 inline int IView::type() const

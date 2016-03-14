@@ -34,7 +34,6 @@ public:
     ConnectableView(QGraphicsItem *parent = 0, QRect rect = QRect(0,0,50,50) );
     virtual ~ConnectableView(){}
     int type() const { return TYPE; }
-    virtual void setParameterizedItem(SessionItem *item);
 
     virtual QRectF boundingRect() const { return getRectangle(); }
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -59,6 +58,8 @@ public:
 
     virtual void setName(const QString &name) { m_name = name; }
     virtual void setColor(const QColor &color) { m_color = color; }
+
+
 public slots:
     virtual void onSiblingsChanged();
 
@@ -67,6 +68,7 @@ protected:
     virtual int getNumberOfPorts();
     virtual int getNumberOfOutputPorts();
     virtual int getNumberOfInputPorts();
+    virtual void update_appearance();
 
     QString m_name;
     QColor m_color;
@@ -83,12 +85,12 @@ private:
 
 
 //! default view of unimplemented ISample's
-class ISampleDefaultView : public ConnectableView
-{
-public:
-    ISampleDefaultView(QGraphicsItem *parent = 0) : ConnectableView(parent){}
-    //! сalls the ISampleViewVisitor's visit method
-};
+//class ISampleDefaultView : public ConnectableView
+//{
+//public:
+//    ISampleDefaultView(QGraphicsItem *parent = 0) : ConnectableView(parent){}
+//    //! сalls the ISampleViewVisitor's visit method
+//};
 
 
 

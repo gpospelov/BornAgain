@@ -42,19 +42,22 @@ MaterialSvc *MaterialSvc::instance()
 }
 
 
-MaterialProperty MaterialSvc::selectMaterialProperty()
+MaterialProperty
+MaterialSvc::selectMaterialProperty(const MaterialProperty &previousMaterial)
 {
     Q_ASSERT(m_instance);
-    return m_instance->this_selectMaterialProperty();
+    return m_instance->this_selectMaterialProperty(previousMaterial);
 }
 
 
-MaterialProperty MaterialSvc::this_selectMaterialProperty()
+MaterialProperty
+MaterialSvc::this_selectMaterialProperty(const MaterialProperty &previousMaterial)
 {
     qDebug() << "MaterialEditor::this_getMaterialProperty()";
-    MaterialEditorDialog widget(m_materialModel);
-    if(widget.exec() == QDialog::Accepted) {
-        return widget.getSelectedMaterialProperty();
+    MaterialEditorDialog dialog(m_materialModel);
+    dialog.setInitialMaterialProperty(previousMaterial);
+    if(dialog.exec() == QDialog::Accepted) {
+        return dialog.getSelectedMaterialProperty();
     }
 
     return MaterialProperty();

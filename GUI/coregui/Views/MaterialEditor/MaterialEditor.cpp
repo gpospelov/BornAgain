@@ -17,6 +17,7 @@
 #include "MaterialEditorToolBar.h"
 #include "ComponentEditor.h"
 #include "MaterialModel.h"
+#include "MaterialItem.h"
 #include <QListView>
 #include <QSplitter>
 #include <QVBoxLayout>
@@ -28,6 +29,7 @@ MaterialEditor::MaterialEditor(MaterialModel *materialModel, QWidget *parent)
     , m_splitter(new QSplitter)
     , m_listView(new QListView)
     , m_componentEditor(new ComponentEditor)
+    , m_model_was_modified(false)
 {
     setWindowTitle("MaterialEditorWidget");
     setMinimumSize(128, 128);
@@ -65,6 +67,21 @@ MaterialItem *MaterialEditor::getSelectedMaterial()
     return nullptr;
 }
 
+//! Sets selection corresponding to initial material property
+void MaterialEditor::setInitialMaterialProperty(const MaterialProperty &matProperty)
+{
+    if(MaterialItem *mat = m_materialModel->getMaterial(matProperty)) {
+        getSelectionModel()->clearSelection();
+        getSelectionModel()->select(m_materialModel->indexOfItem(mat),
+                                    QItemSelectionModel::Select);
+    }
+}
+
+bool MaterialEditor::isModelWasModified() const
+{
+    return m_model_was_modified;
+}
+
 void MaterialEditor::onSelectionChanged(const QItemSelection &selected,
                                               const QItemSelection &)
 {
@@ -79,6 +96,22 @@ void MaterialEditor::onSelectionChanged(const QItemSelection &selected,
     }
 }
 
+void MaterialEditor::onDataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)
+{
+    m_model_was_modified = true;
+}
+
+void MaterialEditor::onRowsInserted(const QModelIndex &, int, int)
+{
+    m_model_was_modified = true;
+}
+
+void MaterialEditor::onRowsRemoved(const QModelIndex &, int, int)
+{
+    m_model_was_modified = true;
+}
+
+
 //! Context menu reimplemented to supress default menu
 void MaterialEditor::contextMenuEvent(QContextMenuEvent *event)
 {
@@ -88,6 +121,14 @@ void MaterialEditor::contextMenuEvent(QContextMenuEvent *event)
 
 void MaterialEditor::init_views()
 {
+    // connecting to the model
+    connect(m_materialModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
+               this, SLOT(onDataChanged(QModelIndex,QModelIndex,QVector<int>)));
+    connect(m_materialModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
+               this, SLOT(onRowsInserted(QModelIndex,int,int)));
+    connect(m_materialModel, SIGNAL(rowsRemoved(QModelIndex,int,int)),
+               this, SLOT(onRowsRemoved(QModelIndex,int,int)));
+
     m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
     m_listView->setModel(m_materialModel);
     m_listView->setMovement(QListView::Static);

@@ -40,10 +40,11 @@ private:
     void reject();
 
 private:
-    MaskEditor *m_maskEditor;
-    DetectorMaskDelegate *m_detectorMaskDelegate;
     void readSettings();
     void writeSettings();
+
+    MaskEditor *m_maskEditor;
+    DetectorMaskDelegate *m_detectorMaskDelegate;
 };
 
 #endif

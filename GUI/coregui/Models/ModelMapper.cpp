@@ -137,13 +137,23 @@ void ModelMapper::onRowsInserted(const QModelIndex &parent, int first, int last)
                     }
                 }
 
+//                if (m_active && m_onChildrenChange.size() > 0) {
+//                    for (auto f : m_onChildrenChange) {
+//                        f();
+//                    }
+//                }
+            }
+
+            else if(m_item == newChild->parent()) {
                 if (m_active && m_onChildrenChange.size() > 0) {
                     for (auto f : m_onChildrenChange) {
                         f();
                     }
                 }
             }
+
         }
+
     }
 }
 
@@ -157,12 +167,22 @@ void ModelMapper::onBeginRemoveRows(const QModelIndex &parent, int first, int la
                         f(nullptr);
                     }
                 }
+//                if (m_active && m_onChildrenChange.size() > 0) {
+//                    for (auto f : m_onChildrenChange) {
+//                        f();
+//                    }
+//                }
+            }
+
+            else if(m_item == newChild->parent()) {
                 if (m_active && m_onChildrenChange.size() > 0) {
                     for (auto f : m_onChildrenChange) {
                         f();
                     }
                 }
             }
+
+
         }
     }
 }

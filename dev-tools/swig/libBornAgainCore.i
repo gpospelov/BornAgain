@@ -155,6 +155,8 @@
 #include "ISampleBuilder.h"
 #include "ISampleVisitor.h"
 #include "ISelectionRule.h"
+#include "SimulationRegistry.h"    
+#include "SampleBuilderFactory.h"    
 #include "IShape2D.h"
 #include "ISingleton.h"
 #include "Instrument.h"
@@ -403,3 +405,5 @@
 
 
 
+%include "SimulationRegistry.h"    
+%include "SampleBuilderFactory.h"    

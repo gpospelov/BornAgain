@@ -21960,6 +21960,102 @@ class ThreadInfo(_object):
 ThreadInfo_swigregister = _libBornAgainCore.ThreadInfo_swigregister
 ThreadInfo_swigregister(ThreadInfo)
 
+class SimulationRegistry(_object):
+    """
+
+
+    Registry to create standard pre-defined simulations. Used in functional tests, performance measurements, etc.
+
+    C++ includes: SimulationRegistry.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SimulationRegistry, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, SimulationRegistry, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """
+        __init__(SimulationRegistry self) -> SimulationRegistry
+
+        SimulationRegistry::SimulationRegistry()
+
+        """
+        this = _libBornAgainCore.new_SimulationRegistry()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def createSimulation(self, name):
+        """
+        createSimulation(SimulationRegistry self, std::string const & name) -> GISASSimulation
+
+        GISASSimulation * SimulationRegistry::createSimulation(const std::string &name)
+
+        """
+        return _libBornAgainCore.SimulationRegistry_createSimulation(self, name)
+
+    __swig_destroy__ = _libBornAgainCore.delete_SimulationRegistry
+    __del__ = lambda self: None
+SimulationRegistry_swigregister = _libBornAgainCore.SimulationRegistry_swigregister
+SimulationRegistry_swigregister(SimulationRegistry)
+
+class SampleBuilderFactory(_object):
+    """
+
+
+    Factory to create standard pre-defined samples.
+
+    C++ includes: SampleBuilderFactory.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SampleBuilderFactory, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, SampleBuilderFactory, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """
+        __init__(SampleBuilderFactory self) -> SampleBuilderFactory
+
+        SampleBuilderFactory::SampleBuilderFactory()
+
+        """
+        this = _libBornAgainCore.new_SampleBuilderFactory()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def createSample(self, name):
+        """
+        createSample(SampleBuilderFactory self, std::string const & name) -> ISample
+
+        ISample * SampleBuilderFactory::createSample(const std::string &name)
+
+        """
+        return _libBornAgainCore.SampleBuilderFactory_createSample(self, name)
+
+
+    def createBuilder(self, name):
+        """
+        createBuilder(SampleBuilderFactory self, std::string const & name) -> SampleBuilder_t
+
+        SampleBuilder_t SampleBuilderFactory::createBuilder(const std::string &name)
+
+        """
+        return _libBornAgainCore.SampleBuilderFactory_createBuilder(self, name)
+
+    __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactory
+    __del__ = lambda self: None
+SampleBuilderFactory_swigregister = _libBornAgainCore.SampleBuilderFactory_swigregister
+SampleBuilderFactory_swigregister(SampleBuilderFactory)
+
 # This file is compatible with both classic and new-style classes.
 
 

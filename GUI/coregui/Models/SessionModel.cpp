@@ -394,10 +394,16 @@ SessionItem *SessionModel::moveParameterizedItem(SessionItem *item, SessionItem 
             return 0;
     }
 
-    if (item->parent() == new_parent && indexOfItem(item).row() == row) {
-        qDebug()
-            << "SessionModel::moveParameterizedItem() -> no need to move, same parent, same row. ";
-        return item;
+    if (item->parent() == new_parent) {
+        // take care of indexes when moving item within same parent
+        int previousIndex = item->parent()->getItems(tagName).indexOf(item);
+        if (row==previousIndex) {
+            qDebug()
+                << "SessionModel::moveParameterizedItem() -> no need to move, same parent, same row. ";
+            return item;
+        } else if (previousIndex >= 0 && row>previousIndex) {
+            row--;
+        }
     }
     SessionItem *stuff = item->parent()->takeRow(item->parent()->rowOfChild(item));
     if(!new_parent->insertItem(row, stuff, tagName)) {

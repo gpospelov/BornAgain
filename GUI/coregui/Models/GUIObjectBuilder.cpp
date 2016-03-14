@@ -213,10 +213,14 @@ void GUIObjectBuilder::visit(const Particle *sample)
         Q_ASSERT(coreshell);
         if (sample == coreshell->getCoreParticle()) {
             particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
-                                                        m_sampleModel->indexOfItem(parent), -1);
+                                                        m_sampleModel->indexOfItem(parent), -1,
+                                                        ParticleCoreShellItem::T_CORE);
+            Q_ASSERT(particleItem);
         } else if (sample == coreshell->getShellParticle()) {
             particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
-                                                        m_sampleModel->indexOfItem(parent), -1);
+                                                        m_sampleModel->indexOfItem(parent), -1,
+                                                        ParticleCoreShellItem::T_SHELL);
+            Q_ASSERT(particleItem);
         } else {
             throw GUIHelpers::Error(
                 "GUIObjectBuilder::visit"
@@ -530,7 +534,8 @@ void GUIObjectBuilder::visit(const InterferenceFunctionRadialParaCrystal *sample
     SessionItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
     SessionItem *item = m_sampleModel->insertNewItem(
-        Constants::InterferenceFunctionRadialParaCrystalType, m_sampleModel->indexOfItem(parent));
+        Constants::InterferenceFunctionRadialParaCrystalType, m_sampleModel->indexOfItem(parent),
+                -1, ParticleLayoutItem::T_INTERFERENCE);
     Q_ASSERT(item);
     TransformFromDomain::setItemFromSample(item, sample);
     m_levelToParentItem[getLevel()] = item;
@@ -541,7 +546,8 @@ void GUIObjectBuilder::visit(const InterferenceFunction2DParaCrystal *sample)
     SessionItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
     SessionItem *item = m_sampleModel->insertNewItem(
-        Constants::InterferenceFunction2DParaCrystalType, m_sampleModel->indexOfItem(parent));
+        Constants::InterferenceFunction2DParaCrystalType, m_sampleModel->indexOfItem(parent),
+                -1, ParticleLayoutItem::T_INTERFERENCE);
     Q_ASSERT(item);
     TransformFromDomain::setItemFromSample(item, sample);
     m_levelToParentItem[getLevel()] = item;
@@ -552,7 +558,8 @@ void GUIObjectBuilder::visit(const InterferenceFunction1DLattice *sample)
     SessionItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
     SessionItem *item = m_sampleModel->insertNewItem(
-        Constants::InterferenceFunction1DLatticeType, m_sampleModel->indexOfItem(parent));
+        Constants::InterferenceFunction1DLatticeType, m_sampleModel->indexOfItem(parent),
+                -1, ParticleLayoutItem::T_INTERFERENCE);
     Q_ASSERT(item);
     TransformFromDomain::setItemFromSample(item, sample);
     m_levelToParentItem[getLevel()] = item;
@@ -563,7 +570,8 @@ void GUIObjectBuilder::visit(const InterferenceFunction2DLattice *sample)
     SessionItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
     SessionItem *item = m_sampleModel->insertNewItem(
-        Constants::InterferenceFunction2DLatticeType, m_sampleModel->indexOfItem(parent));
+        Constants::InterferenceFunction2DLatticeType, m_sampleModel->indexOfItem(parent),
+                -1, ParticleLayoutItem::T_INTERFERENCE);
     Q_ASSERT(item);
     TransformFromDomain::setItemFromSample(item, sample);
     m_levelToParentItem[getLevel()] = item;
@@ -588,7 +596,8 @@ void GUIObjectBuilder::visit(const RotationX *sample)
     Q_ASSERT(parent);
 
     SessionItem *transformation_item = m_sampleModel->insertNewItem(
-        Constants::TransformationType, m_sampleModel->indexOfItem(parent));
+        Constants::TransformationType, m_sampleModel->indexOfItem(parent),
+                -1, ParticleItem::T_TRANSFORMATION);
     SessionItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::XRotationType);
     p_rotationItem->setItemValue(XRotationItem::P_ANGLE,
@@ -604,7 +613,8 @@ void GUIObjectBuilder::visit(const RotationY *sample)
     Q_ASSERT(parent);
 
     SessionItem *transformation_item = m_sampleModel->insertNewItem(
-        Constants::TransformationType, m_sampleModel->indexOfItem(parent));
+        Constants::TransformationType, m_sampleModel->indexOfItem(parent),
+                -1, ParticleItem::T_TRANSFORMATION);
     SessionItem *p_rotationItem = transformation_item->setGroupProperty(
         TransformationItem::P_ROT, Constants::YRotationType);
     p_rotationItem->setItemValue(YRotationItem::P_ANGLE,
@@ -620,7 +630,8 @@ void GUIObjectBuilder::visit(const RotationZ *sample)
     Q_ASSERT(parent);
 
     SessionItem *transformation_item = m_sampleModel->insertNewItem(
-        Constants::TransformationType, m_sampleModel->indexOfItem(parent));
+        Constants::TransformationType, m_sampleModel->indexOfItem(parent),
+                -1, ParticleItem::T_TRANSFORMATION);
     SessionItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::ZRotationType);
     p_rotationItem->setItemValue(ZRotationItem::P_ANGLE,
@@ -636,7 +647,8 @@ void GUIObjectBuilder::visit(const RotationEuler *sample)
     Q_ASSERT(parent);
 
     SessionItem *transformation_item = m_sampleModel->insertNewItem(
-        Constants::TransformationType, m_sampleModel->indexOfItem(parent));
+        Constants::TransformationType, m_sampleModel->indexOfItem(parent),
+                -1, ParticleItem::T_TRANSFORMATION);
     SessionItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::EulerRotationType);
     p_rotationItem->setItemValue(EulerRotationItem::P_ALPHA,

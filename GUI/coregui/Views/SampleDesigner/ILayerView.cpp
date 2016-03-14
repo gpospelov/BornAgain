@@ -152,7 +152,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
     // Layer was moved only slightly, to the same row of his own MultiLayer: returning back.
     if (requested_parent == parentItem()
-        && requested_row == model->indexOfItem(getParameterizedItem()).row()) {
+        && requested_row == getParameterizedItem()->parent()->getItems().indexOf(getParameterizedItem())) {
         qDebug() << "1.2 Layer->MultiLayer (same), same drop area";
         setPos(m_drag_start_position);
         QGraphicsItem::mouseReleaseEvent(event);

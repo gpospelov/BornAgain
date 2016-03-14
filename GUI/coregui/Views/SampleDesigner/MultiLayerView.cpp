@@ -64,7 +64,9 @@ void MultiLayerView::addView(IView *childView, int row)
         addNewLayer(layer, row);
     } else {
         int previous_row = m_layers.indexOf(layer);
-//        if(previous_row != row) m_layers.swap(previous_row, row);
+        if(previous_row != row) {
+            m_layers.swap(previous_row, row);
+        }
     }
     updateGeometry();
 }

@@ -34,6 +34,7 @@
 #include "DistributionItem.h"
 #include "ParticleItem.h"
 #include "ParticleCompositionItem.h"
+#include "ParticleLayoutItem.h"
 
 #include <QDebug>
 #include <memory>
@@ -79,7 +80,7 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
         const SessionItem &item) const
 {
     auto P_layout = TransformToDomain::createParticleLayout(item);
-    QVector<SessionItem *> children = item.childItems();
+    QVector<SessionItem *> children = item.getItems();
     for (int i = 0; i < children.size(); ++i) {
         auto P_particle = TransformToDomain::createIParticle(*children[i]);
         if (P_particle) {
@@ -93,7 +94,7 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
                       .value<ComboProperty>();
             QString par_name = prop.getValue();
             if (par_name == ParticleDistributionItem::NO_SELECTION) {
-                auto grandchildren = children[i]->childItems();
+                auto grandchildren = children[i]->getItems();
                 if (grandchildren.size() == 0) {
                     continue;
                 }
@@ -112,14 +113,16 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
                     P_layout->addParticle(*P_part_distr);
                 }
             }
-        } else if (children[i]->modelType().startsWith("Interference")) {
-            auto P_interference = buildInterferenceFunction(*children[i]);
-            if (P_interference) {
-                P_layout->addInterferenceFunction(*P_interference);
-            }
         } else {
-//            throw GUIHelpers::Error("DomainObjectBuilder::buildParticleLayout()"
-//                                    " -> Error! Not implemented");
+            throw GUIHelpers::Error("DomainObjectBuilder::buildParticleLayout()"
+                                    " -> Error! Not implemented");
+        }
+    }
+    QVector<SessionItem*> interferences = item.getItems(ParticleLayoutItem::T_INTERFERENCE);
+    for (int i = 0; i < interferences.size(); i++) {
+        auto P_interference = buildInterferenceFunction(*interferences[i]);
+        if (P_interference) {
+            P_layout->addInterferenceFunction(*P_interference);
         }
     }
     return P_layout;

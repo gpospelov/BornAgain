@@ -215,6 +215,7 @@ void DesignerScene::updateViews(const QModelIndex &parentIndex, IView *parentVie
     }
 
     IView *childView(0);
+    int childCount = 0;
     for (int i_row = 0; i_row < m_sampleModel->rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = m_sampleModel->index(i_row, 0, parentIndex);
 
@@ -231,7 +232,7 @@ void DesignerScene::updateViews(const QModelIndex &parentIndex, IView *parentVie
                     qDebug() << "       DesignerScene::updateViews() -> adding child "
                              << item->modelType() << " to parent"
                              << parentView->getParameterizedItem()->modelType();
-                    parentView->addView(childView, i_row);
+                    parentView->addView(childView, childCount++);
                 }
             }
 

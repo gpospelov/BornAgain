@@ -60,24 +60,12 @@ std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShel
     auto children = childItems();
     std::unique_ptr<Particle> P_core {};
     std::unique_ptr<Particle> P_shell {};
-
-    // TODO restore logic
-//    for (int i = 0; i < children.size(); ++i) {
-////        int port = children[i]->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT).toInt();
-//        int port = children[i]->port();
-//        if (port == SessionItem::PortInfo::PORT_0) {
-//            auto core_item = static_cast<ParticleItem*>(children[i]);
-//            P_core = core_item->createParticle();
-//        } else if (port == SessionItem::PortInfo::PORT_1) {
-//            auto shell_item = static_cast<ParticleItem*>(children[i]);
-//            P_shell = shell_item->createParticle();
-//        } else if (port == SessionItem::PortInfo::PORT_2) {
-//            continue;
-//        } else {
-//            throw GUIHelpers::Error(
-//                "ParticleCoreShellItem::createParticleCoreShell -> Error. Logic error.");
-//        }
-//    }
+    auto core_item = dynamic_cast<ParticleItem*>(getItem(T_CORE));
+    if (core_item)
+        P_core = core_item->createParticle();
+    auto shell_item = dynamic_cast<ParticleItem*>(getItem(T_SHELL));
+    if (shell_item)
+        P_shell = shell_item->createParticle();
     if (!P_core || !P_shell)
         throw GUIHelpers::Error("ParticleCoreShellItem::createParticleCoreShell -> Error. Either "
                                 "core or shell particle is undefined.");

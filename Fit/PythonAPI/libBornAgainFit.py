@@ -1441,240 +1441,6 @@ vector_string_t_swigregister(vector_string_t)
 _libBornAgainFit.GCCXML_SKIP_THIS_swigconstant(_libBornAgainFit)
 GCCXML_SKIP_THIS = _libBornAgainFit.GCCXML_SKIP_THIS
 import libBornAgainCore
-class INamed(_object):
-    """Proxy of C++ INamedTemplate<(ICloneable)> class."""
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, INamed, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, INamed, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(INamedTemplate<(ICloneable)> self) -> INamed
-        __init__(INamedTemplate<(ICloneable)> self, std::string name) -> INamed
-        """
-        this = _libBornAgainFit.new_INamed(*args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainFit.delete_INamed
-    __del__ = lambda self: None
-
-    def getName(self):
-        """getName(INamed self) -> std::string"""
-        return _libBornAgainFit.INamed_getName(self)
-
-INamed_swigregister = _libBornAgainFit.INamed_swigregister
-INamed_swigregister(INamed)
-
-class INamedShared(_object):
-    """Proxy of C++ INamedTemplate<(IShareable)> class."""
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, INamedShared, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, INamedShared, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(INamedTemplate<(IShareable)> self) -> INamedShared
-        __init__(INamedTemplate<(IShareable)> self, std::string name) -> INamedShared
-        """
-        this = _libBornAgainFit.new_INamedShared(*args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainFit.delete_INamedShared
-    __del__ = lambda self: None
-
-    def getName(self):
-        """getName(INamedShared self) -> std::string"""
-        return _libBornAgainFit.INamedShared_getName(self)
-
-INamedShared_swigregister = _libBornAgainFit.INamedShared_swigregister
-INamedShared_swigregister(INamedShared)
-
-class IParameterized(INamed):
-    """Proxy of C++ IParameterizedTemplate<(ICloneable)> class."""
-
-    __swig_setmethods__ = {}
-    for _s in [INamed]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IParameterized, name, value)
-    __swig_getmethods__ = {}
-    for _s in [INamed]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, IParameterized, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(IParameterizedTemplate<(ICloneable)> self) -> IParameterized
-        __init__(IParameterizedTemplate<(ICloneable)> self, std::string const & name) -> IParameterized
-        __init__(IParameterizedTemplate<(ICloneable)> self, IParameterized other) -> IParameterized
-        """
-        if self.__class__ == IParameterized:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainFit.new_IParameterized(_self, *args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainFit.delete_IParameterized
-    __del__ = lambda self: None
-
-    def getParameterPool(self):
-        """getParameterPool(IParameterized self) -> ParameterPool const *"""
-        return _libBornAgainFit.IParameterized_getParameterPool(self)
-
-
-    def createParameterTree(self):
-        """createParameterTree(IParameterized self) -> ParameterPool *"""
-        return _libBornAgainFit.IParameterized_createParameterTree(self)
-
-
-    def printParameters(self):
-        """printParameters(IParameterized self)"""
-        return _libBornAgainFit.IParameterized_printParameters(self)
-
-
-    def registerParameter(self, *args):
-        """
-        registerParameter(IParameterized self, std::string const & name, double * parpointer, AttLimits limits)
-        registerParameter(IParameterized self, std::string const & name, double * parpointer)
-        """
-        return _libBornAgainFit.IParameterized_registerParameter(self, *args)
-
-
-    def setParameterValue(self, name, value):
-        """setParameterValue(IParameterized self, std::string const & name, double value) -> bool"""
-        return _libBornAgainFit.IParameterized_setParameterValue(self, name, value)
-
-
-    def clearParameterPool(self):
-        """clearParameterPool(IParameterized self)"""
-        return _libBornAgainFit.IParameterized_clearParameterPool(self)
-
-
-    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
-        """
-        addParametersToExternalPool(IParameterized self, std::string path, ParameterPool * external_pool, int copy_number=-1) -> std::string
-        addParametersToExternalPool(IParameterized self, std::string path, ParameterPool * external_pool) -> std::string
-        """
-        return _libBornAgainFit.IParameterized_addParametersToExternalPool(self, path, external_pool, copy_number)
-
-
-    def _print(self, ostr):
-        """_print(IParameterized self, std::ostream & ostr)"""
-        return _libBornAgainFit.IParameterized__print(self, ostr)
-
-
-    def init_parameters(self):
-        """init_parameters(IParameterized self)"""
-        return _libBornAgainFit.IParameterized_init_parameters(self)
-
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainFit.disown_IParameterized(self)
-        return weakref_proxy(self)
-IParameterized_swigregister = _libBornAgainFit.IParameterized_swigregister
-IParameterized_swigregister(IParameterized)
-
-class IParameterizedShared(INamedShared):
-    """Proxy of C++ IParameterizedTemplate<(IShareable)> class."""
-
-    __swig_setmethods__ = {}
-    for _s in [INamedShared]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IParameterizedShared, name, value)
-    __swig_getmethods__ = {}
-    for _s in [INamedShared]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, IParameterizedShared, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(IParameterizedTemplate<(IShareable)> self) -> IParameterizedShared
-        __init__(IParameterizedTemplate<(IShareable)> self, std::string const & name) -> IParameterizedShared
-        __init__(IParameterizedTemplate<(IShareable)> self, IParameterizedShared other) -> IParameterizedShared
-        """
-        if self.__class__ == IParameterizedShared:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainFit.new_IParameterizedShared(_self, *args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainFit.delete_IParameterizedShared
-    __del__ = lambda self: None
-
-    def getParameterPool(self):
-        """getParameterPool(IParameterizedShared self) -> ParameterPool const *"""
-        return _libBornAgainFit.IParameterizedShared_getParameterPool(self)
-
-
-    def createParameterTree(self):
-        """createParameterTree(IParameterizedShared self) -> ParameterPool *"""
-        return _libBornAgainFit.IParameterizedShared_createParameterTree(self)
-
-
-    def printParameters(self):
-        """printParameters(IParameterizedShared self)"""
-        return _libBornAgainFit.IParameterizedShared_printParameters(self)
-
-
-    def registerParameter(self, *args):
-        """
-        registerParameter(IParameterizedShared self, std::string const & name, double * parpointer, AttLimits limits)
-        registerParameter(IParameterizedShared self, std::string const & name, double * parpointer)
-        """
-        return _libBornAgainFit.IParameterizedShared_registerParameter(self, *args)
-
-
-    def setParameterValue(self, name, value):
-        """setParameterValue(IParameterizedShared self, std::string const & name, double value) -> bool"""
-        return _libBornAgainFit.IParameterizedShared_setParameterValue(self, name, value)
-
-
-    def clearParameterPool(self):
-        """clearParameterPool(IParameterizedShared self)"""
-        return _libBornAgainFit.IParameterizedShared_clearParameterPool(self)
-
-
-    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
-        """
-        addParametersToExternalPool(IParameterizedShared self, std::string path, ParameterPool * external_pool, int copy_number=-1) -> std::string
-        addParametersToExternalPool(IParameterizedShared self, std::string path, ParameterPool * external_pool) -> std::string
-        """
-        return _libBornAgainFit.IParameterizedShared_addParametersToExternalPool(self, path, external_pool, copy_number)
-
-
-    def _print(self, ostr):
-        """_print(IParameterizedShared self, std::ostream & ostr)"""
-        return _libBornAgainFit.IParameterizedShared__print(self, ostr)
-
-
-    def init_parameters(self):
-        """init_parameters(IParameterizedShared self)"""
-        return _libBornAgainFit.IParameterizedShared_init_parameters(self)
-
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainFit.disown_IParameterizedShared(self)
-        return weakref_proxy(self)
-IParameterizedShared_swigregister = _libBornAgainFit.IParameterizedShared_swigregister
-IParameterizedShared_swigregister(IParameterizedShared)
-
 class IChiSquaredModule(libBornAgainCore.ICloneable):
     """Proxy of C++ IChiSquaredModule class."""
 
@@ -1810,7 +1576,7 @@ class IFitObserver(libBornAgainCore.IObserver):
 IFitObserver_swigregister = _libBornAgainFit.IFitObserver_swigregister
 IFitObserver_swigregister(IFitObserver)
 
-class IFitStrategy(INamed):
+class IFitStrategy(libBornAgainCore.INamed):
     """
 
 
@@ -1823,11 +1589,11 @@ class IFitStrategy(INamed):
     """
 
     __swig_setmethods__ = {}
-    for _s in [INamed]:
+    for _s in [libBornAgainCore.INamed]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IFitStrategy, name, value)
     __swig_getmethods__ = {}
-    for _s in [INamed]:
+    for _s in [libBornAgainCore.INamed]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IFitStrategy, name)
 
@@ -2022,15 +1788,15 @@ class IntensityFunctionSqrt(IIntensityFunction):
 IntensityFunctionSqrt_swigregister = _libBornAgainFit.IntensityFunctionSqrt_swigregister
 IntensityFunctionSqrt_swigregister(IntensityFunctionSqrt)
 
-class IIntensityNormalizer(IParameterized):
+class IIntensityNormalizer(libBornAgainCore.IParameterized):
     """Proxy of C++ IIntensityNormalizer class."""
 
     __swig_setmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [libBornAgainCore.IParameterized]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IIntensityNormalizer, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [libBornAgainCore.IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IIntensityNormalizer, name)
 
@@ -2667,7 +2433,7 @@ class ChiSquaredModule(IChiSquaredModule):
 ChiSquaredModule_swigregister = _libBornAgainFit.ChiSquaredModule_swigregister
 ChiSquaredModule_swigregister(ChiSquaredModule)
 
-class FitObject(IParameterized):
+class FitObject(libBornAgainCore.IParameterized):
     """
 
 
@@ -2678,11 +2444,11 @@ class FitObject(IParameterized):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [libBornAgainCore.IParameterized]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitObject, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [libBornAgainCore.IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitObject, name)
     __repr__ = _swig_repr
@@ -2805,21 +2571,6 @@ class FitObject(IParameterized):
         """
         return _libBornAgainFit.FitObject_getChiSquaredMap(self, first, last)
 
-
-    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
-        """
-        addParametersToExternalPool(FitObject self, std::string path, ParameterPool * external_pool, int copy_number=-1) -> std::string
-        addParametersToExternalPool(FitObject self, std::string path, ParameterPool * external_pool) -> std::string
-
-        std::string FitObject::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
-
-        Adds parameters from local pool to external pool and recursively calls its direct children.
-
-        Adds parameters from local pool to external pool. 
-
-        """
-        return _libBornAgainFit.FitObject_addParametersToExternalPool(self, path, external_pool, copy_number)
-
 FitObject_swigregister = _libBornAgainFit.FitObject_swigregister
 FitObject_swigregister(FitObject)
 
@@ -2896,7 +2647,7 @@ class FitOptions(_object):
 FitOptions_swigregister = _libBornAgainFit.FitOptions_swigregister
 FitOptions_swigregister(FitOptions)
 
-class FitParameter(INamed, libBornAgainCore.AttLimits):
+class FitParameter(libBornAgainCore.INamed, libBornAgainCore.AttLimits):
     """
 
 
@@ -2907,11 +2658,11 @@ class FitParameter(INamed, libBornAgainCore.AttLimits):
     """
 
     __swig_setmethods__ = {}
-    for _s in [INamed, libBornAgainCore.AttLimits]:
+    for _s in [libBornAgainCore.INamed, libBornAgainCore.AttLimits]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitParameter, name, value)
     __swig_getmethods__ = {}
-    for _s in [INamed, libBornAgainCore.AttLimits]:
+    for _s in [libBornAgainCore.INamed, libBornAgainCore.AttLimits]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitParameter, name)
     __repr__ = _swig_repr
@@ -3433,7 +3184,7 @@ class FitSuite(libBornAgainCore.IObservable):
 FitSuite_swigregister = _libBornAgainFit.FitSuite_swigregister
 FitSuite_swigregister(FitSuite)
 
-class FitSuiteObjects(IParameterized):
+class FitSuiteObjects(libBornAgainCore.IParameterized):
     """
 
 
@@ -3444,11 +3195,11 @@ class FitSuiteObjects(IParameterized):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [libBornAgainCore.IParameterized]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitSuiteObjects, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [libBornAgainCore.IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitSuiteObjects, name)
     __repr__ = _swig_repr
@@ -3612,21 +3363,6 @@ class FitSuiteObjects(IParameterized):
 
         """
         return _libBornAgainFit.FitSuiteObjects_getResidualValue(self, global_index)
-
-
-    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
-        """
-        addParametersToExternalPool(FitSuiteObjects self, std::string path, ParameterPool * external_pool, int copy_number=-1) -> std::string
-        addParametersToExternalPool(FitSuiteObjects self, std::string path, ParameterPool * external_pool) -> std::string
-
-        std::string FitSuiteObjects::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
-
-        Adds parameters from local pool to external pool and call recursion over direct children.
-
-        Adds parameters from local pool to external pool. 
-
-        """
-        return _libBornAgainFit.FitSuiteObjects_addParametersToExternalPool(self, path, external_pool, copy_number)
 
 
     def setNfreeParameters(self, nfree_parameters):

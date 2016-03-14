@@ -1783,7 +1783,14 @@ ICloneable_swigregister = _libBornAgainCore.ICloneable_swigregister
 ICloneable_swigregister(ICloneable)
 
 class INamed(_object):
-    """Proxy of C++ INamedTemplate<(ICloneable)> class."""
+    """
+
+
+    Interface for named objects.
+
+    C++ includes: INamed.h
+
+    """
 
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, INamed, name, value)
@@ -1793,12 +1800,14 @@ class INamed(_object):
 
     def __init__(self, *args):
         """
-        __init__(INamedTemplate<(ICloneable)> self) -> INamed
-        __init__(INamedTemplate<(ICloneable)> self, std::string name) -> INamed
+        __init__(INamed self) -> INamed
+        __init__(INamed self, std::string name) -> INamed
 
-        INamedTemplate< T >::INamedTemplate(std::string name)
 
-        Constructor that sets the  name. 
+
+        Interface for named objects.
+
+        C++ includes: INamed.h
 
         """
         this = _libBornAgainCore.new_INamed(*args)
@@ -1810,21 +1819,14 @@ class INamed(_object):
     __del__ = lambda self: None
 
     def getName(self):
-        """
-        getName(INamed self) -> std::string
-
-        std::string INamedTemplate< T >::getName() const
-
-        Returns the name. 
-
-        """
+        """getName(INamed self) -> std::string"""
         return _libBornAgainCore.INamed_getName(self)
 
 INamed_swigregister = _libBornAgainCore.INamed_swigregister
 INamed_swigregister(INamed)
 
 class INamedShared(_object):
-    """Proxy of C++ INamedTemplate<(IShareable)> class."""
+    """Proxy of C++ INamedShared class."""
 
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, INamedShared, name, value)
@@ -1834,13 +1836,8 @@ class INamedShared(_object):
 
     def __init__(self, *args):
         """
-        __init__(INamedTemplate<(IShareable)> self) -> INamedShared
-        __init__(INamedTemplate<(IShareable)> self, std::string name) -> INamedShared
-
-        INamedTemplate< T >::INamedTemplate(std::string name)
-
-        Constructor that sets the  name. 
-
+        __init__(INamedShared self) -> INamedShared
+        __init__(INamedShared self, std::string name) -> INamedShared
         """
         this = _libBornAgainCore.new_INamedShared(*args)
         try:
@@ -1851,18 +1848,115 @@ class INamedShared(_object):
     __del__ = lambda self: None
 
     def getName(self):
-        """
-        getName(INamedShared self) -> std::string
-
-        std::string INamedTemplate< T >::getName() const
-
-        Returns the name. 
-
-        """
+        """getName(INamedShared self) -> std::string"""
         return _libBornAgainCore.INamedShared_getName(self)
 
 INamedShared_swigregister = _libBornAgainCore.INamedShared_swigregister
 INamedShared_swigregister(INamedShared)
+
+class IParameterized(INamed):
+    """
+
+
+    Manage a local parameter pool, and a tree of child pools.
+
+    C++ includes: IParameterized.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [INamed]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IParameterized, name, value)
+    __swig_getmethods__ = {}
+    for _s in [INamed]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IParameterized, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(IParameterized self) -> IParameterized
+        __init__(IParameterized self, std::string const & name) -> IParameterized
+        __init__(IParameterized self, IParameterized other) -> IParameterized
+
+
+
+        Manage a local parameter pool, and a tree of child pools.
+
+        C++ includes: IParameterized.h
+
+        """
+        if self.__class__ == IParameterized:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_IParameterized(_self, *args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_IParameterized
+    __del__ = lambda self: None
+
+    def getParameterPool(self):
+        """getParameterPool(IParameterized self) -> ParameterPool"""
+        return _libBornAgainCore.IParameterized_getParameterPool(self)
+
+
+    def createParameterTree(self):
+        """createParameterTree(IParameterized self) -> ParameterPool"""
+        return _libBornAgainCore.IParameterized_createParameterTree(self)
+
+
+    def printParameters(self):
+        """printParameters(IParameterized self)"""
+        return _libBornAgainCore.IParameterized_printParameters(self)
+
+
+    def setParameterValue(self, name, value):
+        """setParameterValue(IParameterized self, std::string const & name, double value) -> bool"""
+        return _libBornAgainCore.IParameterized_setParameterValue(self, name, value)
+
+
+    def clearParameterPool(self):
+        """clearParameterPool(IParameterized self)"""
+        return _libBornAgainCore.IParameterized_clearParameterPool(self)
+
+
+    def _print(self, ostr):
+        """_print(IParameterized self, std::ostream & ostr)"""
+        return _libBornAgainCore.IParameterized__print(self, ostr)
+
+
+    def init_parameters(self):
+        """init_parameters(IParameterized self)"""
+        return _libBornAgainCore.IParameterized_init_parameters(self)
+
+
+    def registerParameter(self, *args):
+        """
+        registerParameter(IParameterized self, std::string const & name, double * parpointer, AttLimits limits)
+        registerParameter(IParameterized self, std::string const & name, double * parpointer)
+        registerParameter(IParameterized self, std::string const & name, long parpointer, AttLimits limits)
+        registerParameter(IParameterized self, std::string const & name, long parpointer)
+        """
+        return _libBornAgainCore.IParameterized_registerParameter(self, *args)
+
+
+    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
+        """
+        addParametersToExternalPool(IParameterized self, std::string path, std::shared_ptr< ParameterPool > external_pool, int copy_number=-1) -> std::string
+        addParametersToExternalPool(IParameterized self, std::string path, std::shared_ptr< ParameterPool > external_pool) -> std::string
+        """
+        return _libBornAgainCore.IParameterized_addParametersToExternalPool(self, path, external_pool, copy_number)
+
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_IParameterized(self)
+        return weakref_proxy(self)
+IParameterized_swigregister = _libBornAgainCore.IParameterized_swigregister
+IParameterized_swigregister(IParameterized)
 
 class ParameterPattern(_object):
     """
@@ -1928,142 +2022,8 @@ class ParameterPattern(_object):
 ParameterPattern_swigregister = _libBornAgainCore.ParameterPattern_swigregister
 ParameterPattern_swigregister(ParameterPattern)
 
-class IParameterized(INamed):
-    """Proxy of C++ IParameterizedTemplate<(ICloneable)> class."""
-
-    __swig_setmethods__ = {}
-    for _s in [INamed]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IParameterized, name, value)
-    __swig_getmethods__ = {}
-    for _s in [INamed]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, IParameterized, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(IParameterizedTemplate<(ICloneable)> self) -> IParameterized
-        __init__(IParameterizedTemplate<(ICloneable)> self, std::string const & name) -> IParameterized
-        __init__(IParameterizedTemplate<(ICloneable)> self, IParameterized other) -> IParameterized
-
-        IParameterizedTemplate< T >::IParameterizedTemplate(const IParameterizedTemplate &other)
-
-        """
-        if self.__class__ == IParameterized:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_IParameterized(_self, *args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_IParameterized
-    __del__ = lambda self: None
-
-    def getParameterPool(self):
-        """
-        getParameterPool(IParameterized self) -> ParameterPool
-
-        const ParameterPool * IParameterizedTemplate< T >::getParameterPool() const
-
-        Returns pointer to the parameter pool. 
-
-        """
-        return _libBornAgainCore.IParameterized_getParameterPool(self)
-
-
-    def createParameterTree(self):
-        """
-        createParameterTree(IParameterized self) -> ParameterPool
-
-        ParameterPool * IParameterizedTemplate< T >::createParameterTree() const
-
-        Creates new parameter pool, with all local parameters and those of its children. 
-
-        """
-        return _libBornAgainCore.IParameterized_createParameterTree(self)
-
-
-    def printParameters(self):
-        """
-        printParameters(IParameterized self)
-
-        void IParameterizedTemplate< T >::printParameters() const 
-
-        """
-        return _libBornAgainCore.IParameterized_printParameters(self)
-
-
-    def registerParameter(self, *args):
-        """
-        registerParameter(IParameterized self, std::string const & name, double * parpointer, AttLimits limits)
-        registerParameter(IParameterized self, std::string const & name, double * parpointer)
-
-        void IParameterizedTemplate< T >::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits=AttLimits::limitless())
-
-        Register parameter address in the parameter pool. 
-
-        """
-        return _libBornAgainCore.IParameterized_registerParameter(self, *args)
-
-
-    def setParameterValue(self, name, value):
-        """
-        setParameterValue(IParameterized self, std::string const & name, double value) -> bool
-
-        bool IParameterizedTemplate< T >::setParameterValue(const std::string &name, double value)
-
-        Sets the value of the parameter with the given name; returns true in the case of success. 
-
-        """
-        return _libBornAgainCore.IParameterized_setParameterValue(self, name, value)
-
-
-    def clearParameterPool(self):
-        """
-        clearParameterPool(IParameterized self)
-
-        void IParameterizedTemplate< T >::clearParameterPool()
-
-        Clears the parameter pool. 
-
-        """
-        return _libBornAgainCore.IParameterized_clearParameterPool(self)
-
-
-    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
-        """
-        addParametersToExternalPool(IParameterized self, std::string path, ParameterPool external_pool, int copy_number=-1) -> std::string
-        addParametersToExternalPool(IParameterized self, std::string path, ParameterPool external_pool) -> std::string
-
-        std::string IParameterizedTemplate< T >::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
-
-        Adds parameters from local pool to external pool and recursively calls its direct children. 
-
-        """
-        return _libBornAgainCore.IParameterized_addParametersToExternalPool(self, path, external_pool, copy_number)
-
-
-    def _print(self, ostr):
-        """_print(IParameterized self, std::ostream & ostr)"""
-        return _libBornAgainCore.IParameterized__print(self, ostr)
-
-
-    def init_parameters(self):
-        """init_parameters(IParameterized self)"""
-        return _libBornAgainCore.IParameterized_init_parameters(self)
-
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IParameterized(self)
-        return weakref_proxy(self)
-IParameterized_swigregister = _libBornAgainCore.IParameterized_swigregister
-IParameterized_swigregister(IParameterized)
-
 class IParameterizedShared(INamedShared):
-    """Proxy of C++ IParameterizedTemplate<(IShareable)> class."""
+    """Proxy of C++ IParameterizedShared class."""
 
     __swig_setmethods__ = {}
     for _s in [INamedShared]:
@@ -2077,18 +2037,11 @@ class IParameterizedShared(INamedShared):
 
     def __init__(self, *args):
         """
-        __init__(IParameterizedTemplate<(IShareable)> self) -> IParameterizedShared
-        __init__(IParameterizedTemplate<(IShareable)> self, std::string const & name) -> IParameterizedShared
-        __init__(IParameterizedTemplate<(IShareable)> self, IParameterizedShared other) -> IParameterizedShared
-
-        IParameterizedTemplate< T >::IParameterizedTemplate(const IParameterizedTemplate &other)
-
+        __init__(IParameterizedShared self) -> IParameterizedShared
+        __init__(IParameterizedShared self, std::string const & name) -> IParameterizedShared
+        __init__(IParameterizedShared self, IParameterizedShared other) -> IParameterizedShared
         """
-        if self.__class__ == IParameterizedShared:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_IParameterizedShared(_self, *args)
+        this = _libBornAgainCore.new_IParameterizedShared(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -2097,73 +2050,27 @@ class IParameterizedShared(INamedShared):
     __del__ = lambda self: None
 
     def getParameterPool(self):
-        """
-        getParameterPool(IParameterizedShared self) -> ParameterPool
-
-        const ParameterPool * IParameterizedTemplate< T >::getParameterPool() const
-
-        Returns pointer to the parameter pool. 
-
-        """
+        """getParameterPool(IParameterizedShared self) -> ParameterPool"""
         return _libBornAgainCore.IParameterizedShared_getParameterPool(self)
 
 
     def createParameterTree(self):
-        """
-        createParameterTree(IParameterizedShared self) -> ParameterPool
-
-        ParameterPool * IParameterizedTemplate< T >::createParameterTree() const
-
-        Creates new parameter pool, with all local parameters and those of its children. 
-
-        """
+        """createParameterTree(IParameterizedShared self) -> ParameterPool"""
         return _libBornAgainCore.IParameterizedShared_createParameterTree(self)
 
 
     def printParameters(self):
-        """
-        printParameters(IParameterizedShared self)
-
-        void IParameterizedTemplate< T >::printParameters() const 
-
-        """
+        """printParameters(IParameterizedShared self)"""
         return _libBornAgainCore.IParameterizedShared_printParameters(self)
 
 
-    def registerParameter(self, *args):
-        """
-        registerParameter(IParameterizedShared self, std::string const & name, double * parpointer, AttLimits limits)
-        registerParameter(IParameterizedShared self, std::string const & name, double * parpointer)
-
-        void IParameterizedTemplate< T >::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits=AttLimits::limitless())
-
-        Register parameter address in the parameter pool. 
-
-        """
-        return _libBornAgainCore.IParameterizedShared_registerParameter(self, *args)
-
-
     def setParameterValue(self, name, value):
-        """
-        setParameterValue(IParameterizedShared self, std::string const & name, double value) -> bool
-
-        bool IParameterizedTemplate< T >::setParameterValue(const std::string &name, double value)
-
-        Sets the value of the parameter with the given name; returns true in the case of success. 
-
-        """
+        """setParameterValue(IParameterizedShared self, std::string const & name, double value) -> bool"""
         return _libBornAgainCore.IParameterizedShared_setParameterValue(self, name, value)
 
 
     def clearParameterPool(self):
-        """
-        clearParameterPool(IParameterizedShared self)
-
-        void IParameterizedTemplate< T >::clearParameterPool()
-
-        Clears the parameter pool. 
-
-        """
+        """clearParameterPool(IParameterizedShared self)"""
         return _libBornAgainCore.IParameterizedShared_clearParameterPool(self)
 
 
@@ -2171,28 +2078,9 @@ class IParameterizedShared(INamedShared):
         """
         addParametersToExternalPool(IParameterizedShared self, std::string path, ParameterPool external_pool, int copy_number=-1) -> std::string
         addParametersToExternalPool(IParameterizedShared self, std::string path, ParameterPool external_pool) -> std::string
-
-        std::string IParameterizedTemplate< T >::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
-
-        Adds parameters from local pool to external pool and recursively calls its direct children. 
-
         """
         return _libBornAgainCore.IParameterizedShared_addParametersToExternalPool(self, path, external_pool, copy_number)
 
-
-    def _print(self, ostr):
-        """_print(IParameterizedShared self, std::ostream & ostr)"""
-        return _libBornAgainCore.IParameterizedShared__print(self, ostr)
-
-
-    def init_parameters(self):
-        """init_parameters(IParameterizedShared self)"""
-        return _libBornAgainCore.IParameterizedShared_init_parameters(self)
-
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IParameterizedShared(self)
-        return weakref_proxy(self)
 IParameterizedShared_swigregister = _libBornAgainCore.IParameterizedShared_swigregister
 IParameterizedShared_swigregister(IParameterizedShared)
 
@@ -5196,19 +5084,6 @@ class ICompositeSample(ISample):
 
         """
         return _libBornAgainCore.ICompositeSample_size(self)
-
-
-    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
-        """
-        addParametersToExternalPool(ICompositeSample self, std::string path, ParameterPool external_pool, int copy_number=-1) -> std::string
-        addParametersToExternalPool(ICompositeSample self, std::string path, ParameterPool external_pool) -> std::string
-
-        std::string ICompositeSample::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
-
-        Adds parameters from local pool to external pool and recursively calls its direct children. 
-
-        """
-        return _libBornAgainCore.ICompositeSample_addParametersToExternalPool(self, path, external_pool, copy_number)
 
 ICompositeSample_swigregister = _libBornAgainCore.ICompositeSample_swigregister
 ICompositeSample_swigregister(ICompositeSample)
@@ -12449,19 +12324,6 @@ class Simulation(ICloneable, IParameterized):
         return _libBornAgainCore.Simulation_getDetectorIntensity(self, *args)
 
 
-    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
-        """
-        addParametersToExternalPool(Simulation self, std::string path, ParameterPool external_pool, int copy_number=-1) -> std::string
-        addParametersToExternalPool(Simulation self, std::string path, ParameterPool external_pool) -> std::string
-
-        std::string Simulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
-
-        Adds parameters from local to external pool, and call recursion over direct children. 
-
-        """
-        return _libBornAgainCore.Simulation_addParametersToExternalPool(self, path, external_pool, copy_number)
-
-
     def addParameterDistribution(self, *args):
         """
         addParameterDistribution(Simulation self, std::string const & param_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, AttLimits limits)
@@ -12815,19 +12677,6 @@ class GISASSimulation(Simulation):
 
         """
         return _libBornAgainCore.GISASSimulation_maskAll(self)
-
-
-    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
-        """
-        addParametersToExternalPool(GISASSimulation self, std::string path, ParameterPool external_pool, int copy_number=-1) -> std::string
-        addParametersToExternalPool(GISASSimulation self, std::string path, ParameterPool external_pool) -> std::string
-
-        std::string GISASSimulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
-
-        Adds parameters from local pool to external pool and recursively calls its direct children. 
-
-        """
-        return _libBornAgainCore.GISASSimulation_addParametersToExternalPool(self, path, external_pool, copy_number)
 
 GISASSimulation_swigregister = _libBornAgainCore.GISASSimulation_swigregister
 GISASSimulation_swigregister(GISASSimulation)
@@ -14197,19 +14046,6 @@ class IDetector2D(IParameterized):
 
         """
         return _libBornAgainCore.IDetector2D_hasMasks(self)
-
-
-    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
-        """
-        addParametersToExternalPool(IDetector2D self, std::string path, ParameterPool external_pool, int copy_number=-1) -> std::string
-        addParametersToExternalPool(IDetector2D self, std::string path, ParameterPool external_pool) -> std::string
-
-        std::string IDetector2D::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
-
-        Adds parameters from local pool to external pool and recursively calls its direct children. 
-
-        """
-        return _libBornAgainCore.IDetector2D_addParametersToExternalPool(self, path, external_pool, copy_number)
 
 
     def createDetectorMap(self, beam, units_type):
@@ -15887,19 +15723,6 @@ class Instrument(IParameterized):
         return _libBornAgainCore.Instrument_getDetectorIntensity(self, *args)
 
 
-    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
-        """
-        addParametersToExternalPool(Instrument self, std::string path, ParameterPool external_pool, int copy_number=-1) -> std::string
-        addParametersToExternalPool(Instrument self, std::string path, ParameterPool external_pool) -> std::string
-
-        std::string Instrument::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
-
-        Adds parameters from local pool to external pool and recursively calls its direct children. 
-
-        """
-        return _libBornAgainCore.Instrument_addParametersToExternalPool(self, path, external_pool, copy_number)
-
-
     def initDetector(self):
         """
         initDetector(Instrument self)
@@ -16546,19 +16369,6 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DLattice_getLatticeParameters(self)
 
 
-    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
-        """
-        addParametersToExternalPool(InterferenceFunction2DLattice self, std::string path, ParameterPool external_pool, int copy_number=-1) -> std::string
-        addParametersToExternalPool(InterferenceFunction2DLattice self, std::string path, ParameterPool external_pool) -> std::string
-
-        std::string InterferenceFunction2DLattice::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
-
-        Adds parameters from local pool to external pool and recursively calls its direct children. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DLattice_addParametersToExternalPool(self, path, external_pool, copy_number)
-
-
     def getParticleDensity(self):
         """
         getParticleDensity(InterferenceFunction2DLattice self) -> double
@@ -16808,19 +16618,6 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_getLatticeParameters(self)
 
 
-    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
-        """
-        addParametersToExternalPool(InterferenceFunction2DParaCrystal self, std::string path, ParameterPool external_pool, int copy_number=-1) -> std::string
-        addParametersToExternalPool(InterferenceFunction2DParaCrystal self, std::string path, ParameterPool external_pool) -> std::string
-
-        std::string InterferenceFunction2DParaCrystal::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
-
-        Adds parameters from local pool to external pool and recursively calls its direct children. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_addParametersToExternalPool(self, path, external_pool, copy_number)
-
-
     def getParticleDensity(self):
         """
         getParticleDensity(InterferenceFunction2DParaCrystal self) -> double
@@ -17045,19 +16842,6 @@ class SphericalDetector(IDetector2D):
 
     __swig_destroy__ = _libBornAgainCore.delete_SphericalDetector
     __del__ = lambda self: None
-
-    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
-        """
-        addParametersToExternalPool(SphericalDetector self, std::string path, ParameterPool external_pool, int copy_number=-1) -> std::string
-        addParametersToExternalPool(SphericalDetector self, std::string path, ParameterPool external_pool) -> std::string
-
-        std::string SphericalDetector::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
-
-        Adds parameters from local pool to external pool and recursively calls its direct children. 
-
-        """
-        return _libBornAgainCore.SphericalDetector_addParametersToExternalPool(self, path, external_pool, copy_number)
-
 
     def createDetectorMap(self, beam, units_type):
         """
@@ -19157,19 +18941,6 @@ class OffSpecSimulation(Simulation):
 
         """
         return _libBornAgainCore.OffSpecSimulation_setAnalyzerProperties(self, direction, efficiency, total_transmission)
-
-
-    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
-        """
-        addParametersToExternalPool(OffSpecSimulation self, std::string path, ParameterPool external_pool, int copy_number=-1) -> std::string
-        addParametersToExternalPool(OffSpecSimulation self, std::string path, ParameterPool external_pool) -> std::string
-
-        std::string OffSpecSimulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
-
-        Adds parameters from local pool to external pool and recursively calls its direct children. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_addParametersToExternalPool(self, path, external_pool, copy_number)
 
 OffSpecSimulation_swigregister = _libBornAgainCore.OffSpecSimulation_swigregister
 OffSpecSimulation_swigregister(OffSpecSimulation)
@@ -21382,19 +21153,6 @@ class RectangularDetector(IDetector2D):
         return _libBornAgainCore.RectangularDetector_setDirectBeamPosition(self, u0, v0)
 
 
-    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
-        """
-        addParametersToExternalPool(RectangularDetector self, std::string path, ParameterPool external_pool, int copy_number=-1) -> std::string
-        addParametersToExternalPool(RectangularDetector self, std::string path, ParameterPool external_pool) -> std::string
-
-        std::string RectangularDetector::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
-
-        Adds parameters from local pool to external pool and recursively calls its direct children. 
-
-        """
-        return _libBornAgainCore.RectangularDetector_addParametersToExternalPool(self, path, external_pool, copy_number)
-
-
     def getWidth(self):
         """
         getWidth(RectangularDetector self) -> double
@@ -21959,102 +21717,6 @@ class ThreadInfo(_object):
     __del__ = lambda self: None
 ThreadInfo_swigregister = _libBornAgainCore.ThreadInfo_swigregister
 ThreadInfo_swigregister(ThreadInfo)
-
-class SimulationRegistry(_object):
-    """
-
-
-    Registry to create standard pre-defined simulations. Used in functional tests, performance measurements, etc.
-
-    C++ includes: SimulationRegistry.h
-
-    """
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, SimulationRegistry, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, SimulationRegistry, name)
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        """
-        __init__(SimulationRegistry self) -> SimulationRegistry
-
-        SimulationRegistry::SimulationRegistry()
-
-        """
-        this = _libBornAgainCore.new_SimulationRegistry()
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-
-    def createSimulation(self, name):
-        """
-        createSimulation(SimulationRegistry self, std::string const & name) -> GISASSimulation
-
-        GISASSimulation * SimulationRegistry::createSimulation(const std::string &name)
-
-        """
-        return _libBornAgainCore.SimulationRegistry_createSimulation(self, name)
-
-    __swig_destroy__ = _libBornAgainCore.delete_SimulationRegistry
-    __del__ = lambda self: None
-SimulationRegistry_swigregister = _libBornAgainCore.SimulationRegistry_swigregister
-SimulationRegistry_swigregister(SimulationRegistry)
-
-class SampleBuilderFactory(_object):
-    """
-
-
-    Factory to create standard pre-defined samples.
-
-    C++ includes: SampleBuilderFactory.h
-
-    """
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, SampleBuilderFactory, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, SampleBuilderFactory, name)
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        """
-        __init__(SampleBuilderFactory self) -> SampleBuilderFactory
-
-        SampleBuilderFactory::SampleBuilderFactory()
-
-        """
-        this = _libBornAgainCore.new_SampleBuilderFactory()
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-
-    def createSample(self, name):
-        """
-        createSample(SampleBuilderFactory self, std::string const & name) -> ISample
-
-        ISample * SampleBuilderFactory::createSample(const std::string &name)
-
-        """
-        return _libBornAgainCore.SampleBuilderFactory_createSample(self, name)
-
-
-    def createBuilder(self, name):
-        """
-        createBuilder(SampleBuilderFactory self, std::string const & name) -> SampleBuilder_t
-
-        SampleBuilder_t SampleBuilderFactory::createBuilder(const std::string &name)
-
-        """
-        return _libBornAgainCore.SampleBuilderFactory_createBuilder(self, name)
-
-    __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactory
-    __del__ = lambda self: None
-SampleBuilderFactory_swigregister = _libBornAgainCore.SampleBuilderFactory_swigregister
-SampleBuilderFactory_swigregister(SampleBuilderFactory)
 
 # This file is compatible with both classic and new-style classes.
 

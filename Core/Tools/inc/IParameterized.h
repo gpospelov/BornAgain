@@ -18,24 +18,22 @@
 
 #include "INamed.h"
 #include "ParameterPool.h"
-#include "ICloneable.h"
-#include "IShareable.h"
 
 class AttLimits;
 
 //! @class IParameterized
 //! @ingroup tools_internal
 //! @brief Manage a local parameter pool, and a tree of child pools.
-template <typename T>
-class BA_CORE_API_ IParameterizedTemplate : public INamedTemplate<T>
+
+class BA_CORE_API_ IParameterized : public INamed
 {
 public:
-    IParameterizedTemplate() : m_parameters() {}
-    IParameterizedTemplate(const std::string &name) : INamedTemplate<T>(name), m_parameters() {}
-    IParameterizedTemplate(const IParameterizedTemplate &other) : INamedTemplate<T>(other), m_parameters() {}
-    IParameterizedTemplate &operator=(const IParameterizedTemplate &other);
+    IParameterized() : m_parameters() {}
+    IParameterized(const std::string &name) : INamed(name), m_parameters() {}
+    IParameterized(const IParameterized &other) : INamed(other), m_parameters() {}
+    IParameterized &operator=(const IParameterized &other);
 
-    virtual ~IParameterizedTemplate() {}
+    virtual ~IParameterized() {}
 
     //! Returns pointer to the parameter pool.
     const ParameterPool* getParameterPool() const;
@@ -55,16 +53,15 @@ public:
     //! Clears the parameter pool.
     void clearParameterPool();
 
-    template <typename S>
-        friend std::ostream& operator<<(std::ostream& ostr, const IParameterizedTemplate<S>& m);
+    friend std::ostream& operator<<(std::ostream& ostr, const IParameterized& m);
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;
 
 protected:
-    //! Prints a representation of this IParameterizedTemplate object to the given output stream.
-    //! default implementation prints "IParameterizedTemplate:" and the parameter pool
+    //! Prints a representation of this IParameterized object to the given output stream.
+    //! default implementation prints "IParameterized:" and the parameter pool
     virtual void print(std::ostream& ostr) const;
 
     //! Registers class parameters in the parameter pool
@@ -73,9 +70,6 @@ protected:
 
     ParameterPool m_parameters; //!< parameter pool
 };
-
-typedef IParameterizedTemplate<ICloneable> IParameterized;
-typedef IParameterizedTemplate<IShareable> IParameterizedShared;
 
 //! @class ParameterPattern
 //! @ingroup tools_internal
@@ -95,27 +89,23 @@ private:
     std::string m_pattern;
 };
 
-template <typename T>
-inline const ParameterPool *IParameterizedTemplate<T>::getParameterPool() const
+inline const ParameterPool *IParameterized::getParameterPool() const
 {
     return& m_parameters;
 }
 
-template <typename T>
-inline void IParameterizedTemplate<T>::registerParameter(const std::string &name, double *parpointer,
+inline void IParameterized::registerParameter(const std::string &name, double *parpointer,
                                               const AttLimits &limits)
 {
     m_parameters.registerParameter(name, parpointer, limits);
 }
 
-template <typename T>
-inline void IParameterizedTemplate<T>::clearParameterPool()
+inline void IParameterized::clearParameterPool()
 {
     m_parameters.clear();
 }
 
-template <typename T>
-inline std::ostream& operator<<(std::ostream &ostr, const IParameterizedTemplate<T> &m)
+inline std::ostream& operator<<(std::ostream &ostr, const IParameterized &m)
 {
     m.print(ostr);
     return ostr;

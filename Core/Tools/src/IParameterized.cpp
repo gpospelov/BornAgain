@@ -20,22 +20,17 @@
 #include <iostream>
 #include <memory>
 
-template class IParameterizedTemplate<ICloneable>;
-template class IParameterizedTemplate<IShareable>;
-
-template <typename T>
-IParameterizedTemplate<T>& IParameterizedTemplate<T>::operator=(const IParameterizedTemplate<T>& other)
+IParameterized& IParameterized::operator=(const IParameterized& other)
 {
     if( this !=& other)
     {
-        INamedTemplate<T>::operator=(other);
+        INamed::operator=(other);
         // parameters are not copied
     }
     return *this;
 }
 
-template <typename T>
-ParameterPool *IParameterizedTemplate<T>::createParameterTree() const
+ParameterPool *IParameterized::createParameterTree() const
 {
     std::unique_ptr<ParameterPool> P_new_pool { new ParameterPool };
     std::string path("/");
@@ -43,8 +38,7 @@ ParameterPool *IParameterizedTemplate<T>::createParameterTree() const
     return P_new_pool.release();
 }
 
-template <typename T>
-std::string IParameterizedTemplate<T>::addParametersToExternalPool(
+std::string IParameterized::addParametersToExternalPool(
     std::string path, ParameterPool *external_pool, int copy_number) const
 {
     // adding trailing slash, if it is not already there
@@ -53,7 +47,7 @@ std::string IParameterizedTemplate<T>::addParametersToExternalPool(
     // constructing new path, using object name and copy number
     std::ostringstream osCopyNumber;
     if(copy_number >=0) osCopyNumber << copy_number;
-    path =  path + this->getName() + osCopyNumber.str() + "/";
+    path =  path + getName() + osCopyNumber.str() + "/";
 
     // copy local parameter to external pool
     m_parameters.copyToExternalPool(path, external_pool);
@@ -61,8 +55,7 @@ std::string IParameterizedTemplate<T>::addParametersToExternalPool(
     return path;
 }
 
-template <typename T>
-bool IParameterizedTemplate<T>::setParameterValue(const std::string &name, double value)
+bool IParameterized::setParameterValue(const std::string &name, double value)
 {
     if(name.find('*') == std::string::npos && name.find('/') == std::string::npos) {
         return m_parameters.setParameterValue(name, value);
@@ -75,24 +68,21 @@ bool IParameterizedTemplate<T>::setParameterValue(const std::string &name, doubl
     }
 }
 
-template <typename T>
-void IParameterizedTemplate<T>::printParameters() const
+void IParameterized::printParameters() const
 {
     std::unique_ptr<ParameterPool> P_pool { createParameterTree() };
     std::cout << *P_pool << std::endl;
 }
 
-template <typename T>
-void IParameterizedTemplate<T>::init_parameters()
+void IParameterized::init_parameters()
 {
-    throw NotImplementedException("IParameterizedTemplate<T>::init_parameters() -> "
+    throw NotImplementedException("IParameterized::init_parameters() -> "
                                   "Error! Method is not implemented");
 }
 
-template <typename T>
-void IParameterizedTemplate<T>::print(std::ostream& ostr) const
+void IParameterized::print(std::ostream& ostr) const
 {
-    ostr << "IParameterized:" << this->getName() << " " << m_parameters;
+    ostr << "IParameterized:" << getName() << " " << m_parameters;
 }
 
 ParameterPattern::ParameterPattern()

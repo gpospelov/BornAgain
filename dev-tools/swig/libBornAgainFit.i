@@ -173,15 +173,13 @@ import_array();
 %import(module="libBornAgainCore") "AttLimits.h"
 %import(module="libBornAgainCore") "ICloneable.h"
 %import(module="libBornAgainCore") "INamed.h"
+%import(module="libBornAgainCore") "INamedShared.h"
 %import(module="libBornAgainCore") "IParameterized.h"
+%import(module="libBornAgainCore") "IParameterizedShared.h"
 %import(module="libBornAgainCore") "IObserver.h"
 
 
-%template(INamed) INamedTemplate<ICloneable>;
-%template(INamedShared) INamedTemplate<IShareable>;
 
-%template(IParameterized) IParameterizedTemplate<ICloneable>;
-%template(IParameterizedShared) IParameterizedTemplate<IShareable>;
 
 %include "IChiSquaredModule.h"
 %include "IFitObserver.h"

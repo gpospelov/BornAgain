@@ -147,7 +147,7 @@
 #include "IMaterial.h"
 #include "IObserver.h"
 #include "IParameterized.h"
-    //#include "IParameterizedShared.h"
+#include "IParameterizedShared.h"
 #include "IParticle.h"
 #include "IResolutionFunction2D.h"
 #include "Rotations.h"
@@ -155,8 +155,6 @@
 #include "ISampleBuilder.h"
 #include "ISampleVisitor.h"
 #include "ISelectionRule.h"
-#include "SimulationRegistry.h"    
-#include "SampleBuilderFactory.h"    
 #include "IShape2D.h"
 #include "ISingleton.h"
 #include "Instrument.h"
@@ -224,8 +222,8 @@
 %include "ICloneable.h"
 
 %include "INamed.h"
-%template(INamed) INamedTemplate<ICloneable>;
-%template(INamedShared) INamedTemplate<IShareable>;
+%include "INamedShared.h"
+
 
 //typedef INamedTemplate<void> INamed;
 //typedef INamedTemplate<int> INamedShared;
@@ -233,8 +231,8 @@
  //%include "INamedShared.h"
 
 %include "IParameterized.h"
-%template(IParameterized) IParameterizedTemplate<ICloneable>;
-%template(IParameterizedShared) IParameterizedTemplate<IShareable>;
+%include "IParameterizedShared.h"
+
 
 
 //typedef IParameterized<void> IParamet
@@ -405,5 +403,3 @@
 
 
 
-%include "SimulationRegistry.h"    
-%include "SampleBuilderFactory.h"    

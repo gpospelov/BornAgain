@@ -29,6 +29,7 @@ MaterialEditor::MaterialEditor(MaterialModel *materialModel, QWidget *parent)
     , m_splitter(new QSplitter)
     , m_listView(new QListView)
     , m_componentEditor(new ComponentEditor)
+    , m_model_was_modified(false)
 {
     setWindowTitle("MaterialEditorWidget");
     setMinimumSize(128, 128);
@@ -75,6 +76,11 @@ void MaterialEditor::setInitialMaterialProperty(const MaterialProperty &matPrope
     }
 }
 
+bool MaterialEditor::isModelWasModified() const
+{
+    return m_model_was_modified;
+}
+
 void MaterialEditor::onSelectionChanged(const QItemSelection &selected,
                                               const QItemSelection &)
 {
@@ -89,6 +95,22 @@ void MaterialEditor::onSelectionChanged(const QItemSelection &selected,
     }
 }
 
+void MaterialEditor::onDataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)
+{
+    m_model_was_modified = true;
+}
+
+void MaterialEditor::onRowsInserted(const QModelIndex &, int, int)
+{
+    m_model_was_modified = true;
+}
+
+void MaterialEditor::onRowsRemoved(const QModelIndex &, int, int)
+{
+    m_model_was_modified = true;
+}
+
+
 //! Context menu reimplemented to supress default menu
 void MaterialEditor::contextMenuEvent(QContextMenuEvent *event)
 {
@@ -98,6 +120,14 @@ void MaterialEditor::contextMenuEvent(QContextMenuEvent *event)
 
 void MaterialEditor::init_views()
 {
+    // connecting to the model
+    connect(m_materialModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
+               this, SLOT(onDataChanged(QModelIndex,QModelIndex,QVector<int>)));
+    connect(m_materialModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
+               this, SLOT(onRowsInserted(QModelIndex,int,int)));
+    connect(m_materialModel, SIGNAL(rowsRemoved(QModelIndex,int,int)),
+               this, SLOT(onRowsRemoved(QModelIndex,int,int)));
+
     m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
     m_listView->setModel(m_materialModel);
     m_listView->setMovement(QListView::Static);

@@ -59,8 +59,10 @@ MaterialEditorDialog::MaterialEditorDialog(MaterialModel *materialModel, QWidget
 //! replaces original material model with the model modified by MaterialEditor
 void MaterialEditorDialog::onOKButton()
 {
-    m_origMaterialModel->clear();
-    m_origMaterialModel->initFrom(m_tmpMaterialModel.get(), 0);
+    if(m_materialEditor->isModelWasModified()) {
+        m_origMaterialModel->clear();
+        m_origMaterialModel->initFrom(m_tmpMaterialModel.get(), 0);
+    }
     accept();
 }
 

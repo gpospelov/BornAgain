@@ -43,8 +43,13 @@ public:
 
     void setInitialMaterialProperty(const MaterialProperty &matProperty);
 
+    bool isModelWasModified() const;
+
 private slots:
     void onSelectionChanged(const QItemSelection &selected, const QItemSelection&);
+    void onDataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &);
+    void onRowsInserted(const QModelIndex &, int, int );
+    void onRowsRemoved(const QModelIndex &, int, int);
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event);
@@ -57,6 +62,7 @@ private:
     QSplitter *m_splitter;
     QListView *m_listView;
     ComponentEditor *m_componentEditor;
+    bool m_model_was_modified;
 };
 
 

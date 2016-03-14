@@ -40,7 +40,12 @@ public:
 
     void addView(IView *childView, int row = 0); // to add Transformation
 
+protected:
+    void update_appearance();
+
 private:
+    void updatePixmap();
+
     QPixmap m_pixmap;
 };
 

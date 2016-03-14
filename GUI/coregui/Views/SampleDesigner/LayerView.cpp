@@ -42,14 +42,6 @@ void LayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 {
     Q_UNUSED(widget);
 
-//    if(SessionItem *item = getParameterizedItem()) {
-//        qDebug() << "XXX " << item;
-//        QVariant v = item->property("Material");
-//        Q_ASSERT(v.isValid());
-//        MaterialProperty mat = v.value<MaterialProperty>();
-//        m_color = mat.getColor();
-//    }
-
     painter->setPen(Qt::black);
     if (option->state & (QStyle::State_Selected | QStyle::State_HasFocus)) {
         painter->setPen(Qt::DashLine);

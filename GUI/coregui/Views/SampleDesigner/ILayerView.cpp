@@ -78,12 +78,6 @@ void ILayerView::updateColor()
     }
 }
 
-void ILayerView::update_appearance()
-{
-    updateHeight();
-    updateColor();
-}
-
 //! Detects movement of the ILayerView and sends possible drop areas to GraphicsScene
 //! for visualization.
 QVariant ILayerView::itemChange(GraphicsItemChange change, const QVariant &value)
@@ -179,6 +173,13 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
     // should not be here
     throw GUIHelpers::Error(tr("LayerView::mouseReleaseEvent() -> Loggic error."));
+}
+
+void ILayerView::update_appearance()
+{
+    updateHeight();
+    updateColor();
+    ConnectableView::update_appearance();
 }
 
 //! Finds candidate (another MultiLayer) into which we will move our ILayerView.

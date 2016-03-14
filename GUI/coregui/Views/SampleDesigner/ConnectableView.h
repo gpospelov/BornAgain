@@ -60,8 +60,6 @@ public:
     virtual void setColor(const QColor &color) { m_color = color; }
 
 
-    virtual void update_appearance();
-
 public slots:
     virtual void onSiblingsChanged();
 
@@ -70,6 +68,7 @@ protected:
     virtual int getNumberOfPorts();
     virtual int getNumberOfOutputPorts();
     virtual int getNumberOfInputPorts();
+    virtual void update_appearance();
 
     QString m_name;
     QColor m_color;

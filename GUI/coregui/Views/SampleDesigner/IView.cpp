@@ -56,6 +56,18 @@ void IView::addView(IView *childView, int row)
              << childView->getParameterizedItem()->itemName() << " row:" << row;
 }
 
+void IView::onChangedX()
+{
+    Q_ASSERT(m_item);
+    m_item->setItemValue(SessionGraphicsItem::P_XPOS, x());
+}
+
+void IView::onChangedY()
+{
+    Q_ASSERT(m_item);
+    m_item->setItemValue(SessionGraphicsItem::P_YPOS, y());
+}
+
 ModelMapper *IView::mapper()
 {
     if (!m_mapper) {
@@ -67,19 +79,7 @@ ModelMapper *IView::mapper()
 //! updates visual appearance of the item (color, icons, size etc)
 void IView::update_appearance()
 {
-
-}
-
-void IView::onChangedX()
-{
-    Q_ASSERT(m_item);
-    m_item->setItemValue(SessionGraphicsItem::P_XPOS, x());
-}
-
-void IView::onChangedY()
-{
-    Q_ASSERT(m_item);
-    m_item->setItemValue(SessionGraphicsItem::P_YPOS, y());
+    update();
 }
 
 void IView::onPropertyChange(const QString &propertyName)

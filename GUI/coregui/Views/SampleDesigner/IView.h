@@ -41,10 +41,6 @@ public:
 
     virtual void addView(IView *childView, int row = 0);
 
-    ModelMapper *mapper();
-
-    virtual void update_appearance();
-
 signals:
     void aboutToBeDeleted();
 
@@ -53,6 +49,8 @@ public slots:
     virtual void onChangedY();
 
 protected:
+    ModelMapper *mapper();
+    virtual void update_appearance();
     virtual void onPropertyChange(const QString &propertyName);
 
     SessionItem *m_item;

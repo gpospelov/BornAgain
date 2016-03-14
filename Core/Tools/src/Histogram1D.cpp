@@ -65,12 +65,12 @@ std::vector<double> Histogram1D::getBinCenters() const
 
 std::vector<double> Histogram1D::getBinValues() const
 {
-    return IHistogram::getDataVector(IHistogram::INTEGRAL);
+    return IHistogram::getDataVector(IHistogram::DataType::INTEGRAL);
 }
 
 std::vector<double> Histogram1D::getBinErrors() const
 {
-    return IHistogram::getDataVector(IHistogram::ERROR);
+    return IHistogram::getDataVector(IHistogram::DataType::ERROR);
 }
 
 PyObject *Histogram1D::getBinCentersNumpy() const

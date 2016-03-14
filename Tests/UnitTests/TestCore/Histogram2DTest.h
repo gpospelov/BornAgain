@@ -398,7 +398,7 @@ TEST_F(Histogram2DTest, CreateOutputData)
         }
     }
 
-    boost::scoped_ptr<OutputData<double> > data(hist.createOutputData(IHistogram::INTEGRAL));
+    boost::scoped_ptr<OutputData<double> > data(hist.createOutputData(IHistogram::DataType::INTEGRAL));
     EXPECT_EQ(2, data->getRank());
     EXPECT_EQ(data->getAllocatedSize(), hist.getTotalNumberOfBins());
     EXPECT_EQ(data->getAxis(0)->getMin(), hist.getXmin());
@@ -409,17 +409,17 @@ TEST_F(Histogram2DTest, CreateOutputData)
         EXPECT_EQ(double(i), (*data)[i]);
     }
 
-    data.reset(hist.createOutputData(IHistogram::AVERAGE));
+    data.reset(hist.createOutputData(IHistogram::DataType::AVERAGE));
     for(size_t i=0; i<data->getAllocatedSize(); ++i) {
         EXPECT_EQ(double(i), (*data)[i]);
     }
 
-    data.reset(hist.createOutputData(IHistogram::ERROR));
+    data.reset(hist.createOutputData(IHistogram::DataType::ERROR));
     for(size_t i=0; i<data->getAllocatedSize(); ++i) {
         EXPECT_EQ(0.0, (*data)[i]);
     }
 
-    data.reset(hist.createOutputData(IHistogram::NENTRIES));
+    data.reset(hist.createOutputData(IHistogram::DataType::NENTRIES));
     for(size_t i=0; i<data->getAllocatedSize(); ++i) {
         EXPECT_EQ(1.0, (*data)[i]);
     }

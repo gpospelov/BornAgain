@@ -299,17 +299,17 @@ void IHistogram::init_from_data(const OutputData<double> &source)
 //! returns data of requested type for globalbin number
 double IHistogram::getBinData(size_t globalbin, IHistogram::DataType dataType) const
 {
-    if(dataType == INTEGRAL) {
+    if(dataType == DataType::INTEGRAL) {
         return getBinContent(globalbin);
-    } else if(dataType == AVERAGE) {
+    } else if(dataType == DataType::AVERAGE) {
         return getBinAverage(globalbin);
-    } else if(dataType == ERROR) {
+    } else if(dataType == DataType::ERROR) {
         return getBinError(globalbin);
-    } else if(dataType == NENTRIES) {
+    } else if(dataType == DataType::NENTRIES) {
         return getBinNumberOfEntries(globalbin);
     } else {
         std::ostringstream message;
-        message << "IHistogram::getBinData() -> Error. Unknown data type " << dataType << ".";
+        message << "IHistogram::getBinData() -> Error. Unknown data type.";
         throw LogicErrorException(message.str());
     }
 }

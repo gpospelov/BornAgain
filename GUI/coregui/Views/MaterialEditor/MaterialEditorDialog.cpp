@@ -59,9 +59,8 @@ MaterialEditorDialog::MaterialEditorDialog(MaterialModel *materialModel, QWidget
 //! replaces original material model with the model modified by MaterialEditor
 void MaterialEditorDialog::onOKButton()
 {
-//    m_origMaterialModel->clear();
-//    m_origMaterialModel->initFrom(m_tmpMaterialModel.get(), 0);
-
+    m_origMaterialModel->clear();
+    m_origMaterialModel->initFrom(m_tmpMaterialModel.get(), 0);
     accept();
 }
 
@@ -74,9 +73,9 @@ void MaterialEditorDialog::onCancelButton()
 void MaterialEditorDialog::init_material_editor()
 {
     Q_ASSERT(m_origMaterialModel);
-//    m_tmpMaterialModel.reset(m_origMaterialModel->createCopy());
-//    m_materialEditor = new MaterialEditor(m_tmpMaterialModel.get(), this);
-    m_materialEditor = new MaterialEditor(m_origMaterialModel, this);
+    m_tmpMaterialModel.reset(m_origMaterialModel->createCopy());
+    m_materialEditor = new MaterialEditor(m_tmpMaterialModel.get(), this);
+//    m_materialEditor = new MaterialEditor(m_origMaterialModel, this);
 }
 
 MaterialProperty MaterialEditorDialog::getSelectedMaterialProperty()

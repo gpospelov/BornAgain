@@ -23,7 +23,6 @@
 
 const QString ParticleCoreShellItem::T_CORE = "Core Tag";
 const QString ParticleCoreShellItem::T_SHELL = "Shell Tag";
-const QString ParticleCoreShellItem::T_TRANSFORMATION = "Transformation Tag";
 
 ParticleCoreShellItem::ParticleCoreShellItem()
     : SessionGraphicsItem(Constants::ParticleCoreShellType)
@@ -37,7 +36,7 @@ ParticleCoreShellItem::ParticleCoreShellItem()
 
     registerTag(T_CORE, 0, 1, QStringList() << Constants::ParticleType);
     registerTag(T_SHELL, 0, 1, QStringList() << Constants::ParticleType);
-    registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
+    registerTag(ParticleItem::T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
     RotationTranslator rotation_translator;
     ModelPath::addParameterTranslator(rotation_translator);
     mapper()->setOnPropertyChange(

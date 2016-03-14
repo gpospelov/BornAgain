@@ -649,6 +649,7 @@ void GUIObjectBuilder::visit(const RotationEuler *sample)
     SessionItem *transformation_item = m_sampleModel->insertNewItem(
         Constants::TransformationType, m_sampleModel->indexOfItem(parent),
                 -1, ParticleItem::T_TRANSFORMATION);
+    Q_ASSERT(transformation_item);
     SessionItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::EulerRotationType);
     p_rotationItem->setItemValue(EulerRotationItem::P_ALPHA,

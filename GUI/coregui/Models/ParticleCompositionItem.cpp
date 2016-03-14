@@ -21,7 +21,6 @@
 #include "ModelPath.h"
 
 const QString ParticleCompositionItem::T_PARTICLES = "Particle Tag";
-const QString ParticleCompositionItem::T_TRANSFORMATION = "Transformation Tag";
 
 ParticleCompositionItem::ParticleCompositionItem()
     : SessionGraphicsItem(Constants::ParticleCompositionType)
@@ -36,7 +35,7 @@ ParticleCompositionItem::ParticleCompositionItem()
     registerTag(T_PARTICLES, 0, -1, QStringList() << Constants::ParticleType <<
                 Constants::ParticleCoreShellType << Constants::ParticleCompositionType);
     setDefaultTag(T_PARTICLES);
-    registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
+    registerTag(ParticleItem::T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
     RotationTranslator rotation_translator;
     ModelPath::addParameterTranslator(rotation_translator);
 

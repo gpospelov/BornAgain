@@ -28,7 +28,6 @@ class BA_CORE_API_ ParticleCoreShellItem : public SessionGraphicsItem
 public:
     const static QString T_CORE;
     const static QString T_SHELL;
-    const static QString T_TRANSFORMATION;
     enum ECoreShell { CORE, SHELL};
     explicit ParticleCoreShellItem();
     virtual ~ParticleCoreShellItem() {}

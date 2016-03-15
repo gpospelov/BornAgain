@@ -157,11 +157,12 @@ def pretty_write(dictionary, file):
     header = "|"
     footer = "|"
 
-    for k,v in dictionary.iteritems():
-        length = max(len(k), len(v))
+    for key in dictionary:
+        value = dictionary[key]
+        length = max(len(key), len(value))
         format_str = " {0:" + str(length) + "} |"
-        header += format_str.format(k)
-        footer += format_str.format(v)
+        header += format_str.format(key)
+        footer += format_str.format(value)
 
     file.write(header + "\n")
     file.write(footer + "\n")

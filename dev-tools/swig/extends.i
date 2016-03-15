@@ -90,11 +90,11 @@ namespace Geometry {
       return (*($self)).registerParameter(name, (double*)parpointer, limits);
       }*/
 
-    virtual std::string addParametersToExternalPool(std::string path, std::shared_ptr<ParameterPool> external_pool,
+    /*virtual std::string addParametersToExternalPool(std::string path, std::shared_ptr<ParameterPool> external_pool,
       int copy_number = -1) const
       {
       return ($self)->addParametersToExternalPool(path, external_pool.get(), copy_number);
-      }
+      }*/
 };
 
 %extend ISampleBuilder {

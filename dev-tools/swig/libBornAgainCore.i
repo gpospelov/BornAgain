@@ -210,6 +210,9 @@
 #include "VariableBinAxis.h"
 #include "WavevectorInfo.h"
 
+#include "SampleBuilderFactory.h"
+#include "SimulationRegistry.h"
+
 %}
 
 
@@ -400,6 +403,10 @@
 %include "SpecularSimulation.h"
 
 %include "ThreadInfo.h"
+
+
+%include "SampleBuilderFactory.h"
+%include "SimulationRegistry.h"
 
 
 

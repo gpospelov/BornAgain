@@ -1810,7 +1810,11 @@ class INamed(_object):
         C++ includes: INamed.h
 
         """
-        this = _libBornAgainCore.new_INamed(*args)
+        if self.__class__ == INamed:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_INamed(_self, *args)
         try:
             self.this.append(this)
         except Exception:
@@ -1822,6 +1826,10 @@ class INamed(_object):
         """getName(INamed self) -> std::string"""
         return _libBornAgainCore.INamed_getName(self)
 
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_INamed(self)
+        return weakref_proxy(self)
 INamed_swigregister = _libBornAgainCore.INamed_swigregister
 INamed_swigregister(INamed)
 
@@ -1839,7 +1847,11 @@ class INamedShared(_object):
         __init__(INamedShared self) -> INamedShared
         __init__(INamedShared self, std::string name) -> INamedShared
         """
-        this = _libBornAgainCore.new_INamedShared(*args)
+        if self.__class__ == INamedShared:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_INamedShared(_self, *args)
         try:
             self.this.append(this)
         except Exception:
@@ -1851,6 +1863,10 @@ class INamedShared(_object):
         """getName(INamedShared self) -> std::string"""
         return _libBornAgainCore.INamedShared_getName(self)
 
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_INamedShared(self)
+        return weakref_proxy(self)
 INamedShared_swigregister = _libBornAgainCore.INamedShared_swigregister
 INamedShared_swigregister(INamedShared)
 
@@ -1943,14 +1959,6 @@ class IParameterized(INamed):
         """
         return _libBornAgainCore.IParameterized_registerParameter(self, *args)
 
-
-    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
-        """
-        addParametersToExternalPool(IParameterized self, std::string path, std::shared_ptr< ParameterPool > external_pool, int copy_number=-1) -> std::string
-        addParametersToExternalPool(IParameterized self, std::string path, std::shared_ptr< ParameterPool > external_pool) -> std::string
-        """
-        return _libBornAgainCore.IParameterized_addParametersToExternalPool(self, path, external_pool, copy_number)
-
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IParameterized(self)
@@ -2041,7 +2049,11 @@ class IParameterizedShared(INamedShared):
         __init__(IParameterizedShared self, std::string const & name) -> IParameterizedShared
         __init__(IParameterizedShared self, IParameterizedShared other) -> IParameterizedShared
         """
-        this = _libBornAgainCore.new_IParameterizedShared(*args)
+        if self.__class__ == IParameterizedShared:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_IParameterizedShared(_self, *args)
         try:
             self.this.append(this)
         except Exception:
@@ -2081,6 +2093,20 @@ class IParameterizedShared(INamedShared):
         """
         return _libBornAgainCore.IParameterizedShared_addParametersToExternalPool(self, path, external_pool, copy_number)
 
+
+    def _print(self, ostr):
+        """_print(IParameterizedShared self, std::ostream & ostr)"""
+        return _libBornAgainCore.IParameterizedShared__print(self, ostr)
+
+
+    def init_parameters(self):
+        """init_parameters(IParameterizedShared self)"""
+        return _libBornAgainCore.IParameterizedShared_init_parameters(self)
+
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_IParameterizedShared(self)
+        return weakref_proxy(self)
 IParameterizedShared_swigregister = _libBornAgainCore.IParameterizedShared_swigregister
 IParameterizedShared_swigregister(IParameterizedShared)
 
@@ -21717,6 +21743,102 @@ class ThreadInfo(_object):
     __del__ = lambda self: None
 ThreadInfo_swigregister = _libBornAgainCore.ThreadInfo_swigregister
 ThreadInfo_swigregister(ThreadInfo)
+
+class SampleBuilderFactory(_object):
+    """
+
+
+    Factory to create standard pre-defined samples.
+
+    C++ includes: SampleBuilderFactory.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SampleBuilderFactory, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, SampleBuilderFactory, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """
+        __init__(SampleBuilderFactory self) -> SampleBuilderFactory
+
+        SampleBuilderFactory::SampleBuilderFactory()
+
+        """
+        this = _libBornAgainCore.new_SampleBuilderFactory()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def createSample(self, name):
+        """
+        createSample(SampleBuilderFactory self, std::string const & name) -> ISample
+
+        ISample * SampleBuilderFactory::createSample(const std::string &name)
+
+        """
+        return _libBornAgainCore.SampleBuilderFactory_createSample(self, name)
+
+
+    def createBuilder(self, name):
+        """
+        createBuilder(SampleBuilderFactory self, std::string const & name) -> SampleBuilder_t
+
+        SampleBuilder_t SampleBuilderFactory::createBuilder(const std::string &name)
+
+        """
+        return _libBornAgainCore.SampleBuilderFactory_createBuilder(self, name)
+
+    __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactory
+    __del__ = lambda self: None
+SampleBuilderFactory_swigregister = _libBornAgainCore.SampleBuilderFactory_swigregister
+SampleBuilderFactory_swigregister(SampleBuilderFactory)
+
+class SimulationRegistry(_object):
+    """
+
+
+    Registry to create standard pre-defined simulations. Used in functional tests, performance measurements, etc.
+
+    C++ includes: SimulationRegistry.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SimulationRegistry, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, SimulationRegistry, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """
+        __init__(SimulationRegistry self) -> SimulationRegistry
+
+        SimulationRegistry::SimulationRegistry()
+
+        """
+        this = _libBornAgainCore.new_SimulationRegistry()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def createSimulation(self, name):
+        """
+        createSimulation(SimulationRegistry self, std::string const & name) -> GISASSimulation
+
+        GISASSimulation * SimulationRegistry::createSimulation(const std::string &name)
+
+        """
+        return _libBornAgainCore.SimulationRegistry_createSimulation(self, name)
+
+    __swig_destroy__ = _libBornAgainCore.delete_SimulationRegistry
+    __del__ = lambda self: None
+SimulationRegistry_swigregister = _libBornAgainCore.SimulationRegistry_swigregister
+SimulationRegistry_swigregister(SimulationRegistry)
 
 # This file is compatible with both classic and new-style classes.
 

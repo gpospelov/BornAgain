@@ -34,7 +34,7 @@
 %include "warnings.i"
 %include "ignores.i"
 
-%include "extends.i"
+
 
 %include "directors.i"
 
@@ -210,3 +210,5 @@ import_array();
 
 %include "FitStrategyAdjustMinimizer.h"
 
+ // extends included at end because swig needs to know something about the extended classes beforehand
+%include "extends.i"

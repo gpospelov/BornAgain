@@ -1,5 +1,5 @@
-#ifndef TESTMAPPER_H
-#define TESTMAPPER_H
+#ifndef TESTMAPPERCASES_H
+#define TESTMAPPERCASES_H
 
 #include "SessionItem.h"
 #include "SampleModel.h"
@@ -15,7 +15,7 @@
 #include <memory>
 #include <QtTest>
 
-class TestMapper : public QObject {
+class TestMapperCases : public QObject {
     Q_OBJECT
 
 private slots:
@@ -25,7 +25,7 @@ private slots:
     void test_removeMaskOnDetectorChange();
 };
 
-inline void TestMapper::test_ParticeleCompositionUpdate()
+inline void TestMapperCases::test_ParticeleCompositionUpdate()
 {
     SampleModel model;
     SessionItem *multilayer = model.insertNewItem(Constants::MultiLayerType);
@@ -47,7 +47,7 @@ inline void TestMapper::test_ParticeleCompositionUpdate()
 
 }
 
-inline void TestMapper::test_Inference2DRotationAngleToggle()
+inline void TestMapperCases::test_Inference2DRotationAngleToggle()
 {
     SampleModel model;
     SessionItem *multilayer = model.insertNewItem(Constants::MultiLayerType);
@@ -67,7 +67,7 @@ inline void TestMapper::test_Inference2DRotationAngleToggle()
 
 }
 
-inline void TestMapper::test_instrumentAlignmentPropertyVisibility()
+inline void TestMapperCases::test_instrumentAlignmentPropertyVisibility()
 {
     InstrumentModel model;
     SessionItem *instrument = model.insertNewItem(Constants::InstrumentType);
@@ -90,7 +90,7 @@ inline void TestMapper::test_instrumentAlignmentPropertyVisibility()
 
 }
 
-inline void TestMapper::test_removeMaskOnDetectorChange()
+inline void TestMapperCases::test_removeMaskOnDetectorChange()
 {
     InstrumentModel model;
     SessionItem *instrument = model.insertNewItem(Constants::InstrumentType);
@@ -101,7 +101,6 @@ inline void TestMapper::test_removeMaskOnDetectorChange()
     // after change the mask container should be removed
     detector->setGroupProperty(DetectorItem::P_DETECTOR, Constants::SphericalDetectorType);
     QVERIFY(detector->getItems(DetectorItem::T_MASKS).size() == 0);
-
 }
 
 #endif

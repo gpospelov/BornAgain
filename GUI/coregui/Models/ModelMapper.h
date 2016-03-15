@@ -43,6 +43,8 @@ public:
 
     void setOnChildrenChange(std::function<void(void)> f);
 
+    void setOnSiblingsChange(std::function<void(void)> f);
+
     void setActive(bool state) {m_active = state;}
 
 public slots:
@@ -57,6 +59,10 @@ private:
     void setModel(SessionModel *model);
     int nestlingDepth(SessionItem* item, int level = 0);
 
+    void callOnParentChange(SessionItem *new_parent);
+    void callOnChildrenChange();
+    void callOnSiblingsChange();
+
     bool m_active;
     SessionModel *m_model;
     SessionItem *m_item;
@@ -64,6 +70,7 @@ private:
     std::vector<std::function<void(SessionItem*,QString)>> m_onChildPropertyChange;
     std::vector<std::function<void(SessionItem*)>> m_onParentChange;
     std::vector<std::function<void(void)>> m_onChildrenChange;
+    std::vector<std::function<void(void)>> m_onSiblingsChange;
 };
 
 #endif

@@ -52,6 +52,7 @@ protected:
     ModelMapper *mapper();
     virtual void update_appearance();
     virtual void onPropertyChange(const QString &propertyName);
+    virtual void onSiblingsChange();
 
     SessionItem *m_item;
     std::unique_ptr<ModelMapper> m_mapper;

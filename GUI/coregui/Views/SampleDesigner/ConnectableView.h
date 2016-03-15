@@ -59,10 +59,6 @@ public:
     virtual void setName(const QString &name) { m_name = name; }
     virtual void setColor(const QColor &color) { m_color = color; }
 
-
-public slots:
-    virtual void onSiblingsChanged();
-
 protected:
     virtual void setPortCoordinates();
     virtual int getNumberOfPorts();

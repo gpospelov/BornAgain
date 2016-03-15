@@ -46,6 +46,14 @@ void IView::setParameterizedItem(SessionItem *item)
         {
             onPropertyChange(name);
         });
+
+        mapper()->setOnSiblingsChange(
+                    [this]()
+        {
+            onSiblingsChange();
+        });
+
+
         update_appearance();
     }
 }
@@ -89,4 +97,9 @@ void IView::onPropertyChange(const QString &propertyName)
     } else if (propertyName == SessionGraphicsItem::P_YPOS) {
         setY(m_item->getItemValue(SessionGraphicsItem::P_YPOS).toReal());
     }
+}
+
+void IView::onSiblingsChange()
+{
+    update_appearance();
 }

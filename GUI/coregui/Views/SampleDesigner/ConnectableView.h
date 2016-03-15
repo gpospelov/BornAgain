@@ -60,8 +60,8 @@ public:
     virtual void setColor(const QColor &color) { m_color = color; }
 
 
-public slots:
-    virtual void onSiblingsChanged();
+//public slots:
+//    virtual void onSiblingsChanged();
 
 protected:
     virtual void setPortCoordinates();

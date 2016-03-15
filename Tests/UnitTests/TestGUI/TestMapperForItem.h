@@ -255,7 +255,6 @@ inline void TestMapperForItem::test_onSiblingsChange()
 
     multilayer->takeRow(layer2->parentRow());
     QVERIFY(m_onSiblingsChangeCount == 2);
-
 }
 
 

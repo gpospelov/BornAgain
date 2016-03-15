@@ -59,6 +59,8 @@ private:
     void setModel(SessionModel *model);
     int nestlingDepth(SessionItem* item, int level = 0);
 
+    void callOnParentChange(SessionItem *new_parent);
+    void callOnChildrenChange();
     void callOnSiblingsChange();
 
     bool m_active;

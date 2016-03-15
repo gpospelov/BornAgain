@@ -112,15 +112,6 @@ int ConnectableView::getInputPortIndex(NodeEditorPort *port)
     return m_input_ports.indexOf(port);
 }
 
-//void ConnectableView::onSiblingsChanged()
-//{
-//    if (m_item) {
-//        Q_ASSERT(0);
-//        setLabel( hyphenate(m_item->itemName()) );
-//        update();
-//    }
-//}
-
 // calculation of y-pos for ports
 void ConnectableView::setPortCoordinates()
 {

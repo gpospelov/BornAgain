@@ -91,6 +91,24 @@ int ModelMapper::nestlingDepth(SessionItem *item, int level)
 
 }
 
+void ModelMapper::callOnParentChange(SessionItem *new_parent)
+{
+    if (m_active && m_onParentChange.size() > 0) {
+        for (auto f : m_onParentChange) {
+            f(new_parent);
+        }
+    }
+}
+
+void ModelMapper::callOnChildrenChange()
+{
+    if (m_active && m_onChildrenChange.size() > 0) {
+        for (auto f : m_onChildrenChange) {
+            f();
+        }
+    }
+}
+
 void ModelMapper::callOnSiblingsChange()
 {
     if (m_active && m_onSiblingsChange.size() > 0) {
@@ -146,30 +164,18 @@ void ModelMapper::onRowsInserted(const QModelIndex &parent, int first, int last)
 
     if (SessionItem *newChild = m_model->itemForIndex(parent.child(first, 0))) {
         if (m_item == newChild) {
-            if (m_active && m_onParentChange.size() > 0) {
-                for (auto f : m_onParentChange) {
-                    f(m_model->itemForIndex(parent));
-                }
-            }
-
-//            if (m_active && m_onChildrenChange.size() > 0) {
-//                for (auto f : m_onChildrenChange) {
-//                    f();
-//                }
-//            }
+            callOnParentChange(m_model->itemForIndex(parent));
         }
 
         else if(m_item == newChild->parent()) {
-            if (m_active && m_onChildrenChange.size() > 0) {
-                for (auto f : m_onChildrenChange) {
-                    f();
-                }
-            }
+            callOnChildrenChange();
         }
 
         // inform siblings about the change
+        // FIXME SessionItems with invalid parent index (i.e. IView's located on top of graphics scene like ParticleView) should be also notified to update the label
         if(SessionItem *parent = newChild->parent()) {
-            QVector<SessionItem *> items = parent->getItems(parent->tagFromItem(newChild));
+//            QVector<SessionItem *> items = parent->getItems(parent->tagFromItem(newChild));
+            QVector<SessionItem *> items = parent->getChildrenOfType(newChild->modelType());
             foreach(SessionItem *sibling, items) {
                 if(m_item == sibling) callOnSiblingsChange();
             }
@@ -185,29 +191,17 @@ void ModelMapper::onBeginRemoveRows(const QModelIndex &parent, int first, int la
 
     if (SessionItem *newChild = m_model->itemForIndex(parent.child(first, 0))) {
         if (m_item == newChild) {
-            if (m_active && m_onParentChange.size() > 0) {
-                for (auto f : m_onParentChange) {
-                    f(nullptr);
-                }
-            }
-//            if (m_active && m_onChildrenChange.size() > 0) {
-//                for (auto f : m_onChildrenChange) {
-//                    f();
-//                }
-//            }
+            callOnParentChange(nullptr);
         }
 
         else if(m_item == newChild->parent()) {
-            if (m_active && m_onChildrenChange.size() > 0) {
-                for (auto f : m_onChildrenChange) {
-                    f();
-                }
-            }
+            callOnChildrenChange();
         }
 
         // inform siblings about the change
         if(SessionItem *parent = newChild->parent()) {
-            QVector<SessionItem *> items = parent->getItems(parent->tagFromItem(newChild));
+//            QVector<SessionItem *> items = parent->getItems(parent->tagFromItem(newChild));
+            QVector<SessionItem *> items = parent->getChildrenOfType(newChild->modelType());
             foreach(SessionItem *sibling, items) {
                 if(m_item == sibling) callOnSiblingsChange();
             }

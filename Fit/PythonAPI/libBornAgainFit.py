@@ -1441,6 +1441,268 @@ vector_string_t_swigregister(vector_string_t)
 _libBornAgainFit.GCCXML_SKIP_THIS_swigconstant(_libBornAgainFit)
 GCCXML_SKIP_THIS = _libBornAgainFit.GCCXML_SKIP_THIS
 import libBornAgainCore
+class IMinimizer(_object):
+    """
+
+
+    Common interface for all kind minimizer's.
+
+    C++ includes: IMinimizer.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IMinimizer, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, IMinimizer, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainFit.delete_IMinimizer
+    __del__ = lambda self: None
+
+    def minimize(self):
+        """
+        minimize(IMinimizer self)
+
+        virtual void IMinimizer::minimize()=0
+
+        run minimization 
+
+        """
+        return _libBornAgainFit.IMinimizer_minimize(self)
+
+
+    def setParameter(self, index, par):
+        """
+        setParameter(IMinimizer self, size_t index, FitParameter par)
+
+        void IMinimizer::setParameter(size_t index, const FitParameter *par)
+
+        Sets internal minimizer parameter. 
+
+        """
+        return _libBornAgainFit.IMinimizer_setParameter(self, index, par)
+
+
+    def setParameters(self, parameters):
+        """
+        setParameters(IMinimizer self, FitSuiteParameters parameters)
+
+        void IMinimizer::setParameters(const FitSuiteParameters &parameters)
+
+        Sets internal minimizer parameters using external parameter list. 
+
+        """
+        return _libBornAgainFit.IMinimizer_setParameters(self, parameters)
+
+
+    def setChiSquaredFunction(self, fun_chi2, nparameters):
+        """
+        setChiSquaredFunction(IMinimizer self, IMinimizer::function_chi2_t fun_chi2, size_t nparameters)
+
+        void IMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)
+
+        Sets chi squared function to minimize. 
+
+        """
+        return _libBornAgainFit.IMinimizer_setChiSquaredFunction(self, fun_chi2, nparameters)
+
+
+    def setGradientFunction(self, fun_gradient, nparameters, ndatasize):
+        """
+        setGradientFunction(IMinimizer self, IMinimizer::function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
+
+        void IMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
+
+        Sets gradient function to minimize. 
+
+        """
+        return _libBornAgainFit.IMinimizer_setGradientFunction(self, fun_gradient, nparameters, ndatasize)
+
+
+    def getNumberOfVariables(self):
+        """
+        getNumberOfVariables(IMinimizer self) -> size_t
+
+        size_t IMinimizer::getNumberOfVariables() const
+
+        Returns number of variables to fit. 
+
+        """
+        return _libBornAgainFit.IMinimizer_getNumberOfVariables(self)
+
+
+    def getMinValue(self):
+        """
+        getMinValue(IMinimizer self) -> double
+
+        double IMinimizer::getMinValue() const
+
+        Returns minimum function value. 
+
+        """
+        return _libBornAgainFit.IMinimizer_getMinValue(self)
+
+
+    def getValueOfVariableAtMinimum(self, index):
+        """
+        getValueOfVariableAtMinimum(IMinimizer self, size_t index) -> double
+
+        double IMinimizer::getValueOfVariableAtMinimum(size_t index) const
+
+        Returns value of the parameter at the minimum. 
+
+        """
+        return _libBornAgainFit.IMinimizer_getValueOfVariableAtMinimum(self, index)
+
+
+    def getValueOfVariablesAtMinimum(self):
+        """
+        getValueOfVariablesAtMinimum(IMinimizer self) -> vdouble1d_t
+
+        std::vector< double > IMinimizer::getValueOfVariablesAtMinimum() const
+
+        Returns values of parameters at the minimum. 
+
+        """
+        return _libBornAgainFit.IMinimizer_getValueOfVariablesAtMinimum(self)
+
+
+    def getErrorOfVariable(self, index):
+        """
+        getErrorOfVariable(IMinimizer self, size_t index) -> double
+
+        double IMinimizer::getErrorOfVariable(size_t index) const
+
+        Returns error of variable at minimum. 
+
+        """
+        return _libBornAgainFit.IMinimizer_getErrorOfVariable(self, index)
+
+
+    def getErrorOfVariables(self):
+        """
+        getErrorOfVariables(IMinimizer self) -> vdouble1d_t
+
+        std::vector< double > IMinimizer::getErrorOfVariables() const
+
+        Returns errors of variables at minimum. 
+
+        """
+        return _libBornAgainFit.IMinimizer_getErrorOfVariables(self)
+
+
+    def clear(self):
+        """
+        clear(IMinimizer self)
+
+        void IMinimizer::clear()
+
+        clear resources (parameters) for consecutives minimizations 
+
+        """
+        return _libBornAgainFit.IMinimizer_clear(self)
+
+
+    def printResults(self):
+        """
+        printResults(IMinimizer self)
+
+        void IMinimizer::printResults() const
+
+        Prints fit results. 
+
+        """
+        return _libBornAgainFit.IMinimizer_printResults(self)
+
+
+    def getNCalls(self):
+        """
+        getNCalls(IMinimizer self) -> size_t
+
+        size_t IMinimizer::getNCalls() const
+
+        Returns number of calls of minimized function. 
+
+        """
+        return _libBornAgainFit.IMinimizer_getNCalls(self)
+
+
+    def getOptions(self, *args):
+        """
+        getOptions(IMinimizer self) -> MinimizerOptions
+        getOptions(IMinimizer self) -> MinimizerOptions
+
+        const MinimizerOptions * IMinimizer::getOptions() const 
+
+        """
+        return _libBornAgainFit.IMinimizer_getOptions(self, *args)
+
+
+    def setOptions(self, options):
+        """
+        setOptions(IMinimizer self, MinimizerOptions options)
+
+        void IMinimizer::setOptions(const MinimizerOptions &options)
+
+        set minimizer options 
+
+        """
+        return _libBornAgainFit.IMinimizer_setOptions(self, options)
+
+
+    def setOptionString(self, options):
+        """
+        setOptionString(IMinimizer self, std::string const & options)
+
+        void IMinimizer::setOptionString(const std::string &options)
+
+        set minimizer option string 
+
+        """
+        return _libBornAgainFit.IMinimizer_setOptionString(self, options)
+
+
+    def isGradientBasedAgorithm(self):
+        """
+        isGradientBasedAgorithm(IMinimizer self) -> bool
+
+        bool IMinimizer::isGradientBasedAgorithm()
+
+        Checks if type of algorithm is Levenberg-Marquardt or similar. 
+
+        """
+        return _libBornAgainFit.IMinimizer_isGradientBasedAgorithm(self)
+
+
+    def getMinimizerName(self):
+        """
+        getMinimizerName(IMinimizer self) -> std::string
+
+        std::string IMinimizer::getMinimizerName() const
+
+        return name of the minimizer 
+
+        """
+        return _libBornAgainFit.IMinimizer_getMinimizerName(self)
+
+
+    def getAlgorithmName(self):
+        """
+        getAlgorithmName(IMinimizer self) -> std::string
+
+        std::string IMinimizer::getAlgorithmName() const
+
+        return name of the minimization algorithm 
+
+        """
+        return _libBornAgainFit.IMinimizer_getAlgorithmName(self)
+
+IMinimizer_swigregister = _libBornAgainFit.IMinimizer_swigregister
+IMinimizer_swigregister(IMinimizer)
+
 class IChiSquaredModule(libBornAgainCore.ICloneable):
     """Proxy of C++ IChiSquaredModule class."""
 
@@ -2132,268 +2394,6 @@ class SquaredFunctionGaussianError(ISquaredFunction):
 
 SquaredFunctionGaussianError_swigregister = _libBornAgainFit.SquaredFunctionGaussianError_swigregister
 SquaredFunctionGaussianError_swigregister(SquaredFunctionGaussianError)
-
-class IMinimizer(_object):
-    """
-
-
-    Common interface for all kind minimizer's.
-
-    C++ includes: IMinimizer.h
-
-    """
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IMinimizer, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, IMinimizer, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainFit.delete_IMinimizer
-    __del__ = lambda self: None
-
-    def minimize(self):
-        """
-        minimize(IMinimizer self)
-
-        virtual void IMinimizer::minimize()=0
-
-        run minimization 
-
-        """
-        return _libBornAgainFit.IMinimizer_minimize(self)
-
-
-    def setParameter(self, index, par):
-        """
-        setParameter(IMinimizer self, size_t index, FitParameter par)
-
-        void IMinimizer::setParameter(size_t index, const FitParameter *par)
-
-        Sets internal minimizer parameter. 
-
-        """
-        return _libBornAgainFit.IMinimizer_setParameter(self, index, par)
-
-
-    def setParameters(self, parameters):
-        """
-        setParameters(IMinimizer self, FitSuiteParameters parameters)
-
-        void IMinimizer::setParameters(const FitSuiteParameters &parameters)
-
-        Sets internal minimizer parameters using external parameter list. 
-
-        """
-        return _libBornAgainFit.IMinimizer_setParameters(self, parameters)
-
-
-    def setChiSquaredFunction(self, fun_chi2, nparameters):
-        """
-        setChiSquaredFunction(IMinimizer self, IMinimizer::function_chi2_t fun_chi2, size_t nparameters)
-
-        void IMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)
-
-        Sets chi squared function to minimize. 
-
-        """
-        return _libBornAgainFit.IMinimizer_setChiSquaredFunction(self, fun_chi2, nparameters)
-
-
-    def setGradientFunction(self, fun_gradient, nparameters, ndatasize):
-        """
-        setGradientFunction(IMinimizer self, IMinimizer::function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
-
-        void IMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
-
-        Sets gradient function to minimize. 
-
-        """
-        return _libBornAgainFit.IMinimizer_setGradientFunction(self, fun_gradient, nparameters, ndatasize)
-
-
-    def getNumberOfVariables(self):
-        """
-        getNumberOfVariables(IMinimizer self) -> size_t
-
-        size_t IMinimizer::getNumberOfVariables() const
-
-        Returns number of variables to fit. 
-
-        """
-        return _libBornAgainFit.IMinimizer_getNumberOfVariables(self)
-
-
-    def getMinValue(self):
-        """
-        getMinValue(IMinimizer self) -> double
-
-        double IMinimizer::getMinValue() const
-
-        Returns minimum function value. 
-
-        """
-        return _libBornAgainFit.IMinimizer_getMinValue(self)
-
-
-    def getValueOfVariableAtMinimum(self, index):
-        """
-        getValueOfVariableAtMinimum(IMinimizer self, size_t index) -> double
-
-        double IMinimizer::getValueOfVariableAtMinimum(size_t index) const
-
-        Returns value of the parameter at the minimum. 
-
-        """
-        return _libBornAgainFit.IMinimizer_getValueOfVariableAtMinimum(self, index)
-
-
-    def getValueOfVariablesAtMinimum(self):
-        """
-        getValueOfVariablesAtMinimum(IMinimizer self) -> vdouble1d_t
-
-        std::vector< double > IMinimizer::getValueOfVariablesAtMinimum() const
-
-        Returns values of parameters at the minimum. 
-
-        """
-        return _libBornAgainFit.IMinimizer_getValueOfVariablesAtMinimum(self)
-
-
-    def getErrorOfVariable(self, index):
-        """
-        getErrorOfVariable(IMinimizer self, size_t index) -> double
-
-        double IMinimizer::getErrorOfVariable(size_t index) const
-
-        Returns error of variable at minimum. 
-
-        """
-        return _libBornAgainFit.IMinimizer_getErrorOfVariable(self, index)
-
-
-    def getErrorOfVariables(self):
-        """
-        getErrorOfVariables(IMinimizer self) -> vdouble1d_t
-
-        std::vector< double > IMinimizer::getErrorOfVariables() const
-
-        Returns errors of variables at minimum. 
-
-        """
-        return _libBornAgainFit.IMinimizer_getErrorOfVariables(self)
-
-
-    def clear(self):
-        """
-        clear(IMinimizer self)
-
-        void IMinimizer::clear()
-
-        clear resources (parameters) for consecutives minimizations 
-
-        """
-        return _libBornAgainFit.IMinimizer_clear(self)
-
-
-    def printResults(self):
-        """
-        printResults(IMinimizer self)
-
-        void IMinimizer::printResults() const
-
-        Prints fit results. 
-
-        """
-        return _libBornAgainFit.IMinimizer_printResults(self)
-
-
-    def getNCalls(self):
-        """
-        getNCalls(IMinimizer self) -> size_t
-
-        size_t IMinimizer::getNCalls() const
-
-        Returns number of calls of minimized function. 
-
-        """
-        return _libBornAgainFit.IMinimizer_getNCalls(self)
-
-
-    def getOptions(self, *args):
-        """
-        getOptions(IMinimizer self) -> MinimizerOptions
-        getOptions(IMinimizer self) -> MinimizerOptions
-
-        const MinimizerOptions * IMinimizer::getOptions() const 
-
-        """
-        return _libBornAgainFit.IMinimizer_getOptions(self, *args)
-
-
-    def setOptions(self, options):
-        """
-        setOptions(IMinimizer self, MinimizerOptions options)
-
-        void IMinimizer::setOptions(const MinimizerOptions &options)
-
-        set minimizer options 
-
-        """
-        return _libBornAgainFit.IMinimizer_setOptions(self, options)
-
-
-    def setOptionString(self, options):
-        """
-        setOptionString(IMinimizer self, std::string const & options)
-
-        void IMinimizer::setOptionString(const std::string &options)
-
-        set minimizer option string 
-
-        """
-        return _libBornAgainFit.IMinimizer_setOptionString(self, options)
-
-
-    def isGradientBasedAgorithm(self):
-        """
-        isGradientBasedAgorithm(IMinimizer self) -> bool
-
-        bool IMinimizer::isGradientBasedAgorithm()
-
-        Checks if type of algorithm is Levenberg-Marquardt or similar. 
-
-        """
-        return _libBornAgainFit.IMinimizer_isGradientBasedAgorithm(self)
-
-
-    def getMinimizerName(self):
-        """
-        getMinimizerName(IMinimizer self) -> std::string
-
-        std::string IMinimizer::getMinimizerName() const
-
-        return name of the minimizer 
-
-        """
-        return _libBornAgainFit.IMinimizer_getMinimizerName(self)
-
-
-    def getAlgorithmName(self):
-        """
-        getAlgorithmName(IMinimizer self) -> std::string
-
-        std::string IMinimizer::getAlgorithmName() const
-
-        return name of the minimization algorithm 
-
-        """
-        return _libBornAgainFit.IMinimizer_getAlgorithmName(self)
-
-IMinimizer_swigregister = _libBornAgainFit.IMinimizer_swigregister
-IMinimizer_swigregister(IMinimizer)
 
 class ChiSquaredModule(IChiSquaredModule):
     """Proxy of C++ ChiSquaredModule class."""
@@ -3735,77 +3735,6 @@ def isnan(x):
 def isinf(x):
     """isinf(double x) -> bool"""
     return _libBornAgainFit.isinf(x)
-class MinimizerFactory(_object):
-    """
-
-
-    Factory to create minimizers.
-
-    C++ includes: MinimizerFactory.h
-
-    """
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, MinimizerFactory, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, MinimizerFactory, name)
-    __repr__ = _swig_repr
-
-    def printCatalogue():
-        """printCatalogue()"""
-        return _libBornAgainFit.MinimizerFactory_printCatalogue()
-
-    if _newclass:
-        printCatalogue = staticmethod(printCatalogue)
-    __swig_getmethods__["printCatalogue"] = lambda x: printCatalogue
-
-    def createMinimizer(*args):
-        """
-        createMinimizer(std::string const & minimizer, std::string const & algorithm, std::string const & options) -> IMinimizer
-        createMinimizer(std::string const & minimizer, std::string const & algorithm) -> IMinimizer
-        createMinimizer(std::string const & minimizer) -> IMinimizer
-        createMinimizer(IMinimizer minimizer) -> IMinimizer
-        """
-        return _libBornAgainFit.MinimizerFactory_createMinimizer(*args)
-
-    if _newclass:
-        createMinimizer = staticmethod(createMinimizer)
-    __swig_getmethods__["createMinimizer"] = lambda x: createMinimizer
-
-    def __init__(self):
-        """
-        __init__(MinimizerFactory self) -> MinimizerFactory
-
-
-
-        Factory to create minimizers.
-
-        C++ includes: MinimizerFactory.h
-
-        """
-        this = _libBornAgainFit.new_MinimizerFactory()
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainFit.delete_MinimizerFactory
-    __del__ = lambda self: None
-MinimizerFactory_swigregister = _libBornAgainFit.MinimizerFactory_swigregister
-MinimizerFactory_swigregister(MinimizerFactory)
-
-def MinimizerFactory_printCatalogue():
-    """MinimizerFactory_printCatalogue()"""
-    return _libBornAgainFit.MinimizerFactory_printCatalogue()
-
-def MinimizerFactory_createMinimizer(*args):
-    """
-    createMinimizer(std::string const & minimizer, std::string const & algorithm, std::string const & options) -> IMinimizer
-    createMinimizer(std::string const & minimizer, std::string const & algorithm) -> IMinimizer
-    createMinimizer(std::string const & minimizer) -> IMinimizer
-    MinimizerFactory_createMinimizer(IMinimizer minimizer) -> IMinimizer
-    """
-    return _libBornAgainFit.MinimizerFactory_createMinimizer(*args)
-
 class MinimizerOptions(_object):
     """
 
@@ -4036,6 +3965,77 @@ class MinimizerOptions(_object):
 
 MinimizerOptions_swigregister = _libBornAgainFit.MinimizerOptions_swigregister
 MinimizerOptions_swigregister(MinimizerOptions)
+
+class MinimizerFactory(_object):
+    """
+
+
+    Factory to create minimizers.
+
+    C++ includes: MinimizerFactory.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, MinimizerFactory, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, MinimizerFactory, name)
+    __repr__ = _swig_repr
+
+    def printCatalogue():
+        """printCatalogue()"""
+        return _libBornAgainFit.MinimizerFactory_printCatalogue()
+
+    if _newclass:
+        printCatalogue = staticmethod(printCatalogue)
+    __swig_getmethods__["printCatalogue"] = lambda x: printCatalogue
+
+    def createMinimizer(*args):
+        """
+        createMinimizer(std::string const & minimizer, std::string const & algorithm, std::string const & options) -> IMinimizer
+        createMinimizer(std::string const & minimizer, std::string const & algorithm) -> IMinimizer
+        createMinimizer(std::string const & minimizer) -> IMinimizer
+        createMinimizer(IMinimizer minimizer) -> IMinimizer
+        """
+        return _libBornAgainFit.MinimizerFactory_createMinimizer(*args)
+
+    if _newclass:
+        createMinimizer = staticmethod(createMinimizer)
+    __swig_getmethods__["createMinimizer"] = lambda x: createMinimizer
+
+    def __init__(self):
+        """
+        __init__(MinimizerFactory self) -> MinimizerFactory
+
+
+
+        Factory to create minimizers.
+
+        C++ includes: MinimizerFactory.h
+
+        """
+        this = _libBornAgainFit.new_MinimizerFactory()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainFit.delete_MinimizerFactory
+    __del__ = lambda self: None
+MinimizerFactory_swigregister = _libBornAgainFit.MinimizerFactory_swigregister
+MinimizerFactory_swigregister(MinimizerFactory)
+
+def MinimizerFactory_printCatalogue():
+    """MinimizerFactory_printCatalogue()"""
+    return _libBornAgainFit.MinimizerFactory_printCatalogue()
+
+def MinimizerFactory_createMinimizer(*args):
+    """
+    createMinimizer(std::string const & minimizer, std::string const & algorithm, std::string const & options) -> IMinimizer
+    createMinimizer(std::string const & minimizer, std::string const & algorithm) -> IMinimizer
+    createMinimizer(std::string const & minimizer) -> IMinimizer
+    MinimizerFactory_createMinimizer(IMinimizer minimizer) -> IMinimizer
+    """
+    return _libBornAgainFit.MinimizerFactory_createMinimizer(*args)
 
 class FitStrategyAdjustMinimizer(IFitStrategy):
     """

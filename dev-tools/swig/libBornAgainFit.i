@@ -173,13 +173,11 @@ import_array();
 %import(module="libBornAgainCore") "AttLimits.h"
 %import(module="libBornAgainCore") "ICloneable.h"
 %import(module="libBornAgainCore") "INamed.h"
-%import(module="libBornAgainCore") "INamedShared.h"
 %import(module="libBornAgainCore") "IParameterized.h"
-%import(module="libBornAgainCore") "IParameterizedShared.h"
 %import(module="libBornAgainCore") "IObserver.h"
 
 
-
+%include "IMinimizer.h"
 
 %include "IChiSquaredModule.h"
 %include "IFitObserver.h"
@@ -188,8 +186,6 @@ import_array();
 %include "IIntensityNormalizer.h"
 
 %include "ISquaredFunction.h"
-
-%include "IMinimizer.h"
 
 
 %include "ChiSquaredModule.h"
@@ -201,12 +197,11 @@ import_array();
 %include "FitSuiteObjects.h"
 %include "FitSuiteParameters.h"
 
-
-
-
 %include "MathFunctions.h"
-%include "MinimizerFactory.h"
+
 %include "MinimizerOptions.h"
+%include "MinimizerFactory.h"
+
 
 %include "FitStrategyAdjustMinimizer.h"
 

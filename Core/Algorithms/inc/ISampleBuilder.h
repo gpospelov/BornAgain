@@ -18,7 +18,7 @@
 
 #include "ISample.h"
 #include <memory>
-#include "IParameterizedShared.h"
+#include "IParameterized.h"
 
 class IComponentService;
 
@@ -27,7 +27,7 @@ class IComponentService;
 //! @brief Interface to the class capable to build samples to simulate
 
 
-class BA_CORE_API_ ISampleBuilder : public IParameterizedShared
+class BA_CORE_API_ ISampleBuilder : public IParameterized
 {
 public:
     ISampleBuilder() { setName("SampleBuilder"); }

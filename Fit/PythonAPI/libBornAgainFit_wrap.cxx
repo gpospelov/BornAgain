@@ -3519,31 +3519,25 @@ namespace Swig {
 #define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[62]
 #define SWIGTYPE_p_std__invalid_argument swig_types[63]
 #define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[64]
-#define SWIGTYPE_p_std__shared_ptrT_INamedShared_t swig_types[65]
-#define SWIGTYPE_p_std__shared_ptrT_INamedTemplateT_IShareable_t_t swig_types[66]
-#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[67]
-#define SWIGTYPE_p_std__shared_ptrT_IParameterizedShared_t swig_types[68]
-#define SWIGTYPE_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t swig_types[69]
-#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[70]
-#define SWIGTYPE_p_std__shared_ptrT_LayerRTCoefficients_t_t swig_types[71]
-#define SWIGTYPE_p_std__shared_ptrT_ProgressHandler_t_t swig_types[72]
-#define SWIGTYPE_p_std__string swig_types[73]
-#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t swig_types[74]
-#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator swig_types[75]
-#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__iterator swig_types[76]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[77]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[78]
-#define SWIGTYPE_p_std__vectorT_complex_t_std__allocatorT_complex_t_t_t swig_types[79]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[80]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[81]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[82]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[83]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[84]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[85]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[86]
-#define SWIGTYPE_p_value_type swig_types[87]
-static swig_type_info *swig_types[89];
-static swig_module_info swig_module = {swig_types, 88, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[65]
+#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[66]
+#define SWIGTYPE_p_std__string swig_types[67]
+#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t swig_types[68]
+#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator swig_types[69]
+#define SWIGTYPE_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__iterator swig_types[70]
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[71]
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[72]
+#define SWIGTYPE_p_std__vectorT_complex_t_std__allocatorT_complex_t_t_t swig_types[73]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[74]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[75]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[76]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[77]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[78]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[79]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[80]
+#define SWIGTYPE_p_value_type swig_types[81]
+static swig_type_info *swig_types[83];
+static swig_module_info swig_module = {swig_types, 82, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -18696,6 +18690,664 @@ SWIGINTERN PyObject *GCCXML_SKIP_THIS_swigconstant(PyObject *SWIGUNUSEDPARM(self
 }
 
 
+SWIGINTERN PyObject *_wrap_delete_IMinimizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_IMinimizer",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IMinimizer" "', argument " "1"" of type '" "IMinimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_minimize(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_minimize",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_minimize" "', argument " "1"" of type '" "IMinimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  (arg1)->minimize();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_setParameter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  size_t arg2 ;
+  FitParameter *arg3 = (FitParameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:IMinimizer_setParameter",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setParameter" "', argument " "1"" of type '" "IMinimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IMinimizer_setParameter" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_FitParameter, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IMinimizer_setParameter" "', argument " "3"" of type '" "FitParameter const *""'"); 
+  }
+  arg3 = reinterpret_cast< FitParameter * >(argp3);
+  (arg1)->setParameter(arg2,(FitParameter const *)arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_setParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  FitSuiteParameters *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_setParameters",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setParameters" "', argument " "1"" of type '" "IMinimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_FitSuiteParameters,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setParameters" "', argument " "2"" of type '" "FitSuiteParameters const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setParameters" "', argument " "2"" of type '" "FitSuiteParameters const &""'"); 
+  }
+  arg2 = reinterpret_cast< FitSuiteParameters * >(argp2);
+  (arg1)->setParameters((FitSuiteParameters const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_setChiSquaredFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  IMinimizer::function_chi2_t arg2 ;
+  size_t arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:IMinimizer_setChiSquaredFunction",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setChiSquaredFunction" "', argument " "1"" of type '" "IMinimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_boost__functionT_double_fdouble_const_pF_t,  0  | 0);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setChiSquaredFunction" "', argument " "2"" of type '" "IMinimizer::function_chi2_t""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setChiSquaredFunction" "', argument " "2"" of type '" "IMinimizer::function_chi2_t""'");
+    } else {
+      IMinimizer::function_chi2_t * temp = reinterpret_cast< IMinimizer::function_chi2_t * >(argp2);
+      arg2 = *temp;
+      if (SWIG_IsNewObj(res2)) delete temp;
+    }
+  }
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IMinimizer_setChiSquaredFunction" "', argument " "3"" of type '" "size_t""'");
+  } 
+  arg3 = static_cast< size_t >(val3);
+  (arg1)->setChiSquaredFunction(arg2,arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_setGradientFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  IMinimizer::function_gradient_t arg2 ;
+  size_t arg3 ;
+  size_t arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  size_t val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:IMinimizer_setGradientFunction",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setGradientFunction" "', argument " "1"" of type '" "IMinimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_boost__functionT_double_fdouble_const_p_unsigned_int_double_pF_t,  0  | 0);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setGradientFunction" "', argument " "2"" of type '" "IMinimizer::function_gradient_t""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setGradientFunction" "', argument " "2"" of type '" "IMinimizer::function_gradient_t""'");
+    } else {
+      IMinimizer::function_gradient_t * temp = reinterpret_cast< IMinimizer::function_gradient_t * >(argp2);
+      arg2 = *temp;
+      if (SWIG_IsNewObj(res2)) delete temp;
+    }
+  }
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IMinimizer_setGradientFunction" "', argument " "3"" of type '" "size_t""'");
+  } 
+  arg3 = static_cast< size_t >(val3);
+  ecode4 = SWIG_AsVal_size_t(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "IMinimizer_setGradientFunction" "', argument " "4"" of type '" "size_t""'");
+  } 
+  arg4 = static_cast< size_t >(val4);
+  (arg1)->setGradientFunction(arg2,arg3,arg4);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_getNumberOfVariables(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  size_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getNumberOfVariables",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getNumberOfVariables" "', argument " "1"" of type '" "IMinimizer const *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  result = ((IMinimizer const *)arg1)->getNumberOfVariables();
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_getMinValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getMinValue",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getMinValue" "', argument " "1"" of type '" "IMinimizer const *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  result = (double)((IMinimizer const *)arg1)->getMinValue();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_getValueOfVariableAtMinimum(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  size_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_getValueOfVariableAtMinimum",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getValueOfVariableAtMinimum" "', argument " "1"" of type '" "IMinimizer const *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IMinimizer_getValueOfVariableAtMinimum" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  result = (double)((IMinimizer const *)arg1)->getValueOfVariableAtMinimum(arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_getValueOfVariablesAtMinimum(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getValueOfVariablesAtMinimum",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getValueOfVariablesAtMinimum" "', argument " "1"" of type '" "IMinimizer const *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  result = ((IMinimizer const *)arg1)->getValueOfVariablesAtMinimum();
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_getErrorOfVariable(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  size_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_getErrorOfVariable",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getErrorOfVariable" "', argument " "1"" of type '" "IMinimizer const *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IMinimizer_getErrorOfVariable" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  result = (double)((IMinimizer const *)arg1)->getErrorOfVariable(arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_getErrorOfVariables(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getErrorOfVariables",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getErrorOfVariables" "', argument " "1"" of type '" "IMinimizer const *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  result = ((IMinimizer const *)arg1)->getErrorOfVariables();
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_clear(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_clear",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_clear" "', argument " "1"" of type '" "IMinimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  (arg1)->clear();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_printResults(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_printResults",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_printResults" "', argument " "1"" of type '" "IMinimizer const *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  ((IMinimizer const *)arg1)->printResults();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_getNCalls(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  size_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getNCalls",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getNCalls" "', argument " "1"" of type '" "IMinimizer const *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  result = ((IMinimizer const *)arg1)->getNCalls();
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_getOptions__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  MinimizerOptions *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getOptions",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getOptions" "', argument " "1"" of type '" "IMinimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  result = (MinimizerOptions *)(arg1)->getOptions();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_getOptions__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  MinimizerOptions *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getOptions",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getOptions" "', argument " "1"" of type '" "IMinimizer const *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  result = (MinimizerOptions *)((IMinimizer const *)arg1)->getOptions();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_getOptions(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IMinimizer, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_IMinimizer_getOptions__SWIG_0(self, args);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IMinimizer, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_IMinimizer_getOptions__SWIG_1(self, args);
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'IMinimizer_getOptions'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    IMinimizer::getOptions()\n"
+    "    IMinimizer::getOptions() const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_setOptions(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  MinimizerOptions *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_setOptions",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setOptions" "', argument " "1"" of type '" "IMinimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_MinimizerOptions,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setOptions" "', argument " "2"" of type '" "MinimizerOptions const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setOptions" "', argument " "2"" of type '" "MinimizerOptions const &""'"); 
+  }
+  arg2 = reinterpret_cast< MinimizerOptions * >(argp2);
+  (arg1)->setOptions((MinimizerOptions const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_setOptionString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_setOptionString",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setOptionString" "', argument " "1"" of type '" "IMinimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setOptionString" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setOptionString" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  (arg1)->setOptionString((std::string const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_isGradientBasedAgorithm(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_isGradientBasedAgorithm",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_isGradientBasedAgorithm" "', argument " "1"" of type '" "IMinimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  result = (bool)(arg1)->isGradientBasedAgorithm();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_getMinimizerName(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::string result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getMinimizerName",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getMinimizerName" "', argument " "1"" of type '" "IMinimizer const *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  result = ((IMinimizer const *)arg1)->getMinimizerName();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_getAlgorithmName(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::string result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getAlgorithmName",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getAlgorithmName" "', argument " "1"" of type '" "IMinimizer const *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  result = ((IMinimizer const *)arg1)->getAlgorithmName();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *IMinimizer_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_IMinimizer, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
 SWIGINTERN PyObject *_wrap_delete_IChiSquaredModule(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IChiSquaredModule *arg1 = (IChiSquaredModule *) 0 ;
@@ -21358,664 +22010,6 @@ SWIGINTERN PyObject *SquaredFunctionGaussianError_swigregister(PyObject *SWIGUNU
   PyObject *obj;
   if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
   SWIG_TypeNewClientData(SWIGTYPE_p_SquaredFunctionGaussianError, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *_wrap_delete_IMinimizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:delete_IMinimizer",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IMinimizer" "', argument " "1"" of type '" "IMinimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_minimize(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_minimize",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_minimize" "', argument " "1"" of type '" "IMinimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  (arg1)->minimize();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_setParameter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  size_t arg2 ;
-  FitParameter *arg3 = (FitParameter *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOO:IMinimizer_setParameter",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setParameter" "', argument " "1"" of type '" "IMinimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IMinimizer_setParameter" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_FitParameter, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IMinimizer_setParameter" "', argument " "3"" of type '" "FitParameter const *""'"); 
-  }
-  arg3 = reinterpret_cast< FitParameter * >(argp3);
-  (arg1)->setParameter(arg2,(FitParameter const *)arg3);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_setParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  FitSuiteParameters *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_setParameters",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setParameters" "', argument " "1"" of type '" "IMinimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_FitSuiteParameters,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setParameters" "', argument " "2"" of type '" "FitSuiteParameters const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setParameters" "', argument " "2"" of type '" "FitSuiteParameters const &""'"); 
-  }
-  arg2 = reinterpret_cast< FitSuiteParameters * >(argp2);
-  (arg1)->setParameters((FitSuiteParameters const &)*arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_setChiSquaredFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  IMinimizer::function_chi2_t arg2 ;
-  size_t arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  size_t val3 ;
-  int ecode3 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOO:IMinimizer_setChiSquaredFunction",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setChiSquaredFunction" "', argument " "1"" of type '" "IMinimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_boost__functionT_double_fdouble_const_pF_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setChiSquaredFunction" "', argument " "2"" of type '" "IMinimizer::function_chi2_t""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setChiSquaredFunction" "', argument " "2"" of type '" "IMinimizer::function_chi2_t""'");
-    } else {
-      IMinimizer::function_chi2_t * temp = reinterpret_cast< IMinimizer::function_chi2_t * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IMinimizer_setChiSquaredFunction" "', argument " "3"" of type '" "size_t""'");
-  } 
-  arg3 = static_cast< size_t >(val3);
-  (arg1)->setChiSquaredFunction(arg2,arg3);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_setGradientFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  IMinimizer::function_gradient_t arg2 ;
-  size_t arg3 ;
-  size_t arg4 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  size_t val3 ;
-  int ecode3 = 0 ;
-  size_t val4 ;
-  int ecode4 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  PyObject * obj3 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOOO:IMinimizer_setGradientFunction",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setGradientFunction" "', argument " "1"" of type '" "IMinimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_boost__functionT_double_fdouble_const_p_unsigned_int_double_pF_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setGradientFunction" "', argument " "2"" of type '" "IMinimizer::function_gradient_t""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setGradientFunction" "', argument " "2"" of type '" "IMinimizer::function_gradient_t""'");
-    } else {
-      IMinimizer::function_gradient_t * temp = reinterpret_cast< IMinimizer::function_gradient_t * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IMinimizer_setGradientFunction" "', argument " "3"" of type '" "size_t""'");
-  } 
-  arg3 = static_cast< size_t >(val3);
-  ecode4 = SWIG_AsVal_size_t(obj3, &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "IMinimizer_setGradientFunction" "', argument " "4"" of type '" "size_t""'");
-  } 
-  arg4 = static_cast< size_t >(val4);
-  (arg1)->setGradientFunction(arg2,arg3,arg4);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_getNumberOfVariables(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  size_t result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getNumberOfVariables",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getNumberOfVariables" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = ((IMinimizer const *)arg1)->getNumberOfVariables();
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_getMinValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  double result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getMinValue",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getMinValue" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = (double)((IMinimizer const *)arg1)->getMinValue();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_getValueOfVariableAtMinimum(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  size_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  double result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_getValueOfVariableAtMinimum",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getValueOfVariableAtMinimum" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IMinimizer_getValueOfVariableAtMinimum" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  result = (double)((IMinimizer const *)arg1)->getValueOfVariableAtMinimum(arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_getValueOfVariablesAtMinimum(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  std::vector< double,std::allocator< double > > result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getValueOfVariablesAtMinimum",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getValueOfVariablesAtMinimum" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = ((IMinimizer const *)arg1)->getValueOfVariablesAtMinimum();
-  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_getErrorOfVariable(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  size_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  double result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_getErrorOfVariable",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getErrorOfVariable" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IMinimizer_getErrorOfVariable" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  result = (double)((IMinimizer const *)arg1)->getErrorOfVariable(arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_getErrorOfVariables(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  std::vector< double,std::allocator< double > > result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getErrorOfVariables",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getErrorOfVariables" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = ((IMinimizer const *)arg1)->getErrorOfVariables();
-  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_clear(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_clear",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_clear" "', argument " "1"" of type '" "IMinimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  (arg1)->clear();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_printResults(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_printResults",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_printResults" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  ((IMinimizer const *)arg1)->printResults();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_getNCalls(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  size_t result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getNCalls",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getNCalls" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = ((IMinimizer const *)arg1)->getNCalls();
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_getOptions__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  MinimizerOptions *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getOptions",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getOptions" "', argument " "1"" of type '" "IMinimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = (MinimizerOptions *)(arg1)->getOptions();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MinimizerOptions, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_getOptions__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  MinimizerOptions *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getOptions",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getOptions" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = (MinimizerOptions *)((IMinimizer const *)arg1)->getOptions();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MinimizerOptions, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_getOptions(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = args ? PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
-    argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 1) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IMinimizer, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_IMinimizer_getOptions__SWIG_0(self, args);
-    }
-  }
-  if (argc == 1) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IMinimizer, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_IMinimizer_getOptions__SWIG_1(self, args);
-    }
-  }
-  
-fail:
-  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'IMinimizer_getOptions'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    IMinimizer::getOptions()\n"
-    "    IMinimizer::getOptions() const\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_setOptions(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  MinimizerOptions *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_setOptions",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setOptions" "', argument " "1"" of type '" "IMinimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_MinimizerOptions,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setOptions" "', argument " "2"" of type '" "MinimizerOptions const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setOptions" "', argument " "2"" of type '" "MinimizerOptions const &""'"); 
-  }
-  arg2 = reinterpret_cast< MinimizerOptions * >(argp2);
-  (arg1)->setOptions((MinimizerOptions const &)*arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_setOptionString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_setOptionString",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setOptionString" "', argument " "1"" of type '" "IMinimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setOptionString" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setOptionString" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  (arg1)->setOptionString((std::string const &)*arg2);
-  resultobj = SWIG_Py_Void();
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_isGradientBasedAgorithm(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_isGradientBasedAgorithm",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_isGradientBasedAgorithm" "', argument " "1"" of type '" "IMinimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = (bool)(arg1)->isGradientBasedAgorithm();
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_getMinimizerName(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  std::string result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getMinimizerName",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getMinimizerName" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = ((IMinimizer const *)arg1)->getMinimizerName();
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_getAlgorithmName(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  std::string result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getAlgorithmName",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getAlgorithmName" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = ((IMinimizer const *)arg1)->getAlgorithmName();
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *IMinimizer_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_IMinimizer, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
@@ -28188,285 +28182,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  std::string *arg2 = 0 ;
-  std::string *arg3 = 0 ;
-  int res1 = SWIG_OLDOBJ ;
-  int res2 = SWIG_OLDOBJ ;
-  int res3 = SWIG_OLDOBJ ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  IMinimizer *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOO:MinimizerFactory_createMinimizer",&obj0,&obj1,&obj2)) SWIG_fail;
-  {
-    std::string *ptr = (std::string *)0;
-    res1 = SWIG_AsPtr_std_string(obj0, &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerFactory_createMinimizer" "', argument " "1"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerFactory_createMinimizer" "', argument " "1"" of type '" "std::string const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerFactory_createMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerFactory_createMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(obj2, &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "MinimizerFactory_createMinimizer" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerFactory_createMinimizer" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
-  result = (IMinimizer *)MinimizerFactory::createMinimizer((std::string const &)*arg1,(std::string const &)*arg2,(std::string const &)*arg3);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  std::string *arg2 = 0 ;
-  int res1 = SWIG_OLDOBJ ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  IMinimizer *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:MinimizerFactory_createMinimizer",&obj0,&obj1)) SWIG_fail;
-  {
-    std::string *ptr = (std::string *)0;
-    res1 = SWIG_AsPtr_std_string(obj0, &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerFactory_createMinimizer" "', argument " "1"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerFactory_createMinimizer" "', argument " "1"" of type '" "std::string const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerFactory_createMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerFactory_createMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  result = (IMinimizer *)MinimizerFactory::createMinimizer((std::string const &)*arg1,(std::string const &)*arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  int res1 = SWIG_OLDOBJ ;
-  PyObject * obj0 = 0 ;
-  IMinimizer *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:MinimizerFactory_createMinimizer",&obj0)) SWIG_fail;
-  {
-    std::string *ptr = (std::string *)0;
-    res1 = SWIG_AsPtr_std_string(obj0, &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerFactory_createMinimizer" "', argument " "1"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerFactory_createMinimizer" "', argument " "1"" of type '" "std::string const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  result = (IMinimizer *)MinimizerFactory::createMinimizer((std::string const &)*arg1);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MinimizerFactory_printCatalogue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  
-  if (!PyArg_ParseTuple(args,(char *)":MinimizerFactory_printCatalogue")) SWIG_fail;
-  MinimizerFactory::printCatalogue();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  IMinimizer *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:MinimizerFactory_createMinimizer",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerFactory_createMinimizer" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = (IMinimizer *)MinimizerFactory::createMinimizer((IMinimizer const *)arg1);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[4] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = args ? PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
-    argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 1) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IMinimizer, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_MinimizerFactory_createMinimizer__SWIG_3(self, args);
-    }
-  }
-  if (argc == 1) {
-    int _v;
-    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_MinimizerFactory_createMinimizer__SWIG_2(self, args);
-    }
-  }
-  if (argc == 2) {
-    int _v;
-    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_MinimizerFactory_createMinimizer__SWIG_1(self, args);
-      }
-    }
-  }
-  if (argc == 3) {
-    int _v;
-    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        int res = SWIG_AsPtr_std_string(argv[2], (std::string**)(0));
-        _v = SWIG_CheckState(res);
-        if (_v) {
-          return _wrap_MinimizerFactory_createMinimizer__SWIG_0(self, args);
-        }
-      }
-    }
-  }
-  
-fail:
-  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'MinimizerFactory_createMinimizer'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    MinimizerFactory::createMinimizer(std::string const &,std::string const &,std::string const &)\n"
-    "    MinimizerFactory::createMinimizer(std::string const &,std::string const &)\n"
-    "    MinimizerFactory::createMinimizer(std::string const &)\n"
-    "    MinimizerFactory::createMinimizer(IMinimizer const *)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_MinimizerFactory(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MinimizerFactory *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)":new_MinimizerFactory")) SWIG_fail;
-  result = (MinimizerFactory *)new MinimizerFactory();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MinimizerFactory, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_MinimizerFactory(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MinimizerFactory *arg1 = (MinimizerFactory *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:delete_MinimizerFactory",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerFactory, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_MinimizerFactory" "', argument " "1"" of type '" "MinimizerFactory *""'"); 
-  }
-  arg1 = reinterpret_cast< MinimizerFactory * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *MinimizerFactory_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_MinimizerFactory, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
 SWIGINTERN PyObject *_wrap_new_MinimizerOptions(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   MinimizerOptions *result = 0 ;
@@ -29573,6 +29288,285 @@ SWIGINTERN PyObject *MinimizerOptions_swigregister(PyObject *SWIGUNUSEDPARM(self
   return SWIG_Py_Void();
 }
 
+SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::string *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  int res1 = SWIG_OLDOBJ ;
+  int res2 = SWIG_OLDOBJ ;
+  int res3 = SWIG_OLDOBJ ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  IMinimizer *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:MinimizerFactory_createMinimizer",&obj0,&obj1,&obj2)) SWIG_fail;
+  {
+    std::string *ptr = (std::string *)0;
+    res1 = SWIG_AsPtr_std_string(obj0, &ptr);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerFactory_createMinimizer" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerFactory_createMinimizer" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    arg1 = ptr;
+  }
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerFactory_createMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerFactory_createMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  {
+    std::string *ptr = (std::string *)0;
+    res3 = SWIG_AsPtr_std_string(obj2, &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "MinimizerFactory_createMinimizer" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerFactory_createMinimizer" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  result = (IMinimizer *)MinimizerFactory::createMinimizer((std::string const &)*arg1,(std::string const &)*arg2,(std::string const &)*arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::string *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  int res1 = SWIG_OLDOBJ ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  IMinimizer *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:MinimizerFactory_createMinimizer",&obj0,&obj1)) SWIG_fail;
+  {
+    std::string *ptr = (std::string *)0;
+    res1 = SWIG_AsPtr_std_string(obj0, &ptr);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerFactory_createMinimizer" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerFactory_createMinimizer" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    arg1 = ptr;
+  }
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerFactory_createMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerFactory_createMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  result = (IMinimizer *)MinimizerFactory::createMinimizer((std::string const &)*arg1,(std::string const &)*arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::string *arg1 = 0 ;
+  int res1 = SWIG_OLDOBJ ;
+  PyObject * obj0 = 0 ;
+  IMinimizer *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:MinimizerFactory_createMinimizer",&obj0)) SWIG_fail;
+  {
+    std::string *ptr = (std::string *)0;
+    res1 = SWIG_AsPtr_std_string(obj0, &ptr);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerFactory_createMinimizer" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerFactory_createMinimizer" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    arg1 = ptr;
+  }
+  result = (IMinimizer *)MinimizerFactory::createMinimizer((std::string const &)*arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerFactory_printCatalogue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  
+  if (!PyArg_ParseTuple(args,(char *)":MinimizerFactory_printCatalogue")) SWIG_fail;
+  MinimizerFactory::printCatalogue();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  IMinimizer *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:MinimizerFactory_createMinimizer",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerFactory_createMinimizer" "', argument " "1"" of type '" "IMinimizer const *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  result = (IMinimizer *)MinimizerFactory::createMinimizer((IMinimizer const *)arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IMinimizer, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_MinimizerFactory_createMinimizer__SWIG_3(self, args);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_MinimizerFactory_createMinimizer__SWIG_2(self, args);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_MinimizerFactory_createMinimizer__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_AsPtr_std_string(argv[2], (std::string**)(0));
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_MinimizerFactory_createMinimizer__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'MinimizerFactory_createMinimizer'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    MinimizerFactory::createMinimizer(std::string const &,std::string const &,std::string const &)\n"
+    "    MinimizerFactory::createMinimizer(std::string const &,std::string const &)\n"
+    "    MinimizerFactory::createMinimizer(std::string const &)\n"
+    "    MinimizerFactory::createMinimizer(IMinimizer const *)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_MinimizerFactory(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  MinimizerFactory *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_MinimizerFactory")) SWIG_fail;
+  result = (MinimizerFactory *)new MinimizerFactory();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MinimizerFactory, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_MinimizerFactory(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  MinimizerFactory *arg1 = (MinimizerFactory *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_MinimizerFactory",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerFactory, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_MinimizerFactory" "', argument " "1"" of type '" "MinimizerFactory *""'"); 
+  }
+  arg1 = reinterpret_cast< MinimizerFactory * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *MinimizerFactory_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_MinimizerFactory, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
 SWIGINTERN PyObject *_wrap_new_FitStrategyAdjustMinimizer__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FitStrategyAdjustMinimizer *result = 0 ;
@@ -30574,169 +30568,6 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"delete_vector_string_t", _wrap_delete_vector_string_t, METH_VARARGS, (char *)"delete_vector_string_t(vector_string_t self)"},
 	 { (char *)"vector_string_t_swigregister", vector_string_t_swigregister, METH_VARARGS, NULL},
 	 { (char *)"GCCXML_SKIP_THIS_swigconstant", GCCXML_SKIP_THIS_swigconstant, METH_VARARGS, NULL},
-	 { (char *)"delete_IChiSquaredModule", _wrap_delete_IChiSquaredModule, METH_VARARGS, (char *)"delete_IChiSquaredModule(IChiSquaredModule self)"},
-	 { (char *)"IChiSquaredModule_clone", _wrap_IChiSquaredModule_clone, METH_VARARGS, (char *)"IChiSquaredModule_clone(IChiSquaredModule self) -> IChiSquaredModule"},
-	 { (char *)"IChiSquaredModule_getSquaredFunction", _wrap_IChiSquaredModule_getSquaredFunction, METH_VARARGS, (char *)"IChiSquaredModule_getSquaredFunction(IChiSquaredModule self) -> ISquaredFunction"},
-	 { (char *)"IChiSquaredModule_setChiSquaredFunction", _wrap_IChiSquaredModule_setChiSquaredFunction, METH_VARARGS, (char *)"\n"
-		"setChiSquaredFunction(ISquaredFunction squared_function)\n"
-		"IChiSquaredModule_setChiSquaredFunction(IChiSquaredModule self, ISquaredFunction squared_function)\n"
-		""},
-	 { (char *)"IChiSquaredModule_getIntensityNormalizer", _wrap_IChiSquaredModule_getIntensityNormalizer, METH_VARARGS, (char *)"\n"
-		"getIntensityNormalizer() -> IIntensityNormalizer\n"
-		"IChiSquaredModule_getIntensityNormalizer(IChiSquaredModule self) -> IIntensityNormalizer\n"
-		""},
-	 { (char *)"IChiSquaredModule_setIntensityNormalizer", _wrap_IChiSquaredModule_setIntensityNormalizer, METH_VARARGS, (char *)"IChiSquaredModule_setIntensityNormalizer(IChiSquaredModule self, IIntensityNormalizer data_normalizer)"},
-	 { (char *)"IChiSquaredModule_getIntensityFunction", _wrap_IChiSquaredModule_getIntensityFunction, METH_VARARGS, (char *)"IChiSquaredModule_getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction"},
-	 { (char *)"IChiSquaredModule_setIntensityFunction", _wrap_IChiSquaredModule_setIntensityFunction, METH_VARARGS, (char *)"IChiSquaredModule_setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)"},
-	 { (char *)"IChiSquaredModule_processFitElements", _wrap_IChiSquaredModule_processFitElements, METH_VARARGS, (char *)"IChiSquaredModule_processFitElements(IChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator arg3, std::vector< FitElement,std::allocator< FitElement > >::iterator arg4)"},
-	 { (char *)"IChiSquaredModule_swigregister", IChiSquaredModule_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_IFitObserver", _wrap_new_IFitObserver, METH_VARARGS, (char *)"\n"
-		"new_IFitObserver(PyObject * arg2, int update_every_nth) -> IFitObserver\n"
-		"\n"
-		"IFitObserver::IFitObserver(int update_every_nth)\n"
-		"\n"
-		""},
-	 { (char *)"IFitObserver_notify", _wrap_IFitObserver_notify, METH_VARARGS, (char *)"\n"
-		"IFitObserver_notify(IFitObserver self, IObservable subject)\n"
-		"\n"
-		"void IFitObserver::notify(IObservable *subject)\n"
-		"\n"
-		"The method used by Ovservable when he wants to be observed by this. \n"
-		"\n"
-		""},
-	 { (char *)"IFitObserver_update", _wrap_IFitObserver_update, METH_VARARGS, (char *)"\n"
-		"IFitObserver_update(IFitObserver self, FitSuite fit_suite)\n"
-		"\n"
-		"void IFitObserver::update(FitSuite *fit_suite)\n"
-		"\n"
-		"Here Onserver will do actuall job when he thinks that it is a right moment. \n"
-		"\n"
-		""},
-	 { (char *)"delete_IFitObserver", _wrap_delete_IFitObserver, METH_VARARGS, (char *)"delete_IFitObserver(IFitObserver self)"},
-	 { (char *)"disown_IFitObserver", _wrap_disown_IFitObserver, METH_VARARGS, NULL},
-	 { (char *)"IFitObserver_swigregister", IFitObserver_swigregister, METH_VARARGS, NULL},
-	 { (char *)"IFitStrategy_clone", _wrap_IFitStrategy_clone, METH_VARARGS, (char *)"\n"
-		"IFitStrategy_clone(IFitStrategy self) -> IFitStrategy\n"
-		"\n"
-		"virtual IFitStrategy* IFitStrategy::clone() const =0\n"
-		"\n"
-		""},
-	 { (char *)"delete_IFitStrategy", _wrap_delete_IFitStrategy, METH_VARARGS, (char *)"\n"
-		"delete_IFitStrategy(IFitStrategy self)\n"
-		"\n"
-		"IFitStrategy::~IFitStrategy()\n"
-		"\n"
-		""},
-	 { (char *)"IFitStrategy_init", _wrap_IFitStrategy_init, METH_VARARGS, (char *)"\n"
-		"IFitStrategy_init(IFitStrategy self, FitKernel * fit_suite)\n"
-		"\n"
-		"void IFitStrategy::init(FitKernel *fit_suite)\n"
-		"\n"
-		""},
-	 { (char *)"IFitStrategy_execute", _wrap_IFitStrategy_execute, METH_VARARGS, (char *)"\n"
-		"IFitStrategy_execute(IFitStrategy self)\n"
-		"\n"
-		"virtual void IFitStrategy::execute()=0\n"
-		"\n"
-		""},
-	 { (char *)"IFitStrategy_swigregister", IFitStrategy_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_FitStrategyDefault", _wrap_new_FitStrategyDefault, METH_VARARGS, (char *)"\n"
-		"new_FitStrategyDefault() -> FitStrategyDefault\n"
-		"\n"
-		"FitStrategyDefault::FitStrategyDefault()\n"
-		"\n"
-		""},
-	 { (char *)"FitStrategyDefault_clone", _wrap_FitStrategyDefault_clone, METH_VARARGS, (char *)"\n"
-		"FitStrategyDefault_clone(FitStrategyDefault self) -> IFitStrategy\n"
-		"\n"
-		"IFitStrategy * FitStrategyDefault::clone() const \n"
-		"\n"
-		""},
-	 { (char *)"FitStrategyDefault_execute", _wrap_FitStrategyDefault_execute, METH_VARARGS, (char *)"\n"
-		"FitStrategyDefault_execute(FitStrategyDefault self)\n"
-		"\n"
-		"void FitStrategyDefault::execute()\n"
-		"\n"
-		""},
-	 { (char *)"delete_FitStrategyDefault", _wrap_delete_FitStrategyDefault, METH_VARARGS, (char *)"delete_FitStrategyDefault(FitStrategyDefault self)"},
-	 { (char *)"FitStrategyDefault_swigregister", FitStrategyDefault_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_IIntensityFunction", _wrap_delete_IIntensityFunction, METH_VARARGS, (char *)"delete_IIntensityFunction(IIntensityFunction self)"},
-	 { (char *)"IIntensityFunction_clone", _wrap_IIntensityFunction_clone, METH_VARARGS, (char *)"IIntensityFunction_clone(IIntensityFunction self) -> IIntensityFunction"},
-	 { (char *)"IIntensityFunction_evaluate", _wrap_IIntensityFunction_evaluate, METH_VARARGS, (char *)"IIntensityFunction_evaluate(IIntensityFunction self, double value) -> double"},
-	 { (char *)"IIntensityFunction_swigregister", IIntensityFunction_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_IntensityFunctionLog", _wrap_delete_IntensityFunctionLog, METH_VARARGS, (char *)"delete_IntensityFunctionLog(IntensityFunctionLog self)"},
-	 { (char *)"IntensityFunctionLog_clone", _wrap_IntensityFunctionLog_clone, METH_VARARGS, (char *)"IntensityFunctionLog_clone(IntensityFunctionLog self) -> IntensityFunctionLog"},
-	 { (char *)"IntensityFunctionLog_evaluate", _wrap_IntensityFunctionLog_evaluate, METH_VARARGS, (char *)"IntensityFunctionLog_evaluate(IntensityFunctionLog self, double value) -> double"},
-	 { (char *)"new_IntensityFunctionLog", _wrap_new_IntensityFunctionLog, METH_VARARGS, (char *)"new_IntensityFunctionLog() -> IntensityFunctionLog"},
-	 { (char *)"IntensityFunctionLog_swigregister", IntensityFunctionLog_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_IntensityFunctionSqrt", _wrap_delete_IntensityFunctionSqrt, METH_VARARGS, (char *)"delete_IntensityFunctionSqrt(IntensityFunctionSqrt self)"},
-	 { (char *)"IntensityFunctionSqrt_clone", _wrap_IntensityFunctionSqrt_clone, METH_VARARGS, (char *)"IntensityFunctionSqrt_clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt"},
-	 { (char *)"IntensityFunctionSqrt_evaluate", _wrap_IntensityFunctionSqrt_evaluate, METH_VARARGS, (char *)"IntensityFunctionSqrt_evaluate(IntensityFunctionSqrt self, double value) -> double"},
-	 { (char *)"new_IntensityFunctionSqrt", _wrap_new_IntensityFunctionSqrt, METH_VARARGS, (char *)"new_IntensityFunctionSqrt() -> IntensityFunctionSqrt"},
-	 { (char *)"IntensityFunctionSqrt_swigregister", IntensityFunctionSqrt_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_IIntensityNormalizer", _wrap_delete_IIntensityNormalizer, METH_VARARGS, (char *)"delete_IIntensityNormalizer(IIntensityNormalizer self)"},
-	 { (char *)"IIntensityNormalizer_clone", _wrap_IIntensityNormalizer_clone, METH_VARARGS, (char *)"IIntensityNormalizer_clone(IIntensityNormalizer self) -> IIntensityNormalizer"},
-	 { (char *)"IIntensityNormalizer_createNormalizedData", _wrap_IIntensityNormalizer_createNormalizedData, METH_VARARGS, (char *)"IIntensityNormalizer_createNormalizedData(IIntensityNormalizer self, OutputData< double > const & data) -> OutputData< double > *"},
-	 { (char *)"IIntensityNormalizer_apply", _wrap_IIntensityNormalizer_apply, METH_VARARGS, (char *)"IIntensityNormalizer_apply(IIntensityNormalizer self, OutputData< double > & data)"},
-	 { (char *)"IIntensityNormalizer_setMaximumIntensity", _wrap_IIntensityNormalizer_setMaximumIntensity, METH_VARARGS, (char *)"IIntensityNormalizer_setMaximumIntensity(IIntensityNormalizer self, double arg3)"},
-	 { (char *)"IIntensityNormalizer_swigregister", IIntensityNormalizer_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_IntensityNormalizer", _wrap_new_IntensityNormalizer, METH_VARARGS, (char *)"\n"
-		"IntensityNormalizer(double scale=1.0, double shift=0.0)\n"
-		"IntensityNormalizer(double scale=1.0)\n"
-		"new_IntensityNormalizer() -> IntensityNormalizer\n"
-		""},
-	 { (char *)"delete_IntensityNormalizer", _wrap_delete_IntensityNormalizer, METH_VARARGS, (char *)"delete_IntensityNormalizer(IntensityNormalizer self)"},
-	 { (char *)"IntensityNormalizer_clone", _wrap_IntensityNormalizer_clone, METH_VARARGS, (char *)"IntensityNormalizer_clone(IntensityNormalizer self) -> IntensityNormalizer"},
-	 { (char *)"IntensityNormalizer_createNormalizedData", _wrap_IntensityNormalizer_createNormalizedData, METH_VARARGS, (char *)"IntensityNormalizer_createNormalizedData(IntensityNormalizer self, OutputData< double > const & data) -> OutputData< double > *"},
-	 { (char *)"IntensityNormalizer_apply", _wrap_IntensityNormalizer_apply, METH_VARARGS, (char *)"IntensityNormalizer_apply(IntensityNormalizer self, OutputData< double > & data)"},
-	 { (char *)"IntensityNormalizer_setMaximumIntensity", _wrap_IntensityNormalizer_setMaximumIntensity, METH_VARARGS, (char *)"IntensityNormalizer_setMaximumIntensity(IntensityNormalizer self, double max_intensity)"},
-	 { (char *)"IntensityNormalizer_swigregister", IntensityNormalizer_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_IntensityScaleAndShiftNormalizer", _wrap_new_IntensityScaleAndShiftNormalizer, METH_VARARGS, (char *)"\n"
-		"IntensityScaleAndShiftNormalizer(double scale=1.0, double shift=0.0)\n"
-		"IntensityScaleAndShiftNormalizer(double scale=1.0)\n"
-		"new_IntensityScaleAndShiftNormalizer() -> IntensityScaleAndShiftNormalizer\n"
-		""},
-	 { (char *)"delete_IntensityScaleAndShiftNormalizer", _wrap_delete_IntensityScaleAndShiftNormalizer, METH_VARARGS, (char *)"delete_IntensityScaleAndShiftNormalizer(IntensityScaleAndShiftNormalizer self)"},
-	 { (char *)"IntensityScaleAndShiftNormalizer_setMaximumIntensity", _wrap_IntensityScaleAndShiftNormalizer_setMaximumIntensity, METH_VARARGS, (char *)"IntensityScaleAndShiftNormalizer_setMaximumIntensity(IntensityScaleAndShiftNormalizer self, double max_intensity)"},
-	 { (char *)"IntensityScaleAndShiftNormalizer_clone", _wrap_IntensityScaleAndShiftNormalizer_clone, METH_VARARGS, (char *)"IntensityScaleAndShiftNormalizer_clone(IntensityScaleAndShiftNormalizer self) -> IntensityScaleAndShiftNormalizer"},
-	 { (char *)"IntensityScaleAndShiftNormalizer_swigregister", IntensityScaleAndShiftNormalizer_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_ISquaredFunction", _wrap_delete_ISquaredFunction, METH_VARARGS, (char *)"delete_ISquaredFunction(ISquaredFunction self)"},
-	 { (char *)"ISquaredFunction_clone", _wrap_ISquaredFunction_clone, METH_VARARGS, (char *)"ISquaredFunction_clone(ISquaredFunction self) -> ISquaredFunction"},
-	 { (char *)"ISquaredFunction_calculateSquaredDifference", _wrap_ISquaredFunction_calculateSquaredDifference, METH_VARARGS, (char *)"ISquaredFunction_calculateSquaredDifference(ISquaredFunction self, double real_value, double simulated_value) -> double"},
-	 { (char *)"ISquaredFunction_calculateSquaredError", _wrap_ISquaredFunction_calculateSquaredError, METH_VARARGS, (char *)"\n"
-		"calculateSquaredError(double real_value, double simulated_value=0.0) -> double\n"
-		"ISquaredFunction_calculateSquaredError(ISquaredFunction self, double real_value) -> double\n"
-		""},
-	 { (char *)"ISquaredFunction_swigregister", ISquaredFunction_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_SquaredFunctionDefault", _wrap_new_SquaredFunctionDefault, METH_VARARGS, (char *)"new_SquaredFunctionDefault() -> SquaredFunctionDefault"},
-	 { (char *)"delete_SquaredFunctionDefault", _wrap_delete_SquaredFunctionDefault, METH_VARARGS, (char *)"delete_SquaredFunctionDefault(SquaredFunctionDefault self)"},
-	 { (char *)"SquaredFunctionDefault_clone", _wrap_SquaredFunctionDefault_clone, METH_VARARGS, (char *)"SquaredFunctionDefault_clone(SquaredFunctionDefault self) -> SquaredFunctionDefault"},
-	 { (char *)"SquaredFunctionDefault_calculateSquaredDifference", _wrap_SquaredFunctionDefault_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionDefault_calculateSquaredDifference(SquaredFunctionDefault self, double real_value, double simulated_value) -> double"},
-	 { (char *)"SquaredFunctionDefault_calculateSquaredError", _wrap_SquaredFunctionDefault_calculateSquaredError, METH_VARARGS, (char *)"\n"
-		"calculateSquaredError(double real_value, double simulated_value=0) -> double\n"
-		"SquaredFunctionDefault_calculateSquaredError(SquaredFunctionDefault self, double real_value) -> double\n"
-		""},
-	 { (char *)"SquaredFunctionDefault_swigregister", SquaredFunctionDefault_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_SquaredFunctionSimError", _wrap_delete_SquaredFunctionSimError, METH_VARARGS, (char *)"delete_SquaredFunctionSimError(SquaredFunctionSimError self)"},
-	 { (char *)"SquaredFunctionSimError_clone", _wrap_SquaredFunctionSimError_clone, METH_VARARGS, (char *)"SquaredFunctionSimError_clone(SquaredFunctionSimError self) -> SquaredFunctionSimError"},
-	 { (char *)"SquaredFunctionSimError_calculateSquaredDifference", _wrap_SquaredFunctionSimError_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionSimError_calculateSquaredDifference(SquaredFunctionSimError self, double real_value, double simulated_value) -> double"},
-	 { (char *)"SquaredFunctionSimError_calculateSquaredError", _wrap_SquaredFunctionSimError_calculateSquaredError, METH_VARARGS, (char *)"SquaredFunctionSimError_calculateSquaredError(SquaredFunctionSimError self, double real_value, double simulated_value) -> double"},
-	 { (char *)"SquaredFunctionSimError_swigregister", SquaredFunctionSimError_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_SquaredFunctionMeanSquaredError", _wrap_delete_SquaredFunctionMeanSquaredError, METH_VARARGS, (char *)"delete_SquaredFunctionMeanSquaredError(SquaredFunctionMeanSquaredError self)"},
-	 { (char *)"SquaredFunctionMeanSquaredError_clone", _wrap_SquaredFunctionMeanSquaredError_clone, METH_VARARGS, (char *)"SquaredFunctionMeanSquaredError_clone(SquaredFunctionMeanSquaredError self) -> SquaredFunctionMeanSquaredError"},
-	 { (char *)"SquaredFunctionMeanSquaredError_calculateSquaredDifference", _wrap_SquaredFunctionMeanSquaredError_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionMeanSquaredError_calculateSquaredDifference(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double"},
-	 { (char *)"SquaredFunctionMeanSquaredError_calculateSquaredError", _wrap_SquaredFunctionMeanSquaredError_calculateSquaredError, METH_VARARGS, (char *)"SquaredFunctionMeanSquaredError_calculateSquaredError(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double"},
-	 { (char *)"SquaredFunctionMeanSquaredError_swigregister", SquaredFunctionMeanSquaredError_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_SquaredFunctionSystematicError", _wrap_delete_SquaredFunctionSystematicError, METH_VARARGS, (char *)"delete_SquaredFunctionSystematicError(SquaredFunctionSystematicError self)"},
-	 { (char *)"SquaredFunctionSystematicError_clone", _wrap_SquaredFunctionSystematicError_clone, METH_VARARGS, (char *)"SquaredFunctionSystematicError_clone(SquaredFunctionSystematicError self) -> SquaredFunctionSystematicError"},
-	 { (char *)"SquaredFunctionSystematicError_calculateSquaredDifference", _wrap_SquaredFunctionSystematicError_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionSystematicError_calculateSquaredDifference(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double"},
-	 { (char *)"SquaredFunctionSystematicError_calculateSquaredError", _wrap_SquaredFunctionSystematicError_calculateSquaredError, METH_VARARGS, (char *)"SquaredFunctionSystematicError_calculateSquaredError(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double"},
-	 { (char *)"SquaredFunctionSystematicError_swigregister", SquaredFunctionSystematicError_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_SquaredFunctionGaussianError", _wrap_delete_SquaredFunctionGaussianError, METH_VARARGS, (char *)"delete_SquaredFunctionGaussianError(SquaredFunctionGaussianError self)"},
-	 { (char *)"SquaredFunctionGaussianError_clone", _wrap_SquaredFunctionGaussianError_clone, METH_VARARGS, (char *)"SquaredFunctionGaussianError_clone(SquaredFunctionGaussianError self) -> SquaredFunctionGaussianError"},
-	 { (char *)"SquaredFunctionGaussianError_calculateSquaredDifference", _wrap_SquaredFunctionGaussianError_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionGaussianError_calculateSquaredDifference(SquaredFunctionGaussianError self, double real_value, double simulated_value) -> double"},
-	 { (char *)"SquaredFunctionGaussianError_calculateSquaredError", _wrap_SquaredFunctionGaussianError_calculateSquaredError, METH_VARARGS, (char *)"SquaredFunctionGaussianError_calculateSquaredError(SquaredFunctionGaussianError self, double arg3, double arg4) -> double"},
-	 { (char *)"SquaredFunctionGaussianError_swigregister", SquaredFunctionGaussianError_swigregister, METH_VARARGS, NULL},
 	 { (char *)"delete_IMinimizer", _wrap_delete_IMinimizer, METH_VARARGS, (char *)"\n"
 		"delete_IMinimizer(IMinimizer self)\n"
 		"\n"
@@ -30903,6 +30734,169 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { (char *)"IMinimizer_swigregister", IMinimizer_swigregister, METH_VARARGS, NULL},
+	 { (char *)"delete_IChiSquaredModule", _wrap_delete_IChiSquaredModule, METH_VARARGS, (char *)"delete_IChiSquaredModule(IChiSquaredModule self)"},
+	 { (char *)"IChiSquaredModule_clone", _wrap_IChiSquaredModule_clone, METH_VARARGS, (char *)"IChiSquaredModule_clone(IChiSquaredModule self) -> IChiSquaredModule"},
+	 { (char *)"IChiSquaredModule_getSquaredFunction", _wrap_IChiSquaredModule_getSquaredFunction, METH_VARARGS, (char *)"IChiSquaredModule_getSquaredFunction(IChiSquaredModule self) -> ISquaredFunction"},
+	 { (char *)"IChiSquaredModule_setChiSquaredFunction", _wrap_IChiSquaredModule_setChiSquaredFunction, METH_VARARGS, (char *)"\n"
+		"setChiSquaredFunction(ISquaredFunction squared_function)\n"
+		"IChiSquaredModule_setChiSquaredFunction(IChiSquaredModule self, ISquaredFunction squared_function)\n"
+		""},
+	 { (char *)"IChiSquaredModule_getIntensityNormalizer", _wrap_IChiSquaredModule_getIntensityNormalizer, METH_VARARGS, (char *)"\n"
+		"getIntensityNormalizer() -> IIntensityNormalizer\n"
+		"IChiSquaredModule_getIntensityNormalizer(IChiSquaredModule self) -> IIntensityNormalizer\n"
+		""},
+	 { (char *)"IChiSquaredModule_setIntensityNormalizer", _wrap_IChiSquaredModule_setIntensityNormalizer, METH_VARARGS, (char *)"IChiSquaredModule_setIntensityNormalizer(IChiSquaredModule self, IIntensityNormalizer data_normalizer)"},
+	 { (char *)"IChiSquaredModule_getIntensityFunction", _wrap_IChiSquaredModule_getIntensityFunction, METH_VARARGS, (char *)"IChiSquaredModule_getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction"},
+	 { (char *)"IChiSquaredModule_setIntensityFunction", _wrap_IChiSquaredModule_setIntensityFunction, METH_VARARGS, (char *)"IChiSquaredModule_setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)"},
+	 { (char *)"IChiSquaredModule_processFitElements", _wrap_IChiSquaredModule_processFitElements, METH_VARARGS, (char *)"IChiSquaredModule_processFitElements(IChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator arg3, std::vector< FitElement,std::allocator< FitElement > >::iterator arg4)"},
+	 { (char *)"IChiSquaredModule_swigregister", IChiSquaredModule_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_IFitObserver", _wrap_new_IFitObserver, METH_VARARGS, (char *)"\n"
+		"new_IFitObserver(PyObject * arg2, int update_every_nth) -> IFitObserver\n"
+		"\n"
+		"IFitObserver::IFitObserver(int update_every_nth)\n"
+		"\n"
+		""},
+	 { (char *)"IFitObserver_notify", _wrap_IFitObserver_notify, METH_VARARGS, (char *)"\n"
+		"IFitObserver_notify(IFitObserver self, IObservable subject)\n"
+		"\n"
+		"void IFitObserver::notify(IObservable *subject)\n"
+		"\n"
+		"The method used by Ovservable when he wants to be observed by this. \n"
+		"\n"
+		""},
+	 { (char *)"IFitObserver_update", _wrap_IFitObserver_update, METH_VARARGS, (char *)"\n"
+		"IFitObserver_update(IFitObserver self, FitSuite fit_suite)\n"
+		"\n"
+		"void IFitObserver::update(FitSuite *fit_suite)\n"
+		"\n"
+		"Here Onserver will do actuall job when he thinks that it is a right moment. \n"
+		"\n"
+		""},
+	 { (char *)"delete_IFitObserver", _wrap_delete_IFitObserver, METH_VARARGS, (char *)"delete_IFitObserver(IFitObserver self)"},
+	 { (char *)"disown_IFitObserver", _wrap_disown_IFitObserver, METH_VARARGS, NULL},
+	 { (char *)"IFitObserver_swigregister", IFitObserver_swigregister, METH_VARARGS, NULL},
+	 { (char *)"IFitStrategy_clone", _wrap_IFitStrategy_clone, METH_VARARGS, (char *)"\n"
+		"IFitStrategy_clone(IFitStrategy self) -> IFitStrategy\n"
+		"\n"
+		"virtual IFitStrategy* IFitStrategy::clone() const =0\n"
+		"\n"
+		""},
+	 { (char *)"delete_IFitStrategy", _wrap_delete_IFitStrategy, METH_VARARGS, (char *)"\n"
+		"delete_IFitStrategy(IFitStrategy self)\n"
+		"\n"
+		"IFitStrategy::~IFitStrategy()\n"
+		"\n"
+		""},
+	 { (char *)"IFitStrategy_init", _wrap_IFitStrategy_init, METH_VARARGS, (char *)"\n"
+		"IFitStrategy_init(IFitStrategy self, FitKernel * fit_suite)\n"
+		"\n"
+		"void IFitStrategy::init(FitKernel *fit_suite)\n"
+		"\n"
+		""},
+	 { (char *)"IFitStrategy_execute", _wrap_IFitStrategy_execute, METH_VARARGS, (char *)"\n"
+		"IFitStrategy_execute(IFitStrategy self)\n"
+		"\n"
+		"virtual void IFitStrategy::execute()=0\n"
+		"\n"
+		""},
+	 { (char *)"IFitStrategy_swigregister", IFitStrategy_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_FitStrategyDefault", _wrap_new_FitStrategyDefault, METH_VARARGS, (char *)"\n"
+		"new_FitStrategyDefault() -> FitStrategyDefault\n"
+		"\n"
+		"FitStrategyDefault::FitStrategyDefault()\n"
+		"\n"
+		""},
+	 { (char *)"FitStrategyDefault_clone", _wrap_FitStrategyDefault_clone, METH_VARARGS, (char *)"\n"
+		"FitStrategyDefault_clone(FitStrategyDefault self) -> IFitStrategy\n"
+		"\n"
+		"IFitStrategy * FitStrategyDefault::clone() const \n"
+		"\n"
+		""},
+	 { (char *)"FitStrategyDefault_execute", _wrap_FitStrategyDefault_execute, METH_VARARGS, (char *)"\n"
+		"FitStrategyDefault_execute(FitStrategyDefault self)\n"
+		"\n"
+		"void FitStrategyDefault::execute()\n"
+		"\n"
+		""},
+	 { (char *)"delete_FitStrategyDefault", _wrap_delete_FitStrategyDefault, METH_VARARGS, (char *)"delete_FitStrategyDefault(FitStrategyDefault self)"},
+	 { (char *)"FitStrategyDefault_swigregister", FitStrategyDefault_swigregister, METH_VARARGS, NULL},
+	 { (char *)"delete_IIntensityFunction", _wrap_delete_IIntensityFunction, METH_VARARGS, (char *)"delete_IIntensityFunction(IIntensityFunction self)"},
+	 { (char *)"IIntensityFunction_clone", _wrap_IIntensityFunction_clone, METH_VARARGS, (char *)"IIntensityFunction_clone(IIntensityFunction self) -> IIntensityFunction"},
+	 { (char *)"IIntensityFunction_evaluate", _wrap_IIntensityFunction_evaluate, METH_VARARGS, (char *)"IIntensityFunction_evaluate(IIntensityFunction self, double value) -> double"},
+	 { (char *)"IIntensityFunction_swigregister", IIntensityFunction_swigregister, METH_VARARGS, NULL},
+	 { (char *)"delete_IntensityFunctionLog", _wrap_delete_IntensityFunctionLog, METH_VARARGS, (char *)"delete_IntensityFunctionLog(IntensityFunctionLog self)"},
+	 { (char *)"IntensityFunctionLog_clone", _wrap_IntensityFunctionLog_clone, METH_VARARGS, (char *)"IntensityFunctionLog_clone(IntensityFunctionLog self) -> IntensityFunctionLog"},
+	 { (char *)"IntensityFunctionLog_evaluate", _wrap_IntensityFunctionLog_evaluate, METH_VARARGS, (char *)"IntensityFunctionLog_evaluate(IntensityFunctionLog self, double value) -> double"},
+	 { (char *)"new_IntensityFunctionLog", _wrap_new_IntensityFunctionLog, METH_VARARGS, (char *)"new_IntensityFunctionLog() -> IntensityFunctionLog"},
+	 { (char *)"IntensityFunctionLog_swigregister", IntensityFunctionLog_swigregister, METH_VARARGS, NULL},
+	 { (char *)"delete_IntensityFunctionSqrt", _wrap_delete_IntensityFunctionSqrt, METH_VARARGS, (char *)"delete_IntensityFunctionSqrt(IntensityFunctionSqrt self)"},
+	 { (char *)"IntensityFunctionSqrt_clone", _wrap_IntensityFunctionSqrt_clone, METH_VARARGS, (char *)"IntensityFunctionSqrt_clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt"},
+	 { (char *)"IntensityFunctionSqrt_evaluate", _wrap_IntensityFunctionSqrt_evaluate, METH_VARARGS, (char *)"IntensityFunctionSqrt_evaluate(IntensityFunctionSqrt self, double value) -> double"},
+	 { (char *)"new_IntensityFunctionSqrt", _wrap_new_IntensityFunctionSqrt, METH_VARARGS, (char *)"new_IntensityFunctionSqrt() -> IntensityFunctionSqrt"},
+	 { (char *)"IntensityFunctionSqrt_swigregister", IntensityFunctionSqrt_swigregister, METH_VARARGS, NULL},
+	 { (char *)"delete_IIntensityNormalizer", _wrap_delete_IIntensityNormalizer, METH_VARARGS, (char *)"delete_IIntensityNormalizer(IIntensityNormalizer self)"},
+	 { (char *)"IIntensityNormalizer_clone", _wrap_IIntensityNormalizer_clone, METH_VARARGS, (char *)"IIntensityNormalizer_clone(IIntensityNormalizer self) -> IIntensityNormalizer"},
+	 { (char *)"IIntensityNormalizer_createNormalizedData", _wrap_IIntensityNormalizer_createNormalizedData, METH_VARARGS, (char *)"IIntensityNormalizer_createNormalizedData(IIntensityNormalizer self, OutputData< double > const & data) -> OutputData< double > *"},
+	 { (char *)"IIntensityNormalizer_apply", _wrap_IIntensityNormalizer_apply, METH_VARARGS, (char *)"IIntensityNormalizer_apply(IIntensityNormalizer self, OutputData< double > & data)"},
+	 { (char *)"IIntensityNormalizer_setMaximumIntensity", _wrap_IIntensityNormalizer_setMaximumIntensity, METH_VARARGS, (char *)"IIntensityNormalizer_setMaximumIntensity(IIntensityNormalizer self, double arg3)"},
+	 { (char *)"IIntensityNormalizer_swigregister", IIntensityNormalizer_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_IntensityNormalizer", _wrap_new_IntensityNormalizer, METH_VARARGS, (char *)"\n"
+		"IntensityNormalizer(double scale=1.0, double shift=0.0)\n"
+		"IntensityNormalizer(double scale=1.0)\n"
+		"new_IntensityNormalizer() -> IntensityNormalizer\n"
+		""},
+	 { (char *)"delete_IntensityNormalizer", _wrap_delete_IntensityNormalizer, METH_VARARGS, (char *)"delete_IntensityNormalizer(IntensityNormalizer self)"},
+	 { (char *)"IntensityNormalizer_clone", _wrap_IntensityNormalizer_clone, METH_VARARGS, (char *)"IntensityNormalizer_clone(IntensityNormalizer self) -> IntensityNormalizer"},
+	 { (char *)"IntensityNormalizer_createNormalizedData", _wrap_IntensityNormalizer_createNormalizedData, METH_VARARGS, (char *)"IntensityNormalizer_createNormalizedData(IntensityNormalizer self, OutputData< double > const & data) -> OutputData< double > *"},
+	 { (char *)"IntensityNormalizer_apply", _wrap_IntensityNormalizer_apply, METH_VARARGS, (char *)"IntensityNormalizer_apply(IntensityNormalizer self, OutputData< double > & data)"},
+	 { (char *)"IntensityNormalizer_setMaximumIntensity", _wrap_IntensityNormalizer_setMaximumIntensity, METH_VARARGS, (char *)"IntensityNormalizer_setMaximumIntensity(IntensityNormalizer self, double max_intensity)"},
+	 { (char *)"IntensityNormalizer_swigregister", IntensityNormalizer_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_IntensityScaleAndShiftNormalizer", _wrap_new_IntensityScaleAndShiftNormalizer, METH_VARARGS, (char *)"\n"
+		"IntensityScaleAndShiftNormalizer(double scale=1.0, double shift=0.0)\n"
+		"IntensityScaleAndShiftNormalizer(double scale=1.0)\n"
+		"new_IntensityScaleAndShiftNormalizer() -> IntensityScaleAndShiftNormalizer\n"
+		""},
+	 { (char *)"delete_IntensityScaleAndShiftNormalizer", _wrap_delete_IntensityScaleAndShiftNormalizer, METH_VARARGS, (char *)"delete_IntensityScaleAndShiftNormalizer(IntensityScaleAndShiftNormalizer self)"},
+	 { (char *)"IntensityScaleAndShiftNormalizer_setMaximumIntensity", _wrap_IntensityScaleAndShiftNormalizer_setMaximumIntensity, METH_VARARGS, (char *)"IntensityScaleAndShiftNormalizer_setMaximumIntensity(IntensityScaleAndShiftNormalizer self, double max_intensity)"},
+	 { (char *)"IntensityScaleAndShiftNormalizer_clone", _wrap_IntensityScaleAndShiftNormalizer_clone, METH_VARARGS, (char *)"IntensityScaleAndShiftNormalizer_clone(IntensityScaleAndShiftNormalizer self) -> IntensityScaleAndShiftNormalizer"},
+	 { (char *)"IntensityScaleAndShiftNormalizer_swigregister", IntensityScaleAndShiftNormalizer_swigregister, METH_VARARGS, NULL},
+	 { (char *)"delete_ISquaredFunction", _wrap_delete_ISquaredFunction, METH_VARARGS, (char *)"delete_ISquaredFunction(ISquaredFunction self)"},
+	 { (char *)"ISquaredFunction_clone", _wrap_ISquaredFunction_clone, METH_VARARGS, (char *)"ISquaredFunction_clone(ISquaredFunction self) -> ISquaredFunction"},
+	 { (char *)"ISquaredFunction_calculateSquaredDifference", _wrap_ISquaredFunction_calculateSquaredDifference, METH_VARARGS, (char *)"ISquaredFunction_calculateSquaredDifference(ISquaredFunction self, double real_value, double simulated_value) -> double"},
+	 { (char *)"ISquaredFunction_calculateSquaredError", _wrap_ISquaredFunction_calculateSquaredError, METH_VARARGS, (char *)"\n"
+		"calculateSquaredError(double real_value, double simulated_value=0.0) -> double\n"
+		"ISquaredFunction_calculateSquaredError(ISquaredFunction self, double real_value) -> double\n"
+		""},
+	 { (char *)"ISquaredFunction_swigregister", ISquaredFunction_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_SquaredFunctionDefault", _wrap_new_SquaredFunctionDefault, METH_VARARGS, (char *)"new_SquaredFunctionDefault() -> SquaredFunctionDefault"},
+	 { (char *)"delete_SquaredFunctionDefault", _wrap_delete_SquaredFunctionDefault, METH_VARARGS, (char *)"delete_SquaredFunctionDefault(SquaredFunctionDefault self)"},
+	 { (char *)"SquaredFunctionDefault_clone", _wrap_SquaredFunctionDefault_clone, METH_VARARGS, (char *)"SquaredFunctionDefault_clone(SquaredFunctionDefault self) -> SquaredFunctionDefault"},
+	 { (char *)"SquaredFunctionDefault_calculateSquaredDifference", _wrap_SquaredFunctionDefault_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionDefault_calculateSquaredDifference(SquaredFunctionDefault self, double real_value, double simulated_value) -> double"},
+	 { (char *)"SquaredFunctionDefault_calculateSquaredError", _wrap_SquaredFunctionDefault_calculateSquaredError, METH_VARARGS, (char *)"\n"
+		"calculateSquaredError(double real_value, double simulated_value=0) -> double\n"
+		"SquaredFunctionDefault_calculateSquaredError(SquaredFunctionDefault self, double real_value) -> double\n"
+		""},
+	 { (char *)"SquaredFunctionDefault_swigregister", SquaredFunctionDefault_swigregister, METH_VARARGS, NULL},
+	 { (char *)"delete_SquaredFunctionSimError", _wrap_delete_SquaredFunctionSimError, METH_VARARGS, (char *)"delete_SquaredFunctionSimError(SquaredFunctionSimError self)"},
+	 { (char *)"SquaredFunctionSimError_clone", _wrap_SquaredFunctionSimError_clone, METH_VARARGS, (char *)"SquaredFunctionSimError_clone(SquaredFunctionSimError self) -> SquaredFunctionSimError"},
+	 { (char *)"SquaredFunctionSimError_calculateSquaredDifference", _wrap_SquaredFunctionSimError_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionSimError_calculateSquaredDifference(SquaredFunctionSimError self, double real_value, double simulated_value) -> double"},
+	 { (char *)"SquaredFunctionSimError_calculateSquaredError", _wrap_SquaredFunctionSimError_calculateSquaredError, METH_VARARGS, (char *)"SquaredFunctionSimError_calculateSquaredError(SquaredFunctionSimError self, double real_value, double simulated_value) -> double"},
+	 { (char *)"SquaredFunctionSimError_swigregister", SquaredFunctionSimError_swigregister, METH_VARARGS, NULL},
+	 { (char *)"delete_SquaredFunctionMeanSquaredError", _wrap_delete_SquaredFunctionMeanSquaredError, METH_VARARGS, (char *)"delete_SquaredFunctionMeanSquaredError(SquaredFunctionMeanSquaredError self)"},
+	 { (char *)"SquaredFunctionMeanSquaredError_clone", _wrap_SquaredFunctionMeanSquaredError_clone, METH_VARARGS, (char *)"SquaredFunctionMeanSquaredError_clone(SquaredFunctionMeanSquaredError self) -> SquaredFunctionMeanSquaredError"},
+	 { (char *)"SquaredFunctionMeanSquaredError_calculateSquaredDifference", _wrap_SquaredFunctionMeanSquaredError_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionMeanSquaredError_calculateSquaredDifference(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double"},
+	 { (char *)"SquaredFunctionMeanSquaredError_calculateSquaredError", _wrap_SquaredFunctionMeanSquaredError_calculateSquaredError, METH_VARARGS, (char *)"SquaredFunctionMeanSquaredError_calculateSquaredError(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double"},
+	 { (char *)"SquaredFunctionMeanSquaredError_swigregister", SquaredFunctionMeanSquaredError_swigregister, METH_VARARGS, NULL},
+	 { (char *)"delete_SquaredFunctionSystematicError", _wrap_delete_SquaredFunctionSystematicError, METH_VARARGS, (char *)"delete_SquaredFunctionSystematicError(SquaredFunctionSystematicError self)"},
+	 { (char *)"SquaredFunctionSystematicError_clone", _wrap_SquaredFunctionSystematicError_clone, METH_VARARGS, (char *)"SquaredFunctionSystematicError_clone(SquaredFunctionSystematicError self) -> SquaredFunctionSystematicError"},
+	 { (char *)"SquaredFunctionSystematicError_calculateSquaredDifference", _wrap_SquaredFunctionSystematicError_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionSystematicError_calculateSquaredDifference(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double"},
+	 { (char *)"SquaredFunctionSystematicError_calculateSquaredError", _wrap_SquaredFunctionSystematicError_calculateSquaredError, METH_VARARGS, (char *)"SquaredFunctionSystematicError_calculateSquaredError(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double"},
+	 { (char *)"SquaredFunctionSystematicError_swigregister", SquaredFunctionSystematicError_swigregister, METH_VARARGS, NULL},
+	 { (char *)"delete_SquaredFunctionGaussianError", _wrap_delete_SquaredFunctionGaussianError, METH_VARARGS, (char *)"delete_SquaredFunctionGaussianError(SquaredFunctionGaussianError self)"},
+	 { (char *)"SquaredFunctionGaussianError_clone", _wrap_SquaredFunctionGaussianError_clone, METH_VARARGS, (char *)"SquaredFunctionGaussianError_clone(SquaredFunctionGaussianError self) -> SquaredFunctionGaussianError"},
+	 { (char *)"SquaredFunctionGaussianError_calculateSquaredDifference", _wrap_SquaredFunctionGaussianError_calculateSquaredDifference, METH_VARARGS, (char *)"SquaredFunctionGaussianError_calculateSquaredDifference(SquaredFunctionGaussianError self, double real_value, double simulated_value) -> double"},
+	 { (char *)"SquaredFunctionGaussianError_calculateSquaredError", _wrap_SquaredFunctionGaussianError_calculateSquaredError, METH_VARARGS, (char *)"SquaredFunctionGaussianError_calculateSquaredError(SquaredFunctionGaussianError self, double arg3, double arg4) -> double"},
+	 { (char *)"SquaredFunctionGaussianError_swigregister", SquaredFunctionGaussianError_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_ChiSquaredModule", _wrap_new_ChiSquaredModule, METH_VARARGS, (char *)"\n"
 		"ChiSquaredModule()\n"
 		"new_ChiSquaredModule(ChiSquaredModule other) -> ChiSquaredModule\n"
@@ -31709,25 +31703,6 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"GenerateNormalRandom", _wrap_GenerateNormalRandom, METH_VARARGS, (char *)"GenerateNormalRandom(double average, double std_dev) -> double"},
 	 { (char *)"isnan", _wrap_isnan, METH_VARARGS, (char *)"isnan(double x) -> bool"},
 	 { (char *)"isinf", _wrap_isinf, METH_VARARGS, (char *)"isinf(double x) -> bool"},
-	 { (char *)"MinimizerFactory_printCatalogue", _wrap_MinimizerFactory_printCatalogue, METH_VARARGS, (char *)"MinimizerFactory_printCatalogue()"},
-	 { (char *)"MinimizerFactory_createMinimizer", _wrap_MinimizerFactory_createMinimizer, METH_VARARGS, (char *)"\n"
-		"createMinimizer(std::string const & minimizer, std::string const & algorithm, std::string const & options) -> IMinimizer\n"
-		"createMinimizer(std::string const & minimizer, std::string const & algorithm) -> IMinimizer\n"
-		"createMinimizer(std::string const & minimizer) -> IMinimizer\n"
-		"MinimizerFactory_createMinimizer(IMinimizer minimizer) -> IMinimizer\n"
-		""},
-	 { (char *)"new_MinimizerFactory", _wrap_new_MinimizerFactory, METH_VARARGS, (char *)"\n"
-		"new_MinimizerFactory() -> MinimizerFactory\n"
-		"\n"
-		"\n"
-		"\n"
-		"Factory to create minimizers.\n"
-		"\n"
-		"C++ includes: MinimizerFactory.h\n"
-		"\n"
-		""},
-	 { (char *)"delete_MinimizerFactory", _wrap_delete_MinimizerFactory, METH_VARARGS, (char *)"delete_MinimizerFactory(MinimizerFactory self)"},
-	 { (char *)"MinimizerFactory_swigregister", MinimizerFactory_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_MinimizerOptions", _wrap_new_MinimizerOptions, METH_VARARGS, (char *)"\n"
 		"new_MinimizerOptions() -> MinimizerOptions\n"
 		"\n"
@@ -31869,6 +31844,25 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { (char *)"MinimizerOptions_swigregister", MinimizerOptions_swigregister, METH_VARARGS, NULL},
+	 { (char *)"MinimizerFactory_printCatalogue", _wrap_MinimizerFactory_printCatalogue, METH_VARARGS, (char *)"MinimizerFactory_printCatalogue()"},
+	 { (char *)"MinimizerFactory_createMinimizer", _wrap_MinimizerFactory_createMinimizer, METH_VARARGS, (char *)"\n"
+		"createMinimizer(std::string const & minimizer, std::string const & algorithm, std::string const & options) -> IMinimizer\n"
+		"createMinimizer(std::string const & minimizer, std::string const & algorithm) -> IMinimizer\n"
+		"createMinimizer(std::string const & minimizer) -> IMinimizer\n"
+		"MinimizerFactory_createMinimizer(IMinimizer minimizer) -> IMinimizer\n"
+		""},
+	 { (char *)"new_MinimizerFactory", _wrap_new_MinimizerFactory, METH_VARARGS, (char *)"\n"
+		"new_MinimizerFactory() -> MinimizerFactory\n"
+		"\n"
+		"\n"
+		"\n"
+		"Factory to create minimizers.\n"
+		"\n"
+		"C++ includes: MinimizerFactory.h\n"
+		"\n"
+		""},
+	 { (char *)"delete_MinimizerFactory", _wrap_delete_MinimizerFactory, METH_VARARGS, (char *)"delete_MinimizerFactory(MinimizerFactory self)"},
+	 { (char *)"MinimizerFactory_swigregister", MinimizerFactory_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_FitStrategyAdjustMinimizer", _wrap_new_FitStrategyAdjustMinimizer, METH_VARARGS, (char *)"\n"
 		"FitStrategyAdjustMinimizer()\n"
 		"FitStrategyAdjustMinimizer(std::string const & minimizer_name, std::string const & algorithm_name, std::string const & minimizer_options)\n"
@@ -31935,10 +31929,6 @@ static void *_p_IntensityScaleAndShiftNormalizerTo_p_IntensityNormalizer(void *x
 }
 static void *_p_ChiSquaredModuleTo_p_IChiSquaredModule(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IChiSquaredModule *)  ((ChiSquaredModule *) x));
-}
-static void *_p_std__shared_ptrT_IParameterizedShared_tTo_p_std__shared_ptrT_INamedShared_t(void *x, int *newmemory) {
-    *newmemory = SWIG_CAST_NEW_MEMORY;
-    return (void *) new std::shared_ptr< INamedShared >(*(std::shared_ptr< IParameterizedShared > *)x);
 }
 static void *_p_std__shared_ptrT_IFitObserver_tTo_p_std__shared_ptrT_IObserver_t(void *x, int *newmemory) {
     *newmemory = SWIG_CAST_NEW_MEMORY;
@@ -32096,14 +32086,8 @@ static swig_type_info _swigt__p_std__allocatorT_std__vectorT_double_std__allocat
 static swig_type_info _swigt__p_std__allocatorT_unsigned_long_t = {"_p_std__allocatorT_unsigned_long_t", "std::vector< unsigned long >::allocator_type *|std::allocator< unsigned long > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argument", "std::invalid_argument *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IFitObserver_t = {"_p_std__shared_ptrT_IFitObserver_t", "std::shared_ptr< IFitObserver > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__shared_ptrT_INamedShared_t = {"_p_std__shared_ptrT_INamedShared_t", "std::shared_ptr< INamedShared > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__shared_ptrT_INamedTemplateT_IShareable_t_t = {"_p_std__shared_ptrT_INamedTemplateT_IShareable_t_t", "std::shared_ptr< INamedTemplate< IShareable > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IObserver_t = {"_p_std__shared_ptrT_IObserver_t", "std::shared_ptr< IObserver > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__shared_ptrT_IParameterizedShared_t = {"_p_std__shared_ptrT_IParameterizedShared_t", "std::shared_ptr< IParameterizedShared > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t = {"_p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t", "std::shared_ptr< IParameterizedTemplate< IShareable > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_ISampleBuilder_t = {"_p_std__shared_ptrT_ISampleBuilder_t", "std::shared_ptr< ISampleBuilder > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__shared_ptrT_LayerRTCoefficients_t_t = {"_p_std__shared_ptrT_LayerRTCoefficients_t_t", "std::shared_ptr< LayerRTCoefficients_t > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__shared_ptrT_ProgressHandler_t_t = {"_p_std__shared_ptrT_ProgressHandler_t_t", "std::shared_ptr< ProgressHandler_t > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__string = {"_p_std__string", "std::string *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t = {"_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t", "std::vector< FitElement,std::allocator< FitElement > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator = {"_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator", "std::vector< FitElement,std::allocator< FitElement > >::const_iterator *", 0, 0, (void*)0, 0};
@@ -32186,14 +32170,8 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__allocatorT_unsigned_long_t,
   &_swigt__p_std__invalid_argument,
   &_swigt__p_std__shared_ptrT_IFitObserver_t,
-  &_swigt__p_std__shared_ptrT_INamedShared_t,
-  &_swigt__p_std__shared_ptrT_INamedTemplateT_IShareable_t_t,
   &_swigt__p_std__shared_ptrT_IObserver_t,
-  &_swigt__p_std__shared_ptrT_IParameterizedShared_t,
-  &_swigt__p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t,
   &_swigt__p_std__shared_ptrT_ISampleBuilder_t,
-  &_swigt__p_std__shared_ptrT_LayerRTCoefficients_t_t,
-  &_swigt__p_std__shared_ptrT_ProgressHandler_t_t,
   &_swigt__p_std__string,
   &_swigt__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t,
   &_swigt__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator,
@@ -32276,14 +32254,8 @@ static swig_cast_info _swigc__p_std__allocatorT_std__vectorT_double_std__allocat
 static swig_cast_info _swigc__p_std__allocatorT_unsigned_long_t[] = {  {&_swigt__p_std__allocatorT_unsigned_long_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__invalid_argument, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IFitObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IFitObserver_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__shared_ptrT_INamedShared_t[] = {  {&_swigt__p_std__shared_ptrT_INamedShared_t, 0, 0, 0},  {&_swigt__p_std__shared_ptrT_IParameterizedShared_t, _p_std__shared_ptrT_IParameterizedShared_tTo_p_std__shared_ptrT_INamedShared_t, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__shared_ptrT_INamedTemplateT_IShareable_t_t[] = {  {&_swigt__p_std__shared_ptrT_INamedTemplateT_IShareable_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IObserver_t, 0, 0, 0},  {&_swigt__p_std__shared_ptrT_IFitObserver_t, _p_std__shared_ptrT_IFitObserver_tTo_p_std__shared_ptrT_IObserver_t, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__shared_ptrT_IParameterizedShared_t[] = {  {&_swigt__p_std__shared_ptrT_IParameterizedShared_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t[] = {  {&_swigt__p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_ISampleBuilder_t[] = {  {&_swigt__p_std__shared_ptrT_ISampleBuilder_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__shared_ptrT_LayerRTCoefficients_t_t[] = {  {&_swigt__p_std__shared_ptrT_LayerRTCoefficients_t_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__shared_ptrT_ProgressHandler_t_t[] = {  {&_swigt__p_std__shared_ptrT_ProgressHandler_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__string[] = {  {&_swigt__p_std__string, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t[] = {  {&_swigt__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator[] = {  {&_swigt__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator, 0, 0, 0},{0, 0, 0, 0}};
@@ -32366,14 +32338,8 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__allocatorT_unsigned_long_t,
   _swigc__p_std__invalid_argument,
   _swigc__p_std__shared_ptrT_IFitObserver_t,
-  _swigc__p_std__shared_ptrT_INamedShared_t,
-  _swigc__p_std__shared_ptrT_INamedTemplateT_IShareable_t_t,
   _swigc__p_std__shared_ptrT_IObserver_t,
-  _swigc__p_std__shared_ptrT_IParameterizedShared_t,
-  _swigc__p_std__shared_ptrT_IParameterizedTemplateT_IShareable_t_t,
   _swigc__p_std__shared_ptrT_ISampleBuilder_t,
-  _swigc__p_std__shared_ptrT_LayerRTCoefficients_t_t,
-  _swigc__p_std__shared_ptrT_ProgressHandler_t_t,
   _swigc__p_std__string,
   _swigc__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t,
   _swigc__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t__const_iterator,

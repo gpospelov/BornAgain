@@ -147,7 +147,6 @@
 #include "IMaterial.h"
 #include "IObserver.h"
 #include "IParameterized.h"
-#include "IParameterizedShared.h"
 #include "IParticle.h"
 #include "IResolutionFunction2D.h"
 #include "Rotations.h"
@@ -225,7 +224,6 @@
 %include "ICloneable.h"
 
 %include "INamed.h"
-%include "INamedShared.h"
 
 
 //typedef INamedTemplate<void> INamed;
@@ -234,7 +232,6 @@
  //%include "INamedShared.h"
 
 %include "IParameterized.h"
-%include "IParameterizedShared.h"
 
 
 

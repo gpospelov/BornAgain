@@ -28,7 +28,7 @@ import resource
 
 from libBornAgainCore import *
 
-nrepetitions = 100
+nrepetitions = 50
 
 
 
@@ -126,9 +126,9 @@ def run_test():
     real_time = (end_time_real - start_time_real)
     user_time = (end_time_real - start_time_real)
 
-    print("time after %d repetitions:" % nrepetitions)
+    print("\ntime after %d repetitions:" % nrepetitions)
     print("real time: %.4f" % real_time)
-    print("user time: %.4f" % user_time)
+    print("user time: %.4f\n" % user_time)
 
 
 

@@ -1833,43 +1833,6 @@ class INamed(_object):
 INamed_swigregister = _libBornAgainCore.INamed_swigregister
 INamed_swigregister(INamed)
 
-class INamedShared(_object):
-    """Proxy of C++ INamedShared class."""
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, INamedShared, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, INamedShared, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(INamedShared self) -> INamedShared
-        __init__(INamedShared self, std::string name) -> INamedShared
-        """
-        if self.__class__ == INamedShared:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_INamedShared(_self, *args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_INamedShared
-    __del__ = lambda self: None
-
-    def getName(self):
-        """getName(INamedShared self) -> std::string"""
-        return _libBornAgainCore.INamedShared_getName(self)
-
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_INamedShared(self)
-        return weakref_proxy(self)
-INamedShared_swigregister = _libBornAgainCore.INamedShared_swigregister
-INamedShared_swigregister(INamedShared)
-
 class IParameterized(INamed):
     """
 
@@ -2029,86 +1992,6 @@ class ParameterPattern(_object):
     __del__ = lambda self: None
 ParameterPattern_swigregister = _libBornAgainCore.ParameterPattern_swigregister
 ParameterPattern_swigregister(ParameterPattern)
-
-class IParameterizedShared(INamedShared):
-    """Proxy of C++ IParameterizedShared class."""
-
-    __swig_setmethods__ = {}
-    for _s in [INamedShared]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IParameterizedShared, name, value)
-    __swig_getmethods__ = {}
-    for _s in [INamedShared]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, IParameterizedShared, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(IParameterizedShared self) -> IParameterizedShared
-        __init__(IParameterizedShared self, std::string const & name) -> IParameterizedShared
-        __init__(IParameterizedShared self, IParameterizedShared other) -> IParameterizedShared
-        """
-        if self.__class__ == IParameterizedShared:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_IParameterizedShared(_self, *args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_IParameterizedShared
-    __del__ = lambda self: None
-
-    def getParameterPool(self):
-        """getParameterPool(IParameterizedShared self) -> ParameterPool"""
-        return _libBornAgainCore.IParameterizedShared_getParameterPool(self)
-
-
-    def createParameterTree(self):
-        """createParameterTree(IParameterizedShared self) -> ParameterPool"""
-        return _libBornAgainCore.IParameterizedShared_createParameterTree(self)
-
-
-    def printParameters(self):
-        """printParameters(IParameterizedShared self)"""
-        return _libBornAgainCore.IParameterizedShared_printParameters(self)
-
-
-    def setParameterValue(self, name, value):
-        """setParameterValue(IParameterizedShared self, std::string const & name, double value) -> bool"""
-        return _libBornAgainCore.IParameterizedShared_setParameterValue(self, name, value)
-
-
-    def clearParameterPool(self):
-        """clearParameterPool(IParameterizedShared self)"""
-        return _libBornAgainCore.IParameterizedShared_clearParameterPool(self)
-
-
-    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
-        """
-        addParametersToExternalPool(IParameterizedShared self, std::string path, ParameterPool external_pool, int copy_number=-1) -> std::string
-        addParametersToExternalPool(IParameterizedShared self, std::string path, ParameterPool external_pool) -> std::string
-        """
-        return _libBornAgainCore.IParameterizedShared_addParametersToExternalPool(self, path, external_pool, copy_number)
-
-
-    def _print(self, ostr):
-        """_print(IParameterizedShared self, std::ostream & ostr)"""
-        return _libBornAgainCore.IParameterizedShared__print(self, ostr)
-
-
-    def init_parameters(self):
-        """init_parameters(IParameterizedShared self)"""
-        return _libBornAgainCore.IParameterizedShared_init_parameters(self)
-
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IParameterizedShared(self)
-        return weakref_proxy(self)
-IParameterizedShared_swigregister = _libBornAgainCore.IParameterizedShared_swigregister
-IParameterizedShared_swigregister(IParameterizedShared)
 
 
 def GetMajorVersionNumber():
@@ -4756,7 +4639,7 @@ class swig_dummy_type_const_isample_vector(_object):
 swig_dummy_type_const_isample_vector_swigregister = _libBornAgainCore.swig_dummy_type_const_isample_vector_swigregister
 swig_dummy_type_const_isample_vector_swigregister(swig_dummy_type_const_isample_vector)
 
-class ISampleBuilder(IParameterizedShared):
+class ISampleBuilder(IParameterized):
     """
 
 
@@ -4767,11 +4650,11 @@ class ISampleBuilder(IParameterizedShared):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IParameterizedShared]:
+    for _s in [IParameterized]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, ISampleBuilder, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterizedShared]:
+    for _s in [IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, ISampleBuilder, name)
     __repr__ = _swig_repr
@@ -4821,6 +4704,11 @@ class ISampleBuilder(IParameterizedShared):
         registerParameter(ISampleBuilder self, std::string const & name, long parpointer)
         """
         return _libBornAgainCore.ISampleBuilder_registerParameter(self, *args)
+
+
+    def setParameterValue(self, name, value):
+        """setParameterValue(ISampleBuilder self, std::string const & name, double value) -> bool"""
+        return _libBornAgainCore.ISampleBuilder_setParameterValue(self, name, value)
 
     def __disown__(self):
         self.this.disown()

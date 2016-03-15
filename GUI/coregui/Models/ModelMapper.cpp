@@ -55,6 +55,11 @@ void ModelMapper::setOnChildrenChange(std::function<void ()> f)
     m_onChildrenChange.push_back(f);
 }
 
+void ModelMapper::setOnSiblingsChange(std::function<void ()> f)
+{
+    m_onSiblingsChange.push_back(f);
+}
+
 void ModelMapper::setModel(SessionModel *model)
 {
     if (m_model) {
@@ -84,6 +89,15 @@ int ModelMapper::nestlingDepth(SessionItem *item, int level)
         return level;
     return nestlingDepth(item->parent(), level + 1);
 
+}
+
+void ModelMapper::callOnSiblingsChange()
+{
+    if (m_active && m_onSiblingsChange.size() > 0) {
+        for (auto f : m_onSiblingsChange) {
+            f();
+        }
+    }
 }
 
 void ModelMapper::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
@@ -128,61 +142,78 @@ void ModelMapper::onDataChanged(const QModelIndex &topLeft, const QModelIndex &b
 
 void ModelMapper::onRowsInserted(const QModelIndex &parent, int first, int last)
 {
-    if (parent.isValid()) {
-        if (SessionItem *newChild = m_model->itemForIndex(parent.child(first, 0))) {
-            if (m_item == newChild) {
-                if (m_active && m_onParentChange.size() > 0) {
-                    for (auto f : m_onParentChange) {
-                        f(m_model->itemForIndex(parent));
-                    }
-                }
+    if(!parent.isValid()) return;
 
-//                if (m_active && m_onChildrenChange.size() > 0) {
-//                    for (auto f : m_onChildrenChange) {
-//                        f();
-//                    }
+    if (SessionItem *newChild = m_model->itemForIndex(parent.child(first, 0))) {
+        if (m_item == newChild) {
+            if (m_active && m_onParentChange.size() > 0) {
+                for (auto f : m_onParentChange) {
+                    f(m_model->itemForIndex(parent));
+                }
+            }
+
+//            if (m_active && m_onChildrenChange.size() > 0) {
+//                for (auto f : m_onChildrenChange) {
+//                    f();
 //                }
-            }
+//            }
+        }
 
-            else if(m_item == newChild->parent()) {
-                if (m_active && m_onChildrenChange.size() > 0) {
-                    for (auto f : m_onChildrenChange) {
-                        f();
-                    }
+        else if(m_item == newChild->parent()) {
+            if (m_active && m_onChildrenChange.size() > 0) {
+                for (auto f : m_onChildrenChange) {
+                    f();
                 }
             }
+        }
 
+        // inform siblings about the change
+        if(SessionItem *parent = newChild->parent()) {
+            QVector<SessionItem *> items = parent->getItems(parent->tagFromItem(newChild));
+            foreach(SessionItem *sibling, items) {
+                if(m_item == sibling) callOnSiblingsChange();
+            }
         }
 
     }
+
 }
 
 void ModelMapper::onBeginRemoveRows(const QModelIndex &parent, int first, int last)
 {
-    if (parent.isValid()) {
-        if (SessionItem *newChild = m_model->itemForIndex(parent.child(first, 0))) {
-            if (m_item == newChild) {
-                if (m_active && m_onParentChange.size() > 0) {
-                    for (auto f : m_onParentChange) {
-                        f(nullptr);
-                    }
+    if(!parent.isValid()) return;
+
+    if (SessionItem *newChild = m_model->itemForIndex(parent.child(first, 0))) {
+        if (m_item == newChild) {
+            if (m_active && m_onParentChange.size() > 0) {
+                for (auto f : m_onParentChange) {
+                    f(nullptr);
                 }
-//                if (m_active && m_onChildrenChange.size() > 0) {
-//                    for (auto f : m_onChildrenChange) {
-//                        f();
-//                    }
+            }
+//            if (m_active && m_onChildrenChange.size() > 0) {
+//                for (auto f : m_onChildrenChange) {
+//                    f();
 //                }
-            }
+//            }
+        }
 
-            else if(m_item == newChild->parent()) {
-                if (m_active && m_onChildrenChange.size() > 0) {
-                    for (auto f : m_onChildrenChange) {
-                        f();
-                    }
+        else if(m_item == newChild->parent()) {
+            if (m_active && m_onChildrenChange.size() > 0) {
+                for (auto f : m_onChildrenChange) {
+                    f();
                 }
             }
-
-
         }
+
+        // inform siblings about the change
+        if(SessionItem *parent = newChild->parent()) {
+            QVector<SessionItem *> items = parent->getItems(parent->tagFromItem(newChild));
+            foreach(SessionItem *sibling, items) {
+                if(m_item == sibling) callOnSiblingsChange();
+            }
+        }
+
+
+
     }
 }

@@ -22,6 +22,7 @@ public:
         , m_onChildPropertyChangeCount(0)
         , m_onParentChangeCount(0)
         , m_onChildrenChangeCount(0)
+        , m_onSiblingsChangeCount(0)
         , m_mapped_item(0)
     { }
 
@@ -31,6 +32,7 @@ public:
         m_onChildPropertyChangeCount = 0;
         m_onParentChangeCount = 0;
         m_onChildrenChangeCount = 0;
+        m_onSiblingsChangeCount = 0;
         m_mapped_item = 0;
         m_reported_items.clear();
         m_reported_names.clear();
@@ -67,7 +69,11 @@ public:
             onChildrenChange();
         });
 
-
+        m_mapper->setOnSiblingsChange(
+                    [this]()
+        {
+            onSiblingsChange();
+        });
 
     }
 
@@ -96,10 +102,16 @@ private:
         m_onChildrenChangeCount++;
     }
 
+    void onSiblingsChange()
+    {
+        m_onSiblingsChangeCount++;
+    }
+
     int m_onPropertyChangeCount;
     int m_onChildPropertyChangeCount;
     int m_onParentChangeCount;
     int m_onChildrenChangeCount;
+    int m_onSiblingsChangeCount;
     SessionItem *m_mapped_item;
     QList<SessionItem *> m_reported_items;
     QStringList m_reported_names;
@@ -110,6 +122,7 @@ private slots:
     void test_onPropertyChange();
     void test_onParentChange();
     void test_onChildrenChange();
+    void test_onSiblingsChange();
 };
 
 inline void TestMapperForItem::test_onPropertyChange()
@@ -123,6 +136,7 @@ inline void TestMapperForItem::test_onPropertyChange()
     QVERIFY(m_onChildPropertyChangeCount == 0);
     QVERIFY(m_onParentChangeCount == 0);
     QVERIFY(m_onChildrenChangeCount == 0);
+    QVERIFY(m_onSiblingsChangeCount == 0);
     QVERIFY(m_mapped_item == nullptr);
     QVERIFY(m_reported_items.isEmpty());
     QVERIFY(m_reported_names.isEmpty());
@@ -134,6 +148,7 @@ inline void TestMapperForItem::test_onPropertyChange()
     QVERIFY(m_onChildPropertyChangeCount == 0);
     QVERIFY(m_onParentChangeCount == 0);
     QVERIFY(m_onChildrenChangeCount == 0);
+    QVERIFY(m_onSiblingsChangeCount == 0);
     QVERIFY(m_mapped_item == layer);
     QVERIFY(m_reported_items.isEmpty());
     QVERIFY((m_reported_names.size() == 1) && (m_reported_names[0] == LayerItem::P_THICKNESS));
@@ -145,6 +160,7 @@ inline void TestMapperForItem::test_onPropertyChange()
     QVERIFY(m_onChildPropertyChangeCount == 0);
     QVERIFY(m_onParentChangeCount == 0);
     QVERIFY(m_onChildrenChangeCount == 0);
+    QVERIFY(m_onSiblingsChangeCount == 0);
     QVERIFY(m_mapped_item == layer);
     QVERIFY(m_reported_items.isEmpty());
     QVERIFY(m_reported_names.isEmpty());
@@ -156,6 +172,7 @@ inline void TestMapperForItem::test_onPropertyChange()
     QVERIFY(m_onChildPropertyChangeCount == 1);
     QVERIFY(m_onParentChangeCount == 0);
     QVERIFY(m_onChildrenChangeCount == 0);
+    QVERIFY(m_onSiblingsChangeCount == 0);
     QVERIFY(m_mapped_item == multilayer);
     QVERIFY( (m_reported_items.size() == 1) && (m_reported_items[0] == layer));
     QVERIFY((m_reported_names.size() == 1) && (m_reported_names[0] == LayerItem::P_THICKNESS));
@@ -167,6 +184,7 @@ inline void TestMapperForItem::test_onPropertyChange()
     QVERIFY(m_onChildPropertyChangeCount == 0);
     QVERIFY(m_onParentChangeCount == 0);
     QVERIFY(m_onChildrenChangeCount == 0);
+    QVERIFY(m_onSiblingsChangeCount == 0);
     QVERIFY(m_mapped_item == multilayer);
     QVERIFY(m_reported_items.isEmpty());
     QVERIFY((m_reported_names.size() == 1) && (m_reported_names[0] == MultiLayerItem::P_CROSS_CORR_LENGTH));
@@ -209,10 +227,37 @@ inline void TestMapperForItem::test_onChildrenChange()
     QVERIFY(m_onChildPropertyChangeCount == 2);
     QVERIFY(m_onParentChangeCount == 0);
     QVERIFY(m_onChildrenChangeCount == 1);
+    QVERIFY(m_onSiblingsChangeCount == 0);
     QVERIFY(m_mapped_item == multilayer);
     QVERIFY(m_reported_items.size() == 2);
     QVERIFY(m_reported_names.size() == 2);
 }
+
+inline void TestMapperForItem::test_onSiblingsChange()
+{
+    clear();
+    SampleModel model;
+    SessionItem *multilayer = model.insertNewItem(Constants::MultiLayerType);
+    SessionItem *layer = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+
+    // Mapper is looking on child; adding another child to parent
+    setItem(layer);
+    SessionItem *layer2 = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+
+    QVERIFY(m_onPropertyChangeCount == 0);
+    QVERIFY(m_onChildPropertyChangeCount == 0);
+    QVERIFY(m_onParentChangeCount == 0);
+    QVERIFY(m_onChildrenChangeCount == 0);
+    QVERIFY(m_onSiblingsChangeCount == 1);
+    QVERIFY(m_mapped_item == layer);
+    QVERIFY(m_reported_items.isEmpty());
+    QVERIFY(m_reported_names.isEmpty());
+
+    multilayer->takeRow(layer2->parentRow());
+    QVERIFY(m_onSiblingsChangeCount == 2);
+
+}
+
 
 
 #endif

@@ -36,7 +36,12 @@ class Histogram2D;
 class BA_CORE_API_ IHistogram
 {
 public:
-    enum DataType {INTEGRAL, AVERAGE, ERROR, NENTRIES};
+    enum class DataType {
+        INTEGRAL,
+        AVERAGE,
+        STANDARD_ERROR,
+        NENTRIES
+    };
 
     IHistogram();
     IHistogram(const IHistogram &other);
@@ -167,7 +172,7 @@ public:
 
 #ifdef BORNAGAIN_PYTHON
     //! Returns numpy array with bin content (accumulated values)
-    PyObject *getArray(DataType dataType = INTEGRAL) const;
+    PyObject *getArray(DataType dataType = DataType::INTEGRAL) const;
 #endif
 
     //! Reset histogram content (axes remains)
@@ -179,7 +184,7 @@ public:
     static IHistogram *createFrom(const std::string &filename);
 
     //! creates new OutputData with histogram's shape and put there values corresponding to DataType
-    OutputData<double> *createOutputData(DataType dataType = INTEGRAL) const;
+    OutputData<double> *createOutputData(DataType dataType = DataType::INTEGRAL) const;
 
     //! Returns true if objects a) have same dimensions b) bin boundaries of axes coincide
     bool hasSameShape(const IHistogram& other) const;

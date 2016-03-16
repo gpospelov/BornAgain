@@ -98,26 +98,26 @@ TEST_F(RectangularDetectorTest, PerpToSample)
     // lower left bin
     kvector_t k(distance, u0-dx/2., (-v0+dy/2.));
     SimulationElement element = elements[0];
-    EXPECT_FLOAT_EQ(phi(k), phi(element));
-    EXPECT_FLOAT_EQ(alpha(k), alpha(element));
+    EXPECT_DOUBLE_EQ(phi(k), phi(element));
+    EXPECT_NEAR(alpha(k), alpha(element), 1e-10*std::abs(alpha(k)));
 
     // upper left bin
     k = kvector_t(distance, u0-dx/2., (height -  v0 - dy/2.));
     element = elements[3];
-    EXPECT_FLOAT_EQ(phi(k), phi(element));
-    EXPECT_FLOAT_EQ(alpha(k), alpha(element));
+    EXPECT_DOUBLE_EQ(phi(k), phi(element));
+    EXPECT_NEAR(alpha(k), alpha(element), 1e-10*std::abs(alpha(k)));
 
     // lower right bin
     k = kvector_t(distance, -(width-u0-dx/2.), (-v0+dy/2.));
     element = elements[16];
-    EXPECT_FLOAT_EQ(phi(k), phi(element));
-    EXPECT_FLOAT_EQ(alpha(k), alpha(element));
+    EXPECT_DOUBLE_EQ(phi(k), phi(element));
+    EXPECT_NEAR(alpha(k), alpha(element), 1e-10*std::abs(alpha(k)));
 
     // upper right bin
     k = kvector_t(distance, -(width-u0-dx/2.), (height -  v0 - dy/2.));
     element = elements[19];
-    EXPECT_FLOAT_EQ(phi(k), phi(element));
-    EXPECT_FLOAT_EQ(alpha(k), alpha(element));
+    EXPECT_DOUBLE_EQ(phi(k), phi(element));
+    EXPECT_NEAR(alpha(k), alpha(element), 1e-10*std::abs(alpha(k)));
 }
 
 
@@ -159,8 +159,8 @@ TEST_F(RectangularDetectorTest, PerpToDirectBeam)
     double x = c/std::tan(alpha_x);
     kvector_t k(x, u0-dx/2., -c);
     SimulationElement element = elements[0];
-    EXPECT_FLOAT_EQ(phi(k), phi(element));
-    EXPECT_FLOAT_EQ(alpha(k), alpha(element));
+    EXPECT_DOUBLE_EQ(phi(k), phi(element));
+    EXPECT_DOUBLE_EQ(alpha(k), alpha(element));
 }
 
 
@@ -203,8 +203,8 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeam)
 
     kvector_t k(x, u0-dx/2., c);
     SimulationElement element = elements[0];
-    EXPECT_FLOAT_EQ(phi(k), phi(element));
-    EXPECT_FLOAT_EQ(alpha(k), alpha(element));
+    EXPECT_DOUBLE_EQ(phi(k), phi(element));
+    EXPECT_DOUBLE_EQ(alpha(k), alpha(element));
 
 }
 
@@ -260,8 +260,8 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos)
 
     kvector_t k(x, u0-dx/2., c);
     SimulationElement element = elements[0];
-    EXPECT_FLOAT_EQ(phi(k), phi(element));
-    EXPECT_FLOAT_EQ(alpha(k), alpha(element));
+    EXPECT_DOUBLE_EQ(phi(k), phi(element));
+    EXPECT_DOUBLE_EQ(alpha(k), alpha(element));
 }
 
 

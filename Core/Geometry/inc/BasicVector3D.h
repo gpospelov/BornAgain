@@ -254,7 +254,7 @@ inline bool operator!=(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
 
 //! Creates a vector<double> as a wavevector with given wavelength and angles.
 //! Specifically needed for grazing-incidence scattering.
-BasicVector3D<double> vecOfLambdaAlphaPhi(const double _lambda, const double _alpha, const double _phi);
+BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(const double _lambda, const double _alpha, const double _phi);
 
 
 // =============================================================================
@@ -277,6 +277,8 @@ template<> BA_CORE_API_ double BasicVector3D<double>::theta() const;
 //! \todo Replace by member function complex()
 BA_CORE_API_ BasicVector3D<std::complex<double> > toComplexVector(
         const BasicVector3D<double>& real_vector);
+
+template<> BA_CORE_API_ BasicVector3D<std::complex<double> > BasicVector3D<double>::complex() const;
 
 }  // namespace Geometry
 

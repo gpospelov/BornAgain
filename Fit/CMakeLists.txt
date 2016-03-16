@@ -105,7 +105,7 @@ if(BORNAGAIN_PYTHON)
 
   add_custom_target (
     ${library_name}_python
-    COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py ${CMAKE_BINARY_DIR}/lib/libBornAgainFit.py
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py ${CMAKE_BINARY_DIR}/lib/libBornAgainFit.py
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
     )
   

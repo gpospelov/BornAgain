@@ -158,7 +158,6 @@ target_link_libraries(${library_name}
     Qt5::Widgets
     Qt5::Core
     Qt5::Gui
-#     Qt5::Script
     Qt5::Designer
     Qt5::PrintSupport
     Qt5::Network
@@ -175,27 +174,11 @@ if(WIN32)
     ${QTDIR}/bin/Qt5Widgets.DLL
     ${QTDIR}/bin/Qt5Core.dll
     ${QTDIR}/bin/Qt5Gui.dll
-    ${QTDIR}/bin/Qt5Script.dll
-    ${QTDIR}/bin/Qt5WebKitWidgets.dll
     ${QTDIR}/bin/Qt5Designer.dll
     ${QTDIR}/bin/Qt5Xml.dll
     ${QTDIR}/bin/Qt5Svg.dll
-    #${QTDIR}/bin/libGLESv2.dll
-    #${QTDIR}/bin/libEGL.dll
-    ${QTDIR}/bin/icuin54.dll
-    ${QTDIR}/bin/icuuc54.dll
-    ${QTDIR}/bin/icudt54.dll
-    ${QTDIR}/bin/Qt5Multimedia.dll
-    ${QTDIR}/bin/Qt5MultimediaWidgets.dll
-    ${QTDIR}/bin/Qt5OpenGL.dll
     ${QTDIR}/bin/Qt5Network.dll
     ${QTDIR}/bin/Qt5PrintSupport.dll
-    ${QTDIR}/bin/Qt5Qml.dll
-    ${QTDIR}/bin/Qt5Quick.dll
-    ${QTDIR}/bin/Qt5Sensors.dll
-    ${QTDIR}/bin/Qt5Sql.dll
-    #${QTDIR}/bin/Qt5V8.dll
-    ${QTDIR}/bin/Qt5WebKit.dll
     DESTINATION ${destination_lib} COMPONENT Libraries)
 
     install(FILES

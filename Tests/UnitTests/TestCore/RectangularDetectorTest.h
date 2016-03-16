@@ -160,7 +160,7 @@ TEST_F(RectangularDetectorTest, PerpToDirectBeam)
     kvector_t k(x, u0-dx/2., -c);
     SimulationElement element = elements[0];
     EXPECT_DOUBLE_EQ(phi(k), phi(element));
-    EXPECT_DOUBLE_EQ(alpha(k), alpha(element));
+    EXPECT_NEAR(alpha(k), alpha(element), 1e-10*std::abs(alpha(k)));
 }
 
 
@@ -204,8 +204,7 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeam)
     kvector_t k(x, u0-dx/2., c);
     SimulationElement element = elements[0];
     EXPECT_DOUBLE_EQ(phi(k), phi(element));
-    EXPECT_DOUBLE_EQ(alpha(k), alpha(element));
-
+    EXPECT_NEAR(alpha(k), alpha(element), 1e-10*std::abs(alpha(k)));
 }
 
 // detector perpendicular to reflected beam, when direct beam position is known
@@ -261,7 +260,7 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos)
     kvector_t k(x, u0-dx/2., c);
     SimulationElement element = elements[0];
     EXPECT_DOUBLE_EQ(phi(k), phi(element));
-    EXPECT_DOUBLE_EQ(alpha(k), alpha(element));
+    EXPECT_NEAR(alpha(k), alpha(element), 1e-10*std::abs(alpha(k)));
 }
 
 

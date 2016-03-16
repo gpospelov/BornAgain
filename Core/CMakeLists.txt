@@ -215,23 +215,23 @@ if(WIN32)
     endif()
 
     # system libraries
-    set(boost_suffix "-vc120-mt-1_59.dll")
-    
+    FOREACH(Boost_lib ${Boost_LIBRARIES})
+       get_filename_component(UTF_BASE_NAME ${Boost_lib} NAME_WE)
+       get_filename_component(UTF_PATH ${Boost_lib} PATH)
+       message(STATUS "Boost dll: ${UTF_PATH}/${UTF_BASE_NAME}.dll")
+       install(FILES ${UTF_PATH}/${UTF_BASE_NAME}.dll
+               DESTINATION ${destination_lib} COMPONENT Libraries)
+    ENDFOREACH()
+
+    get_filename_component(UTF_BASE_NAME ${PYTHON_LIBRARIES} NAME_WE)
+    get_filename_component(UTF_PATH ${PYTHON_EXECUTABLE} PATH)
+    message(STATUS "Python dll: ${UTF_PATH}/${UTF_BASE_NAME}.dll")
+    install(FILES ${UTF_PATH}/${UTF_BASE_NAME}.dll
+            DESTINATION ${destination_lib} COMPONENT Libraries)
+
     install(FILES
-    ${CMAKE_LIBRARY_PATH}/boost_date_time${boost_suffix}
-    ${CMAKE_LIBRARY_PATH}/boost_chrono${boost_suffix}
-    ${CMAKE_LIBRARY_PATH}/boost_program_options${boost_suffix}
-    ${CMAKE_LIBRARY_PATH}/boost_zlib${boost_suffix}
-    ${CMAKE_LIBRARY_PATH}/boost_bzip2${boost_suffix}
-    ${CMAKE_LIBRARY_PATH}/boost_iostreams${boost_suffix}
-    ${CMAKE_LIBRARY_PATH}/boost_system${boost_suffix}
-    ${CMAKE_LIBRARY_PATH}/boost_filesystem${boost_suffix}
-    #${CMAKE_LIBRARY_PATH}/boost_python${boost_suffix}
-    ${CMAKE_LIBRARY_PATH}/boost_regex${boost_suffix}
-    ${CMAKE_LIBRARY_PATH}/boost_thread${boost_suffix}
     ${CMAKE_LIBRARY_PATH}/libfftw3-3.dll
     ${CMAKE_LIBRARY_PATH}/libtiff.dll
-    "C:/Anaconda/Python27.dll"
     DESTINATION ${destination_lib} COMPONENT Libraries)
 
 else()

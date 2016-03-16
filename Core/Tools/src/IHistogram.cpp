@@ -303,7 +303,7 @@ double IHistogram::getBinData(size_t globalbin, IHistogram::DataType dataType) c
         return getBinContent(globalbin);
     } else if(dataType == DataType::AVERAGE) {
         return getBinAverage(globalbin);
-    } else if(dataType == DataType::ERROR) {
+    } else if(dataType == DataType::STANDARD_ERROR) {
         return getBinError(globalbin);
     } else if(dataType == DataType::NENTRIES) {
         return getBinNumberOfEntries(globalbin);

@@ -414,7 +414,7 @@ TEST_F(Histogram2DTest, CreateOutputData)
         EXPECT_EQ(double(i), (*data)[i]);
     }
 
-    data.reset(hist.createOutputData(IHistogram::DataType::ERROR));
+    data.reset(hist.createOutputData(IHistogram::DataType::STANDARD_ERROR));
     for(size_t i=0; i<data->getAllocatedSize(); ++i) {
         EXPECT_EQ(0.0, (*data)[i]);
     }

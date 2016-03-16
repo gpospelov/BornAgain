@@ -70,7 +70,7 @@ std::vector<double> Histogram1D::getBinValues() const
 
 std::vector<double> Histogram1D::getBinErrors() const
 {
-    return IHistogram::getDataVector(IHistogram::DataType::ERROR);
+    return IHistogram::getDataVector(IHistogram::DataType::STANDARD_ERROR);
 }
 
 PyObject *Histogram1D::getBinCentersNumpy() const

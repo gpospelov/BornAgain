@@ -36,7 +36,12 @@ class Histogram2D;
 class BA_CORE_API_ IHistogram
 {
 public:
-    enum class DataType {INTEGRAL, AVERAGE, ERROR, NENTRIES};
+    enum class DataType {
+        INTEGRAL,
+        AVERAGE,
+        STANDARD_ERROR,
+        NENTRIES
+    };
 
     IHistogram();
     IHistogram(const IHistogram &other);

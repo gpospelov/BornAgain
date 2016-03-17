@@ -19,7 +19,7 @@
 
 #include <iostream>
 #include <iomanip>
-#include <boost/regex.hpp>
+#include <regex>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
@@ -101,10 +101,10 @@ bool Utils::String::MatchPattern(
 
     // constructing regexp pattern
     wildcardPattern = "^" + wildcardPattern + "$";
-    boost::regex pattern(wildcardPattern, caseSensitive ? boost::regex::normal : boost::regex::icase);
+    std::regex pattern(wildcardPattern, caseSensitive ? std::regex::ECMAScript : std::regex::icase);
 
     // applaying match
-    return boost::regex_match(text, pattern);
+    return std::regex_match(text, pattern);
 }
 
 //! Split string into vector of string using delimeter.

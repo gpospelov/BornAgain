@@ -19,7 +19,7 @@
 #include "MessageService.h"
 #include "IIntensityNormalizer.h"
 #include <sstream>
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double >& real_data,
     double weight, bool adjust_detector_to_data)

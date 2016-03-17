@@ -20,7 +20,7 @@
 #include "OutputData.h"
 #include "FitSuite.h"
 #include "MinimizerFactory.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 #include <boost/format.hpp>
 
 IMinimizerFunctionalTest::TestParameter::TestParameter(const std::string &name, double real_value,

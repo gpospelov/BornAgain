@@ -19,7 +19,7 @@
 #include "IParameterized.h"
 #include "FitElement.h"
 #include "OutputData.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 class GISASSimulation;
 class IIntensityNormalizer;
@@ -80,9 +80,9 @@ private:
     FitObject(const FitObject& );
     FitObject& operator=(const FitObject& );
 
-    boost::scoped_ptr<GISASSimulation> m_simulation;
-    boost::scoped_ptr<OutputData<double> > m_real_data;
-    boost::scoped_ptr<OutputData<double> > m_simulation_data;
+    std::unique_ptr<GISASSimulation> m_simulation;
+    std::unique_ptr<OutputData<double> > m_real_data;
+    std::unique_ptr<OutputData<double> > m_simulation_data;
     double m_weight;
     bool m_adjust_detector_to_data;
 };

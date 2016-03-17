@@ -36,7 +36,7 @@ void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation,
 void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation,
                                         const IHistogram &real_data, double weight)
 {
-    boost::scoped_ptr<OutputData<double> > data(real_data.createOutputData());
+    const std::unique_ptr<OutputData<double> > data(real_data.createOutputData());
     m_kernel->addSimulationAndRealData(simulation, *data, weight);
 }
 
@@ -117,7 +117,7 @@ IHistogram *FitSuite::getSimulationData(size_t i_item) const
 
 IHistogram *FitSuite::getChiSquaredMap(size_t i_item) const
 {
-    boost::scoped_ptr<OutputData<double> > data(m_kernel->getFitObjects()->getChiSquaredMap(i_item));
+    const std::unique_ptr<OutputData<double> > data(m_kernel->getFitObjects()->getChiSquaredMap(i_item));
     return IHistogram::createHistogram(*data);
 }
 

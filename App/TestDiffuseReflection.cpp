@@ -102,8 +102,10 @@ void TestDiffuseReflection::execute()
             double alpha_f = m_data_offspec->getAxisValue(it.getIndex(), BornAgain::ALPHA_AXIS_NAME);
             size_t index_alpha_i = m_data_offspec->getAxisBinIndex(it.getIndex(), "alpha_i");
             size_t index_alpha_f = m_data_offspec->getAxisBinIndex(it.getIndex(), BornAgain::ALPHA_AXIS_NAME);
-            ki.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
-            kf.setLambdaAlphaPhi(1.54*Units::angstrom, alpha_f, 0.0);
+            //ki.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
+            ki = Geometry::vecOfLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
+            //kf.setLambdaAlphaPhi(1.54*Units::angstrom, alpha_f, 0.0);
+            kf = Geometry::vecOfLambdaAlphaPhi(1.54*Units::angstrom, alpha_f, 0.0);
             calc.execute(*m_sample, ki, kf);
             double intensity = calc.getDiffuseAutocorr() + calc.getDiffuseCrosscorr();
             if(index_alpha_i==5) {

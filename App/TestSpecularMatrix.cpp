@@ -63,9 +63,10 @@ void TestSpecularMatrix::test_standard_samples()
                 mp_coeffs->begin();
         while (it != mp_coeffs->end()) {
             double alpha_i = mp_coeffs->getAxisValue(it.getIndex(), "alpha_i");
-            kvector_t kvec;
-            kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
-
+            //kvector_t kvec;
+            //kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
+            auto kvec = Geometry::vecOfLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
+            
             SpecularMatrix::MultiLayerCoeff_t coeffs;
             SpecularMatrix matrixCalculator;
             matrixCalculator.execute(*mp_sample, kvec, coeffs);
@@ -235,8 +236,9 @@ void TestSpecularMatrix::test_roughness_set()
         double roughness = mp_coeffs->getAxisValue(it.getIndex(), "roughness");
         multipar.setValue(roughness);
 
-        kvector_t kvec;
-        kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
+        //kvector_t kvec;
+        //kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
+        auto kvec = Geometry::vecOfLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
         SpecularMatrix::MultiLayerCoeff_t coeffs;
         SpecularMatrix MatrixCalculator;
         MatrixCalculator.execute(*mp_sample, kvec, coeffs);

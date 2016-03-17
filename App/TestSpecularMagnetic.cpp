@@ -57,8 +57,11 @@ void TestSpecularMagnetic::test_standard_sample()
                 mp_coeffs->begin();
         while (it != mp_coeffs->end()) {
             double alpha_i = mp_coeffs->getAxisValue(it.getIndex(), "alpha_i");
-            kvector_t kvec;
-            kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
+
+            
+            //kvector_t kvec;
+            //kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
+            auto kvec = Geometry::vecOfLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
 
             SpecularMagnetic::MultiLayerCoeff_t coeffs;
             SpecularMagnetic magneticCalculator;

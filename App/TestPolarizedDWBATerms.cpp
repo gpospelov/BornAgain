@@ -84,7 +84,8 @@ void TestPolarizedDWBATerms::execute()
 
 void TestPolarizedDWBATerms::initWavevectors()
 {
-    m_ki.setLambdaAlphaPhi(0.21, -m_alpha_i, 0.0);
+    //m_ki.setLambdaAlphaPhi(0.21, -m_alpha_i, 0.0);
+    m_ki = Geometry::vecOfLambdaAlphaPhi(0.21, -m_alpha_i, 0.0).complex();
 
     Bin1D alpha_bin( m_alpha_f, m_alpha_f );
     Bin1D phi_bin;

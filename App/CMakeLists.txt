@@ -10,10 +10,10 @@ set(include_dirs
 include_directories(${include_dirs})
 
 # source files
-file(GLOB source_files "src/*.cpp")
+file(GLOB source_files "*.cpp")
 
 # include files
-file(GLOB include_files "inc/*.h")
+file(GLOB include_files "*.h")
 
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc ")
@@ -21,7 +21,7 @@ if(MSVC)
 endif()
 
 # dictionaries
-ROOT_GENERATE_DICTIONARY(AppDict inc/DrawHelper.h inc/TreeEventStructure.h  LINKDEF AppLinkDef.h)
+ROOT_GENERATE_DICTIONARY(AppDict DrawHelper.h TreeEventStructure.h  LINKDEF AppLinkDef.h)
 
 # --- dependencies ---
 include_directories(

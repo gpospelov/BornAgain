@@ -52,7 +52,7 @@ execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/d
 # file extensions
 # -----------------------------------------------------------------------------
 if(WIN32)
-  set(libprefix lib)
+  set(libprefix _lib)
   set(libsuffix .dll)
 elseif(APPLE)
   set(libprefix lib)

@@ -1,5 +1,10 @@
-set(BORNAGAIN_ARCHITECTURE win32)
-set(BORNAGAIN_PLATFORM win32)
+if(${CMAKE_SIZEOF_VOID_P} EQUAL 8)
+  set(BORNAGAIN_ARCHITECTURE win64)
+  set(BORNAGAIN_PLATFORM win64)
+else()
+    set(BORNAGAIN_ARCHITECTURE win32)
+    set(BORNAGAIN_PLATFORM win32)
+endif()
 
 add_definitions(-DEIGEN_DONT_ALIGN_STATICALLY=1)
 message(STATUS "Disabling static align for Eigen")

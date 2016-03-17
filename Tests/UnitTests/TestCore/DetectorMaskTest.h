@@ -4,7 +4,7 @@
 #include "DetectorMask.h"
 #include "SphericalDetector.h"
 #include "gtest/gtest.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 class DetectorMaskTest : public ::testing::Test
 {

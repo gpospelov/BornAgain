@@ -26,7 +26,7 @@
 #include "IObserver.h"
 #include <string>
 #include <boost/date_time/posix_time/posix_time.hpp>
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 #ifndef GCCXML_SKIP_THIS
 #include <atomic>
 #endif
@@ -120,7 +120,7 @@ private:
     FitSuiteObjects m_fit_objects;
     FitSuiteParameters m_fit_parameters;
     FitSuiteStrategies m_fit_strategies;
-    boost::scoped_ptr<IMinimizer>  m_minimizer;
+    std::unique_ptr<IMinimizer>  m_minimizer;
     FitSuiteChiSquaredFunction m_function_chi2;
     FitSuiteGradientFunction m_function_gradient;
     bool m_is_last_iteration;

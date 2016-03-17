@@ -236,7 +236,7 @@ bool FitKernel::check_prerequisites() const
 //! link FitMultiParameters with simulation parameters
 void FitKernel::link_fit_parameters()
 {
-    boost::scoped_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
+    const std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
     m_fit_parameters.link_to_pool(pool.get());
     msglog(MSG::DEBUG2) << "FitSuite::link_fit_parameters() -> Parameter pool:";
     msglog(MSG::DEBUG2) << *pool;

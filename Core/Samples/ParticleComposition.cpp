@@ -135,11 +135,11 @@ ParticleComposition::createTransformedFormFactor(const IRotation *p_rotation,
 {
     if (m_particles.size() == 0)
         return 0;
-    boost::scoped_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
+    const std::unique_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
     kvector_t total_position = getComposedTranslation(p_rotation, translation);
     FormFactorWeighted *p_result = new FormFactorWeighted();
     for (size_t index = 0; index < m_particles.size(); ++index) {
-        boost::scoped_ptr<IFormFactor> P_particle_ff(
+        const std::unique_ptr<IFormFactor> P_particle_ff(
             m_particles[index]->createTransformedFormFactor(P_total_rotation.get(),
                                                             total_position));
         p_result->addFormFactor(*P_particle_ff);

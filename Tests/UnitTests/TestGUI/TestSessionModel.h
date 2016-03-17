@@ -9,7 +9,7 @@
 #include "MaterialEditor.h"
 #include "JobModel.h"
 #include <QXmlStreamWriter>
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 class TestSessionModel : public QObject {
     Q_OBJECT
@@ -24,8 +24,8 @@ private slots:
 
 inline void TestSessionModel::test_SampleModel_CreateCopy()
 {
-    boost::scoped_ptr<MaterialModel> P_materialModel(new MaterialModel());
-    boost::scoped_ptr<MaterialEditor> P_materialEditor(new MaterialEditor(P_materialModel.get()));
+    std::unique_ptr<MaterialModel> P_materialModel(new MaterialModel());
+    std::unique_ptr<MaterialEditor> P_materialEditor(new MaterialEditor(P_materialModel.get()));
 
     SampleModel *model1 = new SampleModel();
     ParameterizedItem *multilayer = model1->insertNewItem(Constants::MultiLayerType);
@@ -51,8 +51,8 @@ inline void TestSessionModel::test_SampleModel_CreateCopy()
 
 inline void TestSessionModel::test_SampleModel_CreatePartialCopy()
 {
-    boost::scoped_ptr<MaterialModel> P_materialModel(new MaterialModel());
-    boost::scoped_ptr<MaterialEditor> P_materialEditor(new MaterialEditor(P_materialModel.get()));
+    std::unique_ptr<MaterialModel> P_materialModel(new MaterialModel());
+    std::unique_ptr<MaterialEditor> P_materialEditor(new MaterialEditor(P_materialModel.get()));
 
     SampleModel *model1 = new SampleModel();
     ParameterizedItem *multilayer1 = model1->insertNewItem(Constants::MultiLayerType);
@@ -128,8 +128,8 @@ inline void TestSessionModel::test_InstrumentModel_CreatePartialCopy()
 //! here if a MultiLayerItem can be copied from SampleModel to the JobItem of JobModel
 inline void TestSessionModel::test_copyParameterizedItem()
 {
-    boost::scoped_ptr<MaterialModel> P_materialModel(new MaterialModel());
-    boost::scoped_ptr<MaterialEditor> P_materialEditor(new MaterialEditor(P_materialModel.get()));
+    std::unique_ptr<MaterialModel> P_materialModel(new MaterialModel());
+    std::unique_ptr<MaterialEditor> P_materialEditor(new MaterialEditor(P_materialModel.get()));
 
     SampleModel *sampleModel = new SampleModel();
     ParameterizedItem *multilayer1 = sampleModel->insertNewItem(Constants::MultiLayerType);

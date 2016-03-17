@@ -21,7 +21,7 @@
 #include "FormFactorDecoratorRotation.h"
 #include "IMaterial.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 //! @class Particle
 //! @ingroup samples
@@ -71,9 +71,9 @@ public:
     const IFormFactor* getFormFactor() const;
 
 protected:
-    boost::scoped_ptr<IMaterial> mP_material;
-    boost::scoped_ptr<IMaterial> mP_ambient_material;
-    boost::scoped_ptr<IFormFactor> mP_form_factor;
+    std::unique_ptr<IMaterial> mP_material;
+    std::unique_ptr<IMaterial> mP_ambient_material;
+    std::unique_ptr<IFormFactor> mP_form_factor;
 private:
     void initialize();
 };

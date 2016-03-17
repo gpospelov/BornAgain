@@ -20,7 +20,7 @@
 #include "OutputDataReadStrategy.h"
 #include <string>
 #include <vector>
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 template <class T> class OutputData;
 
@@ -42,7 +42,7 @@ public:
 private:
     OutputData<double > *getFromFilteredStream(std::istream &input_stream);
     std::string m_file_name;
-    boost::scoped_ptr<IOutputDataReadStrategy> m_read_strategy;
+    std::unique_ptr<IOutputDataReadStrategy> m_read_strategy;
 };
 
 #endif // OUTPUTDATAREADER_H

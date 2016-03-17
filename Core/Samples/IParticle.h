@@ -20,7 +20,7 @@
 #include "IMaterial.h"
 #include "Rotations.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 //! @class IAbstractParticle
 //! @ingroup samples
@@ -111,7 +111,7 @@ protected:
     void registerPosition();
 
     kvector_t m_position;
-    boost::scoped_ptr<IRotation> mP_rotation;
+    std::unique_ptr<IRotation> mP_rotation;
 };
 
 inline void IAbstractParticle::accept(ISampleVisitor *visitor) const

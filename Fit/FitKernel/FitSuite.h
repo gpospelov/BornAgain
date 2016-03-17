@@ -152,7 +152,7 @@ private:
     FitSuite& operator=(const FitSuite& );
     FitSuite(const FitSuite& );
 
-    boost::scoped_ptr<FitKernel> m_kernel;
+    std::unique_ptr<FitKernel> m_kernel;
 };
 
 #endif

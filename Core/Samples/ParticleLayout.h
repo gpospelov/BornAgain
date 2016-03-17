@@ -21,7 +21,7 @@
 #include "IInterferenceFunction.h"
 #include "Rotations.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 //! @class ParticleLayout
 //! @ingroup samples
@@ -102,7 +102,7 @@ private:
     SafePointerVector<IAbstractParticle> m_particles;
 
     //! Interference function
-    boost::scoped_ptr<IInterferenceFunction> mP_interference_function;
+    std::unique_ptr<IInterferenceFunction> mP_interference_function;
 
     //! Total particle surface density
     double m_total_particle_density;

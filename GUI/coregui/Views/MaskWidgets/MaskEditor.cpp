@@ -27,7 +27,7 @@
 #include <QDebug>
 
 #include "SimulationRegistry.h"
-#include <boost/scoped_ptr.hpp>
+ 
 #include "SampleBuilderFactory.h"
 #include "IntensityDataItem.h"
 #include "SessionModel.h"
@@ -91,10 +91,10 @@ void MaskEditor::init_test_model()
     SessionModel *maskModel = new SessionModel(SessionXML::MaskModelTag, this);
 
     SimulationRegistry simRegistry;
-    boost::scoped_ptr<GISASSimulation> simulation(simRegistry.createSimulation("BasicGISAS"));
+    const std::unique_ptr<GISASSimulation> simulation(simRegistry.createSimulation("BasicGISAS"));
 
     SampleBuilderFactory sampleFactory;
-    boost::scoped_ptr<ISample> sample(sampleFactory.createSample("CylindersAndPrismsBuilder"));
+    const std::unique_ptr<ISample> sample(sampleFactory.createSample("CylindersAndPrismsBuilder"));
 
     simulation->setSample(*sample.get());
     simulation->runSimulation();

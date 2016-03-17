@@ -16,7 +16,7 @@
 #include "GUIFitObserver.h"
 #include "FitSuite.h"
 #include "IntensityDataItem.h"
-#include <boost/scoped_ptr.hpp>
+ 
 
 void GUIFitObserver::update(FitSuite *subject)
 {

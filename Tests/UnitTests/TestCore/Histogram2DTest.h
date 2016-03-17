@@ -2,7 +2,7 @@
 #define HISTOGRAM2DTEST_H
 
 #include "Histogram2D.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 #include "gtest/gtest.h"
 
 class Histogram2DTest : public ::testing::Test
@@ -174,7 +174,7 @@ TEST_F(Histogram2DTest, projectionX)
     }
 
     // a) create projection along X axis
-    boost::scoped_ptr<Histogram1D > h1(hist->projectionX());
+    std::unique_ptr<Histogram1D > h1(hist->projectionX());
     EXPECT_EQ(hist->getXmin(), h1->getXmin());
     EXPECT_EQ(hist->getXmax(), h1->getXmax());
     EXPECT_EQ(hist->getNbinsX(), h1->getNbinsX());
@@ -257,7 +257,7 @@ TEST_F(Histogram2DTest, projectionY)
     }
 
     // a) create projection along Y axis
-    boost::scoped_ptr<Histogram1D > h1(hist->projectionY());
+    std::unique_ptr<Histogram1D > h1(hist->projectionY());
     EXPECT_EQ(hist->getYmin(), h1->getXmin());
     EXPECT_EQ(hist->getYmax(), h1->getXmax());
     EXPECT_EQ(3, h1->getNbinsX());
@@ -346,7 +346,7 @@ TEST_F(Histogram2DTest, crop)
         hist->fill(xvalues[i], yvalues[i], content[i]);
     }
 
-    boost::scoped_ptr<Histogram2D > crop(hist->crop(-0.49, 0.0, 1.99,1.9));
+    std::unique_ptr<Histogram2D > crop(hist->crop(-0.49, 0.0, 1.99,1.9));
     EXPECT_EQ(-0.5, crop->getXmin());
     EXPECT_EQ(2.0, crop->getXmax());
     EXPECT_EQ(3, crop->getNbinsX());
@@ -371,7 +371,7 @@ TEST_F(Histogram2DTest, CreateHistogram)
         data[i] = double(i);
     }
 
-    boost::scoped_ptr<IHistogram> hist(IHistogram::createHistogram(data));
+    std::unique_ptr<IHistogram> hist(IHistogram::createHistogram(data));
     EXPECT_EQ(2, hist->getRank());
     EXPECT_EQ(data.getAllocatedSize(), hist->getTotalNumberOfBins());
     EXPECT_EQ(data.getAxis(0)->getMin(), hist->getXmin());
@@ -398,7 +398,7 @@ TEST_F(Histogram2DTest, CreateOutputData)
         }
     }
 
-    boost::scoped_ptr<OutputData<double> > data(hist.createOutputData(IHistogram::DataType::INTEGRAL));
+    std::unique_ptr<OutputData<double> > data(hist.createOutputData(IHistogram::DataType::INTEGRAL));
     EXPECT_EQ(2, data->getRank());
     EXPECT_EQ(data->getAllocatedSize(), hist.getTotalNumberOfBins());
     EXPECT_EQ(data->getAxis(0)->getMin(), hist.getXmin());

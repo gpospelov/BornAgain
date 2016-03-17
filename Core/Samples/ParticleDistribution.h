@@ -57,7 +57,7 @@ public:
     const IParticle *getParticle() const;
 
 private:
-    boost::scoped_ptr<IParticle> mP_particle;
+    std::unique_ptr<IParticle> mP_particle;
     ParameterDistribution m_par_distribution;
 };
 

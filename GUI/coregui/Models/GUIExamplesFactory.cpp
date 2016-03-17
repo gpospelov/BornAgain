@@ -21,7 +21,7 @@
 #include "SampleModel.h"
 #include "GUIHelpers.h"
 #include "GISASSimulation.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 #include <QDebug>
 
 //! Defines correspondance between example name and real name of simulation from SimulationRegistry
@@ -66,7 +66,7 @@ ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, Sa
     QString exampleName = m_name_to_registry[name];
 
     SampleBuilderFactory factory;
-    boost::scoped_ptr<ISample> sample(factory.createSample(exampleName.toStdString()));
+    const std::unique_ptr<ISample> sample(factory.createSample(exampleName.toStdString()));
 
     GUIObjectBuilder guiBuilder;
     return guiBuilder.populateSampleModel(sampleModel, *sample.get(), name);
@@ -76,7 +76,7 @@ ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, Sa
 //{
 //    QString exampleName = m_name_to_registry[name];
 //    SimulationRegistry registry;
-//    boost::scoped_ptr<GISASSimulation> P_simulation(registry.createSimulation(exampleName.toStdString()));
+//    const std::unique_ptr<GISASSimulation> P_simulation(registry.createSimulation(exampleName.toStdString()));
 //    Q_ASSERT(P_simulation.get());
 
 //    QString instrumentName = name + "_instrument";

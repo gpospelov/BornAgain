@@ -17,7 +17,7 @@
 #include "Histogram1D.h"
 #include "FixedBinAxis.h"
 #include "VariableBinAxis.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 Histogram2D::Histogram2D(int nbinsx, double xlow, double xup, int nbinsy, double ylow, double yup)
 {
@@ -99,8 +99,8 @@ Histogram1D *Histogram2D::projectionY(double xlow, double xup)
 
 Histogram2D *Histogram2D::crop(double xmin, double ymin, double xmax, double ymax)
 {
-    boost::scoped_ptr<IAxis > xaxis(getXaxis()->createClippedAxis(xmin, xmax));
-    boost::scoped_ptr<IAxis > yaxis(getYaxis()->createClippedAxis(ymin, ymax));
+    const std::unique_ptr<IAxis > xaxis(getXaxis()->createClippedAxis(xmin, xmax));
+    const std::unique_ptr<IAxis > yaxis(getYaxis()->createClippedAxis(ymin, ymax));
 
     Histogram2D *result = new Histogram2D(*xaxis, *yaxis);
     OutputData<CumulativeValue>::const_iterator it_origin = m_data.begin();

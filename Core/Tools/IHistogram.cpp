@@ -21,7 +21,7 @@
 #include "Histogram2D.h"
 #include "IntensityDataIOFactory.h"
 #include <sstream>
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 IHistogram::IHistogram()
 {
@@ -231,7 +231,7 @@ double IHistogram::integral() const
 
 PyObject *IHistogram::getArray(DataType dataType) const
 {
-    boost::scoped_ptr<OutputData<double> > data(createOutputData(dataType));
+    const std::unique_ptr<OutputData<double> > data(createOutputData(dataType));
     return data->getArray();
 }
 
@@ -397,6 +397,6 @@ void IHistogram::save(const std::string &filename)
 
 void IHistogram::load(const std::string &filename)
 {
-    boost::scoped_ptr<IHistogram> hist(IntensityDataIOFactory::readIntensityData(filename));
+    const std::unique_ptr<IHistogram> hist(IntensityDataIOFactory::readIntensityData(filename));
     copyContentFrom(*hist);
 }

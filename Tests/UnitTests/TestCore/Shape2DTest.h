@@ -6,7 +6,7 @@
 #include "Line.h"
 #include "Units.h"
 #include "gtest/gtest.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 class Shape2DTest : public ::testing::Test
 {
@@ -33,7 +33,7 @@ TEST_F(Shape2DTest, Rectangle)
     Bin1D biny2(1.5, 2.6);
     EXPECT_FALSE(rect.contains(binx2, biny2));
 
-    boost::scoped_ptr<Geometry::Rectangle> clone(rect.clone());
+    std::unique_ptr<Geometry::Rectangle> clone(rect.clone());
     EXPECT_DOUBLE_EQ(32.0, clone->getArea());
     EXPECT_TRUE(clone->contains(0.0, 0.0));
     EXPECT_TRUE(clone->contains(4.0, 2.0));
@@ -63,7 +63,7 @@ TEST_F(Shape2DTest, Ellipse)
     EXPECT_FALSE(ellipse2.contains(15.0, 0.0));
     EXPECT_TRUE(ellipse2.contains(7.0, 3.0));
 
-    boost::scoped_ptr<Geometry::Ellipse> clone(ellipse2.clone());
+    std::unique_ptr<Geometry::Ellipse> clone(ellipse2.clone());
     EXPECT_TRUE(clone->contains(10.0, 1.0));
     EXPECT_FALSE(clone->contains(15.0, 0.0));
     EXPECT_TRUE(clone->contains(7.0, 3.0));
@@ -81,7 +81,7 @@ TEST_F(Shape2DTest, Line)
     EXPECT_TRUE(line2.contains(Bin1D(0.5, 1.0),Bin1D(0.0, 0.5)));
     EXPECT_FALSE(line2.contains(Bin1D(0.51, 1.0),Bin1D(0.0, 0.49)));
 
-    boost::scoped_ptr<Geometry::Line> clone(line2.clone());
+    std::unique_ptr<Geometry::Line> clone(line2.clone());
     EXPECT_TRUE(clone->contains(Bin1D(0.5, 1.0),Bin1D(0.0, 0.5)));
     EXPECT_FALSE(clone->contains(Bin1D(0.51, 1.0),Bin1D(0.0, 0.49)));
 }

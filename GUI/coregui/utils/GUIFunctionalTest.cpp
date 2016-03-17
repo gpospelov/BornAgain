@@ -26,7 +26,7 @@
 #include "IntensityDataFunctions.h"
 #include "DomainSimulationBuilder.h"
 #include "Utils.h"
-#include <boost/scoped_ptr.hpp>
+ 
 #include <QDebug>
 
 
@@ -61,8 +61,8 @@ void GUIFunctionalTest::runTest()
 
 int GUIFunctionalTest::analyseResults()
 {
-    boost::scoped_ptr<OutputData<double> > P_domain_data(m_domain_simulation->getDetectorIntensity());
-    boost::scoped_ptr<OutputData<double> > P_reference_data(
+    const std::unique_ptr<OutputData<double> > P_domain_data(m_domain_simulation->getDetectorIntensity());
+    const std::unique_ptr<OutputData<double> > P_reference_data(
         m_reference_simulation->getDetectorIntensity());
     m_difference = IntensityDataFunctions::getRelativeDifference(*P_domain_data, *P_reference_data);
     m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);
@@ -82,10 +82,10 @@ void GUIFunctionalTest::createDomainSimulation()
     assert(m_reference_simulation->getSample());
 
     // initializing necessary GUI
-    boost::scoped_ptr<SampleModel> P_sampleModel(new SampleModel());
-    boost::scoped_ptr<InstrumentModel> P_instrumentModel(new InstrumentModel());
-    boost::scoped_ptr<MaterialModel> P_materialModel(new MaterialModel());
-    boost::scoped_ptr<MaterialEditor> P_materialEditor(new MaterialEditor(P_materialModel.get()));
+    const std::unique_ptr<SampleModel> P_sampleModel(new SampleModel());
+    const std::unique_ptr<InstrumentModel> P_instrumentModel(new InstrumentModel());
+    const std::unique_ptr<MaterialModel> P_materialModel(new MaterialModel());
+    const std::unique_ptr<MaterialEditor> P_materialEditor(new MaterialEditor(P_materialModel.get()));
 
     // populating GUI models from domain
     GUIObjectBuilder guiBuilder;

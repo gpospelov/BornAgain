@@ -6,7 +6,7 @@
 #include "MatrixSpecularInfoMap.h"
 #include "gtest/gtest.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 class MatrixSpecularInfoMapTest : public ::testing :: Test
 {
@@ -36,7 +36,7 @@ MatrixSpecularInfoMapTest::MatrixSpecularInfoMapTest()
 TEST_F(MatrixSpecularInfoMapTest, getCoefficients)
 {
     MatrixSpecularInfoMap map(mp_multilayer, 0);
-    boost::scoped_ptr<const MatrixRTCoefficients> P_rt_coeffs(
+    std::unique_ptr<const MatrixRTCoefficients> P_rt_coeffs(
                 map.getOutCoefficients(1.0, 1.0, 2.0*Units::PI));
     complex_t R0 = complex_t(0.1750375, -0.0222467);
     complex_t lambda0 = complex_t(0.841471, 0.0);

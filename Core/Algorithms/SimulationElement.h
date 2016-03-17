@@ -21,7 +21,7 @@
 #include "EigenCore.h"
 #include "IPixelMap.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 //! @class SimulationElement
 //! @ingroup simulation
@@ -93,7 +93,7 @@ private:
     Eigen::Matrix2cd m_polarization;      //!< polarization density matrix
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 #endif
-    boost::scoped_ptr<IPixelMap> mP_pixel_map;
+    std::unique_ptr<IPixelMap> mP_pixel_map;
 };
 
 #ifndef GCCXML_SKIP_THIS

@@ -21,7 +21,7 @@
 #include "ILayerRTCoefficients.h"
 #include "ISpecularInfoMap.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 
 //! @class LayerSpecularInfo
@@ -52,7 +52,7 @@ public:
     const ILayerRTCoefficients *getInCoefficients(double alpha_i, double phi_i,
                                                   double wavelength) const;
 private:
-    boost::scoped_ptr<ISpecularInfoMap> mP_coeff_map;
+    std::unique_ptr<ISpecularInfoMap> mP_coeff_map;
 };
 
 

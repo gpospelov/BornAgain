@@ -63,7 +63,7 @@
 #include "FitModel.h"
 #include "FitParameterItems.h"
 
-#include <boost/scoped_ptr.hpp>
+
 
 #include <QApplication>
 #include <QStatusBar>
@@ -329,13 +329,13 @@ void MainWindow::resetModels()
 void MainWindow::testGUIObjectBuilder()
 {
     SampleBuilderFactory factory;
-    boost::scoped_ptr<ISample> P_sample(factory.createSample("CylindersAndPrismsBuilder"));
+    const std::unique_ptr<ISample> P_sample(factory.createSample("CylindersAndPrismsBuilder"));
 
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(m_sampleModel, *P_sample);
 
 //    SimulationRegistry simRegistry;
-//    boost::scoped_ptr<GISASSimulation> simulation(simRegistry.createSimulation("RectDetectorPerpToReflectedBeamDpos"));
+//    const std::unique_ptr<GISASSimulation> simulation(simRegistry.createSimulation("RectDetectorPerpToReflectedBeamDpos"));
 //    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
 }
 

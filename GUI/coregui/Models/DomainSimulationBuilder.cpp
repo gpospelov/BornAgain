@@ -26,7 +26,7 @@
 #include "TransformToDomain.h"
 #include "GUIHelpers.h"
 #include <QDebug>
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 
 //! Creates domain simulation from sample and instrument models for given names

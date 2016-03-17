@@ -18,7 +18,7 @@
 #include "DWBADiffuseReflection.h"
 #include "BornAgainNamespace.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation(
     const MultiLayer *p_multi_layer)
@@ -121,9 +121,9 @@ complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(size_t ilayer,
     complex_t qz3 = -k_i.z() + k_f.z();
     complex_t qz4 = -k_i.z() - k_f.z();
 
-    boost::scoped_ptr<const ILayerRTCoefficients> P_in_coeff(
+    const std::unique_ptr<const ILayerRTCoefficients> P_in_coeff(
         mp_specular_info_vector[ilayer + 1]->getInCoefficients(alpha_i, 0.0, wavelength));
-    boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeff(
+    const std::unique_ptr<const ILayerRTCoefficients> P_out_coeff(
         mp_specular_info_vector[ilayer + 1]->getOutCoefficients(alpha_f, 0.0, wavelength));
 
     double sigma(0.0);

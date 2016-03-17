@@ -81,7 +81,7 @@ void SimulationElement::swapContent(SimulationElement &other)
     std::swap(this->m_intensity, other.m_intensity);
     std::swap(this->m_polarization, other.m_polarization);
     std::swap(this->m_analyzer_operator, other.m_analyzer_operator);
-    boost::swap(this->mP_pixel_map, other.mP_pixel_map);
+    std::swap(this->mP_pixel_map, other.mP_pixel_map);
 }
 
 void SimulationElement::initPolarization()

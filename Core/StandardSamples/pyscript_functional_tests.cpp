@@ -17,7 +17,7 @@
 #include "FunctionalTestRegistry.h"
 #include "FunctionalMultiTest.h"
 #include "PyScriptFunctionalTestComponentService.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 #include <iostream>
 
 int PYSCRIPT_FUNCTIONAL_TEST(const std::string &test_name)
@@ -33,7 +33,7 @@ int PYSCRIPT_FUNCTIONAL_TEST(const std::string &test_name)
     FunctionalTestInfo info = catalogue.getTestInfo(test_name);
 
     PyScriptFunctionalTestComponentService *service = new PyScriptFunctionalTestComponentService(info);
-    boost::scoped_ptr<IFunctionalTest> test(
+    const std::unique_ptr<IFunctionalTest> test(
         new FunctionalMultiTest(test_name, service));
     test->runTest();
     return test->analyseResults();

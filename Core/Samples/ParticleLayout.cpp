@@ -26,14 +26,14 @@
 
 
 ParticleLayout::ParticleLayout()
-    : mP_interference_function {0}
+    : mP_interference_function {nullptr}
     , m_total_particle_density {1.0}
 {
     setName(BornAgain::ParticleLayoutType);
 }
 
 ParticleLayout::ParticleLayout(const IAbstractParticle &particle)
-    : mP_interference_function {0}
+    : mP_interference_function {nullptr}
     , m_total_particle_density {1.0}
 {
     setName(BornAgain::ParticleLayoutType);
@@ -41,7 +41,7 @@ ParticleLayout::ParticleLayout(const IAbstractParticle &particle)
 }
 
 ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundance)
-    : mP_interference_function {0}
+    : mP_interference_function {nullptr}
     , m_total_particle_density {1.0}
 {
     setName(BornAgain::ParticleLayoutType);

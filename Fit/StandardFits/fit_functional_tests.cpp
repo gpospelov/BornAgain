@@ -16,7 +16,7 @@
 #include "fit_functional_tests.h"
 #include "IMinimizerFunctionalTest.h"
 #include "StandardFitsFactory.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 int fit_functional_test(const std::string &test_name)
 {
@@ -28,7 +28,7 @@ int fit_functional_test(const std::string &test_name)
         return 1;
     }
 
-    boost::scoped_ptr<IFunctionalTest> test(catalogue.createTest(test_name));
+    const std::unique_ptr<IFunctionalTest> test(catalogue.createTest(test_name));
     test->runTest();
     return test->analyseResults();
 }

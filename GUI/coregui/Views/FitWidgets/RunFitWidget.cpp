@@ -130,7 +130,7 @@ std::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
 
     try {
 
-    boost::scoped_ptr<GISASSimulation> simulation(builder.getSimulation(dynamic_cast<MultiLayerItem*>
+    const std::unique_ptr<GISASSimulation> simulation(builder.getSimulation(dynamic_cast<MultiLayerItem*>
                                                                           (multilayer),
                                                                           dynamic_cast<InstrumentItem*>
                                                                           (instrument)));

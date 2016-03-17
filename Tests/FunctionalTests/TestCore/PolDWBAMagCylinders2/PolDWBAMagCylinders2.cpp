@@ -2,17 +2,17 @@
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "SimulationRegistry.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 int main(int, char **)
 {
-    boost::scoped_ptr<OutputData<double> > P_reference00(IntensityDataIOFactory::readOutputData(
+    const std::unique_ptr<OutputData<double> > P_reference00(IntensityDataIOFactory::readOutputData(
         Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_00.int.gz"));
-    boost::scoped_ptr<OutputData<double> > P_reference01(IntensityDataIOFactory::readOutputData(
+    const std::unique_ptr<OutputData<double> > P_reference01(IntensityDataIOFactory::readOutputData(
         Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_01.int.gz"));
-    boost::scoped_ptr<OutputData<double> > P_reference10(IntensityDataIOFactory::readOutputData(
+    const std::unique_ptr<OutputData<double> > P_reference10(IntensityDataIOFactory::readOutputData(
         Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_10.int.gz"));
-    boost::scoped_ptr<OutputData<double> > P_reference11(IntensityDataIOFactory::readOutputData(
+    const std::unique_ptr<OutputData<double> > P_reference11(IntensityDataIOFactory::readOutputData(
         Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_11.int.gz"));
 
     SimulationRegistry sim_registry;
@@ -23,22 +23,22 @@ int main(int, char **)
     simulation->setBeamPolarization(zplus);
     simulation->setAnalyzerProperties(zplus, 1.0, 0.5);
     simulation->runSimulation();
-    boost::scoped_ptr<OutputData<double> > P_data00(simulation->getDetectorIntensity());
+    const std::unique_ptr<OutputData<double> > P_data00(simulation->getDetectorIntensity());
 
     simulation->setBeamPolarization(zplus);
     simulation->setAnalyzerProperties(zplus, -1.0, 0.5);
     simulation->runSimulation();
-    boost::scoped_ptr<OutputData<double> > P_data01(simulation->getDetectorIntensity());
+    const std::unique_ptr<OutputData<double> > P_data01(simulation->getDetectorIntensity());
 
     simulation->setBeamPolarization(zmin);
     simulation->setAnalyzerProperties(zplus, 1.0, 0.5);
     simulation->runSimulation();
-    boost::scoped_ptr<OutputData<double> > P_data10(simulation->getDetectorIntensity());
+    const std::unique_ptr<OutputData<double> > P_data10(simulation->getDetectorIntensity());
 
     simulation->setBeamPolarization(zmin);
     simulation->setAnalyzerProperties(zplus, -1.0, 0.5);
     simulation->runSimulation();
-    boost::scoped_ptr<OutputData<double> > P_data11(simulation->getDetectorIntensity());
+    const std::unique_ptr<OutputData<double> > P_data11(simulation->getDetectorIntensity());
 
     const double threshold(2e-10);
     double diff(0);

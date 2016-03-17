@@ -20,7 +20,7 @@
 #include "IDetector2D.h"
 #include "IResolutionFunction2D.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 //! @class Instrument
 //! @ingroup simulation_internal
@@ -110,7 +110,7 @@ protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
-    boost::scoped_ptr<IDetector2D> mP_detector;
+    std::unique_ptr<IDetector2D> mP_detector;
     Beam m_beam;
 };
 

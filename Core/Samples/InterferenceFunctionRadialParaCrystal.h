@@ -19,7 +19,7 @@
 #include "IInterferenceFunction.h"
 #include "FTDistributions.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 //! @class InterferenceFunctionRadialParaCrystal
 //! @ingroup interference
@@ -76,7 +76,7 @@ public:
 protected:
     double m_peak_distance; //!< the distance to the first neighbor peak
     double m_damping_length; //!< damping length of paracrystal
-    boost::scoped_ptr<IFTDistribution1D> mP_pdf; //!< pdf of nearest particle
+    std::unique_ptr<IFTDistribution1D> mP_pdf; //!< pdf of nearest particle
     bool m_use_damping_length;
     double m_kappa;
     double m_domain_size;

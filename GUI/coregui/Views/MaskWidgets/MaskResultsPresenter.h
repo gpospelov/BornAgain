@@ -20,7 +20,7 @@
 #include "MaskEditorFlags.h"
 #include <QObject>
 #include <QModelIndex>
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 #include "OutputData.h"
 
 
@@ -50,7 +50,7 @@ private:
     SessionModel *m_maskModel;
     QModelIndex m_maskContainerIndex;
     IntensityDataItem *m_intensityDataItem;
-    boost::scoped_ptr<OutputData<double> > m_dataBackup;
+    std::unique_ptr<OutputData<double> > m_dataBackup;
     bool m_interpolation_flag_backup;
 };
 

@@ -21,7 +21,7 @@
 #include "ICloneable.h"
 #include "IMaterial.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 class FormFactorInfo;
 class IInterferenceFunction;
@@ -54,10 +54,10 @@ public:
     virtual IInterferenceFunctionStrategy *createStrategy();
 
 protected:
-    boost::scoped_ptr<Layer> mP_layer;                            //!< decorated layer
-    boost::scoped_ptr<Simulation> mP_simulation;                  //!< simulation
+    std::unique_ptr<Layer> mP_layer;                            //!< decorated layer
+    std::unique_ptr<Simulation> mP_simulation;                  //!< simulation
     SimulationParameters m_sim_params;          //!< simulation parameters
-    boost::scoped_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
+    std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
     size_t m_layout_index; //!< index for the layout to be used in the layer
 
 private:
@@ -76,7 +76,7 @@ private:
     SafePointerVector<FormFactorInfo> m_ff_infos;
 
     //! Interference function
-    boost::scoped_ptr<IInterferenceFunction> mP_interference_function;
+    std::unique_ptr<IInterferenceFunction> mP_interference_function;
 };
 
 //! @class FormFactorInfo

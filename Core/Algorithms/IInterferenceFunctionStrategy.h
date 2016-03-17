@@ -26,7 +26,7 @@
 
 #include <vector>
 #include <memory>
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 #include <Eigen/StdVector>
 
 // Forward declaration to prevent IntegratorMCMiser.h to be parsed for Python API:
@@ -70,9 +70,9 @@ protected:
     cvector_t getQ(const cvector_t &k_i, const Bin1DCVector &k_f_bin) const;
 
     SafePointerVector<FormFactorInfo> m_ff_infos;          //!< form factor info
-    boost::scoped_ptr<IInterferenceFunction> mP_iff;       //!< interference function
+    std::unique_ptr<IInterferenceFunction> mP_iff;       //!< interference function
     SimulationParameters m_sim_params;                     //!< simulation parameters
-    boost::scoped_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
+    std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
 
 private:
     //! Constructs one list of evaluated form factors to be used in subsequent

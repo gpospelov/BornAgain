@@ -56,9 +56,9 @@ IFormFactor *Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form
                                             kvector_t translation) const
 {
     Lattice transformed_lattice = getTransformedLattice(p_rotation);
-    boost::scoped_ptr<IFormFactor> P_basis_ff(
+    const std::unique_ptr<IFormFactor> P_basis_ff(
         mp_lattice_basis->createTransformedFormFactor(p_rotation, translation));
-    boost::scoped_ptr<FormFactorCrystal> P_ff_crystal(
+    const std::unique_ptr<FormFactorCrystal> P_ff_crystal(
         new FormFactorCrystal(transformed_lattice, *P_basis_ff, meso_crystal_form_factor));
     if (m_dw_factor > 0.0) {
         return new FormFactorDecoratorDebyeWaller(*P_ff_crystal, m_dw_factor);

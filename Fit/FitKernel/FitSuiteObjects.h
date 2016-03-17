@@ -102,7 +102,7 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
     int m_nfree_parameters;
     double m_chi_squared_value;
     std::vector<FitElement> m_fit_elements;
-    boost::scoped_ptr<IChiSquaredModule> m_chi2_module;
+    std::unique_ptr<IChiSquaredModule> m_chi2_module;
 };
 
 #endif // FITSUITEOBJECTS_H

@@ -20,7 +20,7 @@
 #include "InfinitePlane.h"
 
 #include <Eigen/LU>
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 IDetector2D::IDetector2D()
     : m_axes()
@@ -69,8 +69,8 @@ void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
                                         size_t n_y, double y_min, double y_max)
 {
     clear();
-    boost::scoped_ptr<IAxis> P_axis0(createAxis(0, n_x, x_min, x_max));
-    boost::scoped_ptr<IAxis> P_axis1(createAxis(1, n_y, y_min, y_max));
+    const std::unique_ptr<IAxis> P_axis0(createAxis(0, n_x, x_min, x_max));
+    const std::unique_ptr<IAxis> P_axis1(createAxis(1, n_y, y_min, y_max));
     addAxis(*P_axis0);
     addAxis(*P_axis1);
 }
@@ -200,7 +200,7 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
     const OutputData<bool>* mask_data = m_detector_mask.getMaskData();
     for (size_t index=0; index<mask_data->getAllocatedSize(); ++index) {
         if ((*mask_data)[index]) continue;
-        boost::scoped_ptr<IPixelMap> P_pixel_map(createPixelMap(index));
+        const std::unique_ptr<IPixelMap> P_pixel_map(createPixelMap(index));
         SimulationElement sim_element(wavelength, alpha_i, phi_i, P_pixel_map.get());
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(analyzer_operator);
@@ -215,7 +215,7 @@ SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &be
     double wavelength = beam.getWavelength();
     double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
     double phi_i = beam.getPhi();
-    boost::scoped_ptr<IPixelMap> P_pixel_map(createPixelMap(index));
+    const std::unique_ptr<IPixelMap> P_pixel_map(createPixelMap(index));
     return SimulationElement(wavelength, alpha_i, phi_i, P_pixel_map.get());
 }
 
@@ -254,7 +254,7 @@ size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
 void IDetector2D::swapContent(IDetector2D &other)
 {
     std::swap(this->m_axes, other.m_axes);
-    boost::swap(this->mP_detector_resolution, other.mP_detector_resolution);
+    std::swap(this->mP_detector_resolution, other.mP_detector_resolution);
     std::swap(this->m_analyzer_operator, other.m_analyzer_operator);
     std::swap(this->m_detector_mask, other.m_detector_mask);
 }

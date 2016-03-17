@@ -18,7 +18,7 @@
 #include "Materials.h"
 #include "FormFactorDecoratorPositionFactor.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 Particle::Particle()
 {
@@ -105,15 +105,15 @@ IFormFactor *Particle::createTransformedFormFactor(const IRotation *p_rotation,
                                                    kvector_t translation) const
 {
     if (!mP_form_factor.get()) return 0;
-    boost::scoped_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
+    const std::unique_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
     kvector_t total_position = getComposedTranslation(p_rotation, translation);
-    boost::scoped_ptr<IFormFactor> P_temp_ff1;
+    std::unique_ptr<IFormFactor> P_temp_ff1;
     if (P_total_rotation.get()) {
         P_temp_ff1.reset(new FormFactorDecoratorRotation(*mP_form_factor, *P_total_rotation));
     } else {
         P_temp_ff1.reset(mP_form_factor->clone());
     }
-    boost::scoped_ptr<IFormFactor> P_temp_ff2;
+    std::unique_ptr<IFormFactor> P_temp_ff2;
     if (total_position != kvector_t()) {
         P_temp_ff2.reset(new FormFactorDecoratorPositionFactor(*P_temp_ff1, total_position));
     } else {
@@ -123,7 +123,7 @@ IFormFactor *Particle::createTransformedFormFactor(const IRotation *p_rotation,
         = new FormFactorDecoratorMaterial(*P_temp_ff2);
     if (mP_material.get()) {
         if (mP_rotation.get()) {
-            boost::scoped_ptr<const IMaterial> P_transformed_material(
+            const std::unique_ptr<const IMaterial> P_transformed_material(
                         mP_material->createTransformedMaterial(*P_total_rotation));
             p_ff->setMaterial(*P_transformed_material);
         } else {

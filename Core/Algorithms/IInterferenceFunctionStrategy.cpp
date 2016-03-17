@@ -75,9 +75,9 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
     cvector_t k_i = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_i, phi_i).complex();
     WavevectorInfo wavevectors(k_i, Geometry::toComplexVector(sim_element.getMeanKF()), wavelength);
 
-    boost::scoped_ptr<const ILayerRTCoefficients> P_in_coeffs(
+    const std::unique_ptr<const ILayerRTCoefficients> P_in_coeffs(
         mP_specular_info->getInCoefficients(alpha_i, 0.0, wavelength));
-    boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
+    const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
         mP_specular_info->getOutCoefficients(sim_element.getAlphaMean(), 0.0, wavelength));
     for( auto it: m_ff_infos ) {
         it->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
@@ -98,9 +98,9 @@ void IInterferenceFunctionStrategy::calculateFormFactorLists(
     cvector_t k_i = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_i, phi_i).complex();
     WavevectorInfo wavevectors(k_i, Geometry::toComplexVector(sim_element.getMeanKF()), wavelength);
 
-    boost::scoped_ptr<const ILayerRTCoefficients> P_in_coeffs(
+    const std::unique_ptr<const ILayerRTCoefficients> P_in_coeffs(
         mP_specular_info->getInCoefficients(alpha_i, phi_i, wavelength));
-    boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
+    const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
         mP_specular_info->getOutCoefficients(sim_element.getAlphaMean(), sim_element.getPhiMean(),
                                              wavelength));
     for ( auto it: m_ff_infos ) {

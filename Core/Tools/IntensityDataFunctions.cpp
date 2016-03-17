@@ -20,7 +20,7 @@
 #include "IResolutionFunction2D.h"
 #include "ConvolutionDetectorResolution.h"
 #include "IHistogram.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 double IntensityDataFunctions::getRelativeDifference(
         const OutputData<double> &result, const OutputData<double> &reference)
@@ -97,7 +97,7 @@ OutputData<double> *IntensityDataFunctions::applyDetectorResolution(const Output
                 " -> Error! Works only on two-dimensional data");
     }
     OutputData<double > *result = origin.clone();
-    boost::scoped_ptr<ConvolutionDetectorResolution> P_resolution(new ConvolutionDetectorResolution(resolution_function));
+    const std::unique_ptr<ConvolutionDetectorResolution> P_resolution(new ConvolutionDetectorResolution(resolution_function));
     P_resolution->applyDetectorResolution(result);
     return result;
 }

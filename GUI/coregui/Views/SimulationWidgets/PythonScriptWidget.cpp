@@ -38,7 +38,7 @@
 #include <QTextStream>
 #include <QDebug>
 #include <QStandardPaths>
-#include <boost/scoped_ptr.hpp>
+ 
 
 
 PythonScriptWidget::PythonScriptWidget(QWidget *parent, ProjectManager *projectManager)
@@ -109,7 +109,7 @@ void PythonScriptWidget::generatePythonScript(SampleModel *sampleModel, Instrume
     m_warningSign = 0;
 
     try{
-        boost::scoped_ptr<GISASSimulation> P_simulation(
+        const std::unique_ptr<GISASSimulation> P_simulation(
             DomainSimulationBuilder::getSimulation(sampleModel, instrumentModel));
         QString code = QString::fromStdString(PyGenTools::genPyScript(P_simulation.get()));
         m_textEdit->clear();

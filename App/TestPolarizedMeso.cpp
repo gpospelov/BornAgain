@@ -20,7 +20,7 @@
 #include "InterferenceFunctionNone.h"
 #include "FormFactors.h"
 #include "MesoCrystal.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 
 TestPolarizedMeso::TestPolarizedMeso()
@@ -108,7 +108,7 @@ MultiLayer* TestPolarizedMeso::createSample() const
 //            RotationZ transform(phi_start + i*phi_step);
 //            double meso_size = m_meso_width + j*m_meso_size_steps;
 //            FormFactorBox ff_box(meso_size, meso_size, meso_size);
-//            boost::scoped_ptr<MesoCrystal> meso(createMeso(
+//            const std::unique_ptr<MesoCrystal> meso(createMeso(
 //                             m_lattice_length_a, m_lattice_length_c,
 //                             particle_material, m_nanoparticle_size, &ff_box) );
 //            particle_layout.addParticle(*meso, 1.0, kvector_t(0,0,0), transform);

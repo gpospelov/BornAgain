@@ -55,7 +55,7 @@ GUIObjectBuilder::GUIObjectBuilder()
 ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel,
                                        const GISASSimulation &simulation, const QString &sampleName)
 {
-    boost::scoped_ptr<ISample> P_sample;
+    std::unique_ptr<ISample> P_sample;
     if(simulation.getSampleBuilder()) {
         P_sample.reset(simulation.getSampleBuilder()->buildSample());
     } else if(simulation.getSample()) {

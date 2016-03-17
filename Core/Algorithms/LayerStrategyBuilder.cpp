@@ -22,7 +22,7 @@
 #include "FormFactors.h"
 #include "FormFactorTools.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 LayerStrategyBuilder::LayerStrategyBuilder(const Layer &decorated_layer,
                                            const Simulation &simulation,
@@ -123,11 +123,11 @@ LayerStrategyBuilder::createFormFactorInfo(const IParticle *particle,
                                            const IMaterial *p_ambient_material) const
 {
     FormFactorInfo *p_result = new FormFactorInfo;
-    boost::scoped_ptr<IParticle> P_particle_clone(particle->clone());
+    const std::unique_ptr<IParticle> P_particle_clone(particle->clone());
     P_particle_clone->setAmbientMaterial(*p_ambient_material);
 
     // formfactor
-    boost::scoped_ptr<IFormFactor> P_ff_particle(P_particle_clone->createFormFactor());
+    const std::unique_ptr<IFormFactor> P_ff_particle(P_particle_clone->createFormFactor());
     IFormFactor *p_ff_framework;
     size_t n_layers = mP_layer->getNumberOfLayers();
     if (n_layers>1) {

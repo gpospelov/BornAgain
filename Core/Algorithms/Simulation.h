@@ -153,7 +153,7 @@ protected:
     std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
 
     // components describing an experiment and its simulation:
-    boost::scoped_ptr<ISample> mP_sample;
+    std::unique_ptr<ISample> mP_sample;
     SampleBuilder_t mp_sample_builder;
     SimulationParameters m_sim_params;
     ThreadInfo m_thread_info;

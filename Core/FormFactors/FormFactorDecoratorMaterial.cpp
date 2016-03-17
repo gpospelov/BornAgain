@@ -18,8 +18,8 @@
 
 FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor &form_factor)
     : FormFactorDecoratorFactor(form_factor, 1.0),
-      mP_material(0),
-      mP_ambient_material(0)
+      mP_material{nullptr},
+      mP_ambient_material{nullptr}
 {
     setName(BornAgain::FormFactorDecoratorMaterialType);
 }

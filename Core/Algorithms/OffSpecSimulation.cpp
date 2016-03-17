@@ -17,7 +17,7 @@
 #include "OutputDataFunctions.h"
 #include "BornAgainNamespace.h"
 #include "Histogram2D.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 OffSpecSimulation::OffSpecSimulation()
 : m_instrument()
@@ -83,7 +83,7 @@ OutputData<double> *OffSpecSimulation::getDetectorIntensity(IDetector2D::EAxesUn
 
 Histogram2D *OffSpecSimulation::getIntensityData() const
 {
-    boost::scoped_ptr<OutputData<double> > data(getDetectorIntensity());
+    const std::unique_ptr<OutputData<double> > data(getDetectorIntensity());
     return new Histogram2D(*data);
 }
 

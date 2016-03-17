@@ -31,7 +31,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "Polygon.h"
 #include "InfinitePlane.h"
 #include "BAPython.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 #include <sstream>
 #include <fstream>
 #include <iostream>
@@ -42,7 +42,7 @@ GCC_DIAG_ON(missing-field-initializers)
 std::string PyGenTools::genPyScript(GISASSimulation *simulation)
 {
     simulation->prepareSimulation();
-    boost::scoped_ptr<ISample> sample;
+    std::unique_ptr<ISample> sample;
     if(simulation->getSample()) {
         sample.reset(simulation->getSample()->clone());
     } else {
@@ -155,9 +155,9 @@ bool PyGenTools::testPyScript(GISASSimulation *simulation)
     }
 
     simulation->runSimulation();
-    boost::scoped_ptr<const OutputData<double> > P_reference_data(
+    const std::unique_ptr<const OutputData<double> > P_reference_data(
                 simulation->getDetectorIntensity());
-    boost::scoped_ptr<const OutputData<double> > P_simulated_data(
+    const std::unique_ptr<const OutputData<double> > P_simulated_data(
                 IntensityDataIOFactory::readOutputData("output.int"));
     if (std::remove("output.int") != 0) {
         throw RuntimeErrorException("PyGenTools::testPyScript: "

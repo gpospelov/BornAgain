@@ -21,7 +21,7 @@
 #include <iostream>
 #include <stack>
 #include <list>
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 class ISampleIteratorStrategy;
 

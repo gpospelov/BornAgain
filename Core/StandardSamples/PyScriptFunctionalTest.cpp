@@ -21,7 +21,7 @@
 #include "BAPython.h"
 #include "FileSystem.h"
 #include "Utils.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 #include <fstream>
 
 namespace {
@@ -60,9 +60,9 @@ void PyScriptFunctionalTest::runTest()
 
 int PyScriptFunctionalTest::analyseResults()
 {
-    boost::scoped_ptr<OutputData<double> > P_domain_data(IntensityDataIOFactory::readOutputData(temp_intensity_data_file_name));
+    const std::unique_ptr<OutputData<double> > P_domain_data(IntensityDataIOFactory::readOutputData(temp_intensity_data_file_name));
 
-    boost::scoped_ptr<OutputData<double> > P_reference_data(
+    const std::unique_ptr<OutputData<double> > P_reference_data(
         m_reference_simulation->getDetectorIntensity());
     m_difference = IntensityDataFunctions::getRelativeDifference(*P_domain_data, *P_reference_data);
     m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);

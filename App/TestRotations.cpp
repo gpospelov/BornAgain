@@ -24,14 +24,14 @@
 #include "IntensityDataFunctions.h"
 #include "OutputData.h"
 #include <iostream>
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 void TestRotations::execute()
 {
     std::cout << "TestRotations::execute()" << std::endl;
 
     SimulationRegistry simRegistry;
-    boost::scoped_ptr<Simulation> simulation(simRegistry.createSimulation("BasicGISAS"));
+    const std::unique_ptr<Simulation> simulation(simRegistry.createSimulation("BasicGISAS"));
 
     ThreadInfo thread_info;
     thread_info.n_threads = -1;
@@ -39,16 +39,16 @@ void TestRotations::execute()
     simulation->setThreadInfo(thread_info);
 
     // reference simulation
-    boost::scoped_ptr<MultiLayer> box(createReferenceSample());
+    const std::unique_ptr<MultiLayer> box(createReferenceSample());
     simulation->setSample(*box);
     simulation->runSimulation();
-    boost::scoped_ptr<OutputData<double> > reference(simulation->getDetectorIntensity());
+    const std::unique_ptr<OutputData<double> > reference(simulation->getDetectorIntensity());
 
     // simulation with composition
-    boost::scoped_ptr<MultiLayer> composition(createComposition());
+    const std::unique_ptr<MultiLayer> composition(createComposition());
     simulation->setSample(*composition);
     simulation->runSimulation();
-    boost::scoped_ptr<OutputData<double> > data(simulation->getDetectorIntensity());
+    const std::unique_ptr<OutputData<double> > data(simulation->getDetectorIntensity());
 
     double diff = IntensityDataFunctions::getRelativeDifference(*data, *reference);
     std::cout << "diff:" << diff << std::endl;

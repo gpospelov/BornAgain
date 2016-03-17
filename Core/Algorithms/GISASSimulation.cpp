@@ -27,7 +27,7 @@
 
 #include "Macros.h"
 #include <gsl/gsl_errno.h>
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 GISASSimulation::GISASSimulation()
 : m_instrument()
@@ -98,7 +98,7 @@ OutputData<double> *GISASSimulation::getDetectorIntensity(IDetector2D::EAxesUnit
 
 Histogram2D *GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type) const
 {
-    boost::scoped_ptr<OutputData<double> > data(getDetectorIntensity(units_type));
+    const std::unique_ptr<OutputData<double> > data(getDetectorIntensity(units_type));
     return new Histogram2D(*data);
 }
 
@@ -146,7 +146,7 @@ void GISASSimulation::setDetectorParameters(const OutputData<double >& output_da
 
 void GISASSimulation::setDetectorParameters(const IHistogram &hisotgram)
 {
-    boost::scoped_ptr<OutputData<double> > data(hisotgram.createOutputData());
+    const std::unique_ptr<OutputData<double> > data(hisotgram.createOutputData());
     setDetectorParameters(*data);
 }
 

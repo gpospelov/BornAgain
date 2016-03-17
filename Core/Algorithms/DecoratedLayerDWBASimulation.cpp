@@ -19,7 +19,7 @@
 #include "MessageService.h"
 #include "BornAgainNamespace.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation(const Layer *p_layer,
                                                            size_t layout_index)
@@ -49,7 +49,7 @@ void DecoratedLayerDWBASimulation::run()
 void DecoratedLayerDWBASimulation::runProtected()
 {
     msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::runProtected()";
-    boost::scoped_ptr<const IInterferenceFunctionStrategy> P_strategy(createAndInitStrategy());
+    const std::unique_ptr<const IInterferenceFunctionStrategy> P_strategy(createAndInitStrategy());
 
     calculateCoherentIntensity(P_strategy.get());
 }

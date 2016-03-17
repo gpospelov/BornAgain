@@ -19,7 +19,7 @@
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "IFunctionalTest.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -31,14 +31,14 @@ void TestFunctionalTests::execute()
 //    if(!readTestNames()) return;
 
 //    for(size_t i=0; i<m_testNames.size(); ++i) {
-//        boost::scoped_ptr<IFunctionalTest> test(m_testRegistry.getTest(m_testNames[i]));
+//        const std::unique_ptr<IFunctionalTest> test(m_testRegistry.getTest(m_testNames[i]));
 //        test->getSimulation()->setProgramOptions(mp_options);
 //        test->runTest();
 //        test->analyseResults();
 
 //        IntensityDataIOFactory::writeIntensityData(*test->getSimulation()->getOutputData(), "a.int");
 
-//        boost::scoped_ptr<OutputData<double> > result_data(test->getSimulation()->getIntensityData());
+//        const std::unique_ptr<OutputData<double> > result_data(test->getSimulation()->getIntensityData());
 //        double diff = IntensityDataFunctions::getRelativeDifference(*result_data.get(), *test->getReference());
 //        std::cout << "diff: " << diff << std::endl;
 

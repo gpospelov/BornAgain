@@ -65,7 +65,7 @@ void TestPolarizedDWBATerms::execute()
 //    in_coeffs.lambda = complex_t(0.2, 0.003);
 //    in_coeffs.kz = -m_ki.z();
 //    in_coeffs.t_r << complex_t(-0.18, 0.001), complex_t(0.7, 0.001);
-//    boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
+//    const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
 //            mp_specular_info->getOutCoefficients(
 //                    alpha_f_bin.getMidPoint(), 0.0, 1.0) );
 //    mp_scalar_ff->setSpecularInfo(&in_coeffs, P_out_coeffs.get());

@@ -20,7 +20,7 @@
 #include "IntensityDataIOFactory.h"
 #include "OutputDataIOHelper.h"
 #include "Utils.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 namespace
 {
@@ -56,7 +56,7 @@ int CoreFunctionalTest::analyseResults()
         m_result = FAILED_NOREF;
     } else {
         try {
-            boost::scoped_ptr<OutputData<double> > result_data(m_simulation->getDetectorIntensity());
+            const std::unique_ptr<OutputData<double> > result_data(m_simulation->getDetectorIntensity());
             m_difference = IntensityDataFunctions::getRelativeDifference(*result_data.get(),
                                                                      *m_reference);
             m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);
@@ -93,7 +93,7 @@ void CoreFunctionalTest::setSimulationResultsFileName(const std::string &file_na
 void CoreFunctionalTest::saveSimulationResults() const
 {
     Utils::FileSystem::CreateDirectory(directory_name_for_failed_tests);
-    boost::scoped_ptr<OutputData<double> > result_data(getIntensityData());
+    const std::unique_ptr<OutputData<double> > result_data(getIntensityData());
     IntensityDataIOFactory::writeOutputData(*result_data.get(),
                                                getSimulationResultsFileNameAndPath());
 }

@@ -21,7 +21,7 @@
 #include "MultiLayer.h"
 #include "Utils.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 
 //! @class MatrixSpecularInfoMap
@@ -45,8 +45,8 @@ public:
     virtual const MatrixRTCoefficients *getInCoefficients(double alpha_i, double phi_i,
                                                           double wavelength) const;
 private:
-    boost::scoped_ptr<MultiLayer> mP_multilayer;
-    boost::scoped_ptr<MultiLayer> mP_inverted_multilayer;
+    std::unique_ptr<MultiLayer> mP_multilayer;
+    std::unique_ptr<MultiLayer> mP_inverted_multilayer;
     const int m_layer;
 };
 

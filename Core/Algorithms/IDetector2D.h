@@ -25,7 +25,7 @@
 #include "SimulationElement.h"
 #include "Beam.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 class GISASSimulation;
 
@@ -153,7 +153,7 @@ protected:
     void swapContent(IDetector2D &other);
 
     SafePointerVector<IAxis> m_axes;
-    boost::scoped_ptr<IDetectorResolution> mP_detector_resolution;
+    std::unique_ptr<IDetectorResolution> mP_detector_resolution;
 #ifndef GCCXML_SKIP_THIS
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 #endif

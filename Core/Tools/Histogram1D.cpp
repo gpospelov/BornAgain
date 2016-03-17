@@ -17,7 +17,7 @@
 #include "FixedBinAxis.h"
 #include "VariableBinAxis.h"
 #include "NumpyUtils.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 
 Histogram1D::Histogram1D(int nbinsx, double xlow, double xup)
@@ -90,7 +90,7 @@ PyObject *Histogram1D::getBinErrorsNumpy() const
 
 Histogram1D *Histogram1D::crop(double xmin, double xmax)
 {
-    boost::scoped_ptr<IAxis > xaxis(getXaxis()->createClippedAxis(xmin, xmax));
+    const std::unique_ptr<IAxis > xaxis(getXaxis()->createClippedAxis(xmin, xmax));
 
     Histogram1D *result = new Histogram1D(*xaxis);
     OutputData<CumulativeValue>::const_iterator it_origin = m_data.begin();

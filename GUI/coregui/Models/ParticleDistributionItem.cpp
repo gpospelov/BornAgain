@@ -26,7 +26,7 @@
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
 #include <QDebug>
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER = "Distributed parameter";
 const QString ParticleDistributionItem::P_DISTRIBUTION = "Distribution";

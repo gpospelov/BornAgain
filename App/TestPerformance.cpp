@@ -87,7 +87,7 @@ void TestPerformance::runTest(PerfTest *test)
     std::cout << "Running test: " << std::setw(20) << std::left << test->m_test_name << " ... ";
     std::cout.flush();
 
-    boost::scoped_ptr<Simulation> simulation(simulationRegistry.createSimulation(test->m_simulation_name));
+    const std::unique_ptr<Simulation> simulation(simulationRegistry.createSimulation(test->m_simulation_name));
     SampleBuilder_t sample = sampleFactory.createBuilder(test->m_sample_builder_name);
 
     TBenchmark mb;

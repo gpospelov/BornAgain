@@ -87,6 +87,9 @@ void SampleView::initSubWindows()
 
     m_tree_view = SampleViewComponents::createTreeView(m_sampleModel, this);
     m_subWindows[SAMPLE_TREE] = m_tree_view;
+    m_tree_view->expandAll();
+    connect(m_tree_view->model(), SIGNAL(rowsInserted(QModelIndex,int,int)),
+            m_tree_view, SLOT(expandAll()));
 
     m_subWindows[PROPERTY_EDITOR] = new SamplePropertyWidget(m_tree_view->selectionModel(), this);
 
@@ -99,7 +102,7 @@ void SampleView::initSubWindows()
 
     m_sampleDesigner->setSampleModel(m_sampleModel);
     m_sampleDesigner->setInstrumentModel(m_instrumentModel);
-    m_sampleDesigner->setSelectionModel(m_tree_view->selectionModel());
+    m_sampleDesigner->setSelectionModel(m_tree_view->selectionModel(), dynamic_cast<SampleViewProxyModel*>(const_cast<QAbstractItemModel*>(m_tree_view->model())));
 }
 
 void SampleView::initSelectionModel()

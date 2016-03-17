@@ -368,7 +368,7 @@ bool SessionItem::insertItem(int row, SessionItem *item, const QString &tag)
     int index = tagStartIndex(tagName) + row;
     Q_ASSERT(index <= m_children.size());
     if (m_model)
-            m_model->beginInsertRows(this->index(),index, index+1);
+            m_model->beginInsertRows(this->index(),index, index);
     if (item) {
         if (item->parent() == nullptr) {
             item->setParentAndModel(this, m_model);

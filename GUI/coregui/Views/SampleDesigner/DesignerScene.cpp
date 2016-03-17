@@ -33,6 +33,7 @@
 #include "ParticleLayoutItem.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleCompositionItem.h"
+#include "SampleViewProxyModel.h"
 
 #include <QItemSelection>
 #include <QDebug>
@@ -40,7 +41,7 @@
 #include <QPainter>
 
 DesignerScene::DesignerScene(QObject *parent)
-    : QGraphicsScene(parent), m_sampleModel(0), m_instrumentModel(0), m_selectionModel(0),
+    : QGraphicsScene(parent), m_sampleModel(0), m_instrumentModel(0), m_selectionModel(0), m_proxy(0),
       m_block_selection(false), m_aligner(new SampleViewAligner(this))
 {
     setSceneRect(QRectF(-800, 0, 1600, 1600));
@@ -98,7 +99,7 @@ void DesignerScene::setInstrumentModel(InstrumentModel *instrumentModel)
     m_instrumentModel = instrumentModel;
 }
 
-void DesignerScene::setSelectionModel(QItemSelectionModel *model)
+void DesignerScene::setSelectionModel(QItemSelectionModel *model, SampleViewProxyModel *proxy)
 {
     Q_ASSERT(model);
 
@@ -110,6 +111,7 @@ void DesignerScene::setSelectionModel(QItemSelectionModel *model)
         }
 
         m_selectionModel = model;
+        m_proxy = proxy;
 
         connect(m_selectionModel, SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this,
                 SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
@@ -165,7 +167,7 @@ void DesignerScene::onSessionSelectionChanged(const QItemSelection & /* selected
 
     for (QMap<SessionItem *, IView *>::iterator it = m_ItemToView.begin();
          it != m_ItemToView.end(); ++it) {
-        QModelIndex index = m_sampleModel->indexOfItem(it.key());
+        QModelIndex index = m_proxy->mapFromSource(m_sampleModel->indexOfItem(it.key()));
         if (index.isValid()) {
             if (m_selectionModel->isSelected(index)) {
                 it.value()->setSelected(true);
@@ -195,8 +197,8 @@ void DesignerScene::onSceneSelectionChanged()
             SessionItem *sampleItem = view->getParameterizedItem();
             QModelIndex itemIndex = m_sampleModel->indexOfItem(sampleItem);
             Q_ASSERT(itemIndex.isValid());
-            if (!m_selectionModel->isSelected(itemIndex))
-                m_selectionModel->select(itemIndex, QItemSelectionModel::Select);
+            if (!m_selectionModel->isSelected(m_proxy->mapFromSource(itemIndex)))
+                m_selectionModel->select(m_proxy->mapFromSource(itemIndex), QItemSelectionModel::Select);
         }
     }
 
@@ -321,13 +323,14 @@ void DesignerScene::deleteSelectedItems()
 
     QList<IView *> views_which_will_be_deleted;
     foreach (QModelIndex index, indexes) {
-        views_which_will_be_deleted.append(m_ItemToView[m_sampleModel->itemForIndex(index)]);
+        views_which_will_be_deleted.append(m_ItemToView[m_sampleModel->itemForIndex(m_proxy->mapToSource(index))]);
     }
 
     // deleting selected items on model side, corresponding views will be deleted automatically
     // Since we don't know the order of items and their parent/child relationship, we need this
     while (indexes.size()) {
-        m_sampleModel->removeRows(indexes.back().row(), 1, indexes.back().parent());
+        QModelIndex current = m_proxy->mapToSource(indexes.back());
+        m_sampleModel->removeRows(current.row(), 1, current.parent());
         indexes = m_selectionModel->selectedIndexes();
     }
 

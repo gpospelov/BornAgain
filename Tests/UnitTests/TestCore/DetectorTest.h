@@ -9,7 +9,7 @@
 #include "ConvolutionDetectorResolution.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "Polygon.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 #include "gtest/gtest.h"
 

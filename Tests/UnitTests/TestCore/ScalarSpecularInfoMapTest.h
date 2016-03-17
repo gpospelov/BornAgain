@@ -6,7 +6,7 @@
 #include "ScalarSpecularInfoMap.h"
 #include "gtest/gtest.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 class ScalarSpecularInfoMapTest : public ::testing :: Test
 {
@@ -37,7 +37,7 @@ ScalarSpecularInfoMapTest::ScalarSpecularInfoMapTest()
 TEST_F(ScalarSpecularInfoMapTest, getCoefficients)
 {
     ScalarSpecularInfoMap map(mp_multilayer, 0);
-    boost::scoped_ptr<const ScalarRTCoefficients> P_rt_coeffs(
+    std::unique_ptr<const ScalarRTCoefficients> P_rt_coeffs(
                 map.getOutCoefficients(1.0, 1.0, 2.0*Units::PI));
     complex_t R0 = complex_t(0.1750375, -0.0222467);
     complex_t lambda0 = complex_t(0.841471, 0.0);

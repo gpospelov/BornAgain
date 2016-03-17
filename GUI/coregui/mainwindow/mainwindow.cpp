@@ -63,7 +63,7 @@
 #include "FitModel.h"
 #include "FitParameterItems.h"
 
-#include <boost/scoped_ptr.hpp>
+
 
 #include <QApplication>
 #include <QStatusBar>

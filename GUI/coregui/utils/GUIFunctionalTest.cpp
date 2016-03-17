@@ -26,7 +26,7 @@
 #include "IntensityDataFunctions.h"
 #include "DomainSimulationBuilder.h"
 #include "Utils.h"
-#include <boost/scoped_ptr.hpp>
+ 
 #include <QDebug>
 
 

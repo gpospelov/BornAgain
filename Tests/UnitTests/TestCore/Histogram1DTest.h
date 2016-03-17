@@ -3,7 +3,7 @@
 
 #include "Histogram1D.h"
 #include "Exceptions.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 #include "gtest/gtest.h"
 
 class Histogram1DTest : public ::testing::Test
@@ -129,7 +129,7 @@ TEST_F(Histogram1DTest, crop)
         hist.fill(xvalues[i], i*10);
     }
 
-    boost::scoped_ptr<Histogram1D > crop(hist.crop(-0.49, 0.99));
+    std::unique_ptr<Histogram1D > crop(hist.crop(-0.49, 0.99));
 
     EXPECT_EQ(-0.5, crop->getXmin());
     EXPECT_EQ(1.0, crop->getXmax());
@@ -147,7 +147,7 @@ TEST_F(Histogram1DTest, CreateHistogram)
         data[i] = double(i);
     }
 
-    boost::scoped_ptr<IHistogram> hist(IHistogram::createHistogram(data));
+    std::unique_ptr<IHistogram> hist(IHistogram::createHistogram(data));
     EXPECT_EQ(1, hist->getRank());
     EXPECT_EQ(data.getAllocatedSize(), hist->getNbinsX());
     EXPECT_EQ(data.getAxis(0)->getMin(), hist->getXmin());
@@ -169,7 +169,7 @@ TEST_F(Histogram1DTest, CreateOutputData)
         hist.fill(hist.getXaxisValue(i), 3.0);
     }
 
-    boost::scoped_ptr<OutputData<double> > data(hist.createOutputData(IHistogram::DataType::INTEGRAL));
+    std::unique_ptr<OutputData<double> > data(hist.createOutputData(IHistogram::DataType::INTEGRAL));
     EXPECT_EQ(1, data->getRank());
     EXPECT_EQ(data->getAllocatedSize(), hist.getNbinsX());
     EXPECT_EQ(data->getAxis(0)->getMin(), hist.getXmin());

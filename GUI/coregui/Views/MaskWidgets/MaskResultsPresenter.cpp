@@ -21,7 +21,7 @@
 #include "MaskItems.h"
 #include "IShape2D.h"
 #include "DetectorMask.h"
-#include <boost/scoped_ptr.hpp>
+ 
 #include <QVBoxLayout>
 #include <QDebug>
 

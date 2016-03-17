@@ -6,7 +6,7 @@
 #include "gtest/gtest.h"
 #include <map>
 #include <iostream>
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 using namespace Utils;
 
@@ -142,9 +142,9 @@ TEST_F(UtilsTest, OrderedMapFind)
 
 TEST_F(UtilsTest, OrderedMapReInsert)
 {
-    boost::scoped_ptr<INamed> P_n1(new INamed("named1"));
-    boost::scoped_ptr<INamed> P_n2(new INamed("named2"));
-    boost::scoped_ptr<INamed> P_n3(new INamed("named3"));
+    std::unique_ptr<INamed> P_n1(new INamed("named1"));
+    std::unique_ptr<INamed> P_n2(new INamed("named2"));
+    std::unique_ptr<INamed> P_n3(new INamed("named3"));
 
     OrderedMap<INamed *, double> omap;
     omap.insert(P_n1.get(), 1.0);

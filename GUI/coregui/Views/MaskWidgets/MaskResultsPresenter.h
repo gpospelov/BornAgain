@@ -20,7 +20,7 @@
 #include "MaskEditorFlags.h"
 #include <QObject>
 #include <QModelIndex>
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 #include "OutputData.h"
 
 

@@ -27,7 +27,7 @@
 #include <QDebug>
 
 #include "SimulationRegistry.h"
-#include <boost/scoped_ptr.hpp>
+ 
 #include "SampleBuilderFactory.h"
 #include "IntensityDataItem.h"
 #include "SessionModel.h"

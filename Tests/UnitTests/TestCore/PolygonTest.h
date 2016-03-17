@@ -3,7 +3,7 @@
 
 #include "Polygon.h"
 #include "gtest/gtest.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 class PolygonTest : public ::testing::Test
 {
@@ -89,7 +89,7 @@ TEST_F(PolygonTest, Clone)
     std::vector<double> y = {2.0, 2.0, -2.0, -2.0, 2.0};
     Geometry::Polygon polygon(x, y);
 
-    boost::scoped_ptr<Geometry::Polygon > clone(polygon.clone());
+    std::unique_ptr<Geometry::Polygon > clone(polygon.clone());
     EXPECT_DOUBLE_EQ(32.0, clone->getArea());
     EXPECT_TRUE(clone->contains(0.0, 0.0));
     EXPECT_TRUE(clone->contains(4.0, 2.0));

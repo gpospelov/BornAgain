@@ -38,7 +38,7 @@
 #include <QTextStream>
 #include <QDebug>
 #include <QStandardPaths>
-#include <boost/scoped_ptr.hpp>
+ 
 
 
 PythonScriptWidget::PythonScriptWidget(QWidget *parent, ProjectManager *projectManager)

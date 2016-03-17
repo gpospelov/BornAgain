@@ -6,7 +6,7 @@
 #include "SimulationElement.h"
 #include "Numeric.h"
 #include "gtest/gtest.h"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 #include <iostream>
 
 
@@ -58,7 +58,7 @@ TEST_F(RectangularDetectorTest, Clone)
     double u0(88.0), v0(99.0);
     det.setPosition(normal, u0, v0, direction);
 
-    boost::scoped_ptr<RectangularDetector> clone(det.clone());
+    std::unique_ptr<RectangularDetector> clone(det.clone());
     EXPECT_EQ(u0, clone->getU0());
     EXPECT_EQ(v0, clone->getV0());
     EXPECT_TRUE(normal == clone->getNormalVector());

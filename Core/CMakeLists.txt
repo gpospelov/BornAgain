@@ -9,12 +9,12 @@ endif()
 
 # --- source and include files ---------
 set(include_dirs
-    ${CMAKE_CURRENT_SOURCE_DIR}/Algorithms/inc
-    ${CMAKE_CURRENT_SOURCE_DIR}/FormFactors/inc
-    ${CMAKE_CURRENT_SOURCE_DIR}/Geometry/inc
-    ${CMAKE_CURRENT_SOURCE_DIR}/Samples/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/Algorithms/
+    ${CMAKE_CURRENT_SOURCE_DIR}/FormFactors/
+    ${CMAKE_CURRENT_SOURCE_DIR}/Geometry/
+    ${CMAKE_CURRENT_SOURCE_DIR}/Samples/
     ${CMAKE_CURRENT_SOURCE_DIR}/StandardSamples
-    ${CMAKE_CURRENT_SOURCE_DIR}/Tools/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/Tools/
     ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
     )
 
@@ -24,22 +24,22 @@ set(include_dirs
 include_directories(${include_dirs})
 
 file(GLOB core_source_files
-    "Algorithms/src/*.cpp"
-    "FormFactors/src/*.cpp"
-    "Geometry/src/*.cpp"
-    "Samples/src/*.cpp"
+    "Algorithms/*.cpp"
+    "FormFactors/*.cpp"
+    "Geometry/*.cpp"
+    "Samples/*.cpp"
     "StandardSamples/*.cpp"
-    "Tools/src/*.cpp"
+    "Tools/*.cpp"
     "InputOutput/*.cpp"
 )
 
 file(GLOB core_include_files
-    "Algorithms/inc/*.h"
-    "FormFactors/inc/*.h"
-    "Geometry/inc/*.h"
-    "Samples/inc/*.h"
+    "Algorithms/*.h"
+    "FormFactors/*.h"
+    "Geometry/*.h"
+    "Samples/*.h"
     "StandardSamples/*.h"
-    "Tools/inc/*.h"
+    "Tools/*.h"
     "InputOutput/*.h"
 )
 

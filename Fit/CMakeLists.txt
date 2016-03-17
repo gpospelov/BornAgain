@@ -9,19 +9,19 @@ endif()
 
 # --- source and include files ------
 set(include_dirs 
-    ${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/FitKernel
     ${CMAKE_CURRENT_SOURCE_DIR}/StandardFits
 )
 include_directories(${include_dirs})
 
 file(GLOB fitkernel_source_files
-    "FitKernel/src/*.cpp"
-    "FitKernel/src/*.cxx"
+    "FitKernel/*.cpp"
+    "FitKernel/*.cxx"
     "StandardFits/*.cpp"
 )
 
 file(GLOB fitkernel_include_files
-    "FitKernel/inc/*.h"
+    "FitKernel/*.h"
     "StandardFits/*.h"
 )
 
@@ -35,16 +35,16 @@ if(BORNAGAIN_PYTHON)
     list(APPEND include_files ${include_pythonapi})
 
     set(include_dirs
-      ${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/inc
+      ${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/
       ${CMAKE_CURRENT_SOURCE_DIR}/StandardFits
       ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/
       ${CMAKE_SOURCE_DIR}/Core/PythonAPI/
-      ${CMAKE_SOURCE_DIR}/Core/Algorithms/inc
-      ${CMAKE_SOURCE_DIR}/Core/FormFactors/inc
-      ${CMAKE_SOURCE_DIR}/Core/Geometry/inc
-      ${CMAKE_SOURCE_DIR}/Core/Samples/inc
+      ${CMAKE_SOURCE_DIR}/Core/Algorithms/
+      ${CMAKE_SOURCE_DIR}/Core/FormFactors/
+      ${CMAKE_SOURCE_DIR}/Core/Geometry/
+      ${CMAKE_SOURCE_DIR}/Core/Samples/
       ${CMAKE_SOURCE_DIR}/Core/StandardSamples
-      ${CMAKE_SOURCE_DIR}/Core/Tools/inc
+      ${CMAKE_SOURCE_DIR}/Core/Tools/
       ${CMAKE_SOURCE_DIR}/Core/InputOutput
       )
     include_directories(${include_dirs})

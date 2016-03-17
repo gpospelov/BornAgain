@@ -117,11 +117,10 @@ void IntensityDataPlotWidget::setItem(IntensityDataItem *item)
         if(name == IntensityDataItem::P_PROJECTIONS_FLAG) {
             showProjections(m_item->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
         }
+    });
+    m_mapper->setOnValueChange([this](void){
         onIntensityModified();
     });
-//    connect(m_item, SIGNAL(propertyChanged(QString)),
-//            this, SLOT(onPropertyChanged(QString)));
-//    connect(m_item, SIGNAL(intensityModified()), this, SLOT(onIntensityModified()));
 }
 
 //! provide syncronious move of top and bottom splitters

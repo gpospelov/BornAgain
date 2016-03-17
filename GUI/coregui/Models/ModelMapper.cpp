@@ -35,6 +35,11 @@ void ModelMapper::setItem(SessionItem *item)
     }
 }
 
+void ModelMapper::setOnValueChange(std::function<void ()> f)
+{
+    m_onValueChange.push_back(f);
+}
+
 void ModelMapper::setOnPropertyChange(std::function<void (QString)> f)
 {
     m_onPropertyChange.push_back(f);
@@ -91,6 +96,33 @@ int ModelMapper::nestlingDepth(SessionItem *item, int level)
 
 }
 
+void ModelMapper::callOnValueChange()
+{
+    if (m_active && m_onValueChange.size() > 0) {
+        for (auto f : m_onValueChange) {
+            f();
+        }
+    }
+}
+
+void ModelMapper::callOnPropertyChange(const QString &name)
+{
+    if (m_active && m_onPropertyChange.size() > 0) {
+        for (auto f : m_onPropertyChange) {
+            f(name);
+        }
+    }
+}
+
+void ModelMapper::callOnChildPropertyChange(SessionItem *item, const QString &name)
+{
+    if (m_active && m_onChildPropertyChange.size() > 0) {
+        for (auto f : m_onChildPropertyChange) {
+            f(item, name);
+        }
+    }
+}
+
 void ModelMapper::callOnParentChange(SessionItem *new_parent)
 {
     if (m_active && m_onParentChange.size() > 0) {
@@ -119,40 +151,32 @@ void ModelMapper::callOnSiblingsChange()
 }
 
 void ModelMapper::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
-                                const QVector<int> &roles)
+                                const QVector<int> &/*roles*/)
 {
     if (topLeft.parent() != bottomRight.parent())
         return; // range must be from the same parent
+
     SessionItem *item = m_model->itemForIndex(topLeft);
-    if (item->modelType() == Constants::IntensityDataType) {
-        if (m_active && m_onPropertyChange.size() > 0) {
-            for (auto f : m_onPropertyChange) {
-                f(item->itemName());
-            }
-        }
-    }
+
     int nestling = nestlingDepth(item);
-    if (nestling > 0 && nestling < 2) {
-        // something happened with our property or group item
+    if (nestling == 0) {
+        callOnValueChange();
+    }
+    if (nestling == 1) {
+        // something happened with our children
         if (SessionItem *item = m_model->itemForIndex(topLeft)) {
-            if (m_item->isTag(item->itemName())) {
-                // some property changed
-                if (m_active && m_onPropertyChange.size() > 0) {
-                    for (auto f : m_onPropertyChange) {
-                        f(item->itemName());
-                    }
-                }
+            // only care f
+            const QString tag = m_item->tagFromItem(item);
+            if (!tag.isEmpty()) {
+                callOnPropertyChange(tag);
             }
         }
     }
     if (nestling > 1) {
         if (SessionItem *parent = item->parent()) {
-            if (parent->isTag(item->itemName())) {
-                if (m_active && m_onChildPropertyChange.size() > 0) {
-                    for (auto f : m_onChildPropertyChange) {
-                        f(parent, item->itemName());
-                    }
-                }
+            const QString tag = parent->tagFromItem(item);
+            if (!tag.isEmpty()) {
+                callOnChildPropertyChange(parent, tag);
             }
         }
     }

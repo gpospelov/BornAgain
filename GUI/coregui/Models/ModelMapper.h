@@ -35,6 +35,8 @@ public:
 
     void setItem(SessionItem* item);
 
+    void setOnValueChange(std::function<void(void)> f);
+
     void setOnPropertyChange(std::function<void(QString)> f);
 
     void setOnChildPropertyChange(std::function<void(SessionItem*,QString)> f);
@@ -59,6 +61,9 @@ private:
     void setModel(SessionModel *model);
     int nestlingDepth(SessionItem* item, int level = 0);
 
+    void callOnValueChange();
+    void callOnPropertyChange(const QString &name);
+    void callOnChildPropertyChange(SessionItem *item, const QString &name);
     void callOnParentChange(SessionItem *new_parent);
     void callOnChildrenChange();
     void callOnSiblingsChange();
@@ -66,6 +71,7 @@ private:
     bool m_active;
     SessionModel *m_model;
     SessionItem *m_item;
+    std::vector<std::function<void(void)>> m_onValueChange;
     std::vector<std::function<void(QString)>> m_onPropertyChange;
     std::vector<std::function<void(SessionItem*,QString)>> m_onChildPropertyChange;
     std::vector<std::function<void(SessionItem*)>> m_onParentChange;

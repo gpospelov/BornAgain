@@ -719,6 +719,13 @@ void SessionItem::setItemName(const QString &name)
         setItemValue(P_NAME, name);
     } else {
         addProperty(P_NAME, name);
+        // when name changes, than parent should be notified about it
+        mapper()->setOnPropertyChange(
+                    [this] (const QString &name)
+        {
+            if (name == P_NAME)
+                emitDataChanged();
+        });
     }
 }
 

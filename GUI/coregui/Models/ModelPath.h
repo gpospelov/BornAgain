@@ -25,6 +25,7 @@
 class SessionItem;
 class QString;
 class QStringList;
+class QModelIndex;
 
 class BA_CORE_API_ ModelPath
 {

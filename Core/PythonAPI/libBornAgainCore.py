@@ -12695,10 +12695,10 @@ class IHistogram(_object):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    INTEGRAL = _libBornAgainCore.IHistogram_INTEGRAL
-    AVERAGE = _libBornAgainCore.IHistogram_AVERAGE
-    ERROR = _libBornAgainCore.IHistogram_ERROR
-    NENTRIES = _libBornAgainCore.IHistogram_NENTRIES
+    DataType_INTEGRAL = _libBornAgainCore.IHistogram_DataType_INTEGRAL
+    DataType_AVERAGE = _libBornAgainCore.IHistogram_DataType_AVERAGE
+    DataType_STANDARD_ERROR = _libBornAgainCore.IHistogram_DataType_STANDARD_ERROR
+    DataType_NENTRIES = _libBornAgainCore.IHistogram_DataType_NENTRIES
     __swig_destroy__ = _libBornAgainCore.delete_IHistogram
     __del__ = lambda self: None
 

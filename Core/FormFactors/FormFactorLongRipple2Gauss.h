@@ -82,4 +82,4 @@ inline double FormFactorLongRipple2Gauss::getAsymmetry() const
     return m_d;
 }
 
-#endif // FORMFACTORRIPPLE2_H
+#endif // FORMFACTORLONGRIPPLE2GAUSS_H

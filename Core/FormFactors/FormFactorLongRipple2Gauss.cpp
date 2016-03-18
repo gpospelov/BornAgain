@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/src/FormFactorRipple2.cpp
-//! @brief     Implements class FormFactorRipple2.
+//! @file      FormFactors/src/FormFactorLongRipple2Gauss.cpp
+//! @brief     Implements class FormFactorLongRipple2Gauss.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -52,7 +52,7 @@ bool FormFactorLongRipple2Gauss::check_initialization() const
 
     if(!result) {
         std::ostringstream ostr;
-        ostr << "FormFactorRipple2() -> Error in class initialization with parameters ";
+        ostr << "FormFactorLongRipple2Gauss() -> Error in class initialization with parameters ";
         ostr << " width:" << m_width;
         ostr << " height:" << m_height;
         ostr << " length:" << m_length;

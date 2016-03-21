@@ -20,6 +20,7 @@
 #include "GroupInfoBox.h"
 #include "GUIHelpers.h"
 #include "ComponentInfoBox.h"
+#include "BeamDistributionItem.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
 #include <QLabel>
@@ -97,14 +98,14 @@ void BeamEditorWidget::setBeamItem(BeamItem *beamItem)
     m_intensityEditor->addItem(m_beamItem->getItem(BeamItem::P_INTENSITY));
 
     SessionItem *wavelengthItem = m_beamItem->getGroupItem(BeamItem::P_WAVELENGTH);
-    m_wavelengthPresenter->addPropertyItems(wavelengthItem);
+    m_wavelengthPresenter->addPropertyItems(wavelengthItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
 
     SessionItem *inclinationAngleItem
             = m_beamItem->getGroupItem(BeamItem::P_INCLINATION_ANGLE);
-    m_inclinationAnglePresenter->addPropertyItems(inclinationAngleItem);
+    m_inclinationAnglePresenter->addPropertyItems(inclinationAngleItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
 
     SessionItem *azimuthalAngleItem = m_beamItem->getGroupItem(BeamItem::P_AZIMUTHAL_ANGLE);
-    m_azimuthalAnglePresenter->addPropertyItems(azimuthalAngleItem);
+    m_azimuthalAnglePresenter->addPropertyItems(azimuthalAngleItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
 }
 
 void BeamEditorWidget::onDialogRequest(SessionItem *item, QString name)

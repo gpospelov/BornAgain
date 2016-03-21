@@ -88,8 +88,8 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
                                     const QModelIndex &bottomRight,
                                     const QVector<int> &roles)
 {
-    if (topLeft != bottomRight)
-        return;
+//    if (topLeft != bottomRight)
+//        return;
 
     SessionModel *model = qobject_cast<SessionModel *>(sender());
     Q_ASSERT(model);

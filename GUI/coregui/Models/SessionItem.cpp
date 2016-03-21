@@ -50,6 +50,7 @@ SessionItem::SessionItem(const QString &modelType)
 
     setData(SessionModel::ModelTypeRole, modelType);
     setDisplayName(modelType);
+    setDecimals(3);
 }
 
 /*!
@@ -579,7 +580,7 @@ void SessionItem::emitDataChanged(int role)
 {
     if (m_model) {
         QModelIndex index = m_model->indexOfItem(this);
-        m_model->dataChanged(index, index, QVector<int>() << role);
+        m_model->dataChanged(index, index.sibling(index.row(), 1), QVector<int>() << role);
     }
 }
 

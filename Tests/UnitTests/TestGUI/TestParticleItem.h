@@ -1,32 +1,47 @@
-#ifndef TESTPARTICLEITEMS_H
-#define TESTPARTICLEITEMS_H
+#ifndef TESTPARTICLEITEM_H
+#define TESTPARTICLEITEM_H
 
 
 #include <QtTest>
-#include "Particle.h"
-#include "ParticleLayout.h"
-#include "ParticleCoreShell.h"
-#include "SessionModel.h"
-#include "GUIObjectBuilder.h"
+#include "SampleModel.h"
+#include "SessionItem.h"
 #include "ParticleItem.h"
-#include "TransformToDomain.h"
-#include "MaterialSvc.h"
-#include "MaterialModel.h"
-#include "GroupProperty.h"
-#include "FormFactorItems.h"
+#include "GroupItem.h"
 
 
-class TestParticleItems : public QObject {
+class TestParticleItem : public QObject {
     Q_OBJECT
 
 private slots:
-    void test_ParticleToDomain();
-    void test_FormFactorGroupProperty();
-
+    void test_InitialState();
 };
 
-inline void TestParticleItems::test_ParticleToDomain()
+inline void TestParticleItem::test_InitialState()
 {
+    SampleModel model;
+    SessionItem *item = model.insertNewItem(Constants::ParticleType);
+
+    QCOMPARE(item->displayName(), Constants::ParticleType);
+    QCOMPARE(item->displayName(), item->itemName());
+    QCOMPARE(item->childItems().size(), 6); // xpos, ypos, P_FORM_FACTOR, P_MATERIAL, P_ABUNDANCE, P_POSITION
+    QCOMPARE(item->defaultTag(), ParticleItem::T_TRANSFORMATION);
+
+    GroupItem *group = dynamic_cast<GroupItem *>(item->getItem(ParticleItem::P_FORM_FACTOR));
+    QCOMPARE(group->displayName(), ParticleItem::P_FORM_FACTOR);
+    QCOMPARE(group->childItems().size(), 1);
+
+
+
+
+//    QCOMPARE(item->acceptableDefaultItemTypes(),
+//             QVector<QString>() << Constants::ParticleType
+//             << Constants::ParticleCoreShellType << Constants::ParticleCompositionType);
+
+}
+
+
+//inline void TestParticleItems::test_ParticleToDomain()
+//{
 //    MaterialModel materialModel;
 //    MaterialEditor editor(&materialModel);
 //    Q_UNUSED(editor);
@@ -38,11 +53,11 @@ inline void TestParticleItems::test_ParticleToDomain()
 //    QCOMPARE(depth, 10.0);
 //    QCOMPARE(abundance, 5.0);
 //    Q_UNUSED(particle);
-}
+//}
 
 
-inline void TestParticleItems::test_FormFactorGroupProperty()
-{
+//inline void TestParticleItems::test_FormFactorGroupProperty()
+//{
 //    // FIXME remove MaterialEditor and model from SessionItem
 //    MaterialModel materialModel;
 //    MaterialEditor editor(&materialModel);
@@ -104,7 +119,7 @@ inline void TestParticleItems::test_FormFactorGroupProperty()
 //    QCOMPARE(spyPropertyItem.count(), 0);
 
 
-}
+//}
 
 
 

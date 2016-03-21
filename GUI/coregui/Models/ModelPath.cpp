@@ -15,6 +15,9 @@
 
 #include "ModelPath.h"
 #include "SessionItem.h"
+#include "GroupProperty.h"
+#include "GroupItem.h"
+#include <QModelIndex>
 #include <QStringList>
 #include <sstream>
 
@@ -26,13 +29,26 @@ QStringList ModelPath::getParameterTreeList(const SessionItem *item, QString pre
     QStringList result;
     if (item->modelType() ==  Constants::PropertyType
             && item->value().type() == QVariant::Double) {
-        result << prefix + item->itemName();
-    } else {
+        result << prefix;
+    }
+
+//    else if (item->modelType() ==  Constants::GroupItemType) {
+//        if (const GroupItem *groupItem = dynamic_cast<const GroupItem*>(item)) {
+//            if (const SessionItem *subItem = groupItem->group()->getCurrentItem()) {
+//                QString child_prefix = prefix + subItem->itemName() + QString("/");
+//                result << getParameterTreeList(subItem, child_prefix);
+//            }
+//        }
+//    }
+
+    else {
         if (item->hasChildren()) {
             for (auto p_child : item->childItems()) {
-                QString child_name = p_child->itemName();
-                QString child_prefix = prefix + child_name + QString("/");
-                result << getParameterTreeList(p_child, child_prefix);
+                if(p_child->isVisible()) {
+                    QString child_name = p_child->itemName();
+                    QString child_prefix = prefix + child_name + QString("/");
+                    result << getParameterTreeList(p_child, child_prefix);
+                }
             }
         }
     }

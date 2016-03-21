@@ -55,6 +55,13 @@ ParticleDistributionItem::ParticleDistributionItem()
     {
         updateParameterList();
     });
+
+    mapper()->setOnChildrenChange(
+                [this]()
+    {
+        updateParameterList();
+    });
+
 }
 
 ParticleDistributionItem::~ParticleDistributionItem()
@@ -128,6 +135,7 @@ QStringList ParticleDistributionItem::getChildParameterNames() const
     QStringList result;
     QVector<SessionItem *> children = getItems();
     if (children.size() > 1) {
+        Q_ASSERT(0);
         qDebug() << "ParticleDistributionItem::getChildParameterNames(): "
                  << "More than one child item";
         return result;

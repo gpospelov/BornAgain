@@ -29,7 +29,7 @@ void GroupItem::setGroup(GroupProperty_t group)
     setValue(QVariant::fromValue(group));
 }
 
-GroupProperty_t GroupItem::group()
+GroupProperty_t GroupItem::group() const
 {
     return value().value<GroupProperty_t>();
 }

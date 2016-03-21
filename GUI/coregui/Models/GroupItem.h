@@ -25,7 +25,7 @@ class BA_CORE_API_ GroupItem : public SessionItem
 public:
     GroupItem();
     void setGroup(GroupProperty_t group);
-    GroupProperty_t group();
+    GroupProperty_t group() const;
 };
 
 #endif

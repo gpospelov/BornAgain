@@ -7,7 +7,6 @@
 #include "item_constants.h"
 #include "ParticleItem.h"
 #include "ParticleCompositionItem.h"
-#include "ParticleDistributionItem.h"
 #include "InterferenceFunctionItems.h"
 #include "ParticleLayoutItem.h"
 #include "DetectorItems.h"

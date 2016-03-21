@@ -219,9 +219,9 @@ inline void TestMapperForItem::test_onChildrenChange()
     SampleModel model;
     SessionItem *multilayer = model.insertNewItem(Constants::MultiLayerType);
 
-    // Mapper is looking on child; adding new child to parent
+    // Mapper is looking on parent; adding new child to parent
     setItem(multilayer);
-    SessionItem *layer = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+    model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
 
     QVERIFY(m_onPropertyChangeCount == 0);
     QVERIFY(m_onChildPropertyChangeCount == 2);

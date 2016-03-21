@@ -50,15 +50,12 @@ ParticleDistributionItem::ParticleDistributionItem()
     ComboProperty par_prop;
     addProperty(P_DISTRIBUTED_PARAMETER, par_prop.getVariant());
     updateParameterList();
-    mapper()->setOnChildPropertyChange(
-                [this](SessionItem*,QString)
+    mapper()->setOnAnyChildChange(
+                [this] (SessionItem* item)
     {
-        updateParameterList();
-    });
-
-    mapper()->setOnChildrenChange(
-                [this]()
-    {
+        // prevent infinit loop when item changes its own properties
+        if (item && item->modelType()== Constants::PropertyType && item->parent() == this)
+            return;
         updateParameterList();
     });
 
@@ -74,7 +71,7 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
     if (children.size() == 0) {
         return nullptr;
     }
-    std::unique_ptr<IParticle> P_particle = TransformToDomain::createIParticle(*children[0]);
+    std::unique_ptr<IParticle> P_particle = TransformToDomain::createIParticle(*getItem());
     if (!P_particle) {
         throw GUIHelpers::Error("DomainObjectBuilder::buildParticleDistribution()"
                                 " -> Error! No correct particle defined");

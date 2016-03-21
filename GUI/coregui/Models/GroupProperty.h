@@ -57,6 +57,8 @@ public:
     int toIndex(const QString &type) const;
     QString toString(int index) const;
 
+    bool isFixed() const;
+
     friend class GroupPropertyRegistry;
 private:
     GroupProperty(QString group_name);

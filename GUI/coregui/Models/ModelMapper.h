@@ -47,6 +47,8 @@ public:
 
     void setOnSiblingsChange(std::function<void(void)> f);
 
+    void setOnAnyChildChange(std::function<void(SessionItem*)> f);
+
     void setActive(bool state) {m_active = state;}
 
 public slots:
@@ -56,6 +58,8 @@ public slots:
     void onRowsInserted(const QModelIndex & parent, int first, int last);
 
     void onBeginRemoveRows(const QModelIndex & parent, int first, int last);
+
+    void onRowRemoved(const QModelIndex & parent, int first, int last);
 
 private:
     void setModel(SessionModel *model);
@@ -67,6 +71,8 @@ private:
     void callOnParentChange(SessionItem *new_parent);
     void callOnChildrenChange();
     void callOnSiblingsChange();
+    void callOnAnyChildChange(SessionItem *item);
+
 
     bool m_active;
     SessionModel *m_model;
@@ -77,6 +83,7 @@ private:
     std::vector<std::function<void(SessionItem*)>> m_onParentChange;
     std::vector<std::function<void(void)>> m_onChildrenChange;
     std::vector<std::function<void(void)>> m_onSiblingsChange;
+    std::vector<std::function<void(SessionItem*)>> m_onAnyChildChange;
 };
 
 #endif

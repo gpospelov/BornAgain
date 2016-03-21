@@ -149,6 +149,11 @@ QString GroupProperty::toString(int index) const
     return name_list[index];
 }
 
+bool GroupProperty::isFixed() const
+{
+    return m_group_type == GroupProperty::FIXED;
+}
+
 void GroupProperty::setGroupMap(std::map<QString, QString> group_map)
 {
     m_type_label_map = std::move(group_map);

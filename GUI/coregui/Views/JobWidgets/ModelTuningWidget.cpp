@@ -163,7 +163,7 @@ void ModelTuningWidget::updateParameterModel()
     m_parameterModel = ParameterModelBuilder::createParameterModel(m_jobModel, m_currentJobItem);
 
     m_treeView->setModel(m_parameterModel);
-    m_treeView->setColumnWidth(0, 170);
+    m_treeView->setColumnWidth(0, 240);
     m_treeView->expandAll();
 }
 

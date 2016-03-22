@@ -38,18 +38,20 @@ ParticleLayoutItem::ParticleLayoutItem()
                 << Constants::InterferenceFunction2DParaCrystalType << Constants::InterferenceFunction1DLatticeType
                 << Constants::InterferenceFunction2DLatticeType);
 
-    // FIXME: not updated when child get removed
-    mapper()->setOnChildPropertyChange(
-                [this](SessionItem *, const QString &)
+    mapper()->setOnChildrenChange(
+                [this](SessionItem* item)
     {
+        int count = 0;
         for (auto child_item : childItems()) {
             if (child_item->modelType() == Constants::InterferenceFunction2DParaCrystalType
                 || child_item->modelType() == Constants::InterferenceFunction2DLatticeType) {
-                getItem(P_TOTAL_DENSITY)->setEnabled(false);
-                return;
+                count++;
             }
         }
-        getItem(P_TOTAL_DENSITY)->setEnabled(true);
+        if ((item && count > 0) || (!item && count > 1))
+            getItem(P_TOTAL_DENSITY)->setEnabled(false);
+        else
+            getItem(P_TOTAL_DENSITY)->setEnabled(true);
     });
 }
 

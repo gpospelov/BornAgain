@@ -246,7 +246,7 @@ void ModelMapper::onBeginRemoveRows(const QModelIndex &parent, int first, int /*
         }
         if (nestling == 0) {
 
-            callOnChildrenChange(oldChild);
+            callOnChildrenChange(0);
 
             // inform siblings about the change
             if(SessionItem *parent = oldChild->parent()) {

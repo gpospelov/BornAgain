@@ -47,8 +47,6 @@ namespace Geometry {
 
 
 // need this to play nicely with ctypes
-%ignore IParameterizedShared::registerParameter(const std::string &, double*, const AttLimits&);
-%ignore IParameterizedShared::registerParameter(const std::string &, double*);
 %ignore ISampleBuilder::registerParameter(const std::string &, double*, const AttLimits&);
 %ignore ISampleBuilder::registerParameter(const std::string &, double*);
 %ignore IParameterized::addParametersToExternalPool(std::string, ParameterPool*, int) const;

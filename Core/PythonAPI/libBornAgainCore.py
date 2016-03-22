@@ -1917,8 +1917,8 @@ class IParameterized(INamed):
         """
         registerParameter(IParameterized self, std::string const & name, double * parpointer, AttLimits limits)
         registerParameter(IParameterized self, std::string const & name, double * parpointer)
-        registerParameter(IParameterized self, std::string const & name, long parpointer, AttLimits limits)
-        registerParameter(IParameterized self, std::string const & name, long parpointer)
+        registerParameter(IParameterized self, std::string const & name, int64_t parpointer, AttLimits limits)
+        registerParameter(IParameterized self, std::string const & name, int64_t parpointer)
         """
         return _libBornAgainCore.IParameterized_registerParameter(self, *args)
 
@@ -4700,8 +4700,8 @@ class ISampleBuilder(IParameterized):
 
     def registerParameter(self, *args):
         """
-        registerParameter(ISampleBuilder self, std::string const & name, long parpointer, AttLimits limits)
-        registerParameter(ISampleBuilder self, std::string const & name, long parpointer)
+        registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer, AttLimits limits)
+        registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer)
         """
         return _libBornAgainCore.ISampleBuilder_registerParameter(self, *args)
 

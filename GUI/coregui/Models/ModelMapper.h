@@ -43,7 +43,7 @@ public:
 
     void setOnParentChange(std::function<void(SessionItem*)> f);
 
-    void setOnChildrenChange(std::function<void(void)> f);
+    void setOnChildrenChange(std::function<void(SessionItem*)> f);
 
     void setOnSiblingsChange(std::function<void(void)> f);
 
@@ -69,7 +69,7 @@ private:
     void callOnPropertyChange(const QString &name);
     void callOnChildPropertyChange(SessionItem *item, const QString &name);
     void callOnParentChange(SessionItem *new_parent);
-    void callOnChildrenChange();
+    void callOnChildrenChange(SessionItem *item);
     void callOnSiblingsChange();
     void callOnAnyChildChange(SessionItem *item);
 
@@ -81,7 +81,7 @@ private:
     std::vector<std::function<void(QString)>> m_onPropertyChange;
     std::vector<std::function<void(SessionItem*,QString)>> m_onChildPropertyChange;
     std::vector<std::function<void(SessionItem*)>> m_onParentChange;
-    std::vector<std::function<void(void)>> m_onChildrenChange;
+    std::vector<std::function<void(SessionItem*)>> m_onChildrenChange;
     std::vector<std::function<void(void)>> m_onSiblingsChange;
     std::vector<std::function<void(SessionItem*)>> m_onAnyChildChange;
 };

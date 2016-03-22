@@ -64,7 +64,7 @@ public:
 
 
         m_mapper->setOnChildrenChange(
-                    [this]()
+                    [this](SessionItem*)
         {
             onChildrenChange();
         });

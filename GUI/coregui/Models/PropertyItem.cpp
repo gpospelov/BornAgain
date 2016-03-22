@@ -20,20 +20,3 @@ PropertyItem::PropertyItem()
 {
 
 }
-
-/*bool PropertyItem::setData(int column, const QVariant &data)
-{
-    if (displayName() == SessionItem::P_NAME) {
-        if (data.toString().isEmpty())
-            return false;
-        if (SessionItem *item = parent()) {
-            if (SessionItem *item_parent = item->parent()) {
-                // forbid setting duplicate name
-                if (item_parent->getChildByName(data.toString())) {
-                    return false;
-                }
-            }
-        }
-    }
-    return SessionItem::setData(column, data);
-}*/

@@ -216,7 +216,6 @@ SessionItem *ItemFactory::createItem(const QString &model_name,
 SessionItem *ItemFactory::createEmptyItem()
 {
     SessionItem *result = new SessionItem("ROOT_ITEM");
-    //result->setItemName("ROOT_ITEM");
     return result;
 }
 

@@ -36,8 +36,6 @@ SessionItem *GroupProperty::getCurrentItem()
     qDebug() << "GroupProperty::getCurrentItem()" << m_groupItem;
     if(m_groupItem) return m_groupItem->getChildByName(this->getCurrentType());
     return 0;
-//    Q_ASSERT(m_parent);
-//    return m_parent->getChildByName(this->getCurrentType());
 }
 
 void GroupProperty::setGroupItem(SessionItem *groupItem)

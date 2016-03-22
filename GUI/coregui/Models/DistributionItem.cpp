@@ -53,10 +53,9 @@ std::unique_ptr<IDistribution1D> DistributionNoneItem::createDistribution() cons
     return nullptr;
 }
 
-void DistributionNoneItem::init_parameters(double value, PropertyAttribute)
+void DistributionNoneItem::init_parameters(double value)
 {
     setItemValue(DistributionNoneItem::P_VALUE, value);
-//    setPropertyAttribute(DistributionNoneItem::P_VALUE, attribute);
 }
 
 /* ------------------------------------------------ */
@@ -80,14 +79,12 @@ std::unique_ptr<IDistribution1D> DistributionGateItem::createDistribution() cons
     return GUIHelpers::make_unique<DistributionGate>(min, max);
 }
 
-void DistributionGateItem::init_parameters(double value, PropertyAttribute)
+void DistributionGateItem::init_parameters(double value)
 {
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;
     setItemValue(P_MIN, value - sigma);
-//    setPropertyAttribute(P_MIN, attribute);
     setItemValue(P_MAX, value + sigma);
-//    setPropertyAttribute(P_MAX, attribute);
 }
 
 /* ------------------------------------------------ */
@@ -111,13 +108,12 @@ std::unique_ptr<IDistribution1D> DistributionLorentzItem::createDistribution() c
     return GUIHelpers::make_unique<DistributionLorentz>(mean, hwhm);
 }
 
-void DistributionLorentzItem::init_parameters(double value, PropertyAttribute)
+void DistributionLorentzItem::init_parameters(double value)
 {
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;
 
     setItemValue(P_MEAN, value);
-//    setPropertyAttribute(P_MEAN, attribute);
     setItemValue(P_HWHM, sigma);
     getItem(P_HWHM)->setLimits(AttLimits::lowerLimited(0.0));
 }
@@ -143,13 +139,12 @@ std::unique_ptr<IDistribution1D> DistributionGaussianItem::createDistribution() 
     return GUIHelpers::make_unique<DistributionGaussian>(mean, std_dev);
 }
 
-void DistributionGaussianItem::init_parameters(double value, PropertyAttribute)
+void DistributionGaussianItem::init_parameters(double value)
 {
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;
 
     setItemValue(P_MEAN, value);
-//    setPropertyAttribute(P_MEAN, attribute);
     setItemValue(P_STD_DEV, sigma);
     getItem(P_STD_DEV)->setLimits(AttLimits::lowerLimited(0.0));
 }
@@ -175,13 +170,12 @@ std::unique_ptr<IDistribution1D> DistributionLogNormalItem::createDistribution()
     return GUIHelpers::make_unique<DistributionLogNormal>(median, scale_par);
 }
 
-void DistributionLogNormalItem::init_parameters(double value, PropertyAttribute)
+void DistributionLogNormalItem::init_parameters(double value)
 {
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;
 
     setItemValue(P_MEDIAN, value);
-//    setPropertyAttribute(P_MEDIAN, attribute);
     setItemValue(P_SCALE_PAR, sigma);
     getItem(P_SCALE_PAR)->setLimits(AttLimits::lowerLimited(0.0));
 }
@@ -207,13 +201,12 @@ std::unique_ptr<IDistribution1D> DistributionCosineItem::createDistribution() co
     return GUIHelpers::make_unique<DistributionCosine>(mean, sigma);
 }
 
-void DistributionCosineItem::init_parameters(double value, PropertyAttribute)
+void DistributionCosineItem::init_parameters(double value)
 {
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;
 
     setItemValue(P_MEAN, value);
-//    setPropertyAttribute(P_MEAN, attribute);
     setItemValue(P_SIGMA, sigma);
     getItem(P_SIGMA)->setLimits(AttLimits::lowerLimited(0.0));
 }

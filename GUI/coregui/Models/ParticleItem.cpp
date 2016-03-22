@@ -42,11 +42,31 @@ ParticleItem::ParticleItem()
     PositionTranslator position_translator;
     ModelPath::addParameterTranslator(position_translator);
 
-//    addToValidChildren(Constants::TransformationType, PortInfo::PORT_0, 1);
     registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
     setDefaultTag(T_TRANSFORMATION);
     RotationTranslator rotation_translator;
     ModelPath::addParameterTranslator(rotation_translator);
+
+    mapper()->setOnParentChange(
+                [this](SessionItem*) {
+        if (parent()) {
+            if (parent()->modelType() == Constants::ParticleCoreShellType
+                || parent()->modelType() == Constants::ParticleCompositionType
+                || parent()->modelType() == Constants::ParticleDistributionType) {
+                setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
+                getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
+                if (parent()->modelType() == Constants::ParticleCoreShellType) {
+                    if (parent()->tagFromItem(this) == ParticleCoreShellItem::T_SHELL) {
+                        SessionItem *p_position_item = getGroupItem(ParticleItem::P_POSITION);
+                        p_position_item->setItemValue(VectorItem::P_X, 0.0);
+                        p_position_item->setItemValue(VectorItem::P_Y, 0.0);
+                        p_position_item->setItemValue(VectorItem::P_Z, 0.0);
+                        getItem(ParticleItem::P_POSITION)->setEnabled(false);
+                    }
+                }
+            }
+        }
+    });
 }
 
 std::unique_ptr<Particle> ParticleItem::createParticle() const
@@ -66,27 +86,3 @@ std::unique_ptr<Particle> ParticleItem::createParticle() const
 
     return P_particle;
 }
-
-//void ParticleItem::setPort(ParameterizedItem::PortInfo::EPorts nport)
-//{
-//    if (parent()) {
-//        if (parent()->modelType() == Constants::ParticleCoreShellType
-//            || parent()->modelType() == Constants::ParticleCompositionType
-//            || parent()->modelType() == Constants::ParticleDistributionType) {
-//            setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-//            getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
-//            int port = int(this->port());
-//            if (parent()->modelType() == Constants::ParticleCoreShellType) {
-//                auto p_coreshell = static_cast<ParticleCoreShellItem*>(parent());
-//                p_coreshell->notifyChildParticlePortChanged();
-//                if (port == PortInfo::PORT_1) {
-//                    SessionItem *p_position_item = getGroupItem(ParticleItem::P_POSITION);
-//                    p_position_item->setRegisteredProperty(VectorItem::P_X, 0.0);
-//                    p_position_item->setRegisteredProperty(VectorItem::P_Y, 0.0);
-//                    p_position_item->setRegisteredProperty(VectorItem::P_Z, 0.0);
-//                    getItem(ParticleItem::P_POSITION)->setEnabled(false);
-//                }
-//            }
-//        }
-//    }
-//}

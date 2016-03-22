@@ -404,19 +404,6 @@ void TransformToDomain::addMasksToSimulation(const SessionItem &detector_item,
 }
 
 
-//for (int i_row = m_maskModel->rowCount(m_maskContainerIndex); i_row > 0; --i_row) {
-//    QModelIndex itemIndex = m_maskModel->index(i_row - 1, 0, m_maskContainerIndex);
-//    if (MaskItem *item = dynamic_cast<MaskItem *>(m_maskModel->itemForIndex(itemIndex))) {
-//        Geometry::IShape2D *shape = item->createShape();
-//        if (shape) {
-//            detectorMask.addMask(*shape,
-//                                 item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool());
-//        }
-//        delete shape;
-//    }
-//}
-
-
 void TransformToDomain::setTransformationInfo(IParticle *result, const SessionItem &item)
 {
     setPositionInfo(result, item);

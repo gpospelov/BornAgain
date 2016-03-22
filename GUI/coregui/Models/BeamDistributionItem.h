@@ -33,14 +33,10 @@ public:
     static const QString P_CACHED_VALUE;
     explicit BeamDistributionItem(const QString name = QString());
     virtual ~BeamDistributionItem(){}
-//    virtual void onPropertyChange(const QString &name);
 
     std::unique_ptr<ParameterDistribution> getParameterDistributionForName(
             const std::string &parameter_name);
 
-//protected slots:
-//    virtual void onSubItemChanged(const QString &propertyName);
-//    virtual void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
 
 protected:
     virtual std::unique_ptr<IDistribution1D> createDistribution1D();

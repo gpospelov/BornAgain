@@ -92,80 +92,6 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SessionModel *sampleMo
                 InsertRowIntoItem(parentItem, newItem);
                 iterateSessionModel(sampleModel, itemIndex, newItem);
             }
-
-
-
-//            qDebug() << " item" << item->modelType() << item->itemName();
-//            item->print();
-
-//            //QStandardItem *standardItem = new QStandardItem(item->itemName());
-
-//            QList<QByteArray> propertyNameList = item->dynamicPropertyNames();
-//            for (int i = 0; i < propertyNameList.length(); ++i) {
-//                QString propertyName = QString(propertyNameList[i]);
-//                //                qDebug() << "       Items: i"<< i << propertyName <<
-//                //                "subItems.size" << item->getSubItems().size();
-
-//                const PropertyAttribute &prop_attribute = item->getPropertyAttribute(propertyName);
-
-//                if (prop_attribute.isHidden() || prop_attribute.isDisabled()) continue;
-
-//                // if(item->getPropertyAttribute(propertyName) & SessionItem::HiddenProperty)
-//                // continue;
-
-//                QVariant propertyValue = item->property(propertyName.toUtf8().data());
-
-//                int type = GUIHelpers::getVariantType(propertyValue);
-//                if (type == QVariant::Double) {
-//                    //                    qDebug() << "       Items: "<<propertyName <<
-//                    //                    propertyValue.toDouble();
-//                    addPropertyToParameterModel(standardItem, propertyName, propertyName,
-//                                                propertyValue, item);
-
-//                } else if (item->isGroupProperty(propertyName)) {
-//                    QMap<QString, SessionItem *> subItems = item->getSubItems();
-//                    SessionItem *subItem = subItems[propertyName];
-
-//                    //                        qDebug() << "           Item: " << item->itemName() <<
-//                    //                        "SubItem:" << subItem->itemName();
-
-//                    QStandardItem *childStandardItem = new QStandardItem(subItem->itemName());
-
-//                    QList<QByteArray> childPropertyList = subItem->dynamicPropertyNames();
-
-//                    bool isChildPropertyFound = false;
-
-//                    for (int j = 0; j < childPropertyList.length(); ++j) {
-//                        QString childPropertyName = QString(childPropertyList[j]);
-
-//                        const PropertyAttribute &prop_attribute
-//                            = subItem->getPropertyAttribute(childPropertyName);
-//                        if (prop_attribute.isHidden() || prop_attribute.isDisabled())
-//                            continue;
-
-//                        QVariant childPropertyValue
-//                            = subItem->property(childPropertyName.toUtf8().data());
-//                        int proValueType = GUIHelpers::getVariantType(childPropertyValue);
-//                        if (proValueType == QVariant::Double) {
-//                            // qDebug() << "Items: "<<prop_name << prop_value.toDouble();
-//                            isChildPropertyFound = true;
-//                            addPropertyToParameterModel(childStandardItem, childPropertyName,
-//                                                        childPropertyName, childPropertyValue,
-//                                                        subItem);
-//                        }
-//                    }
-//                    if (isChildPropertyFound) {
-//                        InsertRowIntoItem(standardItem, childStandardItem);
-//                    }
-//                }
-//            }
-
-//            if (parentItem == nullptr) {
-//                parentItem = standardItem;
-//            } else {
-//                InsertRowIntoItem(parentItem, standardItem);
-//            }
-            // qDebug() << "iteration called" << i_row;
         }
     }
 
@@ -181,62 +107,7 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentModel(InstrumentModel *in
 
 QStandardItem *ParameterModelBuilder::iterateInstrumentItem(InstrumentItem *)
 {
-    /*QStandardItem *standardItem(0);
-    BeamItem *beamItem = instrument->getBeamItem();
-    if (beamItem) {
-        standardItem = new QStandardItem(instrument->itemName());
-
-        // intensity
-//        addPropertyToParameterModel(standardItem, BeamItem::P_INTENSITY, BeamItem::P_INTENSITY,
-//                                    QVariant(beamItem->getIntensity()), beamItem);
-
-        // wavelength, incident and azimuthal angle will be varied only if there is no distribution
-        // assigned to them
-        SessionItem *beamWavelength = beamItem->getGroupItem(BeamItem::P_WAVELENGTH);
-        Q_ASSERT(beamWavelength);
-        SessionItem *wavelengthDistribution
-            = beamWavelength->getGroupItem(BeamDistributionItem::P_DISTRIBUTION);
-        Q_ASSERT(wavelengthDistribution);
-        if (wavelengthDistribution->modelType() == Constants::DistributionNoneType) {
-            addPropertyToParameterModel(
-                standardItem, BeamItem::P_WAVELENGTH, BeamDistributionItem::P_CACHED_VALUE,
-                beamWavelength->getItemValue(BeamDistributionItem::P_CACHED_VALUE),
-                beamWavelength);
-        } else {
-            addDisabledProperty(standardItem, BeamItem::P_WAVELENGTH);
-        }
-
-        SessionItem *inclinationAngle
-            = beamItem->getGroupItem(BeamItem::P_INCLINATION_ANGLE);
-        Q_ASSERT(inclinationAngle);
-        SessionItem *inclinationDistribution
-            = inclinationAngle->getGroupItem(BeamDistributionItem::P_DISTRIBUTION);
-        Q_ASSERT(inclinationDistribution);
-        if (inclinationDistribution->modelType() == Constants::DistributionNoneType) {
-            addPropertyToParameterModel(
-                standardItem, BeamItem::P_INCLINATION_ANGLE, BeamDistributionItem::P_CACHED_VALUE,
-                inclinationAngle->getItemValue(BeamDistributionItem::P_CACHED_VALUE),
-                inclinationAngle);
-        } else {
-            addDisabledProperty(standardItem, BeamItem::P_INCLINATION_ANGLE);
-        }
-
-        SessionItem *azimuthalAngle = beamItem->getGroupItem(BeamItem::P_AZIMUTHAL_ANGLE);
-        Q_ASSERT(azimuthalAngle);
-        SessionItem *azimuthalDistribution
-            = azimuthalAngle->getGroupItem(BeamDistributionItem::P_DISTRIBUTION);
-        Q_ASSERT(azimuthalDistribution);
-        if (azimuthalDistribution->modelType() == Constants::DistributionNoneType) {
-            addPropertyToParameterModel(
-                standardItem, BeamItem::P_AZIMUTHAL_ANGLE, BeamDistributionItem::P_CACHED_VALUE,
-                azimuthalAngle->getItemValue(BeamDistributionItem::P_CACHED_VALUE),
-                azimuthalAngle);
-        } else {
-            addDisabledProperty(standardItem, BeamItem::P_AZIMUTHAL_ANGLE);
-        }
-    }
-
-    return standardItem;*/
+    // TODO take care of instrument parameters, do it somewhat less cumbersome
     return nullptr;
 }
 

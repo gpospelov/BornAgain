@@ -51,11 +51,6 @@ void SessionWriter::writeItemAndChildItems(QXmlStreamWriter *writer, const Sessi
         if (tag == item->parent()->defaultTag())
             tag = "";
         writer->writeAttribute(SessionXML::TagAttribute, tag);
-        /*if (item->isRegisteredTag(ParameterizedItem::P_NAME)) {
-            writer->writeAttribute(SessionXML::ItemNameAttribute, item->itemName());
-        } else {
-            writer->writeAttribute(SessionXML::ParameterNameAttribute, item->itemName());
-        }*/
         QVector<int> roles = item->getRoles();
         foreach(int role, roles) {
             if (role == Qt::DisplayRole || role == Qt::EditRole)
@@ -132,9 +127,6 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, int r
     qDebug() << "SessionModel::readItems() " << row;
     if(item) qDebug() << "  item" << item->modelType();
     const QString modelType = item->model()->getModelTag();
-//    bool inside_parameter_tag = false;
-//    QString parent_parameter_name;
-//    SessionItem *parent_backup(0);
     while (!reader->atEnd()) {
         reader->readNext();
         if (reader->isStartElement()) {
@@ -142,14 +134,6 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, int r
                 const QString model_type
                     = reader->attributes().value(SessionXML::ModelTypeAttribute).toString();
                 QString tag = reader->attributes().value(SessionXML::TagAttribute).toString();
-                /*QString item_name;
-                bool setItemName = false;
-                if (reader->attributes().hasAttribute(SessionXML::ItemNameAttribute)) {
-                    item_name = reader->attributes().value(SessionXML::ItemNameAttribute).toString();
-                    setItemName = true;
-                } else {
-                    item_name = reader->attributes().value(SessionXML::ParameterNameAttribute).toString();
-                }*/
                 if (tag == SessionItem::P_NAME)
                     item->setItemName("");
                 if (model_type == Constants::PropertyType || model_type == Constants::GroupItemType) {
@@ -177,23 +161,8 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, int r
 
                 row = -1; // all but the first item should be appended
 
-//                if (inside_parameter_tag) {
-//                    Q_ASSERT(item);
-//                    SessionItem *parent = item;
-//                    item = parent->getGroupItem(parent_parameter_name);
-//                    if(!item) {
-//                        // to provide partial loading of obsolete project files
-//                        QString message = QString("Non existing SubItem '%1' of '%2'")
-//                                          .arg(parent_parameter_name).arg(parent->modelType());
-////                        report_error(NON_EXISTING_SUBITEM, message);
-//                        parent_backup = parent;
-//                    }
-//                } else {
-
-//                }
             } else if (reader->name() == SessionXML::ParameterTag) {
-                /*parent_parameter_name = */readProperty(reader, item);
-//                inside_parameter_tag = true;
+                readProperty(reader, item);
             }
         } else if (reader->isEndElement()) {
             if (reader->name() == SessionXML::ItemTag) {
@@ -201,8 +170,6 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, int r
                     item = item->parent();
                 } else {
                     // handling the case when reading obsolete project file, when SubItem doesn't exist anymore
-//                    item = parent_backup;
-//                    parent_backup = 0;
                     qDebug() << "!!";
                 }
             }
@@ -210,7 +177,6 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, int r
                 break;
             }
             if (reader->name() == SessionXML::ParameterTag) {
-//                inside_parameter_tag = false;
             }
         }
     }
@@ -248,31 +214,26 @@ QString SessionReader::readProperty(QXmlStreamReader *reader, SessionItem *item)
         double parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toDouble();
         variant = parameter_value;
-//        item->setRegisteredProperty(parameter_name, parameter_value);
 
     } else if (parameter_type == "int") {
         int parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toInt();
         variant = parameter_value;
-//        item->setRegisteredProperty(parameter_name, parameter_value);
     } else if (parameter_type == "bool") {
         bool parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toInt();
         variant = parameter_value;
-//        item->setRegisteredProperty(parameter_name, parameter_value);
 
     } else if (parameter_type == "QString") {
         QString parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
         variant = parameter_value;
-//        item->setRegisteredProperty(parameter_name, parameter_value);
 
     } else if (parameter_type == "MaterialProperty") {
         QString identifier = reader->attributes().value(SessionXML::IdentifierAttribute).toString();
 
         MaterialProperty material_property(identifier);
         variant = material_property.getVariant();
-//        item->setProperty(parameter_name.toUtf8().constData(), material_property.getVariant());
     } else if (parameter_type == "ComboProperty") {
         QString parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
@@ -284,7 +245,6 @@ QString SessionReader::readProperty(QXmlStreamReader *reader, SessionItem *item)
         }
         combo_property.setCachedValue(parameter_value);
         variant = combo_property.getVariant();
-//        item->setRegisteredProperty(parameter_name, combo_property.getVariant());
     } else if (parameter_type == "ScientificDoubleProperty") {
         double parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toDouble();
@@ -293,7 +253,6 @@ QString SessionReader::readProperty(QXmlStreamReader *reader, SessionItem *item)
         QVariant v;
         v.setValue(scdouble_property);
         variant = v;
-//        item->setRegisteredProperty(parameter_name, v);
     } else if (parameter_type == "GroupProperty_t") {
         QString parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
@@ -308,7 +267,6 @@ QString SessionReader::readProperty(QXmlStreamReader *reader, SessionItem *item)
         int b = reader->attributes().value(SessionXML::ColorBlueAttribute).toInt();
         int a = reader->attributes().value(SessionXML::ColorAlphaAttribute).toInt();
         ColorProperty color(QColor(r, g, b, a));
-//        item->setRegisteredProperty(parameter_name, color.getVariant());
         variant = color.getVariant();
     } else if (parameter_type == "AngleProperty") {
         double parameter_value
@@ -317,7 +275,6 @@ QString SessionReader::readProperty(QXmlStreamReader *reader, SessionItem *item)
         AngleProperty angle_property(parameter_value, Constants::UnitsRadians);
         angle_property.setUnits(units);
         variant = angle_property.getVariant();
-//        item->setRegisteredProperty(parameter_name, angle_property.getVariant());
     }
 
     else {

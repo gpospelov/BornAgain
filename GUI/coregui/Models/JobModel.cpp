@@ -213,11 +213,6 @@ void JobModel::onSelectionChanged(const QItemSelection &selected, const QItemSel
         qDebug() << "NJobModel::onSelectionChanged -> emiting selectionChanged(0)";
         emit selectionChanged(0);
     }
-
-//    if(!selected.empty() &&  !selected.first().indexes().empty()) {
-//        QModelIndex index = selected.first().indexes().at(0);
-//        emit selectionChanged(getJobItemForIndex(index));
-    //    }
 }
 
 // called when jobQueueData asks for focus

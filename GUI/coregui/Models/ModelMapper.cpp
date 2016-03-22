@@ -55,7 +55,7 @@ void ModelMapper::setOnParentChange(std::function<void (SessionItem *)> f)
     m_onParentChange.push_back(f);
 }
 
-void ModelMapper::setOnChildrenChange(std::function<void ()> f)
+void ModelMapper::setOnChildrenChange(std::function<void(SessionItem *)> f)
 {
     m_onChildrenChange.push_back(f);
 }
@@ -141,11 +141,11 @@ void ModelMapper::callOnParentChange(SessionItem *new_parent)
     }
 }
 
-void ModelMapper::callOnChildrenChange()
+void ModelMapper::callOnChildrenChange(SessionItem *item)
 {
     if (m_active && m_onChildrenChange.size() > 0) {
         for (auto f : m_onChildrenChange) {
-            f();
+            f(item);
         }
     }
 }
@@ -216,12 +216,11 @@ void ModelMapper::onRowsInserted(const QModelIndex &parent, int first, int /*las
     }
     if (nestling == 1) {
 
-        callOnChildrenChange();
+        callOnChildrenChange(newChild);
 
         // inform siblings about the change
         // FIXME SessionItems with invalid parent index (i.e. IView's located on top of graphics scene like ParticleView) should be also notified to update the label
         if(SessionItem *parent = newChild->parent()) {
-//            QVector<SessionItem *> items = parent->getItems(parent->tagFromItem(newChild));
             QVector<SessionItem *> items = parent->getChildrenOfType(newChild->modelType());
             foreach(SessionItem *sibling, items) {
                 if(m_item == sibling) callOnSiblingsChange();
@@ -247,11 +246,10 @@ void ModelMapper::onBeginRemoveRows(const QModelIndex &parent, int first, int /*
         }
         if (nestling == 0) {
 
-            callOnChildrenChange();
+            callOnChildrenChange(oldChild);
 
             // inform siblings about the change
             if(SessionItem *parent = oldChild->parent()) {
-    //            QVector<SessionItem *> items = parent->getItems(parent->tagFromItem(newChild));
                 QVector<SessionItem *> items = parent->getChildrenOfType(oldChild->modelType());
                 foreach(SessionItem *sibling, items) {
                     if(m_item == sibling) callOnSiblingsChange();

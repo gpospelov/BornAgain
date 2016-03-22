@@ -33,8 +33,6 @@ public:
     virtual ~ParticleCoreShellItem() {}
     std::unique_ptr<ParticleCoreShell> createParticleCoreShell() const;
 
-    void notifyChildParticlePortChanged();
-
 };
 
 #endif

@@ -273,22 +273,5 @@ void JobItem::setResults(const GISASSimulation *simulation)
     Q_ASSERT(intensityItem);
 
     JobResultsPresenter::setResults(intensityItem, simulation);
-
-
-
-//    Q_ASSERT(simulation);
-//    IntensityDataItem *intensityItem = getIntensityDataItem();
-//    Q_ASSERT(intensityItem);
-//    intensityItem->setNameFromProposed(this->itemName());
-    //    intensityItem->setResults(simulation);
 }
-
-//void JobItem::onPropertyChange(const QString &name)
-//{
-//    if(name == SessionItem::P_NAME) {
-//        if(IntensityDataItem *intensityDataItem = getIntensityDataItem()) {
-//            intensityDataItem->setNameFromProposed(itemName());
-//        }
-//    }
-//}
 

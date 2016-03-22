@@ -27,7 +27,4 @@ bool SampleViewProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &so
     if (!sourceParent.isValid())
         return true;
     return !sourceModel()->data(index, Qt::DisplayRole).isValid();
-//    return (type == Constants::MultiLayerType || type == Constants::LayerType || type == Constants::ParticleType
-//            || type == Constants::ParticleCompositionType || type == Constants::ParticleCoreShellType
-//            || type == Constants::ParticleDistributionType);
 }

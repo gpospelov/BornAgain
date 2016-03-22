@@ -30,7 +30,7 @@ MultiLayerItem::MultiLayerItem()
     setDefaultTag(T_LAYERS);
     setItemName(Constants::MultiLayerType);
     mapper()->setOnChildrenChange(
-                [this]()
+                [this](SessionItem*)
     {
         updateLayers();
     });

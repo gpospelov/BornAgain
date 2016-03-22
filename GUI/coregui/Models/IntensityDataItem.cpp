@@ -85,8 +85,6 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
     Q_ASSERT(data);
     m_data.reset(data);
 
-//    blockSignals(true);
-
     // set zoom range of x-axis to min, max values if it was not set already
     if(getUpperX() < getLowerX()) {
         setLowerX(getXmin());
@@ -105,7 +103,6 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
     if(getYaxisTitle().isEmpty())
         setYaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getName()));
 
-//    blockSignals(false);
     qDebug() << "Emmitting intensityModified();";
     emitDataChanged();
 }

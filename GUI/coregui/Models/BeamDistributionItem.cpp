@@ -34,26 +34,6 @@ BeamDistributionItem::BeamDistributionItem(const QString name)
     setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
 }
 
-//FIXME cached values not supported now
-//void BeamDistributionItem::onPropertyChange(const QString &name)
-//{
-//    if(name == P_CACHED_VALUE) {
-//        DistributionItem *distribution = dynamic_cast<DistributionItem *>(getGroupItem(P_DISTRIBUTION));
-//        if(distribution) {
-//            double cached_value = getRegisteredProperty(P_CACHED_VALUE).toDouble();
-//            PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
-//            cached_attribute.setVisible();
-//            // do not propagate this change back to me, or I will enter an infinite
-//            // signal-slot loop
-//            disconnect(getGroupItem(P_DISTRIBUTION), SIGNAL(propertyChanged(QString)),
-//                    this, SLOT(processSubItemPropertyChanged(QString)) );
-//            distribution->init_parameters(cached_value, cached_attribute);
-//            connect(getGroupItem(P_DISTRIBUTION), SIGNAL(propertyChanged(QString)),
-//                    this, SLOT(processSubItemPropertyChanged(QString)), Qt::UniqueConnection);
-//        }
-//    }
-//}
-
 //! returns parameter distribution to add into the Simulation
 std::unique_ptr<ParameterDistribution>
 BeamDistributionItem::getParameterDistributionForName(const std::string &parameter_name)
@@ -71,8 +51,6 @@ BeamDistributionItem::getParameterDistributionForName(const std::string &paramet
                 sigma_factor = distributionItem->getItemValue(
                                                      DistributionItem::P_SIGMA_FACTOR).toInt();
             }
-
-//            PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
             AttLimits limits;
             if (modelType() == Constants::BeamWavelengthType) {
                 limits = getItem(P_CACHED_VALUE)->limits();
@@ -89,32 +67,6 @@ BeamDistributionItem::getParameterDistributionForName(const std::string &paramet
     }
     return P_par_distr;
 }
-
-////! updates new DistributionItem with cached_value
-//void BeamDistributionItem::onSubItemChanged(const QString &propertyName)
-//{
-//    qDebug() << "BeamWavelengthItem::onSubItemChanged(const QString &propertyName)" << propertyName;
-//    if(propertyName == P_DISTRIBUTION) {
-//        DistributionItem *distribution = dynamic_cast<DistributionItem *>(getGroupItem(P_DISTRIBUTION));
-//        Q_ASSERT(distribution);
-//        double cached_value = getRegisteredProperty(P_CACHED_VALUE).toDouble();
-//        PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
-//        cached_attribute.setVisible();
-//        distribution->init_parameters(cached_value, cached_attribute);
-//    }
-//    SessionItem::onSubItemChanged(propertyName);
-//}
-
-//void BeamDistributionItem::onSubItemPropertyChanged(const QString &property_group, const QString &property_name)
-//{
-//    qDebug() << "BeamWavelengthItem::onSubItemPropertyChanged(const QString &property_group, const QString &property_name)" << property_group << property_name;
-//    if(property_group == P_DISTRIBUTION && property_name == DistributionNoneItem::P_VALUE) {
-//        double value_to_cache = getGroupItem(P_DISTRIBUTION)->
-//                getRegisteredProperty(DistributionNoneItem::P_VALUE).toDouble();
-//        setRegisteredProperty(P_CACHED_VALUE, value_to_cache);
-//    }
-//    SessionItem::onSubItemPropertyChanged(property_group, property_name);
-//}
 
 std::unique_ptr<IDistribution1D> BeamDistributionItem::createDistribution1D()
 {

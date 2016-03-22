@@ -38,7 +38,7 @@ MaterialItem::MaterialItem()
     addProperty(P_COLOR, color.getVariant());
     addGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
     addProperty(P_IDENTIFIER, QUuid::createUuid().toString());
-//    getItem(P_IDENTIFIER)->setVisible(false);
+    getItem(P_IDENTIFIER)->setVisible(false);
 }
 
 QString MaterialItem::getIdentifier() const

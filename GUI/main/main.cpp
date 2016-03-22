@@ -21,6 +21,7 @@
 #include <QDebug>
 #include <iostream>
 #include <QTime>
+#include <QLocale>
 
 void messageHandler(QtMsgType type, const QMessageLogContext &, const QString &msg)
 {
@@ -32,6 +33,8 @@ int main(int argc, char *argv[])
 {
     ApplicationOptions options(argc, argv);
     if(!options.isConsistent()) return 0;
+
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
 
     QApplication a(argc, argv);
 

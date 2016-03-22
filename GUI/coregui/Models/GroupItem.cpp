@@ -15,10 +15,11 @@
 
 #include "GroupItem.h"
 
+const QString GroupItem::T_ITEMS = "Item tag";
+
 GroupItem::GroupItem()
     :SessionItem(Constants::GroupItemType)
 {
-    const QString T_ITEMS = "Item tag";
     registerTag(T_ITEMS);
     setDefaultTag(T_ITEMS);
 }
@@ -32,4 +33,9 @@ void GroupItem::setGroup(GroupProperty_t group)
 GroupProperty_t GroupItem::group() const
 {
     return value().value<GroupProperty_t>();
+}
+
+SessionItem *GroupItem::getCurrentItem()
+{
+    return group()->getCurrentItem();
 }

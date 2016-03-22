@@ -23,9 +23,11 @@ class BA_CORE_API_ GroupItem : public SessionItem
 {
     
 public:
+    static const QString T_ITEMS;
     GroupItem();
     void setGroup(GroupProperty_t group);
     GroupProperty_t group() const;
+    SessionItem *getCurrentItem();
 };
 
 #endif

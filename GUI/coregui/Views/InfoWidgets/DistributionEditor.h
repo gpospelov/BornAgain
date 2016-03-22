@@ -21,7 +21,7 @@
 
 class QGroupBox;
 class DistributionWidget;
-class SessionItem;
+class GroupItem;
 class ComponentBoxEditor;
 
 //! The DistributionEditor class, being a child of DistributionDialog, contains a widget
@@ -41,7 +41,7 @@ private slots:
 
 private:
     ComponentBoxEditor *m_propertyEditor;
-    SessionItem *m_item;
+    GroupItem *m_item;
     DistributionWidget *m_plotwidget;
     QString m_nameOfEditor;
     QGroupBox *m_box;

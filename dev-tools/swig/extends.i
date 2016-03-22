@@ -111,8 +111,6 @@ namespace Geometry {
   
     virtual void registerParameter(const std::string &name, int64_t parpointer, const AttLimits& limits = AttLimits::limitless())
     {
-      std::cout << "value passed to ISampleBuilder::registerParameter: " << (double*)parpointer << std::endl;
-      std::cout << "current value of the parameters: " << *(double*)parpointer << std::endl;
       return (*($self)).registerParameter(name, (double*)parpointer, limits);
     }/**/
 

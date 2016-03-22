@@ -242,7 +242,7 @@ void ModelMapper::onBeginRemoveRows(const QModelIndex &parent, int first, int /*
 
     if (oldChild) {
         if (m_item == oldChild) {
-            callOnParentChange(m_model->itemForIndex(parent));
+            callOnParentChange(0);
         }
         if (nestling == 0) {
 

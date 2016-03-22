@@ -48,24 +48,28 @@ ParticleItem::ParticleItem()
     ModelPath::addParameterTranslator(rotation_translator);
 
     mapper()->setOnParentChange(
-                [this](SessionItem*) {
-        if (parent()) {
+                [this](SessionItem* parentItem) {
+        if (parentItem) {
             if (parent()->modelType() == Constants::ParticleCoreShellType
                 || parent()->modelType() == Constants::ParticleCompositionType
                 || parent()->modelType() == Constants::ParticleDistributionType) {
                 setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
                 getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
-                if (parent()->modelType() == Constants::ParticleCoreShellType) {
-                    if (parent()->tagFromItem(this) == ParticleCoreShellItem::T_SHELL) {
+                if (parent()->modelType() == Constants::ParticleCoreShellType &&
+                    parent()->tagFromItem(this) == ParticleCoreShellItem::T_SHELL) {
                         SessionItem *p_position_item = getGroupItem(ParticleItem::P_POSITION);
-                        p_position_item->setItemValue(VectorItem::P_X, 0.0);
-                        p_position_item->setItemValue(VectorItem::P_Y, 0.0);
-                        p_position_item->setItemValue(VectorItem::P_Z, 0.0);
-                        getItem(ParticleItem::P_POSITION)->setEnabled(false);
-                    }
+                    p_position_item->setItemValue(VectorItem::P_X, 0.0);
+                    p_position_item->setItemValue(VectorItem::P_Y, 0.0);
+                    p_position_item->setItemValue(VectorItem::P_Z, 0.0);
+                    getItem(ParticleItem::P_POSITION)->setEnabled(false);
+                } else {
+                    getItem(ParticleItem::P_POSITION)->setEnabled(true);
                 }
+                return;
             }
         }
+        getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);
+        getItem(ParticleItem::P_POSITION)->setEnabled(true);
     });
 }
 

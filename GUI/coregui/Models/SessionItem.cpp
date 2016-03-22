@@ -438,8 +438,8 @@ SessionItem *SessionItem::addProperty(const QString &name, const QVariant &varia
     const QString property_type = Constants::PropertyType;
     SessionItem *property = ItemFactory::createItem(property_type);
     property->setDisplayName(name);
-    Q_ASSERT(registerTag(name, 1, 1, QStringList() << property_type));
-    Q_ASSERT(insertItem(0, property, name));
+    registerTag(name, 1, 1, QStringList() << property_type);
+    insertItem(0, property, name);
     property->setValue(variant);
     return property;
 }
@@ -480,8 +480,8 @@ SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QStri
     Q_ASSERT(groupItem);
     groupItem->setGroup(group_property);
     groupItem->setDisplayName(groupName);
-    Q_ASSERT(registerTag(groupName, 1, 1, QStringList() << Constants::GroupItemType));
-    Q_ASSERT(insertItem(0, groupItem, groupName));
+    registerTag(groupName, 1, 1, QStringList() << Constants::GroupItemType);
+    insertItem(0, groupItem, groupName);
     return groupItem;
 }
 

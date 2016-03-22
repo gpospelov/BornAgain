@@ -38,6 +38,7 @@ private:
     QString validateMultiLayerItem(SessionItem *item);
     QString validateParticleLayoutItem(SessionItem *item);
     QString validateParticleCoreShellItem(SessionItem *item);
+    QString validateParticleCompositionItem(SessionItem *item);
 
     bool m_valid_sample;
     QString m_validation_message;

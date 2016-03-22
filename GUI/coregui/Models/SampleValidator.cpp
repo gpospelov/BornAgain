@@ -15,6 +15,7 @@
 
 #include "SampleValidator.h"
 #include "MultiLayerItem.h"
+#include "ParticleCompositionItem.h"
 #include "SampleModel.h"
 #include <QDebug>
 
@@ -41,6 +42,8 @@ void SampleValidator::iterateSampleModel(SampleModel *sampleModel, const QModelI
             }
             else if(item->modelType() == Constants::ParticleCoreShellType) {
                 diagnosis = validateParticleCoreShellItem(item);
+            } else if(item->modelType() == Constants::ParticleCompositionType) {
+                diagnosis = validateParticleCompositionItem(item);
             }
 
             if(!diagnosis.isEmpty()) {
@@ -99,6 +102,15 @@ QString SampleValidator::validateParticleCoreShellItem(SessionItem *item)
     }
     if(number_of_subparticles != 2) {
         result = QString("ParticleCoreShell doesn't have either core or shell defined.");
+    }
+    return result;
+}
+
+QString SampleValidator::validateParticleCompositionItem(SessionItem *item)
+{
+    QString result;
+    if (item->getItems().size() < 1) {
+        result = QString("ParticleComposition doesn't have any particles.");
     }
     return result;
 }

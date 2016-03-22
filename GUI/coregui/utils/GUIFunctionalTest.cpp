@@ -85,7 +85,7 @@ void GUIFunctionalTest::createDomainSimulation()
     const std::unique_ptr<SampleModel> P_sampleModel(new SampleModel());
     const std::unique_ptr<InstrumentModel> P_instrumentModel(new InstrumentModel());
     const std::unique_ptr<MaterialModel> P_materialModel(new MaterialModel());
-    const std::unique_ptr<MaterialEditor> P_materialEditor(new MaterialEditor(P_materialModel.get()));
+    const std::unique_ptr<MaterialSvc> P_materialEditor(new MaterialSvc(P_materialModel.get()));
 
     // populating GUI models from domain
     GUIObjectBuilder guiBuilder;

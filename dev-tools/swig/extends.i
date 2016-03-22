@@ -78,30 +78,55 @@ namespace Geometry {
 };
 
 
+%include "stdint.i"
 
 %extend IParameterized {
-    virtual void registerParameter(const std::string &name, long int parpointer, const AttLimits& limits = AttLimits::limitless())
+    virtual void registerParameter(const std::string &name, int64_t parpointer, const AttLimits& limits = AttLimits::limitless())
     {
         return (*($self)).registerParameter(name, (double*)parpointer, limits);
     }
+
+    /* virtual void registerParameter(const std::string &name, int parpointer, const AttLimits& limits = AttLimits::limitless())
+    {
+        return (*($self)).registerParameter(name, (double*)parpointer, limits);
+    } /**/
 
     /*virtual void registerParameter(const std::string &name, int parpointer, const AttLimits& limits = AttLimits::limitless())
       {
       return (*($self)).registerParameter(name, (double*)parpointer, limits);
       }*/
 
-    /*virtual std::string addParametersToExternalPool(std::string path, std::shared_ptr<ParameterPool> external_pool,
+    /*virtual std::string addParametersToExternalPool(std::string path, int64_t external_pool,
       int copy_number = -1) const
       {
-      return ($self)->addParametersToExternalPool(path, external_pool.get(), copy_number);
-      }*/
+          return ($self)->addParametersToExternalPool(path, ()external_pool.get(), copy_number);
+      }/**/
 };
 
 %extend ISampleBuilder {
-    virtual void registerParameter(const std::string &name, long int parpointer, const AttLimits& limits = AttLimits::limitless())
+  /*virtual void registerParameter(const std::string &name, double* parpointer, const AttLimits& limits = AttLimits::limitless())
+    {
+        return (*($self)).registerParameter(name, parpointer, limits);
+    } /**/
+  
+    virtual void registerParameter(const std::string &name, int64_t parpointer, const AttLimits& limits = AttLimits::limitless())
+    {
+      std::cout << "value passed to ISampleBuilder::registerParameter: " << (double*)parpointer << std::endl;
+      std::cout << "current value of the parameters: " << *(double*)parpointer << std::endl;
+      return (*($self)).registerParameter(name, (double*)parpointer, limits);
+    }/**/
+
+
+    /*virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
+                                                    int copy_number = -1) const
+    {
+        return dynamic_cast<const IParameterized*>($self)->addParametersToExternalPool(path, external_pool, copy_number);
+    }/**/
+    
+    /*virtual void registerParameter(const std::string &name, int parpointer, const AttLimits& limits = AttLimits::limitless())
     {
         return (*($self)).registerParameter(name, (double*)parpointer, limits);
-    }
+	}/**/
 
     /*virtual void registerParameter(const std::string &name, int parpointer, const AttLimits& limits = AttLimits::limitless())
       {

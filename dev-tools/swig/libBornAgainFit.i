@@ -22,6 +22,7 @@
  // gives libBornAgainFit knowledge of the libBornAgainCore python module
  // %import "../../Core/PythonAPI/libBornAgainCore.i"
 
+%include "stdint.i"
 %include "std_complex.i"
 %include "std_string.i"
 %include "std_vector.i"

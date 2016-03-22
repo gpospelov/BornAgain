@@ -77,13 +77,13 @@ if(BORNAGAIN_PYTHON)
       add_custom_command (
         OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.cxx ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
         COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${bornagain_swig_dir}/libBornAgainFit.i
-      COMMAND mv ${bornagain_swig_dir}/libBornAgainFit.py ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
-      COMMAND mv ${bornagain_swig_dir}/libBornAgainFit_wrap.cxx ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.cxx
-      COMMAND mv ${bornagain_swig_dir}/libBornAgainFit_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.h
-      COMMAND sed -i "'s/_libBornAgainCore.ICloneable_transferToCPP(self)/self.__disown__()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
-      COMMAND sed -i "'s/_libBornAgainCore.Histogram1D_getBinCenters(self)/self.getBinCentersNumpy()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
-      COMMAND sed -i "'s/_libBornAgainCore.Histogram1D_getBinErrors(self)/self.getBinErrorsNumpy()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
-      COMMAND sed -i "'s/_libBornAgainCore.Histogram1D_getBinValues(self)/self.getBinValuesNumpy()/g'" ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
+        COMMAND ${PYTHON_EXECUTABLE} ${bornagain_swig_dir}/tweaks.py ${bornagain_swig_dir}/libBornAgainFit.py ${bornagain_swig_dir}/libBornAgainFit.py 	
+        COMMAND ${CMAKE_COMMAND} -E copy ${bornagain_swig_dir}/libBornAgainFit.py ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
+        COMMAND ${CMAKE_COMMAND} -E copy ${bornagain_swig_dir}/libBornAgainFit_wrap.cxx ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.cxx
+        COMMAND ${CMAKE_COMMAND} -E copy ${bornagain_swig_dir}/libBornAgainFit_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.h
+	COMMAND ${CMAKE_COMMAND} -E remove ${bornagain_swig_dir}/libBornAgainFit.py
+        COMMAND ${CMAKE_COMMAND} -E remove ${bornagain_swig_dir}/libBornAgainFit_wrap.cxx
+        COMMAND ${CMAKE_COMMAND} -E remove ${bornagain_swig_dir}/libBornAgainFit_wrap.h
         DEPENDS ${swig_dependencies}
         )
     

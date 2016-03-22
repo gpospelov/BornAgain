@@ -25,6 +25,7 @@
 
 
 /**/
+%include "stdint.i"
 %include "std_complex.i"
 %include "std_string.i"
 %include "std_vector.i"

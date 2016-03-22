@@ -14,7 +14,9 @@
 // ************************************************************************** //
 
 #include "ParticleCompositionView.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
+#include "ParticleItem.h"
+#include "ParticleCompositionItem.h"
 #include <QDebug>
 
 ParticleCompositionView::ParticleCompositionView(QGraphicsItem *parent) : ConnectableView(parent)
@@ -31,9 +33,12 @@ ParticleCompositionView::ParticleCompositionView(QGraphicsItem *parent) : Connec
 
 void ParticleCompositionView::addView(IView *childView, int /* row */)
 {
-    int index = childView->getParameterizedItem()
-                    ->getRegisteredProperty(ParameterizedItem::P_PORT)
-                    .toInt();
+    // TODO restore logic
+    int index = 0;//int(childView->getParameterizedItem()->port());
+//                    ->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT)
+//                    .toInt();
+    if (this->getParameterizedItem()->tagFromItem(childView->getParameterizedItem()) == ParticleItem::T_TRANSFORMATION)
+        index = 1;
     qDebug() << "ParticleCompositionView::addView()" << index;
     connectInputPort(dynamic_cast<ConnectableView *>(childView), index);
 }

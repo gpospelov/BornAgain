@@ -93,7 +93,7 @@ IView *SampleViewFactory::createSampleView(const QString &name)
     }
     else {
         //qDebug() << "SampleViewFactory::createSampleView() -> Error! Can't create a view for" << name;
-        throw GUIHelpers::Error("SampleViewFactory::createSampleView() -> Error! Can't create a view for " + name);
+//        throw GUIHelpers::Error("SampleViewFactory::createSampleView() -> Error! Can't create a view for " + name);
     }
 
     return 0;

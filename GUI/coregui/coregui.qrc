@@ -1,27 +1,14 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/mode_exp.png</file>
-        <file>images/mode_fit.png</file>
-        <file>images/mode_sample.png</file>
-        <file>images/mode_simul.png</file>
-        <file>images/mode_welcome.png</file>
-        <file>images/mode_job.png</file>
         <file>images/mode_script.png</file>
-        <file>images/filenew.png</file>
-        <file>images/fileopen.png</file>
-        <file>images/clear.png</file>
         <file>images/closebutton.png</file>
         <file>images/reset.png</file>
         <file>images/darkclosebutton.png</file>
-        <file>images/filesave.png</file>
         <file>images/main_simulation.png</file>
         <file>images/main_instrument.png</file>
         <file>images/main_sample.png</file>
         <file>images/main_jobqueue.png</file>
         <file>images/main_home.png</file>
-        <file>images/config.png</file>
-        <file>images/append.png</file>
-        <file>images/remove.png</file>
         <file>images/gisas_instrument.png</file>
         <file>images/gisas_instrument_bw.png</file>
         <file>mainwindow/tooltips.xml</file>
@@ -36,7 +23,6 @@
         <file>images/toolbar_projections.png</file>
         <file>images/toolbar_save.png</file>
         <file>images/toolbar_refresh.png</file>
-        <file>images/toolbar_parameter_export.png</file>
         <file>images/BornAgain.ico</file>
         <file>images/collapse_arrow.png</file>
         <file>images/expand_arrow.png</file>
@@ -46,18 +32,10 @@
         <file>images/darkarrowup.png</file>
         <file>images/darkclose.png</file>
         <file>images/warning@2x.png</file>
-        <file>images/warning.png</file>
         <file>images/magnifier.png</file>
         <file>images/warning_64x64.png</file>
-        <file>images/rotationArrow.png</file>
-        <file>images/rectangle.png</file>
-        <file>images/mouseCursor.png</file>
-        <file>images/ellipse.png</file>
-        <file>images/polygon.png</file>
-        <file>images/bringToFront.png</file>
-        <file>images/sendToBack.png</file>
-        <file>images/include.png</file>
-        <file>images/exclude.png</file>
-        <file>images/jTxpL5ELc.png</file>
+        <file>images/toolbar32dark_cloneitem.svg</file>
+        <file>images/toolbar32dark_newitem.svg</file>
+        <file>images/toolbar32dark_remove.svg</file>
     </qresource>
 </RCC>

@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "PropertyBrowserUtils.h"
-#include "MaterialEditor.h"
+#include "MaterialSvc.h"
 #include "GUIHelpers.h"
 #include <QHBoxLayout>
 #include <QToolButton>
@@ -63,7 +63,7 @@ MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
 
 void MaterialPropertyEdit::buttonClicked()
 {
-    MaterialProperty mat = MaterialEditor::selectMaterialProperty();
+    MaterialProperty mat = MaterialSvc::selectMaterialProperty(m_materialProperty);
     if(mat.isDefined() ) {
         setMaterialProperty(mat);
         emit materialPropertyChanged(m_materialProperty);
@@ -179,6 +179,16 @@ QSize GroupPropertyEdit::minimumSizeHint() const
         return m_label->minimumSizeHint();
     }
     return QSize(100,10);
+}
+
+GroupProperty_t GroupPropertyEdit::group() const
+{
+    return m_groupProperty;
+}
+
+void GroupPropertyEdit::setGroup(GroupProperty_t group)
+{
+    setGroupProperty(group);
 }
 
 

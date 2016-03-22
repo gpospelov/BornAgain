@@ -16,14 +16,14 @@
 #ifndef ROTATIONITEMS_H
 #define ROTATIONITEMS_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "Rotations.h"
 
-class RotationItem : public ParameterizedItem
+class RotationItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
-    explicit RotationItem(const QString name, ParameterizedItem *parent) : ParameterizedItem(name, parent){}
+    explicit RotationItem(const QString name) : SessionItem(name){}
     virtual IRotation *createRotation() const{ return 0;}
     virtual ~RotationItem(){}
 };
@@ -31,37 +31,37 @@ public:
 
 class XRotationItem : public RotationItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_ANGLE;
-    explicit XRotationItem(ParameterizedItem *parent=0);
+    explicit XRotationItem();
     IRotation *createRotation() const;
 };
 
 class YRotationItem : public RotationItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_ANGLE;
-    explicit YRotationItem(ParameterizedItem *parent=0);
+    explicit YRotationItem();
     IRotation *createRotation() const;
 };
 
 class ZRotationItem : public RotationItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_ANGLE;
-    explicit ZRotationItem(ParameterizedItem *parent=0);
+    explicit ZRotationItem();
     IRotation *createRotation() const;
 };
 
 class EulerRotationItem : public RotationItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_ALPHA, P_BETA, P_GAMMA;
-    explicit EulerRotationItem(ParameterizedItem *parent=0);
+    explicit EulerRotationItem();
     IRotation *createRotation() const;
 };
 

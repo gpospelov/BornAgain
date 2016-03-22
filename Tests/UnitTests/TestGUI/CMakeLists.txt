@@ -30,7 +30,7 @@ include_directories(
 
 set(CMAKE_AUTOMOC ON)
 
-add_executable( TestGUI ${source_files} ${include_files})
+add_executable(TestGUI ${source_files} ${include_files})
 
 target_link_libraries(TestGUI
     ${BornAgainCore_LIBRARY}
@@ -43,6 +43,4 @@ add_test( TestGUI TestGUI) # TestName ExeName
 
 # add execution of TestCore just after compilation
 add_custom_command(TARGET TestGUI POST_BUILD COMMAND TestGUI)
-
-
 

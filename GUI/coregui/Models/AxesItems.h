@@ -16,19 +16,18 @@
 #ifndef AXESITEMS_H
 #define AXESITEMS_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "item_constants.h"
 
-class BA_CORE_API_  BasicAxisItem : public ParameterizedItem
+class BA_CORE_API_  BasicAxisItem : public SessionItem
 {
-    Q_OBJECT
 public:
     static const QString P_IS_VISIBLE;
     static const QString P_NBINS;
     static const QString P_MIN;
     static const QString P_MAX;
     static const QString P_TITLE;
-    explicit BasicAxisItem(const QString &type=Constants::BasicAxisType, ParameterizedItem *parent=0);
+    explicit BasicAxisItem(const QString &type=Constants::BasicAxisType);
 
     virtual ~BasicAxisItem(){}
 protected:
@@ -37,11 +36,10 @@ protected:
 
 class BA_CORE_API_  AmplitudeAxisItem : public BasicAxisItem
 {
-    Q_OBJECT
 public:
     static const QString P_IS_LOGSCALE;
     static const QString P_LOCK_MIN_MAX;
-    explicit AmplitudeAxisItem(ParameterizedItem *parent=0);
+    explicit AmplitudeAxisItem();
     virtual ~AmplitudeAxisItem(){}
 };
 

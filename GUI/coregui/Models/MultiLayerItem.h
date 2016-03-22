@@ -16,17 +16,16 @@
 #ifndef MULTILAYERITEM_H
 #define MULTILAYERITEM_H
 
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 
-class BA_CORE_API_ MultiLayerItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ MultiLayerItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_CROSS_CORR_LENGTH;
-    explicit MultiLayerItem(ParameterizedItem *parent=0);
+    static const QString T_LAYERS;
+    explicit MultiLayerItem();
     virtual ~MultiLayerItem() {}
-    virtual ParameterizedItem *takeChildItem(int row);
-    virtual void insertChildItem(int row, ParameterizedItem *item);
 
 private:
     void updateLayers();

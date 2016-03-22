@@ -17,7 +17,7 @@
 #include "DesignerScene.h"
 #include "DesignerHelper.h"
 #include "MultiLayerView.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "SampleModel.h"
 #include "LayerItem.h"
 #include "GUIHelpers.h"
@@ -47,32 +47,35 @@ ILayerView::ILayerView(QGraphicsItem *parent) : ConnectableView(parent)
 //! Propagates change of 'Thickness' dynamic property to screen thickness of ILayerView.
 void ILayerView::onPropertyChange(const QString &propertyName)
 {
-    Q_ASSERT(m_item);
     if (propertyName == LayerItem::P_THICKNESS) {
+        updateHeight();
+    } else if (propertyName == LayerItem::P_MATERIAL) {
+        updateColor();
+    }
+
+    IView::onPropertyChange(propertyName);
+}
+
+void ILayerView::updateHeight()
+{
+    if(m_item->isTag(LayerItem::P_THICKNESS)) {
         m_rect.setHeight(DesignerHelper::nanometerToScreen(
-            m_item->getRegisteredProperty(LayerItem::P_THICKNESS).toDouble()));
+            m_item->getItemValue(LayerItem::P_THICKNESS).toDouble()));
         setPortCoordinates();
         update();
         emit heightChanged();
-    } else if (propertyName == LayerItem::P_MATERIAL) {
-        //qDebug() << " ------------- > ILayerView::onPropertyChange Material";
-        MaterialProperty mp
-            = getParameterizedItem()->property("Material").value<MaterialProperty>();
-        setColor(mp.getColor());
-        update();
-    } else {
-        IView::onPropertyChange(propertyName);
     }
 }
 
-void ILayerView::setParameterizedItem(ParameterizedItem *item)
+void ILayerView::updateColor()
 {
-    QVariant v = item->property(LayerItem::P_MATERIAL.toUtf8().constData());
-    if (v.isValid()) {
-        MaterialProperty mp = v.value<MaterialProperty>();
-        setColor(mp.getColor());
+    if(m_item->isTag(LayerItem::P_MATERIAL)) {
+        QVariant v = m_item->getItemValue(LayerItem::P_MATERIAL);
+        if (v.isValid()) {
+            MaterialProperty mp = v.value<MaterialProperty>();
+            setColor(mp.getColor());
+        }
     }
-    IView::setParameterizedItem(item);
 }
 
 //! Detects movement of the ILayerView and sends possible drop areas to GraphicsScene
@@ -141,7 +144,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
     // Layer was moved only slightly, to the same row of his own MultiLayer: returning back.
     if (requested_parent == parentItem()
-        && requested_row == model->indexOfItem(getParameterizedItem()).row()) {
+        && requested_row == getParameterizedItem()->parent()->getItems().indexOf(getParameterizedItem())) {
         qDebug() << "1.2 Layer->MultiLayer (same), same drop area";
         setPos(m_drag_start_position);
         QGraphicsItem::mouseReleaseEvent(event);
@@ -170,6 +173,13 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
     // should not be here
     throw GUIHelpers::Error(tr("LayerView::mouseReleaseEvent() -> Loggic error."));
+}
+
+void ILayerView::update_appearance()
+{
+    updateHeight();
+    updateColor();
+    ConnectableView::update_appearance();
 }
 
 //! Finds candidate (another MultiLayer) into which we will move our ILayerView.

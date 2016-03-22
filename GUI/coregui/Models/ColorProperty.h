@@ -22,7 +22,7 @@
 #include <QPixmap>
 #include <QVariant>
 
-//! The ColorProperty for ParameterizedItem and PropertyEditor
+//! The ColorProperty for SessionItem and PropertyEditor
 //!
 //! The reason is to have simple color editor in PropertyEditor instead of
 //! original one which is too sophisticated.

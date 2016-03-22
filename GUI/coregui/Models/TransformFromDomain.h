@@ -19,7 +19,7 @@
 #include "WinDllMacros.h"
 #include <QString>
 
-class ParameterizedItem;
+class SessionItem;
 class BeamItem;
 class SphericalDetectorItem;
 class FormFactorAnisoPyramid;
@@ -45,26 +45,26 @@ class RectangularDetector;
 
 namespace TransformFromDomain
 {
-BA_CORE_API_ void setItemFromSample(ParameterizedItem *item, const FormFactorAnisoPyramid *sample);
+BA_CORE_API_ void setItemFromSample(SessionItem *item, const FormFactorAnisoPyramid *sample);
 
-BA_CORE_API_ void setItemFromSample(ParameterizedItem *item,
+BA_CORE_API_ void setItemFromSample(SessionItem *item,
                                     const InterferenceFunctionRadialParaCrystal *sample);
 
-BA_CORE_API_ void setItemFromSample(ParameterizedItem *item,
+BA_CORE_API_ void setItemFromSample(SessionItem *item,
                                     const InterferenceFunction2DParaCrystal *sample);
 
-BA_CORE_API_ void setItemFromSample(ParameterizedItem *item,
+BA_CORE_API_ void setItemFromSample(SessionItem *item,
                                     const InterferenceFunction1DLattice *sample);
 
-BA_CORE_API_ void setItemFromSample(ParameterizedItem *item,
+BA_CORE_API_ void setItemFromSample(SessionItem *item,
                                     const InterferenceFunction2DLattice *sample);
 
-BA_CORE_API_ void setItemFromSample(ParameterizedItem *layerItem, const Layer *layer,
+BA_CORE_API_ void setItemFromSample(SessionItem *layerItem, const Layer *layer,
                                     const LayerInterface *top_interface);
 
-BA_CORE_API_ void setItemFromSample(ParameterizedItem *item, const LayerRoughness *sample);
+BA_CORE_API_ void setItemFromSample(SessionItem *item, const LayerRoughness *sample);
 
-BA_CORE_API_ void setItemFromSample(ParameterizedItem *item, const ParticleDistribution *sample);
+BA_CORE_API_ void setItemFromSample(SessionItem *item, const ParticleDistribution *sample);
 
 BA_CORE_API_ bool isValidRoughness(const LayerRoughness *roughness);
 
@@ -92,7 +92,7 @@ BA_CORE_API_ void setItemFromSample(BeamDistributionItem *beamDistributionItem,
                                     const ParameterDistribution &parameterDistribution);
 
 
-BA_CORE_API_ QString translateParameterNameToGUI(ParameterizedItem *item, const QString &par_name);
+BA_CORE_API_ QString translateParameterNameToGUI(SessionItem *item, const QString &par_name);
 }
 
 #endif

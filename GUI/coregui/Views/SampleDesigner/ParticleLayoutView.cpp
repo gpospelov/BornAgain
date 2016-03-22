@@ -16,7 +16,7 @@
 #include "ParticleLayoutView.h"
 #include "ParticleView.h"
 #include "DesignerHelper.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "GUIHelpers.h"
 #include <QDebug>
 

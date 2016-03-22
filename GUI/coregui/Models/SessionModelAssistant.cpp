@@ -15,7 +15,7 @@
 
 #include "SessionModelAssistant.h"
 #include "GUIHelpers.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
 SessionModelAssistant::SessionModelAssistant()
     : m_on_error_behavior(THROW_EXCEPTION)
@@ -44,7 +44,7 @@ bool SessionModelAssistant::hasErrors() const
     return m_list_of_errors.size();
 }
 
-void SessionModelAssistant::report_unknown_item_property(const ParameterizedItem *item,
+void SessionModelAssistant::report_unknown_item_property(const SessionItem *item,
                                                          const QString &property_name)
 {
     QString message = QString("Unknown property '%1' for item type '%2'")

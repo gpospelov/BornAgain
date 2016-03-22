@@ -57,10 +57,10 @@ public:
     QStringList getInstrumentNames();
 
     //! returning selected MultiLayerItem from SampleModel
-    ParameterizedItem *getSelectedMultiLayerItem();
+    SessionItem *getSelectedMultiLayerItem();
 
     //! returning selected InstrumentItem from InstrumentModel
-    ParameterizedItem *getSelectedInstrumentItem();
+    SessionItem *getSelectedInstrumentItem();
 
     //! set sample selection
     void setSelectedSample(const QString &displayName);

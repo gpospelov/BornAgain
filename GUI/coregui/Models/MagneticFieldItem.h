@@ -17,16 +17,16 @@
 #define MAGNETICFIELDITEM_H
 
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
-class BA_CORE_API_ MagneticFieldItem : public ParameterizedItem
+class BA_CORE_API_ MagneticFieldItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_BX;
     static const QString P_BY;
     static const QString P_BZ;
-    explicit MagneticFieldItem(ParameterizedItem *parent=0);
+    explicit MagneticFieldItem();
     virtual ~MagneticFieldItem() {}
     virtual QString itemLabel() const;
 };

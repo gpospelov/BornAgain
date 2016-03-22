@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "SampleToolBar.h"
-#include "MaterialEditor.h"
+#include "MaterialSvc.h"
 #include "MaterialProperty.h"
 #include "DesignerView.h"
 #include <QIcon>
@@ -157,7 +157,7 @@ void SampleToolBar::onScaleComboChanged(const QString &scale_string)
 
 void SampleToolBar::onMaterialEditorCall()
 {
-    MaterialProperty mp = MaterialEditor::selectMaterialProperty();
+    MaterialProperty mp = MaterialSvc::selectMaterialProperty();
     qDebug() << "SampleToolBar::materialBrowserCall()" << mp.getName() << mp.getColor();
 
 }

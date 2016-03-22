@@ -16,7 +16,7 @@
 #ifndef RECTANGULARDETECTORITEM_H
 #define RECTANGULARDETECTORITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "Vectors3D.h"
 #include <memory>
 
@@ -24,7 +24,7 @@ class IDetector2D;
 class IResolutionFunction2D;
 
 
-class RectangularDetectorItem : public ParameterizedItem
+class RectangularDetectorItem : public SessionItem
 {
 public:
     static const QString P_X_AXIS;
@@ -39,9 +39,7 @@ public:
     static const QString P_DBEAM_V0;
     static const QString P_DISTANCE;
 
-    explicit RectangularDetectorItem(ParameterizedItem *parent=0);
-
-    virtual void onPropertyChange(const QString &name);
+    explicit RectangularDetectorItem();
 
     std::unique_ptr<IDetector2D> createDetector() const;
     std::unique_ptr<IResolutionFunction2D> createResolutionFunction();

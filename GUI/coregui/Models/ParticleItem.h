@@ -17,22 +17,21 @@
 #define PARTICLEITEM_H
 
 #include "Particle.h"
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 
 #include <memory>
 
-class BA_CORE_API_ ParticleItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ ParticleItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_FORM_FACTOR;
     static const QString P_ABUNDANCE;
     static const QString P_MATERIAL;
     static const QString P_POSITION;
-    explicit ParticleItem(ParameterizedItem *parent=0);
+    static const QString T_TRANSFORMATION;
+    explicit ParticleItem();
     virtual ~ParticleItem() {}
-    virtual void insertChildItem(int row, ParameterizedItem *item);
-    virtual void onPropertyChange(const QString &name);
     std::unique_ptr<Particle> createParticle() const;
 };
 

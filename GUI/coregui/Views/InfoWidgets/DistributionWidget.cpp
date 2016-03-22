@@ -80,7 +80,14 @@ void DistributionWidget::setItem(DistributionItem *item)
         return;
 
     plotItem();
-    connect(m_item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChanged()));
+
+    ModelMapper *mapper = new ModelMapper(this);
+    mapper->setItem(item);
+    mapper->setOnPropertyChange(
+                [this](QString)
+    {
+        plotItem();
+    });
 }
 
 void DistributionWidget::plotItem()
@@ -125,9 +132,9 @@ void DistributionWidget::plotItem()
 
     if (m_item->itemName() != Constants::DistributionNoneType && !exceptionThrown) {
         int numberOfSamples
-            = m_item->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
+            = m_item->getItemValue(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
         double sigmafactor
-            = m_item->getRegisteredProperty(DistributionItem::P_SIGMA_FACTOR).toDouble();
+            = m_item->getItemValue(DistributionItem::P_SIGMA_FACTOR).toDouble();
 
         QVector<double> xBar;
         QVector<double> x;
@@ -166,7 +173,7 @@ void DistributionWidget::plotItem()
     } else if(!exceptionThrown) {
         QVector<double> xPos;
         QVector<double> yPos;
-        xPos.push_back(m_item->getRegisteredProperty(DistributionNoneItem::P_VALUE).toDouble());
+        xPos.push_back(m_item->getItemValue(DistributionNoneItem::P_VALUE).toDouble());
         yPos.push_back(1);
         QCPBars *bars = new QCPBars(m_plot->xAxis, m_plot->yAxis);
         bars->setWidth(gap_between_bars);
@@ -180,11 +187,6 @@ void DistributionWidget::plotItem()
     }
     m_plot->replot();
     connect(m_plot, SIGNAL(mouseMove(QMouseEvent *)), this, SLOT(onMouseMove(QMouseEvent *)));
-}
-
-void DistributionWidget::onPropertyChanged()
-{
-    plotItem();
 }
 
 double DistributionWidget::getWidthOfBars(double min, double max, int samples)

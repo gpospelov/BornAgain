@@ -16,7 +16,7 @@
 #include "LayerView.h"
 #include "LayerItem.h"
 #include "ParticleLayoutView.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "MaterialProperty.h"
 #include "tooltipdatabase.h"
 #include <QPainter>
@@ -41,14 +41,6 @@ LayerView::LayerView(QGraphicsItem *parent)
 void LayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(widget);
-
-//    if(ParameterizedItem *item = getParameterizedItem()) {
-//        qDebug() << "XXX " << item;
-//        QVariant v = item->property("Material");
-//        Q_ASSERT(v.isValid());
-//        MaterialProperty mat = v.value<MaterialProperty>();
-//        m_color = mat.getColor();
-//    }
 
     painter->setPen(Qt::black);
     if (option->state & (QStyle::State_Selected | QStyle::State_HasFocus)) {

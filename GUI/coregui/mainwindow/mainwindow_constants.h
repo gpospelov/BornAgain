@@ -32,6 +32,7 @@ const char S_PROJECTMANAGER[]      = "ProjectManager";
 const char S_MAINWINDOW[]          = "MainWindow";
 const char S_MASKEDITOR[]          = "MaskEditor";
 const char S_UPDATES[]             = "Updates";
+const char S_MATERIALEDITOR[]      = "MaterialEditor";
 
 // Settings keys
 const char S_DEFAULTPROJECTPATH[]  = "DefaultProjectPath";

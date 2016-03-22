@@ -18,23 +18,26 @@
 
 #include <QMap>
 #include <QStringList>
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
 class BA_CORE_API_ ItemFactory
 {
 public:
-    typedef QMap<QString, ParameterizedItem *(*)()> ItemMap_t;
+    typedef QMap<QString, SessionItem *(*)()> ItemMap_t;
 
 
-    //! create ParameterizedItem of specific type and parent
-    static ParameterizedItem *createItem(const QString &model_name,
-                                         ParameterizedItem *parent=0);
+    //! create SessionItem of specific type and parent
+    static SessionItem *createItem(const QString &model_name,
+                                         SessionItem *parent=0);
 
-    //! create empty ParameterizedItem that serves as a root item
-    static ParameterizedItem *createEmptyItem();
+    //! create empty SessionItem that serves as a root item
+    static SessionItem *createEmptyItem();
 
     //! retrieve list of all possible item names
     static QList<QString> getValidTopItemNames();
+
+    //! returns true of factory supports given item type
+    static bool isValidItemType(const QString &name);
 
 private:
     static QStringList m_valid_top_item_names;

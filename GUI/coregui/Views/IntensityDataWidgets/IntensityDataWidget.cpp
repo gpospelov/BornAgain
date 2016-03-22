@@ -17,6 +17,7 @@
 #include "IntensityDataPlotWidget.h"
 #include "IntensityDataPropertyWidget.h"
 #include "IntensityDataItem.h"
+#include "ModelMapper.h"
 #include <QVBoxLayout>
 #include <QDebug>
 
@@ -59,26 +60,19 @@ void IntensityDataWidget::setItem(IntensityDataItem *item)
 
     if (m_currentItem == item) return;
 
-    if (m_currentItem) {
-        disconnect(m_currentItem, SIGNAL(propertyChanged(QString)),
-                this, SLOT(onPropertyChanged(QString)));
-    }
 
     m_currentItem = item;
 
     if (!m_currentItem) return;
 
     updateItem(m_currentItem);
-
-    connect(m_currentItem, SIGNAL(propertyChanged(QString)),
-            this, SLOT(onPropertyChanged(QString)));
 }
 
 void IntensityDataWidget::togglePropertyPanel()
 {
     if(m_currentItem) {
-        bool current_flag = m_currentItem->getRegisteredProperty(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool();
-        m_currentItem->setRegisteredProperty(IntensityDataItem::P_PROPERTY_PANEL_FLAG, !current_flag);
+        bool current_flag = m_currentItem->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool();
+        m_currentItem->setItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG, !current_flag);
     }
 }
 
@@ -93,23 +87,25 @@ void IntensityDataWidget::setPropertyPanelVisible(bool visible)
     m_propertyWidget->setVisible(visible);
 }
 
-void IntensityDataWidget::onPropertyChanged(const QString &property_name)
-{
-    if(property_name == IntensityDataItem::P_PROPERTY_PANEL_FLAG) {
-        setPropertyPanelVisible(m_currentItem->getRegisteredProperty(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
-    }
-}
-
 void IntensityDataWidget::updateItem(IntensityDataItem *item)
 {
-    setPropertyPanelVisible(item->getRegisteredProperty(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+    setPropertyPanelVisible(item->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+    ModelMapper *mapper = new ModelMapper(this);
+    mapper->setItem(item);
+    mapper->setOnPropertyChange(
+                 [this](const QString &name)
+    {
+        if(name == IntensityDataItem::P_PROPERTY_PANEL_FLAG) {
+            setPropertyPanelVisible(m_currentItem->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+        }
+    });
 }
 
 void IntensityDataWidget::toggleProjections()
 {
     if(m_currentItem) {
-        bool current_flag = m_currentItem->getRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG).toBool();
-        m_currentItem->setRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG, !current_flag);
+        bool current_flag = m_currentItem->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool();
+        m_currentItem->setItemValue(IntensityDataItem::P_PROJECTIONS_FLAG, !current_flag);
     }
 }
 

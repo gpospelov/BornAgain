@@ -16,7 +16,7 @@
 #ifndef ITEMLINK_H
 #define ITEMLINK_H
 
-#include <ParameterizedItem.h>
+#include "SessionItem.h"
 #include <QMetaType>
 #include <QVariant>
 
@@ -24,13 +24,13 @@ class BA_CORE_API_ ItemLink
 {
 
 public:
-    explicit ItemLink(const QString property_name = QString(), ParameterizedItem *item = 0);
+    explicit ItemLink(const QString property_name = QString(), SessionItem *item = 0);
     virtual ~ItemLink(){}
 
     QString getPropertyName() const { return m_property_name; }
 
-    ParameterizedItem *getItem() const { return m_item; }
-    void setItem(QString property_name, ParameterizedItem *item);
+    SessionItem *getItem() const { return m_item; }
+    void setItem(QString property_name, SessionItem *item);
 
     void setValue(double value);
 
@@ -40,7 +40,7 @@ private:
     double getValue() const;
     QVariant getVariant();
     QString m_property_name;
-    ParameterizedItem *m_item;
+    SessionItem *m_item;
     double m_value;
 };
 

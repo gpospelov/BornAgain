@@ -23,13 +23,13 @@ const QString TestItem::P_DISTRIBUTION = "Distribution";
 const QString TestItem::P_VALUE = "Value";
 const QString TestItem::P_COMBO = "Combo";
 const QString TestItem::P_VECTOR = "Vector";
-TestItem::TestItem(ParameterizedItem *parent)
-    : ParameterizedItem(QString("TestItem"), parent)
+TestItem::TestItem()
+    : SessionItem(QString("TestItem"))
 {
-    registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
-    registerProperty(P_VALUE, 99.0);
+    addGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
+    addProperty(P_VALUE, 99.0);
     ComboProperty types;
     types << "property 1" << "property 2" << "property 3";
-    registerProperty(P_COMBO, types.getVariant());
-    registerGroupProperty(P_VECTOR, Constants::VectorType);
+    addProperty(P_COMBO, types.getVariant());
+    addGroupProperty(P_VECTOR, Constants::VectorType);
 }

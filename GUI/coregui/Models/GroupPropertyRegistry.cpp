@@ -22,7 +22,7 @@
 namespace
 {
 
-// Correspondance of ParameterizedItem's types to their labels
+// Correspondance of SessionItem's types to their labels
 GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
 {
     GroupPropertyRegistry::SelectableGroupMap_t result;

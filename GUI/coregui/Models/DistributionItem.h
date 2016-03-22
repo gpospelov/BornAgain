@@ -16,19 +16,20 @@
 #ifndef DISTRIBUTIONITEM_H
 #define DISTRIBUTIONITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
+#include "PropertyAttribute.h"
 
 #include <memory>
 
 class IDistribution1D;
 
-class BA_CORE_API_ DistributionItem : public ParameterizedItem
+class BA_CORE_API_ DistributionItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_NUMBER_OF_SAMPLES;
     static const QString P_SIGMA_FACTOR;
-    explicit DistributionItem(const QString name, ParameterizedItem *parent=0);
+    explicit DistributionItem(const QString name);
     virtual std::unique_ptr<IDistribution1D> createDistribution() const=0;
 
     virtual void init_parameters(double, PropertyAttribute){}
@@ -39,77 +40,77 @@ protected:
 
 class BA_CORE_API_ DistributionNoneItem : public DistributionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_VALUE;
-    explicit DistributionNoneItem(ParameterizedItem *parent=0);
+    explicit DistributionNoneItem();
     virtual std::unique_ptr<IDistribution1D> createDistribution() const;
-    virtual void init_parameters(double value, PropertyAttribute attribute);
+    virtual void init_parameters(double value, PropertyAttribute);
 };
 
 
 class BA_CORE_API_ DistributionGateItem : public DistributionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_MIN;
     static const QString P_MAX;
-    explicit DistributionGateItem(ParameterizedItem *parent=0);
+    explicit DistributionGateItem();
 
     virtual std::unique_ptr<IDistribution1D> createDistribution() const;
-    virtual void init_parameters(double value, PropertyAttribute attribute);
+    virtual void init_parameters(double value, PropertyAttribute);
 };
 
 
 class BA_CORE_API_ DistributionLorentzItem : public DistributionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_MEAN;
     static const QString P_HWHM;
-    explicit DistributionLorentzItem(ParameterizedItem *parent=0);
+    explicit DistributionLorentzItem();
 
     virtual std::unique_ptr<IDistribution1D> createDistribution() const;
-    virtual void init_parameters(double value, PropertyAttribute attribute);
+    virtual void init_parameters(double value, PropertyAttribute);
 };
 
 
 class BA_CORE_API_ DistributionGaussianItem : public DistributionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_MEAN;
     static const QString P_STD_DEV;
-    explicit DistributionGaussianItem(ParameterizedItem *parent=0);
+    explicit DistributionGaussianItem();
 
     virtual std::unique_ptr<IDistribution1D> createDistribution() const;
-    virtual void init_parameters(double value, PropertyAttribute attribute);
+    virtual void init_parameters(double value, PropertyAttribute);
 };
 
 
 class BA_CORE_API_ DistributionLogNormalItem : public DistributionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_MEDIAN;
     static const QString P_SCALE_PAR;
-    explicit DistributionLogNormalItem(ParameterizedItem *parent=0);
+    explicit DistributionLogNormalItem();
 
     virtual std::unique_ptr<IDistribution1D> createDistribution() const;
-    virtual void init_parameters(double value, PropertyAttribute attribute);
+    virtual void init_parameters(double value, PropertyAttribute);
 };
 
 
 class BA_CORE_API_ DistributionCosineItem : public DistributionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_MEAN;
     static const QString P_SIGMA;
-    explicit DistributionCosineItem(ParameterizedItem *parent=0);
+    explicit DistributionCosineItem();
 
     virtual std::unique_ptr<IDistribution1D> createDistribution() const;
-    virtual void init_parameters(double value, PropertyAttribute attribute);
+    virtual void init_parameters(double value, PropertyAttribute);
 };
 
 #endif // DISTRIBUTIONITEM_H

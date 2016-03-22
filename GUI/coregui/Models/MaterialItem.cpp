@@ -20,73 +20,47 @@
 #include "ScientificDoubleProperty.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
+#include "HomogeneousMaterial.h"
 #include <QUuid>
 #include <QDebug>
 
 
-const QString MaterialItem::P_MATERIAL_TYPE = "Material Type";
 const QString MaterialItem::P_COLOR = "Color";
 const QString MaterialItem::P_REFRACTIVE_INDEX = "Refractive index";
-const QString MaterialItem::P_MAGNETIC_FIELD = "Magnetic field";
 const QString MaterialItem::P_IDENTIFIER = "Identifier";
 
-
-MaterialItem::MaterialItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::MaterialType, parent)
+MaterialItem::MaterialItem()
+    : SessionItem(Constants::MaterialType)
 {
-    registerProperty(P_NAME, Constants::MaterialType);
-
-    ComboProperty types;
-    types << Constants::HomogeneousMaterialType << Constants::HomogeneousMagneticMaterialType;
-    registerProperty(P_MATERIAL_TYPE, types.getVariant()).setHidden();
+    setItemName(Constants::MaterialType);
 
     ColorProperty color;
-    registerProperty(P_COLOR, color.getVariant());
-
-    registerGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
-
-    registerProperty(P_IDENTIFIER, QUuid::createUuid().toString()).setHidden();
-}
-
-void MaterialItem::setMaterialType(int index)
-{
-    ComboProperty combo_property = getRegisteredProperty(P_MATERIAL_TYPE).value<ComboProperty>();
-    QString previous_type = combo_property.getValue();
-    QString new_type = combo_property.toString(index);
-
-    if(previous_type != new_type) {
-        if(new_type == Constants::HomogeneousMagneticMaterialType) {
-            registerGroupProperty(P_MAGNETIC_FIELD, Constants::MagneticFieldType);
-        } else {
-            removeRegisteredProperty(P_MAGNETIC_FIELD);
-        }
-
-        qDebug() << "MaterialItem::setMaterialType()" << index << combo_property.toString(index);
-        combo_property.setValue(new_type);
-        setRegisteredProperty(MaterialItem::P_MATERIAL_TYPE, combo_property.getVariant());
-    }
+    addProperty(P_COLOR, color.getVariant());
+    addGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
+    addProperty(P_IDENTIFIER, QUuid::createUuid().toString());
+//    getItem(P_IDENTIFIER)->setVisible(false);
 }
 
 QString MaterialItem::getIdentifier() const
 {
-    return getRegisteredProperty(P_IDENTIFIER).toString();
+    return getItemValue(P_IDENTIFIER).toString();
 }
-
 
 QColor MaterialItem::getColor() const
 {
-    ColorProperty color_property = getRegisteredProperty(P_COLOR).value<ColorProperty>();
+    ColorProperty color_property = getItemValue(P_COLOR).value<ColorProperty>();
     return color_property.getColor();
 }
 
-bool MaterialItem::isHomogeneousMaterial() const
+std::unique_ptr<IMaterial> MaterialItem::createMaterial() const
 {
-    ComboProperty combo_property = getRegisteredProperty(MaterialItem::P_MATERIAL_TYPE).value<ComboProperty>();
-    return (combo_property.getValue() == Constants::HomogeneousMaterialType);
-}
+    const RefractiveIndexItem *refractiveIndexItem
+        = dynamic_cast<const RefractiveIndexItem *>(
+            getGroupItem(MaterialItem::P_REFRACTIVE_INDEX));
 
-bool MaterialItem::isHomogeneousMagneticMaterial() const
-{
-    ComboProperty combo_property = getRegisteredProperty(MaterialItem::P_MATERIAL_TYPE).value<ComboProperty>();
-    return (combo_property.getValue() == Constants::HomogeneousMagneticMaterialType);
+    double delta = refractiveIndexItem->getDelta();
+    double beta = refractiveIndexItem->getBeta();
+
+    return GUIHelpers::make_unique<HomogeneousMaterial>(
+                itemName().toStdString(), delta, beta);
 }

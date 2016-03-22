@@ -227,13 +227,13 @@ QString PySampleWidget::generateCodeSnippet()
 
     QString result;
 
-    QMap<QString, ParameterizedItem *> sampleMap = m_sampleModel->getSampleMap();
-    for(QMap<QString, ParameterizedItem *>::iterator it = sampleMap.begin();
+    QMap<QString, SessionItem *> sampleMap = m_sampleModel->getSampleMap();
+    for(QMap<QString, SessionItem *>::iterator it = sampleMap.begin();
         it!=sampleMap.end(); ++it) {
 
         DomainObjectBuilder builder;
         PyGenVisitor visitor;
-        ParameterizedItem *sampleItem = it.value();
+        SessionItem *sampleItem = it.value();
 
         try {
             auto P_multilayer = builder.buildMultiLayer(*sampleItem);

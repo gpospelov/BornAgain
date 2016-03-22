@@ -16,18 +16,18 @@
 #ifndef LAYERITEM_H
 #define LAYERITEM_H
 
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 
-class BA_CORE_API_ LayerItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ LayerItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_THICKNESS;
     static const QString P_ROUGHNESS;
     static const QString P_MATERIAL;
-    explicit LayerItem(ParameterizedItem *parent=0);
+    static const QString T_LAYOUTS;
+    explicit LayerItem();
     virtual ~LayerItem(){}
-    virtual void insertChildItem(int row, ParameterizedItem *item);
 };
 
 #endif // LAYERITEM_H

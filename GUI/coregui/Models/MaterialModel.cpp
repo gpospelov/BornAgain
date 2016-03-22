@@ -18,12 +18,21 @@
 #include "RefractiveIndexItem.h"
 #include "MaterialUtils.h"
 #include "MaterialProperty.h"
+#include "IconProvider.h"
 #include <QDebug>
 
 MaterialModel::MaterialModel(QObject *parent)
     : SessionModel(SessionXML::MaterialModelTag, parent)
 {
     setObjectName(SessionXML::MaterialModelTag);
+    setIconProvider(new IconProvider());
+}
+
+MaterialModel *MaterialModel::createCopy(SessionItem *parent)
+{
+    MaterialModel *result = new MaterialModel();
+    result->initFrom(this, parent);
+    return result;
 }
 
 MaterialItem *MaterialModel::addMaterial(const QString &name, double delta, double beta)
@@ -31,13 +40,14 @@ MaterialItem *MaterialModel::addMaterial(const QString &name, double delta, doub
     MaterialItem *materialItem = dynamic_cast<MaterialItem *>(insertNewItem(Constants::MaterialType));
     materialItem->setItemName(name);
 
-    RefractiveIndexItem *refractiveIndexItem = dynamic_cast<RefractiveIndexItem *>(materialItem->getSubItems()[MaterialItem::P_REFRACTIVE_INDEX]);
+    RefractiveIndexItem *refractiveIndexItem =
+            dynamic_cast<RefractiveIndexItem *>(materialItem->getGroupItem(MaterialItem::P_REFRACTIVE_INDEX));
     Q_ASSERT(refractiveIndexItem);
 
     refractiveIndexItem->setDelta(delta);
     refractiveIndexItem->setBeta(beta);
 
-    materialItem->setRegisteredProperty(MaterialItem::P_COLOR, MaterialUtils::suggestMaterialColorProperty(name).getVariant());
+    materialItem->setItemValue(MaterialItem::P_COLOR, MaterialUtils::suggestMaterialColorProperty(name).getVariant());
 
     return materialItem;
 }
@@ -46,6 +56,11 @@ void MaterialModel::removeMaterial(MaterialItem *item)
 {
     QModelIndex materialIndex = indexOfItem(item);
     removeRows(materialIndex.row(), 1, materialIndex.parent());
+}
+
+MaterialItem *MaterialModel::getMaterial(const QModelIndex &index)
+{
+    return dynamic_cast<MaterialItem *>(itemForIndex(index));
 }
 
 MaterialItem *MaterialModel::getMaterial(const MaterialProperty &property)

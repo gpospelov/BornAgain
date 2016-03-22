@@ -16,12 +16,13 @@
 #include "GroupProperty.h"
 #include "GUIHelpers.h"
 #include "ItemFactory.h"
+#include <QDebug>
 
 
 GroupProperty::GroupProperty(QString group_name)
     : m_group_name(std::move(group_name))
     , m_group_type(UNDEFINED)
-    , m_parent(0)
+    , m_groupItem(0)
 {
 }
 
@@ -30,16 +31,26 @@ GroupProperty::EGroupType GroupProperty::type() const
     return m_group_type;
 }
 
-void GroupProperty::setParent(ParameterizedItem *parent)
+SessionItem *GroupProperty::getCurrentItem()
 {
-    Q_ASSERT(parent);
-    m_parent = parent;
-    m_parent->addSubItem(getGroupName(), createCorrespondingItem());
+    qDebug() << "GroupProperty::getCurrentItem()" << m_groupItem;
+    if(m_groupItem) return m_groupItem->getChildByName(this->getCurrentType());
+    return 0;
+//    Q_ASSERT(m_parent);
+//    return m_parent->getChildByName(this->getCurrentType());
 }
 
-ParameterizedItem *GroupProperty::createCorrespondingItem()
+void GroupProperty::setGroupItem(SessionItem *groupItem)
 {
-    ParameterizedItem *result = ItemFactory::createItem(getCurrentType());
+    Q_ASSERT(groupItem);
+    m_groupItem = groupItem;
+    SessionItem *item = createCorrespondingItem();
+    m_groupItem->insertItem(-1, item);
+}
+
+SessionItem *GroupProperty::createCorrespondingItem()
+{
+    SessionItem *result = ItemFactory::createItem(getCurrentType());
     if(type() == FIXED) {
         setCurrentLabel(result->itemLabel());
     }
@@ -56,15 +67,29 @@ QString GroupProperty::getCurrentType() const
     return m_current_type;
 }
 
-void GroupProperty::setCurrentType(const QString &type)
+void GroupProperty::setCurrentType(const QString &type, bool)
 {
+    qDebug() << "GGG GroupProperty::setCurrentType(const QString &type)" << type;
     if(type == getCurrentType()) return;
 
+    SessionItem *prevItem = getCurrentItem();
     m_current_type = type;
 
-    if(m_parent) {
-        m_parent->addSubItem(getGroupName(), createCorrespondingItem());
-        //emit m_parent->subItemChanged(getGroupName());
+    if(m_groupItem) {
+        if (auto item = m_groupItem->getChildByName(m_current_type)) {
+            item->setVisible(true);
+            item->setEnabled(true);
+        } else {
+            SessionItem *new_item = createCorrespondingItem();
+            m_groupItem->insertItem(-1, new_item);
+        }
+
+        if(prevItem) {
+            prevItem->setVisible(false);
+            prevItem->setEnabled(false);
+        }
+
+        m_groupItem->emitDataChanged();
     }
 }
 
@@ -77,7 +102,7 @@ void GroupProperty::setCurrentLabel(const QString &label)
 {
     if(type() == FIXED) {
         m_type_label_map[m_current_type] = label;
-        if(m_parent) emit m_parent->propertyChanged(getGroupName());
+//        if(m_groupItem) m_groupItem->getItem(getGroupName())->emitValueChanged();
     }
 }
 
@@ -122,6 +147,11 @@ QString GroupProperty::toString(int index) const
         return QString();
     }
     return name_list[index];
+}
+
+bool GroupProperty::isFixed() const
+{
+    return m_group_type == GroupProperty::FIXED;
 }
 
 void GroupProperty::setGroupMap(std::map<QString, QString> group_map)

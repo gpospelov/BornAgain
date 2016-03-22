@@ -14,100 +14,145 @@
 // ************************************************************************** //
 
 #include "MaterialEditor.h"
-#include "MaterialEditorWidget.h"
+#include "MaterialEditorToolBar.h"
+#include "ComponentEditor.h"
 #include "MaterialModel.h"
 #include "MaterialItem.h"
-#include "MaterialUtils.h"
-#include "SessionModel.h"
-#include <QDebug>
+#include <QListView>
+#include <QSplitter>
+#include <QVBoxLayout>
 
-MaterialEditor *MaterialEditor::m_instance = 0;
-
-MaterialEditor::MaterialEditor(MaterialModel *materialModel)
-    : m_materialModel(materialModel)
+MaterialEditor::MaterialEditor(MaterialModel *materialModel, QWidget *parent)
+    : QWidget(parent)
+    , m_materialModel(materialModel)
+    , m_toolBar(new MaterialEditorToolBar(materialModel, this))
+    , m_splitter(new QSplitter)
+    , m_listView(new QListView)
+    , m_componentEditor(new ComponentEditor)
+    , m_model_was_modified(false)
 {
-    Q_ASSERT(!m_instance);
-    m_instance = this;
+    setWindowTitle("MaterialEditorWidget");
+    setMinimumSize(128, 128);
+    resize(512, 400);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setContentsMargins(0,0,0,0);
+
+    m_splitter->addWidget(m_listView);
+    m_splitter->addWidget(m_componentEditor);
+    m_splitter->setCollapsible(0, false);
+    m_splitter->setCollapsible(1, false);
+
+    layout->addWidget(m_toolBar);
+    layout->addWidget(m_splitter);
+
+    setLayout(layout);
+
+    init_views();
 }
 
-
-MaterialEditor::~MaterialEditor()
+QItemSelectionModel *MaterialEditor::getSelectionModel()
 {
-    m_instance = 0;
+    Q_ASSERT(m_listView);
+    return m_listView->selectionModel();
 }
 
-MaterialEditor *MaterialEditor::instance()
+MaterialItem *MaterialEditor::getSelectedMaterial()
 {
-    return m_instance;
-}
-
-
-MaterialProperty MaterialEditor::selectMaterialProperty()
-{
-    Q_ASSERT(m_instance);
-    return m_instance->this_selectMaterialProperty();
-}
-
-
-MaterialProperty MaterialEditor::this_selectMaterialProperty()
-{
-    qDebug() << "MaterialEditor::this_getMaterialProperty()";
-    MaterialEditorWidget widget(m_materialModel);
-    if(widget.exec() == QDialog::Accepted) {
-        return widget.getSelectedMaterialProperty();
+    QModelIndexList selected = getSelectionModel()->selectedIndexes();
+    if(selected.size()) {
+        return m_materialModel->getMaterial(selected.front());
     }
-
-    return MaterialProperty();
+    return nullptr;
 }
 
-
-MaterialProperty MaterialEditor::getMaterialProperty(const QString &name)
+//! Sets selection corresponding to initial material property
+void MaterialEditor::setInitialMaterialProperty(const MaterialProperty &matProperty)
 {
-    Q_ASSERT(m_instance);
-    return m_instance->this_getMaterialProperty(name);
+    if(MaterialItem *mat = m_materialModel->getMaterial(matProperty)) {
+        getSelectionModel()->clearSelection();
+        getSelectionModel()->select(m_materialModel->indexOfItem(mat),
+                                    QItemSelectionModel::Select);
+    }
 }
 
-
-MaterialProperty MaterialEditor::this_getMaterialProperty(const QString &name)
+bool MaterialEditor::isModelWasModified() const
 {
-    MaterialItem *material = m_materialModel->getMaterial(name);
-    if(material)
-        return MaterialProperty(material->getIdentifier());
-
-    return MaterialProperty();
+    return m_model_was_modified;
 }
 
-
-MaterialProperty MaterialEditor::getDefaultMaterialProperty()
+void MaterialEditor::onSelectionChanged(const QItemSelection &selected,
+                                              const QItemSelection &)
 {
-    Q_ASSERT(m_instance);
-    return m_instance->this_getDefaultMaterialProperty();
-}
+    QModelIndexList indices = selected.indexes();
 
-//! Returns default MaterialProperty which is the signature of the first
-//! MaterialItem in the model.
-MaterialProperty MaterialEditor::this_getDefaultMaterialProperty()
-{
-    Q_ASSERT(m_materialModel);
-    if((m_materialModel->rowCount( QModelIndex() ) ) ) {
-        QModelIndex firstIndex = m_materialModel->index(0, 0, QModelIndex());
-        MaterialItem *material = dynamic_cast<MaterialItem *>(m_materialModel->itemForIndex(firstIndex));
-        return MaterialProperty(material->getIdentifier());
+    if(indices.isEmpty()) {
+        m_componentEditor->setItem(0);
     } else {
-        return MaterialProperty();
+        if(SessionItem *item = m_materialModel->itemForIndex(indices.at(0))) {
+            m_componentEditor->setItem(item);
+        }
     }
 }
 
-
-MaterialModel *MaterialEditor::getMaterialModel()
+void MaterialEditor::onDataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)
 {
-    Q_ASSERT(m_instance);
-    return m_instance->this_getMaterialModel();
+    m_model_was_modified = true;
+}
+
+void MaterialEditor::onRowsInserted(const QModelIndex &, int, int)
+{
+    m_model_was_modified = true;
+}
+
+void MaterialEditor::onRowsRemoved(const QModelIndex &, int, int)
+{
+    m_model_was_modified = true;
 }
 
 
-MaterialModel *MaterialEditor::this_getMaterialModel()
+//! Context menu reimplemented to supress default menu
+void MaterialEditor::contextMenuEvent(QContextMenuEvent *event)
 {
-    return m_materialModel;
+    Q_UNUSED(event);
 }
 
+
+void MaterialEditor::init_views()
+{
+    // connecting to the model
+    connect(m_materialModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
+               this, SLOT(onDataChanged(QModelIndex,QModelIndex,QVector<int>)));
+    connect(m_materialModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
+               this, SLOT(onRowsInserted(QModelIndex,int,int)));
+    connect(m_materialModel, SIGNAL(rowsRemoved(QModelIndex,int,int)),
+               this, SLOT(onRowsRemoved(QModelIndex,int,int)));
+
+    m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
+    m_listView->setModel(m_materialModel);
+    m_listView->setMovement(QListView::Static);
+    m_listView->setMinimumWidth(50);
+    m_listView->setMaximumWidth(220);
+    m_listView->setSpacing(5);
+
+    m_toolBar->setSelectionModel(getSelectionModel());
+
+    connect(getSelectionModel(),
+            SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)),
+            this,
+            SLOT(onSelectionChanged(const QItemSelection&, const QItemSelection&)),
+            Qt::UniqueConnection
+    );
+
+
+    // making first material selected
+    if (!getSelectionModel()->hasSelection()) {
+        QModelIndex itemIndex = m_materialModel->index(0, 0, QModelIndex());
+        getSelectionModel()->select(itemIndex, QItemSelectionModel::Select);
+    }
+
+    connect(m_listView, SIGNAL(customContextMenuRequested(const QPoint &)),
+            m_toolBar, SLOT(onCustomContextMenuRequested(const QPoint &)));
+
+}

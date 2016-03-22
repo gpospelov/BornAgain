@@ -23,7 +23,7 @@ InstrumentModel::InstrumentModel(QObject *parent)
 }
 
 
-InstrumentModel *InstrumentModel::createCopy(ParameterizedItem *parent)
+InstrumentModel *InstrumentModel::createCopy(SessionItem *parent)
 {
     InstrumentModel *result = new InstrumentModel();
     result->initFrom(this, parent);
@@ -32,7 +32,7 @@ InstrumentModel *InstrumentModel::createCopy(ParameterizedItem *parent)
 
 
 //! returns list of Instruments defined in the model
-QMap<QString, ParameterizedItem *> InstrumentModel::getInstrumentMap() const
+QMap<QString, SessionItem *> InstrumentModel::getInstrumentMap() const
 {
     return getTopItemMap(Constants::InstrumentType);
 }

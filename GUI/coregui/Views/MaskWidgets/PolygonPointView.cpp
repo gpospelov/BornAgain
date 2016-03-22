@@ -36,8 +36,8 @@ QRectF PolygonPointView::boundingRect() const
 
 void PolygonPointView::updateParameterizedItem(const QPointF &pos)
 {
-    m_item->setRegisteredProperty(PolygonPointItem::P_POSX, fromSceneX(pos.x()));
-    m_item->setRegisteredProperty(PolygonPointItem::P_POSY, fromSceneY(pos.y()));
+    m_item->setItemValue(PolygonPointItem::P_POSX, fromSceneX(pos.x()));
+    m_item->setItemValue(PolygonPointItem::P_POSY, fromSceneY(pos.y()));
 }
 
 void PolygonPointView::update_view()

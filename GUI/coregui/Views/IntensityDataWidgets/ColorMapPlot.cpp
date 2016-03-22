@@ -46,14 +46,10 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
         return;
     }
 
-    if (m_item) {
-        disconnect(m_item, SIGNAL(intensityModified()), this,
-                   SLOT(onIntensityModified()));
-        disconnect(m_item, SIGNAL(propertyChanged(QString)), this,
-                   SLOT(onPropertyChanged(QString)));
-        disconnect(m_item, SIGNAL(subItemPropertyChanged(QString, QString)), this,
-                   SLOT(onSubItemPropertyChanged(QString, QString)));
-    }
+//    if (m_item) {
+//        disconnect(m_item, SIGNAL(intensityModified()), this,
+//                   SLOT(onIntensityModified()));
+//    }
 
     m_item = item;
 
@@ -62,12 +58,22 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
 
     plotItem(m_item);
 
-    connect(m_item, SIGNAL(intensityModified()), this,
-               SLOT(onIntensityModified()));
-    connect(m_item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChanged(QString)));
-
-    connect(m_item, SIGNAL(subItemPropertyChanged(QString, QString)), this,
-            SLOT(onSubItemPropertyChanged(QString, QString)));
+//    connect(m_item, SIGNAL(intensityModified()), this,
+//               SLOT(onIntensityModified()));
+    ModelMapper *mapper = new ModelMapper(this);
+    mapper->setItem(item);
+    mapper->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        onPropertyChanged(name);
+        onIntensityModified();
+    });
+    mapper->setOnChildPropertyChange(
+                [this](SessionItem* item, const QString name)
+    {
+        if (item->parent() && item->parent()->modelType() == Constants::GroupItemType)
+            onSubItemPropertyChanged(item->itemName(), name);
+    });
 }
 
 //! returns string containing bin content information
@@ -304,7 +310,7 @@ void ColorMapPlot::onPropertyChanged(const QString &property_name)
         m_customPlot->replot();
     } else if (property_name == IntensityDataItem::P_PROJECTIONS_FLAG) {
         showLinesOverTheMap(
-            m_item->getRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
+            m_item->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
     }
 }
 
@@ -364,8 +370,8 @@ void ColorMapPlot::onSubItemPropertyChanged(const QString &property_group,
             setLogz(m_item->isLogz());
 
         } else if (property_name == BasicAxisItem::P_IS_VISIBLE) {
-            setColorScaleVisible(m_item->getSubItems()[IntensityDataItem::P_ZAXIS]
-                ->getRegisteredProperty(BasicAxisItem::P_IS_VISIBLE).toBool());
+            setColorScaleVisible(m_item->getGroupItem(IntensityDataItem::P_ZAXIS)
+                ->getItemValue(BasicAxisItem::P_IS_VISIBLE).toBool());
         }
         m_customPlot->replot();
     }
@@ -504,8 +510,8 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
         ++it;
     }
 
-    setColorScaleVisible(intensityItem->getSubItems()[IntensityDataItem::P_ZAXIS]
-        ->getRegisteredProperty(BasicAxisItem::P_IS_VISIBLE).toBool());
+    setColorScaleVisible(intensityItem->getGroupItem(IntensityDataItem::P_ZAXIS)
+        ->getItemValue(BasicAxisItem::P_IS_VISIBLE).toBool());
 
     m_colorMap->setGradient(m_gradient_map[intensityItem->getGradient()]);
 
@@ -518,6 +524,8 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
 
     m_colorMap->setDataRange(newDataRange);
     setLogz(intensityItem->isLogz(), false);
+
+    m_colorMap->setInterpolate(m_item->isInterpolated());
 
     // make sure the axis rect and color scale synchronize their bottom and top margins (so they
     // line up):

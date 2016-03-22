@@ -16,18 +16,18 @@
 #ifndef TESTITEM_H
 #define TESTITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
-//! The TestItem class for TestParameterizedItem unit tests and for checking AwesomePropertyEditor machinery
-class BA_CORE_API_ TestItem : public ParameterizedItem
+//! The TestItem class for TestSessionItem unit tests and for checking AwesomePropertyEditor machinery
+class BA_CORE_API_ TestItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_DISTRIBUTION;
     static const QString P_VALUE;
     static const QString P_COMBO;
     static const QString P_VECTOR;
-    explicit TestItem(ParameterizedItem *parent=0);
+    explicit TestItem();
     virtual ~TestItem(){}
 };
 

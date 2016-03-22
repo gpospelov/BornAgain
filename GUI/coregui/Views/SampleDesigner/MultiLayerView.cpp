@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "MultiLayerView.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "DesignerScene.h"
 #include "SampleModel.h"
 #include "LayerView.h"
@@ -64,7 +64,9 @@ void MultiLayerView::addView(IView *childView, int row)
         addNewLayer(layer, row);
     } else {
         int previous_row = m_layers.indexOf(layer);
-        if(previous_row != row) m_layers.swap(previous_row, row);
+        if(previous_row != row) {
+            m_layers.swap(previous_row, row);
+        }
     }
     updateGeometry();
 }
@@ -269,7 +271,7 @@ const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEve
 
     int row = getDropArea(event->pos());
     if(mimeData->hasFormat("bornagain/widget")
-            && getParameterizedItem()->acceptsAsChild(mimeData->getClassName())
+            && getParameterizedItem()->acceptsAsDefaultItem(mimeData->getClassName())
             && row!=-1 ) {
 
         qDebug() << "MultiLayerView::checkDragEvent -> yes"  << row << getDropAreaRectangle(row);

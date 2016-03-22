@@ -20,9 +20,9 @@
 #include <QWidget>
 
 class DetectorItem;
-class AwesomePropertyEditor;
 class QGridLayout;
 class ColumnResizer;
+class ComponentBoxEditor;
 
 //! Widget for editing a spherical detector settings
 
@@ -41,10 +41,9 @@ public slots:
 
 private:
     ColumnResizer *m_columnResizer;
-    AwesomePropertyEditor *m_detectorTypeEditor;
-    AwesomePropertyEditor *m_phiAxisEditor;
-    AwesomePropertyEditor *m_alphaAxisEditor;
-    AwesomePropertyEditor *m_resolutionFunctionEditor;
+    ComponentBoxEditor *m_phiAxisEditor;
+    ComponentBoxEditor *m_alphaAxisEditor;
+    ComponentBoxEditor *m_resolutionFunctionEditor;
     QGridLayout *m_gridLayout;
 };
 

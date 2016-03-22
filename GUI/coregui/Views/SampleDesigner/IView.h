@@ -16,10 +16,12 @@
 #ifndef IVIEW_H
 #define IVIEW_H
 
-#include <QGraphicsObject>
-
 #include "DesignerHelper.h"
-class ParameterizedItem;
+#include <QGraphicsObject>
+#include <memory>
+
+class SessionItem;
+class ModelMapper;
 
 //! parent class for graphic representation of all ISample's
 class BA_CORE_API_ IView : public QGraphicsObject
@@ -29,13 +31,13 @@ public:
     enum { TYPE = DesignerHelper::IVIEW };
 
     IView(QGraphicsItem *parent = 0);
-    virtual ~IView() {}
+    virtual ~IView();
 
     int type() const;
 
-    virtual void setParameterizedItem(ParameterizedItem *item);
+    virtual void setParameterizedItem(SessionItem *item);
 
-    virtual ParameterizedItem *getParameterizedItem();
+    virtual SessionItem *getParameterizedItem();
 
     virtual void addView(IView *childView, int row = 0);
 
@@ -45,10 +47,15 @@ signals:
 public slots:
     virtual void onChangedX();
     virtual void onChangedY();
-    virtual void onPropertyChange(const QString &propertyName);
 
 protected:
-    ParameterizedItem *m_item;
+    ModelMapper *mapper();
+    virtual void update_appearance();
+    virtual void onPropertyChange(const QString &propertyName);
+    virtual void onSiblingsChange();
+
+    SessionItem *m_item;
+    std::unique_ptr<ModelMapper> m_mapper;
 };
 
 inline int IView::type() const
@@ -56,7 +63,7 @@ inline int IView::type() const
     return TYPE;
 }
 
-inline ParameterizedItem *IView::getParameterizedItem()
+inline SessionItem *IView::getParameterizedItem()
 {
     return m_item;
 }

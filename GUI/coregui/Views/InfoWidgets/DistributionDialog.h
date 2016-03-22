@@ -18,7 +18,7 @@
 
 #include <QDialog>
 class DistributionEditor;
-class ParameterizedItem;
+class SessionItem;
 
 //! The dialog which shows an editor to change parameters of DistributionItem
 class DistributionDialog : public QDialog
@@ -29,7 +29,7 @@ public:
     DistributionDialog(QWidget *parent = 0);
     virtual ~DistributionDialog(){}
 
-    void setItem(ParameterizedItem *item);
+    void setItem(SessionItem *item);
     void setNameOfEditor(const QString &name);
 
 private:

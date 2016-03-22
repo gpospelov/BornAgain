@@ -20,25 +20,16 @@
 const QString LayerItem::P_THICKNESS = "Thickness";
 const QString LayerItem::P_ROUGHNESS = "Top roughness";
 const QString LayerItem::P_MATERIAL = "Material";
+const QString LayerItem::T_LAYOUTS = "Layout tag";
 
-LayerItem::LayerItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(Constants::LayerType, parent)
+LayerItem::LayerItem()
+    : SessionGraphicsItem(Constants::LayerType)
 {
-    registerProperty(P_THICKNESS, 0.0);
-    registerProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
+    addProperty(P_THICKNESS, 0.0);
+    addProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
 
-    registerGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup);
+    addGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup);
     setGroupProperty(P_ROUGHNESS, Constants::LayerZeroRoughnessType);
-    addToValidChildren(Constants::ParticleLayoutType, PortInfo::PORT_0);
-}
-
-void LayerItem::insertChildItem(int row, ParameterizedItem *item)
-{
-    ParameterizedItem::insertChildItem(row, item);
-    if (item->modelType() == Constants::ParticleLayoutType) {
-        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
-        if (port == PortInfo::DEFAULT) {
-            item->setItemPort(PortInfo::PORT_0);
-        }
-    }
+    registerTag(T_LAYOUTS, 0, -1, QStringList() << Constants::ParticleLayoutType);
+    setDefaultTag(T_LAYOUTS);
 }

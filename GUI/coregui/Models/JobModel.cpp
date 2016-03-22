@@ -102,12 +102,12 @@ void JobModel::setSampleForJobItem(JobItem *jobItem, const MultiLayerItem *multi
         removeRows(indexOfItem(old_sample).row(), 1, indexOfItem(old_sample->parent()));
     }
 
-    ParameterizedItem *new_item = copyParameterizedItem(multiLayerItem, jobItem);
+    SessionItem *new_item = copyParameterizedItem(multiLayerItem, jobItem);
 
     // our original multiLayerItem might come from backup itself, lets clean up its specific name
     QString name = new_item->itemName();
     name.remove(Constants::JOB_BACKUP);
-    jobItem->setRegisteredProperty(JobItem::P_SAMPLE_NAME, name);
+    jobItem->setItemValue(JobItem::P_SAMPLE_NAME, name);
 
     // if new_item is supposed to be the backup, then it's name should end up with '_backup'
     if(backup) {
@@ -130,12 +130,12 @@ void JobModel::setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *i
         removeRows(indexOfItem(old).row(), 1, indexOfItem(old->parent()));
     }
 
-    ParameterizedItem *new_item = copyParameterizedItem(instrumentItem, jobItem);
+    SessionItem *new_item = copyParameterizedItem(instrumentItem, jobItem);
 
     // our original instrumentItem might itself come from backup, lets clean up its specific name
     QString name = new_item->itemName();
     name.remove(Constants::JOB_BACKUP);
-    jobItem->setRegisteredProperty(JobItem::P_INSTRUMENT_NAME, name);
+    jobItem->setItemValue(JobItem::P_INSTRUMENT_NAME, name);
 
     // if new_item is supposed to be the backup, then it's name should end up with '_backup'
     if(backup) {
@@ -234,7 +234,7 @@ QString JobModel::generateJobName()
     for(int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
          QModelIndex itemIndex = index( i_row, 0, parentIndex );
 
-         if (ParameterizedItem *item = itemForIndex(itemIndex)){
+         if (SessionItem *item = itemForIndex(itemIndex)){
              if(item->modelType() == Constants::JobItemType) {
                  QString jobName = item->itemName();
                  if(jobName.startsWith("job")) {

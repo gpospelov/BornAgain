@@ -21,6 +21,7 @@
 #include "DeleteEventFilter.h"
 #include "MinimizerSettingsWidget.h"
 #include "minisplitter.h"
+#include "ModelPath.h"
 #include <QVBoxLayout>
 #include <QTreeView>
 #include <QSplitter>
@@ -151,9 +152,9 @@ void FitParameterWidget::clearParameter() {
     }
 }
 
-void FitParameterWidget::buildTree(QStandardItem *root, ParameterizedItem *top)
+void FitParameterWidget::buildTree(QStandardItem *root, SessionItem *top)
 {
-    QStringList parameterTree = top->getParameterTreeList();
+    QStringList parameterTree = ModelPath::getParameterTreeList(top);
 
     foreach (const QString &str, parameterTree) {
         QStringList parts = str.split("/");
@@ -175,7 +176,7 @@ void FitParameterWidget::buildTree(QStandardItem *root, ParameterizedItem *top)
                 item->setEditable(false);
                 data->setEditable(false);
                 if (partIndex == parts.size() - 1) { // arrived at the end
-                    double value = top->getParameterValue(str);
+                    double value = ModelPath::getParameterValue(top, str);
                     data->setData(QVariant(value), Qt::EditRole);
                 } else {
                     item->setDragEnabled(false);
@@ -195,8 +196,8 @@ void FitParameterWidget::buildSelectorModel() {
     m_selectorModel->setHorizontalHeaderItem(1, new QStandardItem("Value"));
     QStandardItem *root = m_selectorModel->invisibleRootItem();
 
-    ParameterizedItem *topSample = m_fitModel->getSelectedMultiLayerItem();
-    ParameterizedItem *topInst = m_fitModel->getSelectedInstrumentItem();
+    SessionItem *topSample = m_fitModel->getSelectedMultiLayerItem();
+    SessionItem *topInst = m_fitModel->getSelectedInstrumentItem();
     if (topSample && topInst) {
         QStandardItem *multilayer = new QStandardItem("MultiLayer");
         root->appendRow(multilayer);
@@ -228,7 +229,7 @@ void FitParameterWidget::onCustomContextMenu(const QPoint &point) {
     m_removeAction->setEnabled(false);
     QModelIndex index = m_parameterTreeview->indexAt(point);
     if (index.isValid()) {
-        ParameterizedItem *cur = m_parameterModel->itemForIndex(index);
+        SessionItem *cur = m_parameterModel->itemForIndex(index);
         if (cur->itemName().startsWith("FitParameter")) {
             m_parameterTreeview->setCurrentIndex(index);
             m_removeAction->setEnabled(true);
@@ -251,8 +252,8 @@ void FitParameterWidget::onParameterSelectionChanged(const QItemSelection &selec
     QModelIndex index = selection.indexes().first();
     QModelIndex newSelection = QModelIndex();
     if (index.isValid() && index.parent().isValid()) {
-        ParameterizedItem *val = m_fitModel->itemForIndex(index);
-        QString link = val->getRegisteredProperty(FitParameterLinkItem::P_LINK).toString();
+        SessionItem *val = m_fitModel->itemForIndex(index);
+        QString link = val->getItemValue(FitParameterLinkItem::P_LINK).toString();
         QStandardItem *t = m_selectorModel->getItemFromPath(link);
         newSelection = m_selectorModel->indexFromItem(t);
     }

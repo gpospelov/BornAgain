@@ -20,6 +20,8 @@
 #include "ConnectableView.h"
 #include <QPixmap>
 
+class ModelMapper;
+
 //! Class representing view of Particle item
 class BA_CORE_API_ ParticleView : public ConnectableView
 {
@@ -34,15 +36,17 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-    void setParameterizedItem(ParameterizedItem *item);
-
     void onPropertyChange(const QString &propertyName);
 
     void addView(IView *childView, int row = 0); // to add Transformation
 
-private:
-    QPixmap m_pixmap;
+protected:
+    void update_appearance();
 
+private:
+    void updatePixmap();
+
+    QPixmap m_pixmap;
 };
 
 

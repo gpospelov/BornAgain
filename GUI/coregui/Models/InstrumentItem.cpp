@@ -17,17 +17,18 @@
 #include "DetectorItems.h"
 #include "BeamItem.h"
 
-InstrumentItem::InstrumentItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::InstrumentType, parent)
+InstrumentItem::InstrumentItem()
+    : SessionItem(Constants::InstrumentType)
 {
-    registerProperty(P_NAME, Constants::InstrumentType);
-    addToValidChildren(Constants::BeamType);
-    addToValidChildren(Constants::DetectorType);
+    setItemName(Constants::InstrumentType);
+    const QString T_DATA = "Data tag";
+    registerTag(T_DATA, 0, -1, QStringList() << Constants::BeamType << Constants::DetectorType);
+    setDefaultTag(T_DATA);
 }
 
 BeamItem *InstrumentItem::getBeamItem()
 {
-    for(ParameterizedItem *item : childItems()) {
+    for(SessionItem *item : childItems()) {
         if(item->modelType() == Constants::BeamType) {
             return dynamic_cast<BeamItem *>(item);
         }
@@ -37,7 +38,7 @@ BeamItem *InstrumentItem::getBeamItem()
 
 DetectorItem *InstrumentItem::getDetectorItem()
 {
-    for(ParameterizedItem *item : childItems()) {
+    for(SessionItem *item : childItems()) {
         if(item->modelType() == Constants::DetectorType) {
             return dynamic_cast<DetectorItem *>(item);
         }

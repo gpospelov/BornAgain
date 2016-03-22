@@ -23,7 +23,7 @@
 #include <map>
 #include <QString>
 
-class ParameterizedItem;
+class SessionItem;
 
 //! The GroupPropertyRegistry is responsible for constructing GroupProperty objects
 //! according to the given name of the group.

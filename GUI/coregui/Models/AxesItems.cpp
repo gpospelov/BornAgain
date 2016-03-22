@@ -21,19 +21,21 @@ const QString BasicAxisItem::P_MIN = "Min";
 const QString BasicAxisItem::P_MAX = "Max";
 const QString BasicAxisItem::P_TITLE = "title";
 
-BasicAxisItem::BasicAxisItem(const QString &type, ParameterizedItem *parent)
-    : ParameterizedItem(type, parent)
+BasicAxisItem::BasicAxisItem(const QString &type)
+    : SessionItem(type)
 {
     register_basic_properties();
 }
 
 void BasicAxisItem::register_basic_properties()
 {
-    registerProperty(P_IS_VISIBLE, true).setHidden();
-    registerProperty(P_NBINS, 100).limited(1, 1024);
-    registerProperty(P_MIN, 0.0).limitless().setDecimals(3);
-    registerProperty(P_MAX, -1.0).limitless().setDecimals(3);
-    registerProperty(P_TITLE, QString());
+    addProperty(P_IS_VISIBLE, true)->setVisible(false);
+    addProperty(P_NBINS, 100)->setLimits(AttLimits::limited(1, 1024));
+    addProperty(P_MIN, 0.0)->setDecimals(3);
+    getItem(P_MIN)->setLimits(AttLimits::limitless());
+    addProperty(P_MAX, -1.0)->setDecimals(3);
+    getItem(P_MAX)->setLimits(AttLimits::limitless());
+    addProperty(P_TITLE, QString());
 }
 
 // ---------------------------------------------------------------------------------------------- //
@@ -41,11 +43,11 @@ void BasicAxisItem::register_basic_properties()
 const QString AmplitudeAxisItem::P_IS_LOGSCALE = "log10";
 const QString AmplitudeAxisItem::P_LOCK_MIN_MAX = "Lock (min, max)";
 
-AmplitudeAxisItem::AmplitudeAxisItem(ParameterizedItem *parent)
-    : BasicAxisItem(Constants::AmplitudeAxisType, parent)
+AmplitudeAxisItem::AmplitudeAxisItem()
+    : BasicAxisItem(Constants::AmplitudeAxisType)
 {
-    registerProperty(P_LOCK_MIN_MAX, false).setHidden();
-    registerProperty(P_IS_LOGSCALE, true);
-    getPropertyAttribute(BasicAxisItem::P_TITLE).setHidden();
-    getPropertyAttribute(BasicAxisItem::P_IS_VISIBLE).setVisible();
+    addProperty(P_LOCK_MIN_MAX, false)->setVisible(false);
+    addProperty(P_IS_LOGSCALE, true);
+    getItem(BasicAxisItem::P_TITLE)->setVisible(false);
+    getItem(BasicAxisItem::P_IS_VISIBLE)->setVisible(true);
 }

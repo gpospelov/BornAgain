@@ -16,18 +16,18 @@
 #ifndef PARTICLELAYOUTITEM_H
 #define PARTICLELAYOUTITEM_H
 
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 
-class BA_CORE_API_ ParticleLayoutItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ ParticleLayoutItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_APPROX;
     static const QString P_TOTAL_DENSITY;
-    explicit ParticleLayoutItem(ParameterizedItem *parent=0);
+    static const QString T_PARTICLES;
+    static const QString T_INTERFERENCE;
+    explicit ParticleLayoutItem();
     virtual ~ParticleLayoutItem();
-    virtual void insertChildItem(int row, ParameterizedItem *item);
-    virtual void onChildPropertyChange(ParameterizedItem *item, const QString &propertyName=QString());
 };
 
 #endif // PARTICLELAYOUTITEM_H

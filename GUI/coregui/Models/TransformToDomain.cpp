@@ -55,15 +55,15 @@
 
 using namespace BornAgain;
 
-std::unique_ptr<IMaterial> TransformToDomain::createDomainMaterial(const ParameterizedItem &item)
+std::unique_ptr<IMaterial> TransformToDomain::createDomainMaterial(const SessionItem &item)
 {
     MaterialProperty material_property;
     if (item.modelType() == Constants::ParticleType) {
         material_property
-            = item.getRegisteredProperty(ParticleItem::P_MATERIAL).value<MaterialProperty>();
+            = item.getItemValue(ParticleItem::P_MATERIAL).value<MaterialProperty>();
     } else if (item.modelType() == Constants::LayerType) {
         material_property
-            = item.getRegisteredProperty(LayerItem::P_MATERIAL).value<MaterialProperty>();
+            = item.getItemValue(LayerItem::P_MATERIAL).value<MaterialProperty>();
     }
     if (!material_property.isDefined())
         throw GUIHelpers::Error(
@@ -72,20 +72,20 @@ std::unique_ptr<IMaterial> TransformToDomain::createDomainMaterial(const Paramet
     return MaterialUtils::createDomainMaterial(material_property);
 }
 
-std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const ParameterizedItem &item)
+std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionItem &item)
 {
     auto P_multilayer = GUIHelpers::make_unique<MultiLayer>();
     auto cross_corr_length
-        = item.getRegisteredProperty(MultiLayerItem::P_CROSS_CORR_LENGTH).toDouble();
+        = item.getItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH).toDouble();
     if (cross_corr_length > 0)
         P_multilayer->setCrossCorrLength(cross_corr_length);
     return P_multilayer;
 }
 
-std::unique_ptr<Layer> TransformToDomain::createLayer(const ParameterizedItem &item)
+std::unique_ptr<Layer> TransformToDomain::createLayer(const SessionItem &item)
 {
     auto P_layer = GUIHelpers::make_unique<Layer>();
-    auto thickness = item.getRegisteredProperty(LayerItem::P_THICKNESS).toDouble();
+    auto thickness = item.getItemValue(LayerItem::P_THICKNESS).toDouble();
     P_layer->setThickness(thickness);
     auto P_material = createDomainMaterial(item);
     P_layer->setMaterial(*P_material);
@@ -93,15 +93,15 @@ std::unique_ptr<Layer> TransformToDomain::createLayer(const ParameterizedItem &i
 }
 
 std::unique_ptr<LayerRoughness>
-TransformToDomain::createLayerRoughness(const ParameterizedItem &roughnessItem)
+TransformToDomain::createLayerRoughness(const SessionItem &roughnessItem)
 {
     if (roughnessItem.modelType() == Constants::LayerZeroRoughnessType) {
         return nullptr;
     } else if (roughnessItem.modelType() == Constants::LayerBasicRoughnessType) {
         return GUIHelpers::make_unique<LayerRoughness>(
-            roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_SIGMA).toDouble(),
-            roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_HURST).toDouble(),
-            roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH)
+            roughnessItem.getItemValue(LayerBasicRoughnessItem::P_SIGMA).toDouble(),
+            roughnessItem.getItemValue(LayerBasicRoughnessItem::P_HURST).toDouble(),
+            roughnessItem.getItemValue(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH)
                 .toDouble());
     } else {
         throw GUIHelpers::Error("TransformToDomain::createLayerRoughness() -> Error.");
@@ -109,10 +109,10 @@ TransformToDomain::createLayerRoughness(const ParameterizedItem &roughnessItem)
 }
 
 std::unique_ptr<ParticleLayout>
-TransformToDomain::createParticleLayout(const ParameterizedItem &item)
+TransformToDomain::createParticleLayout(const SessionItem &item)
 {
     auto P_layout = GUIHelpers::make_unique<ParticleLayout>();
-    auto prop = item.getRegisteredProperty(ParticleLayoutItem::P_APPROX).value<ComboProperty>();
+    auto prop = item.getItemValue(ParticleLayoutItem::P_APPROX).value<ComboProperty>();
     QString approximation = prop.getValue();
     if (approximation == QString("Decoupling Approximation")) {
         P_layout->setApproximation(ILayout::DA);
@@ -120,12 +120,12 @@ TransformToDomain::createParticleLayout(const ParameterizedItem &item)
         P_layout->setApproximation(ILayout::SSCA);
     }
     auto total_density
-        = item.getRegisteredProperty(ParticleLayoutItem::P_TOTAL_DENSITY).value<double>();
+        = item.getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).value<double>();
     P_layout->setTotalParticleSurfaceDensity(total_density);
     return P_layout;
 }
 
-std::unique_ptr<IParticle> TransformToDomain::createIParticle(const ParameterizedItem &item)
+std::unique_ptr<IParticle> TransformToDomain::createIParticle(const SessionItem &item)
 {
     std::unique_ptr<IParticle> P_particle;
     if (item.modelType() == Constants::ParticleType) {
@@ -142,7 +142,7 @@ std::unique_ptr<IParticle> TransformToDomain::createIParticle(const Parameterize
 }
 
 std::unique_ptr<ParticleDistribution> TransformToDomain::createParticleDistribution(
-        const ParameterizedItem &item)
+        const SessionItem &item)
 {
     auto& particle_distribution = static_cast<const ParticleDistributionItem&>(item);
     auto P_part_distr = particle_distribution.createParticleDistribution();
@@ -150,7 +150,7 @@ std::unique_ptr<ParticleDistribution> TransformToDomain::createParticleDistribut
 }
 
 std::unique_ptr<IDistribution1D>
-TransformToDomain::createDistribution(const ParameterizedItem &item)
+TransformToDomain::createDistribution(const SessionItem &item)
 {
     auto distr_item = dynamic_cast<const DistributionItem *>(&item);
     Q_ASSERT(distr_item);
@@ -158,26 +158,26 @@ TransformToDomain::createDistribution(const ParameterizedItem &item)
 }
 
 std::unique_ptr<IInterferenceFunction>
-TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
+TransformToDomain::createInterferenceFunction(const SessionItem &item)
 {
     std::unique_ptr<IInterferenceFunction> P_result{};
     if (item.modelType() == Constants::InterferenceFunctionRadialParaCrystalType) {
         double peak_distance
-            = item.getRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE)
+            = item.getItemValue(InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE)
                   .toDouble();
         double damping_length
-            = item.getRegisteredProperty(
+            = item.getItemValue(
                        InterferenceFunctionRadialParaCrystalItem::P_DAMPING_LENGTH).toDouble();
         double domain_size
-            = item.getRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_DOMAIN_SIZE)
+            = item.getItemValue(InterferenceFunctionRadialParaCrystalItem::P_DOMAIN_SIZE)
                   .toDouble();
-        double kappa = item.getRegisteredProperty(
+        double kappa = item.getItemValue(
                                 InterferenceFunctionRadialParaCrystalItem::P_KAPPA).toDouble();
         auto P_iff = GUIHelpers::make_unique<InterferenceFunctionRadialParaCrystal>(peak_distance,
                                                                                     damping_length);
         P_iff->setDomainSize(domain_size);
         P_iff->setKappa(kappa);
-        auto pdfItem = item.getSubItems()[InterferenceFunctionRadialParaCrystalItem::P_PDF];
+        auto pdfItem = item.getGroupItem(InterferenceFunctionRadialParaCrystalItem::P_PDF);
         Q_ASSERT(pdfItem);
         std::unique_ptr<IFTDistribution1D> P_pdf(
             dynamic_cast<FTDistribution1DItem *>(pdfItem)->createFTDistribution());
@@ -186,24 +186,24 @@ TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
         P_result = std::move(P_iff);
     } else if (item.modelType() == Constants::InterferenceFunction2DParaCrystalType) {
         auto latticeItem
-                = item.getSubItems()[InterferenceFunction2DLatticeItem::P_LATTICE_TYPE];
+                = item.getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
         Q_ASSERT(latticeItem);
         double length_1 {0.0}, length_2 {0.0}, alpha_lattice {0.0};
         if (latticeItem->modelType() == Constants::BasicLatticeType) {
-            length_1 = latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH1)
+            length_1 = latticeItem->getItemValue(BasicLatticeTypeItem::P_LATTICE_LENGTH1)
                            .toDouble();
-            length_2 = latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH2)
+            length_2 = latticeItem->getItemValue(BasicLatticeTypeItem::P_LATTICE_LENGTH2)
                            .toDouble();
             alpha_lattice = Units::deg2rad(
-                latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_ANGLE)
+                latticeItem->getItemValue(BasicLatticeTypeItem::P_LATTICE_ANGLE)
                     .toDouble());
         } else if (latticeItem->modelType() == Constants::SquareLatticeType) {
-            length_1 = latticeItem->getRegisteredProperty(SquareLatticeTypeItem::P_LATTICE_LENGTH)
+            length_1 = latticeItem->getItemValue(SquareLatticeTypeItem::P_LATTICE_LENGTH)
                            .toDouble();
             length_2 = length_1;
             alpha_lattice = Units::PI / 2.0;
         } else if (latticeItem->modelType() == Constants::HexagonalLatticeType) {
-            length_1 = latticeItem->getRegisteredProperty(
+            length_1 = latticeItem->getItemValue(
                                         HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
             alpha_lattice = 2 * Units::PI / 3.0;
@@ -214,26 +214,26 @@ TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
         auto P_iff = GUIHelpers::make_unique<InterferenceFunction2DParaCrystal>(
             length_1, length_2, alpha_lattice,
             Units::deg2rad(
-                item.getRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE)
+                item.getItemValue(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE)
                     .toDouble()),
-            item.getRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH)
+            item.getItemValue(InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH)
                 .toDouble());
         P_iff->setDomainSizes(
-            item.getRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE1)
+            item.getItemValue(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE1)
                 .toDouble(),
-            item.getRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE2)
+            item.getItemValue(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE2)
                 .toDouble());
         P_iff->setIntegrationOverXi(
-            item.getRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION)
+            item.getItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION)
                 .toBool());
 
-        auto pdf1Item = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_PDF1];
+        auto pdf1Item = item.getGroupItem(InterferenceFunction2DParaCrystalItem::P_PDF1);
         Q_ASSERT(pdf1Item);
         std::unique_ptr<IFTDistribution2D> P_pdf1(
             dynamic_cast<FTDistribution2DItem *>(pdf1Item)->createFTDistribution());
         Q_ASSERT(P_pdf1.get());
 
-        auto pdf2Item = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_PDF2];
+        auto pdf2Item = item.getGroupItem(InterferenceFunction2DParaCrystalItem::P_PDF2);
         Q_ASSERT(pdf2Item);
         std::unique_ptr<IFTDistribution2D> P_pdf2(
             dynamic_cast<FTDistribution2DItem *>(pdf2Item)->createFTDistribution());
@@ -243,12 +243,12 @@ TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
         P_result = std::move(P_iff);
     } else if (item.modelType() == Constants::InterferenceFunction1DLatticeType) {
         double length =
-                item.getRegisteredProperty(InterferenceFunction1DLatticeItem::P_LENGTH).toDouble();
+                item.getItemValue(InterferenceFunction1DLatticeItem::P_LENGTH).toDouble();
         double angle = Units::deg2rad(
-                item.getRegisteredProperty(InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE)
+                item.getItemValue(InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE)
                        .toDouble());
         auto P_iff = GUIHelpers::make_unique<InterferenceFunction1DLattice>(length, angle);
-        auto pdfItem = item.getSubItems()[InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION];
+        auto pdfItem = item.getGroupItem(InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION);
         Q_ASSERT(pdfItem);
         std::unique_ptr<IFTDecayFunction1D> P_pdf(
             dynamic_cast<FTDecayFunction1DItem *>(pdfItem)->createFTDecayFunction());
@@ -256,25 +256,25 @@ TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
         P_iff->setDecayFunction(*P_pdf);
         P_result = std::move(P_iff);
     } else if (item.modelType() == Constants::InterferenceFunction2DLatticeType) {
-        auto latticeItem = item.getSubItems()[InterferenceFunction2DLatticeItem::P_LATTICE_TYPE];
+        auto latticeItem = item.getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
         Q_ASSERT(latticeItem);
 
         double length_1 {0.0}, length_2 {0.0}, angle {0.0};
         if (latticeItem->modelType() == Constants::BasicLatticeType) {
-            length_1 = latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH1)
+            length_1 = latticeItem->getItemValue(BasicLatticeTypeItem::P_LATTICE_LENGTH1)
                            .toDouble();
-            length_2 = latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH2)
+            length_2 = latticeItem->getItemValue(BasicLatticeTypeItem::P_LATTICE_LENGTH2)
                            .toDouble();
             angle = Units::deg2rad(
-                latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_ANGLE)
+                latticeItem->getItemValue(BasicLatticeTypeItem::P_LATTICE_ANGLE)
                     .toDouble());
         } else if (latticeItem->modelType() == Constants::SquareLatticeType) {
-            length_1 = latticeItem->getRegisteredProperty(SquareLatticeTypeItem::P_LATTICE_LENGTH)
+            length_1 = latticeItem->getItemValue(SquareLatticeTypeItem::P_LATTICE_LENGTH)
                            .toDouble();
             length_2 = length_1;
             angle = Units::PI / 2.0;
         } else if (latticeItem->modelType() == Constants::HexagonalLatticeType) {
-            length_1 = latticeItem->getRegisteredProperty(
+            length_1 = latticeItem->getItemValue(
                                         HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
             angle = 2 * Units::PI / 3.0;
@@ -282,11 +282,11 @@ TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
             throw GUIHelpers::Error("TransformToDomain::createInterferenceFunction() -> Error");
         }
         double xi = Units::deg2rad(
-            item.getRegisteredProperty(InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE)
+            item.getItemValue(InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE)
                 .toDouble());
         auto P_iff
             = GUIHelpers::make_unique<InterferenceFunction2DLattice>(length_1, length_2, angle, xi);
-        auto pdfItem = item.getSubItems()[InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION];
+        auto pdfItem = item.getGroupItem(InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION);
         Q_ASSERT(pdfItem);
         std::unique_ptr<IFTDecayFunction2D> P_pdf(
             dynamic_cast<FTDecayFunction2DItem *>(pdfItem)->createFTDecayFunction());
@@ -297,13 +297,13 @@ TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
     return P_result;
 }
 
-std::unique_ptr<Instrument> TransformToDomain::createInstrument(const ParameterizedItem &item)
+std::unique_ptr<Instrument> TransformToDomain::createInstrument(const SessionItem &item)
 {
     Q_UNUSED(item);
     return GUIHelpers::make_unique<Instrument>();
 }
 
-std::unique_ptr<Beam> TransformToDomain::createBeam(const ParameterizedItem &item)
+std::unique_ptr<Beam> TransformToDomain::createBeam(const SessionItem &item)
 {
     auto P_beam = GUIHelpers::make_unique<Beam>();
 
@@ -317,10 +317,10 @@ std::unique_ptr<Beam> TransformToDomain::createBeam(const ParameterizedItem &ite
     return P_beam;
 }
 
-void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &item,
+void TransformToDomain::initInstrumentFromDetectorItem(const SessionItem &item,
                                                        Instrument *instrument)
 {
-    auto subDetector = item.getSubItems()[DetectorItem::P_DETECTOR];
+    auto subDetector = item.getGroupItem(DetectorItem::P_DETECTOR);
     Q_ASSERT(subDetector);
 
     if(auto sphericalDetector = dynamic_cast<SphericalDetectorItem *>(subDetector)) {
@@ -345,7 +345,7 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
 }
 
 //! adds DistributionParameters to the Simulation
-void TransformToDomain::addDistributionParametersToSimulation(const ParameterizedItem &beam_item,
+void TransformToDomain::addDistributionParametersToSimulation(const SessionItem &beam_item,
                                                               GISASSimulation *simulation)
 {
     ParameterPattern pattern_wavelength;
@@ -356,21 +356,21 @@ void TransformToDomain::addDistributionParametersToSimulation(const Parameterize
     pattern_phi.beginsWith("*").add(BeamType).add(Phi);
     if (beam_item.modelType() == Constants::BeamType) {
         if (auto beamWavelength
-            = dynamic_cast<BeamWavelengthItem *>(beam_item.getSubItems()[BeamItem::P_WAVELENGTH])) {
+            = dynamic_cast<BeamWavelengthItem *>(beam_item.getGroupItem(BeamItem::P_WAVELENGTH))) {
             auto P_par_distr = beamWavelength->getParameterDistributionForName(
                         pattern_wavelength.toStdString());
             if (P_par_distr)
                 simulation->addParameterDistribution(*P_par_distr);
         }
         if (auto inclinationAngle = dynamic_cast<BeamInclinationAngleItem *>(
-                beam_item.getSubItems()[BeamItem::P_INCLINATION_ANGLE])) {
+                beam_item.getGroupItem(BeamItem::P_INCLINATION_ANGLE))) {
             auto P_par_distr = inclinationAngle->getParameterDistributionForName(
                         pattern_alpha.toStdString());
             if (P_par_distr)
                 simulation->addParameterDistribution(*P_par_distr);
         }
         if (auto azimuthalAngle = dynamic_cast<BeamAzimuthalAngleItem *>(
-                beam_item.getSubItems()[BeamItem::P_AZIMUTHAL_ANGLE])) {
+                beam_item.getGroupItem(BeamItem::P_AZIMUTHAL_ANGLE))) {
             auto P_par_distr = azimuthalAngle->getParameterDistributionForName(
                         pattern_phi.toStdString());
             if (P_par_distr)
@@ -379,21 +379,21 @@ void TransformToDomain::addDistributionParametersToSimulation(const Parameterize
     }
 }
 
-void TransformToDomain::addMasksToSimulation(const ParameterizedItem &detector_item,
+void TransformToDomain::addMasksToSimulation(const SessionItem &detector_item,
                                              GISASSimulation *simulation)
 {
     Q_ASSERT(detector_item.modelType() == Constants::DetectorType);
 
     if(auto detectorItem = dynamic_cast<const DetectorItem *>(&detector_item)) {
         double scale = 1.0;
-        if(detectorItem->getSubItems()[DetectorItem::P_DETECTOR]->modelType()
+        if(detectorItem->getGroupItem(DetectorItem::P_DETECTOR)->modelType()
                 == Constants::SphericalDetectorType) scale = Units::degree;
 
         if(auto maskContainerItem = detectorItem->getMaskContainerItem()) {
             for(int i_row = maskContainerItem->childItems().size(); i_row>0; --i_row) {
                 if(auto maskItem = dynamic_cast<MaskItem *>(maskContainerItem->childItems().at(i_row-1))) {
                     std::unique_ptr<Geometry::IShape2D > shape(maskItem->createShape(scale));
-                    bool mask_value = maskItem->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
+                    bool mask_value = maskItem->getItemValue(MaskItem::P_MASK_VALUE).toBool();
                     simulation->addMask(*shape, mask_value);
                 }
             }
@@ -417,28 +417,28 @@ void TransformToDomain::addMasksToSimulation(const ParameterizedItem &detector_i
 //}
 
 
-void TransformToDomain::setTransformationInfo(IParticle *result, const ParameterizedItem &item)
+void TransformToDomain::setTransformationInfo(IParticle *result, const SessionItem &item)
 {
     setPositionInfo(result, item);
     setRotationInfo(result, item);
 }
 
-void TransformToDomain::setPositionInfo(IParticle *result, const ParameterizedItem &item)
+void TransformToDomain::setPositionInfo(IParticle *result, const SessionItem &item)
 {
-    ParameterizedItem *pos_item = item.getSubItems()[ParticleItem::P_POSITION];
-    double pos_x = pos_item->getRegisteredProperty(VectorItem::P_X).toDouble();
-    double pos_y = pos_item->getRegisteredProperty(VectorItem::P_Y).toDouble();
-    double pos_z = pos_item->getRegisteredProperty(VectorItem::P_Z).toDouble();
+    SessionItem *pos_item = item.getGroupItem(ParticleItem::P_POSITION);
+    double pos_x = pos_item->getItemValue(VectorItem::P_X).toDouble();
+    double pos_y = pos_item->getItemValue(VectorItem::P_Y).toDouble();
+    double pos_z = pos_item->getItemValue(VectorItem::P_Z).toDouble();
     result->setPosition(pos_x, pos_y, pos_z);
 }
 
-void TransformToDomain::setRotationInfo(IParticle *result, const ParameterizedItem &item)
+void TransformToDomain::setRotationInfo(IParticle *result, const SessionItem &item)
 {
-    QList<ParameterizedItem *> children = item.childItems();
+    QVector<SessionItem *> children = item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::TransformationType) {
             RotationItem *rot_item = dynamic_cast<RotationItem *>(
-                children[i]->getSubItems()[TransformationItem::P_ROT]);
+                children[i]->getGroupItem(TransformationItem::P_ROT));
             if (!rot_item) {
                 throw GUIHelpers::Error("DomainObjectBuilder::setRotationInfo() "
                                         "-> Error! ParticleItem's child is"

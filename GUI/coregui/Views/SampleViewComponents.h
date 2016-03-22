@@ -24,6 +24,8 @@
 #include "SampleWidgetBox.h"
 #include "SampleModel.h"
 
+#include <QSortFilterProxyModel>
+
 
 //class BA_CORE_API_ SampleInfoStreamInterface : public QWidget
 //{
@@ -35,6 +37,7 @@
 
 //    }
 //};
+
 
 
 class BA_CORE_API_ SampleViewComponents

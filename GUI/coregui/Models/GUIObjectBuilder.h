@@ -24,7 +24,7 @@
 
 class InstrumentModel;
 class SampleModel;
-class ParameterizedItem;
+class SessionItem;
 
 //! Class to build SampleModel and InstrumentModel from domain's ISample
 class BA_CORE_API_ GUIObjectBuilder : public ISampleVisitor
@@ -33,15 +33,15 @@ public:
     GUIObjectBuilder();
     virtual ~GUIObjectBuilder(){}
 
-    ParameterizedItem *populateSampleModel(SampleModel *sampleModel,
+    SessionItem *populateSampleModel(SampleModel *sampleModel,
                                            const GISASSimulation &simulation,
                                            const QString &sampleName=QString());
 
-    ParameterizedItem *populateSampleModel(SampleModel *sampleModel,
+    SessionItem *populateSampleModel(SampleModel *sampleModel,
                                            const ISample &sample,
                                            const QString &sampleName=QString());
 
-    ParameterizedItem *populateInstrumentModel(InstrumentModel *instrumentModel,
+    SessionItem *populateInstrumentModel(InstrumentModel *instrumentModel,
                                                const GISASSimulation &simulation,
                                                const QString &instrumentName=QString());
 
@@ -95,16 +95,16 @@ public:
     void visit(const RotationEuler *);
 
 private:
-    void buildAbundanceInfo(ParameterizedItem *particleItem);
-    void buildPositionInfo(ParameterizedItem *particleItem, const IParticle *sample);
+    void buildAbundanceInfo(SessionItem *particleItem);
+    void buildPositionInfo(SessionItem *particleItem, const IParticle *sample);
     MaterialProperty createMaterialFromDomain(const IMaterial *);
 
     SampleModel *m_sampleModel;
 
-    QMap<int, ParameterizedItem *> m_levelToParentItem;
+    QMap<int, SessionItem *> m_levelToParentItem;
     QMap<QString, double > m_propertyToValue;
     QMap<QString, bool> m_sample_encountered;
-    QMap<ParameterizedItem *, const ISample *> m_itemToSample;
+    QMap<SessionItem *, const ISample *> m_itemToSample;
     QString m_topSampleName;
 };
 

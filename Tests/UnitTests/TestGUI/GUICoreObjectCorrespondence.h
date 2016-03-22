@@ -1,7 +1,7 @@
 #ifndef GUICOREOBJECTCORRESPONDENCE_H
 #define GUICOREOBJECTCORRESPONDENCE_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "IParameterized.h"
 
 #include <vector>
@@ -10,7 +10,7 @@
 
 #include <QtTest>
 
-inline void GUICoreObjectCorrespondence(const ParameterizedItem& gui_object,
+inline void GUICoreObjectCorrespondence(const SessionItem& gui_object,
                                  const IParameterized& core_object)
 {
     // First check if names correspond:
@@ -22,7 +22,7 @@ inline void GUICoreObjectCorrespondence(const ParameterizedItem& gui_object,
     for (auto name : core_parameter_names) {
         QString gui_name = QString::fromStdString(name);
         std::string message = "Parameter not found: " + name;
-        QVERIFY2( gui_object.isRegisteredProperty(gui_name), message.c_str() );
+        QVERIFY2( gui_object.isTag(gui_name), message.c_str() );
     }
 }
 

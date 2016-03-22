@@ -19,9 +19,9 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class GroupBox;
+class GroupInfoBox;
 class DetectorItem;
-class AwesomePropertyEditor;
+class ComponentBoxEditor;
 class QGridLayout;
 class SphericalDetectorWidget;
 class ColumnResizer;
@@ -40,17 +40,15 @@ signals:
 
 public slots:
     void onPropertyChanged(const QString &propertyName);
-    void onSubItemChanged(const QString &propertyName);
-    void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
 
 private slots:
     void onGroupBoxExtendedButton();
 
 private:
     void init_SubDetector_Widget();
-    AwesomePropertyEditor *m_detectorTypeEditor;
+    ComponentBoxEditor *m_detectorTypeEditor;
     ColumnResizer *m_columnResizer;
-    GroupBox *m_groupBox;
+    GroupInfoBox *m_groupBox;
     DetectorItem *m_detectorItem;
     QWidget *m_subDetectorWidget;
 };

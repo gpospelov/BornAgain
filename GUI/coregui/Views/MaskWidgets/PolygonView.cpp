@@ -83,7 +83,7 @@ bool PolygonView::closePolygonIfNecessary()
             childItem->setAcceptHoverEvents(false);
             childItem->setCursor(Qt::SizeAllCursor);
         }
-        m_item->setRegisteredProperty(PolygonItem::P_ISCLOSED, true);
+        m_item->setItemValue(PolygonItem::P_ISCLOSED, true);
         update();
     }
     return isClosedPolygon();
@@ -96,7 +96,7 @@ void PolygonView::onClosePolygonRequest(bool value)
 
 bool PolygonView::isClosedPolygon()
 {
-    return m_item->getRegisteredProperty(PolygonItem::P_ISCLOSED).toBool();
+    return m_item->getItemValue(PolygonItem::P_ISCLOSED).toBool();
 }
 
 void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -104,7 +104,7 @@ void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
     Q_ASSERT(m_item);
     painter->setRenderHints(QPainter::Antialiasing);
 
-    bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
+    bool mask_value = m_item->getItemValue(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
 
@@ -153,13 +153,13 @@ void PolygonView::update_polygon()
 
     m_block_on_point_update = true;
 
-    if (m_item->childItemCount()) {
+    if (m_item->rowCount()) {
 
         m_polygon.clear();
 
-        foreach (ParameterizedItem *item, m_item->childItems()) {
-            qreal px = toSceneX(item->getRegisteredProperty(PolygonPointItem::P_POSX).toReal());
-            qreal py = toSceneY(item->getRegisteredProperty(PolygonPointItem::P_POSY).toReal());
+        foreach (SessionItem *item, m_item->getChildrenOfType(Constants::PolygonPointType)) {
+            qreal px = toSceneX(item->getItemValue(PolygonPointItem::P_POSX).toReal());
+            qreal py = toSceneY(item->getItemValue(PolygonPointItem::P_POSY).toReal());
             m_polygon << QPointF(px, py);
         }
 

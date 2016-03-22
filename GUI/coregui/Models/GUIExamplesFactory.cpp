@@ -40,7 +40,7 @@ QMap<QString, QString > init_NameToRegistry()
 
     // temporary for testing
     //result["example09"] = "MultipleLayoutBuilder";
-//    result["example09"] = "TwoTypesCylindersDistributionBuilder";
+    //result["example09"] = "TwoTypesCylindersDistributionBuilder";
     //result["example09"] = "RectParaCrystalBuilder";
     //result["example09"] = "SizeDistributionLMAModelBuilder";
     //result["example09"] = "CylindersInSSCABuilder";
@@ -48,6 +48,7 @@ QMap<QString, QString > init_NameToRegistry()
     //result["example09"] = "BoxCompositionRotateZandYBuilder";
     //result["example09"] = "CoreShellBoxRotateZandYBuilder";
     //result["example09"] = "BoxStackCompositionBuilder";
+    result["example09"] = "CylindersWithSizeDistributionBuilder";
 
 
     return result;
@@ -61,7 +62,7 @@ bool GUIExamplesFactory::isValidExampleName(const QString &name)
 }
 
 //! Populate sample model with
-ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, SampleModel *sampleModel)
+SessionItem *GUIExamplesFactory::createSampleItems(const QString &name, SampleModel *sampleModel)
 {
     QString exampleName = m_name_to_registry[name];
 
@@ -72,7 +73,7 @@ ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, Sa
     return guiBuilder.populateSampleModel(sampleModel, *sample.get(), name);
 }
 
-//ParameterizedItem *GUIExamplesFactory::createInstrumentItems(const QString &name, InstrumentModel *instrumentModel)
+//SessionItem *GUIExamplesFactory::createInstrumentItems(const QString &name, InstrumentModel *instrumentModel)
 //{
 //    QString exampleName = m_name_to_registry[name];
 //    SimulationRegistry registry;

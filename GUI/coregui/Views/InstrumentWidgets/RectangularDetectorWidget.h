@@ -20,9 +20,10 @@
 #include <QWidget>
 
 class ColumnResizer;
-class GroupBox;
+class GroupInfoBox;
 class RectangularDetectorItem;
 class AwesomePropertyEditor;
+class ComponentBoxEditor;
 class QGridLayout;
 class ColumnResizer;
 
@@ -47,15 +48,14 @@ private:
     void init_alignment_editors();
 
     ColumnResizer *m_columnResizer;
-    AwesomePropertyEditor *m_detectorTypeEditor;
-    AwesomePropertyEditor *m_xAxisEditor;
-    AwesomePropertyEditor *m_yAxisEditor;
-    AwesomePropertyEditor *m_resolutionFunctionEditor;
-    AwesomePropertyEditor *m_alignmentEditor;
+    ComponentBoxEditor *m_xAxisEditor;
+    ComponentBoxEditor *m_yAxisEditor;
+    ComponentBoxEditor *m_resolutionFunctionEditor;
+    ComponentBoxEditor *m_alignmentEditor;
 
-    AwesomePropertyEditor *m_positionsEditor;
-    AwesomePropertyEditor *m_normalEditor;
-    AwesomePropertyEditor *m_directionEditor;
+    ComponentBoxEditor *m_positionsEditor;
+    ComponentBoxEditor *m_normalEditor;
+    ComponentBoxEditor *m_directionEditor;
 
     QGridLayout *m_gridLayout;
 

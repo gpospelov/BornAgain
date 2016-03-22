@@ -22,12 +22,12 @@
 #include "JobQueueData.h"
 #include "InstrumentView.h"
 #include "SimulationView.h"
-#include "MaterialEditorWidget.h"
+#include "MaterialEditorDialog.h"
 #include "stylehelper.h"
 #include "JobModel.h"
 #include "MaterialModel.h"
 #include "InstrumentModel.h"
-#include "MaterialEditor.h"
+#include "MaterialSvc.h"
 #include "Instrument.h"
 #include "Units.h"
 #include "Samples.h"
@@ -62,6 +62,7 @@
 #include "UpdateNotifier.h"
 #include "FitModel.h"
 #include "FitParameterItems.h"
+#include "TestComponentView.h"
 
 
 
@@ -99,8 +100,6 @@ MainWindow::MainWindow(QWidget *parent)
     QCoreApplication::setOrganizationName(QLatin1String(Constants::APPLICATION_NAME));
 
     createModels();
-//    testGUIObjectBuilder();
-
 
     if (!Utils::HostOsInfo::isMacHost())
         QApplication::setWindowIcon(QIcon(":/images/BornAgain.ico"));
@@ -125,6 +124,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_simulationView = new SimulationView(this);
 
     m_jobView = new JobView(m_jobModel, m_projectManager);
+//    TestView *testView = new TestView(this);
+//    TestComponentView *testComponentView = new TestComponentView(this);
     //m_fitView = new FitView(this);
 
     m_tabWidget->insertTab(WELCOME, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
@@ -133,6 +134,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(SIMULATION, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
     m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(FIT, m_fitView, QIcon(":/images/main_jobqueue.png"), "Fit");
+//    m_tabWidget->insertTab(FIT, testView, QIcon(":/images/main_jobqueue.png"), "Test");
+//    m_tabWidget->insertTab(TESTVIEW, testComponentView, QIcon(":/images/main_jobqueue.png"), "TestView");
 
     m_tabWidget->setCurrentIndex(WELCOME);
 
@@ -266,7 +269,7 @@ void MainWindow::createMaterialModel()
 //    m_materialModel->addMaterial("Air", 0.0, 0.0);
 //    m_materialModel->addMaterial("Particle", 6e-4, 2e-8);
 //    m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
-    m_materialEditor = new MaterialEditor(m_materialModel);
+    m_materialEditor = new MaterialSvc(m_materialModel);
 }
 
 void MainWindow::createSampleModel()
@@ -307,18 +310,19 @@ void MainWindow::resetModels()
     m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
 
     m_sampleModel->clear();
+    //testGUIObjectBuilder();
 
     m_jobModel->clear();
 
     m_instrumentModel->clear();
-    ParameterizedItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
+    SessionItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument->setItemName("Default GISAS");
     m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
     m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
 
     /*m_fitModel->clear();
     m_fitModel->insertNewItem(Constants::FitParameterContainerType, QModelIndex());
-    ParameterizedItem *selection = m_fitModel->insertNewItem(Constants::FitSelectionType, QModelIndex());
+    SessionItem *selection = m_fitModel->insertNewItem(Constants::FitSelectionType, QModelIndex());
     selection->setRegisteredProperty(FitSelectionItem::P_SAMPLE, "MultiLayer");
     selection->setRegisteredProperty(FitSelectionItem::P_INSTRUMENT, "Instrument0");
     m_fitModel->insertNewItem(Constants::MinimizerSettingsType, QModelIndex());

@@ -15,18 +15,18 @@
 
 #include "DistributionDialog.h"
 #include "DistributionEditor.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include <QHBoxLayout>
 #include <QPushButton>
 
 DistributionDialog::DistributionDialog(QWidget *parent)
-    : QDialog(parent), m_editor(new DistributionEditor)
+    : QDialog(parent)
+    , m_editor(new DistributionEditor)
 {
     setMinimumSize(256, 256);
     resize(700, 480);
     setWindowTitle("Select Distribution");
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    setAttribute(Qt::WA_DeleteOnClose, true);
+//    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setModal(true);
 
     QVBoxLayout *layout = new QVBoxLayout;
@@ -44,9 +44,11 @@ DistributionDialog::DistributionDialog(QWidget *parent)
 
     layout->setContentsMargins(0, 0, 0, 0);
     setLayout(layout);
+
+    setAttribute(Qt::WA_DeleteOnClose, true);
 }
 
-void DistributionDialog::setItem(ParameterizedItem *item)
+void DistributionDialog::setItem(SessionItem *item)
 {
     m_editor->setItem(item);
 }

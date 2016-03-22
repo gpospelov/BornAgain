@@ -16,7 +16,7 @@
 #ifndef BEAMDISTRIBUTIONITEM_H
 #define BEAMDISTRIBUTIONITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "DistributionItem.h"
 
 #include <memory>
@@ -26,22 +26,21 @@ class IDistribution1D;
 
 //! The BeamDistributionItem handles wavelength, inclination and azimuthal parameter
 //! distribution for BeamItem
-class BA_CORE_API_ BeamDistributionItem : public ParameterizedItem
+class BA_CORE_API_ BeamDistributionItem : public SessionItem
 {
-    Q_OBJECT
 public:
     static const QString P_DISTRIBUTION;
     static const QString P_CACHED_VALUE;
-    explicit BeamDistributionItem(const QString name = QString(), ParameterizedItem *parent=0);
+    explicit BeamDistributionItem(const QString name = QString());
     virtual ~BeamDistributionItem(){}
-    virtual void onPropertyChange(const QString &name);
+//    virtual void onPropertyChange(const QString &name);
 
     std::unique_ptr<ParameterDistribution> getParameterDistributionForName(
             const std::string &parameter_name);
 
-protected slots:
-    virtual void onSubItemChanged(const QString &propertyName);
-    virtual void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
+//protected slots:
+//    virtual void onSubItemChanged(const QString &propertyName);
+//    virtual void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
 
 protected:
     virtual std::unique_ptr<IDistribution1D> createDistribution1D();

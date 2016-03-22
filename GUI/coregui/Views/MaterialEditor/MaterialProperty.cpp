@@ -15,13 +15,13 @@
 
 #include "MaterialProperty.h"
 #include "MaterialItem.h"
-#include "MaterialEditor.h"
+#include "MaterialSvc.h"
 #include "MaterialModel.h"
 
 QString MaterialProperty::getName() const
 {
     MaterialProperty property(getIdentifier());
-    MaterialItem *materialItem = MaterialEditor::getMaterialModel()->getMaterial(property);
+    MaterialItem *materialItem = MaterialSvc::getMaterial(property);
     if(materialItem) {
         return materialItem->itemName();
     } else {
@@ -33,7 +33,7 @@ QString MaterialProperty::getName() const
 QColor MaterialProperty::getColor() const
 {
     MaterialProperty property(getIdentifier());
-    MaterialItem *materialItem = MaterialEditor::getMaterialModel()->getMaterial(property);
+    MaterialItem *materialItem = MaterialSvc::getMaterial(property);
     if(materialItem) {
         return materialItem->getColor();
     } else {

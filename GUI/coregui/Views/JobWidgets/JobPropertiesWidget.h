@@ -24,7 +24,9 @@ class JobModel;
 class JobItem;
 class QTextEdit;
 class QTabWidget;
-class AwesomePropertyEditor;
+//class AwesomePropertyEditor;
+class ComponentEditor;
+class ModelMapper;
 
 //! Widget to show and change properties of currently selected JobItem
 //! Left buttom corner of JobView
@@ -44,7 +46,6 @@ public slots:
     void setItem(JobItem *item);
 
 private slots:
-    void onPropertyChanged(const QString &property_name);
     void onTextChanged();
 
 private:
@@ -53,9 +54,11 @@ private:
     JobModel *m_jobModel;
     JobItem *m_currentItem;
     QTabWidget *m_tabWidget;
-    AwesomePropertyEditor *m_propertyEditor;
+//    AwesomePropertyEditor *m_propertyEditor;
+    ComponentEditor *m_propertyEditor;
     QTextEdit *m_commentsEditor;
     bool m_block_update;
+    ModelMapper *m_mapper;
 };
 
 #endif

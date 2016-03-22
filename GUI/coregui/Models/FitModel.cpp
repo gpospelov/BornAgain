@@ -17,7 +17,7 @@
 #include "SampleModel.h"
 #include "InstrumentModel.h"
 #include "FitParameterItems.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "SessionModel.h"
 #include "ComboProperty.h"
 #include <QStringList>
@@ -47,11 +47,11 @@ InputDataItem *FitModel::getInputData() {
 }
 
 QString FitModel::getSelectedSampleName () {
-    return getFitSelection()->getRegisteredProperty(FitSelectionItem::P_SAMPLE).toString();
+    return getFitSelection()->getItemValue(FitSelectionItem::P_SAMPLE).toString();
 }
 
 QString FitModel::getSelectedInstrumentName(){
-    return getFitSelection()->getRegisteredProperty(FitSelectionItem::P_INSTRUMENT).toString();
+    return getFitSelection()->getItemValue(FitSelectionItem::P_INSTRUMENT).toString();
 }
 
 QStringList FitModel::getSampleNames() {
@@ -66,7 +66,7 @@ QStringList FitModel::retrieveDisplayNames(SessionModel *model, const QString &t
     QStringList list;
     for (int i_row = 0; i_row < model->rowCount(QModelIndex()); ++i_row) {
         QModelIndex itemIndex = model->index(i_row, 0, QModelIndex());
-        if (ParameterizedItem *item = model->itemForIndex(itemIndex)) {
+        if (SessionItem *item = model->itemForIndex(itemIndex)) {
             if (item->modelType()  == type) {
                 list << item->displayName();
             }
@@ -76,37 +76,37 @@ QStringList FitModel::retrieveDisplayNames(SessionModel *model, const QString &t
 }
 
 QString FitModel::getSampleItemNameForDisplayName(const QString &displayName) {
-    if (auto *item = m_sampleModel->itemForIndex(QModelIndex())->getChildByDisplayName(displayName)) {
+    if (auto *item = m_sampleModel->itemForIndex(QModelIndex())->getChildByName(displayName)) {
         return item->itemName();
     }
     return "";
 }
 
 QString FitModel::getInstrumentItemNameForDisplayName(const QString &displayName) {
-    if (auto *item = m_instrumentModel->itemForIndex(QModelIndex())->getChildByDisplayName(displayName)) {
+    if (auto *item = m_instrumentModel->itemForIndex(QModelIndex())->getChildByName(displayName)) {
         return item->itemName();
     }
     return "";
 }
 
-ParameterizedItem *FitModel::getSelectedMultiLayerItem() {
-    ParameterizedItem *samplesRoot = m_sampleModel->itemForIndex(QModelIndex());
-    return samplesRoot->getChildByDisplayName(getSelectedSampleName());
+SessionItem *FitModel::getSelectedMultiLayerItem() {
+    SessionItem *samplesRoot = m_sampleModel->itemForIndex(QModelIndex());
+    return samplesRoot->getChildByName(getSelectedSampleName());
 }
 
-ParameterizedItem *FitModel::getSelectedInstrumentItem() {
-    ParameterizedItem *instrumentRoot = m_instrumentModel->itemForIndex(QModelIndex());
-    return instrumentRoot->getChildByDisplayName(getSelectedInstrumentName());
+SessionItem *FitModel::getSelectedInstrumentItem() {
+    SessionItem *instrumentRoot = m_instrumentModel->itemForIndex(QModelIndex());
+    return instrumentRoot->getChildByName(getSelectedInstrumentName());
 }
 
 void FitModel::setSelectedSample(const QString &displayName) {
-    ParameterizedItem *selection = getFitSelection();
-    selection->setRegisteredProperty(FitSelectionItem::P_SAMPLE, displayName);
+    SessionItem *selection = getFitSelection();
+    selection->setItemValue(FitSelectionItem::P_SAMPLE, displayName);
 }
 
 void FitModel::setSelectedInstrument(const QString &displayName) {
-    ParameterizedItem *selection = getFitSelection();
-    selection->setRegisteredProperty(FitSelectionItem::P_INSTRUMENT, displayName);
+    SessionItem *selection = getFitSelection();
+    selection->setItemValue(FitSelectionItem::P_INSTRUMENT, displayName);
 }
 
 MinimizerSettingsItem *FitModel::getMinimizerSettings() {
@@ -116,7 +116,7 @@ MinimizerSettingsItem *FitModel::getMinimizerSettings() {
 
 QString FitModel::getMinimizerAlgorithm() {
     if (auto *item = getMinimizerSettings()) {
-        return item->getRegisteredProperty(MinimizerSettingsItem::P_ALGO).value<ComboProperty>()
+        return item->getItemValue(MinimizerSettingsItem::P_ALGO).value<ComboProperty>()
                 .getValue();
     }
     return QString();
@@ -124,14 +124,14 @@ QString FitModel::getMinimizerAlgorithm() {
 
 QString FitModel::getInputDataPath() {
     if (auto *item = getInputData()) {
-        return item->getRegisteredProperty(InputDataItem::P_PATH).toString();
+        return item->getItemValue(InputDataItem::P_PATH).toString();
     }
     return "";
 }
 
 void FitModel::setInputDataPath(const QString &path) {
     if (auto *item = getInputData()) {
-        item->setRegisteredProperty(InputDataItem::P_PATH, path);
+        item->setItemValue(InputDataItem::P_PATH, path);
     }
 }
 

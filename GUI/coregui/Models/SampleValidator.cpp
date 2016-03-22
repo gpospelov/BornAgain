@@ -30,7 +30,7 @@ void SampleValidator::iterateSampleModel(SampleModel *sampleModel, const QModelI
     for( int i_row = 0; i_row < sampleModel->rowCount( parentIndex ); ++i_row) {
         QModelIndex itemIndex = sampleModel->index( i_row, 0, parentIndex );
 
-        if (ParameterizedItem *item = sampleModel->itemForIndex(itemIndex)){
+        if (SessionItem *item = sampleModel->itemForIndex(itemIndex)){
             qDebug() << item->modelType();
             QString diagnosis;
             if(item->modelType() == Constants::MultiLayerType) {
@@ -54,7 +54,7 @@ void SampleValidator::iterateSampleModel(SampleModel *sampleModel, const QModelI
 }
 
 
-QString SampleValidator::validateMultiLayerItem(ParameterizedItem *item)
+QString SampleValidator::validateMultiLayerItem(SessionItem *item)
 {
     QString result;
     if(!item->childItems().size()) {
@@ -68,11 +68,11 @@ QString SampleValidator::validateMultiLayerItem(ParameterizedItem *item)
 }
 
 
-QString SampleValidator::validateParticleLayoutItem(ParameterizedItem *item)
+QString SampleValidator::validateParticleLayoutItem(SessionItem *item)
 {
     QString result;
     bool particles_found(false);
-    QList<ParameterizedItem *> children = item->childItems();
+    QVector<SessionItem *> children = item->childItems();
     for (int i=0; i<children.size(); ++i) {
         if (children[i]->modelType() == Constants::ParticleType
             || children[i]->modelType() == Constants::ParticleCoreShellType
@@ -87,11 +87,11 @@ QString SampleValidator::validateParticleLayoutItem(ParameterizedItem *item)
     return result;
 }
 
-QString SampleValidator::validateParticleCoreShellItem(ParameterizedItem *item)
+QString SampleValidator::validateParticleCoreShellItem(SessionItem *item)
 {
     QString result;
     int number_of_subparticles = 0;
-    QList<ParameterizedItem*> children = item->childItems();
+    QVector<SessionItem*> children = item->childItems();
     for (int i=0; i<children.size(); ++i) {
         if (children[i]->modelType()==Constants::ParticleType) {
             number_of_subparticles++;

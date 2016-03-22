@@ -31,181 +31,181 @@ const QString FTDistribution2DVoigtItem::P_ETA = "Eta";
 //===============1D======================
 
 // Cauchy
-FTDistribution1DCauchyItem::FTDistribution1DCauchyItem(ParameterizedItem *parent)
-    : FTDistribution1DItem(FTDistribution1DCauchyType, parent)
+FTDistribution1DCauchyItem::FTDistribution1DCauchyItem()
+    : FTDistribution1DItem(FTDistribution1DCauchyType)
 {
-    registerProperty(P_CORR_LENGTH, 1.0);
+    addProperty(P_CORR_LENGTH, 1.0);
 }
 
 IFTDistribution1D *FTDistribution1DCauchyItem::createFTDistribution() const
 {
     return new FTDistribution1DCauchy(
-                getRegisteredProperty(P_CORR_LENGTH).toDouble() );
+                getItemValue(P_CORR_LENGTH).toDouble() );
 }
 
 // Gauss
-FTDistribution1DGaussItem::FTDistribution1DGaussItem(ParameterizedItem *parent)
-    : FTDistribution1DItem(FTDistribution1DGaussType, parent)
+FTDistribution1DGaussItem::FTDistribution1DGaussItem()
+    : FTDistribution1DItem(FTDistribution1DGaussType)
 {
-    registerProperty(P_CORR_LENGTH, 1.0);
+    addProperty(P_CORR_LENGTH, 1.0);
 }
 
 IFTDistribution1D *FTDistribution1DGaussItem::createFTDistribution() const
 {
     return new FTDistribution1DGauss(
-                getRegisteredProperty(P_CORR_LENGTH).toDouble() );
+                getItemValue(P_CORR_LENGTH).toDouble() );
 }
 
 // Gate
-FTDistribution1DGateItem::FTDistribution1DGateItem(ParameterizedItem *parent)
-    : FTDistribution1DItem(FTDistribution1DGateType, parent)
+FTDistribution1DGateItem::FTDistribution1DGateItem()
+    : FTDistribution1DItem(FTDistribution1DGateType)
 {
-    registerProperty(P_CORR_LENGTH, 1.0);
+    addProperty(P_CORR_LENGTH, 1.0);
 }
 
 IFTDistribution1D *FTDistribution1DGateItem::createFTDistribution() const
 {
     return new FTDistribution1DGate(
-                getRegisteredProperty(P_CORR_LENGTH).toDouble() );
+                getItemValue(P_CORR_LENGTH).toDouble() );
 }
 
 // Triangle
-FTDistribution1DTriangleItem::FTDistribution1DTriangleItem(ParameterizedItem *parent)
-    : FTDistribution1DItem(FTDistribution1DTriangleType, parent)
+FTDistribution1DTriangleItem::FTDistribution1DTriangleItem()
+    : FTDistribution1DItem(FTDistribution1DTriangleType)
 {
-    registerProperty(P_CORR_LENGTH, 1.0);
+    addProperty(P_CORR_LENGTH, 1.0);
 }
 
 IFTDistribution1D *FTDistribution1DTriangleItem::createFTDistribution() const
 {
     return new FTDistribution1DTriangle(
-                getRegisteredProperty(P_CORR_LENGTH).toDouble() );
+                getItemValue(P_CORR_LENGTH).toDouble() );
 }
 
 // Cosine
-FTDistribution1DCosineItem::FTDistribution1DCosineItem(ParameterizedItem *parent)
-    : FTDistribution1DItem(FTDistribution1DCosineType, parent)
+FTDistribution1DCosineItem::FTDistribution1DCosineItem()
+    : FTDistribution1DItem(FTDistribution1DCosineType)
 {
-    registerProperty(P_CORR_LENGTH, 1.0);
+    addProperty(P_CORR_LENGTH, 1.0);
 }
 
 IFTDistribution1D *FTDistribution1DCosineItem::createFTDistribution() const
 {
     return new FTDistribution1DCosine(
-                getRegisteredProperty(P_CORR_LENGTH).toDouble() );
+                getItemValue(P_CORR_LENGTH).toDouble() );
 }
 
 // Voigt
-FTDistribution1DVoigtItem::FTDistribution1DVoigtItem(ParameterizedItem *parent)
-    : FTDistribution1DItem(FTDistribution1DVoigtType, parent)
+FTDistribution1DVoigtItem::FTDistribution1DVoigtItem()
+    : FTDistribution1DItem(FTDistribution1DVoigtType)
 {
-    registerProperty(P_CORR_LENGTH, 1.0);
-    registerProperty(P_ETA, 0.5).limited(0.0, 1.0);
+    addProperty(P_CORR_LENGTH, 1.0);
+    addProperty(P_ETA, 0.5)->setLimits(AttLimits::limited(0.0, 1.0));
 }
 
 IFTDistribution1D *FTDistribution1DVoigtItem::createFTDistribution() const
 {
     return new FTDistribution1DVoigt(
-                getRegisteredProperty(P_CORR_LENGTH).toDouble(),
-                getRegisteredProperty(P_ETA).toDouble() );
+                getItemValue(P_CORR_LENGTH).toDouble(),
+                getItemValue(P_ETA).toDouble() );
 }
 
 
 //===============2D======================
 
 // Cauchy
-FTDistribution2DCauchyItem::FTDistribution2DCauchyItem(ParameterizedItem *parent)
-    : FTDistribution2DItem(FTDistribution2DCauchyType, parent)
+FTDistribution2DCauchyItem::FTDistribution2DCauchyItem()
+    : FTDistribution2DItem(FTDistribution2DCauchyType)
 {
-    registerProperty(P_CORR_LENGTH_X, 1.0);
-    registerProperty(P_CORR_LENGTH_Y, 1.0);
+    addProperty(P_CORR_LENGTH_X, 1.0);
+    addProperty(P_CORR_LENGTH_Y, 1.0);
 }
 
 IFTDistribution2D *FTDistribution2DCauchyItem::createFTDistribution() const
 {
     auto *p_result = new FTDistribution2DCauchy(
-                getRegisteredProperty(P_CORR_LENGTH_X).toDouble(),
-                getRegisteredProperty(P_CORR_LENGTH_Y).toDouble()
+                getItemValue(P_CORR_LENGTH_X).toDouble(),
+                getItemValue(P_CORR_LENGTH_Y).toDouble()
                 );
-    double gamma = Units::deg2rad(getRegisteredProperty(P_GAMMA).toDouble() );
+    double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble() );
     p_result->setGamma(gamma);
     return p_result;
 }
 
 // Gauss
-FTDistribution2DGaussItem::FTDistribution2DGaussItem(ParameterizedItem *parent)
-    : FTDistribution2DItem(FTDistribution2DGaussType, parent)
+FTDistribution2DGaussItem::FTDistribution2DGaussItem()
+    : FTDistribution2DItem(FTDistribution2DGaussType)
 {
-    registerProperty(P_CORR_LENGTH_X, 1.0);
-    registerProperty(P_CORR_LENGTH_Y, 1.0);
+    addProperty(P_CORR_LENGTH_X, 1.0);
+    addProperty(P_CORR_LENGTH_Y, 1.0);
 }
 
 IFTDistribution2D *FTDistribution2DGaussItem::createFTDistribution() const
 {
     auto *p_result =  new FTDistribution2DGauss(
-                getRegisteredProperty(P_CORR_LENGTH_X).toDouble(),
-                getRegisteredProperty(P_CORR_LENGTH_Y).toDouble()
+                getItemValue(P_CORR_LENGTH_X).toDouble(),
+                getItemValue(P_CORR_LENGTH_Y).toDouble()
                 );
-    double gamma = Units::deg2rad(getRegisteredProperty(P_GAMMA).toDouble() );
+    double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble() );
     p_result->setGamma(gamma);
     return p_result;
 }
 
 // Gate
-FTDistribution2DGateItem::FTDistribution2DGateItem(ParameterizedItem *parent)
-    : FTDistribution2DItem(FTDistribution2DGateType, parent)
+FTDistribution2DGateItem::FTDistribution2DGateItem()
+    : FTDistribution2DItem(FTDistribution2DGateType)
 {
-    registerProperty(P_CORR_LENGTH_X, 1.0);
-    registerProperty(P_CORR_LENGTH_Y, 1.0);
+    addProperty(P_CORR_LENGTH_X, 1.0);
+    addProperty(P_CORR_LENGTH_Y, 1.0);
 }
 
 IFTDistribution2D *FTDistribution2DGateItem::createFTDistribution() const
 {
     auto *p_result = new FTDistribution2DGate(
-                getRegisteredProperty(P_CORR_LENGTH_X).toDouble(),
-                getRegisteredProperty(P_CORR_LENGTH_Y).toDouble()
+                getItemValue(P_CORR_LENGTH_X).toDouble(),
+                getItemValue(P_CORR_LENGTH_Y).toDouble()
                 );
-    double gamma = Units::deg2rad(getRegisteredProperty(P_GAMMA).toDouble() );
+    double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble() );
     p_result->setGamma(gamma);
     return p_result;
 }
 
 // Cone
-FTDistribution2DConeItem::FTDistribution2DConeItem(ParameterizedItem *parent)
-    : FTDistribution2DItem(FTDistribution2DConeType, parent)
+FTDistribution2DConeItem::FTDistribution2DConeItem()
+    : FTDistribution2DItem(FTDistribution2DConeType)
 {
-    registerProperty(P_CORR_LENGTH_X, 1.0);
-    registerProperty(P_CORR_LENGTH_Y, 1.0);
+    addProperty(P_CORR_LENGTH_X, 1.0);
+    addProperty(P_CORR_LENGTH_Y, 1.0);
 }
 
 IFTDistribution2D *FTDistribution2DConeItem::createFTDistribution() const
 {
     auto *p_result = new FTDistribution2DCone(
-                getRegisteredProperty(P_CORR_LENGTH_X).toDouble(),
-                getRegisteredProperty(P_CORR_LENGTH_Y).toDouble()
+                getItemValue(P_CORR_LENGTH_X).toDouble(),
+                getItemValue(P_CORR_LENGTH_Y).toDouble()
                 );
-    double gamma = Units::deg2rad(getRegisteredProperty(P_GAMMA).toDouble() );
+    double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble() );
     p_result->setGamma(gamma);
     return p_result;
 }
 
 // Voigt
-FTDistribution2DVoigtItem::FTDistribution2DVoigtItem(ParameterizedItem *parent)
-    : FTDistribution2DItem(FTDistribution2DVoigtType, parent)
+FTDistribution2DVoigtItem::FTDistribution2DVoigtItem()
+    : FTDistribution2DItem(FTDistribution2DVoigtType)
 {
-    registerProperty(P_CORR_LENGTH_X, 1.0);
-    registerProperty(P_CORR_LENGTH_Y, 1.0);
-    registerProperty(P_ETA, 0.5).limited(0.0, 1.0);
+    addProperty(P_CORR_LENGTH_X, 1.0);
+    addProperty(P_CORR_LENGTH_Y, 1.0);
+    addProperty(P_ETA, 0.5)->setLimits(AttLimits::limited(0.0, 1.0));
 }
 
 IFTDistribution2D *FTDistribution2DVoigtItem::createFTDistribution() const
 {
     auto *p_result = new FTDistribution2DVoigt(
-                getRegisteredProperty(P_CORR_LENGTH_X).toDouble(),
-                getRegisteredProperty(P_CORR_LENGTH_Y).toDouble(),
-                getRegisteredProperty(P_ETA).toDouble()
+                getItemValue(P_CORR_LENGTH_X).toDouble(),
+                getItemValue(P_CORR_LENGTH_Y).toDouble(),
+                getItemValue(P_ETA).toDouble()
                 );
-    double gamma = Units::deg2rad(getRegisteredProperty(P_GAMMA).toDouble() );
+    double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble() );
     p_result->setGamma(gamma);
     return p_result;
 }

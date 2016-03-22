@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "IMaskView.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "ISceneAdaptor.h"
 #include "MaskItems.h"
 #include <QMenu>
@@ -26,6 +26,7 @@
 IMaskView::IMaskView()
     : m_item(0)
     , m_adaptor(0)
+    , m_mapper(0)
 {
     connect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
     connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
@@ -36,29 +37,48 @@ QRectF IMaskView::boundingRect() const
     return m_bounding_rect;
 }
 
-void IMaskView::setParameterizedItem(ParameterizedItem *item)
+void IMaskView::setParameterizedItem(SessionItem *item)
 {
+//    if(m_item != item) {
+//        if(m_item) {
+//            disconnect(m_item, SIGNAL(propertyChanged(const QString &)), this,
+//                    SLOT(onPropertyChange(const QString &)));
+//            disconnect(m_item, SIGNAL(subItemChanged(const QString &)), this,
+//                    SLOT(onPropertyChange(const QString &)));
+
+//        }
+
+//        m_item = item;
+
+//        if(m_item) {
+//            connect(m_item, SIGNAL(propertyChanged(const QString &)), this,
+//                    SLOT(onPropertyChange(const QString &)));
+//            connect(m_item, SIGNAL(subItemChanged(const QString &)), this,
+//                    SLOT(onPropertyChange(const QString &)));
+//        }
+//    }
+
     if(m_item != item) {
-        if(m_item) {
-            disconnect(m_item, SIGNAL(propertyChanged(const QString &)), this,
-                    SLOT(onPropertyChange(const QString &)));
-            disconnect(m_item, SIGNAL(subItemChanged(const QString &)), this,
-                    SLOT(onPropertyChange(const QString &)));
-
-        }
-
         m_item = item;
 
-        if(m_item) {
-            connect(m_item, SIGNAL(propertyChanged(const QString &)), this,
-                    SLOT(onPropertyChange(const QString &)));
-            connect(m_item, SIGNAL(subItemChanged(const QString &)), this,
-                    SLOT(onPropertyChange(const QString &)));
-        }
+        if (m_mapper)
+            m_mapper->deleteLater();
+
+        m_mapper = new ModelMapper(this);
+        m_mapper->setItem(item);
+        m_mapper->setOnPropertyChange(
+                    [this](const QString &name)
+        {
+            onPropertyChange(name);
+        });
+
     }
+
+
+
 }
 
-ParameterizedItem *IMaskView::getParameterizedItem()
+SessionItem *IMaskView::getParameterizedItem()
 {
     return m_item;
 }
@@ -86,12 +106,12 @@ void IMaskView::setSceneAdaptor(const ISceneAdaptor *adaptor)
 
 double IMaskView::par(const QString &property_name) const
 {
-    return m_item->getRegisteredProperty(property_name).toReal();
+    return m_item->getItemValue(property_name).toReal();
 }
 
 qreal IMaskView::toSceneX(const QString &property_name) const
 {
-    return toSceneX(m_item->getRegisteredProperty(property_name).toReal());
+    return toSceneX(m_item->getItemValue(property_name).toReal());
 }
 
 qreal IMaskView::toSceneX(qreal value) const
@@ -103,7 +123,7 @@ qreal IMaskView::toSceneX(qreal value) const
 
 qreal IMaskView::toSceneY(const QString &property_name) const
 {
-    return toSceneY(m_item->getRegisteredProperty(property_name).toReal());
+    return toSceneY(m_item->getItemValue(property_name).toReal());
 }
 
 qreal IMaskView::toSceneY(qreal value) const
@@ -144,6 +164,7 @@ void IMaskView::onChangedY()
 
 void IMaskView::onPropertyChange(const QString &propertyName)
 {
+    qDebug() << "IMaskView::onPropertyChange ->" << propertyName;
     if(propertyName == MaskItem::P_MASK_VALUE) {
         update();
     }

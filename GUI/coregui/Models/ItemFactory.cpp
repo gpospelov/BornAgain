@@ -29,6 +29,8 @@
 #include "BeamItem.h"
 #include "DetectorItems.h"
 #include "VectorItem.h"
+#include "PropertyItem.h"
+#include "GroupItem.h"
 #include "GUIHelpers.h"
 #include "FormFactorItems.h"
 #include "LayerRoughnessItems.h"
@@ -50,7 +52,7 @@
 #include <QDebug>
 
 namespace {
-template<typename T> ParameterizedItem *createInstance() { return new T; }
+template<typename T> SessionItem *createInstance() { return new T; }
 
 ItemFactory::ItemMap_t initializeItemMap() {
     ItemFactory::ItemMap_t result;
@@ -71,6 +73,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::DetectorType] = &createInstance<DetectorItem>;
     result[Constants::BeamType] = &createInstance<BeamItem>;
     result[Constants::VectorType] = &createInstance<VectorItem>;
+    result[Constants::PropertyType] = &createInstance<PropertyItem>;
 
     result[Constants::AnisoPyramidType] = &createInstance<AnisoPyramidItem>;
     result[Constants::BoxType] = &createInstance<BoxItem>;
@@ -173,6 +176,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::FitSelectionType] = &createInstance<FitSelectionItem>;
     result[Constants::MinimizerSettingsType] = &createInstance<MinimizerSettingsItem>;
     result[Constants::InputDataType] = &createInstance<InputDataItem>;
+    result[Constants::GroupItemType] = &createInstance<GroupItem>;
 
     return result;
 }
@@ -193,27 +197,34 @@ QStringList ItemFactory::m_valid_top_item_names = QStringList()
 
 ItemFactory::ItemMap_t ItemFactory::m_item_map = initializeItemMap();
 
-ParameterizedItem *ItemFactory::createItem(const QString &model_name,
-                                           ParameterizedItem *parent)
+SessionItem *ItemFactory::createItem(const QString &model_name,
+                                           SessionItem *parent)
 {
     qDebug() << "ItemFactory::createItem" << model_name;
 
     if(!m_item_map.contains(model_name))
         throw GUIHelpers::Error("ItemFactory::createItem() -> Error: Model name does not exist: "+model_name);
 
-    ParameterizedItem *result = m_item_map[model_name]();
+    SessionItem *result = m_item_map[model_name]();
     if(parent) {
-        parent->insertChildItem(-1, result);
+        parent->insertItem(-1, result);
     }
     qDebug() << "       result:" << result;
     return result;
 }
 
-ParameterizedItem *ItemFactory::createEmptyItem()
+SessionItem *ItemFactory::createEmptyItem()
 {
-    return new ParameterizedItem();
+    SessionItem *result = new SessionItem("ROOT_ITEM");
+    //result->setItemName("ROOT_ITEM");
+    return result;
 }
 
 QList<QString> ItemFactory::getValidTopItemNames() {
     return m_valid_top_item_names;
+}
+
+bool ItemFactory::isValidItemType(const QString &name)
+{
+    return m_item_map.contains(name);
 }

@@ -15,9 +15,12 @@
 
 #include "BeamWavelengthItem.h"
 
-BeamWavelengthItem::BeamWavelengthItem(ParameterizedItem *parent)
-    : BeamDistributionItem(Constants::BeamWavelengthType, parent)
+BeamWavelengthItem::BeamWavelengthItem()
+    : BeamDistributionItem(Constants::BeamWavelengthType)
 {
-    getPropertyAttribute(BeamDistributionItem::P_CACHED_VALUE).setHidden().lowerLimited(1e-4).setDecimals(4);
-    setRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE, 0.1);
+    SessionItem *cache = getItem(BeamDistributionItem::P_CACHED_VALUE);
+    cache->setVisible(false);
+    cache->setLimits(AttLimits::lowerLimited(1e-4));
+    cache->setDecimals(4);
+    setItemValue(BeamDistributionItem::P_CACHED_VALUE, 0.1);
 }

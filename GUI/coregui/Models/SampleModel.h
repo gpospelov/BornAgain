@@ -29,9 +29,9 @@ public:
     explicit SampleModel(QObject *parent = 0);
     virtual ~SampleModel(){}
 
-    virtual SampleModel *createCopy(ParameterizedItem *parent = 0);
+    virtual SampleModel *createCopy(SessionItem *parent = 0);
 
-    QMap<QString, ParameterizedItem *> getSampleMap() const;
+    QMap<QString, SessionItem *> getSampleMap() const;
 
     MultiLayerItem *getMultiLayerItem(const QString &item_name=QString());
 

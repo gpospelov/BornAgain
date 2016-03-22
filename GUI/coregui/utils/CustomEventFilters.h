@@ -34,4 +34,22 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
 };
 
+
+//! event filter to install on combo boxes and spin boxes to not
+//! to react on wheel events during scrolling of InstrumentComponentWidget
+
+class BA_CORE_API_ WheelEventEater : public QObject
+{
+    Q_OBJECT
+public:
+
+    WheelEventEater(QObject *parent = 0);
+
+protected:
+    bool eventFilter(QObject *obj, QEvent *event);
+};
+
+
+
+
 #endif

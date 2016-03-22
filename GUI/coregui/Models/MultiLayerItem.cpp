@@ -16,43 +16,39 @@
 #include "MultiLayerItem.h"
 #include "LayerItem.h"
 #include "ScientificDoubleProperty.h"
+#include "SessionModel.h"
 #include <QDebug>
 
 const QString MultiLayerItem::P_CROSS_CORR_LENGTH = "Cross Correlation Length";
+const QString MultiLayerItem::T_LAYERS = "Layer tag";
 
-MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(Constants::MultiLayerType, parent)
+MultiLayerItem::MultiLayerItem()
+    : SessionGraphicsItem(Constants::MultiLayerType)
 {
-    registerProperty(P_CROSS_CORR_LENGTH, 0.0);
-    addToValidChildren(Constants::LayerType);
-    registerProperty(P_NAME, Constants::MultiLayerType);
-}
-
-ParameterizedItem *MultiLayerItem::takeChildItem(int row)
-{
-    ParameterizedItem *item = ParameterizedItem::takeChildItem(row);
-    updateLayers();
-    return item;
-}
-
-void MultiLayerItem::insertChildItem(int row, ParameterizedItem *item)
-{
-    ParameterizedItem::insertChildItem(row, item);
-    updateLayers();
+    addProperty(P_CROSS_CORR_LENGTH, 0.0);
+    registerTag(T_LAYERS, 0, -1, QStringList() << Constants::LayerType);
+    setDefaultTag(T_LAYERS);
+    setItemName(Constants::MultiLayerType);
+    mapper()->setOnChildrenChange(
+                [this]()
+    {
+        updateLayers();
+    });
 }
 
 void MultiLayerItem::updateLayers()
 {
-    for(int i = 0; i<childItemCount(); ++i) {
-        if(i == 0) {
-            childAt(i)->getPropertyAttribute(LayerItem::P_ROUGHNESS).setDisabled();
+    QVector<SessionItem*> list = getChildrenOfType(Constants::LayerType);
+    for(auto it = list.begin(); it != list.end(); ++it) {
+        if(it == list.begin()) {
+            (*it)->getItem(LayerItem::P_ROUGHNESS)->setEnabled(false);
         } else {
-            childAt(i)->getPropertyAttribute(LayerItem::P_ROUGHNESS).setVisible();
+            (*it)->getItem(LayerItem::P_ROUGHNESS)->setEnabled(true);
         }
-        if(i==0 || i==childItemCount()-1) {
-            childAt(i)->getPropertyAttribute(LayerItem::P_THICKNESS).setDisabled();
+        if(it == list.begin() || it == list.end()) {
+            (*it)->getItem(LayerItem::P_THICKNESS)->setEnabled(false);
         } else {
-            childAt(i)->getPropertyAttribute(LayerItem::P_THICKNESS).setVisible();
+            (*it)->getItem(LayerItem::P_THICKNESS)->setEnabled(true);
         }
     }
 }

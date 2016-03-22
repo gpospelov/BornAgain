@@ -20,37 +20,9 @@
 #include <QtCore/QXmlStreamReader>
 #include <QtCore/QXmlStreamWriter>
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
-namespace SessionXML
-{
-const QString MimeType = "application/org.bornagainproject.xml.item.z";
-const QString ModelTag("SessionModel");
-const QString InstrumentModelTag("InstrumentModel");
-const QString SampleModelTag("SampleModel");
-const QString MaterialModelTag("MaterialModel");
-const QString FitModelTag("FitModel");
-const QString JobModelTag("JobModel");
-const QString MaskModelTag("MaskModel");
-
-const QString ModelNameAttribute("Name");
-const QString ItemTag("Item");
-const QString ModelTypeAttribute("ModelType");
-const QString ItemNameAttribute("ItemName");
-const QString ParameterTag("Parameter");
-const QString ParameterNameAttribute("ParName");
-const QString ParameterTypeAttribute("ParType");
-const QString ParameterValueAttribute("ParValue");
-
-const QString IdentifierAttribute("Identifier");
-
-const QString ColorRedAttribute("Red");
-const QString ColorGreenAttribute("Green");
-const QString ColorBlueAttribute("Blue");
-const QString ColorAlphaAttribute("Alpha");
-
-const QString AngleUnitsAttribute("Units");
-}
+#include "SessionXML.h"
 
 class IconProvider;
 class WarningMessageService;
@@ -58,12 +30,24 @@ class WarningMessageService;
 class BA_CORE_API_ SessionModel : public QAbstractItemModel
 {
     Q_OBJECT
-
+    friend class SessionItem; // NEW
 public:
     explicit SessionModel(QString model_tag, QObject *parent = 0);
     virtual ~SessionModel();
+    void createRootItem(); //NEW
 
-    // Begin overriden methods from QAbstractItemModel
+    enum EColumn {ITEM_NAME, ITEM_VALUE, MAX_COLUMNS}; // NEW column usage
+
+    enum ERoles {ModelTypeRole = Qt::UserRole + 1, FlagRole, DisplayNameRole, LimitsRole,
+                 DecimalRole, DefaultTagRole, EndSessionRoles}; // NEW roles
+
+    enum EAppearance {
+        VISIBLE = 0x001,
+        ENABLED = 0x002,
+        EDITABLE = 0x004
+    };
+
+//    // Begin overriden methods from QAbstractItemModel
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const;
@@ -86,16 +70,15 @@ public:
                       const QModelIndex &parent);
     // End overridden methods from QAbstractItemModel
 
-    QModelIndex indexOfItem(ParameterizedItem *item) const;
-    ParameterizedItem *insertNewItem(QString model_type, const QModelIndex &parent = QModelIndex(),
-                                     int row = -1, ParameterizedItem::PortInfo::EPorts port
-                                                   = ParameterizedItem::PortInfo::DEFAULT);
+    QModelIndex indexOfItem(SessionItem *item) const;
+    SessionItem *insertNewItem(QString model_type, const QModelIndex &parent = QModelIndex(),
+                                     int row = -1, QString tag = QString());
 
     QString getModelTag() const;
     QString getModelName() const;
     void setModelName(const QString &name);
 
-    QList<QString> getAcceptableChildItems(const QModelIndex &parent) const;
+    QVector<QString> getAcceptableDefaultItemTypes(const QModelIndex &parent) const;
 
     void clear();
     void load(const QString &filename = QString());
@@ -105,62 +88,46 @@ public:
     void setDraggedItemType(const QString &type);
 
     // Returns root item if index is not valid
-    ParameterizedItem *itemForIndex(const QModelIndex &index) const;
+    SessionItem *itemForIndex(const QModelIndex &index) const;
 
     void readFrom(QXmlStreamReader *reader);
-    void writeTo(QXmlStreamWriter *writer, ParameterizedItem *parent = 0);
+    void writeTo(QXmlStreamWriter *writer, SessionItem *parent = 0);
 
-    ParameterizedItem *moveParameterizedItem(ParameterizedItem *item,
-                                             ParameterizedItem *new_parent = 0, int row = -1);
+    SessionItem *moveParameterizedItem(SessionItem *item,
+                                             SessionItem *new_parent = 0, int row = -1,
+                                       const QString &tag = QString());
 
-    ParameterizedItem *copyParameterizedItem(const ParameterizedItem *item_to_copy,
-                                             ParameterizedItem *new_parent = 0, int row = -1);
+    SessionItem *copyParameterizedItem(const SessionItem *item_to_copy,
+                                             SessionItem *new_parent = 0, int row = -1);
 
     void setIconProvider(IconProvider *icon_provider);
 
-    virtual SessionModel *createCopy(ParameterizedItem *parent = 0);
+    virtual SessionModel *createCopy(SessionItem *parent = 0);
 
-    QMap<QString, ParameterizedItem *> getTopItemMap(const QString &model_type = QString()) const;
-    ParameterizedItem *getTopItem(const QString &model_type = QString(),
+    QMap<QString, SessionItem *> getTopItemMap(const QString &model_type = QString()) const;
+    SessionItem *getTopItem(const QString &model_type = QString(),
                                   const QString &item_name = QString()) const;
 
     void setMessageService(WarningMessageService *messageService);
 
-    virtual void initFrom(SessionModel *model, ParameterizedItem *parent);
+    virtual void initFrom(SessionModel *model, SessionItem *parent);
+    SessionItem* rootItem() const;
 
 
 
-public slots:
-    void onItemPropertyChange(const QString &property_name, const QString &name = QString());
 
 protected:
-    // subclasses my wish to change the column count or the root item itself
-    void setMaxColumns(int maxColumns) {m_maxColumns = maxColumns;}
-    void setRootItem(ParameterizedItem *root) {m_root_item = root;}
+    void setRootItem(SessionItem *root) {m_root_item = root;}
 
 private:
-    ParameterizedItem* rootItem() const;
-
-    ParameterizedItem *insertNewItem(QString model_type, ParameterizedItem *parent, int row = -1,
-                                     ParameterizedItem::PortInfo::EPorts port
-                                     = ParameterizedItem::PortInfo::DEFAULT);
-    void readItems(QXmlStreamReader *reader, ParameterizedItem *item, int row = -1);
-    QString readProperty(QXmlStreamReader *reader, ParameterizedItem *item);
-    void writeItemAndChildItems(QXmlStreamWriter *writer, const ParameterizedItem *item) const;
-    void writeProperty(QXmlStreamWriter *writer, const ParameterizedItem *item,
-                       const char *property_name) const;
-    void writePropertyItem(QXmlStreamWriter *writer, ParameterizedItem *item) const;
-
-    void cleanItem(const QModelIndex &parent, int first, int last);
 
     void report_error(const QString &error_type, const QString &message);
 
-    ParameterizedItem *m_root_item;
+    SessionItem *m_root_item;
     QString m_dragged_item_type;
     QString m_name;      //!< model name
     QString m_model_tag; //!< model tag (SampleModel, InstrumentModel)
-    int m_maxColumns;
-    IconProvider *m_iconProvider;
+    std::unique_ptr<IconProvider> m_iconProvider;
     WarningMessageService *m_messageService;
 };
 
@@ -197,11 +164,6 @@ inline void SessionModel::setModelName(const QString &name)
 inline void SessionModel::setDraggedItemType(const QString &type)
 {
     m_dragged_item_type = type;
-}
-
-inline void SessionModel::setIconProvider(IconProvider *icon_provider)
-{
-    m_iconProvider = icon_provider;
 }
 
 #endif // SESSIONMODEL_H

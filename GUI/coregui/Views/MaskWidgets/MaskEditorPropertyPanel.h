@@ -23,7 +23,7 @@
 class QListView;
 class SessionModel;
 class QModelIndex;
-class AwesomePropertyEditor;
+class ComponentEditor;
 class QItemSelection;
 class QItemSelectionModel;
 class QButtonGroup;
@@ -61,8 +61,8 @@ private:
     void setup_PlotProperties(AccordionWidget *accordion);
 
     QListView *m_listView;
-    AwesomePropertyEditor *m_maskPropertyEditor;
-    AwesomePropertyEditor *m_plotPropertyEditor;
+    ComponentEditor *m_maskPropertyEditor;
+    ComponentEditor *m_plotPropertyEditor;
     SessionModel *m_maskModel;
     QModelIndex m_rootIndex;
     IntensityDataItem *m_intensityDataItem;

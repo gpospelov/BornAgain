@@ -14,7 +14,8 @@
 // ************************************************************************** //
 
 #include "ParticleCoreShellView.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
+#include "ParticleCoreShellItem.h"
 #include <QDebug>
 
 
@@ -35,9 +36,18 @@ ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem *parent)
 
 void ParticleCoreShellView::addView(IView *childView, int /* row */)
 {
-    int index = childView->getParameterizedItem()
-                    ->getRegisteredProperty(ParameterizedItem::P_PORT)
-                    .toInt();
+    // TODO restore logic
+//    int index = 0;//int(childView->getParameterizedItem()->port());
+//                    ->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT)
+//                    .toInt();
+    int index = 0;
+    if (this->getParameterizedItem()->tagFromItem(childView->getParameterizedItem()) == ParticleCoreShellItem::T_CORE) {
+        index = 0;
+    } else if (this->getParameterizedItem()->tagFromItem(childView->getParameterizedItem()) == ParticleCoreShellItem::T_SHELL) {
+        index = 1;
+    } else {
+        index = 2;
+    }
     qDebug() << "ParticleCoreShellView::addView()" << index;
     connectInputPort(dynamic_cast<ConnectableView *>(childView), index);
 }

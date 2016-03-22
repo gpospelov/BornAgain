@@ -17,25 +17,22 @@
 #define PARTICLEDISTRIBUTIONITEM_H
 
 #include "ParticleDistribution.h"
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 
 #include <QStringList>
 
 class ParameterPool;
 
-class BA_CORE_API_ ParticleDistributionItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ ParticleDistributionItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_DISTRIBUTED_PARAMETER;
     static const QString P_DISTRIBUTION;
     static const QString NO_SELECTION;
-    explicit ParticleDistributionItem(ParameterizedItem *parent=0);
+    static const QString T_PARTICLES;
+    explicit ParticleDistributionItem();
     virtual ~ParticleDistributionItem();
-
-    virtual void insertChildItem(int row, ParameterizedItem *item);
-
-    virtual void onChildPropertyChange(ParameterizedItem *item, const QString &propertyName=QString());
 
     std::unique_ptr<ParticleDistribution> createParticleDistribution() const;
 

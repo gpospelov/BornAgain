@@ -19,7 +19,7 @@
 #include <QString>
 #include <QMap>
 
-class ParameterizedItem;
+class SessionItem;
 
 //! @class SessionModelAssistant
 //! @brief Assists SessionModel in various aspects. Currently keeps record of all reading errors
@@ -60,7 +60,7 @@ public:
 
     bool hasErrors() const;
 
-    void report_unknown_item_property(const ParameterizedItem *item, const QString &property_name);
+    void report_unknown_item_property(const SessionItem *item, const QString &property_name);
 
 private:
     QList<Error> m_list_of_errors;

@@ -28,6 +28,7 @@ class QStandardItemModel;
 class SampleModel;
 class InstrumentModel;
 class WarningSignWidget;
+class ModelMapper;
 
 class ModelTuningWidget : public QWidget
 {
@@ -65,6 +66,7 @@ private:
     SampleModel *m_sampleModelBackup;
     InstrumentModel *m_instrumentModelBackup;
     WarningSignWidget *m_warningSign;
+    ModelMapper *m_mapper;
 };
 
 #endif

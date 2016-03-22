@@ -26,7 +26,7 @@ SampleModel::SampleModel(QObject *parent) : SessionModel(SessionXML::SampleModel
     setObjectName(SessionXML::SampleModelTag);
 }
 
-SampleModel *SampleModel::createCopy(ParameterizedItem *parent)
+SampleModel *SampleModel::createCopy(SessionItem *parent)
 {
     SampleModel *result = new SampleModel();
     result->initFrom(this, parent);
@@ -34,7 +34,7 @@ SampleModel *SampleModel::createCopy(ParameterizedItem *parent)
 }
 
 //! returns list of MultiLayers defined in the model
-QMap<QString, ParameterizedItem *> SampleModel::getSampleMap() const
+QMap<QString, SessionItem *> SampleModel::getSampleMap() const
 {
     return getTopItemMap(Constants::MultiLayerType);
 }
@@ -50,6 +50,8 @@ void SampleModel::onMaterialModelChanged(const QModelIndex &first, const QModelI
     qDebug() << "SampleModel::onMaterialModelChanged()" << first;
     Q_ASSERT(materialModel);
     MaterialItem *material = dynamic_cast<MaterialItem *>(materialModel->itemForIndex(first));
+    if (!material)
+        return;
     Q_ASSERT(material);
     m_material_identifier = material->getIdentifier();
 
@@ -64,18 +66,19 @@ void SampleModel::exploreForMaterials(const QModelIndex &parentIndex)
 
     for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = index(i_row, 0, parentIndex);
-        if (ParameterizedItem *item = itemForIndex(itemIndex)) {
+        if (SessionItem *item = itemForIndex(itemIndex)) {
             if (item->modelType() == Constants::LayerType
                 || item->modelType() == Constants::ParticleType) {
                 qDebug() << " found item" << item->modelType();
                 MaterialProperty material_property
-                    = item->getRegisteredProperty(LayerItem::P_MATERIAL).value<MaterialProperty>();
+                    = item->getItemValue(LayerItem::P_MATERIAL).value<MaterialProperty>();
                 if (material_property.getIdentifier() == m_material_identifier) {
 //                    item->setRegisteredProperty(LayerItem::P_MATERIAL,
 //                                                material_property.getVariant());
                     // MaterialProperty of the layer corresponds to the material which just has been changed
                     // To trigger color change in ILayerView we have to trigger propertyChanged
-                    emit item->propertyChanged(LayerItem::P_MATERIAL);
+                    //emit item->propertyChanged();
+                    item->getItem(LayerItem::P_MATERIAL)->emitDataChanged();
                 }
             }
         } else {

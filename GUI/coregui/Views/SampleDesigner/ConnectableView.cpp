@@ -18,7 +18,7 @@
 #include "NodeEditorPort.h"
 #include "NodeEditorConnection.h"
 #include "GUIHelpers.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QObject>
@@ -31,15 +31,6 @@ ConnectableView::ConnectableView(QGraphicsItem *parent, QRect rect)
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-}
-
-void ConnectableView::setParameterizedItem(ParameterizedItem *item)
-{
-    IView::setParameterizedItem(item);
-    if (m_item) {
-        setLabel( hyphenate(m_item->itemName()) );
-        connect(m_item, SIGNAL(siblingsChanged()), this, SLOT(onSiblingsChanged()));
-    }
 }
 
 void ConnectableView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
@@ -101,6 +92,10 @@ void ConnectableView::connectInputPort(ConnectableView *other, int port_number)
     if (other->getOutputPorts().size() != 1)
         throw GUIHelpers::Error("ConnectableView::connectInputPort() -> Wrong output port number");
 
+    //FIXME for debug
+    if (port_number < 0)
+        return;
+
     NodeEditorPort *input = m_input_ports.at(port_number);
     NodeEditorPort *output = other->getOutputPorts().at(0);
 
@@ -115,14 +110,6 @@ void ConnectableView::connectInputPort(ConnectableView *other, int port_number)
 int ConnectableView::getInputPortIndex(NodeEditorPort *port)
 {
     return m_input_ports.indexOf(port);
-}
-
-void ConnectableView::onSiblingsChanged()
-{
-    if (m_item) {
-        setLabel( hyphenate(m_item->itemName()) );
-        update();
-    }
 }
 
 // calculation of y-pos for ports
@@ -178,6 +165,12 @@ int ConnectableView::getNumberOfOutputPorts()
 int ConnectableView::getNumberOfInputPorts()
 {
     return m_input_ports.size();
+}
+
+void ConnectableView::update_appearance()
+{
+    setLabel( hyphenate(m_item->itemName()) );
+    IView::update_appearance();
 }
 
 QString ConnectableView::hyphenate(const QString &name) const

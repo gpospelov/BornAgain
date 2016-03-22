@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleDistributionView.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include <QDebug>
 
 
@@ -32,9 +32,10 @@ ParticleDistributionView::ParticleDistributionView(QGraphicsItem *parent)
 
 void ParticleDistributionView::addView(IView *childView, int /* row */)
 {
-    int index = childView->getParameterizedItem()
-                    ->getRegisteredProperty(ParameterizedItem::P_PORT)
-                    .toInt();
+    // TODO restore logic
+    int index = 0;//int(childView->getParameterizedItem()->port());
+//                    ->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT)
+//                    .toInt();
     qDebug() << "ParticleDistributionType::addView()" << index;
     connectInputPort(dynamic_cast<ConnectableView *>(childView), index);
 }

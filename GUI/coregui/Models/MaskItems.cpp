@@ -20,27 +20,33 @@
 #include "Ellipse.h"
 #include "InfinitePlane.h"
 #include "Units.h"
+#include "GUIHelpers.h"
 
 
-MaskContainerItem::MaskContainerItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::MaskContainerType, parent)
+MaskContainerItem::MaskContainerItem()
+    : SessionItem(Constants::MaskContainerType)
 {
-    addToValidChildren(Constants::RectangleMaskType);
-    addToValidChildren(Constants::PolygonMaskType);
-    addToValidChildren(Constants::EllipseMaskType);
-    addToValidChildren(Constants::VerticalLineMaskType);
-    addToValidChildren(Constants::HorizontalLineMaskType);
-    addToValidChildren(Constants::MaskAllType);
+    const QString T_MASKS = "Mask Tag";
+    registerTag(T_MASKS, 0, -1, QStringList() << Constants::RectangleMaskType << Constants::PolygonMaskType
+                << Constants::EllipseMaskType << Constants::VerticalLineMaskType
+                << Constants::HorizontalLineMaskType << Constants::MaskAllType);
+    setDefaultTag(T_MASKS);
 }
 
 /* ------------------------------------------------------------------------- */
 
 const QString MaskItem::P_MASK_VALUE = "Mask value";
 
-MaskItem::MaskItem(const QString &name, ParameterizedItem *parent)
-    : ParameterizedItem(name, parent)
+MaskItem::MaskItem(const QString &name)
+    : SessionItem(name)
 {
-    registerProperty(P_MASK_VALUE, true);
+    addProperty(P_MASK_VALUE, true);
+}
+
+std::unique_ptr<Geometry::IShape2D> MaskItem::createShape(double scale) const
+{
+    Q_UNUSED(scale);
+    throw GUIHelpers::Error("MaskItem::createShape() -> Not implemented.");
 }
 
 
@@ -50,84 +56,91 @@ const QString RectangleItem::P_YLOW = "ylow";
 const QString RectangleItem::P_XUP = "xup";
 const QString RectangleItem::P_YUP = "yup";
 
-RectangleItem::RectangleItem(ParameterizedItem *parent)
-    : MaskItem(Constants::RectangleMaskType, parent)
+RectangleItem::RectangleItem()
+    : MaskItem(Constants::RectangleMaskType)
 {
-    registerProperty(P_XLOW, 0.0).limitless();
-    registerProperty(P_YLOW, 0.0).limitless();
-    registerProperty(P_XUP, 0.0).limitless();
-    registerProperty(P_YUP, 0.0).limitless();
+    setItemName(Constants::RectangleMaskType);
+    addProperty(P_XLOW, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_YLOW, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_XUP, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_YUP, 0.0)->setLimits(AttLimits::limitless());
 }
 
-Geometry::IShape2D *RectangleItem::createShape(double scale) const
+std::unique_ptr<Geometry::IShape2D> RectangleItem::createShape(double scale) const
 {
-    double xlow = scale*getRegisteredProperty(P_XLOW).toDouble();
-    double ylow = scale*getRegisteredProperty(P_YLOW).toDouble();
-    double xup = scale*getRegisteredProperty(P_XUP).toDouble();
-    double yup = scale*getRegisteredProperty(P_YUP).toDouble();
-    return new Geometry::Rectangle(xlow, ylow, xup, yup);
+    double xlow = scale*getItemValue(P_XLOW).toDouble();
+    double ylow = scale*getItemValue(P_YLOW).toDouble();
+    double xup = scale*getItemValue(P_XUP).toDouble();
+    double yup = scale*getItemValue(P_YUP).toDouble();
+    return GUIHelpers::make_unique<Geometry::Rectangle>(xlow, ylow, xup, yup);
 }
 
 /* ------------------------------------------------------------------------- */
 const QString PolygonPointItem::P_POSX = "X position";
 const QString PolygonPointItem::P_POSY = "Y position";
 
-PolygonPointItem::PolygonPointItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::PolygonPointType, parent)
+PolygonPointItem::PolygonPointItem()
+    : SessionItem(Constants::PolygonPointType)
 {
-    registerProperty(P_POSX, 0.0).limitless();
-    registerProperty(P_POSY, 0.0).limitless();
+    setItemName(Constants::PolygonPointType);
+    addProperty(P_POSX, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_POSY, 0.0)->setLimits(AttLimits::limitless());
 }
 
 /* ------------------------------------------------------------------------- */
 
 const QString PolygonItem::P_ISCLOSED = "Is closed";
 
-PolygonItem::PolygonItem(ParameterizedItem *parent)
-    : MaskItem(Constants::PolygonMaskType, parent)
+PolygonItem::PolygonItem()
+    : MaskItem(Constants::PolygonMaskType)
 {
-    addToValidChildren(Constants::PolygonPointType);
-    registerProperty(P_ISCLOSED, false).setHidden();
+    setItemName(Constants::PolygonMaskType);
+    const QString T_POINTS = "Point tag";
+    registerTag(T_POINTS, 0, -1, QStringList() << Constants::PolygonPointType);
+    setDefaultTag(T_POINTS);
+    addProperty(P_ISCLOSED, false)->setVisible(false);
 }
 
-Geometry::IShape2D *PolygonItem::createShape(double scale) const
+std::unique_ptr<Geometry::IShape2D> PolygonItem::createShape(double scale) const
 {
     std::vector<double> x,y;
-    foreach(ParameterizedItem *item, this->childItems()) {
-        x.push_back(scale*item->getRegisteredProperty(PolygonPointItem::P_POSX).toDouble());
-        y.push_back(scale*item->getRegisteredProperty(PolygonPointItem::P_POSY).toDouble());
+    foreach(SessionItem *item, this->getChildrenOfType(Constants::PolygonPointType)) {
+        x.push_back(scale*item->getItemValue(PolygonPointItem::P_POSX).toDouble());
+        y.push_back(scale*item->getItemValue(PolygonPointItem::P_POSY).toDouble());
     }
-    return new Geometry::Polygon(x, y);
+    return GUIHelpers::make_unique<Geometry::Polygon>(x, y);
 }
 
 /* ------------------------------------------------------------------------- */
 const QString VerticalLineItem::P_POSX = "X position";
 
-VerticalLineItem::VerticalLineItem(ParameterizedItem *parent)
-    : MaskItem(Constants::VerticalLineMaskType, parent)
+VerticalLineItem::VerticalLineItem()
+    : MaskItem(Constants::VerticalLineMaskType)
 {
-    registerProperty(P_POSX, 0.0).limitless();
+    setItemName(Constants::VerticalLineMaskType);
+    addProperty(P_POSX, 0.0)->setLimits(AttLimits::limitless());
 }
 
-Geometry::IShape2D *VerticalLineItem::createShape(double scale) const
+std::unique_ptr<Geometry::IShape2D> VerticalLineItem::createShape(double scale) const
 {
-    return new Geometry::VerticalLine(
-                scale*getRegisteredProperty(VerticalLineItem::P_POSX).toDouble());
+    return GUIHelpers::make_unique<Geometry::VerticalLine>(
+                scale*getItemValue(VerticalLineItem::P_POSX).toDouble());
 }
 
 /* ------------------------------------------------------------------------- */
 const QString HorizontalLineItem::P_POSY = "Y position";
 
-HorizontalLineItem::HorizontalLineItem(ParameterizedItem *parent)
-    : MaskItem(Constants::HorizontalLineMaskType, parent)
+HorizontalLineItem::HorizontalLineItem()
+    : MaskItem(Constants::HorizontalLineMaskType)
 {
-    registerProperty(P_POSY, 0.0).limitless();
+    setItemName(Constants::HorizontalLineMaskType);
+    addProperty(P_POSY, 0.0)->setLimits(AttLimits::limitless());
 }
 
-Geometry::IShape2D *HorizontalLineItem::createShape(double scale) const
+std::unique_ptr<Geometry::IShape2D> HorizontalLineItem::createShape(double scale) const
 {
-    return new Geometry::HorizontalLine(
-                scale*getRegisteredProperty(HorizontalLineItem::P_POSY).toDouble());
+    return GUIHelpers::make_unique<Geometry::HorizontalLine>(
+                scale*getItemValue(HorizontalLineItem::P_POSY).toDouble());
 }
 
 /* ------------------------------------------------------------------------- */
@@ -138,37 +151,39 @@ const QString EllipseItem::P_XRADIUS = "X radius";
 const QString EllipseItem::P_YRADIUS = "Y radius";
 const QString EllipseItem::P_ANGLE = "Angle";
 
-EllipseItem::EllipseItem(ParameterizedItem *parent)
-    : MaskItem(Constants::EllipseMaskType, parent)
+EllipseItem::EllipseItem()
+    : MaskItem(Constants::EllipseMaskType)
 {
-    registerProperty(P_XCENTER, 0.0).limitless();
-    registerProperty(P_YCENTER, 0.0).limitless();
-    registerProperty(P_XRADIUS, 0.0);
-    registerProperty(P_YRADIUS, 0.0);
-    registerProperty(P_ANGLE, 0.0).limitless();
+    setItemName(Constants::EllipseMaskType);
+    addProperty(P_XCENTER, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_YCENTER, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_XRADIUS, 0.0);
+    addProperty(P_YRADIUS, 0.0);
+    addProperty(P_ANGLE, 0.0)->setLimits(AttLimits::limitless());
 }
 
-Geometry::IShape2D *EllipseItem::createShape(double scale) const
+std::unique_ptr<Geometry::IShape2D> EllipseItem::createShape(double scale) const
 {
-    double xcenter = scale*getRegisteredProperty(EllipseItem::P_XCENTER).toDouble();
-    double ycenter = scale*getRegisteredProperty(EllipseItem::P_YCENTER).toDouble();
-    double xradius = scale*getRegisteredProperty(EllipseItem::P_XRADIUS).toDouble();
-    double yradius = scale*getRegisteredProperty(EllipseItem::P_YRADIUS).toDouble();
-    double angle = scale*getRegisteredProperty(EllipseItem::P_ANGLE).toDouble();
+    double xcenter = scale*getItemValue(EllipseItem::P_XCENTER).toDouble();
+    double ycenter = scale*getItemValue(EllipseItem::P_YCENTER).toDouble();
+    double xradius = scale*getItemValue(EllipseItem::P_XRADIUS).toDouble();
+    double yradius = scale*getItemValue(EllipseItem::P_YRADIUS).toDouble();
+    double angle = scale*getItemValue(EllipseItem::P_ANGLE).toDouble();
 
-    return new Geometry::Ellipse(xcenter, ycenter, xradius, yradius, angle);
+    return GUIHelpers::make_unique<Geometry::Ellipse>(xcenter, ycenter, xradius, yradius, angle);
 }
 
 /* ------------------------------------------------------------------------- */
 
-MaskAllItem::MaskAllItem(ParameterizedItem *parent)
-    : MaskItem(Constants::MaskAllType, parent)
+MaskAllItem::MaskAllItem()
+    : MaskItem(Constants::MaskAllType)
 {
-    getPropertyAttribute(MaskItem::P_MASK_VALUE).setDisabled();
+    setItemName(Constants::MaskAllType);
+    getItem(MaskItem::P_MASK_VALUE)->setEnabled(false);
 }
 
-Geometry::IShape2D *MaskAllItem::createShape(double scale) const
+std::unique_ptr<Geometry::IShape2D> MaskAllItem::createShape(double scale) const
 {
     Q_UNUSED(scale);
-    return new Geometry::InfinitePlane();
+    return GUIHelpers::make_unique<Geometry::InfinitePlane>();
 }

@@ -25,9 +25,9 @@
 #include "MaskAllView.h"
 #include "MaskContainerView.h"
 #include "IntensityDataView.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
-IMaskView *MaskViewFactory::createMaskView(ParameterizedItem *item,
+IMaskView *MaskViewFactory::createMaskView(SessionItem *item,
                                            ISceneAdaptor *adaptor)
 {
     IMaskView *result(0);

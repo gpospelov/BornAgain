@@ -7,7 +7,7 @@ ItemIDFactory& ItemIDFactory::instance()
     return instance;
 }
 
-QString ItemIDFactory::createID(ParameterizedItem *toBeInsertedItem){
+QString ItemIDFactory::createID(SessionItem *toBeInsertedItem){
 
     QUuid id = QUuid::createUuid();
     QString id_String = id.toString();
@@ -23,7 +23,7 @@ QString ItemIDFactory::createID(ParameterizedItem *toBeInsertedItem){
     return id_String;
 }
 
-QString ItemIDFactory::getID(ParameterizedItem *existingItem)
+QString ItemIDFactory::getID(SessionItem *existingItem)
 {
     if(instance().ItemtoIDMap.contains(existingItem))
         return instance().ItemtoIDMap.value(existingItem);
@@ -31,7 +31,7 @@ QString ItemIDFactory::getID(ParameterizedItem *existingItem)
         return QString();
 }
 
-ParameterizedItem* ItemIDFactory::getItem(QString existingID)
+SessionItem* ItemIDFactory::getItem(QString existingID)
 {
     if(instance().IDtoItemMap.contains(existingID))
         return instance().IDtoItemMap.value(existingID);

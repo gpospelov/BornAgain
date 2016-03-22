@@ -14,8 +14,8 @@
 // ************************************************************************** //
 
 #include "MinimizerSettingsWidget.h"
-#include "AwesomePropertyEditor.h"
 #include "FitModel.h"
+#include "ComponentEditor.h"
 #include "FitParameterItems.h"
 #include <QHBoxLayout>
 #include <QSplitter>
@@ -24,7 +24,7 @@ MinimizerSettingsWidget::MinimizerSettingsWidget(FitModel *fitModel, QWidget *pa
     : QWidget(parent)
 {
     QHBoxLayout *layout = new QHBoxLayout;
-    AwesomePropertyEditor *editor = new AwesomePropertyEditor(this);
+    ComponentEditor *editor = new ComponentEditor;
     editor->setItem(fitModel->getMinimizerSettings());
     layout->addWidget(editor);
     setLayout(layout);

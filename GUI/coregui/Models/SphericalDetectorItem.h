@@ -16,19 +16,19 @@
 #ifndef SPHERICALDETECTORITEM_H
 #define SPHERICALDETECTORITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include <memory>
 
 class IDetector2D;
 class IResolutionFunction2D;
 
-class SphericalDetectorItem : public ParameterizedItem
+class SphericalDetectorItem : public SessionItem
 {
 public:
     static const QString P_PHI_AXIS;
     static const QString P_ALPHA_AXIS;
     static const QString P_RESOLUTION_FUNCTION;
-    explicit SphericalDetectorItem(ParameterizedItem *parent=0);
+    explicit SphericalDetectorItem();
 
     std::unique_ptr<IDetector2D> createDetector() const;
     std::unique_ptr<IResolutionFunction2D> createResolutionFunction();

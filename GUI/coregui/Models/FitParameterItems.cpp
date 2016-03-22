@@ -16,10 +16,12 @@
 #include "FitParameterItems.h"
 #include "ComboProperty.h"
 
-FitParameterContainer::FitParameterContainer(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::FitParameterContainerType, parent)
+FitParameterContainer::FitParameterContainer()
+    : SessionItem(Constants::FitParameterContainerType)
 {
-    addToValidChildren(Constants::FitParameterType);
+    const QString T_DATA = "Data tag";
+    registerTag(T_DATA, 0, -1, QStringList() << Constants::FitParameterType);
+    setDefaultTag(T_DATA);
 }
 
 
@@ -28,53 +30,55 @@ const QString FitParameterItem::P_INIT = "Starting Value";
 const QString FitParameterItem::P_MIN = "Min";
 const QString FitParameterItem::P_MAX = "Max";
 
-FitParameterItem::FitParameterItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::FitParameterType, parent)
+FitParameterItem::FitParameterItem()
+    : SessionItem(Constants::FitParameterType)
 {
-    registerProperty(P_USE, true);
-    registerProperty(P_INIT, 0.0);
-    registerProperty(P_MIN, 0.0);
-    registerProperty(P_MAX, 0.0);
-    addToValidChildren(Constants::FitParameterLinkType);
+    addProperty(P_USE, true);
+    addProperty(P_INIT, 0.0);
+    addProperty(P_MIN, 0.0);
+    addProperty(P_MAX, 0.0);
+    const QString T_LINK = "Link tag";
+    registerTag(T_LINK, 0, -1, QStringList() << Constants::FitParameterLinkType);
+    setDefaultTag(T_LINK);
 }
 
 
 
 const QString FitParameterLinkItem::P_LINK = "Link";
 
-FitParameterLinkItem::FitParameterLinkItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::FitParameterLinkType, parent)
+FitParameterLinkItem::FitParameterLinkItem()
+    : SessionItem(Constants::FitParameterLinkType)
 {
-    registerProperty(P_LINK, "");
+    addProperty(P_LINK, "");
 }
 
 
 const QString FitSelectionItem::P_SAMPLE = "Sample";
 const QString FitSelectionItem::P_INSTRUMENT = "Instrument";
 
-FitSelectionItem::FitSelectionItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::FitSelectionType, parent)
+FitSelectionItem::FitSelectionItem()
+    : SessionItem(Constants::FitSelectionType)
 {
-    registerProperty(P_SAMPLE, "");
-    registerProperty(P_INSTRUMENT, "");
+    addProperty(P_SAMPLE, "");
+    addProperty(P_INSTRUMENT, "");
 }
 
 const QString MinimizerSettingsItem::P_ALGO = "Algorithm";
 
-MinimizerSettingsItem::MinimizerSettingsItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::MinimizerSettingsType, parent)
+MinimizerSettingsItem::MinimizerSettingsItem()
+    : SessionItem(Constants::MinimizerSettingsType)
 {
     ComboProperty algo;
     algo << "Migrad" << "Simplex" << "Combined" << "Scan" << "Fumili";
-    registerProperty(P_ALGO, algo.getVariant());
+    addProperty(P_ALGO, algo.getVariant());
 }
 
 const QString InputDataItem::P_PATH = "Path";
 
-InputDataItem::InputDataItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::InputDataType, parent)
+InputDataItem::InputDataItem()
+    : SessionItem(Constants::InputDataType)
 {
-    registerProperty(P_PATH, "");
+    addProperty(P_PATH, "");
 }
 
 

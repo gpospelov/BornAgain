@@ -20,7 +20,7 @@
 #include <QMap>
 #include <QString>
 
-class ParameterizedItem;
+class SessionItem;
 class InstrumentModel;
 class SampleModel;
 
@@ -30,8 +30,8 @@ class BA_CORE_API_ GUIExamplesFactory
 public:
     static bool isValidExampleName(const QString &name);
 
-    static ParameterizedItem *createSampleItems(const QString &name, SampleModel *sampleModel);
-//    static ParameterizedItem *createInstrumentItems(const QString &name, InstrumentModel *instrumentModel);
+    static SessionItem *createSampleItems(const QString &name, SampleModel *sampleModel);
+//    static SessionItem *createInstrumentItems(const QString &name, InstrumentModel *instrumentModel);
 
 private:
     static QMap<QString, QString> m_name_to_registry;

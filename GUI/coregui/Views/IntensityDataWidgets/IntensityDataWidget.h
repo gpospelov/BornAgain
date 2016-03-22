@@ -46,8 +46,6 @@ public slots:
     void toggleProjections();
     void setPropertyPanelVisible(bool visible);
 
-private slots:
-    void onPropertyChanged(const QString &property_name);
 
 private:
     void updateItem(IntensityDataItem *item);

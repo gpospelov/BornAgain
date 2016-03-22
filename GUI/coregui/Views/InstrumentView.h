@@ -29,7 +29,7 @@ class QStackedWidget;
 class QMenu;
 class QAction;
 class QItemSelection;
-class ParameterizedItem;
+class SessionItem;
 class QToolBar;
 class QToolButton;
 class DetectorItem;
@@ -64,7 +64,7 @@ private:
     QToolBar *m_toolBar;
     InstrumentSelectorWidget *m_instrumentSelector;
     QStackedWidget *m_stackWidget;
-    QMap<ParameterizedItem *, InstrumentEditorWidget *> m_instrumentToEditor;
+    QMap<SessionItem *, InstrumentEditorWidget *> m_instrumentToEditor;
     QAction *m_addInstrumentAction;
     QAction *m_removeInstrumentAction;
     QToolButton *m_addInstrumentButton;

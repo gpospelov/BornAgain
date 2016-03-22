@@ -58,13 +58,10 @@ void MaskResultsPresenter::updatePresenter(MaskEditorFlags::PresentationType pre
 //! bins of OutputData will be put to zero.
 void MaskResultsPresenter::setShowMaskMode()
 {
-    qDebug() << "MaskResultsPresenter::setShowMaskMode()";
-
     if (OutputData<double> *maskedData = createMaskPresentation()) {
         backup_data();
         m_intensityDataItem->setOutputData(maskedData);
-        qDebug() << m_dataBackup->totalSum() << maskedData->totalSum();
-        m_intensityDataItem->setRegisteredProperty(IntensityDataItem::P_IS_INTERPOLATED, false);
+        m_intensityDataItem->setItemValue(IntensityDataItem::P_IS_INTERPOLATED, false);
     } else {
         m_dataBackup.reset();
     }
@@ -75,7 +72,7 @@ void MaskResultsPresenter::setOriginalMode()
 {
     if (m_dataBackup) {
         m_intensityDataItem->setOutputData(m_dataBackup->clone());
-        m_intensityDataItem->setRegisteredProperty(IntensityDataItem::P_IS_INTERPOLATED,
+        m_intensityDataItem->setItemValue(IntensityDataItem::P_IS_INTERPOLATED,
                                         m_interpolation_flag_backup);
     }
 }
@@ -83,7 +80,7 @@ void MaskResultsPresenter::setOriginalMode()
 void MaskResultsPresenter::backup_data()
 {
     m_interpolation_flag_backup
-        = m_intensityDataItem->getRegisteredProperty(IntensityDataItem::P_IS_INTERPOLATED).toBool();
+        = m_intensityDataItem->getItemValue(IntensityDataItem::P_IS_INTERPOLATED).toBool();
     m_dataBackup.reset(m_intensityDataItem->getOutputData()->clone());
 }
 
@@ -98,12 +95,15 @@ OutputData<double> *MaskResultsPresenter::createMaskPresentation() const
     for (int i_row = m_maskModel->rowCount(m_maskContainerIndex); i_row > 0; --i_row) {
         QModelIndex itemIndex = m_maskModel->index(i_row - 1, 0, m_maskContainerIndex);
         if (MaskItem *item = dynamic_cast<MaskItem *>(m_maskModel->itemForIndex(itemIndex))) {
-            Geometry::IShape2D *shape = item->createShape();
-            if (shape) {
-                detectorMask.addMask(*shape,
-                                     item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool());
+            if (item && (item->modelType() == Constants::GroupItemType || item->modelType() == Constants::PropertyType)) {
+                continue;
             }
-            delete shape;
+
+            std::unique_ptr<Geometry::IShape2D> shape = item->createShape();
+            if (shape) {
+                detectorMask.addMask(*shape.get(),
+                                     item->getItemValue(MaskItem::P_MASK_VALUE).toBool());
+            }
         }
     }
 

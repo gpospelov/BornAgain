@@ -16,7 +16,7 @@
 #ifndef JOBITEM_H
 #define JOBITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 class IntensityDataItem;
 class SampleModel;
 class InstrumentModel;
@@ -24,9 +24,9 @@ class GISASSimulation;
 class MultiLayerItem;
 class InstrumentItem;
 
-class BA_CORE_API_ JobItem : public ParameterizedItem
+class BA_CORE_API_ JobItem : public SessionItem
 {
-    Q_OBJECT
+    
 public:
     static const QString P_IDENTIFIER;
     static const QString P_SAMPLE_NAME;
@@ -38,7 +38,7 @@ public:
     static const QString P_PROGRESS;
     static const QString P_NTHREADS;
     static const QString P_RUN_POLICY;
-    explicit JobItem(ParameterizedItem *parent=0);
+    explicit JobItem();
     virtual ~JobItem();
 
     QString getIdentifier() const;
@@ -80,8 +80,6 @@ public:
     InstrumentItem *getInstrumentItem(bool from_backup = false);
 
     void setResults(const GISASSimulation *simulation);
-
-    virtual void onChildPropertyChange(ParameterizedItem *item, const QString &propertyName=QString());
 
 private:
     static QMap<QString, QString> m_run_policies; // run policy, policy description

@@ -15,7 +15,7 @@
 
 #include "InstrumentSelectorWidget.h"
 #include "InstrumentModel.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include <QListView>
 #include <QVBoxLayout>
 #include <QPushButton>

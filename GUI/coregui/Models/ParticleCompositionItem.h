@@ -17,19 +17,18 @@
 #define PARTICLECOMPOSITIONITEM_H
 
 #include "ParticleComposition.h"
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 
 #include <QStringList>
 #include <memory>
 
-class BA_CORE_API_ ParticleCompositionItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ ParticleCompositionItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
-    explicit ParticleCompositionItem(ParameterizedItem *parent=0);
+    const static QString T_PARTICLES;
+    explicit ParticleCompositionItem();
     virtual ~ParticleCompositionItem() {}
-    virtual void insertChildItem(int row, ParameterizedItem *item);
-    virtual void onPropertyChange(const QString &name);
     std::unique_ptr<ParticleComposition> createParticleComposition() const;
 };
 

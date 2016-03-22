@@ -14,11 +14,13 @@
 // ************************************************************************** //
 
 #include "SamplePropertyWidget.h"
-#include "AwesomePropertyEditor.h"
-#include "ParameterizedItem.h"
+#include "ComponentEditor.h"
+#include "SessionItem.h"
 #include <QVBoxLayout>
 #include <QItemSelection>
 #include <QModelIndexList>
+
+#include <QSortFilterProxyModel>
 #include <QDebug>
 
 SamplePropertyWidget::SamplePropertyWidget(QItemSelectionModel *selection_model, QWidget *parent)
@@ -35,7 +37,7 @@ SamplePropertyWidget::SamplePropertyWidget(QItemSelectionModel *selection_model,
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    m_propertyEditor = new AwesomePropertyEditor(this);
+    m_propertyEditor = new ComponentEditor;
 
     mainLayout->addWidget(m_propertyEditor);
     setLayout(mainLayout);
@@ -68,10 +70,18 @@ void SamplePropertyWidget::selectionChanged(const QItemSelection & selected,
     qDebug() << "SamplePropertyWidget::selectionChanged" << selected << deselected;
     (void)deselected;
     QModelIndexList indices = selected.indexes();
+
     if(indices.size()) {
-        ParameterizedItem *item = static_cast<ParameterizedItem *>(
-                indices.back().internalPointer());
-        m_propertyEditor->setItem(item, item->modelType());
+        QSortFilterProxyModel *proxy = dynamic_cast<QSortFilterProxyModel*>(const_cast<QAbstractItemModel*>(indices[0].model()));
+        QModelIndex index = indices.back();
+        if (proxy) {
+            index = proxy->mapToSource(index);
+        }
+        SessionItem *item = static_cast<SessionItem *>(
+                index.internalPointer());
+//        m_propertyEditor->setItem(item, item->modelType());
+        if (item)
+            m_propertyEditor->setItem(item, item->modelType());
     } else {
         m_propertyEditor->setItem(0);
     }

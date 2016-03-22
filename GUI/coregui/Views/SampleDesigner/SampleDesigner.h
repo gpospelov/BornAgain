@@ -25,6 +25,7 @@ class DesignerScene;
 class DesignerWidgetFactory;
 class InstrumentModel;
 class SampleModel;
+class SampleViewProxyModel;
 
 //! sample designer interface
 class BA_CORE_API_ SampleDesignerInterface : public QObject
@@ -57,7 +58,7 @@ public:
 
     void setSampleModel(SampleModel *sampleModel);
     void setInstrumentModel(InstrumentModel *instrumentModel);
-    void setSelectionModel(QItemSelectionModel *model);
+    void setSelectionModel(QItemSelectionModel *model, SampleViewProxyModel *proxy);
 
 public slots:
     void onSmartAlign();

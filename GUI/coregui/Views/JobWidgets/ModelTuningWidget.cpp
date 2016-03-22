@@ -49,6 +49,7 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
     , m_sampleModelBackup(0)
     , m_instrumentModelBackup(0)
     , m_warningSign(0)
+    , m_mapper(0)
 {
     setMinimumSize(128, 128);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -94,10 +95,6 @@ void ModelTuningWidget::setCurrentItem(JobItem *item)
 {
     if (m_currentJobItem == item) return;
 
-    if (m_currentJobItem) {
-        disconnect(m_currentJobItem, SIGNAL(propertyChanged(QString)),
-                this, SLOT(onPropertyChanged(QString)));
-    }
 
     m_currentJobItem = item;
 
@@ -106,8 +103,16 @@ void ModelTuningWidget::setCurrentItem(JobItem *item)
     updateParameterModel();
     backupModels();
 
-    connect(m_currentJobItem, SIGNAL(propertyChanged(QString)),
-            this, SLOT(onPropertyChanged(QString)));
+    if (m_mapper)
+        m_mapper->deleteLater();
+    m_mapper = new ModelMapper(this);
+    m_mapper->setItem(item);
+    m_mapper->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        onPropertyChanged(name);
+    });
+
 }
 
 void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
@@ -158,7 +163,7 @@ void ModelTuningWidget::updateParameterModel()
     m_parameterModel = ParameterModelBuilder::createParameterModel(m_jobModel, m_currentJobItem);
 
     m_treeView->setModel(m_parameterModel);
-    m_treeView->setColumnWidth(0, 170);
+    m_treeView->setColumnWidth(0, 240);
     m_treeView->expandAll();
 }
 

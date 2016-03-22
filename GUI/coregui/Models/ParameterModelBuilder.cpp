@@ -28,6 +28,7 @@
 #include "AngleProperty.h"
 #include "GUIHelpers.h"
 #include "DistributionItem.h"
+#include "GroupItem.h"
 #include <QStandardItem>
 #include <QStandardItemModel>
 #include <QDebug>
@@ -58,83 +59,113 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SessionModel *sampleMo
                                                           QStandardItem *parentItem)
 {
     Q_ASSERT(sampleModel);
+    if (!parentItem) {
+        parentItem = new QStandardItem(sampleModel->itemForIndex(parentIndex)->itemName());
+    }
 
     for (int i_row = 0; i_row < sampleModel->rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = sampleModel->index(i_row, 0, parentIndex);
 
-        if (ParameterizedItem *item = sampleModel->itemForIndex(itemIndex)) {
-            qDebug() << " item" << item->modelType() << item->itemName();
-            item->print();
-
-            QStandardItem *standardItem = new QStandardItem(item->itemName());
-
-            QList<QByteArray> propertyNameList = item->dynamicPropertyNames();
-            for (int i = 0; i < propertyNameList.length(); ++i) {
-                QString propertyName = QString(propertyNameList[i]);
-                //                qDebug() << "       Items: i"<< i << propertyName <<
-                //                "subItems.size" << item->getSubItems().size();
-
-                const PropertyAttribute &prop_attribute = item->getPropertyAttribute(propertyName);
-
-                if (prop_attribute.isHidden() || prop_attribute.isDisabled()) continue;
-
-                // if(item->getPropertyAttribute(propertyName) & ParameterizedItem::HiddenProperty)
-                // continue;
-
-                QVariant propertyValue = item->property(propertyName.toUtf8().data());
-
-                int type = GUIHelpers::getVariantType(propertyValue);
-                if (type == QVariant::Double) {
-                    //                    qDebug() << "       Items: "<<propertyName <<
-                    //                    propertyValue.toDouble();
-                    addPropertyToParameterModel(standardItem, propertyName, propertyName,
-                                                propertyValue, item);
-
-                } else if (item->getSubItems().contains(propertyName)) {
-                    QMap<QString, ParameterizedItem *> subItems = item->getSubItems();
-                    ParameterizedItem *subItem = subItems[propertyName];
-
-                    //                        qDebug() << "           Item: " << item->itemName() <<
-                    //                        "SubItem:" << subItem->itemName();
-
-                    QStandardItem *childStandardItem = new QStandardItem(subItem->itemName());
-
-                    QList<QByteArray> childPropertyList = subItem->dynamicPropertyNames();
-
-                    bool isChildPropertyFound = false;
-
-                    for (int j = 0; j < childPropertyList.length(); ++j) {
-                        QString childPropertyName = QString(childPropertyList[j]);
-
-                        const PropertyAttribute &prop_attribute
-                            = subItem->getPropertyAttribute(childPropertyName);
-                        if (prop_attribute.isHidden() || prop_attribute.isDisabled())
-                            continue;
-
-                        QVariant childPropertyValue
-                            = subItem->property(childPropertyName.toUtf8().data());
-                        int proValueType = GUIHelpers::getVariantType(childPropertyValue);
-                        if (proValueType == QVariant::Double) {
-                            // qDebug() << "Items: "<<prop_name << prop_value.toDouble();
-                            isChildPropertyFound = true;
-                            addPropertyToParameterModel(childStandardItem, childPropertyName,
-                                                        childPropertyName, childPropertyValue,
-                                                        subItem);
-                        }
-                    }
-                    if (isChildPropertyFound) {
-                        InsertRowIntoItem(standardItem, childStandardItem);
-                    }
+        if (SessionItem *item = sampleModel->itemForIndex(itemIndex)) {
+            if (!item->isEnabled() || !item->isVisible())
+                continue;
+            if (item->modelType() == Constants::PropertyType) {
+                // insert double property
+                if (GUIHelpers::getVariantType(item->value()) == QVariant::Double) {
+                    QString name = item->itemName();
+                    addPropertyToParameterModel(parentItem, name, name,
+                                                          item->value(), item);
                 }
+            } else if (item->modelType() == Constants::GroupItemType) {
+                if (GroupItem *gItem = dynamic_cast<GroupItem*>(item)) {
+                    QString groupItemname = gItem->group()->getCurrentItem()->itemName();
+                    if (gItem->group()->isFixed()) {
+                        groupItemname = gItem->itemName();
+                    }
+                    QStandardItem *newGroupItem = new QStandardItem(groupItemname);
+                    InsertRowIntoItem(parentItem, newGroupItem);
+                    iterateSessionModel(sampleModel, item->parent()->getGroupItem(item->itemName())->index(), newGroupItem);
+                }
+
+            } else {
+                QStandardItem *newItem = new QStandardItem(item->itemName());
+                InsertRowIntoItem(parentItem, newItem);
+                iterateSessionModel(sampleModel, itemIndex, newItem);
             }
 
-            if (parentItem == nullptr) {
-                parentItem = standardItem;
-            } else {
-                InsertRowIntoItem(parentItem, standardItem);
-            }
+
+
+//            qDebug() << " item" << item->modelType() << item->itemName();
+//            item->print();
+
+//            //QStandardItem *standardItem = new QStandardItem(item->itemName());
+
+//            QList<QByteArray> propertyNameList = item->dynamicPropertyNames();
+//            for (int i = 0; i < propertyNameList.length(); ++i) {
+//                QString propertyName = QString(propertyNameList[i]);
+//                //                qDebug() << "       Items: i"<< i << propertyName <<
+//                //                "subItems.size" << item->getSubItems().size();
+
+//                const PropertyAttribute &prop_attribute = item->getPropertyAttribute(propertyName);
+
+//                if (prop_attribute.isHidden() || prop_attribute.isDisabled()) continue;
+
+//                // if(item->getPropertyAttribute(propertyName) & SessionItem::HiddenProperty)
+//                // continue;
+
+//                QVariant propertyValue = item->property(propertyName.toUtf8().data());
+
+//                int type = GUIHelpers::getVariantType(propertyValue);
+//                if (type == QVariant::Double) {
+//                    //                    qDebug() << "       Items: "<<propertyName <<
+//                    //                    propertyValue.toDouble();
+//                    addPropertyToParameterModel(standardItem, propertyName, propertyName,
+//                                                propertyValue, item);
+
+//                } else if (item->isGroupProperty(propertyName)) {
+//                    QMap<QString, SessionItem *> subItems = item->getSubItems();
+//                    SessionItem *subItem = subItems[propertyName];
+
+//                    //                        qDebug() << "           Item: " << item->itemName() <<
+//                    //                        "SubItem:" << subItem->itemName();
+
+//                    QStandardItem *childStandardItem = new QStandardItem(subItem->itemName());
+
+//                    QList<QByteArray> childPropertyList = subItem->dynamicPropertyNames();
+
+//                    bool isChildPropertyFound = false;
+
+//                    for (int j = 0; j < childPropertyList.length(); ++j) {
+//                        QString childPropertyName = QString(childPropertyList[j]);
+
+//                        const PropertyAttribute &prop_attribute
+//                            = subItem->getPropertyAttribute(childPropertyName);
+//                        if (prop_attribute.isHidden() || prop_attribute.isDisabled())
+//                            continue;
+
+//                        QVariant childPropertyValue
+//                            = subItem->property(childPropertyName.toUtf8().data());
+//                        int proValueType = GUIHelpers::getVariantType(childPropertyValue);
+//                        if (proValueType == QVariant::Double) {
+//                            // qDebug() << "Items: "<<prop_name << prop_value.toDouble();
+//                            isChildPropertyFound = true;
+//                            addPropertyToParameterModel(childStandardItem, childPropertyName,
+//                                                        childPropertyName, childPropertyValue,
+//                                                        subItem);
+//                        }
+//                    }
+//                    if (isChildPropertyFound) {
+//                        InsertRowIntoItem(standardItem, childStandardItem);
+//                    }
+//                }
+//            }
+
+//            if (parentItem == nullptr) {
+//                parentItem = standardItem;
+//            } else {
+//                InsertRowIntoItem(parentItem, standardItem);
+//            }
             // qDebug() << "iteration called" << i_row;
-            iterateSessionModel(sampleModel, itemIndex, standardItem);
         }
     }
 
@@ -148,64 +179,65 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentModel(InstrumentModel *in
     return iterateInstrumentItem(instrument);
 }
 
-QStandardItem *ParameterModelBuilder::iterateInstrumentItem(InstrumentItem *instrument)
+QStandardItem *ParameterModelBuilder::iterateInstrumentItem(InstrumentItem *)
 {
-    QStandardItem *standardItem(0);
+    /*QStandardItem *standardItem(0);
     BeamItem *beamItem = instrument->getBeamItem();
     if (beamItem) {
         standardItem = new QStandardItem(instrument->itemName());
 
         // intensity
-        addPropertyToParameterModel(standardItem, BeamItem::P_INTENSITY, BeamItem::P_INTENSITY,
-                                    QVariant(beamItem->getIntensity()), beamItem);
+//        addPropertyToParameterModel(standardItem, BeamItem::P_INTENSITY, BeamItem::P_INTENSITY,
+//                                    QVariant(beamItem->getIntensity()), beamItem);
 
         // wavelength, incident and azimuthal angle will be varied only if there is no distribution
         // assigned to them
-        ParameterizedItem *beamWavelength = beamItem->getSubItems()[BeamItem::P_WAVELENGTH];
+        SessionItem *beamWavelength = beamItem->getGroupItem(BeamItem::P_WAVELENGTH);
         Q_ASSERT(beamWavelength);
-        ParameterizedItem *wavelengthDistribution
-            = beamWavelength->getSubItems()[BeamDistributionItem::P_DISTRIBUTION];
+        SessionItem *wavelengthDistribution
+            = beamWavelength->getGroupItem(BeamDistributionItem::P_DISTRIBUTION);
         Q_ASSERT(wavelengthDistribution);
         if (wavelengthDistribution->modelType() == Constants::DistributionNoneType) {
             addPropertyToParameterModel(
                 standardItem, BeamItem::P_WAVELENGTH, BeamDistributionItem::P_CACHED_VALUE,
-                beamWavelength->getRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE),
+                beamWavelength->getItemValue(BeamDistributionItem::P_CACHED_VALUE),
                 beamWavelength);
         } else {
             addDisabledProperty(standardItem, BeamItem::P_WAVELENGTH);
         }
 
-        ParameterizedItem *inclinationAngle
-            = beamItem->getSubItems()[BeamItem::P_INCLINATION_ANGLE];
+        SessionItem *inclinationAngle
+            = beamItem->getGroupItem(BeamItem::P_INCLINATION_ANGLE);
         Q_ASSERT(inclinationAngle);
-        ParameterizedItem *inclinationDistribution
-            = inclinationAngle->getSubItems()[BeamDistributionItem::P_DISTRIBUTION];
+        SessionItem *inclinationDistribution
+            = inclinationAngle->getGroupItem(BeamDistributionItem::P_DISTRIBUTION);
         Q_ASSERT(inclinationDistribution);
         if (inclinationDistribution->modelType() == Constants::DistributionNoneType) {
             addPropertyToParameterModel(
                 standardItem, BeamItem::P_INCLINATION_ANGLE, BeamDistributionItem::P_CACHED_VALUE,
-                inclinationAngle->getRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE),
+                inclinationAngle->getItemValue(BeamDistributionItem::P_CACHED_VALUE),
                 inclinationAngle);
         } else {
             addDisabledProperty(standardItem, BeamItem::P_INCLINATION_ANGLE);
         }
 
-        ParameterizedItem *azimuthalAngle = beamItem->getSubItems()[BeamItem::P_AZIMUTHAL_ANGLE];
+        SessionItem *azimuthalAngle = beamItem->getGroupItem(BeamItem::P_AZIMUTHAL_ANGLE);
         Q_ASSERT(azimuthalAngle);
-        ParameterizedItem *azimuthalDistribution
-            = azimuthalAngle->getSubItems()[BeamDistributionItem::P_DISTRIBUTION];
+        SessionItem *azimuthalDistribution
+            = azimuthalAngle->getGroupItem(BeamDistributionItem::P_DISTRIBUTION);
         Q_ASSERT(azimuthalDistribution);
         if (azimuthalDistribution->modelType() == Constants::DistributionNoneType) {
             addPropertyToParameterModel(
                 standardItem, BeamItem::P_AZIMUTHAL_ANGLE, BeamDistributionItem::P_CACHED_VALUE,
-                azimuthalAngle->getRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE),
+                azimuthalAngle->getItemValue(BeamDistributionItem::P_CACHED_VALUE),
                 azimuthalAngle);
         } else {
             addDisabledProperty(standardItem, BeamItem::P_AZIMUTHAL_ANGLE);
         }
     }
 
-    return standardItem;
+    return standardItem;*/
+    return nullptr;
 }
 
 void ParameterModelBuilder::InsertRowIntoItem(QStandardItem *parentItem,
@@ -221,7 +253,7 @@ void ParameterModelBuilder::InsertRowIntoItem(QStandardItem *parentItem,
     parentItem->appendRow(QList<QStandardItem *>() << childTitleItem << childValueItem);
 }
 
-//! adds property of ParameterizedItem to the QStandardItem of ParameterTree
+//! adds property of SessionItem to the QStandardItem of ParameterTree
 //! title - the name of the property as it will be shown by QTreeView
 //! property_name - the name of the property to add (normally coincide with 'title')
 //! value - QVariant representing property_value
@@ -229,9 +261,9 @@ void ParameterModelBuilder::addPropertyToParameterModel(QStandardItem *parentIte
                                                         const QString &title,
                                                         const QString &property_name,
                                                         QVariant value,
-                                                        ParameterizedItem *parameterizedItem)
+                                                        SessionItem *parameterizedItem)
 {
-    ItemLink itemLink(property_name, parameterizedItem);
+    ItemLink itemLink(property_name, parameterizedItem->parent());
 
     QVariant itemLinkData;
     itemLinkData.setValue(itemLink);

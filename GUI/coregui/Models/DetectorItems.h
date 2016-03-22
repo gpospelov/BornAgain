@@ -16,25 +16,24 @@
 #ifndef DETECTOR_ITEMS_H
 #define DETECTOR_ITEMS_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "SphericalDetectorItem.h"
 #include "RectangularDetectorItem.h"
 
 class MaskContainerItem;
 
 //! DetectorItem, holds masks and either rectangular or spherical detector as sub item
-class BA_CORE_API_ DetectorItem : public ParameterizedItem
+class BA_CORE_API_ DetectorItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_DETECTOR;
-    explicit DetectorItem(ParameterizedItem *parent=0);
+    static const QString T_MASKS;
+    explicit DetectorItem();
     virtual ~DetectorItem(){}
 
     MaskContainerItem *getMaskContainerItem() const;
 
-protected slots:
-    virtual void onSubItemChanged(const QString &propertyName);
 
 };
 

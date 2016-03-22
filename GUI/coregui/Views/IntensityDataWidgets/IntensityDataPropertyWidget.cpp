@@ -14,9 +14,9 @@
 // ************************************************************************** //
 
 #include "IntensityDataPropertyWidget.h"
-#include "AwesomePropertyEditor.h"
 #include "JobModel.h"
 #include "IntensityDataItem.h"
+#include "ComponentEditor.h"
 #include <QVBoxLayout>
 #include <QDebug>
 
@@ -24,7 +24,7 @@ IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget *parent)
     : QWidget(parent)
     , m_jobModel(0)
     , m_currentItem(0)
-    , m_propertyEditor(0)
+    , m_componentEditor(0)
 {
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
     setWindowTitle(QLatin1String("Intensity Data Properties"));
@@ -34,10 +34,9 @@ IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget *parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    m_propertyEditor = new AwesomePropertyEditor(this);
-    //m_propertyEditor->setCreateGroupProperty(false);
+    m_componentEditor = new ComponentEditor();
 
-    mainLayout->addWidget(m_propertyEditor);
+    mainLayout->addWidget(m_componentEditor);
 
     setLayout(mainLayout);
 }
@@ -64,5 +63,5 @@ void IntensityDataPropertyWidget::setModel(JobModel *model)
 
 void IntensityDataPropertyWidget::setItem(IntensityDataItem *jobItem)
 {
-    m_propertyEditor->setItem(jobItem, "Plot Properties");
+    m_componentEditor->setItem(jobItem);
 }

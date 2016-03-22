@@ -21,8 +21,8 @@
 
 class QGroupBox;
 class DistributionWidget;
-class ParameterizedItem;
-class AwesomePropertyEditor;
+class SessionItem;
+class ComponentBoxEditor;
 
 //! The DistributionEditor class, being a child of DistributionDialog, contains a widget
 //! to show Distribution1D and awesome property editor to change distribution parameters
@@ -32,16 +32,16 @@ class DistributionEditor : public QWidget
 public:
     DistributionEditor(QWidget *parent = 0);
     virtual ~DistributionEditor() {}
-    void setItem(ParameterizedItem *item);
-    void plotItem(ParameterizedItem *item);
+    void setItem(SessionItem *item);
+    void plotItem(SessionItem *item);
     void setNameOfEditor(QString name);
 
 private slots:
-    void onSubItemChanged(const QString &property_name);
+    void onPropertyChanged(const QString &property_name);
 
 private:
-    AwesomePropertyEditor *m_propertyEditor;
-    ParameterizedItem *m_item;
+    ComponentBoxEditor *m_propertyEditor;
+    SessionItem *m_item;
     DistributionWidget *m_plotwidget;
     QString m_nameOfEditor;
     QGroupBox *m_box;

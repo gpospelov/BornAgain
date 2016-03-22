@@ -79,7 +79,7 @@ void InstrumentView::resetView()
 {
     qDebug() << "InstrumentView::resetView()";
 
-    QMap<ParameterizedItem *, InstrumentEditorWidget *>::iterator it = m_instrumentToEditor.begin();
+    QMap<SessionItem *, InstrumentEditorWidget *>::iterator it = m_instrumentToEditor.begin();
     while(it!=m_instrumentToEditor.end()) {
         m_stackWidget->removeWidget(it.value());
         delete it.value();
@@ -98,7 +98,7 @@ void InstrumentView::onSelectionChanged(const QItemSelection &selected, const QI
         return;
     }
 
-    ParameterizedItem *instrument = m_instrumentModel->itemForIndex(selected.indexes().back());
+    SessionItem *instrument = m_instrumentModel->itemForIndex(selected.indexes().back());
     qDebug() << "InstrumentView::onSelectionChanged()" << instrument->itemName();
 
     InstrumentEditorWidget *widget = m_instrumentToEditor[instrument];
@@ -123,7 +123,7 @@ void InstrumentView::onSelectionChanged(const QItemSelection &selected, const QI
 void InstrumentView::onAddInstrument()
 {
     qDebug() << "InstrumentView::onAddInstrument()";
-    ParameterizedItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
+    SessionItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument->setItemName(getNewInstrumentName("Default GISAS"));
     m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
     m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
@@ -148,13 +148,13 @@ void InstrumentView::onRemoveInstrument()
 void InstrumentView::onRowsAboutToBeRemoved(QModelIndex parent, int first, int /* last */)
 {
     qDebug() << "InstrumentView::onRowsAboutToBeRemoved()";
-    ParameterizedItem *item = m_instrumentModel->itemForIndex(m_instrumentModel->index(first,0, parent));
+    SessionItem *item = m_instrumentModel->itemForIndex(m_instrumentModel->index(first,0, parent));
     Q_ASSERT(item);
     InstrumentEditorWidget *widget = m_instrumentToEditor[item];
 
     if(!widget) return;
 
-    QMap<ParameterizedItem *, InstrumentEditorWidget *>::iterator it = m_instrumentToEditor.begin();
+    QMap<SessionItem *, InstrumentEditorWidget *>::iterator it = m_instrumentToEditor.begin();
     while(it!=m_instrumentToEditor.end()) {
         if(it.value() == widget) {
             it = m_instrumentToEditor.erase(it);

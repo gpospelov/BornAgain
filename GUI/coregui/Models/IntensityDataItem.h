@@ -16,7 +16,7 @@
 #ifndef INTENSITYDATAITEM_H
 #define INTENSITYDATAITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "OutputData.h"
 #include "IDetector2D.h"
 #include <QMap>
@@ -24,9 +24,8 @@
 class GISASSimulation;
 
 
-class BA_CORE_API_ IntensityDataItem : public ParameterizedItem
+class BA_CORE_API_ IntensityDataItem : public QObject, public SessionItem
 {
-    Q_OBJECT
 public:
     static const QString P_PROJECTIONS_FLAG;
     static const QString P_IS_INTERPOLATED;
@@ -38,8 +37,9 @@ public:
     static const QString P_XAXIS;
     static const QString P_YAXIS;
     static const QString P_ZAXIS;
+    static const QString T_MASKS;
 
-    explicit IntensityDataItem(ParameterizedItem *parent=0);
+    explicit IntensityDataItem();
     virtual ~IntensityDataItem();
 
     OutputData<double> *getOutputData() { return m_data.get(); }
@@ -79,9 +79,6 @@ public:
     void setNameFromProposed(const QString &proposed_name);
 
     virtual QString getSelectedAxesUnits() const;
-
-signals:
-    void intensityModified();
 
 public slots:
     void setLowerX(double xmin);

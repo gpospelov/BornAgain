@@ -29,9 +29,9 @@ public:
     explicit InstrumentModel(QObject *parent = 0);
     virtual ~InstrumentModel(){}
 
-    virtual InstrumentModel *createCopy(ParameterizedItem *parent=0);
+    virtual InstrumentModel *createCopy(SessionItem *parent=0);
 
-    QMap<QString, ParameterizedItem *> getInstrumentMap() const;
+    QMap<QString, SessionItem *> getInstrumentMap() const;
 
     InstrumentItem *getInstrumentItem(const QString &instrument_name = QString());
 };

@@ -20,7 +20,7 @@
 #include "Samples.h"
 #include "Instrument.h"
 #include "InterferenceFunctions.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "ParticleCoreShell.h"
 #include "LayerItem.h"
 #include "TransformationItem.h"
@@ -34,18 +34,19 @@
 #include "DistributionItem.h"
 #include "ParticleItem.h"
 #include "ParticleCompositionItem.h"
+#include "ParticleLayoutItem.h"
 
 #include <QDebug>
 #include <memory>
 
-std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(const ParameterizedItem &multilayer_item) const
+std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(const SessionItem &multilayer_item) const
 {
     auto P_multilayer = TransformToDomain::createMultiLayer(multilayer_item);
-    QList<ParameterizedItem *> children = multilayer_item.childItems();
+    QVector<SessionItem *> children = multilayer_item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::LayerType) {
             auto P_layer = buildLayer(*children[i]);
-            auto roughnessItem = children[i]->getSubItems()[LayerItem::P_ROUGHNESS];
+            auto roughnessItem = children[i]->getGroupItem(LayerItem::P_ROUGHNESS);
             Q_ASSERT(roughnessItem);
             auto P_roughness = TransformToDomain::createLayerRoughness(*roughnessItem);
             if (P_layer) {
@@ -60,10 +61,10 @@ std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(const Parameter
     return P_multilayer;
 }
 
-std::unique_ptr<Layer> DomainObjectBuilder::buildLayer(const ParameterizedItem &item) const
+std::unique_ptr<Layer> DomainObjectBuilder::buildLayer(const SessionItem &item) const
 {
     auto P_layer = TransformToDomain::createLayer(item);
-    QList<ParameterizedItem *> children = item.childItems();
+    QVector<SessionItem *> children = item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::ParticleLayoutType) {
             auto P_layout = buildParticleLayout(*children[i]);
@@ -76,10 +77,10 @@ std::unique_ptr<Layer> DomainObjectBuilder::buildLayer(const ParameterizedItem &
 }
 
 std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
-        const ParameterizedItem &item) const
+        const SessionItem &item) const
 {
     auto P_layout = TransformToDomain::createParticleLayout(item);
-    QList<ParameterizedItem *> children = item.childItems();
+    QVector<SessionItem *> children = item.getItems();
     for (int i = 0; i < children.size(); ++i) {
         auto P_particle = TransformToDomain::createIParticle(*children[i]);
         if (P_particle) {
@@ -89,11 +90,11 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
         if (children[i]->modelType() == Constants::ParticleDistributionType) {
             auto prop
                 = children[i]
-                      ->getRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+                      ->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                       .value<ComboProperty>();
             QString par_name = prop.getValue();
             if (par_name == ParticleDistributionItem::NO_SELECTION) {
-                auto grandchildren = children[i]->childItems();
+                auto grandchildren = children[i]->getItems();
                 if (grandchildren.size() == 0) {
                     continue;
                 }
@@ -112,31 +113,33 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
                     P_layout->addParticle(*P_part_distr);
                 }
             }
-        } else if (children[i]->modelType().startsWith("Interference")) {
-            auto P_interference = buildInterferenceFunction(*children[i]);
-            if (P_interference) {
-                P_layout->addInterferenceFunction(*P_interference);
-            }
         } else {
             throw GUIHelpers::Error("DomainObjectBuilder::buildParticleLayout()"
                                     " -> Error! Not implemented");
+        }
+    }
+    QVector<SessionItem*> interferences = item.getItems(ParticleLayoutItem::T_INTERFERENCE);
+    for (int i = 0; i < interferences.size(); i++) {
+        auto P_interference = buildInterferenceFunction(*interferences[i]);
+        if (P_interference) {
+            P_layout->addInterferenceFunction(*P_interference);
         }
     }
     return P_layout;
 }
 
 std::unique_ptr<IInterferenceFunction>
-DomainObjectBuilder::buildInterferenceFunction(const ParameterizedItem &item) const
+DomainObjectBuilder::buildInterferenceFunction(const SessionItem &item) const
 {
     auto P_iff = TransformToDomain::createInterferenceFunction(item);
     Q_ASSERT(P_iff);
     return P_iff;
 }
 
-std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(const ParameterizedItem &instrument_item) const
+std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(const SessionItem &instrument_item) const
 {
     auto P_instrument = TransformToDomain::createInstrument(instrument_item);
-    QList<ParameterizedItem *> children = instrument_item.childItems();
+    QVector<SessionItem *> children = instrument_item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::BeamType) {
             auto P_beam = buildBeam(*children[i]);
@@ -150,7 +153,7 @@ std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(const Parameter
     return P_instrument;
 }
 
-std::unique_ptr<Beam> DomainObjectBuilder::buildBeam(const ParameterizedItem &item) const
+std::unique_ptr<Beam> DomainObjectBuilder::buildBeam(const SessionItem &item) const
 {
     return TransformToDomain::createBeam(item);
 }

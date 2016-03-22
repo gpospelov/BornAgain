@@ -39,7 +39,7 @@ class ProjectManager;
 class QCloseEvent;
 class QSettings;
 class InstrumentModel;
-class MaterialEditor;
+class MaterialSvc;
 class ToolTipDataBase;
 class MaterialModel;
 class SampleModel;
@@ -53,7 +53,7 @@ class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
     Q_OBJECT
 
 public:
-    enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, FIT};
+    enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, FIT, TESTVIEW};
 
     explicit MainWindow(QWidget *parent = 0);
     virtual ~MainWindow();
@@ -101,7 +101,7 @@ private:
     InstrumentModel *m_instrumentModel; //!< model for all instruments
     MaterialModel *m_materialModel; //!< model for all materials
     FitModel *m_fitModel; //!< model for fitting
-    MaterialEditor *m_materialEditor;
+    MaterialSvc *m_materialEditor;
     ToolTipDataBase *m_toolTipDataBase;
     UpdateNotifier *m_updateNotifier;
 

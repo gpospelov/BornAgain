@@ -90,6 +90,7 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
 {
 //    if (topLeft != bottomRight)
 //        return;
+    Q_UNUSED(bottomRight);
 
     SessionModel *model = qobject_cast<SessionModel *>(sender());
     Q_ASSERT(model);

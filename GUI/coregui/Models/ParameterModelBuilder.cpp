@@ -179,7 +179,7 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentModel(InstrumentModel *in
     return iterateInstrumentItem(instrument);
 }
 
-QStandardItem *ParameterModelBuilder::iterateInstrumentItem(InstrumentItem *instrument)
+QStandardItem *ParameterModelBuilder::iterateInstrumentItem(InstrumentItem *)
 {
     /*QStandardItem *standardItem(0);
     BeamItem *beamItem = instrument->getBeamItem();

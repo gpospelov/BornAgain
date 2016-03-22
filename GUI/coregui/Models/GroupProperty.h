@@ -45,7 +45,7 @@ public:
     QString getGroupName() const;
 
     QString getCurrentType() const;
-    void setCurrentType(const QString &type, bool persistent = true);
+    void setCurrentType(const QString &type, bool = true);
 
     QString getCurrentLabel() const;
     void setCurrentLabel(const QString &label);

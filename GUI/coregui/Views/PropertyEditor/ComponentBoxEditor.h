@@ -35,7 +35,7 @@ public:
 
 public slots:
     void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
-    void onRowsInserted(const QModelIndex &parent, int first, int last);
+    void onRowsInserted(const QModelIndex &, int, int);
 
 };
 

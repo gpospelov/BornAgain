@@ -67,7 +67,7 @@ QString GroupProperty::getCurrentType() const
     return m_current_type;
 }
 
-void GroupProperty::setCurrentType(const QString &type, bool persistent)
+void GroupProperty::setCurrentType(const QString &type, bool)
 {
     qDebug() << "GGG GroupProperty::setCurrentType(const QString &type)" << type;
     if(type == getCurrentType()) return;

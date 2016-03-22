@@ -53,7 +53,7 @@ std::unique_ptr<IDistribution1D> DistributionNoneItem::createDistribution() cons
     return nullptr;
 }
 
-void DistributionNoneItem::init_parameters(double value, PropertyAttribute attribute)
+void DistributionNoneItem::init_parameters(double value, PropertyAttribute)
 {
     setItemValue(DistributionNoneItem::P_VALUE, value);
 //    setPropertyAttribute(DistributionNoneItem::P_VALUE, attribute);
@@ -80,7 +80,7 @@ std::unique_ptr<IDistribution1D> DistributionGateItem::createDistribution() cons
     return GUIHelpers::make_unique<DistributionGate>(min, max);
 }
 
-void DistributionGateItem::init_parameters(double value, PropertyAttribute attribute)
+void DistributionGateItem::init_parameters(double value, PropertyAttribute)
 {
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;
@@ -111,7 +111,7 @@ std::unique_ptr<IDistribution1D> DistributionLorentzItem::createDistribution() c
     return GUIHelpers::make_unique<DistributionLorentz>(mean, hwhm);
 }
 
-void DistributionLorentzItem::init_parameters(double value, PropertyAttribute attribute)
+void DistributionLorentzItem::init_parameters(double value, PropertyAttribute)
 {
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;
@@ -143,7 +143,7 @@ std::unique_ptr<IDistribution1D> DistributionGaussianItem::createDistribution() 
     return GUIHelpers::make_unique<DistributionGaussian>(mean, std_dev);
 }
 
-void DistributionGaussianItem::init_parameters(double value, PropertyAttribute attribute)
+void DistributionGaussianItem::init_parameters(double value, PropertyAttribute)
 {
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;
@@ -175,7 +175,7 @@ std::unique_ptr<IDistribution1D> DistributionLogNormalItem::createDistribution()
     return GUIHelpers::make_unique<DistributionLogNormal>(median, scale_par);
 }
 
-void DistributionLogNormalItem::init_parameters(double value, PropertyAttribute attribute)
+void DistributionLogNormalItem::init_parameters(double value, PropertyAttribute)
 {
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;
@@ -207,7 +207,7 @@ std::unique_ptr<IDistribution1D> DistributionCosineItem::createDistribution() co
     return GUIHelpers::make_unique<DistributionCosine>(mean, sigma);
 }
 
-void DistributionCosineItem::init_parameters(double value, PropertyAttribute attribute)
+void DistributionCosineItem::init_parameters(double value, PropertyAttribute)
 {
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;

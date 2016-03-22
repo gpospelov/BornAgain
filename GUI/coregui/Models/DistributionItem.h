@@ -45,7 +45,7 @@ public:
     static const QString P_VALUE;
     explicit DistributionNoneItem();
     virtual std::unique_ptr<IDistribution1D> createDistribution() const;
-    virtual void init_parameters(double value, PropertyAttribute attribute);
+    virtual void init_parameters(double value, PropertyAttribute);
 };
 
 
@@ -58,7 +58,7 @@ public:
     explicit DistributionGateItem();
 
     virtual std::unique_ptr<IDistribution1D> createDistribution() const;
-    virtual void init_parameters(double value, PropertyAttribute attribute);
+    virtual void init_parameters(double value, PropertyAttribute);
 };
 
 
@@ -71,7 +71,7 @@ public:
     explicit DistributionLorentzItem();
 
     virtual std::unique_ptr<IDistribution1D> createDistribution() const;
-    virtual void init_parameters(double value, PropertyAttribute attribute);
+    virtual void init_parameters(double value, PropertyAttribute);
 };
 
 
@@ -84,7 +84,7 @@ public:
     explicit DistributionGaussianItem();
 
     virtual std::unique_ptr<IDistribution1D> createDistribution() const;
-    virtual void init_parameters(double value, PropertyAttribute attribute);
+    virtual void init_parameters(double value, PropertyAttribute);
 };
 
 
@@ -97,7 +97,7 @@ public:
     explicit DistributionLogNormalItem();
 
     virtual std::unique_ptr<IDistribution1D> createDistribution() const;
-    virtual void init_parameters(double value, PropertyAttribute attribute);
+    virtual void init_parameters(double value, PropertyAttribute);
 };
 
 
@@ -110,7 +110,7 @@ public:
     explicit DistributionCosineItem();
 
     virtual std::unique_ptr<IDistribution1D> createDistribution() const;
-    virtual void init_parameters(double value, PropertyAttribute attribute);
+    virtual void init_parameters(double value, PropertyAttribute);
 };
 
 #endif // DISTRIBUTIONITEM_H

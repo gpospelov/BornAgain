@@ -42,7 +42,7 @@ inline void TestParticleDistributionItem::test_AddParticle()
 {
     SampleModel model;
     SessionItem *item = model.insertNewItem(Constants::ParticleDistributionType);
-    SessionItem *particle = model.insertNewItem(Constants::ParticleType, item->index());
+    model.insertNewItem(Constants::ParticleType, item->index());
 
     QCOMPARE(item->childItems().size(), 6); // xpos, ypos, P_ABUNDANCE, P_DISTRIBUTION, T_PARTICLES, P_DISTRIBUTED_PARAMETER
 

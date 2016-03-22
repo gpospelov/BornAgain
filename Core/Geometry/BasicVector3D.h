@@ -22,6 +22,7 @@
 
 static const double PI2 = 6.28318530717958647692528676655900577;
 #include "WinDllMacros.h"
+#include "Exceptions.h"
 #include <complex>
 
 namespace Geometry {
@@ -127,12 +128,12 @@ public:
     //! Returns squared sine of polar angle.
     double sin2Theta() const;
 
-    //! Returns unit vector in direction of this (or null vector).
+    //! Returns unit vector in direction of this. Throws for null vector.
     inline BasicVector3D<T> unit() const {
         double len = mag();
-        return (len > 0.0) ?
-            BasicVector3D<T>(x()/len, y()/len, z()/len) :
-            BasicVector3D<T>();
+        if ( len==0.0 )
+            throw Exceptions::DivisionByZeroException("Cannot normalize zero vector");
+        return BasicVector3D<T>(x()/len, y()/len, z()/len);
     }
 
     //! Returns this, trivially converted to complex type.

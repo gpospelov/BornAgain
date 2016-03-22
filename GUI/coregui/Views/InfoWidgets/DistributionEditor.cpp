@@ -22,6 +22,7 @@
 #include "qcustomplot.h"
 #include "DistributionDialog.h"
 #include "GroupInfoBox.h"
+#include "GroupItem.h"
 #include <QVBoxLayout>
 #include <QDebug>
 
@@ -63,7 +64,7 @@ void DistributionEditor::setItem(SessionItem *item)
     if (m_item == item)
         return;
 
-    m_item = item;
+    m_item = dynamic_cast<GroupItem *>(item);
 
     if (!m_item)
         return;
@@ -78,16 +79,17 @@ void DistributionEditor::setItem(SessionItem *item)
 
 
     DistributionItem *distrItem = dynamic_cast<DistributionItem *>(
-        m_item->getGroupItem(BeamWavelengthItem::P_DISTRIBUTION));
+        m_item->getCurrentItem());
+
     Q_ASSERT(distrItem);
     m_plotwidget->setItem(distrItem);
 }
 
 void DistributionEditor::onPropertyChanged(const QString &property_name)
 {
-    if (property_name == BeamDistributionItem::P_DISTRIBUTION) {
-        DistributionItem *distrItem
-            = dynamic_cast<DistributionItem *>(m_item->getGroupItem(property_name));
+    if (property_name == GroupItem::T_ITEMS) {
+        DistributionItem *distrItem = dynamic_cast<DistributionItem *>(
+            m_item->getCurrentItem());
         Q_ASSERT(distrItem);
         m_plotwidget->setItem(distrItem);
     }

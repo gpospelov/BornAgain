@@ -7,9 +7,10 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -20,7 +21,7 @@
 
 class BA_CORE_API_ BasicLatticeTypeItem : public SessionItem
 {
-    
+
 public:
     static const QString P_LATTICE_LENGTH1;
     static const QString P_LATTICE_LENGTH2;
@@ -31,7 +32,7 @@ public:
 
 class BA_CORE_API_ SquareLatticeTypeItem : public SessionItem
 {
-    
+
 public:
     static const QString P_LATTICE_LENGTH;
     explicit SquareLatticeTypeItem();
@@ -40,7 +41,7 @@ public:
 
 class BA_CORE_API_ HexagonalLatticeTypeItem : public SessionItem
 {
-    
+
 public:
     static const QString P_LATTICE_LENGTH;
     explicit HexagonalLatticeTypeItem();

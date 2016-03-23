@@ -7,9 +7,10 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -93,7 +94,7 @@ void GroupInfoBox::paintEvent(QPaintEvent *)
     m_xImage = this->geometry().topRight().x() - offset_of_icon_position;
     m_yImage = 0;
 
-    // draw groupbox 
+    // draw groupbox
 	int shift(1);
 	if(Utils::HostOsInfo::isLinuxHost()) shift = 3;
 

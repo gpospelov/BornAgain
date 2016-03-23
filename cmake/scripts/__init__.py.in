@@ -6,5 +6,9 @@ sys.path.append(os.path.abspath(
 
 from libBornAgainCore import *
 from libBornAgainFit import *
+
+# this line needed to fix python3 import problem
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+
 from plot_utils import *
 

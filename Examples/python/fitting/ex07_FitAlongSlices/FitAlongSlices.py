@@ -2,6 +2,7 @@
 Fitting example: fit along slices
 """
 
+from __future__ import print_function
 import matplotlib
 from matplotlib import pyplot as plt
 import math
@@ -56,7 +57,7 @@ def create_real_data():
     simulation = get_simulation()
     simulation.setSample(sample)
 
-    simulation.runSimulation()
+    simulation.runSimulation() 
     real_data = simulation.getIntensityData()
 
     # spoiling simulated data with the noise to produce "real" data
@@ -129,6 +130,10 @@ class DrawObserver(IFitObserver):
         real_data = fit_suite.getRealData()
         simul_data = fit_suite.getSimulationData()
 
+        # These lines add to make cast explicit, see Bug #1367
+        real_data = Histogram2D.dynamicCast(real_data)
+        simul_data = Histogram2D.dynamicCast(simul_data)
+
         # plot real data
         self.plot_real_data(real_data, nplot=1)
 
@@ -185,11 +190,11 @@ def run_fitting():
     # running fit
     fit_suite.runFit()
 
-    print "Fitting completed."
-    print "chi2:", fit_suite.getChi2()
+    print("Fitting completed.")
+    print("chi2:", fit_suite.getChi2())
     fitpars = fit_suite.getFitParameters()
     for i in range(0, fitpars.size()):
-        print fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError()
+        print(fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError())
 
 
 if __name__ == '__main__':

@@ -2,6 +2,7 @@
 Fitting example: fit with masks
 """
 
+from __future__ import print_function
 from matplotlib import pyplot as plt
 import math
 import random
@@ -132,12 +133,12 @@ def run_fitting():
     # running fit
     fit_suite.runFit()
 
-    print "Fitting completed."
+    print("Fitting completed.")
     fit_suite.printResults()
-    print "chi2:", fit_suite.getChi2()
+    print("chi2:", fit_suite.getChi2())
     fitpars = fit_suite.getFitParameters()
     for i in range(0, fitpars.size()):
-        print fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError()
+        print(fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError())
 
 
 if __name__ == '__main__':

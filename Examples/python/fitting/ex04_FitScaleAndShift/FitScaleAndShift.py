@@ -5,6 +5,7 @@ Real data contains some "unknown" background and scale factors.
 In the fit we are trying to find cylinder radius and height, scale and background factors.
 """
 
+from __future__ import print_function
 import numpy
 import matplotlib
 import math
@@ -111,11 +112,11 @@ def run_fitting():
     # running fit
     fit_suite.runFit()
 
-    print "Fitting completed."
-    print "chi2:", fit_suite.getMinimizer().getMinValue()
+    print("Fitting completed.")
+    print("chi2:", fit_suite.getMinimizer().getMinValue())
     fitpars = fit_suite.getFitParameters()
     for i in range(0, fitpars.size()):
-        print fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError()
+        print(fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError())
 
 
 if __name__ == '__main__':

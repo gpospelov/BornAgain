@@ -2,6 +2,7 @@
 Working with sample parameters
 """
 
+from __future__ import print_function
 import matplotlib
 from matplotlib import pyplot as plt
 from bornagain import *

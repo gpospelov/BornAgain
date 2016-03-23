@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/TestItem.h
-//! @brief     Defines class TestItem
+//! @file      coregui/Models/ModelMapper.h
+//! @brief     Defines class ModelMapper
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

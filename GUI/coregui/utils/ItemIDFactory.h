@@ -12,6 +12,7 @@
 //! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
+
 #ifndef ItemIDFactory_H
 #define ItemIDFactory_H
 

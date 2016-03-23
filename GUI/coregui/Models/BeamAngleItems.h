@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/BeamAngleItem.h
-//! @brief     Defines class BeamAngleItem
+//! @file      coregui/Models/BeamAngleItems.h
+//! @brief     Defines class BeamAngleItems
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

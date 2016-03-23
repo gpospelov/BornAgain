@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/SessionModel.h
-//! @brief     Defines class SessionModel
+//! @file      coregui/Models/SessionXML.h
+//! @brief     Defines reader and writer classes for SessionModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

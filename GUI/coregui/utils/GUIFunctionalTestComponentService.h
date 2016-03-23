@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/GUIFunctionalTestComponentService.h
+//! @file      coregui/utils/GUIFunctionalTestComponentService.h
 //! @brief     Defines class GUIFunctionalTestComponentService.
 //!
 //! @homepage  http://www.bornagainproject.org

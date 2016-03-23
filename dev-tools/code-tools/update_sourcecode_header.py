@@ -124,15 +124,15 @@ def update_directory(dirname):
     """
     Updates all files recursively in given directory
     """
-    if not os.path.isdir(dirname):
-        exit("No such directory " + dirname)
+    # if not os.path.isdir(dirname):
+    #     exit("No such directory " + dirname)
+    #
+    # list_of_files = get_files_to_update(dirname)
+    #
+    # for filename in list_of_files:
+    #     update_header_in_file(filename)
 
-    list_of_files = get_files_to_update(dirname)
-
-    for filename in list_of_files:
-        update_header_in_file(filename)
-
-    # update_header_in_file("./GUI/coregui/mainwindow/aboutapplicationdialog.cpp")
+    update_header_in_file("./GUI/coregui/mainwindow/aboutapplicationdialog.cpp")
 
 if __name__ == '__main__':
 

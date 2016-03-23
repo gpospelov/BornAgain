@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/DetectorItem.h
-//! @brief     Defines class DetectorItem
+//! @file      coregui/Models/DetectorItems.h
+//! @brief     Defines classes DetectorItems
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

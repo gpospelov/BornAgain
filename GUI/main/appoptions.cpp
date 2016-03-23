@@ -1,10 +1,8 @@
-#include "appoptions.h"
-
 // ************************************************************************** //
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/src/ProgramOptions.cpp
+//! @file      appoptions.cpp
 //! @brief     Implements class ProgramOptions.
 //!
 //! @homepage  http://www.bornagainproject.org

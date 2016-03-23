@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/mainwindow/tooltipdatabase.cpp
-//! @brief     Implements class ToolTipDataBase
+//! @file      coregui/mainwindow/UpdateNotifier.cpp
+//! @brief     Implements class UpdateNotifier
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

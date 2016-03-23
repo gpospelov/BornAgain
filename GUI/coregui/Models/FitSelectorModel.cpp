@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/NJobModel.cpp
-//! @brief     Implements class NJobModel
+//! @file      coregui/Models/FitSelectorModel.cpp
+//! @brief     Implements class FitSelectorModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

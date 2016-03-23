@@ -1,3 +1,4 @@
+// ************************************************************************** //
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //

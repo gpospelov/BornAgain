@@ -32,7 +32,11 @@ void UpdateNotifier::checkForUpdates()
     if (settings.childGroups().contains(Constants::S_UPDATES)) {
         settings.beginGroup(Constants::S_UPDATES);
         if (settings.value(Constants::S_CHECKFORUPDATES).toBool()) {
-            m_networkAccessManager->get(QNetworkRequest(QUrl(Constants::S_VERSION_URL)));
+            QNetworkRequest networkRequest(QUrl(Constants::S_VERSION_URL));
+            networkRequest.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork);
+            QString text = QString("Mozilla/5.0 (BornAgainGUI-%1)").arg(GUIHelpers::getBornAgainVersionString());
+            networkRequest.setRawHeader(QByteArray("User-Agent"), text.toLatin1());
+            m_networkAccessManager->get(networkRequest);
         } else
             emit onUpdateNotification(QString(""));
     }

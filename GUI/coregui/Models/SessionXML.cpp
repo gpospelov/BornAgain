@@ -123,9 +123,10 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
     }
 }
 
-void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, int row)
+void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const QString &topTag)
 {
-    qDebug() << "SessionModel::readItems() " << row;
+    bool isTopItem = true;
+    qDebug() << "SessionModel::readItems() " << topTag;
     if(item) qDebug() << "  item" << item->modelType();
     const QString modelType = item->model()->getModelTag();
     while (!reader->atEnd()) {
@@ -135,6 +136,9 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, int r
                 const QString model_type
                     = reader->attributes().value(SessionXML::ModelTypeAttribute).toString();
                 QString tag = reader->attributes().value(SessionXML::TagAttribute).toString();
+                if (isTopItem) {
+                    tag = topTag;
+                }
                 if (tag == SessionItem::P_NAME)
                     item->setItemName("");
                 if (model_type == Constants::PropertyType || model_type == Constants::GroupItemType) {
@@ -157,10 +161,11 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, int r
                     item = new_item;
                 }
                 if (!item) {
-                    row = -1;
+//                    tag = -1;
                 }
 
-                row = -1; // all but the first item should be appended
+//                tag = -1; // all but the first item should be appended
+                isTopItem = false;
 
             } else if (reader->name() == SessionXML::ParameterTag) {
                 readProperty(reader, item);

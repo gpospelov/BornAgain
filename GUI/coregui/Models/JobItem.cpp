@@ -56,6 +56,8 @@ const QString JobItem::P_COMMENTS = "Comments";
 const QString JobItem::P_PROGRESS = "Progress";
 const QString JobItem::P_NTHREADS = "Number of Threads";
 const QString JobItem::P_RUN_POLICY = "Run Policy";
+const QString JobItem::T_SAMPLE = "Sample Tag";
+const QString JobItem::T_INSTRUMENT = "Instrument Tag";
 
 
 JobItem::JobItem()
@@ -85,6 +87,8 @@ JobItem::JobItem()
            << Constants::JOB_RUN_SUBMIT_ONLY;
     addProperty(P_RUN_POLICY, policy.getVariant())->setVisible(false);
 
+    registerTag(T_SAMPLE, 1, 1, QStringList() << Constants::MultiLayerType);
+    registerTag(T_INSTRUMENT, 1, 1, QStringList() << Constants::InstrumentType);
     const QString T_DATA = "Data Tag";
     registerTag("Data Tag", 0, -1, QStringList() << Constants::IntensityDataType
                 << Constants::MultiLayerType << Constants::InstrumentType);
@@ -238,7 +242,7 @@ bool JobItem::runInBackground() const
 //! multilayer will be used
 MultiLayerItem *JobItem::getMultiLayerItem(bool from_backup)
 {
-    foreach(SessionItem *item, childItems()) {
+    /*foreach(SessionItem *item, childItems()) {
         if(MultiLayerItem *multilayer = dynamic_cast<MultiLayerItem *>(item)) {
             if(from_backup && multilayer->itemName().endsWith(Constants::JOB_BACKUP)) {
                 return multilayer;
@@ -248,14 +252,15 @@ MultiLayerItem *JobItem::getMultiLayerItem(bool from_backup)
             }
         }
     }
-    return 0;
+    return 0;*/
+    return dynamic_cast<MultiLayerItem*>(getItem(T_SAMPLE));
 }
 
 //! Returns InstrumentItem of this JobItem, if from_backup=true, then backup'ed version of
 //! the instrument will be used
 InstrumentItem *JobItem::getInstrumentItem(bool from_backup)
 {
-    foreach(SessionItem *item, childItems()) {
+    /*foreach(SessionItem *item, childItems()) {
         if(InstrumentItem *instrument = dynamic_cast<InstrumentItem *>(item)) {
             if(from_backup && instrument->itemName().endsWith(Constants::JOB_BACKUP)) {
                 return instrument;
@@ -265,7 +270,8 @@ InstrumentItem *JobItem::getInstrumentItem(bool from_backup)
             }
         }
     }
-    return 0;
+    return 0;*/
+    return dynamic_cast<InstrumentItem*>(getItem(T_INSTRUMENT));
 }
 
 void JobItem::setResults(const GISASSimulation *simulation)

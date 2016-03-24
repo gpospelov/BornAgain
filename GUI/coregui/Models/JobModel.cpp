@@ -103,7 +103,7 @@ void JobModel::setSampleForJobItem(JobItem *jobItem, const MultiLayerItem *multi
         removeRows(indexOfItem(old_sample).row(), 1, indexOfItem(old_sample->parent()));
     }
 
-    SessionItem *new_item = copyParameterizedItem(multiLayerItem, jobItem);
+    SessionItem *new_item = copyParameterizedItem(multiLayerItem, jobItem, JobItem::T_SAMPLE);
 
     // our original multiLayerItem might come from backup itself, lets clean up its specific name
     QString name = new_item->itemName();
@@ -131,7 +131,7 @@ void JobModel::setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *i
         removeRows(indexOfItem(old).row(), 1, indexOfItem(old->parent()));
     }
 
-    SessionItem *new_item = copyParameterizedItem(instrumentItem, jobItem);
+    SessionItem *new_item = copyParameterizedItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
 
     // our original instrumentItem might itself come from backup, lets clean up its specific name
     QString name = new_item->itemName();

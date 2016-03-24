@@ -39,6 +39,8 @@ public:
     static const QString P_PROGRESS;
     static const QString P_NTHREADS;
     static const QString P_RUN_POLICY;
+    static const QString T_SAMPLE;
+    static const QString T_INSTRUMENT;
     explicit JobItem();
     virtual ~JobItem();
 

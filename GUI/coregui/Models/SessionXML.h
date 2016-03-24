@@ -70,7 +70,7 @@ private:
 class BA_CORE_API_ SessionReader
 {
 public:
-    static void readItems(QXmlStreamReader *reader, SessionItem *item, int row = -1);
+    static void readItems(QXmlStreamReader *reader, SessionItem *item, const QString &topTag = QString());
 private:
     static QString readProperty(QXmlStreamReader *reader, SessionItem *item);
 };

@@ -239,7 +239,8 @@ bool SessionModel::dropMimeData(const QMimeData *data, Qt::DropAction action, in
         if (row == -1)
             row = item->rowCount();
         beginInsertRows(parent, row, row);
-        SessionReader::readItems(&reader, item, row);
+        // this code block is currently not in use. The row parameter of the reader is removed
+        //SessionReader::readItems(&reader, item, row);
         endInsertRows();
         return true;
     }
@@ -421,15 +422,12 @@ SessionItem *SessionModel::moveParameterizedItem(SessionItem *item, SessionItem 
     return stuff;
 }
 
-//! Copy given item to the new_parent at given raw. Item indended for copying can belong to
+//! Copy given item to the new_parent at given row. Item indended for copying can belong to
 //! another model and it will remains intact. Returns pointer to the new child.
 SessionItem *SessionModel::copyParameterizedItem(const SessionItem *item_to_copy,
-                                                       SessionItem *new_parent, int row)
+                                                       SessionItem *new_parent, const QString &tag)
 {
-    if (new_parent) {
-        if (!new_parent->acceptsAsDefaultItem(item_to_copy->modelType()))
-            return 0;
-    } else {
+    if (!new_parent) {
         new_parent = m_root_item;
     }
 
@@ -438,14 +436,10 @@ SessionItem *SessionModel::copyParameterizedItem(const SessionItem *item_to_copy
     SessionWriter::writeItemAndChildItems(&writer, item_to_copy);
 
     QXmlStreamReader reader(xml_data);
-    if (row == -1)
-        row = new_parent->rowCount();
 
-    beginInsertRows(indexOfItem(new_parent), row, row);
-    SessionReader::readItems(&reader, new_parent, row);
-    endInsertRows();
+    SessionReader::readItems(&reader, new_parent, tag);
 
-    return new_parent->childAt(row);
+    return new_parent->getItem(tag);
 }
 
 SessionModel *SessionModel::createCopy(SessionItem *parent)

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/SampleViewProxyModel.cpp
-//! @brief     Implements class SampleViewProxyModel
+//! @file      coregui/Models/FilterPropertyProxy.cpp
+//! @brief     Implements class FilterPropertyProxy
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,18 +14,23 @@
 //
 // ************************************************************************** //
 
-#include "SampleViewProxyModel.h"
+#include "FilterPropertyProxy.h"
+#include "SessionModel.h"
 
-int SampleViewProxyModel::columnCount(const QModelIndex &parent) const
+int FilterPropertyProxy::columnCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
-    return 1;
+    return m_columns;
 }
 
-bool SampleViewProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
+bool FilterPropertyProxy::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
     QModelIndex index = sourceModel()->index(sourceRow, 1, sourceParent);
     if (!sourceParent.isValid())
         return true;
-    return !sourceModel()->data(index, Qt::DisplayRole).isValid();
+    const QString modelType = index.data(SessionModel::ModelTypeRole).toString();
+    if (modelType == Constants::PropertyType || modelType == Constants::GroupItemType)
+        return false;
+
+    return true;//!sourceModel()->data(index, Qt::DisplayRole).isValid();
 }

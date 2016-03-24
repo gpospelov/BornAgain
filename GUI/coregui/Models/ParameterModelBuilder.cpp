@@ -32,6 +32,7 @@
 #include "GroupItem.h"
 #include "JobItem.h"
 #include "ModelPath.h"
+#include "ParameterTreeItems.h"
 #include <QStandardItem>
 #include <QStandardItemModel>
 #include <QDebug>
@@ -190,6 +191,10 @@ void ParameterTreeBuilder::handleItem(SessionItem *tree, SessionItem *source)
         }
     } else if (tree->modelType() == Constants::ParameterType) {
         tree->setDisplayName(source->itemName());
+        tree->setValue(source->value());
+        tree->setDecimals(source->decimals());
+        tree->setLimits(source->limits());
+        tree->setItemValue(ParameterItem::P_LINK, ModelPath::getPathFromIndex(source->index()));
         return;
     } else {
         return;
@@ -202,8 +207,11 @@ void ParameterTreeBuilder::handleItem(SessionItem *tree, SessionItem *source)
                     handleItem(branch, child);
                 }
             } else if (child->modelType() == Constants::GroupItemType) {
-                SessionItem *branch = tree->model()->insertNewItem(Constants::ParameterLabelType, tree->index());
-                handleItem(branch, dynamic_cast<GroupItem*>(child)->group()->getCurrentItem());
+                SessionItem *currentItem = dynamic_cast<GroupItem*>(child)->group()->getCurrentItem();
+                if (currentItem && currentItem->rowCount() > 0) {
+                    SessionItem *branch = tree->model()->insertNewItem(Constants::ParameterLabelType, tree->index());
+                    handleItem(branch, currentItem);
+                }
             } else {
                 SessionItem *branch = tree->model()->insertNewItem(Constants::ParameterLabelType, tree->index());
                 handleItem(branch, child);

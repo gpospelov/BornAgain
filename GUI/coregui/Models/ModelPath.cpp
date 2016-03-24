@@ -19,6 +19,7 @@
 #include "GroupProperty.h"
 #include "GroupItem.h"
 #include "ParticleItem.h"
+#include "SessionModel.h"
 #include <QModelIndex>
 #include <QStringList>
 #include <sstream>
@@ -125,6 +126,24 @@ QString ModelPath::getPathFromIndex(const QModelIndex &index)
         return namePath.join("/");
     }
     return QString();
+}
+
+QModelIndex ModelPath::getIndexFromPath(const SessionModel *model, const QString &path)
+{
+    if (model) {
+        QStringList parts = path.split("/");
+        SessionItem *t = model->rootItem();
+        for(int i = 0; i < parts.length(); i++) {
+            for (int j = 0; j < t->rowCount(); j++) {
+                if (t->childAt(j)->itemName() == parts[i]) {
+                    t = t->childAt(j);
+                    break;
+                }
+            }
+        }
+        return t->index();
+    }
+    return QModelIndex();
 }
 
 QStringList ModelPath::splitParameterName(const QString &par_name)

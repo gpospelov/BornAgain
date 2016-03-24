@@ -27,6 +27,7 @@ class SessionItem;
 class QString;
 class QStringList;
 class QModelIndex;
+class SessionModel;
 
 class BA_CORE_API_ ModelPath
 {
@@ -45,6 +46,8 @@ public:
     static void addParameterTranslator(const IParameterTranslator &translator);
 
     static QString getPathFromIndex(const QModelIndex &index);
+
+    static QModelIndex getIndexFromPath(const SessionModel *model, const QString &path);
 
 private:
 

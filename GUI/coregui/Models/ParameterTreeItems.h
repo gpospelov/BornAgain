@@ -28,6 +28,7 @@ public:
 class BA_CORE_API_ ParameterItem : public SessionItem
 {
 public:
+    static const QString P_LINK;
     ParameterItem();
 };
 

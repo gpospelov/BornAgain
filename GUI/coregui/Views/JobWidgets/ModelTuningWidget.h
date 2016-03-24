@@ -42,7 +42,7 @@ public:
     void setCurrentItem(JobItem *item);
 
 public slots:
-    void onCurrentLinkChanged(ItemLink link);
+    void onCurrentLinkChanged(SessionItem* item);
     void onSliderValueChanged(double value);
     void onLockZValueChanged(bool value);
     void restoreModelsOfCurrentJobItem();

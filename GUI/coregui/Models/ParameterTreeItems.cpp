@@ -15,6 +15,8 @@
 // ************************************************************************** //
 
 #include "ParameterTreeItems.h"
+#include "ModelPath.h"
+#include "SessionModel.h"
 
 ParameterLabelItem::ParameterLabelItem()
     : SessionItem(Constants::ParameterLabelType)
@@ -24,8 +26,9 @@ ParameterLabelItem::ParameterLabelItem()
     setDefaultTag(T_CHILDREN);
 }
 
+const QString ParameterItem::P_LINK = "Link";
 ParameterItem::ParameterItem()
     : SessionItem(Constants::ParameterType)
 {
-
+    addProperty(P_LINK, "");
 }

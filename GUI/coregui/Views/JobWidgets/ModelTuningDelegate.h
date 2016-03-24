@@ -65,7 +65,7 @@ public:
     void setValueColumn(int valueColumn) { m_valueColumn = valueColumn; }
 
 signals:
-    void currentLinkChanged(ItemLink link);
+    void currentLinkChanged(SessionItem *item);
 
 private slots:
     void sliderValueChanged(int position);
@@ -81,6 +81,7 @@ private:
     mutable QWidget *m_contentWidget;
     mutable QHBoxLayout * m_contentLayout;
     mutable ItemLink m_current_link;
+    mutable SessionItem *m_currentItem;
     mutable SliderData m_slider_data;
 };
 

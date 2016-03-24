@@ -17,6 +17,10 @@
 #include "ModelTuningDelegate.h"
 #include "ItemLink.h"
 #include "GUIHelpers.h"
+#include "ParameterTreeItems.h"
+#include "FilterPropertyProxy.h"
+#include "ModelPath.h"
+#include "SessionModel.h"
 #include <QDebug>
 #include <QPainter>
 #include <QPaintDevice>
@@ -134,17 +138,20 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
 
         double value = index.model()->data(index, Qt::EditRole).toDouble();
 
-        m_current_link = index.model()->data(index, Qt::UserRole).value<ItemLink>();
+//        m_current_link = index.model()->data(index, Qt::UserRole).value<ItemLink>();
 
-        SessionItem *item = m_current_link.getItem();
-        AttLimits limits = item->getItem(m_current_link.getPropertyName())->limits();
+        auto proxy = dynamic_cast<FilterPropertyProxy*>(const_cast<QAbstractItemModel*>(index.model()));
+
+        SessionItem *item = static_cast<SessionItem*>(proxy->mapToSource(index).internalPointer());//m_current_link.getItem();
+        AttLimits limits = item->limits();//item->getItem(m_current_link.getPropertyName())->limits();
+        m_currentItem = item;
 
         // initializing value box
         m_valueBox = new QDoubleSpinBox();
         m_valueBox->setKeyboardTracking(false);
         m_valueBox->setFixedWidth(80);
-        m_valueBox->setDecimals(item->getItem(m_current_link.getPropertyName())->decimals());
-        m_valueBox->setSingleStep(1./std::pow(10.,item->getItem(m_current_link.getPropertyName())->decimals()-1));
+        m_valueBox->setDecimals(item->decimals());
+        m_valueBox->setSingleStep(1./std::pow(10.,item->decimals()-1));
 
         if(limits.hasLowerLimit()) {
             m_valueBox->setMinimum(limits.getLowerLimit());
@@ -240,15 +247,18 @@ void ModelTuningDelegate::setModelData(QWidget *editor,
     if (index.column() == m_valueColumn) {
 
         model->setData(index, m_valueBox->value());
-        ItemLink link = model->data(index, Qt::UserRole).value<ItemLink>();
 
-        if(link.getItem() != nullptr)
-        {
-            qDebug() << "SampleTuningDelegate::setModelData() -> setting property " << link.getPropertyName();
-            //link.getItem()->setRegisteredProperty(link.getPropertyName(), m_valueBox->value());
-            link.setValue(m_valueBox->value());
-            link.updateItem();
-        }
+
+
+        //ItemLink link = model->data(index, Qt::UserRole).value<ItemLink>();
+
+//        if(link.getItem() != nullptr)
+//        {
+//            qDebug() << "SampleTuningDelegate::setModelData() -> setting property " << link.getPropertyName();
+//            //link.getItem()->setRegisteredProperty(link.getPropertyName(), m_valueBox->value());
+//            link.setValue(m_valueBox->value());
+//            link.updateItem();
+//        }
 
     } else {
         QItemDelegate::setModelData(editor, model, index);
@@ -258,11 +268,15 @@ void ModelTuningDelegate::setModelData(QWidget *editor,
 
 void ModelTuningDelegate::emitSignals(double value)
 {
-    if(m_current_link.getItem()) {
-        m_current_link.setValue(value);
+    if(m_currentItem) {
+        m_currentItem->setValue(value);
+        QString link = m_currentItem->getItemValue(ParameterItem::P_LINK).toString();
+        SessionItem *item = m_currentItem->model()->itemForIndex(ModelPath::getIndexFromPath(m_currentItem->model(), link));
+        if (item)
+            item->setValue(m_currentItem->value());
         //qDebug() << "SampleTuningDelegate::editorValueChanged() -> Working on item " << m_current_link.getItem()->modelType() << m_current_link.getPropertyName();
         //m_current_link.getItem()->setRegisteredProperty(m_current_link.getPropertyName(), m_valueBox->value());
-        emit currentLinkChanged(m_current_link);
+        emit currentLinkChanged(m_currentItem);
     }
 }
 

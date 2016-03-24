@@ -27,6 +27,7 @@
 #include "IntensityDataItem.h"
 #include "DesignerHelper.h"
 #include "WarningSignWidget.h"
+#include "FilterPropertyProxy.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QTreeView>
@@ -71,8 +72,8 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
         "QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: "
         "url(:/images/treeview-branch-open.png);}");
 
-//    m_treeView->setItemDelegate(m_delegate);
-    connect(m_delegate, SIGNAL(currentLinkChanged(ItemLink)), this, SLOT(onCurrentLinkChanged(ItemLink)));
+    m_treeView->setItemDelegate(m_delegate);
+    connect(m_delegate, SIGNAL(currentLinkChanged(SessionItem*)), this, SLOT(onCurrentLinkChanged(SessionItem*)));
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
@@ -116,7 +117,7 @@ void ModelTuningWidget::setCurrentItem(JobItem *item)
 
 }
 
-void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
+void ModelTuningWidget::onCurrentLinkChanged(SessionItem *item)
 {
     qDebug() << "ModelTuningWidget::onCurrentLinkChanged";
     Q_ASSERT(m_currentJobItem);
@@ -124,10 +125,10 @@ void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
     if(m_currentJobItem->isRunning())
         return;
 
-    if (link.getItem()) {
-        qDebug() << "ModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model"
-                 << link.getItem()->modelType() << link.getPropertyName();
-        link.updateItem();
+    if (item) {
+        qDebug() << "ModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model";
+//                 << link.getItem()->modelType() << link.getPropertyName();
+//        link.updateItem();
         m_jobModel->getJobQueueData()->runJob(m_currentJobItem);
     }
 }
@@ -163,8 +164,10 @@ void ModelTuningWidget::updateParameterModel()
 
     m_parameterModel = ParameterModelBuilder::createParameterModel(m_jobModel, m_currentJobItem);
 
-    m_treeView->setModel(m_jobModel);
-    m_treeView->setRootIndex(m_currentJobItem->getItem(JobItem::T_PARAMETER_TREE)->index());
+    FilterPropertyProxy *proxy = new FilterPropertyProxy(2, this);
+    proxy->setSourceModel(m_jobModel);
+    m_treeView->setModel(proxy);
+    m_treeView->setRootIndex(proxy->mapFromSource(m_currentJobItem->getItem(JobItem::T_PARAMETER_TREE)->index()));
     m_treeView->setColumnWidth(0, 240);
     m_treeView->expandAll();
 }

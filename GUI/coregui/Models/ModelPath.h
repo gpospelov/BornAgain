@@ -44,6 +44,8 @@ public:
 
     static void addParameterTranslator(const IParameterTranslator &translator);
 
+    static QString getPathFromIndex(const QModelIndex &index);
+
 private:
 
     static QStringList splitParameterName(const QString& par_name);

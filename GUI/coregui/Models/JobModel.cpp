@@ -23,6 +23,7 @@
 #include "InstrumentModel.h"
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
+#include "ParameterModelBuilder.h"
 #include <QUuid>
 #include <QDebug>
 #include <QItemSelection>
@@ -82,7 +83,7 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem, const Instrument
     setSampleForJobItem(jobItem, multiLayerItem);
     setInstrumentForJobItem(jobItem, instrumentItem);
 
-    // creating parameter tree
+    ParameterTreeBuilder::createParameterTree(jobItem, JobItem::T_PARAMETER_TREE);
 
     insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
     insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_REALDATA);

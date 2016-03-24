@@ -71,7 +71,7 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
         "QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: "
         "url(:/images/treeview-branch-open.png);}");
 
-    m_treeView->setItemDelegate(m_delegate);
+//    m_treeView->setItemDelegate(m_delegate);
     connect(m_delegate, SIGNAL(currentLinkChanged(ItemLink)), this, SLOT(onCurrentLinkChanged(ItemLink)));
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -163,7 +163,8 @@ void ModelTuningWidget::updateParameterModel()
 
     m_parameterModel = ParameterModelBuilder::createParameterModel(m_jobModel, m_currentJobItem);
 
-    m_treeView->setModel(m_parameterModel);
+    m_treeView->setModel(m_jobModel);
+    m_treeView->setRootIndex(m_currentJobItem->getItem(JobItem::T_PARAMETER_TREE)->index());
     m_treeView->setColumnWidth(0, 240);
     m_treeView->expandAll();
 }

@@ -52,6 +52,14 @@ private:
     static void addDisabledProperty(QStandardItem *parentItem, const QString &title);
 };
 
+class ParameterTreeBuilder
+{
+public:
+    static void createParameterTree(JobItem *item, const QString tag = QString());
+private:
+    static void handleItem(SessionItem *tree, SessionItem *source);
+};
+
 
 #endif
 

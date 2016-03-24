@@ -30,6 +30,8 @@
 #include "GUIHelpers.h"
 #include "DistributionItem.h"
 #include "GroupItem.h"
+#include "JobItem.h"
+#include "ModelPath.h"
 #include <QStandardItem>
 #include <QStandardItemModel>
 #include <QDebug>
@@ -164,4 +166,48 @@ void ParameterModelBuilder::addDisabledProperty(QStandardItem *parentItem, const
                        Qt::ToolTipRole);
 
     InsertRowIntoItem(parentItem, titleItem, valueItem);
+}
+
+void ParameterTreeBuilder::createParameterTree(JobItem *item, const QString tag)
+{
+    SessionItem *container = item->model()->insertNewItem(Constants::ParameterLabelType, item->index(), -1, tag);
+    container->setDisplayName("Parameter Tree Container");
+    SessionItem *multiLayer = container->model()->insertNewItem(Constants::ParameterLabelType, container->index());
+    handleItem(multiLayer, item->getItem(JobItem::T_SAMPLE));
+
+    SessionItem *instrument = container->model()->insertNewItem(Constants::ParameterLabelType, container->index());
+    handleItem(instrument, item->getItem(JobItem::T_INSTRUMENT));
+}
+
+void ParameterTreeBuilder::handleItem(SessionItem *tree, SessionItem *source)
+{
+    if (tree->modelType() == Constants::ParameterLabelType) {
+        GroupItem *parent = dynamic_cast<GroupItem*>(source->parent());
+        if (parent && parent->group()->isFixed()) {
+            tree->setDisplayName(parent->itemName());
+        } else {
+            tree->setDisplayName(source->itemName());
+        }
+    } else if (tree->modelType() == Constants::ParameterType) {
+        tree->setDisplayName(source->itemName());
+        return;
+    } else {
+        return;
+    }
+    for (SessionItem *child : source->childItems()) {
+        if (child->isVisible() && child->isEnabled()) {
+            if (child->modelType() == Constants::PropertyType) {
+                if (child->value().type() == QVariant::Double) {
+                    SessionItem *branch = tree->model()->insertNewItem(Constants::ParameterType, tree->index());
+                    handleItem(branch, child);
+                }
+            } else if (child->modelType() == Constants::GroupItemType) {
+                SessionItem *branch = tree->model()->insertNewItem(Constants::ParameterLabelType, tree->index());
+                handleItem(branch, dynamic_cast<GroupItem*>(child)->group()->getCurrentItem());
+            } else {
+                SessionItem *branch = tree->model()->insertNewItem(Constants::ParameterLabelType, tree->index());
+                handleItem(branch, child);
+            }
+        }
+    }
 }

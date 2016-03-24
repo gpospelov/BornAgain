@@ -664,7 +664,8 @@ QString SessionItem::displayName() const
     if (m_parent) {
         int index = m_parent->getCopyNumberOfChild(this);
         if (index >= 0 && modelType() != Constants::PropertyType &&
-                modelType() != Constants::GroupItemType) {
+                modelType() != Constants::GroupItemType && modelType() != Constants::ParameterLabelType
+                && modelType() != Constants::ParameterType) {
             return data(SessionModel::DisplayNameRole).toString() + QString::number(index);
         }
     }

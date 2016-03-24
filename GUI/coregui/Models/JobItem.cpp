@@ -61,7 +61,7 @@ const QString JobItem::T_SAMPLE = "Sample Tag";
 const QString JobItem::T_INSTRUMENT = "Instrument Tag";
 const QString JobItem::T_OUTPUT = "Output Tag";
 const QString JobItem::T_REALDATA = "Real Data Tag";
-
+const QString JobItem::T_PARAMETER_TREE = "Parameter Tree";
 
 JobItem::JobItem()
     : SessionItem(Constants::JobItemType)
@@ -95,6 +95,8 @@ JobItem::JobItem()
     registerTag(T_INSTRUMENT, 1, 1, QStringList() << Constants::InstrumentType);
     registerTag(T_OUTPUT, 1, 1, QStringList() << Constants::IntensityDataType);
     registerTag(T_REALDATA, 1, 1, QStringList() << Constants::IntensityDataType);
+    registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterLabelType
+                << Constants::ParameterType);
     mapper()->setOnChildPropertyChange(
                 [this](SessionItem* item, const QString &name)
     {

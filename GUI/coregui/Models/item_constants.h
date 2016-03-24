@@ -124,6 +124,8 @@ const ModelType FitParameterLinkType = "FitParameterLink";
 const ModelType FitSelectionType = "FitSelection";
 const ModelType MinimizerSettingsType = "Minimizer Settings";
 const ModelType InputDataType = "Input Data";
+const ModelType ParameterType = "Parameter";
+const ModelType ParameterLabelType = "Parameter Label";
 
 const ModelType JobItemType = "JobItem";
 const ModelType IntensityDataType = "IntensityData";

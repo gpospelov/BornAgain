@@ -112,6 +112,21 @@ void ModelPath::addParameterTranslator(const IParameterTranslator &translator)
     m_special_translators.emplace_back(translator.clone());
 }
 
+QString ModelPath::getPathFromIndex(const QModelIndex &index)
+{
+    if (index.isValid()) {
+        QStringList namePath;
+        QModelIndex cur = index;
+        while (cur.isValid()) {
+            namePath << cur.data().toString();
+            cur = cur.parent();
+        }
+        std::reverse(namePath.begin(), namePath.end());
+        return namePath.join("/");
+    }
+    return QString();
+}
+
 QStringList ModelPath::splitParameterName(const QString &par_name)
 {
     QStringList result;

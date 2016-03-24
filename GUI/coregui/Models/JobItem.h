@@ -44,6 +44,7 @@ public:
     static const QString T_INSTRUMENT;
     static const QString T_OUTPUT;
     static const QString T_REALDATA;
+    static const QString T_PARAMETER_TREE;
     explicit JobItem();
     virtual ~JobItem();
 

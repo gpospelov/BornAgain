@@ -142,16 +142,18 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
 
         auto proxy = dynamic_cast<FilterPropertyProxy*>(const_cast<QAbstractItemModel*>(index.model()));
 
-        SessionItem *item = static_cast<SessionItem*>(proxy->mapToSource(index).internalPointer());//m_current_link.getItem();
-        AttLimits limits = item->limits();//item->getItem(m_current_link.getPropertyName())->limits();
-        m_currentItem = item;
+        m_currentItem = static_cast<ParameterItem*>(proxy->mapToSource(index).internalPointer());//m_current_link.getItem();
+
+
+
+        AttLimits limits = m_currentItem->getLinkedItem()->limits();//item->getItem(m_current_link.getPropertyName())->limits();
 
         // initializing value box
         m_valueBox = new QDoubleSpinBox();
         m_valueBox->setKeyboardTracking(false);
         m_valueBox->setFixedWidth(80);
-        m_valueBox->setDecimals(item->decimals());
-        m_valueBox->setSingleStep(1./std::pow(10.,item->decimals()-1));
+        m_valueBox->setDecimals(m_currentItem->getLinkedItem()->decimals());
+        m_valueBox->setSingleStep(1./std::pow(10.,m_currentItem->getLinkedItem()->decimals()-1));
 
         if(limits.hasLowerLimit()) {
             m_valueBox->setMinimum(limits.getLowerLimit());
@@ -185,6 +187,13 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
         m_contentLayout->setSpacing(0);
         m_contentLayout->addWidget(m_valueBox);
         m_contentLayout->addWidget(m_slider);
+
+        ModelMapper *mapper = new ModelMapper(m_contentWidget);
+        mapper->setItem(m_currentItem);
+        mapper->setOnValueChange(
+                    [this](){
+            m_valueBox->setValue(m_currentItem->value().toDouble());
+        });
 
         m_contentWidget->setLayout(m_contentLayout);
 
@@ -270,10 +279,7 @@ void ModelTuningDelegate::emitSignals(double value)
 {
     if(m_currentItem) {
         m_currentItem->setValue(value);
-        QString link = m_currentItem->getItemValue(ParameterItem::P_LINK).toString();
-        SessionItem *item = m_currentItem->model()->itemForIndex(ModelPath::getIndexFromPath(m_currentItem->model(), link));
-        if (item)
-            item->setValue(m_currentItem->value());
+        m_currentItem->propagateValueLink();
         //qDebug() << "SampleTuningDelegate::editorValueChanged() -> Working on item " << m_current_link.getItem()->modelType() << m_current_link.getPropertyName();
         //m_current_link.getItem()->setRegisteredProperty(m_current_link.getPropertyName(), m_valueBox->value());
         emit currentLinkChanged(m_currentItem);

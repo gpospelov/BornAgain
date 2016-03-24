@@ -56,6 +56,7 @@ signals:
     void aboutToDeleteJobItem(JobItem *item);
     void focusRequest(JobItem *item);
     void globalProgress(int);
+    void modelLoaded();
 
 public slots:
     void runJob(const QModelIndex &index);
@@ -67,6 +68,7 @@ public slots:
 private:
     QString generateJobName();
     QString generateJobIdentifier();
+    void restoreItem(SessionItem *item);
 
     JobQueueData *m_queue_data;
 };

@@ -24,6 +24,7 @@
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
 #include "ParameterModelBuilder.h"
+#include "ParameterTreeItems.h"
 #include <QUuid>
 #include <QDebug>
 #include <QItemSelection>
@@ -168,15 +169,7 @@ void JobModel::backup(JobItem *jobItem)
 //! restore instrument and sample model from backup for given JobItem
 void JobModel::restore(JobItem *jobItem)
 {
-    MultiLayerItem *multilayer = jobItem->getMultiLayerItem(true);
-    Q_ASSERT(multilayer);
-
-    setSampleForJobItem(jobItem, multilayer);
-
-    InstrumentItem *instrument = jobItem->getInstrumentItem(true);
-    Q_ASSERT(instrument);
-
-    setInstrumentForJobItem(jobItem, instrument);
+    restoreItem(jobItem->getItem(JobItem::T_PARAMETER_TREE));
 }
 
 void JobModel::runJob(const QModelIndex &index)
@@ -249,5 +242,15 @@ QString JobModel::generateJobName()
 QString JobModel::generateJobIdentifier()
 {
     return QUuid::createUuid().toString();
+}
+
+void JobModel::restoreItem(SessionItem *item)
+{
+    if (ParameterItem *parameter = dynamic_cast<ParameterItem*>(item)) {
+        parameter->propagateValueLink(true);
+    }
+    for (auto child : item->childItems()) {
+        restoreItem(child);
+    }
 }
 

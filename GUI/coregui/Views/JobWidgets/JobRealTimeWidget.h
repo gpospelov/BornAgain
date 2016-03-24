@@ -43,6 +43,7 @@ public slots:
     void onJobItemFinished(const QString &identifier);
     void onResetParameters();
     void updateCurrentItem();
+    void onModelLoaded();
 
 private:
     ModelTuningWidget *getCurrentModelTuningWidget();

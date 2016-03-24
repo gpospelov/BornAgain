@@ -52,9 +52,9 @@ protected:
 
 private slots:
     void onPropertyChanged(const QString &property_name);
+    void updateParameterModel();
 
 private:
-    void updateParameterModel();
     void backupModels();
     QPoint getPositionForWarningSign();
 

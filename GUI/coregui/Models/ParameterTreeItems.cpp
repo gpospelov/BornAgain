@@ -27,8 +27,30 @@ ParameterLabelItem::ParameterLabelItem()
 }
 
 const QString ParameterItem::P_LINK = "Link";
+const QString ParameterItem::P_BACKUP = "Backup";
 ParameterItem::ParameterItem()
     : SessionItem(Constants::ParameterType)
 {
     addProperty(P_LINK, "");
+    addProperty(P_BACKUP, 0.0);
+}
+
+void ParameterItem::propagateValueLink(bool backup)
+{
+    if (backup)
+        setValue(getItemValue(P_BACKUP));
+    SessionItem *item = getLinkedItem();
+    if (item)
+        item->setValue(value());
+}
+
+SessionItem *ParameterItem::getLinkedItem()
+{
+    QString link = getItemValue(P_LINK).toString();
+    SessionItem *cur = this;
+    while (cur && cur->modelType() != Constants::JobItemType) {
+        cur = cur->parent();
+    }
+    link = cur->itemName() + "/" + link;
+    return model()->itemForIndex(ModelPath::getIndexFromPath(model(), link));
 }

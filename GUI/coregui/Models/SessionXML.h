@@ -40,7 +40,7 @@ const QString TagAttribute("Tag");
 const QString ModelNameAttribute("Name");
 const QString ItemTag("Item");
 const QString ModelTypeAttribute("ModelType");
-const QString ItemNameAttribute("ItemName");
+const QString DisplayNameAttribute("DisplayName");
 const QString ParameterTag("Parameter");
 const QString ParameterNameAttribute("ParName");
 const QString ParameterTypeAttribute("ParType");

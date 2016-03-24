@@ -35,6 +35,8 @@
 #include <QToolButton>
 #include <QDebug>
 #include <QScrollBar>
+#include <QApplication>
+#include <QKeyEvent>
 
 namespace {
 const int warning_sign_xpos = 38;
@@ -168,7 +170,8 @@ void ModelTuningWidget::updateParameterModel()
     proxy->setSourceModel(m_jobModel);
     m_treeView->setModel(proxy);
     m_treeView->setRootIndex(proxy->mapFromSource(m_currentJobItem->getItem(JobItem::T_PARAMETER_TREE)->index()));
-    m_treeView->setColumnWidth(0, 240);
+    if (m_treeView->columnWidth(0) < 170)
+        m_treeView->setColumnWidth(0, 170);
     m_treeView->expandAll();
 }
 
@@ -191,7 +194,7 @@ void ModelTuningWidget::restoreModelsOfCurrentJobItem()
 
     m_jobModel->restore(m_currentJobItem);
 
-    updateParameterModel();
+//    updateParameterModel();
 
     m_jobModel->getJobQueueData()->runJob(m_currentJobItem);
 }

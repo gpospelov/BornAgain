@@ -23,6 +23,7 @@
 
 class QDoubleSpinBox;
 class QHBoxLayout;
+class ParameterItem;
 
 class BA_CORE_API_ ModelTuningDelegate : public QItemDelegate
 {
@@ -81,7 +82,7 @@ private:
     mutable QWidget *m_contentWidget;
     mutable QHBoxLayout * m_contentLayout;
     mutable ItemLink m_current_link;
-    mutable SessionItem *m_currentItem;
+    mutable ParameterItem *m_currentItem;
     mutable SliderData m_slider_data;
 };
 

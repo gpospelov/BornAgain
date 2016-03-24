@@ -52,6 +52,7 @@ void SessionWriter::writeItemAndChildItems(QXmlStreamWriter *writer, const Sessi
         if (tag == item->parent()->defaultTag())
             tag = "";
         writer->writeAttribute(SessionXML::TagAttribute, tag);
+        writer->writeAttribute(SessionXML::DisplayNameAttribute, item->data(SessionModel::DisplayNameRole).toString());
         QVector<int> roles = item->getRoles();
         foreach(int role, roles) {
             if (role == Qt::DisplayRole || role == Qt::EditRole)
@@ -153,6 +154,9 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
                     }
                 } else {
                     SessionItem *new_item = ItemFactory::createItem(model_type);
+                    if (reader->attributes().hasAttribute(SessionXML::DisplayNameAttribute)) {
+                        new_item->setDisplayName(reader->attributes().value(SessionXML::DisplayNameAttribute).toString());
+                    }
                     if (tag == "")
                         tag = item->defaultTag();
                     if (!item->insertItem(-1, new_item, tag)) {

@@ -192,9 +192,11 @@ void ParameterTreeBuilder::handleItem(SessionItem *tree, SessionItem *source)
     } else if (tree->modelType() == Constants::ParameterType) {
         tree->setDisplayName(source->itemName());
         tree->setValue(source->value());
-        tree->setDecimals(source->decimals());
-        tree->setLimits(source->limits());
-        tree->setItemValue(ParameterItem::P_LINK, ModelPath::getPathFromIndex(source->index()));
+        QString path = ModelPath::getPathFromIndex(source->index());
+        int firstSlash = path.indexOf('/');
+        path = path.mid(firstSlash + 1);
+        tree->setItemValue(ParameterItem::P_LINK, path);
+        tree->setItemValue(ParameterItem::P_BACKUP, source->value());
         return;
     } else {
         return;

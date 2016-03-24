@@ -311,7 +311,7 @@ void MainWindow::resetModels()
     m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
 
     m_sampleModel->clear();
-    //testGUIObjectBuilder();
+    testGUIObjectBuilder();
 
     m_jobModel->clear();
 

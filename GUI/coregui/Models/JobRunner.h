@@ -37,7 +37,7 @@ public:
 
     int getProgress() const;
 
-    bool similationProgressCallback(int);
+    bool simulationProgressCallback(int);
 
     bool isTerminated() { return m_terminate_request_flag; }
 

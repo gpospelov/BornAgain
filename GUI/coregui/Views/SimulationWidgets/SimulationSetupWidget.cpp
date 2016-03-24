@@ -28,6 +28,9 @@
 #include "PyGenTools.h"
 #include "mainwindow_constants.h"
 #include "PythonScriptWidget.h"
+#include "IntensityDataIOFactory.h"
+#include "IHistogram.h"
+#include "IntensityDataItem.h"
 #include <QGroupBox>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -56,12 +59,22 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     // sample selection
     QLabel *sampleSelectionLabel = new QLabel(tr("Select Sample:"));
     sampleSelectionBox = new QComboBox;
+    // real data
+    QLabel *readDataSelectionLabel = new QLabel(tr("Select Real Data:"));
+    selectRealData = new QPushButton;
+    selectRealData->setText("Load file ...");
+    pathLabel = new QLabel(tr(""));
+    QHBoxLayout *realDataSelection = new QHBoxLayout;
+    realDataSelection->addWidget(selectRealData);
+    realDataSelection->addWidget(pathLabel);
     // layout
     QGridLayout *dataSelectionLayout = new QGridLayout;
     dataSelectionLayout->addWidget(instrumentSelectionLabel, 0, 0);
     dataSelectionLayout->addWidget(instrumentSelectionBox, 0, 1);
     dataSelectionLayout->addWidget(sampleSelectionLabel, 1, 0);
     dataSelectionLayout->addWidget(sampleSelectionBox, 1, 1);
+    dataSelectionLayout->addWidget(readDataSelectionLabel, 2, 0);
+    dataSelectionLayout->addLayout(realDataSelection, 2, 1);
     inputDataGroup->setLayout(dataSelectionLayout);
     //updateViewElements();
 
@@ -130,6 +143,7 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     // signal and slots
     connect(runSimulationButton, SIGNAL(clicked()), this, SLOT(onRunSimulation()));
     connect(exportToPyScriptButton, SIGNAL(clicked()), this, SLOT(onExportToPythonScript()));
+    connect(selectRealData, SIGNAL(clicked(bool)), this, SLOT(onOpenFile()));
 }
 
 void SimulationSetupWidget::setJobModel(JobModel *model)
@@ -211,8 +225,23 @@ void SimulationSetupWidget::onRunSimulation()
         return;
     }
 
-    m_jobModel->addJob(getSelectedMultiLayerItem(), getSelectedInstrumentItem(),
+    JobItem *jobItem = m_jobModel->addJob(getSelectedMultiLayerItem(), getSelectedInstrumentItem(),
                        runPolicySelectionBox->currentText(), getNumberOfThreads());
+
+    // load real data
+    if (!pathLabel->text().isEmpty()) {
+        try {
+            IHistogram *data = IntensityDataIOFactory::readIntensityData(pathLabel->text().toStdString());
+            dynamic_cast<IntensityDataItem*>(jobItem->getItem(JobItem::T_REALDATA))
+                    ->setOutputData(data->createOutputData());
+            jobItem->setItemValue(JobItem::P_WITH_FITTING, true);
+        } catch (...) {
+            QMessageBox::warning(this, "IO Problem", "Real data can not be loaded.");
+        }
+    }
+
+    if (jobItem->runImmediately() || jobItem->runInBackground())
+        m_jobModel->runJob(jobItem->index());
 }
 
 void SimulationSetupWidget::onExportToPythonScript()
@@ -242,6 +271,13 @@ void SimulationSetupWidget::onExportToPythonScript()
     pythonWidget->show();
     pythonWidget->raise();
     pythonWidget->generatePythonScript(sampleModel, instrumentModel);
+}
+
+void SimulationSetupWidget::onOpenFile()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,
+            tr("Open Intensity File"), "", tr("Intensity File (*.int *.tif *.tiff *.tif.gz);;Other (*)"));
+    pathLabel->setText(fileName);
 }
 
 void SimulationSetupWidget::updateSelectionBox(QComboBox *comboBox, QStringList itemList)

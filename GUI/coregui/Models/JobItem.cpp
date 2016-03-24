@@ -49,6 +49,7 @@ QMap<QString, QString> JobItem::m_run_policies = initializeRunPolicies();
 const QString JobItem::P_IDENTIFIER = "Identifier";
 const QString JobItem::P_SAMPLE_NAME = "Sample";
 const QString JobItem::P_INSTRUMENT_NAME = "Instrument";
+const QString JobItem::P_WITH_FITTING = "With Fitting";
 const QString JobItem::P_STATUS = "Status";
 const QString JobItem::P_BEGIN_TIME = "Begin Time";
 const QString JobItem::P_END_TIME = "End Time";
@@ -58,6 +59,8 @@ const QString JobItem::P_NTHREADS = "Number of Threads";
 const QString JobItem::P_RUN_POLICY = "Run Policy";
 const QString JobItem::T_SAMPLE = "Sample Tag";
 const QString JobItem::T_INSTRUMENT = "Instrument Tag";
+const QString JobItem::T_OUTPUT = "Output Tag";
+const QString JobItem::T_REALDATA = "Real Data Tag";
 
 
 JobItem::JobItem()
@@ -68,6 +71,7 @@ JobItem::JobItem()
     addProperty(P_IDENTIFIER, QString())->setVisible(false);
     addProperty(P_SAMPLE_NAME, QString())->setEditable(false);
     addProperty(P_INSTRUMENT_NAME, QString())->setEditable(false);
+    addProperty(P_WITH_FITTING, false);
 
     ComboProperty status;
     status << Constants::STATUS_IDLE << Constants::STATUS_RUNNING << Constants::STATUS_COMPLETED
@@ -89,10 +93,8 @@ JobItem::JobItem()
 
     registerTag(T_SAMPLE, 1, 1, QStringList() << Constants::MultiLayerType);
     registerTag(T_INSTRUMENT, 1, 1, QStringList() << Constants::InstrumentType);
-    const QString T_DATA = "Data Tag";
-    registerTag("Data Tag", 0, -1, QStringList() << Constants::IntensityDataType
-                << Constants::MultiLayerType << Constants::InstrumentType);
-    setDefaultTag(T_DATA);
+    registerTag(T_OUTPUT, 1, 1, QStringList() << Constants::IntensityDataType);
+    registerTag(T_REALDATA, 1, 1, QStringList() << Constants::IntensityDataType);
     mapper()->setOnChildPropertyChange(
                 [this](SessionItem* item, const QString &name)
     {
@@ -122,11 +124,7 @@ void JobItem::setIdentifier(const QString &identifier)
 
 IntensityDataItem *JobItem::getIntensityDataItem()
 {
-    foreach(SessionItem *item, childItems()) {
-        IntensityDataItem *data = dynamic_cast<IntensityDataItem *>(item);
-        if(data) return data;
-    }
-    return 0;
+    return dynamic_cast<IntensityDataItem*>(getItem(T_OUTPUT));
 }
 
 QString JobItem::getStatus() const
@@ -242,17 +240,6 @@ bool JobItem::runInBackground() const
 //! multilayer will be used
 MultiLayerItem *JobItem::getMultiLayerItem(bool from_backup)
 {
-    /*foreach(SessionItem *item, childItems()) {
-        if(MultiLayerItem *multilayer = dynamic_cast<MultiLayerItem *>(item)) {
-            if(from_backup && multilayer->itemName().endsWith(Constants::JOB_BACKUP)) {
-                return multilayer;
-            }
-            if(!from_backup && !multilayer->itemName().endsWith(Constants::JOB_BACKUP)) {
-                return multilayer;
-            }
-        }
-    }
-    return 0;*/
     return dynamic_cast<MultiLayerItem*>(getItem(T_SAMPLE));
 }
 
@@ -260,17 +247,6 @@ MultiLayerItem *JobItem::getMultiLayerItem(bool from_backup)
 //! the instrument will be used
 InstrumentItem *JobItem::getInstrumentItem(bool from_backup)
 {
-    /*foreach(SessionItem *item, childItems()) {
-        if(InstrumentItem *instrument = dynamic_cast<InstrumentItem *>(item)) {
-            if(from_backup && instrument->itemName().endsWith(Constants::JOB_BACKUP)) {
-                return instrument;
-            }
-            if(!from_backup && !instrument->itemName().endsWith(Constants::JOB_BACKUP)) {
-                return instrument;
-            }
-        }
-    }
-    return 0;*/
     return dynamic_cast<InstrumentItem*>(getItem(T_INSTRUMENT));
 }
 

@@ -20,7 +20,7 @@
 
 Precomputed::Precomputed()
 {
-    // Precompute the factorial
+    // Precompute the factorial: factorial[k] = k!
     double fac = 1;
     for( int k=1; std::isfinite(fac); ++k ){
         factorial.push_back( fac );

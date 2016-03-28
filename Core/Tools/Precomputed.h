@@ -16,12 +16,18 @@
 #include <vector>
 #include "ISingleton.h"
 
+//! This class contains precomputed constants.
+
+//! So far, the only contents is factorial, used in the polyhedral form factor.
+
 class Precomputed
 {
 public:
-    Precomputed();
-    std::vector<double> factorial;
+    Precomputed(); //! Precomputes everything.
+    std::vector<double> factorial; //! factorial[k] = k! for k=0,1,...,170 (for IEEE double).
 };
+
+//! This singleton interface class gives access to the precomputed constants.
 
 class IPrecomputed: public ISingleton<Precomputed>
 {

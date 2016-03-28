@@ -56,6 +56,7 @@
 #include "Shape2DTest.h"
 #include "RectangularDetectorTest.h"
 #include "SpecialFunctionsTest.h"
+#include "PrecomputedTest.h"
 
 
 struct ErrorStreamRedirect {

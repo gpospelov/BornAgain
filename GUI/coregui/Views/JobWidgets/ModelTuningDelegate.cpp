@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "ModelTuningDelegate.h"
-#include "ItemLink.h"
 #include "GUIHelpers.h"
 #include "ParameterTreeItems.h"
 #include "FilterPropertyProxy.h"
@@ -138,15 +137,13 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
 
         double value = index.model()->data(index, Qt::EditRole).toDouble();
 
-//        m_current_link = index.model()->data(index, Qt::UserRole).value<ItemLink>();
-
         auto proxy = dynamic_cast<FilterPropertyProxy*>(const_cast<QAbstractItemModel*>(index.model()));
 
-        m_currentItem = static_cast<ParameterItem*>(proxy->mapToSource(index).internalPointer());//m_current_link.getItem();
+        m_currentItem = static_cast<ParameterItem*>(proxy->mapToSource(index).internalPointer());
 
 
 
-        AttLimits limits = m_currentItem->getLinkedItem()->limits();//item->getItem(m_current_link.getPropertyName())->limits();
+        AttLimits limits = m_currentItem->getLinkedItem()->limits();
 
         // initializing value box
         m_valueBox = new QDoubleSpinBox();
@@ -257,18 +254,6 @@ void ModelTuningDelegate::setModelData(QWidget *editor,
 
         model->setData(index, m_valueBox->value());
 
-
-
-        //ItemLink link = model->data(index, Qt::UserRole).value<ItemLink>();
-
-//        if(link.getItem() != nullptr)
-//        {
-//            qDebug() << "SampleTuningDelegate::setModelData() -> setting property " << link.getPropertyName();
-//            //link.getItem()->setRegisteredProperty(link.getPropertyName(), m_valueBox->value());
-//            link.setValue(m_valueBox->value());
-//            link.updateItem();
-//        }
-
     } else {
         QItemDelegate::setModelData(editor, model, index);
     }
@@ -280,8 +265,6 @@ void ModelTuningDelegate::emitSignals(double value)
     if(m_currentItem) {
         m_currentItem->setValue(value);
         m_currentItem->propagateValueLink();
-        //qDebug() << "SampleTuningDelegate::editorValueChanged() -> Working on item " << m_current_link.getItem()->modelType() << m_current_link.getPropertyName();
-        //m_current_link.getItem()->setRegisteredProperty(m_current_link.getPropertyName(), m_valueBox->value());
         emit currentLinkChanged(m_currentItem);
     }
 }

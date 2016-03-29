@@ -43,11 +43,9 @@ public:
     JobItem *addJob(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem,
             const QString &run_policy = QString(), int numberOfThreads=-1);
 
-    void setSampleForJobItem(JobItem *jobItem, const MultiLayerItem *multiLayerItem, bool backup = false);
+    void setSampleForJobItem(JobItem *jobItem, const MultiLayerItem *multiLayerItem);
 
-    void setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *instrumentItem, bool backup=false);
-
-    void backup(JobItem *jobItem);
+    void setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *instrumentItem);
 
     void restore(JobItem *jobItem);
 

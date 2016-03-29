@@ -240,14 +240,14 @@ bool JobItem::runInBackground() const
 
 //! Returns MultiLayerItem of this JobItem, if from_backup=true, then backup'ed version of
 //! multilayer will be used
-MultiLayerItem *JobItem::getMultiLayerItem(bool from_backup)
+MultiLayerItem *JobItem::getMultiLayerItem()
 {
     return dynamic_cast<MultiLayerItem*>(getItem(T_SAMPLE));
 }
 
 //! Returns InstrumentItem of this JobItem, if from_backup=true, then backup'ed version of
 //! the instrument will be used
-InstrumentItem *JobItem::getInstrumentItem(bool from_backup)
+InstrumentItem *JobItem::getInstrumentItem()
 {
     return dynamic_cast<InstrumentItem*>(getItem(T_INSTRUMENT));
 }

@@ -17,7 +17,6 @@
 #ifndef MODELTUNINGWIDGET_H
 #define MODELTUNINGWIDGET_H
 
-#include "ItemLink.h"
 #include <QWidget>
 
 class JobItem;
@@ -25,11 +24,11 @@ class SliderSettingsWidget;
 class ModelTuningDelegate;
 class JobModel;
 class QTreeView;
-class QStandardItemModel;
 class SampleModel;
 class InstrumentModel;
 class WarningSignWidget;
 class ModelMapper;
+class SessionItem;
 
 class ModelTuningWidget : public QWidget
 {
@@ -55,17 +54,13 @@ private slots:
     void updateParameterModel();
 
 private:
-    void backupModels();
     QPoint getPositionForWarningSign();
 
     JobModel *m_jobModel;
     JobItem *m_currentJobItem;
     SliderSettingsWidget *m_sliderSettingsWidget;
     QTreeView *m_treeView;
-    QStandardItemModel *m_parameterModel;
     ModelTuningDelegate *m_delegate;
-    SampleModel *m_sampleModelBackup;
-    InstrumentModel *m_instrumentModelBackup;
     WarningSignWidget *m_warningSign;
     ModelMapper *m_mapper;
 };

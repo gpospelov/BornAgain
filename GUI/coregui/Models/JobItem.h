@@ -82,9 +82,9 @@ public:
     bool runImmediately() const;
     bool runInBackground() const;
 
-    MultiLayerItem *getMultiLayerItem(bool from_backup = false);
+    MultiLayerItem *getMultiLayerItem();
 
-    InstrumentItem *getInstrumentItem(bool from_backup = false);
+    InstrumentItem *getInstrumentItem();
 
     void setResults(const GISASSimulation *simulation);
 

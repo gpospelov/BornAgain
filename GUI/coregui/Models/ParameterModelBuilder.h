@@ -17,42 +17,12 @@
 #ifndef PARAMETERMODELBUILDER_H
 #define PARAMETERMODELBUILDER_H
 
-#include <QVariant>
 #include <QString>
-#include <QModelIndex>
 
-class QModelIndex;
-class SampleModel;
-class SessionModel;
-class InstrumentModel;
-class JobModel;
 class JobItem;
-class InstrumentItem;
-class QStandardItem;
-class QStandardItemModel;
 class SessionItem;
 
-//! The ParameterModelBuilder generates QStandardItemModel representing
-//! tunable parameters of instrument and sample models.
-//! Used by ModelTuningWidget.
 class ParameterModelBuilder
-{
-public:
-
-    static QStandardItemModel *createParameterModel(JobModel *jobModel, JobItem *jobItem);
-    static QStandardItem *iterateSessionModel(SessionModel *sampleModel, const QModelIndex &parentIndex = QModelIndex(), QStandardItem *parentItem = 0);
-
-private:
-
-    static QStandardItem *iterateInstrumentModel(InstrumentModel *instrumentModel);
-    static QStandardItem *iterateInstrumentItem(InstrumentItem *);
-
-    static void InsertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem = 0);
-    static void addPropertyToParameterModel(QStandardItem *parentItem, const QString &title, const QString &property_name, QVariant value, SessionItem *parameterizedItem);
-    static void addDisabledProperty(QStandardItem *parentItem, const QString &title);
-};
-
-class ParameterTreeBuilder
 {
 public:
     static void createParameterTree(JobItem *item, const QString tag = QString());

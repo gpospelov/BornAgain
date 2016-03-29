@@ -48,10 +48,7 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
     , m_jobModel(jobModel)
     , m_currentJobItem(0)
     , m_sliderSettingsWidget(0)
-    , m_parameterModel(0)
     , m_delegate(new ModelTuningDelegate)
-    , m_sampleModelBackup(0)
-    , m_instrumentModelBackup(0)
     , m_warningSign(0)
     , m_mapper(0)
 {
@@ -90,9 +87,6 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
 
 ModelTuningWidget::~ModelTuningWidget()
 {
-    delete m_parameterModel;
-    delete m_sampleModelBackup;
-    delete m_instrumentModelBackup;
 }
 
 void ModelTuningWidget::setCurrentItem(JobItem *item)
@@ -105,7 +99,6 @@ void ModelTuningWidget::setCurrentItem(JobItem *item)
     if (!m_currentJobItem) return;
 
     updateParameterModel();
-    backupModels();
 
     if (m_mapper)
         m_mapper->deleteLater();
@@ -152,19 +145,12 @@ void ModelTuningWidget::onLockZValueChanged(bool value)
 void ModelTuningWidget::updateParameterModel()
 {
     qDebug() << "ModelTuningWidget::updateParameterModel()";
-    if(m_parameterModel) {
-        m_treeView->setModel(0);
-        delete m_parameterModel;
-        m_parameterModel = 0;
-    }
 
     if(!m_currentJobItem) return;
 
     if(!m_currentJobItem->getMultiLayerItem() || !m_currentJobItem->getInstrumentItem())
         throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error."
                                 "JobItem doesn't have sample or instrument model.");
-
-    m_parameterModel = ParameterModelBuilder::createParameterModel(m_jobModel, m_currentJobItem);
 
     FilterPropertyProxy *proxy = new FilterPropertyProxy(2, this);
     proxy->setSourceModel(m_jobModel);
@@ -173,16 +159,6 @@ void ModelTuningWidget::updateParameterModel()
     if (m_treeView->columnWidth(0) < 170)
         m_treeView->setColumnWidth(0, 170);
     m_treeView->expandAll();
-}
-
-
-//! Creates backup copies of JobItem's sample and instrument models
-void ModelTuningWidget::backupModels()
-{
-    qDebug() << "ModelTuningWidget::backupModels()";
-    if(!m_currentJobItem) return;
-
-    m_jobModel->backup(m_currentJobItem);
 }
 
 void ModelTuningWidget::restoreModelsOfCurrentJobItem()

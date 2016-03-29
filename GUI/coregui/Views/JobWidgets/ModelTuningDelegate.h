@@ -18,12 +18,12 @@
 #define MODELTUNINGDELEGATE_H
 
 #include <QItemDelegate>
-#include "ItemLink.h"
 #include "AttLimits.h"
 
 class QDoubleSpinBox;
 class QHBoxLayout;
 class ParameterItem;
+class SessionItem;
 
 class BA_CORE_API_ ModelTuningDelegate : public QItemDelegate
 {
@@ -81,7 +81,6 @@ private:
     mutable QDoubleSpinBox *m_valueBox;
     mutable QWidget *m_contentWidget;
     mutable QHBoxLayout * m_contentLayout;
-    mutable ItemLink m_current_link;
     mutable ParameterItem *m_currentItem;
     mutable SliderData m_slider_data;
 };

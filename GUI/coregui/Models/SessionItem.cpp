@@ -52,6 +52,7 @@ SessionItem::SessionItem(const QString &modelType)
     setData(SessionModel::ModelTypeRole, modelType);
     setDisplayName(modelType);
     setDecimals(3);
+    setLimits(AttLimits::lowerLimited(0.0));
 }
 
 /*!

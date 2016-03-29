@@ -19,6 +19,7 @@
 #include "IntensityDataItem.h"
 #include "FitParameter.h"
 #include "FitSuiteParameters.h"
+#include "QDebug"
 
 
 void GUIFitObserver::update(FitSuite *subject)
@@ -42,6 +43,9 @@ void GUIFitObserver::update(FitSuite *subject)
     for (it = container->begin(); it != container->end(); it++) {
         parameters.push_back(QString::fromStdString((*it)->getName()));
         values.push_back((*it)->getValue());
+        if ((*it)->getValue() < 0.0) {
+            qDebug() << (*it)->getValue();
+        }
     }
     emit updateParameters(parameters, values);
 

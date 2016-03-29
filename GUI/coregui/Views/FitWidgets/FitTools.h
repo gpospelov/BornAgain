@@ -30,6 +30,7 @@ class QPushButton;
 class RunFitManager;
 class GUIFitObserver;
 class QSlider;
+class RealDataWindow;
 
 class FitTools : public QWidget
 {
@@ -46,8 +47,9 @@ public slots:
     void onFittingFinished();
     void onStopClicked();
     void onError(const QString &text);
-    void onUpdatePlots(OutputData<double>*sim, OutputData<double>*);
-    void onUpdateParameters(QStringList parameters, QVector<double> values);
+    void onUpdatePlots(OutputData<double>*sim, OutputData<double>*chi2);
+    void onUpdateParameters(const QStringList &parameters, QVector<double> values);
+    void onRealData();
 
 private:
 
@@ -57,8 +59,10 @@ private:
     QPushButton *m_startButton;
     QPushButton *m_stopButton;
     QSlider *m_intervalSlider;
+    QPushButton *m_realData;
     RunFitManager *m_manager;
     std::shared_ptr<GUIFitObserver> m_observer;
+    RealDataWindow *m_realDataWindow;
 };
 
 #endif

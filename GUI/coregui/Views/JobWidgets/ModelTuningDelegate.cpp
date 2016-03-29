@@ -137,9 +137,7 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
 
         double value = index.model()->data(index, Qt::EditRole).toDouble();
 
-        auto proxy = dynamic_cast<FilterPropertyProxy*>(const_cast<QAbstractItemModel*>(index.model()));
-
-        m_currentItem = static_cast<ParameterItem*>(proxy->mapToSource(index).internalPointer());
+        m_currentItem = static_cast<ParameterItem*>(FilterPropertyProxy::toSourceIndex(index).internalPointer());
 
 
 

@@ -17,6 +17,8 @@
 #include "GUIFitObserver.h"
 #include "FitSuite.h"
 #include "IntensityDataItem.h"
+#include "FitParameter.h"
+#include "FitSuiteParameters.h"
 
 
 void GUIFitObserver::update(FitSuite *subject)
@@ -31,6 +33,17 @@ void GUIFitObserver::update(FitSuite *subject)
     subject->getFitParameters()->printParameters();
     std::string text = buffer.str();
     std::cout.rdbuf(old);
+
+    // pass parameter name and values to gui
+    auto container = subject->getFitParameters();
+    FitSuiteParameters::iterator it;
+    QStringList parameters;
+    QVector<double> values;
+    for (it = container->begin(); it != container->end(); it++) {
+        parameters.push_back(QString::fromStdString((*it)->getName()));
+        values.push_back((*it)->getValue());
+    }
+    emit updateParameters(parameters, values);
 
     emit updateLog(QString("NCalls: %1 Chi: %2\n%3").
                       arg(QString::number(subject->getNumberOfIterations()),

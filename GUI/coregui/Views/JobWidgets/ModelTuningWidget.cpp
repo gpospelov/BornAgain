@@ -28,6 +28,7 @@
 #include "DesignerHelper.h"
 #include "WarningSignWidget.h"
 #include "FilterPropertyProxy.h"
+#include "FitTools.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QTreeView>
@@ -51,6 +52,7 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
     , m_delegate(new ModelTuningDelegate)
     , m_warningSign(0)
     , m_mapper(0)
+    , m_fitTools(new FitTools(jobModel, parent))
 {
     setMinimumSize(128, 128);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -72,6 +74,7 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
         "url(:/images/treeview-branch-open.png);}");
 
     m_treeView->setItemDelegate(m_delegate);
+    m_treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     connect(m_delegate, SIGNAL(currentLinkChanged(SessionItem*)), this, SLOT(onCurrentLinkChanged(SessionItem*)));
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -81,6 +84,7 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
     // assembling all together
     mainLayout->addWidget(m_sliderSettingsWidget);
     mainLayout->addWidget(m_treeView);
+    mainLayout->addWidget(m_fitTools);
 
     setLayout(mainLayout);
 }
@@ -110,6 +114,8 @@ void ModelTuningWidget::setCurrentItem(JobItem *item)
         onPropertyChanged(name);
     });
 
+
+    m_fitTools->setCurrentItem(item, m_treeView->selectionModel());
 }
 
 void ModelTuningWidget::onCurrentLinkChanged(SessionItem *item)

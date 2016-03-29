@@ -28,11 +28,13 @@ ParameterLabelItem::ParameterLabelItem()
 
 const QString ParameterItem::P_LINK = "Link";
 const QString ParameterItem::P_BACKUP = "Backup";
+const QString ParameterItem::P_DOMAIN = "Domain";
 ParameterItem::ParameterItem()
     : SessionItem(Constants::ParameterType)
 {
     addProperty(P_LINK, "");
     addProperty(P_BACKUP, 0.0);
+    addProperty(P_DOMAIN, "");
 }
 
 void ParameterItem::propagateValueLink(bool backup)

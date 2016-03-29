@@ -30,6 +30,7 @@ class BA_CORE_API_ ParameterItem : public SessionItem
 public:
     static const QString P_LINK;
     static const QString P_BACKUP;
+    static const QString P_DOMAIN;
     ParameterItem();
     void propagateValueLink(bool backup = false);
     SessionItem *getLinkedItem();

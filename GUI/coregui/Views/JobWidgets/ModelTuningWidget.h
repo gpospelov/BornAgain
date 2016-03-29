@@ -29,6 +29,7 @@ class InstrumentModel;
 class WarningSignWidget;
 class ModelMapper;
 class SessionItem;
+class FitTools;
 
 class ModelTuningWidget : public QWidget
 {
@@ -63,6 +64,7 @@ private:
     ModelTuningDelegate *m_delegate;
     WarningSignWidget *m_warningSign;
     ModelMapper *m_mapper;
+    FitTools *m_fitTools;
 };
 
 #endif

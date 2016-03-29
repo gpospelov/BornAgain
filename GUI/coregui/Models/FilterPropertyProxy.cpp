@@ -23,6 +23,14 @@ int FilterPropertyProxy::columnCount(const QModelIndex &parent) const
     return m_columns;
 }
 
+QModelIndex FilterPropertyProxy::toSourceIndex(QModelIndex index)
+{
+    FilterPropertyProxy *proxy = dynamic_cast<FilterPropertyProxy*>(const_cast<QAbstractItemModel*>(index.model()));
+    if (proxy)
+        return proxy->mapToSource(index);
+    index;
+}
+
 bool FilterPropertyProxy::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
     QModelIndex index = sourceModel()->index(sourceRow, 1, sourceParent);

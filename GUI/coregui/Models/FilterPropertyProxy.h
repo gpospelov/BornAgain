@@ -29,6 +29,8 @@ public:
         , m_columns(columns) {}
     int columnCount(const QModelIndex &parent) const;
 
+    static QModelIndex toSourceIndex(QModelIndex index);
+
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;
 

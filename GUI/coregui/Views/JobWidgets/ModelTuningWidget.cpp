@@ -27,6 +27,8 @@
 #include "IntensityDataItem.h"
 #include "DesignerHelper.h"
 #include "WarningSignWidget.h"
+#include "FilterPropertyProxy.h"
+#include "FitTools.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QTreeView>
@@ -34,6 +36,8 @@
 #include <QToolButton>
 #include <QDebug>
 #include <QScrollBar>
+#include <QApplication>
+#include <QKeyEvent>
 
 namespace {
 const int warning_sign_xpos = 38;
@@ -45,12 +49,10 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
     , m_jobModel(jobModel)
     , m_currentJobItem(0)
     , m_sliderSettingsWidget(0)
-    , m_parameterModel(0)
     , m_delegate(new ModelTuningDelegate)
-    , m_sampleModelBackup(0)
-    , m_instrumentModelBackup(0)
     , m_warningSign(0)
     , m_mapper(0)
+    , m_fitTools(new FitTools(jobModel, parent))
 {
     setMinimumSize(128, 128);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -72,7 +74,8 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
         "url(:/images/treeview-branch-open.png);}");
 
     m_treeView->setItemDelegate(m_delegate);
-    connect(m_delegate, SIGNAL(currentLinkChanged(ItemLink)), this, SLOT(onCurrentLinkChanged(ItemLink)));
+    m_treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    connect(m_delegate, SIGNAL(currentLinkChanged(SessionItem*)), this, SLOT(onCurrentLinkChanged(SessionItem*)));
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
@@ -81,15 +84,13 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
     // assembling all together
     mainLayout->addWidget(m_sliderSettingsWidget);
     mainLayout->addWidget(m_treeView);
+    mainLayout->addWidget(m_fitTools);
 
     setLayout(mainLayout);
 }
 
 ModelTuningWidget::~ModelTuningWidget()
 {
-    delete m_parameterModel;
-    delete m_sampleModelBackup;
-    delete m_instrumentModelBackup;
 }
 
 void ModelTuningWidget::setCurrentItem(JobItem *item)
@@ -102,7 +103,6 @@ void ModelTuningWidget::setCurrentItem(JobItem *item)
     if (!m_currentJobItem) return;
 
     updateParameterModel();
-    backupModels();
 
     if (m_mapper)
         m_mapper->deleteLater();
@@ -114,9 +114,11 @@ void ModelTuningWidget::setCurrentItem(JobItem *item)
         onPropertyChanged(name);
     });
 
+
+    m_fitTools->setCurrentItem(item, m_treeView->selectionModel());
 }
 
-void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
+void ModelTuningWidget::onCurrentLinkChanged(SessionItem *item)
 {
     qDebug() << "ModelTuningWidget::onCurrentLinkChanged";
     Q_ASSERT(m_currentJobItem);
@@ -124,10 +126,10 @@ void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
     if(m_currentJobItem->isRunning())
         return;
 
-    if (link.getItem()) {
-        qDebug() << "ModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model"
-                 << link.getItem()->modelType() << link.getPropertyName();
-        link.updateItem();
+    if (item) {
+        qDebug() << "ModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model";
+//                 << link.getItem()->modelType() << link.getPropertyName();
+//        link.updateItem();
         m_jobModel->getJobQueueData()->runJob(m_currentJobItem);
     }
 }
@@ -149,11 +151,6 @@ void ModelTuningWidget::onLockZValueChanged(bool value)
 void ModelTuningWidget::updateParameterModel()
 {
     qDebug() << "ModelTuningWidget::updateParameterModel()";
-    if(m_parameterModel) {
-        m_treeView->setModel(0);
-        delete m_parameterModel;
-        m_parameterModel = 0;
-    }
 
     if(!m_currentJobItem) return;
 
@@ -161,21 +158,13 @@ void ModelTuningWidget::updateParameterModel()
         throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error."
                                 "JobItem doesn't have sample or instrument model.");
 
-    m_parameterModel = ParameterModelBuilder::createParameterModel(m_jobModel, m_currentJobItem);
-
-    m_treeView->setModel(m_parameterModel);
-    m_treeView->setColumnWidth(0, 240);
+    FilterPropertyProxy *proxy = new FilterPropertyProxy(2, this);
+    proxy->setSourceModel(m_jobModel);
+    m_treeView->setModel(proxy);
+    m_treeView->setRootIndex(proxy->mapFromSource(m_currentJobItem->getItem(JobItem::T_PARAMETER_TREE)->index()));
+    if (m_treeView->columnWidth(0) < 170)
+        m_treeView->setColumnWidth(0, 170);
     m_treeView->expandAll();
-}
-
-
-//! Creates backup copies of JobItem's sample and instrument models
-void ModelTuningWidget::backupModels()
-{
-    qDebug() << "ModelTuningWidget::backupModels()";
-    if(!m_currentJobItem) return;
-
-    m_jobModel->backup(m_currentJobItem);
 }
 
 void ModelTuningWidget::restoreModelsOfCurrentJobItem()
@@ -187,7 +176,7 @@ void ModelTuningWidget::restoreModelsOfCurrentJobItem()
 
     m_jobModel->restore(m_currentJobItem);
 
-    updateParameterModel();
+//    updateParameterModel();
 
     m_jobModel->getJobQueueData()->runJob(m_currentJobItem);
 }

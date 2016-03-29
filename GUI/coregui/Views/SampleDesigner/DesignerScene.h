@@ -33,7 +33,7 @@ class NodeEditorConnection;
 class DesignerMimeData;
 class SampleViewAligner;
 class NodeEditor;
-class SampleViewProxyModel;
+class FilterPropertyProxy;
 
 
 //! Main class which represents SessionModel on graphics scene
@@ -47,7 +47,7 @@ public:
 
     void setSampleModel(SampleModel *sampleModel);
     void setInstrumentModel(InstrumentModel *instrumentModel);
-    void setSelectionModel(QItemSelectionModel *model, SampleViewProxyModel *proxy);
+    void setSelectionModel(QItemSelectionModel *model, FilterPropertyProxy *proxy);
 
     SampleModel *getSampleModel() { return m_sampleModel; }
 
@@ -101,7 +101,7 @@ private:
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
     QItemSelectionModel *m_selectionModel;
-    SampleViewProxyModel *m_proxy;
+    FilterPropertyProxy *m_proxy;
     bool m_block_selection;
 
     QMap<SessionItem *, IView *> m_ItemToView;

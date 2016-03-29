@@ -46,7 +46,8 @@ const QString DistributionNoneItem::P_VALUE = "Value";
 DistributionNoneItem::DistributionNoneItem()
     : DistributionItem(Constants::DistributionNoneType)
 {
-    addProperty(P_VALUE, 0.1)->setLimits(AttLimits::limitless());
+    addProperty(P_VALUE, 0.1)->setLimits(AttLimits::lowerLimited(1e-4));
+    getItem(P_VALUE)->setDecimals(4);
 }
 
 std::unique_ptr<IDistribution1D> DistributionNoneItem::createDistribution() const

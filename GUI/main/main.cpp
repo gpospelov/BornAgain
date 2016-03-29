@@ -23,6 +23,7 @@
 #include <iostream>
 #include <QTime>
 #include <QLocale>
+#include <QMetaType>
 
 void messageHandler(QtMsgType type, const QMessageLogContext &, const QString &msg)
 {
@@ -36,6 +37,7 @@ int main(int argc, char *argv[])
     if(!options.isConsistent()) return 0;
 
     QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+    qRegisterMetaType<QVector<double> >("QVector<double>");
 
     QApplication a(argc, argv);
 

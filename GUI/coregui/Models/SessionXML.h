@@ -40,7 +40,7 @@ const QString TagAttribute("Tag");
 const QString ModelNameAttribute("Name");
 const QString ItemTag("Item");
 const QString ModelTypeAttribute("ModelType");
-const QString ItemNameAttribute("ItemName");
+const QString DisplayNameAttribute("DisplayName");
 const QString ParameterTag("Parameter");
 const QString ParameterNameAttribute("ParName");
 const QString ParameterTypeAttribute("ParType");
@@ -70,7 +70,7 @@ private:
 class BA_CORE_API_ SessionReader
 {
 public:
-    static void readItems(QXmlStreamReader *reader, SessionItem *item, int row = -1);
+    static void readItems(QXmlStreamReader *reader, SessionItem *item, const QString &topTag = QString());
 private:
     static QString readProperty(QXmlStreamReader *reader, SessionItem *item);
 };

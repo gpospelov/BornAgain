@@ -60,7 +60,10 @@ double BeamItem::getWavelength() const
 {
     SessionItem *beamWavelength = getGroupItem(P_WAVELENGTH);
     Q_ASSERT(beamWavelength);
-    return beamWavelength->getItemValue(BeamDistributionItem::P_CACHED_VALUE).toDouble();
+    SessionItem *distributionNoneValueItem =
+            beamWavelength->getGroupItem(BeamDistributionItem::P_DISTRIBUTION,Constants::DistributionNoneType)
+            ->getItem(DistributionNoneItem::P_VALUE);
+    return distributionNoneValueItem->value().toDouble();
 }
 
 void BeamItem::setWavelength(double value, const QString &distribution_name)
@@ -78,7 +81,10 @@ double BeamItem::getInclinationAngle() const
 {
     SessionItem *angleItem = getGroupItem(P_INCLINATION_ANGLE);
     Q_ASSERT(angleItem);
-    return angleItem->getItemValue(BeamDistributionItem::P_CACHED_VALUE).toDouble();
+    SessionItem *distributionNoneValueItem =
+            angleItem->getGroupItem(BeamDistributionItem::P_DISTRIBUTION,Constants::DistributionNoneType)
+            ->getItem(DistributionNoneItem::P_VALUE);
+    return distributionNoneValueItem->value().toDouble();
 }
 
 void BeamItem::setInclinationAngle(double value, const QString &distribution_name)
@@ -96,7 +102,10 @@ double BeamItem::getAzimuthalAngle() const
 {
     SessionItem *angleItem = getGroupItem(P_AZIMUTHAL_ANGLE);
     Q_ASSERT(angleItem);
-    return angleItem->getItemValue(BeamDistributionItem::P_CACHED_VALUE).toDouble();
+    SessionItem *distributionNoneValueItem =
+            angleItem->getGroupItem(BeamDistributionItem::P_DISTRIBUTION,Constants::DistributionNoneType)
+            ->getItem(DistributionNoneItem::P_VALUE);
+    return distributionNoneValueItem->value().toDouble();
 }
 
 void BeamItem::setAzimuthalAngle(double value, const QString &distribution_name)

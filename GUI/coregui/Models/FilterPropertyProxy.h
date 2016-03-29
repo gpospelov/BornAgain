@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/SampleViewProxyModel.h
-//! @brief     Defines class SampleViewProxyModel
+//! @file      coregui/Models/FilterPropertyProxy.h
+//! @brief     Defines class FilterPropertyProxy
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,23 +13,29 @@
 //! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
-#ifndef SAMPLEVIEWPROXYMODEL_H
-#define SAMPLEVIEWPROXYMODEL_H
+#ifndef FILTERPROPERTYPROXY_H
+#define FILTERPROPERTYPROXY_H
 
 #include "WinDllMacros.h"
 
 #include <QSortFilterProxyModel>
 
-class BA_CORE_API_ SampleViewProxyModel : public QSortFilterProxyModel
+class BA_CORE_API_ FilterPropertyProxy : public QSortFilterProxyModel
 {
     Q_OBJECT
 
 public:
-    SampleViewProxyModel(QObject *parent = 0) : QSortFilterProxyModel(parent) {}
+    FilterPropertyProxy(int columns, QObject *parent = 0) : QSortFilterProxyModel(parent)
+        , m_columns(columns) {}
     int columnCount(const QModelIndex &parent) const;
+
+    static QModelIndex toSourceIndex(QModelIndex index);
 
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;
+
+private:
+    int m_columns;
 };
 
 #endif

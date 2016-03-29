@@ -32,6 +32,7 @@ public:
     static const QString P_IDENTIFIER;
     static const QString P_SAMPLE_NAME;
     static const QString P_INSTRUMENT_NAME;
+    static const QString P_WITH_FITTING;
     static const QString P_STATUS;
     static const QString P_BEGIN_TIME;
     static const QString P_END_TIME;
@@ -39,6 +40,11 @@ public:
     static const QString P_PROGRESS;
     static const QString P_NTHREADS;
     static const QString P_RUN_POLICY;
+    static const QString T_SAMPLE;
+    static const QString T_INSTRUMENT;
+    static const QString T_OUTPUT;
+    static const QString T_REALDATA;
+    static const QString T_PARAMETER_TREE;
     explicit JobItem();
     virtual ~JobItem();
 
@@ -76,9 +82,9 @@ public:
     bool runImmediately() const;
     bool runInBackground() const;
 
-    MultiLayerItem *getMultiLayerItem(bool from_backup = false);
+    MultiLayerItem *getMultiLayerItem();
 
-    InstrumentItem *getInstrumentItem(bool from_backup = false);
+    InstrumentItem *getInstrumentItem();
 
     void setResults(const GISASSimulation *simulation);
 

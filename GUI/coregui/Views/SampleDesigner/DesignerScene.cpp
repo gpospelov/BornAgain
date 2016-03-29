@@ -34,7 +34,7 @@
 #include "ParticleLayoutItem.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleCompositionItem.h"
-#include "SampleViewProxyModel.h"
+#include "FilterPropertyProxy.h"
 
 #include <QItemSelection>
 #include <QDebug>
@@ -100,7 +100,7 @@ void DesignerScene::setInstrumentModel(InstrumentModel *instrumentModel)
     m_instrumentModel = instrumentModel;
 }
 
-void DesignerScene::setSelectionModel(QItemSelectionModel *model, SampleViewProxyModel *proxy)
+void DesignerScene::setSelectionModel(QItemSelectionModel *model, FilterPropertyProxy *proxy)
 {
     Q_ASSERT(model);
 

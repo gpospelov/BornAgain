@@ -56,6 +56,7 @@ JobRealTimeWidget::JobRealTimeWidget(JobModel *jobModel, QWidget *parent)
     setLayout(mainLayout);
 
     connect(m_toolBar, SIGNAL(resetParameters()), this, SLOT(onResetParameters()));
+    connect(m_jobModel, SIGNAL(modelLoaded()), this, SLOT(onModelLoaded()));
 }
 
 void JobRealTimeWidget::setJobModel(JobModel *jobModel)
@@ -149,6 +150,16 @@ void JobRealTimeWidget::updateCurrentItem()
 {
     if(!m_currentJobItem) return;
     setItem(m_currentJobItem);
+}
+
+void JobRealTimeWidget::onModelLoaded()
+{
+    JobItem *item = dynamic_cast<JobItem*>(m_jobModel->rootItem()->getItem());
+    if (item) {
+        setItem(item);
+    } else {
+        onJobItemDelete(m_currentJobItem);
+    }
 }
 
 ModelTuningWidget *JobRealTimeWidget::getCurrentModelTuningWidget()

@@ -17,7 +17,7 @@
 #include "SampleViewComponents.h"
 #include "widgetbox.h"
 #include "SampleDesigner.h"
-#include "SampleViewProxyModel.h"
+#include "FilterPropertyProxy.h"
 
 
 SampleWidgetBox *SampleViewComponents::createWidgetBox(
@@ -30,7 +30,7 @@ ItemTreeView *SampleViewComponents::createTreeView(
         SampleModel *sampleModel, QWidget *parent)
 {
     ItemTreeView *tree_view = new ItemTreeView(parent);
-    SampleViewProxyModel *proxy = new SampleViewProxyModel(parent);
+    FilterPropertyProxy *proxy = new FilterPropertyProxy(1, parent);
     proxy->setSourceModel(sampleModel);
     tree_view->setModel(proxy);
     return tree_view;

@@ -8,6 +8,7 @@
 #include "InstrumentModel.h"
 #include "MaterialSvc.h"
 #include "JobModel.h"
+#include "JobItem.h"
 #include <QXmlStreamWriter>
 #include <memory>
 
@@ -159,13 +160,12 @@ inline void TestSessionModel::test_copyParameterizedItem()
 
     JobModel *jobModel = new JobModel();
     SessionItem *jobItem = jobModel->insertNewItem(Constants::JobItemType);
-    QCOMPARE(jobItem->getTagInfo(jobItem->defaultTag()).childCount, 0);
 
-    jobModel->copyParameterizedItem(multilayer1, jobItem);
-    QCOMPARE(jobItem->getTagInfo(jobItem->defaultTag()).childCount, 1);
+    jobModel->copyParameterizedItem(multilayer1, jobItem, JobItem::T_SAMPLE);
+    QCOMPARE(jobItem->getTagInfo(JobItem::T_SAMPLE).childCount, 1);
 
-    jobModel->copyParameterizedItem(instrument1, jobItem);
-    QCOMPARE(jobItem->getTagInfo(jobItem->defaultTag()).childCount, 2);
+    jobModel->copyParameterizedItem(instrument1, jobItem, JobItem::T_INSTRUMENT);
+    QCOMPARE(jobItem->getTagInfo(JobItem::T_INSTRUMENT).childCount, 1);
 
     delete sampleModel;
     delete instrumentModel;

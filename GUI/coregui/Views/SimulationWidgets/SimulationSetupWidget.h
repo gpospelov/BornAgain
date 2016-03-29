@@ -23,6 +23,7 @@
 
 class QComboBox;
 class QPushButton;
+class QLabel;
 class SampleModel;
 class InstrumentModel;
 class JobModel;
@@ -53,6 +54,7 @@ public:
 public slots:
     void onRunSimulation();
     void onExportToPythonScript();
+    void onOpenFile();
 
 private:
     void updateSelectionBox(QComboBox *comboBox, QStringList itemList);
@@ -71,6 +73,8 @@ private:
     QComboBox *instrumentSelectionBox;
     QComboBox *sampleSelectionBox;
     QPushButton *runSimulationButton;
+    QPushButton *selectRealData;
+    QLabel *pathLabel;
     QComboBox *runPolicySelectionBox;
     QComboBox *cpuUsageSelectionBox;
     QPushButton *exportToPyScriptButton;

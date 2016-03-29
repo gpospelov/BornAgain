@@ -31,7 +31,6 @@ class BA_CORE_API_ BeamDistributionItem : public SessionItem
 {
 public:
     static const QString P_DISTRIBUTION;
-    static const QString P_CACHED_VALUE;
     explicit BeamDistributionItem(const QString name = QString());
     virtual ~BeamDistributionItem(){}
 

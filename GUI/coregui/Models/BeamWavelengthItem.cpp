@@ -19,9 +19,4 @@
 BeamWavelengthItem::BeamWavelengthItem()
     : BeamDistributionItem(Constants::BeamWavelengthType)
 {
-    SessionItem *cache = getItem(BeamDistributionItem::P_CACHED_VALUE);
-    cache->setVisible(false);
-    cache->setLimits(AttLimits::lowerLimited(1e-4));
-    cache->setDecimals(4);
-    setItemValue(BeamDistributionItem::P_CACHED_VALUE, 0.1);
 }

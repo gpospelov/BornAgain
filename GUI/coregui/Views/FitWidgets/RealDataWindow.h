@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/SampleViewProxyModel.cpp
-//! @brief     Implements class SampleViewProxyModel
+//! @file      coregui/Views/FitWidgets/RealDataWindow.h
+//! @brief     Defines class RealDataWindow
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,18 +14,25 @@
 //
 // ************************************************************************** //
 
-#include "SampleViewProxyModel.h"
+#ifndef REALDATAWINDOW_H
+#define REALDATAWINDOW_H
 
-int SampleViewProxyModel::columnCount(const QModelIndex &parent) const
-{
-    Q_UNUSED(parent);
-    return 1;
-}
+#include <QMainWindow>
 
-bool SampleViewProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
+class IntensityDataItem;
+class ColorMapPlot;
+
+class RealDataWindow : public QMainWindow
 {
-    QModelIndex index = sourceModel()->index(sourceRow, 1, sourceParent);
-    if (!sourceParent.isValid())
-        return true;
-    return !sourceModel()->data(index, Qt::DisplayRole).isValid();
-}
+    Q_OBJECT
+
+public:
+    RealDataWindow(QWidget *parent = 0);
+
+    void setItem(IntensityDataItem *item);
+
+private:
+    ColorMapPlot *m_plot;
+};
+
+#endif

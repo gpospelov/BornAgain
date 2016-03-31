@@ -24,17 +24,13 @@
 BeamInclinationAngleItem::BeamInclinationAngleItem()
     : BeamDistributionItem(Constants::BeamInclinationAngleType)
 {
-    auto cache = getItem(BeamDistributionItem::P_CACHED_VALUE);
-    cache->setVisible(false);
-    cache->setLimits(AttLimits::limited(0.0, 90.0));
-    cache->setDecimals(3);
-    setItemValue(BeamDistributionItem::P_CACHED_VALUE, 0.2);
 
     SessionItem *distribution = dynamic_cast<DistributionNoneItem *>(getGroupItem(P_DISTRIBUTION));
     Q_ASSERT(distribution);
     auto value = distribution->getItem(DistributionNoneItem::P_VALUE);
     value->setLimits(AttLimits::limited(0.0, 90.0));
     value->setDecimals(3);
+    value->setValue(0.2);
 }
 
 std::unique_ptr<IDistribution1D> BeamInclinationAngleItem::createDistribution1D()
@@ -51,16 +47,12 @@ std::unique_ptr<IDistribution1D> BeamInclinationAngleItem::createDistribution1D(
 BeamAzimuthalAngleItem::BeamAzimuthalAngleItem()
     : BeamDistributionItem(Constants::BeamAzimuthalAngleType)
 {
-    setItemValue(BeamDistributionItem::P_CACHED_VALUE, 0.0);
-    auto cache = getItem(BeamDistributionItem::P_CACHED_VALUE);
-    cache->setVisible(false);
-    cache->setLimits(AttLimits::limited(-90.0, 90.0));
-    cache->setDecimals(3);
     SessionItem *distribution = dynamic_cast<DistributionNoneItem *>(getGroupItem(P_DISTRIBUTION));
     Q_ASSERT(distribution);
     auto value = distribution->getItem(DistributionNoneItem::P_VALUE);
     value->setLimits(AttLimits::limited(-90.0, 90.0));
     value->setDecimals(3);
+    value->setValue(0.0);
 }
 
 std::unique_ptr<IDistribution1D> BeamAzimuthalAngleItem::createDistribution1D()

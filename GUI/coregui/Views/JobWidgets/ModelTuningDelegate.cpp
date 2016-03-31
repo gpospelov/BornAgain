@@ -15,8 +15,11 @@
 // ************************************************************************** //
 
 #include "ModelTuningDelegate.h"
-#include "ItemLink.h"
 #include "GUIHelpers.h"
+#include "ParameterTreeItems.h"
+#include "FilterPropertyProxy.h"
+#include "ModelPath.h"
+#include "SessionModel.h"
 #include <QDebug>
 #include <QPainter>
 #include <QPaintDevice>
@@ -134,17 +137,18 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
 
         double value = index.model()->data(index, Qt::EditRole).toDouble();
 
-        m_current_link = index.model()->data(index, Qt::UserRole).value<ItemLink>();
+        m_currentItem = static_cast<ParameterItem*>(FilterPropertyProxy::toSourceIndex(index).internalPointer());
 
-        SessionItem *item = m_current_link.getItem();
-        AttLimits limits = item->getItem(m_current_link.getPropertyName())->limits();
+
+
+        AttLimits limits = m_currentItem->getLinkedItem()->limits();
 
         // initializing value box
         m_valueBox = new QDoubleSpinBox();
         m_valueBox->setKeyboardTracking(false);
         m_valueBox->setFixedWidth(80);
-        m_valueBox->setDecimals(item->getItem(m_current_link.getPropertyName())->decimals());
-        m_valueBox->setSingleStep(1./std::pow(10.,item->getItem(m_current_link.getPropertyName())->decimals()-1));
+        m_valueBox->setDecimals(m_currentItem->getLinkedItem()->decimals());
+        m_valueBox->setSingleStep(1./std::pow(10.,m_currentItem->getLinkedItem()->decimals()-1));
 
         if(limits.hasLowerLimit()) {
             m_valueBox->setMinimum(limits.getLowerLimit());
@@ -178,6 +182,13 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
         m_contentLayout->setSpacing(0);
         m_contentLayout->addWidget(m_valueBox);
         m_contentLayout->addWidget(m_slider);
+
+        ModelMapper *mapper = new ModelMapper(m_contentWidget);
+        mapper->setItem(m_currentItem);
+        mapper->setOnValueChange(
+                    [this](){
+            m_valueBox->setValue(m_currentItem->value().toDouble());
+        });
 
         m_contentWidget->setLayout(m_contentLayout);
 
@@ -240,15 +251,6 @@ void ModelTuningDelegate::setModelData(QWidget *editor,
     if (index.column() == m_valueColumn) {
 
         model->setData(index, m_valueBox->value());
-        ItemLink link = model->data(index, Qt::UserRole).value<ItemLink>();
-
-        if(link.getItem() != nullptr)
-        {
-            qDebug() << "SampleTuningDelegate::setModelData() -> setting property " << link.getPropertyName();
-            //link.getItem()->setRegisteredProperty(link.getPropertyName(), m_valueBox->value());
-            link.setValue(m_valueBox->value());
-            link.updateItem();
-        }
 
     } else {
         QItemDelegate::setModelData(editor, model, index);
@@ -258,11 +260,10 @@ void ModelTuningDelegate::setModelData(QWidget *editor,
 
 void ModelTuningDelegate::emitSignals(double value)
 {
-    if(m_current_link.getItem()) {
-        m_current_link.setValue(value);
-        //qDebug() << "SampleTuningDelegate::editorValueChanged() -> Working on item " << m_current_link.getItem()->modelType() << m_current_link.getPropertyName();
-        //m_current_link.getItem()->setRegisteredProperty(m_current_link.getPropertyName(), m_valueBox->value());
-        emit currentLinkChanged(m_current_link);
+    if(m_currentItem) {
+        m_currentItem->setValue(value);
+        m_currentItem->propagateValueLink();
+        emit currentLinkChanged(m_currentItem);
     }
 }
 

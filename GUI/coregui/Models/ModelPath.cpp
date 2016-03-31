@@ -19,6 +19,7 @@
 #include "GroupProperty.h"
 #include "GroupItem.h"
 #include "ParticleItem.h"
+#include "SessionModel.h"
 #include <QModelIndex>
 #include <QStringList>
 #include <sstream>
@@ -110,6 +111,39 @@ std::string ModelPath::translateParameterName(const SessionItem *item, const QSt
 void ModelPath::addParameterTranslator(const IParameterTranslator &translator)
 {
     m_special_translators.emplace_back(translator.clone());
+}
+
+QString ModelPath::getPathFromIndex(const QModelIndex &index)
+{
+    if (index.isValid()) {
+        QStringList namePath;
+        QModelIndex cur = index;
+        while (cur.isValid()) {
+            namePath << cur.data().toString();
+            cur = cur.parent();
+        }
+        std::reverse(namePath.begin(), namePath.end());
+        return namePath.join("/");
+    }
+    return QString();
+}
+
+QModelIndex ModelPath::getIndexFromPath(const SessionModel *model, const QString &path)
+{
+    if (model) {
+        QStringList parts = path.split("/");
+        SessionItem *t = model->rootItem();
+        for(int i = 0; i < parts.length(); i++) {
+            for (int j = 0; j < t->rowCount(); j++) {
+                if (t->childAt(j)->itemName() == parts[i]) {
+                    t = t->childAt(j);
+                    break;
+                }
+            }
+        }
+        return t->index();
+    }
+    return QModelIndex();
 }
 
 QStringList ModelPath::splitParameterName(const QString &par_name)

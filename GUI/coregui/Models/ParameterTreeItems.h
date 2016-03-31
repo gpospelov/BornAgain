@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ParameterModelBuilder.h
-//! @brief     Defines class ParameterModelBuilder
+//! @file      coregui/Models/ParameterTreeItems.h
+//! @brief     Defines classes for ParameterTreeItems
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,22 +14,26 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERMODELBUILDER_H
-#define PARAMETERMODELBUILDER_H
+#ifndef PARAMETERTREEITEMS_H
+#define PARAMETERTREEITEMS_H
 
-#include <QString>
+#include "SessionItem.h"
 
-class JobItem;
-class SessionItem;
-
-class ParameterModelBuilder
+class BA_CORE_API_ ParameterLabelItem : public SessionItem
 {
 public:
-    static void createParameterTree(JobItem *item, const QString tag = QString());
-private:
-    static void handleItem(SessionItem *tree, SessionItem *source);
+    ParameterLabelItem();
 };
 
+class BA_CORE_API_ ParameterItem : public SessionItem
+{
+public:
+    static const QString P_LINK;
+    static const QString P_BACKUP;
+    static const QString P_DOMAIN;
+    ParameterItem();
+    void propagateValueLink(bool backup = false);
+    SessionItem *getLinkedItem();
+};
 
 #endif
-

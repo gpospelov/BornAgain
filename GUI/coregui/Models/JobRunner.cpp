@@ -54,7 +54,7 @@ void JobRunner::start()
 
     if(m_simulation) {
         ProgressHandler_t progressHandler(new ProgressHandler());
-        ProgressHandler::Callback_t callback = boost::bind(&JobRunner::similationProgressCallback, this, _1);
+        ProgressHandler::Callback_t callback = boost::bind(&JobRunner::simulationProgressCallback, this, _1);
         progressHandler->setCallback(callback);
         m_simulation->setProgressHandler(progressHandler);
 
@@ -99,7 +99,7 @@ void JobRunner::runFakeSimulation()
 }
 
 //! function which is called by the simulation to report its progress
-bool JobRunner::similationProgressCallback(int progress)
+bool JobRunner::simulationProgressCallback(int progress)
 {
     if(progress >= m_progress) {
         m_progress = progress;

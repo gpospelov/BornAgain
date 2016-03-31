@@ -302,6 +302,7 @@ void ProjectDocument::readFrom(QIODevice *device)
     connectModel(m_instrumentModel);
     connectModel(m_sampleModel);
     connectModel(m_jobModel);
+    m_jobModel->modelLoaded();
     //connectModel(m_fitModel);
 }
 

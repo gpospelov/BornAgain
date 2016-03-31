@@ -43,11 +43,9 @@ public:
     JobItem *addJob(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem,
             const QString &run_policy = QString(), int numberOfThreads=-1);
 
-    void setSampleForJobItem(JobItem *jobItem, const MultiLayerItem *multiLayerItem, bool backup = false);
+    void setSampleForJobItem(JobItem *jobItem, const MultiLayerItem *multiLayerItem);
 
-    void setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *instrumentItem, bool backup=false);
-
-    void backup(JobItem *jobItem);
+    void setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *instrumentItem);
 
     void restore(JobItem *jobItem);
 
@@ -56,6 +54,7 @@ signals:
     void aboutToDeleteJobItem(JobItem *item);
     void focusRequest(JobItem *item);
     void globalProgress(int);
+    void modelLoaded();
 
 public slots:
     void runJob(const QModelIndex &index);
@@ -67,6 +66,7 @@ public slots:
 private:
     QString generateJobName();
     QString generateJobIdentifier();
+    void restoreItem(SessionItem *item);
 
     JobQueueData *m_queue_data;
 };

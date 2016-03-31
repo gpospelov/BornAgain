@@ -52,6 +52,7 @@ void SessionWriter::writeItemAndChildItems(QXmlStreamWriter *writer, const Sessi
         if (tag == item->parent()->defaultTag())
             tag = "";
         writer->writeAttribute(SessionXML::TagAttribute, tag);
+        writer->writeAttribute(SessionXML::DisplayNameAttribute, item->data(SessionModel::DisplayNameRole).toString());
         QVector<int> roles = item->getRoles();
         foreach(int role, roles) {
             if (role == Qt::DisplayRole || role == Qt::EditRole)
@@ -123,9 +124,10 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
     }
 }
 
-void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, int row)
+void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const QString &topTag)
 {
-    qDebug() << "SessionModel::readItems() " << row;
+    bool isTopItem = true;
+    qDebug() << "SessionModel::readItems() " << topTag;
     if(item) qDebug() << "  item" << item->modelType();
     const QString modelType = item->model()->getModelTag();
     while (!reader->atEnd()) {
@@ -135,6 +137,9 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, int r
                 const QString model_type
                     = reader->attributes().value(SessionXML::ModelTypeAttribute).toString();
                 QString tag = reader->attributes().value(SessionXML::TagAttribute).toString();
+                if (isTopItem) {
+                    tag = topTag;
+                }
                 if (tag == SessionItem::P_NAME)
                     item->setItemName("");
                 if (model_type == Constants::PropertyType || model_type == Constants::GroupItemType) {
@@ -149,6 +154,9 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, int r
                     }
                 } else {
                     SessionItem *new_item = ItemFactory::createItem(model_type);
+                    if (reader->attributes().hasAttribute(SessionXML::DisplayNameAttribute)) {
+                        new_item->setDisplayName(reader->attributes().value(SessionXML::DisplayNameAttribute).toString());
+                    }
                     if (tag == "")
                         tag = item->defaultTag();
                     if (!item->insertItem(-1, new_item, tag)) {
@@ -157,10 +165,11 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, int r
                     item = new_item;
                 }
                 if (!item) {
-                    row = -1;
+//                    tag = -1;
                 }
 
-                row = -1; // all but the first item should be appended
+//                tag = -1; // all but the first item should be appended
+                isTopItem = false;
 
             } else if (reader->name() == SessionXML::ParameterTag) {
                 readProperty(reader, item);

@@ -27,6 +27,7 @@ LayerItem::LayerItem()
     : SessionGraphicsItem(Constants::LayerType)
 {
     addProperty(P_THICKNESS, 0.0);
+    getItem(P_THICKNESS)->setLimits(AttLimits::lowerLimited(0.0));
     addProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
 
     addGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup);

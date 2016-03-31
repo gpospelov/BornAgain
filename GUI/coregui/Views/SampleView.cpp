@@ -22,7 +22,7 @@
 #include "SamplePropertyWidget.h"
 #include "InfoWidget.h"
 #include "ItemFactory.h"
-#include "SampleViewProxyModel.h"
+#include "FilterPropertyProxy.h"
 #include <QDockWidget>
 #include <QAbstractItemView>
 #include <QToolBar>
@@ -103,7 +103,7 @@ void SampleView::initSubWindows()
 
     m_sampleDesigner->setSampleModel(m_sampleModel);
     m_sampleDesigner->setInstrumentModel(m_instrumentModel);
-    m_sampleDesigner->setSelectionModel(m_tree_view->selectionModel(), dynamic_cast<SampleViewProxyModel*>(const_cast<QAbstractItemModel*>(m_tree_view->model())));
+    m_sampleDesigner->setSelectionModel(m_tree_view->selectionModel(), dynamic_cast<FilterPropertyProxy*>(const_cast<QAbstractItemModel*>(m_tree_view->model())));
 }
 
 void SampleView::initSelectionModel()
@@ -149,11 +149,7 @@ void SampleView::resetToDefaultLayout()
 
 void SampleView::addItem(const QString &item_name)
 {
-    QModelIndex currentIndex = getTreeView()->currentIndex();
-
-    SampleViewProxyModel *model = dynamic_cast<SampleViewProxyModel*>(const_cast<QAbstractItemModel*>(currentIndex.model()));
-    if (model)
-        currentIndex = model->mapToSource(currentIndex);
+    QModelIndex currentIndex = FilterPropertyProxy::toSourceIndex(getTreeView()->currentIndex());
 
     QModelIndex currentIndexAtColumnZero = getIndexAtColumnZero(currentIndex);
     SessionItem *new_item
@@ -167,12 +163,7 @@ void SampleView::addItem(const QString &item_name)
 
 void SampleView::deleteItem()
 {
-    QModelIndex currentIndex = getTreeView()->currentIndex();
-
-
-    SampleViewProxyModel *model = dynamic_cast<SampleViewProxyModel*>(const_cast<QAbstractItemModel*>(currentIndex.model()));
-    if (model)
-        currentIndex = model->mapToSource(currentIndex);
+    QModelIndex currentIndex = FilterPropertyProxy::toSourceIndex(getTreeView()->currentIndex());
 
     if (!currentIndex.isValid()) return;
     QModelIndex parent_index = getSampleModel()->parent(currentIndex);
@@ -228,10 +219,7 @@ void SampleView::showContextMenu(const QPoint &pnt)
     QMenu menu;
     QMenu add_menu(QString("Add"));
     QVector<QString> addItemNames;
-    QModelIndex parent_index = getTreeView()->indexAt(pnt);
-    SampleViewProxyModel *model = dynamic_cast<SampleViewProxyModel*>(const_cast<QAbstractItemModel*>(parent_index.model()));
-    if (model)
-        parent_index = model->mapToSource(parent_index);
+    QModelIndex parent_index = FilterPropertyProxy::toSourceIndex(getTreeView()->indexAt(pnt));
     getTreeView()->setCurrentIndex(parent_index);
     if (!parent_index.isValid()) {
         addItemNames = ItemFactory::getValidTopItemNames().toVector();

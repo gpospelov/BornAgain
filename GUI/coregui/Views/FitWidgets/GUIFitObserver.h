@@ -56,6 +56,8 @@ signals:
 
     void startFitting(OutputData<double>*);
 
+    void updateParameters(const QStringList &, QVector<double>);
+
 private:
     std::atomic<bool> m_block_update_plots;
     int m_update_interval;

@@ -18,7 +18,7 @@
 #include "DesignerScene.h"
 #include "DesignerView.h"
 #include "MultiLayerView.h"
-#include "SampleViewProxyModel.h"
+#include "FilterPropertyProxy.h"
 #include "ISample.h"
 #include <QDebug>
 
@@ -48,7 +48,7 @@ void SampleDesigner::setInstrumentModel(InstrumentModel *instrumentModel)
 }
 
 
-void SampleDesigner::setSelectionModel(QItemSelectionModel *model, SampleViewProxyModel *proxy)
+void SampleDesigner::setSelectionModel(QItemSelectionModel *model, FilterPropertyProxy *proxy)
 {
     if(model) m_designerScene->setSelectionModel(model, proxy);
 }

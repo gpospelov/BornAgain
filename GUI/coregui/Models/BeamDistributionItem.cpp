@@ -24,13 +24,10 @@
 #include <QDebug>
 
 const QString BeamDistributionItem::P_DISTRIBUTION = "Distribution";
-const QString BeamDistributionItem::P_CACHED_VALUE = "Cached value";
 
 BeamDistributionItem::BeamDistributionItem(const QString name)
     : SessionItem(name)
 {
-    addProperty(P_CACHED_VALUE, 0.0);
-    getItem(P_CACHED_VALUE)->setVisible(false);
     addGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
     setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
 }
@@ -53,10 +50,12 @@ BeamDistributionItem::getParameterDistributionForName(const std::string &paramet
                                                      DistributionItem::P_SIGMA_FACTOR).toInt();
             }
             AttLimits limits;
+            SessionItem *distributionNoneValueItem =
+                    getGroupItem(P_DISTRIBUTION,Constants::DistributionNoneType)->getItem(DistributionNoneItem::P_VALUE);
             if (modelType() == Constants::BeamWavelengthType) {
-                limits = getItem(P_CACHED_VALUE)->limits();
+                limits = distributionNoneValueItem->limits();
             } else {
-                AttLimits orig = getItem(P_CACHED_VALUE)->limits();
+                AttLimits orig = distributionNoneValueItem->limits();
                 if (orig.hasLowerLimit())
                     limits.setLowerLimit(Units::deg2rad(orig.getLowerLimit()));
                 if (orig.hasUpperLimit())

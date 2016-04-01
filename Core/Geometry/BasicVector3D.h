@@ -149,7 +149,7 @@ public:
     template<class U>
     auto dot(const BasicVector3D<U>& v) const -> decltype(this->x()*v.x());
 
-    //! Returns cross product of vectors.
+    //! Returns cross product of vectors (linear in both arguments).
     template<class U>
     auto cross(const BasicVector3D<U>& v) const -> BasicVector3D<decltype(this->x()*v.x())>;
 

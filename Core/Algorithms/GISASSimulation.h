@@ -25,8 +25,6 @@
 
 #include "EigenCore.h"
 
-#include <boost/function.hpp>
-
 class ProgramOptions;
 class ProgressHandlerDWBA;
 class IHistogram;

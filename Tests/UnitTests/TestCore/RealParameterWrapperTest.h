@@ -3,7 +3,6 @@
 
 #include "RealParameterWrapper.h"
 #include "Exceptions.h"
-#include <boost/bind.hpp>
 
 class RealParameterWrapperTest : public ::testing::Test
 {

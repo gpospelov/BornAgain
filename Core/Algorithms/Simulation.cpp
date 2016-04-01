@@ -261,7 +261,7 @@ void Simulation::runSingleSimulation()
         // Run simulations in n threads.
         for (std::vector<DWBASimulation *>::iterator it = simulations.begin();
              it != simulations.end(); ++it) {
-            threads.push_back(new std::thread(boost::bind(&DWBASimulation::run, *it)));
+            threads.push_back(new std::thread([] (DWBASimulation* p_sim) {p_sim->run();} , *it));
         }
 
         // Wait for threads to complete.
@@ -309,8 +309,7 @@ void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
     // then we will create special callbacks for every DWBASimulation.
     // These callback will be used to report DWBASimulation progress to the Simulation.
     if (m_progress) {
-        ProgressHandler::Callback_t callback
-            = boost::bind(&ProgressHandler::update, m_progress.get(), _1);
+        ProgressHandler::Callback_t callback = [&] (int n) {return m_progress->update(n); };
         dwba_progress->setCallback(callback);
     }
 }

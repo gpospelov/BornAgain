@@ -17,8 +17,7 @@
 #define PROGRESSHANDLER_H
 
 #include "WinDllMacros.h"
-#include <boost/function.hpp>
-#include <boost/bind.hpp>
+#include <functional>
 #include <memory>
 
 class Simulation;
@@ -32,7 +31,7 @@ class Simulation;
 class BA_CORE_API_ ProgressHandler
 {
 public:
-    typedef boost::function<bool (int)> Callback_t;
+    typedef std::function<bool(int)> Callback_t;
 
     ProgressHandler();
 

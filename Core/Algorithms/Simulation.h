@@ -25,8 +25,6 @@
 #include "EigenCore.h"
 #include "SimulationElement.h"
 
-#include <boost/function.hpp>
-
 class ProgramOptions;
 class ProgressHandlerDWBA;
 

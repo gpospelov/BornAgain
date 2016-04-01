@@ -18,7 +18,7 @@
 
 #include "WinDllMacros.h"
 #include "Macros.h"
-#include <boost/function.hpp>
+#include <functional>
 #include "Exceptions.h"
 #include <vector>
 #include "MinimizerOptions.h"
@@ -35,10 +35,10 @@ class BA_CORE_API_ IMinimizer
 {
  public:
     //! signature of chi squared function to minimize
-    typedef boost::function<double(const double *)> function_chi2_t;
+    typedef std::function<double(const double *)> function_chi2_t;
 
     //! signature of gradient to minimize with access to single data element residuals
-    typedef boost::function<double(const double *, unsigned int, double *)> function_gradient_t;
+    typedef std::function<double(const double *, unsigned int, double *)> function_gradient_t;
 
     IMinimizer() { }
     virtual ~IMinimizer() { }

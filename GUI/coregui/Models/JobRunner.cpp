@@ -19,7 +19,7 @@
 #include "ProgressHandler.h"
 #include "ThreadInfo.h"
 #include "item_constants.h"
-#include <boost/bind.hpp>
+#include <functional>
 #include <QTimer>
 #include <QDebug>
 
@@ -54,7 +54,7 @@ void JobRunner::start()
 
     if(m_simulation) {
         ProgressHandler_t progressHandler(new ProgressHandler());
-        ProgressHandler::Callback_t callback = boost::bind(&JobRunner::simulationProgressCallback, this, _1);
+        ProgressHandler::Callback_t callback = [this] (int n) {return simulationProgressCallback(n);};
         progressHandler->setCallback(callback);
         m_simulation->setProgressHandler(progressHandler);
 

@@ -36,7 +36,7 @@ void ProgressHandler::reset()
     m_nitems = 0;
     m_nitems_max = 0;
     m_current_progress = 0;
-    m_callback = NULL;
+    m_callback = nullptr;
 }
 
 

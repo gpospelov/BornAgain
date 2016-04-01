@@ -125,8 +125,8 @@ IPixelMap *RectangularDetector::createPixelMap(size_t index) const
 
     Bin1D u_bin = u_axis.getBin(u_index);
     Bin1D v_bin = v_axis.getBin(v_index);
-    kvector_t corner_position = m_normal_to_detector
-            + (u_bin.m_lower - m_u0)*m_u_unit + (v_bin.m_lower - m_v0)*m_v_unit;
+    kvector_t corner_position( m_normal_to_detector
+            + (u_bin.m_lower - m_u0)*m_u_unit + (v_bin.m_lower - m_v0)*m_v_unit );
     kvector_t width = u_bin.getBinSize()*m_u_unit;
     kvector_t height = v_bin.getBinSize()*m_v_unit;
     return new RectPixelMap(corner_position, width, height);

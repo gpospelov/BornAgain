@@ -90,11 +90,13 @@ public:
     { v_[0] -= v.v_[0]; v_[1] -= v.v_[1]; v_[2] -= v.v_[2]; return *this; }
 
     //! Multiplies this with a scalar, and returns result.
-    inline BasicVector3D<T>& operator*=(double a)
+    template<class U>
+    inline auto operator*=(U a) -> BasicVector3D<decltype(this->x()*a)>&
     { v_[0] *= a; v_[1] *= a; v_[2] *= a; return *this; }
 
     //! Divides this by a scalar, and returns result.
-    inline BasicVector3D<T>& operator/=(double a)
+    template<class U>
+    inline auto operator/=(U a) -> BasicVector3D<decltype(this->x()*a)>&
     { v_[0] /= a; v_[1] /= a; v_[2] /= a; return *this; }
 
     // -------------------------------------------------------------------------
@@ -144,10 +146,12 @@ public:
     // -------------------------------------------------------------------------
 
     //! Returns dot product of vectors (antilinear in the first [=self] argument).
-    T dot(const BasicVector3D<T>& v) const;
+    template<class U>
+    auto dot(const BasicVector3D<U>& v) const -> decltype(this->x()*v.x());
 
     //! Returns cross product of vectors.
-    BasicVector3D<T> cross(const BasicVector3D<T>& v ) const;
+    template<class U>
+    auto cross(const BasicVector3D<U>& v) const -> BasicVector3D<decltype(this->x()*v.x())>;
 
     //! Returns angle with respect to another vector.
     double angle(const BasicVector3D<T>& v) const;
@@ -217,14 +221,14 @@ inline BasicVector3D<T> operator-(const BasicVector3D<T>& a, const BasicVector3D
 //! Multiplication vector by scalar.
 //! @relates BasicVector3D
 template <class T, class U>
-inline BasicVector3D<T> operator* (const BasicVector3D<T>& v, U a)
-{ return BasicVector3D<T>(v.x()*a, v.y()*a, v.z()*a); }
+inline auto operator* (const BasicVector3D<T>& v, const U a) -> BasicVector3D<decltype(v.x()*a)>
+{ return BasicVector3D<decltype(v.x()*a)>(v.x()*a, v.y()*a, v.z()*a); }
 
 //! Multiplication scalar by vector.
 //! @relates BasicVector3D
 template <class T, class U>
-inline BasicVector3D<T> operator* (U a, const BasicVector3D<T>& v)
-{ return BasicVector3D<T>(a*v.x(), a*v.y(), a*v.z()); }
+inline auto operator* (const U a, const BasicVector3D<T>& v) -> BasicVector3D<decltype(a*v.x())>
+{ return BasicVector3D<decltype(a*v.x())>(a*v.x(), a*v.y(), a*v.z()); }
 
 // vector*vector not supported
 //    (We do not provide the operator form a*b of the dot product:
@@ -262,13 +266,13 @@ BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(const double _lambda, con
 // ?? for API generation ??
 // =============================================================================
 
-template<> BA_CORE_API_ std::complex<double> BasicVector3D<std::complex<double> >::dot(
+template<> template<> BA_CORE_API_ std::complex<double> BasicVector3D<std::complex<double> >::dot(
         const BasicVector3D<std::complex<double> >& v) const;
 
-template<> BA_CORE_API_ double BasicVector3D<double>::dot(
+template<> template<> BA_CORE_API_ double BasicVector3D<double>::dot(
         const BasicVector3D<double>& v) const;
 
-template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::cross(
+template<> template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::cross(
         const BasicVector3D<double>& v) const;
 
 template<> BA_CORE_API_ double BasicVector3D<double>::phi() const;

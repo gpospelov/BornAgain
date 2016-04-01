@@ -79,27 +79,50 @@ BasicVector3D<std::complex<double>> BasicVector3D<double>::complex() const
 // Combine two vectors
 // -----------------------------------------------------------------------------
 
-//! Returns dot product of vectors (antilinear in the first [=self] argument).
-template<>
+//! Returns dot product of complex vectors (antilinear in the first [=self] argument).
+template<> template<>
 complex_t BasicVector3D<complex_t>::dot(const BasicVector3D<complex_t>& v) const
 {
      return std::conj(x())*v.x()+std::conj(y())*v.y()+std::conj(z())*v.z();
 }
 
-template<>
+//! Returns mixed dot product of complex and double vectors (antilinear in the complex argument).
+template<> template<>
+complex_t BasicVector3D<complex_t>::dot(const BasicVector3D<double>& v) const
+{
+     return std::conj( x()*v.x()+y()*v.y()+z()*v.z() );
+}
+
+//! Returns mixed dot product of double and complex vectors (linear in the complex argument).
+template<> template<>
+complex_t BasicVector3D<double>::dot(const BasicVector3D<complex_t>& v) const
+{
+     return x()*v.x()+y()*v.y()+z()*v.z();
+}
+
+//! Returns dot product of double-typed vectors.
+template<> template<>
 double BasicVector3D<double>::dot(const BasicVector3D<double>& v) const
 {
    return x()*v.x()+y()*v.y()+z()*v.z();
 }
 
- //! Returns cross product of vectors.
-template<>
-BasicVector3D<double> BasicVector3D<double>::cross(
-    const BasicVector3D<double>& v) const
+ //! Returns cross product of double-typed vectors.
+template<> template<>
+BasicVector3D<double> BasicVector3D<double>::cross(const BasicVector3D<double>& v) const
 {
     return BasicVector3D<double>(y()*v.z()-v.y()*z(),
                                  z()*v.x()-v.z()*x(),
                                  x()*v.y()-v.x()*y());
+}
+
+ //! Returns mixed cross product of double and complex vectors.
+template<> template<>
+BasicVector3D<complex_t> BasicVector3D<double>::cross(const BasicVector3D<complex_t>& v) const
+{
+    return BasicVector3D<complex_t>(y()*v.z()-v.y()*z(),
+                                    z()*v.x()-v.z()*x(),
+                                    x()*v.y()-v.x()*y());
 }
 
 //! Returns angle with respect to another vector.

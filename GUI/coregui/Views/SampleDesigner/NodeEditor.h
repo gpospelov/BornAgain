@@ -30,6 +30,7 @@ class QGraphicsScene;
 class NodeEditorConnection;
 class QGraphicsItem;
 class QPointF;
+class QGraphicsSceneMouseEvent;
 
 //! The NodeEditor class implement for QGraphicsScene an editable schematic
 //! of the dependency graph, displaying nodes and the connections between their
@@ -43,7 +44,7 @@ public:
 
 	void install(QGraphicsScene *scene);
 
-	bool eventFilter(QObject *, QEvent *);
+    bool eventFilter(QObject *object, QEvent *event);
 
 signals:
     void selectionModeChangeRequest(int);
@@ -53,6 +54,10 @@ private:
 	QGraphicsItem *itemAt(const QPointF&);
 
 private:
+    bool processMousePress(QGraphicsSceneMouseEvent *event);
+    bool processMouseMove(QGraphicsSceneMouseEvent *event);
+    bool processMouseRelease(QGraphicsSceneMouseEvent *event);
+
 	QGraphicsScene *scene;
     NodeEditorConnection *conn;
 };

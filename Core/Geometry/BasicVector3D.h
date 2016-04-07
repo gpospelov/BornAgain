@@ -89,15 +89,20 @@ public:
     inline BasicVector3D<T>& operator-=(const BasicVector3D<T>& v)
     { v_[0] -= v.v_[0]; v_[1] -= v.v_[1]; v_[2] -= v.v_[2]; return *this; }
 
+    
     //! Multiplies this with a scalar, and returns result.
+#ifndef SWIG
     template<class U>
     inline auto operator*=(U a) -> BasicVector3D<decltype(this->x()*a)>&
     { v_[0] *= a; v_[1] *= a; v_[2] *= a; return *this; }
+#endif // SWIG
 
     //! Divides this by a scalar, and returns result.
+#ifndef SWIG
     template<class U>
     inline auto operator/=(U a) -> BasicVector3D<decltype(this->x()*a)>&
     { v_[0] /= a; v_[1] /= a; v_[2] /= a; return *this; }
+#endif // SWIG
 
     // -------------------------------------------------------------------------
     // Functions of this (with no further argument)
@@ -146,12 +151,16 @@ public:
     // -------------------------------------------------------------------------
 
     //! Returns dot product of vectors (antilinear in the first [=self] argument).
+#ifndef SWIG
     template<class U>
     auto dot(const BasicVector3D<U>& v) const -> decltype(this->x()*v.x());
+#endif // SWIG
 
     //! Returns cross product of vectors (linear in both arguments).
+#ifndef SWIG
     template<class U>
     auto cross(const BasicVector3D<U>& v) const -> BasicVector3D<decltype(this->x()*v.x())>;
+#endif // SWIG
 
     //! Returns angle with respect to another vector.
     double angle(const BasicVector3D<T>& v) const;
@@ -220,15 +229,19 @@ inline BasicVector3D<T> operator-(const BasicVector3D<T>& a, const BasicVector3D
 
 //! Multiplication vector by scalar.
 //! @relates BasicVector3D
+#ifndef SWIG
 template <class T, class U>
 inline auto operator* (const BasicVector3D<T>& v, const U a) -> BasicVector3D<decltype(v.x()*a)>
 { return BasicVector3D<decltype(v.x()*a)>(v.x()*a, v.y()*a, v.z()*a); }
+#endif // SWIG
 
 //! Multiplication scalar by vector.
 //! @relates BasicVector3D
+#ifndef SWIG
 template <class T, class U>
 inline auto operator* (const U a, const BasicVector3D<T>& v) -> BasicVector3D<decltype(a*v.x())>
 { return BasicVector3D<decltype(a*v.x())>(a*v.x(), a*v.y(), a*v.z()); }
+#endif // SWIG
 
 // vector*vector not supported
 //    (We do not provide the operator form a*b of the dot product:

@@ -2187,16 +2187,6 @@ class kvector_t(_object):
         return _libBornAgainCore.kvector_t___isub__(self, v)
 
 
-    def __imul__(self, a):
-        """__imul__(kvector_t self, double a) -> kvector_t"""
-        return _libBornAgainCore.kvector_t___imul__(self, a)
-
-
-    def __idiv__(self, a):
-        """__idiv__(kvector_t self, double a) -> kvector_t"""
-        return _libBornAgainCore.kvector_t___idiv__(self, a)
-
-
     def conj(self):
         """
         conj(kvector_t self) -> kvector_t
@@ -2327,28 +2317,6 @@ class kvector_t(_object):
 
         """
         return _libBornAgainCore.kvector_t_complex(self)
-
-
-    def dot(self, v):
-        """
-        dot(kvector_t self, kvector_t v) -> double
-
-        double Geometry::BasicVector3D< double >::dot(const BasicVector3D< double > &v) const
-
-        """
-        return _libBornAgainCore.kvector_t_dot(self, v)
-
-
-    def cross(self, v):
-        """
-        cross(kvector_t self, kvector_t v) -> kvector_t
-
-        BasicVector3D< double > Geometry::BasicVector3D< double >::cross(const BasicVector3D< double > &v) const
-
-        Returns cross product of vectors. 
-
-        """
-        return _libBornAgainCore.kvector_t_cross(self, v)
 
 
     def angle(self, v):
@@ -2730,16 +2698,6 @@ class cvector_t(_object):
         return _libBornAgainCore.cvector_t___isub__(self, v)
 
 
-    def __imul__(self, a):
-        """__imul__(cvector_t self, double a) -> cvector_t"""
-        return _libBornAgainCore.cvector_t___imul__(self, a)
-
-
-    def __idiv__(self, a):
-        """__idiv__(cvector_t self, double a) -> cvector_t"""
-        return _libBornAgainCore.cvector_t___idiv__(self, a)
-
-
     def conj(self):
         """
         conj(cvector_t self) -> cvector_t
@@ -2810,16 +2768,6 @@ class cvector_t(_object):
 
         """
         return _libBornAgainCore.cvector_t_unit(self)
-
-
-    def dot(self, v):
-        """
-        dot(cvector_t self, cvector_t v) -> std::complex< double >
-
-        double Geometry::BasicVector3D< double >::dot(const BasicVector3D< double > &v) const
-
-        """
-        return _libBornAgainCore.cvector_t_dot(self, v)
 
 
     def project(self, v):

@@ -147,12 +147,12 @@ it has two contributions,
 The first one is the shape transform of the entire layer,
 \begin{equation}
   \chi_\text{m}(\q)
-  = \chi_\text{m} \int_{z_\il+1}^{z_{\il}}\!\d z \int\!\d^2r_\plll\, \e^{i\v{q}\,\r}
+  = \chi_\text{m} \int_{z_{\il+1}}^{z_{\il}}\!\d z \int\!\d^2r_\plll\, \e^{i\v{q}\,\r}
   = (2\pi)^2 \chi_\text{m} d_\il \e^{i q_\perp \overline{z}}  \delta(\q_\plll) \sinc\left( q_\perp d_\il /2 \right),
 \end{equation}
 with $\overline{z} \coloneqq \frac{z_\il + z_{\il+1}}{2}$ and $d_\il \coloneqq z_\il - z_{\il+1}$.
 Thanks to the delta function,
-this term only contributes to the specular peak.
+this term only contributes to the direct beam and specular peak.
 \Warn{Since $\chi_\text{m}=0$ in BornAgain,
   $\chi_\text{m}(\q)$ is not considered any further.}
 
@@ -288,9 +288,6 @@ about the particle \E{properties} like shape, size, and orientation
 \Note{\textbf{T-T decoupling approximation:}
 Properties of different particles are not correlated.}
 \index{T-T decoupling approximation}%
-\Note{\textbf{T-R decoupling approximation:}
-Particle properties do not depend on position.}
-\index{T-R decoupling approximation}%
 In consequence, the $\v T_i$
 are independent and identically distributed (\E{i.i.d.}) random variables.
 They all have the same distribution~$p(\v\tau)$.

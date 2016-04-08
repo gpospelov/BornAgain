@@ -68,13 +68,13 @@ void TestView::test_sessionModel()
     QVBoxLayout *layout = new QVBoxLayout;
     QTabWidget *tabs = new QTabWidget;
 
-    addModelToTabs(tabs, m_mainWindow->getInstrumentModel());
-    addModelToTabs(tabs, m_mainWindow->getSampleModel());
+    addModelToTabs(tabs, m_mainWindow->instrumentModel());
+    addModelToTabs(tabs, m_mainWindow->sampleModel());
     addModelToTabs(tabs, m_mainWindow->getMaterialModel());
-    addModelToTabs(tabs, m_mainWindow->getJobModel());
+    addModelToTabs(tabs, m_mainWindow->jobModel());
 
     TestProxyModel *testModel = new TestProxyModel(this);
-    testModel->setSourceModel(m_mainWindow->getSampleModel());
+    testModel->setSourceModel(m_mainWindow->sampleModel());
     addModelToTabs(tabs, testModel);
 
     // TODO: why is instrument empty here?

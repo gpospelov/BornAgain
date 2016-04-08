@@ -108,14 +108,18 @@ void JobModel::setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *i
 {
     Q_ASSERT(jobItem);
     Q_ASSERT(instrumentItem);
-
-    SessionItem *new_item = copyParameterizedItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
+    copyParameterizedItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
 }
 
 //! restore instrument and sample model from backup for given JobItem
 void JobModel::restore(JobItem *jobItem)
 {
     restoreItem(jobItem->getItem(JobItem::T_PARAMETER_TREE));
+}
+
+bool JobModel::hasUnfinishedJobs()
+{
+    return m_queue_data->hasUnfinishedJobs();
 }
 
 void JobModel::runJob(const QModelIndex &index)

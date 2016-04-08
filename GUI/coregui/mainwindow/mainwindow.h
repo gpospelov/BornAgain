@@ -48,6 +48,7 @@ class FitView;
 class JobModel;
 class UpdateNotifier;
 class FitModel;
+class ApplicationModels;
 
 class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
 {
@@ -57,17 +58,26 @@ public:
     enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, FIT, TESTVIEW};
 
     explicit MainWindow(QWidget *parent = 0);
-    virtual ~MainWindow();
 
-    MaterialModel *getMaterialModel() { return m_materialModel; }
-    InstrumentModel *getInstrumentModel() { return m_instrumentModel; }
-    SampleModel *getSampleModel() { return m_sampleModel; }
-    JobModel *getJobModel() { return m_jobModel; }
-    FitModel *getFitModel() { return m_fitModel; }
+//    MaterialModel *getMaterialModel() { return m_materialModel; }
+//    InstrumentModel *instrumentModel() { return m_instrumentModel; }
+//    SampleModel *sampleModel() { return m_sampleModel; }
+//    JobModel *jobModel() { return m_jobModel; }
+//    FitModel *getFitModel() { return m_fitModel; }
+
+    MaterialModel *getMaterialModel();
+    InstrumentModel *instrumentModel();
+    SampleModel *sampleModel();
+    JobModel *jobModel();
+    FitModel *getFitModel();
+
+
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
     ActionManager *getActionManager() { return m_actionManager; }
     ProjectManager *getProjectManager() { return m_projectManager; }
     UpdateNotifier *getUpdateNotifier() { return m_updateNotifier; }
+
+    ApplicationModels *models() { return m_applicationModels; }
 
 public slots:
     void onChangeTabWidget(int index);
@@ -96,24 +106,11 @@ private:
 
     ActionManager *m_actionManager; //!< responsible for menus and actions
     ProjectManager *m_projectManager; //!< handles activity related to opening/saving projects
+    ApplicationModels *m_applicationModels;
 
-    JobModel *m_jobModel;  //!< model for all jobs
-    SampleModel *m_sampleModel; //!< model for all samples
-    InstrumentModel *m_instrumentModel; //!< model for all instruments
-    MaterialModel *m_materialModel; //!< model for all materials
-    FitModel *m_fitModel; //!< model for fitting
-    MaterialSvc *m_materialEditor;
     ToolTipDataBase *m_toolTipDataBase;
     UpdateNotifier *m_updateNotifier;
 
-    void createModels();
-    void createMaterialModel();
-    void createSampleModel();
-    void createJobModel();
-    void createInstrumentModel();
-    void createFitModel();
-
-    void testGUIObjectBuilder();
     virtual void showEvent(QShowEvent *event);
 };
 

@@ -49,6 +49,8 @@ public:
 
     void restore(JobItem *jobItem);
 
+    bool hasUnfinishedJobs();
+
 signals:
     void selectionChanged(JobItem *item);
     void aboutToDeleteJobItem(JobItem *item);

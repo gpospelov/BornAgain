@@ -23,49 +23,22 @@
 #include "JobQueueData.h"
 #include "InstrumentView.h"
 #include "SimulationView.h"
-#include "MaterialEditorDialog.h"
 #include "stylehelper.h"
 #include "JobModel.h"
-#include "MaterialModel.h"
-#include "InstrumentModel.h"
-#include "MaterialSvc.h"
-#include "Instrument.h"
-#include "Units.h"
-#include "Samples.h"
-#include "IconProvider.h"
-#include "InterferenceFunctions.h"
-#include "FormFactors.h"
-#include "ParticleItem.h"
-#include "FormFactorItems.h"
-#include "InstrumentItem.h"
-#include "BeamItem.h"
-#include "DetectorItems.h"
+#include "ApplicationModels.h"
 #include "mainwindow_constants.h"
 #include "hostosinfo.h"
 #include "projectmanager.h"
 #include "progressbar.h"
-#include "SimulationRegistry.h"
-#include "DomainObjectBuilder.h"
-#include "GUIObjectBuilder.h"
-#include "SampleBuilderFactory.h"
-#include "GUIObjectBuilder.h"
 #include "tooltipdatabase.h"
 #include "mainwindow_constants.h"
-#include "ParticleCoreShellItem.h"
-#include "GroupProperty.h"
-#include "ScientificDoubleProperty.h"
-#include "SampleModel.h"
 #include "JobView.h"
 #include "aboutapplicationdialog.h"
 #include "FitView.h"
 #include "TestView.h"
 #include "GUIHelpers.h"
 #include "UpdateNotifier.h"
-#include "FitModel.h"
-#include "FitParameterItems.h"
 #include "TestComponentView.h"
-
-
 
 #include <QApplication>
 #include <QStatusBar>
@@ -87,20 +60,13 @@ MainWindow::MainWindow(QWidget *parent)
     , m_progressBar(0)
     , m_actionManager(0)
     , m_projectManager(0)
-    , m_jobModel(0)
-    , m_sampleModel(0)
-    , m_instrumentModel(0)
-    , m_materialModel(0)
-    , m_fitModel(0)
-    , m_materialEditor(0)
+    , m_applicationModels(new ApplicationModels(this))
     , m_toolTipDataBase(new ToolTipDataBase(this))
     , m_updateNotifier(new UpdateNotifier(this))
 {
     QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
     QCoreApplication::setApplicationVersion(GUIHelpers::getBornAgainVersionString());
     QCoreApplication::setOrganizationName(QLatin1String(Constants::APPLICATION_NAME));
-
-    createModels();
 
     if (!Utils::HostOsInfo::isMacHost())
         QApplication::setWindowIcon(QIcon(":/images/BornAgain.ico"));
@@ -120,11 +86,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_tabWidget = new Manhattan::FancyTabWidget(this);
     m_welcomeView = new WelcomeView(this);
-    m_instrumentView = new InstrumentView(m_instrumentModel);
-    m_sampleView = new SampleView(m_sampleModel, m_instrumentModel);
+    m_instrumentView = new InstrumentView(instrumentModel());
+    m_sampleView = new SampleView(sampleModel(), instrumentModel());
     m_simulationView = new SimulationView(this);
 
-    m_jobView = new JobView(m_jobModel, m_projectManager);
+    m_jobView = new JobView(jobModel(), getProjectManager());
 //    TestView *testView = new TestView(this);
 //    TestComponentView *testComponentView = new TestComponentView(this);
     //m_fitView = new FitView(this);
@@ -158,9 +124,29 @@ MainWindow::MainWindow(QWidget *parent)
     m_projectManager->createNewProject();
 }
 
-MainWindow::~MainWindow()
+MaterialModel *MainWindow::getMaterialModel()
 {
-    delete m_materialEditor;
+    return models()->materialModel();
+}
+
+InstrumentModel *MainWindow::instrumentModel()
+{
+    return models()->instrumentModel();
+}
+
+SampleModel *MainWindow::sampleModel()
+{
+    return models()->sampleModel();
+}
+
+JobModel *MainWindow::jobModel()
+{
+    return models()->jobModel();
+}
+
+FitModel *MainWindow::getFitModel()
+{
+    return models()->fitModel();
 }
 
 void MainWindow::readSettings()
@@ -172,7 +158,7 @@ void MainWindow::readSettings()
         move(settings.value(Constants::S_WINDOWPOSITION, QPoint(200, 200)).toPoint());
         settings.endGroup();
     }
-    assert(m_projectManager);
+    Q_ASSERT(m_projectManager);
     m_projectManager->readSettings();
 }
 
@@ -227,9 +213,10 @@ void MainWindow::onFocusRequest(int index)
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    if(m_jobModel->getJobQueueData()->hasUnfinishedJobs()) {
+    if(jobModel()->hasUnfinishedJobs()) {
         QMessageBox::warning(this, tr("Can't quite the application."),
-                             "Can't quite the application while jobs are running.\nCancel running jobs or wait until they are completed.");
+                             "Can't quite the application while jobs are running.\n"
+                             "Cancel running jobs or wait until they are completed.");
         event->ignore();
         return;
     }
@@ -245,109 +232,15 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
 }
 
-//! creates and initializes models
-void MainWindow::createModels()
-{
-    // the order is important
-    createMaterialModel();
-
-    createSampleModel();
-
-    createInstrumentModel();
-
-    createJobModel();
-
-    //createFitModel();
-
-    resetModels();
-}
-
-void MainWindow::createMaterialModel()
-{
-    delete m_materialModel;
-    m_materialModel = new MaterialModel(this);
-//    m_materialModel->addMaterial("Default", 1e-3, 1e-5);
-//    m_materialModel->addMaterial("Air", 0.0, 0.0);
-//    m_materialModel->addMaterial("Particle", 6e-4, 2e-8);
-//    m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
-    m_materialEditor = new MaterialSvc(m_materialModel);
-}
-
-void MainWindow::createSampleModel()
-{
-    Q_ASSERT(m_materialModel);
-    delete m_sampleModel;
-    m_sampleModel = new SampleModel(this);
-    connect(m_materialModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
-            m_sampleModel, SLOT(onMaterialModelChanged(QModelIndex,QModelIndex)));
-}
-
-void MainWindow::createJobModel()
-{
-    delete m_jobModel;
-    m_jobModel = new JobModel(this);
-}
-
-void MainWindow::createInstrumentModel()
-{
-    delete m_instrumentModel;
-    m_instrumentModel = new InstrumentModel(this);
-    m_instrumentModel->setIconProvider(new IconProvider());
-}
-
-void MainWindow::createFitModel()
-{
-    delete m_fitModel;
-    m_fitModel = new FitModel(m_sampleModel, m_instrumentModel, this);
-}
-
-//! reset all models to initial state
-void MainWindow::resetModels()
-{
-    m_materialModel->clear();
-    m_materialModel->addMaterial("Default", 1e-3, 1e-5);
-    m_materialModel->addMaterial("Air", 0.0, 0.0);
-    m_materialModel->addMaterial("Particle", 6e-4, 2e-8);
-    m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
-
-    m_sampleModel->clear();
-    testGUIObjectBuilder();
-
-    m_jobModel->clear();
-
-    m_instrumentModel->clear();
-    SessionItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
-    instrument->setItemName("Default GISAS");
-    m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
-    m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
-
-    /*m_fitModel->clear();
-    m_fitModel->insertNewItem(Constants::FitParameterContainerType, QModelIndex());
-    SessionItem *selection = m_fitModel->insertNewItem(Constants::FitSelectionType, QModelIndex());
-    selection->setRegisteredProperty(FitSelectionItem::P_SAMPLE, "MultiLayer");
-    selection->setRegisteredProperty(FitSelectionItem::P_INSTRUMENT, "Instrument0");
-    m_fitModel->insertNewItem(Constants::MinimizerSettingsType, QModelIndex());
-    m_fitModel->insertNewItem(Constants::InputDataType, QModelIndex());*/
-
-}
-
-void MainWindow::testGUIObjectBuilder()
-{
-    SampleBuilderFactory factory;
-    const std::unique_ptr<ISample> P_sample(factory.createSample("CylindersAndPrismsBuilder"));
-
-    GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(m_sampleModel, *P_sample);
-
-//    SimulationRegistry simRegistry;
-//    const std::unique_ptr<GISASSimulation> simulation(simRegistry.createSimulation("RectDetectorPerpToReflectedBeamDpos"));
-//    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
-}
-
 void MainWindow::onAboutApplication()
 {
     AboutApplicationDialog dialog(this);
     dialog.exec();
+}
+
+void MainWindow::resetModels()
+{
+    models()->resetModels();
 }
 
 void MainWindow::showEvent(QShowEvent *event)

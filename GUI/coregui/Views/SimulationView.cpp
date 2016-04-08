@@ -30,9 +30,9 @@ SimulationView::SimulationView(MainWindow *mainWindow)
     , m_sampleModel(0)
     , m_instrumentModel(0)
 {
-    m_jobModel = mainWindow->getJobModel();
-    m_sampleModel = mainWindow->getSampleModel();
-    m_instrumentModel = mainWindow->getInstrumentModel();
+    m_jobModel = mainWindow->jobModel();
+    m_sampleModel = mainWindow->sampleModel();
+    m_instrumentModel = mainWindow->instrumentModel();
 
     m_simulationSetupWidget = new SimulationSetupWidget();
     m_simulationSetupWidget->setJobModel(m_jobModel);

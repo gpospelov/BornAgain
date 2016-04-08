@@ -26,58 +26,49 @@ namespace Manhattan {
     class ProgressBar;
 }
 
-class TaskSelectorWidget;
 class WelcomeView;
 class InstrumentView;
 class SampleView;
-class PyScriptView;
 class SimulationView;
 class JobView;
-class Instrument;
-class ISample;
-class ActionManager;
-class ProjectManager;
-class QCloseEvent;
-class QSettings;
-class InstrumentModel;
-class MaterialSvc;
-class ToolTipDataBase;
-class MaterialModel;
-class SampleModel;
 class FitView;
+
+class MaterialModel;
+class MaterialSvc;
+class SampleModel;
+class InstrumentModel;
 class JobModel;
-class UpdateNotifier;
 class FitModel;
 class ApplicationModels;
+
+class ProjectManager;
+class ActionManager;
+class QSettings;
+class ToolTipDataBase;
+class UpdateNotifier;
+
 
 class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
 {
     Q_OBJECT
 
 public:
-    enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, FIT, TESTVIEW};
+    enum ETabViewId {WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, FIT, TESTVIEW};
 
     explicit MainWindow(QWidget *parent = 0);
-
-//    MaterialModel *getMaterialModel() { return m_materialModel; }
-//    InstrumentModel *instrumentModel() { return m_instrumentModel; }
-//    SampleModel *sampleModel() { return m_sampleModel; }
-//    JobModel *jobModel() { return m_jobModel; }
-//    FitModel *getFitModel() { return m_fitModel; }
 
     MaterialModel *getMaterialModel();
     InstrumentModel *instrumentModel();
     SampleModel *sampleModel();
     JobModel *jobModel();
     FitModel *getFitModel();
-
+    ApplicationModels *models();
 
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
     ActionManager *getActionManager() { return m_actionManager; }
     ProjectManager *getProjectManager() { return m_projectManager; }
     UpdateNotifier *getUpdateNotifier() { return m_updateNotifier; }
 
-    ApplicationModels *models() { return m_applicationModels; }
 
 public slots:
     void onChangeTabWidget(int index);
@@ -87,31 +78,26 @@ public slots:
     void writeSettings();
     void onRunSimulationShortcut();
     void onAboutApplication();
-    void resetModels();
 
 protected:
     virtual void closeEvent(QCloseEvent *event);
+    virtual void showEvent(QShowEvent *event);
 
 private:
+    ApplicationModels *m_applicationModels;
+    ProjectManager *m_projectManager;
+    ActionManager *m_actionManager;
+
     Manhattan::FancyTabWidget  *m_tabWidget;
     WelcomeView *m_welcomeView;
     InstrumentView *m_instrumentView;
     SampleView *m_sampleView;
     SimulationView *m_simulationView;
-
     JobView *m_jobView;
     FitView *m_fitView;
-
     Manhattan::ProgressBar *m_progressBar;
-
-    ActionManager *m_actionManager; //!< responsible for menus and actions
-    ProjectManager *m_projectManager; //!< handles activity related to opening/saving projects
-    ApplicationModels *m_applicationModels;
-
     ToolTipDataBase *m_toolTipDataBase;
     UpdateNotifier *m_updateNotifier;
-
-    virtual void showEvent(QShowEvent *event);
 };
 
 #endif // MAINWINDOW_H

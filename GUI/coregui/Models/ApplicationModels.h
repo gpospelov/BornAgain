@@ -34,11 +34,11 @@ public:
     ApplicationModels(QObject *parent);
     ~ApplicationModels();
 
-    MaterialModel *materialModel() { return m_materialModel; }
-    InstrumentModel *instrumentModel() { return m_instrumentModel; }
-    SampleModel *sampleModel() { return m_sampleModel; }
-    JobModel *jobModel() { return m_jobModel; }
-    FitModel *fitModel() { return m_fitModel; }
+    MaterialModel *materialModel();
+    InstrumentModel *instrumentModel();
+    SampleModel *sampleModel();
+    JobModel *jobModel();
+    FitModel *fitModel();
 
     void resetModels();
 
@@ -52,13 +52,11 @@ private:
     void testGUIObjectBuilder();
 
     MaterialModel *m_materialModel;
-    MaterialSvc *m_materialEditor;
+    MaterialSvc *m_materialSvc;
     InstrumentModel *m_instrumentModel;
     SampleModel *m_sampleModel;
     JobModel *m_jobModel;
     FitModel *m_fitModel;
 };
-
-
 
 #endif

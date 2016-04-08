@@ -38,20 +38,6 @@
 #include "ModelMapper.h"
 #include "DetectorItems.h"
 
-
-
-// FIXME_DAVID Rename Ivona's FitView into ObsoleteFitView. And use nice name FitView for own purpose.
-//  -- suggestion: for consistency use prefix Obsolete for all classes you are goind to throw soon
-//  -- you may want to add to all Ivona's classes prefix Obsolete. Don't forget about 'ifndef' header guards
-
-// FIXME_DAVID Move your activity from TestView to FitView.
-// - FitView should contain QTabWidget with 3 tabs:
-// - 1) ImportDataWidget (empty for the moment) 2) FitSettingsWidget 3) RunFitWidget
-
-// FIXME_DAVID FitSettingsWidget should contain
-// - FitParametersWidget (for the moment), and later sample/instrument selector + MinimizerSettingsWidgert
-
-
 TestView::TestView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_mainWindow(mainWindow)

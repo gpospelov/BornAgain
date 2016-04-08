@@ -27,7 +27,7 @@
 ApplicationModels::ApplicationModels(QObject *parent)
     : QObject(parent)
     , m_materialModel(0)
-    , m_materialEditor(0)
+    , m_materialSvc(0)
     , m_instrumentModel(0)
     , m_sampleModel(0)
     , m_jobModel(0)
@@ -35,12 +35,36 @@ ApplicationModels::ApplicationModels(QObject *parent)
 {
     createModels();
     testGUIObjectBuilder();
-
 }
 
 ApplicationModels::~ApplicationModels()
 {
-    delete m_materialEditor;
+    delete m_materialSvc;
+}
+
+MaterialModel *ApplicationModels::materialModel()
+{
+    return m_materialModel;
+}
+
+InstrumentModel *ApplicationModels::instrumentModel()
+{
+    return m_instrumentModel;
+}
+
+SampleModel *ApplicationModels::sampleModel()
+{
+    return m_sampleModel;
+}
+
+JobModel *ApplicationModels::jobModel()
+{
+    return m_jobModel;
+}
+
+FitModel *ApplicationModels::fitModel()
+{
+    return m_fitModel;
 }
 
 //! creates and initializes models
@@ -94,11 +118,7 @@ void ApplicationModels::createMaterialModel()
 {
     delete m_materialModel;
     m_materialModel = new MaterialModel(this);
-//    m_materialModel->addMaterial("Default", 1e-3, 1e-5);
-//    m_materialModel->addMaterial("Air", 0.0, 0.0);
-//    m_materialModel->addMaterial("Particle", 6e-4, 2e-8);
-//    m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
-    m_materialEditor = new MaterialSvc(m_materialModel);
+    m_materialSvc = new MaterialSvc(m_materialModel);
 }
 
 void ApplicationModels::createSampleModel()

@@ -25,6 +25,7 @@
 #include "WarningMessageService.h"
 #include "MessageContainer.h"
 #include "GUIMessage.h"
+#include "ApplicationModels.h"
 #include <QDir>
 #include <QFileDialog>
 #include <QSettings>
@@ -314,7 +315,7 @@ void ProjectManager::deleteCurrentProject()
 {
     delete m_project_document;
     m_project_document = 0;
-    m_mainWindow->resetModels();
+    m_mainWindow->models()->resetModels();
 }
 
 

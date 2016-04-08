@@ -50,6 +50,9 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
+    , m_applicationModels(new ApplicationModels(this))
+    , m_projectManager(new ProjectManager(this))
+    , m_actionManager(new ActionManager(this))
     , m_tabWidget(0)
     , m_welcomeView(0)
     , m_instrumentView(0)
@@ -58,9 +61,6 @@ MainWindow::MainWindow(QWidget *parent)
     , m_jobView(0)
     , m_fitView(0)
     , m_progressBar(0)
-    , m_actionManager(0)
-    , m_projectManager(0)
-    , m_applicationModels(new ApplicationModels(this))
     , m_toolTipDataBase(new ToolTipDataBase(this))
     , m_updateNotifier(new UpdateNotifier(this))
 {
@@ -76,12 +76,11 @@ MainWindow::MainWindow(QWidget *parent)
     Manhattan::Utils::StyleHelper::setBaseColor(QColor(Constants::MAIN_THEME_COLOR));
 
     setDockNestingEnabled(true);
+    setAcceptDrops(true);
 
     setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
     setCorner(Qt::BottomRightCorner, Qt::BottomDockWidgetArea);
 
-    m_projectManager = new ProjectManager(this);
-    m_actionManager = new ActionManager(this);
     readSettings();
 
     m_tabWidget = new Manhattan::FancyTabWidget(this);
@@ -112,8 +111,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_jobView->setProgressBar(m_progressBar);
 
     setCentralWidget(m_tabWidget);
-
-    setAcceptDrops(true);
 
     // signals/slots
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onChangeTabWidget(int)));
@@ -149,6 +146,40 @@ FitModel *MainWindow::getFitModel()
     return models()->fitModel();
 }
 
+ApplicationModels *MainWindow::models()
+{
+    return m_applicationModels;
+}
+
+//! updates views which depend on others
+void MainWindow::onChangeTabWidget(int index)
+{
+    if(index == WELCOME)
+    {
+        m_welcomeView->updateRecentProjectPanel();
+    }
+    else if (index == INSTRUMENT) {
+        m_instrumentView->updateView();
+    }
+    else if(index == SIMULATION) {
+        m_simulationView->updateSimulationViewElements();
+    }
+}
+
+void MainWindow::onFocusRequest(int index)
+{
+    m_tabWidget->setCurrentIndex(index);
+}
+
+void MainWindow::openRecentProject()
+{
+    if (const QAction *action = qobject_cast<const QAction*>(sender())) {
+        QString file = action->data().value<QString>();
+        qDebug() << "MainWindow::openRecentProject() -> " << file;
+        m_projectManager->openProject(file);
+    }
+}
+
 void MainWindow::readSettings()
 {
     QSettings settings;
@@ -180,35 +211,10 @@ void MainWindow::onRunSimulationShortcut()
     m_simulationView->onRunSimulationShortcut();
 }
 
-void MainWindow::openRecentProject()
+void MainWindow::onAboutApplication()
 {
-    if (const QAction *action = qobject_cast<const QAction*>(sender())) {
-        QString file = action->data().value<QString>();
-        qDebug() << "MainWindow::openRecentProject() -> " << file;
-        m_projectManager->openProject(file);
-    }
-}
-
-void MainWindow::onChangeTabWidget(int index)
-{
-    // update views which depend on others
-    (void)index;
-
-    if(index == WELCOME)
-    {
-        m_welcomeView->updateRecentProjectPanel();
-    }
-    else if (index == INSTRUMENT) {
-        m_instrumentView->updateView();
-    }
-    else if(index == SIMULATION) {
-        m_simulationView->updateSimulationViewElements();
-    }
-}
-
-void MainWindow::onFocusRequest(int index)
-{
-    m_tabWidget->setCurrentIndex(index);
+    AboutApplicationDialog dialog(this);
+    dialog.exec();
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -230,17 +236,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
     {
         event->ignore();
     }
-}
-
-void MainWindow::onAboutApplication()
-{
-    AboutApplicationDialog dialog(this);
-    dialog.exec();
-}
-
-void MainWindow::resetModels()
-{
-    models()->resetModels();
 }
 
 void MainWindow::showEvent(QShowEvent *event)

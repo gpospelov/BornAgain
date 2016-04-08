@@ -51,6 +51,7 @@
 #include "MaskItems.h"
 #include "FitParameterItems.h"
 #include "ParameterTreeItems.h"
+#include "SimulationOptionsItem.h"
 #include <QDebug>
 
 namespace {
@@ -181,6 +182,8 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::GroupItemType] = &createInstance<GroupItem>;
     result[Constants::ParameterLabelType] = &createInstance<ParameterLabelItem>;
     result[Constants::ParameterType] = &createInstance<ParameterItem>;
+
+    result[Constants::SimulationOptionsType] = &createInstance<SimulationOptionsItem>;
 
     return result;
 }

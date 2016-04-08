@@ -47,6 +47,8 @@ public:
 
     inline ComboProperty &operator<<(const QString &str);
 
+    inline ComboProperty &operator<<(const QStringList &str);
+
     QVariant getVariant() const;
 
     int getIndex() const;
@@ -85,6 +87,13 @@ inline QStringList ComboProperty::getValues() const
 }
 
 inline ComboProperty &ComboProperty::operator<<(const QString &str)
+{
+    m_values.append(str);
+    if(m_values.size()) m_current_value=m_values.at(0);
+    return *this;
+}
+
+inline ComboProperty &ComboProperty::operator<<(const QStringList &str)
 {
     m_values.append(str);
     if(m_values.size()) m_current_value=m_values.at(0);

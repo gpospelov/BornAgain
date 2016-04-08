@@ -45,8 +45,8 @@ TestView::TestView(MainWindow *mainWindow)
 //    test_MaskEditor();
 //    test_AccordionWidget();
 //    test_RunFitWidget();
-//    test_sessionModel();
-    test_MaterialEditor();
+    test_sessionModel();
+//    test_MaterialEditor();
 }
 
 void TestView::test_sessionModel()

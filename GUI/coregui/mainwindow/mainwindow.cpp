@@ -90,7 +90,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_simulationView = new SimulationView(this);
 
     m_jobView = new JobView(jobModel(), getProjectManager());
-//    TestView *testView = new TestView(this);
+    TestView *testView = new TestView(this);
 //    TestComponentView *testComponentView = new TestComponentView(this);
     //m_fitView = new FitView(this);
 
@@ -100,7 +100,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(SIMULATION, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
     m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(FIT, m_fitView, QIcon(":/images/main_jobqueue.png"), "Fit");
-//    m_tabWidget->insertTab(FIT, testView, QIcon(":/images/main_jobqueue.png"), "Test");
+    m_tabWidget->insertTab(FIT, testView, QIcon(":/images/main_jobqueue.png"), "Test");
 //    m_tabWidget->insertTab(TESTVIEW, testComponentView, QIcon(":/images/main_jobqueue.png"), "TestView");
 
     m_tabWidget->setCurrentIndex(WELCOME);

@@ -15,6 +15,7 @@
 // ************************************************************************** //
 #include "ApplicationModels.h"
 #include "GUIObjectBuilder.h"
+#include "DocumentModel.h"
 #include "MaterialModel.h"
 #include "MaterialSvc.h"
 #include "InstrumentModel.h"
@@ -26,6 +27,7 @@
 
 ApplicationModels::ApplicationModels(QObject *parent)
     : QObject(parent)
+    , m_documentModel(0)
     , m_materialModel(0)
     , m_materialSvc(0)
     , m_instrumentModel(0)
@@ -67,26 +69,12 @@ FitModel *ApplicationModels::fitModel()
     return m_fitModel;
 }
 
-//! creates and initializes models
-void ApplicationModels::createModels()
-{
-    // the order is important
-    createMaterialModel();
-
-    createSampleModel();
-
-    createInstrumentModel();
-
-    createJobModel();
-
-    //createFitModel();
-
-    resetModels();
-}
-
 //! reset all models to initial state
 void ApplicationModels::resetModels()
 {
+    m_documentModel->clear();
+    m_documentModel->insertNewItem(Constants::SimulationOptionsType);
+
     m_materialModel->clear();
     m_materialModel->addMaterial("Default", 1e-3, 1e-5);
     m_materialModel->addMaterial("Air", 0.0, 0.0);
@@ -113,6 +101,29 @@ void ApplicationModels::resetModels()
 
 }
 
+//! creates and initializes models, order is important
+void ApplicationModels::createModels()
+{
+    createDocumentModel();
+
+    createMaterialModel();
+
+    createSampleModel();
+
+    createInstrumentModel();
+
+    createJobModel();
+
+    //createFitModel();
+
+    resetModels();
+}
+
+void ApplicationModels::createDocumentModel()
+{
+    delete m_documentModel;
+    m_documentModel = new DocumentModel(this);
+}
 
 void ApplicationModels::createMaterialModel()
 {

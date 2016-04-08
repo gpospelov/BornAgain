@@ -150,6 +150,8 @@ const ModelType VerticalLineMaskType = "VerticalLineMask";
 const ModelType HorizontalLineMaskType = "HorizontalLineMask";
 const ModelType MaskAllType = "MaskAllMask";
 
+const ModelType SimulationOptionsType = "SimulationOptions";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
@@ -196,6 +198,9 @@ const ModelType JOB_RUN_IMMEDIATELY = "Immediately";
 const ModelType JOB_RUN_IN_BACKGROUND = "In background";
 const ModelType JOB_RUN_SUBMIT_ONLY = "Submit only";
 const ModelType JOB_BACKUP = "_backup";
+
+const ModelType SIMULATION_ANALYTICAL = "Analytical";
+const ModelType SIMULATION_MONTECARLO = "Monte-Carlo";
 
 const ModelType ALIGNMENT_GENERIC = "Generic";
 const ModelType ALIGNMENT_TO_SAMPLE = "Perpendicular to sample x-axis";

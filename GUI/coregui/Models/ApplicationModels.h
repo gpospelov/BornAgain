@@ -20,6 +20,7 @@
 #include "WinDllMacros.h"
 #include <QObject>
 
+class DocumentModel;
 class MaterialModel;
 class MaterialSvc;
 class InstrumentModel;
@@ -44,6 +45,7 @@ public:
 
 private:
     void createModels();
+    void createDocumentModel();
     void createMaterialModel();
     void createInstrumentModel();
     void createSampleModel();
@@ -51,6 +53,7 @@ private:
     void createFitModel();
     void testGUIObjectBuilder();
 
+    DocumentModel *m_documentModel;
     MaterialModel *m_materialModel;
     MaterialSvc *m_materialSvc;
     InstrumentModel *m_instrumentModel;

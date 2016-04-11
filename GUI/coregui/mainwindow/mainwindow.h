@@ -57,16 +57,16 @@ public:
 
     explicit MainWindow(QWidget *parent = 0);
 
-    MaterialModel *getMaterialModel();
+    MaterialModel *materialModel();
     InstrumentModel *instrumentModel();
     SampleModel *sampleModel();
     JobModel *jobModel();
-    FitModel *getFitModel();
+    FitModel *fitModel();
     ApplicationModels *models();
 
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
     ActionManager *getActionManager() { return m_actionManager; }
-    ProjectManager *getProjectManager() { return m_projectManager; }
+    ProjectManager *projectManager() { return m_projectManager; }
     UpdateNotifier *getUpdateNotifier() { return m_updateNotifier; }
 
 

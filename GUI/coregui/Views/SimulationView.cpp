@@ -26,19 +26,12 @@
 
 SimulationView::SimulationView(MainWindow *mainWindow)
     : QWidget(mainWindow)
-    , m_jobModel(0)
-    , m_sampleModel(0)
-    , m_instrumentModel(0)
 {
-    m_jobModel = mainWindow->jobModel();
-    m_sampleModel = mainWindow->sampleModel();
-    m_instrumentModel = mainWindow->instrumentModel();
-
     m_simulationSetupWidget = new SimulationSetupWidget();
-    m_simulationSetupWidget->setJobModel(m_jobModel);
-    m_simulationSetupWidget->setSampleModel(m_sampleModel);
-    m_simulationSetupWidget->setInstrumentModel(m_instrumentModel);
-    m_simulationSetupWidget->setProjectManager(mainWindow->getProjectManager());
+    m_simulationSetupWidget->setJobModel(mainWindow->jobModel());
+    m_simulationSetupWidget->setSampleModel(mainWindow->sampleModel());
+    m_simulationSetupWidget->setInstrumentModel(mainWindow->instrumentModel());
+    m_simulationSetupWidget->setProjectManager(mainWindow->projectManager());
 
     m_toolBar = new StyledToolBar(this);
 
@@ -54,12 +47,10 @@ SimulationView::SimulationView(MainWindow *mainWindow)
 
 void SimulationView::updateSimulationViewElements()
 {
-    //qDebug() << "SimulationView::updateSimulationViewElements()" << m_sampleModel << m_instrumentModel;
     m_simulationSetupWidget->updateViewElements();
 }
 
 void SimulationView::onRunSimulationShortcut()
 {
-    //qDebug() << "SimulationView::onRunSimulationShortcut()";
     m_simulationSetupWidget->onRunSimulation();
 }

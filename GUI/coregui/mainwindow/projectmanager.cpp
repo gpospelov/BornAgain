@@ -256,6 +256,15 @@ QStringList ProjectManager::getRecentProjects()
     return m_recentProjects;
 }
 
+//!returns name of the current project directory
+QString ProjectManager::getProjectDir() const
+{
+    if(m_project_document && m_project_document->hasValidNameAndPath()) {
+        return m_project_document->getProjectDir();
+    }
+    return QString();
+}
+
 //! clear list of recent projects
 void ProjectManager::clearRecentProjects()
 {

@@ -89,7 +89,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_sampleView = new SampleView(sampleModel(), instrumentModel());
     m_simulationView = new SimulationView(this);
 
-    m_jobView = new JobView(jobModel(), getProjectManager());
+    m_jobView = new JobView(jobModel(), projectManager());
     TestView *testView = new TestView(this);
 //    TestComponentView *testComponentView = new TestComponentView(this);
     //m_fitView = new FitView(this);
@@ -121,7 +121,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_projectManager->createNewProject();
 }
 
-MaterialModel *MainWindow::getMaterialModel()
+MaterialModel *MainWindow::materialModel()
 {
     return models()->materialModel();
 }
@@ -141,7 +141,7 @@ JobModel *MainWindow::jobModel()
     return models()->jobModel();
 }
 
-FitModel *MainWindow::getFitModel()
+FitModel *MainWindow::fitModel()
 {
     return models()->fitModel();
 }

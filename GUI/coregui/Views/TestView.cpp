@@ -56,7 +56,7 @@ void TestView::test_sessionModel()
 
     addModelToTabs(tabs, m_mainWindow->instrumentModel());
     addModelToTabs(tabs, m_mainWindow->sampleModel());
-    addModelToTabs(tabs, m_mainWindow->getMaterialModel());
+    addModelToTabs(tabs, m_mainWindow->materialModel());
     addModelToTabs(tabs, m_mainWindow->jobModel());
 
     TestProxyModel *testModel = new TestProxyModel(this);
@@ -80,7 +80,7 @@ void TestView::test_sessionModel()
 
 void TestView::test_MaterialEditor()
 {
-    MaterialEditor *materialEditor = new MaterialEditor(m_mainWindow->getMaterialModel());
+    MaterialEditor *materialEditor = new MaterialEditor(m_mainWindow->materialModel());
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);

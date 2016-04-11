@@ -31,6 +31,7 @@
 #include "IntensityDataIOFactory.h"
 #include "IHistogram.h"
 #include "IntensityDataItem.h"
+#include "projectmanager.h"
 #include <QGroupBox>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -267,10 +268,10 @@ void SimulationSetupWidget::onExportToPythonScript()
         return;
     }
 
-    PythonScriptWidget *pythonWidget = new PythonScriptWidget(this, m_projectManager);
+    PythonScriptWidget *pythonWidget = new PythonScriptWidget(this);
     pythonWidget->show();
     pythonWidget->raise();
-    pythonWidget->generatePythonScript(sampleModel, instrumentModel);
+    pythonWidget->generatePythonScript(sampleModel, instrumentModel, m_projectManager->getProjectDir());
 }
 
 void SimulationSetupWidget::onOpenFile()

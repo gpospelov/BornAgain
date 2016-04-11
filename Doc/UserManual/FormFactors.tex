@@ -151,10 +151,23 @@ If results contain an integral,
 then no analytical form was found,
 and the integral is evaluated by numeric quadrature.
 \index{Quadrature}%
-The analytical expressions for $F(\q)$ contain singularities for
-certain values of $\q$.
-All these singularities are removable.
-Our implementation comprises appropriate case distinctions.
+For polyhedral figures,
+\index{Polyhedron!form factor}
+\index{Form factor!polyhedron}
+except a few simple ones like the rectangular box,
+we use a generic form factor computation,
+parametrized by the vertices of the figure,
+that is described in full detail in a mathematical paper~\cite{ba:ffp}.
+
+Almost all analytical expressions for $F(\q)$ contain
+removable singularities for certain values of $\q$.
+Our implementation uses proper analytic continuations at these singularities,
+\index{Form factor!singularities}
+\index{Singularitiy!in form factor computation}
+though this is not explicitly denoted in the following formula collection.
+Furthermore, series expansions are used to ensure numeric accuracies
+in the neighborhood of the singularities.
+For polyhedra, see Ref.~\cite{ba:ffp} for a meticulous discussion.
 
 \begin{figure}[t]
 \begin{center}
@@ -267,7 +280,7 @@ They must fulfill
   H \le \frac{\tan\alpha}{2} \min\,(L,W).
 \end{displaymath}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
 \begin{displaymath}
   \ell\coloneqq L/2,\quad
@@ -356,7 +369,7 @@ with the parameters
 \item \texttt{height}, $H$.
 \end{itemize}
 
-\paragraph{Form factor etc}
+\paragraph{Form factor, volume, horizontal section}
 
 \begin{equation*}
 F= L W H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x \frac{L}{2}\right)
@@ -421,7 +434,7 @@ They must fulfill
   H\le R\tan\alpha.
 \end{displaymath}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
 \begin{equation*}
   R_H \coloneqq R-\dfrac{H}{\tan \alpha}, \quad
@@ -499,7 +512,7 @@ The parameters must fulfill
   H \le (\tan\beta)R.
 \end{displaymath}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
 \begin{equation*}
   R_H \coloneqq R-\frac{H}{\tan\beta},\quad
@@ -508,12 +521,9 @@ Notation:
   \tilde{q}_z \coloneqq (\tan\beta) q_z.
 \end{equation*}
 Results:
-\Work{The integral in $F$ could be worked out algebraically.}
 \begin{equation*}
-  F = \frac{\sqrt{3}\, \e^{i\tilde q_z R}}{\tilde q_y ^2 - \tilde q_x^2}
-    \int_{R_H}^R\!\d\rho\, \e^{-i\tilde q_z \rho}
-\Big[\rho\tilde q_y \sinc(\tilde q_x\rho)\sin(\tilde q_y\rho)
-+\cos(2\tilde q_x\rho)-\cos(\tilde q_y \rho)\cos(\tilde q_x\rho) \Big],
+  F \text{~: computed algebraically,
+          using the generic polyhedron form factor~\cite{ba:ffp},}
 \end{equation*}
 \begin{equation*}
   V = \tan\beta  \left( R^3- R_H^3 \right),
@@ -533,10 +543,13 @@ computed with $R=6$~nm, $H=5$~nm, and $\alpha=60^\circ$,
 for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
-\paragraph{References}\strut\\
-Hopefully agrees with \E{Cone6} form factor of \IsGISAXS\
-\cite[Eq.~2.32]{Laz08} \cite[Eq.~222]{ReLL09},
-except for different parametrization.
+\paragraph{References and History}\strut\\
+Originally computed through numeric integration,
+as the (differently parametrized) form factor \E{Cone6}  of \IsGISAXS\
+\cite[Eq.~2.32]{Laz08} \cite[Eq.~222]{ReLL09}.
+Algebraic implementation
+based on the generic polyhedron form factor \cite{ba:ffp}
+introduced in \BornAgain-1.6.
 
 
 %===============================================================================
@@ -579,7 +592,7 @@ They must fulfill
   r_h H \le \frac{\tan\alpha}{2} L.
 \end{displaymath}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Using the form factor of a square pyramid $F_\text{Py}$
 (Sec.~\ref{SPyramid}):
 \begin{equation*}
@@ -642,7 +655,7 @@ with the parameters
 \item \texttt{height}, $H$.
 \end{itemize}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
 \begin{equation*}
   q_{\parallel} \coloneqq \sqrt{q_x^2+q_y^2}.
@@ -706,7 +719,7 @@ with the parameters
 \item \texttt{height}, $H$.
 \end{itemize}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
 \begin{equation*}
   \gamma \coloneqq \sqrt{(q_x R_a)^2+(q_y R_b)^2}
@@ -771,7 +784,7 @@ with the parameter
 \item \texttt{radius}, $R$.
 \end{itemize}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{equation*}
 F = 4\pi R^3 \exp(iq_z R)\frac{\sin(q R) - q R \cos(q R)}{(qR)^3},
 \end{equation*}
@@ -830,7 +843,7 @@ with the parameters
 \item \texttt{height}, equal to radius in $z$ direction, $H$
 \end{itemize}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
 \begin{equation*}
  r_{a,z} \coloneqq R_a \sqrt{1-\left(\dfrac{z}{H} \right)^2},\quad
@@ -899,7 +912,7 @@ with the parameters
 \item \texttt{height}, $H$.
 \end{itemize}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
 \begin{equation*}
  R_z \coloneqq R\sqrt{1-\frac{4z^2}{H^2}},\quad
@@ -968,7 +981,7 @@ with the parameters
 \item \texttt{height}, $H$.
 \end{itemize}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{align*}
 F &= \frac{2 \sqrt{3}}{q_x^2-3q_y^2}
      \exp\left(-i q_y\frac{L}{2\sqrt{3}}\right)
@@ -1033,7 +1046,7 @@ with the parameters
 \item \texttt{height}, $H$.
 \end{itemize}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{equation*}
 F = H \sinc\left(q_z\frac{H}{2}\right) \exp\left(-i q_z\frac{ H}{2}\right) F_\parallel(\q_\parallel)
 \end{equation*}
@@ -1104,7 +1117,7 @@ They must fulfill
   H \le \frac{\tan\alpha}{2}L.
 \end{displaymath}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
 \begin{displaymath}
   a\coloneqq q_x/\tan\alpha,\quad
@@ -1182,7 +1195,7 @@ with the parameters
 \item \texttt{height}, $H$.
 \end{itemize}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{align*}
 F &=L \cdot \frac{W}{\pi}\cdot \sinc\left(\frac{q_xL}{2}\right)\times \\
 &\int_0^H\!\d z\, \arccos\left(\frac{2z}{H}-1\right)\sinc\left[\frac{q_yW}{2\pi}\arccos\left(\frac{2z}{H} - 1\right)\right]\exp\left(iq_zz\right),
@@ -1246,7 +1259,7 @@ They must fulfill
   |d| \le W/2.
 \end{displaymath}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{align*}
 F &=L W
 \sinc\left(\frac{q_xL}{2}\right)\times \\ &
@@ -1323,7 +1336,7 @@ Note that the orthographic projection does not show~$\alpha$,
 but the angle~$\beta$ between the base and a side edge.
 They are related through $\tan \alpha = 2 \tan \beta$.
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
 \begin{equation*}
 q_1  \coloneqq \frac{1}{2}\left[\frac{q_x\sqrt{3} -q_y}{\tan \alpha}-q_z \right],
@@ -1403,7 +1416,7 @@ They must fulfill
   t \le L/2.
 \end{displaymath}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:\\
 Besides the form factor $F_\text{Box}(\q)$
 of the full cube of side length $L$ (Sec.~\ref{SBox}),
@@ -1496,7 +1509,7 @@ They must fulfill
    0 < H\leq 2R.
 \end{displaymath}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
 \begin{equation*}
   q_{\parallel} \coloneqq \sqrt{q_x^2+q_y^2},\quad
@@ -1567,7 +1580,7 @@ They must fulfill
   0< \dfrac{H}{R}\le 2f_p.
 \end{displaymath}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
 \begin{equation*}
   q_{\parallel} \coloneqq \sqrt{q_x^2+q_y^2}, \quad

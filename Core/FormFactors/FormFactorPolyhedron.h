@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/src/FormFactorPolyhedron.h
+//! @brief     Defines class FormFactorPolyhedron, and auxiliary classes.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2016
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 
 //! One edge of a polygon, for form factor computation.
 
@@ -7,7 +22,7 @@ public:
         E((_Vhig-_Vlow)/2), R((_Vhig+_Vlow)/2) {};
     kvector_t E; //!< vector pointing from mid of edge to upper vertex
     kvector_t R; //!< position vector of edge midpoint
-    cmplx contrib(int m, cvector_t prevec, cvector_t qpa) const;
+    complex_t contrib(int m, cvector_t prevec, cvector_t qpa) const;
 };
 
 
@@ -22,14 +37,14 @@ protected:
     kvector_t normal; //!< normal vector of this polygon's plane
     double rperp; //!< distance of this polygon's plane from the origin, along 'normal'
     double radius_2d; //!< radius of enclosing cylinder
-    void decompose_q( const cvector_t q, cmplx& qperp, cvector_t& qpa ) const;
-    cmplx ff_n_core( int m, const cvector_t qpa ) const;
+    void decompose_q( const cvector_t q, complex_t& qperp, cvector_t& qpa ) const;
+    complex_t ff_n_core( int m, const cvector_t qpa ) const;
 public:
     double radius_3d; //!< radius of enclosing sphere
     PolyhedralFace( const std::vector<kvector_t>& _V, bool _sym_S2=false );
     double getPyramidalVolume() const;
-    cmplx ff_n( int m, const cvector_t q ) const;
-    cmplx ff( const cvector_t q, const bool sym_Ci ) const;
+    complex_t ff_n( int m, const cvector_t q ) const;
+    complex_t ff( const cvector_t q, const bool sym_Ci ) const;
     void assert_Ci( const PolyhedralFace& other ) const;
 };
 
@@ -44,11 +59,11 @@ protected:
     double volume;
     static const double q_limit_series;
     std::vector<PolyhedralFace> faces;
-    virtual cmplx evaluate_centered( cvector_t q ) const;
+    virtual complex_t evaluate_centered( cvector_t q ) const;
 public:
     FormFactorPolyhedron( const std::vector<PolyhedralFace>& _faces,
                           const double _z_origin, const bool _sym_Ci=false );
-    cmplx evaluate_for_q( cvector_t q ) const;
+    complex_t evaluate_for_q( cvector_t q ) const;
     double getVolume() const { return volume; }
 
     // test methods:

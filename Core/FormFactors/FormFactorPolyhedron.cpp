@@ -1,9 +1,21 @@
-// Form factor computation: class implementation
-// JWu 2016
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/src/FormFactorPolyhedron.cpp
+//! @brief     Implements class FormFactorPolyhedron, and auxiliary classes.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2016
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
 
-// Reference:
-//   Joachim Wuttke
-//   "Form factor (Fourier shape transform) of polygon and polyhedron."
+//! The mathematics implemented here is described in full detail in a paper
+//! by Joachim Wuttke, entitled
+//! "Form factor (Fourier shape transform) of polygon and polyhedron."
 
 #include <cmath>
 #include <iostream>
@@ -15,12 +27,12 @@
 #include "Precomputed.h"
 #include "BasicVector3D.h"
 
-typedef std::complex<double> cmplx;
-typedef Geometry::BasicVector3D<cmplx> cvector_t;
+typedef std::complex<double> complex_t;
+typedef Geometry::BasicVector3D<complex_t> cvector_t;
 typedef Geometry::BasicVector3D<double> kvector_t;
 #include "FormFactorPolyhedron.h"
 
-static cmplx I(0.,1.);
+static complex_t I(0.,1.);
 static double eps(2e-16);
 
 #ifdef POLYHEDRAL_DIAGNOSTIC
@@ -33,11 +45,11 @@ extern Diagnosis diagnosis;
 
 //! Returns the contribution of this edge to the form factor.
 
-cmplx PolyhedralEdge::contrib(int m, cvector_t prevec, cvector_t q) const
+complex_t PolyhedralEdge::contrib(int m, cvector_t prevec, cvector_t q) const
 {
-    cmplx prefac = prevec.dot(E); // conj(prevec)*E [BasicVector3D::dot is antilinear in 'this']
-    cmplx u = E.dot(q);
-    cmplx v = R.dot(q);
+    complex_t prefac = prevec.dot(E); // conj(prevec)*E [BasicVector3D::dot is antilinear in 'this']
+    complex_t u = E.dot(q);
+    complex_t v = R.dot(q);
     static auto& precomputed = IPrecomputed::instance();
     if( u==0. ) { // only l=0 contributes
         return prefac * pow(v, m+1) / precomputed.factorial[m+1];
@@ -47,7 +59,7 @@ cmplx PolyhedralEdge::contrib(int m, cvector_t prevec, cvector_t q) const
         else
             return 0.;
     } else {
-        cmplx ret = 0;
+        complex_t ret = 0;
         for( int l=0; l<=(m+1)/2; ++l )
             ret += pow(u, 2*l) * pow(v, m+1-2*l) /
                 precomputed.factorial[m+1-2*l] / precomputed.factorial[2*l+1];
@@ -125,7 +137,7 @@ double PolyhedralFace::getPyramidalVolume() const
 
 //! Sets qperp and qpa according to argument q and to this polygon's normal.
 
-void PolyhedralFace::decompose_q( const cvector_t q, cmplx& qperp, cvector_t& qpa ) const
+void PolyhedralFace::decompose_q( const cvector_t q, complex_t& qperp, cvector_t& qpa ) const
 {
     qperp = normal.dot(q);
     qpa = q - qperp*normal;
@@ -137,10 +149,10 @@ void PolyhedralFace::decompose_q( const cvector_t q, cmplx& qperp, cvector_t& qp
 
 //! Returns core contribution to f_n
 
-cmplx PolyhedralFace::ff_n_core( int m, const cvector_t q ) const
+complex_t PolyhedralFace::ff_n_core( int m, const cvector_t q ) const
 {
     cvector_t prevec = 2.*normal.cross( q ); // complex conjugation will take place in .dot
-    cmplx ret = 0;
+    complex_t ret = 0;
     for( const PolyhedralEdge& e: edges )
         ret += e.contrib(m, prevec, q);
     return ret;
@@ -148,12 +160,12 @@ cmplx PolyhedralFace::ff_n_core( int m, const cvector_t q ) const
 
 //! Returns contribution qn*f_n [of order q^(n+1)] from this face to the polyhedral form factor.
 
-cmplx PolyhedralFace::ff_n( int n, const cvector_t q ) const
+complex_t PolyhedralFace::ff_n( int n, const cvector_t q ) const
 {
-    cmplx qn = q.dot(normal); // conj(q)*normal (BasicVector3D::dot is antilinear in 'this' argument)
+    complex_t qn = q.dot(normal); // conj(q)*normal (BasicVector3D::dot is antilinear in 'this' argument)
     if ( std::abs(qn)<eps*q.mag() )
         return 0.;
-    cmplx qperp;
+    complex_t qperp;
     cvector_t qpa;
     decompose_q( q, qperp, qpa );
     double qpa_mag2 = qpa.mag2();
@@ -169,19 +181,19 @@ cmplx PolyhedralFace::ff_n( int n, const cvector_t q ) const
 
 //! Returns the contribution of this face to the polyhedral form factor.
 
-cmplx PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
+complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
 {
-    cmplx qn = q.dot(normal); // conj(q)*normal (BasicVector3D::dot is antilinear in 'this' argument)
+    complex_t qn = q.dot(normal); // conj(q)*normal (BasicVector3D::dot is antilinear in 'this' argument)
     if ( std::abs(qn)<eps*q.mag() )
         return 0;
-    cmplx qperp;
+    complex_t qperp;
     cvector_t qpa;
     decompose_q( q, qperp, qpa );
     double qpa_red = radius_2d * qpa.mag();
     if ( qpa_red < qpa_limit_series ) {
         // summation of power series
-        cmplx fac_even;
-        cmplx fac_odd;
+        complex_t fac_even;
+        complex_t fac_odd;
         if( sym_Ci ) {
             fac_even = qn * 2. * I * sin(qperp*rperp);
             fac_odd = qn * 2. * cos(qperp*rperp);
@@ -192,8 +204,8 @@ cmplx PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
 #ifdef POLYHEDRAL_DIAGNOSTIC
         diagnosis.nExpandedFaces += 1;
 #endif
-        cmplx sum = fac_even * area;
-        cmplx n_multiplier = I;
+        complex_t sum = fac_even * area;
+        complex_t n_multiplier = I;
         if( sym_S2 ) {
             fac_even *= 2.;
             fac_odd = 0.;
@@ -201,14 +213,14 @@ cmplx PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
         }
         if( qpa_red==0 )
             return sum;
-        cmplx n_fac = n_multiplier;
+        complex_t n_fac = n_multiplier;
         for( int n=1; n<20; ++n ) {
             if( sym_S2 && n&1 )
                 continue;
 #ifdef POLYHEDRAL_DIAGNOSTIC
             diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
 #endif
-            cmplx term = n_fac * ( n&1 ? fac_odd : fac_even ) * ff_n_core(n, qpa) / qpa.mag2();
+            complex_t term = n_fac * ( n&1 ? fac_odd : fac_even ) * ff_n_core(n, qpa) / qpa.mag2();
             sum += term;
             if( !(n&1) && std::abs(term)<=eps*std::abs(sum) )
                 return sum;
@@ -218,15 +230,15 @@ cmplx PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
     } else {
         // direct evaluation of analytic formula
         cvector_t prevec = 2.*normal.cross( qpa ); // complex conjugation will take place in .dot
-        cmplx prefac = qn;
+        complex_t prefac = qn;
         if( sym_S2 )
             prefac *= sym_Ci ? -4.*sin(qperp*rperp) : 2.*I*exp(I*qperp*rperp);
-        cmplx sum = 0;
+        complex_t sum = 0;
         for( const PolyhedralEdge& e: edges ) {
-            cmplx qE = e.E.dot(q);
-            cmplx qR = e.R.dot(q);
-            cmplx sinc_qE = qE!=0. ? sin(qE)/qE : 1.;
-            cmplx Rfac = sym_S2 ? sin(e.R.dot(qpa)) : ( sym_Ci ? 2.*cos(qR) : exp(I*qR) );
+            complex_t qE = e.E.dot(q);
+            complex_t qR = e.R.dot(q);
+            complex_t sinc_qE = qE!=0. ? sin(qE)/qE : 1.;
+            complex_t Rfac = sym_S2 ? sin(e.R.dot(qpa)) : ( sym_Ci ? 2.*cos(qR) : exp(I*qR) );
             sum += prevec.dot(e.E) * (sinc_qE*Rfac);
         }
         return prefac * sum / ( I*qpa.mag2() );
@@ -276,14 +288,14 @@ FormFactorPolyhedron::FormFactorPolyhedron(
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset z_origin.
 
-cmplx FormFactorPolyhedron::evaluate_for_q( const cvector_t q ) const
+complex_t FormFactorPolyhedron::evaluate_for_q( const cvector_t q ) const
 {
     return exp(-I*z_origin*q[2]) * evaluate_centered(q);
 }
 
 //! Returns the form factor F(q) of this polyhedron, with origin at z=0.
 
-cmplx FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
+complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
 {
     double q_red = radius * q.mag();
 #ifdef POLYHEDRAL_DIAGNOSTIC
@@ -293,15 +305,15 @@ cmplx FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
         return volume;
     } else if ( q_red < q_limit_series ) {
         // summation of power series
-        cmplx ret = volume;
-        cmplx n_fac = ( sym_Ci ? -2 : I ) / q.mag2();
+        complex_t ret = volume;
+        complex_t n_fac = ( sym_Ci ? -2 : I ) / q.mag2();
         for( int n=1; n<20; ++n ) {
             if( sym_Ci && n&1 )
                 continue;
 #ifdef POLYHEDRAL_DIAGNOSTIC
             diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
 #endif
-            cmplx term = 0;
+            complex_t term = 0;
             for( const PolyhedralFace& Gk: faces )
                 term += Gk.ff_n( n+1, q );
             term *= n_fac;
@@ -313,7 +325,7 @@ cmplx FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
         throw "Bug in formfactor computation: series F(q) not converged";
     } else {
         // direct evaluation of analytic formula (coefficients may involve series)
-        cmplx ret = 0;
+        complex_t ret = 0;
         for( const PolyhedralFace& Gk: faces )
             ret += Gk.ff(q, sym_Ci );
         return ret / (I * q.mag2());

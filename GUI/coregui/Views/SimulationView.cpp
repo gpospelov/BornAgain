@@ -17,8 +17,6 @@
 #include "SimulationView.h"
 #include "SimulationSetupWidget.h"
 #include "styledtoolbar.h"
-#include "SampleModel.h"
-#include "InstrumentModel.h"
 #include "mainwindow.h"
 #include <QTabWidget>
 #include <QVBoxLayout>
@@ -26,14 +24,11 @@
 
 SimulationView::SimulationView(MainWindow *mainWindow)
     : QWidget(mainWindow)
+    , m_simulationSetupWidget(new SimulationSetupWidget)
+    , m_toolBar(new StyledToolBar)
 {
-    m_simulationSetupWidget = new SimulationSetupWidget();
-    m_simulationSetupWidget->setJobModel(mainWindow->jobModel());
-    m_simulationSetupWidget->setSampleModel(mainWindow->sampleModel());
-    m_simulationSetupWidget->setInstrumentModel(mainWindow->instrumentModel());
+    m_simulationSetupWidget->setApplicationModels(mainWindow->models());
     m_simulationSetupWidget->setProjectManager(mainWindow->projectManager());
-
-    m_toolBar = new StyledToolBar(this);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setSizeConstraint(QLayout::SetNoConstraint);

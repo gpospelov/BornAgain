@@ -32,6 +32,8 @@
 #include "IHistogram.h"
 #include "IntensityDataItem.h"
 #include "projectmanager.h"
+#include "SimulationOptionsWidget.h"
+#include "ApplicationModels.h"
 #include <QGroupBox>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -47,97 +49,25 @@
 
 SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     : QWidget(parent)
-    , m_jobModel(0)
-    , m_sampleModel(0)
-    , m_instrumentModel(0)
+    , m_applicationModels(0)
     , m_projectManager(0)
+    , instrumentSelectionBox(0)
+    , sampleSelectionBox(0)
+    , runSimulationButton(0)
+    , selectRealData(0)
+    , pathLabel(0)
+    , runPolicySelectionBox(0)
+    , cpuUsageSelectionBox(0)
+    , exportToPyScriptButton(0)
+    , m_simOptionsWidget(0)
 {
-    // selection of input parameters
-    QGroupBox *inputDataGroup = new QGroupBox(tr("Data selection"));
-    // instrument selection
-    QLabel *instrumentSelectionLabel = new QLabel(tr("Select Instrument:"));
-    instrumentSelectionBox = new QComboBox;
-    // sample selection
-    QLabel *sampleSelectionLabel = new QLabel(tr("Select Sample:"));
-    sampleSelectionBox = new QComboBox;
-    // real data
-    QLabel *readDataSelectionLabel = new QLabel(tr("Select Real Data:"));
-    selectRealData = new QPushButton;
-    selectRealData->setText("Load file ...");
-    pathLabel = new QLabel(tr(""));
-    QHBoxLayout *realDataSelection = new QHBoxLayout;
-    realDataSelection->addWidget(selectRealData);
-    realDataSelection->addWidget(pathLabel);
-    // layout
-    QGridLayout *dataSelectionLayout = new QGridLayout;
-    dataSelectionLayout->addWidget(instrumentSelectionLabel, 0, 0);
-    dataSelectionLayout->addWidget(instrumentSelectionBox, 0, 1);
-    dataSelectionLayout->addWidget(sampleSelectionLabel, 1, 0);
-    dataSelectionLayout->addWidget(sampleSelectionBox, 1, 1);
-    dataSelectionLayout->addWidget(readDataSelectionLabel, 2, 0);
-    dataSelectionLayout->addLayout(realDataSelection, 2, 1);
-    inputDataGroup->setLayout(dataSelectionLayout);
-    //updateViewElements();
+    m_simOptionsWidget = new SimulationOptionsWidget(this);
 
-    // selection of simulation parameters
-    QGroupBox *simulationParametersGroup = new QGroupBox(tr("Simulation Parameters"));
-    // run policy
-    QLabel *runPolicyLabel = new QLabel(tr("Run Policy:"));
-    runPolicyLabel->setToolTip("Defines run policy for the simulation");
-    runPolicySelectionBox = new QComboBox;
-    runPolicySelectionBox->setToolTip("Defines run policy for the simulation");
-    runPolicySelectionBox->addItems(JobItem::getRunPolicies().keys());
-    int index(0);
-    foreach(QString descr, JobItem::getRunPolicies().values())
-        runPolicySelectionBox->setItemData(index++, descr, Qt::ToolTipRole);
-
-    // selection of number of threads
-    QLabel *cpuUsageLabel = new QLabel(tr("CPU Usage:"));
-    cpuUsageLabel->setToolTip("Defines number of threads to use for the simulation.");
-    cpuUsageSelectionBox = new QComboBox;
-    cpuUsageSelectionBox->setToolTip("Defines number of threads to use for the simulation.");
-    cpuUsageSelectionBox->addItems(getCPUUsageOptions());
-
-    // layout
-    QGridLayout *simulationParametersLayout = new QGridLayout;
-    simulationParametersLayout->addWidget(runPolicyLabel, 0, 0);
-    simulationParametersLayout->addWidget(runPolicySelectionBox, 0, 1);
-    simulationParametersLayout->addWidget(cpuUsageLabel, 1, 0);
-    simulationParametersLayout->addWidget(cpuUsageSelectionBox, 1, 1);
-    simulationParametersGroup->setLayout(simulationParametersLayout);
-
-    QHBoxLayout *simButtonLayout = new QHBoxLayout;
-    // run simulation button
-    runSimulationButton = new QPushButton(tr("Run Simulation"));
-    runSimulationButton->setIcon(QIcon(":/images/main_simulation.png"));
-    runSimulationButton->setMinimumWidth(100);
-    runSimulationButton->setMinimumHeight(50);
-    runSimulationButton->setToolTip("Run the simulation using settings above.\n"
-                                    " Global shortcut ctrl-r can be used to run from sample view.");
-//    QPalette palette = runSimulationButton->palette();
-//    palette.setColor(QPalette::Button, QColor(Constants::BUTTON_COLOR));
-//    palette.setColor(QPalette::ButtonText, QColor(Constants::BUTTON_TEXT_COLOR));
-//    runSimulationButton->setPalette(palette);
-
-    // export simulation to a python script
-    exportToPyScriptButton = new QPushButton(tr("Export to Python Script"));
-    exportToPyScriptButton->setIcon(QIcon(":/images/mode_script.png"));
-    exportToPyScriptButton->setMinimumWidth(100);
-    exportToPyScriptButton->setMinimumHeight(50);
-    exportToPyScriptButton->setToolTip("Export the simulation using settings above to "
-                                       "a python script.\n");
-//    exportToPyScriptButton->setPalette(palette);
-
-    simButtonLayout->addStretch();
-    simButtonLayout->addWidget(runSimulationButton);
-    simButtonLayout->addWidget(exportToPyScriptButton);
-    simButtonLayout->addStretch();
-
-    // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(inputDataGroup);
-    mainLayout->addWidget(simulationParametersGroup);
-    mainLayout->addLayout(simButtonLayout);
+    mainLayout->addWidget(createDataSelectorWidget());
+    mainLayout->addWidget(createSimulationParametersWidget());
+    mainLayout->addWidget(m_simOptionsWidget);
+    mainLayout->addWidget(createButtonWidget());
     mainLayout->addStretch();
     setLayout(mainLayout);
 
@@ -147,30 +77,26 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     connect(selectRealData, SIGNAL(clicked(bool)), this, SLOT(onOpenFile()));
 }
 
-void SimulationSetupWidget::setJobModel(JobModel *model)
+void SimulationSetupWidget::setApplicationModels(ApplicationModels *model)
 {
     Q_ASSERT(model);
-    if(model != m_jobModel) {
-        m_jobModel = model;
+    if(model != m_applicationModels) {
+        m_applicationModels = model;
+        updateViewElements();
     }
 }
 
-void SimulationSetupWidget::setSampleModel(SampleModel *model)
+void SimulationSetupWidget::setProjectManager(ProjectManager *projectManager)
 {
-    Q_ASSERT(model);
-    if(model != m_sampleModel) {
-        m_sampleModel = model;
-        updateSelectionBox(sampleSelectionBox, m_sampleModel->getSampleMap().keys());
-    }
+    m_projectManager = projectManager;
 }
 
-void SimulationSetupWidget::setInstrumentModel(InstrumentModel *model)
+void SimulationSetupWidget::updateViewElements()
 {
-    Q_ASSERT(model);
-    if(model != m_instrumentModel) {
-        m_instrumentModel = model;
-        updateSelectionBox(instrumentSelectionBox, m_instrumentModel->getInstrumentMap().keys());
-    }
+    updateSelectionBox(instrumentSelectionBox,
+                       m_applicationModels->instrumentModel()->getInstrumentMap().keys());
+    updateSelectionBox(sampleSelectionBox,
+                       m_applicationModels->sampleModel()->getSampleMap().keys());
 }
 
 QString SimulationSetupWidget::getSelectedInstrumentName() const
@@ -193,16 +119,7 @@ int SimulationSetupWidget::getSelectedSampleIndex() const
     return sampleSelectionBox->currentIndex();
 }
 
-void SimulationSetupWidget::setProjectManager(ProjectManager *projectManager)
-{
-    m_projectManager = projectManager;
-}
 
-void SimulationSetupWidget::updateViewElements()
-{
-    updateSelectionBox(instrumentSelectionBox, m_instrumentModel->getInstrumentMap().keys());
-    updateSelectionBox(sampleSelectionBox, m_sampleModel->getSampleMap().keys());
-}
 
 void SimulationSetupWidget::onRunSimulation()
 {
@@ -226,7 +143,7 @@ void SimulationSetupWidget::onRunSimulation()
         return;
     }
 
-    JobItem *jobItem = m_jobModel->addJob(getSelectedMultiLayerItem(), getSelectedInstrumentItem(),
+    JobItem *jobItem = m_applicationModels->jobModel()->addJob(getSelectedMultiLayerItem(), getSelectedInstrumentItem(),
                        runPolicySelectionBox->currentText(), getNumberOfThreads());
 
     // load real data
@@ -242,7 +159,7 @@ void SimulationSetupWidget::onRunSimulation()
     }
 
     if (jobItem->runImmediately() || jobItem->runInBackground())
-        m_jobModel->runJob(jobItem->index());
+        m_applicationModels->jobModel()->runJob(jobItem->index());
 }
 
 void SimulationSetupWidget::onExportToPythonScript()
@@ -327,11 +244,11 @@ int SimulationSetupWidget::getNumberOfThreads()
 InstrumentModel *SimulationSetupWidget::getJobInstrumentModel()
 {
     InstrumentModel *result(0);
-    QMap<QString, SessionItem *> instruments = m_instrumentModel->getInstrumentMap();
+    QMap<QString, SessionItem *> instruments = m_applicationModels->instrumentModel()->getInstrumentMap();
     if(instruments[getSelectedInstrumentName()]) {
         int index = getSelectedInstrumentIndex();
         QMap<QString, SessionItem *>::iterator it = instruments.begin()+index;
-        result = m_instrumentModel->createCopy(it.value());
+        result = m_applicationModels->instrumentModel()->createCopy(it.value());
     }
 
     return result;
@@ -341,11 +258,11 @@ InstrumentModel *SimulationSetupWidget::getJobInstrumentModel()
 SampleModel *SimulationSetupWidget::getJobSampleModel()
 {
     SampleModel *result(0);
-    QMap<QString, SessionItem *> samples = m_sampleModel->getSampleMap();
+    QMap<QString, SessionItem *> samples = m_applicationModels->sampleModel()->getSampleMap();
     if(samples[getSelectedSampleName()]) {
         int index = getSelectedSampleIndex();
         QMap<QString, SessionItem *>::iterator it = samples.begin()+index;
-        result = m_sampleModel->createCopy(it.value());
+        result = m_applicationModels->sampleModel()->createCopy(it.value());
     }
     return result;
 }
@@ -355,7 +272,7 @@ SampleModel *SimulationSetupWidget::getJobSampleModel()
 const MultiLayerItem *SimulationSetupWidget::getSelectedMultiLayerItem() const
 {
     const MultiLayerItem *result(0);
-    QMap<QString, SessionItem *> samples = m_sampleModel->getSampleMap();
+    QMap<QString, SessionItem *> samples = m_applicationModels->sampleModel()->getSampleMap();
     if(samples[getSelectedSampleName()]) {
         int index = getSelectedSampleIndex();
         QMap<QString, SessionItem *>::const_iterator it = samples.begin()+index;
@@ -369,7 +286,7 @@ const MultiLayerItem *SimulationSetupWidget::getSelectedMultiLayerItem() const
 const InstrumentItem *SimulationSetupWidget::getSelectedInstrumentItem() const
 {
     const InstrumentItem *result(0);
-    QMap<QString, SessionItem *> instruments = m_instrumentModel->getInstrumentMap();
+    QMap<QString, SessionItem *> instruments =m_applicationModels->instrumentModel()->getInstrumentMap();
     if(instruments[getSelectedInstrumentName()]) {
         int index = getSelectedInstrumentIndex();
         QMap<QString, SessionItem *>::const_iterator it = instruments.begin()+index;
@@ -379,3 +296,105 @@ const InstrumentItem *SimulationSetupWidget::getSelectedInstrumentItem() const
 
 }
 
+QWidget *SimulationSetupWidget::createDataSelectorWidget()
+{
+    // selection of input parameters
+    QGroupBox *result = new QGroupBox(tr("Data selection"));
+
+    // instrument selection
+    QLabel *instrumentSelectionLabel = new QLabel(tr("Select Instrument:"));
+    instrumentSelectionBox = new QComboBox;
+    // sample selection
+    QLabel *sampleSelectionLabel = new QLabel(tr("Select Sample:"));
+    sampleSelectionBox = new QComboBox;
+    // real data
+    QLabel *readDataSelectionLabel = new QLabel(tr("Select Real Data:"));
+    selectRealData = new QPushButton;
+    selectRealData->setText("Load file ...");
+    pathLabel = new QLabel(tr(""));
+    QHBoxLayout *realDataSelection = new QHBoxLayout;
+    realDataSelection->addWidget(selectRealData);
+    realDataSelection->addWidget(pathLabel);
+    // layout
+    QGridLayout *dataSelectionLayout = new QGridLayout;
+    dataSelectionLayout->addWidget(instrumentSelectionLabel, 0, 0);
+    dataSelectionLayout->addWidget(instrumentSelectionBox, 0, 1);
+    dataSelectionLayout->addWidget(sampleSelectionLabel, 1, 0);
+    dataSelectionLayout->addWidget(sampleSelectionBox, 1, 1);
+    dataSelectionLayout->addWidget(readDataSelectionLabel, 2, 0);
+    dataSelectionLayout->addLayout(realDataSelection, 2, 1);
+    result->setLayout(dataSelectionLayout);
+    //updateViewElements();
+
+    return result;
+}
+
+QWidget *SimulationSetupWidget::createSimulationParametersWidget()
+{
+    // selection of simulation parameters
+    QGroupBox *result = new QGroupBox(tr("Simulation Parameters"));
+
+    // run policy
+    QLabel *runPolicyLabel = new QLabel(tr("Run Policy:"));
+    runPolicyLabel->setToolTip("Defines run policy for the simulation");
+    runPolicySelectionBox = new QComboBox;
+    runPolicySelectionBox->setToolTip("Defines run policy for the simulation");
+    runPolicySelectionBox->addItems(JobItem::getRunPolicies().keys());
+    int index(0);
+    foreach(QString descr, JobItem::getRunPolicies().values())
+        runPolicySelectionBox->setItemData(index++, descr, Qt::ToolTipRole);
+
+    // selection of number of threads
+    QLabel *cpuUsageLabel = new QLabel(tr("CPU Usage:"));
+    cpuUsageLabel->setToolTip("Defines number of threads to use for the simulation.");
+    cpuUsageSelectionBox = new QComboBox;
+    cpuUsageSelectionBox->setToolTip("Defines number of threads to use for the simulation.");
+    cpuUsageSelectionBox->addItems(getCPUUsageOptions());
+
+    // layout
+    QGridLayout *simulationParametersLayout = new QGridLayout;
+    simulationParametersLayout->addWidget(runPolicyLabel, 0, 0);
+    simulationParametersLayout->addWidget(runPolicySelectionBox, 0, 1);
+    simulationParametersLayout->addWidget(cpuUsageLabel, 1, 0);
+    simulationParametersLayout->addWidget(cpuUsageSelectionBox, 1, 1);
+
+    result->setLayout(simulationParametersLayout);
+
+    return result;
+}
+
+QWidget *SimulationSetupWidget::createButtonWidget()
+{
+    QWidget *result = new QWidget;
+
+    QHBoxLayout *simButtonLayout = new QHBoxLayout;
+    // run simulation button
+    runSimulationButton = new QPushButton(tr("Run Simulation"));
+    runSimulationButton->setIcon(QIcon(":/images/main_simulation.png"));
+    runSimulationButton->setMinimumWidth(100);
+    runSimulationButton->setMinimumHeight(50);
+    runSimulationButton->setToolTip("Run the simulation using settings above.\n"
+                                    " Global shortcut ctrl-r can be used to run from sample view.");
+//    QPalette palette = runSimulationButton->palette();
+//    palette.setColor(QPalette::Button, QColor(Constants::BUTTON_COLOR));
+//    palette.setColor(QPalette::ButtonText, QColor(Constants::BUTTON_TEXT_COLOR));
+//    runSimulationButton->setPalette(palette);
+
+    // export simulation to a python script
+    exportToPyScriptButton = new QPushButton(tr("Export to Python Script"));
+    exportToPyScriptButton->setIcon(QIcon(":/images/mode_script.png"));
+    exportToPyScriptButton->setMinimumWidth(100);
+    exportToPyScriptButton->setMinimumHeight(50);
+    exportToPyScriptButton->setToolTip("Export the simulation using settings above to "
+                                       "a python script.\n");
+//    exportToPyScriptButton->setPalette(palette);
+
+    simButtonLayout->addStretch();
+    simButtonLayout->addWidget(runSimulationButton);
+    simButtonLayout->addWidget(exportToPyScriptButton);
+    simButtonLayout->addStretch();
+
+    result->setLayout(simButtonLayout);
+
+    return result;
+}

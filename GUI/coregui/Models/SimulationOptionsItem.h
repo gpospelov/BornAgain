@@ -21,8 +21,8 @@
 #include <QStringList>
 
 //! The SimulationOptionsItem class holds simulation status (run policy, number of threads,
-//! integration flag). Used as a child of JobItem and also in SimulationView to hold the status
-//! of widgets with job settings.
+//! integration flag). Used in SimulationView to define job settings. When job is started,
+//! item is copied to the job as a child.
 
 class BA_CORE_API_ SimulationOptionsItem : public SessionItem
 {
@@ -36,10 +36,6 @@ public:
 
 private:
     QStringList getCPUUsageOptions();
-
 };
 
-
-
 #endif
-

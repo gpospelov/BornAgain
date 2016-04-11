@@ -30,6 +30,7 @@
 typedef std::complex<double> complex_t;
 typedef Geometry::BasicVector3D<complex_t> cvector_t;
 typedef Geometry::BasicVector3D<double> kvector_t;
+#include "IFormFactorBorn.h"
 #include "FormFactorPolyhedron.h"
 
 static complex_t I(0.,1.);
@@ -288,14 +289,14 @@ FormFactorPolyhedron::FormFactorPolyhedron(
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset z_origin.
 
-complex_t FormFactorPolyhedron::evaluate_for_q( const cvector_t q ) const
+complex_t FormFactorPolyhedron::evaluate_for_q( const cvector_t& q ) const
 {
     return exp(-I*z_origin*q[2]) * evaluate_centered(q);
 }
 
 //! Returns the form factor F(q) of this polyhedron, with origin at z=0.
 
-complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
+complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t& q ) const
 {
     double q_red = radius * q.mag();
 #ifdef POLYHEDRAL_DIAGNOSTIC

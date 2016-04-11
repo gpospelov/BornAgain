@@ -13,6 +13,16 @@
 //
 // ************************************************************************** //
 
+#ifndef FORMFACTORPOLYHEDRON_H
+#define FORMFACTORPOLYHEDRON_H
+
+#include<complex>
+#include "BasicVector3D.h"
+typedef std::complex<double> complex_t;
+typedef Geometry::BasicVector3D<complex_t> cvector_t;
+typedef Geometry::BasicVector3D<double> kvector_t;
+
+#include "IFormFactorBorn.h"
 
 //! One edge of a polygon, for form factor computation.
 
@@ -29,7 +39,14 @@ public:
 //! A polygon, for form factor computation.
 
 class PolyhedralFace {
-protected:
+public:
+    PolyhedralFace( const std::vector<kvector_t>& _V, bool _sym_S2=false );
+    double radius_3d; //!< radius of enclosing sphere
+    double getPyramidalVolume() const;
+    complex_t ff_n( int m, const cvector_t q ) const;
+    complex_t ff( const cvector_t q, const bool sym_Ci ) const;
+    void assert_Ci( const PolyhedralFace& other ) const;
+private:
     static const double qpa_limit_series; //!< determines when use power series
     bool sym_S2; //!< if true, then edges obtainable by inversion are not provided
     std::vector<PolyhedralEdge> edges;
@@ -39,35 +56,26 @@ protected:
     double radius_2d; //!< radius of enclosing cylinder
     void decompose_q( const cvector_t q, complex_t& qperp, cvector_t& qpa ) const;
     complex_t ff_n_core( int m, const cvector_t qpa ) const;
-public:
-    double radius_3d; //!< radius of enclosing sphere
-    PolyhedralFace( const std::vector<kvector_t>& _V, bool _sym_S2=false );
-    double getPyramidalVolume() const;
-    complex_t ff_n( int m, const cvector_t q ) const;
-    complex_t ff( const cvector_t q, const bool sym_Ci ) const;
-    void assert_Ci( const PolyhedralFace& other ) const;
 };
 
 
 //! A polyhedron, for form factor computation.
 
-class FormFactorPolyhedron {
-protected:
+class FormFactorPolyhedron : public IFormFactorBorn {
+public:
+    FormFactorPolyhedron( const std::vector<PolyhedralFace>& _faces,
+                          const double _z_origin, const bool _sym_Ci=false );
+    virtual complex_t evaluate_for_q(const cvector_t& q ) const final;
+    double getVolume() const { return volume; }
+    void assert_platonic() const;
+private:
     double z_origin;
     bool sym_Ci; //!< if true, then faces obtainable by inversion are not provided
     double radius;
     double volume;
     static const double q_limit_series;
     std::vector<PolyhedralFace> faces;
-    virtual complex_t evaluate_centered( cvector_t q ) const;
-public:
-    FormFactorPolyhedron( const std::vector<PolyhedralFace>& _faces,
-                          const double _z_origin, const bool _sym_Ci=false );
-    complex_t evaluate_for_q( cvector_t q ) const;
-    double getVolume() const { return volume; }
-
-    // test methods:
-    void assert_platonic() const;
+    virtual complex_t evaluate_centered( const cvector_t& q ) const;
 };
 
 
@@ -85,3 +93,5 @@ public:
     }
 };
 #endif
+
+#endif // FORMFACTORPOLYHEDRON_H

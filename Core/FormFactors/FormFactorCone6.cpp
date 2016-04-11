@@ -15,29 +15,62 @@
 
 #include "FormFactorCone6.h"
 #include "BornAgainNamespace.h"
-#include "Numeric.h"
-#include "MathFunctions.h"
-#include "IntegratorComplex.h"
 
 #include <cmath>
 
 using namespace  BornAgain;
 
 FormFactorCone6::FormFactorCone6(double radius, double height, double alpha)
+    : FormFactorPolyhedron( polyhedral_faces( radius, height, alpha ), 0. )
 {
     setName(FFCone6Type);
     m_radius = radius;
     m_height = height;
     m_alpha = alpha;
-    m_root3 = std::sqrt(3.0);
     check_initialization();
     init_parameters();
-
-    mP_integrator = make_integrator_complex(this, &FormFactorCone6::Integrand);
 }
 
 FormFactorCone6::~FormFactorCone6()
 {
+}
+
+std::vector<PolyhedralFace> FormFactorCone6::polyhedral_faces(
+    double radius, double height, double alpha)
+{
+    double a = radius;
+    double as = a/2;
+    double ac = a*sqrt(3)/2;
+    double b = radius - 2*height/sqrt(3)/std::tan(alpha);
+    double bs = b/2;
+    double bc = b*sqrt(3)/2;
+
+    kvector_t V[12] = {
+        // base:
+        {  a,   0., 0. },
+        {  as,  ac, 0. },
+        { -as,  ac, 0. },
+        { -a,   0., 0. },
+        { -as, -ac, 0. },
+        {  as, -ac, 0. },
+        // top:
+        {  b,   0., height },
+        {  bs,  bc, height },
+        { -bs,  bc, height },
+        { -b,   0., height },
+        { -bs, -bc, height },
+        {  bs, -bc, height } };
+    std::vector<PolyhedralFace> faces;
+    faces.push_back( PolyhedralFace( { V[ 5], V[ 4], V[ 3], V[ 2], V[ 1], V[ 0] }, true ) );
+    faces.push_back( PolyhedralFace( { V[ 0], V[ 1], V[ 7], V[ 6] } ) );
+    faces.push_back( PolyhedralFace( { V[ 1], V[ 2], V[ 8], V[ 7] } ) );
+    faces.push_back( PolyhedralFace( { V[ 2], V[ 3], V[ 9], V[ 8] } ) );
+    faces.push_back( PolyhedralFace( { V[ 3], V[ 4], V[10], V[ 9] } ) );
+    faces.push_back( PolyhedralFace( { V[ 4], V[ 5], V[11], V[10] } ) );
+    faces.push_back( PolyhedralFace( { V[ 5], V[ 0], V[ 6], V[11] } ) );
+    faces.push_back( PolyhedralFace( { V[ 6], V[ 7], V[ 8], V[ 9], V[10], V[11] }, true ) );
+
+    return faces;
 }
 
 bool FormFactorCone6::check_initialization() const
@@ -71,45 +104,4 @@ FormFactorCone6* FormFactorCone6::clone() const
 void FormFactorCone6::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
-}
-
-//! Integrand for complex formfactor.
-complex_t FormFactorCone6::Integrand(double Z) const
-{
-    double Rz = m_radius - 2. * Z / std::tan(m_alpha) / m_root3;
-    complex_t qx = m_q.x();
-    complex_t qy = m_q.y();
-    complex_t qz = m_q.z();
-
-    complex_t qxR_half = qx * Rz / 2.0;
-    complex_t qyr3R_half = m_root3 * qy * Rz / 2.;
-
-    if (std::abs(3.0 * qy * qy - qx * qx) == 0.0) {
-        return Rz * Rz * m_root3 / 2.0 * MathFunctions::sinc(qyr3R_half)
-               * (MathFunctions::sinc(qyr3R_half) + 2.0 * std::cos(qyr3R_half));
-    } else {
-        return (3. / 4. * qy * Rz * qy * Rz * MathFunctions::sinc(qxR_half)
-                * MathFunctions::sinc(qyr3R_half) + std::cos(2.0 * qxR_half)
-                - std::cos(qyr3R_half) * std::cos(qxR_half))
-               * std::exp(complex_t(0.0, 1.0) * qz * Z);
-    }
-}
-
-//! Complex formfactor.
-complex_t FormFactorCone6::evaluate_for_q(const cvector_t& q) const
-{
-    m_q = q;
-    if ( std::abs(q.mag()) < Numeric::double_epsilon) {
-        double R = m_radius;
-        double H = m_height;
-        double tga = std::tan(m_alpha);
-        double HdivRtga = 2./m_root3*H/tga/R;
-
-        return  3.0/4.0*tga*R*R*R*
-                (1.0 - (1.0 - HdivRtga)*(1.0 - HdivRtga)*(1.0 - HdivRtga));
-    } else {
-        complex_t integral = mP_integrator->integrate(0., m_height);
-
-        return 4.0*m_root3/(3.0*m_q.y()*m_q.y()-m_q.x()*m_q.x())*integral;
-    }
 }

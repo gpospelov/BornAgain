@@ -16,7 +16,7 @@
 #ifndef FORMFACTORCONE6_H
 #define FORMFACTORCONE6_H
 
-#include "IFormFactorBorn.h"
+#include "FormFactorPolyhedron.h"
 
 #include <memory>
 
@@ -26,7 +26,7 @@ template <class T> class IntegratorComplex;
 //! @class FormFactorCone6
 //! @ingroup formfactors
 //! @brief The formfactor of a cone6.
-class BA_CORE_API_ FormFactorCone6 : public IFormFactorBorn
+class BA_CORE_API_ FormFactorCone6 : public FormFactorPolyhedron
 {
 public:
     //! @brief Cone6 constructor
@@ -34,6 +34,10 @@ public:
     //! @param height of Cone6
     //! @param angle in radians between base and facet
     FormFactorCone6(double radius, double height,  double alpha);
+
+    static std::vector<PolyhedralFace> polyhedral_faces(
+        double radius, double height,  double alpha);
+
     virtual ~FormFactorCone6();
 
     virtual FormFactorCone6* clone() const;
@@ -41,30 +45,18 @@ public:
     virtual void accept(ISampleVisitor *visitor) const;
 
     double getHeight() const;
-
-    virtual double getRadius() const;
-
+    virtual double getRadius() const final;
     double getAlpha() const;
-
-    virtual complex_t evaluate_for_q (const cvector_t& q) const;
 
 protected:
     virtual bool check_initialization() const;
     virtual void init_parameters();
 
 private:
-
-    complex_t Integrand(double Z) const;
-
     double m_radius;
     double m_height;
     double m_alpha;
-    double m_root3; // Cached value of square root of 3
     mutable cvector_t m_q;
-
-#ifndef GCCXML_SKIP_THIS
-    std::unique_ptr<IntegratorComplex<FormFactorCone6>> mP_integrator;
-#endif
 };
 
 inline double FormFactorCone6::getHeight() const
@@ -83,5 +75,3 @@ inline double FormFactorCone6::getAlpha() const
 }
 
 #endif // FORMFACTORCONE6_H
-
-

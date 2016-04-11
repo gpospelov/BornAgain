@@ -27,5 +27,5 @@ if __name__ == '__main__':
 
     intensity_ref = IntensityDataIOFactory.readIntensityData(sys.argv[1])
     intensity_other = IntensityDataIOFactory.readIntensityData(sys.argv[2])
-    data = numpy.abs((intensity_ref.getArray() - intensity_other.getArray())/intensity_ref.getArray())
+    data = 2*numpy.abs(intensity_ref.getArray() - intensity_other.getArray())/(numpy.abs(intensity_ref.getArray())+numpy.abs(intensity_other.getArray()))
     plot_intensity_data(intensity_ref, data)

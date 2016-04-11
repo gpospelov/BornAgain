@@ -146,11 +146,13 @@ bool ProjectDocument::load(const QString &project_file_name)
 
     try {
         // loading project file
+        disconnectModels();
         readFrom(&file);
         file.close();
 
         // loading accompanying non-xml data
         loadOutputData();
+        connectModels();
 
     } catch (const std::exception &ex) {
         m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
@@ -212,8 +214,6 @@ void ProjectDocument::onModelChanged()
 
 void ProjectDocument::readFrom(QIODevice *device)
 {
-    disconnectModels();
-
     QXmlStreamReader reader(device);
 
     while (!reader.atEnd()) {
@@ -262,8 +262,6 @@ void ProjectDocument::readFrom(QIODevice *device)
     }
 
     m_applicationModels->jobModel()->modelLoaded();
-
-    connectModels();
 }
 
 void ProjectDocument::writeTo(QIODevice *device)

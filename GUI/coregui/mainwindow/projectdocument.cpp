@@ -16,6 +16,7 @@
 
 #include "projectdocument.h"
 #include "ApplicationModels.h"
+#include "DocumentModel.h"
 #include "MaterialModel.h"
 #include "InstrumentModel.h"
 #include "JobQueueData.h"
@@ -222,21 +223,33 @@ void ProjectDocument::readFrom(QIODevice *device)
                 m_currentVersion = reader.attributes()
                                             .value(ProjectDocumentXML::BornAgainVersionAttribute)
                                             .toString();
-            } else if (reader.name() == ProjectDocumentXML::InfoTag) {
+            }
+
+            else if (reader.name() == ProjectDocumentXML::InfoTag) {
                 //
-            } else if (reader.name() == SessionXML::MaterialModelTag) {
+            }
+
+            else if (reader.name() == SessionXML::DocumentModelTag) {
+                readModel(m_applicationModels->documentModel(), &reader);
+            }
+
+            else if (reader.name() == SessionXML::MaterialModelTag) {
                 readModel(m_applicationModels->materialModel(), &reader);
+            }
 
-            } else if (reader.name() == SessionXML::InstrumentModelTag) {
+            else if (reader.name() == SessionXML::InstrumentModelTag) {
                 readModel(m_applicationModels->instrumentModel(), &reader);
+            }
 
-            } else if (reader.name() == SessionXML::SampleModelTag) {
+            else if (reader.name() == SessionXML::SampleModelTag) {
                 readModel(m_applicationModels->sampleModel(), &reader);
+            }
 
-            } else if (reader.name() == SessionXML::JobModelTag) {
+            else if (reader.name() == SessionXML::JobModelTag) {
                 readModel(m_applicationModels->jobModel(), &reader);
+            }
 
-            } /*else if (reader.name() == SessionXML::FitModelTag) {
+            /*else if (reader.name() == SessionXML::FitModelTag) {
                 readModel(m_fitModel, &reader);
             }*/
         }
@@ -266,6 +279,7 @@ void ProjectDocument::writeTo(QIODevice *device)
     writer.writeAttribute(ProjectDocumentXML::InfoNameAttribute, getProjectName());
     writer.writeEndElement(); // InfoTag
 
+    m_applicationModels->documentModel()->writeTo(&writer);
     m_applicationModels->materialModel()->writeTo(&writer);
     m_applicationModels->instrumentModel()->writeTo(&writer);
     m_applicationModels->sampleModel()->writeTo(&writer);

@@ -279,10 +279,20 @@ The differential cross section~(\ref{Eass3}) becomes
 \end{equation}
 where the integration over $\r$ is restricted to the horizontal plane.
 
+The normalization of the distribution function $\PD$ is such that it's total
+integral equals the square of the number of particles that contribute to the scattering:
+\begin{equation}
+  \int\!\d^2r\, \int\! \d^{d_T}\tau\, \d^{d_T}\tau' \PD(\r,\v\tau,\v\tau')
+  = N_p^2,
+\end{equation}
+with $N_p$ the number of scattering centers.
+\nomenclature{$N_p$}{Number of scattering centers}
+ 
+
 In the following, we will present different physical models
 that provide computable approximations
 for the formally exact distribution~(\ref{EPDdeltas}).
-All these models are based on the following assumptions
+All these models are based on the following assumption
 about the particle \E{properties} like shape, size, and orientation
 (but \E{not} position) that are  encoded in the vector~$\v T_i$:
 \Note{\textbf{T-T decoupling approximation:}
@@ -293,14 +303,14 @@ are independent and identically distributed (\E{i.i.d.}) random variables.
 They all have the same distribution~$p(\v\tau)$.
 For $\r\ne0$, the distribution $\PD$ factorizes as
 \begin{equation}
-  \PD(\r,\v\tau,\v\tau')\eqqcolon\GD(\r|\v\tau,\v\tau')p(\v\tau)p(\v\tau'),
+  \PD(\r,\v\tau,\v\tau')\eqqcolon N_p \rho_S \GD(\r|\v\tau,\v\tau')p(\v\tau)p(\v\tau'),
 \end{equation}
-which defines the conditional position correlation function~$\GD$.
+which defines the conditional position correlation function~$\GD$ (defined to exclude self-correlation).
 The case $\r=0$ (equivalent with $i=j$) needs special consideration,
-which leads the decomposition
+which leads to the decomposition
 \Emph
 {\begin{equation}
-  \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
+  \frac{1}{N_p}\left.\frac{\partial\sigma}{\partial\Omega}\right|_l
   = I_\text{d}+I_\text{c}.
 \end{equation}\vskip -5pt}
 We denote averages under~$p(\v\tau)$ as
@@ -312,7 +322,7 @@ so that the \E{diffuse} scattering intensity assumes the simple form
 \index{Scattering!diffuse}%
 \Emph
 {\begin{equation}
-  I_\text{d} = \bra\FD^2\ket-{\bra\FD\ket}^2.
+  I_\text{d} = \bra\left|\FD\right|^2\ket-\left|\bra\FD\ket\right|^2.
 \end{equation}\vskip -5pt}
 The \E{coherent} scattering intensity is given by
 \Emph
@@ -320,7 +330,7 @@ The \E{coherent} scattering intensity is given by
   I_\text{c} =
   \int\!\d^2r\,   \e^{i\q_{\plll}\r}\!
   \int\! \d^{d_T}\tau\, \d^{d_T}\tau'
-    \GD(\r|\v\tau,\v\tau')p(\v\tau)\FD(\tau)
+  \left[\delta(\r)+\rho_S \GD(\r|\v\tau,\v\tau')\right]p(\v\tau)p(\v\tau')
     \FD^*(\v\tau) \FD(\v\tau').
 \end{equation}\vskip -5pt}
 
@@ -336,9 +346,9 @@ To distinguish $\GD(\r)$ from the standard \E{pair correlation function}
 at atomic level, we will call it the
 \E{particle position correlation function}.
 \index{Particle position correlation function}%
-Its Fourier transform
+The Fourier transform
 \begin{equation}
-  \SD(\q)\coloneqq   \int\!\d^2r\,   \e^{i\q_{\plll}\r}\!   \GD(\r)
+  \SD(\q)\coloneqq 1 + \rho_S \int\!\d^2r\,   \e^{i\q_{\plll}\r}\!   \GD(\r)
 \end{equation}
 shall be called the \E{interference function}.
 \index{Interference function}%.
@@ -348,10 +358,9 @@ the atomic \E{static structure factor}
 (in crystallography also called \E{lattice factor}).
 \index{Lattice factor}%
 The coherent scattering intensity then takes the simple form
-and therefore
 \Emph
 {\begin{equation}
-  I_\text{c} = \SD(\q) {\bra\FD\ket}^2.
+  I_\text{c} = \SD(\q) \left|\bra\FD\ket\right|^2.
 \end{equation}\vskip -5pt}
 
 Altogether, the approximations introduced so far
@@ -361,7 +370,7 @@ make up the \E{decoupling approximation}
 \index{IsGISAXS@\IsGISAXS!decoupling approximation}
 of \IsGISAXS.\footnote
 {In the \IsGISAXS\ manual \cite[Sec.~2.2]{Laz08},
-the \E{decoupling approximation} (DA),
+the \E{decoupling approximation} (DA)
 \index{Decoupling approximation}%
 \index{DA|see {Decoupling approximation}}%
 is opposed to the
@@ -517,6 +526,10 @@ as for other numeric parameters.
 
 
 \index{Form factor|)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Interference functions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %\iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

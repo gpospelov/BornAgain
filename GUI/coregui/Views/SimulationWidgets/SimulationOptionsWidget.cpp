@@ -16,13 +16,14 @@
 
 #include "SimulationOptionsWidget.h"
 #include "ComponentBoxEditor.h"
+#include "ComponentEditor.h"
 #include "SimulationOptionsItem.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
 
 SimulationOptionsWidget::SimulationOptionsWidget(QWidget *parent)
     : QWidget(parent)
-    , m_boxEditor(new ComponentBoxEditor)
+    , m_boxEditor(new ComponentEditor)
 
 {
     QGroupBox *groupBox = new QGroupBox("Simulation Parameters");
@@ -42,5 +43,6 @@ SimulationOptionsWidget::SimulationOptionsWidget(QWidget *parent)
 void SimulationOptionsWidget::setItem(SimulationOptionsItem *item)
 {
     m_boxEditor->clearEditor();
-    m_boxEditor->addPropertyItems(item);
+//    m_boxEditor->addPropertyItems(item);
+    m_boxEditor->setItem(item);
 }

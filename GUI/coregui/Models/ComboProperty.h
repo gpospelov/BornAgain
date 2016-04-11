@@ -41,6 +41,9 @@ public:
 
     QStringList getValues() const;
 
+    QStringList getToolTips() const;
+    void setToolTips(const QStringList &tooltips);
+
     int index() const;
     int toIndex(const QString &value) const;
     QString toString(int index) const;
@@ -61,6 +64,7 @@ public:
 
 private:
     QStringList m_values;
+    QStringList m_values_tooltips;
     QString m_current_value;
     QString m_cached_value;  // for comboboxes with dynamically generated value lists
     bool m_cache_contains_GUI_value;

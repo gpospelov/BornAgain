@@ -11,6 +11,8 @@
 #include "ParticleLayoutItem.h"
 #include "DetectorItems.h"
 #include "ComboProperty.h"
+#include "DocumentModel.h"
+#include "SimulationOptionsItem.h"
 #include <memory>
 #include <QtTest>
 
@@ -22,6 +24,7 @@ private slots:
     void test_Inference2DRotationAngleToggle();
     void test_instrumentAlignmentPropertyVisibility();
     void test_removeMaskOnDetectorChange();
+    void test_SimulationOptionsComputationToggle();
 };
 
 inline void TestMapperCases::test_ParticeleCompositionUpdate()
@@ -100,6 +103,22 @@ inline void TestMapperCases::test_removeMaskOnDetectorChange()
     // after change the mask container should be removed
     detector->setGroupProperty(DetectorItem::P_DETECTOR, Constants::SphericalDetectorType);
     QVERIFY(detector->getItems(DetectorItem::T_MASKS).size() == 0);
+}
+
+inline void TestMapperCases::test_SimulationOptionsComputationToggle()
+{
+    DocumentModel model;
+    model.insertNewItem(Constants::SimulationOptionsType);
+
+    SimulationOptionsItem *item = model.getSimulationOptionsItem();
+
+    ComboProperty combo = item->getItemValue(SimulationOptionsItem::P_COMPUTATION_METHOD).value<ComboProperty>();
+    QCOMPARE(combo.getValue(), Constants::SIMULATION_ANALYTICAL);
+    QVERIFY(item->getItem(SimulationOptionsItem::P_MC_POINTS)->isEnabled() == false);
+
+    combo.setValue(Constants::SIMULATION_MONTECARLO);
+    item->setItemValue(SimulationOptionsItem::P_COMPUTATION_METHOD, combo.getVariant());
+    QVERIFY(item->getItem(SimulationOptionsItem::P_MC_POINTS)->isEnabled() == true);
 }
 
 #endif

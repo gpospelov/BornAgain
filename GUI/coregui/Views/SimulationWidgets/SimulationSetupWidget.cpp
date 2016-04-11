@@ -34,6 +34,7 @@
 #include "projectmanager.h"
 #include "SimulationOptionsWidget.h"
 #include "ApplicationModels.h"
+#include "DocumentModel.h"
 #include <QGroupBox>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -97,6 +98,8 @@ void SimulationSetupWidget::updateViewElements()
                        m_applicationModels->instrumentModel()->getInstrumentMap().keys());
     updateSelectionBox(sampleSelectionBox,
                        m_applicationModels->sampleModel()->getSampleMap().keys());
+
+    m_simOptionsWidget->setItem(m_applicationModels->documentModel()->getSimulationOptionsItem());
 }
 
 QString SimulationSetupWidget::getSelectedInstrumentName() const
@@ -350,6 +353,7 @@ QWidget *SimulationSetupWidget::createSimulationParametersWidget()
     cpuUsageSelectionBox = new QComboBox;
     cpuUsageSelectionBox->setToolTip("Defines number of threads to use for the simulation.");
     cpuUsageSelectionBox->addItems(getCPUUsageOptions());
+    cpuUsageSelectionBox->setEnabled(false);
 
     // layout
     QGridLayout *simulationParametersLayout = new QGridLayout;

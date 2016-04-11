@@ -347,6 +347,11 @@ void ComboPropertyEdit::setComboProperty(
         QStringList value_list = m_combo_property.getValues();
 
         addItems(value_list);
+
+        int index(0);
+        foreach(QString descr, m_combo_property.getToolTips())
+            setItemData(index++, descr, Qt::ToolTipRole);
+
     }
     setCurrentText(comboValueText());
 

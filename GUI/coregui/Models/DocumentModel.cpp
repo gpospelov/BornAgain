@@ -15,9 +15,16 @@
 // ************************************************************************** //
 
 #include "DocumentModel.h"
+#include "SimulationOptionsItem.h"
 
 DocumentModel::DocumentModel(QObject *parent)
     : SessionModel(SessionXML::DocumentModelTag, parent)
 {
     setObjectName(SessionXML::DocumentModelTag);
+}
+
+SimulationOptionsItem *DocumentModel::getSimulationOptionsItem()
+{
+    return dynamic_cast<SimulationOptionsItem *>(getTopItem(Constants::SimulationOptionsType));
+
 }

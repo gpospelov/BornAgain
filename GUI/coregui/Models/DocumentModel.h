@@ -19,12 +19,16 @@
 
 #include "SessionModel.h"
 
+class SimulationOptionsItem;
+
 class BA_CORE_API_ DocumentModel : public SessionModel
 {
     Q_OBJECT
 
 public:
     explicit DocumentModel(QObject *parent = 0);
+
+    SimulationOptionsItem *getSimulationOptionsItem();
 
 };
 

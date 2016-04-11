@@ -85,6 +85,7 @@ private:
     QPushButton *exportToPyScriptButton;
 
     SimulationOptionsWidget *m_simOptionsWidget;
+
 };
 
 #endif // SIMULATIONSETUPWIDGET_H

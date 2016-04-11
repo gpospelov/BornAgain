@@ -146,8 +146,12 @@ void SimulationSetupWidget::onRunSimulation()
         return;
     }
 
+//    JobItem *jobItem = m_applicationModels->jobModel()->addJob(getSelectedMultiLayerItem(), getSelectedInstrumentItem(),
+//                       runPolicySelectionBox->currentText(), getNumberOfThreads());
+
     JobItem *jobItem = m_applicationModels->jobModel()->addJob(getSelectedMultiLayerItem(), getSelectedInstrumentItem(),
-                       runPolicySelectionBox->currentText(), getNumberOfThreads());
+                       m_applicationModels->documentModel()->getSimulationOptionsItem());
+
 
     // load real data
     if (!pathLabel->text().isEmpty()) {

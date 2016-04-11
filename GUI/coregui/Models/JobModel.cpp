@@ -25,6 +25,7 @@
 #include "InstrumentItem.h"
 #include "ParameterModelBuilder.h"
 #include "ParameterTreeItems.h"
+#include "SimulationOptionsItem.h"
 #include <QUuid>
 #include <QDebug>
 #include <QItemSelection>
@@ -91,6 +92,33 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem, const Instrument
 
     return jobItem;
 }
+
+JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem,
+        const SimulationOptionsItem *optionItem)
+{
+    Q_ASSERT(multiLayerItem);
+    Q_ASSERT(instrumentItem);
+    Q_ASSERT(optionItem);
+
+    JobItem *jobItem = dynamic_cast<JobItem *>(insertNewItem(Constants::JobItemType));
+    jobItem->setItemName(generateJobName());
+    jobItem->setIdentifier(generateJobIdentifier());
+//    jobItem->setNumberOfThreads(numberOfThreads);
+//    jobItem->setRunPolicy(run_policy);
+
+    copyParameterizedItem(multiLayerItem, jobItem, JobItem::T_SAMPLE);
+    copyParameterizedItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
+    copyParameterizedItem(optionItem, jobItem, JobItem::T_SIMULATION_OPTIONS);
+
+    ParameterModelBuilder::createParameterTree(jobItem, JobItem::T_PARAMETER_TREE);
+
+    insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
+    insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_REALDATA);
+
+    return jobItem;
+
+}
+
 
 //! Adds a multilayer to children of given JobItem.
 //! The same method is used to set either original multilayer or its backup version.

@@ -89,6 +89,27 @@ SimulationOptionsItem::SimulationOptionsItem()
 
 }
 
+int SimulationOptionsItem::getNumberOfThreads() const
+{
+    ComboProperty combo = getItemValue(P_NTHREADS).value<ComboProperty>();
+    foreach(QChar ch, combo.getValue()) {
+        if(ch.isDigit()) return ch.digitValue();
+    }
+    return 0;
+}
+
+bool SimulationOptionsItem::runImmediately() const
+{
+    ComboProperty combo = getItemValue(P_RUN_POLICY).value<ComboProperty>();
+    return combo.getValue() == Constants::JOB_RUN_IMMEDIATELY;
+}
+
+bool SimulationOptionsItem::runInBackground() const
+{
+    ComboProperty combo = getItemValue(P_RUN_POLICY).value<ComboProperty>();
+    return combo.getValue() == Constants::JOB_RUN_IN_BACKGROUND;
+}
+
 //! returns list with number of threads to select
 QStringList SimulationOptionsItem::getCPUUsageOptions()
 {

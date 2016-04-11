@@ -45,6 +45,7 @@ public:
     static const QString T_OUTPUT;
     static const QString T_REALDATA;
     static const QString T_PARAMETER_TREE;
+    static const QString T_SIMULATION_OPTIONS;
     explicit JobItem();
     virtual ~JobItem();
 

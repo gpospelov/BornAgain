@@ -22,6 +22,7 @@
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
 #include "JobResultsPresenter.h"
+#include "SimulationOptionsItem.h"
 #include <QDebug>
 
 
@@ -62,6 +63,7 @@ const QString JobItem::T_INSTRUMENT = "Instrument Tag";
 const QString JobItem::T_OUTPUT = "Output Tag";
 const QString JobItem::T_REALDATA = "Real Data Tag";
 const QString JobItem::T_PARAMETER_TREE = "Parameter Tree";
+const QString JobItem::T_SIMULATION_OPTIONS = "Simulation Options";
 
 JobItem::JobItem()
     : SessionItem(Constants::JobItemType)
@@ -97,6 +99,9 @@ JobItem::JobItem()
     registerTag(T_REALDATA, 1, 1, QStringList() << Constants::IntensityDataType);
     registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterLabelType
                 << Constants::ParameterType);
+    registerTag(T_SIMULATION_OPTIONS, 1, 1, QStringList() << Constants::SimulationOptionsType);
+
+
     mapper()->setOnChildPropertyChange(
                 [this](SessionItem* item, const QString &name)
     {
@@ -211,7 +216,10 @@ void JobItem::setProgress(int progress)
 
 int JobItem::getNumberOfThreads() const
 {
-    return getItemValue(P_NTHREADS).toInt();
+    SimulationOptionsItem *options = dynamic_cast<SimulationOptionsItem *>(getItem(T_SIMULATION_OPTIONS));
+    Q_ASSERT(options);
+    return options->getNumberOfThreads();
+//    return getItemValue(P_NTHREADS).toInt();
 }
 
 void JobItem::setNumberOfThreads(int number_of_threads)
@@ -228,14 +236,20 @@ void JobItem::setRunPolicy(const QString &run_policy)
 
 bool JobItem::runImmediately() const
 {
-    ComboProperty combo_property = getItemValue(P_RUN_POLICY).value<ComboProperty>();
-    return combo_property.getValue() == Constants::JOB_RUN_IMMEDIATELY;
+    SimulationOptionsItem *options = dynamic_cast<SimulationOptionsItem *>(getItem(T_SIMULATION_OPTIONS));
+    Q_ASSERT(options);
+    return options->runImmediately();
+//    ComboProperty combo_property = getItemValue(P_RUN_POLICY).value<ComboProperty>();
+//    return combo_property.getValue() == Constants::JOB_RUN_IMMEDIATELY;
 }
 
 bool JobItem::runInBackground() const
 {
-    ComboProperty combo_property = getItemValue(P_RUN_POLICY).value<ComboProperty>();
-    return combo_property.getValue() == Constants::JOB_RUN_IN_BACKGROUND;
+    SimulationOptionsItem *options = dynamic_cast<SimulationOptionsItem *>(getItem(T_SIMULATION_OPTIONS));
+    Q_ASSERT(options);
+    return options->runInBackground();
+//    ComboProperty combo_property = getItemValue(P_RUN_POLICY).value<ComboProperty>();
+//    return combo_property.getValue() == Constants::JOB_RUN_IN_BACKGROUND;
 }
 
 //! Returns MultiLayerItem of this JobItem, if from_backup=true, then backup'ed version of

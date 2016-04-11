@@ -34,6 +34,10 @@ public:
 
     explicit SimulationOptionsItem();
 
+    int getNumberOfThreads() const;
+    bool runImmediately() const;
+    bool runInBackground() const;
+
 private:
     QStringList getCPUUsageOptions();
 };

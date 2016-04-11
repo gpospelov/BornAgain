@@ -20,6 +20,7 @@
 #include "WinDllMacros.h"
 #include <QObject>
 
+class SessionModel;
 class DocumentModel;
 class MaterialModel;
 class MaterialSvc;
@@ -35,6 +36,7 @@ public:
     ApplicationModels(QObject *parent);
     ~ApplicationModels();
 
+    DocumentModel *documentModel();
     MaterialModel *materialModel();
     InstrumentModel *instrumentModel();
     SampleModel *sampleModel();
@@ -42,6 +44,9 @@ public:
     FitModel *fitModel();
 
     void resetModels();
+
+signals:
+    void modelChanged();
 
 private:
     void createModels();
@@ -52,6 +57,9 @@ private:
     void createJobModel();
     void createFitModel();
     void testGUIObjectBuilder();
+
+    void disconnectModel(SessionModel *model);
+    void connectModel(SessionModel *model);
 
     DocumentModel *m_documentModel;
     MaterialModel *m_materialModel;

@@ -44,6 +44,11 @@ ApplicationModels::~ApplicationModels()
     delete m_materialSvc;
 }
 
+DocumentModel *ApplicationModels::documentModel()
+{
+    return m_documentModel;
+}
+
 MaterialModel *ApplicationModels::materialModel()
 {
     return m_materialModel;
@@ -123,12 +128,14 @@ void ApplicationModels::createDocumentModel()
 {
     delete m_documentModel;
     m_documentModel = new DocumentModel(this);
+    connectModel(m_documentModel);
 }
 
 void ApplicationModels::createMaterialModel()
 {
     delete m_materialModel;
     m_materialModel = new MaterialModel(this);
+    connectModel(m_materialModel);
     m_materialSvc = new MaterialSvc(m_materialModel);
 }
 
@@ -137,6 +144,7 @@ void ApplicationModels::createSampleModel()
     Q_ASSERT(m_materialModel);
     delete m_sampleModel;
     m_sampleModel = new SampleModel(this);
+    connectModel(m_sampleModel);
     connect(m_materialModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
             m_sampleModel, SLOT(onMaterialModelChanged(QModelIndex,QModelIndex)));
 }
@@ -145,12 +153,14 @@ void ApplicationModels::createJobModel()
 {
     delete m_jobModel;
     m_jobModel = new JobModel(this);
+    connectModel(m_jobModel);
 }
 
 void ApplicationModels::createInstrumentModel()
 {
     delete m_instrumentModel;
     m_instrumentModel = new InstrumentModel(this);
+    connectModel(m_instrumentModel);
     m_instrumentModel->setIconProvider(new IconProvider());
 }
 
@@ -158,6 +168,7 @@ void ApplicationModels::createFitModel()
 {
     delete m_fitModel;
     m_fitModel = new FitModel(m_sampleModel, m_instrumentModel, this);
+    connectModel(m_fitModel);
 }
 
 void ApplicationModels::testGUIObjectBuilder()
@@ -172,3 +183,28 @@ void ApplicationModels::testGUIObjectBuilder()
 //    const std::unique_ptr<GISASSimulation> simulation(simRegistry.createSimulation("RectDetectorPerpToReflectedBeamDpos"));
 //    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
 }
+
+void ApplicationModels::disconnectModel(SessionModel *model)
+{
+    if(model) {
+        disconnect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
+                   SIGNAL(modelChanged()));
+        disconnect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+                   SIGNAL(modelChanged()));
+        disconnect(model, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
+                   SIGNAL(modelChanged()));
+    }
+}
+
+void ApplicationModels::connectModel(SessionModel *model)
+{
+    if(model) {
+        connect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
+                   SIGNAL(modelChanged()), Qt::UniqueConnection);
+        connect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+                   SIGNAL(modelChanged()), Qt::UniqueConnection);
+        connect(model, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
+                   SIGNAL(modelChanged()), Qt::UniqueConnection);
+    }
+}
+

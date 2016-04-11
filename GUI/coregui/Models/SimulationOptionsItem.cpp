@@ -45,8 +45,6 @@ SimulationOptionsItem::SimulationOptionsItem()
     addProperty(P_MC_POINTS, 100);
 }
 
-
-
 //! returns list with number of threads to select
 QStringList SimulationOptionsItem::getCPUUsageOptions()
 {

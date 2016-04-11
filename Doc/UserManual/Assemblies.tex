@@ -326,7 +326,7 @@ so that the \E{diffuse} scattering intensity assumes the simple form
 \end{equation}\vskip -5pt}
 The \E{coherent} scattering intensity is given by
 \Emph
-{\begin{equation}
+{\begin{equation}\label{EICoherent}
   I_\text{c} =
   \int\!\d^2r\,   \e^{i\q_{\plll}\r}\!
   \int\! \d^{d_T}\tau\, \d^{d_T}\tau'
@@ -531,6 +531,127 @@ as for other numeric parameters.
 \section{Interference functions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+The starting point for describing the interference of the scattering from different
+particles is the coherent scattering intensity of~(\ref{EICoherent}).
+
+The conditional interference function is defined as
+\begin{equation}
+  \SD(\q |\v\tau,\v\tau') \coloneqq 1 + \rho_S \int\! d^2r\, e^{i\q_\plll\r}\! \GD(\r|\v\tau,\v\tau').
+\end{equation}
+With the chosen normalization, $\rho_S \GD(\r|\v\tau,\v\tau') d^2r$ gives the probability of
+finding a particle of type $\v\tau'$ in the infinitesimal area $d^2r$ at the relative position $\r$ from
+a given (different) particle of type $\v\tau$.
+
+In the following subsections, the supported interference functions in \BornAgain\ will be discussed.
+With one exception, they all assume the R-T decoupling approximation, making the interference function
+independent of the particle types ($\v\tau$ and $\v\tau'$).
+
+%===============================================================================
+\subsection{One-dimensional lattice} \label{sec:sect:1dlattice}
+%===============================================================================
+For a perfect one-dimensional lattice along the x-axis with period $a$, the position
+correlation function is given by:
+\begin{equation}
+  \rho_S\GD(\r) = \sum_{n\neq 0} \delta(x-na)\delta(y).
+\end{equation}
+The corresponding interference function then becomes
+\begin{equation}
+  \SD(\q) = \frac{2\pi}{a}\sum_k \delta(q_x - \frac{2\pi k}{a}),
+\end{equation}
+where $2\pi /a$ is a basis vector for the reciprocal lattice.
+
+For computational reasons in \BornAgain, the delta functions appearing in the interference function
+are replaced by distributions of a finite width $H(q_x-2\pi k/a)$. This ammounts to convoluting the
+previously given interference function with $H(q_x)$ or, equivalently, multiplying
+the position correlation function by the inverse Fourier image of $H(q_x)$, called the
+\index{Decay function}
+\E{decay function} $h(x)$.
+
+The interference function can then be written as:
+\begin{equation}
+  \SD(q_x) = \frac{1}{a}\sum_k H(q_x - \frac{2\pi k}{a}).
+\end{equation}
+
+\BornAgain\ currently supports the following types of one-dimensional decay functions
+(parameterized by a decay length $\lambda$):
+\begin{equation}
+  \begin{array}{|l|c|c|}
+    \hline
+    \text{Name} & h(x) & H(q_x) \\
+    \hline
+    \text{Cauchy} & e^{-|x|/\lambda} & \frac{2\lambda}{1+q_x^2\lambda^2} \\
+    \hline
+    \text{Gauss} & e^{-x^2/2\lambda^2} & \sqrt{2\pi}\lambda e^{-q_x^2\lambda^2/2} \\
+    \hline
+    \text{Triangle} & 1-|x|/\lambda \quad \text{for} \quad |x|<\lambda & \lambda \sinc^2(q_x\lambda/2) \\
+    \hline
+  \end{array}
+\end{equation}
+
+In addition, a pseudo-Voigt decay function is available, which is a convex combination of the Cauchy and Gauss decay functions.
+\Emph{
+The decay functions are all normalized such that $\int\!dq_x H(q_x)=2\pi$, which is equivalent to $h(0)=1$.
+}
+\Emph{
+If the one-dimensional lattice is rotated with respect to the x-axis by an angle $\xi$, the corresponding interference function is calculated
+by using the correct projection of the in-plane reciprocal vector instead of $q_x$:
+\begin{equation}
+  q_\xi = q_x \cos\xi + q_y \sin\xi.
+\end{equation}
+}
+
+%===============================================================================
+\subsection{Two-dimensional lattice} \label{sec:sect:2dlattice}
+%===============================================================================
+For a perfect two-dimensional lattice with lattice basis $(\v a,\v b)$, the position
+correlation function is given by:
+\begin{equation}
+  \rho_S\GD(\r) = \sum_{m,n} \delta(\r-m\v a - n\v b) - \delta(\r).
+\end{equation}
+The corresponding interference function then becomes
+\begin{equation}
+  \SD(\q) = 4\pi^2 \rho_S \sum_{\q_i\in\Lambda^*} \delta(\q - \q_i),
+\end{equation}
+where $\Lambda^*$ denotes the reciprocal lattice of $(\v a,\v b)$.
+
+In \BornAgain, the two-dimensional delta functions need to be replaced again with
+distributions of finite width $H(\q - \q_i)$. Currently, \BornAgain\ only allows for two-dimensional
+decay functions that are defined in the radial variable
+\begin{equation}
+  \phi \coloneqq \sqrt{X^2/\lambda_X^2 + Y^2/\lambda_Y^2},
+\end{equation}
+where $(X,Y)$ are the coordinates in an orthonormal coordinate system, where the $X$-axis is rotated
+by an angle $\gamma$ with respect to the first lattice vector $\v a$.
+This ammounts to convoluting the
+previously given interference function with $H(\q)$ or, equivalently, multiplying
+the position correlation function by the inverse Fourier image of $H(\q)$, called the
+\index{Decay function}
+\E{decay function} $h(\phi)$.
+
+The interference function can then be written as:
+\begin{equation}
+  \SD(\q) = \rho_S \sum_{\q_i\in\Lambda^*} H(\q - \q_i).
+\end{equation}
+
+\BornAgain\ currently supports the following types of two-dimensional decay functions
+(parameterized by two decay lengths $\lambda_X, \lambda_Y$):
+\begin{equation}
+  \begin{array}{|l|c|c|}
+    \hline
+    \text{Name} & h(\phi) & H(\omega) \\
+    \hline
+    \text{Cauchy} & e^{-\phi} & \frac{2\pi\lambda_X\lambda_Y}{(1+\omega^2)^{3/2}} \\
+    \hline
+    \text{Gauss} & e^{-\phi^2/2} & 2\pi\lambda_X\lambda_Y e^{-\omega^2/2} \\
+    \hline
+  \end{array}
+\end{equation}
+with $\omega \coloneqq \sqrt{q_X^2\lambda_X^2 + q_Y^2\lambda_Y^2}$.
+
+In addition, a pseudo-Voigt decay function is available, which is a convex combination of the Cauchy and Gauss decay functions.
+\Emph{
+The decay functions are all normalized such that $\int\!d\q_\plll H(\q)= 4\pi^2$, which is equivalent to $h(0)=1$.
+}
 %\iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{OLD STUFF}

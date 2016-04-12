@@ -66,7 +66,8 @@
 #  License text for the above reference.)
 
 # Include these modules to handle the QUIETLY and REQUIRED arguments.
-include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
+#include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake) # original
+include(FindPackageHandleStandardArgs) # patched JWu 4/16
 
 #=============================================================================
 # If the user has provided ``GSL_ROOT_DIR``, use it!  Choose items found

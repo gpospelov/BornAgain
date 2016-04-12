@@ -8,6 +8,7 @@ find_package(FFTW REQUIRED)
 find_package(GSL REQUIRED)
 
 # --- Boost ---
+set(Boost_NO_BOOST_CMAKE ON) # prevent shortcut
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
@@ -19,9 +20,9 @@ else()
     set(boost_libraries_required date_time chrono program_options iostreams system filesystem regex thread)
 endif()
 find_package(Boost 1.48.0 COMPONENTS ${boost_libraries_required} REQUIRED)
-message(STATUS "Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
-message(STATUS "Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}")
-message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
+message(STATUS "--> Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
+message(STATUS "    Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}")
+message(STATUS "    Boost_LIBRARIES: ${Boost_LIBRARIES}")
 
 # === optional packages ===
 

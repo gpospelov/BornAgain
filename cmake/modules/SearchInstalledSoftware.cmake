@@ -1,29 +1,13 @@
 # Search for installed software required by BornAgain
 
+# === obligatory packages ===
 
-if (BORNAGAIN_GENERATE_BINDINGS AND BORNAGAIN_GENERATE_PYTHON_DOCS)
-  find_package(Doxygen REQUIRED)
-endif()
-
-if (BORNAGAIN_USE_PYTHON3)
-  set(Python_ADDITIONAL_VERSIONS 3.5 3.4 3.3)
-else()
-  set(Python_ADDITIONAL_VERSIONS 2.7)
-endif()
-
-if(BORNAGAIN_OPENMPI)
-    message(STATUS "Configuring with OpenMPI support")
-    find_package(MPI REQUIRED)
-endif()
-
-
-# --- Eigen3 ---
+# --- math packages ---
 find_package(Eigen3 REQUIRED)
-
-# --- FFTW3 ---
 find_package(FFTW REQUIRED)
+find_package(GSL REQUIRED)
 
-# --- BOOST ---
+# --- Boost ---
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
@@ -39,13 +23,15 @@ message(STATUS "Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
 message(STATUS "Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}")
 message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
 
+# === optional packages ===
 
-# --- GSL ---
-find_package(GSL REQUIRED)
+# --- multithreading ---
+if(BORNAGAIN_OPENMPI)
+    message(STATUS "Configuring with OpenMPI support")
+    find_package(MPI REQUIRED)
+endif()
 
-# -----------------------------------------------------------------------------
-# Tiff
-# -----------------------------------------------------------------------------
+# --- Tiff ---
 if(BORNAGAIN_TIFF_SUPPORT)
     find_package(TIFF 4.0.2)
     if(NOT TIFF_FOUND)
@@ -54,34 +40,37 @@ if(BORNAGAIN_TIFF_SUPPORT)
     endif()
 endif()
 
-
-
 # --- Python ---
+if (BORNAGAIN_GENERATE_BINDINGS AND BORNAGAIN_GENERATE_PYTHON_DOCS)
+  find_package(Doxygen REQUIRED)
+endif()
+
+if (BORNAGAIN_USE_PYTHON3)
+  set(Python_ADDITIONAL_VERSIONS 3.5 3.4 3.3)
+else()
+  set(Python_ADDITIONAL_VERSIONS 2.7)
+endif()
+
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     find_package(PythonInterp REQUIRED)
     message(STATUS "--> PYTHON_VERSION_STRING: ${PYTHON_VERSION_STRING}, PYTHON_EXECUTABLE:${PYTHON_EXECUTABLE}")
-
     find_package(PythonLibs REQUIRED)
-
-#    ValidatePythonInstallation()
-
+    # ValidatePythonInstallation()
     message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS} PYTHONLIBS_VERSION_STRING:${PYTHONLIBS_VERSION_STRING}")
-
     if(NOT PYTHONLIBS_FOUND)
         message(FATAL_ERROR "No Python library has been found")
     endif()
-
     find_package(Numpy REQUIRED)
 endif()
 
-# --- SWIG ---
+# --- Swig ---
 if(BORNAGAIN_PYTHON AND BORNAGAIN_GENERATE_BINDINGS)
   find_package(SWIG 3.0 REQUIRED)
   include(${SWIG_USE_FILE})
   message(STATUS "--> SWIG EXECUTABLE: ${SWIG_EXECUTABLE}, SWIG_VERSION: ${SWIG_VERSION}")
 endif()
 
-# --- ROOT ---
+# --- Root ---
 if(BORNAGAIN_APP)
     find_package(ROOT)
 endif()

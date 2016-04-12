@@ -14,7 +14,7 @@ option(BORNAGAIN_PYTHON "Build with python support" ON)
 option(BORNAGAIN_USE_PYTHON3 "Build against python 3.5 instead of 2.7" OFF)
 option(BORNAGAIN_GENERATE_BINDINGS "Generate python bindings during build (requires swig)" OFF)
 option(BORNAGAIN_GENERATE_PYTHON_DOCS "Generate python documentation from the doxygen comments" OFF)
-option(BORNAGAIN_APP "Build test application" OFF)
+option(BORNAGAIN_APP "Build test application" OFF) # TODO: still needed? what for?
 option(BORNAGAIN_GUI "Build a graphical user interface" ON)
 option(BORNAGAIN_USERMANUAL "Build the User Manual" OFF)
 option(BORNAGAIN_MANPAGE "Build Unix man page" OFF)
@@ -39,25 +39,18 @@ endif()
 if(BORNAGAIN_MANPAGE)
     add_subdirectory(man)
 endif()
-
-
 add_subdirectory(ThirdParty)
 add_subdirectory(Core)
 add_subdirectory(Tests/UnitTests/TestCore)
 add_subdirectory(Fit)
 add_subdirectory(Tests/UnitTests/TestFit)
-
-
-
-if(ROOT_FOUND AND BORNAGAIN_APP)
+if(ROOT_FOUND AND BORNAGAIN_APP) # TODO: find out whether this is still needed
     add_subdirectory(App)
 endif()
-
 if(BORNAGAIN_GUI)
     add_subdirectory(GUI)
     add_subdirectory(Tests/UnitTests/TestGUI)
 endif()
-
 add_subdirectory(Tests/FunctionalTests)  # functional tests (make check)
 
 add_subdirectory(cmake) # trick to print the message

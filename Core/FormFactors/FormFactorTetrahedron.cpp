@@ -20,8 +20,8 @@
 
 using namespace  BornAgain;
 
-FormFactorTetrahedron::FormFactorTetrahedron(
-   double length, double height, double alpha)
+FormFactorTetrahedron::FormFactorTetrahedron(double length, double height, double alpha)
+    : FormFactorPolyhedron( polyhedral_faces( length, height, alpha ), 0. )
 {
     setName(FFTetrahedronType);
     m_height = height;
@@ -29,12 +29,39 @@ FormFactorTetrahedron::FormFactorTetrahedron(
     m_alpha = alpha;
     check_initialization();
     init_parameters();
-
-    mP_integrator = make_integrator_complex(this, &FormFactorTetrahedron::Integrand);
 }
 
-FormFactorTetrahedron::~FormFactorTetrahedron()
+FormFactorTetrahedron::~FormFactorTetrahedron() {}
+
+std::vector<PolyhedralFace> FormFactorTetrahedron::polyhedral_faces(
+    double length, double height, double alpha)
 {
+    double a = length;
+    double as = a/2;
+    double ac = a/sqrt(3)/2;
+    double ah = a/sqrt(3);
+    double b = a - 2*sqrt(3)*height/std::tan(alpha);
+    double bs = b/2;
+    double bc = b/sqrt(3)/2;
+    double bh = b/sqrt(3);
+
+    kvector_t V[6] = {
+        // base:
+        { -as, -ac, 0. },
+        {  as, -ac, 0. },
+        {  0.,  ah, 0. },
+        // top:
+        { -bs, -bc, height },
+        {  bs, -bc, height },
+        {  0.,  bh, height } };
+    std::vector<PolyhedralFace> faces;
+    faces.push_back( PolyhedralFace( { V[2], V[1], V[0] } ) );
+    faces.push_back( PolyhedralFace( { V[0], V[1], V[4], V[3] } ) );
+    faces.push_back( PolyhedralFace( { V[1], V[2], V[5], V[4] } ) );
+    faces.push_back( PolyhedralFace( { V[2], V[0], V[3], V[5] } ) );
+    faces.push_back( PolyhedralFace( { V[3], V[4], V[5] } ) );
+
+    return faces;
 }
 
 bool FormFactorTetrahedron::check_initialization() const
@@ -73,71 +100,4 @@ void FormFactorTetrahedron::accept(ISampleVisitor *visitor) const
 double FormFactorTetrahedron::getRadius() const
 {
     return m_length / 2;
-}
-
-complex_t FormFactorTetrahedron::Integrand(double Z) const
-{
-    static double root3 = std::sqrt(3.);
-    double Rz = m_length/2 -root3*Z/std::tan(m_alpha);
-
-    complex_t xy_part = 0;
-    if (m_q.x()==complex_t(0,0) && m_q.y()==complex_t(0,0)) {
-        xy_part = root3*Rz*Rz;
-    }
-    else {
-        complex_t r3qyRz = root3*m_q.y()*Rz;
-        complex_t expminiqyRdivr3 =
-            std::exp(-complex_t(0.0, 1.0)*m_q.y()*Rz/root3);
-        if (std::abs(m_q.x()*m_q.x()-3.*m_q.y()*m_q.y()) == 0) {
-            xy_part = complex_t(0.0, 1.0)*root3*expminiqyRdivr3*
-                   (std::sin(r3qyRz)-r3qyRz*std::exp(complex_t(0.0, 1.0)*r3qyRz))/
-                m_q.x()/m_q.x();
-        } else {
-            complex_t qxRz = m_q.x()*Rz;
-            xy_part = 2*root3*expminiqyRdivr3/
-                    (m_q.x()*m_q.x()-3.0*m_q.y()*m_q.y())*(
-                        std::exp(complex_t(0.0, 1.0)*r3qyRz) -
-                std::cos(qxRz)-complex_t(0.0, 1.0)*r3qyRz*
-                MathFunctions::sinc(qxRz));
-        }
-    }
-    return xy_part *std::exp(complex_t(0.0, 1.0)*m_q.z()*Z);
-}
-
-complex_t FormFactorTetrahedron::evaluate_for_q(const cvector_t& q) const
-{
-    static double root3 = std::sqrt(3.);
-    const complex_t im(0.0,1.0);
-    double H = m_height;
-    double R = m_length/2;
-    double tga = std::tan(m_alpha);
-    double L = 2*tga*R/root3-H;
-
-    if (std::abs(q.x()) <=  Numeric::double_epsilon ||
-        std::abs(q.y())<=  Numeric::double_epsilon ||
-        std::abs(q.z())<=  Numeric::double_epsilon ||
-        std::abs(q.x())*std::abs(q.x())
-        - 3*std::abs(q.y())*std::abs(q.y()) <=  Numeric::double_epsilon)
-    {
-        if ( std::abs(q.mag()) < Numeric::double_epsilon) {
-            double sqrt3HdivRtga = root3*H/R/tga;
-            return tga/3*R*R*R*(1 - (1-sqrt3HdivRtga)
-                                 *(1-sqrt3HdivRtga)
-                                 *(1-sqrt3HdivRtga));
-        } else {
-            m_q = q;
-            complex_t integral = mP_integrator->integrate(0., m_height);
-            return integral;
-        }
-    } else {
-        //general case
-        const complex_t q1=(1./2.)*((root3*q.x() - q.y())/tga - q.z());
-        const complex_t q2=(1./2.)*((root3*q.x() + q.y())/tga + q.z());
-        const complex_t q3 = (q.y()/tga - q.z()/2.);
-
-        return H*root3*std::exp(im*q.z()*R*tga/root3)/(q.x()*q.x()-3.*q.y()*q.y())*
-            (-(1.+root3*q.y()/q.x())*MathFunctions::sinc(q1*H)*std::exp(im*q1*L)
-             -(1.-root3*q.y()/q.x())*MathFunctions::sinc(q2*H)*std::exp(-im*q2*L) +
-             2.*MathFunctions::sinc(q3*H)*std::exp(im*q3*L));
-    }
 }

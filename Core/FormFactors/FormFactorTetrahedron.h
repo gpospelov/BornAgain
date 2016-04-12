@@ -16,17 +16,12 @@
 #ifndef FORMFACTORTETRAHEDRON_H
 #define FORMFACTORTETRAHEDRON_H
 
-#include "IFormFactorBorn.h"
-
-#include <memory>
-
-// Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
-template <class T> class IntegratorComplex;
+#include "FormFactorPolyhedron.h"
 
 //! @class FormFactorTetrahedron
 //! @ingroup formfactors
 //! @brief The formfactor of tetrahedron.
-class BA_CORE_API_ FormFactorTetrahedron : public IFormFactorBorn
+class BA_CORE_API_ FormFactorTetrahedron : public FormFactorPolyhedron
 {
 public:
     //! @brief Tetrahedron constructor
@@ -36,19 +31,17 @@ public:
     FormFactorTetrahedron(double length, double height, double alpha);
     virtual ~FormFactorTetrahedron();
 
+    static std::vector<PolyhedralFace> polyhedral_faces(
+        double length, double height,  double alpha);
+
     virtual FormFactorTetrahedron *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const;
 
     virtual double getRadius() const;
-
     double getHeight() const;
-
     double getLength() const;
-
     double getAlpha() const;
-
-    virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
 protected:
     virtual bool check_initialization() const;
@@ -58,29 +51,10 @@ private:
     double m_height;
     double m_length;
     double m_alpha;
-
-    // addition integration
-    mutable cvector_t m_q;
-    complex_t Integrand(double Z) const;
-
-#ifndef GCCXML_SKIP_THIS
-    std::unique_ptr<IntegratorComplex<FormFactorTetrahedron>> mP_integrator;
-#endif
 };
 
-inline double FormFactorTetrahedron::getHeight() const
-{
-    return m_height;
-}
-
-inline double FormFactorTetrahedron::getLength() const
-{
-    return m_length;
-}
-
-inline double FormFactorTetrahedron::getAlpha() const
-{
-    return m_alpha;
-}
+inline double FormFactorTetrahedron::getHeight() const { return m_height; }
+inline double FormFactorTetrahedron::getLength() const { return m_length; }
+inline double FormFactorTetrahedron::getAlpha() const { return m_alpha; }
 
 #endif // FORMFACTORTETRAHEDRON_H

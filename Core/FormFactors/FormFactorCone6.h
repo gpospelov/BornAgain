@@ -18,11 +18,6 @@
 
 #include "FormFactorPolyhedron.h"
 
-#include <memory>
-
-// Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
-template <class T> class IntegratorComplex;
-
 //! @class FormFactorCone6
 //! @ingroup formfactors
 //! @brief The formfactor of a cone6.
@@ -34,11 +29,10 @@ public:
     //! @param height of Cone6
     //! @param angle in radians between base and facet
     FormFactorCone6(double radius, double height,  double alpha);
+    virtual ~FormFactorCone6();
 
     static std::vector<PolyhedralFace> polyhedral_faces(
         double radius, double height,  double alpha);
-
-    virtual ~FormFactorCone6();
 
     virtual FormFactorCone6* clone() const;
 
@@ -59,19 +53,8 @@ private:
     mutable cvector_t m_q;
 };
 
-inline double FormFactorCone6::getHeight() const
-{
-    return m_height;
-}
-
-inline double FormFactorCone6::getRadius() const
-{
-    return m_radius;
-}
-
-inline double FormFactorCone6::getAlpha() const
-{
-    return m_alpha;
-}
+inline double FormFactorCone6::getHeight() const { return m_height; }
+inline double FormFactorCone6::getRadius() const { return m_radius; }
+inline double FormFactorCone6::getAlpha() const { return m_alpha; }
 
 #endif // FORMFACTORCONE6_H

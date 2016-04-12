@@ -513,20 +513,12 @@ The parameters must fulfill
 \end{displaymath}
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
-Notation:
-\begin{equation*}
-  R_H \coloneqq R-\frac{H}{\tan\beta},\quad
-  \tilde{q}_x \coloneqq \frac{1}{2}q_y,\quad
-  \tilde{q}_y \coloneqq \frac{\sqrt{3}}{2}q_y,\quad
-  \tilde{q}_z \coloneqq (\tan\beta) q_z.
-\end{equation*}
-Results:
 \begin{equation*}
   F \text{~: computed algebraically,
           using the generic polyhedron form factor~\cite{ba:ffp},}
 \end{equation*}
 \begin{equation*}
-  V = \tan\beta  \left( R^3- R_H^3 \right),
+  V = \tan\beta  \left( R^3- \left(R-\frac{H}{\tan\beta}\right)^3 \right),
 \end{equation*}
 \begin{equation*}
   S =\dfrac{3\sqrt{3}R^2}{2}.
@@ -544,13 +536,13 @@ for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
 \paragraph{References and History}\strut\\
-Originally computed through numeric integration,
-as the (differently parametrized) form factor \E{Cone6}  of \IsGISAXS\
+Our parametrization deviates from the form factor \E{Cone6} of \IsGISAXS
 \cite[Eq.~2.32]{Laz08} \cite[Eq.~222]{ReLL09}.
-Algebraic implementation
-based on the generic polyhedron form factor \cite{ba:ffp}
-introduced in \BornAgain-1.6.
 
+Up to \BornAgain-1.5 computed by numeric integration, as in \IsGISAXS.
+Since \BornAgain-1.6 higher speed and accuracy are achieved
+by using the generic polyhedron form factor \cite{ba:ffp},
+with series expansions near singularities.
 
 %===============================================================================
 \ffsection{Cuboctahedron} \label{SCuboctahedron}
@@ -1305,6 +1297,8 @@ Agrees with the \E{Ripple2} form factor of \FitGISAXS\ \cite{Bab13}.
 \noindent
 Incorrectly named so, since it actually has five, not four surfaces.
 
+\Work{will soon be rotated by 30$^\circ$}
+
 \begin{figure}[H]
 \hfill
 \subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Tetrahedron3d.png}}
@@ -1337,22 +1331,10 @@ but the angle~$\beta$ between the base and a side edge.
 They are related through $\tan \alpha = 2 \tan \beta$.
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
-Notation:
 \begin{equation*}
-q_1  \coloneqq \frac{1}{2}\left[\frac{q_x\sqrt{3} -q_y}{\tan \alpha}-q_z \right],
-\quad q_2 \coloneqq \frac{1}{2}\left[\frac{q_x\sqrt{3} +q_y}{\tan \alpha}+q_z
-\right], \quad
-q_3 \coloneqq \frac{q_y}{\tan \alpha} -\frac{q_z}{2}, \quad
-D \coloneqq \frac{L \tan \alpha}{\sqrt{3}} -H.
+  F\text{~: computed algebraically,
+          using the generic polyhedron form factor~\cite{ba:ffp},}
 \end{equation*}
-Results:
-\begin{align*}
-&F=\frac{\sqrt{3}H}{q_x (q_x^2-3q_y^2)}
-\exp\left(i\frac{q_z L\tan (\alpha)}{2\sqrt{3}}\right) \times \\
-&\Big\{2q_x \exp(iq_3 D)\sinc(q_3 H) - (q_x +\sqrt{3}q_y)
-\exp(iq_1 D)\sinc(q_1 H)\\
-&-(q_x-\sqrt{3}q_y)\exp(-iq_2 D)\sinc(q_2 H) \Big\},
-\end{align*}
 \begin{equation*}
   V= \dfrac{\tan(\alpha) L^3}{24} \left[1- \left(1 -
   \dfrac{2\sqrt{3} H}{L \tan(\alpha)} \right)^3\right],
@@ -1373,11 +1355,14 @@ for four different angles~$\omega$ of rotation around the $z$ axis.
 The low symmetry requires other angular ranges than used in most other figures.}
 \end{figure}
 
-\paragraph{References}\strut\\
-Agrees with the \E{Tetrahedron} form factor of \IsGISAXS\
-\cite[Eq.~2.30]{Laz08} \cite[Eq.~220]{ReLL09}.
-In \FitGISAXS\ correctly called \E{Truncated tetrahedron} \cite{Bab13}.
-
+\paragraph{References and History}\strut\\
+Previous implementations as \E{Tetrahedron} in \IsGISAXS\
+\cite[Eq.~2.30]{Laz08} \cite[Eq.~220]{ReLL09},
+and as  \E{Truncated tetrahedron} in \FitGISAXS\ \cite{Bab13}.
+Up to \BornAgain-1.5, we computed it by numeric integration, as in \IsGISAXS.
+Since \BornAgain-1.6 higher speed and accuracy are achieved
+by using the generic polyhedron form factor \cite{ba:ffp},
+with series expansions near singularities.
 
 %===============================================================================
 \ffsection{TruncatedCube} \label{STruncatedCube}

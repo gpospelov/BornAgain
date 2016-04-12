@@ -614,7 +614,7 @@ For very diluted distributions of particles, the particles are too far apart fro
 %===============================================================================
 \subsection{The regular lattice and the ideal paracrystal}
 %===============================================================================
-The particles are positioned at regular intervals generating a layout characterized by its base vectors $\mathbf{a}$ and $\mathbf{b}$ (in direct space) and the angle between these two vectors.
+The particles are positioned at regular intervals generating a layout characterized by its base vectors $\v{a}$ and $\v{b}$ (in direct space) and the angle between these two vectors.
 This lattice can be two or one-dimensional depending on the characteristics of the particles. For example when they are infinitely long, the implementation can be simplified and reduced to a "pseudo" 1D system.
 
 \index{Paracrystal}
@@ -648,7 +648,7 @@ Figure~\ref{fig:1dparas_q} shows the evolution of $S(q)$ for different values of
 \label{fig:1dparas_q}
 \end{figure}
 
-In two dimensions, the paracrystal is constructed on a pseudo-regular lattice with base vectors $\mathbf{a}$ and $\mathbf{b}$ using the following conditions for the densities of probabilities:\\ $\int p_{\mathbf{a}}(\r)d^2r=\int p_{\mathbf{b}}(\r)d^2r=1$, $\int \r p_{\mathbf{a}}(\r)d^2r=\mathbf{a}$, $\int \r p_{\mathbf{b}}(\r)d^2r=\mathbf{b}$.\\
+In two dimensions, the paracrystal is constructed on a pseudo-regular lattice with base vectors $\v{a}$ and $\v{b}$ using the following conditions for the densities of probabilities:\\ $\int p_{\v{a}}(\r)d^2r=\int p_{\v{b}}(\r)d^2r=1$, $\int \r p_{\v{a}}(\r)d^2r=\v{a}$, $\int \r p_{\v{b}}(\r)d^2r=\v{b}$.\\
 In the ideal case the deformations along the two axes are decoupled and each unit cell should retain a parallelogram shape. The interference function is given by\\ $S(q_{\plll})=\prod_{k=a,b}\Re\left(\dfrac{1+P_k(q_{\plll})}{1-P_k(q_{\plll})} \right)$ with $P_k$ the Fourier transform of $p_k$, $k=a, b$.
 
 \paragraph{Probability distributions} \mbox{}\\
@@ -1092,7 +1092,7 @@ def get_sample():
 %-------------------------------------------------------------------------------
 \subsection{\Code{InterferenceFunction1DLattice(lattice\_length, xi)}}
 %-------------------------------------------------------------------------------
-where lattice\_length is the lattice constant and $\xi$ the angle in radian between the lattice unit vector and the $\mathbf{x}$-axis of the reference Cartesian frame as shown in fig.~\ref{fig:1dgrating}.
+where lattice\_length is the lattice constant and $\xi$ the angle in radian between the lattice unit vector and the $\v{x}$-axis of the reference Cartesian frame as shown in fig.~\ref{fig:1dgrating}.
 
 \begin{figure}[tb]
 \begin{center}
@@ -1193,8 +1193,8 @@ To illustrate the radial paracrystal interference function, we use the same samp
 where ($L_1$, $L_2$, $\alpha$, $\xi$) are shown in figure~\ref{fig:2dlattice} with
 \begin{itemize}
 \item[]$L_1$, $L_2$ the lengths of the lattice cell,
-\item[]$\alpha$ the angle between the lattice basis vectors $\mathbf{a}, \mathbf{b}$ in direct space,
-\item[] $\xi$ is the angle defining the lattice orientation (set to $0$ by default); it is taken as the angle between the $\mathbf{a}$ vector of the lattice basis and the $\mathbf{x}$ axis of the reference Cartesian frame (as shown in figure~\ref{fig:multil3d}).
+\item[]$\alpha$ the angle between the lattice basis vectors $\v{a}, \v{b}$ in direct space,
+\item[] $\xi$ is the angle defining the lattice orientation (set to $0$ by default); it is taken as the angle between the $\v{a}$ vector of the lattice basis and the $\v{x}$ axis of the reference Cartesian frame (as shown in figure~\ref{fig:multil3d}).
 \end{itemize}
 
 \begin{figure}[tb]
@@ -1207,7 +1207,7 @@ where ($L_1$, $L_2$, $\alpha$, $\xi$) are shown in figure~\ref{fig:2dlattice} wi
 
 Like for the one-dimensional case, a probability distribution function \Code{pdf} has to be defined. One can choose between those listed in Sec.~\ref{baftd} and implements it using \Code{setProbabilityDistribution(pdf)}.
 
-\paragraph{Example} The sample used to run the simulation is made of half-spheres deposited on a substrate. The interference function is "2Dlattice" and the particles are located at the nodes of a square lattice with $L_1=L_2=20$~nm, $\mathbf{a}\equiv \mathbf{b}$ and the probability distribution function is Gaussian. We also use the Decoupling Approximation.
+\paragraph{Example} The sample used to run the simulation is made of half-spheres deposited on a substrate. The interference function is "2Dlattice" and the particles are located at the nodes of a square lattice with $L_1=L_2=20$~nm, $\v{a}\equiv \v{b}$ and the probability distribution function is Gaussian. We also use the Decoupling Approximation.
 
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to define a 2DLattice interference function between hemi-spherical particles as well as the Decoupling Approximation in \Code{getSimulation()}.  The part specific to the interferences is marked in a red italic font.},label={lst:2dlatticeinterf}]
     #collection of particles
@@ -1252,7 +1252,7 @@ Like for the one-dimensional case, a probability distribution function \Code{pdf
 %-------------------------------------------------------------------------------
 \begin{itemize}
 \item[where] $L_1$, $L_2$ are the lengths of the lattice cell,
-\item[] lattice\_angle the angle between the lattice basis vectors $\mathbf{a}, \mathbf{b}$ in direct space,
+\item[] lattice\_angle the angle between the lattice basis vectors $\v{a}, \v{b}$ in direct space,
 \item[] $\xi$ is the angle defining the lattice orientation (set to $0$ by default).
 \item[] \Code{damping\_length} is used to introduce finite size effects by applying a multiplicative coefficient equal to  $\exp$(-\Code{peak\_distance/damping\_length}) to the Fourier transform of the probability densities. \Code{damping\_length} is equal to 0 by default and, in this case, no correction is applied.
 \end{itemize}
@@ -1265,7 +1265,7 @@ it creates a squared lattice,
 where the angle between the base vectors of the lattice is set to $2\pi/3$ ,
 \end{itemize}
 where
-\Code{domain\_size1, 2} are the dimensions of coherent domains of the paracrystal along the main axes,\\ \Code{peak\_distance} is the same in both directions and $\mathbf{a}\equiv \mathbf{x}$.\\
+\Code{domain\_size1, 2} are the dimensions of coherent domains of the paracrystal along the main axes,\\ \Code{peak\_distance} is the same in both directions and $\v{a}\equiv \v{x}$.\\
 
 Probability distribution functions have to be defined. As the two-dimensional paracrystal is defined from two independent one-dimensional paracrystals, we need two of these functions, using\\ \Code{setProbabilityDistributions(pdf\_1, pdf\_2)}, with \Code{pdf\_{1,2}} related to each main axis of the paracrystal (see figure~\ref{fig:2dparaschematic}).
 
@@ -1312,23 +1312,23 @@ Function  & Parameters & Comments\\
 \Code{InterferenceFunctionNone}  & None & disordered distribution \\
 \hline
 \Code{InterferenceFunction1DLattice} & \Code{lattice\_length} & use only with infinitely long/wide particles \\
-  & $\xi=\widehat{(\mathbf{x},\mathbf{a})}$ & pdf=(Cauchy, Gauss or Voigt)  to be defined\\
+  & $\xi=\widehat{(\v{x},\v{a})}$ & pdf=(Cauchy, Gauss or Voigt)  to be defined\\
 \hline
  \Code{InterferenceFunctionRadialParaCrystal}  & peak\_distance of pdf & pdf=(Cauchy, Gauss or Voigt) to be defined \\
 & damping\_length (optional) & \\
 \hline
  \Code{InterferenceFunction2DLattice}  & L\_1, L\_2: lattice lengths & pdf=(Cauchy, Gauss or Voigt) to be defined\\
-                        & lattice\_angle=$\widehat{(\mathbf{a},\mathbf{b})}$ & \\
-                                                            & $\xi =\widehat{(\mathbf{x},\mathbf{a})}$ & \\
+                        & lattice\_angle=$\widehat{(\v{a},\v{b})}$ & \\
+                                                            & $\xi =\widehat{(\v{x},\v{a})}$ & \\
 \hline
 \Code{InterferenceFunction2DParaCrystal}  & L\_1, L\_2: lattice lengths & 2D pdf=(Cauchy, Gauss or Voigt) to be defined \\
-                          & lattice\_angle=$\widehat{(\mathbf{a},\mathbf{b})}$ & (1 pdf per axis) \\
-& $\xi=\widehat{(\mathbf{x},\mathbf{a})}$ & \\
+                          & lattice\_angle=$\widehat{(\v{a},\v{b})}$ & (1 pdf per axis) \\
+& $\xi=\widehat{(\v{x},\v{a})}$ & \\
 & damping\_length (optional)  &  same for both axes\\
 \hline
 \hline
 \end{tabular}
-\caption{List of interference functions implemented in \BornAgain. pdf : probability distribution function, $\mathbf{a}, \mathbf{b}$ are the lattice base vectors, and $\mathbf{x}$ is the axis vector perpendicular to the detector plane.}
+\caption{List of interference functions implemented in \BornAgain. pdf : probability distribution function, $\v{a}, \v{b}$ are the lattice base vectors, and $\v{x}$ is the axis vector perpendicular to the detector plane.}
 \end{table}
 
 \index{Particle assemblies)}%

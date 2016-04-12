@@ -54,6 +54,9 @@
 \usepackage{amssymb}
 
 \usepackage[bold-style=ISO]{unicode-math} % must come after ams and symbols
+% from unicode-0.8, use \symbf instead of \mathbf
+% see https://github.com/wspr/unicode-math/issues/340
+%     http://apps.jcns.fz-juelich.de/redmine/issues/1293
 \newif\ifolducm
 \makeatletter
 \@ifpackagelater{unicode-math}{2014/07/01}{\olducmfalse}{\olducmtrue}

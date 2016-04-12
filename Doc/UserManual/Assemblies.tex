@@ -653,63 +653,100 @@ In addition, a pseudo-Voigt decay function is available, which is a convex combi
 The decay functions are all normalized such that $\int\!d\q_\plll H(\q)= 4\pi^2$, which is equivalent to $h(0)=1$.
 }
 
-\iffalse
 %===============================================================================
-\subsection{One-dimensional paracrystal} \label{sec:sect:1dparacrystal}
+\subsection{The one-dimensional paracrystal} \label{sec:sect:1dparacrystal}
 %===============================================================================
 A paracrystal, originally developed by Hosemann\cite{Hos51}, models the cumulative disorder of
-the interparticle distances. In one dimension, the paracrystal is parameterized by the
-position distribution of the nearest neighbour ($p(x)$), centered. 
-For a perfect two-dimensional lattice with lattice basis $(\v a,\v b)$, the position
-correlation function is given by:
-\begin{equation}
-  \rho_S\GD(\r) = \sum_{m,n} \delta(\r-m\v a - n\v b) - \delta(\r).
-\end{equation}
-The corresponding interference function then becomes
-\begin{equation}
-  \SD(\q) = 4\pi^2 \rho_S \sum_{\q_i\in\Lambda^*} \delta(\q - \q_i),
-\end{equation}
-where $\Lambda^*$ denotes the reciprocal lattice of $(\v a,\v b)$.
+the interparticle distances. Although the paracrystal in one dimension is not directly implemented in \BornAgain, it forms the
+basis for the paracrystal models in \BornAgain\ and will thus be discussed first.
 
-In \BornAgain, the two-dimensional delta functions need to be replaced again with
-distributions of finite width $H(\q - \q_i)$. Currently, \BornAgain\ only allows for two-dimensional
-decay functions that are defined in the radial variable
+In one dimension, the paracrystal is parameterized by the
+position distribution of the nearest neighbour $p(x)$, centered at a peak distance $D$. The probablility
+distribution of the position of the nearest neighbour to the right of the particle at the origin then becomes
 \begin{equation}
-  \phi \coloneqq \sqrt{X^2/\lambda_X^2 + Y^2/\lambda_Y^2},
+  p_1(x) = p(x-D).
 \end{equation}
-where $(X,Y)$ are the coordinates in an orthonormal coordinate system, where the $X$-axis is rotated
-by an angle $\gamma$ with respect to the first lattice vector $\v a$.
-This ammounts to convoluting the
-previously given interference function with $H(\q)$ or, equivalently, multiplying
-the position correlation function by the inverse Fourier image of $H(\q)$, called the
-\index{Decay function}
-\E{decay function} $h(\phi)$.
-
-The interference function can then be written as:
+The position distribution function for the next to nearest neighbour is then the convolution of this distribution with itself
+(probability of finding the nearest neighbour at $x'$ times the probability of finding the next particle at distance $x-x'$ from the first and
+then integrate over $x'$):
 \begin{equation}
-  \SD(\q) = \rho_S \sum_{\q_i\in\Lambda^*} H(\q - \q_i).
+  p_2(x) = p(x-D) \otimes p(x-D).
 \end{equation}
+The probability distribution of finding a particle to the right of the particle at the origin then becomes:
+\begin{equation}
+  \rho_S \GD^+(x) = \sum_{n>0} \otimes^n p(x-D).
+\end{equation}
+The probability at the left side is just the mirror image: $\GD^-(x) = \GD^+(-x)$.
+After taking the Fourier transform, the interference function is
+\begin{equation}
+  \SD(q_x) = 1 + 2\Re\left(\frac{P(q_x)}{1-P(q_x)}\right) = \Re\left(\frac{1+P(q_x)}{1-P(q_x)}\right),
+\end{equation}
+where $P(q_x)$ is the Fourier transform of $p(x-D)$.
 
-\BornAgain\ currently supports the following types of two-dimensional decay functions
-(parameterized by two decay lengths $\lambda_X, \lambda_Y$):
+Since the Fourier transformed distribution $P(q_x)$ will always be $1$ at $q_x=0$, there is a singularity at the origin of $\SD(q_x)$.
+This singularity is caused by the forward scattering contribution of an infinitely long lattice and can be removed in two ways in \BornAgain.
+The simplest way is to multiply $P(q_x)$ by a fixed factor that is very close, but not equal to, one:
+\begin{equation}
+  P'(q_x) \coloneqq P(q_x) e^{-D/\Lambda},
+\end{equation}
+where $\Lambda$ has dimension of length and is called the damping length.
+
+A second possibility for removing the singularity at $q_x=0$ consists of considering only a finite portion of the one-dimensional
+paracrystal. Caution has to be taken here, since the probability distributions at either side of the particle will depend on which particle
+of the finite lattice is considered. The calculations can still be carried out exactly and lead to the following expression for the
+interference function:
+\begin{equation}
+   \SD(q_x) = 1 + 2\Re\left( \frac{P(q_x)}{1-P(q_x)} - \frac{P(q_x)\left[1-P^{N_p}(q_x)\right]}{N_p\left( 1 - P(q_x) \right)^2} \right),
+\end{equation}
+with $N_p$ the number of particles making up the finite lattice.
+
+\Emph{
+Before embarking on the paracrystal models, implemented in \BornAgain, it has to be stressed that there is no such thing as a
+paracrystal in more than one dimension. The following models are consequently only to be seen as ad hoc approximations of lattices with
+cumulative disorder.
+}
+
+%===============================================================================
+\subsection{The radial paracrystal} \label{sec:sect:radialparacrystal}
+%===============================================================================
+In the radial paracrystal model, the interference function of the one-dimensional paracrystal is used directly, but applied to
+the radial component of $\q_\plll$. The resulting interference function, which is radially symmetric, is then given by
+\begin{equation}
+  \SD(\q_\plll) =  \Re\left(\frac{1+P(q_\plll)}{1-P(q_\plll)}\right),
+\end{equation}
+or one of the versions with the singularity removed.
+
+In \BornAgain, the following one-dimensional distribution functions for $p(x)$ are implemented:
 \begin{equation}
   \begin{array}{|l|c|c|}
     \hline
-    \text{Name} & h(\phi) & H(\omega) \\
+    \text{Name} & p(x) & P(q_x) \\
     \hline
-    \text{Cauchy} & e^{-\phi} & \frac{2\pi\lambda_X\lambda_Y}{(1+\omega^2)^{3/2}} \\
+    \text{Cauchy} & \frac{1}{2\omega} \exp(-|x|/2\omega) & \frac{1}{1+q_x^2\omega^2} \\
     \hline
-    \text{Gauss} & e^{-\phi^2/2} & 2\pi\lambda_X\lambda_Y e^{-\omega^2/2} \\
+    \text{Gauss} & \frac{1}{\omega\sqrt{2\pi}} \exp(-x^2/2\omega^2) & \exp(-q_x^2\omega^2/2) \\
+    \hline
+    \text{Gate} & \frac{1}{2\omega}  \quad \text{for} \quad |x|<\omega & \sinc(q_x\omega) \\
+    \hline
+    \text{Triangle} & \frac{1}{\omega}\left(1 - |x|/\omega\right)  \quad \text{for} \quad |x|<\omega & \sinc^2(q_x \omega/2) \\
+    \hline
+    \text{Cosine} &  \frac{1}{2\omega}\left(1 + \cos(\pi x/\omega) \right)  \quad \text{for} \quad |x|<\omega & \frac{\sinc(q_x \omega)}{1-(q_x\omega/\pi)^2} \\
     \hline
   \end{array}
 \end{equation}
-with $\omega \coloneqq \sqrt{q_X^2\lambda_X^2 + q_Y^2\lambda_Y^2}$.
+In addition, a pseudo-Voigt distribution function is available, which is a convex combination of the Cauchy and Gauss distribution functions.
 
-In addition, a pseudo-Voigt decay function is available, which is a convex combination of the Cauchy and Gauss decay functions.
-\Emph{
-The decay functions are all normalized such that $\int\!d\q_\plll H(\q)= 4\pi^2$, which is equivalent to $h(0)=1$.
-}
-\fi
+For the radial paracrystal, there is also an extension available in \BornAgain\ that takes into account a coupling between the size of the particles and
+the inter-particle distance. This approximation is discussed in more detail in \ref{sec:sect:sscaparacrystal}.
+
+%===============================================================================
+\subsection{The two-dimensional paracrystal} \label{sec:sect:2dparacrystal}
+%===============================================================================
+
+%===============================================================================
+\subsection{The radial paracrystal with size-position coupling} \label{sec:sect:sscaparacrystal}
+%===============================================================================
+
 %\iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{OLD STUFF}

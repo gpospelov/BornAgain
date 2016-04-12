@@ -742,6 +742,42 @@ the inter-particle distance. This approximation is discussed in more detail in \
 %===============================================================================
 \subsection{The two-dimensional paracrystal} \label{sec:sect:2dparacrystal}
 %===============================================================================
+The two-dimensional paracrystal model in \BornAgain\ is implemented as a simple convolution of the two one-dimensional paracrystals along the
+lattice basis vectors. The calculation of the interference function results in a simple product of two one-dimensional interference functions:
+\begin{equation}
+  \SD(\q) =  \Re\left(\frac{1+P_1(\q)}{1-P_1(\q)}\right) \Re\left(\frac{1+P_2(\q)}{1-P_2(\q)}\right),
+\end{equation}
+where $P_1(\q)$ and $P_2(\q)$ denote the Fourier transforms of the two independent particle distributions (which are now both two-dimensional
+distribution functions).
+
+Again, \BornAgain\ provides for removing the singularity by either using a damping length or by indicating finite domain sizes.
+
+The two-dimensional distributions supported in \BornAgain\ are parameterized by
+\begin{equation}
+  \phi \coloneqq \sqrt{X^2/\omega_X^2 + Y^2/\omega_Y^2},
+\end{equation}
+where $(X,Y)$ are the coordinates in an orthonormal coordinate system, where the $X$-axis is rotated
+by an angle $\gamma$ with respect to the first lattice vector $\v a$.
+
+The following distributions are currently supported:
+\begin{equation}
+  \begin{array}{|l|c|c|}
+    \hline
+    \text{Name} & p(\phi) & P(Q) \\
+    \hline
+    \text{Cauchy} & \frac{1}{2\pi\omega_X\omega_Y} \exp(-\phi) & \frac{1}{(1+Q^2)^{3/2}} \\
+    \hline
+    \text{Gauss} & \frac{1}{2\pi\omega_X\omega_Y} \exp(-\phi^2/2)  & \exp(-Q^2/2) \\
+    \hline
+    \text{Gate} & \frac{1}{\pi\omega_X\omega_Y}  \quad \text{for} \quad \phi < 1 & \frac{2J_1(Q)}{Q} \\
+    \hline
+    \text{Cone} & \frac{3}{\pi\omega_X\omega_Y}\left(1 - \phi \right)  \quad \text{for} \quad \phi < 1 & 6\left[ \frac{J_1(Q)}{Q} - \frac{1}{Q^3}\int_0^Q\!du u^2 J_0(u) \right] \\
+    \hline
+  \end{array}
+\end{equation}
+with $Q \coloneqq \sqrt{q_X^2\omega_X^2 + q_Y^2\omega_Y^2}$.
+
+Again, a convex combination of the Cauchy and Gauss distributions in two dimensions is available (pseudo-Voigt).
 
 %===============================================================================
 \subsection{The radial paracrystal with size-position coupling} \label{sec:sect:sscaparacrystal}

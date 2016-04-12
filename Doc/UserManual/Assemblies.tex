@@ -652,6 +652,64 @@ In addition, a pseudo-Voigt decay function is available, which is a convex combi
 \Emph{
 The decay functions are all normalized such that $\int\!d\q_\plll H(\q)= 4\pi^2$, which is equivalent to $h(0)=1$.
 }
+
+\iffalse
+%===============================================================================
+\subsection{One-dimensional paracrystal} \label{sec:sect:1dparacrystal}
+%===============================================================================
+A paracrystal, originally developed by Hosemann\cite{Hos51}, models the cumulative disorder of
+the interparticle distances. In one dimension, the paracrystal is parameterized by the
+position distribution of the nearest neighbour ($p(x)$), centered. 
+For a perfect two-dimensional lattice with lattice basis $(\v a,\v b)$, the position
+correlation function is given by:
+\begin{equation}
+  \rho_S\GD(\r) = \sum_{m,n} \delta(\r-m\v a - n\v b) - \delta(\r).
+\end{equation}
+The corresponding interference function then becomes
+\begin{equation}
+  \SD(\q) = 4\pi^2 \rho_S \sum_{\q_i\in\Lambda^*} \delta(\q - \q_i),
+\end{equation}
+where $\Lambda^*$ denotes the reciprocal lattice of $(\v a,\v b)$.
+
+In \BornAgain, the two-dimensional delta functions need to be replaced again with
+distributions of finite width $H(\q - \q_i)$. Currently, \BornAgain\ only allows for two-dimensional
+decay functions that are defined in the radial variable
+\begin{equation}
+  \phi \coloneqq \sqrt{X^2/\lambda_X^2 + Y^2/\lambda_Y^2},
+\end{equation}
+where $(X,Y)$ are the coordinates in an orthonormal coordinate system, where the $X$-axis is rotated
+by an angle $\gamma$ with respect to the first lattice vector $\v a$.
+This ammounts to convoluting the
+previously given interference function with $H(\q)$ or, equivalently, multiplying
+the position correlation function by the inverse Fourier image of $H(\q)$, called the
+\index{Decay function}
+\E{decay function} $h(\phi)$.
+
+The interference function can then be written as:
+\begin{equation}
+  \SD(\q) = \rho_S \sum_{\q_i\in\Lambda^*} H(\q - \q_i).
+\end{equation}
+
+\BornAgain\ currently supports the following types of two-dimensional decay functions
+(parameterized by two decay lengths $\lambda_X, \lambda_Y$):
+\begin{equation}
+  \begin{array}{|l|c|c|}
+    \hline
+    \text{Name} & h(\phi) & H(\omega) \\
+    \hline
+    \text{Cauchy} & e^{-\phi} & \frac{2\pi\lambda_X\lambda_Y}{(1+\omega^2)^{3/2}} \\
+    \hline
+    \text{Gauss} & e^{-\phi^2/2} & 2\pi\lambda_X\lambda_Y e^{-\omega^2/2} \\
+    \hline
+  \end{array}
+\end{equation}
+with $\omega \coloneqq \sqrt{q_X^2\lambda_X^2 + q_Y^2\lambda_Y^2}$.
+
+In addition, a pseudo-Voigt decay function is available, which is a convex combination of the Cauchy and Gauss decay functions.
+\Emph{
+The decay functions are all normalized such that $\int\!d\q_\plll H(\q)= 4\pi^2$, which is equivalent to $h(0)=1$.
+}
+\fi
 %\iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{OLD STUFF}

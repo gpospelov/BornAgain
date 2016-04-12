@@ -59,8 +59,6 @@ public slots:
 
 private:
     void updateSelectionBox(QComboBox *comboBox, QStringList itemList);
-    QStringList getCPUUsageOptions();
-    int getNumberOfThreads();
 
     InstrumentModel *getJobInstrumentModel();
     SampleModel *getJobSampleModel();
@@ -69,7 +67,6 @@ private:
     const InstrumentItem *getSelectedInstrumentItem() const;
 
     QWidget *createDataSelectorWidget();
-    QWidget *createSimulationParametersWidget();
     QWidget *createButtonWidget();
 
     ApplicationModels *m_applicationModels;
@@ -80,8 +77,6 @@ private:
     QPushButton *runSimulationButton;
     QPushButton *selectRealData;
     QLabel *pathLabel;
-    QComboBox *runPolicySelectionBox;
-    QComboBox *cpuUsageSelectionBox;
     QPushButton *exportToPyScriptButton;
 
     SimulationOptionsWidget *m_simOptionsWidget;

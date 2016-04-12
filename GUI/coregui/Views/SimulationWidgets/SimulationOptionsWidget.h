@@ -22,7 +22,7 @@
 
 class SimulationOptionsItem;
 class ComponentBoxEditor;
-class ComponentEditor;
+//class ComponentEditor;
 
 //! Holds widgets related to the setup of simulation/job options (nthreads, run policy,
 //! computation method). Part of SimulationView/SimulationSetupWidet
@@ -37,8 +37,8 @@ public:
     void setItem(SimulationOptionsItem *item);
 
 private:
-//    ComponentBoxEditor *m_boxEditor;
-    ComponentEditor *m_boxEditor;
+    ComponentBoxEditor *m_boxEditor;
+//    ComponentEditor *m_boxEditor;
 };
 
 #endif

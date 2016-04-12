@@ -42,14 +42,7 @@ public:
     JobItem *getJobItemForIdentifier(const QString &identifier);
 
     JobItem *addJob(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem,
-            const QString &run_policy = QString(), int numberOfThreads=-1);
-
-    JobItem *addJob(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem,
             const SimulationOptionsItem *optionItem);
-
-    void setSampleForJobItem(JobItem *jobItem, const MultiLayerItem *multiLayerItem);
-
-    void setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *instrumentItem);
 
     void restore(JobItem *jobItem);
 

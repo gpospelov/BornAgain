@@ -23,7 +23,7 @@
 
 SimulationOptionsWidget::SimulationOptionsWidget(QWidget *parent)
     : QWidget(parent)
-    , m_boxEditor(new ComponentEditor)
+    , m_boxEditor(new ComponentBoxEditor)
 
 {
     QGroupBox *groupBox = new QGroupBox("Simulation Parameters");
@@ -43,6 +43,6 @@ SimulationOptionsWidget::SimulationOptionsWidget(QWidget *parent)
 void SimulationOptionsWidget::setItem(SimulationOptionsItem *item)
 {
     m_boxEditor->clearEditor();
-//    m_boxEditor->addPropertyItems(item);
-    m_boxEditor->setItem(item);
+    m_boxEditor->addPropertyItems(item);
+//    m_boxEditor->setItem(item);
 }

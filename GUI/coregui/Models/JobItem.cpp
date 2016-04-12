@@ -23,29 +23,8 @@
 #include "InstrumentItem.h"
 #include "JobResultsPresenter.h"
 #include "SimulationOptionsItem.h"
+#include "GUIHelpers.h"
 #include <QDebug>
-
-
-namespace
-{
-
-QMap<QString, QString> initializeRunPolicies()
-{
-    QMap<QString, QString> result;
-    result[Constants::JOB_RUN_IMMEDIATELY] =
-        QString("Start simulation immediately, switch to Jobs view automatically when completed");
-    result[Constants::JOB_RUN_IN_BACKGROUND] =
-        QString("Start simulation immediately, do not switch to Jobs view when completed");
-    result[Constants::JOB_RUN_SUBMIT_ONLY] =
-        QString("Only submit simulation for consequent execution,"
-                " has to be started from Jobs view explicitely");
-    return result;
-}
-
-}
-
-QMap<QString, QString> JobItem::m_run_policies = initializeRunPolicies();
-
 
 const QString JobItem::P_IDENTIFIER = "Identifier";
 const QString JobItem::P_SAMPLE_NAME = "Sample";
@@ -56,8 +35,6 @@ const QString JobItem::P_BEGIN_TIME = "Begin Time";
 const QString JobItem::P_END_TIME = "End Time";
 const QString JobItem::P_COMMENTS = "Comments";
 const QString JobItem::P_PROGRESS = "Progress";
-const QString JobItem::P_NTHREADS = "Number of Threads";
-const QString JobItem::P_RUN_POLICY = "Run Policy";
 const QString JobItem::T_SAMPLE = "Sample Tag";
 const QString JobItem::T_INSTRUMENT = "Instrument Tag";
 const QString JobItem::T_OUTPUT = "Output Tag";
@@ -68,12 +45,11 @@ const QString JobItem::T_SIMULATION_OPTIONS = "Simulation Options";
 JobItem::JobItem()
     : SessionItem(Constants::JobItemType)
 {
-//    registerProperty(OBSOLETE_P_NAME, Constants::JobItemType);
     setItemName(Constants::JobItemType);
     addProperty(P_IDENTIFIER, QString())->setVisible(false);
     addProperty(P_SAMPLE_NAME, QString())->setEditable(false);
     addProperty(P_INSTRUMENT_NAME, QString())->setEditable(false);
-    addProperty(P_WITH_FITTING, false);
+    addProperty(P_WITH_FITTING, false)->setVisible(false);
 
     ComboProperty status;
     status << Constants::STATUS_IDLE << Constants::STATUS_RUNNING << Constants::STATUS_COMPLETED
@@ -83,15 +59,7 @@ JobItem::JobItem()
     addProperty(P_BEGIN_TIME, QString())->setEditable(false);
     addProperty(P_END_TIME, QString())->setEditable(false);
     addProperty(P_COMMENTS, QString())->setVisible(false);
-
     addProperty(P_PROGRESS, 0)->setVisible(false);
-    addProperty(P_NTHREADS, -1)->setVisible(false);
-
-    ComboProperty policy;
-    policy << Constants::JOB_RUN_IMMEDIATELY
-           << Constants::JOB_RUN_IN_BACKGROUND
-           << Constants::JOB_RUN_SUBMIT_ONLY;
-    addProperty(P_RUN_POLICY, policy.getVariant())->setVisible(false);
 
     registerTag(T_SAMPLE, 1, 1, QStringList() << Constants::MultiLayerType);
     registerTag(T_INSTRUMENT, 1, 1, QStringList() << Constants::InstrumentType);
@@ -216,40 +184,22 @@ void JobItem::setProgress(int progress)
 
 int JobItem::getNumberOfThreads() const
 {
-    SimulationOptionsItem *options = dynamic_cast<SimulationOptionsItem *>(getItem(T_SIMULATION_OPTIONS));
-    Q_ASSERT(options);
-    return options->getNumberOfThreads();
-//    return getItemValue(P_NTHREADS).toInt();
-}
-
-void JobItem::setNumberOfThreads(int number_of_threads)
-{
-    setItemValue(P_NTHREADS, number_of_threads);
+    return getSimulationOptions()->getNumberOfThreads();
 }
 
 void JobItem::setRunPolicy(const QString &run_policy)
 {
-    ComboProperty combo_property = getItemValue(JobItem::P_RUN_POLICY).value<ComboProperty>();
-    combo_property.setValue(run_policy);
-    setItemValue(JobItem::P_RUN_POLICY, combo_property.getVariant());
+    getSimulationOptions()->setRunPolicy(run_policy);
 }
 
 bool JobItem::runImmediately() const
 {
-    SimulationOptionsItem *options = dynamic_cast<SimulationOptionsItem *>(getItem(T_SIMULATION_OPTIONS));
-    Q_ASSERT(options);
-    return options->runImmediately();
-//    ComboProperty combo_property = getItemValue(P_RUN_POLICY).value<ComboProperty>();
-//    return combo_property.getValue() == Constants::JOB_RUN_IMMEDIATELY;
+    return getSimulationOptions()->runImmediately();
 }
 
 bool JobItem::runInBackground() const
 {
-    SimulationOptionsItem *options = dynamic_cast<SimulationOptionsItem *>(getItem(T_SIMULATION_OPTIONS));
-    Q_ASSERT(options);
-    return options->runInBackground();
-//    ComboProperty combo_property = getItemValue(P_RUN_POLICY).value<ComboProperty>();
-//    return combo_property.getValue() == Constants::JOB_RUN_IN_BACKGROUND;
+    return getSimulationOptions()->runInBackground();
 }
 
 //! Returns MultiLayerItem of this JobItem, if from_backup=true, then backup'ed version of
@@ -272,5 +222,20 @@ void JobItem::setResults(const GISASSimulation *simulation)
     Q_ASSERT(intensityItem);
 
     JobResultsPresenter::setResults(intensityItem, simulation);
+}
+
+SimulationOptionsItem *JobItem::getSimulationOptions()
+{
+    return const_cast<SimulationOptionsItem *>(static_cast<const JobItem*>(this)->getSimulationOptions());
+}
+
+const SimulationOptionsItem *JobItem::getSimulationOptions() const
+{
+    const SimulationOptionsItem *result = dynamic_cast<const SimulationOptionsItem *>(getItem(T_SIMULATION_OPTIONS));
+    if(!result) {
+        throw GUIHelpers::Error("JobItem::getSimulationOptions() -> Error. "
+                                "Can't get SimulationOptionsItem");
+    }
+    return result;
 }
 

@@ -38,6 +38,8 @@ public:
     bool runImmediately() const;
     bool runInBackground() const;
 
+    void setRunPolicy(const QString &policy);
+
 private:
     QStringList getCPUUsageOptions();
 };

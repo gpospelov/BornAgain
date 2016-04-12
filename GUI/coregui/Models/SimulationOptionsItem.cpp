@@ -110,6 +110,13 @@ bool SimulationOptionsItem::runInBackground() const
     return combo.getValue() == Constants::JOB_RUN_IN_BACKGROUND;
 }
 
+void SimulationOptionsItem::setRunPolicy(const QString &policy)
+{
+    ComboProperty combo = getItemValue(P_RUN_POLICY).value<ComboProperty>();
+    combo.setValue(policy);
+    setItemValue(P_RUN_POLICY, combo.getVariant());
+}
+
 //! returns list with number of threads to select
 QStringList SimulationOptionsItem::getCPUUsageOptions()
 {

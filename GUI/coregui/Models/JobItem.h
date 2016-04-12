@@ -24,6 +24,7 @@ class InstrumentModel;
 class GISASSimulation;
 class MultiLayerItem;
 class InstrumentItem;
+class SimulationOptionsItem;
 
 class BA_CORE_API_ JobItem : public SessionItem
 {
@@ -38,8 +39,6 @@ public:
     static const QString P_END_TIME;
     static const QString P_COMMENTS;
     static const QString P_PROGRESS;
-    static const QString P_NTHREADS;
-    static const QString P_RUN_POLICY;
     static const QString T_SAMPLE;
     static const QString T_INSTRUMENT;
     static const QString T_OUTPUT;
@@ -74,11 +73,8 @@ public:
     void setProgress(int progress);
 
     int getNumberOfThreads() const;
-    void setNumberOfThreads(int number_of_threads);
 
     void setRunPolicy(const QString &run_policy);
-
-    static QMap<QString, QString> getRunPolicies() { return m_run_policies; }
 
     bool runImmediately() const;
     bool runInBackground() const;
@@ -90,7 +86,8 @@ public:
     void setResults(const GISASSimulation *simulation);
 
 private:
-    static QMap<QString, QString> m_run_policies; // run policy, policy description
+    SimulationOptionsItem *getSimulationOptions();
+    const SimulationOptionsItem *getSimulationOptions() const;
 };
 
 #endif // NJOBITEM_H

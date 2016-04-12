@@ -57,8 +57,6 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     , runSimulationButton(0)
     , selectRealData(0)
     , pathLabel(0)
-    , runPolicySelectionBox(0)
-    , cpuUsageSelectionBox(0)
     , exportToPyScriptButton(0)
     , m_simOptionsWidget(0)
 {
@@ -66,7 +64,6 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(createDataSelectorWidget());
-    mainLayout->addWidget(createSimulationParametersWidget());
     mainLayout->addWidget(m_simOptionsWidget);
     mainLayout->addWidget(createButtonWidget());
     mainLayout->addStretch();
@@ -146,11 +143,10 @@ void SimulationSetupWidget::onRunSimulation()
         return;
     }
 
-//    JobItem *jobItem = m_applicationModels->jobModel()->addJob(getSelectedMultiLayerItem(), getSelectedInstrumentItem(),
-//                       runPolicySelectionBox->currentText(), getNumberOfThreads());
-
-    JobItem *jobItem = m_applicationModels->jobModel()->addJob(getSelectedMultiLayerItem(), getSelectedInstrumentItem(),
-                       m_applicationModels->documentModel()->getSimulationOptionsItem());
+    JobItem *jobItem = m_applicationModels->jobModel()->addJob(
+                getSelectedMultiLayerItem(),
+                getSelectedInstrumentItem(),
+                m_applicationModels->documentModel()->getSimulationOptionsItem());
 
 
     // load real data
@@ -220,31 +216,6 @@ void SimulationSetupWidget::updateSelectionBox(QComboBox *comboBox, QStringList 
         if(itemList.contains(previousItem))
             comboBox->setCurrentIndex(itemList.indexOf(previousItem));
     }
-}
-
-//! returns list with number of threads to select
-QStringList SimulationSetupWidget::getCPUUsageOptions()
-{
-    QStringList result;
-    int nthreads = Utils::System::getThreadHardwareConcurrency();
-    for(int i = nthreads; i>0; i--){
-        if(i == nthreads) {
-            result.append(QString("Max (%1 threads)").arg(QString::number(i)));
-        } else if(i == 1) {
-            result.append(QString("%1 thread").arg(QString::number(i)));
-        } else {
-            result.append(QString("%1 threads").arg(QString::number(i)));
-        }
-    }
-    return result;
-}
-
-int SimulationSetupWidget::getNumberOfThreads()
-{
-    foreach(QChar ch, cpuUsageSelectionBox->currentText()) {
-        if(ch.isDigit()) return ch.digitValue();
-    }
-    return 0;
 }
 
 //! Returns copy of InstrumentModel containing a single instrument according to the text selection
@@ -332,41 +303,6 @@ QWidget *SimulationSetupWidget::createDataSelectorWidget()
     dataSelectionLayout->addLayout(realDataSelection, 2, 1);
     result->setLayout(dataSelectionLayout);
     //updateViewElements();
-
-    return result;
-}
-
-QWidget *SimulationSetupWidget::createSimulationParametersWidget()
-{
-    // selection of simulation parameters
-    QGroupBox *result = new QGroupBox(tr("Simulation Parameters"));
-
-    // run policy
-    QLabel *runPolicyLabel = new QLabel(tr("Run Policy:"));
-    runPolicyLabel->setToolTip("Defines run policy for the simulation");
-    runPolicySelectionBox = new QComboBox;
-    runPolicySelectionBox->setToolTip("Defines run policy for the simulation");
-    runPolicySelectionBox->addItems(JobItem::getRunPolicies().keys());
-    int index(0);
-    foreach(QString descr, JobItem::getRunPolicies().values())
-        runPolicySelectionBox->setItemData(index++, descr, Qt::ToolTipRole);
-
-    // selection of number of threads
-    QLabel *cpuUsageLabel = new QLabel(tr("CPU Usage:"));
-    cpuUsageLabel->setToolTip("Defines number of threads to use for the simulation.");
-    cpuUsageSelectionBox = new QComboBox;
-    cpuUsageSelectionBox->setToolTip("Defines number of threads to use for the simulation.");
-    cpuUsageSelectionBox->addItems(getCPUUsageOptions());
-    cpuUsageSelectionBox->setEnabled(false);
-
-    // layout
-    QGridLayout *simulationParametersLayout = new QGridLayout;
-    simulationParametersLayout->addWidget(runPolicyLabel, 0, 0);
-    simulationParametersLayout->addWidget(runPolicySelectionBox, 0, 1);
-    simulationParametersLayout->addWidget(cpuUsageLabel, 1, 0);
-    simulationParametersLayout->addWidget(cpuUsageSelectionBox, 1, 1);
-
-    result->setLayout(simulationParametersLayout);
 
     return result;
 }

@@ -998,7 +998,7 @@ for four different angles~$\omega$ of rotation around the $z$ axis.}
 \label{fig:FFprism3Ex}
 \end{figure}
 
-\paragraph{References}\strut\\
+\paragraph{References and History}\strut\\
 Has been validated against the \E{Prism3} form factor of \IsGISAXS\
 \cite[Eq.~2.29]{Laz08} \cite[Eq.~219]{ReLL09}.
 Note the different parameterization $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
@@ -1114,23 +1114,9 @@ They must fulfill
 \end{displaymath}
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
-Notation:
-\begin{displaymath}
-  a\coloneqq q_x/\tan\alpha,\quad
-  b\coloneqq q_y/\tan\alpha,\quad
-  c\coloneqq q_z.
-\end{displaymath}
-Results:
 \begin{equation*}
-  \DS F= \frac{\exp(iq_zL\tan\alpha/2)}{\tan^2\alpha} \Big\{ I_p(H-L\tan\alpha/2) - I_p(-L\tan\alpha/2) \Big\}
-\end{equation*}
-Where $I_p(z)$ is an antiderivative for the final z--integration in the Fourier transform of the non--truncated pyramid shape function:
-\begin{equation*}
-\begin{array}{@{}l@{}l@{}}
-  \DS I_p(z) = & 4\exp(icz)\Big\{ \sin(az)\big[b(a^2-b^2+c^2)\cos(bz) + ic(a^2+b^2-c^2)\sin(bz)\big] \\
-  & +a\cos(az)\big[(-a^2+b^2+c^2)\sin(bz) + 2ibc\cos(bz) \big] \Big\} \\
-  & / \Big\{ab\big[(a+b)^2-c^2\big]\big[(a-b)^2-c^2\big]\Big\}
-\end{array}
+  F \text{~: computed algebraically,
+          using the generic polyhedron form factor~\cite{ba:ffp},}
 \end{equation*}
 \begin{equation*}
   V = \dfrac{1}{6}  L^3 \tan\alpha\left[ 1
@@ -1152,12 +1138,15 @@ computed with $L=10$~nm, $H=4.2$~nm and $\alpha=60^{\circ}$,
 for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
-\paragraph{References}\strut\\
+\paragraph{References and History}\strut\\
 Corresponds to \E{Pyramid} form factor of \IsGISAXS\
 \cite[Eq.~2.31]{Laz08} \cite[Eq.~221]{ReLL09},
-with different parametrization $L=2R_{\rm{\Code{IsGISXAXS}}}$,
-with correction of a sign error,
-and with a more compact form of $F(\q)$.
+except for different parametrization $L=2R_{\rm{\Code{IsGISXAXS}}}$
+and a corrected sign.
+
+Reimplemented in \BornAgain-1.6 using the generic form factor
+of a polygonal prism \cite{ba:ffp},
+to achieve numerical stability near the removable singularity at $q\to0$.
 
 
 %===============================================================================

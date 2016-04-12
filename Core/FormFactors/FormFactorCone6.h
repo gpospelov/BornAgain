@@ -50,7 +50,6 @@ private:
     double m_radius;
     double m_height;
     double m_alpha;
-    mutable cvector_t m_q;
 };
 
 inline double FormFactorCone6::getHeight() const { return m_height; }

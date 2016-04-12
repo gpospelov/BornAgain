@@ -19,13 +19,27 @@
 
 using namespace  BornAgain;
 
-FormFactorPrism6::FormFactorPrism6(double radius, double height)
+FormFactorPrism6::FormFactorPrism6(const double radius, const double height)
+    : FormFactorPolygonalPrism( prismatic_face( radius ), height ), m_radius(radius)
 {
     setName(FFPrism6Type);
-    m_height = height;
-    m_radius = radius;
     check_initialization();
     init_parameters();
+}
+
+PolyhedralFace FormFactorPrism6::prismatic_face(const double radius)
+{
+    double a = radius;
+    double as = a/2;
+    double ac = a*sqrt(3)/2;
+    kvector_t V[6] = {
+        {  a,   0., 0. },
+        {  as,  ac, 0. },
+        { -as,  ac, 0. },
+        { -a,   0., 0. },
+        { -as, -ac, 0. },
+        {  as, -ac, 0. } };
+    return PolyhedralFace( { V[0], V[1], V[2], V[3], V[4], V[5] }, false );
 }
 
 bool FormFactorPrism6::check_initialization() const
@@ -48,40 +62,4 @@ FormFactorPrism6* FormFactorPrism6::clone() const
 void FormFactorPrism6::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
-}
-
-//! Returns a contribution C_j to the form factor F(q)=sum_j^n 4 C_j/q^2 of a 2n-gon with
-//! twofold symmetry axis at 0.
-
-complex_t FormFactorPrism6::ff_term(
-    complex_t qRx, complex_t qRy, double xi, double yi, double xf, double yf ) const
-{
-    complex_t qRj = ( qRx*(xf+xi) + qRy*(yf+yi) ) / 2.;
-    complex_t qEj = ( qRx*(xf-xi) + qRy*(yf-yi) ) / 2.;
-    complex_t qWj = ( conj(qRx)*(yf-yi) - conj(qRy)*(xf-xi) ) / 2.;
-    return qWj * qRj * MathFunctions::sinc(qEj) * MathFunctions::sinc(qRj);
-}
-
-complex_t FormFactorPrism6::evaluate_for_q(const cvector_t& q) const
-{
-    static double root3d2 = std::sqrt(3.0) / 2;
-    complex_t qz = q.z();
-    double R = m_radius;
-    double H = m_height;
-
-    complex_t qzH_half = qz * H / 2.0;
-    complex_t z_part = H * MathFunctions::sinc(qzH_half) * std::exp(complex_t(0.0, 1.0) * qzH_half);
-
-    complex_t xy_part(0.0, 0.0);
-    if (q.x() == 0.0 && q.y() == 0.0) {
-        xy_part = 3. * root3d2 * R * R;
-    } else {
-        complex_t qRx = q.x() * R;
-        complex_t qRy = q.y() * R;
-        xy_part += ff_term( qRx, qRy, 1., 0., .5, root3d2 );
-        xy_part += ff_term( qRx, qRy, .5, root3d2, -.5, root3d2 );
-        xy_part += ff_term( qRx, qRy, -.5, root3d2, -1., 0. );
-        xy_part *= 4. / ( q.x()*conj(q.x()) + q.y()*conj(q.y()) );
-    }
-    return xy_part*z_part;
 }

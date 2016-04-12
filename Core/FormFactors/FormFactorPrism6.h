@@ -15,49 +15,36 @@
 
 #ifndef FORMFACTORPRISM6_H
 #define FORMFACTORPRISM6_H
-#include "IFormFactorBorn.h"
+#include "FormFactorPolyhedron.h"
 
 //! @class FormFactorPrism6
 //! @ingroup formfactors
 //! @brief The formfactor of a prism based on a regular hexagonal.
 
-class BA_CORE_API_ FormFactorPrism6 : public IFormFactorBorn
+class BA_CORE_API_ FormFactorPrism6 : public FormFactorPolygonalPrism
 {
 public:
     //! @brief Prism6 constructor
     //! @param radius of hexagonal base (different from R in IsGisaxs)
     //! @param height of Prism6
-    FormFactorPrism6(double radius, double height);
+    FormFactorPrism6(const double radius, const double height);
+
+    static PolyhedralFace prismatic_face(const double radius);
 
     virtual FormFactorPrism6 *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const;
 
-    double getHeight() const;
-
     virtual double getRadius() const;
-
-    virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
 protected:
     virtual bool check_initialization() const;
     virtual void init_parameters();
 
 private:
-    double m_height;
     double m_radius;
-    complex_t ff_term(
-        complex_t qRx, complex_t qRy, double xi, double yi, double xf, double yf ) const;
 };
 
-inline double FormFactorPrism6::getHeight() const
-{
-    return m_height;
-}
-
-inline double FormFactorPrism6::getRadius() const
-{
-    return m_radius;
-}
+inline double FormFactorPrism6::getRadius() const { return m_radius; }
 
 #endif // FORMFACTORPRISM6_H

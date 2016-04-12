@@ -42,9 +42,11 @@ class PolyhedralFace {
 public:
     PolyhedralFace( const std::vector<kvector_t>& _V, bool _sym_S2=false );
     double radius_3d; //!< radius of enclosing sphere
+    double getArea() const;
     double getPyramidalVolume() const;
     complex_t ff_n( int m, const cvector_t q ) const;
     complex_t ff( const cvector_t q, const bool sym_Ci ) const;
+    complex_t ff_2D( const cvector_t qpa ) const;
     void assert_Ci( const PolyhedralFace& other ) const;
 private:
     static const double qpa_limit_series; //!< determines when use power series
@@ -76,6 +78,20 @@ private:
     static const double q_limit_series;
     std::vector<PolyhedralFace> faces;
     virtual complex_t evaluate_centered( const cvector_t& q ) const;
+};
+
+
+//! A prism with a polygonal base, for form factor computation.
+
+class FormFactorPolygonalPrism : public IFormFactorBorn {
+public:
+    FormFactorPolygonalPrism( const PolyhedralFace& _base, const double _height );
+    virtual complex_t evaluate_for_q(const cvector_t& q ) const final;
+    double getVolume() const;
+    double getHeight() const;
+protected:
+    PolyhedralFace m_base;
+    double m_height;
 };
 
 

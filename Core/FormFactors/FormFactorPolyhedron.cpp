@@ -26,6 +26,7 @@
 
 #include "Precomputed.h"
 #include "BasicVector3D.h"
+#include "MathFunctions.h"
 
 typedef std::complex<double> complex_t;
 typedef Geometry::BasicVector3D<complex_t> cvector_t;
@@ -129,12 +130,11 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
     }
 }
 
-//! Returns volume of pyramid spanned by the origin and this polygon
+//! Returns area of this polygon
+double PolyhedralFace::getArea() const { return area; }
 
-double PolyhedralFace::getPyramidalVolume() const
-{
-   return rperp*area/3;
-}
+//! Returns volume of pyramid spanned by the origin and this polygon
+double PolyhedralFace::getPyramidalVolume() const { return rperp*area/3; }
 
 //! Sets qperp and qpa according to argument q and to this polygon's normal.
 
@@ -238,11 +238,65 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
         for( const PolyhedralEdge& e: edges ) {
             complex_t qE = e.E.dot(q);
             complex_t qR = e.R.dot(q);
-            complex_t sinc_qE = qE!=0. ? sin(qE)/qE : 1.;
+            complex_t sinc_qE = MathFunctions::sinc(qE);
             complex_t Rfac = sym_S2 ? sin(e.R.dot(qpa)) : ( sym_Ci ? 2.*cos(qR) : exp(I*qR) );
             sum += prevec.dot(e.E) * (sinc_qE*Rfac);
         }
         return prefac * sum / ( I*qpa.mag2() );
+    }
+}
+
+//! Returns the two-dimensional form factor of this face, for use in a prism.
+
+complex_t PolyhedralFace::ff_2D( const cvector_t qpa ) const
+{
+    if ( std::abs(qpa.dot(normal))>eps*qpa.mag() )
+        throw "ff_2D called with perpendicular q component";
+    double qpa_red = radius_2d * qpa.mag();
+    if ( qpa_red < qpa_limit_series ) {
+        // summation of power series
+        complex_t fac_even;
+        complex_t fac_odd;
+        fac_even = 1;
+        fac_odd = fac_even;
+#ifdef POLYHEDRAL_DIAGNOSTIC
+        diagnosis.nExpandedFaces += 1;
+#endif
+        complex_t sum = fac_even * area;
+        complex_t n_multiplier = I;
+        if( sym_S2 ) {
+            fac_even *= 2.;
+            fac_odd = 0.;
+            n_multiplier = -1.;
+        }
+        if( qpa_red==0 )
+            return sum;
+        complex_t n_fac = n_multiplier;
+        for( int n=1; n<20; ++n ) {
+            if( sym_S2 && n&1 )
+                continue;
+#ifdef POLYHEDRAL_DIAGNOSTIC
+            diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
+#endif
+            complex_t term = n_fac * ( n&1 ? fac_odd : fac_even ) * ff_n_core(n, qpa) / qpa.mag2();
+            sum += term;
+            if( !(n&1) && std::abs(term)<=eps*std::abs(sum) )
+                return sum;
+            n_fac *= n_multiplier;
+        }
+        throw "Bug in formfactor computation: series f(q_pa) not converged";
+    } else {
+        // direct evaluation of analytic formula
+        cvector_t prevec = 2.*normal.cross( qpa ); // complex conjugation will take place in .dot
+        complex_t sum = 0;
+        for( const PolyhedralEdge& e: edges ) {
+            complex_t qE = e.E.dot(qpa);
+            complex_t qR = e.R.dot(qpa);
+            complex_t sinc_qE = MathFunctions::sinc(qE);
+            complex_t Rfac = sym_S2 ? 2.*sin(e.R.dot(qpa)) : exp(I*qR);
+            sum += prevec.dot(e.E) * (sinc_qE*Rfac);
+        }
+        return sum / ( I*qpa.mag2() );
     }
 }
 
@@ -291,7 +345,7 @@ FormFactorPolyhedron::FormFactorPolyhedron(
 
 complex_t FormFactorPolyhedron::evaluate_for_q( const cvector_t& q ) const
 {
-    return exp(-I*z_origin*q[2]) * evaluate_centered(q);
+    return exp(-I*z_origin*q.z()) * evaluate_centered(q);
 }
 
 //! Returns the form factor F(q) of this polyhedron, with origin at z=0.
@@ -342,4 +396,28 @@ void FormFactorPolyhedron::assert_platonic() const
     for( auto Gk: faces )
         if (std::abs(pyramidal_volume-Gk.getPyramidalVolume())>40*eps)
             throw "Deviant pyramidal volume";
+}
+
+
+//***************************************************************************************************
+//  FormFactorPolygonalPrism implementation
+//***************************************************************************************************
+
+FormFactorPolygonalPrism::FormFactorPolygonalPrism(
+    const PolyhedralFace& _base, const double _height )
+    : m_base(_base), m_height(_height)
+{
+}
+
+//! Returns the volume of this prism.
+double FormFactorPolygonalPrism::getVolume() const { return m_height * m_base.getArea(); }
+//! Returns the height of this prism.
+double FormFactorPolygonalPrism::getHeight() const { return m_height; }
+
+//! Returns the form factor F(q) of this polyhedron, respecting the offset z_origin.
+
+complex_t FormFactorPolygonalPrism::evaluate_for_q( const cvector_t& q ) const
+{
+    const cvector_t qxy( q.x(), q.y(), 0. );
+    return m_height * exp(I*(m_height/2)*q.z()) * MathFunctions::sinc(m_height/2*q.z()) * m_base.ff_2D( qxy );
 }

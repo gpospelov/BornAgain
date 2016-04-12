@@ -7,7 +7,7 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2015-16
 //! @authors   Scientific Computing Group at MLZ Garching
 //! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
@@ -17,12 +17,10 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
-using namespace  BornAgain;
-
 FormFactorPrism6::FormFactorPrism6(const double radius, const double height)
     : FormFactorPolygonalPrism( prismatic_face( radius ), height ), m_radius(radius)
 {
-    setName(FFPrism6Type);
+    setName(BornAgain::FFPrism6Type);
     check_initialization();
     init_parameters();
 }
@@ -50,8 +48,8 @@ bool FormFactorPrism6::check_initialization() const
 void FormFactorPrism6::init_parameters()
 {
     clearParameterPool();
-    registerParameter(Height, &m_height, AttLimits::n_positive());
-    registerParameter(Radius, &m_radius, AttLimits::n_positive());
+    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
+    registerParameter(BornAgain::Radius, &m_radius, AttLimits::n_positive());
 }
 
 FormFactorPrism6* FormFactorPrism6::clone() const

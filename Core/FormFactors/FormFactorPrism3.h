@@ -7,40 +7,36 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2015-16
 //! @authors   Scientific Computing Group at MLZ Garching
 //! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORPRISM3_H_
-#define FORMFACTORPRISM3_H_
-
-#include "IFormFactorBorn.h"
+#ifndef FORMFACTORPRISM3_H
+#define FORMFACTORPRISM3_H
+#include "FormFactorPolyhedron.h"
 
 //! @class FormFactorPrism3
 //! @ingroup formfactors
-//! @brief The formfactor of a prism based on a regular triangle.
+//! @brief The formfactor of a prism based on an equilateral triangle.
 
-class BA_CORE_API_ FormFactorPrism3 : public IFormFactorBorn
+class BA_CORE_API_ FormFactorPrism3 : public FormFactorPolygonalPrism
 {
 public:
     //! @brief Prism3 constructor
-    //! @param length of a side of Prism3's base
+    //! @param length of hexagonal base (different from R in IsGisaxs)
     //! @param height of Prism3
-    FormFactorPrism3(double length, double height);
+    FormFactorPrism3(const double length, const double height);
+
+    static PolyhedralFace prismatic_face(const double length);
 
     virtual FormFactorPrism3 *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const;
 
     virtual double getRadius() const;
-
-    double getHeight() const;
-
     double getLength() const;
-
-    virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
 protected:
     virtual bool check_initialization() const;
@@ -48,18 +44,8 @@ protected:
 
 private:
     double m_length;
-    double m_height;
-    double m_root3; // Cached value of square root of 3
 };
 
-inline double FormFactorPrism3::getHeight() const
-{
-    return m_height;
-}
+inline double FormFactorPrism3::getLength() const { return m_length; }
 
-inline double FormFactorPrism3::getLength() const
-{
-    return m_length;
-}
-
-#endif /* FORMFACTORPRISM3_H_ */
+#endif // FORMFACTORPRISM3_H

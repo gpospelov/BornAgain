@@ -7,7 +7,7 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2015-16
 //! @authors   Scientific Computing Group at MLZ Garching
 //! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
@@ -18,12 +18,10 @@
 #include "BornAgainNamespace.h"
 #include "IntegratorComplex.h"
 
-using namespace  BornAgain;
-
 FormFactorTetrahedron::FormFactorTetrahedron(double length, double height, double alpha)
     : FormFactorPolyhedron( polyhedral_faces( length, height, alpha ), 0. )
 {
-    setName(FFTetrahedronType);
+    setName(BornAgain::FFTetrahedronType);
     m_height = height;
     m_length = length;
     m_alpha = alpha;
@@ -82,9 +80,9 @@ bool FormFactorTetrahedron::check_initialization() const
 void FormFactorTetrahedron::init_parameters()
 {
     clearParameterPool();
-    registerParameter(Height, &m_height, AttLimits::n_positive());
-    registerParameter(Length, &m_length, AttLimits::n_positive());
-    registerParameter(Alpha, &m_alpha, AttLimits::n_positive());
+    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
+    registerParameter(BornAgain::Length, &m_length, AttLimits::n_positive());
+    registerParameter(BornAgain::Alpha, &m_alpha, AttLimits::n_positive());
 }
 
 FormFactorTetrahedron* FormFactorTetrahedron::clone() const

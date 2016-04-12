@@ -948,7 +948,7 @@ We also discovered a wrong factor of~2 in the \IsGISAXS\ code.
 
 \paragraph{Real-space geometry}\strut\\
 
-\Work{probably the $xy$ view needs to be rotated by 30$^\circ$}
+\Work{will soon be rotated by 30$^\circ$}
 
 \begin{figure}[H]
 \hfill
@@ -974,14 +974,11 @@ with the parameters
 \end{itemize}
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
-\begin{align*}
-F &= \frac{2 \sqrt{3}}{q_x^2-3q_y^2}
-     \exp\left(-i q_y\frac{L}{2\sqrt{3}}\right)
-    \left[\exp\left(i \sqrt{3} q_y \frac{L}{2} \right)-\cos\left(q_x \frac{L}{2}\right)
-    -i \sqrt{3} q_y \frac{L}{2} \sinc\left(q_x \frac{L}{2}\right) \right] \\
-  &
-  \times  H \sinc\left(q_z \frac{H}{2} \right) \exp\left(i q_z \frac{H}{2}\right),
-\end{align*}
+\begin{equation*}
+F = H \sinc\left(q_z\frac{H}{2}\right) \exp\left(-i q_z\frac{ H}{2}\right) F_\parallel(\q_\parallel)
+\end{equation*}
+with the form factor $F_\parallel$ of the base triangle
+computed using the generic form factor of a planar polygon \cite{ba:ffp},
 \begin{equation*}
   V= \dfrac{\sqrt{3}}{4} H L^2,
 \end{equation*}
@@ -1002,10 +999,14 @@ for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
 \paragraph{References}\strut\\
-Agrees with \E{Prism3} form factor of \IsGISAXS\
-\cite[Eq.~2.29]{Laz08} \cite[Eq.~219]{ReLL09},
-except for the definition of parameter $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
+Has been validated against the \E{Prism3} form factor of \IsGISAXS\
+\cite[Eq.~2.29]{Laz08} \cite[Eq.~219]{ReLL09}.
+Note the different parameterization $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
 In \FitGISAXS\ just called \E{Prism} \cite{Bab13}.
+
+Reimplemented in \BornAgain-1.6 using the generic form factor
+of a polygonal prism \cite{ba:ffp},
+to achieve numerical stability near the removable singularity at $q\to0$.
 
 %===============================================================================
 \ffsection{Prism6 (hexagonal)} \label{SPrism6}

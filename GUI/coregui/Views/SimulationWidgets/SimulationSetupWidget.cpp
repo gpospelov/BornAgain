@@ -123,29 +123,38 @@ int SimulationSetupWidget::getSelectedSampleIndex() const
 
 void SimulationSetupWidget::onRunSimulation()
 {
-    InstrumentModel *jobInstrumentModel = getJobInstrumentModel();
-    if (!jobInstrumentModel) {
+
+//    TestItem *ti = new TestItem;
+//    testitems.append(ti);
+
+//    const TestItem *ti2 = ti;
+//    qDebug() << "AAA" << testitems.indexOf(ti2);
+
+
+    const InstrumentItem *jobInstrumentItem = getSelectedInstrumentItem();
+    if (!jobInstrumentItem) {
         QMessageBox::warning(this, tr("No Instrument Selected"),
                              tr("You must select an instrument first."));
         return;
     }
 
-    SampleModel *jobSampleModel = getJobSampleModel();
-    if (!jobSampleModel) {
+    const MultiLayerItem *jobMultiLayerItem = getSelectedMultiLayerItem();
+    if (!jobMultiLayerItem) {
         QMessageBox::warning(this, tr("No Sample Selected"), tr("You must select a sample first."));
         return;
     }
 
     SampleValidator sampleValidator;
-    if (!sampleValidator.isValidSampleModel(jobSampleModel)) {
+    if (!sampleValidator.isValidMultiLayer(jobMultiLayerItem)) {
         QMessageBox::warning(this, tr("Not suitable MultiLayer"),
                              sampleValidator.getValidationMessage());
         return;
     }
 
+
     JobItem *jobItem = m_applicationModels->jobModel()->addJob(
-                getSelectedMultiLayerItem(),
-                getSelectedInstrumentItem(),
+                jobMultiLayerItem,
+                jobInstrumentItem,
                 m_applicationModels->documentModel()->getSimulationOptionsItem());
 
 
@@ -181,12 +190,12 @@ void SimulationSetupWidget::onExportToPythonScript()
         return;
     }
 
-    SampleValidator sampleValidator;
-    if(!sampleValidator.isValidSampleModel(sampleModel)) {
-        QMessageBox::warning(this, tr("Not suitable MultiLayer"),
-                             sampleValidator.getValidationMessage());
-        return;
-    }
+//    SampleValidator sampleValidator;
+//    if(!sampleValidator.isValidSampleModel(sampleModel)) {
+//        QMessageBox::warning(this, tr("Not suitable MultiLayer"),
+//                             sampleValidator.getValidationMessage());
+//        return;
+//    }
 
     PythonScriptWidget *pythonWidget = new PythonScriptWidget(this);
     pythonWidget->show();

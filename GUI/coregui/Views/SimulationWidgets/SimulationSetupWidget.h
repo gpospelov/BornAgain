@@ -34,6 +34,11 @@ class InstrumentItem;
 class SimulationOptionsWidget;
 class ApplicationModels;
 
+//class TestItem {
+//public:
+//    int x;
+//};
+
 class BA_CORE_API_ SimulationSetupWidget : public QWidget
 {
     Q_OBJECT
@@ -80,6 +85,8 @@ private:
     QPushButton *exportToPyScriptButton;
 
     SimulationOptionsWidget *m_simOptionsWidget;
+
+//    QVector<TestItem *> testitems;
 
 };
 

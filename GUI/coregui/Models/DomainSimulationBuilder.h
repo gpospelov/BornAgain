@@ -36,7 +36,7 @@ public:
 
     static GISASSimulation *getSimulation(SampleModel *sampleModel, InstrumentModel *instrumentModel);
 
-    static GISASSimulation *getSimulation(MultiLayerItem *sampleItem, InstrumentItem *instrumentItem);
+    static GISASSimulation *getSimulation(const MultiLayerItem *sampleItem, const InstrumentItem *instrumentItem);
 
 };
 

@@ -53,8 +53,8 @@ GISASSimulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel
 }
 
 //! Creates domain simulation from sample and instrument items.
-GISASSimulation *DomainSimulationBuilder::getSimulation(MultiLayerItem *sampleItem,
-                                                   InstrumentItem *instrumentItem)
+GISASSimulation *DomainSimulationBuilder::getSimulation(const MultiLayerItem *sampleItem,
+                                                   const InstrumentItem *instrumentItem)
 {
     if(!sampleItem || !instrumentItem) {
         QString message("DomainSimulationBuilder::getSimulation() -> Error. Either MultiLayerItem "

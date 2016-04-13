@@ -26,6 +26,8 @@ class WarningSignWidget;
 class ProjectManager;
 class SampleModel;
 class InstrumentModel;
+class MultiLayerItem;
+class InstrumentItem;
 
 //! The PythonScriptWidget displays a python script which represents full simulation.
 //! Part of SimulationSetupWidget
@@ -38,6 +40,9 @@ public:
 
     void generatePythonScript(SampleModel *sampleModel, InstrumentModel *instrumentModel,
                               const QString &outputDir = QString());
+
+//    void generatePythonScript(MultiLayerItem *sampleItem, InstrumentItem *instrumentItem,
+//                              const QString &outputDir = QString());
 
 protected:
     virtual void resizeEvent(QResizeEvent *event);

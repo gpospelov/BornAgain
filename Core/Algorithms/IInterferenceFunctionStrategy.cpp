@@ -17,7 +17,7 @@
 #include "IntegratorMCMiser.h"
 #include "ScalarRTCoefficients.h"
 
-IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(SimulationParameters sim_params)
+IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(SimulationOptions sim_params)
     : mP_iff { nullptr }
     , m_sim_params(sim_params)
 {

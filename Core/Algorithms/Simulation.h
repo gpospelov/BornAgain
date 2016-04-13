@@ -18,7 +18,7 @@
 
 #include "ISampleBuilder.h"
 #include "Instrument.h"
-#include "SimulationParameters.h"
+#include "SimulationOptions.h"
 #include "DistributionHandler.h"
 #include "ProgressHandler.h"
 
@@ -63,11 +63,11 @@ public:
     SampleBuilder_t getSampleBuilder() const { return mp_sample_builder; }
 
     //! Returns simulation parameters
-    SimulationParameters getSimulationParameters() const
+    SimulationOptions getSimulationParameters() const
     { return m_sim_params; }
 
     //! Sets simulation parameters
-    void setSimulationParameters(const SimulationParameters& sim_params)
+    void setSimulationParameters(const SimulationOptions& sim_params)
     { m_sim_params = sim_params; }
 
     //! Sets the batch and thread information to be used
@@ -146,7 +146,7 @@ protected:
     // components describing an experiment and its simulation:
     std::unique_ptr<ISample> mP_sample;
     SampleBuilder_t mp_sample_builder;
-    SimulationParameters m_sim_params;
+    SimulationOptions m_sim_params;
     ThreadInfo m_thread_info;
 
     DistributionHandler m_distribution_handler;

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/SimulationParameters.h
-//! @brief     Defines class SimulationParameters.
+//! @file      Algorithms/inc/SimulationOptions.h
+//! @brief     Defines class SimulationOptions.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,20 +20,20 @@
 
 #include <cstddef>
 
-//! @class Simulation
+//! @class SimulationOptions
 //! @ingroup simulation
 //! @brief Collect the different options for simulation
-//! @ref SimulationParameters
+//! @ref SimulationOptions
 
-class BA_CORE_API_ SimulationParameters
+class BA_CORE_API_ SimulationOptions
 {
 public:
-    SimulationParameters();
+    SimulationOptions();
     bool m_mc_integration;
     size_t m_mc_points;
 };
 
-inline SimulationParameters::SimulationParameters()
+inline SimulationOptions::SimulationOptions()
     : m_mc_integration(false)
     , m_mc_points(1)
 {

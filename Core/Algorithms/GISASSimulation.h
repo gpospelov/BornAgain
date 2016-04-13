@@ -18,7 +18,7 @@
 
 #include "ISampleBuilder.h"
 #include "Instrument.h"
-#include "SimulationParameters.h"
+#include "SimulationOptions.h"
 #include "DistributionHandler.h"
 #include "ProgressHandler.h"
 #include "Simulation.h"

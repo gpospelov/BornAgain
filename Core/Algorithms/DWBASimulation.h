@@ -54,7 +54,7 @@ protected:
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
 
     mutable OutputData<double> m_dwba_intensity;
-    SimulationParameters m_sim_params;
+    SimulationOptions m_sim_params;
     Simulation *mp_simulation;
 
     ProgressHandlerDWBA m_progress;

@@ -202,7 +202,7 @@
 #include "Rotations.h"
 #include "ISelectionRule.h"
 #include "Simulation.h"
-#include "SimulationParameters.h"
+#include "SimulationOptions.h"
 #include "SpecularSimulation.h"
 #include "SphericalDetector.h"
 #include "ThreadInfo.h"
@@ -324,7 +324,7 @@
 %include "FormFactorWeighted.h"
 
 %include "Simulation.h"
-%include "SimulationParameters.h"
+%include "SimulationOptions.h"
 %include "GISASSimulation.h"
 
 %include "IHistogram.h"

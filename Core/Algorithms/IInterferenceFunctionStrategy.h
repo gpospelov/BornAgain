@@ -40,7 +40,7 @@ class BA_CORE_API_ IInterferenceFunctionStrategy
 public:
     typedef std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd> >
         MatrixFFVector;
-    IInterferenceFunctionStrategy(SimulationParameters sim_params);
+    IInterferenceFunctionStrategy(SimulationOptions sim_params);
     virtual ~IInterferenceFunctionStrategy();
 
     //! Initializes the object with form factors and interference functions
@@ -71,7 +71,7 @@ protected:
 
     SafePointerVector<FormFactorInfo> m_ff_infos;          //!< form factor info
     std::unique_ptr<IInterferenceFunction> mP_iff;       //!< interference function
-    SimulationParameters m_sim_params;                     //!< simulation parameters
+    SimulationOptions m_sim_params;                     //!< simulation parameters
     std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
 
 private:

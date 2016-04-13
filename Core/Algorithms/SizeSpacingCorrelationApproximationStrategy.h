@@ -26,7 +26,7 @@
 class SizeSpacingCorrelationApproximationStrategy : public IInterferenceFunctionStrategy
 {
 public:
-    SizeSpacingCorrelationApproximationStrategy(SimulationParameters sim_params, double kappa);
+    SizeSpacingCorrelationApproximationStrategy(SimulationOptions sim_params, double kappa);
     virtual ~SizeSpacingCorrelationApproximationStrategy()
     {
     }

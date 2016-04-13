@@ -12406,7 +12406,7 @@ class Simulation(ICloneable, IParameterized):
 
     def getSimulationParameters(self):
         """
-        getSimulationParameters(Simulation self) -> SimulationParameters
+        getSimulationParameters(Simulation self) -> SimulationOptions
 
         SimulationParameters Simulation::getSimulationParameters() const
 
@@ -12418,7 +12418,7 @@ class Simulation(ICloneable, IParameterized):
 
     def setSimulationParameters(self, sim_params):
         """
-        setSimulationParameters(Simulation self, SimulationParameters sim_params)
+        setSimulationParameters(Simulation self, SimulationOptions sim_params)
 
         void Simulation::setSimulationParameters(const SimulationParameters &sim_params)
 
@@ -12492,39 +12492,34 @@ class Simulation(ICloneable, IParameterized):
 Simulation_swigregister = _libBornAgainCore.Simulation_swigregister
 Simulation_swigregister(Simulation)
 
-class SimulationParameters(_object):
-    """Proxy of C++ SimulationParameters class."""
+class SimulationOptions(_object):
+    """Proxy of C++ SimulationOptions class."""
 
     __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, SimulationParameters, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SimulationOptions, name, value)
     __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, SimulationParameters, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, SimulationOptions, name)
     __repr__ = _swig_repr
 
     def __init__(self):
-        """
-        __init__(SimulationParameters self) -> SimulationParameters
-
-        SimulationParameters::SimulationParameters()
-
-        """
-        this = _libBornAgainCore.new_SimulationParameters()
+        """__init__(SimulationOptions self) -> SimulationOptions"""
+        this = _libBornAgainCore.new_SimulationOptions()
         try:
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_setmethods__["m_mc_integration"] = _libBornAgainCore.SimulationParameters_m_mc_integration_set
-    __swig_getmethods__["m_mc_integration"] = _libBornAgainCore.SimulationParameters_m_mc_integration_get
+    __swig_setmethods__["m_mc_integration"] = _libBornAgainCore.SimulationOptions_m_mc_integration_set
+    __swig_getmethods__["m_mc_integration"] = _libBornAgainCore.SimulationOptions_m_mc_integration_get
     if _newclass:
-        m_mc_integration = _swig_property(_libBornAgainCore.SimulationParameters_m_mc_integration_get, _libBornAgainCore.SimulationParameters_m_mc_integration_set)
-    __swig_setmethods__["m_mc_points"] = _libBornAgainCore.SimulationParameters_m_mc_points_set
-    __swig_getmethods__["m_mc_points"] = _libBornAgainCore.SimulationParameters_m_mc_points_get
+        m_mc_integration = _swig_property(_libBornAgainCore.SimulationOptions_m_mc_integration_get, _libBornAgainCore.SimulationOptions_m_mc_integration_set)
+    __swig_setmethods__["m_mc_points"] = _libBornAgainCore.SimulationOptions_m_mc_points_set
+    __swig_getmethods__["m_mc_points"] = _libBornAgainCore.SimulationOptions_m_mc_points_get
     if _newclass:
-        m_mc_points = _swig_property(_libBornAgainCore.SimulationParameters_m_mc_points_get, _libBornAgainCore.SimulationParameters_m_mc_points_set)
-    __swig_destroy__ = _libBornAgainCore.delete_SimulationParameters
+        m_mc_points = _swig_property(_libBornAgainCore.SimulationOptions_m_mc_points_get, _libBornAgainCore.SimulationOptions_m_mc_points_set)
+    __swig_destroy__ = _libBornAgainCore.delete_SimulationOptions
     __del__ = lambda self: None
-SimulationParameters_swigregister = _libBornAgainCore.SimulationParameters_swigregister
-SimulationParameters_swigregister(SimulationParameters)
+SimulationOptions_swigregister = _libBornAgainCore.SimulationOptions_swigregister
+SimulationOptions_swigregister(SimulationOptions)
 
 class GISASSimulation(Simulation):
     """Proxy of C++ GISASSimulation class."""

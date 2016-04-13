@@ -7,7 +7,7 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2015-16
 //! @authors   Scientific Computing Group at MLZ Garching
 //! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
@@ -18,18 +18,52 @@
 #include "FormFactorPyramid.h"
 #include "MathFunctions.h"
 
-using namespace  BornAgain;
-
 FormFactorCuboctahedron::FormFactorCuboctahedron(
     double length, double height, double height_ratio, double alpha)
+    : FormFactorPolyhedron( polyhedral_faces( length, height, height_ratio, alpha ), 0. ),
+      m_length(length), m_height(height), m_height_ratio(height_ratio), m_alpha(alpha)
 {
-    setName(FFCuboctahedronType);
-    m_height = height;
-    m_length = length;
-    m_height_ratio = height_ratio;
-    m_alpha = alpha;
+    setName(BornAgain::FFCuboctahedronType);
     check_initialization();
     init_parameters();
+}
+
+std::vector<PolyhedralFace> FormFactorCuboctahedron::polyhedral_faces(
+    double length, double height, double height_ratio, double alpha)
+{
+    double a = length/2 - height/std::tan(alpha);
+    double b = length/2;
+    double c = length/2 - height*height_ratio/std::tan(alpha);
+
+    kvector_t V[12] = {
+        // base:
+        { -a, -a, 0. },
+        {  a, -a, 0. },
+        {  a,  a, 0. },
+        { -a,  a, 0. },
+        // middle
+        { -b, -b, height },
+        {  b, -b, height },
+        {  b,  b, height },
+        { -b,  b, height },
+        // top
+        { -c, -c, height*(1+height_ratio) },
+        {  c, -c, height*(1+height_ratio) },
+        {  c,  c, height*(1+height_ratio) },
+        { -c,  c, height*(1+height_ratio) } };
+    std::vector<PolyhedralFace> faces;
+    faces.push_back( PolyhedralFace( { V[ 3], V[ 2], V[ 1], V[ 0] }, true ) );
+    faces.push_back( PolyhedralFace( { V[ 0], V[ 1], V[ 5], V[ 4] } ) );
+    faces.push_back( PolyhedralFace( { V[ 1], V[ 2], V[ 6], V[ 5] } ) );
+    faces.push_back( PolyhedralFace( { V[ 2], V[ 3], V[ 7], V[ 6] } ) );
+    faces.push_back( PolyhedralFace( { V[ 3], V[ 0], V[ 4], V[ 7] } ) );
+    faces.push_back( PolyhedralFace( { V[ 4], V[ 5], V[ 9], V[ 8] } ) );
+    faces.push_back( PolyhedralFace( { V[ 5], V[ 6], V[10], V[ 9] } ) );
+    faces.push_back( PolyhedralFace( { V[ 6], V[ 7], V[11], V[10] } ) );
+    faces.push_back( PolyhedralFace( { V[ 7], V[ 4], V[ 8], V[11] } ) );
+    faces.push_back( PolyhedralFace( { V[ 8], V[ 9], V[10], V[11] }, true ) );
+
+    return faces;
 }
 
 bool FormFactorCuboctahedron::check_initialization() const
@@ -51,10 +85,10 @@ bool FormFactorCuboctahedron::check_initialization() const
 void FormFactorCuboctahedron::init_parameters()
 {
     clearParameterPool();
-    registerParameter(Height, &m_height, AttLimits::n_positive());
-    registerParameter(HeightRatio, &m_height_ratio, AttLimits::n_positive());
-    registerParameter(Length, &m_length, AttLimits::n_positive());
-    registerParameter(Alpha, &m_alpha, AttLimits::n_positive());
+    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
+    registerParameter(BornAgain::HeightRatio, &m_height_ratio, AttLimits::n_positive());
+    registerParameter(BornAgain::Length, &m_length, AttLimits::n_positive());
+    registerParameter(BornAgain::Alpha, &m_alpha, AttLimits::n_positive());
 }
 
 FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const
@@ -70,24 +104,4 @@ void FormFactorCuboctahedron::accept(ISampleVisitor *visitor) const
 double FormFactorCuboctahedron::getRadius() const
 {
     return m_length / 2.0;
-}
-
-complex_t FormFactorCuboctahedron::evaluate_for_q(const cvector_t& q) const
-{
-    double H = m_height;
-    double L = m_length;
-    double rh = m_height_ratio;
-
-    complex_t qx = q.x();
-    complex_t qy = q.y();
-    complex_t qz = q.z();
-
-    FormFactorPyramid fftop(L,rh*H, m_alpha);
-    complex_t ffhigh = fftop.evaluate_for_q(q);
-    FormFactorPyramid ffbottom(L,H, m_alpha);
-    cvector_t downq(qx,qy,-qz);
-    complex_t fflow = ffbottom.evaluate_for_q(downq);
-    const complex_t im(0,1);
-
-    return std::exp(im*qz*H)*(ffhigh + fflow);
 }

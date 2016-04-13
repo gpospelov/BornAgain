@@ -34,20 +34,18 @@ public:
     static std::vector<PolyhedralFace> polyhedral_faces(
         double length, double height,  double alpha);
 
-    virtual FormFactorPyramid* clone() const;
-
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual FormFactorPyramid* clone() const final;
+    virtual void accept(ISampleVisitor *visitor) const final;
 
     virtual double getRadius() const final;
     double getHeight() const;
     double getLength() const;
     double getAlpha() const;
 
-protected:
-    virtual bool check_initialization() const;
-    virtual void init_parameters();
-
 private:
+    virtual bool check_initialization() const final;
+    virtual void init_parameters() final;
+
     double m_length;
     double m_height;
     double m_alpha;

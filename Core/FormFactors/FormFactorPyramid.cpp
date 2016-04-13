@@ -17,12 +17,10 @@
 #include "BornAgainNamespace.h"
 
 FormFactorPyramid::FormFactorPyramid(double length, double height, double alpha)
-    : FormFactorPolyhedron( polyhedral_faces( length, height, alpha ), 0. )
+    : FormFactorPolyhedron( polyhedral_faces( length, height, alpha ), 0. ),
+      m_length(length), m_height(height), m_alpha(alpha)
 {
     setName(BornAgain::FFPyramidType);
-    m_length = length;
-    m_height = height;
-    m_alpha = alpha;
     check_initialization();
     init_parameters();
 }

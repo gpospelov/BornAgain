@@ -585,11 +585,9 @@ They must fulfill
 \end{displaymath}
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
-Using the form factor of a square pyramid $F_\text{Py}$
-(Sec.~\ref{SPyramid}):
 \begin{equation*}
-F=\exp(iq_zH)\Big[F_\text{Py}(q_x,q_y, q_z, L, r_H H,\alpha)
-                 +F_\text{Py}(q_x, q_y, -q_z, L, H, \alpha))\Big],
+  F \text{~: computed algebraically,
+          using the generic polyhedron form factor~\cite{ba:ffp},}
 \end{equation*}
 \begin{equation*}
   V= \dfrac{1}{6} \tan(\alpha)L^3 \Big[ 2
@@ -612,10 +610,12 @@ computed with $L=8$~nm, $H=5$~nm, $r_H=0.5$, and $\alpha=60^\circ$,
 for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
-\paragraph{References}\strut\\
+\paragraph{References and History}\strut\\
 Agrees with \E{Cuboctahedron} form factor of \IsGISAXS\
 \cite[Eq.~2.34]{Laz08} \cite[Eq.~218]{ReLL09},
 except for different parametrization $L=2R_{\rm{\Code{IsGISAXS}}}$.
+Since \BornAgain-1.6 implemented
+using the generic polyhedron form factor \cite{ba:ffp}.
 
 
 %===============================================================================

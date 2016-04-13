@@ -18,15 +18,11 @@
 
 #include <cmath>
 
-using namespace  BornAgain;
-
 FormFactorCone6::FormFactorCone6(double radius, double height, double alpha)
-    : FormFactorPolyhedron( polyhedral_faces( radius, height, alpha ), 0. )
+    : FormFactorPolyhedron( polyhedral_faces( radius, height, alpha ), 0. ),
+      m_radius(radius), m_height(height), m_alpha(alpha)
 {
-    setName(FFCone6Type);
-    m_radius = radius;
-    m_height = height;
-    m_alpha = alpha;
+    setName(BornAgain::FFCone6Type);
     check_initialization();
     init_parameters();
 }
@@ -91,9 +87,9 @@ bool FormFactorCone6::check_initialization() const
 void FormFactorCone6::init_parameters()
 {
     clearParameterPool();
-    registerParameter(Radius, &m_radius, AttLimits::n_positive());
-    registerParameter(Height, &m_height, AttLimits::n_positive());
-    registerParameter(Alpha, &m_alpha, AttLimits::n_positive());
+    registerParameter(BornAgain::Radius, &m_radius, AttLimits::n_positive());
+    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
+    registerParameter(BornAgain::Alpha, &m_alpha, AttLimits::n_positive());
 }
 
 FormFactorCone6* FormFactorCone6::clone() const

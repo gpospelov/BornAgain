@@ -194,7 +194,7 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
     complex_t qr_perp = qperp*rperp;
     if ( qpa_red==0 ) {
         return qn * (sym_Ci ? 2.*I*sin(qr_perp) : exp(I*qr_perp)) * area;
-    } else if ( qpa_red < qpa_limit_series ) {
+    } else if ( qpa_red < qpa_limit_series && !sym_S2 ) {
         // summation of power series
 #ifdef POLYHEDRAL_DIAGNOSTIC
         diagnosis.nExpandedFaces += 1;
@@ -209,16 +209,8 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
             fac_odd = fac_even;
         }
         complex_t sum = fac_even * area;
-        complex_t n_multiplier = I;
-        if( sym_S2 ) {
-            fac_even *= 2.;
-            fac_odd = 0.;
-            n_multiplier = -1.;
-        }
-        complex_t n_fac = n_multiplier;
+        complex_t n_fac = I;
         for( int n=1; n<20; ++n ) {
-            if( sym_S2 && n&1 )
-                continue;
 #ifdef POLYHEDRAL_DIAGNOSTIC
             diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
 #endif
@@ -226,7 +218,7 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
             sum += term;
             if( !(n&1) && std::abs(term)<=eps*std::abs(sum) )
                 return sum;
-            n_fac *= n_multiplier;
+            n_fac *= I;
         }
         throw "Bug in formfactor computation: series f(q_pa) not converged";
     } else {

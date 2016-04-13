@@ -72,13 +72,13 @@ TEST_F(SpecularSimulationTest, SetBeamParameters)
     SpecularSimulation sim;
 
     sim.setBeamParameters(1.0, 10, -2.0, 3.0);
-    EXPECT_EQ(10, sim.getAlphaAxis()->getSize());
+    EXPECT_EQ(size_t(10), sim.getAlphaAxis()->getSize());
     EXPECT_EQ(-2.0, sim.getAlphaAxis()->getMin());
     EXPECT_EQ(3.0, sim.getAlphaAxis()->getMax());
 
     FixedBinAxis axis("axis",2, -1.0, 2.0);
     sim.setBeamParameters(1.0, axis);
-    EXPECT_EQ(2, sim.getAlphaAxis()->getSize());
+    EXPECT_EQ(size_t(2), sim.getAlphaAxis()->getSize());
     EXPECT_EQ(-1.0, sim.getAlphaAxis()->getMin());
     EXPECT_EQ(2.0, sim.getAlphaAxis()->getMax());
 }
@@ -95,9 +95,9 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     ASSERT_THROW( sim.getScalarKz(0), Exceptions::ClassInitializationException);
 
     sim.runSimulation();
-    EXPECT_EQ( 10, sim.getScalarR(0).size());
-    EXPECT_EQ( 10, sim.getScalarT(0).size());
-    EXPECT_EQ( 10, sim.getScalarKz(0).size());
+    EXPECT_EQ(size_t(10), sim.getScalarR(0).size());
+    EXPECT_EQ(size_t(10), sim.getScalarT(0).size());
+    EXPECT_EQ(size_t(10), sim.getScalarKz(0).size());
 
     ASSERT_THROW( sim.getScalarR(3), Exceptions::OutOfBoundsException);
     ASSERT_THROW( sim.getScalarT(3), Exceptions::OutOfBoundsException);
@@ -123,9 +123,9 @@ TEST_F(SpecularSimulationTest, SimulationClone)
     sim.runSimulation();
 
     clone = sim.clone();
-    EXPECT_EQ( 10, clone->getScalarR(0).size());
-    EXPECT_EQ( 10, clone->getScalarT(0).size());
-    EXPECT_EQ( 10, clone->getScalarKz(0).size());
+    EXPECT_EQ(size_t(10), clone->getScalarR(0).size());
+    EXPECT_EQ(size_t(10), clone->getScalarT(0).size());
+    EXPECT_EQ(size_t(10), clone->getScalarKz(0).size());
 
 }
 

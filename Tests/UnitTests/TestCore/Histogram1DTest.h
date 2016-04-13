@@ -17,15 +17,15 @@ TEST_F(Histogram1DTest, FixedBinConstructor)
 {
     Histogram1D hist(5, 0.0, 5.0);
 
-    EXPECT_EQ(1, hist.getRank());
-    EXPECT_EQ(5, hist.getTotalNumberOfBins());
+    EXPECT_EQ(size_t(1), hist.getRank());
+    EXPECT_EQ(size_t(5), hist.getTotalNumberOfBins());
     EXPECT_EQ(0.0, hist.getXmin());
     EXPECT_EQ(5.0, hist.getXmax());
     EXPECT_EQ(std::string("x-axis"), hist.getXaxis()->getName());
     EXPECT_THROW(hist.getYaxis(), LogicErrorException);
     for(size_t index=0; index<hist.getTotalNumberOfBins(); ++index) {
         EXPECT_EQ(index, hist.getGlobalBin(index));
-        EXPECT_EQ(index, hist.getXaxisIndex(index));
+        EXPECT_EQ(int(index), hist.getXaxisIndex(index));
     }
 }
 
@@ -148,7 +148,7 @@ TEST_F(Histogram1DTest, CreateHistogram)
     }
 
     std::unique_ptr<IHistogram> hist(IHistogram::createHistogram(data));
-    EXPECT_EQ(1, hist->getRank());
+    EXPECT_EQ(size_t(1), hist->getRank());
     EXPECT_EQ(data.getAllocatedSize(), hist->getNbinsX());
     EXPECT_EQ(data.getAxis(0)->getMin(), hist->getXmin());
     EXPECT_EQ(data.getAxis(0)->getMax(), hist->getXmax());
@@ -170,7 +170,7 @@ TEST_F(Histogram1DTest, CreateOutputData)
     }
 
     std::unique_ptr<OutputData<double> > data(hist.createOutputData(IHistogram::DataType::INTEGRAL));
-    EXPECT_EQ(1, data->getRank());
+    EXPECT_EQ(size_t(1), data->getRank());
     EXPECT_EQ(data->getAllocatedSize(), hist.getNbinsX());
     EXPECT_EQ(data->getAxis(0)->getMin(), hist.getXmin());
     EXPECT_EQ(data->getAxis(0)->getMax(), hist.getXmax());
@@ -199,13 +199,13 @@ TEST_F(Histogram1DTest, GetMaximumGetMinimum)
     Histogram1D hist(10, -5.0, 5.0);
     hist.fill(-4.5, 10.);
     EXPECT_EQ(10.0, hist.getMaximum());
-    EXPECT_EQ(0, hist.getMaximumBinIndex());
+    EXPECT_EQ(size_t(0), hist.getMaximumBinIndex());
     EXPECT_EQ(0.0, hist.getMinimum());
-    EXPECT_EQ(1, hist.getMinimumBinIndex());
+    EXPECT_EQ(size_t(1), hist.getMinimumBinIndex());
 
     hist.fill(-3.5, 20.0);
     EXPECT_EQ(20.0, hist.getMaximum());
-    EXPECT_EQ(1, hist.getMaximumBinIndex());
+    EXPECT_EQ(size_t(1), hist.getMaximumBinIndex());
 }
 
 TEST_F(Histogram1DTest, Scale)

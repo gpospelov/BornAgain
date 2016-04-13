@@ -25,7 +25,6 @@
 
 #include "EigenCore.h"
 
-class ProgramOptions;
 class ProgressHandlerDWBA;
 class IHistogram;
 class Histogram2D;

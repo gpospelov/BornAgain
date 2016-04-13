@@ -23,12 +23,11 @@ protected:
 TEST_F(ParticleCompositionTest, ParticleCompositionDefaultConstructor)
 {
     ParticleComposition *lb = new ParticleComposition();
-    Particle particle;
     std::vector<kvector_t> positions;
     positions.push_back(kvector_t(0.0, 0.0, 0.0));
     EXPECT_EQ("ParticleComposition", lb->getName());
-    EXPECT_EQ(0, lb->getAmbientMaterial());
-    EXPECT_EQ(0, lb->getNbrParticles());
+    EXPECT_EQ(nullptr, lb->getAmbientMaterial());
+    EXPECT_EQ(size_t(0), lb->getNbrParticles());
 
     delete lb;
 }

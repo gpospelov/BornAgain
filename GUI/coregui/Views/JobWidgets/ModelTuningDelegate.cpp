@@ -40,7 +40,7 @@
 namespace {
 //const double maximum_doublespin_value(1e+20);
 const double maximum_doublespin_value(20000.0);
-const double minimum_doublespin_value(0.0);
+//const double minimum_doublespin_value(0.0);
 }
 
 ModelTuningDelegate::SliderData::SliderData()

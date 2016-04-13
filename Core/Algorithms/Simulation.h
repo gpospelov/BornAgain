@@ -25,7 +25,6 @@
 #include "EigenCore.h"
 #include "SimulationElement.h"
 
-class ProgramOptions;
 class ProgressHandlerDWBA;
 
 //! @class Simulation
@@ -36,10 +35,8 @@ class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
 {
 public:
     Simulation();
-    Simulation(const ProgramOptions *p_options);
-    Simulation(const ISample& p_sample, const ProgramOptions *p_options=0);
-    Simulation(SampleBuilder_t p_sample_builder,
-               const ProgramOptions *p_options=0);
+    Simulation(const ISample& p_sample);
+    Simulation(SampleBuilder_t p_sample_builder);
     virtual ~Simulation() { }
 
     virtual Simulation *clone() const=0;
@@ -76,10 +73,6 @@ public:
     //! Sets the batch and thread information to be used
     void setThreadInfo(const ThreadInfo &thread_info)
     { m_thread_info = thread_info; }
-
-    //! Sets the program options
-    void setProgramOptions(ProgramOptions *p_options)
-    { mp_options = p_options; }
 
     //! Gets the number of elements this simulation needs to calculate
     virtual int getNumberOfSimulationElements() const=0;
@@ -155,8 +148,6 @@ protected:
     SampleBuilder_t mp_sample_builder;
     SimulationParameters m_sim_params;
     ThreadInfo m_thread_info;
-
-    const ProgramOptions *mp_options;
 
     DistributionHandler m_distribution_handler;
     ProgressHandler_t m_progress;

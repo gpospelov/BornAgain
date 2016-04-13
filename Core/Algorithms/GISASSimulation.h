@@ -42,10 +42,8 @@ class BA_CORE_API_ GISASSimulation : public Simulation
 {
 public:
     GISASSimulation();
-    GISASSimulation(const ProgramOptions *p_options);
-    GISASSimulation(const ISample& p_sample, const ProgramOptions *p_options=0);
-    GISASSimulation(SampleBuilder_t p_sample_builder,
-               const ProgramOptions *p_options=0);
+    GISASSimulation(const ISample& p_sample);
+    GISASSimulation(SampleBuilder_t p_sample_builder);
 
     virtual ~GISASSimulation() {}
 

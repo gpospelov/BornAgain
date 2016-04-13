@@ -14,9 +14,7 @@
 // ************************************************************************** //
 
 #include "GISASSimulation.h"
-
 #include "MathFunctions.h"
-#include "ProgramOptions.h"
 #include "DWBASimulation.h"
 #include "MessageService.h"
 #include "OutputDataFunctions.h"
@@ -30,34 +28,18 @@
 #include <memory>
 
 GISASSimulation::GISASSimulation()
-: m_instrument()
-, m_intensity_map()
 {
     initialize();
 }
 
-GISASSimulation::GISASSimulation(const ProgramOptions *p_options)
-: Simulation(p_options)
-, m_instrument()
-, m_intensity_map()
+GISASSimulation::GISASSimulation(const ISample& p_sample)
+    : Simulation(p_sample)
 {
     initialize();
 }
 
-GISASSimulation::GISASSimulation(
-    const ISample& p_sample, const ProgramOptions *p_options)
-: Simulation(p_sample, p_options)
-, m_instrument()
-, m_intensity_map()
-{
-    initialize();
-}
-
-GISASSimulation::GISASSimulation(
-    SampleBuilder_t p_sample_builder, const ProgramOptions *p_options)
-: Simulation(p_sample_builder, p_options)
-, m_instrument()
-, m_intensity_map()
+GISASSimulation::GISASSimulation(SampleBuilder_t p_sample_builder)
+    : Simulation(p_sample_builder)
 {
     initialize();
 }

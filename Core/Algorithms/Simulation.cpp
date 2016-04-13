@@ -16,7 +16,6 @@
 #include "Simulation.h"
 
 #include "MathFunctions.h"
-#include "ProgramOptions.h"
 #include "DWBASimulation.h"
 #include "MessageService.h"
 #include "OutputDataFunctions.h"
@@ -30,26 +29,20 @@
 #include <gsl/gsl_errno.h>
 
 Simulation::Simulation()
-    : IParameterized("Simulation"), mp_options(0)
+    : IParameterized("Simulation")
 {
     init_parameters();
 }
 
-Simulation::Simulation(const ProgramOptions *p_options)
-    : IParameterized("Simulation"), mp_options(p_options)
-{
-    init_parameters();
-}
-
-Simulation::Simulation(const ISample &p_sample, const ProgramOptions *p_options)
-    : IParameterized("Simulation"), mp_options(p_options)
+Simulation::Simulation(const ISample &p_sample)
+    : IParameterized("Simulation")
 {
     mP_sample.reset(p_sample.clone());
     init_parameters();
 }
 
-Simulation::Simulation(SampleBuilder_t p_sample_builder, const ProgramOptions *p_options)
-    : IParameterized("Simulation"), mp_sample_builder(p_sample_builder), mp_options(p_options)
+Simulation::Simulation(SampleBuilder_t p_sample_builder)
+    : IParameterized("Simulation"), mp_sample_builder(p_sample_builder)
 {
     init_parameters();
 }
@@ -57,7 +50,7 @@ Simulation::Simulation(SampleBuilder_t p_sample_builder, const ProgramOptions *p
 Simulation::Simulation(const Simulation &other)
     : ICloneable(), IParameterized(other), mp_sample_builder(other.mp_sample_builder),
       m_sim_params(other.m_sim_params), m_thread_info(other.m_thread_info),
-      mp_options(other.mp_options), m_distribution_handler(other.m_distribution_handler),
+      m_distribution_handler(other.m_distribution_handler),
       m_progress(other.m_progress)
 {
     if (other.mP_sample.get())
@@ -185,19 +178,6 @@ void Simulation::runSingleSimulation()
 {
     updateSample();
     initSimulationElementVector();
-
-    // retrieve batch and threading information
-    if (mp_options) {
-        if (mp_options->find("nbatches")) {
-            m_thread_info.n_batches = (*mp_options)["nbatches"].as<int>();
-        }
-        if (mp_options->find("currentbatch")) {
-            m_thread_info.current_batch = (*mp_options)["currentbatch"].as<int>();
-        }
-        if (mp_options->find("threads")) {
-            m_thread_info.n_threads = (*mp_options)["threads"].as<int>();
-        }
-    }
 
     // restrict calculation to current batch
     std::vector<SimulationElement>::iterator batch_start

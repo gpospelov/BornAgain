@@ -207,7 +207,7 @@ void JobQueueData::onFinishedJob()
     // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)
     getThread(runner->getIdentifier())->quit();
 
-    if(jobItem->runImmediately())
+    if(!jobItem->runInBackground())
         emit focusRequest(runner->getIdentifier());
 
     emit jobIsFinished(runner->getIdentifier());

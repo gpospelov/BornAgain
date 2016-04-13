@@ -12337,18 +12337,6 @@ class Simulation(ICloneable, IParameterized):
         return _libBornAgainCore.Simulation_setThreadInfo(self, thread_info)
 
 
-    def setProgramOptions(self, p_options):
-        """
-        setProgramOptions(Simulation self, ProgramOptions * p_options)
-
-        void Simulation::setProgramOptions(ProgramOptions *p_options)
-
-        Sets the program options. 
-
-        """
-        return _libBornAgainCore.Simulation_setProgramOptions(self, p_options)
-
-
     def getNumberOfSimulationElements(self):
         """
         getNumberOfSimulationElements(Simulation self) -> int
@@ -12451,10 +12439,7 @@ class GISASSimulation(Simulation):
     def __init__(self, *args):
         """
         __init__(GISASSimulation self) -> GISASSimulation
-        __init__(GISASSimulation self, ProgramOptions const * p_options) -> GISASSimulation
-        __init__(GISASSimulation self, ISample p_sample, ProgramOptions const * p_options=None) -> GISASSimulation
         __init__(GISASSimulation self, ISample p_sample) -> GISASSimulation
-        __init__(GISASSimulation self, SampleBuilder_t p_sample_builder, ProgramOptions const * p_options=None) -> GISASSimulation
         __init__(GISASSimulation self, SampleBuilder_t p_sample_builder) -> GISASSimulation
 
         GISASSimulation::GISASSimulation(SampleBuilder_t p_sample_builder, const ProgramOptions *p_options=0)
@@ -18795,10 +18780,7 @@ class OffSpecSimulation(Simulation):
     def __init__(self, *args):
         """
         __init__(OffSpecSimulation self) -> OffSpecSimulation
-        __init__(OffSpecSimulation self, ProgramOptions const * p_options) -> OffSpecSimulation
-        __init__(OffSpecSimulation self, ISample p_sample, ProgramOptions const * p_options=None) -> OffSpecSimulation
         __init__(OffSpecSimulation self, ISample p_sample) -> OffSpecSimulation
-        __init__(OffSpecSimulation self, SampleBuilder_t p_sample_builder, ProgramOptions const * p_options=None) -> OffSpecSimulation
         __init__(OffSpecSimulation self, SampleBuilder_t p_sample_builder) -> OffSpecSimulation
 
         OffSpecSimulation::OffSpecSimulation(SampleBuilder_t p_sample_builder, const ProgramOptions *p_options=0)

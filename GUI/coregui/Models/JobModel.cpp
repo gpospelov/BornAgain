@@ -109,7 +109,7 @@ void JobModel::setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *i
     Q_ASSERT(jobItem);
     Q_ASSERT(instrumentItem);
 
-    SessionItem *new_item = copyParameterizedItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
+    copyParameterizedItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
 }
 
 //! restore instrument and sample model from backup for given JobItem

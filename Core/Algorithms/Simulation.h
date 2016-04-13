@@ -62,10 +62,6 @@ public:
     //! return sample builder
     SampleBuilder_t getSampleBuilder() const { return mp_sample_builder; }
 
-    //! Sets the batch and thread information to be used
-    void setThreadInfo(const ThreadInfo &thread_info)
-    { m_thread_info = thread_info; }
-
     //! Gets the number of elements this simulation needs to calculate
     virtual int getNumberOfSimulationElements() const=0;
 
@@ -139,12 +135,9 @@ protected:
     //! Returns the end iterator of simulation elements for the current batch
     std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
 
-    // components describing an experiment and its simulation:
     std::unique_ptr<ISample> mP_sample;
     SampleBuilder_t mp_sample_builder;
-    SimulationOptions m_sim_options;
-    ThreadInfo m_thread_info;
-
+    SimulationOptions m_options;
     DistributionHandler m_distribution_handler;
     ProgressHandler_t m_progress;
     std::vector<SimulationElement> m_sim_elements;

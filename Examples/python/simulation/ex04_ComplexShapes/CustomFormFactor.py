@@ -80,9 +80,7 @@ def get_simulation():
     Multithreading should be deactivated by putting ThreadInfo.n_threads to -1
     """
     simulation = GISASSimulation()
-    thread_info = ThreadInfo()
-    thread_info.n_threads = -1
-    simulation.setThreadInfo(thread_info)
+    simulation.getOptions().setNumberOfThreads(-1)
     simulation.setDetectorParameters(100, phi_min*degree, phi_max*degree, 100, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation

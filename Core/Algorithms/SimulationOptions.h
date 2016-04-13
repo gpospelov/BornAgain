@@ -17,6 +17,7 @@
 #define SIMULATIONOPTIONS_H
 
 #include "WinDllMacros.h"
+#include "ThreadInfo.h"
 
 #include <cstddef>
 
@@ -38,31 +39,27 @@ public:
     //! @param mc_points Number of points for MonteCarlo integrator
     void setMonteCarloIntegration(bool flag = true, size_t mc_points=50);
 
+    //! @brief Sets number of threads to use during the simulation (0 - take the default value from
+    //! the hardware)
+    void setNumberOfThreads(int nthreads);
+
+    int getNumberOfThreads() const;
+
+    //! @brief Sets number of batches to split
+    void setNumberOfBatches(int nbatches);
+
+    int getNumberOfBatches() const;
+
+    int getCurrentBatch() const;
+
+    //! @brief Sets the batch and thread information to be used
+    void setThreadInfo(const ThreadInfo &thread_info);
+
 private:
     bool m_mc_integration;
     size_t m_mc_points;
+    ThreadInfo m_thread_info;
 };
 
-inline SimulationOptions::SimulationOptions()
-    : m_mc_integration(false)
-    , m_mc_points(1)
-{
-}
-
-inline bool SimulationOptions::isIntegrate() const
-{
-    return m_mc_integration && m_mc_points>1;
-}
-
-inline size_t SimulationOptions::getMcPoints() const
-{
-    return m_mc_points;
-}
-
-inline void SimulationOptions::setMonteCarloIntegration(bool flag, size_t mc_points)
-{
-    m_mc_integration = flag;
-    m_mc_points = mc_points;
-}
 
 #endif /* SIMULATIONPARAMETERS_H_ */

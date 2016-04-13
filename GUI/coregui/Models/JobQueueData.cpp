@@ -25,7 +25,6 @@
 #include "JobModel.h"
 #include "JobRunner.h"
 #include "DomainSimulationBuilder.h"
-#include "ThreadInfo.h"
 #include "GUIHelpers.h"
 #include <QUuid>
 #include <QThread>
@@ -113,9 +112,7 @@ void JobQueueData::runJob(JobItem *jobItem)
         return;
     }
 
-    ThreadInfo info;
-    info.n_threads = jobItem->getNumberOfThreads();
-    simulation->setThreadInfo(info);
+    simulation->getOptions().setNumberOfThreads(jobItem->getNumberOfThreads());
     m_simulations[identifier] = simulation;
 
     JobRunner *runner = new JobRunner(identifier, simulation);

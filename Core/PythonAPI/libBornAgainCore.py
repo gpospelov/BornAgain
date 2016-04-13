@@ -12404,18 +12404,6 @@ class Simulation(ICloneable, IParameterized):
         return _libBornAgainCore.Simulation_getSampleBuilder(self)
 
 
-    def setThreadInfo(self, thread_info):
-        """
-        setThreadInfo(Simulation self, ThreadInfo thread_info)
-
-        void Simulation::setThreadInfo(const ThreadInfo &thread_info)
-
-        Sets the batch and thread information to be used. 
-
-        """
-        return _libBornAgainCore.Simulation_setThreadInfo(self, thread_info)
-
-
     def getNumberOfSimulationElements(self):
         """
         getNumberOfSimulationElements(Simulation self) -> int
@@ -12515,6 +12503,36 @@ class SimulationOptions(_object):
         setMonteCarloIntegration(SimulationOptions self)
         """
         return _libBornAgainCore.SimulationOptions_setMonteCarloIntegration(self, flag, mc_points)
+
+
+    def setNumberOfThreads(self, nthreads):
+        """setNumberOfThreads(SimulationOptions self, int nthreads)"""
+        return _libBornAgainCore.SimulationOptions_setNumberOfThreads(self, nthreads)
+
+
+    def getNumberOfThreads(self):
+        """getNumberOfThreads(SimulationOptions self) -> int"""
+        return _libBornAgainCore.SimulationOptions_getNumberOfThreads(self)
+
+
+    def setNumberOfBatches(self, nbatches):
+        """setNumberOfBatches(SimulationOptions self, int nbatches)"""
+        return _libBornAgainCore.SimulationOptions_setNumberOfBatches(self, nbatches)
+
+
+    def getNumberOfBatches(self):
+        """getNumberOfBatches(SimulationOptions self) -> int"""
+        return _libBornAgainCore.SimulationOptions_getNumberOfBatches(self)
+
+
+    def getCurrentBatch(self):
+        """getCurrentBatch(SimulationOptions self) -> int"""
+        return _libBornAgainCore.SimulationOptions_getCurrentBatch(self)
+
+
+    def setThreadInfo(self, thread_info):
+        """setThreadInfo(SimulationOptions self, ThreadInfo thread_info)"""
+        return _libBornAgainCore.SimulationOptions_setThreadInfo(self, thread_info)
 
     __swig_destroy__ = _libBornAgainCore.delete_SimulationOptions
     __del__ = lambda self: None

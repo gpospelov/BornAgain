@@ -88,8 +88,8 @@ PythonScriptWidget::PythonScriptWidget(QWidget *parent)
     setAttribute(Qt::WA_DeleteOnClose, true);
 }
 
-void PythonScriptWidget::generatePythonScript(SampleModel *sampleModel,
-    InstrumentModel *instrumentModel, const QString &outputDir)
+void PythonScriptWidget::generatePythonScript(const MultiLayerItem *sampleItem,
+        const InstrumentItem *instrumentItem, const QString &outputDir)
 {
     m_outputDir = outputDir;
 
@@ -98,10 +98,12 @@ void PythonScriptWidget::generatePythonScript(SampleModel *sampleModel,
 
     try{
         const std::unique_ptr<GISASSimulation> P_simulation(
-            DomainSimulationBuilder::getSimulation(sampleModel, instrumentModel));
+            DomainSimulationBuilder::getSimulation(sampleItem, instrumentItem));
+
         QString code = QString::fromStdString(PyGenTools::genPyScript(P_simulation.get()));
         m_textEdit->clear();
         m_textEdit->setText(code);
+
     } catch(const std::exception &ex) {
         m_warningSign = new WarningSignWidget(this);
 
@@ -115,36 +117,8 @@ void PythonScriptWidget::generatePythonScript(SampleModel *sampleModel,
         m_warningSign->setPosition(pos.x(), pos.y());
         m_warningSign->show();
     }
+
 }
-
-//void PythonScriptWidget::generatePythonScript(MultiLayerItem *sampleItem, InstrumentItem *instrumentItem, const QString &outputDir)
-//{
-//    m_outputDir = outputDir;
-
-//    delete m_warningSign;
-//    m_warningSign = 0;
-
-//    try{
-//        const std::unique_ptr<GISASSimulation> P_simulation(
-//            DomainSimulationBuilder::getSimulation(sampleModel, instrumentModel));
-//        QString code = QString::fromStdString(PyGenTools::genPyScript(P_simulation.get()));
-//        m_textEdit->clear();
-//        m_textEdit->setText(code);
-//    } catch(const std::exception &ex) {
-//        m_warningSign = new WarningSignWidget(this);
-
-//        QString message = QString(
-//            "Generation of Python Script failed. Code is not complete.\n\n"
-//            "It can happen if sample requires further assembling or some of sample parameters "
-//            "are not valid. See details below.\n\n%1").arg(QString::fromStdString(ex.what()));
-
-//        m_warningSign->setWarningMessage(message);
-//        QPoint pos = getPositionForWarningSign();
-//        m_warningSign->setPosition(pos.x(), pos.y());
-//        m_warningSign->show();
-//    }
-
-//}
 
 //! adjusts position of warning label on widget move
 void PythonScriptWidget::resizeEvent(QResizeEvent *event)

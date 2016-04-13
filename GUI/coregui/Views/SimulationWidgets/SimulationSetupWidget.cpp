@@ -130,33 +130,16 @@ void SimulationSetupWidget::onRunSimulation()
 //    const TestItem *ti2 = ti;
 //    qDebug() << "AAA" << testitems.indexOf(ti2);
 
-
-    const InstrumentItem *jobInstrumentItem = getSelectedInstrumentItem();
-    if (!jobInstrumentItem) {
-        QMessageBox::warning(this, tr("No Instrument Selected"),
-                             tr("You must select an instrument first."));
-        return;
-    }
-
     const MultiLayerItem *jobMultiLayerItem = getSelectedMultiLayerItem();
-    if (!jobMultiLayerItem) {
-        QMessageBox::warning(this, tr("No Sample Selected"), tr("You must select a sample first."));
-        return;
-    }
+    const InstrumentItem *jobInstrumentItem = getSelectedInstrumentItem();
 
-    SampleValidator sampleValidator;
-    if (!sampleValidator.isValidMultiLayer(jobMultiLayerItem)) {
-        QMessageBox::warning(this, tr("Not suitable MultiLayer"),
-                             sampleValidator.getValidationMessage());
+    if(!isValidSetup(jobMultiLayerItem, jobInstrumentItem))
         return;
-    }
-
 
     JobItem *jobItem = m_applicationModels->jobModel()->addJob(
                 jobMultiLayerItem,
                 jobInstrumentItem,
                 m_applicationModels->documentModel()->getSimulationOptionsItem());
-
 
     // load real data
     if (!pathLabel->text().isEmpty()) {
@@ -176,31 +159,16 @@ void SimulationSetupWidget::onRunSimulation()
 
 void SimulationSetupWidget::onExportToPythonScript()
 {
-    InstrumentModel *instrumentModel = getJobInstrumentModel();
-    if(!instrumentModel) {
-        QMessageBox::warning(this, tr("No Instrument Selected"),
-                             tr("You must select an instrument first."));
-        return;
-    }
+    const MultiLayerItem *jobMultiLayerItem = getSelectedMultiLayerItem();
+    const InstrumentItem *jobInstrumentItem = getSelectedInstrumentItem();
 
-    SampleModel *sampleModel = getJobSampleModel();
-    if(!sampleModel) {
-        QMessageBox::warning(this, tr("No Sample Selected"),
-                             tr("You must select a sample first."));
+    if(!isValidSetup(jobMultiLayerItem, jobInstrumentItem))
         return;
-    }
-
-//    SampleValidator sampleValidator;
-//    if(!sampleValidator.isValidSampleModel(sampleModel)) {
-//        QMessageBox::warning(this, tr("Not suitable MultiLayer"),
-//                             sampleValidator.getValidationMessage());
-//        return;
-//    }
 
     PythonScriptWidget *pythonWidget = new PythonScriptWidget(this);
     pythonWidget->show();
     pythonWidget->raise();
-    pythonWidget->generatePythonScript(sampleModel, instrumentModel, m_projectManager->getProjectDir());
+    pythonWidget->generatePythonScript(jobMultiLayerItem, jobInstrumentItem, m_projectManager->getProjectDir());
 }
 
 void SimulationSetupWidget::onOpenFile()
@@ -225,33 +193,6 @@ void SimulationSetupWidget::updateSelectionBox(QComboBox *comboBox, QStringList 
         if(itemList.contains(previousItem))
             comboBox->setCurrentIndex(itemList.indexOf(previousItem));
     }
-}
-
-//! Returns copy of InstrumentModel containing a single instrument according to the text selection
-InstrumentModel *SimulationSetupWidget::getJobInstrumentModel()
-{
-    InstrumentModel *result(0);
-    QMap<QString, SessionItem *> instruments = m_applicationModels->instrumentModel()->getInstrumentMap();
-    if(instruments[getSelectedInstrumentName()]) {
-        int index = getSelectedInstrumentIndex();
-        QMap<QString, SessionItem *>::iterator it = instruments.begin()+index;
-        result = m_applicationModels->instrumentModel()->createCopy(it.value());
-    }
-
-    return result;
-}
-
-//! Returns copy of SampleModel containing a single MultiLayer according to the text selection
-SampleModel *SimulationSetupWidget::getJobSampleModel()
-{
-    SampleModel *result(0);
-    QMap<QString, SessionItem *> samples = m_applicationModels->sampleModel()->getSampleMap();
-    if(samples[getSelectedSampleName()]) {
-        int index = getSelectedSampleIndex();
-        QMap<QString, SessionItem *>::iterator it = samples.begin()+index;
-        result = m_applicationModels->sampleModel()->createCopy(it.value());
-    }
-    return result;
 }
 
 //! Returns selected MultiLayerItem taking into account that there might be several
@@ -281,6 +222,31 @@ const InstrumentItem *SimulationSetupWidget::getSelectedInstrumentItem() const
     }
     return result;
 
+}
+
+//! returns true, if there are sample/instruments selected. and they are suitable for simulation
+bool SimulationSetupWidget::isValidSetup(const MultiLayerItem *multiLayerItem,
+                                         const InstrumentItem *instrumentItem)
+{
+    if (!multiLayerItem) {
+        QMessageBox::warning(this, tr("No Sample Selected"), tr("You must select a sample first."));
+        return false;
+    }
+
+    SampleValidator sampleValidator;
+    if (!sampleValidator.isValidMultiLayer(multiLayerItem)) {
+        QMessageBox::warning(this, tr("Not suitable MultiLayer"),
+                             sampleValidator.getValidationMessage());
+        return false;
+    }
+
+    if (!instrumentItem) {
+        QMessageBox::warning(this, tr("No Instrument Selected"),
+                             tr("You must select an instrument first."));
+        return false;
+    }
+
+    return true;
 }
 
 QWidget *SimulationSetupWidget::createDataSelectorWidget()

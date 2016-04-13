@@ -38,11 +38,9 @@ class BA_CORE_API_ PythonScriptWidget : public QDialog
 public:
     PythonScriptWidget(QWidget *parent = 0);
 
-    void generatePythonScript(SampleModel *sampleModel, InstrumentModel *instrumentModel,
+    void generatePythonScript(const MultiLayerItem *sampleItem,
+                              const InstrumentItem *instrumentItem,
                               const QString &outputDir = QString());
-
-//    void generatePythonScript(MultiLayerItem *sampleItem, InstrumentItem *instrumentItem,
-//                              const QString &outputDir = QString());
 
 protected:
     virtual void resizeEvent(QResizeEvent *event);

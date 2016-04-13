@@ -56,7 +56,6 @@ public:
     QString getSelectedSampleName() const;
     int getSelectedSampleIndex() const;
 
-
 public slots:
     void onRunSimulation();
     void onExportToPythonScript();
@@ -65,11 +64,10 @@ public slots:
 private:
     void updateSelectionBox(QComboBox *comboBox, QStringList itemList);
 
-    InstrumentModel *getJobInstrumentModel();
-    SampleModel *getJobSampleModel();
-
     const MultiLayerItem *getSelectedMultiLayerItem() const;
     const InstrumentItem *getSelectedInstrumentItem() const;
+
+    bool isValidSetup(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem);
 
     QWidget *createDataSelectorWidget();
     QWidget *createButtonWidget();

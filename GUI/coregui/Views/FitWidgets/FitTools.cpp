@@ -175,7 +175,7 @@ void FitTools::onError(const QString &text)
     box.exec();
 }
 
-void FitTools::onUpdatePlots(OutputData<double> *sim, OutputData<double> *chi2)
+void FitTools::onUpdatePlots(OutputData<double> *sim, OutputData<double> *)
 {
     // hack to preserve axis information
     auto data = m_currentJobItem->getIntensityDataItem()->getOutputData()->clone();

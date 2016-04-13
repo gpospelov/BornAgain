@@ -28,7 +28,7 @@ QModelIndex FilterPropertyProxy::toSourceIndex(QModelIndex index)
     FilterPropertyProxy *proxy = dynamic_cast<FilterPropertyProxy*>(const_cast<QAbstractItemModel*>(index.model()));
     if (proxy)
         return proxy->mapToSource(index);
-    index;
+    return index;
 }
 
 bool FilterPropertyProxy::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const

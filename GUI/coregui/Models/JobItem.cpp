@@ -24,6 +24,7 @@
 #include "JobResultsPresenter.h"
 #include "SimulationOptionsItem.h"
 #include "GUIHelpers.h"
+#include <QDateTime>
 #include <QDebug>
 
 const QString JobItem::P_IDENTIFIER = "Identifier";
@@ -33,6 +34,7 @@ const QString JobItem::P_WITH_FITTING = "With Fitting";
 const QString JobItem::P_STATUS = "Status";
 const QString JobItem::P_BEGIN_TIME = "Begin Time";
 const QString JobItem::P_END_TIME = "End Time";
+const QString JobItem::P_DURATION = "Duration";
 const QString JobItem::P_COMMENTS = "Comments";
 const QString JobItem::P_PROGRESS = "Progress";
 const QString JobItem::T_SAMPLE = "Sample Tag";
@@ -58,6 +60,11 @@ JobItem::JobItem()
 
     addProperty(P_BEGIN_TIME, QString())->setEditable(false);
     addProperty(P_END_TIME, QString())->setEditable(false);
+
+    SessionItem *durationItem = addProperty(P_DURATION, QString());
+    durationItem->setEditable(false);
+    durationItem->setToolTip(QStringLiteral("Duration of DWBA simulation in sec.msec format"));
+
     addProperty(P_COMMENTS, QString())->setVisible(false);
     addProperty(P_PROGRESS, 0)->setVisible(false);
 
@@ -160,6 +167,13 @@ void JobItem::setBeginTime(const QString &begin_time)
 void JobItem::setEndTime(const QString &end_time)
 {
     setItemValue(P_END_TIME, end_time);
+}
+
+void JobItem::setDuration(int duration)
+{
+    QString str;
+    str.sprintf("%6.3f", duration/1000.);
+    setItemValue(P_DURATION, str.simplified());
 }
 
 QString JobItem::getComments() const

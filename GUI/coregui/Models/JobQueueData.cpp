@@ -78,22 +78,6 @@ bool JobQueueData::hasUnfinishedJobs()
     return m_simulations.size();
 }
 
-//void JobQueueData::setResults(JobItem *jobItem, const GISASSimulation *simulation)
-//{
-//    if(!simulation)
-//        throw GUIHelpers::Error("NJobItem::setResults() -> Error. Null simulation.");
-
-//    jobItem->setResults(simulation);
-////    IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();
-
-////    if(!intensityItem) {
-////        intensityItem = static_cast<IntensityDataItem *>(m_jobModel->insertNewItem(Constants::IntensityDataType, m_jobModel->indexOfItem(jobItem)));
-////    }
-////    intensityItem->setNameFromProposed(jobItem->itemName());
-//////    intensityItem->setOutputData(simulation->getDetectorIntensity());
-////    intensityItem->setResults(simulation);
-//}
-
 void JobQueueData::runJob(const QString &identifier)
 {
     qDebug() << "JobQueueData::runJob(const QString &identifier)";
@@ -207,6 +191,7 @@ void JobQueueData::onFinishedJob()
 
     QString end_time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
     jobItem->setEndTime(end_time);
+    jobItem->setDuration(runner->getSimulationDuration());
 
 
     // propagating status of runner

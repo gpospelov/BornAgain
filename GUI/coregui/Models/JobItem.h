@@ -37,6 +37,7 @@ public:
     static const QString P_STATUS;
     static const QString P_BEGIN_TIME;
     static const QString P_END_TIME;
+    static const QString P_DURATION;
     static const QString P_COMMENTS;
     static const QString P_PROGRESS;
     static const QString T_SAMPLE;
@@ -65,6 +66,8 @@ public:
     void setBeginTime(const QString &begin_time);
 
     void setEndTime(const QString &end_time);
+
+    void setDuration(int duration);
 
     QString getComments() const;
     void setComments(const QString &comments);

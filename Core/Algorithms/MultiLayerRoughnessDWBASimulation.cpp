@@ -20,6 +20,9 @@
 
 #include <memory>
 
+// Diffuse scattering from rough interfaces is modelled after
+// Phys. Rev. B, vol. 51 (4), p. 2311 (1995)
+
 MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation(
     const MultiLayer *p_multi_layer)
 {
@@ -68,9 +71,9 @@ double MultiLayerRoughnessDWBASimulation::evaluate(const SimulationElement& sim_
     complex_t crosscorr(0.0, 0.0);
 
     std::vector<complex_t > rterm;
-    rterm.resize( mp_multi_layer->getNumberOfLayers() );
+    rterm.resize( mp_multi_layer->getNumberOfLayers()-1 );
     std::vector<complex_t > sterm;
-    sterm.resize( mp_multi_layer->getNumberOfLayers() );
+    sterm.resize( mp_multi_layer->getNumberOfLayers()-1 );
 
     for(size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++){
         rterm[i] = get_refractive_term(i);

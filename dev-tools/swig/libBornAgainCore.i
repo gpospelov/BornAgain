@@ -18,19 +18,12 @@
  //%feature("director");
 %feature("autodoc");
 
-
-
-
-
-
-
 /**/
 %include "stdint.i"
 %include "std_complex.i"
 %include "std_string.i"
 %include "std_vector.i"
 %include "std_shared_ptr.i"
-
 
 %include "doxygen_core.i"
 
@@ -42,17 +35,12 @@
  // include the list of smart pointers (common between Core and Fit)
 %include "shared_pointers.i"
 
-
-// from PythonCoreExposer.h
 %template(vdouble1d_t) std::vector<double>;
 %template(vdouble2d_t) std::vector< std::vector<double> >;
 %template(vector_integer_t) std::vector<int >;
 %template(vector_longinteger_t) std::vector<unsigned long int >;
 %template(vector_complex_t) std::vector< std::complex<double> >;
 %template(vector_string_t) std::vector<std::string>;
-
-
-
 
 #define SWIG_FILE_WITH_INIT
 
@@ -70,17 +58,13 @@
 #define GCC_DIAG_OFF(x)  
 #define GCC_DIAG_ON(x) 
 
-
-
 #ifndef BORNAGAIN_PYTHON
 #define BORNAGAIN_PYTHON
 #endif
 
-
 %import "WinDllMacros.h"
 
 %{
-
 #include "AttLimits.h"
 #include "BAVersion.h"
 #include "BasicVector3D.h"
@@ -200,7 +184,8 @@
 #include "RectangularDetector.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "Rotations.h"
-#include "ISelectionRule.h"
+#include "SampleBuilderFactory.h"
+#include "SimulationRegistry.h"
 #include "Simulation.h"
 #include "SimulationParameters.h"
 #include "SpecularSimulation.h"
@@ -211,36 +196,15 @@
 #include "Units.h"
 #include "VariableBinAxis.h"
 #include "WavevectorInfo.h"
-
-#include "SampleBuilderFactory.h"
-#include "SimulationRegistry.h"
-
 %}
-
-
-
 
 // import headers to be exported to Python interace.
 // Note that the order of inclusion matters, as base classes must be imported before derived classes
 
 %include "AttLimits.h"
 %include "ICloneable.h"
-
 %include "INamed.h"
-
-
-//typedef INamedTemplate<void> INamed;
-//typedef INamedTemplate<int> INamedShared;
-
- //%include "INamedShared.h"
-
 %include "IParameterized.h"
-
-
-
-//typedef IParameterized<void> IParamet
-
- //%include "IParameterizedShared.h"
 
 %include "BAVersion.h"
 %include "BasicVector3D.h"
@@ -276,16 +240,13 @@
 %include "ICompositeSample.h"
 %include "IClusteredParticles.h"
 %include "Crystal.h"
-
 %include "Distributions.h"
 %include "Ellipse.h"
 %include "FTDecayFunctions.h"
 %include "FTDistributions.h"
 %include "FixedBinAxis.h"
-
 %include "IFormFactor.h"
 %template(vector_IFormFactorPtr_t) std::vector<IFormFactor *>;
-
 %include "IFormFactorBorn.h"
 %include "IFormFactorDecorator.h"
 %include "FormFactorAnisoPyramid.h"
@@ -322,35 +283,26 @@
 %include "FormFactorTruncatedSphere.h"
 %include "FormFactorTruncatedSpheroid.h"
 %include "FormFactorWeighted.h"
-
 %include "Simulation.h"
 %include "SimulationParameters.h"
 %include "GISASSimulation.h"
-
 %include "IHistogram.h"
 %include "Histogram1D.h"
 %include "Histogram2D.h"
-
 %include "IMaterial.h"
 %include "HomogeneousMaterial.h"
 %include "HomogeneousMagneticMaterial.h"
-
 %include "IDetector2D.h"
 %include "IDetectorResolution.h"
 %include "Distributions.h"   
 %include "FTDecayFunctions.h"
-
 %include "IInterferenceFunction.h"
 %include "ILayout.h"
-
 %include "IObserver.h"
-
 %include "IParticle.h"
 %include "IResolutionFunction2D.h"
 %include "Rotations.h"
-
 %include "ISelectionRule.h"
-
 %include "ISingleton.h"
 %include "Instrument.h"
 %include "IntensityDataFunctions.h"
@@ -365,7 +317,6 @@
 %include "InterferenceFunction2DLattice.h"
 %include "InterferenceFunction2DParaCrystal.h"
 %include "InterferenceFunctionNone.h"
-
 %include "IPixelMap.h"
 %include "SphericalDetector.h"
 %include "IsGISAXSDetector.h"
@@ -373,7 +324,6 @@
 %include "Lattice1DParameters.h"
 %include "Lattice2DParameters.h"
 %include "Layer.h"
-
 %include "IRoughness.h"
 %include "LayerRoughness.h"
 %include "Line.h"
@@ -382,10 +332,8 @@
 %include "MessageService.h"
 %include "MultiLayer.h"
 %include "OffSpecSimulation.h"
-
 %include "OutputData.h"
 %template(IntensityData) OutputData<double >;
-
 %include "OutputDataFunctions.h"
 %include "ParameterDistribution.h"
 %include "ParameterPool.h"
@@ -401,14 +349,7 @@
 %include "ResolutionFunction2DGaussian.h"
 %include "Rotations.h"
 %include "ISelectionRule.h"
-
 %include "SpecularSimulation.h"
-
 %include "ThreadInfo.h"
-
-
 %include "SampleBuilderFactory.h"
 %include "SimulationRegistry.h"
-
-
-

@@ -246,36 +246,24 @@ complex_t PolyhedralFace::ff_2D( const cvector_t qpa ) const
     if ( std::abs(qpa.dot(normal))>eps*qpa.mag() )
         throw "ff_2D called with perpendicular q component";
     double qpa_red = radius_2d * qpa.mag();
-    if ( qpa_red < qpa_limit_series ) {
+    if ( qpa_red==0 ) {
+        return area;
+    } else if ( qpa_red < qpa_limit_series ) {
         // summation of power series
-        complex_t fac_even;
-        complex_t fac_odd;
-        fac_even = 1;
-        fac_odd = fac_even;
 #ifdef POLYHEDRAL_DIAGNOSTIC
         diagnosis.nExpandedFaces += 1;
 #endif
-        complex_t sum = fac_even * area;
-        complex_t n_multiplier = I;
-        if( sym_S2 ) {
-            fac_even *= 2.;
-            fac_odd = 0.;
-            n_multiplier = -1.;
-        }
-        if( qpa_red==0 )
-            return sum;
-        complex_t n_fac = n_multiplier;
+        complex_t sum = area;
+        complex_t n_fac = I;
         for( int n=1; n<20; ++n ) {
-            if( sym_S2 && n&1 )
-                continue;
 #ifdef POLYHEDRAL_DIAGNOSTIC
             diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
 #endif
-            complex_t term = n_fac * ( n&1 ? fac_odd : fac_even ) * ff_n_core(n, qpa) / qpa.mag2();
+            complex_t term = n_fac * ff_n_core(n, qpa) / qpa.mag2();
             sum += term;
             if( !(n&1) && std::abs(term)<=eps*std::abs(sum) )
                 return sum;
-            n_fac *= n_multiplier;
+            n_fac *= I;
         }
         throw "Bug in formfactor computation: series f(q_pa) not converged";
     } else {

@@ -1097,7 +1097,7 @@ C++ includes: IFitStrategy.h
 %feature("docstring")  IFitStrategy::IFitStrategy "IFitStrategy::IFitStrategy(const std::string &name)
 ";
 
-%feature("docstring")  IFitStrategy::clone "virtual IFitStrategy* IFitStrategy::clone() const =0
+%feature("docstring")  IFitStrategy::clone "virtual IFitStrategy* IFitStrategy::clone() const  =0
 ";
 
 %feature("docstring")  IFitStrategy::~IFitStrategy "IFitStrategy::~IFitStrategy()
@@ -1851,7 +1851,13 @@ C++ includes: StandardFitsFactory.h
 // File: namespaceBA__ROOT_1_1Math.xml
 
 
+// File: FitKernel_8cpp.xml
+
+
 // File: FitKernel_8h.xml
+
+
+// File: FitObject_8cpp.xml
 
 
 // File: FitObject_8h.xml
@@ -1860,37 +1866,73 @@ C++ includes: StandardFitsFactory.h
 // File: FitOptions_8h.xml
 
 
+// File: FitParameter_8cpp.xml
+
+
 // File: FitParameter_8h.xml
+
+
+// File: FitParameterLinked_8cpp.xml
 
 
 // File: FitParameterLinked_8h.xml
 
 
+// File: FitStrategyAdjustMinimizer_8cpp.xml
+
+
 // File: FitStrategyAdjustMinimizer_8h.xml
+
+
+// File: FitStrategyAdjustParameters_8cpp.xml
 
 
 // File: FitStrategyAdjustParameters_8h.xml
 
 
+// File: FitSuite_8cpp.xml
+
+
 // File: FitSuite_8h.xml
+
+
+// File: FitSuiteFunctions_8cpp.xml
 
 
 // File: FitSuiteFunctions_8h.xml
 
 
+// File: FitSuiteObjects_8cpp.xml
+
+
 // File: FitSuiteObjects_8h.xml
+
+
+// File: FitSuiteParameters_8cpp.xml
 
 
 // File: FitSuiteParameters_8h.xml
 
 
+// File: FitSuitePrintObserver_8cpp.xml
+
+
 // File: FitSuitePrintObserver_8h.xml
+
+
+// File: FitSuiteStrategies_8cpp.xml
 
 
 // File: FitSuiteStrategies_8h.xml
 
 
+// File: IFitObserver_8cpp.xml
+
+
 // File: IFitObserver_8h.xml
+
+
+// File: IFitStrategy_8cpp.xml
 
 
 // File: IFitStrategy_8h.xml
@@ -1899,22 +1941,43 @@ C++ includes: StandardFitsFactory.h
 // File: IMinimizer_8h.xml
 
 
+// File: MinimizerFactory_8cpp.xml
+
+
 // File: MinimizerFactory_8h.xml
+
+
+// File: MinimizerOptions_8cpp.xml
 
 
 // File: MinimizerOptions_8h.xml
 
 
+// File: MinimizerScan_8cpp.xml
+
+
 // File: MinimizerScan_8h.xml
+
+
+// File: MinimizerTest_8cpp.xml
 
 
 // File: MinimizerTest_8h.xml
 
 
+// File: ROOTGeneticMinimizer_8cpp.xml
+
+
 // File: ROOTGeneticMinimizer_8h.xml
 
 
+// File: ROOTLMAMinimizer_8cpp.xml
+
+
 // File: ROOTLMAMinimizer_8h.xml
+
+
+// File: ROOTMinimizer_8cpp.xml
 
 
 // File: ROOTMinimizer_8h.xml
@@ -1923,91 +1986,28 @@ C++ includes: StandardFitsFactory.h
 // File: ROOTMinimizerFunction_8h.xml
 
 
-// File: ROOTMinimizerHelper_8h.xml
-
-
-// File: ROOTMinuit2Minimizer_8h.xml
-
-
-// File: ROOTMultiMinMinimizer_8h.xml
-
-
-// File: ROOTSimAnMinimizer_8h.xml
-
-
-// File: FitKernel_8cpp.xml
-
-
-// File: FitObject_8cpp.xml
-
-
-// File: FitParameter_8cpp.xml
-
-
-// File: FitParameterLinked_8cpp.xml
-
-
-// File: FitStrategyAdjustMinimizer_8cpp.xml
-
-
-// File: FitStrategyAdjustParameters_8cpp.xml
-
-
-// File: FitSuite_8cpp.xml
-
-
-// File: FitSuiteFunctions_8cpp.xml
-
-
-// File: FitSuiteObjects_8cpp.xml
-
-
-// File: FitSuiteParameters_8cpp.xml
-
-
-// File: FitSuitePrintObserver_8cpp.xml
-
-
-// File: FitSuiteStrategies_8cpp.xml
-
-
-// File: IFitObserver_8cpp.xml
-
-
-// File: IFitStrategy_8cpp.xml
-
-
-// File: MinimizerFactory_8cpp.xml
-
-
-// File: MinimizerOptions_8cpp.xml
-
-
-// File: MinimizerScan_8cpp.xml
-
-
-// File: MinimizerTest_8cpp.xml
-
-
-// File: ROOTGeneticMinimizer_8cpp.xml
-
-
-// File: ROOTLMAMinimizer_8cpp.xml
-
-
-// File: ROOTMinimizer_8cpp.xml
-
-
 // File: ROOTMinimizerHelper_8cpp.xml
+
+
+// File: ROOTMinimizerHelper_8h.xml
 
 
 // File: ROOTMinuit2Minimizer_8cpp.xml
 
 
+// File: ROOTMinuit2Minimizer_8h.xml
+
+
 // File: ROOTMultiMinMinimizer_8cpp.xml
 
 
+// File: ROOTMultiMinMinimizer_8h.xml
+
+
 // File: ROOTSimAnMinimizer_8cpp.xml
+
+
+// File: ROOTSimAnMinimizer_8h.xml
 
 
 // File: fit__functional__tests_8cpp.xml
@@ -2055,12 +2055,6 @@ run core functional tests with given name
 
 
 // File: dir_abb56b21da33f65f621bf551b5073624.xml
-
-
-// File: dir_6bb3eb9f929fec80f09d2e0b6e2af574.xml
-
-
-// File: dir_b7c0cd5fa3e5f76d425a6859842117b8.xml
 
 
 // File: dir_8c00782886f69f4c4190b8932144dcd3.xml

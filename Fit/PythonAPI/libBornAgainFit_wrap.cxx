@@ -30788,7 +30788,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IFitStrategy_clone", _wrap_IFitStrategy_clone, METH_VARARGS, (char *)"\n"
 		"IFitStrategy_clone(IFitStrategy self) -> IFitStrategy\n"
 		"\n"
-		"virtual IFitStrategy* IFitStrategy::clone() const =0\n"
+		"virtual IFitStrategy* IFitStrategy::clone() const  =0\n"
 		"\n"
 		""},
 	 { (char *)"delete_IFitStrategy", _wrap_delete_IFitStrategy, METH_VARARGS, (char *)"\n"

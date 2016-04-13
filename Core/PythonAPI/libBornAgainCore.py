@@ -1762,7 +1762,7 @@ class ICloneable(_object):
         """
         clone(ICloneable self) -> ICloneable
 
-        virtual ICloneable* ICloneable::clone() const =0
+        virtual ICloneable* ICloneable::clone() const  =0
 
         """
         return _libBornAgainCore.ICloneable_clone(self)
@@ -1803,11 +1803,9 @@ class INamed(_object):
         __init__(INamed self) -> INamed
         __init__(INamed self, std::string name) -> INamed
 
+        INamed::INamed(std::string name)
 
-
-        Interface for named objects.
-
-        C++ includes: INamed.h
+        Constructor that sets the  name. 
 
         """
         if self.__class__ == INamed:
@@ -1823,7 +1821,14 @@ class INamed(_object):
     __del__ = lambda self: None
 
     def getName(self):
-        """getName(INamed self) -> std::string"""
+        """
+        getName(INamed self) -> std::string
+
+        std::string INamed::getName() const
+
+        Returns the name. 
+
+        """
         return _libBornAgainCore.INamed_getName(self)
 
     def __disown__(self):
@@ -1859,11 +1864,7 @@ class IParameterized(INamed):
         __init__(IParameterized self, std::string const & name) -> IParameterized
         __init__(IParameterized self, IParameterized other) -> IParameterized
 
-
-
-        Manage a local parameter pool, and a tree of child pools.
-
-        C++ includes: IParameterized.h
+        IParameterized::IParameterized(const IParameterized &other)
 
         """
         if self.__class__ == IParameterized:
@@ -1879,27 +1880,60 @@ class IParameterized(INamed):
     __del__ = lambda self: None
 
     def getParameterPool(self):
-        """getParameterPool(IParameterized self) -> ParameterPool"""
+        """
+        getParameterPool(IParameterized self) -> ParameterPool
+
+        const ParameterPool * IParameterized::getParameterPool() const
+
+        Returns pointer to the parameter pool. 
+
+        """
         return _libBornAgainCore.IParameterized_getParameterPool(self)
 
 
     def createParameterTree(self):
-        """createParameterTree(IParameterized self) -> ParameterPool"""
+        """
+        createParameterTree(IParameterized self) -> ParameterPool
+
+        ParameterPool * IParameterized::createParameterTree() const
+
+        Creates new parameter pool, with all local parameters and those of its children. 
+
+        """
         return _libBornAgainCore.IParameterized_createParameterTree(self)
 
 
     def printParameters(self):
-        """printParameters(IParameterized self)"""
+        """
+        printParameters(IParameterized self)
+
+        void IParameterized::printParameters() const 
+
+        """
         return _libBornAgainCore.IParameterized_printParameters(self)
 
 
     def setParameterValue(self, name, value):
-        """setParameterValue(IParameterized self, std::string const & name, double value) -> bool"""
+        """
+        setParameterValue(IParameterized self, std::string const & name, double value) -> bool
+
+        bool IParameterized::setParameterValue(const std::string &name, double value)
+
+        Sets the value of the parameter with the given name; returns true in the case of success. 
+
+        """
         return _libBornAgainCore.IParameterized_setParameterValue(self, name, value)
 
 
     def clearParameterPool(self):
-        """clearParameterPool(IParameterized self)"""
+        """
+        clearParameterPool(IParameterized self)
+
+        void IParameterized::clearParameterPool()
+
+        Clears the parameter pool. 
+
+        """
         return _libBornAgainCore.IParameterized_clearParameterPool(self)
 
 
@@ -1919,6 +1953,11 @@ class IParameterized(INamed):
         registerParameter(IParameterized self, std::string const & name, double * parpointer)
         registerParameter(IParameterized self, std::string const & name, int64_t parpointer, AttLimits limits)
         registerParameter(IParameterized self, std::string const & name, int64_t parpointer)
+
+        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits=AttLimits::limitless())
+
+        Register parameter address in the parameter pool. 
+
         """
         return _libBornAgainCore.IParameterized_registerParameter(self, *args)
 
@@ -2043,7 +2082,7 @@ def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
     """
     vecOfLambdaAlphaPhi(double const _lambda, double const _alpha, double const _phi) -> kvector_t
 
-    BasicVector3D< double > Geometry::vecOfLambdaAlphaPhi(const double _lambda, const double _alpha, const double _phi)
+    BA_CORE_API_ BasicVector3D< double > Geometry::vecOfLambdaAlphaPhi(const double _lambda, const double _alpha, const double _phi)
 
     Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
 
@@ -2054,7 +2093,7 @@ def toComplexVector(real_vector):
     """
     toComplexVector(kvector_t real_vector) -> cvector_t
 
-    BasicVector3D< std::complex< double > > Geometry::toComplexVector(const BasicVector3D< double > &real_vector)
+    BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::toComplexVector(const BasicVector3D< double > &real_vector)
 
     Todo
     Replace by member function complex() 
@@ -2251,9 +2290,7 @@ class kvector_t(_object):
         """
         phi(kvector_t self) -> double
 
-        double Geometry::BasicVector3D< double >::phi() const
-
-        Returns azimuth angle. 
+        BA_CORE_API_ double Geometry::BasicVector3D< double >::phi() const
 
         """
         return _libBornAgainCore.kvector_t_phi(self)
@@ -2263,9 +2300,7 @@ class kvector_t(_object):
         """
         theta(kvector_t self) -> double
 
-        double Geometry::BasicVector3D< double >::theta() const
-
-        Returns polar angle. 
+        BA_CORE_API_ double Geometry::BasicVector3D< double >::theta() const
 
         """
         return _libBornAgainCore.kvector_t_theta(self)
@@ -2301,7 +2336,7 @@ class kvector_t(_object):
 
         BasicVector3D<T> Geometry::BasicVector3D< T >::unit() const
 
-        Returns unit vector in direction of this (or null vector). 
+        Returns unit vector in direction of this. Throws for null vector. 
 
         """
         return _libBornAgainCore.kvector_t_unit(self)
@@ -2311,9 +2346,7 @@ class kvector_t(_object):
         """
         complex(kvector_t self) -> cvector_t
 
-        BasicVector3D< std::complex< double > > Geometry::BasicVector3D< double >::complex() const
-
-        Returns this, trivially converted to complex type. 
+        BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::BasicVector3D< double >::complex() const
 
         """
         return _libBornAgainCore.kvector_t_complex(self)
@@ -2764,7 +2797,7 @@ class cvector_t(_object):
 
         BasicVector3D<T> Geometry::BasicVector3D< T >::unit() const
 
-        Returns unit vector in direction of this (or null vector). 
+        Returns unit vector in direction of this. Throws for null vector. 
 
         """
         return _libBornAgainCore.cvector_t_unit(self)
@@ -3446,7 +3479,7 @@ class IAxis(_object):
         """
         clone(IAxis self) -> IAxis
 
-        virtual IAxis* IAxis::clone() const =0
+        virtual IAxis* IAxis::clone() const  =0
 
         clone function 
 
@@ -3472,7 +3505,7 @@ class IAxis(_object):
         """
         getSize(IAxis self) -> size_t
 
-        virtual size_t IAxis::getSize() const =0
+        virtual size_t IAxis::getSize() const  =0
 
         retrieve the number of bins 
 
@@ -3508,7 +3541,7 @@ class IAxis(_object):
         """
         getBin(IAxis self, size_t index) -> Bin1D
 
-        virtual Bin1D IAxis::getBin(size_t index) const =0
+        virtual Bin1D IAxis::getBin(size_t index) const  =0
 
         retrieve a 1d bin for the given index 
 
@@ -3520,7 +3553,7 @@ class IAxis(_object):
         """
         getMin(IAxis self) -> double
 
-        virtual double IAxis::getMin() const =0
+        virtual double IAxis::getMin() const  =0
 
         Returns value of first point of axis. 
 
@@ -3532,7 +3565,7 @@ class IAxis(_object):
         """
         getMax(IAxis self) -> double
 
-        virtual double IAxis::getMax() const =0
+        virtual double IAxis::getMax() const  =0
 
         Returns value of last point of axis. 
 
@@ -3544,7 +3577,7 @@ class IAxis(_object):
         """
         getBinCenter(IAxis self, size_t index) -> double
 
-        virtual double IAxis::getBinCenter(size_t index) const =0
+        virtual double IAxis::getBinCenter(size_t index) const  =0
 
         """
         return _libBornAgainCore.IAxis_getBinCenter(self, index)
@@ -3554,7 +3587,7 @@ class IAxis(_object):
         """
         findClosestIndex(IAxis self, double value) -> size_t
 
-        virtual size_t IAxis::findClosestIndex(double value) const =0
+        virtual size_t IAxis::findClosestIndex(double value) const  =0
 
         find bin index which is best match for given value 
 
@@ -3999,7 +4032,7 @@ class IShape2D(ICloneable):
         """
         clone(IShape2D self) -> IShape2D
 
-        virtual IShape2D* Geometry::IShape2D::clone() const =0
+        virtual IShape2D* Geometry::IShape2D::clone() const  =0
 
         """
         return _libBornAgainCore.IShape2D_clone(self)
@@ -4010,7 +4043,7 @@ class IShape2D(ICloneable):
         contains(IShape2D self, double x, double y) -> bool
         contains(IShape2D self, Bin1D binx, Bin1D biny) -> bool
 
-        virtual bool Geometry::IShape2D::contains(const Bin1D &binx, const Bin1D &biny) const =0
+        virtual bool Geometry::IShape2D::contains(const Bin1D &binx, const Bin1D &biny) const  =0
 
         Returns true if area defined by two bins is inside or on border of the shape. 
 
@@ -4046,7 +4079,7 @@ class ISample(ICloneable, IParameterized):
         """
         clone(ISample self) -> ISample
 
-        virtual ISample* ISample::clone() const =0
+        virtual ISample* ISample::clone() const  =0
 
         Returns a clone of this  ISample object. 
 
@@ -4070,7 +4103,7 @@ class ISample(ICloneable, IParameterized):
         """
         accept(ISample self, ISampleVisitor p_visitor)
 
-        virtual void ISample::accept(ISampleVisitor *p_visitor) const =0
+        virtual void ISample::accept(ISampleVisitor *p_visitor) const  =0
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -4836,7 +4869,7 @@ def VisitSampleTreePreorder(sample, visitor):
     """
     VisitSampleTreePreorder(ISample sample, ISampleVisitor visitor)
 
-    void VisitSampleTreePreorder(const ISample &sample, ISampleVisitor &visitor)
+    BA_CORE_API_ void VisitSampleTreePreorder(const ISample &sample, ISampleVisitor &visitor)
 
     """
     return _libBornAgainCore.VisitSampleTreePreorder(sample, visitor)
@@ -4845,7 +4878,7 @@ def VisitSampleTreePostorder(sample, visitor):
     """
     VisitSampleTreePostorder(ISample sample, ISampleVisitor visitor)
 
-    void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor)
+    BA_CORE_API_ void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor)
 
     """
     return _libBornAgainCore.VisitSampleTreePostorder(sample, visitor)
@@ -4878,7 +4911,7 @@ class ICompositeSample(ISample):
         """
         clone(ICompositeSample self) -> ICompositeSample
 
-        ICompositeSample* ICompositeSample::clone() const =0
+        ICompositeSample* ICompositeSample::clone() const  =0
 
         Returns a clone of this  ISample object. 
 
@@ -4979,7 +5012,7 @@ class IClusteredParticles(ICompositeSample):
         """
         clone(IClusteredParticles self) -> IClusteredParticles
 
-        virtual IClusteredParticles* IClusteredParticles::clone() const =0
+        virtual IClusteredParticles* IClusteredParticles::clone() const  =0
 
         clone method to allow for polymorphic copying 
 
@@ -4991,7 +5024,7 @@ class IClusteredParticles(ICompositeSample):
         """
         cloneInvertB(IClusteredParticles self) -> IClusteredParticles
 
-        virtual IClusteredParticles* IClusteredParticles::cloneInvertB() const =0
+        virtual IClusteredParticles* IClusteredParticles::cloneInvertB() const  =0
 
         Returns a clone with inverted magnetic fields. 
 
@@ -5003,7 +5036,7 @@ class IClusteredParticles(ICompositeSample):
         """
         accept(IClusteredParticles self, ISampleVisitor visitor)
 
-        virtual void IClusteredParticles::accept(ISampleVisitor *visitor) const =0
+        virtual void IClusteredParticles::accept(ISampleVisitor *visitor) const  =0
 
         calls the  ISampleVisitor's visit method 
 
@@ -5025,7 +5058,7 @@ class IClusteredParticles(ICompositeSample):
         """
         getAmbientMaterial(IClusteredParticles self) -> IMaterial
 
-        virtual const IMaterial* IClusteredParticles::getAmbientMaterial() const =0
+        virtual const IMaterial* IClusteredParticles::getAmbientMaterial() const  =0
 
         """
         return _libBornAgainCore.IClusteredParticles_getAmbientMaterial(self)
@@ -5241,7 +5274,7 @@ class IDistribution1D(IParameterized):
         """
         probabilityDensity(IDistribution1D self, double x) -> double
 
-        virtual double IDistribution1D::probabilityDensity(double x) const =0
+        virtual double IDistribution1D::probabilityDensity(double x) const  =0
 
         get the probability density for value x 
 
@@ -5253,7 +5286,7 @@ class IDistribution1D(IParameterized):
         """
         getMean(IDistribution1D self) -> double
 
-        virtual double IDistribution1D::getMean() const =0
+        virtual double IDistribution1D::getMean() const  =0
 
         get the mean of the distribution 
 
@@ -5281,7 +5314,7 @@ class IDistribution1D(IParameterized):
         generateValueList(IDistribution1D self, size_t nbr_samples, double sigma_factor, AttLimits limits) -> vdouble1d_t
         generateValueList(IDistribution1D self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        virtual std::vector<double> IDistribution1D::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const =0
+        virtual std::vector<double> IDistribution1D::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const  =0
 
         generate list of sample values
 
@@ -6005,7 +6038,7 @@ class IFTDecayFunction1D(IParameterized):
         """
         clone(IFTDecayFunction1D self) -> IFTDecayFunction1D
 
-        virtual IFTDecayFunction1D* IFTDecayFunction1D::clone() const =0
+        virtual IFTDecayFunction1D* IFTDecayFunction1D::clone() const  =0
 
         """
         return _libBornAgainCore.IFTDecayFunction1D_clone(self)
@@ -6015,7 +6048,7 @@ class IFTDecayFunction1D(IParameterized):
         """
         evaluate(IFTDecayFunction1D self, double q) -> double
 
-        virtual double IFTDecayFunction1D::evaluate(double q) const =0
+        virtual double IFTDecayFunction1D::evaluate(double q) const  =0
 
         """
         return _libBornAgainCore.IFTDecayFunction1D_evaluate(self, q)
@@ -6310,7 +6343,7 @@ class IFTDecayFunction2D(IParameterized):
         """
         clone(IFTDecayFunction2D self) -> IFTDecayFunction2D
 
-        virtual IFTDecayFunction2D* IFTDecayFunction2D::clone() const =0
+        virtual IFTDecayFunction2D* IFTDecayFunction2D::clone() const  =0
 
         """
         return _libBornAgainCore.IFTDecayFunction2D_clone(self)
@@ -6380,7 +6413,7 @@ class IFTDecayFunction2D(IParameterized):
         """
         evaluate(IFTDecayFunction2D self, double qx, double qy) -> double
 
-        virtual double IFTDecayFunction2D::evaluate(double qx, double qy) const =0
+        virtual double IFTDecayFunction2D::evaluate(double qx, double qy) const  =0
 
         evaluate Fourier transformed decay function for q in X,Y coordinates 
 
@@ -6618,7 +6651,7 @@ class IFTDistribution1D(IParameterized):
         """
         clone(IFTDistribution1D self) -> IFTDistribution1D
 
-        virtual IFTDistribution1D* IFTDistribution1D::clone() const =0
+        virtual IFTDistribution1D* IFTDistribution1D::clone() const  =0
 
         """
         return _libBornAgainCore.IFTDistribution1D_clone(self)
@@ -6628,7 +6661,7 @@ class IFTDistribution1D(IParameterized):
         """
         evaluate(IFTDistribution1D self, double q) -> double
 
-        virtual double IFTDistribution1D::evaluate(double q) const =0
+        virtual double IFTDistribution1D::evaluate(double q) const  =0
 
         """
         return _libBornAgainCore.IFTDistribution1D_evaluate(self, q)
@@ -7037,7 +7070,7 @@ class IFTDistribution2D(IParameterized):
         """
         clone(IFTDistribution2D self) -> IFTDistribution2D
 
-        virtual IFTDistribution2D* IFTDistribution2D::clone() const =0
+        virtual IFTDistribution2D* IFTDistribution2D::clone() const  =0
 
         """
         return _libBornAgainCore.IFTDistribution2D_clone(self)
@@ -7097,7 +7130,7 @@ class IFTDistribution2D(IParameterized):
         """
         evaluate(IFTDistribution2D self, double qx, double qy) -> double
 
-        virtual double IFTDistribution2D::evaluate(double qx, double qy) const =0
+        virtual double IFTDistribution2D::evaluate(double qx, double qy) const  =0
 
         evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 
@@ -7628,7 +7661,7 @@ class IFormFactor(ISample):
         """
         clone(IFormFactor self) -> IFormFactor
 
-        virtual IFormFactor* IFormFactor::clone() const =0
+        virtual IFormFactor* IFormFactor::clone() const  =0
 
         Returns a clone of this  ISample object. 
 
@@ -7640,7 +7673,7 @@ class IFormFactor(ISample):
         """
         accept(IFormFactor self, ISampleVisitor visitor)
 
-        virtual void ISample::accept(ISampleVisitor *p_visitor) const =0
+        virtual void ISample::accept(ISampleVisitor *p_visitor) const  =0
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -7664,7 +7697,7 @@ class IFormFactor(ISample):
         """
         evaluate(IFormFactor self, WavevectorInfo wavevectors) -> complex_t
 
-        virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const =0
+        virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const  =0
 
         Returns scattering amplitude for complex wavevector bin
 
@@ -7697,7 +7730,7 @@ class IFormFactor(ISample):
         """
         getRadius(IFormFactor self) -> double
 
-        virtual double IFormFactor::getRadius() const =0
+        virtual double IFormFactor::getRadius() const  =0
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -7981,7 +8014,7 @@ class IFormFactorBorn(IFormFactor):
         """
         clone(IFormFactorBorn self) -> IFormFactorBorn
 
-        virtual IFormFactorBorn* IFormFactorBorn::clone() const =0
+        virtual IFormFactorBorn* IFormFactorBorn::clone() const  =0
 
         Returns a clone of this  ISample object. 
 
@@ -8026,7 +8059,7 @@ class IFormFactorBorn(IFormFactor):
         """
         evaluate_for_q(IFormFactorBorn self, cvector_t q) -> complex_t
 
-        virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t &q) const =0
+        virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t &q) const  =0
 
         evaluate scattering amplitude for complex wavevector
 
@@ -8090,7 +8123,7 @@ class IFormFactorDecorator(IFormFactor):
         """
         clone(IFormFactorDecorator self) -> IFormFactorDecorator
 
-        virtual IFormFactorDecorator* IFormFactorDecorator::clone() const =0
+        virtual IFormFactorDecorator* IFormFactorDecorator::clone() const  =0
 
         Returns a clone of this  ISample object. 
 
@@ -8102,7 +8135,7 @@ class IFormFactorDecorator(IFormFactor):
         """
         accept(IFormFactorDecorator self, ISampleVisitor visitor)
 
-        virtual void IFormFactorDecorator::accept(ISampleVisitor *visitor) const =0
+        virtual void IFormFactorDecorator::accept(ISampleVisitor *visitor) const  =0
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -10762,7 +10795,14 @@ FormFactorRipple2_swigregister = _libBornAgainCore.FormFactorRipple2_swigregiste
 FormFactorRipple2_swigregister(FormFactorRipple2)
 
 class FormFactorLongRipple1Gauss(IFormFactorBorn):
-    """Proxy of C++ FormFactorLongRipple1Gauss class."""
+    """
+
+
+    The formfactor for a cosine ripple.
+
+    C++ includes: FormFactorLongRipple1Gauss.h
+
+    """
 
     __swig_setmethods__ = {}
     for _s in [IFormFactorBorn]:
@@ -10775,7 +10815,26 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, length, width, height):
-        """__init__(FormFactorLongRipple1Gauss self, double length, double width, double height) -> FormFactorLongRipple1Gauss"""
+        """
+        __init__(FormFactorLongRipple1Gauss self, double length, double width, double height) -> FormFactorLongRipple1Gauss
+
+        FormFactorLongRipple1Gauss::FormFactorLongRipple1Gauss(double length, double width, double height)
+
+        Ripple1 constructor.
+
+        Parameters:
+        -----------
+
+        length: 
+        of Ripple1
+
+        width: 
+        of cosine cross section
+
+        height: 
+        of cosine cross section 
+
+        """
         this = _libBornAgainCore.new_FormFactorLongRipple1Gauss(length, width, height)
         try:
             self.this.append(this)
@@ -10788,7 +10847,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         clone(FormFactorLongRipple1Gauss self) -> FormFactorLongRipple1Gauss
 
-        virtual IFormFactorBorn* IFormFactorBorn::clone() const =0
+        FormFactorLongRipple1Gauss * FormFactorLongRipple1Gauss::clone() const
 
         Returns a clone of this  ISample object. 
 
@@ -10800,7 +10859,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         accept(FormFactorLongRipple1Gauss self, ISampleVisitor visitor)
 
-        virtual void IFormFactorBorn::accept(ISampleVisitor *visitor) const
+        void FormFactorLongRipple1Gauss::accept(ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -10812,7 +10871,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         getRadius(FormFactorLongRipple1Gauss self) -> double
 
-        virtual double IFormFactor::getRadius() const =0
+        double FormFactorLongRipple1Gauss::getRadius() const
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -10821,17 +10880,32 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
 
 
     def getHeight(self):
-        """getHeight(FormFactorLongRipple1Gauss self) -> double"""
+        """
+        getHeight(FormFactorLongRipple1Gauss self) -> double
+
+        double FormFactorLongRipple1Gauss::getHeight() const 
+
+        """
         return _libBornAgainCore.FormFactorLongRipple1Gauss_getHeight(self)
 
 
     def getWidth(self):
-        """getWidth(FormFactorLongRipple1Gauss self) -> double"""
+        """
+        getWidth(FormFactorLongRipple1Gauss self) -> double
+
+        double FormFactorLongRipple1Gauss::getWidth() const 
+
+        """
         return _libBornAgainCore.FormFactorLongRipple1Gauss_getWidth(self)
 
 
     def getLength(self):
-        """getLength(FormFactorLongRipple1Gauss self) -> double"""
+        """
+        getLength(FormFactorLongRipple1Gauss self) -> double
+
+        double FormFactorLongRipple1Gauss::getLength() const 
+
+        """
         return _libBornAgainCore.FormFactorLongRipple1Gauss_getLength(self)
 
 
@@ -10839,15 +10913,9 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple1Gauss self, cvector_t q) -> complex_t
 
-        virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t &q) const =0
+        complex_t FormFactorLongRipple1Gauss::evaluate_for_q(const cvector_t &q) const
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Complex formfactor. 
 
         """
         return _libBornAgainCore.FormFactorLongRipple1Gauss_evaluate_for_q(self, q)
@@ -10856,7 +10924,14 @@ FormFactorLongRipple1Gauss_swigregister = _libBornAgainCore.FormFactorLongRipple
 FormFactorLongRipple1Gauss_swigregister(FormFactorLongRipple1Gauss)
 
 class FormFactorLongRipple1Lorentz(IFormFactorBorn):
-    """Proxy of C++ FormFactorLongRipple1Lorentz class."""
+    """
+
+
+    The formfactor for a cosine ripple.
+
+    C++ includes: FormFactorLongRipple1Lorentz.h
+
+    """
 
     __swig_setmethods__ = {}
     for _s in [IFormFactorBorn]:
@@ -10869,7 +10944,26 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self, length, width, height):
-        """__init__(FormFactorLongRipple1Lorentz self, double length, double width, double height) -> FormFactorLongRipple1Lorentz"""
+        """
+        __init__(FormFactorLongRipple1Lorentz self, double length, double width, double height) -> FormFactorLongRipple1Lorentz
+
+        FormFactorLongRipple1Lorentz::FormFactorLongRipple1Lorentz(double length, double width, double height)
+
+        FormFactorLongRipple1Lorentz constructor.
+
+        Parameters:
+        -----------
+
+        length: 
+        of Ripple1
+
+        width: 
+        of cosine cross section
+
+        height: 
+        of cosine cross section 
+
+        """
         this = _libBornAgainCore.new_FormFactorLongRipple1Lorentz(length, width, height)
         try:
             self.this.append(this)
@@ -10882,7 +10976,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         clone(FormFactorLongRipple1Lorentz self) -> FormFactorLongRipple1Lorentz
 
-        virtual IFormFactorBorn* IFormFactorBorn::clone() const =0
+        FormFactorLongRipple1Lorentz * FormFactorLongRipple1Lorentz::clone() const
 
         Returns a clone of this  ISample object. 
 
@@ -10894,7 +10988,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         accept(FormFactorLongRipple1Lorentz self, ISampleVisitor visitor)
 
-        virtual void IFormFactorBorn::accept(ISampleVisitor *visitor) const
+        void FormFactorLongRipple1Lorentz::accept(ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -10906,7 +11000,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         getRadius(FormFactorLongRipple1Lorentz self) -> double
 
-        virtual double IFormFactor::getRadius() const =0
+        double FormFactorLongRipple1Lorentz::getRadius() const
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -10915,17 +11009,32 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
 
 
     def getHeight(self):
-        """getHeight(FormFactorLongRipple1Lorentz self) -> double"""
+        """
+        getHeight(FormFactorLongRipple1Lorentz self) -> double
+
+        double FormFactorLongRipple1Lorentz::getHeight() const 
+
+        """
         return _libBornAgainCore.FormFactorLongRipple1Lorentz_getHeight(self)
 
 
     def getWidth(self):
-        """getWidth(FormFactorLongRipple1Lorentz self) -> double"""
+        """
+        getWidth(FormFactorLongRipple1Lorentz self) -> double
+
+        double FormFactorLongRipple1Lorentz::getWidth() const 
+
+        """
         return _libBornAgainCore.FormFactorLongRipple1Lorentz_getWidth(self)
 
 
     def getLength(self):
-        """getLength(FormFactorLongRipple1Lorentz self) -> double"""
+        """
+        getLength(FormFactorLongRipple1Lorentz self) -> double
+
+        double FormFactorLongRipple1Lorentz::getLength() const 
+
+        """
         return _libBornAgainCore.FormFactorLongRipple1Lorentz_getLength(self)
 
 
@@ -10933,15 +11042,9 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple1Lorentz self, cvector_t q) -> complex_t
 
-        virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t &q) const =0
+        complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(const cvector_t &q) const
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Complex formfactor. 
 
         """
         return _libBornAgainCore.FormFactorLongRipple1Lorentz_evaluate_for_q(self, q)
@@ -12207,7 +12310,7 @@ class Simulation(ICloneable, IParameterized):
         """
         clone(Simulation self) -> Simulation
 
-        virtual Simulation* Simulation::clone() const =0
+        virtual Simulation* Simulation::clone() const  =0
 
         """
         return _libBornAgainCore.Simulation_clone(self)
@@ -12341,7 +12444,7 @@ class Simulation(ICloneable, IParameterized):
         """
         getNumberOfSimulationElements(Simulation self) -> int
 
-        virtual int Simulation::getNumberOfSimulationElements() const =0
+        virtual int Simulation::getNumberOfSimulationElements() const  =0
 
         Gets the number of elements this simulation needs to calculate. 
 
@@ -12354,7 +12457,7 @@ class Simulation(ICloneable, IParameterized):
         getDetectorIntensity(Simulation self, IDetector2D::EAxesUnits units_type) -> IntensityData
         getDetectorIntensity(Simulation self) -> IntensityData
 
-        virtual OutputData<double>* Simulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const =0
+        virtual OutputData<double>* Simulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const  =0
 
         Clone simulated intensity map. 
 
@@ -12442,7 +12545,7 @@ class GISASSimulation(Simulation):
         __init__(GISASSimulation self, ISample p_sample) -> GISASSimulation
         __init__(GISASSimulation self, SampleBuilder_t p_sample_builder) -> GISASSimulation
 
-        GISASSimulation::GISASSimulation(SampleBuilder_t p_sample_builder, const ProgramOptions *p_options=0)
+        GISASSimulation::GISASSimulation(SampleBuilder_t p_sample_builder)
 
         """
         this = _libBornAgainCore.new_GISASSimulation(*args)
@@ -12745,7 +12848,7 @@ class IHistogram(_object):
         """
         clone(IHistogram self) -> IHistogram
 
-        virtual IHistogram* IHistogram::clone() const =0
+        virtual IHistogram* IHistogram::clone() const  =0
 
         """
         return _libBornAgainCore.IHistogram_clone(self)
@@ -13182,7 +13285,7 @@ class IHistogram(_object):
         createOutputData(IHistogram self, IHistogram::DataType dataType) -> IntensityData
         createOutputData(IHistogram self) -> IntensityData
 
-        OutputData< double > * IHistogram::createOutputData(DataType dataType=INTEGRAL) const
+        OutputData< double > * IHistogram::createOutputData(DataType dataType=DataType::INTEGRAL) const
 
         creates new  OutputData with histogram's shape and put there values corresponding to DataType 
 
@@ -13855,7 +13958,7 @@ class IDetector2D(IParameterized):
         """
         clone(IDetector2D self) -> IDetector2D
 
-        virtual IDetector2D* IDetector2D::clone() const =0
+        virtual IDetector2D* IDetector2D::clone() const  =0
 
         """
         return _libBornAgainCore.IDetector2D_clone(self)
@@ -14150,7 +14253,7 @@ class IDetectorResolution(ICloneable, IParameterized):
         """
         applyDetectorResolution(IDetectorResolution self, IntensityData p_intensity_map)
 
-        virtual void IDetectorResolution::applyDetectorResolution(OutputData< double > *p_intensity_map) const =0
+        virtual void IDetectorResolution::applyDetectorResolution(OutputData< double > *p_intensity_map) const  =0
 
         Apply the resolution function to the intensity data. 
 
@@ -14162,7 +14265,7 @@ class IDetectorResolution(ICloneable, IParameterized):
         """
         clone(IDetectorResolution self) -> IDetectorResolution
 
-        virtual IDetectorResolution* IDetectorResolution::clone() const =0
+        virtual IDetectorResolution* IDetectorResolution::clone() const  =0
 
         """
         return _libBornAgainCore.IDetectorResolution_clone(self)
@@ -14199,7 +14302,7 @@ class IInterferenceFunction(ISample):
         """
         evaluate(IInterferenceFunction self, kvector_t q) -> double
 
-        virtual double IInterferenceFunction::evaluate(const kvector_t &q) const =0
+        virtual double IInterferenceFunction::evaluate(const kvector_t &q) const  =0
 
         Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 
@@ -14211,7 +14314,7 @@ class IInterferenceFunction(ISample):
         """
         clone(IInterferenceFunction self) -> IInterferenceFunction
 
-        virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
+        virtual IInterferenceFunction* IInterferenceFunction::clone() const  =0
 
         Returns a clone of this  ISample object. 
 
@@ -14288,7 +14391,7 @@ class ILayout(ICompositeSample):
         """
         clone(ILayout self) -> ILayout
 
-        virtual ILayout* ILayout::clone() const =0
+        virtual ILayout* ILayout::clone() const  =0
 
         Returns a clone of this  ISample object. 
 
@@ -14300,7 +14403,7 @@ class ILayout(ICompositeSample):
         """
         accept(ILayout self, ISampleVisitor visitor)
 
-        virtual void ILayout::accept(ISampleVisitor *visitor) const =0
+        virtual void ILayout::accept(ISampleVisitor *visitor) const  =0
 
         calls the  ISampleVisitor's visit method 
 
@@ -14312,7 +14415,7 @@ class ILayout(ICompositeSample):
         """
         cloneInvertB(ILayout self) -> ILayout
 
-        virtual ILayout* ILayout::cloneInvertB() const =0
+        virtual ILayout* ILayout::cloneInvertB() const  =0
 
         Returns a clone with inverted magnetic fields. 
 
@@ -14324,7 +14427,7 @@ class ILayout(ICompositeSample):
         """
         getNumberOfParticles(ILayout self) -> size_t
 
-        virtual size_t ILayout::getNumberOfParticles() const =0
+        virtual size_t ILayout::getNumberOfParticles() const  =0
 
         Returns number of particles. 
 
@@ -14336,7 +14439,7 @@ class ILayout(ICompositeSample):
         """
         getParticle(ILayout self, size_t index) -> IAbstractParticle
 
-        virtual const IAbstractParticle* ILayout::getParticle(size_t index) const =0
+        virtual const IAbstractParticle* ILayout::getParticle(size_t index) const  =0
 
         Returns information about particle with index. 
 
@@ -14348,7 +14451,7 @@ class ILayout(ICompositeSample):
         """
         getParticles(ILayout self) -> SafePointerVector< IParticle const >
 
-        virtual SafePointerVector<const IParticle> ILayout::getParticles() const =0
+        virtual SafePointerVector<const IParticle> ILayout::getParticles() const  =0
 
         Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 
@@ -14360,7 +14463,7 @@ class ILayout(ICompositeSample):
         """
         getAbundanceOfParticle(ILayout self, size_t index) -> double
 
-        virtual double ILayout::getAbundanceOfParticle(size_t index) const =0
+        virtual double ILayout::getAbundanceOfParticle(size_t index) const  =0
 
         Get abundance fraction of particle with index. 
 
@@ -14384,7 +14487,7 @@ class ILayout(ICompositeSample):
         """
         getInterferenceFunction(ILayout self) -> IInterferenceFunction
 
-        virtual const IInterferenceFunction* ILayout::getInterferenceFunction() const =0
+        virtual const IInterferenceFunction* ILayout::getInterferenceFunction() const  =0
 
         Returns interference function. 
 
@@ -14396,7 +14499,7 @@ class ILayout(ICompositeSample):
         """
         getTotalParticleSurfaceDensity(ILayout self) -> double
 
-        virtual double ILayout::getTotalParticleSurfaceDensity() const =0
+        virtual double ILayout::getTotalParticleSurfaceDensity() const  =0
 
         Returns surface density of all particles. 
 
@@ -14589,7 +14692,7 @@ class IAbstractParticle(ICompositeSample):
         """
         clone(IAbstractParticle self) -> IAbstractParticle
 
-        virtual IAbstractParticle* IAbstractParticle::clone() const =0
+        virtual IAbstractParticle* IAbstractParticle::clone() const  =0
 
         Returns a clone of this  ISample object. 
 
@@ -14601,7 +14704,7 @@ class IAbstractParticle(ICompositeSample):
         """
         cloneInvertB(IAbstractParticle self) -> IAbstractParticle
 
-        virtual IAbstractParticle* IAbstractParticle::cloneInvertB() const =0
+        virtual IAbstractParticle* IAbstractParticle::cloneInvertB() const  =0
 
         Returns a clone with inverted magnetic fields. 
 
@@ -14661,7 +14764,7 @@ class IAbstractParticle(ICompositeSample):
         """
         getAmbientMaterial(IAbstractParticle self) -> IMaterial
 
-        virtual const IMaterial* IAbstractParticle::getAmbientMaterial() const =0
+        virtual const IMaterial* IAbstractParticle::getAmbientMaterial() const  =0
 
         Returns particle's material. 
 
@@ -14700,7 +14803,7 @@ class IParticle(IAbstractParticle):
         """
         clone(IParticle self) -> IParticle
 
-        virtual IParticle* IParticle::clone() const =0
+        virtual IParticle* IParticle::clone() const  =0
 
         Returns a clone of this  ISample object. 
 
@@ -14712,7 +14815,7 @@ class IParticle(IAbstractParticle):
         """
         cloneInvertB(IParticle self) -> IParticle
 
-        virtual IParticle* IParticle::cloneInvertB() const =0
+        virtual IParticle* IParticle::cloneInvertB() const  =0
 
         Returns a clone with inverted magnetic fields. 
 
@@ -14748,7 +14851,7 @@ class IParticle(IAbstractParticle):
         """
         createTransformedFormFactor(IParticle self, IRotation p_rotation, kvector_t translation) -> IFormFactor
 
-        virtual IFormFactor* IParticle::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const =0
+        virtual IFormFactor* IParticle::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const  =0
 
         Create a form factor for this particle with an extra scattering factor. 
 
@@ -14860,7 +14963,7 @@ class IResolutionFunction2D(IParameterized):
         """
         evaluateCDF(IResolutionFunction2D self, double x, double y) -> double
 
-        virtual double IResolutionFunction2D::evaluateCDF(double x, double y) const =0
+        virtual double IResolutionFunction2D::evaluateCDF(double x, double y) const  =0
 
         """
         return _libBornAgainCore.IResolutionFunction2D_evaluateCDF(self, x, y)
@@ -14870,7 +14973,7 @@ class IResolutionFunction2D(IParameterized):
         """
         clone(IResolutionFunction2D self) -> IResolutionFunction2D
 
-        virtual IResolutionFunction2D* IResolutionFunction2D::clone() const =0
+        virtual IResolutionFunction2D* IResolutionFunction2D::clone() const  =0
 
         """
         return _libBornAgainCore.IResolutionFunction2D_clone(self)
@@ -14915,7 +15018,7 @@ class IRotation(ISample):
         """
         clone(IRotation self) -> IRotation
 
-        virtual IRotation* IRotation::clone() const =0
+        virtual IRotation* IRotation::clone() const  =0
 
         Returns a clone. 
 
@@ -14927,7 +15030,7 @@ class IRotation(ISample):
         """
         cloneInvertB(IRotation self) -> IRotation
 
-        virtual IRotation* IRotation::cloneInvertB() const =0
+        virtual IRotation* IRotation::cloneInvertB() const  =0
 
         Returns a clone with inverted magnetic fields. 
 
@@ -14939,7 +15042,7 @@ class IRotation(ISample):
         """
         createInverse(IRotation self) -> IRotation
 
-        virtual IRotation* IRotation::createInverse() const =0
+        virtual IRotation* IRotation::createInverse() const  =0
 
         Returns a new  IRotation object that is the current object's inverse. 
 
@@ -14963,7 +15066,7 @@ class IRotation(ISample):
         """
         getTransform3D(IRotation self) -> Geometry::Transform3D
 
-        virtual Geometry::Transform3D IRotation::getTransform3D() const =0
+        virtual Geometry::Transform3D IRotation::getTransform3D() const  =0
 
         Returns transformation. 
 
@@ -14994,7 +15097,7 @@ def CreateProduct(left, right):
     """
     CreateProduct(IRotation left, IRotation right) -> IRotation
 
-    IRotation* CreateProduct(const IRotation &left, const IRotation &right)
+    BA_CORE_API_ IRotation* CreateProduct(const IRotation &left, const IRotation &right)
 
     """
     return _libBornAgainCore.CreateProduct(left, right)
@@ -15444,7 +15547,7 @@ class ISelectionRule(_object):
         """
         clone(ISelectionRule self) -> ISelectionRule
 
-        virtual ISelectionRule* ISelectionRule::clone() const =0
+        virtual ISelectionRule* ISelectionRule::clone() const  =0
 
         """
         return _libBornAgainCore.ISelectionRule_clone(self)
@@ -15454,7 +15557,7 @@ class ISelectionRule(_object):
         """
         coordinateSelected(ISelectionRule self, IndexVector3D const & coordinate) -> bool
 
-        virtual bool ISelectionRule::coordinateSelected(const IndexVector3D &coordinate) const =0
+        virtual bool ISelectionRule::coordinateSelected(const IndexVector3D &coordinate) const  =0
 
         """
         return _libBornAgainCore.ISelectionRule_coordinateSelected(self, coordinate)
@@ -16783,7 +16886,7 @@ class IPixelMap(_object):
         """
         clone(IPixelMap self) -> IPixelMap
 
-        virtual IPixelMap* IPixelMap::clone() const =0
+        virtual IPixelMap* IPixelMap::clone() const  =0
 
         """
         return _libBornAgainCore.IPixelMap_clone(self)
@@ -16793,7 +16896,7 @@ class IPixelMap(_object):
         """
         createZeroSizeMap(IPixelMap self, double x, double y) -> IPixelMap
 
-        virtual IPixelMap* IPixelMap::createZeroSizeMap(double x, double y) const =0
+        virtual IPixelMap* IPixelMap::createZeroSizeMap(double x, double y) const  =0
 
         """
         return _libBornAgainCore.IPixelMap_createZeroSizeMap(self, x, y)
@@ -16803,7 +16906,7 @@ class IPixelMap(_object):
         """
         getK(IPixelMap self, double x, double y, double wavelength) -> kvector_t
 
-        virtual kvector_t IPixelMap::getK(double x, double y, double wavelength) const =0
+        virtual kvector_t IPixelMap::getK(double x, double y, double wavelength) const  =0
 
         """
         return _libBornAgainCore.IPixelMap_getK(self, x, y, wavelength)
@@ -16813,7 +16916,7 @@ class IPixelMap(_object):
         """
         getIntegrationFactor(IPixelMap self, double x, double y) -> double
 
-        virtual double IPixelMap::getIntegrationFactor(double x, double y) const =0
+        virtual double IPixelMap::getIntegrationFactor(double x, double y) const  =0
 
         """
         return _libBornAgainCore.IPixelMap_getIntegrationFactor(self, x, y)
@@ -16823,7 +16926,7 @@ class IPixelMap(_object):
         """
         getSolidAngle(IPixelMap self) -> double
 
-        virtual double IPixelMap::getSolidAngle() const =0
+        virtual double IPixelMap::getSolidAngle() const  =0
 
         """
         return _libBornAgainCore.IPixelMap_getSolidAngle(self)
@@ -18438,7 +18541,7 @@ def SetLevel(*args):
     SetLevel(MSG::EMessageLevel level)
     SetLevel(std::string const & levelname)
 
-    void MSG::SetLevel(const std::string &levelname)
+    BA_CORE_API_ void MSG::SetLevel(const std::string &levelname)
 
     """
     return _libBornAgainCore.SetLevel(*args)
@@ -18783,7 +18886,7 @@ class OffSpecSimulation(Simulation):
         __init__(OffSpecSimulation self, ISample p_sample) -> OffSpecSimulation
         __init__(OffSpecSimulation self, SampleBuilder_t p_sample_builder) -> OffSpecSimulation
 
-        OffSpecSimulation::OffSpecSimulation(SampleBuilder_t p_sample_builder, const ProgramOptions *p_options=0)
+        OffSpecSimulation::OffSpecSimulation(SampleBuilder_t p_sample_builder)
 
         """
         this = _libBornAgainCore.new_OffSpecSimulation(*args)

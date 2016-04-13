@@ -24,8 +24,6 @@
 #include "InstrumentModel.h"
 #include "JobItem.h"
 #include "SampleValidator.h"
-#include "Utils.h"
-#include "PyGenTools.h"
 #include "mainwindow_constants.h"
 #include "PythonScriptWidget.h"
 #include "IntensityDataIOFactory.h"
@@ -123,13 +121,6 @@ int SimulationSetupWidget::getSelectedSampleIndex() const
 
 void SimulationSetupWidget::onRunSimulation()
 {
-
-//    TestItem *ti = new TestItem;
-//    testitems.append(ti);
-
-//    const TestItem *ti2 = ti;
-//    qDebug() << "AAA" << testitems.indexOf(ti2);
-
     const MultiLayerItem *jobMultiLayerItem = getSelectedMultiLayerItem();
     const InstrumentItem *jobInstrumentItem = getSelectedInstrumentItem();
 

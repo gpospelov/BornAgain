@@ -24,20 +24,16 @@
 class QComboBox;
 class QPushButton;
 class QLabel;
-class SampleModel;
-class InstrumentModel;
-//class JobModel;
-class GISASSimulation;
 class ProjectManager;
 class MultiLayerItem;
 class InstrumentItem;
 class SimulationOptionsWidget;
 class ApplicationModels;
 
-//class TestItem {
-//public:
-//    int x;
-//};
+class TestItem {
+public:
+    int x;
+};
 
 class BA_CORE_API_ SimulationSetupWidget : public QWidget
 {
@@ -84,7 +80,7 @@ private:
 
     SimulationOptionsWidget *m_simOptionsWidget;
 
-//    QVector<TestItem *> testitems;
+    QVector<TestItem *> testitems;
 
 };
 

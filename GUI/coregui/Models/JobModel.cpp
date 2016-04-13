@@ -88,6 +88,9 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem, const Instrument
     copyParameterizedItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
     copyParameterizedItem(optionItem, jobItem, JobItem::T_SIMULATION_OPTIONS);
 
+    jobItem->getItem(JobItem::P_SAMPLE_NAME)->setValue(multiLayerItem->itemName());
+    jobItem->getItem(JobItem::P_INSTRUMENT_NAME)->setValue(instrumentItem->itemName());
+
     ParameterModelBuilder::createParameterTree(jobItem, JobItem::T_PARAMETER_TREE);
 
     insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_OUTPUT);

@@ -20,9 +20,7 @@
 #include <QString>
 #include <QModelIndex>
 
-class SessionModel;
 class SessionItem;
-class SampleModel;
 class MultiLayerItem;
 
 //! Validates SampleModel for MultiLayerItem suitable for simulation

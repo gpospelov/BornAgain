@@ -36,7 +36,7 @@ void DWBASimulation::init(const Simulation& simulation,
     }
     m_begin_it = begin_it;
     m_end_it = end_it;
-    m_sim_params = simulation.getSimulationParameters();
+    m_sim_options = simulation.getOptions();
 
     // initialising call backs
     mp_simulation->initProgressHandlerDWBA(&m_progress);

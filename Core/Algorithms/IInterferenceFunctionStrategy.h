@@ -71,7 +71,7 @@ protected:
 
     SafePointerVector<FormFactorInfo> m_ff_infos;          //!< form factor info
     std::unique_ptr<IInterferenceFunction> mP_iff;       //!< interference function
-    SimulationOptions m_sim_params;                     //!< simulation parameters
+    SimulationOptions m_options;                     //!< simulation options
     std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
 
 private:

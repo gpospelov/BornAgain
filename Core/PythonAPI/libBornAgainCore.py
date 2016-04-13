@@ -12404,30 +12404,6 @@ class Simulation(ICloneable, IParameterized):
         return _libBornAgainCore.Simulation_getSampleBuilder(self)
 
 
-    def getSimulationParameters(self):
-        """
-        getSimulationParameters(Simulation self) -> SimulationOptions
-
-        SimulationParameters Simulation::getSimulationParameters() const
-
-        Returns simulation parameters. 
-
-        """
-        return _libBornAgainCore.Simulation_getSimulationParameters(self)
-
-
-    def setSimulationParameters(self, sim_params):
-        """
-        setSimulationParameters(Simulation self, SimulationOptions sim_params)
-
-        void Simulation::setSimulationParameters(const SimulationParameters &sim_params)
-
-        Sets simulation parameters. 
-
-        """
-        return _libBornAgainCore.Simulation_setSimulationParameters(self, sim_params)
-
-
     def setThreadInfo(self, thread_info):
         """
         setThreadInfo(Simulation self, ThreadInfo thread_info)
@@ -12489,6 +12465,19 @@ class Simulation(ICloneable, IParameterized):
         """
         return _libBornAgainCore.Simulation_getDistributionHandler(self)
 
+
+    def setOptions(self, options):
+        """setOptions(Simulation self, SimulationOptions options)"""
+        return _libBornAgainCore.Simulation_setOptions(self, options)
+
+
+    def getOptions(self, *args):
+        """
+        getOptions(Simulation self) -> SimulationOptions
+        getOptions(Simulation self) -> SimulationOptions
+        """
+        return _libBornAgainCore.Simulation_getOptions(self, *args)
+
 Simulation_swigregister = _libBornAgainCore.Simulation_swigregister
 Simulation_swigregister(Simulation)
 
@@ -12508,14 +12497,25 @@ class SimulationOptions(_object):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_setmethods__["m_mc_integration"] = _libBornAgainCore.SimulationOptions_m_mc_integration_set
-    __swig_getmethods__["m_mc_integration"] = _libBornAgainCore.SimulationOptions_m_mc_integration_get
-    if _newclass:
-        m_mc_integration = _swig_property(_libBornAgainCore.SimulationOptions_m_mc_integration_get, _libBornAgainCore.SimulationOptions_m_mc_integration_set)
-    __swig_setmethods__["m_mc_points"] = _libBornAgainCore.SimulationOptions_m_mc_points_set
-    __swig_getmethods__["m_mc_points"] = _libBornAgainCore.SimulationOptions_m_mc_points_get
-    if _newclass:
-        m_mc_points = _swig_property(_libBornAgainCore.SimulationOptions_m_mc_points_get, _libBornAgainCore.SimulationOptions_m_mc_points_set)
+
+    def isIntegrate(self):
+        """isIntegrate(SimulationOptions self) -> bool"""
+        return _libBornAgainCore.SimulationOptions_isIntegrate(self)
+
+
+    def getMcPoints(self):
+        """getMcPoints(SimulationOptions self) -> size_t"""
+        return _libBornAgainCore.SimulationOptions_getMcPoints(self)
+
+
+    def setMonteCarloIntegration(self, flag=True, mc_points=50):
+        """
+        setMonteCarloIntegration(SimulationOptions self, bool flag=True, size_t mc_points=50)
+        setMonteCarloIntegration(SimulationOptions self, bool flag=True)
+        setMonteCarloIntegration(SimulationOptions self)
+        """
+        return _libBornAgainCore.SimulationOptions_setMonteCarloIntegration(self, flag, mc_points)
+
     __swig_destroy__ = _libBornAgainCore.delete_SimulationOptions
     __del__ = lambda self: None
 SimulationOptions_swigregister = _libBornAgainCore.SimulationOptions_swigregister

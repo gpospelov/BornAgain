@@ -62,14 +62,6 @@ public:
     //! return sample builder
     SampleBuilder_t getSampleBuilder() const { return mp_sample_builder; }
 
-    //! Returns simulation parameters
-    SimulationOptions getSimulationParameters() const
-    { return m_sim_params; }
-
-    //! Sets simulation parameters
-    void setSimulationParameters(const SimulationOptions& sim_params)
-    { m_sim_params = sim_params; }
-
     //! Sets the batch and thread information to be used
     void setThreadInfo(const ThreadInfo &thread_info)
     { m_thread_info = thread_info; }
@@ -106,6 +98,10 @@ public:
 #endif
 
     friend class OMPISimulation;
+
+    void setOptions(const SimulationOptions &options);
+    const SimulationOptions &getOptions() const;
+    SimulationOptions &getOptions();
 
 protected:
     Simulation(const Simulation& other);
@@ -146,7 +142,7 @@ protected:
     // components describing an experiment and its simulation:
     std::unique_ptr<ISample> mP_sample;
     SampleBuilder_t mp_sample_builder;
-    SimulationOptions m_sim_params;
+    SimulationOptions m_sim_options;
     ThreadInfo m_thread_info;
 
     DistributionHandler m_distribution_handler;

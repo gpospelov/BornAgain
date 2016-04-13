@@ -19,7 +19,7 @@
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(SimulationOptions sim_params)
     : mP_iff { nullptr }
-    , m_sim_params(sim_params)
+    , m_options(sim_params)
 {
     mP_integrator = make_integrator_miser(
                     this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2);
@@ -46,8 +46,7 @@ void IInterferenceFunctionStrategy::setSpecularInfo(const LayerSpecularInfo &spe
 
 double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_element) const
 {
-    if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 1
-        && (sim_element.getSolidAngle() > 0.0)) {
+    if (m_options.isIntegrate() && (sim_element.getSolidAngle() > 0.0)) {
         return MCIntegratedEvaluate(sim_element);
     }
     calculateFormFactorList(sim_element);
@@ -56,7 +55,7 @@ double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_elem
 
 double IInterferenceFunctionStrategy::evaluatePol(const SimulationElement& sim_element) const
 {
-    if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 0) {
+    if (m_options.isIntegrate()) {
         return MCIntegratedEvaluatePol(sim_element);
     }
     calculateFormFactorLists(sim_element);
@@ -121,7 +120,7 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const SimulationEleme
     double min_array[] = {0.0, 0.0};
     double max_array[] = {1.0, 1.0};
     return mP_integrator->integrate(
-        min_array, max_array, (void *)&sim_element, m_sim_params.m_mc_points);
+        min_array, max_array, (void *)&sim_element, m_options.getMcPoints());
 }
 
 double IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
@@ -130,7 +129,7 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
     double min_array[] = {0.0, 0.0};
     double max_array[] = {1.0, 1.0};
     return mP_integrator_pol->integrate(
-        min_array, max_array, (void *)&sim_element, m_sim_params.m_mc_points);
+        min_array, max_array, (void *)&sim_element, m_options.getMcPoints());
 }
 
 double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double *fractions, size_t dim,

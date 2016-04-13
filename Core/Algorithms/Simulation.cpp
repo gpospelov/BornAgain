@@ -49,7 +49,7 @@ Simulation::Simulation(SampleBuilder_t p_sample_builder)
 
 Simulation::Simulation(const Simulation &other)
     : ICloneable(), IParameterized(other), mp_sample_builder(other.mp_sample_builder),
-      m_sim_params(other.m_sim_params), m_thread_info(other.m_thread_info),
+      m_sim_options(other.m_sim_options), m_thread_info(other.m_thread_info),
       m_distribution_handler(other.m_distribution_handler),
       m_progress(other.m_progress)
 {
@@ -292,6 +292,21 @@ void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
         ProgressHandler::Callback_t callback = [&] (int n) {return m_progress->update(n); };
         dwba_progress->setCallback(callback);
     }
+}
+
+void Simulation::setOptions(const SimulationOptions &options)
+{
+    m_sim_options = options;
+}
+
+const SimulationOptions &Simulation::getOptions() const
+{
+    return m_sim_options;
+}
+
+SimulationOptions &Simulation::getOptions()
+{
+    return const_cast<SimulationOptions&>(static_cast<const Simulation*>(this)->getOptions());
 }
 
 void Simulation::verifyDWBASimulation(DWBASimulation *dwbaSimulation)

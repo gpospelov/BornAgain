@@ -1395,40 +1395,9 @@ They must fulfill
 \end{displaymath}
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
-Notation:\\
-Besides the form factor $F_\text{Box}(\q)$
-of the full cube of side length $L$ (Sec.~\ref{SBox}),
-we need the form factor of a trirectangular tetrahedrons
-as cut from the cube:
-\begin{align*}
-F_{\text{vertex}_1}(q_x, q_y, q_z, L, t) &=\frac{t}{q_z}\exp\left( i\frac{q_x(L-t)+ q_y L}{2} \right) \\
-\times \Big\{ \frac{1}{q_y} \sinc\left( \frac{q_x t}{2}\right)
-&- \frac{q_z}{q_y(q_y + q_z)} \exp\left(i\frac{q_yt}{2}\right) \sinc\left( \frac{(q_x-q_y)t}{2}\right)\\
-&- \frac{1}{q_y + q_z} \exp\left( i\frac{q_z t}{2} \right) \sinc \left( \frac{(q_x+q_z) t}{2} \right)  \Big\}
-\end{align*}
-Thanks to symmetry (see the following figure,
-which shows the vertices $V_i$ for $i=1,\ldots,8$),
-the form factors of other seven tetrahedrons cut from the cube
-can be computed as follows
-(note that the origin is taken as usual
-at the centre of the bottom face of the cube):
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=.5\textwidth]{fig/drawing/SketchTruncatedcube.png}
-\end{center}
-\end{figure}
-\begin{align*}
-F_{\text{vertex}_2}(q_x, q_y, q_z, L, t) &= F_{\text{vertex}_1}(q_y, -q_x, q_z, L, t) \\
-F_{\text{vertex}_3}(q_x, q_y, q_z, L, t) &= F_{\text{vertex}_1}(-q_x, -q_y, q_z, L, t) \\
-F_{\text{vertex}_4}(q_x, q_y, q_z, L, t) &= F_{\text{vertex}_1}(-q_y, q_x, q_z, L, t) \\
-F_{\text{vertex}_5}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\text{vertex}_1}(q_x, q_y, -q_z, L, t) \\
-F_{\text{vertex}_6}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\text{vertex}_1}(q_y, -q_x,- q_z, L, t) \\
-F_{\text{vertex}_7}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\text{vertex}_1}(-q_x, -q_y, -q_z, L, t) \\
-F_{\text{vertex}_8}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\text{vertex}_1}(-q_y, q_x, -q_z, L, t)
-\end{align*}
-Result:
 \begin{equation*}
-F =F_{\text{Box}}(q_x,q_y,q_z, L, L, L) - \sum_{i=1}^8 F_{\text{vertex}_i}(q_x, q_y, q_z, L, t)
+  F\text{~: computed algebraically,
+          using the generic polyhedron form factor~\cite{ba:ffp},}
 \end{equation*}
 \begin{equation*}
   V = L^3 - \dfrac{4}{3}t^3,
@@ -1448,8 +1417,10 @@ computed with $L=25$~nm, $W=10$~nm, $H=8$~nm, and $d=5$~nm,
 for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
-\paragraph{References}\strut\\
-\cite{HeSS74}
+\paragraph{References and History}\strut\\
+Moitvated by \cite{HeSS74}.
+Reimplemented in \BornAgain-1.6 using the generic form factor
+of a polygonal prism \cite{ba:ffp},
 
 
 %===============================================================================

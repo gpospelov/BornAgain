@@ -19,16 +19,14 @@
 #include <cmath>
 
 FormFactorCone6::FormFactorCone6(double radius, double height, double alpha)
-    : FormFactorPolyhedron( polyhedral_faces( radius, height, alpha ), 0. ),
-      m_radius(radius), m_height(height), m_alpha(alpha)
+    : FormFactorPolyhedron( polyhedral_faces( radius, height, alpha ), 0. )
+    , m_radius(radius)
+    , m_height(height)
+    , m_alpha(alpha)
 {
     setName(BornAgain::FFCone6Type);
     check_initialization();
     init_parameters();
-}
-
-FormFactorCone6::~FormFactorCone6()
-{
 }
 
 std::vector<PolyhedralFace> FormFactorCone6::polyhedral_faces(

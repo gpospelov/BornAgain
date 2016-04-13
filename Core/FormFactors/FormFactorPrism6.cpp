@@ -18,7 +18,8 @@
 #include "MathFunctions.h"
 
 FormFactorPrism6::FormFactorPrism6(const double radius, const double height)
-    : FormFactorPolygonalPrism( prismatic_face( radius ), height ), m_radius(radius)
+    : FormFactorPolygonalPrism( prismatic_face( radius ), height )
+    , m_radius(radius)
 {
     setName(BornAgain::FFPrism6Type);
     check_initialization();

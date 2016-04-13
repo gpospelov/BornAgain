@@ -29,7 +29,6 @@ public:
     //! @param height of Cone6
     //! @param angle in radians between base and facet
     FormFactorCone6(double radius, double height,  double alpha);
-    virtual ~FormFactorCone6();
 
     static std::vector<PolyhedralFace> polyhedral_faces(
         double radius, double height,  double alpha);

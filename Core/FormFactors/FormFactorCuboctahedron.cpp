@@ -20,8 +20,11 @@
 
 FormFactorCuboctahedron::FormFactorCuboctahedron(
     double length, double height, double height_ratio, double alpha)
-    : FormFactorPolyhedron( polyhedral_faces( length, height, height_ratio, alpha ), 0. ),
-      m_length(length), m_height(height), m_height_ratio(height_ratio), m_alpha(alpha)
+    : FormFactorPolyhedron( polyhedral_faces( length, height, height_ratio, alpha ), 0. )
+    , m_length(length)
+    , m_height(height)
+    , m_height_ratio(height_ratio)
+    , m_alpha(alpha)
 {
     setName(BornAgain::FFCuboctahedronType);
     check_initialization();

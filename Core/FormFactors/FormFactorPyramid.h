@@ -29,7 +29,6 @@ public:
     //! @param height of Pyramid
     //! @param angle in radians between base and facet
     FormFactorPyramid(double length, double height, double alpha);
-    virtual ~FormFactorPyramid();
 
     static std::vector<PolyhedralFace> polyhedral_faces(
         double length, double height,  double alpha);

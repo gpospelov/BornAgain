@@ -17,15 +17,15 @@
 #include "BornAgainNamespace.h"
 
 FormFactorPyramid::FormFactorPyramid(double length, double height, double alpha)
-    : FormFactorPolyhedron( polyhedral_faces( length, height, alpha ), 0. ),
-      m_length(length), m_height(height), m_alpha(alpha)
+    : FormFactorPolyhedron( polyhedral_faces( length, height, alpha ), 0. )
+    , m_length(length)
+    , m_height(height)
+    , m_alpha(alpha)
 {
     setName(BornAgain::FFPyramidType);
     check_initialization();
     init_parameters();
 }
-
-FormFactorPyramid::~FormFactorPyramid() {}
 
 std::vector<PolyhedralFace> FormFactorPyramid::polyhedral_faces(
     double length, double height, double alpha)

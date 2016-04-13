@@ -18,7 +18,8 @@
 #include "MathFunctions.h"
 
 FormFactorPrism3::FormFactorPrism3(const double length, const double height)
-    : FormFactorPolygonalPrism( prismatic_face( length ), height ), m_length(length)
+    : FormFactorPolygonalPrism( prismatic_face( length ), height )
+    , m_length(length)
 {
     setName(BornAgain::FFPrism3Type);
     check_initialization();

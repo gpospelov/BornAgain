@@ -191,20 +191,23 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
     cvector_t qpa;
     decompose_q( q, qperp, qpa );
     double qpa_red = radius_2d * qpa.mag();
-    if ( qpa_red < qpa_limit_series ) {
+    complex_t qr_perp = qperp*rperp;
+    if ( qpa_red==0 ) {
+        return qn * (sym_Ci ? 2.*I*sin(qr_perp) : exp(I*qr_perp)) * area;
+    } else if ( qpa_red < qpa_limit_series ) {
         // summation of power series
-        complex_t fac_even;
-        complex_t fac_odd;
-        if( sym_Ci ) {
-            fac_even = qn * 2. * I * sin(qperp*rperp);
-            fac_odd = qn * 2. * cos(qperp*rperp);
-        } else {
-            fac_even = qn * exp( I*qperp*rperp );
-            fac_odd = fac_even;
-        }
 #ifdef POLYHEDRAL_DIAGNOSTIC
         diagnosis.nExpandedFaces += 1;
 #endif
+        complex_t fac_even;
+        complex_t fac_odd;
+        if( sym_Ci ) {
+            fac_even = qn * 2. * I * sin(qr_perp);
+            fac_odd = qn * 2. * cos(qr_perp);
+        } else {
+            fac_even = qn * exp( I*qr_perp );
+            fac_odd = fac_even;
+        }
         complex_t sum = fac_even * area;
         complex_t n_multiplier = I;
         if( sym_S2 ) {
@@ -212,8 +215,6 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
             fac_odd = 0.;
             n_multiplier = -1.;
         }
-        if( qpa_red==0 )
-            return sum;
         complex_t n_fac = n_multiplier;
         for( int n=1; n<20; ++n ) {
             if( sym_S2 && n&1 )
@@ -233,7 +234,7 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
         cvector_t prevec = 2.*normal.cross( qpa ); // complex conjugation will take place in .dot
         complex_t prefac = qn;
         if( sym_S2 )
-            prefac *= sym_Ci ? -4.*sin(qperp*rperp) : 2.*I*exp(I*qperp*rperp);
+            prefac *= sym_Ci ? -4.*sin(qr_perp) : 2.*I*exp(I*qr_perp);
         complex_t sum = 0;
         for( const PolyhedralEdge& e: edges ) {
             complex_t qE = e.E.dot(q);

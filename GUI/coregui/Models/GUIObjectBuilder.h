@@ -26,6 +26,7 @@
 class InstrumentModel;
 class SampleModel;
 class SessionItem;
+class DocumentModel;
 
 //! Class to build SampleModel and InstrumentModel from domain's ISample
 class BA_CORE_API_ GUIObjectBuilder : public ISampleVisitor
@@ -46,6 +47,9 @@ public:
                                                const GISASSimulation &simulation,
                                                const QString &instrumentName=QString());
 
+
+    SessionItem *populateDocumentModel(DocumentModel *documentModel,
+                                               const GISASSimulation &simulation);
 
     using ISampleVisitor::visit;
 

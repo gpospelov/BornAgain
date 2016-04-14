@@ -20,8 +20,8 @@
 #include <QString>
 #include <QModelIndex>
 
-class SampleModel;
 class SessionItem;
+class MultiLayerItem;
 
 //! Validates SampleModel for MultiLayerItem suitable for simulation
 class SampleValidator
@@ -29,17 +29,21 @@ class SampleValidator
 public:
     SampleValidator();
 
-    bool isValidSampleModel(SampleModel *sampleModel);
+    bool isValidMultiLayer(const  MultiLayerItem *multilayer);
 
     QString getValidationMessage() const { return m_validation_message; }
 
 private:
-    void iterateSampleModel(SampleModel *sampleModel, const QModelIndex &parentIndex = QModelIndex());
+    void initValidator();
 
-    QString validateMultiLayerItem(SessionItem *item);
-    QString validateParticleLayoutItem(SessionItem *item);
-    QString validateParticleCoreShellItem(SessionItem *item);
-    QString validateParticleCompositionItem(SessionItem *item);
+    void iterateItems(const SessionItem *parentItem);
+    void validateItem(const SessionItem *item);
+
+    QString validateMultiLayerItem(const SessionItem *item);
+    QString validateParticleLayoutItem(const SessionItem *item);
+    QString validateParticleCoreShellItem(const SessionItem *item);
+    QString validateParticleCompositionItem(const SessionItem *item);
+    QString validateParticleDistributionItem(const SessionItem *item);
 
     bool m_valid_sample;
     QString m_validation_message;

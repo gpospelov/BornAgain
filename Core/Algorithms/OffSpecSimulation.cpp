@@ -20,38 +20,21 @@
 #include <memory>
 
 OffSpecSimulation::OffSpecSimulation()
-: m_instrument()
-, mp_alpha_i_axis(0)
-, m_intensity_map()
+    : mp_alpha_i_axis(0)
 {
     initialize();
 }
 
-OffSpecSimulation::OffSpecSimulation(const ProgramOptions* p_options)
-: Simulation(p_options)
-, m_instrument()
-, mp_alpha_i_axis(0)
-, m_intensity_map()
+OffSpecSimulation::OffSpecSimulation(const ISample& p_sample)
+    : Simulation(p_sample)
+    , mp_alpha_i_axis(0)
 {
     initialize();
 }
 
-OffSpecSimulation::OffSpecSimulation(const ISample& p_sample,
-        const ProgramOptions* p_options)
-: Simulation(p_sample, p_options)
-, m_instrument()
-, mp_alpha_i_axis(0)
-, m_intensity_map()
-{
-    initialize();
-}
-
-OffSpecSimulation::OffSpecSimulation(SampleBuilder_t p_sample_builder,
-        const ProgramOptions* p_options)
-: Simulation(p_sample_builder, p_options)
-, m_instrument()
-, mp_alpha_i_axis(0)
-, m_intensity_map()
+OffSpecSimulation::OffSpecSimulation(SampleBuilder_t p_sample_builder)
+    : Simulation(p_sample_builder)
+    , mp_alpha_i_axis(0)
 {
     initialize();
 }

@@ -279,3 +279,10 @@ GISASSimulation *StandardSimulations::RectDetectorPerpToReflectedBeamDpos()
     return result;
 }
 
+
+GISASSimulation *StandardSimulations::MiniGISASMonteCarlo()
+{
+    GISASSimulation *result = MiniGISAS();
+    result->getOptions().setMonteCarloIntegration(true, 50);
+    return result;
+}

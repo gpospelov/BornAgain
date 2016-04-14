@@ -38,20 +38,6 @@
 #include "ModelMapper.h"
 #include "DetectorItems.h"
 
-
-
-// FIXME_DAVID Rename Ivona's FitView into ObsoleteFitView. And use nice name FitView for own purpose.
-//  -- suggestion: for consistency use prefix Obsolete for all classes you are goind to throw soon
-//  -- you may want to add to all Ivona's classes prefix Obsolete. Don't forget about 'ifndef' header guards
-
-// FIXME_DAVID Move your activity from TestView to FitView.
-// - FitView should contain QTabWidget with 3 tabs:
-// - 1) ImportDataWidget (empty for the moment) 2) FitSettingsWidget 3) RunFitWidget
-
-// FIXME_DAVID FitSettingsWidget should contain
-// - FitParametersWidget (for the moment), and later sample/instrument selector + MinimizerSettingsWidgert
-
-
 TestView::TestView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_mainWindow(mainWindow)
@@ -59,8 +45,8 @@ TestView::TestView(MainWindow *mainWindow)
 //    test_MaskEditor();
 //    test_AccordionWidget();
 //    test_RunFitWidget();
-//    test_sessionModel();
-    test_MaterialEditor();
+    test_sessionModel();
+//    test_MaterialEditor();
 }
 
 void TestView::test_sessionModel()
@@ -68,13 +54,13 @@ void TestView::test_sessionModel()
     QVBoxLayout *layout = new QVBoxLayout;
     QTabWidget *tabs = new QTabWidget;
 
-    addModelToTabs(tabs, m_mainWindow->getInstrumentModel());
-    addModelToTabs(tabs, m_mainWindow->getSampleModel());
-    addModelToTabs(tabs, m_mainWindow->getMaterialModel());
-    addModelToTabs(tabs, m_mainWindow->getJobModel());
+    addModelToTabs(tabs, m_mainWindow->instrumentModel());
+    addModelToTabs(tabs, m_mainWindow->sampleModel());
+    addModelToTabs(tabs, m_mainWindow->materialModel());
+    addModelToTabs(tabs, m_mainWindow->jobModel());
 
     TestProxyModel *testModel = new TestProxyModel(this);
-    testModel->setSourceModel(m_mainWindow->getSampleModel());
+    testModel->setSourceModel(m_mainWindow->sampleModel());
     addModelToTabs(tabs, testModel);
 
     // TODO: why is instrument empty here?
@@ -94,7 +80,7 @@ void TestView::test_sessionModel()
 
 void TestView::test_MaterialEditor()
 {
-    MaterialEditor *materialEditor = new MaterialEditor(m_mainWindow->getMaterialModel());
+    MaterialEditor *materialEditor = new MaterialEditor(m_mainWindow->materialModel());
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);

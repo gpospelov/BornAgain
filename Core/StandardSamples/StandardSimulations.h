@@ -42,6 +42,7 @@ GISASSimulation *RectDetectorPerpToSample();
 GISASSimulation *RectDetectorPerpToDirectBeam();
 GISASSimulation *RectDetectorPerpToReflectedBeam();
 GISASSimulation *RectDetectorPerpToReflectedBeamDpos();
+GISASSimulation *MiniGISASMonteCarlo();
 
 }
 

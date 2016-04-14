@@ -50,12 +50,7 @@ def get_simulation(integration_flag):
     simulation = GISASSimulation()
     simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree, 200, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-
-    if integration_flag:
-        sim_pars = SimulationParameters()
-        sim_pars.m_mc_integration = True
-        sim_pars.m_mc_points = 50
-        simulation.setSimulationParameters(sim_pars)
+    simulation.getOptions().setMonteCarloIntegration(integration_flag, 50)
 
     return simulation
 

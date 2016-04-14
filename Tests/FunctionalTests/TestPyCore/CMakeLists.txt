@@ -92,6 +92,7 @@ set(list_of_tests
     "PySuite/RectDetectorPerpToDirectBeam"
     "PySuite/RectDetectorPerpToReflectedBeam"
     "PySuite/RectDetectorPerpToReflectedBeamDpos"
+    "PySuite/LargeCylindersMonteCarlo"
 )
 
 # Adding executables.

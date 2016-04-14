@@ -41,11 +41,16 @@ public:
 
     QStringList getValues() const;
 
+    QStringList getToolTips() const;
+    void setToolTips(const QStringList &tooltips);
+
     int index() const;
     int toIndex(const QString &value) const;
     QString toString(int index) const;
 
     inline ComboProperty &operator<<(const QString &str);
+
+    inline ComboProperty &operator<<(const QStringList &str);
 
     QVariant getVariant() const;
 
@@ -59,6 +64,7 @@ public:
 
 private:
     QStringList m_values;
+    QStringList m_values_tooltips;
     QString m_current_value;
     QString m_cached_value;  // for comboboxes with dynamically generated value lists
     bool m_cache_contains_GUI_value;
@@ -85,6 +91,13 @@ inline QStringList ComboProperty::getValues() const
 }
 
 inline ComboProperty &ComboProperty::operator<<(const QString &str)
+{
+    m_values.append(str);
+    if(m_values.size()) m_current_value=m_values.at(0);
+    return *this;
+}
+
+inline ComboProperty &ComboProperty::operator<<(const QStringList &str)
 {
     m_values.append(str);
     if(m_values.size()) m_current_value=m_values.at(0);

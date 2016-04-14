@@ -16,6 +16,7 @@
 
 #include "DomainSimulationBuilder.h"
 #include "SampleModel.h"
+#include "DocumentModel.h"
 #include "InstrumentModel.h"
 #include "Instrument.h"
 #include "InstrumentItem.h"
@@ -25,38 +26,29 @@
 #include "DetectorItems.h"
 #include "DomainObjectBuilder.h"
 #include "TransformToDomain.h"
+#include "SimulationOptionsItem.h"
 #include "GUIHelpers.h"
 #include <QDebug>
 #include <memory>
 
 
-//! Creates domain simulation from sample and instrument models for given names
-//! of MultiLayer and Instrument
-GISASSimulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel,
-                                                   const QString &sample_name,
-                                                   InstrumentModel *instrumentModel,
-                                                   const QString &instrument_name)
-{
-    Q_ASSERT(sampleModel);
-    Q_ASSERT(instrumentModel);
-    MultiLayerItem *sampleItem = sampleModel->getMultiLayerItem(sample_name);
-    InstrumentItem *instrumentItem = instrumentModel->getInstrumentItem(instrument_name);
-    return getSimulation(sampleItem, instrumentItem);
-}
-
 //! Creates domain simulation from sample and instrument models. First sample and first instrument
 //! in the model will be used, if there are more than one.
 GISASSimulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel,
-                                                   InstrumentModel *instrumentModel)
+        InstrumentModel *instrumentModel, DocumentModel *documentModel)
 {
-    return getSimulation(sampleModel, QString(), instrumentModel, QString());
+    MultiLayerItem *sampleItem = sampleModel->getMultiLayerItem();
+    InstrumentItem *instrumentItem = instrumentModel->getInstrumentItem();
+    SimulationOptionsItem *optionsItem = documentModel->getSimulationOptionsItem();
+    return getSimulation(sampleItem, instrumentItem, optionsItem);
 }
 
 //! Creates domain simulation from sample and instrument items.
-GISASSimulation *DomainSimulationBuilder::getSimulation(MultiLayerItem *sampleItem,
-                                                   InstrumentItem *instrumentItem)
+GISASSimulation *DomainSimulationBuilder::getSimulation(const MultiLayerItem *sampleItem,
+                                                        const InstrumentItem *instrumentItem,
+                                                        const SimulationOptionsItem *optionsItem)
 {
-    if(!sampleItem || !instrumentItem) {
+    if(sampleItem == nullptr || instrumentItem==nullptr || optionsItem == nullptr) {
         QString message("DomainSimulationBuilder::getSimulation() -> Error. Either MultiLayerItem "
                         " or InstrumentItem is not defined.");
         throw GUIHelpers::Error(message);
@@ -74,5 +66,9 @@ GISASSimulation *DomainSimulationBuilder::getSimulation(MultiLayerItem *sampleIt
 
     TransformToDomain::addMasksToSimulation(*instrumentItem->getDetectorItem(),
                                             result);
+
+    if(optionsItem)
+        TransformToDomain::setSimulationOptions(result, *optionsItem);
+
     return result;
 }

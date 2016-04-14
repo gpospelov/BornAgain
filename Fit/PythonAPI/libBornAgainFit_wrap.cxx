@@ -3495,31 +3495,31 @@ namespace Swig {
 #define SWIGTYPE_p_SquaredFunctionSimError swig_types[38]
 #define SWIGTYPE_p_SquaredFunctionSystematicError swig_types[39]
 #define SWIGTYPE_p_allocator_type swig_types[40]
-#define SWIGTYPE_p_boost__functionT_double_fdouble_const_pF_t swig_types[41]
-#define SWIGTYPE_p_boost__functionT_double_fdouble_const_p_unsigned_int_double_pF_t swig_types[42]
-#define SWIGTYPE_p_char swig_types[43]
-#define SWIGTYPE_p_complex_t swig_types[44]
-#define SWIGTYPE_p_const_iterator swig_types[45]
-#define SWIGTYPE_p_difference_type swig_types[46]
-#define SWIGTYPE_p_double swig_types[47]
-#define SWIGTYPE_p_function_chi2_t swig_types[48]
-#define SWIGTYPE_p_function_gradient_t swig_types[49]
-#define SWIGTYPE_p_int swig_types[50]
-#define SWIGTYPE_p_iterator swig_types[51]
-#define SWIGTYPE_p_long_long swig_types[52]
-#define SWIGTYPE_p_observer_t swig_types[53]
-#define SWIGTYPE_p_observerlist_t swig_types[54]
-#define SWIGTYPE_p_p_PyObject swig_types[55]
-#define SWIGTYPE_p_parameters_t swig_types[56]
-#define SWIGTYPE_p_short swig_types[57]
-#define SWIGTYPE_p_signed_char swig_types[58]
-#define SWIGTYPE_p_size_type swig_types[59]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[60]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[61]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[62]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[63]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[64]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[65]
+#define SWIGTYPE_p_char swig_types[41]
+#define SWIGTYPE_p_complex_t swig_types[42]
+#define SWIGTYPE_p_const_iterator swig_types[43]
+#define SWIGTYPE_p_difference_type swig_types[44]
+#define SWIGTYPE_p_double swig_types[45]
+#define SWIGTYPE_p_function_chi2_t swig_types[46]
+#define SWIGTYPE_p_function_gradient_t swig_types[47]
+#define SWIGTYPE_p_int swig_types[48]
+#define SWIGTYPE_p_iterator swig_types[49]
+#define SWIGTYPE_p_long_long swig_types[50]
+#define SWIGTYPE_p_observer_t swig_types[51]
+#define SWIGTYPE_p_observerlist_t swig_types[52]
+#define SWIGTYPE_p_p_PyObject swig_types[53]
+#define SWIGTYPE_p_parameters_t swig_types[54]
+#define SWIGTYPE_p_short swig_types[55]
+#define SWIGTYPE_p_signed_char swig_types[56]
+#define SWIGTYPE_p_size_type swig_types[57]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[58]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[59]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[60]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[61]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[62]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[63]
+#define SWIGTYPE_p_std__functionT_double_fdouble_const_pF_t swig_types[64]
+#define SWIGTYPE_p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t swig_types[65]
 #define SWIGTYPE_p_std__invalid_argument swig_types[66]
 #define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[67]
 #define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[68]
@@ -5670,7 +5670,7 @@ SWIG_AsVal_std_complex_Sl_double_Sg_  (PyObject *o, std::complex<double>* val)
 
 
 SWIGINTERNINLINE PyObject*
-SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/share/swig3.0/typemaps/swigmacros.swg,104,%ifcplusplus@*/
+SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/local/Cellar/swig/3.0.8/share/swig/3.0.8/typemaps/swigmacros.swg,104,%ifcplusplus@*/
 
 const std::complex<double>&
 
@@ -18836,7 +18836,7 @@ SWIGINTERN PyObject *_wrap_IMinimizer_setChiSquaredFunction(PyObject *SWIGUNUSED
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
   {
-    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_boost__functionT_double_fdouble_const_pF_t,  0  | 0);
+    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__functionT_double_fdouble_const_pF_t,  0  | 0);
     if (!SWIG_IsOK(res2)) {
       SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setChiSquaredFunction" "', argument " "2"" of type '" "IMinimizer::function_chi2_t""'"); 
     }  
@@ -18887,7 +18887,7 @@ SWIGINTERN PyObject *_wrap_IMinimizer_setGradientFunction(PyObject *SWIGUNUSEDPA
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
   {
-    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_boost__functionT_double_fdouble_const_p_unsigned_int_double_pF_t,  0  | 0);
+    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t,  0  | 0);
     if (!SWIG_IsOK(res2)) {
       SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setGradientFunction" "', argument " "2"" of type '" "IMinimizer::function_gradient_t""'"); 
     }  
@@ -30788,7 +30788,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IFitStrategy_clone", _wrap_IFitStrategy_clone, METH_VARARGS, (char *)"\n"
 		"IFitStrategy_clone(IFitStrategy self) -> IFitStrategy\n"
 		"\n"
-		"virtual IFitStrategy* IFitStrategy::clone() const =0\n"
+		"virtual IFitStrategy* IFitStrategy::clone() const  =0\n"
 		"\n"
 		""},
 	 { (char *)"delete_IFitStrategy", _wrap_delete_IFitStrategy, METH_VARARGS, (char *)"\n"
@@ -32072,8 +32072,6 @@ static swig_type_info _swigt__p_SquaredFunctionMeanSquaredError = {"_p_SquaredFu
 static swig_type_info _swigt__p_SquaredFunctionSimError = {"_p_SquaredFunctionSimError", "SquaredFunctionSimError *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SquaredFunctionSystematicError = {"_p_SquaredFunctionSystematicError", "SquaredFunctionSystematicError *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_boost__functionT_double_fdouble_const_pF_t = {"_p_boost__functionT_double_fdouble_const_pF_t", "boost::function< double (double const *) > *|IMinimizer::function_chi2_t *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_boost__functionT_double_fdouble_const_p_unsigned_int_double_pF_t = {"_p_boost__functionT_double_fdouble_const_p_unsigned_int_double_pF_t", "boost::function< double (double const *,unsigned int,double *) > *|IMinimizer::function_gradient_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_complex_t = {"_p_complex_t", "complex_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_const_iterator = {"_p_const_iterator", "const_iterator *", 0, 0, (void*)0, 0};
@@ -32097,6 +32095,8 @@ static swig_type_info _swigt__p_std__allocatorT_std__complexT_double_t_t = {"_p_
 static swig_type_info _swigt__p_std__allocatorT_std__string_t = {"_p_std__allocatorT_std__string_t", "std::vector< std::string >::allocator_type *|std::allocator< std::string > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t = {"_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t", "std::vector< std::vector< double > >::allocator_type *|std::allocator< std::vector< double,std::allocator< double > > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_unsigned_long_t = {"_p_std__allocatorT_unsigned_long_t", "std::vector< unsigned long >::allocator_type *|std::allocator< unsigned long > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__functionT_double_fdouble_const_pF_t = {"_p_std__functionT_double_fdouble_const_pF_t", "std::function< double (double const *) > *|IMinimizer::function_chi2_t *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t = {"_p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t", "IMinimizer::function_gradient_t *|std::function< double (double const *,unsigned int,double *) > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argument", "std::invalid_argument *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IFitObserver_t = {"_p_std__shared_ptrT_IFitObserver_t", "std::shared_ptr< IFitObserver > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IObserver_t = {"_p_std__shared_ptrT_IObserver_t", "std::shared_ptr< IObserver > *", 0, 0, (void*)0, 0};
@@ -32163,8 +32163,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_SquaredFunctionSimError,
   &_swigt__p_SquaredFunctionSystematicError,
   &_swigt__p_allocator_type,
-  &_swigt__p_boost__functionT_double_fdouble_const_pF_t,
-  &_swigt__p_boost__functionT_double_fdouble_const_p_unsigned_int_double_pF_t,
   &_swigt__p_char,
   &_swigt__p_complex_t,
   &_swigt__p_const_iterator,
@@ -32188,6 +32186,8 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__allocatorT_std__string_t,
   &_swigt__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t,
   &_swigt__p_std__allocatorT_unsigned_long_t,
+  &_swigt__p_std__functionT_double_fdouble_const_pF_t,
+  &_swigt__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t,
   &_swigt__p_std__invalid_argument,
   &_swigt__p_std__shared_ptrT_IFitObserver_t,
   &_swigt__p_std__shared_ptrT_IObserver_t,
@@ -32254,8 +32254,6 @@ static swig_cast_info _swigc__p_SquaredFunctionMeanSquaredError[] = {  {&_swigt_
 static swig_cast_info _swigc__p_SquaredFunctionSimError[] = {  {&_swigt__p_SquaredFunctionSimError, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SquaredFunctionSystematicError[] = {  {&_swigt__p_SquaredFunctionSystematicError, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_boost__functionT_double_fdouble_const_pF_t[] = {  {&_swigt__p_boost__functionT_double_fdouble_const_pF_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_boost__functionT_double_fdouble_const_p_unsigned_int_double_pF_t[] = {  {&_swigt__p_boost__functionT_double_fdouble_const_p_unsigned_int_double_pF_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_complex_t[] = {  {&_swigt__p_complex_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_const_iterator[] = {  {&_swigt__p_const_iterator, 0, 0, 0},{0, 0, 0, 0}};
@@ -32279,6 +32277,8 @@ static swig_cast_info _swigc__p_std__allocatorT_std__complexT_double_t_t[] = {  
 static swig_cast_info _swigc__p_std__allocatorT_std__string_t[] = {  {&_swigt__p_std__allocatorT_std__string_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t[] = {  {&_swigt__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_unsigned_long_t[] = {  {&_swigt__p_std__allocatorT_unsigned_long_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__functionT_double_fdouble_const_pF_t[] = {  {&_swigt__p_std__functionT_double_fdouble_const_pF_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t[] = {  {&_swigt__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__invalid_argument, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IFitObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IFitObserver_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IObserver_t, 0, 0, 0},  {&_swigt__p_std__shared_ptrT_IFitObserver_t, _p_std__shared_ptrT_IFitObserver_tTo_p_std__shared_ptrT_IObserver_t, 0, 0},{0, 0, 0, 0}};
@@ -32345,8 +32345,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_SquaredFunctionSimError,
   _swigc__p_SquaredFunctionSystematicError,
   _swigc__p_allocator_type,
-  _swigc__p_boost__functionT_double_fdouble_const_pF_t,
-  _swigc__p_boost__functionT_double_fdouble_const_p_unsigned_int_double_pF_t,
   _swigc__p_char,
   _swigc__p_complex_t,
   _swigc__p_const_iterator,
@@ -32370,6 +32368,8 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__allocatorT_std__string_t,
   _swigc__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t,
   _swigc__p_std__allocatorT_unsigned_long_t,
+  _swigc__p_std__functionT_double_fdouble_const_pF_t,
+  _swigc__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t,
   _swigc__p_std__invalid_argument,
   _swigc__p_std__shared_ptrT_IFitObserver_t,
   _swigc__p_std__shared_ptrT_IObserver_t,

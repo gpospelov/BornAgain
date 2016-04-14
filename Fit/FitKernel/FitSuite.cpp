@@ -177,6 +177,11 @@ double FitSuite::getChi2() const
     return m_kernel->getFitObjects()->getChiSquaredValue();
 }
 
+FitOptions &FitSuite::getOptions()
+{
+    return m_kernel->getOptions();
+}
+
 void FitSuite::interruptFitting()
 {
     m_kernel->interruptFitting();

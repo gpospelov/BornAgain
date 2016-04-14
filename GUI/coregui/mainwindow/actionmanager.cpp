@@ -54,7 +54,7 @@ ActionManager::ActionManager(MainWindow *parent)
 
 void ActionManager::createActions()
 {
-    ProjectManager *projectManager = m_mainWindow->getProjectManager();
+    ProjectManager *projectManager = m_mainWindow->projectManager();
     Q_ASSERT(projectManager);
 
     // new project action
@@ -147,11 +147,11 @@ void ActionManager::createGlobalShortcuts()
 
 void ActionManager::aboutToShowRecentProjects()
 {
-    qDebug() << "ActionManager::aboutToShowRecentProjects() ->" << m_mainWindow->getProjectManager()->getRecentProjects();
+    qDebug() << "ActionManager::aboutToShowRecentProjects() ->" << m_mainWindow->projectManager()->getRecentProjects();
     m_recentProjectsMenu->clear();
 
     bool hasRecentProjects = false;
-    foreach(QString file, m_mainWindow->getProjectManager()->getRecentProjects() ) {
+    foreach(QString file, m_mainWindow->projectManager()->getRecentProjects() ) {
         hasRecentProjects = true;
         qDebug() << file << QDir::toNativeSeparators(Utils::withTildeHomePath(file));
         QAction *action = m_recentProjectsMenu->addAction(QDir::toNativeSeparators(Utils::withTildeHomePath(file)));
@@ -165,7 +165,7 @@ void ActionManager::aboutToShowRecentProjects()
     if (hasRecentProjects) {
         m_recentProjectsMenu->addSeparator();
         QAction *action = m_recentProjectsMenu->addAction("Clear Menu");
-        connect(action, SIGNAL(triggered()), m_mainWindow->getProjectManager(), SLOT(clearRecentProjects()));
+        connect(action, SIGNAL(triggered()), m_mainWindow->projectManager(), SLOT(clearRecentProjects()));
     }
 
 }

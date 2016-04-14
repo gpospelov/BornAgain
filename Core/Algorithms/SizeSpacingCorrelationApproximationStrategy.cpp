@@ -18,7 +18,7 @@
 #include "MathFunctions.h"
 
 SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximationStrategy(
-    SimulationParameters sim_params, double kappa)
+    SimulationOptions sim_params, double kappa)
     : IInterferenceFunctionStrategy(sim_params), m_mean_radius(0.0), m_kappa(kappa)
 {
 }

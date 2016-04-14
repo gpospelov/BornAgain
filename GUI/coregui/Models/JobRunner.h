@@ -45,6 +45,8 @@ public:
 
     QString getFailureMessage() const { return m_failure_message; }
 
+    int getSimulationDuration() const { return m_simulation_duration; }
+
 signals:
     void started();
     void finished();
@@ -65,6 +67,7 @@ private:
 
     bool m_terminate_request_flag;
     QString m_failure_message;
+    int m_simulation_duration;
 };
 
 

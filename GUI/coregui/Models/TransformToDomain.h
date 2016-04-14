@@ -45,6 +45,8 @@ BA_CORE_API_ void addDistributionParametersToSimulation(const SessionItem &beam_
                                                         GISASSimulation *simulation);
 BA_CORE_API_ void addMasksToSimulation(const SessionItem &detector_item,
                                                         GISASSimulation *simulation);
+BA_CORE_API_ void setSimulationOptions(GISASSimulation *simulation, const SessionItem &item);
+
 BA_CORE_API_ void setTransformationInfo(IParticle *result, const SessionItem &item);
 BA_CORE_API_ void setPositionInfo(IParticle *result, const SessionItem &item);
 BA_CORE_API_ void setRotationInfo(IParticle *result, const SessionItem &item);

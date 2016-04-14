@@ -327,6 +327,15 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         1e-10);
 
+    // Monte-Carlo simulation
+
+    add("LargeCylindersMonteCarlo",
+        "Large cylinders simulated with MonteCarlo integration",
+        "MiniGISASMonteCarlo",
+        "LargeCylindersInDWBABuilder",
+        "None",
+        2e-10);
+
 
 }
 

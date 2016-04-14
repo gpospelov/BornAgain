@@ -43,8 +43,6 @@ public:
 
     bool hasUnfinishedJobs();
 
-//    void setResults(JobItem *jobItem, const GISASSimulation *simulation);
-
 signals:
     void globalProgress(int);
     void focusRequest(const QString &identifier);
@@ -66,6 +64,7 @@ private:
     void assignForDeletion(QThread *thread);
     void assignForDeletion(JobRunner *runner);
     void clearSimulation(const QString &identifier);
+    void processFinishedJob(JobRunner *runner, JobItem *jobItem);
 
     void updateGlobalProgress();
 

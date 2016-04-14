@@ -55,6 +55,10 @@ SampleBuilderFactory::SampleBuilderFactory()
         "CylindersInDWBABuilder",
         IFactoryCreateFunction<CylindersInDWBABuilder, ISampleBuilder>,
         "Cylinder formfactor in DWBA");
+    registerItem(
+        "LargeCylindersInDWBABuilder",
+        IFactoryCreateFunction<LargeCylindersInDWBABuilder, ISampleBuilder>,
+        "Large cylinders in DWBA");
 
     registerItem(
         "CylindersWithSizeDistributionBuilder",

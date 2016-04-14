@@ -26,7 +26,7 @@
 
 LayerStrategyBuilder::LayerStrategyBuilder(const Layer &decorated_layer,
                                            const Simulation &simulation,
-                                           const SimulationParameters &sim_params,
+                                           const SimulationOptions &sim_params,
                                            size_t layout_index)
     : m_sim_params{sim_params}, mP_specular_info{nullptr}, m_layout_index{layout_index}
 {

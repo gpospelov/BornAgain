@@ -41,6 +41,7 @@
 #include "ResolutionFunction2DGaussian.h"
 #include "RectangularDetector.h"
 #include "SphericalDetector.h"
+#include "SimulationOptions.h"
 
 PyGenVisitor::PyGenVisitor() : m_label(new SampleLabelHandler())
 {
@@ -315,6 +316,7 @@ std::string PyGenVisitor::defineGetSimulation(const GISASSimulation *simulation)
     result << defineBeam(simulation);
     result << defineParameterDistributions(simulation);
     result << defineMasks(simulation);
+    result << defineSimulationOptions(simulation);
     result << indent() << "return simulation\n\n\n";
     return result.str();
 }
@@ -398,137 +400,164 @@ std::string PyGenVisitor::defineFormFactors() const
 
         if (const FormFactorAnisoPyramid *anisoPyramid
             = dynamic_cast<const FormFactorAnisoPyramid *>(p_ff)) {
-            result << " = FormFactorAnisoPyramid(" << anisoPyramid->getLength() << "*nanometer, "
-                   << anisoPyramid->getWidth() << "*nanometer, " << anisoPyramid->getHeight()
-                   << "*nanometer, " << PyGenTools::printDegrees(anisoPyramid->getAlpha()) << ")\n";
+            result << " = FormFactorAnisoPyramid("
+                   << PyGenTools::printNm(anisoPyramid->getLength()) << ", "
+                   << PyGenTools::printNm(anisoPyramid->getWidth()) << ", "
+                   << PyGenTools::printNm(anisoPyramid->getHeight()) << ", "
+                   << PyGenTools::printDegrees(anisoPyramid->getAlpha()) << ")\n";
         }
 
         else if (const FormFactorBox *box = dynamic_cast<const FormFactorBox *>(p_ff)) {
-            result << " = FormFactorBox(" << box->getLength() << "*nanometer, " << box->getWidth()
-                   << "*nanometer, " << box->getHeight() << "*nanometer)\n";
+            result << " = FormFactorBox("
+                   << PyGenTools::printNm(box->getLength()) << ", "
+                   << PyGenTools::printNm(box->getWidth()) << ", "
+                   << PyGenTools::printNm(box->getHeight()) << ")\n";
         }
 
         else if (const FormFactorCone *cone = dynamic_cast<const FormFactorCone *>(p_ff)) {
-            result << " = FormFactorCone(" << cone->getRadius() << "*nanometer, "
-                   << cone->getHeight() << "*nanometer, "
+            result << " = FormFactorCone("
+                   << PyGenTools::printNm(cone->getRadius()) << ", "
+                   << PyGenTools::printNm(cone->getHeight()) << ", "
                    << PyGenTools::printDegrees(cone->getAlpha()) << ")\n";
         }
 
         else if (const FormFactorCone6 *cone6 = dynamic_cast<const FormFactorCone6 *>(p_ff)) {
-            result << " = FormFactorCone6(" << cone6->getRadius() << "*nanometer, "
-                   << cone6->getHeight() << "*nanometer, "
+            result << " = FormFactorCone6("
+                   << PyGenTools::printNm(cone6->getRadius()) << ", "
+                   << PyGenTools::printNm(cone6->getHeight()) << ", "
                    << PyGenTools::printDegrees(cone6->getAlpha()) << ")\n";
         }
 
         else if (const FormFactorCuboctahedron *cuboctahedron
                  = dynamic_cast<const FormFactorCuboctahedron *>(p_ff)) {
-            result << " = FormFactorCuboctahedron(" << cuboctahedron->getLength() << "*nanometer, "
-                   << cuboctahedron->getHeight() << "*nanometer, "
-                   << cuboctahedron->getHeightRatio() << "*nanometer, "
+            result << " = FormFactorCuboctahedron("
+                   << PyGenTools::printNm(cuboctahedron->getLength()) << ", "
+                   << PyGenTools::printNm(cuboctahedron->getHeight()) << ", "
+                   << PyGenTools::printNm(cuboctahedron->getHeightRatio()) << ", "
                    << PyGenTools::printDegrees(cuboctahedron->getAlpha()) << ")\n";
         }
 
         else if (const FormFactorCylinder *cylinder
                  = dynamic_cast<const FormFactorCylinder *>(p_ff)) {
-            result << " = FormFactorCylinder(" << cylinder->getRadius() << "*nanometer, "
-                   << cylinder->getHeight() << "*nanometer)\n";
+            result << " = FormFactorCylinder("
+                   << PyGenTools::printNm(cylinder->getRadius()) << ", "
+                   << PyGenTools::printNm(cylinder->getHeight()) << ")\n";
         }
 
         else if (const FormFactorEllipsoidalCylinder *ellipsoidalCylinder
                  = dynamic_cast<const FormFactorEllipsoidalCylinder *>(p_ff)) {
-            result << " = FormFactorEllipsoidalCylinder(" << ellipsoidalCylinder->getRadiusX()
-                   << "*nanometer, " << ellipsoidalCylinder->getRadiusY() << "*nanometer, "
-                   << ellipsoidalCylinder->getHeight() << "*nanometer)\n";
+            result << " = FormFactorEllipsoidalCylinder("
+                   << PyGenTools::printNm(ellipsoidalCylinder->getRadiusX()) << ", "
+                   << PyGenTools::printNm(ellipsoidalCylinder->getRadiusY()) << ", "
+                   << PyGenTools::printNm(ellipsoidalCylinder->getHeight()) << ")\n";
         }
 
         else if (const FormFactorFullSphere *fullSphere
                  = dynamic_cast<const FormFactorFullSphere *>(p_ff)) {
-            result << " = FormFactorFullSphere(" << fullSphere->getRadius() << "*nanometer)\n";
+            result << " = FormFactorFullSphere("
+                   << PyGenTools::printNm(fullSphere->getRadius()) << ")\n";
         }
 
         else if (const FormFactorFullSpheroid *fullSpheroid
                  = dynamic_cast<const FormFactorFullSpheroid *>(p_ff)) {
-            result << " = FormFactorFullSpheroid(" << fullSpheroid->getRadius() << "*nanometer, "
-                   << fullSpheroid->getHeight() << "*nanometer)\n";
+            result << " = FormFactorFullSpheroid("
+                   << PyGenTools::printNm(fullSpheroid->getRadius()) << ", "
+                   << PyGenTools::printNm(fullSpheroid->getHeight()) << ")\n";
         }
 
         else if (const FormFactorGauss *gauss = dynamic_cast<const FormFactorGauss *>(p_ff)) {
             if (gauss->getRadius() == gauss->getHeight()) {
-                result << " = FormFactorGauss(" << gauss->getVolume() << "*(nanometer)**3)\n";
+                result << " = FormFactorGauss("
+                       << PyGenTools::printDouble(gauss->getVolume()) << "*(nanometer)**3)\n";
             } else {
-                result << " = FormFactorGauss(" << gauss->getRadius() << "*nanometer, "
-                       << gauss->getHeight() << "*nanometer)\n";
+                result << " = FormFactorGauss("
+                       << PyGenTools::printNm(gauss->getRadius()) << ", "
+                       << PyGenTools::printNm(gauss->getHeight()) << ")\n";
             }
         }
 
         else if (const FormFactorHemiEllipsoid *hemiEllipsoid
                  = dynamic_cast<const FormFactorHemiEllipsoid *>(p_ff)) {
-            result << " = FormFactorHemiEllipsoid(" << hemiEllipsoid->getRadiusX() << "*nanometer, "
-                   << hemiEllipsoid->getRadiusY() << "*nanometer, " << hemiEllipsoid->getHeight()
-                   << "*nanometer)\n";
+            result << " = FormFactorHemiEllipsoid("
+                   << PyGenTools::printNm(hemiEllipsoid->getRadiusX()) << ", "
+                   << PyGenTools::printNm(hemiEllipsoid->getRadiusY()) << ", "
+                   << PyGenTools::printNm(hemiEllipsoid->getHeight()) << ")\n";
         }
 
         else if (const FormFactorLorentz *lorentz = dynamic_cast<const FormFactorLorentz *>(p_ff)) {
             if (lorentz->getRadius() == lorentz->getHeight()) {
-                result << " = FormFactorLorentz(" << lorentz->getVolume() << "*(nanometer)**3)\n";
+                result << " = FormFactorLorentz("
+                       << PyGenTools::printDouble(lorentz->getVolume()) << "*(nanometer)**3)\n";
+
             } else {
-                result << " = FormFactorLorentz(" << lorentz->getRadius() << "*nanometer, "
-                       << lorentz->getHeight() << "*nanometer)\n";
+                result << " = FormFactorLorentz("
+                       << PyGenTools::printNm(lorentz->getRadius()) << ", "
+                       << PyGenTools::printNm(lorentz->getHeight()) << ")\n";
             }
         }
 
         else if (const FormFactorPrism3 *prism3 = dynamic_cast<const FormFactorPrism3 *>(p_ff)) {
-            result << " = FormFactorPrism3(" << prism3->getLength() << "*nanometer, "
-                   << prism3->getHeight() << "*nanometer)\n";
+            result << " = FormFactorPrism3("
+                   << PyGenTools::printNm(prism3->getLength()) << ", "
+                   << PyGenTools::printNm(prism3->getHeight()) << ")\n";
         }
 
         else if (const FormFactorPrism6 *prism6 = dynamic_cast<const FormFactorPrism6 *>(p_ff)) {
-            result << " = FormFactorPrism6(" << prism6->getRadius() << "*nanometer, "
-                   << prism6->getHeight() << "*nanometer)\n";
+            result << " = FormFactorPrism6("
+                   << PyGenTools::printNm(prism6->getRadius()) << ", "
+                   << PyGenTools::printNm(prism6->getHeight()) << ")\n";
         }
 
         else if (const FormFactorPyramid *pyramid = dynamic_cast<const FormFactorPyramid *>(p_ff)) {
-            result << " = FormFactorPyramid(" << pyramid->getLength() << "*nanometer, "
-                   << pyramid->getHeight() << "*nanometer, "
+            result << " = FormFactorPyramid("
+                   << PyGenTools::printNm(pyramid->getLength()) << ", "
+                   << PyGenTools::printNm(pyramid->getHeight()) << ", "
                    << PyGenTools::printDegrees(pyramid->getAlpha()) << ")\n";
         }
 
         else if (const FormFactorRipple1 *ripple1 = dynamic_cast<const FormFactorRipple1 *>(p_ff)) {
-            result << " = FormFactorRipple1(" << ripple1->getLength() << "*nanometer, "
-                   << ripple1->getWidth() << "*nanometer, " << ripple1->getHeight()
-                   << "*nanometer)\n";
+            result << " = FormFactorRipple1("
+                   << PyGenTools::printNm(ripple1->getLength()) << ", "
+                   << PyGenTools::printNm(ripple1->getWidth()) << ", "
+                   << PyGenTools::printNm(ripple1->getHeight()) << ")\n";
         }
 
         else if (const FormFactorRipple2 *ripple2 = dynamic_cast<const FormFactorRipple2 *>(p_ff)) {
-            result << " = FormFactorRipple2(" << ripple2->getLength() << "*nanometer, "
-                   << ripple2->getWidth() << "*nanometer, " << ripple2->getHeight() << "*nanometer, "
-                   << ripple2->getAsymmetry() << "*nanometer)\n";
+            result << " = FormFactorRipple2("
+                   << PyGenTools::printNm(ripple2->getLength()) << ", "
+                   << PyGenTools::printNm(ripple2->getWidth()) << ", "
+                   << PyGenTools::printNm(ripple2->getHeight()) << ", "
+                   << PyGenTools::printNm(ripple2->getAsymmetry()) << ")\n";
         }
 
         else if (const FormFactorTetrahedron *tetrahedron
                  = dynamic_cast<const FormFactorTetrahedron *>(p_ff)) {
-            result << " = FormFactorTetrahedron(" << tetrahedron->getLength() << "*nanometer, "
-                   << tetrahedron->getHeight() << "*nanometer, "
+            result << " = FormFactorTetrahedron("
+                   << PyGenTools::printNm(tetrahedron->getLength()) << ", "
+                   << PyGenTools::printNm(tetrahedron->getHeight()) << ", "
                    << PyGenTools::printDegrees(tetrahedron->getAlpha()) << ")\n";
         }
 
         else if (const FormFactorTruncatedCube *truncatedCube
                  = dynamic_cast<const FormFactorTruncatedCube *>(p_ff)) {
-            result << " = FormFactorTruncatedCube(" << truncatedCube->getLength() << "*nanometer, "
-                   << truncatedCube->getRemovedLength() << "*nanometer)\n";
+            result << " = FormFactorTruncatedCube("
+                   << PyGenTools::printNm(truncatedCube->getLength()) << ", "
+                   << PyGenTools::printNm(truncatedCube->getRemovedLength()) << ")\n";
         }
 
         else if (const FormFactorTruncatedSphere *truncatedSphere
                  = dynamic_cast<const FormFactorTruncatedSphere *>(p_ff)) {
-            result << " = FormFactorTruncatedSphere(" << truncatedSphere->getRadius()
-                   << "*nanometer, " << truncatedSphere->getHeight() << "*nanometer)\n";
+            result << " = FormFactorTruncatedSphere("
+                   << PyGenTools::printNm(truncatedSphere->getRadius()) << ", "
+                   << PyGenTools::printNm(truncatedSphere->getHeight()) << ")\n";
         }
 
         else if (const FormFactorTruncatedSpheroid *truncatedSpheroid
                  = dynamic_cast<const FormFactorTruncatedSpheroid *>(p_ff)) {
-            result << " = FormFactorTruncatedSpheroid(" << truncatedSpheroid->getRadius()
-                   << "*nanometer, " << truncatedSpheroid->getHeight() << "*nanometer, "
-                   << truncatedSpheroid->getHeightFlattening() << "*nanometer)\n";
+            result << " = FormFactorTruncatedSpheroid("
+                   << PyGenTools::printNm(truncatedSpheroid->getRadius()) << ", "
+                   << PyGenTools::printNm(truncatedSpheroid->getHeight()) << ", "
+                   << PyGenTools::printNm(truncatedSpheroid->getHeightFlattening()) << ")\n";
         }
 
         else {
@@ -684,7 +713,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                  = dynamic_cast<const InterferenceFunction1DLattice *>(interference)) {
             const Lattice1DParameters latticeParameters = oneDLattice->getLatticeParameters();
             result << indent() << it->second << " = InterferenceFunction1DLattice("
-                   << latticeParameters.m_length << "*nanometer, "
+                   << PyGenTools::printNm(latticeParameters.m_length) << ", "
                    << PyGenTools::printDegrees(latticeParameters.m_xi) << ")\n";
 
             const IFTDecayFunction1D *pdf = oneDLattice->getDecayFunction();
@@ -730,8 +759,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
         else if (const InterferenceFunctionRadialParaCrystal *oneDParaCrystal
                  = dynamic_cast<const InterferenceFunctionRadialParaCrystal *>(interference)) {
             result << indent() << it->second << " = InterferenceFunctionRadialParaCrystal("
-                   << oneDParaCrystal->getPeakDistance() << "*nanometer, "
-                   << oneDParaCrystal->getDampingLength() << "*nanometer)\n";
+                   << PyGenTools::printNm(oneDParaCrystal->getPeakDistance()) << ", "
+                   << PyGenTools::printNm(oneDParaCrystal->getDampingLength()) << ")\n";
 
             if (oneDParaCrystal->getKappa() != 0.0) {
                 result << indent() << it->second << ".setKappa("
@@ -799,8 +828,9 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                  = dynamic_cast<const InterferenceFunction2DLattice *>(interference)) {
             const Lattice2DParameters latticeParameters = twoDLattice->getLatticeParameters();
             result << indent() << it->second << " = InterferenceFunction2DLattice("
-                   << latticeParameters.m_length_1 << "*nanometer, " << latticeParameters.m_length_2
-                   << "*nanometer, " << PyGenTools::printDegrees(latticeParameters.m_angle) << ", "
+                   << PyGenTools::printNm(latticeParameters.m_length_1) << ", "
+                   << PyGenTools::printNm(latticeParameters.m_length_2) << ", "
+                   << PyGenTools::printDegrees(latticeParameters.m_angle) << ", "
                    << PyGenTools::printDegrees(latticeParameters.m_xi) << ")\n";
 
             const IFTDecayFunction2D *pdf = twoDLattice->getDecayFunction();
@@ -808,11 +838,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             if (const FTDecayFunction2DCauchy *fTD2DCauchy
                 = dynamic_cast<const FTDecayFunction2DCauchy *>(pdf)) {
                 result << indent() << it->second << "_pdf  = FTDecayFunction2DCauchy("
-                       << PyGenTools::printDouble(fTD2DCauchy->getDecayLengthX())
-                       << "*nanometer, "
-                       << PyGenTools::printDouble(fTD2DCauchy->getDecayLengthY())
-                       << "*nanometer"
-                       << ")\n";
+                       << PyGenTools::printNm(fTD2DCauchy->getDecayLengthX()) << ", "
+                       << PyGenTools::printNm(fTD2DCauchy->getDecayLengthY()) << ")\n";
                 if (fTD2DCauchy->getGamma() != 0.0) {
                     result << indent() << it->second << "_pdf"
                            << ".setGamma(" << PyGenTools::printDegrees(fTD2DCauchy->getGamma())
@@ -823,9 +850,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             else if (const FTDecayFunction2DGauss *fTD2DGauss
                      = dynamic_cast<const FTDecayFunction2DGauss *>(pdf)) {
                 result << indent() << it->second << "_pdf  = FTDecayFunction2DGauss("
-                       << fTD2DGauss->getDecayLengthX() << "*nanometer, "
-                       << fTD2DGauss->getDecayLengthY() << "*nanometer"
-                       << ")\n";
+                       << PyGenTools::printNm(fTD2DGauss->getDecayLengthX()) << ", "
+                       << PyGenTools::printNm(fTD2DGauss->getDecayLengthY()) << ")\n";
 
                 if (fTD2DGauss->getGamma() != 0.0) {
                     result << indent() << it->second << "_pdf"
@@ -837,8 +863,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             else if (const FTDecayFunction2DVoigt *fTD2DVoigt
                      = dynamic_cast<const FTDecayFunction2DVoigt *>(pdf)) {
                 result << indent() << it->second << "_pdf  = FTDecayFunction2DVoigt("
-                       << fTD2DVoigt->getDecayLengthX() << "*nanometer, "
-                       << fTD2DVoigt->getDecayLengthY() << "*nanometer, "
+                       << PyGenTools::printNm(fTD2DVoigt->getDecayLengthX()) << ", "
+                       << PyGenTools::printNm(fTD2DVoigt->getDecayLengthY()) << ", "
                        << PyGenTools::printDouble(fTD2DVoigt->getEta()) << ")\n";
 
                 if (fTD2DVoigt->getGamma() != 0.0) {
@@ -868,9 +894,10 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                                      twoDParaCrystal->getLatticeParameters().m_angle)) {
                 result << indent() << it->second
                        << " = InterferenceFunction2DParaCrystal.createSquare("
-                       << twoDParaCrystal->getLatticeParameters().m_length_1 << "*nanometer, "
-                       << twoDParaCrystal->getDampingLength() << "*nanometer, " << domainSize[0]
-                       << "*nanometer, " << domainSize[1] << "*nanometer)\n";
+                       << PyGenTools::printNm(twoDParaCrystal->getLatticeParameters().m_length_1) << ", "
+                       << PyGenTools::printNm(twoDParaCrystal->getDampingLength()) << ", "
+                       << PyGenTools::printNm(domainSize[0]) << ", "
+                       << PyGenTools::printNm(domainSize[1]) << ")\n";
             }
 
             else if (PyGenTools::isHexagonal(twoDParaCrystal->getLatticeParameters().m_length_1,
@@ -878,22 +905,24 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                                              twoDParaCrystal->getLatticeParameters().m_angle)) {
                 result << indent() << it->second
                        << " = InterferenceFunction2DParaCrystal.createHexagonal("
-                       << twoDParaCrystal->getLatticeParameters().m_length_1 << "*nanometer, "
-                       << twoDParaCrystal->getDampingLength() << "*nanometer, " << domainSize[0]
-                       << "*nanometer, " << domainSize[1] << "*nanometer)\n";
+                       << PyGenTools::printNm(twoDParaCrystal->getLatticeParameters().m_length_1) << ", "
+                       << PyGenTools::printNm(twoDParaCrystal->getDampingLength()) << ", "
+                       << PyGenTools::printNm(domainSize[0]) << ", "
+                       << PyGenTools::printNm(domainSize[1]) << ")\n";
             }
 
             else {
                 result << indent() << it->second << " = InterferenceFunction2DParaCrystal("
-                       << twoDParaCrystal->getLatticeParameters().m_length_1 << "*nanometer, "
-                       << twoDParaCrystal->getLatticeParameters().m_length_2 << "*nanometer, "
+                       << PyGenTools::printNm(twoDParaCrystal->getLatticeParameters().m_length_1) << ", "
+                       << PyGenTools::printNm(twoDParaCrystal->getLatticeParameters().m_length_2) << ", "
                        << PyGenTools::printDegrees(twoDParaCrystal->getLatticeParameters().m_angle) << ", "
                        << PyGenTools::printDegrees(twoDParaCrystal->getLatticeParameters().m_xi) << ", "
-                       << twoDParaCrystal->getDampingLength() << "*nanometer)\n";
+                       << PyGenTools::printNm(twoDParaCrystal->getDampingLength()) << ")\n";
 
                 if (domainSize[0] != 0 || domainSize[1] != 0) {
-                    result << indent() << it->second << ".setDomainSizes(" << domainSize[0]
-                           << "*nanometer, " << domainSize[1] << "*nanometer)\n";
+                    result << indent() << it->second << ".setDomainSizes("
+                           << PyGenTools::printNm(domainSize[0]) << ", "
+                           << PyGenTools::printNm(domainSize[1]) << ")\n";
                 }
 
                 if (twoDParaCrystal->getIntegrationOverXi() == true) {
@@ -908,8 +937,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             if (const FTDistribution2DCauchy *fTD2DCauchy
                 = dynamic_cast<const FTDistribution2DCauchy *>(pdf_1)) {
                 result << indent() << it->second << "_pdf_1  = FTDistribution2DCauchy("
-                       << fTD2DCauchy->getCoherenceLengthX() << "*nanometer, "
-                       << fTD2DCauchy->getCoherenceLengthY() << "*nanometer)\n";
+                       << PyGenTools::printNm(fTD2DCauchy->getCoherenceLengthX()) << ", "
+                       << PyGenTools::printNm(fTD2DCauchy->getCoherenceLengthY()) << ")\n";
 
                 if (fTD2DCauchy->getGamma() != 0.0) {
                     result << indent() << it->second << "_pdf_1.setGamma("
@@ -920,8 +949,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             else if (const FTDistribution2DCone *fTD2DCone
                      = dynamic_cast<const FTDistribution2DCone *>(pdf_1)) {
                 result << indent() << it->second << "_pdf_1  = FTDistribution2DCone("
-                       << fTD2DCone->getCoherenceLengthX() << "*nanometer, "
-                       << fTD2DCone->getCoherenceLengthY() << "*nanometer)\n";
+                       << PyGenTools::printNm(fTD2DCone->getCoherenceLengthX()) << ", "
+                       << PyGenTools::printNm(fTD2DCone->getCoherenceLengthY()) << ")\n";
 
                 if (fTD2DCone->getGamma() != 0.0) {
                     result << indent() << it->second << "_pdf_1.setGamma("
@@ -932,8 +961,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             else if (const FTDistribution2DGate *fTD2DGate
                      = dynamic_cast<const FTDistribution2DGate *>(pdf_1)) {
                 result << indent() << it->second << "_pdf_1  = FTDistribution2DGate("
-                       << fTD2DGate->getCoherenceLengthX() << "*nanometer, "
-                       << fTD2DGate->getCoherenceLengthY() << "*nanometer)\n";
+                       << PyGenTools::printNm(fTD2DGate->getCoherenceLengthX()) << ", "
+                       << PyGenTools::printNm(fTD2DGate->getCoherenceLengthY()) << ")\n";
 
                 if (fTD2DGate->getGamma() != 0.0) {
                     result << indent() << it->second << "_pdf_1.setGamma("
@@ -944,8 +973,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             else if (const FTDistribution2DGauss *fTD2DGauss
                      = dynamic_cast<const FTDistribution2DGauss *>(pdf_1)) {
                 result << indent() << it->second << "_pdf_1  = FTDistribution2DGauss("
-                       << fTD2DGauss->getCoherenceLengthX() << "*nanometer, "
-                       << fTD2DGauss->getCoherenceLengthY() << "*nanometer)\n";
+                       << PyGenTools::printNm(fTD2DGauss->getCoherenceLengthX()) << ", "
+                       << PyGenTools::printNm(fTD2DGauss->getCoherenceLengthY()) << ")\n";
 
                 if (fTD2DGauss->getGamma() != 0.0) {
                     result << indent() << it->second << "_pdf_1.setGamma("
@@ -956,8 +985,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             else if (const FTDistribution2DVoigt *fTD2DVoigt
                      = dynamic_cast<const FTDistribution2DVoigt *>(pdf_1)) {
                 result << indent() << it->second << "_pdf_1  = FTDistribution2DVoigt("
-                       << fTD2DVoigt->getCoherenceLengthX() << "*nanometer, "
-                       << fTD2DVoigt->getCoherenceLengthY() << "*nanometer, "
+                       << PyGenTools::printNm(fTD2DVoigt->getCoherenceLengthX()) << ", "
+                       << PyGenTools::printNm(fTD2DVoigt->getCoherenceLengthY()) << ", "
                        << PyGenTools::printDouble(fTD2DVoigt->getEta()) << ")\n";
 
                 if (fTD2DVoigt->getGamma() != 0.0) {
@@ -978,8 +1007,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             if (const FTDistribution2DCauchy *fTD2DCauchy
                 = dynamic_cast<const FTDistribution2DCauchy *>(pdf_2)) {
                 result << indent() << it->second << "_pdf_2   = FTDistribution2DCauchy("
-                       << fTD2DCauchy->getCoherenceLengthX() << "*nanometer, "
-                       << fTD2DCauchy->getCoherenceLengthY() << "*nanometer)\n";
+                       << PyGenTools::printNm(fTD2DCauchy->getCoherenceLengthX()) << ", "
+                       << PyGenTools::printNm(fTD2DCauchy->getCoherenceLengthY()) << ")\n";
 
                 if (fTD2DCauchy->getGamma() != 0.0) {
                     result << indent() << it->second << "_pdf_2.setGamma("
@@ -990,8 +1019,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             else if (const FTDistribution2DCone *fTD2DCone
                      = dynamic_cast<const FTDistribution2DCone *>(pdf_2)) {
                 result << indent() << it->second << "_pdf_2   = FTDistribution2DCone("
-                       << fTD2DCone->getCoherenceLengthX() << "*nanometer, "
-                       << fTD2DCone->getCoherenceLengthY() << "*nanometer)\n";
+                       << PyGenTools::printNm(fTD2DCone->getCoherenceLengthX()) << ", "
+                       << PyGenTools::printNm(fTD2DCone->getCoherenceLengthY()) << ")\n";
 
                 if (fTD2DCone->getGamma() != 0.0) {
                     result << indent() << it->second << "_pdf_2.setGamma("
@@ -1002,8 +1031,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             else if (const FTDistribution2DGate *fTD2DGate
                      = dynamic_cast<const FTDistribution2DGate *>(pdf_2)) {
                 result << indent() << it->second << "_pdf_2   = FTDistribution2DGate("
-                       << fTD2DGate->getCoherenceLengthX() << "*nanometer, "
-                       << fTD2DGate->getCoherenceLengthY() << "*nanometer)\n";
+                       << PyGenTools::printNm(fTD2DGate->getCoherenceLengthX()) << ", "
+                       << PyGenTools::printNm(fTD2DGate->getCoherenceLengthY()) << ")\n";
 
                 if (fTD2DGate->getGamma() != 0.0) {
                     result << indent() << it->second << "_pdf_2.setGamma("
@@ -1014,8 +1043,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             else if (const FTDistribution2DGauss *fTD2DGauss
                      = dynamic_cast<const FTDistribution2DGauss *>(pdf_2)) {
                 result << indent() << it->second << "_pdf_2 = FTDistribution2DGauss("
-                       << fTD2DGauss->getCoherenceLengthX() << "*nanometer, "
-                       << fTD2DGauss->getCoherenceLengthY() << "*nanometer)\n";
+                       << PyGenTools::printNm(fTD2DGauss->getCoherenceLengthX()) << ", "
+                       << PyGenTools::printNm(fTD2DGauss->getCoherenceLengthY()) << ")\n";
 
                 if (fTD2DGauss->getGamma() != 0.0) {
                     result << indent() << it->second << "_pdf_2.setGamma("
@@ -1026,8 +1055,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             else if (const FTDistribution2DVoigt *fTD2DVoigt
                      = dynamic_cast<const FTDistribution2DVoigt *>(pdf_2)) {
                 result << indent() << it->second << "_pdf_2 = FTDistribution2DVoigt("
-                       << fTD2DVoigt->getCoherenceLengthX() << "*nanometer, "
-                       << fTD2DVoigt->getCoherenceLengthY() << "*nanometer, "
+                       << PyGenTools::printNm(fTD2DVoigt->getCoherenceLengthX()) << ", "
+                       << PyGenTools::printNm(fTD2DVoigt->getCoherenceLengthY()) << ", "
                        << PyGenTools::printDouble(fTD2DVoigt->getEta()) << ")\n";
 
                 if (fTD2DVoigt->getGamma() != 0.0) {
@@ -1114,9 +1143,10 @@ std::string PyGenVisitor::defineRoughnesses() const
     result << "\n" << indent() << "# Defining Roughness Parameters\n";
     SampleLabelHandler::roughnesses_t::iterator it = m_label->getLayerRoughnessMap()->begin();
     while (it != m_label->getLayerRoughnessMap()->end()) {
-        result << indent() << it->second << " = LayerRoughness(" << it->first->getSigma()
-               << "*nanometer, " << it->first->getHurstParameter() << ", "
-               << it->first->getLatteralCorrLength() << "*nanometer)\n";
+        result << indent() << it->second << " = LayerRoughness("
+               << PyGenTools::printNm(it->first->getSigma()) << ", "
+               << it->first->getHurstParameter() << ", "
+               << PyGenTools::printNm(it->first->getLatteralCorrLength()) << ")\n";
         it++;
     }
     return result.str();
@@ -1287,8 +1317,13 @@ std::string PyGenVisitor::defineDetectorResolutionFunction(const GISASSimulation
 
                 result << indent() << "simulation.setDetectorResolutionFunction(";
                 result << "ResolutionFunction2DGaussian(";
-                result << PyGenTools::printDegrees(resfunc->getSigmaX()) << ", ";
-                result << PyGenTools::printDegrees(resfunc->getSigmaY()) << "))\n";
+                if(detector->getDefaultAxesUnits() == IDetector2D::RADIANS) {
+                    result << PyGenTools::printDegrees(resfunc->getSigmaX()) << ", ";
+                    result << PyGenTools::printDegrees(resfunc->getSigmaY()) << "))\n";
+                } else {
+                    result << PyGenTools::printDouble(resfunc->getSigmaX()) << ", ";
+                    result << PyGenTools::printDouble(resfunc->getSigmaY()) << "))\n";
+                }
 
             } else {
                 std::string message("PyGenVisitor::defineDetectorResolutionFunction() -> Error.");
@@ -1311,7 +1346,7 @@ std::string PyGenVisitor::defineBeam(const GISASSimulation *simulation) const
     result << std::setprecision(12);
     // result << indent() << "# Defining Beam Parameters\n";
     result << indent() << "simulation.setBeamParameters(";
-    result << simulation->getInstrument().getBeam().getWavelength() << "*nanometer, "
+    result << PyGenTools::printNm(simulation->getInstrument().getBeam().getWavelength()) << ", "
            << PyGenTools::printDegrees(simulation->getInstrument().getBeam().getAlpha()) << ", "
            << PyGenTools::printDegrees(simulation->getInstrument().getBeam().getPhi()) << ")\n";
     double beam_intensity = simulation->getInstrument().getBeamIntensity();
@@ -1357,6 +1392,24 @@ std::string PyGenVisitor::defineMasks(const GISASSimulation *simulation) const
             result << PyGenTools::getRepresentation(indent(), shape, mask_value);
         }
         result << "\n";
+    }
+
+    return result.str();
+}
+
+std::string PyGenVisitor::defineSimulationOptions(const GISASSimulation *simulation) const
+{
+    std::ostringstream result;
+    result << std::setprecision(12);
+
+    const SimulationOptions &options = simulation->getOptions();
+    if(options.getHardwareConcurrency() != options.getNumberOfThreads()) {
+        result << indent() << "simulation.getOptions().setNumberOfThreads("
+               << options.getNumberOfThreads() << ")\n";
+    }
+    if(options.isIntegrate()) {
+        result << indent() << "simulation.getOptions().setMonteCarloIntegration(True, "
+               << options.getMcPoints() << ")\n";
     }
 
     return result.str();
@@ -1452,8 +1505,10 @@ void PyGenVisitor::setPositionInformation(const IParticle *p_particle, std::stri
 
     if (has_position_info) {
         result << indent() << name
-               << "_position = kvector_t(" << pos.x() << "*nanometer, " << pos.y()
-               << "*nanometer, " << pos.z() << "*nanometer)\n";
+               << "_position = kvector_t("
+               << PyGenTools::printNm(pos.x()) << ", "
+               << PyGenTools::printNm(pos.y()) << ", "
+               << PyGenTools::printNm(pos.z()) << ")\n";
 
         result << indent()
                << name << ".setPosition("

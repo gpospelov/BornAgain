@@ -26,6 +26,7 @@
 #include "SessionItem.h"
 #include "IntensityDataFunctions.h"
 #include "DomainSimulationBuilder.h"
+#include "DocumentModel.h"
 #include "Utils.h"
 
 #include <QDebug>
@@ -83,16 +84,18 @@ void GUIFunctionalTest::createDomainSimulation()
     assert(m_reference_simulation->getSample());
 
     // initializing necessary GUI
-    const std::unique_ptr<SampleModel> P_sampleModel(new SampleModel());
-    const std::unique_ptr<InstrumentModel> P_instrumentModel(new InstrumentModel());
-    const std::unique_ptr<MaterialModel> P_materialModel(new MaterialModel());
-    const std::unique_ptr<MaterialSvc> P_materialEditor(new MaterialSvc(P_materialModel.get()));
+    const std::unique_ptr<DocumentModel> documentModel(new DocumentModel());
+    const std::unique_ptr<SampleModel> sampleModel(new SampleModel());
+    const std::unique_ptr<InstrumentModel> instrumentModel(new InstrumentModel());
+    const std::unique_ptr<MaterialModel> materialModel(new MaterialModel());
+    const std::unique_ptr<MaterialSvc> materialSvc(new MaterialSvc(materialModel.get()));
 
     // populating GUI models from domain
     GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(P_sampleModel.get(), *m_reference_simulation);
-    guiBuilder.populateInstrumentModel(P_instrumentModel.get(), *m_reference_simulation);
+    guiBuilder.populateSampleModel(sampleModel.get(), *m_reference_simulation);
+    guiBuilder.populateInstrumentModel(instrumentModel.get(), *m_reference_simulation);
+    guiBuilder.populateDocumentModel(documentModel.get(), *m_reference_simulation);
 
-    m_domain_simulation
-        = DomainSimulationBuilder::getSimulation(P_sampleModel.get(), P_instrumentModel.get());
+    m_domain_simulation = DomainSimulationBuilder::getSimulation(
+            sampleModel.get(), instrumentModel.get(), documentModel.get());
 }

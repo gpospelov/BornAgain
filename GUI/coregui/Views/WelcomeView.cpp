@@ -43,7 +43,7 @@ WelcomeView::WelcomeView(MainWindow *parent)
     setAutoFillBackground(true);
     setPalette(palette);
 
-    m_projectManager = m_mainWindow->getProjectManager();
+    m_projectManager = m_mainWindow->projectManager();
     Q_ASSERT(m_projectManager);
 
     // button layout

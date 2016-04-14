@@ -75,18 +75,26 @@ void ProgressHandler::init(Simulation *simulation, int param_combinations)
     m_current_progress = 0;
     m_nitems_max = 0;
 
-    // Analyzing sample for additional factors which will slow done the simulation
-    int roughness_factor(1);
     MultiLayer *multilayer = dynamic_cast<MultiLayer *>(simulation->getSample());
+
+    double number_of_rounds_factor(0.0);
+    int nlayouts(0);
+    for(size_t i_layer=0; i_layer<multilayer->getNumberOfLayers(); ++i_layer) {
+        nlayouts += multilayer->getLayer(i_layer)->getNumberOfLayouts();
+    }
+    if(nlayouts > 0) number_of_rounds_factor += 1.0;
+
+    // Analyzing sample for additional factors which will slow done the simulation
+    int nroughness(0);
     if(multilayer) {
         for (size_t i=0; i<multilayer->getNumberOfInterfaces(); ++i) {
             if(multilayer->getLayerInterface(i)->getRoughness() ) {
-                roughness_factor = 2;
-                break;
+                nroughness++;
             }
         }
     }
+    if(nroughness>0) number_of_rounds_factor += 1.0;
 
     // Simplified estimation of total number of items in DWBA simulation
-    m_nitems_max = roughness_factor*param_combinations*simulation->getNumberOfSimulationElements();
+    m_nitems_max = number_of_rounds_factor*param_combinations*simulation->getNumberOfSimulationElements();
 }

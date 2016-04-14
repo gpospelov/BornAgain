@@ -22,29 +22,10 @@
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
 #include "JobResultsPresenter.h"
+#include "SimulationOptionsItem.h"
+#include "GUIHelpers.h"
+#include <QDateTime>
 #include <QDebug>
-
-
-namespace
-{
-
-QMap<QString, QString> initializeRunPolicies()
-{
-    QMap<QString, QString> result;
-    result[Constants::JOB_RUN_IMMEDIATELY] =
-        QString("Start simulation immediately, switch to Jobs view automatically when completed");
-    result[Constants::JOB_RUN_IN_BACKGROUND] =
-        QString("Start simulation immediately, do not switch to Jobs view when completed");
-    result[Constants::JOB_RUN_SUBMIT_ONLY] =
-        QString("Only submit simulation for consequent execution,"
-                " has to be started from Jobs view explicitely");
-    return result;
-}
-
-}
-
-QMap<QString, QString> JobItem::m_run_policies = initializeRunPolicies();
-
 
 const QString JobItem::P_IDENTIFIER = "Identifier";
 const QString JobItem::P_SAMPLE_NAME = "Sample";
@@ -53,25 +34,24 @@ const QString JobItem::P_WITH_FITTING = "With Fitting";
 const QString JobItem::P_STATUS = "Status";
 const QString JobItem::P_BEGIN_TIME = "Begin Time";
 const QString JobItem::P_END_TIME = "End Time";
+const QString JobItem::P_DURATION = "Duration";
 const QString JobItem::P_COMMENTS = "Comments";
 const QString JobItem::P_PROGRESS = "Progress";
-const QString JobItem::P_NTHREADS = "Number of Threads";
-const QString JobItem::P_RUN_POLICY = "Run Policy";
 const QString JobItem::T_SAMPLE = "Sample Tag";
 const QString JobItem::T_INSTRUMENT = "Instrument Tag";
 const QString JobItem::T_OUTPUT = "Output Tag";
 const QString JobItem::T_REALDATA = "Real Data Tag";
 const QString JobItem::T_PARAMETER_TREE = "Parameter Tree";
+const QString JobItem::T_SIMULATION_OPTIONS = "Simulation Options";
 
 JobItem::JobItem()
     : SessionItem(Constants::JobItemType)
 {
-//    registerProperty(OBSOLETE_P_NAME, Constants::JobItemType);
     setItemName(Constants::JobItemType);
     addProperty(P_IDENTIFIER, QString())->setVisible(false);
     addProperty(P_SAMPLE_NAME, QString())->setEditable(false);
     addProperty(P_INSTRUMENT_NAME, QString())->setEditable(false);
-    addProperty(P_WITH_FITTING, false);
+    addProperty(P_WITH_FITTING, false)->setVisible(false);
 
     ComboProperty status;
     status << Constants::STATUS_IDLE << Constants::STATUS_RUNNING << Constants::STATUS_COMPLETED
@@ -80,16 +60,13 @@ JobItem::JobItem()
 
     addProperty(P_BEGIN_TIME, QString())->setEditable(false);
     addProperty(P_END_TIME, QString())->setEditable(false);
+
+    SessionItem *durationItem = addProperty(P_DURATION, QString());
+    durationItem->setEditable(false);
+    durationItem->setToolTip(QStringLiteral("Duration of DWBA simulation in sec.msec format"));
+
     addProperty(P_COMMENTS, QString())->setVisible(false);
-
     addProperty(P_PROGRESS, 0)->setVisible(false);
-    addProperty(P_NTHREADS, -1)->setVisible(false);
-
-    ComboProperty policy;
-    policy << Constants::JOB_RUN_IMMEDIATELY
-           << Constants::JOB_RUN_IN_BACKGROUND
-           << Constants::JOB_RUN_SUBMIT_ONLY;
-    addProperty(P_RUN_POLICY, policy.getVariant())->setVisible(false);
 
     registerTag(T_SAMPLE, 1, 1, QStringList() << Constants::MultiLayerType);
     registerTag(T_INSTRUMENT, 1, 1, QStringList() << Constants::InstrumentType);
@@ -97,6 +74,9 @@ JobItem::JobItem()
     registerTag(T_REALDATA, 1, 1, QStringList() << Constants::IntensityDataType);
     registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterLabelType
                 << Constants::ParameterType);
+    registerTag(T_SIMULATION_OPTIONS, 1, 1, QStringList() << Constants::SimulationOptionsType);
+
+
     mapper()->setOnChildPropertyChange(
                 [this](SessionItem* item, const QString &name)
     {
@@ -189,6 +169,14 @@ void JobItem::setEndTime(const QString &end_time)
     setItemValue(P_END_TIME, end_time);
 }
 
+// Sets duration (msec -> "sec.msec")
+void JobItem::setDuration(int duration)
+{
+    QString str;
+    str.sprintf("%7.3f", duration/1000.);
+    setItemValue(P_DURATION, str.simplified());
+}
+
 QString JobItem::getComments() const
 {
     return getItemValue(P_COMMENTS).toString();
@@ -211,31 +199,22 @@ void JobItem::setProgress(int progress)
 
 int JobItem::getNumberOfThreads() const
 {
-    return getItemValue(P_NTHREADS).toInt();
-}
-
-void JobItem::setNumberOfThreads(int number_of_threads)
-{
-    setItemValue(P_NTHREADS, number_of_threads);
+    return getSimulationOptionsItem()->getNumberOfThreads();
 }
 
 void JobItem::setRunPolicy(const QString &run_policy)
 {
-    ComboProperty combo_property = getItemValue(JobItem::P_RUN_POLICY).value<ComboProperty>();
-    combo_property.setValue(run_policy);
-    setItemValue(JobItem::P_RUN_POLICY, combo_property.getVariant());
+    getSimulationOptionsItem()->setRunPolicy(run_policy);
 }
 
 bool JobItem::runImmediately() const
 {
-    ComboProperty combo_property = getItemValue(P_RUN_POLICY).value<ComboProperty>();
-    return combo_property.getValue() == Constants::JOB_RUN_IMMEDIATELY;
+    return getSimulationOptionsItem()->runImmediately();
 }
 
 bool JobItem::runInBackground() const
 {
-    ComboProperty combo_property = getItemValue(P_RUN_POLICY).value<ComboProperty>();
-    return combo_property.getValue() == Constants::JOB_RUN_IN_BACKGROUND;
+    return getSimulationOptionsItem()->runInBackground();
 }
 
 //! Returns MultiLayerItem of this JobItem, if from_backup=true, then backup'ed version of
@@ -258,5 +237,20 @@ void JobItem::setResults(const GISASSimulation *simulation)
     Q_ASSERT(intensityItem);
 
     JobResultsPresenter::setResults(intensityItem, simulation);
+}
+
+SimulationOptionsItem *JobItem::getSimulationOptionsItem()
+{
+    return const_cast<SimulationOptionsItem *>(static_cast<const JobItem*>(this)->getSimulationOptionsItem());
+}
+
+const SimulationOptionsItem *JobItem::getSimulationOptionsItem() const
+{
+    const SimulationOptionsItem *result = dynamic_cast<const SimulationOptionsItem *>(getItem(T_SIMULATION_OPTIONS));
+    if(!result) {
+        throw GUIHelpers::Error("JobItem::getSimulationOptions() -> Error. "
+                                "Can't get SimulationOptionsItem");
+    }
+    return result;
 }
 

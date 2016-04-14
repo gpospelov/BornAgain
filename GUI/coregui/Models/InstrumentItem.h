@@ -30,9 +30,9 @@ public:
     explicit InstrumentItem();
     virtual ~InstrumentItem() {}
 
-    BeamItem *getBeamItem();
+    BeamItem *getBeamItem() const;
 
-    DetectorItem *getDetectorItem();
+    DetectorItem *getDetectorItem() const;
 };
 
 #endif

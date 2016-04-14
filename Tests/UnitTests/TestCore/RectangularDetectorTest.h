@@ -35,9 +35,9 @@ class RectangularDetectorTest : public ::testing::Test
 TEST_F(RectangularDetectorTest, InitialState)
 {
     RectangularDetector det(50, 10.0, 60, 20.0);
-    EXPECT_EQ(50, det.getNbinsX());
+    EXPECT_EQ(size_t(50), det.getNbinsX());
     EXPECT_EQ(10.0, det.getWidth());
-    EXPECT_EQ(60, det.getNbinsY());
+    EXPECT_EQ(size_t(60), det.getNbinsY());
     EXPECT_EQ(20.0, det.getHeight());
 
     EXPECT_EQ(0.0, det.getU0());
@@ -93,7 +93,7 @@ TEST_F(RectangularDetectorTest, PerpToSample)
     EXPECT_TRUE(kvector_t(0.0, -1.0, 0.0) == det.getDirectionVector());
 
     std::vector<SimulationElement> elements = det.createSimulationElements(simulation.getInstrument().getBeam());
-    EXPECT_EQ(elements.size(), nbinsx*nbinsy);
+    EXPECT_EQ(elements.size(), size_t(nbinsx*nbinsy));
 
     // lower left bin
     kvector_t k(distance, u0-dx/2., (-v0+dy/2.));
@@ -150,7 +150,7 @@ TEST_F(RectangularDetectorTest, PerpToDirectBeam)
     EXPECT_TRUE(kvector_t(0.0, -1.0, 0.0) == det.getDirectionVector());
 
     std::vector<SimulationElement> elements = det.createSimulationElements(simulation.getInstrument().getBeam());
-    EXPECT_EQ(elements.size(), nbinsx*nbinsy);
+    EXPECT_EQ(elements.size(), size_t(nbinsx*nbinsy));
 
     // lower left bin
     double ds = v0 - dy/2.;
@@ -194,7 +194,7 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeam)
 
     // checking detector elements
     std::vector<SimulationElement> elements = det.createSimulationElements(simulation.getInstrument().getBeam());
-    EXPECT_EQ(elements.size(), nbinsx*nbinsy);
+    EXPECT_EQ(elements.size(), size_t(nbinsx*nbinsy));
 
     double ds = v0 - dy/2.;
     double alpha_x = alpha_i - std::atan(ds/distance);
@@ -250,7 +250,7 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos)
 
     // checking detector elements
     std::vector<SimulationElement> elements = det.createSimulationElements(simulation.getInstrument().getBeam());
-    EXPECT_EQ(elements.size(), nbinsx*nbinsy);
+    EXPECT_EQ(elements.size(), size_t(nbinsx*nbinsy));
 
     double ds = v0 - dy/2.;
     double alpha_x = alpha_i - std::atan(ds/distance);

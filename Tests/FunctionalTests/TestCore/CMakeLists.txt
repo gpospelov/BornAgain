@@ -61,6 +61,7 @@ set(list_of_tests
     "CoreSuite/RectDetectorPerpToDirectBeam"
     "CoreSuite/RectDetectorPerpToReflectedBeam"
     "CoreSuite/RectDetectorPerpToReflectedBeamDpos"
+    "CoreSuite/LargeCylindersMonteCarlo"
     "BatchSimulation"
     "PolDWBAMagCylinders2"
 )

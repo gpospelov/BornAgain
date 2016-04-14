@@ -23,13 +23,8 @@
 
 class QIODevice;
 class QModelIndex;
-class JobItem;
+class ApplicationModels;
 class SessionModel;
-class InstrumentModel;
-class MaterialModel;
-class SampleModel;
-class JobModel;
-class FitModel;
 class QXmlStreamReader;
 class WarningMessageService;
 
@@ -74,11 +69,7 @@ public:
 
     static QString getProjectFileExtension();
 
-    void setMaterialModel(MaterialModel *materialModel);
-    void setInstrumentModel(InstrumentModel *instrumentModel);
-    void setSampleModel(SampleModel *sampleModel);
-    void setJobModel(JobModel *jobModel);
-    void setFitModel(FitModel *fitModel);
+    void setApplicationModels(ApplicationModels *applicationModels);
 
     bool save();
     bool load(const QString &project_file_name);
@@ -103,9 +94,7 @@ signals:
     void modified();
 
 public slots:
-    void onDataChanged(const QModelIndex &, const QModelIndex &);
-    void onJobModelChanged(const QString &);
-    void onRowsChanged(const QModelIndex &parent, int, int);
+    void onModelChanged();
 
 private:
     void readFrom(QIODevice *device);
@@ -116,16 +105,12 @@ private:
     void saveOutputData();
     void loadOutputData();
 
-    void disconnectModel(SessionModel *model);
-    void connectModel(SessionModel *model);
+    void disconnectModels();
+    void connectModels();
 
     QString m_project_dir;
     QString m_project_name;
-    MaterialModel *m_materialModel;
-    InstrumentModel *m_instrumentModel;
-    SampleModel *m_sampleModel;
-    JobModel *m_jobModel;
-    FitModel *m_fitModel;
+    ApplicationModels *m_applicationModels;
     bool m_modified;
     EDocumentStatus m_documentStatus;
     WarningMessageService *m_messageService;

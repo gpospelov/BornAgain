@@ -21,11 +21,8 @@
 #include <QWidget>
 
 class MainWindow;
-class SampleModel;
-class InstrumentModel;
 class SimulationSetupWidget;
 class StyledToolBar;
-class JobModel;
 
 class BA_CORE_API_ SimulationView : public QWidget
 {
@@ -41,9 +38,6 @@ public slots:
     void onRunSimulationShortcut();
 
 private:
-    JobModel *m_jobModel;
-    SampleModel *m_sampleModel;
-    InstrumentModel *m_instrumentModel;
     SimulationSetupWidget *m_simulationSetupWidget;
     StyledToolBar *m_toolBar;
 };

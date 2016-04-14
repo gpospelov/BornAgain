@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
     status |= QTest::qExec(&testGUICoreObjectCorrespondence, argc, argv);
     status |= QTest::qExec(&testSessionItem);
     //status |= QTest::qExec(&testPropertyAttributes, argc, argv);
-//    status |= QTest::qExec(&testMapperCases, argc, argv);
+    status |= QTest::qExec(&testMapperCases, argc, argv);
 //    status |= QTest::qExec(&testSessionModel, argc, argv);
     status |= QTest::qExec(&testMapperForItem, argc, argv);
     status |= QTest::qExec(&testParticleDistributionItem, argc, argv);

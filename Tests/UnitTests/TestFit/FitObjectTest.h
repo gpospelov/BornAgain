@@ -38,7 +38,7 @@ TEST_F(FitObjectTest, Initialization)
     FitObject obj(simulation, data, weight);
 
     EXPECT_EQ(obj.getWeight(), weight);
-    EXPECT_EQ(obj.getSizeOfData(), nx*ny);
+    EXPECT_EQ(obj.getSizeOfData(), size_t(nx*ny));
 
     EXPECT_EQ(nullptr, obj.getSimulationData());
     EXPECT_TRUE(obj.getSimulation()->getOutputData()->hasSameShape(*obj.getRealData()));

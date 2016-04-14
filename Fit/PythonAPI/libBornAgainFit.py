@@ -1867,7 +1867,7 @@ class IFitStrategy(libBornAgainCore.INamed):
         """
         clone(IFitStrategy self) -> IFitStrategy
 
-        virtual IFitStrategy* IFitStrategy::clone() const =0
+        virtual IFitStrategy* IFitStrategy::clone() const  =0
 
         """
         return _libBornAgainFit.IFitStrategy_clone(self)

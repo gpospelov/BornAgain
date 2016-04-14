@@ -196,7 +196,7 @@ TEST_F(LLDataTest, Addition) {
 
 
     delete fl_data_1d2;
-    delete odim1;
+    delete [] odim1;
 
     delete other_fl_data_1d;
     delete other_db_data_3d;
@@ -234,7 +234,7 @@ TEST_F(LLDataTest, Substraction) {
     EXPECT_EQ( (*other_matrix_data_2d)[5], 4 * Eigen::Matrix2d::Identity());
 
     delete fl_data_1d2;
-    delete odim1;
+    delete [] odim1;
 
     delete other_fl_data_1d;
     delete other_db_data_3d;
@@ -271,7 +271,7 @@ TEST_F(LLDataTest, Multiplication) {
     EXPECT_EQ( (*other_matrix_data_2d)[5], 10 * Eigen::Matrix2d::Identity());
 
     delete fl_data_1d2;
-    delete odim1;
+    delete [] odim1;
 
     delete other_fl_data_1d;
     delete other_db_data_3d;
@@ -303,7 +303,7 @@ TEST_F(LLDataTest, Division) {
 
 
     delete fl_data_1d2;
-    delete odim1;
+    delete [] odim1;
     delete other_fl_data_1d;
     delete other_db_data_3d;
 }
@@ -343,10 +343,10 @@ TEST_F (LLDataTest, HaveSameDimensions) {
     delete other_db_data_3d;
     delete some_other_db_data_3d;
     delete other_matrix_data_2d;
-    delete odim0;
-    delete odim1;
-    delete odim3;
-    delete odim2;
+    delete [] odim0;
+    delete [] odim1;
+    delete [] odim3;
+    delete [] odim2;
 }
 
 TEST_F(LLDataTest, Accessors) {
@@ -386,9 +386,9 @@ TEST_F(LLDataTest, Accessors) {
 
     EXPECT_EQ(matrix_data_2d->atCoordinate(coordinate2d), 2 * Eigen::Matrix2d::Identity());
 
-    delete coordinate;
-    delete coordinate3d;
-    delete coordinate2d;
+    delete [] coordinate;
+    delete [] coordinate3d;
+    delete [] coordinate2d;
 
 }
 

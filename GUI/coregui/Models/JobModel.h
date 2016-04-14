@@ -24,6 +24,7 @@ class InstrumentModel;
 class QItemSelection;
 class MultiLayerItem;
 class InstrumentItem;
+class SimulationOptionsItem;
 
 class BA_CORE_API_ JobModel : public SessionModel
 {
@@ -41,13 +42,11 @@ public:
     JobItem *getJobItemForIdentifier(const QString &identifier);
 
     JobItem *addJob(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem,
-            const QString &run_policy = QString(), int numberOfThreads=-1);
-
-    void setSampleForJobItem(JobItem *jobItem, const MultiLayerItem *multiLayerItem);
-
-    void setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *instrumentItem);
+            const SimulationOptionsItem *optionItem);
 
     void restore(JobItem *jobItem);
+
+    bool hasUnfinishedJobs();
 
 signals:
     void selectionChanged(JobItem *item);

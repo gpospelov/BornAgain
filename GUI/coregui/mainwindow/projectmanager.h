@@ -45,6 +45,8 @@ public:
 
     ProjectDocument *getDocument() { return m_project_document; }
 
+    QString getProjectDir() const;
+
 signals:
     void modified();
     void projectOpened();

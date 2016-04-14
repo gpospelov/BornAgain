@@ -28,9 +28,8 @@ class BA_CORE_API_ OffSpecSimulation : public Simulation
 {
 public:
     OffSpecSimulation();
-    OffSpecSimulation(const ProgramOptions *p_options);
-    OffSpecSimulation(const ISample &p_sample, const ProgramOptions *p_options = 0);
-    OffSpecSimulation(SampleBuilder_t p_sample_builder, const ProgramOptions *p_options = 0);
+    OffSpecSimulation(const ISample &p_sample);
+    OffSpecSimulation(SampleBuilder_t p_sample_builder);
     virtual ~OffSpecSimulation() {}
 
     OffSpecSimulation *clone() const;

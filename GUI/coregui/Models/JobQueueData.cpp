@@ -25,7 +25,6 @@
 #include "JobModel.h"
 #include "JobRunner.h"
 #include "DomainSimulationBuilder.h"
-#include "ThreadInfo.h"
 #include "GUIHelpers.h"
 #include <QUuid>
 #include <QThread>
@@ -78,22 +77,6 @@ bool JobQueueData::hasUnfinishedJobs()
     return m_simulations.size();
 }
 
-//void JobQueueData::setResults(JobItem *jobItem, const GISASSimulation *simulation)
-//{
-//    if(!simulation)
-//        throw GUIHelpers::Error("NJobItem::setResults() -> Error. Null simulation.");
-
-//    jobItem->setResults(simulation);
-////    IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();
-
-////    if(!intensityItem) {
-////        intensityItem = static_cast<IntensityDataItem *>(m_jobModel->insertNewItem(Constants::IntensityDataType, m_jobModel->indexOfItem(jobItem)));
-////    }
-////    intensityItem->setNameFromProposed(jobItem->itemName());
-//////    intensityItem->setOutputData(simulation->getDetectorIntensity());
-////    intensityItem->setResults(simulation);
-//}
-
 void JobQueueData::runJob(const QString &identifier)
 {
     qDebug() << "JobQueueData::runJob(const QString &identifier)";
@@ -116,7 +99,8 @@ void JobQueueData::runJob(JobItem *jobItem)
     GISASSimulation *simulation(0);
     try{
         simulation = DomainSimulationBuilder::getSimulation(jobItem->getMultiLayerItem(),
-                                                            jobItem->getInstrumentItem());
+                                                            jobItem->getInstrumentItem(),
+                                                            jobItem->getSimulationOptionsItem());
     } catch(const std::exception &ex) {
         QString message("JobQueueData::runJob() -> Error. Attempt to create sample/instrument object from user description "
                         "has failed with following error message.\n\n");
@@ -129,9 +113,6 @@ void JobQueueData::runJob(JobItem *jobItem)
         return;
     }
 
-    ThreadInfo info;
-    info.n_threads = jobItem->getNumberOfThreads();
-    simulation->setThreadInfo(info);
     m_simulations[identifier] = simulation;
 
     JobRunner *runner = new JobRunner(identifier, simulation);
@@ -205,24 +186,12 @@ void JobQueueData::onFinishedJob()
 
     JobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->getIdentifier());
 
-    QString end_time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
-    jobItem->setEndTime(end_time);
-
-
-    // propagating status of runner
-    jobItem->setStatus(runner->getStatus());
-    if(jobItem->isFailed()) {
-        jobItem->setComments(runner->getFailureMessage());
-    } else {
-        // propagating simulation results
-        GISASSimulation *simulation = getSimulation(runner->getIdentifier());
-        jobItem->setResults(simulation);
-    }
+    processFinishedJob(runner, jobItem);
 
     // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)
     getThread(runner->getIdentifier())->quit();
 
-    if(jobItem->runImmediately())
+    if(!jobItem->runInBackground())
         emit focusRequest(runner->getIdentifier());
 
     emit jobIsFinished(runner->getIdentifier());
@@ -319,4 +288,26 @@ void JobQueueData::clearSimulation(const QString &identifier)
     GISASSimulation *simulation = getSimulation(identifier);
     m_simulations.remove(identifier);
     delete simulation;
+}
+
+//! Set all data of finished job
+void JobQueueData::processFinishedJob(JobRunner *runner, JobItem *jobItem)
+{
+    QString end_time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
+    jobItem->setEndTime(end_time);
+    jobItem->setDuration(runner->getSimulationDuration());
+
+    // propagating status of runner
+    jobItem->setStatus(runner->getStatus());
+    if(jobItem->isFailed()) {
+        jobItem->setComments(runner->getFailureMessage());
+    } else {
+        // propagating simulation results
+        GISASSimulation *simulation = getSimulation(runner->getIdentifier());
+        jobItem->setResults(simulation);
+    }
+
+    // fixing job progress (if job was successfull, but due to wrong estimation, progress not 100%)
+    if(jobItem->isCompleted())
+        jobItem->setProgress(100);
 }

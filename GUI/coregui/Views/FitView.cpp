@@ -129,9 +129,9 @@
 FitView::FitView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_tabs(new QTabWidget)
-    , m_importDataWidget(new ImportDataWidget(mainWindow->getFitModel(), this))
-    , m_fitSettingsWidget(new FitSettingsWidget(mainWindow->getFitModel(), this))
-    , m_runFitWidget(new RunFitWidget(mainWindow->getFitModel(), this))
+    , m_importDataWidget(new ImportDataWidget(mainWindow->fitModel(), this))
+    , m_fitSettingsWidget(new FitSettingsWidget(mainWindow->fitModel(), this))
+    , m_runFitWidget(new RunFitWidget(mainWindow->fitModel(), this))
 {
     QVBoxLayout *layout = new QVBoxLayout;
     m_tabs->setStyleSheet("QTabBar::tab { height: 40px; }");
@@ -157,9 +157,9 @@ FitView::FitView(MainWindow *mainWindow)
     layout->addLayout(horizontalLayout);
     setLayout(layout);
 
-    connect(mainWindow->getProjectManager(), SIGNAL(projectOpened()),
+    connect(mainWindow->projectManager(), SIGNAL(projectOpened()),
             m_fitSettingsWidget, SLOT(onUpdateGUI()));
-    connect(mainWindow->getProjectManager(), SIGNAL(projectOpened()),
+    connect(mainWindow->projectManager(), SIGNAL(projectOpened()),
             m_importDataWidget, SLOT(onUpdateGUI()));
 
     m_tabs->setCurrentIndex(1);

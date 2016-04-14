@@ -21,6 +21,7 @@
 #include "item_constants.h"
 #include <functional>
 #include <QTimer>
+#include <QDateTime>
 #include <QDebug>
 
 
@@ -30,6 +31,7 @@ JobRunner::JobRunner(QString identifier, GISASSimulation *simulation)
     , m_progress(0)
     , m_job_status(Constants::STATUS_IDLE)
     , m_terminate_request_flag(false)
+    , m_simulation_duration(0)
 {
 
 }
@@ -50,6 +52,7 @@ void JobRunner::start()
 {
     qDebug() << "JobRunner::start() " << m_simulation;
     m_terminate_request_flag = false;
+    m_simulation_duration = 0;
     emit started();
 
     if(m_simulation) {
@@ -61,9 +64,14 @@ void JobRunner::start()
         m_job_status = Constants::STATUS_RUNNING;
 
         try {
+            QDateTime beginTime = QDateTime::currentDateTime();
             m_simulation->runSimulation();
             if(m_job_status != Constants::STATUS_CANCELED)
                 m_job_status = Constants::STATUS_COMPLETED;
+
+            QDateTime endTime = QDateTime::currentDateTime();
+            m_simulation_duration = beginTime.msecsTo(endTime);
+
         }
         catch(const std::exception &ex)
         {

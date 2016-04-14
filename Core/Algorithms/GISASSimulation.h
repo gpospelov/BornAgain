@@ -18,14 +18,13 @@
 
 #include "ISampleBuilder.h"
 #include "Instrument.h"
-#include "SimulationParameters.h"
+#include "SimulationOptions.h"
 #include "DistributionHandler.h"
 #include "ProgressHandler.h"
 #include "Simulation.h"
 
 #include "EigenCore.h"
 
-class ProgramOptions;
 class ProgressHandlerDWBA;
 class IHistogram;
 class Histogram2D;
@@ -42,10 +41,8 @@ class BA_CORE_API_ GISASSimulation : public Simulation
 {
 public:
     GISASSimulation();
-    GISASSimulation(const ProgramOptions *p_options);
-    GISASSimulation(const ISample& p_sample, const ProgramOptions *p_options=0);
-    GISASSimulation(SampleBuilder_t p_sample_builder,
-               const ProgramOptions *p_options=0);
+    GISASSimulation(const ISample& p_sample);
+    GISASSimulation(SampleBuilder_t p_sample_builder);
 
     virtual ~GISASSimulation() {}
 

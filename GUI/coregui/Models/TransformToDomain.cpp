@@ -50,6 +50,7 @@
 #include "BornAgainNamespace.h"
 #include "ParticleDistributionItem.h"
 #include "FTDecayFunctionItems.h"
+#include "SimulationOptionsItem.h"
 
 
 #include <QDebug>
@@ -399,6 +400,21 @@ void TransformToDomain::addMasksToSimulation(const SessionItem &detector_item,
                 }
             }
 
+        }
+    }
+
+}
+
+void TransformToDomain::setSimulationOptions(GISASSimulation *simulation,
+                                             const SessionItem &item)
+{
+    Q_ASSERT(item.modelType() == Constants::SimulationOptionsType);
+
+    if(auto optionItem = dynamic_cast<const SimulationOptionsItem *>(&item)) {
+        simulation->getOptions().setNumberOfThreads(optionItem->getNumberOfThreads());
+        if(optionItem->getComputationMethod() == Constants::SIMULATION_MONTECARLO) {
+            simulation->getOptions().setMonteCarloIntegration(true,
+                    optionItem->getNumberOfMonteCarloPoints());
         }
     }
 

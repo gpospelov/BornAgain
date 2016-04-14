@@ -27,7 +27,7 @@ InstrumentItem::InstrumentItem()
     setDefaultTag(T_DATA);
 }
 
-BeamItem *InstrumentItem::getBeamItem()
+BeamItem *InstrumentItem::getBeamItem() const
 {
     for(SessionItem *item : childItems()) {
         if(item->modelType() == Constants::BeamType) {
@@ -37,7 +37,7 @@ BeamItem *InstrumentItem::getBeamItem()
     return 0;
 }
 
-DetectorItem *InstrumentItem::getDetectorItem()
+DetectorItem *InstrumentItem::getDetectorItem() const
 {
     for(SessionItem *item : childItems()) {
         if(item->modelType() == Constants::DetectorType) {

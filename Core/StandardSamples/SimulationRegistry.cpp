@@ -90,6 +90,12 @@ SimulationRegistry::SimulationRegistry()
     registerItem("RectDetectorPerpToReflectedBeamDpos",
                  StandardSimulations::RectDetectorPerpToReflectedBeamDpos,
                  "Rectangular detector with generic alignment");
+
+    // Monte-Carlo
+    registerItem("MiniGISASMonteCarlo",
+                 StandardSimulations::MiniGISASMonteCarlo,
+                 "GISAS simulation with small 25x25 detector and phi[-2,2], theta[0,2], in Monte-Carlo mode");
+
 }
 
 

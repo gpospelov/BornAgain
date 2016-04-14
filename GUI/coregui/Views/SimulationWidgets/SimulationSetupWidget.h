@@ -24,13 +24,16 @@
 class QComboBox;
 class QPushButton;
 class QLabel;
-class SampleModel;
-class InstrumentModel;
-class JobModel;
-class GISASSimulation;
 class ProjectManager;
 class MultiLayerItem;
 class InstrumentItem;
+class SimulationOptionsWidget;
+class ApplicationModels;
+
+class TestItem {
+public:
+    int x;
+};
 
 class BA_CORE_API_ SimulationSetupWidget : public QWidget
 {
@@ -38,18 +41,16 @@ class BA_CORE_API_ SimulationSetupWidget : public QWidget
 
 public:
     SimulationSetupWidget(QWidget *parent = 0);
+
+    void setApplicationModels(ApplicationModels *model);
+    void setProjectManager(ProjectManager *projectManager);
     void updateViewElements();
-    void setJobModel(JobModel *model);
-    void setSampleModel(SampleModel *model);
-    void setInstrumentModel(InstrumentModel *model);
 
     QString getSelectedInstrumentName() const;
     int getSelectedInstrumentIndex() const;
 
     QString getSelectedSampleName() const;
     int getSelectedSampleIndex() const;
-
-    void setProjectManager(ProjectManager *projectManager);
 
 public slots:
     void onRunSimulation();
@@ -58,27 +59,29 @@ public slots:
 
 private:
     void updateSelectionBox(QComboBox *comboBox, QStringList itemList);
-    QStringList getCPUUsageOptions();
-    int getNumberOfThreads();
-
-    InstrumentModel *getJobInstrumentModel();
-    SampleModel *getJobSampleModel();
 
     const MultiLayerItem *getSelectedMultiLayerItem() const;
     const InstrumentItem *getSelectedInstrumentItem() const;
 
-    JobModel *m_jobModel;
-    SampleModel *m_sampleModel;
-    InstrumentModel *m_instrumentModel;
+    bool isValidSetup(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem);
+
+    QWidget *createDataSelectorWidget();
+    QWidget *createButtonWidget();
+
+    ApplicationModels *m_applicationModels;
+    ProjectManager *m_projectManager;
+
     QComboBox *instrumentSelectionBox;
     QComboBox *sampleSelectionBox;
     QPushButton *runSimulationButton;
     QPushButton *selectRealData;
     QLabel *pathLabel;
-    QComboBox *runPolicySelectionBox;
-    QComboBox *cpuUsageSelectionBox;
     QPushButton *exportToPyScriptButton;
-    ProjectManager *m_projectManager;
+
+    SimulationOptionsWidget *m_simOptionsWidget;
+
+    QVector<TestItem *> testitems;
+
 };
 
 #endif // SIMULATIONSETUPWIDGET_H

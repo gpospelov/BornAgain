@@ -24,6 +24,7 @@ class InstrumentModel;
 class GISASSimulation;
 class MultiLayerItem;
 class InstrumentItem;
+class SimulationOptionsItem;
 
 class BA_CORE_API_ JobItem : public SessionItem
 {
@@ -36,15 +37,15 @@ public:
     static const QString P_STATUS;
     static const QString P_BEGIN_TIME;
     static const QString P_END_TIME;
+    static const QString P_DURATION;
     static const QString P_COMMENTS;
     static const QString P_PROGRESS;
-    static const QString P_NTHREADS;
-    static const QString P_RUN_POLICY;
     static const QString T_SAMPLE;
     static const QString T_INSTRUMENT;
     static const QString T_OUTPUT;
     static const QString T_REALDATA;
     static const QString T_PARAMETER_TREE;
+    static const QString T_SIMULATION_OPTIONS;
     explicit JobItem();
     virtual ~JobItem();
 
@@ -66,6 +67,8 @@ public:
 
     void setEndTime(const QString &end_time);
 
+    void setDuration(int duration);
+
     QString getComments() const;
     void setComments(const QString &comments);
 
@@ -73,11 +76,8 @@ public:
     void setProgress(int progress);
 
     int getNumberOfThreads() const;
-    void setNumberOfThreads(int number_of_threads);
 
     void setRunPolicy(const QString &run_policy);
-
-    static QMap<QString, QString> getRunPolicies() { return m_run_policies; }
 
     bool runImmediately() const;
     bool runInBackground() const;
@@ -86,10 +86,12 @@ public:
 
     InstrumentItem *getInstrumentItem();
 
+    SimulationOptionsItem *getSimulationOptionsItem();
+
     void setResults(const GISASSimulation *simulation);
 
 private:
-    static QMap<QString, QString> m_run_policies; // run policy, policy description
+    const SimulationOptionsItem *getSimulationOptionsItem() const;
 };
 
 #endif // NJOBITEM_H

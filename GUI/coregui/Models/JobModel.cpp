@@ -25,6 +25,7 @@
 #include "InstrumentItem.h"
 #include "ParameterModelBuilder.h"
 #include "ParameterTreeItems.h"
+#include "SimulationOptionsItem.h"
 #include <QUuid>
 #include <QDebug>
 #include <QItemSelection>
@@ -73,16 +74,22 @@ JobItem *JobModel::getJobItemForIdentifier(const QString &identifier)
 
 //! Main method to add a job
 JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem,
-                          const QString &run_policy, int numberOfThreads)
+        const SimulationOptionsItem *optionItem)
 {
+    Q_ASSERT(multiLayerItem);
+    Q_ASSERT(instrumentItem);
+    Q_ASSERT(optionItem);
+
     JobItem *jobItem = dynamic_cast<JobItem *>(insertNewItem(Constants::JobItemType));
     jobItem->setItemName(generateJobName());
     jobItem->setIdentifier(generateJobIdentifier());
-    jobItem->setNumberOfThreads(numberOfThreads);
-    jobItem->setRunPolicy(run_policy);
 
-    setSampleForJobItem(jobItem, multiLayerItem);
-    setInstrumentForJobItem(jobItem, instrumentItem);
+    copyParameterizedItem(multiLayerItem, jobItem, JobItem::T_SAMPLE);
+    copyParameterizedItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
+    copyParameterizedItem(optionItem, jobItem, JobItem::T_SIMULATION_OPTIONS);
+
+    jobItem->getItem(JobItem::P_SAMPLE_NAME)->setValue(multiLayerItem->itemName());
+    jobItem->getItem(JobItem::P_INSTRUMENT_NAME)->setValue(instrumentItem->itemName());
 
     ParameterModelBuilder::createParameterTree(jobItem, JobItem::T_PARAMETER_TREE);
 
@@ -92,38 +99,20 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem, const Instrument
     return jobItem;
 }
 
-//! Adds a multilayer to children of given JobItem.
-//! The same method is used to set either original multilayer or its backup version.
-void JobModel::setSampleForJobItem(JobItem *jobItem, const MultiLayerItem *multiLayerItem)
-{
-    Q_ASSERT(jobItem);
-    Q_ASSERT(multiLayerItem);
-
-    copyParameterizedItem(multiLayerItem, jobItem, JobItem::T_SAMPLE);
-}
-
-//! Adds an instrument to children of given JobItem.
-//! The same method is used to set either original instrument or its backup version.
-void JobModel::setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *instrumentItem)
-{
-    Q_ASSERT(jobItem);
-    Q_ASSERT(instrumentItem);
-
-    SessionItem *new_item = copyParameterizedItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
-}
-
 //! restore instrument and sample model from backup for given JobItem
 void JobModel::restore(JobItem *jobItem)
 {
     restoreItem(jobItem->getItem(JobItem::T_PARAMETER_TREE));
 }
 
+bool JobModel::hasUnfinishedJobs()
+{
+    return m_queue_data->hasUnfinishedJobs();
+}
+
 void JobModel::runJob(const QModelIndex &index)
 {
-    qDebug() << "NJobModel::runJob(const QModelIndex &index)";
-    JobItem *jobItem = getJobItemForIndex(index);
-    jobItem->setRunPolicy(Constants::JOB_RUN_IMMEDIATELY);
-    m_queue_data->runJob(jobItem);
+    m_queue_data->runJob(getJobItemForIndex(index));
 }
 
 void JobModel::cancelJob(const QModelIndex &index)

@@ -26,7 +26,7 @@
 class BA_CORE_API_ DecouplingApproximationStrategy : public IInterferenceFunctionStrategy
 {
 public:
-    DecouplingApproximationStrategy(SimulationParameters sim_params)
+    DecouplingApproximationStrategy(SimulationOptions sim_params)
         : IInterferenceFunctionStrategy(sim_params)
     {
     }

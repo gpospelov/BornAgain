@@ -30,6 +30,17 @@ void ComboProperty::setValue(const QString &name)
     m_current_value = name;
 }
 
+//! returns list of tool tips for all values
+QStringList ComboProperty::getToolTips() const
+{
+    return m_values_tooltips;
+}
+
+void ComboProperty::setToolTips(const QStringList &tooltips)
+{
+    m_values_tooltips = tooltips;
+}
+
 int ComboProperty::index() const
 {
     return toIndex(m_current_value);

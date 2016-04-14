@@ -25,6 +25,7 @@
 #include "WarningMessageService.h"
 #include "MessageContainer.h"
 #include "GUIMessage.h"
+#include "ApplicationModels.h"
 #include <QDir>
 #include <QFileDialog>
 #include <QSettings>
@@ -94,11 +95,7 @@ void ProjectManager::createNewProject()
     m_project_document = new ProjectDocument();
     connect(m_project_document, SIGNAL(modified()), this, SLOT(onDocumentModified()));
     m_project_document->setProjectName("Untitled");
-    m_project_document->setMaterialModel(m_mainWindow->getMaterialModel());
-    m_project_document->setInstrumentModel(m_mainWindow->getInstrumentModel());
-    m_project_document->setSampleModel(m_mainWindow->getSampleModel());
-    m_project_document->setJobModel(m_mainWindow->getJobModel());
-    m_project_document->setFitModel(m_mainWindow->getFitModel());
+    m_project_document->setApplicationModels(m_mainWindow->models());
     m_project_document->setMessageService(m_messageService);
 }
 
@@ -259,6 +256,15 @@ QStringList ProjectManager::getRecentProjects()
     return m_recentProjects;
 }
 
+//!returns name of the current project directory
+QString ProjectManager::getProjectDir() const
+{
+    if(m_project_document && m_project_document->hasValidNameAndPath()) {
+        return m_project_document->getProjectDir();
+    }
+    return QString();
+}
+
 //! clear list of recent projects
 void ProjectManager::clearRecentProjects()
 {
@@ -314,7 +320,7 @@ void ProjectManager::deleteCurrentProject()
 {
     delete m_project_document;
     m_project_document = 0;
-    m_mainWindow->resetModels();
+    m_mainWindow->models()->resetModels();
 }
 
 

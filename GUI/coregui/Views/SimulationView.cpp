@@ -17,8 +17,6 @@
 #include "SimulationView.h"
 #include "SimulationSetupWidget.h"
 #include "styledtoolbar.h"
-#include "SampleModel.h"
-#include "InstrumentModel.h"
 #include "mainwindow.h"
 #include <QTabWidget>
 #include <QVBoxLayout>
@@ -26,21 +24,11 @@
 
 SimulationView::SimulationView(MainWindow *mainWindow)
     : QWidget(mainWindow)
-    , m_jobModel(0)
-    , m_sampleModel(0)
-    , m_instrumentModel(0)
+    , m_simulationSetupWidget(new SimulationSetupWidget)
+    , m_toolBar(new StyledToolBar)
 {
-    m_jobModel = mainWindow->getJobModel();
-    m_sampleModel = mainWindow->getSampleModel();
-    m_instrumentModel = mainWindow->getInstrumentModel();
-
-    m_simulationSetupWidget = new SimulationSetupWidget();
-    m_simulationSetupWidget->setJobModel(m_jobModel);
-    m_simulationSetupWidget->setSampleModel(m_sampleModel);
-    m_simulationSetupWidget->setInstrumentModel(m_instrumentModel);
-    m_simulationSetupWidget->setProjectManager(mainWindow->getProjectManager());
-
-    m_toolBar = new StyledToolBar(this);
+    m_simulationSetupWidget->setApplicationModels(mainWindow->models());
+    m_simulationSetupWidget->setProjectManager(mainWindow->projectManager());
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setSizeConstraint(QLayout::SetNoConstraint);
@@ -54,12 +42,10 @@ SimulationView::SimulationView(MainWindow *mainWindow)
 
 void SimulationView::updateSimulationViewElements()
 {
-    //qDebug() << "SimulationView::updateSimulationViewElements()" << m_sampleModel << m_instrumentModel;
     m_simulationSetupWidget->updateViewElements();
 }
 
 void SimulationView::onRunSimulationShortcut()
 {
-    //qDebug() << "SimulationView::onRunSimulationShortcut()";
     m_simulationSetupWidget->onRunSimulation();
 }

@@ -16,7 +16,7 @@
 #ifndef LAYERSTRATEGYBUILDER_H_
 #define LAYERSTRATEGYBUILDER_H_
 
-#include "SimulationParameters.h"
+#include "SimulationOptions.h"
 #include "SafePointerVector.h"
 #include "ICloneable.h"
 #include "IMaterial.h"
@@ -42,7 +42,7 @@ public:
     LayerStrategyBuilder(
         const Layer& decorated_layer,
         const Simulation& simulation,
-        const SimulationParameters& sim_params,
+        const SimulationOptions& sim_params,
         size_t layout_index);
 
     virtual ~LayerStrategyBuilder();
@@ -56,7 +56,7 @@ public:
 protected:
     std::unique_ptr<Layer> mP_layer;                            //!< decorated layer
     std::unique_ptr<Simulation> mP_simulation;                  //!< simulation
-    SimulationParameters m_sim_params;          //!< simulation parameters
+    SimulationOptions m_sim_params;          //!< simulation parameters
     std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
     size_t m_layout_index; //!< index for the layout to be used in the layer
 

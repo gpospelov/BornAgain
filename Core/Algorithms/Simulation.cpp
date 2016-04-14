@@ -16,7 +16,6 @@
 #include "Simulation.h"
 
 #include "MathFunctions.h"
-#include "ProgramOptions.h"
 #include "DWBASimulation.h"
 #include "MessageService.h"
 #include "OutputDataFunctions.h"
@@ -30,34 +29,28 @@
 #include <gsl/gsl_errno.h>
 
 Simulation::Simulation()
-    : IParameterized("Simulation"), mp_options(0)
+    : IParameterized("Simulation")
 {
     init_parameters();
 }
 
-Simulation::Simulation(const ProgramOptions *p_options)
-    : IParameterized("Simulation"), mp_options(p_options)
-{
-    init_parameters();
-}
-
-Simulation::Simulation(const ISample &p_sample, const ProgramOptions *p_options)
-    : IParameterized("Simulation"), mp_options(p_options)
+Simulation::Simulation(const ISample &p_sample)
+    : IParameterized("Simulation")
 {
     mP_sample.reset(p_sample.clone());
     init_parameters();
 }
 
-Simulation::Simulation(SampleBuilder_t p_sample_builder, const ProgramOptions *p_options)
-    : IParameterized("Simulation"), mp_sample_builder(p_sample_builder), mp_options(p_options)
+Simulation::Simulation(SampleBuilder_t p_sample_builder)
+    : IParameterized("Simulation"), mp_sample_builder(p_sample_builder)
 {
     init_parameters();
 }
 
 Simulation::Simulation(const Simulation &other)
     : ICloneable(), IParameterized(other), mp_sample_builder(other.mp_sample_builder),
-      m_sim_params(other.m_sim_params), m_thread_info(other.m_thread_info),
-      mp_options(other.mp_options), m_distribution_handler(other.m_distribution_handler),
+      m_options(other.m_options),
+      m_distribution_handler(other.m_distribution_handler),
       m_progress(other.m_progress)
 {
     if (other.mP_sample.get())
@@ -186,28 +179,14 @@ void Simulation::runSingleSimulation()
     updateSample();
     initSimulationElementVector();
 
-    // retrieve batch and threading information
-    if (mp_options) {
-        if (mp_options->find("nbatches")) {
-            m_thread_info.n_batches = (*mp_options)["nbatches"].as<int>();
-        }
-        if (mp_options->find("currentbatch")) {
-            m_thread_info.current_batch = (*mp_options)["currentbatch"].as<int>();
-        }
-        if (mp_options->find("threads")) {
-            m_thread_info.n_threads = (*mp_options)["threads"].as<int>();
-        }
-    }
-
     // restrict calculation to current batch
     std::vector<SimulationElement>::iterator batch_start
-        = getBatchStart(m_thread_info.n_batches, m_thread_info.current_batch);
-    std::vector<SimulationElement>::iterator batch_end
-        = getBatchEnd(m_thread_info.n_batches, m_thread_info.current_batch);
+        = getBatchStart(m_options.getNumberOfBatches(), m_options.getCurrentBatch());
 
-    if (m_thread_info.n_threads < 0)
-        m_thread_info.n_threads = 1;
-    if (m_thread_info.n_threads == 1) {
+    std::vector<SimulationElement>::iterator batch_end
+        = getBatchEnd(m_options.getNumberOfBatches(), m_options.getCurrentBatch());
+
+    if (m_options.getNumberOfThreads() == 1) {
         // Single thread.
         std::unique_ptr<DWBASimulation> P_dwba_simulation(mP_sample->createDWBASimulation());
         verifyDWBASimulation(P_dwba_simulation.get());
@@ -221,27 +200,21 @@ void Simulation::runSingleSimulation()
         }
     } else {
         // Multithreading.
-        if (m_thread_info.n_threads == 0) {
-            // Take optimal number of threads from the hardware.
-            m_thread_info.n_threads = (int)std::thread::hardware_concurrency();
-            msglog(MSG::DEBUG) << "Simulation::runSimulation() -> Info. Number of threads "
-                               << m_thread_info.n_threads << " (taken from hardware concurrency)"
-                               << ", n_batches = " << m_thread_info.n_batches
-                               << ", current_batch = " << m_thread_info.current_batch;
-        } else {
-            msglog(MSG::DEBUG) << "Simulation::runSimulation() -> Info. Number of threads "
-                               << m_thread_info.n_threads << " (ordered by user)"
-                               << ", n_batches = " << m_thread_info.n_batches
-                               << ", current_batch = " << m_thread_info.current_batch;
-        }
+
+        msglog(MSG::DEBUG) << "Simulation::runSimulation() -> Info. Number of threads "
+                           << m_options.getNumberOfThreads()
+                           << ", n_batches = " << m_options.getNumberOfBatches()
+                           << ", current_batch = " << m_options.getCurrentBatch();
+
         std::vector<std::thread *> threads;
         std::vector<DWBASimulation *> simulations;
 
         // Initialize n simulations.
         int total_batch_elements = batch_end - batch_start;
-        int element_thread_step = total_batch_elements / m_thread_info.n_threads;
-        if (total_batch_elements % m_thread_info.n_threads) ++element_thread_step;
-        for (int i_thread = 0; i_thread < m_thread_info.n_threads; ++i_thread) {
+        int element_thread_step = total_batch_elements / m_options.getNumberOfThreads();
+        if (total_batch_elements % m_options.getNumberOfThreads()) ++element_thread_step;
+
+        for (int i_thread = 0; i_thread < m_options.getNumberOfThreads(); ++i_thread) {
             if (i_thread*element_thread_step >= total_batch_elements) break;
             DWBASimulation *p_dwba_simulation = mP_sample->createDWBASimulation();
             verifyDWBASimulation(p_dwba_simulation);
@@ -312,6 +285,21 @@ void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
         ProgressHandler::Callback_t callback = [&] (int n) {return m_progress->update(n); };
         dwba_progress->setCallback(callback);
     }
+}
+
+void Simulation::setOptions(const SimulationOptions &options)
+{
+    m_options = options;
+}
+
+const SimulationOptions &Simulation::getOptions() const
+{
+    return m_options;
+}
+
+SimulationOptions &Simulation::getOptions()
+{
+    return const_cast<SimulationOptions&>(static_cast<const Simulation*>(this)->getOptions());
 }
 
 void Simulation::verifyDWBASimulation(DWBASimulation *dwbaSimulation)

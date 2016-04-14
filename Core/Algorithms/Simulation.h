@@ -18,14 +18,13 @@
 
 #include "ISampleBuilder.h"
 #include "Instrument.h"
-#include "SimulationParameters.h"
+#include "SimulationOptions.h"
 #include "DistributionHandler.h"
 #include "ProgressHandler.h"
 
 #include "EigenCore.h"
 #include "SimulationElement.h"
 
-class ProgramOptions;
 class ProgressHandlerDWBA;
 
 //! @class Simulation
@@ -36,10 +35,8 @@ class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
 {
 public:
     Simulation();
-    Simulation(const ProgramOptions *p_options);
-    Simulation(const ISample& p_sample, const ProgramOptions *p_options=0);
-    Simulation(SampleBuilder_t p_sample_builder,
-               const ProgramOptions *p_options=0);
+    Simulation(const ISample& p_sample);
+    Simulation(SampleBuilder_t p_sample_builder);
     virtual ~Simulation() { }
 
     virtual Simulation *clone() const=0;
@@ -64,22 +61,6 @@ public:
 
     //! return sample builder
     SampleBuilder_t getSampleBuilder() const { return mp_sample_builder; }
-
-    //! Returns simulation parameters
-    SimulationParameters getSimulationParameters() const
-    { return m_sim_params; }
-
-    //! Sets simulation parameters
-    void setSimulationParameters(const SimulationParameters& sim_params)
-    { m_sim_params = sim_params; }
-
-    //! Sets the batch and thread information to be used
-    void setThreadInfo(const ThreadInfo &thread_info)
-    { m_thread_info = thread_info; }
-
-    //! Sets the program options
-    void setProgramOptions(ProgramOptions *p_options)
-    { mp_options = p_options; }
 
     //! Gets the number of elements this simulation needs to calculate
     virtual int getNumberOfSimulationElements() const=0;
@@ -113,6 +94,10 @@ public:
 #endif
 
     friend class OMPISimulation;
+
+    void setOptions(const SimulationOptions &options);
+    const SimulationOptions &getOptions() const;
+    SimulationOptions &getOptions();
 
 protected:
     Simulation(const Simulation& other);
@@ -150,14 +135,9 @@ protected:
     //! Returns the end iterator of simulation elements for the current batch
     std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
 
-    // components describing an experiment and its simulation:
     std::unique_ptr<ISample> mP_sample;
     SampleBuilder_t mp_sample_builder;
-    SimulationParameters m_sim_params;
-    ThreadInfo m_thread_info;
-
-    const ProgramOptions *mp_options;
-
+    SimulationOptions m_options;
     DistributionHandler m_distribution_handler;
     ProgressHandler_t m_progress;
     std::vector<SimulationElement> m_sim_elements;

@@ -27,7 +27,7 @@ int TestBatchSimulation()
         threadInfo.n_threads = 1;
         threadInfo.n_batches = n_batches;
         threadInfo.current_batch = i_batch;
-        batch->setThreadInfo(threadInfo);
+        batch->getOptions().setThreadInfo(threadInfo);
 
         batch->runSimulation();
         *result += *batch->getOutputData();

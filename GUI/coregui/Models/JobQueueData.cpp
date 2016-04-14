@@ -99,7 +99,8 @@ void JobQueueData::runJob(JobItem *jobItem)
     GISASSimulation *simulation(0);
     try{
         simulation = DomainSimulationBuilder::getSimulation(jobItem->getMultiLayerItem(),
-                                                            jobItem->getInstrumentItem());
+                                                            jobItem->getInstrumentItem(),
+                                                            jobItem->getSimulationOptionsItem());
     } catch(const std::exception &ex) {
         QString message("JobQueueData::runJob() -> Error. Attempt to create sample/instrument object from user description "
                         "has failed with following error message.\n\n");
@@ -112,7 +113,7 @@ void JobQueueData::runJob(JobItem *jobItem)
         return;
     }
 
-    simulation->getOptions().setNumberOfThreads(jobItem->getNumberOfThreads());
+//    simulation->getOptions().setNumberOfThreads(jobItem->getNumberOfThreads());
     m_simulations[identifier] = simulation;
 
     JobRunner *runner = new JobRunner(identifier, simulation);

@@ -40,6 +40,10 @@ public:
 
     void setRunPolicy(const QString &policy);
 
+    QString getComputationMethod() const;
+
+    int getNumberOfMonteCarloPoints() const;
+
 private:
     QStringList getCPUUsageOptions();
 };

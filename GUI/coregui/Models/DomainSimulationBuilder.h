@@ -24,6 +24,7 @@ class SampleModel;
 class InstrumentModel;
 class MultiLayerItem;
 class InstrumentItem;
+class SimulationOptionsItem;
 
 //! The DomainSimulationBuilder class builds the domain simulation
 //! from instrument and sample models.
@@ -36,7 +37,9 @@ public:
 
     static GISASSimulation *getSimulation(SampleModel *sampleModel, InstrumentModel *instrumentModel);
 
-    static GISASSimulation *getSimulation(const MultiLayerItem *sampleItem, const InstrumentItem *instrumentItem);
+    static GISASSimulation *getSimulation(const MultiLayerItem *sampleItem,
+                                          const InstrumentItem *instrumentItem,
+                                          const SimulationOptionsItem *optionsItem = 0);
 
 };
 

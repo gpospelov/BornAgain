@@ -169,10 +169,11 @@ void JobItem::setEndTime(const QString &end_time)
     setItemValue(P_END_TIME, end_time);
 }
 
+// Sets duration (msec -> "sec.msec")
 void JobItem::setDuration(int duration)
 {
     QString str;
-    str.sprintf("%6.3f", duration/1000.);
+    str.sprintf("%7.3f", duration/1000.);
     setItemValue(P_DURATION, str.simplified());
 }
 
@@ -198,22 +199,22 @@ void JobItem::setProgress(int progress)
 
 int JobItem::getNumberOfThreads() const
 {
-    return getSimulationOptions()->getNumberOfThreads();
+    return getSimulationOptionsItem()->getNumberOfThreads();
 }
 
 void JobItem::setRunPolicy(const QString &run_policy)
 {
-    getSimulationOptions()->setRunPolicy(run_policy);
+    getSimulationOptionsItem()->setRunPolicy(run_policy);
 }
 
 bool JobItem::runImmediately() const
 {
-    return getSimulationOptions()->runImmediately();
+    return getSimulationOptionsItem()->runImmediately();
 }
 
 bool JobItem::runInBackground() const
 {
-    return getSimulationOptions()->runInBackground();
+    return getSimulationOptionsItem()->runInBackground();
 }
 
 //! Returns MultiLayerItem of this JobItem, if from_backup=true, then backup'ed version of
@@ -238,12 +239,12 @@ void JobItem::setResults(const GISASSimulation *simulation)
     JobResultsPresenter::setResults(intensityItem, simulation);
 }
 
-SimulationOptionsItem *JobItem::getSimulationOptions()
+SimulationOptionsItem *JobItem::getSimulationOptionsItem()
 {
-    return const_cast<SimulationOptionsItem *>(static_cast<const JobItem*>(this)->getSimulationOptions());
+    return const_cast<SimulationOptionsItem *>(static_cast<const JobItem*>(this)->getSimulationOptionsItem());
 }
 
-const SimulationOptionsItem *JobItem::getSimulationOptions() const
+const SimulationOptionsItem *JobItem::getSimulationOptionsItem() const
 {
     const SimulationOptionsItem *result = dynamic_cast<const SimulationOptionsItem *>(getItem(T_SIMULATION_OPTIONS));
     if(!result) {

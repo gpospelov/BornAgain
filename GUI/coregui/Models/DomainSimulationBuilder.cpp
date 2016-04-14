@@ -25,6 +25,7 @@
 #include "DetectorItems.h"
 #include "DomainObjectBuilder.h"
 #include "TransformToDomain.h"
+#include "SimulationOptionsItem.h"
 #include "GUIHelpers.h"
 #include <QDebug>
 #include <memory>
@@ -54,7 +55,8 @@ GISASSimulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel
 
 //! Creates domain simulation from sample and instrument items.
 GISASSimulation *DomainSimulationBuilder::getSimulation(const MultiLayerItem *sampleItem,
-                                                   const InstrumentItem *instrumentItem)
+                                                        const InstrumentItem *instrumentItem,
+                                                        const SimulationOptionsItem *optionsItem)
 {
     if(!sampleItem || !instrumentItem) {
         QString message("DomainSimulationBuilder::getSimulation() -> Error. Either MultiLayerItem "
@@ -74,5 +76,9 @@ GISASSimulation *DomainSimulationBuilder::getSimulation(const MultiLayerItem *sa
 
     TransformToDomain::addMasksToSimulation(*instrumentItem->getDetectorItem(),
                                             result);
+
+    if(optionsItem)
+        TransformToDomain::setSimulationOptions(result, *optionsItem);
+
     return result;
 }

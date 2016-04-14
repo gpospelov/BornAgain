@@ -86,11 +86,12 @@ public:
 
     InstrumentItem *getInstrumentItem();
 
+    SimulationOptionsItem *getSimulationOptionsItem();
+
     void setResults(const GISASSimulation *simulation);
 
 private:
-    SimulationOptionsItem *getSimulationOptions();
-    const SimulationOptionsItem *getSimulationOptions() const;
+    const SimulationOptionsItem *getSimulationOptionsItem() const;
 };
 
 #endif // NJOBITEM_H

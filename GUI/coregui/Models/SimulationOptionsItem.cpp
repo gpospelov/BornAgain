@@ -117,6 +117,16 @@ void SimulationOptionsItem::setRunPolicy(const QString &policy)
     setItemValue(P_RUN_POLICY, combo.getVariant());
 }
 
+QString SimulationOptionsItem::getComputationMethod() const
+{
+    return getItemValue(P_COMPUTATION_METHOD).toString();
+}
+
+int SimulationOptionsItem::getNumberOfMonteCarloPoints() const
+{
+    return getItemValue(P_MC_POINTS).toInt();
+}
+
 //! returns list with number of threads to select
 QStringList SimulationOptionsItem::getCPUUsageOptions()
 {

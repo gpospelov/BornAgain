@@ -25,17 +25,20 @@ class InstrumentModel;
 class MultiLayerItem;
 class InstrumentItem;
 class SimulationOptionsItem;
+class DocumentModel;
 
 //! The DomainSimulationBuilder class builds the domain simulation
 //! from instrument and sample models.
 class DomainSimulationBuilder
 {
 public:
-    static GISASSimulation *getSimulation(SampleModel *sampleModel, const QString &sample_name,
-                                     InstrumentModel *instrumentModel,
-                                     const QString &instrument_name);
+//    static GISASSimulation *getSimulation(SampleModel *sampleModel, const QString &sample_name,
+//                                     InstrumentModel *instrumentModel,
+//                                     const QString &instrument_name);
 
-    static GISASSimulation *getSimulation(SampleModel *sampleModel, InstrumentModel *instrumentModel);
+    static GISASSimulation *getSimulation(SampleModel *sampleModel,
+                                          InstrumentModel *instrumentModel,
+                                          DocumentModel *documentModel);
 
     static GISASSimulation *getSimulation(const MultiLayerItem *sampleItem,
                                           const InstrumentItem *instrumentItem,

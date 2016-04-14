@@ -117,6 +117,13 @@ void SimulationOptionsItem::setRunPolicy(const QString &policy)
     setItemValue(P_RUN_POLICY, combo.getVariant());
 }
 
+void SimulationOptionsItem::setComputationMethod(const QString &name)
+{
+    ComboProperty combo = getItemValue(P_COMPUTATION_METHOD).value<ComboProperty>();
+    combo.setValue(name);
+    setItemValue(P_COMPUTATION_METHOD, combo.getVariant());
+}
+
 QString SimulationOptionsItem::getComputationMethod() const
 {
     ComboProperty combo = getItemValue(P_COMPUTATION_METHOD).value<ComboProperty>();
@@ -126,6 +133,11 @@ QString SimulationOptionsItem::getComputationMethod() const
 int SimulationOptionsItem::getNumberOfMonteCarloPoints() const
 {
     return getItemValue(P_MC_POINTS).toInt();
+}
+
+void SimulationOptionsItem::setNumberOfMonteCarloPoints(int npoints)
+{
+    setItemValue(P_MC_POINTS, npoints);
 }
 
 //! returns list with number of threads to select

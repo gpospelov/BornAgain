@@ -64,6 +64,7 @@ set(list_of_tests
     "GUISuite/RectDetectorPerpToDirectBeam"
     "GUISuite/RectDetectorPerpToReflectedBeam"
     "GUISuite/RectDetectorPerpToReflectedBeamDpos"
+    "GUISuite/LargeCylindersMonteCarlo"
 )
 
 # Adding executables.

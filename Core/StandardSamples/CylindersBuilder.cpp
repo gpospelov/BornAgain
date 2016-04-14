@@ -107,3 +107,46 @@ ISample *CylindersInBABuilder::buildSample() const
 
     return multi_layer;
 }
+
+// -----------------------------------------------------------------------------
+// Large cylinders in DWBA
+// -----------------------------------------------------------------------------
+LargeCylindersInDWBABuilder::LargeCylindersInDWBABuilder()
+    : m_height(2000*Units::nanometer)
+    , m_radius(1000*Units::nanometer)
+{
+    init_parameters();
+}
+
+
+void LargeCylindersInDWBABuilder::init_parameters()
+{
+    clearParameterPool();
+    registerParameter(BornAgain::Radius, &m_radius);
+    registerParameter(BornAgain::Height, &m_height);
+}
+
+
+ISample *LargeCylindersInDWBABuilder::buildSample() const
+{
+    MultiLayer *multi_layer = new MultiLayer();
+
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+
+    FormFactorCylinder ff_cylinder(m_radius, m_height);
+
+    Particle particle(particle_material, ff_cylinder);
+    ParticleLayout particle_layout(particle);
+
+    air_layer.addLayout(particle_layout);
+
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(substrate_layer);
+
+    return multi_layer;
+}

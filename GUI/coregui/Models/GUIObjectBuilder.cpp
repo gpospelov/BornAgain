@@ -44,6 +44,8 @@
 #include "AxesItems.h"
 #include "ParticleDistribution.h"
 #include "ParticleDistributionItem.h"
+#include "DocumentModel.h"
+#include "SimulationOptionsItem.h"
 #include <QDebug>
 
 
@@ -119,6 +121,19 @@ SessionItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *instrume
 
 
     return instrumentItem;
+}
+
+SessionItem *GUIObjectBuilder::populateDocumentModel(DocumentModel *documentModel,
+                                                     const GISASSimulation &simulation)
+{
+    SimulationOptionsItem *optionsItem = dynamic_cast<SimulationOptionsItem *>(
+            documentModel->insertNewItem(Constants::SimulationOptionsType));
+    Q_ASSERT(optionsItem);
+    if(simulation.getOptions().isIntegrate()) {
+        optionsItem->setComputationMethod(Constants::SIMULATION_MONTECARLO);
+        optionsItem->setNumberOfMonteCarloPoints(simulation.getOptions().getMcPoints());
+    }
+    return optionsItem;
 }
 
 

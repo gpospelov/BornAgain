@@ -36,8 +36,7 @@ public:
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const;
 
-    //! Sets the refractive index of the ambient material (which influences
-    //! its scattering power)
+    //! Sets the refractive index of the ambient material (which influences its scattering power)
     virtual void setAmbientMaterial(const IMaterial& material);
     virtual const IMaterial* getAmbientMaterial() const;
 
@@ -61,5 +60,3 @@ protected:
 };
 
 #endif // PARTICLECORESHELL_H
-
-

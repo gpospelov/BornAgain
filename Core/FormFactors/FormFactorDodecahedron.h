@@ -1,0 +1,49 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/inc/FormFactorDodecahedron.h
+//! @brief     Defines class FormFactorDodecahedron.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015-16
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
+#ifndef FORMFACTORDODECAHEDRON_H
+#define FORMFACTORDODECAHEDRON_H
+
+#include "FormFactorPolyhedron.h"
+
+//! @class FormFactorDodecahedron
+//! @ingroup formfactors
+//! @brief The formfactor of a regular dodecahedron.
+
+class BA_CORE_API_ FormFactorDodecahedron : public FormFactorPolyhedron
+{
+public:
+    //! @brief Constructs a regular dodecahedron
+    //! @param edge length
+    FormFactorDodecahedron(double edge);
+
+    static std::vector<PolyhedralFace> polyhedral_faces(double edge);
+
+    virtual FormFactorDodecahedron *clone() const final;
+    virtual void accept(ISampleVisitor *visitor) const final;
+
+    virtual double getRadius() const final;
+    double getEdge() const;
+
+private:
+    virtual bool check_initialization() const;
+    virtual void init_parameters();
+
+    double m_edge;
+};
+
+inline double FormFactorDodecahedron::getEdge() const { return m_edge; }
+
+#endif // FORMFACTORDODECAHEDRON_H

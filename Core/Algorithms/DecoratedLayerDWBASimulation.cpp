@@ -15,7 +15,6 @@
 
 #include "DecoratedLayerDWBASimulation.h"
 #include "Layer.h"
-#include "FormFactors.h"
 #include "MessageService.h"
 #include "BornAgainNamespace.h"
 

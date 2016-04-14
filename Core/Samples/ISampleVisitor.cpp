@@ -467,4 +467,3 @@ bool ISampleVisitor::visitLeave(const ICompositeSample *)
     m_level--;
     return false;
 }
-

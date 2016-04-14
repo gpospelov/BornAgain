@@ -15,7 +15,8 @@
 
 #include "Crystal.h"
 #include "BornAgainNamespace.h"
-#include "FormFactors.h"
+#include "FormFactorCrystal.h"
+#include "FormFactorDecoratorDebyeWaller.h"
 #include "Units.h"
 #include "MathFunctions.h"
 

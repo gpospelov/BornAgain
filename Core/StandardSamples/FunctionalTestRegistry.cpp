@@ -334,9 +334,7 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "MiniGISASMonteCarlo",
         "LargeCylindersInDWBABuilder",
         "None",
-        2e-10);
-
-
+        5e-1);
 }
 
 void FunctionalTestRegistry::add(const std::string &test_name,

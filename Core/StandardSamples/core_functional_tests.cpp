@@ -17,15 +17,19 @@
 #include "FunctionalTestRegistry.h"
 #include "FunctionalMultiTest.h"
 #include "CoreFunctionalTestComponentService.h"
-#include <memory>
 #include <iostream>
+
+//! Runs a functional test and returns error code.
+//! Note the analogy with PYSCRIPT_FUNCTIONAL_TEST and GUI_FUNCTIONAL_TEST.
 
 int CORE_FUNCTIONAL_TEST(const std::string &test_name)
 {
     FunctionalTestRegistry catalogue;
     if (!catalogue.isValidTest(test_name)) {
-        std::cout << "CORE_FUNCTIONAL_TEST() -> Non existing test with name '" << test_name << "', "
-                  << "use argument from the list of defined tests" << std::endl;
+        if(test_name!="")
+            std::cout<<"There is no test named '"<< test_name << "'" << std::endl;
+        std::cout << "Usage: CoreSuite <test_name>" << std::endl;
+        std::cout << "Available tests:" << std::endl;
         catalogue.printCatalogue(std::cout);
         return 1;
     }
@@ -33,8 +37,7 @@ int CORE_FUNCTIONAL_TEST(const std::string &test_name)
     FunctionalTestInfo info = catalogue.getTestInfo(test_name);
 
     CoreFunctionalTestComponentService *service = new CoreFunctionalTestComponentService(info);
-    const std::unique_ptr<IFunctionalTest> test(
-        new FunctionalMultiTest(test_name, service));
-    test->runTest();
-    return test->analyseResults();
+    FunctionalMultiTest test(test_name, service);
+    test.runTest();
+    return test.analyseResults();
 }

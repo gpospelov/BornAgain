@@ -71,7 +71,7 @@ std::string PyGenTools::printBool(double value)
 std::string PyGenTools::printDouble(double input)
 {
     std::ostringstream inter;
-    inter << std::setprecision(11);
+    inter << std::setprecision(12);
     if (std::abs(input) < std::numeric_limits<double>::epsilon()) {
         inter << "0.0";
         return inter.str();
@@ -83,6 +83,15 @@ std::string PyGenTools::printDouble(double input)
     }
     return inter.str();
 }
+
+std::string PyGenTools::printNm(double input)
+{
+    std::ostringstream inter;
+    inter << std::setprecision(12);
+    inter << PyGenTools::printDouble(input) << "*nm";
+    return inter.str();
+}
+
 
 // 1.000000e+07 -> 1.0e+07
 std::string PyGenTools::printScientificDouble(double input)
@@ -113,7 +122,7 @@ std::string PyGenTools::printDegrees(double input)
     {
         inter << ".0";
     }
-    inter << "*degree";
+    inter << "*deg";
     return inter.str();
 }
 

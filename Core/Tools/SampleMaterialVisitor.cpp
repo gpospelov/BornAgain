@@ -156,6 +156,10 @@ void SampleMaterialVisitor::visit(const FormFactorCylinder *)
 {
 }
 
+void SampleMaterialVisitor::visit(const FormFactorDodecahedron *)
+{
+}
+
 void SampleMaterialVisitor::visit(const FormFactorEllipsoidalCylinder *)
 {
 }
@@ -173,6 +177,10 @@ void SampleMaterialVisitor::visit(const FormFactorGauss *)
 }
 
 void SampleMaterialVisitor::visit(const FormFactorHemiEllipsoid *)
+{
+}
+
+void SampleMaterialVisitor::visit(const FormFactorIcosahedron *)
 {
 }
 

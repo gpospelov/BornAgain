@@ -96,6 +96,11 @@ void PyGenVisitor::visit(const FormFactorCylinder *sample)
     m_label->setLabel(sample);
 }
 
+void PyGenVisitor::visit(const FormFactorDodecahedron *sample)
+{
+    m_label->setLabel(sample);
+}
+
 void PyGenVisitor::visit(const FormFactorEllipsoidalCylinder *sample)
 {
     m_label->setLabel(sample);
@@ -117,6 +122,11 @@ void PyGenVisitor::visit(const FormFactorGauss *sample)
 }
 
 void PyGenVisitor::visit(const FormFactorHemiEllipsoid *sample)
+{
+    m_label->setLabel(sample);
+}
+
+void PyGenVisitor::visit(const FormFactorIcosahedron *sample)
 {
     m_label->setLabel(sample);
 }
@@ -1460,5 +1470,3 @@ void PyGenVisitor::setPositionInformation(const IParticle *p_particle, std::stri
                << name << "_position)\n";
     }
 }
-
-

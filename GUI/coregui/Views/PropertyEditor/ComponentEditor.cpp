@@ -103,6 +103,10 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
     qDebug() << " ComponentEditor::onDataChanged" << m_d->m_presentationType
              << roles << item->modelType() << item->displayName();
 
+    if(m_d->m_changedItems.contains(item)) return;
+
+    qDebug() << " ComponentEditor::onDataChanged 1.2 processing";
+
     if (QtVariantProperty *property = m_d->getPropertyForItem(item)) {
         // updating editor's property appearance (tooltips, limits)
         if (roles.contains(Qt::UserRole)) {
@@ -135,6 +139,7 @@ void ComponentEditor::onRowsInserted(const QModelIndex &parent, int first,
 
     SessionItem *item = model->itemForIndex(parent);
     Q_ASSERT(item);
+    if(m_d->m_changedItems.contains(item)) return;
 
     if (QtVariantProperty *property = m_d->getPropertyForItem(item)) {
         updateEditor(item, property);
@@ -148,9 +153,13 @@ void ComponentEditor::onQtPropertyChanged(QtProperty *property,
     qDebug() << "ComponentEditor::onQtPropertyChanged" << property << value;
     if (SessionItem *item = m_d->getItemForProperty(property)) {
         Q_ASSERT(item);
-        disconnectModel(item->model());
+        qDebug() << "Disconnecting";
+//        disconnectModel(item->model());
+        m_d->m_changedItems.append(item);
         item->setValue(value);
-        connectModel(item->model());
+//        connectModel(item->model());
+        m_d->m_changedItems.removeAll(item);
+        qDebug() << "Connected";
     }
 }
 

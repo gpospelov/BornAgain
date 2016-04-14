@@ -186,20 +186,7 @@ void JobQueueData::onFinishedJob()
 
     JobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->getIdentifier());
 
-    QString end_time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
-    jobItem->setEndTime(end_time);
-    jobItem->setDuration(runner->getSimulationDuration());
-
-
-    // propagating status of runner
-    jobItem->setStatus(runner->getStatus());
-    if(jobItem->isFailed()) {
-        jobItem->setComments(runner->getFailureMessage());
-    } else {
-        // propagating simulation results
-        GISASSimulation *simulation = getSimulation(runner->getIdentifier());
-        jobItem->setResults(simulation);
-    }
+    processFinishedJob(runner, jobItem);
 
     // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)
     getThread(runner->getIdentifier())->quit();
@@ -301,4 +288,26 @@ void JobQueueData::clearSimulation(const QString &identifier)
     GISASSimulation *simulation = getSimulation(identifier);
     m_simulations.remove(identifier);
     delete simulation;
+}
+
+//! Set all data of finished job
+void JobQueueData::processFinishedJob(JobRunner *runner, JobItem *jobItem)
+{
+    QString end_time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
+    jobItem->setEndTime(end_time);
+    jobItem->setDuration(runner->getSimulationDuration());
+
+    // propagating status of runner
+    jobItem->setStatus(runner->getStatus());
+    if(jobItem->isFailed()) {
+        jobItem->setComments(runner->getFailureMessage());
+    } else {
+        // propagating simulation results
+        GISASSimulation *simulation = getSimulation(runner->getIdentifier());
+        jobItem->setResults(simulation);
+    }
+
+    // fixing job progress (if job was successfull, but due to wrong estimation, progress not 100%)
+    if(jobItem->isCompleted())
+        jobItem->setProgress(100);
 }

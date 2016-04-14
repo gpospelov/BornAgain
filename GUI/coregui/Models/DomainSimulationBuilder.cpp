@@ -32,20 +32,6 @@
 #include <memory>
 
 
-//! Creates domain simulation from sample and instrument models for given names
-//! of MultiLayer and Instrument
-//GISASSimulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel,
-//                                                   const QString &sample_name,
-//                                                   InstrumentModel *instrumentModel,
-//                                                   const QString &instrument_name)
-//{
-//    Q_ASSERT(sampleModel);
-//    Q_ASSERT(instrumentModel);
-//    MultiLayerItem *sampleItem = sampleModel->getMultiLayerItem(sample_name);
-//    InstrumentItem *instrumentItem = instrumentModel->getInstrumentItem(instrument_name);
-//    return getSimulation(sampleItem, instrumentItem);
-//}
-
 //! Creates domain simulation from sample and instrument models. First sample and first instrument
 //! in the model will be used, if there are more than one.
 GISASSimulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel,

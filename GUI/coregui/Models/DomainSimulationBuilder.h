@@ -32,10 +32,6 @@ class DocumentModel;
 class DomainSimulationBuilder
 {
 public:
-//    static GISASSimulation *getSimulation(SampleModel *sampleModel, const QString &sample_name,
-//                                     InstrumentModel *instrumentModel,
-//                                     const QString &instrument_name);
-
     static GISASSimulation *getSimulation(SampleModel *sampleModel,
                                           InstrumentModel *instrumentModel,
                                           DocumentModel *documentModel);
@@ -43,7 +39,6 @@ public:
     static GISASSimulation *getSimulation(const MultiLayerItem *sampleItem,
                                           const InstrumentItem *instrumentItem,
                                           const SimulationOptionsItem *optionsItem = 0);
-
 };
 
 #endif

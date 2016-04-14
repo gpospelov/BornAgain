@@ -177,7 +177,6 @@ void FitTools::onError(const QString &text)
 
 void FitTools::onUpdatePlots(OutputData<double> *sim, OutputData<double> *)
 {
-    Q_UNUSED(chi2);
     // hack to preserve axis information
     auto data = m_currentJobItem->getIntensityDataItem()->getOutputData()->clone();
     data->setRawDataVector(sim->getRawDataVector());

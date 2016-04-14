@@ -14,7 +14,6 @@
 //
 // ************************************************************************** //
 
-#include "TransformFromDomain.h"
 #include "SessionItem.h"
 #include "InterferenceFunctions.h"
 #include "InterferenceFunctionItems.h"
@@ -63,6 +62,7 @@
 #include "RectangularDetectorItem.h"
 #include "VectorItem.h"
 #include "ModelPath.h"
+#include "TransformFromDomain.h"
 
 #include <QString>
 #include <QDebug>

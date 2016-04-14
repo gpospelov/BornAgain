@@ -27,7 +27,6 @@
 
 AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
     : QDialog(parent)
-
 {
     QColor bgColor(240,240,240,255);
     QPalette palette;
@@ -56,7 +55,7 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
     logoLabel->setPixmap(logo.scaled(120,120,Qt::KeepAspectRatio));
 
 
-    QLabel *aboutTitleLabel = new QLabel(QString("BornAgain").append(" ver. ")
+    QLabel *aboutTitleLabel = new QLabel(QString("BornAgain version ")
                                          .append(GUIHelpers::getBornAgainVersionString()));
     aboutTitleLabel->setFont(titleFont);
     aboutTitleLabel->setContentsMargins(0,0,0,15);
@@ -116,5 +115,3 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
 
     setLayout(mainLayout);
 }
-
-

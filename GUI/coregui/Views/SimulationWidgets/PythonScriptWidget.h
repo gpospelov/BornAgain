@@ -28,6 +28,7 @@ class SampleModel;
 class InstrumentModel;
 class MultiLayerItem;
 class InstrumentItem;
+class SimulationOptionsItem;
 
 //! The PythonScriptWidget displays a python script which represents full simulation.
 //! Part of SimulationSetupWidget
@@ -40,6 +41,7 @@ public:
 
     void generatePythonScript(const MultiLayerItem *sampleItem,
                               const InstrumentItem *instrumentItem,
+                              const SimulationOptionsItem *optionItem = 0,
                               const QString &outputDir = QString());
 
 protected:

@@ -55,6 +55,8 @@ public:
     //! @brief Sets the batch and thread information to be used
     void setThreadInfo(const ThreadInfo &thread_info);
 
+    int getHardwareConcurrency() const;
+
 private:
     bool m_mc_integration;
     size_t m_mc_points;

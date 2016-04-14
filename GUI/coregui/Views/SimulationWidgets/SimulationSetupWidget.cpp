@@ -159,7 +159,9 @@ void SimulationSetupWidget::onExportToPythonScript()
     PythonScriptWidget *pythonWidget = new PythonScriptWidget(this);
     pythonWidget->show();
     pythonWidget->raise();
-    pythonWidget->generatePythonScript(jobMultiLayerItem, jobInstrumentItem, m_projectManager->getProjectDir());
+    pythonWidget->generatePythonScript(jobMultiLayerItem, jobInstrumentItem,
+            m_applicationModels->documentModel()->getSimulationOptionsItem(),
+                                       m_projectManager->getProjectDir());
 }
 
 void SimulationSetupWidget::onOpenFile()

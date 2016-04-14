@@ -20,7 +20,7 @@ SimulationOptions::SimulationOptions()
     : m_mc_integration(false)
     , m_mc_points(1)
 {
-    m_thread_info.n_threads = (int)std::thread::hardware_concurrency();
+    m_thread_info.n_threads = getHardwareConcurrency();
 }
 
 bool SimulationOptions::isIntegrate() const
@@ -77,5 +77,10 @@ int SimulationOptions::getCurrentBatch() const
 void SimulationOptions::setThreadInfo(const ThreadInfo &thread_info)
 {
     m_thread_info = thread_info;
+}
+
+int SimulationOptions::getHardwareConcurrency() const
+{
+    return (int)std::thread::hardware_concurrency();
 }
 

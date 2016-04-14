@@ -41,6 +41,7 @@
 #include "ResolutionFunction2DGaussian.h"
 #include "RectangularDetector.h"
 #include "SphericalDetector.h"
+#include "SimulationOptions.h"
 
 PyGenVisitor::PyGenVisitor() : m_label(new SampleLabelHandler())
 {
@@ -315,6 +316,7 @@ std::string PyGenVisitor::defineGetSimulation(const GISASSimulation *simulation)
     result << defineBeam(simulation);
     result << defineParameterDistributions(simulation);
     result << defineMasks(simulation);
+    result << defineSimulationOptions(simulation);
     result << indent() << "return simulation\n\n\n";
     return result.str();
 }
@@ -1357,6 +1359,24 @@ std::string PyGenVisitor::defineMasks(const GISASSimulation *simulation) const
             result << PyGenTools::getRepresentation(indent(), shape, mask_value);
         }
         result << "\n";
+    }
+
+    return result.str();
+}
+
+std::string PyGenVisitor::defineSimulationOptions(const GISASSimulation *simulation) const
+{
+    std::ostringstream result;
+    result << std::setprecision(12);
+
+    const SimulationOptions &options = simulation->getOptions();
+    if(options.getHardwareConcurrency() != options.getNumberOfThreads()) {
+        result << indent() << "simulation.getOptions().setNumberOfThreads("
+               << options.getNumberOfThreads() << ")\n";
+    }
+    if(options.isIntegrate()) {
+        result << indent() << "simulation.getOptions().setMonteCarloIntegration(True, "
+               << options.getMcPoints() << ")\n";
     }
 
     return result.str();

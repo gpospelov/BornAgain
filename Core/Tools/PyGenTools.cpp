@@ -37,6 +37,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include <iostream>
 #include <iomanip>
 #include <cstdio>
+#include <cmath>
 #include <Python.h>
 
 std::string PyGenTools::genPyScript(GISASSimulation *simulation)
@@ -83,7 +84,6 @@ std::string PyGenTools::printDouble(double input)
     return inter.str();
 }
 
-#include <cmath>
 // 1.000000e+07 -> 1.0e+07
 std::string PyGenTools::printScientificDouble(double input)
 {

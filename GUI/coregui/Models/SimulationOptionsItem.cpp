@@ -119,7 +119,8 @@ void SimulationOptionsItem::setRunPolicy(const QString &policy)
 
 QString SimulationOptionsItem::getComputationMethod() const
 {
-    return getItemValue(P_COMPUTATION_METHOD).toString();
+    ComboProperty combo = getItemValue(P_COMPUTATION_METHOD).value<ComboProperty>();
+    return combo.getValue();
 }
 
 int SimulationOptionsItem::getNumberOfMonteCarloPoints() const

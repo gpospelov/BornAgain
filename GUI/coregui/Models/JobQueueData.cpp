@@ -113,7 +113,6 @@ void JobQueueData::runJob(JobItem *jobItem)
         return;
     }
 
-//    simulation->getOptions().setNumberOfThreads(jobItem->getNumberOfThreads());
     m_simulations[identifier] = simulation;
 
     JobRunner *runner = new JobRunner(identifier, simulation);

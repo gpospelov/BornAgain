@@ -23,6 +23,7 @@
 #include "PyGenTools.h"
 #include "DomainSimulationBuilder.h"
 #include "WarningSignWidget.h"
+#include "SimulationOptionsItem.h"
 #include "projectdocument.h"
 #include "projectmanager.h"
 #include <QScrollBar>
@@ -89,7 +90,8 @@ PythonScriptWidget::PythonScriptWidget(QWidget *parent)
 }
 
 void PythonScriptWidget::generatePythonScript(const MultiLayerItem *sampleItem,
-        const InstrumentItem *instrumentItem, const QString &outputDir)
+        const InstrumentItem *instrumentItem, const SimulationOptionsItem *optionItem,
+                                              const QString &outputDir)
 {
     m_outputDir = outputDir;
 
@@ -98,7 +100,7 @@ void PythonScriptWidget::generatePythonScript(const MultiLayerItem *sampleItem,
 
     try{
         const std::unique_ptr<GISASSimulation> P_simulation(
-            DomainSimulationBuilder::getSimulation(sampleItem, instrumentItem));
+            DomainSimulationBuilder::getSimulation(sampleItem, instrumentItem, optionItem));
 
         QString code = QString::fromStdString(PyGenTools::genPyScript(P_simulation.get()));
         m_textEdit->clear();

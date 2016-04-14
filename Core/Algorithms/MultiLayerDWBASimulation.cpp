@@ -82,6 +82,10 @@ void MultiLayerDWBASimulation::run()
     }
 }
 
+// The normalization of the calculated scattering intensities is:
+// For nanoparticles: rho * (scattering cross-section/scattering particle)
+// For roughness: (scattering cross-section of area S)/S
+// This allows them to be added and normalized together to the beam afterwards
 void MultiLayerDWBASimulation::runProtected()
 {
     msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::runProtected()";

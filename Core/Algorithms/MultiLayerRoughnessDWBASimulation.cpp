@@ -91,9 +91,9 @@ double MultiLayerRoughnessDWBASimulation::evaluate(const SimulationElement& sim_
         for(size_t j=0; j<mp_multi_layer->getNumberOfLayers()-1; j++){
             for(size_t k=0; k<mp_multi_layer->getNumberOfLayers()-1; k++) {
                 if(j==k) continue;
-                crosscorr += rterm[j]*sterm[j]*rterm[k]*
+                crosscorr += rterm[j]*sterm[j]*
                     mp_multi_layer->getCrossCorrSpectralFun(q,j,k)*
-                    std::conj(sterm[k]);
+                    std::conj(rterm[k])*std::conj(sterm[k]);
             }
         }
     }
@@ -114,17 +114,18 @@ complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(size_t ilayer,
     double wavelength = sim_element.getWavelength();
     double alpha_i = sim_element.getAlphaI();
     double alpha_f = sim_element.getAlphaMean();
-    kvector_t k_i = sim_element.getKI();
-    kvector_t k_f = sim_element.getMeanKF();
-    complex_t qz1 = k_i.z() + k_f.z();
-    complex_t qz2 = k_i.z() - k_f.z();
-    complex_t qz3 = -k_i.z() + k_f.z();
-    complex_t qz4 = -k_i.z() - k_f.z();
 
     const std::unique_ptr<const ILayerRTCoefficients> P_in_coeff(
         mp_specular_info_vector[ilayer + 1]->getInCoefficients(alpha_i, 0.0, wavelength));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_coeff(
         mp_specular_info_vector[ilayer + 1]->getOutCoefficients(alpha_f, 0.0, wavelength));
+
+    complex_t kiz = P_in_coeff->getScalarKz();
+    complex_t kfz = P_out_coeff->getScalarKz();
+    complex_t qz1 = kiz + kfz;
+    complex_t qz2 = kiz - kfz;
+    complex_t qz3 = -qz2;
+    complex_t qz4 = -qz1;
 
     double sigma(0.0);
     if (const LayerRoughness *roughness

@@ -35,7 +35,9 @@ SimulationOptionsWidget::SimulationOptionsWidget(QWidget *parent)
 
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->setContentsMargins(0,0,0,0);
     mainLayout->addWidget(groupBox);
+    mainLayout->addStretch();
     setLayout(mainLayout);
 
 }

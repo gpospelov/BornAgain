@@ -64,7 +64,7 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     mainLayout->addWidget(createDataSelectorWidget());
     mainLayout->addWidget(m_simOptionsWidget);
     mainLayout->addWidget(createButtonWidget());
-    mainLayout->addStretch();
+    mainLayout->addStretch(10);
     setLayout(mainLayout);
 
     // signal and slots

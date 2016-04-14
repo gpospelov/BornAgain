@@ -200,7 +200,7 @@ const ModelType JOB_RUN_SUBMIT_ONLY = "Submit only";
 const ModelType JOB_BACKUP = "_backup";
 
 const ModelType SIMULATION_ANALYTICAL = "Analytical";
-const ModelType SIMULATION_MONTECARLO = "Monte-Carlo";
+const ModelType SIMULATION_MONTECARLO = "Monte-Carlo Integration";
 
 const ModelType ALIGNMENT_GENERIC = "Generic";
 const ModelType ALIGNMENT_TO_SAMPLE = "Perpendicular to sample x-axis";

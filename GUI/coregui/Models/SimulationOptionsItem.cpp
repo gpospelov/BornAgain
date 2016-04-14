@@ -69,19 +69,14 @@ SimulationOptionsItem::SimulationOptionsItem()
 
     mapper()->setOnPropertyChange(
         [this](const QString &name) {
-            qDebug() << "XXXXX" << name;
-
             if(name == P_COMPUTATION_METHOD && isTag(P_MC_POINTS)) {
-                qDebug() << "XXXXX 2.2";
                 ComboProperty combo = getItemValue(P_COMPUTATION_METHOD).value<ComboProperty>();
 
                 if(combo.getValue() == Constants::SIMULATION_ANALYTICAL) {
                     getItem(P_MC_POINTS)->setEnabled(false);
-                    qDebug() << "disabling";
 
                 } else {
                     getItem(P_MC_POINTS)->setEnabled(true);
-                    qDebug() << "enabling";
                 }
             }
     });

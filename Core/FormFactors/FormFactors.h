@@ -29,6 +29,7 @@
 #include "FormFactorDecoratorPositionFactor.h"
 #include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDecoratorRotation.h"
+#include "FormFactorDodecahedron.h"
 #include "FormFactorDWBA.h"
 #include "FormFactorDWBAPol.h"
 #include "FormFactorEllipsoidalCylinder.h"
@@ -36,6 +37,7 @@
 #include "FormFactorFullSpheroid.h"
 #include "FormFactorGauss.h"
 #include "FormFactorHemiEllipsoid.h"
+#include "FormFactorIcosahedron.h"
 #include "FormFactorLongBoxGauss.h"
 #include "FormFactorLongBoxLorentz.h"
 #include "FormFactorLorentz.h"
@@ -54,5 +56,3 @@
 #include "FormFactorWeighted.h"
 
 #endif /* FORMFACTORS_H_ */
-
-

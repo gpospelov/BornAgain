@@ -373,10 +373,16 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t& q ) const
 void FormFactorPolyhedron::assert_platonic() const
 {
     // just one test; one could do much more ...
-    double pyramidal_volume = faces[0].getPyramidalVolume();
-    for( auto Gk: faces )
-        if (std::abs(pyramidal_volume-Gk.getPyramidalVolume())>40*eps)
+    double pyramidal_volume = 0;
+    for( const auto& Gk: faces )
+        pyramidal_volume += Gk.getPyramidalVolume();
+    pyramidal_volume /= faces.size();
+    for( const auto& Gk: faces )
+        if (std::abs(Gk.getPyramidalVolume()-pyramidal_volume) > 160*eps*pyramidal_volume) {
+            std::cout<<std::setprecision(16)<<"BUG: pyr_volume(this face)="<<
+                Gk.getPyramidalVolume()<<" vs pyr_volume(avge)="<<pyramidal_volume<<"\n";
             throw "Deviant pyramidal volume";
+        }
 }
 
 

@@ -38,7 +38,7 @@ MesoCrystalBuilder::MesoCrystalBuilder()
 , m_sigma_meso_radius(1.3863e+00*Units::nanometer)
 , m_sigma_lattice_length_a(1.1601e+00*Units::nanometer)
 , m_surface_filling_ratio(1.7286e-01)
-, m_roughness(2.8746e+01*Units::nanometer)
+, m_roughness(12e+00*Units::nanometer)
 , m_nphi_rotations(2)
 {
     init_parameters();
@@ -109,7 +109,7 @@ ISample* MesoCrystalBuilder::buildSample() const
                                     n_particle_adapted, &ff_meso) );
             P_meso->setPosition(0.0, 0.0, -m_meso_height);
 //            particle_layout.addParticle(*P_meso, z_rotation);
-            particle_layout.addParticle(*P_meso, 1.0, kvector_t(0,0,0), z_rotation);
+            particle_layout.addParticle(*P_meso, 1.0, kvector_t(0.0, 0.0, 0.0), z_rotation);
         }
     }
 

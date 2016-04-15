@@ -78,6 +78,7 @@
 #include "FTDecayFunctions.h"
 #include "FTDistributions.h"
 #include "FixedBinAxis.h"
+#include "FormFactorPolyhedron.h"
 #include "FormFactorAnisoPyramid.h"
 #include "FormFactorBox.h"
 #include "FormFactorCone.h"
@@ -249,6 +250,7 @@
 %template(vector_IFormFactorPtr_t) std::vector<IFormFactor *>;
 %include "IFormFactorBorn.h"
 %include "IFormFactorDecorator.h"
+%include "FormFactorPolyhedron.h"
 %include "FormFactorAnisoPyramid.h"
 %include "FormFactorBox.h"
 %include "FormFactorCone.h"

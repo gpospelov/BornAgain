@@ -8181,6 +8181,208 @@ class IFormFactorDecorator(IFormFactor):
 IFormFactorDecorator_swigregister = _libBornAgainCore.IFormFactorDecorator_swigregister
 IFormFactorDecorator_swigregister(IFormFactorDecorator)
 
+class PolyhedralEdge(_object):
+    """Proxy of C++ PolyhedralEdge class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, PolyhedralEdge, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, PolyhedralEdge, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, _Vlow, _Vhig):
+        """__init__(PolyhedralEdge self, kvector_t _Vlow, kvector_t _Vhig) -> PolyhedralEdge"""
+        this = _libBornAgainCore.new_PolyhedralEdge(_Vlow, _Vhig)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_setmethods__["E"] = _libBornAgainCore.PolyhedralEdge_E_set
+    __swig_getmethods__["E"] = _libBornAgainCore.PolyhedralEdge_E_get
+    if _newclass:
+        E = _swig_property(_libBornAgainCore.PolyhedralEdge_E_get, _libBornAgainCore.PolyhedralEdge_E_set)
+    __swig_setmethods__["R"] = _libBornAgainCore.PolyhedralEdge_R_set
+    __swig_getmethods__["R"] = _libBornAgainCore.PolyhedralEdge_R_get
+    if _newclass:
+        R = _swig_property(_libBornAgainCore.PolyhedralEdge_R_get, _libBornAgainCore.PolyhedralEdge_R_set)
+
+    def contrib(self, m, prevec, qpa):
+        """contrib(PolyhedralEdge self, int m, cvector_t prevec, cvector_t qpa) -> complex_t"""
+        return _libBornAgainCore.PolyhedralEdge_contrib(self, m, prevec, qpa)
+
+    __swig_destroy__ = _libBornAgainCore.delete_PolyhedralEdge
+    __del__ = lambda self: None
+PolyhedralEdge_swigregister = _libBornAgainCore.PolyhedralEdge_swigregister
+PolyhedralEdge_swigregister(PolyhedralEdge)
+
+class PolyhedralFace(_object):
+    """Proxy of C++ PolyhedralFace class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, PolyhedralFace, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, PolyhedralFace, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, _V, _sym_S2=False):
+        """
+        __init__(PolyhedralFace self, vector_kvector_t _V, bool _sym_S2=False) -> PolyhedralFace
+        __init__(PolyhedralFace self, vector_kvector_t _V) -> PolyhedralFace
+        """
+        this = _libBornAgainCore.new_PolyhedralFace(_V, _sym_S2)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_setmethods__["radius_3d"] = _libBornAgainCore.PolyhedralFace_radius_3d_set
+    __swig_getmethods__["radius_3d"] = _libBornAgainCore.PolyhedralFace_radius_3d_get
+    if _newclass:
+        radius_3d = _swig_property(_libBornAgainCore.PolyhedralFace_radius_3d_get, _libBornAgainCore.PolyhedralFace_radius_3d_set)
+
+    def getArea(self):
+        """getArea(PolyhedralFace self) -> double"""
+        return _libBornAgainCore.PolyhedralFace_getArea(self)
+
+
+    def getPyramidalVolume(self):
+        """getPyramidalVolume(PolyhedralFace self) -> double"""
+        return _libBornAgainCore.PolyhedralFace_getPyramidalVolume(self)
+
+
+    def ff_n(self, m, q):
+        """ff_n(PolyhedralFace self, int m, cvector_t q) -> complex_t"""
+        return _libBornAgainCore.PolyhedralFace_ff_n(self, m, q)
+
+
+    def ff(self, q, sym_Ci):
+        """ff(PolyhedralFace self, cvector_t q, bool const sym_Ci) -> complex_t"""
+        return _libBornAgainCore.PolyhedralFace_ff(self, q, sym_Ci)
+
+
+    def ff_2D(self, qpa):
+        """ff_2D(PolyhedralFace self, cvector_t qpa) -> complex_t"""
+        return _libBornAgainCore.PolyhedralFace_ff_2D(self, qpa)
+
+
+    def assert_Ci(self, other):
+        """assert_Ci(PolyhedralFace self, PolyhedralFace other)"""
+        return _libBornAgainCore.PolyhedralFace_assert_Ci(self, other)
+
+    __swig_destroy__ = _libBornAgainCore.delete_PolyhedralFace
+    __del__ = lambda self: None
+PolyhedralFace_swigregister = _libBornAgainCore.PolyhedralFace_swigregister
+PolyhedralFace_swigregister(PolyhedralFace)
+
+class FormFactorPolyhedron(IFormFactorBorn):
+    """Proxy of C++ FormFactorPolyhedron class."""
+
+    __swig_setmethods__ = {}
+    for _s in [IFormFactorBorn]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorPolyhedron, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IFormFactorBorn]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPolyhedron, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def evaluate_for_q(self, q):
+        """
+        evaluate_for_q(FormFactorPolyhedron self, cvector_t q) -> complex_t
+
+        virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t &q) const  =0
+
+        evaluate scattering amplitude for complex wavevector
+
+        Parameters:
+        -----------
+
+        q: 
+        wavevector transfer q=k_i-k_f 
+
+        """
+        return _libBornAgainCore.FormFactorPolyhedron_evaluate_for_q(self, q)
+
+
+    def getVolume(self):
+        """
+        getVolume(FormFactorPolyhedron self) -> double
+
+        double IFormFactor::getVolume() const
+
+        Returns the total volume of the particle of this form factor's shape. 
+
+        """
+        return _libBornAgainCore.FormFactorPolyhedron_getVolume(self)
+
+
+    def assert_platonic(self):
+        """assert_platonic(FormFactorPolyhedron self)"""
+        return _libBornAgainCore.FormFactorPolyhedron_assert_platonic(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorPolyhedron
+    __del__ = lambda self: None
+FormFactorPolyhedron_swigregister = _libBornAgainCore.FormFactorPolyhedron_swigregister
+FormFactorPolyhedron_swigregister(FormFactorPolyhedron)
+
+class FormFactorPolygonalPrism(IFormFactorBorn):
+    """Proxy of C++ FormFactorPolygonalPrism class."""
+
+    __swig_setmethods__ = {}
+    for _s in [IFormFactorBorn]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorPolygonalPrism, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IFormFactorBorn]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPolygonalPrism, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def evaluate_for_q(self, q):
+        """
+        evaluate_for_q(FormFactorPolygonalPrism self, cvector_t q) -> complex_t
+
+        virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t &q) const  =0
+
+        evaluate scattering amplitude for complex wavevector
+
+        Parameters:
+        -----------
+
+        q: 
+        wavevector transfer q=k_i-k_f 
+
+        """
+        return _libBornAgainCore.FormFactorPolygonalPrism_evaluate_for_q(self, q)
+
+
+    def getVolume(self):
+        """
+        getVolume(FormFactorPolygonalPrism self) -> double
+
+        double IFormFactor::getVolume() const
+
+        Returns the total volume of the particle of this form factor's shape. 
+
+        """
+        return _libBornAgainCore.FormFactorPolygonalPrism_getVolume(self)
+
+
+    def getHeight(self):
+        """getHeight(FormFactorPolygonalPrism self) -> double"""
+        return _libBornAgainCore.FormFactorPolygonalPrism_getHeight(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorPolygonalPrism
+    __del__ = lambda self: None
+FormFactorPolygonalPrism_swigregister = _libBornAgainCore.FormFactorPolygonalPrism_swigregister
+FormFactorPolygonalPrism_swigregister(FormFactorPolygonalPrism)
+
 class FormFactorAnisoPyramid(IFormFactorBorn):
     """
 
@@ -8597,7 +8799,7 @@ class FormFactorCone(IFormFactorBorn):
 FormFactorCone_swigregister = _libBornAgainCore.FormFactorCone_swigregister
 FormFactorCone_swigregister(FormFactorCone)
 
-class FormFactorCone6(IFormFactorBorn):
+class FormFactorCone6(FormFactorPolyhedron):
     """
 
 
@@ -8608,11 +8810,11 @@ class FormFactorCone6(IFormFactorBorn):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IFormFactorBorn]:
+    for _s in [FormFactorPolyhedron]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorCone6, name, value)
     __swig_getmethods__ = {}
-    for _s in [IFormFactorBorn]:
+    for _s in [FormFactorPolyhedron]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorCone6, name)
     __repr__ = _swig_repr
@@ -8643,8 +8845,14 @@ class FormFactorCone6(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCone6
-    __del__ = lambda self: None
+
+    def polyhedral_faces(radius, height, alpha):
+        """polyhedral_faces(double radius, double height, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
+        return _libBornAgainCore.FormFactorCone6_polyhedral_faces(radius, height, alpha)
+
+    if _newclass:
+        polyhedral_faces = staticmethod(polyhedral_faces)
+    __swig_getmethods__["polyhedral_faces"] = lambda x: polyhedral_faces
 
     def clone(self):
         """
@@ -8701,20 +8909,14 @@ class FormFactorCone6(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorCone6_getAlpha(self)
 
-
-    def evaluate_for_q(self, q):
-        """
-        evaluate_for_q(FormFactorCone6 self, cvector_t q) -> complex_t
-
-        complex_t FormFactorCone6::evaluate_for_q(const cvector_t &q) const
-
-        Complex formfactor. 
-
-        """
-        return _libBornAgainCore.FormFactorCone6_evaluate_for_q(self, q)
-
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCone6
+    __del__ = lambda self: None
 FormFactorCone6_swigregister = _libBornAgainCore.FormFactorCone6_swigregister
 FormFactorCone6_swigregister(FormFactorCone6)
+
+def FormFactorCone6_polyhedral_faces(radius, height, alpha):
+    """FormFactorCone6_polyhedral_faces(double radius, double height, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
+    return _libBornAgainCore.FormFactorCone6_polyhedral_faces(radius, height, alpha)
 
 class FormFactorCrystal(IFormFactorBorn):
     """
@@ -8840,7 +9042,7 @@ class FormFactorCrystal(IFormFactorBorn):
 FormFactorCrystal_swigregister = _libBornAgainCore.FormFactorCrystal_swigregister
 FormFactorCrystal_swigregister(FormFactorCrystal)
 
-class FormFactorCuboctahedron(IFormFactorBorn):
+class FormFactorCuboctahedron(FormFactorPolyhedron):
     """
 
 
@@ -8851,11 +9053,11 @@ class FormFactorCuboctahedron(IFormFactorBorn):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IFormFactorBorn]:
+    for _s in [FormFactorPolyhedron]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorCuboctahedron, name, value)
     __swig_getmethods__ = {}
-    for _s in [IFormFactorBorn]:
+    for _s in [FormFactorPolyhedron]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorCuboctahedron, name)
     __repr__ = _swig_repr
@@ -8891,6 +9093,14 @@ class FormFactorCuboctahedron(IFormFactorBorn):
             self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorCuboctahedron
     __del__ = lambda self: None
+
+    def polyhedral_faces(length, height, height_ratio, alpha):
+        """polyhedral_faces(double length, double height, double height_ratio, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
+        return _libBornAgainCore.FormFactorCuboctahedron_polyhedral_faces(length, height, height_ratio, alpha)
+
+    if _newclass:
+        polyhedral_faces = staticmethod(polyhedral_faces)
+    __swig_getmethods__["polyhedral_faces"] = lambda x: polyhedral_faces
 
     def clone(self):
         """
@@ -8967,26 +9177,12 @@ class FormFactorCuboctahedron(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorCuboctahedron_getAlpha(self)
 
-
-    def evaluate_for_q(self, q):
-        """
-        evaluate_for_q(FormFactorCuboctahedron self, cvector_t q) -> complex_t
-
-        complex_t FormFactorCuboctahedron::evaluate_for_q(const cvector_t &q) const
-
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
-
-        """
-        return _libBornAgainCore.FormFactorCuboctahedron_evaluate_for_q(self, q)
-
 FormFactorCuboctahedron_swigregister = _libBornAgainCore.FormFactorCuboctahedron_swigregister
 FormFactorCuboctahedron_swigregister(FormFactorCuboctahedron)
+
+def FormFactorCuboctahedron_polyhedral_faces(length, height, height_ratio, alpha):
+    """FormFactorCuboctahedron_polyhedral_faces(double length, double height, double height_ratio, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
+    return _libBornAgainCore.FormFactorCuboctahedron_polyhedral_faces(length, height, height_ratio, alpha)
 
 class FormFactorCylinder(IFormFactorBorn):
     """
@@ -10154,7 +10350,7 @@ class FormFactorLorentz(IFormFactorBorn):
 FormFactorLorentz_swigregister = _libBornAgainCore.FormFactorLorentz_swigregister
 FormFactorLorentz_swigregister(FormFactorLorentz)
 
-class FormFactorPrism3(IFormFactorBorn):
+class FormFactorPrism3(FormFactorPolygonalPrism):
     """
 
 
@@ -10165,18 +10361,18 @@ class FormFactorPrism3(IFormFactorBorn):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IFormFactorBorn]:
+    for _s in [FormFactorPolygonalPrism]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorPrism3, name, value)
     __swig_getmethods__ = {}
-    for _s in [IFormFactorBorn]:
+    for _s in [FormFactorPolygonalPrism]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPrism3, name)
     __repr__ = _swig_repr
 
     def __init__(self, length, height):
         """
-        __init__(FormFactorPrism3 self, double length, double height) -> FormFactorPrism3
+        __init__(FormFactorPrism3 self, double const length, double const height) -> FormFactorPrism3
 
         FormFactorPrism3::FormFactorPrism3(double length, double height)
 
@@ -10197,6 +10393,14 @@ class FormFactorPrism3(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
+
+    def prismatic_face(length):
+        """prismatic_face(double const length) -> PolyhedralFace"""
+        return _libBornAgainCore.FormFactorPrism3_prismatic_face(length)
+
+    if _newclass:
+        prismatic_face = staticmethod(prismatic_face)
+    __swig_getmethods__["prismatic_face"] = lambda x: prismatic_face
 
     def clone(self):
         """
@@ -10234,16 +10438,6 @@ class FormFactorPrism3(IFormFactorBorn):
         return _libBornAgainCore.FormFactorPrism3_getRadius(self)
 
 
-    def getHeight(self):
-        """
-        getHeight(FormFactorPrism3 self) -> double
-
-        double FormFactorPrism3::getHeight() const 
-
-        """
-        return _libBornAgainCore.FormFactorPrism3_getHeight(self)
-
-
     def getLength(self):
         """
         getLength(FormFactorPrism3 self) -> double
@@ -10253,30 +10447,16 @@ class FormFactorPrism3(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorPrism3_getLength(self)
 
-
-    def evaluate_for_q(self, q):
-        """
-        evaluate_for_q(FormFactorPrism3 self, cvector_t q) -> complex_t
-
-        complex_t FormFactorPrism3::evaluate_for_q(const cvector_t &q) const
-
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
-
-        """
-        return _libBornAgainCore.FormFactorPrism3_evaluate_for_q(self, q)
-
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPrism3
     __del__ = lambda self: None
 FormFactorPrism3_swigregister = _libBornAgainCore.FormFactorPrism3_swigregister
 FormFactorPrism3_swigregister(FormFactorPrism3)
 
-class FormFactorPrism6(IFormFactorBorn):
+def FormFactorPrism3_prismatic_face(length):
+    """FormFactorPrism3_prismatic_face(double const length) -> PolyhedralFace"""
+    return _libBornAgainCore.FormFactorPrism3_prismatic_face(length)
+
+class FormFactorPrism6(FormFactorPolygonalPrism):
     """
 
 
@@ -10287,18 +10467,18 @@ class FormFactorPrism6(IFormFactorBorn):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IFormFactorBorn]:
+    for _s in [FormFactorPolygonalPrism]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorPrism6, name, value)
     __swig_getmethods__ = {}
-    for _s in [IFormFactorBorn]:
+    for _s in [FormFactorPolygonalPrism]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPrism6, name)
     __repr__ = _swig_repr
 
     def __init__(self, radius, height):
         """
-        __init__(FormFactorPrism6 self, double radius, double height) -> FormFactorPrism6
+        __init__(FormFactorPrism6 self, double const radius, double const height) -> FormFactorPrism6
 
         FormFactorPrism6::FormFactorPrism6(double radius, double height)
 
@@ -10319,6 +10499,14 @@ class FormFactorPrism6(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
+
+    def prismatic_face(radius):
+        """prismatic_face(double const radius) -> PolyhedralFace"""
+        return _libBornAgainCore.FormFactorPrism6_prismatic_face(radius)
+
+    if _newclass:
+        prismatic_face = staticmethod(prismatic_face)
+    __swig_getmethods__["prismatic_face"] = lambda x: prismatic_face
 
     def clone(self):
         """
@@ -10344,16 +10532,6 @@ class FormFactorPrism6(IFormFactorBorn):
         return _libBornAgainCore.FormFactorPrism6_accept(self, visitor)
 
 
-    def getHeight(self):
-        """
-        getHeight(FormFactorPrism6 self) -> double
-
-        double FormFactorPrism6::getHeight() const 
-
-        """
-        return _libBornAgainCore.FormFactorPrism6_getHeight(self)
-
-
     def getRadius(self):
         """
         getRadius(FormFactorPrism6 self) -> double
@@ -10365,30 +10543,16 @@ class FormFactorPrism6(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorPrism6_getRadius(self)
 
-
-    def evaluate_for_q(self, q):
-        """
-        evaluate_for_q(FormFactorPrism6 self, cvector_t q) -> complex_t
-
-        complex_t FormFactorPrism6::evaluate_for_q(const cvector_t &q) const
-
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
-
-        """
-        return _libBornAgainCore.FormFactorPrism6_evaluate_for_q(self, q)
-
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPrism6
     __del__ = lambda self: None
 FormFactorPrism6_swigregister = _libBornAgainCore.FormFactorPrism6_swigregister
 FormFactorPrism6_swigregister(FormFactorPrism6)
 
-class FormFactorPyramid(IFormFactorBorn):
+def FormFactorPrism6_prismatic_face(radius):
+    """FormFactorPrism6_prismatic_face(double const radius) -> PolyhedralFace"""
+    return _libBornAgainCore.FormFactorPrism6_prismatic_face(radius)
+
+class FormFactorPyramid(FormFactorPolyhedron):
     """
 
 
@@ -10399,11 +10563,11 @@ class FormFactorPyramid(IFormFactorBorn):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IFormFactorBorn]:
+    for _s in [FormFactorPolyhedron]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorPyramid, name, value)
     __swig_getmethods__ = {}
-    for _s in [IFormFactorBorn]:
+    for _s in [FormFactorPolyhedron]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPyramid, name)
     __repr__ = _swig_repr
@@ -10434,8 +10598,14 @@ class FormFactorPyramid(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorPyramid
-    __del__ = lambda self: None
+
+    def polyhedral_faces(length, height, alpha):
+        """polyhedral_faces(double length, double height, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
+        return _libBornAgainCore.FormFactorPyramid_polyhedral_faces(length, height, alpha)
+
+    if _newclass:
+        polyhedral_faces = staticmethod(polyhedral_faces)
+    __swig_getmethods__["polyhedral_faces"] = lambda x: polyhedral_faces
 
     def clone(self):
         """
@@ -10502,26 +10672,14 @@ class FormFactorPyramid(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorPyramid_getAlpha(self)
 
-
-    def evaluate_for_q(self, q):
-        """
-        evaluate_for_q(FormFactorPyramid self, cvector_t q) -> complex_t
-
-        complex_t FormFactorPyramid::evaluate_for_q(const cvector_t &q) const
-
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
-
-        """
-        return _libBornAgainCore.FormFactorPyramid_evaluate_for_q(self, q)
-
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorPyramid
+    __del__ = lambda self: None
 FormFactorPyramid_swigregister = _libBornAgainCore.FormFactorPyramid_swigregister
 FormFactorPyramid_swigregister(FormFactorPyramid)
+
+def FormFactorPyramid_polyhedral_faces(length, height, alpha):
+    """FormFactorPyramid_polyhedral_faces(double length, double height, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
+    return _libBornAgainCore.FormFactorPyramid_polyhedral_faces(length, height, alpha)
 
 class FormFactorRipple1(IFormFactorBorn):
     """
@@ -11609,7 +11767,7 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
 FormFactorSphereUniformRadius_swigregister = _libBornAgainCore.FormFactorSphereUniformRadius_swigregister
 FormFactorSphereUniformRadius_swigregister(FormFactorSphereUniformRadius)
 
-class FormFactorTetrahedron(IFormFactorBorn):
+class FormFactorTetrahedron(FormFactorPolyhedron):
     """
 
 
@@ -11620,11 +11778,11 @@ class FormFactorTetrahedron(IFormFactorBorn):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IFormFactorBorn]:
+    for _s in [FormFactorPolyhedron]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorTetrahedron, name, value)
     __swig_getmethods__ = {}
-    for _s in [IFormFactorBorn]:
+    for _s in [FormFactorPolyhedron]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorTetrahedron, name)
     __repr__ = _swig_repr
@@ -11657,6 +11815,14 @@ class FormFactorTetrahedron(IFormFactorBorn):
             self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorTetrahedron
     __del__ = lambda self: None
+
+    def polyhedral_faces(length, height, alpha):
+        """polyhedral_faces(double length, double height, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
+        return _libBornAgainCore.FormFactorTetrahedron_polyhedral_faces(length, height, alpha)
+
+    if _newclass:
+        polyhedral_faces = staticmethod(polyhedral_faces)
+    __swig_getmethods__["polyhedral_faces"] = lambda x: polyhedral_faces
 
     def clone(self):
         """
@@ -11723,26 +11889,12 @@ class FormFactorTetrahedron(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorTetrahedron_getAlpha(self)
 
-
-    def evaluate_for_q(self, q):
-        """
-        evaluate_for_q(FormFactorTetrahedron self, cvector_t q) -> complex_t
-
-        complex_t FormFactorTetrahedron::evaluate_for_q(const cvector_t &q) const
-
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
-
-        """
-        return _libBornAgainCore.FormFactorTetrahedron_evaluate_for_q(self, q)
-
 FormFactorTetrahedron_swigregister = _libBornAgainCore.FormFactorTetrahedron_swigregister
 FormFactorTetrahedron_swigregister(FormFactorTetrahedron)
+
+def FormFactorTetrahedron_polyhedral_faces(length, height, alpha):
+    """FormFactorTetrahedron_polyhedral_faces(double length, double height, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
+    return _libBornAgainCore.FormFactorTetrahedron_polyhedral_faces(length, height, alpha)
 
 class FormFactorTrivial(IFormFactorBorn):
     """Proxy of C++ FormFactorTrivial class."""
@@ -11839,7 +11991,7 @@ class FormFactorTrivial(IFormFactorBorn):
 FormFactorTrivial_swigregister = _libBornAgainCore.FormFactorTrivial_swigregister
 FormFactorTrivial_swigregister(FormFactorTrivial)
 
-class FormFactorTruncatedCube(IFormFactorBorn):
+class FormFactorTruncatedCube(FormFactorPolyhedron):
     """
 
 
@@ -11850,11 +12002,11 @@ class FormFactorTruncatedCube(IFormFactorBorn):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IFormFactorBorn]:
+    for _s in [FormFactorPolyhedron]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorTruncatedCube, name, value)
     __swig_getmethods__ = {}
-    for _s in [IFormFactorBorn]:
+    for _s in [FormFactorPolyhedron]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorTruncatedCube, name)
     __repr__ = _swig_repr
@@ -11882,6 +12034,14 @@ class FormFactorTruncatedCube(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
+
+    def polyhedral_faces(length, removed_length):
+        """polyhedral_faces(double length, double removed_length) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
+        return _libBornAgainCore.FormFactorTruncatedCube_polyhedral_faces(length, removed_length)
+
+    if _newclass:
+        polyhedral_faces = staticmethod(polyhedral_faces)
+    __swig_getmethods__["polyhedral_faces"] = lambda x: polyhedral_faces
 
     def clone(self):
         """
@@ -11942,6 +12102,10 @@ class FormFactorTruncatedCube(IFormFactorBorn):
     __del__ = lambda self: None
 FormFactorTruncatedCube_swigregister = _libBornAgainCore.FormFactorTruncatedCube_swigregister
 FormFactorTruncatedCube_swigregister(FormFactorTruncatedCube)
+
+def FormFactorTruncatedCube_polyhedral_faces(length, removed_length):
+    """FormFactorTruncatedCube_polyhedral_faces(double length, double removed_length) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
+    return _libBornAgainCore.FormFactorTruncatedCube_polyhedral_faces(length, removed_length)
 
 class FormFactorTruncatedSphere(IFormFactorBorn):
     """
@@ -12533,6 +12697,11 @@ class SimulationOptions(_object):
     def setThreadInfo(self, thread_info):
         """setThreadInfo(SimulationOptions self, ThreadInfo thread_info)"""
         return _libBornAgainCore.SimulationOptions_setThreadInfo(self, thread_info)
+
+
+    def getHardwareConcurrency(self):
+        """getHardwareConcurrency(SimulationOptions self) -> int"""
+        return _libBornAgainCore.SimulationOptions_getHardwareConcurrency(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_SimulationOptions
     __del__ = lambda self: None

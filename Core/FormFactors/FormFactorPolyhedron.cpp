@@ -80,8 +80,10 @@ const double PolyhedralFace::qpa_limit_series = 1e-3;
 PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
     : sym_S2( _sym_S2 )
 {
-    // compute edges
     size_t N = V.size();
+    if( !N )
+        return; // we would forbid these calls altogether, but swig requires constructor()
+    // compute edges
     for ( size_t j=0; j<N; ++j ) {
         size_t jj = (j+1)%N;
         edges.push_back( PolyhedralEdge(V[j], V[jj]) );

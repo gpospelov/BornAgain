@@ -40,7 +40,7 @@ public:
 
 class PolyhedralFace {
 public:
-    PolyhedralFace( const std::vector<kvector_t>& _V, bool _sym_S2=false );
+    PolyhedralFace( const std::vector<kvector_t>& _V=std::vector<kvector_t>(), bool _sym_S2=false );
     double radius_3d; //!< radius of enclosing sphere
     double getArea() const;
     double getPyramidalVolume() const;

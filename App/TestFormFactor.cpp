@@ -72,8 +72,7 @@ void TestFormFactor::execute()
 
 void TestFormFactor::draw4()
 {
-    TCanvas *c1_xy = new TCanvas("c1_test_formfactor", "Cylinder Formfactor",
-            1024, 768);
+    TCanvas *c1_xy = new TCanvas("c1_test_formfactor", "Cylinder Formfactor", 1024, 768);
     gPad->SetRightMargin(0.11);
     gStyle->SetPalette(1);
     gStyle->SetOptStat(0);
@@ -126,26 +125,21 @@ void TestFormFactor::draw4()
         ++it;
     }
 
-
      c1_xy->cd(1);
-                p_hist2D->SetContour(50);
-                p_hist2D->Draw("CONT4 z");
+     p_hist2D->SetContour(50);
+     p_hist2D->Draw("CONT4 z");
 
-      c1_xy->cd(2);
+     c1_xy->cd(2);
 
-                p_hist2Da[0]->SetContour(99);
-                p_hist2Da[0]->Draw("cont4 z");
-
-
-
+     p_hist2Da[0]->SetContour(99);
+     p_hist2Da[0]->Draw("cont4 z");
 }
 
 
 void TestFormFactor::draw()
 {
     // creation of 2D histogram from calculated intensities
-    TCanvas *c1 = new TCanvas("c1_test_formfactor", "Cylinder Formfactor", 0, 0,
-            1024, 768);
+    TCanvas *c1 = new TCanvas("c1_test_formfactor", "Cylinder Formfactor", 0, 0, 1024, 768);
     (void)c1;
 
     const IAxis *p_y_axis = mp_intensity_output->getAxis("detector y-axis");
@@ -178,5 +172,3 @@ void TestFormFactor::draw()
     gStyle->SetOptStat(0);
     p_hist2D->Draw("CONT4");
 }
-
-

@@ -52,11 +52,11 @@
 %include "numpy.i"
 %init %{
     import_array();
-%} 
+%}
 
 #define GCCXML_SKIP_THIS 1
-#define GCC_DIAG_OFF(x)  
-#define GCC_DIAG_ON(x) 
+#define GCC_DIAG_OFF(x)
+#define GCC_DIAG_ON(x)
 
 #ifndef BORNAGAIN_PYTHON
 #define BORNAGAIN_PYTHON
@@ -86,14 +86,17 @@
 #include "FormFactorCuboctahedron.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorDecoratorDebyeWaller.h"
+#include "FormFactorDodecahedron.h"
 #include "FormFactorEllipsoidalCylinder.h"
 #include "FormFactorFullSphere.h"
 #include "FormFactorFullSpheroid.h"
 #include "FormFactorGauss.h"
 #include "FormFactorHemiEllipsoid.h"
+#include "FormFactorIcosahedron.h"
 #include "FormFactorLongBoxGauss.h"
 #include "FormFactorLongBoxLorentz.h"
 #include "FormFactorLorentz.h"
+#include "FormFactorPolyhedron.h"
 #include "FormFactorPrism3.h"
 #include "FormFactorPrism6.h"
 #include "FormFactorPyramid.h"
@@ -123,7 +126,7 @@
 #include "ICompositeSample.h"
 #include "IDetector2D.h"
 #include "IDetectorResolution.h"
-#include "Distributions.h"   
+#include "Distributions.h"
 #include "FTDecayFunctions.h"
 #include "IFormFactor.h"
 #include "IFormFactorBorn.h"
@@ -294,7 +297,7 @@
 %include "HomogeneousMagneticMaterial.h"
 %include "IDetector2D.h"
 %include "IDetectorResolution.h"
-%include "Distributions.h"   
+%include "Distributions.h"
 %include "FTDecayFunctions.h"
 %include "IInterferenceFunction.h"
 %include "ILayout.h"

@@ -112,8 +112,8 @@ ISample *CylindersInBABuilder::buildSample() const
 // Large cylinders in DWBA
 // -----------------------------------------------------------------------------
 LargeCylindersInDWBABuilder::LargeCylindersInDWBABuilder()
-    : m_height(2000*Units::nanometer)
-    , m_radius(1000*Units::nanometer)
+    : m_height(1000*Units::nanometer)
+    , m_radius(500*Units::nanometer)
 {
     init_parameters();
 }

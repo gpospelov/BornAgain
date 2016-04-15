@@ -119,6 +119,14 @@
             </widget>
         </categoryentry>
 
+        <categoryentry name="Dodecahedron" icon="images/ff_dodecahedron_32.png">
+            <widget class="FormFactorDodecahedron">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
         <categoryentry name="Ellipsoidal cylinder" icon="images/ff_ellipscylinder_32.png">
             <widget class="FormFactorEllipsoidalCylinder">
                 <property name="objectName">
@@ -145,6 +153,14 @@
 
         <categoryentry name="Hemi ellipsoid" icon="images/ff_hemiellipsoid_32.png">
             <widget class="FormFactorHemiEllipsoid">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
+        <categoryentry name="Icosahedron" icon="images/ff_icosahedron_32.png">
+            <widget class="FormFactorIcosahedron">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>

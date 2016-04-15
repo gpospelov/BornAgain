@@ -27,7 +27,6 @@ protected:
     FormFactorTest(){}
 };
 
-//Test form factor of an anisotropic pyramid
 TEST_F(FormFactorTest, AnisoPyramid)
 {
     double length = 12.;
@@ -57,7 +56,6 @@ TEST_F(FormFactorTest, AnisoPyramid)
     EXPECT_EQ(0.8, anisopyramidclone->getAlpha());
 }
 
-//Test form factor of an hemiellipsoid
 TEST_F(FormFactorTest, HemiEllipsoid)
 {
     double radius_a = 6.;
@@ -82,7 +80,6 @@ TEST_F(FormFactorTest, HemiEllipsoid)
     EXPECT_DOUBLE_EQ(volume, hemiellipsoidclone->getVolume());
 }
 
-// Test form factor of a box
 TEST_F(FormFactorTest, Box)
 {
     double length = 6.;
@@ -106,7 +103,6 @@ TEST_F(FormFactorTest, Box)
     EXPECT_DOUBLE_EQ(volume, boxclone->getVolume());
 }
 
-// Test form factor of a cone
 TEST_F(FormFactorTest, Cone)
 {
     double radius = 6.;
@@ -133,7 +129,6 @@ TEST_F(FormFactorTest, Cone)
     EXPECT_DOUBLE_EQ(volume, coneclone->getVolume());
 }
 
-// Test form factor of a cone6
 TEST_F(FormFactorTest, Cone6)
 {
     double radius = 6.;
@@ -160,7 +155,6 @@ TEST_F(FormFactorTest, Cone6)
     EXPECT_DOUBLE_EQ(volume, cone6clone->getVolume());
 }
 
-// Test form factor of a cuboctahedron
 TEST_F(FormFactorTest, Cuboctahedron)
 {
     double length = 10.;
@@ -194,7 +188,6 @@ TEST_F(FormFactorTest, Cuboctahedron)
     EXPECT_DOUBLE_EQ(volume, cuboctahedron.getVolume());
 }
 
-// Test form factor of a cylinder
 TEST_F(FormFactorTest, Cylinder)
 {
     double radius = 3.;
@@ -214,7 +207,22 @@ TEST_F(FormFactorTest, Cylinder)
     EXPECT_DOUBLE_EQ(volume, cylinderclone-> getVolume());
 }
 
-// Test form factor of an ellipsoidal cylinder
+TEST_F(FormFactorTest, Dodecahedron)
+{
+    double edge = 3.;
+    double volume = (15+7*sqrt(5))/4*pow(edge,3);
+
+    FormFactorDodecahedron dodecahedron(edge);
+    EXPECT_EQ(BornAgain::FFDodecahedronType, dodecahedron.getName());
+    EXPECT_EQ(edge, dodecahedron.getEdge());
+    EXPECT_DOUBLE_EQ(volume, dodecahedron.getVolume());
+
+    FormFactorDodecahedron *dodecahedronclone = dodecahedron.clone();
+    EXPECT_EQ(BornAgain::FFDodecahedronType, dodecahedronclone->getName());
+    EXPECT_EQ(edge, dodecahedronclone->getEdge());
+    EXPECT_DOUBLE_EQ(volume, dodecahedronclone-> getVolume());
+}
+
 TEST_F(FormFactorTest, EllipsoidalCylinder)
 {
     double radius_a = 3.;
@@ -236,10 +244,8 @@ TEST_F(FormFactorTest, EllipsoidalCylinder)
     EXPECT_EQ(3., ellipscylclone->getRadiusX());
     EXPECT_EQ(5., ellipscylclone->getRadiusY());
     EXPECT_DOUBLE_EQ(volume, ellipscylclone->getVolume());
-
 }
 
-// Test form factor of a full sphere
 TEST_F(FormFactorTest, FullSphere)
 {
     double radius = 5.;
@@ -257,7 +263,6 @@ TEST_F(FormFactorTest, FullSphere)
     EXPECT_DOUBLE_EQ(volume, fullsphereclone->getVolume());
 }
 
-// Test form factor of a full spheroid
 TEST_F(FormFactorTest, FullSpheroid)
 {
     double radius = 3.;
@@ -278,7 +283,22 @@ TEST_F(FormFactorTest, FullSpheroid)
     EXPECT_DOUBLE_EQ(volume, fullspheroidclone->getVolume());
 }
 
-// Test form factor of a prism3
+TEST_F(FormFactorTest, Icosahedron)
+{
+    double edge = 7.;
+    double volume = 5*(3+sqrt(5))/12*pow(edge,3);
+
+    FormFactorIcosahedron icosahedron(edge);
+    EXPECT_EQ(BornAgain::FFIcosahedronType, icosahedron.getName());
+    EXPECT_EQ(edge, icosahedron.getEdge());
+    EXPECT_DOUBLE_EQ(volume, icosahedron.getVolume());
+
+    FormFactorIcosahedron *icosahedronclone = icosahedron.clone();
+    EXPECT_EQ(BornAgain::FFIcosahedronType, icosahedronclone->getName());
+    EXPECT_EQ(edge, icosahedronclone->getEdge());
+    EXPECT_DOUBLE_EQ(volume, icosahedronclone-> getVolume());
+}
+
 TEST_F(FormFactorTest, Prism3)
 {
     double height = 4.;
@@ -300,7 +320,6 @@ TEST_F(FormFactorTest, Prism3)
     EXPECT_DOUBLE_EQ(volume, prism3clone->getVolume());
 }
 
-// Test form factor of a prism6
 TEST_F(FormFactorTest, Prism6)
 {
     double height = 4.;
@@ -322,7 +341,6 @@ TEST_F(FormFactorTest, Prism6)
     EXPECT_DOUBLE_EQ(volume, prism6clone->getVolume());
 }
 
-// Test form factor of a pyramid
 TEST_F(FormFactorTest, Pyramid)
 {
     double height = 4.;
@@ -349,7 +367,6 @@ TEST_F(FormFactorTest, Pyramid)
     EXPECT_DOUBLE_EQ(volume, pyramidclone->getVolume());
 }
 
-// Test form factor of a truncated sphere
 TEST_F(FormFactorTest, TruncatedSphere)
 {
     double radius = 5.;
@@ -369,7 +386,6 @@ TEST_F(FormFactorTest, TruncatedSphere)
     EXPECT_DOUBLE_EQ(3., trsphereclone->getHeight());
 }
 
-// Test form factor of a truncated spheroid
 TEST_F(FormFactorTest, TruncatedSpheroid)
 {
     double height = 5.;
@@ -392,7 +408,6 @@ TEST_F(FormFactorTest, TruncatedSpheroid)
     EXPECT_DOUBLE_EQ(volume, trspheroidclone->getVolume());
 }
 
-// Test form factor of a tetrahedron
 TEST_F(FormFactorTest, Tetrahedron)
 {
     double height = 4.;
@@ -419,7 +434,6 @@ TEST_F(FormFactorTest, Tetrahedron)
     EXPECT_DOUBLE_EQ(volume, tetrahedronclone->getVolume());
 }
 
-// Test form factor of a ripple1 (cosine)
 TEST_F(FormFactorTest, Ripple1)
 {
     double width = 20.;
@@ -443,7 +457,6 @@ TEST_F(FormFactorTest, Ripple1)
     EXPECT_DOUBLE_EQ(volume, ripple1clone->getVolume());
 }
 
-// Test form factor of a ripple2 (triangular)
 TEST_F(FormFactorTest, Ripple2)
 {
     double width = 20.;
@@ -463,7 +476,6 @@ TEST_F(FormFactorTest, Ripple2)
     EXPECT_DOUBLE_EQ(4., ripple2clone->getHeight());
 }
 
-// Test form factor of a truncated cube
 TEST_F(FormFactorTest, TruncatedCube)
 {
     double length = 15.;

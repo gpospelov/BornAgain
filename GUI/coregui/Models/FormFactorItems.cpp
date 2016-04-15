@@ -163,6 +163,24 @@ std::unique_ptr<IFormFactor> CylinderItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
+const QString DodecahedronItem::P_EDGE = QString::fromStdString(BornAgain::Edge);
+
+DodecahedronItem::DodecahedronItem()
+    : FormFactorItem(Constants::DodecahedronType)
+{
+    addProperty(P_EDGE, 10.0);
+}
+
+std::unique_ptr<IFormFactor> DodecahedronItem::createFormFactor() const
+{
+    return GUIHelpers::make_unique<FormFactorDodecahedron>(
+                getItemValue(P_EDGE).toDouble()
+                );
+}
+
+
+/* ------------------------------------------------ */
+
 const QString EllipsoidalCylinderItem::P_RADIUS_X = QString::fromStdString(BornAgain::RadiusX);
 const QString EllipsoidalCylinderItem::P_RADIUS_Y = QString::fromStdString(BornAgain::RadiusY);
 const QString EllipsoidalCylinderItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
@@ -243,6 +261,24 @@ std::unique_ptr<IFormFactor> HemiEllipsoidItem::createFormFactor() const
                 getItemValue(P_HEIGHT).toDouble()
                 );
 }
+
+/* ------------------------------------------------ */
+
+const QString IcosahedronItem::P_EDGE = QString::fromStdString(BornAgain::Edge);
+
+IcosahedronItem::IcosahedronItem()
+    : FormFactorItem(Constants::IcosahedronType)
+{
+    addProperty(P_EDGE, 10.0);
+}
+
+std::unique_ptr<IFormFactor> IcosahedronItem::createFormFactor() const
+{
+    return GUIHelpers::make_unique<FormFactorIcosahedron>(
+                getItemValue(P_EDGE).toDouble()
+                );
+}
+
 
 /* ------------------------------------------------ */
 
@@ -442,6 +478,3 @@ std::unique_ptr<IFormFactor> TruncatedSpheroidItem::createFormFactor() const
                 getItemValue(P_HFC).toDouble()
                 );
 }
-
-
-

@@ -454,6 +454,12 @@ std::string PyGenVisitor::defineFormFactors() const
                    << PyGenTools::printNm(cylinder->getHeight()) << ")\n";
         }
 
+        else if (const FormFactorDodecahedron *dodecahedron
+                 = dynamic_cast<const FormFactorDodecahedron *>(p_ff)) {
+            result << " = FormFactorDodecahedron("
+                   << PyGenTools::printNm(dodecahedron->getEdge()) << ")\n";
+        }
+
         else if (const FormFactorEllipsoidalCylinder *ellipsoidalCylinder
                  = dynamic_cast<const FormFactorEllipsoidalCylinder *>(p_ff)) {
             result << " = FormFactorEllipsoidalCylinder("
@@ -492,6 +498,12 @@ std::string PyGenVisitor::defineFormFactors() const
                    << PyGenTools::printNm(hemiEllipsoid->getRadiusX()) << ", "
                    << PyGenTools::printNm(hemiEllipsoid->getRadiusY()) << ", "
                    << PyGenTools::printNm(hemiEllipsoid->getHeight()) << ")\n";
+        }
+
+        else if (const FormFactorIcosahedron *icosahedron
+                 = dynamic_cast<const FormFactorIcosahedron *>(p_ff)) {
+            result << " = FormFactorIcosahedron("
+                   << PyGenTools::printNm(icosahedron->getEdge()) << ")\n";
         }
 
         else if (const FormFactorLorentz *lorentz = dynamic_cast<const FormFactorLorentz *>(p_ff)) {

@@ -99,20 +99,20 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
     for( size_t j=0; j<N; ++j )
         rperp += V[j].dot(normal);
     rperp /= N;
+    // compute radius in 3d
+    radius_3d = 0;
+    for( const kvector_t v: V )
+        radius_3d = std::max( radius_3d, v.mag() );
     // assert that the vertices lay in a plane
     for ( size_t j=1; j<N; ++j )
-        if( std::abs(V[j].dot(normal) - rperp) > 1e-14 )
-            throw "Face is not planar";
+        if( std::abs(V[j].dot(normal) - rperp) > 1e-14*radius_3d )
+            throw std::runtime_error("Face is not planar");
     // compute area
     area = 0;
     for ( size_t j=0; j<N; ++j ) {
         size_t jj = (j+1)%N;
         area += normal.dot( V[j].cross( V[jj] ) ) / 2;
     }
-    // compute radius in 3d
-    radius_3d = 0;
-    for( const kvector_t v: V )
-        radius_3d = std::max( radius_3d, v.mag() );
     // compute radius in 2d
     radius_2d = 0;
     for( const kvector_t v: V )
@@ -121,11 +121,11 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
     // only now deal with inversion symmetry
     if( sym_S2 ) {
         if( N&1 )
-            throw "Odd #edges violates symmetry S2";
+            throw std::runtime_error("Odd #edges violates symmetry S2");
         N /= 2;
         for( size_t j=0; j<N; ++j ){
             if( ((V[j]-rperp*normal)+(V[j+N]-rperp*normal)).mag2()>1e-24*radius_2d*radius_2d )
-                throw "Given points violate symmetry S2";
+                throw std::runtime_error("Given points violate symmetry S2");
         }
         // keep only half of the egdes
         edges.erase( edges.begin()+N, edges.end() );
@@ -222,7 +222,7 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
                 return sum;
             n_fac *= I;
         }
-        throw "Bug in formfactor computation: series f(q_pa) not converged";
+        throw std::runtime_error("Bug in formfactor computation: series f(q_pa) not converged");
     } else {
         // direct evaluation of analytic formula
         cvector_t prevec = 2.*normal.cross( qpa ); // complex conjugation will take place in .dot
@@ -246,7 +246,7 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
 complex_t PolyhedralFace::ff_2D( const cvector_t qpa ) const
 {
     if ( std::abs(qpa.dot(normal))>eps*qpa.mag() )
-        throw "ff_2D called with perpendicular q component";
+        throw std::runtime_error("ff_2D called with perpendicular q component");
     double qpa_red = radius_2d * qpa.mag();
     if ( qpa_red==0 ) {
         return area;
@@ -267,7 +267,7 @@ complex_t PolyhedralFace::ff_2D( const cvector_t qpa ) const
                 return sum;
             n_fac *= I;
         }
-        throw "Bug in formfactor computation: series f(q_pa) not converged";
+        throw std::runtime_error("Bug in formfactor computation: series f(q_pa) not converged");
     } else {
         // direct evaluation of analytic formula
         cvector_t prevec = 2.*normal.cross( qpa ); // complex conjugation will take place in .dot
@@ -288,11 +288,11 @@ complex_t PolyhedralFace::ff_2D( const cvector_t qpa ) const
 void PolyhedralFace::assert_Ci( const PolyhedralFace& other ) const
 {
     if( std::abs(rperp-other.rperp)>1e-15*(rperp+other.rperp) )
-        throw "Faces with different distance from origin violate symmetry Ci";
+        throw std::runtime_error("Faces with different distance from origin violate symmetry Ci");
     if( std::abs(area-other.area)>1e-15*(area+other.area) )
-        throw "Faces with different areas violate symmetry Ci";
+        throw std::runtime_error("Faces with different areas violate symmetry Ci");
     if( (normal+other.normal).mag()>1e-14 )
-        throw "Faces do not have opposite orientation, which violates symmetry Ci";
+        throw std::runtime_error("Faces do not have opposite orientation, violating symmetry Ci");
 }
 
 //***************************************************************************************************
@@ -314,7 +314,7 @@ FormFactorPolyhedron::FormFactorPolyhedron(
 
     if( sym_Ci ) {
         if( faces.size()&1 )
-            throw "Odd #faces violates symmetry Ci";
+            throw std::runtime_error("Odd #faces violates symmetry Ci");
         size_t N = faces.size()/2;
         // for this tests, faces must be in a specific order
         for( size_t k=0; k<N; ++k )
@@ -360,7 +360,7 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t& q ) const
                 return ret;
             n_fac *= ( sym_Ci ? -1 : I );
         }
-        throw "Bug in formfactor computation: series F(q) not converged";
+        throw std::runtime_error("Bug in formfactor computation: series F(q) not converged");
     } else {
         // direct evaluation of analytic formula (coefficients may involve series)
         complex_t ret = 0;
@@ -383,7 +383,7 @@ void FormFactorPolyhedron::assert_platonic() const
         if (std::abs(Gk.getPyramidalVolume()-pyramidal_volume) > 160*eps*pyramidal_volume) {
             std::cout<<std::setprecision(16)<<"BUG: pyr_volume(this face)="<<
                 Gk.getPyramidalVolume()<<" vs pyr_volume(avge)="<<pyramidal_volume<<"\n";
-            throw "Deviant pyramidal volume";
+            throw std::runtime_error("Deviant pyramidal volume");
         }
 }
 

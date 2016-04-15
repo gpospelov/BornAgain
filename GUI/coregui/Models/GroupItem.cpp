@@ -25,15 +25,15 @@ GroupItem::GroupItem()
     registerTag(T_ITEMS);
     setDefaultTag(T_ITEMS);
 
-    mapper()->setOnChildPropertyChange(
-                [this](SessionItem* item, const QString &name)
-    {
-        qDebug() << "QQQQ" << item->itemLabel() << name;
-        group()->setCurrentLabel(item->itemLabel());
-//        qDebug() << "emmiting..." << modelType();
-//        emitDataChanged();
-//        qDebug() << "...emmited";
-    });
+//    mapper()->setOnChildPropertyChange(
+//                [this](SessionItem* item, const QString &name)
+//    {
+//        qDebug() << "QQQQ" << item->itemLabel() << name;
+//        group()->setCurrentLabel(item->itemLabel());
+////        qDebug() << "emmiting..." << modelType();
+////        emitDataChanged();
+////        qDebug() << "...emmited";
+//    });
 
 }
 

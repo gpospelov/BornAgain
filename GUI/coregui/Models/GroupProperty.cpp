@@ -101,13 +101,13 @@ void GroupProperty::setCurrentLabel(const QString &label)
 {
     if(type() == FIXED) {
         m_type_label_map[m_current_type] = label;
-        if(m_groupItem) {
-            m_groupItem->emitDataChanged();
-        }
-//        if(m_groupItem) m_groupItem->getItem(getGroupName())->emitValueChanged();
 //        if(m_groupItem) {
-//            qDebug() << "!!!" << m_groupItem
+//            m_groupItem->emitDataChanged();
 //        }
+////        if(m_groupItem) m_groupItem->getItem(getGroupName())->emitValueChanged();
+////        if(m_groupItem) {
+////            qDebug() << "!!!" << m_groupItem
+////        }
     }
 }
 

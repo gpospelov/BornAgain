@@ -78,10 +78,12 @@ inline void TestParticleItem::test_InitialState()
 //                << Constants::Cone6Type
 //                << Constants::CuboctahedronType
 //                << Constants::CylinderType
+//                << Constants::DedecahedronType
 //                << Constants::EllipsoidalCylinderType
 //                << Constants::FullSphereType
 //                << Constants::FullSpheroidType
 //                << Constants::HemiEllipsoidType
+//                << Constants::IcosahedronType
 //                << Constants::Prism3Type
 //                << Constants::Prism6Type
 //                << Constants::PyramidType

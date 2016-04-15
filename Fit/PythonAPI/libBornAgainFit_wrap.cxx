@@ -5618,7 +5618,7 @@ SWIG_AsVal_std_complex_Sl_double_Sg_  (PyObject *o, std::complex<double>* val)
 
 
 SWIGINTERNINLINE PyObject*
-SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/local/Cellar/swig/3.0.8/share/swig/3.0.8/typemaps/swigmacros.swg,104,%ifcplusplus@*/
+SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/share/swig3.0/typemaps/swigmacros.swg,104,%ifcplusplus@*/
 
 const std::complex<double>&
 
@@ -30689,7 +30689,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IFitStrategy_clone", _wrap_IFitStrategy_clone, METH_VARARGS, (char *)"\n"
 		"IFitStrategy_clone(IFitStrategy self) -> IFitStrategy\n"
 		"\n"
-		"virtual IFitStrategy* IFitStrategy::clone() const  =0\n"
+		"virtual IFitStrategy* IFitStrategy::clone() const =0\n"
 		"\n"
 		""},
 	 { (char *)"delete_IFitStrategy", _wrap_delete_IFitStrategy, METH_VARARGS, (char *)"\n"

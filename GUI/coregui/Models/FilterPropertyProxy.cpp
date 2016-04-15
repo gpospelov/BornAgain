@@ -37,7 +37,7 @@ bool FilterPropertyProxy::filterAcceptsRow(int sourceRow, const QModelIndex &sou
     if (!sourceParent.isValid())
         return true;
     const QString modelType = index.data(SessionModel::ModelTypeRole).toString();
-    if (modelType == Constants::PropertyType || modelType == Constants::GroupItemType)
+    if (modelType == Constants::PropertyType || modelType == Constants::GroupItemType || modelType == Constants::VectorType)
         return false;
 
     return true;//!sourceModel()->data(index, Qt::DisplayRole).isValid();

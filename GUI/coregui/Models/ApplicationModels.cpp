@@ -36,7 +36,12 @@ ApplicationModels::ApplicationModels(QObject *parent)
     , m_fitModel(0)
 {
     createModels();
-    testGUIObjectBuilder();
+    //testGUIObjectBuilder();
+
+    SessionItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
+    SessionItem *layer = m_sampleModel->insertNewItem(Constants::LayerType, multilayer->index());
+//    m_sampleModel->moveParameterizedItem(layer, 0);
+
 }
 
 ApplicationModels::~ApplicationModels()

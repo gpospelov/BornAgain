@@ -75,35 +75,52 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
         QString type_name = variant.typeName();
         writer->writeAttribute(SessionXML::ParameterTypeAttribute, type_name);
         writer->writeAttribute(SessionXML::ParameterRoleAttribute, QString::number(role));
+
         if (type_name == QString("double")) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    QString::number(variant.toDouble(), 'e', 12));
-        } else if (type_name == QString("int")) {
+        }
+
+        else if (type_name == QString("int")) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    QString::number(variant.toInt()));
-        } else if (type_name == QString("bool")) {
+        }
+
+        else if (type_name == QString("bool")) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    QString::number(variant.toBool()));
-        } else if (type_name == QString("QString")) {
+        }
+
+        else if (type_name == QString("QString")) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute, variant.toString());
-        } else if (type_name == QString("MaterialProperty")) {
+        }
+
+        else if (type_name == QString("MaterialProperty")) {
             MaterialProperty material_property = variant.value<MaterialProperty>();
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    material_property.getName());
             writer->writeAttribute(SessionXML::IdentifierAttribute,
                                    material_property.getIdentifier());
 
-        } else if (type_name == QString("ComboProperty")) {
+        }
+
+        else if (type_name == QString("ComboProperty")) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    variant.value<ComboProperty>().getValue());
-        } else if (type_name == QString("ScientificDoubleProperty")) {
+        }
+
+        else if (type_name == QString("ScientificDoubleProperty")) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    variant.value<ScientificDoubleProperty>().getText());
 
-        } else if (type_name == QString("GroupProperty_t")) {
+        }
+
+        else if (type_name == QString("GroupProperty_t")) {
             QString ff_name = variant.value<GroupProperty_t>()->getCurrentType();
             writer->writeAttribute(SessionXML::ParameterValueAttribute, ff_name);
-        } else if (type_name == QString("ColorProperty")) {
+        }
+
+        else if (type_name == QString("ColorProperty")) {
             int r, g, b, a;
             QColor material_color = variant.value<ColorProperty>().getColor();
             material_color.getRgb(&r, &g, &b, &a);
@@ -111,7 +128,9 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
             writer->writeAttribute(SessionXML::ColorGreenAttribute, QString::number(g));
             writer->writeAttribute(SessionXML::ColorBlueAttribute, QString::number(b));
             writer->writeAttribute(SessionXML::ColorAlphaAttribute, QString::number(a));
-        } else if (type_name == QString("AngleProperty")) {
+        }
+
+        else if (type_name == QString("AngleProperty")) {
             double value = variant.value<AngleProperty>().getValueInRadians();
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    QString::number(value, 'g'));
@@ -152,16 +171,30 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
                     if (!item) {
                         qDebug() << "!!";
                     }
+
                 } else {
                     SessionItem *new_item = ItemFactory::createItem(model_type);
+                    Q_ASSERT(new_item);
                     if (reader->attributes().hasAttribute(SessionXML::DisplayNameAttribute)) {
                         new_item->setDisplayName(reader->attributes().value(SessionXML::DisplayNameAttribute).toString());
                     }
                     if (tag == "")
                         tag = item->defaultTag();
+
                     if (!item->insertItem(-1, new_item, tag)) {
-                        qDebug() << "!!";
+                        // this must be VectorItem or similar registered via addProperty mechanism
+
+                        SessionTagInfo info = item->getTagInfo(tag);
+                        if (info.max == info.childCount && info.childCount == 1) {
+                            delete item->takeItem(0, tag);
+                            item->insertItem(-1, new_item, tag);
+                        } else {
+                            throw GUIHelpers::Error("SessionReader::readItems -> Error. "
+                                                "Can't insert item 1.2");
+                        }
+
                     }
+
                     item = new_item;
                 }
                 if (!item) {

@@ -416,11 +416,7 @@ SessionItem *SessionModel::moveParameterizedItem(SessionItem *item, SessionItem 
         SessionTagInfo info = new_parent->getTagInfo(tagName);
         if (info.max == info.childCount && info.childCount == 1) {
             SessionItem *old = new_parent->takeItem(0, tagName);
-            if(!new_parent->insertItem(row, stuff, tagName)) {
-                throw GUIHelpers::Error("SessionModel::moveParameterizedItem -> Error. "
-                                        "Can't insert item");
-            }
-
+            new_parent->insertItem(row, stuff, tagName);
             m_root_item->insertItem(-1, old);
         }
         m_root_item->insertItem(-1, stuff);

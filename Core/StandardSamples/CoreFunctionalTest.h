@@ -37,7 +37,6 @@ public:
 
     virtual void runTest();
     virtual int analyseResults();
-
     virtual void printResults(std::ostream &ostr) const;
 
     void setSimulationResultsFileName(const std::string &file_name);

@@ -2,7 +2,7 @@
 %shared_ptr(IObserver)
 %shared_ptr(IFitObserver)
 
- /*
+/* TODO discuss definitive removal
 %shared_ptr(IParameterized)
 %shared_ptr(INamed)
 %shared_ptr(LayerRTCoefficients_t)
@@ -74,11 +74,13 @@
 %shared_ptr(FormFactorCuboctahedron)
 %shared_ptr(FormFactorCylinder)
 %shared_ptr(FormFactorDecoratorDebyeWaller)
+%shared_ptr(FormFactorDodecahedron)
 %shared_ptr(FormFactorEllipsoidalCylinder)
 %shared_ptr(FormFactorFullSphere)
 %shared_ptr(FormFactorFullSpheroid)
 %shared_ptr(FormFactorGauss)
 %shared_ptr(FormFactorHemiEllipsoid)
+%shared_ptr(FormFactorIcosahedron)
 %shared_ptr(FormFactorLongBoxGauss)
 %shared_ptr(FormFactorLongBoxLorentz)
 %shared_ptr(FormFactorLorentz)

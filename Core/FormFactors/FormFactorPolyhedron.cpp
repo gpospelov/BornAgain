@@ -80,8 +80,10 @@ const double PolyhedralFace::qpa_limit_series = 1e-3;
 PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
     : sym_S2( _sym_S2 )
 {
-    // compute edges
     size_t N = V.size();
+    if( !N )
+        return; // we would forbid these calls altogether, but swig requires constructor()
+    // compute edges
     for ( size_t j=0; j<N; ++j ) {
         size_t jj = (j+1)%N;
         edges.push_back( PolyhedralEdge(V[j], V[jj]) );
@@ -373,10 +375,16 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t& q ) const
 void FormFactorPolyhedron::assert_platonic() const
 {
     // just one test; one could do much more ...
-    double pyramidal_volume = faces[0].getPyramidalVolume();
-    for( auto Gk: faces )
-        if (std::abs(pyramidal_volume-Gk.getPyramidalVolume())>40*eps)
+    double pyramidal_volume = 0;
+    for( const auto& Gk: faces )
+        pyramidal_volume += Gk.getPyramidalVolume();
+    pyramidal_volume /= faces.size();
+    for( const auto& Gk: faces )
+        if (std::abs(Gk.getPyramidalVolume()-pyramidal_volume) > 160*eps*pyramidal_volume) {
+            std::cout<<std::setprecision(16)<<"BUG: pyr_volume(this face)="<<
+                Gk.getPyramidalVolume()<<" vs pyr_volume(avge)="<<pyramidal_volume<<"\n";
             throw "Deviant pyramidal volume";
+        }
 }
 
 

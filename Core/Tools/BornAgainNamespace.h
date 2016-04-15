@@ -70,12 +70,14 @@ const std::string FFConeType = "Cone";
 const std::string FFCone6Type = "Cone6";
 const std::string FFCuboctahedronType = "Cuboctahedron";
 const std::string FFCylinderType = "Cylinder";
+const std::string FFDodecahedronType = "Dodecahedron";
 const std::string FFEllipsoidalCylinderType = "EllipsoidalCylinder";
 const std::string FFFullSphereType = "FullSphere";
 const std::string FFFullSpheroidType = "FullSpheroid";
 const std::string FFGaussType = "FormFactorGauss";
 const std::string FFHemiEllipsoidType = "HemiEllipsoid";
 const std::string FFLongBoxGaussType = "FormFactorLongBoxGauss";
+const std::string FFIcosahedronType = "Icosahedron";
 const std::string FFLongBoxLorentzType = "FormFactorLongBoxLorentz";
 const std::string FFLorentzType = "FormFactorLorentz";
 const std::string FFPrism3Type = "Prism3";
@@ -153,6 +155,7 @@ const std::string RadiusY = "RadiusY";
 const std::string MeanRadius = "MeanRadius";
 const std::string SigmaRadius = "SigmaRadius";
 const std::string FullWidth = "FullWidth";
+const std::string Edge = "Edge";
 const std::string Length = "Length";
 const std::string RemovedLength = "RemovedLength";
 const std::string Width = "Width";
@@ -201,5 +204,3 @@ const std::string CrossCorrelationLength = "CrossCorrelationLength";
 }
 
 #endif // BORNAGAINNAMESPACE_H
-
-

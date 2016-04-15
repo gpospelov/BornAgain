@@ -169,6 +169,11 @@ void SamplePrintVisitor::visit(const FormFactorCylinder *sample)
     print_default(sample);
 }
 
+void SamplePrintVisitor::visit(const FormFactorDodecahedron *sample)
+{
+    print_default(sample);
+}
+
 void SamplePrintVisitor::visit(const FormFactorEllipsoidalCylinder *sample)
 {
     print_default(sample);
@@ -190,6 +195,11 @@ void SamplePrintVisitor::visit(const FormFactorGauss *sample)
 }
 
 void SamplePrintVisitor::visit(const FormFactorHemiEllipsoid *sample)
+{
+    print_default(sample);
+}
+
+void SamplePrintVisitor::visit(const FormFactorIcosahedron *sample)
 {
     print_default(sample);
 }

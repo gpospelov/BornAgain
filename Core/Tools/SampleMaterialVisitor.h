@@ -70,11 +70,13 @@ public:
     void visit(const FormFactorCrystal *sample);
     void visit(const FormFactorCuboctahedron *sample);
     void visit(const FormFactorCylinder *sample);
+    void visit(const FormFactorDodecahedron *sample);
     void visit(const FormFactorEllipsoidalCylinder *sample);
     void visit(const FormFactorFullSphere *sample);
     void visit(const FormFactorFullSpheroid *sample);
     void visit(const FormFactorGauss *sample);
     void visit(const FormFactorHemiEllipsoid *sample);
+    void visit(const FormFactorIcosahedron *sample);
     void visit(const FormFactorLongBoxGauss *sample);
     void visit(const FormFactorLongBoxLorentz *sample);
     void visit(const FormFactorLorentz *sample);

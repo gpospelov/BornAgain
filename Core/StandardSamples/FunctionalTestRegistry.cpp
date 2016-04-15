@@ -327,8 +327,6 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         1e-10);
 
-    // Monte-Carlo simulation
-
     add("LargeCylindersMonteCarlo",
         "Large cylinders simulated with MonteCarlo integration",
         "MiniGISASMonteCarlo",
@@ -344,33 +342,31 @@ void FunctionalTestRegistry::add(const std::string &test_name,
                                  const std::string &component_registry_name,
                                  double threshold)
 {
-    catalogue_t::iterator it = m_catalogue.find(test_name);
-    if( it != m_catalogue.end() ) {
+    if( m_catalogue.find(test_name) != m_catalogue.end() ) {
         throw ExistingClassRegistrationException("AdvancedFunctionalTestRegistry::register_test_info() -> "
                                                  "Error. Existing item " + test_name);
     }
     m_catalogue[test_name] = FunctionalTestInfo(test_name,
-                                                        test_description,
-                                                        simulation_name,
-                                                        sample_builder_name,
-                                                        component_registry_name,
-                                                        threshold);
+                                                test_description,
+                                                simulation_name,
+                                                sample_builder_name,
+                                                component_registry_name,
+                                                threshold);
 }
 
 FunctionalTestInfo FunctionalTestRegistry::getTestInfo(const std::string &test_name)
 {
-    catalogue_t::iterator it = m_catalogue.find(test_name);
+    auto it = m_catalogue.find(test_name);
     if( it == m_catalogue.end() ) {
         throw ExistingClassRegistrationException("AdvancedFunctionalTestRegistry::getTestInfo() -> "
                                                  "Error. Item not found " + test_name);
     }
-
-    return m_catalogue[test_name];
+    return it->second;
 }
 
 void FunctionalTestRegistry::printCatalogue(std::ostream &ostr)
 {
-    for(catalogue_t::const_iterator it = m_catalogue.begin(); it != m_catalogue.end(); ++it) {
+    for(auto it = m_catalogue.begin(); it != m_catalogue.end(); ++it) {
         FunctionalTestInfo info = it->second;
         ostr << Utils::AdjustStringLength(info.m_test_name, 20) << " | ";
         ostr << Utils::AdjustStringLength(info.m_test_description, 40) << " | ";
@@ -379,13 +375,9 @@ void FunctionalTestRegistry::printCatalogue(std::ostream &ostr)
         ostr << info.m_component_registry_name;
         ostr << "\n";
     }
-
 }
 
 bool FunctionalTestRegistry::isValidTest(const std::string &test_name)
 {
     return find(test_name) != end();
 }
-
-
-

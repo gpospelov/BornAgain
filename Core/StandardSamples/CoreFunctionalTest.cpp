@@ -20,7 +20,6 @@
 #include "IntensityDataIOFactory.h"
 #include "OutputDataIOHelper.h"
 #include "Utils.h"
-#include <memory>
 
 namespace
 {
@@ -93,9 +92,8 @@ void CoreFunctionalTest::setSimulationResultsFileName(const std::string &file_na
 void CoreFunctionalTest::saveSimulationResults() const
 {
     Utils::FileSystem::CreateDirectory(directory_name_for_failed_tests);
-    const std::unique_ptr<OutputData<double> > result_data(getIntensityData());
-    IntensityDataIOFactory::writeOutputData(*result_data.get(),
-                                               getSimulationResultsFileNameAndPath());
+    IntensityDataIOFactory::writeOutputData(*(getIntensityData()),
+                                            getSimulationResultsFileNameAndPath());
 }
 
 //! Constructs file name to save results. Strip gzip extention if necessary.

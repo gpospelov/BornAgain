@@ -33,8 +33,7 @@ public:
     Particle();
     Particle(const IMaterial &p_material);
     Particle(const IMaterial &p_material, const IFormFactor &form_factor);
-    Particle(const IMaterial &p_material, const IFormFactor &form_factor,
-            const IRotation &rotation);
+    Particle(const IMaterial &p_material, const IFormFactor &form_factor, const IRotation &rotation);
 
     virtual Particle *clone() const;
 
@@ -44,8 +43,7 @@ public:
     //! calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const;
 
-    //! Sets the refractive index of the ambient material (which influences its
-    //! scattering power)
+    //! Sets the refractive index of the ambient material (which influences its scattering power)
     virtual void setAmbientMaterial(const IMaterial& material);
 
     //! Returns particle's material.
@@ -79,5 +77,3 @@ private:
 };
 
 #endif // PARTICLE_H
-
-

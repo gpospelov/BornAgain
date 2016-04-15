@@ -34,7 +34,6 @@ public:
 
     virtual void runTest();
     virtual int analyseResults();
-
     virtual void printResults(std::ostream &ostr) const;
 
 private:

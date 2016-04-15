@@ -112,6 +112,8 @@ Shape&Name&Symmetry&Parameters&Reference\\\hline
 \entry{TruncatedSphere}{Sphere3d}{TruncatedSphere}{$R$, $H$}{C$_{\infty\v}$}{SphericalCap}
 \entry{TruncatedSpheroid}{Spheroid3d}{TruncatedSpheroid}{$R$, $H$, $f_p$}{C$_{\infty\v}$}{SpheroidalCap}
 \entry{Cone}{Cone3d}{Cone}{$R$, $H$, $\alpha$}{C$_{\infty\v}$}{ConicalFrustum}
+\entry{Icosahedron}{Icosahedron3d}{Icosahedron}{$L$}{I$_\h$}{Icosahedron}
+\entry{Dodecahedron}{Dodecahedron3d}{Dodecahedron}{$L$}{I$_\h$}{Dodecahedron}
 \entry{TruncatedCube}{TruncatedCube3d}{TruncatedCube}{$L$, $t$}{O$_\h$}{TruncatedCube}
 \entry{Prism6}{Prism63d}{Prism6}{$R$, $H$}{D$_{6\h}$}{Prism6}
 \entry{Cone6}{Cone63d}{Cone6}{$R$, $H$, $\alpha$}{C$_{6\v}$}{Frustum6}
@@ -341,6 +343,7 @@ which is a true pyramid with an off-center apex \cite{Bab13}.
   \index{Box (form factor)}
   \index{Cuboid (form factor)}
   \index{Prism (form factor)!reactangular (Box)}
+  \index{Platonic solids!cube}
   \index{FormFactorBox@\Code{FormFactorBox}}
 
 \paragraph{Real-space geometry}\strut\\
@@ -548,6 +551,7 @@ with series expansions near singularities.
 \ffsection{Cuboctahedron} \label{SCuboctahedron}
 %===============================================================================
   \index{Cuboctahedron (form factor)}
+  \index{Platonic solids!octahedron}
   \index{FormFactorCuboctahedron@\Code{FormFactorCuboctahedron}}
 
 \paragraph{Real-space geometry}\strut\\
@@ -678,6 +682,65 @@ for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).}
 \paragraph{References}\strut\\
 Agrees with \E{Cylinder} form factor of \IsGISAXS\
 \cite[Eq.~2.27]{Laz08} \cite[Eq.~223]{ReLL09}.
+
+
+%===============================================================================
+\ffsection{Dodecahedron} \label{SDodecahedron}
+%===============================================================================
+  \index{Dodecahedron (form factor)}
+  \index{Platonic solids!dodecahedron}
+  \index{FormFactorDodecahedron@\Code{FormFactorDodecahedron}}
+
+\paragraph{Real-space geometry}\strut\\
+
+\begin{figure}[H]
+\strut\hfill
+%\subfigure[Perspective]
+{\includegraphics[width=.24\textwidth]{fig/blue/Dodecahedron3d.png}}
+%\hfill
+%\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxy.pdf}}
+%\hfill
+%\subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxz.pdf}}}
+\hfill\strut
+\caption{A regular dodecahedron.}
+\end{figure}
+
+\FloatBarrier
+
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}
+  FormFactorDodecahedron(edge)
+\end{lstlisting}
+with the parameter
+\begin{itemize}
+\item \texttt{edge}, length of one edge, $a$.
+\end{itemize}
+
+\paragraph{Form factor, volume, horizontal section}\strut\\
+$F$ is computed algebraically,
+using the generic form factor of a polyhedron
+with inversion symmetry~\cite{ba:ffp},
+\begin{equation*}
+  V= \frac{1}{4} (15+7\sqrt{5}) a^3 \approx 7.663\,a^3,
+\end{equation*}
+%\begin{equation*}
+%  S = %% wait for Holden, Shapes, Space, and Symmetry
+%\end{equation*}
+
+\paragraph{Examples}\strut
+
+%\begin{figure}[H]
+%\begin{center}
+%\includegraphics[width=\textwidth]{fig/ff2/ff_Dodekahedron.pdf}
+%\end{center}
+%\caption{Normalized intensity $|F|^2/V^2$,
+%computed with $L=18$~nm, $W=4.6$~nm, and $H=3$~nm,
+%for four different angles~$\omega$ of rotation around the $z$ axis.}
+%\end{figure}
+
+\paragraph{References}\strut\\
+New in \BornAgain-1.6,
+based on the generic form factor of the polyhedron~\cite{ba:ffp}.
 
 
 %===============================================================================
@@ -938,6 +1001,65 @@ Agrees with the \E{Full spheroid} form factor of \IsGISAXS\
 \cite[Eq.~2.37]{Laz08} \cite[Eq.~227]{ReLL09},
 with corrected volume formula.
 We also discovered a wrong factor of~2 in the \IsGISAXS\ code.
+
+
+%===============================================================================
+\ffsection{Icosahedron} \label{SIcosahedron}
+%===============================================================================
+  \index{Icosahedron (form factor)}
+  \index{Platonic solids!icosahedron}
+  \index{FormFactorIcosahedron@\Code{FormFactorIcosahedron}}
+
+\paragraph{Real-space geometry}\strut\\
+
+\begin{figure}[H]
+\strut\hfill
+%\subfigure[Perspective]
+{\includegraphics[width=.24\textwidth]{fig/blue/Icosahedron3d.png}}
+%\hfill
+%\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxy.pdf}}
+%\hfill
+%\subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxz.pdf}}}
+\hfill\strut
+\caption{A regular icosahedron.}
+\end{figure}
+
+\FloatBarrier
+
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}
+  FormFactorIcosahedron(edge)
+\end{lstlisting}
+with the parameter
+\begin{itemize}
+\item \texttt{edge}, length of one edge, $a$.
+\end{itemize}
+
+\paragraph{Form factor, volume, horizontal section}\strut\\
+$F$ is computed algebraically,
+using the generic form factor of a polyhedron
+with inversion symmetry~\cite{ba:ffp},
+\begin{equation*}
+  V= \frac{5}{12} (3+\sqrt5)a^3 \approx 2.182\,a^3
+\end{equation*}
+%\begin{equation*}
+%  S = %% wait for Holden, Shapes, Space, and Symmetry
+%\end{equation*}
+
+\paragraph{Examples}\strut
+
+%\begin{figure}[H]
+%\begin{center}
+%\includegraphics[width=\textwidth]{fig/ff2/ff_Dodekahedron.pdf}
+%\end{center}
+%\caption{Normalized intensity $|F|^2/V^2$,
+%computed with $L=18$~nm, $W=4.6$~nm, and $H=3$~nm,
+%for four different angles~$\omega$ of rotation around the $z$ axis.}
+%\end{figure}
+
+\paragraph{References}\strut\\
+New in \BornAgain-1.6,
+based on the generic form factor of the polyhedron~\cite{ba:ffp}.
 
 
 %===============================================================================
@@ -1283,6 +1405,7 @@ Agrees with the \E{Ripple2} form factor of \FitGISAXS\ \cite{Bab13}.
 %===============================================================================
   \index{Tetrahedron (form factor)}
   \index{Truncated tetrahedron (form factor)}
+  \index{Platonic solids!tetrahedron}
   \index{FormFactorTetrahedron@\Code{FormFactorTetrahedron}}
 
 \paragraph{Real-space geometry}\strut\\

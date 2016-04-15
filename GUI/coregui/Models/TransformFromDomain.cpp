@@ -14,7 +14,6 @@
 //
 // ************************************************************************** //
 
-#include "TransformFromDomain.h"
 #include "SessionItem.h"
 #include "InterferenceFunctions.h"
 #include "InterferenceFunctionItems.h"
@@ -28,7 +27,6 @@
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "GUIHelpers.h"
-#include "FormFactors.h"
 #include "FormFactorItems.h"
 #include "LayerRoughness.h"
 #include "LayerRoughnessItems.h"
@@ -64,6 +62,7 @@
 #include "RectangularDetectorItem.h"
 #include "VectorItem.h"
 #include "ModelPath.h"
+#include "TransformFromDomain.h"
 
 #include <QString>
 #include <QDebug>

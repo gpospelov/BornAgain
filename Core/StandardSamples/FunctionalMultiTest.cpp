@@ -18,16 +18,15 @@
 
 FunctionalMultiTest::FunctionalMultiTest(const std::string &name,
                                          FunctionalTestComponentService *service)
-    : m_componentService(service)
+    : IFunctionalTest(name, service->getTestInfo().m_test_description)
+    , m_componentService(service)
 {
-    m_name = name;
-    m_description = m_componentService->getTestInfo().m_test_description;
 }
 
 FunctionalMultiTest::~FunctionalMultiTest()
 {
     delete m_componentService;
-    for (std::vector<IFunctionalTest *>::iterator it = m_tests.begin(); it != m_tests.end(); ++it) {
+    for (auto it = m_tests.begin(); it != m_tests.end(); ++it) {
         delete (*it);
     }
 }
@@ -81,5 +80,4 @@ void FunctionalMultiTest::printResults(std::ostream &ostr) const
     ostr << "[" << number_of_failed_tests << " failed out of " << m_tests.size() << "]" << "\n";
     for (size_t i = 0; i < m_tests.size(); ++i)
         ostr << *m_tests[i] << "\n";
-
 }

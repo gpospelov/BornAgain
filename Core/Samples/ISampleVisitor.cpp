@@ -205,6 +205,12 @@ void ISampleVisitor::visit(const FormFactorCylinder *)
         "ISampleVisitor::visit(const FormFactorCylinder *) -> Error. Not implemented.");
 }
 
+void ISampleVisitor::visit(const FormFactorDodecahedron *)
+{
+    throw NotImplementedException(
+        "ISampleVisitor::visit(const FormFactorDodecahedron *) -> Error. Not implemented.");
+}
+
 void ISampleVisitor::visit(const FormFactorEllipsoidalCylinder *)
 {
     throw NotImplementedException(
@@ -233,6 +239,12 @@ void ISampleVisitor::visit(const FormFactorHemiEllipsoid *)
 {
     throw NotImplementedException(
                 "ISampleVisitor::visit const FormFactorHemiEllipsoid *) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const FormFactorIcosahedron *)
+{
+    throw NotImplementedException(
+        "ISampleVisitor::visit(const FormFactorIcosahedron *) -> Error. Not implemented.");
 }
 
 void ISampleVisitor::visit(const FormFactorLongBoxGauss *)
@@ -467,4 +479,3 @@ bool ISampleVisitor::visitLeave(const ICompositeSample *)
     m_level--;
     return false;
 }
-

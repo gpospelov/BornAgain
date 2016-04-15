@@ -13,10 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "TestComponentsRegistry.h"
 #include "BornAgainNamespace.h"
 #include "FormFactors.h"
-#include "FTDistributions.h"
+#include "TestComponentsRegistry.h"
 
 
 TestFTDistribution2DRegistry::TestFTDistribution2DRegistry()
@@ -50,6 +49,9 @@ TestFormFactorsRegistry::TestFormFactorsRegistry()
     add(BornAgain::FFCylinderType,
         new FormFactorCylinder(5.0, 10.0));
 
+    add(BornAgain::FFDodecahedronType,
+        new FormFactorDodecahedron(5.0));
+
     add(BornAgain::FFEllipsoidalCylinderType,
         new FormFactorEllipsoidalCylinder(5.0, 10.0, 15.0));
 
@@ -61,6 +63,9 @@ TestFormFactorsRegistry::TestFormFactorsRegistry()
 
     add(BornAgain::FFHemiEllipsoidType,
         new FormFactorHemiEllipsoid(5.0, 10.0, 15.0));
+
+    add(BornAgain::FFIcosahedronType,
+        new FormFactorIcosahedron(10.0));
 
     add(BornAgain::FFPrism3Type,
         new FormFactorPrism3(10.0, 5.0));

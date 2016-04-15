@@ -441,7 +441,9 @@ SessionItem *SessionItem::addProperty(const QString &name, const QVariant &varia
     SessionItem *property = ItemFactory::createItem(property_type);
     property->setDisplayName(name);
     registerTag(name, 1, 1, QStringList() << property_type);
-    insertItem(0, property, name);
+    if(!insertItem(0, property, name)) {
+        throw GUIHelpers::Error("SessionItem::addProperty -> Error. Can't insert item");
+    }
     property->setValue(variant);
     return property;
 }
@@ -483,7 +485,9 @@ SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QStri
     groupItem->setGroup(group_property);
     groupItem->setDisplayName(groupName);
     registerTag(groupName, 1, 1, QStringList() << Constants::GroupItemType);
-    insertItem(0, groupItem, groupName);
+    if(!insertItem(0, groupItem, groupName)) {
+        throw GUIHelpers::Error("SessionItem::addGroupProperty -> Error. Can't insert item");
+    }
     return groupItem;
 }
 

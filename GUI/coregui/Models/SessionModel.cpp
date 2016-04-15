@@ -284,7 +284,9 @@ SessionItem *SessionModel::insertNewItem(QString model_type, const QModelIndex &
     if (!new_item)
         throw GUIHelpers::Error("SessionModel::insertNewItem() -> Wrong model type " + model_type);
 
-    parent_item->insertItem(row, new_item, tag);
+    if(!parent_item->insertItem(row, new_item, tag)) {
+        throw GUIHelpers::Error("SessionModel::insertNewItem -> Error. Can't insert item");
+    }
 
     return new_item;
 }
@@ -414,7 +416,11 @@ SessionItem *SessionModel::moveParameterizedItem(SessionItem *item, SessionItem 
         SessionTagInfo info = new_parent->getTagInfo(tagName);
         if (info.max == info.childCount && info.childCount == 1) {
             SessionItem *old = new_parent->takeItem(0, tagName);
-            new_parent->insertItem(row, stuff, tagName);
+            if(!new_parent->insertItem(row, stuff, tagName)) {
+                throw GUIHelpers::Error("SessionModel::moveParameterizedItem -> Error. "
+                                        "Can't insert item");
+            }
+
             m_root_item->insertItem(-1, old);
         }
         m_root_item->insertItem(-1, stuff);

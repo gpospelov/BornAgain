@@ -182,6 +182,10 @@ ComponentEditor::componentItems(SessionItem *item) const
                 result.append(childOfChild);
             }
         }
+        if (child->modelType() == Constants::VectorType) {
+            result.append(child);
+        }
+
     }
 
     return result;

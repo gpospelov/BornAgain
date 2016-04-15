@@ -1288,7 +1288,7 @@ to achieve numerical stability near the removable singularity at $q\to0$.
 \hfill
 \subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Ripple12dyz.pdf}}
 \hfill
-\caption{An infinite ripple with a sinusoidal profile.}
+\caption{A ripple with a sinusoidal profile.}
 \end{figure}
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
@@ -1302,11 +1302,20 @@ with the parameters
 \item \texttt{height}, $H$.
 \end{itemize}
 
+The ripple is modelled as a surface $z=f(y)$ with
+\begin{equation*}
+  f(z) = \frac{H}{2}\left[ 1 + \cos\frac{2\pi y}{W} \right].
+\end{equation*}
 \paragraph{Form factor, volume, horizontal section}\strut\\
-\begin{align*}
-F &=L \cdot \frac{W}{\pi}\cdot \sinc\left(\frac{q_xL}{2}\right)\times \\
-&\int_0^H\!\d z\, \arccos\left(\frac{2z}{H}-1\right)\sinc\left[\frac{q_yW}{2\pi}\arccos\left(\frac{2z}{H} - 1\right)\right]\exp\left(iq_zz\right),
-\end{align*}
+Using the inverse profile $y=\pm f^{-1}(z)$ with
+\begin{equation*}
+  f^{-1}(z) = \frac{W}{2\pi}\text{arccos}\left( \frac{2z}{H}-1 \right),
+\end{equation*}
+the form factor is computed by numeric integration:
+\begin{equation*}
+F =\frac{LW}{\pi}  \sinc\left(\frac{q_xL}{2}\right)
+   \int_0^H\!\d z\,\e^{iq_zz}\, f^{-1}(z)\sinc\left[\frac{q_yW}{2\pi} f^{-1}(z)\right].
+\end{equation*}
 \begin{equation*}
   V = \dfrac{L W H}{2},
 \end{equation*}
@@ -1345,7 +1354,7 @@ Agrees with the \E{Ripple1} form factor of \FitGISAXS\ \cite{Bab13}.
 \hfill
 \subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Ripple22dyz.pdf}}
 \hfill
-\caption{An infinite ripple with an asymmetric saw-tooth profile.}
+\caption{A ripple with an asymmetric saw-tooth profile.}
 \end{figure}
 
 \FloatBarrier

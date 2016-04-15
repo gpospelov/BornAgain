@@ -35,10 +35,12 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     formfactors[Constants::Cone6Type] = "Cone6";
     formfactors[Constants::CuboctahedronType] = "Cuboctahedron";
     formfactors[Constants::CylinderType] = "Cylinder";
+    formfactors[Constants::DodecahedronType] = "Dodecahedron";
     formfactors[Constants::EllipsoidalCylinderType] = "Ellipsoidal Cylinder";
     formfactors[Constants::FullSphereType] = "Full Sphere";
     formfactors[Constants::FullSpheroidType] = "Full Spheroid";
     formfactors[Constants::HemiEllipsoidType] = "Hemi Ellipsoid";
+    formfactors[Constants::IcosahedronType] = "Icosahedron";
     formfactors[Constants::Prism3Type] = "Prism3";
     formfactors[Constants::Prism6Type] = "Prism6";
     formfactors[Constants::PyramidType] = "Pyramid";

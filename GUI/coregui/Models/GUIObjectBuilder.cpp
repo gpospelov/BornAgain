@@ -387,6 +387,15 @@ void GUIObjectBuilder::visit(const FormFactorCylinder *sample)
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
+void GUIObjectBuilder::visit(const FormFactorDodecahedron *sample)
+{
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
+        ParticleItem::P_FORM_FACTOR, Constants::DodecahedronType);
+    ffItem->setItemValue(DodecahedronItem::P_EDGE, sample->getEdge());
+    m_levelToParentItem[getLevel()] = particleItem;
+}
+
 void GUIObjectBuilder::visit(const FormFactorEllipsoidalCylinder *sample)
 {
     SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
@@ -420,6 +429,15 @@ void GUIObjectBuilder::visit(const FormFactorFullSpheroid *sample)
                                   sample->getRadius());
     ffItem->setItemValue(FullSpheroidItem::P_HEIGHT,
                                   sample->getHeight());
+    m_levelToParentItem[getLevel()] = particleItem;
+}
+
+void GUIObjectBuilder::visit(const FormFactorIcosahedron *sample)
+{
+    SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
+    SessionItem *ffItem = particleItem->setGroupProperty(
+        ParticleItem::P_FORM_FACTOR, Constants::IcosahedronType);
+    ffItem->setItemValue(IcosahedronItem::P_EDGE, sample->getEdge());
     m_levelToParentItem[getLevel()] = particleItem;
 }
 

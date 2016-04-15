@@ -72,10 +72,12 @@ public:
     void visit(const FormFactorCone6 *);
     void visit(const FormFactorCuboctahedron *);
     void visit(const FormFactorCylinder *);
+    void visit(const FormFactorDodecahedron *);
     void visit(const FormFactorEllipsoidalCylinder *);
     void visit(const FormFactorFullSphere *);
     void visit(const FormFactorFullSpheroid *);
     void visit(const FormFactorHemiEllipsoid *);
+    void visit(const FormFactorIcosahedron *);
     void visit(const FormFactorPrism3 *);
     void visit(const FormFactorPrism6 *);
     void visit(const FormFactorPyramid *);

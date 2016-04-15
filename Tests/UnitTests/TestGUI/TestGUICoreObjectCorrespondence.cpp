@@ -42,6 +42,13 @@ void TestGUICoreObjectCorrespondence::test_Cuboctahedron()
     GUICoreObjectCorrespondence(gui_cuboctahedron, core_cuboctahedron);
 }
 
+void TestGUICoreObjectCorrespondence::test_Dodecahedron()
+{
+    DodecahedronItem gui_dodecahedron;
+    FormFactorDodecahedron core_dodecahedron(3.0);
+    GUICoreObjectCorrespondence(gui_dodecahedron, core_dodecahedron);
+}
+
 void TestGUICoreObjectCorrespondence::test_Cylinder()
 {
     CylinderItem gui_cylinder;
@@ -75,6 +82,13 @@ void TestGUICoreObjectCorrespondence::test_HemiEllipsoid()
     HemiEllipsoidItem gui_hemiellipsoid;
     FormFactorHemiEllipsoid core_hemiellipsoid(2.0, 1.0, 0.5);
     GUICoreObjectCorrespondence(gui_hemiellipsoid, core_hemiellipsoid);
+}
+
+void TestGUICoreObjectCorrespondence::test_Icosahedron()
+{
+    IcosahedronItem gui_icosahedron;
+    FormFactorIcosahedron core_icosahedron(8.0);
+    GUICoreObjectCorrespondence(gui_icosahedron, core_icosahedron);
 }
 
 void TestGUICoreObjectCorrespondence::test_Prism3()

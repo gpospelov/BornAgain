@@ -1306,7 +1306,8 @@ The ripple is modelled as a surface
 \begin{equation*}
   Z(y) = \frac{H}{2}\left[ 1 + \cos\frac{2\pi y}{W} \right].
 \end{equation*}
-\paragraph{Form factor, volume, horizontal section}\strut\\
+
+\paragraph{Form factor}\strut\\
 Using the inverse profile
 \begin{equation*}
   Y(z) = \frac{W}{2\pi}\text{arccos}\left( \frac{2z}{H}-1 \right),
@@ -1316,6 +1317,10 @@ the form factor is computed by numeric integration:
 F = L \sinc\left(\frac{q_xL}{2}\right)
    \int_0^H\!\d z\,\e^{iq_zz}\, 2Y(z)\sinc\left(q_y Y(z)\right).
 \end{equation*}
+The integration is substantially accelerated by the substitution
+$u=\text{arccos}( 2z/H-1)$.
+
+\paragraph{Volume, horizontal section}\strut\\
 \begin{equation*}
   V = \dfrac{L W H}{2},
 \end{equation*}

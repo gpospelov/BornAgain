@@ -53,7 +53,7 @@ protected:
     virtual void init_parameters();
 
 private:
-    complex_t Integrand(double Z) const;
+    complex_t Integrand(double u) const;
 
     double m_width;
     double m_height;

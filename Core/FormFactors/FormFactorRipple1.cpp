@@ -80,7 +80,7 @@ double FormFactorRipple1::getRadius() const
 //! Integrand for complex formfactor.
 complex_t FormFactorRipple1::Integrand(double Z) const
 {
-    complex_t aa = std::acos(2*Z/m_height);
+    complex_t aa = std::acos(Z);
     return std::exp(m_az*Z)*aa*MathFunctions::sinc( m_ay*aa );
 }
 
@@ -102,7 +102,7 @@ complex_t FormFactorRipple1::evaluate_for_q(const cvector_t& q) const
     
     // numerical integration otherwise
     m_ay = q.y() * m_width / Units::PI2;
-    m_az = I*q.z();
-    complex_t integral = mP_integrator->integrate(-m_height/2, m_height/2);
-    return factor * integral * std::exp(I*(m_height/2)*q.z());
+    m_az = I * q.z() * (m_height/2);
+    complex_t integral = mP_integrator->integrate(-1, 1);
+    return factor * integral * std::exp(m_az) * (m_height/2);
 }

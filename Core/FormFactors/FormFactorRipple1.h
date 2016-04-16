@@ -35,7 +35,6 @@ public:
     //! @param width of cosine cross section
     //! @param height of cosine cross section
     FormFactorRipple1(double length, double width, double height);
-
     virtual ~FormFactorRipple1();
 
     virtual FormFactorRipple1 *clone() const;
@@ -43,11 +42,8 @@ public:
     virtual void accept(ISampleVisitor *visitor) const;
 
     virtual double getRadius() const;
-
     double getHeight() const;
-
     double getWidth() const;
-
     double getLength() const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
@@ -62,7 +58,9 @@ private:
     double m_width;
     double m_height;
     double m_length;
-    mutable cvector_t m_q;
+
+    mutable complex_t m_ay;
+    mutable complex_t m_az;
 
 #ifndef GCCXML_SKIP_THIS
     std::unique_ptr<IntegratorComplex<FormFactorRipple1>> mP_integrator;

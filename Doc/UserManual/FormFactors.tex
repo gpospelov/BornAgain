@@ -1302,19 +1302,19 @@ with the parameters
 \item \texttt{height}, $H$.
 \end{itemize}
 
-The ripple is modelled as a surface $z=f(y)$ with
+The ripple is modelled as a surface
 \begin{equation*}
-  f(z) = \frac{H}{2}\left[ 1 + \cos\frac{2\pi y}{W} \right].
+  Z(y) = \frac{H}{2}\left[ 1 + \cos\frac{2\pi y}{W} \right].
 \end{equation*}
 \paragraph{Form factor, volume, horizontal section}\strut\\
-Using the inverse profile $y=\pm f^{-1}(z)$ with
+Using the inverse profile
 \begin{equation*}
-  f^{-1}(z) = \frac{W}{2\pi}\text{arccos}\left( \frac{2z}{H}-1 \right),
+  Y(z) = \frac{W}{2\pi}\text{arccos}\left( \frac{2z}{H}-1 \right),
 \end{equation*}
 the form factor is computed by numeric integration:
 \begin{equation*}
-F =\frac{LW}{\pi}  \sinc\left(\frac{q_xL}{2}\right)
-   \int_0^H\!\d z\,\e^{iq_zz}\, f^{-1}(z)\sinc\left[\frac{q_yW}{2\pi} f^{-1}(z)\right].
+F = L \sinc\left(\frac{q_xL}{2}\right)
+   \int_0^H\!\d z\,\e^{iq_zz}\, 2Y(z)\sinc\left(q_y Y(z)\right).
 \end{equation*}
 \begin{equation*}
   V = \dfrac{L W H}{2},

@@ -21,14 +21,14 @@
 
 #include <cmath>
 
-using namespace  BornAgain;
+static complex_t I(0.,1.);
 
 FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
     : m_width(width)
     , m_height(height)
     , m_length(length)
 {
-    setName(FFRipple1Type);
+    setName(BornAgain::FFRipple1Type);
     check_initialization();
     init_parameters();
 
@@ -57,9 +57,9 @@ bool FormFactorRipple1::check_initialization() const
 void FormFactorRipple1::init_parameters()
 {
     clearParameterPool();
-    registerParameter(Width, &m_width, AttLimits::n_positive());
-    registerParameter(Height, &m_height, AttLimits::n_positive());
-    registerParameter(Length, &m_length, AttLimits::n_positive());
+    registerParameter(BornAgain::Width, &m_width, AttLimits::n_positive());
+    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
+    registerParameter(BornAgain::Length, &m_length, AttLimits::n_positive());
 }
 
 FormFactorRipple1 *FormFactorRipple1::clone() const
@@ -80,9 +80,9 @@ double FormFactorRipple1::getRadius() const
 //! Integrand for complex formfactor.
 complex_t FormFactorRipple1::Integrand(double Z) const
 {
-    complex_t iqZ = complex_t(0.0, 1.0)*m_q.z()*Z;
+    complex_t iqZ = I*m_q.z()*Z;
     complex_t aa = std::acos(2.0*Z/m_height - 1.0);
-    return std::exp(iqZ)*aa*MathFunctions::sinc(aa*m_q.y()*m_width/(Units::PI2));
+    return std::exp(iqZ)*aa*MathFunctions::sinc( aa*m_q.y()*m_width/(Units::PI2) );
 }
 
 //! Complex formfactor.
@@ -90,17 +90,18 @@ complex_t FormFactorRipple1::evaluate_for_q(const cvector_t& q) const
 {
     m_q = q;
     complex_t factor = m_length*MathFunctions::sinc(m_q.x()*m_length*0.5)*m_width/Units::PI;
-    complex_t aaa = m_q.y()*m_width/(Units::PI2);
-    complex_t aaa2 = aaa*aaa;
 
     // analytical expressions for some particular cases
-    if (0.0==m_q.y() && 0.0==m_q.z())
-        return factor*Units::PID2*m_height;
-    else if (0.0==m_q.z() && 1.0 == aaa2)
-        return factor*Units::PID4*m_height;
-    else if (0.0==m_q.z())
+    if ( m_q.z()==0. ) {
+        if( m_q.y()==0. )
+            return factor*Units::PID2*m_height;
+        complex_t aaa = m_q.y()*m_width/(Units::PI2);
+        complex_t aaa2 = aaa*aaa;
+        if ( aaa2==1. )
+            return factor*Units::PID4*m_height;
         return factor*Units::PID2*m_height*MathFunctions::sinc(m_q.y()*m_width*0.5)/(1.0-aaa2);
-
+    }
+    
     // numerical integration otherwise
     complex_t integral = mP_integrator->integrate(0, m_height);
     return factor*integral;
